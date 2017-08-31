@@ -73,6 +73,15 @@
 		5670595E1F3AF97F0062672D /* checkpoint_predictor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5670595C1F3AF97F0062672D /* checkpoint_predictor.hpp */; };
 		567059601F3AFBD60062672D /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670595F1F3AFBD60062672D /* libicu.a */; };
 		567059621F3AFC5C0062672D /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 567059611F3AFC5C0062672D /* librouting_common.a */; };
+		567E9F751F5850460064CB96 /* route_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567E9F701F5850460064CB96 /* route_test.cpp */; };
+		567E9F761F5850460064CB96 /* get_altitude_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567E9F711F5850460064CB96 /* get_altitude_test.cpp */; };
+		567E9F771F5850460064CB96 /* bicycle_route_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567E9F721F5850460064CB96 /* bicycle_route_test.cpp */; };
+		567E9F781F5850460064CB96 /* bicycle_turn_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567E9F731F5850460064CB96 /* bicycle_turn_test.cpp */; };
+		567E9F791F5850460064CB96 /* turn_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567E9F741F5850460064CB96 /* turn_test.cpp */; };
+		567E9F7B1F58506B0064CB96 /* street_names_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567E9F7A1F58506B0064CB96 /* street_names_test.cpp */; };
+		567E9F7D1F5852C00064CB96 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 567E9F7C1F5852C00064CB96 /* libicu.a */; };
+		567E9F7F1F58530D0064CB96 /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 567E9F7E1F58530D0064CB96 /* librouting_common.a */; };
+		567E9F811F5853370064CB96 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 567E9F801F5853370064CB96 /* libtraffic.a */; };
 		568194751F03A32400450EC3 /* road_access_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568194731F03A32400450EC3 /* road_access_test.cpp */; };
 		568194761F03A32400450EC3 /* routing_helpers_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568194741F03A32400450EC3 /* routing_helpers_tests.cpp */; };
 		5694CECA1EBA25F7004576D3 /* road_access_serialization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694CEC51EBA25F7004576D3 /* road_access_serialization.cpp */; };
@@ -214,8 +223,6 @@
 		67BD35BA1C69F08E003AA26F /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACDE1C68A13F009CB89E /* testingmain.cpp */; };
 		67BD35BB1C69F094003AA26F /* cross_section_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BD35AC1C69F086003AA26F /* cross_section_tests.cpp */; };
 		67BD35BC1C69F094003AA26F /* online_cross_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BD35AD1C69F086003AA26F /* online_cross_tests.cpp */; };
-		67BD35BD1C69F094003AA26F /* osrm_route_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BD35AE1C69F086003AA26F /* osrm_route_test.cpp */; };
-		67BD35BE1C69F094003AA26F /* osrm_turn_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BD35AF1C69F086003AA26F /* osrm_turn_test.cpp */; };
 		67BD35BF1C69F094003AA26F /* pedestrian_route_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BD35B01C69F086003AA26F /* pedestrian_route_test.cpp */; };
 		67BD35C01C69F094003AA26F /* routing_test_tools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BD35B11C69F086003AA26F /* routing_test_tools.cpp */; };
 		67BD35C21C69F121003AA26F /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742AD041C68A317009CB89E /* libplatform_tests_support.a */; };
@@ -248,7 +255,6 @@
 		67BD35EF1C69F198003AA26F /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35E21C69F198003AA26F /* libstb_image.a */; };
 		67BD35F01C69F447003AA26F /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */; };
 		67BD35F11C69F447003AA26F /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */; };
-		67BD35F21C69F447003AA26F /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD591C68C7F6009CB89E /* drules_proto_legacy.bin */; };
 		67BD35F31C69F447003AA26F /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */; };
 		67BD35F41C69F447003AA26F /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5B1C68C7F6009CB89E /* drules_proto.bin */; };
 		67BD35F51C69F447003AA26F /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD551C68C7C1009CB89E /* types.txt */; };
@@ -344,6 +350,15 @@
 		5670595C1F3AF97F0062672D /* checkpoint_predictor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = checkpoint_predictor.hpp; sourceTree = "<group>"; };
 		5670595F1F3AFBD60062672D /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gsfdicnjgjjbizhdmwedavcucpok/Build/Products/Debug/libicu.a"; sourceTree = "<group>"; };
 		567059611F3AFC5C0062672D /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = ../routing_common/build/Debug/librouting_common.a; sourceTree = "<group>"; };
+		567E9F701F5850460064CB96 /* route_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_test.cpp; sourceTree = "<group>"; };
+		567E9F711F5850460064CB96 /* get_altitude_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = get_altitude_test.cpp; sourceTree = "<group>"; };
+		567E9F721F5850460064CB96 /* bicycle_route_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bicycle_route_test.cpp; sourceTree = "<group>"; };
+		567E9F731F5850460064CB96 /* bicycle_turn_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bicycle_turn_test.cpp; sourceTree = "<group>"; };
+		567E9F741F5850460064CB96 /* turn_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turn_test.cpp; sourceTree = "<group>"; };
+		567E9F7A1F58506B0064CB96 /* street_names_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = street_names_test.cpp; sourceTree = "<group>"; };
+		567E9F7C1F5852C00064CB96 /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = ../icu/build/Debug/libicu.a; sourceTree = "<group>"; };
+		567E9F7E1F58530D0064CB96 /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = ../routing_common/build/Debug/librouting_common.a; sourceTree = "<group>"; };
+		567E9F801F5853370064CB96 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = ../traffic/build/Debug/libtraffic.a; sourceTree = "<group>"; };
 		568194731F03A32400450EC3 /* road_access_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_access_test.cpp; sourceTree = "<group>"; };
 		568194741F03A32400450EC3 /* routing_helpers_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_helpers_tests.cpp; sourceTree = "<group>"; };
 		5694CEC51EBA25F7004576D3 /* road_access_serialization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_access_serialization.cpp; sourceTree = "<group>"; };
@@ -458,8 +473,6 @@
 		67BD35951C69F03E003AA26F /* routing_integration_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = routing_integration_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67BD35AC1C69F086003AA26F /* cross_section_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_section_tests.cpp; sourceTree = "<group>"; };
 		67BD35AD1C69F086003AA26F /* online_cross_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = online_cross_tests.cpp; sourceTree = "<group>"; };
-		67BD35AE1C69F086003AA26F /* osrm_route_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm_route_test.cpp; sourceTree = "<group>"; };
-		67BD35AF1C69F086003AA26F /* osrm_turn_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm_turn_test.cpp; sourceTree = "<group>"; };
 		67BD35B01C69F086003AA26F /* pedestrian_route_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pedestrian_route_test.cpp; sourceTree = "<group>"; };
 		67BD35B11C69F086003AA26F /* routing_test_tools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_test_tools.cpp; sourceTree = "<group>"; };
 		67BD35B21C69F086003AA26F /* routing_test_tools.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_test_tools.hpp; sourceTree = "<group>"; };
@@ -564,6 +577,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				567E9F811F5853370064CB96 /* libtraffic.a in Frameworks */,
+				567E9F7F1F58530D0064CB96 /* librouting_common.a in Frameworks */,
+				567E9F7D1F5852C00064CB96 /* libicu.a in Frameworks */,
 				67BD35E31C69F198003AA26F /* libagg.a in Frameworks */,
 				67BD35E41C69F198003AA26F /* libapi.a in Frameworks */,
 				67BD35E51C69F198003AA26F /* libdrape_frontend.a in Frameworks */,
@@ -601,6 +617,9 @@
 		56F0D7611D896DAF00045886 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				567E9F801F5853370064CB96 /* libtraffic.a */,
+				567E9F7E1F58530D0064CB96 /* librouting_common.a */,
+				567E9F7C1F5852C00064CB96 /* libicu.a */,
 				567059611F3AFC5C0062672D /* librouting_common.a */,
 				5670595F1F3AFBD60062672D /* libicu.a */,
 				56CA09E81E30F19800D05C9A /* libtraffic.a */,
@@ -886,10 +905,14 @@
 		67BD35961C69F03E003AA26F /* routing_integration_tests */ = {
 			isa = PBXGroup;
 			children = (
+				567E9F7A1F58506B0064CB96 /* street_names_test.cpp */,
+				567E9F701F5850460064CB96 /* route_test.cpp */,
+				567E9F711F5850460064CB96 /* get_altitude_test.cpp */,
+				567E9F721F5850460064CB96 /* bicycle_route_test.cpp */,
+				567E9F731F5850460064CB96 /* bicycle_turn_test.cpp */,
+				567E9F741F5850460064CB96 /* turn_test.cpp */,
 				67BD35AC1C69F086003AA26F /* cross_section_tests.cpp */,
 				67BD35AD1C69F086003AA26F /* online_cross_tests.cpp */,
-				67BD35AE1C69F086003AA26F /* osrm_route_test.cpp */,
-				67BD35AF1C69F086003AA26F /* osrm_turn_test.cpp */,
 				67BD35B01C69F086003AA26F /* pedestrian_route_test.cpp */,
 				67BD35B11C69F086003AA26F /* routing_test_tools.cpp */,
 				67BD35B21C69F086003AA26F /* routing_test_tools.hpp */,
@@ -1140,7 +1163,6 @@
 				671182EA1C7F0E2100CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
 				67BD35F01C69F447003AA26F /* drules_proto_clear.bin in Resources */,
 				67BD35F11C69F447003AA26F /* drules_proto_dark.bin in Resources */,
-				67BD35F21C69F447003AA26F /* drules_proto_legacy.bin in Resources */,
 				671182ED1C7F0E3500CB8177 /* countries_obsolete.txt in Resources */,
 				67BD35F31C69F447003AA26F /* drules_proto-bw.bin in Resources */,
 				67BD35F41C69F447003AA26F /* drules_proto.bin in Resources */,
@@ -1193,16 +1215,20 @@
 			files = (
 				0C5FEC641DDE192A0017688C /* joint.cpp in Sources */,
 				56C4392A1E93BF8C00998E29 /* cross_mwm_osrm_graph.cpp in Sources */,
+				567E9F7B1F58506B0064CB96 /* street_names_test.cpp in Sources */,
 				0C090C871E4E276700D52AFD /* world_graph.cpp in Sources */,
 				0C5F5D201E798B0400307B98 /* cross_mwm_connector_serialization.cpp in Sources */,
 				56CA09E71E30E73B00D05C9A /* restriction_test.cpp in Sources */,
 				0C5BC9D11E28FD4E0071BFDD /* index_road_graph.cpp in Sources */,
+				567E9F761F5850460064CB96 /* get_altitude_test.cpp in Sources */,
 				0C090C811E4E274000D52AFD /* index_graph_loader.cpp in Sources */,
 				349D1CE01E3F589900A878FD /* restrictions_serialization.cpp in Sources */,
 				56099E351CC9247E00A7772A /* directions_engine.cpp in Sources */,
 				5694CECC1EBA25F7004576D3 /* road_access.cpp in Sources */,
+				567E9F781F5850460064CB96 /* bicycle_turn_test.cpp in Sources */,
 				A1616E2B1B6B60AB003F078E /* router_delegate.cpp in Sources */,
 				6741AA9C1BF35331002C974C /* turns_notification_manager.cpp in Sources */,
+				567E9F791F5850460064CB96 /* turn_test.cpp in Sources */,
 				56D637D61E4B12AA00B86D7B /* cross_mwm_index_graph.cpp in Sources */,
 				0C0DF9211DE898B70055A22F /* index_graph_starter.cpp in Sources */,
 				A120B3471B4A7BE5002F3808 /* cross_mwm_router.cpp in Sources */,
@@ -1235,7 +1261,9 @@
 				0C81E1571F0258AA00DC66DF /* segmented_route.cpp in Sources */,
 				56CA09E51E30E73B00D05C9A /* index_graph_tools.cpp in Sources */,
 				0C0DF92A1DE898FF0055A22F /* routing_helpers.cpp in Sources */,
+				567E9F771F5850460064CB96 /* bicycle_route_test.cpp in Sources */,
 				67AB92E61B7B3E6E00AB5194 /* turns_tts_text.cpp in Sources */,
+				567E9F751F5850460064CB96 /* route_test.cpp in Sources */,
 				0C5FEC601DDE192A0017688C /* index_graph.cpp in Sources */,
 				0C5FEC6D1DDE19A40017688C /* index_graph_test.cpp in Sources */,
 				568194751F03A32400450EC3 /* road_access_test.cpp in Sources */,
@@ -1268,10 +1296,8 @@
 				67BD35BB1C69F094003AA26F /* cross_section_tests.cpp in Sources */,
 				67BD35C01C69F094003AA26F /* routing_test_tools.cpp in Sources */,
 				67BD35BC1C69F094003AA26F /* online_cross_tests.cpp in Sources */,
-				67BD35BD1C69F094003AA26F /* osrm_route_test.cpp in Sources */,
 				67BD35BA1C69F08E003AA26F /* testingmain.cpp in Sources */,
 				67BD35BF1C69F094003AA26F /* pedestrian_route_test.cpp in Sources */,
-				67BD35BE1C69F094003AA26F /* osrm_turn_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1373,6 +1399,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)_common/build/Debug",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mail.ru.routing_integration_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1383,6 +1413,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)_common/build/Debug",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mail.ru.routing_integration_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -14,12 +14,12 @@ set(
   cross_section_tests.cpp
   get_altitude_test.cpp
   online_cross_tests.cpp
-  osrm_route_test.cpp
-  osrm_street_names_test.cpp
-  osrm_turn_test.cpp
   pedestrian_route_test.cpp
+  route_test.cpp
   routing_test_tools.cpp
   routing_test_tools.hpp
+  street_names_test.cpp
+  turn_test.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
