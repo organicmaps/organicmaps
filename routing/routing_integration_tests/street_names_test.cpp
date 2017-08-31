@@ -22,7 +22,7 @@ void MoveRoute(Route & route, ms::LatLon const & coords)
 UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetOsrmComponents(), MercatorBounds::FromLatLon(55.70839, 37.62145), {0., 0.},
+      integration::GetCarComponents(), MercatorBounds::FromLatLon(55.70839, 37.62145), {0., 0.},
       MercatorBounds::FromLatLon(55.73198, 37.63945));
 
   Route & route = *routeResult.first;

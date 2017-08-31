@@ -128,10 +128,10 @@ namespace integration
     return unique_ptr<IRouter>(move(router));
   }
 
-  class OsrmRouterComponents : public IRouterComponents
+  class CarRouterComponents : public IRouterComponents
   {
   public:
-    OsrmRouterComponents(vector<LocalCountryFile> const & localFiles)
+    CarRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
       , m_indexRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache,
                                       localFiles))
@@ -199,21 +199,11 @@ namespace integration
     return shared_ptr<TRouterComponents>(new TRouterComponents(localFiles));
   }
 
-  shared_ptr<IRouterComponents> GetOsrmComponents(vector<platform::LocalCountryFile> const & localFiles)
+  IRouterComponents & GetCarComponents()
   {
-    return shared_ptr<IRouterComponents>(new OsrmRouterComponents(localFiles));
-  }
-
-  IRouterComponents & GetOsrmComponents()
-  {
-    static auto const instance = CreateAllMapsComponents<OsrmRouterComponents>();
+    static auto const instance = CreateAllMapsComponents<CarRouterComponents>();
     ASSERT(instance, ());
     return *instance;
-  }
-
-  shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles)
-  {
-    return make_shared<PedestrianRouterComponents>(localFiles);
   }
 
   IRouterComponents & GetPedestrianComponents()
@@ -221,12 +211,6 @@ namespace integration
     static auto const instance = CreateAllMapsComponents<PedestrianRouterComponents>();
     ASSERT(instance, ());
     return *instance;
-  }
-
-  shared_ptr<IRouterComponents> GetBicycleComponents(
-      vector<platform::LocalCountryFile> const & localFiles)
-  {
-    return make_shared<BicycleRouterComponents>(localFiles);
   }
 
   IRouterComponents & GetBicycleComponents()

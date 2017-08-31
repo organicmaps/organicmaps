@@ -77,7 +77,7 @@ bool ParseUserString(string const & incomeString, UserRoutingRecord & result)
 class RouteTester
 {
 public:
-  RouteTester() :  m_components(integration::GetOsrmComponents())
+  RouteTester() : m_components(integration::GetCarComponents())
   {
   }
 

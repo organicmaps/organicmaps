@@ -17,17 +17,17 @@
 /*
  * These tests are developed to simplify routing integration tests writing.
  * You can use the interface bellow however you want but there are some hints.
- * 1. Most likely you want to use GetOsrmComponents() or GetPedestrianComponents() without parameter
+ * 1. Most likely you want to use GetCarComponents() or GetPedestrianComponents() without parameter
  *    to get a reference to IRouterComponents.
  *    It loads all the maps from directories Platform::WritableDir()
  *    and Platform::ResourcesDir() only once and then reuse it.
- *    Use GetOsrmComponents() or GetPedestrianComponents() with vector of maps parameter
+ *    Use GetCarComponents() or GetPedestrianComponents() with vector of maps parameter
  *    only if you want to test something on a special map set.
  * 2. Loading maps and calculating routes is a time consumption process.
  *    Do this only if you really need it.
  * 3. If you want to check that a turn is absent - use TestTurnCount.
  * 4. The easiest way to gather all the information for writing an integration test is
- *    - to put a break point in OsrmRouter::CalculateRouteImpl;
+ *    - to put a break point in IRouter::CalculateRoute() method;
  *    - to make a route with MapWithMe desktop application;
  *    - to get all necessary parameters and result of the route calculation;
  *    - to place them into the test you're writing.
@@ -35,8 +35,7 @@
  *    <Country><City><Street1><House1><Street2><House2><Test time. TurnTest or RouteTest for the
  * time being>
  * 6. It's a good idea to use short routes for testing turns. The thing is geometry of long routes
- *    could be changes for one dataset (osrm version) to another one.
- *    The shorter route the less chance it'll be changed.
+ *    could be changes for one dataset to another one. The shorter route the less chance it'll be changed.
  */
 using namespace routing;
 using namespace turns;
@@ -74,17 +73,14 @@ void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPo
 void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                        vector<string> const & expected, IRouterComponents & routerComponents);
 
-/// Gets OSRM router components
-IRouterComponents & GetOsrmComponents();
-shared_ptr<IRouterComponents> GetOsrmComponents(vector<platform::LocalCountryFile> const & localFiles);
+// Gets car router components
+IRouterComponents & GetCarComponents();
 
-/// Gets pedestrian router components
+// Gets pedestrian router components
 IRouterComponents & GetPedestrianComponents();
-shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles);
 
-/// Gets bicycle router components.
+// Gets bicycle router components.
 IRouterComponents & GetBicycleComponents();
-shared_ptr<IRouterComponents> GetBicycleComponents(vector<platform::LocalCountryFile> const & localFiles);
 
 TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
                             m2::PointD const & startPoint, m2::PointD const & startDirection,
