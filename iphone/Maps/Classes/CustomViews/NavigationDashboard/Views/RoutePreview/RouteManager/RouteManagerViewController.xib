@@ -107,10 +107,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fo-Ae-QrQ">
-                                    <rect key="frame" x="285" y="0.0" width="74" height="48"/>
+                                    <rect key="frame" x="331" y="0.0" width="28" height="48"/>
                                     <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="-8" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Button" image="ic_get_position"/>
+                                    <state key="normal" image="ic_get_position"/>
                                     <connections>
                                         <action selector="onAdd" destination="-1" eventType="touchUpInside" id="zGx-NU-Hzq"/>
                                     </connections>
