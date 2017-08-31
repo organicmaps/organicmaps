@@ -305,6 +305,17 @@ RouteMarkPoint * RoutePointsLayout::GetRoutePoint(RouteMarkType type, size_t int
   return nullptr;
 }
 
+RouteMarkPoint * RoutePointsLayout::GetMyPositionPoint()
+{
+  for (size_t i = 0, sz = m_routeMarks.GetUserMarkCount(); i < sz; ++i)
+  {
+    RouteMarkPoint * mark = GetRouteMarkForEdit(i);
+    if (mark->IsMyPosition())
+      return mark;
+  }
+  return nullptr;
+}
+
 std::vector<RouteMarkPoint *> RoutePointsLayout::GetRoutePoints()
 {
   std::vector<RouteMarkPoint *> points;

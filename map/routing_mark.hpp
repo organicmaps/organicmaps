@@ -88,6 +88,7 @@ public:
 
   RouteMarkPoint * AddRoutePoint(RouteMarkData && data);
   RouteMarkPoint * GetRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
+  RouteMarkPoint * GetMyPositionPoint();
   std::vector<RouteMarkPoint *> GetRoutePoints();
   size_t GetRoutePointsCount() const;
   bool RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);

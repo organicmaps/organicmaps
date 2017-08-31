@@ -590,6 +590,13 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData)
   if (markData.m_pointType == RouteMarkType::Start || markData.m_pointType == RouteMarkType::Finish)
     routePoints.RemoveRoutePoint(markData.m_pointType);
 
+  if (markData.m_isMyPosition)
+  {
+    RouteMarkPoint * mark = routePoints.GetMyPositionPoint();
+    if (mark != nullptr)
+      routePoints.RemoveRoutePoint(mark->GetRoutePointType(), mark->GetIntermediateIndex());
+  }
+
   markData.m_isVisible = !markData.m_isMyPosition;
   routePoints.AddRoutePoint(move(markData));
   ReorderIntermediatePoints();
