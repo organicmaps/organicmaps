@@ -15,4 +15,9 @@ size_t GetMaxErrorsForToken(strings::UniString const & token)
     return 1;
   return 2;
 }
+
+strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
+{
+  return strings::LevenshteinDFA(s, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(s));
+}
 }  // namespace search

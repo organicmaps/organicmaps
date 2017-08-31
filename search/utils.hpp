@@ -66,6 +66,8 @@ using TLocales = buffer_vector<int8_t, 3>;
 
 size_t GetMaxErrorsForToken(strings::UniString const & token);
 
+strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
+
 template <typename ToDo>
 void ForEachCategoryType(StringSliceBase const & slice, TLocales const & locales,
                          CategoriesHolder const & categories, ToDo && todo)
@@ -108,7 +110,7 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, TLocales const & lo
     // todo(@m, @y). We build dfa twice for each token: here and in geocoder.cpp.
     // A possible optimization is to build each dfa once and save it. Note that
     // dfas for the prefix tokens differ, i.e. we ignore slice.IsPrefix(i) here.
-    strings::LevenshteinDFA const dfa(token, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(token));
+    strings::LevenshteinDFA const dfa(BuildLevenshteinDFA(token));
 
     trieRootIt.ForEachMove([&](Trie::Char const & c, Trie::Iterator const & trieStartIt) {
       if (std::binary_search(sortedLocales.begin(), sortedLocales.end(), static_cast<int8_t>(c)))

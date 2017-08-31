@@ -113,7 +113,8 @@ public:
 
   bool ResultsMatch(SearchParams const & params, TRules const & rules);
 
-  unique_ptr<tests_support::TestSearchRequest> MakeRequest(string const & query);
+  unique_ptr<tests_support::TestSearchRequest> MakeRequest(string const & query,
+                                                           string const & locale = "en");
 
   size_t CountFeatures(m2::RectD const & rect);
 

@@ -353,7 +353,7 @@ void Geocoder::SetParams(Params const & params)
         // Here and below, we use LevenshteinDFAs for fuzzy
         // matching. But due to performance reasons, we assume that the
         // first letter is always correct.
-        request.m_names.emplace_back(s, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(s));
+        request.m_names.emplace_back(BuildLevenshteinDFA(s));
       });
       for (auto const & index : m_params.GetTypeIndices(i))
         request.m_categories.emplace_back(FeatureTypeToString(index));
@@ -363,8 +363,7 @@ void Geocoder::SetParams(Params const & params)
     {
       auto & request = m_prefixTokenRequest;
       m_params.GetToken(i).ForEach([&request](UniString const & s) {
-        request.m_names.emplace_back(
-            LevenshteinDFA(s, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(s)));
+        request.m_names.emplace_back(BuildLevenshteinDFA(s));
       });
       for (auto const & index : m_params.GetTypeIndices(i))
         request.m_categories.emplace_back(FeatureTypeToString(index));

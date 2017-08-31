@@ -23,6 +23,9 @@ struct RankingInfo
   // Score for the feature's name.
   NameScore m_nameScore = NAME_SCORE_ZERO;
 
+  // Number of typos.
+  ErrorsMade m_errorsMade;
+
   // Search type for the feature.
   Model::Type m_type = Model::TYPE_COUNT;
 
@@ -45,5 +48,4 @@ struct RankingInfo
 };
 
 string DebugPrint(RankingInfo const & info);
-
 }  // namespace search

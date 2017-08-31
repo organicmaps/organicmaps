@@ -1,8 +1,11 @@
 #include "search/ranking_utils.hpp"
 
+#include "base/dfa_helpers.hpp"
+
 #include "std/transform_iterator.hpp"
 
 #include <algorithm>
+#include <sstream>
 
 using namespace strings;
 
@@ -12,6 +15,18 @@ namespace
 {
 UniString AsciiToUniString(char const * s) { return UniString(s, s + strlen(s)); }
 }  // namespace
+
+string DebugPrint(ErrorsMade const & errorsMade)
+{
+  ostringstream os;
+  os << "ErrorsMade [ ";
+  if (errorsMade.IsValid())
+    os << errorsMade.m_errorsMade;
+  else
+    os << "invalid";
+  os << " ]";
+  return os.str();
+}
 
 namespace impl
 {
@@ -34,6 +49,24 @@ bool PrefixMatch(QueryParams::Token const & token, UniString const & text)
       return true;
   }
   return false;
+}
+
+ErrorsMade GetMinErrorsMade(std::vector<strings::UniString> const & tokens,
+                            strings::UniString const & text)
+{
+  auto const dfa = BuildLevenshteinDFA(text);
+
+  ErrorsMade errorsMade;
+
+  for (auto const & token : tokens)
+  {
+    auto it = dfa.Begin();
+    strings::DFAMove(it, token.begin(), token.end());
+    if (it.Accepts())
+      errorsMade = ErrorsMade::Min(errorsMade, ErrorsMade(it.ErrorsMade()));
+  }
+
+  return errorsMade;
 }
 }  // namespace impl
 

@@ -18,27 +18,32 @@ namespace search
 {
 namespace
 {
-template <typename TSlice>
-void UpdateNameScore(string const & name, TSlice const & slice, NameScore & bestScore)
+struct NameScores
 {
-  auto const score = GetNameScore(name, slice);
-  if (score > bestScore)
-    bestScore = score;
+  NameScore m_nameScore = NAME_SCORE_ZERO;
+  ErrorsMade m_errorsMade;
+};
+
+template <typename TSlice>
+void UpdateNameScores(string const & name, TSlice const & slice, NameScores & bestScores)
+{
+  bestScores.m_nameScore = std::max(bestScores.m_nameScore, GetNameScore(name, slice));
+  bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(name, slice));
 }
 
 template <typename TSlice>
-void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & slice,
-                     NameScore & bestScore)
+void UpdateNameScores(vector<strings::UniString> const & tokens, TSlice const & slice,
+                     NameScores & bestScores)
 {
-  auto const score = GetNameScore(tokens, slice);
-  if (score > bestScore)
-    bestScore = score;
+  bestScores.m_nameScore = std::max(bestScores.m_nameScore, GetNameScore(tokens, slice));
+  bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(tokens, slice));
 }
 
-NameScore GetNameScore(FeatureType const & ft, Geocoder::Params const & params,
-                       TokenRange const & range, Model::Type type)
+NameScores GetNameScores(FeatureType const & ft, Geocoder::Params const & params,
+                         TokenRange const & range, Model::Type type)
 {
-  NameScore bestScore = NAME_SCORE_ZERO;
+  NameScores bestScores;
+
   TokenSlice slice(params, range);
   TokenSliceNoCategories sliceNoCategories(params, range);
 
@@ -50,14 +55,14 @@ NameScore GetNameScore(FeatureType const & ft, Geocoder::Params const & params,
     vector<strings::UniString> tokens;
     PrepareStringForMatching(name, tokens);
 
-    UpdateNameScore(tokens, slice, bestScore);
-    UpdateNameScore(tokens, sliceNoCategories, bestScore);
+    UpdateNameScores(tokens, slice, bestScores);
+    UpdateNameScores(tokens, sliceNoCategories, bestScores);
   }
 
   if (type == Model::TYPE_BUILDING)
-    UpdateNameScore(ft.GetHouseNumber(), sliceNoCategories, bestScore);
+    UpdateNameScores(ft.GetHouseNumber(), sliceNoCategories, bestScores);
 
-  return bestScore;
+  return bestScores;
 }
 
 void RemoveDuplicatingLinear(vector<IndexedValue> & values)
@@ -210,7 +215,11 @@ class PreResult2Maker
     info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
     info.m_type = preInfo.m_type;
-    info.m_nameScore = GetNameScore(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
+
+    auto const nameScores = GetNameScores(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
+
+    auto nameScore = nameScores.m_nameScore;
+    auto errorsMade = nameScores.m_errorsMade;
 
     if (info.m_type != Model::TYPE_STREET &&
         preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId)
@@ -219,11 +228,15 @@ class PreResult2Maker
       FeatureType street;
       if (LoadFeature(FeatureID(mwmId, preInfo.m_geoParts.m_street), street))
       {
-        NameScore const nameScore = GetNameScore(
+        auto const nameScores = GetNameScores(
             street, m_params, preInfo.m_tokenRange[Model::TYPE_STREET], Model::TYPE_STREET);
-        info.m_nameScore = min(info.m_nameScore, nameScore);
+        nameScore = min(nameScore, nameScores.m_nameScore);
+        errorsMade += nameScores.m_errorsMade;
       }
     }
+
+    info.m_nameScore = nameScore;
+    info.m_errorsMade = errorsMade;
 
     TokenSlice slice(m_params, preInfo.InnermostTokenRange());
     feature::TypesHolder holder(ft);

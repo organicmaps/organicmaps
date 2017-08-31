@@ -60,6 +60,7 @@ string DebugPrint(RankingInfo const & info)
   os << "m_distanceToPivot:" << info.m_distanceToPivot << ",";
   os << "m_rank:" << static_cast<int>(info.m_rank) << ",";
   os << "m_nameScore:" << DebugPrint(info.m_nameScore) << ",";
+  os << "m_errorsMade:" << DebugPrint(info.m_errorsMade) << ",";
   os << "m_type:" << DebugPrint(info.m_type) << ",";
   os << "m_pureCats:" << info.m_pureCats << ",";
   os << "m_falseCats:" << info.m_falseCats;
@@ -98,5 +99,4 @@ double RankingInfo::GetLinearModelRank() const
   return kDistanceToPivot * distanceToPivot + kRank * rank + kNameScore[nameScore] + kType[m_type] +
          m_falseCats * kFalseCats;
 }
-
 }  // namespace search
