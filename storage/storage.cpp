@@ -632,8 +632,8 @@ void Storage::DeleteFromDownloader(TCountryId const & countryId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  DeleteCountryFilesFromDownloader(countryId);
-  NotifyStatusChangedForHierarchy(countryId);
+  if (DeleteCountryFilesFromDownloader(countryId))
+    NotifyStatusChangedForHierarchy(countryId);
 }
 
 bool Storage::IsDownloadInProgress() const
@@ -820,6 +820,8 @@ void Storage::OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & pr
 
 void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions options)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   auto const fn = [this, countryId](bool isSuccess)
   {
     ASSERT_THREAD_CHECKER(m_threadChecker, ());
@@ -834,6 +836,7 @@ void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions o
     DeleteCountryIndexes(*localFile);
     m_didDownload(countryId, localFile);
 
+    CHECK(!m_queue.empty(), ());
     CorrectJustDownloadedAndQueue(m_queue.begin());
     SaveDownloadQueue();
 
@@ -844,6 +847,10 @@ void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions o
 
   if (options == MapOptions::Diff)
   {
+    /// At this point a diff applying process is going to start
+    /// and we can't stop the process.
+    /// TODO: Make the applying process cancellable.
+    m_queue.begin()->SetFrozen();
     ApplyDiff(countryId, fn);
     return;
   }
@@ -1142,8 +1149,10 @@ bool Storage::DeleteCountryFilesFromDownloader(TCountryId const & countryId)
   if (!queuedCountry)
     return false;
 
-  MapOptions const opt = queuedCountry->GetInitOptions();
+  if (queuedCountry->IsFrozen())
+    return false;
 
+  MapOptions const opt = queuedCountry->GetInitOptions();
   if (IsCountryFirstInQueue(countryId))
   {
     // Abrupt downloading of the current file if it should be removed.
@@ -1765,6 +1774,7 @@ bool Storage::GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInf
 void Storage::CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem)
 {
   m_justDownloaded.insert(justDownloadedItem->GetCountryId());
+  CHECK(!m_queue.empty(), ());
   m_queue.erase(justDownloadedItem);
   if (m_queue.empty())
     m_justDownloaded.clear();

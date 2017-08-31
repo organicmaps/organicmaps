@@ -20,6 +20,9 @@ public:
   void ResetToDefaultOptions();
   bool SwitchToNextFile();
 
+  void SetFrozen() { m_isFrozen = true; }
+  bool IsFrozen() const { return m_isFrozen; }
+
   inline TCountryId const & GetCountryId() const { return m_countryId; }
   inline MapOptions GetInitOptions() const { return m_init; }
   inline MapOptions GetCurrentFileOptions() const { return m_current; }
@@ -32,5 +35,6 @@ private:
   MapOptions m_init;
   MapOptions m_left;
   MapOptions m_current;
+  bool m_isFrozen = false;
 };
 }  // namespace storage

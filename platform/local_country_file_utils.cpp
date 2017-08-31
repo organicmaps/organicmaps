@@ -177,7 +177,7 @@ void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countr
 void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
                                      CountryFile const & countryFile)
 {
-  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
+  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting, MapOptions::Diff})
   {
     string const path = GetFileDownloadPath(version, dataDir, countryFile, file);
     ASSERT(strings::EndsWith(path, READY_FILE_EXTENSION), ());
