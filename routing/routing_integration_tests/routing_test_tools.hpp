@@ -35,7 +35,7 @@
  *    <Country><City><Street1><House1><Street2><House2><Test time. TurnTest or RouteTest for the
  * time being>
  * 6. It's a good idea to use short routes for testing turns. The thing is geometry of long routes
- *    could be changes for one dataset to another one. The shorter route the less chance it'll be changed.
+ *    could be changed from one dataset to another. The shorter the route the less is the chance it's changed.
  */
 using namespace routing;
 using namespace turns;
@@ -73,10 +73,10 @@ void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPo
 void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                        vector<string> const & expected, IRouterComponents & routerComponents);
 
-// Gets car router components
+// Gets car router components.
 IRouterComponents & GetCarComponents();
 
-// Gets pedestrian router components
+// Gets pedestrian router components.
 IRouterComponents & GetPedestrianComponents();
 
 // Gets bicycle router components.
