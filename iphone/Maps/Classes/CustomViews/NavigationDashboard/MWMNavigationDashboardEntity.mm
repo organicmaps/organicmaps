@@ -9,6 +9,7 @@
 @interface MWMNavigationDashboardEntity ()
 
 @property(copy, nonatomic, readwrite) NSAttributedString * estimate;
+@property(copy, nonatomic, readwrite) NSAttributedString * estimateDot;
 @property(copy, nonatomic, readwrite) NSString * distanceToTurn;
 @property(copy, nonatomic, readwrite) NSString * streetName;
 @property(copy, nonatomic, readwrite) NSString * targetDistance;
@@ -48,6 +49,17 @@
   return [NSDateFormatter localizedStringFromDate:arrivalDate
                                         dateStyle:NSDateFormatterNoStyle
                                         timeStyle:NSDateFormatterShortStyle];
+}
+
+- (NSAttributedString *)estimateDot
+{
+  if (!_estimateDot)
+  {
+    auto attributes = @{NSForegroundColorAttributeName : [UIColor blackSecondaryText],
+                        NSFontAttributeName : [UIFont medium17]};
+    _estimateDot = [[NSAttributedString alloc] initWithString:@" • " attributes:attributes];
+  }
+  return _estimateDot;
 }
 
 @end

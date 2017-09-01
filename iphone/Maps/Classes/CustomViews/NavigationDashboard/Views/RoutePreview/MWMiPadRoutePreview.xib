@@ -151,7 +151,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="results" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zml-eW-DsI">
-                                    <rect key="frame" x="16" y="14" width="289" height="20"/>
+                                    <rect key="frame" x="16" y="14" width="303" height="20"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -161,7 +161,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arrive at 12:24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oec-Ee-6ha">
-                                    <rect key="frame" x="16" y="38" width="289" height="17"/>
+                                    <rect key="frame" x="16" y="38" width="303" height="17"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -185,20 +185,10 @@
                             <rect key="frame" x="0.0" y="64" width="375" height="68"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXP-rM-9cx">
-                                    <rect key="frame" x="309" y="-46" width="50" height="12"/>
+                                    <rect key="frame" x="323" y="-48" width="36" height="17"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_elevation" translatesAutoresizingMaskIntoConstraints="NO" id="Ac5-gf-3tf">
-                                            <rect key="frame" x="0.0" y="0.0" width="10" height="12"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="10" id="R4J-Uu-52U"/>
-                                                <constraint firstAttribute="height" constant="12" id="v5V-2M-Fnx"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="260" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JtS-om-arD">
-                                            <rect key="frame" x="14" y="-2.5" width="36" height="17"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="36" height="17"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -210,12 +200,10 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="Ac5-gf-3tf" firstAttribute="leading" secondItem="rXP-rM-9cx" secondAttribute="leading" id="2Df-WK-py6"/>
+                                        <constraint firstItem="JtS-om-arD" firstAttribute="leading" secondItem="rXP-rM-9cx" secondAttribute="leading" id="6FT-YG-m3k"/>
+                                        <constraint firstAttribute="bottom" secondItem="JtS-om-arD" secondAttribute="bottom" id="B8p-TU-ROs"/>
                                         <constraint firstAttribute="trailing" secondItem="JtS-om-arD" secondAttribute="trailing" id="CK8-gu-qaf"/>
-                                        <constraint firstAttribute="bottom" secondItem="Ac5-gf-3tf" secondAttribute="bottom" id="ULt-mY-leX"/>
-                                        <constraint firstItem="JtS-om-arD" firstAttribute="centerY" secondItem="Ac5-gf-3tf" secondAttribute="centerY" id="mrf-cl-Rte"/>
-                                        <constraint firstItem="Ac5-gf-3tf" firstAttribute="top" secondItem="rXP-rM-9cx" secondAttribute="top" id="pUr-w4-lnd"/>
-                                        <constraint firstItem="JtS-om-arD" firstAttribute="leading" secondItem="Ac5-gf-3tf" secondAttribute="trailing" constant="4" id="qQ6-yw-n2d"/>
+                                        <constraint firstItem="JtS-om-arD" firstAttribute="top" secondItem="rXP-rM-9cx" secondAttribute="top" id="szb-xc-aoe"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Apa-nH-KWJ">
@@ -257,7 +245,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAs-km-8uw">
-                                    <rect key="frame" x="20" y="15" width="119" height="18"/>
+                                    <rect key="frame" x="20" y="12" width="127" height="24"/>
                                     <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="ManageRoute" image="ic_24px_manager"/>
@@ -445,8 +433,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_24px_manager" width="16" height="16"/>
-        <image name="ic_elevation" width="10" height="12"/>
+        <image name="ic_24px_manager" width="24" height="24"/>
         <image name="ic_nav_bar_back" width="14" height="22"/>
     </resources>
 </document>

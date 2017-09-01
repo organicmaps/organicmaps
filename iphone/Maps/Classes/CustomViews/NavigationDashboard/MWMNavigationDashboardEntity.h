@@ -1,6 +1,7 @@
 @interface MWMNavigationDashboardEntity : NSObject
 
 @property(copy, nonatomic, readonly) NSAttributedString * estimate;
+@property(copy, nonatomic, readonly) NSAttributedString * estimateDot;
 @property(copy, nonatomic, readonly) NSString * distanceToTurn;
 @property(copy, nonatomic, readonly) NSString * streetName;
 @property(copy, nonatomic, readonly) NSString * targetDistance;
