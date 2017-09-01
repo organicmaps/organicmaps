@@ -72,7 +72,9 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
 
       string const oldMwmPath = p.m_oldMwmFile->GetPath(MapOptions::Map);
       string const newMwmPath = diffFile->GetPath(MapOptions::Map);
-      result = generator::mwm_diff::ApplyDiff(oldMwmPath, newMwmPath, diffPath);
+      string const diffApplyingInProgressPath = newMwmPath + DIFF_APPLYING_FILE_EXTENSION;
+      result = generator::mwm_diff::ApplyDiff(oldMwmPath, diffApplyingInProgressPath, diffPath) &&
+              my::RenameFileX(diffApplyingInProgressPath, newMwmPath);
     }
 
     diffFile->DeleteFromDisk(MapOptions::Diff);
