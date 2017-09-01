@@ -37,14 +37,13 @@ UNIT_TEST(SwedenStockholmCyclewayPriority)
       MercatorBounds::FromLatLon(59.33052, 18.09391), 113.0);
 }
 
+// Note. If the closest to start or finish road has "bicycle=no" tag the closest road where
+// it's allowed to ride bicycle will be found.
 UNIT_TEST(NetherlandsAmsterdamBicycleNo)
 {
-  TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetBicycleComponents(), MercatorBounds::FromLatLon(52.32716, 5.05932),
-      {0.0, 0.0}, MercatorBounds::FromLatLon(52.32587, 5.06121));
-
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::RouteNotFound, ());
+  integration::CalculateRouteAndTestRouteLength(
+    integration::GetBicycleComponents(), MercatorBounds::FromLatLon(52.32716, 5.05932), {0., 0.},
+    MercatorBounds::FromLatLon(52.32587, 5.06121), 363.4);
 }
 
 UNIT_TEST(NetherlandsAmsterdamBicycleYes)
