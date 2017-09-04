@@ -786,6 +786,8 @@ void Storage::OnServerListDownloaded(vector<string> const & urls)
       queuedCountry.ResetToDefaultOptions();
       break;
     case Status::Available:
+      if (!m_diffManager.HasDiffFor(queuedCountry.GetCountryId()))
+        queuedCountry.ResetToDefaultOptions();
       break;
     }
   }
