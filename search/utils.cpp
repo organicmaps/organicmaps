@@ -18,6 +18,9 @@ size_t GetMaxErrorsForToken(strings::UniString const & token)
 
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
 {
+  // In search we use LevenshteinDFAs for fuzzy matching. But due to
+  // performance reasons, we assume that the first letter is always
+  // correct.
   return strings::LevenshteinDFA(s, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(s));
 }
 }  // namespace search

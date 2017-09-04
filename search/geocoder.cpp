@@ -350,9 +350,6 @@ void Geocoder::SetParams(Params const & params)
       m_tokenRequests.emplace_back();
       auto & request = m_tokenRequests.back();
       m_params.GetToken(i).ForEach([&request](UniString const & s) {
-        // Here and below, we use LevenshteinDFAs for fuzzy
-        // matching. But due to performance reasons, we assume that the
-        // first letter is always correct.
         request.m_names.emplace_back(BuildLevenshteinDFA(s));
       });
       for (auto const & index : m_params.GetTypeIndices(i))
