@@ -255,6 +255,7 @@ UNIT_TEST(OsmType_Synonyms)
       { "building", "yes" },
       { "shop", "yes" },
       { "atm", "yes" },
+      { "toilets", "yes" },
       { "restaurant", "yes" },
       { "hotel", "yes" },
     };
@@ -273,13 +274,15 @@ UNIT_TEST(OsmType_Synonyms)
     char const * arrT3[] = { "shop" };
     char const * arrT4[] = { "amenity", "restaurant" };
     char const * arrT5[] = { "tourism", "hotel" };
-    TEST_EQUAL(params.m_Types.size(), 5, (params));
+    char const * arrT6[] = { "amenity", "toilets" };
+    TEST_EQUAL(params.m_Types.size(), 6, (params));
 
     TEST(params.IsTypeExist(GetType(arrT1)), ());
     TEST(params.IsTypeExist(GetType(arrT2)), ());
     TEST(params.IsTypeExist(GetType(arrT3)), ());
     TEST(params.IsTypeExist(GetType(arrT4)), ());
     TEST(params.IsTypeExist(GetType(arrT5)), ());
+    TEST(params.IsTypeExist(GetType(arrT6)), ());
   }
 
   // Duplicating test.
