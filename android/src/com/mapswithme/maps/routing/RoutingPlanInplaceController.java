@@ -25,9 +25,6 @@ public class RoutingPlanInplaceController extends RoutingPlanController
 
   public void show(final boolean show)
   {
-    if (show == UiUtils.isVisible(mFrame))
-      return;
-
     if (show)
       UiUtils.show(mFrame);
 

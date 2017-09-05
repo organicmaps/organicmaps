@@ -1883,9 +1883,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mPlacePage.refreshViews();
   }
 
-  private void adjustCompassAndTraffic(int offsetY)
+  private void adjustCompassAndTraffic(final int offsetY)
   {
-    adjustCompass(offsetY);
+    addTask(new MapTask()
+    {
+      @Override
+      public boolean run(MwmActivity target)
+      {
+        adjustCompass(offsetY);
+        return true;
+      }
+    });
     adjustTraffic(0, offsetY);
   }
 
@@ -1901,7 +1909,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     int toolbarHeight = mSearchController.getToolbar().getHeight();
-    adjustCompassAndTraffic(visible ? toolbarHeight : UiUtils.getStatusBarHeight(this));
+    int offset = mRoutingPlanInplaceController != null
+                 && mRoutingPlanInplaceController.getHeight() > 0
+                 ? mRoutingPlanInplaceController.getHeight() : UiUtils.getStatusBarHeight(this);
+
+    adjustCompassAndTraffic(visible ? toolbarHeight : offset);
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
     if (mFilterController != null)
     {
@@ -1934,7 +1946,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshFade();
     if (mOnmapDownloader != null)
       mOnmapDownloader.updateState(false);
-    adjustCompass(UiUtils.getCompassYOffset(this));
     if (show)
     {
       mSearchController.clear();
