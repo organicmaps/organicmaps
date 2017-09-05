@@ -2,11 +2,11 @@
 
 from math import exp, log
 from scipy.stats import pearsonr
-from sklearn import cross_validation, grid_search, svm
+from sklearn import svm
+from sklearn.model_selection import GridSearchCV, KFold
 import argparse
 import collections
 import itertools
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import random
@@ -18,8 +18,7 @@ MAX_RANK = 255
 RELEVANCES = {'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring', 'Prefix', 'Full Match']
 SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
-
-FEATURES = ['DistanceToPivot', 'Rank', 'FalseCats'] + NAME_SCORES + SEARCH_TYPES
+FEATURES = ['DistanceToPivot', 'Rank', 'FalseCats', 'ErrorsMade'] + NAME_SCORES + SEARCH_TYPES
 
 
 def transform_name_score(value, categories_match):
@@ -157,29 +156,6 @@ def transform_data(data):
     return xs, ys
 
 
-def plot_diagrams(xs, ys, features):
-    """
-    For each feature, plots histagrams of x * sign(y), where x is a
-    slice on the feature of a list of pairwise differences between
-    input feature-vectors and y is a list of pairwise differences
-    between relevances of the input feature-vectors.  Stong bias
-    toward positive or negative values in histograms indicates that
-    the current feature is important for ranking, as there is a
-    correlation between difference between features values and
-    relevancy.
-    """
-    for i, f in enumerate(features):
-        x = [x[i] * np.sign(y) for x, y in zip(xs, ys)]
-
-        l, r = min(x), max(x)
-        d = max(abs(l), abs(r))
-
-        plt.subplot(4, 4, i + 1)
-        plt.hist(x, bins=8, range=(-d, d))
-        plt.title(f)
-    plt.show()
-
-
 def show_pearson_statistics(xs, ys, features):
     """
     Shows info about Pearson coefficient between features and
@@ -241,7 +217,7 @@ def cpp_output(features, ws):
         else:
             print_const(f, w)
     print_array('kNameScore', 'NameScore::NAME_SCORE_COUNT', ns)
-    print_array('kSearchType', 'SearchModel::SEARCH_TYPE_COUNT', st)
+    print_array('kType', 'Model::TYPE_COUNT', st)
 
 
 def main(args):
@@ -249,20 +225,17 @@ def main(args):
     normalize_data(data)
 
     ndcgs = compute_ndcgs_without_ws(data);
-    print('Current NDCG: {}, std: {}'.format(np.mean(ndcgs), np.std(ndcgs)))
+    print('Current NDCG: {:.3f}, std: {:.3f}'.format(np.mean(ndcgs), np.std(ndcgs)))
     print()
 
     xs, ys = transform_data(data)
 
-    if args.plot:
-        plot_diagrams(xs, ys, FEATURES)
-
     clf = svm.LinearSVC(random_state=args.seed)
-    cv = cross_validation.KFold(len(ys), n_folds=5, shuffle=True, random_state=args.seed)
+    cv = KFold(n_splits=5, shuffle=True, random_state=args.seed)
 
     # "C" stands for the regularizer constant.
     grid = {'C': np.power(10.0, np.arange(-5, 6))}
-    gs = grid_search.GridSearchCV(clf, grid, scoring='accuracy', cv=cv)
+    gs = GridSearchCV(clf, grid, scoring='roc_auc', cv=cv)
     gs.fit(xs, ys)
 
     ws = gs.best_estimator_.coef_[0]
@@ -274,8 +247,8 @@ def main(args):
 
     ndcgs = compute_ndcgs_for_ws(data, ws)
 
-    print('NDCG mean: {}, std: {}'.format(np.mean(ndcgs), np.std(ndcgs)))
-    print('Accuracy: {}'.format(gs.best_score_))
+    print('NDCG mean: {:.3f}, std: {:.3f}'.format(np.mean(ndcgs), np.std(ndcgs)))
+    print('ROC AUC: {:.3f}'.format(gs.best_score_))
 
     if args.pearson:
         print()
@@ -292,7 +265,6 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--seed', help='random seed', type=int)
-    parser.add_argument('--plot', help='plot diagrams', action='store_true')
     parser.add_argument('--pearson', help='show pearson statistics', action='store_true')
     parser.add_argument('--cpp', help='generate output in the C++ format', action='store_true')
     args = parser.parse_args()

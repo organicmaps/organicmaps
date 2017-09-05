@@ -25,8 +25,10 @@
 #include <QtWidgets/QApplication>
 #include <QFileDialog>
 
+DEFINE_string(data_path, "", "Path to data directory");
 DEFINE_string(log_abort_level, my::ToString(my::GetDefaultLogAbortLevel()),
               "Log messages severity that causes termination.");
+DEFINE_string(resources_path, "", "Path to resources directory");
 
 namespace
 {
@@ -94,6 +96,12 @@ int main(int argc, char * argv[])
   google::SetUsageMessage("Desktop application.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
+  Platform & platform = GetPlatform();
+  if (!FLAGS_resources_path.empty())
+    platform.SetResourceDir(FLAGS_resources_path);
+  if (!FLAGS_data_path.empty())
+    platform.SetWritableDirForTests(FLAGS_data_path);
+
   my::LogLevel level;
   CHECK(my::FromString(FLAGS_log_abort_level, level), ());
   my::g_LogAbortLevel = level;
@@ -115,7 +123,7 @@ int main(int argc, char * argv[])
   alohalytics::Stats::Instance().SetDebugMode(true);
 #endif
 
-  GetPlatform().SetupMeasurementSystem();
+  platform.SetupMeasurementSystem();
 
   // display EULA if needed
   char const * settingsEULA = "EulaAccepted";
@@ -127,7 +135,7 @@ int main(int argc, char * argv[])
 
     string buffer;
     {
-      ReaderPtr<Reader> reader = GetPlatform().GetReader("eula.html");
+      ReaderPtr<Reader> reader = platform.GetReader("eula.html");
       reader.ReadAsString(buffer);
     }
     qt::InfoDialog eulaDialog(qAppName() + QString(" End User Licensing Agreement"), buffer.c_str(), NULL, buttons);
@@ -146,7 +154,7 @@ int main(int argc, char * argv[])
     qt::MainWindow::SetDefaultSurfaceFormat(apiOpenGLES3);
 
 #ifdef BUILD_DESIGNER
-    if (argc >= 2 && GetPlatform().IsFileExistsByFullPath(argv[1]))
+    if (argc >= 2 && platform.IsFileExistsByFullPath(argv[1]))
         mapcssFilePath = argv[1];
     if (0 == mapcssFilePath.length())
     {

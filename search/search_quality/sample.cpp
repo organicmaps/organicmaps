@@ -99,7 +99,7 @@ bool Sample::DeserializeFromJSON(string const & jsonStr)
   }
   catch (my::Json::Exception const & e)
   {
-    LOG(LDEBUG, ("Can't parse sample:", e.Msg(), jsonStr));
+    LOG(LWARNING, ("Can't parse sample:", e.Msg(), jsonStr));
   }
   return false;
 }

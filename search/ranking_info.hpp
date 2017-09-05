@@ -45,6 +45,8 @@ struct RankingInfo
   // Returns rank calculated by a linear model. Large values
   // correspond to important features.
   double GetLinearModelRank() const;
+
+  size_t GetErrorsMade() const;
 };
 
 string DebugPrint(RankingInfo const & info);

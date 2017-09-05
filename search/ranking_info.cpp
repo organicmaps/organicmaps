@@ -11,26 +11,25 @@ namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
-double const kDistanceToPivot = -0.37897824370302247;
-double const kRank = 1.0;
-double const kFalseCats = -0.05775625793967508;
-
+double const kDistanceToPivot = -1.0000000;
+double const kRank = 0.5238890;
+double const kFalseCats = -0.7319971;
+double const kErrorsMade = -0.0238639;
 double const kNameScore[NameScore::NAME_SCORE_COUNT] = {
-     -0.11436302557264734 /* Zero */
-    , 0.014295634567960331 /* Substring */
-    , 0.046219090910780115 /* Prefix */
-    , 0.05384830009390816 /* Full Match */
+  -0.1683931 /* Zero */,
+  0.0268117 /* Substring */,
+  0.0599575 /* Prefix */,
+  0.0816240 /* Full Match */
 };
-
 double const kType[Model::TYPE_COUNT] = {
-      -0.09164609318265761 /* POI */
-    , -0.09164609318265761 /* Building */
-    , -0.0805969548653964 /* Street */
-    , -0.030493728520630793 /* Unclassified */
-    , -0.19242203325862917 /* Village */
-    , -0.10945592241057521 /* City */
-    , 0.19250143015921584 /* State */
-    , 0.31211330207867427 /* Country */
+  -0.4322325 /* POI */,
+  -0.4322325 /* Building */,
+  -0.3823704 /* Street */,
+  -0.3747346 /* Unclassified */,
+  -0.4453585 /* Village */,
+  0.3900264 /* City */,
+  0.5397572 /* State */,
+  0.7049124 /* Country */
 };
 
 double TransformDistance(double distance)
@@ -48,6 +47,7 @@ void RankingInfo::PrintCSVHeader(ostream & os)
   os << "DistanceToPivot"
      << ",Rank"
      << ",NameScore"
+     << ",ErrorsMade"
      << ",SearchType"
      << ",PureCats"
      << ",FalseCats";
@@ -71,8 +71,13 @@ string DebugPrint(RankingInfo const & info)
 void RankingInfo::ToCSV(ostream & os) const
 {
   os << fixed;
-  os << m_distanceToPivot << "," << static_cast<int>(m_rank) << "," << DebugPrint(m_nameScore)
-     << "," << DebugPrint(m_type) << "," << m_pureCats << "," << m_falseCats;
+  os << m_distanceToPivot << ",";
+  os << static_cast<int>(m_rank) << ",";
+  os << DebugPrint(m_nameScore) << ",";
+  os << GetErrorsMade() << ",";
+  os << DebugPrint(m_type) << ",";
+  os << m_pureCats << ",";
+  os << m_falseCats;
 }
 
 double RankingInfo::GetLinearModelRank() const
@@ -96,7 +101,12 @@ double RankingInfo::GetLinearModelRank() const
     nameScore = NAME_SCORE_ZERO;
   }
 
-  return kDistanceToPivot * distanceToPivot + kRank * rank + kNameScore[nameScore] + kType[m_type] +
-         m_falseCats * kFalseCats;
+  return kDistanceToPivot * distanceToPivot + kRank * rank + kNameScore[nameScore] +
+         kErrorsMade * GetErrorsMade() + kType[m_type] + m_falseCats * kFalseCats;
+}
+
+size_t RankingInfo::GetErrorsMade() const
+{
+  return m_errorsMade.IsValid() ? m_errorsMade.m_errorsMade : 0;
 }
 }  // namespace search
