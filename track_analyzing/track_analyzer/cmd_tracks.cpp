@@ -143,7 +143,8 @@ void CmdTracks(string const & filepath, string const & trackExtension, StringFil
 
     TrackStats & mwmStats = mwmToStats[mwmName];
 
-    shared_ptr<IVehicleModel> vehicleModel = CarModelFactory().GetVehicleModelForCountry(mwmName);
+    shared_ptr<VehicleModelInterface> vehicleModel =
+        CarModelFactory({}).GetVehicleModelForCountry(mwmName);
 
     Geometry geometry(
         GeometryLoader::CreateFromFile(GetCurrentVersionMwmFile(storage, mwmName), vehicleModel));

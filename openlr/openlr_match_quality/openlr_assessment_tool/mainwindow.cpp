@@ -118,7 +118,7 @@ public:
     : m_framework(framework)
     , m_index(framework.GetIndex())
     , m_roadGraph(m_index, routing::IRoadGraph::Mode::ObeyOnewayTag,
-                  make_unique<routing::CarModelFactory>())
+                  make_unique<routing::CarModelFactory>(routing::CountryParentNameGetterFn{}))
   {
   }
 

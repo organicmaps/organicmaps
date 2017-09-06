@@ -34,7 +34,8 @@ void CmdTrack(string const & trackFile, string const & mwmName, string const & u
       GetMatchedTrack(mwmToMatchedTracks, *numMwmIds, mwmName, user, trackIdx);
 
   string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
-  shared_ptr<IVehicleModel> vehicleModel = CarModelFactory().GetVehicleModelForCountry(mwmName);
+  shared_ptr<VehicleModelInterface> vehicleModel =
+      CarModelFactory({}).GetVehicleModelForCountry(mwmName);
   FeaturesVectorTest featuresVector(FilesContainerR(make_unique<FileReader>(mwmFile)));
   Geometry geometry(GeometryLoader::CreateFromFile(mwmFile, vehicleModel));
 

@@ -57,7 +57,7 @@ private:
     routing::Segment const & GetSegment() const { return m_segment; }
     bool HasCandidates() const { return !m_candidates.empty(); }
     void FillCandidatesWithNearbySegments(Index const & index, routing::IndexGraph const & graph,
-                                          routing::IVehicleModel const & vehicleModel,
+                                          routing::VehicleModelInterface const & vehicleModel,
                                           routing::NumMwmId mwmId);
     void FillCandidates(Step const & previousStep, routing::IndexGraph & graph);
     void ChooseSegment(Step const & nextStep, routing::IndexGraph & indexGraph);
@@ -75,7 +75,7 @@ private:
 
   routing::NumMwmId const m_mwmId;
   Index m_index;
-  std::shared_ptr<routing::IVehicleModel> m_vehicleModel;
+  std::shared_ptr<routing::VehicleModelInterface> m_vehicleModel;
   std::unique_ptr<routing::IndexGraph> m_graph;
   uint64_t m_tracksCount = 0;
   uint64_t m_pointsCount = 0;

@@ -214,7 +214,8 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
     if (mwmFilter(mwmName))
       return;
 
-    shared_ptr<IVehicleModel> vehicleModel = CarModelFactory().GetVehicleModelForCountry(mwmName);
+    shared_ptr<VehicleModelInterface> vehicleModel =
+        CarModelFactory({}).GetVehicleModelForCountry(mwmName);
     string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
     MatchedTrackPointToMoveType pointToMoveType(mwmFile);
     Geometry geometry(GeometryLoader::CreateFromFile(mwmFile, vehicleModel));
