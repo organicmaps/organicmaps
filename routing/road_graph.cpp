@@ -3,9 +3,8 @@
 
 #include "routing/route.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
@@ -31,6 +30,18 @@ void SplitEdge(Edge const & ab, Junction const & p, vector<Edge> & edges)
 {
   auto const & a = ab.GetStartJunction();
   auto const & b = ab.GetEndJunction();
+
+  // If the condition below is true edge |ab| should not be split. Because if |ab| will be split
+  // zero edge length will be add to |edges| and a duplicate of |ab| would be added to |edges|.
+  // As a consequent |edges| has to many duplicates.
+  // The "if" condition below fixes the issue which was reproduced if to call:
+  // std::vector<std::pair<routing::Edge, routing::Junction>> sourceVicinity;
+  // Junction j(PointD(50.732084512710564184, -1.2127983570098876953), feature::kDefaultAltitudeMeters);
+  // FeaturesRoadGraph::FindClosestEdges(j.GetPoint(), 20, sourceVicinity);
+  // FeaturesRoadGraph::AddFakeEdges(j, sourceVicinity);
+  if (a.GetPoint() == p.GetPoint() || b.GetPoint() == p.GetPoint())
+    return;
+
   bool const partOfReal = ab.IsPartOfReal();
   edges.push_back(Edge::MakeFake(a, p, partOfReal));
   edges.push_back(Edge::MakeFake(p, b, partOfReal));
@@ -247,6 +258,8 @@ void IRoadGraph::AddFakeEdges(Junction const & junction,
     }
   }
 
+  // The sort unique below is necessary to remove all duplicates which were added when
+  // edges from |junction| to |p| and from |p| to |junction| were added.
   for (auto & m : m_fakeIngoingEdges)
     my::SortUnique(m.second);
   for (auto & m : m_fakeOutgoingEdges)
