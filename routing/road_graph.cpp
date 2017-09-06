@@ -229,6 +229,17 @@ void IRoadGraph::ResetFakes()
   m_fakeIngoingEdges.clear();
 }
 
+void IRoadGraph::AddEdge(Junction const & j, Edge const & e, map<Junction, TEdgeVector> & edges)
+{
+  auto & cont = edges[j];
+  ASSERT(is_sorted(cont.cbegin(), cont.cend()), ());
+  auto const it = equal_range(cont.cbegin(), cont.cend(), e);
+  // Note. The "if" condition below is necessary to prevent duplicates which may be added when
+  // edges from |j| to "projection of |j|" and an edge in the opposite direction are added.
+  if (it.first == it.second)
+    cont.insert(it.second, e);
+}
+
 void IRoadGraph::AddFakeEdges(Junction const & junction,
                               vector<pair<Edge, Junction>> const & vicinity)
 {
@@ -253,17 +264,10 @@ void IRoadGraph::AddFakeEdges(Junction const & junction,
     {
       auto const & u = uv.GetStartJunction();
       auto const & v = uv.GetEndJunction();
-      m_fakeOutgoingEdges[u].push_back(uv);
-      m_fakeIngoingEdges[v].push_back(uv);
+      AddEdge(u, uv, m_fakeOutgoingEdges);
+      AddEdge(v, uv, m_fakeIngoingEdges);
     }
   }
-
-  // The sort unique below is necessary to remove all duplicates which were added when
-  // edges from |junction| to |p| and from |p| to |junction| were added.
-  for (auto & m : m_fakeIngoingEdges)
-    my::SortUnique(m.second);
-  for (auto & m : m_fakeOutgoingEdges)
-    my::SortUnique(m.second);
 }
 
 double IRoadGraph::GetSpeedKMPH(Edge const & edge) const
