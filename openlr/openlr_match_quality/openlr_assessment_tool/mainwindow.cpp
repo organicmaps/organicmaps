@@ -13,6 +13,8 @@
 
 #include "routing_common/car_model.hpp"
 
+#include "storage/country_parent_getter.hpp"
+
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
@@ -118,7 +120,7 @@ public:
     : m_framework(framework)
     , m_index(framework.GetIndex())
     , m_roadGraph(m_index, routing::IRoadGraph::Mode::ObeyOnewayTag,
-                  make_unique<routing::CarModelFactory>(routing::CountryParentNameGetterFn{}))
+                  make_unique<routing::CarModelFactory>(storage::CountryParentGetter{}))
   {
   }
 
