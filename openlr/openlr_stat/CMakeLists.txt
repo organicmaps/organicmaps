@@ -30,3 +30,5 @@ omim_link_libraries(${PROJECT_NAME}
   ${Qt5Core_LIBRARIES}
   ${LIBZ}
 )
+
+link_qt5_network(${PROJECT_NAME})
