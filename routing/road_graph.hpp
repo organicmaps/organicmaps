@@ -314,7 +314,7 @@ private:
     }
   }
 
-  /// \note |m_fakeIngoingEdges| and |m_fakeOutgoingEdges| are maps of sorted vectors.
+  /// \note |m_fakeIngoingEdges| and |m_fakeOutgoingEdges| map junctions to sorted vectors.
   /// Items to these maps should be inserted with AddEdge() method only.
   map<Junction, TEdgeVector> m_fakeIngoingEdges;
   map<Junction, TEdgeVector> m_fakeOutgoingEdges;

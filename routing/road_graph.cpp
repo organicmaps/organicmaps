@@ -31,10 +31,9 @@ void SplitEdge(Edge const & ab, Junction const & p, vector<Edge> & edges)
   auto const & a = ab.GetStartJunction();
   auto const & b = ab.GetEndJunction();
 
-  // If the condition below is true edge |ab| should not be split. Because if |ab| will be split
-  // zero edge length will be add to |edges| and a duplicate of |ab| would be added to |edges|.
-  // As a consequent |edges| has to many duplicates.
+  // No need to split the edge by its endpoints.
   // The "if" condition below fixes the issue which was reproduced if to call:
+  // @TODO(bykoianko) It's necessary to write a routing integration test and remove comment below.
   // std::vector<std::pair<routing::Edge, routing::Junction>> sourceVicinity;
   // Junction j(PointD(50.732084512710564184, -1.2127983570098876953), feature::kDefaultAltitudeMeters);
   // FeaturesRoadGraph::FindClosestEdges(j.GetPoint(), 20, sourceVicinity);
@@ -233,11 +232,11 @@ void IRoadGraph::AddEdge(Junction const & j, Edge const & e, map<Junction, TEdge
 {
   auto & cont = edges[j];
   ASSERT(is_sorted(cont.cbegin(), cont.cend()), ());
-  auto const it = equal_range(cont.cbegin(), cont.cend(), e);
+  auto const range = equal_range(cont.cbegin(), cont.cend(), e);
   // Note. The "if" condition below is necessary to prevent duplicates which may be added when
   // edges from |j| to "projection of |j|" and an edge in the opposite direction are added.
-  if (it.first == it.second)
-    cont.insert(it.second, e);
+  if (range.first == range.second)
+    cont.insert(range.second, e);
 }
 
 void IRoadGraph::AddFakeEdges(Junction const & junction,
