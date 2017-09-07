@@ -17,8 +17,19 @@ using namespace platform;
 
 namespace
 {
+void AddParameterToUrl(std::string & url, std::string const & parameters)
+{
+  if (url.find("?") != std::string::npos)
+    url += "&";
+  else
+    url += "?";
+  
+  url += parameters;
+}
+  
 // Length of the rect side in meters.
 double const kSearchRadius = 500.0;
+std::string const kUtmComplement = "utm_source=maps.me&utm_medium=cpc&utm_campaign=map";
 
 std::unordered_set<std::string> const kSupportedCities
 {
@@ -89,7 +100,10 @@ void MakeResult(std::string const & src, std::vector<cian::RentPlace> & result)
       GetNullable(offer, "address", rentOffer.m_address);
 
       if (rentOffer.IsValid())
+      {
+        AddParameterToUrl(rentOffer.m_url, kUtmComplement);
         place.m_offers.push_back(std::move(rentOffer));
+      }
     }
 
     result.push_back(std::move(place));
@@ -159,7 +173,7 @@ bool Api::IsCitySupported(std::string const & city)
 // static
 std::string const & Api::GetMainPageUrl()
 {
-  static std::string const kMainPageUrl = "https://www.cian.ru/";
+  static std::string const kMainPageUrl = "https://www.cian.ru/?" + kUtmComplement;
   return kMainPageUrl;
 }
 }  // namespace cian
