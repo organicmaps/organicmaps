@@ -807,7 +807,7 @@ unique_ptr<WorldGraph> BuildLineGraph()
   loader->AddRoad(0 /* feature id */, true /* one way */, 1.0 /* speed */,
                   RoadGeometry::Points({{0.0, 0.0}, {0.0, 1.0}}));
   loader->AddRoad(1 /* feature id */, false /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.0, 0.0}, {2.0, 0.0}, {3.0, 0.0}, {3.0, 0.0}}));
+                  RoadGeometry::Points({{1.0, 0.0}, {2.0, 0.0}, {3.0, 0.0}, {4.0, 0.0}}));
   loader->AddRoad(2 /* feature id */, true /* one way */, 1.0 /* speed */,
                   RoadGeometry::Points({{4.0, 0.0}, {5.0, 0.0}}));
 

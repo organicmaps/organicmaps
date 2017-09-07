@@ -4,10 +4,7 @@
 
 #include <cstdint>
 
-namespace
-{
 using namespace std;
-}  // namespace
 
 namespace routing
 {
@@ -89,18 +86,15 @@ void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
 
   for (Segment const & segment : m_segments)
   {
-    auto featureIdHandle = FeatureID();
+    auto featureId = FeatureID();
 
     if (!IndexGraphStarter::IsFakeSegment(segment))
     {
       platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
-      MwmSet::MwmHandle const handle = m_index.GetMwmHandleByCountryFile(file);
-      if (!handle.IsAlive())
-        MYTHROW(RoutingException, ("Can't get mwm handle for", file));
-
-      featureIdHandle = FeatureID(handle.GetId(), segment.GetFeatureId());
+      MwmSet::MwmId const mwmId = m_index.GetMwmIdByCountryFile(file);
+      featureId = FeatureID(mwmId, segment.GetFeatureId());
     }
-    edges.emplace_back(featureIdHandle, segment.IsForward(), segment.GetSegmentIdx(),
+    edges.emplace_back(featureId, segment.IsForward(), segment.GetSegmentIdx(),
                        m_starter.GetJunction(segment, false /* front */),
                        m_starter.GetJunction(segment, true /* front */));
   }
@@ -126,13 +120,10 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeV
       continue;
 
     platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
-    MwmSet::MwmHandle const handle = m_index.GetMwmHandleByCountryFile(file);
-    if (!handle.IsAlive())
-      MYTHROW(RoutingException, ("Can't get mwm handle for", file));
+    MwmSet::MwmId const mwmId = m_index.GetMwmIdByCountryFile(file);
 
-    edges.emplace_back(FeatureID(MwmSet::MwmId(handle.GetInfo()), segment.GetFeatureId()),
-                       segment.IsForward(), segment.GetSegmentIdx(),
-                       m_starter.GetJunction(segment, false /* front */),
+    edges.emplace_back(FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(),
+                       segment.GetSegmentIdx(), m_starter.GetJunction(segment, false /* front */),
                        m_starter.GetJunction(segment, true /* front */));
   }
 }

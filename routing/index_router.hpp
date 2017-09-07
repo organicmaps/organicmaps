@@ -3,8 +3,8 @@
 #include "routing/cross_mwm_graph.hpp"
 #include "routing/directions_engine.hpp"
 #include "routing/edge_estimator.hpp"
+#include "routing/fake_edges_container.hpp"
 #include "routing/features_road_graph.hpp"
-#include "routing/index_graph_starter.hpp"
 #include "routing/joint.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/router.hpp"
@@ -19,8 +19,9 @@
 
 #include "geometry/tree4d.hpp"
 
+#include "std/unique_ptr.hpp"
+
 #include <functional>
-#include <memory>
 #include <set>
 #include <string>
 #include <vector>
@@ -103,7 +104,7 @@ private:
                                    RouterDelegate const & delegate, IndexGraphStarter & starter,
                                    Route & route) const;
 
-  bool AreMwmsNear(std::set<NumMwmId> mwmIds) const;
+  bool AreMwmsNear(std::set<NumMwmId> const & mwmIds) const;
 
   VehicleType m_vehicleType;
   bool m_loadAltitudes;

@@ -52,11 +52,8 @@ void TestRoute(IndexGraphStarter::FakeEnding const & start,
   for (auto const & s : route)
   {
     auto real = s;
-    if (IndexGraphStarter::IsFakeSegment(real))
-    {
-      if (!starter.ConvertToReal(real))
-        continue;
-    }
+    if (!starter.ConvertToReal(real))
+      continue;
     noFakeRoute.push_back(real);
   }
 
@@ -211,24 +208,24 @@ UNIT_TEST(FindPathCross)
     for (auto const & finish : endPoints)
     {
       uint32_t expectedLength = 0;
-      if (start.m_projectionSegments[0].GetFeatureId() ==
-          finish.m_projectionSegments[0].GetFeatureId())
+      if (start.m_projections[0].m_segment.GetFeatureId() ==
+          finish.m_projections[0].m_segment.GetFeatureId())
       {
-        expectedLength = AbsDelta(start.m_projectionSegments[0].GetSegmentIdx(),
-                                  finish.m_projectionSegments[0].GetSegmentIdx()) +
+        expectedLength = AbsDelta(start.m_projections[0].m_segment.GetSegmentIdx(),
+                                  finish.m_projections[0].m_segment.GetSegmentIdx()) +
                          1;
       }
       else
       {
-        if (start.m_projectionSegments[0].GetSegmentIdx() < 2)
-          expectedLength += 2 - start.m_projectionSegments[0].GetSegmentIdx();
+        if (start.m_projections[0].m_segment.GetSegmentIdx() < 2)
+          expectedLength += 2 - start.m_projections[0].m_segment.GetSegmentIdx();
         else
-          expectedLength += start.m_projectionSegments[0].GetSegmentIdx() - 1;
+          expectedLength += start.m_projections[0].m_segment.GetSegmentIdx() - 1;
 
-        if (finish.m_projectionSegments[0].GetSegmentIdx() < 2)
-          expectedLength += 2 - finish.m_projectionSegments[0].GetSegmentIdx();
+        if (finish.m_projections[0].m_segment.GetSegmentIdx() < 2)
+          expectedLength += 2 - finish.m_projections[0].m_segment.GetSegmentIdx();
         else
-          expectedLength += finish.m_projectionSegments[0].GetSegmentIdx() - 1;
+          expectedLength += finish.m_projections[0].m_segment.GetSegmentIdx() - 1;
       }
       TestRoute(start, finish, expectedLength, nullptr, *worldGraph);
     }
@@ -295,36 +292,46 @@ UNIT_TEST(FindPathManhattan)
       uint32_t expectedLength = 0;
 
       auto const startFeatureOffset =
-          start.m_projectionSegments[0].GetFeatureId() < kCitySize
-              ? start.m_projectionSegments[0].GetFeatureId()
-              : start.m_projectionSegments[0].GetFeatureId() - kCitySize;
+          start.m_projections[0].m_segment.GetFeatureId() < kCitySize
+              ? start.m_projections[0].m_segment.GetFeatureId()
+              : start.m_projections[0].m_segment.GetFeatureId() - kCitySize;
       auto const finishFeatureOffset =
-          finish.m_projectionSegments[0].GetFeatureId() < kCitySize
-              ? finish.m_projectionSegments[0].GetFeatureId()
-              : finish.m_projectionSegments[0].GetFeatureId() - kCitySize;
+          finish.m_projections[0].m_segment.GetFeatureId() < kCitySize
+              ? finish.m_projections[0].m_segment.GetFeatureId()
+              : finish.m_projections[0].m_segment.GetFeatureId() - kCitySize;
 
-      if (start.m_projectionSegments[0].GetFeatureId() < kCitySize ==
-          finish.m_projectionSegments[0].GetFeatureId() < kCitySize)
+      if (start.m_projections[0].m_segment.GetFeatureId() < kCitySize ==
+          finish.m_projections[0].m_segment.GetFeatureId() < kCitySize)
       {
-        uint32_t segDelta = AbsDelta(start.m_projectionSegments[0].GetSegmentIdx(),
-                                     finish.m_projectionSegments[0].GetSegmentIdx());
-        if (segDelta == 0 && start.m_projectionSegments[0].GetFeatureId() !=
-                                 finish.m_projectionSegments[0].GetFeatureId())
+        uint32_t segDelta = AbsDelta(start.m_projections[0].m_segment.GetSegmentIdx(),
+                                     finish.m_projections[0].m_segment.GetSegmentIdx());
+        if (segDelta == 0 && start.m_projections[0].m_segment.GetFeatureId() !=
+                                 finish.m_projections[0].m_segment.GetFeatureId())
           segDelta = 1;
         expectedLength += segDelta;
         expectedLength += AbsDelta(startFeatureOffset, finishFeatureOffset) + 1;
       }
       else
       {
-        if (start.m_projectionSegments[0].GetSegmentIdx() < finishFeatureOffset)
-          expectedLength += finishFeatureOffset - start.m_projectionSegments[0].GetSegmentIdx();
+        if (start.m_projections[0].m_segment.GetSegmentIdx() < finishFeatureOffset)
+        {
+          expectedLength += finishFeatureOffset - start.m_projections[0].m_segment.GetSegmentIdx();
+        }
         else
-          expectedLength += start.m_projectionSegments[0].GetSegmentIdx() - finishFeatureOffset + 1;
+        {
+          expectedLength +=
+              start.m_projections[0].m_segment.GetSegmentIdx() - finishFeatureOffset + 1;
+        }
 
-        if (finish.m_projectionSegments[0].GetSegmentIdx() < startFeatureOffset)
-          expectedLength += startFeatureOffset - finish.m_projectionSegments[0].GetSegmentIdx();
+        if (finish.m_projections[0].m_segment.GetSegmentIdx() < startFeatureOffset)
+        {
+          expectedLength += startFeatureOffset - finish.m_projections[0].m_segment.GetSegmentIdx();
+        }
         else
-          expectedLength += finish.m_projectionSegments[0].GetSegmentIdx() - startFeatureOffset + 1;
+        {
+          expectedLength +=
+              finish.m_projections[0].m_segment.GetSegmentIdx() - startFeatureOffset + 1;
+        }
       }
 
       TestRoute(start, finish, expectedLength, nullptr, *worldGraph);
@@ -373,7 +380,7 @@ UNIT_TEST(RoadSpeed)
                                        {kTestNumMwmId, 0, 2, true},
                                        {kTestNumMwmId, 0, 3, true},
                                        {kTestNumMwmId, 1, 3, true}});
-  TestRoute(start, finish, 6, &expectedRoute, *worldGraph);
+  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, *worldGraph);
 }
 
 // Roads                             y:
@@ -402,7 +409,40 @@ UNIT_TEST(OneSegmentWay)
 
   vector<Segment> const expectedRoute(
       {{kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}});
-  TestRoute(start, finish, 1 /* expectedLength */, &expectedRoute, *worldGraph);
+  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, *worldGraph);
+}
+
+//
+// Roads                             y:
+//
+//    R0    * - - - - - - - ->*      0
+//                ^     ^
+//            finish  start
+//
+//    x:    0     1     2     3
+//
+UNIT_TEST(OneSegmentWayBackward)
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+
+  loader->AddRoad(0 /* featureId */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{0.0, 0.0}, {3.0, 0.0}}));
+
+  traffic::TrafficCache const trafficCache;
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, vector<Joint>());
+
+  auto const start = IndexGraphStarter::MakeFakeEnding(
+      Segment(kTestNumMwmId, 0, 0, true /* forward */), m2::PointD(2, 0), *worldGraph);
+  auto const finish = IndexGraphStarter::MakeFakeEnding(
+      Segment(kTestNumMwmId, 0, 0, true /* forward */), m2::PointD(1, 0), *worldGraph);
+
+  IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
+                            *worldGraph);
+  vector<Segment> route;
+  double timeSec;
+  auto const resultCode = CalculateRoute(starter, route, timeSec);
+  TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::NoPath, ());
 }
 
 //
@@ -541,7 +581,7 @@ UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
                                          {kTestNumMwmId, 0, 7, false}, {kTestNumMwmId, 0, 6, false},
                                          {kTestNumMwmId, 2, 0, true}};
 
-  TestRoute(start, finish, 7, &expectedRoute, *m_graph);
+  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, *m_graph);
 }
 
 UNIT_TEST(IndexGraph_OnlyTopology_1)

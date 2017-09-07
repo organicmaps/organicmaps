@@ -6,6 +6,7 @@
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/index_graph_serialization.hpp"
+#include "routing/index_graph_starter.hpp"
 #include "routing/index_road_graph.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/restriction_loader.hpp"
@@ -388,10 +389,9 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
   }
 
   size_t subrouteSegmentsBegin = 0;
-  uint32_t fakeSegmentsNumerationStart = 0;
   vector<Route::SubrouteAttrs> subroutes;
   PushPassedSubroutes(checkpoints, subroutes);
-  vector<IndexGraphStarter> starters;
+  unique_ptr<IndexGraphStarter> starter;
 
   for (size_t i = checkpoints.GetPassedIdx(); i < checkpoints.GetNumSubroutes(); ++i)
   {
@@ -416,13 +416,14 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
 
     bool const isStartSegmentStrictForward =
         i == checkpoints.GetPassedIdx() ? startSegmentIsAlmostCodirectionalDirection : true;
-    starters.emplace_back(IndexGraphStarter::MakeFakeEnding(startSegment, startCheckpoint, graph),
-                          IndexGraphStarter::MakeFakeEnding(finishSegment, finishCheckpoint, graph),
-                          fakeSegmentsNumerationStart, isStartSegmentStrictForward, graph);
+    IndexGraphStarter subrouteStarter(
+        IndexGraphStarter::MakeFakeEnding(startSegment, startCheckpoint, graph),
+        IndexGraphStarter::MakeFakeEnding(finishSegment, finishCheckpoint, graph),
+        starter ? starter->GetNumFakeSegments() : 0, isStartSegmentStrictForward, graph);
 
     vector<Segment> subroute;
     Junction startJunction;
-    auto const result = CalculateSubroute(checkpoints, i, startSegment, delegate, starters.back(),
+    auto const result = CalculateSubroute(checkpoints, i, startSegment, delegate, subrouteStarter,
                                           subroute, startJunction);
 
     if (result != IRouter::NoError)
@@ -433,10 +434,13 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
     segments.insert(segments.end(), subroute.begin(), subroute.end());
 
     size_t subrouteSegmentsEnd = segments.size();
-    subroutes.emplace_back(starters.back().GetStartJunction(), starters.back().GetFinishJunction(),
+    subroutes.emplace_back(subrouteStarter.GetStartJunction(), subrouteStarter.GetFinishJunction(),
                            subrouteSegmentsBegin, subrouteSegmentsEnd);
     subrouteSegmentsBegin = subrouteSegmentsEnd;
-    fakeSegmentsNumerationStart += starters.back().GetNumFakeSegments();
+    if (!starter)
+      starter = make_unique<IndexGraphStarter>(move(subrouteStarter));
+    else
+      starter->Append(FakeEdgesContainer(move(subrouteStarter)));
   }
 
   route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
@@ -444,18 +448,16 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
 
   IndexGraphStarter::CheckValidRoute(segments);
 
-  IndexGraphStarter starter(starters);
-
-  auto redressResult = RedressRoute(segments, delegate, starter, route);
+  auto redressResult = RedressRoute(segments, delegate, *starter, route);
   if (redressResult != IRouter::NoError)
     return redressResult;
 
   m_lastRoute = make_unique<SegmentedRoute>(checkpoints.GetStart(), checkpoints.GetFinish(),
                                             route.GetSubroutes());
   for (Segment const & segment : segments)
-    m_lastRoute->AddStep(segment, starter.GetPoint(segment, true /* front */));
+    m_lastRoute->AddStep(segment, starter->GetPoint(segment, true /* front */));
 
-  m_lastFakeEdges = make_unique<FakeEdgesContainer>(move(starter));
+  m_lastFakeEdges = make_unique<FakeEdgesContainer>(move(*starter));
 
   return IRouter::NoError;
 }
@@ -474,12 +476,11 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   {
     case VehicleType::Pedestrian:
     case VehicleType::Bicycle:
-      starter.SetMode(WorldGraph::Mode::NoLeaps);
+      starter.GetGraph().SetMode(WorldGraph::Mode::NoLeaps);
       break;
     case VehicleType::Car:
-      starter.SetMode(AreMwmsNear(startSegment.GetMwmId(), finishSegment.GetMwmId())
-                          ? WorldGraph::Mode::LeapsIfPossible
-                          : WorldGraph::Mode::LeapsOnly);
+      starter.GetGraph().SetMode(AreMwmsNear(starter.GetMwms()) ? WorldGraph::Mode::LeapsIfPossible
+                                                                : WorldGraph::Mode::LeapsOnly);
       break;
   }
 
@@ -700,10 +701,9 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
   for (size_t i = 0; i < input.size(); ++i)
   {
     Segment current = input[i];
-    starter.ConvertToReal(current);
 
-    if ((prevMode == WorldGraph::Mode::LeapsOnly && IndexGraphStarter::IsFakeSegment(current))
-      || (prevMode != WorldGraph::Mode::LeapsOnly && !starter.IsLeap(current.GetMwmId())))
+    if ((prevMode == WorldGraph::Mode::LeapsOnly && !starter.ConvertToReal(current)) ||
+        (prevMode != WorldGraph::Mode::LeapsOnly && !starter.IsLeap(current.GetMwmId())))
     {
       output.push_back(current);
       continue;
@@ -740,6 +740,12 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
     }
     if (result != IRouter::NoError)
       return result;
+
+    // Start and finish segments may be changed by starter.ConvertToReal. It was necessary to use it
+    // in worldGraph but we need to reset them to original values.
+    routingResult.path.front() = input[i - 1];
+    routingResult.path.back() = input[i];
+
     output.insert(output.end(), routingResult.path.cbegin(), routingResult.path.cend());
   }
 
@@ -750,6 +756,7 @@ IRouter::ResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
                                               RouterDelegate const & delegate,
                                               IndexGraphStarter & starter, Route & route) const
 {
+  CHECK(!segments.empty(), ());
   vector<Junction> junctions;
   size_t const numPoints = IndexGraphStarter::GetRouteNumPoints(segments);
   junctions.reserve(numPoints);
@@ -765,15 +772,15 @@ IRouter::ResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   double time = 0.0;
   times.emplace_back(static_cast<uint32_t>(0), 0.0);
 
-  for (size_t i = 0; i < numPoints - 1; ++i)
+  for (size_t i = 0; i + 1 < numPoints; ++i)
   {
     time += starter.CalcRouteSegmentWeight(segments, i);
     times.emplace_back(static_cast<uint32_t>(i + 1), time);
   }
   
   CHECK(m_directionsEngine, ());
-  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions,
-                   std::move(times), route);
+  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, move(times),
+                   route);
 
   if (!route.IsValid())
   {
@@ -787,24 +794,15 @@ IRouter::ResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   return IRouter::NoError;
 }
 
-bool IndexRouter::AreMwmsNear(std::set<NumMwmId> mwmIds) const
+bool IndexRouter::AreMwmsNear(set<NumMwmId> const & mwmIds) const
 {
-  // Function fails on first mwm which is not near to all other mwms.
-  // Maximal complexity is O((size of mwms clique)^2).
-  // Mwm clique maximal size is 4 (4 color theorem).
   for (auto const & outerId : mwmIds)
   {
-    m2::RectD const startMwmRect = m_countryRectFn(m_numMwmIds->GetFile(outerId).GetName());
-    for (auto const & innerId : mwmIds)
-    {
-      bool areMwmsNear = false;
-      m_numMwmTree->ForEachInRect(startMwmRect, [&](NumMwmId id) {
-        if (id == innerId)
-          areMwmsNear = true;
-      });
-      if (!areMwmsNear)
-        return false;
-    }
+    m2::RectD const rect = m_countryRectFn(m_numMwmIds->GetFile(outerId).GetName());
+    size_t found = 0;
+    m_numMwmTree->ForEachInRect(rect, [&](NumMwmId id) { found += mwmIds.count(id); });
+    if (found != mwmIds.size())
+      return false;
   }
   return true;
 }

@@ -90,6 +90,7 @@ HEADERS += \
     cross_routing_context.hpp \
     directions_engine.hpp \
     edge_estimator.hpp \
+    fake_edges_container.hpp \
     features_road_graph.hpp \
     geometry.hpp \
     index_graph.hpp \

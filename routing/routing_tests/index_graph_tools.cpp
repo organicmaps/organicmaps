@@ -141,11 +141,9 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
   for (size_t i = 1; i + 1 < routeSegs.size(); ++i)
   {
     auto seg = routeSegs[i];
-    if (IndexGraphStarter::IsFakeSegment(seg))
-    {
-      if (!starter.ConvertToReal(seg))
-        continue;
-    }
+    if (!starter.ConvertToReal(seg))
+      continue;
+
     auto const it = builder.m_segmentToEdge.find(seg);
     CHECK(it != builder.m_segmentToEdge.cend(), ());
     auto const & edge = it->second;

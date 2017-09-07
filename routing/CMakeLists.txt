@@ -42,6 +42,7 @@ set(
   directions_engine.hpp
   edge_estimator.cpp
   edge_estimator.hpp
+  fake_edges_container.hpp
   features_road_graph.cpp
   features_road_graph.hpp
   geometry.cpp
