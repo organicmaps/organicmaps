@@ -536,8 +536,7 @@ public:
   void EnableKeepDownloadingQueue(bool enable) {m_keepDownloadingQueue = enable;}
   /// get download url by base url & queued country
   string GetFileDownloadUrl(string const & baseUrl, QueuedCountry const & queuedCountry) const;
-  string GetFileDownloadUrl(string const & baseUrl, TCountryId const & countryId,
-                            MapOptions options) const;
+  string GetFileDownloadUrl(string const & baseUrl, string const & fileName) const;
 
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(vector<Country const *> & countries) const;

@@ -925,17 +925,11 @@ void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, 
 string Storage::GetFileDownloadUrl(string const & baseUrl,
                                    QueuedCountry const & queuedCountry) const
 {
-  return GetFileDownloadUrl(baseUrl, queuedCountry.GetCountryId(),
-                            queuedCountry.GetCurrentFileOptions());
-}
-
-string Storage::GetFileDownloadUrl(string const & baseUrl, TCountryId const & countryId,
-                                   MapOptions options) const
-{
+  auto const & countryId = queuedCountry.GetCountryId();
+  auto const options = queuedCountry.GetCurrentFileOptions();
   CountryFile const & countryFile = GetCountryFile(countryId);
 
-  string const fileName =
-    GetFileName(countryFile.GetName(), options, GetCurrentDataVersion());
+  string const fileName = GetFileName(countryFile.GetName(), options, GetCurrentDataVersion());
 
   ostringstream url;
   url << baseUrl;
@@ -947,6 +941,12 @@ string Storage::GetFileDownloadUrl(string const & baseUrl, TCountryId const & co
 
   url << "/" << UrlEncode(fileName);
   return url.str();
+}
+
+string Storage::GetFileDownloadUrl(string const & baseUrl, string const & fileName) const
+{
+  return baseUrl + OMIM_OS_NAME "/" + strings::to_string(GetCurrentDataVersion()) + "/" +
+      UrlEncode(fileName);
 }
 
 TCountryId Storage::FindCountryIdByFile(string const & name) const
