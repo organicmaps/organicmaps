@@ -22,6 +22,7 @@ namespace openlr
 {
 namespace
 {
+int const kFRCThreshold = 2;
 size_t const kMaxRoadCandidates = 20;
 double const kDistanceAccuracyM = 1000;
 double const kEps = 1e-9;
@@ -432,7 +433,7 @@ bool Router::PassesRestriction(routing::Edge const & edge,
     return true;
 
   auto const frc = m_roadInfoGetter.Get(edge.GetFeatureId()).m_frc;
-  return frc <= restriction;
+  return static_cast<int>(frc) <= static_cast<int>(restriction) + kFRCThreshold;
 }
 
 uint32_t Router::GetReverseBearing(Vertex const & u, Links const & links) const

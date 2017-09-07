@@ -39,6 +39,7 @@ DEFINE_string(assessment_output, "", "Path to output file in assessment-tool ori
 DEFINE_string(non_matched_ids, "non-matched-ids.txt",
               "Path to a file ids of non-matched segments will be saved to");
 DEFINE_string(mwms_path, "", "Path to a folder with mwms.");
+DEFINE_string(resources_path, "", "Path to a folder with resources.");
 DEFINE_int32(limit, -1, "Max number of segments to handle. -1 for all.");
 DEFINE_bool(multipoints_only, false, "Only segments with multiple points to handle.");
 DEFINE_int32(num_threads, 1, "Number of threads.");
@@ -213,6 +214,9 @@ int main(int argc, char * argv[])
 {
   google::SetUsageMessage("OpenLR stats tool.");
   google::ParseCommandLineFlags(&argc, &argv, true);
+
+  if (!FLAGS_resources_path.empty())
+    GetPlatform().SetResourceDir(FLAGS_resources_path);
 
   classificator::Load();
 
