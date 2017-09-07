@@ -396,6 +396,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
           }
           else
           {
+            MapManager.nativeCancel(CountryItem.getRootId());
             mFragment.finish();
           }
         }
