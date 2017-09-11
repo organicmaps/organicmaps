@@ -161,10 +161,8 @@ void PathTextContext::Update(ScreenBase const & screen)
     if (screen.IsReverseProjection3d(pos))
     {
       if (pixelSpline.GetSize() > 1)
-      {
         m_pixel3dSplines.push_back(pixelSpline);
-        pixelSpline.Clear();
-      }
+      pixelSpline.Clear();
       continue;
     }
     AddPointAndRound(pixelSpline, screen.PtoP3d(pos));

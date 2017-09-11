@@ -13,7 +13,7 @@
 #include "routing/features_road_graph.hpp"
 #include "routing/road_graph.hpp"
 
-#include "routing_integration_tests/routing_test_tools.hpp"
+#include "routing/routing_integration_tests/routing_test_tools.hpp"
 
 #include <vector>
 
