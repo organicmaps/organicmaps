@@ -157,7 +157,7 @@
   <color name="bg_brand_opentable">#FFDA3743</color>
   <color name="bg_brand_opentable_pressed">#FFFC5965</color>
 
-  <!-- Banner colors-->
+  <!-- Banner colors -->
   <color name="bg_banner_color">#FFFFFBF3</color>
   <color name="bg_banner_color_night">#FF484C50</color>
   <color name="text_banner_color">#28000000</color>
@@ -169,5 +169,12 @@
   <color name="banner_action_btn_start_anim_night">#FF888A82</color>
   <color name="banner_action_btn_end_anim">#FFD9D2C3</color>
   <color name="banner_action_btn_end_anim_night">#FF71736C</color>
+
+  <!-- Rating colors -->
+  <color name="rating_excellent">#43A047</color>
+  <color name="rating_good">#7CB342</color>
+  <color name="rating_normal">#F5B027</color>
+  <color name="rating_bad">#F4511E</color>
+  <color name="rating_horrible">#E53935</color>
 
 </resources>
