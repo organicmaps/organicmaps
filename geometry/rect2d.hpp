@@ -9,7 +9,6 @@
 #include "std/limits.hpp"
 #include "std/string.hpp"
 
-
 namespace m2
 {
   namespace impl
@@ -145,8 +144,8 @@ namespace m2
     }
 
     Point<T> Center() const { return Point<T>((m_minX + m_maxX) / 2.0, (m_minY + m_maxY) / 2.0); }
-    T SizeX() const { return (m_maxX - m_minX); }
-    T SizeY() const { return (m_maxY - m_minY); }
+    T SizeX() const { return max(static_cast<T>(0), m_maxX - m_minX); }
+    T SizeY() const { return max(static_cast<T>(0), m_maxY - m_minY); }
 
     void DivideByGreaterSize(Rect & r1, Rect & r2) const
     {

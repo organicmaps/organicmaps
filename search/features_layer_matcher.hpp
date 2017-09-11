@@ -7,6 +7,7 @@
 #include "search/model.hpp"
 #include "search/mwm_context.hpp"
 #include "search/point_rect_matcher.hpp"
+#include "search/projection_on_street.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/street_vicinity_loader.hpp"
 
@@ -30,7 +31,9 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/limits.hpp"
+#include "std/set.hpp"
 #include "std/unordered_map.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 class Index;
@@ -142,11 +145,12 @@ private:
       }
     }
 
-    PointRectMatcher::Match(poiCenters, buildingRects, [&](size_t poiId, size_t buildingId) {
-      ASSERT_LESS(poiId, pois.size(), ());
-      ASSERT_LESS(buildingId, buildings.size(), ());
-      fn(pois[poiId], buildings[buildingId]);
-    });
+    PointRectMatcher::Match(poiCenters, buildingRects, PointRectMatcher::RequestType::Any,
+                            [&](size_t poiId, size_t buildingId) {
+                              ASSERT_LESS(poiId, pois.size(), ());
+                              ASSERT_LESS(buildingId, buildings.size(), ());
+                              fn(pois[poiId], buildings[buildingId]);
+                            });
 
     if (!parent.m_hasDelayedFeatures)
       return;
@@ -181,36 +185,81 @@ private:
   template <typename TFn>
   void MatchPOIsWithStreets(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
   {
+    BailIfCancelled(m_cancellable);
+
     ASSERT_EQUAL(child.m_type, Model::TYPE_POI, ());
     ASSERT_EQUAL(parent.m_type, Model::TYPE_STREET, ());
 
     auto const & pois = *child.m_sortedFeatures;
     auto const & streets = *parent.m_sortedFeatures;
 
-    // When the number of POIs is less than the number of STREETs,
-    // it's faster to check nearby streets for POIs.
-    if (pois.size() < streets.size())
+    vector<PointRectMatcher::PointIdPair> poiCenters;
+    poiCenters.reserve(pois.size());
+
+    for (size_t i = 0; i < pois.size(); ++i)
     {
-      for (uint32_t poiId : pois)
+      FeatureType poiFt;
+      GetByIndex(pois[i], poiFt);
+      poiCenters.emplace_back(feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY), i /* id */);
+    }
+
+    vector<PointRectMatcher::RectIdPair> streetRects;
+    streetRects.reserve(streets.size());
+
+    vector<ProjectionOnStreetCalculator> streetProjectors;
+    streetProjectors.reserve(streets.size());
+
+    for (size_t i = 0; i < streets.size(); ++i)
+    {
+      FeatureType streetFt;
+      GetByIndex(streets[i], streetFt);
+
+      streetFt.ParseGeometry(FeatureType::WORST_GEOMETRY);
+
+      m2::RectD inflationRect;
+      // Any point is good enough here, and feature::GetCenter would re-read the geometry.
+      if (streetFt.GetPointsCount() > 0)
       {
-        for (auto const & street : GetNearbyStreets(poiId))
-        {
-          if (street.m_distanceMeters > kStreetRadiusMeters)
-            break;
-
-          uint32_t const streetId = street.m_id.m_index;
-          if (binary_search(streets.begin(), streets.end(), streetId))
-            fn(poiId, streetId);
-        }
+        inflationRect = MercatorBounds::RectByCenterXYAndSizeInMeters(streetFt.GetPoint(0),
+                                                                      0.25 * kStreetRadiusMeters);
       }
-      return;
+
+      for (size_t j = 0; j + 1 < streetFt.GetPointsCount(); ++j)
+      {
+        auto const & p1 = streetFt.GetPoint(j);
+        auto const & p2 = streetFt.GetPoint(j + 1);
+        m2::RectD rect(p1, p2);
+        rect.Inflate(inflationRect.SizeX(), inflationRect.SizeY());
+        streetRects.emplace_back(rect, i /* id */);
+      }
+
+      vector<m2::PointD> streetPoints;
+      streetPoints.reserve(streetFt.GetPointsCount());
+      for (size_t j = 0; j < streetFt.GetPointsCount(); ++j)
+        streetPoints.emplace_back(streetFt.GetPoint(j));
+      streetProjectors.emplace_back(streetPoints);
     }
 
-    for (uint32_t streetId : streets)
-    {
-      BailIfCancelled(m_cancellable);
-      m_loader.ForEachInVicinity(streetId, pois, kStreetRadiusMeters, bind(fn, _1, streetId));
-    }
+    BailIfCancelled(m_cancellable);
+    // The matcher may call |fn| more than once if a POI falls inside
+    // the bounding rectangles of several street segments.
+    set<pair<size_t, size_t>> fnAlreadyCalled;
+    PointRectMatcher::Match(poiCenters, streetRects, PointRectMatcher::RequestType::All,
+                            [&](size_t poiId, size_t streetId) {
+                              ASSERT_LESS(poiId, pois.size(), ());
+                              ASSERT_LESS(streetId, streets.size(), ());
+                              auto const & poiCenter = poiCenters[poiId].m_point;
+                              ProjectionOnStreet proj;
+                              if (streetProjectors[streetId].GetProjection(poiCenter, proj) &&
+                                  proj.m_distMeters < kStreetRadiusMeters)
+                              {
+                                auto const key = make_pair(poiId, streetId);
+                                if (fnAlreadyCalled.find(key) != fnAlreadyCalled.end())
+                                  return;
+                                fn(pois[poiId], streets[streetId]);
+                                fnAlreadyCalled.insert(key);
+                              }
+                            });
   }
 
   template <typename TFn>

@@ -15,6 +15,16 @@ namespace search
 class PointRectMatcher
 {
 public:
+  enum class RequestType : uint8_t
+  {
+    // A request to match every point to an arbitrary rectangle that contains it.
+    Any,
+
+    // A request to match every point to every rectangle that contains it.
+    // Every relevant (point, rectangle) pair must be listed exactly once.
+    All
+  };
+
   struct PointIdPair
   {
     PointIdPair() = default;
@@ -38,7 +48,7 @@ public:
   // Complexity: O(n * log(n)), where n = |points| + |rects|.
   template <typename Fn>
   static void Match(std::vector<PointIdPair> const & points, std::vector<RectIdPair> const & rects,
-                    Fn && fn)
+                    RequestType requestType, Fn && fn)
   {
     std::vector<Event> events;
     events.reserve(points.size() + 2 * rects.size());
@@ -68,9 +78,17 @@ public:
       {
       case Event::TYPE_SEGMENT_START: tree.Add(e.m_segment); break;
       case Event::TYPE_POINT:
-        tree.Find(e.m_point.m_x,
-                  [&](SegmentTree::Segment const & segment) { fn(e.m_point.m_id, segment.m_id); });
-        break;
+      {
+        auto const segmentFn = [&](SegmentTree::Segment const & segment) {
+          fn(e.m_point.m_id, segment.m_id);
+        };
+        switch (requestType)
+        {
+        case RequestType::Any: tree.FindAny(e.m_point.m_x, segmentFn); break;
+        case RequestType::All: tree.FindAll(e.m_point.m_x, segmentFn); break;
+        }
+      }
+      break;
       case Event::TYPE_SEGMENT_END: tree.Erase(e.m_segment); break;
       }
     }

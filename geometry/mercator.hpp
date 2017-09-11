@@ -5,7 +5,6 @@
 
 #include "base/math.hpp"
 
-
 struct MercatorBounds
 {
   static double minX;

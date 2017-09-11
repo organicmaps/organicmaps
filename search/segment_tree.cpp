@@ -79,14 +79,26 @@ void SegmentTree::Update(size_t index)
 {
   ASSERT_LESS(index, m_tree.size(), ());
   auto & node = m_tree[index];
-  node.m_to = node.m_deleted ? kNegativeInfinity : node.m_segment.m_to;
+
+  if (node.m_deleted)
+  {
+    node.m_from = kPositiveInfinity;
+    node.m_to = kNegativeInfinity;
+  }
+  else
+  {
+    node.m_from = node.m_segment.m_from;
+    node.m_to = node.m_segment.m_to;
+  }
 
   auto const lc = LeftChild(index);
-  if (Exists(lc))
-    node.m_to = max(node.m_to, m_tree[lc].m_to);
-
   auto const rc = RightChild(index);
-  if (Exists(rc))
-    node.m_to = max(node.m_to, m_tree[rc].m_to);
+  for (auto const c : {lc, rc})
+  {
+    if (!Exists(c))
+      continue;
+    node.m_from = min(node.m_from, m_tree[c].m_from);
+    node.m_to = max(node.m_to, m_tree[c].m_to);
+  }
 }
 }  // namespace search

@@ -25,10 +25,17 @@ public:
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
+
   explicit Polyline(vector<Point<T>> const & points) : m_points(points)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
+
+  explicit Polyline(vector<Point<T>> && points) : m_points(move(points))
+  {
+    ASSERT_GREATER(m_points.size(), 1, ());
+  }
+
   template <class Iter>
   Polyline(Iter beg, Iter end) : m_points(beg, end)
   {
@@ -44,10 +51,10 @@ public:
     return dist;
   }
 
-  double GetShortestSquareDistance(m2::Point<T> const & point) const
+  double CalcMinSquaredDistance(m2::Point<T> const & point) const
   {
     double res = numeric_limits<double>::max();
-    m2::DistanceToLineSquare<m2::Point<T> > d;
+    m2::DistanceToLineSquare<m2::Point<T>> d;
 
     Iter i = Begin();
     for (Iter j = i + 1; j != End(); ++i, ++j)
