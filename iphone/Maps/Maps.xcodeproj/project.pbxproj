@@ -230,6 +230,12 @@
 		3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
 		3444DFDF1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
 		3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3446C6761DDCA9A200146687 /* libtraffic.a */; };
+		344BEAF21F66BDC30045DC45 /* RatingSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344BEAF01F66BDC30045DC45 /* RatingSummaryView.swift */; };
+		344BEAF31F66BDC30045DC45 /* RatingSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344BEAF01F66BDC30045DC45 /* RatingSummaryView.swift */; };
+		344BEAF41F66BDC30045DC45 /* RatingSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344BEAF01F66BDC30045DC45 /* RatingSummaryView.swift */; };
+		344BEAF51F66BDC30045DC45 /* RatingSummaryViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344BEAF11F66BDC30045DC45 /* RatingSummaryViewSettings.swift */; };
+		344BEAF61F66BDC30045DC45 /* RatingSummaryViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344BEAF11F66BDC30045DC45 /* RatingSummaryViewSettings.swift */; };
+		344BEAF71F66BDC30045DC45 /* RatingSummaryViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344BEAF11F66BDC30045DC45 /* RatingSummaryViewSettings.swift */; };
 		344D63171E795A2D006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
 		344D63181E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
 		344D63191E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
@@ -1872,6 +1878,8 @@
 		3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgetsHelper.mm; sourceTree = "<group>"; };
 		3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideButtonsArea.swift; sourceTree = "<group>"; };
 		3446C6761DDCA9A200146687 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
+		344BEAF01F66BDC30045DC45 /* RatingSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingSummaryView.swift; sourceTree = "<group>"; };
+		344BEAF11F66BDC30045DC45 /* RatingSummaryViewSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingSummaryViewSettings.swift; sourceTree = "<group>"; };
 		344D63161E795A2D006F17CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		345050211E028B8000A8DC59 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		3451F4EC1F026DAF00A981F2 /* PlacePageTaxiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePageTaxiCell.swift; sourceTree = "<group>"; };
@@ -3174,6 +3182,15 @@
 			path = Ads;
 			sourceTree = "<group>";
 		};
+		344BEAEF1F66BDC30045DC45 /* RatingSummaryView */ = {
+			isa = PBXGroup;
+			children = (
+				344BEAF01F66BDC30045DC45 /* RatingSummaryView.swift */,
+				344BEAF11F66BDC30045DC45 /* RatingSummaryViewSettings.swift */,
+			);
+			path = RatingSummaryView;
+			sourceTree = "<group>";
+		};
 		3454D7981E07F045004AF2AD /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -3339,30 +3356,31 @@
 		346EDAD81B9F0E15004F8DB5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				348A8DF01F66775A00D83026 /* RatingView */,
 				F653CE131C71F5DC00A453F1 /* AddPlace NavigationBar */,
+				3470402E1EA6470700038379 /* BorderedButton.swift */,
+				340708761F2B5D6C00029ECC /* DimBackground.swift */,
 				F652B2E81C6DE8CF00D20C8C /* DropDown */,
+				F6FEA82B1C58E89B007223CC /* MWMButton.h */,
+				F6FEA82C1C58E89B007223CC /* MWMButton.mm */,
+				343E75951E5B1EE20041226A /* MWMCollectionViewController.h */,
+				343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */,
+				34C9BD061C6DB6F3000DC38D /* MWMController.h */,
+				34B924401DC8A29C0008D971 /* MWMMailViewController.h */,
+				34B924411DC8A29C0008D971 /* MWMMailViewController.mm */,
 				346EDAD91B9F0E35004F8DB5 /* MWMMultilineLabel.h */,
 				346EDADA1B9F0E35004F8DB5 /* MWMMultilineLabel.mm */,
+				34C9BD071C6DBCDA000DC38D /* MWMNavigationController.h */,
+				34C9BD081C6DBCDA000DC38D /* MWMNavigationController.mm */,
 				F6791B111C43DEA7007A8A6E /* MWMStartButton.h */,
 				F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */,
 				34AB39BF1D2BD8310021857D /* MWMStopButton.h */,
 				34AB39C01D2BD8310021857D /* MWMStopButton.mm */,
-				F6FEA82B1C58E89B007223CC /* MWMButton.h */,
-				F6FEA82C1C58E89B007223CC /* MWMButton.mm */,
-				34C9BD061C6DB6F3000DC38D /* MWMController.h */,
 				34C9BCFE1C6DB693000DC38D /* MWMTableViewController.h */,
 				34C9BCFF1C6DB693000DC38D /* MWMTableViewController.mm */,
 				34C9BD001C6DB693000DC38D /* MWMViewController.h */,
 				34C9BD011C6DB693000DC38D /* MWMViewController.mm */,
-				34C9BD071C6DBCDA000DC38D /* MWMNavigationController.h */,
-				34C9BD081C6DBCDA000DC38D /* MWMNavigationController.mm */,
-				34B924401DC8A29C0008D971 /* MWMMailViewController.h */,
-				34B924411DC8A29C0008D971 /* MWMMailViewController.mm */,
-				343E75951E5B1EE20041226A /* MWMCollectionViewController.h */,
-				343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */,
-				3470402E1EA6470700038379 /* BorderedButton.swift */,
-				340708761F2B5D6C00029ECC /* DimBackground.swift */,
+				344BEAEF1F66BDC30045DC45 /* RatingSummaryView */,
+				348A8DF01F66775A00D83026 /* RatingView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -5488,6 +5506,7 @@
 			files = (
 				34845DB61E166084003D55B9 /* Common.swift in Sources */,
 				349993FD1F388F970064CFBE /* RouteManageriPhonePresentationController.swift in Sources */,
+				344BEAF21F66BDC30045DC45 /* RatingSummaryView.swift in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
 				34D3B04E1E38A20C004100F9 /* Bundle+Init.swift in Sources */,
 				340837161B72451A00B5C185 /* MWMShareActivityItem.mm in Sources */,
@@ -5755,6 +5774,7 @@
 				3404164B1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */,
 				349D1ADA1E2E325C004A2006 /* MWMBottomMenuView.mm in Sources */,
 				F6E2FD911E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
+				344BEAF51F66BDC30045DC45 /* RatingSummaryViewSettings.swift in Sources */,
 				F643247A1EF82AD9009296F9 /* UGCSelectImpressionCell.swift in Sources */,
 				F63AF5051EA6162400A1DB98 /* FilterTypeCell.swift in Sources */,
 				F6E2FDA31E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
@@ -5828,6 +5848,7 @@
 			files = (
 				34845DB71E166084003D55B9 /* Common.swift in Sources */,
 				349993FE1F388F970064CFBE /* RouteManageriPhonePresentationController.swift in Sources */,
+				344BEAF31F66BDC30045DC45 /* RatingSummaryView.swift in Sources */,
 				6741A9A31BF340DE002C974C /* main.mm in Sources */,
 				34D3B04F1E38A20C004100F9 /* Bundle+Init.swift in Sources */,
 				F6E2FF541E097BA00083EBEC /* MWMHelpController.mm in Sources */,
@@ -6095,6 +6116,7 @@
 				6741AA141BF340DE002C974C /* MWMMultilineLabel.mm in Sources */,
 				349D1ADB1E2E325C004A2006 /* MWMBottomMenuView.mm in Sources */,
 				3407085A1F28F1F400029ECC /* MWMTaxiPreviewDataSource.mm in Sources */,
+				344BEAF61F66BDC30045DC45 /* RatingSummaryViewSettings.swift in Sources */,
 				F6E2FD921E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
 				F643247B1EF82AD9009296F9 /* UGCSelectImpressionCell.swift in Sources */,
 				F63AF5061EA6162400A1DB98 /* FilterTypeCell.swift in Sources */,
@@ -6168,6 +6190,7 @@
 			files = (
 				34845DB81E166084003D55B9 /* Common.swift in Sources */,
 				349993FF1F388F970064CFBE /* RouteManageriPhonePresentationController.swift in Sources */,
+				344BEAF41F66BDC30045DC45 /* RatingSummaryView.swift in Sources */,
 				849CF6821DE842290024A8A5 /* main.mm in Sources */,
 				34D3B0501E38A20C004100F9 /* Bundle+Init.swift in Sources */,
 				3454D7D51E07F045004AF2AD /* UIImageView+Coloring.mm in Sources */,
@@ -6435,6 +6458,7 @@
 				3404164D1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */,
 				F6E2FD931E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
 				3407085B1F28F1F400029ECC /* MWMTaxiPreviewDataSource.mm in Sources */,
+				344BEAF71F66BDC30045DC45 /* RatingSummaryViewSettings.swift in Sources */,
 				849CF7331DE842290024A8A5 /* MWMInputValidatorFactory.mm in Sources */,
 				F6E2FDA51E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
 				F643247C1EF82AD9009296F9 /* UGCSelectImpressionCell.swift in Sources */,

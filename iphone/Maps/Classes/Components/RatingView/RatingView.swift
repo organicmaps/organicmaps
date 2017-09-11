@@ -161,7 +161,7 @@ import UIKit
     }
   }
 
-  private var texts: [RatingViewSettings.TextSide : String] = [:] {
+  private var texts: [RatingViewSettings.TextSide: String] = [:] {
     didSet { update() }
   }
 
@@ -280,23 +280,23 @@ import UIKit
 
   private let isRightToLeft = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft
 
-  override public func awakeFromNib() {
+  public override func awakeFromNib() {
     super.awakeFromNib()
     setup()
     update()
   }
 
-  convenience public init() {
+  public convenience init() {
     self.init(frame: CGRect())
   }
 
-  override public init(frame: CGRect) {
+  public override init(frame: CGRect) {
     super.init(frame: frame)
     setup()
     update()
   }
 
-  required public init?(coder aDecoder: NSCoder) {
+  public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
     update()
@@ -326,10 +326,10 @@ import UIKit
   func update() {
     let sel = #selector(doUpdate)
     NSObject.cancelPreviousPerformRequests(withTarget: self, selector: sel, object: nil)
-    perform(sel, with: nil, afterDelay: 1/120)
+    perform(sel, with: nil, afterDelay: 1 / 120)
   }
 
-  override var intrinsicContentSize : CGSize {
+  override var intrinsicContentSize: CGSize {
     return viewSize
   }
 
@@ -337,7 +337,7 @@ import UIKit
     return combineLayers(starLayers: createStarLayers(), textLayers: createTextLayers())
   }
 
-  private func combineLayers(starLayers: [CALayer], textLayers: [RatingViewSettings.TextSide : CALayer]) -> [CALayer] {
+  private func combineLayers(starLayers: [CALayer], textLayers: [RatingViewSettings.TextSide: CALayer]) -> [CALayer] {
     var layers = starLayers
     var starsWidth: CGFloat = 0
     layers.forEach { starsWidth = max(starsWidth, $0.position.x + $0.bounds.width) }
@@ -422,16 +422,16 @@ import UIKit
     }
   }
 
-  private func createTextLayers() -> [RatingViewSettings.TextSide : CALayer] {
-    var layers: [RatingViewSettings.TextSide : CALayer] = [:]
+  private func createTextLayers() -> [RatingViewSettings.TextSide: CALayer] {
+    var layers: [RatingViewSettings.TextSide: CALayer] = [:]
     for (side, text) in texts {
       let font = settings.textFonts[side]!.withSize(settings.textSizes[side]!)
-      let size = NSString(string: text).size(attributes: [NSFontAttributeName : font])
+      let size = NSString(string: text).size(attributes: [NSFontAttributeName: font])
 
       let layer = CATextLayer()
-      layer.bounds = CGRect(origin: CGPoint(), size: size)
+      layer.bounds = CGRect(origin: CGPoint(),
+                            size: CGSize(width: ceil(size.width), height: ceil(size.height)))
       layer.anchorPoint = CGPoint()
-
       layer.string = text
       layer.font = CGFont(font.fontName as CFString)
       layer.fontSize = font.pointSize
@@ -510,8 +510,11 @@ import UIKit
 
       let path = createStarPath(settings.starPoints, size: size, lineWidth: lineWidth)
 
-      let shapeLayer = createShapeLayer(path.cgPath, lineWidth: lineWidth,
-                                        fillColor: fillColor, strokeColor: strokeColor, size: size)
+      let shapeLayer = createShapeLayer(path.cgPath,
+                                        lineWidth: lineWidth,
+                                        fillColor: fillColor,
+                                        strokeColor: strokeColor,
+                                        size: size)
 
       containerLayer.addSublayer(shapeLayer)
     }
