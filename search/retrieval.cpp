@@ -27,6 +27,7 @@
 #include "base/checked_cast.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/utility.hpp"
 
 using namespace strings;
 using osm::Editor;
@@ -195,8 +196,6 @@ bool MatchFeatureByPostcode(FeatureType const & ft, TokenSlice const & slice)
   return true;
 }
 
-// Retrieves from the search index corresponding to |value| all
-// features matching to |params|.
 template <typename Value, typename DFA>
 unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
     Retrieval::TrieRoot<Value> const & root, MwmContext const & context,
@@ -245,8 +244,6 @@ unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
   return SortFeaturesAndBuildCBV(move(features));
 }
 
-// Retrieves from the geometry index corresponding to handle all
-// features from |coverage|.
 unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
     MwmContext const & context, my::Cancellable const & cancellable, m2::RectD const & rect,
     int scale)
@@ -313,7 +310,7 @@ Retrieval::Retrieval(MwmContext const & context, my::Cancellable const & cancell
   {
   case version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter:
     m_root0 = ReadTrie<FeatureWithRankAndCenter>(value, m_reader);
-        break;
+    break;
   case version::MwmTraits::SearchIndexFormat::CompressedBitVector:
     m_root1 = ReadTrie<FeatureIndexValue>(value, m_reader);
     break;
@@ -352,12 +349,14 @@ unique_ptr<coding::CompressedBitVector> Retrieval::Retrieve(Args &&... args)
   case version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter:
   {
     R<FeatureWithRankAndCenter> r;
+    ASSERT(m_root0, ());
     return r(*m_root0, m_context, m_cancellable, forward<Args>(args)...);
   }
   break;
   case version::MwmTraits::SearchIndexFormat::CompressedBitVector:
   {
     R<FeatureIndexValue> r;
+    ASSERT(m_root1, ());
     return r(*m_root1, m_context, m_cancellable, forward<Args>(args)...);
   }
   break;
