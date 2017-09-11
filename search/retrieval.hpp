@@ -3,6 +3,10 @@
 #include "search/feature_offset_match.hpp"
 #include "search/query_params.hpp"
 
+#include "platform/mwm_traits.hpp"
+
+#include "coding/reader.hpp"
+
 #include "geometry/rect2d.hpp"
 
 #include "base/cancellable.hpp"
@@ -23,23 +27,41 @@ namespace search
 class MwmContext;
 class TokenSlice;
 
-// Following functions retrieve from the search index corresponding to
-// |value| all features matching to |request|.
-unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
-    MwmContext const & context, my::Cancellable const & cancellable,
-    SearchTrieRequest<strings::LevenshteinDFA> const & request);
+class Retrieval
+{
+public:
+  template<typename Value>
+  using TrieRoot = trie::Iterator<ValueList<Value>>;
 
-unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
-    MwmContext const & context, my::Cancellable const & cancellable,
-    SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> const & request);
+  Retrieval(MwmContext const & context, my::Cancellable const & cancellable);
 
-// Retrieves from the search index corresponding to |value| all
-// postcodes matching to |slice|.
-unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(
-    MwmContext const & context, my::Cancellable const & cancellable, TokenSlice const & slice);
+  // Following functions retrieve from the search index corresponding to
+  // |value| all features matching to |request|.
+  unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+      SearchTrieRequest<strings::LevenshteinDFA> const & request);
 
-// Retrieves from the geometry index corresponding to |value| all features belonging to |rect|.
-unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
-    MwmContext const & context, my::Cancellable const & cancellable, m2::RectD const & rect,
-    int scale);
+  unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+      SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> const & request);
+
+  // Retrieves from the search index corresponding to |value| all
+  // postcodes matching to |slice|.
+  unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(TokenSlice const & slice);
+
+  // Retrieves from the geometry index corresponding to |value| all features belonging to |rect|.
+  unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(m2::RectD const & rect,
+                                                                   int scale);
+
+private:
+  template <template <typename> class R, typename... Args>
+  unique_ptr<coding::CompressedBitVector> Retrieve(Args &&... args);
+
+  MwmContext const & m_context;
+  my::Cancellable const & m_cancellable;
+  ModelReaderPtr m_reader;
+
+  version::MwmTraits::SearchIndexFormat m_format;
+
+  unique_ptr<TrieRoot<FeatureWithRankAndCenter>> m_root0;
+  unique_ptr<TrieRoot<FeatureIndexValue>> m_root1;
+};
 }  // namespace search

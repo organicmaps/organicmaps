@@ -561,8 +561,10 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
       strings::UniString const tokens[] = {strings::MakeUniString("141702")};
       params.InitNoPrefix(tokens, tokens + ARRAY_SIZE(tokens));
     }
-    auto features = RetrievePostcodeFeatures(
-        context, cancellable, TokenSlice(params, TokenRange(0, params.GetNumTokens())));
+
+    Retrieval retrieval(context, cancellable);
+    auto features = retrieval.RetrievePostcodeFeatures(
+        TokenSlice(params, TokenRange(0, params.GetNumTokens())));
     TEST_EQUAL(1, features->PopCount(), ());
 
     uint64_t index = 0;

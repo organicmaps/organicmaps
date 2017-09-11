@@ -23,8 +23,10 @@ GeometryCache::GeometryCache(size_t maxNumEntries, my::Cancellable const & cance
 void GeometryCache::InitEntry(MwmContext const & context, m2::RectD const & rect, int scale,
                               Entry & entry)
 {
+  Retrieval retrieval(context, m_cancellable);
+
   entry.m_rect = rect;
-  entry.m_cbv = RetrieveGeometryFeatures(context, m_cancellable, rect, scale);
+  entry.m_cbv = retrieval.RetrieveGeometryFeatures(rect, scale);
   entry.m_scale = scale;
 }
 

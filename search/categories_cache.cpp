@@ -44,7 +44,8 @@ CBV CategoriesCache::Load(MwmContext const & context)
     request.m_categories.emplace_back(FeatureTypeToString(c.GetIndexForType(type)));
   });
 
-  return CBV(RetrieveAddressFeatures(context, m_cancellable, request));
+  Retrieval retrieval(context, m_cancellable);
+  return CBV(retrieval.RetrieveAddressFeatures(request));
 }
 
 // StreetsCache ------------------------------------------------------------------------------------

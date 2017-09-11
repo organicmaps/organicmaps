@@ -532,15 +532,17 @@ void Geocoder::ClearCaches()
 
 void Geocoder::InitBaseContext(BaseContext & ctx)
 {
+  Retrieval retrieval(*m_context, m_cancellable);
+
   ctx.m_usedTokens.assign(m_params.GetNumTokens(), false);
   ctx.m_numTokens = m_params.GetNumTokens();
   ctx.m_features.resize(ctx.m_numTokens);
   for (size_t i = 0; i < ctx.m_features.size(); ++i)
   {
     if (m_params.IsPrefixToken(i))
-      ctx.m_features[i] = RetrieveAddressFeatures(*m_context, m_cancellable, m_prefixTokenRequest);
+      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_prefixTokenRequest);
     else
-      ctx.m_features[i] = RetrieveAddressFeatures(*m_context, m_cancellable, m_tokenRequests[i]);
+      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_tokenRequests[i]);
   }
   ctx.m_hotelsFilter = m_hotelsFilter.MakeScopedFilter(*m_context, m_params.m_hotelsFilter);
 }
@@ -1275,7 +1277,8 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
 
 CBV Geocoder::RetrievePostcodeFeatures(MwmContext const & context, TokenSlice const & slice)
 {
-  return CBV(::search::RetrievePostcodeFeatures(context, m_cancellable, slice));
+  Retrieval retrieval(context, m_cancellable);
+  return CBV(retrieval.RetrievePostcodeFeatures(slice));
 }
 
 CBV Geocoder::RetrieveGeometryFeatures(MwmContext const & context, m2::RectD const & rect,
