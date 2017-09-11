@@ -1,7 +1,8 @@
-#include "routing/road_graph.hpp"
 #include "routing/routing_algorithm.hpp"
+
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_progress.hpp"
+#include "routing/road_graph.hpp"
 
 #include "base/assert.hpp"
 

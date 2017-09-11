@@ -63,7 +63,8 @@ void WorldGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge
 RouteWeight WorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
 {
   return RouteWeight(
-      m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */)));
+      m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */)),
+      0);
 }
 
 void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges)
@@ -75,7 +76,7 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, vector<Segme
     m2::PointD const & from = GetPoint(segment, true /* front */);
     m2::PointD const & to = GetPoint(twin, true /* front */);
     double const weight = m_estimator->CalcHeuristic(from, to);
-    edges.emplace_back(twin, RouteWeight(weight));
+    edges.emplace_back(twin, RouteWeight(weight, 0));
   }
 }
 

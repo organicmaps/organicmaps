@@ -15,6 +15,7 @@ set(
   base/astar_weight.hpp
   base/followed_polyline.cpp
   base/followed_polyline.hpp
+  base/routing_result.hpp
   bicycle_directions.cpp
   bicycle_directions.hpp
   checkpoint_predictor.cpp

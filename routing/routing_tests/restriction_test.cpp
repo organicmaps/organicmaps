@@ -896,4 +896,97 @@ UNIT_CLASS_TEST(RestrictionTest, FGraph_RestrictionF0F2Only)
                                                  m2::PointD(1, 1), *m_graph),
       move(restrictions), *this);
 }
+
+//                  *---F4---*
+//                  |        |
+//                 F3        F5
+//                  |        |
+// 0 Start *---F0---*---F1---*---F2---* Finish
+//         0        1        2        3
+unique_ptr<WorldGraph> BuildNontransitGraph(bool transitStart, bool transitShortWay,
+                                            bool transitLongWay)
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+  loader->AddRoad(0 /* feature id */, false /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}}),
+                  transitStart /* transitAllowed */);
+  loader->AddRoad(1 /* feature id */, false /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{1.0, 0.0}, {2.0, 0.0}}),
+                  transitShortWay /* transitAllowed */);
+  loader->AddRoad(2 /* feature id */, false /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{2.0, 0.0}, {3.0, 0.0}}), true /* transitAllowed */);
+  loader->AddRoad(3 /* feature id */, false /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{1.0, 0.0}, {1.0, 1.0}}), true /* transitAllowed */);
+  loader->AddRoad(4 /* feature id */, false /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{1.0, 1.0}, {2.0, 1.0}}),
+                  transitLongWay /* transitAllowed */);
+  loader->AddRoad(5 /* feature id */, false /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{2.0, 1.0}, {2.0, 0.0}}), true /* transitAllowed */);
+
+  vector<Joint> const joints = {
+      MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */
+      MakeJoint({{0, 1}, {1, 0}, {3, 0}}),                 /* joint at point (1, 0) */
+      MakeJoint({{1, 1}, {2, 0}, {5, 1}}),                 /* joint at point (2, 0) */
+      MakeJoint({{3, 1}, {4, 0}}),                         /* joint at point (1, 1) */
+      MakeJoint({{4, 1}, {5, 0}}),                         /* joint at point (2, 1) */
+      MakeJoint({{2, 1}}),                                 /* joint at point (3, 0) */
+  };
+
+  traffic::TrafficCache const trafficCache;
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
+  return BuildWorldGraph(move(loader), estimator, joints);
+}
+
+UNIT_CLASS_TEST(RestrictionTest, NontransitStart)
+{
+  Init(BuildNontransitGraph(false /* transitStart */, true /* transitShortWay */,
+                            true /* transitLongWay */));
+  vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}};
+
+  SetStarter(routing::IndexGraphStarter::MakeFakeEnding(
+                 Segment(kTestNumMwmId, 0, 0, true /* forward */), m2::PointD(0, 0), *m_graph),
+             routing::IndexGraphStarter::MakeFakeEnding(
+                 Segment(kTestNumMwmId, 2, 0, true /* forward */), m2::PointD(3, 0), *m_graph));
+  TestRouteGeometry(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+}
+
+UNIT_CLASS_TEST(RestrictionTest, NontransitShortWay)
+{
+  Init(BuildNontransitGraph(true /* transitStart */, false /* transitShortWay */,
+                            true /* transitLongWay */));
+  vector<m2::PointD> const expectedGeom = {
+      {0 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {2, 1}, {2, 0}, {3, 0}};
+
+  SetStarter(routing::IndexGraphStarter::MakeFakeEnding(
+                 Segment(kTestNumMwmId, 0, 0, true /* forward */), m2::PointD(0, 0), *m_graph),
+             routing::IndexGraphStarter::MakeFakeEnding(
+                 Segment(kTestNumMwmId, 2, 0, true /* forward */), m2::PointD(3, 0), *m_graph));
+  TestRouteGeometry(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+}
+
+UNIT_CLASS_TEST(RestrictionTest, NontransitWay)
+{
+  Init(BuildNontransitGraph(true /* transitStart */, false /* transitShortWay */,
+                            false /* transitLongWay */));
+
+  SetStarter(routing::IndexGraphStarter::MakeFakeEnding(
+                 Segment(kTestNumMwmId, 0, 0, true /* forward */), m2::PointD(0, 0), *m_graph),
+             routing::IndexGraphStarter::MakeFakeEnding(
+                 Segment(kTestNumMwmId, 2, 0, true /* forward */), m2::PointD(3, 0), *m_graph));
+  TestRouteGeometry(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::NoPath, {});
+}
+
+UNIT_CLASS_TEST(RestrictionTest, NontransiStartAndShortWay)
+{
+  Init(BuildNontransitGraph(false /* transitStart */, false /* transitShortWay */,
+                            true /* transitLongWay */));
+  // We can get F1 because F0 is in the same nontransit area/
+  vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}};
+
+  SetStarter(routing::IndexGraphStarter::MakeFakeEnding(
+                 Segment(kTestNumMwmId, 0, 0, true /* forward */), m2::PointD(0, 0), *m_graph),
+             routing::IndexGraphStarter::MakeFakeEnding(
+                 Segment(kTestNumMwmId, 2, 0, true /* forward */), m2::PointD(3, 0), *m_graph));
+  TestRouteGeometry(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+}
 }  // namespace routing_test

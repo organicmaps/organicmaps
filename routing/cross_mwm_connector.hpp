@@ -62,9 +62,9 @@ public:
     {
       for (Segment const & exit : m_exits)
       {
-        RouteWeight const weight = calcWeight(enter, exit);
+        auto const weight = calcWeight(enter, exit);
         // Edges weights should be >= astar heuristic, so use std::ceil.
-        m_weights.push_back(static_cast<Weight>(std::ceil(weight.GetWeight())));
+        m_weights.push_back(static_cast<Weight>(std::ceil(weight)));
       }
     }
   }

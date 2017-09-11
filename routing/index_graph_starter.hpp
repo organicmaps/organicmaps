@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/base/routing_result.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/joint.hpp"
 #include "routing/num_mwm_id.hpp"
@@ -83,6 +84,11 @@ public:
 
   std::set<NumMwmId> GetMwms() const;
 
+  // Checks |result| meets nontransit crossing restrictions according to placement of
+  // |result.path| start and finish in transit/nontransit area and number of nontransit crosses
+  bool CheckRoutingResultMeetsRestrictions(
+      RoutingResult<Segment, RouteWeight> const & result) const;
+
   void GetEdgesList(Segment const & segment, bool isOutgoing,
                     std::vector<SegmentEdge> & edges) const;
 
@@ -99,11 +105,12 @@ public:
   RouteWeight HeuristicCostEstimate(TVertexType const & from, TVertexType const & to) const
   {
     return RouteWeight(m_graph.GetEstimator().CalcHeuristic(GetPoint(from, true /* front */),
-                                                            GetPoint(to, true /* front */)));
+                                                            GetPoint(to, true /* front */)),
+                       0);
   }
 
-  double CalcSegmentWeight(Segment const & segment) const;
-  double CalcRouteSegmentWeight(std::vector<Segment> const & route, size_t segmentIndex) const;
+  RouteWeight CalcSegmentWeight(Segment const & segment) const;
+  RouteWeight CalcRouteSegmentWeight(std::vector<Segment> const & route, size_t segmentIndex) const;
 
   bool IsLeap(NumMwmId mwmId) const;
 

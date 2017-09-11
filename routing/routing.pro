@@ -76,6 +76,7 @@ HEADERS += \
     base/astar_algorithm.hpp \
     base/astar_weight.hpp \
     base/followed_polyline.hpp \
+    base/routing_result.hpp \
     bicycle_directions.hpp \
     checkpoint_predictor.hpp \
     checkpoints.hpp \

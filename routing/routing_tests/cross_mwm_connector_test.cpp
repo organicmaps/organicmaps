@@ -143,7 +143,7 @@ UNIT_TEST(TwoWayExit)
 
 UNIT_TEST(Serialization)
 {
-  RouteWeight constexpr kEdgesWeight = RouteWeight(4444.0);
+  double constexpr kEdgesWeight = 4444.0;
 
   vector<uint8_t> buffer;
   {
@@ -231,28 +231,25 @@ UNIT_TEST(Serialization)
        ());
 
   TestEdges(connector, Segment(mwmId, 10, 1, true /* forward */), true /* isOutgoing */,
-            {{Segment(mwmId, 20, 2, false /* forward */), kEdgesWeight}});
+            {{Segment(mwmId, 20, 2, false /* forward */),
+              RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
 
   TestEdges(connector, Segment(mwmId, 20, 2, true /* forward */), true /* isOutgoing */,
-            {{Segment(mwmId, 20, 2, false /* forward */), kEdgesWeight}});
+            {{Segment(mwmId, 20, 2, false /* forward */),
+              RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
 
-  TestEdges(connector, Segment(mwmId, 20, 2, false /* forward */), false /* isOutgoing */,
-            {{Segment(mwmId, 10, 1, true /* forward */), kEdgesWeight},
-             {Segment(mwmId, 20, 2, true /* forward */), kEdgesWeight}});
+  TestEdges(
+      connector, Segment(mwmId, 20, 2, false /* forward */), false /* isOutgoing */,
+      {{Segment(mwmId, 10, 1, true /* forward */), RouteWeight::FromCrossMwmWeight(kEdgesWeight)},
+       {Segment(mwmId, 20, 2, true /* forward */), RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
 }
 
 UNIT_TEST(WeightsSerialization)
 {
   size_t constexpr kNumTransitions = 3;
-  vector<RouteWeight> const weights = {RouteWeight(4.0),
-                                       RouteWeight(20.0),
-                                       RouteWeight(CrossMwmConnector::kNoRoute),
-                                       RouteWeight(12.0),
-                                       RouteWeight(CrossMwmConnector::kNoRoute),
-                                       RouteWeight(40.0),
-                                       RouteWeight(48.0),
-                                       RouteWeight(24.0),
-                                       RouteWeight(12.0)};
+  vector<double> const weights = {
+      4.0,  20.0, CrossMwmConnector::kNoRoute, 12.0, CrossMwmConnector::kNoRoute, 40.0, 48.0,
+      24.0, 12.0};
   TEST_EQUAL(weights.size(), kNumTransitions * kNumTransitions, ());
 
   vector<uint8_t> buffer;
@@ -311,10 +308,10 @@ UNIT_TEST(WeightsSerialization)
     for (uint32_t exitId = 0; exitId < kNumTransitions; ++exitId)
     {
       auto const weight = weights[weightIdx];
-      if (weight != RouteWeight(CrossMwmConnector::kNoRoute))
+      if (weight != CrossMwmConnector::kNoRoute)
       {
         expectedEdges.emplace_back(Segment(mwmId, exitId, 1 /* segmentIdx */, false /* forward */),
-                                   weight);
+                                   RouteWeight::FromCrossMwmWeight(weight));
       }
       ++weightIdx;
     }

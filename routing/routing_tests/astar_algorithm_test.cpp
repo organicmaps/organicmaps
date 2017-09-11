@@ -1,6 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
+#include "routing/base/routing_result.hpp"
+
 #include "std/map.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"

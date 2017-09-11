@@ -2,6 +2,8 @@
 
 #include "testing/testing.hpp"
 
+#include "routing/base/routing_result.hpp"
+
 #include "routing_common/car_model.hpp"
 
 #include "base/assert.hpp"
@@ -21,11 +23,12 @@ void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
 }
 
 void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
-                                 RoadGeometry::Points const & points)
+                                 RoadGeometry::Points const & points, bool transitAllowed)
 {
   auto it = m_roads.find(featureId);
   CHECK(it == m_roads.end(), ("Already contains feature", featureId));
   m_roads[featureId] = RoadGeometry(oneWay, speed, points);
+  m_roads[featureId].SetTransitAllowedForTests(transitAllowed);
 }
 
 // ZeroGeometryLoader ------------------------------------------------------------------------------
@@ -286,6 +289,9 @@ AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & sta
   auto const resultCode = algorithm.FindPathBidirectional(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), routingResult,
       {} /* cancellable */, {} /* onVisitedVertexCallback */);
+
+  if (!starter.CheckRoutingResultMeetsRestrictions(routingResult))
+    resultCode == AStarAlgorithm<IndexGraphStarter>::Result::NoPath;
 
   timeSec = routingResult.distance.GetWeight();
   roadPoints = routingResult.path;

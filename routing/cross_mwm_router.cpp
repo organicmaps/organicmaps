@@ -1,8 +1,9 @@
 #include "routing/cross_mwm_router.hpp"
 
+#include "routing/base/astar_algorithm.hpp"
+#include "routing/base/routing_result.hpp"
 #include "routing/cross_mwm_road_graph.hpp"
 
-#include "base/astar_algorithm.hpp"
 #include "base/timer.hpp"
 
 namespace routing

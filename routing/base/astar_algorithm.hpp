@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/base/astar_weight.hpp"
+#include "routing/base/routing_result.hpp"
 
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
@@ -13,22 +14,6 @@
 
 namespace routing
 {
-
-template <typename TVertexType, typename TWeightType>
-struct RoutingResult
-{
-  std::vector<TVertexType> path;
-  TWeightType distance;
-
-  RoutingResult() : distance(GetAStarWeightZero<TWeightType>()) {}
-
-  void Clear()
-  {
-    path.clear();
-    distance = GetAStarWeightZero<TWeightType>();
-  }
-};
-
 template <typename TGraph>
 class AStarAlgorithm
 {

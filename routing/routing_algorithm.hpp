@@ -1,10 +1,10 @@
 #pragma once
 
-#include "base/cancellable.hpp"
-
+#include "routing/base/routing_result.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
-#include "routing/base/astar_algorithm.hpp"
+
+#include "base/cancellable.hpp"
 
 #include "std/functional.hpp"
 #include "std/string.hpp"

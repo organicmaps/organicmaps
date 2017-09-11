@@ -103,8 +103,9 @@ void AddSegmentEdge(NumMwmIds const & numMwmIds, OsrmFtSegMapping const & segMap
   double constexpr kAstarHeuristicFactor = 100000;
   //// Osrm multiplies seconds to 10, so we need to divide it back.
   double constexpr kOSRMWeightToSecondsMultiplier = 0.1;
-  edges.emplace_back(segment, RouteWeight(osrmEdge.GetWeight() * kOSRMWeightToSecondsMultiplier *
-                                          kAstarHeuristicFactor));
+  edges.emplace_back(
+      segment, RouteWeight::FromCrossMwmWeight(
+                   osrmEdge.GetWeight() * kOSRMWeightToSecondsMultiplier * kAstarHeuristicFactor));
 }
 }  // namespace
 

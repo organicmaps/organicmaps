@@ -214,6 +214,38 @@ set<NumMwmId> IndexGraphStarter::GetMwms() const
   return mwms;
 }
 
+bool IndexGraphStarter::CheckRoutingResultMeetsRestrictions(
+    RoutingResult<Segment, RouteWeight> const & result) const
+{
+  uint32_t nontransitCrossAllowed = 0;
+  auto isRealOrPart = [this](Segment const & segment) {
+    if (!IsFakeSegment(segment))
+      return true;
+    return m_fake.m_fakeToReal.find(segment) != m_fake.m_fakeToReal.end();
+  };
+  auto isTransitAllowed = [this](Segment const & segment) {
+    auto real = segment;
+    bool const convertionResult = ConvertToReal(real);
+    CHECK(convertionResult, ());
+    return m_graph.GetRoadGeometry(real.GetMwmId(), real.GetFeatureId()).IsTransitAllowed();
+  };
+
+  auto const firstRealOrPart = find_if(result.path.begin(), result.path.end(), isRealOrPart);
+  if (firstRealOrPart != result.path.end() && !isTransitAllowed(*firstRealOrPart))
+    ++nontransitCrossAllowed;
+
+  auto const lastRealOrPart = find_if(result.path.rbegin(), result.path.rend(), isRealOrPart);
+  // If firstRealOrPart and lastRealOrPart point to the same segment increment
+  // nontransitCrossAllowed once
+  if (lastRealOrPart != result.path.rend() && (lastRealOrPart.base() - 1) != firstRealOrPart &&
+      !isTransitAllowed(*lastRealOrPart))
+  {
+    ++nontransitCrossAllowed;
+  }
+
+  return nontransitCrossAllowed >= result.distance.GetNontransitCross();
+}
+
 void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
                                      vector<SegmentEdge> & edges) const
 {
@@ -238,7 +270,7 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
     if (it != adjacentEdges.end())
     {
       for (auto const & s : it->second)
-        edges.emplace_back(s, RouteWeight(CalcSegmentWeight(isOutgoing ? s : segment)));
+        edges.emplace_back(s, CalcSegmentWeight(isOutgoing ? s : segment));
     }
   }
   else
@@ -249,24 +281,27 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
   AddFakeEdges(segment, edges);
 }
 
-double IndexGraphStarter::CalcSegmentWeight(Segment const & segment) const
+RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment) const
 {
   if (!IsFakeSegment(segment))
   {
-    return m_graph.GetEstimator().CalcSegmentWeight(
-        segment, m_graph.GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
+    return RouteWeight(
+        m_graph.GetEstimator().CalcSegmentWeight(
+            segment, m_graph.GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())),
+        0);
   }
 
   auto const fakeVertexIt = m_fake.m_segmentToVertex.find(segment);
 
   CHECK(fakeVertexIt != m_fake.m_segmentToVertex.end(),
         ("Requested junction for invalid fake segment."));
-  return m_graph.GetEstimator().CalcLeapWeight(fakeVertexIt->second.GetPointFrom(),
-                                               fakeVertexIt->second.GetPointTo());
+  return RouteWeight(m_graph.GetEstimator().CalcLeapWeight(fakeVertexIt->second.GetPointFrom(),
+                                                           fakeVertexIt->second.GetPointTo()),
+                     0);
 }
 
-double IndexGraphStarter::CalcRouteSegmentWeight(vector<Segment> const & route,
-                                                 size_t segmentIndex) const
+RouteWeight IndexGraphStarter::CalcRouteSegmentWeight(vector<Segment> const & route,
+                                                      size_t segmentIndex) const
 {
   CHECK_LESS(
       segmentIndex, route.size(),
@@ -383,7 +418,7 @@ void IndexGraphStarter::AddStart(FakeEnding const & startEnding, FakeEnding cons
         // Check fake segment is connected to source segment.
         if (GetJunction(s, false /* front */) == GetJunction(segment, true) ||
             GetJunction(s, true) == GetJunction(segment, false))
-          fakeEdges.emplace_back(s, RouteWeight(edge.GetWeight()));
+          fakeEdges.emplace_back(s, edge.GetWeight());
       }
     }
     edges.insert(edges.end(), fakeEdges.begin(), fakeEdges.end());
@@ -414,8 +449,10 @@ void IndexGraphStarter::ConnectLeapToTransitions(Segment const & segment, bool i
   // point. So |isEnter| below should be set to true.
   m_graph.ForEachTransition(
       segment.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
-        edges.emplace_back(transition, RouteWeight(m_graph.GetEstimator().CalcLeapWeight(
-                                           segmentPoint, GetPoint(transition, isOutgoing))));
+        edges.emplace_back(transition,
+                           RouteWeight(m_graph.GetEstimator().CalcLeapWeight(
+                                           segmentPoint, GetPoint(transition, isOutgoing)),
+                                       0));
       });
 }
 

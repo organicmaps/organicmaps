@@ -57,6 +57,8 @@ public:
     return pointId == 0 || pointId + 1 == GetPointsCount();
   }
 
+  void SetTransitAllowedForTests(bool transitAllowed) { m_isTransitAllowed = transitAllowed; }
+
 private:
   buffer_vector<Junction, 32> m_junctions;
   double m_speed = 0.0;

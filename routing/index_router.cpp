@@ -2,6 +2,7 @@
 
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_progress.hpp"
+#include "routing/base/routing_result.hpp"
 #include "routing/bicycle_directions.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
@@ -532,6 +533,9 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   if (result != IRouter::NoError)
     return result;
 
+  if (!starter.CheckRoutingResultMeetsRestrictions(routingResult))
+    return IRouter::RouteNotFound;
+
   IRouter::ResultCode const leapsResult =
       ProcessLeaps(routingResult.path, delegate, starter.GetGraph().GetMode(), starter, subroute);
   if (leapsResult != IRouter::NoError)
@@ -580,8 +584,7 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   for (size_t i = lastSubroute.GetBeginSegmentIdx(); i < lastSubroute.GetEndSegmentIdx(); ++i)
   {
     auto const & step = steps[i];
-    prevEdges.emplace_back(step.GetSegment(),
-                           RouteWeight(starter.CalcSegmentWeight(step.GetSegment())));
+    prevEdges.emplace_back(step.GetSegment(), starter.CalcSegmentWeight(step.GetSegment()));
   }
 
   uint32_t visitCount = 0;
@@ -603,7 +606,7 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   RoutingResult<Segment, RouteWeight> result;
   auto resultCode = ConvertResult<IndexGraphStarter>(
       algorithm.AdjustRoute(starter, starter.GetStartSegment(), prevEdges,
-                            RouteWeight(kAdjustLimitSec), result, delegate, onVisitJunction));
+                            RouteWeight(kAdjustLimitSec, 0), result, delegate, onVisitJunction));
   if (resultCode != IRouter::NoError)
     return resultCode;
 
@@ -785,7 +788,7 @@ IRouter::ResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
 
   for (size_t i = 0; i + 1 < numPoints; ++i)
   {
-    time += starter.CalcRouteSegmentWeight(segments, i);
+    time += starter.CalcRouteSegmentWeight(segments, i).GetWeight();
     times.emplace_back(static_cast<uint32_t>(i + 1), time);
   }
   

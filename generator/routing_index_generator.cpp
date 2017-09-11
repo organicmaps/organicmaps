@@ -175,10 +175,10 @@ private:
 
 // Calculate distance from the starting border point to the transition along the border.
 // It could be measured clockwise or counterclockwise, direction doesn't matter.
-RouteWeight CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
-                                        CrossMwmConnectorSerializer::Transition const & transition)
+double CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
+                                   CrossMwmConnectorSerializer::Transition const & transition)
 {
-  RouteWeight distance = GetAStarWeightZero<RouteWeight>();
+  auto distance = GetAStarWeightZero<double>();
 
   for (m2::RegionD const & region : borders)
   {
@@ -192,11 +192,11 @@ RouteWeight CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
       if (m2::RegionD::IsIntersect(transition.GetBackPoint(), transition.GetFrontPoint(), *prev,
                                    curr, intersection))
       {
-        distance += RouteWeight(prev->Length(intersection));
+        distance += prev->Length(intersection);
         return distance;
       }
 
-      distance += RouteWeight(prev->Length(curr));
+      distance += prev->Length(curr);
       prev = &curr;
     }
   }
@@ -324,13 +324,13 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   connector.FillWeights([&](Segment const & enter, Segment const & exit) {
     auto it0 = weights.find(enter);
     if (it0 == weights.end())
-      return RouteWeight(CrossMwmConnector::kNoRoute);
+      return CrossMwmConnector::kNoRoute;
 
     auto it1 = it0->second.find(exit);
     if (it1 == it0->second.end())
-      return RouteWeight(CrossMwmConnector::kNoRoute);
+      return CrossMwmConnector::kNoRoute;
 
-    return it1->second;
+    return it1->second.ToCrossMwmWeight();
   });
 
   LOG(LINFO, ("Leaps finished, elapsed:", timer.ElapsedSeconds(), "seconds, routes found:",
