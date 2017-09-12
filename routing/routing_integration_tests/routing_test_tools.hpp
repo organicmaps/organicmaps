@@ -99,7 +99,7 @@ void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPo
 
 shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType);
 
-template<VehicleType type>
+template <VehicleType type>
 IRouterComponents & GetVehicleComponents()
 {
   static auto const instance = CreateAllMapsComponents(type);

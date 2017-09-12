@@ -291,7 +291,8 @@ double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
 }
 
 // IndexRouter ------------------------------------------------------------------------------------
-IndexRouter::IndexRouter(VehicleType vehicleType, CountryParentNameGetterFn const & countryParentNameGetterFn,
+IndexRouter::IndexRouter(VehicleType vehicleType,
+                         CountryParentNameGetterFn const & countryParentNameGetterFn,
                          TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
                          shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
                          traffic::TrafficCache const & trafficCache, Index & index)
@@ -305,10 +306,12 @@ IndexRouter::IndexRouter(VehicleType vehicleType, CountryParentNameGetterFn cons
   , m_numMwmTree(move(numMwmTree))
   , m_trafficStash(CreateTrafficStash(m_vehicleType, m_numMwmIds, trafficCache))
   , m_indexManager(countryFileFn, m_index)
-  , m_roadGraph(m_index, vehicleType == VehicleType::Pedestrian ? IRoadGraph::Mode::IgnoreOnewayTag
-                                                                : IRoadGraph::Mode::ObeyOnewayTag,
+  , m_roadGraph(m_index,
+                vehicleType == VehicleType::Pedestrian ? IRoadGraph::Mode::IgnoreOnewayTag
+                                                       : IRoadGraph::Mode::ObeyOnewayTag,
                 m_vehicleModelFactory)
-  , m_estimator(EdgeEstimator::Create(m_vehicleType, CalcMaxSpeed(*m_numMwmIds, *m_vehicleModelFactory), m_trafficStash))
+  , m_estimator(EdgeEstimator::Create(
+        m_vehicleType, CalcMaxSpeed(*m_numMwmIds, *m_vehicleModelFactory), m_trafficStash))
   , m_directionsEngine(CreateDirectionsEngine(m_vehicleType, m_numMwmIds, m_index))
 {
   CHECK(!m_name.empty(), ());

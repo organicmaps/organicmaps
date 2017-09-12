@@ -390,10 +390,10 @@ UNIT_TEST(CrossMwmRussiaPStaiToBelarusDrazdy)
 
 UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
 {
-  TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetVehicleComponents<VehicleType::Pedestrian>(),
-      MercatorBounds::FromLatLon(55.98401, 37.17979), {0., 0.},
-      MercatorBounds::FromLatLon(55.98419, 37.17938));
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Pedestrian>(),
+                                  MercatorBounds::FromLatLon(55.98401, 37.17979), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.98419, 37.17938));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -410,10 +410,10 @@ UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
 
 UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
 {
-  TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetVehicleComponents<VehicleType::Pedestrian>(),
-      MercatorBounds::FromLatLon(55.80867, 37.50575), {0., 0.},
-      MercatorBounds::FromLatLon(55.80884, 37.50668));
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Pedestrian>(),
+                                  MercatorBounds::FromLatLon(55.80867, 37.50575), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.80884, 37.50668));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -430,10 +430,10 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
 
 UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
 {
-  TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetVehicleComponents<VehicleType::Pedestrian>(),
-      MercatorBounds::FromLatLon(53.89302, 27.52792), {0., 0.},
-      MercatorBounds::FromLatLon(53.89262, 27.52838));
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Pedestrian>(),
+                                  MercatorBounds::FromLatLon(53.89302, 27.52792), {0., 0.},
+                                  MercatorBounds::FromLatLon(53.89262, 27.52838));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -450,10 +450,10 @@ UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
 
 UNIT_TEST(RussiaMoscowTrubnikovPereulok30Ac1LiftGate)
 {
-  TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetVehicleComponents<VehicleType::Pedestrian>(),
-      MercatorBounds::FromLatLon(55.75533, 37.58789), {0., 0.},
-      MercatorBounds::FromLatLon(55.75543, 37.58717));
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Pedestrian>(),
+                                  MercatorBounds::FromLatLon(55.75533, 37.58789), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.75543, 37.58717));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -469,10 +469,10 @@ UNIT_TEST(RussiaMoscowTrubnikovPereulok30Ac1LiftGate)
 
 UNIT_TEST(RussiaMoscowKhlebnyyLane15c1Gate)
 {
-  TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetVehicleComponents<VehicleType::Pedestrian>(),
-      MercatorBounds::FromLatLon(55.755, 37.59461), {0., 0.},
-      MercatorBounds::FromLatLon(55.75522, 37.59494));
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Pedestrian>(),
+                                  MercatorBounds::FromLatLon(55.755, 37.59461), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.75522, 37.59494));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -488,10 +488,10 @@ UNIT_TEST(RussiaMoscowKhlebnyyLane15c1Gate)
 
 UNIT_TEST(RussiaMoscowKhlebnyyLane19LiftGateAndGate)
 {
-  TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetVehicleComponents<VehicleType::Pedestrian>(),
-      MercatorBounds::FromLatLon(55.75518, 37.59382), {0., 0.},
-      MercatorBounds::FromLatLon(55.7554, 37.59327));
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Pedestrian>(),
+                                  MercatorBounds::FromLatLon(55.75518, 37.59382), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.7554, 37.59327));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -525,8 +525,8 @@ UNIT_TEST(MoscowChistiePrudiSelectPointsInConnectedGraph)
 UNIT_TEST(RussiaMoscowSevTushinoParkPedestrianOnePointTurnTest)
 {
   m2::PointD const point = MercatorBounds::FromLatLon(55.8719, 37.4464);
-  TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Pedestrian>(), point, {0.0, 0.0}, point);
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetVehicleComponents<VehicleType::Pedestrian>(), point, {0.0, 0.0}, point);
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
