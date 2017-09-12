@@ -130,23 +130,6 @@ namespace integration
     return unique_ptr<IRouter>(move(router));
   }
 
-  class VehicleRouterComponents : public IRouterComponents
-  {
-  public:
-    VehicleRouterComponents(vector<LocalCountryFile> const & localFiles, VehicleType vehicleType)
-      : IRouterComponents(localFiles)
-      , m_indexRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache,
-                                      localFiles, vehicleType))
-    {
-    }
-
-    IRouter * GetRouter() const override { return m_indexRouter.get(); }
-
-  private:
-    traffic::TrafficCache m_trafficCache;
-    unique_ptr<IndexRouter> m_indexRouter;
-  };
-
   shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType)
   {
     // Setting stored paths from testingmain.cpp
@@ -166,27 +149,6 @@ namespace integration
       file.SyncWithDisk();
     ASSERT(!localFiles.empty(), ());
     return make_shared<VehicleRouterComponents>(localFiles, vehicleType);
-  }
-
-  IRouterComponents & GetCarComponents()
-  {
-    static auto const instance = CreateAllMapsComponents(VehicleType::Car);
-    ASSERT(instance, ());
-    return *instance;
-  }
-
-  IRouterComponents & GetPedestrianComponents()
-  {
-    static auto const instance = CreateAllMapsComponents(VehicleType::Pedestrian);
-    ASSERT(instance, ());
-    return *instance;
-  }
-
-  IRouterComponents & GetBicycleComponents()
-  {
-    static auto const instance = CreateAllMapsComponents(VehicleType::Bicycle);
-    ASSERT(instance, ());
-    return *instance;
   }
 
   TRouteResult CalculateRoute(IRouterComponents const & routerComponents,

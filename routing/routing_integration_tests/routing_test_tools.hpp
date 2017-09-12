@@ -11,6 +11,7 @@
 #include "std/set.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -49,6 +50,12 @@ shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile
 
 unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
 
+unique_ptr<IndexRouter> CreateCarRouter(Index & index,
+                                        storage::CountryInfoGetter const & infoGetter,
+                                        traffic::TrafficCache const & trafficCache,
+                                        vector<LocalCountryFile> const & localFiles,
+                                        VehicleType vehicleType);
+
 class IRouterComponents
 {
 public:
@@ -68,19 +75,37 @@ protected:
   unique_ptr<storage::CountryInfoGetter> m_infoGetter;
 };
 
+class VehicleRouterComponents : public IRouterComponents
+{
+public:
+  VehicleRouterComponents(vector<LocalCountryFile> const & localFiles, VehicleType vehicleType)
+    : IRouterComponents(localFiles)
+    , m_indexRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache,
+                                    localFiles, vehicleType))
+  {
+  }
+
+  IRouter * GetRouter() const override { return m_indexRouter.get(); }
+
+private:
+  traffic::TrafficCache m_trafficCache;
+  unique_ptr<IndexRouter> m_indexRouter;
+};
+
 void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                        vector<string> const & expected, IRouterComponents & routerComponents);
 void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                        vector<string> const & expected, IRouterComponents & routerComponents);
 
-// Gets car router components.
-IRouterComponents & GetCarComponents();
+shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType);
 
-// Gets pedestrian router components.
-IRouterComponents & GetPedestrianComponents();
-
-// Gets bicycle router components.
-IRouterComponents & GetBicycleComponents();
+template<VehicleType type>
+IRouterComponents & GetVehicleComponents()
+{
+  static auto const instance = CreateAllMapsComponents(type);
+  ASSERT(instance, ());
+  return *instance;
+}
 
 TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
                             m2::PointD const & startPoint, m2::PointD const & startDirection,
