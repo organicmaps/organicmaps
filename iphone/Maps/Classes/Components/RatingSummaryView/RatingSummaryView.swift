@@ -177,12 +177,12 @@ import UIKit
 
   private var type: RatingSummaryViewSettings.ValueType {
     switch value {
-    case 0..<0.2 * maxValue: return .horrible
-    case 0.2 * maxValue..<0.4 * maxValue: return .bad
-    case 0.4 * maxValue..<0.6 * maxValue: return .normal
-    case 0.6 * maxValue..<0.8 * maxValue: return .good
-    case 0.8 * maxValue...maxValue: return .excellent
-    default: assert(false)
+    case 0 ..< 0.2 * maxValue: return .horrible
+    case 0.2 * maxValue ..< 0.4 * maxValue: return .bad
+    case 0.4 * maxValue ..< 0.6 * maxValue: return .normal
+    case 0.6 * maxValue ..< 0.8 * maxValue: return .good
+    case 0.8 * maxValue ... maxValue: return .excellent
+    default: assert(false); return .normal
     }
   }
 
