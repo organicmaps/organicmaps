@@ -24935,7 +24935,7 @@
     da = Tilføj slutpunkt for at planlægge en rute
     nl = Voeg eindpunt toe om een route te plannen
     fi = Lisää määränpää reitin suunnittelua varten
-    fr = Ajouter un point d'arriver pour planifier un itinéraire
+    fr = Ajouter un point d'arrivée pour planifier un itinéraire
     de = Fügen Sie ein Ziel hinzu, um eine Route zu planen
     hu = Adjon hozzá végpontot az útvonal tervezéséhez
     id = Tambahkan titik akhir untuk merencanakan rute
