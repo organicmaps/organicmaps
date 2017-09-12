@@ -502,9 +502,20 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
     return isLastSubroute ? IRouter::EndPointNotFound : IRouter::IntermediatePointNotFound;
   }
 
-  graph.SetMode(AreMwmsNear(startSegment.GetMwmId(), finishSegment.GetMwmId())
-                    ? WorldGraph::Mode::LeapsIfPossible
-                    : WorldGraph::Mode::LeapsOnly);
+  // We use leaps for cars only. Other vehicle types do not have weights in their cross-mwm sections.
+  switch (m_vehicleType)
+  {
+    case VehicleType::Pedestrian:
+    case VehicleType::Bicycle:
+      graph.SetMode(WorldGraph::Mode::NoLeaps);
+      break;
+    case VehicleType::Car:
+      graph.SetMode(AreMwmsNear(startSegment.GetMwmId(), finishSegment.GetMwmId())
+                      ? WorldGraph::Mode::LeapsIfPossible
+                      : WorldGraph::Mode::LeapsOnly);
+      break;
+  }
+
   LOG(LINFO, ("Routing in mode:", graph.GetMode()));
 
   bool const isStartSegmentStrictForward =
@@ -659,8 +670,8 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 WorldGraph IndexRouter::MakeWorldGraph()
 {
   WorldGraph graph(
-      make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
-                                 m_index, m_indexManager),
+      make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_vehicleType,
+                                 m_countryRectFn, m_index, m_indexManager),
       IndexGraphLoader::Create(m_vehicleType, m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
       m_estimator);
   return graph;

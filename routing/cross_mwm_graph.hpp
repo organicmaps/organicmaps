@@ -4,6 +4,7 @@
 #include "routing/cross_mwm_osrm_graph.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/segment.hpp"
+#include "routing/vehicle_mask.hpp"
 
 #include "routing_common/vehicle_model.hpp"
 
@@ -33,7 +34,7 @@ public:
   };
 
   CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
+                std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory, VehicleType vehicleType,
                 CourntryRectFn const & countryRectFn, Index & index,
                 RoutingIndexManager & indexManager);
 

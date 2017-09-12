@@ -400,6 +400,8 @@ bool BuildCrossMwmSection(string const & path, string const & mwmFile, string co
                 connector.GetExits().size()));
   }
 
+  // We use leaps for cars only. To use leaps for other vehicle types add weights generation
+  // here and change WorldGraph mode selection rule in IndexRouter::CalculateSubroute.
   FillWeights(path, mwmFile, country, countryParentNameGetterFn, disableCrossMwmProgress,
               connectors[static_cast<size_t>(VehicleType::Car)]);
 
