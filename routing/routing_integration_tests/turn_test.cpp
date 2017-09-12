@@ -103,9 +103,9 @@ UNIT_TEST(RussiaMoscowSalameiNerisUturnTurnTest)
 UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
-    integration::GetCarComponents(),
-    MercatorBounds::FromLatLon(55.83118, 37.40515), {0., 0.},
-    MercatorBounds::FromLatLon(55.83384, 37.40521));
+      integration::GetCarComponents(),
+      MercatorBounds::FromLatLon(55.83118, 37.40515), {0., 0.},
+      MercatorBounds::FromLatLon(55.83384, 37.40521));
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
 

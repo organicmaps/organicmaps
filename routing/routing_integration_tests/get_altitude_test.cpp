@@ -29,6 +29,7 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const alti
 {
   Index index;
   platform::LocalCountryFile const country = platform::LocalCountryFile::MakeForTesting(countryId);
+  TEST_NOT_EQUAL(country.GetFiles(), MapOptions::Nothing, (country));
   pair<MwmSet::MwmId, MwmSet::RegResult> const regResult = index.RegisterMap(country);
 
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());

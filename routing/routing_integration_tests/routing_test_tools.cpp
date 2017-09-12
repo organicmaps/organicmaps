@@ -83,7 +83,8 @@ namespace integration
   unique_ptr<IndexRouter> CreateCarRouter(Index & index,
                                           storage::CountryInfoGetter const & infoGetter,
                                           traffic::TrafficCache const & trafficCache,
-                                          vector<LocalCountryFile> const & localFiles)
+                                          vector<LocalCountryFile> const & localFiles,
+                                          VehicleType vehicleType)
   {
     auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
       return infoGetter.GetRegionCountryId(pt);
@@ -101,8 +102,7 @@ namespace integration
       if (mwmId.GetInfo()->GetType() == MwmInfo::COUNTRY && countryFile.GetName() != "minsk-pass")
         numMwmIds->RegisterFile(countryFile);
     }
-    
-    auto vehicleType = VehicleType::Car;
+
     auto indexRouter = make_unique<IndexRouter>(vehicleType, CountryParentNameGetterFn(), countryFileGetter,
                                                 getMwmRectByName, numMwmIds,
                                                 MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index);
@@ -130,13 +130,13 @@ namespace integration
     return unique_ptr<IRouter>(move(router));
   }
 
-  class CarRouterComponents : public IRouterComponents
+  class VehicleRouterComponents : public IRouterComponents
   {
   public:
-    CarRouterComponents(vector<LocalCountryFile> const & localFiles)
+    VehicleRouterComponents(vector<LocalCountryFile> const & localFiles, VehicleType vehicleType)
       : IRouterComponents(localFiles)
       , m_indexRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache,
-                                      localFiles))
+                                      localFiles, vehicleType))
     {
     }
 
@@ -147,40 +147,7 @@ namespace integration
     unique_ptr<IndexRouter> m_indexRouter;
   };
 
-  class PedestrianRouterComponents : public IRouterComponents
-  {
-  public:
-    PedestrianRouterComponents(vector<LocalCountryFile> const & localFiles)
-      : IRouterComponents(localFiles)
-      , m_router(CreateAStarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, localFiles,
-                                   CreatePedestrianAStarBidirectionalRouter))
-    {
-    }
-
-    IRouter * GetRouter() const override { return m_router.get(); }
-
-  private:
-    unique_ptr<IRouter> m_router;
-  };
-
-  class BicycleRouterComponents : public IRouterComponents
-  {
-  public:
-    BicycleRouterComponents(vector<LocalCountryFile> const & localFiles)
-      : IRouterComponents(localFiles)
-      , m_router(CreateAStarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, localFiles,
-                                   CreateBicycleAStarBidirectionalRouter))
-    {
-    }
-
-    IRouter * GetRouter() const override { return m_router.get(); }
-
-  private:
-    unique_ptr<IRouter> m_router;
-  };
-
-  template <typename TRouterComponents>
-  shared_ptr<TRouterComponents> CreateAllMapsComponents()
+  shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType)
   {
     // Setting stored paths from testingmain.cpp
     Platform & pl = GetPlatform();
@@ -198,26 +165,26 @@ namespace integration
     for (auto & file : localFiles)
       file.SyncWithDisk();
     ASSERT(!localFiles.empty(), ());
-    return shared_ptr<TRouterComponents>(new TRouterComponents(localFiles));
+    return make_shared<VehicleRouterComponents>(localFiles, vehicleType);
   }
 
   IRouterComponents & GetCarComponents()
   {
-    static auto const instance = CreateAllMapsComponents<CarRouterComponents>();
+    static auto const instance = CreateAllMapsComponents(VehicleType::Car);
     ASSERT(instance, ());
     return *instance;
   }
 
   IRouterComponents & GetPedestrianComponents()
   {
-    static auto const instance = CreateAllMapsComponents<PedestrianRouterComponents>();
+    static auto const instance = CreateAllMapsComponents(VehicleType::Pedestrian);
     ASSERT(instance, ());
     return *instance;
   }
 
   IRouterComponents & GetBicycleComponents()
   {
-    static auto const instance = CreateAllMapsComponents<BicycleRouterComponents>();
+    static auto const instance = CreateAllMapsComponents(VehicleType::Bicycle);
     ASSERT(instance, ());
     return *instance;
   }

@@ -123,7 +123,7 @@ namespace
   UNIT_TEST(RussiaMoscowGerPanfilovtsev22SolodchaPravdiRouteTest)
   {
     integration::CalculateRouteAndTestRouteLength(
-      integration::GetCarComponents(), {37.409929478750627, 67.644798619710073}, {0., 0.},
+        integration::GetCarComponents(), {37.409929478750627, 67.644798619710073}, {0., 0.},
         {39.836562407458047, 65.774372510437971}, 239426.);
   }
 
@@ -172,8 +172,8 @@ namespace
   UNIT_TEST(RussiaMoscowStartAtTwowayFeatureTest)
   {
     integration::CalculateRouteAndTestRouteLength(
-      integration::GetCarComponents(), MercatorBounds::FromLatLon(55.771, 37.5184), {0., 0.},
-      MercatorBounds::FromLatLon(55.7718, 37.5178), 147.4);
+        integration::GetCarComponents(), MercatorBounds::FromLatLon(55.771, 37.5184), {0., 0.},
+        MercatorBounds::FromLatLon(55.7718, 37.5178), 147.4);
   }
 
   // Strange map edits in Africa borders. Routing not linked now.
@@ -274,8 +274,8 @@ namespace
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
   {
     TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetCarComponents(), MercatorBounds::FromLatLon(55.7971, 37.53804), {0., 0.},
-      MercatorBounds::FromLatLon(55.8579, 37.40990));
+        integration::GetCarComponents(), MercatorBounds::FromLatLon(55.7971, 37.53804), {0., 0.},
+        MercatorBounds::FromLatLon(55.8579, 37.40990));
 
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
@@ -290,8 +290,8 @@ namespace
   UNIT_TEST(USALosAnglesAriaTwentyninePalmsHighwayTimeTest)
   {
     TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetCarComponents(), MercatorBounds::FromLatLon(34.0739, -115.3212), {0.0, 0.0},
-      MercatorBounds::FromLatLon(34.0928, -115.5930));
+        integration::GetCarComponents(), MercatorBounds::FromLatLon(34.0739, -115.3212), {0.0, 0.0},
+        MercatorBounds::FromLatLon(34.0928, -115.5930));
     Route const & route = *routeResult.first;
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
