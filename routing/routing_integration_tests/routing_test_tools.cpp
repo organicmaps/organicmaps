@@ -80,11 +80,11 @@ namespace integration
     return storage::CountryInfoReader::CreateCountryInfoReader(platform);
   }
 
-  unique_ptr<IndexRouter> CreateCarRouter(Index & index,
-                                          storage::CountryInfoGetter const & infoGetter,
-                                          traffic::TrafficCache const & trafficCache,
-                                          vector<LocalCountryFile> const & localFiles,
-                                          VehicleType vehicleType)
+  unique_ptr<IndexRouter> CreateVehicleRouter(Index & index,
+                                              storage::CountryInfoGetter const & infoGetter,
+                                              traffic::TrafficCache const & trafficCache,
+                                              vector<LocalCountryFile> const & localFiles,
+                                              VehicleType vehicleType)
   {
     auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
       return infoGetter.GetRegionCountryId(pt);
@@ -156,12 +156,9 @@ namespace integration
                               m2::PointD const & finalPoint)
   {
     RouterDelegate delegate;
-    IRouter * router = routerComponents.GetRouter();
-    ASSERT(router, ());
     shared_ptr<Route> route(new Route("mapsme"));
-    IRouter::ResultCode result =
-        router->CalculateRoute(Checkpoints(startPoint, finalPoint), startDirection,
-                               false /* adjust */, delegate, *route);
+    IRouter::ResultCode result = routerComponents.GetRouter().CalculateRoute(
+        Checkpoints(startPoint, finalPoint), startDirection, false /* adjust */, delegate, *route);
     ASSERT(route, ());
     return TRouteResult(route, result);
   }

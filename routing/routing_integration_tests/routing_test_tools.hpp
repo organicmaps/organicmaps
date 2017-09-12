@@ -50,11 +50,11 @@ shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile
 
 unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
 
-unique_ptr<IndexRouter> CreateCarRouter(Index & index,
-                                        storage::CountryInfoGetter const & infoGetter,
-                                        traffic::TrafficCache const & trafficCache,
-                                        vector<LocalCountryFile> const & localFiles,
-                                        VehicleType vehicleType);
+unique_ptr<IndexRouter> CreateVehicleRouter(Index & index,
+                                            storage::CountryInfoGetter const & infoGetter,
+                                            traffic::TrafficCache const & trafficCache,
+                                            vector<LocalCountryFile> const & localFiles,
+                                            VehicleType vehicleType);
 
 class IRouterComponents
 {
@@ -66,7 +66,7 @@ public:
 
   virtual ~IRouterComponents() = default;
 
-  virtual IRouter * GetRouter() const = 0;
+  virtual IRouter & GetRouter() const = 0;
 
   storage::CountryInfoGetter const & GetCountryInfoGetter() const noexcept { return *m_infoGetter; }
 
@@ -80,12 +80,12 @@ class VehicleRouterComponents : public IRouterComponents
 public:
   VehicleRouterComponents(vector<LocalCountryFile> const & localFiles, VehicleType vehicleType)
     : IRouterComponents(localFiles)
-    , m_indexRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache,
-                                    localFiles, vehicleType))
+    , m_indexRouter(CreateVehicleRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache,
+                                        localFiles, vehicleType))
   {
   }
 
-  IRouter * GetRouter() const override { return m_indexRouter.get(); }
+  IRouter & GetRouter() const override { return *m_indexRouter; }
 
 private:
   traffic::TrafficCache m_trafficCache;

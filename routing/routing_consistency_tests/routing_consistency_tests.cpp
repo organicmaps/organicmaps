@@ -83,7 +83,7 @@ public:
 
   bool BuildRoute(UserRoutingRecord const & record)
   {
-    m_components.GetRouter()->ClearState();
+    m_components.GetRouter().ClearState();
     auto const result = integration::CalculateRoute(m_components, record.start, m2::PointD::Zero(), record.stop);
     if (result.second != IRouter::NoError)
     {
