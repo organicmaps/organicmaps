@@ -64,14 +64,15 @@ class AvailableArea: UIView {
     let add = { (sa: NSLayoutAttribute, oa: NSLayoutAttribute, rel: NSLayoutRelation) in
       NSLayoutConstraint(item: self, attribute: sa, relatedBy: rel, toItem: otherView, attribute: oa, multiplier: 1, constant: 0).isActive = true
     }
-    [.top : (.top, .bottom, .greaterThanOrEqual),
-     .bottom : (.bottom, .top, .lessThanOrEqual),
-     .left : (.left, .right, .greaterThanOrEqual),
-     .right : (.right, .left, .lessThanOrEqual)
-      ]
-      .filter { directions.contains($0.key) }
-      .map { $0.value }
-      .forEach(add)
+    [
+      .top: (.top, .bottom, .greaterThanOrEqual),
+      .bottom: (.bottom, .top, .lessThanOrEqual),
+      .left: (.left, .right, .greaterThanOrEqual),
+      .right: (.right, .left, .lessThanOrEqual),
+    ]
+    .filter { directions.contains($0.key) }
+    .map { $0.value }
+    .forEach(add)
   }
 
   @objc
@@ -85,8 +86,8 @@ class AvailableArea: UIView {
     }
   }
 
-  func isAreaAffectingView(_ other: UIView) -> Bool { return false }
-  func addAffectingView(_ other: UIView) {}
+  func isAreaAffectingView(_: UIView) -> Bool { return false }
+  func addAffectingView(_: UIView) {}
   func notifyObserver() {}
 }
 

@@ -1,6 +1,6 @@
-@objc (MWMFilterRatingCell)
+@objc(MWMFilterRatingCell)
 final class FilterRatingCell: UITableViewCell {
-  
+
   @IBOutlet private var ratingButtons: [UIButton]!
   @IBOutlet weak var any: UIButton!
   @IBOutlet weak var good: UIButton!

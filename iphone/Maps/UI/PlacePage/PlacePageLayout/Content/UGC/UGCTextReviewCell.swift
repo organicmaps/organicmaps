@@ -23,8 +23,8 @@ final class UGCTextReviewCell: MWMTableViewCell, UITextViewDelegate {
     countLabel.text = "\(count)/\(Consts.kMaxNumberOfSymbols)"
   }
 
-  //MARK: UITextViewDelegate
-  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+  // MARK: UITextViewDelegate
+  func textView(_ textView: UITextView, shouldChangeTextIn _: NSRange, replacementText _: String) -> Bool {
     return textView.text.characters.count <= Consts.kMaxNumberOfSymbols
   }
 

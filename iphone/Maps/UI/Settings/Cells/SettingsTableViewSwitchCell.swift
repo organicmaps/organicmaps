@@ -22,7 +22,7 @@
     self.title.text = title
     styleTitle()
 
-    self.switchButton.isOn = isOn
+    switchButton.isOn = isOn
     styleSwitchButton()
   }
 

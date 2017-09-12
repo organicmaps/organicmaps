@@ -78,7 +78,7 @@ final class MopubBanner: NSObject, Banner {
   }
 
   @objc private func enterBackground() {
-    if (isBannerOnScreen) {
+    if isBannerOnScreen {
       stopCountTimeOnScreen()
     }
   }
@@ -88,7 +88,7 @@ final class MopubBanner: NSObject, Banner {
       showDate = Date()
     }
 
-    if (remainingTime > 0) {
+    if remainingTime > 0 {
       perform(#selector(setEnoughTimeOnScreen), with: nil, afterDelay: remainingTime)
     }
   }
@@ -100,7 +100,7 @@ final class MopubBanner: NSObject, Banner {
     }
 
     let timePassed = Date().timeIntervalSince(date)
-    if (timePassed < Limits.minTimeOnScreen) {
+    if timePassed < Limits.minTimeOnScreen {
       remainingTime = Limits.minTimeOnScreen - timePassed
       NSObject.cancelPreviousPerformRequests(withTarget: self)
     } else {
@@ -112,7 +112,7 @@ final class MopubBanner: NSObject, Banner {
     isNeedToRetain = false
   }
 
-  //MARK: - Content
+  // MARK: - Content
   private(set) var nativeAd: MPNativeAd?
 
   var title: String {
@@ -135,7 +135,7 @@ final class MopubBanner: NSObject, Banner {
     return nativeAd?.properties[kDAAIconTapDestinationURL] as? String
   }
 
-  //MARK: - Helpers
+  // MARK: - Helpers
   private var request: MPNativeAdRequest!
 
   private func load() {
@@ -149,11 +149,13 @@ final class MopubBanner: NSObject, Banner {
     }
     request.targeting = targeting
 
-    request.start { [weak self] request, nativeAd, error in
+    request.start { [weak self] _, nativeAd, error in
       guard let s = self else { return }
       if let error = error as NSError? {
-        let params: [String : Any] = [kStatBanner : s.bannerID,
-                                     kStatProvider : kStatMopub]
+        let params: [String: Any] = [
+          kStatBanner: s.bannerID,
+          kStatProvider: kStatMopub,
+        ]
         let event = kStatPlacePageBannerError
         s.failure(s.type, event, params, error)
       } else {

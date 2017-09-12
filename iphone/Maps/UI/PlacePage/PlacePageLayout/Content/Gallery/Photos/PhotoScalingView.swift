@@ -64,7 +64,7 @@ final class PhotoScalingView: UIScrollView {
                             s.imageView.frame = CGRect(origin: CGPoint.zero, size: s.contentSize)
                             s.updateZoomScale()
                             s.centerScrollViewContents()
-                          })
+    })
   }
 
   private func updateZoomScale() {

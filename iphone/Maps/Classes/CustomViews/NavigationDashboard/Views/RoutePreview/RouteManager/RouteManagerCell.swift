@@ -6,24 +6,28 @@ final class RouteManagerCell: MWMTableViewCell {
       titleLabel.font = UIFont.regular16()
     }
   }
+
   @IBOutlet weak var subtitleLabel: UILabel! {
     didSet {
       subtitleLabel.textColor = UIColor.blackSecondaryText()
       subtitleLabel.font = UIFont.regular14()
     }
   }
+
   @IBOutlet private weak var dragImage: UIImageView! {
     didSet {
       dragImage.image = #imageLiteral(resourceName: "ic_route_manager_move")
       dragImage.tintColor = UIColor.blackHintText()
     }
   }
+
   @IBOutlet private weak var separator1: UIView! {
     didSet {
       separator1.backgroundColor = UIColor.blackDividers()
       separator1.layer.cornerRadius = 2
     }
   }
+
   @IBOutlet weak var separator2: UIView! {
     didSet {
       separator2.backgroundColor = UIColor.blackDividers()
@@ -60,25 +64,25 @@ final class RouteManagerCell: MWMTableViewCell {
       typeImage.tintColor = UIColor.linkBlue()
     } else {
       switch model.type {
-        case .start:
-          typeImage.image = #imageLiteral(resourceName: "ic_route_manager_start")
-          typeImage.tintColor = UIColor.linkBlue()
-        case .intermediate:
-          switch model.intermediateIndex {
-          case 0:
-            typeImage.image = #imageLiteral(resourceName: "ic_route_manager_stop_a")
-            typeImage.tintColor = UIColor.primary()
-          case 1:
-            typeImage.image = #imageLiteral(resourceName: "ic_route_manager_stop_b")
-            typeImage.tintColor = UIColor.primary()
-          case 2:
-            typeImage.image = #imageLiteral(resourceName: "ic_route_manager_stop_c")
-            typeImage.tintColor = UIColor.primary()
-          default: fatalError("Unsupported route point intermediateIndex.")
+      case .start:
+        typeImage.image = #imageLiteral(resourceName: "ic_route_manager_start")
+        typeImage.tintColor = UIColor.linkBlue()
+      case .intermediate:
+        switch model.intermediateIndex {
+        case 0:
+          typeImage.image = #imageLiteral(resourceName: "ic_route_manager_stop_a")
+          typeImage.tintColor = UIColor.primary()
+        case 1:
+          typeImage.image = #imageLiteral(resourceName: "ic_route_manager_stop_b")
+          typeImage.tintColor = UIColor.primary()
+        case 2:
+          typeImage.image = #imageLiteral(resourceName: "ic_route_manager_stop_c")
+          typeImage.tintColor = UIColor.primary()
+        default: fatalError("Unsupported route point intermediateIndex.")
         }
-        case .finish:
-          typeImage.image = #imageLiteral(resourceName: "ic_route_manager_finish")
-          typeImage.tintColor = UIColor.blackPrimaryText()
+      case .finish:
+        typeImage.image = #imageLiteral(resourceName: "ic_route_manager_finish")
+        typeImage.tintColor = UIColor.blackPrimaryText()
       }
     }
   }

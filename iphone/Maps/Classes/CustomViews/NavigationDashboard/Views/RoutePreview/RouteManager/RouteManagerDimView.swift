@@ -7,6 +7,7 @@ final class RouteManagerDimView: UIView {
       label.textColor = UIColor.white()
     }
   }
+
   @IBOutlet private weak var messageView: UIView!
   @IBOutlet private weak var messageViewContainer: UIView!
   @IBOutlet private var messageViewVerticalCenter: NSLayoutConstraint!
@@ -48,15 +49,15 @@ final class RouteManagerDimView: UIView {
       label.alpha = isVisible ? 0 : componentsAlpha
       UIView.animate(withDuration: kDefaultAnimationDuration,
                      animations: {
-                      self.alpha = self.isVisible ? 1 : 0
-                      self.image.alpha = self.isVisible ? componentsAlpha : 0
-                      self.label.alpha = self.isVisible ? componentsAlpha : 0
-      },
+                       self.alpha = self.isVisible ? 1 : 0
+                       self.image.alpha = self.isVisible ? componentsAlpha : 0
+                       self.label.alpha = self.isVisible ? componentsAlpha : 0
+                     },
                      completion: { _ in
-                      self.alpha = 1
-                      if !self.isVisible {
-                        self.backgroundColor = UIColor.clear
-                      }
+                       self.alpha = 1
+                       if !self.isVisible {
+                         self.backgroundColor = UIColor.clear
+                       }
       })
       setNeedsLayout()
     }
@@ -71,7 +72,7 @@ final class RouteManagerDimView: UIView {
       NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: self.messageViewContainer, attribute: .left, multiplier: 1, constant: 0).isActive = true
       NSLayoutConstraint(item: manager, attribute: .top, relatedBy: .equal, toItem: self.messageViewContainer, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
     },
-                iPad: {
+    iPad: {
       container.insertSubview(self, at: 0)
 
       NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: self.messageViewContainer, attribute: .bottom, multiplier: 1, constant: 0).isActive = true

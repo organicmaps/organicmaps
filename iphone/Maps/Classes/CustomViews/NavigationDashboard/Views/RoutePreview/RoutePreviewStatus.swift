@@ -10,6 +10,7 @@ final class RoutePreviewStatus: SolidTouchView {
       }
     }
   }
+
   @IBOutlet private weak var taxiBox: UIView!
   @IBOutlet private weak var errorLabel: UILabel!
   @IBOutlet private weak var resultLabel: UILabel!
@@ -21,6 +22,7 @@ final class RoutePreviewStatus: SolidTouchView {
       configManageRouteButton(manageRouteButtonRegular)
     }
   }
+
   @IBOutlet private weak var manageRouteButtonCompact: UIButton? {
     didSet {
       configManageRouteButton(manageRouteButtonCompact!)
@@ -51,13 +53,13 @@ final class RoutePreviewStatus: SolidTouchView {
           UIView.animate(withDuration: kDefaultAnimationDuration,
                          animations: { sv.layoutIfNeeded() },
                          completion: { _ in
-                          if (!self.isVisible) {
-                            self.removeFromSuperview()
-                          }
+                           if !self.isVisible {
+                             self.removeFromSuperview()
+                           }
           })
         }
       },
-                  iPad: { self.isHidden = !self.isVisible })()
+      iPad: { self.isHidden = !self.isVisible })()
     }
   }
 
@@ -143,9 +145,9 @@ final class RoutePreviewStatus: SolidTouchView {
       if MWMRouter.hasRouteAltitude() {
         heightBox.isHidden = false
         MWMRouter.routeAltitudeImage(for: heightProfileImage.frame.size,
-                                     completion: { (image, elevation) in
-                                      self.heightProfileImage.image = image
-                                      self.heightProfileElevationHeight?.text = elevation
+                                     completion: { image, elevation in
+                                       self.heightProfileImage.image = image
+                                       self.heightProfileElevationHeight?.text = elevation
         })
       } else {
         heightBox.isHidden = true

@@ -9,7 +9,7 @@ final class UGCSelectImpressionCell: MWMTableViewCell {
 
   @IBAction private func tap(on: UIButton) {
     buttons.forEach { $0.isSelected = false }
-    on.isSelected = true;
+    on.isSelected = true
     delegate?.review(on: on.tag)
   }
 }

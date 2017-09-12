@@ -1,6 +1,5 @@
 @objc(MWMPPHotelDescriptionCell)
-final class PPHotelDescriptionCell: MWMTableViewCell
-{
+final class PPHotelDescriptionCell: MWMTableViewCell {
   private let kMaximumDescriptionHeight: CGFloat = 60
 
   @IBOutlet private var compactModeConstraints: [NSLayoutConstraint]!
@@ -11,7 +10,7 @@ final class PPHotelDescriptionCell: MWMTableViewCell
   private var isNeedToForceLayout: Bool = false
 
   func config(with description: String, delegate: MWMPlacePageCellUpdateProtocol) {
-    descriptionText.text = description;
+    descriptionText.text = description
     descriptionText.sizeToFit()
     updateDelegate = delegate
 
@@ -22,8 +21,8 @@ final class PPHotelDescriptionCell: MWMTableViewCell
     super.layoutSubviews()
     if isNeedToForceLayout {
       isNeedToForceLayout = false
-      let isCompact = descriptionText.height > kMaximumDescriptionHeight;
-      if (isCompact) {
+      let isCompact = descriptionText.height > kMaximumDescriptionHeight
+      if isCompact {
         compactModeConstraints.forEach { $0.priority = UILayoutPriorityDefaultHigh }
       }
 
@@ -31,7 +30,7 @@ final class PPHotelDescriptionCell: MWMTableViewCell
     }
   }
 
-  private func hideButton(_ isHidden:Bool = true) {
+  private func hideButton(_ isHidden: Bool = true) {
     button.isHidden = isHidden
     buttonZeroHeight.priority = isHidden ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow
   }

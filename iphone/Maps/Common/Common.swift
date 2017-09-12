@@ -6,13 +6,13 @@ func L(_ key: String) -> String { return NSLocalizedString(key, comment: "") }
 
 func alternative<T>(iPhone: T, iPad: T) -> T { return IPAD() ? iPad : iPhone }
 
-func iPadSpecific( _ f: () -> Void) {
+func iPadSpecific(_ f: () -> Void) {
   if IPAD() {
     f()
   }
 }
 
-func iPhoneSpecific( _ f: () -> Void) {
+func iPhoneSpecific(_ f: () -> Void) {
   if !IPAD() {
     f()
   }

@@ -13,12 +13,12 @@ final class RouteManagerTransitioningManager: NSObject, UIViewControllerTransiti
     super.init()
   }
 
-  func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+  func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source _: UIViewController) -> UIPresentationController? {
     return alternative(iPhone: { () -> UIPresentationController in
-      return RouteManageriPhonePresentationController(presentedViewController: presented,
-                                                      presenting: presenting)
+      RouteManageriPhonePresentationController(presentedViewController: presented,
+                                               presenting: presenting)
     },
-                       iPad: { () -> UIPresentationController in
+    iPad: { () -> UIPresentationController in
       let popover = RouteManageriPadPresentationController(presentedViewController: presented,
                                                            presenting: presenting)
       popover.sourceView = self.popoverSourceView
@@ -28,11 +28,11 @@ final class RouteManagerTransitioningManager: NSObject, UIViewControllerTransiti
     })()
   }
 
-  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  func animationController(forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return RouteManagerTransitioning(isPresentation: true)
   }
 
-  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return RouteManagerTransitioning(isPresentation: false)
   }
 }

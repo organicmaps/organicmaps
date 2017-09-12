@@ -3,26 +3,26 @@ import UIKit
 final class FirstLaunchController: MWMViewController, WelcomeProtocol {
 
   static var welcomeConfigs: [WelcomeConfig] = [
-    WelcomeConfig(image:  #imageLiteral(resourceName: "img_onboarding_offline_maps"),
+    WelcomeConfig(image: #imageLiteral(resourceName: "img_onboarding_offline_maps"),
                   title: "onboarding_offline_maps_title",
                   text: "onboarding_offline_maps_message",
                   buttonTitle: "whats_new_next_button",
                   buttonAction: #selector(nextPage)),
-    WelcomeConfig(image:  #imageLiteral(resourceName: "img_onboarding_geoposition"),
+    WelcomeConfig(image: #imageLiteral(resourceName: "img_onboarding_geoposition"),
                   title: "onboarding_location_title",
                   text: "onboarding_location_message",
                   buttonTitle: "whats_new_next_button",
                   buttonAction: #selector(nextPage)),
-    WelcomeConfig(image:  #imageLiteral(resourceName: "img_onboarding_notification"),
+    WelcomeConfig(image: #imageLiteral(resourceName: "img_onboarding_notification"),
                   title: "onboarding_notifications_title",
                   text: "onboarding_notifications_message",
                   buttonTitle: "whats_new_next_button",
                   buttonAction: #selector(nextPage)),
-    WelcomeConfig(image:  #imageLiteral(resourceName: "img_onboarding_done"),
+    WelcomeConfig(image: #imageLiteral(resourceName: "img_onboarding_done"),
                   title: "first_launch_congrats_title",
                   text: "first_launch_congrats_text",
                   buttonTitle: "done",
-                  buttonAction: #selector(close))
+                  buttonAction: #selector(close)),
   ]
 
   var pageIndex: Int!

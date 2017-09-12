@@ -38,6 +38,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
   private lazy var dimBackground: DimBackground = {
     DimBackground(mainView: self)
   }()
+
   weak var ownerView: UIView!
 
   private weak var navigationInfo: MWMNavigationDashboardEntity?
@@ -58,9 +59,9 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
         UIView.animate(withDuration: kDefaultAnimationDuration,
                        animations: { self.superview?.layoutIfNeeded() },
                        completion: { _ in
-                        if (!self.isVisible) {
-                          self.removeFromSuperview()
-                        }
+                         if !self.isVisible {
+                           self.removeFromSuperview()
+                         }
         })
       }
     }
@@ -136,10 +137,10 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     navigationInfo = info
     guard !MWMRouter.isTaxi() else { return }
 
-    let routingNumberAttributes: [String : Any] =
-      [NSForegroundColorAttributeName : UIColor.blackPrimaryText(), NSFontAttributeName : UIFont.bold24()]
-    let routingLegendAttributes: [String : Any] =
-      [NSForegroundColorAttributeName : UIColor.blackSecondaryText(), NSFontAttributeName : UIFont.bold14()]
+    let routingNumberAttributes: [String: Any] =
+      [NSForegroundColorAttributeName: UIColor.blackPrimaryText(), NSFontAttributeName: UIFont.bold24()]
+    let routingLegendAttributes: [String: Any] =
+      [NSForegroundColorAttributeName: UIColor.blackSecondaryText(), NSFontAttributeName: UIFont.bold14()]
 
     if timePageControl.currentPage == 0 {
       timeLabel.text = info.eta

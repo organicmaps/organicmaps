@@ -27,7 +27,7 @@ final class PhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransiti
     performFadeAnimationWithTransitionContext(transitionContext)
   }
 
-  func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+  func transitionDuration(using _: UIViewControllerContextTransitioning?) -> TimeInterval {
     return shouldPerformZoomingAnimation ? Settings.animationDurationWithZooming : Settings.animationDurationWithoutZooming
   }
 
@@ -86,24 +86,24 @@ final class PhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransiti
 
     UIView.animate(withDuration: fadeInDuration,
                    delay: 0.0,
-                   options: [.allowAnimatedContent,.beginFromCurrentState],
+                   options: [.allowAnimatedContent, .beginFromCurrentState],
                    animations: { endingViewForAnimation.alpha = 1.0 },
                    completion: { _ in
-                    UIView.animate(withDuration: fadeOutDuration,
-                                   delay: 0.0,
-                                   options: [.allowAnimatedContent,.beginFromCurrentState],
-                                   animations: { startingViewForAnimation.alpha = 0.0 },
-                                  completion: { _ in
-                                    startingViewForAnimation.removeFromSuperview()
-                                  })
-                    
+                     UIView.animate(withDuration: fadeOutDuration,
+                                    delay: 0.0,
+                                    options: [.allowAnimatedContent, .beginFromCurrentState],
+                                    animations: { startingViewForAnimation.alpha = 0.0 },
+                                    completion: { _ in
+                                      startingViewForAnimation.removeFromSuperview()
+                     })
+
     })
 
     UIView.animate(withDuration: transDuration,
                    delay: 0.0,
-                   usingSpringWithDamping:Settings.zoomingAnimationSpringDamping,
-                   initialSpringVelocity:0,
-                   options: [.allowAnimatedContent,.beginFromCurrentState],
+                   usingSpringWithDamping: Settings.zoomingAnimationSpringDamping,
+                   initialSpringVelocity: 0,
+                   options: [.allowAnimatedContent, .beginFromCurrentState],
                    animations: { () -> Void in
                      endingViewForAnimation.transform = finalEndingViewTransform
                      endingViewForAnimation.center = translatedEndingViewFinalCenter
@@ -115,7 +115,7 @@ final class PhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransiti
                      endingView.alpha = 1.0
                      startingView.alpha = 1.0
                      self?.completeTransitionWithTransitionContext(transitionContext)
-                   })
+    })
   }
 
   private func performFadeAnimationWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning) {
@@ -127,7 +127,7 @@ final class PhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransiti
 
     UIView.animate(withDuration: fadeDurationForTransitionContext(transitionContext), animations: {
       fadeView?.alpha = endingAlpha
-    }) { finished in
+    }) { _ in
       if !self.shouldPerformZoomingAnimation {
         self.completeTransitionWithTransitionContext(transitionContext)
       }

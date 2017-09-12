@@ -8,8 +8,8 @@ final class RouteManageriPhonePresentationController: UIPresentationController {
   override func presentationTransitionWillBegin() {
     super.presentationTransitionWillBegin()
     guard let presentedViewController = presentedViewController as? RouteManagerViewController,
-          let coordinator = presentedViewController.transitionCoordinator,
-          let containerView = containerView else { return }
+      let coordinator = presentedViewController.transitionCoordinator,
+      let containerView = containerView else { return }
 
     containerView.addSubview(presentedView!)
     presentedViewController.containerView = containerView
@@ -24,8 +24,8 @@ final class RouteManageriPhonePresentationController: UIPresentationController {
   override func dismissalTransitionWillBegin() {
     super.dismissalTransitionWillBegin()
     guard let presentedViewController = presentedViewController as? RouteManagerViewController,
-          let coordinator = presentedViewController.transitionCoordinator,
-          let presentedView = presentedView else { return }
+      let coordinator = presentedViewController.transitionCoordinator,
+      let presentedView = presentedView else { return }
 
     coordinator.animate(alongsideTransition: { _ in
       presentedViewController.chromeView.alpha = 0

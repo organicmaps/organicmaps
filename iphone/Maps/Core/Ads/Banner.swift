@@ -1,6 +1,6 @@
 protocol Banner: MWMBanner {
   typealias EventName = String
-  typealias ErrorDetails = [String : Any]
+  typealias ErrorDetails = [String: Any]
   typealias Success = (Banner) -> Void
   typealias Failure = (BannerType, EventName, ErrorDetails, NSError) -> Void
   typealias Click = (Banner) -> Void

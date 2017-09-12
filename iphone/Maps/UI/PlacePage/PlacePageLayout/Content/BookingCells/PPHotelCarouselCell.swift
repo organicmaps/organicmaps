@@ -1,4 +1,4 @@
-final class CarouselElement : UICollectionViewCell {
+final class CarouselElement: UICollectionViewCell {
   @IBOutlet private weak var image: UIImageView!
   @IBOutlet private var dimMask: [UIView]!
 
@@ -44,7 +44,7 @@ extension PPHotelCarouselCell: UICollectionViewDelegate, UICollectionViewDataSou
     return cell
   }
 
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
     return isFullPhotosCarousel ? dataSource.count : kMaximumNumberOfPhotos
   }
 
@@ -56,7 +56,8 @@ extension PPHotelCarouselCell: UICollectionViewDelegate, UICollectionViewDataSou
     } else {
       let section = indexPath.section
       d.showPhoto(at: indexPath.item,
-                  referenceView: collectionView.cellForItem(at: indexPath), referenceViewWhenDismissingHandler: { index -> UIView? in
+                  referenceView: collectionView.cellForItem(at: indexPath),
+                  referenceViewWhenDismissingHandler: { index -> UIView? in
                     let indexPath = IndexPath(item: index, section: section)
                     return collectionView.cellForItem(at: indexPath)
       })

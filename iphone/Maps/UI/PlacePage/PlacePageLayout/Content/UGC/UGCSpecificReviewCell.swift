@@ -22,11 +22,11 @@ final class UGCSpecificReviewCell: MWMTableViewCell {
     delegate?.changeReviewRate(on.tag, atIndexPath: indexPath)
   }
 
-  //TODO: Make highlighting and dragging.
+  // TODO: Make highlighting and dragging.
 
-  @IBAction private func highlight(on: UIButton) { }
+  @IBAction private func highlight(on _: UIButton) {}
 
-  @IBAction private func touchingCanceled(on: UIButton) { }
+  @IBAction private func touchingCanceled(on _: UIButton) {}
 
-  @IBAction private func drag(inside: UIButton) { }
+  @IBAction private func drag(inside _: UIButton) {}
 }

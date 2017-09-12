@@ -1,4 +1,4 @@
-final class CianElement : UICollectionViewCell {
+final class CianElement: UICollectionViewCell {
   enum State {
     case pending(onButtonAction: () -> Void)
     case offer(model: CianItemModel?, onButtonAction: (CianItemModel?) -> Void)
@@ -16,18 +16,21 @@ final class CianElement : UICollectionViewCell {
       price.textColor = UIColor.linkBlue()
     }
   }
+
   @IBOutlet private weak var descr: UILabel! {
     didSet {
       descr.font = UIFont.medium14()
       descr.textColor = UIColor.blackPrimaryText()
     }
   }
+
   @IBOutlet private weak var address: UILabel! {
     didSet {
       address.font = UIFont.regular12()
       address.textColor = UIColor.blackSecondaryText()
     }
   }
+
   @IBOutlet private weak var details: UIButton! {
     didSet {
       details.setTitleColor(UIColor.linkBlue(), for: .normal)
@@ -50,6 +53,7 @@ final class CianElement : UICollectionViewCell {
       pendingSpinnerView.tintColor = UIColor.linkBlue()
     }
   }
+
   @IBOutlet private weak var pendingTitleTopOffset: NSLayoutConstraint!
   @IBOutlet private weak var pendingTitle: UILabel! {
     didSet {
@@ -58,6 +62,7 @@ final class CianElement : UICollectionViewCell {
       pendingTitle.text = L("preloader_cian_title")
     }
   }
+
   @IBOutlet private weak var pendingDescription: UILabel! {
     didSet {
       pendingDescription.font = UIFont.regular12()
@@ -66,7 +71,6 @@ final class CianElement : UICollectionViewCell {
     }
   }
 
-
   @IBAction func onButtonAction() {
     switch state! {
     case let .pending(action): action()
@@ -74,7 +78,6 @@ final class CianElement : UICollectionViewCell {
     case let .error(action): action()
     }
   }
-
 
   var state: State! {
     didSet {
@@ -96,14 +99,15 @@ final class CianElement : UICollectionViewCell {
         configError()
       }
       UIView.animate(withDuration: kDefaultAnimationDuration,
-      animations: {
-        self.pendingSpinnerView.alpha = pendingSpinnerViewAlpha
-        self.contentViews.forEach { $0.alpha = 0 }
-        visibleView.alpha = 1
-        self.layoutIfNeeded()
-      }, completion: { _ in
-        self.contentViews.forEach { $0.isHidden = true }
-        visibleView.isHidden = false
+                     animations: {
+                       self.pendingSpinnerView.alpha = pendingSpinnerViewAlpha
+                       self.contentViews.forEach { $0.alpha = 0 }
+                       visibleView.alpha = 1
+                       self.layoutIfNeeded()
+                     },
+                     completion: { _ in
+                       self.contentViews.forEach { $0.isHidden = true }
+                       visibleView.isHidden = false
       })
     }
   }
@@ -157,7 +161,7 @@ final class CianElement : UICollectionViewCell {
       }
 
       let descrFormat = L("room").replacingOccurrences(of: "%s", with: "%@")
-      descr.text = String(format: descrFormat, arguments:["\(model.roomsCount)"])
+      descr.text = String(format: descrFormat, arguments: ["\(model.roomsCount)"])
 
       address.text = model.address
 

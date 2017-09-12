@@ -1,9 +1,9 @@
 extension UIColor {
-  func lighter(percent: CGFloat) ->  UIColor {
+  func lighter(percent: CGFloat) -> UIColor {
     return colorWithBrightnessFactor(factor: 1 + percent)
   }
 
-  func darker(percent: CGFloat) ->  UIColor {
+  func darker(percent: CGFloat) -> UIColor {
     return colorWithBrightnessFactor(factor: 1 - percent)
   }
 
@@ -16,7 +16,7 @@ extension UIColor {
     if getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha) {
       return UIColor(hue: hue, saturation: saturation, brightness: brightness * factor, alpha: alpha)
     } else {
-      return self;
+      return self
     }
   }
 }

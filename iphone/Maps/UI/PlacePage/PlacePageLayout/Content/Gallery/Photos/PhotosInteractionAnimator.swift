@@ -61,8 +61,10 @@ final class PhotosInteractionAnimator: NSObject {
     }
     let finalBackgroundColor = fromView.backgroundColor?.withAlphaComponent(finalBackgroundAlpha)
     finishPanWithoutAnimator(duration: animationDuration,
-                             viewToPan: viewToPan, fromView: fromView,
-                             finalPageViewCenterPoint: finalPageViewCenterPoint, finalBackgroundColor: finalBackgroundColor,
+                             viewToPan: viewToPan,
+                             fromView: fromView,
+                             finalPageViewCenterPoint: finalPageViewCenterPoint,
+                             finalBackgroundColor: finalBackgroundColor,
                              isDismissing: isDismissing)
   }
 
@@ -71,29 +73,29 @@ final class PhotosInteractionAnimator: NSObject {
                    delay: 0,
                    options: .curveEaseOut,
                    animations: {
-                    viewToPan.center = finalPageViewCenterPoint
-                    fromView.backgroundColor = finalBackgroundColor
-    },
+                     viewToPan.center = finalPageViewCenterPoint
+                     fromView.backgroundColor = finalBackgroundColor
+                   },
                    completion: { [weak self] _ in
-                    guard let s = self else { return }
-                    if isDismissing {
-                      s.transitionContext?.finishInteractiveTransition()
-                    } else {
-                      s.transitionContext?.cancelInteractiveTransition()
-                      if !s.isRadar20070670Fixed() {
-                        s.fixCancellationStatusBarAppearanceBug()
-                      }
-                    }
-                    s.viewToHideWhenBeginningTransition?.alpha = 1.0
-                    s.transitionContext?.completeTransition(isDismissing && !(s.transitionContext?.transitionWasCancelled ?? false))
-                    s.transitionContext = nil
+                     guard let s = self else { return }
+                     if isDismissing {
+                       s.transitionContext?.finishInteractiveTransition()
+                     } else {
+                       s.transitionContext?.cancelInteractiveTransition()
+                       if !s.isRadar20070670Fixed() {
+                         s.fixCancellationStatusBarAppearanceBug()
+                       }
+                     }
+                     s.viewToHideWhenBeginningTransition?.alpha = 1.0
+                     s.transitionContext?.completeTransition(isDismissing && !(s.transitionContext?.transitionWasCancelled ?? false))
+                     s.transitionContext = nil
     })
   }
 
   private func fixCancellationStatusBarAppearanceBug() {
     guard let toViewController = self.transitionContext?.viewController(forKey: UITransitionContextViewControllerKey.to),
       let fromViewController = self.transitionContext?.viewController(forKey: UITransitionContextViewControllerKey.from) else {
-        return
+      return
     }
 
     let statusBarViewControllerSelector = Selector("_setPresentedSta" + "tusBarViewController:")
@@ -103,7 +105,7 @@ final class PhotosInteractionAnimator: NSObject {
   }
 
   private func isRadar20070670Fixed() -> Bool {
-    return ProcessInfo.processInfo.isOperatingSystemAtLeast(OperatingSystemVersion.init(majorVersion: 8, minorVersion: 3, patchVersion: 0))
+    return ProcessInfo.processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 8, minorVersion: 3, patchVersion: 0))
   }
 
   private func backgroundAlphaForPanningWithVerticalDelta(_ delta: CGFloat) -> CGFloat {

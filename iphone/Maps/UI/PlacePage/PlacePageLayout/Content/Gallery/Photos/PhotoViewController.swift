@@ -15,8 +15,8 @@ final class PhotoViewController: UIViewController {
     self.photo = photo
     super.init(nibName: nil, bundle: nil)
   }
-  
-  required init?(coder aDecoder: NSCoder) {
+
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -44,7 +44,7 @@ final class PhotoViewController: UIViewController {
     var newZoomScale = scalingView.maximumZoomScale
 
     if scalingView.zoomScale >= scalingView.maximumZoomScale ||
-       abs(scalingView.zoomScale - scalingView.maximumZoomScale) <= 0.01 {
+      abs(scalingView.zoomScale - scalingView.maximumZoomScale) <= 0.01 {
       newZoomScale = scalingView.minimumZoomScale
     }
 
@@ -60,16 +60,16 @@ final class PhotoViewController: UIViewController {
 }
 
 extension PhotoViewController: UIScrollViewDelegate {
-  func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+  func viewForZooming(in _: UIScrollView) -> UIView? {
     return scalingView.imageView
   }
 
-  func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+  func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with _: UIView?) {
     scrollView.panGestureRecognizer.isEnabled = true
   }
 
-  func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-    if (scrollView.zoomScale == scrollView.minimumZoomScale) {
+  func scrollViewDidEndZooming(_ scrollView: UIScrollView, with _: UIView?, atScale _: CGFloat) {
+    if scrollView.zoomScale == scrollView.minimumZoomScale {
       scrollView.panGestureRecognizer.isEnabled = false
     }
   }

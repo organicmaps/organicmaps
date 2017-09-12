@@ -42,7 +42,7 @@ final class RBBanner: MTRGNativeAd, Banner {
   }
 
   @objc private func enterBackground() {
-    if (isBannerOnScreen) {
+    if isBannerOnScreen {
       stopCountTimeOnScreen()
     }
   }
@@ -52,7 +52,7 @@ final class RBBanner: MTRGNativeAd, Banner {
       showDate = Date()
     }
 
-    if (remainingTime > 0) {
+    if remainingTime > 0 {
       perform(#selector(setEnoughTimeOnScreen), with: nil, afterDelay: remainingTime)
     }
   }
@@ -64,7 +64,7 @@ final class RBBanner: MTRGNativeAd, Banner {
     }
 
     let timePassed = Date().timeIntervalSince(date)
-    if (timePassed < Limits.minTimeOnScreen) {
+    if timePassed < Limits.minTimeOnScreen {
       remainingTime = Limits.minTimeOnScreen - timePassed
       NSObject.cancelPreviousPerformRequests(withTarget: self)
     } else {
@@ -76,7 +76,7 @@ final class RBBanner: MTRGNativeAd, Banner {
     isNeedToRetain = false
   }
 
-  //MARK: - Banner
+  // MARK: - Banner
   func reload(success: @escaping Banner.Success, failure: @escaping Banner.Failure, click: @escaping Click) {
     self.success = success
     self.failure = failure
@@ -126,16 +126,18 @@ final class RBBanner: MTRGNativeAd, Banner {
 }
 
 extension RBBanner: MTRGNativeAdDelegate {
-  func onLoad(with promoBanner: MTRGNativePromoBanner!, nativeAd: MTRGNativeAd!) {
+  func onLoad(with _: MTRGNativePromoBanner!, nativeAd: MTRGNativeAd!) {
     guard nativeAd === self else { return }
     success(self)
   }
 
   func onNoAd(withReason reason: String!, nativeAd: MTRGNativeAd!) {
     guard nativeAd === self else { return }
-    let params: [String: Any] = [kStatBanner : bannerID,
-                                 kStatProvider : kStatRB,
-                                 kStatReason : reason]
+    let params: [String: Any] = [
+      kStatBanner: bannerID,
+      kStatProvider: kStatRB,
+      kStatReason: reason,
+    ]
     let event = kStatPlacePageBannerError
     let error = NSError(domain: kMapsmeErrorDomain, code: 1001, userInfo: params)
     failure(self.type, event, params, error)

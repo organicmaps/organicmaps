@@ -134,7 +134,7 @@ final class AdBanner: UITableViewCell {
 
   private func configFBBanner(ad: FBNativeAd) {
     let adCallToActionButtons: [UIView]
-    if (state == .search) {
+    if state == .search {
       adCallToActionButtons = [self, adCallToActionButtonCompact]
     } else {
       adCallToActionButtons = [adCallToActionButtonCompact, adCallToActionButtonDetailed]
@@ -149,9 +149,11 @@ final class AdBanner: UITableViewCell {
     paragraphStyle.firstLineHeadIndent = 24
     paragraphStyle.lineBreakMode = .byTruncatingTail
     let adTitle = NSAttributedString(string: ad.title ?? "",
-                                     attributes: [NSParagraphStyleAttributeName: paragraphStyle,
-                                                  NSFontAttributeName: UIFont.bold12(),
-                                                  NSForegroundColorAttributeName: UIColor.blackSecondaryText()])
+                                     attributes: [
+                                       NSParagraphStyleAttributeName: paragraphStyle,
+                                       NSFontAttributeName: UIFont.bold12(),
+                                       NSForegroundColorAttributeName: UIColor.blackSecondaryText(),
+    ])
     adTitleLabel.attributedText = adTitle
     adBodyLabel.text = ad.body ?? ""
     let config = state.config()
@@ -169,9 +171,11 @@ final class AdBanner: UITableViewCell {
     paragraphStyle.firstLineHeadIndent = 24
     paragraphStyle.lineBreakMode = .byTruncatingTail
     let adTitle = NSAttributedString(string: banner.title ?? "",
-                                     attributes: [NSParagraphStyleAttributeName: paragraphStyle,
-                                                  NSFontAttributeName: UIFont.bold12(),
-                                                  NSForegroundColorAttributeName: UIColor.blackSecondaryText()])
+                                     attributes: [
+                                       NSParagraphStyleAttributeName: paragraphStyle,
+                                       NSFontAttributeName: UIFont.bold12(),
+                                       NSForegroundColorAttributeName: UIColor.blackSecondaryText(),
+    ])
     adTitleLabel.attributedText = adTitle
     adBodyLabel.text = banner.descriptionText ?? ""
     let config = state.config()
@@ -199,9 +203,11 @@ final class AdBanner: UITableViewCell {
     paragraphStyle.firstLineHeadIndent = 24
     paragraphStyle.lineBreakMode = .byTruncatingTail
     let adTitle = NSAttributedString(string: ad.title,
-                                     attributes: [NSParagraphStyleAttributeName: paragraphStyle,
-                                                  NSFontAttributeName: UIFont.bold12(),
-                                                  NSForegroundColorAttributeName: UIColor.blackSecondaryText()])
+                                     attributes: [
+                                       NSParagraphStyleAttributeName: paragraphStyle,
+                                       NSFontAttributeName: UIFont.bold12(),
+                                       NSForegroundColorAttributeName: UIColor.blackSecondaryText(),
+    ])
     adTitleLabel.attributedText = adTitle
     adBodyLabel.text = ad.text
     if let url = URL(string: ad.iconURL) {

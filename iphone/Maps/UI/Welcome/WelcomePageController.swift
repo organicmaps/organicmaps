@@ -67,7 +67,7 @@ final class WelcomePageController: UIPageViewController {
     let isFirstSession = Alohalytics.isFirstSession()
     let pagesCount = isFirstSession ? FirstLaunchController.pagesCount : WhatsNewController.pagesCount
     let welcomeClass: WelcomeProtocolBase.Type = isFirstSession ? FirstLaunchController.self : WhatsNewController.self
-    (0..<pagesCount).forEach {
+    (0 ..< pagesCount).forEach {
       let vc = welcomeClass.controller($0)
       (vc as! WelcomeProtocolBase).pageController = self
       controllers.append(vc)
@@ -118,23 +118,23 @@ final class WelcomePageController: UIPageViewController {
 
 extension WelcomePageController: UIPageViewControllerDataSource {
 
-  func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+  func pageViewController(_: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
     guard viewController != controllers.first else { return nil }
     let index = controllers.index(before: controllers.index(of: viewController)!)
     return controllers[index]
   }
 
-  func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+  func pageViewController(_: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
     guard viewController != controllers.last else { return nil }
     let index = controllers.index(after: controllers.index(of: viewController)!)
     return controllers[index]
   }
 
-  func presentationCount(for pageViewController: UIPageViewController) -> Int {
+  func presentationCount(for _: UIPageViewController) -> Int {
     return controllers.count
   }
 
-  func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+  func presentationIndex(for _: UIPageViewController) -> Int {
     guard let vc = currentController else { return 0 }
     return controllers.index(of: vc)!
   }

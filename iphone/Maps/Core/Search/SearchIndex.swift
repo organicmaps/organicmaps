@@ -18,7 +18,7 @@ final class SearchIndex: NSObject {
   }
 
   init(suggestionsCount: Int, resultsCount: Int) {
-    for index in 0..<resultsCount {
+    for index in 0 ..< resultsCount {
       let type: MWMSearchItemType = index < suggestionsCount ? .suggestion : .regular
       let item = Item(type: type, containerIndex: index)
       positionItems.append(PositionItem(item: item, position: index))
@@ -45,7 +45,7 @@ final class SearchIndex: NSObject {
 
     items.removeAll()
     let keys = itemsDict.keys.sorted()
-    for index in 0..<keys.count {
+    for index in 0 ..< keys.count {
       let key = keys[index]
       if index == key {
         items.append(itemsDict[key]!)
@@ -67,8 +67,8 @@ extension SearchIndex.PositionItem: Equatable {
     let lhsCache = lhs.item
     let rhsCache = rhs.item
     return lhsCache.type == rhsCache.type &&
-           lhs.position == rhs.position &&
-           lhsCache.containerIndex == rhsCache.containerIndex
+      lhs.position == rhs.position &&
+      lhsCache.containerIndex == rhsCache.containerIndex
   }
 }
 

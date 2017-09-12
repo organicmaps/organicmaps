@@ -1,7 +1,7 @@
 import Crashlytics
 import MyTrackerSDK
 
-@objc (MWMBannersCache)
+@objc(MWMBannersCache)
 final class BannersCache: NSObject {
   static let cache = BannersCache()
   private override init() {}
@@ -14,8 +14,8 @@ final class BannersCache: NSObject {
 
   typealias Completion = (MWMBanner, Bool) -> Void
 
-  private var cache: [BannerType : Banner] = [:]
-  private var requests: [BannerType : Banner] = [:]
+  private var cache: [BannerType: Banner] = [:]
+  private var requests: [BannerType: Banner] = [:]
   private var completion: Completion?
   private var loadStates: [LoadState]!
   private var cacheOnly = false
@@ -25,10 +25,10 @@ final class BannersCache: NSObject {
     var banner: Banner?
     statesLoop: for loadState in loadStates {
       switch loadState {
-      case .notLoaded(let type):
+      case let .notLoaded(type):
         banner = cache[type]
         break statesLoop
-      case .loaded(let type):
+      case let .loaded(type):
         banner = cache[type]
         break statesLoop
       case .error: continue
@@ -83,7 +83,7 @@ final class BannersCache: NSObject {
 
   private func notLoadedIndex(bannerType: BannerType) -> Array<LoadState>.Index? {
     return loadStates.index(where: {
-      if case .notLoaded(let type) = $0, type == bannerType {
+      if case let .notLoaded(type) = $0, type == bannerType {
         return true
       }
       return false

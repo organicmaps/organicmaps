@@ -7,6 +7,7 @@ final class PPViatorCarouselCell: MWMTableViewCell {
       title.textColor = UIColor.blackSecondaryText()
     }
   }
+
   @IBOutlet private weak var more: UIButton! {
     didSet {
       more.setTitle(L("placepage_more_button"), for: .normal)
@@ -20,7 +21,7 @@ final class PPViatorCarouselCell: MWMTableViewCell {
   fileprivate let kMaximumNumberOfElements = 5
   fileprivate var delegate: MWMPlacePageButtonsProtocol?
 
-  fileprivate var statisticsParameters: [AnyHashable: Any] { return [kStatProvider : kStatViator] }
+  fileprivate var statisticsParameters: [AnyHashable: Any] { return [kStatProvider: kStatViator] }
 
   func config(with ds: [ViatorItemModel], delegate d: MWMPlacePageButtonsProtocol?) {
     if ds.isEmpty {
@@ -60,11 +61,11 @@ extension PPViatorCarouselCell: UICollectionViewDelegate, UICollectionViewDataSo
     return cell
   }
 
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
     return min(dataSource.count, kMaximumNumberOfElements) + 1
   }
 
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let isMore = isLastCell(indexPath)
     let url: URL? = isMore ? nil : dataSource[indexPath.item].pageURL
     delegate?.openSponsoredURL(url)

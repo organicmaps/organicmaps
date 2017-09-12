@@ -13,10 +13,11 @@ final class PhotosViewController: MWMViewController {
   private var overlayViewHidden = false
 
   private lazy var singleTapGestureRecognizer: UITapGestureRecognizer = {
-    return UITapGestureRecognizer(target: self, action: #selector(handleSingleTapGestureRecognizer(_:)))
+    UITapGestureRecognizer(target: self, action: #selector(handleSingleTapGestureRecognizer(_:)))
   }()
+
   private lazy var panGestureRecognizer: UIPanGestureRecognizer = {
-    return UIPanGestureRecognizer(target: self, action: #selector(handlePanGestureRecognizer(_:)))
+    UIPanGestureRecognizer(target: self, action: #selector(handlePanGestureRecognizer(_:)))
   }()
 
   fileprivate var interactiveDismissal = false
@@ -36,8 +37,8 @@ final class PhotosViewController: MWMViewController {
     transitionAnimator.startingView = referenceView
     transitionAnimator.endingView = currentPhotoViewController?.scalingView.imageView
   }
-  
-  required init?(coder aDecoder: NSCoder) {
+
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -143,11 +144,11 @@ final class PhotosViewController: MWMViewController {
   }
 
   @objc
-  private func handleSingleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
+  private func handleSingleTapGestureRecognizer(_: UITapGestureRecognizer) {
     setOverlayHidden(!overlayView.isHidden, animated: true)
   }
 
-  //MARK: - Orientations
+  // MARK: - Orientations
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
     return .all
   }
@@ -167,17 +168,17 @@ final class PhotosViewController: MWMViewController {
 }
 
 extension PhotosViewController: UIViewControllerTransitioningDelegate {
-  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  func animationController(forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     transitionAnimator.dismissing = false
     return transitionAnimator
   }
 
-  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     transitionAnimator.dismissing = true
     return transitionAnimator
   }
 
-  func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+  func interactionControllerForDismissal(using _: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     if interactiveDismissal {
       interactiveAnimator.animator = transitionAnimator
       interactiveAnimator.shouldAnimateUsingAnimator = transitionAnimator.endingView != nil
@@ -189,21 +190,21 @@ extension PhotosViewController: UIViewControllerTransitioningDelegate {
 }
 
 extension PhotosViewController: UIPageViewControllerDataSource {
-  func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+  func pageViewController(_: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
     guard let photoViewController = viewController as? PhotoViewController,
-          let photoIndex = photos.items.index(where: { $0 === photoViewController.photo }),
-          photoIndex - 1 >= 0 else {
-        return nil
+      let photoIndex = photos.items.index(where: { $0 === photoViewController.photo }),
+      photoIndex - 1 >= 0 else {
+      return nil
     }
     let newPhoto = photos.items[photoIndex - 1]
     return initializePhotoViewController(photo: newPhoto)
   }
 
-  func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+  func pageViewController(_: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
     guard let photoViewController = viewController as? PhotoViewController,
-          let photoIndex = photos.items.index(where: { $0 === photoViewController.photo }),
-          photoIndex + 1 < photos.items.count else {
-        return nil
+      let photoIndex = photos.items.index(where: { $0 === photoViewController.photo }),
+      photoIndex + 1 < photos.items.count else {
+      return nil
     }
     let newPhoto = photos.items[photoIndex + 1]
     return initializePhotoViewController(photo: newPhoto)
@@ -211,7 +212,7 @@ extension PhotosViewController: UIPageViewControllerDataSource {
 }
 
 extension PhotosViewController: UIPageViewControllerDelegate {
-  func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+  func pageViewController(_: UIPageViewController, didFinishAnimating _: Bool, previousViewControllers _: [UIViewController], transitionCompleted completed: Bool) {
     if completed {
       if let currentPhoto = currentPhoto {
         overlayView.photo = currentPhoto
