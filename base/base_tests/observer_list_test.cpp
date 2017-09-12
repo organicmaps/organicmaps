@@ -27,7 +27,7 @@ UNIT_TEST(ObserverList_Basic)
   Observer observer1;
   Observer observer2;
 
-  my::ObserverList<Observer> observers;
+  base::ObserverListSafe<Observer> observers;
 
   // Register all observers in a list. Also check that it's not
   // possible to add the same observer twice.

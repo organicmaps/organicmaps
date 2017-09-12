@@ -367,7 +367,7 @@ protected:
   mutable mutex m_lock;
 
 private:
-  my::ObserverList<Observer> m_observers;
+  base::ObserverListSafe<Observer> m_observers;
 };
 
 string DebugPrint(MwmSet::RegResult result);

@@ -3,18 +3,21 @@
 #include "storage/country.hpp"
 #include "storage/country_name_getter.hpp"
 #include "storage/country_tree.hpp"
+#include "storage/diff_scheme/diff_manager.hpp"
 #include "storage/downloading_policy.hpp"
-#include "storage/storage_defines.hpp"
 #include "storage/index.hpp"
 #include "storage/map_files_downloader.hpp"
 #include "storage/queued_country.hpp"
+#include "storage/storage_defines.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "platform/local_country_file.hpp"
 
 #include "base/deferred_task.hpp"
 #include "base/thread_checker.hpp"
+#include "base/worker_thread.hpp"
 
+#include <future>
 #include "std/function.hpp"
 #include "std/list.hpp"
 #include "std/shared_ptr.hpp"
@@ -134,11 +137,10 @@ struct NodeStatuses
 };
 
 /// This class is used for downloading, updating and deleting maps.
-class Storage
+class Storage : public diffs::Manager::Observer
 {
 public:
   struct StatusCallback;
-  using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
   using TUpdateCallback = function<void(storage::TCountryId const &, TLocalFilePtr const)>;
   using TDeleteCallback = function<bool(storage::TCountryId const &, TLocalFilePtr const)>;
   using TChangeCountryFunction = function<void(TCountryId const &)>;
@@ -244,6 +246,10 @@ private:
 
   ThreadChecker m_threadChecker;
 
+  diffs::Manager m_diffManager;
+
+  vector<vector<string>> m_deferredDownloads;
+
   void DownloadNextCountryFromQueue();
 
   void LoadCountriesFile(string const & pathToCountriesFile, string const & dataDir,
@@ -265,7 +271,10 @@ private:
   /// during the downloading process.
   void OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & progress);
 
-  bool RegisterDownloadedFiles(TCountryId const & countryId, MapOptions files);
+  using DownloadedFilesProcessingFn = function<void(bool isSuccess)>;
+  void RegisterDownloadedFiles(TCountryId const & countryId, MapOptions files,
+                               DownloadedFilesProcessingFn && fn);
+
   void OnMapDownloadFinished(TCountryId const & countryId, bool success, MapOptions files);
 
   /// Initiates downloading of the next file from the queue.
@@ -391,10 +400,10 @@ public:
 
   string GetNodeLocalName(TCountryId const & countryId) const { return m_countryNameGetter(countryId); }
 
-  /// \brief Downloads one node (expandable or not) by countryId.
-  /// If node is expandable downloads all children (grandchildren) by the node
-  /// until they havn't been downloaded before. Update downloaded mwm if it's necessary.
-  void DownloadNode(TCountryId const & countryId);
+  /// \brief Downloads/update one node (expandable or not) by countryId.
+  /// If node is expandable downloads/update all children (grandchildren) by the node
+  /// until they haven't been downloaded before.
+  void DownloadNode(TCountryId const & countryId, bool isUpdate = false);
 
   /// \brief Delete node with all children (expandable or not).
   void DeleteNode(TCountryId const & countryId);
@@ -525,12 +534,8 @@ public:
 
   TCountryId GetCurrentDownloadingCountryId() const;
   void EnableKeepDownloadingQueue(bool enable) {m_keepDownloadingQueue = enable;}
-
-  /// get download url by countryId & options(first search file name by countryId, then format url)
-  string GetFileDownloadUrl(string const & baseUrl, TCountryId const & countryId, MapOptions file) const;
-
-  /// get download url by base url & file name
-  string GetFileDownloadUrl(string const & baseUrl, string const & fName) const;
+  /// get download url by base url & queued country
+  string GetFileDownloadUrl(string const & baseUrl, QueuedCountry const & queuedCountry) const;
 
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(vector<Country const *> & countries) const;
@@ -546,6 +551,10 @@ public:
   void SetCurrentDataVersionForTesting(int64_t currentVersion);
   void SetDownloadingUrlsForTesting(vector<string> const & downloadingUrls);
   void SetLocaleForTesting(string const & jsonBuffer, string const & locale);
+
+  /// Returns true if the diff scheme is available and all local outdated maps can be updated via
+  /// diffs.
+  bool IsPossibleToAutoupdate() const;
 
 private:
   friend struct UnitClass_StorageTest_DeleteCountry;
@@ -645,6 +654,10 @@ private:
   bool IsDisputed(TCountryTreeNode const & node) const;
 
   void CalMaxMwmSizeBytes();
+
+  void LoadDiffScheme();
+
+  void OnDiffStatusReceived() override;
 };
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries);

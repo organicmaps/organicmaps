@@ -4,7 +4,9 @@
 #include <string>
 #include <unordered_map>
 
-namespace diff_scheme
+namespace storage
+{
+namespace diffs
 {
 enum class Status
 {
@@ -21,4 +23,12 @@ struct FileInfo final
 };
 
 using NameFileInfoMap = std::unordered_map<std::string, FileInfo>;
-}  // namespace diff_scheme
+
+struct LocalMapsInfo final
+{
+  using NameVersionMap = std::unordered_map<std::string, uint64_t>;
+  uint64_t m_currentDataVersion = 0;
+  NameVersionMap m_localMaps;
+};
+}  // namespace diffs
+}  // namespace storage

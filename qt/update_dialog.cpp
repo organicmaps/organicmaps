@@ -139,7 +139,7 @@ namespace qt
         QAbstractButton * const res = ask.clickedButton();
 
         if (res == btnUpdate)
-          st.DownloadNode(countryId);
+          st.UpdateNode(countryId);
         else if (res == btnDelete)
         {
           if (!m_framework.HasUnsavedEdits(countryId) || DeleteNotUploadedEditsConfirmation())

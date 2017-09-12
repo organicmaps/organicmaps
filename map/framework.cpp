@@ -569,7 +569,7 @@ void Framework::ShowNode(storage::TCountryId const & countryId)
   ShowRect(CalcLimitRect(countryId, GetStorage(), GetCountryInfoGetter()));
 }
 
-void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
+void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::TLocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
   m_routingManager.ResetRoutingSession();
@@ -590,7 +590,7 @@ void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, s
   m_searchEngine->ClearCaches();
 }
 
-bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
+bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, storage::TLocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
   m_routingManager.ResetRoutingSession();
@@ -1563,9 +1563,10 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
   if (countrySizeInBytes == 0 || attrs.m_status != NodeStatus::OnDiskOutOfDate)
     return DoAfterUpdate::Nothing;
 
-  return connectionStatus == Platform::EConnectionType::CONNECTION_WWAN
-             ? DoAfterUpdate::AskForUpdateMaps
-             : DoAfterUpdate::AutoupdateMaps;
+  if (s.IsPossibleToAutoupdate() && connectionStatus == Platform::EConnectionType::CONNECTION_WIFI)
+    return DoAfterUpdate::AutoupdateMaps;
+
+  return DoAfterUpdate::AskForUpdateMaps;
 }
 
 search::DisplayedCategories const & Framework::GetDisplayedCategories()
