@@ -31,7 +31,7 @@ public:
   // Creates an instance holding a path to countryFile's in a
   // directory. Note that no disk operations are not performed until
   // SyncWithDisk() is called.
-  // The directory must contain writable dir and data version, e.g. /Data/170703/.
+  // The directory must containt a full path to the country file.
   LocalCountryFile(string const & directory, CountryFile const & countryFile, int64_t version);
 
   // Syncs internal state like availability of map and routing files,
