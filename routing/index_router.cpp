@@ -222,9 +222,15 @@ ProgressRange CalcProgressRange(Checkpoints const & checkpoints, size_t subroute
       finishDistance += distance;
   }
 
-  CHECK_GREATER(fullDistance, 0.0, ());
-  return {static_cast<float>(startDistance / fullDistance * 100.0),
-          static_cast<float>(finishDistance / fullDistance * 100.0)};
+  if (fullDistance == 0.0)
+  {
+    return {0.0, 0.0};
+  }
+  else
+  {
+    return {static_cast<float>(startDistance / fullDistance * 100.0),
+            static_cast<float>(finishDistance / fullDistance * 100.0)};
+  }
 }
 
 void PushPassedSubroutes(Checkpoints const & checkpoints, vector<Route::SubrouteAttrs> & subroutes)
