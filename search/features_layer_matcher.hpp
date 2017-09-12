@@ -31,7 +31,6 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/limits.hpp"
-#include "std/set.hpp"
 #include "std/unordered_map.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -221,7 +220,7 @@ private:
       if (streetFt.GetPointsCount() > 0)
       {
         inflationRect = MercatorBounds::RectByCenterXYAndSizeInMeters(streetFt.GetPoint(0),
-                                                                      0.25 * kStreetRadiusMeters);
+                                                                      0.5 * kStreetRadiusMeters);
       }
 
       for (size_t j = 0; j + 1 < streetFt.GetPointsCount(); ++j)
@@ -241,9 +240,6 @@ private:
     }
 
     BailIfCancelled(m_cancellable);
-    // The matcher may call |fn| more than once if a POI falls inside
-    // the bounding rectangles of several street segments.
-    set<pair<size_t, size_t>> fnAlreadyCalled;
     PointRectMatcher::Match(poiCenters, streetRects, PointRectMatcher::RequestType::All,
                             [&](size_t poiId, size_t streetId) {
                               ASSERT_LESS(poiId, pois.size(), ());
@@ -253,11 +249,7 @@ private:
                               if (streetProjectors[streetId].GetProjection(poiCenter, proj) &&
                                   proj.m_distMeters < kStreetRadiusMeters)
                               {
-                                auto const key = make_pair(poiId, streetId);
-                                if (fnAlreadyCalled.find(key) != fnAlreadyCalled.end())
-                                  return;
                                 fn(pois[poiId], streets[streetId]);
-                                fnAlreadyCalled.insert(key);
                               }
                             });
   }

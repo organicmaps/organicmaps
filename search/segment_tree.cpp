@@ -79,17 +79,7 @@ void SegmentTree::Update(size_t index)
 {
   ASSERT_LESS(index, m_tree.size(), ());
   auto & node = m_tree[index];
-
-  if (node.m_deleted)
-  {
-    node.m_from = kPositiveInfinity;
-    node.m_to = kNegativeInfinity;
-  }
-  else
-  {
-    node.m_from = node.m_segment.m_from;
-    node.m_to = node.m_segment.m_to;
-  }
+  node.m_to = node.m_deleted ? kNegativeInfinity : node.m_segment.m_to;
 
   auto const lc = LeftChild(index);
   auto const rc = RightChild(index);
@@ -97,7 +87,6 @@ void SegmentTree::Update(size_t index)
   {
     if (!Exists(c))
       continue;
-    node.m_from = min(node.m_from, m_tree[c].m_from);
     node.m_to = max(node.m_to, m_tree[c].m_to);
   }
 }

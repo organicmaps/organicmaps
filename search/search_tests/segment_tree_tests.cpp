@@ -31,7 +31,7 @@ size_t FindAny(SegmentTree const & tree, double x)
   return id;
 }
 
-set<size_t> FindAll(SegmentTree const & tree, double x)
+set<size_t> FindAll(SegmentTree & tree, double x)
 {
   set<size_t> result;
   tree.FindAll(x, [&](SegmentTree::Segment const & segment) {

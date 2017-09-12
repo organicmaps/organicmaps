@@ -50,10 +50,6 @@ public:
     // Segment corresponding to the node.
     Segment m_segment;
 
-    // Minimum value among all left bounds of non-deleted segments in
-    // the subtree.
-    double m_from = kPositiveInfinity;
-
     // Maximum value among all right bounds of non-deleted segments in
     // the subtree.
     double m_to = kNegativeInfinity;
@@ -78,9 +74,20 @@ public:
   // Calls |fn| on all segments containing |x| making
   // exactly one call per segment.
   template <typename Fn>
-  void FindAll(double x, Fn && fn) const
+  void FindAll(double x, Fn && fn)
   {
-    FindAll(0 /* index */, x, fn);
+    std::vector<Segment const *> interesting;
+
+    auto const collectFn = [&](Segment const & seg) { interesting.push_back(&seg); };
+
+    while (FindAny(0 /* index */, x, collectFn))
+      Erase(*interesting.back());
+
+    for (auto const * p : interesting)
+    {
+      fn(*p);
+      Add(*p);
+    }
   }
 
 private:
@@ -93,41 +100,25 @@ private:
   void FindSegment(size_t index, Segment const & segment, Fn && fn);
 
   template <typename Fn>
-  void FindAny(size_t index, double x, Fn & fn) const
+  bool FindAny(size_t index, double x, Fn & fn) const
   {
     if (!Exists(index))
-      return;
+      return false;
 
     auto const & root = m_tree[index];
     auto const & segment = root.m_segment;
 
     if (!root.m_deleted && x >= segment.m_from && x <= segment.m_to)
-      return fn(segment);
+    {
+      fn(segment);
+      return true;
+    }
 
     auto const lc = LeftChild(index);
     if (x < segment.m_from || (Exists(lc) && m_tree[lc].m_to >= x))
       return FindAny(lc, x, fn);
 
     return FindAny(RightChild(index), x, fn);
-  }
-
-  template <typename Fn>
-  void FindAll(size_t index, double x, Fn & fn) const
-  {
-    if (!Exists(index))
-      return;
-
-    auto const & root = m_tree[index];
-    auto const & segment = root.m_segment;
-
-    if (!root.m_deleted && (x < root.m_from || x > root.m_to))
-      return;
-
-    if (!root.m_deleted && x >= segment.m_from && x <= segment.m_to)
-      fn(segment);
-
-    FindAll(LeftChild(index), x, fn);
-    FindAll(RightChild(index), x, fn);
   }
 
   void BuildTree(size_t index, std::vector<Segment> const & segments, size_t left, size_t right);
