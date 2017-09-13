@@ -18,7 +18,7 @@ using namespace std;
 class IndexGraphLoaderImpl final : public IndexGraphLoader
 {
 public:
-  IndexGraphLoaderImpl(VehicleType vehicleType, shared_ptr<NumMwmIds> numMwmIds,
+  IndexGraphLoaderImpl(VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
                        shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                        shared_ptr<EdgeEstimator> estimator, Index & index);
 
@@ -30,6 +30,7 @@ private:
   IndexGraph & Load(NumMwmId mwmId);
 
   VehicleMask m_vehicleMask;
+  bool m_loadAltitudes;
   Index & m_index;
   shared_ptr<NumMwmIds> m_numMwmIds;
   shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
@@ -37,10 +38,11 @@ private:
   unordered_map<NumMwmId, unique_ptr<IndexGraph>> m_graphs;
 };
 
-IndexGraphLoaderImpl::IndexGraphLoaderImpl(VehicleType vehicleType, shared_ptr<NumMwmIds> numMwmIds,
+IndexGraphLoaderImpl::IndexGraphLoaderImpl(VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
                                            shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                                            shared_ptr<EdgeEstimator> estimator, Index & index)
   : m_vehicleMask(GetVehicleMask(vehicleType))
+  , m_loadAltitudes(loadAltitudes)
   , m_index(index)
   , m_numMwmIds(numMwmIds)
   , m_vehicleModelFactory(vehicleModelFactory)
@@ -71,7 +73,7 @@ IndexGraph & IndexGraphLoaderImpl::Load(NumMwmId numMwmId)
       m_vehicleModelFactory->GetVehicleModelForCountry(file.GetName());
 
   auto graphPtr = make_unique<IndexGraph>(
-      GeometryLoader::Create(m_index, handle, vehicleModel, m_vehicleMask != kCarMask),
+      GeometryLoader::Create(m_index, handle, vehicleModel, m_loadAltitudes),
       m_estimator);
   IndexGraph & graph = *graphPtr;
 
@@ -111,12 +113,12 @@ namespace routing
 {
 // static
 unique_ptr<IndexGraphLoader> IndexGraphLoader::Create(
-    VehicleType vehicleType, shared_ptr<NumMwmIds> numMwmIds,
+    VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory, shared_ptr<EdgeEstimator> estimator,
     Index & index)
 {
-  return make_unique<IndexGraphLoaderImpl>(vehicleType, numMwmIds, vehicleModelFactory, estimator,
-                                           index);
+  return make_unique<IndexGraphLoaderImpl>(vehicleType, loadAltitudes, numMwmIds, vehicleModelFactory,
+                                           estimator, index);
 }
 
 void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleMask vehicleMask, IndexGraph & graph)

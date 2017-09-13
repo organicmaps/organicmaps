@@ -279,6 +279,7 @@ private:
   Callbacks m_callbacks;
   df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
+  bool m_loadAltitudes = false;
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
   tracking::Reporter m_trackingReporter;

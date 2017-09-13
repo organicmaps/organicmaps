@@ -287,12 +287,13 @@ double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
 }
 
 // IndexRouter ------------------------------------------------------------------------------------
-IndexRouter::IndexRouter(VehicleType vehicleType,
+IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                          CountryParentNameGetterFn const & countryParentNameGetterFn,
                          TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
                          shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
                          traffic::TrafficCache const & trafficCache, Index & index)
   : m_vehicleType(vehicleType)
+  , m_loadAltitudes(loadAltitudes)
   , m_name("astar-bidirectional-" + ToString(m_vehicleType))
   , m_index(index)
   , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn))
@@ -675,7 +676,8 @@ WorldGraph IndexRouter::MakeWorldGraph()
   WorldGraph graph(
       make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_vehicleType,
                                  m_countryRectFn, m_index, m_indexManager),
-      IndexGraphLoader::Create(m_vehicleType, m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
+      IndexGraphLoader::Create(m_vehicleType, m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory,
+                               m_estimator, m_index),
       m_estimator);
   return graph;
 }

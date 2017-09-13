@@ -103,7 +103,8 @@ namespace integration
         numMwmIds->RegisterFile(countryFile);
     }
 
-    auto indexRouter = make_unique<IndexRouter>(vehicleType, CountryParentNameGetterFn(), countryFileGetter,
+    auto indexRouter = make_unique<IndexRouter>(vehicleType, false /* load altitudes*/,
+                                                CountryParentNameGetterFn(), countryFileGetter,
                                                 getMwmRectByName, numMwmIds,
                                                 MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index);
 
