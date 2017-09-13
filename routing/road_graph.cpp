@@ -32,12 +32,6 @@ void SplitEdge(Edge const & ab, Junction const & p, vector<Edge> & edges)
   auto const & b = ab.GetEndJunction();
 
   // No need to split the edge by its endpoints.
-  // The "if" condition below fixes the issue which was reproduced if to call:
-  // @TODO(bykoianko) It's necessary to write a routing integration test and remove comment below.
-  // std::vector<std::pair<routing::Edge, routing::Junction>> sourceVicinity;
-  // Junction j(PointD(50.732084512710564184, -1.2127983570098876953), feature::kDefaultAltitudeMeters);
-  // FeaturesRoadGraph::FindClosestEdges(j.GetPoint(), 20, sourceVicinity);
-  // FeaturesRoadGraph::AddFakeEdges(j, sourceVicinity);
   if (a.GetPoint() == p.GetPoint() || b.GetPoint() == p.GetPoint())
     return;
 

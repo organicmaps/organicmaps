@@ -30,6 +30,7 @@ SOURCES += \
   get_altitude_test.cpp \
   online_cross_tests.cpp \
   pedestrian_route_test.cpp \
+  road_graph_tests.cpp \
   route_test.cpp \
   routing_test_tools.cpp \
   street_names_test.cpp \
