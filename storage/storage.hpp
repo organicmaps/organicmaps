@@ -660,6 +660,9 @@ private:
   void LoadDiffScheme();
 
   void OnDiffStatusReceived() override;
+
+  TMwmSize GetRemoteSize(platform::CountryFile const & file, MapOptions opt,
+                         int64_t version) const;
 };
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries);

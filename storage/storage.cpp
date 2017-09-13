@@ -52,20 +52,6 @@ uint64_t GetLocalSize(shared_ptr<LocalCountryFile> file, MapOptions opt)
   return size;
 }
 
-uint64_t GetRemoteSize(CountryFile const & file, MapOptions opt, int64_t version)
-{
-  if (version::IsSingleMwm(version))
-    return opt == MapOptions::Nothing ? 0 : file.GetRemoteSize(MapOptions::Map);
-
-  uint64_t size = 0;
-  for (MapOptions bit : {MapOptions::Map, MapOptions::CarRouting})
-  {
-    if (HasOptions(opt, bit))
-      size += file.GetRemoteSize(bit);
-  }
-  return size;
-}
-
 void DeleteCountryIndexes(LocalCountryFile const & localFile)
 {
   platform::CountryIndexes::DeleteFromDisk(localFile);
@@ -839,9 +825,7 @@ void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions f
       GetPlatform().RunOnGuiThread([this, fn, diffFile, result]
       {
         if (result)
-        {
           RegisterCountryFiles(diffFile);
-        }
 
         fn(result);
       });
@@ -1632,7 +1616,7 @@ MapFilesDownloader::TProgress Storage::CalculateProgress(
     MapFilesDownloader::TProgress const & downloadingMwmProgress,
     TCountriesSet const & mwmsInQueue) const
 {
-  // Function calculates progress correctly OLNY if |downloadingMwm| is leaf.
+  // Function calculates progress correctly ONLY if |downloadingMwm| is leaf.
 
   MapFilesDownloader::TProgress localAndRemoteBytes = make_pair(0, 0);
 
@@ -1641,15 +1625,18 @@ MapFilesDownloader::TProgress Storage::CalculateProgress(
     if (downloadingMwm == d && downloadingMwm != kInvalidCountryId)
     {
       localAndRemoteBytes.first += downloadingMwmProgress.first;
-      localAndRemoteBytes.second += GetCountryFile(d).GetRemoteSize(MapOptions::Map);
+      localAndRemoteBytes.second += GetRemoteSize(GetCountryFile(d), MapOptions::Map,
+                                                  GetCurrentDataVersion());
     }
     else if (mwmsInQueue.count(d) != 0)
     {
-      localAndRemoteBytes.second += GetCountryFile(d).GetRemoteSize(MapOptions::Map);
+      localAndRemoteBytes.second += GetRemoteSize(GetCountryFile(d), MapOptions::Map,
+                                                  GetCurrentDataVersion());
     }
     else if (m_justDownloaded.count(d) != 0)
     {
-      TMwmSize const localCountryFileSz = GetCountryFile(d).GetRemoteSize(MapOptions::Map);
+      TMwmSize const localCountryFileSz = GetRemoteSize(GetCountryFile(d), MapOptions::Map,
+                                                        GetCurrentDataVersion());
       localAndRemoteBytes.first += localCountryFileSz;
       localAndRemoteBytes.second += localCountryFileSz;
     }
@@ -1700,7 +1687,18 @@ bool Storage::GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInf
         GetNodeStatus(descendantNode).status != NodeStatus::OnDiskOutOfDate)
       return;
     updateInfo.m_numberOfMwmFilesToUpdate += 1;  // It's not a group mwm.
-    updateInfo.m_totalUpdateSizeInBytes += descendantNode.Value().GetSubtreeMwmSizeBytes();
+    if (m_diffManager.GetStatus() == diffs::Status::Available &&
+        m_diffManager.HasDiffFor(descendantNode.Value().Name()))
+    {
+      updateInfo.m_totalUpdateSizeInBytes +=
+        m_diffManager.InfoFor(descendantNode.Value().Name()).m_size;
+    }
+    else
+    {
+      updateInfo.m_totalUpdateSizeInBytes +=
+        descendantNode.Value().GetSubtreeMwmSizeBytes();
+    }
+
     TLocalAndRemoteSize sizes =
         CountrySizeInBytes(descendantNode.Value().Name(), MapOptions::MapWithCarRouting);
     updateInfo.m_sizeDifference +=
@@ -1799,6 +1797,7 @@ void Storage::GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & n
   }
 }
 
+
 TCountryId const Storage::GetParentIdFor(TCountryId const & countryId) const
 {
   vector<TCountryTreeNode const *> nodes;
@@ -1816,5 +1815,30 @@ TCountryId const Storage::GetParentIdFor(TCountryId const & countryId) const
   }
 
   return nodes[0]->Value().GetParent();
+}
+
+TMwmSize Storage::GetRemoteSize(CountryFile const & file, MapOptions opt,
+                                int64_t version) const
+{
+  if (version::IsSingleMwm(version))
+  {
+    if (opt == MapOptions::Nothing)
+      return 0;
+
+    if (m_diffManager.GetStatus() == diffs::Status::Available &&
+        m_diffManager.HasDiffFor(file.GetName()))
+    {
+      return m_diffManager.InfoFor(file.GetName()).m_size;
+    }
+    return file.GetRemoteSize(MapOptions::Map);
+  }
+
+  TMwmSize size = 0;
+  for (MapOptions bit : {MapOptions::Map, MapOptions::CarRouting})
+  {
+    if (HasOptions(opt, bit))
+      size += file.GetRemoteSize(bit);
+  }
+  return size;
 }
 }  // namespace storage

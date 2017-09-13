@@ -55,6 +55,7 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
 
     auto & diffReadyPath = p.m_diffReadyPath;
     auto & diffFile = p.m_diffFile;
+    auto const countryId = diffFile->GetCountryName();
     bool result = false;
 
     if (!my::RenameFileX(diffReadyPath, diffFile->GetPath(MapOptions::Diff)))
@@ -78,6 +79,13 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
       std::lock_guard<std::mutex> lock(m_mutex);
       m_status = Status::NotAvailable;
       // TODO: Log the diff applying error (Downloader_DiffScheme_error (Aloha)).
+    }
+    else
+    {
+      std::lock_guard<std::mutex> lock(m_mutex);
+      m_diffs.erase(countryId);
+      if (m_diffs.empty())
+        m_status = Status::NotAvailable;
     }
 
     task(result);
