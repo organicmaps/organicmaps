@@ -35,6 +35,7 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/pprof.hpp"
+#include "base/random.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 #include "base/stl_helpers.hpp"
@@ -312,6 +313,30 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
   auto const sep = stable_partition(infos.begin(), infos.end(), intersects);
   return distance(infos.begin(), sep);
 }
+
+CBV DecimateCianResults(CBV const & cbv)
+{
+  // With the typical amount of buildings in a relevant
+  // mwm nearing 200000, the geocoding slows down considerably.
+  // Leaving only a fraction of them does not seem
+  // to worsen the percieved result.
+  size_t const kMaxCianResults = 10000;
+  static minstd_rand rng;
+  auto survivedIds = base::RandomSample(cbv.PopCount(), kMaxCianResults, rng);
+  sort(survivedIds.begin(), survivedIds.end());
+  auto it = survivedIds.begin();
+  vector<uint64_t> setBits;
+  setBits.reserve(kMaxCianResults);
+  size_t observed = 0;
+  cbv.ForEach([&](uint64_t bit) {
+    while (it != survivedIds.end() && *it < observed)
+      ++it;
+    if (it != survivedIds.end() && *it == observed)
+      setBits.push_back(bit);
+    ++observed;
+  });
+  return CBV(coding::CompressedBitVectorBuilder::FromBitPositions(move(setBits)));
+}
 }  // namespace
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
@@ -543,6 +568,9 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
       ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_prefixTokenRequest);
     else
       ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_tokenRequests[i]);
+
+    if (m_params.m_cianMode)
+      ctx.m_features[i] = DecimateCianResults(ctx.m_features[i]);
   }
   ctx.m_hotelsFilter = m_hotelsFilter.MakeScopedFilter(*m_context, m_params.m_hotelsFilter);
 }
@@ -1235,6 +1263,9 @@ void Geocoder::EmitResult(BaseContext const & ctx, City const & city, TokenRange
 
 void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
 {
+  if (m_params.m_cianMode)
+    return;
+
   ASSERT(ctx.m_layers.empty(), ());
 
   // We need to match all unused tokens to UNCLASSIFIED features,
