@@ -77,6 +77,8 @@ omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   qt_common
+  mwm_diff
+  bsdiff
   map
   drape_frontend
   routing

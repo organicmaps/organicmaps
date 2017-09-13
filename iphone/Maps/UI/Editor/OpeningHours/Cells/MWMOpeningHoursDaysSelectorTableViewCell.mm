@@ -25,8 +25,8 @@ using namespace osmoh;
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  NSCalendar * cal = [NSCalendar currentCalendar];
-  cal.locale = [NSLocale currentLocale];
+  NSCalendar * cal = NSCalendar.currentCalendar;
+  cal.locale = NSLocale.currentLocale;
   self.firstWeekday = cal.firstWeekday;
   NSArray<NSString *> * weekdaySymbols = cal.shortStandaloneWeekdaySymbols;
   for (UILabel * label in self.labels)

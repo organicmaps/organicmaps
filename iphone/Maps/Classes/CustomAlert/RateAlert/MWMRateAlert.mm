@@ -32,7 +32,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMRateAlert * alert =
-      [[[NSBundle mainBundle] loadNibNamed:kRateAlertNibName owner:self options:nil] firstObject];
+      [NSBundle.mainBundle loadNibNamed:kRateAlertNibName owner:self options:nil].firstObject;
   [alert configureButtons];
   return alert;
 }
@@ -116,10 +116,10 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
         }];
   if (tag == 5)
   {
-    [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
+    [UIApplication.sharedApplication rateVersionFrom:@"ios_pro_popup"];
     [Alohalytics logEvent:kRateAlertEventName withValue:@"fiveStar"];
     [self close:^{
-      auto ud = [NSUserDefaults standardUserDefaults];
+      auto ud = NSUserDefaults.standardUserDefaults;
       [ud setBool:YES forKey:kUDAlreadyRatedKey];
       [ud synchronize];
     }];
@@ -140,17 +140,17 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
   if ([MWMMailViewController canSendMail])
   {
     NSString * device = [AppInfo sharedInfo].deviceName;
-    NSString * languageCode = [[NSLocale preferredLanguages] firstObject];
+    NSString * languageCode = NSLocale.preferredLanguages.firstObject;
     NSString * language = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
         displayNameForKey:NSLocaleLanguageCode
                     value:languageCode];
-    NSString * locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+    NSString * locale = [NSLocale.currentLocale objectForKey:NSLocaleCountryCode];
     NSString * country = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
         displayNameForKey:NSLocaleCountryCode
                     value:locale];
     NSString * bundleVersion = AppInfo.sharedInfo.bundleVersion;
     NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@",
-                                                 device, [UIDevice currentDevice].systemVersion,
+                                                 device, UIDevice.currentDevice.systemVersion,
                                                  bundleVersion, language, country];
     MWMMailViewController * mailController = [[MWMMailViewController alloc] init];
     mailController.mailComposeDelegate = self;
@@ -158,7 +158,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
                                                           @(self.selectedTag)]];
     [mailController setToRecipients:@[ kRateEmail ]];
     [mailController setMessageBody:text isHTML:NO];
-    mailController.navigationBar.tintColor = [UIColor blackColor];
+    mailController.navigationBar.tintColor = UIColor.blackColor;
     [alertController.ownerViewController presentViewController:mailController
                                                       animated:YES
                                                     completion:nil];

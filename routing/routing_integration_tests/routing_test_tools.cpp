@@ -103,7 +103,8 @@ namespace integration
         numMwmIds->RegisterFile(countryFile);
     }
 
-    auto indexRouter = make_unique<IndexRouter>(vehicleType, CountryParentNameGetterFn(), countryFileGetter,
+    auto indexRouter = make_unique<IndexRouter>(vehicleType, false /* load altitudes*/,
+                                                CountryParentNameGetterFn(), countryFileGetter,
                                                 getMwmRectByName, numMwmIds,
                                                 MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index);
 
@@ -130,7 +131,7 @@ namespace integration
     return unique_ptr<IRouter>(move(router));
   }
 
-  shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType)
+  void GetAllLocalFiles(vector<LocalCountryFile> & localFiles)
   {
     // Setting stored paths from testingmain.cpp
     Platform & pl = GetPlatform();
@@ -141,12 +142,16 @@ namespace integration
       pl.SetResourceDir(options.m_resourcePath);
 
     platform::migrate::SetMigrationFlag();
-
-    vector<LocalCountryFile> localFiles;
     platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
                                          localFiles);
     for (auto & file : localFiles)
       file.SyncWithDisk();
+  }
+
+  shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType)
+  {
+    vector<LocalCountryFile> localFiles;
+    GetAllLocalFiles(localFiles);
     ASSERT(!localFiles.empty(), ());
     return make_shared<VehicleRouterComponents>(localFiles, vehicleType);
   }

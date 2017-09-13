@@ -111,7 +111,7 @@
   case NodeStatus::Downloading:
   {
     auto const & prg = nodeAttrs.m_downloadingProgress;
-    progress.progress = static_cast<CGFloat>(prg.first) / prg.second;
+    progress.progress = kMaxProgress * static_cast<CGFloat>(prg.first) / prg.second;
     break;
   }
   case NodeStatus::InQueue: progress.state = MWMCircularProgressStateSpinner; break;
@@ -146,7 +146,7 @@
 {
   if (countryId != m_countryId)
     return;
-  self.progress.progress = static_cast<CGFloat>(progress.first) / progress.second;
+  self.progress.progress = kMaxProgress * static_cast<CGFloat>(progress.first) / progress.second;
 }
 
 #pragma mark - MWMCircularProgressProtocol

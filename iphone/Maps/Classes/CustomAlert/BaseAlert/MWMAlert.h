@@ -26,7 +26,7 @@ using MWMDownloadBlock = void (^)(storage::TCountriesVec const &, MWMVoidBlock);
 + (MWMAlert *)deleteMapProhibitedAlert;
 + (MWMAlert *)unsavedEditsAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (MWMAlert *)locationServiceNotSupportedAlert;
-+ (MWMAlert *)incorrectFeauturePositionAlert;
++ (MWMAlert *)incorrectFeaturePositionAlert;
 + (MWMAlert *)internalErrorAlert;
 + (MWMAlert *)notEnoughSpaceAlert;
 + (MWMAlert *)invalidUserNameOrPasswordAlert;

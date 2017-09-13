@@ -295,7 +295,6 @@
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/edit_place"
         android:theme="@style/MwmTheme.EditorActivity"
-        android:windowSoftInputMode="adjustResize|stateHidden"
         android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data

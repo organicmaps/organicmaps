@@ -26,9 +26,9 @@ define add_prebuild_static_lib
 endef
 
 prebuild_static_libs := map tracking routing traffic routing_common drape_frontend search storage
-prebuild_static_libs += ugc indexer drape platform editor partners_api local_ads geometry coding base
-prebuild_static_libs += opening_hours pugixml oauthcpp expat freetype minizip jansson
-prebuild_static_libs += protobuf osrm stats_client succinct stb_image sdf_image icu agg
+prebuild_static_libs += ugc indexer drape platform editor partners_api local_ads mwm_diff bsdiff
+prebuild_static_libs += geometry coding base opening_hours pugixml oauthcpp expat freetype minizip
+prebuild_static_libs += jansson protobuf osrm stats_client succinct stb_image sdf_image icu agg
 
 $(foreach item,$(prebuild_static_libs),$(eval $(call add_prebuild_static_lib,$(item))))
 

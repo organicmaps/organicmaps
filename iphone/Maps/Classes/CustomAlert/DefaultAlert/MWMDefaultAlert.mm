@@ -164,7 +164,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                      statisticsEvent:@"Internal Routing Error Alert"];
 }
 
-+ (instancetype)incorrectFeauturePositionAlert
++ (instancetype)incorrectFeaturePositionAlert
 {
   return [self defaultAlertWithTitle:L(@"dialog_incorrect_feature_position")
                              message:L(@"message_invalid_feature_position")
@@ -393,8 +393,8 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                       statisticsEvent:(nonnull NSString *)statisticsEvent
 {
   [Statistics logEvent:statisticsEvent withParameters:@{kStatAction : kStatOpen}];
-  MWMDefaultAlert * alert = [
-      [[NSBundle mainBundle] loadNibNamed:kDefaultAlertNibName owner:self options:nil] firstObject];
+  MWMDefaultAlert * alert =
+      [NSBundle.mainBundle loadNibNamed:kDefaultAlertNibName owner:self options:nil].firstObject;
   alert.titleLabel.text = title;
   alert.messageLabel.text = message;
   if (!message)

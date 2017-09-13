@@ -34,7 +34,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 @property(weak, nonatomic, readwrite) IBOutlet NSLayoutConstraint * ohTextViewHeight;
 @property(weak, nonatomic) IBOutlet UIView * exampleValuesSeparator;
 @property(weak, nonatomic) IBOutlet UIImageView * exampleValuesExpandView;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * exampesButtonBottomOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * examplesButtonBottomOffset;
 @property(weak, nonatomic, readwrite) IBOutlet UIButton * toggleModeButton;
 
 @property(nonatomic) BOOL exampleExpanded;
@@ -80,7 +80,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
   self.editorView.keyboardAppearance =
       [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
   NSString * path =
-      [[NSBundle mainBundle] pathForResource:@"opening_hours_how_to_edit" ofType:@"html"];
+      [NSBundle.mainBundle pathForResource:@"opening_hours_how_to_edit" ofType:@"html"];
   NSString * html =
       [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
   NSURL * baseURL = [NSURL fileURLWithPath:path];
@@ -183,7 +183,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 {
   _exampleExpanded = exampleExpanded;
   self.help.hidden = !exampleExpanded;
-  self.exampesButtonBottomOffset.priority =
+  self.examplesButtonBottomOffset.priority =
       exampleExpanded ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
   self.exampleValuesSeparator.hidden = !exampleExpanded;
   self.exampleValuesExpandView.image =

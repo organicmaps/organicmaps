@@ -16,7 +16,7 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
 
 - (instancetype)init
 {
-  self = [[[NSBundle mainBundle] loadNibNamed:kDirectionViewNibName owner:nil options:nil] firstObject];
+  self = [NSBundle.mainBundle loadNibNamed:kDirectionViewNibName owner:nil options:nil].firstObject;
   [self setup];
   return self;
 }

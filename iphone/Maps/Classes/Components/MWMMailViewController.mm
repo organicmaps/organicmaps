@@ -7,14 +7,14 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.navigationBar.tintColor = [UIColor whiteColor];
+  self.navigationBar.tintColor = UIColor.whiteColor;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
   if ([MWMToast affectsStatusBar])
     return [MWMToast preferredStatusBarStyle];
-  setStatusBarBackgroundColor([UIColor clearColor]);
+  setStatusBarBackgroundColor(UIColor.clearColor);
   return [UIColor isNightMode] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 

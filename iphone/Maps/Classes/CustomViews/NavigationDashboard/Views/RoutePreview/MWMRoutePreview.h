@@ -1,4 +1,5 @@
 #import "MWMCircularProgressState.h"
+#import "MWMRouterType.h"
 
 @class MWMNavigationDashboardEntity;
 @class MWMNavigationDashboardManager;

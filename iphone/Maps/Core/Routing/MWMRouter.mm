@@ -1,6 +1,5 @@
 #import "MWMRouter.h"
 #import <Crashlytics/Crashlytics.h>
-#import "MWMConsts.h"
 #import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationHelpers.h"
@@ -9,6 +8,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRoutePoint+CPP.h"
+#import "MWMRouterRecommendation.h"
 #import "MWMSearch.h"
 #import "MWMStorage.h"
 #import "MapViewController.h"
@@ -46,15 +46,13 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   if (point == nullptr)
     return;
 
-  NSString * pointTypeStr = @"";
+  NSString * pointTypeStr = nil;
   switch (point.type)
   {
   case MWMRoutePointTypeStart: pointTypeStr = kStatRoutingPointTypeStart; break;
   case MWMRoutePointTypeIntermediate: pointTypeStr = kStatRoutingPointTypeIntermediate; break;
   case MWMRoutePointTypeFinish: pointTypeStr = kStatRoutingPointTypeFinish; break;
   }
-  BOOL const isOnRoute =
-      [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateNavigation;
   NSString * method = nil;
   if ([MWMRouter router].isAPICall)
     method = kStatRoutingPointMethodApi;
@@ -68,7 +66,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
           kStatRoutingPointValue :
               (point.isMyPosition ? kStatRoutingPointValueMyPosition : kStatRoutingPointValuePoint),
           kStatRoutingPointMethod : method,
-          kStatRoutingMode : (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
+          kStatRoutingMode : ([MWMRouter isOnRoute] ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
         }];
 }
 }  // namespace
@@ -136,20 +134,20 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   }
 
   [taxiDataSource taxiURL:^(NSURL * url) {
-    [[UIApplication sharedApplication] openURL:url];
+    [UIApplication.sharedApplication openURL:url];
   }];
 }
 
 + (void)stopRouting
 {
-  [self stop];
+  [self stop:YES];
 }
 
 + (BOOL)isRoutingActive { return GetFramework().GetRoutingManager().IsRoutingActive(); }
 + (BOOL)isRouteBuilt { return GetFramework().GetRoutingManager().IsRouteBuilt(); }
 + (BOOL)isRouteFinished { return GetFramework().GetRoutingManager().IsRouteFinished(); }
 + (BOOL)isRouteRebuildingOnly { return GetFramework().GetRoutingManager().IsRouteRebuildingOnly(); }
-+ (BOOL)isOnRoute { return GetFramework().GetRoutingManager().IsOnRoute(); }
++ (BOOL)isOnRoute { return GetFramework().GetRoutingManager().IsRoutingFollowing(); }
 + (NSArray<MWMRoutePoint *> *)points
 {
   NSMutableArray<MWMRoutePoint *> * points = [@[] mutableCopy];
@@ -369,7 +367,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   auto const pointsCount = points.size();
   if (pointsCount < 2)
   {
-    [self stopRouting];
+    [self stop:NO];
     [[MWMMapViewControlsManager manager] onRoutePrepare];
     return;
   }
@@ -467,11 +465,11 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   }
 }
 
-+ (void)stop
++ (void)stop:(BOOL)removeRoutePoints
 {
   [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
   [MWMSearch clear];
-  [self doStop:YES];
+  [self doStop:removeRoutePoints];
   [[MWMMapViewControlsManager manager] onRouteStop];
   [MWMRouter router].canAutoAddLastLocation = YES;
 }
@@ -486,7 +484,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   [self clearAltitudeImagesData];
   rm.CloseRouting(removeRoutePoints);
   [MWMThemeManager setAutoUpdates:NO];
-  [MapsAppDelegate.theApp showAlertIfRequired];
+  [[MapsAppDelegate theApp] showAlertIfRequired];
 }
 
 - (void)updateFollowingInfo
@@ -558,11 +556,10 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  auto const & routingManager = GetFramework().GetRoutingManager();
-  if (!routingManager.IsRoutingActive())
+  if (![MWMRouter isRoutingActive])
     return;
   auto tts = [MWMTextToSpeech tts];
-  if (routingManager.IsOnRoute() && tts.active)
+  if ([MWMRouter isOnRoute] && tts.active)
     [tts playTurnNotifications];
 
   [self updateFollowingInfo];
@@ -625,6 +622,18 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:progress];
 }
 
+- (void)processRouteRecommendation:(MWMRouterRecommendation)recommendation
+{
+  switch (recommendation)
+  {
+  case MWMRouterRecommendationRebuildAfterPointsLoading:
+    [MWMRouter
+        addPointAndRebuild:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
+                                                            intermediateIndex:0]];
+    break;
+  }
+}
+
 #pragma mark - Alerts
 
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
@@ -645,7 +654,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
         code:code
         cancelBlock:^{
           if (code != routing::IRouter::NeedMoreMaps)
-            [MWMRouter stop];
+            [MWMRouter stopRouting];
         }
         downloadBlock:^(storage::TCountriesVec const & downloadCountries, MWMVoidBlock onSuccess) {
           [MWMStorage downloadNodes:downloadCountries
@@ -665,7 +674,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 + (void)saveRouteIfNeeded
 {
-  if ([self isRoutingActive])
+  if ([self isOnRoute])
     GetFramework().GetRoutingManager().SaveRoutePoints();
 }
 

@@ -133,12 +133,12 @@ NSString * const kLocationPermissionRequestedKey = @"kLocationPermissionRequeste
 
 BOOL isPermissionRequested()
 {
-  return [[NSUserDefaults standardUserDefaults] boolForKey:kLocationPermissionRequestedKey];
+  return [NSUserDefaults.standardUserDefaults boolForKey:kLocationPermissionRequestedKey];
 }
 
 void setPermissionRequested()
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setBool:YES forKey:kLocationPermissionRequestedKey];
   [ud synchronize];
 }
@@ -183,7 +183,7 @@ void setPermissionRequested()
 
 - (void)dealloc
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [NSNotificationCenter.defaultCenter removeObserver:self];
   self.locationManager.delegate = nil;
 }
 + (void)start { [self manager].started = YES; }
@@ -371,8 +371,7 @@ void setPermissionRequested()
 
 - (void)orientationChanged
 {
-  self.locationManager.headingOrientation =
-      (CLDeviceOrientation)[UIDevice currentDevice].orientation;
+  self.locationManager.headingOrientation = (CLDeviceOrientation)UIDevice.currentDevice.orientation;
 }
 
 - (void)batteryStateChangedNotification:(NSNotification *)notification
@@ -405,7 +404,7 @@ void setPermissionRequested()
 
 - (void)refreshGeoModeSettings
 {
-  UIDeviceBatteryState const state = [UIDevice currentDevice].batteryState;
+  UIDeviceBatteryState const state = UIDevice.currentDevice.batteryState;
   BOOL const isCharging =
       (state == UIDeviceBatteryStateCharging || state == UIDeviceBatteryStateFull);
   GeoModeSettings const settings = kGeoSettings.at(self.geoMode);
@@ -462,7 +461,7 @@ void setPermissionRequested()
 {
   if (_started == started)
     return;
-  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+  NSNotificationCenter * notificationCenter = NSNotificationCenter.defaultCenter;
   if (started)
   {
     _started = [self start];

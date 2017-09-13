@@ -123,7 +123,7 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
 
 + (MWMTheme)theme
 {
-  auto ud = [NSUserDefaults standardUserDefaults];
+  auto ud = NSUserDefaults.standardUserDefaults;
   if (![ud boolForKey:kUDAutoNightModeOff])
     return MWMThemeAuto;
   return static_cast<MWMTheme>([ud integerForKey:kThemeMode]);
@@ -133,7 +133,7 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
 {
   if ([self theme] == theme)
     return;
-  auto ud = [NSUserDefaults standardUserDefaults];
+  auto ud = NSUserDefaults.standardUserDefaults;
   [ud setInteger:theme forKey:kThemeMode];
   BOOL const autoOff = theme != MWMThemeAuto;
   [ud setBool:autoOff forKey:kUDAutoNightModeOff];
@@ -150,12 +150,12 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
 + (void)setRoutingDisclaimerApproved { settings::Set(kRoutingDisclaimerApprovedKey, true); }
 + (NSString *)spotlightLocaleLanguageId
 {
-  return [[NSUserDefaults standardUserDefaults] stringForKey:kSpotlightLocaleLanguageId];
+  return [NSUserDefaults.standardUserDefaults stringForKey:kSpotlightLocaleLanguageId];
 }
 
 + (void)setSpotlightLocaleLanguageId:(NSString *)spotlightLocaleLanguageId
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setObject:spotlightLocaleLanguageId forKey:kSpotlightLocaleLanguageId];
   [ud synchronize];
 }

@@ -15,7 +15,7 @@
 
 + (nonnull instancetype)alert
 {
-  return [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil] firstObject];
+  return [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
 }
 
 - (IBAction)shareTap

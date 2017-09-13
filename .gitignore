@@ -59,7 +59,6 @@ out/*
 qt/mapswithme.log
 
 # XCode
-iphone/*/*.xcodeproj/*.mode1v3
 iphone/*/*.xcodeproj/*.pbxuser
 iphone/*/*.xcodeproj/*.perspectivev3
 iphone/*/*.xcodeproj/project.xcworkspace/*
@@ -68,6 +67,11 @@ tools/emacsmode/build
 **/DerivedData/*
 **/xcshareddata
 **/xcuserdata
+iphone/**/*.moved-aside
+iphone/**/*.swp
+iphone/**/*.mode1v3
+iphone/**/*.mode2v3
+iphone/**/*.perspectivev3
 
 # Carthage
 iphone/Maps/3party/Carthage/Checkouts

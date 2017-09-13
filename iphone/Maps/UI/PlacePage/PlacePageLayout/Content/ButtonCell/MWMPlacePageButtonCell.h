@@ -1,5 +1,4 @@
 #import "MWMTableViewCell.h"
-#import "MWMTypes.h"
 
 @protocol MWMPlacePageButtonsProtocol;
 

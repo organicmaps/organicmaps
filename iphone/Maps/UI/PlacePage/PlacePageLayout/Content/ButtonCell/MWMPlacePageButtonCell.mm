@@ -91,7 +91,7 @@
   auto btnLayer = titleButton.layer;
   if (isInsetButton)
   {
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = UIColor.clearColor;
     self.buttonTop.constant = 8;
     self.buttonTrailing.constant = 16;
     self.buttonBottom.constant = 8;

@@ -22,7 +22,7 @@ static int gStorageSubscriptionId = kNotSubscribed;
 
 + (void)markEventAsAlreadyFired:(NSString *)event
 {
-  NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * defaults = NSUserDefaults.standardUserDefaults;
   [defaults setBool:YES forKey:event];
   [defaults synchronize];
 }
@@ -30,7 +30,7 @@ static int gStorageSubscriptionId = kNotSubscribed;
 // This notification is called exactly once upon a whole life time of the app.
 + (void)applicationDidEnterBackgroundOnlyOnceInAnAppLifeTimeAtTheEndOfVeryFirstSession:(NSNotification *)notification
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:[MWMCustomFacebookEvents class]];
+  [NSNotificationCenter.defaultCenter removeObserver:[MWMCustomFacebookEvents class]];
   NSInteger const seconds = [Alohalytics totalSecondsSpentInTheApp];
   if (seconds >= kFirstSessionLengthInSeconds)
     [FBSDKAppEvents logEvent:kFirstSessionIsLongerThanXMinutesEvent
@@ -40,7 +40,7 @@ static int gStorageSubscriptionId = kNotSubscribed;
 
 + (void)optimizeExpenses
 {
-  NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * defaults = NSUserDefaults.standardUserDefaults;
   BOOL const isFirstSession = [Alohalytics isFirstSession];
   if (isFirstSession)
   {
@@ -54,16 +54,21 @@ static int gStorageSubscriptionId = kNotSubscribed;
     // This one is fired when user spent more than kFirstSessionLengthInSeconds in the first session.
     if (isFirstSession && ![defaults boolForKey:kFirstSessionIsLongerThanXMinutesEvent])
     {
-      [[NSNotificationCenter defaultCenter] addObserver:[MWMCustomFacebookEvents class]
-                                               selector:@selector(applicationDidEnterBackgroundOnlyOnceInAnAppLifeTimeAtTheEndOfVeryFirstSession:)
-                                                   name:UIApplicationDidEnterBackgroundNotification
-                                                 object:nil];
+      [NSNotificationCenter.defaultCenter
+          addObserver:[MWMCustomFacebookEvents class]
+             selector:
+                 @selector(
+                     applicationDidEnterBackgroundOnlyOnceInAnAppLifeTimeAtTheEndOfVeryFirstSession:
+                         )
+                 name:UIApplicationDidEnterBackgroundNotification
+               object:nil];
       [MWMCustomFacebookEvents markEventAsAlreadyFired:kFirstSessionIsLongerThanXMinutesEvent];
     }
     // This event is fired when user launched app again in between kNextLaunchMinHoursInterval and kNextLaunchMaxHoursInterval.
     if (![defaults boolForKey:kNextLaunchAfterHoursInterval])
     {
-      NSInteger const hoursFromFirstLaunch = (-[[Alohalytics firstLaunchDate] timeIntervalSinceNow]) / 3600;
+      NSInteger const hoursFromFirstLaunch =
+          (-[Alohalytics firstLaunchDate].timeIntervalSinceNow) / 3600;
       if (hoursFromFirstLaunch >= kNextLaunchMinHoursInterval)
       {
         [FBSDKAppEvents logEvent:kNextLaunchAfterHoursInterval];

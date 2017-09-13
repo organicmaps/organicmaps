@@ -29,12 +29,12 @@ string const kDisputedCountryId2 = "Crimea";
 string const kDisputedCountryId3 = "Campo de Hielo Sur";
 string const kUndisputedCountryId = "Argentina_Buenos Aires_North";
 
-void Update(TCountryId const &, Storage::TLocalFilePtr const localCountryFile)
+void Update(TCountryId const &, TLocalFilePtr const localCountryFile)
 {
   TEST_EQUAL(localCountryFile->GetCountryName(), kCountryId, ());
 }
 
-void UpdateWithoutChecks(TCountryId const &, Storage::TLocalFilePtr const /* localCountryFile */)
+void UpdateWithoutChecks(TCountryId const &, TLocalFilePtr const /* localCountryFile */)
 {
 }
 
@@ -70,8 +70,8 @@ void InitStorage(Storage & storage, Storage::TUpdateCallback const & didDownload
     }
   };
 
-  storage.Init(didDownload, [](TCountryId const &, Storage::TLocalFilePtr const){return false;});
-  storage.RegisterAllLocalMaps();
+  storage.Init(didDownload, [](TCountryId const &, TLocalFilePtr const){return false;});
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.Subscribe(changeCountryFunction, progress);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
 }

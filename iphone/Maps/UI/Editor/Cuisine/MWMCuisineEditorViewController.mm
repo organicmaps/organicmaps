@@ -53,7 +53,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 {
   if ([MWMToast affectsStatusBar])
     return [MWMToast preferredStatusBarStyle];
-  setStatusBarBackgroundColor([UIColor clearColor]);
+  setStatusBarBackgroundColor(UIColor.clearColor);
   return UIStatusBarStyleLightContent;
 }
 

@@ -71,4 +71,7 @@ private:
   m2::PointD m_globalPivot;
   float const m_depth;
 };
+
+bool IsValidSplineTurn(m2::PointD const & normalizedDir1, m2::PointD const & normalizedDir2);
+void AddPointAndRound(m2::Spline & spline, m2::PointD const & pt);
 }  // namespace df

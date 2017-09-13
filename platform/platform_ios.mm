@@ -24,15 +24,6 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#import <Foundation/NSAutoreleasePool.h>
-#import <Foundation/NSBundle.h>
-#import <Foundation/NSPathUtilities.h>
-#import <Foundation/NSProcessInfo.h>
-
-#import <UIKit/UIDevice.h>
-#import <UIKit/UIScreen.h>
-#import <UIKit/UIScreenMode.h>
-
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <netinet/in.h>
 
@@ -40,30 +31,30 @@ Platform::Platform()
 {
   m_isTablet = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 
-  NSBundle * bundle = [NSBundle mainBundle];
+  NSBundle * bundle = NSBundle.mainBundle;
   NSString * path = [bundle resourcePath];
-  m_resourcesDir = [path UTF8String];
+  m_resourcesDir = path.UTF8String;
   m_resourcesDir += "/";
 
   NSArray * dirPaths =
       NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString * docsDir = [dirPaths firstObject];
-  m_writableDir = [docsDir UTF8String];
+  NSString * docsDir = dirPaths.firstObject;
+  m_writableDir = docsDir.UTF8String;
   m_writableDir += "/";
   m_settingsDir = m_writableDir;
 
   NSString * tmpDir = NSTemporaryDirectory();
   if (tmpDir)
-    m_tmpDir = [tmpDir UTF8String];
+    m_tmpDir = tmpDir.UTF8String;
   else
   {
-    m_tmpDir = [NSHomeDirectory() UTF8String];
+    m_tmpDir = NSHomeDirectory().UTF8String;
     m_tmpDir += "/tmp/";
   }
 
   m_guiThread = make_unique<platform::GuiThread>();
 
-  UIDevice * device = [UIDevice currentDevice];
+  UIDevice * device = UIDevice.currentDevice;
   NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName,
         device.systemVersion);
 }

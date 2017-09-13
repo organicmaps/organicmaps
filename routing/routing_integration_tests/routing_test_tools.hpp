@@ -92,6 +92,7 @@ private:
   unique_ptr<IndexRouter> m_indexRouter;
 };
 
+void GetAllLocalFiles(vector<LocalCountryFile> & localFiles);
 void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                        vector<string> const & expected, IRouterComponents & routerComponents);
 void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,

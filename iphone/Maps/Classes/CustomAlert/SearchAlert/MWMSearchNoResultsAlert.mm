@@ -22,9 +22,8 @@ NSString * const kStatisticsEvent = @"Search No Results Alert";
 + (instancetype)alert
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
-  MWMSearchNoResultsAlert * alert = [
-      [[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil]
-      firstObject];
+  MWMSearchNoResultsAlert * alert =
+      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   return alert;
 }
 

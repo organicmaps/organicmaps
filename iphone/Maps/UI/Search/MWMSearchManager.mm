@@ -113,7 +113,6 @@ using Observers = NSHashTable<Observer>;
   if (self.state != MWMSearchManagerStateHidden)
     self.state = MWMSearchManagerStateDefault;
   self.searchTextField.text = @"";
-  [self clearFilter];
   [MWMSearch clear];
 }
 
@@ -190,26 +189,25 @@ using Observers = NSHashTable<Observer>;
 - (void)dismissKeyboard { [self.searchTextField resignFirstResponder]; }
 - (void)processSearchWithResult:(search::Result const &)result
 {
-  auto const navigationState = [MWMNavigationDashboardManager manager].state;
-  if (navigationState == MWMNavigationDashboardStatePrepare)
+  if (self.routingTooltipSearch == MWMSearchManagerRoutingTooltipSearchNone)
   {
-    BOOL const hasFinish = ([MWMRouter finishPoint] != nil);
+    [MWMSearch showResult:result];
+  }
+  else
+  {
+    BOOL const isStart = self.routingTooltipSearch == MWMSearchManagerRoutingTooltipSearchStart;
     auto point = [[MWMRoutePoint alloc]
             initWithPoint:result.GetFeatureCenter()
                     title:@(result.GetString().c_str())
                  subtitle:@(result.GetAddress().c_str())
-                     type:hasFinish ? MWMRoutePointTypeStart : MWMRoutePointTypeFinish
+                     type:isStart ? MWMRoutePointTypeStart : MWMRoutePointTypeFinish
         intermediateIndex:0];
-    if (hasFinish)
+    if (isStart)
       [MWMRouter buildFromPoint:point bestRouter:NO];
     else
       [MWMRouter buildToPoint:point bestRouter:NO];
   }
-  else
-  {
-    [MWMSearch showResult:result];
-  }
-  if (!IPAD || navigationState != MWMNavigationDashboardStateHidden)
+  if (!IPAD || [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden)
     self.state = MWMSearchManagerStateHidden;
 }
 
@@ -247,6 +245,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)changeToHiddenState
 {
+  self.routingTooltipSearch = MWMSearchManagerRoutingTooltipSearchNone;
   [self endSearch];
   [self.tabbedController resetSelectedTab];
 
@@ -255,6 +254,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)changeToDefaultState
 {
+  [self.tabbedController resetCategories];
   [self.navigationController popToRootViewControllerAnimated:NO];
 
   [self animateConstraints:^{
@@ -277,10 +277,7 @@ using Observers = NSHashTable<Observer>;
 {
   [self.navigationController popToRootViewControllerAnimated:NO];
 
-  self.actionBarState = MWMSearchManagerActionBarStateHidden;
-  [self animateConstraints:^{
-    self.actionBarViewBottom.priority = UILayoutPriorityDefaultLow;
-  }];
+  [self updateTableSearchActionBar];
   [self viewHidden:NO];
   [MWMSearch setSearchOnMap:NO];
   [self.tableViewController reloadData];
@@ -327,6 +324,12 @@ using Observers = NSHashTable<Observer>;
 
 - (void)onSearchCompleted
 {
+  if (self.state == MWMSearchManagerStateTableSearch)
+    [self updateTableSearchActionBar];
+}
+
+- (void)updateTableSearchActionBar
+{
   if (self.state != MWMSearchManagerStateTableSearch)
     return;
   [self animateConstraints:^{
@@ -339,6 +342,8 @@ using Observers = NSHashTable<Observer>;
       hideActionBar = ([MWMSearch suggestionsCount] != 0);
     self.actionBarState = hideActionBar ? MWMSearchManagerActionBarStateHidden
                                         : MWMSearchManagerActionBarStateModeFilter;
+
+    self.actionBarViewBottom.priority = UILayoutPriorityDefaultLow;
   }];
 }
 
@@ -369,7 +374,7 @@ using Observers = NSHashTable<Observer>;
   switch (self.state)
   {
   case MWMSearchManagerStateTableSearch: self.state = MWMSearchManagerStateMapSearch; break;
-  case MWMSearchManagerStateMapSearch: self.state = MWMSearchManagerStateTableSearch;
+  case MWMSearchManagerStateMapSearch: self.state = MWMSearchManagerStateTableSearch; break;
   default: break;
   }
 }

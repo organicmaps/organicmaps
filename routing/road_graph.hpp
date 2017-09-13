@@ -296,6 +296,8 @@ public:
   void GetFakeIngoingEdges(Junction const & junction, TEdgeVector & edges) const;
 
 private:
+  void AddEdge(Junction const & j, Edge const & e, map<Junction, TEdgeVector> & edges);
+
   template <typename Fn>
   void ForEachFakeEdge(Fn && fn)
   {
@@ -312,6 +314,8 @@ private:
     }
   }
 
+  /// \note |m_fakeIngoingEdges| and |m_fakeOutgoingEdges| map junctions to sorted vectors.
+  /// Items to these maps should be inserted with AddEdge() method only.
   map<Junction, TEdgeVector> m_fakeIngoingEdges;
   map<Junction, TEdgeVector> m_fakeOutgoingEdges;
 };

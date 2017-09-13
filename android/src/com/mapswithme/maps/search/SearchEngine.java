@@ -144,10 +144,22 @@ public enum SearchEngine implements NativeSearchListener,
     Framework.nativeClearApiPoints();
   }
 
-  public static void cancelSearch()
+  public static void cancelInteractiveSearch()
   {
     sSavedQuery = "";
     nativeCancelInteractiveSearch();
+  }
+
+  public static void cancelEverywhereSearch()
+  {
+    sSavedQuery = "";
+    nativeCancelEverywhereSearch();
+  }
+
+  public static void cancelAllSearches()
+  {
+    sSavedQuery = "";
+    nativeCancelAllSearches();
   }
 
   public static void showResult(int index)
@@ -182,6 +194,10 @@ public enum SearchEngine implements NativeSearchListener,
   private static native void nativeShowAllResults();
 
   public static native void nativeCancelInteractiveSearch();
+
+  public static native void nativeCancelEverywhereSearch();
+
+  public static native void nativeCancelAllSearches();
 
   /**
    * @return all existing hotel types

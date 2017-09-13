@@ -4,9 +4,11 @@
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
-#include "base/thread.hpp"
 
 #include <memory>
+#include <sstream>
+#include <string>
+#include <unordered_map>
 #include <utility>
 
 #include "3party/jansson/myjansson.hpp"
@@ -17,7 +19,7 @@ using namespace std;
 
 namespace
 {
-using namespace diff_scheme;
+using namespace storage::diffs;
 
 char const kMaxVersionKey[] = "max_version";
 char const kMwmsKey[] = "mwms";
@@ -27,7 +29,7 @@ char const kVersionKey[] = "version";
 
 auto const kTimeoutInSeconds = 5.0;
 
-string SerializeCheckerData(Checker::LocalMapsInfo const & info)
+string SerializeCheckerData(LocalMapsInfo const & info)
 {
   auto mwmsArrayNode = my::NewJSONArray();
   for (auto const & nameAndVersion : info.m_localMaps)
@@ -45,7 +47,7 @@ string SerializeCheckerData(Checker::LocalMapsInfo const & info)
   return buffer.get();
 }
 
-NameFileInfoMap DeserializeResponse(string const & response, Checker::NameVersionMap const & nameVersionMap)
+NameFileInfoMap DeserializeResponse(string const & response, LocalMapsInfo::NameVersionMap const & nameVersionMap)
 {
   if (response.empty())
   {
@@ -102,32 +104,37 @@ NameFileInfoMap DeserializeResponse(string const & response, Checker::NameVersio
 }
 }  // namespace
 
-namespace diff_scheme
+namespace storage
 {
-// static
-void Checker::Check(LocalMapsInfo const & info, Callback const & fn)
+namespace diffs
 {
-  // TODO(Vlad): Log falling back to old scheme.
+//static
+NameFileInfoMap Checker::Check(LocalMapsInfo const & info)
+{
   if (info.m_localMaps.empty())
+    return NameFileInfoMap();
+
+  platform::HttpClient request(DIFF_LIST_URL);
+  string const body = SerializeCheckerData(info);
+  ASSERT(!body.empty(), ());
+  request.SetBodyData(body, "application/json");
+  request.SetTimeout(kTimeoutInSeconds);
+  NameFileInfoMap diffs;
+  if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
   {
-    fn(NameFileInfoMap{});
-    return;
+    diffs = DeserializeResponse(request.ServerResponse(), info.m_localMaps);
+  }
+  else
+  {
+    ostringstream ost;
+    ost << "Request to diffs server failed. Code = " << request.ErrorCode()
+        << ", redirection = " << request.WasRedirected();
+    LOG(LINFO, (ost.str()));
+    GetPlatform().GetMarketingService().SendMarketingEvent(
+        marketing::kDiffSchemeError, {{"type", "network"}, {"error", ost.str()}});
   }
 
-  threads::SimpleThread thread([info, fn] {
-    platform::HttpClient request(DIFF_LIST_URL);
-    string const body = SerializeCheckerData(info);
-    ASSERT(!body.empty(), ());
-    request.SetBodyData(body, "application/json");
-    request.SetTimeout(kTimeoutInSeconds);
-    NameFileInfoMap diffs;
-    if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
-      diffs = DeserializeResponse(request.ServerResponse(), info.m_localMaps);
-
-    GetPlatform().RunOnGuiThread([fn, diffs] {
-      fn(diffs);
-    });
-  });
-  thread.detach();
+  return diffs;
 }
-}  // namespace diff_scheme
+}  // namespace diffs
+}  // namespace storage

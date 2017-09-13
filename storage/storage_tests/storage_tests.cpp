@@ -519,7 +519,7 @@ void InitStorage(Storage & storage, TaskRunner & runner,
 {
   storage.Clear();
   storage.Init(update, [](TCountryId const &, TLocalFilePtr const){return false;});
-  storage.RegisterAllLocalMaps();
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
 }
 
@@ -632,7 +632,7 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
                                  : version::FOR_TESTING_TWO_COMPONENT_MWM2;
 
   storage.Init(&OnCountryDownloaded, [](TCountryId const &, TLocalFilePtr const){return false;});
-  storage.RegisterAllLocalMaps();
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
 
   TCountryId const countryId = storage.FindCountryIdByFile("Azerbaijan");
   TEST(IsCountryIdValid(countryId), ());
@@ -644,14 +644,14 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
   TEST_EQUAL(Status::ENotDownloaded, storage.CountryStatusEx(countryId), ());
 
   TLocalFilePtr localFileV1 = CreateDummyMapFile(countryFile, v1, 1024 /* size */);
-  storage.RegisterAllLocalMaps();
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   latestLocalFile = storage.GetLatestLocalFile(countryId);
   TEST(latestLocalFile.get(), ("Created map file wasn't found by storage."));
   TEST_EQUAL(latestLocalFile->GetVersion(), localFileV1->GetVersion(), ());
   TEST_EQUAL(Status::EOnDiskOutOfDate, storage.CountryStatusEx(countryId), ());
 
   TLocalFilePtr localFileV2 = CreateDummyMapFile(countryFile, v2, 2048 /* size */);
-  storage.RegisterAllLocalMaps();
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   latestLocalFile = storage.GetLatestLocalFile(countryId);
   TEST(latestLocalFile.get(), ("Created map file wasn't found by storage."));
   TEST_EQUAL(latestLocalFile->GetVersion(), localFileV2->GetVersion(), ());
@@ -989,7 +989,7 @@ UNIT_TEST(StorageTest_ObsoleteMapsRemoval)
   TEST(map1.Exists(), ());
   TEST(map2.Exists(), ());
 
-  storage.RegisterAllLocalMaps();
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
 
   TEST(!map1.Exists(), ());
   map1.Reset();
@@ -1402,7 +1402,7 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
   }
 
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
-  storage.RegisterAllLocalMaps();
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
 
   country1.SyncWithDisk();
   country2.SyncWithDisk();

@@ -111,8 +111,9 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
     return request;
   }
   // In all other cases we are cancelling redirects
-  LOG(LWARNING, ("Canceling because of redirect from", [[[redirectResponse URL] absoluteString] UTF8String],
-      "to", [[[request URL] absoluteString] UTF8String]));
+  LOG(LWARNING,
+      ("Canceling because of redirect from", redirectResponse.URL.absoluteString.UTF8String, "to",
+       request.URL.absoluteString.UTF8String));
   [connection cancel];
   m_callback->OnFinish(-3, m_begRange, m_endRange);
   return nil;

@@ -138,6 +138,35 @@ inline string GetDataDirFullPath(string const & dataDir)
   return dataDir.empty() ? platform.WritableDir()
                          : my::JoinFoldersToPath(platform.WritableDir(), dataDir);
 }
+
+void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diffs)
+{
+  Platform & platform = GetPlatform();
+
+  Platform::TFilesWithType files;
+  platform.GetFilesByType(dir, Platform::FILE_TYPE_REGULAR, files);
+
+  for (auto const & fileWithType : files)
+  {
+    string name = fileWithType.first;
+
+    auto const isDiffReady =
+        strings::EndsWith(name, strings::to_string(DIFF_FILE_EXTENSION) + READY_FILE_EXTENSION);
+    auto const isDiff = strings::EndsWith(name, DIFF_FILE_EXTENSION);
+
+    if (!isDiff && !isDiffReady)
+      continue;
+
+    my::GetNameWithoutExt(name);
+
+    if (isDiffReady)
+      my::GetNameWithoutExt(name);
+
+    LocalCountryFile localDiff(dir, CountryFile(name), 0 /* version */);
+
+    diffs.push_back(localDiff);
+  }
+}
 }  // namespace
 
 void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countryFile)
@@ -148,7 +177,7 @@ void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countr
 void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
                                      CountryFile const & countryFile)
 {
-  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
+  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting, MapOptions::Diff})
   {
     string const path = GetFileDownloadPath(version, dataDir, countryFile, file);
     ASSERT(strings::EndsWith(path, READY_FILE_EXTENSION), ());
@@ -162,7 +191,6 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
                                            int64_t latestVersion,
                                            vector<LocalCountryFile> & localFiles)
 {
-  vector<string> files;
   Platform & platform = GetPlatform();
 
   Platform::TFilesWithType fwts;
@@ -222,6 +250,18 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
       CountryIndexes::DeleteFromDisk(absentCountry);
     }
   }
+}
+
+void FindAllDiffs(string const & dataDir, vector<LocalCountryFile> & diffs)
+{
+  string const dir = GetDataDirFullPath(dataDir);
+  FindAllDiffsInDirectory(dir, diffs);
+
+  Platform::TFilesWithType fwts;
+  Platform::GetFilesByType(dir, Platform::FILE_TYPE_DIRECTORY, fwts);
+
+  for (auto const & fwt : fwts)
+    FindAllDiffsInDirectory(my::JoinFoldersToPath(dir, fwt.first /* subdir */), diffs);
 }
 
 void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> & localFiles)
@@ -331,15 +371,15 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string
   return make_shared<LocalCountryFile>(directory, countryFile, version);
 }
 
-string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapOptions file)
+string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapOptions options)
 {
-  return GetFileDownloadPath(version, string(), countryFile, file);
+  return GetFileDownloadPath(version, string(), countryFile, options);
 }
 
 string GetFileDownloadPath(int64_t version, string const & dataDir,
-                           CountryFile const & countryFile, MapOptions file)
+                           CountryFile const & countryFile, MapOptions options)
 {
-  string const readyFile = GetFileName(countryFile.GetName(), file, version) + READY_FILE_EXTENSION;
+  string const readyFile = GetFileName(countryFile.GetName(), options, version) + READY_FILE_EXTENSION;
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return my::JoinFoldersToPath(dir, readyFile);

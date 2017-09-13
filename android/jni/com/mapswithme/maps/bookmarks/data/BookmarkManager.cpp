@@ -107,8 +107,13 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastE
   BookmarkData bmkData(ToNativeString(env, name), f->LastEditedBMType());
   size_t const lastEditedCategory = f->LastEditedBMCategory();
   size_t const createdBookmarkIndex = f->AddBookmark(lastEditedCategory, glbPoint, bmkData);
+
   place_page::Info & info = g_framework->GetPlacePageInfo();
-  info.SetBac({createdBookmarkIndex, lastEditedCategory});
+  BookmarkCategory * category = f->GetBmCategory(lastEditedCategory);
+  f->FillBookmarkInfo(*static_cast<Bookmark const *>(category->GetUserMark(createdBookmarkIndex)),
+                      {static_cast<size_t>(createdBookmarkIndex),
+                       static_cast<size_t>(lastEditedCategory)}, info);
+
   return usermark_helper::CreateMapObject(env, info);
 }
 

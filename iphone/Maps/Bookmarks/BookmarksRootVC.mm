@@ -21,10 +21,10 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     self.title = L(@"bookmarks");
 
     self.tableView.allowsSelectionDuringEditing = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(newCategoryAdded)
-                                                 name:@"KML file added"
-                                               object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(newCategoryAdded)
+                                               name:@"KML file added"
+                                             object:nil];
   }
   return self;
 }
@@ -40,11 +40,11 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
   {
     m_hint = [[UIView alloc] initWithFrame:rect];
     m_hint.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    m_hint.backgroundColor = [UIColor clearColor];
+    m_hint.backgroundColor = UIColor.clearColor;
 
     UILabel * label = [[UILabel alloc] initWithFrame:rect];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    label.backgroundColor = [UIColor clearColor];
+    label.backgroundColor = UIColor.clearColor;
     bool const showDetailedHint = !GetFramework().GetBmCategoriesCount();
     label.text = showDetailedHint ? L(@"bookmarks_usage_hint")
                                   : L(@"bookmarks_usage_hint_import_only");
@@ -174,7 +174,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
         BookmarkCategory * cat = GetFramework().GetBmCategory([self.tableView indexPathForCell:cell].row);
         if (cat)
         {
-          cat->SetName([txt UTF8String]);
+          cat->SetName(txt.UTF8String);
           cat->SaveToKMLFile();
         }
       }
@@ -235,7 +235,8 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
   if (editingStyle == UITableViewCellEditingStyleDelete)
   {
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatRemove)];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kBookmarkCategoryDeletedNotification object:@(indexPath.row)];
+    [NSNotificationCenter.defaultCenter postNotificationName:kBookmarkCategoryDeletedNotification
+                                                      object:@(indexPath.row)];
     Framework & f = GetFramework();
     f.DeleteBmCategory(indexPath.row);
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -308,7 +309,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
 
 -(void)dealloc
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
 @end

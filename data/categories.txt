@@ -2424,7 +2424,7 @@ it:^Monumento
 ja:1^記念碑
 ko:1^기념탑
 nb:^Monument
-pl:3^Pomnik historyczny
+pl:3^Monument
 pt:^Monumento|turismo
 pt-BR:^Monumento|atração
 ro:^Monument
@@ -8284,7 +8284,7 @@ zh-Hans:^取水点
 zh-Hant:^飲水站
 
 emergency-defibrillator
-en:^Defibrillator
+en:^Defibrillator|AED
 ru:^Дефибриллятор
 ar:^مزيل الرجفان
 cs:^Defibrilátor

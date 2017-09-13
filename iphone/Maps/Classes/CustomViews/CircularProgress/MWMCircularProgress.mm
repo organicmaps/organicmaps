@@ -74,7 +74,8 @@
   [self.rootView setSpinnerBackgroundColor:backgroundColor];
 }
 
-- (void)setImageName:(nonnull NSString *)imageName forStates:(MWMCircularProgressStateVec const &)states
+- (void)setImageName:(nullable NSString *)imageName
+           forStates:(MWMCircularProgressStateVec const &)states
 {
   for (auto const & state : states)
     [self.rootView setImageName:imageName forState:state];

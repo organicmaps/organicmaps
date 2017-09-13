@@ -439,7 +439,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
     penIter = endIter;
   }
 
-  glsl::vec2 pxPivot = glsl::ToVec2(iter.m_pos);
+  m2::PointD const pxPivot = iter.m_pos;
   buffer.resize(4 * m_metrics.size());
 
   glsl::vec4 const pivot(glsl::ToVec2(MapShape::ConvertToLocal(globalPivot, m_tileCenter,
@@ -447,14 +447,18 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
   for (size_t i = 0; i < m_metrics.size(); ++i)
   {
     GlyphRegion const & g = m_metrics[i];
-    m2::PointF pxSize = g.GetPixelSize() * m_textSizeRatio;
+    m2::PointF const pxSize = g.GetPixelSize() * m_textSizeRatio;
+    float const xAdvance = g.GetAdvanceX() * m_textSizeRatio;
 
-    m2::PointD const pxBase = penIter.m_pos;
-    m2::PointD const pxShiftBase = penIter.m_pos + penIter.m_dir;
+    m2::PointD const baseVector = penIter.m_pos - pxPivot;
+    m2::PointD const currentTangent = penIter.m_avrDir.Normalize();
 
-    glsl::vec2 tangent = advanceSign * glsl::normalize(glsl::ToVec2(pxShiftBase - pxBase));
-    glsl::vec2 normal = glsl::normalize(glsl::vec2(-tangent.y, tangent.x));
-    glsl::vec2 formingVector = (glsl::ToVec2(pxBase) - pxPivot) + (halfFontSize * normal);
+    penIter.Advance(advanceSign * xAdvance);
+    m2::PointD const newTangent = penIter.m_avrDir.Normalize();
+
+    glsl::vec2 tangent = glsl::ToVec2(newTangent);
+    glsl::vec2 normal = glsl::vec2(-tangent.y, tangent.x);
+    glsl::vec2 formingVector = glsl::ToVec2(baseVector) + halfFontSize * normal;
 
     float const xOffset = g.GetOffsetX() * m_textSizeRatio;
     float const yOffset = g.GetOffsetY() * m_textSizeRatio;
@@ -469,12 +473,12 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
     buffer[baseIndex + 2] = TDV(pivot, formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset));
     buffer[baseIndex + 3] = TDV(pivot, formingVector + normal * upVector + tangent * (pxSize.x + xOffset));
 
-    float const xAdvance = g.GetAdvanceX() * m_textSizeRatio;
-    glsl::vec2 currentTangent = glsl::ToVec2(penIter.m_dir);
-    penIter.Advance(advanceSign * xAdvance);
-    float const dotProduct = glsl::dot(currentTangent, glsl::ToVec2(penIter.m_dir));
-    if (dotProduct < kValidSplineTurn)
-      return false;
+    if (i > 0)
+    {
+      float const dotProduct = m2::DotProduct(currentTangent, newTangent);
+      if (dotProduct < kValidSplineTurn)
+        return false;
+    }
   }
   return true;
 }

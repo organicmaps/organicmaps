@@ -18,6 +18,8 @@
 
 namespace
 {
+static FrameworkParams const kFrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */);
+
 char const * kmlString =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
     "<kml xmlns=\"http://earth.google.com/kml/2.2\">"
@@ -155,7 +157,7 @@ char const * kmlString =
 
 UNIT_TEST(Bookmarks_ImportKML)
 {
-  Framework framework;
+  Framework framework(kFrameworkParams);
   df::VisualParams::Init(1.0, 1024);
 
   BookmarkCategory cat("Default", framework);
@@ -172,7 +174,7 @@ UNIT_TEST(Bookmarks_ExportKML)
 {
   char const * BOOKMARKS_FILE_NAME = "UnitTestBookmarks.kml";
 
-  Framework framework;
+  Framework framework(kFrameworkParams);
   df::VisualParams::Init(1.0, 1024);
 
   BookmarkCategory cat("Default", framework);
@@ -263,7 +265,7 @@ namespace
 
 UNIT_TEST(Bookmarks_Timestamp)
 {
-  Framework fm;
+  Framework fm(kFrameworkParams);
   df::VisualParams::Init(1.0, 1024);
 
   m2::PointD const orgPoint(10, 10);
@@ -309,7 +311,7 @@ UNIT_TEST(Bookmarks_Timestamp)
 
 UNIT_TEST(Bookmarks_Getting)
 {
-  Framework fm;
+  Framework fm(kFrameworkParams);
   df::VisualParams::Init(1.0, 1024);
   fm.OnSize(800, 400);
   fm.ShowRect(m2::RectD(0, 0, 80, 40));
@@ -401,7 +403,7 @@ namespace
 UNIT_TEST(Bookmarks_AddressInfo)
 {
   // Maps added in constructor (we need minsk-pass.mwm only)
-  Framework fm;
+  Framework fm(kFrameworkParams);
   fm.DeregisterAllMaps();
   fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
   fm.OnSize(800, 600);
@@ -464,7 +466,7 @@ UNIT_TEST(Bookmarks_UniqueFileName)
 
 UNIT_TEST(Bookmarks_AddingMoving)
 {
-  Framework fm;
+  Framework fm(kFrameworkParams);
   fm.OnSize(800, 400);
   fm.ShowRect(m2::RectD(0, 0, 80, 40));
 
@@ -540,7 +542,7 @@ char const * kmlString2 =
 
 UNIT_TEST(Bookmarks_InnerFolder)
 {
-  Framework framework;
+  Framework framework(kFrameworkParams);
   BookmarkCategory cat("Default", framework);
   TEST(cat.LoadFromKML(make_unique<MemReader>(kmlString2, strlen(kmlString2))), ());
 
@@ -549,7 +551,7 @@ UNIT_TEST(Bookmarks_InnerFolder)
 
 UNIT_TEST(BookmarkCategory_EmptyName)
 {
-  Framework framework;
+  Framework framework(kFrameworkParams);
   unique_ptr<BookmarkCategory> pCat(new BookmarkCategory("", framework));
   static_cast<Bookmark *>(pCat->CreateUserMark(m2::PointD(0, 0)))->SetData(BookmarkData("", "placemark-red"));
   TEST(pCat->SaveToKMLFile(), ());
@@ -599,7 +601,7 @@ char const * kmlString3 =
 
 UNIT_TEST(Bookmarks_SpecialXMLNames)
 {
-  Framework framework;
+  Framework framework(kFrameworkParams);
   BookmarkCategory cat1("", framework);
   TEST(cat1.LoadFromKML(make_unique<MemReader>(kmlString3, strlen(kmlString3))), ());
 
@@ -623,7 +625,7 @@ UNIT_TEST(Bookmarks_SpecialXMLNames)
 
 UNIT_TEST(TrackParsingTest_1)
 {
-  Framework framework;
+  Framework framework(kFrameworkParams);
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-kml.test");
   BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(kmlFile, framework);
   TEST(cat, ("Category can't be created"));
@@ -649,7 +651,7 @@ UNIT_TEST(TrackParsingTest_1)
 
 UNIT_TEST(TrackParsingTest_2)
 {
-  Framework framework;
+  Framework framework(kFrameworkParams);
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-from-google-earth.test");
   BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(kmlFile, framework);
   TEST(cat, ("Category can't be created"));

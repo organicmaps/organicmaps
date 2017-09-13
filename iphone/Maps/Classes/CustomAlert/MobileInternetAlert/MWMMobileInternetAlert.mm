@@ -22,8 +22,7 @@ NSString * const kStatisticsEvent = @"Mobile Internet Settings Alert";
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMMobileInternetAlert * alert =
-      [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil]
-          firstObject];
+      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   alert.completionBlock = block;
   return alert;
 }

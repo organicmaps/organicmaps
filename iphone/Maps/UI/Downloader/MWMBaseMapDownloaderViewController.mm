@@ -724,7 +724,7 @@ using namespace storage;
 {
   if ([MWMToast affectsStatusBar])
     return [MWMToast preferredStatusBarStyle];
-  setStatusBarBackgroundColor([UIColor clearColor]);
+  setStatusBarBackgroundColor(UIColor.clearColor);
   return UIStatusBarStyleLightContent;
 }
 

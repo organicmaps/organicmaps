@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMBottomMenuViewController">
             <connections>
                 <outlet property="additionalButtons" destination="hSd-fM-qKd" id="tT1-ml-chk"/>
+                <outlet property="downloadBadge" destination="WLn-2O-Ivv" id="BPU-t1-YS6"/>
                 <outlet property="mainButtonsHeight" destination="HtR-j8-Qpc" id="uZ3-Im-taa"/>
                 <outlet property="searchButton" destination="IzQ-aQ-aPH" id="XWA-9H-Hvg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -164,7 +165,7 @@
             <connections>
                 <outlet property="additionalButtons" destination="hSd-fM-qKd" id="Rgj-Fo-JK8"/>
                 <outlet property="additionalButtonsHeight" destination="fsD-HQ-mF9" id="zki-cR-ZH6"/>
-                <outlet property="downloadBadge" destination="WLn-2O-Ivv" id="f9u-k6-l9u"/>
+                <outlet property="downloadBadge" destination="WLn-2O-Ivv" id="0Aw-al-hGI"/>
                 <outlet property="mainButtonsHeight" destination="HtR-j8-Qpc" id="eF8-KH-F9n"/>
                 <outlet property="menuButton" destination="YLY-C4-SBu" id="A5G-Bc-IlQ"/>
                 <outlet property="menuButtonWidth" destination="ams-2s-vhw" id="Til-tN-VJX"/>

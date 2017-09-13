@@ -57,7 +57,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
   self = [super init];
   if (self)
   {
-    [[NSBundle mainBundle] loadNibNamed:kMWMSideButtonsViewNibName owner:self options:nil];
+    [NSBundle.mainBundle loadNibNamed:kMWMSideButtonsViewNibName owner:self options:nil];
     [view addSubview:self.sideView];
     [self.sideView setNeedsLayout];
     self.zoomSwipeEnabled = NO;

@@ -20,8 +20,10 @@ using namespace std::placeholders;
 
 namespace
 {
-
 using namespace storage;
+
+// The last 5% are left for applying diffs.
+float const kMaxProgress = 95.0f;
 
 enum ItemCategory : uint32_t
 {
@@ -335,7 +337,7 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   // Progress
   int progress = 0;
   if (attrs.m_downloadingProgress.second)
-    progress = (int)(attrs.m_downloadingProgress.first * 100.0 / attrs.m_downloadingProgress.second);
+    progress = (int)(attrs.m_downloadingProgress.first * kMaxProgress / attrs.m_downloadingProgress.second);
 
   env->SetIntField(item, countryItemFieldProgress, progress);
 }
@@ -638,7 +640,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetOverallProgress(JNIEnv *
 
   int res = 0;
   if (progress.second)
-    res = (jint) (progress.first * 100.0 / progress.second);
+    res = (jint) (progress.first * kMaxProgress / progress.second);
 
   return res;
 }

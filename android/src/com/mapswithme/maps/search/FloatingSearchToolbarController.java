@@ -86,7 +86,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
   private void cancelSearchApiAndHide(boolean clearText)
   {
     SearchEngine.cancelApiCall();
-    SearchEngine.cancelSearch();
+    SearchEngine.cancelInteractiveSearch();
 
     if (clearText)
       clear();

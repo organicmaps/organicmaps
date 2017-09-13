@@ -8,8 +8,8 @@ TEMPLATE = app
 ROOT_DIR = ../..
 
 DEPENDENCIES = generator_tests_support search_tests_support indexer_tests_support generator \
-               routing routing_common search storage stats_client indexer platform editor geometry coding base \
-               tess2 protobuf jansson succinct pugixml opening_hours icu
+               routing routing_common search storage stats_client indexer platform editor mwm_diff \
+               bsdiff geometry coding base tess2 protobuf jansson succinct pugixml opening_hours icu
 
 include($$ROOT_DIR/common.pri)
 

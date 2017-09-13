@@ -22,10 +22,15 @@ import com.mapswithme.util.Constants;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_CANCEL;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_DOWNLOAD;
@@ -35,6 +40,10 @@ import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIA
 
 public class UpdaterDialogFragment extends BaseMwmDialogFragment
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.DOWNLOADER);
+  private static final String TAG = UpdaterDialogFragment.class.getSimpleName();
+
+  private static final String EXTRA_LEFTOVER_MAPS = "extra_leftover_maps";
 
   private static final String ARG_UPDATE_IMMEDIATELY = "arg_update_immediately";
   private static final String ARG_TOTAL_SIZE = "arg_total_size";
@@ -53,75 +62,17 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   private boolean mAutoUpdate;
   @Nullable
   private String[] mOutdatedMaps;
+  /**
+   * Stores maps which are left to finish autoupdating process.
+   */
+  @Nullable
+  private HashSet<String> mLeftoverMaps;
+
   @Nullable
   private BaseNewsFragment.NewsDialogListener mDoneListener;
 
-  @NonNull
-  private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
-  {
-
-    @Override
-    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
-    {
-      if (mOutdatedMaps == null)
-        return;
-
-      for (MapManager.StorageCallbackData item : data)
-      {
-        if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
-        {
-          String text;
-          switch (item.errorCode)
-          {
-            case CountryItem.ERROR_NO_INTERNET:
-              text = getString(R.string.common_check_internet_connection_dialog);
-              break;
-
-            case CountryItem.ERROR_OOM:
-              text = getString(R.string.downloader_no_space_title);
-              break;
-
-            default:
-              text = String.valueOf(item.errorCode);
-          }
-          Statistics.INSTANCE.trackDownloaderDialogError(mTotalSizeMb, text);
-          MapManager.showError(getActivity(), item, new Utils.Proc<Boolean>()
-          {
-            @Override
-            public void invoke(@NonNull Boolean result)
-            {
-              if (result)
-              {
-                MapManager.nativeUpdate(CountryItem.getRootId());
-              }
-              else
-              {
-                finish();
-              }
-            }
-          });
-
-          return;
-        }
-      }
-
-      if (!isAllUpdated())
-        return;
-
-      finish();
-    }
-
-    @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
-    {
-      if (mOutdatedMaps == null)
-        return;
-
-      int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
-      mTitle.setText(String.format(Locale.getDefault(), "%s %d%%",
-                                   getString(R.string.whats_new_auto_update_updating_maps), progress));
-    }
-  };
+  @Nullable
+  private DetachableStorageCallback mStorageCallback;
 
   private void finish()
   {
@@ -154,15 +105,22 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onClick(View v)
     {
-      MapManager.nativeUpdate(CountryItem.getRootId());
-      UiUtils.show(mProgressBar);
-      UiUtils.hide(mUpdateBtn);
-      mTitle.setText(String.format(Locale.getDefault(), "%s %d%%",
-                                   getString(R.string.whats_new_auto_update_updating_maps), 0));
-      mCancelBtn.setText(R.string.cancel);
+      MapManager.warnOn3gUpdate(getActivity(), CountryItem.getRootId(), new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          MapManager.nativeUpdate(CountryItem.getRootId());
+          UiUtils.show(mProgressBar);
+          UiUtils.hide(mUpdateBtn);
+          mTitle.setText(String.format(Locale.getDefault(), "%s %d%%",
+                                       getString(R.string.whats_new_auto_update_updating_maps), 0));
+          mCancelBtn.setText(R.string.cancel);
 
-      Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_MANUAL_DOWNLOAD,
-                                                     mTotalSizeMb);
+          Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_MANUAL_DOWNLOAD,
+                                                         mTotalSizeMb);
+        }
+      });
     }
   };
 
@@ -184,9 +142,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     Fragment f = fm.findFragmentByTag(UpdaterDialogFragment.class.getName());
     if (f != null)
     {
-      fm.beginTransaction().remove(f).commitAllowingStateLoss();
-      fm.executePendingTransactions();
-      result = Framework.DO_AFTER_UPDATE_AUTO_UPDATE;
+      ((UpdaterDialogFragment)f).mDoneListener = doneListener;
+      return true;
     }
     else
     {
@@ -223,8 +180,20 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-
+    if (savedInstanceState != null)
+    {  // As long as we use HashSet to store leftover maps this cast is safe.
+      //noinspection unchecked
+      mLeftoverMaps = (HashSet<String>) savedInstanceState.getSerializable(EXTRA_LEFTOVER_MAPS);
+    }
     readArguments();
+    mStorageCallback = new DetachableStorageCallback(this, mLeftoverMaps, mOutdatedMaps);
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    outState.putSerializable(EXTRA_LEFTOVER_MAPS, mLeftoverMaps);
   }
 
   @NonNull
@@ -258,25 +227,44 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       return;
     }
 
+    // The storage callback must be non-null at this point.
+    //noinspection ConstantConditions
+    mStorageCallback.attach(this);
     mListenerSlot = MapManager.nativeSubscribe(mStorageCallback);
 
     if (mAutoUpdate && !MapManager.nativeIsDownloading())
     {
-      MapManager.nativeUpdate(CountryItem.getRootId());
-      Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_DOWNLOAD,
-                                                     mTotalSizeMb);
+      MapManager.warnOn3gUpdate(getActivity(), CountryItem.getRootId(), new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          MapManager.nativeUpdate(CountryItem.getRootId());
+          Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_DOWNLOAD,
+                                                         mTotalSizeMb);
+        }
+      });
     }
   }
 
   @Override
   public void onPause()
   {
+    if (mStorageCallback != null)
+      mStorageCallback.detach();
+
+    super.onPause();
+  }
+
+  @Override
+  public void onDestroy()
+  {
     if (mListenerSlot != 0)
     {
       MapManager.nativeUnsubscribe(mListenerSlot);
       mListenerSlot = 0;
     }
-    super.onPause();
+    super.onDestroy();
   }
 
   @Override
@@ -304,6 +292,10 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     mTotalSize = args.getString(ARG_TOTAL_SIZE);
     mTotalSizeMb = args.getLong(ARG_TOTAL_SIZE_MB, 0L);
     mOutdatedMaps = args.getStringArray(ARG_OUTDATED_MAPS);
+    if (mLeftoverMaps == null && mOutdatedMaps != null && mOutdatedMaps.length > 0)
+    {
+      mLeftoverMaps = new HashSet<>(Arrays.asList(mOutdatedMaps));
+    }
   }
 
   private void initViews()
@@ -323,6 +315,114 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   private boolean isAllUpdated()
   {
-    return MapManager.nativeGetOverallProgress(mOutdatedMaps) >= 100;
+    return mOutdatedMaps == null || mLeftoverMaps == null || mLeftoverMaps.isEmpty();
+  }
+
+  private static class DetachableStorageCallback implements MapManager.StorageCallback
+  {
+    @Nullable
+    private UpdaterDialogFragment mFragment;
+    @Nullable
+    private final Set<String> mLeftoverMaps;
+    @Nullable
+    private final String[] mOutdatedMaps;
+
+    DetachableStorageCallback(@Nullable UpdaterDialogFragment fragment,
+                              @Nullable Set<String> leftoverMaps,
+                              @Nullable String[] outdatedMaps)
+    {
+      mFragment = fragment;
+      mLeftoverMaps = leftoverMaps;
+      mOutdatedMaps = outdatedMaps;
+    }
+
+    @Override
+    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+    {
+      for (MapManager.StorageCallbackData item : data)
+      {
+        if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
+        {
+          showErrorDialog(item);
+          return;
+        }
+        else if (item.isLeafNode && item.newStatus == CountryItem.STATUS_DONE)
+        {
+          LOGGER.i(TAG, "Update finished for: " + item.countryId);
+          if (mLeftoverMaps != null)
+            mLeftoverMaps.remove(item.countryId);
+        }
+      }
+
+      if (mFragment != null && mFragment.isAdded() && mFragment.isAllUpdated())
+        mFragment.finish();
+    }
+
+    private void showErrorDialog(MapManager.StorageCallbackData item)
+    {
+      if (mFragment == null || !mFragment.isAdded())
+        return;
+
+      String text;
+      switch (item.errorCode)
+      {
+        case CountryItem.ERROR_NO_INTERNET:
+          text = mFragment.getString(R.string.common_check_internet_connection_dialog);
+          break;
+
+        case CountryItem.ERROR_OOM:
+          text = mFragment.getString(R.string.downloader_no_space_title);
+          break;
+
+        default:
+          text = String.valueOf(item.errorCode);
+      }
+      Statistics.INSTANCE.trackDownloaderDialogError(mFragment.mTotalSizeMb, text);
+      MapManager.showErrorDialog(mFragment.getActivity(), item, new Utils.Proc<Boolean>()
+      {
+        @Override
+        public void invoke(@NonNull Boolean result)
+        {
+          if (result)
+          {
+            MapManager.warnOn3gUpdate(mFragment.getActivity(), CountryItem.getRootId(), new Runnable()
+            {
+              @Override
+              public void run()
+              {
+                MapManager.nativeUpdate(CountryItem.getRootId());
+              }
+            });
+          }
+          else
+          {
+            MapManager.nativeCancel(CountryItem.getRootId());
+            mFragment.finish();
+          }
+        }
+      });
+    }
+
+    @Override
+    public void onProgress(String countryId, long localSize, long remoteSize)
+    {
+      if (mOutdatedMaps == null || mFragment == null || !mFragment.isAdded())
+        return;
+
+      int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
+      mFragment.mTitle.setText(String.format(Locale.getDefault(), "%s %d%%",
+                                             mFragment.getString(R.string.whats_new_auto_update_updating_maps),
+                                             progress));
+    }
+
+    void attach(@NonNull UpdaterDialogFragment fragment)
+    {
+      mFragment = fragment;
+    }
+
+    void detach()
+    {
+      mFragment = null;
+    }
   }
 }

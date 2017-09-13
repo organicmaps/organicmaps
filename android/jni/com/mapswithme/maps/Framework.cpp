@@ -348,7 +348,7 @@ void Framework::Scale(m2::PointD const & centerPt, int targetZoom, bool animate)
 {
   ref_ptr<df::DrapeEngine> engine = m_work.GetDrapeEngine();
   if (engine)
-    engine->SetModelViewCenter(centerPt, targetZoom, animate);
+    engine->SetModelViewCenter(centerPt, targetZoom, animate, false);
 }
 
 ::Framework * Framework::NativeFramework()
@@ -1050,7 +1050,7 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
       klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),
       jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
       jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_sourceName),
-      jni::ToJavaString(env, info.m_targetName), info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn,
+      jni::ToJavaString(env, info.m_displayedStreetName), info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn,
       info.m_pedestrianDirectionPos.lat, info.m_pedestrianDirectionPos.lon, info.m_exitNum, info.m_time, jLanes);
   ASSERT(result, (jni::DescribeException()));
   return result;
@@ -1356,9 +1356,10 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, jclass)
 {
   place_page::Info & info = g_framework->GetPlacePageInfo();
-  auto const & bac = info.GetBookmarkAndCategory();
+  auto const bac = info.GetBookmarkAndCategory();
+  BookmarkCategory * category = frm()->GetBmCategory(bac.m_categoryIndex);
+  frm()->ResetBookmarkInfo(*static_cast<Bookmark const *>(category->GetUserMark(bac.m_bookmarkIndex)), info);
   bookmarks_helper::RemoveBookmark(bac.m_categoryIndex, bac.m_bookmarkIndex);
-  info.SetBac({});
   return usermark_helper::CreateMapObject(env, info);
 }
 

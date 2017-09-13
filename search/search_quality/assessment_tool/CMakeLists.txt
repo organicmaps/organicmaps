@@ -51,7 +51,10 @@ omim_link_libraries(
   partners_api
   local_ads
   platform
-  editor geometry
+  editor 
+  mwm_diff
+  bsdiff
+  geometry
   coding
   base
   expat

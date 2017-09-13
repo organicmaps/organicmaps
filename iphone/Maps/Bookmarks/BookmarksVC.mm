@@ -247,12 +247,12 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
       NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];
       [kmzFile replaceCharactersInRange:NSMakeRange([filePath length] - 1, 1) withString:@"z"];
 
-      if (CreateZipFromPathDeflatedAndDefaultCompression([filePath UTF8String], [kmzFile UTF8String]))
+      if (CreateZipFromPathDeflatedAndDefaultCompression(filePath.UTF8String, kmzFile.UTF8String))
         [self sendBookmarksWithExtension:@".kmz" andType:@"application/vnd.google-earth.kmz" andFile:kmzFile andCategory:catName];
       else
         [self sendBookmarksWithExtension:@".kml" andType:@"application/vnd.google-earth.kml+xml" andFile:filePath andCategory:catName];
 
-      (void)my::DeleteFileX([kmzFile UTF8String]);
+      (void)my::DeleteFileX(kmzFile.UTF8String);
     }
   }
 }
@@ -288,7 +288,8 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
         {
           auto bac = BookmarkAndCategory(static_cast<size_t>(indexPath.row), m_categoryIndex);
           NSValue * value = [NSValue valueWithBytes:&bac objCType:@encode(BookmarkAndCategory)];
-          [[NSNotificationCenter defaultCenter] postNotificationName:kBookmarkDeletedNotification object:value];
+          [NSNotificationCenter.defaultCenter postNotificationName:kBookmarkDeletedNotification
+                                                            object:value];
           cat->DeleteUserMark(indexPath.row);
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                             object:nil
@@ -361,7 +362,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
 {
   // Update edited category name
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
-  char const * newCharName = [newName UTF8String];
+  char const * newCharName = newName.UTF8String;
   if (cat->GetName() != newCharName)
   {
     cat->SetName(newCharName);

@@ -8,9 +8,11 @@
 
 namespace
 {
-auto compareStrings = ^NSComparisonResult(NSString * s1, NSString * s2)
-{
-  return [s1 compare:s2 options:NSCaseInsensitiveSearch range:{0, s1.length} locale:[NSLocale currentLocale]];
+auto compareStrings = ^NSComparisonResult(NSString * s1, NSString * s2) {
+  return [s1 compare:s2
+             options:NSCaseInsensitiveSearch
+               range:{ 0, s1.length }
+              locale:NSLocale.currentLocale];
 };
 
 auto compareLocalNames = ^NSComparisonResult(NSString * s1, NSString * s2)

@@ -284,8 +284,7 @@ void RoutingManager::OnBuildRouteReady(Route const & route, IRouter::ResultCode 
   if (code == IRouter::NoError)
   {
     InsertRoute(route);
-    if (m_drapeEngine != nullptr)
-      m_drapeEngine->StopLocationFollow();
+    m_drapeEngine.SafeCall(&df::DrapeEngine::StopLocationFollow);
 
     // Validate route (in case of bicycle routing it can be invalid).
     ASSERT(route.IsValid(), ());
@@ -293,11 +292,8 @@ void RoutingManager::OnBuildRouteReady(Route const & route, IRouter::ResultCode 
     {
       m2::RectD routeRect = route.GetPoly().GetLimitRect();
       routeRect.Scale(kRouteScaleMultiplier);
-      if (m_drapeEngine != nullptr)
-      {
-        m_drapeEngine->SetModelViewRect(routeRect, true /* applyRotation */, -1 /* zoom */,
-                                        true /* isAnim */);
-      }
+      m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, routeRect,
+                             true /* applyRotation */, -1 /* zoom */, true /* isAnim */);
     }
   }
   else
@@ -364,6 +360,8 @@ void RoutingManager::SetRouterImpl(RouterType type)
 
   VehicleType const vehicleType = GetVehicleType(type);
 
+  m_loadAltitudes = vehicleType != VehicleType::Car;
+
   auto const countryFileGetter = [this](m2::PointD const & p) -> string {
     // TODO (@gorshenin): fix CountryInfoGetter to return CountryFile
     // instances instead of plain strings.
@@ -389,7 +387,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
   };
 
   auto fetcher = make_unique<OnlineAbsentCountriesFetcher>(countryFileGetter, localFileChecker);
-  auto router = make_unique<IndexRouter>(vehicleType, m_callbacks.m_countryParentNameGetterFn,
+  auto router = make_unique<IndexRouter>(vehicleType, m_loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
                                          countryFileGetter, getMwmRectByName, numMwmIds,
                                          MakeNumMwmTree(*numMwmIds, m_callbacks.m_countryInfoGetter()),
                                          m_routingSession, index);
@@ -401,35 +399,40 @@ void RoutingManager::SetRouterImpl(RouterType type)
 
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
 {
-  if (m_drapeEngine == nullptr)
-    return;
-
   if (deactivateFollowing)
     SetPointsFollowingMode(false /* enabled */);
 
-  lock_guard<mutex> lock(m_drapeSubroutesMutex);
   if (deactivateFollowing)
   {
     // Remove all subroutes.
-    m_drapeEngine->RemoveSubroute(dp::DrapeID(), true /* deactivateFollowing */);
+    m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveSubroute,
+                           dp::DrapeID(), true /* deactivateFollowing */);
   }
   else
   {
-    for (auto const & subrouteId : m_drapeSubroutes)
-      m_drapeEngine->RemoveSubroute(subrouteId, false /* deactivateFollowing */);
+    auto const subroutes = GetSubrouteIds();
+    df::DrapeEngineLockGuard lock(m_drapeEngine);
+    if (lock)
+    {
+      for (auto const & subrouteId : subroutes)
+        lock.Get()->RemoveSubroute(subrouteId, false /* deactivateFollowing */);
+    }
   }
-  m_drapeSubroutes.clear();
+
+  {
+    lock_guard<mutex> lock(m_drapeSubroutesMutex);
+    m_drapeSubroutes.clear();
+  }
 }
 
 void RoutingManager::InsertRoute(Route const & route)
 {
-  if (m_drapeEngine == nullptr)
+  if (!m_drapeEngine)
     return;
 
   // TODO: Now we always update whole route, so we need to remove previous one.
   RemoveRoute(false /* deactivateFollowing */);
 
-  lock_guard<mutex> lock(m_drapeSubroutesMutex);
   vector<RouteSegment> segments;
   vector<m2::PointD> points;
   double distance = 0.0;
@@ -487,18 +490,19 @@ void RoutingManager::InsertRoute(Route const & route)
       default: ASSERT(false, ("Unknown router type"));
     }
 
-    auto const subrouteId = m_drapeEngine->AddSubroute(df::SubrouteConstPtr(subroute.release()));
-    m_drapeSubroutes.push_back(subrouteId);
+    auto const subrouteId = m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute,
+                                                             df::SubrouteConstPtr(subroute.release()));
 
     // TODO: we will send subrouteId to routing subsystem when we can partly update route.
     //route.SetSubrouteUid(subrouteIndex, static_cast<SubrouteUid>(subrouteId));
+
+    lock_guard<mutex> lock(m_drapeSubroutesMutex);
+    m_drapeSubroutes.push_back(subrouteId);
   }
 }
 
 void RoutingManager::FollowRoute()
 {
-  ASSERT(m_drapeEngine != nullptr, ());
-
   if (!m_routingSession.EnableFollowMode())
     return;
 
@@ -586,6 +590,13 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData)
   if (markData.m_pointType == RouteMarkType::Start || markData.m_pointType == RouteMarkType::Finish)
     routePoints.RemoveRoutePoint(markData.m_pointType);
 
+  if (markData.m_isMyPosition)
+  {
+    RouteMarkPoint * mark = routePoints.GetMyPositionPoint();
+    if (mark != nullptr)
+      routePoints.RemoveRoutePoint(mark->GetRoutePointType(), mark->GetIntermediateIndex());
+  }
+
   markData.m_isVisible = !markData.m_isMyPosition;
   routePoints.AddRoutePoint(move(markData));
   ReorderIntermediatePoints();
@@ -638,7 +649,7 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
       type = RouteMarkType::Start;
       index = 0;
     }
-    else if (index == sz - 1)
+    else if (index + 1 == sz)
     {
       type = RouteMarkType::Finish;
       index = 0;
@@ -721,7 +732,6 @@ void RoutingManager::GenerateTurnNotifications(vector<string> & turnNotification
 void RoutingManager::BuildRoute(uint32_t timeoutSec)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
-  ASSERT(m_drapeEngine != nullptr, ());
 
   auto routePoints = GetRoutePoints();
   if (routePoints.size() < 2)
@@ -790,13 +800,10 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     CloseRouting(false /* remove route points */);
 
   // Show preview.
-  if (m_drapeEngine != nullptr)
-  {
-    m2::RectD rect = ShowPreviewSegments(routePoints);
-    rect.Scale(kRouteScaleMultiplier);
-    m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, -1 /* zoom */,
-                                    true /* isAnim */);
-  }
+  m2::RectD rect = ShowPreviewSegments(routePoints);
+  rect.Scale(kRouteScaleMultiplier);
+  m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, rect, true /* applyRotation */,
+                         -1 /* zoom */, true /* isAnim */);
 
   m_routingSession.SetUserCurrentPosition(routePoints.front().m_position);
 
@@ -830,8 +837,8 @@ void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
 bool RoutingManager::DisableFollowMode()
 {
   bool const disabled = m_routingSession.DisableFollowMode();
-  if (disabled && m_drapeEngine != nullptr)
-    m_drapeEngine->DeactivateRouteFollowing();
+  if (disabled)
+    m_drapeEngine.SafeCall(&df::DrapeEngine::DeactivateRouteFollowing);
 
   return disabled;
 }
@@ -872,13 +879,12 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
 
 void RoutingManager::OnLocationUpdate(location::GpsInfo & info)
 {
-  if (m_drapeEngine == nullptr)
+  if (!m_drapeEngine)
     m_gpsInfoCache = my::make_unique<location::GpsInfo>(info);
 
   auto routeMatchingInfo = GetRouteMatchingInfo(info);
-
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetGpsInfo(info, m_routingSession.IsNavigable(), routeMatchingInfo);
+  m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, info,
+                         m_routingSession.IsNavigable(), routeMatchingInfo);
 
   if (IsTrackingReporterEnabled())
     m_trackingReporter.AddLocation(info, m_routingSession.MatchTraffic(routeMatchingInfo));
@@ -894,13 +900,16 @@ location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsIn
 
 void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed)
 {
-  m_drapeEngine = engine;
+  m_drapeEngine.Set(engine);
+  if (engine == nullptr)
+    return;
 
   // Apply gps info which was set before drape engine creation.
   if (m_gpsInfoCache != nullptr)
   {
     auto routeMatchingInfo = GetRouteMatchingInfo(*m_gpsInfoCache);
-    m_drapeEngine->SetGpsInfo(*m_gpsInfoCache, m_routingSession.IsNavigable(), routeMatchingInfo);
+    m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, *m_gpsInfoCache,
+                           m_routingSession.IsNavigable(), routeMatchingInfo);
     m_gpsInfoCache.reset();
   }
 
@@ -909,11 +918,14 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
   {
     InsertRoute(*m_routingSession.GetRoute());
     if (is3dAllowed && m_routingSession.IsFollowing())
-      m_drapeEngine->EnablePerspective();
+      m_drapeEngine.SafeCall(&df::DrapeEngine::EnablePerspective);
   }
 }
 
-bool RoutingManager::HasRouteAltitude() const { return m_routingSession.HasRouteAltitude(); }
+bool RoutingManager::HasRouteAltitude() const
+{
+  return m_loadAltitudes && m_routingSession.HasRouteAltitude();
+}
 
 bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
                                                 vector<uint8_t> & imageRGBAData,
@@ -1134,32 +1146,21 @@ void RoutingManager::DeleteSavedRoutePoints()
 
 void RoutingManager::UpdatePreviewMode()
 {
-  // Hide all subroutes.
-  {
-    lock_guard<mutex> lock(m_drapeSubroutesMutex);
-    for (auto const & subrouteId : m_drapeSubroutes)
-      m_drapeEngine->SetSubrouteVisibility(subrouteId, false /* isVisible */);
-  }
-
+  SetSubroutesVisibility(false /* visible */);
   HidePreviewSegments();
   ShowPreviewSegments(GetRoutePoints());
 }
 
 void RoutingManager::CancelPreviewMode()
 {
-  // Show all subroutes.
-  {
-    lock_guard<mutex> lock(m_drapeSubroutesMutex);
-    for (auto const & subrouteId : m_drapeSubroutes)
-      m_drapeEngine->SetSubrouteVisibility(subrouteId, true /* isVisible */);
-  }
-
+  SetSubroutesVisibility(true /* visible */);
   HidePreviewSegments();
 }
 
 m2::RectD RoutingManager::ShowPreviewSegments(vector<RouteMarkData> const & routePoints)
 {
-  if (m_drapeEngine == nullptr)
+  df::DrapeEngineLockGuard lock(m_drapeEngine);
+  if (!lock)
     return MercatorBounds::FullRect();
 
   m2::RectD rect;
@@ -1167,20 +1168,37 @@ m2::RectD RoutingManager::ShowPreviewSegments(vector<RouteMarkData> const & rout
   {
     rect.Add(routePoints[pointIndex].m_position);
     rect.Add(routePoints[pointIndex + 1].m_position);
-    m_drapeEngine->AddRoutePreviewSegment(routePoints[pointIndex].m_position,
-                                          routePoints[pointIndex + 1].m_position);
+    lock.Get()->AddRoutePreviewSegment(routePoints[pointIndex].m_position,
+                                       routePoints[pointIndex + 1].m_position);
   }
   return rect;
 }
 
 void RoutingManager::HidePreviewSegments()
 {
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->RemoveAllRoutePreviewSegments();
+  m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAllRoutePreviewSegments);
 }
 
 void RoutingManager::CancelRecommendation(Recommendation recommendation)
 {
   if (recommendation == Recommendation::RebuildAfterPointsLoading)
     m_loadRoutePointsTimestamp = chrono::steady_clock::time_point();
+}
+
+std::vector<dp::DrapeID> RoutingManager::GetSubrouteIds() const
+{
+  lock_guard<mutex> lock(m_drapeSubroutesMutex);
+  return m_drapeSubroutes;
+}
+
+void RoutingManager::SetSubroutesVisibility(bool visible)
+{
+  auto const subroutes = GetSubrouteIds();
+
+  df::DrapeEngineLockGuard lock(m_drapeEngine);
+  if (!lock)
+    return;
+
+  for (auto const & subrouteId : subroutes)
+    lock.Get()->SetSubrouteVisibility(subrouteId, visible);
 }

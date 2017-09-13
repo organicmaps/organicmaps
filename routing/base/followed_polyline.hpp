@@ -18,7 +18,11 @@ public:
     : m_poly(begin, end)
   {
     Update();
+    // Initially we do not have intermediate points. Next checkpoint is finish.
+    m_nextCheckpointIndex = m_segProj.size();
   }
+
+  void SetNextCheckpointIndex(size_t index) { m_nextCheckpointIndex = index; }
 
   void Swap(FollowedPolyline & rhs);
 
@@ -37,7 +41,7 @@ public:
   bool IsValid() const { return (m_current.IsValid() && m_poly.GetSize() > 1); }
   m2::PolylineD const & GetPolyline() const { return m_poly; }
 
-  vector<double> const & GetSegDistanceMeters() const { return m_segDistance; }
+  std::vector<double> const & GetSegDistanceMeters() const { return m_segDistance; }
   double GetTotalDistanceMeters() const;
   double GetDistanceFromStartMeters() const;
   double GetDistanceToEndMeters() const;
@@ -92,6 +96,7 @@ private:
 
   /// Iterator with the current position. Position sets with UpdateProjection methods.
   mutable Iter m_current;
+  size_t m_nextCheckpointIndex;
   /// Precalculated info for fast projection finding.
   std::vector<m2::ProjectionToSection<m2::PointD>> m_segProj;
   /// Accumulated cache of segments length in meters.

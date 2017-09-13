@@ -35,12 +35,8 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const alti
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
   TEST(regResult.first.IsAlive(), ());
 
-  MwmSet::MwmHandle handle = index.GetMwmHandleById(regResult.first);
-  TEST(handle.IsAlive(), ());
-
-  MwmValue * mwmValue = handle.GetValue<MwmValue>();
-  TEST(mwmValue != nullptr, ());
-  unique_ptr<AltitudeLoader> altitudeLoader = make_unique<AltitudeLoader>(*mwmValue);
+  unique_ptr<AltitudeLoader> altitudeLoader =
+      make_unique<AltitudeLoader>(index, regResult.first /* mwmId */);
 
   classificator::Load();
   classif().SortClassificator();

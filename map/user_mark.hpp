@@ -57,6 +57,7 @@ public:
   UserMarkContainer const * GetContainer() const;
   ms::LatLon GetLatLon() const;
   virtual Type GetMarkType() const = 0;
+  virtual bool IsAvailableForSearch() const { return true; }
 
 protected:
   void SetDirty() { m_isDirty = true; }
@@ -72,7 +73,6 @@ enum SearchMarkType
 {
   DefaultSearchMark = 0,
   BookingSearchMark,
-  TinkoffSearchMark,
   LocalAdsSearchMark,
 
   SearchMarkTypesCount

@@ -6,6 +6,8 @@
 #import "Statistics.h"
 #import "UIButton+RuntimeAttributes.h"
 
+#include <unordered_set>
+
 namespace
 {
 string RootId() { return GetFramework().GetStorage().GetRootId(); }
@@ -86,6 +88,8 @@ enum class State
   self.primaryButton.hidden = YES;
   self.spinnerView.hidden = NO;
   self.spinner = [MWMCircularProgress downloaderProgressForParentView:self.spinnerView];
+  [self.spinner setImageName:nil
+                   forStates:{MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
   self.spinner.delegate = self.delegate;
   [self.spinner setInvertColor:YES];
   self.spinner.state = MWMCircularProgressStateSpinner;
@@ -106,29 +110,34 @@ enum class State
 @end
 
 @interface MWMAutoupdateController () <MWMCircularProgressProtocol, MWMFrameworkStorageObserver>
+{
+  std::unordered_set<TCountryId> m_updatingCountries;
+}
 
 @property(nonatomic) Framework::DoAfterUpdate todo;
 @property(nonatomic) TMwmSize sizeInMB;
 @property(nonatomic) NodeErrorCode errorCode;
+@property(nonatomic) BOOL progressFinished;
 
 @end
 
 @implementation MWMAutoupdateController
 
+
 + (instancetype)instanceWithPurpose:(Framework::DoAfterUpdate)todo
 {
-  MWMAutoupdateController * controller = [[MWMAutoupdateController alloc] initWithNibName:[self className]
-                                                                                   bundle:[NSBundle mainBundle]];
+  MWMAutoupdateController * controller =
+      [[MWMAutoupdateController alloc] initWithNibName:[self className] bundle:NSBundle.mainBundle];
   controller.todo = todo;
   auto view = static_cast<MWMAutoupdateView *>(controller.view);
   view.delegate = controller;
   auto & f = GetFramework();
   auto const & s = f.GetStorage();
-  NodeAttrs attrs;
-  s.GetNodeAttrs(s.GetRootId(), attrs);
-  TMwmSize const countrySizeInBytes = attrs.m_localMwmSize;
-  view.updateSize = formattedSize(countrySizeInBytes);
-  controller.sizeInMB = countrySizeInBytes * MB;
+  storage::Storage::UpdateInfo updateInfo;
+  s.GetUpdateInfo(s.GetRootId(), updateInfo);
+  TMwmSize const updateSizeInBytes = updateInfo.m_totalUpdateSizeInBytes;
+  view.updateSize = formattedSize(updateSizeInBytes);
+  controller.sizeInMB = updateSizeInBytes / MB;
   [MWMFrameworkListener addObserver:controller];
   return controller;
 }
@@ -136,6 +145,7 @@ enum class State
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  self.progressFinished = NO;
   [Statistics logEvent:kStatDownloaderOnStartScreenShow
         withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
   auto view = static_cast<MWMAutoupdateView *>(self.view);
@@ -169,13 +179,31 @@ enum class State
 
 - (IBAction)cancelTap
 {
-  [MWMStorage cancelDownloadNode:RootId()];
-  [self dismiss];
   auto view = static_cast<MWMAutoupdateView *>(self.view);
-  [Statistics logEvent:view.state == State::Downloading ?
-                                     kStatDownloaderOnStartScreenCancelDownload :
-                                     kStatDownloaderOnStartScreenSelectLater
-        withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
+  UIAlertController * alertController =
+      [UIAlertController alertControllerWithTitle:nil
+                                          message:nil
+                                   preferredStyle:UIAlertControllerStyleActionSheet];
+  alertController.popoverPresentationController.sourceView = view.secondaryButton;
+  alertController.popoverPresentationController.sourceRect = view.secondaryButton.bounds;
+  auto cancelDownloadAction =
+      [UIAlertAction actionWithTitle:L(@"cancel_download")
+                               style:UIAlertActionStyleDestructive
+                             handler:^(UIAlertAction * action) {
+                               [MWMStorage cancelDownloadNode:RootId()];
+                               [self dismiss];
+                               [Statistics logEvent:view.state == State::Downloading
+                                                        ? kStatDownloaderOnStartScreenCancelDownload
+                                                        : kStatDownloaderOnStartScreenSelectLater
+                                     withParameters:@{
+                                       kStatMapDataSize : @(self.sizeInMB)
+                                     }];
+                             }];
+  [alertController addAction:cancelDownloadAction];
+  auto cancelAction =
+      [UIAlertAction actionWithTitle:L(@"cancel") style:UIAlertActionStyleCancel handler:nil];
+  [alertController addAction:cancelAction];
+  [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
@@ -190,10 +218,6 @@ enum class State
 
 - (void)progressButtonPressed:(MWMCircularProgress *)progress
 {
-  [MWMStorage cancelDownloadNode:RootId()];
-  [static_cast<MWMAutoupdateView *>(self.view) stateWaiting];
-  [Statistics logEvent:kStatDownloaderOnStartScreenCancelDownload
-        withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
 }
 
 #pragma mark - MWMFrameworkStorageObserver
@@ -209,6 +233,19 @@ enum class State
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:process object:nil];
     [self performSelector:process withObject:nil afterDelay:0.2];
   }
+
+  if (!nodeStatuses.m_groupNode)
+  {
+    switch (nodeStatuses.m_status)
+    {
+    case NodeStatus::Error:
+    case NodeStatus::OnDisk: m_updatingCountries.erase(countryId); break;
+    default: m_updatingCountries.insert(countryId);
+    }
+  }
+  
+  if (self.progressFinished && m_updatingCountries.empty())
+    [self dismiss];
 }
 
 - (void)processError
@@ -244,9 +281,10 @@ enum class State
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(RootId(), nodeAttrs);
   auto const p = nodeAttrs.m_downloadingProgress;
-  static_cast<MWMAutoupdateView *>(self.view).progress = static_cast<CGFloat>(p.first) / p.second;
+  auto view = static_cast<MWMAutoupdateView *>(self.view);
+  view.progress = kMaxProgress * static_cast<CGFloat>(p.first) / p.second;
   if (p.first == p.second)
-    [self dismiss];
+    self.progressFinished = YES;
 }
 
 @end

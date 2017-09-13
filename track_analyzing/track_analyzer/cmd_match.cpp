@@ -89,7 +89,7 @@ void CmdMatch(string const & logFile, string const & trackFile)
   LOG(LINFO, ("Matching", logFile));
 
   storage::Storage storage;
-  storage.RegisterAllLocalMaps();
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
 
   Platform const & platform = GetPlatform();

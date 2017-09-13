@@ -353,9 +353,11 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   m_route->GetCurrentStreetName(info.m_sourceName);
   m_route->GetStreetNameAfterIdx(turn.m_index, info.m_targetName);
   info.m_completionPercent = GetCompletionPercent();
-  // Lane information.
+
+  // Lane information and next street name.
   if (distanceToTurnMeters < kShowLanesDistInMeters)
   {
+    info.m_displayedStreetName = info.m_targetName;
     // There are two nested loops below. Outer one is for lanes and inner one (ctor of
     // SingleLaneInfo) is
     // for each lane's directions. The size of turn.m_lanes is relatively small. Less than 10 in
@@ -367,6 +369,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   }
   else
   {
+    info.m_displayedStreetName = "";
     info.m_lanes.clear();
   }
 
@@ -409,6 +412,7 @@ void RoutingSession::PassCheckpoints()
 {
   while (!m_checkpoints.IsFinished() && m_route->IsSubroutePassed(m_checkpoints.GetPassedIdx()))
   {
+    m_route->PassNextSubroute();
     m_checkpoints.PassNextPoint();
     LOG(LINFO, ("Pass checkpoint, ", m_checkpoints));
     m_checkpointCallback(m_checkpoints.GetPassedIdx());

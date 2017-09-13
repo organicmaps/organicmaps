@@ -152,13 +152,6 @@ public:
   static IsBookingChecker const & Instance();
 };
 
-class IsTinkoffChecker : public BaseChecker
-{
-  IsTinkoffChecker();
-public:
-  static IsTinkoffChecker const & Instance();
-};
-
 class IsHotelChecker : public BaseChecker
 {
 public:

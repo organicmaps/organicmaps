@@ -135,7 +135,7 @@ class SearchWheel implements View.OnClickListener
   {
     mIsExpanded = false;
     mCurrentOption = null;
-    SearchEngine.cancelSearch();
+    SearchEngine.cancelInteractiveSearch();
     resetSearchButtonImage();
   }
 
@@ -242,7 +242,7 @@ class SearchWheel implements View.OnClickListener
       Statistics.INSTANCE.trackRoutingEvent(ROUTING_SEARCH_CLICK, false);
       if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.getQuery()))
       {
-        SearchEngine.cancelSearch();
+        SearchEngine.cancelInteractiveSearch();
         mCurrentOption = null;
         mIsExpanded = false;
         resetSearchButtonImage();

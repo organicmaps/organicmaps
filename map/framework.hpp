@@ -110,7 +110,14 @@ class Engine;
 
 struct FrameworkParams
 {
-  bool m_disableLocalAds = false;
+  bool m_enableLocalAds = true;
+  bool m_enableDiffs = true;
+
+  FrameworkParams() = default;
+  FrameworkParams(bool enableLocalAds, bool enableDiffs)
+    : m_enableLocalAds(enableLocalAds)
+    , m_enableDiffs(enableDiffs)
+  {}
 };
 
 class Framework : public search::ViewportSearchCallback::Delegate,
@@ -174,6 +181,7 @@ protected:
 
   StorageDownloadingPolicy m_storageDownloadingPolicy;
   storage::Storage m_storage;
+  bool m_enabledDiffs;
 
   location::TMyPositionModeChanged m_myPositionListener;
 
@@ -197,11 +205,11 @@ protected:
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
-  void OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile);
+  void OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::TLocalFilePtr const localFile);
 
   /// This function will be called by m_storage before latest local files
   /// is deleted.
-  bool OnCountryFileDelete(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile);
+  bool OnCountryFileDelete(storage::TCountryId const & countryId, storage::TLocalFilePtr const localFile);
 
   /// This function is called by m_model when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
@@ -674,6 +682,7 @@ private:
 
 public:
   void FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const;
+  void ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
 
   /// @returns address of nearby building with house number in approx 1km distance.
   search::AddressInfo GetAddressInfoAtPoint(m2::PointD const & pt) const;

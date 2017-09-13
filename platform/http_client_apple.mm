@@ -82,7 +82,7 @@ bool HttpClient::RunHttpRequest()
     if (err)
     {
       m_errorCode = static_cast<int>(err.code);
-      LOG(LDEBUG, ("Error: ", m_errorCode, [err.localizedDescription UTF8String]));
+      LOG(LDEBUG, ("Error: ", m_errorCode, err.localizedDescription.UTF8String));
 
       return false;
     }
@@ -100,7 +100,7 @@ bool HttpClient::RunHttpRequest()
   if (response)
   {
     m_errorCode = static_cast<int>(response.statusCode);
-    m_urlReceived = [response.URL.absoluteString UTF8String];
+    m_urlReceived = response.URL.absoluteString.UTF8String;
 
     if (m_loadHeaders)
     {
@@ -113,7 +113,7 @@ bool HttpClient::RunHttpRequest()
     {
       NSString * cookies = [response.allHeaderFields objectForKey:@"Set-Cookie"];
       if (cookies)
-        m_headers.emplace("Set-Cookie", NormalizeServerCookies(std::move([cookies UTF8String])));
+        m_headers.emplace("Set-Cookie", NormalizeServerCookies(std::move(cookies.UTF8String)));
     }
 
     if (url_data)
@@ -137,7 +137,8 @@ bool HttpClient::RunHttpRequest()
   }
 
   m_errorCode = static_cast<int>(err.code);
-  LOG(LDEBUG, ("Error: ", m_errorCode, ':', [err.localizedDescription UTF8String], "while connecting to", m_urlRequested));
+  LOG(LDEBUG, ("Error: ", m_errorCode, ':', err.localizedDescription.UTF8String,
+               "while connecting to", m_urlRequested));
 
   return false;
 }

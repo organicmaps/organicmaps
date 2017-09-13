@@ -157,6 +157,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
         switch (item)
         {
         case STOP:
+          mNavMenu.close(false /* animate */);
           RoutingController.get().cancel();
           break;
         case SETTINGS:

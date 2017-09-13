@@ -64,7 +64,7 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
     if (!tracker.IsEnabled())
     {
       tracker.SetEnabled(true);
-      NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+      NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
       [ud setBool:NO forKey:kUDTrackWarningAlertWasShown];
       [ud synchronize];
     }

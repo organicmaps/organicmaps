@@ -99,7 +99,7 @@ using namespace storage;
 {
   if (!countryId || countryId.length == 0)
     return NO;
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   NSDictionary<NSString *, NSDate *> * flags = [ud objectForKey:kFlagsKey];
   NSDate * lastShowDate = flags[countryId];
   return !lastShowDate ||
@@ -109,7 +109,7 @@ using namespace storage;
 
 - (void)markNotificationShownForCountryId:(NSString *)countryId
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   NSMutableDictionary<NSString *, NSDate *> * flags = [[ud objectForKey:kFlagsKey] mutableCopy];
   if (!flags)
     flags = [NSMutableDictionary dictionary];
@@ -157,11 +157,11 @@ using namespace storage;
   UIBackgroundFetchResult result = UIBackgroundFetchResultNoData;
 
   BOOL const inBackground =
-      [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
+      UIApplication.sharedApplication.applicationState == UIApplicationStateBackground;
   BOOL const onWiFi = (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI);
   if (inBackground && onWiFi)
   {
-    CLLocation * lastLocation = [locations lastObject];
+    CLLocation * lastLocation = locations.lastObject;
     auto const & mercator = lastLocation.mercator;
     auto & f = GetFramework();
     auto const & countryInfoGetter = f.GetCountryInfoGetter();
@@ -179,7 +179,7 @@ using namespace storage;
         notification.userInfo =
             @{kDownloadMapActionKey : kDownloadMapActionName, kDownloadMapCountryId : countryId};
 
-        UIApplication * application = [UIApplication sharedApplication];
+        UIApplication * application = UIApplication.sharedApplication;
         [application presentLocalNotificationNow:notification];
 
         [Alohalytics logEvent:@"suggestedToDownloadMissingMapForCurrentLocation"

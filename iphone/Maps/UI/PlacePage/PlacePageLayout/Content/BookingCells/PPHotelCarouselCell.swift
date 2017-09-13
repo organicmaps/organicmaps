@@ -52,7 +52,7 @@ extension PPHotelCarouselCell: UICollectionViewDelegate, UICollectionViewDataSou
     guard let d = delegate else { return }
 
     if isLastCell(indexPath) {
-      d.showGalery()
+      d.showGallery()
     } else {
       let section = indexPath.section
       d.showPhoto(at: indexPath.item,

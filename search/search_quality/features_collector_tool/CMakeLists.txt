@@ -15,8 +15,10 @@ omim_link_libraries(
   indexer
   editor
   platform
-  coding
+  mwm_diff
+  bsdiff
   geometry
+  coding
   base
   oauthcpp
   gflags

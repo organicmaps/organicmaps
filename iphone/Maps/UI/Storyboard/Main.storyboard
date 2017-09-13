@@ -481,9 +481,9 @@
                     <connections>
                         <outlet property="advancedEditor" destination="aQv-7U-zAP" id="MfU-VM-9u6"/>
                         <outlet property="editorView" destination="PrH-u2-IEv" id="PNK-Yj-cdS"/>
-                        <outlet property="exampesButtonBottomOffset" destination="Phh-rb-ON1" id="JcL-82-aMg"/>
                         <outlet property="exampleValuesExpandView" destination="m7d-sG-5LN" id="TTZ-yw-ImJ"/>
                         <outlet property="exampleValuesSeparator" destination="Suj-t5-ZWs" id="93G-FX-98W"/>
+                        <outlet property="examplesButtonBottomOffset" destination="Phh-rb-ON1" id="7Wp-c1-qbc"/>
                         <outlet property="help" destination="j5R-JF-iCs" id="G1H-wk-Vpb"/>
                         <outlet property="helpView" destination="85Z-MR-kUV" id="Rcg-KD-UIA"/>
                         <outlet property="ohTextViewHeight" destination="oBv-SK-cOU" id="8yB-hb-hml"/>

@@ -28,7 +28,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 {
   @SuppressWarnings("unused")
   private static final String TAG = BottomPlacePageAnimationController.class.getSimpleName();
-  private static final float DETAIL_RATIO = 0.7f;
+  private static final float DETAIL_RATIO = 0.5f;
   private static final float SCROLL_DELTA = 50.0f;
   private final ViewGroup mLayoutToolbar;
 
@@ -475,8 +475,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     if (isDetailContentScrollable())
       translation = mDetailMaxHeight - mButtons.getHeight();
     else
-      translation = mContentHeight > mDetailMaxHeight ? mDetailMaxHeight : mContentHeight;
-
+      translation = mContentHeight > mDetailMaxHeight ? mDetailMaxHeight - mButtons.getHeight()
+                                                      : mContentHeight;
     mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(),
                                              mDetailsScroll.getHeight() - translation);
     mCurrentAnimator.addUpdateListener(new UpdateListener());

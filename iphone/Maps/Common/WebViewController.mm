@@ -7,7 +7,7 @@
   self = [super initWithNibName:nil bundle:nil];
   if (self)
   {
-    self.m_url = url;
+    _m_url = url;
     if (title)
       self.navigationItem.title = title;
   }
@@ -19,10 +19,11 @@
   self = [super initWithNibName:nil bundle:nil];
   if (self)
   {
-    htmlText = [htmlText stringByReplacingOccurrencesOfString:@"<body>" withString:@"<body><font face=\"helvetica\">"];
-    htmlText = [htmlText stringByReplacingOccurrencesOfString:@"</body>" withString:@"</font></body>"];
-    self.m_htmlText = htmlText;
-    self.m_url = url;
+    auto html = [htmlText stringByReplacingOccurrencesOfString:@"<body>"
+                                                    withString:@"<body><font face=\"helvetica\">"];
+    html = [html stringByReplacingOccurrencesOfString:@"</body>" withString:@"</font></body>"];
+    _m_htmlText = html;
+    _m_url = url;
     if (title)
       self.navigationItem.title = title;
   }
@@ -35,7 +36,7 @@
   UIWebView * webView = [[UIWebView alloc] initWithFrame:frame];
   webView.autoresizesSubviews = YES;
   webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-  webView.backgroundColor = [UIColor whiteColor];
+  webView.backgroundColor = UIColor.whiteColor;
   webView.delegate = self;
 
   if (self.m_htmlText)
@@ -52,7 +53,7 @@
       && ![inRequest.URL.scheme isEqualToString:@"applewebdata"]) // do not try to open local links in Safari
   {
     NSURL * url = [inRequest URL];
-    [[UIApplication sharedApplication] openURL:url];
+    [UIApplication.sharedApplication openURL:url];
     return NO;
   }
 

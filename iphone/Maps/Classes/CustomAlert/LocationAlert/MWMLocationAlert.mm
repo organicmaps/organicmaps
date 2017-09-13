@@ -17,7 +17,8 @@ static NSString * const kStatisticsEvent = @"Location Alert";
 + (instancetype)alert
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
-  MWMLocationAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kLocationAlertNibName owner:nil options:nil] firstObject];
+  MWMLocationAlert * alert =
+      [NSBundle.mainBundle loadNibNamed:kLocationAlertNibName owner:nil options:nil].firstObject;
   [alert setNeedsCloseAlertAfterEnterBackground];
   return alert;
 }
@@ -27,7 +28,7 @@ static NSString * const kStatisticsEvent = @"Location Alert";
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
   [self close:^{
     NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-    UIApplication * a = [UIApplication sharedApplication];
+    UIApplication * a = UIApplication.sharedApplication;
     if ([a canOpenURL:url])
       [a openURL:url];
   }];

@@ -6,7 +6,7 @@ TEMPLATE = app
 
 DEFINES += COMPILER_TESTS
 
-DEPENDENCIES = drape_frontend drape platform indexer geometry coding base expat stats_client stb_image sdf_image icu
+DEPENDENCIES = drape_frontend drape platform indexer geometry coding base expat freetype stats_client stb_image sdf_image icu
 
 SHADER_COMPILE_ARGS = $$PWD/../shaders shader_index.txt shaders_lib.glsl $$PWD shader_def_for_tests
 CMDRES = $$system(python $$PWD/../../tools/autobuild/shader_preprocessor.py $$SHADER_COMPILE_ARGS)
@@ -35,6 +35,7 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   compile_shaders_test.cpp \
   navigator_test.cpp \
+  path_text_test.cpp \
   shader_def_for_tests.cpp \
   user_event_stream_tests.cpp \
 

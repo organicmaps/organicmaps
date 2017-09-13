@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../../..
-DEPENDENCIES = mwm_diff platform coding base stats_client
+DEPENDENCIES = mwm_diff bsdiff platform coding base stats_client
 
 
 include($$ROOT_DIR/common.pri)

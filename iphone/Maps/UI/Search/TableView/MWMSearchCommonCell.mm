@@ -91,16 +91,16 @@
 - (NSDictionary *)selectedTitleAttributes
 {
   return @{
-    NSForegroundColorAttributeName : UIColor.blackPrimaryText,
-    NSFontAttributeName : UIFont.bold17
+    NSForegroundColorAttributeName : [UIColor blackPrimaryText],
+    NSFontAttributeName : [UIFont bold17]
   };
 }
 
 - (NSDictionary *)unselectedTitleAttributes
 {
   return @{
-    NSForegroundColorAttributeName : UIColor.blackPrimaryText,
-    NSFontAttributeName : UIFont.regular17
+    NSForegroundColorAttributeName : [UIColor blackPrimaryText],
+    NSFontAttributeName : [UIFont regular17]
   };
 }
 

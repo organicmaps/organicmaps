@@ -27,7 +27,7 @@ void QueuedCountry::AddOptions(MapOptions opt)
 
 void QueuedCountry::RemoveOptions(MapOptions opt)
 {
-  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
+  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting, MapOptions::Diff})
   {
     if (HasOptions(opt, file) && HasOptions(m_init, file))
     {

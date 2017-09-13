@@ -64,8 +64,8 @@
                          MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner,
                          MWMCircularProgressStateCompleted}];
 
-  [progress setSpinnerBackgroundColor:[UIColor clearColor]];
-  [progress setColor:[UIColor whiteColor]
+  [progress setSpinnerBackgroundColor:UIColor.clearColor];
+  [progress setColor:UIColor.whiteColor
            forStates:{MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
 
   progress.delegate = self;

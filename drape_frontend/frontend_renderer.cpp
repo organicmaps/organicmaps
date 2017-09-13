@@ -694,7 +694,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           int zoom = kDoNotChangeZoom;
           if (m_currentZoomLevel < scales::GetAddNewPlaceScale())
             zoom = scales::GetAddNewPlaceScale();
-          AddUserEvent(make_unique_dp<SetCenterEvent>(pt, zoom, true));
+          AddUserEvent(make_unique_dp<SetCenterEvent>(pt, zoom, true /* isAnim */,
+                                                      false /* trackVisibleViewport */));
         }
       }
       break;
@@ -1055,7 +1056,8 @@ void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
     int zoom = kDoNotChangeZoom;
     if (applyZoom && m_currentZoomLevel < scales::GetAddNewPlaceScale())
       zoom = scales::GetAddNewPlaceScale();
-    AddUserEvent(make_unique_dp<SetCenterEvent>(dest, zoom, true));
+    AddUserEvent(make_unique_dp<SetCenterEvent>(dest, zoom, true /* isAnim */,
+                                                false /* trackVisibleViewport */));
   }
 }
 
@@ -1936,7 +1938,9 @@ void FrontendRenderer::PositionChanged(m2::PointD const & position, bool hasPosi
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel,
                                        TAnimationCreator const & parallelAnimCreator)
 {
-  AddUserEvent(make_unique_dp<SetCenterEvent>(center, zoomLevel, true, parallelAnimCreator));
+  AddUserEvent(make_unique_dp<SetCenterEvent>(center, zoomLevel, true /* isAnim */,
+                                              false /* trackVisibleViewport */,
+                                              parallelAnimCreator));
 }
 
 void FrontendRenderer::ChangeModelView(double azimuth,
@@ -2051,7 +2055,8 @@ void FrontendRenderer::CheckAndRunFirstLaunchAnimation()
 
   int constexpr kDesiredZoomLevel = 13;
   m2::PointD const pos =  m_myPositionController->GetDrawablePosition();
-  AddUserEvent(make_unique_dp<SetCenterEvent>(pos, kDesiredZoomLevel, true /* isAnim */));
+  AddUserEvent(make_unique_dp<SetCenterEvent>(pos, kDesiredZoomLevel, true /* isAnim */,
+                                              false /* trackVisibleViewport */));
 }
 
 void FrontendRenderer::RenderLayer::Sort(ref_ptr<dp::OverlayTree> overlayTree)

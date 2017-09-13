@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 typedef NS_ENUM(NSInteger, MWMOpenGLDriver) {
   MWMOpenGLDriverRegular,
   MWMOpenGLDriverMetalPre103, // iOS 10..10.3

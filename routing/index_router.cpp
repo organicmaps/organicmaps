@@ -287,12 +287,13 @@ double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
 }
 
 // IndexRouter ------------------------------------------------------------------------------------
-IndexRouter::IndexRouter(VehicleType vehicleType,
+IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                          CountryParentNameGetterFn const & countryParentNameGetterFn,
                          TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
                          shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
                          traffic::TrafficCache const & trafficCache, Index & index)
   : m_vehicleType(vehicleType)
+  , m_loadAltitudes(loadAltitudes)
   , m_name("astar-bidirectional-" + ToString(m_vehicleType))
   , m_index(index)
   , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn))
@@ -502,9 +503,20 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
     return isLastSubroute ? IRouter::EndPointNotFound : IRouter::IntermediatePointNotFound;
   }
 
-  graph.SetMode(AreMwmsNear(startSegment.GetMwmId(), finishSegment.GetMwmId())
-                    ? WorldGraph::Mode::LeapsIfPossible
-                    : WorldGraph::Mode::LeapsOnly);
+  // We use leaps for cars only. Other vehicle types do not have weights in their cross-mwm sections.
+  switch (m_vehicleType)
+  {
+    case VehicleType::Pedestrian:
+    case VehicleType::Bicycle:
+      graph.SetMode(WorldGraph::Mode::NoLeaps);
+      break;
+    case VehicleType::Car:
+      graph.SetMode(AreMwmsNear(startSegment.GetMwmId(), finishSegment.GetMwmId())
+                      ? WorldGraph::Mode::LeapsIfPossible
+                      : WorldGraph::Mode::LeapsOnly);
+      break;
+  }
+
   LOG(LINFO, ("Routing in mode:", graph.GetMode()));
 
   bool const isStartSegmentStrictForward =
@@ -523,6 +535,7 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   progress.Initialize(starter.GetStartVertex().GetPoint(), starter.GetFinishVertex().GetPoint());
 
   uint32_t visitCount = 0;
+  auto lastValue = progress.GetLastValue();
 
   auto onVisitJunction = [&](Segment const & from, Segment const & to) {
     if (++visitCount % kVisitPeriod != 0)
@@ -530,10 +543,12 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
 
     m2::PointD const & pointFrom = starter.GetPoint(from, true /* front */);
     m2::PointD const & pointTo = starter.GetPoint(to, true /* front */);
-    auto const lastValue = progress.GetLastValue();
     auto const newValue = progress.GetProgressForBidirectedAlgo(pointFrom, pointTo);
     if (newValue - lastValue > kProgressInterval)
+    {
+      lastValue = newValue;
       delegate.OnProgress(newValue);
+    }
 
     delegate.OnPointCheck(pointFrom);
   };
@@ -659,9 +674,10 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 WorldGraph IndexRouter::MakeWorldGraph()
 {
   WorldGraph graph(
-      make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
-                                 m_index, m_indexManager),
-      IndexGraphLoader::Create(m_vehicleType, m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
+      make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_vehicleType,
+                                 m_countryRectFn, m_index, m_indexManager),
+      IndexGraphLoader::Create(m_vehicleType, m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory,
+                               m_estimator, m_index),
       m_estimator);
   return graph;
 }

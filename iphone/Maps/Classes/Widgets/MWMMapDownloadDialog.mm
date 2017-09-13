@@ -4,7 +4,6 @@
 #import "MWMBottomMenuViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMCommon.h"
-#import "MWMConsts.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
@@ -67,7 +66,7 @@ using namespace storage;
 + (instancetype)dialogForController:(MapViewController *)controller
 {
   MWMMapDownloadDialog * dialog =
-      [[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil].firstObject;
+      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   dialog.autoresizingMask = UIViewAutoresizingFlexibleHeight;
   dialog.controller = controller;
   dialog.size = kInitialDialogSize;

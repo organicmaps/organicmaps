@@ -36,6 +36,8 @@ omim_link_libraries(
   platform
   editor
   opening_hours
+  mwm_diff
+  bsdiff
   geometry
   coding
   base

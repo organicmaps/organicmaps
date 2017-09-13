@@ -10,15 +10,15 @@ NSDateComponents * dateComponentsFromTime(osmoh::Time const & time)
 
 NSDate * dateFromTime(osmoh::Time const & time)
 {
-  NSCalendar * cal = [NSCalendar currentCalendar];
-  cal.locale = [NSLocale currentLocale];
+  NSCalendar * cal = NSCalendar.currentCalendar;
+  cal.locale = NSLocale.currentLocale;
   return [cal dateFromComponents:dateComponentsFromTime(time)];
 }
 
 NSString * stringFromTime(osmoh::Time const & time)
 {
   NSDateFormatter * fmt = [[NSDateFormatter alloc] init];
-  fmt.locale = [NSLocale currentLocale];
+  fmt.locale = NSLocale.currentLocale;
   fmt.timeStyle = NSDateFormatterShortStyle;
   fmt.dateStyle = NSDateFormatterNoStyle;
   return [fmt stringFromDate:dateFromTime(time)];
@@ -26,8 +26,8 @@ NSString * stringFromTime(osmoh::Time const & time)
 
 NSString * stringFromOpeningDays(editor::ui::TOpeningDays const & openingDays)
 {
-  NSCalendar * cal = [NSCalendar currentCalendar];
-  cal.locale = [NSLocale currentLocale];
+  NSCalendar * cal = NSCalendar.currentCalendar;
+  cal.locale = NSLocale.currentLocale;
   NSUInteger const firstWeekday = cal.firstWeekday - 1;
 
   NSArray<NSString *> * weekdaySymbols = cal.shortStandaloneWeekdaySymbols;

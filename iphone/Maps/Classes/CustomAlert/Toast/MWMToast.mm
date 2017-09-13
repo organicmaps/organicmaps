@@ -32,7 +32,7 @@ NSUInteger const kWordsPerSecond = 3;
 + (BOOL)affectsStatusBar { return [self toast].rootView.superview != nil; }
 + (UIStatusBarStyle)preferredStatusBarStyle
 {
-  setStatusBarBackgroundColor([UIColor clearColor]);
+  setStatusBarBackgroundColor(UIColor.clearColor);
   return [UIColor isNightMode] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
@@ -51,7 +51,7 @@ NSUInteger const kWordsPerSecond = 3;
   self = [super init];
   if (self)
   {
-    [[NSBundle mainBundle] loadNibNamed:[[self class] className] owner:self options:nil];
+    [NSBundle.mainBundle loadNibNamed:[[self class] className] owner:self options:nil];
     self.rootView.translatesAutoresizingMaskIntoConstraints = NO;
   }
   return self;

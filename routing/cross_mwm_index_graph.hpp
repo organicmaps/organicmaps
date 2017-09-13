@@ -25,8 +25,8 @@ class CrossMwmIndexGraph final
 public:
   using ReaderSourceFile = ReaderSource<FilesContainerR::TReader>;
 
-  CrossMwmIndexGraph(Index & index, std::shared_ptr<NumMwmIds> numMwmIds)
-    : m_index(index), m_numMwmIds(numMwmIds)
+  CrossMwmIndexGraph(Index & index, std::shared_ptr<NumMwmIds> numMwmIds, VehicleType vehicleType)
+    : m_index(index), m_numMwmIds(numMwmIds), m_vehicleType(vehicleType)
   {
   }
 
@@ -76,12 +76,13 @@ private:
     if (it == m_connectors.end())
       it = m_connectors.emplace(numMwmId, CrossMwmConnector(numMwmId)).first;
 
-    fn(VehicleType::Car, it->second, src);
+    fn(m_vehicleType, it->second, src);
     return it->second;
   }
 
   Index & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
+  VehicleType m_vehicleType;
 
   /// \note |m_connectors| contains cache with transition segments and leap edges.
   /// Each mwm in |m_connectors| may be in two conditions:

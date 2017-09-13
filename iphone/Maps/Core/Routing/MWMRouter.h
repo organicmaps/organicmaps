@@ -1,4 +1,5 @@
 #import "MWMRoutePoint.h"
+#import "MWMRouterType.h"
 
 typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 
@@ -60,5 +61,6 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (void)applyRouteManagerTransaction;
 + (void)cancelRouteManagerTransaction;
 + (void)movePointAtIndex:(NSInteger)index toIndex:(NSInteger)newIndex;
++ (void)updatePreviewMode;
 
 @end

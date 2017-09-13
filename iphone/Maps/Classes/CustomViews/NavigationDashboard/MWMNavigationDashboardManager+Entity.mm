@@ -94,15 +94,14 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
     entity.progress = info.m_completionPercent;
     entity.distanceToTurn = @(info.m_distToTurn.c_str());
     entity.turnUnits = @(info.m_turnUnitsSuffix.c_str());
-    entity.streetName = @(info.m_targetName.c_str());
+    entity.streetName = @(info.m_displayedStreetName.c_str());
     entity.nextTurnImage = image(info.m_nextTurn, true);
 
     NSString * eta = [NSDateComponentsFormatter etaStringFrom:entity.timeToTarget];
-    NSString * resultString =
-        [NSString stringWithFormat:@"%@ • %@ %@", eta, entity.targetDistance, entity.targetUnits];
-    NSMutableAttributedString * result =
-        [[NSMutableAttributedString alloc] initWithString:resultString];
-    [result addAttributes:self.etaAttributes range:NSMakeRange(0, resultString.length)];
+    auto result = [[NSMutableAttributedString alloc] initWithString:eta attributes:self.etaAttributes];
+    [result appendAttributedString:entity.estimateDot];
+    auto target = [NSString stringWithFormat:@"%@ %@", entity.targetDistance, entity.targetUnits];
+    [result appendAttributedString:[[NSAttributedString alloc] initWithString:target attributes:self.etaAttributes]];
     entity.estimate = result;
 
     using namespace routing::turns;

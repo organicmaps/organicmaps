@@ -499,6 +499,24 @@ extern "C"
     });
   }
 
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_search_SearchEngine_nativeCancelEverywhereSearch(JNIEnv * env, jclass clazz)
+  {
+    GetPlatform().RunOnGuiThread([]()
+    {
+      g_framework->NativeFramework()->CancelSearch(search::Mode::Everywhere);
+    });
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_search_SearchEngine_nativeCancelAllSearches(JNIEnv * env, jclass clazz)
+  {
+    GetPlatform().RunOnGuiThread([]()
+    {
+      g_framework->NativeFramework()->CancelAllSearches();
+    });
+  }
+
   JNIEXPORT jobjectArray JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeGetHotelTypes(JNIEnv * env, jclass clazz)
   {

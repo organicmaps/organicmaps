@@ -28,6 +28,8 @@ char const * const kBookmarksBookmarkAction = "Bookmarks_Bookmark_action";
 char const * const kPlacepageHotelBook = "Placepage_Hotel_book";
 char const * const kEditorAddStart = "EditorAdd_start";
 char const * const kEditorEditStart = "EditorEdit_start";
+char const * const kDiffSchemeFallback = "Downloader_DiffScheme_OnStart_fallback";
+char const * const kDiffSchemeError = "Downloader_DiffScheme_error";
 
 // Settings.
 char const * const kFrom = "utm_source";

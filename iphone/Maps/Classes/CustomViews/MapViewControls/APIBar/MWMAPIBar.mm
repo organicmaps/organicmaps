@@ -29,7 +29,7 @@ static NSString * const kKeyPath = @"subviews";
   if (self)
   {
     self.controller = controller;
-    [[NSBundle mainBundle] loadNibNamed:@"MWMAPIBarView" owner:self options:nil];
+    [NSBundle.mainBundle loadNibNamed:@"MWMAPIBarView" owner:self options:nil];
 
     self.timeFormatter = [[NSDateFormatter alloc] init];
     self.timeFormatter.dateStyle = NSDateFormatterNoStyle;
@@ -59,7 +59,7 @@ static NSString * const kKeyPath = @"subviews";
   guard.m_controller.Clear();
   self.isVisible = NO;
   NSURL * url = [NSURL URLWithString:@(f.GetApiDataHolder().GetGlobalBackUrl().c_str())];
-  [[UIApplication sharedApplication] openURL:url];
+  [UIApplication.sharedApplication openURL:url];
 }
 
 #pragma mark - Properties

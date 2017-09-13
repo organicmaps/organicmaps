@@ -78,6 +78,7 @@ void FollowedPolyline::Swap(FollowedPolyline & rhs)
   m_segDistance.swap(rhs.m_segDistance);
   m_segProj.swap(rhs.m_segProj);
   swap(m_current, rhs.m_current);
+  swap(m_nextCheckpointIndex, rhs.m_nextCheckpointIndex);
 }
 
 void FollowedPolyline::Update()
@@ -141,16 +142,18 @@ Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect,
                                          DistanceFn const & distFn) const
 {
   CHECK_EQUAL(m_segProj.size() + 1, m_poly.GetSize(), ());
-  // At first trying to find a projection to two closest route segments of route which is near
-  // enough to |posRect| center.
+  // At first trying to find a projection to two closest route segments of route which is close
+  // enough to |posRect| center. If m_current is right before intermediate point we can get closestIter
+  // right after intermediate point (in next subroute).
   size_t const hoppingBorderIdx = min(m_segProj.size(), m_current.m_ind + 2);
   Iter const closestIter =
     GetClosestProjectionInInterval(posRect, distFn, m_current.m_ind, hoppingBorderIdx);
   if (closestIter.IsValid())
     return closestIter;
 
-  // If a projection to two closest route segments is not found trying to find projection to other route segments.
-  return GetClosestProjectionInInterval(posRect, distFn, hoppingBorderIdx, m_segProj.size());
+  // If a projection to the two closest route segments is not found tries to find projection to other route
+  // segments of current subroute.
+  return GetClosestProjectionInInterval(posRect, distFn, hoppingBorderIdx, m_nextCheckpointIndex);
 }
 
 Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,

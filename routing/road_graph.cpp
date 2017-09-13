@@ -3,9 +3,8 @@
 
 #include "routing/route.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
@@ -31,6 +30,11 @@ void SplitEdge(Edge const & ab, Junction const & p, vector<Edge> & edges)
 {
   auto const & a = ab.GetStartJunction();
   auto const & b = ab.GetEndJunction();
+
+  // No need to split the edge by its endpoints.
+  if (a.GetPoint() == p.GetPoint() || b.GetPoint() == p.GetPoint())
+    return;
+
   bool const partOfReal = ab.IsPartOfReal();
   edges.push_back(Edge::MakeFake(a, p, partOfReal));
   edges.push_back(Edge::MakeFake(p, b, partOfReal));
@@ -218,6 +222,17 @@ void IRoadGraph::ResetFakes()
   m_fakeIngoingEdges.clear();
 }
 
+void IRoadGraph::AddEdge(Junction const & j, Edge const & e, map<Junction, TEdgeVector> & edges)
+{
+  auto & cont = edges[j];
+  ASSERT(is_sorted(cont.cbegin(), cont.cend()), ());
+  auto const range = equal_range(cont.cbegin(), cont.cend(), e);
+  // Note. The "if" condition below is necessary to prevent duplicates which may be added when
+  // edges from |j| to "projection of |j|" and an edge in the opposite direction are added.
+  if (range.first == range.second)
+    cont.insert(range.second, e);
+}
+
 void IRoadGraph::AddFakeEdges(Junction const & junction,
                               vector<pair<Edge, Junction>> const & vicinity)
 {
@@ -242,15 +257,10 @@ void IRoadGraph::AddFakeEdges(Junction const & junction,
     {
       auto const & u = uv.GetStartJunction();
       auto const & v = uv.GetEndJunction();
-      m_fakeOutgoingEdges[u].push_back(uv);
-      m_fakeIngoingEdges[v].push_back(uv);
+      AddEdge(u, uv, m_fakeOutgoingEdges);
+      AddEdge(v, uv, m_fakeIngoingEdges);
     }
   }
-
-  for (auto & m : m_fakeIngoingEdges)
-    my::SortUnique(m.second);
-  for (auto & m : m_fakeOutgoingEdges)
-    my::SortUnique(m.second);
 }
 
 double IRoadGraph::GetSpeedKMPH(Edge const & edge) const

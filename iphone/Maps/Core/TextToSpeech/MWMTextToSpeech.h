@@ -10,6 +10,8 @@
 + (void)addObserver:(id<MWMTextToSpeechObserver>)observer;
 + (void)removeObserver:(id<MWMTextToSpeechObserver>)observer;
 
++ (void)applicationDidBecomeActive;
+
 @property(nonatomic) BOOL active;
 - (void)setNotificationsLocale:(NSString *)locale;
 - (void)playTurnNotifications;

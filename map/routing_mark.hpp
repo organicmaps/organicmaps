@@ -38,12 +38,16 @@ public:
 
   std::string GetSymbolName() const override;
   UserMark::Type GetMarkType() const override { return Type::ROUTING; }
+  bool IsAvailableForSearch() const override { return !IsPassed(); }
 
   RouteMarkType GetRoutePointType() const { return m_markData.m_pointType; }
   void SetRoutePointType(RouteMarkType type);
 
   void SetIntermediateIndex(size_t index);
   size_t GetIntermediateIndex() const { return m_markData.m_intermediateIndex; }
+
+  void SetRoutePointFullType(RouteMarkType type, size_t intermediateIndex);
+  bool IsEqualFullType(RouteMarkType type, size_t intermediateIndex) const;
 
   void SetIsMyPosition(bool isMyPosition);
   bool IsMyPosition() const { return m_markData.m_isMyPosition; }
@@ -84,6 +88,7 @@ public:
 
   RouteMarkPoint * AddRoutePoint(RouteMarkData && data);
   RouteMarkPoint * GetRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
+  RouteMarkPoint * GetMyPositionPoint();
   std::vector<RouteMarkPoint *> GetRoutePoints();
   size_t GetRoutePointsCount() const;
   bool RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
@@ -98,6 +103,8 @@ public:
 private:
   using TRoutePointCallback = function<void (RouteMarkPoint * mark)>;
   void ForEachIntermediatePoint(TRoutePointCallback const & fn);
+  RouteMarkPoint * GetRouteMarkForEdit(size_t index);
+  RouteMarkPoint const * GetRouteMark(size_t index);
 
   UserMarksController & m_routeMarks;
 };

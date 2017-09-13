@@ -13,19 +13,19 @@ UNIT_TEST(QueuedCountry_AddOptions)
 
   TEST_EQUAL(countryId, country.GetCountryId(), ());
   TEST_EQUAL(MapOptions::CarRouting, country.GetInitOptions(), ());
-  TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFile(), ());
+  TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFileOptions(), ());
 
   country.AddOptions(MapOptions::Map);
   TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetInitOptions(), ());
-  TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFile(), ());
+  TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFileOptions(), ());
 
   TEST(country.SwitchToNextFile(), ());
   TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetInitOptions(), ());
-  TEST_EQUAL(MapOptions::Map, country.GetCurrentFile(), ());
+  TEST_EQUAL(MapOptions::Map, country.GetCurrentFileOptions(), ());
 
   TEST(!country.SwitchToNextFile(), ());
   TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetInitOptions(), ());
-  TEST_EQUAL(MapOptions::Nothing, country.GetCurrentFile(), ());
+  TEST_EQUAL(MapOptions::Nothing, country.GetCurrentFileOptions(), ());
 }
 
 UNIT_TEST(QueuedCountry_RemoveOptions)
@@ -36,57 +36,58 @@ UNIT_TEST(QueuedCountry_RemoveOptions)
   {
     QueuedCountry country(countryId, MapOptions::MapWithCarRouting);
     TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetInitOptions(), ());
-    TEST_EQUAL(MapOptions::Map, country.GetCurrentFile(), ());
-    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFiles(), ());
+    TEST_EQUAL(MapOptions::Map, country.GetCurrentFileOptions(), ());
+    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFilesOptions(), ());
 
     country.RemoveOptions(MapOptions::Map);
     TEST_EQUAL(MapOptions::CarRouting, country.GetInitOptions(), ());
-    TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFile(), ());
-    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFiles(), ());
+    TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFileOptions(), ());
+    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFilesOptions(), ());
 
     country.RemoveOptions(MapOptions::CarRouting);
     TEST_EQUAL(MapOptions::Nothing, country.GetInitOptions(), ());
-    TEST_EQUAL(MapOptions::Nothing, country.GetCurrentFile(), ());
-    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFiles(), ());
+    TEST_EQUAL(MapOptions::Nothing, country.GetCurrentFileOptions(), ());
+    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFilesOptions(), ());
   }
 
   {
     QueuedCountry country(countryId, MapOptions::MapWithCarRouting);
     TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetInitOptions(), ());
-    TEST_EQUAL(MapOptions::Map, country.GetCurrentFile(), ());
-    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFiles(), ());
+    TEST_EQUAL(MapOptions::Map, country.GetCurrentFileOptions(), ());
+    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFilesOptions(), ());
 
     country.SwitchToNextFile();
     TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetInitOptions(), ());
-    TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFile(), ());
-    TEST_EQUAL(MapOptions::Map, country.GetDownloadedFiles(), ());
+    TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFileOptions(), ());
+    TEST_EQUAL(MapOptions::Map, country.GetDownloadedFilesOptions(), ());
 
     country.RemoveOptions(MapOptions::CarRouting);
     TEST_EQUAL(MapOptions::Map, country.GetInitOptions(), ());
-    TEST_EQUAL(MapOptions::Nothing, country.GetCurrentFile(), ());
-    TEST_EQUAL(MapOptions::Map, country.GetDownloadedFiles(), ());
+    TEST_EQUAL(MapOptions::Nothing, country.GetCurrentFileOptions(), ());
+    TEST_EQUAL(MapOptions::Map, country.GetDownloadedFilesOptions(), ());
   }
 
   {
     QueuedCountry country(countryId, MapOptions::MapWithCarRouting);
     TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetInitOptions(), ());
-    TEST_EQUAL(MapOptions::Map, country.GetCurrentFile(), ());
-    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFiles(), ());
+    TEST_EQUAL(MapOptions::Map, country.GetCurrentFileOptions(), ());
+    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFilesOptions(), ());
 
     country.SwitchToNextFile();
     TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetInitOptions(), ());
-    TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFile(), ());
-    TEST_EQUAL(MapOptions::Map, country.GetDownloadedFiles(), ());
+    TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFileOptions(), ());
+    TEST_EQUAL(MapOptions::Map, country.GetDownloadedFilesOptions(), ());
 
     country.RemoveOptions(MapOptions::Map);
     TEST_EQUAL(MapOptions::CarRouting, country.GetInitOptions(), ());
-    TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFile(), ());
-    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFiles(), ());
+    TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFileOptions(), ());
+    TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFilesOptions(), ());
 
     country.SwitchToNextFile();
     TEST_EQUAL(MapOptions::CarRouting, country.GetInitOptions(), ());
-    TEST_EQUAL(MapOptions::Nothing, country.GetCurrentFile(), ());
-    TEST_EQUAL(MapOptions::CarRouting, country.GetDownloadedFiles(), ());
+    TEST_EQUAL(MapOptions::Nothing, country.GetCurrentFileOptions(), ());
+    TEST_EQUAL(MapOptions::Nothing, country.GetCurrentFileOptions(), ());
+    TEST_EQUAL(MapOptions::CarRouting, country.GetDownloadedFilesOptions(), ());
   }
 }
 }  // namespace storage

@@ -294,12 +294,18 @@ using namespace place_page;
   [self insertSpecialProjectsSectionWithProject:SpecialProject::Cian];
 
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+  {
+    self.cianIsReadyCallback(@[]);
     return;
+  }
 
   network_policy::CallPartnersApi([self](platform::NetworkPolicy const & canUseNetwork) {
     auto api = GetFramework().GetCianApi(canUseNetwork);
     if (!api)
+    {
+      self.cianIsReadyCallback(@[]);
       return;
+    }
     auto const latLon = [self latLon];
 
     __weak auto wSuccessSelf = self;
@@ -436,7 +442,7 @@ using namespace place_page;
   m_ugcRows.push_back(UGCRow::SelectImpression);
 
   auto & f = GetFramework();
-  f.GetUGCApi().GetUGC(self.featureId, [self](ugc::UGC const & ugc) {
+  f.GetUGCApi().GetUGC([self featureId], [self](ugc::UGC const & ugc) {
     auto const it = find(self->m_sections.begin(), self->m_sections.end(), Sections::UGC);
     ASSERT(it != self->m_sections.end(), ());
 
@@ -485,25 +491,22 @@ using namespace place_page;
 
     auto category = f.GetBmCategory(categoryIndex);
     NSAssert(category, @"Category can't be nullptr!");
-    {
-      auto bookmark = static_cast<Bookmark const *>(category->GetUserMark(bookmarkIndex));
-      f.FillBookmarkInfo(*bookmark, {bookmarkIndex, categoryIndex}, m_info);
-      category->NotifyChanges();
-    }
+    auto bookmark = static_cast<Bookmark const *>(category->GetUserMark(bookmarkIndex));
+    f.FillBookmarkInfo(*bookmark, {bookmarkIndex, categoryIndex}, m_info);
+    category->NotifyChanges();
     m_sections.insert(m_sections.begin() + 1, Sections::Bookmark);
   }
   else
   {
-    auto const & bac = m_info.GetBookmarkAndCategory();
+    auto const bac = m_info.GetBookmarkAndCategory();
     auto category = bmManager.GetBmCategory(bac.m_categoryIndex);
+    f.ResetBookmarkInfo(*static_cast<Bookmark const *>(category->GetUserMark(bac.m_bookmarkIndex)),
+                        m_info);
     NSAssert(category, @"Category can't be nullptr!");
-    {
-      category->DeleteUserMark(bac.m_bookmarkIndex);
-      category->NotifyChanges();
-    }
+    category->DeleteUserMark(bac.m_bookmarkIndex);
+    category->NotifyChanges();
     category->SaveToKMLFile();
 
-    m_info.SetBac({});
     m_sections.erase(remove(m_sections.begin(), m_sections.end(), Sections::Bookmark));
   }
 }
@@ -728,7 +731,7 @@ using namespace place_page;
 #pragma mark - Getters
 
 - (RouteMarkType)routeMarkType { return m_info.GetRouteMarkType(); }
-- (int8_t)intermediateIndex { return m_info.GetIntermediateIndex(); }
+- (size_t)intermediateIndex { return m_info.GetIntermediateIndex(); }
 - (NSString *)address { return @(m_info.GetAddress().c_str()); }
 - (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
 - (std::vector<Sections> const &)sections { return m_sections; }
@@ -765,7 +768,7 @@ using namespace place_page;
   case MetainfoRows::Coordinate:
     return @(m_info
                  .GetFormattedCoordinate(
-                     [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey])
+                     [NSUserDefaults.standardUserDefaults boolForKey:kUserDefaultsLatLonAsDMSKey])
                  .c_str());
   }
 }
@@ -791,7 +794,7 @@ using namespace place_page;
 + (void)toggleCoordinateSystem
 {
   // TODO: Move changing latlon's mode to the settings.
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setBool:![ud boolForKey:kUserDefaultsLatLonAsDMSKey] forKey:kUserDefaultsLatLonAsDMSKey];
   [ud synchronize];
 }

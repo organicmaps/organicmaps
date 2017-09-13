@@ -145,7 +145,6 @@ vector<string> kSearchMarks =
 {
   "search-result",
   "search-booking",
-  "search-tinkoff",
   "search-adv",
   "search-cian", // TODO: delete me after Cian project is finished.
 };
@@ -406,6 +405,7 @@ Framework::Framework(FrameworkParams const & params)
       m_drapeEngine->SetDisplacementMode(mode);
   })
   , m_lastReportedCountry(kInvalidCountryId)
+  , m_enabledDiffs(params.m_enableDiffs)
 {
   m_startBackgroundTime = my::Timer::LocalTime();
 
@@ -469,7 +469,7 @@ Framework::Framework(FrameworkParams const & params)
   LOG(LDEBUG, ("Storage initialized"));
 
   // Local ads manager should be initialized after storage initialization.
-  if (!params.m_disableLocalAds)
+  if (params.m_enableLocalAds)
   {
     m_localAdsManager.SetBookmarkManager(&m_bmManager);
     m_localAdsManager.Startup();
@@ -570,7 +570,7 @@ void Framework::ShowNode(storage::TCountryId const & countryId)
   ShowRect(CalcLimitRect(countryId, GetStorage(), GetCountryInfoGetter()));
 }
 
-void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
+void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::TLocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
   m_routingManager.ResetRoutingSession();
@@ -591,7 +591,7 @@ void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, s
   m_searchEngine->ClearCaches();
 }
 
-bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
+bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, storage::TLocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
   m_routingManager.ResetRoutingSession();
@@ -656,7 +656,7 @@ void Framework::RegisterAllMaps()
          ("Registering maps while map downloading leads to removing downloading maps from "
           "ActiveMapsListener::m_items."));
 
-  m_storage.RegisterAllLocalMaps();
+  m_storage.RegisterAllLocalMaps(m_enabledDiffs);
 
   // Fast migrate in case there are no downloaded MWM.
   if (platform::migrate::NeedMigrate())
@@ -771,11 +771,19 @@ bool Framework::DeleteBmCategory(size_t index)
 
 void Framework::FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const
 {
-  info.SetBac(bac);
   BookmarkCategory * cat = GetBmCategory(bac.m_categoryIndex);
   info.SetBookmarkCategoryName(cat->GetName());
   BookmarkData const & data = static_cast<Bookmark const *>(cat->GetUserMark(bac.m_bookmarkIndex))->GetData();
   info.SetBookmarkData(data);
+  info.SetBac(bac);
+  FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
+}
+
+void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const
+{
+  info.SetBookmarkCategoryName("");
+  info.SetBookmarkData({});
+  info.SetBac({});
   FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
 }
 
@@ -884,7 +892,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   {
     info.SetSponsoredType(place_page::SponsoredType::Viator);
     auto const & sponsoredId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-    info.SetSponsoredDescriptionUrl(viator::Api::GetCityUrl(sponsoredId));
+    info.SetSponsoredUrl(viator::Api::GetCityUrl(sponsoredId));
     info.SetPreviewIsExtended();
   }
   else if (ftypes::IsHotelChecker::Instance()(ft))
@@ -983,7 +991,8 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
     scale = scales::GetUpperComfortScale();
 
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), static_cast<int>(scale), true /* isAnim */);
+    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), static_cast<int>(scale), true /* isAnim */,
+                                      true /* trackVisibleViewport */);
 
   place_page::Info info;
   FillBookmarkInfo(*mark, bnc, info);
@@ -1154,7 +1163,7 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
 void Framework::SetViewportCenter(m2::PointD const & pt, int zoomLevel)
 {
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewCenter(pt, zoomLevel, true /* isAnim */);
+    m_drapeEngine->SetModelViewCenter(pt, zoomLevel, true /* isAnim */, false /* trackVisibleViewport */);
 }
 
 m2::RectD Framework::GetCurrentViewport() const
@@ -1555,9 +1564,10 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
   if (countrySizeInBytes == 0 || attrs.m_status != NodeStatus::OnDiskOutOfDate)
     return DoAfterUpdate::Nothing;
 
-  return connectionStatus == Platform::EConnectionType::CONNECTION_WWAN
-             ? DoAfterUpdate::AskForUpdateMaps
-             : DoAfterUpdate::AutoupdateMaps;
+  if (s.IsPossibleToAutoupdate() && connectionStatus == Platform::EConnectionType::CONNECTION_WIFI)
+    return DoAfterUpdate::AutoupdateMaps;
+
+  return DoAfterUpdate::AskForUpdateMaps;
 }
 
 search::DisplayedCategories const & Framework::GetDisplayedCategories()
@@ -1701,7 +1711,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
 
   m2::PointD const center = info.GetMercator();
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewCenter(center, scale, animation);
+    m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
 
   UserMarkContainer::UserMarkForPoi()->SetPtOrg(center);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
@@ -1824,8 +1834,6 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
     if (r.m_metadata.m_isSponsoredHotel)
       mark->SetCustomSymbol("search-booking");
-    else if (r.m_metadata.m_isSponsoredBank)
-      mark->SetCustomSymbol("search-tinkoff");
   }
 }
 
@@ -1978,7 +1986,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     GetPlatform().RunOnGuiThread([this, sizes](){ m_searchMarksSizes = sizes; });
   });
 
-  m_drapeApi.SetEngine(make_ref(m_drapeEngine));
+  m_drapeApi.SetDrapeEngine(make_ref(m_drapeEngine));
   m_routingManager.SetDrapeEngine(make_ref(m_drapeEngine), allow3d);
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_localAdsManager.SetDrapeEngine(make_ref(m_drapeEngine));
@@ -2017,7 +2025,11 @@ void Framework::DestroyDrapeEngine()
 {
   if (m_drapeEngine != nullptr)
   {
-    m_drapeApi.SetEngine(nullptr);
+    m_drapeApi.SetDrapeEngine(nullptr);
+    m_routingManager.SetDrapeEngine(nullptr, false);
+    m_trafficManager.SetDrapeEngine(nullptr);
+    m_localAdsManager.SetDrapeEngine(nullptr);
+
     m_trafficManager.Teardown();
     m_localAdsManager.Teardown();
     GpsTracker::Instance().Disconnect();

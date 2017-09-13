@@ -145,7 +145,7 @@ NSString * getVerifier(NSString * urlString)
             withParameters:@{
               kStatIsSuccess : kStatNo,
               kStatErrorData : @(ex.what()),
-              kStatType : self.authTypeAsString
+              kStatType : [self authTypeAsString]
             }];
     }
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -154,7 +154,7 @@ NSString * getVerifier(NSString * urlString)
       {
         osm_auth_ios::AuthorizationStoreCredentials(ks);
         [Statistics logEvent:@"Editor_Auth_request_result"
-              withParameters:@{kStatIsSuccess : kStatYes, kStatType : self.authTypeAsString}];
+              withParameters:@{kStatIsSuccess : kStatYes, kStatType : [self authTypeAsString]}];
         UIViewController * svc = nil;
         for (UIViewController * vc in self.navigationController.viewControllers)
         {

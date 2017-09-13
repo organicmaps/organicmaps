@@ -102,11 +102,7 @@ void TrafficManager::SetEnabled(bool enabled)
     ChangeState(enabled ? TrafficState::Enabled : TrafficState::Disabled);
   }
 
-  {
-    lock_guard<mutex> lock(m_drapeEngineMutex);
-    if (m_drapeEngine != nullptr)
-      m_drapeEngine->EnableTraffic(enabled);
-  }
+  m_drapeEngine.SafeCall(&df::DrapeEngine::EnableTraffic, enabled);
 
   if (enabled)
   {
@@ -136,8 +132,7 @@ void TrafficManager::Clear()
 
 void TrafficManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
-  lock_guard<mutex> lock(m_drapeEngineMutex);
-  m_drapeEngine = engine;
+  m_drapeEngine.Set(engine);
 }
 
 void TrafficManager::SetCurrentDataVersion(int64_t dataVersion)
@@ -396,10 +391,8 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
 
   if (!info.GetColoring().empty())
   {
-    {
-      lock_guard<mutex> lock(m_drapeEngineMutex);
-      m_drapeEngine->UpdateTraffic(info);
-    }
+    m_drapeEngine.SafeCall(&df::DrapeEngine::UpdateTraffic,
+                           static_cast<traffic::TrafficInfo const &>(info));
 
     // Update traffic colors for routing.
     m_observer.OnTrafficInfoAdded(move(info));
@@ -445,10 +438,7 @@ void TrafficManager::ClearCache(MwmSet::MwmId const & mwmId)
     ASSERT_GREATER_OR_EQUAL(m_currentCacheSizeBytes, it->second.m_dataSize, ());
     m_currentCacheSizeBytes -= it->second.m_dataSize;
 
-    {
-      lock_guard<mutex> lock(m_drapeEngineMutex);
-      m_drapeEngine->ClearTrafficCache(mwmId);
-    }
+    m_drapeEngine.SafeCall(&df::DrapeEngine::ClearTrafficCache, mwmId);
 
     GetPlatform().RunOnGuiThread([this, mwmId]()
     {
@@ -570,9 +560,7 @@ void TrafficManager::Resume()
 
 void TrafficManager::SetSimplifiedColorScheme(bool simplified)
 {
-  lock_guard<mutex> lock(m_drapeEngineMutex);
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetSimplifiedTrafficColors(simplified);
+  m_drapeEngine.SafeCall(&df::DrapeEngine::SetSimplifiedTrafficColors, simplified);
 }
 
 string DebugPrint(TrafficManager::TrafficState state)

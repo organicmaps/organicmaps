@@ -24,8 +24,8 @@
 Platform::Platform()
 {
   // get resources directory path
-  string const resourcesPath = [[[NSBundle mainBundle] resourcePath] UTF8String];
-  string const bundlePath = [[[NSBundle mainBundle] bundlePath] UTF8String];
+  string const resourcesPath = NSBundle.mainBundle.resourcePath.UTF8String;
+  string const bundlePath = NSBundle.mainBundle.bundlePath.UTF8String;
 
   char const * envResourcesDir = ::getenv("MWM_RESOURCES_DIR");
   char const * envWritableDir = ::getenv("MWM_WRITABLE_DIR");
@@ -80,7 +80,7 @@ Platform::Platform()
     {
       NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
       NSString * supportDir = [dirPaths objectAtIndex:0];
-      m_writableDir = [supportDir UTF8String];
+      m_writableDir = supportDir.UTF8String;
 #ifdef BUILD_DESIGNER
       m_writableDir += "/MAPS.ME.Designer/";
 #else // BUILD_DESIGNER
@@ -100,7 +100,7 @@ Platform::Platform()
   NSString * tempDir = NSTemporaryDirectory();
   if (tempDir == nil)
       tempDir = @"/tmp";
-  m_tmpDir = [tempDir UTF8String];
+  m_tmpDir = tempDir.UTF8String;
   m_tmpDir += '/';
 
   m_guiThread = make_unique<platform::GuiThread>();

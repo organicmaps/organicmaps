@@ -21,8 +21,7 @@ CGFloat constexpr kExtraCompactHeight = 52;
 + (instancetype)viewWithImage:(UIImage *)image title:(NSString *)title text:(NSString *)text
 {
   MWMSearchNoResults * view =
-      [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil]
-          firstObject];
+      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   view.image.image = image;
   if (title)
   {

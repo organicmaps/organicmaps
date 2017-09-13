@@ -32,7 +32,7 @@ CGFloat const kBottomOffset = 36;
   {
     _ownerView = ownerView;
     _availableArea = ownerView.frame;
-    self.placePageView = placePageView;
+    [self setPlacePageView:placePageView];
     placePageView.tableView.delegate = self;
     _delegate = delegate;
     [self addShadow];
@@ -82,7 +82,7 @@ CGFloat const kBottomOffset = 36;
       ^{
         self.placePageView = nil;
         self.actionBar = nil;
-        [self.delegate shouldDestroyLayout];
+        [self.delegate destroyLayout];
       });
 }
 
@@ -148,7 +148,7 @@ CGFloat const kBottomOffset = 36;
     CGFloat constexpr designAlpha = 0.8;
     if (alpha < designAlpha)
     {
-      [self.delegate shouldClose];
+      [self.delegate closePlacePage];
     }
     else
     {

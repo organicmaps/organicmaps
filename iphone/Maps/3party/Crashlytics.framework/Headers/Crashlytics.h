@@ -18,7 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol CrashlyticsDelegate;
 
 /**
- *  Crashlytics. Handles configuration and initialization of Crashlytics.
+ * Crashlytics. Handles configuration and initialization of Crashlytics.
+ *
+ * Note: The Crashlytics class cannot be subclassed. If this is causing you pain for
+ * testing, we suggest using either a wrapper class or a protocol extension.
  */
 @interface Crashlytics : NSObject
 
@@ -39,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, nullable) id <CrashlyticsDelegate> delegate;
 
 /**
- *  The recommended way to install Crashlytics into your application is to place a call to +startWithAPIKey:
+ *  The recommended way to install Crashlytics into your application is to place a call to +startWithAPIKey: 
  *  in your -application:didFinishLaunchingWithOptions: or -applicationDidFinishLaunching:
  *  method.
  *
@@ -56,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  If you need the functionality provided by the CrashlyticsDelegate protocol, you can use
  *  these convenience methods to activate the framework and set the delegate in one call.
- *
+ *  
  *  @param apiKey   The Crashlytics API Key for this app
  *  @param delegate A delegate object which conforms to CrashlyticsDelegate.
  *
@@ -118,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Specify a user email which will be visible in the Crashlytics UI.
  *  Please be mindful of your end-user's privacy and see if setUserIdentifier: can fulfil your needs.
- *
+ *  
  *  @see setUserIdentifier:
  *
  *  @param email An end user's email address.
@@ -131,7 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Set a value for a for a key to be associated with your crash data which will be visible in the Crashlytics UI.
- *  When setting an object value, the object is converted to a string. This is typically done by calling
+ *  When setting an object value, the object is converted to a string. This is typically done by calling 
  *  -[NSObject description].
  *
  *  @param value The object to be associated with the key
@@ -221,22 +224,44 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *
  *  Called when a Crashlytics instance has determined that the last execution of the
- *  application ended in a crash.  This is called synchronously on Crashlytics
+ *  application resulted in a saved report.  This is called synchronously on Crashlytics
  *  initialization. Your delegate must invoke the completionHandler, but does not need to do so
  *  synchronously, or even on the main thread. Invoking completionHandler with NO will cause the
  *  detected report to be deleted and not submitted to Crashlytics. This is useful for
  *  implementing permission prompts, or other more-complex forms of logic around submitting crashes.
+ *
+ *  Instead of using this method, you should try to make use of -crashlyticsDidDetectReportForLastExecution: 
+ *  if you can.
  *
  *  @warning Failure to invoke the completionHandler will prevent submissions from being reported. Watch out.
  *
  *  @warning Just implementing this delegate method will disable all forms of synchronous report submission. This can
  *           impact the reliability of reporting crashes very early in application launch.
  *
- *  @param report            The CLSReport object representing the last detected crash
+ *  @param report            The CLSReport object representing the last detected report
  *  @param completionHandler The completion handler to call when your logic has completed.
  *
  */
 - (void)crashlyticsDidDetectReportForLastExecution:(CLSReport *)report completionHandler:(void (^)(BOOL submit))completionHandler;
+
+/**
+ *
+ *  Called when a Crashlytics instance has determined that the last execution of the
+ *  application resulted in a saved report. This method differs from
+ *  -crashlyticsDidDetectReportForLastExecution:completionHandler: in three important ways:
+ *
+ *    - it is not called synchronously during initialization
+ *    - it does not give you the ability to prevent the report from being submitted
+ *    - the report object itself is immutable
+ *
+ *  Thanks to these limitations, making use of this method does not impact reporting 
+ *  reliabilty in any way.
+ *
+ *  @param report The read-only CLSReport object representing the last detected report
+ *
+ */
+
+- (void)crashlyticsDidDetectReportForLastExecution:(CLSReport *)report;
 
 /**
  *  If your app is running on an OS that supports it (OS X 10.9+, iOS 7.0+), Crashlytics will submit

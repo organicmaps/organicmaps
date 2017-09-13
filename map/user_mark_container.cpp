@@ -76,7 +76,7 @@ UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, do
     FindMarkFunctor f(&mark, d, rect);
     for (size_t i = 0; i < m_userMarks.size(); ++i)
     {
-      if (rect.IsPointInside(m_userMarks[i]->GetPivot()))
+      if (m_userMarks[i]->IsAvailableForSearch() && rect.IsPointInside(m_userMarks[i]->GetPivot()))
          f(m_userMarks[i].get());
     }
   }

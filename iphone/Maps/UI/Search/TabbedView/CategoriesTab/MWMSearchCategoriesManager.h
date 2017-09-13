@@ -7,4 +7,6 @@
 
 - (void)attachCell:(MWMSearchTabbedCollectionViewCell *)cell;
 
+- (void)resetCategories;
+
 @end

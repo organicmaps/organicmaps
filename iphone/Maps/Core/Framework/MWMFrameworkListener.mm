@@ -95,7 +95,6 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   using namespace routing;
   using namespace storage;
   Observers * observers = self.routeBuildingObservers;
-  auto & f = GetFramework();
   // TODO(ldragunov,rokuz): Thise two routing callbacks are the only framework callbacks which does
   // not guarantee
   // that they are called on a main UI thread context. Discuss it with Lev.
@@ -103,16 +102,30 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   // This will help to avoid unnecessary parameters copying and will make all our framework
   // callbacks
   // consistent: every notification to UI will run on a main UI thread.
-  f.GetRoutingManager().SetRouteBuildingListener(
+  auto & rm = GetFramework().GetRoutingManager();
+  rm.SetRouteBuildingListener(
       [observers](IRouter::ResultCode code, TCountriesVec const & absentCountries) {
         loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer) {
           [observer processRouteBuilderEvent:code countries:absentCountries];
         });
       });
-  f.GetRoutingManager().SetRouteProgressListener([observers](float progress) {
+  rm.SetRouteProgressListener([observers](float progress) {
     loopWrappers(observers, [progress](TRouteBuildingObserver observer) {
       if ([observer respondsToSelector:@selector(processRouteBuilderProgress:)])
         [observer processRouteBuilderProgress:progress];
+    });
+  });
+  rm.SetRouteRecommendationListener([observers](RoutingManager::Recommendation recommendation) {
+    MWMRouterRecommendation rec;
+    switch (recommendation)
+    {
+    case RoutingManager::Recommendation::RebuildAfterPointsLoading:
+      rec = MWMRouterRecommendationRebuildAfterPointsLoading;
+      break;
+    }
+    loopWrappers(observers, [rec](TRouteBuildingObserver observer) {
+      if ([observer respondsToSelector:@selector(processRouteRecommendation:)])
+        [observer processRouteRecommendation:rec];
     });
   });
 }

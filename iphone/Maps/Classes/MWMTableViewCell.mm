@@ -1,5 +1,4 @@
 #import "MWMTableViewCell.h"
-#import "UIKitCategories.h"
 
 @implementation MWMTableViewCell
 

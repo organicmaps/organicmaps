@@ -297,6 +297,7 @@
           <EditText
             android:id="@+id/input"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
+            android:inputType="textMultiLine"
             android:hint="@string/editor_detailed_description_hint"/>
 
         </com.mapswithme.maps.widget.CustomTextInputLayout>

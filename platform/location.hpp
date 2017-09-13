@@ -182,6 +182,8 @@ namespace location
     string m_sourceName;
     // The next street name.
     string m_targetName;
+    // Street name to display. May be empty.
+    string m_displayedStreetName;
 
     // Percentage of the route completion.
     double m_completionPercent;

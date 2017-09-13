@@ -74,7 +74,7 @@
 
 - (void)setBackgroundColor:(UIColor *)color forState:(UIControlState)state
 {
-  [self setBackgroundColor:[UIColor clearColor]];
+  [self setBackgroundColor:UIColor.clearColor];
   [self setBackgroundImage:[UIImage imageWithColor:color] forState:state];
 }
 

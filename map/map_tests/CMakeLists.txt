@@ -38,6 +38,8 @@ omim_link_libraries(
   local_ads
   platform
   editor
+  mwm_diff
+  bsdiff
   geometry
   coding
   base

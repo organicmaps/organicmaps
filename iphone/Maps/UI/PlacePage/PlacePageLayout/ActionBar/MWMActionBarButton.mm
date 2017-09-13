@@ -86,17 +86,17 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   }
   case EButton::Booking:
     [self.button setImage:[UIImage imageNamed:@"ic_booking_logo"] forState:UIControlStateNormal];
-    self.label.textColor = [UIColor whiteColor];
+    self.label.textColor = UIColor.whiteColor;
     self.backgroundColor = [UIColor bookingBackground];
     break;
   case EButton::BookingSearch:
       [self.button setImage:[UIImage imageNamed:@"ic_booking_search"] forState:UIControlStateNormal];
-      self.label.textColor = [UIColor whiteColor];
+      self.label.textColor = UIColor.whiteColor;
       self.backgroundColor = [UIColor bookingBackground];
       break;
   case EButton::Opentable:
     [self.button setImage:[UIImage imageNamed:@"ic_opentable"] forState:UIControlStateNormal];
-    self.label.textColor = [UIColor whiteColor];
+    self.label.textColor = UIColor.whiteColor;
     self.backgroundColor = [UIColor opentableBackground];
     break;
   case EButton::Call:
@@ -137,7 +137,8 @@ NSString * titleForButton(EButton type, BOOL isSelected)
 {
   if (view.subviews.count)
     return;
-  MWMActionBarButton * button = [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil] firstObject];
+  MWMActionBarButton * button =
+      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   button.delegate = delegate;
   button.type = type;
   [view addSubview:button];

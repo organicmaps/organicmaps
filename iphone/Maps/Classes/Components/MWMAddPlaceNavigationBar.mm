@@ -19,7 +19,8 @@
               doneBlock:(MWMVoidBlock)done
             cancelBlock:(MWMVoidBlock)cancel
 {
-  MWMAddPlaceNavigationBar * navBar = [[[NSBundle mainBundle] loadNibNamed:self.className owner:nil options:nil] firstObject];
+  MWMAddPlaceNavigationBar * navBar =
+      [NSBundle.mainBundle loadNibNamed:self.className owner:nil options:nil].firstObject;
   navBar.width = superview.width;
   navBar.doneBlock = done;
   navBar.cancelBlock = cancel;
