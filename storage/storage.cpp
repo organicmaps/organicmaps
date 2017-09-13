@@ -825,8 +825,7 @@ void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions o
     ASSERT_THREAD_CHECKER(m_threadChecker, ());
     if (!isSuccess)
     {
-      m_failedCountries.insert(countryId);
-      NotifyStatusChangedForHierarchy(countryId);
+      OnDownloadFailed(countryId);
       return;
     }
 
@@ -907,8 +906,7 @@ void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, 
 
   if (!success)
   {
-    m_failedCountries.insert(countryId);
-    NotifyStatusChangedForHierarchy(countryId);
+    OnDownloadFailed(countryId);
     return;
   }
 
@@ -1452,8 +1450,7 @@ void Storage::OnDiffStatusReceived(diffs::Status const status)
         ASSERT_THREAD_CHECKER(m_threadChecker, ());
         if (!isSuccess)
         {
-          m_failedCountries.insert(countryId);
-          NotifyStatusChangedForHierarchy(countryId);
+          OnDownloadFailed(countryId);
           return;
         }
 
@@ -1883,5 +1880,14 @@ TMwmSize Storage::GetRemoteSize(CountryFile const & file, MapOptions opt, int64_
       size += file.GetRemoteSize(bit);
   }
   return size;
+}
+
+void Storage::OnDownloadFailed(TCountryId const & countryId)
+{
+  m_failedCountries.insert(countryId);
+  auto it = find(m_queue.cbegin(), m_queue.cend(), countryId);
+  if (it != m_queue.cend())
+    m_queue.erase(it);
+  NotifyStatusChangedForHierarchy(countryId);
 }
 }  // namespace storage

@@ -218,6 +218,9 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
 
   void SaveResumeChunks()
   {
+    if (m_writer == nullptr)
+      return;
+
     try
     {
       // Flush writer before saving downloaded chunks.
@@ -274,6 +277,11 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
       ++m_goodChunksCount;
       if (m_status != ECompleted && m_goodChunksCount % 10 == 0)
         SaveResumeChunks();
+    }
+    else if (result == ChunksDownloadStrategy::ENoFreeServers)
+    {
+      // There is no any server which is able to re-download chunk.
+      m_status = EFailed;
     }
 
     if (m_status != EInProgress)

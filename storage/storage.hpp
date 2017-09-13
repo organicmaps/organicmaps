@@ -656,6 +656,8 @@ private:
   bool IsDisputed(TCountryTreeNode const & node) const;
 
   void CalMaxMwmSizeBytes();
+  
+  void OnDownloadFailed(TCountryId const & countryId);
 
   void LoadDiffScheme();
   void ApplyDiff(TCountryId const & countryId, function<void(bool isSuccess)> const & fn);
