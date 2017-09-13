@@ -24,11 +24,13 @@ public enum Rating
     mColorId = color;
   }
 
+  @ColorRes
   public int getColorId()
   {
     return mColorId;
   }
 
+  @DrawableRes
   public int getDrawableId()
   {
     return mDrawableId;

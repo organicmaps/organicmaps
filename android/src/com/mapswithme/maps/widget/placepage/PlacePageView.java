@@ -83,6 +83,7 @@ import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.LineCountTextView;
 import com.mapswithme.maps.widget.ObservableScrollView;
+import com.mapswithme.maps.widget.RatingView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
 import com.mapswithme.maps.widget.recycler.DividerItemDecoration;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
@@ -149,7 +150,8 @@ public class PlacePageView extends RelativeLayout
   private TextView mTvDistance;
   private TextView mTvAddress;
   private View mSponsoredInfo;
-  private TextView mTvSponsoredRating;
+  private RatingView mRatingView;
+  private TextView mReviewCount;
   private TextView mTvSponsoredPrice;
   // Details.
   private NestedScrollView mDetails;
@@ -387,7 +389,8 @@ public class PlacePageView extends RelativeLayout
     mTvAddress = (TextView) mPreview.findViewById(R.id.tv__address);
 
     mSponsoredInfo = mPreview.findViewById(R.id.hotel_info_frame);
-    mTvSponsoredRating = (TextView) mSponsoredInfo.findViewById(R.id.tv__hotel_rating);
+    mRatingView = (RatingView) mSponsoredInfo.findViewById(R.id.rating_view);
+    mReviewCount = (TextView) mSponsoredInfo.findViewById(R.id.tv__review_count);
     mTvSponsoredPrice = (TextView) mSponsoredInfo.findViewById(R.id.tv__hotel_price);
 
     mDetails = (NestedScrollView) findViewById(R.id.pp__details);
@@ -1496,17 +1499,19 @@ public class PlacePageView extends RelativeLayout
     colorizeSubtitle();
     UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mapObject.getAddress());
-
+    //TODO: rating will be shown not only for sponsored objects now, change it when core is ready.
     boolean sponsored = isSponsored();
-    UiUtils.showIf(sponsored, mSponsoredInfo);
     if (sponsored)
     {
       boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
       boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.getRating());
-      mTvSponsoredRating.setText(mSponsored.getRating());
-      UiUtils.showIf(!isPriceEmpty && !isRatingEmpty, mTvSponsoredRating);
+      //TODO: remove this code when place_page_info.cpp is ready and use rating parameter.
+      mRatingView.setRating(null, mSponsored.getRating().substring(mSponsored.getRating().indexOf(" ") + 1, mSponsored.getRating().length()));
+      UiUtils.showIf(!isRatingEmpty, mRatingView);
       mTvSponsoredPrice.setText(mSponsoredPrice);
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
+      //TODO: set review count to mTvReviewCount when core is ready.
+      UiUtils.showIf(!isRatingEmpty || !isPriceEmpty, mSponsoredInfo);
     }
   }
 

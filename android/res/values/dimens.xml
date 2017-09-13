@@ -210,4 +210,8 @@
   <dimen name="cian_product_height">140dp</dimen>
   <dimen name="cian_product_width">160dp</dimen>
   <dimen name="cian_details_height">44dp</dimen>
+
+  <!-- Rating-->
+  <dimen name="rating_view_height">40dp</dimen>
+  <dimen name="rating_view_height_small">20dp</dimen>
 </resources>

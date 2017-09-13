@@ -65,15 +65,38 @@ public class RatingView extends View
 
   public void setRating(Rating rating, @Nullable String value)
   {
+    //TODO: remove this code when place_page_info.cpp is ready and use rating parameter.
     mRatingValue = value;
+    Rating r = dummyMethod();
     Resources res = getContext().getResources();
-    mRatingColor = res.getColor(rating.getColorId());
+    mRatingColor = res.getColor(r.getColorId());
     mBackgroundPaint.setColor(mRatingColor);
     mBackgroundPaint.setAlpha(31 /* 12% */);
-    mDrawable = res.getDrawable(rating.getDrawableId());
+    mDrawable = res.getDrawable(r.getDrawableId());
     mTextPaint.setColor(mRatingColor);
     invalidate();
     requestLayout();
+  }
+
+  //TODO: remove this code when place_page_info.cpp is ready and use rating parameter.
+  private Rating dummyMethod()
+  {
+    if (TextUtils.isEmpty(mRatingValue))
+      return Rating.EXCELLENT;
+
+    float rating = Float.valueOf(mRatingValue);
+    if (rating >= 0 && rating <= 2)
+      return Rating.HORRIBLE;
+    if (rating > 2 && rating <= 4)
+      return Rating.BAD;
+    if (rating > 4 && rating <= 6)
+      return Rating.NORMAL;
+    if (rating > 6 && rating <= 8)
+      return Rating.GOOD;
+    if (rating > 8 && rating <= 10)
+      return Rating.EXCELLENT;
+
+    throw new AssertionError("Unsupported rating value: " + mRatingValue);
   }
 
   @Override

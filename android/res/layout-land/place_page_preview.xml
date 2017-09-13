@@ -66,7 +66,7 @@
     android:layout_toRightOf="@id/downloader_status_frame"
     android:layout_toStartOf="@+id/direction_frame"
     android:lines="1"
-    android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
     android:ellipsize="end"
     tools:background="#300000F0"
     tools:text="Subtitle, very very very very very very very long"/>
@@ -100,6 +100,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+      android:textSize="@dimen/text_size_body_3"
       tools:text="2000 km"/>
   </LinearLayout>
 
@@ -132,33 +133,16 @@
     tools:text="Till 9 PM"
     tools:visibility="visible"/>
 
-  <LinearLayout
+  <include
     android:id="@+id/hotel_info_frame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="true"
     android:layout_below="@id/tv__opened_till"
-    android:layout_marginTop="@dimen/margin_quarter"
-    tools:background="#8000FFFF">
-
-    <TextView
-      android:id="@+id/tv__hotel_rating"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-      android:textColor="@color/base_green"
-      android:textStyle="bold"
-      tools:text="Rating: 7.5"/>
-
-    <TextView
-      android:id="@+id/tv__hotel_price"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-      android:textStyle="bold"
-      tools:text="$$$"/>
-  </LinearLayout>
+    android:layout_marginTop="@dimen/margin_quarter_plus"
+    tools:background="#8000FFFF"
+    tools:showIn="@layout/place_page_preview"
+    layout="@layout/place_page_preview_rating"/>
 
   <TextView
     android:id="@+id/tv__address"
@@ -166,8 +150,8 @@
     android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="true"
     android:layout_below="@id/hotel_info_frame"
-    android:layout_marginTop="@dimen/margin_half"
-    android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
     tools:background="#60000000"
     tools:text="Lenina str, 10"/>
 </RelativeLayout>
