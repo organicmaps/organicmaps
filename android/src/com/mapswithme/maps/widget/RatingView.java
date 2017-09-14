@@ -102,19 +102,24 @@ public class RatingView extends View
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
   {
-    if (TextUtils.isEmpty(mRatingValue))
+    final int height = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
+    int width = getPaddingLeft();
+    if (mDrawable != null)
     {
-      super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-      return;
+      final int drawableWidth = height - getPaddingTop() - getPaddingBottom();
+      mDrawableBounds.set(getPaddingLeft(), getPaddingTop(), drawableWidth + getPaddingLeft(),
+                          drawableWidth + getPaddingTop());
+      width += drawableWidth;
     }
 
-    final int height = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
-    final int drawableWidth = height - getPaddingTop() - getPaddingBottom();
-    mDrawableBounds.set(getPaddingLeft(), getPaddingTop(), drawableWidth + getPaddingLeft(),
-                        drawableWidth + getPaddingTop());
-    mTextPaint.getTextBounds(mRatingValue, 0, mRatingValue.length(), mTextBounds);
-    int width = getPaddingLeft() + drawableWidth + getPaddingLeft()
-                + mTextBounds.width() + getPaddingRight();
+    if (mRatingValue != null)
+    {
+      mTextPaint.getTextBounds(mRatingValue, 0, mRatingValue.length(), mTextBounds);
+      width += getPaddingLeft() + mTextBounds.width();
+    }
+
+    width += getPaddingRight();
+
     mBackgroundBounds.set(0, 0, width, height);
     setMeasuredDimension(width, height);
   }
@@ -122,20 +127,22 @@ public class RatingView extends View
   @Override
   protected void onDraw(Canvas canvas)
   {
-    super.onDraw(canvas);
+    if (getBackground() == null)
+      canvas.drawRoundRect(mBackgroundBounds, CORNER_RADIUS_PX, CORNER_RADIUS_PX, mBackgroundPaint);
 
-    if (mDrawable == null || TextUtils.isEmpty(mRatingValue))
-      return;
+    if (mDrawable != null)
+    {
+      mDrawable.mutate();
+      DrawableCompat.setTint(mDrawable, mRatingColor);
+      mDrawable.setBounds(mDrawableBounds);
+      mDrawable.draw(canvas);
+    }
 
-    canvas.drawRoundRect(mBackgroundBounds, CORNER_RADIUS_PX, CORNER_RADIUS_PX, mBackgroundPaint);
-
-    mDrawable.mutate();
-    DrawableCompat.setTint(mDrawable, mRatingColor);
-    mDrawable.setBounds(mDrawableBounds);
-    mDrawable.draw(canvas);
-
-    float yPos = getHeight() / 2;
-    yPos += (Math.abs(mTextBounds.height())) / 2;
-    canvas.drawText(mRatingValue, mDrawable.getBounds().right + getPaddingLeft(), yPos, mTextPaint);
+    if (mRatingValue != null)
+    {
+      float yPos = getHeight() / 2;
+      yPos += (Math.abs(mTextBounds.height())) / 2;
+      canvas.drawText(mRatingValue, mDrawable.getBounds().right + getPaddingLeft(), yPos, mTextPaint);
+    }
   }
 }
