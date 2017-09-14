@@ -26,6 +26,8 @@ omim_link_libraries(
   icu
   jansson
   protobuf
+  mwm_diff
+  bsdiff
   osrm
   stats_client
   minizip
