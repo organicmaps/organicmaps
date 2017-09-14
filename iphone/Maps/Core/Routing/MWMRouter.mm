@@ -83,7 +83,17 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   return router;
 }
 
-+ (BOOL)hasRouteAltitude { return GetFramework().GetRoutingManager().HasRouteAltitude(); }
++ (BOOL)hasRouteAltitude
+{
+  switch ([self type])
+  {
+  case MWMRouterTypeVehicle:
+  case MWMRouterTypeTaxi: return NO;
+  case MWMRouterTypePedestrian:
+  case MWMRouterTypeBicycle: return GetFramework().GetRoutingManager().HasRouteAltitude();
+  }
+}
+
 + (BOOL)isTaxi
 {
   return GetFramework().GetRoutingManager().GetRouter() == routing::RouterType::Taxi;
