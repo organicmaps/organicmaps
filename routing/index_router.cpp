@@ -209,6 +209,18 @@ void PushPassedSubroutes(Checkpoints const & checkpoints, vector<Route::Subroute
                            0 /* beginSegmentIdx */, 0 /* endSegmentIdx */);
   }
 }
+
+bool GetLastRealOrPart(IndexGraphStarter const & starter, vector<Segment> const & route,
+                       Segment & real)
+{
+  for (auto rit = route.rbegin(); rit != route.rend(); ++rit)
+  {
+    real = *rit;
+    if (starter.ConvertToReal(real))
+      return true;
+  }
+  return false;
+}
 }  // namespace
 
 namespace routing
@@ -395,12 +407,8 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
 
   for (size_t i = checkpoints.GetPassedIdx(); i < checkpoints.GetNumSubroutes(); ++i)
   {
-    if (!FindBestSegment(checkpoints.GetPoint(i), startDirection, true /* isOutgoing */, graph,
-                         startSegment, startSegmentIsAlmostCodirectionalDirection))
-    {
-      return IRouter::StartPointNotFound;
-    }
-
+    bool const isFirstSubroute = i == checkpoints.GetPassedIdx();
+    bool const isLastSubroute = i == checkpoints.GetNumSubroutes() - 1;
     auto const & startCheckpoint = checkpoints.GetPoint(i);
     auto const & finishCheckpoint = checkpoints.GetPoint(i + 1);
 
@@ -410,12 +418,13 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
                          false /* isOutgoing */, graph, finishSegment,
                          dummy /* bestSegmentIsAlmostCodirectional */))
     {
-      bool const isLastSubroute = i == checkpoints.GetNumSubroutes() - 1;
       return isLastSubroute ? IRouter::EndPointNotFound : IRouter::IntermediatePointNotFound;
     }
 
-    bool const isStartSegmentStrictForward =
-        i == checkpoints.GetPassedIdx() ? startSegmentIsAlmostCodirectionalDirection : true;
+    bool isStartSegmentStrictForward = m_vehicleType == VehicleType::Car ? true : false;
+    if (isFirstSubroute)
+      isStartSegmentStrictForward = startSegmentIsAlmostCodirectionalDirection;
+
     IndexGraphStarter subrouteStarter(
         IndexGraphStarter::MakeFakeEnding(startSegment, startCheckpoint, graph),
         IndexGraphStarter::MakeFakeEnding(finishSegment, finishCheckpoint, graph),
@@ -437,6 +446,8 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
     subroutes.emplace_back(subrouteStarter.GetStartJunction(), subrouteStarter.GetFinishJunction(),
                            subrouteSegmentsBegin, subrouteSegmentsEnd);
     subrouteSegmentsBegin = subrouteSegmentsEnd;
+    bool const hasRealOrPart = GetLastRealOrPart(subrouteStarter, subroute, startSegment);
+    CHECK(hasRealOrPart, ("No real or part of real segments in route."));
     if (!starter)
       starter = make_unique<IndexGraphStarter>(move(subrouteStarter));
     else
