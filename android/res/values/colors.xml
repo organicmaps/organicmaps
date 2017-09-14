@@ -28,6 +28,7 @@
   <color name="white_primary">#FFFFFFFF</color>   <!-- 100% white -->
   <color name="white_secondary">#B3FFFFFF</color> <!-- 70% white -->
   <color name="white_lightest">#4CFFFFFF</color>  <!-- 50% white -->
+  <color name="white_4">#0AFFFFFF</color> <!-- 4% white -->
   <color name="white_8">#14FFFFFF</color> <!-- 8% white -->
   <color name="white_11">#1EFFFFFF</color> <!-- 11% white -->
   <color name="white_12">#1Effffff</color> <!-- 12% white -->

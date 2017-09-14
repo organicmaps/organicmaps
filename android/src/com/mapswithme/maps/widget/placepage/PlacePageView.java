@@ -1501,6 +1501,7 @@ public class PlacePageView extends RelativeLayout
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mapObject.getAddress());
     //TODO: rating will be shown not only for sponsored objects now, change it when core is ready.
     boolean sponsored = isSponsored();
+    UiUtils.showIf(sponsored, mSponsoredInfo);
     if (sponsored)
     {
       boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);

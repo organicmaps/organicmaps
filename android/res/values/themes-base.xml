@@ -105,6 +105,8 @@
     <item name="sponsoredGalleryMore">@drawable/ic_sponsored_gallery_more</item>
     <item name="cianLogo">@drawable/logo_cian_light</item>
     <item name="viatorLogo">@drawable/ic_logo_viator_light</item>
+
+    <item name="ratingButtonBackground">@drawable/bg_rating_button</item>
   </style>
 
   <!-- Night theme -->
@@ -212,5 +214,7 @@
     <item name="sponsoredGalleryMore">@drawable/ic_sponsored_gallery_more_night</item>
     <item name="cianLogo">@drawable/logo_cian_dark</item>
     <item name="viatorLogo">@drawable/ic_logo_viator_dark</item>
+
+    <item name="ratingButtonBackground">@drawable/bg_rating_button_night</item>
   </style>
 </resources>

@@ -37,11 +37,11 @@
         android:layout_marginRight="@dimen/margin_half"
         android:layout_marginEnd="@dimen/margin_half"
         android:gravity="center_horizontal">
-        <ImageView
+        <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__horrible"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@drawable/ic_rating_horrible_normal_light"/>
+          android:background="?ratingButtonBackground"/>
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -59,11 +59,11 @@
         android:layout_marginRight="@dimen/margin_half"
         android:layout_marginEnd="@dimen/margin_half"
         android:gravity="center_horizontal">
-        <ImageView
+        <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__bad"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@drawable/ic_rating_bad_normal_light"/>
+          android:background="?ratingButtonBackground"/>
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -81,11 +81,11 @@
         android:layout_marginRight="@dimen/margin_half"
         android:layout_marginEnd="@dimen/margin_half"
         android:gravity="center_horizontal">
-        <ImageView
+        <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__normal"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@drawable/ic_rating_avarage_normal_light"/>
+          android:background="?ratingButtonBackground"/>
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -103,11 +103,11 @@
         android:layout_marginRight="@dimen/margin_half"
         android:layout_marginEnd="@dimen/margin_half"
         android:gravity="center_horizontal">
-        <ImageView
+        <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__good"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@drawable/ic_rating_good_normal_light"/>
+          android:background="?ratingButtonBackground"/>
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -123,11 +123,11 @@
         android:layout_marginLeft="@dimen/margin_half"
         android:layout_marginStart="@dimen/margin_half"
         android:gravity="center_horizontal">
-        <ImageView
+        <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__excellent"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@drawable/ic_rating_exellent_normal_light"/>
+          android:background="?ratingButtonBackground"/>
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
