@@ -89,6 +89,8 @@ set(SRC
   towns_dumper.hpp
   traffic_generator.cpp
   traffic_generator.hpp
+  transit_generator.cpp
+  transit_generator.hpp
   ugc_db.cpp
   ugc_db.hpp
   ugc_translator.cpp

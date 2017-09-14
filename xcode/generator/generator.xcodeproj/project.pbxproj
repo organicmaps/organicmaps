@@ -32,6 +32,8 @@
 		3DFEBF7F1EF2D58900317D5C /* viator_dataset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEBF7A1EF2D58900317D5C /* viator_dataset.cpp */; };
 		3DFEBF801EF2D58900317D5C /* viator_dataset.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF7B1EF2D58900317D5C /* viator_dataset.hpp */; };
 		3DFEBF821EF423FB00317D5C /* sponsored_object_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF811EF423FB00317D5C /* sponsored_object_storage.hpp */; };
+		568762601F6A9B18002C22A6 /* transit_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5687625E1F6A9B18002C22A6 /* transit_generator.cpp */; };
+		568762611F6A9B18002C22A6 /* transit_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5687625F1F6A9B18002C22A6 /* transit_generator.hpp */; };
 		670B84BC1A8CDB0000CE4492 /* osm_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670B84BA1A8CDB0000CE4492 /* osm_source.cpp */; };
 		670B84BD1A8CDB0000CE4492 /* osm_source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670B84BB1A8CDB0000CE4492 /* osm_source.hpp */; };
 		670E7BB31EF9812B00A8E9ED /* metalines_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E7BA91EF9812B00A8E9ED /* metalines_builder.cpp */; };
@@ -139,6 +141,8 @@
 		3DFEBF7A1EF2D58900317D5C /* viator_dataset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viator_dataset.cpp; sourceTree = "<group>"; };
 		3DFEBF7B1EF2D58900317D5C /* viator_dataset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viator_dataset.hpp; sourceTree = "<group>"; };
 		3DFEBF811EF423FB00317D5C /* sponsored_object_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sponsored_object_storage.hpp; sourceTree = "<group>"; };
+		5687625E1F6A9B18002C22A6 /* transit_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_generator.cpp; sourceTree = "<group>"; };
+		5687625F1F6A9B18002C22A6 /* transit_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_generator.hpp; sourceTree = "<group>"; };
 		670B84BA1A8CDB0000CE4492 /* osm_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_source.cpp; sourceTree = "<group>"; };
 		670B84BB1A8CDB0000CE4492 /* osm_source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_source.hpp; sourceTree = "<group>"; };
 		670E7BA71EF9812B00A8E9ED /* kml_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kml_parser.cpp; sourceTree = "<group>"; };
@@ -263,19 +267,13 @@
 		6753401D1A3F2A1B00A0A8C3 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				5687625E1F6A9B18002C22A6 /* transit_generator.cpp */,
+				5687625F1F6A9B18002C22A6 /* transit_generator.hpp */,
 				3DFEBF811EF423FB00317D5C /* sponsored_object_storage.hpp */,
 				3DFEBF781EF2D58900317D5C /* utils.cpp */,
 				3DFEBF791EF2D58900317D5C /* utils.hpp */,
 				3DFEBF7A1EF2D58900317D5C /* viator_dataset.cpp */,
 				3DFEBF7B1EF2D58900317D5C /* viator_dataset.hpp */,
-				67C79BA71E2CEEAB00C40034 /* restriction_collector.cpp */,
-				67C79BA81E2CEEAB00C40034 /* restriction_collector.hpp */,
-				67C79BA91E2CEEAB00C40034 /* restriction_generator.cpp */,
-				67C79BAA1E2CEEAB00C40034 /* restriction_generator.hpp */,
-				67C79BAB1E2CEEAB00C40034 /* restriction_writer.cpp */,
-				67C79BAC1E2CEEAB00C40034 /* restriction_writer.hpp */,
-				67C79BAD1E2CEEAB00C40034 /* traffic_generator.cpp */,
-				67C79BAE1E2CEEAB00C40034 /* traffic_generator.hpp */,
 				3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */,
 				3D51BC4B1D5E512500F1FA8D /* altitude_generator.hpp */,
 				67A0FEBC1CEB467F008F2A61 /* booking_dataset.cpp */,
@@ -417,6 +415,7 @@
 				675340741A3F2A7400A0A8C3 /* generate_info.hpp in Headers */,
 				3D51BC571D5E512500F1FA8D /* region_meta.hpp in Headers */,
 				677E2A161CAACC5F001DC42A /* tag_admixer.hpp in Headers */,
+				568762611F6A9B18002C22A6 /* transit_generator.hpp in Headers */,
 				675340861A3F2A7400A0A8C3 /* tesselator.hpp in Headers */,
 				67A0FEBF1CEB467F008F2A61 /* booking_dataset.hpp in Headers */,
 				34F5588B1DBF4C9600A4FC11 /* sponsored_dataset.hpp in Headers */,
@@ -580,6 +579,7 @@
 				34F558871DBF4C9600A4FC11 /* opentable_dataset.cpp in Sources */,
 				34F558791DBF4C7800A4FC11 /* booking_quality_check.cpp in Sources */,
 				6753407E1A3F2A7400A0A8C3 /* osm2type.cpp in Sources */,
+				568762601F6A9B18002C22A6 /* transit_generator.cpp in Sources */,
 				675340601A3F2A7400A0A8C3 /* check_model.cpp in Sources */,
 				675340851A3F2A7400A0A8C3 /* tesselator.cpp in Sources */,
 			);

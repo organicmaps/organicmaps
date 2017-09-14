@@ -16,6 +16,7 @@
 #include "generator/search_index_builder.hpp"
 #include "generator/statistics.hpp"
 #include "generator/traffic_generator.hpp"
+#include "generator/transit_generator.hpp"
 #include "generator/unpack_mwm.hpp"
 
 #include "indexer/classificator.hpp"
@@ -87,6 +88,7 @@ DEFINE_bool(disable_cross_mwm_progress, false,
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If set, generates a section with altitude information "
               "about roads.");
+DEFINE_string(transit_path, "", "Path to directory with transit graphs in json.");
 
 // Sponsored-related.
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");
@@ -176,7 +178,8 @@ int main(int argc, char ** argv)
       FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_calc_statistics ||
       FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
-      FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_generate_traffic_keys)
+      FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_generate_traffic_keys ||
+      FLAGS_transit_path != "")
   {
     classificator::Load();
     classif().SortClassificator();
@@ -281,6 +284,9 @@ int main(int argc, char ** argv)
 
     if (!FLAGS_srtm_path.empty())
       routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
+
+    if (!FLAGS_transit_path.empty())
+      routing::transit::BuildTransit(datFile, FLAGS_transit_path);
 
     if (FLAGS_make_routing_index)
     {

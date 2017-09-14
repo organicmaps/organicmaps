@@ -40,6 +40,7 @@
 // Temporary addresses section that is used in search index generation.
 #define SEARCH_TOKENS_FILE_TAG "addrtags"
 #define TRAFFIC_KEYS_FILE_TAG "traffic"
+#define TRANSIT_FILE_TAG "transit"
 
 #define ROUTING_MATRIX_FILE_TAG "mercedes"
 #define ROUTING_EDGEDATA_FILE_TAG "daewoo"

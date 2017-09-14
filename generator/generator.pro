@@ -51,6 +51,7 @@ SOURCES += \
     tesselator.cpp \
     towns_dumper.cpp \
     traffic_generator.cpp \
+    transit_generator.cpp \
     ugc_db.cpp \
     ugc_translator.cpp \
     unpack_mwm.cpp \
@@ -104,6 +105,7 @@ HEADERS += \
     tesselator.hpp \
     towns_dumper.hpp \
     traffic_generator.hpp \
+    transit_generator.hpp \
     ugc_db.hpp \
     ugc_translator.hpp \
     unpack_mwm.hpp \
