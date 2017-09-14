@@ -25,6 +25,7 @@ SOURCES += \
   cellid_test.cpp \
   clipping_test.cpp \
   common_test.cpp \
+  convex_hull_tests.cpp \
   covering_test.cpp \
   distance_on_sphere_test.cpp \
   distance_test.cpp \

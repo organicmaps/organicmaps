@@ -11,6 +11,8 @@ set(
   cellid.hpp
   clipping.cpp
   clipping.hpp
+  convex_hull.cpp
+  convex_hull.hpp
   covering.hpp
   covering_utils.hpp
   distance.hpp

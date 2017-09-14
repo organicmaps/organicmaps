@@ -12,6 +12,7 @@ SOURCES += \
   algorithm.cpp \
   angles.cpp \
   clipping.cpp \
+  convex_hull.cpp \
   distance_on_sphere.cpp \
   latlon.cpp \
   nearby_points_sweeper.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
   any_rect2d.hpp \
   avg_vector.hpp \
   cellid.hpp \
+  convex_hull.hpp \
   covering.hpp \
   covering_utils.hpp \
   distance.hpp \
