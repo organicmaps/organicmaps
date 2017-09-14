@@ -844,29 +844,24 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, DownloadTwoCountriesAndDelete)
     unique_ptr<CountryDownloaderChecker> uruguayChecker = make_unique<CountryDownloaderChecker>(
         storage, uruguayCountryId, MapOptions::MapWithCarRouting,
         vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded});
-    // Only routing file will be deleted for Venezuela, thus, Venezuela should pass through
-    // following
-    // states:
-    // NotDownloaded -> InQueue (Venezuela is added after Uruguay) -> Downloading -> Downloading
-    // (second notification will be sent after deletion of a routing file) -> OnDisk.
+    // Venezuela should pass through the following states:
+    // NotDownloaded -> InQueue (Venezuela is added after Uruguay) -> Downloading -> NotDownloaded.
     unique_ptr<CountryDownloaderChecker> venezuelaChecker = make_unique<CountryDownloaderChecker>(
         storage, venezuelaCountryId, MapOptions::MapWithCarRouting,
         vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
-                        Status::EDownloading, Status::EOnDisk});
+                        Status::ENotDownloaded});
     uruguayChecker->StartDownload();
     venezuelaChecker->StartDownload();
     storage.DeleteCountry(uruguayCountryId, MapOptions::Map);
-    storage.DeleteCountry(venezuelaCountryId, MapOptions::CarRouting);
+    storage.DeleteCountry(venezuelaCountryId, MapOptions::Map);
     runner.Run();
   }
-  // @TODO(bykoianko) This test changed its behaivier. This commented lines are left specially
-  // to fixed later.
+
   TLocalFilePtr uruguayFile = storage.GetLatestLocalFile(uruguayCountryId);
   TEST(!uruguayFile.get(), (*uruguayFile));
 
   TLocalFilePtr venezuelaFile = storage.GetLatestLocalFile(venezuelaCountryId);
-  TEST(venezuelaFile.get(), ());
-  TEST_EQUAL(MapOptions::Map, venezuelaFile->GetFiles(), ());
+  TEST(!venezuelaFile.get(), ());
 }
 
 UNIT_CLASS_TEST(StorageTest, CancelDownloadingWhenAlmostDone)
