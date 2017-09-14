@@ -241,7 +241,7 @@ BOOL gIsFirstMyPositionMode = YES;
                                                 name:UIDeviceOrientationDidChangeNotification
                                               object:nil];
 
-  if (![MWMRouter isRoutingActive])
+  if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self updateStatusBarStyle];
