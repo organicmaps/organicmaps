@@ -12,7 +12,10 @@ namespace m2
 {
 namespace
 {
-double const kEps = 1e-9;
+// 1e-12 is used here because of we're going to use the convex hull on
+// Mercator plane, where the precision of all coords is 1e-5, so we
+// are off by two orders of magnitude from the precision of data.
+double const kEps = 1e-12;
 
 // Checks whether (p1 - p) x (p2 - p) > 0.
 bool IsCCW(PointD const & p1, PointD const & p2, PointD const & p)
@@ -20,7 +23,7 @@ bool IsCCW(PointD const & p1, PointD const & p2, PointD const & p)
   return robust::OrientedS(p1, p2, p) > kEps;
 }
 
-bool ContinuesHull(vector<PointD> const & hull, PointD const & p)
+bool IsContinuedBy(vector<PointD> const & hull, PointD const & p)
 {
   auto const n = hull.size();
   if (n < 2)
@@ -30,7 +33,7 @@ bool ContinuesHull(vector<PointD> const & hull, PointD const & p)
   auto const & p2 = hull[n - 1];
 
   // Checks whether (p2 - p1) x (p - p2) > 0.
-  return robust::OrientedS(p1, p, p2) < -kEps;
+  return IsCCW(p, p1, p2);
 }
 }  // namespace
 
@@ -59,7 +62,7 @@ vector<PointD> BuildConvexHull(vector<PointD> points)
 
   for (auto const & p : points)
   {
-    while (!ContinuesHull(hull, p))
+    while (!IsContinuedBy(hull, p))
       hull.pop_back();
     hull.push_back(p);
   }
