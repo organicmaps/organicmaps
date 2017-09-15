@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__pp_ugc"
   android:layout_width="match_parent"
@@ -39,9 +40,13 @@
         android:gravity="center_horizontal">
         <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__horrible"
+          android:padding="@dimen/margin_half"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:background="?ratingButtonBackground"/>
+          android:layout_height="@dimen/rating_view_height"
+          android:background="?ratingButtonBackground"
+          android:visibility="visible"
+          app:rating="horrible"
+          />
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -61,9 +66,11 @@
         android:gravity="center_horizontal">
         <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__bad"
+          android:padding="@dimen/margin_half"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:background="?ratingButtonBackground"/>
+          android:layout_height="@dimen/rating_view_height"
+          android:background="?ratingButtonBackground"
+          app:rating="bad"/>
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -83,9 +90,11 @@
         android:gravity="center_horizontal">
         <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__normal"
+          android:padding="@dimen/margin_half"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:background="?ratingButtonBackground"/>
+          android:layout_height="@dimen/rating_view_height"
+          android:background="?ratingButtonBackground"
+          app:rating="normal"/>
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -105,9 +114,11 @@
         android:gravity="center_horizontal">
         <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__good"
+          android:padding="@dimen/margin_half"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:background="?ratingButtonBackground"/>
+          android:layout_height="@dimen/rating_view_height"
+          android:background="?ratingButtonBackground"
+          app:rating="good"/>
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -125,9 +136,11 @@
         android:gravity="center_horizontal">
         <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__excellent"
+          android:padding="@dimen/margin_half"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:background="?ratingButtonBackground"/>
+          android:layout_height="@dimen/rating_view_height"
+          android:background="?ratingButtonBackground"
+          app:rating="excellent"/>
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"

@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.ugc.Rating;
 
 public class RatingView extends View
@@ -53,21 +54,27 @@ public class RatingView extends View
 
   private void init(@Nullable AttributeSet attrs)
   {
-    int[] set = { android.R.attr.textSize };
-
     TypedArray a = getContext().obtainStyledAttributes(
-        attrs, set);
-    float textSize = a.getDimensionPixelSize(0, 0);
-    a.recycle();
+        attrs, R.styleable.RatingView);
+
+    float textSize = a.getDimensionPixelSize(R.styleable.RatingView_android_textSize, 0);
     mTextPaint.setTextSize(textSize);
     mTextPaint.setTypeface(Typeface.create("Roboto", Typeface.BOLD));
+
+    int rating = a.getInteger(R.styleable.RatingView_rating, 0);
+    a.recycle();
+
+    Rating r = Rating.values()[rating];
+    setRating(r, null);
   }
 
   public void setRating(Rating rating, @Nullable String value)
   {
     //TODO: remove this code when place_page_info.cpp is ready and use rating parameter.
     mRatingValue = value;
-    Rating r = dummyMethod();
+    Rating r = rating;
+    if (r == null)
+     r = dummyMethod();
     Resources res = getContext().getResources();
     mRatingColor = res.getColor(r.getColorId());
     mBackgroundPaint.setColor(mRatingColor);
@@ -81,7 +88,7 @@ public class RatingView extends View
   //TODO: remove this code when place_page_info.cpp is ready and use rating parameter.
   private Rating dummyMethod()
   {
-    if (TextUtils.isEmpty(mRatingValue))
+    if (TextUtils.isEmpty(mRatingValue) || "-".equals(mRatingValue))
       return Rating.EXCELLENT;
 
     float rating = Float.valueOf(mRatingValue);

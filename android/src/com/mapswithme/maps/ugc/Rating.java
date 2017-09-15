@@ -7,11 +7,11 @@ import com.mapswithme.maps.R;
 
 public enum Rating
 {
-  EXCELLENT(R.drawable.ic_24px_rating_excellent, R.color.rating_excellent),
-  GOOD(R.drawable.ic_24px_rating_good, R.color.rating_good),
-  NORMAL(R.drawable.ic_24px_rating_normal, R.color.rating_normal),
+  HORRIBLE(R.drawable.ic_24px_rating_horrible, R.color.rating_horrible),
   BAD(R.drawable.ic_24px_rating_bad, R.color.rating_bad),
-  HORRIBLE(R.drawable.ic_24px_rating_horrible, R.color.rating_horrible);
+  NORMAL(R.drawable.ic_24px_rating_normal, R.color.rating_normal),
+  GOOD(R.drawable.ic_24px_rating_good, R.color.rating_good),
+  EXCELLENT(R.drawable.ic_24px_rating_excellent, R.color.rating_excellent);
 
   @DrawableRes
   private final int mDrawableId;

@@ -26,6 +26,17 @@
     <attr name="progress" format="integer"/>
   </declare-styleable>
 
+  <declare-styleable name="RatingView">
+    <attr name="android:textSize"/>
+    <attr name="rating" format="enum">
+      <enum name="horrible" value="0"/>
+      <enum name="bad" value="1"/>
+      <enum name="normal" value="2"/>
+      <enum name="good" value="3"/>
+      <enum name="excellent" value="4"/>
+    </attr>
+  </declare-styleable>
+
   <bool name="isTablet">false</bool>
   <bool name="tabletLayout">false</bool>
 </resources>
