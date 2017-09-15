@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from math import exp, log
-from scipy.stats import pearsonr
+from scipy.stats import pearsonr, t
 from sklearn import svm
 from sklearn.model_selection import GridSearchCV, KFold
 from sklearn.utils import resample
@@ -192,8 +192,10 @@ def raw_output(features, ws):
     Prints feature-coeff pairs to the standard output.
     """
 
+    print('{:<20}{}'.format('Feature', 'Value'))
+    print()
     for f, w in zip(features, ws):
-        print('{}: {}'.format(f, w))
+        print('{:<20}{:.5f}'.format(f, w))
 
 
 def print_const(name, value):
@@ -236,15 +238,27 @@ def show_bootstrap_statistics(clf, X, y, features):
         for i, c in enumerate(get_normalized_coefs(clf)):
             coefs[i].append(c)
 
+    poi_index = features.index('POI')
+    building_index = features.index('Building')
+    coefs[building_index] = coefs[poi_index]
+
     intervals = []
 
     print()
-    print('***** Bootstrap 95% confidence intervals *****')
+    print('***** Bootstrap statistics *****')
+    print('{:<20}{:<20}{:<10}{:<10}'.format('Feature', '95% interval', 't-value', 'Pr(>|t|)'))
+    print()
     for i, cs in enumerate(coefs):
         values = np.array(cs)
         lo = np.percentile(values, 2.5)
         hi = np.percentile(values, 97.5)
-        print('{}: ({:.3f}, {:.3f})'.format(FEATURES[i], lo, hi))
+        interval = '({:.3f}, {:.3f})'.format(lo, hi)
+        tv = np.mean(values) / np.std(values)
+        pr = (1.0 - t.cdf(x=abs(tv), df=len(values))) * 0.5
+
+        stv = '{:.3f}'.format(tv)
+        spr = '{:.3f}'.format(pr)
+        print('{:<20}{:<20}{:<10}{:<10}'.format(features[i], interval, stv, spr))
 
 
 def get_normalized_coefs(clf):
