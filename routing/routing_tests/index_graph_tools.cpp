@@ -23,11 +23,18 @@ void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
 }
 
 void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
-                                 RoadGeometry::Points const & points, bool transitAllowed)
+                                 RoadGeometry::Points const & points)
 {
   auto it = m_roads.find(featureId);
   CHECK(it == m_roads.end(), ("Already contains feature", featureId));
   m_roads[featureId] = RoadGeometry(oneWay, speed, points);
+  m_roads[featureId].SetTransitAllowedForTests(true);
+}
+
+void TestGeometryLoader::SetTransitAllowed(uint32_t featureId, bool transitAllowed)
+{
+  auto it = m_roads.find(featureId);
+  CHECK(it != m_roads.end(), ("No feature", featureId));
   m_roads[featureId].SetTransitAllowedForTests(transitAllowed);
 }
 
@@ -286,15 +293,15 @@ AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & sta
   AStarAlgorithm<IndexGraphStarter> algorithm;
   RoutingResult<Segment, RouteWeight> routingResult;
 
-  auto const resultCode = algorithm.FindPathBidirectional(
+  auto resultCode = algorithm.FindPathBidirectional(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), routingResult,
       {} /* cancellable */, {} /* onVisitedVertexCallback */);
 
-  if (!starter.CheckRoutingResultMeetsRestrictions(routingResult))
-    resultCode == AStarAlgorithm<IndexGraphStarter>::Result::NoPath;
+  if (starter.DoesRouteCrossNontransit(routingResult))
+    resultCode = AStarAlgorithm<IndexGraphStarter>::Result::NoPath;
 
-  timeSec = routingResult.distance.GetWeight();
-  roadPoints = routingResult.path;
+  timeSec = routingResult.m_distance.GetWeight();
+  roadPoints = routingResult.m_path;
   return resultCode;
 }
 

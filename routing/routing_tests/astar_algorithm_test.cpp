@@ -68,13 +68,13 @@ void TestAStar(UndirectedGraph & graph, vector<unsigned> const & expectedRoute, 
 
   RoutingResult<unsigned /* VertexType */, double /* WeightType */> actualRoute;
   TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPath(graph, 0u, 4u, actualRoute), ());
-  TEST_EQUAL(expectedRoute, actualRoute.path, ());
-  TEST_ALMOST_EQUAL_ULPS(expectedDistance, actualRoute.distance, ());
+  TEST_EQUAL(expectedRoute, actualRoute.m_path, ());
+  TEST_ALMOST_EQUAL_ULPS(expectedDistance, actualRoute.m_distance, ());
 
-  actualRoute.path.clear();
+  actualRoute.m_path.clear();
   TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPathBidirectional(graph, 0u, 4u, actualRoute), ());
-  TEST_EQUAL(expectedRoute, actualRoute.path, ());
-  TEST_ALMOST_EQUAL_ULPS(expectedDistance, actualRoute.distance, ());
+  TEST_EQUAL(expectedRoute, actualRoute.m_path, ());
+  TEST_ALMOST_EQUAL_ULPS(expectedDistance, actualRoute.m_distance, ());
 }
 
 UNIT_TEST(AStarAlgorithm_Sample)
@@ -114,8 +114,8 @@ UNIT_TEST(AdjustRoute)
 
   vector<unsigned> const expectedRoute = {6, 2, 3, 4, 5};
   TEST_EQUAL(code, TAlgorithm::Result::OK, ());
-  TEST_EQUAL(result.path, expectedRoute, ());
-  TEST_EQUAL(result.distance, 4.0, ());
+  TEST_EQUAL(result.m_path, expectedRoute, ());
+  TEST_EQUAL(result.m_distance, 4.0, ());
 }
 
 UNIT_TEST(AdjustRouteNoPath)
@@ -134,7 +134,7 @@ UNIT_TEST(AdjustRouteNoPath)
                                my::Cancellable(), nullptr /* onVisitedVertexCallback */);
 
   TEST_EQUAL(code, TAlgorithm::Result::NoPath, ());
-  TEST(result.path.empty(), ());
+  TEST(result.m_path.empty(), ());
 }
 
 UNIT_TEST(AdjustRouteOutOfLimit)
@@ -155,6 +155,6 @@ UNIT_TEST(AdjustRouteOutOfLimit)
                                my::Cancellable(), nullptr /* onVisitedVertexCallback */);
 
   TEST_EQUAL(code, TAlgorithm::Result::NoPath, ());
-  TEST(result.path.empty(), ());
+  TEST(result.m_path.empty(), ());
 }
 }  // namespace routing_test

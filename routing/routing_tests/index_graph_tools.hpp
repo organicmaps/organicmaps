@@ -62,7 +62,9 @@ public:
   void Load(uint32_t featureId, routing::RoadGeometry & road) override;
 
   void AddRoad(uint32_t featureId, bool oneWay, float speed,
-               routing::RoadGeometry::Points const & points, bool transitAllowed = true);
+               routing::RoadGeometry::Points const & points);
+
+  void SetTransitAllowed(uint32_t featureId, bool transitAllowed);
 
 private:
   unordered_map<uint32_t, routing::RoadGeometry> m_roads;

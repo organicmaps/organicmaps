@@ -908,20 +908,20 @@ unique_ptr<WorldGraph> BuildNontransitGraph(bool transitStart, bool transitShort
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, false /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}}),
-                  transitStart /* transitAllowed */);
+                  RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}}));
+  loader->SetTransitAllowed(0 /* feature id */, transitStart);
   loader->AddRoad(1 /* feature id */, false /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.0, 0.0}, {2.0, 0.0}}),
-                  transitShortWay /* transitAllowed */);
+                  RoadGeometry::Points({{1.0, 0.0}, {2.0, 0.0}}));
+  loader->SetTransitAllowed(1 /* feature id */, transitShortWay);
   loader->AddRoad(2 /* feature id */, false /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({{2.0, 0.0}, {3.0, 0.0}}), true /* transitAllowed */);
+                  RoadGeometry::Points({{2.0, 0.0}, {3.0, 0.0}}));
   loader->AddRoad(3 /* feature id */, false /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.0, 0.0}, {1.0, 1.0}}), true /* transitAllowed */);
+                  RoadGeometry::Points({{1.0, 0.0}, {1.0, 1.0}}));
   loader->AddRoad(4 /* feature id */, false /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.0, 1.0}, {2.0, 1.0}}),
-                  transitLongWay /* transitAllowed */);
+                  RoadGeometry::Points({{1.0, 1.0}, {2.0, 1.0}}));
+  loader->SetTransitAllowed(4 /* feature id */, transitLongWay);
   loader->AddRoad(5 /* feature id */, false /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({{2.0, 1.0}, {2.0, 0.0}}), true /* transitAllowed */);
+                  RoadGeometry::Points({{2.0, 1.0}, {2.0, 0.0}}));
 
   vector<Joint> const joints = {
       MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */

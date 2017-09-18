@@ -6,16 +6,18 @@
 
 namespace routing
 {
-template <typename TVertexType, typename TWeightType>
-struct RoutingResult
+template <typename VertexType, typename WeightType>
+struct RoutingResult final
 {
-  std::vector<TVertexType> path;
-  TWeightType distance;
-  RoutingResult() : distance(GetAStarWeightZero<TWeightType>()) {}
+  RoutingResult() : m_distance(GetAStarWeightZero<WeightType>()) {}
+
   void Clear()
   {
-    path.clear();
-    distance = GetAStarWeightZero<TWeightType>();
+    m_path.clear();
+    m_distance = GetAStarWeightZero<WeightType>();
   }
+
+  std::vector<VertexType> m_path;
+  WeightType m_distance;
 };
 }  // namespace routing

@@ -113,13 +113,14 @@ RouteWeight IndexGraph::HeuristicCostEstimate(Segment const & from, Segment cons
 {
   return RouteWeight(
       m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */)),
-      0);
+      0 /* nontransitCross */);
 }
 
 RouteWeight IndexGraph::CalcSegmentWeight(Segment const & segment)
 {
   return RouteWeight(
-      m_estimator->CalcSegmentWeight(segment, m_geometry.GetRoad(segment.GetFeatureId())), 0);
+      m_estimator->CalcSegmentWeight(segment, m_geometry.GetRoad(segment.GetFeatureId())),
+      0 /* nontransitCross */);
 }
 
 void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
@@ -171,10 +172,10 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
 
 RouteWeight IndexGraph::GetPenalties(Segment const & u, Segment const & v)
 {
-  bool fromTransitAllowed = m_geometry.GetRoad(u.GetFeatureId()).IsTransitAllowed();
-  bool toTransitAllowed = m_geometry.GetRoad(v.GetFeatureId()).IsTransitAllowed();
+  bool const fromTransitAllowed = m_geometry.GetRoad(u.GetFeatureId()).IsTransitAllowed();
+  bool const toTransitAllowed = m_geometry.GetRoad(v.GetFeatureId()).IsTransitAllowed();
 
-  uint32_t transitPenalty = fromTransitAllowed == toTransitAllowed ? 0 : 1;
+  uint32_t const transitPenalty = fromTransitAllowed == toTransitAllowed ? 0 : 1;
 
   if (IsUTurn(u, v))
     return RouteWeight(m_estimator->GetUTurnPenalty(), transitPenalty);

@@ -199,19 +199,19 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(Checkpoints const & checkpoi
 
   if (resultCode == IRoutingAlgorithm::Result::OK)
   {
-    ASSERT(!result.path.empty(), ());
-    ASSERT_EQUAL(result.path.front(), startPos, ());
-    ASSERT_EQUAL(result.path.back(), finalPos, ());
-    ASSERT_GREATER(result.distance, 0., ());
+    ASSERT(!result.m_path.empty(), ());
+    ASSERT_EQUAL(result.m_path.front(), startPos, ());
+    ASSERT_EQUAL(result.m_path.back(), finalPos, ());
+    ASSERT_GREATER(result.m_distance, 0., ());
 
     Route::TTimes times;
-    CalculateMaxSpeedTimes(*m_roadGraph, result.path, times);
+    CalculateMaxSpeedTimes(*m_roadGraph, result.m_path, times);
 
     CHECK(m_directionsEngine, ());
     route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
-        {Route::SubrouteAttrs(startPos, finalPos, 0, result.path.size() - 1)}));
+        {Route::SubrouteAttrs(startPos, finalPos, 0, result.m_path.size() - 1)}));
     ReconstructRoute(*m_directionsEngine, *m_roadGraph, nullptr /* trafficStash */, delegate,
-                     result.path, std::move(times), route);
+                     result.m_path, std::move(times), route);
   }
 
   m_roadGraph->ResetFakes();

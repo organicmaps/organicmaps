@@ -64,7 +64,7 @@ RouteWeight WorldGraph::HeuristicCostEstimate(Segment const & from, Segment cons
 {
   return RouteWeight(
       m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */)),
-      0);
+      0 /* nontransitCross */);
 }
 
 void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges)
@@ -76,7 +76,7 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, vector<Segme
     m2::PointD const & from = GetPoint(segment, true /* front */);
     m2::PointD const & to = GetPoint(twin, true /* front */);
     double const weight = m_estimator->CalcHeuristic(from, to);
-    edges.emplace_back(twin, RouteWeight(weight, 0));
+    edges.emplace_back(twin, RouteWeight(weight, 0 /* nontransitCross */));
   }
 }
 

@@ -214,7 +214,7 @@ set<NumMwmId> IndexGraphStarter::GetMwms() const
   return mwms;
 }
 
-bool IndexGraphStarter::CheckRoutingResultMeetsRestrictions(
+bool IndexGraphStarter::DoesRouteCrossNontransit(
     RoutingResult<Segment, RouteWeight> const & result) const
 {
   uint32_t nontransitCrossAllowed = 0;
@@ -230,20 +230,20 @@ bool IndexGraphStarter::CheckRoutingResultMeetsRestrictions(
     return m_graph.GetRoadGeometry(real.GetMwmId(), real.GetFeatureId()).IsTransitAllowed();
   };
 
-  auto const firstRealOrPart = find_if(result.path.begin(), result.path.end(), isRealOrPart);
-  if (firstRealOrPart != result.path.end() && !isTransitAllowed(*firstRealOrPart))
+  auto const firstRealOrPart = find_if(result.m_path.begin(), result.m_path.end(), isRealOrPart);
+  if (firstRealOrPart != result.m_path.end() && !isTransitAllowed(*firstRealOrPart))
     ++nontransitCrossAllowed;
 
-  auto const lastRealOrPart = find_if(result.path.rbegin(), result.path.rend(), isRealOrPart);
+  auto const lastRealOrPart = find_if(result.m_path.rbegin(), result.m_path.rend(), isRealOrPart);
   // If firstRealOrPart and lastRealOrPart point to the same segment increment
   // nontransitCrossAllowed once
-  if (lastRealOrPart != result.path.rend() && (lastRealOrPart.base() - 1) != firstRealOrPart &&
+  if (lastRealOrPart != result.m_path.rend() && &*lastRealOrPart != &*firstRealOrPart &&
       !isTransitAllowed(*lastRealOrPart))
   {
     ++nontransitCrossAllowed;
   }
 
-  return nontransitCrossAllowed >= result.distance.GetNontransitCross();
+  return nontransitCrossAllowed < result.m_distance.GetNontransitCross();
 }
 
 void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
@@ -288,7 +288,7 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment) const
     return RouteWeight(
         m_graph.GetEstimator().CalcSegmentWeight(
             segment, m_graph.GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())),
-        0);
+        0 /* nontransitCross */);
   }
 
   auto const fakeVertexIt = m_fake.m_segmentToVertex.find(segment);
@@ -297,7 +297,7 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment) const
         ("Requested junction for invalid fake segment."));
   return RouteWeight(m_graph.GetEstimator().CalcLeapWeight(fakeVertexIt->second.GetPointFrom(),
                                                            fakeVertexIt->second.GetPointTo()),
-                     0);
+                     0 /* nontransitCross */);
 }
 
 RouteWeight IndexGraphStarter::CalcRouteSegmentWeight(vector<Segment> const & route,
@@ -418,7 +418,9 @@ void IndexGraphStarter::AddStart(FakeEnding const & startEnding, FakeEnding cons
         // Check fake segment is connected to source segment.
         if (GetJunction(s, false /* front */) == GetJunction(segment, true) ||
             GetJunction(s, true) == GetJunction(segment, false))
+        {
           fakeEdges.emplace_back(s, edge.GetWeight());
+        }
       }
     }
     edges.insert(edges.end(), fakeEdges.begin(), fakeEdges.end());
@@ -452,7 +454,7 @@ void IndexGraphStarter::ConnectLeapToTransitions(Segment const & segment, bool i
         edges.emplace_back(transition,
                            RouteWeight(m_graph.GetEstimator().CalcLeapWeight(
                                            segmentPoint, GetPoint(transition, isOutgoing)),
-                                       0));
+                                       0 /* nontransitCross */));
       });
 }
 

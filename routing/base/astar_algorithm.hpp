@@ -357,8 +357,8 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
 
   if (resultCode == Result::OK)
   {
-    context.ReconstructPath(finalVertex, result.path);
-    result.distance =
+    context.ReconstructPath(finalVertex, result.m_path);
+    result.m_distance =
         context.GetDistance(finalVertex) - graph.HeuristicCostEstimate(startVertex, finalVertex);
   }
 
@@ -433,11 +433,11 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       if (curTop + nxtTop >= bestPathReducedLength - kEpsilon)
       {
         ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent,
-                                     result.path);
-        result.distance = bestPathRealLength;
-        CHECK(!result.path.empty(), ());
+                                     result.m_path);
+        result.m_distance = bestPathRealLength;
+        CHECK(!result.m_path.empty(), ());
         if (!cur->forward)
-          reverse(result.path.begin(), result.path.end());
+          reverse(result.m_path.begin(), result.m_path.end());
         return Result::OK;
       }
     }
@@ -564,7 +564,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::AdjustRoute(
   if (minDistance == kInfiniteDistance)
     return Result::NoPath;
 
-  context.ReconstructPath(returnVertex, result.path);
+  context.ReconstructPath(returnVertex, result.m_path);
 
   // Append remaining route.
   bool found = false;
@@ -573,19 +573,19 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::AdjustRoute(
     if (prevRoute[i].GetTarget() == returnVertex)
     {
       for (size_t j = i + 1; j < prevRoute.size(); ++j)
-        result.path.push_back(prevRoute[j].GetTarget());
+        result.m_path.push_back(prevRoute[j].GetTarget());
 
       found = true;
       break;
     }
   }
 
-  CHECK(found,
-        ("Can't find", returnVertex, ", prev:", prevRoute.size(), ", adjust:", result.path.size()));
+  CHECK(found, ("Can't find", returnVertex, ", prev:", prevRoute.size(),
+                ", adjust:", result.m_path.size()));
 
   auto const & it = remainingDistances.find(returnVertex);
   CHECK(it != remainingDistances.end(), ());
-  result.distance = context.GetDistance(returnVertex) + it->second;
+  result.m_distance = context.GetDistance(returnVertex) + it->second;
   return Result::OK;
 }
 

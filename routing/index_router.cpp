@@ -533,15 +533,15 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   if (result != IRouter::NoError)
     return result;
 
-  if (!starter.CheckRoutingResultMeetsRestrictions(routingResult))
+  if (starter.DoesRouteCrossNontransit(routingResult))
     return IRouter::RouteNotFound;
 
   IRouter::ResultCode const leapsResult =
-      ProcessLeaps(routingResult.path, delegate, starter.GetGraph().GetMode(), starter, subroute);
+      ProcessLeaps(routingResult.m_path, delegate, starter.GetGraph().GetMode(), starter, subroute);
   if (leapsResult != IRouter::NoError)
     return leapsResult;
 
-  CHECK_GREATER_OR_EQUAL(subroute.size(), routingResult.path.size(), ());
+  CHECK_GREATER_OR_EQUAL(subroute.size(), routingResult.m_path.size(), ());
   return IRouter::NoError;
 }
 
@@ -604,20 +604,20 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
   AStarAlgorithm<IndexGraphStarter> algorithm;
   RoutingResult<Segment, RouteWeight> result;
-  auto resultCode = ConvertResult<IndexGraphStarter>(
-      algorithm.AdjustRoute(starter, starter.GetStartSegment(), prevEdges,
-                            RouteWeight(kAdjustLimitSec, 0), result, delegate, onVisitJunction));
+  auto resultCode = ConvertResult<IndexGraphStarter>(algorithm.AdjustRoute(
+      starter, starter.GetStartSegment(), prevEdges,
+      RouteWeight(kAdjustLimitSec, 0 /* nontransitCross */), result, delegate, onVisitJunction));
   if (resultCode != IRouter::NoError)
     return resultCode;
 
-  CHECK_GREATER_OR_EQUAL(result.path.size(), 2, ());
-  CHECK(IndexGraphStarter::IsFakeSegment(result.path.front()), ());
-  CHECK(IndexGraphStarter::IsFakeSegment(result.path.back()), ());
+  CHECK_GREATER_OR_EQUAL(result.m_path.size(), 2, ());
+  CHECK(IndexGraphStarter::IsFakeSegment(result.m_path.front()), ());
+  CHECK(IndexGraphStarter::IsFakeSegment(result.m_path.back()), ());
 
   vector<Route::SubrouteAttrs> subroutes;
   PushPassedSubroutes(checkpoints, subroutes);
 
-  size_t subrouteOffset = result.path.size();
+  size_t subrouteOffset = result.m_path.size();
   subroutes.emplace_back(starter.GetStartJunction(), starter.GetFinishJunction(),
                          0 /* beginSegmentIdx */, subrouteOffset);
 
@@ -626,23 +626,23 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
     auto const & subroute = lastSubroutes[i];
 
     for (size_t j = subroute.GetBeginSegmentIdx(); j < subroute.GetEndSegmentIdx(); ++j)
-      result.path.push_back(steps[j].GetSegment());
+      result.m_path.push_back(steps[j].GetSegment());
 
     subroutes.emplace_back(subroute, subrouteOffset);
     subrouteOffset = subroutes.back().GetEndSegmentIdx();
   }
 
-  CHECK_EQUAL(result.path.size(), subrouteOffset, ());
+  CHECK_EQUAL(result.m_path.size(), subrouteOffset, ());
 
   route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
   route.SetSubroteAttrs(move(subroutes));
 
-  auto const redressResult = RedressRoute(result.path, delegate, starter, route);
+  auto const redressResult = RedressRoute(result.m_path, delegate, starter, route);
   if (redressResult != IRouter::NoError)
     return redressResult;
 
   LOG(LINFO, ("Adjust route, elapsed:", timer.ElapsedSeconds(), ", prev start:", checkpoints,
-              ", prev route:", steps.size(), ", new route:", result.path.size()));
+              ", prev route:", steps.size(), ", new route:", result.m_path.size()));
 
   return IRouter::NoError;
 }
@@ -757,10 +757,10 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
 
     // Start and finish segments may be changed by starter.ConvertToReal. It was necessary to use it
     // in worldGraph but we need to reset them to original values.
-    routingResult.path.front() = input[i - 1];
-    routingResult.path.back() = input[i];
+    routingResult.m_path.front() = input[i - 1];
+    routingResult.m_path.back() = input[i];
 
-    output.insert(output.end(), routingResult.path.cbegin(), routingResult.path.cend());
+    output.insert(output.end(), routingResult.m_path.cbegin(), routingResult.m_path.cend());
   }
 
   return IRouter::NoError;

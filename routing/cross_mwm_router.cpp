@@ -31,8 +31,8 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
   switch (result)
   {
     case TAlgorithm::Result::OK:
-      ASSERT_EQUAL(route.path.front(), startPos, ());
-      ASSERT_EQUAL(route.path.back(), finalPos, ());
+      ASSERT_EQUAL(route.m_path.front(), startPos, ());
+      ASSERT_EQUAL(route.m_path.back(), finalPos, ());
       return IRouter::NoError;
     case TAlgorithm::Result::NoPath:
       return IRouter::RouteNotFound;
@@ -93,14 +93,14 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   // Finding path through maps.
   RoutingResult<BorderCross, double /* WeightType */> tempRoad;
   code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, delegate, tempRoad);
-  cost = tempRoad.distance;
+  cost = tempRoad.m_distance;
   if (code != IRouter::NoError)
     return code;
   if (delegate.IsCancelled())
     return IRouter::Cancelled;
 
   // Final path conversion to output type.
-  ConvertToSingleRouterTasks(tempRoad.path, startGraphNode, finalGraphNode, route);
+  ConvertToSingleRouterTasks(tempRoad.m_path, startGraphNode, finalGraphNode, route);
 
   return route.empty() ? IRouter::RouteNotFound : IRouter::NoError;
 }

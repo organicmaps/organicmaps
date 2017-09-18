@@ -35,7 +35,7 @@ void TestAStarRouterMock(Junction const & startPos, Junction const & finalPos,
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
              algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
 
-  TEST_EQUAL(expected, result.path, ());
+  TEST_EQUAL(expected, result.m_path, ());
 }
 
 void AddRoad(RoadGraphMockSource & graph, double speedKMPH, initializer_list<m2::PointD> const & points)
@@ -103,7 +103,7 @@ UNIT_TEST(AStarRouter_SimpleGraph_RouteIsFound)
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
              algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
 
-  TEST_EQUAL(expected, result.path, ());
+  TEST_EQUAL(expected, result.m_path, ());
 }
 
 UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
@@ -234,14 +234,14 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad1)
                                       MakeJunctionForTesting(m2::PointD(10, 2)), delegate, result),
              ());
   TEST_EQUAL(
-      result.path,
+      result.m_path,
       vector<Junction>(
           {MakeJunctionForTesting(m2::PointD(2, 2)), MakeJunctionForTesting(m2::PointD(2, 3)),
            MakeJunctionForTesting(m2::PointD(4, 3)), MakeJunctionForTesting(m2::PointD(6, 3)),
            MakeJunctionForTesting(m2::PointD(8, 3)), MakeJunctionForTesting(m2::PointD(10, 3)),
            MakeJunctionForTesting(m2::PointD(10, 2))}),
       ());
-  TEST(my::AlmostEqualAbs(result.distance, 800451., 1.), ("Distance error:", result.distance));
+  TEST(my::AlmostEqualAbs(result.m_distance, 800451., 1.), ("Distance error:", result.m_distance));
 }
 
 UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad2)
@@ -268,11 +268,12 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad2)
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
                                       MakeJunctionForTesting(m2::PointD(10, 2)), delegate, result),
              ());
-  TEST_EQUAL(result.path, vector<Junction>({MakeJunctionForTesting(m2::PointD(2, 2)),
-                                            MakeJunctionForTesting(m2::PointD(6, 2)),
-                                            MakeJunctionForTesting(m2::PointD(10, 2))}),
+  TEST_EQUAL(result.m_path,
+             vector<Junction>({MakeJunctionForTesting(m2::PointD(2, 2)),
+                               MakeJunctionForTesting(m2::PointD(6, 2)),
+                               MakeJunctionForTesting(m2::PointD(10, 2))}),
              ());
-  TEST(my::AlmostEqualAbs(result.distance, 781458., 1.), ("Distance error:", result.distance));
+  TEST(my::AlmostEqualAbs(result.m_distance, 781458., 1.), ("Distance error:", result.m_distance));
 }
 
 UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
@@ -299,10 +300,11 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
                                       MakeJunctionForTesting(m2::PointD(10, 2)), delegate, result),
              ());
-  TEST_EQUAL(result.path, vector<Junction>({MakeJunctionForTesting(m2::PointD(2, 2)),
-                                            MakeJunctionForTesting(m2::PointD(2, 1)),
-                                            MakeJunctionForTesting(m2::PointD(10, 1)),
-                                            MakeJunctionForTesting(m2::PointD(10, 2))}),
-             ());
-  TEST(my::AlmostEqualAbs(result.distance, 814412., 1.), ("Distance error:", result.distance));
+  TEST_EQUAL(
+      result.m_path,
+      vector<Junction>(
+          {MakeJunctionForTesting(m2::PointD(2, 2)), MakeJunctionForTesting(m2::PointD(2, 1)),
+           MakeJunctionForTesting(m2::PointD(10, 1)), MakeJunctionForTesting(m2::PointD(10, 2))}),
+      ());
+  TEST(my::AlmostEqualAbs(result.m_distance, 814412., 1.), ("Distance error:", result.m_distance));
 }
