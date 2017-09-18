@@ -217,12 +217,15 @@ HttpThread * CreateNativeHttpThread(string const & url,
                                     int64_t size,
                                     string const & pb)
 {
-  return [[HttpThread alloc] initWith:url callback:cb begRange:beg endRange:end expectedSize:size postBody:pb];
+  HttpThread * request = [[HttpThread alloc] initWith:url callback:cb begRange:beg endRange:end expectedSize:size postBody:pb];
+  CFRetain(reinterpret_cast<void *>(request));
+  return request;
 }
 
 void DeleteNativeHttpThread(HttpThread * request)
 {
   [request cancel];
+  CFRelease(reinterpret_cast<void *>(request));
 }
 
 } // namespace downloader
