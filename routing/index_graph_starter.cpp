@@ -78,7 +78,7 @@ Segment IndexGraphStarter::FakeGraph::GetSegment(FakeVertex const & vertex,
       return kv.first;
   }
 
-  return GetFakeSegment(newNumber++);
+  return GetFakeSegmentAndIncr(newNumber);
 }
 
 void IndexGraphStarter::FakeGraph::Append(FakeGraph const & rhs)
@@ -298,14 +298,14 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
     otherSegments[p.m_segment] = p.m_junction;
 
   // Add pure fake vertex
-  auto const fakeSegment = GetFakeSegment(fakeNumerationStart++);
+  auto const fakeSegment = GetFakeSegmentAndIncr(fakeNumerationStart);
   FakeVertex fakeVertex(thisEnding.m_originJunction, thisEnding.m_originJunction,
                         FakeVertex::Type::PureFake);
   m_fake.m_segmentToVertex[fakeSegment] = fakeVertex;
   for (auto const & projection : thisEnding.m_projections)
   {
     // Add projection edges
-    auto const projectionSegment = GetFakeSegment(fakeNumerationStart++);
+    auto const projectionSegment = GetFakeSegmentAndIncr(fakeNumerationStart);
     FakeVertex projectionVertex(isStart ? thisEnding.m_originJunction : projection.m_junction,
                                 isStart ? projection.m_junction : thisEnding.m_originJunction,
                                 FakeVertex::Type::PureFake);

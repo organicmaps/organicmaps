@@ -20,7 +20,13 @@ public:
   {
   }
 
-  size_t GetNumFakeEdges() const { return m_fake.m_segmentToVertex.size(); }
+  uint32_t GetNumFakeEdges() const
+  {
+    // Maximal number of fake segments in fake graph is numeric_limits<uint32_t>::max()
+    // because segment idx type is uint32_t.
+    CHECK_LESS_OR_EQUAL(m_fake.m_segmentToVertex.size(), numeric_limits<uint32_t>::max(), ());
+    return static_cast<uint32_t>(m_fake.m_segmentToVertex.size());
+  }
 
 private:
   // finish segment id

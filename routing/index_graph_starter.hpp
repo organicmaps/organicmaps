@@ -73,7 +73,13 @@ public:
   Junction const & GetJunction(Segment const & segment, bool front) const;
   Junction const & GetRouteJunction(std::vector<Segment> const & route, size_t pointIndex) const;
   m2::PointD const & GetPoint(Segment const & segment, bool front) const;
-  size_t GetNumFakeSegments() const { return m_fake.m_segmentToVertex.size(); }
+  uint32_t GetNumFakeSegments() const
+  {
+    // Maximal number of fake segments in fake graph is numeric_limits<uint32_t>::max()
+    // because segment idx type is uint32_t.
+    CHECK_LESS_OR_EQUAL(m_fake.m_segmentToVertex.size(), numeric_limits<uint32_t>::max(), ());
+    return static_cast<uint32_t>(m_fake.m_segmentToVertex.size());
+  }
 
   std::set<NumMwmId> GetMwms() const;
 
@@ -172,6 +178,12 @@ private:
   static Segment GetFakeSegment(uint32_t segmentIdx)
   {
     return Segment(kFakeNumMwmId, kFakeFeatureId, segmentIdx, false);
+  }
+
+  static Segment GetFakeSegmentAndIncr(uint32_t & segmentIdx)
+  {
+    CHECK_LESS(segmentIdx, numeric_limits<uint32_t>::max(), ());
+    return GetFakeSegment(segmentIdx++);
   }
 
   // Creates fake edges for fake ending and adds it to  fake graph. |otherEnding| used to generate
