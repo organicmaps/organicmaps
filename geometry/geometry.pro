@@ -11,12 +11,15 @@ include($$ROOT_DIR/common.pri)
 SOURCES += \
   algorithm.cpp \
   angles.cpp \
+  bbox.cpp \
+  cbox.cpp \
   clipping.cpp \
   convex_hull.cpp \
   distance_on_sphere.cpp \
   latlon.cpp \
-  nearby_points_sweeper.cpp \
+  line2d.cpp \
   mercator.cpp \
+  nearby_points_sweeper.cpp \
   packer.cpp \
   region2d/binary_operators.cpp \
   robust_orientation.cpp \
@@ -28,18 +31,22 @@ SOURCES += \
 HEADERS += \
   algorithm.hpp \
   angles.hpp \
-  clipping.hpp \
   any_rect2d.hpp \
   avg_vector.hpp \
+  bbox.hpp \
+  cbox.hpp \
   cellid.hpp \
+  clipping.hpp \
   convex_hull.hpp \
   covering.hpp \
   covering_utils.hpp \
+  dbox.hpp \
   distance.hpp \
   distance_on_sphere.hpp \
   latlon.hpp \
-  nearby_points_sweeper.hpp \
+  line2d.hpp \
   mercator.hpp \
+  nearby_points_sweeper.hpp \
   packer.hpp \
   point2d.hpp \
   pointu_to_uint64.hpp \

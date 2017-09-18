@@ -35,7 +35,6 @@ bool IsContinuedBy(vector<PointD> const & hull, PointD const & p)
   // Checks whether (p2 - p1) x (p - p2) > 0.
   return IsCCW(p, p1, p2);
 }
-}  // namespace
 
 vector<PointD> BuildConvexHull(vector<PointD> points)
 {
@@ -69,4 +68,7 @@ vector<PointD> BuildConvexHull(vector<PointD> points)
 
   return hull;
 }
+}  // namespace
+
+ConvexHull::ConvexHull(vector<m2::PointD> const & points) : m_hull(BuildConvexHull(points)) {}
 }  // namespace m2

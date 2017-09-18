@@ -8,6 +8,10 @@ set(
   angles.hpp
   any_rect2d.hpp
   avg_vector.hpp
+  bbox.cpp
+  bbox.hpp
+  cbox.cpp
+  cbox.hpp
   cellid.hpp
   clipping.cpp
   clipping.hpp
@@ -15,11 +19,14 @@ set(
   convex_hull.hpp
   covering.hpp
   covering_utils.hpp
+  dbox.hpp
   distance.hpp
   distance_on_sphere.cpp
   distance_on_sphere.hpp
   latlon.cpp
   latlon.hpp
+  line2d.cpp
+  line2d.hpp
   mercator.cpp
   mercator.hpp
   nearby_points_sweeper.cpp

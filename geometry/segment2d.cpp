@@ -2,10 +2,16 @@
 
 #include "geometry/robust_orientation.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+using namespace std;
 
 namespace m2
 {
+string DebugPrint(Segment2D const & segment)
+{
+  return "(" + DebugPrint(segment.m_u) + ", " + DebugPrint(segment.m_v) + ")";
+}
+
 bool IsPointOnSegmentEps(m2::PointD const & pt, m2::PointD const & p1, m2::PointD const & p2,
                          double eps)
 {

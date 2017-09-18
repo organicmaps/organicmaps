@@ -7,17 +7,21 @@ set(
   algorithm_test.cpp
   angle_test.cpp
   anyrect_test.cpp
+  bbox_tests.cpp
+  cbox_tests.cpp
   cellid_test.cpp
   clipping_test.cpp
   common_test.cpp
   convex_hull_tests.cpp
   covering_test.cpp
+  dbox_tests.cpp
   distance_on_sphere_test.cpp
   distance_test.cpp
   equality.hpp
   intersect_test.cpp
   large_polygon.hpp
   latlon_test.cpp
+  line2d_tests.cpp
   nearby_points_sweeper_test.cpp
   mercator_test.cpp
   packer_test.cpp

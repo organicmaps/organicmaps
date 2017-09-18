@@ -10,6 +10,11 @@ using namespace std;
 
 namespace
 {
+vector<m2::PointD> BuildConvexHull(vector<m2::PointD> const & points)
+{
+  return ConvexHull(points).Points();
+}
+
 UNIT_TEST(ConvexHull_Smoke)
 {
   TEST_EQUAL(BuildConvexHull({}), vector<PointD>{}, ());
