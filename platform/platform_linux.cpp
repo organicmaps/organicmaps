@@ -4,10 +4,13 @@
 #include "coding/file_reader.hpp"
 #include "coding/file_name_utils.hpp"
 
+#include "base/exception.hpp"
 #include "base/logging.hpp"
+#include "base/macros.hpp"
 #include "base/scope_guard.hpp"
 
 #include "std/bind.hpp"
+#include "std/string.hpp"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -40,6 +43,28 @@ bool IsEulaExist(string const & directory)
 {
   return Platform::IsFileExistsByFullPath(my::JoinFoldersToPath(directory, "eula.html"));
 }
+
+string HomeDir()
+{
+  char const * homePath = ::getenv("HOME");
+  return homePath != nullptr ? string(homePath) : "";
+}
+
+// Returns the default path to the writable dir, creating the dir if needed.
+// An exception is thrown if the default dir is not already there and we were unable to create it.
+string DefaultWritableDir()
+{
+  auto const home = HomeDir();
+  string const result = my::JoinFoldersToPath({home, ".local", "share"}, "MapsWithMe");
+  if (!Platform::MkDirChecked(my::JoinFoldersToPath(home, ".local")) ||
+      !Platform::MkDirChecked(my::JoinFoldersToPath({home, ".local"}, "share")) ||
+      !Platform::MkDirChecked(result))
+  {
+    MYTHROW(FileSystemException, ("Can't create directory", result));
+  }
+
+  return result;
+}
 }  // namespace
 
 namespace platform
@@ -56,26 +81,28 @@ Platform::Platform()
   string path;
   CHECK(GetBinaryDir(path), ("Can't retrieve path to executable"));
 
-  char const * homePath = ::getenv("HOME");
-  string const home(homePath ? homePath : "");
-
-  m_settingsDir = my::JoinFoldersToPath({home, ".config"}, "MapsWithMe");
+  m_settingsDir = my::JoinFoldersToPath({HomeDir(), ".config"}, "MapsWithMe");
 
   if (!IsFileExistsByFullPath(my::JoinFoldersToPath(m_settingsDir, SETTINGS_FILE_NAME)))
   {
-    MkDir(my::JoinFoldersToPath(home, ".config"));
-    MkDir(m_settingsDir.c_str());
+    auto const configDir = my::JoinFoldersToPath(HomeDir(), ".config");
+    if (!MkDirChecked(configDir))
+      MYTHROW(FileSystemException, ("Can't create directory", configDir));
+    if (!MkDirChecked(m_settingsDir))
+      MYTHROW(FileSystemException, ("Can't create directory", m_settingsDir));
   }
 
-  m_writableDir = my::JoinFoldersToPath({home, ".local", "share"}, "MapsWithMe");
-  MkDir(my::JoinFoldersToPath(home, ".local"));
-  MkDir(my::JoinFoldersToPath({home, ".local"}, "share"));
-  MkDir(m_writableDir);
-
   char const * resDir = ::getenv("MWM_RESOURCES_DIR");
-  if (resDir)
+  char const * writableDir = ::getenv("MWM_WRITABLE_DIR");
+  if (resDir && writableDir)
   {
     m_resourcesDir = resDir;
+    m_writableDir = writableDir;
+  }
+  else if (resDir)
+  {
+    m_resourcesDir = resDir;
+    m_writableDir = DefaultWritableDir();
   }
   else
   {
@@ -90,24 +117,27 @@ Platform::Platform()
     if (IsEulaExist(devBuildWithSymlink))
     {
       m_resourcesDir = devBuildWithSymlink;
-      m_writableDir = m_resourcesDir;
+      m_writableDir = writableDir != nullptr ? writableDir : m_resourcesDir;
     }
     else if (IsEulaExist(devBuildWithoutSymlink))
     {
       m_resourcesDir = devBuildWithoutSymlink;
-      m_writableDir = m_resourcesDir;
+      m_writableDir = writableDir != nullptr ? writableDir : m_resourcesDir;
     }
     else if (IsEulaExist(installedVersionWithPackages))
     {
       m_resourcesDir = installedVersionWithPackages;
+      m_writableDir = writableDir != nullptr ? writableDir : DefaultWritableDir();
     }
     else if (IsEulaExist(installedVersionWithoutPackages))
     {
       m_resourcesDir = installedVersionWithoutPackages;
+      m_writableDir = writableDir != nullptr ? writableDir : DefaultWritableDir();
     }
     else if (IsEulaExist(customInstall))
     {
       m_resourcesDir = path;
+      m_writableDir = writableDir != nullptr ? writableDir : DefaultWritableDir();
     }
   }
   m_resourcesDir += '/';

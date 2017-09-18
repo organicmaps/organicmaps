@@ -43,6 +43,7 @@ Platform::Platform()
   m_flags[HAS_ROUTING] = true;
 }
 
+// static
 void Platform::MkDir(string const & dirName) const
 {
   Tizen::Io::Directory::Create(dirName.c_str(), true);

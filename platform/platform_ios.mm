@@ -62,7 +62,8 @@ Platform::Platform()
 // static
 bool Platform::IsCustomTextureAllocatorSupported() { return !isIOS8; }
 
-Platform::EError Platform::MkDir(string const & dirName) const
+// static
+Platform::EError Platform::MkDir(string const & dirName)
 {
   if (::mkdir(dirName.c_str(), 0755))
     return ErrnoToError();

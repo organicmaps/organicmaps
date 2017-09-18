@@ -60,7 +60,8 @@ int Platform::VideoMemoryLimit() const
   return 20 * 1024 * 1024;
 }
 
-Platform::EError Platform::MkDir(string const & dirName) const
+// static
+Platform::EError Platform::MkDir(string const & dirName)
 {
   if (QDir().exists(dirName.c_str()))
     return Platform::ERR_FILE_ALREADY_EXISTS;

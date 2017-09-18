@@ -656,10 +656,7 @@ void Storage::LoadCountriesFile(string const & pathToCountriesFile, string const
   m_dataDir = dataDir;
 
   if (!m_dataDir.empty())
-  {
-    Platform & platform = GetPlatform();
-    platform.MkDir(my::JoinFoldersToPath(platform.WritableDir(), m_dataDir));
-  }
+    Platform::MkDir(my::JoinFoldersToPath(GetPlatform().WritableDir(), m_dataDir));
 
   if (m_countries.IsEmpty())
   {

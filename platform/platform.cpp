@@ -22,6 +22,17 @@ bool IsSpecialDirName(string const & dirName)
 {
   return dirName == "." || dirName == "..";
 }
+
+bool GetFileTypeChecked(string const & path, Platform::EFileType & type)
+{
+  Platform::EError const ret = Platform::GetFileType(path, type);
+  if (ret != Platform::ERR_OK)
+  {
+    LOG(LERROR, ("Can't determine file type for", path, ":", ret));
+    return false;
+  }
+  return true;
+}
 } // namespace
 
 // static
@@ -227,6 +238,29 @@ void Platform::SetWritableDirForTests(string const & path)
 void Platform::SetResourceDir(string const & path)
 {
   m_resourcesDir = my::AddSlashIfNeeded(path);
+}
+
+// static
+bool Platform::MkDirChecked(string const & dirName)
+{
+  Platform::EError const ret = MkDir(dirName);
+  switch (ret)
+  {
+  case Platform::ERR_OK: return true;
+  case Platform::ERR_FILE_ALREADY_EXISTS:
+  {
+    Platform::EFileType type;
+    if (!GetFileTypeChecked(dirName, type))
+      return false;
+    if (type != Platform::FILE_TYPE_DIRECTORY)
+    {
+      LOG(LERROR, (dirName, "exists, but not a dirName:", type));
+      return false;
+    }
+    return true;
+  }
+  default: LOG(LERROR, (dirName, "can't be created:", ret)); return false;
+  }
 }
 
 unsigned Platform::CpuCores() const

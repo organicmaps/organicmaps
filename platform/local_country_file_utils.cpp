@@ -57,43 +57,6 @@ char const kOffsetsExt[] = ".offsets";
 
 size_t const kMaxTimestampLength = 18;
 
-bool GetFileTypeChecked(string const & path, Platform::EFileType & type)
-{
-  Platform::EError const ret = Platform::GetFileType(path, type);
-  if (ret != Platform::ERR_OK)
-  {
-    LOG(LERROR, ("Can't determine file type for", path, ":", ret));
-    return false;
-  }
-  return true;
-}
-
-bool MkDirChecked(string const & directory)
-{
-  Platform & platform = GetPlatform();
-  Platform::EError const ret = platform.MkDir(directory);
-  switch (ret)
-  {
-    case Platform::ERR_OK:
-      return true;
-    case Platform::ERR_FILE_ALREADY_EXISTS:
-    {
-      Platform::EFileType type;
-      if (!GetFileTypeChecked(directory, type))
-        return false;
-      if (type != Platform::FILE_TYPE_DIRECTORY)
-      {
-        LOG(LERROR, (directory, "exists, but not a directory:", type));
-        return false;
-      }
-      return true;
-    }
-    default:
-      LOG(LERROR, (directory, "can't be created:", ret));
-      return false;
-  }
-}
-
 string GetSpecialFilesSearchScope()
 {
 #if defined(OMIM_OS_ANDROID)
@@ -366,7 +329,7 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string
   if (version == 0)
     return make_shared<LocalCountryFile>(dir, countryFile, version);
   string const directory = my::JoinFoldersToPath(dir, strings::to_string(version));
-  if (!MkDirChecked(directory))
+  if (!Platform::MkDirChecked(directory))
     return shared_ptr<LocalCountryFile>();
   return make_shared<LocalCountryFile>(directory, countryFile, version);
 }
@@ -402,7 +365,7 @@ unique_ptr<ModelReader> GetCountryReader(platform::LocalCountryFile const & file
 void CountryIndexes::PreparePlaceOnDisk(LocalCountryFile const & localFile)
 {
   string const dir = IndexesDir(localFile);
-  if (!MkDirChecked(dir))
+  if (!Platform::MkDirChecked(dir))
     MYTHROW(FileSystemException, ("Can't create directory", dir));
 }
 
@@ -480,7 +443,7 @@ string CountryIndexes::IndexesDir(LocalCountryFile const & localFile)
     ASSERT_GREATER(version, 0, ());
 
     dir = my::JoinFoldersToPath(GetPlatform().WritableDir(), strings::to_string(version));
-    if (!MkDirChecked(dir))
+    if (!Platform::MkDirChecked(dir))
       MYTHROW(FileSystemException, ("Can't create directory", dir));
   }
 

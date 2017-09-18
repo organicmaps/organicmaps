@@ -17,8 +17,7 @@ ScopedDir::ScopedDir(string const & relativePath)
       m_relativePath(relativePath),
       m_reset(false)
 {
-  Platform & platform = GetPlatform();
-  Platform::EError ret = platform.MkDir(GetFullPath());
+  Platform::EError ret = Platform::MkDir(GetFullPath());
   switch (ret)
   {
     case Platform::ERR_OK:

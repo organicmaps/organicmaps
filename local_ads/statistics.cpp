@@ -139,7 +139,7 @@ void CreateDirIfNotExist()
 {
   std::string const statsFolder = StatisticsFolder();
   if (!GetPlatform().IsFileExistsByFullPath(statsFolder))
-    GetPlatform().MkDir(statsFolder);
+    Platform::MkDir(statsFolder);
 }
 
 std::string MakeRemoteURL(std::string const & userId, std::string const & name, int64_t version)

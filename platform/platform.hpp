@@ -8,6 +8,7 @@
 #include "coding/reader.hpp"
 
 #include "base/exception.hpp"
+#include "base/macros.hpp"
 #include "base/task_loop.hpp"
 #include "base/worker_thread.hpp"
 
@@ -126,8 +127,12 @@ public:
   /// Client app should not replace default resource dir.
   void SetResourceDir(string const & path);
 
-  /// Creates directory at filesystem
-  EError MkDir(string const & dirName) const;
+  /// Creates directory in the filesystem.
+  static EError MkDir(string const & dirName);
+
+  /// Creates a directory. Returns true on success.
+  /// Returns false and logs the reason on failure.
+  WARN_UNUSED_RESULT static bool MkDirChecked(string const & dirName);
 
   /// Removes empty directory from the filesystem.
   static EError RmDir(string const & dirName);

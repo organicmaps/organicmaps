@@ -140,7 +140,7 @@ int main(int argc, char ** argv)
   if (!FLAGS_intermediate_data_path.empty())
   {
     std::string const tmpPath = genInfo.m_intermediateDir + "tmp" + my::GetNativeSeparator();
-    if (pl.MkDir(tmpPath) != Platform::ERR_UNKNOWN)
+    if (Platform::MkDir(tmpPath) != Platform::ERR_UNKNOWN)
       genInfo.m_tmpDir = tmpPath;
   }
 

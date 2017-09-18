@@ -167,7 +167,7 @@ void UnpackBorders(std::string const & baseDir, std::string const & targetDir)
 {
   Platform & platform = GetPlatform();
   if (!Platform::IsFileExistsByFullPath(targetDir))
-    platform.MkDir(targetDir);
+    Platform::MkDir(targetDir);
 
   std::vector<storage::CountryDef> countries;
   FilesContainerR reader(my::JoinFoldersToPath(baseDir, PACKED_POLYGONS_FILE));
