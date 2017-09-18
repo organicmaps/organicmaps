@@ -10,13 +10,60 @@
   android:visibility="gone"
   tools:visibility="visible">
   <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_base">
+      <TextView
+        android:id="@+id/tv__summary_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/rv__summary"
+        android:layout_toStartOf="@id/rv__summary"
+        android:textAppearance="@style/MwmTextAppearance.Title"
+        android:fontFamily="@string/robotoMedium"
+        android:text="Summary rating"/>
+      <TextView
+        android:id="@+id/tv__review_count"
+        android:layout_below="@id/tv__summary_title"
+        android:layout_alignLeft="@id/tv__summary_title"
+        android:layout_alignStart="@id/tv__summary_title"
+        android:layout_toLeftOf="@id/rv__summary"
+        android:layout_toStartOf="@id/rv__summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_quarter"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        android:text="Base on 32 reviews"/>
+      <com.mapswithme.maps.widget.RatingView
+        android:id="@id/rv__summary"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/rating_view_height"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        app:rating="normal"/>
+    </RelativeLayout>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginLeft="@dimen/margin_base"
+      android:layout_marginStart="@dimen/margin_base"
+      android:background="?dividerHorizontal"/>
+  </LinearLayout>
+  <LinearLayout
     android:id="@+id/ll__pp_ugc_rating"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/margin_base"
-    android:gravity="center_horizontal"
-    android:background="?cardBackground">
+    android:gravity="center_horizontal">
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
