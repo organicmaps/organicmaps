@@ -14,11 +14,11 @@ public class UgcAverageRatingController implements View.OnClickListener
   public UgcAverageRatingController(@NonNull View view, @Nullable OnUgcRatingChangedListener listener)
   {
     mListener = listener;
-    view.findViewById(R.id.iv__horrible).setOnClickListener(this);
-    view.findViewById(R.id.iv__bad).setOnClickListener(this);
-    view.findViewById(R.id.iv__normal).setOnClickListener(this);
-    view.findViewById(R.id.iv__good).setOnClickListener(this);
-    view.findViewById(R.id.iv__excellent).setOnClickListener(this);
+    view.findViewById(R.id.ll__horrible).setOnClickListener(this);
+    view.findViewById(R.id.ll__bad).setOnClickListener(this);
+    view.findViewById(R.id.ll__normal).setOnClickListener(this);
+    view.findViewById(R.id.ll__good).setOnClickListener(this);
+    view.findViewById(R.id.ll__excellent).setOnClickListener(this);
 
   }
 
@@ -29,19 +29,19 @@ public class UgcAverageRatingController implements View.OnClickListener
       return;
 
     switch (v.getId()){
-      case R.id.iv__horrible:
+      case R.id.ll__horrible:
         mListener.onRatingChanged(UGC.RATING_HORRIBLE);
         break;
-      case R.id.iv__bad:
+      case R.id.ll__bad:
         mListener.onRatingChanged(UGC.RATING_BAD);
         break;
-      case R.id.iv__normal:
+      case R.id.ll__normal:
         mListener.onRatingChanged(UGC.RATING_NORMAL);
         break;
-      case R.id.iv__good:
+      case R.id.ll__good:
         mListener.onRatingChanged(UGC.RATING_GOOD);
         break;
-      case R.id.iv__excellent:
+      case R.id.ll__excellent:
         mListener.onRatingChanged(UGC.RATING_EXCELLENT);
         break;
       default:

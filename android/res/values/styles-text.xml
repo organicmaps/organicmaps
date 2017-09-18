@@ -76,6 +76,11 @@
     <item name="android:textColor">?android:textColorPrimaryInverse</item>
   </style>
 
+  <style name="MwmTextAppearance.Body5">
+    <item name="android:textSize">@dimen/text_size_body_5</item>
+    <item name="android:textColor">?android:textColorSecondary</item>
+  </style>
+
   <style name="MwmTextAppearance.Button">
     <item name="android:textSize">@dimen/text_size_button</item>
     <item name="android:textColor">?colorAccent</item>

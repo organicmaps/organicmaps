@@ -13,7 +13,7 @@
     android:id="@+id/ll__pp_ugc_rating"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="158dp"
+    android:layout_height="wrap_content"
     android:padding="@dimen/margin_base"
     android:gravity="center_horizontal"
     android:background="?cardBackground">
@@ -21,22 +21,23 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
       android:textStyle="bold"
       android:text="Tap to rate &amp; review this place"
       tools:text="Tap to rate &amp; review this place"/>
     <LinearLayout
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base"
       android:layout_marginBottom="@dimen/margin_half"
       android:orientation="horizontal">
       <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/ll__horrible"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginRight="@dimen/margin_half"
-        android:layout_marginEnd="@dimen/margin_half"
+        android:background="?selectableItemBackgroundBorderless"
         android:gravity="center_horizontal">
         <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__horrible"
@@ -50,19 +51,17 @@
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textSize="@dimen/text_size_icon_title"
-          android:textColor="?secondary"
+          android:textAppearance="@style/MwmTextAppearance.Body5"
           android:layout_marginTop="@dimen/margin_half"
           android:text="Horrible"/>
       </LinearLayout>
       <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/ll__bad"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="@dimen/margin_half"
-        android:layout_marginStart="@dimen/margin_half"
-        android:layout_marginRight="@dimen/margin_half"
-        android:layout_marginEnd="@dimen/margin_half"
+        android:background="?selectableItemBackgroundBorderless"
         android:gravity="center_horizontal">
         <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__bad"
@@ -74,19 +73,17 @@
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textSize="@dimen/text_size_icon_title"
-          android:textColor="?secondary"
+          android:textAppearance="@style/MwmTextAppearance.Body5"
           android:layout_marginTop="@dimen/margin_half"
           android:text="Bad"/>
       </LinearLayout>
       <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/ll__normal"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="@dimen/margin_half"
-        android:layout_marginStart="@dimen/margin_half"
-        android:layout_marginRight="@dimen/margin_half"
-        android:layout_marginEnd="@dimen/margin_half"
+        android:background="?selectableItemBackgroundBorderless"
         android:gravity="center_horizontal">
         <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__normal"
@@ -98,19 +95,17 @@
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textSize="@dimen/text_size_icon_title"
-          android:textColor="?secondary"
+          android:textAppearance="@style/MwmTextAppearance.Body5"
           android:layout_marginTop="@dimen/margin_half"
           android:text="Normal"/>
       </LinearLayout>
       <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/ll__good"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="@dimen/margin_half"
-        android:layout_marginStart="@dimen/margin_half"
-        android:layout_marginRight="@dimen/margin_half"
-        android:layout_marginEnd="@dimen/margin_half"
+        android:background="?selectableItemBackgroundBorderless"
         android:gravity="center_horizontal">
         <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__good"
@@ -122,17 +117,17 @@
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textSize="@dimen/text_size_icon_title"
-          android:textColor="?secondary"
+          android:textAppearance="@style/MwmTextAppearance.Body5"
           android:layout_marginTop="@dimen/margin_half"
           android:text="Good"/>
       </LinearLayout>
       <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/ll__excellent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="@dimen/margin_half"
-        android:layout_marginStart="@dimen/margin_half"
+        android:background="?selectableItemBackgroundBorderless"
         android:gravity="center_horizontal">
         <com.mapswithme.maps.widget.RatingView
           android:id="@+id/iv__excellent"
@@ -144,8 +139,7 @@
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textSize="@dimen/text_size_icon_title"
-          android:textColor="?secondary"
+          android:textAppearance="@style/MwmTextAppearance.Body5"
           android:layout_marginTop="@dimen/margin_half"
           android:text="Excellent"/>
       </LinearLayout>
