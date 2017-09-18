@@ -1118,7 +1118,7 @@
 	<string name="learn_more">En savoir plus</string>
 	<string name="exit">Quitter</string>
 	<string name="routing_add_start_point">Ajouter un point de départ pour planifier un itinéraire</string>
-	<string name="routing_add_finish_point">Ajouter un point d\'arriver pour planifier un itinéraire</string>
+	<string name="routing_add_finish_point">Ajouter un point d\'arrivée pour planifier un itinéraire</string>
 	<string name="onboarding_welcome_message">Cartes avec navigation étape par étape, gratuites, rapides, détaillées et totalement hors ligne.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">En lançant l’application, vous acceptez les Conditions d’utilisation et la Politique de confidentialité.</string>
