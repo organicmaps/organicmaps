@@ -2954,7 +2954,7 @@ da:3^Springvand|fontæne
 nl:^Fontein
 fi:^Suihkulähde
 fr:^Fontaine
-de:^Springbrunnen|Fontäne
+de:^Brunnen|Fontäne
 hu:^Szökőkút
 id:^Air mancur
 it:^Fontana|zampillo
@@ -4861,7 +4861,7 @@ da:2^Svømmebassin|swimmingpool|sport
 nl:4^Zwembad|sport
 fi:^Uima-allas
 fr:4^Piscine|sport
-de:4^Schwimmbad|Sport
+de:4^Schwimmbecken|Sport
 hu:4^Úszómedence|sport
 id:^Kolam renang
 it:4^Piscina|sport
