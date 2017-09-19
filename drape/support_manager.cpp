@@ -55,19 +55,20 @@ void SupportManager::Init()
   LOG(LINFO, ("Max line width =", m_maxLineWidth));
 
   // Set up default antialiasing value.
-  bool val;
-  if (!settings::Get(kSupportedAntialiasing, val))
-  {
-#ifdef OMIM_OS_ANDROID
-    std::vector<std::string> const models = {"Mali-G71", "Mali-T880", "Adreno (TM) 540",
-                                             "Adreno (TM) 530", "Adreno (TM) 430"};
-    m_isAntialiasingEnabledByDefault =
-        (std::find(models.begin(), models.end(), renderer) != models.end());
-#else
-    m_isAntialiasingEnabledByDefault = true;
-#endif
-    settings::Set(kSupportedAntialiasing, m_isAntialiasingEnabledByDefault);
-  }
+  // Turn off AA for a while by energy-saving issues.
+//  bool val;
+//  if (!settings::Get(kSupportedAntialiasing, val))
+//  {
+//#ifdef OMIM_OS_ANDROID
+//    std::vector<std::string> const models = {"Mali-G71", "Mali-T880", "Adreno (TM) 540",
+//                                             "Adreno (TM) 530", "Adreno (TM) 430"};
+//    m_isAntialiasingEnabledByDefault =
+//        (std::find(models.begin(), models.end(), renderer) != models.end());
+//#else
+//    m_isAntialiasingEnabledByDefault = true;
+//#endif
+//    settings::Set(kSupportedAntialiasing, m_isAntialiasingEnabledByDefault);
+//  }
 }
 
 SupportManager & SupportManager::Instance()

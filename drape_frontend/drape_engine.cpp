@@ -54,11 +54,12 @@ DrapeEngine::DrapeEngine(Params && params)
   if (!settings::Get(dp::kSupportedAntialiasing, enabledAntialiasing))
     enabledAntialiasing = false;
 
-  if (enabledAntialiasing)
-  {
-    LOG(LINFO, ("Antialiasing is enabled"));
-    effects.push_back(PostprocessRenderer::Antialiasing);
-  }
+  // Turn off AA for a while by energy-saving issues.
+  //if (enabledAntialiasing)
+  //{
+  //  LOG(LINFO, ("Antialiasing is enabled"));
+  //  effects.push_back(PostprocessRenderer::Antialiasing);
+  //}
 
   MyPositionController::Params mpParams(mode,
                                         timeInBackground,
