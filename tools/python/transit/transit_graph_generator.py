@@ -19,16 +19,18 @@ class OsmIdCode:
     RELATION = 0xC000000000000000
     RESET = ~(NODE | WAY | RELATION)
 
+    TYPE2CODE = {
+        'n': NODE,
+        'r': RELATION,
+        'w': WAY
+    }
 
-def get_extended_osm_id(osm_id, type):
-    if type.startswith('n'):
-        return osm_id | OsmIdCode.NODE
-    if type.startswith('r'):
-        return osm_id | OsmIdCode.RELATION
-    if type.startswith('w'):
-        return osm_id | OsmIdCode.WAY
-    print 'Unknown OSM type: ', type, ', osm_id:', osm_id
-    return osm_id
+
+def get_extended_osm_id(osm_id, osm_type):
+    try:
+        return osm_id | OsmIdCode.TYPE2CODE[osm_type[0]]
+    except KeyError:
+        raise ValueError('Unknown OSM type: ' + osm_type)
 
 
 def get_line_id(road_id, line_index):
@@ -39,23 +41,21 @@ def get_interchange_node_id(min_stop_id):
     return 1 << 62 | min_stop_id
 
 
+def clamp(value, min_value, max_value):
+    return max(min(value, max_value), min_value)
+
+
 def get_mercator_point(lat, lon):
-    if lat > 86.0:
-        lat = 86.0
-    elif lat < -86.0:
-        lat = -86.0
+    lat = clamp(lat, -86.0, 86.0)
     sin_x = math.sin(math.radians(lat))
     y = math.degrees(0.5 * math.log((1.0 + sin_x) / (1.0 - sin_x)))
-    if y > 180:
-        y = 180
-    elif y < -180:
-        y = -180
+    y = clamp(y, -180, 180)
     return {'x': lon, 'y': y}
 
 
 class TransitGraphBuilder:
-    def __init__(self, input_data, points_per_curve=100, alpha=0.5):
-        self.palette = transit_color_palette.Palette(transit_color_palette.transit_palette)
+    def __init__(self, input_data, transit_colors, points_per_curve=100, alpha=0.5):
+        self.palette = transit_color_palette.Palette(transit_colors)
         self.input_data = input_data
         self.points_per_curve = points_per_curve
         self.alpha = alpha
@@ -72,12 +72,14 @@ class TransitGraphBuilder:
 
     def __get_average_stops_point(self, stop_ids):
         """Returns an average position of the stops."""
+        count = len(stop_ids)
+        if count == 0:
+            raise ValueError('Average stops point calculation failed: the list of stop id is empty.')
         average_point = [0, 0]
-        for id in stop_ids:
-            point = self.__get_stop(id)['point']
+        for stop_id in stop_ids:
+            point = self.__get_stop(stop_id)['point']
             average_point[0] += point['x']
             average_point[1] += point['y']
-        count = len(stop_ids)
         return [average_point[0] / count, average_point[1] / count]
 
     def __add_gate(self, osm_id, is_entrance, is_exit, point, weight, stop_id):
@@ -165,11 +167,9 @@ class TransitGraphBuilder:
                             'network_id': network_id,
                             'title': line_name,
                             'number': route_item['ref'],
-                            'color': 0,
                             'stop_ids': line_stops}
                     if 'colour' in route_item:
-                        rgb = self.palette.get_nearest_color(route_item['colour'])
-                        line['color'] = rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255
+                        line['color'] = self.palette.get_nearest_color(route_item['colour'])
 
                     # TODO: Add processing of line_item['shape'] when this data will be available.
                     # TODO: Add processing of line_item['trip_ids'] when this data will be available.
@@ -205,9 +205,11 @@ class TransitGraphBuilder:
                         'stop_ids': list(node_stop_ids),
                         'point': {'x': point[0], 'y': point[1]},
                         'title_anchors': []}
+
             for stop_id in node_stop_ids:
                 self.stops[stop_id]['transfer_id'] = transfer['id']
-                self.transfers[transfer['id']] = transfer
+
+            self.transfers[transfer['id']] = transfer
 
     def __generate_shapes(self):
         """Generates a curve for each connection of two stops / transfer nodes."""
@@ -270,8 +272,8 @@ class TransitGraphBuilder:
             if not edge['transfer']:
                 stop1 = self.stops[edge['start_stop_id']]
                 stop2 = self.stops[edge['finish_stop_id']]
-                id1 = stop1['transfer_id'] if 'transfer_id' in stop1 else stop1['id']
-                id2 = stop2['transfer_id'] if 'transfer_id' in stop2 else stop2['id']
+                id1 = stop1.get('transfer_id', stop1['id'])
+                id2 = stop2.get('transfer_id', stop2['id'])
                 seg = tuple(sorted([id1, id2]))
                 if seg in self.segments:
                     edge['shape_ids'].append(self.segments[seg]['shape_id'])
@@ -289,7 +291,7 @@ class TransitGraphBuilder:
         self.transit_graph = {'networks': self.networks,
                               'lines': self.lines,
                               'gates': self.gates.values(),
-                              'stops': self.stops,
+                              'stops': self.stops.values(),
                               'transfers': self.transfers.values(),
                               'shapes': self.shapes,
                               'edges': self.edges}
@@ -315,12 +317,22 @@ class TransitGraphBuilder:
         plt.show()
 
 
+def check_file_exists(file_path):
+    if not os.path.isfile(file_path):
+        print 'File', file_path, 'not found'
+        sys.exit(1)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('input_file', help='input file name of transit data')
     parser.add_argument('output_file', nargs='?', help='output file name of generated graph')
+    default_colors_path = os.path.dirname(os.path.abspath(__file__)) + '/../../../data/transit_colors.json'
+    parser.add_argument('-c', '--colors', type=str, default=default_colors_path,
+                        help='transit colors file COLORS_FILE_PATH', metavar='COLORS_FILE_PATH')
     parser.add_argument('-p', '--preview', action="store_true", default=False,
                         help="show preview of the transit scheme")
+
     parser.add_argument('-a', '--alpha', type=float, default=0.5, help='the curves generator parameter value ALPHA',
                         metavar='ALPHA')
     parser.add_argument('-n', '--num', type=int, default=100, help='the number NUM of points in a generated curve',
@@ -328,23 +340,26 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if not os.path.isfile(args.input_file):
-        print 'File', args.input_file, 'not found'
-        sys.exit(1)
+    check_file_exists(args.input_file)
+    check_file_exists(args.colors)
 
-    with open(args.input_file, 'r') as f:
-        data = json.load(f)
-        transit = TransitGraphBuilder(data, args.num, args.alpha)
-        result = transit.build()
+    with open(args.input_file, 'r') as input_file:
+        data = json.load(input_file)
 
-        output_file = args.output_file
-        if output_file is None:
-            head, tail = os.path.split(os.path.abspath(args.input_file))
-            output_file = head + '/transit_graph_' + tail
-        with io.open(output_file, 'w', encoding='utf8') as json_file:
-            result_data = json.dumps(result, ensure_ascii=False, indent=4, sort_keys=True)
-            json_file.write(unicode(result_data))
-        print 'Transit graph generated:', output_file
+    with open(args.colors, 'r') as colors_file:
+        colors = json.load(colors_file)
 
-        if args.preview:
-            transit.show_preview()
+    transit = TransitGraphBuilder(data, colors, args.num, args.alpha)
+    result = transit.build()
+
+    output_file = args.output_file
+    if output_file is None:
+        head, tail = os.path.split(os.path.abspath(args.input_file))
+        output_file = head + '/transit_graph_' + tail
+    with io.open(output_file, 'w', encoding='utf8') as json_file:
+        result_data = json.dumps(result, ensure_ascii=False, indent=4, sort_keys=True)
+        json_file.write(unicode(result_data))
+    print 'Transit graph generated:', output_file
+
+    if args.preview:
+        transit.show_preview()

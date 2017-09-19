@@ -1,0 +1,20 @@
+{
+  "colors": [
+    {
+      "clear": "000000",
+      "night": "ffffff"
+    },
+    {
+      "clear": "ff0000",
+      "night": "ff0000"
+    },
+    {
+      "clear": "00ff00",
+      "night": "00ff00"
+    },
+    {
+      "clear": "0000ff",
+      "night": "0000ff"
+    }
+  ]
+}
