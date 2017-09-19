@@ -12,7 +12,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -85,7 +84,7 @@ import com.mapswithme.maps.widget.LineCountTextView;
 import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.RatingView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
-import com.mapswithme.maps.widget.recycler.DividerItemDecoration;
+import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.SingleChangeItemAnimator;
 import com.mapswithme.util.ConnectionState;
@@ -712,8 +711,8 @@ public class PlacePageView extends RelativeLayout
         R.id.rv__place_hotel_gallery);
     mRvHotelGallery.setLayoutManager(new LinearLayoutManager(getContext(),
                                                              LinearLayoutManager.HORIZONTAL, false));
-    mRvHotelGallery.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getContext(),
-                                                                                          R.drawable.divider_transparent_quarter)));
+    mRvHotelGallery.addItemDecoration(
+        ItemDecoratorFactory.createHotelGalleryDecorator(getContext(), LinearLayoutManager.HORIZONTAL));
     mGalleryAdapter.setListener(this);
     mRvHotelGallery.setAdapter(mGalleryAdapter);
   }
@@ -891,8 +890,8 @@ public class PlacePageView extends RelativeLayout
     mRvSponsoredProducts.setLayoutManager(new LinearLayoutManager(getContext(),
                                                                   LinearLayoutManager.HORIZONTAL,
                                                                   false));
-    Drawable divider = ContextCompat.getDrawable(getContext(), R.drawable.divider_transparent_half);
-    mRvSponsoredProducts.addItemDecoration(new DividerItemDecoration(divider, true));
+    mRvSponsoredProducts.addItemDecoration(
+        ItemDecoratorFactory.createSponsoredGalleryDecorator(getContext(), LinearLayoutManager.HORIZONTAL));
     mIvSponsoredLogo.setOnClickListener(this);
   }
 
