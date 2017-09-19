@@ -73,6 +73,7 @@ import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.ugc.UGCEditorActivity;
+import com.mapswithme.maps.ugc.UGCRatingRecordsAdapter;
 import com.mapswithme.maps.ugc.UGCReviewAdapter;
 import com.mapswithme.maps.ugc.UgcAverageRatingController;
 import com.mapswithme.maps.viator.Viator;
@@ -243,6 +244,8 @@ public class PlacePageView extends RelativeLayout
   private final ReviewAdapter mReviewAdapter = new ReviewAdapter();
   @NonNull
   private final UGCReviewAdapter mUGCReviewAdapter = new UGCReviewAdapter();
+  @NonNull
+  private final UGCRatingRecordsAdapter mUGCRatingRecordsAdapter = new UGCRatingRecordsAdapter();
 
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
@@ -302,6 +305,7 @@ public class PlacePageView extends RelativeLayout
     mUgc = ugc;
     if (ugc.getReviews() != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
+    mUGCRatingRecordsAdapter.setItems(ugc.getRatings());
     UiUtils.show(mUgcView);
   }
 
@@ -672,13 +676,22 @@ public class PlacePageView extends RelativeLayout
     mUgcRating = findViewById(R.id.ll__pp_ugc_rating);
     mUgcController = new UgcAverageRatingController(mUgcRating, this);
     mUgcMoreReviews = findViewById(R.id.tv__pp_ugc_reviews_more);
+
     RecyclerView rvHotelReview = (RecyclerView) findViewById(R.id.rv__pp_ugc_reviews);
     rvHotelReview.setLayoutManager(new LinearLayoutManager(getContext()));
     rvHotelReview.getLayoutManager().setAutoMeasureEnabled(true);
     rvHotelReview.setNestedScrollingEnabled(false);
     rvHotelReview.setHasFixedSize(false);
     rvHotelReview.setAdapter(mUGCReviewAdapter);
-    //TODO: fill in with mock content here
+
+    RecyclerView rvRatingRecords = (RecyclerView) findViewById(R.id.rv__summary_rating_records);
+    rvRatingRecords.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+    rvRatingRecords.getLayoutManager().setAutoMeasureEnabled(true);
+    rvRatingRecords.setNestedScrollingEnabled(false);
+    rvRatingRecords.setHasFixedSize(false);
+    rvRatingRecords.addItemDecoration(
+        ItemDecoratorFactory.createRatingRecordDecorator(getContext(), LinearLayoutManager.HORIZONTAL));
+    rvRatingRecords.setAdapter(mUGCRatingRecordsAdapter);
   }
 
 

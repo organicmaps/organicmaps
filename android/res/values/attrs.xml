@@ -28,6 +28,7 @@
 
   <declare-styleable name="RatingView">
     <attr name="android:textSize"/>
+    <attr name="android:text"/>
     <attr name="rating" format="enum">
       <enum name="horrible" value="0"/>
       <enum name="bad" value="1"/>

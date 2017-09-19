@@ -24,11 +24,11 @@
     tools:text="Service"/>
   <RatingBar
     android:id="@+id/rb__rate"
-    style="@style/MwmWidget.RatingBar"
+    style="@style/MwmWidget.RatingBar.Ugc"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"
     android:numStars="5"
-    android:stepSize="1"/>
+    android:stepSize="0.1"/>
 </RelativeLayout>

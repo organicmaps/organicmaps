@@ -16,7 +16,12 @@
     <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="@dimen/margin_base">
+      android:paddingLeft="@dimen/margin_base"
+      android:paddingStart="@dimen/margin_base"
+      android:paddingRight="@dimen/margin_base"
+      android:paddingEnd="@dimen/margin_base"
+      android:paddingTop="@dimen/margin_half_plus"
+      android:paddingBottom="@dimen/margin_half_plus">
       <TextView
         android:id="@+id/tv__summary_title"
         android:layout_width="wrap_content"
@@ -45,6 +50,14 @@
         android:id="@id/rv__summary"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/rating_view_height"
+        android:textSize="@dimen/text_size_headline"
+        android:text="6.0"
+        android:paddingLeft="@dimen/margin_half_plus"
+        android:paddingStart="@dimen/margin_half_plus"
+        android:paddingRight="@dimen/margin_half_plus"
+        android:paddingEnd="@dimen/margin_half_plus"
+        android:paddingTop="@dimen/margin_half"
+        android:paddingBottom="@dimen/margin_half"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
@@ -55,6 +68,21 @@
       android:layout_height="1dp"
       android:layout_marginLeft="@dimen/margin_base"
       android:layout_marginStart="@dimen/margin_base"
+      android:background="?dividerHorizontal"/>
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/rv__summary_rating_records"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="@dimen/margin_base"
+      android:paddingStart="@dimen/margin_base"
+      android:paddingRight="@dimen/margin_base"
+      android:paddingEnd="@dimen/margin_base"
+      android:paddingTop="@dimen/margin_half_plus"
+      android:paddingBottom="@dimen/margin_half_plus"
+      tools:listitem="@layout/item_ugc_rating_record"/>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
       android:background="?dividerHorizontal"/>
   </LinearLayout>
   <LinearLayout
@@ -99,6 +127,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="@style/MwmTextAppearance.Body5"
+          android:fontFamily="@string/robotoMedium"
           android:layout_marginTop="@dimen/margin_half"
           android:text="Horrible"/>
       </LinearLayout>
@@ -121,6 +150,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="@style/MwmTextAppearance.Body5"
+          android:fontFamily="@string/robotoMedium"
           android:layout_marginTop="@dimen/margin_half"
           android:text="Bad"/>
       </LinearLayout>
@@ -143,6 +173,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="@style/MwmTextAppearance.Body5"
+          android:fontFamily="@string/robotoMedium"
           android:layout_marginTop="@dimen/margin_half"
           android:text="Normal"/>
       </LinearLayout>
@@ -165,6 +196,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="@style/MwmTextAppearance.Body5"
+          android:fontFamily="@string/robotoMedium"
           android:layout_marginTop="@dimen/margin_half"
           android:text="Good"/>
       </LinearLayout>
@@ -187,6 +219,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="@style/MwmTextAppearance.Body5"
+          android:fontFamily="@string/robotoMedium"
           android:layout_marginTop="@dimen/margin_half"
           android:text="Excellent"/>
       </LinearLayout>

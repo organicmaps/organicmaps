@@ -60,12 +60,12 @@ public class RatingView extends View
     float textSize = a.getDimensionPixelSize(R.styleable.RatingView_android_textSize, 0);
     mTextPaint.setTextSize(textSize);
     mTextPaint.setTypeface(Typeface.create("Roboto", Typeface.BOLD));
-
+    mRatingValue = a.getString(R.styleable.RatingView_android_text);
     int rating = a.getInteger(R.styleable.RatingView_rating, 0);
     a.recycle();
 
     Rating r = Rating.values()[rating];
-    setRating(r, null);
+    setRating(r, mRatingValue);
   }
 
   public void setRating(Rating rating, @Nullable String value)
