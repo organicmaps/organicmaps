@@ -9,9 +9,13 @@
   android:orientation="vertical"
   android:visibility="gone"
   tools:visibility="visible">
+
+  <include layout="@layout/place_page_fat_shadow"/>
+
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?cardBackground"
     android:orientation="vertical">
     <RelativeLayout
       android:layout_width="match_parent"
@@ -90,6 +94,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?cardBackground"
     android:padding="@dimen/margin_base"
     android:gravity="center_horizontal">
     <TextView
@@ -225,6 +230,9 @@
       </LinearLayout>
     </LinearLayout>
   </LinearLayout>
+
+  <include layout="@layout/place_page_fat_shadow"/>
+
   <android.support.v7.widget.RecyclerView
     android:id="@+id/rv__pp_ugc_reviews"
     android:layout_width="match_parent"
@@ -243,5 +251,4 @@
     android:background="?clickableBackground"
     android:gravity="center"
     android:text="More reviews"/>
-  <include layout="@layout/divider_horizontal"/>
 </LinearLayout>

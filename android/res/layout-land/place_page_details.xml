@@ -59,8 +59,6 @@
 
         <include layout="@layout/place_page_hotel_rating"/>
 
-        <include layout="@layout/place_page_ugc"/>
-
         <include layout="@layout/place_page_placename"/>
 
         <include layout="@layout/place_page_opening_hours"/>
@@ -99,6 +97,8 @@
         android:layout_marginTop="@dimen/margin_half"/>
 
       <include layout="@layout/place_page_taxi"/>
+
+      <include layout="@layout/place_page_ugc"/>
 
       <FrameLayout
         android:layout_width="match_parent"
