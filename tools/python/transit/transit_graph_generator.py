@@ -38,7 +38,7 @@ def get_line_id(road_id, line_index):
 
 
 def get_interchange_node_id(min_stop_id):
-    return 1 << 62 | min_stop_id
+    return 1 << 63 | min_stop_id
 
 
 def clamp(value, min_value, max_value):
@@ -122,7 +122,7 @@ class TransitGraphBuilder:
                 stop['zone_id'] = stop_item['zone_id']
             stop['point'] = get_mercator_point(stop_item['lat'], stop_item['lon'])
             stop['line_ids'] = []
-            # TODO: Calculate text anchors for stop_item['name'] and stop_item['int_name'].
+            # TODO: Save stop names stop_item['name'] and stop_item['int_name'] for text anchors calculation.
             stop['title_anchors'] = []
             self.stops[stop['id']] = stop
 
@@ -157,9 +157,10 @@ class TransitGraphBuilder:
                 line_index = 0
                 # Create a line for each itinerary.
                 for line_item in route_item['itineraries']:
-                    line_name = route_item['name']
                     if 'name' in line_item:
-                        line_name += ' (' + line_item['name'] + ')'
+                        line_name = '{0} ({1})'.format(route_item['name'], line_item[name])
+                    else:
+                        line_name = route_item['name']
                     line_stops = line_item['stops']
                     line_id = get_line_id(route_item['route_id'], line_index)
                     line = {'id': line_id,
@@ -211,10 +212,8 @@ class TransitGraphBuilder:
 
             self.transfers[transfer['id']] = transfer
 
-    def __generate_shapes(self):
-        """Generates a curve for each connection of two stops / transfer nodes."""
-
-        # Prepare collection of segments for shapes generation.
+    def __collect_segments(self):
+        """Prepares collection of segments for shapes generation."""
         # Each line divided on segments by its stops and transfer nodes.
         # Merge equal segments from different lines into a single one and collect adjacent stops of that segment.
         # Average positions of these stops will be used as guide points for a curve generation.
@@ -224,8 +223,8 @@ class TransitGraphBuilder:
             for i in range(len(line['stop_ids']) - 1):
                 node1 = self.stops[line['stop_ids'][i]]
                 node2 = self.stops[line['stop_ids'][i + 1]]
-                id1 = node1['transfer_id'] if 'transfer_id' in node1 else node1['id']
-                id2 = node2['transfer_id'] if 'transfer_id' in node2 else node2['id']
+                id1 = node1.get('transfer_id', node1['id'])
+                id2 = node2.get('transfer_id', node2['id'])
                 seg = tuple(sorted([id1, id2]))
                 if seg not in self.segments:
                     self.segments[seg] = {'guide_points': {id1: set(), id2: set()}}
@@ -235,7 +234,8 @@ class TransitGraphBuilder:
                 prev_seg = seg
                 prev_id1 = id1
 
-        # Generate shapes for edges.
+    def __generate_shapes_for_segments(self):
+        """Generates a curve for each connection of two stops / transfer nodes."""
         shape_id = 0
         for (id1, id2), info in self.segments.items():
             info['shape_id'] = shape_id
@@ -268,6 +268,8 @@ class TransitGraphBuilder:
                      'polyline': polyline}
             self.shapes.append(shape)
 
+    def __assign_shapes_to_edges(self):
+        """Assigns a shape to each non-transfer edge."""
         for edge in self.edges:
             if not edge['transfer']:
                 stop1 = self.stops[edge['start_stop_id']]
@@ -278,6 +280,11 @@ class TransitGraphBuilder:
                 if seg in self.segments:
                     edge['shape_ids'].append(self.segments[seg]['shape_id'])
 
+    def __create_scheme_shapes(self):
+        self.__collect_segments()
+        self.__generate_shapes_for_segments()
+        self.__assign_shapes_to_edges()
+
     def build(self):
         if self.transit_graph is not None:
             return self.transit_graph
@@ -286,7 +293,7 @@ class TransitGraphBuilder:
         self.__read_transfers()
         self.__read_networks()
         self.__generate_transfer_nodes()
-        self.__generate_shapes()
+        self.__create_scheme_shapes()
 
         self.transit_graph = {'networks': self.networks,
                               'lines': self.lines,
@@ -317,17 +324,11 @@ class TransitGraphBuilder:
         plt.show()
 
 
-def check_file_exists(file_path):
-    if not os.path.isfile(file_path):
-        print 'File', file_path, 'not found'
-        sys.exit(1)
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('input_file', help='input file name of transit data')
     parser.add_argument('output_file', nargs='?', help='output file name of generated graph')
-    default_colors_path = os.path.dirname(os.path.abspath(__file__)) + '/../../../data/transit_colors.json'
+    default_colors_path = os.path.dirname(os.path.abspath(__file__)) + '/../../../data/transit_colors.txt'
     parser.add_argument('-c', '--colors', type=str, default=default_colors_path,
                         help='transit colors file COLORS_FILE_PATH', metavar='COLORS_FILE_PATH')
     parser.add_argument('-p', '--preview', action="store_true", default=False,
@@ -339,9 +340,6 @@ if __name__ == '__main__':
                         metavar='NUM')
 
     args = parser.parse_args()
-
-    check_file_exists(args.input_file)
-    check_file_exists(args.colors)
 
     with open(args.input_file, 'r') as input_file:
         data = json.load(input_file)
@@ -355,7 +353,8 @@ if __name__ == '__main__':
     output_file = args.output_file
     if output_file is None:
         head, tail = os.path.split(os.path.abspath(args.input_file))
-        output_file = head + '/transit_graph_' + tail
+        name, extension = os.path.splitext(tail)
+        output_file = os.path.join(head, name + '.transit' + extension)
     with io.open(output_file, 'w', encoding='utf8') as json_file:
         result_data = json.dumps(result, ensure_ascii=False, indent=4, sort_keys=True)
         json_file.write(unicode(result_data))
