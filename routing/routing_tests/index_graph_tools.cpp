@@ -300,6 +300,8 @@ void TestRouteGeometry(IndexGraphStarter & starter,
   double timeSec = 0.0;
   auto const resultCode = CalculateRoute(starter, routeSegs, timeSec);
 
+  TEST_EQUAL(resultCode, expectedRouteResult, ());
+
   if (AStarAlgorithm<IndexGraphStarter>::Result::NoPath == expectedRouteResult &&
       expectedRouteGeom.empty())
   {
@@ -308,7 +310,6 @@ void TestRouteGeometry(IndexGraphStarter & starter,
     return;
   }
 
-  TEST_EQUAL(resultCode, expectedRouteResult, ());
   if (resultCode != AStarAlgorithm<IndexGraphStarter>::Result::OK)
     return;
 
