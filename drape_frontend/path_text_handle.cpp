@@ -179,7 +179,10 @@ void PathTextContext::Update(ScreenBase const & screen)
     m2::PointD const pt2d = screen.GtoP(m_globalPivots[i]);
     if (!screen.IsReverseProjection3d(pt2d))
     {
-      m_centerPointIters.push_back(GetProjectedPoint(m_pixel3dSplines, screen.PtoP3d(pt2d)));
+      auto projectionIter = GetProjectedPoint(m_pixel3dSplines, screen.PtoP3d(pt2d));
+      if (!projectionIter.IsAttached())
+        continue;
+      m_centerPointIters.push_back(projectionIter);
       m_centerGlobalPivots.push_back(m_globalPivots[i]);
     }
   }

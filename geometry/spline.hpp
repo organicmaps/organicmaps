@@ -29,6 +29,7 @@ public:
     double GetFullLength() const;
 
     size_t GetIndex() const;
+    bool IsAttached() const;
 
   private:
     friend class Spline;

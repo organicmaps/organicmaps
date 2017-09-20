@@ -168,6 +168,11 @@ void Spline::iterator::Attach(Spline const & spl)
   m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
 }
 
+bool Spline::iterator::IsAttached() const
+{
+  return m_spl != nullptr;
+}
+
 void Spline::iterator::Advance(double step)
 {
   if (step < 0.0)
