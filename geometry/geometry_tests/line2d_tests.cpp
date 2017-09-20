@@ -21,19 +21,13 @@ UNIT_TEST(LineIntersector_Smoke)
 {
   {
     Line2D const line(Segment2D(PointD(0, 0), PointD(1, 0)));
-    TEST_EQUAL(Intersect(line, line).m_type, Type::Infinite, ());
+    TEST_EQUAL(Intersect(line, line).m_type, Type::Infinity, ());
   }
 
   {
     Line2D const lhs(Segment2D(PointD(0, 0), PointD(1, 1)));
     Line2D const rhs(Segment2D(PointD(-10, -10), PointD(-100, -100)));
-    TEST_EQUAL(Intersect(lhs, rhs).m_type, Type::Infinite, ());
-  }
-
-  {
-    Line2D const lhs(Segment2D(PointD(0, 0), PointD(1, 1)));
-    Line2D const rhs(Segment2D(PointD(-10, -10), PointD(-100, -100)));
-    TEST_EQUAL(Intersect(lhs, rhs).m_type, Type::Infinite, ());
+    TEST_EQUAL(Intersect(lhs, rhs).m_type, Type::Infinity, ());
   }
 
   {
@@ -46,7 +40,7 @@ UNIT_TEST(LineIntersector_Smoke)
     Line2D const lhs(Segment2D(PointD(10, 0), PointD(9, 10)));
     Line2D const rhs(Segment2D(PointD(-10, 0), PointD(-9, 10)));
     auto const result = Intersect(lhs, rhs);
-    TEST_EQUAL(result.m_type, Type::Single, ());
+    TEST_EQUAL(result.m_type, Type::One, ());
     TEST(AlmostEqualAbs(result.m_point, PointD(0, 100), kEps), (result.m_point));
   }
 }

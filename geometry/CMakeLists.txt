@@ -8,10 +8,10 @@ set(
   angles.hpp
   any_rect2d.hpp
   avg_vector.hpp
-  bbox.cpp
-  bbox.hpp
-  cbox.cpp
-  cbox.hpp
+  bounding_box.cpp
+  bounding_box.hpp
+  calipers_box.cpp
+  calipers_box.hpp
   cellid.hpp
   clipping.cpp
   clipping.hpp
@@ -19,7 +19,7 @@ set(
   convex_hull.hpp
   covering.hpp
   covering_utils.hpp
-  dbox.hpp
+  diamond_box.hpp
   distance.hpp
   distance_on_sphere.cpp
   distance_on_sphere.hpp

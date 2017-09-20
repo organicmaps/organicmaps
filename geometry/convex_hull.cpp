@@ -12,18 +12,13 @@ namespace m2
 {
 namespace
 {
-// 1e-12 is used here because of we're going to use the convex hull on
-// Mercator plane, where the precision of all coords is 1e-5, so we
-// are off by two orders of magnitude from the precision of data.
-double const kEps = 1e-12;
-
 // Checks whether (p1 - p) x (p2 - p) > 0.
-bool IsCCW(PointD const & p1, PointD const & p2, PointD const & p)
+bool IsCCW(PointD const & p1, PointD const & p2, PointD const & p, double eps)
 {
-  return robust::OrientedS(p1, p2, p) > kEps;
+  return robust::OrientedS(p1, p2, p) > eps;
 }
 
-bool IsContinuedBy(vector<PointD> const & hull, PointD const & p)
+bool IsContinuedBy(vector<PointD> const & hull, PointD const & p, double eps)
 {
   auto const n = hull.size();
   if (n < 2)
@@ -33,10 +28,10 @@ bool IsContinuedBy(vector<PointD> const & hull, PointD const & p)
   auto const & p2 = hull[n - 1];
 
   // Checks whether (p2 - p1) x (p - p2) > 0.
-  return IsCCW(p, p1, p2);
+  return IsCCW(p, p1, p2, eps);
 }
 
-vector<PointD> BuildConvexHull(vector<PointD> points)
+vector<PointD> BuildConvexHull(vector<PointD> points, double eps)
 {
   my::SortUnique(points);
 
@@ -49,10 +44,10 @@ vector<PointD> BuildConvexHull(vector<PointD> points)
 
   auto const pivot = points[0];
 
-  sort(points.begin() + 1, points.end(), [&pivot](PointD const & lhs, PointD const & rhs) {
-    if (IsCCW(lhs, rhs, pivot))
+  sort(points.begin() + 1, points.end(), [&pivot, &eps](PointD const & lhs, PointD const & rhs) {
+    if (IsCCW(lhs, rhs, pivot, eps))
       return true;
-    if (IsCCW(rhs, lhs, pivot))
+    if (IsCCW(rhs, lhs, pivot, eps))
       return false;
     return lhs.SquareLength(pivot) < rhs.SquareLength(pivot);
   });
@@ -61,7 +56,7 @@ vector<PointD> BuildConvexHull(vector<PointD> points)
 
   for (auto const & p : points)
   {
-    while (!IsContinuedBy(hull, p))
+    while (!IsContinuedBy(hull, p, eps))
       hull.pop_back();
     hull.push_back(p);
   }
@@ -70,5 +65,8 @@ vector<PointD> BuildConvexHull(vector<PointD> points)
 }
 }  // namespace
 
-ConvexHull::ConvexHull(vector<m2::PointD> const & points) : m_hull(BuildConvexHull(points)) {}
+ConvexHull::ConvexHull(vector<PointD> const & points, double eps)
+  : m_hull(BuildConvexHull(points, eps))
+{
+}
 }  // namespace m2

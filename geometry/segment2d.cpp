@@ -3,6 +3,7 @@
 #include "geometry/robust_orientation.hpp"
 
 #include <algorithm>
+
 using namespace std;
 
 namespace m2
@@ -12,8 +13,7 @@ string DebugPrint(Segment2D const & segment)
   return "(" + DebugPrint(segment.m_u) + ", " + DebugPrint(segment.m_v) + ")";
 }
 
-bool IsPointOnSegmentEps(m2::PointD const & pt, m2::PointD const & p1, m2::PointD const & p2,
-                         double eps)
+bool IsPointOnSegmentEps(PointD const & pt, PointD const & p1, PointD const & p2, double eps)
 {
   double const t = robust::OrientedS(p1, p2, pt);
 
@@ -33,7 +33,7 @@ bool IsPointOnSegmentEps(m2::PointD const & pt, m2::PointD const & p1, m2::Point
   return pt.x >= minX - eps && pt.x <= maxX + eps && pt.y >= minY - eps && pt.y <= maxY + eps;
 }
 
-bool IsPointOnSegment(m2::PointD const & pt, m2::PointD const & p1, m2::PointD const & p2)
+bool IsPointOnSegment(PointD const & pt, PointD const & p1, PointD const & p2)
 {
   // The epsilon here is chosen quite arbitrarily, to pass paranoid
   // tests and to match our real-data geometry precision. If you have

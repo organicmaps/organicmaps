@@ -7,20 +7,20 @@
 
 namespace m2
 {
-class BBox
+class BoundingBox
 {
 public:
-  BBox() = default;
-  BBox(std::vector<m2::PointD> const & points);
+  BoundingBox() = default;
+  BoundingBox(std::vector<PointD> const & points);
 
-  void Add(m2::PointD const & p) { return Add(p.x, p.y); }
+  void Add(PointD const & p) { return Add(p.x, p.y); }
   void Add(double x, double y);
 
-  bool IsInside(m2::PointD const & p) const { return IsInside(p.x, p.y); }
-  bool IsInside(double x, double y) const;
+  bool HasPoint(PointD const & p) const { return HasPoint(p.x, p.y); }
+  bool HasPoint(double x, double y) const;
 
-  m2::PointD Min() const { return m2::PointD(m_minX, m_minY); }
-  m2::PointD Max() const { return m2::PointD(m_maxX, m_maxY); }
+  PointD Min() const { return PointD(m_minX, m_minY); }
+  PointD Max() const { return PointD(m_maxX, m_maxY); }
 
 private:
   static_assert(std::numeric_limits<double>::has_infinity, "");

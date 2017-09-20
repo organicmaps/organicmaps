@@ -11,8 +11,8 @@ include($$ROOT_DIR/common.pri)
 SOURCES += \
   algorithm.cpp \
   angles.cpp \
-  bbox.cpp \
-  cbox.cpp \
+  bounding_box.cpp \
+  calipers_box.cpp \
   clipping.cpp \
   convex_hull.cpp \
   distance_on_sphere.cpp \
@@ -33,14 +33,14 @@ HEADERS += \
   angles.hpp \
   any_rect2d.hpp \
   avg_vector.hpp \
-  bbox.hpp \
-  cbox.hpp \
+  bounding_box.hpp \
+  calipers_box.hpp \
   cellid.hpp \
   clipping.hpp \
   convex_hull.hpp \
   covering.hpp \
   covering_utils.hpp \
-  dbox.hpp \
+  diamond_box.hpp \
   distance.hpp \
   distance_on_sphere.hpp \
   latlon.hpp \

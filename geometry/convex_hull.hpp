@@ -17,12 +17,12 @@ public:
   // points lying on the same straight line.
   //
   // Complexity: O(n * log(n)), where n is the number of points.
-  explicit ConvexHull(std::vector<m2::PointD> const & points);
+  ConvexHull(std::vector<PointD> const & points, double eps);
 
   size_t Size() const { return m_hull.size(); }
   bool Empty() const { return m_hull.empty(); }
 
-  m2::PointD const & PointAt(size_t i) const
+  PointD const & PointAt(size_t i) const
   {
     ASSERT(!Empty(), ());
     return m_hull[i % Size()];
@@ -34,9 +34,9 @@ public:
     return Segment2D(PointAt(i), PointAt(i + 1));
   }
 
-  std::vector<m2::PointD> const & Points() const { return m_hull; }
+  std::vector<PointD> const & Points() const { return m_hull; }
 
 private:
-  std::vector<m2::PointD> m_hull;
+  std::vector<PointD> m_hull;
 };
 }  // namespace m2

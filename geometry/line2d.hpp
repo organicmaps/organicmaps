@@ -15,13 +15,13 @@ struct Line2D
 
   explicit Line2D(Segment2D const & segment) : m_point(segment.m_u), m_direction(segment.Dir()) {}
 
-  Line2D(m2::PointD const & point, m2::PointD const & direction)
+  Line2D(PointD const & point, PointD const & direction)
     : m_point(point), m_direction(direction)
   {
   }
 
-  m2::PointD m_point;
-  m2::PointD m_direction;
+  PointD m_point;
+  PointD m_direction;
 };
 
 std::string DebugPrint(Line2D const & line);
@@ -33,14 +33,14 @@ struct LineIntersector
     enum class Type
     {
       Zero,
-      Single,
-      Infinite
+      One,
+      Infinity
     };
 
-    explicit Result(Type type) : m_type(type) { ASSERT_NOT_EQUAL(m_type, Type::Single, ()); }
-    explicit Result(m2::PointD const & point) : m_point(point), m_type(Type::Single) {}
+    explicit Result(Type type) : m_type(type) { ASSERT_NOT_EQUAL(m_type, Type::One, ()); }
+    explicit Result(PointD const & point) : m_point(point), m_type(Type::One) {}
 
-    m2::PointD m_point;
+    PointD m_point;
     Type m_type;
   };
 

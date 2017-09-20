@@ -9,7 +9,7 @@ namespace m2
 {
 namespace
 {
-bool Collinear(m2::PointD const & a, m2::PointD const & b, double eps)
+bool Collinear(PointD const & a, PointD const & b, double eps)
 {
   return fabs(CrossProduct(a, b)) < eps;
 }
@@ -38,7 +38,7 @@ LineIntersector::Result LineIntersector::Intersect(Line2D const & lhs, Line2D co
   if (Collinear(ab, cd, eps))
   {
     if (Collinear(c - a, cd, eps))
-      return Result(Result::Type::Infinite);
+      return Result(Result::Type::Infinity);
     return Result(Result::Type::Zero);
   }
 
@@ -58,8 +58,8 @@ string DebugPrint(LineIntersector::Result::Type type)
   switch (type)
   {
   case Type::Zero: return "Zero";
-  case Type::Single: return "Single";
-  case Type::Infinite: return "Infinite";
+  case Type::One: return "One";
+  case Type::Infinity: return "Infinity";
   }
 }
 
@@ -67,7 +67,7 @@ string DebugPrint(LineIntersector::Result const & result)
 {
   ostringstream os;
   os << "Result [";
-  if (result.m_type == LineIntersector::Result::Type::Single)
+  if (result.m_type == LineIntersector::Result::Type::One)
     os << DebugPrint(result.m_point);
   else
     os << DebugPrint(result.m_type);

@@ -9,17 +9,16 @@ namespace m2
 struct Segment2D
 {
   Segment2D() = default;
-  Segment2D(m2::PointD const & u, m2::PointD const & v) : m_u(u), m_v(v) {}
+  Segment2D(PointD const & u, PointD const & v) : m_u(u), m_v(v) {}
 
-  m2::PointD const Dir() const { return m_v - m_u; }
+  PointD const Dir() const { return m_v - m_u; }
 
-  m2::PointD m_u;
-  m2::PointD m_v;
+  PointD m_u;
+  PointD m_v;
 };
 
 std::string DebugPrint(Segment2D const & s);
 
-bool IsPointOnSegmentEps(m2::PointD const & pt, m2::PointD const & p1, m2::PointD const & p2,
-                         double eps);
-bool IsPointOnSegment(m2::PointD const & pt, m2::PointD const & p1, m2::PointD const & p2);
+bool IsPointOnSegmentEps(PointD const & pt, PointD const & p1, PointD const & p2, double eps);
+bool IsPointOnSegment(PointD const & pt, PointD const & p1, PointD const & p2);
 }  // namespace m2

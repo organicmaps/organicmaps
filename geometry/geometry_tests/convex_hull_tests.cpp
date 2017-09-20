@@ -10,9 +10,11 @@ using namespace std;
 
 namespace
 {
-vector<m2::PointD> BuildConvexHull(vector<m2::PointD> const & points)
+double const kEps = 1e-12;
+
+vector<PointD> BuildConvexHull(vector<PointD> const & points)
 {
-  return ConvexHull(points).Points();
+  return ConvexHull(points, kEps).Points();
 }
 
 UNIT_TEST(ConvexHull_Smoke)
