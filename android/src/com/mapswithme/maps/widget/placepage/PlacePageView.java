@@ -680,6 +680,8 @@ public class PlacePageView extends RelativeLayout
     RecyclerView rvHotelReview = (RecyclerView) findViewById(R.id.rv__pp_ugc_reviews);
     rvHotelReview.setLayoutManager(new LinearLayoutManager(getContext()));
     rvHotelReview.getLayoutManager().setAutoMeasureEnabled(true);
+    rvHotelReview.addItemDecoration(ItemDecoratorFactory.createDefaultDecorator(getContext(),
+                                                                                LinearLayoutManager.VERTICAL));
     rvHotelReview.setNestedScrollingEnabled(false);
     rvHotelReview.setHasFixedSize(false);
     rvHotelReview.setAdapter(mUGCReviewAdapter);
@@ -693,7 +695,6 @@ public class PlacePageView extends RelativeLayout
         ItemDecoratorFactory.createRatingRecordDecorator(getContext(), LinearLayoutManager.HORIZONTAL));
     rvRatingRecords.setAdapter(mUGCRatingRecordsAdapter);
   }
-
 
   private void initHotelRatingView()
   {

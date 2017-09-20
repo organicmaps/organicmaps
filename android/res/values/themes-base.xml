@@ -107,6 +107,8 @@
     <item name="viatorLogo">@drawable/ic_logo_viator_light</item>
 
     <item name="ratingButtonBackground">@drawable/bg_rating_button</item>
+
+    <item name="android:listDivider">@drawable/list_divider</item>
   </style>
 
   <!-- Night theme -->

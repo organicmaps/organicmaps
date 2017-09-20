@@ -36,4 +36,11 @@ public class ItemDecoratorFactory
     decoration.setDrawable(ContextCompat.getDrawable(context, R.drawable.divider_transparent_base));
     return decoration;
   }
+
+  @NonNull
+  public static RecyclerView.ItemDecoration createDefaultDecorator(@NonNull Context context,
+                                                                   int orientation)
+  {
+    return new DividerItemDecoration(context, orientation);
+  }
 }

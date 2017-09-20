@@ -238,10 +238,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:listitem="@layout/item_ugc_comment"/>
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="?dividerHorizontal"/>
   <TextView
     android:id="@+id/tv__pp_ugc_reviews_more"
     style="@style/PlacePageMetadataText.Button"
