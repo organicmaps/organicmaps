@@ -348,10 +348,8 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
                          false /* isPartOfReal */, dummy /* realSegment */);
 
     // Add fake parts of real
-    auto frontJunction =
-        m_graph.GetJunction(projection.m_segment, projection.m_segment.IsForward());
-    auto backJunction =
-        m_graph.GetJunction(projection.m_segment, !projection.m_segment.IsForward());
+    auto frontJunction = m_graph.GetJunction(projection.m_segment, true /* front */);
+    auto backJunction = m_graph.GetJunction(projection.m_segment, false /* front */);
 
     // Check whether we have projections to same real segment from both endings.
     auto const it = otherSegments.find(projection.m_segment);
