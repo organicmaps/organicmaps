@@ -432,9 +432,8 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
         starter ? starter->GetNumFakeSegments() : 0, isStartSegmentStrictForward, graph);
 
     vector<Segment> subroute;
-    Junction startJunction;
-    auto const result = CalculateSubroute(checkpoints, i, startSegment, delegate, subrouteStarter,
-                                          subroute, startJunction);
+    auto const result =
+        CalculateSubroute(checkpoints, i, startSegment, delegate, subrouteStarter, subroute);
 
     if (result != IRouter::NoError)
       return result;
@@ -478,8 +477,7 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
                                                    size_t subrouteIdx, Segment const & startSegment,
                                                    RouterDelegate const & delegate,
                                                    IndexGraphStarter & starter,
-                                                   vector<Segment> & subroute,
-                                                   Junction & startJunction)
+                                                   vector<Segment> & subroute)
 {
   subroute.clear();
 
@@ -497,11 +495,6 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   }
 
   LOG(LINFO, ("Routing in mode:", starter.GetGraph().GetMode()));
-
-  if (subrouteIdx == checkpoints.GetPassedIdx())
-    startJunction = starter.GetStartJunction();
-  else
-    startJunction = starter.GetJunction(startSegment, false /* front */);
 
   auto const progressRange = CalcProgressRange(checkpoints, subrouteIdx);
   AStarProgress progress(progressRange.startValue, progressRange.stopValue);

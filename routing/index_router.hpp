@@ -76,7 +76,7 @@ private:
   IRouter::ResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
                                         Segment const & startSegment,
                                         RouterDelegate const & delegate, IndexGraphStarter & graph,
-                                        std::vector<Segment> & subroute, Junction & startJunction);
+                                        std::vector<Segment> & subroute);
 
   IRouter::ResultCode AdjustRoute(Checkpoints const & checkpoints,
                                   m2::PointD const & startDirection,
