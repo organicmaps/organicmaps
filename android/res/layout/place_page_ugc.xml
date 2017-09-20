@@ -67,27 +67,9 @@
         android:layout_centerVertical="true"
         app:rating="normal"/>
     </RelativeLayout>
-    <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginLeft="@dimen/margin_base"
-      android:layout_marginStart="@dimen/margin_base"
-      android:background="?dividerHorizontal"/>
-    <android.support.v7.widget.RecyclerView
-      android:id="@+id/rv__summary_rating_records"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingLeft="@dimen/margin_base"
-      android:paddingStart="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
-      android:paddingEnd="@dimen/margin_base"
-      android:paddingTop="@dimen/margin_half_plus"
-      android:paddingBottom="@dimen/margin_half_plus"
-      tools:listitem="@layout/item_ugc_rating_record"/>
-    <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="?dividerHorizontal"/>
+    <include
+      android:id="@+id/summary_rating_records"
+      layout="@layout/place_page_rating_records"/>
   </LinearLayout>
   <LinearLayout
     android:id="@+id/ll__pp_ugc_rating"
@@ -232,6 +214,16 @@
   </LinearLayout>
 
   <include layout="@layout/place_page_fat_shadow"/>
+
+  <!-- User review block -->
+  <include
+    layout="@layout/item_ugc_comment"
+    android:id="@+id/rl_user_review"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+  <include
+    android:id="@+id/user_rating_records"
+    layout="@layout/place_page_rating_records"/>
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/rv__pp_ugc_reviews"
