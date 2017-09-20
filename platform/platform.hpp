@@ -127,10 +127,10 @@ public:
   /// Client app should not replace default resource dir.
   void SetResourceDir(string const & path);
 
-  /// Creates directory in the filesystem.
-  static EError MkDir(string const & dirName);
+  /// Creates the directory in the filesystem.
+  WARN_UNUSED_RESULT static EError MkDir(string const & dirName);
 
-  /// Creates a directory. Returns true on success.
+  /// Creates the directory. Returns true on success.
   /// Returns false and logs the reason on failure.
   WARN_UNUSED_RESULT static bool MkDirChecked(string const & dirName);
 
