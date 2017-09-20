@@ -330,7 +330,12 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
 
   map<Segment, Junction> otherSegments;
   for (auto const & p : otherEnding.m_projections)
+  {
     otherSegments[p.m_segment] = p.m_junction;
+    // We use |otherEnding| to generate proper fake edges in case both endings have projections
+    // to the same segment. Direction of p.m_segment does not matter.
+    otherSegments[GetReverseSegment(p.m_segment)] = p.m_junction;
+  }
 
   // Add pure fake vertex
   auto const fakeSegment = GetFakeSegmentAndIncr(fakeNumerationStart);
