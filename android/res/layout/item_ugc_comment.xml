@@ -1,55 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:background="?cardBackground"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-  <View
-    android:id="@+id/v__divider"
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:background="?dividerHorizontal"/>
-
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:background="?cardBackground"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:padding="@dimen/margin_base">
   <TextView
-    android:id="@+id/tv__user_name"
+    android:id="@+id/name"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginTop="@dimen/margin_base"
-    android:layout_toLeftOf="@+id/tv__comment_date"
-    android:layout_toStartOf="@+id/tv__comment_date"
-    android:layout_below="@id/v__divider"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_toLeftOf="@+id/rating"
+    android:layout_toStartOf="@id/rating"
+    android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+    android:textStyle="bold"
     tools:text="Аleksey"/>
 
   <TextView
-    android:id="@+id/tv__comment_date"
+    android:id="@+id/date"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_below="@id/name"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="March 29, 2016"/>
+
+  <com.mapswithme.maps.widget.RatingView
+    android:id="@id/rating"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"
     android:layout_alignParentTop="true"
-    android:textAppearance="@style/MwmTextAppearance.Body4"
-    tools:text="March 29, 2016"/>
+    android:text="2.0"
+    android:textSize="@dimen/text_size_body_1"
+    app:drawSmile="false"
+    android:textAppearance="@style/MwmTextAppearance.Body2"/>
 
   <TextView
-    android:id="@+id/tv__review"
+    android:id="@+id/review"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginTop="@dimen/margin_half_plus"
-    android:layout_marginBottom="@dimen/margin_base"
-    android:layout_below="@id/tv__user_name"
+    android:layout_marginTop="@dimen/margin_half"
+    android:layout_below="@id/date"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
     android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
     android:visibility="visible"
     tools:visibility="visible"

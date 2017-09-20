@@ -36,6 +36,7 @@
       <enum name="good" value="3"/>
       <enum name="excellent" value="4"/>
     </attr>
+    <attr name="drawSmile" format="boolean"/>
   </declare-styleable>
 
   <bool name="isTablet">false</bool>

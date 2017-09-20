@@ -241,8 +241,6 @@
   <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
     android:background="?dividerHorizontal"/>
   <TextView
     android:id="@+id/tv__pp_ugc_reviews_more"

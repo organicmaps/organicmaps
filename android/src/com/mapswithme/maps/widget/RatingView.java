@@ -22,7 +22,6 @@ import com.mapswithme.maps.ugc.Rating;
 
 public class RatingView extends View
 {
-  private static final float CORNER_RADIUS_PX = 40;
   @Nullable
   private Drawable mDrawable;
   @NonNull
@@ -39,6 +38,8 @@ public class RatingView extends View
   private String mRatingValue;
   @ColorInt
   private int mRatingColor;
+  private boolean mDrawSmile;
+  private int mBackgroundCornerRaduis;
 
   public RatingView(Context context, @Nullable AttributeSet attrs)
   {
@@ -54,6 +55,7 @@ public class RatingView extends View
 
   private void init(@Nullable AttributeSet attrs)
   {
+    mBackgroundCornerRaduis = getResources().getDimensionPixelSize(R.dimen.rating_view_background_radius);
     TypedArray a = getContext().obtainStyledAttributes(
         attrs, R.styleable.RatingView);
 
@@ -61,6 +63,7 @@ public class RatingView extends View
     mTextPaint.setTextSize(textSize);
     mTextPaint.setTypeface(Typeface.create("Roboto", Typeface.BOLD));
     mRatingValue = a.getString(R.styleable.RatingView_android_text);
+    mDrawSmile = a.getBoolean(R.styleable.RatingView_drawSmile, true);
     int rating = a.getInteger(R.styleable.RatingView_rating, 0);
     a.recycle();
 
@@ -79,7 +82,8 @@ public class RatingView extends View
     mRatingColor = res.getColor(r.getColorId());
     mBackgroundPaint.setColor(mRatingColor);
     mBackgroundPaint.setAlpha(31 /* 12% */);
-    mDrawable = res.getDrawable(r.getDrawableId());
+    if (mDrawSmile)
+      mDrawable = res.getDrawable(r.getDrawableId());
     mTextPaint.setColor(mRatingColor);
     invalidate();
     requestLayout();
@@ -109,7 +113,7 @@ public class RatingView extends View
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
   {
-    final int height = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
+    int height = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
     int width = getPaddingLeft();
     if (mDrawable != null)
     {
@@ -122,7 +126,9 @@ public class RatingView extends View
     if (mRatingValue != null)
     {
       mTextPaint.getTextBounds(mRatingValue, 0, mRatingValue.length(), mTextBounds);
-      width += getPaddingLeft() + mTextBounds.width();
+      width += (mDrawable != null ? getPaddingLeft() : 0) +  mTextPaint.measureText(mRatingValue);
+      if (height == 0)
+        height = getPaddingTop() + mTextBounds.height() + getPaddingBottom();
     }
 
     width += getPaddingRight();
@@ -134,8 +140,11 @@ public class RatingView extends View
   @Override
   protected void onDraw(Canvas canvas)
   {
-    if (getBackground() == null)
-      canvas.drawRoundRect(mBackgroundBounds, CORNER_RADIUS_PX, CORNER_RADIUS_PX, mBackgroundPaint);
+    if (getBackground() == null && mDrawable != null)
+    {
+      canvas.drawRoundRect(mBackgroundBounds, mBackgroundCornerRaduis, mBackgroundCornerRaduis,
+                           mBackgroundPaint);
+    }
 
     if (mDrawable != null)
     {
@@ -149,7 +158,9 @@ public class RatingView extends View
     {
       float yPos = getHeight() / 2;
       yPos += (Math.abs(mTextBounds.height())) / 2;
-      canvas.drawText(mRatingValue, mDrawable.getBounds().right + getPaddingLeft(), yPos, mTextPaint);
+      float xPos = mDrawable != null ? mDrawable.getBounds().right + getPaddingLeft()
+                                     : getPaddingLeft();
+      canvas.drawText(mRatingValue, xPos, yPos, mTextPaint);
     }
   }
 }

@@ -214,4 +214,5 @@
   <!-- Rating-->
   <dimen name="rating_view_height">40dp</dimen>
   <dimen name="rating_view_height_small">20dp</dimen>
+  <dimen name="rating_view_background_radius">20dp</dimen>
 </resources>

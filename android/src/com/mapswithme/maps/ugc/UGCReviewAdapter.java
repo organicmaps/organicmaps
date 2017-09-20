@@ -33,7 +33,7 @@ public class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
   @Override
   public void onBindViewHolder(ViewHolder holder, int position)
   {
-    holder.bind(mItems.get(position), position > 0);
+    holder.bind(mItems.get(position));
   }
 
   @Override
@@ -52,8 +52,6 @@ public class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
   static class ViewHolder extends RecyclerView.ViewHolder
   {
     @NonNull
-    final View mDivider;
-    @NonNull
     final TextView mAuthor;
     @NonNull
     final TextView mCommentDate;
@@ -63,15 +61,13 @@ public class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
     public ViewHolder(View itemView)
     {
       super(itemView);
-      mDivider = itemView.findViewById(R.id.v__divider);
-      mAuthor = (TextView) itemView.findViewById(R.id.tv__user_name);
-      mCommentDate = (TextView) itemView.findViewById(R.id.tv__comment_date);
-      mReview = (TextView) itemView.findViewById(R.id.tv__review);
+      mAuthor = (TextView) itemView.findViewById(R.id.name);
+      mCommentDate = (TextView) itemView.findViewById(R.id.date);
+      mReview = (TextView) itemView.findViewById(R.id.review);
     }
 
-    public void bind(UGC.Review review, boolean isShowDivider)
+    public void bind(UGC.Review review)
     {
-      UiUtils.showIf(isShowDivider, mDivider);
       mAuthor.setText(review.getAuthor());
       mCommentDate.setText(review.getDaysAgo() + " days ago");
       mReview.setText(review.getText());
