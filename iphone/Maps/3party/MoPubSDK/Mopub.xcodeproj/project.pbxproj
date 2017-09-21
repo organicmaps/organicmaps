@@ -11,7 +11,6 @@
 		34F408E61E9E1DA400E57AC0 /* FacebookInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F407631E9E1DA400E57AC0 /* FacebookInterstitialCustomEvent.m */; };
 		34F408E71E9E1DA400E57AC0 /* FacebookNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F407651E9E1DA400E57AC0 /* FacebookNativeAdAdapter.m */; };
 		34F408E81E9E1DA400E57AC0 /* FacebookNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F407671E9E1DA400E57AC0 /* FacebookNativeCustomEvent.m */; };
-		34F408E91E9E1DA400E57AC0 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F407691E9E1DA400E57AC0 /* FBAudienceNetwork.framework */; };
 		34F408EB1E9E1DA400E57AC0 /* MPBannerAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F4076E1E9E1DA400E57AC0 /* MPBannerAdManager.m */; };
 		34F408EC1E9E1DA400E57AC0 /* MPBannerCustomEventAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F407711E9E1DA400E57AC0 /* MPBannerCustomEventAdapter.m */; };
 		34F408ED1E9E1DA400E57AC0 /* MPBaseBannerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F407731E9E1DA400E57AC0 /* MPBaseBannerAdapter.m */; };
@@ -563,7 +562,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34F408E91E9E1DA400E57AC0 /* FBAudienceNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1367,6 +1365,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = arm64;
 			};
 			name = AdHoc;
 		};
@@ -1392,6 +1391,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = arm64;
 			};
 			name = "Production Full";
 		};
@@ -1416,6 +1416,7 @@
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = x86_64;
 			};
 			name = "Simulator Release";
 		};
@@ -1440,6 +1441,7 @@
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = x86_64;
 			};
 			name = Simulator;
 		};
@@ -1464,6 +1466,7 @@
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = arm64;
 			};
 			name = Debug;
 		};
@@ -1476,6 +1479,7 @@
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = arm64;
 			};
 			name = Release;
 		};
@@ -1488,6 +1492,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				"VALID_ARCHS[sdk=iphonesimulator*]" = x86_64;
 			};
 			name = Debug;
 		};
@@ -1500,6 +1505,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				"VALID_ARCHS[sdk=iphonesimulator*]" = x86_64;
 			};
 			name = Release;
 		};

@@ -6,6 +6,8 @@
 
 #import <Foundation/Foundation.h>
 
+#if TARGET_OS_IPHONE
+
 /**
  `PWJavaScriptInterface` protocol is a representation of Javascript object that can be added at runtime into In-App Message HTML page
  to provide native calls and callbacks to Objective-C/Swift.
@@ -75,6 +77,8 @@
 
 @end
 
+#endif
+
 /*
  `PWInAppManager` class offers access to the singletone-instance of the inapp messages manager responsible for sending events and managing inapp message notifications.
  */
@@ -117,9 +121,13 @@
  */
 - (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes;
 
+#if TARGET_OS_IPHONE
+
 /**
  Adds javascript interface for In-App Messages. Interface will be accessible from javascript as object with specified `name` and functions defined in `interface` class.
  */
 - (void)addJavascriptInterface:(NSObject<PWJavaScriptInterface>*)interface withName:(NSString*)name;
+
+#endif
 
 @end

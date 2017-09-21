@@ -7,4 +7,5 @@ framework module AlamofireImage {
 
 module AlamofireImage.Swift {
     header "AlamofireImage-Swift.h"
+    requires objc
 }
