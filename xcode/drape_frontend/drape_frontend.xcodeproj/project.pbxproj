@@ -920,7 +920,7 @@
 		670947321BDF9B82005014C0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					670947391BDF9B82005014C0 = {
@@ -1067,6 +1067,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CC1DBE508400E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
 				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",

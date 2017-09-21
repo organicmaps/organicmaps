@@ -7063,8 +7063,6 @@
 					"$(PROJECT_DIR)/3party/MyTarget",
 					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					TARGET_OS_IPHONE,
@@ -7171,8 +7169,6 @@
 					"$(PROJECT_DIR)/3party/MyTarget",
 					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
@@ -7277,8 +7273,6 @@
 					"$(PROJECT_DIR)/3party/MyTarget",
 					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
@@ -7384,8 +7378,6 @@
 					"$(PROJECT_DIR)/3party/MyTarget",
 					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
@@ -7491,8 +7483,6 @@
 					"$(PROJECT_DIR)/3party/MyTarget",
 					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -7599,8 +7589,6 @@
 					"$(PROJECT_DIR)/3party/MyTarget",
 					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
 				);
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					TARGET_OS_IPHONE,
