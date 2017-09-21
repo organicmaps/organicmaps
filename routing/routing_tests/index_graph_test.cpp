@@ -22,6 +22,7 @@
 
 #include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/unordered_map.hpp"
 #include "std/vector.hpp"
@@ -401,15 +402,23 @@ UNIT_TEST(OneSegmentWay)
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, vector<Joint>());
-
-  auto const start = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 0, 0, true /* forward */), m2::PointD(1, 0), *worldGraph);
-  auto const finish = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 0, 0, true /* forward */), m2::PointD(2, 0), *worldGraph);
-
   vector<Segment> const expectedRoute(
       {{kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}});
-  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, *worldGraph);
+
+  // Starter must match any combination of start and finish directions.
+  vector<bool> const tf = {{true, false}};
+  for (auto const startIsForward : tf)
+  {
+    for (auto const finishIsForward : tf)
+    {
+      auto const start = IndexGraphStarter::MakeFakeEnding(
+          Segment(kTestNumMwmId, 0, 0, startIsForward), m2::PointD(1, 0), *worldGraph);
+      auto const finish = IndexGraphStarter::MakeFakeEnding(
+          Segment(kTestNumMwmId, 0, 0, finishIsForward), m2::PointD(2, 0), *worldGraph);
+
+      TestRoute(start, finish, expectedRoute.size(), &expectedRoute, *worldGraph);
+    }
+  }
 }
 
 //
@@ -443,6 +452,49 @@ UNIT_TEST(OneSegmentWayBackward)
   double timeSec;
   auto const resultCode = CalculateRoute(starter, route, timeSec);
   TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::NoPath, ());
+}
+
+// Roads                             y:
+//
+//    R0  * - - - - - * - - - - - * R1      0
+//              ^           ^
+//           start        finish
+//
+//    x:  0     1     2     3     4
+//
+UNIT_TEST(FakeSegmentCoordinates)
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+
+  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{0.0, 0.0}, {2.0, 0.0}}));
+  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{2.0, 0.0}, {4.0, 0.0}}));
+
+  vector<Joint> joints;
+  joints.emplace_back(MakeJoint({{0 /* featureId */, 1 /* pointId */}, {1, 0}}));
+
+  traffic::TrafficCache const trafficCache;
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
+  vector<m2::PointD> const expectedGeom = {{1.0 /* x */, 0.0 /* y */}, {2.0, 0.0}, {3.0, 0.0}};
+
+  // Test fake segments have valid coordinates for any combination of start and finish directions
+  vector<bool> const tf = {{true, false}};
+  for (auto const startIsForward : tf)
+  {
+    for (auto const finishIsForward : tf)
+    {
+      auto const start = IndexGraphStarter::MakeFakeEnding(
+          Segment(kTestNumMwmId, 0, 0, startIsForward), m2::PointD(1, 0), *worldGraph);
+      auto const finish = IndexGraphStarter::MakeFakeEnding(
+          Segment(kTestNumMwmId, 1, 0, finishIsForward), m2::PointD(3, 0), *worldGraph);
+
+      IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */,
+                                false /* strictForward */, *worldGraph);
+      TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+    }
+  }
 }
 
 //
