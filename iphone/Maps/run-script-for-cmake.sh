@@ -11,7 +11,7 @@ fi
 # Respect "Build for active arch only" project setting.
 if [[ "$ONLY_ACTIVE_ARCH" == YES ]]; then
   if [[ ! -z $CURRENT_ARCH ]]; then
-    VALID_ARCHS="$CURRENT_ARCH"
+    VALID_ARCHS=${ARCHS[0]}
   fi
 fi
 

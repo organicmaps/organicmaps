@@ -110,8 +110,6 @@ add_library(${PROJECT_NAME} ${SRC})
 omim_add_test_subdirectory(generator_tests_support)
 omim_add_test_subdirectory(generator_tests)
 
-add_subdirectory(mwm_diff)
-
 if (NOT SKIP_GTOOL)
   add_subdirectory(generator_tool)
 endif()
