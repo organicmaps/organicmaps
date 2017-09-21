@@ -20,6 +20,9 @@
 		3D78157D1F3D8A0A0068B6AC /* safe_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */; };
 		3D97F64B1D9C05E800380945 /* http_client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D97F64A1D9C05E800380945 /* http_client.cpp */; };
 		3DE8B98F1DEC3115000E6083 /* network_policy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DE8B98E1DEC3115000E6083 /* network_policy.hpp */; };
+		451E32A01F73A8B000964C9F /* secure_storage_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 451E329D1F73A8B000964C9F /* secure_storage_ios.mm */; };
+		451E32A11F73A8B000964C9F /* secure_storage_qt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */; };
+		451E32A21F73A8B000964C9F /* secure_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 451E329F1F73A8B000964C9F /* secure_storage.hpp */; };
 		56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */; };
 		56EB1EDD1C6B6E6C0022D831 /* file_logging.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */; };
 		56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */; };
@@ -123,6 +126,9 @@
 		3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = safe_callback.hpp; sourceTree = "<group>"; };
 		3D97F64A1D9C05E800380945 /* http_client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_client.cpp; sourceTree = "<group>"; };
 		3DE8B98E1DEC3115000E6083 /* network_policy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = network_policy.hpp; sourceTree = "<group>"; };
+		451E329D1F73A8B000964C9F /* secure_storage_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = secure_storage_ios.mm; sourceTree = "<group>"; };
+		451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = secure_storage_qt.cpp; sourceTree = "<group>"; };
+		451E329F1F73A8B000964C9F /* secure_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = secure_storage.hpp; sourceTree = "<group>"; };
 		56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_logging.cpp; sourceTree = "<group>"; };
 		56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_logging.hpp; sourceTree = "<group>"; };
 		56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_traits.cpp; sourceTree = "<group>"; };
@@ -198,7 +204,6 @@
 		675E889F1DB7B0F200F8EBDA /* test_socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_socket.hpp; sourceTree = "<group>"; };
 		676C841F1C64CD3300DC9603 /* mwm_traits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mwm_traits.hpp; sourceTree = "<group>"; };
 		6783387E1C6DE54700FD6263 /* platform_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = platform_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		678338AA1C6DF4F200FD6263 /* resources-ldpi_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-ldpi_legacy"; sourceTree = "<group>"; };
 		678338AB1C6DF50700FD6263 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = classificator.txt; sourceTree = "<group>"; };
 		678338AC1C6DF50700FD6263 /* minsk-pass.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "minsk-pass.mwm"; sourceTree = "<group>"; };
 		678338B01C6E016700FD6263 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = World.mwm; sourceTree = "<group>"; };
@@ -330,6 +335,9 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				451E329F1F73A8B000964C9F /* secure_storage.hpp */,
+				451E329D1F73A8B000964C9F /* secure_storage_ios.mm */,
+				451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */,
 				3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */,
 				3D78156B1F3A14090068B6AC /* gui_thread_apple.mm */,
 				3D78156C1F3A14090068B6AC /* gui_thread.hpp */,
@@ -405,7 +413,6 @@
 				678338B11C6E016700FD6263 /* WorldCoasts.mwm */,
 				678338AB1C6DF50700FD6263 /* classificator.txt */,
 				678338AC1C6DF50700FD6263 /* minsk-pass.mwm */,
-				678338AA1C6DF4F200FD6263 /* resources-ldpi_legacy */,
 			);
 			name = Resources;
 			path = ../../data;
@@ -449,6 +456,7 @@
 				67247FFE1C60BD6500EDE56A /* writable_dir_changer.hpp in Headers */,
 				3D78157D1F3D8A0A0068B6AC /* safe_callback.hpp in Headers */,
 				3D78156F1F3A14090068B6AC /* gui_thread.hpp in Headers */,
+				451E32A21F73A8B000964C9F /* secure_storage.hpp in Headers */,
 				674125091B4C00CC00A3E828 /* country_defines.hpp in Headers */,
 				675343CD1A3F5D5A00A0A8C3 /* platform.hpp in Headers */,
 				6741250F1B4C00CC00A3E828 /* local_country_file.hpp in Headers */,
@@ -610,9 +618,11 @@
 				3D97F64B1D9C05E800380945 /* http_client.cpp in Sources */,
 				67AB92EA1B7B3E9100AB5194 /* get_text_by_id.cpp in Sources */,
 				34C624BD1DABCCD100510300 /* socket_apple.mm in Sources */,
+				451E32A11F73A8B000964C9F /* secure_storage_qt.cpp in Sources */,
 				671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */,
 				675343B61A3F5D5A00A0A8C3 /* http_request.cpp in Sources */,
 				675343CC1A3F5D5A00A0A8C3 /* platform.cpp in Sources */,
+				451E32A01F73A8B000964C9F /* secure_storage_ios.mm in Sources */,
 				675343DB1A3F5D5A00A0A8C3 /* wifi_location_service.cpp in Sources */,
 				56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */,
 				675343B11A3F5D5A00A0A8C3 /* apple_location_service.mm in Sources */,
@@ -667,11 +677,18 @@
 			baseConfigurationReference = 34F558331DBF273C00A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
 				EXCLUDED_SOURCE_FILE_NAMES = "";
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = platform_mac.mm;
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = platform_mac.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
+					platform_mac.mm,
+					secure_storage_qt.cpp,
+				);
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					platform_mac.mm,
+					secure_storage_qt.cpp,
+				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
 					"ios_*",
 					platform_ios.mm,
+					secure_storage_ios.mm,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -686,11 +703,18 @@
 			baseConfigurationReference = 34F558341DBF273C00A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
 				EXCLUDED_SOURCE_FILE_NAMES = "";
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = platform_mac.mm;
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = platform_mac.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
+					platform_mac.mm,
+					secure_storage_qt.cpp,
+				);
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					platform_mac.mm,
+					secure_storage_qt.cpp,
+				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
 					"ios_*",
 					platform_ios.mm,
+					secure_storage_ios.mm,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

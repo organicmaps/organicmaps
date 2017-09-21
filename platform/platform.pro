@@ -27,19 +27,23 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
   win32* {
     SOURCES += platform_win.cpp \
+               secure_storage_dummy.cpp \
                wifi_info_windows.cpp
   } else:macx-* {
     OBJECTIVE_SOURCES += apple_location_service.mm \
                          gui_thread_apple.mm \
-                         platform_mac.mm
+                         platform_mac.mm \
+                         secure_storage_qt.cpp
   } else:linux* {
     SOURCES += gui_thread_linux.cpp \
-               platform_linux.cpp
+               platform_linux.cpp \
+               secure_storage_qt.cpp
   }
 } else:iphone* {
   OBJECTIVE_SOURCES += marketing_service_ios.mm \
                        platform_ios.mm \
-                       gui_thread_apple.mm
+                       gui_thread_apple.mm \
+                       secure_storage_ios.mm
 } else:android* {
   SOURCES += platform_android.cpp
 } else:tizen* {
@@ -48,6 +52,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
   SOURCES += http_thread_tizen.cpp \
              marketing_service_dummy.cpp \
              platform_tizen.cpp \
+             secure_storage_dummy.cpp \
              tizen_utils.cpp
 }
 
@@ -93,6 +98,7 @@ HEADERS += \
     network_policy.hpp \
     platform.hpp \
     preferred_languages.hpp \
+    secure_storage.hpp \
     safe_callback.hpp \
     servers_list.hpp \
     settings.hpp \

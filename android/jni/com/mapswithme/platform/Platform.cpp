@@ -99,6 +99,8 @@ void Platform::Initialize(JNIEnv * env,
   m_sendPushWooshTagsMethod = env->GetMethodID(functorProcessClass, "sendPushWooshTags", "(Ljava/lang/String;[Ljava/lang/String;)V");
   m_myTrackerTrackMethod = env->GetStaticMethodID(g_myTrackerClazz, "trackEvent", "(Ljava/lang/String;)V");
 
+  m_secureStorage.Init();
+
   m_guiThread = my::make_unique<GuiThread>(m_functorProcessObject);
 
   std::string const flavor = jni::ToNativeString(env, flavorName);
@@ -221,6 +223,61 @@ void Platform::SendMarketingEvent(std::string const & tag, std::map<std::string,
 void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
 {
   m_guiThread = std::move(guiThread);
+}
+
+void Platform::AndroidSecureStorage::Init()
+{
+  JNIEnv * env = jni::GetEnv();
+  if (env == nullptr)
+    return;
+
+  m_secureStorageClass = jni::GetGlobalClassRef(env, "com/mapswithme/util/SecureStorage");
+  ASSERT(m_secureStorageClass, ());
+}
+
+void Platform::AndroidSecureStorage::Save(std::string const & key, std::string const & value)
+{
+  JNIEnv * env = jni::GetEnv();
+  if (env == nullptr)
+    return;
+
+  static jmethodID const saveMethodId =
+    jni::GetStaticMethodID(env, m_secureStorageClass, "save", "(Ljava/lang/String;Ljava/lang/String;)V");
+
+  env->CallStaticVoidMethod(m_secureStorageClass, saveMethodId,
+                            jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get(),
+                            jni::TScopedLocalRef(env, jni::ToJavaString(env, value)).get());
+}
+
+bool Platform::AndroidSecureStorage::Load(std::string const & key, std::string & value)
+{
+  JNIEnv * env = jni::GetEnv();
+  if (env == nullptr)
+    return false;
+
+  static jmethodID const loadMethodId =
+    jni::GetStaticMethodID(env, m_secureStorageClass, "load", "(Ljava/lang/String;)Ljava/lang/String;");
+
+  auto const resultString = static_cast<jstring>(env->CallStaticObjectMethod(m_secureStorageClass, loadMethodId),
+    jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get());
+  if (resultString == nullptr)
+    return false;
+
+  value = jni::ToNativeString(env, resultString);
+  return true;
+}
+
+void Platform::AndroidSecureStorage::Remove(std::string const & key)
+{
+  JNIEnv * env = jni::GetEnv();
+  if (env == nullptr)
+    return;
+
+  static jmethodID const removeMethodId =
+    jni::GetStaticMethodID(env, m_secureStorageClass, "remove", "(Ljava/lang/String;)V");
+
+  env->CallStaticVoidMethod(m_secureStorageClass, removeMethodId,
+                            jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get());
 }
 
 int GetAndroidSdkVersion()

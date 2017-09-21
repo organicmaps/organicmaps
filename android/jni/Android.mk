@@ -114,6 +114,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/platform/MarketingService.cpp \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/PThreadImpl.cpp \
+	com/mapswithme/platform/SecureStorage.cpp \
 	com/mapswithme/platform/SocketImpl.cpp \
 	com/mapswithme/util/Config.cpp \
 	com/mapswithme/util/HttpClient.cpp \

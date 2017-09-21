@@ -5,6 +5,7 @@
 #include "platform/platform.hpp"
 
 #include <memory>
+#include <string>
 
 namespace base
 {
@@ -49,12 +50,27 @@ public:
 
   void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);
 
+  class AndroidSecureStorage
+  {
+  public:
+    void Init();
+    void Save(std::string const & key, std::string const & value);
+    bool Load(std::string const & key, std::string & value);
+    void Remove(std::string const & key);
+
+  private:
+    jclass m_secureStorageClass = nullptr;
+  };
+
+  AndroidSecureStorage & GetSecureStorage() { return m_secureStorage; }
+
   static Platform & Instance();
 
 private:
   jobject m_functorProcessObject = nullptr;
   jmethodID m_sendPushWooshTagsMethod = nullptr;
   jmethodID m_myTrackerTrackMethod = nullptr;
+  AndroidSecureStorage m_secureStorage;
 
   std::unique_ptr<base::TaskLoop> m_guiThread;
 };

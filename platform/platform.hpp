@@ -3,6 +3,7 @@
 #include "platform/country_defines.hpp"
 #include "platform/gui_thread.hpp"
 #include "platform/marketing_service.hpp"
+#include "platform/secure_storage.hpp"
 
 #include "coding/reader.hpp"
 
@@ -94,6 +95,9 @@ protected:
 
   /// Platform-dependent marketing services.
   MarketingService m_marketingService;
+
+  /// Platform-dependent secure storage.
+  platform::SecureStorage m_secureStorage;
 
   unique_ptr<base::TaskLoop> m_guiThread;
 
@@ -254,6 +258,7 @@ public:
   void SetupMeasurementSystem() const;
 
   MarketingService & GetMarketingService() { return m_marketingService; }
+  platform::SecureStorage & GetSecureStorage() { return m_secureStorage; }
 
   // Use this method for testing purposes only.
   void SetGuiThread(unique_ptr<base::TaskLoop> guiThread);
