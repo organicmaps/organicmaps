@@ -60,4 +60,5 @@ GCC_PRECOMPILE_PREFIX_HEADER = YES
 ONLY_ACTIVE_ARCH = YES
 OTHER_SWIFT_FLAGS = -Xfrontend -warn-long-function-bodies=400
 PRODUCT_NAME = $(TARGET_NAME)
-VALID_ARCHS = i386 x86_64 armv7 armv7s arm64
+VALID_ARCHS = arm64
+VALID_ARCHS[sdk=iphonesimulator*] = x86_64
