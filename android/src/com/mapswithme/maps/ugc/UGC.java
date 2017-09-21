@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -50,6 +51,20 @@ public class UGC implements Serializable
     return Collections.synchronizedList(Arrays.asList(mRatings));
   }
 
+  //TODO: remove it after core is ready.
+  @NonNull
+  public List<Rating> getUserRatings()
+  {
+    return new ArrayList<Rating>(){
+      {
+        add(new Rating("service", 8.3f));
+        add(new Rating("food", 3.4f));
+        add(new Rating("quality", 5.0f));
+        add(new Rating("cleaning", 7.9f));
+      }
+    };
+  }
+
   @Nullable
   public List<Review> getReviews()
   {
@@ -78,7 +93,7 @@ public class UGC implements Serializable
     private final String mName;
     private float mValue;
 
-    private Rating(@NonNull String name, float value)
+    Rating(@NonNull String name, float value)
     {
       mName = name;
       mValue = value;

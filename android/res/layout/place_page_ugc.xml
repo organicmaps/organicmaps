@@ -15,11 +15,11 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?cardBackground"
     android:orientation="vertical">
     <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:background="?cardBackground"
       android:paddingLeft="@dimen/margin_base"
       android:paddingStart="@dimen/margin_base"
       android:paddingRight="@dimen/margin_base"

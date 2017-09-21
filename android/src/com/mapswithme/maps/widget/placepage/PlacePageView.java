@@ -246,6 +246,8 @@ public class PlacePageView extends RelativeLayout
   private final UGCReviewAdapter mUGCReviewAdapter = new UGCReviewAdapter();
   @NonNull
   private final UGCRatingRecordsAdapter mUGCRatingRecordsAdapter = new UGCRatingRecordsAdapter();
+  @NonNull
+  private final UGCRatingRecordsAdapter mUGCUserRatingRecordsAdapter = new UGCRatingRecordsAdapter();
 
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
@@ -306,6 +308,7 @@ public class PlacePageView extends RelativeLayout
     if (ugc.getReviews() != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
     mUGCRatingRecordsAdapter.setItems(ugc.getRatings());
+    mUGCUserRatingRecordsAdapter.setItems(ugc.getUserRatings());
     UiUtils.show(mUgcView);
   }
 
@@ -686,7 +689,8 @@ public class PlacePageView extends RelativeLayout
     rvHotelReview.setHasFixedSize(false);
     rvHotelReview.setAdapter(mUGCReviewAdapter);
 
-    RecyclerView rvRatingRecords = (RecyclerView) findViewById(R.id.rv__summary_rating_records);
+    View summaryRatingContainer = findViewById(R.id.summary_rating_records);
+    RecyclerView rvRatingRecords = (RecyclerView) summaryRatingContainer.findViewById(R.id.rv__summary_rating_records);
     rvRatingRecords.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
     rvRatingRecords.getLayoutManager().setAutoMeasureEnabled(true);
     rvRatingRecords.setNestedScrollingEnabled(false);
@@ -694,6 +698,30 @@ public class PlacePageView extends RelativeLayout
     rvRatingRecords.addItemDecoration(
         ItemDecoratorFactory.createRatingRecordDecorator(getContext(), LinearLayoutManager.HORIZONTAL));
     rvRatingRecords.setAdapter(mUGCRatingRecordsAdapter);
+
+    View userReviewContainer = findViewById(R.id.user_rating_records);
+    RecyclerView rvUserRatingRecords = (RecyclerView) userReviewContainer.findViewById(R.id.rv__summary_rating_records);
+    rvUserRatingRecords.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+    rvUserRatingRecords.getLayoutManager().setAutoMeasureEnabled(true);
+    rvUserRatingRecords.setNestedScrollingEnabled(false);
+    rvUserRatingRecords.setHasFixedSize(false);
+    rvUserRatingRecords.addItemDecoration(
+        ItemDecoratorFactory.createRatingRecordDecorator(getContext(), LinearLayoutManager.HORIZONTAL));
+    rvUserRatingRecords.setAdapter(mUGCUserRatingRecordsAdapter);
+
+    View userComment = findViewById(R.id.rl_user_review);
+    TextView name = (TextView) userComment.findViewById(R.id.name);
+    TextView date = (TextView) userComment.findViewById(R.id.date);
+    TextView review = (TextView) userComment.findViewById(R.id.review);
+    //TODO: remove it after core is ready.
+    name.setText("Your review");
+    date.setText("10 May 2017");
+    review.setText("Go first thing in the morning when they open...You will get in right" +
+                   "away if you do..." +
+                   "" +
+                   "Amazing food...");
+    userComment.findViewById(R.id.rating).setVisibility(GONE);
+
   }
 
   private void initHotelRatingView()

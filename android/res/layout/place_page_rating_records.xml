@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?cardBackground"
+  android:orientation="vertical"
   tools:showIn="@layout/place_page_ugc">
   <View
     android:layout_width="match_parent"
@@ -24,4 +28,4 @@
     android:layout_width="match_parent"
     android:layout_height="1dp"
     android:background="?dividerHorizontal"/>
-</merge>
+</LinearLayout>

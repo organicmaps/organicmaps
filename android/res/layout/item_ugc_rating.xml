@@ -26,7 +26,7 @@
     android:id="@+id/rb__rate"
     style="@style/MwmWidget.RatingBar.Ugc"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="24dp"
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"
     android:numStars="5"
