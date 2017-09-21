@@ -19,7 +19,6 @@
 		34C624C41DABDB0400510300 /* traffic_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624C01DABDB0400510300 /* traffic_generator.hpp */; };
 		34C624C51DABDB0400510300 /* traffic_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34C624C11DABDB0400510300 /* traffic_renderer.cpp */; };
 		34C624C61DABDB0400510300 /* traffic_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624C21DABDB0400510300 /* traffic_renderer.hpp */; };
-		3D489BC51D3D21FC0052AA38 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D489BC41D3D21FC0052AA38 /* libdrape.a */; };
 		451A2A821EE8464E003E05A4 /* circles_pack_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451A2A801EE8464E003E05A4 /* circles_pack_shape.cpp */; };
 		451A2A831EE8464E003E05A4 /* circles_pack_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 451A2A811EE8464E003E05A4 /* circles_pack_shape.hpp */; };
 		452C9ED41CEDCF3200A55E57 /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC21CEDCF3200A55E57 /* animation.cpp */; };
@@ -217,7 +216,6 @@
 		34C624C01DABDB0400510300 /* traffic_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_generator.hpp; sourceTree = "<group>"; };
 		34C624C11DABDB0400510300 /* traffic_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_renderer.cpp; sourceTree = "<group>"; };
 		34C624C21DABDB0400510300 /* traffic_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_renderer.hpp; sourceTree = "<group>"; };
-		3D489BC41D3D21FC0052AA38 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		451A2A7E1EE8463F003E05A4 /* circle_point.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = circle_point.fsh.glsl; path = shaders/circle_point.fsh.glsl; sourceTree = "<group>"; };
 		451A2A7F1EE8463F003E05A4 /* circle_point.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = circle_point.vsh.glsl; path = shaders/circle_point.vsh.glsl; sourceTree = "<group>"; };
 		451A2A801EE8464E003E05A4 /* circles_pack_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = circles_pack_shape.cpp; sourceTree = "<group>"; };
@@ -471,7 +469,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D489BC51D3D21FC0052AA38 /* libdrape.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,7 +549,6 @@
 		670947311BDF9B82005014C0 = {
 			isa = PBXGroup;
 			children = (
-				3D489BC41D3D21FC0052AA38 /* libdrape.a */,
 				34AF87CB1DBE508400E5E7DC /* common-debug.xcconfig */,
 				34AF87CC1DBE508400E5E7DC /* common-release.xcconfig */,
 				670947411BDF9B99005014C0 /* drape_frontend */,

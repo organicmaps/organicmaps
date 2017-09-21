@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B26DB2F6C5B4675C4BB11143C1085C05FBADA703",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "DBA6F8B12B84878540F44342C4772AC004D85ABD" : 9223372036854775807,
+    "B26DB2F6C5B4675C4BB11143C1085C05FBADA703" : 9223372036854775807,
+    "831A82967244E288C124F36CE35B6FD37374E6F8" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "4D9481CD-9A83-4BD5-9098-7CC956604DCF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "DBA6F8B12B84878540F44342C4772AC004D85ABD" : "omim\/3party\/protobuf\/protobuf\/",
+    "B26DB2F6C5B4675C4BB11143C1085C05FBADA703" : "omim\/",
+    "831A82967244E288C124F36CE35B6FD37374E6F8" : "omim\/3party\/Alohalytics\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "omim",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "xcode\/omim.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/github.com\/mapsme\/Alohalytics.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "831A82967244E288C124F36CE35B6FD37374E6F8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mapsme\/omim.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B26DB2F6C5B4675C4BB11143C1085C05FBADA703"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/github.com\/mapsme\/protobuf.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DBA6F8B12B84878540F44342C4772AC004D85ABD"
+    }
+  ]
+}
