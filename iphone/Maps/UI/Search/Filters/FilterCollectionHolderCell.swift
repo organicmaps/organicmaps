@@ -1,6 +1,5 @@
 @objc(MWMFilterCollectionHolderCell)
 final class FilterCollectionHolderCell: MWMTableViewCell {
-
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet private weak var collectionViewHeight: NSLayoutConstraint!
   private weak var tableView: UITableView?
@@ -22,7 +21,7 @@ final class FilterCollectionHolderCell: MWMTableViewCell {
     collectionViewHeight.constant = collectionView.contentSize.height
   }
 
-  func config(tableView: UITableView?) {
+  @objc func config(tableView: UITableView?) {
     layout()
     collectionView.allowsMultipleSelection = true
     isSeparatorHidden = true

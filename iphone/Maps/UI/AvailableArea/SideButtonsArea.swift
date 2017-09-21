@@ -17,7 +17,7 @@ final class SideButtonsArea: AvailableArea {
 }
 
 extension UIView {
-  var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
+  @objc var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
 
   var sideButtonsAreaAffectView: UIView { return self }
 }

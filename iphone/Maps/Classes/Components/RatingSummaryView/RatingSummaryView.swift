@@ -293,7 +293,7 @@ import UIKit
   private func createTextLayer() -> CALayer {
     let font = textFont.withSize(textSize)
     let text = String(format: "%.1f", value)
-    let size = NSString(string: text).size(attributes: [NSFontAttributeName: font])
+    let size = NSString(string: text).size(withAttributes: [NSAttributedStringKey.font: font])
 
     let layer = CATextLayer()
     layer.bounds = CGRect(origin: CGPoint(),

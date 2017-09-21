@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIView {
-  var snapshot: UIView {
+  @objc var snapshot: UIView {
     guard let contents = layer.contents else {
       return snapshotView(afterScreenUpdates: true)!
     }

@@ -3,7 +3,7 @@ final class DimBackground: SolidTouchView {
   private let mainView: UIView
   private var tapAction: (() -> Void)!
 
-  init(mainView: UIView) {
+  @objc init(mainView: UIView) {
     self.mainView = mainView
     super.init(frame: mainView.superview!.bounds)
     backgroundColor = UIColor.fadeBackground()
@@ -15,8 +15,7 @@ final class DimBackground: SolidTouchView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  @objc
-  func setVisible(_ visible: Bool, tapAction: @escaping () -> Void) {
+  @objc func setVisible(_ visible: Bool, tapAction: @escaping () -> Void) {
     self.tapAction = tapAction
 
     if visible {

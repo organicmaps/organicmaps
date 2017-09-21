@@ -401,7 +401,7 @@ import UIKit
 
   private func createStarLayers() -> [CALayer] {
     var ratingRemainder = value
-    var starLayers: [CALayer] = (0..<settings.starsCount).map { _ in
+    var starLayers: [CALayer] = (0 ..< settings.starsCount).map { _ in
       let fillLevel = starFillLevel(ratingRemainder: ratingRemainder)
       let layer = createCompositeStarLayer(fillLevel: fillLevel)
       ratingRemainder -= 1
@@ -426,7 +426,7 @@ import UIKit
     var layers: [RatingViewSettings.TextSide: CALayer] = [:]
     for (side, text) in texts {
       let font = settings.textFonts[side]!.withSize(settings.textSizes[side]!)
-      let size = NSString(string: text).size(attributes: [NSFontAttributeName: font])
+      let size = NSString(string: text).size(withAttributes: [NSAttributedStringKey.font: font])
 
       let layer = CATextLayer()
       layer.bounds = CGRect(origin: CGPoint(),
@@ -564,7 +564,7 @@ import UIKit
       path = UIBezierPath(roundedRect: CGRect(origin: CGPoint(), size: CGSize(width: size, height: size)), cornerRadius: size / 4)
     }
     path.move(to: points.first!)
-    points[1..<points.count].forEach { path.addLine(to: $0) }
+    points[1 ..< points.count].forEach { path.addLine(to: $0) }
     path.close()
 
     return path

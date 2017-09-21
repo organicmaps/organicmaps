@@ -2,7 +2,7 @@ import UIKit
 
 @objc(MWMPhotosViewController)
 final class PhotosViewController: MWMViewController {
-  var referenceViewForPhotoWhenDismissingHandler: ((GalleryItemModel) -> UIView?)?
+  @objc var referenceViewForPhotoWhenDismissingHandler: ((GalleryItemModel) -> UIView?)?
 
   private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewControllerOptionInterPageSpacingKey: 16.0])
   private(set) var photos: GalleryModel
@@ -30,7 +30,7 @@ final class PhotosViewController: MWMViewController {
     return currentPhotoViewController?.photo
   }
 
-  init(photos: GalleryModel, initialPhoto: GalleryItemModel? = nil, referenceView: UIView? = nil) {
+  @objc init(photos: GalleryModel, initialPhoto: GalleryItemModel? = nil, referenceView: UIView? = nil) {
     self.photos = photos
     super.init(nibName: nil, bundle: nil)
     initialSetupWithInitialPhoto(initialPhoto)

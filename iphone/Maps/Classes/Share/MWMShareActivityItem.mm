@@ -85,12 +85,13 @@ NSString * httpGe0Url(NSString * shortUrl)
          itemForActivityType:(NSString *)activityType
 {
   NSString * event = @"MWMShareLocationActivityItem:activityViewController:itemForActivityType:";
+  NSString * type = activityType;
   [Statistics logEvent:kStatEventName(kStatShare, kStatLocation)
-        withParameters:@{kStatAction : activityType}];
-  [Alohalytics logEvent:event withValue:activityType];
-  if ([UIActivityTypePostToTwitter isEqualToString:activityType])
+        withParameters:@{kStatAction : type}];
+  [Alohalytics logEvent:event withValue:type];
+  if ([UIActivityTypePostToTwitter isEqualToString:type])
     return self.itemForTwitter;
-  return [self itemDefaultWithActivityType:activityType];
+  return [self itemDefaultWithActivityType:type];
 }
 
 - (NSString *)activityViewController:(UIActivityViewController *)activityViewController
@@ -136,7 +137,7 @@ NSString * httpGe0Url(NSString * shortUrl)
     strings.push_back(self.object.sponsoredDescriptionURL.absoluteString);
   }
 
-  for (auto const str : strings)
+  for (auto const & str : strings)
   {
     if (str.length)
       [result appendString:[NSString stringWithFormat:@"\n%@", str]];

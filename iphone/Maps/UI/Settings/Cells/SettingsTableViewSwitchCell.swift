@@ -1,10 +1,10 @@
-@objc protocol SettingsTableViewSwitchCellDelegate {
-
+@objc
+protocol SettingsTableViewSwitchCellDelegate {
   func switchCell(_ cell: SettingsTableViewSwitchCell, didChangeValue value: Bool)
 }
 
-@objc final class SettingsTableViewSwitchCell: MWMTableViewCell {
-
+@objc
+final class SettingsTableViewSwitchCell: MWMTableViewCell {
   @IBOutlet fileprivate weak var title: UILabel!
   @IBOutlet fileprivate weak var switchButton: UISwitch! {
     didSet {
@@ -14,7 +14,7 @@
 
   weak var delegate: SettingsTableViewSwitchCellDelegate?
 
-  func config(delegate: SettingsTableViewSwitchCellDelegate, title: String, isOn: Bool) {
+  @objc func config(delegate: SettingsTableViewSwitchCellDelegate, title: String, isOn: Bool) {
     backgroundColor = UIColor.white()
 
     self.delegate = delegate

@@ -7,7 +7,7 @@ final class RouteManagerTransitioningManager: NSObject, UIViewControllerTransiti
     super.init()
   }
 
-  init(popoverSourceView: UIView, permittedArrowDirections: UIPopoverArrowDirection) {
+  @objc init(popoverSourceView: UIView, permittedArrowDirections: UIPopoverArrowDirection) {
     self.popoverSourceView = popoverSourceView
     self.permittedArrowDirections = permittedArrowDirections
     super.init()

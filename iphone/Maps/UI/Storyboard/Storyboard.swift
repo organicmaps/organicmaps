@@ -12,8 +12,7 @@ enum Storyboard: Int {
 }
 
 extension UIStoryboard {
-
-  static func instance(_ id: Storyboard) -> UIStoryboard {
+  @objc static func instance(_ id: Storyboard) -> UIStoryboard {
     let name: String
     switch id {
     case .authorization: name = "Authorization"

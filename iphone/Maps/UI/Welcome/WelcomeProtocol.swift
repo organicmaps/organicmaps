@@ -39,7 +39,7 @@ extension WelcomeProtocolBase {
     let size = pageController.view!.size
     let (width, height) = (size.width, size.height)
     let hideImage = (imageHeight.multiplier * height <= imageMinHeight.constant)
-    titleImageOffset.priority = hideImage ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh
+    titleImageOffset.priority = hideImage ? UILayoutPriority.defaultLow : UILayoutPriority.defaultHigh
     image.isHidden = hideImage
     containerWidth.constant = width
     containerHeight.constant = height

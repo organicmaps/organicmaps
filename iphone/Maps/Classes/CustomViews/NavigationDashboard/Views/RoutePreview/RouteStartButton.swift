@@ -1,16 +1,16 @@
 @objc(MWMRouteStartButton)
 final class RouteStartButton: UIButton {
-  func statePrepare() {
+  @objc func statePrepare() {
     isHidden = false
     isEnabled = false
   }
 
-  func stateError() {
+  @objc func stateError() {
     isHidden = alternative(iPhone: true, iPad: false)
     isEnabled = false
   }
 
-  func stateReady() {
+  @objc func stateReady() {
     isHidden = false
     isEnabled = true
   }

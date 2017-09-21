@@ -5,15 +5,15 @@ final class BorderedButton: UIButton {
   private var borderHighlightedColor: UIColor?
   private var borderDisabledColor: UIColor?
 
-  func setBorderColor(_ color: UIColor) {
+  @objc func setBorderColor(_ color: UIColor) {
     borderColor = color
   }
 
-  func setBorderHighlightedColor(_ color: UIColor) {
+  @objc func setBorderHighlightedColor(_ color: UIColor) {
     borderHighlightedColor = color
   }
 
-  func setBorderDisabledColor(_ color: UIColor) {
+  @objc func setBorderDisabledColor(_ color: UIColor) {
     borderDisabledColor = color
   }
 

@@ -270,7 +270,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
 
   auto & f = GetFramework();
   auto const & featureID = m_mapObject.GetID();
-  NSDictionary<NSString *, NSString *> * info = @{
+  NSDictionary * info = @{
     kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
     kStatEditorMWMVersion : @(featureID.GetMwmVersion())
   };

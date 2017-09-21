@@ -8,6 +8,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
       title.textColor = UIColor.blackPrimaryText()
     }
   }
+
   @IBOutlet private weak var info: UILabel! {
     didSet {
       info.font = UIFont.regular14()
@@ -15,7 +16,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
     }
   }
 
-  func config(type: MWMRoutePreviewTaxiCellType, title: String, eta: String, price: String, currency: String) {
+  @objc func config(type: MWMRoutePreviewTaxiCellType, title: String, eta: String, price: String, currency: String) {
     let iconImage = { () -> UIImage in
       switch type {
       case .taxi: return #imageLiteral(resourceName: "icTaxiTaxi")

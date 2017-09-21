@@ -7,20 +7,22 @@ final class NavigationAddPointToastView: UIView {
       actionButton.titleLabel?.font = UIFont.regular16()
     }
   }
+
   @IBOutlet private var locationButton: UIButton! {
     didSet {
       locationButton.tintColor = UIColor.linkBlue()
     }
   }
+
   @IBOutlet private var separator: UIView! {
     didSet {
       separator.backgroundColor = UIColor.blackDividers()
     }
   }
 
-  private(set) var isStart = true
+  @objc private(set) var isStart = true
 
-  func config(isStart: Bool, withLocationButton: Bool) {
+  @objc func config(isStart: Bool, withLocationButton: Bool) {
     self.isStart = isStart
     let text = isStart ? L("routing_add_start_point") : L("routing_add_finish_point")
     actionButton.setTitle(text, for: .normal)

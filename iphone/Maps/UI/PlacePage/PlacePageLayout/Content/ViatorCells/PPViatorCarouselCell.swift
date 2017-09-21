@@ -23,7 +23,7 @@ final class PPViatorCarouselCell: MWMTableViewCell {
 
   fileprivate var statisticsParameters: [AnyHashable: Any] { return [kStatProvider: kStatViator] }
 
-  func config(with ds: [ViatorItemModel], delegate d: MWMPlacePageButtonsProtocol?) {
+  @objc func config(with ds: [ViatorItemModel], delegate d: MWMPlacePageButtonsProtocol?) {
     if ds.isEmpty {
       Statistics.logEvent(kStatPlacepageSponsoredError, withParameters: statisticsParameters)
     }

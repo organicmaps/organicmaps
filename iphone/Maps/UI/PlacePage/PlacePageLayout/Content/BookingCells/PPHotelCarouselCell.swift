@@ -16,7 +16,7 @@ final class PPHotelCarouselCell: MWMTableViewCell {
   fileprivate let kMaximumNumberOfPhotos = 5
   fileprivate weak var delegate: MWMPlacePageButtonsProtocol?
 
-  func config(with ds: [GalleryItemModel], delegate d: MWMPlacePageButtonsProtocol?) {
+  @objc func config(with ds: [GalleryItemModel], delegate d: MWMPlacePageButtonsProtocol?) {
     dataSource = ds
     delegate = d
     collectionView.contentOffset = .zero

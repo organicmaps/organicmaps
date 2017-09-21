@@ -3,7 +3,7 @@ final class GalleryViewController: MWMCollectionViewController {
   typealias Cell = GalleryCell
   typealias Model = GalleryModel
 
-  static func instance(model: Model) -> GalleryViewController {
+  @objc static func instance(model: Model) -> GalleryViewController {
     let vc = GalleryViewController(nibName: toString(self), bundle: nil)
     vc.model = model
     return vc

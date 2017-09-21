@@ -37,7 +37,7 @@ final class RoutePreviewStatus: SolidTouchView {
   @IBOutlet private var heightBoxBottomManageRouteBoxTop: NSLayoutConstraint!
 
   private var hiddenConstraint: NSLayoutConstraint!
-  weak var ownerView: UIView!
+  @objc weak var ownerView: UIView!
 
   weak var navigationInfo: MWMNavigationDashboardEntity?
 
@@ -81,11 +81,11 @@ final class RoutePreviewStatus: SolidTouchView {
     NSLayoutConstraint(item: self, attribute: .right, relatedBy: .equal, toItem: ownerView, attribute: .right, multiplier: 1, constant: 0).isActive = true
 
     hiddenConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: ownerView, attribute: .bottom, multiplier: 1, constant: 0)
-    hiddenConstraint.priority = UILayoutPriorityDefaultHigh
+    hiddenConstraint.priority = UILayoutPriority.defaultHigh
     hiddenConstraint.isActive = true
 
     let visibleConstraint = NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: ownerView, attribute: .bottom, multiplier: 1, constant: 0)
-    visibleConstraint.priority = UILayoutPriorityDefaultLow
+    visibleConstraint.priority = UILayoutPriority.defaultLow
     visibleConstraint.isActive = true
   }
 
@@ -120,15 +120,15 @@ final class RoutePreviewStatus: SolidTouchView {
     manageRouteButtonCompact?.isHidden = !isCompact
   }
 
-  func stateHidden() {
+  @objc func stateHidden() {
     isVisible = false
   }
 
-  func statePrepare() {
+  @objc func statePrepare() {
     isVisible = false
   }
 
-  func stateError(message: String) {
+  @objc func stateError(message: String) {
     isVisible = true
     errorBox.isHidden = false
     resultsBox.isHidden = true
@@ -141,7 +141,7 @@ final class RoutePreviewStatus: SolidTouchView {
     updateHeight()
   }
 
-  func stateReady() {
+  @objc func stateReady() {
     isVisible = true
     errorBox.isHidden = true
 
@@ -159,10 +159,11 @@ final class RoutePreviewStatus: SolidTouchView {
                                      completion: { image, elevation in
                                        self.heightProfileImage.image = image
                                        if let elevation = elevation {
-                                         let attributes: [String: Any] = [
-                                           NSForegroundColorAttributeName: UIColor.linkBlue(),
-                                           NSFontAttributeName: UIFont.medium14(),
-                                         ]
+                                         let attributes: [NSAttributedStringKey: Any] =
+                                           [
+                                             NSAttributedStringKey.foregroundColor: UIColor.linkBlue(),
+                                             NSAttributedStringKey.font: UIFont.medium14(),
+                                           ]
                                          self.elevation = NSAttributedString(string: "▲▼ \(elevation)", attributes: attributes)
                                        }
         })
@@ -174,7 +175,7 @@ final class RoutePreviewStatus: SolidTouchView {
     updateHeight()
   }
 
-  func stateNavigation() {
+  @objc func stateNavigation() {
     isVisible = false
   }
 
@@ -192,7 +193,7 @@ final class RoutePreviewStatus: SolidTouchView {
     iPad: { info.estimate })()
   }
 
-  func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
+  @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
     navigationInfo = info
     updateResultsLabel()
     arriveLabel?.text = String(coreFormat: L("routing_arrive"), arguments: [info.arrival])

@@ -1,6 +1,5 @@
 @objc(MWMPlacePageTaxiCell)
 final class PlacePageTaxiCell: MWMTableViewCell {
-
   @IBOutlet private weak var icon: UIImageView!
   @IBOutlet private weak var title: UILabel! {
     didSet {
@@ -8,6 +7,7 @@ final class PlacePageTaxiCell: MWMTableViewCell {
       title.textColor = UIColor.blackPrimaryText()
     }
   }
+
   @IBOutlet private weak var orderButton: UIButton! {
     didSet {
       let l = orderButton.layer
@@ -24,7 +24,7 @@ final class PlacePageTaxiCell: MWMTableViewCell {
   private weak var delegate: MWMPlacePageButtonsProtocol!
   private var type: MWMPlacePageTaxiProvider!
 
-  func config(type: MWMPlacePageTaxiProvider, delegate: MWMPlacePageButtonsProtocol) {
+  @objc func config(type: MWMPlacePageTaxiProvider, delegate: MWMPlacePageButtonsProtocol) {
     self.delegate = delegate
     self.type = type
     switch type {

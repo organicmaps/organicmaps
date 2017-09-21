@@ -1,4 +1,4 @@
-typedef void (^MWMVoidBlock)();
+typedef void (^MWMVoidBlock)(void);
 typedef void (^MWMStringBlock)(NSString *);
 typedef void (^MWMURLBlock)(NSURL *);
 

@@ -39,13 +39,13 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     DimBackground(mainView: self)
   }()
 
-  weak var ownerView: UIView!
+  @objc weak var ownerView: UIView!
 
   private weak var navigationInfo: MWMNavigationDashboardEntity?
 
   private var hiddenConstraint: NSLayoutConstraint!
   private var extendedConstraint: NSLayoutConstraint!
-  var isVisible = false {
+  @objc var isVisible = false {
     didSet {
       guard isVisible != oldValue else { return }
       if isVisible {
@@ -94,15 +94,15 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     NSLayoutConstraint(item: self, attribute: .right, relatedBy: .equal, toItem: ownerView, attribute: .right, multiplier: 1, constant: 0).isActive = true
 
     hiddenConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: ownerView, attribute: .bottom, multiplier: 1, constant: 0)
-    hiddenConstraint.priority = UILayoutPriorityDefaultHigh
+    hiddenConstraint.priority = UILayoutPriority.defaultHigh
     hiddenConstraint.isActive = true
 
     let visibleConstraint = NSLayoutConstraint(item: progressView, attribute: .bottom, relatedBy: .equal, toItem: ownerView, attribute: .bottom, multiplier: 1, constant: 0)
-    visibleConstraint.priority = UILayoutPriorityDefaultLow
+    visibleConstraint.priority = UILayoutPriority.defaultLow
     visibleConstraint.isActive = true
 
     extendedConstraint = NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: ownerView, attribute: .bottom, multiplier: 1, constant: 0)
-    extendedConstraint.priority = UILayoutPriorityDefaultHigh - 1
+    extendedConstraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(Int(UILayoutPriority.defaultHigh.rawValue) - 1))
   }
 
   override func mwm_refreshUI() {
@@ -133,14 +133,20 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     timePageControl.transform = CGAffineTransform(scaleX: pgScale, y: pgScale)
   }
 
-  func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
+  @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
     navigationInfo = info
     guard !MWMRouter.isTaxi() else { return }
 
-    let routingNumberAttributes: [String: Any] =
-      [NSForegroundColorAttributeName: UIColor.blackPrimaryText(), NSFontAttributeName: UIFont.bold24()]
-    let routingLegendAttributes: [String: Any] =
-      [NSForegroundColorAttributeName: UIColor.blackSecondaryText(), NSFontAttributeName: UIFont.bold14()]
+    let routingNumberAttributes: [NSAttributedStringKey: Any] =
+      [
+        NSAttributedStringKey.foregroundColor: UIColor.blackPrimaryText(),
+        NSAttributedStringKey.font: UIFont.bold24(),
+      ]
+    let routingLegendAttributes: [NSAttributedStringKey: Any] =
+      [
+        NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText(),
+        NSAttributedStringKey.font: UIFont.bold14(),
+      ]
 
     if timePageControl.currentPage == 0 {
       timeLabel.text = info.eta

@@ -15,7 +15,7 @@ final class VisibleArea: AvailableArea {
 }
 
 extension UIView {
-  var visibleAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
+  @objc var visibleAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
 
   var visibleAreaAffectView: UIView { return self }
 }

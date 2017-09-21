@@ -3,7 +3,7 @@ import MyTrackerSDK
 
 @objc(MWMBannersCache)
 final class BannersCache: NSObject {
-  static let cache = BannersCache()
+  @objc static let cache = BannersCache()
   private override init() {}
 
   private enum LoadState {
@@ -43,7 +43,7 @@ final class BannersCache: NSObject {
     }
   }
 
-  func get(coreBanners: [CoreBanner], cacheOnly: Bool, loadNew: Bool = true, completion: @escaping Completion) {
+  @objc func get(coreBanners: [CoreBanner], cacheOnly: Bool, loadNew: Bool = true, completion: @escaping Completion) {
     self.completion = completion
     self.cacheOnly = cacheOnly
     loadStates = coreBanners.map { coreBanner in
@@ -110,7 +110,7 @@ final class BannersCache: NSObject {
     onCompletion(isAsync: true)
   }
 
-  func bannerIsOutOfScreen(coreBanner: MWMBanner) {
+  @objc func bannerIsOutOfScreen(coreBanner: MWMBanner) {
     bannerIsOutOfScreen(bannerType: BannerType(type: coreBanner.mwmType, id: coreBanner.bannerID))
   }
 

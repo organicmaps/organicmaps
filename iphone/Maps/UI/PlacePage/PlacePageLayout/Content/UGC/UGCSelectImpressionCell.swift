@@ -3,7 +3,7 @@ final class UGCSelectImpressionCell: MWMTableViewCell {
   @IBOutlet private var buttons: [UIButton]!
   private weak var delegate: MWMPlacePageButtonsProtocol?
 
-  func configWith(delegate: MWMPlacePageButtonsProtocol?) {
+  @objc func configWith(delegate: MWMPlacePageButtonsProtocol?) {
     self.delegate = delegate
   }
 

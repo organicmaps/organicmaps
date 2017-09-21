@@ -43,11 +43,11 @@ final class ThemeManager: NSObject {
     }
   }
 
-  static func invalidate() {
+  @objc static func invalidate() {
     instance.update(theme: MWMSettings.theme())
   }
 
-  static var autoUpdates: Bool {
+  @objc static var autoUpdates: Bool {
     get {
       return instance.timer != nil
     }

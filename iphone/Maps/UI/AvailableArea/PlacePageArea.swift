@@ -15,7 +15,7 @@ final class PlacePageArea: AvailableArea {
 }
 
 extension UIView {
-  var placePageAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
+  @objc var placePageAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
 
   var placePageAreaAffectView: UIView { return self }
 }

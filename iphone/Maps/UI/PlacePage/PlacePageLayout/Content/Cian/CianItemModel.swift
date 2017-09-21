@@ -5,7 +5,7 @@ final class CianItemModel: NSObject {
   let pageURL: URL
   let address: String
 
-  init(roomsCount: UInt, priceRur: UInt, pageURL: URL, address: String) {
+  @objc init(roomsCount: UInt, priceRur: UInt, pageURL: URL, address: String) {
     self.roomsCount = roomsCount
     self.priceRur = priceRur
     self.pageURL = pageURL

@@ -88,7 +88,7 @@ class AvailableArea: UIView {
 
   func isAreaAffectingView(_: UIView) -> Bool { return false }
   func addAffectingView(_: UIView) {}
-  func notifyObserver() {}
+  @objc func notifyObserver() {}
 }
 
 extension MWMAvailableAreaAffectDirections: Hashable {

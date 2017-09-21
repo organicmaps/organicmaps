@@ -32,8 +32,36 @@ final class PhotosInteractionAnimator: NSObject {
     }
   }
 
+  private func finalBackgroundAlpha(isDismissing: Bool) -> CGFloat {
+    return isDismissing ? 0 : 1
+  }
+
+  fileprivate func panEstimation(_ isDismissing: Bool, _ fromViewMidY: CGFloat, _ modifier: CGFloat, _ fromViewHeight: CGFloat, _ fromViewCenterX: CGFloat, _ viewToPanCenterY: CGFloat, _ velocityY: CGFloat, _ anchorPoint: CGPoint) -> (CGPoint, TimeInterval) {
+    let finalPageViewCenterPoint: CGPoint
+    let animationDuration: TimeInterval
+
+    if isDismissing {
+      let finalCenterY = fromViewMidY + modifier * fromViewHeight
+      finalPageViewCenterPoint = CGPoint(x: fromViewCenterX, y: finalCenterY)
+
+      let duration = TimeInterval(abs((finalPageViewCenterPoint.y - viewToPanCenterY) / velocityY))
+      animationDuration = min(duration, Settings.panDismissMaximumDuration)
+    } else {
+      finalPageViewCenterPoint = anchorPoint
+      animationDuration = TimeInterval(abs(velocityY) * Settings.returnToCenterVelocityAnimationRatio) + kDefaultAnimationDuration
+    }
+
+    return (finalPageViewCenterPoint, animationDuration)
+  }
+
   private func finishPanWith(transitionContext: UIViewControllerContextTransitioning, velocityY: CGFloat, verticalDelta: CGFloat, viewToPan: UIView, fromView: UIView, anchorPoint: CGPoint) {
-    let dismissDistance = Settings.panDismissDistanceRatio * fromView.bounds.height
+    let fromViewHeight = fromView.bounds.height
+    let fromViewMidY = fromView.bounds.midY
+    let fromViewCenterX = fromView.center.x
+    let viewToPanCenterY = viewToPan.center.y
+    let modifier: CGFloat = verticalDelta.sign == .plus ? 1 : -1
+
+    let dismissDistance = Settings.panDismissDistanceRatio * fromViewHeight
     let isDismissing = abs(verticalDelta) > dismissDistance
 
     if isDismissing, shouldAnimateUsingAnimator, let animator = animator {
@@ -42,24 +70,8 @@ final class PhotosInteractionAnimator: NSObject {
       return
     }
 
-    let finalPageViewCenterPoint: CGPoint
-    let animationDuration: TimeInterval
-    let finalBackgroundAlpha: CGFloat
-
-    if isDismissing {
-      let modifier: CGFloat = verticalDelta.sign == .plus ? 1 : -1
-      let finalCenterY = fromView.bounds.midY + modifier * fromView.bounds.height
-      finalPageViewCenterPoint = CGPoint(x: fromView.center.x, y: finalCenterY)
-
-      let duration = TimeInterval(abs(finalPageViewCenterPoint.y - viewToPan.center.y) / abs(velocityY))
-      animationDuration = min(duration, Settings.panDismissMaximumDuration)
-      finalBackgroundAlpha = 0.0
-    } else {
-      finalPageViewCenterPoint = anchorPoint
-      animationDuration = TimeInterval(abs(velocityY) * Settings.returnToCenterVelocityAnimationRatio) + kDefaultAnimationDuration
-      finalBackgroundAlpha = 1.0
-    }
-    let finalBackgroundColor = fromView.backgroundColor?.withAlphaComponent(finalBackgroundAlpha)
+    let (finalPageViewCenterPoint, animationDuration) = panEstimation(isDismissing, fromViewMidY, modifier, fromViewHeight, fromViewCenterX, viewToPanCenterY, velocityY, anchorPoint)
+    let finalBackgroundColor = fromView.backgroundColor?.withAlphaComponent(finalBackgroundAlpha(isDismissing: isDismissing))
     finishPanWithoutAnimator(duration: animationDuration,
                              viewToPan: viewToPan,
                              fromView: fromView,

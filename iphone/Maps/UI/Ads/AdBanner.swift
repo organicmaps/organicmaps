@@ -12,14 +12,14 @@ enum AdBannerState: Int {
     switch self {
     case .unset:
       assert(false)
-      return (priority: 0, numberOfTitleLines: 0, numberOfBodyLines: 0)
+      return (priority: UILayoutPriority(rawValue: 0), numberOfTitleLines: 0, numberOfBodyLines: 0)
     case .compact:
-      return alternative(iPhone: (priority: UILayoutPriorityDefaultLow, numberOfTitleLines: 1, numberOfBodyLines: 2),
-                         iPad: (priority: UILayoutPriorityDefaultHigh, numberOfTitleLines: 0, numberOfBodyLines: 0))
+      return alternative(iPhone: (priority: UILayoutPriority.defaultLow, numberOfTitleLines: 1, numberOfBodyLines: 2),
+                         iPad: (priority: UILayoutPriority.defaultHigh, numberOfTitleLines: 0, numberOfBodyLines: 0))
     case .search:
-      return (priority: UILayoutPriorityDefaultLow, numberOfTitleLines: 2, numberOfBodyLines: 0)
+      return (priority: UILayoutPriority.defaultLow, numberOfTitleLines: 2, numberOfBodyLines: 0)
     case .detailed:
-      return (priority: UILayoutPriorityDefaultHigh, numberOfTitleLines: 0, numberOfBodyLines: 0)
+      return (priority: UILayoutPriority.defaultHigh, numberOfTitleLines: 0, numberOfBodyLines: 0)
     }
   }
 }
@@ -41,9 +41,9 @@ final class AdBanner: UITableViewCell {
   @IBOutlet private weak var adCallToActionButtonDetailed: UIButton!
   @IBOutlet private weak var adCallToActionButtonCustom: UIButton!
   @IBOutlet private weak var adPrivacyButton: UIButton!
-  static let detailedBannerExcessHeight: Float = 36
+  @objc static let detailedBannerExcessHeight: Float = 36
 
-  var state = AdBannerState.unset {
+  @objc var state = AdBannerState.unset {
     didSet {
       guard state != .unset else {
         adPrivacyButton.isHidden = true
@@ -63,7 +63,7 @@ final class AdBanner: UITableViewCell {
     }
   }
 
-  weak var mpNativeAd: MPNativeAd?
+  @objc weak var mpNativeAd: MPNativeAd?
 
   override func prepareForReuse() {
     adIconImageView.af_cancelImageRequest()
@@ -86,7 +86,7 @@ final class AdBanner: UITableViewCell {
     state = .unset
   }
 
-  func config(ad: MWMBanner, containerType: AdBannerContainerType) {
+  @objc func config(ad: MWMBanner, containerType: AdBannerContainerType) {
     reset()
     switch containerType {
     case .placePage:
@@ -110,7 +110,7 @@ final class AdBanner: UITableViewCell {
     }
   }
 
-  func highlightButton() {
+  @objc func highlightButton() {
     adCallToActionButtonDetailed.setBackgroundImage(nil, for: .normal)
     adCallToActionButtonCompact.setBackgroundImage(nil, for: .normal)
 
@@ -150,9 +150,9 @@ final class AdBanner: UITableViewCell {
     paragraphStyle.lineBreakMode = .byTruncatingTail
     let adTitle = NSAttributedString(string: ad.title ?? "",
                                      attributes: [
-                                       NSParagraphStyleAttributeName: paragraphStyle,
-                                       NSFontAttributeName: UIFont.bold12(),
-                                       NSForegroundColorAttributeName: UIColor.blackSecondaryText(),
+                                       NSAttributedStringKey.paragraphStyle: paragraphStyle,
+                                       NSAttributedStringKey.font: UIFont.bold12(),
+                                       NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText(),
     ])
     adTitleLabel.attributedText = adTitle
     adBodyLabel.text = ad.body ?? ""
@@ -172,9 +172,9 @@ final class AdBanner: UITableViewCell {
     paragraphStyle.lineBreakMode = .byTruncatingTail
     let adTitle = NSAttributedString(string: banner.title ?? "",
                                      attributes: [
-                                       NSParagraphStyleAttributeName: paragraphStyle,
-                                       NSFontAttributeName: UIFont.bold12(),
-                                       NSForegroundColorAttributeName: UIColor.blackSecondaryText(),
+                                       NSAttributedStringKey.paragraphStyle: paragraphStyle,
+                                       NSAttributedStringKey.font: UIFont.bold12(),
+                                       NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText(),
     ])
     adTitleLabel.attributedText = adTitle
     adBodyLabel.text = banner.descriptionText ?? ""
@@ -204,9 +204,9 @@ final class AdBanner: UITableViewCell {
     paragraphStyle.lineBreakMode = .byTruncatingTail
     let adTitle = NSAttributedString(string: ad.title,
                                      attributes: [
-                                       NSParagraphStyleAttributeName: paragraphStyle,
-                                       NSFontAttributeName: UIFont.bold12(),
-                                       NSForegroundColorAttributeName: UIColor.blackSecondaryText(),
+                                       NSAttributedStringKey.paragraphStyle: paragraphStyle,
+                                       NSAttributedStringKey.font: UIFont.bold12(),
+                                       NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText(),
     ])
     adTitleLabel.attributedText = adTitle
     adBodyLabel.text = ad.text

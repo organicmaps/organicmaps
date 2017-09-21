@@ -10,7 +10,7 @@ final class UGCSpecificReviewCell: MWMTableViewCell {
   private var indexPath: NSIndexPath = NSIndexPath()
   private var delegate: UGCSpecificReviewDelegate?
 
-  func configWith(specification: String, rate: Int, atIndexPath: NSIndexPath, delegate: UGCSpecificReviewDelegate?) {
+  @objc func configWith(specification: String, rate: Int, atIndexPath: NSIndexPath, delegate: UGCSpecificReviewDelegate?) {
     self.specification.text = specification
     self.delegate = delegate
     indexPath = atIndexPath

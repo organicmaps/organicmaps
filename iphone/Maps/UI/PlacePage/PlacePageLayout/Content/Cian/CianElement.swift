@@ -138,13 +138,13 @@ final class CianElement: UICollectionViewCell {
   private func configPending() {
     isSpinning = true
     details.setTitle(L("preloader_cian_button"), for: .normal)
-    pendingTitleTopOffset.priority = UILayoutPriorityDefaultLow
+    pendingTitleTopOffset.priority = UILayoutPriority.defaultLow
   }
 
   private func configError() {
     isSpinning = false
     details.setTitle(L("preloader_cian_button"), for: .normal)
-    pendingTitleTopOffset.priority = UILayoutPriorityDefaultHigh
+    pendingTitleTopOffset.priority = UILayoutPriority.defaultHigh
   }
 
   private func configOffer(model: CianItemModel?) {

@@ -15,7 +15,7 @@ final class MenuArea: AvailableArea {
 }
 
 extension UIView {
-  var menuAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
+  @objc var menuAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
 
   var menuAreaAffectView: UIView { return self }
 }

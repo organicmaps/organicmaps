@@ -905,7 +905,9 @@ using namespace osm_auth_ios;
 - (void)setStandbyCounter:(NSInteger)standbyCounter
 {
   _standbyCounter = MAX(0, standbyCounter);
-  UIApplication.sharedApplication.idleTimerDisabled = (_standbyCounter != 0);
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [UIApplication sharedApplication].idleTimerDisabled = (self.standbyCounter != 0);
+  });
 }
 
 #pragma mark - Alert logic

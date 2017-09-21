@@ -19,7 +19,7 @@ final class PPCianCarouselCell: MWMTableViewCell {
   }
 
   @IBOutlet private weak var collectionView: UICollectionView!
-  var data: [CianItemModel]? {
+  @objc var data: [CianItemModel]? {
     didSet {
       updateCollectionView { [weak self] in
         self?.collectionView.reloadSections(IndexSet(integer: 0))
@@ -32,7 +32,7 @@ final class PPCianCarouselCell: MWMTableViewCell {
 
   fileprivate var statisticsParameters: [AnyHashable: Any] { return [kStatProvider: kStatCian] }
 
-  func config(delegate d: MWMPlacePageButtonsProtocol?) {
+  @objc func config(delegate d: MWMPlacePageButtonsProtocol?) {
     delegate = d
     collectionView.contentOffset = .zero
     collectionView.delegate = self

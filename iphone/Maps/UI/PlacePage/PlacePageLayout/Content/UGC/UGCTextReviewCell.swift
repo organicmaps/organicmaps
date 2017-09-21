@@ -14,7 +14,7 @@ final class UGCTextReviewCell: MWMTableViewCell, UITextViewDelegate {
   private weak var delegate: UGCTextReviewDelegate?
   private var indexPath: NSIndexPath = NSIndexPath()
 
-  func configWith(delegate: UGCTextReviewDelegate?) {
+  @objc func configWith(delegate: UGCTextReviewDelegate?) {
     self.delegate = delegate
     setCount(textView.text.characters.count)
   }

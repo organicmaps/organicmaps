@@ -4,12 +4,12 @@ final class SearchBanners: NSObject {
 
   weak var searchIndex: SearchIndex?
 
-  init(searchIndex: SearchIndex) {
+  @objc init(searchIndex: SearchIndex) {
     self.searchIndex = searchIndex
     super.init()
   }
 
-  func add(_ banner: MWMBanner) {
+  @objc func add(_ banner: MWMBanner) {
     guard let searchIndex = searchIndex else { return }
     banners.append(banner)
     let type: MWMSearchItemType
@@ -29,7 +29,7 @@ final class SearchBanners: NSObject {
     searchIndex.addItem(type: type, prefferedPosition: prefferedPosition, containerIndex: banners.count - 1)
   }
 
-  func banner(atIndex index: Int) -> MWMBanner {
+  @objc func banner(atIndex index: Int) -> MWMBanner {
     return banners[index]
   }
 

@@ -33,7 +33,7 @@ final class WelcomePageController: UIPageViewController {
     }
   }
 
-  static func controller(parent: WelcomePageControllerProtocol) -> WelcomePageController? {
+  @objc static func controller(parent: WelcomePageControllerProtocol) -> WelcomePageController? {
     let isFirstSession = Alohalytics.isFirstSession()
     let welcomeKey = isFirstSession ? FirstLaunchController.key : WhatsNewController.key
     guard UserDefaults.standard.bool(forKey: welcomeKey) == false else { return nil }

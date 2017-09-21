@@ -128,7 +128,7 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
 
   var dragCell: DragCell?
 
-  init(viewModel: RouteManagerViewModelProtocol) {
+  @objc init(viewModel: RouteManagerViewModelProtocol) {
     self.viewModel = viewModel
     super.init(nibName: toString(type(of: self)), bundle: nil)
   }

@@ -7,7 +7,7 @@ final class ViatorItemModel: NSObject {
   let duration: String
   let price: String
 
-  init(imageURL: URL, pageURL: URL, title: String, rating: Double, duration: String, price: String) {
+  @objc init(imageURL: URL, pageURL: URL, title: String, rating: Double, duration: String, price: String) {
     self.imageURL = imageURL
     self.pageURL = pageURL
     self.title = title
