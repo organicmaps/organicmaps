@@ -21,6 +21,7 @@
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
+#include "routing_common/transit_max_speed.hpp"
 
 #include "indexer/feature_altitude.hpp"
 
@@ -53,8 +54,13 @@ double constexpr kMinDistanceToFinishM = 10000;
 // Limit of adjust in seconds.
 double constexpr kAdjustLimitSec = 5 * 60;
 
-double CalcMaxSpeed(NumMwmIds const & numMwmIds, VehicleModelFactoryInterface const & vehicleModelFactory)
+double CalcMaxSpeed(NumMwmIds const & numMwmIds,
+                    VehicleModelFactoryInterface const & vehicleModelFactory,
+                    VehicleType vehicleType)
 {
+  if (vehicleType == VehicleType::Transit)
+    return kTransitMaxSpeedKMpH;
+
   double maxSpeed = 0.0;
   numMwmIds.ForEachId([&](NumMwmId id) {
     string const & country = numMwmIds.GetFile(id).GetName();
@@ -72,6 +78,7 @@ shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
   switch (vehicleType)
   {
   case VehicleType::Pedestrian:
+  case VehicleType::Transit:
     return make_shared<PedestrianModelFactory>(countryParentNameGetterFn);
   case VehicleType::Bicycle: return make_shared<BicycleModelFactory>(countryParentNameGetterFn);
   case VehicleType::Car: return make_shared<CarModelFactory>(countryParentNameGetterFn);
@@ -86,7 +93,8 @@ unique_ptr<IDirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
 {
   switch (vehicleType)
   {
-  case VehicleType::Pedestrian: return make_unique<PedestrianDirectionsEngine>(numMwmIds);
+  case VehicleType::Pedestrian:
+  case VehicleType::Transit: return make_unique<PedestrianDirectionsEngine>(numMwmIds);
   case VehicleType::Bicycle:
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
   // But later a special car turn generation engine should be implemented.
@@ -289,11 +297,13 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   , m_trafficStash(CreateTrafficStash(m_vehicleType, m_numMwmIds, trafficCache))
   , m_indexManager(countryFileFn, m_index)
   , m_roadGraph(m_index,
-                vehicleType == VehicleType::Pedestrian ? IRoadGraph::Mode::IgnoreOnewayTag
-                                                       : IRoadGraph::Mode::ObeyOnewayTag,
+                vehicleType == VehicleType::Pedestrian || vehicleType == VehicleType::Transit
+                    ? IRoadGraph::Mode::IgnoreOnewayTag
+                    : IRoadGraph::Mode::ObeyOnewayTag,
                 m_vehicleModelFactory)
   , m_estimator(EdgeEstimator::Create(
-        m_vehicleType, CalcMaxSpeed(*m_numMwmIds, *m_vehicleModelFactory), m_trafficStash))
+        m_vehicleType, CalcMaxSpeed(*m_numMwmIds, *m_vehicleModelFactory, m_vehicleType),
+        m_trafficStash))
   , m_directionsEngine(CreateDirectionsEngine(m_vehicleType, m_numMwmIds, m_index))
 {
   CHECK(!m_name.empty(), ());
@@ -487,11 +497,15 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   {
     case VehicleType::Pedestrian:
     case VehicleType::Bicycle:
+    case VehicleType::Transit:
       starter.GetGraph().SetMode(WorldGraph::Mode::NoLeaps);
       break;
     case VehicleType::Car:
       starter.GetGraph().SetMode(AreMwmsNear(starter.GetMwms()) ? WorldGraph::Mode::LeapsIfPossible
                                                                 : WorldGraph::Mode::LeapsOnly);
+      break;
+    case VehicleType::Count:
+      CHECK(false, ("Unknown vehicle type:", m_vehicleType));
       break;
   }
 

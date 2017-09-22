@@ -3,5 +3,5 @@
 namespace routing
 {
 // static
-uint32_t const RoadAccessSerializer::kLatestVersion = 0;
+uint32_t const RoadAccessSerializer::kLatestVersion = 1;
 }  // namespace routing

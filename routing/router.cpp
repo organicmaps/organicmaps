@@ -10,6 +10,7 @@ std::string ToString(RouterType type)
   case RouterType::Pedestrian: return "pedestrian";
   case RouterType::Bicycle: return "bicycle";
   case RouterType::Taxi: return "taxi";
+  case RouterType::Transit: return "transit";
   case RouterType::Count: return "count";
   }
   ASSERT(false, ());
@@ -26,6 +27,8 @@ RouterType FromString(std::string const & str)
     return RouterType::Bicycle;
   if (str == "taxi")
     return RouterType::Taxi;
+  if (str == "transit")
+    return RouterType::Transit;
 
   ASSERT(false, ("Incorrect routing string:", str));
   return RouterType::Vehicle;

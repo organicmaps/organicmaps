@@ -209,6 +209,7 @@ VehicleType GetVehicleType(RouterType routerType)
   case RouterType::Bicycle: return VehicleType::Bicycle;
   case RouterType::Vehicle:
   case RouterType::Taxi: return VehicleType::Car;
+  case RouterType::Transit: return VehicleType::Transit;
   case RouterType::Count: CHECK(false, ("Invalid type", routerType)); return VehicleType::Count;
   }
 }
@@ -348,7 +349,8 @@ RouterType RoutingManager::GetLastUsedRouter() const
   switch (routerType)
   {
   case RouterType::Pedestrian:
-  case RouterType::Bicycle: return routerType;
+  case RouterType::Bicycle:
+  case RouterType::Transit: return routerType;
   default: return RouterType::Vehicle;
   }
 }
@@ -469,6 +471,7 @@ void RoutingManager::InsertRoute(Route const & route)
                                        subroute->m_turns);
         break;
       case RouterType::Pedestrian:
+      case RouterType::Transit: // TODO: AddTransitType
         subroute->m_routeType = df::RouteType::Pedestrian;
         subroute->m_color = df::kRoutePedestrian;
         subroute->m_pattern = df::RoutePattern(4.0, 2.0);
@@ -790,6 +793,9 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
       break;
     case RouterType::Taxi:
       tag = isP2P ? marketing::kRoutingP2PTaxiDiscovered : marketing::kRoutingTaxiDiscovered;
+      break;
+    case RouterType::Transit:
+      tag = isP2P ? marketing::kRoutingP2PTransitDiscovered : marketing::kRoutingTransitDiscovered;
       break;
     case RouterType::Count: CHECK(false, ("Bad router type", m_currentRouterType));
     }

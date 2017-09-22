@@ -16,6 +16,7 @@ string DebugPrint(VehicleType vehicleType)
   case VehicleType::Pedestrian: return "Pedestrian";
   case VehicleType::Bicycle: return "Bicycle";
   case VehicleType::Car: return "Car";
+  case VehicleType::Transit: return "Transit";
   case VehicleType::Count: return "Count";
   }
 }
@@ -30,6 +31,8 @@ void FromString(string const & s, VehicleType & vehicleType)
     vehicleType = VehicleType::Bicycle;
   else if (s == "Car")
     vehicleType = VehicleType::Car;
+  else if (s == "Transit")
+    vehicleType = VehicleType::Transit;
   else
   {
     ASSERT(false, ("Could not read VehicleType from string", s));

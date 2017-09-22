@@ -140,6 +140,8 @@ bool SearchPanel::TryChangeRouterCmd(QString const & str)
     routerType = routing::RouterType::Vehicle;
   else if (str == "?bicycle")
     routerType = routing::RouterType::Bicycle;
+  else if (str == "?transit")
+    routerType = routing::RouterType::Transit;
   else
     return false;
 

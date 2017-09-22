@@ -8,6 +8,7 @@ set(
   car_model.hpp
   pedestrian_model.cpp
   pedestrian_model.hpp
+  transit_max_speed.hpp
   vehicle_model.cpp
   vehicle_model.hpp
 )

@@ -23,4 +23,5 @@ HEADERS += \
     bicycle_model.hpp \
     car_model.hpp \
     pedestrian_model.hpp \
+    transit_max_speed.hpp \
     vehicle_model.hpp \

@@ -190,7 +190,8 @@ shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, double 
 {
   switch (vehicleType)
   {
-  case VehicleType::Pedestrian: return make_shared<PedestrianEstimator>(maxSpeedKMpH);
+  case VehicleType::Pedestrian:
+  case VehicleType::Transit: return make_shared<PedestrianEstimator>(maxSpeedKMpH);
   case VehicleType::Bicycle: return make_shared<BicycleEstimator>(maxSpeedKMpH);
   case VehicleType::Car: return make_shared<CarEstimator>(trafficStash, maxSpeedKMpH);
   case VehicleType::Count:

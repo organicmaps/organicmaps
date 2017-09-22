@@ -35,6 +35,8 @@ char constexpr kDelim[] = " \t\r\n";
 
 using TagMapping = routing::RoadAccessTagProcessor::TagMapping;
 
+TagMapping const kEmptyTagMapping = {};
+
 TagMapping const kCarTagMapping = {
     {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
     {OsmElement::Tag("vehicle", "no"), RoadAccess::Type::No},
@@ -144,6 +146,7 @@ RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
   case VehicleType::Car: m_tagMapping = &kCarTagMapping; break;
   case VehicleType::Pedestrian: m_tagMapping = &kPedestrianTagMapping; break;
   case VehicleType::Bicycle: m_tagMapping = &kBicycleTagMapping; break;
+  case VehicleType::Transit: m_tagMapping = &kEmptyTagMapping; break;
   case VehicleType::Count: CHECK(false, ("Bad vehicle type")); break;
   }
 }

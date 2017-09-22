@@ -61,16 +61,30 @@ public:
   template <class Source>
   static void Deserialize(Source & src, VehicleType vehicleType, RoadAccess & roadAccess)
   {
-    uint32_t const header = ReadPrimitiveFromSource<uint32_t>(src);
-    CHECK_EQUAL(header, kLatestVersion, ());
-
-    std::array<uint32_t, static_cast<size_t>(VehicleType::Count)> sectionSizes;
-    for (size_t i = 0; i < sectionSizes.size(); ++i)
-      sectionSizes[i] = ReadPrimitiveFromSource<uint32_t>(src);
-
-    for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
+    auto const subsectionNumberToVehicleType = [](uint32_t version, size_t subsection)
     {
-      if (vehicleType != static_cast<VehicleType>(i))
+      if (version == 0)
+      {
+        switch (subsection)
+        {
+        case 0: return VehicleType::Pedestrian;
+        case 1: return VehicleType::Bicycle;
+        case 2: return VehicleType::Car;
+        default: return VehicleType::Count;
+        }
+      }
+      return static_cast<VehicleType>(subsection);
+    };
+
+    uint32_t const header = ReadPrimitiveFromSource<uint32_t>(src);
+
+    std::vector<uint32_t> sectionSizes;
+    for (size_t i = 0; subsectionNumberToVehicleType(header, i) < VehicleType::Count; ++i)
+      sectionSizes.push_back(ReadPrimitiveFromSource<uint32_t>(src));
+
+    for (size_t i = 0; subsectionNumberToVehicleType(header, i) < VehicleType::Count; ++i)
+    {
+      if (vehicleType != subsectionNumberToVehicleType(header, i))
       {
         src.Skip(sectionSizes[i]);
         continue;

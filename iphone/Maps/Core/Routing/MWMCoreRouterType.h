@@ -18,6 +18,7 @@ static inline MWMRouterType routerType(routing::RouterType type)
   switch (type)
   {
   case routing::RouterType::Vehicle: return MWMRouterTypeVehicle;
+  case routing::RouterType::Transit: // TODO: AddTransitType
   case routing::RouterType::Pedestrian: return MWMRouterTypePedestrian;
   case routing::RouterType::Bicycle: return MWMRouterTypeBicycle;
   case routing::RouterType::Taxi: return MWMRouterTypeTaxi;

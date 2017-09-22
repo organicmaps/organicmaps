@@ -5,12 +5,15 @@
 
 namespace routing
 {
+// Declaration order matters. There are sections in mwm with the same order
+// of subsections. New vehicle types should be added after existent types.
 enum class VehicleType
 {
   Pedestrian = 0,
   Bicycle = 1,
   Car = 2,
-  Count = 3
+  Transit = 3,
+  Count = 4
 };
 
 using VehicleMask = uint32_t;

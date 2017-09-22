@@ -85,6 +85,7 @@ char const * kRouteType = "type";
 char const * kRouteTypeVehicle = "vehicle";
 char const * kRouteTypePedestrian = "pedestrian";
 char const * kRouteTypeBicycle = "bicycle";
+char const * kRouteTypeTransit = "transit";
 }  // namespace route
 
 namespace search
@@ -285,7 +286,8 @@ bool ParsedMapApi::RouteKeyValue(string const & key, string const & value, vecto
   else if (key == kRouteType)
   {
     string const lowerValue = strings::MakeLowerCase(value);
-    if (lowerValue == kRouteTypePedestrian || lowerValue == kRouteTypeVehicle || lowerValue == kRouteTypeBicycle)
+    if (lowerValue == kRouteTypePedestrian || lowerValue == kRouteTypeVehicle ||
+        lowerValue == kRouteTypeBicycle || lowerValue == kRouteTypeTransit)
     {
       m_routingType = lowerValue;
     }
