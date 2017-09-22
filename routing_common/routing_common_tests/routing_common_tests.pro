@@ -17,5 +17,6 @@ QT *= core
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  transit_test.cpp \
   vehicle_model_for_country_test.cpp \
   vehicle_model_test.cpp \
