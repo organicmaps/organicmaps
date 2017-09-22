@@ -38,17 +38,18 @@ public class Bookmark extends MapObject
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
     mIcon = getIconInternal();
+
+    final ParcelablePointD ll = nativeGetXY(mCategoryId, mBookmarkId);
+    mMerX = ll.x;
+    mMerY = ll.y;
+
     initXY();
   }
 
   private void initXY()
   {
-    final ParcelablePointD ll = nativeGetXY(mCategoryId, mBookmarkId);
-    mMerX = ll.x;
-    mMerY = ll.y;
-
-    setLat(Math.toDegrees(2.0 * Math.atan(Math.exp(Math.toRadians(ll.y))) - Math.PI / 2.0));
-    setLon(ll.x);
+    setLat(Math.toDegrees(2.0 * Math.atan(Math.exp(Math.toRadians(mMerY))) - Math.PI / 2.0));
+    setLon(mMerX);
   }
 
   @Override
@@ -57,14 +58,22 @@ public class Bookmark extends MapObject
     super.writeToParcel(dest, flags);
     dest.writeInt(mCategoryId);
     dest.writeInt(mBookmarkId);
+    dest.writeString(mIcon.getType());
+    dest.writeDouble(mMerX);
+    dest.writeDouble(mMerY);
   }
 
+  // Do not use Core while restoring from Parcel! In some cases this constructor is called before
+  // the App is completely initialized.
+  // TODO: Method restoreHasCurrentPermission causes this strange behaviour, needs to be investigated.
   protected Bookmark(@MapObjectType int type, Parcel source)
   {
     super(type, source);
     mCategoryId = source.readInt();
     mBookmarkId = source.readInt();
-    mIcon = getIconInternal();
+    mIcon = BookmarkManager.getIconByType(source.readString());
+    mMerX = source.readDouble();
+    mMerY = source.readDouble();
     initXY();
   }
 
