@@ -1483,4 +1483,19 @@ Java_com_mapswithme_maps_Framework_nativeGetSearchBanners(JNIEnv * env, jclass)
 {
   return usermark_helper::ToBannersArray(env, frm()->GetAdsEngine().GetSearchBanners());
 }
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeAuthenticateUser(JNIEnv * env, jclass,
+                                                          jstring socialToken,
+                                                          jint socialTokenType)
+{
+  auto const tokenStr = jni::ToNativeString(env, socialToken);
+  frm()->GetUser().Authenticate(tokenStr, static_cast<User::SocialTokenType>(socialTokenType));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsUserAuthenticated()
+{
+  return frm()->GetUser().IsAuthenticated();
+}
 }  // extern "C"

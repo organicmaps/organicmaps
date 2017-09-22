@@ -12,6 +12,7 @@
 #include "map/routing_mark.hpp"
 #include "map/track.hpp"
 #include "map/traffic_manager.hpp"
+#include "map/user.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/drape_api.hpp"
@@ -203,6 +204,8 @@ protected:
 
   LocalAdsManager m_localAdsManager;
 
+  User m_user;
+
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
   void OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::TLocalFilePtr const localFile);
@@ -235,6 +238,9 @@ public:
   locals::Api * GetLocalsApi(platform::NetworkPolicy const & policy);
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
+
+  User & GetUser() { return m_user; }
+  User const & GetUser() const { return m_user; }
 
   /// Migrate to new version of very different data.
   bool IsEnoughSpaceForMigrate() const;

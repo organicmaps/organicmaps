@@ -87,6 +87,7 @@ else
 #define LOCALS_API_KEY ""
 #define LOCALS_API_URL ""
 #define LOCALS_PAGE_URL ""
+#define PASSPORT_URL ""
 
 ' > "$PRIVATE_HEADER"
     echo 'ext {

@@ -68,6 +68,8 @@ set(
   track.hpp
   traffic_manager.cpp
   traffic_manager.hpp
+  user.cpp
+  user.hpp
   user_mark_container.cpp
   user_mark_container.hpp
   user_mark.cpp

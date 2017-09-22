@@ -38,6 +38,7 @@ HEADERS += \
     taxi_delegate.hpp \
     track.hpp \
     traffic_manager.hpp \
+    user.hpp \
     user_mark.hpp \
     user_mark_container.hpp \
 
@@ -72,6 +73,7 @@ SOURCES += \
     taxi_delegate.cpp \
     track.cpp \
     traffic_manager.cpp \
+    user.cpp \
     user_mark.cpp \
     user_mark_container.cpp \
 
