@@ -25,15 +25,13 @@ bool CheckJsonArray(json_t const * data)
   return json_is_array(data) && json_array_size(data) > 0;
 }
 
-void ParseError(std::string const & src, ErrorCode & errorCode, std::string & message)
+void ParseError(std::string const & src, int & errorCode, std::string & message)
 {
   message.clear();
+  errorCode = 0;
   my::Json root(src.c_str());
-  int code = 0;
-  FromJSONObject(root.get(), "code", code);
+  FromJSONObject(root.get(), "code", errorCode);
   FromJSONObject(root.get(), "message", message);
-  // TODO(darina): Process real error codes.
-  errorCode = code > 0 ? ErrorCode::NoLocals : ErrorCode::RemoteError;
 }
 
 void ParseLocals(std::string const & src, std::vector<LocalExpert> & locals,
@@ -86,10 +84,11 @@ bool RawApi::Get(double lat, double lon, std::string const & lang, size_t result
 
   platform::HttpClient request(ostream.str());
   request.SetHttpMethod("GET");
-  if (request.RunHttpRequest() && request.ErrorCode() == 200)
+  if (request.RunHttpRequest())
   {
     result = request.ServerResponse();
-    return true;
+    if (request.ErrorCode() == 200)
+      return true;
   }
   return false;
 }
@@ -113,7 +112,7 @@ uint64_t Api::GetLocals(double lat, double lon, std::string const & lang,
     {
       try
       {
-        ErrorCode errorCode;
+        int errorCode;
         std::string errorMessage;
         ParseError(result, errorCode, errorMessage);
         LOG(LWARNING, ("Locals request failed:", errorCode, errorMessage));
@@ -121,8 +120,8 @@ uint64_t Api::GetLocals(double lat, double lon, std::string const & lang,
       }
       catch (my::Json::Exception const & e)
       {
-        LOG(LWARNING, ("Unknown error:", e.Msg()));
-        return errorFn(id, ErrorCode::UnknownError, "Unknown error: " + e.Msg());
+        LOG(LWARNING, ("Unknown error:", e.Msg(), ", response:", result));
+        return errorFn(id, kUnknownErrorCode, "Unknown error: " + e.Msg());
       }
     }
 
@@ -135,24 +134,13 @@ uint64_t Api::GetLocals(double lat, double lon, std::string const & lang,
     }
     catch (my::Json::Exception const & e)
     {
-      LOG(LWARNING, ("Locals response parsing failed:", e.Msg()));
-      errorFn(id, ErrorCode::UnknownError, "Response parsing failed: " + e.Msg());
+      LOG(LWARNING, ("Locals response parsing failed:", e.Msg(), ", response:", result));
+      errorFn(id, kUnknownErrorCode, "Response parsing failed: " + e.Msg());
     }
 
     successFn(id, locals, pageNumber, resultsOnPage, hasPreviousPage, hasNextPage);
   });
   return id;
-}
-
-std::string DebugPrint(ErrorCode code)
-{
-  switch (code)
-  {
-  case ErrorCode::NoLocals: return "NoLocals";
-  case ErrorCode::RemoteError: return "RemoteError";
-  case ErrorCode::UnknownError: return "UnknownError";
-  }
-  return "Unknown error code";
 }
 
 std::string DebugPrint(LocalExpert const & localExpert)
