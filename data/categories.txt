@@ -4899,6 +4899,36 @@ el:^Πισίνα|Αθλητισμός
 sk:4^Kúpalisko|3bazén|aquapark|4kúpele
 sw:^Bwawa la kuogelea
 
+sport-equestrian
+en:Equestrian Sports
+ru:Конный спорт
+de:Pferdesport
+es:Deportes ecuestres
+fr:Sport équestre
+hu:Lovassportok
+nl:Paardensport
+
+sport-basketball
+en:^Basketball
+ru:^Баскетбол
+de:^Basketball
+es:^Baloncesto
+fr:^Basket-ball
+it:^Pallacanestro
+hu:^Kosárlabda
+nl:^Basketbal
+da:^Basketball
+
+sport-athletics
+en:^Athletics
+ru:^Лёгкая атлетика
+de:^Leichtathletik
+es:^Atletismo
+fr:^Athlétisme
+it:^Atletica leggera
+hu:^Atlétika
+nl:^Atletiek
+
 building|building-address
 en:^Building|U+1F3E0|U+1F3E1|U+1F3E2|cian
 ru:^Здание
