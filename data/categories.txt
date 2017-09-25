@@ -1807,6 +1807,21 @@ el:^Υπόγειος|σωλήνας|μετρό|υπόγεια|μεταφορές
 sk:3^Metro|podzemná doprava
 sw:^Reli ya chini
 
+railway-level_crossing
+en:^Level Crossing
+ru:^Железнодорожный переезд
+fr:^Passage à niveau
+de:^Bahnübergang
+it:^Passaggio a livello
+es:^Paso a nivel
+pt:^Passagem de nível
+pl:^Przejazd kolejowy
+cs:^Železniční přejezd
+nl:^Overweg
+da:^Jernbaneoverskæring
+fi:^Tasoristeys
+hu:^Útátjáró
+
 amenity-ferry_terminal|@transport
 en:3^Ferry|terminal|U+1F6A2|U+1F6A4|U+2693
 ru:3^Паром|транспорт
@@ -6272,7 +6287,7 @@ da:^Nødtelefon
 nl:^Praatpaal
 fi:^Hätänumero
 fr:^Téléphone d'urgence
-de:^Nottelefon
+de:^Notruftelefon|Nottelefon
 hu:^Sürgősségi telefon
 id:^Telepon darurat
 it:^Telefono di emergenza
@@ -7239,7 +7254,7 @@ da:^Søjle|pæl
 nl:^Pilaar
 fi:^Tolppa
 fr:^Pilier
-de:^Säule
+de:^Poller
 hu:^Oszlop
 id:^Pilar
 it:^Pilastro
