@@ -93,7 +93,7 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
     {
       super(itemView);
       input = (EditText) itemView.findViewById(R.id.input);
-      inputLayout = (TextInputLayout) input.getParent();
+      inputLayout = (TextInputLayout) itemView.findViewById(R.id.input_layout);
       input.addTextChangedListener(new StringUtils.SimpleTextWatcher()
       {
         @Override
