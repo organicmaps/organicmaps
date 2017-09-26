@@ -258,8 +258,8 @@ bool Platform::AndroidSecureStorage::Load(std::string const & key, std::string &
   static jmethodID const loadMethodId =
     jni::GetStaticMethodID(env, m_secureStorageClass, "load", "(Ljava/lang/String;)Ljava/lang/String;");
 
-  auto const resultString = static_cast<jstring>(env->CallStaticObjectMethod(m_secureStorageClass, loadMethodId),
-    jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get());
+  auto const resultString = static_cast<jstring>(env->CallStaticObjectMethod(m_secureStorageClass, loadMethodId,
+    jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get()));
   if (resultString == nullptr)
     return false;
 
