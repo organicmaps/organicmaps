@@ -15,6 +15,7 @@
 #include "coding/reader.hpp"
 #include "coding/url_encode.hpp"
 
+#include "base/exception.hpp"
 #include "base/gmtime.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
@@ -655,8 +656,11 @@ void Storage::LoadCountriesFile(string const & pathToCountriesFile, string const
 {
   m_dataDir = dataDir;
 
-  if (!m_dataDir.empty())
-    Platform::MkDir(my::JoinFoldersToPath(GetPlatform().WritableDir(), m_dataDir));
+  if (!m_dataDir.empty() &&
+      !Platform::MkDirChecked(my::JoinFoldersToPath(GetPlatform().WritableDir(), m_dataDir)))
+  {
+    MYTHROW(FileSystemException, ("Unable to find or create directory", m_dataDir));
+  }
 
   if (m_countries.IsEmpty())
   {

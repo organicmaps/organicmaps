@@ -14,6 +14,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
@@ -138,8 +139,8 @@ std::string StatisticsFolder()
 void CreateDirIfNotExist()
 {
   std::string const statsFolder = StatisticsFolder();
-  if (!GetPlatform().IsFileExistsByFullPath(statsFolder))
-    Platform::MkDir(statsFolder);
+  if (!GetPlatform().IsFileExistsByFullPath(statsFolder) && !Platform::MkDirChecked(statsFolder))
+    MYTHROW(FileSystemException, ("Unable to find or create directory", statsFolder));
 }
 
 std::string MakeRemoteURL(std::string const & userId, std::string const & name, int64_t version)

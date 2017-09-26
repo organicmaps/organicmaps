@@ -18,6 +18,7 @@
 #include "coding/read_write_utils.hpp"
 #include "coding/file_name_utils.hpp"
 
+#include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
@@ -165,9 +166,8 @@ void GeneratePackedBorders(std::string const & baseDir)
 
 void UnpackBorders(std::string const & baseDir, std::string const & targetDir)
 {
-  Platform & platform = GetPlatform();
-  if (!Platform::IsFileExistsByFullPath(targetDir))
-    Platform::MkDir(targetDir);
+  if (!Platform::IsFileExistsByFullPath(targetDir) && !Platform::MkDirChecked(targetDir))
+    MYTHROW(FileSystemException, ("Unable to find or create directory", targetDir));
 
   std::vector<storage::CountryDef> countries;
   FilesContainerR reader(my::JoinFoldersToPath(baseDir, PACKED_POLYGONS_FILE));

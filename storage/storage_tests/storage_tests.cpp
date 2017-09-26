@@ -38,6 +38,7 @@
 
 #include "defines.hpp"
 
+#include "base/assert.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
@@ -1380,10 +1381,8 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
   classificator::Load();
   WritableDirChanger writableDirChanger(kMapTestDir);
 
-  Platform & platform = GetPlatform();
-
-  string const kVersion1Dir = my::JoinFoldersToPath(platform.WritableDir(), "1");
-  platform.MkDir(kVersion1Dir);
+  string const kVersion1Dir = my::JoinFoldersToPath(GetPlatform().WritableDir(), "1");
+  CHECK_EQUAL(Platform::MkDir(kVersion1Dir), Platform::ERR_OK, ());
 
   LocalCountryFile country1(kVersion1Dir, CountryFile("OutdatedCountry1"), 1);
   LocalCountryFile country2(kVersion1Dir, CountryFile("OutdatedCountry2"), 1);
