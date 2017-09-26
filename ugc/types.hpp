@@ -337,4 +337,3 @@ struct ReviewAbuse
 };
 }  // namespace ugc
 
-#undef DECLARE_VISITOR

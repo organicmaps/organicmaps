@@ -44,6 +44,8 @@ set(
   edge_estimator.cpp
   edge_estimator.hpp
   fake_edges_container.hpp
+  fake_graph.hpp
+  fake_vertex.hpp
   features_road_graph.cpp
   features_road_graph.hpp
   geometry.cpp

@@ -1,10 +1,13 @@
 #pragma once
 
+#include "routing/fake_graph.hpp"
+#include "routing/fake_vertex.hpp"
 #include "routing/index_graph_starter.hpp"
+#include "routing/segment.hpp"
 
 #include <cstddef>
 #include <cstdint>
-#include <memory>
+#include <limits>
 #include <utility>
 
 namespace routing
@@ -24,13 +27,13 @@ public:
   {
     // Maximal number of fake segments in fake graph is numeric_limits<uint32_t>::max()
     // because segment idx type is uint32_t.
-    CHECK_LESS_OR_EQUAL(m_fake.m_segmentToVertex.size(), numeric_limits<uint32_t>::max(), ());
-    return static_cast<uint32_t>(m_fake.m_segmentToVertex.size());
+    CHECK_LESS_OR_EQUAL(m_fake.GetSize(), std::numeric_limits<uint32_t>::max(), ());
+    return static_cast<uint32_t>(m_fake.GetSize());
   }
 
 private:
   // finish segment id
   uint32_t m_finishId;
-  IndexGraphStarter::FakeGraph m_fake;
+  FakeGraph<Segment, FakeVertex, Segment> m_fake;
 };
 }  // namespace routing

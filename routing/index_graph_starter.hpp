@@ -1,16 +1,19 @@
 #pragma once
 
 #include "routing/base/routing_result.hpp"
+#include "routing/fake_graph.hpp"
+#include "routing/fake_vertex.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/joint.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/route_point.hpp"
+#include "routing/route_weight.hpp"
+#include "routing/segment.hpp"
 #include "routing/world_graph.hpp"
 
 #include <cstddef>
 #include <cstdint>
 #include <limits>
-#include <map>
 #include <set>
 #include <utility>
 #include <vector>
@@ -19,7 +22,7 @@ namespace routing
 {
 class FakeEdgesContainer;
 
-// IndexGraphStarter adds fake start and finish vertexes for AStarAlgorithm.
+// IndexGraphStarter adds fake start and finish vertices for AStarAlgorithm.
 class IndexGraphStarter final
 {
 public:
@@ -78,8 +81,8 @@ public:
   {
     // Maximal number of fake segments in fake graph is numeric_limits<uint32_t>::max()
     // because segment idx type is uint32_t.
-    CHECK_LESS_OR_EQUAL(m_fake.m_segmentToVertex.size(), numeric_limits<uint32_t>::max(), ());
-    return static_cast<uint32_t>(m_fake.m_segmentToVertex.size());
+    CHECK_LESS_OR_EQUAL(m_fake.GetSize(), std::numeric_limits<uint32_t>::max(), ());
+    return static_cast<uint32_t>(m_fake.GetSize());
   }
 
   std::set<NumMwmId> GetMwms() const;
@@ -114,73 +117,6 @@ public:
   bool IsLeap(NumMwmId mwmId) const;
 
 private:
-  class FakeVertex final
-  {
-  public:
-    enum class Type
-    {
-      PureFake,
-      PartOfReal,
-    };
-
-    // For unit tests only.
-    FakeVertex(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
-      : m_from(point, feature::kDefaultAltitudeMeters), m_to(point, feature::kDefaultAltitudeMeters)
-    {
-    }
-
-    FakeVertex(Junction const & from, Junction const & to, Type type)
-      : m_from(from), m_to(to), m_type(type)
-    {
-    }
-
-    FakeVertex(FakeVertex const &) = default;
-    FakeVertex() = default;
-
-    bool operator==(FakeVertex const & rhs) const
-    {
-      return m_from == rhs.m_from && m_to == rhs.m_to && m_type == rhs.m_type;
-    }
-
-    Type GetType() const { return m_type; }
-
-    Junction const & GetJunctionFrom() const { return m_from; }
-    m2::PointD const & GetPointFrom() const { return m_from.GetPoint(); }
-    Junction const & GetJunctionTo() const { return m_to; }
-    m2::PointD const & GetPointTo() const { return m_to.GetPoint(); }
-
-  private:
-    Junction m_from;
-    Junction m_to;
-    Type m_type = Type::PureFake;
-  };
-
-  struct FakeGraph final
-  {
-    // Adds vertex. Connects newSegment to existentSegment. Adds ingoing and
-    // outgoing edges, fills segment to vertex mapping. Fill real to fake and fake to real
-    // mapping if isPartOfReal is true.
-    void AddFakeVertex(Segment const & existentSegment, Segment const & newSegment,
-                       FakeVertex const & newVertex, bool isOutgoing, bool isPartOfReal,
-                       Segment const & realSegment);
-    // Returns existent segment if possible. If segment does not exist makes new segment,
-    // increments newNumber.
-    Segment GetSegment(FakeVertex const & vertex, uint32_t & newNumber) const;
-    void Append(FakeGraph const & rhs);
-
-    // Key is fake segment, value is set of outgoing fake segments
-    std::map<Segment, std::set<Segment>> m_outgoing;
-    // Key is fake segment, value is set of ingoing fake segments
-    std::map<Segment, std::set<Segment>> m_ingoing;
-    // Key is fake segment, value is fake vertex which corresponds fake segment
-    std::map<Segment, FakeVertex> m_segmentToVertex;
-    // Key is fake segment of type FakeVertex::Type::PartOfReal, value is corresponding real segment
-    std::map<Segment, Segment> m_fakeToReal;
-    // Key is real segment, value is set of fake segments with type FakeVertex::Type::PartOfReal
-    // which are parts of this real segment
-    std::map<Segment, std::set<Segment>> m_realToFake;
-  };
-
   static Segment GetFakeSegment(uint32_t segmentIdx)
   {
     return Segment(kFakeNumMwmId, kFakeFeatureId, segmentIdx, false);
@@ -188,7 +124,7 @@ private:
 
   static Segment GetFakeSegmentAndIncr(uint32_t & segmentIdx)
   {
-    CHECK_LESS(segmentIdx, numeric_limits<uint32_t>::max(), ());
+    CHECK_LESS(segmentIdx, std::numeric_limits<uint32_t>::max(), ());
     return GetFakeSegment(segmentIdx++);
   }
 
@@ -213,6 +149,6 @@ private:
   uint32_t m_startId;
   // Finish segment id
   uint32_t m_finishId;
-  FakeGraph m_fake;
+  FakeGraph<Segment, FakeVertex, Segment> m_fake;
 };
 }  // namespace routing
