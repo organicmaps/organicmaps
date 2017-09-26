@@ -181,7 +181,6 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   , m_minDistanceOnMapBetweenResults(0.0)
   , m_mode(Mode::Everywhere)
   , m_suggestsEnabled(true)
-  , m_supportOldFormat(false)
   , m_viewportSearch(false)
   , m_villagesCache(static_cast<my::Cancellable const &>(*this))
   , m_ranker(index, infoGetter, m_emitter, categories, suggests, m_villagesCache,
@@ -516,156 +515,6 @@ void Processor::SearchCoordinates()
   m_emitter.Emit();
 }
 
-namespace
-{
-int GetOldTypeFromIndex(size_t index)
-{
-  // "building" has old type value = 70
-  ASSERT_NOT_EQUAL(index, 70, ());
-
-  switch (index)
-  {
-  case 156: return 4099;
-  case 98: return 4163;
-  case 374: return 4419;
-  case 188: return 4227;
-  case 100: return 6147;
-  case 107: return 4547;
-  case 96: return 5059;
-  case 60: return 6275;
-  case 66: return 5251;
-  case 161: return 4120;
-  case 160: return 4376;
-  case 159: return 4568;
-  case 16: return 4233;
-  case 178: return 5654;
-  case 227: return 4483;
-  case 111: return 5398;
-  case 256: return 5526;
-  case 702: return 263446;
-  case 146: return 4186;
-  case 155: return 4890;
-  case 141: return 4570;
-  case 158: return 4762;
-  case 38: return 5891;
-  case 63: return 4291;
-  case 270: return 4355;
-  case 327: return 4675;
-  case 704: return 4611;
-  case 242: return 4739;
-  case 223: return 4803;
-  case 174: return 4931;
-  case 137: return 5123;
-  case 186: return 5187;
-  case 250: return 5315;
-  case 104: return 4299;
-  case 113: return 5379;
-  case 206: return 4867;
-  case 184: return 5443;
-  case 125: return 5507;
-  case 170: return 5571;
-  case 25: return 5763;
-  case 118: return 5827;
-  case 76: return 6019;
-  case 116: return 6083;
-  case 108: return 6211;
-  case 35: return 6339;
-  case 180: return 6403;
-  case 121: return 6595;
-  case 243: return 6659;
-  case 150: return 6723;
-  case 175: return 6851;
-  case 600: return 4180;
-  case 348: return 4244;
-  case 179: return 4116;
-  case 77: return 4884;
-  case 387: return 262164;
-  case 214: return 4308;
-  case 289: return 4756;
-  case 264: return 4692;
-  case 93: return 4500;
-  case 240: return 4564;
-  case 127: return 4820;
-  case 29: return 4436;
-  case 20: return 4948;
-  case 18: return 4628;
-  case 293: return 4372;
-  case 22: return 4571;
-  case 3: return 4699;
-  case 51: return 4635;
-  case 89: return 4123;
-  case 307: return 5705;
-  case 15: return 5321;
-  case 6: return 4809;
-  case 58: return 6089;
-  case 26: return 5513;
-  case 187: return 5577;
-  case 1: return 5769;
-  case 12: return 5897;
-  case 244: return 5961;
-  case 8: return 6153;
-  case 318: return 6217;
-  case 2: return 6025;
-  case 30: return 5833;
-  case 7: return 6281;
-  case 65: return 6409;
-  case 221: return 6473;
-  case 54: return 4937;
-  case 69: return 5385;
-  case 4: return 6537;
-  case 200: return 5257;
-  case 195: return 5129;
-  case 120: return 5193;
-  case 56: return 5904;
-  case 5: return 6864;
-  case 169: return 4171;
-  case 61: return 5707;
-  case 575: return 5968;
-  case 563: return 5456;
-  case 13: return 6992;
-  case 10: return 4811;
-  case 109: return 4236;
-  case 67: return 4556;
-  case 276: return 4442;
-  case 103: return 4506;
-  case 183: return 4440;
-  case 632: return 4162;
-  case 135: return 4098;
-  case 205: return 5004;
-  case 87: return 4684;
-  case 164: return 4940;
-  case 201: return 4300;
-  case 68: return 4620;
-  case 101: return 5068;
-  case 0: return 70;
-  case 737: return 4102;
-  case 703: return 5955;
-  case 705: return 6531;
-  case 706: return 5635;
-  case 707: return 5699;
-  case 708: return 4995;
-  case 715: return 4298;
-  case 717: return 4362;
-  case 716: return 4490;
-  case 718: return 4234;
-  case 719: return 4106;
-  case 722: return 4240;
-  case 723: return 6480;
-  case 725: return 4312;
-  case 726: return 4248;
-  case 727: return 4184;
-  case 728: return 4504;
-  case 732: return 4698;
-  case 733: return 4378;
-  case 734: return 4634;
-  case 166: return 4250;
-  case 288: return 4314;
-  case 274: return 4122;
-  }
-  return -1;
-}
-}  // namespace
-
 void Processor::InitParams(QueryParams & params)
 {
   if (m_prefix.empty())
@@ -679,18 +528,6 @@ void Processor::InitParams(QueryParams & params)
   {
     uint32_t const index = c.GetIndexForType(t);
     params.GetTypeIndices(i).push_back(index);
-
-    // v2-version MWM has raw classificator types in search index prefix, so
-    // do the hack: add synonyms for old convention if needed.
-    if (m_supportOldFormat)
-    {
-      int const type = GetOldTypeFromIndex(index);
-      if (type >= 0)
-      {
-        ASSERT(type == 70 || type > 4000, (type));
-        params.GetTypeIndices(i).push_back(static_cast<uint32_t>(type));
-      }
-    }
   };
 
   // todo(@m, @y). Shall we match prefix tokens for categories?

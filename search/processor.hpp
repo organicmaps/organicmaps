@@ -72,8 +72,6 @@ public:
   Processor(Index const & index, CategoriesHolder const & categories,
             vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter);
 
-  inline void SupportOldFormat(bool b) { m_supportOldFormat = b; }
-
   void Init(bool viewportSearch);
 
   /// @param[in]  forceUpdate Pass true (default) to recache feature's ids even
@@ -177,8 +175,6 @@ protected:
 
   void SetLanguage(int id, int8_t lang);
   int8_t GetLanguage(int id) const;
-
-  bool m_supportOldFormat;
 
 protected:
   bool m_viewportSearch;

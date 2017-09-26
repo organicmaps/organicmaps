@@ -100,9 +100,6 @@ public:
   // Posts search request to the queue and returns its handle.
   weak_ptr<ProcessorHandle> Search(SearchParams const & params, m2::RectD const & viewport);
 
-  // Posts request to support old format to the queue.
-  void SetSupportOldFormat(bool support);
-
   // Sets default locale on all query processors.
   void SetLocale(string const & locale);
 

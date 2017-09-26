@@ -708,8 +708,6 @@ void Framework::RegisterAllMaps()
                   static_cast<uint64_t>(duration_cast<seconds>(
                                           system_clock::now().time_since_epoch()).count()));
   }
-
-  m_searchEngine->SetSupportOldFormat(minFormat < static_cast<int>(version::Format::v3));
 }
 
 void Framework::DeregisterAllMaps()

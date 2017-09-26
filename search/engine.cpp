@@ -134,14 +134,6 @@ weak_ptr<ProcessorHandle> Engine::Search(SearchParams const & params, m2::RectD 
   return handle;
 }
 
-void Engine::SetSupportOldFormat(bool support)
-{
-  PostMessage(Message::TYPE_BROADCAST, [this, support](Processor & processor)
-              {
-                processor.SupportOldFormat(support);
-              });
-}
-
 void Engine::SetLocale(string const & locale)
 {
   PostMessage(Message::TYPE_BROADCAST, [this, locale](Processor & processor)
