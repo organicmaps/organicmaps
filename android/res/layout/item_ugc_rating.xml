@@ -2,12 +2,7 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:paddingLeft="@dimen/margin_base"
-  android:paddingStart="@dimen/margin_base"
-  android:paddingRight="@dimen/margin_base"
-  android:paddingEnd="@dimen/margin_base"
-  android:paddingBottom="8dp"
-  android:paddingTop="14dp"
+  android:padding="@dimen/margin_base"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
   <TextView
@@ -17,8 +12,7 @@
     android:textAppearance="@style/MwmTextAppearance.Body1"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    android:layout_centerInParent="true"
-    android:paddingBottom="@dimen/margin_quarter_plus"
+    android:layout_centerVertical="true"
     android:layout_toLeftOf="@+id/rb__rate"
     android:layout_toStartOf="@+id/rb__rate"
     tools:text="Service"/>

@@ -2,16 +2,14 @@ package com.mapswithme.maps.ugc;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 
-import com.mapswithme.maps.base.BaseToolbarActivity;
+import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.util.ThemeUtils;
 
-public class UGCEditorActivity extends BaseToolbarActivity
+public class UGCEditorActivity extends BaseMwmFragmentActivity
 {
   private static final String EXTRA_FEATURE_INDEX = "extra_feature_index";
   static final String EXTRA_UGC = "extra_ugc";
@@ -27,13 +25,6 @@ public class UGCEditorActivity extends BaseToolbarActivity
     i.putExtra(EXTRA_TITLE, title);
     i.putExtra(EXTRA_AVG_RATING, rating);
     activity.startActivity(i);
-  }
-
-  @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState)
-  {
-    super.onCreate(savedInstanceState);
-    getToolbar().setTitle(getIntent().getStringExtra(EXTRA_TITLE));
   }
 
   @Override

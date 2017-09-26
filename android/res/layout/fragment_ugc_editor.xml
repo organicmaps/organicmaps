@@ -1,58 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content">
-  <LinearLayout
-    android:orientation="vertical"
-    android:background="?cardBackground"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
+    style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-      android:id="@+id/rv__ratings"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:listitem="@layout/item_ugc_rating"/>
-    <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginLeft="@dimen/margin_base"
-      android:layout_marginRight="@dimen/margin_base"
-      android:background="?dividerHorizontal"/>
+    android:layout_height="?attr/actionBarSize"
+    android:theme="@style/MwmWidget.ToolbarTheme">
+    <ImageView
+      android:id="@+id/send"
+      android:layout_width="?actionBarSize"
+      android:layout_height="?actionBarSize"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_gravity="end|center_vertical"
+      android:background="?selectableItemBackgroundBorderless"
+      android:scaleType="centerInside"
+      android:src="@drawable/ic_done"/>
+  </android.support.v7.widget.Toolbar>
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
-      android:padding="@dimen/margin_base"
+      android:orientation="vertical"
+      android:paddingTop="@dimen/margin_half"
+      android:background="?cardBackground"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
-      <TextView
-        android:layout_width="wrap_content"
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/ratings"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-        android:text="What is the best food in Sorochani?"
-        />
+        tools:listitem="@layout/item_ugc_rating"/>
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="?dividerHorizontal"/>
+      <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout"
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+          android:id="@+id/review"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/rating_user_review_min_height"
+          android:textAppearance="@style/MwmTextAppearance.Body1"
+          android:gravity="top"
+          android:maxLength="400"
+          android:paddingLeft="@dimen/margin_base"
+          android:paddingStart="@dimen/margin_base"
+          android:paddingRight="@dimen/margin_base"
+          android:paddingEnd="@dimen/margin_base"
+          android:paddingBottom="@dimen/margin_base"
+          android:textColorHint="?android:textColorSecondary"
+          android:inputType="textCapSentences"
+          android:hint="What's good or bad here?"/>
+      </android.support.design.widget.TextInputLayout>
     </LinearLayout>
-    <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="?dividerHorizontal"/>
-    <EditText
-      android:id="@+id/et_review"
-      android:layout_width="match_parent"
-      android:layout_height="152dp"
-      android:gravity="top"
-      android:inputType="textMultiLine"
-      android:maxLength="400"
-      android:paddingLeft="@dimen/margin_base"
-      android:paddingStart="@dimen/margin_base"
-      android:paddingEnd="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
-      android:hint="Write a review, if possible in English"/>
-    <Button
-      android:id="@+id/submit"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      style="@style/MwmWidget.Button.Start"
-      android:text="Submit"
-      android:textAllCaps="true"/>
-  </LinearLayout>
-</ScrollView>
+  </ScrollView>
+</LinearLayout>

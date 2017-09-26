@@ -215,4 +215,7 @@
   <dimen name="rating_view_height">40dp</dimen>
   <dimen name="rating_view_height_small">20dp</dimen>
   <dimen name="rating_view_background_radius">20dp</dimen>
+  <dimen name="rating_user_review_min_height">152dp</dimen>
+
+  <dimen name="divider_height">1dp</dimen>
 </resources>

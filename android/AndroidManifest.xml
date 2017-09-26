@@ -364,7 +364,15 @@
 
     <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-    <activity android:name=".ugc.UGCEditorActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+    <activity
+      android:name=".ugc.UGCEditorActivity"
+      android:configChanges="keyboardHidden|orientation|screenSize"
+      android:parentActivityName=".MwmActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.mapswithme.maps.MwmActivity"/>
+    </activity>
 
     <receiver
         android:name="com.mapswithme.maps.background.ConnectivityChangedReceiver"
