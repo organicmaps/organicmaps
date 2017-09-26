@@ -1,7 +1,5 @@
 #include "routing_common/transit_stop.hpp"
 
-#include "geometry/point2d.hpp"
-
 #include <sstream>
 
 namespace routing

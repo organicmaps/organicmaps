@@ -392,7 +392,6 @@
 				671E787F1E6A3BE200B2859B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 		671E78AA1E6A3DA800B2859B /* Build configuration list for PBXNativeTarget "routing_common_tests" */ = {
 			isa = XCConfigurationList;
@@ -401,7 +400,6 @@
 				671E78AC1E6A3DA800B2859B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
