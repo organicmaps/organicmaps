@@ -585,7 +585,7 @@ void Framework::RequestViatorProducts(JNIEnv * env, jobject policy, std::string 
 
 void Framework::RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & ugcCallback)
 {
-  m_work.GetUGCApi().GetUGC(fid, ugcCallback);
+  m_work.GetUGCApi()->GetUGC(fid, ugcCallback);
 }
 
 uint64_t Framework::GetRentNearby(JNIEnv * env, jobject policy, ms::LatLon const & latlon,

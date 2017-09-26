@@ -16,8 +16,7 @@ namespace
 {
 vector<TranslationKey> const GetExpectedTranslationKeys()
 {
-  vector<TranslationKey> keys = {
-      {"food", "service", "music", "best-drink", "best-meal", "Coffee", "Cherry Pie"}};
+  vector<TranslationKey> keys = {{"food", "service", "music"}};
   sort(keys.begin(), keys.end());
   return keys;
 }

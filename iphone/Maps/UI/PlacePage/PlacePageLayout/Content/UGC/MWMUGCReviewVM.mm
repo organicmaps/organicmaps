@@ -34,31 +34,25 @@
 
 - (void)config
 {
-  auto & records = m_ugc.m_ratings.m_ratings;
-//  Uncomment for testing.
-  records.emplace_back("Price", 0);
-  records.emplace_back("Place", 0);
-
-  m_rows.insert(m_rows.begin(), records.size(), ugc_review::Row::Detail);
-  m_rows.emplace_back(ugc_review::Row::Message);
+  // TODO: Config controller with ugc.
 }
 
 - (void)setDefaultStarCount:(NSInteger)starCount
 {
-  for (auto & r : m_ugc.m_ratings.m_ratings)
-    r.m_value = starCount;
+  // TODO: Set stars count.
 }
 
 - (void)submit
 {
-  GetFramework().GetUGCApi().SetUGCUpdate(m_fid, m_ugc);
+  GetFramework().GetUGCApi()->SetUGCUpdate(m_fid, m_ugc);
 }
 
 - (NSInteger)numberOfRows { return m_rows.size(); }
 
 - (ugc::RatingRecord const &)recordForIndexPath:(NSIndexPath *)indexPath
 {
-  return m_ugc.m_ratings.m_ratings[indexPath.row];
+  // TODO: Return rating record from ugc.
+  return ugc::RatingRecord();
 }
 
 - (ugc_review::Row)rowForIndexPath:(NSIndexPath *)indexPath { return m_rows[indexPath.row]; }
@@ -67,8 +61,7 @@
 
 - (void)changeReviewRate:(NSInteger)rate atIndexPath:(NSIndexPath *)indexPath
 {
-  auto & record = m_ugc.m_ratings.m_ratings[indexPath.row];
-  record.m_value = rate;
+  //TODO: Change review rate.
 }
 
 #pragma mark - MWMUGCTextReviewDelegate

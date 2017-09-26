@@ -236,6 +236,9 @@ public:
   taxi::Engine * GetTaxiEngine(platform::NetworkPolicy const & policy);
   cian::Api * GetCianApi(platform::NetworkPolicy const & policy);
   locals::Api * GetLocalsApi(platform::NetworkPolicy const & policy);
+  ugc::Api * GetUGCApi() { return m_ugcApi.get(); }
+  ugc::Api const * GetUGCApi() const { return m_ugcApi.get(); }
+
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
 
@@ -298,8 +301,6 @@ public:
   StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 
   Index const & GetIndex() const { return m_model.GetIndex(); }
-
-  ugc::Api & GetUGCApi() { return *m_ugcApi; }
 
   search::Engine & GetSearchEngine() { return *m_searchEngine; }
   search::Engine const & GetSearchEngine() const { return *m_searchEngine; }

@@ -67,10 +67,10 @@ public:
 private:
   jobject ToJavaUGC(JNIEnv * env, ugc::UGC const & ugc)
   {
-    jni::TScopedLocalObjectArrayRef ratings(env, ToJavaRatings(env, ugc.m_rating.m_ratings));
+    jni::TScopedLocalObjectArrayRef ratings(env, ToJavaRatings(env, ugc.m_ratings));
     jni::TScopedLocalObjectArrayRef reviews(env, ToJavaReviews(env, ugc.m_reviews));
 
-    jobject result = env->NewObject(m_ugcClass, m_ugcCtor, ratings.get(), ugc.m_rating.m_aggValue,
+    jobject result = env->NewObject(m_ugcClass, m_ugcCtor, ratings.get(), ugc.m_aggRating,
                                     reviews.get());
     ASSERT(result, ());
     return result;
@@ -159,7 +159,7 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_ugc_UGC_requestUGC(JNIEnv * env,
                                                                    jobject featureId)
 {
   auto const fid = g_builder.Build(env, featureId);
-  g_framework->RequestUGC(fid, [&](ugc::UGC const & ugc) {
+  g_framework->RequestUGC(fid, [&](ugc::UGC const & ugc, ugc::UGCUpdate const & update) {
     JNIEnv * e = jni::GetEnv();
     g_bridge.OnResult(e, ugc);
   });

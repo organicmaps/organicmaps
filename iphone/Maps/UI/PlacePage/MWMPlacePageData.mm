@@ -442,38 +442,16 @@ using namespace place_page;
   m_ugcRows.push_back(UGCRow::SelectImpression);
 
   auto & f = GetFramework();
-  f.GetUGCApi().GetUGC([self featureId], [self](ugc::UGC const & ugc) {
+  f.GetUGCApi()->GetUGC(self.featureId, [self](ugc::UGC const & ugc, ugc::UGCUpdate const & update)
+  {
     auto const it = find(self->m_sections.begin(), self->m_sections.end(), Sections::UGC);
     ASSERT(it != self->m_sections.end(), ());
 
     auto const position = static_cast<NSUInteger>(distance(self->m_sections.begin(), it));
     auto length = 0UL;
-
-    self->m_ugc = ugc;
-    auto constexpr maxNumberOfReviews = 3UL;
-    auto const size = ugc.m_reviews.size();
-    if (size > maxNumberOfReviews)
-    {
-      self->m_ugcRows.insert(m_ugcRows.end(), maxNumberOfReviews, UGCRow::Comment);
-      length += maxNumberOfReviews;
-      self->m_ugcRows.emplace_back(UGCRow::ShowMore);
-      length++;
-    }
-    else
-    {
-      self->m_ugcRows.insert(m_ugcRows.end(), size, UGCRow::Comment);
-      length += size;
-    }
+    // TODO: process ugc.
 
     self.sectionsAreReadyCallback({position, length}, self, NO /* It's not a section */);
-  });
-
-  // TODO: Complete static ugc with dynamic one.
-  f.GetUGCApi().GetUGCUpdate(self.featureId, [self](ugc::UGCUpdate const & ugc) {
-    self.reviewViewModel = static_cast<MWMUGCReviewVM<MWMUGCSpecificReviewDelegate, MWMUGCTextReviewDelegate> *>(
-                                                                   [MWMUGCReviewVM fromUGC:ugc
-                                                                                 featureId:self.featureId
-                                                                                      name:self.title]);
   });
 }
 
@@ -551,7 +529,12 @@ using namespace place_page;
 
 #pragma mark - Sponsored
 
-- (NSString *)bookingRating { return self.isBooking ? @(m_info.GetRatingFormatted().c_str()) : nil; }
+- (NSString *)bookingRating
+{
+  if (!self.isBooking)
+    return nil;
+  return @(rating::GetRatingFormatted(m_info.GetRatingRawValue()).c_str());
+}
 - (NSString *)bookingApproximatePricing { return self.isBooking ? @(m_info.GetApproximatePricing().c_str()) : nil; }
 - (NSURL *)sponsoredURL
 {

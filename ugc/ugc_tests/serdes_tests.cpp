@@ -84,9 +84,9 @@ UNIT_TEST(SerDes_Json_Reviews)
   MakeTest<decltype(expectedUGC), ToJson, FromJson>(expectedUGC);
 }
 
-UNIT_TEST(SerDes_Json_Attributes)
+UNIT_TEST(SerDes_Json_RatingRecords)
 {
-  auto expectedUGC = Api::MakeTestUGC1(Time(chrono::hours(24 * 100))).m_attributes;
+  auto expectedUGC = Api::MakeTestUGC1(Time(chrono::hours(24 * 100))).m_ratings;
   TEST_EQUAL(expectedUGC, expectedUGC, ());
 
   MakeTest<decltype(expectedUGC), ToJson, FromJson>(expectedUGC);
@@ -115,6 +115,36 @@ UNIT_TEST(SerDes_UGC)
   }
 
   UGC actualUGC({} /* rating */, {} /* reviews */, {} /* attributes */);
+  {
+    auto source = MakeSource(buffer);
+    Deserialize(source, actualUGC);
+  }
+
+  TEST_EQUAL(expectedUGC, actualUGC, ());
+}
+
+UNIT_TEST(SerDes_Json_UGCUpdate)
+{
+  auto expectedUGC = Api::MakeTestUGCUpdate(Time(chrono::hours(24 * 200)));
+  TEST_EQUAL(expectedUGC, expectedUGC, ());
+
+  MakeTest<decltype(expectedUGC), ToJson, FromJson>(expectedUGC);
+}
+
+UNIT_TEST(SerDes_UGCUpdate)
+{
+  // Time must be in whole days to prevent lose of precision during
+  // serialization/deserialization.
+  auto const expectedUGC = Api::MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
+  TEST_EQUAL(expectedUGC, expectedUGC, ());
+
+  Buffer buffer;
+  {
+    auto sink = MakeSink(buffer);
+    Serialize(sink, expectedUGC);
+  }
+
+  UGCUpdate actualUGC{};
   {
     auto source = MakeSource(buffer);
     Deserialize(source, actualUGC);

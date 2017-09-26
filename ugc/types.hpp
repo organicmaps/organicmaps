@@ -108,6 +108,8 @@ struct RatingRecord
   float m_value{};
 };
 
+using Ratings = std::vector<RatingRecord>;
+
 struct Rating
 {
   Rating() = default;
@@ -202,19 +204,18 @@ struct Review
 
   Review() = default;
   Review(ReviewId id, Text const & text, Author const & author, float const rating,
-         Sentiment const sentiment, Time const & time)
-    : m_text(text), m_author(author), m_rating(rating), m_sentiment(sentiment), m_time(time)
+         Time const & time)
+    : m_text(text), m_author(author), m_rating(rating), m_time(time)
   {
   }
 
   DECLARE_VISITOR(visitor(m_id, "id"), visitor(m_text, "text"), visitor(m_author, "author"),
-                  visitor.VisitRating(m_rating, "rating"), visitor(m_sentiment, "sentiment"),
-                  visitor(m_time, "time"))
+                  visitor.VisitRating(m_rating, "rating"), visitor(m_time, "time"))
 
   bool operator==(Review const & rhs) const
   {
     return m_id == rhs.m_id && m_text == rhs.m_text && m_author == rhs.m_author &&
-           m_rating == rhs.m_rating && m_sentiment == rhs.m_sentiment && m_time == rhs.m_time;
+           m_rating == rhs.m_rating && m_time == rhs.m_time;
   }
 
   friend std::string DebugPrint(Review const & review)
@@ -225,7 +226,6 @@ struct Review
     os << "text:" << DebugPrint(review.m_text) << ", ";
     os << "author:" << DebugPrint(review.m_author) << ", ";
     os << "rating:" << review.m_rating << ", ";
-    os << "sentiment:" << DebugPrint(review.m_sentiment) << ", ";
     os << "days since epoch:" << ToDaysSinceEpoch(review.m_time) << " ]";
     return os.str();
   }
@@ -233,13 +233,11 @@ struct Review
   ReviewId m_id{};
   Text m_text{};
   Author m_author{};
-  // A rating of a review itself. It is accumulated from other users
-  // likes or dislikes.
   float m_rating{};
-  // A positive/negative sentiment given to a place by an author.
-  Sentiment m_sentiment = Sentiment::Positive;
   Time m_time{};
 };
+
+using Reviews = std::vector<Review>;
 
 struct Attribute
 {
@@ -270,34 +268,61 @@ struct Attribute
 struct UGC
 {
   UGC() = default;
-  UGC(Rating const & rating, std::vector<Review> const & reviews,
-      std::vector<Attribute> const & attributes)
-    : m_rating(rating), m_reviews(reviews), m_attributes(attributes)
+  UGC(Ratings const & records, Reviews const & reviews, float const rating)
+    : m_ratings(records), m_reviews(reviews), m_aggRating(rating)
   {
   }
 
-  DECLARE_VISITOR(visitor(m_rating, "rating"), visitor(m_reviews, "reviews"),
-                  visitor(m_attributes, "attributes"))
+  DECLARE_VISITOR(visitor(m_ratings, "ratings"), visitor(m_reviews, "reviews"),
+                  visitor.VisitRating(m_aggRating, "aggRating"))
 
   bool operator==(UGC const & rhs) const
   {
-    return m_rating == rhs.m_rating && m_reviews == rhs.m_reviews &&
-           m_attributes == rhs.m_attributes;
+    return m_ratings == rhs.m_ratings && m_reviews == rhs.m_reviews;
   }
 
   friend std::string DebugPrint(UGC const & ugc)
   {
     std::ostringstream os;
     os << "UGC [ ";
-    os << "rating:" << DebugPrint(ugc.m_rating) << ", ";
-    os << "reviews:" << ::DebugPrint(ugc.m_reviews) << ", ";
-    os << "attributes:" << ::DebugPrint(ugc.m_attributes) << " ]";
+    os << "records:" << ::DebugPrint(ugc.m_ratings) << ", ";
+    os << "reviews:" << ::DebugPrint(ugc.m_reviews) << " ]";
     return os.str();
   }
 
-  Rating m_rating{};
-  std::vector<Review> m_reviews;
-  std::vector<Attribute> m_attributes;
+  Ratings m_ratings;
+  Reviews m_reviews;
+  float m_aggRating{};
+};
+
+struct UGCUpdate
+{
+  UGCUpdate() = default;
+  UGCUpdate(Ratings const & records, Text const & text, Time const & time)
+    : m_ratings(records), m_text(text), m_time(time)
+  {
+  }
+
+  DECLARE_VISITOR(visitor(m_ratings, "ratings"), visitor(m_text, "text"), visitor(m_time, "time"))
+
+  bool operator==(UGCUpdate const & rhs) const
+  {
+    return m_ratings == rhs.m_ratings && m_text == rhs.m_text && m_time == rhs.m_time;
+  }
+
+  friend std::string DebugPrint(UGCUpdate const & ugcUpdate)
+  {
+    std::ostringstream os;
+    os << "UGCUpdate [ ";
+    os << "records:" << ::DebugPrint(ugcUpdate.m_ratings) << ", ";
+    os << "text:" << DebugPrint(ugcUpdate.m_text) << ", ";
+    os << "days since epoch:" << ToDaysSinceEpoch(ugcUpdate.m_time) << " ]";
+    return os.str();
+  }
+
+  Ratings m_ratings;
+  Text m_text;
+  Time m_time{};
 };
 
 struct ReviewFeedback
@@ -319,21 +344,6 @@ struct ReviewAbuse
 
   std::string m_reason{};
   Time m_time{};
-};
-
-struct UGCUpdate
-{
-  UGCUpdate() = default;
-  UGCUpdate(Rating ratings, Attribute attribute, ReviewAbuse abuses, ReviewFeedback feedbacks)
-    : m_ratings(ratings), m_attribute(attribute), m_abuses(abuses), m_feedbacks(feedbacks)
-  {
-  }
-
-  Rating m_ratings;
-  Attribute m_attribute;
-
-  ReviewAbuse m_abuses;
-  ReviewFeedback m_feedbacks;
 };
 }  // namespace ugc
 

@@ -24,11 +24,6 @@ void Api::GetUGC(FeatureID const & id, UGCCallback callback)
   m_thread.Push([=] { GetUGCImpl(id, callback); });
 }
 
-void Api::GetUGCUpdate(FeatureID const & id, UGCUpdateCallback callback)
-{
-  m_thread.Push([=] { GetUGCUpdateImpl(id, callback); });
-}
-
 void Api::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 {
   m_thread.Push([=] { SetUGCUpdate(id, ugc); });
@@ -37,73 +32,67 @@ void Api::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 // static
 UGC Api::MakeTestUGC1(Time now)
 {
-  Rating rating;
-  rating.m_ratings.emplace_back("food" /* key */, 4.0 /* value */);
-  rating.m_ratings.emplace_back("service" /* key */, 5.0 /* value */);
-  rating.m_ratings.emplace_back("music" /* key */, 5.0 /* value */);
-  rating.m_aggValue = 4.5;
+  Ratings records;
+  records.emplace_back("food" /* key */, 4.0 /* value */);
+  records.emplace_back("service" /* key */, 5.0 /* value */);
+  records.emplace_back("music" /* key */, 5.0 /* value */);
 
-  vector<Review> reviews;
+  Reviews reviews;
   reviews.emplace_back(20 /* id */, Text("Damn good coffee", StringUtf8Multilang::kEnglishCode),
                        Author(UID(987654321 /* hi */, 123456789 /* lo */), "Cole"),
-                       5.0 /* rating */, Sentiment::Positive, FromDaysAgo(now, 10));
-  reviews.emplace_back(67812 /* id */,
-                       Text("Clean place, reasonably priced", StringUtf8Multilang::kDefaultCode),
-                       Author(UID(0 /* hi */, 315 /* lo */), "Cooper"), 5.0 /* rating */,
-                       Sentiment::Positive, FromDaysAgo(now, 1));
+                       5.0 /* rating */, FromDaysAgo(now, 10));
+  reviews.emplace_back(
+      67812 /* id */, Text("Clean place, reasonably priced", StringUtf8Multilang::kDefaultCode),
+      Author(UID(0 /* hi */, 315 /* lo */), "Cooper"), 5.0 /* rating */, FromDaysAgo(now, 1));
 
-  vector<Attribute> attributes;
-  attributes.emplace_back("best-drink", "Coffee");
-
-  return UGC(rating, reviews, attributes);
+  return UGC(records, reviews, 4.5 /* rating */);
 }
 
 // static
 UGC Api::MakeTestUGC2(Time now)
 {
-  Rating rating;
-  rating.m_ratings.emplace_back("food" /* key */, 5.0 /* value */);
-  rating.m_ratings.emplace_back("service" /* key */, 5.0 /* value */);
-  rating.m_ratings.emplace_back("music" /* key */, 5.0 /* value */);
-  rating.m_aggValue = 5.0;
+  Ratings records;
+  records.emplace_back("food" /* key */, 5.0 /* value */);
+  records.emplace_back("service" /* key */, 5.0 /* value */);
+  records.emplace_back("music" /* key */, 5.0 /* value */);
 
   vector<Review> reviews;
-  reviews.emplace_back(119 /* id */,
-                       Text("This pie's so good it is a crime", StringUtf8Multilang::kDefaultCode),
-                       Author(UID(0 /* hi */, 315 /* lo */), "Cooper"), 5.0 /* rating */,
-                       Sentiment::Positive, FromDaysAgo(now, 1));
+  reviews.emplace_back(
+      119 /* id */, Text("This pie's so good it is a crime", StringUtf8Multilang::kDefaultCode),
+      Author(UID(0 /* hi */, 315 /* lo */), "Cooper"), 5.0 /* rating */, FromDaysAgo(now, 1));
 
-  vector<Attribute> attributes;
-  attributes.emplace_back("best-drink", "Coffee");
-  attributes.emplace_back("best-meal", "Cherry Pie");
+  return UGC(records, reviews, 5.0 /* rating */);
+}
 
-  return UGC(rating, reviews, attributes);
+// static
+UGCUpdate Api::MakeTestUGCUpdate(Time now)
+{
+  Ratings records;
+  records.emplace_back("food" /* key */, 4.0 /* value */);
+  records.emplace_back("service" /* key */, 5.0 /* value */);
+  records.emplace_back("music" /* key */, 5.0 /* value */);
+
+  Text text{"It's aways nice to visit this place", StringUtf8Multilang::kEnglishCode};
+
+  Time time{FromDaysAgo(now, 1)};
+
+  return UGCUpdate(records, text, time);
 }
 
 void Api::GetUGCImpl(FeatureID const & id, UGCCallback callback)
 {
   // TODO (@y, @mgsergio): retrieve static UGC
-  UGC ugc(Rating({}, {}), {}, {});
+  UGC ugc;
+  UGCUpdate update;
 
   if (!id.IsValid())
   {
-    GetPlatform().RunOnGuiThread([ugc, callback] { callback(ugc); });
+    GetPlatform().RunOnGuiThread([ugc, update, callback] { callback(ugc, update); });
     return;
   }
 
   ugc = MakeTestUGC1();
-
-  GetPlatform().RunOnGuiThread([ugc, callback] { callback(ugc); });
-}
-
-void Api::GetUGCUpdateImpl(FeatureID const & /* id */, UGCUpdateCallback callback)
-{
-  // TODO (@y, @mgsergio): retrieve dynamic UGC
-  UGCUpdate ugc(Rating({}, {}),
-                Attribute({}, {}),
-                ReviewAbuse({}, {}),
-                ReviewFeedback({}, {}));
-  GetPlatform().RunOnGuiThread([ugc, callback] { callback(ugc); });
+  GetPlatform().RunOnGuiThread([ugc, update, callback] { callback(ugc, update); });
 }
 
 void Api::SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc)

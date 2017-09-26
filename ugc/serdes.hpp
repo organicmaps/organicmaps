@@ -167,7 +167,7 @@ private:
   Source & m_source;
 };
 
-template <typename Sink>
+template <typename Sink, typename UGC>
 void Serialize(Sink & sink, UGC const & ugc)
 {
   WriteToSink(sink, static_cast<uint8_t>(Version::Latest));
@@ -175,7 +175,7 @@ void Serialize(Sink & sink, UGC const & ugc)
   ser(ugc);
 }
 
-template <typename Source>
+template <typename Source, typename UGC>
 void Deserialize(Source & source, UGC & ugc)
 {
   uint8_t version = 0;

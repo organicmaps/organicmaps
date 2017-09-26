@@ -4,6 +4,8 @@
 
 #include "partners_api/taxi_provider.hpp"
 
+#include "ugc/api.hpp"
+
 #include "map/routing_mark.hpp"
 
 #include "storage/index.hpp"
@@ -52,13 +54,14 @@ enum class LocalsStatus
   Available
 };
 
+auto constexpr kIncorrectRating = -1.0f;
+
 class Info : public osm::MapObject
 {
 public:
   static char const * const kSubtitleSeparator;
   static char const * const kStarSymbol;
   static char const * const kMountainSymbol;
-  static char const * const kEmptyRatingSymbol;
   static char const * const kPricingSymbol;
 
   /// Place traits
@@ -75,6 +78,7 @@ public:
   /// UGC
   // TODO: Uncomment correct implementation.
   // TODO: UGC is disabled before UI isn't ready.
+  void SetUGCApi(ugc::Api * const api) { m_ugcApi = api; }
   bool ShouldShowUGC() const { return false; } //ftraits::UGC::IsUGCAvailable(m_types); }
   bool ShouldShowUGCRating() const { return false; } //ftraits::UGC::IsRatingAvailable(m_types); }
   bool ShouldShowUGCReviews() const { return false; } //ftraits::UGC::IsReviewsAvailable(m_types); }
@@ -97,8 +101,8 @@ public:
   std::string const & GetAddress() const { return m_uiAddress; }
   /// @returns coordinate in DMS format if isDMS is true
   std::string GetFormattedCoordinate(bool isDMS) const;
-  /// @returns formatted rating string for booking object, or empty if it isn't booking object
-  std::string GetRatingFormatted() const;
+  /// @return rating raw value or kInvalidRating if there is no data.
+  float GetRatingRawValue() const;
   /// @returns string with |kPricingSymbol| signs or empty std::string if it isn't booking object
   std::string GetApproximatePricing() const;
 
@@ -109,7 +113,6 @@ public:
   void SetIsMyPosition() { m_isMyPosition = true; }
   void SetCanEditOrAdd(bool canEditOrAdd) { m_canEditOrAdd = canEditOrAdd; }
   void SetLocalizedWifiString(std::string const & str) { m_localizedWifiString = str; }
-  void SetLocalizedRatingString(std::string const & str) { m_localizedRatingString = str; }
 
   /// Bookmark
   BookmarkAndCategory const & GetBookmarkAndCategory() const { return m_bac; }
@@ -253,6 +256,9 @@ private:
   LocalAdsStatus m_localAdsStatus = LocalAdsStatus::NotAvailable;
   /// Ads source.
   ads::Engine * m_adsEngine = nullptr;
+  /// UGC
+  /// This is a non-owning pointer;
+  ugc::Api * m_ugcApi = nullptr;
   /// Sponsored type or None.
   SponsoredType m_sponsoredType = SponsoredType::None;
 
@@ -268,4 +274,20 @@ private:
   std::string m_localsUrl;
   LocalsStatus m_localsStatus = LocalsStatus::NotAvailable;
 };
+
+namespace rating
+{
+enum Impress
+{
+  None,
+  Horrible,
+  Bad,
+  Normal,
+  Good,
+  Excellent
+};
+
+Impress GetImpress(float const rawRating);
+std::string GetRatingFormatted(float const rawRating);
+}  // namespace rating
 }  // namespace place_page

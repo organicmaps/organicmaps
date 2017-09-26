@@ -117,8 +117,11 @@ JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_na
   if (!ppInfo.IsSponsored())
     return nullptr;
 
+  //TODO: consider using the raw value and impress directly.
+  std::string rating = place_page::rating::GetRatingFormatted(ppInfo.GetRatingRawValue());
+
   return env->NewObject(g_sponsoredClass, g_sponsoredClassConstructor,
-                        jni::ToJavaString(env, ppInfo.GetRatingFormatted()),
+                        jni::ToJavaString(env, rating),
                         jni::ToJavaString(env, ppInfo.GetApproximatePricing()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredUrl()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredDescriptionUrl()),

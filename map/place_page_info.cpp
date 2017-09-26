@@ -11,12 +11,18 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
+#include <sstream>
+
 namespace place_page
 {
+namespace
+{
+auto constexpr kTopRatingBound = 10.0f;
+}  // namespace
+
 char const * const Info::kSubtitleSeparator = " • ";
 char const * const Info::kStarSymbol = "★";
 char const * const Info::kMountainSymbol = "▲";
-char const * const Info::kEmptyRatingSymbol = "-";
 char const * const Info::kPricingSymbol = "$";
 char const * const kWheelchairSymbol = u8"\u267F";
 
@@ -196,23 +202,18 @@ string Info::GetFormattedCoordinate(bool isDMS) const
                : measurement_utils::FormatLatLonAsDMS(ll.lat, ll.lon, 2);
 }
 
-string Info::GetRatingFormatted() const
+float Info::GetRatingRawValue() const
 {
-  if (!IsSponsored())
-    return string();
+  if (!IsSponsored() && !ShouldShowUGC())
+    return kIncorrectRating;
 
-  auto const r = GetMetadata().Get(feature::Metadata::FMD_RATING);
-  char const * rating = r.empty() ? kEmptyRatingSymbol : r.c_str();
-  int const size = snprintf(nullptr, 0, m_localizedRatingString.c_str(), rating);
-  if (size < 0)
-  {
-    LOG(LERROR, ("Incorrect size for string:", m_localizedRatingString, ", rating:", rating));
-    return string();
-  }
+  // Only sponsored rating is stored in metadata. UGC rating will be stored in special section and will be ready soon.
+  auto const rating = GetMetadata().Get(feature::Metadata::FMD_RATING);
+  float raw;
+  if (!strings::to_float(rating, raw))
+    return kIncorrectRating;
 
-  vector<char> buf(size + 1);
-  snprintf(buf.data(), buf.size(), m_localizedRatingString.c_str(), rating);
-  return string(buf.begin(), buf.end());
+  return raw;
 }
 
 string Info::GetApproximatePricing() const
@@ -252,4 +253,44 @@ vector<ads::Banner> Info::GetBanners() const
 
   return m_adsEngine->GetBanners(m_types, m_topmostCountryIds, languages::GetCurrentNorm());
 }
+
+namespace rating
+{
+namespace
+{
+std::string const kEmptyRatingSymbol = "-";
+}  // namespace
+
+Impress GetImpress(float const rawRating)
+{
+  CHECK_LESS_OR_EQUAL(rawRating, kTopRatingBound, ());
+  CHECK_GREATER_OR_EQUAL(rawRating, kIncorrectRating, ());
+
+  if (rawRating == kIncorrectRating)
+    return Impress::None;
+  if (rawRating < 0.2f * kTopRatingBound)
+    return Impress::Horrible;
+  if (rawRating < 0.4f * kTopRatingBound)
+    return Impress::Bad;
+  if (rawRating < 0.6f * kTopRatingBound)
+    return Impress::Normal;
+  if (rawRating < 0.8f * kTopRatingBound)
+    return Impress::Good;
+
+  return Impress::Excellent;
+}
+
+std::string GetRatingFormatted(float const rawRating)
+{
+  CHECK_LESS_OR_EQUAL(rawRating, kTopRatingBound, ());
+  CHECK_GREATER_OR_EQUAL(rawRating, kIncorrectRating, ());
+
+  if (rawRating == kIncorrectRating)
+    return kEmptyRatingSymbol;
+
+  std::ostringstream oss;
+  oss << std::setprecision(1) << rawRating;
+  return oss.str();
+}
+}  // namespace rating
 }  // namespace place_page
