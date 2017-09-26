@@ -289,7 +289,7 @@ std::string GetRatingFormatted(float const rawRating)
     return kEmptyRatingSymbol;
 
   std::ostringstream oss;
-  oss << std::setprecision(1) << rawRating;
+  oss << std::setprecision(2) << rawRating;
   return oss.str();
 }
 }  // namespace rating
