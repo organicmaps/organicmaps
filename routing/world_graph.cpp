@@ -13,8 +13,28 @@ WorldGraph::WorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph, unique_ptr<Index
 }
 
 void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
-                             std::vector<SegmentEdge> & edges)
+                             bool isEnding, std::vector<SegmentEdge> & edges)
 {
+  // If mode is LeapsOnly and |isEnding| == true we need to connect segment to transitions.
+  // If |isOutgoing| == true connects |segment| with all exits of mwm.
+  // If |isOutgoing| == false connects all enters to mwm with |segment|.
+  if (m_mode == Mode::LeapsOnly && isEnding)
+  {
+    edges.clear();
+    m2::PointD const & segmentPoint = GetPoint(segment, true /* front */);
+  
+    // Note. If |isOutgoing| == true it's necessary to add edges which connect the start with all
+    // exits of its mwm. So |isEnter| below should be set to false.
+    // If |isOutgoing| == false all enters of the finish mwm should be connected with the finish
+    // point. So |isEnter| below should be set to true.
+    m_crossMwmGraph->ForEachTransition(
+                            segment.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
+                              edges.emplace_back(transition, CalcLeapWeight(segmentPoint,
+                                                                            GetPoint(transition, isOutgoing)));
+                            });
+    return;
+  }
+
   if (m_mode != Mode::NoLeaps && (isLeap || m_mode == Mode::LeapsOnly))
   {
     CHECK(m_crossMwmGraph, ());
@@ -51,20 +71,42 @@ RoadGeometry const & WorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featur
 void WorldGraph::GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, true /* isOutgoing */, false /* isLeap */, edges);
+  GetEdgeList(segment, true /* isOutgoing */, false /* isLeap */, false /* isEnding */, edges);
 }
 
 void WorldGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, false /* isOutgoing */, false /* isLeap */, edges);
+  GetEdgeList(segment, false /* isOutgoing */, false /* isLeap */, false /* isEnding */, edges);
 }
 
 RouteWeight WorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
 {
+  return HeuristicCostEstimate(GetPoint(from, true /* front */),
+                               GetPoint(to, true /* front */));
+}
+
+RouteWeight WorldGraph::HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to)
+{
+  return RouteWeight(m_estimator->CalcHeuristic(from, to), 0 /* nontransitCross */);
+}
+
+
+RouteWeight WorldGraph::CalcSegmentWeight(Segment const & segment)
+{
   return RouteWeight(
-      m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */)),
+      m_estimator->CalcSegmentWeight(segment, GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())),
       0 /* nontransitCross */);
+}
+
+RouteWeight WorldGraph::CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const
+{
+  return RouteWeight(m_estimator->CalcLeapWeight(from, to), 0 /* nontransitCross */);
+}
+
+bool WorldGraph::LeapIsAllowed(NumMwmId mwmId) const
+{
+  return m_estimator->LeapIsAllowed(mwmId);
 }
 
 void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges)

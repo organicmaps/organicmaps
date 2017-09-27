@@ -27,14 +27,14 @@ Junction CalcProjectionToSegment(Segment const & segment, m2::PointD const & poi
   m2::ProjectionToSection<m2::PointD> projection;
   projection.SetBounds(begin.GetPoint(), end.GetPoint());
   auto projectedPoint = projection(point);
-  auto const distBeginToEnd = graph.GetEstimator().CalcLeapWeight(begin.GetPoint(), end.GetPoint());
+  auto const distBeginToEnd = graph.CalcLeapWeight(begin.GetPoint(), end.GetPoint()).GetWeight();
 
   double constexpr kEpsMeters = 2.0;
   if (my::AlmostEqualAbs(distBeginToEnd, 0.0, kEpsMeters))
     return Junction(projectedPoint, begin.GetAltitude());
 
   auto const distBeginToProjection =
-      graph.GetEstimator().CalcLeapWeight(begin.GetPoint(), projectedPoint);
+      graph.CalcLeapWeight(begin.GetPoint(), projectedPoint).GetWeight();
   auto const altitude = begin.GetAltitude() + (end.GetAltitude() - begin.GetAltitude()) *
                                                   distBeginToProjection / distBeginToEnd;
   return Junction(projectedPoint, altitude);
@@ -285,19 +285,15 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment) const
 {
   if (!IsFakeSegment(segment))
   {
-    return RouteWeight(
-        m_graph.GetEstimator().CalcSegmentWeight(
-            segment, m_graph.GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())),
-        0 /* nontransitCross */);
+    return m_graph.CalcSegmentWeight(segment);
   }
 
   auto const fakeVertexIt = m_fake.m_segmentToVertex.find(segment);
 
   CHECK(fakeVertexIt != m_fake.m_segmentToVertex.end(),
         ("Requested junction for invalid fake segment."));
-  return RouteWeight(m_graph.GetEstimator().CalcLeapWeight(fakeVertexIt->second.GetPointFrom(),
-                                                           fakeVertexIt->second.GetPointTo()),
-                     0 /* nontransitCross */);
+  return m_graph.CalcLeapWeight(fakeVertexIt->second.GetPointFrom(),
+                                fakeVertexIt->second.GetPointTo());
 }
 
 RouteWeight IndexGraphStarter::CalcRouteSegmentWeight(vector<Segment> const & route,
@@ -320,7 +316,7 @@ bool IndexGraphStarter::IsLeap(NumMwmId mwmId) const
       return false;
   }
 
-  return m_graph.GetEstimator().LeapIsAllowed(mwmId);
+  return m_graph.LeapIsAllowed(mwmId);
 }
 
 void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding const & otherEnding,
@@ -361,10 +357,10 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
     if (it != otherSegments.end())
     {
       auto const & otherJunction = it->second;
-      auto const distBackToThis = m_graph.GetEstimator().CalcLeapWeight(
-          backJunction.GetPoint(), projection.m_junction.GetPoint());
-      auto const distBackToOther =
-          m_graph.GetEstimator().CalcLeapWeight(backJunction.GetPoint(), otherJunction.GetPoint());
+      auto const distBackToThis = m_graph.CalcLeapWeight(backJunction.GetPoint(),
+                                                         projection.m_junction.GetPoint());
+      auto const distBackToOther = m_graph.CalcLeapWeight(backJunction.GetPoint(),
+                                                          otherJunction.GetPoint());
       if (distBackToThis < distBackToOther)
         frontJunction = otherJunction;
       else
@@ -432,33 +428,7 @@ void IndexGraphStarter::AddStart(FakeEnding const & startEnding, FakeEnding cons
 void IndexGraphStarter::AddRealEdges(Segment const & segment, bool isOutgoing,
                                      std::vector<SegmentEdge> & edges) const
 {
-  if (m_graph.GetMode() == WorldGraph::Mode::LeapsOnly &&
-      m_fake.m_realToFake.find(segment) != m_fake.m_realToFake.end())
-  {
-    ConnectLeapToTransitions(segment, isOutgoing, edges);
-    return;
-  }
-
-  m_graph.GetEdgeList(segment, isOutgoing, IsLeap(segment.GetMwmId()), edges);
+  bool const isEnding = m_fake.m_realToFake.find(segment) != m_fake.m_realToFake.end();
+  m_graph.GetEdgeList(segment, isOutgoing, IsLeap(segment.GetMwmId()), isEnding, edges);
 }
-
-void IndexGraphStarter::ConnectLeapToTransitions(Segment const & segment, bool isOutgoing,
-                                                 vector<SegmentEdge> & edges) const
-{
-  edges.clear();
-  m2::PointD const & segmentPoint = GetPoint(segment, true /* front */);
-
-  // Note. If |isOutgoing| == true it's necessary to add edges which connect the start with all
-  // exits of its mwm. So |isEnter| below should be set to false.
-  // If |isOutgoing| == false all enters of the finish mwm should be connected with the finish
-  // point. So |isEnter| below should be set to true.
-  m_graph.ForEachTransition(
-      segment.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
-        edges.emplace_back(transition,
-                           RouteWeight(m_graph.GetEstimator().CalcLeapWeight(
-                                           segmentPoint, GetPoint(transition, isOutgoing)),
-                                       0 /* nontransitCross */));
-      });
-}
-
 }  // namespace routing

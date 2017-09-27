@@ -140,7 +140,7 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
   // If |isOutgoing| == false it's the finish. So ingoing edges are looked for.
   auto const getOutgoingEdgesFn = [isOutgoing](WorldGraph & graph, Segment const & u,
                                                vector<SegmentEdge> & edges) {
-    graph.GetEdgeList(u, isOutgoing, false /* isLeap */, edges);
+    graph.GetEdgeList(u, isOutgoing, false /* isLeap */, false /* isEnding */, edges);
   };
 
   return !CheckGraphConnectivity(segment, kDeadEndTestLimit, worldGraph,

@@ -40,11 +40,12 @@ public:
   WorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph, std::unique_ptr<IndexGraphLoader> loader,
              std::shared_ptr<EdgeEstimator> estimator);
 
+  // |isEnding| == true iff |segment| is first or last segment of the route. Needed because first and
+  // last segments may need special processing.
   void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
-                   std::vector<SegmentEdge> & edges);
+                   bool isEnding, std::vector<SegmentEdge> & edges);
 
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) { return m_loader->GetIndexGraph(numMwmId); }
-  EdgeEstimator const & GetEstimator() const { return *m_estimator; }
 
   Junction const & GetJunction(Segment const & segment, bool front);
   m2::PointD const & GetPoint(Segment const & segment, bool front);
@@ -58,18 +59,12 @@ public:
   // Interface for AStarAlgorithm:
   void GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
   void GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
+
   RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to);
-
-  template <typename Fn>
-  void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
-  {
-    m_crossMwmGraph->ForEachTransition(numMwmId, isEnter, std::forward<Fn>(fn));
-  }
-
-  bool IsTransition(Segment const & s, bool isOutgoing)
-  {
-    return m_crossMwmGraph->IsTransition(s, isOutgoing);
-  }
+  RouteWeight HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to);
+  RouteWeight CalcSegmentWeight(Segment const & segment);
+  RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const;
+  bool LeapIsAllowed(NumMwmId mwmId) const;
 
 private:
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);

@@ -104,9 +104,8 @@ public:
 
   RouteWeight HeuristicCostEstimate(TVertexType const & from, TVertexType const & to) const
   {
-    return RouteWeight(m_graph.GetEstimator().CalcHeuristic(GetPoint(from, true /* front */),
-                                                            GetPoint(to, true /* front */)),
-                       0 /* nontransitCross */);
+    return m_graph.HeuristicCostEstimate(GetPoint(from, true /* front */),
+                                         GetPoint(to, true /* front */));
   }
 
   RouteWeight CalcSegmentWeight(Segment const & segment) const;
@@ -208,12 +207,6 @@ private:
   // Adds real edges from m_graph
   void AddRealEdges(Segment const & segment, bool isOutgoing,
                     std::vector<SegmentEdge> & edges) const;
-  /// \brief If |isOutgoing| == true fills |edges| with SegmentEdge(s) which connects
-  /// |fakeVertex| with all exits of mwm.
-  /// \brief If |isOutgoing| == false fills |edges| with SegmentEdge(s) which connects
-  /// all enters to mwm with |fakeVertex|.
-  void ConnectLeapToTransitions(Segment const & segment, bool isOutgoing,
-                                std::vector<SegmentEdge> & edges) const;
 
   WorldGraph & m_graph;
   // Start segment id
