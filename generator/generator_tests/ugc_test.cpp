@@ -47,7 +47,7 @@ UNIT_TEST(UGC_TranslateRatingTest)
   bool rc = tr.TranslateUGC(id, ugc);
   TEST(rc, ("Can't translate rating for", id));
 
-  TEST_EQUAL(ugc.m_rating.m_ratings.size(), 1, ());
-  TEST_EQUAL(ugc.m_rating.m_ratings[0].m_key, "TranslationKey14", ());
-  TEST_EQUAL(ugc.m_rating.m_ratings[0].m_value, 4.0, ());
+  TEST_EQUAL(ugc.m_ratings.size(), 1, ());
+  TEST_EQUAL(ugc.m_ratings[0].m_key, "TranslationKey14", ());
+  TEST_EQUAL(ugc.m_ratings[0].m_value, 4.0, ());
 }

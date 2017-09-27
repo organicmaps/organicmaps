@@ -19,7 +19,7 @@ public:
   void CreateReviews(std::string const & data);
   
 private:
-  bool TranslateRating(UGCDB & db, osm::Id const id, ugc::Rating & rating);
+  bool TranslateRatings(UGCDB & db, osm::Id const id, ugc::Ratings & ratings);
   bool TranslateReview(UGCDB & db, osm::Id const id, std::vector<ugc::Review> & review);
 //  bool TranslateAttribute(UGCDB & db, osm::Id const id, ugc::Attribute & attribute);
 

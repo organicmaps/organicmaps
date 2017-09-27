@@ -15,7 +15,7 @@ UGCTranslator::UGCTranslator(std::string const & path)
 
 bool UGCTranslator::TranslateUGC(osm::Id const & id, ugc::UGC & ugc)
 {
-  bool ratingsOk = TranslateRating(m_dbRatings, id, ugc.m_rating);
+  bool ratingsOk = TranslateRatings(m_dbRatings, id, ugc.m_ratings);
   bool reviewsOk = TranslateReview(m_dbReviews, id, ugc.m_reviews);
   return ratingsOk && reviewsOk;
 }
@@ -32,7 +32,7 @@ void UGCTranslator::CreateReviews(std::string const & data)
   UNUSED_VALUE(rc);
 }
 
-bool UGCTranslator::TranslateRating(UGCDB & db, osm::Id const id, ugc::Rating & rating)
+bool UGCTranslator::TranslateRatings(UGCDB & db, osm::Id const id, ugc::Ratings & ratings)
 {
   std::vector<uint8_t> blob;
   bool rc = db.Get(id, blob);
@@ -54,7 +54,7 @@ bool UGCTranslator::TranslateRating(UGCDB & db, osm::Id const id, ugc::Rating & 
 
     std::ostringstream translationKey;
     translationKey << "TranslationKey" << translationKeyId;
-    rating.m_ratings.emplace_back(translationKey.str(), static_cast<float>(ratingValue));
+    ratings.emplace_back(translationKey.str(), static_cast<float>(ratingValue));
   }
 
   return true;
