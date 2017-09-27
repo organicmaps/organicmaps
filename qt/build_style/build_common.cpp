@@ -2,11 +2,11 @@
 
 #include "platform/platform.hpp"
 
-#include <QCoreApplication>
-#include <QDir>
-#include <QFile>
-#include <QProcess>
-#include <QRegExp>
+#include <QtCore/QCoreApplication>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QProcess>
+#include <QtCore/QRegExp>
 
 #include <exception>
 

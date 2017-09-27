@@ -20,10 +20,10 @@
 #include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/gflags/src/gflags/gflags.h"
 
-#include <QMessageBox>
+#include <QtWidgets/QMessageBox>
 #include <QtCore/QDir>
 #include <QtWidgets/QApplication>
-#include <QFileDialog>
+#include <QtWidgets/QFileDialog>
 
 DEFINE_string(data_path, "", "Path to data directory");
 DEFINE_string(log_abort_level, my::ToString(my::GetDefaultLogAbortLevel()),

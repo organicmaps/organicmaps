@@ -1,7 +1,7 @@
 #pragma once
 
-#include <QString>
-#include <QProcessEnvironment>
+#include <QtCore/QString>
+#include <QtCore/QProcessEnvironment>
 
 #include <initializer_list>
 #include <string>

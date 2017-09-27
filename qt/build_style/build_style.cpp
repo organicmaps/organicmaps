@@ -11,9 +11,9 @@
 #include <exception>
 #include <future>
 
-#include <QFile>
-#include <QDir>
-#include <QCoreApplication>
+#include <QtCore/QFile>
+#include <QtCore/QDir>
+#include <QtCore/QCoreApplication>
 
 namespace
 {

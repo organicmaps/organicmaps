@@ -4,10 +4,10 @@
 
 #include "platform/platform.hpp"
 
-#include <QDir>
-#include <QFile>
-#include <QFileInfo>
-#include <QStringList>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtCore/QStringList>
 
 #include <exception>
 

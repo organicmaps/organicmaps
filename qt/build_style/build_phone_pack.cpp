@@ -4,8 +4,8 @@
 
 #include "platform/platform.hpp"
 
-#include <QDir>
-#include <QStringList>
+#include <QtCore/QDir>
+#include <QtCore/QStringList>
 
 #include <exception>
 

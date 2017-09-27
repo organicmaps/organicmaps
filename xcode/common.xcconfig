@@ -10,7 +10,7 @@ FRAMEWORK_SEARCH_PATHS[sdk=macosx*] = $(QT_PATH)/lib
 
 // Deployment target
 IPHONEOS_DEPLOYMENT_TARGET = 8.2
-MACOSX_DEPLOYMENT_TARGET = 10.10
+MACOSX_DEPLOYMENT_TARGET = 10.12
 
 // Supported platforms
 SUPPORTED_PLATFORMS = macosx iphonesimulator iphoneos
@@ -69,3 +69,4 @@ OTHER_SWIFT_FLAGS = -Xfrontend -warn-long-function-bodies=400
 PRODUCT_NAME = $(TARGET_NAME)
 VALID_ARCHS = arm64
 VALID_ARCHS[sdk=iphonesimulator*] = x86_64
+VALID_ARCHS[sdk=macosx*] = x86_64

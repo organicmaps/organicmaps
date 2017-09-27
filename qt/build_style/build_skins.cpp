@@ -11,7 +11,7 @@
 #include <utility>
 #include <fstream>
 
-#include <QDir>
+#include <QtCore/QDir>
 
 namespace
 {

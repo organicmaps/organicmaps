@@ -7,10 +7,10 @@
 #include <fstream>
 #include <streambuf>
 
-#include <QDir>
-#include <QFile>
-#include <QFileInfo>
-#include <QStringList>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtCore/QStringList>
 
 namespace
 {
