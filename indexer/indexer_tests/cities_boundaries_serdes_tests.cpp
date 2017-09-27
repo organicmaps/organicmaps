@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "indexer/boundary_boxes.hpp"
-#include "indexer/boundary_boxes_serdes.hpp"
+#include "indexer/city_boundary.hpp"
+#include "indexer/cities_boundaries_serdes.hpp"
 #include "indexer/coding_params.hpp"
 
 #include "coding/reader.hpp"
@@ -20,7 +20,7 @@ using namespace std;
 
 namespace
 {
-using Boundary = vector<BoundaryBoxes>;
+using Boundary = vector<CityBoundary>;
 using Boundaries = vector<Boundary>;
 
 void TestEqual(BoundingBox const & lhs, BoundingBox const & rhs, double eps)
@@ -30,6 +30,7 @@ void TestEqual(BoundingBox const & lhs, BoundingBox const & rhs, double eps)
 }
 
 void TestEqual(CalipersBox const & lhs, CalipersBox const & rhs, double eps) {}
+
 void TestEqual(DiamondBox const & lhs, DiamondBox const & rhs, double eps)
 {
   auto const lps = lhs.Points();
@@ -37,12 +38,10 @@ void TestEqual(DiamondBox const & lhs, DiamondBox const & rhs, double eps)
   TEST_EQUAL(lps.size(), 4, (lhs));
   TEST_EQUAL(rps.size(), 4, (rhs));
   for (size_t i = 0; i < 4; ++i)
-  {
     TEST(AlmostEqualAbs(lps[i], rps[i], eps), (lhs, rhs));
-  }
 }
 
-void TestEqual(BoundaryBoxes const & lhs, BoundaryBoxes const & rhs, double eps)
+void TestEqual(CityBoundary const & lhs, CityBoundary const & rhs, double eps)
 {
   TestEqual(lhs.m_bbox, rhs.m_bbox, eps);
   TestEqual(lhs.m_cbox, rhs.m_cbox, eps);
@@ -68,7 +67,7 @@ Boundaries EncodeDecode(Boundaries const & boundaries, CodingParams const & para
   vector<uint8_t> buffer;
   {
     MemWriter<decltype(buffer)> sink(buffer);
-    BoundaryBoxesEncoder<decltype(sink)> encoder(sink, params);
+    CityBoundaryEncoder<decltype(sink)> encoder(sink, params);
     encoder(boundaries);
   }
 
@@ -76,7 +75,7 @@ Boundaries EncodeDecode(Boundaries const & boundaries, CodingParams const & para
     Boundaries boundaries;
     MemReader reader(buffer.data(), buffer.size());
     NonOwningReaderSource source(reader);
-    BoundaryBoxesDecoder<decltype(source)> decoder(source, params);
+    CityBoundaryDecoder<decltype(source)> decoder(source, params);
     decoder(boundaries);
     return boundaries;
   }
@@ -88,7 +87,7 @@ void TestEncodeDecode(Boundaries const & expected, CodingParams const & params, 
   TestEqual(expected, actual, eps);
 }
 
-UNIT_TEST(BoundaryBoxesSerDes_Smoke)
+UNIT_TEST(CitiesBoundariesSerDes_Smoke)
 {
   CodingParams const params(19 /* coordBits */, PointD(MercatorBounds::minX, MercatorBounds::minY));
   double const kEps = 1e-3;

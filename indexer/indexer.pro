@@ -64,13 +64,13 @@ SOURCES += \
 
 HEADERS += \
     altitude_loader.hpp \
-    boundary_boxes.hpp \
-    boundary_boxes_serdes.hpp \
     categories_holder.hpp \
     categories_index.hpp \
     cell_coverer.hpp \
     cell_id.hpp \
     centers_table.hpp \
+    cities_boundaries_serdes.hpp \
+    city_boundary.hpp \
     classificator.hpp \
     classificator_loader.hpp \
     coding_params.hpp \

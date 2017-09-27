@@ -5,7 +5,6 @@
 #include "base/visitor.hpp"
 
 #include <limits>
-#include <string>
 #include <vector>
 
 namespace m2
@@ -40,7 +39,8 @@ public:
     return m_min == rhs.m_min && m_max == rhs.m_max;
   }
 
-  DECLARE_VISITOR(visitor(m_min), visitor(m_max))
+  DECLARE_VISITOR(visitor(m_min, "min"), visitor(m_max, "max"))
+  DECLARE_DEBUG_PRINT(BoundingBox)
 
 private:
   static_assert(std::numeric_limits<double>::has_infinity, "");
@@ -50,6 +50,4 @@ private:
   m2::PointD m_min = m2::PointD(kPositiveInfinity, kPositiveInfinity);
   m2::PointD m_max = m2::PointD(kNegativeInfinity, kNegativeInfinity);
 };
-
-std::string DebugPrint(BoundingBox const & bbox);
 }  // namespace m2

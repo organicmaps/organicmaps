@@ -147,6 +147,4 @@ bool CalipersBox::HasPoint(PointD const & p) const
   }
   return true;
 }
-
-string DebugPrint(CalipersBox const & cbox) { return "CalipersBox " + ::DebugPrint(cbox.Points()); }
 }  // namespace m2

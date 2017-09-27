@@ -24,7 +24,7 @@
 namespace indexer
 {
 template <typename Sink>
-class BoundaryBoxesEncoder
+class CityBoundaryEncoder
 {
 public:
   struct Visitor
@@ -149,25 +149,25 @@ public:
     m2::PointU m_last;
   };
 
-  BoundaryBoxesEncoder(Sink & sink, serial::CodingParams const & params)
+  CityBoundaryEncoder(Sink & sink, serial::CodingParams const & params)
     : m_sink(sink), m_visitor(sink, params)
   {
   }
 
-  void operator()(std::vector<std::vector<BoundaryBoxes>> const & boxes)
+  void operator()(std::vector<std::vector<CityBoundary>> const & boundaries)
   {
-    WriteVarUint(m_sink, boxes.size());
+    WriteVarUint(m_sink, boundaries.size());
 
     {
       BitWriter<Sink> writer(m_sink);
-      for (auto const & bs : boxes)
+      for (auto const & bs : boundaries)
       {
         CHECK(!bs.empty(), ());
         coding::GammaCoder::Encode(writer, bs.size());
       }
     }
 
-    for (auto const & bs : boxes)
+    for (auto const & bs : boundaries)
     {
       for (auto const & b : bs)
         m_visitor(b);
@@ -181,7 +181,7 @@ private:
 };
 
 template <typename Source>
-class BoundaryBoxesDecoder
+class CityBoundaryDecoder
 {
 public:
   struct Visitor
@@ -285,26 +285,26 @@ public:
     m2::PointU m_last;
   };
 
-  BoundaryBoxesDecoder(Source & source, serial::CodingParams const & params)
+  CityBoundaryDecoder(Source & source, serial::CodingParams const & params)
     : m_source(source), m_visitor(source, params)
   {
   }
 
-  void operator()(std::vector<std::vector<BoundaryBoxes>> & boxes)
+  void operator()(std::vector<std::vector<CityBoundary>> & boundaries)
   {
     auto const size = ReadVarUint<uint64_t>(m_source);
-    boxes.resize(size);
+    boundaries.resize(size);
 
     {
       BitReader<Source> reader(m_source);
-      for (auto & bs : boxes)
+      for (auto & bs : boundaries)
       {
         auto const size = coding::GammaCoder::Decode(reader);
         bs.resize(size);
       }
     }
 
-    for (auto & bs : boxes)
+    for (auto & bs : boundaries)
     {
       for (auto & b : bs)
         m_visitor(b);

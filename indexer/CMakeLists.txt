@@ -6,20 +6,20 @@ set(
   SRC
   altitude_loader.cpp
   altitude_loader.hpp
-  boundary_boxes.hpp
-  boundary_boxes_serdes.hpp
-  categories_holder_loader.cpp
   categories_holder.cpp
   categories_holder.hpp
+  categories_holder_loader.cpp
   categories_index.cpp
   categories_index.hpp
   cell_coverer.hpp
   cell_id.hpp
   centers_table.cpp
   centers_table.hpp
+  cities_boundaries_serdes.hpp
+  city_boundary.hpp
+  classificator.cpp
   classificator_loader.cpp
   classificator_loader.hpp
-  classificator.cpp
   classificator.hpp
   coding_params.cpp
   coding_params.hpp

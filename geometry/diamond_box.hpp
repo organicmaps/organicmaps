@@ -5,7 +5,6 @@
 
 #include "base/visitor.hpp"
 
-#include <string>
 #include <vector>
 
 namespace m2
@@ -16,7 +15,7 @@ class DiamondBox
 {
 public:
   DiamondBox() = default;
-  DiamondBox(std::vector<PointD> const & points);
+  explicit DiamondBox(std::vector<PointD> const & points);
 
   void Add(PointD const & p) { return Add(p.x, p.y); }
   void Add(double x, double y) { return m_box.Add(x + y, x - y); }
@@ -34,7 +33,8 @@ public:
 
   bool operator==(DiamondBox const & rhs) const { return m_box == rhs.m_box; }
 
-  DECLARE_VISITOR(visitor(m_box))
+  DECLARE_VISITOR(visitor(Points(), "points"))
+  DECLARE_DEBUG_PRINT(DiamondBox)
 
 private:
   static m2::PointD ToOrig(m2::PointD const & p)
@@ -44,6 +44,4 @@ private:
 
   BoundingBox m_box;
 };
-
-std::string DebugPrint(DiamondBox const & dbox);
 }  // namespace m2

@@ -48,6 +48,7 @@ SOURCES += \
   timegm_test.cpp \
   timer_test.cpp \
   uni_string_dfa_test.cpp \
+  visitor_tests.cpp \
   worker_thread_tests.cpp \
 
 HEADERS +=

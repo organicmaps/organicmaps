@@ -4,7 +4,6 @@
 
 #include "base/visitor.hpp"
 
-#include <string>
 #include <vector>
 
 namespace m2
@@ -19,7 +18,7 @@ class CalipersBox
 {
 public:
   CalipersBox() = default;
-  CalipersBox(std::vector<PointD> const & points);
+  explicit CalipersBox(std::vector<PointD> const & points);
 
   std::vector<PointD> const & Points() const { return m_points; }
 
@@ -28,11 +27,10 @@ public:
 
   bool operator==(CalipersBox const & rhs) const { return m_points == rhs.m_points; }
 
-  DECLARE_VISITOR(visitor(m_points))
+  DECLARE_VISITOR(visitor(m_points, "points"))
+  DECLARE_DEBUG_PRINT(CalipersBox)
 
 private:
   std::vector<PointD> m_points;
 };
-
-std::string DebugPrint(CalipersBox const & cbox);
 }  // namespace m2
