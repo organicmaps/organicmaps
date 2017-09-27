@@ -87,6 +87,7 @@ set(
   timer.hpp
   uni_string_dfa.cpp
   uni_string_dfa.hpp
+  visitor.hpp
   worker_thread.cpp
   worker_thread.hpp
 )

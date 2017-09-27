@@ -15,6 +15,7 @@ SOURCES += \
   calipers_box.cpp \
   clipping.cpp \
   convex_hull.cpp \
+  diamond_box.cpp \
   distance_on_sphere.cpp \
   latlon.cpp \
   line2d.cpp \

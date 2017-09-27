@@ -4,6 +4,8 @@
 
 #include "coding/hex.hpp"
 
+#include "base/visitor.hpp"
+
 #include <chrono>
 #include <cstdint>
 #include <memory>
@@ -11,18 +13,6 @@
 #include <string>
 #include <string>
 #include <vector>
-
-#define DECLARE_VISITOR(...)          \
-  template <typename Visitor>         \
-  void Visit(Visitor & visitor)       \
-  {                                   \
-    __VA_ARGS__;                      \
-  }                                   \
-  template <typename Visitor>         \
-  void Visit(Visitor & visitor) const \
-  {                                   \
-    __VA_ARGS__;                      \
-  }
 
 namespace ugc
 {

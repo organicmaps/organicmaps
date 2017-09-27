@@ -64,6 +64,8 @@ SOURCES += \
 
 HEADERS += \
     altitude_loader.hpp \
+    boundary_boxes.hpp \
+    boundary_boxes_serdes.hpp \
     categories_holder.hpp \
     categories_index.hpp \
     cell_coverer.hpp \

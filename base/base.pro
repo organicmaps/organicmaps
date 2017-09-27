@@ -99,5 +99,6 @@ HEADERS += \
     timegm.hpp \
     timer.hpp \
     uni_string_dfa.hpp \
+    visitor.hpp \
     waiter.hpp \
     worker_thread.hpp \

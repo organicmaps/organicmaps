@@ -2,6 +2,7 @@ project(indexer_tests)
 
 set(
   SRC
+  boundary_boxes_serdes_tests.cpp
   categories_test.cpp
   cell_coverer_test.cpp
   cell_id_test.cpp

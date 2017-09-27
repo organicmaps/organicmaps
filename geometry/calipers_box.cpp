@@ -86,7 +86,7 @@ CalipersBox::CalipersBox(vector<PointD> const & points) : m_points({})
 {
   ConvexHull hull(points, kEps);
 
-  if (hull.Size() < 4)
+  if (hull.Size() < 3)
   {
     m_points = hull.Points();
     return;
@@ -147,4 +147,6 @@ bool CalipersBox::HasPoint(PointD const & p) const
   }
   return true;
 }
+
+string DebugPrint(CalipersBox const & cbox) { return "CalipersBox " + ::DebugPrint(cbox.Points()); }
 }  // namespace m2

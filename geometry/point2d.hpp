@@ -175,6 +175,9 @@ namespace m2
       y = sinAngle * oldX + cosAngle * y;
     }
 
+    // Returns vector rotated 90 degrees counterclockwise.
+    Point Ort() const { return Point(-y, x); }
+
     void Transform(m2::Point<T> const & org,
                    m2::Point<T> const & dx, m2::Point<T> const & dy)
     {

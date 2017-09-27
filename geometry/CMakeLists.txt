@@ -19,6 +19,7 @@ set(
   convex_hull.hpp
   covering.hpp
   covering_utils.hpp
+  diamond_box.cpp
   diamond_box.hpp
   distance.hpp
   distance_on_sphere.cpp

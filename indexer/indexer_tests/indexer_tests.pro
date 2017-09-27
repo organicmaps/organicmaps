@@ -28,6 +28,7 @@ HEADERS += \
 
 SOURCES += \
     ../../testing/testingmain.cpp \
+    boundary_boxes_serdes_tests.cpp \
     categories_test.cpp \
     cell_coverer_test.cpp \
     cell_id_test.cpp \
