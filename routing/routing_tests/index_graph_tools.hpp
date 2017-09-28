@@ -48,7 +48,7 @@ struct RestrictionTest
 
   void SetRestrictions(RestrictionVec && restrictions)
   {
-    m_graph->GetIndexGraph(kTestNumMwmId).SetRestrictions(move(restrictions));
+    m_graph->GetIndexGraphForTests(kTestNumMwmId).SetRestrictions(move(restrictions));
   }
 
   unique_ptr<WorldGraph> m_graph;

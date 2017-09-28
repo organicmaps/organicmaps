@@ -187,7 +187,7 @@ unique_ptr<WorldGraph> TestIndexGraphTopology::Builder::PrepareIndexGraph()
   BuildJoints();
 
   auto worldGraph = BuildWorldGraph(move(loader), estimator, m_joints);
-  worldGraph->GetIndexGraph(kTestNumMwmId).SetRoadAccess(move(m_roadAccess));
+  worldGraph->GetIndexGraphForTests(kTestNumMwmId).SetRoadAccess(move(m_roadAccess));
   return worldGraph;
 }
 

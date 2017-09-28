@@ -200,7 +200,7 @@ UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionOnlyF5F3)
   RestrictionVec restrictionsOnly = {
       {Restriction::Type::Only, {5 /* feature from */, 3 /* feature to */}}};
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraph(kTestNumMwmId), restrictionsOnly,
+  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
                                      restrictionsNo);
   vector<m2::PointD> const expectedGeom = {
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
@@ -312,7 +312,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwowayCornerGraph_RestrictionF3F1Only)
   RestrictionVec restrictionsOnly = {
       {Restriction::Type::Only, {3 /* feature from */, 1 /* feature to */}}};
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraph(kTestNumMwmId), restrictionsOnly,
+  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
                                      restrictionsNo);
   vector<m2::PointD> const expectedGeom = {
       {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 1}, {0, 2}, {0, 3}};
@@ -410,7 +410,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF10F3Only)
   RestrictionVec restrictionsOnly = {
       {Restriction::Type::Only, {10 /* feature from */, 3 /* feature to */}}};
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraph(kTestNumMwmId), restrictionsOnly,
+  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
                                      restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {
@@ -432,7 +432,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF10F3OnlyF3F4Only)
       {Restriction::Type::Only, {3 /* feature from */, 4 /* feature to */}},
       {Restriction::Type::Only, {10 /* feature from */, 3 /* feature to */}}};
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraph(kTestNumMwmId), restrictionsOnly,
+  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
                                      restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {
@@ -455,7 +455,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF2F8NoRestrictionF9F
   RestrictionVec const restrictionsOnly = {
       {Restriction::Type::Only,
        {9 /* feature from */, 1 /* feature to */}}};  // Invalid restriction.
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraph(kTestNumMwmId), restrictionsOnly,
+  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
                                      restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
@@ -664,7 +664,7 @@ UNIT_CLASS_TEST(RestrictionTest, PosterGraph_RestrictionF0F1Only)
   RestrictionVec restrictionsOnly = {
       {Restriction::Type::Only, {0 /* feature from */, 1 /* feature to */}}};
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraph(kTestNumMwmId), restrictionsOnly,
+  ConvertRestrictionsOnlyToNoAndSort(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
                                      restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {

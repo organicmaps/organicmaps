@@ -15,6 +15,12 @@ WorldGraph::WorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph, unique_ptr<Index
 void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
                              bool isEnding, std::vector<SegmentEdge> & edges)
 {
+  if (IsInSingleMwmMode())
+  {
+    m_loader->GetIndexGraph(m_mwmId).GetEdgeList(segment, isOutgoing, edges);
+    return;
+  }
+
   // If mode is LeapsOnly and |isEnding| == true we need to connect segment to transitions.
   // If |isOutgoing| == true connects |segment| with all exits of mwm.
   // If |isOutgoing| == false connects all enters to mwm with |segment|.
@@ -45,7 +51,7 @@ void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLe
     return;
   }
 
-  IndexGraph & indexGraph = GetIndexGraph(segment.GetMwmId());
+  IndexGraph & indexGraph = m_loader->GetIndexGraph(segment.GetMwmId());
   indexGraph.GetEdgeList(segment, isOutgoing, edges);
 
   if (m_crossMwmGraph && m_crossMwmGraph->IsTransition(segment, isOutgoing))
@@ -65,7 +71,7 @@ m2::PointD const & WorldGraph::GetPoint(Segment const & segment, bool front)
 
 RoadGeometry const & WorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)
 {
-  return GetIndexGraph(mwmId).GetGeometry().GetRoad(featureId);
+  return m_loader->GetIndexGraph(mwmId).GetGeometry().GetRoad(featureId);
 }
 
 void WorldGraph::GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)

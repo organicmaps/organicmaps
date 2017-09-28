@@ -5,6 +5,7 @@
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
+#include "routing/num_mwm_id.hpp"
 #include "routing/segment.hpp"
 
 #include <memory>
@@ -45,7 +46,9 @@ public:
   void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
                    bool isEnding, std::vector<SegmentEdge> & edges);
 
-  IndexGraph & GetIndexGraph(NumMwmId numMwmId) { return m_loader->GetIndexGraph(numMwmId); }
+  IndexGraph & GetIndexGraphForTests(NumMwmId numMwmId) { return m_loader->GetIndexGraph(numMwmId); }
+  void SetSingleMwmMode(NumMwmId numMwmId) { m_mwmId = numMwmId; }
+  void UnsetSingleMwmMode() { m_mwmId = kFakeNumMwmId; }
 
   Junction const & GetJunction(Segment const & segment, bool front);
   m2::PointD const & GetPoint(Segment const & segment, bool front);
@@ -68,12 +71,14 @@ public:
 
 private:
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
+  bool IsInSingleMwmMode() { return m_mwmId != kFakeNumMwmId; }
 
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;
   std::unique_ptr<IndexGraphLoader> m_loader;
   std::shared_ptr<EdgeEstimator> m_estimator;
   std::vector<Segment> m_twins;
   Mode m_mode = Mode::NoLeaps;
+  NumMwmId m_mwmId = kFakeNumMwmId;
 };
 
 std::string DebugPrint(WorldGraph::Mode mode);

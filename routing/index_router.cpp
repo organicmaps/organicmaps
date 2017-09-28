@@ -742,8 +742,9 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
     else
     {
       // Single mwm route.
-      IndexGraph & indexGraph = worldGraph.GetIndexGraph(current.GetMwmId());
-      result = FindPath(current, next, delegate, indexGraph, {} /* onVisitedVertexCallback */, routingResult);
+      worldGraph.SetSingleMwmMode(current.GetMwmId());
+      result = FindPath(current, next, delegate, worldGraph, {} /* onVisitedVertexCallback */, routingResult);
+      worldGraph.UnsetSingleMwmMode();
     }
     if (result != IRouter::NoError)
       return result;
