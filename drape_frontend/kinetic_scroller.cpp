@@ -15,6 +15,7 @@ double const kKineticThreshold = 50.0;
 double const kKineticAcceleration = 0.4;
 double const kKineticMaxSpeedStart = 1000.0; // pixels per second
 double const kKineticMaxSpeedEnd = 10000.0; // pixels per second
+double const kInstantVelocityThresholdUnscaled = 200.0; // pixels per second
 
 double CalculateKineticMaxSpeed(ScreenBase const & modelView)
 {
@@ -117,12 +118,29 @@ private:
   TObjectProperties m_properties;
 };
 
-void KineticScroller::Init(ScreenBase const &modelView)
+void KineticScroller::Init(ScreenBase const & modelView)
 {
   ASSERT(!m_isActive, ());
   m_isActive = true;
   m_lastRect = modelView.GlobalRect();
   m_lastTimestamp = std::chrono::steady_clock::now();
+  m_updatePosition = modelView.GlobalRect().GlobalCenter();
+  m_updateTimestamp = m_lastTimestamp;
+}
+
+void KineticScroller::Update(ScreenBase const & modelView)
+{
+  ASSERT(m_isActive, ());
+  using namespace std::chrono;
+  auto const nowTimestamp = std::chrono::steady_clock::now();
+  auto const curPos = modelView.GlobalRect().GlobalCenter();
+
+  double const instantPixelLen = (modelView.GtoP(curPos) - modelView.GtoP(m_updatePosition)).Length();
+  auto const updateElapsed = duration_cast<duration<double>>(nowTimestamp - m_updateTimestamp).count();
+  m_instantVelocity = (updateElapsed >= 1e-5) ? instantPixelLen / updateElapsed : 0.0;
+
+  m_updateTimestamp = nowTimestamp;
+  m_updatePosition = curPos;
 }
 
 bool KineticScroller::IsActive() const
@@ -139,9 +157,9 @@ m2::PointD KineticScroller::GetDirection(ScreenBase const & modelView) const
   using namespace std::chrono;
   auto const nowTimestamp = steady_clock::now();
   auto const elapsed = duration_cast<duration<double>>(nowTimestamp - m_lastTimestamp).count();
+  m2::PointD const currentCenter = modelView.GlobalRect().GlobalCenter();
 
   m2::PointD const lastCenter = m_lastRect.GlobalCenter();
-  m2::PointD const currentCenter = modelView.GlobalRect().GlobalCenter();
   double const pxDeltaLength = (modelView.GtoP(currentCenter) - modelView.GtoP(lastCenter)).Length();
   m2::PointD delta = currentCenter - lastCenter;
   if (!delta.IsAlmostZero())
@@ -164,7 +182,15 @@ void KineticScroller::Cancel()
 
 drape_ptr<Animation> KineticScroller::CreateKineticAnimation(ScreenBase const & modelView)
 {
-  static double kVelocityThreshold = kKineticThreshold * VisualParams::Instance().GetVisualScale();
+  static double vs = VisualParams::Instance().GetVisualScale();
+  static double kVelocityThreshold = kKineticThreshold * vs;
+  static double kInstantVelocityThreshold = kInstantVelocityThresholdUnscaled * vs;
+
+  if (m_instantVelocity < kInstantVelocityThreshold)
+  {
+    Cancel();
+    return drape_ptr<Animation>();
+  }
 
   auto const direction = GetDirection(modelView);
   Cancel();

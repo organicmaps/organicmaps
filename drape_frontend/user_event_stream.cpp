@@ -987,6 +987,9 @@ void UserEventStream::Drag(Touch const & t)
   TEST_CALL(DRAG);
   ASSERT_EQUAL(m_state, STATE_DRAG, ());
   m_navigator.DoDrag(t.m_location);
+
+  if (m_kineticScrollEnabled && m_scroller.IsActive())
+    m_scroller.Update(m_navigator.Screen());
 }
 
 bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
