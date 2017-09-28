@@ -11,13 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmToolbarFragment;
+import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UGCEditorFragment extends BaseMwmToolbarFragment
+public class UGCEditorFragment extends BaseMwmAuthorizationFragment
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = UGCEditorFragment.class.getSimpleName();
   @NonNull
   private final UGCRatingAdapter mUGCRatingAdapter = new UGCRatingAdapter();
 
@@ -48,16 +52,25 @@ public class UGCEditorFragment extends BaseMwmToolbarFragment
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    View save = mToolbarController.findViewById(R.id.send);
-    save.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        getActivity().finish();
-      }
-    });
     Intent intent = getActivity().getIntent();
     mToolbarController.setTitle(intent.getStringExtra(UGCEditorActivity.EXTRA_TITLE));
+  }
+
+  @Override
+  protected void onPreSocialAuthentication()
+  {
+    LOGGER.i(TAG, "onPreSocialAuthentication()");
+  }
+
+  @Override
+  protected void onAuthorized()
+  {
+    LOGGER.i(TAG, "onAuthorized()");
+  }
+
+  @Override
+  protected void onStartAuthorization()
+  {
+    LOGGER.i(TAG, "onStartAuthorization()");
   }
 }

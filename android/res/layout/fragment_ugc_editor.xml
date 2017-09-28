@@ -12,7 +12,7 @@
     android:layout_height="?attr/actionBarSize"
     android:theme="@style/MwmWidget.ToolbarTheme">
     <ImageView
-      android:id="@+id/send"
+      android:id="@+id/submit"
       android:layout_width="?actionBarSize"
       android:layout_height="?actionBarSize"
       android:layout_alignParentEnd="true"

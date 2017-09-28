@@ -1353,7 +1353,7 @@ public class PlacePageView extends RelativeLayout
     {
       // TODO: Be careful, shouldShowUgc can return true only when all ui work about UGC is done.
       // Now (01.08.2017) UI is not ready for UGC yet.
-      if (mMapObject.shouldShowUGC())
+      if (true)
       {
         UGC.setListener(this);
         UGC.requestUGC(mMapObject.getFeatureId());

@@ -40,6 +40,8 @@ dependencies {
   compile 'com.android.support:cardview-v7:25.0.0'
   compile 'com.android.support:preference-v7:25.0.0'
   compile 'com.android.support:preference-v14:25.0.0'
+  compile 'com.android.support:customtabs:25.0.0'
+
   // google play services
   compile 'com.google.android.gms:play-services-location:10.0.1'
   compile 'com.google.android.gms:play-services-analytics:10.0.1'
@@ -52,7 +54,9 @@ dependencies {
   compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true }
   compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') { transitive = true }
   // 3-party
-  compile 'com.facebook.android:facebook-android-sdk:4.8.0'
+  compile ('com.facebook.android:facebook-android-sdk:4.17.0') {
+    exclude group: 'com.android.support'
+  }
   compile('com.facebook.android:audience-network-sdk:4.20.0') {
     exclude group: 'com.google.android.gms'
     exclude group: 'com.android.support'

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:paddingStart="@dimen/margin_base_plus"
+  android:paddingLeft="@dimen/margin_base_plus"
+  android:paddingEnd="@dimen/margin_base_plus"
+  android:paddingRight="@dimen/margin_base_plus"
+  android:paddingBottom="@dimen/auth_dialog_padding_bottom"
+  android:paddingTop="@dimen/auth_dialog_padding_top">
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/MwmTextAppearance.Headline"
+    android:text="Sign in with social"/>
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/auth_dialog_padding_top"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:text="Easy sign in without login and password in a couple of seconds."
+    />
+  <com.facebook.login.widget.LoginButton
+    xmlns:fb="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loging_button"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/auth_dialog_facebook_btn_height"
+    android:layout_marginTop="@dimen/auth_dialog_padding_top"
+    android:textSize="@dimen/text_size_body_3"
+    fb:com_facebook_login_text="@string/facebook"
+    android:paddingStart="@dimen/margin_base"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base"
+    android:paddingTop="@dimen/margin_half_plus"
+    android:paddingBottom="@dimen/margin_half_plus"
+    android:layout_gravity="center_horizontal"/>
+</LinearLayout>
