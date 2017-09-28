@@ -19,18 +19,18 @@ static inline MWMBannerType MatchBannerType(ads::Banner::Type coreType)
   }
 }
 
-static inline MWMCoreBanner * MatchBanner(ads::Banner const & banner)
+static inline MWMCoreBanner * MatchBanner(ads::Banner const & banner, NSString * query)
 {
   return [[MWMCoreBanner alloc] initWithMwmType:MatchBannerType(banner.m_type)
-                                       bannerID:@(banner.m_bannerId.c_str())];
+                                       bannerID:@(banner.m_bannerId.c_str())
+                                          query:query];
 }
 
-static inline NSArray<MWMCoreBanner *> * MatchPriorityBanners(
-    std::vector<ads::Banner> const & banners)
+static inline NSArray<MWMCoreBanner *> * MatchPriorityBanners(std::vector<ads::Banner> const & banners, NSString * query = @"")
 {
   NSMutableArray<MWMCoreBanner *> * mBanners = [@[] mutableCopy];
   for (auto const & banner : banners)
-    [mBanners addObject:MatchBanner(banner)];
+    [mBanners addObject:MatchBanner(banner, query)];
   return [mBanners copy];
 }
 }

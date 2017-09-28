@@ -41,7 +41,29 @@ final class AdBanner: UITableViewCell {
   @IBOutlet private weak var adCallToActionButtonDetailed: UIButton!
   @IBOutlet private weak var adCallToActionButtonCustom: UIButton!
   @IBOutlet private weak var adPrivacyButton: UIButton!
+  @IBOutlet private weak var nativeAdView: UIView!
+  @IBOutlet private weak var fallbackAdView: UIView!
+  @IBOutlet private var nativeAdViewBottom: NSLayoutConstraint!
+  @IBOutlet private var fallbackAdViewBottom: NSLayoutConstraint!
+  @IBOutlet private var fallbackAdViewHeight: NSLayoutConstraint!
   @objc static let detailedBannerExcessHeight: Float = 36
+
+  enum AdType {
+    case native
+    case fallback
+  }
+
+  var adType = AdType.native {
+    didSet {
+      let isNative = adType == .native
+      nativeAdView.isHidden = !isNative
+      fallbackAdView.isHidden = isNative
+
+      nativeAdViewBottom.isActive = isNative
+      fallbackAdViewBottom.isActive = !isNative
+      fallbackAdViewHeight.isActive = !isNative
+    }
+  }
 
   @objc var state = AdBannerState.unset {
     didSet {
@@ -82,6 +104,14 @@ final class AdBanner: UITableViewCell {
     }
   }
 
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    switch nativeAd {
+    case let ad as GoogleFallbackBanner: updateFallbackBannerLayout(ad: ad)
+    default: break
+    }
+  }
+
   func reset() {
     state = .unset
   }
@@ -96,17 +126,13 @@ final class AdBanner: UITableViewCell {
     }
 
     nativeAd = ad as? Banner
-    switch ad.mwmType {
-    case .none:
-      assert(false)
-    case .facebook:
-      configFBBanner(ad: (ad as! FacebookBanner).nativeAd)
-    case .rb:
-      configRBBanner(ad: ad as! MTRGNativeAd)
-    case .mopub:
-      configMopubBanner(ad: ad as! MopubBanner)
-    case .google:
-      assert(false)
+    switch ad {
+    case let ad as FacebookBanner: configFBBanner(ad: ad.nativeAd)
+    case let ad as RBBanner: configRBBanner(ad: ad)
+    case let ad as MopubBanner: configMopubBanner(ad: ad)
+    case let ad as GoogleFallbackBanner: configGoogleFallbackBanner(ad: ad)
+    case let ad as GoogleNativeBanner: configGoogleNativeBanner(ad: ad)
+    default: assert(false)
     }
   }
 
@@ -133,6 +159,7 @@ final class AdBanner: UITableViewCell {
   }
 
   private func configFBBanner(ad: FBNativeAd) {
+    adType = .native
     let adCallToActionButtons: [UIView]
     if state == .search {
       adCallToActionButtons = [self, adCallToActionButtonCompact]
@@ -164,6 +191,7 @@ final class AdBanner: UITableViewCell {
 
   private func configRBBanner(ad: MTRGNativeAd) {
     guard let banner = ad.banner else { return }
+    adType = .native
 
     MTRGNativeAd.loadImage(banner.icon, to: adIconImageView)
 
@@ -188,6 +216,7 @@ final class AdBanner: UITableViewCell {
 
   private func configMopubBanner(ad: MopubBanner) {
     mpNativeAd = ad.nativeAd
+    adType = .native
 
     let adCallToActionButtons: [UIButton]
     if state == .search {
@@ -214,6 +243,21 @@ final class AdBanner: UITableViewCell {
       adIconImageView.af_setImage(withURL: url)
     }
     adPrivacyButton.isHidden = ad.privacyInfoURL == nil
+  }
+
+  private func configGoogleFallbackBanner(ad: GoogleFallbackBanner) {
+    adType = .fallback
+    fallbackAdView.subviews.forEach { $0.removeFromSuperview() }
+    fallbackAdView.addSubview(ad)
+    updateFallbackBannerLayout(ad: ad)
+  }
+
+  private func updateFallbackBannerLayout(ad: GoogleFallbackBanner) {
+    ad.width = fallbackAdView.width
+    fallbackAdViewHeight.constant = ad.dynamicSize.height
+  }
+
+  private func configGoogleNativeBanner(ad _: GoogleNativeBanner) {
   }
 
   private func refreshBannerIfNeeded() {

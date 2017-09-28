@@ -108,6 +108,9 @@
 		340475801E081B3300C92850 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404757C1E081B3300C92850 /* iosOGLContextFactory.mm */; };
 		340475811E081B3300C92850 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404757C1E081B3300C92850 /* iosOGLContextFactory.mm */; };
 		340475821E081B3300C92850 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404757C1E081B3300C92850 /* iosOGLContextFactory.mm */; };
+		34065A101F45E7F8006684E5 /* GoogleFallbackBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34065A0F1F45E7F8006684E5 /* GoogleFallbackBanner.swift */; };
+		34065A111F45E7F8006684E5 /* GoogleFallbackBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34065A0F1F45E7F8006684E5 /* GoogleFallbackBanner.swift */; };
+		34065A121F45E7F8006684E5 /* GoogleFallbackBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34065A0F1F45E7F8006684E5 /* GoogleFallbackBanner.swift */; };
 		3406FA151C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */; };
 		3406FA161C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */; };
 		3406FA181C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
@@ -175,6 +178,9 @@
 		340E1EFE1E2F614400CE49BF /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 340E1EEA1E2F614400CE49BF /* Welcome.storyboard */; };
 		340E1EFF1E2F614400CE49BF /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 340E1EEA1E2F614400CE49BF /* Welcome.storyboard */; };
 		3411387D1C15AE73002E3B3E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3411387C1C15AE73002E3B3E /* libeditor.a */; };
+		3411E7631F7CE5DD00A49FCD /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3411E7621F7CE5DC00A49FCD /* GoogleMobileAds.framework */; };
+		3411E7641F7CE5DF00A49FCD /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3411E7621F7CE5DC00A49FCD /* GoogleMobileAds.framework */; };
+		3411E7651F7CE5E000A49FCD /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3411E7621F7CE5DC00A49FCD /* GoogleMobileAds.framework */; };
 		341522BF1B666A550077AA8F /* MWMAPIBarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341522BE1B666A550077AA8F /* MWMAPIBarView.mm */; };
 		341B10761E55B15B00071C74 /* MWMMobileInternetAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A13811DEC138C00C7DB60 /* MWMMobileInternetAlert.xib */; };
 		341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
@@ -529,6 +535,9 @@
 		34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */; };
 		34BF0CC61C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
 		34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
+		34C0A69C1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C0A69B1F4C1B380007CE5B /* GoogleNativeBanner.swift */; };
+		34C0A69D1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C0A69B1F4C1B380007CE5B /* GoogleNativeBanner.swift */; };
+		34C0A69E1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C0A69B1F4C1B380007CE5B /* GoogleNativeBanner.swift */; };
 		34C5B80F1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B80E1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift */; };
 		34C5B8101F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B80E1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift */; };
 		34C5B8111F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B80E1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift */; };
@@ -1825,6 +1834,7 @@
 		3404757B1E081B3300C92850 /* iosOGLContextFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iosOGLContextFactory.h; sourceTree = "<group>"; };
 		3404757C1E081B3300C92850 /* iosOGLContextFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iosOGLContextFactory.mm; sourceTree = "<group>"; };
 		340537621BBED98600D452C6 /* MWMMapViewControlsCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MWMMapViewControlsCommon.h; path = APIBar/MWMMapViewControlsCommon.h; sourceTree = "<group>"; };
+		34065A0F1F45E7F8006684E5 /* GoogleFallbackBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleFallbackBanner.swift; sourceTree = "<group>"; };
 		3406FA131C6E0C3300E9FAD2 /* MWMMapDownloadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloadDialog.h; sourceTree = "<group>"; };
 		3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapDownloadDialog.mm; sourceTree = "<group>"; };
 		3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMMapDownloadDialog.xib; sourceTree = "<group>"; };
@@ -2070,6 +2080,7 @@
 		34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMMapViewControlsManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationCommon.mm; sourceTree = "<group>"; };
 		34BF0CC81C31306300D097EB /* MWMAuthorizationCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationCommon.h; sourceTree = "<group>"; };
+		34C0A69B1F4C1B380007CE5B /* GoogleNativeBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleNativeBanner.swift; sourceTree = "<group>"; };
 		34C5B80E1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerViewModelProtocol.swift; sourceTree = "<group>"; };
 		34C5B8121F335BCA005E50B6 /* RouteManagerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerViewModel.swift; sourceTree = "<group>"; };
 		34C5B81A1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerTransitioningManager.swift; sourceTree = "<group>"; };
@@ -3152,6 +3163,15 @@
 			path = Traffic;
 			sourceTree = "<group>";
 		};
+		34065A0E1F45E7E1006684E5 /* Google */ = {
+			isa = PBXGroup;
+			children = (
+				34065A0F1F45E7F8006684E5 /* GoogleFallbackBanner.swift */,
+				34C0A69B1F4C1B380007CE5B /* GoogleNativeBanner.swift */,
+			);
+			path = Google;
+			sourceTree = "<group>";
+		};
 		340837101B7243B500B5C185 /* Share */ = {
 			isa = PBXGroup;
 			children = (
@@ -3717,6 +3737,7 @@
 		34F4071C1E9E1AFF00E57AC0 /* Ads */ = {
 			isa = PBXGroup;
 			children = (
+				34065A0E1F45E7E1006684E5 /* Google */,
 				34F4071D1E9E1AFF00E57AC0 /* Banner.swift */,
 				34F4071E1E9E1AFF00E57AC0 /* BannersCache.swift */,
 				34F4071F1E9E1AFF00E57AC0 /* BannerType.swift */,
@@ -5775,6 +5796,7 @@
 				340837131B7243CE00B5C185 /* MWMActivityViewController.mm in Sources */,
 				3486B5181E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756A1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
+				34065A101F45E7F8006684E5 /* GoogleFallbackBanner.swift in Sources */,
 				F653CE111C6DEB5A00A453F1 /* MWMDropDown.mm in Sources */,
 				3404755B1E081A4600C92850 /* MWMLocationManager.mm in Sources */,
 				3454D7BB1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
@@ -5859,6 +5881,7 @@
 				34B924421DC8A29C0008D971 /* MWMMailViewController.mm in Sources */,
 				34E7760F1F14B165003040B3 /* VisibleArea.swift in Sources */,
 				F6E2FF171E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
+				34C0A69C1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */,
 				F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */,
 				3488B0191E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
 				34AC8FD01EFC028600E7F910 /* NavigationAddPointToastView.swift in Sources */,
@@ -6120,6 +6143,7 @@
 				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */,
 				3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
+				34065A111F45E7F8006684E5 /* GoogleFallbackBanner.swift in Sources */,
 				F653CE121C6DEC8E00A453F1 /* MWMDropDown.mm in Sources */,
 				3404755C1E081A4600C92850 /* MWMLocationManager.mm in Sources */,
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
@@ -6204,6 +6228,7 @@
 				F6E2FF181E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				346DB83D1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
+				34C0A69D1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */,
 				3454D7D71E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */,
 				3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
@@ -6465,6 +6490,7 @@
 				849CF7151DE842290024A8A5 /* MWMInputEmailValidator.mm in Sources */,
 				3486B51A1E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				845E4B1D1DEC83AE00D6BED8 /* MWMMobileInternetAlert.mm in Sources */,
+				34065A121F45E7F8006684E5 /* GoogleFallbackBanner.swift in Sources */,
 				849CF7171DE842290024A8A5 /* BookmarksRootVC.mm in Sources */,
 				849CF7191DE842290024A8A5 /* MWMActivityViewController.mm in Sources */,
 				849CF71A1DE842290024A8A5 /* MWMDropDown.mm in Sources */,
@@ -6549,6 +6575,7 @@
 				346DB83E1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				849CF7611DE842290024A8A5 /* MWMMailViewController.mm in Sources */,
 				34E776111F14B165003040B3 /* VisibleArea.swift in Sources */,
+				34C0A69E1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */,
 				F6E2FF191E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				3404754E1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
 				3488B01B1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,

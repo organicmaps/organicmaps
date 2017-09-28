@@ -6,10 +6,21 @@ final class BannersCache: NSObject {
   @objc static let cache = BannersCache()
   private override init() {}
 
-  private enum LoadState {
+  private enum LoadState: Equatable {
     case notLoaded(BannerType)
     case loaded(BannerType)
-    case error
+    case error(BannerType)
+
+    static func ==(lhs: LoadState, rhs: LoadState) -> Bool {
+      switch (lhs, rhs) {
+      case let (.notLoaded(l), .notLoaded(r)): return l == r
+      case let (.loaded(l), .loaded(r)): return l == r
+      case let (.error(l), .error(r)): return l == r
+      case (.notLoaded, _),
+           (.loaded, _),
+           (.error, _): return false
+      }
+    }
   }
 
   typealias Completion = (MWMBanner, Bool) -> Void
@@ -40,25 +51,39 @@ final class BannersCache: NSObject {
       completion(banner, isAsync)
       banner.isBannerOnScreen = true
       self.completion = nil
+      loadStates = nil
     }
   }
 
   @objc func get(coreBanners: [CoreBanner], cacheOnly: Bool, loadNew: Bool = true, completion: @escaping Completion) {
     self.completion = completion
     self.cacheOnly = cacheOnly
-    loadStates = coreBanners.map { coreBanner in
-      let bannerType = BannerType(type: coreBanner.mwmType, id: coreBanner.bannerID)
+    loadStates = loadStates ?? []
+    coreBanners.forEach { coreBanner in
+      let bannerType = BannerType(type: coreBanner.mwmType, id: coreBanner.bannerID, query: coreBanner.query)
       if let banner = cache[bannerType], (!banner.isPossibleToReload || banner.isNeedToRetain) {
-        return .loaded(bannerType)
+        appendLoadState(.loaded(bannerType))
       } else {
         if loadNew {
           get(bannerType: bannerType)
         }
-        return .notLoaded(bannerType)
+        appendLoadState(.notLoaded(bannerType))
       }
     }
 
     onCompletion(isAsync: false)
+  }
+
+  @objc func refresh(coreBanners: [CoreBanner]) {
+    loadStates = loadStates ?? []
+    coreBanners.forEach { coreBanner in
+      let bannerType = BannerType(type: coreBanner.mwmType, id: coreBanner.bannerID, query: coreBanner.query)
+      let state = LoadState.notLoaded(bannerType)
+      if loadStates.index(of: state) == nil {
+        get(bannerType: bannerType)
+        appendLoadState(state)
+      }
+    }
   }
 
   private func get(bannerType: BannerType) {
@@ -81,6 +106,11 @@ final class BannersCache: NSObject {
     })
   }
 
+  private func appendLoadState(_ state: LoadState) {
+    guard loadStates.index(of: state) == nil else { return }
+    loadStates.append(state)
+  }
+
   private func notLoadedIndex(bannerType: BannerType) -> Array<LoadState>.Index? {
     return loadStates.index(where: {
       if case let .notLoaded(type) = $0, type == bannerType {
@@ -92,22 +122,30 @@ final class BannersCache: NSObject {
 
   private func setLoaded(banner: Banner) {
     let bannerType = banner.type
-    if let notLoadedIndex = notLoadedIndex(bannerType: bannerType) {
-      loadStates[notLoadedIndex] = .loaded(bannerType)
-    }
     cache[bannerType] = banner
     requests[bannerType] = nil
+
+    guard loadStates != nil else { return }
+
+    if let notLoadedIndex = loadStates.index(of: .notLoaded(bannerType)) {
+      loadStates[notLoadedIndex] = .loaded(bannerType)
+    }
     if !cacheOnly {
       onCompletion(isAsync: true)
     }
   }
 
   private func setError(bannerType: BannerType) {
-    if let notLoadedIndex = notLoadedIndex(bannerType: bannerType) {
-      loadStates[notLoadedIndex] = .error
-    }
     requests[bannerType] = nil
-    onCompletion(isAsync: true)
+
+    guard loadStates != nil else { return }
+
+    if let notLoadedIndex = loadStates.index(of: .notLoaded(bannerType)) {
+      loadStates[notLoadedIndex] = .error(bannerType)
+    }
+    if !cacheOnly {
+      onCompletion(isAsync: true)
+    }
   }
 
   @objc func bannerIsOutOfScreen(coreBanner: MWMBanner) {

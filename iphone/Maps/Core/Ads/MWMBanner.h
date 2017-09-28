@@ -6,7 +6,7 @@ typedef NS_ENUM(NSInteger, MWMBannerType) {
   MWMBannerTypeGoogle
 };
 
-@protocol MWMBanner
+@protocol MWMBanner <NSObject>
 @property(nonatomic, readonly) enum MWMBannerType mwmType;
-@property(nonatomic, readonly) NSString * bannerID;
+@property(copy, nonatomic, readonly) NSString * bannerID;
 @end

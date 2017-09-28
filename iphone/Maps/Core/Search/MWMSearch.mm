@@ -44,6 +44,8 @@ using Observers = NSHashTable<Observer>;
 
 @property(nonatomic) NSInteger searchCount;
 
+@property(copy, nonatomic) NSString * lastQuery;
+
 @end
 
 @implementation MWMSearch
@@ -220,10 +222,17 @@ using Observers = NSHashTable<Observer>;
     manager->m_everywhereParams.m_inputLocale = locale;
     manager->m_viewportParams.m_inputLocale = locale;
   }
-  string const text = query.precomposedStringWithCompatibilityMapping.UTF8String;
+  manager.lastQuery = query.precomposedStringWithCompatibilityMapping;
+  string const text = manager.lastQuery.UTF8String;
   manager->m_everywhereParams.m_query = text;
   manager->m_viewportParams.m_query = text;
   manager.textChanged = YES;
+  auto const & adsEngine = GetFramework().GetAdsEngine();
+  if (![MWMSettings adForbidden] && adsEngine.HasSearchBanner())
+  {
+    auto coreBanners = banner_helpers::MatchPriorityBanners(adsEngine.GetSearchBanners(), manager.lastQuery);
+    [[MWMBannersCache cache] refreshWithCoreBanners:coreBanners];
+  }
   [manager update];
 }
 
@@ -326,7 +335,7 @@ using Observers = NSHashTable<Observer>;
       self.banners = [[MWMSearchBanners alloc] initWithSearchIndex:itemsIndex];
       __weak auto weakSelf = self;
       [[MWMBannersCache cache]
-          getWithCoreBanners:banner_helpers::MatchPriorityBanners(adsEngine.GetSearchBanners())
+          getWithCoreBanners:banner_helpers::MatchPriorityBanners(adsEngine.GetSearchBanners(), self.lastQuery)
                    cacheOnly:YES
                      loadNew:reloadBanner
                   completion:^(id<MWMBanner> ad, BOOL isAsync) {

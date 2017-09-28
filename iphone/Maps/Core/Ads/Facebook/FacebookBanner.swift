@@ -131,7 +131,7 @@ extension FacebookBanner: FBNativeAdDelegate {
     guard nativeAd === self.nativeAd else { return }
 
     // https://developers.facebook.com/docs/audience-network/testing
-    var params: [String: Any] = [kStatBanner: nativeAd.placementID, kStatProvider: kStatFacebook]
+    var params: [String: Any] = statisticsDescription
 
     let e = error as NSError
     let event: String
