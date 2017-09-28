@@ -637,6 +637,9 @@
 		34D808861E793F91002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
 		34D808871E793FA3002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
 		34D808881E793FA4002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
+		34E6F2DB1F459C05008E14F9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34E6F2DA1F459C05008E14F9 /* GLKit.framework */; };
+		34E6F2DC1F459C1A008E14F9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34E6F2DA1F459C05008E14F9 /* GLKit.framework */; };
+		34E6F2DD1F459C1A008E14F9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34E6F2DA1F459C05008E14F9 /* GLKit.framework */; };
 		34E7760F1F14B165003040B3 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7760E1F14B165003040B3 /* VisibleArea.swift */; };
 		34E776101F14B165003040B3 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7760E1F14B165003040B3 /* VisibleArea.swift */; };
 		34E776111F14B165003040B3 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7760E1F14B165003040B3 /* VisibleArea.swift */; };
@@ -1858,6 +1861,7 @@
 		340E1EE91E2F614400CE49BF /* Storyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		340E1EEA1E2F614400CE49BF /* Welcome.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Welcome.storyboard; sourceTree = "<group>"; };
 		3411387C1C15AE73002E3B3E /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
+		3411E7621F7CE5DC00A49FCD /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		341522BD1B666A550077AA8F /* MWMAPIBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAPIBarView.h; sourceTree = "<group>"; };
 		341522BE1B666A550077AA8F /* MWMAPIBarView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAPIBarView.mm; sourceTree = "<group>"; };
 		341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAPIBarView.xib; sourceTree = "<group>"; };
@@ -2118,6 +2122,7 @@
 		34D8087A1E793606002F0584 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		34D8087C1E79360D002F0584 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		34D808851E793F91002F0584 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Carthage/Build/iOS/Pushwoosh.framework; sourceTree = "<group>"; };
+		34E6F2DA1F459C05008E14F9 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		34E7760E1F14B165003040B3 /* VisibleArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisibleArea.swift; sourceTree = "<group>"; };
 		34E776121F14B17F003040B3 /* AvailableArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableArea.swift; sourceTree = "<group>"; };
 		34E776161F14B6E2003040B3 /* MWMAvailableAreaAffectDirection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAvailableAreaAffectDirection.h; sourceTree = "<group>"; };
@@ -2685,6 +2690,7 @@
 			files = (
 				F68BDF051EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
 				341CF15E1E9E2AA9009AC928 /* libMopub.a in Frameworks */,
+				3411E7631F7CE5DD00A49FCD /* GoogleMobileAds.framework in Frameworks */,
 				344D63171E795A2D006F17CB /* SystemConfiguration.framework in Frameworks */,
 				67B78B4B1E422E2E0018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B4D1E422E2E0018E590 /* CoreData.framework in Frameworks */,
@@ -2706,6 +2712,7 @@
 				67B78B561E4233480018E590 /* AdSupport.framework in Frameworks */,
 				3432E1781E49B3A2008477E9 /* Bolts.framework in Frameworks */,
 				340474F31E08199D00C92850 /* Fabric.framework in Frameworks */,
+				34E6F2DC1F459C1A008E14F9 /* GLKit.framework in Frameworks */,
 				67B78B4C1E422E2E0018E590 /* SafariServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2716,6 +2723,7 @@
 			files = (
 				4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */,
 				4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */,
+				34E6F2DB1F459C05008E14F9 /* GLKit.framework in Frameworks */,
 				F6F8E3C51EF8469700F2DE8F /* libugc.a in Frameworks */,
 				34F409891E9E1DD200E57AC0 /* libMopub.a in Frameworks */,
 				3488B03B1E9D13EF0068AFD8 /* UserNotifications.framework in Frameworks */,
@@ -2771,6 +2779,7 @@
 				6741AA361BF340DE002C974C /* libz.dylib in Frameworks */,
 				674A7E2B1C0DA57C003D48E1 /* libdrape_frontend.a in Frameworks */,
 				340474F71E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
+				3411E7641F7CE5DF00A49FCD /* GoogleMobileAds.framework in Frameworks */,
 				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
 				340474FD1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
 				34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */,
@@ -2783,6 +2792,7 @@
 			files = (
 				F68BDF071EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
 				341CF15F1E9E2ADC009AC928 /* libMopub.a in Frameworks */,
+				3411E7651F7CE5E000A49FCD /* GoogleMobileAds.framework in Frameworks */,
 				67B78B511E422E300018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B531E422E300018E590 /* CoreData.framework in Frameworks */,
 				340474FE1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
@@ -2804,6 +2814,7 @@
 				67B78B571E42334A0018E590 /* AdSupport.framework in Frameworks */,
 				3432E17A1E49B3A2008477E9 /* Bolts.framework in Frameworks */,
 				340474F51E08199D00C92850 /* Fabric.framework in Frameworks */,
+				34E6F2DD1F459C1A008E14F9 /* GLKit.framework in Frameworks */,
 				67B78B521E422E300018E590 /* SafariServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2956,6 +2967,7 @@
 		340474DB1E08199D00C92850 /* 3party */ = {
 			isa = PBXGroup;
 			children = (
+				3411E7621F7CE5DC00A49FCD /* GoogleMobileAds.framework */,
 				34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */,
 				34D8087A1E793606002F0584 /* Alamofire.framework */,
 				34D8087C1E79360D002F0584 /* AlamofireImage.framework */,
@@ -3296,6 +3308,7 @@
 		3462FD8A1DC1DF3A00906FD7 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
+				34E6F2DA1F459C05008E14F9 /* GLKit.framework */,
 				67B78B541E42333C0018E590 /* AdSupport.framework */,
 				67B78B3C1E422BF60018E590 /* CoreData.framework */,
 				67B78B401E422C360018E590 /* CoreSpotlight.framework */,
