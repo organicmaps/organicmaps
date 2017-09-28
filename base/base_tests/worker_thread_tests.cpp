@@ -3,10 +3,12 @@
 #include "base/worker_thread.hpp"
 
 #include <condition_variable>
+#include <chrono>
 #include <future>
 #include <mutex>
 
 using namespace base;
+using namespace std::chrono;
 using namespace std;
 
 namespace
@@ -85,5 +87,54 @@ UNIT_TEST(WorkerThread_PushFromPendingTask)
   TEST(rv, ());
   thread.Shutdown(WorkerThread::Exit::ExecPending);
   p.set_value();
+}
+
+UNIT_TEST(WorkerThread_PushDelayedTask)
+{
+  int const kNumTasks = 100;
+
+  struct DelayedTaskEntry
+  {
+    WorkerThread::TimePoint m_start = {};
+    WorkerThread::Duration m_delay = {};
+    WorkerThread::TimePoint m_end = {};
+  };
+
+  vector<DelayedTaskEntry> delayedEntries(kNumTasks);
+  vector<WorkerThread::TimePoint> immediateEntries(kNumTasks);
+
+  {
+    WorkerThread thread;
+
+    for (int i = kNumTasks - 1; i >= 0; --i)
+    {
+      auto & entry = delayedEntries[i];
+      entry.m_start = thread.Now();
+      entry.m_delay = milliseconds(i + 1);
+      auto const rv = thread.PushDelayed(entry.m_delay, [&]() { entry.m_end = thread.Now(); });
+      TEST(rv, ());
+    }
+
+    for (int i = 0; i < kNumTasks; ++i)
+    {
+      auto & entry = immediateEntries[i];
+      auto const rv = thread.Push([&]() { entry = thread.Now(); });
+      TEST(rv, ());
+    }
+
+    thread.Shutdown(WorkerThread::Exit::ExecPending);
+  }
+
+  for (int i = 0; i < kNumTasks; ++i)
+  {
+    auto const & entry = delayedEntries[i];
+    TEST(entry.m_end >= entry.m_start + entry.m_delay, ("Failed delay for the delayed task", i));
+  }
+
+  for (int i = 1; i < kNumTasks; ++i)
+  {
+    TEST(immediateEntries[i] >= immediateEntries[i - 1],
+         ("Failed delay for the immediate task", i));
+  }
 }
 }  // namespace

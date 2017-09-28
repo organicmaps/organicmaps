@@ -53,6 +53,7 @@ endif()
 
 # Options
 option(USE_ASAN "Enable Address Sanitizer" OFF)
+option(USE_TSAN "Enable Thread Sanitizer" OFF)
 option(PYBINDINGS "Create makefiles for building python bindings" OFF)
 if (PLATFORM_LINUX)
   option(USE_PPROF "Enable Google Profiler" OFF)
@@ -60,6 +61,10 @@ endif()
 
 if (USE_ASAN)
   message("Address Sanitizer is enabled")
+endif()
+
+if (USE_TSAN)
+  message("Thread Sanitizer is enabled")
 endif()
 
 if (USE_PPROF)
@@ -173,6 +178,9 @@ function(omim_add_executable executable)
   add_executable(${executable} ${ARGN})
   if (USE_ASAN)
     target_link_libraries(${executable} "-fsanitize=address" "-fno-omit-frame-pointer")
+  endif()
+  if (USE_TSAN)
+    target_link_libraries(${executable} "-fsanitize=thread" "-fno-omit-frame-pointer")
   endif()
   if (USE_PPROF)
     target_link_libraries(${executable} "-lprofiler")
@@ -298,6 +306,13 @@ add_clang_compile_options("-Wshorten-64-to-32")
 if (USE_ASAN)
   add_compile_options(
     "-fsanitize=address"
+    "-fno-omit-frame-pointer"
+  )
+endif()
+
+if (USE_TSAN)
+  add_compile_options(
+    "-fsanitize=thread"
     "-fno-omit-frame-pointer"
   )
 endif()
