@@ -61,6 +61,7 @@ SOURCES += \
     routing_session.cpp \
     routing_settings.cpp \
     segmented_route.cpp \
+    single_vehicle_world_graph.cpp \
     speed_camera.cpp \
     traffic_stash.cpp \
     turns.cpp \
@@ -133,6 +134,7 @@ HEADERS += \
     routing_settings.hpp \
     segment.hpp \
     segmented_route.hpp \
+    single_vehicle_world_graph.hpp \
     speed_camera.hpp \
     traffic_stash.hpp \
     transition_points.hpp \

@@ -32,7 +32,7 @@ using namespace routing;
 //                              | |
 //                              ⌄ |
 //                               *
-unique_ptr<WorldGraph> BuildCrossGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildCrossGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* featureId */, true /* oneWay */, 1.0 /* speed */,
@@ -113,7 +113,7 @@ UNIT_CLASS_TEST(RestrictionTest, CrossGraph_UTurn)
 // 0 *<--F3---<--F3---*<--F5--* Start
 //   0        1       2       3
 // Note. F0, F1 and F2 are one segment features. F3 is a two segments feature.
-unique_ptr<WorldGraph> BuildTriangularGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildTriangularGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* featureId */, true /* oneWay */, 1.0 /* speed */,
@@ -248,7 +248,7 @@ UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionNoF5F2RestrictionOnl
 // 0 *---F1--*--F1--*--F3---* Start
 //   0       1      2       3
 // Note. All features are two setments and two-way.
-unique_ptr<WorldGraph> BuildTwowayCornerGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildTwowayCornerGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, false /* oneWay */, 1.0 /* speed */,
@@ -344,7 +344,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwowayCornerGraph_RestrictionF3F1Only)
 // 0 *<----F4---*<---F3----*<--F10---* Start
 //   0          1          2         3
 // Note. F1 and F2 are two segments features. The others are one segment ones.
-unique_ptr<WorldGraph> BuildTwoSquaresGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildTwoSquaresGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, true /* oneWay */, 1.0 /* speed */,
@@ -481,7 +481,7 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF2F8NoRestrictionF9F
 //   0         1        2
 // Note 1. All features are two-way. (It's possible to move along any direction of the features.)
 // Note 2. Any feature contains of one segment.
-unique_ptr<WorldGraph> BuildFlagGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildFlagGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, false /* one way */, 1.0 /* speed */,
@@ -590,7 +590,7 @@ UNIT_CLASS_TEST(RestrictionTest, FlagGraph_PermutationsF1F3NoF7F8OnlyF8F4OnlyF4F
 //   0         1        2
 // Note 1. All features except for F7 are two-way.
 // Note 2. Any feature contains of one segment.
-unique_ptr<WorldGraph> BuildPosterGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildPosterGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, false /* one way */, 1.0 /* speed */,
@@ -735,7 +735,7 @@ UNIT_TEST(TwoWayGraph)
 //   0        1        2         3
 // Note 1. F0, F1 and F5 are one-way features. F3, F2 and F4 are two-way features.
 // Note 2. Any feature contains of one segment.
-unique_ptr<WorldGraph> BuildSquaresGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildSquaresGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, true /* one way */, 1.0 /* speed */,
@@ -801,7 +801,7 @@ UNIT_CLASS_TEST(RestrictionTest, SquaresGraph_RestrictionF0F1OnlyF1F5Only)
 // 0 Start *--F0--->*---F1---*---F1---*---F1---*---F2-->* Finish
 //         0        1        2        3        4        5
 // Note. F0 and F2 are one segment one-way features. F1 is a 3 segment two-way feature.
-unique_ptr<WorldGraph> BuildLineGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildLineGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, true /* one way */, 1.0 /* speed */,
@@ -855,7 +855,7 @@ UNIT_CLASS_TEST(RestrictionTest, LineGraph_RestrictionF1F1No)
 // 0 *
 //   0        1
 //  Start
-unique_ptr<WorldGraph> BuildFGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildFGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, true /* one way */, 1.0 /* speed */,
@@ -903,8 +903,8 @@ UNIT_CLASS_TEST(RestrictionTest, FGraph_RestrictionF0F2Only)
 //                  |        |
 // 0 Start *---F0---*---F1---*---F2---* Finish
 //         0        1        2        3
-unique_ptr<WorldGraph> BuildNontransitGraph(bool transitStart, bool transitShortWay,
-                                            bool transitLongWay)
+unique_ptr<SingleVehicleWorldGraph> BuildNontransitGraph(bool transitStart, bool transitShortWay,
+                                                         bool transitLongWay)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, false /* one way */, 1.0 /* speed */,

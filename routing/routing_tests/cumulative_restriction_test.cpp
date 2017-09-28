@@ -36,7 +36,7 @@ using namespace std;
 //   0       1      2       3
 //                Start
 // Note. This graph contains of 6 one segment directed features.
-unique_ptr<WorldGraph> BuildXYGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildXYGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* featureId */, true /* oneWay */, 1.0 /* speed */,
@@ -193,7 +193,7 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF3F5OnlyAndF1F3No)
 //   0       1      2       3
 //                Start
 // Note. This graph contains of 9 one segment directed features.
-unique_ptr<WorldGraph> BuildXXGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildXXGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* featureId */, true /* oneWay */, 1.0 /* speed */,

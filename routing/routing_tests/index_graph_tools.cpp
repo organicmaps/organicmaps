@@ -179,7 +179,7 @@ void TestIndexGraphTopology::AddDirectedEdge(vector<EdgeRequest> & edgeRequests,
 }
 
 // TestIndexGraphTopology::Builder -----------------------------------------------------------------
-unique_ptr<WorldGraph> TestIndexGraphTopology::Builder::PrepareIndexGraph()
+unique_ptr<SingleVehicleWorldGraph> TestIndexGraphTopology::Builder::PrepareIndexGraph()
 {
   auto loader = make_unique<ZeroGeometryLoader>();
   auto estimator = make_shared<WeightedEdgeEstimator>(m_segmentWeights);
@@ -242,26 +242,28 @@ void TestIndexGraphTopology::Builder::BuildSegmentFromEdge(EdgeRequest const & r
 }
 
 // Functions ---------------------------------------------------------------------------------------
-unique_ptr<WorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geometryLoader,
-                                       shared_ptr<EdgeEstimator> estimator,
-                                       vector<Joint> const & joints)
+unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geometryLoader,
+                                                    shared_ptr<EdgeEstimator> estimator,
+                                                    vector<Joint> const & joints)
 {
   auto graph = make_unique<IndexGraph>(move(geometryLoader), estimator);
   graph->Import(joints);
   auto indexLoader = make_unique<TestIndexGraphLoader>();
   indexLoader->AddGraph(kTestNumMwmId, move(graph));
-  return make_unique<WorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader), estimator);
+  return make_unique<SingleVehicleWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
+                                              estimator);
 }
 
-unique_ptr<WorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoader> geometryLoader,
-                                       shared_ptr<EdgeEstimator> estimator,
-                                       vector<Joint> const & joints)
+unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoader> geometryLoader,
+                                                    shared_ptr<EdgeEstimator> estimator,
+                                                    vector<Joint> const & joints)
 {
   auto graph = make_unique<IndexGraph>(move(geometryLoader), estimator);
   graph->Import(joints);
   auto indexLoader = make_unique<TestIndexGraphLoader>();
   indexLoader->AddGraph(kTestNumMwmId, move(graph));
-  return make_unique<WorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader), estimator);
+  return make_unique<SingleVehicleWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
+                                              estimator);
 }
 
 Joint MakeJoint(vector<RoadPoint> const & points)

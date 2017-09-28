@@ -14,6 +14,7 @@
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
+#include "routing/single_vehicle_world_graph.hpp"
 #include "routing/turns_generator.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -389,13 +390,13 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
     return IRouter::NeedMoreMaps;
 
   TrafficStash::Guard guard(m_trafficStash);
-  WorldGraph graph = MakeWorldGraph();
+  auto graph = MakeWorldGraph();
 
   vector<Segment> segments;
 
   Segment startSegment;
   bool startSegmentIsAlmostCodirectionalDirection = false;
-  if (!FindBestSegment(checkpoints.GetPointFrom(), startDirection, true /* isOutgoing */, graph,
+  if (!FindBestSegment(checkpoints.GetPointFrom(), startDirection, true /* isOutgoing */, *graph,
                        startSegment, startSegmentIsAlmostCodirectionalDirection))
   {
     return IRouter::StartPointNotFound;
@@ -416,7 +417,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
     Segment finishSegment;
     bool dummy = false;
     if (!FindBestSegment(finishCheckpoint, m2::PointD::Zero() /* direction */,
-                         false /* isOutgoing */, graph, finishSegment,
+                         false /* isOutgoing */, *graph, finishSegment,
                          dummy /* bestSegmentIsAlmostCodirectional */))
     {
       return isLastSubroute ? IRouter::EndPointNotFound : IRouter::IntermediatePointNotFound;
@@ -427,9 +428,9 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
       isStartSegmentStrictForward = startSegmentIsAlmostCodirectionalDirection;
 
     IndexGraphStarter subrouteStarter(
-        IndexGraphStarter::MakeFakeEnding(startSegment, startCheckpoint, graph),
-        IndexGraphStarter::MakeFakeEnding(finishSegment, finishCheckpoint, graph),
-        starter ? starter->GetNumFakeSegments() : 0, isStartSegmentStrictForward, graph);
+        IndexGraphStarter::MakeFakeEnding(startSegment, startCheckpoint, *graph),
+        IndexGraphStarter::MakeFakeEnding(finishSegment, finishCheckpoint, *graph),
+        starter ? starter->GetNumFakeSegments() : 0, isStartSegmentStrictForward, *graph);
 
     vector<Segment> subroute;
     auto const result =
@@ -544,13 +545,13 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 {
   my::Timer timer;
   TrafficStash::Guard guard(m_trafficStash);
-  WorldGraph graph = MakeWorldGraph();
-  graph.SetMode(WorldGraph::Mode::NoLeaps);
+  auto graph = MakeWorldGraph();
+  graph->SetMode(WorldGraph::Mode::NoLeaps);
 
   Segment startSegment;
   m2::PointD const & pointFrom = checkpoints.GetPointFrom();
   bool bestSegmentIsAlmostCodirectional = false;
-  if (!FindBestSegment(pointFrom, startDirection, true /* isOutgoing */, graph, startSegment,
+  if (!FindBestSegment(pointFrom, startDirection, true /* isOutgoing */, *graph, startSegment,
                        bestSegmentIsAlmostCodirectional))
     return IRouter::StartPointNotFound;
 
@@ -562,9 +563,9 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   CHECK(!steps.empty(), ());
 
   IndexGraphStarter::FakeEnding dummy;
-  IndexGraphStarter starter(IndexGraphStarter::MakeFakeEnding(startSegment, pointFrom, graph),
+  IndexGraphStarter starter(IndexGraphStarter::MakeFakeEnding(startSegment, pointFrom, *graph),
                             dummy, m_lastFakeEdges->GetNumFakeEdges(),
-                            bestSegmentIsAlmostCodirectional, graph);
+                            bestSegmentIsAlmostCodirectional, *graph);
 
   starter.Append(*m_lastFakeEdges);
 
@@ -640,15 +641,14 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   return IRouter::NoError;
 }
 
-WorldGraph IndexRouter::MakeWorldGraph()
+unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
-  WorldGraph graph(
+  return make_unique<SingleVehicleWorldGraph>(
       make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_vehicleType,
                                  m_countryRectFn, m_index, m_indexManager),
       IndexGraphLoader::Create(m_vehicleType, m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory,
                                m_estimator, m_index),
       m_estimator);
-  return graph;
 }
 
 bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & direction,
@@ -703,7 +703,6 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
   output.reserve(input.size());
 
   WorldGraph & worldGraph = starter.GetGraph();
-  worldGraph.SetMode(WorldGraph::Mode::NoLeaps);
 
   for (size_t i = 0; i < input.size(); ++i)
   {
@@ -717,7 +716,7 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
     }
 
     // Clear previous loaded graphs to not spend too much memory at one time.
-    worldGraph.ClearIndexGraphs();
+    worldGraph.ClearCachedGraphs();
 
     ++i;
     CHECK_LESS(i, input.size(), ());
@@ -737,14 +736,14 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
     if (starter.GetMwms().count(current.GetMwmId()) && prevMode == WorldGraph::Mode::LeapsOnly)
     {
       // World graph route.
+      worldGraph.SetMode(WorldGraph::Mode::NoLeaps);
       result = FindPath(current, next, delegate, worldGraph, {} /* onVisitedVertexCallback */, routingResult);
     }
     else
     {
       // Single mwm route.
-      worldGraph.SetSingleMwmMode(current.GetMwmId());
+      worldGraph.SetMode(WorldGraph::Mode::SingleMwm);
       result = FindPath(current, next, delegate, worldGraph, {} /* onVisitedVertexCallback */, routingResult);
-      worldGraph.UnsetSingleMwmMode();
     }
     if (result != IRouter::NoError)
       return result;

@@ -585,7 +585,7 @@ UNIT_TEST(SerializeSimpleGraph)
 // 0                          * Start
 //   0         0.0001       0.0002
 // F0 is a two-way feature with a loop and F1 and F2 are an one-way one-segment features.
-unique_ptr<WorldGraph> BuildLoopGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildLoopGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, false /* one way */, 100.0 /* speed */,

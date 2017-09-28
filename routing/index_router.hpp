@@ -82,7 +82,7 @@ private:
                                   m2::PointD const & startDirection,
                                   RouterDelegate const & delegate, Route & route);
 
-  WorldGraph MakeWorldGraph();
+  std::unique_ptr<WorldGraph> MakeWorldGraph();
 
   /// \brief Finds the best segment (edge) which may be considered as the start of the finish of the route.
   /// According to current implementation if a segment is near |point| and is almost codirectional

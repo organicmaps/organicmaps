@@ -9,6 +9,7 @@
 #include "routing/road_access.hpp"
 #include "routing/road_point.hpp"
 #include "routing/segment.hpp"
+#include "routing/single_vehicle_world_graph.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
 
@@ -38,7 +39,7 @@ NumMwmId constexpr kTestNumMwmId = 777;
 struct RestrictionTest
 {
   RestrictionTest() { classificator::Load(); }
-  void Init(unique_ptr<WorldGraph> graph) { m_graph = move(graph); }
+  void Init(unique_ptr<SingleVehicleWorldGraph> graph) { m_graph = move(graph); }
   void SetStarter(IndexGraphStarter::FakeEnding const & start,
                   IndexGraphStarter::FakeEnding const & finish)
   {
@@ -51,7 +52,7 @@ struct RestrictionTest
     m_graph->GetIndexGraphForTests(kTestNumMwmId).SetRestrictions(move(restrictions));
   }
 
-  unique_ptr<WorldGraph> m_graph;
+  unique_ptr<SingleVehicleWorldGraph> m_graph;
   unique_ptr<IndexGraphStarter> m_starter;
 };
 
@@ -154,7 +155,7 @@ private:
   struct Builder
   {
     Builder(uint32_t numVertices) : m_numVertices(numVertices) {}
-    unique_ptr<WorldGraph> PrepareIndexGraph();
+    unique_ptr<SingleVehicleWorldGraph> PrepareIndexGraph();
     void BuildJoints();
     void BuildGraphFromRequests(vector<EdgeRequest> const & requests);
     void BuildSegmentFromEdge(EdgeRequest const & request);
@@ -176,12 +177,12 @@ private:
   vector<EdgeRequest> m_edgeRequests;
 };
 
-unique_ptr<WorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> loader,
-                                       shared_ptr<EdgeEstimator> estimator,
-                                       vector<Joint> const & joints);
-unique_ptr<WorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoader> loader,
-                                       shared_ptr<EdgeEstimator> estimator,
-                                       vector<Joint> const & joints);
+unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> loader,
+                                                    shared_ptr<EdgeEstimator> estimator,
+                                                    vector<Joint> const & joints);
+unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoader> loader,
+                                                    shared_ptr<EdgeEstimator> estimator,
+                                                    vector<Joint> const & joints);
 
 routing::Joint MakeJoint(vector<routing::RoadPoint> const & points);
 
