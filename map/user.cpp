@@ -20,6 +20,7 @@ namespace
 {
 std::string const kMapsMeTokenKey = "MapsMeToken";
 std::string const kServerUrl = PASSPORT_URL;
+std::string const kAppName = PASSPORT_APP_NAME;
 
 std::string AuthenticationUrl(std::string const & socialToken,
                               User::SocialTokenType socialTokenType)
@@ -43,7 +44,7 @@ std::string AuthenticationUrl(std::string const & socialToken,
 
   std::ostringstream ss;
   ss << kServerUrl << "/register-by-token/" << socialTokenStr
-     << "/?access_token=" << UrlEncode(socialToken);
+     << "/?access_token=" << UrlEncode(socialToken) << "&app=" << kAppName;
   return ss.str();
 }
 

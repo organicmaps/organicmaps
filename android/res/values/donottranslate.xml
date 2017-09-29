@@ -3,8 +3,12 @@
   <string name="shared_user_label" translatable="false">Maps With Me</string>
 
   <!-- FB -->
-  <string name="facebook_app_id" translatable="false">185237551520383</string>
-  <string name="fb_login_protocol_scheme">fb185237551520383</string>
+  <!-- TODO: uncomment it before release! -->
+  <!-- <string name="facebook_app_id" translatable="false">185237551520383</string>
+       <string name="fb_login_protocol_scheme">fb185237551520383</string>-->
+
+  <string name="facebook_app_id" translatable="false">685770561587515</string>
+  <string name="fb_login_protocol_scheme">fb685770561587515</string>
 
   <!-- App names -->
   <string name="facebook" translatable="false">Facebook</string>
