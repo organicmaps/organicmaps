@@ -11,6 +11,8 @@ DEPENDENCIES = generator_tests_support platform_tests_support generator drape_fr
 
 include($$ROOT_DIR/common.pri)
 
+INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
+
 LIBS *= -lsqlite3
 
 QT *= core

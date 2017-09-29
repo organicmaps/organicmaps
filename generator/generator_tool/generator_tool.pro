@@ -7,7 +7,8 @@ DEPENDENCIES = generator routing traffic routing_common search storage indexer e
                minizip succinct pugixml tess2 gflags oauthcpp icu
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
+INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src \
+               $$ROOT_DIR/3party/jansson/src
 
 CONFIG += console warn_on
 !CONFIG(map_designer_standalone) {
