@@ -50,7 +50,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   {
     View view = inflater.inflate(R.layout.fragment_auth_passport_dialog, container, false);
     LoginButton button = (LoginButton) view.findViewById(R.id.loging_button);
-    button.setReadPermissions("email");
+    button.setReadPermissions(Constants.FACEBOOK_PERMISSIONS);
     button.setFragment(this);
     button.registerCallback(mCallbackManager, new FBCallback(this));
     return view;
@@ -111,8 +111,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     public void onSuccess(LoginResult loginResult)
     {
       AccessToken accessToken = loginResult.getAccessToken();
-      LOGGER.d(TAG, "onSuccess, access token: " + accessToken + " permissions: "
-                    + loginResult.getRecentlyGrantedPermissions());
+      LOGGER.d(TAG, "onSuccess, access token: " + accessToken);
       sendResult(Activity.RESULT_OK, accessToken.getToken(), Framework.SOCIAL_TOKEN_FACEBOOK);
     }
 
