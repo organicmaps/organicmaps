@@ -62,17 +62,20 @@ public abstract class BaseMwmAuthorizationFragment extends BaseMwmToolbarFragmen
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-    if (resultCode == Activity.RESULT_OK && requestCode == Constants.REQ_CODE_GET_SOCIAL_TOKEN
-        && data != null)
+
+    if (requestCode != Constants.REQ_CODE_GET_SOCIAL_TOKEN
+        || resultCode != Activity.RESULT_OK || data == null)
     {
-      String socialToken = data.getStringExtra(Constants.EXTRA_SOCIAL_TOKEN);
-      if (!TextUtils.isEmpty(socialToken))
-      {
-        onStartAuthorization();
-        @Framework.SocialTokenType
-        int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, -1);
-        Framework.nativeAuthenticateUser(socialToken, type);
-      }
+      return;
+    }
+
+    String socialToken = data.getStringExtra(Constants.EXTRA_SOCIAL_TOKEN);
+    if (!TextUtils.isEmpty(socialToken))
+    {
+      onStartAuthorization();
+      @Framework.SocialTokenType
+      int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, -1);
+      Framework.nativeAuthenticateUser(socialToken, type);
     }
   }
 

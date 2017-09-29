@@ -65,7 +65,7 @@ public final class HttpClient
 
     HttpURLConnection connection = null;
 
-    logUrlSafely(p.url);
+    LOGGER.d(TAG, "Connecting to " + makeUrlSafe(p.url));
 
     try
     {
@@ -147,7 +147,7 @@ public final class HttpClient
       // GET data from the server or receive response body
       p.httpResponseCode = connection.getResponseCode();
       LOGGER.d(TAG, "Received HTTP " + p.httpResponseCode + " from server, content encoding = "
-                    + connection.getContentEncoding() + ", for request = " + p.url);
+                    + connection.getContentEncoding() + ", for request = " + makeUrlSafe(p.url));
 
       if (p.httpResponseCode >= 300 && p.httpResponseCode < 400)
         p.receivedUrl = connection.getHeaderField("Location");
@@ -239,10 +239,9 @@ public final class HttpClient
     return in;
   }
 
-  private static void logUrlSafely(@NonNull final String url)
+  private static String makeUrlSafe(@NonNull final String url)
   {
-    String safeUrl = url.replaceAll("(token|password|key)=([^&]+)", "***");
-    LOGGER.d(TAG, "Connecting to " + safeUrl);
+    return url.replaceAll("(token|password|key)=([^&]+)", "***");
   }
 
   private static class HttpHeader

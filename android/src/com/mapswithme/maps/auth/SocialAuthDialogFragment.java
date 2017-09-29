@@ -77,17 +77,17 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
                           @Framework.SocialTokenType int type)
   {
     Fragment caller = getTargetFragment();
+    if (caller == null)
+      return;
+
     Intent data = null;
-    if (caller != null)
+    if (resultCode == Activity.RESULT_OK)
     {
-      if (resultCode == Activity.RESULT_OK)
-      {
-        data = new Intent();
-        data.putExtra(Constants.EXTRA_SOCIAL_TOKEN, socialToken);
-        data.putExtra(Constants.EXTRA_TOKEN_TYPE, type);
-      }
-      caller.onActivityResult(Constants.REQ_CODE_GET_SOCIAL_TOKEN, Activity.RESULT_OK, data);
+      data = new Intent();
+      data.putExtra(Constants.EXTRA_SOCIAL_TOKEN, socialToken);
+      data.putExtra(Constants.EXTRA_TOKEN_TYPE, type);
     }
+    caller.onActivityResult(Constants.REQ_CODE_GET_SOCIAL_TOKEN, resultCode, data);
   }
 
   @Override
