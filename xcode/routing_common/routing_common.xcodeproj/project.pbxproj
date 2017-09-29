@@ -11,10 +11,9 @@
 		40FF45D01F388EF80046BD40 /* vehicle_model_for_country_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40FF45CF1F388EF80046BD40 /* vehicle_model_for_country_test.cpp */; };
 		5647A4511F72BEB600DE1125 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5647A4521F72BEB600DE1125 /* libicu.a */; };
 		5667C1DD1F751F2700C6B31B /* transit_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5647A4531F72BF2B00DE1125 /* transit_test.cpp */; };
-		5667C1E11F751F4200C6B31B /* transit_header.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5667C1DF1F751F4200C6B31B /* transit_header.cpp */; };
-		5667C1E21F751F4200C6B31B /* transit_stop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5667C1E01F751F4200C6B31B /* transit_stop.cpp */; };
-		56E41D841F72A64B00E28E2D /* transit_stop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56E41D831F72A64B00E28E2D /* transit_stop.hpp */; };
-		56E41D871F72B42F00E28E2D /* transit_header.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56E41D851F72B42F00E28E2D /* transit_header.hpp */; };
+		56E2EDA61F7E3F8A0092E9C2 /* transit_serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56E2EDA31F7E3F890092E9C2 /* transit_serdes.hpp */; };
+		56E2EDA71F7E3F8A0092E9C2 /* transit_serdes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56E2EDA41F7E3F890092E9C2 /* transit_serdes.cpp */; };
+		56E2EDA81F7E3F8A0092E9C2 /* transit_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56E2EDA51F7E3F8A0092E9C2 /* transit_types.cpp */; };
 		56E41D881F72B42F00E28E2D /* transit_types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56E41D861F72B42F00E28E2D /* transit_types.hpp */; };
 		671E78881E6A3C5D00B2859B /* bicycle_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671E78801E6A3C5D00B2859B /* bicycle_model.cpp */; };
 		671E78891E6A3C5D00B2859B /* bicycle_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671E78811E6A3C5D00B2859B /* bicycle_model.hpp */; };
@@ -48,10 +47,9 @@
 		5647A4521F72BEB600DE1125 /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5647A4531F72BF2B00DE1125 /* transit_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_test.cpp; sourceTree = "<group>"; };
 		5667C1DE1F751F4200C6B31B /* routing_common.pro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routing_common.pro; sourceTree = "<group>"; };
-		5667C1DF1F751F4200C6B31B /* transit_header.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_header.cpp; sourceTree = "<group>"; };
-		5667C1E01F751F4200C6B31B /* transit_stop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_stop.cpp; sourceTree = "<group>"; };
-		56E41D831F72A64B00E28E2D /* transit_stop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_stop.hpp; sourceTree = "<group>"; };
-		56E41D851F72B42F00E28E2D /* transit_header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_header.hpp; sourceTree = "<group>"; };
+		56E2EDA31F7E3F890092E9C2 /* transit_serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_serdes.hpp; sourceTree = "<group>"; };
+		56E2EDA41F7E3F890092E9C2 /* transit_serdes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_serdes.cpp; sourceTree = "<group>"; };
+		56E2EDA51F7E3F8A0092E9C2 /* transit_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_types.cpp; sourceTree = "<group>"; };
 		56E41D861F72B42F00E28E2D /* transit_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_types.hpp; sourceTree = "<group>"; };
 		671E78721E6A3BE200B2859B /* librouting_common.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = librouting_common.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		671E78801E6A3C5D00B2859B /* bicycle_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bicycle_model.cpp; sourceTree = "<group>"; };
@@ -140,12 +138,11 @@
 		671E78741E6A3BE200B2859B /* routing_common */ = {
 			isa = PBXGroup;
 			children = (
+				56E2EDA41F7E3F890092E9C2 /* transit_serdes.cpp */,
+				56E2EDA31F7E3F890092E9C2 /* transit_serdes.hpp */,
+				56E2EDA51F7E3F8A0092E9C2 /* transit_types.cpp */,
 				5667C1DE1F751F4200C6B31B /* routing_common.pro */,
-				5667C1DF1F751F4200C6B31B /* transit_header.cpp */,
-				5667C1E01F751F4200C6B31B /* transit_stop.cpp */,
-				56E41D851F72B42F00E28E2D /* transit_header.hpp */,
 				56E41D861F72B42F00E28E2D /* transit_types.hpp */,
-				56E41D831F72A64B00E28E2D /* transit_stop.hpp */,
 				671E78801E6A3C5D00B2859B /* bicycle_model.cpp */,
 				671E78811E6A3C5D00B2859B /* bicycle_model.hpp */,
 				671E78821E6A3C5D00B2859B /* car_model.cpp */,
@@ -202,8 +199,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				671E788D1E6A3C5D00B2859B /* pedestrian_model.hpp in Headers */,
-				56E41D871F72B42F00E28E2D /* transit_header.hpp in Headers */,
 				56E41D881F72B42F00E28E2D /* transit_types.hpp in Headers */,
+				56E2EDA61F7E3F8A0092E9C2 /* transit_serdes.hpp in Headers */,
 				671E78891E6A3C5D00B2859B /* bicycle_model.hpp in Headers */,
 				40576F7A1F7AA1B4000B593B /* transit_max_speed.hpp in Headers */,
 				56E41D841F72A64B00E28E2D /* transit_stop.hpp in Headers */,
@@ -302,12 +299,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5667C1E11F751F4200C6B31B /* transit_header.cpp in Sources */,
+				56E2EDA81F7E3F8A0092E9C2 /* transit_types.cpp in Sources */,
 				671E788A1E6A3C5D00B2859B /* car_model.cpp in Sources */,
+				56E2EDA71F7E3F8A0092E9C2 /* transit_serdes.cpp in Sources */,
 				671E78881E6A3C5D00B2859B /* bicycle_model.cpp in Sources */,
 				671E788E1E6A3C5D00B2859B /* vehicle_model.cpp in Sources */,
 				40FF45D01F388EF80046BD40 /* vehicle_model_for_country_test.cpp in Sources */,
-				5667C1E21F751F4200C6B31B /* transit_stop.cpp in Sources */,
 				671E788C1E6A3C5D00B2859B /* pedestrian_model.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,6 +389,7 @@
 				671E787F1E6A3BE200B2859B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		671E78AA1E6A3DA800B2859B /* Build configuration list for PBXNativeTarget "routing_common_tests" */ = {
 			isa = XCConfigurationList;
@@ -400,6 +398,7 @@
 				671E78AC1E6A3DA800B2859B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

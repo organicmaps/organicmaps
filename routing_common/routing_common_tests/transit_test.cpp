@@ -3,8 +3,7 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "routing_common/transit_header.hpp"
-#include "routing_common/transit_stop.hpp"
+#include "routing_common/transit_serdes.hpp"
 #include "routing_common/transit_types.hpp"
 
 #include <cstdint>
@@ -21,14 +20,17 @@ void TestSerialization(Obj const & obj)
 {
   vector<uint8_t> buffer;
   MemWriter<vector<uint8_t>> writer(buffer);
-  obj.Serialize(writer);
+
+  Serializer<MemWriter<vector<uint8_t>>> serializer(writer);
+  obj.Visit(serializer);
 
   MemReader reader(buffer.data(), buffer.size());
   ReaderSource<MemReader> src(reader);
-  Obj deserializedHeader;
-  deserializedHeader.Deserialize(src);
+  Obj deserializedObj;
+  Deserializer<ReaderSource<MemReader>> deserializer(src);
+  deserializedObj.Visit(deserializer);
 
-  TEST(obj.IsEqualForTesting(deserializedHeader), (obj, "is not equal to", deserializedHeader));
+  TEST(obj.IsEqualForTesting(deserializedObj), ());
 }
 
 UNIT_TEST(ZeroTransitHeaderSerialization)
@@ -53,7 +55,7 @@ UNIT_TEST(ZeroTransitStopSerialization)
 
 UNIT_TEST(TransitStopSerialization)
 {
-  Stop stop(1234 /* id */, 5678 /* feature id */, {7, 8, 9, 10} /* line id */, {55.0, 37.0});
+  Stop stop(1234 /* id */, 5678 /* feature id */, 7 /* transfer id */, {7, 8, 9, 10} /* line id */, {55.0, 37.0});
   TestSerialization(stop);
 }
 }  // namespace
