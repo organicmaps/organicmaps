@@ -109,7 +109,6 @@
       auto fallbackAd = static_cast<MWMGoogleFallbackBanner *>(ad);
       fallbackAd.cellIndexPath = indexPath;
       fallbackAd.dynamicSizeDelegate = self;
-      [cell configWithAd:fallbackAd containerType:MWMAdBannerContainerTypeSearch];
     }
     [cell configWithAd:ad containerType:MWMAdBannerContainerTypeSearch];
     return cell;
