@@ -33,11 +33,28 @@ public:
   WorkerThread();
   ~WorkerThread() override;
 
-  // Pushes task to the end of the thread's queue. Returns false when
-  // the thread is shut down.
+  // Pushes task to the end of the thread's queue of immediate tasks.
+  // Returns false when the thread is shut down.
+  //
+  // The task |t| is going to be executed after all immediate tasks
+  // that were pushed pushed before it.
   bool Push(Task && t) override;
   bool Push(Task const & t) override;
 
+  // Pushes task to the thread's queue of delayed tasks. Returns false
+  // when the thread is shut down.
+  //
+  // The task |t| is going to be executed not earlier than after
+  // |delay|.  No other guarantees about execution order are made.  In
+  // particular, when executing:
+  //
+  // PushDelayed(3ms, task1);
+  // PushDelayed(1ms, task2);
+  //
+  // there is no guarantee that |task2| will be executed before |task1|.
+  //
+  // NOTE: current implementation depends on the fact that
+  // steady_clock is the same for different threads.
   bool PushDelayed(Duration const & delay, Task && t);
   bool PushDelayed(Duration const & delay, Task const & t);
 
@@ -48,6 +65,13 @@ public:
   TimePoint Now() const { return Clock::now(); }
 
 private:
+  enum QueueType
+  {
+    QUEUE_TYPE_IMMEDIATE,
+    QUEUE_TYPE_DELAYED,
+    QUEUE_TYPE_COUNT
+  };
+
   struct DelayedTask
   {
     template <typename T>
@@ -65,12 +89,6 @@ private:
   using ImmediateQueue = std::queue<Task>;
   using DelayedQueue =
       std::priority_queue<DelayedTask, std::vector<DelayedTask>, std::greater<DelayedTask>>;
-
-  enum class QueueType
-  {
-    Immediate,
-    Delayed
-  };
 
   template <typename Fn>
   bool TouchQueues(Fn && fn)
@@ -94,7 +112,6 @@ private:
 
   ImmediateQueue m_immediate;
   DelayedQueue m_delayed;
-  QueueType m_lastQueue = QueueType::Immediate;
 
   ThreadChecker m_checker;
 };

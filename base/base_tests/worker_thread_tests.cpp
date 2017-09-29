@@ -89,7 +89,7 @@ UNIT_TEST(WorkerThread_PushFromPendingTask)
   p.set_value();
 }
 
-UNIT_TEST(WorkerThread_PushDelayedTask)
+UNIT_TEST(WorkerThread_DelayedAndImmediateTasks)
 {
   int const kNumTasks = 100;
 
