@@ -1,30 +1,37 @@
 #pragma once
 
+#include "indexer/city_boundary.hpp"
 #include "indexer/coding_params.hpp"
 #include "indexer/geometry_coding.hpp"
 
 #include "coding/bit_streams.hpp"
 #include "coding/elias_coder.hpp"
 #include "coding/point_to_integer.hpp"
+#include "coding/reader.hpp"
 #include "coding/varint.hpp"
+#include "coding/write_to_sink.hpp"
 
 #include "geometry/bounding_box.hpp"
 #include "geometry/calipers_box.hpp"
 #include "geometry/diamond_box.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/visitor.hpp"
 
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
+#include <limits>
 #include <vector>
 
 namespace indexer
 {
 template <typename Sink>
-class CityBoundaryEncoder
+class CitiesBoundariesEncoder
 {
 public:
   struct Visitor
@@ -39,7 +46,7 @@ public:
 
     void operator()(m2::PointU const & p)
     {
-      WriteVarUint(m_sink, EncodeDelta(p, m_last));
+      WriteVarUint(m_sink, ::EncodeDelta(p, m_last));
       m_last = p;
     }
 
@@ -54,43 +61,50 @@ public:
 
     void operator()(m2::CalipersBox const & cbox)
     {
-      double const kEps = 1e-5;
-
       auto ps = cbox.Points();
-      auto us = ToU(ps);
 
       CHECK(!ps.empty(), ());
       CHECK_LESS_OR_EQUAL(ps.size(), 4, ());
       CHECK(ps.size() != 3, ());
 
-      while (ps.size() != 4)
+      if (ps.size() == 1)
       {
-        auto const lp = ps.back();
-        ps.push_back(lp);
+        auto const p0 = ps[0];
+        while (ps.size() != 4)
+          ps.push_back(p0);
+      }
+      else if (ps.size() == 2)
+      {
+        auto const p0 = ps[0];
+        auto const p1 = ps[1];
 
-        auto const lu = us.back();
-        us.push_back(lu);
+        ps.push_back(p1);
+        ps.push_back(p0);
       }
 
       ASSERT_EQUAL(ps.size(), 4, ());
-      ASSERT_EQUAL(us.size(), 4, ());
 
-      size_t pivot = ps.size();
+      size_t bestCurr = ps.size();
+      double bestLength = -1;
       for (size_t curr = 0; curr < ps.size(); ++curr)
       {
         size_t const next = (curr + 1) % ps.size();
-        if (ps[next].x >= ps[curr].x - kEps && ps[next].y >= ps[curr].y - kEps)
+
+        auto const length = ps[curr].Length(ps[next]);
+        if (length > bestLength)
         {
-          pivot = curr;
-          break;
+          bestCurr = curr;
+          bestLength = length;
         }
       }
 
-      CHECK(pivot != ps.size(), ());
-      std::rotate(us.begin(), us.begin() + pivot, us.end());
+      CHECK(bestCurr != ps.size(), ());
+      std::rotate(ps.begin(), ps.begin() + bestCurr, ps.end());
+
+      auto const us = ToU(ps);
 
       (*this)(us[0]);
-      EncodePositiveDelta(us[0], us[1]);
+      EncodeDelta(us[0], us[1]);
 
       uint64_t const width = us[3].Length(us[0]);
       WriteVarUint(m_sink, width);
@@ -131,6 +145,14 @@ public:
       return us;
     }
 
+    void EncodeDelta(m2::PointU const & curr, m2::PointU const & next)
+    {
+      auto const dx = static_cast<int32_t>(next.x) - static_cast<int32_t>(curr.x);
+      auto const dy = static_cast<int32_t>(next.y) - static_cast<int32_t>(curr.y);
+      WriteVarInt(m_sink, dx);
+      WriteVarInt(m_sink, dy);
+    }
+
     void EncodePositiveDelta(m2::PointU const & curr, m2::PointU const & next)
     {
       ASSERT_GREATER_OR_EQUAL(next.x, curr.x, ());
@@ -149,7 +171,7 @@ public:
     m2::PointU m_last;
   };
 
-  CityBoundaryEncoder(Sink & sink, serial::CodingParams const & params)
+  CitiesBoundariesEncoder(Sink & sink, serial::CodingParams const & params)
     : m_sink(sink), m_visitor(sink, params)
   {
   }
@@ -162,8 +184,11 @@ public:
       BitWriter<Sink> writer(m_sink);
       for (auto const & bs : boundaries)
       {
-        CHECK(!bs.empty(), ());
-        coding::GammaCoder::Encode(writer, bs.size());
+        CHECK_LESS(bs.size(), std::numeric_limits<uint64_t>::max(), ());
+        auto const success =
+            coding::GammaCoder::Encode(writer, static_cast<uint64_t>(bs.size()) + 1);
+        ASSERT(success, ());
+        UNUSED_VALUE(success);
       }
     }
 
@@ -176,12 +201,11 @@ public:
 
 private:
   Sink & m_sink;
-  serial::CodingParams m_params;
   Visitor m_visitor;
 };
 
 template <typename Source>
-class CityBoundaryDecoder
+class CitiesBoundariesDecoderV0
 {
 public:
   struct Visitor
@@ -201,7 +225,7 @@ public:
 
     void operator()(m2::PointU & p)
     {
-      p = DecodeDelta(ReadVarUint<uint64_t>(m_source), m_last);
+      p = ::DecodeDelta(ReadVarUint<uint64_t>(m_source), m_last);
       m_last = p;
     }
 
@@ -223,7 +247,7 @@ public:
 
       std::vector<m2::PointU> points(4);
       points[0] = pivot;
-      points[1] = pivot + DecodePositiveDelta();
+      points[1] = DecodeDelta(pivot);
 
       auto const width = ReadVarUint<uint64_t>(m_source);
 
@@ -273,6 +297,13 @@ public:
       return ps;
     }
 
+    m2::PointU DecodeDelta(m2::PointU const & base)
+    {
+      auto const dx = ReadVarInt<int32_t>(m_source);
+      auto const dy = ReadVarInt<int32_t>(m_source);
+      return m2::PointU(base.x + dx, base.y + dy);
+    }
+
     m2::PointU DecodePositiveDelta()
     {
       auto const dx = ReadVarUint<uint32_t>(m_source);
@@ -285,7 +316,7 @@ public:
     m2::PointU m_last;
   };
 
-  CityBoundaryDecoder(Source & source, serial::CodingParams const & params)
+  CitiesBoundariesDecoderV0(Source & source, serial::CodingParams const & params)
     : m_source(source), m_visitor(source, params)
   {
   }
@@ -300,7 +331,8 @@ public:
       for (auto & bs : boundaries)
       {
         auto const size = coding::GammaCoder::Decode(reader);
-        bs.resize(size);
+        ASSERT_GREATER_OR_EQUAL(size, 1, ());
+        bs.resize(size - 1);
       }
     }
 
@@ -314,5 +346,101 @@ public:
 private:
   Source & m_source;
   Visitor m_visitor;
+};
+
+struct CitiesBoundariesSerDes
+{
+  template <typename Sink>
+  struct WriteToSinkVisitor
+  {
+    WriteToSinkVisitor(Sink & sink) : m_sink(sink) {}
+
+    template <typename T>
+    typename enable_if<is_integral<T>::value || is_enum<T>::value, void>::type operator()(
+        T const & t, char const * /* name */ = nullptr)
+    {
+      WriteToSink(m_sink, t);
+    }
+
+    template <typename T>
+    typename enable_if<!is_integral<T>::value && !is_enum<T>::value, void>::type operator()(
+        T const & t, char const * /* name */ = nullptr)
+    {
+      t.Visit(*this);
+    }
+
+    Sink & m_sink;
+  };
+
+  template <typename Source>
+  struct ReadFromSourceVisitor
+  {
+    ReadFromSourceVisitor(Source & source) : m_source(source) {}
+
+    template <typename T>
+    typename enable_if<is_integral<T>::value || is_enum<T>::value, void>::type operator()(
+        T & t, char const * /* name */ = nullptr)
+    {
+      t = ReadPrimitiveFromSource<T>(m_source);
+    }
+
+    template <typename T>
+    typename enable_if<!is_integral<T>::value && !is_enum<T>::value, void>::type operator()(
+        T & t, char const * /* name */ = nullptr)
+    {
+      t.Visit(*this);
+    }
+
+    Source & m_source;
+  };
+
+  static uint8_t constexpr kLatestVersion = 0;
+
+  struct HeaderV0
+  {
+    static uint8_t const kDefaultCoordBits = 19;
+
+    HeaderV0() {}
+
+    DECLARE_VISITOR(visitor(m_coordBits, "coordBits"))
+
+    uint8_t m_coordBits = kDefaultCoordBits;
+  };
+
+  template <typename Sink>
+  static void Serialize(Sink & sink, std::vector<std::vector<CityBoundary>> const & boundaries)
+  {
+    uint8_t const version = kLatestVersion;
+
+    WriteToSinkVisitor<Sink> visitor(sink);
+    visitor(version);
+
+    HeaderV0 const header;
+    visitor(header);
+
+    serial::CodingParams const params(header.m_coordBits,
+                                      m2::PointD(MercatorBounds::minX, MercatorBounds::minY));
+    CitiesBoundariesEncoder<Sink> encoder(sink, params);
+    encoder(boundaries);
+  }
+
+  template <typename Source>
+  static void Deserialize(Source & source, std::vector<std::vector<CityBoundary>> & boundaries)
+  {
+    ReadFromSourceVisitor<Source> visitor(source);
+
+    uint8_t version;
+    visitor(version);
+
+    CHECK_EQUAL(version, 0, ());
+
+    HeaderV0 header;
+    visitor(header);
+
+    serial::CodingParams const params(header.m_coordBits,
+                                      m2::PointD(MercatorBounds::minX, MercatorBounds::minY));
+    CitiesBoundariesDecoderV0<Source> decoder(source, params);
+    decoder(boundaries);
+  }
 };
 }  // namespace indexer

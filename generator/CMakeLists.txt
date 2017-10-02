@@ -20,6 +20,8 @@ set(SRC
   centers_table_builder.hpp
   check_model.cpp
   check_model.hpp
+  cities_boundaries_builder.cpp
+  cities_boundaries_builder.hpp
   coastlines_generator.cpp
   coastlines_generator.hpp
   dumper.cpp

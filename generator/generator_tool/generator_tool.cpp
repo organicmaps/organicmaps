@@ -3,6 +3,7 @@
 #include "generator/borders_loader.hpp"
 #include "generator/centers_table_builder.hpp"
 #include "generator/check_model.hpp"
+#include "generator/cities_boundaries_builder.hpp"
 #include "generator/dumper.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
@@ -72,6 +73,7 @@ DEFINE_bool(generate_geometry, false,
             "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
+DEFINE_bool(generate_cities_boundaries, false, "Generate section with cities boundaries");
 DEFINE_bool(generate_world, false, "Generate separate world file.");
 DEFINE_bool(split_by_polygons, false,
             "Use countries borders to split planet by regions and countries.");
@@ -153,6 +155,9 @@ int main(int argc, char ** argv)
   genInfo.m_opentableReferenceDir = FLAGS_opentable_reference_path;
   genInfo.m_viatorDatafileName = FLAGS_viator_data;
 
+  if (FLAGS_generate_cities_boundaries)
+    genInfo.m_boundariesTable = make_shared<generator::OsmIdToBoundariesTable>();
+
   genInfo.m_versionDate = static_cast<uint32_t>(FLAGS_planet_version);
 
   if (!FLAGS_node_storage.empty())
@@ -175,8 +180,8 @@ int main(int argc, char ** argv)
 
   // Load classificator only when necessary.
   if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
-      FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_calc_statistics ||
-      FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
+      FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_generate_cities_boundaries ||
+      FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
       FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_generate_traffic_keys ||
       FLAGS_transit_path != "")
@@ -280,6 +285,17 @@ int main(int argc, char ** argv)
       LOG(LINFO, ("Generating centers table for", datFile));
       if (!indexer::BuildCentersTableFromDataFile(datFile, true /* forceRebuild */))
         LOG(LCRITICAL, ("Error generating centers table."));
+    }
+
+    if (FLAGS_generate_cities_boundaries)
+    {
+      LOG(LINFO, ("Generating cities boundaries for", datFile));
+      CHECK(genInfo.m_boundariesTable, ());
+      if (!generator::BuildCitiesBoundaries(datFile, osmToFeatureFilename,
+                                            *genInfo.m_boundariesTable))
+      {
+        LOG(LCRITICAL, ("Error generating cities boundaries."));
+      }
     }
 
     if (!FLAGS_srtm_path.empty())

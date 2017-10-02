@@ -33,7 +33,7 @@ public:
 
   bool operator==(DiamondBox const & rhs) const { return m_box == rhs.m_box; }
 
-  DECLARE_VISITOR(visitor(Points(), "points"))
+  DECLARE_VISITOR(visitor(m_box, "box"))
   DECLARE_DEBUG_PRINT(DiamondBox)
 
 private:

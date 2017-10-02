@@ -23,78 +23,88 @@ namespace
 using Boundary = vector<CityBoundary>;
 using Boundaries = vector<Boundary>;
 
-void TestEqual(BoundingBox const & lhs, BoundingBox const & rhs, double eps)
+static_assert(CitiesBoundariesSerDes::kLatestVersion == 0, "");
+static_assert(CitiesBoundariesSerDes::HeaderV0::kDefaultCoordBits == 19, "");
+
+// Precision of mercator coords encoded with 19 bits.
+double const kEps = 1e-3;
+
+void TestEqual(vector<PointD> const & lhs, vector<PointD> const & rhs)
 {
-  TEST(AlmostEqualAbs(lhs.Min(), rhs.Min(), eps), (lhs, rhs));
-  TEST(AlmostEqualAbs(lhs.Max(), rhs.Max(), eps), (lhs, rhs));
+  TEST_EQUAL(lhs.size(), rhs.size(), (lhs, rhs));
+  for (size_t i = 0; i < lhs.size(); ++i)
+    TEST(AlmostEqualAbs(lhs[i], rhs[i], kEps), (lhs, rhs));
 }
 
-void TestEqual(CalipersBox const & lhs, CalipersBox const & rhs, double eps) {}
+void TestEqual(BoundingBox const & lhs, BoundingBox const & rhs)
+{
+  TEST(AlmostEqualAbs(lhs.Min(), rhs.Min(), kEps), (lhs, rhs));
+  TEST(AlmostEqualAbs(lhs.Max(), rhs.Max(), kEps), (lhs, rhs));
+}
 
-void TestEqual(DiamondBox const & lhs, DiamondBox const & rhs, double eps)
+void TestEqual(CalipersBox const & lhs, CalipersBox const & rhs)
+{
+  TestEqual(lhs.Points(), rhs.Points());
+}
+
+void TestEqual(DiamondBox const & lhs, DiamondBox const & rhs)
 {
   auto const lps = lhs.Points();
   auto const rps = rhs.Points();
   TEST_EQUAL(lps.size(), 4, (lhs));
   TEST_EQUAL(rps.size(), 4, (rhs));
-  for (size_t i = 0; i < 4; ++i)
-    TEST(AlmostEqualAbs(lps[i], rps[i], eps), (lhs, rhs));
+  TestEqual(lps, rps);
 }
 
-void TestEqual(CityBoundary const & lhs, CityBoundary const & rhs, double eps)
+void TestEqual(CityBoundary const & lhs, CityBoundary const & rhs)
 {
-  TestEqual(lhs.m_bbox, rhs.m_bbox, eps);
-  TestEqual(lhs.m_cbox, rhs.m_cbox, eps);
-  TestEqual(lhs.m_dbox, rhs.m_dbox, eps);
+  TestEqual(lhs.m_bbox, rhs.m_bbox);
+  TestEqual(lhs.m_cbox, rhs.m_cbox);
+  TestEqual(lhs.m_dbox, rhs.m_dbox);
 }
 
-void TestEqual(Boundary const & lhs, Boundary const & rhs, double eps)
-{
-  TEST_EQUAL(lhs.size(), rhs.size(), (lhs, rhs));
-  for (size_t i = 0; i < lhs.size(); ++i)
-    TestEqual(lhs[i], rhs[i], eps);
-}
-
-void TestEqual(Boundaries const & lhs, Boundaries const & rhs, double eps)
+void TestEqual(Boundary const & lhs, Boundary const & rhs)
 {
   TEST_EQUAL(lhs.size(), rhs.size(), (lhs, rhs));
   for (size_t i = 0; i < lhs.size(); ++i)
-    TestEqual(lhs[i], rhs[i], eps);
+    TestEqual(lhs[i], rhs[i]);
 }
 
-Boundaries EncodeDecode(Boundaries const & boundaries, CodingParams const & params)
+void TestEqual(Boundaries const & lhs, Boundaries const & rhs)
+{
+  TEST_EQUAL(lhs.size(), rhs.size(), (lhs, rhs));
+  for (size_t i = 0; i < lhs.size(); ++i)
+    TestEqual(lhs[i], rhs[i]);
+}
+
+Boundaries EncodeDecode(Boundaries const & boundaries)
 {
   vector<uint8_t> buffer;
   {
     MemWriter<decltype(buffer)> sink(buffer);
-    CityBoundaryEncoder<decltype(sink)> encoder(sink, params);
-    encoder(boundaries);
+    CitiesBoundariesSerDes::Serialize(sink, boundaries);
   }
 
   {
     Boundaries boundaries;
     MemReader reader(buffer.data(), buffer.size());
     NonOwningReaderSource source(reader);
-    CityBoundaryDecoder<decltype(source)> decoder(source, params);
-    decoder(boundaries);
+    CitiesBoundariesSerDes::Deserialize(source, boundaries);
     return boundaries;
   }
 }
 
-void TestEncodeDecode(Boundaries const & expected, CodingParams const & params, double eps)
+void TestEncodeDecode(Boundaries const & expected)
 {
-  Boundaries const actual = EncodeDecode(expected, params);
-  TestEqual(expected, actual, eps);
+  Boundaries const actual = EncodeDecode(expected);
+  TestEqual(expected, actual);
 }
 
 UNIT_TEST(CitiesBoundariesSerDes_Smoke)
 {
-  CodingParams const params(19 /* coordBits */, PointD(MercatorBounds::minX, MercatorBounds::minY));
-  double const kEps = 1e-3;
-
   {
     Boundaries const expected;
-    TestEncodeDecode(expected, params, kEps);
+    TestEncodeDecode(expected);
   }
 
   {
@@ -107,7 +117,7 @@ UNIT_TEST(CitiesBoundariesSerDes_Smoke)
         vector<PointD>{{PointD(1.000, 1.000), PointD(1.002, 1.000), PointD(1.002, 1.003)}});
 
     Boundaries const expected = {{boundary0, boundary1}};
-    TestEncodeDecode(expected, params, kEps);
+    TestEncodeDecode(expected);
   }
 }
 }  // namespace

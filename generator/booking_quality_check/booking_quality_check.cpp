@@ -117,6 +117,11 @@ public:
       m_features.emplace(fb.GetMostGenericOsmId(), fb);
   }
 
+  void EmitCityBoundary(FeatureBuilder1 const & /* fb */,
+                        FeatureParams const & /* params */) override
+  {
+  }
+
   void GetNames(vector<string> & names) const override
   {
     names.clear();

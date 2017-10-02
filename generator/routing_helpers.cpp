@@ -1,6 +1,6 @@
 #include "generator/routing_helpers.hpp"
 
-#include "generator/gen_mwm_info.hpp"
+#include "generator/utils.hpp"
 
 #include "coding/file_reader.hpp"
 #include "coding/reader.hpp"
@@ -15,25 +15,11 @@ namespace
 template <class ToDo>
 bool ForEachRoadFromFile(string const & filename, ToDo && toDo)
 {
-  gen::OsmID2FeatureID osmIdsToFeatureIds;
-  try
-  {
-    FileReader reader(filename);
-    ReaderSource<FileReader> src(reader);
-    osmIdsToFeatureIds.Read(src);
-  }
-  catch (FileReader::Exception const & e)
-  {
-    LOG(LERROR, ("Exception while reading file:", filename, ". Msg:", e.Msg()));
-    return false;
-  }
-
-  osmIdsToFeatureIds.ForEach([&](gen::OsmID2FeatureID::ValueT const & p) {
-    if (p.first.IsWay())
-      toDo(p.second /* feature id */, p.first /* osm id */);
-  });
-
-  return true;
+  return generator::ForEachOsmId2FeatureId(filename,
+                                           [&](osm::Id const & osmId, uint32_t const featureId) {
+                                             if (osmId.IsWay())
+                                               toDo(featureId, osmId);
+                                           });
 }
 }  // namespace
 

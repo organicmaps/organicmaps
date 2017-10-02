@@ -22,6 +22,7 @@ SOURCES += \
     borders_loader.cpp \
     centers_table_builder.cpp \
     check_model.cpp \
+    cities_boundaries_builder.cpp \
     coastlines_generator.cpp \
     dumper.cpp \
     feature_builder.cpp \
@@ -65,6 +66,7 @@ HEADERS += \
     borders_loader.hpp \
     centers_table_builder.hpp \
     check_model.hpp \
+    cities_boundaries_builder.hpp \
     coastlines_generator.hpp \
     dumper.hpp \
     feature_builder.hpp \

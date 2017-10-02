@@ -34,6 +34,7 @@ public:
 };
 
 class FeatureBuilder1;
+class FeatureParams;
 
 // Emitter is used in OsmElemen to FeatureBuilder translation process.
 class EmitterBase
@@ -43,6 +44,9 @@ public:
 
   /// This method is used by OsmTranslator to pass |fb| to Emitter for further processing.
   virtual void operator()(FeatureBuilder1 & fb) = 0;
+
+  virtual void EmitCityBoundary(FeatureBuilder1 const & fb, FeatureParams const & params) = 0;
+
   /// Finish is used in GenerateFeatureImpl to make whatever work is needed after
   /// all OmsElements are processed.
   virtual bool Finish() { return true; }

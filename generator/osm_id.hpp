@@ -1,8 +1,8 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
 #include <string>
-
 
 namespace osm
 {
@@ -32,6 +32,11 @@ public:
   inline bool operator==(Id const & other) const { return m_encodedId == other.m_encodedId; }
   inline bool operator!=(Id const & other) const { return !(*this == other); }
   bool operator==(uint64_t other) const { return OsmId() == other; }
+};
+
+struct HashId : private std::hash<uint64_t>
+{
+  size_t operator()(Id const & id) const { return std::hash<uint64_t>::operator()(id.OsmId()); }
 };
 
 std::string DebugPrint(osm::Id const & id);

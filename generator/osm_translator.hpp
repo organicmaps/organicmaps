@@ -324,6 +324,15 @@ class OsmToFeatureTranslator
     return true;
   }
 
+  bool IsCityBoundary(FeatureParams const & params)
+  {
+    feature::TypesHolder types;
+    for (auto const type : params.m_Types)
+      types.Add(type);
+    auto const type = ftypes::IsLocalityChecker::Instance().GetType(types);
+    return type == ftypes::CITY || type == ftypes::TOWN;
+  }
+
   void EmitFeatureBase(FeatureBuilder1 & ft, FeatureParams const & params) const
   {
     ft.SetParams(params);
@@ -363,7 +372,7 @@ class OsmToFeatureTranslator
   }
 
   template <class MakeFnT>
-  void EmitArea(FeatureBuilder1 & ft, FeatureParams params, MakeFnT makeFn) const
+  void EmitArea(FeatureBuilder1 & ft, FeatureParams params, MakeFnT makeFn)
   {
     using namespace feature;
 
@@ -373,6 +382,13 @@ class OsmToFeatureTranslator
 
     // Key point here is that IsDrawableLike and RemoveNoDrawableTypes
     // work a bit different for GEOM_AREA.
+
+    if (IsCityBoundary(params))
+    {
+      auto fb = ft;
+      makeFn(fb);
+      m_emitter.EmitCityBoundary(fb, params);
+    }
 
     if (IsDrawableLike(params.m_Types, GEOM_AREA))
     {
