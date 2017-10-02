@@ -368,6 +368,7 @@
 		347BFA8F1F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
 		347BFA901F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
 		347BFA911F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
+		347D15C61F82360800E86251 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 347D15C51F82360800E86251 /* GoogleSignIn.bundle */; };
 		347E1A881F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
 		347E1A891F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
 		347E1A8A1F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
@@ -1983,6 +1984,9 @@
 		347BFA8E1F27909200E5531F /* MenuArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuArea.swift; sourceTree = "<group>"; };
 		347BFA921F27923200E5531F /* MWMBottomMenuControllerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuControllerProtocol.h; sourceTree = "<group>"; };
 		347BFA931F28842300E5531F /* MWMNavigationDashboardObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardObserver.h; sourceTree = "<group>"; };
+		347D15C51F82360800E86251 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = 3party/GoogleSignIn/GoogleSignIn.bundle; sourceTree = "<group>"; };
+		347D15C71F82362900E86251 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = GoogleSignIn/GoogleSignIn.framework; sourceTree = "<group>"; };
+		347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignInDependencies.framework; path = GoogleSignIn/GoogleSignInDependencies.framework; sourceTree = "<group>"; };
 		347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CianItemModel.swift; sourceTree = "<group>"; };
 		347E1A8C1F1F71F1002BF7A8 /* PPCianCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPCianCarouselCell.swift; sourceTree = "<group>"; };
 		347E1A901F1F72AD002BF7A8 /* PPCianCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPCianCarouselCell.xib; sourceTree = "<group>"; };
@@ -2875,6 +2879,7 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				347D15C51F82360800E86251 /* GoogleSignIn.bundle */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				3454D7981E07F045004AF2AD /* Categories */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -2978,8 +2983,6 @@
 		340474DB1E08199D00C92850 /* 3party */ = {
 			isa = PBXGroup;
 			children = (
-				3411E7621F7CE5DC00A49FCD /* GoogleMobileAds.framework */,
-				34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */,
 				34D8087A1E793606002F0584 /* Alamofire.framework */,
 				34D8087C1E79360D002F0584 /* AlamofireImage.framework */,
 				3432E1771E49B3A2008477E9 /* Bolts.framework */,
@@ -2990,6 +2993,10 @@
 				340474DF1E08199D00C92850 /* FBSDKLoginKit.framework */,
 				340474E01E08199D00C92850 /* FBSDKShareKit.framework */,
 				340474E11E08199D00C92850 /* Flurry */,
+				3411E7621F7CE5DC00A49FCD /* GoogleMobileAds.framework */,
+				347D15C71F82362900E86251 /* GoogleSignIn.framework */,
+				347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */,
+				34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */,
 				340474E91E08199D00C92850 /* MyTarget */,
 				340474EE1E08199D00C92850 /* MyTrackerSDK.framework */,
 				34D808851E793F91002F0584 /* Pushwoosh.framework */,
@@ -5078,6 +5085,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				347D15C61F82360800E86251 /* GoogleSignIn.bundle in Resources */,
 				F642D1231F0F9D1D005E3C25 /* ugc_types.csv in Resources */,
 				34EE25A21EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
 				3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */,

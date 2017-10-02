@@ -1,0 +1,17 @@
+/* Sign-in button text */
+"Sign in" = "Inloggen";
+
+/* Long form sign-in button text */
+"Sign in with Google" = "Inloggen met Google";
+
+/* The title of the promotional prompt to install the Google app. */
+"PromoTitle" = "Inloggen met Google";
+
+/* The body message of the promotional prompt to install the Google app. */
+"PromoMessage" = "Installeer de gratis Google-app en log in bij apps met uw Google-account. U hoeft geen wachtwoorden te onthouden.";
+
+/* The cancel button on the promotional prompt to install the Google app. */
+"PromoActionCancel" = "Annuleren";
+
+/* The install button on the promotional prompt to install the Google app. */
+"PromoActionInstall" = "Installeren";

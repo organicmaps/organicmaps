@@ -1,0 +1,17 @@
+/* Sign-in button text */
+"Sign in" = "היכנס";
+
+/* Long form sign-in button text */
+"Sign in with Google" = "היכנס באמצעות Google";
+
+/* The title of the promotional prompt to install the Google app. */
+"PromoTitle" = "כניסה באמצעות Google";
+
+/* The body message of the promotional prompt to install the Google app. */
+"PromoMessage" = "התקן את Google app בחינם והיכנס אל אפליקציות באמצעות חשבון Google. לא תצטרך עוד לזכור סיסמאות.";
+
+/* The cancel button on the promotional prompt to install the Google app. */
+"PromoActionCancel" = "בטל";
+
+/* The install button on the promotional prompt to install the Google app. */
+"PromoActionInstall" = "התקן";

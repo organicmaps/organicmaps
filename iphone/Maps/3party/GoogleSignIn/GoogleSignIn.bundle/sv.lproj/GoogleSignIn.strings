@@ -1,0 +1,17 @@
+/* Sign-in button text */
+"Sign in" = "Logga in";
+
+/* Long form sign-in button text */
+"Sign in with Google" = "Logga in med Google";
+
+/* The title of the promotional prompt to install the Google app. */
+"PromoTitle" = "Logga in med Google";
+
+/* The body message of the promotional prompt to install the Google app. */
+"PromoMessage" = "Hämta Google-appen utan kostnad och logga in i appar med ditt Google-konto. Du behöver inte komma ihåg en massa lösenord.";
+
+/* The cancel button on the promotional prompt to install the Google app. */
+"PromoActionCancel" = "Avbryt";
+
+/* The install button on the promotional prompt to install the Google app. */
+"PromoActionInstall" = "Hämta";

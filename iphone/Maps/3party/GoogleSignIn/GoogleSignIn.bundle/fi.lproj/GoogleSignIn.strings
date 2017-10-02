@@ -1,0 +1,17 @@
+/* Sign-in button text */
+"Sign in" = "Kirjaudu sisään";
+
+/* Long form sign-in button text */
+"Sign in with Google" = "Kirjaudu Google-tilin tunnuksilla";
+
+/* The title of the promotional prompt to install the Google app. */
+"PromoTitle" = "Kirjaudu Google-tilin tunnuksilla";
+
+/* The body message of the promotional prompt to install the Google app. */
+"PromoMessage" = "Hanki ilmainen Google-sovellus ja kirjaudu sovelluksiin Google-tililläsi. Sinun ei tarvitse muistaa salasanoja.";
+
+/* The cancel button on the promotional prompt to install the Google app. */
+"PromoActionCancel" = "Peruuta";
+
+/* The install button on the promotional prompt to install the Google app. */
+"PromoActionInstall" = "Hae";
