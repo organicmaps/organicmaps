@@ -7,3 +7,4 @@ ENABLE_NS_ASSERTIONS = YES
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) DEBUG _DEBUG HAVE_PTHREAD
 MTL_ENABLE_DEBUG_INFO = YES
 ENABLE_TESTABILITY = YES
+OTHER_SWIFT_FLAGS = -Xfrontend -warn-long-function-bodies=400 -Xfrontend -warn-long-expression-type-checking=150
