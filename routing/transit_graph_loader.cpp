@@ -41,7 +41,7 @@ std::unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId nu
 
   my::Timer timer;
   auto graphPtr = make_unique<TransitGraph>();
-  // TODO:
+  // TODO (@t.yan)
   // MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
   // DeserializeTransitGraph(mwmValue, *graph);
   LOG(LINFO, (TRANSIT_FILE_TAG, "section for", file.GetName(), "loaded in",

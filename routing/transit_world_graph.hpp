@@ -10,6 +10,8 @@
 #include "routing/transit_graph_loader.hpp"
 #include "routing/world_graph.hpp"
 
+#include "routing_common/transit_types.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include <memory>
@@ -17,6 +19,7 @@
 
 namespace routing
 {
+// WorldGraph for transit + pedestrian routing
 class TransitWorldGraph final : public WorldGraph
 {
 public:
@@ -30,7 +33,10 @@ public:
                    std::vector<SegmentEdge> & edges) override;
   Junction const & GetJunction(Segment const & segment, bool front) override;
   m2::PointD const & GetPoint(Segment const & segment, bool front) override;
-  RoadGeometry const & GetRoadGeometry(NumMwmId mwmId, uint32_t featureId) override;
+  // All transit features are oneway.
+  bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override;
+  // All transit features are allowed for through pass.
+  bool IsTransitAllowed(NumMwmId mwmId, uint32_t featureId) override;
   void ClearCachedGraphs() override;
   void SetMode(Mode mode) override { m_mode = mode; }
   Mode GetMode() const override { return m_mode; }
@@ -42,7 +48,11 @@ public:
   RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const override;
   bool LeapIsAllowed(NumMwmId mwmId) const override;
 
+  static bool IsTransitSegment(Segment const & segment);
+
 private:
+  RoadGeometry const & GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId);
+  void AddRealEdges(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
 
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;

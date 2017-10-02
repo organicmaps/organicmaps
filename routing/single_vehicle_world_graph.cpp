@@ -66,9 +66,14 @@ m2::PointD const & SingleVehicleWorldGraph::GetPoint(Segment const & segment, bo
   return GetJunction(segment, front).GetPoint();
 }
 
-RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)
+bool SingleVehicleWorldGraph::IsOneWay(NumMwmId mwmId, uint32_t featureId)
 {
-  return m_loader->GetIndexGraph(mwmId).GetGeometry().GetRoad(featureId);
+  return GetRoadGeometry(mwmId, featureId).IsOneWay();
+}
+
+bool SingleVehicleWorldGraph::IsTransitAllowed(NumMwmId mwmId, uint32_t featureId)
+{
+  return GetRoadGeometry(mwmId, featureId).IsTransitAllowed();
 }
 
 void SingleVehicleWorldGraph::GetOutgoingEdgesList(Segment const & segment,
@@ -112,6 +117,11 @@ RouteWeight SingleVehicleWorldGraph::CalcLeapWeight(m2::PointD const & from,
 bool SingleVehicleWorldGraph::LeapIsAllowed(NumMwmId mwmId) const
 {
   return m_estimator->LeapIsAllowed(mwmId);
+}
+
+RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)
+{
+  return m_loader->GetIndexGraph(mwmId).GetGeometry().GetRoad(featureId);
 }
 
 void SingleVehicleWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,

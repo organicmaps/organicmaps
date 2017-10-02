@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/base/routing_result.hpp"
+#include "routing/fake_feature_ids.hpp"
 #include "routing/fake_graph.hpp"
 #include "routing/fake_vertex.hpp"
 #include "routing/index_graph.hpp"
@@ -44,8 +45,6 @@ public:
   };
 
   friend class FakeEdgesContainer;
-
-  static uint32_t constexpr kFakeFeatureId = std::numeric_limits<uint32_t>::max();
 
   static FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point,
                                    WorldGraph & graph);
@@ -144,6 +143,7 @@ private:
   void AddRealEdges(Segment const & segment, bool isOutgoing,
                     std::vector<SegmentEdge> & edges) const;
 
+  static uint32_t constexpr kFakeFeatureId = FakeFeatureIds::kIndexGraphStarterId;
   WorldGraph & m_graph;
   // Start segment id
   uint32_t m_startId;

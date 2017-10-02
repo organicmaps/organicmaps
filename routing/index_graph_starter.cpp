@@ -147,7 +147,7 @@ set<NumMwmId> IndexGraphStarter::GetMwms() const
 bool IndexGraphStarter::DoesRouteCrossNontransit(
     RoutingResult<Segment, RouteWeight> const & result) const
 {
-  uint32_t nontransitCrossAllowed = 0;
+  int nontransitCrossAllowed = 0;
   auto isRealOrPart = [this](Segment const & segment) {
     if (!IsFakeSegment(segment))
       return true;
@@ -158,7 +158,7 @@ bool IndexGraphStarter::DoesRouteCrossNontransit(
     auto real = segment;
     bool const convertionResult = ConvertToReal(real);
     CHECK(convertionResult, ());
-    return m_graph.GetRoadGeometry(real.GetMwmId(), real.GetFeatureId()).IsTransitAllowed();
+    return m_graph.IsTransitAllowed(real.GetMwmId(), real.GetFeatureId());
   };
 
   auto const firstRealOrPart = find_if(result.m_path.begin(), result.m_path.end(), isRealOrPart);
@@ -295,9 +295,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
                      isStart /* isOutgoing */, true /* isPartOfReal */, projection.m_segment);
 
     bool const oneWay =
-        m_graph
-            .GetRoadGeometry(projection.m_segment.GetMwmId(), projection.m_segment.GetFeatureId())
-            .IsOneWay();
+        m_graph.IsOneWay(projection.m_segment.GetMwmId(), projection.m_segment.GetFeatureId());
     if (!strictForward && !oneWay)
     {
       auto const backwardSegment = GetReverseSegment(projection.m_segment);
