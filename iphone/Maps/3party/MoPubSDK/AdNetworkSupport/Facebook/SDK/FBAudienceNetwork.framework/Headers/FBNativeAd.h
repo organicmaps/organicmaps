@@ -37,8 +37,10 @@ typedef NS_OPTIONS(NSInteger, FBNativeAdsCachePolicy) {
     FBNativeAdsCachePolicyCoverImage = 1 << 2,
     /// Video is cached
     FBNativeAdsCachePolicyVideo = 1 << 3,
+    /// AdChoices icon is cached
+    FBNativeAdsCachePolicyAdChoices = 1 << 4,
     /// All content is cached
-    FBNativeAdsCachePolicyAll = FBNativeAdsCachePolicyCoverImage | FBNativeAdsCachePolicyIcon | FBNativeAdsCachePolicyVideo,
+    FBNativeAdsCachePolicyAll = FBNativeAdsCachePolicyCoverImage | FBNativeAdsCachePolicyIcon | FBNativeAdsCachePolicyVideo | FBNativeAdsCachePolicyAdChoices,
 };
 
 /**
@@ -88,6 +90,19 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
   Typed access to the body text, usually a longer description of the ad.
  */
 @property (nonatomic, copy, readonly, nullable) NSString *body;
+/**
+ Typed access to the AdChoices icon. See `FBAdImage` for details. See `FBAdChoicesView` for an included implementation.
+ */
+@property (nonatomic, strong, readonly, nullable) FBAdImage *adChoicesIcon;
+/**
+ Typed access to the AdChoices URL. Navigate to this link when the icon is tapped. See `FBAdChoicesView` for an included implementation.
+ */
+@property (nonatomic, copy, readonly, nullable) NSURL *adChoicesLinkURL;
+/**
+ Typed access to the AdChoices text, usually a localized version of "AdChoices". See `FBAdChoicesView` for an included implementation.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *adChoicesText;
+
 /**
   Set the native ad caching policy. This controls which media (images, video, etc) from the native ad are cached before the native ad calls nativeAdLoaded on its delegate. The default is to not block on caching. Ensure that media is loaded through FBMediaView or through [FBAdImage loadImageAsyncWithBlock:] to take full advantage of caching.
  */
@@ -143,6 +158,13 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
   of `FBNativeAdDelegate` if you would like to be notified as loading succeeds or fails.
  */
 - (void)loadAd;
+
+/**
+  Begins loading the FBNativeAd content from a bid payload attained through a server side bid.
+
+ - Parameter bidPayload: The payload of the ad bid. You can get your bid payload from Facebook bidder endpoint.
+ */
+- (void)loadAdWithBidPayload:(nonnull NSString *)bidPayload;
 
 /**
   Call isAdValid to check whether native ad is valid & internal consistent prior rendering using its properties. If

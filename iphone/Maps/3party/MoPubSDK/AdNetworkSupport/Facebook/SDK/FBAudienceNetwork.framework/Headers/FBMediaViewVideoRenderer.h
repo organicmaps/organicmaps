@@ -40,9 +40,14 @@ FB_CLASS_EXPORT
 @property (nonatomic, assign, readonly) CMTime currentTime;
 
 /**
- The duration of the video, as a CMTime value.  Returns kCMTimeInvalid if no video is loaded.
+ The duration of the video, as a CMTime value.  Returns kCMTimeIndefinite if no video is loaded.
  */
 @property (nonatomic, assign, readonly) CMTime duration;
+
+/**
+ Indicates whether the video is currently playing.
+ */
+@property (nonatomic, assign, readonly, getter=isPlaying) BOOL playing;
 
 /**
  The current volume of the video, ranging from 0.0 through 1.0.

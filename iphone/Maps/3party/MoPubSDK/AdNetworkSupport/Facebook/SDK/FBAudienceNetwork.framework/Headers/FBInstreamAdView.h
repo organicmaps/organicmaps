@@ -66,6 +66,17 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 - (void)loadAd;
 
 /**
+ Begins loading ad content from a bid payload attained through a server side bid.
+
+
+ You can implement `adViewDidLoad:` and `adView:didFailWithError:` methods
+ of `FBInstreamAdViewDelegate` to be notified when loading succeeds or fails.
+
+ - Parameter bidPayload: The payload of the ad bid. You can get your bid id from Facebook bidder endpoint.
+ */
+- (void)loadAdWithBidPayload:(NSString *)bidPayload;
+
+/**
  Begins ad playback.  This method should only be called after an `adViewDidLoad:` call
  has been received.
 

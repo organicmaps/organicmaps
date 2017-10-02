@@ -67,6 +67,17 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 - (void)loadAd;
 
 /**
+ Begins loading the FBInterstitialAd content from a bid payload attained through a server side bid.
+
+
+ You can implement `adViewDidLoad:` and `adView:didFailWithError:` methods
+ of `FBAdViewDelegate` if you would like to be notified as loading succeeds or fails.
+
+ - Parameter bidPayload: The payload of the ad bid. You can get your bid id from Facebook bidder endpoint.
+ */
+- (void)loadAdWithBidPayload:(NSString *)bidPayload;
+
+/**
   Presents the interstitial ad modally from the specified view controller.
 
  - Parameter rootViewController: The view controller that will be used to present the interstitial ad.

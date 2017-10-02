@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		347D15C11F822BEB00E86251 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F407691E9E1DA400E57AC0 /* FBAudienceNetwork.framework */; };
 		34F408E51E9E1DA400E57AC0 /* FacebookBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F407611E9E1DA400E57AC0 /* FacebookBannerCustomEvent.m */; };
 		34F408E61E9E1DA400E57AC0 /* FacebookInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F407631E9E1DA400E57AC0 /* FacebookInterstitialCustomEvent.m */; };
 		34F408E71E9E1DA400E57AC0 /* FacebookNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F407651E9E1DA400E57AC0 /* FacebookNativeAdAdapter.m */; };
@@ -562,6 +563,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				347D15C11F822BEB00E86251 /* FBAudienceNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
