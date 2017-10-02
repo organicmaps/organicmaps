@@ -368,7 +368,6 @@
 		347BFA8F1F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
 		347BFA901F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
 		347BFA911F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
-		347D15C61F82360800E86251 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 347D15C51F82360800E86251 /* GoogleSignIn.bundle */; };
 		347E1A881F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
 		347E1A891F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
 		347E1A8A1F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
@@ -533,6 +532,9 @@
 		34AC8FDC1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC8FD91EFC062400E7F910 /* UILabel+NumberOfVisibleLines.swift */; };
 		34B924421DC8A29C0008D971 /* MWMMailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B924411DC8A29C0008D971 /* MWMMailViewController.mm */; };
 		34B924431DC8A29C0008D971 /* MWMMailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B924411DC8A29C0008D971 /* MWMMailViewController.mm */; };
+		34BBD6461F8264980070CA50 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */; };
+		34BBD6471F82649D0070CA50 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */; };
+		34BBD6481F82649E0070CA50 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */; };
 		34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */; };
 		34BF0CC61C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
 		34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
@@ -1984,7 +1986,6 @@
 		347BFA8E1F27909200E5531F /* MenuArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuArea.swift; sourceTree = "<group>"; };
 		347BFA921F27923200E5531F /* MWMBottomMenuControllerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuControllerProtocol.h; sourceTree = "<group>"; };
 		347BFA931F28842300E5531F /* MWMNavigationDashboardObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardObserver.h; sourceTree = "<group>"; };
-		347D15C51F82360800E86251 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = 3party/GoogleSignIn/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		347D15C71F82362900E86251 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = GoogleSignIn/GoogleSignIn.framework; sourceTree = "<group>"; };
 		347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignInDependencies.framework; path = GoogleSignIn/GoogleSignInDependencies.framework; sourceTree = "<group>"; };
 		347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CianItemModel.swift; sourceTree = "<group>"; };
@@ -2080,6 +2081,7 @@
 		34B3806B1F1E46E20087D65B /* MWMSearchManagerState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchManagerState.h; sourceTree = "<group>"; };
 		34B924401DC8A29C0008D971 /* MWMMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMailViewController.h; sourceTree = "<group>"; };
 		34B924411DC8A29C0008D971 /* MWMMailViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMailViewController.mm; sourceTree = "<group>"; };
+		34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = 3party/GoogleSignIn/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapViewControlsManager.h; sourceTree = "<group>"; };
 		34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMMapViewControlsManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationCommon.mm; sourceTree = "<group>"; };
@@ -2879,7 +2881,6 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				347D15C51F82360800E86251 /* GoogleSignIn.bundle */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				3454D7981E07F045004AF2AD /* Categories */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -2915,6 +2916,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */,
 				6B653B931C7F2DE4007BEFC5 /* cuisine-strings */,
 				4A300ED31C6DCFD400140018 /* countries-strings */,
 				5605022E1B6211E100169CAD /* sound-strings */,
@@ -5014,6 +5016,7 @@
 				F6E2FE8A1E097BA00083EBEC /* MWMPlacePageInfoCell.xib in Resources */,
 				F6E2FE8D1E097BA00083EBEC /* MWMPlacePageLinkCell.xib in Resources */,
 				F6E2FE7E1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.xib in Resources */,
+				34BBD6461F8264980070CA50 /* GoogleSignIn.bundle in Resources */,
 				F6E2FE841E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				F6E2FE931E097BA00083EBEC /* PlacePageTaxiCell.xib in Resources */,
 				F6E2FEA51E097BA00083EBEC /* MWMPPView.xib in Resources */,
@@ -5085,7 +5088,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				347D15C61F82360800E86251 /* GoogleSignIn.bundle in Resources */,
 				F642D1231F0F9D1D005E3C25 /* ugc_types.csv in Resources */,
 				34EE25A21EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
 				3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */,
@@ -5198,6 +5200,7 @@
 				F6E2FE8B1E097BA00083EBEC /* MWMPlacePageInfoCell.xib in Resources */,
 				F6E2FE8E1E097BA00083EBEC /* MWMPlacePageLinkCell.xib in Resources */,
 				F6E2FE7F1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.xib in Resources */,
+				34BBD6471F82649D0070CA50 /* GoogleSignIn.bundle in Resources */,
 				F6E2FE851E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				F6E2FE941E097BA00083EBEC /* PlacePageTaxiCell.xib in Resources */,
 				F6E2FEA61E097BA00083EBEC /* MWMPPView.xib in Resources */,
@@ -5381,6 +5384,7 @@
 				F6E2FE8C1E097BA00083EBEC /* MWMPlacePageInfoCell.xib in Resources */,
 				F6E2FE8F1E097BA00083EBEC /* MWMPlacePageLinkCell.xib in Resources */,
 				F6E2FE801E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.xib in Resources */,
+				34BBD6481F82649E0070CA50 /* GoogleSignIn.bundle in Resources */,
 				F6E2FE861E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				F6E2FE951E097BA00083EBEC /* PlacePageTaxiCell.xib in Resources */,
 				F6E2FEA71E097BA00083EBEC /* MWMPPView.xib in Resources */,
