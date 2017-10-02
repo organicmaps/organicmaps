@@ -50,6 +50,12 @@ class FacebookAdsLoader extends CachingNativeAdLoader implements AdListener
   }
 
   @Override
+  public void onLoggingImpression(Ad ad)
+  {
+    LOGGER.i(TAG, "onLoggingImpression");
+  }
+
+  @Override
   void loadAdFromProvider(@NonNull Context context, @NonNull String bannerId)
   {
     NativeAd ad = new NativeAd(context, bannerId);

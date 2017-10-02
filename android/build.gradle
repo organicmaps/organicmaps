@@ -16,6 +16,9 @@ allprojects {
   repositories {
     jcenter()
     mavenCentral()
+    maven {
+      url "https://s3.amazonaws.com/moat-sdk-builds"
+    }
   }
 }
 
@@ -54,10 +57,11 @@ dependencies {
   compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true }
   compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') { transitive = true }
   // 3-party
-  compile ('com.facebook.android:facebook-android-sdk:4.17.0') {
+  compile ('com.facebook.android:facebook-android-sdk:4.26.0') {
+    exclude group: 'com.google.android.gms'
     exclude group: 'com.android.support'
   }
-  compile('com.facebook.android:audience-network-sdk:4.20.0') {
+  compile('com.facebook.android:audience-network-sdk:4.26.0') {
     exclude group: 'com.google.android.gms'
     exclude group: 'com.android.support'
   }
@@ -67,7 +71,7 @@ dependencies {
   compile ('com.my.target:mytarget-sdk:4.6.14') {
     exclude group: 'com.android.support'
   }
-  compile('com.mopub:mopub-sdk-native-static:4.11.0@aar') {
+  compile('com.mopub:mopub-sdk-native-static:4.17.0@aar') {
     transitive = true
   }
   compile fileTree(dir: '3rd_party', include: '*.jar')

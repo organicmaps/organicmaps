@@ -7,6 +7,12 @@
     android:sharedUserId="com.mapswithme"
     android:sharedUserLabel="@string/shared_user_label">
 
+  <!-- Mentioned MoPub dependencies use 16 API level as a min SDK version, which conflicts
+       with our version (15 API), that's why forcible use our version to resolve this conflict -->
+  <uses-sdk tools:overrideLibrary="com.mopub.mobileads.native_static,
+                                   com.mopub.mobileads.base,
+                                   com.moat.analytics.mobile.mpub"/>
+
   <uses-feature
       android:glEsVersion="0x00020000"
       android:required="true"/>
