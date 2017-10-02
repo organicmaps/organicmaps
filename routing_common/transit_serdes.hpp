@@ -17,6 +17,7 @@
 #include <limits>
 #include <sstream>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 namespace routing
@@ -29,11 +30,15 @@ class Serializer
 public:
   Serializer(Sink & sink) : m_sink(sink) {}
 
-  void operator()(uint8_t const d, char const * /* name */ = nullptr) { WriteToSink(m_sink, d); }
-  void operator()(uint16_t const d, char const * /* name */ = nullptr) { WriteToSink(m_sink, d); }
-  void operator()(uint32_t const d, char const * /* name */ = nullptr) { WriteToSink(m_sink, d); }
-  void operator()(uint64_t const d, char const * /* name */ = nullptr) { WriteToSink(m_sink, d); }
-  void operator()(double const d, char const * /* name */ = nullptr)
+  template<typename T>
+  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value>::type
+      operator()(T const & t, char const * /* name */ = nullptr)
+  {
+    WriteToSink(m_sink, t);
+  }
+
+  template<typename T>
+  typename std::enable_if<std::is_floating_point<T>::value>::type operator()(T const & t, char const * /* name */ = nullptr)
   {
     NOTIMPLEMENTED();
   }
@@ -50,19 +55,19 @@ public:
     (*this)(pointU.y);
   }
 
-  template <typename R>
-  void operator()(R const & r, char const * /* name */ = nullptr)
-  {
-    r.Visit(*this);
-  }
-
   template <typename T>
   void operator()(std::vector<T> const & vs, char const * /* name */ = nullptr)
   {
-    CHECK_LESS(vs.size(), std::numeric_limits<uint32_t>::max(), ());
-    WriteVarUint(m_sink, static_cast<uint32_t>(vs.size()));
+    CHECK_LESS(vs.size(), std::numeric_limits<uint64_t>::max(), ());
+    WriteVarUint(m_sink, static_cast<uint64_t>(vs.size()));
     for (auto const & v : vs)
       (*this)(v);
+  }
+
+  template<typename T>
+  typename std::enable_if<std::is_class<T>::value>::type operator()(T const & t, char const * /* name */ = nullptr)
+  {
+    t.Visit(*this);
   }
 
 private:
@@ -75,27 +80,15 @@ class Deserializer
 public:
   Deserializer(Source & source) : m_source(source) {}
 
-  void operator()(uint8_t & d, char const * /* name */ = nullptr)
+  template<typename T>
+  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value>::type
+      operator()(T & t, char const * name = nullptr)
   {
-    ReadPrimitiveFromSource(m_source, d);
+    ReadPrimitiveFromSource(m_source, t);
   }
 
-  void operator()(uint16_t & d, char const * /* name */ = nullptr)
-  {
-    ReadPrimitiveFromSource(m_source, d);
-  }
-
-  void operator()(uint32_t & d, char const * /* name */ = nullptr)
-  {
-    ReadPrimitiveFromSource(m_source, d);
-  }
-
-  void operator()(uint64_t & d, char const * /* name */ = nullptr)
-  {
-    ReadPrimitiveFromSource(m_source, d);
-  }
-
-  void operator()(double & d, char const * /* name */ = nullptr)
+  template<typename T>
+  typename std::enable_if<std::is_floating_point<T>::value>::type operator()(T & t, char const * name = nullptr)
   {
     NOTIMPLEMENTED();
   }
@@ -113,20 +106,19 @@ public:
     p = PointU2PointD(pointU, POINT_COORD_BITS);
   }
 
-
-  template <typename R>
-  void operator()(R & r, char const * /* name */ = nullptr)
-  {
-    r.Visit(*this);
-  }
-
   template <typename T>
   void operator()(vector<T> & vs, char const * /* name */ = nullptr)
   {
-    auto const size = ReadVarUint<uint32_t, Source>(m_source);
+    auto const size = ReadVarUint<uint64_t, Source>(m_source);
     vs.resize(size);
     for (auto & v : vs)
       (*this)(v);
+  }
+
+  template<typename T>
+  typename std::enable_if<std::is_class<T>::value>::type operator()(T & t, char const * /* name */ = nullptr)
+  {
+    t.Visit(*this);
   }
 
 private:

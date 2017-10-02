@@ -57,6 +57,7 @@
 #define BOOKMARKS_FILE_EXTENSION ".kml"
 #define ROUTING_FILE_EXTENSION ".routing"
 #define NOROUTING_FILE_EXTENSION ".norouting"
+#define TRANSIT_FILE_EXTENSION ".transit.json"
 
 #define GEOM_INDEX_TMP_EXT ".geomidx.tmp"
 #define CELL2FEATURE_SORTED_EXT ".c2f.sorted"

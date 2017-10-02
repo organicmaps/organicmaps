@@ -33,30 +33,30 @@ void TestSerialization(Obj const & obj)
   TEST(obj.IsEqualForTesting(deserializedObj), ());
 }
 
-UNIT_TEST(ZeroTransitHeaderSerialization)
+UNIT_TEST(Transit_HeaderSerialization)
 {
-  TransitHeader header;
-  TestSerialization(header);
+  {
+    TransitHeader header;
+    TestSerialization(header);
+  }
+  {
+    TransitHeader header(1 /* version */, 1000 /* gatesOffset */, 2000 /* edgesOffset */,
+                         3000 /* transfersOffset */, 4000 /* linesOffset */, 5000 /* shapesOffset */,
+                         6000 /* networksOffset */, 7000 /* endOffset */);
+    TestSerialization(header);
+  }
 }
 
-UNIT_TEST(TransitHeaderSerialization)
+UNIT_TEST(Transit_StopSerialization)
 {
-  TransitHeader header(1 /* version */, 1000 /* gatesOffset */, 2000 /* edgesOffset */,
-                       3000 /* transfersOffset */, 4000 /* linesOffset */, 5000 /* shapesOffset */,
-                       6000 /* networksOffset */, 7000 /* endOffset */);
-  TestSerialization(header);
-}
-
-UNIT_TEST(ZeroTransitStopSerialization)
-{
-  Stop stop;
-  TestSerialization(stop);
-}
-
-UNIT_TEST(TransitStopSerialization)
-{
-  Stop stop(1234 /* id */, 5678 /* feature id */, 7 /* transfer id */, {7, 8, 9, 10} /* line id */, {55.0, 37.0});
-  TestSerialization(stop);
+  {
+    Stop stop;
+    TestSerialization(stop);
+  }
+  {
+    Stop stop(1234 /* id */, 5678 /* feature id */, 7 /* transfer id */, {7, 8, 9, 10} /* line id */, {55.0, 37.0});
+    TestSerialization(stop);
+  }
 }
 }  // namespace
 

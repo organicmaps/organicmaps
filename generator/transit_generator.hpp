@@ -2,10 +2,13 @@
 
 #include "geometry/point2d.hpp"
 
+#include "base/macros.hpp"
+
 #include "3party/jansson/myjansson.hpp"
 
 #include <cstdint>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 namespace routing
@@ -17,19 +20,21 @@ class DeserializerFromJson
 public:
   DeserializerFromJson(json_struct_t * node) : m_node(node) {}
 
-  void operator()(uint8_t & d, char const * name = nullptr) { GetField(d, name); }
-  void operator()(uint16_t & d, char const * name = nullptr) { GetField(d, name); }
-  void operator()(uint32_t & d, char const * name = nullptr) { GetField(d, name); }
-  void operator()(uint64_t & d, char const * name = nullptr) { GetField(d, name); }
-  void operator()(double & d, char const * name = nullptr) { GetField(d, name); }
+  template<typename T>
+  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value>::type
+      operator()(T & t, char const * name = nullptr)
+  {
+    GetField(t, name);
+  }
+
+  template<typename T>
+  typename std::enable_if<std::is_floating_point<T>::value>::type operator()(T & t, char const * name = nullptr)
+  {
+    NOTIMPLEMENTED();
+  }
+
   void operator()(std::string & s, char const * name = nullptr) { GetField(s, name); }
   void operator()(m2::PointD & p, char const * name = nullptr);
-
-  template <typename R>
-  void operator()(R & r, char const * name = nullptr)
-  {
-    r.Visit(*this);
-  }
 
   template <typename T>
   void operator()(std::vector<T> & vs, char const * name = nullptr)
@@ -49,6 +54,12 @@ public:
     }
   }
 
+  template<typename T>
+  typename std::enable_if<std::is_class<T>::value>::type operator()(T & t, char const * name = nullptr)
+  {
+    t.Visit(*this);
+  }
+
 private:
   template <typename T>
   void GetField(T & t, char const * name = nullptr)
@@ -57,21 +68,25 @@ private:
     {
       // |name| is not set in case of array items
       FromJSON(m_node, t);
+      return;
     }
-    else
+
+    json_struct_t * field = my::GetJSONOptionalField(m_node, name);
+    if (field == nullptr)
     {
-      json_struct_t * field = my::GetJSONOptionalField(m_node, name);
-      if (field == nullptr)
-        return; // No field |name| at |m_node|.
-      FromJSON(field, t);
+      // No optional field |name| at |m_node|. In that case the default value should be set to |t|.
+      // This default value is set at constructor of corresponding class which is filled with
+      // |DeserializerFromJson|. And the value (|t|) is not changed at this method.
+      return;
     }
+    FromJSON(field, t);
   }
 
   json_struct_t * m_node;
 };
 
-/// \brief Builds transit section at mwm.
-/// \param mwmPath relative or full path to built mwm. The name of mwm without extension is considered
+/// \brief Builds the transit section in the mwm.
+/// \param mwmPath relative or full path to an mwm. The name of mwm without extension is considered
 /// as country id.
 /// \param transitDir a path to directory with json files with transit graphs.
 void BuildTransit(std::string const & mwmPath, std::string const & transitDir);

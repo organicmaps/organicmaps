@@ -15,20 +15,16 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "3party/jansson/src/jansson.h"
 
 using namespace platform;
+using namespace routing;
+using namespace routing::transit;
 using namespace std;
 
 namespace
 {
-using namespace routing;
-using namespace routing::transit;
-
-/// \returns file name without extension by a file path if a file name which have zero, one of several extensions.
-/// For example,
-/// GetFileName("Russia_Nizhny Novgorod Oblast.transit.json") returns "Russia_Nizhny Novgorod Oblast"
-/// GetFileName("Russia_Nizhny Novgorod Oblast.mwm") returns "Russia_Nizhny Novgorod Oblast"
+/// Drops all extensions from the filename.
 string GetFileName(string const & filePath)
 {
   string name = filePath;
@@ -45,7 +41,7 @@ string GetFileName(string const & filePath)
   return name;
 }
 
-/// \brief Reads from |root| (json) and serialize an array to |serializer|.
+/// \brief Reads from |root| (json) and serializes an array to |serializer|.
 template <class Item>
 void SerializeObject(my::Json const & root, string const & key, Serializer<FileWriter> & serializer)
 {
@@ -53,9 +49,7 @@ void SerializeObject(my::Json const & root, string const & key, Serializer<FileW
 
   DeserializerFromJson deserializer(root.get());
   deserializer(items, key.c_str());
-
-  for (auto const & s : items)
-    s.Visit(serializer);
+  serializer(items);
 }
 }  // namespace
 
@@ -66,9 +60,7 @@ namespace transit
 // DeserializerFromJson ---------------------------------------------------------------------------
 void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
 {
-  json_t * pointItem = my::GetJSONOptionalField(m_node, name);
-  if (pointItem == nullptr)
-    return;
+  json_t * pointItem = my::GetJSONObligatoryField(m_node, name);
   CHECK(json_is_object(pointItem), ());
   FromJSONObject(pointItem, "x", p.x);
   FromJSONObject(pointItem, "y", p.y);
@@ -81,15 +73,13 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   NOTIMPLEMENTED();
 
   string const countryId = GetFileName(mwmPath);
-  LOG(LINFO, ("countryId:", countryId));
-
-  string const graphFullPath = my::JoinFoldersToPath(transitDir, countryId + ".transit.json");
+  string const graphFullPath = my::JoinFoldersToPath(transitDir, countryId + TRANSIT_FILE_EXTENSION);
 
   Platform::EFileType fileType;
   Platform::EError const errCode = Platform::GetFileType(graphFullPath, fileType);
   if (errCode != Platform::EError::ERR_OK || fileType != Platform::EFileType::FILE_TYPE_REGULAR)
   {
-    LOG(LINFO, ("For mwm:", mwmPath, ".transit.json file not found"));
+    LOG(LINFO, ("For mwm:", mwmPath, TRANSIT_FILE_EXTENSION, "file not found"));
     return;
   }
 
@@ -109,9 +99,9 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
     LOG(LCRITICAL, ("Can't open", graphFullPath, ex.what()));
   }
 
-  // @TODO(bykoianko) If it's necessary to parse an integer jansson parser keeps it to time long long value.
-  // It's not good because osm id and stop id are uint64_t. This should be solve before continue writing
-  // transit jansson parsing. According to C++ signed long long is not smaller than long and at least 64 bits.
+  // @TODO(bykoianko) If it's necessary to parse an integer jansson parser keeps it in long long value.
+  // It's not good because osm id and stop id are uint64_t. This should be solved before continue writing
+  // transit jansson parsing. According to C++ signed long long is not smaller than long and is at least 64 bits.
   // So as a variant before saving to json osm id and stop id should be converted to signed long long and
   // then after reading at generator they should be converted back.
   // @TODO(bykoianko) |osmId| should be converted to feature id while deserialing from json.
@@ -132,7 +122,6 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
 
   // @TODO(bykoianko) It's necessary to serialize other transit graph data here.
 
-  w.WritePaddingByEnd(8);
   header.m_endOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
   // Rewriting header info.
@@ -140,7 +129,7 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   w.Seek(startOffset);
   header.Visit(serializer);
   w.Seek(endOffset);
-  LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. The size is", header.m_endOffset));
+  LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Size:", header.m_endOffset));
 }
 }  // namespace transit
 }  // namespace routing

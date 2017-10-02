@@ -37,11 +37,15 @@ void TransitHeader::Reset()
 
 bool TransitHeader::IsEqualForTesting(TransitHeader const & header) const
 {
-  return m_version == header.m_version && m_reserve == header.m_reserve &&
-         m_gatesOffset == header.m_gatesOffset && m_edgesOffset == header.m_edgesOffset &&
-         m_transfersOffset == header.m_transfersOffset && m_linesOffset == header.m_linesOffset &&
-         m_shapesOffset == header.m_shapesOffset && m_networksOffset == header.m_networksOffset &&
-         m_endOffset == header.m_endOffset;
+  return m_version == header.m_version
+         && m_reserve == header.m_reserve
+         && m_gatesOffset == header.m_gatesOffset
+         && m_edgesOffset == header.m_edgesOffset
+         && m_transfersOffset == header.m_transfersOffset
+         && m_linesOffset == header.m_linesOffset
+         && m_shapesOffset == header.m_shapesOffset
+         && m_networksOffset == header.m_networksOffset
+         && m_endOffset == header.m_endOffset;
 }
 
 // Stop -------------------------------------------------------------------------------------------
