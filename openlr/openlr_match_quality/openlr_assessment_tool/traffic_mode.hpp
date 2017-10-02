@@ -35,11 +35,11 @@ namespace impl
 class RoadPointCandidate
 {
 public:
-  RoadPointCandidate(std::vector<FeaturePoint> const & points,
+  RoadPointCandidate(std::vector<openlr::FeaturePoint> const & points,
                      m2::PointD const & coord);
 
   void ActivateCommonPoint(RoadPointCandidate const & rpc);
-  FeaturePoint const & GetPoint() const;
+  openlr::FeaturePoint const & GetPoint() const;
   m2::PointD const & GetCoordinate() const;
 
 private:
@@ -48,7 +48,7 @@ private:
   void SetActivePoint(FeatureID const & fid);
 
   m2::PointD m_coord = m2::PointD::Zero();
-  std::vector<FeaturePoint> m_points;
+  std::vector<openlr::FeaturePoint> m_points;
 
   size_t m_activePointIndex = kInvalidId;
 };
@@ -56,6 +56,8 @@ private:
 
 class BookmarkManager;
 
+namespace openlr
+{
 /// This class is used to map sample ids to real data
 /// and change sample evaluations.
 class TrafficMode : public QAbstractTableModel
@@ -120,3 +122,4 @@ private:
   bool m_buildingPath = false;
   std::vector<impl::RoadPointCandidate> m_goldenPath;
 };
+}  // namespace openlr

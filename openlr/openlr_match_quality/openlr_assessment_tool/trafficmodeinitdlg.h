@@ -10,6 +10,8 @@ namespace Ui {
 class TrafficModeInitDlg;
 }
 
+namespace openlr
+{
 class TrafficModeInitDlg : public QDialog
 {
   Q_OBJECT
@@ -31,3 +33,4 @@ private:
 
   std::string m_dataFileName;
 };
+}  // namespace openlr

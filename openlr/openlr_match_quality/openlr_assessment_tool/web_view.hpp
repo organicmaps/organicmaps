@@ -2,6 +2,8 @@
 
 #include <QWebEngineView>
 
+namespace openlr
+{
 class WebView : public QWebEngineView
 {
   Q_OBJECT
@@ -36,5 +38,6 @@ private:
 
   std::string m_url;
   std::string m_login;
-  std::string m_paswd;
+  std::string m_password;
 };
+}  // namespace openlr

@@ -7,6 +7,8 @@ class QComboBox;
 class QTableView;
 class QWidget;
 
+namespace openlr
+{
 class ComboBoxDelegate : public QStyledItemDelegate
 {
   Q_OBJECT
@@ -45,3 +47,4 @@ public slots:
 private:
   QTableView * m_table = Q_NULLPTR;
 };
+}  // namespace openlr

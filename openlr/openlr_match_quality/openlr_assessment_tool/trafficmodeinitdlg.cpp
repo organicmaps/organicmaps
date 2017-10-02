@@ -10,6 +10,8 @@ namespace
 string const kDataFilePath = "LastOpenlrAssessmentDataFilePath";
 }  // namespace
 
+namespace openlr
+{
 TrafficModeInitDlg::TrafficModeInitDlg(QWidget * parent) :
   QDialog(parent),
   m_ui(new Ui::TrafficModeInitDlg)
@@ -47,3 +49,4 @@ void TrafficModeInitDlg::SetFilePathViaDialog(QLineEdit & dest, QString const & 
 
   dest.setText(openFileDlg.selectedFiles().first());
 }
+}  // namespace openlr

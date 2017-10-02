@@ -9,10 +9,14 @@
 #include <QMainWindow>
 
 class Framework;
-class MapWidget;
 class QHBoxLayout;
+
+namespace openlr
+{
+class MapWidget;
 class TrafficMode;
 class WebView;
+}
 
 namespace df
 {
@@ -21,6 +25,8 @@ class DrapeApi;
 
 class QDockWidget;
 
+namespace openlr
+{
 class MainWindow : public QMainWindow
 {
   Q_OBJECT
@@ -40,7 +46,7 @@ private:
 
   Framework & m_framework;
 
-  TrafficMode * m_trafficMode = nullptr;
+  openlr::TrafficMode * m_trafficMode = nullptr;
   QDockWidget * m_docWidget = nullptr;
 
   QAction * m_saveTrafficSampleAction = nullptr;
@@ -50,7 +56,8 @@ private:
   QAction * m_cancelPathAction = nullptr;
   QAction * m_ignorePathAction = nullptr;
 
-  MapWidget * m_mapWidget = nullptr;
+  openlr::MapWidget * m_mapWidget = nullptr;
   QHBoxLayout * m_layout = nullptr;
-  WebView * m_webView = nullptr;
+  openlr::WebView * m_webView = nullptr;
 };
+}  // namespace openlr

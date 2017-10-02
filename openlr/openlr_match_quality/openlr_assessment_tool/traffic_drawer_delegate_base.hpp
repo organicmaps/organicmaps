@@ -2,6 +2,8 @@
 
 #include <geometry/point2d.hpp>
 
+namespace openlr
+{
 /// This class is used to delegate segments drawing to the DrapeEngine.
 class TrafficDrawerDelegateBase
 {
@@ -20,3 +22,4 @@ public:
   virtual void VisualizePoints(std::vector<m2::PointD> const & points) = 0;
   virtual void ClearAllVisualizedPoints() = 0;
 };
+}  // namespace openlr

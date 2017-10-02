@@ -14,6 +14,8 @@
 
 #include <tuple>
 
+using namespace openlr;
+
 namespace
 {
 void RemovePointFromPull(m2::PointD const & toBeRemoved, std::vector<m2::PointD> & pool)
@@ -37,7 +39,7 @@ std::vector<m2::PointD> GetReachablePoints(m2::PointD const & srcPoint,
   }
   return reachablePoints;
 }
-}
+}  // namespace
 
 namespace impl
 {
@@ -97,6 +99,8 @@ void RoadPointCandidate::SetActivePoint(FeatureID const & fid)
 }
 }  // namespace impl
 
+namespace openlr
+{
 // TrafficMode -------------------------------------------------------------------------------------
 TrafficMode::TrafficMode(std::string const & dataFileName,
                          Index const & index,
@@ -172,17 +176,17 @@ bool TrafficMode::SaveSampleAs(std::string const & fileName) const
     {
       result.append_child("Ignored").text() = true;
     }
-    if (!sc.GetMatchedPath().empty())
+    if (sc.HasMatchedPath())
     {
       auto node = segment.append_child("Route");
       openlr::PathToXML(sc.GetMatchedPath(), node);
     }
-    if (!sc.GetFakePath().empty())
+    if (sc.HasFakePath())
     {
       auto node = segment.append_child("FakeRoute");
       openlr::PathToXML(sc.GetFakePath(), node);
     }
-    if (!sc.GetGoldenPath().empty())
+    if (sc.HasGoldenPath())
     {
       auto node = segment.append_child("GoldenRoute");
       openlr::PathToXML(sc.GetGoldenPath(), node);
@@ -235,9 +239,9 @@ void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection
   // TODO(mgsergio): Use a better way to set viewport and scale.
   m_drawerDelegate->SetViewportCenter(viewportCenter);
   m_drawerDelegate->DrawEncodedSegment(partnerSegmentPoints);
-  if (!m_currentSegment->GetMatchedPath().empty())
+  if (m_currentSegment->HasMatchedPath())
     m_drawerDelegate->DrawDecodedSegments(GetPoints(m_currentSegment->GetMatchedPath()));
-  if (!m_currentSegment->GetGoldenPath().empty())
+  if (m_currentSegment->HasGoldenPath())
     m_drawerDelegate->DrawGoldenPath(GetPoints(m_currentSegment->GetGoldenPath()));
 
   emit SegmentSelected(static_cast<int>(partnerSegment.m_segmentId));
@@ -258,7 +262,7 @@ void TrafficMode::StartBuildingPath()
   if (m_buildingPath)
     MYTHROW(TrafficModeError, ("Path building already in progress."));
 
-  if (!m_currentSegment->GetGoldenPath().empty())
+  if (m_currentSegment->HasGoldenPath())
   {
     auto const btn = QMessageBox::question(
         nullptr,
@@ -352,7 +356,7 @@ void TrafficMode::RollBackPath()
   // TODO(mgsergio): Add a method for common visual manipulations.
   m_drawerDelegate->ClearAllVisualizedPoints();
   m_drawerDelegate->ClearGoldenPath();
-  if (!m_currentSegment->GetGoldenPath().empty())
+  if (m_currentSegment->HasGoldenPath())
     m_drawerDelegate->DrawGoldenPath(GetPoints(m_currentSegment->GetGoldenPath()));
 
   m_goldenPath.clear();
@@ -363,7 +367,7 @@ void TrafficMode::IgnorePath()
 {
   CHECK(m_currentSegment, ("No segments selected"));
 
-  if (!m_currentSegment->GetGoldenPath().empty())
+  if (m_currentSegment->HasGoldenPath())
   {
     auto const btn = QMessageBox::question(
         nullptr,
@@ -485,3 +489,4 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
     return;
   }
 }
+}  // namespace openlr

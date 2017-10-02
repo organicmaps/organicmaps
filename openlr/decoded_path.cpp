@@ -47,6 +47,7 @@ void FeatureIdFromXML(pugi::xml_node const & node, Index const & index, FeatureI
   THROW_IF_NODE_IS_EMPTY(node, openlr::DecodedPathLoadError, ("Can't parse CountryName"));
   auto const countryName = node.child("CountryName").text().as_string();
   fid.m_mwmId = index.GetMwmIdByCountryFile(platform::CountryFile(countryName));
+  CHECK(fid.m_mwmId.IsAlive(), ("Can't get mwm id for country", countryName));
   fid.m_index = node.child("Index").text().as_uint();
 }
 

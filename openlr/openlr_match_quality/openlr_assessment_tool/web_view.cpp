@@ -17,8 +17,10 @@ bool IsLoginUrl(QString const & url)
 }
 }  // namespace
 
-WebView::WebView(std::string const & url, std::string const & login, std::string const & paswd)
-  : QWebEngineView(nullptr), m_loadProgress(0), m_url(url), m_login(login), m_paswd(paswd)
+namespace openlr
+{
+WebView::WebView(std::string const & url, std::string const & login, std::string const & password)
+  : QWebEngineView(nullptr), m_loadProgress(0), m_url(url), m_login(login), m_password(password)
 {
   connect(this, &QWebEngineView::loadProgress, [this](int progress) { m_loadProgress = progress; });
   connect(this, &QWebEngineView::loadFinished, [this](bool success) {
@@ -34,16 +36,16 @@ WebView::WebView(std::string const & url, std::string const & login, std::string
             switch (termStatus)
             {
             case QWebEnginePage::NormalTerminationStatus:
-              status = tr("Render process normal exit");
+              status = "Render process normal exit";
               break;
             case QWebEnginePage::AbnormalTerminationStatus:
-              status = tr("Render process abnormal exit");
+              status = "Render process abnormal exit";
               break;
             case QWebEnginePage::CrashedTerminationStatus:
-              status = tr("Render process crashed");
+              status = "Render process crashed";
               break;
             case QWebEnginePage::KilledTerminationStatus:
-              status = tr("Render process killed");
+              status = "Render process killed";
               break;
             }
             QMessageBox::StandardButton btn =
@@ -107,9 +109,9 @@ void WebView::GoToSegment()
 
   auto const script = QString(R"EOT(
     function s(ctx, arg) { return ctx.querySelector(arg); }
-    function turnOff(cb) { if (cb.checked) cb.click(); }
-    turnOff(s(document, "#inrix\\:filters\\:traffic\\:trafficflowvisible"));
-    turnOff(s(document, "#inrix\\:filters\\:traffic\\:incidentsvisible"));
+    function uncheck(cb) { if (cb.checked) cb.click(); }
+    uncheck(s(document, "#inrix\\:filters\\:traffic\\:trafficflowvisible"));
+    uncheck(s(document, "#inrix\\:filters\\:traffic\\:incidentsvisible"));
     var navSpan = s(document, "#inrix\\:navigation\\:contextual");
     var input = s(navSpan, "input.FreeFormInput");
     input.value = %1;
@@ -126,13 +128,14 @@ void WebView::GoToSegment()
 void WebView::Login()
 {
   auto const script = QString(R"EOT(
-    function s(arg) { return document.querySelector(arg); }
-    s("#ctl00_BodyPlaceHolder_LoginControl_UserName").value = "%1"
-    s("#ctl00_BodyPlaceHolder_LoginControl_Password").value = "%2"
-    s("#ctl00_BodyPlaceHolder_LoginControl_LoginButton").click();
-  )EOT").arg(m_login.data()).arg(m_paswd.data());
+    function select(arg) { return document.querySelector(arg); }
+    select("#ctl00_BodyPlaceHolder_LoginControl_UserName").value = "%1";
+    select("#ctl00_BodyPlaceHolder_LoginControl_Password").value = "%2";
+    select("#ctl00_BodyPlaceHolder_LoginControl_LoginButton").click();
+  )EOT").arg(m_login.data()).arg(m_password.data());
 
   page()->runJavaScript(script, [](QVariant const & v) {
     LOG(LDEBUG, ("Login JS is done:", v.toString().toStdString()));
   });
 }
+}  // namespace openlr

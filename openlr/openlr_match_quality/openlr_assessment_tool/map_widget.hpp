@@ -9,6 +9,8 @@ class PointsController;
 
 class Framework;
 
+namespace openlr
+{
 class MapWidget : public qt::common::MapWidget
 {
   Q_OBJECT
@@ -41,3 +43,4 @@ protected:
 private:
   Mode m_mode = Mode::Normal;
 };
+}  // namespace openlr

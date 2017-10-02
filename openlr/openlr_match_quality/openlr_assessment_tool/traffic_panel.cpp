@@ -8,6 +8,8 @@
 #include <QtWidgets/QStyledItemDelegate>
 #include <QtWidgets/QTableView>
 
+namespace openlr
+{
 // ComboBoxDelegate --------------------------------------------------------------------------------
 ComboBoxDelegate::ComboBoxDelegate(QObject * parent)
   : QStyledItemDelegate(parent)
@@ -77,3 +79,4 @@ void TrafficPanel::CreateTable(QAbstractItemModel * trafficModel)
           SIGNAL(selectionChanged(QItemSelection const &, QItemSelection const &)),
           trafficModel, SLOT(OnItemSelected(QItemSelection const &, QItemSelection const &)));
 }
+}  // namespace openlr

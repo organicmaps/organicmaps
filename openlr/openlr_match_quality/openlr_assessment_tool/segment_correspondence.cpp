@@ -1,5 +1,7 @@
 #include "openlr/openlr_match_quality/openlr_assessment_tool/segment_correspondence.hpp"
 
+namespace openlr
+{
 SegmentCorrespondence::SegmentCorrespondence(SegmentCorrespondence const & sc)
 {
   m_partnerSegment = sc.m_partnerSegment;
@@ -41,3 +43,4 @@ void SegmentCorrespondence::Ignore()
   m_status = Status::Ignored;
   m_goldenPath.clear();
 }
+}  // namespace openlr

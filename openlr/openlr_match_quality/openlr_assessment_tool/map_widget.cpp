@@ -4,6 +4,8 @@
 
 #include <QMouseEvent>
 
+namespace openlr
+{
 MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent)
   : Base(framework, apiOpenGLES3, parent)
 {
@@ -19,3 +21,4 @@ void MapWidget::mousePressEvent(QMouseEvent * e)
     emit TrafficMarkupClick(m_framework.PtoG(pt), e->button());
   }
 }
+}  // namespace openlr

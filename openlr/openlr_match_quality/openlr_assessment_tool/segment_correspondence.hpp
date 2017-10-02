@@ -5,6 +5,8 @@
 
 #include "3party/pugixml/src/pugixml.hpp"
 
+namespace openlr
+{
 class SegmentCorrespondence
 {
 public:
@@ -23,9 +25,13 @@ public:
                         pugi::xml_node const & partnerSegmentXML);
 
   openlr::Path const & GetMatchedPath() const { return m_matchedPath; }
+  bool HasMatchedPath() const { return !m_matchedPath.empty(); }
+
   openlr::Path const & GetFakePath() const { return m_fakePath; }
+  bool HasFakePath() const { return !m_fakePath.empty(); }
 
   openlr::Path const & GetGoldenPath() const { return m_goldenPath; }
+  bool HasGoldenPath() const { return !m_goldenPath.empty(); }
   void SetGoldenPath(openlr::Path const & p);
 
   openlr::LinearSegment const & GetPartnerSegment() const { return m_partnerSegment; }
@@ -55,3 +61,4 @@ private:
 
   Status m_status = Status::Untouched;
 };
+}  // namespace openlr

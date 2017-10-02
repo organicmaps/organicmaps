@@ -35,6 +35,8 @@
 #include <cstring>
 #include <vector>
 
+using namespace openlr;
+
 namespace
 {
 class TrafficDrawerDelegate : public TrafficDrawerDelegateBase
@@ -233,16 +235,17 @@ private:
 };
 }  // namespace
 
+namespace openlr
+{
 MainWindow::MainWindow(Framework & framework, std::string const & url, std::string const & login,
-                       std::string const & paswd)
+                       std::string const & password)
   : m_framework(framework)
 {
-
   m_mapWidget = new MapWidget(
       m_framework, false /* apiOpenGLES3 */, this /* parent */
   );
 
-  m_webView = new WebView(url, login, paswd);
+  m_webView = new WebView(url, login, password);
 
   m_layout = new QHBoxLayout();
   m_layout->addWidget(m_webView);
@@ -401,3 +404,4 @@ void MainWindow::OnPathEditingStop()
   m_cancelPathAction->setEnabled(false /* enabled */);
   m_cancelPathAction->setEnabled(false /* enabled */);
 }
+}  // namespace openlr
