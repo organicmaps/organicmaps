@@ -123,6 +123,9 @@ void SingleVehicleWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,
   {
     m2::PointD const & from = GetPoint(segment, true /* front */);
     m2::PointD const & to = GetPoint(twin, true /* front */);
+    // Weight is usually zero because twins correspond the same feature
+    // in different mwms. But if we have mwms with different versions and feature
+    // was moved in one of them we can have nonzero weight here.
     double const weight = m_estimator->CalcHeuristic(from, to);
     edges.emplace_back(twin, RouteWeight(weight, 0 /* nontransitCross */));
   }

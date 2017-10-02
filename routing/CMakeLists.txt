@@ -126,6 +126,11 @@ set(
   speed_camera.hpp
   traffic_stash.cpp
   traffic_stash.hpp
+  transit_graph.hpp
+  transit_graph_loader.cpp
+  transit_graph_loader.hpp
+  transit_world_graph.cpp
+  transit_world_graph.hpp
   transition_points.hpp
   turn_candidate.hpp
   turns.cpp
