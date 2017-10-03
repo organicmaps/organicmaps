@@ -95,6 +95,8 @@ set(SRC
   transit_generator.hpp
   ugc_db.cpp
   ugc_db.hpp
+  ugc_section_builder.cpp
+  ugc_section_builder.hpp
   ugc_translator.cpp
   ugc_translator.hpp
   unpack_mwm.cpp

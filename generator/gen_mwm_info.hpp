@@ -2,9 +2,11 @@
 
 #include "generator/osm_id.hpp"
 
+#include "coding/file_reader.hpp"
 #include "coding/read_write_utils.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 
 #include <algorithm>
 #include <utility>
@@ -51,10 +53,9 @@ public:
     BaseT::Flush(sink);
   }
 
-  /// Find a feature id for an OSM way id. Returns 0 if the feature was not found.
-  uint32_t GetRoadFeatureID(uint64_t wayId) const
+  /// Find a feature id for an OSM id. Returns 0 if the feature was not found.
+  uint32_t GetFeatureID(osm::Id const & id) const
   {
-    osm::Id id = osm::Id::Way(wayId);
     auto const it = std::lower_bound(m_data.begin(), m_data.end(), id, LessID());
     if (it != m_data.end() && it->first == id)
       return it->second;
@@ -66,6 +67,24 @@ public:
   {
     for (auto const & v : m_data)
       fn(v);
+  }
+
+  bool ReadFromFile(std::string const & filename)
+  {
+    try
+    {
+      FileReader reader(filename);
+      ReaderSource<FileReader> src(reader);
+      Read(src);
+    }
+    catch (FileReader::Exception const & e)
+    {
+      LOG(LERROR, ("Exception while reading osm id to feature id mapping file:", filename,
+                   ". Msg:", e.Msg()));
+      return false;
+    }
+
+    return true;
   }
 };
 }  // namespace gen

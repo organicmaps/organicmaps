@@ -11,19 +11,14 @@ class UGCTranslator
 {
 public:
   UGCTranslator();
-  UGCTranslator(std::string const & path);
+  UGCTranslator(std::string const & dbFilename);
 
   bool TranslateUGC(osm::Id const & id, ugc::UGC & ugc);
-  // For testing only
-  void CreateRatings(std::string const & data);
-  void CreateReviews(std::string const & data);
-  
-private:
-  bool TranslateRatings(UGCDB & db, osm::Id const id, ugc::Ratings & ratings);
-  bool TranslateReview(UGCDB & db, osm::Id const id, std::vector<ugc::Review> & review);
-//  bool TranslateAttribute(UGCDB & db, osm::Id const id, ugc::Attribute & attribute);
 
-  UGCDB m_dbRatings;
-  UGCDB m_dbReviews;
+  // For testing only
+  void CreateDb(std::string const & data);
+
+private:
+  UGCDB m_db;
 };
 }  // namespace generator

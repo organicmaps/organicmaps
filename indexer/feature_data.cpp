@@ -31,7 +31,6 @@ string DebugPrint(TypesHolder const & holder)
     s.pop_back();
   return s;
 }
-}  // namespace feature
 
 TypesHolder::TypesHolder(FeatureBase const & f)
 : m_size(0), m_geoType(f.GetFeatureType())
@@ -57,10 +56,10 @@ bool TypesHolder::Equals(TypesHolder const & other) const
 
   return my == his;
 }
+}  // namespace feature
 
 namespace
 {
-
 class UselessTypesChecker
 {
   vector<uint32_t> m_types;
@@ -124,7 +123,6 @@ public:
     return false;
   }
 };
-
 }  // namespace
 
 namespace feature
@@ -163,7 +161,6 @@ uint8_t CalculateHeader(size_t const typesCount, uint8_t const headerGeomType,
 
   return header;
 }
-}  // namespace feature
 
 void TypesHolder::SortBySpec()
 {
@@ -182,6 +179,7 @@ vector<string> TypesHolder::ToObjectNames() const
     result.push_back(classif().GetReadableObjectName(type));
   return result;
 }
+}  // namespace feature
 
 ////////////////////////////////////////////////////////////////////////////////////
 // FeatureParamsBase implementation

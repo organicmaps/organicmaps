@@ -2,8 +2,8 @@
 
 ROOT_DIR = ../..
 
-DEPENDENCIES = generator routing traffic routing_common search storage indexer editor mwm_diff platform geometry \
-               coding base freetype expat jansson protobuf osrm stats_client \
+DEPENDENCIES = generator routing traffic routing_common search storage indexer editor mwm_diff ugc \
+               platform geometry coding base freetype expat jansson protobuf osrm stats_client \
                minizip succinct pugixml tess2 gflags oauthcpp icu
 include($$ROOT_DIR/common.pri)
 
@@ -18,6 +18,7 @@ TEMPLATE = app
 
 # needed for Platform::WorkingDir() and unicode combining
 QT *= core
+LIBS *= -lsqlite3
 
 !iphone*:!android*:!tizen:!macx-* {
   QT *= network

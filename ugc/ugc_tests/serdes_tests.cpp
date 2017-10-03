@@ -22,14 +22,9 @@ using FromBin = DeserializerV0<ReaderSource<MemReader>>;
 using ToJson = SerializerJson<MemWriter<Buffer>>;
 using FromJson = DeserializerJsonV0<ReaderSource<MemReader>>;
 
-
-Rating GetTestRating()
+Ratings GetTestRating()
 {
-  vector<RatingRecord> records;
-  records.emplace_back("music" /* key */, 5.0 /* value */);
-  records.emplace_back("service" /* key */, 4.0 /* value */);
-
-  return Rating(records, 4.5 /* aggValue */);
+  return {{"music" /* key */, 5.0 /* value */}, {"service" /* key */, 4.0 /* value */}};
 }
 
 MemWriter<Buffer> MakeSink(Buffer & buffer) { return MemWriter<Buffer>(buffer); }
@@ -65,7 +60,7 @@ UNIT_TEST(SerDes_Rating)
   auto const expectedRating = GetTestRating();
   TEST_EQUAL(expectedRating, expectedRating, ());
 
-  MakeTest<Rating, ToBin, FromBin>(expectedRating);
+  MakeTest<Ratings, ToBin, FromBin>(expectedRating);
 }
 
 UNIT_TEST(SerDes_Json_Rating)
@@ -73,7 +68,7 @@ UNIT_TEST(SerDes_Json_Rating)
   auto const expectedRating = GetTestRating();
   TEST_EQUAL(expectedRating, expectedRating, ());
 
-  MakeTest<Rating, ToJson, FromJson>(expectedRating);
+  MakeTest<Ratings, ToJson, FromJson>(expectedRating);
 }
 
 UNIT_TEST(SerDes_Json_Reviews)
@@ -114,7 +109,7 @@ UNIT_TEST(SerDes_UGC)
     Serialize(sink, expectedUGC);
   }
 
-  UGC actualUGC({} /* rating */, {} /* reviews */, {} /* attributes */);
+  UGC actualUGC({} /* rating */, {} /* reviews */, {} /* totalRating */, {} /* votes */);
   {
     auto source = MakeSource(buffer);
     Deserialize(source, actualUGC);

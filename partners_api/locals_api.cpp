@@ -18,14 +18,7 @@ namespace
 {
 using namespace locals;
 
-bool CheckJsonArray(json_t const * data)
-{
-  if (data == nullptr)
-    return false;
-  return json_is_array(data) && json_array_size(data) > 0;
-}
-
-void ParseError(std::string const & src, int & errorCode, std::string & message)
+void ParseError(std::string const & src, ErrorCode & errorCode, std::string & message)
 {
   message.clear();
   errorCode = 0;

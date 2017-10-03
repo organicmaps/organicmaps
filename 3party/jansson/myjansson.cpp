@@ -38,6 +38,11 @@ void FromJSON(json_t * root, bool & result)
   result = json_is_true(root);
 }
 
+bool CheckJsonArray(json_t const * data)
+{
+  return data != nullptr && json_is_array(data) && json_array_size(data) > 0;
+}
+
 namespace std
 {
 void FromJSON(json_t * root, string & result)

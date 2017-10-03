@@ -58,6 +58,7 @@ SOURCES += \
     unpack_mwm.cpp \
     utils.cpp \
     viator_dataset.cpp \
+    ugc_section_builder.cpp
 
 HEADERS += \
     altitude_generator.hpp \
@@ -115,3 +116,4 @@ HEADERS += \
     viator_dataset.hpp \
     ways_merger.hpp \
     world_map_generator.hpp \
+    ugc_section_builder.hpp

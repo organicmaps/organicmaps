@@ -85,21 +85,26 @@ class UGC : public TraitsBase<UGC, UGCTypeMask, UGCTYPE_NONE>
   }
 
 public:
+  static bool IsUGCAvailable(UGCTypeMask mask) { return mask != UGCTYPE_NONE; }
+  static bool IsRatingAvailable(UGCTypeMask mask) { return mask & UGCTYPE_RATING; }
+  static bool IsReviewsAvailable(UGCTypeMask mask) { return mask & UGCTYPE_REVIEWS; }
+  static bool IsDetailsAvailable(UGCTypeMask mask) { return mask & UGCTYPE_DETAILS; }
+
   static bool IsUGCAvailable(feature::TypesHolder const & types)
   {
-    return GetValue(types) != UGCTYPE_NONE;
+    return IsUGCAvailable(GetValue(types));
   }
   static bool IsRatingAvailable(feature::TypesHolder const & types)
   {
-    return GetValue(types) & UGCTYPE_RATING;
+    return IsRatingAvailable(GetValue(types));
   }
   static bool IsReviewsAvailable(feature::TypesHolder const & types)
   {
-    return GetValue(types) & UGCTYPE_REVIEWS;
+    return IsReviewsAvailable(GetValue(types));
   }
   static bool IsDetailsAvailable(feature::TypesHolder const & types)
   {
-    return GetValue(types) & UGCTYPE_DETAILS;
+    return IsDetailsAvailable(GetValue(types));
   }
 };
 

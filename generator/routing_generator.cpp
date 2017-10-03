@@ -35,10 +35,15 @@ using platform::LocalCountryFile;
 
 namespace routing
 {
-
 using RawRouteResult = InternalRouteResult;
 
 static double const EQUAL_POINT_RADIUS_M = 2.0;
+
+/// Find a feature id for an OSM way id. Returns 0 if the feature was not found.
+uint32_t GetRoadFeatureID(gen::OsmID2FeatureID const & osm2ft, uint64_t wayId)
+{
+  return osm2ft.GetFeatureID(osm::Id::Way(wayId));
+}
 
 // For debug purposes only. So I do not use constanst or string representations.
 uint8_t GetWarningRank(FeatureType const & ft)
@@ -63,12 +68,8 @@ bool LoadIndexes(std::string const & mwmFile, std::string const & osrmFile, osrm
     LOG(LCRITICAL, ("Can't load node data"));
     return false;
   }
-  {
-    FileReader reader(mwmFile + OSM2FEATURE_FILE_EXTENSION);
-    ReaderSource<FileReader> src(reader);
-    osm2ft.Read(src);
-  }
-  return true;
+
+  return osm2ft.ReadFromFile(mwmFile + OSM2FEATURE_FILE_EXTENSION);
 }
 
 bool CheckBBoxCrossingBorder(m2::RegionD const & border, osrm::NodeData const & data)
@@ -120,7 +121,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
       auto const & startSeg = data.m_segments.front();
       auto const & endSeg = data.m_segments.back();
       // Check if we have geometry for our candidate.
-      if (osm2ft.GetRoadFeatureID(startSeg.wayId) || osm2ft.GetRoadFeatureID(endSeg.wayId))
+      if (GetRoadFeatureID(osm2ft, startSeg.wayId) || GetRoadFeatureID(osm2ft, endSeg.wayId))
       {
         // Check mwm borders crossing.
         for (m2::RegionD const & border: regionBorders)
@@ -177,7 +178,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
           {
             FeatureType ft;
             Index::FeaturesLoaderGuard loader(index, mwmId);
-            if (loader.GetFeatureByIndex(osm2ft.GetRoadFeatureID(startSeg.wayId), ft))
+            if (loader.GetFeatureByIndex(GetRoadFeatureID(osm2ft, startSeg.wayId), ft))
             {
               LOG(LINFO,
                   ("Double border intersection", wgsIntersection, "rank:", GetWarningRank(ft)));
@@ -313,7 +314,7 @@ void BuildRoutingIndex(std::string const & baseDir, std::string const & countryN
       ++all;
 
       // now need to determine feature id and segments in it
-      uint32_t const fID = osm2ft.GetRoadFeatureID(seg.wayId);
+      uint32_t const fID = GetRoadFeatureID(osm2ft, seg.wayId);
       if (fID == 0)
       {
         LOG(LWARNING, ("No feature id for way:", seg.wayId));

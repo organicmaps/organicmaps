@@ -123,20 +123,6 @@ std::string MakeUrl(std::string const & apiMethod)
   return os.str();
 }
 
-bool CheckJsonArray(json_t const * data)
-{
-  if (data == nullptr)
-    return false;
-
-  if (!json_is_array(data))
-    return false;
-
-  if (json_array_size(data) <= 0)
-    return false;
-
-  return true;
-}
-
 bool CheckAnswer(my::Json const & root)
 {
   bool success;

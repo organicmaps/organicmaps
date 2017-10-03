@@ -18,6 +18,7 @@
 #include "generator/statistics.hpp"
 #include "generator/traffic_generator.hpp"
 #include "generator/transit_generator.hpp"
+#include "generator/ugc_section_builder.hpp"
 #include "generator/unpack_mwm.hpp"
 
 #include "indexer/classificator.hpp"
@@ -99,6 +100,9 @@ DEFINE_string(opentable_data, "", "Path to opentable data in .tsv format.");
 DEFINE_string(opentable_reference_path, "", "Path to mwm dataset for opentable addresses matching.");
 DEFINE_string(viator_data, "", "Path to viator data in .tsv format.");
 
+// UGC
+DEFINE_string(ugc_data, "", "Input UGC source database file name");
+
 // Printing stuff.
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
 DEFINE_bool(type_statistics, false, "Calculate statistics by type for specified mwm bucket files.");
@@ -117,6 +121,8 @@ DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from c
 DEFINE_bool(generate_addresses_file, false, "Generate .addr file (for '--output' option) with full addresses list.");
 DEFINE_bool(generate_traffic_keys, false,
             "Generate keys for the traffic map (road segment -> speed group).");
+
+using namespace generator;
 
 int main(int argc, char ** argv)
 {
@@ -337,6 +343,14 @@ int main(int argc, char ** argv)
       if (!routing::BuildCrossMwmSection(path, datFile, country, *countryParentGetter,
                                          osmToFeatureFilename, FLAGS_disable_cross_mwm_progress))
         LOG(LCRITICAL, ("Error generating cross mwm section."));
+    }
+
+    if (!FLAGS_ugc_data.empty())
+    {
+      if (!BuildUgcMwmSection(FLAGS_ugc_data, datFile, osmToFeatureFilename))
+      {
+        LOG(LCRITICAL, ("Error generating UGC mwm section."));
+      }
     }
 
     if (FLAGS_generate_traffic_keys)

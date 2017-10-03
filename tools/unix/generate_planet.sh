@@ -177,6 +177,7 @@ fi
 ROADS_SCRIPT="$PYTHON_SCRIPTS_PATH/road_runner.py"
 HIERARCHY_SCRIPT="$PYTHON_SCRIPTS_PATH/hierarchy_to_countries.py"
 LOCALADS_SCRIPT="$PYTHON_SCRIPTS_PATH/local_ads/mwm_to_csv_4localads.py"
+UGC_FILE="${UGC_FILE:-$INTDIR/ugc_db.sqlite3}"
 BOOKING_SCRIPT="$PYTHON_SCRIPTS_PATH/booking_hotels.py"
 BOOKING_FILE="${BOOKING_FILE:-$INTDIR/hotels.csv}"
 OPENTABLE_SCRIPT="$PYTHON_SCRIPTS_PATH/opentable_restaurants.py"
@@ -316,6 +317,14 @@ if [ ! -f "$VIATOR_FILE" -a -n "${VIATOR_KEY-}" ]; then
   ) &
 fi
 
+# Download UGC (user generated content) database.
+if [ -n "${UGC-}" ]; then
+  putmode "Step UGC: Dowloading UGC database"
+  (
+    curl "https://dummy.ru/" --output "$UGC_FILE" --silent || fail "Failed to download UGC database."
+  ) &
+fi
+
 if [ "$MODE" == "coast" ]; then
   putmode
 
@@ -441,6 +450,7 @@ if [ "$MODE" == "features" ]; then
   [ -f "$BOOKING_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --booking_data=$BOOKING_FILE"
   [ -f "$OPENTABLE_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --opentable_data=$OPENTABLE_FILE"
   [ -f "$VIATOR_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --viator_data=$VIATOR_FILE"
+  [ -f "$UGC_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --ugc_data=$UGC_FILE"
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
     --data_path="$TARGET" --user_resource_path="$DATA_PATH/" $PARAMS_SPLIT 2>> "$PLANET_LOG"
   MODE=mwm

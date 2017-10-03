@@ -36,6 +36,7 @@ omim_link_libraries(
   tess2
   gflags
   oauthcpp
+  sqlite3
   ${LIBZ}
 )
 

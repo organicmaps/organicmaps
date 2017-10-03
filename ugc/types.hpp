@@ -100,33 +100,6 @@ struct RatingRecord
 
 using Ratings = std::vector<RatingRecord>;
 
-struct Rating
-{
-  Rating() = default;
-  Rating(std::vector<RatingRecord> const & ratings, float const aggValue)
-    : m_ratings(ratings), m_aggValue(aggValue)
-  {
-  }
-
-  DECLARE_VISITOR(visitor(m_ratings, "ratings"), visitor.VisitRating(m_aggValue, "aggValue"))
-
-  bool operator==(Rating const & rhs) const
-  {
-    return m_ratings == rhs.m_ratings && m_aggValue == rhs.m_aggValue;
-  }
-
-  friend std::string DebugPrint(Rating const & rating)
-  {
-    std::ostringstream os;
-    os << "Rating [ ratings:" << ::DebugPrint(rating.m_ratings)
-       << ", aggValue:" << rating.m_aggValue << " ]";
-    return os.str();
-  }
-
-  std::vector<RatingRecord> m_ratings;
-  float m_aggValue{};
-};
-
 struct UID
 {
   UID() = default;
@@ -148,24 +121,7 @@ struct UID
   uint64_t m_lo{};
 };
 
-struct Author
-{
-  Author() = default;
-  Author(UID const & uid, std::string const & name) : m_uid(uid), m_name(name) {}
-
-  DECLARE_VISITOR(visitor(m_uid, "uid"), visitor(m_name, "name"));
-
-  bool operator==(Author const & rhs) const { return m_uid == rhs.m_uid && m_name == rhs.m_name; }
-  friend std::string DebugPrint(Author const & author)
-  {
-    std::ostringstream os;
-    os << "Author [ " << DebugPrint(author.m_uid) << " " << author.m_name << " ]";
-    return os.str();
-  }
-
-  UID m_uid{};
-  std::string m_name;
-};
+using Author = std::string;
 
 struct Text
 {
@@ -190,7 +146,7 @@ struct Text
 
 struct Review
 {
-  using ReviewId = uint32_t;
+  using ReviewId = uint64_t;
 
   Review() = default;
   Review(ReviewId id, Text const & text, Author const & author, float const rating,
@@ -214,7 +170,7 @@ struct Review
     os << "Review [ ";
     os << "id:" << review.m_id << ", ";
     os << "text:" << DebugPrint(review.m_text) << ", ";
-    os << "author:" << DebugPrint(review.m_author) << ", ";
+    os << "author:" << review.m_author << ", ";
     os << "rating:" << review.m_rating << ", ";
     os << "days since epoch:" << ToDaysSinceEpoch(review.m_time) << " ]";
     return os.str();
@@ -258,13 +214,13 @@ struct Attribute
 struct UGC
 {
   UGC() = default;
-  UGC(Ratings const & records, Reviews const & reviews, float const rating)
-    : m_ratings(records), m_reviews(reviews), m_aggRating(rating)
+  UGC(Ratings const & records, Reviews const & reviews, float const totalRating, uint32_t votes)
+    : m_ratings(records), m_reviews(reviews), m_totalRating(totalRating), m_votes(votes)
   {
   }
 
   DECLARE_VISITOR(visitor(m_ratings, "ratings"), visitor(m_reviews, "reviews"),
-                  visitor.VisitRating(m_aggRating, "aggRating"))
+                  visitor.VisitRating(m_totalRating, "totalRating"))
 
   bool operator==(UGC const & rhs) const
   {
@@ -282,7 +238,8 @@ struct UGC
 
   Ratings m_ratings;
   Reviews m_reviews;
-  float m_aggRating{};
+  float m_totalRating{};
+  uint32_t m_votes{};
 };
 
 struct UGCUpdate

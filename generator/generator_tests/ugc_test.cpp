@@ -7,22 +7,14 @@
 #include "ugc/types.hpp"
 
 std::string g_database(R"LLL(
-   PRAGMA foreign_keys=OFF;
-   BEGIN TRANSACTION;
-   CREATE TABLE agg (id bigint, data blob);
-   INSERT INTO "agg" VALUES(1,X'7B22637269746572696F6E5F6964223A20332C202276616C7565223A20322E307D');
-   INSERT INTO "agg" VALUES(2,X'7B22637269746572696F6E5F6964223A20372C202276616C7565223A20332E307D');
-   INSERT INTO "agg" VALUES(3,X'7B22637269746572696F6E5F6964223A20382C202276616C7565223A20322E307D');
-   INSERT INTO "agg" VALUES(4,X'7B22637269746572696F6E5F6964223A2031302C202276616C7565223A20322E363636363636363636363636363636357D');
-   INSERT INTO "agg" VALUES(5,X'7B22637269746572696F6E5F6964223A2031322C202276616C7565223A20352E307D');
-   INSERT INTO "agg" VALUES(6,X'7B22637269746572696F6E5F6964223A2031342C202276616C7565223A20342E307D');
-   INSERT INTO "agg" VALUES(1,X'7B22637269746572696F6E5F6964223A206E756C6C2C202276616C7565223A20322E393238353731343238353731343238347D');
-   INSERT INTO "agg" VALUES(2,X'7B22637269746572696F6E5F6964223A206E756C6C2C202276616C7565223A20332E3033393530363137323833393530367D');
-   INSERT INTO "agg" VALUES(3,X'7B22637269746572696F6E5F6964223A206E756C6C2C202276616C7565223A20322E393735333038363431393735333038357D');
-   INSERT INTO "agg" VALUES(4,X'7B22637269746572696F6E5F6964223A206E756C6C2C202276616C7565223A20332E3037363932333037363932333037377D');
-   COMMIT;
+                       PRAGMA foreign_keys=OFF;
+                       BEGIN TRANSACTION;
+                       CREATE TABLE ratings (key bigint, value blob);
+                       INSERT INTO "ratings" VALUES(9826352,'{"osm_id":9826352,"total_rating":10.34,"votes":721,"ratings":[{"id":2,"value":3.4},{"id":2,"value":6.0001}],"reviews":[{"id":7864532,"text":"The best service on the Earth","lang":"en","author":"Robert","rating":8.5,"date":1234567}]}');
+                       INSERT INTO "ratings" VALUES(9826353,'{"osm_id":9826353,"total_rating":0.34,"votes":1,"ratings":[{"id":2,"value":3.4},{"id":3,"value":6.0001},{"id":6,"value":0.0001}],"reviews":[{"id":78645323924,"text":"Заебись!","lang":"ru","author":"Вася","rating":10,"date":1234569}]}');
+                       CREATE INDEX key_index ON ratings (key);
+                       COMMIT;
 )LLL");
-
 
 UNIT_TEST(UGC_SmokeTest)
 {
@@ -40,14 +32,14 @@ UNIT_TEST(UGC_SmokeTest)
 UNIT_TEST(UGC_TranslateRatingTest)
 {
   generator::UGCTranslator tr;
-  tr.CreateRatings(g_database);
-  osm::Id id = osm::Id(6);
+  tr.CreateDb(g_database);
+  osm::Id id = osm::Id(9826352);
 
   ugc::UGC ugc;
   bool rc = tr.TranslateUGC(id, ugc);
   TEST(rc, ("Can't translate rating for", id));
 
-  TEST_EQUAL(ugc.m_ratings.size(), 1, ());
-  TEST_EQUAL(ugc.m_ratings[0].m_key, "TranslationKey14", ());
-  TEST_EQUAL(ugc.m_ratings[0].m_value, 4.0, ());
+  TEST_EQUAL(ugc.m_ratings.size(), 2, ());
+  TEST_EQUAL(ugc.m_ratings[0].m_key, "2", ());
+  TEST_LESS(ugc.m_ratings[0].m_value - 3.4, 1e-6, ());
 }
