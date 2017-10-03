@@ -66,6 +66,7 @@
   <dimen name="margin_ruler_left">10dp</dimen>
   <dimen name="margin_ruler_bottom">58dp</dimen>
   <dimen name="compass_height">40dp</dimen>
+  <dimen name="button_big_corner_radius">20dp</dimen>
 
   <!-- routing layout -->
   <dimen name="routing_info_height">48dp</dimen>
