@@ -61,5 +61,24 @@ bool Stop::IsEqualForTesting(Stop const & stop) const
   return m_id == stop.m_id && m_featureId == stop.m_featureId && m_transferId == stop.m_transferId &&
          m_lineIds == stop.m_lineIds && my::AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon);
 }
+
+// Edge -------------------------------------------------------------------------------------------
+Edge::Edge(StopId startStopId, StopId finishStopId, double weight, LineId lineId, bool transfer,
+           vector<ShapeId> const & shapeIds)
+  : m_startStopId(startStopId)
+  , m_finishStopId(finishStopId)
+  , m_weight(weight)
+  , m_lineId(lineId)
+  , m_transfer(transfer)
+  , m_shapeIds(shapeIds)
+{
+}
+
+bool Edge::IsEqualForTesting(Edge const & edge) const
+{
+  return m_startStopId == edge.m_startStopId && m_finishStopId == edge.m_finishStopId &&
+         m_weight == edge.m_weight && m_lineId == edge.m_lineId && m_transfer == edge.m_transfer &&
+         m_shapeIds == edge.m_shapeIds;
+}
 }  // namespace transit
 }  // namespace routing

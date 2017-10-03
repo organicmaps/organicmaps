@@ -17,12 +17,16 @@ using StopId = uint64_t;
 using TransferId = uint64_t;
 using NetworkId = uint32_t;
 using FeatureId = uint32_t;
+using ShapeId = uint32_t;
+using Weight = double;
 
 LineId constexpr kInvalidLineId = std::numeric_limits<LineId>::max();
 StopId constexpr kInvalidStopId = std::numeric_limits<StopId>::max();
 TransferId constexpr kInvalidTransferId = std::numeric_limits<TransferId>::max();
 NetworkId constexpr kInvalidNetworkId = std::numeric_limits<NetworkId>::max();
 FeatureId constexpr kInvalidFeatureId = std::numeric_limits<FeatureId>::max();
+ShapeId constexpr kInvalidShapeId = std::numeric_limits<ShapeId>::max();
+Weight constexpr kInvalidWeight = std::numeric_limits<Weight>::max();
 
 struct TransitHeader
 {
@@ -76,6 +80,28 @@ private:
   m2::PointD m_point;
   // @TODO(bykoianko) It's necessary to add field m_titleAnchors here and implement serialization
   // and deserialization.
+};
+
+class Edge
+{
+public:
+  Edge() = default;
+  Edge(StopId startStopId, StopId finishStopId, double weight, LineId lineId, bool transfer,
+       std::vector<ShapeId> const & shapeIds);
+
+  bool IsEqualForTesting(Edge const & edge) const;
+  DECLARE_VISITOR(visitor(m_startStopId, "start_stop_id"), visitor(m_finishStopId, "finish_stop_id"),
+                  visitor(m_weight, "weight"), visitor(m_lineId, "line_id"),
+                  visitor(m_transfer, "transfer"), visitor(m_shapeIds, "shape_ids"))
+  DECLARE_DEBUG_PRINT(Edge)
+
+private:
+  StopId m_startStopId = kInvalidStopId;
+  StopId m_finishStopId = kInvalidStopId;
+  double m_weight = kInvalidWeight;
+  LineId m_lineId = kInvalidLineId;
+  bool m_transfer = false;
+  std::vector<ShapeId> m_shapeIds;
 };
 
 // @TODO(bykoianko) Data structures and methods for other transit data should be implemented in here.
