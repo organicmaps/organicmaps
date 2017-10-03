@@ -153,6 +153,9 @@
 		340708861F2B863500029ECC /* MWMNavigationDashboardManager+Entity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340708831F2B863500029ECC /* MWMNavigationDashboardManager+Entity.mm */; };
 		340837131B7243CE00B5C185 /* MWMActivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837121B7243CE00B5C185 /* MWMActivityViewController.mm */; };
 		340837161B72451A00B5C185 /* MWMShareActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837151B72451A00B5C185 /* MWMShareActivityItem.mm */; };
+		3408963E1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3408963D1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm */; };
+		3408963F1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3408963D1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm */; };
+		340896401F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3408963D1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm */; };
 		340B33C51F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340B33C41F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm */; };
 		340B33C61F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340B33C41F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm */; };
 		340B33C71F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340B33C41F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm */; };
@@ -303,6 +306,15 @@
 		3457C4251F680F1900028233 /* String+BoundingRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3457C4241F680F1900028233 /* String+BoundingRect.swift */; };
 		3457C4261F680F1900028233 /* String+BoundingRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3457C4241F680F1900028233 /* String+BoundingRect.swift */; };
 		3457C4271F680F1900028233 /* String+BoundingRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3457C4241F680F1900028233 /* String+BoundingRect.swift */; };
+		345E8F4E1F83984500A826CC /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347D15C71F82362900E86251 /* GoogleSignIn.framework */; };
+		345E8F4F1F83984500A826CC /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */; };
+		345E8F501F83985500A826CC /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347D15C71F82362900E86251 /* GoogleSignIn.framework */; };
+		345E8F511F83985500A826CC /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */; };
+		345E8F521F83985600A826CC /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347D15C71F82362900E86251 /* GoogleSignIn.framework */; };
+		345E8F531F83985600A826CC /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */; };
+		345E8F541F839E6400A826CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 345E8F4D1F83976800A826CC /* GoogleService-Info.plist */; };
+		345E8F551F839E6C00A826CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 345E8F4D1F83976800A826CC /* GoogleService-Info.plist */; };
+		345E8F561F839E6D00A826CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 345E8F4D1F83976800A826CC /* GoogleService-Info.plist */; };
 		3462258E1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3462258D1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm */; };
 		3462258F1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3462258D1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm */; };
 		346225911DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346225901DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib */; };
@@ -535,6 +547,24 @@
 		34BBD6461F8264980070CA50 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */; };
 		34BBD6471F82649D0070CA50 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */; };
 		34BBD6481F82649E0070CA50 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */; };
+		34BBD64B1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD64A1F826DB10070CA50 /* AuthorizationViewController.swift */; };
+		34BBD64C1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD64A1F826DB10070CA50 /* AuthorizationViewController.swift */; };
+		34BBD64D1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD64A1F826DB10070CA50 /* AuthorizationViewController.swift */; };
+		34BBD6571F826F810070CA50 /* AuthorizationTransitioningManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD6561F826F810070CA50 /* AuthorizationTransitioningManager.swift */; };
+		34BBD6581F826F810070CA50 /* AuthorizationTransitioningManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD6561F826F810070CA50 /* AuthorizationTransitioningManager.swift */; };
+		34BBD6591F826F810070CA50 /* AuthorizationTransitioningManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD6561F826F810070CA50 /* AuthorizationTransitioningManager.swift */; };
+		34BBD65B1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD65A1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift */; };
+		34BBD65C1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD65A1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift */; };
+		34BBD65D1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD65A1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift */; };
+		34BBD65F1F8270360070CA50 /* AuthorizationiPadPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD65E1F8270360070CA50 /* AuthorizationiPadPresentationController.swift */; };
+		34BBD6601F8270360070CA50 /* AuthorizationiPadPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD65E1F8270360070CA50 /* AuthorizationiPadPresentationController.swift */; };
+		34BBD6611F8270360070CA50 /* AuthorizationiPadPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD65E1F8270360070CA50 /* AuthorizationiPadPresentationController.swift */; };
+		34BBD6631F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD6621F8270AC0070CA50 /* AuthorizationTransitioning.swift */; };
+		34BBD6641F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD6621F8270AC0070CA50 /* AuthorizationTransitioning.swift */; };
+		34BBD6651F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD6621F8270AC0070CA50 /* AuthorizationTransitioning.swift */; };
+		34BBD6671F8273350070CA50 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */; };
+		34BBD6681F8273350070CA50 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */; };
+		34BBD6691F8273350070CA50 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */; };
 		34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */; };
 		34BF0CC61C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
 		34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
@@ -1864,6 +1894,8 @@
 		340837121B7243CE00B5C185 /* MWMActivityViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMActivityViewController.mm; sourceTree = "<group>"; };
 		340837141B72451A00B5C185 /* MWMShareActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMShareActivityItem.h; sourceTree = "<group>"; };
 		340837151B72451A00B5C185 /* MWMShareActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMShareActivityItem.mm; sourceTree = "<group>"; };
+		3408963C1F83CEDE00BC7117 /* MWMAuthorizationViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationViewModel.h; sourceTree = "<group>"; };
+		3408963D1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationViewModel.mm; sourceTree = "<group>"; };
 		340B33C41F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMRouter+RouteManager.mm"; sourceTree = "<group>"; };
 		340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
 		340E1EE41E2F614400CE49BF /* Authorization.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Authorization.storyboard; sourceTree = "<group>"; };
@@ -1944,6 +1976,7 @@
 		34570A3A1B13222600E6D4FD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		34574A651E3B85F80061E839 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		3457C4241F680F1900028233 /* String+BoundingRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+BoundingRect.swift"; sourceTree = "<group>"; };
+		345E8F4D1F83976800A826CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3462258C1DDC5DB9001E8752 /* MWMSearchNoResultsAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchNoResultsAlert.h; sourceTree = "<group>"; };
 		3462258D1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMSearchNoResultsAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		346225901DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchNoResultsAlert.xib; sourceTree = "<group>"; };
@@ -2082,6 +2115,12 @@
 		34B924401DC8A29C0008D971 /* MWMMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMailViewController.h; sourceTree = "<group>"; };
 		34B924411DC8A29C0008D971 /* MWMMailViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMailViewController.mm; sourceTree = "<group>"; };
 		34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = 3party/GoogleSignIn/GoogleSignIn.bundle; sourceTree = "<group>"; };
+		34BBD64A1F826DB10070CA50 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
+		34BBD6561F826F810070CA50 /* AuthorizationTransitioningManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTransitioningManager.swift; sourceTree = "<group>"; };
+		34BBD65A1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationiPhonePresentationController.swift; sourceTree = "<group>"; };
+		34BBD65E1F8270360070CA50 /* AuthorizationiPadPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationiPadPresentationController.swift; sourceTree = "<group>"; };
+		34BBD6621F8270AC0070CA50 /* AuthorizationTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTransitioning.swift; sourceTree = "<group>"; };
+		34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthorizationViewController.xib; sourceTree = "<group>"; };
 		34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapViewControlsManager.h; sourceTree = "<group>"; };
 		34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMMapViewControlsManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationCommon.mm; sourceTree = "<group>"; };
@@ -2721,11 +2760,13 @@
 				340474F01E08199D00C92850 /* Crashlytics.framework in Frameworks */,
 				34570A3B1B13222600E6D4FD /* libz.dylib in Frameworks */,
 				34D8087E1E79361A002F0584 /* AlamofireImage.framework in Frameworks */,
+				345E8F501F83985500A826CC /* GoogleSignIn.framework in Frameworks */,
 				340474FF1E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */,
 				67B78B4A1E422E2E0018E590 /* MessageUI.framework in Frameworks */,
 				3404750E1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
 				67B78B481E422E2E0018E590 /* MobileCoreServices.framework in Frameworks */,
 				34F4098B1E9E221700E57AC0 /* FBAudienceNetwork.framework in Frameworks */,
+				345E8F511F83985500A826CC /* GoogleSignInDependencies.framework in Frameworks */,
 				67B78B561E4233480018E590 /* AdSupport.framework in Frameworks */,
 				3432E1781E49B3A2008477E9 /* Bolts.framework in Frameworks */,
 				340474F31E08199D00C92850 /* Fabric.framework in Frameworks */,
@@ -2738,6 +2779,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				345E8F4E1F83984500A826CC /* GoogleSignIn.framework in Frameworks */,
+				345E8F4F1F83984500A826CC /* GoogleSignInDependencies.framework in Frameworks */,
 				4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */,
 				4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */,
 				34E6F2DB1F459C05008E14F9 /* GLKit.framework in Frameworks */,
@@ -2823,11 +2866,13 @@
 				340474F21E08199D00C92850 /* Crashlytics.framework in Frameworks */,
 				849CF7861DE842290024A8A5 /* libz.dylib in Frameworks */,
 				34D8087F1E79361B002F0584 /* AlamofireImage.framework in Frameworks */,
+				345E8F521F83985600A826CC /* GoogleSignIn.framework in Frameworks */,
 				340475011E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */,
 				67B78B501E422E300018E590 /* MessageUI.framework in Frameworks */,
 				340475101E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
 				67B78B4E1E422E300018E590 /* MobileCoreServices.framework in Frameworks */,
 				34F4098D1E9E221700E57AC0 /* FBAudienceNetwork.framework in Frameworks */,
+				345E8F531F83985600A826CC /* GoogleSignInDependencies.framework in Frameworks */,
 				67B78B571E42334A0018E590 /* AdSupport.framework in Frameworks */,
 				3432E17A1E49B3A2008477E9 /* Bolts.framework in Frameworks */,
 				340474F51E08199D00C92850 /* Fabric.framework in Frameworks */,
@@ -2916,6 +2961,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				345E8F4D1F83976800A826CC /* GoogleService-Info.plist */,
 				34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */,
 				6B653B931C7F2DE4007BEFC5 /* cuisine-strings */,
 				4A300ED31C6DCFD400140018 /* countries-strings */,
@@ -3629,6 +3675,21 @@
 			path = InputValidators;
 			sourceTree = "<group>";
 		};
+		34BBD6491F826BD50070CA50 /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				34BBD65E1F8270360070CA50 /* AuthorizationiPadPresentationController.swift */,
+				34BBD65A1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift */,
+				34BBD6621F8270AC0070CA50 /* AuthorizationTransitioning.swift */,
+				34BBD6561F826F810070CA50 /* AuthorizationTransitioningManager.swift */,
+				34BBD64A1F826DB10070CA50 /* AuthorizationViewController.swift */,
+				34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */,
+				3408963C1F83CEDE00BC7117 /* MWMAuthorizationViewModel.h */,
+				3408963D1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm */,
+			);
+			path = Authorization;
+			sourceTree = "<group>";
+		};
 		34BC72091B0DECAE0012A34B /* MapViewControls */ = {
 			isa = PBXGroup;
 			children = (
@@ -4073,6 +4134,7 @@
 		F6E2FBFB1E097B9F0083EBEC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				34BBD6491F826BD50070CA50 /* Authorization */,
 				34E7760D1F14B165003040B3 /* AvailableArea */,
 				3432E17F1E49BEFA008477E9 /* Ads */,
 				34574A601E3B5B2A0061E839 /* Appearance */,
@@ -4904,6 +4966,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				345E8F541F839E6400A826CC /* GoogleService-Info.plist in Resources */,
 				34EE25A11EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
 				450703091E9E6CF000E8C029 /* local_ads_symbols.txt in Resources */,
 				F6C0E62D1EF80F9000A4EFAA /* MWMUGCCommentCell.xib in Resources */,
@@ -5070,6 +5133,7 @@
 				5605022F1B6211E100169CAD /* sound-strings in Resources */,
 				F69018BC1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
 				F6150E2C1EF95234000B955D /* MWMUGCReviewController.xib in Resources */,
+				34BBD6671F8273350070CA50 /* AuthorizationViewController.xib in Resources */,
 				FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */,
 				3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				3476B8DC1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
@@ -5177,6 +5241,7 @@
 				F6E2FD681E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.xib in Resources */,
 				F6E2FD6E1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				F6150E551EFA7352000B955D /* MWUGCCommentsController.xib in Resources */,
+				345E8F551F839E6C00A826CC /* GoogleService-Info.plist in Resources */,
 				F6E2FD741E097BA00083EBEC /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				349A13851DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */,
 				34D3B04B1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
@@ -5254,6 +5319,7 @@
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
 				F69018BD1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
 				F6150E2D1EF95234000B955D /* MWMUGCReviewController.xib in Resources */,
+				34BBD6681F8273350070CA50 /* AuthorizationViewController.xib in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
@@ -5361,6 +5427,7 @@
 				F6E2FD631E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.xib in Resources */,
 				F6E2FD691E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.xib in Resources */,
 				F6150E561EFA7352000B955D /* MWUGCCommentsController.xib in Resources */,
+				345E8F561F839E6D00A826CC /* GoogleService-Info.plist in Resources */,
 				F6E2FD6F1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				F6E2FD751E097BA00083EBEC /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				34D3B04C1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
@@ -5438,6 +5505,7 @@
 				849CF5EA1DE842290024A8A5 /* sound-strings in Resources */,
 				F69018BE1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
 				F6150E2E1EF95234000B955D /* MWMUGCReviewController.xib in Resources */,
+				34BBD6691F8273350070CA50 /* AuthorizationViewController.xib in Resources */,
 				849CF64C1DE842290024A8A5 /* synonyms.txt in Resources */,
 				849CF6111DE842290024A8A5 /* tts-how-to-set-up-voice-img in Resources */,
 				849CF6281DE842290024A8A5 /* tts-how-to-set-up-voice.html in Resources */,
@@ -5588,6 +5656,7 @@
 				F6E2FF531E097BA00083EBEC /* MWMHelpController.mm in Sources */,
 				F6E2FF591E097BA00083EBEC /* MWMNightModeController.mm in Sources */,
 				3454D7B81E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */,
+				3408963E1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */,
 				F6E2FE1E1E097BA00083EBEC /* MWMOpeningHoursCommon.mm in Sources */,
 				F6BC1E521ACBF98600EF0360 /* MWMFacebookAlert.mm in Sources */,
 				F6E2FF5C1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
@@ -5610,6 +5679,7 @@
 				F6E2FE181E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
 				F6E2FDEB1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				F6150E511EFA7352000B955D /* MWUGCCommentsController.mm in Sources */,
+				34BBD64B1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,
 				F6E2FE0F1E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				341522BF1B666A550077AA8F /* MWMAPIBarView.mm in Sources */,
 				3423609A1F34585A00AFE44D /* RouteManagerFooterView.swift in Sources */,
@@ -5694,6 +5764,7 @@
 				346DB8331E5C4F6700E3123E /* GalleryViewController.swift in Sources */,
 				F6E2FDFD1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
 				F6E2FEDB1E097BA00083EBEC /* MWMSearchManager+Filter.mm in Sources */,
+				34BBD6571F826F810070CA50 /* AuthorizationTransitioningManager.swift in Sources */,
 				34F4073A1E9E1AFF00E57AC0 /* MopubBanner.swift in Sources */,
 				34943BB61E26222300B14F84 /* WelcomeProtocol.swift in Sources */,
 				F6E2FD5E1E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
@@ -5749,9 +5820,11 @@
 				F6150E471EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */,
 				F6E2FD4F1E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
 				F6E2FE871E097BA00083EBEC /* MWMPlacePageRegularCell.mm in Sources */,
+				34BBD6631F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */,
 				34D3AFE91E378AF1004100F9 /* UINib+Init.swift in Sources */,
 				F6E2FD7F1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSourceWithAds.mm in Sources */,
 				34F407311E9E1AFF00E57AC0 /* BannerType.swift in Sources */,
+				34BBD65B1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift in Sources */,
 				F63AF5121EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */,
 				F6BD33871B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
@@ -5828,6 +5901,7 @@
 				F6E2FE781E097BA00083EBEC /* MWMOpeningHoursLayoutHelper.mm in Sources */,
 				F6BD1D201CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
 				F6B97B261CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */,
+				34BBD65F1F8270360070CA50 /* AuthorizationiPadPresentationController.swift in Sources */,
 				349993FA1F388F970064CFBE /* RouteManageriPadPresentationController.swift in Sources */,
 				F6E2FD7C1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				F6E2FED21E097BA00083EBEC /* MWMSearchHotelsFilterViewController.mm in Sources */,
@@ -5935,6 +6009,7 @@
 				F6E2FF5A1E097BA00083EBEC /* MWMNightModeController.mm in Sources */,
 				340708581F28F1F000029ECC /* MWMTaxiCollectionLayout.mm in Sources */,
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
+				3408963F1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */,
 				F6E2FE1F1E097BA00083EBEC /* MWMOpeningHoursCommon.mm in Sources */,
 				3454D7B91E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */,
 				F6E2FF5D1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
@@ -5957,6 +6032,7 @@
 				F6E2FE191E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
 				F6E2FDEC1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				F6150E521EFA7352000B955D /* MWUGCCommentsController.mm in Sources */,
+				34BBD64C1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,
 				F6E2FE101E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				6741A9B01BF340DE002C974C /* MapsAppDelegate.mm in Sources */,
 				3423609B1F34585A00AFE44D /* RouteManagerFooterView.swift in Sources */,
@@ -6041,6 +6117,7 @@
 				34F4073B1E9E1AFF00E57AC0 /* MopubBanner.swift in Sources */,
 				F6E2FF481E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
 				F6E2FF271E097BA00083EBEC /* MWMSearchTabButtonsView.mm in Sources */,
+				34BBD6581F826F810070CA50 /* AuthorizationTransitioningManager.swift in Sources */,
 				F6558DA21E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
 				349D1ACF1E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				347E1A891F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */,
@@ -6096,9 +6173,11 @@
 				F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
 				F6E2FE881E097BA00083EBEC /* MWMPlacePageRegularCell.mm in Sources */,
 				F6E2FD801E097BA00083EBEC /* MWMMapDownloaderExtendedDataSourceWithAds.mm in Sources */,
+				34BBD6641F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */,
 				34D3AFEA1E378AF1004100F9 /* UINib+Init.swift in Sources */,
 				34F407321E9E1AFF00E57AC0 /* BannerType.swift in Sources */,
 				F63AF5131EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */,
+				34BBD65C1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift in Sources */,
 				6741A9F11BF340DE002C974C /* MWMNavigationDashboardEntity.mm in Sources */,
 				56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.mm in Sources */,
 				6741A9F51BF340DE002C974C /* BookmarksVC.mm in Sources */,
@@ -6175,6 +6254,7 @@
 				F6E2FE791E097BA00083EBEC /* MWMOpeningHoursLayoutHelper.mm in Sources */,
 				F6B97B271CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */,
 				34ABA6211C2D517500FE1BEC /* MWMInputValidator.mm in Sources */,
+				34BBD6601F8270360070CA50 /* AuthorizationiPadPresentationController.swift in Sources */,
 				349993FB1F388F970064CFBE /* RouteManageriPadPresentationController.swift in Sources */,
 				F6E2FD7D1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				F6E2FED31E097BA00083EBEC /* MWMSearchHotelsFilterViewController.mm in Sources */,
@@ -6282,6 +6362,7 @@
 				F6E2FF551E097BA00083EBEC /* MWMHelpController.mm in Sources */,
 				340708591F28F1F000029ECC /* MWMTaxiCollectionLayout.mm in Sources */,
 				F6E2FF5B1E097BA00083EBEC /* MWMNightModeController.mm in Sources */,
+				340896401F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */,
 				849CF6841DE842290024A8A5 /* MWMShareActivityItem.mm in Sources */,
 				F6E2FE201E097BA00083EBEC /* MWMOpeningHoursCommon.mm in Sources */,
 				849CF6891DE842290024A8A5 /* MWMFacebookAlert.mm in Sources */,
@@ -6304,6 +6385,7 @@
 				F6E2FDF91E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.mm in Sources */,
 				F6E2FE1A1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
 				F6E2FDED1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
+				34BBD64D1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,
 				F6150E531EFA7352000B955D /* MWUGCCommentsController.mm in Sources */,
 				F6E2FE111E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				3423609C1F34585A00AFE44D /* RouteManagerFooterView.swift in Sources */,
@@ -6388,6 +6470,7 @@
 				F6E2FDFF1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
 				F6E2FEDD1E097BA00083EBEC /* MWMSearchManager+Filter.mm in Sources */,
 				34F4073C1E9E1AFF00E57AC0 /* MopubBanner.swift in Sources */,
+				34BBD6591F826F810070CA50 /* AuthorizationTransitioningManager.swift in Sources */,
 				34943BB81E26222300B14F84 /* WelcomeProtocol.swift in Sources */,
 				F6E2FD601E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
 				F6558DA31E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
@@ -6443,9 +6526,11 @@
 				F6150E491EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */,
 				F6E2FD511E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
 				F6E2FE891E097BA00083EBEC /* MWMPlacePageRegularCell.mm in Sources */,
+				34BBD6651F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */,
 				34D3AFEB1E378AF1004100F9 /* UINib+Init.swift in Sources */,
 				F6E2FD811E097BA00083EBEC /* MWMMapDownloaderExtendedDataSourceWithAds.mm in Sources */,
 				34F407331E9E1AFF00E57AC0 /* BannerType.swift in Sources */,
+				34BBD65D1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift in Sources */,
 				F63AF5141EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */,
 				849CF6EB1DE842290024A8A5 /* MWMAPIBar.mm in Sources */,
 				3404755D1E081A4600C92850 /* MWMLocationManager.mm in Sources */,
@@ -6522,6 +6607,7 @@
 				F6E2FE7A1E097BA00083EBEC /* MWMOpeningHoursLayoutHelper.mm in Sources */,
 				849CF7251DE842290024A8A5 /* MWMMapViewControlsManager.mm in Sources */,
 				849CF7281DE842290024A8A5 /* MWMOsmAuthAlert.mm in Sources */,
+				34BBD6611F8270360070CA50 /* AuthorizationiPadPresentationController.swift in Sources */,
 				349993FC1F388F970064CFBE /* RouteManageriPadPresentationController.swift in Sources */,
 				F6E2FD7E1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				F6E2FED41E097BA00083EBEC /* MWMSearchHotelsFilterViewController.mm in Sources */,
@@ -6717,6 +6803,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc dbg";
@@ -6730,6 +6817,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc rel";
@@ -6743,6 +6831,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc dbg";
@@ -6756,6 +6845,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc beta";
@@ -6769,6 +6859,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc rel";
@@ -6782,6 +6873,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc pf";
@@ -6794,6 +6886,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -6848,6 +6941,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -6902,6 +6996,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -6956,6 +7051,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7010,6 +7106,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7064,6 +7161,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7171,6 +7269,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7274,6 +7373,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7379,6 +7479,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7485,6 +7586,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7591,6 +7693,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7698,6 +7801,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (

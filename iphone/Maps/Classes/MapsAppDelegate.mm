@@ -377,6 +377,9 @@ using namespace osm_auth_ios;
 
   [MWMRouter restoreRouteIfNeeded];
 
+  [GIDSignIn sharedInstance].clientID =
+      [[NSBundle mainBundle] loadWithPlist:@"GoogleService-Info"][@"CLIENT_ID"];
+
   return returnValue;
 }
 
@@ -792,6 +795,12 @@ using namespace osm_auth_ios;
     [self handleURLs];
     return YES;
   }
+
+  BOOL isGoogleURL = [[GIDSignIn sharedInstance] handleURL:url
+                                         sourceApplication:sourceApplication
+                                                annotation:annotation];
+  if (isGoogleURL)
+    return YES;
 
   return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                         openURL:url

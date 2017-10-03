@@ -72,6 +72,14 @@
 				<string>mapswithmepro</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.1033279251462-k2pp753lp1f39dacjn0pkurcc8pbbvsi</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>0</string>

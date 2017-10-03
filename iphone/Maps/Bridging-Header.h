@@ -2,7 +2,10 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
+#import <Crashlytics/Crashlytics.h>
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <GoogleSignIn/GIDSignIn.h>
 #import <MyTargetSDK/MyTargetSDK.h>
 #import <MyTrackerSDK/MRMyTracker.h>
 #import <UIKit/UIKit.h>
@@ -17,6 +20,7 @@
 #import "private.h"
 
 #import "AppInfo.h"
+#import "MWMAuthorizationViewModel.h"
 #import "MWMAvailableAreaAffectDirection.h"
 #import "MWMBanner.h"
 #import "MWMBottomMenuViewController.h"
