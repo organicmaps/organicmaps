@@ -24,7 +24,7 @@ using namespace std;
 
 namespace
 {
-/// Drops all extensions from the filename.
+/// Extracts the file name from |filePath| and drops all extensions.
 string GetFileName(string const & filePath)
 {
   string name = filePath;
@@ -87,7 +87,7 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   // routing will support cross mwm transit routing. In current version every json with transit graph
   // should have a special name: <country id>.transit.json.
 
-  LOG(LINFO, ("Creating", TRANSIT_FILE_TAG, "section for:", countryId, "based on", graphFullPath));
+  LOG(LINFO, (TRANSIT_FILE_TAG, "section is being created. Country id:", countryId, ". Based on:", graphFullPath));
 
   string jsonBuffer;
   try
