@@ -24,6 +24,11 @@ namespace routing
 {
 namespace transit
 {
+// Note. For the time being double at transit section is used only for saving weight of edges (in seconds).
+// Let us assume that it takes less than 10^7 seconds (115 days) to get from one station to a neighboring one.
+double constexpr kMinDoubleAtTransit = 0.0;
+double constexpr kMaxDoubleAtTransit = 10000000.0;
+
 template <typename Sink>
 class Serializer
 {
@@ -37,10 +42,11 @@ public:
     WriteToSink(m_sink, t);
   }
 
-  template<typename T>
-  typename std::enable_if<std::is_floating_point<T>::value>::type operator()(T const & t, char const * /* name */ = nullptr)
+  void operator()(double d, char const * name = nullptr)
   {
-    NOTIMPLEMENTED();
+    CHECK_GREATER_OR_EQUAL(d, 0, ());
+    CHECK_LESS_OR_EQUAL(d, kMaxDoubleAtTransit, ());
+    (*this)(DoubleToUint32(d, kMinDoubleAtTransit, kMaxDoubleAtTransit, POINT_COORD_BITS), name);
   }
 
   void operator()(std::string const & s, char const * /* name */ = nullptr)
@@ -87,10 +93,11 @@ public:
     ReadPrimitiveFromSource(m_source, t);
   }
 
-  template<typename T>
-  typename std::enable_if<std::is_floating_point<T>::value>::type operator()(T & t, char const * name = nullptr)
+  double operator()(double & d, char const * name = nullptr)
   {
-    NOTIMPLEMENTED();
+    uint32_t ui;
+    (*this)(ui, name);
+    d = Uint32ToDouble(ui, kMinDoubleAtTransit, kMaxDoubleAtTransit, POINT_COORD_BITS);
   }
 
   void operator()(std::string & s, char const * /* name */ = nullptr)

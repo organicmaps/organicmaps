@@ -59,4 +59,3 @@ UNIT_TEST(Transit_StopSerialization)
   }
 }
 }  // namespace
-

@@ -21,16 +21,10 @@ public:
   DeserializerFromJson(json_struct_t * node) : m_node(node) {}
 
   template<typename T>
-  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value>::type
+  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value || std::is_same<T, double >::value>::type
       operator()(T & t, char const * name = nullptr)
   {
     GetField(t, name);
-  }
-
-  template<typename T>
-  typename std::enable_if<std::is_floating_point<T>::value>::type operator()(T & t, char const * name = nullptr)
-  {
-    NOTIMPLEMENTED();
   }
 
   void operator()(std::string & s, char const * name = nullptr) { GetField(s, name); }
