@@ -57,7 +57,7 @@ UNIT_TEST(DeserializerFromJson_Stops)
   deserializer(stops, "stops");
 
   vector<Stop> const expected = {
-      Stop(343259523 /* id */, 1234 /* featureId */, kTransferIdInvalid /* transfer id */,
+      Stop(343259523 /* id */, 1234 /* featureId */, kInvalidTransferId /* transfer id */,
            {19207936, 19207937} /* lineIds */,  {27.4970954, 64.20146835878187} /* point */),
       Stop(266680843 /* id */, 2345 /* featureId */, 5 /* transfer id */,
            {19213568, 19213569} /* lineIds */, {27.5227942, 64.25206634443111} /* point */)};

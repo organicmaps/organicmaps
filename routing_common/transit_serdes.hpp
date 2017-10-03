@@ -51,14 +51,14 @@ public:
   void operator()(m2::PointD const & p, char const * /* name */ = nullptr)
   {
     m2::PointU const pointU = PointD2PointU(p, POINT_COORD_BITS);
-    (*this)(pointU.x);
-    (*this)(pointU.y);
+    WriteVarUint(m_sink, pointU.x);
+    WriteVarUint(m_sink, pointU.y);
   }
 
   template <typename T>
   void operator()(std::vector<T> const & vs, char const * /* name */ = nullptr)
   {
-    CHECK_LESS(vs.size(), std::numeric_limits<uint64_t>::max(), ());
+    CHECK_LESS_OR_EQUAL(vs.size(), std::numeric_limits<uint64_t>::max(), ());
     WriteVarUint(m_sink, static_cast<uint64_t>(vs.size()));
     for (auto const & v : vs)
       (*this)(v);
@@ -101,8 +101,8 @@ public:
   void operator()(m2::PointD & p, char const * /* name */ = nullptr)
   {
     m2::PointU pointU;
-    (*this)(pointU.x);
-    (*this)(pointU.y);
+    pointU.x = ReadVarUint<uint32_t, Source>(m_source);
+    pointU.y = ReadVarUint<uint32_t, Source>(m_source);
     p = PointU2PointD(pointU, POINT_COORD_BITS);
   }
 

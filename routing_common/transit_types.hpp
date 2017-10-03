@@ -18,11 +18,11 @@ using TransferId = uint64_t;
 using NetworkId = uint32_t;
 using FeatureId = uint32_t;
 
-LineId constexpr kLineIdInvalid = std::numeric_limits<LineId>::max();
-StopId constexpr kStopIdInvalid = std::numeric_limits<StopId>::max();
-TransferId constexpr kTransferIdInvalid = std::numeric_limits<TransferId>::max();
-NetworkId constexpr kNetworkIdInvalid = std::numeric_limits<NetworkId>::max();
-FeatureId constexpr kFeatureIdInvalid = std::numeric_limits<FeatureId>::max();
+LineId constexpr kInvalidLineId = std::numeric_limits<LineId>::max();
+StopId constexpr kInvalidStopId = std::numeric_limits<StopId>::max();
+TransferId constexpr kInvalidTransferId = std::numeric_limits<TransferId>::max();
+NetworkId constexpr kInvalidNetworkId = std::numeric_limits<NetworkId>::max();
+FeatureId constexpr kInvalidFeatureId = std::numeric_limits<FeatureId>::max();
 
 struct TransitHeader
 {
@@ -69,9 +69,9 @@ public:
   DECLARE_DEBUG_PRINT(Stop)
 
 private:
-  StopId m_id = kStopIdInvalid;
-  FeatureId m_featureId = kFeatureIdInvalid;
-  TransferId m_transferId = kTransferIdInvalid;
+  StopId m_id = kInvalidStopId;
+  FeatureId m_featureId = kInvalidFeatureId;
+  TransferId m_transferId = kInvalidTransferId;
   std::vector<LineId> m_lineIds;
   m2::PointD m_point;
   // @TODO(bykoianko) It's necessary to add field m_titleAnchors here and implement serialization
