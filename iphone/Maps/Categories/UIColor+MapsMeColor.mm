@@ -39,7 +39,8 @@ NSDictionary<NSString *, UIColor *> * night = @{
   @"errorPink" :
       [UIColor colorWithRed:scaled(246.) green:scaled(60.) blue:scaled(51.) alpha:alpha26],
   // Orange color (use for status 15 min in place page)
-  @"orange" : [UIColor colorWithRed:250. green:scaled(190.) blue:scaled(10.) alpha:alpha100],
+  @"orange" :
+      [UIColor colorWithRed:scaled(250.) green:scaled(190.) blue:scaled(10.) alpha:alpha100],
   // Blue color (use for links and phone numbers)
   @"linkBlue" :
       [UIColor colorWithRed:scaled(80.) green:scaled(195.) blue:scaled(240.) alpha:alpha100],
