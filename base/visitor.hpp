@@ -50,3 +50,7 @@ private:
     c.Visit(visitor);                                \
     return visitor.ToString();                       \
   }
+
+#define DECLARE_VISITOR_AND_DEBUG_PRINT(className, ...) \
+  DECLARE_VISITOR(__VA_ARGS__)                          \
+  DECLARE_DEBUG_PRINT(className)

@@ -37,14 +37,12 @@ struct TransitHeader
   void Reset();
   bool IsEqualForTesting(TransitHeader const & header) const;
 
-  DECLARE_VISITOR(visitor(m_version, "m_version"), visitor(m_reserve, "m_reserve"),
-                  visitor(m_gatesOffset, "m_gatesOffset"), visitor(m_edgesOffset, "m_edgesOffset"),
-                  visitor(m_transfersOffset, "m_transfersOffset"),
-                  visitor(m_linesOffset, "m_linesOffset"),
-                  visitor(m_shapesOffset, "m_shapesOffset"),
-                  visitor(m_networksOffset, "m_networksOffset"),
-                  visitor(m_endOffset, "m_endOffset"))
-  DECLARE_DEBUG_PRINT(TransitHeader)
+  DECLARE_VISITOR_AND_DEBUG_PRINT(
+      TransitHeader, visitor(m_version, "m_version"), visitor(m_reserve, "m_reserve"),
+      visitor(m_gatesOffset, "m_gatesOffset"), visitor(m_edgesOffset, "m_edgesOffset"),
+      visitor(m_transfersOffset, "m_transfersOffset"), visitor(m_linesOffset, "m_linesOffset"),
+      visitor(m_shapesOffset, "m_shapesOffset"), visitor(m_networksOffset, "m_networksOffset"),
+      visitor(m_endOffset, "m_endOffset"))
 
   uint16_t m_version;
   uint16_t m_reserve;
@@ -67,10 +65,9 @@ public:
        m2::PointD const & point);
   bool IsEqualForTesting(Stop const & stop) const;
 
-  DECLARE_VISITOR(visitor(m_id, "id"), visitor(m_featureId, "osm_id"),
-                  visitor(m_transferId, "transfer_id"), visitor(m_lineIds, "line_ids"),
-                  visitor(m_point, "point"))
-  DECLARE_DEBUG_PRINT(Stop)
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_featureId, "osm_id"),
+                                  visitor(m_transferId, "transfer_id"),
+                                  visitor(m_lineIds, "line_ids"), visitor(m_point, "point"))
 
 private:
   StopId m_id = kInvalidStopId;
@@ -90,10 +87,11 @@ public:
        std::vector<ShapeId> const & shapeIds);
 
   bool IsEqualForTesting(Edge const & edge) const;
-  DECLARE_VISITOR(visitor(m_startStopId, "start_stop_id"), visitor(m_finishStopId, "finish_stop_id"),
-                  visitor(m_weight, "weight"), visitor(m_lineId, "line_id"),
-                  visitor(m_transfer, "transfer"), visitor(m_shapeIds, "shape_ids"))
-  DECLARE_DEBUG_PRINT(Edge)
+
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_startStopId, "start_stop_id"),
+                                  visitor(m_finishStopId, "finish_stop_id"),
+                                  visitor(m_weight, "weight"), visitor(m_lineId, "line_id"),
+                                  visitor(m_transfer, "transfer"), visitor(m_shapeIds, "shape_ids"))
 
 private:
   StopId m_startStopId = kInvalidStopId;
