@@ -21,7 +21,7 @@ public:
   DeserializerFromJson(json_struct_t * node) : m_node(node) {}
 
   template<typename T>
-  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value || std::is_same<T, double >::value>::type
+  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value || std::is_same<T, double>::value>::type
       operator()(T & t, char const * name = nullptr)
   {
     GetField(t, name);

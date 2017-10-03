@@ -93,7 +93,7 @@ public:
     ReadPrimitiveFromSource(m_source, t);
   }
 
-  double operator()(double & d, char const * name = nullptr)
+  void operator()(double & d, char const * name = nullptr)
   {
     uint32_t ui;
     (*this)(ui, name);

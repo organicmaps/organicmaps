@@ -96,7 +96,7 @@ public:
 private:
   StopId m_startStopId = kInvalidStopId;
   StopId m_finishStopId = kInvalidStopId;
-  double m_weight = kInvalidWeight;
+  double m_weight = kInvalidWeight; // in seconds
   LineId m_lineId = kInvalidLineId;
   bool m_transfer = false;
   std::vector<ShapeId> m_shapeIds;

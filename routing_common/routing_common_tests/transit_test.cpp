@@ -30,7 +30,7 @@ void TestSerialization(Obj const & obj)
   Deserializer<ReaderSource<MemReader>> deserializer(src);
   deserializedObj.Visit(deserializer);
 
-  TEST(obj.IsEqualForTesting(deserializedObj), ());
+  TEST(obj.IsEqualForTesting(deserializedObj), (obj, "is not equal to", deserializedObj));
 }
 
 UNIT_TEST(Transit_HeaderSerialization)
@@ -57,5 +57,12 @@ UNIT_TEST(Transit_StopSerialization)
     Stop stop(1234 /* id */, 5678 /* feature id */, 7 /* transfer id */, {7, 8, 9, 10} /* line id */, {55.0, 37.0});
     TestSerialization(stop);
   }
+}
+
+UNIT_TEST(Transit_EdgeSerialization)
+{
+  Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123.4 /* weight */, 11 /* line id */,
+            false /* transfer */, {1, 2, 3} /* shape ids */);
+  TestSerialization(edge);
 }
 }  // namespace

@@ -76,8 +76,10 @@ Edge::Edge(StopId startStopId, StopId finishStopId, double weight, LineId lineId
 
 bool Edge::IsEqualForTesting(Edge const & edge) const
 {
+  double constexpr kWeightEqualEpsilon = 1e-2;
   return m_startStopId == edge.m_startStopId && m_finishStopId == edge.m_finishStopId &&
-         m_weight == edge.m_weight && m_lineId == edge.m_lineId && m_transfer == edge.m_transfer &&
+         my::AlmostEqualAbs(m_weight, edge.m_weight, kWeightEqualEpsilon) &&
+         m_lineId == edge.m_lineId && m_transfer == edge.m_transfer &&
          m_shapeIds == edge.m_shapeIds;
 }
 }  // namespace transit
