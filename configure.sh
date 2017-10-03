@@ -89,6 +89,7 @@ else
 #define LOCALS_PAGE_URL ""
 #define PASSPORT_URL ""
 #define PASSPORT_APP_NAME ""
+#define UGC_URL ""
 
 ' > "$PRIVATE_HEADER"
     echo 'ext {
