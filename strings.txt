@@ -26208,3 +26208,155 @@
   [start_from_my_position]
     en = Start from
     ru = Начать от
+
+  [rating]
+    en = Rating
+    ru = Рейтинг
+
+  [placepage_no_reviews]
+    en = No reviews
+    ru = Нет отзывов
+
+  [placepage_reviewed]
+    en = You have already reviewed this place
+    ru = Вы уже оставили отзыв
+
+  [placepage_summary_rating]
+    en = Summary rating
+    ru = Общий рейтинг
+
+  [placepage_summary_rating_description]
+    en = Based on %s reviews
+    ru = На основе %s отзывов
+
+  [placepage_rate_comment]
+    en = Tap to rate and review this place.
+    ru = Нажмите, чтобы оставить оценку и отзыв этого места.
+
+  [placepage_rate_horrible]
+    en = Horrible
+    ru = Ужасно
+
+  [placepage_rate_bad]
+    en = Bad
+    ru = Плохо
+
+  [placepage_rate_normal]
+    en = Normal
+    ru = Нормально
+
+  [placepage_rate_good]
+    en = Good
+    ru = Хорошо
+
+  [placepage_rate_excellent]
+    en = Excellent
+    ru = Отлично
+
+  [placepage_reviews_most_recent]
+    en = Most recent
+    ru = Самые новые
+
+  [placepage_reviews_most_useful]
+    en = Most useful
+    ru = Самые полезные
+
+  [placepage_reviews_highest_rated]
+    en = Highest rated
+    ru = Самый высокий рейтинг
+
+  [placepage_reviews_lowest_rated]
+    en = Lowest rated
+    ru = Самый низкий рейтинг
+
+  [placepage_reviews_offline_comment]
+    en = Only the most useful reviews are showed in the offline mode
+    ru = В оффлайн показаны самые полезные отзывы
+
+  [placepage_reviews_your_comment]
+    en = Your review
+    ru = Ваш отзыв
+
+  [placepage_reviews_unhelpful]
+    en = Unhelpful
+    ru = Бесполезный
+
+  [placepage_reviews_inappropriate]
+    en = Inappropriate
+    ru = Неуместный
+
+  [placepage_reviews_spam]
+    en = Spam
+    ru = Спам
+
+  [placepage_reviews_hint]
+    en = What's good or bad here?
+    ru = Что тут хорошо или плохо?
+
+  [placepage_reviews_error]
+    en = Write something to help travellers. Minimum number of characters: 40
+    ru = Напишите что-нибудь ещё, чтобы помочь путешественникам. Минимальное количество символов: 40
+
+  [placepage_reviews_edit_your_review]
+    en = Edit your review
+    ru = Редактировать ваш отзыв
+
+  [placepage_reviews_new_review]
+    en = New review
+    ru = Новый отзыв
+
+  [placepage_translate_button]
+    en = Translate
+    ru = Перевести
+
+  [placepage_show_original_button]
+    en = Show original
+    ru = Показать оригинал
+
+  [placepage_more_reviews_booking_button]
+    en = More reviews on Booking.com
+    ru = Больше отзывов на Booking.com
+
+  [profile_authorization_title]
+    en = Sing in with
+    ru = Авторизуйтесь с помощью
+
+  [profile_authorization_message]
+    en = Easy sign in without login and password in a couple of seconds
+    ru = Простая авторизация за пару секунд без логина и пароля
+
+  [profile_authorization_error]
+    en = Oops, there was an error. Try to sign in again.
+    ru = Упс, произошла ошибка. Попробуйте авторизоваться повторно.
+
+  [service]
+    en = Service
+    ru = Обслуживание
+
+  [atmosphere]
+    en = Atmosphere
+    ru = Атмосфера
+
+  [value_for_money]
+    en = Value for money
+    ru = Цена / качество
+
+  [experience]
+    en = Experience
+    ru = Впечатления
+
+  [assortment]
+    en = Assortment
+    ru = Ассортимент
+
+  [expertise]
+    en = Expertise
+    ru = Профессионализм
+
+  [equipment]
+    en = Equipment
+    ru = Оборудование
+
+  [quality]
+    en = Quality
+    ru = Качество
