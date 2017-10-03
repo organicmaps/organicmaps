@@ -6,6 +6,8 @@ set(
   SRC
   serdes_tests.cpp
   serdes_binary_tests.cpp
+  utils.cpp
+  utils.hpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})

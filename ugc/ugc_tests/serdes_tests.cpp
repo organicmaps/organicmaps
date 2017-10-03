@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "ugc/ugc_tests/utils.hpp"
+
 #include "ugc/api.hpp"
 #include "ugc/serdes.hpp"
 #include "ugc/serdes_json.hpp"
@@ -73,7 +75,7 @@ UNIT_TEST(SerDes_Json_Rating)
 
 UNIT_TEST(SerDes_Json_Reviews)
 {
-  auto expectedUGC = Api::MakeTestUGC1(Time(chrono::hours(24 * 100))).m_reviews;
+  auto expectedUGC = MakeTestUGC1(Time(chrono::hours(24 * 100))).m_reviews;
   TEST_EQUAL(expectedUGC, expectedUGC, ());
 
   MakeTest<decltype(expectedUGC), ToJson, FromJson>(expectedUGC);
@@ -81,7 +83,7 @@ UNIT_TEST(SerDes_Json_Reviews)
 
 UNIT_TEST(SerDes_Json_RatingRecords)
 {
-  auto expectedUGC = Api::MakeTestUGC1(Time(chrono::hours(24 * 100))).m_ratings;
+  auto expectedUGC = MakeTestUGC1(Time(chrono::hours(24 * 100))).m_ratings;
   TEST_EQUAL(expectedUGC, expectedUGC, ());
 
   MakeTest<decltype(expectedUGC), ToJson, FromJson>(expectedUGC);
@@ -89,7 +91,7 @@ UNIT_TEST(SerDes_Json_RatingRecords)
 
 UNIT_TEST(SerDes_Json_UGC)
 {
-  auto expectedUGC = Api::MakeTestUGC1(Time(chrono::hours(24 * 100)));
+  auto expectedUGC = MakeTestUGC1(Time(chrono::hours(24 * 100)));
   TEST_EQUAL(expectedUGC, expectedUGC, ());
 
   MakeTest<decltype(expectedUGC), ToJson, FromJson>(expectedUGC);
@@ -99,7 +101,7 @@ UNIT_TEST(SerDes_UGC)
 {
   // Time must be in whole days to prevent lose of precision during
   // serialization/deserialization.
-  auto const expectedUGC = Api::MakeTestUGC1(Time(chrono::hours(24 * 100)));
+  auto const expectedUGC = MakeTestUGC1(Time(chrono::hours(24 * 100)));
   TEST_EQUAL(expectedUGC, expectedUGC, ());
 
   Buffer buffer;
@@ -120,7 +122,7 @@ UNIT_TEST(SerDes_UGC)
 
 UNIT_TEST(SerDes_Json_UGCUpdate)
 {
-  auto expectedUGC = Api::MakeTestUGCUpdate(Time(chrono::hours(24 * 200)));
+  auto expectedUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 200)));
   TEST_EQUAL(expectedUGC, expectedUGC, ());
 
   MakeTest<decltype(expectedUGC), ToJson, FromJson>(expectedUGC);
@@ -130,7 +132,7 @@ UNIT_TEST(SerDes_UGCUpdate)
 {
   // Time must be in whole days to prevent lose of precision during
   // serialization/deserialization.
-  auto const expectedUGC = Api::MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
+  auto const expectedUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
   TEST_EQUAL(expectedUGC, expectedUGC, ());
 
   Buffer buffer;

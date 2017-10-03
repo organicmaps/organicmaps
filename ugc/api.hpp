@@ -23,10 +23,6 @@ public:
 
   void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
 
-  static UGC MakeTestUGC1(Time now = Clock::now());
-  static UGC MakeTestUGC2(Time now = Clock::now());
-  static UGCUpdate MakeTestUGCUpdate(Time now = Clock::now());
-
 private:
   void GetUGCImpl(FeatureID const & id, UGCCallback callback);
 

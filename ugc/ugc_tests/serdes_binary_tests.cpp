@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "ugc/ugc_tests/utils.hpp"
+
 #include "ugc/api.hpp"
 #include "ugc/binary/serdes.hpp"
 #include "ugc/binary/ugc_holder.hpp"
@@ -39,8 +41,8 @@ void CollectTexts(vector<IndexUGC> const & ugcs, vector<vector<Text>> & texts)
 UNIT_TEST(TranslationKeys_Smoke)
 {
   UGCHolder holder;
-  holder.Add(0 /* index */, Api::MakeTestUGC1());
-  holder.Add(1 /* index */, Api::MakeTestUGC2());
+  holder.Add(0 /* index */, MakeTestUGC1());
+  holder.Add(1 /* index */, MakeTestUGC2());
 
   vector<vector<Text>> texts;
   CollectTexts(holder.m_ugcs, texts);
@@ -57,8 +59,8 @@ UNIT_TEST(BinarySerDes_Smoke)
 
   using Sink = MemWriter<decltype(buffer)>;
 
-  auto const expectedUGC1 = Api::MakeTestUGC1(Time(chrono::hours(24 * 123)));
-  auto const expectedUGC2 = Api::MakeTestUGC2(Time(chrono::hours(24 * 456)));
+  auto const expectedUGC1 = MakeTestUGC1(Time(chrono::hours(24 * 123)));
+  auto const expectedUGC2 = MakeTestUGC2(Time(chrono::hours(24 * 456)));
 
   {
     UGCHolder holder;

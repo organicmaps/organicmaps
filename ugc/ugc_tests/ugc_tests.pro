@@ -22,3 +22,7 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   serdes_binary_tests.cpp \
   serdes_tests.cpp \
+  utils.cpp \
+
+HEADERS += \
+  utils.hpp \
