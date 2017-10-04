@@ -6,6 +6,6 @@ typedef NS_ENUM(NSInteger, MWMSocialTokenType) {
 @interface MWMAuthorizationViewModel : NSObject
 
 + (BOOL)isAuthenticated;
-+ (void)authenticateWithToken:(NSString* _Nonnull)token type:(enum MWMSocialTokenType)type;
++ (void)authenticateWithToken:(NSString * _Nonnull)token type:(enum MWMSocialTokenType)type;
 
 @end
