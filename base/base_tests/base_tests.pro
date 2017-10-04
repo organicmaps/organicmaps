@@ -19,6 +19,7 @@ SOURCES += \
   buffer_vector_test.cpp \
   bwt_tests.cpp \
   cache_test.cpp \
+  clustering_map_tests.cpp \
   collection_cast_test.cpp \
   condition_test.cpp \
   containers_test.cpp \

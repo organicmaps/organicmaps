@@ -49,6 +49,7 @@ HEADERS += \
     cache.hpp \
     cancellable.hpp \
     checked_cast.hpp \
+    clustering_map.hpp \
     collection_cast.hpp \
     condition.hpp \
     deferred_task.hpp \
