@@ -128,7 +128,23 @@ public:
       return vector<Point<T>>();
 
     return reversed ? vector<Point<T>>{m_points[segmentIndex + 1], m_points[segmentIndex]} :
-                      vector<Point<T>>{m_points[segmentIndex], m_points[segmentIndex + 1]};
+           vector<Point<T>>{m_points[segmentIndex], m_points[segmentIndex + 1]};
+  }
+
+  vector<Point<T>> ExtractSegment(size_t startPointIndex, size_t endPointIndex) const
+  {
+    if (startPointIndex > endPointIndex ||
+        startPointIndex + 1 > m_points.size() ||
+        endPointIndex + 1 > m_points.size())
+    {
+      return vector<Point<T>>();
+    }
+
+    vector<Point<T>> result;
+    result.reserve(endPointIndex - startPointIndex + 1);
+    for (size_t i = startPointIndex; i <= endPointIndex; ++i)
+      result.push_back(m_points[i]);
+    return result;
   }
 
   vector<Point<T> > const & GetPoints() const { return m_points; }

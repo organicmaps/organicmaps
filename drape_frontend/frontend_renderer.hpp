@@ -222,7 +222,7 @@ private:
   void RemoveRenderGroupsLater(TRenderGroupRemovePredicate const & predicate);
 
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom);
-  bool CheckRouteRecaching(ref_ptr<BaseRouteData> routeData);
+  bool CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteData);
 
   void InvalidateRect(m2::RectD const & gRect);
   bool CheckTileGenerations(TileKey const & tileKey);

@@ -158,10 +158,11 @@ bool AreEqualArrowBorders(std::vector<ArrowBorders> const & borders1,
 }
 
 std::vector<ArrowBorders> CalculateArrowBorders(ScreenBase const & screen, float currentHalfWidth,
-                                                drape_ptr<RouteData> const & routeData,
+                                                RouteRenderer::SubrouteInfo const & subrouteInfo,
                                                 double distanceFromBegin)
 {
-  if (routeData->m_subroute->m_turns.empty())
+  auto const & turns = subrouteInfo.m_subroute->m_turns;
+  if (turns.empty())
     return {};
 
   // Calculate arrow mercator length.
@@ -179,17 +180,16 @@ std::vector<ArrowBorders> CalculateArrowBorders(ScreenBase const & screen, float
   m2::RectD screenRect = screen.ClipRect();
   screenRect.Scale(kExtendCoef);
 
-  auto const & subroute = routeData->m_subroute;
-
   // Calculate arrow borders.
   std::vector<ArrowBorders> newArrowBorders;
-  newArrowBorders.reserve(subroute->m_turns.size());
-  for (size_t i = 0; i < subroute->m_turns.size(); i++)
+  newArrowBorders.reserve(turns.size());
+  auto const & polyline = subrouteInfo.m_subroute->m_polyline;
+  for (size_t i = 0; i < turns.size(); i++)
   {
     ArrowBorders arrowBorders;
     arrowBorders.m_groupIndex = static_cast<int>(i);
-    arrowBorders.m_startDistance = std::max(0.0, subroute->m_turns[i] - glbHalfLen * 0.8);
-    arrowBorders.m_endDistance = std::min(routeData->m_length, subroute->m_turns[i] + glbHalfLen * 1.2);
+    arrowBorders.m_startDistance = std::max(0.0, turns[i] - glbHalfLen * 0.8);
+    arrowBorders.m_endDistance = std::min(subrouteInfo.m_length, turns[i] + glbHalfLen * 1.2);
 
     if ((arrowBorders.m_endDistance - arrowBorders.m_startDistance) < glbMinArrowSize ||
         arrowBorders.m_startDistance < distanceFromBegin)
@@ -197,14 +197,14 @@ std::vector<ArrowBorders> CalculateArrowBorders(ScreenBase const & screen, float
       continue;
     }
 
-    m2::PointD pt = subroute->m_polyline.GetPointByDistance(arrowBorders.m_startDistance);
+    m2::PointD pt = polyline.GetPointByDistance(arrowBorders.m_startDistance);
     if (screenRect.IsPointInside(pt))
     {
       newArrowBorders.push_back(arrowBorders);
       continue;
     }
 
-    pt = subroute->m_polyline.GetPointByDistance(arrowBorders.m_endDistance);
+    pt = polyline.GetPointByDistance(arrowBorders.m_endDistance);
     if (screenRect.IsPointInside(pt))
     {
       newArrowBorders.push_back(arrowBorders);
@@ -231,12 +231,14 @@ void BuildBuckets(RouteRenderProperty const & renderProperty, ref_ptr<dp::GpuPro
     bucket->GetBuffer()->Build(mng->GetProgram(renderProperty.m_state.GetProgramIndex()));
 }
 
-dp::Color GetOutlineColor(SubrouteConstPtr const & subroute)
+RouteRenderer::Subroutes::iterator FindSubroute(RouteRenderer::Subroutes & subroutes,
+                                                dp::DrapeID subrouteId)
 {
-  if (subroute->m_routeType == RouteType::Car || subroute->m_routeType == RouteType::Taxi)
-    return df::GetColorConstant(kRouteOutlineColor);
-
-  return df::GetColorConstant(subroute->m_color);
+  return std::find_if(subroutes.begin(), subroutes.end(),
+                      [&subrouteId](RouteRenderer::SubrouteInfo const & info)
+  {
+    return info.m_subrouteId == subrouteId;
+  });
 }
 }  // namespace
 
@@ -252,40 +254,36 @@ RouteRenderer::RouteRenderer(PreviewPointsRequestCallback && previewPointsReques
 void RouteRenderer::UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallback const & callback)
 {
   ASSERT(callback != nullptr, ());
-  for (auto const & routeData : m_routeData)
+  for (auto & subrouteInfo : m_subroutes)
   {
-    auto & additional = m_routeAdditional[routeData->m_subrouteId];
-
     // Interpolate values by zoom level.
     double zoom = 0.0;
     float halfWidth = 0.0;
-    InterpolateByZoom(routeData->m_subroute, screen, halfWidth, zoom);
-    additional.m_routeType = routeData->m_subroute->m_routeType;
-    additional.m_currentHalfWidth = halfWidth;
-    additional.m_baseDistance = routeData->m_subroute->m_baseDistance;
+    InterpolateByZoom(subrouteInfo.m_subroute, screen, halfWidth, zoom);
+    subrouteInfo.m_currentHalfWidth = halfWidth;
 
     if (zoom < kArrowAppearingZoomLevel)
     {
-      additional.m_arrowsData.reset();
-      additional.m_arrowBorders.clear();
+      subrouteInfo.m_arrowsData.reset();
+      subrouteInfo.m_arrowBorders.clear();
       continue;
     }
 
     // Calculate arrow borders.
     double dist = kInvalidDistance;
     if (m_followingEnabled)
-      dist = m_distanceFromBegin - routeData->m_subroute->m_baseDistance;
-    auto newArrowBorders = CalculateArrowBorders(screen, halfWidth, routeData, dist);
+      dist = m_distanceFromBegin - subrouteInfo.m_subroute->m_baseDistance;
+    auto newArrowBorders = CalculateArrowBorders(screen, halfWidth, subrouteInfo, dist);
     if (newArrowBorders.empty())
     {
       // Clear arrows.
-      additional.m_arrowsData.reset();
-      additional.m_arrowBorders.clear();
+      subrouteInfo.m_arrowsData.reset();
+      subrouteInfo.m_arrowBorders.clear();
     }
-    else if (!AreEqualArrowBorders(newArrowBorders, additional.m_arrowBorders))
+    else if (!AreEqualArrowBorders(newArrowBorders, subrouteInfo.m_arrowBorders))
     {
-      additional.m_arrowBorders = std::move(newArrowBorders);
-      callback(routeData->m_subrouteId, additional.m_arrowBorders);
+      subrouteInfo.m_arrowBorders = std::move(newArrowBorders);
+      callback(subrouteInfo.m_subrouteId, subrouteInfo.m_arrowBorders);
     }
   }
 }
@@ -385,92 +383,96 @@ dp::Color RouteRenderer::GetMaskColor(RouteType routeType, double baseDistance,
   return {0, 0, 0, 0};
 }
 
-void RouteRenderer::RenderRouteData(drape_ptr<RouteData> const & routeData,
-                                    ScreenBase const & screen, bool trafficShown,
-                                    ref_ptr<dp::GpuProgramManager> mng,
-                                    dp::UniformValuesStorage const & commonUniforms)
+void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,
+                                   ScreenBase const & screen, bool trafficShown,
+                                   ref_ptr<dp::GpuProgramManager> mng,
+                                   dp::UniformValuesStorage const & commonUniforms)
 {
-  if (routeData->m_renderProperty.m_buckets.empty())
+  ASSERT_LESS(subrouteDataIndex, subrouteInfo.m_subrouteData.size(), ());
+  if (subrouteInfo.m_subrouteData[subrouteDataIndex]->m_renderProperty.m_buckets.empty())
     return;
 
   // Skip rendering of hidden subroutes.
-  if (m_hiddenSubroutes.find(routeData->m_subrouteId) != m_hiddenSubroutes.end())
+  if (m_hiddenSubroutes.find(subrouteInfo.m_subrouteId) != m_hiddenSubroutes.end())
     return;
 
-  float const currentHalfWidth = m_routeAdditional[routeData->m_subrouteId].m_currentHalfWidth;
-  auto const screenHalfWidth = static_cast<float>(currentHalfWidth * screen.GetScale());
+  auto const screenHalfWidth = static_cast<float>(subrouteInfo.m_currentHalfWidth * screen.GetScale());
   auto dist = static_cast<float>(kInvalidDistance);
   if (m_followingEnabled)
-    dist = static_cast<float>(m_distanceFromBegin - routeData->m_subroute->m_baseDistance);
+    dist = static_cast<float>(m_distanceFromBegin - subrouteInfo.m_subroute->m_baseDistance);
 
-  dp::GLState const & state = routeData->m_renderProperty.m_state;
-  auto const & subroute = routeData->m_subroute;
+  auto const & subrouteData = subrouteInfo.m_subrouteData[subrouteDataIndex];
+  dp::GLState const & state = subrouteData->m_renderProperty.m_state;
+  size_t const styleIndex = subrouteData->m_styleIndex;
+  ASSERT_LESS(styleIndex, subrouteInfo.m_subroute->m_style.size(), ());
+  auto const & style = subrouteInfo.m_subroute->m_style[styleIndex];
 
   // Set up uniforms.
   dp::UniformValuesStorage uniforms = commonUniforms;
-  math::Matrix<float, 4, 4> mv = screen.GetModelView(routeData->m_pivot, kShapeCoordScalar);
+  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteData->m_pivot, kShapeCoordScalar);
   uniforms.SetMatrix4x4Value("modelView", mv.m_data);
 
-  glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(subroute->m_color));
+  glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(style.m_color));
   uniforms.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
 
-  uniforms.SetFloatValue("u_routeParams", currentHalfWidth, screenHalfWidth, dist,
+  uniforms.SetFloatValue("u_routeParams", subrouteInfo.m_currentHalfWidth, screenHalfWidth, dist,
                          trafficShown ? 1.0f : 0.0f);
 
-  glsl::vec4 const maskColor = glsl::ToVec4(GetMaskColor(routeData->m_subroute->m_routeType,
-                                                         routeData->m_subroute->m_baseDistance,
+  glsl::vec4 const maskColor = glsl::ToVec4(GetMaskColor(subrouteData->m_subroute->m_routeType,
+                                                         subrouteData->m_subroute->m_baseDistance,
                                                          false /* arrows */));
   uniforms.SetFloatValue("u_maskColor", maskColor.r, maskColor.g, maskColor.b, maskColor.a);
 
-  if (subroute->m_pattern.m_isDashed)
+  if (style.m_pattern.m_isDashed)
   {
     uniforms.SetFloatValue("u_pattern",
-                           static_cast<float>(screenHalfWidth * subroute->m_pattern.m_dashLength),
-                           static_cast<float>(screenHalfWidth * subroute->m_pattern.m_gapLength));
+                           static_cast<float>(screenHalfWidth * style.m_pattern.m_dashLength),
+                           static_cast<float>(screenHalfWidth * style.m_pattern.m_gapLength));
   }
   else
   {
-    glsl::vec4 const outlineColor = glsl::ToVec4(GetOutlineColor(subroute));
+    glsl::vec4 const outlineColor = glsl::ToVec4(df::GetColorConstant(style.m_outlineColor));
     uniforms.SetFloatValue("u_outlineColor", outlineColor.r, outlineColor.g,
                            outlineColor.b, outlineColor.a);
   }
 
   // Set up shaders and apply uniforms.
-  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(subroute->m_pattern.m_isDashed ?
+  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(style.m_pattern.m_isDashed ?
                                                 gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM);
   prg->Bind();
   dp::ApplyState(state, prg);
   dp::ApplyUniforms(uniforms, prg);
 
   // Render buckets.
-  for (auto const & bucket : routeData->m_renderProperty.m_buckets)
+  for (auto const & bucket : subrouteData->m_renderProperty.m_buckets)
     bucket->Render(state.GetDrawAsLine());
 }
 
-void RouteRenderer::RenderRouteArrowData(dp::DrapeID subrouteId, RouteAdditional const & routeAdditional,
-                                         ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+void RouteRenderer::RenderSubrouteArrows(SubrouteInfo const & subrouteInfo,
+                                         ScreenBase const & screen,
+                                         ref_ptr<dp::GpuProgramManager> mng,
                                          dp::UniformValuesStorage const & commonUniforms)
 {
-  if (routeAdditional.m_arrowsData == nullptr ||
-      routeAdditional.m_arrowsData->m_renderProperty.m_buckets.empty() ||
-      m_hiddenSubroutes.find(subrouteId) != m_hiddenSubroutes.end())
+  if (subrouteInfo.m_arrowsData == nullptr ||
+      subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.empty() ||
+      m_hiddenSubroutes.find(subrouteInfo.m_subrouteId) != m_hiddenSubroutes.end())
   {
     return;
   }
 
-  float const currentHalfWidth = m_routeAdditional[subrouteId].m_currentHalfWidth;
-  dp::GLState const & state = routeAdditional.m_arrowsData->m_renderProperty.m_state;
+  dp::GLState const & state = subrouteInfo.m_arrowsData->m_renderProperty.m_state;
 
   // Set up shaders and apply common uniforms.
   dp::UniformValuesStorage uniforms = commonUniforms;
-  math::Matrix<float, 4, 4> mv = screen.GetModelView(routeAdditional.m_arrowsData->m_pivot,
+  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_arrowsData->m_pivot,
                                                      kShapeCoordScalar);
   uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-  uniforms.SetFloatValue("u_arrowHalfWidth", static_cast<float>(currentHalfWidth * kArrowHeightFactor));
+  auto const arrowHalfWidth = static_cast<float>(subrouteInfo.m_currentHalfWidth * kArrowHeightFactor);
+  uniforms.SetFloatValue("u_arrowHalfWidth", arrowHalfWidth);
   uniforms.SetFloatValue("u_opacity", 1.0f);
 
-  glsl::vec4 const maskColor = glsl::ToVec4(GetMaskColor(routeAdditional.m_routeType,
-                                                         routeAdditional.m_baseDistance,
+  glsl::vec4 const maskColor = glsl::ToVec4(GetMaskColor(subrouteInfo.m_subroute->m_routeType,
+                                                         subrouteInfo.m_subroute->m_baseDistance,
                                                          true /* arrows */));
   uniforms.SetFloatValue("u_maskColor", maskColor.r, maskColor.g, maskColor.b, maskColor.a);
 
@@ -478,7 +480,7 @@ void RouteRenderer::RenderRouteArrowData(dp::DrapeID subrouteId, RouteAdditional
   prg->Bind();
   dp::ApplyState(state, prg);
   dp::ApplyUniforms(uniforms, prg);
-  for (auto const & bucket : routeAdditional.m_arrowsData->m_renderProperty.m_buckets)
+  for (auto const & bucket : subrouteInfo.m_arrowsData->m_renderProperty.m_buckets)
     bucket->Render(state.GetDrawAsLine());
 }
 
@@ -511,60 +513,92 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, bool trafficShown,
                                 ref_ptr<dp::GpuProgramManager> mng,
                                 dp::UniformValuesStorage const & commonUniforms)
 {
-  if (!m_routeData.empty())
+  if (!m_subroutes.empty())
   {
-    // Render route.
-    for (auto const & routeData : m_routeData)
-      RenderRouteData(routeData, screen, trafficShown, mng, commonUniforms);
+    for (auto const & subroute : m_subroutes)
+    {
+      // Render subroutes.
+      for (size_t i = 0; i < subroute.m_subrouteData.size(); ++i)
+        RenderSubroute(subroute, i, screen, trafficShown, mng, commonUniforms);
 
-    // Render arrows.
-    for (auto const & p : m_routeAdditional)
-      RenderRouteArrowData(p.first, p.second, screen, mng, commonUniforms);
+      // Render arrows.
+      RenderSubrouteArrows(subroute, screen, mng, commonUniforms);
+    }
   }
 
   // Render preview.
   RenderPreviewData(screen, mng, commonUniforms);
 }
 
-void RouteRenderer::AddRouteData(drape_ptr<RouteData> && routeData,
-                                 ref_ptr<dp::GpuProgramManager> mng)
+void RouteRenderer::AddSubrouteData(drape_ptr<SubrouteData> && subrouteData,
+                                    ref_ptr<dp::GpuProgramManager> mng)
 {
-  // Remove old route data with the same id.
-  RemoveRouteData(routeData->m_subrouteId);
-
-  // Add new route data.
-  m_routeData.push_back(std::move(routeData));
-  BuildBuckets(m_routeData.back()->m_renderProperty, mng);
-  std::sort(m_routeData.begin(), m_routeData.end(),
-            [](drape_ptr<RouteData> const & d1, drape_ptr<RouteData> const & d2)
+  auto const it = FindSubroute(m_subroutes, subrouteData->m_subrouteId);
+  if (it != m_subroutes.end())
   {
-    return d1->m_subroute->m_baseDistance > d2->m_subroute->m_baseDistance;
-  });
-}
+    if (!it->m_subrouteData.empty())
+    {
+      int const recacheId = it->m_subrouteData.front()->m_recacheId;
+      if (recacheId < subrouteData->m_recacheId)
+      {
+        // Remove obsolete subroute data.
+        it->m_subrouteData.clear();
+        it->m_arrowsData.reset();
+        it->m_arrowBorders.clear();
 
-std::vector<drape_ptr<RouteData>> const & RouteRenderer::GetRouteData() const
-{
-  return m_routeData;
-}
+        it->m_subroute = subrouteData->m_subroute;
+        it->m_subrouteId = subrouteData->m_subrouteId;
+        it->m_length = subrouteData->m_subroute->m_polyline.GetLength();
+      }
+      else if (recacheId > subrouteData->m_recacheId)
+      {
+        return;
+      }
+    }
 
-void RouteRenderer::RemoveRouteData(dp::DrapeID subrouteId)
-{
-  auto const functor = [&subrouteId](drape_ptr<RouteData> const & data)
+    it->m_subrouteData.push_back(std::move(subrouteData));
+    BuildBuckets(it->m_subrouteData.back()->m_renderProperty, mng);
+  }
+  else
   {
-    return data->m_subrouteId == subrouteId;
-  };
-  m_routeData.erase(std::remove_if(m_routeData.begin(), m_routeData.end(), functor),
-                    m_routeData.end());
-  m_routeAdditional[subrouteId].m_arrowsData.reset();
-  m_routeAdditional[subrouteId].m_arrowBorders.clear();
+    // Add new subroute.
+    SubrouteInfo info;
+    info.m_subroute = subrouteData->m_subroute;
+    info.m_subrouteId = subrouteData->m_subrouteId;
+    info.m_length = subrouteData->m_subroute->m_polyline.GetLength();
+    info.m_subrouteData.push_back(std::move(subrouteData));
+    BuildBuckets(info.m_subrouteData.back()->m_renderProperty, mng);
+    m_subroutes.push_back(std::move(info));
+
+    std::sort(m_subroutes.begin(), m_subroutes.end(),
+              [](SubrouteInfo const & info1, SubrouteInfo const & info2)
+    {
+      return info1.m_subroute->m_baseDistance > info2.m_subroute->m_baseDistance;
+    });
+  }
 }
 
-void RouteRenderer::AddRouteArrowsData(drape_ptr<RouteArrowsData> && routeArrowsData,
-                                       ref_ptr<dp::GpuProgramManager> mng)
+void RouteRenderer::AddSubrouteArrowsData(drape_ptr<SubrouteArrowsData> && routeArrowsData,
+                                          ref_ptr<dp::GpuProgramManager> mng)
 {
-  auto & additional = m_routeAdditional[routeArrowsData->m_subrouteId];
-  additional.m_arrowsData = std::move(routeArrowsData);
-  BuildBuckets(additional.m_arrowsData->m_renderProperty, mng);
+  auto const it = FindSubroute(m_subroutes, routeArrowsData->m_subrouteId);
+  if (it != m_subroutes.end())
+  {
+    it->m_arrowsData = std::move(routeArrowsData);
+    BuildBuckets(it->m_arrowsData->m_renderProperty, mng);
+  }
+}
+
+RouteRenderer::Subroutes const & RouteRenderer::GetSubroutes() const
+{
+  return m_subroutes;
+}
+
+void RouteRenderer::RemoveSubrouteData(dp::DrapeID subrouteId)
+{
+  auto const it = FindSubroute(m_subroutes, subrouteId);
+  if (it != m_subroutes.end())
+    m_subroutes.erase(it);
 }
 
 void RouteRenderer::AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && renderData,
@@ -585,50 +619,32 @@ void RouteRenderer::AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && ren
   m_previewHandlesCache.emplace_back(std::make_pair(handle, 0));
 }
 
-void RouteRenderer::ClearRouteData()
+void RouteRenderer::ClearObsoleteData(int currentRecacheId)
 {
-  m_routeData.clear();
-  m_routeAdditional.clear();
-  m_hiddenSubroutes.clear();
-}
-
-void RouteRenderer::ClearObsoleteRouteData(int currentRecacheId)
-{
-  std::vector<dp::DrapeID> deletedSubroutes;
-  deletedSubroutes.reserve(m_routeData.size());
-  auto const functor = [&deletedSubroutes, &currentRecacheId](drape_ptr<RouteData> const & data)
+  auto const functor = [&currentRecacheId](SubrouteInfo const & subrouteInfo)
   {
-    if (data->m_recacheId < currentRecacheId)
-    {
-      deletedSubroutes.push_back(data->m_subrouteId);
-      return true;
-    }
-    return false;
+    return !subrouteInfo.m_subrouteData.empty() &&
+           subrouteInfo.m_subrouteData.front()->m_recacheId < currentRecacheId;
   };
-  m_routeData.erase(std::remove_if(m_routeData.begin(), m_routeData.end(), functor),
-                    m_routeData.end());
-
-  for (auto const & subrouteId : deletedSubroutes)
-  {
-    m_routeAdditional[subrouteId].m_arrowsData.reset();
-    m_routeAdditional[subrouteId].m_arrowBorders.clear();
-  }
+  m_subroutes.erase(std::remove_if(m_subroutes.begin(), m_subroutes.end(), functor),
+                    m_subroutes.end());
 }
 
 void RouteRenderer::Clear()
 {
-  ClearRouteData();
+  m_subroutes.clear();
   m_distanceFromBegin = kInvalidDistance;
 }
 
 void RouteRenderer::ClearGLDependentResources()
 {
-  // Here we clear only GL-dependent part of route data.
-  for (auto & routeData : m_routeData)
-    routeData->m_renderProperty = RouteRenderProperty();
-
-  // All additional data (like arrows) will be regenerated, so clear them all.
-  m_routeAdditional.clear();
+  // Here we clear only GL-dependent part of subroute data.
+  for (auto & subroute : m_subroutes)
+  {
+    subroute.m_subrouteData.clear();
+    subroute.m_arrowsData.reset();
+    subroute.m_arrowBorders.clear();
+  }
 
   m_previewRenderData.clear();
   m_previewHandlesCache.clear();
@@ -647,8 +663,6 @@ void RouteRenderer::SetFollowingEnabled(bool enabled)
 
 void RouteRenderer::AddPreviewSegment(dp::DrapeID id, PreviewInfo && info)
 {
-  if (m_previewSegments.empty())
-    m_showPreviewTimestamp = std::chrono::steady_clock::now();
   m_previewSegments.insert(std::make_pair(id, std::move(info)));
 }
 

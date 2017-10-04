@@ -35,20 +35,33 @@ public:
     m2::PointD m_finishPoint;
   };
 
-  RouteRenderer(PreviewPointsRequestCallback && previewPointsRequest);
+  struct SubrouteInfo
+  {
+    dp::DrapeID m_subrouteId = 0;
+    SubrouteConstPtr m_subroute;
+    double m_length = 0.0;
+    std::vector<drape_ptr<SubrouteData>> m_subrouteData;
+
+    drape_ptr<SubrouteArrowsData> m_arrowsData;
+    std::vector<ArrowBorders> m_arrowBorders;
+    float m_currentHalfWidth = 0.0f;
+  };
+  using Subroutes = std::vector<SubrouteInfo>;
+
+  explicit RouteRenderer(PreviewPointsRequestCallback && previewPointsRequest);
 
   void UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallback const & callback);
 
   void RenderRoute(ScreenBase const & screen, bool trafficShown, ref_ptr<dp::GpuProgramManager> mng,
                    dp::UniformValuesStorage const & commonUniforms);
 
-  void AddRouteData(drape_ptr<RouteData> && routeData, ref_ptr<dp::GpuProgramManager> mng);
-  std::vector<drape_ptr<RouteData>> const & GetRouteData() const;
+  void AddSubrouteData(drape_ptr<SubrouteData> && subrouteData, ref_ptr<dp::GpuProgramManager> mng);
+  Subroutes const & GetSubroutes() const;
 
-  void RemoveRouteData(dp::DrapeID subrouteId);
+  void RemoveSubrouteData(dp::DrapeID subrouteId);
 
-  void AddRouteArrowsData(drape_ptr<RouteArrowsData> && routeArrowsData,
-                          ref_ptr<dp::GpuProgramManager> mng);
+  void AddSubrouteArrowsData(drape_ptr<SubrouteArrowsData> && subrouteArrowsData,
+                             ref_ptr<dp::GpuProgramManager> mng);
 
   void AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && renderData,
                             ref_ptr<dp::GpuProgramManager> mng);
@@ -56,8 +69,7 @@ public:
   void UpdatePreview(ScreenBase const & screen);
 
   void Clear();
-  void ClearRouteData();
-  void ClearObsoleteRouteData(int currentRecacheId);
+  void ClearObsoleteData(int currentRecacheId);
   void ClearGLDependentResources();
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
@@ -70,20 +82,11 @@ public:
   void SetSubrouteVisibility(dp::DrapeID id, bool isVisible);
 
 private:
-  struct RouteAdditional
-  {
-    RouteType m_routeType = RouteType::Car;
-    drape_ptr<RouteArrowsData> m_arrowsData;
-    std::vector<ArrowBorders> m_arrowBorders;
-    float m_currentHalfWidth = 0.0f;
-    double m_baseDistance = 0.0;
-  };
-
-  void RenderRouteData(drape_ptr<RouteData> const & routeData, ScreenBase const & screen,
-                       bool trafficShown, ref_ptr<dp::GpuProgramManager> mng,
-                       dp::UniformValuesStorage const & commonUniforms);
-  void RenderRouteArrowData(dp::DrapeID subrouteId, RouteAdditional const & routeAdditional,
-                            ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+  void RenderSubroute(SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,
+                      ScreenBase const & screen, bool trafficShown, ref_ptr<dp::GpuProgramManager> mng,
+                      dp::UniformValuesStorage const & commonUniforms);
+  void RenderSubrouteArrows(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
+                            ref_ptr<dp::GpuProgramManager> mng,
                             dp::UniformValuesStorage const & commonUniforms);
   void RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                          dp::UniformValuesStorage const & commonUniforms);
@@ -92,9 +95,8 @@ private:
   dp::Color GetMaskColor(RouteType routeType, double baseDistance, bool arrows) const;
 
   double m_distanceFromBegin;
-  std::vector<drape_ptr<RouteData>> m_routeData;
-  std::unordered_map<dp::DrapeID, RouteAdditional> m_routeAdditional;
   bool m_followingEnabled;
+  Subroutes m_subroutes;
   std::unordered_set<dp::DrapeID> m_hiddenSubroutes;
 
   PreviewPointsRequestCallback m_previewPointsRequest;
@@ -103,6 +105,5 @@ private:
   bool m_waitForPreviewRenderData;
   std::unordered_map<dp::DrapeID, PreviewInfo> m_previewSegments;
   m2::PointD m_previewPivot = m2::PointD::Zero();
-  std::chrono::steady_clock::time_point m_showPreviewTimestamp;
 };
 }  // namespace df

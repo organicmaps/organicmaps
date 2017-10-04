@@ -362,7 +362,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
     break;
 
-  case Message::ChangeMyPostitionMode:
+  case Message::ChangeMyPositionMode:
     {
       ref_ptr<ChangeMyPositionModeMessage> msg = message;
       switch (msg->GetChangeType())
@@ -428,20 +428,20 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FlushRoute:
+  case Message::FlushSubroute:
     {
-      ref_ptr<FlushRouteMessage> msg = message;
-      drape_ptr<RouteData> routeData = msg->AcceptRouteData();
+      ref_ptr<FlushSubrouteMessage> msg = message;
+      auto subrouteData = msg->AcceptSubrouteData();
 
-      if (routeData->m_recacheId < 0)
-        routeData->m_recacheId = m_lastRecacheRouteId;
+      if (subrouteData->m_recacheId < 0)
+        subrouteData->m_recacheId = m_lastRecacheRouteId;
 
-      if (!CheckRouteRecaching(make_ref(routeData)))
+      if (!CheckRouteRecaching(make_ref(subrouteData)))
         break;
 
-      m_routeRenderer->ClearObsoleteRouteData(m_lastRecacheRouteId);
+      m_routeRenderer->ClearObsoleteData(m_lastRecacheRouteId);
 
-      m_routeRenderer->AddRouteData(std::move(routeData), make_ref(m_gpuProgramManager));
+      m_routeRenderer->AddSubrouteData(std::move(subrouteData), make_ref(m_gpuProgramManager));
 
       // Here we have to recache route arrows.
       m_routeRenderer->UpdateRoute(m_userEventStream.GetCurrentScreen(),
@@ -457,14 +457,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FlushRouteArrows:
+  case Message::FlushSubrouteArrows:
     {
-      ref_ptr<FlushRouteArrowsMessage> msg = message;
-      drape_ptr<RouteArrowsData> routeArrowsData = msg->AcceptRouteArrowsData();
+      ref_ptr<FlushSubrouteArrowsMessage> msg = message;
+      drape_ptr<SubrouteArrowsData> routeArrowsData = msg->AcceptSubrouteArrowsData();
       if (CheckRouteRecaching(make_ref(routeArrowsData)))
       {
-        m_routeRenderer->AddRouteArrowsData(std::move(routeArrowsData),
-                                            make_ref(m_gpuProgramManager));
+        m_routeRenderer->AddSubrouteArrowsData(std::move(routeArrowsData),
+                                               make_ref(m_gpuProgramManager));
       }
       break;
     }
@@ -483,7 +483,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       else
       {
-        m_routeRenderer->RemoveRouteData(msg->GetSegmentId());
+        m_routeRenderer->RemoveSubrouteData(msg->GetSegmentId());
       }
       break;
     }
@@ -493,8 +493,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<FollowRouteMessage> const msg = message;
 
       // After night style switching or drape engine reinitialization FrontendRenderer can
-      // receive FollowRoute message before FlushRoute message, so we need to postpone its processing.
-      if (m_routeRenderer->GetRouteData().empty())
+      // receive FollowRoute message before FlushSubroute message, so we need to postpone its processing.
+      if (m_routeRenderer->GetSubroutes().empty())
       {
         m_pendingFollowRoute = my::make_unique<FollowRouteData>(msg->GetPreferredZoomLevel(),
                                                                 msg->GetPreferredZoomLevelIn3d(),
@@ -832,10 +832,10 @@ void FrontendRenderer::UpdateGLResources()
 {
   ++m_lastRecacheRouteId;
 
-  for (auto const & routeData : m_routeRenderer->GetRouteData())
+  for (auto const & subroute : m_routeRenderer->GetSubroutes())
   {
-    auto msg = make_unique_dp<AddSubrouteMessage>(routeData->m_subrouteId,
-                                                  routeData->m_subroute,
+    auto msg = make_unique_dp<AddSubrouteMessage>(subroute.m_subrouteId,
+                                                  subroute.m_subroute,
                                                   m_lastRecacheRouteId);
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(msg),
                               MessagePriority::Normal);
@@ -869,9 +869,9 @@ void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLeve
   m_routeRenderer->SetFollowingEnabled(true);
 }
 
-bool FrontendRenderer::CheckRouteRecaching(ref_ptr<BaseRouteData> routeData)
+bool FrontendRenderer::CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteData)
 {
-  return routeData->m_recacheId >= m_lastRecacheRouteId;
+  return subrouteData->m_recacheId >= m_lastRecacheRouteId;
 }
 
 void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
@@ -2030,7 +2030,7 @@ void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
 void FrontendRenderer::OnCacheRouteArrows(int routeIndex, std::vector<ArrowBorders> const & borders)
 {
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                            make_unique_dp<CacheRouteArrowsMessage>(routeIndex, borders, m_lastRecacheRouteId),
+                            make_unique_dp<CacheSubrouteArrowsMessage>(routeIndex, borders, m_lastRecacheRouteId),
                             MessagePriority::Normal);
 }
 

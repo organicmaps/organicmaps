@@ -465,7 +465,7 @@ public:
   {}
 
   EChangeType GetChangeType() const { return m_changeType; }
-  Type GetType() const override { return Message::ChangeMyPostitionMode; }
+  Type GetType() const override { return Message::ChangeMyPositionMode; }
 
 private:
   EChangeType const m_changeType;
@@ -570,17 +570,18 @@ private:
   int const m_recacheId;
 };
 
-class CacheRouteArrowsMessage : public Message
+class CacheSubrouteArrowsMessage : public Message
 {
 public:
-  CacheRouteArrowsMessage(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders,
-                          int recacheId)
+  CacheSubrouteArrowsMessage(dp::DrapeID subrouteId,
+                             std::vector<ArrowBorders> const & borders,
+                             int recacheId)
     : m_subrouteId(subrouteId)
     , m_borders(borders)
     , m_recacheId(recacheId)
   {}
 
-  Type GetType() const override { return Message::CacheRouteArrows; }
+  Type GetType() const override { return Message::CacheSubrouteArrows; }
   dp::DrapeID GetSubrouteId() const { return m_subrouteId; }
   std::vector<ArrowBorders> const & GetBorders() const { return m_borders; }
   int GetRecacheId() const { return m_recacheId; }
@@ -609,36 +610,36 @@ private:
   bool m_deactivateFollowing;
 };
 
-class FlushRouteMessage : public Message
+class FlushSubrouteMessage : public Message
 {
 public:
-  FlushRouteMessage(drape_ptr<RouteData> && routeData)
-    : m_routeData(std::move(routeData))
+  explicit FlushSubrouteMessage(drape_ptr<SubrouteData> && subrouteData)
+    : m_subrouteData(std::move(subrouteData))
   {}
 
-  Type GetType() const override { return Message::FlushRoute; }
+  Type GetType() const override { return Message::FlushSubroute; }
 
   bool IsGLContextDependent() const override { return true; }
-  drape_ptr<RouteData> && AcceptRouteData() { return std::move(m_routeData); }
+  drape_ptr<SubrouteData> && AcceptSubrouteData() { return std::move(m_subrouteData); }
 
 private:
-  drape_ptr<RouteData> m_routeData;
+  drape_ptr<SubrouteData> m_subrouteData;
 };
 
-class FlushRouteArrowsMessage : public Message
+class FlushSubrouteArrowsMessage : public Message
 {
 public:
-  FlushRouteArrowsMessage(drape_ptr<RouteArrowsData> && routeArrowsData)
-    : m_routeArrowsData(std::move(routeArrowsData))
+  explicit FlushSubrouteArrowsMessage(drape_ptr<SubrouteArrowsData> && subrouteArrowsData)
+    : m_subrouteArrowsData(std::move(subrouteArrowsData))
   {}
 
-  Type GetType() const override { return Message::FlushRouteArrows; }
+  Type GetType() const override { return Message::FlushSubrouteArrows; }
 
   bool IsGLContextDependent() const override { return true; }
-  drape_ptr<RouteArrowsData> && AcceptRouteArrowsData() { return std::move(m_routeArrowsData); }
+  drape_ptr<SubrouteArrowsData> && AcceptSubrouteArrowsData() { return std::move(m_subrouteArrowsData); }
 
 private:
-  drape_ptr<RouteArrowsData> m_routeArrowsData;
+  drape_ptr<SubrouteArrowsData> m_subrouteArrowsData;
 };
 
 class AddRoutePreviewSegmentMessage : public Message

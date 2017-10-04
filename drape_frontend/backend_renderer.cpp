@@ -45,15 +45,15 @@ BackendRenderer::BackendRenderer(Params && params)
 
   ASSERT(m_updateCurrentCountryFn != nullptr, ());
 
-  m_routeBuilder = make_unique_dp<RouteBuilder>([this](drape_ptr<RouteData> && routeData)
+  m_routeBuilder = make_unique_dp<RouteBuilder>([this](drape_ptr<SubrouteData> && subrouteData)
   {
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<FlushRouteMessage>(std::move(routeData)),
+                              make_unique_dp<FlushSubrouteMessage>(std::move(subrouteData)),
                               MessagePriority::Normal);
-  }, [this](drape_ptr<RouteArrowsData> && routeArrowsData)
+  }, [this](drape_ptr<SubrouteArrowsData> && subrouteArrowsData)
   {
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<FlushRouteArrowsMessage>(std::move(routeArrowsData)),
+                              make_unique_dp<FlushSubrouteArrowsMessage>(std::move(subrouteArrowsData)),
                               MessagePriority::Normal);
   });
 
@@ -304,9 +304,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::CacheRouteArrows:
+  case Message::CacheSubrouteArrows:
     {
-      ref_ptr<CacheRouteArrowsMessage> msg = message;
+      ref_ptr<CacheSubrouteArrowsMessage> msg = message;
       m_routeBuilder->BuildArrows(msg->GetSubrouteId(), msg->GetBorders(), m_texMng,
                                   msg->GetRecacheId());
       break;
@@ -317,7 +317,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<RemoveSubrouteMessage> msg = message;
       m_routeBuilder->ClearRouteCache();
       // We have to resend the message to FR, because it guaranties that
-      // RemoveSubroute will be processed after FlushRouteMessage.
+      // RemoveSubroute will be processed after FlushSubrouteMessage.
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<RemoveSubrouteMessage>(
                                   msg->GetSegmentId(), msg->NeedDeactivateFollowing()),

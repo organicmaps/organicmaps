@@ -87,6 +87,19 @@ void FillTrafficForRendering(vector<RouteSegment> const & segments,
     traffic.push_back(s.GetTraffic());
 }
 
+void FillTransitStyleForRendering(vector<RouteSegment> const & segments,
+                                  vector<df::SubrouteStyle> & subrouteStyles)
+{
+  subrouteStyles.clear();
+  subrouteStyles.reserve(segments.size());
+  for (auto const & s : segments)
+  {
+    // TODO: AddTransitType.
+    // TODO: Use transit type to determine color and pattern.
+    subrouteStyles.emplace_back(df::kRoutePedestrian);
+  }
+}
+
 RouteMarkData GetLastPassedPoint(vector<RouteMarkData> const & points)
 {
   ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
@@ -465,29 +478,26 @@ void RoutingManager::InsertRoute(Route const & route)
     switch (m_currentRouterType)
     {
       case RouterType::Vehicle:
-        subroute->m_routeType = df::RouteType::Car;
-        subroute->m_color = df::kRouteColor;
+      case RouterType::Taxi:
+        subroute->m_routeType = m_currentRouterType == RouterType::Vehicle ?
+                                df::RouteType::Car : df::RouteType::Taxi;
+        subroute->m_style.emplace_back(df::kRouteColor, df::kRouteOutlineColor);
         FillTrafficForRendering(segments, subroute->m_traffic);
         FillTurnsDistancesForRendering(segments, subroute->m_baseDistance,
                                        subroute->m_turns);
         break;
+      case RouterType::Transit:
+        subroute->m_routeType = df::RouteType::Transit;
+        subroute->m_styleType = df::SubrouteStyleType::Multiple;
+        FillTransitStyleForRendering(segments, subroute->m_style);
+        break;
       case RouterType::Pedestrian:
-      case RouterType::Transit: // TODO: AddTransitType
         subroute->m_routeType = df::RouteType::Pedestrian;
-        subroute->m_color = df::kRoutePedestrian;
-        subroute->m_pattern = df::RoutePattern(4.0, 2.0);
+        subroute->m_style.emplace_back(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0));
         break;
       case RouterType::Bicycle:
         subroute->m_routeType = df::RouteType::Bicycle;
-        subroute->m_color = df::kRouteBicycle;
-        subroute->m_pattern = df::RoutePattern(8.0, 2.0);
-        FillTurnsDistancesForRendering(segments, subroute->m_baseDistance,
-                                       subroute->m_turns);
-        break;
-      case RouterType::Taxi:
-        subroute->m_routeType = df::RouteType::Taxi;
-        subroute->m_color = df::kRouteColor;
-        FillTrafficForRendering(segments, subroute->m_traffic);
+        subroute->m_style.emplace_back(df::kRouteBicycle, df::RoutePattern(8.0, 2.0));
         FillTurnsDistancesForRendering(segments, subroute->m_baseDistance,
                                        subroute->m_turns);
         break;

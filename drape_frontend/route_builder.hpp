@@ -19,8 +19,8 @@ namespace df
 class RouteBuilder
 {
 public:
-  using TFlushRouteFn = function<void(drape_ptr<RouteData> &&)>;
-  using TFlushRouteArrowsFn = function<void(drape_ptr<RouteArrowsData> &&)>;
+  using TFlushRouteFn = function<void(drape_ptr<SubrouteData> &&)>;
+  using TFlushRouteArrowsFn = function<void(drape_ptr<SubrouteArrowsData> &&)>;
 
   RouteBuilder(TFlushRouteFn const & flushRouteFn,
                TFlushRouteArrowsFn const & flushRouteArrowsFn);

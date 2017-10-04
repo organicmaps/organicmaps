@@ -39,7 +39,8 @@ enum class RouteType : uint8_t
   Car,
   Pedestrian,
   Bicycle,
-  Taxi
+  Taxi,
+  Transit
 };
 
 struct RoutePattern
@@ -55,18 +56,72 @@ struct RoutePattern
     , m_dashLength(dashLength)
     , m_gapLength(gapLength)
   {}
+
+  bool operator == (RoutePattern const & pattern) const
+  {
+    double const kEps = 1e-5;
+    return m_isDashed == pattern.m_isDashed &&
+           fabs(m_dashLength - pattern.m_dashLength) < kEps &&
+           fabs(m_gapLength - pattern.m_gapLength) < kEps;
+  }
+};
+
+enum class SubrouteStyleType
+{
+  Single = 0,
+  Multiple
+};
+
+struct SubrouteStyle
+{
+  df::ColorConstant m_color;
+  df::ColorConstant m_outlineColor;
+  df::RoutePattern m_pattern;
+
+  SubrouteStyle() = default;
+  SubrouteStyle(df::ColorConstant const & color)
+    : m_color(color)
+    , m_outlineColor(color)
+  {}
+  SubrouteStyle(df::ColorConstant const & color, df::ColorConstant const & outlineColor)
+    : m_color(color)
+    , m_outlineColor(outlineColor)
+  {}
+  SubrouteStyle(df::ColorConstant const & color, df::RoutePattern const & pattern)
+    : m_color(color)
+    , m_outlineColor(color)
+    , m_pattern(pattern)
+  {}
+  SubrouteStyle(df::ColorConstant const & color, df::ColorConstant const & outlineColor,
+                df::RoutePattern const & pattern)
+    : m_color(color)
+    , m_outlineColor(outlineColor)
+    , m_pattern(pattern)
+  {}
+
+  bool operator == (SubrouteStyle const & style) const
+  {
+    return m_color == style.m_color && m_outlineColor == style.m_outlineColor &&
+           m_pattern == style.m_pattern;
+  }
+
+  bool operator != (SubrouteStyle const & style) const
+  {
+    return !operator == (style);
+  }
 };
 
 struct Subroute
 {
   df::RouteType m_routeType;
   m2::PolylineD m_polyline;
-  df::ColorConstant m_color;
   std::vector<double> m_turns;
   std::vector<traffic::SpeedGroup> m_traffic;
   double m_baseDistance = 0.0;
   double m_baseDepthIndex = 0.0;
-  df::RoutePattern m_pattern;
+
+  SubrouteStyleType m_styleType = SubrouteStyleType::Single;
+  std::vector<SubrouteStyle> m_style;
 };
 
 using SubrouteConstPtr = std::shared_ptr<Subroute const>;
@@ -80,7 +135,7 @@ struct RouteRenderProperty
   {}
 };
 
-struct BaseRouteData
+struct BaseSubrouteData
 {
   dp::DrapeID m_subrouteId = 0;
   m2::PointD m_pivot = m2::PointD(0.0, 0.0);
@@ -88,13 +143,15 @@ struct BaseRouteData
   RouteRenderProperty m_renderProperty;
 };
 
-struct RouteData : public BaseRouteData
+struct SubrouteData : public BaseSubrouteData
 {
   SubrouteConstPtr m_subroute;
-  double m_length = 0.0;
+  size_t m_styleIndex = 0;
+  size_t m_startPointIndex = 0;
+  size_t m_endPointIndex = 0;
 };
 
-struct RouteArrowsData : public BaseRouteData {};
+struct SubrouteArrowsData : public BaseSubrouteData {};
 
 struct ArrowBorders
 {
@@ -111,17 +168,16 @@ public:
   using AV = gpu::SolidTexturingVertex;
   using TArrowGeometryBuffer = buffer_vector<AV, 128>;
 
-  static void CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & routeData);
+  static void CacheRoute(ref_ptr<dp::TextureManager> textures, SubrouteData & subrouteData);
 
   static void CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
                                std::vector<ArrowBorders> const & borders, double baseDepthIndex,
-                               RouteArrowsData & routeArrowsData);
+                               SubrouteArrowsData & routeArrowsData);
 
 private:
   static void PrepareGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
                               std::vector<glsl::vec4> const & segmentsColors, float baseDepth,
-                              TGeometryBuffer & geometry, TGeometryBuffer & joinsGeometry,
-                              double & outputLength);
+                              TGeometryBuffer & geometry, TGeometryBuffer & joinsGeometry);
   static void PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
                                    m2::RectF const & texRect, float depthStep, float depth,
                                    TArrowGeometryBuffer & geometry,
