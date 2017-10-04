@@ -8,9 +8,22 @@ ColumnLimit: 100
 
 ---
 Language: ObjC
+AccessModifierOffset: -2
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+BreakConstructorInitializersBeforeComma: true
+ConstructorInitializerIndentWidth: 2
+DerivePointerAlignment: false
+IndentCaseLabels: false
+NamespaceIndentation: None
+PointerAlignment: Middle
+SortIncludes: true
+Standard: Cpp11
 ObjCBlockIndentWidth: 2
 SpacesInContainerLiterals: false
-AfterObjCDeclaration: true
 ObjCSpaceAfterProperty: false
 ObjCSpaceBeforeProtocolList: false
 
