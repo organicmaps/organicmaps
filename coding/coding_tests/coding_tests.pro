@@ -18,8 +18,6 @@ win32*|linux* {
 
 include($$ROOT_DIR/common.pri)
 
-DEFINES += OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
-
 SOURCES += ../../testing/testingmain.cpp \
     base64_test.cpp \
     bit_streams_test.cpp \

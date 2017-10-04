@@ -1,7 +1,5 @@
 project(coding_tests)
 
-add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
-
 set(
   SRC
   base64_test.cpp
