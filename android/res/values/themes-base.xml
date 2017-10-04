@@ -57,6 +57,7 @@
     <item name="redButtonTextColorDisabled">@color/button_red_text_disabled</item>
 
     <item name="startButtonBackground">@drawable/button_start</item>
+    <item name="reviewButtonBackground">@drawable/button_leave_review</item>
 
     <item name="circleAccent">@drawable/circle_accent</item>
 
@@ -169,6 +170,7 @@
     <item name="redButtonTextColorDisabled">@color/button_red_text_disabled</item>
 
     <item name="startButtonBackground">@drawable/button_start_night</item>
+    <item name="reviewButtonBackground">@drawable/button_leave_review_night</item>
 
     <item name="circleAccent">@drawable/circle_accent_night</item>
 

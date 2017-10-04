@@ -32,6 +32,8 @@
     <item name="android:layout_width">@dimen/button_width</item>
     <item name="android:layout_height">@dimen/height_block_base</item>
     <item name="android:background">?buttonBackground</item>
+    <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
     <item name="android:textAllCaps">true</item>
   </style>
 
@@ -73,7 +75,16 @@
     <item name="android:minWidth">0dp</item>
     <item name="android:minHeight">0dp</item>
     <item name="android:textColor">?accentButtonTextColor</item>
-    <item name="android:textSize">14sp</item>
+    <item name="android:textSize">@dimen/text_size_body_3</item>
+  </style>
+
+  <style name="MwmWidget.Button.LeaveReview">
+    <item name="android:background">?reviewButtonBackground</item>
+    <item name="android:minWidth">0dp</item>
+    <item name="android:minHeight">0dp</item>
+    <item name="android:textColor">?accentButtonTextColor</item>
+    <item name="android:textSize">@dimen/text_size_body_4</item>
+    <item name="textAllCaps">false</item>
   </style>
 
   <style name="MwmWidget.ProgressWheel.RoutingPlan">

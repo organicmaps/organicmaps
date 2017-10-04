@@ -91,6 +91,7 @@
     <attr name="viatorLogo" format="reference" />
 
     <attr name="ratingButtonBackground" format="reference"/>
+    <attr name="reviewButtonBackground" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

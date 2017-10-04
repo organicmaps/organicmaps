@@ -47,4 +47,19 @@
     android:layout_alignParentEnd="true"
     android:textStyle="bold"
     tools:text="$$$"/>
+  <Button
+    android:id="@+id/leaveReview"
+    style="@style/MwmWidget.Button.LeaveReview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:paddingBottom="@dimen/margin_eighth"
+    android:paddingTop="@dimen/margin_eighth"
+    android:paddingStart="@dimen/margin_half"
+    android:paddingLeft="@dimen/margin_half"
+    android:paddingEnd="@dimen/margin_half"
+    android:paddingRight="@dimen/margin_half"
+    android:layout_gravity="center"
+    android:text="+ Leave review"/>
 </RelativeLayout>
