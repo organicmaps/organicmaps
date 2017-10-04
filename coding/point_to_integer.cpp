@@ -73,11 +73,15 @@ m2::RectD Int64ToRect(std::pair<int64_t, int64_t> const & p, uint32_t coordBits)
 
 uint32_t DoubleToUint32(double x, double min, double max, uint32_t coordBits)
 {
+  ASSERT_GREATER_OR_EQUAL(coordBits, 1, ());
+  ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
   x = my::clamp(x, min, max);
-  return static_cast<uint32_t>(0.5 + (x - min) / (max - min) * ((1 << coordBits) - 1));
+  return static_cast<uint32_t>(0.5 + (x - min) / (max - min) * bits::GetFullMask(static_cast<uint8_t>(coordBits)));
 }
 
 double Uint32ToDouble(uint32_t x, double min, double max, uint32_t coordBits)
 {
-  return min + static_cast<double>(x) * (max - min) / ((1 << coordBits) - 1);
+  ASSERT_GREATER_OR_EQUAL(coordBits, 1, ());
+  ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
+  return min + static_cast<double>(x) * (max - min) / bits::GetFullMask(static_cast<uint8_t>(coordBits));
 }

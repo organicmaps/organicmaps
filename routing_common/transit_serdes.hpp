@@ -30,7 +30,7 @@ namespace transit
 // Let us assume that it takes less than 10^7 seconds (115 days) to get from one station to a neighboring one.
 double constexpr kMinDoubleAtTransit = kInvalidWeight;
 double constexpr kMaxDoubleAtTransit = 10000000.0;
-uint32_t constexpr kDoubleBits = 31;
+uint32_t constexpr kDoubleBits = 32;
 
 template <typename Sink>
 class Serializer
