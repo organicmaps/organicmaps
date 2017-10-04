@@ -28,7 +28,7 @@ void TestDeserializerFromJson(string const & jsonBuffer, string const & name, ve
 
   TEST_EQUAL(objects.size(), expected.size(), ());
   for (size_t i = 0; i < objects.size(); ++i)
-    TEST(objects[i].IsEqualForTesting(expected[i]), (objects[i], "is not equal to", expected[i]));
+    TEST(objects[i].IsEqualForTesting(expected[i]), (objects[i], expected[i]));
 }
 
 UNIT_TEST(DeserializerFromJson_Stops)

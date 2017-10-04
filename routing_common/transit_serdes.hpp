@@ -30,6 +30,7 @@ namespace transit
 // Let us assume that it takes less than 10^7 seconds (115 days) to get from one station to a neighboring one.
 double constexpr kMinDoubleAtTransit = kInvalidWeight;
 double constexpr kMaxDoubleAtTransit = 10000000.0;
+uint32_t constexpr kDoubleBits = 31;
 
 template <typename Sink>
 class Serializer
@@ -48,7 +49,7 @@ public:
   {
     CHECK_GREATER_OR_EQUAL(d, kMinDoubleAtTransit, ());
     CHECK_LESS_OR_EQUAL(d, kMaxDoubleAtTransit, ());
-    (*this)(DoubleToUint32(d, kMinDoubleAtTransit, kMaxDoubleAtTransit, POINT_COORD_BITS), name);
+    (*this)(DoubleToUint32(d, kMinDoubleAtTransit, kMaxDoubleAtTransit, kDoubleBits), name);
   }
 
   void operator()(std::string const & s, char const * /* name */ = nullptr)
@@ -99,7 +100,7 @@ public:
   {
     uint32_t ui;
     (*this)(ui, name);
-    d = Uint32ToDouble(ui, kMinDoubleAtTransit, kMaxDoubleAtTransit, POINT_COORD_BITS);
+    d = Uint32ToDouble(ui, kMinDoubleAtTransit, kMaxDoubleAtTransit, kDoubleBits);
   }
 
   void operator()(std::string & s, char const * /* name */ = nullptr)

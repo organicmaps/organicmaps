@@ -40,11 +40,11 @@ struct TransitHeader
   bool IsEqualForTesting(TransitHeader const & header) const;
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(
-      TransitHeader, visitor(m_version, "m_version"), visitor(m_reserve, "m_reserve"),
-      visitor(m_gatesOffset, "m_gatesOffset"), visitor(m_edgesOffset, "m_edgesOffset"),
-      visitor(m_transfersOffset, "m_transfersOffset"), visitor(m_linesOffset, "m_linesOffset"),
-      visitor(m_shapesOffset, "m_shapesOffset"), visitor(m_networksOffset, "m_networksOffset"),
-      visitor(m_endOffset, "m_endOffset"))
+      TransitHeader, visitor(m_version, "version"), visitor(m_reserve, "reserve"),
+      visitor(m_gatesOffset, "gatesOffset"), visitor(m_edgesOffset, "edgesOffset"),
+      visitor(m_transfersOffset, "transfersOffset"), visitor(m_linesOffset, "linesOffset"),
+      visitor(m_shapesOffset, "shapesOffset"), visitor(m_networksOffset, "networksOffset"),
+      visitor(m_endOffset, "endOffset"))
 
   uint16_t m_version;
   uint16_t m_reserve;
@@ -63,7 +63,7 @@ class Stop
 {
 public:
   Stop() = default;
-  Stop(StopId id, FeatureId featureId, TransferId m_transferId, std::vector<LineId> const & lineIds,
+  Stop(StopId id, FeatureId featureId, TransferId transferId, std::vector<LineId> const & lineIds,
        m2::PointD const & point);
   bool IsEqualForTesting(Stop const & stop) const;
 
