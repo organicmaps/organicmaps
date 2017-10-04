@@ -3,6 +3,16 @@
 ---
 BasedOnStyle: Google
 IndentWidth: 2
+BreakBeforeBraces: Allman
+ColumnLimit: 100
+
+---
+Language: ObjC
+ObjCBlockIndentWidth: 2
+SpacesInContainerLiterals: false
+AfterObjCDeclaration: true
+ObjCSpaceAfterProperty: false
+ObjCSpaceBeforeProtocolList: false
 
 ---
 Language: Cpp
@@ -12,9 +22,7 @@ AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
-BreakBeforeBraces: Allman
 BreakConstructorInitializersBeforeComma: true
-ColumnLimit: 100
 ConstructorInitializerIndentWidth: 2
 DerivePointerAlignment: false
 IndentCaseLabels: false
@@ -26,5 +34,3 @@ Standard: Cpp11
 ---
 Language: Java
 BreakAfterJavaFieldAnnotations: true
-BreakBeforeBraces: Allman
-ColumnLimit: 100
