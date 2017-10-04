@@ -4,24 +4,31 @@
 
 #include <cstddef>
 #include <functional>
+#include <iterator>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
 namespace base
 {
-// Maps keys to lists of values, but allows to clusterize keys
-// together, and to get all values from a cluster.
+// Maps keys to lists of values, but allows to combine keys into
+// clusters and to get all values from a cluster.
 //
-// NOTE: the map is NOT thread-safe.
+// NOTE: this class is NOT thread-safe.
 template <typename Key, typename Value, typename Hash = std::hash<Key>>
 class ClusteringMap
 {
 public:
+  // In complexity specifications below:
+  // * n is the total number of keys in the map
+  // * m is the total number of values in the map
+  // * α() is the inverse Ackermann function
+  // * F is the complexity of find() in unordered_map
+
   // Appends |value| to the list of values in the cluster
   // corresponding to |key|.
   //
-  // Amortized complexity: O(log*(n) * F), where n is the total number
-  // of keys in the map, F is the complexity of find in unordered_map.
+  // Amortized complexity: O(α(n) * F).
   template <typename V>
   void Append(Key const & key, V && value)
   {
@@ -31,9 +38,7 @@ public:
 
   // Unions clusters corresponding to |u| and |v|.
   //
-  // Amortized complexity: O(log*(n) * F + log(m)), where n is the
-  // total number of keys and m is the total number of values in the
-  // map, F is the complexity of find in unordered_map.
+  // Amortized complexity: O(α(n) * F + log(m)).
   void Union(Key const & u, Key const & v)
   {
     auto & ru = GetRoot(u);
@@ -49,8 +54,7 @@ public:
 
   // Returns all values from the cluster corresponding to |key|.
   //
-  // Amortized complexity: O(log*(n) * F), where n is the total number
-  // of keys in the map, F is the complexity of find in unordered map.
+  // Amortized complexity: O(α(n) * F).
   std::vector<Value> const & Get(Key const & key)
   {
     auto const & entry = GetRoot(key);
@@ -76,6 +80,17 @@ private:
     return root;
   }
 
+  Entry & GetEntry(Key const & key)
+  {
+    auto it = m_table.find(key);
+    if (it != m_table.end())
+      return it->second;
+
+    auto & entry = m_table[key];
+    entry.m_root = key;
+    return entry;
+  }
+
   void Attach(Entry & parent, Entry & child)
   {
     ASSERT_LESS_OR_EQUAL(child.m_rank, parent.m_rank, ());
@@ -88,18 +103,9 @@ private:
     auto & cv = child.m_values;
     if (pv.size() < cv.size())
       pv.swap(cv);
-    pv.insert(pv.end(), cv.begin(), cv.end());
-  }
-
-  Entry & GetEntry(Key const & key)
-  {
-    auto it = m_table.find(key);
-    if (it != m_table.end())
-      return it->second;
-
-    auto & entry = m_table[key];
-    entry.m_root = key;
-    return entry;
+    std::move(cv.begin(), cv.end(), std::back_inserter(pv));
+    cv.clear();
+    cv.shrink_to_fit();
   }
 
   std::unordered_map<Key, Entry, Hash> m_table;

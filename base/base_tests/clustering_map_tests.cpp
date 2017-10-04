@@ -19,19 +19,19 @@ vector<T> Sort(vector<T> vs)
   return vs;
 }
 
-template <typename Key, typename Value, typename Hash = std::hash<Key>>
+template <typename Key, typename Value, typename Hash = hash<Key>>
 class ClusteringMapAdapter
 {
 public:
   template <typename V>
   void Append(Key const & key, V && value)
   {
-    m_m.Append(key, std::forward<V>(value));
+    m_m.Append(key, forward<V>(value));
   }
 
   void Union(Key const & u, Key const & v) { m_m.Union(u, v); }
 
-  std::vector<Value> Get(Key const & key) { return Sort(m_m.Get(key)); }
+  vector<Value> Get(Key const & key) { return Sort(m_m.Get(key)); }
 
 private:
   ClusteringMap<Key, Value, Hash> m_m;
