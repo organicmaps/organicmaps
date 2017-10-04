@@ -26,7 +26,9 @@ TransferId constexpr kInvalidTransferId = std::numeric_limits<TransferId>::max()
 NetworkId constexpr kInvalidNetworkId = std::numeric_limits<NetworkId>::max();
 FeatureId constexpr kInvalidFeatureId = std::numeric_limits<FeatureId>::max();
 ShapeId constexpr kInvalidShapeId = std::numeric_limits<ShapeId>::max();
-Weight constexpr kInvalidWeight = std::numeric_limits<Weight>::max();
+// Note. Weight may be a default param at json. The default value should be saved as uint32_t in mwm anyway.
+// To convert double to uint32_t at better accuracy |kInvalidWeight| should be close to real weight.
+Weight constexpr kInvalidWeight = -1.0;
 
 struct TransitHeader
 {

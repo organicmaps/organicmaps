@@ -120,6 +120,11 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   SerializeObject<Stop>(root, "stops", serializer);
   header.m_gatesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
+  // @TODO(bykoianko) Gates should be added after stops but before edges.
+
+  SerializeObject<Edge>(root, "edges", serializer);
+  header.m_transfersOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+
   // @TODO(bykoianko) It's necessary to serialize other transit graph data here.
 
   header.m_endOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "routing_common/transit_types.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "coding/point_to_integer.hpp"
@@ -26,7 +28,7 @@ namespace transit
 {
 // Note. For the time being double at transit section is used only for saving weight of edges (in seconds).
 // Let us assume that it takes less than 10^7 seconds (115 days) to get from one station to a neighboring one.
-double constexpr kMinDoubleAtTransit = 0.0;
+double constexpr kMinDoubleAtTransit = kInvalidWeight;
 double constexpr kMaxDoubleAtTransit = 10000000.0;
 
 template <typename Sink>
@@ -44,7 +46,7 @@ public:
 
   void operator()(double d, char const * name = nullptr)
   {
-    CHECK_GREATER_OR_EQUAL(d, 0, ());
+    CHECK_GREATER_OR_EQUAL(d, kMinDoubleAtTransit, ());
     CHECK_LESS_OR_EQUAL(d, kMaxDoubleAtTransit, ());
     (*this)(DoubleToUint32(d, kMinDoubleAtTransit, kMaxDoubleAtTransit, POINT_COORD_BITS), name);
   }
