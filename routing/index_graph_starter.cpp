@@ -185,7 +185,12 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
   {
     Segment real;
     if (m_fake.FindReal(segment, real))
-      AddRealEdges(real, isOutgoing, edges);
+    {
+      bool const haveSameFront = GetJunction(segment, true /* front */) == GetJunction(real, true);
+      bool const haveSameBack = GetJunction(segment, false /* front */) == GetJunction(real, false);
+      if ((isOutgoing && haveSameFront) || (!isOutgoing && haveSameBack))
+        AddRealEdges(real, isOutgoing, edges);
+    }
 
     for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
       edges.emplace_back(s, CalcSegmentWeight(isOutgoing ? s : segment));
