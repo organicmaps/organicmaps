@@ -2039,3 +2039,79 @@
 "whats_new_message_maps_update" = "Теперь для обновления карт нужно загрузить только недостающие данные";
 
 "start_from_my_position" = "Начать от";
+
+"rating" = "Рейтинг";
+
+"placepage_no_reviews" = "Нет отзывов";
+
+"placepage_reviewed" = "Вы уже оставили отзыв";
+
+"placepage_summary_rating" = "Общий рейтинг";
+
+"placepage_summary_rating_description" = "На основе %s отзывов";
+
+"placepage_rate_comment" = "Нажмите, чтобы оставить оценку и отзыв этого места.";
+
+"placepage_rate_horrible" = "Ужасно";
+
+"placepage_rate_bad" = "Плохо";
+
+"placepage_rate_normal" = "Нормально";
+
+"placepage_rate_good" = "Хорошо";
+
+"placepage_rate_excellent" = "Отлично";
+
+"placepage_reviews_most_recent" = "Самые новые";
+
+"placepage_reviews_most_useful" = "Самые полезные";
+
+"placepage_reviews_highest_rated" = "Самый высокий рейтинг";
+
+"placepage_reviews_lowest_rated" = "Самый низкий рейтинг";
+
+"placepage_reviews_offline_comment" = "В оффлайн показаны самые полезные отзывы";
+
+"placepage_reviews_your_comment" = "Ваш отзыв";
+
+"placepage_reviews_unhelpful" = "Бесполезный";
+
+"placepage_reviews_inappropriate" = "Неуместный";
+
+"placepage_reviews_spam" = "Спам";
+
+"placepage_reviews_hint" = "Что тут хорошо или плохо?";
+
+"placepage_reviews_error" = "Напишите что-нибудь ещё, чтобы помочь путешественникам. Минимальное количество символов: 40";
+
+"placepage_reviews_edit_your_review" = "Редактировать ваш отзыв";
+
+"placepage_reviews_new_review" = "Новый отзыв";
+
+"placepage_translate_button" = "Перевести";
+
+"placepage_show_original_button" = "Показать оригинал";
+
+"placepage_more_reviews_booking_button" = "Больше отзывов на Booking.com";
+
+"profile_authorization_title" = "Авторизуйтесь с помощью";
+
+"profile_authorization_message" = "Простая авторизация за пару секунд без логина и пароля";
+
+"profile_authorization_error" = "Упс, произошла ошибка. Попробуйте авторизоваться повторно.";
+
+"service" = "Обслуживание";
+
+"atmosphere" = "Атмосфера";
+
+"value_for_money" = "Цена / качество";
+
+"experience" = "Впечатления";
+
+"assortment" = "Ассортимент";
+
+"expertise" = "Профессионализм";
+
+"equipment" = "Оборудование";
+
+"quality" = "Качество";
