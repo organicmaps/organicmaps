@@ -37,7 +37,8 @@
         android:layout_toStartOf="@id/rv__summary"
         android:textAppearance="@style/MwmTextAppearance.Title"
         android:fontFamily="@string/robotoMedium"
-        android:text="Summary rating"/>
+        android:text="@string/placepage_summary_rating"
+        tools:targetApi="jelly_bean"/>
       <TextView
         android:id="@+id/tv__review_count"
         android:layout_below="@id/tv__summary_title"
@@ -49,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_quarter"
         android:textAppearance="@style/MwmTextAppearance.Body3"
-        android:text="Base on 32 reviews"/>
+        android:text="@string/placepage_summary_rating_description"/>
       <com.mapswithme.maps.widget.RatingView
         android:id="@id/rv__summary"
         android:layout_width="wrap_content"
@@ -85,8 +86,8 @@
       android:layout_marginTop="@dimen/margin_base"
       android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
       android:textStyle="bold"
-      android:text="Tap to rate &amp; review this place"
-      tools:text="Tap to rate &amp; review this place"/>
+      android:text="@string/placepage_rate_comment"
+      tools:text="@string/placepage_rate_comment"/>
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -116,7 +117,8 @@
           android:textAppearance="@style/MwmTextAppearance.Body5"
           android:fontFamily="@string/robotoMedium"
           android:layout_marginTop="@dimen/margin_half"
-          android:text="Horrible"/>
+          android:text="@string/placepage_rate_horrible"
+          tools:targetApi="jelly_bean"/>
       </LinearLayout>
       <LinearLayout
         android:id="@+id/ll__bad"
@@ -139,7 +141,8 @@
           android:textAppearance="@style/MwmTextAppearance.Body5"
           android:fontFamily="@string/robotoMedium"
           android:layout_marginTop="@dimen/margin_half"
-          android:text="Bad"/>
+          android:text="@string/placepage_rate_bad"
+          tools:targetApi="jelly_bean"/>
       </LinearLayout>
       <LinearLayout
         android:id="@+id/ll__normal"
@@ -162,7 +165,8 @@
           android:textAppearance="@style/MwmTextAppearance.Body5"
           android:fontFamily="@string/robotoMedium"
           android:layout_marginTop="@dimen/margin_half"
-          android:text="Normal"/>
+          android:text="@string/placepage_rate_normal"
+          tools:targetApi="jelly_bean"/>
       </LinearLayout>
       <LinearLayout
         android:id="@+id/ll__good"
@@ -185,7 +189,8 @@
           android:textAppearance="@style/MwmTextAppearance.Body5"
           android:fontFamily="@string/robotoMedium"
           android:layout_marginTop="@dimen/margin_half"
-          android:text="Good"/>
+          android:text="@string/placepage_rate_good"
+          tools:targetApi="jelly_bean"/>
       </LinearLayout>
       <LinearLayout
         android:id="@+id/ll__excellent"
@@ -208,7 +213,8 @@
           android:textAppearance="@style/MwmTextAppearance.Body5"
           android:fontFamily="@string/robotoMedium"
           android:layout_marginTop="@dimen/margin_half"
-          android:text="Excellent"/>
+          android:text="@string/placepage_rate_excellent"
+          tools:targetApi="jelly_bean"/>
       </LinearLayout>
     </LinearLayout>
   </LinearLayout>
@@ -236,5 +242,5 @@
     android:height="@dimen/height_block_base"
     android:background="?clickableBackground"
     android:gravity="center"
-    android:text="More reviews"/>
+    android:text="@string/placepage_more_reviews_button"/>
 </LinearLayout>
