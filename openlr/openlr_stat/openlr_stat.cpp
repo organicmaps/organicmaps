@@ -27,6 +27,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <cstdio>
+#include <cstring>
 #include <fstream>
 #include <string>
 #include <unordered_map>
@@ -192,9 +193,25 @@ void WriteAssessmentFile(std::string const fileName, pugi::xml_document const & 
   }
 
   pugi::xml_document result;
+  auto segments = result.append_child("Segments");
+  auto const dict = doc.select_node(".//Dictionary").node();
+
+  // Copy namespaces from <Dictionary> to <Segments>
+  for (auto const attr : dict.attributes())
+  {
+    if (strncmp("xmlns", attr.name(), 5) != 0)
+      continue;
+
+    // Don't copy default namespace.
+    if (strlen(attr.name()) == 5)
+      continue;
+
+    segments.append_copy(attr);
+  }
+
   for (auto const p : paths)
   {
-    auto segment = result.append_child("Segment");
+    auto segment = segments.append_child("Segment");
     {
       auto const xmlSegment = xmlSegments[p.m_segmentId.Get()];
       segment.append_copy(xmlSegment);

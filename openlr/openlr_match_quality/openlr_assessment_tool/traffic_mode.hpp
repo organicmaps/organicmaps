@@ -121,5 +121,8 @@ private:
 
   bool m_buildingPath = false;
   std::vector<impl::RoadPointCandidate> m_goldenPath;
+
+  // Clone this document and add things to its clone when saving sample.
+  pugi::xml_document m_template;
 };
 }  // namespace openlr

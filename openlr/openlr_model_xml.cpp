@@ -87,15 +87,15 @@ bool FirstCoordinateFromXML(pugi::xml_node const & node, ms::LatLon & latLon)
   return true;
 }
 
-bool CoordinateFromXML(pugi::xml_node const & node, ms::LatLon const & firstCoord,
+bool CoordinateFromXML(pugi::xml_node const & node, ms::LatLon const & prevCoord,
                        ms::LatLon & latLon)
 {
   int32_t lat, lon;
   if (!GetLatLon(node.child("olr:coordinate"), lat, lon))
     return false;
 
-  latLon.lat = firstCoord.lat + static_cast<double>(lat) / 100000;
-  latLon.lon = firstCoord.lon + static_cast<double>(lon) / 100000;
+  latLon.lat = prevCoord.lat + static_cast<double>(lat) / 100000;
+  latLon.lon = prevCoord.lon + static_cast<double>(lon) / 100000;
 
   return true;
 }

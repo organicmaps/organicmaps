@@ -117,8 +117,16 @@ TrafficMode::TrafficMode(std::string const & dataFileName,
   if (!doc.load_file(dataFileName.data()))
     MYTHROW(TrafficModeError, ("Can't load file:", strerror(errno)));
 
-  // Select all Segment elements that are direct children of the context node.
-  auto const segments = doc.select_nodes("./Segment");
+  // Save root node without children.
+  {
+    auto const root = doc.document_element();
+    auto node = m_template.append_child(root.name());
+    for (auto const attr : root.attributes())
+      node.append_copy(attr);
+  }
+
+  // Select all Segment elements that are direct children of the root.
+  auto const segments = doc.document_element().select_nodes("./Segment");
 
   try
   {
@@ -166,15 +174,17 @@ bool TrafficMode::SaveSampleAs(std::string const & fileName) const
   CHECK(!fileName.empty(), ("Can't save to an empty file."));
 
   pugi::xml_document result;
+  result.reset(m_template);
+  auto root = result.document_element();
 
   for (auto const & sc : m_segments)
   {
-    auto segment = result.append_child("Segment");
+    auto segment = root.append_child("Segment");
     segment.append_copy(sc.GetPartnerXMLSegment());
 
     if (sc.GetStatus() == SegmentCorrespondence::Status::Ignored)
     {
-      result.append_child("Ignored").text() = true;
+      segment.append_child("Ignored").text() = true;
     }
     if (sc.HasMatchedPath())
     {
