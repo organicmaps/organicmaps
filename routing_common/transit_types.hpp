@@ -81,6 +81,28 @@ private:
   // and deserialization.
 };
 
+class Gate
+{
+public:
+  Gate() = default;
+  Gate(FeatureId featureId, bool entrance, bool exit, double weight, std::vector<StopId> const & stopIds,
+       m2::PointD const & point);
+  bool IsEqualForTesting(Gate const & gate) const;
+
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_featureId, "osm_id"),
+                                  visitor(m_entrance, "entrance"),
+                                  visitor(m_exit, "exit"), visitor(m_weight, "weight"),
+                                  visitor(m_stopIds, "stop_ids"), visitor(m_point, "point"))
+
+private:
+  FeatureId m_featureId = kInvalidFeatureId;
+  bool m_entrance = true;
+  bool m_exit = true;
+  double m_weight = kInvalidWeight;
+  std::vector<StopId> m_stopIds;
+  m2::PointD m_point;
+};
+
 class Edge
 {
 public:
@@ -104,6 +126,76 @@ private:
   std::vector<ShapeId> m_shapeIds;
 };
 
-// @TODO(bykoianko) Data structures and methods for other transit data should be implemented in here.
+class Transfer
+{
+public:
+  Transfer() = default;
+  Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds);
+  bool IsEqualForTesting(Transfer const & transfer) const;
+
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Transfer, visitor(m_id, "id"), visitor(m_point, "point"),
+                                  visitor(m_stopIds, "stop_ids"))
+
+private:
+  StopId m_id = kInvalidStopId;
+  m2::PointD m_point;
+  std::vector<StopId> m_stopIds;
+
+  // @TODO(bykoianko) It's necessary to add field m_titleAnchors here and implement serialization
+  // and deserialization.
+};
+
+class Line
+{
+public:
+  Line() = default;
+  Line(LineId id, std::string const & number, std::string const & title, std::string const & type,
+       NetworkId networkId, std::vector<StopId> const & stopIds);
+  bool IsEqualForTesting(Line const & line) const;
+
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Line, visitor(m_id, "id"), visitor(m_number, "number"),
+                                  visitor(m_title, "title"), visitor(m_type, "type"),
+                                  visitor(m_networkId, "network_id"),
+                                  visitor(m_stopIds, "stop_ids"))
+
+private:
+  LineId m_id = kInvalidLineId;
+  std::string m_number;
+  std::string m_title;
+  std::string m_type;
+  NetworkId m_networkId = kInvalidNetworkId;
+  std::vector<StopId> m_stopIds;
+};
+
+class Shape
+{
+public:
+  Shape() = default;
+  Shape(ShapeId id, StopId stop1_id, StopId stop2_id, std::vector<m2::PointD> const & polyline);
+  bool IsEqualForTesting(Shape const & shape) const;
+
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Shape, visitor(m_id, "id"), visitor(m_stop1_id, "stop1_id"),
+                                  visitor(m_stop2_id, "stop2_id"), visitor(m_polyline, "polyline"))
+
+private:
+  ShapeId m_id = kInvalidShapeId;
+  StopId m_stop1_id = kInvalidStopId;
+  StopId m_stop2_id = kInvalidStopId;
+  std::vector<m2::PointD> m_polyline;
+};
+
+class Network
+{
+public:
+  Network() = default;
+  Network(NetworkId id, std::string const & title);
+  bool IsEqualForTesting(Network const & shape) const;
+
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Network, visitor(m_id, "id"), visitor(m_title, "title"))
+
+private:
+  NetworkId m_id;
+  std::string m_title;
+};
 }  // namespace transit
 }  // namespace routing

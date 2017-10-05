@@ -59,10 +59,56 @@ UNIT_TEST(Transit_StopSerialization)
   }
 }
 
+UNIT_TEST(Transit_GateSerialization)
+{
+  Gate gate(12345 /* feature id */, true /* entrance */, false /* exit */, 117.8 /* weight */,
+            {1, 2, 3} /* stop ids */, {30.0, 50.0} /* point */);
+  TestSerialization(gate);
+}
+
 UNIT_TEST(Transit_EdgeSerialization)
 {
   Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123.4 /* weight */, 11 /* line id */,
             false /* transfer */, {1, 2, 3} /* shape ids */);
   TestSerialization(edge);
+}
+
+UNIT_TEST(Transit_TransferSerialization)
+{
+  Transfer transfer(1 /* id */, {40.0, 35.0} /* point */, {1, 2, 3} /* stop ids */);
+  TestSerialization(transfer);
+}
+
+UNIT_TEST(Transit_LineSerialization)
+{
+  {
+    Line line(1 /* line id */, "2" /* number */, "Линия" /* title */,
+              "subway" /* type */, 3 /* network id */, {} /* stop ids */);
+    TestSerialization(line);
+  }
+  {
+    Line line(10 /* line id */, "11" /* number */, "Линия" /* title */,
+              "subway" /* type */, 12 /* network id */, {13, 14, 15} /* stop ids */);
+    TestSerialization(line);
+  }
+}
+
+UNIT_TEST(Transit_ShapeSerialization)
+{
+  {
+    Shape shape(1 /* shape id */, 10 /* stop 1 id */, 11 /* stop 2 id */, {} /* polyline */);
+    TestSerialization(shape);
+  }
+  {
+    Shape shape(1 /* shape id */, 10 /* stop 1 id */, 11 /* stop 2 id */,
+                {m2::PointD(20.0, 20.0), m2::PointD(21.0, 21.0), m2::PointD(22.0, 22.0)} /* polyline */);
+    TestSerialization(shape);
+  }
+}
+
+UNIT_TEST(Transit_NetworkSerialization)
+{
+  Network network(0 /* network id */, "Title" /* title */);
+  TestSerialization(network);
 }
 }  // namespace

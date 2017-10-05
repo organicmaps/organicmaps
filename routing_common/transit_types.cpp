@@ -2,6 +2,12 @@
 
 #include "routing_common/transit_serdes.hpp"
 
+namespace
+{
+double constexpr kWeightEqualEpsilon = 1e-2;
+double constexpr kPointsEqualEpsilon = 1e-6;
+}  // namespace
+
 namespace routing
 {
 namespace transit
@@ -62,6 +68,27 @@ bool Stop::IsEqualForTesting(Stop const & stop) const
          m_lineIds == stop.m_lineIds && my::AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon);
 }
 
+// Gate -------------------------------------------------------------------------------------------
+Gate::Gate(FeatureId featureId, bool entrance, bool exit, double weight,
+           std::vector<StopId> const & stopIds, m2::PointD const & point)
+  : m_featureId(featureId)
+  , m_entrance(entrance)
+  , m_exit(exit)
+  , m_weight(weight)
+  , m_stopIds(stopIds)
+  , m_point(point)
+{
+}
+
+bool Gate::IsEqualForTesting(Gate const & gate) const
+{
+  return m_featureId == gate.m_featureId && m_entrance == gate.m_entrance &&
+         m_exit == gate.m_exit &&
+         my::AlmostEqualAbs(m_weight, gate.m_weight, kWeightEqualEpsilon) &&
+         m_stopIds == gate.m_stopIds &&
+         my::AlmostEqualAbs(m_point, gate.m_point, kPointsEqualEpsilon);
+}
+
 // Edge -------------------------------------------------------------------------------------------
 Edge::Edge(StopId startStopId, StopId finishStopId, double weight, LineId lineId, bool transfer,
            vector<ShapeId> const & shapeIds)
@@ -76,11 +103,74 @@ Edge::Edge(StopId startStopId, StopId finishStopId, double weight, LineId lineId
 
 bool Edge::IsEqualForTesting(Edge const & edge) const
 {
-  double constexpr kWeightEqualEpsilon = 1e-2;
   return m_startStopId == edge.m_startStopId && m_finishStopId == edge.m_finishStopId &&
          my::AlmostEqualAbs(m_weight, edge.m_weight, kWeightEqualEpsilon) &&
          m_lineId == edge.m_lineId && m_transfer == edge.m_transfer &&
          m_shapeIds == edge.m_shapeIds;
+}
+
+// Transfer ---------------------------------------------------------------------------------------
+Transfer::Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds)
+  : m_id(id), m_point(point), m_stopIds(stopIds)
+{
+}
+
+bool Transfer::IsEqualForTesting(Transfer const & transfer) const
+{
+  return m_id == transfer.m_id &&
+         my::AlmostEqualAbs(m_point, transfer.m_point, kPointsEqualEpsilon) &&
+         m_stopIds == transfer.m_stopIds;
+}
+
+// Line -------------------------------------------------------------------------------------------
+Line::Line(LineId id, std::string const & number, std::string const & title,
+           std::string const & type, NetworkId networkId, std::vector<StopId> const & stopIds)
+  : m_id(id)
+  , m_number(number)
+  , m_title(title)
+  , m_type(type)
+  , m_networkId(networkId)
+  , m_stopIds(stopIds)
+{
+}
+
+bool Line::IsEqualForTesting(Line const & line) const
+{
+  return m_id == line.m_id && m_number == line.m_number && m_title == line.m_title &&
+         m_type == line.m_type && m_networkId == line.m_networkId && m_stopIds == line.m_stopIds;
+}
+
+// Shape ------------------------------------------------------------------------------------------
+Shape::Shape(ShapeId id, StopId stop1_id, StopId stop2_id, std::vector<m2::PointD> const & polyline)
+  : m_id(id), m_stop1_id(stop1_id), m_stop2_id(stop2_id), m_polyline(polyline)
+{
+}
+
+bool Shape::IsEqualForTesting(Shape const & shape) const
+{
+  if (!(m_id == shape.m_id && m_stop1_id == shape.m_stop1_id && m_stop2_id == shape.m_stop2_id &&
+        m_polyline.size() == shape.m_polyline.size()))
+  {
+    return false;
+  }
+
+  for (size_t i = 0; i < m_polyline.size(); ++i)
+  {
+    if (!my::AlmostEqualAbs(m_polyline[i], shape.m_polyline[i], kPointsEqualEpsilon))
+      return false;
+  }
+  return true;
+}
+
+// Network ----------------------------------------------------------------------------------------
+Network::Network(NetworkId id, std::string const & title)
+: m_id(id), m_title(title)
+{
+}
+
+bool Network::IsEqualForTesting(Network const & shape) const
+{
+  return m_id == shape.m_id && m_title == shape.m_title;
 }
 }  // namespace transit
 }  // namespace routing

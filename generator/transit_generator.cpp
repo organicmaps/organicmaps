@@ -60,7 +60,12 @@ namespace transit
 // DeserializerFromJson ---------------------------------------------------------------------------
 void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
 {
-  json_t * pointItem = my::GetJSONObligatoryField(m_node, name);
+  json_t * pointItem = nullptr;
+  if (name == nullptr)
+    pointItem = m_node; // Array item case
+  else
+    pointItem = my::GetJSONObligatoryField(m_node, name);
+
   CHECK(json_is_object(pointItem), ());
   FromJSONObject(pointItem, "x", p.x);
   FromJSONObject(pointItem, "y", p.y);
@@ -120,13 +125,22 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   SerializeObject<Stop>(root, "stops", serializer);
   header.m_gatesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  // @TODO(bykoianko) Gates should be added after stops but before edges.
+  SerializeObject<Gate>(root, "gates", serializer);
+  header.m_edgesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
   SerializeObject<Edge>(root, "edges", serializer);
   header.m_transfersOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  // @TODO(bykoianko) It's necessary to serialize other transit graph data here.
+  SerializeObject<Transfer>(root, "transfers", serializer);
+  header.m_linesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
+  SerializeObject<Line>(root, "lines", serializer);
+  header.m_shapesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+
+  SerializeObject<Shape>(root, "shapes", serializer);
+  header.m_networksOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+
+  SerializeObject<Network>(root, "networks", serializer);
   header.m_endOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
   // Rewriting header info.
@@ -134,7 +148,7 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   w.Seek(startOffset);
   header.Visit(serializer);
   w.Seek(endOffset);
-  LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Size:", header.m_endOffset));
+  LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Header:", header));
 }
 }  // namespace transit
 }  // namespace routing
