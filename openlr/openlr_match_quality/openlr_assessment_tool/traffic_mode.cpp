@@ -212,7 +212,7 @@ int TrafficMode::rowCount(const QModelIndex & parent) const
   return static_cast<int>(m_segments.size());
 }
 
-int TrafficMode::columnCount(const QModelIndex & parent) const { return 1; }
+int TrafficMode::columnCount(const QModelIndex & parent) const { return 2; }
 
 QVariant TrafficMode::data(const QModelIndex & index, int role) const
 {
@@ -227,6 +227,9 @@ QVariant TrafficMode::data(const QModelIndex & index, int role) const
 
   if (index.column() == 0)
     return m_segments[index.row()].GetPartnerSegmentId();
+
+  if (index.column() == 1)
+    return static_cast<int>(m_segments[index.row()].GetStatus());
 
   return QVariant();
 }
