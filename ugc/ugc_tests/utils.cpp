@@ -19,13 +19,13 @@ UGC MakeTestUGC1(Time now)
 
   Reviews reviews;
   reviews.emplace_back(20 /* id */, Text("Damn good coffee", StringUtf8Multilang::kEnglishCode),
-                       Author(UID(987654321 /* hi */, 123456789 /* lo */), "Cole"),
+                       Author("Cole"),
                        5.0 /* rating */, FromDaysAgo(now, 10));
   reviews.emplace_back(
       67812 /* id */, Text("Clean place, reasonably priced", StringUtf8Multilang::kDefaultCode),
-      Author(UID(0 /* hi */, 315 /* lo */), "Cooper"), 5.0 /* rating */, FromDaysAgo(now, 1));
+      Author("Cooper"), 5.0 /* rating */, FromDaysAgo(now, 1));
 
-  return UGC(records, reviews, 4.5 /* rating */);
+  return UGC(records, reviews, 4.5 /* rating */, 4000000000 /* votes */);
 }
 
 UGC MakeTestUGC2(Time now)
@@ -38,9 +38,9 @@ UGC MakeTestUGC2(Time now)
   vector<Review> reviews;
   reviews.emplace_back(
       119 /* id */, Text("This pie's so good it is a crime", StringUtf8Multilang::kDefaultCode),
-      Author(UID(0 /* hi */, 315 /* lo */), "Cooper"), 5.0 /* rating */, FromDaysAgo(now, 1));
+      Author("Cooper"), 5.0 /* rating */, FromDaysAgo(now, 1));
 
-  return UGC(records, reviews, 5.0 /* rating */);
+  return UGC(records, reviews, 5.0 /* rating */, 1 /* votes */);
 }
 
 UGCUpdate MakeTestUGCUpdate(Time now)

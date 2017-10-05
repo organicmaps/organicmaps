@@ -133,7 +133,7 @@ bool CheckAnswer(my::Json const & root)
     std::string errorMessage = "Unknown error.";
     auto const errorMessageArray = json_object_get(root.get(), "errorMessageText");
 
-    if (CheckJsonArray(errorMessageArray))
+    if (json_array_size(errorMessageArray))
       FromJSON(json_array_get(errorMessageArray, 0), errorMessage);
 
     LOG(LWARNING, ("Viator retrieved unsuccessfull status, error message:", errorMessage));
@@ -148,7 +148,7 @@ void MakeProducts(std::string const & src, std::vector<Product> & products)
 
   my::Json root(src.c_str());
   auto const data = json_object_get(root.get(), "data");
-  if (!CheckAnswer(root) || !CheckJsonArray(data))
+  if (!CheckAnswer(root) || !json_array_size(data))
     return;
 
   auto const dataSize = json_array_size(data);

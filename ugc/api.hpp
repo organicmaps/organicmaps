@@ -2,6 +2,7 @@
 
 #include "base/worker_thread.hpp"
 
+#include "ugc/loader.hpp"
 #include "ugc/storage.hpp"
 #include "ugc/types.hpp"
 
@@ -28,8 +29,8 @@ private:
 
   void SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc);
 
-  Index const & m_index;
   base::WorkerThread m_thread;
   Storage m_storage;
+  Loader m_loader;
 };
 }  // namespace ugc

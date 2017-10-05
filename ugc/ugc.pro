@@ -15,11 +15,14 @@ HEADERS += \
     binary/serdes.hpp \
     binary/ugc_holder.hpp \
     binary/visitors.hpp \
+    loader.hpp \
     serdes.hpp \
+    serdes_json.hpp \
     storage.hpp \
     types.hpp \
 
 SOURCES += \
     api.cpp \
     binary/serdes.cpp \
+    loader.cpp \
     storage.cpp \

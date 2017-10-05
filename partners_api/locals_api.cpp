@@ -37,8 +37,6 @@ void ParseLocals(std::string const & src, std::vector<LocalExpert> & locals,
   hasPrevious = json_is_number(previousField);
   hasNext = json_is_number(nextField);
   auto const results = json_object_get(root.get(), "results");
-  if (!CheckJsonArray(results))
-    return;
   auto const dataSize = json_array_size(results);
   for (size_t i = 0; i < dataSize; ++i)
   {

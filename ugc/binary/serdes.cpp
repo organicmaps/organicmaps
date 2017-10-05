@@ -15,6 +15,8 @@ class BaseCollector
 public:
   virtual ~BaseCollector() = default;
 
+  void VisitVarUint(uint32_t, char const * /* name */ = nullptr) {}
+  void VisitVarUint(uint64_t, char const * /* name */ = nullptr) {}
   virtual void VisitRating(float const f, char const * /* name */ = nullptr) {}
   virtual void operator()(string const & /* s */, char const * /* name */ = nullptr) {}
   virtual void operator()(Sentiment const /* sentiment */, char const * /* name */ = nullptr) {}

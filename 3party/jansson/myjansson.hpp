@@ -171,8 +171,6 @@ void FromJSONObjectOptionalField(json_t * root, std::string const & field, std::
     FromJSON(json_array_get(arr, i), result[i]);
 }
 
-bool CheckJsonArray(json_t const * data);
-
 struct JSONFreeDeleter
 {
   void operator()(char * buffer) const { free(buffer); }

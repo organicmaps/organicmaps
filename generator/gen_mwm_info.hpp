@@ -74,7 +74,7 @@ public:
     try
     {
       FileReader reader(filename);
-      ReaderSource<FileReader> src(reader);
+      NonOwningReaderSource src(reader);
       Read(src);
     }
     catch (FileReader::Exception const & e)

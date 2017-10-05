@@ -1,5 +1,7 @@
 #include "ugc/api.hpp"
 
+#include "indexer/feature.hpp"
+
 #include "platform/platform.hpp"
 
 #include <chrono>
@@ -9,7 +11,11 @@ using namespace ugc;
 
 namespace ugc
 {
-Api::Api(Index const & index, std::string const & filename) : m_index(index), m_storage(filename) {}
+Api::Api(Index const & index, std::string const & filename)
+  : m_storage(filename)
+, m_loader(index)
+{
+}
 
 void Api::GetUGC(FeatureID const & id, UGCCallback callback)
 {
@@ -23,17 +29,18 @@ void Api::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 
 void Api::GetUGCImpl(FeatureID const & id, UGCCallback callback)
 {
-  // TODO (@y, @mgsergio): retrieve static UGC
-  UGC ugc;
-  UGCUpdate update;
-
   if (!id.IsValid())
   {
-    GetPlatform().RunOnGuiThread([ugc, update, callback] { callback(ugc, update); });
+    GetPlatform().RunOnGuiThread([callback] { callback({}, {}); });
     return;
   }
 
-  // ugc = MakeTestUGC1();
+  UGC ugc;
+  UGCUpdate update;
+
+  m_storage.GetUGCUpdate(id, update);
+  m_loader.GetUGC(id, ugc);
+
   GetPlatform().RunOnGuiThread([ugc, update, callback] { callback(ugc, update); });
 }
 

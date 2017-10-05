@@ -22,7 +22,7 @@ using Buffer = vector<uint8_t>;
 using ToBin = Serializer<MemWriter<Buffer>>;
 using FromBin = DeserializerV0<ReaderSource<MemReader>>;
 using ToJson = SerializerJson<MemWriter<Buffer>>;
-using FromJson = DeserializerJsonV0<ReaderSource<MemReader>>;
+using FromJson = DeserializerJsonV0;
 
 Ratings GetTestRating()
 {

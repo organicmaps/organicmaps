@@ -73,6 +73,12 @@ public:
     ToJSONObject(*m_json, name, d);
   }
 
+  template <typename T>
+  void VisitVarUint(T const & t, char const * name = nullptr)
+  {
+    ToJSONObject(*m_json, name, t);
+  }
+
 private:
   template <typename Fn>
   void NewScopeWith(my::JSONPtr json_object, char const * name, Fn && fn)
@@ -95,18 +101,26 @@ private:
   Sink & m_sink;
 };
 
-template <typename Source>
 class DeserializerJsonV0
 {
 public:
   DECLARE_EXCEPTION(Exception, RootException);
 
-  DeserializerJsonV0(Source & source) : m_source(source)
+  template <typename Source,
+            typename std::enable_if<
+              !std::is_convertible<Source, std::string>::value, Source>::type * = nullptr>
+  DeserializerJsonV0(Source & source)
   {
     std::string src(source.Size(), '\0');
     source.Read(static_cast<void *>(&src[0]), source.Size());
-    m_jsonObject.ParseFrom(src.c_str());
+    m_jsonObject.ParseFrom(src);
     m_json = m_jsonObject.get();
+  }
+
+  DeserializerJsonV0(std::string const & source)
+    : m_jsonObject(source)
+    , m_json(m_jsonObject.get())
+  {
   }
 
   void operator()(bool & d, char const * name = nullptr) { FromJSONObject(m_json, name, d); }
@@ -118,6 +132,7 @@ public:
   {
     (*this)(key.m_key, name);
   }
+
   void operator()(Time & t, char const * name = nullptr)
   {
     uint32_t d = 0;
@@ -167,6 +182,12 @@ public:
     f = static_cast<float>(d);
   }
 
+  template <typename T>
+  void VisitVarUint(T & t, char const * name = nullptr)
+  {
+    FromJSONObject(m_json, name, t);
+  }
+
 private:
   json_t * SaveContext(char const * name = nullptr)
   {
@@ -184,6 +205,5 @@ private:
 
   my::Json m_jsonObject;
   json_t * m_json = nullptr;
-  Source & m_source;
 };
 }  // namespace ugc

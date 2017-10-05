@@ -6,12 +6,14 @@
 
 #include "ugc/types.hpp"
 
+#include "base/math.hpp"
+
 std::string g_database(R"LLL(
                        PRAGMA foreign_keys=OFF;
                        BEGIN TRANSACTION;
                        CREATE TABLE ratings (key bigint, value blob);
                        INSERT INTO "ratings" VALUES(9826352,'{"osm_id":9826352,"total_rating":10.34,"votes":721,"ratings":[{"id":2,"value":3.4},{"id":2,"value":6.0001}],"reviews":[{"id":7864532,"text":"The best service on the Earth","lang":"en","author":"Robert","rating":8.5,"date":1234567}]}');
-                       INSERT INTO "ratings" VALUES(9826353,'{"osm_id":9826353,"total_rating":0.34,"votes":1,"ratings":[{"id":2,"value":3.4},{"id":3,"value":6.0001},{"id":6,"value":0.0001}],"reviews":[{"id":78645323924,"text":"Заебись!","lang":"ru","author":"Вася","rating":10,"date":1234569}]}');
+                       INSERT INTO "ratings" VALUES(9826353,'{"osm_id":9826353,"total_rating":0.34,"votes":1,"ratings":[{"id":2,"value":3.4},{"id":3,"value":6.0001},{"id":6,"value":0.0001}],"reviews":[{"id":78645323924,"text":"Изумительно!","lang":"ru","author":"Вася","rating":10,"date":1234569}]}');
                        CREATE INDEX key_index ON ratings (key);
                        COMMIT;
 )LLL");
@@ -41,5 +43,5 @@ UNIT_TEST(UGC_TranslateRatingTest)
 
   TEST_EQUAL(ugc.m_ratings.size(), 2, ());
   TEST_EQUAL(ugc.m_ratings[0].m_key, "2", ());
-  TEST_LESS(ugc.m_ratings[0].m_value - 3.4, 1e-6, ());
+  TEST(my::AlmostEqualAbs(ugc.m_ratings[0].m_value, 3.4f, 1e-6f), ());
 }

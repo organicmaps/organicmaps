@@ -4,6 +4,7 @@
 
 #include "coding/hex.hpp"
 
+#include "base/math.hpp"
 #include "base/visitor.hpp"
 
 #include <chrono>
@@ -30,13 +31,13 @@ struct TranslationKey
   bool operator==(TranslationKey const & rhs) const { return m_key == rhs.m_key; }
   bool operator<(TranslationKey const & rhs) const { return m_key < rhs.m_key; }
 
-  friend std::string DebugPrint(TranslationKey const & key)
-  {
-    return "TranslationKey [ " + key.m_key + " ]";
-  }
-
   std::string m_key;
 };
+
+std::string DebugPrint(TranslationKey const & key)
+{
+  return "TranslationKey [ " + key.m_key + " ]";
+}
 
 enum class Sentiment
 {
@@ -86,17 +87,17 @@ struct RatingRecord
     return m_key == rhs.m_key && m_value == rhs.m_value;
   }
 
-  friend std::string DebugPrint(RatingRecord const & ratingRecord)
-  {
-    std::ostringstream os;
-    os << "RatingRecord [ " << DebugPrint(ratingRecord.m_key) << " " << ratingRecord.m_value
-       << " ]";
-    return os.str();
-  }
-
   TranslationKey m_key{};
   float m_value{};
 };
+
+std::string DebugPrint(RatingRecord const & ratingRecord)
+{
+  std::ostringstream os;
+  os << "RatingRecord [ " << DebugPrint(ratingRecord.m_key) << " " << ratingRecord.m_value
+     << " ]";
+  return os.str();
+}
 
 using Ratings = std::vector<RatingRecord>;
 
@@ -110,16 +111,17 @@ struct UID
   DECLARE_VISITOR(visitor(m_hi, "hi"), visitor(m_lo, "lo"));
 
   bool operator==(UID const & rhs) const { return m_hi == rhs.m_hi && m_lo == rhs.m_lo; }
-  friend std::string DebugPrint(UID const & uid)
-  {
-    std::ostringstream os;
-    os << "UID [ " << uid.ToString() << " ]";
-    return os.str();
-  }
 
   uint64_t m_hi{};
   uint64_t m_lo{};
 };
+
+std::string DebugPrint(UID const & uid)
+{
+  std::ostringstream os;
+  os << "UID [ " << uid.ToString() << " ]";
+  return os.str();
+}
 
 using Author = std::string;
 
@@ -132,17 +134,17 @@ struct Text
 
   bool operator==(Text const & rhs) const { return m_lang == rhs.m_lang && m_text == rhs.m_text; }
 
-  friend std::string DebugPrint(Text const & text)
-  {
-    std::ostringstream os;
-    os << "Text [ " << StringUtf8Multilang::GetLangByCode(text.m_lang) << ": " << text.m_text
-       << " ]";
-    return os.str();
-  }
-
   std::string m_text;
   uint8_t m_lang = StringUtf8Multilang::kDefaultCode;
 };
+
+std::string DebugPrint(Text const & text)
+{
+  std::ostringstream os;
+  os << "Text [ " << StringUtf8Multilang::GetLangByCode(text.m_lang) << ": " << text.m_text
+     << " ]";
+  return os.str();
+}
 
 struct Review
 {
@@ -164,24 +166,24 @@ struct Review
            m_rating == rhs.m_rating && m_time == rhs.m_time;
   }
 
-  friend std::string DebugPrint(Review const & review)
-  {
-    std::ostringstream os;
-    os << "Review [ ";
-    os << "id:" << review.m_id << ", ";
-    os << "text:" << DebugPrint(review.m_text) << ", ";
-    os << "author:" << review.m_author << ", ";
-    os << "rating:" << review.m_rating << ", ";
-    os << "days since epoch:" << ToDaysSinceEpoch(review.m_time) << " ]";
-    return os.str();
-  }
-
   ReviewId m_id{};
   Text m_text{};
   Author m_author{};
   float m_rating{};
   Time m_time{};
 };
+
+std::string DebugPrint(Review const & review)
+{
+  std::ostringstream os;
+  os << "Review [ ";
+  os << "id:" << review.m_id << ", ";
+  os << "text:" << DebugPrint(review.m_text) << ", ";
+  os << "author:" << review.m_author << ", ";
+  os << "rating:" << review.m_rating << ", ";
+  os << "days since epoch:" << ToDaysSinceEpoch(review.m_time) << " ]";
+  return os.str();
+}
 
 using Reviews = std::vector<Review>;
 
@@ -199,48 +201,55 @@ struct Attribute
     return m_key == rhs.m_key && m_value == rhs.m_value;
   }
 
-  friend std::string DebugPrint(Attribute const & attribute)
-  {
-    std::ostringstream os;
-    os << "Attribute [ key:" << DebugPrint(attribute.m_key)
-       << ", value:" << DebugPrint(attribute.m_value) << " ]";
-    return os.str();
-  }
-
   TranslationKey m_key{};
   TranslationKey m_value{};
 };
 
+std::string DebugPrint(Attribute const & attribute)
+{
+  std::ostringstream os;
+  os << "Attribute [ key:" << DebugPrint(attribute.m_key)
+     << ", value:" << DebugPrint(attribute.m_value) << " ]";
+  return os.str();
+}
+
 struct UGC
 {
   UGC() = default;
-  UGC(Ratings const & records, Reviews const & reviews, float const totalRating, uint32_t votes)
-    : m_ratings(records), m_reviews(reviews), m_totalRating(totalRating), m_votes(votes)
+  UGC(Ratings const & records, Reviews const & reviews, float const totalRating, uint32_t basedOn)
+    : m_ratings(records), m_reviews(reviews), m_totalRating(totalRating), m_basedOn(basedOn)
   {
   }
 
   DECLARE_VISITOR(visitor(m_ratings, "ratings"), visitor(m_reviews, "reviews"),
-                  visitor.VisitRating(m_totalRating, "totalRating"))
+                  visitor.VisitRating(m_totalRating, "total_rating"),
+                  visitor.VisitVarUint(m_basedOn, "based_on"))
 
   bool operator==(UGC const & rhs) const
   {
-    return m_ratings == rhs.m_ratings && m_reviews == rhs.m_reviews;
+    return m_ratings == rhs.m_ratings && m_reviews == rhs.m_reviews &&
+        my::AlmostEqualAbs(m_totalRating, rhs.m_totalRating, 1e-6f) && m_basedOn == rhs.m_basedOn;
   }
 
-  friend std::string DebugPrint(UGC const & ugc)
+  bool IsValid() const
   {
-    std::ostringstream os;
-    os << "UGC [ ";
-    os << "records:" << ::DebugPrint(ugc.m_ratings) << ", ";
-    os << "reviews:" << ::DebugPrint(ugc.m_reviews) << " ]";
-    return os.str();
+    return (!m_ratings.empty() || !m_reviews.empty()) && m_totalRating > 1e-6 && m_basedOn > 0;
   }
 
   Ratings m_ratings;
   Reviews m_reviews;
   float m_totalRating{};
-  uint32_t m_votes{};
+  uint32_t m_basedOn{};
 };
+
+std::string DebugPrint(UGC const & ugc)
+{
+  std::ostringstream os;
+  os << "UGC [ ";
+  os << "records:" << ::DebugPrint(ugc.m_ratings) << ", ";
+  os << "reviews:" << ::DebugPrint(ugc.m_reviews) << " ]";
+  return os.str();
+}
 
 struct UGCUpdate
 {
@@ -257,20 +266,25 @@ struct UGCUpdate
     return m_ratings == rhs.m_ratings && m_text == rhs.m_text && m_time == rhs.m_time;
   }
 
-  friend std::string DebugPrint(UGCUpdate const & ugcUpdate)
+  bool IsValid() const
   {
-    std::ostringstream os;
-    os << "UGCUpdate [ ";
-    os << "records:" << ::DebugPrint(ugcUpdate.m_ratings) << ", ";
-    os << "text:" << DebugPrint(ugcUpdate.m_text) << ", ";
-    os << "days since epoch:" << ToDaysSinceEpoch(ugcUpdate.m_time) << " ]";
-    return os.str();
+    return (!m_ratings.empty() || !m_text.m_text.empty()) && m_time != Time();
   }
 
   Ratings m_ratings;
   Text m_text;
   Time m_time{};
 };
+
+std::string DebugPrint(UGCUpdate const & ugcUpdate)
+{
+  std::ostringstream os;
+  os << "UGCUpdate [ ";
+  os << "records:" << ::DebugPrint(ugcUpdate.m_ratings) << ", ";
+  os << "text:" << DebugPrint(ugcUpdate.m_text) << ", ";
+  os << "days since epoch:" << ToDaysSinceEpoch(ugcUpdate.m_time) << " ]";
+  return os.str();
+}
 
 struct ReviewFeedback
 {
