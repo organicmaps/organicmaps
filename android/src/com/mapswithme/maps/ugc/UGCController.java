@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -158,6 +159,11 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       UGC.requestUGC(mMapObject.getFeatureId());
     else
       UiUtils.hide(mUgcRootView, mLeaveReviewButton);
+  }
+
+  public boolean isLeaveReviewButtonTouched(@NonNull MotionEvent event)
+  {
+    return UiUtils.isViewTouched(event, mLeaveReviewButton);
   }
 
   @Override

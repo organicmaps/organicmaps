@@ -2203,6 +2203,11 @@ public class PlacePageView extends RelativeLayout
     return mBannerController != null && mBannerController.isActionButtonTouched(event);
   }
 
+  public boolean isLeaveReviewButtonTouched(@NonNull MotionEvent event)
+  {
+    return mUgcController != null && mUgcController.isLeaveReviewButtonTouched(event);
+  }
+
   @Override
   public void onSizeChanged()
   {
