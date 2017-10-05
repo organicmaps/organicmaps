@@ -110,6 +110,11 @@ void ToJSONObject(json_t & root, std::string const & field, T const & value)
   json_object_set_new(&root, field.c_str(), ToJSON(value).release());
 }
 
+void ToJSONObject(json_t & root, std::string const & field, json_t & embedded)
+{
+  json_object_set_new(&root, field.c_str(), &embedded);
+}
+
 template <typename T>
 void FromJSONObject(json_t * root, std::string const & field, std::vector<T> & result)
 {
