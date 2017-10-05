@@ -8,6 +8,8 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
+INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
+
 HEADERS += \
     api.hpp \
     binary/header_v0.hpp \
