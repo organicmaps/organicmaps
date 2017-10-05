@@ -57,10 +57,10 @@ public class UGC implements Serializable
   {
     return new ArrayList<Rating>(){
       {
-        add(new Rating("service", 8.3f));
-        add(new Rating("food", 3.4f));
-        add(new Rating("quality", 5.0f));
-        add(new Rating("cleaning", 7.9f));
+        add(new Rating("service", 3.3f));
+        add(new Rating("food", 4.4f));
+        add(new Rating("quality", 2.0f));
+        add(new Rating("cleaning", 3.9f));
       }
     };
   }

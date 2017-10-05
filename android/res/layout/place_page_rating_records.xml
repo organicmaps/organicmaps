@@ -24,8 +24,4 @@
     android:paddingTop="@dimen/margin_half_plus"
     android:paddingBottom="@dimen/margin_half_plus"
     tools:listitem="@layout/item_ugc_rating_record"/>
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="?dividerHorizontal"/>
 </LinearLayout>

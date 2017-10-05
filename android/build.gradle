@@ -14,17 +14,17 @@ buildscript {
 
 allprojects {
   repositories {
-    jcenter()
     mavenCentral()
-    maven {
-      url "https://s3.amazonaws.com/moat-sdk-builds"
-    }
+    jcenter()
   }
 }
 
 repositories {
   maven {
     url 'https://maven.fabric.io/public'
+  }
+  maven {
+    url "https://s3.amazonaws.com/moat-sdk-builds"
   }
 }
 

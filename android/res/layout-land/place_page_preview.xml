@@ -134,7 +134,7 @@
     tools:visibility="visible"/>
 
   <include
-    android:id="@+id/hotel_info_frame"
+    android:id="@+id/preview_rating_info"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="true"
@@ -149,7 +149,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/hotel_info_frame"
+    android:layout_below="@id/preview_rating_info"
     android:layout_marginTop="@dimen/margin_quarter"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     tools:background="#60000000"

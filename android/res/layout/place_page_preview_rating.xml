@@ -61,5 +61,5 @@
     android:paddingEnd="@dimen/margin_half"
     android:paddingRight="@dimen/margin_half"
     android:layout_gravity="center"
-    android:text="+ Leave review"/>
+    android:text="@string/leave_a_review"/>
 </RelativeLayout>

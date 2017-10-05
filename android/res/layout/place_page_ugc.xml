@@ -73,17 +73,24 @@
       layout="@layout/place_page_rating_records"/>
   </LinearLayout>
   <LinearLayout
-    android:id="@+id/ll__pp_ugc_rating"
+    android:id="@+id/ll__pp_ugc_add_rating"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?cardBackground"
-    android:padding="@dimen/margin_base"
     android:gravity="center_horizontal">
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/divider_height"
+      android:background="?dividerHorizontal"/>
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginLeft="@dimen/margin_base"
+      android:layout_marginRight="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/margin_base"
       android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
       android:textStyle="bold"
       android:text="@string/placepage_rate_comment"
@@ -91,8 +98,7 @@
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_base"
-      android:layout_marginBottom="@dimen/margin_half"
+      android:padding="@dimen/margin_base"
       android:orientation="horizontal">
       <LinearLayout
         android:id="@+id/ll__horrible"
