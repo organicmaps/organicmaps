@@ -4,7 +4,6 @@
 
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
-#include "indexer/index.hpp"
 #include "indexer/index_helpers.hpp"
 
 namespace search

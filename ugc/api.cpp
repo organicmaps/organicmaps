@@ -1,7 +1,5 @@
 #include "ugc/api.hpp"
 
-#include "indexer/feature.hpp"
-
 #include "platform/platform.hpp"
 
 #include <chrono>
@@ -11,11 +9,7 @@ using namespace ugc;
 
 namespace ugc
 {
-Api::Api(Index const & index, std::string const & filename)
-  : m_storage(filename)
-  , m_loader(index)
-{
-}
+Api::Api(Index const & index) : m_storage(index) {}
 
 void Api::GetUGC(FeatureID const & id, UGCCallback callback)
 {
