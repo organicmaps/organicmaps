@@ -101,5 +101,16 @@ void UGCSeriaizer::CollectTexts()
     collector(p.m_ugc);
   }
 }
+
+std::string DebugPrint(Version v)
+{
+  switch (v)
+  {
+  case Version::V0: return "Version 0";
+  default: ASSERT(false, ("Unknown version", static_cast<uint64_t>(v)));
+  }
+
+  return {};
+}
 }  // namespace binary
 }  // namespace ugc

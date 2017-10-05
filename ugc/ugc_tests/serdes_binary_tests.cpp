@@ -73,14 +73,12 @@ UNIT_TEST(BinarySerDes_Smoke)
     ser.Serialize(sink);
   }
 
-  UGCDeserializerV0 des;
+  UGCDeserializer des;
 
   {
     MemReader reader(buffer.data(), buffer.size());
 
     TEST(des.GetTranslationKeys().empty(), ());
-    des.InitializeIfNeeded(reader);
-    TEST_EQUAL(GetExpectedTranslationKeys(), des.GetTranslationKeys(), ());
 
     UGC ugc;
     TEST(!des.Deserialize(reader, 0 /* index */, ugc), ());
@@ -90,6 +88,8 @@ UNIT_TEST(BinarySerDes_Smoke)
 
     TEST(des.Deserialize(reader, 31337 /* index */, ugc), ());
     TEST_EQUAL(ugc, expectedUGC1, ());
+
+    TEST_EQUAL(GetExpectedTranslationKeys(), des.GetTranslationKeys(), ());
   }
 
   {

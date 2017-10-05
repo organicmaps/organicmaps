@@ -27,6 +27,12 @@ namespace binary
 using FeatureIndex = uint32_t;
 using UGCOffset = uint64_t;
 
+enum class Version : uint64_t
+{
+  V0 = 0,
+  Latest = V0
+};
+
 class UGCSeriaizer
 {
 public:
@@ -49,6 +55,8 @@ public:
   template <typename Sink>
   void Serialize(Sink & sink)
   {
+    WriteToSink(sink, Version::Latest);
+
     auto const startPos = sink.Pos();
 
     HeaderV0 header;
@@ -152,11 +160,28 @@ private:
 // efficient to keep it alive between accesses. The instances of
 // |reader| for Deserialize() may differ between calls, but all
 // instances must be set to the beginning of the UGC section
-class UGCDeserializerV0
+class UGCDeserializer
 {
 public:
   template <typename R>
   bool Deserialize(R & reader, FeatureIndex index, UGC & ugc)
+  {
+    NonOwningReaderSource source(reader);
+    Version v = ReadPrimitiveFromSource<Version>(source);
+
+    auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
+
+    switch (v)
+    {
+    case Version::V0: return DeserializeV0(*subReader, index, ugc);
+    default: ASSERT(false, ("Cannot deserialize ugc for version", v));
+    }
+
+    return false;
+  }
+
+  template <typename R>
+  bool DeserializeV0(R & reader, FeatureIndex index, UGC & ugc)
   {
     InitializeIfNeeded(reader);
 
@@ -188,6 +213,9 @@ public:
     return true;
   }
 
+  std::vector<TranslationKey> const & GetTranslationKeys() const { return m_keys; }
+
+private:
   template <typename Reader>
   void InitializeIfNeeded(Reader & reader)
   {
@@ -231,9 +259,6 @@ public:
     }
   }
 
-  std::vector<TranslationKey> const & GetTranslationKeys() const { return m_keys; }
-
-private:
   uint64_t GetNumUGCs()
   {
     ASSERT(m_initialized, ());
@@ -294,5 +319,7 @@ private:
 
   bool m_initialized = false;
 };
+
+std::string DebugPrint(Version v);
 }  // namespace binary
 }  // namespace ugc
