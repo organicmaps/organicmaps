@@ -26,10 +26,10 @@ namespace routing
 {
 namespace transit
 {
-// Note. For the time being double at transit section is used only for saving weight of edges (in seconds).
+// Note. For the time being double in transit section is used only for saving weight of edges (in seconds).
 // Let us assume that it takes less than 10^7 seconds (115 days) to get from one station to a neighboring one.
-double constexpr kMinDoubleAtTransit = kInvalidWeight;
-double constexpr kMaxDoubleAtTransit = 10000000.0;
+double constexpr kMinDoubleAtTransitSection = kInvalidWeight;
+double constexpr kMaxDoubleAtTransitSection = 10000000.0;
 uint32_t constexpr kDoubleBits = 32;
 
 template <typename Sink>
@@ -47,9 +47,9 @@ public:
 
   void operator()(double d, char const * name = nullptr)
   {
-    CHECK_GREATER_OR_EQUAL(d, kMinDoubleAtTransit, ());
-    CHECK_LESS_OR_EQUAL(d, kMaxDoubleAtTransit, ());
-    (*this)(DoubleToUint32(d, kMinDoubleAtTransit, kMaxDoubleAtTransit, kDoubleBits), name);
+    CHECK_GREATER_OR_EQUAL(d, kMinDoubleAtTransitSection, ());
+    CHECK_LESS_OR_EQUAL(d, kMaxDoubleAtTransitSection, ());
+    (*this)(DoubleToUint32(d, kMinDoubleAtTransitSection, kMaxDoubleAtTransitSection, kDoubleBits), name);
   }
 
   void operator()(std::string const & s, char const * /* name */ = nullptr)
@@ -100,7 +100,7 @@ public:
   {
     uint32_t ui;
     (*this)(ui, name);
-    d = Uint32ToDouble(ui, kMinDoubleAtTransit, kMaxDoubleAtTransit, kDoubleBits);
+    d = Uint32ToDouble(ui, kMinDoubleAtTransitSection, kMaxDoubleAtTransitSection, kDoubleBits);
   }
 
   void operator()(std::string & s, char const * /* name */ = nullptr)

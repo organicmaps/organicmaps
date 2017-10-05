@@ -30,7 +30,7 @@ void TestSerialization(Obj const & obj)
   Deserializer<ReaderSource<MemReader>> deserializer(src);
   deserializedObj.Visit(deserializer);
 
-  TEST(obj.IsEqualForTesting(deserializedObj), (obj, "is not equal to", deserializedObj));
+  TEST(obj.IsEqualForTesting(deserializedObj), (obj, deserializedObj));
 }
 
 UNIT_TEST(Transit_HeaderSerialization)
