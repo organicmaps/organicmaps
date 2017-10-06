@@ -52,6 +52,22 @@ import UIKit
     didSet { update() }
   }
 
+  var onUpdate: (() -> Void)?
+
+  override var frame: CGRect {
+    didSet {
+      guard frame.size != oldValue.size else { return }
+      update()
+    }
+  }
+
+  override var bounds: CGRect {
+    didSet {
+      guard bounds.size != oldValue.size else { return }
+      update()
+    }
+  }
+
   private var isCompact = true {
     didSet {
       guard oldValue != isCompact else { return }
@@ -112,7 +128,6 @@ import UIKit
   public override func awakeFromNib() {
     super.awakeFromNib()
     setup()
-    update()
   }
 
   public convenience init() {
@@ -122,33 +137,33 @@ import UIKit
   public override init(frame: CGRect) {
     super.init(frame: frame)
     setup()
-    update()
-    addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onTap)))
   }
 
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
-    update()
-    addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onTap)))
   }
 
   private func setup() {
     layer.backgroundColor = UIColor.clear.cgColor
     isOpaque = true
+    gestureRecognizers = nil
+    addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onTap)))
+    update()
   }
 
   private var viewSize = CGSize()
-  func updateImpl() {
+  private func updateImpl() {
     let sublayer = createTextLayer()
     layer.sublayers = [sublayer]
 
     viewSize = sublayer.bounds.size
 
     invalidateIntrinsicContentSize()
+    onUpdate?()
   }
 
-  @objc func doUpdate() {
+  @objc private func doUpdate() {
     DispatchQueue.main.async {
       self.updateImpl()
     }

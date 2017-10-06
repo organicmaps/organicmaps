@@ -313,6 +313,31 @@ UIColor * color(SEL cmd)
   return [UIColor colorWithRed:scaled(218.) green:scaled(55) blue:scaled(67) alpha:alpha100];
 }
 
++ (UIColor *)ratingRed
+{
+  return [UIColor colorWithRed:scaled(229) green:scaled(57) blue:scaled(53) alpha:alpha100];
+}
+
++ (UIColor *)ratingOrange
+{
+  return [UIColor colorWithRed:scaled(244) green:scaled(81) blue:scaled(30) alpha:alpha100];
+}
+
++ (UIColor *)ratingYellow
+{
+  return [UIColor colorWithRed:scaled(245) green:scaled(176) blue:scaled(39) alpha:alpha100];
+}
+
++ (UIColor *)ratingLightGreen
+{
+  return [UIColor colorWithRed:scaled(124) green:scaled(179) blue:scaled(66) alpha:alpha100];
+}
+
++ (UIColor *)ratingGreen
+{
+  return [UIColor colorWithRed:scaled(67) green:scaled(160) blue:scaled(71) alpha:alpha100];
+}
+
 + (UIColor *)bannerBackground
 {
   return color(_cmd);

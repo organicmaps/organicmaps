@@ -3,7 +3,9 @@
 #import "MWMCommon.h"
 #import "MWMDirectionView.h"
 #import "MWMPlacePageData.h"
+#import "MWMPlacePageManagerHelper.h"
 #import "MWMTableViewCell.h"
+#import "MWMUGCViewModel.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
@@ -82,27 +84,6 @@
 @implementation _MWMPPPSchedule
 @end
 
-#pragma mark - Booking
-
-@interface _MWMPPPBooking : MWMTableViewCell
-
-@property(weak, nonatomic) IBOutlet UILabel * rating;
-@property(weak, nonatomic) IBOutlet UILabel * pricing;
-
-- (void)configWithRating:(NSString *)rating pricing:(NSString *)pricing;
-
-@end
-
-@implementation _MWMPPPBooking
-
-- (void)configWithRating:(NSString *)rating pricing:(NSString *)pricing
-{
-  self.rating.text = rating;
-  self.pricing.text = pricing;
-}
-
-@end
-
 #pragma mark - Address
 
 @interface _MWMPPPAddress : _MWMPPPCellBase
@@ -122,10 +103,14 @@
 
 namespace
 {
-array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTitle class],
-                                        [_MWMPPPSubtitle class], [_MWMPPPSchedule class],
-                                        [_MWMPPPBooking class], [_MWMPPPAddress class],
-                                        [_MWMPPPSpace class], [MWMAdBanner class]}};
+array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
+                                        [_MWMPPPExternalTitle class],
+                                        [_MWMPPPSubtitle class],
+                                        [_MWMPPPSchedule class],
+                                        [MWMPPPReview class],
+                                        [_MWMPPPAddress class],
+                                        [_MWMPPPSpace class],
+                                        [MWMAdBanner class]}};
 }  // namespace
 
 @interface MWMPPPreviewLayoutHelper ()
@@ -242,12 +227,34 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
     }
     break;
   }
-  case PreviewRows::Booking:
+  case PreviewRows::Review:
   {
-    auto bookingCell = static_cast<_MWMPPPBooking *>(c);
-    [bookingCell configWithRating:data.bookingRating pricing:data.bookingApproximatePricing];
-    [data assignOnlinePriceToLabel:bookingCell.pricing];
-    return bookingCell;
+    auto reviewCell = static_cast<MWMPPPReview *>(c);
+    if (data.isBooking)
+    {
+      [reviewCell configWithRating:data.bookingRating
+                      canAddReview:NO
+                      reviewsCount:0
+                       priceSetter:^(UILabel * pricingLabel) {
+                         pricingLabel.text = data.bookingApproximatePricing;
+                         [data assignOnlinePriceToLabel:pricingLabel];
+                       }
+                       onAddReview:^{
+                       }];
+    }
+    else
+    {
+      auto ugc = data.ugc;
+      [reviewCell configWithRating:[ugc summaryRating]
+          canAddReview:[ugc canAddReview] && ![ugc isYourReviewAvailable]
+          reviewsCount:[ugc totalReviewsCount]
+          priceSetter:^(UILabel * _Nonnull) {
+          }
+          onAddReview:^{
+            [MWMPlacePageManagerHelper showUGCAddReview:MWMRatingSummaryViewValueTypeGood];
+          }];
+    }
+    return reviewCell;
   }
   case PreviewRows::Address:
     static_cast<_MWMPPPAddress *>(c).address.text = data.address;

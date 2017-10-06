@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="UGCSummaryRatingCell" id="KGk-i7-Jjw" customClass="MWMUGCSummaryRatingCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="135"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="134.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MSt-Fx-y5y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="78"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vuk-Pr-u1F">
+                                <rect key="frame" x="16" y="16" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dL4-7I-zUJ">
+                                <rect key="frame" x="16" y="41" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1wF-gY-Wza" customClass="RatingSummaryView" customModule="cm_beta" customModuleProvider="target">
+                                <rect key="frame" x="200" y="19" width="104" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="104" placeholder="YES" id="K7d-bD-t4a"/>
+                                    <constraint firstAttribute="height" constant="40" placeholder="YES" id="XNy-10-mxa"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="horribleImage" value="ic_24px_rating_horrible"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="badImage" value="ic_24px_rating_bad"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="normalImage" value="ic_24px_rating_normal"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="goodImage" value="ic_24px_rating_good"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="excellentImage" value="ic_24px_rating_excellent"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ks7-ZL-gaO">
+                                <rect key="frame" x="16" y="77" width="304" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="0Ow-i9-Mmd"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Ks7-ZL-gaO" secondAttribute="bottom" id="EQg-NU-aaE"/>
+                            <constraint firstItem="Ks7-ZL-gaO" firstAttribute="leading" secondItem="vuk-Pr-u1F" secondAttribute="leading" id="EzT-6G-Aaz"/>
+                            <constraint firstAttribute="trailing" secondItem="1wF-gY-Wza" secondAttribute="trailing" constant="16" id="TmZ-A7-jSz"/>
+                            <constraint firstAttribute="bottom" secondItem="dL4-7I-zUJ" secondAttribute="bottom" constant="16" id="Y4t-mx-i4U"/>
+                            <constraint firstItem="dL4-7I-zUJ" firstAttribute="top" secondItem="vuk-Pr-u1F" secondAttribute="bottom" constant="4" id="gwC-3A-Cn6"/>
+                            <constraint firstAttribute="trailing" secondItem="Ks7-ZL-gaO" secondAttribute="trailing" id="rqS-JS-29d"/>
+                            <constraint firstItem="vuk-Pr-u1F" firstAttribute="top" secondItem="MSt-Fx-y5y" secondAttribute="top" constant="16" id="sW5-pu-RyS"/>
+                            <constraint firstItem="dL4-7I-zUJ" firstAttribute="leading" secondItem="vuk-Pr-u1F" secondAttribute="leading" id="t1x-yk-QNA"/>
+                            <constraint firstItem="1wF-gY-Wza" firstAttribute="centerY" secondItem="MSt-Fx-y5y" secondAttribute="centerY" id="x7o-2J-PIT"/>
+                            <constraint firstItem="vuk-Pr-u1F" firstAttribute="leading" secondItem="MSt-Fx-y5y" secondAttribute="leading" constant="16" id="ykf-u3-iXH"/>
+                        </constraints>
+                    </view>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ek3-Zj-cfu">
+                        <rect key="frame" x="0.0" y="78" width="320" height="55.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="999" constant="56" id="NOt-1H-Ou6"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="12" minimumInteritemSpacing="16" id="liK-AI-Noj">
+                            <size key="itemSize" width="120" height="32"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="16" minY="12" maxX="16" maxY="12"/>
+                        </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="KGk-i7-Jjw" id="dDO-Dn-baT"/>
+                        </connections>
+                    </collectionView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deV-cR-pmt">
+                        <rect key="frame" x="0.0" y="133.5" width="320" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="xWy-nC-DYA"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="ek3-Zj-cfu" secondAttribute="trailing" id="Bqn-Ho-oHK"/>
+                    <constraint firstItem="MSt-Fx-y5y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="E6a-WS-t4d"/>
+                    <constraint firstItem="deV-cR-pmt" firstAttribute="top" secondItem="ek3-Zj-cfu" secondAttribute="bottom" id="LVT-d5-pQ9"/>
+                    <constraint firstItem="ek3-Zj-cfu" firstAttribute="top" secondItem="MSt-Fx-y5y" secondAttribute="bottom" id="Nof-jo-qQX"/>
+                    <constraint firstItem="ek3-Zj-cfu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="O1E-QI-WCE"/>
+                    <constraint firstItem="deV-cR-pmt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ZMV-M7-CZf"/>
+                    <constraint firstAttribute="trailing" secondItem="deV-cR-pmt" secondAttribute="trailing" id="cGS-Z6-Jhu"/>
+                    <constraint firstAttribute="bottom" secondItem="deV-cR-pmt" secondAttribute="bottom" id="hYI-fo-9ZF"/>
+                    <constraint firstAttribute="trailing" secondItem="MSt-Fx-y5y" secondAttribute="trailing" id="lrY-p6-nWm"/>
+                    <constraint firstItem="MSt-Fx-y5y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="vuv-N8-45j"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="countLabel" destination="dL4-7I-zUJ" id="Tff-bs-ZJ1"/>
+                <outlet property="ratingCollectionView" destination="ek3-Zj-cfu" id="yaA-5U-Hkd"/>
+                <outlet property="ratingCollectionViewHeight" destination="NOt-1H-Ou6" id="OAa-93-CP3"/>
+                <outlet property="ratingSummaryView" destination="1wF-gY-Wza" id="Cik-Nz-9lb"/>
+                <outlet property="titleLabel" destination="vuk-Pr-u1F" id="BS6-tI-lXe"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_24px_rating_bad" width="24" height="24"/>
+        <image name="ic_24px_rating_excellent" width="24" height="24"/>
+        <image name="ic_24px_rating_good" width="24" height="24"/>
+        <image name="ic_24px_rating_horrible" width="24" height="24"/>
+        <image name="ic_24px_rating_normal" width="24" height="24"/>
+    </resources>
+</document>

@@ -1,8 +1,17 @@
 final class AuthorizationTransitioningManager: NSObject, UIViewControllerTransitioningDelegate {
-  private var popoverSourceView: UIView!
-  private var permittedArrowDirections: UIPopoverArrowDirection!
+  private let popoverSourceView: UIView?
+  private let permittedArrowDirections: UIPopoverArrowDirection?
+  private let barButtonItem: UIBarButtonItem?
+
+  init(barButtonItem: UIBarButtonItem?) {
+    self.barButtonItem = barButtonItem
+    popoverSourceView = nil
+    permittedArrowDirections = nil
+    super.init()
+  }
 
   init(popoverSourceView: UIView?, permittedArrowDirections: UIPopoverArrowDirection?) {
+    barButtonItem = nil
     self.popoverSourceView = popoverSourceView
     self.permittedArrowDirections = permittedArrowDirections
     super.init()
@@ -16,9 +25,13 @@ final class AuthorizationTransitioningManager: NSObject, UIViewControllerTransit
     iPad: { () -> UIPresentationController in
       let popover = AuthorizationiPadPresentationController(presentedViewController: presented,
                                                             presenting: presenting)
-      popover.sourceView = self.popoverSourceView
-      popover.sourceRect = self.popoverSourceView.bounds
-      popover.permittedArrowDirections = self.permittedArrowDirections
+      if let barButtonItem = self.barButtonItem {
+        popover.barButtonItem = barButtonItem
+      } else {
+        popover.sourceView = self.popoverSourceView!
+        popover.sourceRect = self.popoverSourceView!.bounds
+        popover.permittedArrowDirections = self.permittedArrowDirections!
+      }
       return popover
     })()
   }

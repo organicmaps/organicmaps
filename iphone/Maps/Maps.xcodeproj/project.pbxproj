@@ -220,6 +220,9 @@
 		342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */; };
 		342EE4111C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */; };
 		342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */; };
+		3430291C1F87BF4400D0A07C /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430291A1F87BC3000D0A07C /* ReviewsViewController.swift */; };
+		3430291D1F87BF4400D0A07C /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430291A1F87BC3000D0A07C /* ReviewsViewController.swift */; };
+		3430291E1F87BF4500D0A07C /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430291A1F87BC3000D0A07C /* ReviewsViewController.swift */; };
 		343064401E9FDC7300DC7665 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430643F1E9FDC7300DC7665 /* SearchIndex.swift */; };
 		343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430643F1E9FDC7300DC7665 /* SearchIndex.swift */; };
 		343064421E9FDC7300DC7665 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430643F1E9FDC7300DC7665 /* SearchIndex.swift */; };
@@ -238,6 +241,24 @@
 		3444DFDD1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
 		3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
 		3444DFDF1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
+		344532301F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3445322E1F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift */; };
+		344532311F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3445322E1F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift */; };
+		344532321F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3445322E1F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift */; };
+		344532331F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3445322F1F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib */; };
+		344532341F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3445322F1F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib */; };
+		344532351F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3445322F1F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib */; };
+		344532371F6FFE6A0059FBCC /* UGCRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344532361F6FFE6A0059FBCC /* UGCRating.swift */; };
+		344532381F6FFE6A0059FBCC /* UGCRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344532361F6FFE6A0059FBCC /* UGCRating.swift */; };
+		344532391F6FFE6A0059FBCC /* UGCRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344532361F6FFE6A0059FBCC /* UGCRating.swift */; };
+		3445324D1F714FD70059FBCC /* UGCAddReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3445324B1F714FD70059FBCC /* UGCAddReviewController.swift */; };
+		3445324E1F714FD70059FBCC /* UGCAddReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3445324B1F714FD70059FBCC /* UGCAddReviewController.swift */; };
+		3445324F1F714FD70059FBCC /* UGCAddReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3445324B1F714FD70059FBCC /* UGCAddReviewController.swift */; };
+		344532501F714FD70059FBCC /* UGCAddReviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3445324C1F714FD70059FBCC /* UGCAddReviewController.xib */; };
+		344532511F714FD70059FBCC /* UGCAddReviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3445324C1F714FD70059FBCC /* UGCAddReviewController.xib */; };
+		344532521F714FD70059FBCC /* UGCAddReviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3445324C1F714FD70059FBCC /* UGCAddReviewController.xib */; };
+		344532551F7155540059FBCC /* UGCReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344532541F7155540059FBCC /* UGCReviewModel.swift */; };
+		344532561F7155540059FBCC /* UGCReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344532541F7155540059FBCC /* UGCReviewModel.swift */; };
+		344532571F7155540059FBCC /* UGCReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344532541F7155540059FBCC /* UGCReviewModel.swift */; };
 		3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3446C6761DDCA9A200146687 /* libtraffic.a */; };
 		344BEAF21F66BDC30045DC45 /* RatingSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344BEAF01F66BDC30045DC45 /* RatingSummaryView.swift */; };
 		344BEAF31F66BDC30045DC45 /* RatingSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344BEAF01F66BDC30045DC45 /* RatingSummaryView.swift */; };
@@ -306,6 +327,9 @@
 		3457C4251F680F1900028233 /* String+BoundingRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3457C4241F680F1900028233 /* String+BoundingRect.swift */; };
 		3457C4261F680F1900028233 /* String+BoundingRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3457C4241F680F1900028233 /* String+BoundingRect.swift */; };
 		3457C4271F680F1900028233 /* String+BoundingRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3457C4241F680F1900028233 /* String+BoundingRect.swift */; };
+		345C2F891F86361B009DB8B4 /* MWMUGCViewModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C2F881F86361B009DB8B4 /* MWMUGCViewModel.mm */; };
+		345C2F8A1F86361B009DB8B4 /* MWMUGCViewModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C2F881F86361B009DB8B4 /* MWMUGCViewModel.mm */; };
+		345C2F8B1F86361B009DB8B4 /* MWMUGCViewModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C2F881F86361B009DB8B4 /* MWMUGCViewModel.mm */; };
 		345E8F4E1F83984500A826CC /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347D15C71F82362900E86251 /* GoogleSignIn.framework */; };
 		345E8F4F1F83984500A826CC /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */; };
 		345E8F501F83985500A826CC /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347D15C71F82362900E86251 /* GoogleSignIn.framework */; };
@@ -376,6 +400,18 @@
 		3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */; };
 		3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
 		3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
+		347752871F725002000D46A3 /* UGCAddReviewRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347752851F725002000D46A3 /* UGCAddReviewRatingCell.swift */; };
+		347752881F725002000D46A3 /* UGCAddReviewRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347752851F725002000D46A3 /* UGCAddReviewRatingCell.swift */; };
+		347752891F725002000D46A3 /* UGCAddReviewRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347752851F725002000D46A3 /* UGCAddReviewRatingCell.swift */; };
+		3477528A1F725002000D46A3 /* UGCAddReviewRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347752861F725002000D46A3 /* UGCAddReviewRatingCell.xib */; };
+		3477528B1F725002000D46A3 /* UGCAddReviewRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347752861F725002000D46A3 /* UGCAddReviewRatingCell.xib */; };
+		3477528C1F725002000D46A3 /* UGCAddReviewRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347752861F725002000D46A3 /* UGCAddReviewRatingCell.xib */; };
+		3477528F1F7251C7000D46A3 /* UGCAddReviewTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3477528D1F7251C7000D46A3 /* UGCAddReviewTextCell.swift */; };
+		347752901F7251C7000D46A3 /* UGCAddReviewTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3477528D1F7251C7000D46A3 /* UGCAddReviewTextCell.swift */; };
+		347752911F7251C7000D46A3 /* UGCAddReviewTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3477528D1F7251C7000D46A3 /* UGCAddReviewTextCell.swift */; };
+		347752921F7251C7000D46A3 /* UGCAddReviewTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3477528E1F7251C7000D46A3 /* UGCAddReviewTextCell.xib */; };
+		347752931F7251C7000D46A3 /* UGCAddReviewTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3477528E1F7251C7000D46A3 /* UGCAddReviewTextCell.xib */; };
+		347752941F7251C7000D46A3 /* UGCAddReviewTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3477528E1F7251C7000D46A3 /* UGCAddReviewTextCell.xib */; };
 		347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */; };
 		347BFA8F1F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
 		347BFA901F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
@@ -440,6 +476,12 @@
 		348A8DFA1F66775A00D83026 /* RatingViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348A8DF31F66775A00D83026 /* RatingViewSettings.swift */; };
 		348A8DFB1F66775A00D83026 /* RatingViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348A8DF31F66775A00D83026 /* RatingViewSettings.swift */; };
 		348A8DFC1F66775A00D83026 /* RatingViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348A8DF31F66775A00D83026 /* RatingViewSettings.swift */; };
+		348F8A4E1F863A8500060C2A /* UGCYourReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348F8A4D1F863A8500060C2A /* UGCYourReview.swift */; };
+		348F8A4F1F863A8500060C2A /* UGCYourReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348F8A4D1F863A8500060C2A /* UGCYourReview.swift */; };
+		348F8A501F863A8500060C2A /* UGCYourReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348F8A4D1F863A8500060C2A /* UGCYourReview.swift */; };
+		348F8A521F863B6100060C2A /* UGCReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348F8A511F863B6100060C2A /* UGCReview.swift */; };
+		348F8A531F863B6100060C2A /* UGCReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348F8A511F863B6100060C2A /* UGCReview.swift */; };
+		348F8A541F863B6100060C2A /* UGCReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348F8A511F863B6100060C2A /* UGCReview.swift */; };
 		3490D2DE1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3490D2DA1CE9DD2500D0B838 /* MWMSideButtons.mm */; };
 		3490D2DF1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3490D2DA1CE9DD2500D0B838 /* MWMSideButtons.mm */; };
 		3490D2E01CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3490D2DC1CE9DD2500D0B838 /* MWMSideButtonsView.mm */; };
@@ -562,7 +604,6 @@
 		34BBD6631F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD6621F8270AC0070CA50 /* AuthorizationTransitioning.swift */; };
 		34BBD6641F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD6621F8270AC0070CA50 /* AuthorizationTransitioning.swift */; };
 		34BBD6651F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD6621F8270AC0070CA50 /* AuthorizationTransitioning.swift */; };
-		34BBD6671F8273350070CA50 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */; };
 		34BBD6681F8273350070CA50 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */; };
 		34BBD6691F8273350070CA50 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */; };
 		34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */; };
@@ -679,6 +720,30 @@
 		34D808861E793F91002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
 		34D808871E793FA3002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
 		34D808881E793FA4002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
+		34E50DD71F6FCAB1008EED49 /* UGCSummaryRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DD51F6FCAB1008EED49 /* UGCSummaryRatingCell.swift */; };
+		34E50DD81F6FCAB1008EED49 /* UGCSummaryRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DD51F6FCAB1008EED49 /* UGCSummaryRatingCell.swift */; };
+		34E50DD91F6FCAB1008EED49 /* UGCSummaryRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DD51F6FCAB1008EED49 /* UGCSummaryRatingCell.swift */; };
+		34E50DDA1F6FCAB1008EED49 /* UGCSummaryRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DD61F6FCAB1008EED49 /* UGCSummaryRatingCell.xib */; };
+		34E50DDB1F6FCAB1008EED49 /* UGCSummaryRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DD61F6FCAB1008EED49 /* UGCSummaryRatingCell.xib */; };
+		34E50DDC1F6FCAB1008EED49 /* UGCSummaryRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DD61F6FCAB1008EED49 /* UGCSummaryRatingCell.xib */; };
+		34E50DDF1F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DDD1F6FCBA1008EED49 /* UGCAddReviewCell.swift */; };
+		34E50DE01F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DDD1F6FCBA1008EED49 /* UGCAddReviewCell.swift */; };
+		34E50DE11F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DDD1F6FCBA1008EED49 /* UGCAddReviewCell.swift */; };
+		34E50DE21F6FCBA1008EED49 /* UGCAddReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DDE1F6FCBA1008EED49 /* UGCAddReviewCell.xib */; };
+		34E50DE31F6FCBA1008EED49 /* UGCAddReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DDE1F6FCBA1008EED49 /* UGCAddReviewCell.xib */; };
+		34E50DE41F6FCBA1008EED49 /* UGCAddReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DDE1F6FCBA1008EED49 /* UGCAddReviewCell.xib */; };
+		34E50DEF1F6FCC41008EED49 /* UGCYourReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DED1F6FCC41008EED49 /* UGCYourReviewCell.swift */; };
+		34E50DF01F6FCC41008EED49 /* UGCYourReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DED1F6FCC41008EED49 /* UGCYourReviewCell.swift */; };
+		34E50DF11F6FCC41008EED49 /* UGCYourReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DED1F6FCC41008EED49 /* UGCYourReviewCell.swift */; };
+		34E50DF21F6FCC41008EED49 /* UGCYourReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DEE1F6FCC41008EED49 /* UGCYourReviewCell.xib */; };
+		34E50DF31F6FCC41008EED49 /* UGCYourReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DEE1F6FCC41008EED49 /* UGCYourReviewCell.xib */; };
+		34E50DF41F6FCC41008EED49 /* UGCYourReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DEE1F6FCC41008EED49 /* UGCYourReviewCell.xib */; };
+		34E50DF71F6FCC96008EED49 /* UGCReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DF51F6FCC96008EED49 /* UGCReviewCell.swift */; };
+		34E50DF81F6FCC96008EED49 /* UGCReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DF51F6FCC96008EED49 /* UGCReviewCell.swift */; };
+		34E50DF91F6FCC96008EED49 /* UGCReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E50DF51F6FCC96008EED49 /* UGCReviewCell.swift */; };
+		34E50DFA1F6FCC96008EED49 /* UGCReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DF61F6FCC96008EED49 /* UGCReviewCell.xib */; };
+		34E50DFB1F6FCC96008EED49 /* UGCReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DF61F6FCC96008EED49 /* UGCReviewCell.xib */; };
+		34E50DFC1F6FCC96008EED49 /* UGCReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34E50DF61F6FCC96008EED49 /* UGCReviewCell.xib */; };
 		34E6F2DB1F459C05008E14F9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34E6F2DA1F459C05008E14F9 /* GLKit.framework */; };
 		34E6F2DC1F459C1A008E14F9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34E6F2DA1F459C05008E14F9 /* GLKit.framework */; };
 		34E6F2DD1F459C1A008E14F9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34E6F2DA1F459C05008E14F9 /* GLKit.framework */; };
@@ -713,6 +778,9 @@
 		34EE25AA1EFA726400F870AB /* ViatorItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE25A81EFA726400F870AB /* ViatorItemModel.swift */; };
 		34EE25AB1EFA726400F870AB /* ViatorItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE25A81EFA726400F870AB /* ViatorItemModel.swift */; };
 		34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
+		34F1ADD21F6BC09E001CE79D /* PPPReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F1ADD11F6BC09E001CE79D /* PPPReview.swift */; };
+		34F1ADD31F6BC09E001CE79D /* PPPReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F1ADD11F6BC09E001CE79D /* PPPReview.swift */; };
+		34F1ADD41F6BC09E001CE79D /* PPPReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F1ADD11F6BC09E001CE79D /* PPPReview.swift */; };
 		34F4072B1E9E1AFF00E57AC0 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F4071D1E9E1AFF00E57AC0 /* Banner.swift */; };
 		34F4072C1E9E1AFF00E57AC0 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F4071D1E9E1AFF00E57AC0 /* Banner.swift */; };
 		34F4072D1E9E1AFF00E57AC0 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F4071D1E9E1AFF00E57AC0 /* Banner.swift */; };
@@ -1083,33 +1151,6 @@
 		F607C1891C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
 		F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
 		F607C18E1C047FDC00B53A87 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
-		F6150E291EF95234000B955D /* MWMUGCReviewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6150E271EF95234000B955D /* MWMUGCReviewController.mm */; };
-		F6150E2A1EF95234000B955D /* MWMUGCReviewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6150E271EF95234000B955D /* MWMUGCReviewController.mm */; };
-		F6150E2B1EF95234000B955D /* MWMUGCReviewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6150E271EF95234000B955D /* MWMUGCReviewController.mm */; };
-		F6150E2C1EF95234000B955D /* MWMUGCReviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E281EF95234000B955D /* MWMUGCReviewController.xib */; };
-		F6150E2D1EF95234000B955D /* MWMUGCReviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E281EF95234000B955D /* MWMUGCReviewController.xib */; };
-		F6150E2E1EF95234000B955D /* MWMUGCReviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E281EF95234000B955D /* MWMUGCReviewController.xib */; };
-		F6150E311EF953A6000B955D /* MWMUGCReviewVM.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6150E301EF953A6000B955D /* MWMUGCReviewVM.mm */; };
-		F6150E321EF953A6000B955D /* MWMUGCReviewVM.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6150E301EF953A6000B955D /* MWMUGCReviewVM.mm */; };
-		F6150E331EF953A6000B955D /* MWMUGCReviewVM.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6150E301EF953A6000B955D /* MWMUGCReviewVM.mm */; };
-		F6150E391EF95F96000B955D /* UGCSpecificReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E381EF95F96000B955D /* UGCSpecificReviewCell.xib */; };
-		F6150E3A1EF95F96000B955D /* UGCSpecificReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E381EF95F96000B955D /* UGCSpecificReviewCell.xib */; };
-		F6150E3B1EF95F96000B955D /* UGCSpecificReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E381EF95F96000B955D /* UGCSpecificReviewCell.xib */; };
-		F6150E431EFA52E9000B955D /* UGCSpecificReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6150E421EFA52E9000B955D /* UGCSpecificReviewCell.swift */; };
-		F6150E441EFA52E9000B955D /* UGCSpecificReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6150E421EFA52E9000B955D /* UGCSpecificReviewCell.swift */; };
-		F6150E451EFA52E9000B955D /* UGCSpecificReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6150E421EFA52E9000B955D /* UGCSpecificReviewCell.swift */; };
-		F6150E471EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6150E461EFA5C94000B955D /* UGCTextReviewCell.swift */; };
-		F6150E481EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6150E461EFA5C94000B955D /* UGCTextReviewCell.swift */; };
-		F6150E491EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6150E461EFA5C94000B955D /* UGCTextReviewCell.swift */; };
-		F6150E4B1EFA5D2E000B955D /* UGCTextReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E4A1EFA5D2E000B955D /* UGCTextReviewCell.xib */; };
-		F6150E4C1EFA5D2E000B955D /* UGCTextReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E4A1EFA5D2E000B955D /* UGCTextReviewCell.xib */; };
-		F6150E4D1EFA5D2E000B955D /* UGCTextReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E4A1EFA5D2E000B955D /* UGCTextReviewCell.xib */; };
-		F6150E511EFA7352000B955D /* MWUGCCommentsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6150E4F1EFA7352000B955D /* MWUGCCommentsController.mm */; };
-		F6150E521EFA7352000B955D /* MWUGCCommentsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6150E4F1EFA7352000B955D /* MWUGCCommentsController.mm */; };
-		F6150E531EFA7352000B955D /* MWUGCCommentsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6150E4F1EFA7352000B955D /* MWUGCCommentsController.mm */; };
-		F6150E541EFA7352000B955D /* MWUGCCommentsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E501EFA7352000B955D /* MWUGCCommentsController.xib */; };
-		F6150E551EFA7352000B955D /* MWUGCCommentsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E501EFA7352000B955D /* MWUGCCommentsController.xib */; };
-		F6150E561EFA7352000B955D /* MWUGCCommentsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6150E501EFA7352000B955D /* MWUGCCommentsController.xib */; };
 		F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */; };
 		F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */; };
 		F623DA6B1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
@@ -1134,14 +1175,6 @@
 		F63AF5131EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63AF5111EA6250F00A1DB98 /* FilterCollectionHolderCell.swift */; };
 		F63AF5141EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63AF5111EA6250F00A1DB98 /* FilterCollectionHolderCell.swift */; };
 		F642D1231F0F9D1D005E3C25 /* ugc_types.csv in Resources */ = {isa = PBXBuildFile; fileRef = F642D1221F0F9D1D005E3C25 /* ugc_types.csv */; };
-		F64324771EF81316009296F9 /* MWMUGCCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6C0E62C1EF80F9000A4EFAA /* MWMUGCCommentCell.xib */; };
-		F64324781EF81317009296F9 /* MWMUGCCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6C0E62C1EF80F9000A4EFAA /* MWMUGCCommentCell.xib */; };
-		F643247A1EF82AD9009296F9 /* UGCSelectImpressionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64324791EF82AD9009296F9 /* UGCSelectImpressionCell.swift */; };
-		F643247B1EF82AD9009296F9 /* UGCSelectImpressionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64324791EF82AD9009296F9 /* UGCSelectImpressionCell.swift */; };
-		F643247C1EF82AD9009296F9 /* UGCSelectImpressionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64324791EF82AD9009296F9 /* UGCSelectImpressionCell.swift */; };
-		F643247E1EF82B21009296F9 /* UGCSelectImpressionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F643247D1EF82B21009296F9 /* UGCSelectImpressionCell.xib */; };
-		F643247F1EF82B21009296F9 /* UGCSelectImpressionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F643247D1EF82B21009296F9 /* UGCSelectImpressionCell.xib */; };
-		F64324801EF82B21009296F9 /* UGCSelectImpressionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F643247D1EF82B21009296F9 /* UGCSelectImpressionCell.xib */; };
 		F64D9C9F1C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */; };
 		F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */; };
 		F64D9CA21C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64D9CA11C899C760063FA30 /* MWMEditorViralAlert.xib */; };
@@ -1200,9 +1233,6 @@
 		F68BDF051EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F68BDF041EEA9A830009BB81 /* MyTargetSDK.framework */; };
 		F68BDF061EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F68BDF041EEA9A830009BB81 /* MyTargetSDK.framework */; };
 		F68BDF071EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F68BDF041EEA9A830009BB81 /* MyTargetSDK.framework */; };
-		F68BDF1B1EF80DE90009BB81 /* MWMUGCCommentCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68BDF1A1EF80DE90009BB81 /* MWMUGCCommentCell.mm */; };
-		F68BDF1C1EF80DE90009BB81 /* MWMUGCCommentCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68BDF1A1EF80DE90009BB81 /* MWMUGCCommentCell.mm */; };
-		F68BDF1D1EF80DE90009BB81 /* MWMUGCCommentCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68BDF1A1EF80DE90009BB81 /* MWMUGCCommentCell.mm */; };
 		F69018B81E9E601400B3C10B /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */; };
 		F69018BC1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */; };
 		F69018BD1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */; };
@@ -1233,7 +1263,6 @@
 		F6BD1D231CA412E30047B8E8 /* MWMOsmAuthAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */; };
 		F6BD1D241CA412E40047B8E8 /* MWMOsmAuthAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */; };
 		F6BD33871B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD33861B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm */; };
-		F6C0E62D1EF80F9000A4EFAA /* MWMUGCCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6C0E62C1EF80F9000A4EFAA /* MWMUGCCommentCell.xib */; };
 		F6C269F61F14D76F00EB6519 /* ugc_types.csv in Resources */ = {isa = PBXBuildFile; fileRef = F642D1221F0F9D1D005E3C25 /* ugc_types.csv */; };
 		F6C269F71F14D76F00EB6519 /* ugc_types.csv in Resources */ = {isa = PBXBuildFile; fileRef = F642D1221F0F9D1D005E3C25 /* ugc_types.csv */; };
 		F6E2FD4F1E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FBFF1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.mm */; };
@@ -1515,9 +1544,9 @@
 		F6E2FEA81E097BA00083EBEC /* _MWMPPPAddress.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCD81E097B9F0083EBEC /* _MWMPPPAddress.xib */; };
 		F6E2FEA91E097BA00083EBEC /* _MWMPPPAddress.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCD81E097B9F0083EBEC /* _MWMPPPAddress.xib */; };
 		F6E2FEAA1E097BA00083EBEC /* _MWMPPPAddress.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCD81E097B9F0083EBEC /* _MWMPPPAddress.xib */; };
-		F6E2FEAB1E097BA00083EBEC /* _MWMPPPBooking.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCD91E097B9F0083EBEC /* _MWMPPPBooking.xib */; };
-		F6E2FEAC1E097BA00083EBEC /* _MWMPPPBooking.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCD91E097B9F0083EBEC /* _MWMPPPBooking.xib */; };
-		F6E2FEAD1E097BA00083EBEC /* _MWMPPPBooking.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCD91E097B9F0083EBEC /* _MWMPPPBooking.xib */; };
+		F6E2FEAB1E097BA00083EBEC /* PPPReview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCD91E097B9F0083EBEC /* PPPReview.xib */; };
+		F6E2FEAC1E097BA00083EBEC /* PPPReview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCD91E097B9F0083EBEC /* PPPReview.xib */; };
+		F6E2FEAD1E097BA00083EBEC /* PPPReview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCD91E097B9F0083EBEC /* PPPReview.xib */; };
 		F6E2FEAE1E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCDA1E097B9F0083EBEC /* _MWMPPPExternalTitle.xib */; };
 		F6E2FEAF1E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCDA1E097B9F0083EBEC /* _MWMPPPExternalTitle.xib */; };
 		F6E2FEB01E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCDA1E097B9F0083EBEC /* _MWMPPPExternalTitle.xib */; };
@@ -1931,6 +1960,8 @@
 		342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationLoginViewController.mm; sourceTree = "<group>"; };
 		342EE40F1C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationWebViewLoginViewController.h; sourceTree = "<group>"; };
 		342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationWebViewLoginViewController.mm; sourceTree = "<group>"; };
+		3430291A1F87BC3000D0A07C /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
+		3430291B1F87BC3000D0A07C /* ReviewsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsViewController.xib; sourceTree = "<group>"; };
 		3430643F1E9FDC7300DC7665 /* SearchIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchIndex.swift; sourceTree = "<group>"; };
 		3432E1771E49B3A2008477E9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		343E75951E5B1EE20041226A /* MWMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCollectionViewController.h; sourceTree = "<group>"; };
@@ -1939,6 +1970,12 @@
 		3444DFCF1F17620C00E73099 /* MWMMapWidgetsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgetsHelper.h; sourceTree = "<group>"; };
 		3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgetsHelper.mm; sourceTree = "<group>"; };
 		3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideButtonsArea.swift; sourceTree = "<group>"; };
+		3445322E1F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCSummaryRatingStarsCell.swift; sourceTree = "<group>"; };
+		3445322F1F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCSummaryRatingStarsCell.xib; sourceTree = "<group>"; };
+		344532361F6FFE6A0059FBCC /* UGCRating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCRating.swift; sourceTree = "<group>"; };
+		3445324B1F714FD70059FBCC /* UGCAddReviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCAddReviewController.swift; sourceTree = "<group>"; };
+		3445324C1F714FD70059FBCC /* UGCAddReviewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCAddReviewController.xib; sourceTree = "<group>"; };
+		344532541F7155540059FBCC /* UGCReviewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCReviewModel.swift; sourceTree = "<group>"; };
 		3446C6761DDCA9A200146687 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
 		344BEAF01F66BDC30045DC45 /* RatingSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingSummaryView.swift; sourceTree = "<group>"; };
 		344BEAF11F66BDC30045DC45 /* RatingSummaryViewSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingSummaryViewSettings.swift; sourceTree = "<group>"; };
@@ -1979,6 +2016,8 @@
 		34570A3A1B13222600E6D4FD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		34574A651E3B85F80061E839 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		3457C4241F680F1900028233 /* String+BoundingRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+BoundingRect.swift"; sourceTree = "<group>"; };
+		345C2F871F86361B009DB8B4 /* MWMUGCViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMUGCViewModel.h; sourceTree = "<group>"; };
+		345C2F881F86361B009DB8B4 /* MWMUGCViewModel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMUGCViewModel.mm; sourceTree = "<group>"; };
 		345E8F4D1F83976800A826CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3462258C1DDC5DB9001E8752 /* MWMSearchNoResultsAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchNoResultsAlert.h; sourceTree = "<group>"; };
 		3462258D1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMSearchNoResultsAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -2018,6 +2057,10 @@
 		34763F0B1F30CCAC00F4D2D3 /* MWMEditorCellType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorCellType.h; sourceTree = "<group>"; };
 		3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "tts-how-to-set-up-voice.html"; path = "../../data/tts-how-to-set-up-voice.html"; sourceTree = "<group>"; };
 		3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tts-how-to-set-up-voice-img"; path = "../../data/tts-how-to-set-up-voice-img"; sourceTree = "<group>"; };
+		347752851F725002000D46A3 /* UGCAddReviewRatingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCAddReviewRatingCell.swift; sourceTree = "<group>"; };
+		347752861F725002000D46A3 /* UGCAddReviewRatingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCAddReviewRatingCell.xib; sourceTree = "<group>"; };
+		3477528D1F7251C7000D46A3 /* UGCAddReviewTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCAddReviewTextCell.swift; sourceTree = "<group>"; };
+		3477528E1F7251C7000D46A3 /* UGCAddReviewTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCAddReviewTextCell.xib; sourceTree = "<group>"; };
 		347AD8081F28B4E6007ACB68 /* MWMSearchManagerObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchManagerObserver.h; sourceTree = "<group>"; };
 		347BFA8E1F27909200E5531F /* MenuArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuArea.swift; sourceTree = "<group>"; };
 		347BFA921F27923200E5531F /* MWMBottomMenuControllerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuControllerProtocol.h; sourceTree = "<group>"; };
@@ -2052,6 +2095,9 @@
 		348A8DF21F66775A00D83026 /* RatingViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewDelegate.swift; sourceTree = "<group>"; };
 		348A8DF31F66775A00D83026 /* RatingViewSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewSettings.swift; sourceTree = "<group>"; };
 		348E57981B0F49D8000FA02A /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		348F8A4D1F863A8500060C2A /* UGCYourReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UGCYourReview.swift; sourceTree = "<group>"; };
+		348F8A511F863B6100060C2A /* UGCReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UGCReview.swift; sourceTree = "<group>"; };
+		348F8A551F864A1700060C2A /* MWMRatingSummaryViewValueType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRatingSummaryViewValueType.h; sourceTree = "<group>"; };
 		3490D2D91CE9DD2500D0B838 /* MWMSideButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSideButtons.h; sourceTree = "<group>"; };
 		3490D2DA1CE9DD2500D0B838 /* MWMSideButtons.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSideButtons.mm; sourceTree = "<group>"; };
 		3490D2DB1CE9DD2500D0B838 /* MWMSideButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSideButtonsView.h; sourceTree = "<group>"; };
@@ -2181,6 +2227,16 @@
 		34D8087A1E793606002F0584 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		34D8087C1E79360D002F0584 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		34D808851E793F91002F0584 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Carthage/Build/iOS/Pushwoosh.framework; sourceTree = "<group>"; };
+		34DFCD971F87ED2400AE2672 /* MWMReviewsViewModelProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMReviewsViewModelProtocol.h; sourceTree = "<group>"; };
+		34DFCD981F87ED5600AE2672 /* MWMReviewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMReviewProtocol.h; sourceTree = "<group>"; };
+		34E50DD51F6FCAB1008EED49 /* UGCSummaryRatingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCSummaryRatingCell.swift; sourceTree = "<group>"; };
+		34E50DD61F6FCAB1008EED49 /* UGCSummaryRatingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCSummaryRatingCell.xib; sourceTree = "<group>"; };
+		34E50DDD1F6FCBA1008EED49 /* UGCAddReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCAddReviewCell.swift; sourceTree = "<group>"; };
+		34E50DDE1F6FCBA1008EED49 /* UGCAddReviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCAddReviewCell.xib; sourceTree = "<group>"; };
+		34E50DED1F6FCC41008EED49 /* UGCYourReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCYourReviewCell.swift; sourceTree = "<group>"; };
+		34E50DEE1F6FCC41008EED49 /* UGCYourReviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCYourReviewCell.xib; sourceTree = "<group>"; };
+		34E50DF51F6FCC96008EED49 /* UGCReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCReviewCell.swift; sourceTree = "<group>"; };
+		34E50DF61F6FCC96008EED49 /* UGCReviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCReviewCell.xib; sourceTree = "<group>"; };
 		34E6F2DA1F459C05008E14F9 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		34E7760E1F14B165003040B3 /* VisibleArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisibleArea.swift; sourceTree = "<group>"; };
 		34E776121F14B17F003040B3 /* AvailableArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableArea.swift; sourceTree = "<group>"; };
@@ -2194,6 +2250,7 @@
 		34EE25A01EFA68BC00F870AB /* PPViatorCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPViatorCarouselCell.xib; sourceTree = "<group>"; };
 		34EE25A41EFA6AD400F870AB /* ViatorElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViatorElement.xib; sourceTree = "<group>"; };
 		34EE25A81EFA726400F870AB /* ViatorItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViatorItemModel.swift; sourceTree = "<group>"; };
+		34F1ADD11F6BC09E001CE79D /* PPPReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPReview.swift; sourceTree = "<group>"; };
 		34F4071D1E9E1AFF00E57AC0 /* Banner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		34F4071E1E9E1AFF00E57AC0 /* BannersCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannersCache.swift; sourceTree = "<group>"; };
 		34F4071F1E9E1AFF00E57AC0 /* BannerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerType.swift; sourceTree = "<group>"; };
@@ -2364,18 +2421,6 @@
 		F607C1841C032A8800B53A87 /* resources-hdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_dark"; path = "../../data/resources-hdpi_dark"; sourceTree = "<group>"; };
 		F607C18C1C047FDC00B53A87 /* MWMSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSegue.h; sourceTree = "<group>"; };
 		F607C18D1C047FDC00B53A87 /* MWMSegue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSegue.mm; sourceTree = "<group>"; };
-		F6150E261EF95234000B955D /* MWMUGCReviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMUGCReviewController.h; sourceTree = "<group>"; };
-		F6150E271EF95234000B955D /* MWMUGCReviewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMUGCReviewController.mm; sourceTree = "<group>"; };
-		F6150E281EF95234000B955D /* MWMUGCReviewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMUGCReviewController.xib; sourceTree = "<group>"; };
-		F6150E2F1EF953A6000B955D /* MWMUGCReviewVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMUGCReviewVM.h; sourceTree = "<group>"; };
-		F6150E301EF953A6000B955D /* MWMUGCReviewVM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMUGCReviewVM.mm; sourceTree = "<group>"; };
-		F6150E381EF95F96000B955D /* UGCSpecificReviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCSpecificReviewCell.xib; sourceTree = "<group>"; };
-		F6150E421EFA52E9000B955D /* UGCSpecificReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCSpecificReviewCell.swift; sourceTree = "<group>"; };
-		F6150E461EFA5C94000B955D /* UGCTextReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCTextReviewCell.swift; sourceTree = "<group>"; };
-		F6150E4A1EFA5D2E000B955D /* UGCTextReviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCTextReviewCell.xib; sourceTree = "<group>"; };
-		F6150E4E1EFA7352000B955D /* MWUGCCommentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWUGCCommentsController.h; sourceTree = "<group>"; };
-		F6150E4F1EFA7352000B955D /* MWUGCCommentsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWUGCCommentsController.mm; sourceTree = "<group>"; };
-		F6150E501EFA7352000B955D /* MWUGCCommentsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWUGCCommentsController.xib; sourceTree = "<group>"; };
 		F61579321AC2CE9A0032D8E9 /* MWMRateAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRateAlert.h; sourceTree = "<group>"; };
 		F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMRateAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRateAlert.xib; sourceTree = "<group>"; };
@@ -2391,8 +2436,6 @@
 		F63AF50D1EA6215100A1DB98 /* FilterPriceCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPriceCategoryCell.swift; sourceTree = "<group>"; };
 		F63AF5111EA6250F00A1DB98 /* FilterCollectionHolderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCollectionHolderCell.swift; sourceTree = "<group>"; };
 		F642D1221F0F9D1D005E3C25 /* ugc_types.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = ugc_types.csv; path = ../../data/ugc_types.csv; sourceTree = "<group>"; };
-		F64324791EF82AD9009296F9 /* UGCSelectImpressionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCSelectImpressionCell.swift; sourceTree = "<group>"; };
-		F643247D1EF82B21009296F9 /* UGCSelectImpressionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCSelectImpressionCell.xib; sourceTree = "<group>"; };
 		F64D9C9D1C899C350063FA30 /* MWMEditorViralAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralAlert.h; sourceTree = "<group>"; };
 		F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMEditorViralAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F64D9CA11C899C760063FA30 /* MWMEditorViralAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorViralAlert.xib; sourceTree = "<group>"; };
@@ -2437,8 +2480,6 @@
 		F682249D1E5B105900BC1C18 /* PPHotelDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPHotelDescriptionCell.xib; sourceTree = "<group>"; };
 		F68224A11E5B1B1A00BC1C18 /* MWMPlacePageButtonsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageButtonsProtocol.h; sourceTree = "<group>"; };
 		F68BDF041EEA9A830009BB81 /* MyTargetSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTargetSDK.framework; sourceTree = "<group>"; };
-		F68BDF191EF80DE90009BB81 /* MWMUGCCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMUGCCommentCell.h; sourceTree = "<group>"; };
-		F68BDF1A1EF80DE90009BB81 /* MWMUGCCommentCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMUGCCommentCell.mm; sourceTree = "<group>"; };
 		F69018B61E9E601400B3C10B /* MWMAutoupdateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAutoupdateController.h; sourceTree = "<group>"; };
 		F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAutoupdateController.mm; sourceTree = "<group>"; };
 		F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAutoupdateController.xib; sourceTree = "<group>"; };
@@ -2461,7 +2502,6 @@
 		F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMOsmAuthAlert.xib; sourceTree = "<group>"; };
 		F6BD33851B62412E00F2CE18 /* MWMNavigationDashboardEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardEntity.h; sourceTree = "<group>"; };
 		F6BD33861B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboardEntity.mm; sourceTree = "<group>"; };
-		F6C0E62C1EF80F9000A4EFAA /* MWMUGCCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMUGCCommentCell.xib; sourceTree = "<group>"; };
 		F6DF5F321CD1136800A87154 /* LocaleTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocaleTranslator.h; sourceTree = "<group>"; };
 		F6E2FBFE1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderAdsTableViewCell.h; sourceTree = "<group>"; };
 		F6E2FBFF1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapDownloaderAdsTableViewCell.mm; sourceTree = "<group>"; };
@@ -2624,7 +2664,7 @@
 		F6E2FCD51E097B9F0083EBEC /* MWMPPView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPPView.mm; sourceTree = "<group>"; };
 		F6E2FCD61E097B9F0083EBEC /* MWMPPView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPPView.xib; sourceTree = "<group>"; };
 		F6E2FCD81E097B9F0083EBEC /* _MWMPPPAddress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MWMPPPAddress.xib; sourceTree = "<group>"; };
-		F6E2FCD91E097B9F0083EBEC /* _MWMPPPBooking.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MWMPPPBooking.xib; sourceTree = "<group>"; };
+		F6E2FCD91E097B9F0083EBEC /* PPPReview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPPReview.xib; sourceTree = "<group>"; };
 		F6E2FCDA1E097B9F0083EBEC /* _MWMPPPExternalTitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MWMPPPExternalTitle.xib; sourceTree = "<group>"; };
 		F6E2FCDB1E097B9F0083EBEC /* _MWMPPPSchedule.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MWMPPPSchedule.xib; sourceTree = "<group>"; };
 		F6E2FCDC1E097B9F0083EBEC /* _MWMPPPSpace.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MWMPPPSpace.xib; sourceTree = "<group>"; };
@@ -3287,6 +3327,17 @@
 			path = Storyboard;
 			sourceTree = "<group>";
 		};
+		343029191F87BBF300D0A07C /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				3430291A1F87BC3000D0A07C /* ReviewsViewController.swift */,
+				3430291B1F87BC3000D0A07C /* ReviewsViewController.xib */,
+				34DFCD971F87ED2400AE2672 /* MWMReviewsViewModelProtocol.h */,
+				34DFCD981F87ED5600AE2672 /* MWMReviewProtocol.h */,
+			);
+			path = Reviews;
+			sourceTree = "<group>";
+		};
 		3432E17F1E49BEFA008477E9 /* Ads */ = {
 			isa = PBXGroup;
 			children = (
@@ -3296,11 +3347,26 @@
 			path = Ads;
 			sourceTree = "<group>";
 		};
+		3445324A1F714FD70059FBCC /* UGCAddReview */ = {
+			isa = PBXGroup;
+			children = (
+				3445324B1F714FD70059FBCC /* UGCAddReviewController.swift */,
+				3445324C1F714FD70059FBCC /* UGCAddReviewController.xib */,
+				344532541F7155540059FBCC /* UGCReviewModel.swift */,
+				347752851F725002000D46A3 /* UGCAddReviewRatingCell.swift */,
+				347752861F725002000D46A3 /* UGCAddReviewRatingCell.xib */,
+				3477528D1F7251C7000D46A3 /* UGCAddReviewTextCell.swift */,
+				3477528E1F7251C7000D46A3 /* UGCAddReviewTextCell.xib */,
+			);
+			path = UGCAddReview;
+			sourceTree = "<group>";
+		};
 		344BEAEF1F66BDC30045DC45 /* RatingSummaryView */ = {
 			isa = PBXGroup;
 			children = (
 				344BEAF01F66BDC30045DC45 /* RatingSummaryView.swift */,
 				344BEAF11F66BDC30045DC45 /* RatingSummaryViewSettings.swift */,
+				348F8A551F864A1700060C2A /* MWMRatingSummaryViewValueType.h */,
 			);
 			path = RatingSummaryView;
 			sourceTree = "<group>";
@@ -3863,6 +3929,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		34F4B0641F6AC6890035F4F3 /* UGCViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				345C2F871F86361B009DB8B4 /* MWMUGCViewModel.h */,
+				345C2F881F86361B009DB8B4 /* MWMUGCViewModel.mm */,
+			);
+			path = UGCViewModel;
+			sourceTree = "<group>";
+		};
 		34F73F5E1E082FF700AC1FD6 /* LocalizedStrings */ = {
 			isa = PBXGroup;
 			children = (
@@ -4078,23 +4153,20 @@
 		F68BDF181EF80DCC0009BB81 /* UGC */ = {
 			isa = PBXGroup;
 			children = (
-				F68BDF191EF80DE90009BB81 /* MWMUGCCommentCell.h */,
-				F68BDF1A1EF80DE90009BB81 /* MWMUGCCommentCell.mm */,
-				F6C0E62C1EF80F9000A4EFAA /* MWMUGCCommentCell.xib */,
-				F6150E4E1EFA7352000B955D /* MWUGCCommentsController.h */,
-				F6150E4F1EFA7352000B955D /* MWUGCCommentsController.mm */,
-				F6150E501EFA7352000B955D /* MWUGCCommentsController.xib */,
-				F64324791EF82AD9009296F9 /* UGCSelectImpressionCell.swift */,
-				F643247D1EF82B21009296F9 /* UGCSelectImpressionCell.xib */,
-				F6150E261EF95234000B955D /* MWMUGCReviewController.h */,
-				F6150E271EF95234000B955D /* MWMUGCReviewController.mm */,
-				F6150E281EF95234000B955D /* MWMUGCReviewController.xib */,
-				F6150E2F1EF953A6000B955D /* MWMUGCReviewVM.h */,
-				F6150E301EF953A6000B955D /* MWMUGCReviewVM.mm */,
-				F6150E421EFA52E9000B955D /* UGCSpecificReviewCell.swift */,
-				F6150E381EF95F96000B955D /* UGCSpecificReviewCell.xib */,
-				F6150E461EFA5C94000B955D /* UGCTextReviewCell.swift */,
-				F6150E4A1EFA5D2E000B955D /* UGCTextReviewCell.xib */,
+				3445324A1F714FD70059FBCC /* UGCAddReview */,
+				34E50DDD1F6FCBA1008EED49 /* UGCAddReviewCell.swift */,
+				34E50DDE1F6FCBA1008EED49 /* UGCAddReviewCell.xib */,
+				344532361F6FFE6A0059FBCC /* UGCRating.swift */,
+				348F8A511F863B6100060C2A /* UGCReview.swift */,
+				34E50DF51F6FCC96008EED49 /* UGCReviewCell.swift */,
+				34E50DF61F6FCC96008EED49 /* UGCReviewCell.xib */,
+				34E50DD51F6FCAB1008EED49 /* UGCSummaryRatingCell.swift */,
+				34E50DD61F6FCAB1008EED49 /* UGCSummaryRatingCell.xib */,
+				3445322E1F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift */,
+				3445322F1F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib */,
+				348F8A4D1F863A8500060C2A /* UGCYourReview.swift */,
+				34E50DED1F6FCC41008EED49 /* UGCYourReviewCell.swift */,
+				34E50DEE1F6FCC41008EED49 /* UGCYourReviewCell.xib */,
 			);
 			path = UGC;
 			sourceTree = "<group>";
@@ -4142,17 +4214,18 @@
 		F6E2FBFB1E097B9F0083EBEC /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				34BBD6491F826BD50070CA50 /* Authorization */,
-				34E7760D1F14B165003040B3 /* AvailableArea */,
 				3432E17F1E49BEFA008477E9 /* Ads */,
 				34574A601E3B5B2A0061E839 /* Appearance */,
+				34BBD6491F826BD50070CA50 /* Authorization */,
 				F69018B51E9E5FEB00B3C10B /* Autoupdate */,
+				34E7760D1F14B165003040B3 /* AvailableArea */,
 				349D1AC21E2E325B004A2006 /* BottomMenu */,
 				F6E2FBFC1E097B9F0083EBEC /* Downloader */,
 				F6E2FC291E097B9F0083EBEC /* EditBookmark */,
 				F6E2FC321E097B9F0083EBEC /* Editor */,
 				F6E2FC8A1E097B9F0083EBEC /* Migration */,
 				F6E2FC8F1E097B9F0083EBEC /* PlacePage */,
+				343029191F87BBF300D0A07C /* Reviews */,
 				F6E2FCE11E097B9F0083EBEC /* Search */,
 				F6E2FD361E097BA00083EBEC /* Settings */,
 				340E1EE31E2F614400CE49BF /* Storyboard */,
@@ -4367,16 +4440,17 @@
 		F6E2FC8F1E097B9F0083EBEC /* PlacePage */ = {
 			isa = PBXGroup;
 			children = (
+				34F4B0641F6AC6890035F4F3 /* UGCViewModel */,
 				F6E2FC931E097B9F0083EBEC /* DirectionView */,
+				F68224A11E5B1B1A00BC1C18 /* MWMPlacePageButtonsProtocol.h */,
 				F6E2FC971E097B9F0083EBEC /* MWMPlacePageData.h */,
 				F6E2FC981E097B9F0083EBEC /* MWMPlacePageData.mm */,
 				F6E2FC991E097B9F0083EBEC /* MWMPlacePageManager.h */,
 				F6E2FC9A1E097B9F0083EBEC /* MWMPlacePageManager.mm */,
-				F6E2FC9B1E097B9F0083EBEC /* MWMPlacePageProtocol.h */,
-				F68224A11E5B1B1A00BC1C18 /* MWMPlacePageButtonsProtocol.h */,
-				F6E2FC9C1E097B9F0083EBEC /* PlacePageLayout */,
 				34E776301F15FAC2003040B3 /* MWMPlacePageManagerHelper.h */,
 				34E776311F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm */,
+				F6E2FC9B1E097B9F0083EBEC /* MWMPlacePageProtocol.h */,
+				F6E2FC9C1E097B9F0083EBEC /* PlacePageLayout */,
 			);
 			path = PlacePage;
 			sourceTree = "<group>";
@@ -4427,16 +4501,16 @@
 		F6E2FCA81E097B9F0083EBEC /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				347E1A861F1F5DD7002BF7A8 /* Cian */,
-				34EE259B1EFA681000F870AB /* ViatorCells */,
-				F68BDF181EF80DCC0009BB81 /* UGC */,
-				346DB81C1E5C4F6700E3123E /* Gallery */,
 				F68224981E5B0FE100BC1C18 /* BookingCells */,
 				F6E2FCA91E097B9F0083EBEC /* BookmarkCell */,
 				F6E2FCAF1E097B9F0083EBEC /* ButtonCell */,
+				347E1A861F1F5DD7002BF7A8 /* Cian */,
+				346DB81C1E5C4F6700E3123E /* Gallery */,
 				F6E2FCB31E097B9F0083EBEC /* OpeningHoursCell */,
 				F6E2FCC11E097B9F0083EBEC /* RegularCell */,
 				F6E2FCC61E097B9F0083EBEC /* TaxiCell */,
+				F68BDF181EF80DCC0009BB81 /* UGC */,
+				34EE259B1EFA681000F870AB /* ViatorCells */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -4518,7 +4592,6 @@
 			isa = PBXGroup;
 			children = (
 				F6E2FCD81E097B9F0083EBEC /* _MWMPPPAddress.xib */,
-				F6E2FCD91E097B9F0083EBEC /* _MWMPPPBooking.xib */,
 				F6E2FCDA1E097B9F0083EBEC /* _MWMPPPExternalTitle.xib */,
 				F6E2FCDB1E097B9F0083EBEC /* _MWMPPPSchedule.xib */,
 				F6E2FCDC1E097B9F0083EBEC /* _MWMPPPSpace.xib */,
@@ -4526,6 +4599,8 @@
 				F6E2FCDE1E097B9F0083EBEC /* _MWMPPPTitle.xib */,
 				F6E2FCDF1E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.h */,
 				F6E2FCE01E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.mm */,
+				34F1ADD11F6BC09E001CE79D /* PPPReview.swift */,
+				F6E2FCD91E097B9F0083EBEC /* PPPReview.xib */,
 			);
 			path = Preview;
 			sourceTree = "<group>";
@@ -4976,8 +5051,8 @@
 			files = (
 				345E8F541F839E6400A826CC /* GoogleService-Info.plist in Resources */,
 				34EE25A11EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
+				34E50DFA1F6FCC96008EED49 /* UGCReviewCell.xib in Resources */,
 				450703091E9E6CF000E8C029 /* local_ads_symbols.txt in Resources */,
-				F6C0E62D1EF80F9000A4EFAA /* MWMUGCCommentCell.xib in Resources */,
 				4554B6EA1E55F02B0084017F /* drules_proto_vehicle_clear.bin in Resources */,
 				4554B6EB1E55F02B0084017F /* drules_proto_vehicle_dark.bin in Resources */,
 				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,
@@ -4990,7 +5065,7 @@
 				F6E2FE6C1E097BA00083EBEC /* _MWMOHHeaderCell.xib in Resources */,
 				F6E2FE6F1E097BA00083EBEC /* _MWMOHSubCell.xib in Resources */,
 				F6E2FEA81E097BA00083EBEC /* _MWMPPPAddress.xib in Resources */,
-				F6E2FEAB1E097BA00083EBEC /* _MWMPPPBooking.xib in Resources */,
+				F6E2FEAB1E097BA00083EBEC /* PPPReview.xib in Resources */,
 				F6E2FEAE1E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */,
 				F6E2FEB11E097BA00083EBEC /* _MWMPPPSchedule.xib in Resources */,
 				3495433E1EB22DAC00F08F73 /* MPAdBrowserController.xib in Resources */,
@@ -5007,6 +5082,7 @@
 				4A300ED41C6DCFD400140018 /* countries-strings in Resources */,
 				FA46DA2C12D4166E00968C36 /* countries.txt in Resources */,
 				671182E11C7F0DD400CB8177 /* countries_obsolete.txt in Resources */,
+				347752921F7251C7000D46A3 /* UGCAddReviewTextCell.xib in Resources */,
 				6B653B941C7F2DE4007BEFC5 /* cuisine-strings in Resources */,
 				4A23D15B1B8B4DD700D4EB6F /* drules_proto_clear.bin in Resources */,
 				4A00DBDF1AB704C400113624 /* drules_proto_dark.bin in Resources */,
@@ -5043,6 +5119,7 @@
 				34AC8FCF1EFC028600E7F910 /* MWMNavigationInfoView.xib in Resources */,
 				F652B2EA1C6DE8E500D20C8C /* MWMDropDown.xib in Resources */,
 				34D3B0231E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
+				34E50DDA1F6FCAB1008EED49 /* UGCSummaryRatingCell.xib in Resources */,
 				34763EED1F2F5F2E00F4D2D3 /* MWMiPhoneRoutePreview.xib in Resources */,
 				34D3B0261E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
 				F6E2FDB81E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.xib in Resources */,
@@ -5056,18 +5133,18 @@
 				F64D9CA21C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */,
 				F6664C151E645A4100E703C2 /* MWMPPReviewCell.xib in Resources */,
 				F6BC1E541ACBF9AB00EF0360 /* MWMFacebookAlert.xib in Resources */,
-				F643247E1EF82B21009296F9 /* UGCSelectImpressionCell.xib in Resources */,
 				F6BBF2C81B4FFB8C000CF8E2 /* MWMLocationAlert.xib in Resources */,
 				3406FA181C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */,
 				F6E2FD521E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.xib in Resources */,
 				F6E2FD581E097BA00083EBEC /* MWMMapDownloaderButtonTableViewCell.xib in Resources */,
 				F6664BFC1E6459CB00E703C2 /* PPFacilityCell.xib in Resources */,
 				F6E2FD611E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.xib in Resources */,
-				F6150E541EFA7352000B955D /* MWUGCCommentsController.xib in Resources */,
+				3477528A1F725002000D46A3 /* UGCAddReviewRatingCell.xib in Resources */,
 				F6E2FD671E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.xib in Resources */,
 				F6E2FD6D1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				F6E2FD731E097BA00083EBEC /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				349A13841DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */,
+				34E50DE21F6FCBA1008EED49 /* UGCAddReviewCell.xib in Resources */,
 				342360AA1F34906700AFE44D /* RouteManagerCell.xib in Resources */,
 				34D3B04A1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
 				F6E2FDEE1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
@@ -5105,10 +5182,10 @@
 				346225911DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */,
 				F6E2FF381E097BA00083EBEC /* MWMSearchSuggestionCell.xib in Resources */,
 				F6664C041E6459DA00E703C2 /* PPReviewHeaderCell.xib in Resources */,
-				F6150E4B1EFA5D2E000B955D /* UGCTextReviewCell.xib in Resources */,
 				F6E2FF1A1E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
 				F6E2FF201E097BA00083EBEC /* MWMSearchTabbedViewController.xib in Resources */,
 				F6E2FF291E097BA00083EBEC /* MWMSearchTabButtonsView.xib in Resources */,
+				344532501F714FD70059FBCC /* UGCAddReviewController.xib in Resources */,
 				F6E2FF411E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
 				347E1A911F1F72AD002BF7A8 /* PPCianCarouselCell.xib in Resources */,
 				F6E2FEED1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
@@ -5116,6 +5193,7 @@
 				346DB82A1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
 				F6E2FE2D1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				349B92701DF0526D007779DD /* MWMToast.xib in Resources */,
+				344532331F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib in Resources */,
 				3463BA681DE81DB90082417F /* MWMTrafficButtonViewController.xib in Resources */,
 				F623DA6B1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */,
 				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
@@ -5124,7 +5202,6 @@
 				4A23D15C1B8B4DD700D4EB6F /* resources-6plus_clear in Resources */,
 				4A7D89C51B2EBF3B00AC843E /* resources-6plus_dark in Resources */,
 				A367C93B1B17334800E2B6E7 /* resources-default in Resources */,
-				F6150E391EF95F96000B955D /* UGCSpecificReviewCell.xib in Resources */,
 				F607C1871C032A8800B53A87 /* resources-hdpi_clear in Resources */,
 				F607C1891C032A8800B53A87 /* resources-hdpi_dark in Resources */,
 				4A23D15D1B8B4DD700D4EB6F /* resources-mdpi_clear in Resources */,
@@ -5140,9 +5217,8 @@
 				340E1EF71E2F614400CE49BF /* Settings.storyboard in Resources */,
 				5605022F1B6211E100169CAD /* sound-strings in Resources */,
 				F69018BC1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
-				F6150E2C1EF95234000B955D /* MWMUGCReviewController.xib in Resources */,
-				34BBD6671F8273350070CA50 /* AuthorizationViewController.xib in Resources */,
 				FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */,
+				34E50DF21F6FCC41008EED49 /* UGCYourReviewCell.xib in Resources */,
 				3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				3476B8DC1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
 				FA64D9A913F975AD00350ECF /* types.txt in Resources */,
@@ -5161,9 +5237,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F642D1231F0F9D1D005E3C25 /* ugc_types.csv in Resources */,
+				34E50DFB1F6FCC96008EED49 /* UGCReviewCell.xib in Resources */,
 				34EE25A21EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
 				3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */,
-				F64324771EF81316009296F9 /* MWMUGCCommentCell.xib in Resources */,
 				6741A9531BF340DE002C974C /* 01_dejavusans.ttf in Resources */,
 				6741A9541BF340DE002C974C /* 02_droidsans-fallback.ttf in Resources */,
 				6741A9571BF340DE002C974C /* 03_jomolhari-id-a3d.ttf in Resources */,
@@ -5174,7 +5250,7 @@
 				F6E2FE6D1E097BA00083EBEC /* _MWMOHHeaderCell.xib in Resources */,
 				F6E2FE701E097BA00083EBEC /* _MWMOHSubCell.xib in Resources */,
 				F6E2FEA91E097BA00083EBEC /* _MWMPPPAddress.xib in Resources */,
-				F6E2FEAC1E097BA00083EBEC /* _MWMPPPBooking.xib in Resources */,
+				F6E2FEAC1E097BA00083EBEC /* PPPReview.xib in Resources */,
 				F6E2FEAF1E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */,
 				F6E2FEB21E097BA00083EBEC /* _MWMPPPSchedule.xib in Resources */,
 				F6E2FEB51E097BA00083EBEC /* _MWMPPPSpace.xib in Resources */,
@@ -5192,6 +5268,7 @@
 				6741A9491BF340DE002C974C /* countries.txt in Resources */,
 				671182E61C7F0DDD00CB8177 /* countries_obsolete.txt in Resources */,
 				6B653B951C7F2DE4007BEFC5 /* cuisine-strings in Resources */,
+				347752931F7251C7000D46A3 /* UGCAddReviewTextCell.xib in Resources */,
 				6741A9871BF340DE002C974C /* drules_proto_clear.bin in Resources */,
 				6741A97E1BF340DE002C974C /* drules_proto_dark.bin in Resources */,
 				6B9978361C89A316003B8AA0 /* editor.config in Resources */,
@@ -5228,6 +5305,7 @@
 				34AC8FD51EFC02D100E7F910 /* MWMNavigationInfoView.xib in Resources */,
 				34D3B0241E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
 				34D3B0271E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
+				34E50DDB1F6FCAB1008EED49 /* UGCSummaryRatingCell.xib in Resources */,
 				34763EEE1F2F5F2F00F4D2D3 /* MWMiPhoneRoutePreview.xib in Resources */,
 				F6E2FDB91E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.xib in Resources */,
 				34D3B02D1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */,
@@ -5240,7 +5318,6 @@
 				346DB8311E5C4F6700E3123E /* GalleryItemViewController.xib in Resources */,
 				6741A9911BF340DE002C974C /* MWMFacebookAlert.xib in Resources */,
 				6741A96D1BF340DE002C974C /* MWMLocationAlert.xib in Resources */,
-				F643247F1EF82B21009296F9 /* UGCSelectImpressionCell.xib in Resources */,
 				3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */,
 				F6E2FD531E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.xib in Resources */,
 				F6E2FD591E097BA00083EBEC /* MWMMapDownloaderButtonTableViewCell.xib in Resources */,
@@ -5248,12 +5325,13 @@
 				F6664BFD1E6459CB00E703C2 /* PPFacilityCell.xib in Resources */,
 				F6E2FD681E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.xib in Resources */,
 				F6E2FD6E1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
-				F6150E551EFA7352000B955D /* MWUGCCommentsController.xib in Resources */,
 				345E8F551F839E6C00A826CC /* GoogleService-Info.plist in Resources */,
+				3477528B1F725002000D46A3 /* UGCAddReviewRatingCell.xib in Resources */,
 				F6E2FD741E097BA00083EBEC /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				349A13851DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */,
 				34D3B04B1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
 				F6E2FDEF1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
+				34E50DE31F6FCBA1008EED49 /* UGCAddReviewCell.xib in Resources */,
 				342360AB1F34906700AFE44D /* RouteManagerCell.xib in Resources */,
 				F6E2FDF51E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
@@ -5291,10 +5369,10 @@
 				F6E2FF1B1E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
 				F6E2FF211E097BA00083EBEC /* MWMSearchTabbedViewController.xib in Resources */,
 				F6664C051E6459DA00E703C2 /* PPReviewHeaderCell.xib in Resources */,
-				F6150E4C1EFA5D2E000B955D /* UGCTextReviewCell.xib in Resources */,
 				F6E2FF2A1E097BA00083EBEC /* MWMSearchTabButtonsView.xib in Resources */,
 				F6E2FF421E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
 				F6E2FEEE1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
+				344532511F714FD70059FBCC /* UGCAddReviewController.xib in Resources */,
 				3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
 				347E1A921F1F72AD002BF7A8 /* PPCianCarouselCell.xib in Resources */,
 				346DB82B1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
@@ -5302,6 +5380,7 @@
 				349B92711DF0526D007779DD /* MWMToast.xib in Resources */,
 				3463BA691DE81DB90082417F /* MWMTrafficButtonViewController.xib in Resources */,
 				F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */,
+				344532341F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib in Resources */,
 				6741A9761BF340DE002C974C /* packed_polygons.bin in Resources */,
 				671182E51C7F0DDB00CB8177 /* packed_polygons_obsolete.bin in Resources */,
 				676507601C10559800830BB3 /* patterns.txt in Resources */,
@@ -5310,7 +5389,6 @@
 				677A2DE21C0DD50900635A00 /* resources-default in Resources */,
 				F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */,
 				F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */,
-				F6150E3A1EF95F96000B955D /* UGCSpecificReviewCell.xib in Resources */,
 				F69CE8DA1E5C5088002B5881 /* PPHotelCarouselCell.xib in Resources */,
 				F69CE8DE1E5C51AB002B5881 /* CarouselElement.xib in Resources */,
 				6741A97F1BF340DE002C974C /* resources-mdpi_clear in Resources */,
@@ -5326,9 +5404,9 @@
 				340E1EF81E2F614400CE49BF /* Settings.storyboard in Resources */,
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
 				F69018BD1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
-				F6150E2D1EF95234000B955D /* MWMUGCReviewController.xib in Resources */,
 				34BBD6681F8273350070CA50 /* AuthorizationViewController.xib in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
+				34E50DF31F6FCC41008EED49 /* UGCYourReviewCell.xib in Resources */,
 				3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
 				6741A95D1BF340DE002C974C /* types.txt in Resources */,
@@ -5347,8 +5425,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				34EE25A31EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
+				34E50DFC1F6FCC96008EED49 /* UGCReviewCell.xib in Resources */,
 				849CF6041DE842290024A8A5 /* 01_dejavusans.ttf in Resources */,
-				F64324781EF81317009296F9 /* MWMUGCCommentCell.xib in Resources */,
 				849CF6051DE842290024A8A5 /* 02_droidsans-fallback.ttf in Resources */,
 				849CF6091DE842290024A8A5 /* 03_jomolhari-id-a3d.ttf in Resources */,
 				849CF60B1DE842290024A8A5 /* 04_padauk.ttf in Resources */,
@@ -5358,7 +5436,7 @@
 				F6E2FE6E1E097BA00083EBEC /* _MWMOHHeaderCell.xib in Resources */,
 				F6E2FE711E097BA00083EBEC /* _MWMOHSubCell.xib in Resources */,
 				F6E2FEAA1E097BA00083EBEC /* _MWMPPPAddress.xib in Resources */,
-				F6E2FEAD1E097BA00083EBEC /* _MWMPPPBooking.xib in Resources */,
+				F6E2FEAD1E097BA00083EBEC /* PPPReview.xib in Resources */,
 				F6E2FEB01E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */,
 				F6E2FEB31E097BA00083EBEC /* _MWMPPPSchedule.xib in Resources */,
 				F6E2FEB61E097BA00083EBEC /* _MWMPPPSpace.xib in Resources */,
@@ -5378,6 +5456,7 @@
 				849CF6571DE842290024A8A5 /* countries_obsolete.txt in Resources */,
 				849CF6251DE842290024A8A5 /* cuisine-strings in Resources */,
 				849CF65F1DE842290024A8A5 /* drules_proto_clear.bin in Resources */,
+				347752941F7251C7000D46A3 /* UGCAddReviewTextCell.xib in Resources */,
 				849CF64E1DE842290024A8A5 /* drules_proto_dark.bin in Resources */,
 				849CF64A1DE842290024A8A5 /* editor.config in Resources */,
 				849CF6291DE842290024A8A5 /* faq.html in Resources */,
@@ -5414,6 +5493,7 @@
 				34AC8FD61EFC02D100E7F910 /* MWMNavigationInfoView.xib in Resources */,
 				34D3B0251E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
 				34D3B0281E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
+				34E50DDC1F6FCAB1008EED49 /* UGCSummaryRatingCell.xib in Resources */,
 				34763EEF1F2F5F2F00F4D2D3 /* MWMiPhoneRoutePreview.xib in Resources */,
 				F6E2FDBA1E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.xib in Resources */,
 				34D3B02E1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */,
@@ -5426,7 +5506,6 @@
 				346DB8321E5C4F6700E3123E /* GalleryItemViewController.xib in Resources */,
 				F6664C171E645A4100E703C2 /* MWMPPReviewCell.xib in Resources */,
 				849CF66F1DE842290024A8A5 /* MWMFacebookAlert.xib in Resources */,
-				F64324801EF82B21009296F9 /* UGCSelectImpressionCell.xib in Resources */,
 				849CF6301DE842290024A8A5 /* MWMLocationAlert.xib in Resources */,
 				849CF60D1DE842290024A8A5 /* MWMMapDownloadDialog.xib in Resources */,
 				F6E2FD541E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.xib in Resources */,
@@ -5434,12 +5513,13 @@
 				F6664BFE1E6459CB00E703C2 /* PPFacilityCell.xib in Resources */,
 				F6E2FD631E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.xib in Resources */,
 				F6E2FD691E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.xib in Resources */,
-				F6150E561EFA7352000B955D /* MWUGCCommentsController.xib in Resources */,
 				345E8F561F839E6D00A826CC /* GoogleService-Info.plist in Resources */,
+				3477528C1F725002000D46A3 /* UGCAddReviewRatingCell.xib in Resources */,
 				F6E2FD6F1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				F6E2FD751E097BA00083EBEC /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				34D3B04C1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
 				F6E2FDF01E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
+				34E50DE41F6FCBA1008EED49 /* UGCAddReviewCell.xib in Resources */,
 				342360AC1F34906700AFE44D /* RouteManagerCell.xib in Resources */,
 				F6E2FDF61E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFC1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
@@ -5477,10 +5557,10 @@
 				849CF5E71DE842290024A8A5 /* MWMSearchNoResultsAlert.xib in Resources */,
 				F6E2FF3A1E097BA00083EBEC /* MWMSearchSuggestionCell.xib in Resources */,
 				F6664C061E6459DA00E703C2 /* PPReviewHeaderCell.xib in Resources */,
-				F6150E4D1EFA5D2E000B955D /* UGCTextReviewCell.xib in Resources */,
 				F6E2FF1C1E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
 				F6E2FF221E097BA00083EBEC /* MWMSearchTabbedViewController.xib in Resources */,
 				F6E2FF2B1E097BA00083EBEC /* MWMSearchTabButtonsView.xib in Resources */,
+				344532521F714FD70059FBCC /* UGCAddReviewController.xib in Resources */,
 				F6E2FF431E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
 				347E1A931F1F72AD002BF7A8 /* PPCianCarouselCell.xib in Resources */,
 				F6E2FEEF1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
@@ -5488,6 +5568,7 @@
 				346DB82C1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
 				F6E2FE2F1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				349B92721DF0526D007779DD /* MWMToast.xib in Resources */,
+				344532351F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib in Resources */,
 				8408BCE21E080DEF00789784 /* MWMTrafficButtonViewController.xib in Resources */,
 				849CF6611DE842290024A8A5 /* opening_hours_how_to_edit.html in Resources */,
 				849CF6411DE842290024A8A5 /* packed_polygons.bin in Resources */,
@@ -5496,7 +5577,6 @@
 				849CF5F61DE842290024A8A5 /* resources-6plus_clear in Resources */,
 				849CF63F1DE842290024A8A5 /* resources-6plus_dark in Resources */,
 				849CF6141DE842290024A8A5 /* resources-default in Resources */,
-				F6150E3B1EF95F96000B955D /* UGCSpecificReviewCell.xib in Resources */,
 				849CF6731DE842290024A8A5 /* resources-hdpi_clear in Resources */,
 				849CF6031DE842290024A8A5 /* resources-hdpi_dark in Resources */,
 				849CF64F1DE842290024A8A5 /* resources-mdpi_clear in Resources */,
@@ -5512,9 +5592,9 @@
 				340E1EF91E2F614400CE49BF /* Settings.storyboard in Resources */,
 				849CF5EA1DE842290024A8A5 /* sound-strings in Resources */,
 				F69018BE1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
-				F6150E2E1EF95234000B955D /* MWMUGCReviewController.xib in Resources */,
 				34BBD6691F8273350070CA50 /* AuthorizationViewController.xib in Resources */,
 				849CF64C1DE842290024A8A5 /* synonyms.txt in Resources */,
+				34E50DF41F6FCC41008EED49 /* UGCYourReviewCell.xib in Resources */,
 				849CF6111DE842290024A8A5 /* tts-how-to-set-up-voice-img in Resources */,
 				849CF6281DE842290024A8A5 /* tts-how-to-set-up-voice.html in Resources */,
 				849CF6171DE842290024A8A5 /* types.txt in Resources */,
@@ -5673,8 +5753,6 @@
 				347E1A8D1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
 				F6E2FDE81E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				F64F199D1AB81A00006EAF7E /* MWMDefaultAlert.mm in Sources */,
-				F6150E431EFA52E9000B955D /* UGCSpecificReviewCell.swift in Sources */,
-				F68BDF1B1EF80DE90009BB81 /* MWMUGCCommentCell.mm in Sources */,
 				348A8DF41F66775A00D83026 /* RatingView.swift in Sources */,
 				F63AF50E1EA6215100A1DB98 /* FilterPriceCategoryCell.swift in Sources */,
 				34D3AFF51E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
@@ -5686,7 +5764,6 @@
 				34763EF21F2F5F6400F4D2D3 /* MWMiPhoneRoutePreview.mm in Sources */,
 				F6E2FE181E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
 				F6E2FDEB1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
-				F6150E511EFA7352000B955D /* MWUGCCommentsController.mm in Sources */,
 				34BBD64B1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,
 				F6E2FE0F1E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				341522BF1B666A550077AA8F /* MWMAPIBarView.mm in Sources */,
@@ -5699,6 +5776,7 @@
 				F6E2FE481E097BA00083EBEC /* MWMPlacePageData.mm in Sources */,
 				3404754F1E081A4600C92850 /* fabric_logging_ios.mm in Sources */,
 				34C5B81B1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift in Sources */,
+				348F8A521F863B6100060C2A /* UGCReview.swift in Sources */,
 				34ABA6281C2D567B00FE1BEC /* MWMInputLoginValidator.mm in Sources */,
 				34F4073D1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
 				F69018B81E9E601400B3C10B /* MWMAutoupdateController.mm in Sources */,
@@ -5721,6 +5799,7 @@
 				EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */,
 				F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */,
 				349D1ABB1E2D05EF004A2006 /* SearchBar.swift in Sources */,
+				34E50DF71F6FCC96008EED49 /* UGCReviewCell.swift in Sources */,
 				34AC8FBA1EFBAD1900E7F910 /* ViatorElement.swift in Sources */,
 				F6E2FD791E097BA00083EBEC /* MWMMapDownloaderDefaultDataSource.mm in Sources */,
 				F6E2FF3E1E097BA00083EBEC /* MWMSearchTableViewController.mm in Sources */,
@@ -5738,7 +5817,6 @@
 				346DB8391E5C4F6700E3123E /* GalleryItemModel.swift in Sources */,
 				34D7F3411F33903F001D5ED5 /* RouteManagerHeaderView.swift in Sources */,
 				3404757D1E081B3300C92850 /* iosOGLContext.mm in Sources */,
-				F6150E311EF953A6000B955D /* MWMUGCReviewVM.mm in Sources */,
 				34D3AFF11E37945B004100F9 /* UITableView+Cells.swift in Sources */,
 				34D3B02F1E389D05004100F9 /* MWMEditorCategoryCell.mm in Sources */,
 				F6E2FD5B1E097BA00083EBEC /* MWMMapDownloaderCellHeader.mm in Sources */,
@@ -5825,7 +5903,6 @@
 				34F407401E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,
 				3444DFD11F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				F6E2FE3C1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
-				F6150E471EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */,
 				F6E2FD4F1E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
 				F6E2FE871E097BA00083EBEC /* MWMPlacePageRegularCell.mm in Sources */,
 				34BBD6631F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */,
@@ -5864,6 +5941,7 @@
 				F6E2FE991E097BA00083EBEC /* MWMiPadPlacePageLayoutImpl.mm in Sources */,
 				34D3B03B1E389D05004100F9 /* MWMEditorSwitchTableViewCell.mm in Sources */,
 				3454D7CD1E07F045004AF2AD /* UIFont+MapsMeFonts.mm in Sources */,
+				344532371F6FFE6A0059FBCC /* UGCRating.swift in Sources */,
 				3454D7DC1E07F045004AF2AD /* UISwitch+RuntimeAttributes.m in Sources */,
 				340708501F28EDD100029ECC /* MWMTaxiCollectionLayout.mm in Sources */,
 				F682249A1E5B104600BC1C18 /* PPHotelDescriptionCell.swift in Sources */,
@@ -5886,6 +5964,7 @@
 				F6E2FE661E097BA00083EBEC /* MWMPlacePageButtonCell.mm in Sources */,
 				F6E2FE121E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				34C5B80F1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */,
+				344532301F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift in Sources */,
 				340837131B7243CE00B5C185 /* MWMActivityViewController.mm in Sources */,
 				3486B5181E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756A1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
@@ -5897,7 +5976,6 @@
 				34F5E0D31E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
 				34F407371E9E1AFF00E57AC0 /* FacebookBanner.swift in Sources */,
 				340708601F28FE2800029ECC /* MWMiPadRoutePreview.mm in Sources */,
-				F6150E291EF95234000B955D /* MWMUGCReviewController.mm in Sources */,
 				3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */,
 				F6E2FED81E097BA00083EBEC /* MWMSearchContentView.mm in Sources */,
 				F6E2FD881E097BA00083EBEC /* MWMMapDownloaderViewController.mm in Sources */,
@@ -5905,6 +5983,7 @@
 				34C5B8231F336DF5005E50B6 /* RouteManagerTransitioning.swift in Sources */,
 				F6E2FF4A1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift in Sources */,
 				3407087B1F2B6F5200029ECC /* NavigationControlView.swift in Sources */,
+				34F1ADD21F6BC09E001CE79D /* PPPReview.swift in Sources */,
 				3470402F1EA6470700038379 /* BorderedButton.swift in Sources */,
 				F6E2FE781E097BA00083EBEC /* MWMOpeningHoursLayoutHelper.mm in Sources */,
 				F6BD1D201CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
@@ -5914,6 +5993,8 @@
 				F6E2FD7C1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				F6E2FED21E097BA00083EBEC /* MWMSearchHotelsFilterViewController.mm in Sources */,
 				34ABA6201C2D517500FE1BEC /* MWMInputValidator.mm in Sources */,
+				3477528F1F7251C7000D46A3 /* UGCAddReviewTextCell.swift in Sources */,
+				34E50DEF1F6FCC41008EED49 /* UGCYourReviewCell.swift in Sources */,
 				F6E2FF231E097BA00083EBEC /* MWMSearchTabbedViewLayout.mm in Sources */,
 				F6E2FF1D1E097BA00083EBEC /* MWMSearchTabbedViewController.mm in Sources */,
 				F6E2FF2F1E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
@@ -5923,6 +6004,7 @@
 				34763EE61F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */,
 				340416531E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
 				F6E2FD851E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,
+				348F8A4E1F863A8500060C2A /* UGCYourReview.swift in Sources */,
 				34ABA6241C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				34943BBA1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				F6E2FEE11E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
@@ -5932,9 +6014,10 @@
 				349D1ADA1E2E325C004A2006 /* MWMBottomMenuView.mm in Sources */,
 				F6E2FD911E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
 				344BEAF51F66BDC30045DC45 /* RatingSummaryViewSettings.swift in Sources */,
-				F643247A1EF82AD9009296F9 /* UGCSelectImpressionCell.swift in Sources */,
 				F63AF5051EA6162400A1DB98 /* FilterTypeCell.swift in Sources */,
 				F6E2FDA31E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
+				347752871F725002000D46A3 /* UGCAddReviewRatingCell.swift in Sources */,
+				345C2F891F86361B009DB8B4 /* MWMUGCViewModel.mm in Sources */,
 				346EDADB1B9F0E35004F8DB5 /* MWMMultilineLabel.mm in Sources */,
 				34D3B0291E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
 				34E776261F14FE77003040B3 /* NavigationStreetNameView.swift in Sources */,
@@ -5943,6 +6026,7 @@
 				34C9BD041C6DB693000DC38D /* MWMViewController.mm in Sources */,
 				3404165B1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				340475701E081A4600C92850 /* MWMSettings.mm in Sources */,
+				34E50DDF1F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */,
 				3404756D1E081A4600C92850 /* MWMSearch.mm in Sources */,
 				3486B5071E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
 				3423609E1F34787F00AFE44D /* RouteManagerTableView.swift in Sources */,
@@ -5954,6 +6038,7 @@
 				F626D52E1C3E6CAA00C17D15 /* MWMTableViewCell.mm in Sources */,
 				F6E2FE961E097BA00083EBEC /* ContextViews.mm in Sources */,
 				F64F4B6D1B46A51F0081A24A /* MWMDownloaderDialogCell.mm in Sources */,
+				344532551F7155540059FBCC /* UGCReviewModel.swift in Sources */,
 				340475761E081A4600C92850 /* MWMTrafficManager.mm in Sources */,
 				346B42AB1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm in Sources */,
 				F6E2FF021E097BA00083EBEC /* MWMSearchHistoryClearCell.mm in Sources */,
@@ -5964,11 +6049,13 @@
 				3404754C1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
 				3457C4251F680F1900028233 /* String+BoundingRect.swift in Sources */,
 				F6E2FE721E097BA00083EBEC /* MWMOpeningHours.mm in Sources */,
+				3430291C1F87BF4400D0A07C /* ReviewsViewController.swift in Sources */,
 				34AB39C11D2BD8310021857D /* MWMStopButton.mm in Sources */,
 				F69CE8D51E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */,
 				F6E2FF5F1E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */,
 				F6E2FE2A1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
 				34EE259D1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */,
+				3445324D1F714FD70059FBCC /* UGCAddReviewController.swift in Sources */,
 				340475641E081A4600C92850 /* MWMRouter.mm in Sources */,
 				3454D7D61E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				346DB83C1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
@@ -5980,6 +6067,7 @@
 				3488B0191E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
 				34AC8FD01EFC028600E7F910 /* NavigationAddPointToastView.swift in Sources */,
 				ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */,
+				34E50DD71F6FCAB1008EED49 /* UGCSummaryRatingCell.swift in Sources */,
 				F6E2FF561E097BA00083EBEC /* MWMMobileInternetViewController.mm in Sources */,
 				340416431E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */,
 				3407084E1F28EDD100029ECC /* MWMTaxiPreviewDataSource.mm in Sources */,
@@ -6026,8 +6114,6 @@
 				347E1A8E1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
 				F6E2FDE91E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				6741A9A81BF340DE002C974C /* MWMFacebookAlert.mm in Sources */,
-				F6150E441EFA52E9000B955D /* UGCSpecificReviewCell.swift in Sources */,
-				F68BDF1C1EF80DE90009BB81 /* MWMUGCCommentCell.mm in Sources */,
 				348A8DF51F66775A00D83026 /* RatingView.swift in Sources */,
 				F63AF50F1EA6215100A1DB98 /* FilterPriceCategoryCell.swift in Sources */,
 				34D3AFF61E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
@@ -6039,7 +6125,6 @@
 				34763EF31F2F5F6400F4D2D3 /* MWMiPhoneRoutePreview.mm in Sources */,
 				F6E2FE191E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
 				F6E2FDEC1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
-				F6150E521EFA7352000B955D /* MWUGCCommentsController.mm in Sources */,
 				34BBD64C1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,
 				F6E2FE101E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				6741A9B01BF340DE002C974C /* MapsAppDelegate.mm in Sources */,
@@ -6052,6 +6137,7 @@
 				3486B51E1E27AD590069C126 /* MWMFrameworkHelper.mm in Sources */,
 				F6E2FE491E097BA00083EBEC /* MWMPlacePageData.mm in Sources */,
 				34C5B81C1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift in Sources */,
+				348F8A531F863B6100060C2A /* UGCReview.swift in Sources */,
 				340475501E081A4600C92850 /* fabric_logging_ios.mm in Sources */,
 				34F4073E1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
 				F6E2FED01E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
@@ -6074,6 +6160,7 @@
 				6741A9B91BF340DE002C974C /* MWMRateAlert.mm in Sources */,
 				349D1ABC1E2D05EF004A2006 /* SearchBar.swift in Sources */,
 				F6E2FD7A1E097BA00083EBEC /* MWMMapDownloaderDefaultDataSource.mm in Sources */,
+				34E50DF81F6FCC96008EED49 /* UGCReviewCell.swift in Sources */,
 				34AC8FBB1EFBAD1900E7F910 /* ViatorElement.swift in Sources */,
 				F6E2FF3F1E097BA00083EBEC /* MWMSearchTableViewController.mm in Sources */,
 				F6E2FDE01E097BA00083EBEC /* MWMEditorViewController.mm in Sources */,
@@ -6091,7 +6178,6 @@
 				F6E2FD5C1E097BA00083EBEC /* MWMMapDownloaderCellHeader.mm in Sources */,
 				34D7F3421F33903F001D5ED5 /* RouteManagerHeaderView.swift in Sources */,
 				34D3AFF21E37945B004100F9 /* UITableView+Cells.swift in Sources */,
-				F6150E321EF953A6000B955D /* MWMUGCReviewVM.mm in Sources */,
 				34D3B0301E389D05004100F9 /* MWMEditorCategoryCell.mm in Sources */,
 				F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
 				340475621E081A4600C92850 /* MWMNetworkPolicy.mm in Sources */,
@@ -6176,7 +6262,6 @@
 				3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				348A8DFB1F66775A00D83026 /* RatingViewSettings.swift in Sources */,
 				F6E2FE3D1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
-				F6150E481EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */,
 				340708561F28F1E900029ECC /* MWMRoutePreview.mm in Sources */,
 				F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
 				F6E2FE881E097BA00083EBEC /* MWMPlacePageRegularCell.mm in Sources */,
@@ -6217,6 +6302,7 @@
 				3444DFCD1F1760B900E73099 /* WidgetsArea.swift in Sources */,
 				F6E2FE9A1E097BA00083EBEC /* MWMiPadPlacePageLayoutImpl.mm in Sources */,
 				34D3B03C1E389D05004100F9 /* MWMEditorSwitchTableViewCell.mm in Sources */,
+				344532381F6FFE6A0059FBCC /* UGCRating.swift in Sources */,
 				6741A9FF1BF340DE002C974C /* AddSetVC.mm in Sources */,
 				3454D7CE1E07F045004AF2AD /* UIFont+MapsMeFonts.mm in Sources */,
 				F682249B1E5B104600BC1C18 /* PPHotelDescriptionCell.swift in Sources */,
@@ -6239,6 +6325,7 @@
 				F6E2FE671E097BA00083EBEC /* MWMPlacePageButtonCell.mm in Sources */,
 				F6E2FE131E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				34C5B8101F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */,
+				344532311F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift in Sources */,
 				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */,
 				3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
@@ -6248,7 +6335,6 @@
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
 				F6E2FF4E1E097BA00083EBEC /* MWMAboutController.mm in Sources */,
 				34F407381E9E1AFF00E57AC0 /* FacebookBanner.swift in Sources */,
-				F6150E2A1EF95234000B955D /* MWMUGCReviewController.mm in Sources */,
 				340708611F28FE2800029ECC /* MWMiPadRoutePreview.mm in Sources */,
 				34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
 				6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */,
@@ -6258,6 +6344,7 @@
 				34C5B8241F336DF5005E50B6 /* RouteManagerTransitioning.swift in Sources */,
 				347040301EA6470700038379 /* BorderedButton.swift in Sources */,
 				3407087C1F2B6F5200029ECC /* NavigationControlView.swift in Sources */,
+				34F1ADD31F6BC09E001CE79D /* PPPReview.swift in Sources */,
 				F6E2FF4B1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift in Sources */,
 				F6E2FE791E097BA00083EBEC /* MWMOpeningHoursLayoutHelper.mm in Sources */,
 				F6B97B271CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */,
@@ -6267,6 +6354,8 @@
 				F6E2FD7D1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				F6E2FED31E097BA00083EBEC /* MWMSearchHotelsFilterViewController.mm in Sources */,
 				340475741E081A4600C92850 /* MWMStorage.mm in Sources */,
+				347752901F7251C7000D46A3 /* UGCAddReviewTextCell.swift in Sources */,
+				34E50DF01F6FCC41008EED49 /* UGCYourReviewCell.swift in Sources */,
 				F6E2FF241E097BA00083EBEC /* MWMSearchTabbedViewLayout.mm in Sources */,
 				F6E2FF1E1E097BA00083EBEC /* MWMSearchTabbedViewController.mm in Sources */,
 				F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
@@ -6276,6 +6365,7 @@
 				34763EE71F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */,
 				34ABA6251C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				F6E2FD861E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,
+				348F8A4F1F863A8500060C2A /* UGCYourReview.swift in Sources */,
 				F6E2FEE21E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
 				F6E2FE221E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
 				34943BBB1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
@@ -6286,8 +6376,9 @@
 				3407085A1F28F1F400029ECC /* MWMTaxiPreviewDataSource.mm in Sources */,
 				344BEAF61F66BDC30045DC45 /* RatingSummaryViewSettings.swift in Sources */,
 				F6E2FD921E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
-				F643247B1EF82AD9009296F9 /* UGCSelectImpressionCell.swift in Sources */,
 				F63AF5061EA6162400A1DB98 /* FilterTypeCell.swift in Sources */,
+				347752881F725002000D46A3 /* UGCAddReviewRatingCell.swift in Sources */,
+				345C2F8A1F86361B009DB8B4 /* MWMUGCViewModel.mm in Sources */,
 				34C9BD051C6DB693000DC38D /* MWMViewController.mm in Sources */,
 				F6E2FDA41E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
 				3454D7CB1E07F045004AF2AD /* UIColor+MapsMeColor.mm in Sources */,
@@ -6296,6 +6387,7 @@
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
 				3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
+				34E50DE01F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */,
 				34D4FA631E26572D003F53EF /* FirstLaunchController.swift in Sources */,
 				3404756E1E081A4600C92850 /* MWMSearch.mm in Sources */,
 				3423609F1F34787F00AFE44D /* RouteManagerTableView.swift in Sources */,
@@ -6307,6 +6399,7 @@
 				6741AA1C1BF340DE002C974C /* MWMRoutingDisclaimerAlert.mm in Sources */,
 				34D3B0481E389D05004100F9 /* MWMNoteCell.mm in Sources */,
 				F6E2FE971E097BA00083EBEC /* ContextViews.mm in Sources */,
+				344532561F7155540059FBCC /* UGCReviewModel.swift in Sources */,
 				6741AA1D1BF340DE002C974C /* MWMDownloadTransitMapAlert.mm in Sources */,
 				340475771E081A4600C92850 /* MWMTrafficManager.mm in Sources */,
 				346B42AC1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm in Sources */,
@@ -6317,11 +6410,13 @@
 				3404754D1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
 				3457C4261F680F1900028233 /* String+BoundingRect.swift in Sources */,
 				34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */,
+				3430291D1F87BF4400D0A07C /* ReviewsViewController.swift in Sources */,
 				F6E2FE731E097BA00083EBEC /* MWMOpeningHours.mm in Sources */,
 				F6E2FF601E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */,
 				F6E2FE2B1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
 				F69CE8D61E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */,
 				F6FEA82E1C58F108007223CC /* MWMButton.mm in Sources */,
+				3445324E1F714FD70059FBCC /* UGCAddReviewController.swift in Sources */,
 				34EE259E1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */,
 				34B924431DC8A29C0008D971 /* MWMMailViewController.mm in Sources */,
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
@@ -6333,6 +6428,7 @@
 				34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */,
 				3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
 				34AC8FD71EFC02D400E7F910 /* NavigationAddPointToastView.swift in Sources */,
+				34E50DD81F6FCAB1008EED49 /* UGCSummaryRatingCell.swift in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
 				F6E2FF571E097BA00083EBEC /* MWMMobileInternetViewController.mm in Sources */,
 				340416441E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */,
@@ -6380,9 +6476,7 @@
 				347E1A8F1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
 				F6E2FDEA1E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				849CF68A1DE842290024A8A5 /* MWMDefaultAlert.mm in Sources */,
-				F6150E451EFA52E9000B955D /* UGCSpecificReviewCell.swift in Sources */,
 				348A8DF61F66775A00D83026 /* RatingView.swift in Sources */,
-				F68BDF1D1EF80DE90009BB81 /* MWMUGCCommentCell.mm in Sources */,
 				F63AF5101EA6215100A1DB98 /* FilterPriceCategoryCell.swift in Sources */,
 				34D3AFF71E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
 				340475601E081A4600C92850 /* MWMLocationPredictor.mm in Sources */,
@@ -6394,7 +6488,6 @@
 				F6E2FE1A1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
 				F6E2FDED1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				34BBD64D1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,
-				F6150E531EFA7352000B955D /* MWUGCCommentsController.mm in Sources */,
 				F6E2FE111E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				3423609C1F34585A00AFE44D /* RouteManagerFooterView.swift in Sources */,
 				3404755A1E081A4600C92850 /* WebViewController.mm in Sources */,
@@ -6405,6 +6498,7 @@
 				34D3B0221E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.mm in Sources */,
 				3486B51F1E27AD590069C126 /* MWMFrameworkHelper.mm in Sources */,
 				34C5B81D1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift in Sources */,
+				348F8A541F863B6100060C2A /* UGCReview.swift in Sources */,
 				F6E2FE4A1E097BA00083EBEC /* MWMPlacePageData.mm in Sources */,
 				849CF6981DE842290024A8A5 /* MWMAPIBarView.mm in Sources */,
 				34F4073F1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
@@ -6427,6 +6521,7 @@
 				849CF6A21DE842290024A8A5 /* MapViewController.mm in Sources */,
 				3404757F1E081B3300C92850 /* iosOGLContext.mm in Sources */,
 				349D1ABD1E2D05EF004A2006 /* SearchBar.swift in Sources */,
+				34E50DF91F6FCC96008EED49 /* UGCReviewCell.swift in Sources */,
 				F6E2FD7B1E097BA00083EBEC /* MWMMapDownloaderDefaultDataSource.mm in Sources */,
 				34AC8FBC1EFBAD1900E7F910 /* ViatorElement.swift in Sources */,
 				F6E2FF401E097BA00083EBEC /* MWMSearchTableViewController.mm in Sources */,
@@ -6446,7 +6541,6 @@
 				346DB83B1E5C4F6700E3123E /* GalleryItemModel.swift in Sources */,
 				340475631E081A4600C92850 /* MWMNetworkPolicy.mm in Sources */,
 				34D3AFF31E37945B004100F9 /* UITableView+Cells.swift in Sources */,
-				F6150E331EF953A6000B955D /* MWMUGCReviewVM.mm in Sources */,
 				34D3B0311E389D05004100F9 /* MWMEditorCategoryCell.mm in Sources */,
 				F6E2FD5D1E097BA00083EBEC /* MWMMapDownloaderCellHeader.mm in Sources */,
 				3454D7DB1E07F045004AF2AD /* UILabel+RuntimeAttributes.mm in Sources */,
@@ -6531,7 +6625,6 @@
 				3444DFD31F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				F6E2FE3E1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				340708571F28F1EA00029ECC /* MWMRoutePreview.mm in Sources */,
-				F6150E491EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */,
 				F6E2FD511E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
 				F6E2FE891E097BA00083EBEC /* MWMPlacePageRegularCell.mm in Sources */,
 				34BBD6651F8270AC0070CA50 /* AuthorizationTransitioning.swift in Sources */,
@@ -6570,6 +6663,7 @@
 				3454D7C01E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
 				3444DFCE1F1760B900E73099 /* WidgetsArea.swift in Sources */,
 				F6E2FE9B1E097BA00083EBEC /* MWMiPadPlacePageLayoutImpl.mm in Sources */,
+				344532391F6FFE6A0059FBCC /* UGCRating.swift in Sources */,
 				34D3B03D1E389D05004100F9 /* MWMEditorSwitchTableViewCell.mm in Sources */,
 				849CF7071DE842290024A8A5 /* LocaleTranslator.mm in Sources */,
 				340475821E081B3300C92850 /* iosOGLContextFactory.mm in Sources */,
@@ -6592,6 +6686,7 @@
 				F6E2FE681E097BA00083EBEC /* MWMPlacePageButtonCell.mm in Sources */,
 				F6E2FE141E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				34C5B8111F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */,
+				344532321F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift in Sources */,
 				849CF7151DE842290024A8A5 /* MWMInputEmailValidator.mm in Sources */,
 				3486B51A1E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				845E4B1D1DEC83AE00D6BED8 /* MWMMobileInternetAlert.mm in Sources */,
@@ -6603,7 +6698,6 @@
 				34F5E0D51E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
 				34F407391E9E1AFF00E57AC0 /* FacebookBanner.swift in Sources */,
 				340708621F28FE2800029ECC /* MWMiPadRoutePreview.mm in Sources */,
-				F6150E2B1EF95234000B955D /* MWMUGCReviewController.mm in Sources */,
 				849CF71D1DE842290024A8A5 /* MWMNavigationDashboardManager.mm in Sources */,
 				3454D7C91E07F045004AF2AD /* UIButton+RuntimeAttributes.mm in Sources */,
 				F6E2FEDA1E097BA00083EBEC /* MWMSearchContentView.mm in Sources */,
@@ -6611,6 +6705,7 @@
 				34C5B8251F336DF5005E50B6 /* RouteManagerTransitioning.swift in Sources */,
 				F6E2FF4C1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift in Sources */,
 				3407087D1F2B6F5200029ECC /* NavigationControlView.swift in Sources */,
+				34F1ADD41F6BC09E001CE79D /* PPPReview.swift in Sources */,
 				347040311EA6470700038379 /* BorderedButton.swift in Sources */,
 				F6E2FE7A1E097BA00083EBEC /* MWMOpeningHoursLayoutHelper.mm in Sources */,
 				849CF7251DE842290024A8A5 /* MWMMapViewControlsManager.mm in Sources */,
@@ -6620,6 +6715,8 @@
 				F6E2FD7E1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				F6E2FED41E097BA00083EBEC /* MWMSearchHotelsFilterViewController.mm in Sources */,
 				849CF72B1DE842290024A8A5 /* MWMBookmarkNameCell.mm in Sources */,
+				347752911F7251C7000D46A3 /* UGCAddReviewTextCell.swift in Sources */,
+				34E50DF11F6FCC41008EED49 /* UGCYourReviewCell.swift in Sources */,
 				F6E2FF251E097BA00083EBEC /* MWMSearchTabbedViewLayout.mm in Sources */,
 				F6E2FF1F1E097BA00083EBEC /* MWMSearchTabbedViewController.mm in Sources */,
 				F6E2FF311E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
@@ -6629,6 +6726,7 @@
 				34763EE81F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */,
 				340416551E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
 				F6E2FEE31E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
+				348F8A501F863A8500060C2A /* UGCYourReview.swift in Sources */,
 				34943BBC1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				F6E2FE231E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
 				34D3AFE31E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
@@ -6640,7 +6738,8 @@
 				344BEAF71F66BDC30045DC45 /* RatingSummaryViewSettings.swift in Sources */,
 				849CF7331DE842290024A8A5 /* MWMInputValidatorFactory.mm in Sources */,
 				F6E2FDA51E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
-				F643247C1EF82AD9009296F9 /* UGCSelectImpressionCell.swift in Sources */,
+				347752891F725002000D46A3 /* UGCAddReviewRatingCell.swift in Sources */,
+				345C2F8B1F86361B009DB8B4 /* MWMUGCViewModel.mm in Sources */,
 				F63AF5071EA6162400A1DB98 /* FilterTypeCell.swift in Sources */,
 				3454D7C31E07F045004AF2AD /* NSString+Categories.mm in Sources */,
 				34D4FA641E26572D003F53EF /* FirstLaunchController.swift in Sources */,
@@ -6649,6 +6748,7 @@
 				34926BE81EA4C2A700DCF14C /* SearchBanners.swift in Sources */,
 				3454D7C61E07F045004AF2AD /* UIButton+Orientation.mm in Sources */,
 				3404165D1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
+				34E50DE11F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */,
 				340475571E081A4600C92850 /* Statistics.mm in Sources */,
 				3486B5091E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
 				342360A01F34787F00AFE44D /* RouteManagerTableView.swift in Sources */,
@@ -6660,6 +6760,7 @@
 				34D3B0491E389D05004100F9 /* MWMNoteCell.mm in Sources */,
 				F6E2FE981E097BA00083EBEC /* ContextViews.mm in Sources */,
 				349B926E1DF0518E007779DD /* MWMToast.mm in Sources */,
+				344532571F7155540059FBCC /* UGCReviewModel.swift in Sources */,
 				849CF7461DE842290024A8A5 /* MWMTableViewCell.mm in Sources */,
 				849CF7471DE842290024A8A5 /* MWMDownloaderDialogCell.mm in Sources */,
 				3404756F1E081A4600C92850 /* MWMSearch.mm in Sources */,
@@ -6670,11 +6771,13 @@
 				3404750A1E08199E00C92850 /* MWMMyTarget.mm in Sources */,
 				3457C4271F680F1900028233 /* String+BoundingRect.swift in Sources */,
 				849CF7561DE842290024A8A5 /* MWMRoutingDisclaimerAlert.mm in Sources */,
+				3430291E1F87BF4500D0A07C /* ReviewsViewController.swift in Sources */,
 				849CF7581DE842290024A8A5 /* MWMDownloadTransitMapAlert.mm in Sources */,
 				F6E2FE741E097BA00083EBEC /* MWMOpeningHours.mm in Sources */,
 				3454D7E71E07F045004AF2AD /* UIView+RuntimeAttributes.mm in Sources */,
 				F69CE8D71E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */,
 				F6E2FF611E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */,
+				3445324F1F714FD70059FBCC /* UGCAddReviewController.swift in Sources */,
 				F6E2FE2C1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
 				34EE259F1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */,
 				849CF7601DE842290024A8A5 /* MWMStopButton.mm in Sources */,
@@ -6686,6 +6789,7 @@
 				3404754E1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
 				3488B01B1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
 				34AC8FD81EFC02D500E7F910 /* NavigationAddPointToastView.swift in Sources */,
+				34E50DD91F6FCAB1008EED49 /* UGCSummaryRatingCell.swift in Sources */,
 				849CF7631DE842290024A8A5 /* MWMAlert.mm in Sources */,
 				F6E2FF581E097BA00083EBEC /* MWMMobileInternetViewController.mm in Sources */,
 				340416451E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */,

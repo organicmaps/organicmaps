@@ -7,7 +7,7 @@ extension String {
     let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
     let attributes = [NSAttributedStringKey.font: font]
     let rect = (self as NSString).boundingRect(with: constraintSize, options: options, attributes: attributes, context: nil)
-    var numberOfLines = ceil(rect.height / font.lineHeight)
+    var numberOfLines = ceil(ceil(rect.height) / font.lineHeight)
     if maxNumberOfLines != 0 {
       numberOfLines = min(numberOfLines, CGFloat(maxNumberOfLines))
     }

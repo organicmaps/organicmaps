@@ -115,7 +115,8 @@ CGFloat const kMinOffset = 1;
   auto const size = frame.size;
   self.placePageView.minY = size.height;
   auto actionBar = self.actionBar;
-  actionBar.frame = {{0., frame.origin.y + size.height - actionBar.height}, {size.width, actionBar.height}};
+  actionBar.frame = {{0., frame.origin.y + size.height - actionBar.height},
+                     {size.width, actionBar.height}};
   [self.delegate onPlacePageTopBoundChanged:self.scrollView.contentOffset.y];
   [sv setContentOffset:{
     0, self.state == State::Top ? self.topContentOffset : self.bottomContentOffset

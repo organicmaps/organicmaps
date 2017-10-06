@@ -1,9 +1,11 @@
 #import "MWMPlacePageActionBar.h"
+#import "MWMRatingSummaryViewValueType.h"
 
 #include "partners_api/taxi_provider.hpp"
 
 #include "storage/index.hpp"
 
+#include "map/place_page_info.hpp"
 #include "map/routing_mark.hpp"
 
 #include <vector>
@@ -46,8 +48,10 @@ enum class Sections
   SpecialProjects,
   Metainfo,
   Ad,
-  UGC,
-  Buttons
+  Buttons,
+  UGCRating,
+  UGCAddReview,
+  UGCReviews
 };
 
 enum class PreviewRows
@@ -56,7 +60,7 @@ enum class PreviewRows
   ExternalTitle,
   Subtitle,
   Schedule,
-  Booking,
+  Review,
   Address,
   Space,
   Banner
@@ -113,13 +117,6 @@ enum class AdRows
   Taxi
 };
 
-enum class UGCRow
-{
-  SelectImpression,
-  Comment,
-  ShowMore
-};
-
 enum class ButtonsRows
 {
   AddBusiness,
@@ -139,20 +136,23 @@ enum class OpeningHours
 
 using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * data, BOOL isSection);
 using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
-
 }  // namespace place_page
 
 @class MWMGalleryItemModel;
 @class MWMViatorItemModel;
 @class MWMCianItemModel;
+@class MWMUGCViewModel;
+@class MWMUGCRatingValueType;
 @protocol MWMBanner;
 
 /// ViewModel for place page.
 @interface MWMPlacePageData : NSObject<MWMActionBarSharedData>
 
+@property(copy, nonatomic) MWMVoidBlock refreshPreviewCallback;
 @property(copy, nonatomic) place_page::NewSectionsAreReady sectionsAreReadyCallback;
 @property(copy, nonatomic) MWMVoidBlock bannerIsReadyCallback;
 @property(copy, nonatomic) place_page::CianIsReady cianIsReadyCallback;
+@property(nonatomic, readonly) MWMUGCViewModel * ugc;
 
 // ready callback will be called from main queue.
 - (instancetype)initWithPlacePageInfo:(place_page::Info const &)info;
@@ -173,7 +173,7 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 
 // Booking
 - (void)fillOnlineBookingSections;
-- (NSString *)bookingRating;
+- (MWMUGCRatingValueType *)bookingRating;
 - (NSString *)bookingApproximatePricing;
 - (NSURL *)sponsoredURL;
 - (NSURL *)sponsoredDescriptionURL;
@@ -193,10 +193,6 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 
 // CIAN
 - (void)fillOnlineCianSection;
-
-// UGC
-- (MWMUGCReviewVM *)reviewViewModel;
-- (std::vector<ugc::Review> const &)ugcReviews;
 
 // Route points
 - (RouteMarkType)routeMarkType;
@@ -232,7 +228,6 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 - (std::vector<place_page::MetainfoRows> const &)metainfoRows;
 - (std::vector<place_page::SpecialProject> const &)specialProjectRows;
 - (std::vector<place_page::AdRows> const &)adRows;
-- (std::vector<place_page::UGCRow> const &)ugcRows;
 - (std::vector<place_page::ButtonsRows> const &)buttonsRows;
 
 // Table view metainfo rows
@@ -252,6 +247,8 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;
 - (BOOL)isRoutePoint;
+
++ (MWMRatingSummaryViewValueType)ratingValueType:(place_page::rating::Impress)impress;
 
 // Coordinates
 - (m2::PointD const &)mercator;

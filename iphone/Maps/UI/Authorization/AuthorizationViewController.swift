@@ -82,13 +82,24 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
 
+  private let completion: (() -> Void)?
+
   private func addConstraints(v1: UIView, v2: UIView) {
     [NSLayoutAttribute.top, .bottom, .left, .right].forEach {
       NSLayoutConstraint(item: v1, attribute: $0, relatedBy: .equal, toItem: v2, attribute: $0, multiplier: 1, constant: 0).isActive = true
     }
   }
 
-  @objc init(popoverSourceView: UIView? = nil, permittedArrowDirections: UIPopoverArrowDirection = .unknown) {
+  @objc init(barButtonItem: UIBarButtonItem?, completion: (() -> Void)? = nil) {
+    self.completion = completion
+    transitioningManager = AuthorizationTransitioningManager(barButtonItem: barButtonItem)
+    super.init(nibName: toString(type(of: self)), bundle: nil)
+    transitioningDelegate = transitioningManager
+    modalPresentationStyle = .custom
+  }
+
+  @objc init(popoverSourceView: UIView? = nil, permittedArrowDirections: UIPopoverArrowDirection = .unknown, completion: (() -> Void)? = nil) {
+    self.completion = completion
     transitioningManager = AuthorizationTransitioningManager(popoverSourceView: popoverSourceView, permittedArrowDirections: permittedArrowDirections)
     super.init(nibName: toString(type(of: self)), bundle: nil)
     transitioningDelegate = transitioningManager
@@ -97,10 +108,6 @@ final class AuthorizationViewController: MWMViewController {
 
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
-  }
-
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -121,7 +128,7 @@ final class AuthorizationViewController: MWMViewController {
 
   private func process(token: String, type: MWMSocialTokenType) {
     ViewModel.authenticate(withToken: token, type: type)
-    onCancel()
+    dismiss(animated: true, completion: completion)
   }
 }
 

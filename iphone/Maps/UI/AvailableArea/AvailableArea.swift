@@ -62,7 +62,9 @@ class AvailableArea: UIView {
   func addConstraints(otherView: UIView, directions: MWMAvailableAreaAffectDirections) {
     precondition(!directions.isEmpty)
     let add = { (sa: NSLayoutAttribute, oa: NSLayoutAttribute, rel: NSLayoutRelation) in
-      NSLayoutConstraint(item: self, attribute: sa, relatedBy: rel, toItem: otherView, attribute: oa, multiplier: 1, constant: 0).isActive = true
+      let c = NSLayoutConstraint(item: self, attribute: sa, relatedBy: rel, toItem: otherView, attribute: oa, multiplier: 1, constant: 0)
+      c.priority = UILayoutPriority.defaultHigh
+      c.isActive = true
     }
     [
       .top: (.top, .bottom, .greaterThanOrEqual),

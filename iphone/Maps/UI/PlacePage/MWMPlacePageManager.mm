@@ -1,6 +1,5 @@
 #import "MWMPlacePageManager.h"
 #import "CLLocation+Mercator.h"
-#import "MapViewController.h"
 #import "MWMAPIBar.h"
 #import "MWMActivityViewController.h"
 #import "MWMFrameworkListener.h"
@@ -13,9 +12,10 @@
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MWMStorage.h"
-#import "MWMUGCReviewController.h"
-#import "MWMUGCReviewVM.h"
+#import "MWMUGCViewModel.h"
+#import "MapViewController.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
 
@@ -566,6 +566,29 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
 }
 
+- (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value
+{
+  auto data = self.data;
+  if (!data)
+    return;
+  // TODO(ios, UGC): Fill ratings.
+  NSArray<MWMUGCRatingStars *> * ratings = @[];
+  auto const canAddTextToReview = [data.ugc canAddTextToReview];
+  auto title = [data title];
+  // TODO(ios, UGC): Fill your review text.
+  auto text = @"";
+  auto ugcReviewModel = [[MWMUGCReviewModel alloc] initWithReviewValue:value
+                                                               ratings:ratings
+                                                    canAddTextToReview:canAddTextToReview
+                                                                 title:title
+                                                                  text:text];
+  auto ugcVC = [MWMUGCAddReviewController instanceWithModel:ugcReviewModel
+                                                     onSave:^(MWMUGCReviewModel * model){
+                                                         // TODO(ios, UGC): Save review (model).
+                                                     }];
+  [[MapViewController controller].navigationController pushViewController:ugcVC animated:YES];
+}
+
 - (void)showAllFacilities
 {
   auto data = self.data;
@@ -602,9 +625,10 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     [self.ownerViewController openUrl:u];
 }
 
-- (void)reviewOn:(NSInteger)starNumber
+- (void)openReviews:(id<MWMReviewsViewModelProtocol> _Nonnull)reviewsViewModel
 {
-  // TODO: Prepare ugc update.
+  auto reviewsVC = [[MWMReviewsViewController alloc] initWithViewModel:reviewsViewModel];
+  [[MapViewController controller].navigationController pushViewController:reviewsVC animated:YES];
 }
 
 #pragma mark - AvailableArea / PlacePageArea

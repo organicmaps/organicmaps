@@ -1,24 +1,16 @@
 import UIKit
 
 @IBDesignable final class RatingSummaryView: UIView {
-  @IBInspectable var value: CGFloat = RatingSummaryViewSettings.Default.value {
+  @IBInspectable var value: String = RatingSummaryViewSettings.Default.value {
     didSet {
       guard oldValue != value else { return }
-      let clamped = min(CGFloat(settings.maxValue), max(0, value))
-      if clamped == value {
-        update()
-      } else {
-        value = clamped
-      }
+      update()
     }
   }
 
-  @IBInspectable var maxValue: CGFloat {
-    get { return settings.maxValue }
-    set {
-      let clamped = max(0, newValue)
-      settings.maxValue = clamped
-      value = min(CGFloat(clamped), max(0, value))
+  var type = MWMRatingSummaryViewValueType.noValue {
+    didSet {
+      guard oldValue != type else { return }
       update()
     }
   }
@@ -83,6 +75,30 @@ import UIKit
     get { return settings.backgroundOpacity }
     set {
       settings.backgroundOpacity = newValue
+      update()
+    }
+  }
+
+  @IBInspectable var noValueText: String {
+    get { return settings.noValueText }
+    set {
+      settings.noValueText = newValue
+      update()
+    }
+  }
+
+  @IBInspectable var noValueImage: UIImage? {
+    get { return settings.images[.noValue] }
+    set {
+      settings.images[.noValue] = newValue
+      update()
+    }
+  }
+
+  @IBInspectable var noValueColor: UIColor? {
+    get { return settings.colors[.noValue] }
+    set {
+      settings.colors[.noValue] = newValue
       update()
     }
   }
@@ -174,17 +190,6 @@ import UIKit
   }
 
   private var isRightToLeft = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft
-
-  private var type: RatingSummaryViewSettings.ValueType {
-    switch value {
-    case 0 ..< 0.2 * maxValue: return .horrible
-    case 0.2 * maxValue ..< 0.4 * maxValue: return .bad
-    case 0.4 * maxValue ..< 0.6 * maxValue: return .normal
-    case 0.6 * maxValue ..< 0.8 * maxValue: return .good
-    case 0.8 * maxValue ... maxValue: return .excellent
-    default: assert(false); return .normal
-    }
-  }
 
   public override func awakeFromNib() {
     super.awakeFromNib()
@@ -292,14 +297,13 @@ import UIKit
 
   private func createTextLayer() -> CALayer {
     let font = textFont.withSize(textSize)
-    let text = String(format: "%.1f", value)
-    let size = NSString(string: text).size(withAttributes: [NSAttributedStringKey.font: font])
+    let size = NSString(string: value).size(withAttributes: [NSAttributedStringKey.font: font])
 
     let layer = CATextLayer()
     layer.bounds = CGRect(origin: CGPoint(),
                           size: CGSize(width: ceil(size.width), height: ceil(size.height)))
     layer.anchorPoint = CGPoint()
-    layer.string = text
+    layer.string = value
     layer.font = CGFont(font.fontName as CFString)
     layer.fontSize = font.pointSize
     layer.foregroundColor = settings.colors[type]!.cgColor
