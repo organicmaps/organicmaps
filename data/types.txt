@@ -1153,7 +1153,7 @@ tourism|gallery
 historic|fort
 shop|coffee
 shop|tea
-sponsored|tinkoff
+sponsored|thor
 sponsored|viator
 hwtag|toll
 amenity|arts_centre
