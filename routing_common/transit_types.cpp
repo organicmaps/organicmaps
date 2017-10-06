@@ -91,7 +91,7 @@ bool Gate::IsEqualForTesting(Gate const & gate) const
 
 // Edge -------------------------------------------------------------------------------------------
 Edge::Edge(StopId startStopId, StopId finishStopId, double weight, LineId lineId, bool transfer,
-           vector<ShapeId> const & shapeIds)
+           std::vector<ShapeId> const & shapeIds)
   : m_startStopId(startStopId)
   , m_finishStopId(finishStopId)
   , m_weight(weight)

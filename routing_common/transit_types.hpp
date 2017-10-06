@@ -67,6 +67,12 @@ public:
        m2::PointD const & point);
   bool IsEqualForTesting(Stop const & stop) const;
 
+  StopId GetId() const { return m_id; }
+  FeatureId GetFeatureId() const { return m_featureId; }
+  TransferId GetTransferId() const { return m_transferId; }
+  std::vector<LineId> const & GetLineIds() const { return m_lineIds; }
+  m2::PointD const & GetPoint() const { return m_point; }
+
   DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_featureId, "osm_id"),
                                   visitor(m_transferId, "transfer_id"),
                                   visitor(m_lineIds, "line_ids"), visitor(m_point, "point"))
@@ -88,6 +94,14 @@ public:
   Gate(FeatureId featureId, bool entrance, bool exit, double weight, std::vector<StopId> const & stopIds,
        m2::PointD const & point);
   bool IsEqualForTesting(Gate const & gate) const;
+
+  FeatureId GetFeatureId() const { return m_featureId; }
+  std::vector<FeatureId> const & GetPedestrianFeatureIds() const { return m_pedestrianFeatureIds; }
+  bool GetEntrance() const { return m_entrance; }
+  bool GetExit() const { return m_exit; }
+  double GetWeight() const { return m_weight; }
+  std::vector<StopId> const & GetStopIds() const { return m_stopIds; }
+  m2::PointD const & GetPoint() const { return m_point; }
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_featureId, "osm_id"),
                                   visitor(m_entrance, "entrance"),
@@ -115,8 +129,14 @@ public:
   Edge() = default;
   Edge(StopId startStopId, StopId finishStopId, double weight, LineId lineId, bool transfer,
        std::vector<ShapeId> const & shapeIds);
-
   bool IsEqualForTesting(Edge const & edge) const;
+
+  StopId GetStartStopId() const { return m_startStopId; }
+  StopId GetFinishStopId() const { return m_finishStopId; }
+  double GetWeight() const { return m_weight; }
+  LineId GetLineId() const { return m_lineId; }
+  bool GetTransfer() const { return m_transfer; }
+  std::vector<ShapeId> const & GetShapeIds() const { return m_shapeIds; }
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_startStopId, "start_stop_id"),
                                   visitor(m_finishStopId, "finish_stop_id"),
@@ -139,6 +159,10 @@ public:
   Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds);
   bool IsEqualForTesting(Transfer const & transfer) const;
 
+  StopId GetId() const { return m_id; }
+  m2::PointD const & GetPoint() const { return m_point; }
+  std::vector<StopId> const & GetStopIds() const { return m_stopIds; }
+
   DECLARE_VISITOR_AND_DEBUG_PRINT(Transfer, visitor(m_id, "id"), visitor(m_point, "point"),
                                   visitor(m_stopIds, "stop_ids"))
 
@@ -158,6 +182,13 @@ public:
   Line(LineId id, std::string const & number, std::string const & title, std::string const & type,
        NetworkId networkId, std::vector<StopId> const & stopIds);
   bool IsEqualForTesting(Line const & line) const;
+
+  LineId GetId() const { return m_id; }
+  std::string const & GetNumber() const { return m_number; }
+  std::string const & GetTitle() const { return m_title; }
+  std::string const & GetType() const { return m_type; }
+  NetworkId GetNetworkId() const { return m_networkId; }
+  std::vector<StopId> const & GetStopIds() const { return m_stopIds; }
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(Line, visitor(m_id, "id"), visitor(m_number, "number"),
                                   visitor(m_title, "title"), visitor(m_type, "type"),
@@ -180,6 +211,11 @@ public:
   Shape(ShapeId id, StopId stop1_id, StopId stop2_id, std::vector<m2::PointD> const & polyline);
   bool IsEqualForTesting(Shape const & shape) const;
 
+  ShapeId GetId() const { return m_id; }
+  StopId GetStop1Id() const { return m_stop1_id; }
+  StopId GetStop2Id() const { return m_stop2_id; }
+  std::vector<m2::PointD> const & GetPolyline() const { return m_polyline; }
+
   DECLARE_VISITOR_AND_DEBUG_PRINT(Shape, visitor(m_id, "id"), visitor(m_stop1_id, "stop1_id"),
                                   visitor(m_stop2_id, "stop2_id"), visitor(m_polyline, "polyline"))
 
@@ -196,6 +232,9 @@ public:
   Network() = default;
   Network(NetworkId id, std::string const & title);
   bool IsEqualForTesting(Network const & shape) const;
+
+  NetworkId GetId() const { return m_id; }
+  std::string const & GetTitle() const { return m_title; }
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(Network, visitor(m_id, "id"), visitor(m_title, "title"))
 
