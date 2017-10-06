@@ -300,7 +300,7 @@ void Processor::SetQuery(string const & query)
   // Assign tokens and prefix to scorer.
   m_ranker.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
 
-  // get preferred types to show in results
+  // Get preferred types to show in results.
   m_preferredTypes.clear();
   ForEachCategoryType(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix),
                       [&](size_t, uint32_t t)
@@ -390,11 +390,10 @@ void Processor::SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool 
 }
 
 void Processor::ClearCache(size_t ind) { m_viewport[ind].MakeEmpty(); }
-
-TLocales Processor::GetCategoryLocales() const
+Locales Processor::GetCategoryLocales() const
 {
   static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
-  TLocales result;
+  Locales result;
 
   // Prepare array of processing locales. English locale is always present for category matching.
   if (m_currentLocaleCode != -1)
@@ -522,18 +521,27 @@ void Processor::InitParams(QueryParams & params)
   else
     params.InitWithPrefix(m_tokens.begin(), m_tokens.end(), m_prefix);
 
+  RemoveStopWordsIfNeeded(params);
+
   // Add names of categories (and synonyms).
   Classificator const & c = classif();
-  auto addSyms = [&](size_t i, uint32_t t)
-  {
+  auto addSynonyms = [&](size_t i, uint32_t t) {
     uint32_t const index = c.GetIndexForType(t);
     params.GetTypeIndices(i).push_back(index);
   };
-
-  // todo(@m, @y). Shall we match prefix tokens for categories?
-  ForEachCategoryTypeFuzzy(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix), addSyms);
-
-  RemoveStopWordsIfNeeded(params);
+  auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
+  bool const isCategorialRequest =
+      IsCategorialRequest(tokenSlice, GetCategoryLocales(), m_categories);
+  params.SetCategorialRequest(isCategorialRequest);
+  if (isCategorialRequest)
+  {
+    ForEachCategoryType(tokenSlice, addSynonyms);
+  }
+  else
+  {
+    // todo(@m, @y). Shall we match prefix tokens for categories?
+    ForEachCategoryTypeFuzzy(tokenSlice, addSynonyms);
+  }
 
   // Remove all type indices for streets, as they're considired
   // individually.
@@ -563,6 +571,8 @@ void Processor::InitGeocoder(Geocoder::Params & params)
     params.m_pivot = GetPivotRect();
   params.m_hotelsFilter = m_hotelsFilter;
   params.m_cianMode = m_cianMode;
+  params.m_preferredTypes = m_preferredTypes;
+
   m_geocoder.SetParams(params);
 }
 

@@ -38,9 +38,15 @@ public:
   // Following functions retrieve from the search index corresponding to
   // |value| all features matching to |request|.
   unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
-      SearchTrieRequest<strings::LevenshteinDFA> const & request);
+      SearchTrieRequest<strings::UniStringDFA> const & request);
 
   unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+      SearchTrieRequest<strings::PrefixDFAModifier<strings::UniStringDFA>> const & request);
+
+  unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesFuzzy(
+      SearchTrieRequest<strings::LevenshteinDFA> const & request);
+
+  unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesFuzzy(
       SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> const & request);
 
   // Retrieves from the search index corresponding to |value| all

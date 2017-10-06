@@ -318,12 +318,24 @@ Retrieval::Retrieval(MwmContext const & context, my::Cancellable const & cancell
 }
 
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
-    SearchTrieRequest<LevenshteinDFA> const & request)
+    SearchTrieRequest<UniStringDFA> const & request)
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
+    SearchTrieRequest<PrefixDFAModifier<UniStringDFA>> const & request)
+{
+  return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
+}
+
+unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeaturesFuzzy(
+    SearchTrieRequest<LevenshteinDFA> const & request)
+{
+  return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
+}
+
+unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeaturesFuzzy(
     SearchTrieRequest<PrefixDFAModifier<LevenshteinDFA>> const & request)
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);

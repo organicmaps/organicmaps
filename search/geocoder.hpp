@@ -84,6 +84,7 @@ public:
     m2::RectD m_pivot;
     shared_ptr<hotels_filter::Rule> m_hotelsFilter;
     bool m_cianMode = false;
+    set<uint32_t> m_preferredTypes;
   };
 
   Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
@@ -122,6 +123,9 @@ private:
     CBV m_features;
   };
 
+  // Sets search query params for categorial search.
+  void SetParamsForCategorialSearch(Params const & params);
+
   void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
 
   template <typename Locality>
@@ -148,6 +152,9 @@ private:
 
   // Throws CancelException if cancelled.
   inline void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
+
+  // A fast-path branch for categorial requests.
+  void MatchCategories(BaseContext & ctx);
 
   // Tries to find all countries and states in a search query and then
   // performs matching of cities in found maps.

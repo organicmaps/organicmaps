@@ -219,7 +219,7 @@ MwmSet::MwmHandle FindWorld(Index const & index, vector<shared_ptr<MwmInfo>> con
 
 double Area(m2::RectD const & rect) { return rect.IsValid() ? rect.SizeX() * rect.SizeY() : 0; }
 
-// Computes an average similaty between |rect| and |pivot|. By
+// Computes the average similarity between |rect| and |pivot|. By
 // similarity between two rects we mean a fraction of the area of
 // rects intersection to the area of the smallest rect.
 double GetSimilarity(m2::RectD const & pivot, m2::RectD const & rect)
@@ -364,6 +364,12 @@ Geocoder::~Geocoder() {}
 
 void Geocoder::SetParams(Params const & params)
 {
+  if (params.IsCategorialRequest())
+  {
+    SetParamsForCategorialSearch(params);
+    return;
+  }
+
   m_params = params;
   m_model.SetCianEnabled(m_params.m_cianMode);
 
@@ -432,6 +438,32 @@ void Geocoder::GoInViewport()
               });
 
   GoImpl(infos, true /* inViewport */);
+}
+
+void Geocoder::ClearCaches()
+{
+  m_pivotRectsCache.Clear();
+  m_localityRectsCache.Clear();
+
+  m_matchersCache.clear();
+  m_streetsCache.Clear();
+  m_hotelsCache.Clear();
+  m_hotelsFilter.ClearCaches();
+  m_postcodes.Clear();
+}
+
+void Geocoder::SetParamsForCategorialSearch(Params const & params)
+{
+  m_params = params;
+  m_model.SetCianEnabled(m_params.m_cianMode);
+
+  m_tokenRequests.clear();
+  m_prefixTokenRequest.Clear();
+
+  ASSERT_EQUAL(m_params.GetNumTokens(), 1, ());
+  ASSERT(!m_params.IsPrefixToken(0), ());
+
+  LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
 
 void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
@@ -515,7 +547,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
           features = features.Intersect(viewportCBV);
       }
 
-      ctx.m_villages = m_villagesCache.Get(*m_context);
+      ctx.m_villages = m_villagesCache.GetFuzzy(*m_context);
 
       auto citiesFromWorld = m_cities;
       FillVillageLocalities(ctx);
@@ -524,11 +556,17 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
                        m_cities = citiesFromWorld;
                      });
 
+      if (m_params.IsCategorialRequest())
+      {
+        MatchCategories(ctx);
+      }
+      else
+      {
+        MatchRegions(ctx, Region::TYPE_COUNTRY);
 
-      MatchRegions(ctx, Region::TYPE_COUNTRY);
-
-      if (index < numIntersectingMaps || m_preRanker.NumSentResults() == 0)
-        MatchAroundPivot(ctx);
+        if (index < numIntersectingMaps || m_preRanker.NumSentResults() == 0)
+          MatchAroundPivot(ctx);
+      }
 
       if (index + 1 >= numIntersectingMaps)
         m_preRanker.UpdateResults(false /* lastUpdate */);
@@ -544,18 +582,6 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
   }
 }
 
-void Geocoder::ClearCaches()
-{
-  m_pivotRectsCache.Clear();
-  m_localityRectsCache.Clear();
-
-  m_matchersCache.clear();
-  m_streetsCache.Clear();
-  m_hotelsCache.Clear();
-  m_hotelsFilter.ClearCaches();
-  m_postcodes.Clear();
-}
-
 void Geocoder::InitBaseContext(BaseContext & ctx)
 {
   Retrieval retrieval(*m_context, m_cancellable);
@@ -565,14 +591,22 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
   ctx.m_features.resize(ctx.m_numTokens);
   for (size_t i = 0; i < ctx.m_features.size(); ++i)
   {
-    if (m_params.IsPrefixToken(i))
-      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_prefixTokenRequest);
+    if (m_params.IsCategorialRequest())
+    {
+      // Implementation-wise, the simplest way to match a feature by
+      // its category bypassing the matching by name is by using a CategoriesCache.
+      CategoriesCache cache(m_params.m_preferredTypes, m_cancellable);
+      ctx.m_features[i] = cache.Get(*m_context);
+    }
+    else if (m_params.IsPrefixToken(i))
+      ctx.m_features[i] = retrieval.RetrieveAddressFeaturesFuzzy(m_prefixTokenRequest);
     else
-      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_tokenRequests[i]);
+      ctx.m_features[i] = retrieval.RetrieveAddressFeaturesFuzzy(m_tokenRequests[i]);
 
     if (m_params.m_cianMode)
       ctx.m_features[i] = DecimateCianResults(ctx.m_features[i]);
   }
+
   ctx.m_hotelsFilter = m_hotelsFilter.MakeScopedFilter(*m_context, m_params.m_hotelsFilter);
 }
 
@@ -591,6 +625,13 @@ void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filte
                                       size_t const maxNumLocalities,
                                       vector<Locality> & preLocalities)
 {
+  // todo(@m) "food moscow" should be a valid categorial request.
+  if (m_params.IsCategorialRequest())
+  {
+    preLocalities.clear();
+    return;
+  }
+
   LocalityScorerDelegate delegate(*m_context, m_params);
   LocalityScorer scorer(m_params, delegate);
   scorer.GetTopLocalities(m_context->GetId(), ctx, filter, maxNumLocalities, preLocalities);
@@ -735,6 +776,24 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && 
   }
 }
 
+void Geocoder::MatchCategories(BaseContext & ctx)
+{
+  auto emit = [&](uint64_t bit) {
+    auto const featureId = base::asserted_cast<uint32_t>(bit);
+    Model::Type type;
+    if (!GetTypeInGeocoding(ctx, featureId, type))
+      return;
+
+    EmitResult(ctx, m_context->GetId(), featureId, type, TokenRange(0, 1), nullptr /* geoParts */);
+  };
+
+  // By now there's only one token and zero prefix tokens.
+  // Its features have been retrieved from the search index
+  // using the exact (non-fuzzy) matching and intersected
+  // with viewport, if needed. Every such feature is relevant.
+  ctx.m_features[0].ForEach(emit);
+}
+
 void Geocoder::MatchRegions(BaseContext & ctx, Region::Type type)
 {
   switch (type)
@@ -871,7 +930,7 @@ void Geocoder::LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter)
                  });
 
   if (!ctx.m_streets)
-    ctx.m_streets = m_streetsCache.Get(*m_context);
+    ctx.m_streets = m_streetsCache.GetFuzzy(*m_context);
 
   MatchUnclassified(ctx, 0 /* curToken */);
 

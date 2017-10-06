@@ -16,6 +16,8 @@
 #include <queue>
 #include <vector>
 
+#include "base/logging.hpp"
+
 namespace search
 {
 // todo(@m, @y). Unite with the similar function in search/feature_offset_match.hpp.
@@ -62,14 +64,14 @@ bool MatchInTrie(TrieIt const & trieStartIt, DFA const & dfa, ToDo && toDo)
   return found;
 }
 
-using TLocales = buffer_vector<int8_t, 3>;
+using Locales = buffer_vector<int8_t, 3>;
 
 size_t GetMaxErrorsForToken(strings::UniString const & token);
 
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
 
 template <typename ToDo>
-void ForEachCategoryType(StringSliceBase const & slice, TLocales const & locales,
+void ForEachCategoryType(StringSliceBase const & slice, Locales const & locales,
                          CategoriesHolder const & categories, ToDo && todo)
 {
   for (size_t i = 0; i < slice.Size(); ++i)
@@ -94,7 +96,7 @@ void ForEachCategoryType(StringSliceBase const & slice, TLocales const & locales
 // in all category synonyms in all |locales| in order to find a token
 // whose edit distance is close enough to the required token from |slice|.
 template <typename ToDo>
-void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, TLocales const & locales,
+void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & locales,
                               CategoriesHolder const & categories, ToDo && todo)
 {
   using Trie = my::MemTrie<strings::UniString, my::VectorValues<uint32_t>>;
@@ -117,5 +119,32 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, TLocales const & lo
         MatchInTrie(trieStartIt, dfa, std::bind<void>(todo, i, std::placeholders::_1));
     });
   }
+}
+
+// Returns whether the request specified by |slice| is categorial
+// in any of the |locales|. We expect that categorial requests should
+// mostly arise from clicking on a category button in the UI.
+// It is assumed that typing a word that matches a category's name
+// and a space after it means that no errors were made.
+template <typename T>
+bool IsCategorialRequest(QuerySliceOnRawStrings<T> const & slice, Locales const & locales,
+                         CategoriesHolder const & catHolder)
+{
+  if (slice.Size() != 1 || slice.HasPrefixToken())
+    return false;
+
+  bool found = false;
+  auto token = slice.Get(0);
+  catHolder.ForEachName([&](CategoriesHolder::Category::Name const & categorySynonym) {
+    if (std::find(locales.begin(), locales.end(), categorySynonym.m_locale) == locales.end())
+      return;
+
+    if (token != strings::MakeUniString(categorySynonym.m_name))
+      return;
+
+    found = true;
+  });
+
+  return found;
 }
 }  // namespace search

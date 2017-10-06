@@ -23,6 +23,7 @@
 #include "base/checked_cast.hpp"
 #include "base/macros.hpp"
 #include "base/math.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
@@ -694,6 +695,109 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
   TEST(ResultsMatch("beach ",
                     {ExactMatch(wonderlandId, nonameBeach), ExactMatch(wonderlandId, namedBeach)}),
        ());
+}
+
+// A separate test for the categorial search branch in the geocoder.
+UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
+{
+  string const countryName = "Wonderland";
+
+  TestCity sanDiego(m2::PointD(0, 0), "San Diego", "en", 100 /* rank */);
+  TestCity homel(m2::PointD(10, 10), "Homel", "en", 100 /* rank */);
+
+  // No need in TestHotel here, TestPOI is enough.
+  TestPOI hotel1(m2::PointD(0, 0.01), "", "ru");
+  hotel1.SetTypes({{"tourism", "hotel"}});
+
+  TestPOI hotel2(m2::PointD(0, 0.02), "Hotel San Diego, California", "en");
+  hotel2.SetTypes({{"tourism", "hotel"}});
+
+  TestPOI hotelCafe(m2::PointD(0, 0.03), "Hotel", "en");
+  hotelCafe.SetTypes({{"amenity", "cafe"}});
+
+  TestPOI hotelDeVille(m2::PointD(0, 0.04), "Hôtel De Ville", "en");
+  hotelDeVille.SetTypes({{"amenity", "townhall"}});
+
+  auto const testWorldId = BuildWorld([&](TestMwmBuilder & builder) {
+    builder.Add(sanDiego);
+    builder.Add(homel);
+  });
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(hotel1);
+    builder.Add(hotel2);
+    builder.Add(hotelCafe);
+    builder.Add(hotelDeVille);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
+
+  {
+    TRules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2)};
+
+    auto request = MakeRequest("hotel ");
+    TEST(ResultsMatch(request->Results(), rules), ());
+  }
+
+  {
+    TRules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2)};
+
+    auto request = MakeRequest("гостиница ", "ru");
+    TEST(ResultsMatch(request->Results(), rules), ());
+  }
+
+  {
+    TRules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2)};
+
+    // Hotel unicode character: both a synonym and and emoji.
+    uint32_t const hotelEmojiCodepoint = 0x0001F3E8;
+    strings::UniString const hotelUniString(1, hotelEmojiCodepoint);
+    auto request = MakeRequest(ToUtf8(hotelUniString));
+    TEST(ResultsMatch(request->Results(), rules), ());
+  }
+
+  {
+    TRules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2),
+                          ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
+                          ExactMatch(wonderlandId, hotelDeVille)};
+    // A prefix token.
+    auto request = MakeRequest("hotel");
+    TEST(ResultsMatch(request->Results(), rules), ());
+  }
+
+  {
+    TRules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2),
+                          ExactMatch(wonderlandId, hotelCafe),
+                          ExactMatch(wonderlandId, hotelDeVille)};
+    // It looks like a category search but we cannot tell it, so
+    // even the features that match only by name are emitted.
+    auto request = MakeRequest("hotel san diego ");
+    TEST(ResultsMatch(request->Results(), rules), ());
+  }
+
+  {
+    TRules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2),
+                          ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
+                          ExactMatch(wonderlandId, hotelDeVille)};
+    // Homel matches exactly, other features are matched by fuzzy names.
+    auto request = MakeRequest("homel ");
+    TEST(ResultsMatch(request->Results(), rules), ());
+  }
+
+  {
+    TRules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2),
+                          ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
+                          ExactMatch(wonderlandId, hotelDeVille)};
+    // A typo in search: all features fit.
+    auto request = MakeRequest("hofel ");
+    TEST(ResultsMatch(request->Results(), rules), ());
+  }
+
+  {
+    TRules const rules = {ExactMatch(wonderlandId, hotelDeVille)};
+
+    auto request = MakeRequest("hotel de ville ");
+    TEST(ResultsMatch(request->Results(), rules), ());
+  }
 }
 
 UNIT_CLASS_TEST(ProcessorTest, TestCoords)
