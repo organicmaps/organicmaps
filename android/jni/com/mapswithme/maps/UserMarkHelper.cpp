@@ -135,7 +135,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         static_cast<jint>(bac.m_bookmarkIndex), jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(),
         jAddress.get(), jbanners.get(), jTaxiTypes.get(), jBookingSearchUrl.get(),
         localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended(), info.ShouldShowUGC(),
-        info.ShouldShowUGCRating());
+        info.CanBeRated());
 
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
@@ -152,7 +152,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                            info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                            info.GetAddress(), {}, "", jbanners.get(), jTaxiTypes.get(),
                            info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
-                           info.IsPreviewExtended(), info.ShouldShowUGC(), info.ShouldShowUGCRating());
+                           info.IsPreviewExtended(), info.ShouldShowUGC(), info.CanBeRated());
   }
 
   if (info.HasApiUrl())
@@ -162,7 +162,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         kApiPoint, info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
         info.GetAddress(), info.GetMetadata(), info.GetApiUrl(), jbanners.get(), jTaxiTypes.get(),
         info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended(),
-        info.ShouldShowUGC(), info.ShouldShowUGCRating());
+        info.ShouldShowUGC(), info.CanBeRated());
   }
 
   return CreateMapObject(
@@ -170,7 +170,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
       info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
       info.GetAddress(), info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
       jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
-      info.IsPreviewExtended(), info.ShouldShowUGC(), info.ShouldShowUGCRating());
+      info.IsPreviewExtended(), info.ShouldShowUGC(), info.CanBeRated());
 }
 
 jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners)
