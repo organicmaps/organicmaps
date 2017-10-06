@@ -113,8 +113,11 @@ private:
   FeatureId m_featureId = kInvalidFeatureId;
   // |m_pedestrianFeatureIds| is linear feature ids which can be used for pedestrian routing
   // to leave (to enter) the gate.
-  // @TODO(bykoianko) |m_pedestrianFeatureIds| should be filled after "gates" are deserialized from json
-  // to vector of Gate but before serialization to mwm.
+  // @TODO(bykoianko) |m_pedestrianFeatureIds| is not filled from json but should be calculated based on |m_point|.
+  // It should be filled after "gates" are deserialized from json to vector of Gate but before serialization to mwm.
+  // That means that it's necessary to implement two visitors. One of them without visiting |m_pedestrianFeatureIds|
+  // for deserialization from json. And another with visiting |m_pedestrianFeatureIds| for serialization to mwm,
+  // deserialization from mwm and debug print.
   std::vector<FeatureId> m_pedestrianFeatureIds;
   bool m_entrance = true;
   bool m_exit = true;
