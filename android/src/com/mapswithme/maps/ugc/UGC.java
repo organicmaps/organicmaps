@@ -79,12 +79,14 @@ public class UGC implements Serializable
     mListener = listener;
   }
 
-  public static native void requestUGC(FeatureId fid);
+  public static native void requestUGC(@NonNull FeatureId fid);
 
-  public static void onUGCReceived(@NonNull UGC ugc)
+  public static native void setUGCUpdate(@NonNull FeatureId fid, UGCUpdate update);
+
+  public static void onUGCReceived(@NonNull UGC ugc, @NonNull UGCUpdate ugcUpdate)
   {
     if (mListener != null)
-      mListener.onUGCReceived(ugc);
+      mListener.onUGCReceived(ugc, ugcUpdate);
   }
 
   public static class Rating implements Serializable
@@ -151,6 +153,6 @@ public class UGC implements Serializable
 
   public interface UGCListener
   {
-    void onUGCReceived(@NonNull UGC ugc);
+    void onUGCReceived(@NonNull UGC ugc, @NonNull UGCUpdate ugcUpdate);
   }
 }

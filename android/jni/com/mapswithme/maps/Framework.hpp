@@ -201,6 +201,7 @@ namespace android
                                viator::GetTop5ProductsCallback const & callback);
 
     void RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & ugcCallback);
+    void SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc);
 
     uint64_t GetRentNearby(JNIEnv * env, jobject policy, ms::LatLon const & latlon,
                        cian::Api::RentNearbyCallback const & onSuccess,

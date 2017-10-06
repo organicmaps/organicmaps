@@ -49,7 +49,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
         return;
 
       UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
-                              mMapObject.getFeatureId().getFeatureIndex(),
+                              mMapObject.getFeatureId(),
                               mUgc, UGC.RATING_HORRIBLE);
     }
   };
@@ -58,6 +58,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   private MapObject mMapObject;
   @Nullable
   private UGC mUgc;
+  @Nullable
+  private UGCUpdate mUGCUpdate;
 
   public UGCController(@NonNull final PlacePageView placePage)
   {
@@ -167,9 +169,10 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   }
 
   @Override
-  public void onUGCReceived(@NonNull UGC ugc)
+  public void onUGCReceived(@NonNull UGC ugc, @NonNull UGCUpdate ugcUpdate)
   {
     mUgc = ugc;
+    mUGCUpdate = ugcUpdate;
     if (ugc.getReviews() != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
     mUGCRatingRecordsAdapter.setItems(ugc.getRatings());
@@ -184,7 +187,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       return;
 
     UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
-                            mMapObject.getFeatureId().getFeatureIndex(),
+                            mMapObject.getFeatureId(),
                             mUgc, rating);
   }
 }

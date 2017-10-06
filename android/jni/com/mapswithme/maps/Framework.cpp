@@ -588,6 +588,11 @@ void Framework::RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & 
   m_work.GetUGCApi()->GetUGC(fid, ugcCallback);
 }
 
+void Framework::SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc)
+{
+  m_work.GetUGCApi()->SetUGCUpdate(fid, ugc);
+}
+
 uint64_t Framework::GetRentNearby(JNIEnv * env, jobject policy, ms::LatLon const & latlon,
                               cian::Api::RentNearbyCallback const & onSuccess,
                               cian::Api::ErrorCallback const & onError)

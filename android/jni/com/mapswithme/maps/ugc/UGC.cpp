@@ -57,11 +57,38 @@ private:
 class JavaBridge
 {
 public:
-  void OnResult(JNIEnv * env, ugc::UGC const & ugc)
+  void OnResult(JNIEnv * env, ugc::UGC const & ugc, ugc::UGCUpdate const & ugcUpdate)
   {
     Init(env);
-    jni::TScopedLocalRef result(env, ToJavaUGC(env, ugc));
-    env->CallStaticVoidMethod(m_ugcClass, m_onResult, result.get());
+    jni::TScopedLocalRef ugcResult(env, ToJavaUGC(env, ugc));
+    jni::TScopedLocalRef ugcUpdateResult(env, ToJavaUGCUpdate(env, ugcUpdate));
+    env->CallStaticVoidMethod(m_ugcClass, m_onResult, ugcResult.get(), ugcUpdateResult.get());
+  }
+
+  ugc::UGCUpdate ToNativeUGCUpdate(JNIEnv * env, jobject ugcUpdate)
+  {
+    Init(env);
+
+    jobjectArray jratings = static_cast<jobjectArray>(env->GetObjectField(ugcUpdate, m_ratingArrayFieldId));
+    int const length = env->GetArrayLength(jratings);
+    std::vector<ugc::RatingRecord> records(length);
+    for (int i = 0; i < length; i++)
+    {
+      jobject jrating = env->GetObjectArrayElement(jratings, i);
+
+      jstring name = static_cast<jstring>(env->GetObjectField(jrating, m_ratingNameFieldId));
+      ugc::TranslationKey key(jni::ToNativeString(env, name));
+
+      jfloat value = env->GetFloatField(jrating, m_ratingValueFieldId);
+      auto const ratingValue = static_cast<float>(value);
+
+      ugc::RatingRecord record(key, ratingValue);
+      records.push_back(record);
+    }
+    jstring jtext = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_ratingTextFieldId));
+    // TODO: use lang parameter correctly.
+    ugc::Text text(jni::ToNativeString(env, jtext), 1);
+    return ugc::UGCUpdate(records, text, std::chrono::system_clock::now());
   }
 
 private:
@@ -72,6 +99,16 @@ private:
 
     jobject result = env->NewObject(m_ugcClass, m_ugcCtor, ratings.get(), ugc.m_aggRating,
                                     reviews.get());
+    ASSERT(result, ());
+    return result;
+  }
+
+  jobject ToJavaUGCUpdate(JNIEnv * env, ugc::UGCUpdate const & ugcUpdate)
+  {
+    jni::TScopedLocalObjectArrayRef ratings(env, ToJavaRatings(env, ugcUpdate.m_ratings));
+    jni::TScopedLocalRef text(env, jni::ToJavaString(env, ugcUpdate.m_text.m_text));
+
+    jobject result = env->NewObject(m_ugcUpdateClass, m_ugcUpdateCtor, ratings.get(), text.get());
     ASSERT(result, ());
     return result;
   }
@@ -128,7 +165,7 @@ private:
         env, m_ugcClass,
         "([Lcom/mapswithme/maps/ugc/UGC$Rating;F[Lcom/mapswithme/maps/ugc/UGC$Review;)V");
     m_onResult = jni::GetStaticMethodID(env, m_ugcClass, "onUGCReceived",
-                                        "(Lcom/mapswithme/maps/ugc/UGC;)V");
+                                        "(Lcom/mapswithme/maps/ugc/UGC;Lcom/mapswithme/maps/ugc/UGCUpdate;)V");
 
     m_ratingClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGC$Rating");
     m_ratingCtor = jni::GetConstructorID(env, m_ratingClass, "(Ljava/lang/String;F)V");
@@ -137,6 +174,13 @@ private:
     m_reviewCtor =
         jni::GetConstructorID(env, m_reviewClass, "(Ljava/lang/String;Ljava/lang/String;J)V");
 
+    m_ugcUpdateClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGCUpdate");
+    m_ugcUpdateCtor = jni::GetConstructorID(
+        env, m_ugcUpdateClass, "([Lcom/mapswithme/maps/ugc/UGC$Rating;Ljava/lang/String;)V");
+    m_ratingArrayFieldId = env->GetFieldID(m_ugcUpdateClass, "mRatings", "[Lcom/mapswithme/maps/ugc/UGC$Rating;");
+    m_ratingTextFieldId = env->GetFieldID(m_ugcUpdateClass, "mText", "Ljava/lang/String;");
+    m_ratingNameFieldId = env->GetFieldID(m_ratingClass, "mName", "Ljava/lang/String;");
+    m_ratingValueFieldId = env->GetFieldID(m_ratingClass, "mValue", "F");
     m_initialized = true;
   }
 
@@ -144,6 +188,14 @@ private:
 
   jclass m_ugcClass;
   jmethodID m_ugcCtor;
+
+  jclass m_ugcUpdateClass;
+  jmethodID m_ugcUpdateCtor;
+  jfieldID m_ratingArrayFieldId;
+  jfieldID m_ratingTextFieldId;
+  jfieldID m_ratingNameFieldId;
+  jfieldID m_ratingValueFieldId;
+
   jmethodID m_onResult;
 
   jclass m_ratingClass;
@@ -155,13 +207,23 @@ private:
 }  // namespace
 
 extern "C" {
-JNIEXPORT void JNICALL Java_com_mapswithme_maps_ugc_UGC_requestUGC(JNIEnv * env, jclass /* clazz */,
+JNIEXPORT
+void JNICALL Java_com_mapswithme_maps_ugc_UGC_requestUGC(JNIEnv * env, jclass /* clazz */,
                                                                    jobject featureId)
 {
   auto const fid = g_builder.Build(env, featureId);
   g_framework->RequestUGC(fid, [&](ugc::UGC const & ugc, ugc::UGCUpdate const & update) {
     JNIEnv * e = jni::GetEnv();
-    g_bridge.OnResult(e, ugc);
+    g_bridge.OnResult(e, ugc, update);
   });
+}
+
+JNIEXPORT
+void JNICALL Java_com_mapswithme_maps_ugc_UGC_setUGCUpdate(JNIEnv * env, jclass /* clazz */,
+                                                           jobject featureId, jobject ugcUpdate)
+{
+  auto const fid = g_builder.Build(env, featureId);
+  ugc::UGCUpdate update = g_bridge.ToNativeUGCUpdate(env, ugcUpdate);
+  g_framework->SetUGCUpdate(fid, update);
 }
 }
