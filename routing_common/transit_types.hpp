@@ -95,7 +95,13 @@ public:
                                   visitor(m_stopIds, "stop_ids"), visitor(m_point, "point"))
 
 private:
+  // |m_featureId| is feature id of a point feature which represents gates.
   FeatureId m_featureId = kInvalidFeatureId;
+  // |m_pedestrianFeatureIds| is linear feature ids which can be used for pedestrian routing
+  // to leave (to enter) the gate.
+  // @TODO(bykoianko) |m_pedestrianFeatureIds| should be filled after "gates" are deserialized from json
+  // to vector of Gate but before serialization to mwm.
+  std::vector<FeatureId> m_pedestrianFeatureIds;
   bool m_entrance = true;
   bool m_exit = true;
   double m_weight = kInvalidWeight;

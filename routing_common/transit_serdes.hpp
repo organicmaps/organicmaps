@@ -61,9 +61,20 @@ public:
 
   void operator()(m2::PointD const & p, char const * /* name */ = nullptr)
   {
-    m2::PointU const pointU = PointD2PointU(p, POINT_COORD_BITS);
-    WriteVarUint(m_sink, EncodeDelta(pointU, m_lastEncodedPoint));
-    m_lastEncodedPoint = pointU;
+    WriteVarInt(m_sink, PointToInt64(p, POINT_COORD_BITS));
+  }
+
+  void operator()(std::vector<m2::PointD> const & vs, char const * /* name */ = nullptr)
+  {
+    CHECK_LESS_OR_EQUAL(vs.size(), std::numeric_limits<uint64_t>::max(), ());
+    WriteVarUint(m_sink, static_cast<uint64_t>(vs.size()));
+    m2::PointU lastEncodedPoint;
+    for (auto const & p : vs)
+    {
+      m2::PointU const pointU = PointD2PointU(p, POINT_COORD_BITS);
+      WriteVarUint(m_sink, EncodeDelta(pointU, lastEncodedPoint));
+      lastEncodedPoint = pointU;
+    }
   }
 
   template <typename T>
@@ -81,12 +92,8 @@ public:
     t.Visit(*this);
   }
 
-  /// \note This method should be called beforw serializing every table.
-  void ResetCache() { m_lastEncodedPoint = m2::PointD(); }
-
 private:
   Sink & m_sink;
-  m2::PointU m_lastEncodedPoint;
 };
 
 template <typename Source>
@@ -116,9 +123,20 @@ public:
 
   void operator()(m2::PointD & p, char const * /* name */ = nullptr)
   {
-    m2::PointU pointU = DecodeDelta(ReadVarUint<uint64_t, Source>(m_source), m_lastDecodedPoint);
-    p = PointU2PointD(pointU, POINT_COORD_BITS);
-    m_lastDecodedPoint = pointU;
+    p = Int64ToPoint(ReadVarInt<int64_t, Source>(m_source), POINT_COORD_BITS);
+  }
+
+  void operator()(vector<m2::PointD> & vs, char const * /* name */ = nullptr)
+  {
+    auto const size = ReadVarUint<uint64_t, Source>(m_source);
+    m2::PointU lastDecodedPoint;
+    vs.resize(size);
+    for (auto & p : vs)
+    {
+      m2::PointU const pointU = DecodeDelta(ReadVarUint<uint64_t, Source>(m_source), lastDecodedPoint);
+      p = PointU2PointD(pointU, POINT_COORD_BITS);
+      lastDecodedPoint = pointU;
+    }
   }
 
   template <typename T>
@@ -136,12 +154,8 @@ public:
     t.Visit(*this);
   }
 
-  /// \note This method should be called beforw deserializing every table.
-  void ResetCache() { m_lastDecodedPoint = m2::PointD(); }
-
 private:
   Source & m_source;
-  m2::PointU m_lastDecodedPoint;
 };
 }  // namespace transit
 }  // namespace routing

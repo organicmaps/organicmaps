@@ -49,7 +49,6 @@ void SerializeObject(my::Json const & root, string const & key, Serializer<FileW
 
   DeserializerFromJson deserializer(root.get());
   deserializer(items, key.c_str());
-  serializer.ResetCache();
   serializer(items);
 }
 }  // namespace
