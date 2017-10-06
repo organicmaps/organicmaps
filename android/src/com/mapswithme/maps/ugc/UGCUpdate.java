@@ -1,7 +1,5 @@
 package com.mapswithme.maps.ugc;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import java.util.Arrays;

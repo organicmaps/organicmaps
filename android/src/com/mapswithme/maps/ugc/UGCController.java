@@ -40,6 +40,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   @NonNull
   private final Button mLeaveReviewButton;
   @NonNull
+  private final View mPreviewUgcInfoView;
+  @NonNull
   private final View.OnClickListener mLeaveReviewClickListener = new View.OnClickListener()
   {
     @Override
@@ -48,6 +50,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       if (mUgc == null || mMapObject == null)
         return;
 
+      //TODO: pass zero stars by default, not 1.
       UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                               mMapObject.getFeatureId(),
                               mUgc, UGC.RATING_HORRIBLE);
@@ -58,14 +61,13 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   private MapObject mMapObject;
   @Nullable
   private UGC mUgc;
-  @Nullable
-  private UGCUpdate mUGCUpdate;
 
   public UGCController(@NonNull final PlacePageView placePage)
   {
     mPlacePage = placePage;
     final Context context = mPlacePage.getContext();
     mUgcRootView = mPlacePage.findViewById(R.id.ll__pp_ugc);
+    mPreviewUgcInfoView = mPlacePage.findViewById(R.id.preview_rating_info);
     mUgcMoreReviews = mPlacePage.findViewById(R.id.tv__pp_ugc_reviews_more);
     mUgcAddRatingView = mPlacePage.findViewById(R.id.ll__pp_ugc_add_rating);
     mUgcAddRatingView.findViewById(R.id.ll__horrible).setOnClickListener(this);
@@ -169,15 +171,25 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   }
 
   @Override
-  public void onUGCReceived(@NonNull UGC ugc, @NonNull UGCUpdate ugcUpdate)
+  public void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate)
   {
+    UiUtils.show(mPreviewUgcInfoView);
+    UiUtils.showIf(ugcUpdate == null, mLeaveReviewButton);
     mUgc = ugc;
-    mUGCUpdate = ugcUpdate;
+    if (mUgc == null)
+    {
+      mReviewCount.setText(ugcUpdate != null ? R.string.placepage_reviewed : R.string.placepage_no_reviews);
+      return;
+    }
+
     if (ugc.getReviews() != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
     mUGCRatingRecordsAdapter.setItems(ugc.getRatings());
     mUGCUserRatingRecordsAdapter.setItems(ugc.getUserRatings());
-    UiUtils.showIf(mMapObject != null && mMapObject.canBeRated(), mUgcAddRatingView, mLeaveReviewButton);
+    Context context = mPlacePage.getContext();
+    mReviewCount.setText(context.getString(R.string.placepage_summary_rating_description,
+                                           String.valueOf(mUgc.getBasedOnCount())));
+    UiUtils.showIf(mMapObject != null && mMapObject.canBeRated(), mUgcAddRatingView);
     UiUtils.show(mUgcRootView);
   }
 

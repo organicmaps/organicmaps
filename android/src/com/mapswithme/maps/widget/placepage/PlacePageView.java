@@ -1457,7 +1457,7 @@ public class PlacePageView extends RelativeLayout
       boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
       boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.getRating());
       //TODO: remove this code when place_page_info.cpp is ready and use rating parameter.
-      mRatingView.setRating(null, mSponsored.getRating().substring(mSponsored.getRating().indexOf(" ") + 1, mSponsored.getRating().length()));
+      mRatingView.setRating(null, mSponsored.getRating());
       UiUtils.showIf(!isRatingEmpty, mRatingView);
       mTvSponsoredPrice.setText(mSponsoredPrice);
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);

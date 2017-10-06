@@ -21,39 +21,47 @@ public class UGC implements Serializable
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ RATING_HORRIBLE, RATING_BAD, RATING_NORMAL, RATING_GOOD, RATING_EXCELLENT })
 
-  public @interface UGCRating
+  @interface UGCRating
   {}
 
-  public static final int RATING_HORRIBLE = 1;
-  public static final int RATING_BAD = 2;
-  public static final int RATING_NORMAL = 3;
-  public static final int RATING_GOOD = 4;
-  public static final int RATING_EXCELLENT = 5;
+  static final int RATING_HORRIBLE = 1;
+  static final int RATING_BAD = 2;
+  static final int RATING_NORMAL = 3;
+  static final int RATING_GOOD = 4;
+  static final int RATING_EXCELLENT = 5;
 
   @NonNull
   private final Rating[] mRatings;
   @Nullable
   private final Review[] mReviews;
+  private final int mBasedOnCount;
   private final float mAverageRating;
   @Nullable
   private static UGCListener mListener;
 
-  private UGC(@NonNull Rating[] ratings, float averageRating, @Nullable Review[] reviews)
+  private UGC(@NonNull Rating[] ratings, float averageRating, @Nullable Review[] reviews,
+              int basedOnCount)
   {
     mRatings = ratings;
     mReviews = reviews;
     mAverageRating = averageRating;
+    mBasedOnCount = basedOnCount;
+  }
+
+  int getBasedOnCount()
+  {
+    return mBasedOnCount;
   }
 
   @NonNull
-  public List<Rating> getRatings()
+  List<Rating> getRatings()
   {
     return Collections.synchronizedList(Arrays.asList(mRatings));
   }
 
   //TODO: remove it after core is ready.
   @NonNull
-  public List<Rating> getUserRatings()
+  List<Rating> getUserRatings()
   {
     return new ArrayList<Rating>(){
       {
@@ -83,7 +91,7 @@ public class UGC implements Serializable
 
   public static native void setUGCUpdate(@NonNull FeatureId fid, UGCUpdate update);
 
-  public static void onUGCReceived(@NonNull UGC ugc, @NonNull UGCUpdate ugcUpdate)
+  public static void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate)
   {
     if (mListener != null)
       mListener.onUGCReceived(ugc, ugcUpdate);
@@ -140,19 +148,19 @@ public class UGC implements Serializable
     }
 
     @NonNull
-    public String getAuthor()
+    String getAuthor()
     {
       return mAuthor;
     }
 
-    public long getDaysAgo()
+    long getDaysAgo()
     {
       return mDaysAgo;
     }
   }
 
-  public interface UGCListener
+  interface UGCListener
   {
-    void onUGCReceived(@NonNull UGC ugc, @NonNull UGCUpdate ugcUpdate);
+    void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate);
   }
 }

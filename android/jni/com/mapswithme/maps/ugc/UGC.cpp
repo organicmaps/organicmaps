@@ -1,5 +1,5 @@
-#include "../../core/jni_helper.hpp"
-#include "../Framework.hpp"
+#include "com/mapswithme/maps/Framework.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 
 #include "map/place_page_info.hpp"
 
@@ -9,6 +9,8 @@
 #include "indexer/feature_decl.hpp"
 
 #include "base/logging.hpp"
+
+#include <utility>
 
 namespace
 {
@@ -82,8 +84,7 @@ public:
       jfloat value = env->GetFloatField(jrating, m_ratingValueFieldId);
       auto const ratingValue = static_cast<float>(value);
 
-      ugc::RatingRecord record(key, ratingValue);
-      records.push_back(record);
+      records.emplace_back(std::move(key), std::move(ratingValue));
     }
     jstring jtext = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_ratingTextFieldId));
     // TODO: use lang parameter correctly.
@@ -96,10 +97,11 @@ private:
   {
     jni::TScopedLocalObjectArrayRef ratings(env, ToJavaRatings(env, ugc.m_ratings));
     jni::TScopedLocalObjectArrayRef reviews(env, ToJavaReviews(env, ugc.m_reviews));
-
-    jobject result = env->NewObject(m_ugcClass, m_ugcCtor, ratings.get(), ugc.m_aggRating,
-                                    reviews.get());
-    ASSERT(result, ());
+    jobject result = nullptr;
+    //TODO: use real values when core is ready.
+    if (true/* !ugc.IsEmpty() */)
+      result = env->NewObject(m_ugcClass, m_ugcCtor, ratings.get(), ugc.m_aggRating,
+                              reviews.get(), 68/* ugc.m_basedOn */);
     return result;
   }
 
@@ -107,9 +109,11 @@ private:
   {
     jni::TScopedLocalObjectArrayRef ratings(env, ToJavaRatings(env, ugcUpdate.m_ratings));
     jni::TScopedLocalRef text(env, jni::ToJavaString(env, ugcUpdate.m_text.m_text));
-
-    jobject result = env->NewObject(m_ugcUpdateClass, m_ugcUpdateCtor, ratings.get(), text.get());
-    ASSERT(result, ());
+    jobject result = nullptr;
+    //TODO: use real values when core is ready.
+    if (true/* !ugcUpdate.IsEmpty() */)
+      result = env->NewObject(m_ugcUpdateClass, m_ugcUpdateCtor, ratings.get(),
+                              text.get());
     return result;
   }
 
@@ -163,7 +167,7 @@ private:
     m_ugcClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGC");
     m_ugcCtor = jni::GetConstructorID(
         env, m_ugcClass,
-        "([Lcom/mapswithme/maps/ugc/UGC$Rating;F[Lcom/mapswithme/maps/ugc/UGC$Review;)V");
+        "([Lcom/mapswithme/maps/ugc/UGC$Rating;F[Lcom/mapswithme/maps/ugc/UGC$Review;I)V");
     m_onResult = jni::GetStaticMethodID(env, m_ugcClass, "onUGCReceived",
                                         "(Lcom/mapswithme/maps/ugc/UGC;Lcom/mapswithme/maps/ugc/UGCUpdate;)V");
 

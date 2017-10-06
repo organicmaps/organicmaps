@@ -68,7 +68,8 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
       ratings[i] = mRatings.get(i);
     //TODO: just for testing
     UGCUpdate update = new UGCUpdate(ratings, "Test text");
-    UGC.setUGCUpdate((FeatureId) getActivity().getIntent().getParcelableExtra(UGCEditorActivity.EXTRA_FEATURE_ID), update);
+    UGC.setUGCUpdate((FeatureId) getActivity()
+        .getIntent().getParcelableExtra(UGCEditorActivity.EXTRA_FEATURE_ID), update);
   }
 
   @Override
