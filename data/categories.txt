@@ -689,7 +689,7 @@ ar:^مستحضرات تجميل|تجميل
 cs:4^Kosmetika|domácí péče
 da:4^Kosmetik
 nl:4^Schoonheidsmiddelen
-fi:^Kosmetiikka|kotihoito
+fi:^Kosmetiikka|kauneudenhoito
 fr:4^Produits de beauté|soins de beauté
 de:4^Kosmetik|Schönheitspflege
 hu:4^Kozmetikum|házi gondozás
@@ -1034,7 +1034,7 @@ ar:^متجر عدد وأدوات|أدوات|عدة|متجر
 cs:^Železářství
 da:^Isenkræmmer|Byggemarked
 nl:^Ijzerhandel|Bouwmarkt
-fi:^Työkalukauppa|Rautakauppa
+fi:^Rautakauppa|Työkalukauppa
 fr:^Quincaillerie|bricolage
 de:^Eisenwarengeschäft|Baumarkt|Heimwerkermarkt|Eisenwarenhandlung|Laden
 hu:^Vaskereskedés|Barkácsüzlet|ezermester
@@ -1127,7 +1127,7 @@ ar:^متجر هدايا|متجر
 cs:^Obchod s dárkovým zbožím
 da:^Gavebutik|souvenirbutik
 nl:^Cadeauwinkel
-fi:^Lahjakauppa
+fi:^Lahjatavaraliike
 fr:^Boutique de souvenirs
 de:^Geschenkladen|Geschenke|2Laden
 hu:^Ajándékbolt
@@ -1473,7 +1473,7 @@ ar:^متجر ألعاب|متجر
 cs:^Hračkářství
 da:^Legetøjsbutik|legetøj
 nl:^Speelgoedwinkel
-fi:^Leikkikalukauppa
+fi:^Lelukauppa
 fr:^Magasin de jouets
 de:^Spielzeuggeschäft
 hu:^Játékbolt
@@ -1565,7 +1565,7 @@ ar:^متجر سيارات|متجر
 cs:^Obchod s auty
 da:^Bilforhandler
 nl:^Autohandelaar
-fi:^Autonäyttelyssä
+fi:^Autokauppa
 fr:^Réparation auto|voitures|auto
 de:^Autohaus|Laden
 hu:^Gépkocsi bolt|kocsi
@@ -1597,7 +1597,7 @@ ar:^متجر دراجات|متجر
 cs:3^Cyklistický obchod|jízdní kolo|3kolo
 da:3^Cykelforretning|cykelhandler|cykler
 nl:4^Fietsenwinkel
-fi:3^Polkupyörä
+fi:3^Polkupyöräliike
 fr:4^Magasin de vélos|vélo|bicyclette
 de:3^Fahrradladen|Fahrrad|Velo|Laden
 hu:4^Kerékpár üzlet|kerékpár|kocsi
@@ -1629,6 +1629,7 @@ ar:^كشك|متجر
 cs:^Kiosk
 da:^Kiosk|pølsevogn
 nl:^Kiosk
+fi:^Kioski
 fr:^Kiosque
 de:^Kiosk|Laden
 hu:^Trafik
@@ -1718,7 +1719,7 @@ ar:^محطة حافلات|باص|حافلة|مواصلات|نقل
 cs:^Autobusové nádraží|zastávka|bus
 da:2^Busstation|2bus|station
 nl:^Busstation|2bus|station
-fi:3^Bussiasema
+fi:3^Linja-autoasema|3Bussiasema
 fr:^Gare routière|2bus|2autobus|arrêt
 de:4^Busbahnhof|Haltestelle|Bus|Autobus|ÖPNV
 hu:2^Buszpályaudvar|2busz|megálló
@@ -1925,7 +1926,7 @@ ar:^أماكن جذابة|سياحة|مناظر
 cs:3^Atrakce|3pamětihodnost|3zajímavost
 da:3^Attraktioner|3turisme|3sightseeing|3seværdigheder
 nl:3^Attractie|3toerisme
-fi:3^Huvitus|nähtävyydet
+fi:3^Nähtävyys
 fr:3^Attraction|3tourisme|3site touristique
 de:3^Attraktion|3Sehenswürdigkeit
 hu:3^Látnivaló|3kirándulás|3látványosság
@@ -1957,7 +1958,7 @@ ar:^عمل فني|سياحة
 cs:3^Umělecké dílo
 da:3^Kunstværk|3sightseeing
 nl:3^Kunstwerk
-fi:^Rautatieasema
+fi:^Taideteos
 fr:3^Œuvre|3oeuvre|3art|3tourisme
 de:3^Kunstwerk
 hu:3^Szobor|Műalkotás
@@ -2021,7 +2022,7 @@ ar:^معلومات سياحية|معلومات|سياحة|مناظر
 cs:4^Infocentrum|4turistické informace|Íčko
 da:4^Turistinformation|turistinformation|4information
 nl:4^Toeristische informatie|3VVV|4informatie
-fi:3^Matkailuinfo
+fi:3^Turisti-informaatio
 fr:4^Informations touristiques|4informations
 de:4^Tourist-Information|Information
 hu:4^Túrista információ|4információ|látványosság
@@ -2842,7 +2843,7 @@ ar:^كازينو|تسلية
 cs:^Casino
 da:^Kasino
 nl:^Casino|goktent
-fi:^Casino
+fi:^Kasino
 fr:^Casino
 de:^Casino|Kasino|Spielkasino|Spielhalle
 hu:^Kaszinó
@@ -3958,7 +3959,7 @@ ar:^حي سكني|ضاحية
 cs:^Předměstí|městská část|městská zóna
 da:^Forstad|distrikt
 nl:^Buitenwijken|voorstad|wijk
-fi:^Forstad
+fi:^Esikaupunki
 fr:^Banlieue|arrondissement|quartier
 de:^Stadtteil|Kreis|Wohnbezirk|Wohnviertel
 hu:^Kerület
@@ -4913,6 +4914,7 @@ en:^Basketball
 ru:^Баскетбол
 de:^Basketball
 es:^Baloncesto
+fi:^Koripallo
 fr:^Basket-ball
 it:^Pallacanestro
 hu:^Kosárlabda
@@ -4924,6 +4926,7 @@ en:^Athletics
 ru:^Лёгкая атлетика
 de:^Leichtathletik
 es:^Atletismo
+fi:^Yleisurheilu
 fr:^Athlétisme
 it:^Atletica leggera
 hu:^Atlétika
@@ -5451,7 +5454,7 @@ ar:^مهندس مناظر
 cs:^Zahradník
 da:^Gartner
 nl:^Tuinarchitect|landschapsarchitect
-fi:^Maisemoija
+fi:^Puutarhuri
 fr:^Paysagiste
 de:^Landschaftsgärtner
 hu:^Kertész
@@ -6005,7 +6008,7 @@ ar:^وكيل سفريات|جولات
 cs:^Cestovní kancelář|cesty
 da:^Rejsebureau|rundrejser
 nl:^Reisagentschap|reizen
-fi:^Matkatoimisto|kiertueet
+fi:^Matkatoimisto
 fr:^Agence de voyages|Voyages organisés
 de:^Reisebüro|Touren
 hu:^Utazási iroda|kirándulások
@@ -6067,7 +6070,7 @@ ar:^غسيل جاف|غسيل
 cs:^Chemické čištění|čistírna
 da:^Renseri|vaskeri
 nl:^Droogkuis|wassen
-fi:^Kuivapesula|siivous
+fi:^Kuivapesula|pesula
 fr:^Nettoyage à sec|Lavage
 de:^Chemische Reinigung|Reinigung
 hu:^Ruhatisztító|tisztító
@@ -6315,7 +6318,7 @@ ar:^هاتف الطوارئ
 cs:^Tísňového volání
 da:^Nødtelefon
 nl:^Praatpaal
-fi:^Hätänumero
+fi:^Hätäpuhelin
 fr:^Téléphone d'urgence
 de:^Notruftelefon|Nottelefon
 hu:^Sürgősségi telefon
@@ -6410,7 +6413,7 @@ ar:^بئر ماء
 cs:^Studna
 da:^Brønd
 nl:^Waterbron
-fi:^Vesikaivo
+fi:^Kaivo
 fr:^Puits à eau
 de:^Brunnen
 hu:^Ivókút
@@ -7032,7 +7035,7 @@ ar:^ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ
 cs:^Autodíly
 da:^Bildele
 nl:^Auto onderdelen
-fi:^Auton osat
+fi:^Autotarvikeet
 fr:^Pièces de voiture
 de:^Autoteile
 hu:^Autó alkatrészek
@@ -7405,7 +7408,7 @@ ar:^حاجز بوابة
 cs:^Závora
 da:^Bom
 nl:^Slagboom
-fi:^Puomieste
+fi:^Puomi
 fr:^Barrière levante
 de:^Schranke
 hu:^Sorompó
@@ -8585,7 +8588,7 @@ da:^Bedemand
 de:^Bestattungsinstitut
 el:^Γραφεία τελετών
 es:^Funeraria
-fi:^Hautausurakoitsija
+fi:^Hautaustoimisto
 fr:^Pompes funèbres
 hu:^Temetkezési vállalkozó
 id:^Direktur Pemakaman
