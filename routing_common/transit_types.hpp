@@ -104,20 +104,16 @@ public:
   m2::PointD const & GetPoint() const { return m_point; }
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_featureId, "osm_id"),
-                                  visitor(m_entrance, "entrance"),
-                                  visitor(m_exit, "exit"), visitor(m_weight, "weight"),
-                                  visitor(m_stopIds, "stop_ids"), visitor(m_point, "point"))
+                                  visitor(m_pedestrianFeatureIds, "" /* name */),
+                                  visitor(m_entrance, "entrance"), visitor(m_exit, "exit"),
+                                  visitor(m_weight, "weight"), visitor(m_stopIds, "stop_ids"),
+                                  visitor(m_point, "point"))
 
 private:
   // |m_featureId| is feature id of a point feature which represents gates.
   FeatureId m_featureId = kInvalidFeatureId;
   // |m_pedestrianFeatureIds| is linear feature ids which can be used for pedestrian routing
   // to leave (to enter) the gate.
-  // @TODO(bykoianko) |m_pedestrianFeatureIds| is not filled from json but should be calculated based on |m_point|.
-  // It should be filled after "gates" are deserialized from json to vector of Gate but before serialization to mwm.
-  // That means that it's necessary to implement two visitors. One of them without visiting |m_pedestrianFeatureIds|
-  // for deserialization from json. And another with visiting |m_pedestrianFeatureIds| for serialization to mwm,
-  // deserialization from mwm and debug print.
   std::vector<FeatureId> m_pedestrianFeatureIds;
   bool m_entrance = true;
   bool m_exit = true;
