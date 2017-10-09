@@ -14,11 +14,10 @@
 
 #include "platform/local_country_file.hpp"
 
-#include "coding/compressed_bit_vector.hpp"
-
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 
+#include <cstdint>
 #include <map>
 #include <vector>
 

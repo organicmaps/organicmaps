@@ -26,7 +26,7 @@ using Boundaries = vector<Boundary>;
 static_assert(CitiesBoundariesSerDes::kLatestVersion == 0, "");
 static_assert(CitiesBoundariesSerDes::HeaderV0::kDefaultCoordBits == 19, "");
 
-// Precision of mercator coords encoded with 19 bits.
+// Absolute precision of mercator coords encoded with 19 bits.
 double const kEps = 1e-3;
 
 void TestEqual(vector<PointD> const & lhs, vector<PointD> const & rhs)

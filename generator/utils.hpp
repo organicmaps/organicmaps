@@ -9,12 +9,14 @@
 
 #include "base/logging.hpp"
 
+#include <string>
+
 namespace generator
 {
 void LoadIndex(Index & index);
 
 template <typename ToDo>
-bool ForEachOsmId2FeatureId(string const & path, ToDo && toDo)
+bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)
 {
   gen::OsmID2FeatureID mapping;
   try

@@ -380,9 +380,6 @@ class OsmToFeatureTranslator
     if (!ft.IsGeometryClosed())
       return;
 
-    // Key point here is that IsDrawableLike and RemoveNoDrawableTypes
-    // work a bit different for GEOM_AREA.
-
     if (IsCityBoundary(params))
     {
       auto fb = ft;
@@ -390,6 +387,8 @@ class OsmToFeatureTranslator
       m_emitter.EmitCityBoundary(fb, params);
     }
 
+    // Key point here is that IsDrawableLike and RemoveNoDrawableTypes
+    // work a bit different for GEOM_AREA.
     if (IsDrawableLike(params.m_Types, GEOM_AREA))
     {
       // Make the area feature if it has unique area styles.

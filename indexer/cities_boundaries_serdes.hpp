@@ -18,6 +18,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/visitor.hpp"
@@ -147,8 +148,10 @@ public:
 
     void EncodeDelta(m2::PointU const & curr, m2::PointU const & next)
     {
-      auto const dx = static_cast<int32_t>(next.x) - static_cast<int32_t>(curr.x);
-      auto const dy = static_cast<int32_t>(next.y) - static_cast<int32_t>(curr.y);
+      auto const dx = base::asserted_cast<int32_t>(next.x) -
+                      base::asserted_cast<int32_t>(curr.x);
+      auto const dy = base::asserted_cast<int32_t>(next.y) -
+                      base::asserted_cast<int32_t>(curr.y);
       WriteVarInt(m_sink, dx);
       WriteVarInt(m_sink, dy);
     }
@@ -308,7 +311,7 @@ public:
     {
       auto const dx = ReadVarUint<uint32_t>(m_source);
       auto const dy = ReadVarUint<uint32_t>(m_source);
-      return m2::PointU(static_cast<uint32_t>(dx), static_cast<uint32_t>(dy));
+      return m2::PointU(dx, dy);
     }
 
     Source & m_source;
