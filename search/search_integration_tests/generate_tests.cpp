@@ -20,6 +20,8 @@ using namespace generator::tests_support;
 
 namespace
 {
+uint64_t g_lastId = 0;
+
 void MakeFeature(TestMwmBuilder & builder, pair<string, string> const & tag, m2::PointD const & pt)
 {
   OsmElement e;
@@ -32,6 +34,8 @@ void MakeFeature(TestMwmBuilder & builder, pair<string, string> const & tag, m2:
   FeatureBuilder1 fb;
   fb.SetParams(params);
   fb.SetCenter(pt);
+  fb.GetMetadataForTesting().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(g_lastId));
+  ++g_lastId;
 
   TEST(builder.Add(fb), (fb));
 }

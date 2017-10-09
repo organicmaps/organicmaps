@@ -11,6 +11,7 @@
 #include "geometry/point2d.hpp"
 
 #include <cstdint>
+#include <utility>
 #include <vector>
 
 using namespace indexer;
@@ -26,58 +27,63 @@ using Boundaries = vector<Boundary>;
 static_assert(CitiesBoundariesSerDes::kLatestVersion == 0, "");
 static_assert(CitiesBoundariesSerDes::HeaderV0::kDefaultCoordBits == 19, "");
 
-// Absolute precision of mercator coords encoded with 19 bits.
-double const kEps = 1e-3;
+struct Result
+{
+  Result(Boundaries const & boundaries, double eps) : m_boundaries(boundaries), m_eps(eps) {}
 
-void TestEqual(vector<PointD> const & lhs, vector<PointD> const & rhs)
+  Boundaries m_boundaries;
+  double m_eps = 0.0;
+};
+
+void TestEqual(vector<PointD> const & lhs, vector<PointD> const & rhs, double eps)
 {
   TEST_EQUAL(lhs.size(), rhs.size(), (lhs, rhs));
   for (size_t i = 0; i < lhs.size(); ++i)
-    TEST(AlmostEqualAbs(lhs[i], rhs[i], kEps), (lhs, rhs));
+    TEST(AlmostEqualAbs(lhs[i], rhs[i], eps), (lhs, rhs));
 }
 
-void TestEqual(BoundingBox const & lhs, BoundingBox const & rhs)
+void TestEqual(BoundingBox const & lhs, BoundingBox const & rhs, double eps)
 {
-  TEST(AlmostEqualAbs(lhs.Min(), rhs.Min(), kEps), (lhs, rhs));
-  TEST(AlmostEqualAbs(lhs.Max(), rhs.Max(), kEps), (lhs, rhs));
+  TEST(AlmostEqualAbs(lhs.Min(), rhs.Min(), eps), (lhs, rhs));
+  TEST(AlmostEqualAbs(lhs.Max(), rhs.Max(), eps), (lhs, rhs));
 }
 
-void TestEqual(CalipersBox const & lhs, CalipersBox const & rhs)
+void TestEqual(CalipersBox const & lhs, CalipersBox const & rhs, double eps)
 {
-  TestEqual(lhs.Points(), rhs.Points());
+  TestEqual(lhs.Points(), rhs.Points(), eps);
 }
 
-void TestEqual(DiamondBox const & lhs, DiamondBox const & rhs)
+void TestEqual(DiamondBox const & lhs, DiamondBox const & rhs, double eps)
 {
   auto const lps = lhs.Points();
   auto const rps = rhs.Points();
   TEST_EQUAL(lps.size(), 4, (lhs));
   TEST_EQUAL(rps.size(), 4, (rhs));
-  TestEqual(lps, rps);
+  TestEqual(lps, rps, eps);
 }
 
-void TestEqual(CityBoundary const & lhs, CityBoundary const & rhs)
+void TestEqual(CityBoundary const & lhs, CityBoundary const & rhs, double eps)
 {
-  TestEqual(lhs.m_bbox, rhs.m_bbox);
-  TestEqual(lhs.m_cbox, rhs.m_cbox);
-  TestEqual(lhs.m_dbox, rhs.m_dbox);
+  TestEqual(lhs.m_bbox, rhs.m_bbox, eps);
+  TestEqual(lhs.m_cbox, rhs.m_cbox, eps);
+  TestEqual(lhs.m_dbox, rhs.m_dbox, eps);
 }
 
-void TestEqual(Boundary const & lhs, Boundary const & rhs)
-{
-  TEST_EQUAL(lhs.size(), rhs.size(), (lhs, rhs));
-  for (size_t i = 0; i < lhs.size(); ++i)
-    TestEqual(lhs[i], rhs[i]);
-}
-
-void TestEqual(Boundaries const & lhs, Boundaries const & rhs)
+void TestEqual(Boundary const & lhs, Boundary const & rhs, double eps)
 {
   TEST_EQUAL(lhs.size(), rhs.size(), (lhs, rhs));
   for (size_t i = 0; i < lhs.size(); ++i)
-    TestEqual(lhs[i], rhs[i]);
+    TestEqual(lhs[i], rhs[i], eps);
 }
 
-Boundaries EncodeDecode(Boundaries const & boundaries)
+void TestEqual(Boundaries const & lhs, Boundaries const & rhs, double eps)
+{
+  TEST_EQUAL(lhs.size(), rhs.size(), (lhs, rhs));
+  for (size_t i = 0; i < lhs.size(); ++i)
+    TestEqual(lhs[i], rhs[i], eps);
+}
+
+Result EncodeDecode(Boundaries const & boundaries)
 {
   vector<uint8_t> buffer;
   {
@@ -87,17 +93,18 @@ Boundaries EncodeDecode(Boundaries const & boundaries)
 
   {
     Boundaries boundaries;
+    double precision;
     MemReader reader(buffer.data(), buffer.size());
     NonOwningReaderSource source(reader);
-    CitiesBoundariesSerDes::Deserialize(source, boundaries);
-    return boundaries;
+    CitiesBoundariesSerDes::Deserialize(source, boundaries, precision);
+    return Result(boundaries, precision);
   }
 }
 
 void TestEncodeDecode(Boundaries const & expected)
 {
-  Boundaries const actual = EncodeDecode(expected);
-  TestEqual(expected, actual);
+  auto const r = EncodeDecode(expected);
+  TestEqual(expected, r.m_boundaries, r.m_eps);
 }
 
 UNIT_TEST(CitiesBoundariesSerDes_Smoke)

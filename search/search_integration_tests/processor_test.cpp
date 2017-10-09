@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "search/cities_boundaries_table.hpp"
 #include "search/retrieval.hpp"
 #include "search/search_integration_tests/helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
@@ -1097,6 +1098,36 @@ UNIT_CLASS_TEST(ProcessorTest, Cian)
     TRules rules = {ExactMatch(countryId, nonameBuilding)};
     TEST(ResultsMatch(params, rules), ());
   }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, CityBoundaryLoad)
+{
+  TestCity city(vector<m2::PointD>({m2::PointD(0, 0), m2::PointD(0.5, 0), m2::PointD(0.5, 0.5),
+                                    m2::PointD(0, 0.5)}),
+                "moscow", "en", 100 /* rank */);
+  auto const id = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(city); });
+
+  SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
+  {
+    TRules const rules{ExactMatch(id, city)};
+    TEST(ResultsMatch("moscow", "en", rules), ());
+  }
+
+  CitiesBoundariesTable table;
+  TEST(table.Load(m_engine), ());
+  TEST(table.Has(0 /* fid */), ());
+  TEST(!table.Has(10 /* fid */), ());
+
+  CitiesBoundariesTable::Boundaries boundaries;
+  TEST(table.Get(0 /* fid */, boundaries), ());
+  TEST(boundaries.HasPoint(m2::PointD(0, 0)), ());
+  TEST(boundaries.HasPoint(m2::PointD(0.5, 0)), ());
+  TEST(boundaries.HasPoint(m2::PointD(0.5, 0.5)), ());
+  TEST(boundaries.HasPoint(m2::PointD(0, 0.5)), ());
+  TEST(boundaries.HasPoint(m2::PointD(0.25, 0.25)), ());
+
+  TEST(!boundaries.HasPoint(m2::PointD(0.6, 0.6)), ());
+  TEST(!boundaries.HasPoint(m2::PointD(-1, 0.5)), ());
 }
 }  // namespace
 }  // namespace search

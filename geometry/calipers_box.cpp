@@ -22,15 +22,10 @@ static_assert(numeric_limits<double>::has_infinity, "");
 
 double const kInf = numeric_limits<double>::infinity();
 
-// 1e-12 is used here because of we are going to use the box on
-// Mercator plane, where the precision of all coords is 1e-5, so we
-// are off by two orders of magnitude from the precision of data.
-double const kEps = 1e-12;
-
 // Checks whether (p1 - p) x (p2 - p) >= 0.
-bool IsCCW(PointD const & p1, PointD const & p2, PointD const & p)
+bool IsCCW(PointD const & p1, PointD const & p2, PointD const & p, double eps)
 {
-  return robust::OrientedS(p1, p2, p) > -kEps;
+  return robust::OrientedS(p1, p2, p) > -eps;
 }
 
 PointD Ort(PointD const & p) { return PointD(-p.y, p.x); }
@@ -48,15 +43,15 @@ void ForEachRect(ConvexHull const & hull, Fn && fn)
     auto const ab = hull.SegmentAt(i).Dir();
 
     j = max(j, i + 1);
-    while (DotProduct(ab, hull.SegmentAt(j).Dir()) > kEps)
+    while (DotProduct(ab, hull.SegmentAt(j).Dir()) > CalipersBox::kEps)
       ++j;
 
     k = max(k, j);
-    while (CrossProduct(ab, hull.SegmentAt(k).Dir()) > kEps)
+    while (CrossProduct(ab, hull.SegmentAt(k).Dir()) > CalipersBox::kEps)
       ++k;
 
     l = max(l, k);
-    while (DotProduct(ab, hull.SegmentAt(l).Dir()) < -kEps)
+    while (DotProduct(ab, hull.SegmentAt(l).Dir()) < -CalipersBox::kEps)
       ++l;
 
     auto const oab = Ort(ab);
@@ -66,7 +61,7 @@ void ForEachRect(ConvexHull const & hull, Fn && fn)
     for (size_t i = 0; i < lines.size(); ++i)
     {
       auto const j = (i + 1) % lines.size();
-      auto result = LineIntersector::Intersect(lines[i], lines[j], kEps);
+      auto result = LineIntersector::Intersect(lines[i], lines[j], CalipersBox::kEps);
       if (result.m_type == LineIntersector::Result::Type::One)
         corners.push_back(result.m_point);
     }
@@ -125,7 +120,7 @@ CalipersBox::CalipersBox(vector<PointD> const & points) : m_points({})
   m_points = bestPoints;
 }
 
-bool CalipersBox::HasPoint(PointD const & p) const
+bool CalipersBox::HasPoint(PointD const & p, double eps) const
 {
   auto const n = m_points.size();
 
@@ -133,16 +128,16 @@ bool CalipersBox::HasPoint(PointD const & p) const
     return false;
 
   if (n == 1)
-    return AlmostEqualAbs(m_points[0], p, kEps);
+    return AlmostEqualAbs(m_points[0], p, eps);
 
   if (n == 2)
-    return IsPointOnSegmentEps(p, m_points[0], m_points[1], kEps);
+    return IsPointOnSegmentEps(p, m_points[0], m_points[1], eps);
 
   for (size_t i = 0; i < n; ++i)
   {
     auto const & a = m_points[i];
     auto const & b = m_points[(i + 1) % n];
-    if (!IsCCW(b, p, a))
+    if (!IsCCW(b, p, a, eps))
       return false;
   }
   return true;

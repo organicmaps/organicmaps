@@ -324,15 +324,6 @@ class OsmToFeatureTranslator
     return true;
   }
 
-  bool IsCityBoundary(FeatureParams const & params)
-  {
-    feature::TypesHolder types;
-    for (auto const type : params.m_Types)
-      types.Add(type);
-    auto const type = ftypes::IsLocalityChecker::Instance().GetType(types);
-    return type == ftypes::CITY || type == ftypes::TOWN;
-  }
-
   void EmitFeatureBase(FeatureBuilder1 & ft, FeatureParams const & params) const
   {
     ft.SetParams(params);
@@ -380,7 +371,7 @@ class OsmToFeatureTranslator
     if (!ft.IsGeometryClosed())
       return;
 
-    if (IsCityBoundary(params))
+    if (ftypes::IsTownOrCity(params.m_Types))
     {
       auto fb = ft;
       makeFn(fb);

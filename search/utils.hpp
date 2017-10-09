@@ -3,6 +3,7 @@
 #include "search/token_slice.hpp"
 
 #include "indexer/categories_holder.hpp"
+#include "indexer/mwm_set.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
@@ -14,10 +15,12 @@
 
 #include <algorithm>
 #include <functional>
+#include <memory>
 #include <queue>
 #include <vector>
 
-#include "base/logging.hpp"
+class Index;
+class MwmInfo;
 
 namespace search
 {
@@ -146,4 +149,8 @@ bool IsCategorialRequest(QuerySliceOnRawStrings<T> const & slice, Locales const 
 
   return found;
 }
+
+MwmSet::MwmHandle FindWorld(Index const &index,
+                            std::vector<std::shared_ptr<MwmInfo>> const &infos);
+MwmSet::MwmHandle FindWorld(Index const & index);
 }  // namespace search

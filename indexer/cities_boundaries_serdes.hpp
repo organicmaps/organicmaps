@@ -428,7 +428,8 @@ struct CitiesBoundariesSerDes
   }
 
   template <typename Source>
-  static void Deserialize(Source & source, std::vector<std::vector<CityBoundary>> & boundaries)
+  static void Deserialize(Source & source, std::vector<std::vector<CityBoundary>> & boundaries,
+                          double & precision)
   {
     ReadFromSourceVisitor<Source> visitor(source);
 
@@ -439,6 +440,10 @@ struct CitiesBoundariesSerDes
 
     HeaderV0 header;
     visitor(header);
+
+    auto const wx = MercatorBounds::maxX - MercatorBounds::minX;
+    auto const wy = MercatorBounds::maxY - MercatorBounds::minY;
+    precision = std::max(wx, wy) / pow(2, header.m_coordBits);
 
     serial::CodingParams const params(header.m_coordBits,
                                       m2::PointD(MercatorBounds::minX, MercatorBounds::minY));

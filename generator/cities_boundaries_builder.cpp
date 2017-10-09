@@ -4,11 +4,12 @@
 
 #include "search/categories_cache.hpp"
 #include "search/cbv.hpp"
+#include "search/localities_source.hpp"
 #include "search/mwm_context.hpp"
 
 #include "indexer/cities_boundaries_serdes.hpp"
 #include "indexer/city_boundary.hpp"
-#include "indexer/classificator.hpp"
+#include "indexer/feature_processor.hpp"
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -16,6 +17,7 @@
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
+#include "base/string_utils.hpp"
 
 #include <cstdint>
 #include <map>
@@ -38,25 +40,23 @@ bool ParseFeatureIdToOsmIdMapping(string const & path, map<uint32_t, vector<osm:
   });
 }
 
-struct LocalitiesSource
+bool ParseFeatureIdToTestIdMapping(string const & path, map<uint32_t, vector<uint64_t>> & mapping)
 {
-  LocalitiesSource()
-  {
-    auto & c = classif();
-    m_city = c.GetTypeByPath({"place", "city"});
-    m_town = c.GetTypeByPath({"place", "town"});
-  }
-
-  template <typename Fn>
-  void ForEachType(Fn && fn) const
-  {
-    fn(m_city);
-    fn(m_town);
-  }
-
-  uint32_t m_city = 0;
-  uint32_t m_town = 0;
-};
+  bool success = true;
+  feature::ForEachFromDat(path, [&](FeatureType & feature, uint32_t fid) {
+    auto const & metatada = feature.GetMetadata();
+    auto const sid = metatada.Get(feature::Metadata::FMD_TEST_ID);
+    uint64_t tid;
+    if (!strings::to_uint64(sid, tid))
+    {
+      LOG(LERROR, ("Can't parse test id from:", sid, "for a feature", fid));
+      success = false;
+      return;
+    }
+    mapping[fid].push_back(tid);
+  });
+  return success;
+}
 
 CBV GetLocalities(string const & dataPath)
 {
@@ -67,28 +67,27 @@ CBV GetLocalities(string const & dataPath)
   search::MwmContext context(index.GetMwmHandleById(result.first));
   return search::CategoriesCache(LocalitiesSource{}, my::Cancellable{}).Get(context);
 }
-}  // namespace
 
-bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeaturePath,
-                           OsmIdToBoundariesTable & table)
+template <typename BoundariesTable, typename MappingReader>
+bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
+                           MappingReader && reader)
 {
   auto const localities = GetLocalities(dataPath);
+  auto mapping = reader();
 
-  map<uint32_t, vector<osm::Id>> mapping;
-  if (!ParseFeatureIdToOsmIdMapping(dataPath + OSM2FEATURE_FILE_EXTENSION, mapping))
+  if (!mapping)
     return false;
 
   vector<vector<CityBoundary>> all;
-
   localities.ForEach([&](uint64_t fid) {
     vector<CityBoundary> bs;
 
-    auto it = mapping.find(base::asserted_cast<uint32_t>(fid));
-    if (it != mapping.end())
+    auto it = mapping->find(base::asserted_cast<uint32_t>(fid));
+    if (it != mapping->end())
     {
-      for (auto const & osmId : it->second)
+      for (auto const & id : it->second)
       {
-        auto const & b = table.Get(osmId);
+        auto const & b = table.Get(id);
         bs.insert(bs.end(), b.begin(), b.end());
       }
     }
@@ -101,5 +100,37 @@ bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeatureP
   indexer::CitiesBoundariesSerDes::Serialize(sink, all);
 
   return true;
+}
+}  // namespace
+
+bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeaturePath,
+                           OsmIdToBoundariesTable & table)
+{
+  using Mapping = map<uint32_t, vector<osm::Id>>;
+
+  return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
+    Mapping mapping;
+    if (!ParseFeatureIdToOsmIdMapping(dataPath + OSM2FEATURE_FILE_EXTENSION, mapping))
+    {
+      LOG(LERROR, ("Can't parse feature id to osm id mapping."));
+      return {};
+    }
+    return make_unique<Mapping>(move(mapping));
+  });
+}
+
+bool BuildCitiesBoundariesForTesting(std::string const & dataPath, TestIdToBoundariesTable & table)
+{
+  using Mapping = map<uint32_t, vector<uint64_t>>;
+
+  return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
+    Mapping mapping;
+    if (!ParseFeatureIdToTestIdMapping(dataPath, mapping))
+    {
+      LOG(LERROR, ("Can't parse feature id to test id mapping."));
+      return {};
+    }
+    return make_unique<Mapping>(move(mapping));
+  });
 }
 }  // namespace generator

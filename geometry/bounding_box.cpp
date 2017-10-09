@@ -24,4 +24,9 @@ bool BoundingBox::HasPoint(double x, double y) const
 {
   return x >= m_min.x && x <= m_max.x && y >= m_min.y && y <= m_max.y;
 }
+
+bool BoundingBox::HasPoint(double x, double y, double eps) const
+{
+  return x >= m_min.x - eps && x <= m_max.x + eps && y >= m_min.y - eps && y <= m_max.y + eps;
+}
 }  // namespace m2

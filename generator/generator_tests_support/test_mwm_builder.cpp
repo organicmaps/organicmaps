@@ -7,8 +7,11 @@
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/search_index_builder.hpp"
 
+#include "indexer/city_boundary.hpp"
 #include "indexer/data_header.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/features_offsets_table.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/index_builder.hpp"
 #include "indexer/rank_table.hpp"
 
@@ -16,7 +19,7 @@
 
 #include "coding/internal/file_data.hpp"
 
-#include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "defines.hpp"
 
@@ -25,10 +28,10 @@ namespace generator
 namespace tests_support
 {
 TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, feature::DataHeader::MapType type)
-    : m_file(file),
-      m_type(type),
-      m_collector(
-          my::make_unique<feature::FeaturesCollector>(m_file.GetPath(MapOptions::Map) + EXTENSION_TMP))
+  : m_file(file)
+  , m_type(type)
+  , m_collector(my::make_unique<feature::FeaturesCollector>(m_file.GetPath(MapOptions::Map) +
+                                                            EXTENSION_TMP))
 {
 }
 
@@ -48,6 +51,18 @@ void TestMwmBuilder::Add(TestFeature const & feature)
 bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
 {
   CHECK(m_collector, ("It's not possible to add features after call to Finish()."));
+
+  if (ftypes::IsTownOrCity(fb.GetTypes()) && fb.GetGeomType() == feature::GEOM_AREA)
+  {
+    auto const & metadata = fb.GetMetadataForTesting();
+    uint64_t testId;
+    CHECK(strings::to_uint64(metadata.Get(feature::Metadata::FMD_TEST_ID), testId), ());
+    m_boundariesTable.Append(testId, indexer::CityBoundary(fb.GetOuterGeometry()));
+
+    auto const center = fb.GetGeometryCenter();
+    fb.ResetGeometry();
+    fb.SetCenter(center);
+  }
 
   if (!fb.PreSerialize())
   {
@@ -89,6 +104,9 @@ void TestMwmBuilder::Finish()
 
   CHECK(indexer::BuildSearchIndexFromDataFile(path, true /* forceRebuild */),
         ("Can't build search index."));
+
+  if (m_type == feature::DataHeader::world)
+    CHECK(generator::BuildCitiesBoundariesForTesting(path, m_boundariesTable), ());
 
   CHECK(indexer::BuildCentersTableFromDataFile(path, true /* forceRebuild */),
         ("Can't build centers table."));

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "indexer/feature_data.hpp"
+
 #include "base/base.hpp"
 
 #include "std/algorithm.hpp"
@@ -264,6 +266,16 @@ public:
 
   static IsLocalityChecker const & Instance();
 };
+
+template <typename Types>
+bool IsTownOrCity(Types const & types)
+{
+  feature::TypesHolder h;
+  for (auto const t : types)
+    h.Add(t);
+  auto const type = IsLocalityChecker::Instance().GetType(h);
+  return type == TOWN || type == CITY;
+}
 
 /// @name Get city radius and population.
 /// @param r Radius in meters.

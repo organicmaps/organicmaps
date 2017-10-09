@@ -11,6 +11,8 @@ set(
   categories_set.hpp
   cbv.cpp
   cbv.hpp
+  cities_boundaries_table.cpp
+  cities_boundaries_table.hpp
   city_finder.hpp
   common.hpp
   displayed_categories.cpp
@@ -71,6 +73,8 @@ set(
   latlon_match.hpp
   lazy_centers_table.cpp
   lazy_centers_table.hpp
+  localities_source.cpp
+  localities_source.hpp
   locality_finder.cpp
   locality_finder.hpp
   locality_scorer.cpp

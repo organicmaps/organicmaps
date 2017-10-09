@@ -37,13 +37,19 @@ uint64_t GenUniqueId()
 
 // TestFeature -------------------------------------------------------------------------------------
 TestFeature::TestFeature(string const & name, string const & lang)
-  : m_id(GenUniqueId()), m_center(0, 0), m_hasCenter(false), m_name(name), m_lang(lang)
+  : m_id(GenUniqueId()), m_center(0, 0), m_type(Type::Unknown), m_name(name), m_lang(lang)
 {
 }
 
 TestFeature::TestFeature(m2::PointD const & center, string const & name, string const & lang)
-  : m_id(GenUniqueId()), m_center(center), m_hasCenter(true), m_name(name), m_lang(lang)
+  : m_id(GenUniqueId()), m_center(center), m_type(Type::Point), m_name(name), m_lang(lang)
 {
+}
+
+TestFeature::TestFeature(vector<m2::PointD> const & area, string const & name, string const & lang)
+  : m_id(GenUniqueId()), m_area(area), m_type(Type::Area), m_name(name), m_lang(lang)
+{
+  ASSERT(!m_area.empty(), ());
 }
 
 bool TestFeature::Matches(FeatureType const & feature) const
@@ -59,8 +65,24 @@ void TestFeature::Serialize(FeatureBuilder1 & fb) const
   auto & metadata = fb.GetMetadataForTesting();
   metadata.Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
 
-  if (m_hasCenter)
+  switch (m_type)
+  {
+  case Type::Point:
+  {
     fb.SetCenter(m_center);
+    break;
+  }
+  case Type::Area:
+  {
+    ASSERT(!m_area.empty(), ());
+    for (auto const & p : m_area)
+      fb.AddPoint(p);
+    fb.SetArea();
+    break;
+  }
+  case Type::Unknown: break;
+  }
+
   if (!m_name.empty())
   {
     CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
@@ -98,6 +120,12 @@ string TestCountry::ToString() const
 TestCity::TestCity(m2::PointD const & center, string const & name, string const & lang,
                    uint8_t rank)
   : TestFeature(center, name, lang), m_rank(rank)
+{
+}
+
+TestCity::TestCity(vector<m2::PointD> const & boundary, string const & name, string const & lang,
+                   uint8_t rank)
+  : TestFeature(boundary, name, lang), m_rank(rank)
 {
 }
 
@@ -234,23 +262,17 @@ TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
 TestBuilding::TestBuilding(vector<m2::PointD> const & boundary, string const & name,
                            string const & houseNumber, TestStreet const & street,
                            string const & lang)
-  : TestFeature(name, lang)
+  : TestFeature(boundary, name, lang)
   , m_boundary(boundary)
   , m_houseNumber(houseNumber)
   , m_streetName(street.GetName())
 {
-  ASSERT(!m_boundary.empty(), ());
 }
 
 void TestBuilding::Serialize(FeatureBuilder1 & fb) const
 {
   TestFeature::Serialize(fb);
-  if (!m_hasCenter)
-  {
-    for (auto const & point : m_boundary)
-      fb.AddPoint(point);
-    fb.SetArea();
-  }
+
   fb.AddHouseNumber(m_houseNumber);
   if (!m_streetName.empty())
     fb.AddStreet(m_streetName);

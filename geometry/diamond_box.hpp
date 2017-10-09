@@ -23,6 +23,9 @@ public:
   bool HasPoint(PointD const & p) const { return HasPoint(p.x, p.y); }
   bool HasPoint(double x, double y) const { return m_box.HasPoint(x + y, x - y); }
 
+  bool HasPoint(PointD const & p, double eps) const { return HasPoint(p.x, p.y, eps); }
+  bool HasPoint(double x, double y, double eps) const { return m_box.HasPoint(x + y, x - y, eps); }
+
   std::vector<m2::PointD> Points() const
   {
     auto points = m_box.Points();

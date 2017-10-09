@@ -21,6 +21,9 @@ public:
   bool HasPoint(PointD const & p) const { return HasPoint(p.x, p.y); }
   bool HasPoint(double x, double y) const;
 
+  bool HasPoint(PointD const & p, double eps) const { return HasPoint(p.x, p.y, eps); }
+  bool HasPoint(double x, double y, double eps) const;
+
   PointD Min() const { return m_min; }
   PointD Max() const { return m_max; }
 

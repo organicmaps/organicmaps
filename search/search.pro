@@ -15,6 +15,7 @@ HEADERS += \
     categories_cache.hpp \
     categories_set.hpp \
     cbv.hpp \
+    cities_boundaries_table.hpp \
     city_finder.hpp \
     common.hpp \
     displayed_categories.hpp \
@@ -48,6 +49,7 @@ HEADERS += \
     keyword_matcher.hpp \
     latlon_match.hpp \
     lazy_centers_table.hpp \
+    localities_source.hpp \
     locality_finder.hpp \
     locality_scorer.hpp \
     mode.hpp \
@@ -89,6 +91,7 @@ SOURCES += \
     approximate_string_match.cpp \
     categories_cache.cpp \
     cbv.cpp \
+    cities_boundaries_table.cpp \
     displayed_categories.cpp \
     downloader_search_callback.cpp \
     dummy_rank_table.cpp \
@@ -116,6 +119,7 @@ SOURCES += \
     keyword_matcher.cpp \
     latlon_match.cpp \
     lazy_centers_table.cpp \
+    localities_source.cpp \
     locality_finder.cpp \
     locality_scorer.cpp \
     mode.cpp \

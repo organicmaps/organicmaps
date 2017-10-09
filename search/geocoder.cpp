@@ -203,20 +203,6 @@ WARN_UNUSED_RESULT bool GetAffiliationName(FeatureType const & ft, string & affi
   return false;
 }
 
-MwmSet::MwmHandle FindWorld(Index const & index, vector<shared_ptr<MwmInfo>> const & infos)
-{
-  MwmSet::MwmHandle handle;
-  for (auto const & info : infos)
-  {
-    if (info->GetType() == MwmInfo::WORLD)
-    {
-      handle = index.GetMwmHandleById(MwmSet::MwmId(info));
-      break;
-    }
-  }
-  return handle;
-}
-
 double Area(m2::RectD const & rect) { return rect.IsValid() ? rect.SizeX() * rect.SizeY() : 0; }
 
 // Computes the average similarity between |rect| and |pivot|. By

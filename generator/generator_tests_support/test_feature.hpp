@@ -35,12 +35,22 @@ public:
   virtual std::string ToString() const = 0;
 
 protected:
+  enum class Type
+  {
+    Point,
+    Area,
+    Unknown
+  };
+
   TestFeature(std::string const & name, std::string const & lang);
   TestFeature(m2::PointD const & center, std::string const & name, std::string const & lang);
+  TestFeature(vector<m2::PointD> const & area, std::string const & name,
+              std::string const & lang);
 
   uint64_t const m_id;
   m2::PointD const m_center;
-  bool const m_hasCenter;
+  vector<m2::PointD> const m_area;
+  Type const m_type;
   std::string const m_name;
   std::string const m_lang;
   std::string m_postcode;
@@ -59,7 +69,10 @@ public:
 class TestCity : public TestFeature
 {
 public:
-  TestCity(m2::PointD const & center, std::string const & name, std::string const & lang, uint8_t rank);
+  TestCity(m2::PointD const & center, std::string const & name, std::string const & lang,
+           uint8_t rank);
+  TestCity(std::vector<m2::PointD> const & boundary, std::string const & name,
+           std::string const & lang, uint8_t rank);
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
