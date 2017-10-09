@@ -403,7 +403,7 @@ void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t sub
 
   auto const & subrouteData = subrouteInfo.m_subrouteData[subrouteDataIndex];
   dp::GLState const & state = subrouteData->m_renderProperty.m_state;
-  size_t const styleIndex = subrouteData->m_styleIndex;
+  size_t const styleIndex = subrouteData->m_startPointIndex;
   ASSERT_LESS(styleIndex, subrouteInfo.m_subroute->m_style.size(), ());
   auto const & style = subrouteInfo.m_subroute->m_style[styleIndex];
 

@@ -4,46 +4,26 @@
 
 namespace
 {
-std::vector<drape_ptr<df::SubrouteData>> SplitSubroute(dp::DrapeID subrouteId,
-                                                       df::SubrouteConstPtr subroute,
-                                                       int recacheId)
+std::vector<std::pair<size_t, size_t>> SplitSubroute(df::SubrouteConstPtr subroute)
 {
   ASSERT(subroute != nullptr, ());
 
-  std::vector<drape_ptr<df::SubrouteData>> result;
+  std::vector<std::pair<size_t, size_t>> result;
   if (subroute->m_styleType == df::SubrouteStyleType::Single)
   {
     ASSERT(!subroute->m_style.empty(), ());
-    auto subrouteData = make_unique_dp<df::SubrouteData>();
-    subrouteData->m_subrouteId = subrouteId;
-    subrouteData->m_subroute = subroute;
-    subrouteData->m_pivot = subrouteData->m_subroute->m_polyline.GetLimitRect().Center();
-    subrouteData->m_recacheId = recacheId;
-    subrouteData->m_styleIndex = 0;
-    subrouteData->m_startPointIndex = 0;
-    subrouteData->m_endPointIndex = subrouteData->m_subroute->m_polyline.GetSize() - 1;
-    result.push_back(std::move(subrouteData));
+    result.emplace_back(std::make_pair(0, subroute->m_polyline.GetSize() - 1));
     return result;
   }
 
   ASSERT_EQUAL(subroute->m_style.size() + 1, subroute->m_polyline.GetSize(), ());
 
   size_t startIndex = 0;
-  result.reserve(10);
   for (size_t i = 1; i <= subroute->m_style.size(); ++i)
   {
     if (i == subroute->m_style.size() || subroute->m_style[i] != subroute->m_style[startIndex])
     {
-      auto subrouteData = make_unique_dp<df::SubrouteData>();
-      subrouteData->m_subrouteId = subrouteId;
-      subrouteData->m_subroute = subroute;
-      subrouteData->m_startPointIndex = startIndex;
-      subrouteData->m_endPointIndex = i;
-      subrouteData->m_styleIndex = startIndex;
-      subrouteData->m_pivot = subrouteData->m_subroute->m_polyline.GetLimitRect().Center();
-      subrouteData->m_recacheId = recacheId;
-      result.push_back(std::move(subrouteData));
-
+      result.emplace_back(std::make_pair(startIndex, i));
       startIndex = i;
     }
   }
@@ -67,9 +47,14 @@ void RouteBuilder::Build(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
   cacheData.m_baseDepthIndex = subroute->m_baseDepthIndex;
   m_routeCache[subrouteId] = std::move(cacheData);
 
-  auto subrouteData = SplitSubroute(subrouteId, subroute, recacheId);
-  for (auto & data : subrouteData)
-    RouteShape::CacheRoute(textures, *data.get());
+  auto const & subrouteIndices = SplitSubroute(subroute);
+  std::vector<drape_ptr<df::SubrouteData>> subrouteData;
+  subrouteData.reserve(subrouteIndices.size());
+  for (auto const & indices : subrouteIndices)
+  {
+    subrouteData.push_back(RouteShape::CacheRoute(subrouteId, subroute, indices.first,
+                                                  indices.second, recacheId, textures));
+  }
 
   // Flush route geometry.
   GLFunctions::glFlush();

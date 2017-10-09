@@ -394,22 +394,23 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
                 AV::GetBindingInfo(), routeArrowsData.m_renderProperty);
 }
 
-void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, SubrouteData & subrouteData)
+drape_ptr<df::SubrouteData> RouteShape::CacheRoute(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
+                                                   size_t startIndex, size_t endIndex, int recacheId,
+                                                   ref_ptr<dp::TextureManager> textures)
 {
-  ASSERT_LESS(subrouteData.m_startPointIndex, subrouteData.m_endPointIndex, ());
+  ASSERT_LESS(startIndex, endIndex, ());
 
-  auto const points = subrouteData.m_subroute->m_polyline.ExtractSegment(subrouteData.m_startPointIndex,
-                                                                         subrouteData.m_endPointIndex);
+  auto const points = subroute->m_polyline.ExtractSegment(startIndex, endIndex);
   if (points.empty())
-    return;
+    return nullptr;
 
   std::vector<glsl::vec4> segmentsColors;
-  if (!subrouteData.m_subroute->m_traffic.empty())
+  if (!subroute->m_traffic.empty())
   {
-    segmentsColors.reserve(subrouteData.m_endPointIndex - subrouteData.m_startPointIndex);
-    for (size_t i = subrouteData.m_startPointIndex; i < subrouteData.m_endPointIndex; ++i)
+    segmentsColors.reserve(endIndex - startIndex);
+    for (size_t i = startIndex; i < endIndex; ++i)
     {
-      auto const speedGroup = TrafficGenerator::CheckColorsSimplification(subrouteData.m_subroute->m_traffic[i]);
+      auto const speedGroup = TrafficGenerator::CheckColorsSimplification(subroute->m_traffic[i]);
       auto const colorConstant = TrafficGenerator::GetColorBySpeedGroup(speedGroup, true /* route */);
       dp::Color const color = df::GetColorConstant(colorConstant);
       float const alpha = (speedGroup == traffic::SpeedGroup::G4 ||
@@ -419,19 +420,29 @@ void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, SubrouteData &
     }
   }
 
+  auto subrouteData = make_unique_dp<df::SubrouteData>();
+  subrouteData->m_subrouteId = subrouteId;
+  subrouteData->m_subroute = subroute;
+  subrouteData->m_startPointIndex = startIndex;
+  subrouteData->m_endPointIndex = endIndex;
+  subrouteData->m_pivot = subroute->m_polyline.GetLimitRect().Center();
+  subrouteData->m_recacheId = recacheId;
+
   TGeometryBuffer geometry;
   TGeometryBuffer joinsGeometry;
-  PrepareGeometry(points, subrouteData.m_pivot, segmentsColors,
-                  static_cast<float>(subrouteData.m_subroute->m_baseDepthIndex * kDepthPerSubroute),
+  PrepareGeometry(points, subrouteData->m_pivot, segmentsColors,
+                  static_cast<float>(subroute->m_baseDepthIndex * kDepthPerSubroute),
                   geometry, joinsGeometry);
 
-  auto state = CreateGLState(subrouteData.m_subroute->m_style[subrouteData.m_styleIndex].m_pattern.m_isDashed ?
+  auto state = CreateGLState(subroute->m_style[startIndex].m_pattern.m_isDashed ?
                              gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM, RenderState::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());
 
   BatchGeometry(state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),
                 make_ref(joinsGeometry.data()), static_cast<uint32_t>(joinsGeometry.size()),
-                RV::GetBindingInfo(), subrouteData.m_renderProperty);
+                RV::GetBindingInfo(), subrouteData->m_renderProperty);
+
+  return subrouteData;
 }
 
 void RouteShape::BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, uint32_t geomSize,

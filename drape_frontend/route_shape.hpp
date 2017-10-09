@@ -13,6 +13,7 @@
 
 #include "geometry/polyline2d.hpp"
 
+#include <cmath>
 #include <memory>
 #include <vector>
 
@@ -61,8 +62,8 @@ struct RoutePattern
   {
     double const kEps = 1e-5;
     return m_isDashed == pattern.m_isDashed &&
-           fabs(m_dashLength - pattern.m_dashLength) < kEps &&
-           fabs(m_gapLength - pattern.m_gapLength) < kEps;
+           std::fabs(m_dashLength - pattern.m_dashLength) < kEps &&
+           std::fabs(m_gapLength - pattern.m_gapLength) < kEps;
   }
 };
 
@@ -146,7 +147,6 @@ struct BaseSubrouteData
 struct SubrouteData : public BaseSubrouteData
 {
   SubrouteConstPtr m_subroute;
-  size_t m_styleIndex = 0;
   size_t m_startPointIndex = 0;
   size_t m_endPointIndex = 0;
 };
@@ -168,7 +168,9 @@ public:
   using AV = gpu::SolidTexturingVertex;
   using TArrowGeometryBuffer = buffer_vector<AV, 128>;
 
-  static void CacheRoute(ref_ptr<dp::TextureManager> textures, SubrouteData & subrouteData);
+  static drape_ptr<df::SubrouteData> CacheRoute(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
+                                                size_t startIndex, size_t endIndex, int recacheId,
+                                                ref_ptr<dp::TextureManager> textures);
 
   static void CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
                                std::vector<ArrowBorders> const & borders, double baseDepthIndex,
