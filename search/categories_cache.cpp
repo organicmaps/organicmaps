@@ -18,47 +18,28 @@ namespace search
 // CategoriesCache ---------------------------------------------------------------------------------
 CBV CategoriesCache::Get(MwmContext const & context)
 {
-  if (!context.m_handle.IsAlive() || !context.m_value.HasSearchIndex())
-    return CBV();
+  CHECK(context.m_handle.IsAlive(), ());
+  ASSERT(context.m_value.HasSearchIndex(), ());
 
-  auto id = context.m_handle.GetId();
+  auto const id = context.m_handle.GetId();
   auto const it = m_cache.find(id);
   if (it != m_cache.cend())
     return it->second;
 
-  auto cbv = Load(context);
+  auto const cbv = Load(context);
   m_cache[id] = cbv;
   return cbv;
 }
 
-CBV CategoriesCache::GetFuzzy(MwmContext const & context)
-{
-  if (!context.m_handle.IsAlive() || !context.m_value.HasSearchIndex())
-    return CBV();
-
-  auto id = context.m_handle.GetId();
-  auto const it = m_cacheFuzzy.find(id);
-  if (it != m_cacheFuzzy.cend())
-    return it->second;
-
-  auto cbv = LoadFuzzy(context);
-  m_cacheFuzzy[id] = cbv;
-  return cbv;
-}
-
-void CategoriesCache::Clear()
-{
-  m_cacheFuzzy.clear();
-  m_cache.clear();
-}
-
-CBV CategoriesCache::Load(MwmContext const & context)
+CBV CategoriesCache::Load(MwmContext const & context) const
 {
   ASSERT(context.m_handle.IsAlive(), ());
   ASSERT(context.m_value.HasSearchIndex(), ());
 
   auto const & c = classif();
 
+  // Any DFA will do, since we only use requests's m_categories,
+  // but the interface of Retrieval forces us to make a choice.
   SearchTrieRequest<strings::UniStringDFA> request;
 
   m_categories.ForEach([&request, &c](uint32_t const type) {
@@ -67,23 +48,6 @@ CBV CategoriesCache::Load(MwmContext const & context)
 
   Retrieval retrieval(context, m_cancellable);
   return CBV(retrieval.RetrieveAddressFeatures(request));
-}
-
-CBV CategoriesCache::LoadFuzzy(MwmContext const & context)
-{
-  ASSERT(context.m_handle.IsAlive(), ());
-  ASSERT(context.m_value.HasSearchIndex(), ());
-
-  auto const & c = classif();
-
-  SearchTrieRequest<strings::LevenshteinDFA> request;
-
-  m_categories.ForEach([&request, &c](uint32_t const type) {
-    request.m_categories.emplace_back(FeatureTypeToString(c.GetIndexForType(type)));
-  });
-
-  Retrieval retrieval(context, m_cancellable);
-  return CBV(retrieval.RetrieveAddressFeaturesFuzzy(request));
 }
 
 // StreetsCache ------------------------------------------------------------------------------------

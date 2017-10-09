@@ -390,6 +390,7 @@ void Processor::SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool 
 }
 
 void Processor::ClearCache(size_t ind) { m_viewport[ind].MakeEmpty(); }
+
 Locales Processor::GetCategoryLocales() const
 {
   static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");

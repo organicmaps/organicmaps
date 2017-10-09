@@ -329,13 +329,13 @@ unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
-unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeaturesFuzzy(
+unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
     SearchTrieRequest<LevenshteinDFA> const & request)
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
-unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeaturesFuzzy(
+unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
     SearchTrieRequest<PrefixDFAModifier<LevenshteinDFA>> const & request)
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);

@@ -154,7 +154,7 @@ private:
   inline void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
   // A fast-path branch for categorial requests.
-  void MatchCategories(BaseContext & ctx);
+  void MatchCategories(BaseContext & ctx, bool aroundPivot);
 
   // Tries to find all countries and states in a search query and then
   // performs matching of cities in found maps.

@@ -547,7 +547,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
           features = features.Intersect(viewportCBV);
       }
 
-      ctx.m_villages = m_villagesCache.GetFuzzy(*m_context);
+      ctx.m_villages = m_villagesCache.Get(*m_context);
 
       auto citiesFromWorld = m_cities;
       FillVillageLocalities(ctx);
@@ -556,15 +556,16 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
                        m_cities = citiesFromWorld;
                      });
 
+      bool const intersectsPivot = index < numIntersectingMaps;
       if (m_params.IsCategorialRequest())
       {
-        MatchCategories(ctx);
+        MatchCategories(ctx, intersectsPivot);
       }
       else
       {
         MatchRegions(ctx, Region::TYPE_COUNTRY);
 
-        if (index < numIntersectingMaps || m_preRanker.NumSentResults() == 0)
+        if (intersectsPivot || m_preRanker.NumSentResults() == 0)
           MatchAroundPivot(ctx);
       }
 
@@ -599,9 +600,13 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
       ctx.m_features[i] = cache.Get(*m_context);
     }
     else if (m_params.IsPrefixToken(i))
-      ctx.m_features[i] = retrieval.RetrieveAddressFeaturesFuzzy(m_prefixTokenRequest);
+    {
+      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_prefixTokenRequest);
+    }
     else
-      ctx.m_features[i] = retrieval.RetrieveAddressFeaturesFuzzy(m_tokenRequests[i]);
+    {
+      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_tokenRequests[i]);
+    }
 
     if (m_params.m_cianMode)
       ctx.m_features[i] = DecimateCianResults(ctx.m_features[i]);
@@ -776,8 +781,17 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && 
   }
 }
 
-void Geocoder::MatchCategories(BaseContext & ctx)
+void Geocoder::MatchCategories(BaseContext & ctx, bool aroundPivot)
 {
+  auto features = ctx.m_features[0];
+
+  if (aroundPivot)
+  {
+    auto const pivotFeatures = RetrieveGeometryFeatures(*m_context, m_params.m_pivot, RECT_ID_PIVOT);
+    ViewportFilter filter(pivotFeatures, m_preRanker.Limit() /* threshold */);
+    features = filter.Filter(features);
+  }
+
   auto emit = [&](uint64_t bit) {
     auto const featureId = base::asserted_cast<uint32_t>(bit);
     Model::Type type;
@@ -791,7 +805,7 @@ void Geocoder::MatchCategories(BaseContext & ctx)
   // Its features have been retrieved from the search index
   // using the exact (non-fuzzy) matching and intersected
   // with viewport, if needed. Every such feature is relevant.
-  ctx.m_features[0].ForEach(emit);
+  features.ForEach(emit);
 }
 
 void Geocoder::MatchRegions(BaseContext & ctx, Region::Type type)
@@ -930,7 +944,7 @@ void Geocoder::LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter)
                  });
 
   if (!ctx.m_streets)
-    ctx.m_streets = m_streetsCache.GetFuzzy(*m_context);
+    ctx.m_streets = m_streetsCache.Get(*m_context);
 
   MatchUnclassified(ctx, 0 /* curToken */);
 

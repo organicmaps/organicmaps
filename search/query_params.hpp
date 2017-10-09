@@ -115,7 +115,7 @@ public:
   inline Langs const & GetLangs() const { return m_langs; }
   inline bool LangExists(int8_t lang) const { return m_langs.Contains(lang); }
 
-  inline void SetCategorialRequest(bool rhs) { m_isCategorialRequest = rhs; }
+  inline void SetCategorialRequest(bool isCategorial) { m_isCategorialRequest = isCategorial; }
   inline bool IsCategorialRequest() const { return m_isCategorialRequest; }
 
   inline int GetScale() const { return m_scale; }
