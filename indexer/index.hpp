@@ -1,6 +1,7 @@
 #pragma once
 #include "indexer/cell_id.hpp"
 #include "indexer/data_factory.hpp"
+#include "indexer/feature.hpp"
 #include "indexer/feature_covering.hpp"
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/features_vector.hpp"
@@ -15,11 +16,11 @@
 
 #include "base/macros.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/limits.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
-#include "std/weak_ptr.hpp"
+#include <algorithm>
+#include <limits>
+#include <memory>
+#include <utility>
+#include <vector>
 
 class MwmInfoEx : public MwmInfo
 {
@@ -35,7 +36,7 @@ private:
   // only in MwmValue::SetTable() method, which, in turn, is called
   // only in the MwmSet critical section, protected by a lock.  So,
   // there's an implicit synchronization on this field.
-  weak_ptr<feature::FeaturesOffsetsTable> m_table;
+  std::weak_ptr<feature::FeaturesOffsetsTable> m_table;
 };
 
 class MwmValue : public MwmSet::MwmValueBase
@@ -45,7 +46,7 @@ public:
   IndexFactory m_factory;
   platform::LocalCountryFile const m_file;
 
-  shared_ptr<feature::FeaturesOffsetsTable> m_table;
+  std::shared_ptr<feature::FeaturesOffsetsTable> m_table;
 
   explicit MwmValue(platform::LocalCountryFile const & localFile);
   void SetTable(MwmInfoEx & info);
@@ -53,7 +54,10 @@ public:
   inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
   inline feature::RegionData const & GetRegionData() const { return m_factory.GetRegionData(); }
   inline version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
-  inline string const & GetCountryFileName() const { return m_file.GetCountryFile().GetName(); }
+  inline std::string const & GetCountryFileName() const
+  {
+    return m_file.GetCountryFile().GetName();
+  }
 
   inline bool HasSearchIndex() { return m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
   inline bool HasGeometryIndex() { return m_cont.IsExist(INDEX_FILE_TAG); }
@@ -64,14 +68,14 @@ class Index : public MwmSet
 protected:
   /// MwmSet overrides:
   //@{
-  unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const override;
+  std::unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const override;
 
-  unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const override;
+  std::unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const override;
   //@}
 
 public:
   /// Registers a new map.
-  pair<MwmId, RegResult> RegisterMap(platform::LocalCountryFile const & localFile);
+  std::pair<MwmId, RegResult> RegisterMap(platform::LocalCountryFile const & localFile);
 
   /// Deregisters a map from internal records.
   ///
@@ -230,7 +234,7 @@ public:
 
   // "features" must be sorted using FeatureID::operator< as predicate.
   template <typename F>
-  void ReadFeatures(F && f, vector<FeatureID> const & features) const
+  void ReadFeatures(F && f, std::vector<FeatureID> const & features) const
   {
     auto fidIter = features.begin();
     auto const endIter = features.end();
@@ -279,8 +283,11 @@ public:
     FeaturesLoaderGuard(Index const & index, MwmId const & id);
 
     inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
-    string GetCountryFileName() const;
+    std::string GetCountryFileName() const;
     bool IsWorld() const;
+
+    std::unique_ptr<FeatureType> GetOriginalFeatureByIndex(uint32_t index) const;
+    std::unique_ptr<FeatureType> GetOriginalOrEditedFeatureByIndex(uint32_t index) const;
 
     /// Everyone, except Editor core, should use this method.
     WARN_UNUSED_RESULT bool GetFeatureByIndex(uint32_t index, FeatureType & ft) const;
@@ -290,9 +297,10 @@ public:
 
     size_t GetNumFeatures() const;
 
+
   private:
     MwmHandle m_handle;
-    unique_ptr<FeaturesVector> m_vector;
+    std::unique_ptr<FeaturesVector> m_vector;
     osm::Editor & m_editor = osm::Editor::Instance();
   };
 
@@ -314,7 +322,7 @@ private:
   void ForEachInIntervals(F && f, covering::CoveringMode mode, m2::RectD const & rect,
                           int scale) const
   {
-    vector<shared_ptr<MwmInfo>> mwms;
+    std::vector<std::shared_ptr<MwmInfo>> mwms;
     GetMwmsInfo(mwms);
 
     covering::CoveringGetter cov(rect, mode);

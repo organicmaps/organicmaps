@@ -27,6 +27,8 @@ public:
   void operator()(uint8_t const d, char const * name = nullptr) { ToJSONObject(*m_json, name, d); }
   void operator()(uint32_t const d, char const * name = nullptr) { ToJSONObject(*m_json, name, d); }
   void operator()(uint64_t const d, char const * name = nullptr) { ToJSONObject(*m_json, name, d); }
+  void operator()(int64_t const d, char const * name = nullptr) { ToJSONObject(*m_json, name, d); }
+  void operator()(double const d, char const * name = nullptr) { ToJSONObject(*m_json, name, d); }
   void operator()(std::string const & s, char const * name = nullptr)
   {
     ToJSONObject(*m_json, name, s);
@@ -69,8 +71,7 @@ public:
   void VisitRating(float const f, char const * name = nullptr)
   {
     CHECK_GREATER_OR_EQUAL(f, 0.0, ());
-    auto const d = static_cast<double>(f);
-    ToJSONObject(*m_json, name, d);
+    (*this)(static_cast<double>(f), name);
   }
 
   template <typename T>
@@ -82,6 +83,12 @@ public:
   void VisitLang(uint8_t const index, char const * name = nullptr)
   {
     ToJSONObject(*m_json, name, StringUtf8Multilang::GetLangByCode(index));
+  }
+
+  void VisitPoint(m2::PointD const & pt, char const * x = nullptr, char const * y = nullptr)
+  {
+    (*this)(pt.x, x);
+    (*this)(pt.y, y);
   }
 
 private:
@@ -137,6 +144,8 @@ public:
   void operator()(uint8_t & d, char const * name = nullptr) { FromJSONObject(m_json, name, d); }
   void operator()(uint32_t & d, char const * name = nullptr) { FromJSONObject(m_json, name, d); }
   void operator()(uint64_t & d, char const * name = nullptr) { FromJSONObject(m_json, name, d); }
+  void operator()(int64_t & d, char const * name = nullptr) { FromJSONObject(m_json, name, d); }
+  void operator()(double & d, char const * name = nullptr) { FromJSONObject(m_json, name, d); }
   void operator()(std::string & s, char const * name = nullptr) { FromJSONObject(m_json, name, s); }
   void operator()(TranslationKey & key, char const * name = nullptr)
   {
@@ -203,6 +212,12 @@ public:
     std::string lang;
     FromJSONObject(m_json, name, lang);
     index = StringUtf8Multilang::GetLangIndex(lang);
+  }
+
+  void VisitPoint(m2::PointD & pt, char const * x = nullptr, char const * y = nullptr)
+  {
+    FromJSONObject(m_json, x, pt.x);
+    FromJSONObject(m_json, y, pt.y);
   }
 
 private:

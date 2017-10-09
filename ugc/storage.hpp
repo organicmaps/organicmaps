@@ -5,6 +5,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/thread_checker.hpp"
+#include "base/visitor.hpp"
 
 #include <memory>
 #include <string>
@@ -21,30 +22,39 @@ class Storage
 public:
   struct UGCIndex
   {
+    DECLARE_VISITOR(visitor.VisitPoint(m_mercator, "x", "y"), visitor(m_type, "type"),
+                    visitor(m_offset, "offset"), visitor(m_deleted, "deleted"),
+                    visitor(m_synchronized, "synchronized"), visitor(m_mwmName, "mwm_name"),
+                    visitor(m_dataVersion, "data_version"), visitor(m_featureId, "feature_id"))
+
     m2::PointD m_mercator{};
-    uint32_t m_type{};
-    uint64_t m_offset{};
-    bool m_isDeleted = false;
-    bool m_isSynchronized = false;
+    uint32_t m_type = 0;
+    uint64_t m_offset = 0;
+    bool m_deleted = false;
+    bool m_synchronized = false;
     std::string m_mwmName;
-    std::string m_dataVersion;
-    uint32_t m_featureId{};
+    int64_t m_dataVersion;
+    uint32_t m_featureId = 0;
   };
 
   explicit Storage(Index const & index);
 
   UGCUpdate GetUGCUpdate(FeatureID const & id) const;
   void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
-
   void SaveIndex() const;
-  void Load();
-  void Defragmentation();
   std::string GetUGCToSend() const;
   void MarkAllAsSynchronized();
+  void Defragmentation();
 
-  std::unique_ptr<FeatureType> GetOriginalFeature(FeatureID const & id) const;
+  /// Testing
+  std::vector<UGCIndex> const & GetIndexesForTesting() const { return m_UGCIndexes; }
+  size_t GetNumberOfDeletedForTesting() const { return m_numberOfDeleted; }
 
 private:
+  void Load();
+  uint64_t UGCSizeAtIndex(size_t const indexPosition) const;
+  std::unique_ptr<FeatureType> GetFeature(FeatureID const & id) const;
+
   Index const & m_index;
   std::vector<UGCIndex> m_UGCIndexes;
   size_t m_numberOfDeleted = 0;

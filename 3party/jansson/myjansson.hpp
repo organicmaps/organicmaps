@@ -50,6 +50,7 @@ public:
   }
 
   json_t * get() const { return m_handle.get(); }
+  json_t * get_deep_copy() const { return json_deep_copy(get()); }
 };
 
 json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
@@ -110,9 +111,9 @@ void ToJSONObject(json_t & root, std::string const & field, T const & value)
   json_object_set_new(&root, field.c_str(), ToJSON(value).release());
 }
 
-inline void ToJSONObject(json_t & root, std::string const & field, json_t & embedded)
+inline void ToJSONObject(json_t & parent, std::string const & field, json_t & child)
 {
-  json_object_set_new(&root, field.c_str(), &embedded);
+  json_object_set_new(&parent, field.c_str(), &child);
 }
 
 template <typename T>

@@ -241,7 +241,7 @@ struct UGCUpdate
   {
   }
 
-  DECLARE_VISITOR(visitor(m_ratings, "ratings"), visitor(m_text, "text"), visitor(m_time, "time"))
+  DECLARE_VISITOR(visitor(m_ratings, "ratings"), visitor(m_text, "text"), visitor(m_time, "date"))
 
   bool operator==(UGCUpdate const & rhs) const
   {
