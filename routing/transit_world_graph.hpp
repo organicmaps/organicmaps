@@ -54,6 +54,8 @@ private:
   RoadGeometry const & GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId);
   void AddRealEdges(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
+  IndexGraph & GetIndexGraph(NumMwmId mwmId);
+  TransitGraph & GetTransitGraph(NumMwmId mwmId);
 
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;
   std::unique_ptr<IndexGraphLoader> m_indexLoader;

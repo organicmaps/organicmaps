@@ -41,6 +41,17 @@ public:
     }
   }
 
+  // Adds connection from existent fake segment |from| to existent fake segment |to|
+  void AddConnection(SegmentType const & from, SegmentType const & to)
+  {
+    CHECK(m_segmentToVertex.find(from) != m_segmentToVertex.end(),
+          ("Segment", from, "does not exist in fake graph."));
+    CHECK(m_segmentToVertex.find(to) != m_segmentToVertex.end(),
+          ("Segment", to, "does not exist in fake graph."));
+    m_outgoing[from].insert(to);
+    m_ingoing[to].insert(from);
+  }
+
   // Merges |rhs| into this.
   void Append(FakeGraph const & rhs)
   {

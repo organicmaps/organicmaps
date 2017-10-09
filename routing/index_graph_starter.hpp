@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/base/routing_result.hpp"
+#include "routing/fake_ending.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/fake_graph.hpp"
 #include "routing/fake_vertex.hpp"
@@ -32,22 +33,8 @@ public:
   using TEdgeType = IndexGraph::TEdgeType;
   using TWeightType = IndexGraph::TWeightType;
 
-  struct Projection final
-  {
-    Segment m_segment;
-    Junction m_junction;
-  };
-
-  struct FakeEnding final
-  {
-    Junction m_originJunction;
-    std::vector<Projection> m_projections;
-  };
-
   friend class FakeEdgesContainer;
 
-  static FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point,
-                                   WorldGraph & graph);
   static void CheckValidRoute(std::vector<Segment> const & segments);
   static size_t GetRouteNumPoints(std::vector<Segment> const & route);
 

@@ -137,6 +137,8 @@ public:
   bool GetTransfer() const { return m_transfer; }
   std::vector<ShapeId> const & GetShapeIds() const { return m_shapeIds; }
 
+  bool operator<(Edge const & rhs) const;
+
   DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_startStopId, "start_stop_id"),
                                   visitor(m_finishStopId, "finish_stop_id"),
                                   visitor(m_weight, "weight"), visitor(m_lineId, "line_id"),

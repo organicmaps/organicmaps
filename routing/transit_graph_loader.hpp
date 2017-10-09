@@ -1,5 +1,7 @@
 #pragma once
 
+#include "routing/edge_estimator.hpp"
+#include "routing/index_graph.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/transit_graph.hpp"
 
@@ -13,16 +15,18 @@ namespace routing
 class TransitGraphLoader final
 {
 public:
-  TransitGraphLoader(std::shared_ptr<NumMwmIds> numMwmIds, Index & index);
+  TransitGraphLoader(std::shared_ptr<NumMwmIds> numMwmIds, Index & index,
+                     std::shared_ptr<EdgeEstimator> estimator);
 
-  TransitGraph & GetTransitGraph(NumMwmId mwmId);
+  TransitGraph & GetTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph);
   void Clear();
 
 private:
-  std::unique_ptr<TransitGraph> CreateTransitGraph(NumMwmId mwmId);
+  std::unique_ptr<TransitGraph> CreateTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) const;
 
   Index & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
+  std::shared_ptr<EdgeEstimator> m_estimator;
   std::unordered_map<NumMwmId, std::unique_ptr<TransitGraph>> m_graphs;
 };
 }  // namespace routing

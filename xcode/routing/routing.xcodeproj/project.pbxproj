@@ -66,11 +66,14 @@
 		4065EA851F8260010094DEF3 /* transit_graph_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4065EA821F8260000094DEF3 /* transit_graph_loader.cpp */; };
 		4065EA861F8260010094DEF3 /* transit_graph_loader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4065EA831F8260000094DEF3 /* transit_graph_loader.hpp */; };
 		4065EA871F8260010094DEF3 /* transit_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4065EA841F8260000094DEF3 /* transit_graph.hpp */; };
+		4081AD4E1F8E4C1D006CE8A5 /* transit_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4081AD4D1F8E4C1C006CE8A5 /* transit_graph.cpp */; };
 		40858A871F8CEAE60065CFF7 /* fake_feature_ids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40858A861F8CEAE60065CFF7 /* fake_feature_ids.cpp */; };
 		40A111CD1F2F6776005E6AD5 /* route_weight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40A111CB1F2F6776005E6AD5 /* route_weight.cpp */; };
 		40A111CE1F2F6776005E6AD5 /* route_weight.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40A111CC1F2F6776005E6AD5 /* route_weight.hpp */; };
 		40A111D01F2F9704005E6AD5 /* astar_weight.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40A111CF1F2F9704005E6AD5 /* astar_weight.hpp */; };
 		40C227FE1F61C07C0046696C /* fake_edges_container.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40C227FD1F61C07C0046696C /* fake_edges_container.hpp */; };
+		40C645161F8D167F002E05A0 /* fake_ending.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40C645141F8D167E002E05A0 /* fake_ending.cpp */; };
+		40C645171F8D167F002E05A0 /* fake_ending.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40C645151F8D167E002E05A0 /* fake_ending.hpp */; };
 		40F7F3E41F7D246D0082D564 /* single_vehicle_world_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40F7F3E21F7D246C0082D564 /* single_vehicle_world_graph.hpp */; };
 		40F7F3E51F7D246D0082D564 /* single_vehicle_world_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F7F3E31F7D246D0082D564 /* single_vehicle_world_graph.cpp */; };
 		56099E291CC7C97D00A7772A /* loaded_path_segment.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */; };
@@ -361,11 +364,14 @@
 		4065EA821F8260000094DEF3 /* transit_graph_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_graph_loader.cpp; sourceTree = "<group>"; };
 		4065EA831F8260000094DEF3 /* transit_graph_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_graph_loader.hpp; sourceTree = "<group>"; };
 		4065EA841F8260000094DEF3 /* transit_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_graph.hpp; sourceTree = "<group>"; };
+		4081AD4D1F8E4C1C006CE8A5 /* transit_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_graph.cpp; sourceTree = "<group>"; };
 		40858A861F8CEAE60065CFF7 /* fake_feature_ids.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fake_feature_ids.cpp; sourceTree = "<group>"; };
 		40A111CB1F2F6776005E6AD5 /* route_weight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_weight.cpp; sourceTree = "<group>"; };
 		40A111CC1F2F6776005E6AD5 /* route_weight.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route_weight.hpp; sourceTree = "<group>"; };
 		40A111CF1F2F9704005E6AD5 /* astar_weight.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = astar_weight.hpp; sourceTree = "<group>"; };
 		40C227FD1F61C07C0046696C /* fake_edges_container.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_edges_container.hpp; sourceTree = "<group>"; };
+		40C645141F8D167E002E05A0 /* fake_ending.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fake_ending.cpp; sourceTree = "<group>"; };
+		40C645151F8D167E002E05A0 /* fake_ending.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_ending.hpp; sourceTree = "<group>"; };
 		40F7F3E21F7D246C0082D564 /* single_vehicle_world_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = single_vehicle_world_graph.hpp; sourceTree = "<group>"; };
 		40F7F3E31F7D246D0082D564 /* single_vehicle_world_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = single_vehicle_world_graph.cpp; sourceTree = "<group>"; };
 		56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = loaded_path_segment.hpp; sourceTree = "<group>"; };
@@ -844,6 +850,8 @@
 				0C5FEC521DDE191E0017688C /* edge_estimator.cpp */,
 				0C5FEC531DDE191E0017688C /* edge_estimator.hpp */,
 				40C227FD1F61C07C0046696C /* fake_edges_container.hpp */,
+				40C645141F8D167E002E05A0 /* fake_ending.cpp */,
+				40C645151F8D167E002E05A0 /* fake_ending.hpp */,
 				40858A861F8CEAE60065CFF7 /* fake_feature_ids.cpp */,
 				40655E731F8BA46B0065305E /* fake_feature_ids.hpp */,
 				405F48E81F75231E005BA81A /* fake_graph.hpp */,
@@ -924,6 +932,7 @@
 				0C81E1521F02589800DC66DF /* traffic_stash.hpp */,
 				4065EA821F8260000094DEF3 /* transit_graph_loader.cpp */,
 				4065EA831F8260000094DEF3 /* transit_graph_loader.hpp */,
+				4081AD4D1F8E4C1C006CE8A5 /* transit_graph.cpp */,
 				4065EA841F8260000094DEF3 /* transit_graph.hpp */,
 				4065EA7F1F824A6C0094DEF3 /* transit_world_graph.cpp */,
 				4065EA7E1F824A6C0094DEF3 /* transit_world_graph.hpp */,
@@ -1053,6 +1062,7 @@
 				0C5FEC551DDE191E0017688C /* edge_estimator.hpp in Headers */,
 				670B84C11A9381D900CE4492 /* cross_routing_context.hpp in Headers */,
 				0C12ED241E5C822A0080D0F4 /* index_router.hpp in Headers */,
+				40C645171F8D167F002E05A0 /* fake_ending.hpp in Headers */,
 				0C5FEC651DDE192A0017688C /* joint.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1303,6 +1313,7 @@
 				0CF709361F05172200D5067E /* checkpoints.cpp in Sources */,
 				671F58BD1B874EC80032311E /* followed_polyline.cpp in Sources */,
 				670EE55D1B6001E7001E8064 /* routing_session.cpp in Sources */,
+				40C645161F8D167F002E05A0 /* fake_ending.cpp in Sources */,
 				A120B3451B4A7BE5002F3808 /* cross_mwm_road_graph.cpp in Sources */,
 				56099E331CC9247E00A7772A /* bicycle_directions.cpp in Sources */,
 				674A28B11B1605D2001A525C /* osrm_engine.cpp in Sources */,
@@ -1320,6 +1331,7 @@
 				568194761F03A32400450EC3 /* routing_helpers_tests.cpp in Sources */,
 				4065EA811F824A6C0094DEF3 /* transit_world_graph.cpp in Sources */,
 				0C12ED231E5C822A0080D0F4 /* index_router.cpp in Sources */,
+				4081AD4E1F8E4C1D006CE8A5 /* transit_graph.cpp in Sources */,
 				6753441E1A3F644F00A0A8C3 /* turns.cpp in Sources */,
 				4065EA851F8260010094DEF3 /* transit_graph_loader.cpp in Sources */,
 				670B84C01A9381D900CE4492 /* cross_routing_context.cpp in Sources */,

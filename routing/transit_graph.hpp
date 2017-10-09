@@ -1,5 +1,7 @@
 #pragma once
 
+#include "routing/edge_estimator.hpp"
+#include "routing/fake_ending.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/fake_graph.hpp"
 #include "routing/fake_vertex.hpp"
@@ -19,62 +21,47 @@ namespace routing
 class TransitGraph final
 {
 public:
-  static bool IsTransitFeature(uint32_t featureId) { return featureId == kTransitFeatureId; }
+  static bool IsTransitFeature(uint32_t featureId);
+  static bool IsTransitSegment(Segment const & segment);
 
-  static bool IsTransitSegment(Segment const & segment)
-  {
-    return IsTransitFeature(segment.GetFeatureId());
-  }
+  Junction const & GetJunction(Segment const & segment, bool front) const;
+  RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator const & estimator) const;
+  void GetTransitEdges(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges,
+                       EdgeEstimator const & estimator) const;
+  std::set<Segment> const & GetFake(Segment const & real) const;
+  bool FindReal(Segment const & fake, Segment & real) const;
 
-  Junction const & GetJunction(Segment const & segment, bool front) const
-  {
-    CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
-    auto const & vertex = m_fake.GetVertex(segment);
-    return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
-  }
-
-  RouteWeight CalcSegmentWeight(Segment const & segment) const
-  {
-    CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
-    if (IsGate(segment))
-      return RouteWeight(GetGate(segment).GetWeight(), 0 /* nontransitCross */);
-
-    CHECK(IsEdge(segment), ("Unknown transit segment."));
-    return RouteWeight(GetEdge(segment).GetWeight(), 0 /* nontransitCross */);
-  }
-
-  void GetTransitEdges(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges) const
-  {
-    CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
-    for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
-      edges.emplace_back(s, CalcSegmentWeight(isOutgoing ? s : segment));
-  }
-
-  std::set<Segment> const & GetFake(Segment const & real) const { return m_fake.GetFake(real); }
-
-  bool FindReal(Segment const & fake, Segment & real) const { return m_fake.FindReal(fake, real); }
+  // Fills transit info based on data from transit section.
+  // Uses |indexGraph| to get road geometry: only modifications of |indexGraph| are
+  // modifications of geometry cache.
+  // TODO (t.yan) get rid of indexGraph and estimator
+  void Fill(std::vector<transit::Stop> const & stops, std::vector<transit::Gate> const & gates,
+            std::vector<transit::Edge> const & edges, EdgeEstimator const & estimator,
+            NumMwmId numMwmId, IndexGraph & indexGraph);
 
 private:
-  bool IsGate(Segment const & segment) const { return m_segmentToGate.count(segment) > 0; }
-  bool IsEdge(Segment const & segment) const { return m_segmentToEdge.count(segment) > 0; }
+  Segment GetTransitSegment(uint32_t segmentIdx) const;
+  Segment GetNewTransitSegment() const;
 
-  transit::Edge const & GetEdge(Segment const & segment) const
-  {
-    auto const it = m_segmentToEdge.find(segment);
-    CHECK(it != m_segmentToEdge.cend(), ("Unknown transit segment."));
-    return it->second;
-  }
+  void AddGate(transit::Gate const & gate, FakeEnding const & ending,
+               std::map<transit::StopId, Junction> const & stopCoords, bool isEnter);
+  void AddEdge(transit::Edge const & edge, std::map<transit::StopId, Junction> const & stopCoords);
+  void AddConnections(map<transit::StopId, std::set<transit::Edge>> const & connections,
+                      bool isOutgoing);
 
-  transit::Gate const & GetGate(Segment const & segment) const
-  {
-    auto const it = m_segmentToGate.find(segment);
-    CHECK(it != m_segmentToGate.cend(), ("Unknown transit segment."));
-    return it->second;
-  }
+  bool IsGate(Segment const & segment) const;
+  bool IsEdge(Segment const & segment) const;
+  transit::Edge const & GetEdge(Segment const & segment) const;
+  transit::Gate const & GetGate(Segment const & segment) const;
 
   static uint32_t constexpr kTransitFeatureId = FakeFeatureIds::kTransitGraphId;
+  NumMwmId m_mwmId = kFakeNumMwmId;
   FakeGraph<Segment, FakeVertex, Segment> m_fake;
   std::map<Segment, transit::Edge> m_segmentToEdge;
   std::map<Segment, transit::Gate> m_segmentToGate;
+  // TODO (@t.yan) move m_edgeToSegment, m_stopToBack, m_stopToFront to Fill
+  std::map<transit::Edge, Segment> m_edgeToSegment;
+  std::map<transit::StopId, std::set<Segment>> m_stopToBack;
+  std::map<transit::StopId, std::set<Segment>> m_stopToFront;
 };
 }  // namespace routing

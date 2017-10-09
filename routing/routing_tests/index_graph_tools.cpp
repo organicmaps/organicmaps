@@ -123,10 +123,10 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
   auto const worldGraph = builder.PrepareIndexGraph();
   CHECK(worldGraph != nullptr, ());
 
-  auto const fakeStart = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, startFeatureId, 0 /* segmentIdx */, true /* forward */),
-      m2::PointD::Zero(), *worldGraph);
-  auto const fakeFinish = IndexGraphStarter::MakeFakeEnding(
+  auto const fakeStart =
+      MakeFakeEnding(Segment(kTestNumMwmId, startFeatureId, 0 /* segmentIdx */, true /* forward */),
+                     m2::PointD::Zero(), *worldGraph);
+  auto const fakeFinish = MakeFakeEnding(
       Segment(kTestNumMwmId, finishFeatureId, 0 /* segmentIdx */, true /* forward */),
       m2::PointD::Zero(), *worldGraph);
 
@@ -350,8 +350,7 @@ void TestRouteGeometry(IndexGraphStarter & starter,
 
 void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
                       AStarAlgorithm<IndexGraphStarter>::Result expectedRouteResult,
-                      routing::IndexGraphStarter::FakeEnding const & start,
-                      routing::IndexGraphStarter::FakeEnding const & finish,
+                      FakeEnding const & start, FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest)
 {
   restrictionTest.SetRestrictions(move(restrictions));

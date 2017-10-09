@@ -26,11 +26,11 @@ TransitWorldGraph::TransitWorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph,
 void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool /* isLeap */,
                                     bool /* isEnding */, vector<SegmentEdge> & edges)
 {
-  auto & transitGraph = m_transitLoader->GetTransitGraph(segment.GetMwmId());
+  auto & transitGraph = GetTransitGraph(segment.GetMwmId());
 
   if (TransitGraph::IsTransitSegment(segment))
   {
-    transitGraph.GetTransitEdges(segment, isOutgoing, edges);
+    transitGraph.GetTransitEdges(segment, isOutgoing, edges, *m_estimator);
     // TODO (@t.yan) GetTwins for transit edges
 
     Segment real;
@@ -64,7 +64,7 @@ void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bo
 Junction const & TransitWorldGraph::GetJunction(Segment const & segment, bool front)
 {
   if (TransitGraph::IsTransitSegment(segment))
-    return m_transitLoader->GetTransitGraph(segment.GetMwmId()).GetJunction(segment, front);
+    return GetTransitGraph(segment.GetMwmId()).GetJunction(segment, front);
 
   return GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())
       .GetJunction(segment.GetPointId(front));
@@ -121,8 +121,8 @@ RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment)
 {
   if (TransitGraph::IsTransitSegment(segment))
   {
-    TransitGraph & transitGraph = m_transitLoader->GetTransitGraph(segment.GetMwmId());
-    return transitGraph.CalcSegmentWeight(segment);
+    TransitGraph & transitGraph = GetTransitGraph(segment.GetMwmId());
+    return transitGraph.CalcSegmentWeight(segment, *m_estimator);
   }
 
   return RouteWeight(m_estimator->CalcSegmentWeight(
@@ -165,13 +165,13 @@ void TransitWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,
 RoadGeometry const & TransitWorldGraph::GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId)
 {
   CHECK(!TransitGraph::IsTransitFeature(featureId), ("GetRealRoadGeometry not designed for transit."));
-  return m_indexLoader->GetIndexGraph(mwmId).GetGeometry().GetRoad(featureId);
+  return GetIndexGraph(mwmId).GetGeometry().GetRoad(featureId);
 }
 
 void TransitWorldGraph::AddRealEdges(Segment const & segment, bool isOutgoing,
                                      vector<SegmentEdge> & edges)
 {
-  auto & indexGraph = m_indexLoader->GetIndexGraph(segment.GetMwmId());
+  auto & indexGraph = GetIndexGraph(segment.GetMwmId());
   indexGraph.GetEdgeList(segment, isOutgoing, edges);
 
   if (m_mode != Mode::SingleMwm && m_crossMwmGraph &&
@@ -179,5 +179,16 @@ void TransitWorldGraph::AddRealEdges(Segment const & segment, bool isOutgoing,
   {
     GetTwins(segment, isOutgoing, edges);
   }
+}
+
+IndexGraph & TransitWorldGraph::GetIndexGraph(NumMwmId mwmId)
+{
+  return m_indexLoader->GetIndexGraph(mwmId);
+}
+
+TransitGraph & TransitWorldGraph::GetTransitGraph(NumMwmId mwmId)
+{
+  auto & indexGraph = GetIndexGraph(mwmId);
+  return m_transitLoader->GetTransitGraph(mwmId, indexGraph);
 }
 }  // namespace routing

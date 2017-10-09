@@ -28,6 +28,7 @@ SOURCES += \
     cross_routing_context.cpp \
     directions_engine.cpp \
     edge_estimator.cpp \
+    fake_ending.cpp \
     fake_feature_ids.cpp \
     features_road_graph.cpp \
     geometry.cpp \
@@ -65,6 +66,7 @@ SOURCES += \
     single_vehicle_world_graph.cpp \
     speed_camera.cpp \
     traffic_stash.cpp \
+    transit_graph.cpp \
     transit_graph_loader.cpp \
     transit_world_graph.cpp \
     turns.cpp \
@@ -96,6 +98,7 @@ HEADERS += \
     directions_engine.hpp \
     edge_estimator.hpp \
     fake_edges_container.hpp \
+    fake_ending.hpp \
     fake_feature_ids.hpp \
     fake_graph.hpp \
     fake_vertex.hpp \

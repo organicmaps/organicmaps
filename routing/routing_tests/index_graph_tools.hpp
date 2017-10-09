@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/edge_estimator.hpp"
+#include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/index_graph_starter.hpp"
@@ -40,8 +41,7 @@ struct RestrictionTest
 {
   RestrictionTest() { classificator::Load(); }
   void Init(unique_ptr<SingleVehicleWorldGraph> graph) { m_graph = move(graph); }
-  void SetStarter(IndexGraphStarter::FakeEnding const & start,
-                  IndexGraphStarter::FakeEnding const & finish)
+  void SetStarter(FakeEnding const & start, FakeEnding const & finish)
   {
     m_starter = make_unique<IndexGraphStarter>(start, finish, 0 /* fakeNumerationStart */,
                                                false /* strictForward */, *m_graph);
@@ -203,8 +203,7 @@ void TestRouteGeometry(
 /// \note restrictionTest should have a valid |restrictionTest.m_graph|.
 void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
                       AStarAlgorithm<IndexGraphStarter>::Result expectedRouteResult,
-                      routing::IndexGraphStarter::FakeEnding const & start,
-                      routing::IndexGraphStarter::FakeEnding const & finish,
+                      FakeEnding const & start, FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest);
 
 // Tries to find a unique path from |from| to |to| in |graph|.

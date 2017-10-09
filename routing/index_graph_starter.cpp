@@ -2,10 +2,6 @@
 
 #include "routing/fake_edges_container.hpp"
 
-#include "geometry/distance.hpp"
-
-#include "base/math.hpp"
-
 #include <map>
 
 namespace
@@ -18,43 +14,10 @@ Segment GetReverseSegment(Segment const & segment)
   return Segment(segment.GetMwmId(), segment.GetFeatureId(), segment.GetSegmentIdx(),
                  !segment.IsForward());
 }
-
-Junction CalcProjectionToSegment(Segment const & segment, m2::PointD const & point,
-                                 WorldGraph & graph)
-{
-  auto const & begin = graph.GetJunction(segment, false /* front */);
-  auto const & end = graph.GetJunction(segment, true /* front */);
-  m2::ProjectionToSection<m2::PointD> projection;
-  projection.SetBounds(begin.GetPoint(), end.GetPoint());
-  auto projectedPoint = projection(point);
-  auto const distBeginToEnd = graph.CalcLeapWeight(begin.GetPoint(), end.GetPoint()).GetWeight();
-
-  double constexpr kEpsMeters = 2.0;
-  if (my::AlmostEqualAbs(distBeginToEnd, 0.0, kEpsMeters))
-    return Junction(projectedPoint, begin.GetAltitude());
-
-  auto const distBeginToProjection =
-      graph.CalcLeapWeight(begin.GetPoint(), projectedPoint).GetWeight();
-  auto const altitude = begin.GetAltitude() + (end.GetAltitude() - begin.GetAltitude()) *
-                                                  distBeginToProjection / distBeginToEnd;
-  return Junction(projectedPoint, altitude);
-}
 }  // namespace
 
 namespace routing
 {
-// static
-IndexGraphStarter::FakeEnding IndexGraphStarter::MakeFakeEnding(Segment const & segment,
-                                                                m2::PointD const & point,
-                                                                WorldGraph & graph)
-{
-  IndexGraphStarter::FakeEnding ending;
-  auto const & projectedJunction = CalcProjectionToSegment(segment, point, graph);
-  ending.m_originJunction = Junction(point, projectedJunction.GetAltitude());
-  ending.m_projections.push_back(Projection{segment, projectedJunction});
-  return ending;
-}
-
 // static
 void IndexGraphStarter::CheckValidRoute(vector<Segment> const & segments)
 {
@@ -267,8 +230,8 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
                      false /* isPartOfReal */, dummy /* realSegment */);
 
     // Add fake parts of real
-    auto frontJunction = m_graph.GetJunction(projection.m_segment, true /* front */);
-    auto backJunction = m_graph.GetJunction(projection.m_segment, false /* front */);
+    auto frontJunction = projection.m_segmentFront;
+    auto backJunction = projection.m_segmentBack;
 
     // Check whether we have projections to same real segment from both endings.
     auto const it = otherSegments.find(projection.m_segment);
@@ -294,9 +257,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
     m_fake.AddVertex(projectionSegment, fakeForwardSegment, forwardPartOfReal,
                      isStart /* isOutgoing */, true /* isPartOfReal */, projection.m_segment);
 
-    bool const oneWay =
-        m_graph.IsOneWay(projection.m_segment.GetMwmId(), projection.m_segment.GetFeatureId());
-    if (!strictForward && !oneWay)
+    if (!strictForward && !projection.m_isOneWay)
     {
       auto const backwardSegment = GetReverseSegment(projection.m_segment);
       FakeVertex backwardPartOfReal(isStart ? projection.m_junction : frontJunction,
@@ -315,31 +276,31 @@ void IndexGraphStarter::AddStart(FakeEnding const & startEnding, FakeEnding cons
                                  bool strictForward, uint32_t & fakeNumerationStart)
 {
   AddEnding(startEnding, finishEnding, true /* isStart */, strictForward, fakeNumerationStart);
-  }
+}
 
-  void IndexGraphStarter::AddFinish(FakeEnding const & finishEnding, FakeEnding const & startEnding,
-                                    uint32_t & fakeNumerationStart)
-  {
-    AddEnding(finishEnding, startEnding, false /* isStart */, false /* strictForward */,
-              fakeNumerationStart);
-  }
+void IndexGraphStarter::AddFinish(FakeEnding const & finishEnding, FakeEnding const & startEnding,
+                                  uint32_t & fakeNumerationStart)
+{
+  AddEnding(finishEnding, startEnding, false /* isStart */, false /* strictForward */,
+            fakeNumerationStart);
+}
 
-  void IndexGraphStarter::AddFakeEdges(Segment const & segment, vector<SegmentEdge> & edges) const
+void IndexGraphStarter::AddFakeEdges(Segment const & segment, vector<SegmentEdge> & edges) const
+{
+  vector<SegmentEdge> fakeEdges;
+  for (auto const & edge : edges)
   {
-    vector<SegmentEdge> fakeEdges;
-    for (auto const & edge : edges)
+    for (auto const & s : m_fake.GetFake(edge.GetTarget()))
     {
-      for (auto const & s : m_fake.GetFake(edge.GetTarget()))
+      // Check fake segment is connected to source segment.
+      if (GetJunction(s, false /* front */) == GetJunction(segment, true) ||
+          GetJunction(s, true) == GetJunction(segment, false))
       {
-        // Check fake segment is connected to source segment.
-        if (GetJunction(s, false /* front */) == GetJunction(segment, true) ||
-            GetJunction(s, true) == GetJunction(segment, false))
-        {
-          fakeEdges.emplace_back(s, edge.GetWeight());
-        }
+        fakeEdges.emplace_back(s, edge.GetWeight());
       }
     }
-    edges.insert(edges.end(), fakeEdges.begin(), fakeEdges.end());
+  }
+  edges.insert(edges.end(), fakeEdges.begin(), fakeEdges.end());
 }
 
 void IndexGraphStarter::AddRealEdges(Segment const & segment, bool isOutgoing,

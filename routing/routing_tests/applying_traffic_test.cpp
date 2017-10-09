@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "routing/fake_ending.hpp"
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_starter.hpp"
@@ -124,10 +125,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_EmptyTrafficColoring)
   TEST(!GetTrafficStash()->Has(kTestNumMwmId), ());
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 9, 0, true /* forward */), m2::PointD(2.0, -1.0), *graph);
-  auto const finish = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 6, 0, true /* forward */), m2::PointD(3.0, 3.0), *graph);
+  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
+                                    m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
+                                     m2::PointD(3.0, 3.0), *graph);
   IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
                             *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
@@ -143,10 +144,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3)
   SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 9, 0, true /* forward */), m2::PointD(2.0, -1.0), *graph);
-  auto const finish = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 6, 0, true /* forward */), m2::PointD(3.0, 3.0), *graph);
+  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
+                                    m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
+                                     m2::PointD(3.0, 3.0), *graph);
   IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
                             *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};  
@@ -162,10 +163,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_TempBlockonF3)
   SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 9, 0, true /* forward */), m2::PointD(2.0, -1.0), *graph);
-  auto const finish = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 6, 0, true /* forward */), m2::PointD(3.0, 3.0), *graph);
+  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
+                                    m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
+                                     m2::PointD(3.0, 3.0), *graph);
   IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
                             *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
@@ -181,10 +182,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3ReverseDir)
   SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 9, 0, true /* forward */), m2::PointD(2.0, -1.0), *graph);
-  auto const finish = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 6, 0, true /* forward */), m2::PointD(3.0, 3.0), *graph);
+  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
+                                    m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
+                                     m2::PointD(3.0, 3.0), *graph);
   IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
                             *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
@@ -206,10 +207,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
   SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 9, 0, true /* forward */), m2::PointD(2.0, -1.0), *graph);
-  auto const finish = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 6, 0, true /* forward */), m2::PointD(3.0, 3.0), *graph);
+  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
+                                    m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
+                                     m2::PointD(3.0, 3.0), *graph);
   IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
                             *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
@@ -223,10 +224,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
   TEST(!GetTrafficStash()->Has(kTestNumMwmId), ());
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 9, 0, true /* forward */), m2::PointD(2.0, -1.0), *graph);
-  auto const finish = IndexGraphStarter::MakeFakeEnding(
-      Segment(kTestNumMwmId, 6, 0, true /* forward */), m2::PointD(3.0, 3.0), *graph);
+  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
+                                    m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
+                                     m2::PointD(3.0, 3.0), *graph);
   IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
                             *graph);
   vector<m2::PointD> const noTrafficGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};

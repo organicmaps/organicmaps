@@ -4,6 +4,7 @@
 #include "routing/base/astar_progress.hpp"
 #include "routing/base/routing_result.hpp"
 #include "routing/bicycle_directions.hpp"
+#include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/index_graph_serialization.hpp"
@@ -437,10 +438,10 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
     if (isFirstSubroute)
       isStartSegmentStrictForward = startSegmentIsAlmostCodirectionalDirection;
 
-    IndexGraphStarter subrouteStarter(
-        IndexGraphStarter::MakeFakeEnding(startSegment, startCheckpoint, *graph),
-        IndexGraphStarter::MakeFakeEnding(finishSegment, finishCheckpoint, *graph),
-        starter ? starter->GetNumFakeSegments() : 0, isStartSegmentStrictForward, *graph);
+    IndexGraphStarter subrouteStarter(MakeFakeEnding(startSegment, startCheckpoint, *graph),
+                                      MakeFakeEnding(finishSegment, finishCheckpoint, *graph),
+                                      starter ? starter->GetNumFakeSegments() : 0,
+                                      isStartSegmentStrictForward, *graph);
 
     vector<Segment> subroute;
     auto const result =
@@ -576,10 +577,10 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   auto const & steps = m_lastRoute->GetSteps();
   CHECK(!steps.empty(), ());
 
-  IndexGraphStarter::FakeEnding dummy;
-  IndexGraphStarter starter(IndexGraphStarter::MakeFakeEnding(startSegment, pointFrom, *graph),
-                            dummy, m_lastFakeEdges->GetNumFakeEdges(),
-                            bestSegmentIsAlmostCodirectional, *graph);
+  FakeEnding dummy;
+  IndexGraphStarter starter(MakeFakeEnding(startSegment, pointFrom, *graph), dummy,
+                            m_lastFakeEdges->GetNumFakeEdges(), bestSegmentIsAlmostCodirectional,
+                            *graph);
 
   starter.Append(*m_lastFakeEdges);
 
