@@ -32,12 +32,6 @@ file area. Having that, run (and prepare to wait a bit longer):
 
     COASTS=WorldCoasts.geom BORDER=source.poly omim/tools/unix/generate_mwm.sh source.pbf
 
-A car routing index will be built when you specify a second parameter: either a full path to a Lua script
-with a routing profile, or any gibberish, in which case a default `car.lua` from omim repository
-would be used. For example:
-
-    omim/tools/unix/generate_mwm.sh source.pbf any_random_string_asdf
-
 Inter-mwm navigation requires another index. To build it, you would need
 border polygons for not only the source region, but all regions neighbouring it. The source border polygon
 must have the same name as the source file (e.g. `Armenia.poly` for `Armenia.pbf`), and in the target
