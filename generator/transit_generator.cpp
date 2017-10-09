@@ -44,6 +44,8 @@ string GetFileName(string const & filePath)
 }
 
 /// \brief Reads from |root| (json) and serializes an array to |serializer|.
+/// \param handler is function which fixes up vector of |Item|(s) after deserialization from json
+/// but before serialization to mwm.
 template <class Item>
 void SerializeObject(my::Json const & root, string const & key, Serializer<FileWriter> & serializer,
                      function<void(vector<Item> &)> handler = nullptr)
@@ -132,12 +134,12 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   SerializeObject<Stop>(root, "stops", serializer);
   header.m_gatesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  auto const fillPedestrianFeatureIds = [](function<void(vector<Gate> &)> & handler)
+  auto const fillPedestrianFeatureIds = [](vector<Gate> & gates)
   {
     // @TODO(bykoianko) |m_pedestrianFeatureIds| is not filled from json but should be calculated based on |m_point|.
   };
-  UNUSED_VALUE(fillPedestrianFeatureIds);
-  SerializeObject<Gate>(root, "gates", serializer);
+
+  SerializeObject<Gate>(root, "gates", serializer, fillPedestrianFeatureIds);
   header.m_edgesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
   SerializeObject<Edge>(root, "edges", serializer);
