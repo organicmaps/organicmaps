@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.widget.RatingView;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.UiUtils;
@@ -137,19 +138,19 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   {
     switch (v.getId()){
       case R.id.ll__horrible:
-        onRatingChanged(UGC.RATING_HORRIBLE);
+        onAggRatingTapped(UGC.RATING_HORRIBLE);
         break;
       case R.id.ll__bad:
-        onRatingChanged(UGC.RATING_BAD);
+        onAggRatingTapped(UGC.RATING_BAD);
         break;
       case R.id.ll__normal:
-        onRatingChanged(UGC.RATING_NORMAL);
+        onAggRatingTapped(UGC.RATING_NORMAL);
         break;
       case R.id.ll__good:
-        onRatingChanged(UGC.RATING_GOOD);
+        onAggRatingTapped(UGC.RATING_GOOD);
         break;
       case R.id.ll__excellent:
-        onRatingChanged(UGC.RATING_EXCELLENT);
+        onAggRatingTapped(UGC.RATING_EXCELLENT);
         break;
       default:
         throw new AssertionError("Unknown rating view:");
@@ -171,9 +172,12 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   }
 
   @Override
-  public void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate)
+  public void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate, @UGC.Impress int impress,
+                            @NonNull String rating)
   {
     UiUtils.show(mPreviewUgcInfoView);
+    RatingView ratingView = (RatingView) mPreviewUgcInfoView.findViewById(R.id.rating_view);
+    ratingView.setRating(Impress.values()[impress], rating);
     UiUtils.showIf(ugcUpdate == null, mLeaveReviewButton);
     mUgc = ugc;
     if (mUgc == null)
@@ -193,7 +197,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     UiUtils.show(mUgcRootView);
   }
 
-  private void onRatingChanged(@UGC.UGCRating int rating)
+  private void onAggRatingTapped(@UGC.Impress int rating)
   {
     if (mMapObject == null || mUgc == null)
       return;

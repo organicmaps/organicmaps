@@ -64,7 +64,14 @@ public:
     Init(env);
     jni::TScopedLocalRef ugcResult(env, ToJavaUGC(env, ugc));
     jni::TScopedLocalRef ugcUpdateResult(env, ToJavaUGCUpdate(env, ugcUpdate));
-    env->CallStaticVoidMethod(m_ugcClass, m_onResult, ugcResult.get(), ugcUpdateResult.get());
+
+    using namespace place_page;
+    int impress = static_cast<int>(rating::GetImpress(ugc.m_aggRating));
+    std::string formattedRating = rating::GetRatingFormatted(ugc.m_aggRating);
+    jni::TScopedLocalRef jrating(env, jni::ToJavaString(env, formattedRating));
+
+    env->CallStaticVoidMethod(m_ugcClass, m_onResult, ugcResult.get(), ugcUpdateResult.get(),
+                              impress, jrating.get());
   }
 
   ugc::UGCUpdate ToNativeUGCUpdate(JNIEnv * env, jobject ugcUpdate)
@@ -169,7 +176,7 @@ private:
         env, m_ugcClass,
         "([Lcom/mapswithme/maps/ugc/UGC$Rating;F[Lcom/mapswithme/maps/ugc/UGC$Review;I)V");
     m_onResult = jni::GetStaticMethodID(env, m_ugcClass, "onUGCReceived",
-                                        "(Lcom/mapswithme/maps/ugc/UGC;Lcom/mapswithme/maps/ugc/UGCUpdate;)V");
+                                        "(Lcom/mapswithme/maps/ugc/UGC;Lcom/mapswithme/maps/ugc/UGCUpdate;ILjava/lang/String;)V");
 
     m_ratingClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGC$Rating");
     m_ratingCtor = jni::GetConstructorID(env, m_ratingClass, "(Ljava/lang/String;F)V");

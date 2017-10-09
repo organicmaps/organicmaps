@@ -18,7 +18,7 @@ public class UGCEditorActivity extends BaseMwmFragmentActivity
   static final String EXTRA_AVG_RATING = "extra_avg_rating";
 
   public static void start(@NonNull Activity activity, @NonNull String title,
-                           @NonNull FeatureId featureId, @NonNull UGC ugc, @UGC.UGCRating int rating)
+                           @NonNull FeatureId featureId, @NonNull UGC ugc, @UGC.Impress int rating)
   {
     final Intent i = new Intent(activity, UGCEditorActivity.class);
     i.putExtra(EXTRA_FEATURE_ID, featureId);

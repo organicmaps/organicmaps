@@ -19,16 +19,19 @@ import java.util.List;
 public class UGC implements Serializable
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ RATING_HORRIBLE, RATING_BAD, RATING_NORMAL, RATING_GOOD, RATING_EXCELLENT })
+  @IntDef({ RATING_NONE, RATING_HORRIBLE, RATING_BAD, RATING_NORMAL, RATING_GOOD,
+            RATING_EXCELLENT, RATING_COMING_SOON })
 
-  @interface UGCRating
+  public @interface Impress
   {}
 
+  static final int RATING_NONE = 0;
   static final int RATING_HORRIBLE = 1;
   static final int RATING_BAD = 2;
   static final int RATING_NORMAL = 3;
   static final int RATING_GOOD = 4;
   static final int RATING_EXCELLENT = 5;
+  static final int RATING_COMING_SOON = 6;
 
   @NonNull
   private final Rating[] mRatings;
@@ -91,10 +94,15 @@ public class UGC implements Serializable
 
   public static native void setUGCUpdate(@NonNull FeatureId fid, UGCUpdate update);
 
-  public static void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate)
+  public static void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate,
+                                   @Impress int impress, @NonNull String rating)
   {
     if (mListener != null)
-      mListener.onUGCReceived(ugc, ugcUpdate);
+    {
+      if (ugc == null && ugcUpdate != null)
+        impress = UGC.RATING_COMING_SOON;
+      mListener.onUGCReceived(ugc, ugcUpdate, impress, rating);
+    }
   }
 
   public static class Rating implements Serializable
@@ -161,6 +169,7 @@ public class UGC implements Serializable
 
   interface UGCListener
   {
-    void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate);
+    void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate, @Impress int impress,
+                       @NonNull String rating);
   }
 }
