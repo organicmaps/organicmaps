@@ -37,7 +37,7 @@ border polygons for not only the source region, but all regions neighbouring it.
 must have the same name as the source file (e.g. `Armenia.poly` for `Armenia.pbf`), and in the target
 directory shouldn't be a `borders` subdirectory. With all that, just use this line:
 
-    BORDERS_PATH=/path/to/polygons omim/tools/unix/generate_mwm.sh source.pbf any_random_string_asdf
+    BORDERS_PATH=/path/to/polygons omim/tools/unix/generate_mwm.sh source.pbf
 
 ### The Planet
 
