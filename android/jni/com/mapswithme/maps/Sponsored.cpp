@@ -61,7 +61,7 @@ void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
   // Sponsored(String rating, String price, String urlBook, String urlDescription)
   g_sponsoredClassConstructor = jni::GetConstructorID(
       env, g_sponsoredClass,
-      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V");
+      "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V");
   // static void onPriceReceived(final String id, final String price, final String currency)
   g_priceCallback =
       jni::GetStaticMethodID(env, g_sponsoredClass, "onPriceReceived",
@@ -117,11 +117,10 @@ JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_na
   if (!ppInfo.IsSponsored())
     return nullptr;
 
-  //TODO: consider using the raw value and impress directly.
   std::string rating = place_page::rating::GetRatingFormatted(ppInfo.GetRatingRawValue());
-
   return env->NewObject(g_sponsoredClass, g_sponsoredClassConstructor,
                         jni::ToJavaString(env, rating),
+                        static_cast<int>(place_page::rating::GetImpress(ppInfo.GetRatingRawValue())),
                         jni::ToJavaString(env, ppInfo.GetApproximatePricing()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredUrl()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredDescriptionUrl()),

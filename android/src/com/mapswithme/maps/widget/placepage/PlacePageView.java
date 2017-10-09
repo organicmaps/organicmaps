@@ -71,6 +71,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.Review;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.taxi.TaxiManager;
+import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGCController;
 import com.mapswithme.maps.viator.Viator;
 import com.mapswithme.maps.viator.ViatorAdapter;
@@ -733,9 +734,13 @@ public class PlacePageView extends RelativeLayout
     {
       UiUtils.show(mHotelReview);
       mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.mReviews)));
+      //noinspection ConstantConditions
       mHotelRating.setText(mSponsored.getRating());
-      mHotelRatingBase.setText(getResources().getString(R.string.booking_based_on_reviews,
-                                                        info.mReviewsAmount));
+      String text = getResources().getString(R.string.booking_based_on_reviews,
+                                             info.mReviewsAmount);
+      mHotelRatingBase.setText(text);
+      TextView previewReviewCountView = (TextView) mPreviewRatingInfo.findViewById(R.id.tv__review_count);
+      previewReviewCountView.setText(text);
     }
   }
 
@@ -1449,19 +1454,18 @@ public class PlacePageView extends RelativeLayout
     colorizeSubtitle();
     UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mapObject.getAddress());
-    //TODO: rating will be shown not only for sponsored objects now, change it when core is ready.
     boolean sponsored = isSponsored();
     UiUtils.showIf(sponsored, mPreviewRatingInfo);
     if (sponsored)
     {
       boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
+      @SuppressWarnings("ConstantConditions")
       boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.getRating());
-      //TODO: remove this code when place_page_info.cpp is ready and use rating parameter.
-      mRatingView.setRating(null, mSponsored.getRating());
+      Impress impress = Impress.values()[mSponsored.getImpress()];
+      mRatingView.setRating(impress, mSponsored.getRating());
       UiUtils.showIf(!isRatingEmpty, mRatingView);
       mTvSponsoredPrice.setText(mSponsoredPrice);
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
-      //TODO: set review count to mTvReviewCount when core is ready.
       UiUtils.showIf(!isRatingEmpty || !isPriceEmpty, mPreviewRatingInfo);
     }
   }
