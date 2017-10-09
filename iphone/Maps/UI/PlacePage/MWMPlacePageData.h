@@ -246,6 +246,7 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 - (BOOL)isOpentable;
 - (BOOL)isViator;
 - (BOOL)isCian;
+- (BOOL)isThor;
 - (BOOL)isBookingSearch;
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;

@@ -252,6 +252,8 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     parameters[kStatProvider] = kStatBooking;
   else if (data.isCian)
     parameters[kStatProvider] = kStatCian;
+  else if (data.isThor)
+    parameters[kStatProvider] = kStatThor;
   switch (Platform::ConnectionStatus())
   {
   case Platform::EConnectionType::CONNECTION_NONE:

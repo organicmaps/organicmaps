@@ -38,7 +38,8 @@ enum class SponsoredType
   Opentable,
   Geochat,
   Viator,
-  Cian
+  Cian,
+  Thor
 };
 
 enum class LocalAdsStatus

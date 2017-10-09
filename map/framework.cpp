@@ -906,6 +906,15 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.SetSponsoredUrl(cian::Api::GetMainPageUrl());
     info.SetPreviewIsExtended();
   }
+  else if (ftypes::IsThorChecker::Instance()(ft) &&
+           !info.GetMetadata().Get(feature::Metadata::FMD_RATING).empty())
+  {
+    info.SetSponsoredType(place_page::SponsoredType::Thor);
+    auto const & url = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+    info.SetSponsoredUrl(url);
+    info.SetSponsoredDescriptionUrl(url);
+    GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kSponsoredThorDiscovered);
+  }
 
   FillLocalExperts(ft, info);
 

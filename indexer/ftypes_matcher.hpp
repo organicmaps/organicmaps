@@ -234,6 +234,14 @@ public:
   static IsViatorChecker const & Instance();
 };
 
+class IsThorChecker : public BaseChecker
+{
+  IsThorChecker();
+
+public:
+  static IsThorChecker const & Instance();
+};
+
 class IsPublicTransportStopChecker : public BaseChecker
 {
   IsPublicTransportStopChecker();

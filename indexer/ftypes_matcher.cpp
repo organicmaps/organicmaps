@@ -511,6 +511,17 @@ IsViatorChecker const & IsViatorChecker::Instance()
   return inst;
 }
 
+IsThorChecker::IsThorChecker()
+{
+  m_types.push_back(classif().GetTypeByPath({"sponsored", "thor"}));
+}
+
+IsThorChecker const & IsThorChecker::Instance()
+{
+  static IsThorChecker const inst;
+  return inst;
+}
+
 IsPublicTransportStopChecker::IsPublicTransportStopChecker()
 {
   m_types.push_back(classif().GetTypeByPath({"highway", "bus_stop"}));
