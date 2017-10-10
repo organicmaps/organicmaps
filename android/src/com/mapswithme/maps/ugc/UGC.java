@@ -69,10 +69,10 @@ public class UGC
   {
     return new ArrayList<Rating>(){
       {
-        add(new Rating("service", 3.3f));
-        add(new Rating("food", 4.4f));
-        add(new Rating("quality", 2.0f));
-        add(new Rating("cleaning", 3.9f));
+        add(new Rating("cuisine", 3.3f));
+        add(new Rating("service", 4.4f));
+        add(new Rating("atmosphere", 2.0f));
+        add(new Rating("experience", 3.9f));
       }
     };
   }

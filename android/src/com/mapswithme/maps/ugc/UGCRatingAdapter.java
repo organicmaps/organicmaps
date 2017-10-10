@@ -1,6 +1,7 @@
 package com.mapswithme.maps.ugc;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +81,10 @@ class UGCRatingAdapter extends RecyclerView.Adapter<UGCRatingAdapter.ViewHolder>
 
     public void bind(UGC.Rating rating)
     {
-      mName.setText(rating.getName());
+      @StringRes
+      int nameId = Utils.getStringIdByKey(mName.getContext(), rating.getName());
+      if (nameId != Utils.INVALID_ID)
+        mName.setText(nameId);
       mBar.setRating(rating.getValue());
     }
   }

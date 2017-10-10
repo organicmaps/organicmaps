@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DimenRes;
@@ -22,6 +23,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -46,6 +48,8 @@ import java.util.Map;
 
 public class Utils
 {
+  @StringRes
+  public static final int INVALID_ID = 0;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = "Utils";
 
@@ -423,6 +427,30 @@ public class Utils
       text = (price + " " + currencyCode);
     }
     return text;
+  }
+
+  @StringRes
+  public static int getStringIdByKey(@NonNull Context context, @NonNull String key)
+  {
+    try
+    {
+      Resources res = context.getResources();
+      @StringRes
+      int nameId = res.getIdentifier(key, "string", context.getPackageName());
+      if (nameId == INVALID_ID || nameId == View.NO_ID)
+        throw new Resources.NotFoundException("String id '" + key + "' is not found");
+      return nameId;
+    }
+    catch (RuntimeException e)
+    {
+      LOGGER.e(TAG, "Failed to get string with id '" + key + "'", e);
+      if (BuildConfig.BUILD_TYPE.equals("debug") || BuildConfig.BUILD_TYPE.equals("beta"))
+      {
+        Toast.makeText(context, "Add string id for '" + key + "'!",
+                       Toast.LENGTH_LONG).show();
+      }
+    }
+    return INVALID_ID;
   }
 
   private  static class OnZipCompletedCallback implements LoggerFactory.OnZipCompletedListener
