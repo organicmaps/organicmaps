@@ -397,12 +397,11 @@ Locales Processor::GetCategoryLocales() const
   Locales result;
 
   // Prepare array of processing locales. English locale is always present for category matching.
+  result.Insert(static_cast<uint64_t>(enLocaleCode));
   if (m_currentLocaleCode != -1)
-    result.push_back(m_currentLocaleCode);
-  if (m_inputLocaleCode != -1 && m_inputLocaleCode != m_currentLocaleCode)
-    result.push_back(m_inputLocaleCode);
-  if (enLocaleCode != m_currentLocaleCode && enLocaleCode != m_inputLocaleCode)
-    result.push_back(enLocaleCode);
+    result.Insert(static_cast<uint64_t>(m_currentLocaleCode));
+  if (m_inputLocaleCode != -1)
+    result.Insert(static_cast<uint64_t>(m_inputLocaleCode));
 
   return result;
 }

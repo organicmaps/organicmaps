@@ -12,6 +12,7 @@
 #include "search/search_trie.hpp"
 #include "search/suggest.hpp"
 #include "search/token_slice.hpp"
+#include "search/utils.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
@@ -132,9 +133,8 @@ protected:
   using TMWMVector = vector<shared_ptr<MwmInfo>>;
   using TOffsetsVector = map<MwmSet::MwmId, vector<uint32_t>>;
   using TFHeader = feature::DataHeader;
-  using TLocales = buffer_vector<int8_t, 3>;
 
-  TLocales GetCategoryLocales() const;
+  Locales GetCategoryLocales() const;
 
   template <typename ToDo>
   void ForEachCategoryType(StringSliceBase const & slice, ToDo && toDo) const;

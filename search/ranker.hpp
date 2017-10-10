@@ -10,6 +10,7 @@
 #include "search/reverse_geocoder.hpp"
 #include "search/search_params.hpp"
 #include "search/suggest.hpp"
+#include "search/utils.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/feature_decl.hpp"
@@ -43,8 +44,6 @@ class Ranker
 public:
   struct Params
   {
-    using TLocales = buffer_vector<int8_t, 3>;
-
     int8_t m_currentLocaleCode = CategoriesHolder::kEnglishCode;
     m2::RectD m_viewport;
     m2::PointD m_position;
@@ -65,7 +64,7 @@ public:
     // filtering of indentical search results.
     double m_minDistanceOnMapBetweenResults = 0.0;
 
-    TLocales m_categoryLocales;
+    Locales m_categoryLocales;
 
     size_t m_limit = 0;
   };

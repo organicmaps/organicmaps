@@ -8,6 +8,7 @@
 
 #include "base/buffer_vector.hpp"
 #include "base/levenshtein_dfa.hpp"
+#include "base/small_set.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -20,6 +21,8 @@
 
 namespace search
 {
+using Locales = base::SafeSmallSet<CategoriesHolder::kMaxSupportedLocaleIndex + 1>;
+
 // todo(@m, @y). Unite with the similar function in search/feature_offset_match.hpp.
 template <typename TrieIt, typename DFA, typename ToDo>
 bool MatchInTrie(TrieIt const & trieStartIt, DFA const & dfa, ToDo && toDo)
@@ -64,8 +67,6 @@ bool MatchInTrie(TrieIt const & trieStartIt, DFA const & dfa, ToDo && toDo)
   return found;
 }
 
-using Locales = buffer_vector<int8_t, 3>;
-
 size_t GetMaxErrorsForToken(strings::UniString const & token);
 
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
@@ -103,8 +104,6 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & loc
 
   auto const & trie = categories.GetNameToTypesTrie();
   auto const & trieRootIt = trie.GetRootIterator();
-  vector<int8_t> sortedLocales(locales.begin(), locales.end());
-  my::SortUnique(sortedLocales);
 
   for (size_t i = 0; i < slice.Size(); ++i)
   {
@@ -115,7 +114,7 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & loc
     strings::LevenshteinDFA const dfa(BuildLevenshteinDFA(token));
 
     trieRootIt.ForEachMove([&](Trie::Char const & c, Trie::Iterator const & trieStartIt) {
-      if (std::binary_search(sortedLocales.begin(), sortedLocales.end(), static_cast<int8_t>(c)))
+      if (locales.Contains(static_cast<uint64_t>(c)))
         MatchInTrie(trieStartIt, dfa, std::bind<void>(todo, i, std::placeholders::_1));
     });
   }
@@ -136,7 +135,7 @@ bool IsCategorialRequest(QuerySliceOnRawStrings<T> const & slice, Locales const 
   bool found = false;
   auto token = slice.Get(0);
   catHolder.ForEachName([&](CategoriesHolder::Category::Name const & categorySynonym) {
-    if (std::find(locales.begin(), locales.end(), categorySynonym.m_locale) == locales.end())
+    if (!locales.Contains(static_cast<uint64_t>(categorySynonym.m_locale)))
       return;
 
     if (token != strings::MakeUniString(categorySynonym.m_name))

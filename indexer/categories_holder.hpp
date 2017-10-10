@@ -63,8 +63,9 @@ private:
   GroupTranslations m_groupTranslations;
 
 public:
-  static int8_t const kEnglishCode;
-  static int8_t const kUnsupportedLocaleCode;
+  static int8_t constexpr kEnglishCode = 1;
+  static int8_t constexpr kUnsupportedLocaleCode = -1;
+  static uint8_t constexpr kMaxSupportedLocaleIndex = 30;
   static vector<Mapping> const kLocaleMapping;
 
   // List of languages that are currently disabled in the application
