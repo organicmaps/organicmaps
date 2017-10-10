@@ -1,5 +1,7 @@
 package com.mapswithme.maps.ugc;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,8 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-//TODO: make it Parcelable instead of Serializable
-public class UGC implements Serializable
+public class UGC
 {
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ RATING_NONE, RATING_HORRIBLE, RATING_BAD, RATING_NORMAL, RATING_GOOD,
@@ -64,7 +65,7 @@ public class UGC implements Serializable
 
   //TODO: remove it after core is ready.
   @NonNull
-  List<Rating> getUserRatings()
+  ArrayList<Rating> getUserRatings()
   {
     return new ArrayList<Rating>(){
       {
@@ -105,8 +106,23 @@ public class UGC implements Serializable
     }
   }
 
-  public static class Rating implements Serializable
+  public static class Rating implements Parcelable
   {
+    public static final Creator<Rating> CREATOR = new Creator<Rating>()
+    {
+      @Override
+      public Rating createFromParcel(Parcel in)
+      {
+        return new Rating(in);
+      }
+
+      @Override
+      public Rating[] newArray(int size)
+      {
+        return new Rating[size];
+      }
+    };
+
     @NonNull
     private final String mName;
     private float mValue;
@@ -115,6 +131,12 @@ public class UGC implements Serializable
     {
       mName = name;
       mValue = value;
+    }
+
+    protected Rating(Parcel in)
+    {
+      mName = in.readString();
+      mValue = in.readFloat();
     }
 
     public float getValue()
@@ -131,6 +153,19 @@ public class UGC implements Serializable
     public void setValue(float value)
     {
       mValue = value;
+    }
+
+    @Override
+    public int describeContents()
+    {
+      return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      dest.writeString(mName);
+      dest.writeFloat(mValue);
     }
   }
 

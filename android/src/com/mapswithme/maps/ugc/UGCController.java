@@ -51,10 +51,9 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       if (mUgc == null || mMapObject == null)
         return;
 
-      //TODO: pass zero stars by default, not 1.
       UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                               mMapObject.getFeatureId(),
-                              mUgc, UGC.RATING_HORRIBLE);
+                              mUgc.getUserRatings(), UGC.RATING_NONE);
     }
   };
 
@@ -204,6 +203,6 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
     UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                             mMapObject.getFeatureId(),
-                            mUgc, rating);
+                            mUgc.getUserRatings(), rating);
   }
 }

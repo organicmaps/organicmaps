@@ -15,16 +15,15 @@ import java.util.List;
 
 class UGCRatingAdapter extends RecyclerView.Adapter<UGCRatingAdapter.ViewHolder>
 {
-  private static final int MAX_COUNT = 3;
-
   @NonNull
   private ArrayList<UGC.Rating> mItems = new ArrayList<>();
 
   @Override
   public UGCRatingAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    return new UGCRatingAdapter.ViewHolder(LayoutInflater.from(parent.getContext())
-                                                         .inflate(R.layout.item_ugc_rating, parent, false));
+    View itemView = LayoutInflater.from(parent.getContext())
+                                  .inflate(R.layout.item_ugc_rating, parent, false);
+    return new UGCRatingAdapter.ViewHolder(itemView);
   }
 
   @Override
@@ -36,17 +35,23 @@ class UGCRatingAdapter extends RecyclerView.Adapter<UGCRatingAdapter.ViewHolder>
   @Override
   public int getItemCount()
   {
-    return Math.min(mItems.size(), MAX_COUNT);
+    return mItems.size();
   }
 
   public void setItems(@NonNull List<UGC.Rating> items)
   {
-    this.mItems.clear();
-    this.mItems.addAll(items);
+    mItems.clear();
+    mItems.addAll(items);
     notifyDataSetChanged();
   }
 
-  static class ViewHolder extends RecyclerView.ViewHolder
+  @NonNull
+  public List<UGC.Rating> getItems()
+  {
+    return mItems;
+  }
+
+  class ViewHolder extends RecyclerView.ViewHolder
   {
     @NonNull
     final TextView mName;
@@ -58,6 +63,18 @@ class UGCRatingAdapter extends RecyclerView.Adapter<UGCRatingAdapter.ViewHolder>
       super(itemView);
       mName = (TextView) itemView.findViewById(R.id.tv__name);
       mBar = (RatingBar) itemView.findViewById(R.id.rb__rate);
+      mBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener()
+      {
+        @Override
+        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser)
+        {
+          int position = getAdapterPosition();
+          if (position >= mItems.size())
+            throw new AssertionError("Adapter position must be in range [0; mItems.size() - 1]!");
+          UGC.Rating item = mItems.get(position);
+          item.setValue(rating);
+        }
+      });
     }
 
     public void bind(UGC.Rating rating)

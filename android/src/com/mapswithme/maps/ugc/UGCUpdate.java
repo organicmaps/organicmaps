@@ -2,18 +2,14 @@ package com.mapswithme.maps.ugc;
 
 import android.support.annotation.Nullable;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-public class UGCUpdate
+class UGCUpdate
 {
   @Nullable
   private final UGC.Rating[] mRatings;
   @Nullable
   private String mText;
 
-  public UGCUpdate(@Nullable UGC.Rating[] ratings, @Nullable String text)
+  UGCUpdate(@Nullable UGC.Rating[] ratings, @Nullable String text)
   {
     mRatings = ratings;
     mText = text;
@@ -28,14 +24,5 @@ public class UGCUpdate
   public String getText()
   {
     return mText;
-  }
-
-  @Nullable
-  public List<UGC.Rating> getRatings()
-  {
-    if (mRatings == null)
-      return null;
-
-    return Collections.synchronizedList(Arrays.asList(mRatings));
   }
 }
