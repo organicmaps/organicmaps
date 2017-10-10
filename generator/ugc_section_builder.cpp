@@ -20,6 +20,8 @@ bool BuildUgcMwmSection(std::string const & srcDbFilename, std::string const & m
 {
   using ugc::binary::IndexUGC;
 
+  LOG(LINFO, ("Build UGC section"));
+
   gen::OsmID2FeatureID osmIdsToFeatureIds;
   if (!osmIdsToFeatureIds.ReadFromFile(osmToFeatureFilename))
     return false;

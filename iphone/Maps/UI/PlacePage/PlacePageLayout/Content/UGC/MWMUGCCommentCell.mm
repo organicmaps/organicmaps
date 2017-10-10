@@ -58,7 +58,7 @@ NSString * formattedDateFrom(ugc::Time time)
 
 - (void)configWithReview:(ugc::Review const &)review
 {
-  self.author.text = @(review.m_author.m_name.c_str());
+  self.author.text = @(review.m_author.c_str());
   self.comment.text = @(review.m_text.m_text.c_str());
   self.date.text = formattedDateFrom(review.m_time);
 }

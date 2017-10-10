@@ -18,6 +18,7 @@ public:
   void VisitVarUint(uint32_t, char const * /* name */ = nullptr) {}
   void VisitVarUint(uint64_t, char const * /* name */ = nullptr) {}
   virtual void VisitRating(float const f, char const * /* name */ = nullptr) {}
+  virtual void VisitLang(uint8_t const index, char const * /* name */ = nullptr) {}
   virtual void operator()(string const & /* s */, char const * /* name */ = nullptr) {}
   virtual void operator()(Sentiment const /* sentiment */, char const * /* name */ = nullptr) {}
   virtual void operator()(Time const /* time */, char const * /* name */ = nullptr) {}
@@ -102,13 +103,14 @@ void UGCSeriaizer::CollectTexts()
   }
 }
 
-std::string DebugPrint(Version v)
+std::string DebugPrint(Version const & v)
 {
   switch (v)
   {
   case Version::V0: return "Version 0";
-  default: ASSERT(false, ("Unknown version", static_cast<uint64_t>(v)));
   }
+
+  ASSERT(false, ("Unknown version", static_cast<uint64_t>(v)));
 
   return {};
 }

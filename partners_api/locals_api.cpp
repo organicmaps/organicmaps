@@ -18,7 +18,7 @@ namespace
 {
 using namespace locals;
 
-void ParseError(std::string const & src, ErrorCode & errorCode, std::string & message)
+void ParseError(std::string const & src, int & errorCode, std::string & message)
 {
   message.clear();
   errorCode = 0;

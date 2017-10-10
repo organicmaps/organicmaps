@@ -102,6 +102,7 @@ template <typename T,
 inline my::JSONPtr ToJSON(T value) { return my::NewJSONInt(value); }
 inline my::JSONPtr ToJSON(double value) { return my::NewJSONReal(value); }
 inline my::JSONPtr ToJSON(bool value) { return my::NewJSONBool(value); }
+inline my::JSONPtr ToJSON(char const * s) { return my::NewJSONString(s); }
 
 template <typename T>
 void ToJSONObject(json_t & root, std::string const & field, T const & value)

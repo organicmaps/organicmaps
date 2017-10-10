@@ -21,10 +21,6 @@ namespace generator
 static int callback(void * results_ptr, int argc, char ** argv, char ** azColName)
 {
   Results & results = *reinterpret_cast<Results *>(results_ptr);
-
-  if (argc > 1)
-    results.values << "[";
-
   for (size_t i = 0; i < argc; i++)
   {
     if (results.empty)
@@ -34,9 +30,6 @@ static int callback(void * results_ptr, int argc, char ** argv, char ** azColNam
 
     results.values << (argv[i] ? argv[i] : "{}");
   }
-
-  if (argc > 1)
-    results.values << "]";
 
   return 0;
 }
@@ -62,10 +55,11 @@ bool UGCDB::Get(osm::Id const & id, std::vector<uint8_t> & blob)
 {
   if (!m_db)
     return false;
-
   Results results;
+  results.values << "[";
+
   std::ostringstream cmd;
-  cmd << "SELECT value FROM ratings WHERE key=" << id.OsmId() << ";";
+  cmd << "SELECT value FROM ratings WHERE key=" << id.EncodedId() << ";";
 
   char * zErrMsg = nullptr;
   auto rc = sqlite3_exec(m_db, cmd.str().c_str(), callback, &results, &zErrMsg);
@@ -75,6 +69,7 @@ bool UGCDB::Get(osm::Id const & id, std::vector<uint8_t> & blob)
     sqlite3_free(zErrMsg);
     return false;
   }
+  results.values << "]";
 
   return ValueToBlob(results.values.str(), blob);
 }

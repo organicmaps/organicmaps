@@ -53,13 +53,15 @@ public:
     BaseT::Flush(sink);
   }
 
-  /// Find a feature id for an OSM id. Returns 0 if the feature was not found.
-  uint32_t GetFeatureID(osm::Id const & id) const
+  /// Find a feature id for an OSM id.
+  bool GetFeatureID(osm::Id const & id, uint32_t & result) const
   {
     auto const it = std::lower_bound(m_data.begin(), m_data.end(), id, LessID());
-    if (it != m_data.end() && it->first == id)
-      return it->second;
-    return 0;
+    if (it == m_data.end() || it->first != id)
+        return false;
+
+    result = it->second;
+    return true;
   }
 
   template <class Fn>
@@ -79,7 +81,7 @@ public:
     }
     catch (FileReader::Exception const & e)
     {
-      LOG(LERROR, ("Exception while reading osm id to feature id mapping file:", filename,
+      LOG(LERROR, ("Exception while reading osm id to feature id mapping from file", filename,
                    ". Msg:", e.Msg()));
       return false;
     }

@@ -167,7 +167,7 @@ public:
   bool Deserialize(R & reader, FeatureIndex index, UGC & ugc)
   {
     NonOwningReaderSource source(reader);
-    Version v = ReadPrimitiveFromSource<Version>(source);
+    auto const v = ReadPrimitiveFromSource<Version>(source);
 
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
 
@@ -320,6 +320,6 @@ private:
   bool m_initialized = false;
 };
 
-std::string DebugPrint(Version v);
+std::string DebugPrint(Version const & v);
 }  // namespace binary
 }  // namespace ugc

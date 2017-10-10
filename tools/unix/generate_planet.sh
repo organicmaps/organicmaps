@@ -318,10 +318,21 @@ if [ ! -f "$VIATOR_FILE" -a -n "${VIATOR_KEY-}" ]; then
 fi
 
 # Download UGC (user generated content) database.
-if [ -n "${UGC-}" ]; then
+if if [ ! -f "$UGC_FILE" -a -n "${UGC_DATABASE_URL-}" ]; then
   putmode "Step UGC: Dowloading UGC database"
   (
-    curl "https://dummy.ru/" --output "$UGC_FILE" --silent || fail "Failed to download UGC database."
+    curl "$UGC_DATABASE_URL" --output "$UGC_FILE" --silent || true
+    if [ -f "$UGC_FILE" -a "$(wc -l < "$UGC_FILE" || echo 0)" -gt 100 ]; then
+      echo "UGC database have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+    else
+      if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$UGC_FILE")" ]; then
+        cp "$OLD_INTDIR/$(basename "$UGC_FILE")" "$INTDIR"
+        warn "Failed to download UGC database! Using older UGC database."
+      else
+        warn "Failed to download UGC database!"
+      fi
+      [ -n "${MAIL-}" ] && tail "$LOG_PATH/ugc.log" | mailx -s "Failed to download UGC database at $(hostname), please hurry to fix" "$MAIL"
+    fi
   ) &
 fi
 

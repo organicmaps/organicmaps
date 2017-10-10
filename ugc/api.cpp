@@ -13,7 +13,7 @@ namespace ugc
 {
 Api::Api(Index const & index, std::string const & filename)
   : m_storage(filename)
-, m_loader(index)
+  , m_loader(index)
 {
 }
 
@@ -35,11 +35,8 @@ void Api::GetUGCImpl(FeatureID const & id, UGCCallback callback)
     return;
   }
 
-  UGC ugc;
-  UGCUpdate update;
-
-  m_storage.GetUGCUpdate(id, update);
-  m_loader.GetUGC(id, ugc);
+  auto const update = m_storage.GetUGCUpdate(id);
+  auto const ugc = m_loader.GetUGC(id);
 
   GetPlatform().RunOnGuiThread([ugc, update, callback] { callback(ugc, update); });
 }

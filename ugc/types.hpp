@@ -26,18 +26,13 @@ struct TranslationKey
   TranslationKey(std::string const & key): m_key(key) {}
   TranslationKey(char const * key): m_key(key) {}
 
-  DECLARE_VISITOR(visitor(m_key, "key"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(TranslationKey, visitor(m_key, "key"))
 
   bool operator==(TranslationKey const & rhs) const { return m_key == rhs.m_key; }
   bool operator<(TranslationKey const & rhs) const { return m_key < rhs.m_key; }
 
   std::string m_key;
 };
-
-std::string DebugPrint(TranslationKey const & key)
-{
-  return "TranslationKey [ " + key.m_key + " ]";
-}
 
 enum class Sentiment
 {
@@ -91,7 +86,7 @@ struct RatingRecord
   float m_value{};
 };
 
-std::string DebugPrint(RatingRecord const & ratingRecord)
+inline std::string DebugPrint(RatingRecord const & ratingRecord)
 {
   std::ostringstream os;
   os << "RatingRecord [ " << DebugPrint(ratingRecord.m_key) << " " << ratingRecord.m_value
@@ -108,20 +103,13 @@ struct UID
 
   std::string ToString() const { return NumToHex(m_hi) + NumToHex(m_lo); }
 
-  DECLARE_VISITOR(visitor(m_hi, "hi"), visitor(m_lo, "lo"));
+  DECLARE_VISITOR_AND_DEBUG_PRINT(UID, visitor(m_hi, "hi"), visitor(m_lo, "lo"))
 
   bool operator==(UID const & rhs) const { return m_hi == rhs.m_hi && m_lo == rhs.m_lo; }
 
   uint64_t m_hi{};
   uint64_t m_lo{};
 };
-
-std::string DebugPrint(UID const & uid)
-{
-  std::ostringstream os;
-  os << "UID [ " << uid.ToString() << " ]";
-  return os.str();
-}
 
 using Author = std::string;
 
@@ -130,7 +118,7 @@ struct Text
   Text() = default;
   Text(std::string const & text, uint8_t const lang) : m_text(text), m_lang(lang) {}
 
-  DECLARE_VISITOR(visitor(m_lang, "lang"), visitor(m_text, "text"));
+  DECLARE_VISITOR(visitor(m_text, "text"), visitor.VisitLang(m_lang, "lang"))
 
   bool operator==(Text const & rhs) const { return m_lang == rhs.m_lang && m_text == rhs.m_text; }
 
@@ -138,7 +126,7 @@ struct Text
   uint8_t m_lang = StringUtf8Multilang::kDefaultCode;
 };
 
-std::string DebugPrint(Text const & text)
+inline std::string DebugPrint(Text const & text)
 {
   std::ostringstream os;
   os << "Text [ " << StringUtf8Multilang::GetLangByCode(text.m_lang) << ": " << text.m_text
@@ -158,7 +146,7 @@ struct Review
   }
 
   DECLARE_VISITOR(visitor(m_id, "id"), visitor(m_text, "text"), visitor(m_author, "author"),
-                  visitor.VisitRating(m_rating, "rating"), visitor(m_time, "time"))
+                  visitor.VisitRating(m_rating, "rating"), visitor(m_time, "date"))
 
   bool operator==(Review const & rhs) const
   {
@@ -173,7 +161,7 @@ struct Review
   Time m_time{};
 };
 
-std::string DebugPrint(Review const & review)
+inline std::string DebugPrint(Review const & review)
 {
   std::ostringstream os;
   os << "Review [ ";
@@ -194,7 +182,7 @@ struct Attribute
   {
   }
 
-  DECLARE_VISITOR(visitor(m_key, "key"), visitor(m_value, "value"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Attribute, visitor(m_key, "key"), visitor(m_value, "value"))
 
   bool operator==(Attribute const & rhs) const
   {
@@ -204,14 +192,6 @@ struct Attribute
   TranslationKey m_key{};
   TranslationKey m_value{};
 };
-
-std::string DebugPrint(Attribute const & attribute)
-{
-  std::ostringstream os;
-  os << "Attribute [ key:" << DebugPrint(attribute.m_key)
-     << ", value:" << DebugPrint(attribute.m_value) << " ]";
-  return os.str();
-}
 
 struct UGC
 {
@@ -231,21 +211,23 @@ struct UGC
         my::AlmostEqualAbs(m_totalRating, rhs.m_totalRating, 1e-6f) && m_basedOn == rhs.m_basedOn;
   }
 
-  bool IsValid() const
+  bool IsEmpty() const
   {
-    return (!m_ratings.empty() || !m_reviews.empty()) && m_totalRating > 1e-6 && m_basedOn > 0;
+    return !((!m_ratings.empty() || !m_reviews.empty()) && m_totalRating >= 0 && m_basedOn > 0);
   }
 
   Ratings m_ratings;
   Reviews m_reviews;
-  float m_totalRating{};
+  float m_totalRating = -1.f;
   uint32_t m_basedOn{};
 };
 
-std::string DebugPrint(UGC const & ugc)
+inline std::string DebugPrint(UGC const & ugc)
 {
   std::ostringstream os;
   os << "UGC [ ";
+  os << "total rating:" << ugc.m_totalRating << ", ";
+  os << "based on:" << ugc.m_basedOn << ", ";
   os << "records:" << ::DebugPrint(ugc.m_ratings) << ", ";
   os << "reviews:" << ::DebugPrint(ugc.m_reviews) << " ]";
   return os.str();
@@ -266,9 +248,9 @@ struct UGCUpdate
     return m_ratings == rhs.m_ratings && m_text == rhs.m_text && m_time == rhs.m_time;
   }
 
-  bool IsValid() const
+  bool IsEmpty() const
   {
-    return (!m_ratings.empty() || !m_text.m_text.empty()) && m_time != Time();
+    return !((!m_ratings.empty() || !m_text.m_text.empty()) && m_time != Time());
   }
 
   Ratings m_ratings;
@@ -276,7 +258,7 @@ struct UGCUpdate
   Time m_time{};
 };
 
-std::string DebugPrint(UGCUpdate const & ugcUpdate)
+inline std::string DebugPrint(UGCUpdate const & ugcUpdate)
 {
   std::ostringstream os;
   os << "UGCUpdate [ ";

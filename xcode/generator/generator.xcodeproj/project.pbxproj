@@ -27,6 +27,8 @@
 		3D51BC571D5E512500F1FA8D /* region_meta.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC4F1D5E512500F1FA8D /* region_meta.hpp */; };
 		3D51BC581D5E512500F1FA8D /* srtm_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC501D5E512500F1FA8D /* srtm_parser.cpp */; };
 		3D51BC591D5E512500F1FA8D /* srtm_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC511D5E512500F1FA8D /* srtm_parser.hpp */; };
+		3D74EF071F86841C0081202C /* ugc_section_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF051F86841C0081202C /* ugc_section_builder.cpp */; };
+		3D74EF081F86841C0081202C /* ugc_section_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF061F86841C0081202C /* ugc_section_builder.hpp */; };
 		3DFEBF7D1EF2D58900317D5C /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEBF781EF2D58900317D5C /* utils.cpp */; };
 		3DFEBF7E1EF2D58900317D5C /* utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF791EF2D58900317D5C /* utils.hpp */; };
 		3DFEBF7F1EF2D58900317D5C /* viator_dataset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEBF7A1EF2D58900317D5C /* viator_dataset.cpp */; };
@@ -136,6 +138,8 @@
 		3D51BC4F1D5E512500F1FA8D /* region_meta.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = region_meta.hpp; sourceTree = "<group>"; };
 		3D51BC501D5E512500F1FA8D /* srtm_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = srtm_parser.cpp; sourceTree = "<group>"; };
 		3D51BC511D5E512500F1FA8D /* srtm_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = srtm_parser.hpp; sourceTree = "<group>"; };
+		3D74EF051F86841C0081202C /* ugc_section_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ugc_section_builder.cpp; sourceTree = "<group>"; };
+		3D74EF061F86841C0081202C /* ugc_section_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ugc_section_builder.hpp; sourceTree = "<group>"; };
 		3DFEBF781EF2D58900317D5C /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
 		3DFEBF791EF2D58900317D5C /* utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
 		3DFEBF7A1EF2D58900317D5C /* viator_dataset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viator_dataset.cpp; sourceTree = "<group>"; };
@@ -267,6 +271,8 @@
 		6753401D1A3F2A1B00A0A8C3 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				3D74EF051F86841C0081202C /* ugc_section_builder.cpp */,
+				3D74EF061F86841C0081202C /* ugc_section_builder.hpp */,
 				5687625E1F6A9B18002C22A6 /* transit_generator.cpp */,
 				5687625F1F6A9B18002C22A6 /* transit_generator.hpp */,
 				3DFEBF811EF423FB00317D5C /* sponsored_object_storage.hpp */,
@@ -436,6 +442,7 @@
 				675340681A3F2A7400A0A8C3 /* dumper.hpp in Headers */,
 				670E7BB81EF9812B00A8E9ED /* routing_helpers.hpp in Headers */,
 				675340791A3F2A7400A0A8C3 /* osm_translator.hpp in Headers */,
+				3D74EF081F86841C0081202C /* ugc_section_builder.hpp in Headers */,
 				675340711A3F2A7400A0A8C3 /* feature_sorter.hpp in Headers */,
 				34F5588A1DBF4C9600A4FC11 /* sponsored_dataset_inl.hpp in Headers */,
 				67C79BB61E2CEEAB00C40034 /* traffic_generator.hpp in Headers */,
@@ -540,6 +547,7 @@
 				6753406C1A3F2A7400A0A8C3 /* feature_generator.cpp in Sources */,
 				67C79BB51E2CEEAB00C40034 /* traffic_generator.cpp in Sources */,
 				0C5FEC701DDE19E50017688C /* routing_index_generator.cpp in Sources */,
+				3D74EF071F86841C0081202C /* ugc_section_builder.cpp in Sources */,
 				67C79BB11E2CEEAB00C40034 /* restriction_generator.cpp in Sources */,
 				3D51BC521D5E512500F1FA8D /* altitude_generator.cpp in Sources */,
 				670E7BB31EF9812B00A8E9ED /* metalines_builder.cpp in Sources */,

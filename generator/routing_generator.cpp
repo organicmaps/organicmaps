@@ -39,10 +39,16 @@ using RawRouteResult = InternalRouteResult;
 
 static double const EQUAL_POINT_RADIUS_M = 2.0;
 
-/// Find a feature id for an OSM way id. Returns 0 if the feature was not found.
-uint32_t GetRoadFeatureID(gen::OsmID2FeatureID const & osm2ft, uint64_t wayId)
+/// Find a feature id for an OSM way id.
+bool GetRoadFeatureID(gen::OsmID2FeatureID const & osm2ft, uint64_t wayId, uint32_t & result)
 {
-  return osm2ft.GetFeatureID(osm::Id::Way(wayId));
+  return osm2ft.GetFeatureID(osm::Id::Way(wayId), result);
+}
+
+bool HasWay(gen::OsmID2FeatureID const & osm2ft, uint64_t wayId)
+{
+  uint32_t unused;
+  return osm2ft.GetFeatureID(osm::Id::Way(wayId), unused);
 }
 
 // For debug purposes only. So I do not use constanst or string representations.
@@ -121,7 +127,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
       auto const & startSeg = data.m_segments.front();
       auto const & endSeg = data.m_segments.back();
       // Check if we have geometry for our candidate.
-      if (GetRoadFeatureID(osm2ft, startSeg.wayId) || GetRoadFeatureID(osm2ft, endSeg.wayId))
+      if (HasWay(osm2ft, startSeg.wayId) || HasWay(osm2ft, endSeg.wayId))
       {
         // Check mwm borders crossing.
         for (m2::RegionD const & border: regionBorders)
@@ -178,7 +184,9 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
           {
             FeatureType ft;
             Index::FeaturesLoaderGuard loader(index, mwmId);
-            if (loader.GetFeatureByIndex(GetRoadFeatureID(osm2ft, startSeg.wayId), ft))
+            uint32_t index = 0;
+            if (GetRoadFeatureID(osm2ft, startSeg.wayId, index) &&
+                loader.GetFeatureByIndex(index, ft))
             {
               LOG(LINFO,
                   ("Double border intersection", wgsIntersection, "rank:", GetWarningRank(ft)));
@@ -314,8 +322,8 @@ void BuildRoutingIndex(std::string const & baseDir, std::string const & countryN
       ++all;
 
       // now need to determine feature id and segments in it
-      uint32_t const fID = GetRoadFeatureID(osm2ft, seg.wayId);
-      if (fID == 0)
+      uint32_t fID = 0;
+      if (!GetRoadFeatureID(osm2ft, seg.wayId, fID))
       {
         LOG(LWARNING, ("No feature id for way:", seg.wayId));
         continue;

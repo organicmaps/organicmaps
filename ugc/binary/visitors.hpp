@@ -51,6 +51,11 @@ public:
     VisitVarUint(d, name);
   }
 
+  void VisitLang(uint8_t const index, char const * /* name */ = nullptr)
+  {
+    WriteToSink(m_sink, index);
+  }
+
   template <typename T>
   void VisitVarUint(T const & t, char const * /* name */ = nullptr)
   {
@@ -129,6 +134,11 @@ public:
   {
     auto const d = DesVarUint<uint32_t>();
     f = static_cast<float>(d) / 10;
+  }
+
+  void VisitLang(uint8_t & index, char const * /* name */ = nullptr)
+  {
+    ReadPrimitiveFromSource<uint8_t>(m_source, index);
   }
 
   template <typename T>

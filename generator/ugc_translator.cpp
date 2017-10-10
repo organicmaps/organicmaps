@@ -8,6 +8,8 @@
 
 #include "base/string_utils.hpp"
 
+#include <vector>
+
 #include "3party/jansson/myjansson.hpp"
 
 namespace generator
@@ -18,14 +20,22 @@ UGCTranslator::UGCTranslator(std::string const & dbFilename) : m_db(dbFilename) 
 
 bool UGCTranslator::TranslateUGC(osm::Id const & id, ugc::UGC & ugc)
 {
-  std::vector<uint8_t> blob;
+  std::vector<uint8_t> src;
 
-  if (!m_db.Get(id, blob))
+  if (!m_db.Get(id, src))
     return false;
 
-  std::string src(blob.cbegin(), blob.cend());
+  std::string str(src.cbegin(), src.cend());
 
-  ugc::DeserializerJsonV0 des(src);
+  my::Json json(str);
+
+  if (json_array_size(json.get()) != 1)
+  {
+    LOG(LWARNING, ("Osm id duplication in UGC database", id));
+    return false;
+  }
+
+  ugc::DeserializerJsonV0 des(json_array_get(json.get(), 0));
 
   des(ugc);
 

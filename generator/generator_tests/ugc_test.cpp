@@ -12,8 +12,8 @@ std::string g_database(R"LLL(
                        PRAGMA foreign_keys=OFF;
                        BEGIN TRANSACTION;
                        CREATE TABLE ratings (key bigint, value blob);
-                       INSERT INTO "ratings" VALUES(9826352,'{"osm_id":9826352,"total_rating":10.34,"votes":721,"ratings":[{"id":2,"value":3.4},{"id":2,"value":6.0001}],"reviews":[{"id":7864532,"text":"The best service on the Earth","lang":"en","author":"Robert","rating":8.5,"date":1234567}]}');
-                       INSERT INTO "ratings" VALUES(9826353,'{"osm_id":9826353,"total_rating":0.34,"votes":1,"ratings":[{"id":2,"value":3.4},{"id":3,"value":6.0001},{"id":6,"value":0.0001}],"reviews":[{"id":78645323924,"text":"Изумительно!","lang":"ru","author":"Вася","rating":10,"date":1234569}]}');
+                       INSERT INTO "ratings" VALUES(9826352,'{"osm_id":9826352,"total_rating":10.34,"based_on":721,"ratings":[{"key":"2","value":3.4},{"key":"2","value":6.0001}],"reviews":[{"id":7864532, "text":{"text":"The best service on the Earth","lang":"en"},"author":"Robert","rating":8.5,"date":1234567}]}');
+                       INSERT INTO "ratings" VALUES(9826353,'{"osm_id":9826353,"total_rating":0.34,"based_on":1,"ratings":[{"key":"2","value":3.4},{"key":"3","value":6.0001},{"key":"6","value":0.0001}],"reviews":[{"id":78645323924,"text":{"text":"Изумительно!","lang":"ru"},"author":"Вася","rating":10,"date":1234569}]}');
                        CREATE INDEX key_index ON ratings (key);
                        COMMIT;
 )LLL");
@@ -23,12 +23,10 @@ UNIT_TEST(UGC_SmokeTest)
   generator::UGCDB db(":memory:");
   bool create = db.Exec(g_database);
   TEST(create, ("Can't open database"));
-  osm::Id id = osm::Id(1);
+  osm::Id id = osm::Id(9826353);
   std::vector<uint8_t> blob;
   bool rc = db.Get(id, blob);
   TEST(rc, ("Can't load data for", id));
-  std::string result(blob.cbegin(), blob.cend());
-  std::cout << result << std::endl;
 }
 
 UNIT_TEST(UGC_TranslateRatingTest)

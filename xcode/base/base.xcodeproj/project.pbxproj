@@ -44,6 +44,12 @@
 		39FD27381CC65AD000AFF551 /* timegm_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39FD26E21CC65A0E00AFF551 /* timegm_test.cpp */; };
 		39FD27391CC65AD000AFF551 /* timer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39FD26E31CC65A0E00AFF551 /* timer_test.cpp */; };
 		39FD273B1CC65B1000AFF551 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675341771A3F57BF00A0A8C3 /* libbase.a */; };
+		3D74EF101F8B902C0081202C /* move_to_front.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF0A1F8B902A0081202C /* move_to_front.hpp */; };
+		3D74EF111F8B902C0081202C /* suffix_array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF0B1F8B902B0081202C /* suffix_array.cpp */; };
+		3D74EF121F8B902C0081202C /* visitor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF0C1F8B902B0081202C /* visitor.hpp */; };
+		3D74EF131F8B902C0081202C /* move_to_front.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF0D1F8B902B0081202C /* move_to_front.cpp */; };
+		3D74EF141F8B902C0081202C /* bwt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF0E1F8B902B0081202C /* bwt.cpp */; };
+		3D74EF151F8B902C0081202C /* bwt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF0F1F8B902C0081202C /* bwt.hpp */; };
 		3D7815731F3A145F0068B6AC /* task_loop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D7815711F3A145F0068B6AC /* task_loop.hpp */; };
 		3D78157B1F3D89EC0068B6AC /* waiter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D78157A1F3D89EC0068B6AC /* waiter.hpp */; };
 		56B1A0741E69DE4D00395022 /* random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56B1A0711E69DE4D00395022 /* random.cpp */; };
@@ -164,6 +170,12 @@
 		39FD273D1CC65B1000AFF551 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
 		39FD27401CC65B2800AFF551 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
 		39FD27421CC65B4800AFF551 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
+		3D74EF0A1F8B902A0081202C /* move_to_front.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = move_to_front.hpp; sourceTree = "<group>"; };
+		3D74EF0B1F8B902B0081202C /* suffix_array.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = suffix_array.cpp; sourceTree = "<group>"; };
+		3D74EF0C1F8B902B0081202C /* visitor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = visitor.hpp; sourceTree = "<group>"; };
+		3D74EF0D1F8B902B0081202C /* move_to_front.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = move_to_front.cpp; sourceTree = "<group>"; };
+		3D74EF0E1F8B902B0081202C /* bwt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bwt.cpp; sourceTree = "<group>"; };
+		3D74EF0F1F8B902C0081202C /* bwt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bwt.hpp; sourceTree = "<group>"; };
 		3D7815711F3A145F0068B6AC /* task_loop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = task_loop.hpp; sourceTree = "<group>"; };
 		3D78157A1F3D89EC0068B6AC /* waiter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = waiter.hpp; sourceTree = "<group>"; };
 		56B1A0711E69DE4D00395022 /* random.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = random.cpp; sourceTree = "<group>"; };
@@ -325,6 +337,12 @@
 		675341791A3F57BF00A0A8C3 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				3D74EF0E1F8B902B0081202C /* bwt.cpp */,
+				3D74EF0F1F8B902C0081202C /* bwt.hpp */,
+				3D74EF0D1F8B902B0081202C /* move_to_front.cpp */,
+				3D74EF0A1F8B902A0081202C /* move_to_front.hpp */,
+				3D74EF0B1F8B902B0081202C /* suffix_array.cpp */,
+				3D74EF0C1F8B902B0081202C /* visitor.hpp */,
 				3D78157A1F3D89EC0068B6AC /* waiter.hpp */,
 				3D7815711F3A145F0068B6AC /* task_loop.hpp */,
 				F6F8E3C61EF846CE00F2DE8F /* worker_thread.cpp */,
@@ -435,6 +453,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D74EF121F8B902C0081202C /* visitor.hpp in Headers */,
 				675341CF1A3F57E400A0A8C3 /* bits.hpp in Headers */,
 				672DD4C71E0425600078E13C /* ref_counted.hpp in Headers */,
 				675341E61A3F57E400A0A8C3 /* mutex.hpp in Headers */,
@@ -455,6 +474,7 @@
 				675342041A3F57E400A0A8C3 /* strings_bundle.hpp in Headers */,
 				672DD4C81E0425600078E13C /* stl_helpers.hpp in Headers */,
 				675341CE1A3F57E400A0A8C3 /* base.hpp in Headers */,
+				3D74EF101F8B902C0081202C /* move_to_front.hpp in Headers */,
 				675342001A3F57E400A0A8C3 /* string_format.hpp in Headers */,
 				675341F41A3F57E400A0A8C3 /* scope_guard.hpp in Headers */,
 				672DD4BF1E0425600078E13C /* collection_cast.hpp in Headers */,
@@ -475,6 +495,7 @@
 				675341FE1A3F57E400A0A8C3 /* stl_iterator.hpp in Headers */,
 				675341FA1A3F57E400A0A8C3 /* src_point.hpp in Headers */,
 				674A7E2F1C0DB03D003D48E1 /* timegm.hpp in Headers */,
+				3D74EF151F8B902C0081202C /* bwt.hpp in Headers */,
 				675341F71A3F57E400A0A8C3 /* shared_buffer_manager.hpp in Headers */,
 				56B1A0761E69DE4D00395022 /* small_set.hpp in Headers */,
 				67B52B611AD3C84E00664C17 /* thread_checker.hpp in Headers */,
@@ -629,9 +650,12 @@
 				675341F61A3F57E400A0A8C3 /* shared_buffer_manager.cpp in Sources */,
 				56B1A0741E69DE4D00395022 /* random.cpp in Sources */,
 				675341DA1A3F57E400A0A8C3 /* exception.cpp in Sources */,
+				3D74EF111F8B902C0081202C /* suffix_array.cpp in Sources */,
 				F6F8E3C81EF846CE00F2DE8F /* worker_thread.cpp in Sources */,
 				675341F91A3F57E400A0A8C3 /* src_point.cpp in Sources */,
 				675342031A3F57E400A0A8C3 /* strings_bundle.cpp in Sources */,
+				3D74EF141F8B902C0081202C /* bwt.cpp in Sources */,
+				3D74EF131F8B902C0081202C /* move_to_front.cpp in Sources */,
 				675341CD1A3F57E400A0A8C3 /* base.cpp in Sources */,
 				675342011A3F57E400A0A8C3 /* string_utils.cpp in Sources */,
 				674A7E2E1C0DB03D003D48E1 /* timegm.cpp in Sources */,

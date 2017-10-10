@@ -21,6 +21,7 @@ public:
   static Id Relation(uint64_t osmId);
 
   uint64_t OsmId() const;
+  uint64_t EncodedId() const;
   bool IsNode() const;
   bool IsWay() const;
   bool IsRelation() const;

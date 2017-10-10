@@ -79,6 +79,11 @@ public:
     ToJSONObject(*m_json, name, t);
   }
 
+  void VisitLang(uint8_t const index, char const * name = nullptr)
+  {
+    ToJSONObject(*m_json, name, StringUtf8Multilang::GetLangByCode(index));
+  }
+
 private:
   template <typename Fn>
   void NewScopeWith(my::JSONPtr json_object, char const * name, Fn && fn)
@@ -109,7 +114,7 @@ public:
   template <typename Source,
             typename std::enable_if<
               !std::is_convertible<Source, std::string>::value, Source>::type * = nullptr>
-  DeserializerJsonV0(Source & source)
+  explicit DeserializerJsonV0(Source & source)
   {
     std::string src(source.Size(), '\0');
     source.Read(static_cast<void *>(&src[0]), source.Size());
@@ -117,9 +122,14 @@ public:
     m_json = m_jsonObject.get();
   }
 
-  DeserializerJsonV0(std::string const & source)
+  explicit DeserializerJsonV0(std::string const & source)
     : m_jsonObject(source)
     , m_json(m_jsonObject.get())
+  {
+  }
+
+  explicit DeserializerJsonV0(json_t * json)
+    : m_json(json)
   {
   }
 
@@ -186,6 +196,13 @@ public:
   void VisitVarUint(T & t, char const * name = nullptr)
   {
     FromJSONObject(m_json, name, t);
+  }
+
+  void VisitLang(uint8_t & index, char const * name = nullptr)
+  {
+    std::string lang;
+    FromJSONObject(m_json, name, lang);
+    index = StringUtf8Multilang::GetLangIndex(lang);
   }
 
 private:

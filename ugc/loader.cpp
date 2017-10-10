@@ -1,7 +1,5 @@
 #include "ugc/loader.hpp"
 
-#include "ugc/types.hpp"
-
 #include "indexer/feature.hpp"
 #include "indexer/index.hpp"
 
@@ -11,24 +9,24 @@ namespace ugc
 {
 Loader::Loader(Index const & index) : m_index(index) {}
 
-void Loader::GetUGC(FeatureID const & featureId, UGC & result)
+UGC Loader::GetUGC(FeatureID const & featureId)
 {
-  UGC ugc;
-  auto const & handle = m_index.GetMwmHandleById(featureId.m_mwmId);
+  auto const handle = m_index.GetMwmHandleById(featureId.m_mwmId);
 
   if (!handle.IsAlive())
-    return;
+    return {};
 
   auto const & value = *handle.GetValue<MwmValue>();
 
   if (!value.m_cont.IsExist(UGC_FILE_TAG))
-    return;
+    return {};
 
   auto readerPtr = value.m_cont.GetReader(UGC_FILE_TAG);
 
+  UGC ugc;
   if (!m_d.Deserialize(*readerPtr.GetPtr(), featureId.m_index, ugc))
-    return;
+    return {};
 
-  result = std::move(ugc);
+  return ugc;
 }
 }  // namespace ugc

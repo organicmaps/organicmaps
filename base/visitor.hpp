@@ -3,8 +3,6 @@
 #include <sstream>
 #include <string>
 
-namespace base
-{
 class DebugPrintVisitor
 {
 public:
@@ -29,7 +27,6 @@ private:
   bool m_empty = true;
   std::ostringstream m_os;
 };
-}  // namespace base
 
 #define DECLARE_VISITOR(...)          \
   template <typename Visitor>         \
@@ -46,7 +43,7 @@ private:
 #define DECLARE_DEBUG_PRINT(className)               \
   friend std::string DebugPrint(className const & c) \
   {                                                  \
-    base::DebugPrintVisitor visitor(#className);     \
+    DebugPrintVisitor visitor(#className);           \
     c.Visit(visitor);                                \
     return visitor.ToString();                       \
   }

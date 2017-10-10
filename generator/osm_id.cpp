@@ -38,6 +38,11 @@ uint64_t Id::OsmId() const
   return m_encodedId & RESET;
 }
 
+uint64_t Id::EncodedId() const
+{
+  return m_encodedId;
+}
+
 bool Id::IsNode() const
 {
   return ((m_encodedId & NODE) == NODE);

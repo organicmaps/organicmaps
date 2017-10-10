@@ -10,13 +10,10 @@ Storage::Storage(std::string const & filename)
   Load();
 }
 
-void Storage::GetUGCUpdate(FeatureID const & id, UGCUpdate & ugc) const
+UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
 {
-  auto const it = m_ugc.find(id);
-  if (it == end(m_ugc))
-    return;
-
-  ugc = it->second;
+  // Dummy
+  return {};
 }
 
 void Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)

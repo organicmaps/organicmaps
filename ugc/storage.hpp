@@ -14,7 +14,7 @@ class Storage
 public:
   explicit Storage(std::string const & filename);
 
-  void GetUGCUpdate(FeatureID const & id, UGCUpdate & ugc) const;
+  UGCUpdate GetUGCUpdate(FeatureID const & id) const;
   void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
 
   void Save();
