@@ -195,15 +195,16 @@ void WriteAssessmentFile(std::string const fileName, pugi::xml_document const & 
   pugi::xml_document result;
   auto segments = result.append_child("Segments");
   auto const dict = doc.select_node(".//Dictionary").node();
+  char const xmlns[] = "xmlns";
 
   // Copy namespaces from <Dictionary> to <Segments>
   for (auto const attr : dict.attributes())
   {
-    if (strncmp("xmlns", attr.name(), 5) != 0)
+    if (strncmp(xmlns, attr.name(), sizeof(xmlns) - 1) != 0)
       continue;
 
     // Don't copy default namespace.
-    if (strlen(attr.name()) == 5)
+    if (strncmp(xmlns, attr.name(), sizeof(xmlns)) == 0)
       continue;
 
     segments.append_copy(attr);

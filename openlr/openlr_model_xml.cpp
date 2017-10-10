@@ -94,8 +94,12 @@ bool CoordinateFromXML(pugi::xml_node const & node, ms::LatLon const & prevCoord
   if (!GetLatLon(node.child("olr:coordinate"), lat, lon))
     return false;
 
-  latLon.lat = prevCoord.lat + static_cast<double>(lat) / 100000;
-  latLon.lon = prevCoord.lon + static_cast<double>(lon) / 100000;
+  // This constant is provided by the given OpenLR variant
+  // with no special meaning and is used as a factor to store doubles as ints.
+  auto const kOpenlrDeltaFactor = 100000;
+
+  latLon.lat = prevCoord.lat + static_cast<double>(lat) / kOpenlrDeltaFactor;
+  latLon.lon = prevCoord.lon + static_cast<double>(lon) / kOpenlrDeltaFactor;
 
   return true;
 }

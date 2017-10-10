@@ -11,6 +11,8 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
+#include <sstream>
+
 #define THROW_IF_NODE_IS_EMPTY(node, exc, msg) \
   if (!node)                                   \
     MYTHROW(exc, msg)
@@ -31,8 +33,9 @@ uint32_t SegmentIdFromXML(pugi::xml_node const & node)
 
 void LatLonToXML(ms::LatLon const & latLon, pugi::xml_node & node)
 {
-  node.append_child("lat").text() = latLon.lat;
-  node.append_child("lon").text() = latLon.lon;
+  auto const kDigitsAfterComma = 5;
+  node.append_child("lat").text() = strings::to_string_dac(latLon.lat, kDigitsAfterComma).data();
+  node.append_child("lon").text() = strings::to_string_dac(latLon.lon, kDigitsAfterComma).data();
 }
 
 void LatLonFromXML(pugi::xml_node const & node, ms::LatLon & latLon)
