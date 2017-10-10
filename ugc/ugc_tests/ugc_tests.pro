@@ -6,7 +6,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = ugc indexer platform coding geometry base jansson stats_client
+DEPENDENCIES = generator_tests_support generator search routing routing_common ugc indexer storage editor platform \
+               coding geometry base icu jansson stats_client pugixml tess2 protobuf succinct opening_hours oauthcpp
 
 macx-* {
   LIBS *= "-framework IOKit" "-framework SystemConfiguration"
@@ -22,6 +23,7 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   serdes_binary_tests.cpp \
   serdes_tests.cpp \
+  storage_tests.cpp \
   utils.cpp \
 
 HEADERS += \
