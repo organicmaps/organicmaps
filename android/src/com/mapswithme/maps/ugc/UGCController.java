@@ -48,12 +48,12 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     @Override
     public void onClick(View v)
     {
-      if (mUgc == null || mMapObject == null)
+      if (mMapObject == null)
         return;
 
       UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                               mMapObject.getFeatureId(),
-                              mUgc.getUserRatings(), UGC.RATING_NONE, mMapObject.canBeReviewed());
+                              UGC.getUserRatings(), UGC.RATING_NONE, mMapObject.canBeReviewed());
     }
   };
 

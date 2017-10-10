@@ -65,7 +65,7 @@ public class UGC
 
   //TODO: remove it after core is ready.
   @NonNull
-  ArrayList<Rating> getUserRatings()
+  static ArrayList<Rating> getUserRatings()
   {
     return new ArrayList<Rating>(){
       {

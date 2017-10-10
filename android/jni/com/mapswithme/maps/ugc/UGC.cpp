@@ -66,8 +66,8 @@ public:
     jni::TScopedLocalRef ugcUpdateResult(env, ToJavaUGCUpdate(env, ugcUpdate));
 
     using namespace place_page;
-    int impress = static_cast<int>(rating::GetImpress(ugc.m_aggRating));
-    std::string formattedRating = rating::GetRatingFormatted(ugc.m_aggRating);
+    int impress = static_cast<int>(rating::GetImpress(ugc.m_totalRating));
+    std::string formattedRating = rating::GetRatingFormatted(ugc.m_totalRating);
     jni::TScopedLocalRef jrating(env, jni::ToJavaString(env, formattedRating));
 
     env->CallStaticVoidMethod(m_ugcClass, m_onResult, ugcResult.get(), ugcUpdateResult.get(),
@@ -104,11 +104,11 @@ private:
   {
     jni::TScopedLocalObjectArrayRef ratings(env, ToJavaRatings(env, ugc.m_ratings));
     jni::TScopedLocalObjectArrayRef reviews(env, ToJavaReviews(env, ugc.m_reviews));
+
     jobject result = nullptr;
-    //TODO: use real values when core is ready.
-    if (true/* !ugc.IsEmpty() */)
-      result = env->NewObject(m_ugcClass, m_ugcCtor, ratings.get(), ugc.m_aggRating,
-                              reviews.get(), 68/* ugc.m_basedOn */);
+    if (!ugc.IsEmpty())
+      result = env->NewObject(m_ugcClass, m_ugcCtor, ratings.get(), ugc.m_totalRating,
+                              reviews.get(), ugc.m_basedOn);
     return result;
   }
 
@@ -116,9 +116,9 @@ private:
   {
     jni::TScopedLocalObjectArrayRef ratings(env, ToJavaRatings(env, ugcUpdate.m_ratings));
     jni::TScopedLocalRef text(env, jni::ToJavaString(env, ugcUpdate.m_text.m_text));
+
     jobject result = nullptr;
-    //TODO: use real values when core is ready.
-    if (true/* !ugcUpdate.IsEmpty() */)
+    if (!ugcUpdate.IsEmpty())
       result = env->NewObject(m_ugcUpdateClass, m_ugcUpdateCtor, ratings.get(),
                               text.get());
     return result;
@@ -159,7 +159,7 @@ private:
   jobject ToJavaReview(JNIEnv * env, ugc::Review const & review)
   {
     jni::TScopedLocalRef text(env, jni::ToJavaString(env, review.m_text.m_text));
-    jni::TScopedLocalRef author(env, jni::ToJavaString(env, review.m_author.m_name));
+    jni::TScopedLocalRef author(env, jni::ToJavaString(env, review.m_author));
     jobject result = env->NewObject(m_reviewClass, m_reviewCtor, text.get(), author.get(),
                                     static_cast<jlong>(ugc::DaysAgo(review.m_time)));
     ASSERT(result, ());
