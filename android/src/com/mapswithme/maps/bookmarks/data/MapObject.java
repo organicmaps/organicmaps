@@ -59,6 +59,7 @@ public class MapObject implements Parcelable
   private boolean mExtendedView;
   private boolean mShouldShowUGC;
   private boolean mCanBeRated;
+  private boolean mCanBeReviewed;
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address,
@@ -66,11 +67,12 @@ public class MapObject implements Parcelable
                    @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] types,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
-                   boolean shouldShowUGC, boolean canBeRated)
+                   boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
-         types, bookingSearchUrl, localAdInfo, routePointInfo, isExtendedView, shouldShowUGC, canBeRated);
+         types, bookingSearchUrl, localAdInfo, routePointInfo, isExtendedView, shouldShowUGC,
+         canBeRated, canBeReviewed);
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
@@ -79,7 +81,7 @@ public class MapObject implements Parcelable
                    String apiId, @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] taxiTypes,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
-                   boolean shouldShowUGC, boolean canBeRated)
+                   boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed)
   {
     mFeatureId = featureId;
     mMapObjectType = mapObjectType;
@@ -97,6 +99,7 @@ public class MapObject implements Parcelable
     mExtendedView = isExtendedView;
     mShouldShowUGC = shouldShowUGC;
     mCanBeRated = canBeRated;
+    mCanBeReviewed = canBeReviewed;
     if (banners != null)
       mBanners = new ArrayList<>(Arrays.asList(banners));
     if (taxiTypes != null)
@@ -127,7 +130,9 @@ public class MapObject implements Parcelable
          (RoutePointInfo) source.readParcelable(RoutePointInfo.class.getClassLoader()), // RoutePointInfo
          source.readInt() == 1, // mExtendedView
          source.readInt() == 1, // mShouldShowUGC
-         source.readInt() == 1); // mCanBeRated;
+         source.readInt() == 1, // mCanBeRated;
+         source.readInt() == 1); // mCanBeReviewed
+
     mBanners = readBanners(source);
     mReachableByTaxiTypes = readTaxiTypes(source);
 
@@ -140,7 +145,7 @@ public class MapObject implements Parcelable
     return new MapObject(featureId, mapObjectType, title,
                          "", subtitle, "", lat, lon, "", null,
                          null, "", null, null, false /* isExtendedView */,
-                         false /* shouldShowUGC */, false /* canBeRated */);
+                         false /* shouldShowUGC */, false /* canBeRated */, false /* canBeReviewed */);
   }
 
   @Nullable
@@ -308,6 +313,11 @@ public class MapObject implements Parcelable
   public boolean canBeRated()
   {
     return mCanBeRated;
+  }
+
+  public boolean canBeReviewed()
+  {
+    return mCanBeReviewed;
   }
 
   @NonNull

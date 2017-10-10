@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -26,6 +27,7 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   static final String ARG_TITLE = "arg_title";
   static final String ARG_DEFAULT_RATING = "arg_default_rating";
   static final String ARG_RATING_LIST = "arg_rating_list";
+  static final String ARG_CAN_BE_REVIEWED = "arg_can_be_reviewed";
   @NonNull
   private final UGCRatingAdapter mUGCRatingAdapter = new UGCRatingAdapter();
   @SuppressWarnings("NullableProblems")
@@ -48,6 +50,9 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
     Bundle args = getArguments();
     if (args == null)
       throw new AssertionError("Args must be passed to this fragment!");
+
+    UiUtils.showIf(args.getBoolean(ARG_CAN_BE_REVIEWED), mReviewEditText);
+
     List<UGC.Rating> ratings = args.getParcelableArrayList(ARG_RATING_LIST);
     if (ratings != null)
       setDefaultRatingValue(args, ratings);

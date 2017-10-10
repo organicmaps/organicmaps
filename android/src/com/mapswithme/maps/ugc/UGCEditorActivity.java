@@ -16,10 +16,10 @@ import java.util.ArrayList;
 public class UGCEditorActivity extends BaseMwmFragmentActivity
 {
 
-
+  //TODO: refactor to EditorParams with builder.
   public static void start(@NonNull Activity activity, @NonNull String title,
                            @NonNull FeatureId featureId, @NonNull ArrayList<UGC.Rating> ratings,
-                           @UGC.Impress int defaultRating)
+                           @UGC.Impress int defaultRating, boolean canBeReviewed)
   {
     final Intent i = new Intent(activity, UGCEditorActivity.class);
     Bundle args = new Bundle();
@@ -27,6 +27,7 @@ public class UGCEditorActivity extends BaseMwmFragmentActivity
     args.putString(UGCEditorFragment.ARG_TITLE, title);
     args.putInt(UGCEditorFragment.ARG_DEFAULT_RATING, defaultRating);
     args.putParcelableArrayList(UGCEditorFragment.ARG_RATING_LIST, ratings);
+    args.putBoolean(UGCEditorFragment.ARG_CAN_BE_REVIEWED, canBeReviewed);
     i.putExtras(args);
     activity.startActivity(i);
   }

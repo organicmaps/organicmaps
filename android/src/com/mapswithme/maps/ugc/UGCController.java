@@ -53,7 +53,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
       UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                               mMapObject.getFeatureId(),
-                              mUgc.getUserRatings(), UGC.RATING_NONE);
+                              mUgc.getUserRatings(), UGC.RATING_NONE, mMapObject.canBeReviewed());
     }
   };
 
@@ -203,6 +203,6 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
     UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                             mMapObject.getFeatureId(),
-                            mUgc.getUserRatings(), rating);
+                            mUgc.getUserRatings(), rating, mMapObject.canBeReviewed());
   }
 }
