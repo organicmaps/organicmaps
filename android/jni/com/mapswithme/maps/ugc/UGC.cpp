@@ -237,4 +237,10 @@ void JNICALL Java_com_mapswithme_maps_ugc_UGC_setUGCUpdate(JNIEnv * env, jclass 
   ugc::UGCUpdate update = g_bridge.ToNativeUGCUpdate(env, ugcUpdate);
   g_framework->SetUGCUpdate(fid, update);
 }
+
+JNIEXPORT
+void JNICALL Java_com_mapswithme_maps_ugc_UGC_nativeUploadUGC(JNIEnv * env, jclass /* clazz */)
+{
+  g_framework->UploadUGC();
+}
 }

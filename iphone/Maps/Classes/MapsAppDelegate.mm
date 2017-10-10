@@ -406,6 +406,14 @@ using namespace osm_auth_ios;
       lambda);
 }
 
+// Starts async UGC uploading process.
++ (void)uploadUGC:(MWMVoidBlock)finishCallback
+{
+  GetFramework().UploadUGC([finishCallback](){
+    finishCallback();
+  });
+}
+
 - (void)application:(UIApplication *)application
     performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
@@ -478,7 +486,12 @@ using namespace osm_auth_ios;
                                       with:AuthorizationGetCredentials()];
     });
   }
-  // 3. Check if map for current location is already downloaded, and if not - notify user to
+  // 3. Upload UGC.
+  runFetchTask(^{
+    // Ignore completion callback for now.
+    [MapsAppDelegate uploadUGC:^(){}];
+  });
+  // 4. Check if map for current location is already downloaded, and if not - notify user to
   // download it.
   runFetchTask(^{
     [[LocalNotificationManager sharedManager] showDownloadMapNotificationIfNeeded:callback];
@@ -543,6 +556,26 @@ using namespace osm_auth_ios;
     }
                                     with:AuthorizationGetCredentials()];
   }
+  
+  // Upload UGC. All checks are inside the core part.
+  {
+    auto finishUGCUploadTaskBlock = ^{
+      if (self->m_ugcUploadBackgroundTask != UIBackgroundTaskInvalid)
+      {
+        [application endBackgroundTask:self->m_ugcUploadBackgroundTask];
+        self->m_ugcUploadBackgroundTask = UIBackgroundTaskInvalid;
+      }
+    };
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
+                                 static_cast<int64_t>(application.backgroundTimeRemaining)),
+                   dispatch_get_main_queue(), finishUGCUploadTaskBlock);
+    m_ugcUploadBackgroundTask =
+      [application beginBackgroundTaskWithExpirationHandler:finishUGCUploadTaskBlock];
+    [MapsAppDelegate uploadUGC:^() {
+      finishUGCUploadTaskBlock();
+    }];
+  }
+  
   [MWMRouter saveRouteIfNeeded];
   LOG(LINFO, ("applicationDidEnterBackground - end"));
 }

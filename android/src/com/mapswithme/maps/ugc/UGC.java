@@ -6,6 +6,9 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.background.AppBackgroundTracker;
+import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 
 import java.io.Serializable;
@@ -34,6 +37,17 @@ public class UGC
   static final int RATING_EXCELLENT = 5;
   static final int RATING_COMING_SOON = 6;
 
+  private static final AppBackgroundTracker.OnTransitionListener UPLOADER =
+      new AppBackgroundTracker.OnTransitionListener()
+  {
+    @Override
+    public void onTransit(boolean foreground)
+    {
+      if (!foreground)
+        WorkerService.startActionUploadUGC();
+    }
+  };
+
   @NonNull
   private final Rating[] mRatings;
   @Nullable
@@ -42,6 +56,11 @@ public class UGC
   private final float mAverageRating;
   @Nullable
   private static UGCListener mListener;
+
+  public static void init()
+  {
+    MwmApplication.backgroundTracker().addListener(UPLOADER);
+  }
 
   private UGC(@NonNull Rating[] ratings, float averageRating, @Nullable Review[] reviews,
               int basedOnCount)
@@ -94,6 +113,8 @@ public class UGC
   public static native void requestUGC(@NonNull FeatureId fid);
 
   public static native void setUGCUpdate(@NonNull FeatureId fid, UGCUpdate update);
+
+  public static native void nativeUploadUGC();
 
   public static void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate,
                                    @Impress int impress, @NonNull String rating)

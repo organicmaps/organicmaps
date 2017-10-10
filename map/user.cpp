@@ -6,7 +6,9 @@
 #include "coding/url_encode.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/jansson/myjansson.hpp"
 
 #include <chrono>
@@ -23,6 +25,13 @@ std::string const kReviewIdsKey = "UserReviewIds";
 std::string const kPassportServerUrl = PASSPORT_URL;
 std::string const kAppName = PASSPORT_APP_NAME;
 std::string const kUGCServerUrl = UGC_URL;
+
+enum class ReviewReceiverProtocol : uint8_t
+{
+  v1 = 1, // October 2017. Initial version.
+
+  LatestVersion = v1
+};
 
 std::string AuthenticationUrl(std::string const & socialToken,
                               User::SocialTokenType socialTokenType)
@@ -52,8 +61,20 @@ std::string AuthenticationUrl(std::string const & socialToken,
 
 std::string UserDetailsUrl()
 {
+  if (kUGCServerUrl.empty())
+    return {};
+
+  return kUGCServerUrl + "/user/reviews/";
+}
+
+std::string ReviewReceiverUrl()
+{
+  if (kUGCServerUrl.empty())
+    return {};
+
   std::ostringstream ss;
-  ss << kUGCServerUrl << "/user/reviews";
+  ss << kUGCServerUrl << "/receive/"
+     << static_cast<int>(ReviewReceiverProtocol::LatestVersion) << "/";
   return ss.str();
 }
 
@@ -183,7 +204,7 @@ void User::Authenticate(std::string const & socialToken, SocialTokenType socialT
   // a delayed task calls destructed object.
   m_workerThread.Push([this, url]()
   {
-    Request(url, {}, [this](std::string const & response)
+    Request(url, nullptr, [this](std::string const & response)
     {
       SetAccessToken(ParseAccessToken(response));
     });
@@ -206,8 +227,11 @@ void User::RequestUserDetails()
 
   m_workerThread.Push([this, url]()
   {
-    auto const headers = std::map<std::string, std::string>{{"Authorization", m_accessToken}};
-    Request(url, headers, [this](std::string const & response)
+    Request(url, [this](platform::HttpClient & request)
+    {
+      request.SetRawHeader("Authorization", m_accessToken);
+    },
+    [this](std::string const & response)
     {
       auto const reviewIds = DeserializeReviewIds(response);
       if (!reviewIds.empty())
@@ -220,9 +244,50 @@ void User::RequestUserDetails()
   });
 }
 
-void User::Request(std::string const & url,
-                   std::map<std::string, std::string> const & headers,
-                   std::function<void(std::string const &)> const & onSuccess)
+void User::UploadUserReviews(std::string const & dataStr,
+                             CompleteUploadingHandler const & onCompleteUploading)
+{
+  std::string const url = ReviewReceiverUrl();
+  if (url.empty())
+  {
+    LOG(LWARNING, ("Reviews uploading is unavailable."));
+    return;
+  }
+
+  if (m_accessToken.empty())
+    return;
+
+  m_workerThread.Push([this, url, dataStr, onCompleteUploading]()
+  {
+    size_t const bytesCount = dataStr.size();
+    Request(url, [this, dataStr](platform::HttpClient & request)
+    {
+      request.SetRawHeader("Authorization", m_accessToken);
+      request.SetBodyData(dataStr, "application/json");
+    },
+    [this, bytesCount, onCompleteUploading](std::string const &)
+    {
+      alohalytics::Stats::Instance().LogEvent("UGC_DataUpload_finished",
+                                              strings::to_string(bytesCount));
+      LOG(LWARNING, ("Reviews have been uploaded."));
+
+      if (onCompleteUploading != nullptr)
+        onCompleteUploading();
+    },
+    [this, onCompleteUploading](int errorCode)
+    {
+      alohalytics::Stats::Instance().LogEvent("UGC_DataUpload_error",
+                                              strings::to_string(errorCode));
+      LOG(LWARNING, ("Reviews have not been uploaded."));
+
+      if (onCompleteUploading != nullptr)
+        onCompleteUploading();
+    });
+  });
+}
+
+void User::Request(std::string const & url, BuildRequestHandler const & onBuildRequest,
+                   SuccessHandler const & onSuccess, ErrorHandler const & onError)
 {
   ASSERT(onSuccess != nullptr, ());
 
@@ -231,25 +296,30 @@ void User::Request(std::string const & url,
   uint32_t constexpr kDegradationScalar = 2;
 
   uint32_t waitingTime = kWaitingInSeconds;
+  int resultCode = -1;
+  bool isSuccessfulCode = false;
   for (uint8_t i = 0; i < kAttemptsCount; ++i)
   {
     platform::HttpClient request(url);
     request.SetRawHeader("Accept", "application/json");
-    for (auto const & header : headers)
-      request.SetRawHeader(header.first, header.second);
+    if (onBuildRequest != nullptr)
+      onBuildRequest(request);
 
     // TODO: Now passport service uses redirection. If it becomes false, uncomment checking.
     if (request.RunHttpRequest())// && !request.WasRedirected())
     {
-      if (request.ErrorCode() == 200) // Ok.
+      resultCode = request.ErrorCode();
+      isSuccessfulCode = (resultCode == 200 || resultCode == 201);
+      if (isSuccessfulCode) // Ok.
       {
         onSuccess(request.ServerResponse());
         break;
       }
 
-      if (request.ErrorCode() == 403) // Forbidden.
+      if (resultCode == 403) // Forbidden.
       {
         ResetAccessToken();
+        LOG(LWARNING, ("Access denied for", url));
         break;
       }
     }
@@ -262,4 +332,7 @@ void User::Request(std::string const & url,
       break;
     waitingTime *= kDegradationScalar;
   }
+
+  if (!isSuccessfulCode && onError != nullptr)
+    onError(resultCode);
 }

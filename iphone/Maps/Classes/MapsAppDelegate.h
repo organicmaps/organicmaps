@@ -10,6 +10,7 @@
   NSInteger m_activeDownloadsCounter;
   UIBackgroundTaskIdentifier m_backgroundTask;
   UIBackgroundTaskIdentifier m_editorUploadBackgroundTask;
+  UIBackgroundTaskIdentifier m_ugcUploadBackgroundTask;
   UIAlertView * m_loadingAlertView;
 }
 

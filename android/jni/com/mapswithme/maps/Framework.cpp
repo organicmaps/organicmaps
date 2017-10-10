@@ -593,6 +593,11 @@ void Framework::SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc)
   m_work.GetUGCApi()->SetUGCUpdate(fid, ugc);
 }
 
+void Framework::UploadUGC()
+{
+  m_work.UploadUGC(nullptr /* onCompleteUploading */);
+}
+
 uint64_t Framework::GetRentNearby(JNIEnv * env, jobject policy, ms::LatLon const & latlon,
                               cian::Api::RentNearbyCallback const & onSuccess,
                               cian::Api::ErrorCallback const & onError)

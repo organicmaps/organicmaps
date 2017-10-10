@@ -3468,3 +3468,13 @@ void Framework::FillLocalExperts(FeatureType const & ft, place_page::Info & info
   info.SetLocalsStatus(place_page::LocalsStatus::Available);
   info.SetLocalsPageUrl(locals::Api::GetLocalsPageUrl());
 }
+
+void Framework::UploadUGC(User::CompleteUploadingHandler const & onCompleteUploading)
+{
+  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+    return;
+
+  //TODO: extract UGC for uploading.
+  if (m_user.IsAuthenticated()) // && UGC not empty
+    m_user.UploadUserReviews("{}", onCompleteUploading);
+}

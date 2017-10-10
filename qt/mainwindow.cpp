@@ -154,6 +154,8 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3, QString const &
 #endif // NO_DOWNLOADER
 
   m_pDrawWidget->UpdateAfterSettingsChanged();
+
+  m_pDrawWidget->GetFramework().UploadUGC(nullptr /* onCompleteUploading */);
 }
 
 #if defined(Q_WS_WIN)
@@ -550,6 +552,7 @@ void MainWindow::OnSwitchSelectionMode()
 }
 
 void MainWindow::OnClearSelection() { m_pDrawWidget->GetFramework().GetDrapeApi().Clear(); }
+
 void MainWindow::OnSearchButtonClicked()
 {
   if (m_pSearchAction->isChecked())

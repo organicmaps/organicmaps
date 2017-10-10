@@ -856,4 +856,8 @@ private:
   void InjectViator(place_page::Info & info);
 
   void FillLocalExperts(FeatureType const & ft, place_page::Info & info) const;
+
+public:
+  // UGC.
+  void UploadUGC(User::CompleteUploadingHandler const & onCompleteUploading);
 };
