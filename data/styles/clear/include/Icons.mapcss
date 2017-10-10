@@ -33,7 +33,7 @@
  5.5 Others
 6.SHOP
 7.CAR
-	7.1 Parking
+    7.1 Parking
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
@@ -315,6 +315,10 @@ area[amenity=biergarten]
 node[sponsored=cian],
 area[sponsored=cian]
 {z-index: 2790;}
+
+node[sponsored=thor],
+area[sponsored=thor]
+{z-index: 2792;}
 
 node[railway=halt],
 node[railway=station],
@@ -3165,3 +3169,22 @@ area|z18-[sponsored=cian]
 {font-size: 11;}
 
 
+node|z16-[sponsored=thor],
+area|z16-[sponsored=thor]
+{font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
+
+node|z16-[sponsored=thor],
+area|z16-[sponsored=thor]
+{icon-image: portal-l.svg;}
+
+node|z16-[sponsored=thor][rating=2],
+area|z16-[sponsored=thor][rating=2]
+{icon-image: artefact-l.svg;}
+
+node|z16-[sponsored=thor][rating=3],
+area|z16-[sponsored=thor][rating=3]
+{icon-image: hero-l.svg;}
+
+node|z16-[sponsored=thor][rating=4],
+area|z16-[sponsored=thor][rating=4]
+{icon-image: odin-l.svg;}
