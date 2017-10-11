@@ -17,10 +17,13 @@
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
+#include "base/logging.hpp"
+#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include <cstdint>
 #include <map>
+#include <memory>
+#include <utility>
 #include <vector>
 
 #include "defines.hpp"
@@ -115,11 +118,11 @@ bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeatureP
       LOG(LERROR, ("Can't parse feature id to osm id mapping."));
       return {};
     }
-    return make_unique<Mapping>(move(mapping));
+    return my::make_unique<Mapping>(move(mapping));
   });
 }
 
-bool BuildCitiesBoundariesForTesting(std::string const & dataPath, TestIdToBoundariesTable & table)
+bool BuildCitiesBoundariesForTesting(string const & dataPath, TestIdToBoundariesTable & table)
 {
   using Mapping = map<uint32_t, vector<uint64_t>>;
 
@@ -130,7 +133,7 @@ bool BuildCitiesBoundariesForTesting(std::string const & dataPath, TestIdToBound
       LOG(LERROR, ("Can't parse feature id to test id mapping."));
       return {};
     }
-    return make_unique<Mapping>(move(mapping));
+    return my::make_unique<Mapping>(move(mapping));
   });
 }
 }  // namespace generator

@@ -6,11 +6,13 @@
 #include "search/utils.hpp"
 
 #include "indexer/cities_boundaries_serdes.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "coding/reader.hpp"
 
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 
 #include <algorithm>
@@ -85,7 +87,7 @@ bool CitiesBoundariesTable::Load(Index const & index)
 
 bool CitiesBoundariesTable::Get(uint32_t fid, Boundaries & bs) const
 {
-  auto it = m_table.find(fid);
+  auto const it = m_table.find(fid);
   if (it == m_table.end())
     return false;
   bs = Boundaries(it->second, m_eps);

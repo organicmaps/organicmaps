@@ -15,6 +15,7 @@
 #include "coding/multilang_utf8_string.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
 #include <atomic>
@@ -46,10 +47,11 @@ TestFeature::TestFeature(m2::PointD const & center, string const & name, string 
 {
 }
 
-TestFeature::TestFeature(vector<m2::PointD> const & area, string const & name, string const & lang)
-  : m_id(GenUniqueId()), m_area(area), m_type(Type::Area), m_name(name), m_lang(lang)
+TestFeature::TestFeature(vector<m2::PointD> const & boundary, string const & name,
+                         string const & lang)
+  : m_id(GenUniqueId()), m_boundary(boundary), m_type(Type::Area), m_name(name), m_lang(lang)
 {
-  ASSERT(!m_area.empty(), ());
+  ASSERT(!m_boundary.empty(), ());
 }
 
 bool TestFeature::Matches(FeatureType const & feature) const
@@ -74,8 +76,8 @@ void TestFeature::Serialize(FeatureBuilder1 & fb) const
   }
   case Type::Area:
   {
-    ASSERT(!m_area.empty(), ());
-    for (auto const & p : m_area)
+    ASSERT(!m_boundary.empty(), ());
+    for (auto const & p : m_boundary)
       fb.AddPoint(p);
     fb.SetArea();
     break;

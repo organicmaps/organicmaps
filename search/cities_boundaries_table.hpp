@@ -2,6 +2,8 @@
 
 #include "indexer/city_boundary.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include <cstdint>
 #include <unordered_map>
 #include <utility>
@@ -29,6 +31,8 @@ public:
     {
     }
 
+    // Returns true iff |p| is inside any of the regions bounded by
+    // |*this|.
     bool HasPoint(m2::PointD const & p) const;
 
   private:

@@ -5,6 +5,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include <cstdint>
 #include <string>
 #include <utility>
 #include <vector>
@@ -44,12 +45,12 @@ protected:
 
   TestFeature(std::string const & name, std::string const & lang);
   TestFeature(m2::PointD const & center, std::string const & name, std::string const & lang);
-  TestFeature(vector<m2::PointD> const & area, std::string const & name,
+  TestFeature(vector<m2::PointD> const & boundary, std::string const & name,
               std::string const & lang);
 
   uint64_t const m_id;
   m2::PointD const m_center;
-  vector<m2::PointD> const m_area;
+  vector<m2::PointD> const m_boundary;
   Type const m_type;
   std::string const m_name;
   std::string const m_lang;

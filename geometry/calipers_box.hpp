@@ -27,7 +27,7 @@ public:
 
   std::vector<PointD> const & Points() const { return m_points; }
 
-  bool HasPoint(PointD const & p) const { return HasPoint(p, kEps /* eps */); }
+  bool HasPoint(PointD const & p) const { return HasPoint(p, kEps); }
   bool HasPoint(double x, double y) const { return HasPoint(m2::PointD(x, y)); }
 
   bool HasPoint(PointD const & p, double eps) const;
