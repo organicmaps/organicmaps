@@ -159,9 +159,6 @@ bool GetBoundingBoxArea(FeatureType const & ft, double & sqM)
 // Feature tag value evaluator for tag 'rating'
 bool GetRating(FeatureType const & ft, double & rating)
 {
-  if (!ftypes::IsHotelChecker::Instance()(ft))
-    return false;
-
   double constexpr kDefaultRating = 0.0;
 
   string ratingStr = ft.GetMetadata().Get(feature::Metadata::FMD_RATING);
