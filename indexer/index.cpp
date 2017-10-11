@@ -117,7 +117,7 @@ unique_ptr<FeatureType> Index::FeaturesLoaderGuard::GetOriginalFeatureByIndex(ui
 {
   auto feature = make_unique<FeatureType>();
   if (!GetOriginalFeatureByIndex(index, *feature))
-    return unique_ptr<FeatureType>();
+    return {};
 
   return feature;
 }
@@ -126,12 +126,12 @@ unique_ptr<FeatureType> Index::FeaturesLoaderGuard::GetOriginalOrEditedFeatureBy
 {
   auto feature = make_unique<FeatureType>();
   if (!m_handle.IsAlive())
-    return feature;
+    return {};
 
   MwmId const & id = m_handle.GetId();
   ASSERT_NOT_EQUAL(m_editor.GetFeatureStatus(id, index), osm::Editor::FeatureStatus::Created, ());
   if (!GetFeatureByIndex(index, *feature))
-    return unique_ptr<FeatureType>();
+    return {};
 
   return feature;
 }

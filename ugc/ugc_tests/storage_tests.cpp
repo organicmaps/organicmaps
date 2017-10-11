@@ -181,24 +181,27 @@ UNIT_TEST(StorageTests_DuplicatesAndDefragmentationSmoke)
 {
   auto & builder = MwmBuilder::Builder();
   m2::PointD const point(1.0, 1.0);
-  builder.Build({TestCafe(point)});
-  auto const id = builder.FeatureIdForCafeAtPoint(point);
+  builder.Build({TestCafe(point), TestRailway(point)});
+  auto const cafeId = builder.FeatureIdForCafeAtPoint(point);
+  auto const railwayId = builder.FeatureIdForRailwayAtPoint(point);
   auto const first = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
   auto const second = MakeTestUGCUpdate(Time(chrono::hours(24 * 100)));
   auto const third = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
   auto const last = MakeTestUGCUpdate(Time(chrono::hours(24 * 100)));
   Storage storage(builder.GetIndex());
-  storage.SetUGCUpdate(id, first);
-  storage.SetUGCUpdate(id, second);
-  storage.SetUGCUpdate(id, third);
-  storage.SetUGCUpdate(id, last);
-  TEST_EQUAL(last, storage.GetUGCUpdate(id), ());
-  TEST_EQUAL(storage.GetIndexesForTesting().size(), 4, ());
+  storage.SetUGCUpdate(cafeId, first);
+  storage.SetUGCUpdate(cafeId, second);
+  storage.SetUGCUpdate(cafeId, third);
+  storage.SetUGCUpdate(cafeId, last);
+  storage.SetUGCUpdate(railwayId, first);
+  TEST_EQUAL(last, storage.GetUGCUpdate(cafeId), ());
+  TEST_EQUAL(storage.GetIndexesForTesting().size(), 5, ());
   TEST_EQUAL(storage.GetNumberOfDeletedForTesting(), 3, ());
   storage.Defragmentation();
-  TEST_EQUAL(storage.GetIndexesForTesting().size(), 1, ());
+  TEST_EQUAL(storage.GetIndexesForTesting().size(), 2, ());
   TEST_EQUAL(storage.GetNumberOfDeletedForTesting(), 0, ());
-  TEST_EQUAL(last, storage.GetUGCUpdate(id), ());
+  TEST_EQUAL(last, storage.GetUGCUpdate(cafeId), ());
+  TEST_EQUAL(first, storage.GetUGCUpdate(railwayId), ());
   TEST(DeleteUGCFile(), ());
 }
 

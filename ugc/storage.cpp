@@ -5,12 +5,12 @@
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
 
+#include "platform/platform.hpp"
+
 #include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
-
-#include "platform/platform.hpp"
 
 #include <algorithm>
 #include <utility>
@@ -214,32 +214,27 @@ void Storage::Defragmentation()
 
   auto const ugcFilePath = GetUGCFilePath();
   auto const tmpUGCFilePath = ugcFilePath + kTmpFileExtension;
-  FileReader r(ugcFilePath);
-
-  vector<uint8_t> buf;
-  uint64_t maxBufSize;
-  CHECK(GetUGCFileSize(maxBufSize), ());
-  buf.resize(maxBufSize);
-  uint64_t actualBufSize = 0;
 
   try
   {
+    FileReader r(ugcFilePath);
+    FileWriter w(tmpUGCFilePath, FileWriter::Op::OP_APPEND);
+    uint64_t actualOffset = 0;
     for (size_t i = 0; i < indexesSize; ++i)
     {
-      CHECK_LESS_OR_EQUAL(actualBufSize, maxBufSize, ());
       auto & index = m_UGCIndexes[i];
       if (index.m_deleted)
         continue;
 
       auto const offset = index.m_offset;
       auto const size = UGCSizeAtIndex(i);
-      r.Read(offset, buf.data() + actualBufSize, size);
-      index.m_offset = actualBufSize;
-      actualBufSize += size;
+      vector<uint8_t> buf;
+      buf.resize(size);
+      r.Read(offset, buf.data(), size);
+      w.Write(buf.data(), size);
+      index.m_offset = actualOffset;
+      actualOffset += size;
     }
-
-    FileWriter w(tmpUGCFilePath);
-    w.Write(buf.data(), actualBufSize);
   }
   catch (FileReader::Exception const & exception)
   {
