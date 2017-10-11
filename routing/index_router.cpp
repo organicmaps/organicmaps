@@ -375,6 +375,59 @@ IRouter::ResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
   }
 }
 
+bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & direction,
+                                  bool isOutgoing, WorldGraph & worldGraph, Segment & bestSegment,
+                                  bool & bestSegmentIsAlmostCodirectional) const
+{
+  auto const file = platform::CountryFile(m_countryFileFn(point));
+  MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
+  if (!handle.IsAlive())
+    MYTHROW(RoutingException, ("Can't get mwm handle for", file));
+
+  auto const mwmId = MwmSet::MwmId(handle.GetInfo());
+  NumMwmId const numMwmId = m_numMwmIds->GetId(file);
+
+  vector<pair<Edge, Junction>> candidates;
+  m_roadGraph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
+
+  auto const getSegmentByEdge = [&numMwmId](Edge const & edge) {
+    return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
+  };
+
+  // Getting rid of knowingly bad candidates.
+  my::EraseIf(candidates, [&](pair<Edge, Junction> const & p){
+    Edge const & edge = p.first;
+    return edge.GetFeatureId().m_mwmId != mwmId || IsDeadEnd(getSegmentByEdge(edge), isOutgoing, worldGraph);
+  });
+
+  if (candidates.empty())
+    return false;
+
+  BestEdgeComparator bestEdgeComparator(point, direction);
+  Edge bestEdge = candidates[0].first;
+  for (size_t i = 1; i < candidates.size(); ++i)
+  {
+    Edge const & edge = candidates[i].first;
+    if (bestEdgeComparator.Compare(edge, bestEdge) < 0)
+      bestEdge = edge;
+  }
+
+  bestSegmentIsAlmostCodirectional =
+      bestEdgeComparator.IsDirectionValid() && bestEdgeComparator.IsAlmostCodirectional(bestEdge);
+  bestSegment = getSegmentByEdge(bestEdge);
+  return true;
+}
+
+unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
+{
+  return make_unique<SingleVehicleWorldGraph>(
+      make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_vehicleType,
+                                 m_countryRectFn, m_index, m_indexManager),
+      IndexGraphLoader::Create(m_vehicleType, m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory,
+                               m_estimator, m_index),
+      m_estimator);
+}
+
 IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
                                                   m2::PointD const & startDirection,
                                                   RouterDelegate const & delegate, Route & route)
@@ -654,59 +707,6 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
               ", prev route:", steps.size(), ", new route:", result.m_path.size()));
 
   return IRouter::NoError;
-}
-
-unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
-{
-  return make_unique<SingleVehicleWorldGraph>(
-      make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_vehicleType,
-                                 m_countryRectFn, m_index, m_indexManager),
-      IndexGraphLoader::Create(m_vehicleType, m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory,
-                               m_estimator, m_index),
-      m_estimator);
-}
-
-bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & direction,
-                                  bool isOutgoing, WorldGraph & worldGraph, Segment & bestSegment,
-                                  bool & bestSegmentIsAlmostCodirectional) const
-{
-  auto const file = platform::CountryFile(m_countryFileFn(point));
-  MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
-  if (!handle.IsAlive())
-    MYTHROW(RoutingException, ("Can't get mwm handle for", file));
-
-  auto const mwmId = MwmSet::MwmId(handle.GetInfo());
-  NumMwmId const numMwmId = m_numMwmIds->GetId(file);
-
-  vector<pair<Edge, Junction>> candidates;
-  m_roadGraph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
-
-  auto const getSegmentByEdge = [&numMwmId](Edge const & edge) {
-    return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
-  };
-
-  // Getting rid of knowingly bad candidates.
-  my::EraseIf(candidates, [&](pair<Edge, Junction> const & p){
-    Edge const & edge = p.first;
-    return edge.GetFeatureId().m_mwmId != mwmId || IsDeadEnd(getSegmentByEdge(edge), isOutgoing, worldGraph);
-  });
-
-  if (candidates.empty())
-    return false;
-
-  BestEdgeComparator bestEdgeComparator(point, direction);
-  Edge bestEdge = candidates[0].first;
-  for (size_t i = 1; i < candidates.size(); ++i)
-  {
-    Edge const & edge = candidates[i].first;
-    if (bestEdgeComparator.Compare(edge, bestEdge) < 0)
-      bestEdge = edge;
-  }
-
-  bestSegmentIsAlmostCodirectional =
-      bestEdgeComparator.IsDirectionValid() && bestEdgeComparator.IsAlmostCodirectional(bestEdge);
-  bestSegment = getSegmentByEdge(bestEdge);
-  return true;
 }
 
 IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,

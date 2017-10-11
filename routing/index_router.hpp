@@ -69,6 +69,19 @@ public:
                             bool adjustToPrevRoute, RouterDelegate const & delegate,
                             Route & route) override;
 
+  /// \brief Finds the best segment (edge) which may be considered as the start of the finish of the route.
+  /// According to current implementation if a segment is near |point| and is almost codirectional
+  /// to |direction| vector, the segment will be better than others. If there's no an an almost codirectional
+  /// segment in neighbourhoods the closest segment to |point| will be chosen.
+  /// \param isOutgoing == true is |point| is considered as the start of the route.
+  /// isOutgoing == false is |point| is considered as the finish of the route.
+  /// \param bestSegmentIsAlmostCodirectional is filled with true if |bestSegment| is chosen
+  /// because vector |direction| and vector of |bestSegment| are almost equal and with false otherwise.
+  bool FindBestSegment(m2::PointD const & point, m2::PointD const & direction, bool isOutgoing,
+                       WorldGraph & worldGraph, Segment & bestSegment,
+                       bool & bestSegmentIsAlmostCodirectional) const;
+  std::unique_ptr<WorldGraph> MakeWorldGraph();
+
 private:
   IRouter::ResultCode DoCalculateRoute(Checkpoints const & checkpoints,
                                        m2::PointD const & startDirection,
@@ -82,19 +95,6 @@ private:
                                   m2::PointD const & startDirection,
                                   RouterDelegate const & delegate, Route & route);
 
-  std::unique_ptr<WorldGraph> MakeWorldGraph();
-
-  /// \brief Finds the best segment (edge) which may be considered as the start of the finish of the route.
-  /// According to current implementation if a segment is near |point| and is almost codirectional
-  /// to |direction| vector, the segment will be better than others. If there's no an an almost codirectional
-  /// segment in neighbourhoods the closest segment to |point| will be chosen.
-  /// \param isOutgoing == true is |point| is considered as the start of the route.
-  /// isOutgoing == false is |point| is considered as the finish of the route.
-  /// \param bestSegmentIsAlmostCodirectional is filled with true if |bestSegment| is chosen
-  /// because vector |direction| and vector of |bestSegment| are almost equal and with false otherwise.
-  bool FindBestSegment(m2::PointD const & point, m2::PointD const & direction, bool isOutgoing,
-                       WorldGraph & worldGraph, Segment & bestSegment,
-                       bool & bestSegmentIsAlmostCodirectional) const;
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
   IRouter::ResultCode ProcessLeaps(std::vector<Segment> const & input,

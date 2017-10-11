@@ -1,5 +1,7 @@
 #pragma once
 
+#include "routing/segment.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/visitor.hpp"
@@ -87,6 +89,26 @@ private:
   // and deserialization.
 };
 
+class SingleMwmSegment
+{
+public:
+  SingleMwmSegment() = default;
+  SingleMwmSegment(Segment const & segment);
+
+  FeatureId GetFeatureId() const { return m_featureId; }
+  uint32_t GetSegmentIdx() const { return m_segmentIdx; }
+  bool GetForward() const { return m_forward; }
+
+  DECLARE_VISITOR_AND_DEBUG_PRINT(SingleMwmSegment, visitor(m_featureId, "feature_id"),
+                                  visitor(m_segmentIdx, "segment_idx"),
+                                  visitor(m_forward, "forward"))
+
+ private:
+  FeatureId m_featureId = kInvalidFeatureId;
+  uint32_t m_segmentIdx = 0;
+  bool m_forward = false;
+};
+
 class Gate
 {
 public:
@@ -94,9 +116,10 @@ public:
   Gate(FeatureId featureId, bool entrance, bool exit, double weight, std::vector<StopId> const & stopIds,
        m2::PointD const & point);
   bool IsEqualForTesting(Gate const & gate) const;
+  void SetBestPedestrianSegment(Segment const & s) { m_bestPedestrianSegment = SingleMwmSegment(s); }
 
   FeatureId GetFeatureId() const { return m_featureId; }
-  std::vector<FeatureId> const & GetPedestrianFeatureIds() const { return m_pedestrianFeatureIds; }
+  SingleMwmSegment const & GetBestPedestrianSegment() const { return m_bestPedestrianSegment; }
   bool GetEntrance() const { return m_entrance; }
   bool GetExit() const { return m_exit; }
   double GetWeight() const { return m_weight; }
@@ -104,7 +127,7 @@ public:
   m2::PointD const & GetPoint() const { return m_point; }
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_featureId, "osm_id"),
-                                  visitor(m_pedestrianFeatureIds, "" /* name */),
+                                  visitor(m_bestPedestrianSegment, "best_pedestrian_segment"),
                                   visitor(m_entrance, "entrance"), visitor(m_exit, "exit"),
                                   visitor(m_weight, "weight"), visitor(m_stopIds, "stop_ids"),
                                   visitor(m_point, "point"))
@@ -112,9 +135,8 @@ public:
 private:
   // |m_featureId| is feature id of a point feature which represents gates.
   FeatureId m_featureId = kInvalidFeatureId;
-  // |m_pedestrianFeatureIds| is linear feature ids which can be used for pedestrian routing
-  // to leave (to enter) the gate.
-  std::vector<FeatureId> m_pedestrianFeatureIds;
+  // |m_bestPedestrianSegment| is a segment which can be used for pedestrian routing to leave an to enter the gate.
+  SingleMwmSegment m_bestPedestrianSegment;
   bool m_entrance = true;
   bool m_exit = true;
   double m_weight = kInvalidWeight;

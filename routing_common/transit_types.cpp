@@ -68,6 +68,14 @@ bool Stop::IsEqualForTesting(Stop const & stop) const
          m_lineIds == stop.m_lineIds && my::AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon);
 }
 
+// SingleMwmSegment -------------------------------------------------------------------------------
+SingleMwmSegment::SingleMwmSegment(Segment const & segment)
+  : m_featureId(segment.GetFeatureId())
+  , m_segmentIdx(segment.GetSegmentIdx())
+  , m_forward(segment.IsForward())
+{
+}
+
 // Gate -------------------------------------------------------------------------------------------
 Gate::Gate(FeatureId featureId, bool entrance, bool exit, double weight,
            std::vector<StopId> const & stopIds, m2::PointD const & point)
