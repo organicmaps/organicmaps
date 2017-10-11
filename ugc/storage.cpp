@@ -61,6 +61,8 @@ string SerializeUGCIndex(vector<Storage::UGCIndex> const & indexes)
       SerializerJson<Sink> ser(sink);
       ser(index);
     }
+
+    data.push_back('\0');
     my::Json node(data.data());
     json_array_append_new(array.get(), node.get_deep_copy());
   }
@@ -299,6 +301,7 @@ string Storage::GetUGCToSend() const
       ser(update);
     }
 
+    data.push_back('\0');
     my::Json serializedUgc(data.data());
     auto embeddedNode = my::NewJSONObject();
     ToJSONObject(*embeddedNode.get(), "data_version", index.m_dataVersion);
