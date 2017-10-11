@@ -11,8 +11,6 @@ import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 
-import java.io.Serializable;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -190,19 +188,50 @@ public class UGC
     }
   }
 
-  public static class Review implements Serializable
+  public static class Review implements Parcelable
   {
+    public static final Creator<Review> CREATOR = new Creator<Review>()
+    {
+      @Override
+      public Review createFromParcel(Parcel in)
+      {
+        return new Review(in);
+      }
+
+      @Override
+      public Review[] newArray(int size)
+      {
+        return new Review[size];
+      }
+    };
+
     @NonNull
     private final String mText;
     @NonNull
     private final String mAuthor;
-    private final long mDaysAgo;
+    private final long mTimeMillis;
+    private final float mRating;
+    @Impress
+    private final int mImpress;
 
-    private Review(@NonNull String text, @NonNull String author, long daysAgo)
+    private Review(@NonNull String text, @NonNull String author, long timeMillis,
+                   float rating, @Impress int impress)
     {
       mText = text;
       mAuthor = author;
-      mDaysAgo = daysAgo;
+      mTimeMillis = timeMillis;
+      mRating = rating;
+      mImpress = impress;
+    }
+
+    protected Review(Parcel in)
+    {
+      mText = in.readString();
+      mAuthor = in.readString();
+      mTimeMillis = in.readLong();
+      mRating = in.readFloat();
+      //noinspection WrongConstant
+      mImpress = in.readInt();
     }
 
     @NonNull
@@ -217,9 +246,35 @@ public class UGC
       return mAuthor;
     }
 
-    long getDaysAgo()
+    long getTime()
     {
-      return mDaysAgo;
+      return mTimeMillis;
+    }
+
+    public float getRating()
+    {
+      return mRating;
+    }
+
+    int getImpress()
+    {
+      return mImpress;
+    }
+
+    @Override
+    public int describeContents()
+    {
+      return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      dest.writeString(mText);
+      dest.writeString(mAuthor);
+      dest.writeLong(mTimeMillis);
+      dest.writeFloat(mRating);
+      dest.writeInt(mImpress);
     }
   }
 

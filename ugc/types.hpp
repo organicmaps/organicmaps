@@ -49,6 +49,12 @@ inline std::string DebugPrint(Sentiment const & sentiment)
   }
 }
 
+inline uint64_t ToMillisecondsSinceEpoch(Time const & time)
+{
+  auto const millis = std::chrono::duration_cast<std::chrono::milliseconds>(time.time_since_epoch());
+  return static_cast<uint64_t>(millis.count());
+}
+
 inline uint32_t ToDaysSinceEpoch(Time const & time)
 {
   auto const hours = std::chrono::duration_cast<std::chrono::hours>(time.time_since_epoch());

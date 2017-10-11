@@ -3,23 +3,26 @@ package com.mapswithme.maps.ugc;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.util.UiUtils;
+import com.mapswithme.maps.widget.RatingView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
+class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
 {
-  private static final int MAX_COUNT = 3;
-
+  static final int MAX_COUNT = 3;
+  private static final DateFormat DATE_FORMATTER =
+      new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
   @NonNull
   private ArrayList<UGC.Review> mItems = new ArrayList<>();
 
@@ -57,6 +60,8 @@ public class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
     final TextView mCommentDate;
     @NonNull
     final TextView mReview;
+    @NonNull
+    final RatingView mRating;
 
     public ViewHolder(View itemView)
     {
@@ -64,13 +69,15 @@ public class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
       mAuthor = (TextView) itemView.findViewById(R.id.name);
       mCommentDate = (TextView) itemView.findViewById(R.id.date);
       mReview = (TextView) itemView.findViewById(R.id.review);
+      mRating = (RatingView) itemView.findViewById(R.id.rating);
     }
 
     public void bind(UGC.Review review)
     {
       mAuthor.setText(review.getAuthor());
-      mCommentDate.setText(review.getDaysAgo() + " days ago");
+      mCommentDate.setText(DATE_FORMATTER.format(new Date(review.getTime())));
       mReview.setText(review.getText());
+      mRating.setRating(Impress.values()[review.getImpress()], String.valueOf(review.getRating()));
     }
   }
 }

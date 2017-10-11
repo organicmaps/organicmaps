@@ -19,6 +19,7 @@ import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UGCController implements View.OnClickListener, UGC.UGCListener
 {
@@ -185,13 +186,15 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       return;
     }
 
-    if (ugc.getReviews() != null)
+    List<UGC.Review> reviews = ugc.getReviews();
+    if (reviews != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
     mUGCRatingRecordsAdapter.setItems(ugc.getRatings());
     mUGCUserRatingRecordsAdapter.setItems(ugc.getUserRatings());
     Context context = mPlacePage.getContext();
     mReviewCount.setText(context.getString(R.string.placepage_summary_rating_description,
                                            String.valueOf(mUgc.getBasedOnCount())));
+    UiUtils.showIf(reviews != null && reviews.size() > UGCReviewAdapter.MAX_COUNT, mUgcMoreReviews);
     UiUtils.showIf(mMapObject != null && mMapObject.canBeRated(), mUgcAddRatingView);
     UiUtils.show(mUgcRootView);
   }

@@ -65,13 +65,16 @@ public:
     jni::TScopedLocalRef ugcResult(env, ToJavaUGC(env, ugc));
     jni::TScopedLocalRef ugcUpdateResult(env, ToJavaUGCUpdate(env, ugcUpdate));
 
-    using namespace place_page;
-    int impress = static_cast<int>(rating::GetImpress(ugc.m_totalRating));
-    std::string formattedRating = rating::GetRatingFormatted(ugc.m_totalRating);
+    std::string formattedRating = place_page::rating::GetRatingFormatted(ugc.m_totalRating);
     jni::TScopedLocalRef jrating(env, jni::ToJavaString(env, formattedRating));
 
     env->CallStaticVoidMethod(m_ugcClass, m_onResult, ugcResult.get(), ugcUpdateResult.get(),
-                              impress, jrating.get());
+                              ToImpress(ugc.m_totalRating), jrating.get());
+  }
+
+  const int ToImpress(float const rating)
+  {
+    return static_cast<int>(place_page::rating::GetImpress(rating));
   }
 
   ugc::UGCUpdate ToNativeUGCUpdate(JNIEnv * env, jobject ugcUpdate)
@@ -161,7 +164,8 @@ private:
     jni::TScopedLocalRef text(env, jni::ToJavaString(env, review.m_text.m_text));
     jni::TScopedLocalRef author(env, jni::ToJavaString(env, review.m_author));
     jobject result = env->NewObject(m_reviewClass, m_reviewCtor, text.get(), author.get(),
-                                    static_cast<jlong>(ugc::DaysAgo(review.m_time)));
+                                    ugc::ToMillisecondsSinceEpoch(review.m_time), review.m_rating,
+                                    ToImpress(review.m_rating));
     ASSERT(result, ());
     return result;
   }
@@ -183,7 +187,7 @@ private:
 
     m_reviewClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGC$Review");
     m_reviewCtor =
-        jni::GetConstructorID(env, m_reviewClass, "(Ljava/lang/String;Ljava/lang/String;J)V");
+        jni::GetConstructorID(env, m_reviewClass, "(Ljava/lang/String;Ljava/lang/String;JFI)V");
 
     m_ugcUpdateClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGCUpdate");
     m_ugcUpdateCtor = jni::GetConstructorID(

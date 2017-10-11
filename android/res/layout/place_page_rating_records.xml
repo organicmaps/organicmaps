@@ -9,7 +9,7 @@
   tools:showIn="@layout/place_page_ugc">
   <View
     android:layout_width="match_parent"
-    android:layout_height="1dp"
+    android:layout_height="@dimen/divider_height"
     android:layout_marginLeft="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
     android:background="?dividerHorizontal"/>
