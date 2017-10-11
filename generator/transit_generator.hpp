@@ -84,9 +84,8 @@ private:
 /// as country id.
 /// \param transitDir a path to directory with json files with transit graphs.
 /// \note An mwm pointed by |mwmPath| should contain:
-/// * section which is necessary to register it at Index
+/// * feature geometry
 /// * index graph (ROUTING_FILE_TAG) and restriction sections (RESTRICTIONS_FILE_TAG)
-/// This information will be used in this method.
 void BuildTransit(std::string const & mwmPath, std::string const & transitDir);
 }  // namespace transit
 }  // namespace routing

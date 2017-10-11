@@ -11,7 +11,6 @@
 #include "traffic/traffic_info.hpp"
 
 #include "routing_common/car_model.hpp"
-#include "routing_common/num_mwm_id.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"

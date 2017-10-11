@@ -6,6 +6,7 @@
 
 #include <cstdint>
 #include <map>
+#include <string>
 
 namespace routing
 {

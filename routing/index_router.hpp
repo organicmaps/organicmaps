@@ -63,24 +63,14 @@ public:
               shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
               traffic::TrafficCache const & trafficCache, Index & index);
 
+  bool FindBestSegmentAtSingleMwm(m2::PointD const & point, m2::PointD const & direction,
+                                  bool isOutgoing, Segment & bestSegment);
+
   // IRouter overrides:
   std::string GetName() const override { return m_name; }
   ResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                             bool adjustToPrevRoute, RouterDelegate const & delegate,
                             Route & route) override;
-
-  /// \brief Finds the best segment (edge) which may be considered as the start of the finish of the route.
-  /// According to current implementation if a segment is near |point| and is almost codirectional
-  /// to |direction| vector, the segment will be better than others. If there's no an an almost codirectional
-  /// segment in neighbourhoods the closest segment to |point| will be chosen.
-  /// \param isOutgoing == true is |point| is considered as the start of the route.
-  /// isOutgoing == false is |point| is considered as the finish of the route.
-  /// \param bestSegmentIsAlmostCodirectional is filled with true if |bestSegment| is chosen
-  /// because vector |direction| and vector of |bestSegment| are almost equal and with false otherwise.
-  bool FindBestSegment(m2::PointD const & point, m2::PointD const & direction, bool isOutgoing,
-                       WorldGraph & worldGraph, Segment & bestSegment,
-                       bool & bestSegmentIsAlmostCodirectional) const;
-  std::unique_ptr<WorldGraph> MakeWorldGraph();
 
 private:
   IRouter::ResultCode DoCalculateRoute(Checkpoints const & checkpoints,
@@ -94,6 +84,21 @@ private:
   IRouter::ResultCode AdjustRoute(Checkpoints const & checkpoints,
                                   m2::PointD const & startDirection,
                                   RouterDelegate const & delegate, Route & route);
+
+  std::unique_ptr<WorldGraph> MakeWorldGraph();
+
+  /// \brief Finds the best segment (edge) which may be considered as the start of the finish of the route.
+  /// According to current implementation if a segment is near |point| and is almost codirectional
+  /// to |direction|, the segment will be better than others. If there's no an almost codirectional
+  /// segment in the neighbourhood then the closest segment to |point| will be chosen.
+  /// \param isOutgoing == true if |point| is considered as the start of the route.
+  /// isOutgoing == false if |point| is considered as the finish of the route.
+  /// \param bestSegmentIsAlmostCodirectional is filled with true if |bestSegment| is chosen
+  /// because |direction| and direction of |bestSegment| are almost equal and with false otherwise.
+  /// \return true if the best segment is found and false otherwise.
+  bool FindBestSegment(m2::PointD const & point, m2::PointD const & direction, bool isOutgoing,
+                       WorldGraph & worldGraph, Segment & bestSegment,
+                       bool & bestSegmentIsAlmostCodirectional) const;
 
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.

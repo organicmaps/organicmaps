@@ -4,8 +4,26 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+
 namespace generator
 {
+// SingleMwmIndex ---------------------------------------------------------------------------------
+SingleMwmIndex::SingleMwmIndex(std::string const & mwmPath)
+{
+  m_countryFile = platform::LocalCountryFile::MakeTemporary(mwmPath);
+  m_countryFile.SyncWithDisk();
+  CHECK_EQUAL(
+      m_countryFile.GetFiles(), MapOptions::MapWithCarRouting,
+      ("No correct mwm corresponding local country file:", m_countryFile, ". Path:", mwmPath));
+
+  auto const result = m_index.Register(m_countryFile);
+  CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ());
+  CHECK(result.first.IsAlive(), ());
+  m_mwmId = result.first;
+}
+
 void LoadIndex(Index & index)
 {
   vector<platform::LocalCountryFile> localFiles;

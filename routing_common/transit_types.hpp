@@ -1,7 +1,5 @@
 #pragma once
 
-#include "routing/segment.hpp"
-
 #include "geometry/point2d.hpp"
 
 #include "base/visitor.hpp"
@@ -93,7 +91,7 @@ class SingleMwmSegment
 {
 public:
   SingleMwmSegment() = default;
-  SingleMwmSegment(Segment const & segment);
+  SingleMwmSegment(FeatureId featureId, uint32_t segmentIdx, bool forward);
 
   FeatureId GetFeatureId() const { return m_featureId; }
   uint32_t GetSegmentIdx() const { return m_segmentIdx; }
@@ -103,7 +101,7 @@ public:
                                   visitor(m_segmentIdx, "segment_idx"),
                                   visitor(m_forward, "forward"))
 
- private:
+private:
   FeatureId m_featureId = kInvalidFeatureId;
   uint32_t m_segmentIdx = 0;
   bool m_forward = false;
@@ -116,7 +114,7 @@ public:
   Gate(FeatureId featureId, bool entrance, bool exit, double weight, std::vector<StopId> const & stopIds,
        m2::PointD const & point);
   bool IsEqualForTesting(Gate const & gate) const;
-  void SetBestPedestrianSegment(Segment const & s) { m_bestPedestrianSegment = SingleMwmSegment(s); }
+  void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; };
 
   FeatureId GetFeatureId() const { return m_featureId; }
   SingleMwmSegment const & GetBestPedestrianSegment() const { return m_bestPedestrianSegment; }
@@ -135,7 +133,7 @@ public:
 private:
   // |m_featureId| is feature id of a point feature which represents gates.
   FeatureId m_featureId = kInvalidFeatureId;
-  // |m_bestPedestrianSegment| is a segment which can be used for pedestrian routing to leave an to enter the gate.
+  // |m_bestPedestrianSegment| is a segment which can be used for pedestrian routing to leave and enter the gate.
   SingleMwmSegment m_bestPedestrianSegment;
   bool m_entrance = true;
   bool m_exit = true;

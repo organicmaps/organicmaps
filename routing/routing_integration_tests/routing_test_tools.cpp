@@ -17,15 +17,13 @@
 
 #include "indexer/index.hpp"
 
-#include "geometry/distance_on_sphere.hpp"
-#include "geometry/latlon.hpp"
-
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/latlon.hpp"
 
 #include "std/functional.hpp"
 #include "std/limits.hpp"

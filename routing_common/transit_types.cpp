@@ -69,10 +69,8 @@ bool Stop::IsEqualForTesting(Stop const & stop) const
 }
 
 // SingleMwmSegment -------------------------------------------------------------------------------
-SingleMwmSegment::SingleMwmSegment(Segment const & segment)
-  : m_featureId(segment.GetFeatureId())
-  , m_segmentIdx(segment.GetSegmentIdx())
-  , m_forward(segment.IsForward())
+SingleMwmSegment::SingleMwmSegment(FeatureId featureId, uint32_t segmentIdx, bool forward)
+  : m_featureId(featureId), m_segmentIdx(segmentIdx), m_forward(forward)
 {
 }
 
