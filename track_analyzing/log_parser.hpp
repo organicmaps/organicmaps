@@ -2,7 +2,7 @@
 
 #include "track_analyzing/track.hpp"
 
-#include "routing/num_mwm_id.hpp"
+#include "routing_common/num_mwm_id.hpp"
 
 #include "geometry/tree4d.hpp"
 

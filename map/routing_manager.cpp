@@ -10,12 +10,13 @@
 
 #include "routing/checkpoint_predictor.hpp"
 #include "routing/index_router.hpp"
-#include "routing/num_mwm_id.hpp"
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_algorithm.hpp"
 #include "routing/routing_helpers.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 

@@ -6,6 +6,7 @@ set(
   bicycle_model.hpp
   car_model.cpp
   car_model.hpp
+  num_mwm_id.hpp
   pedestrian_model.cpp
   pedestrian_model.hpp
   transit_max_speed.hpp

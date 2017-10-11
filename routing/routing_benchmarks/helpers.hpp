@@ -1,10 +1,10 @@
 #pragma once
 
-#include "routing/num_mwm_id.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
 #include "routing/road_graph_router.hpp"
 
+#include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
 #include "indexer/index.hpp"

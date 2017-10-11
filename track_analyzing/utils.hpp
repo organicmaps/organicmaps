@@ -4,7 +4,8 @@
 #include "track_analyzing/track.hpp"
 
 #include "routing/geometry.hpp"
-#include "routing/num_mwm_id.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
 
 #include "storage/storage.hpp"
 

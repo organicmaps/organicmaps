@@ -6,12 +6,12 @@
 #include "routing/fake_edges_container.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/joint.hpp"
-#include "routing/num_mwm_id.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_mapping.hpp"
 #include "routing/segmented_route.hpp"
 #include "routing/world_graph.hpp"
 
+#include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
 #include "indexer/index.hpp"

@@ -11,6 +11,7 @@
 		40FF45D01F388EF80046BD40 /* vehicle_model_for_country_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40FF45CF1F388EF80046BD40 /* vehicle_model_for_country_test.cpp */; };
 		5647A4511F72BEB600DE1125 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5647A4521F72BEB600DE1125 /* libicu.a */; };
 		5667C1DD1F751F2700C6B31B /* transit_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5647A4531F72BF2B00DE1125 /* transit_test.cpp */; };
+		56D0E47D1F8E335D0084B18C /* num_mwm_id.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D0E47C1F8E335D0084B18C /* num_mwm_id.hpp */; };
 		56E2EDA61F7E3F8A0092E9C2 /* transit_serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56E2EDA31F7E3F890092E9C2 /* transit_serdes.hpp */; };
 		56E2EDA81F7E3F8A0092E9C2 /* transit_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56E2EDA51F7E3F8A0092E9C2 /* transit_types.cpp */; };
 		56E41D881F72B42F00E28E2D /* transit_types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56E41D861F72B42F00E28E2D /* transit_types.hpp */; };
@@ -46,6 +47,7 @@
 		5647A4521F72BEB600DE1125 /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5647A4531F72BF2B00DE1125 /* transit_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_test.cpp; sourceTree = "<group>"; };
 		5667C1DE1F751F4200C6B31B /* routing_common.pro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routing_common.pro; sourceTree = "<group>"; };
+		56D0E47C1F8E335D0084B18C /* num_mwm_id.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = num_mwm_id.hpp; sourceTree = "<group>"; };
 		56E2EDA31F7E3F890092E9C2 /* transit_serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_serdes.hpp; sourceTree = "<group>"; };
 		56E2EDA51F7E3F8A0092E9C2 /* transit_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_types.cpp; sourceTree = "<group>"; };
 		56E41D861F72B42F00E28E2D /* transit_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_types.hpp; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		671E78741E6A3BE200B2859B /* routing_common */ = {
 			isa = PBXGroup;
 			children = (
+				56D0E47C1F8E335D0084B18C /* num_mwm_id.hpp */,
 				56E2EDA31F7E3F890092E9C2 /* transit_serdes.hpp */,
 				56E2EDA51F7E3F8A0092E9C2 /* transit_types.cpp */,
 				5667C1DE1F751F4200C6B31B /* routing_common.pro */,
@@ -195,6 +198,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56D0E47D1F8E335D0084B18C /* num_mwm_id.hpp in Headers */,
 				671E788D1E6A3C5D00B2859B /* pedestrian_model.hpp in Headers */,
 				56E41D881F72B42F00E28E2D /* transit_types.hpp in Headers */,
 				56E2EDA61F7E3F8A0092E9C2 /* transit_serdes.hpp in Headers */,

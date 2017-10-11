@@ -73,7 +73,6 @@ set(
   loaded_path_segment.hpp
   nearest_edge_finder.cpp
   nearest_edge_finder.hpp
-  num_mwm_id.hpp
   online_absent_fetcher.cpp
   online_absent_fetcher.hpp
   online_cross_fetcher.cpp

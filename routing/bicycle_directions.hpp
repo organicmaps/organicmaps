@@ -2,8 +2,9 @@
 
 #include "routing/directions_engine.hpp"
 #include "routing/loaded_path_segment.hpp"
-#include "routing/num_mwm_id.hpp"
 #include "routing/turn_candidate.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
 
 #include "indexer/index.hpp"
 

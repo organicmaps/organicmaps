@@ -114,7 +114,6 @@ HEADERS += \
     joint_index.hpp \
     loaded_path_segment.hpp \
     nearest_edge_finder.hpp \
-    num_mwm_id.hpp \
     online_absent_fetcher.hpp \
     online_cross_fetcher.hpp \
     osrm2feature_map.hpp \

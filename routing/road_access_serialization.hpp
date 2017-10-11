@@ -1,10 +1,11 @@
 #pragma once
 
 #include "routing/coding.hpp"
-#include "routing/num_mwm_id.hpp"
 #include "routing/road_access.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
 
 #include "coding/bit_streams.hpp"
 #include "coding/reader.hpp"

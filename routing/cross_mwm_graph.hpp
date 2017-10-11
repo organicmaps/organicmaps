@@ -2,10 +2,10 @@
 
 #include "routing/cross_mwm_index_graph.hpp"
 #include "routing/cross_mwm_osrm_graph.hpp"
-#include "routing/num_mwm_id.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
+#include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
 #include "indexer/index.hpp"

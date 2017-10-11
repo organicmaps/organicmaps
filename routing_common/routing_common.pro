@@ -23,6 +23,7 @@ SOURCES += \
 HEADERS += \
     bicycle_model.hpp \
     car_model.hpp \
+    num_mwm_id.hpp \
     pedestrian_model.hpp \
     transit_max_speed.hpp \
     transit_serdes.hpp \

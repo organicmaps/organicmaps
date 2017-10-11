@@ -2,9 +2,10 @@
 
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
-#include "routing/num_mwm_id.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/segment.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
 
 #include "geometry/point2d.hpp"
 

@@ -1,9 +1,10 @@
 #pragma once
 
-#include "routing/num_mwm_id.hpp"
 #include "routing/routing_mapping.hpp"
 #include "routing/segment.hpp"
 #include "routing/transition_points.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
 
 #include "geometry/latlon.hpp"
 

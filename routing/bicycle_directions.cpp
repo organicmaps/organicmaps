@@ -1,6 +1,5 @@
 #include "routing/bicycle_directions.hpp"
 
-#include "routing/num_mwm_id.hpp"
 #include "routing/road_point.hpp"
 #include "routing/router_delegate.hpp"
 #include "routing/routing_exceptions.hpp"
@@ -12,6 +11,7 @@
 #include "traffic/traffic_info.hpp"
 
 #include "routing_common/car_model.hpp"
+#include "routing_common/num_mwm_id.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"

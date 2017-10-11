@@ -5,7 +5,6 @@
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/index_graph_starter.hpp"
-#include "routing/num_mwm_id.hpp"
 #include "routing/restrictions_serialization.hpp"
 #include "routing/road_access.hpp"
 #include "routing/road_point.hpp"
@@ -13,6 +12,8 @@
 #include "routing/single_vehicle_world_graph.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
 
 #include "traffic/traffic_info.hpp"
 

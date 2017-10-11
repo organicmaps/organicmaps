@@ -4,12 +4,12 @@
 #include "routing/edge_estimator.hpp"
 #include "routing/geometry.hpp"
 #include "routing/index_graph_loader.hpp"
-#include "routing/num_mwm_id.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/segment.hpp"
 #include "routing/transit_graph_loader.hpp"
 #include "routing/world_graph.hpp"
 
+#include "routing_common/num_mwm_id.hpp"
 #include "routing_common/transit_types.hpp"
 
 #include "geometry/point2d.hpp"

@@ -1,13 +1,13 @@
 #pragma once
 
 #include "routing/geometry.hpp"
-#include "routing/num_mwm_id.hpp"
 #include "routing/segment.hpp"
 #include "routing/traffic_stash.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include "traffic/traffic_cache.hpp"
 
+#include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
 #include "indexer/mwm_set.hpp"
