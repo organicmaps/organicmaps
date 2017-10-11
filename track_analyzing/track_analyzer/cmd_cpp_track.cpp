@@ -1,8 +1,7 @@
 #include "track_analyzing/track.hpp"
 #include "track_analyzing/utils.hpp"
 
-#include "map/routing_helpers.hpp"
-
+#include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
 using namespace routing;

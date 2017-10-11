@@ -1,8 +1,6 @@
 #include "track_analyzing/track.hpp"
 #include "track_analyzing/utils.hpp"
 
-#include "map/routing_helpers.hpp"
-
 #include "routing/geometry.hpp"
 
 #include "routing_common/car_model.hpp"
@@ -11,6 +9,7 @@
 #include "indexer/feature.hpp"
 #include "indexer/features_vector.hpp"
 
+#include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
 #include "coding/file_name_utils.hpp"

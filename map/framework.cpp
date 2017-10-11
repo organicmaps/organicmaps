@@ -5,7 +5,6 @@
 #include "map/ge0_parser.hpp"
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
-#include "map/routing_helpers.hpp"
 #include "map/taxi_delegate.hpp"
 #include "map/user_mark.hpp"
 
@@ -33,6 +32,7 @@
 #include "search/viewport_search_params.hpp"
 
 #include "storage/downloader_search_params.hpp"
+#include "storage/routing_helpers.hpp"
 #include "storage/storage_helpers.hpp"
 
 #include "drape_frontend/color_constants.hpp"

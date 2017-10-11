@@ -1,4 +1,4 @@
-#include "map/routing_helpers.hpp"
+#include "storage/routing_helpers.hpp"
 
 std::unique_ptr<m4::Tree<routing::NumMwmId>> MakeNumMwmTree(
     routing::NumMwmIds const & numMwmIds, storage::CountryInfoGetter const & countryInfoGetter)

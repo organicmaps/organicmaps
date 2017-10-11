@@ -5,10 +5,8 @@
 #include "testing/testing.hpp"
 
 #include "map/feature_vec_model.hpp"
-#include "map/routing_helpers.hpp"
 
-#include "geometry/distance_on_sphere.hpp"
-#include "geometry/latlon.hpp"
+#include "storage/routing_helpers.hpp"
 
 #include "routing/index_router.hpp"
 #include "routing/online_absent_fetcher.hpp"
@@ -18,6 +16,9 @@
 #include "routing/router_delegate.hpp"
 
 #include "indexer/index.hpp"
+
+#include "geometry/distance_on_sphere.hpp"
+#include "geometry/latlon.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"

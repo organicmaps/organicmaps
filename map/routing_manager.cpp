@@ -1,7 +1,6 @@
 #include "routing_manager.hpp"
 
 #include "map/chart_generator.hpp"
-#include "map/routing_helpers.hpp"
 #include "map/routing_mark.hpp"
 
 #include "private.h"
@@ -24,6 +23,7 @@
 #include "indexer/scales.hpp"
 
 #include "storage/country_info_getter.hpp"
+#include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
 #include "coding/file_reader.hpp"

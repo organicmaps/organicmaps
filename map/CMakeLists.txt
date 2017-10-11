@@ -56,8 +56,6 @@ set(
   place_page_info.hpp
   reachable_by_taxi_checker.cpp
   reachable_by_taxi_checker.hpp
-  routing_helpers.cpp
-  routing_helpers.hpp
   routing_manager.cpp
   routing_manager.hpp
   routing_mark.cpp

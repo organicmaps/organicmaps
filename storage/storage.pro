@@ -27,6 +27,7 @@ HEADERS += \
   index.hpp \
   map_files_downloader.hpp \
   queued_country.hpp \
+  routing_helpers.hpp \
   storage.hpp \
   storage_defines.hpp \
   storage_helpers.hpp \
@@ -43,6 +44,7 @@ SOURCES += \
   http_map_files_downloader.cpp \
   index.cpp \
   queued_country.cpp \
+  routing_helpers.cpp \
   storage.cpp \
   storage_defines.cpp \
   storage_helpers.cpp \

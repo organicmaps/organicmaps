@@ -21,6 +21,8 @@
 		401ECED51F56C50900DFDF76 /* country_parent_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */; };
 		4586D0C71F48126A00DF9CE5 /* diff_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4586D0C51F48126A00DF9CE5 /* diff_manager.cpp */; };
 		4586D0C81F48126A00DF9CE5 /* diff_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4586D0C61F48126A00DF9CE5 /* diff_manager.hpp */; };
+		56D0E4801F8E40340084B18C /* routing_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D0E47E1F8E40340084B18C /* routing_helpers.hpp */; };
+		56D0E4811F8E40340084B18C /* routing_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D0E47F1F8E40340084B18C /* routing_helpers.cpp */; };
 		56D8CB991CAC17A80003F420 /* test_defines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D8CB971CAC17A80003F420 /* test_defines.cpp */; };
 		56D8CB9A1CAC17A80003F420 /* test_defines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D8CB981CAC17A80003F420 /* test_defines.hpp */; };
 		671182CE1C7E06B400CB8177 /* storage_3levels_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671182CC1C7E069C00CB8177 /* storage_3levels_tests.cpp */; };
@@ -194,6 +196,8 @@
 		401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_parent_getter.hpp; sourceTree = "<group>"; };
 		4586D0C51F48126A00DF9CE5 /* diff_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = diff_manager.cpp; path = diff_scheme/diff_manager.cpp; sourceTree = "<group>"; };
 		4586D0C61F48126A00DF9CE5 /* diff_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = diff_manager.hpp; path = diff_scheme/diff_manager.hpp; sourceTree = "<group>"; };
+		56D0E47E1F8E40340084B18C /* routing_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_helpers.hpp; sourceTree = "<group>"; };
+		56D0E47F1F8E40340084B18C /* routing_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_helpers.cpp; sourceTree = "<group>"; };
 		56D8CB971CAC17A80003F420 /* test_defines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_defines.cpp; sourceTree = "<group>"; };
 		56D8CB981CAC17A80003F420 /* test_defines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_defines.hpp; sourceTree = "<group>"; };
 		671182CC1C7E069C00CB8177 /* storage_3levels_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_3levels_tests.cpp; sourceTree = "<group>"; };
@@ -518,6 +522,8 @@
 		675342E21A3F59EF00A0A8C3 /* storage */ = {
 			isa = PBXGroup;
 			children = (
+				56D0E47F1F8E40340084B18C /* routing_helpers.cpp */,
+				56D0E47E1F8E40340084B18C /* routing_helpers.hpp */,
 				401ECED21F56C50900DFDF76 /* country_parent_getter.cpp */,
 				401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */,
 				4586D0C51F48126A00DF9CE5 /* diff_manager.cpp */,
@@ -604,6 +610,7 @@
 				F68CC5BF1F38B967007527C7 /* diff_scheme_checker.hpp in Headers */,
 				675343191A3F5A2600A0A8C3 /* storage_defines.hpp in Headers */,
 				67247FD41C60BA8A00EDE56A /* task_runner.hpp in Headers */,
+				56D0E4801F8E40340084B18C /* routing_helpers.hpp in Headers */,
 				6753430F1A3F5A2600A0A8C3 /* country.hpp in Headers */,
 				34B093261C61F9BA0066F4C3 /* app_store.hpp in Headers */,
 				6753430A1A3F5A2600A0A8C3 /* country_decl.hpp in Headers */,
@@ -780,6 +787,7 @@
 			files = (
 				56D8CB991CAC17A80003F420 /* test_defines.cpp in Sources */,
 				401ECED41F56C50900DFDF76 /* country_parent_getter.cpp in Sources */,
+				56D0E4811F8E40340084B18C /* routing_helpers.cpp in Sources */,
 				6753430E1A3F5A2600A0A8C3 /* country.cpp in Sources */,
 				67AF4A001BC579DD0048B1ED /* country_info_getter.cpp in Sources */,
 				34B093221C61F9BA0066F4C3 /* storage_helpers.cpp in Sources */,
