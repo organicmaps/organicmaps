@@ -236,6 +236,11 @@
   <include
     android:id="@+id/user_rating_records"
     layout="@layout/place_page_rating_records"/>
+  <View
+    android:id="@+id/user_review_divider"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/divider_height"
+    android:background="?dividerHorizontal"/>
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/rv__pp_ugc_reviews"

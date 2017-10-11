@@ -123,7 +123,7 @@ private:
     jobject result = nullptr;
     if (!ugcUpdate.IsEmpty())
       result = env->NewObject(m_ugcUpdateClass, m_ugcUpdateCtor, ratings.get(),
-                              text.get());
+                              text.get(), ugc::ToMillisecondsSinceEpoch(ugcUpdate.m_time));
     return result;
   }
 
@@ -191,7 +191,7 @@ private:
 
     m_ugcUpdateClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGCUpdate");
     m_ugcUpdateCtor = jni::GetConstructorID(
-        env, m_ugcUpdateClass, "([Lcom/mapswithme/maps/ugc/UGC$Rating;Ljava/lang/String;)V");
+        env, m_ugcUpdateClass, "([Lcom/mapswithme/maps/ugc/UGC$Rating;Ljava/lang/String;J)V");
     m_ratingArrayFieldId = env->GetFieldID(m_ugcUpdateClass, "mRatings", "[Lcom/mapswithme/maps/ugc/UGC$Rating;");
     m_ratingTextFieldId = env->GetFieldID(m_ugcUpdateClass, "mText", "Ljava/lang/String;");
     m_ratingNameFieldId = env->GetFieldID(m_ratingClass, "mName", "Ljava/lang/String;");

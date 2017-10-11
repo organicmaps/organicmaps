@@ -8,11 +8,13 @@ class UGCUpdate
   private final UGC.Rating[] mRatings;
   @Nullable
   private String mText;
+  private long mTimeMillis;
 
-  UGCUpdate(@Nullable UGC.Rating[] ratings, @Nullable String text)
+  UGCUpdate(@Nullable UGC.Rating[] ratings, @Nullable String text, long timeMillis)
   {
     mRatings = ratings;
     mText = text;
+    mTimeMillis = timeMillis;
   }
 
   public void setText(@Nullable String text)
@@ -24,5 +26,10 @@ class UGCUpdate
   public String getText()
   {
     return mText;
+  }
+
+  long getTimeMillis()
+  {
+    return mTimeMillis;
   }
 }

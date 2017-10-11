@@ -21,8 +21,7 @@ import java.util.Locale;
 class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
 {
   static final int MAX_COUNT = 3;
-  private static final DateFormat DATE_FORMATTER =
-      new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+  static final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
   @NonNull
   private ArrayList<UGC.Review> mItems = new ArrayList<>();
 

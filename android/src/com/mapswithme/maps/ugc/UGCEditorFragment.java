@@ -80,11 +80,13 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
     List<UGC.Rating> modifiedRatings = mUGCRatingAdapter.getItems();
     UGC.Rating[] ratings = new UGC.Rating[modifiedRatings.size()];
     modifiedRatings.toArray(ratings);
-    UGCUpdate update = new UGCUpdate(ratings, mReviewEditText.getText().toString());
+    UGCUpdate update = new UGCUpdate(ratings, mReviewEditText.getText().toString(),
+                                     0 /* mTimeMillis. It's set in JNI, UGC.cpp */);
     FeatureId featureId = getArguments().getParcelable(ARG_FEATURE_ID);
     if (featureId == null)
       throw new AssertionError("Feature ID must be passed to this fragment!");
     UGC.setUGCUpdate(featureId, update);
+    getActivity().finish();
   }
 
   @Override

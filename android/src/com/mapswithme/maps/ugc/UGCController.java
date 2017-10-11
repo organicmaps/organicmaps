@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -19,6 +20,7 @@ import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UGCController implements View.OnClickListener, UGC.UGCListener
@@ -44,6 +46,12 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   @NonNull
   private final View mPreviewUgcInfoView;
   @NonNull
+  private final View mUserRatingRecordsContainer;
+  @NonNull
+  private final View mUserReviewView;
+  @NonNull
+  private final View mUserReviewDivider;
+  @NonNull
   private final View.OnClickListener mLeaveReviewClickListener = new View.OnClickListener()
   {
     @Override
@@ -55,6 +63,16 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                               mMapObject.getFeatureId(),
                               UGC.getUserRatings(), UGC.RATING_NONE, mMapObject.canBeReviewed());
+    }
+  };
+  @NonNull
+  private final View.OnClickListener mMoreReviewsClickListener = new View.OnClickListener()
+  {
+
+    @Override
+    public void onClick(View v)
+    {
+      Toast.makeText(v.getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
     }
   };
 
@@ -70,6 +88,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     mUgcRootView = mPlacePage.findViewById(R.id.ll__pp_ugc);
     mPreviewUgcInfoView = mPlacePage.findViewById(R.id.preview_rating_info);
     mUgcMoreReviews = mPlacePage.findViewById(R.id.tv__pp_ugc_reviews_more);
+    mUgcMoreReviews.setOnClickListener(mMoreReviewsClickListener);
     mUgcAddRatingView = mPlacePage.findViewById(R.id.ll__pp_ugc_add_rating);
     mUgcAddRatingView.findViewById(R.id.ll__horrible).setOnClickListener(this);
     mUgcAddRatingView.findViewById(R.id.ll__bad).setOnClickListener(this);
@@ -99,28 +118,19 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
         ItemDecoratorFactory.createRatingRecordDecorator(context, LinearLayoutManager.HORIZONTAL));
     rvRatingRecords.setAdapter(mUGCRatingRecordsAdapter);
 
-    View userReviewContainer = mPlacePage.findViewById(R.id.user_rating_records);
-    RecyclerView rvUserRatingRecords = (RecyclerView) userReviewContainer.findViewById(R.id.rv__summary_rating_records);
-    rvUserRatingRecords.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-    rvUserRatingRecords.getLayoutManager().setAutoMeasureEnabled(true);
-    rvUserRatingRecords.setNestedScrollingEnabled(false);
-    rvUserRatingRecords.setHasFixedSize(false);
-    rvUserRatingRecords.addItemDecoration(
+    mUserRatingRecordsContainer = mPlacePage.findViewById(R.id.user_rating_records);
+    RecyclerView userRatingRecords = (RecyclerView) mUserRatingRecordsContainer.findViewById(R.id.rv__summary_rating_records);
+    userRatingRecords.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+    userRatingRecords.getLayoutManager().setAutoMeasureEnabled(true);
+    userRatingRecords.setNestedScrollingEnabled(false);
+    userRatingRecords.setHasFixedSize(false);
+    userRatingRecords.addItemDecoration(
         ItemDecoratorFactory.createRatingRecordDecorator(context, LinearLayoutManager.HORIZONTAL));
-    rvUserRatingRecords.setAdapter(mUGCUserRatingRecordsAdapter);
+    userRatingRecords.setAdapter(mUGCUserRatingRecordsAdapter);
 
-    View userComment = mPlacePage.findViewById(R.id.rl_user_review);
-    TextView name = (TextView) userComment.findViewById(R.id.name);
-    TextView date = (TextView) userComment.findViewById(R.id.date);
-    TextView review = (TextView) userComment.findViewById(R.id.review);
-    //TODO: remove it after core is ready.
-    name.setText("Your review");
-    date.setText("10 May 2017");
-    review.setText("Go first thing in the morning when they open...You will get in right" +
-                   "away if you do..." +
-                   "" +
-                   "Amazing food...");
-    userComment.findViewById(R.id.rating).setVisibility(View.GONE);
+    mUserReviewView = mPlacePage.findViewById(R.id.rl_user_review);
+    mUserReviewView.findViewById(R.id.rating).setVisibility(View.GONE);
+    mUserReviewDivider = mPlacePage.findViewById(R.id.user_review_divider);
 
     UGC.setListener(this);
   }
@@ -186,6 +196,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       return;
     }
 
+    seUserReviewAndRatingsView(ugcUpdate);
     List<UGC.Review> reviews = ugc.getReviews();
     if (reviews != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
@@ -207,5 +218,18 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                             mMapObject.getFeatureId(),
                             mUgc.getUserRatings(), rating, mMapObject.canBeReviewed());
+  }
+
+  private void seUserReviewAndRatingsView(@Nullable UGCUpdate update)
+  {
+    UiUtils.showIf(update != null, mUserReviewView, mUserReviewDivider, mUserRatingRecordsContainer);
+    if (update == null)
+      return;
+    TextView name = (TextView) mUserReviewView.findViewById(R.id.name);
+    TextView date = (TextView) mUserReviewView.findViewById(R.id.date);
+    TextView review = (TextView) mUserReviewView.findViewById(R.id.review);
+    name.setText(R.string.placepage_reviews_your_comment);
+    date.setText(UGCReviewAdapter.DATE_FORMATTER.format(new Date(update.getTimeMillis())));
+    review.setText(update.getText());
   }
 }
