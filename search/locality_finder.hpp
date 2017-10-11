@@ -3,14 +3,20 @@
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
 
+#include "coding/multilang_utf8_string.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/tree4d.hpp"
 
 #include "base/macros.hpp"
 
-#include "std/unique_ptr.hpp"
-#include "std/unordered_set.hpp"
+#include <cstdint>
+#include <limits>
+#include <map>
+#include <memory>
+#include <unordered_set>
+#include <utility>
 
 class Index;
 
@@ -20,9 +26,16 @@ class VillagesCache;
 
 struct LocalityItem
 {
-  LocalityItem(string const & name, m2::PointD const & center, uint64_t population);
+  LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center, uint64_t population);
 
-  string m_name;
+  bool GetName(int8_t lang, string & name) const { return m_names.GetString(lang, name); }
+
+  bool GetSpecifiedOrDefaultName(int8_t lang, string & name) const
+  {
+    return GetName(lang, name) || GetName(StringUtf8Multilang::kDefaultCode, name);
+  }
+
+  StringUtf8Multilang m_names;
   m2::PointD m_center;
   uint64_t m_population;
 };
@@ -32,14 +45,23 @@ string DebugPrint(LocalityItem const & item);
 class LocalitySelector
 {
 public:
-  LocalitySelector(string & name, m2::PointD const & p);
+  LocalitySelector(m2::PointD const & p);
 
   void operator()(LocalityItem const & item);
 
+  template <typename Fn>
+  bool WithBestLocality(Fn && fn) const
+  {
+    if (!m_bestLocality)
+      return false;
+    fn(*m_bestLocality);
+    return true;
+  }
+
 private:
-  string & m_name;
-  m2::PointD m_p;
-  double m_bestScore;
+  m2::PointD const m_p;
+  double m_bestScore = std::numeric_limits<double>::max();
+  LocalityItem const * m_bestLocality = nullptr;
 };
 
 class LocalityFinder
@@ -47,7 +69,7 @@ class LocalityFinder
 public:
   class Holder
   {
-   public:
+  public:
     Holder(double radiusMeters);
 
     bool IsCovered(m2::RectD const & rect) const;
@@ -61,8 +83,7 @@ public:
 
     void Clear();
 
-   private:
-
+  private:
     double const m_radiusMeters;
     m4::Tree<bool> m_coverage;
     m4::Tree<LocalityItem> m_localities;
@@ -72,8 +93,22 @@ public:
 
   LocalityFinder(Index const & index, VillagesCache & villagesCache);
 
-  void SetLanguage(int8_t lang);
-  void GetLocality(m2::PointD const & p, string & name);
+  template <typename Fn>
+  bool GetLocality(m2::PointD const & p, Fn && fn)
+  {
+    m2::RectD const crect = m_cities.GetRect(p);
+    m2::RectD const vrect = m_villages.GetRect(p);
+
+    LoadVicinity(p, !m_cities.IsCovered(crect) /* loadCities */,
+                 !m_villages.IsCovered(vrect) /* loadVillages */);
+
+    LocalitySelector selector(p);
+    m_cities.ForEachInVicinity(crect, selector);
+    m_villages.ForEachInVicinity(vrect, selector);
+
+    return selector.WithBestLocality(std::forward<Fn>(fn));
+  }
+
   void ClearCache();
 
 private:
@@ -82,7 +117,6 @@ private:
 
   Index const & m_index;
   VillagesCache & m_villagesCache;
-  int8_t m_lang;
 
   Holder m_cities;
   Holder m_villages;
@@ -91,8 +125,8 @@ private:
   MwmSet::MwmId m_worldId;
   bool m_mapsLoaded;
 
-  unique_ptr<RankTable> m_ranks;
+  std::unique_ptr<RankTable> m_ranks;
 
-  map<MwmSet::MwmId, unordered_set<uint32_t>> m_loadedIds;
+  std::map<MwmSet::MwmId, std::unordered_set<uint32_t>> m_loadedIds;
 };
 }  // namespace search

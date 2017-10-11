@@ -22,8 +22,8 @@ public:
   string GetCityName(m2::PointD const & p, int8_t lang)
   {
     string city;
-    m_finder.SetLanguage(lang);
-    m_finder.GetLocality(p, city);
+    m_finder.GetLocality(
+        p, [&](LocalityItem const & item) { item.GetSpecifiedOrDefaultName(lang, city); });
     return city;
   }
 

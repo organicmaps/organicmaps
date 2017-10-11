@@ -75,15 +75,8 @@ public:
   /// @returns empty string if langCode is invalid.
   static char const * GetTransliteratorIdByCode(int8_t langCode);
 
-  inline bool operator== (StringUtf8Multilang const & rhs) const
-  {
-    return (m_s == rhs.m_s);
-  }
-
-  inline bool operator!= (StringUtf8Multilang const & rhs) const
-  {
-    return !(*this == rhs);
-  }
+  inline bool operator==(StringUtf8Multilang const & rhs) const { return (m_s == rhs.m_s); }
+  inline bool operator!=(StringUtf8Multilang const & rhs) const { return !(*this == rhs); }
 
   inline void Clear() { m_s.clear(); }
   inline bool IsEmpty() const { return m_s.empty(); }
@@ -124,12 +117,14 @@ public:
 
   int8_t FindString(string const & utf8s) const;
 
-  template <class TSink> void Write(TSink & sink) const
+  template <class TSink>
+  void Write(TSink & sink) const
   {
     utils::WriteString(sink, m_s);
   }
 
-  template <class TSource> void Read(TSource & src)
+  template <class TSource>
+  void Read(TSource & src)
   {
     utils::ReadString(src, m_s);
   }

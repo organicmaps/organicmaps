@@ -380,9 +380,11 @@ Result Ranker::MakeResult(PreResult2 const & r) const
   MakeResultHighlight(res);
   if (ftypes::IsLocalityChecker::Instance().GetType(r.GetTypes()) == ftypes::NONE)
   {
-    string city;
-    m_localities.GetLocality(res.GetFeatureCenter(), city);
-    res.AppendCity(city);
+    m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
+      string city;
+      if (item.GetSpecifiedOrDefaultName(m_localityLang, city))
+        res.AppendCity(city);
+    });
   }
 
   res.SetRankingInfo(r.GetRankingInfo());

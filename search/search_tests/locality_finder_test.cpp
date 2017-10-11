@@ -52,8 +52,6 @@ public:
     {
       LOG(LERROR, ("Read World.mwm error:", ex.Msg()));
     }
-
-    m_finder.SetLanguage(StringUtf8Multilang::kEnglishCode);
   }
 
   ~LocalityFinderTest()
@@ -66,7 +64,10 @@ public:
     for (size_t i = 0; i < input.size(); ++i)
     {
       string result;
-      m_finder.GetLocality(MercatorBounds::FromLatLon(input[i]), result);
+      m_finder.GetLocality(
+          MercatorBounds::FromLatLon(input[i]), [&](search::LocalityItem const & item) {
+            item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kEnglishCode, result);
+          });
       TEST_EQUAL(result, results[i], ());
     }
   }
@@ -75,7 +76,6 @@ public:
 
   void ClearCaches() { m_finder.ClearCache(); }
 };
-
 } // namespace
 
 UNIT_CLASS_TEST(LocalityFinderTest, Smoke)
