@@ -44,6 +44,7 @@ omim_link_libraries(
   tracking
   traffic
   routing_common
+  ugc
   indexer
   drape
   partners_api
@@ -72,7 +73,6 @@ omim_link_libraries(
   stats_client
   stb_image
   succinct
-  ugc
   ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )
