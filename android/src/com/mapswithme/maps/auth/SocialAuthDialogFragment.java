@@ -74,7 +74,6 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     }
 
     LOGGER.i(TAG, "Social token is already obtained");
-    sendResult(Activity.RESULT_OK, tokenValue, Framework.SOCIAL_TOKEN_FACEBOOK);
     dismiss();
   }
 
@@ -106,6 +105,9 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   public void onDismiss(DialogInterface dialog)
   {
     Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
+    AccessToken token = AccessToken.getCurrentAccessToken();
+    sendResult(Activity.RESULT_OK, token != null ? token.getToken() : null,
+               Framework.SOCIAL_TOKEN_FACEBOOK);
     super.onDismiss(dialog);
   }
 
@@ -123,9 +125,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     public void onSuccess(LoginResult loginResult)
     {
       Statistics.INSTANCE.trackUGCExternalAuthSucceed(Statistics.ParamValue.FACEBOOK);
-      AccessToken accessToken = loginResult.getAccessToken();
-      LOGGER.d(TAG, "onSuccess, access token: " + accessToken);
-      sendResult(Activity.RESULT_OK, accessToken.getToken(), Framework.SOCIAL_TOKEN_FACEBOOK);
+      LOGGER.d(TAG, "onSuccess");
     }
 
     @Override

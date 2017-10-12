@@ -46,11 +46,9 @@ public abstract class BaseMwmAuthorizationFragment extends BaseMwmToolbarFragmen
   {
     if (Framework.nativeIsUserAuthenticated())
     {
-      onAuthorized();
+      finishActivity();
       return;
     }
-
-    onPreSocialAuthentication();
 
     String name = SocialAuthDialogFragment.class.getName();
     DialogFragment fragment = (DialogFragment) Fragment.instantiate(getContext(), name);
@@ -72,44 +70,20 @@ public abstract class BaseMwmAuthorizationFragment extends BaseMwmToolbarFragmen
     String socialToken = data.getStringExtra(Constants.EXTRA_SOCIAL_TOKEN);
     if (!TextUtils.isEmpty(socialToken))
     {
-      onStartAuthorization();
       @Framework.SocialTokenType
       int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, -1);
       Framework.nativeAuthenticateUser(socialToken, type);
     }
+
+    finishActivity();
   }
 
-  protected void onSubmitButtonClick()
+  private void finishActivity()
   {
-
+    if (isAdded())
+      getActivity().finish();
   }
 
-  /**
-   * A hook method that is called <b>before</b> the social authentication is started.
-   */
   @MainThread
-  protected void onPreSocialAuthentication()
-  {
-
-  }
-
-  /**
-   * A hook method that may be called in two cases:
-   * 1. User is already authorized for the MapsMe server.
-   * 2. User has been authorized for the MapsMe server at this moment.
-   */
-  @MainThread
-  protected void onAuthorized()
-  {
-
-  }
-
-  /**
-   * Called <b>once after authorization</b> for the MapsMe server is started.
-   */
-  @MainThread
-  protected void onStartAuthorization()
-  {
-
-  }
+  protected abstract void onSubmitButtonClick();
 }

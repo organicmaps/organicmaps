@@ -15,16 +15,12 @@ import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
 public class UGCEditorFragment extends BaseMwmAuthorizationFragment
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = UGCEditorFragment.class.getSimpleName();
   static final String ARG_FEATURE_ID = "arg_feature_id";
   static final String ARG_TITLE = "arg_title";
   static final String ARG_DEFAULT_RATING = "arg_default_rating";
@@ -92,7 +88,6 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   @Override
   protected void onSubmitButtonClick()
   {
-    super.onSubmitButtonClick();
     List<UGC.Rating> modifiedRatings = mUGCRatingAdapter.getItems();
     UGC.Rating[] ratings = new UGC.Rating[modifiedRatings.size()];
     modifiedRatings.toArray(ratings);
@@ -103,24 +98,5 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
       throw new AssertionError("Feature ID must be passed to this fragment!");
     UGC.setUGCUpdate(featureId, update);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_SUCCESS);
-    getActivity().finish();
-  }
-
-  @Override
-  protected void onPreSocialAuthentication()
-  {
-    LOGGER.i(TAG, "onPreSocialAuthentication()");
-  }
-
-  @Override
-  protected void onAuthorized()
-  {
-    LOGGER.i(TAG, "onAuthorized()");
-  }
-
-  @Override
-  protected void onStartAuthorization()
-  {
-    LOGGER.i(TAG, "onStartAuthorization()");
   }
 }
