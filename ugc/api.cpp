@@ -9,7 +9,10 @@ using namespace ugc;
 
 namespace ugc
 {
-Api::Api(Index const & index) : m_storage(index), m_loader(index) {}
+Api::Api(Index const & index) : m_storage(index), m_loader(index)
+{
+  m_thread.Push([this] { m_storage.Load(); });
+}
 
 void Api::GetUGC(FeatureID const & id, UGCCallback callback)
 {

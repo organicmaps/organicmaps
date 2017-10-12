@@ -37,7 +37,7 @@ public:
     uint32_t m_featureId = 0;
   };
 
-  explicit Storage(Index const & index);
+  explicit Storage(Index const & index) : m_index(index) {}
 
   UGCUpdate GetUGCUpdate(FeatureID const & id) const;
   void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
@@ -45,19 +45,18 @@ public:
   std::string GetUGCToSend() const;
   void MarkAllAsSynchronized();
   void Defragmentation();
+  void Load();
 
   /// Testing
   std::vector<UGCIndex> const & GetIndexesForTesting() const { return m_UGCIndexes; }
   size_t GetNumberOfDeletedForTesting() const { return m_numberOfDeleted; }
 
 private:
-  void Load();
   uint64_t UGCSizeAtIndex(size_t const indexPosition) const;
   std::unique_ptr<FeatureType> GetFeature(FeatureID const & id) const;
 
   Index const & m_index;
   std::vector<UGCIndex> m_UGCIndexes;
   size_t m_numberOfDeleted = 0;
-  ThreadChecker m_threadChecker;
 };
 }  // namespace ugc

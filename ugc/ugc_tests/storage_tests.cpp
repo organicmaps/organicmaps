@@ -167,6 +167,7 @@ UNIT_TEST(StorageTests_Smoke)
   auto const id = builder.FeatureIdForCafeAtPoint(point);
   auto const original = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
   Storage storage(builder.GetIndex());
+  storage.Load();
   storage.SetUGCUpdate(id, original);
   auto const actual = storage.GetUGCUpdate(id);
   TEST_EQUAL(original, actual, ());
@@ -189,6 +190,7 @@ UNIT_TEST(StorageTests_DuplicatesAndDefragmentationSmoke)
   auto const third = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
   auto const last = MakeTestUGCUpdate(Time(chrono::hours(24 * 100)));
   Storage storage(builder.GetIndex());
+  storage.Load();
   storage.SetUGCUpdate(cafeId, first);
   storage.SetUGCUpdate(cafeId, second);
   storage.SetUGCUpdate(cafeId, third);
@@ -215,6 +217,7 @@ UNIT_TEST(StorageTests_DifferentTypes)
   auto const cafeUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 10)));
   auto const railwayUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
   Storage storage(builder.GetIndex());
+  storage.Load();
   storage.SetUGCUpdate(cafeId, cafeUGC);
   storage.SetUGCUpdate(railwayId, railwayUGC);
   TEST_EQUAL(railwayUGC, storage.GetUGCUpdate(railwayId), ());
@@ -235,12 +238,14 @@ UNIT_TEST(StorageTest_LoadIndex)
 
   {
     Storage storage(builder.GetIndex());
+    storage.Load();
     storage.SetUGCUpdate(cafeId, cafeUGC);
     storage.SetUGCUpdate(railwayId, railwayUGC);
     storage.SaveIndex();
   }
 
   Storage storage(builder.GetIndex());
+  storage.Load();
   auto const & indexArray = storage.GetIndexesForTesting();
   TEST_EQUAL(indexArray.size(), 2, ());
   for (auto const & i : indexArray)

@@ -72,11 +72,8 @@ string SerializeUGCIndex(vector<Storage::UGCIndex> const & indexes)
 }
 }  // namespace
 
-Storage::Storage(Index const & index) : m_index(index) { Load(); }
-
 UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (m_UGCIndexes.empty())
     return {};
 
@@ -120,7 +117,6 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
 
 void Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto const feature = GetFeature(id);
   CHECK_EQUAL(feature->GetFeatureType(), feature::EGeomType::GEOM_POINT, ());
   auto const & mercator = feature->GetCenter();
@@ -166,7 +162,6 @@ void Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 
 void Storage::Load()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   string data;
   auto const indexFilePath = GetIndexFilePath();
   try
@@ -190,7 +185,6 @@ void Storage::Load()
 
 void Storage::SaveIndex() const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (m_UGCIndexes.empty())
     return;
 
@@ -209,7 +203,6 @@ void Storage::SaveIndex() const
 
 void Storage::Defragmentation()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto const indexesSize = m_UGCIndexes.size();
   if (m_numberOfDeleted < indexesSize / 2)
     return;
@@ -260,7 +253,6 @@ void Storage::Defragmentation()
 
 string Storage::GetUGCToSend() const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (m_UGCIndexes.empty())
     return string();
 
@@ -323,12 +315,21 @@ string Storage::GetUGCToSend() const
 
 void Storage::MarkAllAsSynchronized()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (m_UGCIndexes.empty())
     return;
 
+  size_t numberOfUnsynchronized = 0;
   for (auto & index : m_UGCIndexes)
-    index.m_synchronized = true;
+  {
+    if (!index.m_synchronized)
+    {
+      index.m_synchronized = true;
+      numberOfUnsynchronized++;
+    }
+  }
+
+  if (numberOfUnsynchronized == 0)
+    return;
 
   auto const indexPath = GetIndexFilePath();
   my::DeleteFileX(indexPath);
@@ -337,7 +338,6 @@ void Storage::MarkAllAsSynchronized()
 
 uint64_t Storage::UGCSizeAtIndex(size_t const indexPosition) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   CHECK(!m_UGCIndexes.empty(), ());
   auto const indexesSize = m_UGCIndexes.size();
   CHECK_LESS(indexPosition, indexesSize, ());
@@ -354,7 +354,6 @@ uint64_t Storage::UGCSizeAtIndex(size_t const indexPosition) const
 
 unique_ptr<FeatureType> Storage::GetFeature(FeatureID const & id) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   CHECK(id.IsValid(), ());
   Index::FeaturesLoaderGuard guard(m_index, id.m_mwmId);
   auto feature = guard.GetOriginalOrEditedFeatureByIndex(id.m_index);
