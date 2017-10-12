@@ -302,23 +302,23 @@ fi
 if [ ! -f "$VIATOR_FILE" -a -n "${VIATOR_KEY-}" ]; then
   log "STATUS" "Step S3: Starting background viator cities downloading"
   (
-      $PYTHON $VIATOR_SCRIPT --apikey $VIATOR_KEY --output "$VIATOR_FILE" 2>"$LOG_PATH"/viator.log || true
-      if [ -f "$VIATOR_FILE" -a "$(wc -l < "$VIATOR_FILE" || echo 0)" -gt 100 ]; then
-        echo "Viator cities have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+    $PYTHON $VIATOR_SCRIPT --apikey $VIATOR_KEY --output "$VIATOR_FILE" 2>"$LOG_PATH"/viator.log || true
+    if [ -f "$VIATOR_FILE" -a "$(wc -l < "$VIATOR_FILE" || echo 0)" -gt 100 ]; then
+      echo "Viator cities have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+    else
+      if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$VIATOR_FILE")" ]; then
+        cp "$OLD_INTDIR/$(basename "$VIATOR_FILE")" "$INTDIR"
+        warn "Failed to download viator cities! Using older viator cities list."
       else
-        if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$VIATOR_FILE")" ]; then
-          cp "$OLD_INTDIR/$(basename "$VIATOR_FILE")" "$INTDIR"
-          warn "Failed to download viator cities! Using older viator cities list."
-        else
-          warn "Failed to download viator cities!"
-        fi
-        [ -n "${MAIL-}" ] && tail "$LOG_PATH/viator.log" | mailx -s "Failed to download viator cities at $(hostname), please hurry to fix" "$MAIL"
+        warn "Failed to download viator cities!"
       fi
+      [ -n "${MAIL-}" ] && tail "$LOG_PATH/viator.log" | mailx -s "Failed to download viator cities at $(hostname), please hurry to fix" "$MAIL"
+    fi
   ) &
 fi
 
 # Download UGC (user generated content) database.
-if if [ ! -f "$UGC_FILE" -a -n "${UGC_DATABASE_URL-}" ]; then
+if [ ! -f "$UGC_FILE" -a -n "${UGC_DATABASE_URL-}" ]; then
   putmode "Step UGC: Dowloading UGC database"
   (
     curl "$UGC_DATABASE_URL" --output "$UGC_FILE" --silent || true
@@ -573,12 +573,14 @@ fi
 if [ -n "${LOCALADS-}" ]; then
   putmode "Step AD: Generating CSV for local ads database"
   (
+    LOCALADS_LOG="$LOG_PATH/localads.log"
     LOCALADS_PATH="$INTDIR/localads"
     mkdir -p "$LOCALADS_PATH"
-    $PYTHON "$LOCALADS_SCRIPT" "$TARGET" --osm2ft "$INTDIR" --version "$COUNTRIES_VERSION" --types "$DATA_PATH" --output "$LOCALADS_PATH" >> /dev/null 2>&1
-    LOCALADS_ARCHIVE="$INTDIR/localads_$COUNTRIES_VERSION.tgz"
-    tar -czf "$LOCALADS_ARCHIVE" "$LOCALADS_PATH"/* >> "$PLANET_LOG" 2>&1
-    AD_URL="$(curl -s --upload-file "$LOCALADS_ARCHIVE" "https://t.bk.ru/$(basename "$LOCALADS_ARCHIVE")")" >> "$PLANET_LOG" 2>&1
+    $PYTHON "$LOCALADS_SCRIPT" "$TARGET" --osm2ft "$INTDIR" --version "$COUNTRIES_VERSION" --types "$DATA_PATH/types.txt" --output "$LOCALADS_PATH" >> "$LOCALADS_LOG" 2>&1
+    LOCALADS_ARCHIVE="localads_$COUNTRIES_VERSION.tgz"
+    cd "$LOCALADS_PATH"
+    tar -czf "$LOCALADS_ARCHIVE" *.csv >> "$LOCALADS_LOG" 2>&1
+    AD_URL="$(curl -s --upload-file "$LOCALADS_ARCHIVE" "https://t.bk.ru/$(basename "$LOCALADS_ARCHIVE")")" >> "$LOCALADS_LOG" 2>&1
     log STATUS "Uploaded localads file: $AD_URL"
   ) &
 fi
