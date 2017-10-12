@@ -19,7 +19,7 @@
 
 namespace ftraits
 {
-template <typename Base, typename Value, bool allowTransitiveDuplications = false>
+template <typename Base, typename Value, bool allowDuplications = false>
 class TraitsBase
 {
 public:
@@ -34,7 +34,7 @@ public:
   }
 
 protected:
-  ftypes::Matcher<std::unordered_map<uint32_t, Value>, allowTransitiveDuplications> m_matcher;
+  ftypes::Matcher<std::unordered_map<uint32_t, Value>, allowDuplications> m_matcher;
 };
 
 enum UGCType
@@ -51,8 +51,8 @@ using UGCRatingCategories = std::vector<std::string>;
 struct UGCItem
 {
   UGCItem() = default;
-  UGCItem(UGCTypeMask && m, UGCRatingCategories && c)
-    : m_mask(std::move(m)), m_categories(std::move(c))
+  UGCItem(UGCTypeMask m, UGCRatingCategories && c)
+    : m_mask(m), m_categories(std::move(c))
   {
   }
 
@@ -70,19 +70,19 @@ class UGC : public TraitsBase<UGC, UGCItem, true>
   {
     coding::CSVReader reader;
     auto const fileReader = GetPlatform().GetReader("ugc_types.csv");
-    reader.Read(*fileReader, [this](std::vector<std::string> const & line) {
+    reader.Read(*fileReader, [this](coding::CSVReader::Row const & row) {
       size_t constexpr kItemsCount = 5;
       size_t constexpr kTypePos = 0;
       size_t constexpr kCategoriesPos = 4;
 
-      ASSERT_EQUAL(line.size(), kItemsCount, ());
+      ASSERT_EQUAL(row.size(), kItemsCount, ());
 
-      UGCItem item(ReadMasks(line), ParseByWhitespaces(line[kCategoriesPos]));
-      m_matcher.AppendType(ParseByWhitespaces(line[kTypePos]), std::move(item));
+      UGCItem item(ReadMasks(row), ParseByWhitespaces(row[kCategoriesPos]));
+      m_matcher.AppendType(ParseByWhitespaces(row[kTypePos]), std::move(item));
     });
   }
 
-  UGCTypeMask ReadMasks(std::vector<std::string> const & line)
+  UGCTypeMask ReadMasks(coding::CSVReader::Row const & row)
   {
     size_t constexpr kMasksBegin = 1;
     size_t constexpr kMasksEnd = 4;
@@ -91,7 +91,7 @@ class UGC : public TraitsBase<UGC, UGCItem, true>
     for (size_t i = kMasksBegin; i < kMasksEnd; i++)
     {
       int flag;
-      if (!strings::to_int(line[i], flag))
+      if (!strings::to_int(row[i], flag))
       {
         LOG(LERROR, ("File ugc_types.csv must contain a bit mask of supported ugc traits!"));
         return UGCTYPE_NONE;

@@ -7,21 +7,21 @@ namespace coding
 {
 using namespace std;
 
-void CSVReader::Read(istringstream & stream, LineByLineCallback const & fn,
+void CSVReader::Read(istringstream & stream, RowByRowCallback const & fn,
                      Params const & params) const
 {
-  bool readFirstLine = params.m_readHeader;
+  bool readFirstRow = params.m_readHeader;
 
   for (string line; getline(stream, line);)
   {
-    Line splitLine;
-    strings::ParseCSVRow(line, params.m_delimiter, splitLine);
-    if (!readFirstLine)
+    Row row;
+    strings::ParseCSVRow(line, params.m_delimiter, row);
+    if (!readFirstRow)
     {
-      readFirstLine = true;
+      readFirstRow = true;
       continue;
     }
-    fn(move(splitLine));
+    fn(move(row));
   }
 }
 
@@ -29,9 +29,9 @@ void CSVReader::Read(istringstream & stream, FullFileCallback const & fn,
                      Params const & params) const
 {
   File file;
-  Read(stream, [&file](Line && line)
+  Read(stream, [&file](Row && row)
   {
-    file.emplace_back(move(line));
+    file.emplace_back(move(row));
   }, params);
 
   fn(move(file));

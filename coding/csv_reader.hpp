@@ -21,12 +21,12 @@ public:
 
   CSVReader() = default;
 
-  using Line = std::vector<std::string>;
-  using File = std::vector<Line>;
-  using LineByLineCallback = std::function<void(Line && line)>;
+  using Row = std::vector<std::string>;
+  using File = std::vector<Row>;
+  using RowByRowCallback = std::function<void(Row && row)>;
   using FullFileCallback = std::function<void(File && file)>;
 
-  void Read(std::istringstream & stream, LineByLineCallback const & fn,
+  void Read(std::istringstream & stream, RowByRowCallback const & fn,
             Params const & params = {}) const;
 
   void Read(std::istringstream & stream, FullFileCallback const & fn,
@@ -35,8 +35,7 @@ public:
   template <typename Callback>
   void Read(Reader const & reader, Callback const & fn, Params const & params = {}) const
   {
-    std::string str;
-    str.resize(reader.Size());
+    std::string str(reader.Size(), '\0');
     reader.Read(0, &str[0], reader.Size());
     std::istringstream stream(str);
     Read(stream, fn, params);
