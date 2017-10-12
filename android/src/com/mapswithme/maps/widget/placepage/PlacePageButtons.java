@@ -49,19 +49,19 @@ final class PlacePageButtons
     },
 
     BOOKING_SEARCH
-        {
-          @Override
-          int getTitle()
-          {
-            return R.string.booking_search;
-          }
+    {
+      @Override
+      int getTitle()
+      {
+        return R.string.booking_search;
+      }
 
-          @Override
-          int getIcon()
-          {
-            return R.drawable.ic_menu_search;
-          }
-        },
+      @Override
+      int getIcon()
+      {
+        return R.drawable.ic_menu_search;
+      }
+    },
 
     OPENTABLE
     {
@@ -75,6 +75,21 @@ final class PlacePageButtons
       int getIcon()
       {
         return R.drawable.ic_opentable;
+      }
+    },
+
+    THOR
+    {
+      @Override
+      int getTitle()
+      {
+        return R.string.sponsored_thor_gather;
+      }
+
+      @Override
+      int getIcon()
+      {
+        return R.drawable.ic_24px_logo_thor;
       }
     },
 

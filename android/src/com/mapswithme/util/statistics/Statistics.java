@@ -61,6 +61,7 @@ import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_PLAN_T
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER_STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BATTERY;
+import static com.mapswithme.util.statistics.Statistics.EventParam.CATEGORY;
 import static com.mapswithme.util.statistics.Statistics.EventParam.CHARGING;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
@@ -75,6 +76,8 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.MODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_NAME;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_VERSION;
 import static com.mapswithme.util.statistics.Statistics.EventParam.NETWORK;
+import static com.mapswithme.util.statistics.Statistics.EventParam.OBJECT_LAT;
+import static com.mapswithme.util.statistics.Statistics.EventParam.OBJECT_LON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PROVIDER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LAT;
@@ -149,6 +152,7 @@ public enum Statistics
     public static final String PP_SPONSORED_OPEN = "Placepage_SponsoredGalleryPage_opened";
     public static final String PP_SPONSORED_SHOWN = "Placepage_SponsoredGallery_shown";
     public static final String PP_SPONSORED_ERROR = "Placepage_SponsoredGallery_error";
+    public static final String PP_SPONSORED_ACTION = "Placepage_SponsoredActionButton_click";
     public static final String PP_SPONSOR_ITEM_SELECTED = "Placepage_SponsoredGallery_ProductItem_selected";
     public static final String PP_SPONSOR_MORE_SELECTED = "Placepage_SponsoredGallery_MoreItem_selected";
     public static final String PP_SPONSOR_LOGO_SELECTED = "Placepage_SponsoredGallery_LogoItem_selected";
@@ -336,6 +340,8 @@ public enum Statistics
     static final String VALUE = "value";
     static final String METHOD = "method";
     static final String MODE = "mode";
+    static final String OBJECT_LAT = "object_lat";
+    static final String OBJECT_LON = "object_lon";
     private EventParam() {}
   }
 
@@ -837,6 +843,17 @@ public enum Statistics
                    .add(TYPE, convertRoutePointType(type))
                    .add(MODE, isPlanning ? "planning" : "onroute")
                    .get());
+  }
+
+  public void trackSponsoredObjectEvent(@NonNull String eventName, @NonNull Sponsored sponsoredObj,
+                                        @NonNull MapObject mapObject)
+  {
+    // Here we code category by means of rating.
+    Statistics.INSTANCE.trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
+        Statistics.params().add(PROVIDER, convertToSponsor(sponsoredObj.getType()))
+            .add(CATEGORY, sponsoredObj.getRating())
+            .add(OBJECT_LAT, mapObject.getLat())
+            .add(OBJECT_LON, mapObject.getLon()).get());
   }
 
   @NonNull

@@ -112,6 +112,7 @@ import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_GALLE
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_REVIEWS_LAND;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_DETAILS;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_OPENTABLE;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_ACTION;
 
 public class PlacePageView extends RelativeLayout
     implements View.OnClickListener,
@@ -464,6 +465,11 @@ public class PlacePageView extends RelativeLayout
             color = Color.WHITE;
             break;
 
+          case THOR:
+            frame.setBackgroundResource(R.drawable.button_thor);
+            color = Color.WHITE;
+            break;
+
           case BOOKMARK:
             mBookmarkButtonIcon = icon;
             updateBookmarkButton();
@@ -565,6 +571,7 @@ public class PlacePageView extends RelativeLayout
 
         case BOOKING:
         case OPENTABLE:
+        case THOR:
           onSponsoredClick(true /* book */, false);
           break;
 
@@ -1071,6 +1078,10 @@ public class PlacePageView extends RelativeLayout
                 if (mMapObject != null)
                   Statistics.INSTANCE.trackRestaurantEvent(PP_SPONSORED_OPENTABLE, info, mMapObject);
                 break;
+              case Sponsored.TYPE_THOR:
+                if (mMapObject != null)
+                  Statistics.INSTANCE.trackSponsoredObjectEvent(PP_SPONSORED_ACTION, info, mMapObject);
+                break;
               case Sponsored.TYPE_NONE:
                 break;
             }
@@ -1466,7 +1477,8 @@ public class PlacePageView extends RelativeLayout
       UiUtils.showIf(!isRatingEmpty, mRatingView);
       mTvSponsoredPrice.setText(mSponsoredPrice);
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
-      UiUtils.showIf(!isRatingEmpty || !isPriceEmpty, mPreviewRatingInfo);
+      UiUtils.showIf((!isRatingEmpty || !isPriceEmpty) &&
+          mSponsored.getType() != Sponsored.TYPE_THOR, mPreviewRatingInfo);
     }
   }
 
@@ -1708,6 +1720,9 @@ public class PlacePageView extends RelativeLayout
           break;
         case Sponsored.TYPE_OPENTABLE:
           buttons.add(PlacePageButtons.Item.OPENTABLE);
+          break;
+        case Sponsored.TYPE_THOR:
+          buttons.add(PlacePageButtons.Item.THOR);
           break;
         case Sponsored.TYPE_NONE:
           break;

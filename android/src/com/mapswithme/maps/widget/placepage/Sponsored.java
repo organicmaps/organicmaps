@@ -234,7 +234,7 @@ public final class Sponsored
   }
 
   @NonNull
-  String getRating()
+  public String getRating()
   {
     return mRating;
   }
