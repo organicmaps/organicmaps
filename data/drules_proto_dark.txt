@@ -13294,8 +13294,6 @@ cont {
     lines {
       width: 5.8
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -13332,8 +13330,6 @@ cont {
     lines {
       width: 7.8
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -13370,8 +13366,6 @@ cont {
     lines {
       width: 9.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -14312,16 +14306,12 @@ cont {
     lines {
       width: 6.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14352,16 +14342,12 @@ cont {
     lines {
       width: 7.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14392,16 +14378,12 @@ cont {
     lines {
       width: 9.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14431,16 +14413,12 @@ cont {
     lines {
       width: 12.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 12.8
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14470,16 +14448,12 @@ cont {
     lines {
       width: 19.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 21.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14509,16 +14483,12 @@ cont {
     lines {
       width: 26.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14548,16 +14518,12 @@ cont {
     lines {
       width: 32.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 34.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15245,16 +15211,12 @@ cont {
     lines {
       width: 3.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15285,16 +15247,12 @@ cont {
     lines {
       width: 4.8
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 5.6
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15324,16 +15282,12 @@ cont {
     lines {
       width: 6.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.8
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15363,16 +15317,12 @@ cont {
     lines {
       width: 10.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 12.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15402,16 +15352,12 @@ cont {
     lines {
       width: 14.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15441,16 +15387,12 @@ cont {
     lines {
       width: 17.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 19.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17082,8 +17024,6 @@ cont {
     lines {
       width: 5.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -17120,8 +17060,6 @@ cont {
     lines {
       width: 7.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -17158,8 +17096,6 @@ cont {
     lines {
       width: 9.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -17509,8 +17445,6 @@ cont {
     lines {
       width: 1.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
@@ -17530,16 +17464,12 @@ cont {
     lines {
       width: 3.2
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 3.6
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17567,16 +17497,12 @@ cont {
     lines {
       width: 4.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17603,16 +17529,12 @@ cont {
     lines {
       width: 5.2
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17639,16 +17561,12 @@ cont {
     lines {
       width: 6.4
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17675,16 +17593,12 @@ cont {
     lines {
       width: 8.4
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17711,16 +17625,12 @@ cont {
     lines {
       width: 10.4
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 11.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18302,16 +18212,12 @@ cont {
     lines {
       width: 6.4
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18342,16 +18248,12 @@ cont {
     lines {
       width: 8.4
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18381,16 +18283,12 @@ cont {
     lines {
       width: 9.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18420,16 +18318,12 @@ cont {
     lines {
       width: 15.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 17.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18459,16 +18353,12 @@ cont {
     lines {
       width: 22.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18498,16 +18388,12 @@ cont {
     lines {
       width: 28.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -19088,16 +18974,12 @@ cont {
     lines {
       width: 6.4
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -19128,16 +19010,12 @@ cont {
     lines {
       width: 8.4
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -19167,16 +19045,12 @@ cont {
     lines {
       width: 9.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -19206,16 +19080,12 @@ cont {
     lines {
       width: 15.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 17.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -19245,16 +19115,12 @@ cont {
     lines {
       width: 22.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -19284,16 +19150,12 @@ cont {
     lines {
       width: 28.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20246,16 +20108,12 @@ cont {
     lines {
       width: 3.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20286,16 +20144,12 @@ cont {
     lines {
       width: 6.4
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20325,16 +20179,12 @@ cont {
     lines {
       width: 8.8
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.6
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20364,16 +20214,12 @@ cont {
     lines {
       width: 13.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 15.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20403,16 +20249,12 @@ cont {
     lines {
       width: 20.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20442,16 +20284,12 @@ cont {
     lines {
       width: 26.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20962,16 +20800,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20994,16 +20828,12 @@ cont {
     lines {
       width: 12.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 12.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21026,16 +20856,12 @@ cont {
     lines {
       width: 18.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 18.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21058,16 +20884,12 @@ cont {
     lines {
       width: 24.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 24.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21527,16 +21349,12 @@ cont {
     lines {
       width: 6.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.8
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21567,16 +21385,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.8
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21606,16 +21420,12 @@ cont {
     lines {
       width: 9.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21645,16 +21455,12 @@ cont {
     lines {
       width: 15.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 17.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21684,16 +21490,12 @@ cont {
     lines {
       width: 22.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21723,16 +21525,12 @@ cont {
     lines {
       width: 28.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22115,16 +21913,12 @@ cont {
     lines {
       width: 6.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.8
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22140,16 +21934,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.8
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22164,16 +21954,12 @@ cont {
     lines {
       width: 9.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22196,16 +21982,12 @@ cont {
     lines {
       width: 15.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 17.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22228,16 +22010,12 @@ cont {
     lines {
       width: 22.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22260,16 +22038,12 @@ cont {
     lines {
       width: 28.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22577,16 +22351,12 @@ cont {
     lines {
       width: 3.2
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 3.6
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22609,16 +22379,12 @@ cont {
     lines {
       width: 4.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22641,16 +22407,12 @@ cont {
     lines {
       width: 6.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22673,16 +22435,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22842,16 +22600,12 @@ cont {
     lines {
       width: 3.2
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 3.6
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22874,16 +22628,12 @@ cont {
     lines {
       width: 4.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22906,16 +22656,12 @@ cont {
     lines {
       width: 6.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22938,16 +22684,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23782,16 +23524,12 @@ cont {
     lines {
       width: 3.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23822,16 +23560,12 @@ cont {
     lines {
       width: 6.4
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23861,16 +23595,12 @@ cont {
     lines {
       width: 8.8
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.6
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23900,16 +23630,12 @@ cont {
     lines {
       width: 13.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 15.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23939,16 +23665,12 @@ cont {
     lines {
       width: 20.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23978,16 +23700,12 @@ cont {
     lines {
       width: 26.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -24319,16 +24037,12 @@ cont {
     lines {
       width: 6.4
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -24343,16 +24057,12 @@ cont {
     lines {
       width: 8.8
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.6
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -24367,16 +24077,12 @@ cont {
     lines {
       width: 13.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 15.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -24391,16 +24097,12 @@ cont {
     lines {
       width: 20.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -24423,16 +24125,12 @@ cont {
     lines {
       width: 26.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -26921,16 +26619,12 @@ cont {
     lines {
       width: 6.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -26961,16 +26655,12 @@ cont {
     lines {
       width: 7.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27001,16 +26691,12 @@ cont {
     lines {
       width: 9.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27040,16 +26726,12 @@ cont {
     lines {
       width: 12.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 12.8
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27079,16 +26761,12 @@ cont {
     lines {
       width: 19.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 21.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27118,16 +26796,12 @@ cont {
     lines {
       width: 26.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27157,16 +26831,12 @@ cont {
     lines {
       width: 32.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 34.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27801,16 +27471,12 @@ cont {
     lines {
       width: 3.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27841,16 +27507,12 @@ cont {
     lines {
       width: 4.8
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 5.6
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27880,16 +27542,12 @@ cont {
     lines {
       width: 6.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.8
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27919,16 +27577,12 @@ cont {
     lines {
       width: 10.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 12.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27958,16 +27612,12 @@ cont {
     lines {
       width: 14.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27997,16 +27647,12 @@ cont {
     lines {
       width: 17.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 19.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28562,16 +28208,12 @@ cont {
     lines {
       width: 3.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28595,16 +28237,12 @@ cont {
     lines {
       width: 6.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.8
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28627,16 +28265,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.8
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28659,16 +28293,12 @@ cont {
     lines {
       width: 13.6
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 15.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28691,16 +28321,12 @@ cont {
     lines {
       width: 20.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28723,16 +28349,12 @@ cont {
     lines {
       width: 26.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -47424,8 +47046,6 @@ cont {
     }
     lines {
       width: 5.6
-      dashdot {
-      }
       priority: 999
       cap: BUTTCAP
     }
@@ -47443,8 +47063,6 @@ cont {
     }
     lines {
       width: 6.0
-      dashdot {
-      }
       priority: 999
       cap: BUTTCAP
     }
@@ -47462,8 +47080,6 @@ cont {
     }
     lines {
       width: 6.0
-      dashdot {
-      }
       priority: 999
       cap: BUTTCAP
     }
@@ -47481,8 +47097,6 @@ cont {
     }
     lines {
       width: 6.0
-      dashdot {
-      }
       priority: 999
       cap: BUTTCAP
     }
@@ -48208,8 +47822,6 @@ cont {
     lines {
       width: 4.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -48225,8 +47837,6 @@ cont {
     lines {
       width: 4.4
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -48241,16 +47851,12 @@ cont {
     lines {
       width: 5.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 5.4
       color: 4473924
-      dashdot {
-      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -48274,16 +47880,12 @@ cont {
     lines {
       width: 6.8
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
-      dashdot {
-      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -48307,16 +47909,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
-      dashdot {
-      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -48340,16 +47938,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
-      dashdot {
-      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -48910,8 +48504,6 @@ cont {
     }
     lines {
       width: 5.6
-      dashdot {
-      }
       priority: 999
       cap: BUTTCAP
     }
@@ -48929,8 +48521,6 @@ cont {
     }
     lines {
       width: 6.0
-      dashdot {
-      }
       priority: 999
       cap: BUTTCAP
     }
@@ -48948,8 +48538,6 @@ cont {
     }
     lines {
       width: 6.0
-      dashdot {
-      }
       priority: 999
       cap: BUTTCAP
     }
@@ -48967,8 +48555,6 @@ cont {
     }
     lines {
       width: 6.0
-      dashdot {
-      }
       priority: 999
       cap: BUTTCAP
     }
@@ -49185,8 +48771,6 @@ cont {
     lines {
       width: 4.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
@@ -49202,8 +48786,6 @@ cont {
     lines {
       width: 4.4
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
@@ -49218,16 +48800,12 @@ cont {
     lines {
       width: 5.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 5.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -49251,16 +48829,12 @@ cont {
     lines {
       width: 6.8
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -49284,16 +48858,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -49317,16 +48887,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
-      dashdot {
-      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -55404,8 +54970,6 @@ cont {
     lines {
       width: 4.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -55421,8 +54985,6 @@ cont {
     lines {
       width: 4.4
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -55437,16 +54999,12 @@ cont {
     lines {
       width: 5.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 5.4
       color: 4473924
-      dashdot {
-      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -55470,16 +55028,12 @@ cont {
     lines {
       width: 6.8
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
-      dashdot {
-      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -55503,16 +55057,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
-      dashdot {
-      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -55536,16 +55086,12 @@ cont {
     lines {
       width: 8.0
       color: 2236945
-      dashdot {
-      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
-      dashdot {
-      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -64452,14 +63998,6 @@ cont {
       name: "artefact-l"
       priority: 16537
     }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
-    }
     apply_if: "rating=2"
   }
   element {
@@ -64467,14 +64005,6 @@ cont {
     symbol {
       name: "hero-l"
       priority: 16537
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
     }
     apply_if: "rating=3"
   }
@@ -64484,14 +64014,6 @@ cont {
       name: "odin-l"
       priority: 16537
     }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
-    }
     apply_if: "rating=4"
   }
   element {
@@ -64499,14 +64021,6 @@ cont {
     symbol {
       name: "artefact-l"
       priority: 16537
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
     }
     apply_if: "rating=2"
   }
@@ -64516,14 +64030,6 @@ cont {
       name: "hero-l"
       priority: 16537
     }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
-    }
     apply_if: "rating=3"
   }
   element {
@@ -64532,14 +64038,6 @@ cont {
       name: "odin-l"
       priority: 16537
     }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
-    }
     apply_if: "rating=4"
   }
   element {
@@ -64547,14 +64045,6 @@ cont {
     symbol {
       name: "artefact-l"
       priority: 16537
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
     }
     apply_if: "rating=2"
   }
@@ -64564,14 +64054,6 @@ cont {
       name: "hero-l"
       priority: 16537
     }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
-    }
     apply_if: "rating=3"
   }
   element {
@@ -64579,14 +64061,6 @@ cont {
     symbol {
       name: "odin-l"
       priority: 16537
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
     }
     apply_if: "rating=4"
   }
@@ -64596,14 +64070,6 @@ cont {
       name: "artefact-l"
       priority: 16537
     }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
-    }
     apply_if: "rating=2"
   }
   element {
@@ -64612,14 +64078,6 @@ cont {
       name: "hero-l"
       priority: 16537
     }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
-    }
     apply_if: "rating=3"
   }
   element {
@@ -64627,14 +64085,6 @@ cont {
     symbol {
       name: "odin-l"
       priority: 16537
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-      }
-      priority: 15537
     }
     apply_if: "rating=4"
   }
