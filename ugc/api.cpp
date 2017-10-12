@@ -21,7 +21,7 @@ void Api::GetUGC(FeatureID const & id, UGCCallback callback)
 
 void Api::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 {
-  m_thread.Push([=] { SetUGCUpdate(id, ugc); });
+  m_thread.Push([=] { SetUGCUpdateImpl(id, ugc); });
 }
 
 void Api::GetUGCToSend(UGCJsonToSendCallback const & fn)
