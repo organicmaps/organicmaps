@@ -173,8 +173,6 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     mMapObject = mapObject;
     if (mapObject.shouldShowUGC())
       UGC.requestUGC(mMapObject.getFeatureId());
-    else
-      UiUtils.hide(mUgcRootView, mLeaveReviewButton);
   }
 
   public boolean isLeaveReviewButtonTouched(@NonNull MotionEvent event)
@@ -186,10 +184,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   public void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate, @UGC.Impress int impress,
                             @NonNull String rating)
   {
-    UiUtils.show(mPreviewUgcInfoView);
-    RatingView ratingView = (RatingView) mPreviewUgcInfoView.findViewById(R.id.rating_view);
-    ratingView.setRating(Impress.values()[impress], rating);
-    UiUtils.showIf(ugcUpdate == null, mLeaveReviewButton);
+    UiUtils.showIf(ugc != null, mPreviewUgcInfoView, mUgcRootView);
+    UiUtils.showIf(canUserLeaveReview(ugc, ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
     mUgc = ugc;
     if (mUgc == null)
     {
@@ -197,6 +193,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       return;
     }
 
+    RatingView ratingView = (RatingView) mPreviewUgcInfoView.findViewById(R.id.rating_view);
+    ratingView.setRating(Impress.values()[impress], rating);
     seUserReviewAndRatingsView(ugcUpdate);
     List<UGC.Review> reviews = ugc.getReviews();
     if (reviews != null)
@@ -207,8 +205,11 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     mReviewCount.setText(context.getString(R.string.placepage_summary_rating_description,
                                            String.valueOf(mUgc.getBasedOnCount())));
     UiUtils.showIf(reviews != null && reviews.size() > UGCReviewAdapter.MAX_COUNT, mUgcMoreReviews);
-    UiUtils.showIf(mMapObject != null && mMapObject.canBeRated(), mUgcAddRatingView);
-    UiUtils.show(mUgcRootView);
+  }
+
+  private boolean canUserLeaveReview(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate)
+  {
+    return mMapObject != null && mMapObject.canBeRated() && ugc != null && ugcUpdate == null;
   }
 
   private void onAggRatingTapped(@UGC.Impress int rating)
