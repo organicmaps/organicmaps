@@ -1,6 +1,7 @@
 #include "routing/index_road_graph.hpp"
 
 #include "routing/routing_exceptions.hpp"
+#include "routing/transit_graph.hpp"
 
 #include <cstdint>
 
@@ -88,7 +89,7 @@ void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
   {
     auto featureId = FeatureID();
 
-    if (!IndexGraphStarter::IsFakeSegment(segment))
+    if (!IndexGraphStarter::IsFakeSegment(segment) && !TransitGraph::IsTransitSegment(segment))
     {
       platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
       MwmSet::MwmId const mwmId = m_index.GetMwmIdByCountryFile(file);

@@ -16,6 +16,7 @@
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
+#include "routing/transit_world_graph.hpp"
 #include "routing/turns_generator.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -668,12 +669,19 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
 unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
-  return make_unique<SingleVehicleWorldGraph>(
-      make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_vehicleType,
-                                 m_countryRectFn, m_index, m_indexManager),
-      IndexGraphLoader::Create(m_vehicleType, m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory,
-                               m_estimator, m_index),
-      m_estimator);
+  auto crossMwmGraph = make_unique<CrossMwmGraph>(
+      m_numMwmIds, m_numMwmTree, m_vehicleModelFactory,
+      m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
+      m_countryRectFn, m_index, m_indexManager);
+  auto indexGraphLoader = IndexGraphLoader::Create(
+      m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
+      m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index);
+  if (m_vehicleType != VehicleType::Transit)
+    return make_unique<SingleVehicleWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
+                                                m_estimator);
+  auto transitGraphLoader = make_unique<TransitGraphLoader>(m_numMwmIds, m_index, m_estimator);
+  return make_unique<TransitWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
+                                        move(transitGraphLoader), m_estimator);
 }
 
 bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & direction,
