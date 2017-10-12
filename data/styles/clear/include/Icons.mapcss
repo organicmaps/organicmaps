@@ -3171,10 +3171,6 @@ area|z18-[sponsored=cian]
 
 node|z16-[sponsored=thor],
 area|z16-[sponsored=thor]
-{font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
-
-node|z16-[sponsored=thor],
-area|z16-[sponsored=thor]
 {icon-image: portal-l.svg;}
 
 node|z16-[sponsored=thor][rating=2],
