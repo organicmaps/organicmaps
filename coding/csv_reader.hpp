@@ -35,7 +35,7 @@ public:
   template <typename Callback>
   void Read(Reader const & reader, Callback const & fn, Params const & params = {}) const
   {
-    std::string str(reader.Size(), '\0');
+    std::string str(static_cast<size_t>(reader.Size()), '\0');
     reader.Read(0, &str[0], reader.Size());
     std::istringstream stream(str);
     Read(stream, fn, params);

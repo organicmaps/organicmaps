@@ -93,7 +93,7 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
     return {};
 
   auto const offset = index->m_offset;
-  auto const size = UGCSizeAtIndex(distance(m_UGCIndexes.begin(), index));
+  auto const size = static_cast<size_t>(UGCSizeAtIndex(distance(m_UGCIndexes.begin(), index)));
   vector<uint8_t> buf;
   buf.resize(size);
   auto const ugcFilePath = GetUGCFilePath();
@@ -222,7 +222,7 @@ void Storage::Defragmentation()
         continue;
 
       auto const offset = index.m_offset;
-      auto const size = UGCSizeAtIndex(i);
+      auto const size = static_cast<size_t>(UGCSizeAtIndex(i));
       vector<uint8_t> buf;
       buf.resize(size);
       r.Read(offset, buf.data(), size);
@@ -269,7 +269,7 @@ string Storage::GetUGCToSend() const
       continue;
 
     auto const offset = index.m_offset;
-    auto const bufSize = UGCSizeAtIndex(i);
+    auto const bufSize = static_cast<size_t>(UGCSizeAtIndex(i));
     buf.resize(bufSize);
     try
     {

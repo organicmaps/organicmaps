@@ -50,7 +50,7 @@ using UGCRatingCategories = std::vector<std::string>;
 
 struct UGCItem
 {
-  UGCItem() = default;
+  UGCItem() {}
   UGCItem(UGCTypeMask m, UGCRatingCategories && c)
     : m_mask(m), m_categories(std::move(c))
   {
