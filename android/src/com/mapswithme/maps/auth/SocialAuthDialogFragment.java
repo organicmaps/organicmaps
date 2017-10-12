@@ -2,6 +2,7 @@ package com.mapswithme.maps.auth;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.ref.WeakReference;
 
@@ -61,12 +63,15 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   {
     super.onResume();
     AccessToken token = AccessToken.getCurrentAccessToken();
-    if (token == null)
-      return;
+    String tokenValue = null;
+    if (token != null)
+      tokenValue = token.getToken();
 
-    String tokenValue = token.getToken();
     if (TextUtils.isEmpty(tokenValue))
+    {
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_SHOWN);
       return;
+    }
 
     LOGGER.i(TAG, "Social token is already obtained");
     sendResult(Activity.RESULT_OK, tokenValue, Framework.SOCIAL_TOKEN_FACEBOOK);
@@ -97,6 +102,13 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     mCallbackManager.onActivityResult(requestCode, resultCode, data);
   }
 
+  @Override
+  public void onDismiss(DialogInterface dialog)
+  {
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
+    super.onDismiss(dialog);
+  }
+
   private static class FBCallback implements FacebookCallback<LoginResult>
   {
     @NonNull
@@ -110,6 +122,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onSuccess(LoginResult loginResult)
     {
+      Statistics.INSTANCE.trackUGCExternalAuthSucceed(Statistics.ParamValue.FACEBOOK);
       AccessToken accessToken = loginResult.getAccessToken();
       LOGGER.d(TAG, "onSuccess, access token: " + accessToken);
       sendResult(Activity.RESULT_OK, accessToken.getToken(), Framework.SOCIAL_TOKEN_FACEBOOK);
@@ -118,6 +131,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onCancel()
     {
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
       LOGGER.w(TAG, "onCancel");
       sendResult(Activity.RESULT_CANCELED, null, Framework.SOCIAL_TOKEN_FACEBOOK);
     }
@@ -125,6 +139,8 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onError(FacebookException error)
     {
+      Statistics.INSTANCE.trackUGCAuthFailed(Statistics.ParamValue.FACEBOOK,
+                                             error != null ? error.getMessage() : null);
       LOGGER.e(TAG, "onError", error);
       sendResult(Activity.RESULT_CANCELED, null, Framework.SOCIAL_TOKEN_FACEBOOK);
     }

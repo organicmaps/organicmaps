@@ -13,9 +13,11 @@ import android.widget.EditText;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
+import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
@@ -74,6 +76,20 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   }
 
   @Override
+  protected ToolbarController onCreateToolbarController(@NonNull View root)
+  {
+    return new ToolbarController(root, getActivity())
+    {
+      @Override
+      public void onUpClick()
+      {
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_CANCEL);
+        super.onUpClick();
+      }
+    };
+  }
+
+  @Override
   protected void onSubmitButtonClick()
   {
     super.onSubmitButtonClick();
@@ -86,6 +102,7 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
     if (featureId == null)
       throw new AssertionError("Feature ID must be passed to this fragment!");
     UGC.setUGCUpdate(featureId, update);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_SUCCESS);
     getActivity().finish();
   }
 

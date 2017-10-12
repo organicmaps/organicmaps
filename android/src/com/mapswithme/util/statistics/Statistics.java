@@ -16,6 +16,7 @@ import com.facebook.ads.AdError;
 import com.facebook.appevents.AppEventsLogger;
 import com.flurry.android.FlurryAgent;
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.ads.MwmNativeAd;
@@ -58,6 +59,10 @@ import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_E
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_SHOWN;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_PLAN_TOOLTIP_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_EXTERNAL_REQUEST_SUCCESS;
+import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_SHOWN;
+import static com.mapswithme.util.statistics.Statistics.EventName.UGC_REVIEW_START;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER_STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BATTERY;
@@ -89,8 +94,8 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.CIAN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.GEOCHAT;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
-import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.THOR;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 
 public enum Statistics
 {
@@ -248,6 +253,15 @@ public enum Statistics
     // Cold start
     public static final String APPLICATION_COLD_STARTUP_INFO = "Application_ColdStartup_info";
 
+    // Ugc.
+    public static final String UGC_REVIEW_START = "UGC_Review_start";
+    public static final String UGC_REVIEW_CANCEL = "UGC_Review_cancel";
+    public static final String UGC_REVIEW_SUCCESS = "UGC_Review_success";
+    public static final String UGC_AUTH_SHOWN = "UGC_Auth_shown";
+    public static final String UGC_AUTH_DECLINED = "UGC_Auth_declined";
+    public static final String UGC_AUTH_EXTERNAL_REQUEST_SUCCESS = "UGC_Auth_external_request_success";
+    public static final String UGC_AUTH_ERROR = "UGC_Auth_error";
+
     public static class Settings
     {
       public static final String WEB_SITE = "Setings. Go to website";
@@ -355,6 +369,12 @@ public enum Statistics
     public static final String CIAN = "Cian.Ru";
     public static final String THOR = "Thor";
     public static final String NO_PRODUCTS = "no_products";
+    public static final String ADD = "add";
+    public static final String EDIT = "edit";
+    public static final String AFTER_SAVE = "after_save";
+    public static final String PLACEPAGE_PREVIEW = "placepage_preview";
+    public static final String PLACEPAGE = "placepage";
+    public static final String FACEBOOK = "facebook";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -870,6 +890,35 @@ public enum Statistics
       default:
         throw new AssertionError("Wrong parameter 'type'");
     }
+  }
+
+  public void trackUGCStart(boolean isEdit, boolean isPPPreview)
+  {
+    trackEvent(UGC_REVIEW_START,
+               params()
+                   .add(EventParam.IS_AUTHENTICATED, Framework.nativeIsUserAuthenticated())
+                   .add(EventParam.IS_ONLINE, ConnectionState.isConnected())
+                   .add(EventParam.MODE, isEdit ? ParamValue.EDIT : ParamValue.ADD)
+                   .add(EventParam.FROM, isPPPreview ? ParamValue.PLACEPAGE_PREVIEW : ParamValue.PLACEPAGE)
+                   .get());
+  }
+
+  public void trackUGCAuthDialogShown()
+  {
+    trackEvent(UGC_AUTH_SHOWN, params().add(EventParam.FROM, ParamValue.AFTER_SAVE).get());
+  }
+
+  public void trackUGCExternalAuthSucceed(@NonNull String provider)
+  {
+    trackEvent(UGC_AUTH_EXTERNAL_REQUEST_SUCCESS, params().add(EventParam.PROVIDER, provider));
+  }
+
+  public void trackUGCAuthFailed(@NonNull String provider, @Nullable String error)
+  {
+    trackEvent(UGC_AUTH_ERROR, params()
+        .add(EventParam.PROVIDER, provider)
+        .add(EventParam.ERROR, error)
+        .get());
   }
 
   public static ParameterBuilder params()

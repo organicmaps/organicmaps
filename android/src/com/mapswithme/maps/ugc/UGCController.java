@@ -62,7 +62,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
       UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                               mMapObject.getFeatureId(),
-                              UGC.getUserRatings(), UGC.RATING_NONE, mMapObject.canBeReviewed());
+                              UGC.getUserRatings(), UGC.RATING_NONE, mMapObject.canBeReviewed(),
+                              true /* isFromPPP */);
     }
   };
   @NonNull
@@ -217,7 +218,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
     UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                             mMapObject.getFeatureId(),
-                            mUgc.getUserRatings(), rating, mMapObject.canBeReviewed());
+                            mUgc.getUserRatings(), rating, mMapObject.canBeReviewed(),
+                            false /* isFromPPP */);
   }
 
   private void seUserReviewAndRatingsView(@Nullable UGCUpdate update)
