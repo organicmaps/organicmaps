@@ -128,8 +128,7 @@ unique_ptr<FeatureType> Index::FeaturesLoaderGuard::GetOriginalOrEditedFeatureBy
   if (!m_handle.IsAlive())
     return {};
 
-  MwmId const & id = m_handle.GetId();
-  ASSERT_NOT_EQUAL(m_editor.GetFeatureStatus(id, index), osm::Editor::FeatureStatus::Created, ());
+  ASSERT_NOT_EQUAL(m_editor.GetFeatureStatus(m_handle.GetId(), index), osm::Editor::FeatureStatus::Created, ());
   if (!GetFeatureByIndex(index, *feature))
     return {};
 
