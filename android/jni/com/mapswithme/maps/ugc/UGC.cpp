@@ -99,7 +99,9 @@ public:
     jstring jtext = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_ratingTextFieldId));
     // TODO: use lang parameter correctly.
     ugc::Text text(jni::ToNativeString(env, jtext), 1);
-    return ugc::UGCUpdate(records, text, std::chrono::system_clock::now());
+    jlong jtime = env->GetLongField(ugcUpdate, m_updateTimeFieldId);
+    uint64_t timeSec = static_cast<uint64_t>(jtime / 1000);
+    return ugc::UGCUpdate(records, text, std::chrono::system_clock::from_time_t(timeSec));
   }
 
 private:
@@ -194,6 +196,7 @@ private:
         env, m_ugcUpdateClass, "([Lcom/mapswithme/maps/ugc/UGC$Rating;Ljava/lang/String;J)V");
     m_ratingArrayFieldId = env->GetFieldID(m_ugcUpdateClass, "mRatings", "[Lcom/mapswithme/maps/ugc/UGC$Rating;");
     m_ratingTextFieldId = env->GetFieldID(m_ugcUpdateClass, "mText", "Ljava/lang/String;");
+    m_updateTimeFieldId = env->GetFieldID(m_ugcUpdateClass, "mTimeMillis", "J");
     m_ratingNameFieldId = env->GetFieldID(m_ratingClass, "mName", "Ljava/lang/String;");
     m_ratingValueFieldId = env->GetFieldID(m_ratingClass, "mValue", "F");
     m_initialized = true;
@@ -208,6 +211,7 @@ private:
   jmethodID m_ugcUpdateCtor;
   jfieldID m_ratingArrayFieldId;
   jfieldID m_ratingTextFieldId;
+  jfieldID m_updateTimeFieldId;
   jfieldID m_ratingNameFieldId;
   jfieldID m_ratingValueFieldId;
 
