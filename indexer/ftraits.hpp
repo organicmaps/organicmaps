@@ -3,7 +3,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/ftypes_mapping.hpp"
 
-#include "coding/csv_file_reader.hpp"
+#include "coding/csv_reader.hpp"
 
 #include "platform/platform.hpp"
 
@@ -15,10 +15,11 @@
 #include <initializer_list>
 #include <sstream>
 #include <string>
+#include <utility>
 
 namespace ftraits
 {
-template <typename Base, typename Value, Value notFound>
+template <typename Base, typename Value, bool allowTransitiveDuplications = false>
 class TraitsBase
 {
 public:
@@ -27,13 +28,13 @@ public:
     static Base instance;
     auto const it = instance.m_matcher.Find(types);
     if (!instance.m_matcher.IsValid(it))
-      return notFound;
+      return Base::GetEmptyValue();
 
     return it->second;
   }
 
 protected:
-  ftypes::HashMapMatcher<uint32_t, Value> m_matcher;
+  ftypes::Matcher<std::unordered_map<uint32_t, Value>, allowTransitiveDuplications> m_matcher;
 };
 
 enum UGCType
@@ -45,8 +46,21 @@ enum UGCType
 };
 
 using UGCTypeMask = unsigned;
+using UGCRatingCategories = std::vector<std::string>;
 
-class UGC : public TraitsBase<UGC, UGCTypeMask, UGCTYPE_NONE>
+struct UGCItem
+{
+  UGCItem() = default;
+  UGCItem(UGCTypeMask && m, UGCRatingCategories && c)
+    : m_mask(std::move(m)), m_categories(std::move(c))
+  {
+  }
+
+  UGCTypeMask m_mask = UGCTYPE_NONE;
+  UGCRatingCategories m_categories;
+};
+
+class UGC : public TraitsBase<UGC, UGCItem, true>
 {
   friend class TraitsBase;
 
@@ -55,36 +69,54 @@ class UGC : public TraitsBase<UGC, UGCTypeMask, UGCTYPE_NONE>
   UGC()
   {
     coding::CSVReader reader;
-    auto const filePath = GetPlatform().ReadPathForFile("ugc_types.csv", "wr");
-    reader.ReadLineByLine(filePath, [this](std::vector<std::string> const & line) {
-      auto const lineSize = line.size();
-      ASSERT_EQUAL(lineSize, 4, ());
-      ASSERT_EQUAL(lineSize - 1, m_masks.size(), ());
+    auto const fileReader = GetPlatform().GetReader("ugc_types.csv");
+    reader.Read(*fileReader, [this](std::vector<std::string> const & line) {
+      size_t constexpr kItemsCount = 5;
+      size_t constexpr kTypePos = 0;
+      size_t constexpr kCategoriesPos = 4;
 
-      UGCTypeMask maskType = UGCTYPE_NONE;
-      for (size_t i = 1; i < lineSize; i++)
-      {
-        int flag;
-        if (!strings::to_int(line[i], flag))
-        {
-          LOG(LERROR, ("File ugc_types.csv must contain a bit mask of supported ugc traits!"));
-          return;
-        }
+      ASSERT_EQUAL(line.size(), kItemsCount, ());
 
-        if (flag)
-          maskType |= m_masks[i - 1];
-      }
-
-      auto const & typeInfo = line.front();
-      std::istringstream iss(typeInfo);
-      std::vector<std::string> types{std::istream_iterator<std::string>(iss),
-                                     std::istream_iterator<std::string>()};
-
-      m_matcher.AppendType(types, maskType);
+      UGCItem item(ReadMasks(line), ParseByWhitespaces(line[kCategoriesPos]));
+      m_matcher.AppendType(ParseByWhitespaces(line[kTypePos]), std::move(item));
     });
   }
 
+  UGCTypeMask ReadMasks(std::vector<std::string> const & line)
+  {
+    size_t constexpr kMasksBegin = 1;
+    size_t constexpr kMasksEnd = 4;
+
+    UGCTypeMask maskType = UGCTYPE_NONE;
+    for (size_t i = kMasksBegin; i < kMasksEnd; i++)
+    {
+      int flag;
+      if (!strings::to_int(line[i], flag))
+      {
+        LOG(LERROR, ("File ugc_types.csv must contain a bit mask of supported ugc traits!"));
+        return UGCTYPE_NONE;
+      }
+
+      if (flag)
+        maskType |= m_masks[i - 1];
+    }
+
+    return maskType;
+  }
+
+  std::vector<std::string> ParseByWhitespaces(std::string const & str)
+  {
+    std::istringstream iss(str);
+    return {std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>()};
+  }
+
 public:
+  static UGCItem const & GetEmptyValue()
+  {
+    static const UGCItem item;
+    return item;
+  }
+
   static bool IsUGCAvailable(UGCTypeMask mask) { return mask != UGCTYPE_NONE; }
   static bool IsRatingAvailable(UGCTypeMask mask) { return mask & UGCTYPE_RATING; }
   static bool IsReviewsAvailable(UGCTypeMask mask) { return mask & UGCTYPE_REVIEWS; }
@@ -92,19 +124,23 @@ public:
 
   static bool IsUGCAvailable(feature::TypesHolder const & types)
   {
-    return IsUGCAvailable(GetValue(types));
+    return IsUGCAvailable(GetValue(types).m_mask);
   }
   static bool IsRatingAvailable(feature::TypesHolder const & types)
   {
-    return IsRatingAvailable(GetValue(types));
+    return IsRatingAvailable(GetValue(types).m_mask);
   }
   static bool IsReviewsAvailable(feature::TypesHolder const & types)
   {
-    return IsReviewsAvailable(GetValue(types));
+    return IsReviewsAvailable(GetValue(types).m_mask);
   }
   static bool IsDetailsAvailable(feature::TypesHolder const & types)
   {
-    return IsDetailsAvailable(GetValue(types));
+    return IsDetailsAvailable(GetValue(types).m_mask);
+  }
+  static UGCRatingCategories GetCategories(feature::TypesHolder const & types)
+  {
+    return GetValue(types).m_categories;
   }
 };
 
@@ -125,8 +161,7 @@ inline std::string DebugPrint(WheelchairAvailability wheelchair)
   }
 }
 
-class Wheelchair
-    : public TraitsBase<Wheelchair, WheelchairAvailability, WheelchairAvailability::No>
+class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
 {
   friend class TraitsBase;
 
@@ -139,6 +174,9 @@ class Wheelchair
     m_matcher.Append<TypesInitializer>({{"wheelchair", "limited"}},
                                        WheelchairAvailability::Limited);
   }
+
+public:
+  static WheelchairAvailability GetEmptyValue() { return WheelchairAvailability::No; }
 };
 
 }  // namespace ftraits

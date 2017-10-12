@@ -11,7 +11,7 @@
 
 namespace ftypes
 {
-template <typename Container>
+template <typename Container, bool allowTransitiveDuplications = false>
 class Matcher
 {
 public:
@@ -49,9 +49,12 @@ public:
   {
     {
 #if defined(DEBUG)
-      feature::TypesHolder holder;
-      holder.Assign(classif().GetTypeByPath(type));
-      ASSERT(Find(holder) == m_mapping.cend(), ("This type already exists", type));
+      if (!allowTransitiveDuplications)
+      {
+        feature::TypesHolder holder;
+        holder.Assign(classif().GetTypeByPath(type));
+        ASSERT(Find(holder) == m_mapping.cend(), ("This type already exists", type));
+      }
 #endif
     }
     m_mapping.emplace(classif().GetTypeByPath(std::forward<Type>(type)),

@@ -24,8 +24,8 @@ set(
   compressed_bit_vector.cpp
   compressed_bit_vector.hpp
   constants.hpp
-  csv_file_reader.cpp
-  csv_file_reader.hpp
+  csv_reader.cpp
+  csv_reader.hpp
   dd_vector.hpp
   diff.hpp
   diff_patch_common.hpp

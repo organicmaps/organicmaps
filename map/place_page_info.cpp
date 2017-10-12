@@ -179,6 +179,11 @@ bool Info::ShouldShowEditPlace() const
          !IsMyPosition() && IsFeature();
 }
 
+ftraits::UGCRatingCategories Info::GetRatingCategories() const
+{
+  return ftraits::UGC::GetCategories(m_types);
+}
+
 string Info::FormatNewBookmarkName() const
 {
   string const title = GetTitle();

@@ -13,7 +13,7 @@ include($$ROOT_DIR/common.pri)
 SOURCES += \
     base64.cpp \
     compressed_bit_vector.cpp \
-    csv_file_reader.cpp \
+    csv_reader.cpp \
     file_container.cpp \
     file_name_utils.cpp \
     file_reader.cpp \
@@ -47,7 +47,7 @@ HEADERS += \
     coder_util.hpp \
     compressed_bit_vector.hpp \
     constants.hpp \
-    csv_file_reader.hpp \
+    csv_reader.hpp \
     dd_vector.hpp \
     diff.hpp \
     diff_patch_common.hpp \

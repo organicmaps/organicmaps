@@ -62,6 +62,7 @@
 		3D51BC431D5E4E2B00F1FA8D /* test_mwm_set.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56C74C2D1C749E8100B71B9F /* test_mwm_set.hpp */; };
 		3D51BC451D5E4EBF00F1FA8D /* libsearch_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D51BC441D5E4EBF00F1FA8D /* libsearch_tests_support.a */; };
 		3D74ABBC1EA67C1E0063A898 /* ftypes_mapping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74ABBB1EA67C1E0063A898 /* ftypes_mapping.hpp */; };
+		3D74EF241F8F559D0081202C /* ugc_types_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF231F8F559D0081202C /* ugc_types_test.cpp */; };
 		3D928F671D50F9FE001670E0 /* index_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D928F651D50F9FE001670E0 /* index_helpers.cpp */; };
 		3D928F681D50F9FE001670E0 /* index_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D928F661D50F9FE001670E0 /* index_helpers.hpp */; };
 		456B3FB41EDEEB65009B3D1F /* scales_patch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456B3FB31EDEEB65009B3D1F /* scales_patch.hpp */; };
@@ -285,6 +286,7 @@
 		3D51BC401D5E4CFA00F1FA8D /* libtess2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtess2.a; path = "../../../omim-xcode-build/Debug/libtess2.a"; sourceTree = "<group>"; };
 		3D51BC441D5E4EBF00F1FA8D /* libsearch_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch_tests_support.a; path = "../../../omim-xcode-build/Debug/libsearch_tests_support.a"; sourceTree = "<group>"; };
 		3D74ABBB1EA67C1E0063A898 /* ftypes_mapping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ftypes_mapping.hpp; sourceTree = "<group>"; };
+		3D74EF231F8F559D0081202C /* ugc_types_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ugc_types_test.cpp; sourceTree = "<group>"; };
 		3D928F651D50F9FE001670E0 /* index_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = index_helpers.cpp; sourceTree = "<group>"; };
 		3D928F661D50F9FE001670E0 /* index_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = index_helpers.hpp; sourceTree = "<group>"; };
 		456B3FB31EDEEB65009B3D1F /* scales_patch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scales_patch.hpp; sourceTree = "<group>"; };
@@ -529,6 +531,14 @@
 			path = ../../indexer/indexer_tests_support;
 			sourceTree = "<group>";
 		};
+		3D74EEFB1F7CFD2C0081202C /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				670BAAC91D0B0BBB000302DA /* string_slice.hpp */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		45C108BB1E9D0067000FE1F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -573,6 +583,7 @@
 		670C60F81AB0657700C38A8C /* indexer_tests */ = {
 			isa = PBXGroup;
 			children = (
+				3D74EF231F8F559D0081202C /* ugc_types_test.cpp */,
 				3D452AF71EE6D9F5009EAB9B /* wheelchair_tests.cpp */,
 				3D452AF81EE6D9F5009EAB9B /* feature_names_test.cpp */,
 				3D452AF91EE6D9F5009EAB9B /* centers_table_test.cpp */,
@@ -636,6 +647,7 @@
 				6753409B1A3F53CB00A0A8C3 /* Products */,
 				3496ABB01DC1FB1500C5DDBA /* Resources */,
 				45C108BB1E9D0067000FE1F6 /* Frameworks */,
+				3D74EEFB1F7CFD2C0081202C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1064,6 +1076,7 @@
 				6758AED31BB4413000C26E27 /* drules_selector.cpp in Sources */,
 				6753411A1A3F540F00A0A8C3 /* feature_impl.cpp in Sources */,
 				56C74C1C1C749E4700B71B9F /* categories_holder_loader.cpp in Sources */,
+				3D74EF241F8F559D0081202C /* ugc_types_test.cpp in Sources */,
 				6753410D1A3F540F00A0A8C3 /* drawing_rules.cpp in Sources */,
 				675341301A3F540F00A0A8C3 /* index.cpp in Sources */,
 				34664CF61D49FEC1003D7096 /* centers_table.cpp in Sources */,

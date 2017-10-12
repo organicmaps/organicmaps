@@ -2502,7 +2502,6 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
   }
 
   outInfo.SetAdsEngine(m_adsEngine.get());
-  outInfo.SetUGCApi(m_ugcApi.get());
 
   UserMark const * mark = FindUserMarkInTapPosition(tapInfo);
   if (mark != nullptr)

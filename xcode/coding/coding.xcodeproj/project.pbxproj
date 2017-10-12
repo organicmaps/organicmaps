@@ -26,6 +26,8 @@
 		3D489BC11D3D21A40052AA38 /* simple_dense_coding_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BB91D3D217E0052AA38 /* simple_dense_coding_test.cpp */; };
 		3D489BC21D3D21AA0052AA38 /* fixed_bits_ddvector_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BB81D3D217E0052AA38 /* fixed_bits_ddvector_test.cpp */; };
 		3D489BC31D3D21AE0052AA38 /* elias_coder_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BB71D3D217E0052AA38 /* elias_coder_test.cpp */; };
+		3D74EF211F8F55740081202C /* csv_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF1F1F8F55740081202C /* csv_reader.hpp */; };
+		3D74EF221F8F55740081202C /* csv_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF201F8F55740081202C /* csv_reader.cpp */; };
 		45C108B41E9CFE69000FE1F6 /* point_to_integer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C108B21E9CFE69000FE1F6 /* point_to_integer.cpp */; };
 		45C108B51E9CFE69000FE1F6 /* point_to_integer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45C108B31E9CFE69000FE1F6 /* point_to_integer.hpp */; };
 		45C108B81E9CFE7B000FE1F6 /* point_to_integer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C108B61E9CFE78000FE1F6 /* point_to_integer_test.cpp */; };
@@ -131,8 +133,6 @@
 		BB537C601E8490120074D9D3 /* transliteration.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB537C5E1E8490120074D9D3 /* transliteration.hpp */; };
 		F65AFA361F18B8AB00979A50 /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F65AFA351F18B8AB00979A50 /* libplatform_tests_support.a */; };
 		F65AFA381F18C7A500979A50 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F65AFA371F18C7A500979A50 /* libplatform.a */; };
-		F6AFCB721F0D633D00E70373 /* csv_file_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6AFCB701F0D633D00E70373 /* csv_file_reader.cpp */; };
-		F6AFCB731F0D633D00E70373 /* csv_file_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6AFCB711F0D633D00E70373 /* csv_file_reader.hpp */; };
 		F6C269FE1F176FFE00EB6519 /* csv_reader_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6C269FD1F176FFE00EB6519 /* csv_reader_test.cpp */; };
 /* End PBXBuildFile section */
 
@@ -173,6 +173,8 @@
 		3D489BB81D3D217E0052AA38 /* fixed_bits_ddvector_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fixed_bits_ddvector_test.cpp; sourceTree = "<group>"; };
 		3D489BB91D3D217E0052AA38 /* simple_dense_coding_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simple_dense_coding_test.cpp; sourceTree = "<group>"; };
 		3D489BBA1D3D217E0052AA38 /* succinct_mapper_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = succinct_mapper_test.cpp; sourceTree = "<group>"; };
+		3D74EF1F1F8F55740081202C /* csv_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csv_reader.hpp; sourceTree = "<group>"; };
+		3D74EF201F8F55740081202C /* csv_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csv_reader.cpp; sourceTree = "<group>"; };
 		45C108B21E9CFE69000FE1F6 /* point_to_integer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_to_integer.cpp; sourceTree = "<group>"; };
 		45C108B31E9CFE69000FE1F6 /* point_to_integer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = point_to_integer.hpp; sourceTree = "<group>"; };
 		45C108B61E9CFE78000FE1F6 /* point_to_integer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_to_integer_test.cpp; sourceTree = "<group>"; };
@@ -280,8 +282,6 @@
 		BB537C5E1E8490120074D9D3 /* transliteration.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transliteration.hpp; sourceTree = "<group>"; };
 		F65AFA351F18B8AB00979A50 /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = ../platform/build/Debug/libplatform_tests_support.a; sourceTree = "<group>"; };
 		F65AFA371F18C7A500979A50 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-fbvotunmmtqmjnezabjibwxwryev/Build/Products/Debug/libplatform.a"; sourceTree = "<group>"; };
-		F6AFCB701F0D633D00E70373 /* csv_file_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csv_file_reader.cpp; sourceTree = "<group>"; };
-		F6AFCB711F0D633D00E70373 /* csv_file_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csv_file_reader.hpp; sourceTree = "<group>"; };
 		F6C269FD1F176FFE00EB6519 /* csv_reader_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csv_reader_test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -408,6 +408,8 @@
 		6753421D1A3F586300A0A8C3 /* coding */ = {
 			isa = PBXGroup;
 			children = (
+				3D74EF201F8F55740081202C /* csv_reader.cpp */,
+				3D74EF1F1F8F55740081202C /* csv_reader.hpp */,
 				45C108B21E9CFE69000FE1F6 /* point_to_integer.cpp */,
 				45C108B31E9CFE69000FE1F6 /* point_to_integer.hpp */,
 				BB537C5D1E8490120074D9D3 /* transliteration.cpp */,
@@ -464,8 +466,6 @@
 				675342641A3F588B00A0A8C3 /* reader_writer_ops.hpp */,
 				675342651A3F588B00A0A8C3 /* reader.cpp */,
 				675342661A3F588B00A0A8C3 /* reader.hpp */,
-				F6AFCB701F0D633D00E70373 /* csv_file_reader.cpp */,
-				F6AFCB711F0D633D00E70373 /* csv_file_reader.hpp */,
 				675342691A3F588B00A0A8C3 /* streams_common.hpp */,
 				6753426A1A3F588B00A0A8C3 /* streams_sink.hpp */,
 				6753426B1A3F588B00A0A8C3 /* streams.hpp */,
@@ -514,7 +514,6 @@
 				675342B51A3F588C00A0A8C3 /* reader_cache.hpp in Headers */,
 				675342CE1A3F588C00A0A8C3 /* varint.hpp in Headers */,
 				BB537C601E8490120074D9D3 /* transliteration.hpp in Headers */,
-				F6AFCB731F0D633D00E70373 /* csv_file_reader.hpp in Headers */,
 				675342D01A3F588C00A0A8C3 /* writer.hpp in Headers */,
 				675342CA1A3F588C00A0A8C3 /* var_serial_vector.hpp in Headers */,
 				347F33391C4540F0009758CC /* fixed_bits_ddvector.hpp in Headers */,
@@ -560,6 +559,7 @@
 				675342C71A3F588C00A0A8C3 /* url_encode.hpp in Headers */,
 				675342BC1A3F588C00A0A8C3 /* reader.hpp in Headers */,
 				675342D21A3F588C00A0A8C3 /* zip_creator.hpp in Headers */,
+				3D74EF211F8F55740081202C /* csv_reader.hpp in Headers */,
 				675342B11A3F588C00A0A8C3 /* multilang_utf8_string.hpp in Headers */,
 				675342D41A3F588C00A0A8C3 /* zip_reader.hpp in Headers */,
 				675342A41A3F588C00A0A8C3 /* file_writer.hpp in Headers */,
@@ -696,6 +696,7 @@
 				675342821A3F588C00A0A8C3 /* base64.cpp in Sources */,
 				675342D31A3F588C00A0A8C3 /* zip_reader.cpp in Sources */,
 				347F33371C4540F0009758CC /* compressed_bit_vector.cpp in Sources */,
+				3D74EF221F8F55740081202C /* csv_reader.cpp in Sources */,
 				6753429F1A3F588C00A0A8C3 /* file_reader.cpp in Sources */,
 				34A129D31DF99E43001B4531 /* zlib.cpp in Sources */,
 				676818201DC3ABD80094C0AC /* traffic_test.cpp in Sources */,
@@ -703,7 +704,6 @@
 				675342C51A3F588C00A0A8C3 /* uri.cpp in Sources */,
 				675342BB1A3F588C00A0A8C3 /* reader.cpp in Sources */,
 				670BAACB1D0B0C1E000302DA /* huffman.cpp in Sources */,
-				F6AFCB721F0D633D00E70373 /* csv_file_reader.cpp in Sources */,
 				6753429C1A3F588C00A0A8C3 /* file_name_utils.cpp in Sources */,
 				675342A71A3F588C00A0A8C3 /* hex.cpp in Sources */,
 				675342A31A3F588C00A0A8C3 /* file_writer.cpp in Sources */,

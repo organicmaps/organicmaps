@@ -77,11 +77,11 @@ public:
   bool ShouldShowEditPlace() const;
 
   /// UGC
-  void SetUGCApi(ugc::Api * const api) { m_ugcApi = api; }
   bool ShouldShowUGC() const { return ftraits::UGC::IsUGCAvailable(m_types); }
   bool CanBeRated() const { return ftraits::UGC::IsRatingAvailable(m_types); }
   bool CanBeReviewed() const { return ftraits::UGC::IsReviewsAvailable(m_types); }
   bool CanHaveExtendedReview() const { return ftraits::UGC::IsDetailsAvailable(m_types); }
+  ftraits::UGCRatingCategories GetRatingCategories() const;
 
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const { return !m_apiUrl.empty(); }
@@ -255,9 +255,6 @@ private:
   LocalAdsStatus m_localAdsStatus = LocalAdsStatus::NotAvailable;
   /// Ads source.
   ads::Engine * m_adsEngine = nullptr;
-  /// UGC
-  /// This is a non-owning pointer;
-  ugc::Api * m_ugcApi = nullptr;
   /// Sponsored type or None.
   SponsoredType m_sponsoredType = SponsoredType::None;
 
