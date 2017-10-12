@@ -44,7 +44,7 @@ public:
   std::string GetAccessToken() const;
   Details GetDetails() const;
 
-  void UploadUserReviews(std::string const & dataStr,
+  void UploadUserReviews(std::string && dataStr,
                          CompleteUploadingHandler const & onCompleteUploading);
 
 private:

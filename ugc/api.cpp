@@ -2,7 +2,7 @@
 
 #include "platform/platform.hpp"
 
-#include <chrono>
+#include <utility>
 
 using namespace std;
 using namespace ugc;
@@ -24,6 +24,16 @@ void Api::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
   m_thread.Push([=] { SetUGCUpdate(id, ugc); });
 }
 
+void Api::GetUGCForToSend(UGCJsonToSendCallback const & fn)
+{
+  m_thread.Push([&fn, this] { GetUGCToSendImpl(fn); });
+}
+
+void Api::SendingCompleted()
+{
+  m_thread.Push([this] { SendingCompletedImpl(); });
+}
+
 void Api::GetUGCImpl(FeatureID const & id, UGCCallback callback)
 {
   if (!id.IsValid())
@@ -41,5 +51,16 @@ void Api::GetUGCImpl(FeatureID const & id, UGCCallback callback)
 void Api::SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc)
 {
   m_storage.SetUGCUpdate(id, ugc);
+}
+
+void Api::GetUGCToSendImpl(UGCJsonToSendCallback const & fn)
+{
+  auto json = m_storage.GetUGCToSend();
+  fn(move(json));
+}
+
+void Api::SendingCompletedImpl()
+{
+  m_storage.MarkAllAsSynchronized();
 }
 }  // namespace ugc

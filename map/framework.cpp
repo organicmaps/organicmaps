@@ -3474,7 +3474,16 @@ void Framework::UploadUGC(User::CompleteUploadingHandler const & onCompleteUploa
   if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return;
 
-  //TODO: extract UGC for uploading.
-  if (m_user.IsAuthenticated()) // && UGC not empty
-    m_user.UploadUserReviews("{}", onCompleteUploading);
+  if (!m_user.IsAuthenticated())
+    return;
+
+  m_ugcApi->GetUGCForToSend([this, onCompleteUploading](string && json) {
+    if (!json.empty())
+      m_user.UploadUserReviews(move(json), [this, onCompleteUploading]
+      {
+        if (onCompleteUploading)
+          onCompleteUploading();
+        m_ugcApi->SendingCompleted();
+      });
+  });
 }

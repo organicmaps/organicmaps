@@ -409,7 +409,7 @@ using namespace osm_auth_ios;
 // Starts async UGC uploading process.
 + (void)uploadUGC:(MWMVoidBlock)finishCallback
 {
-  GetFramework().UploadUGC([finishCallback](){
+  GetFramework().UploadUGC([finishCallback] {
     finishCallback();
   });
 }
@@ -489,7 +489,7 @@ using namespace osm_auth_ios;
   // 3. Upload UGC.
   runFetchTask(^{
     // Ignore completion callback for now.
-    [MapsAppDelegate uploadUGC:^(){}];
+    [MapsAppDelegate uploadUGC:^{}];
   });
   // 4. Check if map for current location is already downloaded, and if not - notify user to
   // download it.
@@ -571,7 +571,7 @@ using namespace osm_auth_ios;
                    dispatch_get_main_queue(), finishUGCUploadTaskBlock);
     m_ugcUploadBackgroundTask =
       [application beginBackgroundTaskWithExpirationHandler:finishUGCUploadTaskBlock];
-    [MapsAppDelegate uploadUGC:^() {
+    [MapsAppDelegate uploadUGC:^{
       finishUGCUploadTaskBlock();
     }];
   }

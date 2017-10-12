@@ -244,7 +244,7 @@ void User::RequestUserDetails()
   });
 }
 
-void User::UploadUserReviews(std::string const & dataStr,
+void User::UploadUserReviews(std::string && dataStr,
                              CompleteUploadingHandler const & onCompleteUploading)
 {
   std::string const url = ReviewReceiverUrl();
