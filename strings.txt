@@ -26360,3 +26360,7 @@
   [quality]
     en = Quality
     ru = Качество
+
+  [sponsored_thor_gather]
+    en = Gather
+    ru = Собрать
