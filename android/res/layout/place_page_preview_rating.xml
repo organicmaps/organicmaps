@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:orientation="horizontal"
   tools:background="#8000FFFF"
   tools:showIn="@layout/place_page_preview">
   <com.mapswithme.maps.widget.RatingView
     android:id="@+id/rating_view"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/rating_view_height_small"
-    android:layout_centerVertical="true"
     android:paddingLeft="@dimen/margin_quarter_plus"
     android:paddingStart="@dimen/margin_quarter_plus"
     android:paddingRight="@dimen/margin_quarter_plus"
@@ -19,32 +19,26 @@
     android:paddingBottom="@dimen/margin_quarter"
     android:layout_marginRight="@dimen/margin_half"
     android:layout_marginEnd="@dimen/margin_half"
+    android:layout_gravity="center_vertical"
     android:textSize="@dimen/text_size_body_4"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
     tools:visibility="visible"/>
   <TextView
     android:id="@+id/tv__review_count"
-    android:layout_toRightOf="@id/rating_view"
-    android:layout_toEndOf="@id/rating_view"
-    android:layout_alignWithParentIfMissing="true"
     android:layout_marginRight="@dimen/margin_half"
     android:layout_marginEnd="@dimen/margin_half"
-    android:layout_toLeftOf="@+id/tv__hotel_price"
-    android:layout_toStartOf="@+id/tv__hotel_price"
     android:ellipsize="end"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_gravity="center_vertical"
     android:layout_height="wrap_content"
-    android:layout_centerVertical="true"
     android:textAppearance="@style/MwmTextAppearance.Body4"
     tools:text="1309 reviews"/>
   <TextView
-    android:id="@id/tv__hotel_price"
+    android:id="@+id/tv__hotel_price"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="end|center_vertical"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
     android:textStyle="bold"
     tools:text="$$$"/>
   <Button
@@ -52,14 +46,13 @@
     style="@style/MwmWidget.Button.LeaveReview"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
     android:paddingBottom="@dimen/margin_eighth"
     android:paddingTop="@dimen/margin_eighth"
     android:paddingStart="@dimen/margin_half"
     android:paddingLeft="@dimen/margin_half"
     android:paddingEnd="@dimen/margin_half"
     android:paddingRight="@dimen/margin_half"
-    android:layout_gravity="center"
+    android:layout_gravity="end|center_vertical"
+    android:visibility="gone"
     android:text="@string/leave_a_review"/>
-</RelativeLayout>
+</LinearLayout>
