@@ -36,7 +36,7 @@ public:
   void Read(Reader const & reader, Callback const & fn, Params const & params = {}) const
   {
     std::string str(static_cast<size_t>(reader.Size()), '\0');
-    reader.Read(0, &str[0], reader.Size());
+    reader.Read(0, &str[0], str.size());
     std::istringstream stream(str);
     Read(stream, fn, params);
   }

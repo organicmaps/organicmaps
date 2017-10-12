@@ -3476,7 +3476,7 @@ void Framework::UploadUGC(User::CompleteUploadingHandler const & onCompleteUploa
   if (!m_user.IsAuthenticated())
     return;
 
-  m_ugcApi->GetUGCForToSend([this, onCompleteUploading](string && json) {
+  m_ugcApi->GetUGCToSend([this, onCompleteUploading](string && json) {
     if (!json.empty())
       m_user.UploadUserReviews(move(json), [this, onCompleteUploading]
       {

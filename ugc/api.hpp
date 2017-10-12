@@ -23,7 +23,7 @@ public:
 
   void GetUGC(FeatureID const & id, UGCCallback callback);
   void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
-  void GetUGCForToSend(UGCJsonToSendCallback const & fn);
+  void GetUGCToSend(UGCJsonToSendCallback const & fn);
   void SendingCompleted();
 
 private:
