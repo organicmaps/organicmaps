@@ -8854,3 +8854,7 @@ uk:^Хибара
 vi:^Nhà tạm trú
 zh-Hans:^荒野小屋
 zh-Hant:^山屋
+
+sponsored-thor
+en:Collect all the items and win prises!
+ru:Соберите все и выиграйте призы!
