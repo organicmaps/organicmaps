@@ -96,11 +96,7 @@ public:
     if (population == 0)
       return;
 
-    StringUtf8Multilang names;
-    ft.ForEachName([&](int8_t lang, string const & name) {
-      names.AddString(lang, name);
-      return true;
-    });
+    auto const names = ft.GetNames();
     auto const center = ft.GetCenter();
 
     m_holder.Add(LocalityItem(names, center, population));

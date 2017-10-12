@@ -75,7 +75,7 @@ public:
   /// @returns empty string if langCode is invalid.
   static char const * GetTransliteratorIdByCode(int8_t langCode);
 
-  inline bool operator==(StringUtf8Multilang const & rhs) const { return (m_s == rhs.m_s); }
+  inline bool operator==(StringUtf8Multilang const & rhs) const { return m_s == rhs.m_s; }
   inline bool operator!=(StringUtf8Multilang const & rhs) const { return !(*this == rhs); }
 
   inline void Clear() { m_s.clear(); }

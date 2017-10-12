@@ -369,6 +369,7 @@ void FeatureType::ParseMetadata() const
 
 StringUtf8Multilang const & FeatureType::GetNames() const
 {
+  ParseCommon();
   return m_params.name;
 }
 
