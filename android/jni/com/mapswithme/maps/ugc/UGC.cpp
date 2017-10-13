@@ -136,7 +136,7 @@ private:
   jobjectArray ToJavaRatings(JNIEnv * env, std::vector<ugc::RatingRecord> const & ratings)
   {
     size_t const n = ratings.size();
-    jobjectArray result = env->NewObjectArray(n, m_ratingClass, nullptr);
+    jobjectArray result = env->NewObjectArray(n, g_ratingClazz, nullptr);
     for (size_t i = 0; i < n; ++i)
     {
       jni::TScopedLocalRef rating(env, ToJavaRating(env, ratings[i]));
@@ -160,7 +160,7 @@ private:
   jobject ToJavaRating(JNIEnv * env, ugc::RatingRecord const & ratingRecord)
   {
     jni::TScopedLocalRef name(env, jni::ToJavaString(env, ratingRecord.m_key.m_key));
-    jobject result = env->NewObject(m_ratingClass, m_ratingCtor, name.get(), ratingRecord.m_value);
+    jobject result = env->NewObject(g_ratingClazz, m_ratingCtor, name.get(), ratingRecord.m_value);
     ASSERT(result, ());
     return result;
   }
@@ -188,8 +188,7 @@ private:
     m_onResult = jni::GetStaticMethodID(env, m_ugcClass, "onUGCReceived",
                                         "(Lcom/mapswithme/maps/ugc/UGC;Lcom/mapswithme/maps/ugc/UGCUpdate;ILjava/lang/String;)V");
 
-    m_ratingClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGC$Rating");
-    m_ratingCtor = jni::GetConstructorID(env, m_ratingClass, "(Ljava/lang/String;F)V");
+    m_ratingCtor = jni::GetConstructorID(env, g_ratingClazz, "(Ljava/lang/String;F)V");
 
     m_reviewClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGC$Review");
     m_reviewCtor =
@@ -201,8 +200,8 @@ private:
     m_ratingArrayFieldId = env->GetFieldID(m_ugcUpdateClass, "mRatings", "[Lcom/mapswithme/maps/ugc/UGC$Rating;");
     m_ratingTextFieldId = env->GetFieldID(m_ugcUpdateClass, "mText", "Ljava/lang/String;");
     m_updateTimeFieldId = env->GetFieldID(m_ugcUpdateClass, "mTimeMillis", "J");
-    m_ratingNameFieldId = env->GetFieldID(m_ratingClass, "mName", "Ljava/lang/String;");
-    m_ratingValueFieldId = env->GetFieldID(m_ratingClass, "mValue", "F");
+    m_ratingNameFieldId = env->GetFieldID(g_ratingClazz, "mName", "Ljava/lang/String;");
+    m_ratingValueFieldId = env->GetFieldID(g_ratingClazz, "mValue", "F");
     m_initialized = true;
   }
 
@@ -221,7 +220,6 @@ private:
 
   jmethodID m_onResult;
 
-  jclass m_ratingClass;
   jmethodID m_ratingCtor;
 
   jclass m_reviewClass;

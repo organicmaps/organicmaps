@@ -11,6 +11,7 @@ import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
+import com.mapswithme.maps.ugc.UGC;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -60,6 +61,8 @@ public class MapObject implements Parcelable
   private boolean mShouldShowUGC;
   private boolean mCanBeRated;
   private boolean mCanBeReviewed;
+  @Nullable
+  private List<UGC.Rating> mRatings;
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address,
@@ -67,12 +70,13 @@ public class MapObject implements Parcelable
                    @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] types,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
-                   boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed)
+                   boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
+                   @Nullable UGC.Rating[] ratings)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
          types, bookingSearchUrl, localAdInfo, routePointInfo, isExtendedView, shouldShowUGC,
-         canBeRated, canBeReviewed);
+         canBeRated, canBeReviewed, ratings);
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
@@ -81,7 +85,8 @@ public class MapObject implements Parcelable
                    String apiId, @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] taxiTypes,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
-                   boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed)
+                   boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
+                   @Nullable UGC.Rating[] ratings)
   {
     mFeatureId = featureId;
     mMapObjectType = mapObjectType;
@@ -105,9 +110,11 @@ public class MapObject implements Parcelable
     if (taxiTypes != null)
     {
       mReachableByTaxiTypes = new ArrayList<>();
-      for (int type: taxiTypes)
+      for (int type : taxiTypes)
         mReachableByTaxiTypes.add(type);
     }
+    if (ratings != null)
+      mRatings = new ArrayList<>(Arrays.asList(ratings));
   }
 
   protected MapObject(@MapObjectType int type, Parcel source)
@@ -131,11 +138,12 @@ public class MapObject implements Parcelable
          source.readInt() == 1, // mExtendedView
          source.readInt() == 1, // mShouldShowUGC
          source.readInt() == 1, // mCanBeRated;
-         source.readInt() == 1); // mCanBeReviewed
+         source.readInt() == 1, // mCanBeReviewed
+         null); // mRatings
 
     mBanners = readBanners(source);
     mReachableByTaxiTypes = readTaxiTypes(source);
-
+    mRatings = readRatings(source);
   }
 
   @NonNull
@@ -145,7 +153,8 @@ public class MapObject implements Parcelable
     return new MapObject(featureId, mapObjectType, title,
                          "", subtitle, "", lat, lon, "", null,
                          null, "", null, null, false /* isExtendedView */,
-                         false /* shouldShowUGC */, false /* canBeRated */, false /* canBeReviewed */);
+                         false /* shouldShowUGC */, false /* canBeRated */, false /* canBeReviewed */,
+                         null /* ratings */);
   }
 
   @Nullable
@@ -154,6 +163,14 @@ public class MapObject implements Parcelable
     List<Banner> banners = new ArrayList<>();
     source.readTypedList(banners, Banner.CREATOR);
     return banners.isEmpty() ? null : banners;
+  }
+
+  @Nullable
+  private List<UGC.Rating> readRatings(@NonNull Parcel source)
+  {
+    List<UGC.Rating> ratings = new ArrayList<>();
+    source.readTypedList(ratings, UGC.Rating.CREATOR);;
+    return ratings.isEmpty() ? null : ratings;
   }
 
   @NonNull
@@ -364,6 +381,7 @@ public class MapObject implements Parcelable
     dest.writeInt(mCanBeRated ? 1 : 0);
     dest.writeTypedList(mBanners);
     dest.writeList(mReachableByTaxiTypes);
+    dest.writeTypedList(mRatings);
   }
 
   @Override

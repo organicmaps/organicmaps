@@ -11,6 +11,7 @@ import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
+import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Constants;
 
 // TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.
@@ -29,11 +30,12 @@ public class Bookmark extends MapObject
                   @TaxiManager.TaxiType int[] reachableByTaxiTypes,
                   @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                   @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
-                  boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed)
+                  boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
+                  @Nullable UGC.Rating[] ratings)
   {
     super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
           banners, reachableByTaxiTypes, bookingSearchUrl, localAdInfo, routePointInfo,
-          isExtendedView, shouldShowUGC, canBeRated, canBeReviewed);
+          isExtendedView, shouldShowUGC, canBeRated, canBeReviewed, ratings);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;

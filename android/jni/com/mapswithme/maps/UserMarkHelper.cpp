@@ -31,8 +31,16 @@ jobject CreateBanner(JNIEnv * env, std::string const & id, jint type)
 {
   static jmethodID const bannerCtorId =
       jni::GetConstructorID(env, g_bannerClazz, "(Ljava/lang/String;I)V");
+  jni::TScopedLocalRef idRef(env, jni::ToJavaString(env, id));
+  return env->NewObject(g_bannerClazz, bannerCtorId, idRef.get(), type);
+}
 
-  return env->NewObject(g_bannerClazz, bannerCtorId, jni::ToJavaString(env, id), type);
+jobject CreateRating(JNIEnv * env, std::string const & name)
+{
+  static jmethodID const ratingCtorId =
+      jni::GetConstructorID(env, g_ratingClazz, "(Ljava/lang/String;F)V");
+  jni::TScopedLocalRef nameRef(env, jni::ToJavaString(env, name));
+  return env->NewObject(g_ratingClazz, ratingCtorId, nameRef.get(), place_page::kIncorrectRating);
 }
 
 jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion,
@@ -42,7 +50,7 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
                         string const & apiId, jobjectArray jbanners, jintArray jTaxiTypes,
                         string const & bookingSearchUrl, jobject const & localAdInfo,
                         jobject const & routingPointInfo, bool isExtendedView, bool shouldShowUGC,
-                        bool canBeRated, bool canBeReviewed)
+                        bool canBeRated, bool canBeReviewed, jobjectArray jratings)
 {
   // public MapObject(@NonNull FeatureId featureId,
   //                  @MapObjectType int mapObjectType, String title, @Nullable String
@@ -57,7 +65,7 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
       "String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
       "String;[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
       "Lcom/mapswithme/maps/ads/LocalAdInfo;"
-      "Lcom/mapswithme/maps/routing/RoutePointInfo;ZZZZ)V");
+      "Lcom/mapswithme/maps/routing/RoutePointInfo;ZZZZ[Lcom/mapswithme/maps/ugc/UGC$Rating;)V");
   //public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
   static jmethodID const featureCtorId =
       jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
@@ -77,7 +85,8 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
                      jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), lat, lon, jApiId.get(),
                      jbanners, jTaxiTypes, jBookingSearchUrl.get(), localAdInfo, routingPointInfo,
                      static_cast<jboolean>(isExtendedView), static_cast<jboolean>(shouldShowUGC),
-                     static_cast<jboolean>(canBeRated), static_cast<jboolean>(canBeReviewed));
+                     static_cast<jboolean>(canBeRated), static_cast<jboolean>(canBeReviewed),
+                     jratings);
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -88,6 +97,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   jni::TScopedLocalObjectArrayRef jbanners(env, nullptr);
   if (info.HasBanner())
     jbanners.reset(ToBannersArray(env, info.GetBanners()));
+
+  jni::TScopedLocalObjectArrayRef jratings(env, ToRatingArray(env, info.GetRatingCategories()));
 
   jni::TScopedLocalIntArrayRef jTaxiTypes(env, ToReachableByTaxiProvidersArray(env, info.ReachableByTaxiProviders()));
 
@@ -111,7 +122,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                               "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                               "[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
                               "Lcom/mapswithme/maps/ads/LocalAdInfo;"
-                              "Lcom/mapswithme/maps/routing/RoutePointInfo;ZZZZ)V");
+                              "Lcom/mapswithme/maps/routing/RoutePointInfo;ZZZZ[Lcom/mapswithme/maps/ugc/UGC$Rating;)V");
     // public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
     static jmethodID const featureCtorId =
         jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
@@ -135,7 +146,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         static_cast<jint>(bac.m_bookmarkIndex), jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(),
         jAddress.get(), jbanners.get(), jTaxiTypes.get(), jBookingSearchUrl.get(),
         localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended(), info.ShouldShowUGC(),
-        info.CanBeRated(), info.CanBeReviewed());
+        info.CanBeRated(), info.CanBeReviewed(), jratings.get());
 
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
@@ -153,7 +164,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                            info.GetAddress(), {}, "", jbanners.get(), jTaxiTypes.get(),
                            info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
                            info.IsPreviewExtended(), info.ShouldShowUGC(), info.CanBeRated(),
-                           info.CanBeReviewed());
+                           info.CanBeReviewed(), jratings.get());
   }
 
   if (info.HasApiUrl())
@@ -163,7 +174,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         kApiPoint, info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
         info.GetAddress(), info.GetMetadata(), info.GetApiUrl(), jbanners.get(), jTaxiTypes.get(),
         info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended(),
-        info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed());
+        info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(), jratings.get());
   }
 
   return CreateMapObject(
@@ -171,7 +182,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
       info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
       info.GetAddress(), info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
       jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
-      info.IsPreviewExtended(), info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed());
+      info.IsPreviewExtended(), info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(),
+      jratings.get());
 }
 
 jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners)
@@ -179,6 +191,17 @@ jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners)
   return jni::ToJavaArray(env, g_bannerClazz, banners,
                           [](JNIEnv * env, ads::Banner const & item) {
                             return CreateBanner(env, item.m_bannerId, static_cast<jint>(item.m_type));
+                          });
+}
+
+jobjectArray ToRatingArray(JNIEnv * env, vector<std::string> const & ratingCategories)
+{
+  if (ratingCategories.empty())
+    return nullptr;
+
+  return jni::ToJavaArray(env, g_ratingClazz, ratingCategories,
+                          [](JNIEnv * env, std::string const & item) {
+                            return CreateRating(env, item);
                           });
 }
 
