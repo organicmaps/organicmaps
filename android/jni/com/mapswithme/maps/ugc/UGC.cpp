@@ -87,7 +87,8 @@ public:
 
     jobjectArray jratings = static_cast<jobjectArray>(env->GetObjectField(ugcUpdate, m_ratingArrayFieldId));
     int const length = env->GetArrayLength(jratings);
-    std::vector<ugc::RatingRecord> records(length);
+    std::vector<ugc::RatingRecord> records;
+    records.reserve(length);
     for (int i = 0; i < length; i++)
     {
       jobject jrating = env->GetObjectArrayElement(jratings, i);
