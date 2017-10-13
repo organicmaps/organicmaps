@@ -178,23 +178,9 @@ IsBuildingHasPartsChecker::IsBuildingHasPartsChecker()
   m_types.push_back(classif().GetTypeByPath({"building", "has_parts"}));
 }
 
-// static
-IsBuildingHasPartsChecker const & IsBuildingHasPartsChecker::Instance()
-{
-  static IsBuildingHasPartsChecker const inst;
-  return inst;
-}
-
 IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(1 /* level */)
 {
   m_types.push_back(classif().GetTypeByPath({"building:part"}));
-}
-
-// static
-IsBuildingPartChecker const & IsBuildingPartChecker::Instance()
-{
-  static IsBuildingPartChecker const inst;
-  return inst;
 }
 
 IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
@@ -206,14 +192,6 @@ IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
   for (auto const & p : arr)
     m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
 }
-
-// static
-IsHatchingTerritoryChecker const & IsHatchingTerritoryChecker::Instance()
-{
-  static IsHatchingTerritoryChecker const inst;
-  return inst;
-}
-
 
 void CaptionDescription::Init(FeatureType const & f,
                               int8_t deviceLang,

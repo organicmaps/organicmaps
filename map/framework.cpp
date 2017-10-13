@@ -48,6 +48,7 @@
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/ftypes_sponsored.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/osm_editor.hpp"
 #include "indexer/scales.hpp"

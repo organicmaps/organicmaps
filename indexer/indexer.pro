@@ -41,6 +41,7 @@ SOURCES += \
     features_offsets_table.cpp \
     features_vector.cpp \
     ftypes_matcher.cpp \
+    ftypes_sponsored.cpp \
     geometry_coding.cpp \
     geometry_serialization.cpp \
     index.cpp \
@@ -102,6 +103,7 @@ HEADERS += \
     ftraits.hpp \
     ftypes_mapping.hpp \
     ftypes_matcher.hpp \
+    ftypes_sponsored.hpp \
     geometry_coding.hpp \
     geometry_serialization.hpp \
     index.hpp \

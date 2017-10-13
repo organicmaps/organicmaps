@@ -75,6 +75,8 @@ set(
   ftraits.hpp
   ftypes_matcher.cpp
   ftypes_matcher.hpp
+  ftypes_sponsored.cpp
+  ftypes_sponsored.hpp
   geometry_coding.cpp
   geometry_coding.hpp
   geometry_serialization.cpp

@@ -15,26 +15,25 @@ namespace drule { class BaseRule; }
 
 namespace df
 {
-
 class IsBuildingHasPartsChecker : public ftypes::BaseChecker
 {
   IsBuildingHasPartsChecker();
 public:
-  static IsBuildingHasPartsChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsBuildingHasPartsChecker);
 };
 
 class IsBuildingPartChecker : public ftypes::BaseChecker
 {
   IsBuildingPartChecker();
 public:
-  static IsBuildingPartChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsBuildingPartChecker);
 };
 
 class IsHatchingTerritoryChecker : public ftypes::BaseChecker
 {
   IsHatchingTerritoryChecker();
 public:
-  static IsHatchingTerritoryChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsHatchingTerritoryChecker);
 };
 
 struct CaptionDescription

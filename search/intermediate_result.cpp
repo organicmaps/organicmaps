@@ -9,6 +9,7 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/ftypes_sponsored.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/angles.hpp"

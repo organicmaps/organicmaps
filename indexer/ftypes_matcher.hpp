@@ -15,6 +15,9 @@
 namespace feature { class TypesHolder; }
 class FeatureType;
 
+#define DECLARE_CHECKER_INSTANCE(CheckerType) static CheckerType const & Instance() { \
+                                              static CheckerType const inst; return inst; }
+
 namespace ftypes
 {
 class BaseChecker
@@ -47,86 +50,85 @@ class IsPeakChecker : public BaseChecker
 {
   IsPeakChecker();
 public:
-  static IsPeakChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsPeakChecker);
 };
 
 class IsATMChecker : public BaseChecker
 {
   IsATMChecker();
 public:
-  static IsATMChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsATMChecker);
 };
 
 class IsSpeedCamChecker : public BaseChecker
 {
   IsSpeedCamChecker();
 public:
-  static IsSpeedCamChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsSpeedCamChecker);
 };
 
 class IsFuelStationChecker : public BaseChecker
 {
   IsFuelStationChecker();
 public:
-  static IsFuelStationChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsFuelStationChecker);
 };
 
 class IsRailwayStationChecker : public BaseChecker
 {
   IsRailwayStationChecker();
 public:
-  static IsRailwayStationChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsRailwayStationChecker);
 };
 
 class IsStreetChecker : public BaseChecker
 {
   IsStreetChecker();
 public:
-  static IsStreetChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsStreetChecker);
 };
 
 class IsAddressObjectChecker : public BaseChecker
 {
   IsAddressObjectChecker();
 public:
-  static IsAddressObjectChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsAddressObjectChecker);
 };
 
 class IsVillageChecker : public BaseChecker
 {
   IsVillageChecker();
-
 public:
-  static IsVillageChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsVillageChecker);
 };
 
 class IsOneWayChecker : public BaseChecker
 {
   IsOneWayChecker();
 public:
-  static IsOneWayChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsOneWayChecker);
 };
 
 class IsRoundAboutChecker : public BaseChecker
 {
   IsRoundAboutChecker();
 public:
-  static IsRoundAboutChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsRoundAboutChecker);
 };
 
 class IsLinkChecker : public BaseChecker
 {
   IsLinkChecker();
 public:
-  static IsLinkChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsLinkChecker);
 };
 
 class IsBuildingChecker : public BaseChecker
 {
   IsBuildingChecker();
 public:
-  static IsBuildingChecker const & Instance();
   uint32_t GetMainType() const { return m_types[0]; }
+  DECLARE_CHECKER_INSTANCE(IsBuildingChecker);
 };
 
 class IsBridgeChecker : public BaseChecker
@@ -135,7 +137,7 @@ class IsBridgeChecker : public BaseChecker
 
   IsBridgeChecker();
 public:
-  static IsBridgeChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsBridgeChecker);
 };
 
 class IsTunnelChecker : public BaseChecker
@@ -144,14 +146,7 @@ class IsTunnelChecker : public BaseChecker
 
   IsTunnelChecker();
 public:
-  static IsTunnelChecker const & Instance();
-};
-
-class IsBookingChecker : public BaseChecker
-{
-  IsBookingChecker();
-public:
-  static IsBookingChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsTunnelChecker);
 };
 
 class IsHotelChecker : public BaseChecker
@@ -174,12 +169,11 @@ public:
   static_assert(static_cast<size_t>(Type::Count) <= CHAR_BIT * sizeof(unsigned),
                 "Too many types of hotels");
 
-  static IsHotelChecker const & Instance();
-
   static char const * GetHotelTypeTag(Type type);
 
   unsigned GetHotelTypesMask(FeatureType const & ft) const;
 
+  DECLARE_CHECKER_INSTANCE(IsHotelChecker);
 private:
   IsHotelChecker();
 
@@ -191,65 +185,37 @@ private:
 class IsWifiChecker : public BaseChecker
 {
   IsWifiChecker();
-
 public:
-  static IsWifiChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsWifiChecker);
 };
 
 class IsFoodChecker : public BaseChecker
 {
   IsFoodChecker();
 public:
-  static IsFoodChecker const & Instance();
-};
-
-class IsOpentableChecker : public BaseChecker
-{
-  IsOpentableChecker();
-
-public:
-  static IsOpentableChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsFoodChecker);
 };
 
 // Checks for types that are not drawable, but searchable.
 class IsInvisibleIndexedChecker : public BaseChecker
 {
   IsInvisibleIndexedChecker();
-
 public:
-  static IsInvisibleIndexedChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsInvisibleIndexedChecker);
 };
 
 class IsCityChecker : public BaseChecker
 {
   IsCityChecker();
-
 public:
-  static IsCityChecker const & Instance();
-};
-
-class IsViatorChecker : public BaseChecker
-{
-  IsViatorChecker();
-
-public:
-  static IsViatorChecker const & Instance();
-};
-
-class IsThorChecker : public BaseChecker
-{
-  IsThorChecker();
-
-public:
-  static IsThorChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsCityChecker);
 };
 
 class IsPublicTransportStopChecker : public BaseChecker
 {
   IsPublicTransportStopChecker();
-
 public:
-  static IsPublicTransportStopChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsPublicTransportStopChecker);
 };
 
 /// Type of locality (do not change values and order - they have detalization order)
@@ -264,7 +230,7 @@ public:
   Type GetType(feature::TypesHolder const & types) const;
   Type GetType(FeatureType const & f) const;
 
-  static IsLocalityChecker const & Instance();
+  DECLARE_CHECKER_INSTANCE(IsLocalityChecker);
 };
 
 template <typename Types>
