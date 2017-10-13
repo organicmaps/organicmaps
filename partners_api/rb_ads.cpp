@@ -104,6 +104,8 @@ Rb::Rb()
 
   AppendEntry({{"building"}}, kBuildingPlacementId);
 
+  AppendExcludedTypes({{"sponsored", "halloween"}});
+
   AppendSupportedCountries(kSupportedCountries);
   AppendSupportedUserLanguages(kSupportedLanguages);
 }
