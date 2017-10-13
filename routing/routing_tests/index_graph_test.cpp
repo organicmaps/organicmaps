@@ -198,9 +198,9 @@ UNIT_TEST(FindPathCross)
   vector<FakeEnding> endPoints;
   for (uint32_t i = 0; i < 4; ++i)
   {
-    endPoints.push_back(MakeFakeEnding(Segment(kTestNumMwmId, 0, i, true /*forward*/),
+    endPoints.push_back(MakeFakeEnding(Segment(kTestNumMwmId, 0, i, true /* forward */),
                                        m2::PointD(-1.5 + i, 0.0), *worldGraph));
-    endPoints.push_back(MakeFakeEnding(Segment(kTestNumMwmId, 1, i, true /*forward*/),
+    endPoints.push_back(MakeFakeEnding(Segment(kTestNumMwmId, 1, i, true /* forward */),
                                        m2::PointD(0.0, -1.5 + i), *worldGraph));
   }
 
@@ -278,11 +278,11 @@ UNIT_TEST(FindPathManhattan)
     for (uint32_t segmentId = 0; segmentId < kCitySize - 1; ++segmentId)
     {
       endPoints.push_back(
-          MakeFakeEnding(Segment(kTestNumMwmId, featureId, segmentId, true /*forward*/),
+          MakeFakeEnding(Segment(kTestNumMwmId, featureId, segmentId, true /* forward */),
                          m2::PointD(0.5 + segmentId, featureId), *worldGraph));
-      endPoints.push_back(
-          MakeFakeEnding(Segment(kTestNumMwmId, featureId + kCitySize, segmentId, true /*forward*/),
-                         m2::PointD(featureId, 0.5 + segmentId), *worldGraph));
+      endPoints.push_back(MakeFakeEnding(
+          Segment(kTestNumMwmId, featureId + kCitySize, segmentId, true /* forward */),
+          m2::PointD(featureId, 0.5 + segmentId), *worldGraph));
     }
   }
 

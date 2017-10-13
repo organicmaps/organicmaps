@@ -2,9 +2,10 @@
 
 #include "indexer/feature_altitude.hpp"
 
+namespace routing
+{
 namespace
 {
-using namespace routing;
 using namespace std;
 
 Segment GetReverseSegment(Segment const & segment)
@@ -14,8 +15,6 @@ Segment GetReverseSegment(Segment const & segment)
 }
 }  // namespace
 
-namespace routing
-{
 // static
 uint32_t constexpr TransitGraph::kTransitFeatureId;
 
@@ -84,7 +83,8 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Gat
     // TODO (@t.yan) after https://github.com/mapsme/omim/pull/7240 merge
     // auto const gateSegment = gate.GetBestPedestrianSegment();
     // Segment real(numMwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(), gateSegment.GetForward());
-    auto const ending = MakeFakeEnding( Segment() /* real */, gate.GetPoint(), estimator, indexGraph);
+    auto const ending =
+        MakeFakeEnding(Segment() /* real */, gate.GetPoint(), estimator, indexGraph);
     if (gate.GetEntrance())
       AddGate(gate, ending, stopCoords, true /* isEnter */);
     if (gate.GetExit())
@@ -112,7 +112,7 @@ Segment TransitGraph::GetTransitSegment(uint32_t segmentIdx) const
 Segment TransitGraph::GetNewTransitSegment() const
 {
   CHECK_LESS_OR_EQUAL(m_fake.GetSize(), std::numeric_limits<uint32_t>::max(), ());
-  return GetTransitSegment(static_cast<uint32_t>(m_fake.GetSize()));
+  return GetTransitSegment(static_cast<uint32_t>(m_fake.GetSize()) /* segmentIdx */);
 }
 
 void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending,
@@ -199,8 +199,10 @@ void TransitGraph::AddConnections(map<transit::StopId, set<transit::Edge>> const
       if (segmentsIt == adjacentSegments.cend())
         continue;
       for (auto const & segment : segmentsIt->second)
+      {
         m_fake.AddConnection(isOutgoing ? segment : edgeIt->second,
                              isOutgoing ? edgeIt->second : segment);
+      }
     }
   }
 }

@@ -9,14 +9,24 @@
 
 namespace routing
 {
-class WorldGraph;
 class EdgeEstimator;
 class IndexGraph;
+class WorldGraph;
 
 struct Projection final
 {
+  Projection(Segment const & segment, bool isOneWay, Junction const & segmentFront,
+             Junction const & segmentBack, Junction const & junction)
+    : m_segment(segment)
+    , m_isOneWay(isOneWay)
+    , m_segmentFront(segmentFront)
+    , m_segmentBack(segmentBack)
+    , m_junction(junction)
+  {
+  }
+
   Segment m_segment;
-  bool m_isOneWay;
+  bool m_isOneWay = false;
   Junction m_segmentFront;
   Junction m_segmentBack;
   Junction m_junction;
