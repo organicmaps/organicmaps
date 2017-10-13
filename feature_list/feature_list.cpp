@@ -188,7 +188,9 @@ public:
     obj.SetFromFeatureType(f);
 
     string city;
-    m_finder.GetLocality(center, city);
+    m_finder.GetLocality(center, [&city](search::LocalityItem const & item) {
+      item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kDefaultCode, city);
+    });
 
     string const & mwmName = f.GetID().GetMwmName();
     string name, secondary;
