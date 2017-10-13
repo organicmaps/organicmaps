@@ -31,7 +31,7 @@ ShapeId constexpr kInvalidShapeId = std::numeric_limits<ShapeId>::max();
 // To convert double to uint32_t at better accuracy |kInvalidWeight| should be close to real weight.
 Weight constexpr kInvalidWeight = -1.0;
 
-#define TRANSIT_TYPE_FRIENDS                                                                   \
+#define DECLARE_TRANSIT_TYPE_FRIENDS                                                           \
     template<class Sink> friend class Serializer;                                              \
     template<class Source> friend class Deserializer;                                          \
     friend class DeserializerFromJson;                                                         \
@@ -41,8 +41,6 @@ Weight constexpr kInvalidWeight = -1.0;
 
 struct TransitHeader
 {
-  TRANSIT_TYPE_FRIENDS
-
   TransitHeader() { Reset(); }
   TransitHeader(uint16_t version, uint32_t gatesOffset, uint32_t edgesOffset,
                 uint32_t transfersOffset, uint32_t linesOffset, uint32_t shapesOffset,
@@ -51,6 +49,7 @@ struct TransitHeader
   bool IsEqualForTesting(TransitHeader const & header) const;
 
 private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(
       TransitHeader, visitor(m_version, "version"), visitor(m_reserve, "reserve"),
       visitor(m_gatesOffset, "gatesOffset"), visitor(m_edgesOffset, "edgesOffset"),
@@ -74,8 +73,6 @@ static_assert(sizeof(TransitHeader) == 32, "Wrong header size of transit section
 
 class Stop
 {
-  TRANSIT_TYPE_FRIENDS
-
 public:
   Stop() = default;
   Stop(StopId id, FeatureId featureId, TransferId transferId, std::vector<LineId> const & lineIds,
@@ -89,6 +86,7 @@ public:
   m2::PointD const & GetPoint() const { return m_point; }
 
 private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_featureId, "osm_id"),
                                   visitor(m_transferId, "transfer_id"),
                                   visitor(m_lineIds, "line_ids"), visitor(m_point, "point"))
@@ -104,8 +102,6 @@ private:
 
 class SingleMwmSegment
 {
-  TRANSIT_TYPE_FRIENDS
-
 public:
   SingleMwmSegment() = default;
   SingleMwmSegment(FeatureId featureId, uint32_t segmentIdx, bool forward);
@@ -115,6 +111,7 @@ public:
   bool GetForward() const { return m_forward; }
 
 private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(SingleMwmSegment, visitor(m_featureId, "feature_id"),
                                   visitor(m_segmentIdx, "segment_idx"),
                                   visitor(m_forward, "forward"))
@@ -126,8 +123,6 @@ private:
 
 class Gate
 {
-  TRANSIT_TYPE_FRIENDS
-
 public:
   Gate() = default;
   Gate(FeatureId featureId, bool entrance, bool exit, double weight, std::vector<StopId> const & stopIds,
@@ -144,6 +139,7 @@ public:
   m2::PointD const & GetPoint() const { return m_point; }
 
 private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_featureId, "osm_id"),
                                   visitor(m_bestPedestrianSegment, "best_pedestrian_segment"),
                                   visitor(m_entrance, "entrance"), visitor(m_exit, "exit"),
@@ -163,8 +159,6 @@ private:
 
 class Edge
 {
-  TRANSIT_TYPE_FRIENDS
-
 public:
   Edge() = default;
   Edge(StopId startStopId, StopId finishStopId, double weight, LineId lineId, bool transfer,
@@ -181,6 +175,7 @@ public:
   bool operator<(Edge const & rhs) const;
 
 private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_startStopId, "start_stop_id"),
                                   visitor(m_finishStopId, "finish_stop_id"),
                                   visitor(m_weight, "weight"), visitor(m_lineId, "line_id"),
@@ -196,8 +191,6 @@ private:
 
 class Transfer
 {
-  TRANSIT_TYPE_FRIENDS
-
 public:
   Transfer() = default;
   Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds);
@@ -208,6 +201,7 @@ public:
   std::vector<StopId> const & GetStopIds() const { return m_stopIds; }
 
 private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Transfer, visitor(m_id, "id"), visitor(m_point, "point"),
                                   visitor(m_stopIds, "stop_ids"))
 
@@ -221,8 +215,6 @@ private:
 
 class Line
 {
-  TRANSIT_TYPE_FRIENDS
-
 public:
   Line() = default;
   Line(LineId id, std::string const & number, std::string const & title, std::string const & type,
@@ -237,6 +229,7 @@ public:
   std::vector<StopId> const & GetStopIds() const { return m_stopIds; }
 
 private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Line, visitor(m_id, "id"), visitor(m_number, "number"),
                                   visitor(m_title, "title"), visitor(m_type, "type"),
                                   visitor(m_networkId, "network_id"),
@@ -252,8 +245,6 @@ private:
 
 class Shape
 {
-  TRANSIT_TYPE_FRIENDS
-
 public:
   Shape() = default;
   Shape(ShapeId id, StopId stop1_id, StopId stop2_id, std::vector<m2::PointD> const & polyline);
@@ -265,6 +256,7 @@ public:
   std::vector<m2::PointD> const & GetPolyline() const { return m_polyline; }
 
 private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Shape, visitor(m_id, "id"), visitor(m_stop1_id, "stop1_id"),
                                   visitor(m_stop2_id, "stop2_id"), visitor(m_polyline, "polyline"))
 
@@ -276,8 +268,6 @@ private:
 
 class Network
 {
-  TRANSIT_TYPE_FRIENDS
-
 public:
   Network() = default;
   Network(NetworkId id, std::string const & title);
@@ -287,10 +277,13 @@ public:
   std::string const & GetTitle() const { return m_title; }
 
 private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Network, visitor(m_id, "id"), visitor(m_title, "title"))
 
   NetworkId m_id;
   std::string m_title;
 };
+
+#undef DECLARE_TRANSIT_TYPE_FRIENDS
 }  // namespace transit
 }  // namespace routing

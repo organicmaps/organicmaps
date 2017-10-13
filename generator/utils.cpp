@@ -16,7 +16,7 @@ SingleMwmIndex::SingleMwmIndex(std::string const & mwmPath)
   m_countryFile.SyncWithDisk();
   CHECK_EQUAL(
       m_countryFile.GetFiles(), MapOptions::MapWithCarRouting,
-      ("No correct mwm corresponding local country file:", m_countryFile, ". Path:", mwmPath));
+      ("No correct mwm corresponding to local country file:", m_countryFile, ". Path:", mwmPath));
 
   auto const result = m_index.Register(m_countryFile);
   CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ());

@@ -85,7 +85,7 @@ private:
 /// \param transitDir a path to directory with json files with transit graphs.
 /// \note An mwm pointed by |mwmPath| should contain:
 /// * feature geometry
-/// * index graph (ROUTING_FILE_TAG) and restriction sections (RESTRICTIONS_FILE_TAG)
+/// * index graph (ROUTING_FILE_TAG)
 void BuildTransit(std::string const & mwmPath, std::string const & transitDir);
 }  // namespace transit
 }  // namespace routing

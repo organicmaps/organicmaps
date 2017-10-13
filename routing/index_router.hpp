@@ -63,8 +63,8 @@ public:
               shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
               traffic::TrafficCache const & trafficCache, Index & index);
 
-  bool FindBestSegmentAtSingleMwm(m2::PointD const & point, m2::PointD const & direction,
-                                  bool isOutgoing, Segment & bestSegment);
+  bool FindBestSegmentInSingleMwm(m2::PointD const &point, m2::PointD const &direction,
+                                  bool isOutgoing, Segment &bestSegment);
 
   // IRouter overrides:
   std::string GetName() const override { return m_name; }
@@ -89,7 +89,7 @@ private:
 
   /// \brief Finds the best segment (edge) which may be considered as the start of the finish of the route.
   /// According to current implementation if a segment is near |point| and is almost codirectional
-  /// to |direction|, the segment will be better than others. If there's no an almost codirectional
+  /// to |direction|, the segment will be better than others. If there's no almost codirectional
   /// segment in the neighbourhood then the closest segment to |point| will be chosen.
   /// \param isOutgoing == true if |point| is considered as the start of the route.
   /// isOutgoing == false if |point| is considered as the finish of the route.

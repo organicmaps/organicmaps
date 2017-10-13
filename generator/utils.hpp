@@ -18,9 +18,11 @@
 
 namespace generator
 {
+/// \brief This class is wrapper around |Index| if only one mwm is registered in Index.
 class SingleMwmIndex
 {
 public:
+  /// \param mwmPath is a path to mwm which should be registerd in Index.
   explicit SingleMwmIndex(std::string const & mwmPath);
 
   Index & GetIndex() { return m_index; }

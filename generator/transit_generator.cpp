@@ -75,7 +75,7 @@ void DeserializeGatesFromJson(my::Json const & root, string const & mwmDir, stri
   DeserializeFromJson(root, "gates", gates);
 
   // Creating IndexRouter.
-  SingleMwmIndex singleIndex(my::JoinFoldersToPath(mwmDir, countryId + DATA_FILE_EXTENSION));
+  SingleMwmIndex index(my::JoinFoldersToPath(mwmDir, countryId + DATA_FILE_EXTENSION));
 
   auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
   CHECK(infoGetter, ());
@@ -89,15 +89,15 @@ void DeserializeGatesFromJson(my::Json const & root, string const & mwmDir, stri
     return infoGetter->GetLimitRectForLeaf(c);
   };
 
-  CHECK_EQUAL(singleIndex.GetMwmId().GetInfo()->GetType(), MwmInfo::COUNTRY, ());
+  CHECK_EQUAL(index.GetMwmId().GetInfo()->GetType(), MwmInfo::COUNTRY, ());
   auto numMwmIds = make_shared<NumMwmIds>();
   numMwmIds->RegisterFile(CountryFile(countryId));
 
-  // Note. |indexRouter| is valid until |index| is valid.
+  // Note. |indexRouter| is valid while |index| is valid.
   IndexRouter indexRouter(VehicleType::Pedestrian, false /* load altitudes */,
                           CountryParentNameGetterFn(), countryFileGetter, getMwmRectByName,
                           numMwmIds, MakeNumMwmTree(*numMwmIds, *infoGetter),
-                          traffic::TrafficCache(), singleIndex.GetIndex());
+                          traffic::TrafficCache(), index.GetIndex());
 
   // Looking for the best segment for every gate.
   for (auto & gate : gates)
@@ -108,20 +108,19 @@ void DeserializeGatesFromJson(my::Json const & root, string const & mwmDir, stri
     Segment bestSegment;
     try
     {
-      if (indexRouter.FindBestSegmentAtSingleMwm(gate.GetPoint(),
+      if (indexRouter.FindBestSegmentInSingleMwm(gate.GetPoint(),
                                                  m2::PointD::Zero() /* direction */,
                                                  true /* isOutgoing */, bestSegment))
       {
-        CHECK_EQUAL(bestSegment.GetMwmId(), 0,
-                    ("Best segment num mwm id ==", bestSegment.GetMwmId(), ", but should be zero"));
+        CHECK_EQUAL(bestSegment.GetMwmId(), 0, ());
         gate.SetBestPedestrianSegment(SingleMwmSegment(
             bestSegment.GetFeatureId(), bestSegment.GetSegmentIdx(), bestSegment.IsForward()));
       }
     }
     catch (RootException const & e)
     {
-      LOG(LDEBUG, ("Point of a gate belongs to several mwm or doesn't belong any mwm. gate:", gate,
-                   e.what(), e.Msg()));
+      LOG(LDEBUG, ("Point of a gate belongs to several mwms or doesn't belong to any mwm. Gate:",
+                   gate, e.what()));
     }
   }
 }
@@ -197,7 +196,7 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   my::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json file:", graphFullPath));
 
-  // Note. |gates| has to be deserialized from json before to start writing transit section to mwm since
+  // Note. |gates| has to be deserialized from json before starting writing transit section to mwm since
   // the mwm is used to filled |gates|.
   vector<Gate> gates;
   DeserializeGatesFromJson(root, my::GetDirectory(mwmPath), countryId, gates);

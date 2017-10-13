@@ -254,12 +254,12 @@ void BuildCrossRoutingIndex(std::string const & baseDir, std::string const & cou
   LOG(LINFO, ("Cross mwm routing section builder"));
   classificator::Load();
 
-  SingleMwmIndex singleIndex(my::JoinFoldersToPath(baseDir, countryName + DATA_FILE_EXTENSION));
+  SingleMwmIndex index(my::JoinFoldersToPath(baseDir, countryName + DATA_FILE_EXTENSION));
 
   LOG(LINFO, ("Loading indexes..."));
   osrm::NodeDataVectorT nodeData;
   gen::OsmID2FeatureID osm2ft;
-  if (!LoadIndexes(singleIndex.GetPath(MapOptions::Map), osrmFile, nodeData, osm2ft))
+  if (!LoadIndexes(index.GetPath(MapOptions::Map), osrmFile, nodeData, osm2ft))
     return;
 
   LOG(LINFO, ("Loading countries borders..."));
@@ -269,10 +269,10 @@ void BuildCrossRoutingIndex(std::string const & baseDir, std::string const & cou
 
   LOG(LINFO, ("Finding cross nodes..."));
   routing::CrossRoutingContextWriter crossContext;
-  FindCrossNodes(nodeData, osm2ft, countries, countryName, singleIndex.GetIndex(),
-                 singleIndex.GetMwmId(), crossContext);
+  FindCrossNodes(nodeData, osm2ft, countries, countryName, index.GetIndex(),
+                 index.GetMwmId(), crossContext);
 
-  std::string const mwmPath = singleIndex.GetPath(MapOptions::Map);
+  std::string const mwmPath = index.GetPath(MapOptions::Map);
   CalculateCrossAdjacency(mwmPath, crossContext);
   WriteCrossSection(crossContext, mwmPath);
 }
@@ -282,11 +282,11 @@ void BuildRoutingIndex(std::string const & baseDir, std::string const & countryN
   classificator::Load();
 
   // Correct mwm version doesn't matter here - we just need access to mwm files via Index.
-  SingleMwmIndex singleIndex(my::JoinFoldersToPath(baseDir, countryName + DATA_FILE_EXTENSION));
+  SingleMwmIndex index(my::JoinFoldersToPath(baseDir, countryName + DATA_FILE_EXTENSION));
 
   osrm::NodeDataVectorT nodeData;
   gen::OsmID2FeatureID osm2ft;
-  if (!LoadIndexes(singleIndex.GetPath(MapOptions::Map), osrmFile, nodeData, osm2ft))
+  if (!LoadIndexes(index.GetPath(MapOptions::Map), osrmFile, nodeData, osm2ft))
     return;
 
   OsrmFtSegMappingBuilder mapping;
@@ -315,7 +315,7 @@ void BuildRoutingIndex(std::string const & baseDir, std::string const & countryN
       }
 
       FeatureType ft;
-      Index::FeaturesLoaderGuard loader(singleIndex.GetIndex(), singleIndex.GetMwmId());
+      Index::FeaturesLoaderGuard loader(index.GetIndex(), index.GetMwmId());
       if (!loader.GetFeatureByIndex(fID, ft))
       {
         LOG(LWARNING, ("Can't read feature with id:", fID, "for way:", seg.wayId));
@@ -445,7 +445,7 @@ void BuildRoutingIndex(std::string const & baseDir, std::string const & countryN
 
   LOG(LINFO, ("Collect all data into one file..."));
 
-  std::string const mwmPath = singleIndex.GetPath(MapOptions::Map);
+  std::string const mwmPath = index.GetPath(MapOptions::Map);
   std::string const mwmWithoutRoutingPath = mwmPath + NOROUTING_FILE_EXTENSION;
 
   // Backup mwm file without routing.

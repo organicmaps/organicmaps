@@ -315,8 +315,8 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   CHECK(m_directionsEngine, ());
 }
 
-bool IndexRouter::FindBestSegmentAtSingleMwm(m2::PointD const & point, m2::PointD const & direction,
-                                             bool isOutgoing, Segment & bestSegment)
+bool IndexRouter::FindBestSegmentInSingleMwm(m2::PointD const &point, m2::PointD const &direction,
+                                             bool isOutgoing, Segment &bestSegment)
 {
   auto worldGraph = MakeWorldGraph();
   worldGraph->SetMode(WorldGraph::Mode::SingleMwm);
