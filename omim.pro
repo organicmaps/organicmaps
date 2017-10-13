@@ -280,7 +280,8 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
     SUBDIRS *= openlr_tests
 
     ugc_tests.subdir = ugc/ugc_tests
-    ugc_tests.depends = ugc indexer platform coding geometry base
+    ugc_tests.depends = ugc indexer platform coding geometry base generator generator_tests_support 3party routing \
+                        routing_common search editor storage
     SUBDIRS *= ugc_tests
 
     mwm_diff_tests.subdir = generator/mwm_diff/mwm_diff_tests
