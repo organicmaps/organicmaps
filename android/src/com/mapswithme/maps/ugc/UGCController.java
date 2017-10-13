@@ -207,6 +207,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     {
       mReviewCount.setText(ugcUpdate != null ? R.string.placepage_reviewed : R.string.placepage_no_reviews);
       ratingView.setRating(ugcUpdate == null ? Impress.NONE : Impress.COMING_SOON, rating);
+      setUserReviewAndRatingsView(ugcUpdate);
       return;
     }
 
@@ -215,7 +216,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
                                            String.valueOf(mUgc.getBasedOnCount())));
     ratingView.setRating(Impress.values()[impress], rating);
     setSummaryViews(mUgc, impress, rating);
-    seUserReviewAndRatingsView(ugcUpdate);
+    setUserReviewAndRatingsView(ugcUpdate);
     List<UGC.Review> reviews = ugc.getReviews();
     if (reviews != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
@@ -249,7 +250,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
                             false /* isFromPPP */);
   }
 
-  private void seUserReviewAndRatingsView(@Nullable UGCUpdate update)
+  private void setUserReviewAndRatingsView(@Nullable UGCUpdate update)
   {
     UiUtils.showIf(update != null, mUserReviewView, mUserReviewDivider, mUserRatingRecordsContainer);
     if (update == null)
