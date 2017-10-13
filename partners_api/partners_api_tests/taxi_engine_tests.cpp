@@ -34,6 +34,14 @@ public:
   std::string GetCityName(ms::LatLon const & latlon) override { return "Odessa"; }
 };
 
+class BulgariaSofiaDelegate : public taxi::Delegate
+{
+public:
+  storage::TCountriesVec GetCountryIds(ms::LatLon const & latlon) override { return {"Bulgaria"}; }
+
+  std::string GetCityName(ms::LatLon const & latlon) override { return "Sofia"; }
+};
+
 class UsaDelegate : public taxi::Delegate
 {
 public:
@@ -362,6 +370,11 @@ UNIT_TEST(TaxiEngine_GetProvidersAtPos)
   TEST_EQUAL(providers[0], taxi::Provider::Type::Yandex, ());
 
   engine.SetDelegate(my::make_unique<UkraineOdessaDelegate>());
+  providers = engine.GetProvidersAtPos(latlon);
+  TEST_EQUAL(providers.size(), 1, ());
+  TEST_EQUAL(providers[0], taxi::Provider::Type::Yandex, ());
+
+  engine.SetDelegate(my::make_unique<BulgariaSofiaDelegate>());
   providers = engine.GetProvidersAtPos(latlon);
   TEST_EQUAL(providers.size(), 1, ());
   TEST_EQUAL(providers[0], taxi::Provider::Type::Uber, ());
