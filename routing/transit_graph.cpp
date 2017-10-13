@@ -13,6 +13,14 @@ Segment GetReverseSegment(Segment const & segment)
   return Segment(segment.GetMwmId(), segment.GetFeatureId(), segment.GetSegmentIdx(),
                  !segment.IsForward());
 }
+
+Junction const & GetStopJunction(map<transit::StopId, Junction> const & stopCoords,
+                                 transit::StopId stopId)
+{
+  auto const it = stopCoords.find(stopId);
+  CHECK(it != stopCoords.cend(), ("Stop", stopId, "does not exist."));
+  return it->second;
+}
 }  // namespace
 
 // static
@@ -91,14 +99,14 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Gat
       AddGate(gate, ending, stopCoords, false /* isEnter */);
   }
 
-  map<transit::StopId, set<transit::Edge>> outgoing;
-  map<transit::StopId, set<transit::Edge>> ingoing;
+  map<transit::StopId, set<Segment>> outgoing;
+  map<transit::StopId, set<Segment>> ingoing;
   for (auto const & edge : edges)
   {
     CHECK_NOT_EQUAL(edge.GetWeight(), transit::kInvalidWeight, ("Edge should have valid weight."));
-    AddEdge(edge, stopCoords);
-    outgoing[edge.GetStop1Id()].insert(edge);
-    ingoing[edge.GetStop2Id()].insert(edge);
+    auto const edgeSegment = AddEdge(edge, stopCoords);
+    outgoing[edge.GetStop1Id()].insert(edgeSegment);
+    ingoing[edge.GetStop2Id()].insert(edgeSegment);
   }
 
   AddConnections(outgoing, true /* isOutgoing */);
@@ -168,41 +176,36 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
   }
 }
 
-void TransitGraph::AddEdge(transit::Edge const & edge,
-                           map<transit::StopId, Junction> const & stopCoords)
+Segment TransitGraph::AddEdge(transit::Edge const & edge,
+                              map<transit::StopId, Junction> const & stopCoords)
 {
   auto const edgeSegment = GetNewTransitSegment();
-  auto const startStopId = edge.GetStop1Id();
-  auto const finishStopId = edge.GetStop2Id();
-  auto const startStopIt = stopCoords.find(startStopId);
-  CHECK(startStopIt != stopCoords.end(), ("Stop", startStopId, "does not exist."));
-  auto const finishStopIt = stopCoords.find(finishStopId);
-  CHECK(finishStopIt != stopCoords.end(), ("Stop", finishStopId, "does not exist."));
-  FakeVertex edgeVertex(startStopIt->second, finishStopIt->second, FakeVertex::Type::PureFake);
+  auto const stopFromId = edge.GetStop1Id();
+  auto const stopToId = edge.GetStop2Id();
+  FakeVertex edgeVertex(GetStopJunction(stopCoords, stopFromId),
+                        GetStopJunction(stopCoords, stopToId), FakeVertex::Type::PureFake);
   m_fake.AddStandaloneVertex(edgeSegment, edgeVertex);
   m_segmentToEdge[edgeSegment] = edge;
-  m_edgeToSegment[edge] = edgeSegment;
-  m_stopToBack[startStopId].insert(edgeSegment);
-  m_stopToFront[finishStopId].insert(edgeSegment);
+  m_stopToBack[stopFromId].insert(edgeSegment);
+  m_stopToFront[stopToId].insert(edgeSegment);
+  return edgeSegment;
 }
 
-void TransitGraph::AddConnections(map<transit::StopId, set<transit::Edge>> const & connections,
+void TransitGraph::AddConnections(map<transit::StopId, set<Segment>> const & connections,
                                   bool isOutgoing)
 {
   for (auto const & connection : connections)
   {
-    for (auto const & edge : connection.second)
+    for (auto const & connectedSegment : connection.second)
     {
-      auto const edgeIt = m_edgeToSegment.find(edge);
-      CHECK(edgeIt != m_edgeToSegment.cend(), ("Unknown edge", edge));
       auto const & adjacentSegments = isOutgoing ? m_stopToFront : m_stopToBack;
       auto const segmentsIt = adjacentSegments.find(connection.first);
       if (segmentsIt == adjacentSegments.cend())
         continue;
       for (auto const & segment : segmentsIt->second)
       {
-        m_fake.AddConnection(isOutgoing ? segment : edgeIt->second,
-                             isOutgoing ? edgeIt->second : segment);
+        m_fake.AddConnection(isOutgoing ? segment : connectedSegment,
+                             isOutgoing ? connectedSegment : segment);
       }
     }
   }

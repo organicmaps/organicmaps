@@ -133,24 +133,13 @@ Edge::Edge(StopId stop1Id, StopId stop2Id, double weight, LineId lineId, bool tr
 {
 }
 
-bool Edge::operator<(Edge const & rhs) const
+bool Edge::IsEqualForTesting(Edge const & edge) const
 {
-  if (m_stop1Id != rhs.m_stop1Id)
-    return m_stop1Id < rhs.m_stop1Id;
-  if (m_stop2Id != rhs.m_stop2Id)
-    return m_stop2Id < rhs.m_stop2Id;
-  if (m_lineId != rhs.m_lineId)
-    return m_lineId < rhs.m_lineId;
-  if (m_transfer != rhs.m_transfer)
-    return m_transfer < rhs.m_transfer;
-  if (m_shapeIds != rhs.m_shapeIds)
-    return m_shapeIds < rhs.m_shapeIds;
-  if (!my::AlmostEqualAbs(m_weight, rhs.m_weight, kWeightEqualEpsilon))
-    return m_weight < rhs.m_weight;
-  return false;
+  return m_stop1Id == edge.m_stop1Id && m_stop2Id == edge.m_stop2Id &&
+         my::AlmostEqualAbs(m_weight, edge.m_weight, kWeightEqualEpsilon) &&
+         m_lineId == edge.m_lineId && m_transfer == edge.m_transfer &&
+         m_shapeIds == edge.m_shapeIds;
 }
-
-bool Edge::IsEqualForTesting(Edge const & edge) const { return !(*this < edge || edge < *this); }
 
 // Transfer ---------------------------------------------------------------------------------------
 Transfer::Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds,

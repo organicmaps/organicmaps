@@ -199,8 +199,6 @@ public:
   bool GetTransfer() const { return m_transfer; }
   std::vector<ShapeId> const & GetShapeIds() const { return m_shapeIds; }
 
-  bool operator<(Edge const & rhs) const;
-
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_stop1Id, "stop1_id"),

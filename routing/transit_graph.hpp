@@ -45,8 +45,10 @@ private:
 
   void AddGate(transit::Gate const & gate, FakeEnding const & ending,
                std::map<transit::StopId, Junction> const & stopCoords, bool isEnter);
-  void AddEdge(transit::Edge const & edge, std::map<transit::StopId, Junction> const & stopCoords);
-  void AddConnections(map<transit::StopId, std::set<transit::Edge>> const & connections,
+  // Adds transit edge to fake graph, returns corresponding transit segment.
+  Segment AddEdge(transit::Edge const & edge,
+                  std::map<transit::StopId, Junction> const & stopCoords);
+  void AddConnections(std::map<transit::StopId, std::set<Segment>> const & connections,
                       bool isOutgoing);
 
   bool IsGate(Segment const & segment) const;
@@ -60,7 +62,6 @@ private:
   std::map<Segment, transit::Edge> m_segmentToEdge;
   std::map<Segment, transit::Gate> m_segmentToGate;
   // TODO (@t.yan) move m_edgeToSegment, m_stopToBack, m_stopToFront to Fill
-  std::map<transit::Edge, Segment> m_edgeToSegment;
   std::map<transit::StopId, std::set<Segment>> m_stopToBack;
   std::map<transit::StopId, std::set<Segment>> m_stopToFront;
 };
