@@ -63991,6 +63991,105 @@ cont {
   }
 }
 cont {
+  name: "sponsored-halloween"
+  element {
+    scale: 16
+    symbol {
+      name: "pumpkin"
+      priority: 16000
+    }
+    apply_if: "rating=1"
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "bat"
+      priority: 16000
+    }
+    apply_if: "rating=2"
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "ghost"
+      priority: 16000
+    }
+    apply_if: "rating=3"
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "pumpkin"
+      priority: 16000
+    }
+    apply_if: "rating=1"
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "bat"
+      priority: 16000
+    }
+    apply_if: "rating=2"
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "ghost"
+      priority: 16000
+    }
+    apply_if: "rating=3"
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "pumpkin"
+      priority: 16000
+    }
+    apply_if: "rating=1"
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "bat"
+      priority: 16000
+    }
+    apply_if: "rating=2"
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "ghost"
+      priority: 16000
+    }
+    apply_if: "rating=3"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "pumpkin"
+      priority: 16000
+    }
+    apply_if: "rating=1"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "bat"
+      priority: 16000
+    }
+    apply_if: "rating=2"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "ghost"
+      priority: 16000
+    }
+    apply_if: "rating=3"
+  }
+}
+cont {
   name: "sponsored-thor"
   element {
     scale: 16
