@@ -62,7 +62,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
       UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                               mMapObject.getFeatureId(),
-                              UGC.getUserRatings(), UGC.RATING_NONE, mMapObject.canBeReviewed(),
+                              mMapObject.getDefaultRatings(), UGC.RATING_NONE, mMapObject.canBeReviewed(),
                               true /* isFromPPP */);
     }
   };
@@ -172,7 +172,14 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   {
     mMapObject = mapObject;
     if (mapObject.shouldShowUGC())
+    {
+      UiUtils.show(mUgcRootView);
       UGC.requestUGC(mMapObject.getFeatureId());
+    }
+    else
+    {
+      UiUtils.hide(mUgcRootView);
+    }
   }
 
   public boolean isLeaveReviewButtonTouched(@NonNull MotionEvent event)
@@ -184,42 +191,42 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   public void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate, @UGC.Impress int impress,
                             @NonNull String rating)
   {
-    UiUtils.showIf(ugc != null, mPreviewUgcInfoView, mUgcRootView);
-    UiUtils.showIf(canUserLeaveReview(ugc, ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
+    UiUtils.showIf(ugc != null || canUserLeaveReview(ugcUpdate) || ugcUpdate != null, mPreviewUgcInfoView);
+    UiUtils.showIf(canUserLeaveReview(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
+    RatingView ratingView = (RatingView) mPreviewUgcInfoView.findViewById(R.id.rating_view);
     mUgc = ugc;
     if (mUgc == null)
     {
       mReviewCount.setText(ugcUpdate != null ? R.string.placepage_reviewed : R.string.placepage_no_reviews);
+      ratingView.setRating(ugcUpdate == null ? Impress.NONE : Impress.COMING_SOON, rating);
       return;
     }
 
-    RatingView ratingView = (RatingView) mPreviewUgcInfoView.findViewById(R.id.rating_view);
     ratingView.setRating(Impress.values()[impress], rating);
     seUserReviewAndRatingsView(ugcUpdate);
     List<UGC.Review> reviews = ugc.getReviews();
     if (reviews != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
     mUGCRatingRecordsAdapter.setItems(ugc.getRatings());
-    mUGCUserRatingRecordsAdapter.setItems(ugc.getUserRatings());
     Context context = mPlacePage.getContext();
     mReviewCount.setText(context.getString(R.string.placepage_summary_rating_description,
                                            String.valueOf(mUgc.getBasedOnCount())));
     UiUtils.showIf(reviews != null && reviews.size() > UGCReviewAdapter.MAX_COUNT, mUgcMoreReviews);
   }
 
-  private boolean canUserLeaveReview(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate)
+  private boolean canUserLeaveReview(@Nullable UGCUpdate ugcUpdate)
   {
-    return mMapObject != null && mMapObject.canBeRated() && ugc != null && ugcUpdate == null;
+    return mMapObject != null && mMapObject.canBeRated() && ugcUpdate == null;
   }
 
   private void onAggRatingTapped(@UGC.Impress int rating)
   {
-    if (mMapObject == null || mUgc == null)
+    if (mMapObject == null)
       return;
 
     UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
                             mMapObject.getFeatureId(),
-                            mUgc.getUserRatings(), rating, mMapObject.canBeReviewed(),
+                            mMapObject.getDefaultRatings(), rating, mMapObject.canBeReviewed(),
                             false /* isFromPPP */);
   }
 
@@ -234,5 +241,6 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     name.setText(R.string.placepage_reviews_your_comment);
     date.setText(UGCReviewAdapter.DATE_FORMATTER.format(new Date(update.getTimeMillis())));
     review.setText(update.getText());
+    mUGCUserRatingRecordsAdapter.setItems(update.getRatings());
   }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 
@@ -18,7 +19,7 @@ public class UGCEditorActivity extends BaseMwmFragmentActivity
 {
   //TODO: refactor to EditorParams with builder.
   public static void start(@NonNull Activity activity, @NonNull String title,
-                           @NonNull FeatureId featureId, @NonNull ArrayList<UGC.Rating> ratings,
+                           @NonNull FeatureId featureId, @Nullable ArrayList<UGC.Rating> ratings,
                            @UGC.Impress int defaultRating, boolean canBeReviewed, boolean isFromPPP)
   {
     Statistics.INSTANCE.trackUGCStart(false /* isEdit */, isFromPPP);

@@ -1,6 +1,11 @@
 package com.mapswithme.maps.ugc;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 class UGCUpdate
 {
@@ -31,5 +36,13 @@ class UGCUpdate
   long getTimeMillis()
   {
     return mTimeMillis;
+  }
+
+  @NonNull
+  List<UGC.Rating> getRatings()
+  {
+    if (mRatings == null)
+      return new ArrayList<>();
+    return Arrays.asList(mRatings);
   }
 }

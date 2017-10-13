@@ -13,9 +13,7 @@ import com.mapswithme.maps.bookmarks.data.FeatureId;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class UGC
@@ -77,21 +75,7 @@ public class UGC
   @NonNull
   List<Rating> getRatings()
   {
-    return Collections.synchronizedList(Arrays.asList(mRatings));
-  }
-
-  //TODO: remove it after core is ready.
-  @NonNull
-  static ArrayList<Rating> getUserRatings()
-  {
-    return new ArrayList<Rating>(){
-      {
-        add(new Rating("cuisine", 3.3f));
-        add(new Rating("service", 4.4f));
-        add(new Rating("atmosphere", 2.0f));
-        add(new Rating("experience", 3.9f));
-      }
-    };
+    return Arrays.asList(mRatings);
   }
 
   @Nullable
@@ -100,7 +84,7 @@ public class UGC
     if (mReviews == null)
       return null;
 
-    return Collections.synchronizedList(Arrays.asList(mReviews));
+    return Arrays.asList(mReviews);
   }
 
   public static void setListener(@Nullable UGCListener listener)

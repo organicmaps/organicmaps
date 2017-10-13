@@ -62,7 +62,7 @@ public class MapObject implements Parcelable
   private boolean mCanBeRated;
   private boolean mCanBeReviewed;
   @Nullable
-  private List<UGC.Rating> mRatings;
+  private ArrayList<UGC.Rating> mRatings;
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address,
@@ -166,9 +166,9 @@ public class MapObject implements Parcelable
   }
 
   @Nullable
-  private List<UGC.Rating> readRatings(@NonNull Parcel source)
+  private ArrayList<UGC.Rating> readRatings(@NonNull Parcel source)
   {
-    List<UGC.Rating> ratings = new ArrayList<>();
+    ArrayList<UGC.Rating> ratings = new ArrayList<>();
     source.readTypedList(ratings, UGC.Rating.CREATOR);;
     return ratings.isEmpty() ? null : ratings;
   }
@@ -250,6 +250,12 @@ public class MapObject implements Parcelable
   public List<Banner> getBanners()
   {
     return mBanners;
+  }
+
+  @Nullable
+  public ArrayList<UGC.Rating> getDefaultRatings()
+  {
+    return mRatings;
   }
 
   @Nullable
