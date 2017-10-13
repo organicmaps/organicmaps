@@ -200,7 +200,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   {
     UiUtils.showIf(ugc != null || canUserRate(ugcUpdate) || ugcUpdate != null, mPreviewUgcInfoView);
     UiUtils.showIf(canUserRate(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
-    UiUtils.showIf(ugc != null, mSummaryRootView);
+    UiUtils.showIf(ugc != null, mSummaryRootView, mUgcMoreReviews);
     RatingView ratingView = (RatingView) mPreviewUgcInfoView.findViewById(R.id.rating_view);
     mUgc = ugc;
     if (mUgc == null)
