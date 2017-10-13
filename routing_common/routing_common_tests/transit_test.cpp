@@ -9,14 +9,16 @@
 #include <cstdint>
 #include <vector>
 
-namespace
-{
 using namespace routing;
 using namespace routing::transit;
 using namespace std;
 
-template <class Obj>
-void TestSerialization(Obj const & obj)
+namespace routing
+{
+namespace transit
+{
+template<class Obj>
+void TestSerialization(Obj const &obj)
 {
   vector<uint8_t> buffer;
   MemWriter<vector<uint8_t>> writer(buffer);
@@ -32,7 +34,11 @@ void TestSerialization(Obj const & obj)
 
   TEST(obj.IsEqualForTesting(deserializedObj), (obj, deserializedObj));
 }
+}  // namespace transit
+}  // namespace routing
 
+namespace
+{
 UNIT_TEST(Transit_HeaderSerialization)
 {
   {
