@@ -52,6 +52,10 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   @NonNull
   private final View mUserReviewDivider;
   @NonNull
+  private final View mSummaryRootView;
+  @NonNull
+  private final TextView mSummaryReviewCount;
+  @NonNull
   private final View.OnClickListener mLeaveReviewClickListener = new View.OnClickListener()
   {
     @Override
@@ -109,7 +113,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     rvUGCReviews.setHasFixedSize(false);
     rvUGCReviews.setAdapter(mUGCReviewAdapter);
 
-    View summaryRatingContainer = mPlacePage.findViewById(R.id.summary_rating_records);
+    mSummaryRootView = mPlacePage.findViewById(R.id.ll__summary_container);
+    View summaryRatingContainer = mSummaryRootView.findViewById(R.id.summary_rating_records);
     RecyclerView rvRatingRecords = (RecyclerView) summaryRatingContainer.findViewById(R.id.rv__summary_rating_records);
     rvRatingRecords.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
     rvRatingRecords.getLayoutManager().setAutoMeasureEnabled(true);
@@ -118,6 +123,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     rvRatingRecords.addItemDecoration(
         ItemDecoratorFactory.createRatingRecordDecorator(context, LinearLayoutManager.HORIZONTAL));
     rvRatingRecords.setAdapter(mUGCRatingRecordsAdapter);
+    mSummaryReviewCount = (TextView) mSummaryRootView.findViewById(R.id.tv__review_count);
 
     mUserRatingRecordsContainer = mPlacePage.findViewById(R.id.user_rating_records);
     RecyclerView userRatingRecords = (RecyclerView) mUserRatingRecordsContainer.findViewById(R.id.rv__summary_rating_records);
@@ -142,6 +148,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     mUGCRatingRecordsAdapter.setItems(new ArrayList<UGC.Rating>());
     mUGCUserRatingRecordsAdapter.setItems(new ArrayList<UGC.Rating>());
     mReviewCount.setText("");
+    mSummaryReviewCount.setText("");
   }
 
   @Override
@@ -191,8 +198,9 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   public void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate, @UGC.Impress int impress,
                             @NonNull String rating)
   {
-    UiUtils.showIf(ugc != null || canUserLeaveReview(ugcUpdate) || ugcUpdate != null, mPreviewUgcInfoView);
-    UiUtils.showIf(canUserLeaveReview(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
+    UiUtils.showIf(ugc != null || canUserRate(ugcUpdate) || ugcUpdate != null, mPreviewUgcInfoView);
+    UiUtils.showIf(canUserRate(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
+    UiUtils.showIf(ugc != null, mSummaryRootView);
     RatingView ratingView = (RatingView) mPreviewUgcInfoView.findViewById(R.id.rating_view);
     mUgc = ugc;
     if (mUgc == null)
@@ -202,19 +210,30 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       return;
     }
 
+    Context context = mPlacePage.getContext();
+    mReviewCount.setText(context.getString(R.string.placepage_summary_rating_description,
+                                           String.valueOf(mUgc.getBasedOnCount())));
     ratingView.setRating(Impress.values()[impress], rating);
+    setSummaryViews(mUgc, impress, rating);
     seUserReviewAndRatingsView(ugcUpdate);
     List<UGC.Review> reviews = ugc.getReviews();
     if (reviews != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
-    mUGCRatingRecordsAdapter.setItems(ugc.getRatings());
-    Context context = mPlacePage.getContext();
-    mReviewCount.setText(context.getString(R.string.placepage_summary_rating_description,
-                                           String.valueOf(mUgc.getBasedOnCount())));
     UiUtils.showIf(reviews != null && reviews.size() > UGCReviewAdapter.MAX_COUNT, mUgcMoreReviews);
   }
 
-  private boolean canUserLeaveReview(@Nullable UGCUpdate ugcUpdate)
+  private void setSummaryViews(@NonNull UGC ugc, @UGC.Impress int impress, @NonNull String rating)
+  {
+    RatingView ratingView = (RatingView) mSummaryRootView.findViewById(R.id.rv__summary_rating);
+    ratingView.setRating(Impress.values()[impress], rating);
+    Context context = mPlacePage.getContext();
+    mSummaryReviewCount.setText(context.getString(R.string.placepage_summary_rating_description,
+                                           String.valueOf(ugc.getBasedOnCount())));
+    mUGCRatingRecordsAdapter.setItems(ugc.getRatings());
+
+  }
+
+  private boolean canUserRate(@Nullable UGCUpdate ugcUpdate)
   {
     return mMapObject != null && mMapObject.canBeRated() && ugcUpdate == null;
   }
