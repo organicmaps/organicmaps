@@ -51,7 +51,7 @@
           android:layout_height="@dimen/rating_user_review_min_height"
           android:textAppearance="@style/MwmTextAppearance.Body1"
           android:gravity="top"
-          android:maxLength="400"
+          android:maxLength="600"
           android:paddingLeft="@dimen/margin_base"
           android:paddingStart="@dimen/margin_base"
           android:paddingRight="@dimen/margin_base"
