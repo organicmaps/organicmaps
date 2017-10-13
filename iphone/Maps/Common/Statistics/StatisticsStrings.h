@@ -116,6 +116,7 @@ static NSString * const kStatFromLocation = @"from_location";
 static NSString * const kStatFromMyPosition = @"From my position";
 static NSString * const kStatGo = @"Go";
 static NSString * const kStatGoogle = @"Google";
+static NSString * const kStatHalloween = @"Halloween";
 static NSString * const kStatHelp = @"Help";
 static NSString * const kStatHidden = @"Hidden";
 static NSString * const kStatHistory = @"History";

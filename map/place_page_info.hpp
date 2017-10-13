@@ -39,7 +39,8 @@ enum class SponsoredType
   Geochat,
   Viator,
   Cian,
-  Thor
+  Thor,
+  Halloween
 };
 
 enum class LocalAdsStatus

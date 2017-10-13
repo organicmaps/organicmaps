@@ -95,6 +95,7 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.GEOCHAT;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.THOR;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.HALLOWEEN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 
 public enum Statistics
@@ -368,6 +369,7 @@ public enum Statistics
     public static final String GEOCHAT = "Geochat";
     public static final String CIAN = "Cian.Ru";
     public static final String THOR = "Thor";
+    public static final String HALLOWEEN = "Halloween";
     public static final String NO_PRODUCTS = "no_products";
     public static final String ADD = "add";
     public static final String EDIT = "edit";
@@ -811,6 +813,8 @@ public enum Statistics
         return CIAN;
       case Sponsored.TYPE_THOR:
         return THOR;
+      case Sponsored.TYPE_HALLOWEEN:
+        return HALLOWEEN;
       case Sponsored.TYPE_NONE:
         return "N/A";
       default:

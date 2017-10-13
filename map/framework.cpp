@@ -916,6 +916,11 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.SetSponsoredDescriptionUrl(url);
     GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kSponsoredThorDiscovered);
   }
+  else if (ftypes::IsHalloweenChecker::Instance()(ft) &&
+           !info.GetMetadata().Get(feature::Metadata::FMD_RATING).empty())
+  {
+    info.SetSponsoredType(place_page::SponsoredType::Halloween);
+  }
 
   FillLocalExperts(ft, info);
 
