@@ -8,6 +8,10 @@
 
 #include "indexer/feature_decl.hpp"
 
+#include "platform/preferred_languages.hpp"
+
+#include "coding/multilang_utf8_string.hpp"
+
 #include "base/logging.hpp"
 
 #include <utility>
@@ -97,8 +101,8 @@ public:
       records.emplace_back(std::move(key), std::move(ratingValue));
     }
     jstring jtext = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_ratingTextFieldId));
-    // TODO: use lang parameter correctly.
-    ugc::Text text(jni::ToNativeString(env, jtext), 1);
+    ugc::Text text(jni::ToNativeString(env, jtext),
+                   StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()));
     jlong jtime = env->GetLongField(ugcUpdate, m_updateTimeFieldId);
     uint64_t timeSec = static_cast<uint64_t>(jtime / 1000);
     return ugc::UGCUpdate(records, text, std::chrono::system_clock::from_time_t(timeSec));
