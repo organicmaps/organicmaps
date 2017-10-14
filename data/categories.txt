@@ -7035,7 +7035,7 @@ ar:^ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ
 cs:^Autodíly
 da:^Bildele
 nl:^Auto onderdelen
-fi:^Autotarvikeet
+fi:^Auton osat
 fr:^Pièces de voiture
 de:^Autoteile
 hu:^Autó alkatrészek
