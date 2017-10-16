@@ -356,7 +356,9 @@ unique_ptr<FeatureType> Storage::GetFeature(FeatureID const & id) const
   CHECK(id.IsValid(), ());
   Index::FeaturesLoaderGuard guard(m_index, id.m_mwmId);
   auto feature = guard.GetOriginalOrEditedFeatureByIndex(id.m_index);
-  feature->ParseGeometry(0);
+  feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
+  if (feature->GetFeatureType() == feature::EGeomType::GEOM_AREA)
+    feature->ParseTriangles(FeatureType::BEST_GEOMETRY);
   CHECK(feature, ());
   return feature;
 }
