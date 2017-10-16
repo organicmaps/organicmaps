@@ -26364,3 +26364,11 @@
   [sponsored_thor_gather]
     en = Gather
     ru = Собрать
+  
+  [whats_new_ugc_title]
+    en = Ratings and reviews
+    ru = Оценки и отзывы
+  
+  [whats_new_ugc_message]
+    en = You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.
+    ru = Теперь вы можете оставлять оценки и отзывы даже офлайн! Не забудьте обновить карты, чтобы увидеть изменения. 
