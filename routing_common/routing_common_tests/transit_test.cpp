@@ -53,6 +53,22 @@ UNIT_TEST(Transit_HeaderSerialization)
   }
 }
 
+UNIT_TEST(Transit_TitleAnchorSerialization)
+{
+  {
+    TitleAnchor anchor(17 /* min zoom */, "t" /* anchors */);
+    TestSerialization(anchor);
+  }
+  {
+    TitleAnchor anchor(10 /* min zoom */, "b" /* anchors */);
+    TestSerialization(anchor);
+  }
+  {
+    TitleAnchor anchor(18 /* min zoom */, "bl" /* anchors */);
+    TestSerialization(anchor);
+  }
+}
+
 UNIT_TEST(Transit_StopSerialization)
 {
   {
@@ -60,8 +76,21 @@ UNIT_TEST(Transit_StopSerialization)
     TestSerialization(stop);
   }
   {
-    Stop stop(1234 /* id */, 5678 /* feature id */, 7 /* transfer id */, {7, 8, 9, 10} /* line id */, {55.0, 37.0});
+    Stop stop(1234 /* id */, 5678 /* feature id */, 7 /* transfer id */, {7, 8, 9, 10} /* line id */,
+              {55.0, 37.0} /* point */, {} /* anchors */);
     TestSerialization(stop);
+  }
+}
+
+UNIT_TEST(Transit_SingleMwmSegmentSerialization)
+{
+  {
+    SingleMwmSegment s(12344 /* feature id */, 0 /* segmentIdx */, true /* forward */);
+    TestSerialization(s);
+  }
+  {
+    SingleMwmSegment s(12544 /* feature id */, 5 /* segmentIdx */, false /* forward */);
+    TestSerialization(s);
   }
 }
 
@@ -81,7 +110,8 @@ UNIT_TEST(Transit_EdgeSerialization)
 
 UNIT_TEST(Transit_TransferSerialization)
 {
-  Transfer transfer(1 /* id */, {40.0, 35.0} /* point */, {1, 2, 3} /* stop ids */);
+  Transfer transfer(1 /* id */, {40.0, 35.0} /* point */, {1, 2, 3} /* stop ids */,
+                    { TitleAnchor(16, "br")});
   TestSerialization(transfer);
 }
 

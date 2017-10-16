@@ -31,6 +31,22 @@ void TestDeserializerFromJson(string const & jsonBuffer, string const & name, ve
     TEST(objects[i].IsEqualForTesting(expected[i]), (objects[i], expected[i]));
 }
 
+UNIT_TEST(DeserializerFromJson_TitleAnchors)
+{
+  string const jsonBuffer = R"(
+  {
+  "title_anchors": [
+    { "min_zoom": 11, "anchors": "r" },
+    { "min_zoom": 14, "anchors": "bl" }
+  ]})";
+
+  vector<TitleAnchor> expected = {
+    TitleAnchor(11 /* min zoom */, "r" /* anchors */),
+    TitleAnchor(14 /* min zoom */, "bl" /* anchors */)
+  };
+  TestDeserializerFromJson(jsonBuffer, "title_anchors", expected);
+}
+
 UNIT_TEST(DeserializerFromJson_Stops)
 {
   string const jsonBuffer = R"(
@@ -60,15 +76,19 @@ UNIT_TEST(DeserializerFromJson_Stops)
         "x": 27.5227942,
         "y": 64.25206634443111
       },
-      "title_anchors": []
+      "title_anchors": [
+        { "min_zoom": 12, "anchors": "t" },
+        { "min_zoom": 15, "anchors": "tl" }]
     }
   ]})";
 
   vector<Stop> const expected = {
       Stop(343259523 /* id */, 1234 /* featureId */, kInvalidTransferId /* transfer id */,
-           {19207936, 19207937} /* lineIds */,  {27.4970954, 64.20146835878187} /* point */),
+           {19207936, 19207937} /* lineIds */, {27.4970954, 64.20146835878187} /* point */,
+           {} /* anchors */),
       Stop(266680843 /* id */, 2345 /* featureId */, 5 /* transfer id */,
-           {19213568, 19213569} /* lineIds */, {27.5227942, 64.25206634443111} /* point */)};
+           {19213568, 19213569} /* lineIds */, {27.5227942, 64.25206634443111} /* point */,
+           { TitleAnchor(12 /* min zoom */, "t" /* anchors */), TitleAnchor(15, "tl")} /* anchors */)};
 
   TestDeserializerFromJson(jsonBuffer, "stops", expected);
 }
@@ -162,7 +182,7 @@ UNIT_TEST(DeserializerFromJson_Transfers)
 
   vector<Transfer> const expected = {Transfer(922337203 /* stop id */,
                                               {27.5619844, 64.24325959173672} /* point */,
-                                              {209186416, 277039518} /* stopIds */)};
+                                              {209186416, 277039518} /* stopIds */, {} /* anchors */)};
 
   TestDeserializerFromJson(jsonBuffer, "transfers", expected);
 }
