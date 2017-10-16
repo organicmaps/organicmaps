@@ -144,7 +144,6 @@ PLANET="${PLANET:-$HOME/planet}"
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 DATA_PATH="${DATA_PATH:-$OMIM_PATH/data}"
 [ ! -r "${DATA_PATH}/types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
-[ -n "$OPT_ROUTING" -a ! -f "$HOME/.stxxl" ] && fail "For routing, you need ~/.stxxl file. Run this: echo 'disk=$HOME/stxxl_disk1,400G,syscall' > $HOME/.stxxl"
 if [ -n "$OPT_ROUTING" -a -n "${OSRM_URL-}" ]; then
   curl -s "http://$OSRM_URL/way_id" | grep -q position || fail "Cannot access $OSRM_URL"
 fi
@@ -461,7 +460,6 @@ if [ "$MODE" == "features" ]; then
   [ -f "$BOOKING_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --booking_data=$BOOKING_FILE"
   [ -f "$OPENTABLE_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --opentable_data=$OPENTABLE_FILE"
   [ -f "$VIATOR_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --viator_data=$VIATOR_FILE"
-  [ -f "$UGC_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --ugc_data=$UGC_FILE"
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
     --data_path="$TARGET" --user_resource_path="$DATA_PATH/" $PARAMS_SPLIT 2>> "$PLANET_LOG"
   MODE=mwm
@@ -497,6 +495,7 @@ if [ "$MODE" == "mwm" ]; then
   if [ -z "$NO_REGIONS" ]; then
     PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
     [ -n "${SRTM_PATH-}" -a -d "${SRTM_PATH-}" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --srtm_path=$SRTM_PATH"
+    [ -f "$UGC_FILE" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --ugc_data=$UGC_FILE"
     for file in "$INTDIR"/tmp/*.mwm.tmp; do
       if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
         BASENAME="$(basename "$file" .mwm.tmp)"
