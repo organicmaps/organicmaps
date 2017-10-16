@@ -71,11 +71,10 @@ class UGC : public TraitsBase<UGC, UGCItem, true>
     coding::CSVReader reader;
     auto const fileReader = GetPlatform().GetReader("ugc_types.csv");
     reader.Read(*fileReader, [this](coding::CSVReader::Row const & row) {
-      size_t constexpr kItemsCount = 5;
       size_t constexpr kTypePos = 0;
       size_t constexpr kCategoriesPos = 4;
 
-      ASSERT_EQUAL(row.size(), kItemsCount, ());
+      ASSERT_EQUAL(row.size(), 5, ());
 
       UGCItem item(ReadMasks(row), ParseByWhitespaces(row[kCategoriesPos]));
       m_matcher.AppendType(ParseByWhitespaces(row[kTypePos]), std::move(item));
