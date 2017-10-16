@@ -1,4 +1,5 @@
 #import "MWMPlacePageData.h"
+#import "LocaleTranslator.h"
 #import "MWMBannerHelpers.h"
 #import "MWMNetworkPolicy.h"
 #import "MWMUGCViewModel.h"
@@ -7,6 +8,8 @@
 #include "Framework.h"
 
 #include "local_ads/event.hpp"
+
+#include "platform/preferred_languages.hpp"
 
 #include "partners_api/booking_api.hpp"
 
@@ -54,39 +57,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 {
   self = [super init];
   if (self)
-  {
     m_info = info;
-
-    __weak auto weakSelf = self;
-    _ugc = [[MWMUGCViewModel alloc]
-        initWithInfo:info
-             refresh:^{
-               __strong auto self = weakSelf;
-               auto ugc = self.ugc;
-               if ([ugc isAvailable])
-               {
-                 self.refreshPreviewCallback();
-
-                 auto & sections = self->m_sections;
-                 auto const begin = sections.begin();
-                 auto const end = sections.end();
-
-                 auto it = find(begin, end, Sections::UGCRating);
-                 if (it == end)
-                   return;
-                 NSUInteger const position = std::distance(begin, it);
-                 NSUInteger length = 1;
-
-                 sections.push_back(Sections::UGCRating);
-                 if ([ugc canAddReview] && ![ugc isYourReviewAvailable])
-                   length++;
-                 if ([ugc isReviewsAvailable])
-                   length++;
-
-                 self.sectionsAreReadyCallback({position, length}, self, YES /* It's a section */);
-               }
-             }];
-  }
 
   return self;
 }
@@ -131,23 +102,70 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{ @"provider" : provider }];
   }
 
-  auto ugc = self.ugc;
-  if ([ugc isAvailable])
-  {
-    m_sections.push_back(Sections::UGCRating);
-    if ([ugc canAddReview] && ![ugc isYourReviewAvailable])
-      m_sections.push_back(Sections::UGCAddReview);
-    if ([ugc isReviewsAvailable])
-      m_sections.push_back(Sections::UGCReviews);
-  }
-
-  // There is at least one of these buttons.
   if (m_info.ShouldShowAddPlace() || m_info.ShouldShowEditPlace() ||
       m_info.ShouldShowAddBusiness() || m_info.IsSponsored())
   {
     m_sections.push_back(Sections::Buttons);
     [self fillButtonsSection];
   }
+
+  if (m_info.ShouldShowUGC())
+    [self addUGCSections];
+}
+
+- (void)addUGCSections
+{
+  NSAssert(m_info.ShouldShowUGC(), @"");
+
+  __weak auto wself = self;
+  GetFramework().GetUGCApi()->GetUGC(
+      m_info.GetID(), [wself](ugc::UGC const & ugc, ugc::UGCUpdate const & update) {
+        __strong auto self = wself;
+        self.ugc = [[MWMUGCViewModel alloc] initWithUGC:ugc update:update];
+
+        {
+          auto & previewRows = self->m_previewRows;
+          auto it = find(previewRows.begin(), previewRows.end(), PreviewRows::Address);
+          if (it == previewRows.end())
+            it = find(previewRows.begin(), previewRows.end(), PreviewRows::Space);
+
+          previewRows.insert(it, PreviewRows::Review);
+          self.refreshPreviewCallback();
+        }
+
+        auto & sections = self->m_sections;
+        auto const begin = sections.begin();
+        auto const end = sections.end();
+
+        auto it = find(begin, end, Sections::Buttons);
+        NSUInteger const position = std::distance(begin, it);
+        NSUInteger length = 0;
+
+        if (!self.ugc.isUGCEmpty)
+        {
+          length = 2;
+          it = sections.insert(it, Sections::UGCRating) + 1;
+          if (self.ugc.isUGCUpdateEmpty)
+          {
+            it = sections.insert(it, Sections::UGCAddReview) + 1;
+            length++;
+          }
+
+          it = sections.insert(it, Sections::UGCReviews) + 1;
+        }
+        else if (self.ugc.isUGCUpdateEmpty)
+        {
+          it = sections.insert(it, Sections::UGCAddReview);
+          length = 1;
+        }
+        else
+        {
+          it = sections.insert(it, Sections::UGCReviews);
+          length = 1;
+        }
+
+        self.sectionsAreReadyCallback({position, length}, self, YES /* It's a section */);
+      });
 }
 
 - (void)fillPreviewSection
@@ -156,10 +174,11 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   if (self.externalTitle.length) m_previewRows.push_back(PreviewRows::ExternalTitle);
   if (self.subtitle.length || self.isMyPosition) m_previewRows.push_back(PreviewRows::Subtitle);
   if (self.schedule != OpeningHours::Unknown) m_previewRows.push_back(PreviewRows::Schedule);
-  if (self.isBooking || [self.ugc isAvailable])
+  if (self.isBooking)
     m_previewRows.push_back(PreviewRows::Review);
   if (self.address.length) m_previewRows.push_back(PreviewRows::Address);
-  
+  m_previewRows.push_back(PreviewRows::Space);
+
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
 
   if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner() &&
@@ -668,6 +687,27 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
   self.photos = res;
   return _photos;
+}
+
+#pragma mark - UGC
+
+- (ftraits::UGCRatingCategories)ugcRatingCategories { return m_info.GetRatingCategories(); }
+
+- (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel
+{
+  using namespace ugc;
+
+  auto const locale =
+      static_cast<uint8_t>(StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()));
+  Text t{reviewModel.text.UTF8String, locale};
+  Ratings r;
+  for (MWMUGCRatingStars * star in reviewModel.ratings)
+    r.emplace_back(star.title.UTF8String, star.value);
+
+  UGCUpdate update{r, t, std::chrono::system_clock::now()};
+  auto & f = GetFramework();
+  f.GetUGCApi()->SetUGCUpdate(m_info.GetID(), update);
+  f.UpdatePlacePageInfoForCurrentSelection();
 }
 
 #pragma mark - Bookmark

@@ -244,10 +244,10 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
     }
     else
     {
-      auto ugc = data.ugc;
-      [reviewCell configWithRating:[ugc summaryRating]
-          canAddReview:[ugc canAddReview] && ![ugc isYourReviewAvailable]
-          reviewsCount:[ugc totalReviewsCount]
+      NSAssert(data.ugc, @"");
+      [reviewCell configWithRating:data.ugc.summaryRating
+          canAddReview:data.ugc.isUGCUpdateEmpty
+          reviewsCount:data.ugc.totalReviewsCount
           priceSetter:^(UILabel * _Nonnull) {
           }
           onAddReview:^{
@@ -348,6 +348,8 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
                         withRowAnimation:UITableViewRowAnimationLeft];
   [self.delegate heightWasChanged];
 }
+
+- (void)notifyHeightWashChanded { [self.delegate heightWasChanged]; }
 
 - (CGFloat)height
 {

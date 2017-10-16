@@ -571,20 +571,24 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   auto data = self.data;
   if (!data)
     return;
-  // TODO(ios, UGC): Fill ratings.
-  NSArray<MWMUGCRatingStars *> * ratings = @[];
-  auto const canAddTextToReview = [data.ugc canAddTextToReview];
-  auto title = [data title];
-  // TODO(ios, UGC): Fill your review text.
-  auto text = @"";
-  auto ugcReviewModel = [[MWMUGCReviewModel alloc] initWithReviewValue:value
-                                                               ratings:ratings
-                                                    canAddTextToReview:canAddTextToReview
-                                                                 title:title
-                                                                  text:text];
+
+  NSMutableArray<MWMUGCRatingStars *> * ratings = [@[] mutableCopy];
+  for (auto & cat : data.ugcRatingCategories)
+    [ratings addObject:[[MWMUGCRatingStars alloc] initWithTitle:@(cat.c_str())
+                                                          value:value
+                                                       maxValue:5.0f]];
+  auto title = data.title;
+  auto ugcReviewModel =
+      [[MWMUGCReviewModel alloc] initWithReviewValue:value ratings:ratings title:title text:@""];
   auto ugcVC = [MWMUGCAddReviewController instanceWithModel:ugcReviewModel
-                                                     onSave:^(MWMUGCReviewModel * model){
-                                                         // TODO(ios, UGC): Save review (model).
+                                                     onSave:^(MWMUGCReviewModel * model) {
+                                                       auto data = self.data;
+                                                       if (!data)
+                                                       {
+                                                         NSAssert(false, @"");
+                                                         return;
+                                                       }
+                                                       [data setUGCUpdateFrom:model];
                                                      }];
   [[MapViewController controller].navigationController pushViewController:ugcVC animated:YES];
 }

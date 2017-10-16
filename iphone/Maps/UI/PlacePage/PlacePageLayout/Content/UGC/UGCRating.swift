@@ -12,8 +12,8 @@ class UGCRatingValueType: NSObject {
 
 @objc(MWMUGCRatingStars)
 final class UGCRatingStars: NSObject {
-  let title: String
-  var value: CGFloat
+  @objc let title: String
+  @objc var value: CGFloat
   let maxValue: CGFloat
 
   @objc init(title: String, value: CGFloat, maxValue: CGFloat) {

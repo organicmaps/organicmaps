@@ -2,11 +2,7 @@
 #import "MWMPlacePageData.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
-
 #include "ugc/types.hpp"
-
-#include "map/place_page_info.hpp"
 
 using namespace place_page;
 
@@ -32,7 +28,6 @@ MWMUGCRatingValueType * ratingValueType(float rating)
 
 @interface MWMUGCViewModel ()
 @property(copy, nonatomic) MWMVoidBlock refreshCallback;
-@property(nonatomic) BOOL isFilled;
 @end
 
 @implementation MWMUGCViewModel
@@ -42,79 +37,34 @@ MWMUGCRatingValueType * ratingValueType(float rating)
   ugc::UGCUpdate m_ugcUpdate;
 }
 
-- (instancetype)initWithInfo:(place_page::Info const &)info refresh:(MWMVoidBlock)refresh
+- (instancetype)initWithUGC:(ugc::UGC const &)ugc update:(ugc::UGCUpdate const &)update
 {
   self = [super init];
   if (self)
-    m_info = info;
-
-  if ([self isAvailable])
   {
-    [self fill];
-    self.refreshCallback = refresh;
+    m_ugc = ugc;
+    m_ugcUpdate = update;
   }
-
   return self;
 }
 
-- (BOOL)isAvailable { return m_info.ShouldShowUGC(); }
-- (BOOL)canAddReview { return m_info.CanBeRated(); }
-- (BOOL)canAddTextToReview { return m_info.CanBeRated() && m_info.CanBeReviewed(); }
-- (BOOL)isYourReviewAvailable
-{
-  if (!self.isFilled)
-    return NO;
-  // TODO(ios, UGC): Add logic
-  // return m_ugcUpdate.isValid();
-  return YES;
-}
-- (BOOL)isReviewsAvailable { return [self numberOfReviews] != 0; }
-
-- (void)fill
-{
-  self.isFilled = NO;
-  auto & f = GetFramework();
-  auto const featureID = m_info.GetID();
-  f.GetUGCApi()->GetUGC(featureID, [self](ugc::UGC const & ugc, ugc::UGCUpdate const & update) {
-    self->m_ugc = ugc;
-    self->m_ugcUpdate = update;
-    self.isFilled = YES;
-    self.refreshCallback();
-  });
-}
-
-- (NSInteger)ratingCellsCount { return 1; }
-- (NSInteger)addReviewCellsCount { return [self isYourReviewAvailable] ? 0 : 1; }
-
-- (NSInteger)totalReviewsCount
-{
-  // TODO(ios, UGC): Add logic
-  // Used for display in string
-  return 32;
-}
-- (MWMUGCRatingValueType *)summaryRating { return ratingValueType(m_ugc.m_aggRating); }
-
-- (NSArray<MWMUGCRatingStars *> *)ratings
-{
-  NSAssert(self.isFilled, @"UGC is not filled");
-  return starsRatings(m_ugc.m_ratings);
-}
+- (BOOL)isUGCEmpty { return static_cast<BOOL>(m_ugc.IsEmpty()); }
+- (BOOL)isUGCUpdateEmpty { return static_cast<BOOL>(m_ugcUpdate.IsEmpty()); }
+- (NSUInteger)ratingCellsCount { return 1; }
+- (NSUInteger)addReviewCellsCount { return 1; }
+- (NSUInteger)totalReviewsCount { return static_cast<NSUInteger>(m_ugc.m_basedOn); }
+- (MWMUGCRatingValueType *)summaryRating { return ratingValueType(m_ugc.m_totalRating); }
+- (NSArray<MWMUGCRatingStars *> *)ratings { return starsRatings(m_ugc.m_ratings); }
 
 #pragma mark - MWMReviewsViewModelProtocol
 
-- (NSInteger)numberOfReviews
-{
-  if (!self.isFilled)
-    return 0;
-  return m_ugc.m_reviews.size() + ([self isYourReviewAvailable] ? 1 : 0);
-}
+- (NSUInteger)numberOfReviews { return m_ugc.m_reviews.size() + !self.isUGCUpdateEmpty; }
 
-- (id<MWMReviewProtocol> _Nonnull)reviewWithIndex:(NSInteger)index
+- (id<MWMReviewProtocol> _Nonnull)reviewWithIndex:(NSUInteger)index
 {
-  NSAssert(self.isFilled, @"UGC is not filled");
   auto idx = index;
   NSAssert(idx >= 0, @"Invalid index");
-  if ([self isYourReviewAvailable])
+  if (!self.isUGCUpdateEmpty)
   {
     if (idx == 0)
     {
@@ -130,7 +80,7 @@ MWMUGCRatingValueType * ratingValueType(float rating)
   NSAssert(idx < m_ugc.m_reviews.size(), @"Invalid index");
   auto const & review = m_ugc.m_reviews[idx];
   return [[MWMUGCReview alloc]
-      initWithTitle:@(review.m_author.m_name.c_str())
+      initWithTitle:@(review.m_author.c_str())
                date:[NSDate dateWithTimeIntervalSince1970:review.m_time.time_since_epoch().count()]
                text:@(review.m_text.m_text.c_str())
              rating:ratingValueType(review.m_rating)];

@@ -83,6 +83,7 @@ final class UGCYourReviewCell: MWMTableViewCell {
       layout.minimumInteritemSpacing = interitemSpacing
       layout.itemSize = CGSize(width: itemWidth, height: Config.estimatedItemSize.height)
 
+      assert(itemsPerRow > 0);
       let rowsCount = ceil(ratingsCount / itemsPerRow)
       self.ratingCollectionViewHeight.constant = rowsCount * Config.estimatedItemSize.height + (rowsCount - 1) * layout.minimumLineSpacing + inset.top + inset.bottom
       self.ratingCollectionView.performBatchUpdates(updates, completion: nil)

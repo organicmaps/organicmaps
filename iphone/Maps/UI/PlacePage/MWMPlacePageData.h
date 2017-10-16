@@ -142,6 +142,7 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 @class MWMViatorItemModel;
 @class MWMCianItemModel;
 @class MWMUGCViewModel;
+@class MWMUGCReviewModel;
 @class MWMUGCRatingValueType;
 @protocol MWMBanner;
 
@@ -186,6 +187,10 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 - (NSUInteger)numberOfHotelReviews;
 - (NSURL *)URLToAllReviews;
 - (NSArray<MWMGalleryItemModel *> *)photos;
+
+// UGC
+- (ftraits::UGCRatingCategories)ugcRatingCategories;
+- (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel;
 
 // Viator
 - (void)fillOnlineViatorSection;

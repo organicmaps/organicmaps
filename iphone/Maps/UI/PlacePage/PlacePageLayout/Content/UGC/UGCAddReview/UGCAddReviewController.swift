@@ -2,6 +2,8 @@
 final class UGCAddReviewController: MWMTableViewController {
   typealias Model = UGCReviewModel
 
+  weak var textCell: UGCAddReviewTextCell?
+
   enum Sections {
     case ratings
     case text
@@ -17,12 +19,9 @@ final class UGCAddReviewController: MWMTableViewController {
   private var model: Model! {
     didSet {
       sections = []
-      if !model.ratings.isEmpty {
-        sections.append(.ratings)
-      }
-      if model.canAddTextToReview {
-        sections.append(.text)
-      }
+      assert(!model.ratings.isEmpty);
+      sections.append(.ratings)
+      sections.append(.text)
     }
   }
 
@@ -49,6 +48,11 @@ final class UGCAddReviewController: MWMTableViewController {
   }
 
   @objc private func onDone() {
+    guard let text = textCell?.reviewText else {
+      assert(false);
+      return
+    }
+    model.text = text
     onSave(model)
     guard let nc = navigationController else { return }
     if MWMAuthorizationViewModel.isAuthenticated() {
@@ -80,6 +84,7 @@ final class UGCAddReviewController: MWMTableViewController {
     case .text:
       let cell = tableView.dequeueReusableCell(withCellClass: UGCAddReviewTextCell.self, indexPath: indexPath) as! UGCAddReviewTextCell
       cell.reviewText = model.text
+      textCell = cell;
       return cell
     }
   }

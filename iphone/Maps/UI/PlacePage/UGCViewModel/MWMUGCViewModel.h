@@ -6,9 +6,10 @@ typedef NS_ENUM(NSUInteger, MWMUGCViewModelPrice) {
   MWMUGCViewModelPriceHigh
 };
 
-namespace place_page
+namespace ugc
 {
-class Info;
+struct UGC;
+struct UGCUpdate;
 }
 
 @class MWMUGCRatingValueType;
@@ -19,18 +20,15 @@ class Info;
 
 @interface MWMUGCViewModel : NSObject<MWMReviewsViewModelProtocol>
 
-- (instancetype)initWithInfo:(place_page::Info const &)info refresh:(MWMVoidBlock)refresh;
+- (instancetype)initWithUGC:(ugc::UGC const &)ugc update:(ugc::UGCUpdate const &)update;
 
-- (BOOL)isAvailable;
-- (BOOL)canAddReview;
-- (BOOL)canAddTextToReview;
-- (BOOL)isYourReviewAvailable;
-- (BOOL)isReviewsAvailable;
+- (BOOL)isUGCEmpty;
+- (BOOL)isUGCUpdateEmpty;
 
-- (NSInteger)ratingCellsCount;
-- (NSInteger)addReviewCellsCount;
+- (NSUInteger)ratingCellsCount;
+- (NSUInteger)addReviewCellsCount;
 
-- (NSInteger)totalReviewsCount;
+- (NSUInteger)totalReviewsCount;
 - (MWMUGCRatingValueType *)summaryRating;
 - (NSArray<MWMUGCRatingStars *> *)ratings;
 
