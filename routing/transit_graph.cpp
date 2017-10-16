@@ -80,6 +80,7 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Gat
 
   for (auto const & gate : gates)
   {
+    CHECK_NOT_EQUAL(gate.GetWeight(), transit::kInvalidWeight, ("Gate should have valid weight."));
     auto const gateSegment = gate.GetBestPedestrianSegment();
     Segment real(numMwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(), gateSegment.GetForward());
     auto const ending =
@@ -94,6 +95,7 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Gat
   map<transit::StopId, set<transit::Edge>> ingoing;
   for (auto const & edge : edges)
   {
+    CHECK_NOT_EQUAL(edge.GetWeight(), transit::kInvalidWeight, ("Edge should have valid weight."));
     AddEdge(edge, stopCoords);
     outgoing[edge.GetStop1Id()].insert(edge);
     ingoing[edge.GetStop2Id()].insert(edge);
