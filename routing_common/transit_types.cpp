@@ -54,24 +54,53 @@ bool TransitHeader::IsEqualForTesting(TransitHeader const & header) const
          && m_endOffset == header.m_endOffset;
 }
 
+// TitleAnchor ------------------------------------------------------------------------------------
+TitleAnchor::TitleAnchor(uint8_t minZoom, std::string const & anchors)
+  : m_minZoom(minZoom), m_anchors(anchors)
+{
+}
+
+bool TitleAnchor::operator==(TitleAnchor const & titleAnchor) const
+{
+  return m_minZoom == titleAnchor.m_minZoom && m_anchors == titleAnchor.m_anchors;
+}
+
+bool TitleAnchor::IsEqualForTesting(TitleAnchor const & titleAnchor) const
+{
+  return *this == titleAnchor;
+}
+
 // Stop -------------------------------------------------------------------------------------------
-Stop::Stop(StopId id, FeatureId featureId, TransferId transferId, std::vector<LineId> const & lineIds,
-           m2::PointD const & point)
-  : m_id(id), m_featureId(featureId), m_transferId(transferId), m_lineIds(lineIds), m_point(point)
+Stop::Stop(StopId id, FeatureId featureId, TransferId transferId,
+           std::vector<LineId> const & lineIds, m2::PointD const & point,
+           std::vector<TitleAnchor> const & titleAnchors)
+  : m_id(id)
+  , m_featureId(featureId)
+  , m_transferId(transferId)
+  , m_lineIds(lineIds)
+  , m_point(point)
+  , m_titleAnchors(titleAnchors)
 {
 }
 
 bool Stop::IsEqualForTesting(Stop const & stop) const
 {
   double constexpr kPointsEqualEpsilon = 1e-6;
-  return m_id == stop.m_id && m_featureId == stop.m_featureId && m_transferId == stop.m_transferId &&
-         m_lineIds == stop.m_lineIds && my::AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon);
+  return m_id == stop.m_id && m_featureId == stop.m_featureId &&
+         m_transferId == stop.m_transferId && m_lineIds == stop.m_lineIds &&
+         my::AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon) &&
+         m_titleAnchors == stop.m_titleAnchors;
 }
 
 // SingleMwmSegment -------------------------------------------------------------------------------
 SingleMwmSegment::SingleMwmSegment(FeatureId featureId, uint32_t segmentIdx, bool forward)
   : m_featureId(featureId), m_segmentIdx(segmentIdx), m_forward(forward)
 {
+}
+
+bool SingleMwmSegment::IsEqualForTesting(SingleMwmSegment const & s) const
+{
+  return m_featureId == s.m_featureId && m_segmentIdx == s.m_segmentIdx && m_forward == s.m_forward;
 }
 
 // Gate -------------------------------------------------------------------------------------------
@@ -127,8 +156,9 @@ bool Edge::operator<(Edge const & rhs) const
 bool Edge::IsEqualForTesting(Edge const & edge) const { return !(*this < edge || edge < *this); }
 
 // Transfer ---------------------------------------------------------------------------------------
-Transfer::Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds)
-  : m_id(id), m_point(point), m_stopIds(stopIds)
+Transfer::Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds,
+                   std::vector<TitleAnchor> const & titleAnchors)
+  : m_id(id), m_point(point), m_stopIds(stopIds), m_titleAnchors(titleAnchors)
 {
 }
 
@@ -136,7 +166,8 @@ bool Transfer::IsEqualForTesting(Transfer const & transfer) const
 {
   return m_id == transfer.m_id &&
          my::AlmostEqualAbs(m_point, transfer.m_point, kPointsEqualEpsilon) &&
-         m_stopIds == transfer.m_stopIds;
+         m_stopIds == transfer.m_stopIds &&
+         m_titleAnchors == transfer.m_titleAnchors;
 }
 
 // Line -------------------------------------------------------------------------------------------

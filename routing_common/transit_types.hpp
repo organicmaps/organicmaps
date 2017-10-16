@@ -1,5 +1,7 @@
 #pragma once
 
+#include "indexer/scales.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/visitor.hpp"
@@ -71,12 +73,33 @@ public:
 
 static_assert(sizeof(TransitHeader) == 32, "Wrong header size of transit section.");
 
+class TitleAnchor
+{
+public:
+  TitleAnchor() = default;
+  TitleAnchor(uint8_t minZoom, std::string const & anchors);
+
+  bool operator==(TitleAnchor const & titleAnchor) const;
+  bool IsEqualForTesting(TitleAnchor const & titleAnchor) const;
+
+  uint8_t GetMinZoom() const { return m_minZoom; }
+  std::string const & GetAnchors() const { return m_anchors; }
+
+private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
+  DECLARE_VISITOR_AND_DEBUG_PRINT(TitleAnchor, visitor(m_minZoom, "min_zoom"),
+                                  visitor(m_anchors, "anchors"))
+
+  uint8_t m_minZoom = scales::UPPER_STYLE_SCALE;
+  std::string m_anchors;
+};
+
 class Stop
 {
 public:
   Stop() = default;
   Stop(StopId id, FeatureId featureId, TransferId transferId, std::vector<LineId> const & lineIds,
-       m2::PointD const & point);
+       m2::PointD const & point, std::vector<TitleAnchor> const & titleAnchors);
   bool IsEqualForTesting(Stop const & stop) const;
 
   StopId GetId() const { return m_id; }
@@ -84,20 +107,21 @@ public:
   TransferId GetTransferId() const { return m_transferId; }
   std::vector<LineId> const & GetLineIds() const { return m_lineIds; }
   m2::PointD const & GetPoint() const { return m_point; }
+  std::vector<TitleAnchor> const & GetTitleAnchors() const { return m_titleAnchors; }
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_featureId, "osm_id"),
                                   visitor(m_transferId, "transfer_id"),
-                                  visitor(m_lineIds, "line_ids"), visitor(m_point, "point"))
+                                  visitor(m_lineIds, "line_ids"), visitor(m_point, "point"),
+                                  visitor(m_titleAnchors, "title_anchors"))
 
   StopId m_id = kInvalidStopId;
   FeatureId m_featureId = kInvalidFeatureId;
   TransferId m_transferId = kInvalidTransferId;
   std::vector<LineId> m_lineIds;
   m2::PointD m_point;
-  // @TODO(bykoianko) It's necessary to add field m_titleAnchors here and implement serialization
-  // and deserialization.
+  std::vector<TitleAnchor> m_titleAnchors;
 };
 
 class SingleMwmSegment
@@ -105,6 +129,7 @@ class SingleMwmSegment
 public:
   SingleMwmSegment() = default;
   SingleMwmSegment(FeatureId featureId, uint32_t segmentIdx, bool forward);
+  bool IsEqualForTesting(SingleMwmSegment const & s) const ;
 
   FeatureId GetFeatureId() const { return m_featureId; }
   uint32_t GetSegmentIdx() const { return m_segmentIdx; }
@@ -193,24 +218,25 @@ class Transfer
 {
 public:
   Transfer() = default;
-  Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds);
+  Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds,
+           std::vector<TitleAnchor> const & titleAnchors);
   bool IsEqualForTesting(Transfer const & transfer) const;
 
   StopId GetId() const { return m_id; }
   m2::PointD const & GetPoint() const { return m_point; }
   std::vector<StopId> const & GetStopIds() const { return m_stopIds; }
+  std::vector<TitleAnchor> const & GetTitleAnchors() const { return m_titleAnchors; }
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Transfer, visitor(m_id, "id"), visitor(m_point, "point"),
-                                  visitor(m_stopIds, "stop_ids"))
+                                  visitor(m_stopIds, "stop_ids"),
+                                  visitor(m_titleAnchors, "title_anchors"))
 
   StopId m_id = kInvalidStopId;
   m2::PointD m_point;
   std::vector<StopId> m_stopIds;
-
-  // @TODO(bykoianko) It's necessary to add field m_titleAnchors here and implement serialization
-  // and deserialization.
+  std::vector<TitleAnchor> m_titleAnchors;
 };
 
 class Line
