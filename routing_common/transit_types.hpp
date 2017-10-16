@@ -22,6 +22,7 @@ using NetworkId = uint32_t;
 using FeatureId = uint32_t;
 using ShapeId = uint32_t;
 using Weight = double;
+using Anchor = uint8_t;
 
 LineId constexpr kInvalidLineId = std::numeric_limits<LineId>::max();
 StopId constexpr kInvalidStopId = std::numeric_limits<StopId>::max();
@@ -32,6 +33,7 @@ ShapeId constexpr kInvalidShapeId = std::numeric_limits<ShapeId>::max();
 // Note. Weight may be a default param at json. The default value should be saved as uint32_t in mwm anyway.
 // To convert double to uint32_t at better accuracy |kInvalidWeight| should be close to real weight.
 Weight constexpr kInvalidWeight = -1.0;
+Anchor constexpr kInvalidAnchor = std::numeric_limits<Anchor>::max();
 
 #define DECLARE_TRANSIT_TYPE_FRIENDS                                                           \
     template<class Sink> friend class Serializer;                                              \
@@ -77,21 +79,21 @@ class TitleAnchor
 {
 public:
   TitleAnchor() = default;
-  TitleAnchor(uint8_t minZoom, std::string const & anchors);
+  TitleAnchor(uint8_t minZoom, Anchor anchor);
 
   bool operator==(TitleAnchor const & titleAnchor) const;
   bool IsEqualForTesting(TitleAnchor const & titleAnchor) const;
 
   uint8_t GetMinZoom() const { return m_minZoom; }
-  std::string const & GetAnchors() const { return m_anchors; }
+  Anchor const & GetAnchor() const { return m_anchor; }
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(TitleAnchor, visitor(m_minZoom, "min_zoom"),
-                                  visitor(m_anchors, "anchors"))
+                                  visitor(m_anchor, "anchor"))
 
   uint8_t m_minZoom = scales::UPPER_STYLE_SCALE;
-  std::string m_anchors;
+  Anchor m_anchor = kInvalidAnchor;
 };
 
 class Stop

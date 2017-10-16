@@ -36,13 +36,13 @@ UNIT_TEST(DeserializerFromJson_TitleAnchors)
   string const jsonBuffer = R"(
   {
   "title_anchors": [
-    { "min_zoom": 11, "anchors": "r" },
-    { "min_zoom": 14, "anchors": "bl" }
+    { "min_zoom": 11, "anchor": 4 },
+    { "min_zoom": 14, "anchor": 7 }
   ]})";
 
   vector<TitleAnchor> expected = {
-    TitleAnchor(11 /* min zoom */, "r" /* anchors */),
-    TitleAnchor(14 /* min zoom */, "bl" /* anchors */)
+    TitleAnchor(11 /* min zoom */, 4 /* anchor */),
+    TitleAnchor(14 /* min zoom */, 7 /* anchor */)
   };
   TestDeserializerFromJson(jsonBuffer, "title_anchors", expected);
 }
@@ -77,8 +77,8 @@ UNIT_TEST(DeserializerFromJson_Stops)
         "y": 64.25206634443111
       },
       "title_anchors": [
-        { "min_zoom": 12, "anchors": "t" },
-        { "min_zoom": 15, "anchors": "tl" }]
+        { "min_zoom": 12, "anchor": 0 },
+        { "min_zoom": 15, "anchor": 7 }]
     }
   ]})";
 
@@ -88,7 +88,7 @@ UNIT_TEST(DeserializerFromJson_Stops)
            {} /* anchors */),
       Stop(266680843 /* id */, 2345 /* featureId */, 5 /* transfer id */,
            {19213568, 19213569} /* lineIds */, {27.5227942, 64.25206634443111} /* point */,
-           { TitleAnchor(12 /* min zoom */, "t" /* anchors */), TitleAnchor(15, "tl")} /* anchors */)};
+           { TitleAnchor(12 /* min zoom */, 0 /* anchor */), TitleAnchor(15, 7)} /* anchor */)};
 
   TestDeserializerFromJson(jsonBuffer, "stops", expected);
 }

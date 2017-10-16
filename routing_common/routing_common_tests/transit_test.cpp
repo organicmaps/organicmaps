@@ -56,15 +56,15 @@ UNIT_TEST(Transit_HeaderSerialization)
 UNIT_TEST(Transit_TitleAnchorSerialization)
 {
   {
-    TitleAnchor anchor(17 /* min zoom */, "t" /* anchors */);
+    TitleAnchor anchor(17 /* min zoom */, 0 /* anchor */);
     TestSerialization(anchor);
   }
   {
-    TitleAnchor anchor(10 /* min zoom */, "b" /* anchors */);
+    TitleAnchor anchor(10 /* min zoom */, 4 /* anchor */);
     TestSerialization(anchor);
   }
   {
-    TitleAnchor anchor(18 /* min zoom */, "bl" /* anchors */);
+    TitleAnchor anchor(18 /* min zoom */, 3 /* anchor */);
     TestSerialization(anchor);
   }
 }
@@ -111,7 +111,7 @@ UNIT_TEST(Transit_EdgeSerialization)
 UNIT_TEST(Transit_TransferSerialization)
 {
   Transfer transfer(1 /* id */, {40.0, 35.0} /* point */, {1, 2, 3} /* stop ids */,
-                    { TitleAnchor(16, "br")});
+                    { TitleAnchor(16, 3)});
   TestSerialization(transfer);
 }
 

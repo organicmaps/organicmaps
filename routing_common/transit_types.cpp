@@ -55,14 +55,13 @@ bool TransitHeader::IsEqualForTesting(TransitHeader const & header) const
 }
 
 // TitleAnchor ------------------------------------------------------------------------------------
-TitleAnchor::TitleAnchor(uint8_t minZoom, std::string const & anchors)
-  : m_minZoom(minZoom), m_anchors(anchors)
+TitleAnchor::TitleAnchor(uint8_t minZoom, Anchor anchor) : m_minZoom(minZoom), m_anchor(anchor)
 {
 }
 
 bool TitleAnchor::operator==(TitleAnchor const & titleAnchor) const
 {
-  return m_minZoom == titleAnchor.m_minZoom && m_anchors == titleAnchor.m_anchors;
+  return m_minZoom == titleAnchor.m_minZoom && m_anchor == titleAnchor.m_anchor;
 }
 
 bool TitleAnchor::IsEqualForTesting(TitleAnchor const & titleAnchor) const
