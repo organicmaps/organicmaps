@@ -146,6 +146,7 @@ shop tattoo,1,1,0,quality service value_for_money
 shop tyres,1,1,1,assortment service value_for_money
 shop variety_store,1,1,1,assortment service value_for_money
 shop wine,1,1,1,assortment service value_for_money
+sponsored booking,0,0,0, 
 sport basketball,1,1,0,equipment service value_for_money
 sport multi,1,1,0,equipment service value_for_money
 sport soccer,1,1,0,equipment service value_for_money

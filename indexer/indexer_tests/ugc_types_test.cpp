@@ -43,4 +43,13 @@ UNIT_TEST(UgcTypes_Full)
     holder.Assign(c.GetTypeByPath({"traffic_calming", "bump"}));
     TEST(!UGC::IsUGCAvailable(holder), ());
   }
+  {
+    holder.Assign(c.GetTypeByPath({"sponsored", "booking"}));
+    TEST(!UGC::IsUGCAvailable(holder), ());
+    TEST(!UGC::IsRatingAvailable(holder), ());
+    TEST(!UGC::IsReviewsAvailable(holder), ());
+    TEST(!UGC::IsDetailsAvailable(holder), ());
+    ftraits::UGCRatingCategories expected = {};
+    TEST_EQUAL(UGC::GetCategories(holder), expected, ());
+  }
 }
