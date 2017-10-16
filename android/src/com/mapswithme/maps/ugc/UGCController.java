@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -257,9 +258,10 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       return;
     TextView name = (TextView) mUserReviewView.findViewById(R.id.name);
     TextView date = (TextView) mUserReviewView.findViewById(R.id.date);
-    TextView review = (TextView) mUserReviewView.findViewById(R.id.review);
     name.setText(R.string.placepage_reviews_your_comment);
     date.setText(UGCReviewAdapter.DATE_FORMATTER.format(new Date(update.getTimeMillis())));
+    TextView review = (TextView) mUserReviewView.findViewById(R.id.review);
+    UiUtils.showIf(!TextUtils.isEmpty(update.getText()), review);
     review.setText(update.getText());
     mUGCUserRatingRecordsAdapter.setItems(update.getRatings());
   }
