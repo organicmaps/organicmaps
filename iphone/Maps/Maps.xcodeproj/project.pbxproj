@@ -769,6 +769,9 @@
 		4554B6ED1E55F0F00084017F /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */; };
 		4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
 		4554B6EF1E55F0F40084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
+		456E1B1D1F94D6DC009C32E1 /* AppsFlyerLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456E1B1C1F94D6DB009C32E1 /* AppsFlyerLib.framework */; };
+		456E1B1E1F94D704009C32E1 /* AppsFlyerLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456E1B1C1F94D6DB009C32E1 /* AppsFlyerLib.framework */; };
+		456E1B1F1F94D718009C32E1 /* AppsFlyerLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456E1B1C1F94D6DB009C32E1 /* AppsFlyerLib.framework */; };
 		4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0C31F48121A00DF9CE5 /* libbsdiff.a */; };
 		4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */; };
 		45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD65C1E965EBE00DB854E /* liblocal_ads.a */; };
@@ -2278,6 +2281,7 @@
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
 		4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_clear.bin; path = ../../data/drules_proto_vehicle_clear.bin; sourceTree = "<group>"; };
 		4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_dark.bin; path = ../../data/drules_proto_vehicle_dark.bin; sourceTree = "<group>"; };
+		456E1B1C1F94D6DB009C32E1 /* AppsFlyerLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppsFlyerLib.framework; path = 3party/AppsFlyerLib.framework; sourceTree = "<group>"; };
 		458287C21AD3BE2000BA8940 /* DownloadIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadIndicatorProtocol.h; sourceTree = "<group>"; };
 		4586D0C31F48121A00DF9CE5 /* libbsdiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbsdiff.a; path = ../../xcode/bsdiff/build/Debug/libbsdiff.a; sourceTree = "<group>"; };
 		4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmwm_diff.a; path = ../../xcode/mwm_diff/build/Debug/libmwm_diff.a; sourceTree = "<group>"; };
@@ -2744,6 +2748,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				456E1B1D1F94D6DC009C32E1 /* AppsFlyerLib.framework in Frameworks */,
 				F68BDF051EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
 				341CF15E1E9E2AA9009AC928 /* libMopub.a in Frameworks */,
 				3411E7631F7CE5DD00A49FCD /* GoogleMobileAds.framework in Frameworks */,
@@ -2779,6 +2784,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				456E1B1E1F94D704009C32E1 /* AppsFlyerLib.framework in Frameworks */,
 				345E8F4E1F83984500A826CC /* GoogleSignIn.framework in Frameworks */,
 				345E8F4F1F83984500A826CC /* GoogleSignInDependencies.framework in Frameworks */,
 				4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */,
@@ -2850,6 +2856,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				456E1B1F1F94D718009C32E1 /* AppsFlyerLib.framework in Frameworks */,
 				F68BDF071EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
 				341CF15F1E9E2ADC009AC928 /* libMopub.a in Frameworks */,
 				3411E7651F7CE5E000A49FCD /* GoogleMobileAds.framework in Frameworks */,
@@ -2973,6 +2980,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				456E1B1C1F94D6DB009C32E1 /* AppsFlyerLib.framework */,
 				4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */,
 				4586D0C31F48121A00DF9CE5 /* libbsdiff.a */,
 				F6F8E3C41EF8469700F2DE8F /* libugc.a */,

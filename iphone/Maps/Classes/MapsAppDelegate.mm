@@ -34,6 +34,7 @@
 
 #import <Crashlytics/Crashlytics.h>
 #import <Fabric/Fabric.h>
+#import <AppsFlyerLib/AppsFlyerTracker.h>
 
 #endif
 
@@ -123,6 +124,26 @@ void OverrideUserAgent()
     @"UserAgent" : @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 "
                    @"(KHTML, like Gecko) Version/10.0 Mobile/14E269 Safari/602.1"
   }];
+}
+  
+void InitMarketingTrackers()
+{
+#ifdef OMIM_PRODUCTION
+  NSString * appsFlyerDevKey = @(APPSFLYER_KEY);
+  NSString * appsFlyerAppIdKey = @(APPSFLYER_APP_ID_IOS);
+  if (appsFlyerDevKey.length != 0 && appsFlyerAppIdKey.length != 0)
+  {
+    [AppsFlyerTracker sharedTracker].appsFlyerDevKey = appsFlyerDevKey;
+    [AppsFlyerTracker sharedTracker].appleAppID = appsFlyerAppIdKey;
+  }
+#endif
+}
+
+void TrackMarketingAppLaunch()
+{
+#ifdef OMIM_PRODUCTION
+  [[AppsFlyerTracker sharedTracker] trackAppLaunch];
+#endif
 }
 }  // namespace
 
@@ -331,6 +352,8 @@ using namespace osm_auth_ios;
   OverrideUserAgent();
 
   InitCrashTrackers();
+  
+  InitMarketingTrackers();
 
   // Initialize all 3party engines.
   BOOL returnValue = [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];
@@ -629,6 +652,9 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
   NSLog(@"Pushwoosh token: %@", [MWMPushNotifications pushToken]);
+  
+  TrackMarketingAppLaunch();
+  
   auto & f = GetFramework();
   f.EnterForeground();
   [self.mapViewController onGetFocus:YES];
