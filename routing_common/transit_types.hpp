@@ -51,6 +51,7 @@ struct TransitHeader
                 uint32_t networksOffset, uint32_t endOffset);
   void Reset();
   bool IsEqualForTesting(TransitHeader const & header) const;
+  bool IsValid() const;
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
@@ -83,6 +84,7 @@ public:
 
   bool operator==(TitleAnchor const & titleAnchor) const;
   bool IsEqualForTesting(TitleAnchor const & titleAnchor) const;
+  bool IsValid() const;
 
   uint8_t GetMinZoom() const { return m_minZoom; }
   Anchor const & GetAnchor() const { return m_anchor; }
@@ -103,6 +105,7 @@ public:
   Stop(StopId id, FeatureId featureId, TransferId transferId, std::vector<LineId> const & lineIds,
        m2::PointD const & point, std::vector<TitleAnchor> const & titleAnchors);
   bool IsEqualForTesting(Stop const & stop) const;
+  bool IsValid() const;
 
   StopId GetId() const { return m_id; }
   FeatureId GetFeatureId() const { return m_featureId; }
@@ -132,6 +135,7 @@ public:
   SingleMwmSegment() = default;
   SingleMwmSegment(FeatureId featureId, uint32_t segmentIdx, bool forward);
   bool IsEqualForTesting(SingleMwmSegment const & s) const;
+  bool IsValid() const;
 
   FeatureId GetFeatureId() const { return m_featureId; }
   uint32_t GetSegmentIdx() const { return m_segmentIdx; }
@@ -155,6 +159,7 @@ public:
   Gate(FeatureId featureId, bool entrance, bool exit, double weight, std::vector<StopId> const & stopIds,
        m2::PointD const & point);
   bool IsEqualForTesting(Gate const & gate) const;
+  bool IsValid() const;
   void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; };
 
   FeatureId GetFeatureId() const { return m_featureId; }
@@ -191,6 +196,7 @@ public:
   Edge(StopId stop1Id, StopId stop2Id, double weight, LineId lineId, bool transfer,
        std::vector<ShapeId> const & shapeIds);
   bool IsEqualForTesting(Edge const & edge) const;
+  bool IsValid() const;
 
   StopId GetStop1Id() const { return m_stop1Id; }
   StopId GetStop2Id() const { return m_stop2Id; }
@@ -221,6 +227,7 @@ public:
   Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds,
            std::vector<TitleAnchor> const & titleAnchors);
   bool IsEqualForTesting(Transfer const & transfer) const;
+  bool IsValid() const;
 
   StopId GetId() const { return m_id; }
   m2::PointD const & GetPoint() const { return m_point; }
@@ -246,6 +253,7 @@ public:
   Line(LineId id, std::string const & number, std::string const & title, std::string const & type,
        NetworkId networkId, std::vector<StopId> const & stopIds);
   bool IsEqualForTesting(Line const & line) const;
+  bool IsValid() const;
 
   LineId GetId() const { return m_id; }
   std::string const & GetNumber() const { return m_number; }
@@ -275,6 +283,7 @@ public:
   Shape() = default;
   Shape(ShapeId id, StopId stop1_id, StopId stop2_id, std::vector<m2::PointD> const & polyline);
   bool IsEqualForTesting(Shape const & shape) const;
+  bool IsValid() const;
 
   ShapeId GetId() const { return m_id; }
   StopId GetStop1Id() const { return m_stop1_id; }
@@ -298,6 +307,7 @@ public:
   Network() = default;
   Network(NetworkId id, std::string const & title);
   bool IsEqualForTesting(Network const & shape) const;
+  bool IsValid() const;
 
   NetworkId GetId() const { return m_id; }
   std::string const & GetTitle() const { return m_title; }
@@ -306,7 +316,7 @@ private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Network, visitor(m_id, "id"), visitor(m_title, "title"))
 
-  NetworkId m_id;
+  NetworkId m_id = kInvalidNetworkId;
   std::string m_title;
 };
 

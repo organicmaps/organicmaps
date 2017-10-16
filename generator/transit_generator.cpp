@@ -125,13 +125,24 @@ void DeserializeGatesFromJson(my::Json const & root, string const & mwmDir, stri
   }
 }
 
+template <class Item>
+bool IsValid(vector<Item> const & items)
+{
+  for (auto const & i : items)
+  {
+    if (!i.IsValid())
+      return false;
+  }
+  return true;
+}
+
 /// \brief Reads from |root| (json) and serializes an array to |serializer|.
 template <class Item>
 void SerializeObject(my::Json const & root, string const & key, Serializer<FileWriter> & serializer)
 {
   vector<Item> items;
   DeserializeFromJson(root, key, items);
-
+  CHECK(IsValid(items), ("key:", key, "items:", items));
   serializer(items);
 }
 }  // namespace
@@ -200,6 +211,7 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   // the mwm is used to filled |gates|.
   vector<Gate> gates;
   DeserializeGatesFromJson(root, my::GetDirectory(mwmPath), countryId, gates);
+  CHECK(IsValid(gates), (gates));
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter w = cont.GetWriter(TRANSIT_FILE_TAG);
@@ -232,6 +244,7 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   header.m_endOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
   // Rewriting header info.
+  CHECK(header.IsValid(), (header));
   auto const endOffset = w.Pos();
   w.Seek(startOffset);
   header.Visit(serializer);

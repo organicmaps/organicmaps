@@ -54,6 +54,13 @@ bool TransitHeader::IsEqualForTesting(TransitHeader const & header) const
          && m_endOffset == header.m_endOffset;
 }
 
+bool TransitHeader::IsValid() const
+{
+  return m_gatesOffset <= m_edgesOffset && m_edgesOffset <= m_transfersOffset &&
+         m_transfersOffset <= m_linesOffset && m_linesOffset <= m_shapesOffset &&
+         m_shapesOffset <= m_networksOffset && m_networksOffset <= m_endOffset;
+}
+
 // TitleAnchor ------------------------------------------------------------------------------------
 TitleAnchor::TitleAnchor(uint8_t minZoom, Anchor anchor) : m_minZoom(minZoom), m_anchor(anchor) {}
 
@@ -65,6 +72,11 @@ bool TitleAnchor::operator==(TitleAnchor const & titleAnchor) const
 bool TitleAnchor::IsEqualForTesting(TitleAnchor const & titleAnchor) const
 {
   return *this == titleAnchor;
+}
+
+bool TitleAnchor::IsValid() const
+{
+  return m_anchor != kInvalidAnchor;
 }
 
 // Stop -------------------------------------------------------------------------------------------
@@ -89,6 +101,11 @@ bool Stop::IsEqualForTesting(Stop const & stop) const
          m_titleAnchors == stop.m_titleAnchors;
 }
 
+bool Stop::IsValid() const
+{
+  return m_id != kInvalidStopId && !m_lineIds.empty();
+}
+
 // SingleMwmSegment -------------------------------------------------------------------------------
 SingleMwmSegment::SingleMwmSegment(FeatureId featureId, uint32_t segmentIdx, bool forward)
   : m_featureId(featureId), m_segmentIdx(segmentIdx), m_forward(forward)
@@ -98,6 +115,11 @@ SingleMwmSegment::SingleMwmSegment(FeatureId featureId, uint32_t segmentIdx, boo
 bool SingleMwmSegment::IsEqualForTesting(SingleMwmSegment const & s) const
 {
   return m_featureId == s.m_featureId && m_segmentIdx == s.m_segmentIdx && m_forward == s.m_forward;
+}
+
+bool SingleMwmSegment::IsValid() const
+{
+  return true;
 }
 
 // Gate -------------------------------------------------------------------------------------------
@@ -121,6 +143,11 @@ bool Gate::IsEqualForTesting(Gate const & gate) const
          my::AlmostEqualAbs(m_point, gate.m_point, kPointsEqualEpsilon);
 }
 
+bool Gate::IsValid() const
+{
+  return m_weight != kInvalidWeight && !m_stopIds.empty();
+}
+
 // Edge -------------------------------------------------------------------------------------------
 Edge::Edge(StopId stop1Id, StopId stop2Id, double weight, LineId lineId, bool transfer,
            std::vector<ShapeId> const & shapeIds)
@@ -141,6 +168,12 @@ bool Edge::IsEqualForTesting(Edge const & edge) const
          m_shapeIds == edge.m_shapeIds;
 }
 
+bool Edge::IsValid() const
+{
+  // @TODO(bykoianko) |m_weight| should be valid for Edge validity.
+  return m_stop1Id != kInvalidStopId && m_stop2Id != kInvalidStopId && m_lineId != kInvalidLineId;
+}
+
 // Transfer ---------------------------------------------------------------------------------------
 Transfer::Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds,
                    std::vector<TitleAnchor> const & titleAnchors)
@@ -153,6 +186,11 @@ bool Transfer::IsEqualForTesting(Transfer const & transfer) const
   return m_id == transfer.m_id &&
          my::AlmostEqualAbs(m_point, transfer.m_point, kPointsEqualEpsilon) &&
          m_stopIds == transfer.m_stopIds && m_titleAnchors == transfer.m_titleAnchors;
+}
+
+bool Transfer::IsValid() const
+{
+  return m_id != kInvalidStopId && !m_stopIds.empty();
 }
 
 // Line -------------------------------------------------------------------------------------------
@@ -171,6 +209,11 @@ bool Line::IsEqualForTesting(Line const & line) const
 {
   return m_id == line.m_id && m_number == line.m_number && m_title == line.m_title &&
          m_type == line.m_type && m_networkId == line.m_networkId && m_stopIds == line.m_stopIds;
+}
+
+bool Line::IsValid() const
+{
+  return m_id != kInvalidLineId && m_networkId != kInvalidNetworkId && !m_stopIds.empty();
 }
 
 // Shape ------------------------------------------------------------------------------------------
@@ -195,6 +238,12 @@ bool Shape::IsEqualForTesting(Shape const & shape) const
   return true;
 }
 
+bool Shape::IsValid() const
+{
+  return m_id != kInvalidShapeId && m_stop1_id != kInvalidStopId && m_stop2_id != kInvalidStopId &&
+         !m_polyline.empty();
+}
+
 // Network ----------------------------------------------------------------------------------------
 Network::Network(NetworkId id, std::string const & title)
 : m_id(id), m_title(title)
@@ -204,6 +253,11 @@ Network::Network(NetworkId id, std::string const & title)
 bool Network::IsEqualForTesting(Network const & shape) const
 {
   return m_id == shape.m_id && m_title == shape.m_title;
+}
+
+bool Network::IsValid() const
+{
+  return m_id != kInvalidNetworkId;
 }
 }  // namespace transit
 }  // namespace routing
