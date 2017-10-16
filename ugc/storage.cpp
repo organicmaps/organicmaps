@@ -28,7 +28,7 @@ string const kIndexFileName = "index.json";
 string const kUGCUpdateFileName = "ugc.update.bin";
 string const kTmpFileExtension = ".tmp";
 
-using Sink = MemWriter<vector<char>>;
+using Sink = MemWriter<string>;
 
 string GetUGCFilePath() { return my::JoinPath(GetPlatform().WritableDir(), kUGCUpdateFileName); }
 
@@ -56,15 +56,14 @@ string SerializeUGCIndex(vector<Storage::UGCIndex> const & indexes)
   auto array = my::NewJSONArray();
   for (auto const & index : indexes)
   {
-    vector<char> data;
+    string data;
     {
       Sink sink(data);
       SerializerJson<Sink> ser(sink);
       ser(index);
     }
 
-    data.push_back('\0');
-    my::Json node(data.data());
+    my::Json node(data);
     json_array_append_new(array.get(), node.get_deep_copy());
   }
 
@@ -285,15 +284,14 @@ string Storage::GetUGCToSend() const
     UGCUpdate update;
     Deserialize(source, update);
 
-    vector<char> data;
+    string data;
     {
       Sink sink(data);
       SerializerJson<Sink> ser(sink);
       ser(update);
     }
 
-    data.push_back('\0');
-    my::Json serializedUgc(data.data());
+    my::Json serializedUgc(data);
     auto embeddedNode = my::NewJSONObject();
     ToJSONObject(*embeddedNode.get(), "data_version", index.m_dataVersion);
     ToJSONObject(*embeddedNode.get(), "mwm_name", index.m_mwmName);

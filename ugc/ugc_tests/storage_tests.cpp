@@ -4,6 +4,7 @@
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "ugc/api.hpp"
+#include "ugc/serdes_json.hpp"
 #include "ugc/ugc_tests/utils.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -17,14 +18,18 @@
 
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/writer.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include <chrono>
 #include <functional>
+#include <memory>
 #include <string>
 #include <vector>
+
+#include "3party/jansson/myjansson.hpp"
 
 using namespace std;
 using namespace generator::tests_support;
@@ -257,5 +262,44 @@ UNIT_TEST(StorageTest_LoadIndex)
   storage.SetUGCUpdate(cafeId, cafeUGC);
   TEST_EQUAL(indexArray.size(), 3, ());
   TEST(DeleteIndexFile(), ());
+  TEST(DeleteUGCFile(), ());
+}
+
+UNIT_TEST(StorageTest_ContentTest)
+{
+  auto & builder = MwmBuilder::Builder();
+  m2::PointD const cafePoint(1.0, 1.0);
+  builder.Build({TestCafe(cafePoint)});
+  auto const cafeId = builder.FeatureIdForCafeAtPoint(cafePoint);
+  auto const oldUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 10)));
+  auto const newUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
+  Storage storage(builder.GetIndex());
+  storage.Load();
+  storage.SetUGCUpdate(cafeId, oldUGC);
+  storage.SetUGCUpdate(cafeId, newUGC);
+  TEST_EQUAL(storage.GetIndexesForTesting().size(), 2, ());
+  auto const toSendActual = storage.GetUGCToSend();
+
+  auto array = my::NewJSONArray();
+  string data;
+  {
+    using Sink = MemWriter<string>;
+    Sink sink(data);
+    SerializerJson<Sink> ser(sink);
+    ser(newUGC);
+  }
+
+  my::Json ugcNode(data);
+  auto embeddedNode = my::NewJSONObject();
+  ToJSONObject(*embeddedNode.get(), "data_version", cafeId.GetMwmVersion() );
+  ToJSONObject(*embeddedNode.get(), "mwm_name", cafeId.GetMwmName());
+  ToJSONObject(*embeddedNode.get(), "feature_id", cafeId.m_index);
+  ToJSONObject(*ugcNode.get(), "feature", *embeddedNode.release());
+  json_array_append_new(array.get(), ugcNode.get_deep_copy());
+  auto reviewsNode = my::NewJSONObject();
+  ToJSONObject(*reviewsNode.get(), "reviews", *array.release());
+  unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(reviewsNode.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
+  string const toSendExpected(buffer.get());
+  TEST_EQUAL(toSendActual, toSendExpected, ());
   TEST(DeleteUGCFile(), ());
 }
