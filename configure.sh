@@ -32,6 +32,7 @@ else
 
 #define ALOHALYTICS_URL ""
 #define FLURRY_KEY "12345678901234567890"
+#define APPSFLYER_KEY ""
 #define MY_TRACKER_KEY ""
 #define MY_TARGET_KEY 0
 #define MY_TARGET_RB_KEY 0

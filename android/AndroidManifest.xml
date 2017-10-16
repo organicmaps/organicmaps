@@ -415,6 +415,13 @@
     <service android:name="com.mapswithme.maps.location.TrackRecorderWakeService"
              android:exported="false"/>
 
+    <receiver
+      android:name="com.appsflyer.MultipleInstallBroadcastReceiver"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER" />
+      </intent-filter>
+    </receiver>
     <!-- our custom receiver, that will call Aloha & other handlers -->
     <receiver
         android:name="com.mapswithme.util.MultipleTrackerReferrerReceiver"

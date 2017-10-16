@@ -17,6 +17,12 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_appsFlyerKey(JNIEnv * env, jclass clazz)
+  {
+    return env->NewStringUTF(APPSFLYER_KEY);
+  }
+
+  JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_PrivateVariables_myTrackerKey(JNIEnv * env, jclass clazz)
   {
     return env->NewStringUTF(MY_TRACKER_KEY);

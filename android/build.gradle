@@ -86,6 +86,7 @@ dependencies {
   // Java concurrency annotations
   compile 'net.jcip:jcip-annotations:1.0'
   compile 'com.android.support:multidex:1.0.1'
+  compile 'com.appsflyer:af-android-sdk:4.8.3'
 }
 
 def getDate() {

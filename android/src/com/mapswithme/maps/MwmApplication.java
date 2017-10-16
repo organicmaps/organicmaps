@@ -13,6 +13,7 @@ import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.appsflyer.AppsFlyerLib;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -162,13 +163,18 @@ public class MwmApplication extends Application
     mLogger.d(TAG, "Application is created");
     mMainLoopHandler = new Handler(getMainLooper());
 
-    initCrashlytics();
-
-    initPushWoosh();
+    initCoreIndependentSdks();
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
+  }
+
+  private void initCoreIndependentSdks()
+  {
+    initCrashlytics();
+    initPushWoosh();
+    initAppsFlyer();
   }
 
   public void initPlatformAndCore(){
@@ -393,6 +399,17 @@ public class MwmApplication extends Application
     {
       mLogger.e("Pushwoosh", "Failed to init Pushwoosh", e);
     }
+  }
+
+  private void initAppsFlyer()
+  {
+    // There is no necessary to use a conversion data listener for a while.
+    // When it's needed keep in mind that the core can't be used from the mentioned listener unless
+    // the AppsFlyer sdk initializes after core initialization.
+    AppsFlyerLib.getInstance().init(PrivateVariables.appsFlyerKey(),
+                                    null /* conversionDataListener */);
+    AppsFlyerLib.getInstance().setDebugLog(BuildConfig.DEBUG);
+    AppsFlyerLib.getInstance().startTracking(this);
   }
 
   @SuppressWarnings("unused")
