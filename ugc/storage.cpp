@@ -2,6 +2,7 @@
 #include "ugc/serdes.hpp"
 #include "ugc/serdes_json.hpp"
 
+#include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
 
@@ -78,8 +79,7 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
     return {};
 
   auto const feature = GetFeature(id);
-  CHECK_EQUAL(feature->GetFeatureType(), feature::EGeomType::GEOM_POINT, ());
-  auto const & mercator = feature->GetCenter();
+  auto const mercator = feature::GetCenter(*feature);
   feature::TypesHolder th(*feature);
   th.SortBySpec();
   auto const type = th.GetBestType();
@@ -118,8 +118,7 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
 void Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 {
   auto const feature = GetFeature(id);
-  CHECK_EQUAL(feature->GetFeatureType(), feature::EGeomType::GEOM_POINT, ());
-  auto const & mercator = feature->GetCenter();
+  auto const mercator = feature::GetCenter(*feature);
   feature::TypesHolder th(*feature);
   th.SortBySpec();
   auto const type = th.GetBestType();
