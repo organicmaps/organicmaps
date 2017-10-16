@@ -812,6 +812,7 @@ public class PlacePageView extends RelativeLayout
     mReviewAdapter.setItems(new ArrayList<Review>());
     mHotelRating.setText("");
     mHotelRatingBase.setText("");
+    mTvSponsoredPrice.setText("");
   }
 
   private void clearUGCViews()
