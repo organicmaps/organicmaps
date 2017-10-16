@@ -264,7 +264,7 @@ string Storage::GetUGCToSend() const
   {
     buf.clear();
     auto const & index = m_UGCIndexes[i];
-    if (index.m_synchronized)
+    if (index.m_synchronized || index.m_deleted)
       continue;
 
     auto const offset = index.m_offset;
