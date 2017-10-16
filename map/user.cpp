@@ -64,7 +64,11 @@ std::string UserDetailsUrl()
   if (kUGCServerUrl.empty())
     return {};
 
-  return kUGCServerUrl + "/user/reviews/";
+  std::ostringstream ss;
+  ss << kUGCServerUrl << "/"
+     << static_cast<int>(ReviewReceiverProtocol::LatestVersion)
+     << "/user/reviews/";
+  return ss.str();
 }
 
 std::string ReviewReceiverUrl()
@@ -73,8 +77,9 @@ std::string ReviewReceiverUrl()
     return {};
 
   std::ostringstream ss;
-  ss << kUGCServerUrl << "/receive/"
-     << static_cast<int>(ReviewReceiverProtocol::LatestVersion) << "/";
+  ss << kUGCServerUrl << "/"
+     << static_cast<int>(ReviewReceiverProtocol::LatestVersion)
+     << "/receive/";
   return ss.str();
 }
 
