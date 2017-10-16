@@ -25,12 +25,14 @@ public:
   void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
   void GetUGCToSend(UGCJsonToSendCallback const & fn);
   void SendingCompleted();
+  void SaveUGCOnDisk();
 
 private:
   void GetUGCImpl(FeatureID const & id, UGCCallback callback);
   void SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc);
   void GetUGCToSendImpl(UGCJsonToSendCallback const & fn);
   void SendingCompletedImpl();
+  void SaveUGCOnDiskImpl();
 
   base::WorkerThread m_thread;
   Storage m_storage;

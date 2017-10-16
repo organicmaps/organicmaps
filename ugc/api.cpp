@@ -34,6 +34,11 @@ void Api::SendingCompleted()
   m_thread.Push([this] { SendingCompletedImpl(); });
 }
 
+void Api::SaveUGCOnDisk()
+{
+  m_thread.Push([this] { SaveUGCOnDiskImpl(); });
+}
+
 void Api::GetUGCImpl(FeatureID const & id, UGCCallback callback)
 {
   if (!id.IsValid())
@@ -62,5 +67,10 @@ void Api::GetUGCToSendImpl(UGCJsonToSendCallback const & fn)
 void Api::SendingCompletedImpl()
 {
   m_storage.MarkAllAsSynchronized();
+}
+
+void Api::SaveUGCOnDiskImpl()
+{
+  m_storage.SaveIndex();
 }
 }  // namespace ugc

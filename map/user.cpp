@@ -272,7 +272,7 @@ void User::UploadUserReviews(std::string && dataStr,
       LOG(LWARNING, ("Reviews have been uploaded."));
 
       if (onCompleteUploading != nullptr)
-        onCompleteUploading();
+        onCompleteUploading(true /* isSuccessful */);
     },
     [this, onCompleteUploading](int errorCode)
     {
@@ -281,7 +281,7 @@ void User::UploadUserReviews(std::string && dataStr,
       LOG(LWARNING, ("Reviews have not been uploaded."));
 
       if (onCompleteUploading != nullptr)
-        onCompleteUploading();
+        onCompleteUploading(false /* isSuccessful */);
     });
   });
 }

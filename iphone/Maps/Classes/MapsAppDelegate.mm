@@ -409,7 +409,7 @@ using namespace osm_auth_ios;
 // Starts async UGC uploading process.
 + (void)uploadUGC:(MWMVoidBlock)finishCallback
 {
-  GetFramework().UploadUGC([finishCallback] {
+  GetFramework().UploadUGC([finishCallback](bool /* isSuccessful */) {
     finishCallback();
   });
 }
