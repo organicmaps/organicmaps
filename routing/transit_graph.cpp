@@ -80,11 +80,10 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Gat
 
   for (auto const & gate : gates)
   {
-    // TODO (@t.yan) after https://github.com/mapsme/omim/pull/7240 merge
-    // auto const gateSegment = gate.GetBestPedestrianSegment();
-    // Segment real(numMwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(), gateSegment.GetForward());
+    auto const gateSegment = gate.GetBestPedestrianSegment();
+    Segment real(numMwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(), gateSegment.GetForward());
     auto const ending =
-        MakeFakeEnding(Segment() /* real */, gate.GetPoint(), estimator, indexGraph);
+        MakeFakeEnding(real, gate.GetPoint(), estimator, indexGraph);
     if (gate.GetEntrance())
       AddGate(gate, ending, stopCoords, true /* isEnter */);
     if (gate.GetExit())
