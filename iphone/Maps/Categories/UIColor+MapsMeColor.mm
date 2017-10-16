@@ -338,6 +338,11 @@ UIColor * color(SEL cmd)
   return [UIColor colorWithRed:scaled(67) green:scaled(160) blue:scaled(71) alpha:alpha100];
 }
 
++ (UIColor *)thorBackground
+{
+  return [UIColor colorWithRed:scaled(215) green:scaled(67) blue:scaled(19) alpha:alpha100];
+}
+
 + (UIColor *)bannerBackground
 {
   return color(_cmd);

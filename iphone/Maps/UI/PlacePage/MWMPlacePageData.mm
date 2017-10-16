@@ -395,6 +395,11 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   });
 }
 
+- (float)ratingRawValue
+{
+  return m_info.GetRatingRawValue();
+}
+
 - (void)fillOnlineBookingSections
 {
   if (!self.isBooking)

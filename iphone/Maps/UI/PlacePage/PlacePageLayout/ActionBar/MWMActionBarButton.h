@@ -13,6 +13,7 @@ enum class EButton  // Required button's order
   More,
   AddStop,
   RemoveStop,
+  Thor,
   Spacer
 };
 

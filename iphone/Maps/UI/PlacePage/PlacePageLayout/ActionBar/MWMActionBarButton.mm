@@ -32,6 +32,8 @@ NSString * titleForButton(EButton type, BOOL isSelected)
     return L(@"placepage_add_stop");
   case EButton::RemoveStop:
     return L(@"placepage_remove_stop");
+  case EButton::Thor:
+    return L(@"sponsored_thor_gather");
   case EButton::Spacer:
     return nil;
   }
@@ -90,10 +92,10 @@ NSString * titleForButton(EButton type, BOOL isSelected)
     self.backgroundColor = [UIColor bookingBackground];
     break;
   case EButton::BookingSearch:
-      [self.button setImage:[UIImage imageNamed:@"ic_booking_search"] forState:UIControlStateNormal];
-      self.label.textColor = UIColor.whiteColor;
-      self.backgroundColor = [UIColor bookingBackground];
-      break;
+    [self.button setImage:[UIImage imageNamed:@"ic_booking_search"] forState:UIControlStateNormal];
+    self.label.textColor = UIColor.whiteColor;
+    self.backgroundColor = [UIColor bookingBackground];
+    break;
   case EButton::Opentable:
     [self.button setImage:[UIImage imageNamed:@"ic_opentable"] forState:UIControlStateNormal];
     self.label.textColor = UIColor.whiteColor;
@@ -127,6 +129,12 @@ NSString * titleForButton(EButton type, BOOL isSelected)
     [self.button removeFromSuperview];
     [self.label removeFromSuperview];
     break;
+  case EButton::Thor:
+    [self.button setImage:[UIImage imageNamed:@"ic_28px_logo_thor"] forState:UIControlStateNormal];
+    self.label.textColor = UIColor.whiteColor;
+    self.backgroundColor = UIColor.thorBackground;
+    break;
+
   }
 }
 

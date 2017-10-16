@@ -43,6 +43,7 @@
 + (UIColor *)ratingYellow;
 + (UIColor *)ratingLightGreen;
 + (UIColor *)ratingGreen;
++ (UIColor *)thorBackground;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 

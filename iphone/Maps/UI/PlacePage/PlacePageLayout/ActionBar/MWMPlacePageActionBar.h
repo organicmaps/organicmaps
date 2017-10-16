@@ -6,6 +6,7 @@
 
 - (BOOL)isBookmark;
 - (BOOL)isOpentable;
+- (BOOL)isThor;
 - (BOOL)isBooking;
 - (BOOL)isBookingSearch;
 - (BOOL)isApi;

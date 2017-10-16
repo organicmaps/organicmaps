@@ -51,7 +51,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   BOOL const isBooking = [data isBooking];
   BOOL const isOpentable = [data isOpentable];
   BOOL const isBookingSearch = [data isBookingSearch];
-  BOOL const isSponsored = isBooking || isOpentable || isBookingSearch;
+  BOOL const isThor = [data isThor];
+  BOOL const isSponsored = isBooking || isOpentable || isBookingSearch || isThor;
   BOOL const isPhoneCallAvailable =
       [AppInfo sharedInfo].canMakeCalls && [data phoneNumber].length > 0;
   BOOL const isApi = [data isApi];
@@ -67,6 +68,8 @@ extern NSString * const kAlohalyticsTapEventKey;
     sponsoredButton = EButton::Booking;
   else if (isOpentable)
     sponsoredButton = EButton::Opentable;
+  else if (isThor)
+    sponsoredButton = EButton::Thor;
   BOOL thereAreExtraButtons = true;
 
   if (isRoutePoint)
@@ -294,6 +297,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   case EButton::More: [self showActionSheet]; break;
   case EButton::AddStop: [delegate addStop]; break;
   case EButton::RemoveStop: [delegate removeStop]; break;
+  case EButton::Thor: [delegate openThor]; break;
   case EButton::Spacer: break;
   }
 }

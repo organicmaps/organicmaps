@@ -172,6 +172,8 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 - (place_page::OpeningHours)schedule;
 - (NSString *)address;
 
+- (float)ratingRawValue;
+
 // Booking
 - (void)fillOnlineBookingSections;
 - (MWMUGCRatingValueType *)bookingRating;
