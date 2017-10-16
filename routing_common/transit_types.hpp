@@ -161,12 +161,12 @@ class Edge
 {
 public:
   Edge() = default;
-  Edge(StopId startStopId, StopId finishStopId, double weight, LineId lineId, bool transfer,
+  Edge(StopId stop1Id, StopId stop2Id, double weight, LineId lineId, bool transfer,
        std::vector<ShapeId> const & shapeIds);
   bool IsEqualForTesting(Edge const & edge) const;
 
-  StopId GetStartStopId() const { return m_startStopId; }
-  StopId GetFinishStopId() const { return m_finishStopId; }
+  StopId GetStop1Id() const { return m_stop1Id; }
+  StopId GetStop2Id() const { return m_stop2Id; }
   double GetWeight() const { return m_weight; }
   LineId GetLineId() const { return m_lineId; }
   bool GetTransfer() const { return m_transfer; }
@@ -176,13 +176,13 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_startStopId, "start_stop_id"),
-                                  visitor(m_finishStopId, "finish_stop_id"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_stop1Id, "stop1_id"),
+                                  visitor(m_stop2Id, "stop2_id"),
                                   visitor(m_weight, "weight"), visitor(m_lineId, "line_id"),
                                   visitor(m_transfer, "transfer"), visitor(m_shapeIds, "shape_ids"))
 
-  StopId m_startStopId = kInvalidStopId;
-  StopId m_finishStopId = kInvalidStopId;
+  StopId m_stop1Id = kInvalidStopId;
+  StopId m_stop2Id = kInvalidStopId;
   double m_weight = kInvalidWeight; // in seconds
   LineId m_lineId = kInvalidLineId;
   bool m_transfer = false;

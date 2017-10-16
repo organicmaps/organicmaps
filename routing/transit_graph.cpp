@@ -96,8 +96,8 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Gat
   for (auto const & edge : edges)
   {
     AddEdge(edge, stopCoords);
-    outgoing[edge.GetStartStopId()].insert(edge);
-    ingoing[edge.GetFinishStopId()].insert(edge);
+    outgoing[edge.GetStop1Id()].insert(edge);
+    ingoing[edge.GetStop2Id()].insert(edge);
   }
 
   AddConnections(outgoing, true /* isOutgoing */);
@@ -171,8 +171,8 @@ void TransitGraph::AddEdge(transit::Edge const & edge,
                            map<transit::StopId, Junction> const & stopCoords)
 {
   auto const edgeSegment = GetNewTransitSegment();
-  auto const startStopId = edge.GetStartStopId();
-  auto const finishStopId = edge.GetFinishStopId();
+  auto const startStopId = edge.GetStop1Id();
+  auto const finishStopId = edge.GetStop2Id();
   auto const startStopIt = stopCoords.find(startStopId);
   CHECK(startStopIt != stopCoords.end(), ("Stop", startStopId, "does not exist."));
   auto const finishStopIt = stopCoords.find(finishStopId);

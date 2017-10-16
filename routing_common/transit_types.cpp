@@ -96,10 +96,10 @@ bool Gate::IsEqualForTesting(Gate const & gate) const
 }
 
 // Edge -------------------------------------------------------------------------------------------
-Edge::Edge(StopId startStopId, StopId finishStopId, double weight, LineId lineId, bool transfer,
+Edge::Edge(StopId stop1Id, StopId stop2Id, double weight, LineId lineId, bool transfer,
            std::vector<ShapeId> const & shapeIds)
-  : m_startStopId(startStopId)
-  , m_finishStopId(finishStopId)
+  : m_stop1Id(stop1Id)
+  , m_stop2Id(stop2Id)
   , m_weight(weight)
   , m_lineId(lineId)
   , m_transfer(transfer)
@@ -109,10 +109,10 @@ Edge::Edge(StopId startStopId, StopId finishStopId, double weight, LineId lineId
 
 bool Edge::operator<(Edge const & rhs) const
 {
-  if (m_startStopId != rhs.m_startStopId)
-    return m_startStopId < rhs.m_startStopId;
-  if (m_finishStopId != rhs.m_finishStopId)
-    return m_finishStopId < rhs.m_finishStopId;
+  if (m_stop1Id != rhs.m_stop1Id)
+    return m_stop1Id < rhs.m_stop1Id;
+  if (m_stop2Id != rhs.m_stop2Id)
+    return m_stop2Id < rhs.m_stop2Id;
   if (m_lineId != rhs.m_lineId)
     return m_lineId < rhs.m_lineId;
   if (m_transfer != rhs.m_transfer)

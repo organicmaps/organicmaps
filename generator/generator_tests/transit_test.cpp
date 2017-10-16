@@ -117,26 +117,26 @@ UNIT_TEST(DeserializerFromJson_Edges)
   {
   "edges": [
     {
-      "finish_stop_id": 442018445,
+      "stop2_id": 442018445,
       "line_id": 72551680,
       "shape_ids": [5, 7],
-      "start_stop_id": 442018444,
+      "stop1_id": 442018444,
       "transfer": false
     },
     {
-      "finish_stop_id": 442018446,
+      "stop2_id": 442018446,
       "line_id": 72551680,
       "shape_ids": [],
       "weight" : 345.6,
-      "start_stop_id": 442018445,
+      "stop1_id": 442018445,
       "transfer": false
     }
   ]})";
 
   vector<Edge> const expected = {
-    Edge(442018444 /* start stop id */, 442018445 /* finish stop id */, kInvalidWeight /* weight */,
+    Edge(442018444 /* stop 1 id */, 442018445 /* stop 2 id */, kInvalidWeight /* weight */,
          72551680 /* line id */,  false /* transfer */, {5, 7} /* shape ids */),
-    Edge(442018445 /* start stop id */, 442018446 /* finish stop id */, 345.6 /* weight */,
+    Edge(442018445 /* stop 1 id */, 442018446 /* stop 2 id */, 345.6 /* weight */,
          72551680 /* line id */,  false /* transfer */, {} /* shape ids */)};
 
   TestDeserializerFromJson(jsonBuffer, "edges", expected);
