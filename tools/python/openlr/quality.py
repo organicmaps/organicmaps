@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import xml.etree.ElementTree as ET
+import numpy as np
 import operator
+import xml.etree.ElementTree as ET
 
 from collections import namedtuple
 from itertools import islice
@@ -60,7 +61,7 @@ def lcs(l1, l2, eq=operator.eq):
     while i and j:
         assert i >= 0
         assert j >= 0
-        if l1[i - 1] == l2[j - 1]:
+        if eq(l1[i - 1], l2[j - 1]):
             common.append(l1[i - 1])
             i -= 1
             j -= 1
@@ -74,21 +75,41 @@ def lcs(l1, l2, eq=operator.eq):
     diff.extend(reversed(l2[:j]))
     return common[::-1], diff[::-1]
 
+def almost_equal(s1, s2, eps=1e-5):
+    """
+    >>> a = (LatLon(55.77286, 37.8976), LatLon(55.77291, 37.89766))
+    >>> b = (LatLon(55.77286, 37.89761), LatLon(55.77291, 37.89767))
+    >>> almost_equal(a, b)
+    True
+    >>> a = (LatLon(55.89259, 37.72521), LatLon(55.89269, 37.72535))
+    >>> b = (LatLon(55.89259, 37.72522), LatLon(55.8927, 37.72536))
+    >>> almost_equal(a, b)
+    True
+    >>> a = (LatLon(55.89259, 37.72519), LatLon(55.89269, 37.72535))
+    >>> b = (LatLon(55.89259, 37.72522), LatLon(55.8927, 37.72536))
+    >>> almost_equal(a, b)
+    False
+    """
+    eps *= 2
+    return all(
+        abs(p1.lat - p2.lat) <= eps and abs(p1.lon - p2.lon) <= eps
+        for p1, p2 in zip(s1, s2)
+    )
+
 def common_part(l1, l2):
-    common, diff = lcs(l1, l2)
+    common, diff = lcs(l1, l2, eq=almost_equal)
     common_len = sum(distance(*x) for x in common)
     diff_len = sum(distance(*x) for x in diff)
     assert (not common) or common_len
     assert (not diff) or diff_len
-    return 1.0 - common_len / (common_len + diff_len)
+    return common_len / (common_len + diff_len)
 
 class Segment:
     def __init__(self, segment_id, matched_route, golden_route):
         #TODO(mgsergio): Remove this when deal with auto golden routes.
-        assert matched_route
         assert golden_route
         self.segment_id = segment_id
-        self.matched_route = matched_route
+        self.matched_route = matched_route or []
         self.golden_route = golden_route or None
 
     def __repr__(self):
@@ -131,21 +152,24 @@ def parse_segments(tree, limit):
             raise
 
 def calculate(tree):
-    ms = sorted(
-        (
-            (
-                s.segment_id,
-                common_part(s.golden_route, s.matched_route)
-            )
-            for s in parse_segments(tree, args.limit)
-        ),
-        key=lambda x: -x[1]
-    )
-    print('{}\t{}'.format(
-        'segment_id', 'intersection_weight')
-    )
-    for x in ms:
-        print('{}\t{}'.format(*x))
+    return {
+        s.segment_id: common_part(s.golden_route, s.matched_route)
+        for s in parse_segments(tree, args.limit)
+    }
+
+def merge(src, dst):
+    golden_routes = {
+        int(s.find('.//ReportSegmentID').text) : s.find('GoldenRoute')
+        for s in src.findall('Segment')
+    }
+    for s in dst.findall('Segment'):
+        assert not s.find('GoldenRoute')
+        try:
+            golden_route = golden_routes[int(s.find('.//ReportSegmentID').text)]
+            if golden_route:
+                s.append(golden_route)
+        except KeyError:
+            continue
 
 if __name__ == '__main__':
     import argparse
@@ -167,5 +191,41 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    tree = ET.parse(args.assessed_path)
-    calculate(tree)
+    assessed = ET.parse(args.assessed_path)
+
+    assessed_scores = calculate(assessed)
+    if args.merge:
+        candidate = ET.parse(args.merge)
+        merge(assessed, candidate)
+        candidate_scores = calculate(candidate)
+
+        print('{}\t{}\t{}\t{}'.format(
+            'segment_id', 'A', 'B', 'Diff')
+        )
+        for seg_id in assessed_scores:
+            print('{}\t{}\t{}\t{}'.format(
+                seg_id,
+                assessed_scores[seg_id], candidate_scores[seg_id],
+                assessed_scores[seg_id] - candidate_scores[seg_id]
+            ))
+        mean1 = np.mean(list(assessed_scores.values()))
+        std1 = np.std(list(assessed_scores.values()), ddof=1)
+        mean2 = np.mean(list(candidate_scores.values()))
+        std2 = np.std(list(candidate_scores.values()), ddof=1)
+        # TODO(mgsergio): Use statistical methods to reason about quality.
+        print('Base: mean: {:.4f}, std: {:.4f}'.format(mean1, std1))
+        print('New: mean: {:.4f}, std: {:.4f}'.format(mean2, std2))
+        print('{} is better on avarage: mean1 - mean2: {:.4f}'.format(
+            'Base' if mean1 - mean2 > 0 else 'New',
+            mean1 - mean2
+        ))
+    else:
+        print('{}\t{}'.format(
+            'segment_id', 'intersection_weight')
+        )
+        for x in assessed_scores.items():
+            print('{}\t{}'.format(*x))
+        print('mean: {:.4f}, std: {:.4f}'.format(
+            np.mean(list(assessed_scores.values())),
+            np.std(list(assessed_scores.values()), ddof=1)
+        ))
