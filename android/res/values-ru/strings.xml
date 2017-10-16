@@ -1223,4 +1223,6 @@
 	<string name="equipment">Оборудование</string>
 	<string name="quality">Качество</string>
 	<string name="sponsored_thor_gather">Собрать</string>
+	<string name="whats_new_ugc_title">Оценки и отзывы</string>
+	<string name="whats_new_ugc_message">Теперь вы можете оставлять оценки и отзывы даже офлайн! Не забудьте обновить карты, чтобы увидеть изменения.</string>
 </resources>
