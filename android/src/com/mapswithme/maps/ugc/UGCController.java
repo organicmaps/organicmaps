@@ -84,8 +84,6 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
   @Nullable
   private MapObject mMapObject;
-  @Nullable
-  private UGC mUgc;
 
   public UGCController(@NonNull final PlacePageView placePage)
   {
@@ -203,8 +201,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     UiUtils.showIf(canUserRate(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
     UiUtils.showIf(ugc != null, mSummaryRootView, mUgcMoreReviews);
     RatingView ratingView = (RatingView) mPreviewUgcInfoView.findViewById(R.id.rating_view);
-    mUgc = ugc;
-    if (mUgc == null)
+    if (ugc == null)
     {
       mReviewCount.setText(ugcUpdate != null ? R.string.placepage_reviewed : R.string.placepage_no_reviews);
       ratingView.setRating(ugcUpdate == null ? Impress.NONE : Impress.COMING_SOON, rating);
@@ -214,9 +211,9 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
     Context context = mPlacePage.getContext();
     mReviewCount.setText(context.getString(R.string.placepage_summary_rating_description,
-                                           String.valueOf(mUgc.getBasedOnCount())));
+                                           String.valueOf(ugc.getBasedOnCount())));
     ratingView.setRating(Impress.values()[impress], rating);
-    setSummaryViews(mUgc, impress, rating);
+    setSummaryViews(ugc, impress, rating);
     setUserReviewAndRatingsView(ugcUpdate);
     List<UGC.Review> reviews = ugc.getReviews();
     if (reviews != null)

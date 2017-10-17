@@ -13,7 +13,7 @@ import com.mapswithme.maps.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UGCRatingRecordsAdapter extends RecyclerView.Adapter<UGCRatingRecordsAdapter.ViewHolder>
+class UGCRatingRecordsAdapter extends RecyclerView.Adapter<UGCRatingRecordsAdapter.ViewHolder>
 {
   @NonNull
   private ArrayList<UGC.Rating> mItems = new ArrayList<>();
