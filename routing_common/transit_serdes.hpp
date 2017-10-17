@@ -40,14 +40,33 @@ class Serializer
 public:
   Serializer(Sink & sink) : m_sink(sink) {}
 
-  template<typename T>
-  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value>::type
-      operator()(T const & t, char const * /* name */ = nullptr)
+  template <typename T>
+  typename std::enable_if<(std::is_integral<T>::value || std::is_enum<T>::value) &&
+                          !std::is_same<T, uint32_t>::value && !std::is_same<T, uint64_t>::value &&
+                          !std::is_same<T, int32_t>::value &&
+                          !std::is_same<T, int64_t>::value>::type
+  operator()(T const & t, char const * /* name */ = nullptr)
   {
     WriteToSink(m_sink, t);
   }
 
-  void operator()(double d, char const * name = nullptr)
+  template<typename T>
+  typename std::enable_if<std::is_same<T, uint32_t>::value || std::is_same<T, uint64_t>::value>::type
+      operator()(T t, char const * name = nullptr) const
+  {
+    WriteVarUint(m_sink, t);
+  }
+
+  template<typename T>
+  typename std::enable_if<std::is_same<T, int32_t>::value || std::is_same<T, int64_t>::value>::type
+      operator()(T t, char const * name = nullptr) const
+  {
+    WriteVarInt(m_sink, t);
+  }
+
+  template<typename T>
+  typename std::enable_if<std::is_same<T, double>::value || std::is_same<T, float>::value>::type
+      operator()(T d, char const * name = nullptr)
   {
     CHECK_GREATER_OR_EQUAL(d, kMinDoubleAtTransitSection, ());
     CHECK_LESS_OR_EQUAL(d, kMaxDoubleAtTransitSection, ());
@@ -102,14 +121,33 @@ class Deserializer
 public:
   Deserializer(Source & source) : m_source(source) {}
 
-  template<typename T>
-  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value>::type
-      operator()(T & t, char const * name = nullptr)
+  template <typename T>
+  typename std::enable_if<(std::is_integral<T>::value || std::is_enum<T>::value) &&
+                          !std::is_same<T, uint32_t>::value && !std::is_same<T, uint64_t>::value &&
+                          !std::is_same<T, int32_t>::value &&
+                          !std::is_same<T, int64_t>::value>::type
+  operator()(T & t, char const * name = nullptr)
   {
     ReadPrimitiveFromSource(m_source, t);
   }
 
-  void operator()(double & d, char const * name = nullptr)
+  template<typename T>
+  typename std::enable_if<std::is_same<T, uint32_t>::value || std::is_same<T, uint64_t>::value>::type
+      operator()(T & t, char const * name = nullptr)
+  {
+    t = ReadVarUint<T, Source>(m_source);
+  }
+
+  template<typename T>
+  typename std::enable_if<std::is_same<T, int32_t>::value || std::is_same<T, int64_t>::value>::type
+      operator()(T & t, char const * name = nullptr)
+  {
+    t = ReadVarInt<T, Source>(m_source);
+  }
+
+  template<typename T>
+  typename std::enable_if<std::is_same<T, double>::value || std::is_same<T, float>::value>::type
+      operator()(T & d, char const * name = nullptr)
   {
     uint32_t ui;
     (*this)(ui, name);
