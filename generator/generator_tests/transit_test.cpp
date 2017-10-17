@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "drape/drape_global.hpp"
+
 #include "generator/transit_generator.hpp"
 
 #include "routing_common/transit_types.hpp"
@@ -37,12 +39,12 @@ UNIT_TEST(DeserializerFromJson_TitleAnchors)
   {
   "title_anchors": [
     { "min_zoom": 11, "anchor": 4 },
-    { "min_zoom": 14, "anchor": 7 }
+    { "min_zoom": 14, "anchor": 6 }
   ]})";
 
   vector<TitleAnchor> expected = {
-    TitleAnchor(11 /* min zoom */, 4 /* anchor */),
-    TitleAnchor(14 /* min zoom */, 7 /* anchor */)
+    TitleAnchor(11 /* min zoom */, dp::Anchor::Top),
+    TitleAnchor(14 /* min zoom */, dp::Anchor::RightTop)
   };
   TestDeserializerFromJson(jsonBuffer, "title_anchors", expected);
 }
@@ -78,7 +80,7 @@ UNIT_TEST(DeserializerFromJson_Stops)
       },
       "title_anchors": [
         { "min_zoom": 12, "anchor": 0 },
-        { "min_zoom": 15, "anchor": 7 }]
+        { "min_zoom": 15, "anchor": 9 }]
     }
   ]})";
 
@@ -88,7 +90,8 @@ UNIT_TEST(DeserializerFromJson_Stops)
            {} /* anchors */),
       Stop(266680843 /* id */, 2345 /* featureId */, 5 /* transfer id */,
            {19213568, 19213569} /* lineIds */, {27.5227942, 64.25206634443111} /* point */,
-           { TitleAnchor(12 /* min zoom */, 0 /* anchor */), TitleAnchor(15, 7)} /* anchor */)};
+           {TitleAnchor(12 /* min zoom */, dp::Anchor::Center),
+            TitleAnchor(15, dp::Anchor::LeftBottom)} /* anchor */)};
 
   TestDeserializerFromJson(jsonBuffer, "stops", expected);
 }
