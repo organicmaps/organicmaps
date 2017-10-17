@@ -1,6 +1,7 @@
 @objc(MWMUGCYourReviewCell)
 final class UGCYourReviewCell: MWMTableViewCell {
   private enum Config {
+    static let defaultReviewBottomOffset: CGFloat = 16
     static let minimumInteritemSpacing: CGFloat = 16
     static let minItemsPerRow: CGFloat = 3
     static let estimatedItemSize = CGSize(width: 96, height: 32)
@@ -30,6 +31,7 @@ final class UGCYourReviewCell: MWMTableViewCell {
     }
   }
 
+  @IBOutlet private weak var reviewBottomOffset: NSLayoutConstraint!
   @IBOutlet private weak var ratingCollectionViewHeight: NSLayoutConstraint!
   @IBOutlet private weak var ratingCollectionView: UICollectionView! {
     didSet {
@@ -50,12 +52,10 @@ final class UGCYourReviewCell: MWMTableViewCell {
   }
 
   @objc func config(yourReview: UGCYourReview, onUpdate: @escaping () -> Void) {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .medium
-    dateFormatter.timeStyle = .none
-    dateLabel.text = dateFormatter.string(from: yourReview.date)
+    dateLabel.text = yourReview.date
     self.yourReview = yourReview
     reviewLabel.text = yourReview.text
+    reviewBottomOffset.constant = yourReview.text.isEmpty ? 0 : Config.defaultReviewBottomOffset
     reviewLabel.onUpdate = onUpdate
     updateCollectionView { [weak self] in
       self?.ratingCollectionView.reloadSections(IndexSet(integer: 0))
