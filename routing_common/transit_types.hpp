@@ -104,6 +104,7 @@ public:
   Stop() = default;
   Stop(StopId id, FeatureId featureId, TransferId transferId, std::vector<LineId> const & lineIds,
        m2::PointD const & point, std::vector<TitleAnchor> const & titleAnchors);
+
   bool IsEqualForTesting(Stop const & stop) const;
   bool IsValid() const;
 
@@ -197,6 +198,7 @@ public:
        std::vector<ShapeId> const & shapeIds);
   bool IsEqualForTesting(Edge const & edge) const;
   bool IsValid() const;
+  void SetWeight(double weight) { m_weight = weight; }
 
   StopId GetStop1Id() const { return m_stop1Id; }
   StopId GetStop2Id() const { return m_stop2Id; }

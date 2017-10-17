@@ -170,8 +170,8 @@ bool Edge::IsEqualForTesting(Edge const & edge) const
 
 bool Edge::IsValid() const
 {
-  // @TODO(bykoianko) |m_weight| should be valid for Edge validity.
-  return m_stop1Id != kInvalidStopId && m_stop2Id != kInvalidStopId && m_lineId != kInvalidLineId;
+  return m_stop1Id != kInvalidStopId && m_stop2Id != kInvalidStopId && m_weight != kInvalidWeight &&
+         m_lineId != kInvalidLineId;
 }
 
 // Transfer ---------------------------------------------------------------------------------------

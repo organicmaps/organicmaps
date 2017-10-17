@@ -8,6 +8,7 @@
 #include "routing/index_router.hpp"
 
 #include "routing_common/transit_serdes.hpp"
+#include "routing_common/transit_speed_limits.hpp"
 #include "routing_common/transit_types.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -16,6 +17,7 @@
 #include "indexer/index.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/mercator.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
@@ -30,7 +32,9 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
+#include <algorithm>
 #include <functional>
+#include <iterator>
 #include <memory>
 #include <utility>
 
@@ -44,6 +48,22 @@ using namespace std;
 
 namespace
 {
+bool CompStopsById(Stop const & s1, Stop const & s2)
+{
+  return s1.GetId() < s2.GetId();
+}
+
+/// \returns ref to a stop at |stops| by |stopId|.
+Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
+{
+  auto s1Id = equal_range(stops.cbegin(), stops.cend(),
+                          Stop(stopId, kInvalidFeatureId, kInvalidTransferId, {}, m2::PointD(), {}),
+                          CompStopsById);
+  CHECK(s1Id.first != stops.cend(), ("No a stop with id:", stopId, "in stops:", stops));
+  CHECK_EQUAL(distance(s1Id.first, s1Id.second), 1, ("A stop with id:", stopId, "is not unique in stops:", stops));
+  return *(s1Id.first);
+}
+
 /// Extracts the file name from |filePath| and drops all extensions.
 string GetFileName(string const & filePath)
 {
@@ -145,6 +165,24 @@ void SerializeObject(my::Json const & root, string const & key, Serializer<FileW
   CHECK(IsValid(items), ("key:", key, "items:", items));
   serializer(items);
 }
+
+/// \brief Updates |edges| by adding valid value for Edge::m_weight.
+/// \note Edge::m_stop1Id and Edge::m_stop2Id should be valid for every edge in |edges| before call.
+void CalculateEdgeWeight(vector<Stop> const & stops, vector<transit::Edge> & edges)
+{
+  CHECK(is_sorted(stops.cbegin(), stops.cend(), CompStopsById), ());
+
+  for (auto & e : edges)
+  {
+    Stop const & s1 = FindStopById(stops, e.GetStop1Id());
+    Stop const & s2 = FindStopById(stops, e.GetStop2Id());
+    double const lengthInMeters = MercatorBounds::DistanceOnEarth(s1.GetPoint(), s2.GetPoint());
+    // Note. 3.6 == 3600 (number of seconds in an hour) / 1000 (number of meters in a kilometer).
+    // In other words: weighInSec = 3600 * lengthInMeters / (1000 * kTransitAverageSpeedKMpH);
+    double const weighInSec = 3.6 * lengthInMeters / kTransitAverageSpeedKMpH;
+    e.SetWeight(weighInSec);
+  }
+}
 }  // namespace
 
 namespace routing
@@ -222,13 +260,21 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   Serializer<FileWriter> serializer(w);
   header.Visit(serializer);
 
-  SerializeObject<Stop>(root, "stops", serializer);
+  vector<Stop> stops;
+  DeserializeFromJson(root, "stops", stops);
+  CHECK(IsValid(stops), ("stops:", stops));
+  sort(stops.begin(), stops.end(), CompStopsById);
+  serializer(stops);
   header.m_gatesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
   serializer(gates);
   header.m_edgesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  SerializeObject<Edge>(root, "edges", serializer);
+  vector<Edge> edges;
+  DeserializeFromJson(root, "edges", edges);
+  CalculateEdgeWeight(stops, edges);
+  CHECK(IsValid(stops), ("edges:", edges));
+  serializer(edges);
   header.m_transfersOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
   SerializeObject<Transfer>(root, "transfers", serializer);
