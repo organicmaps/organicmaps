@@ -46,7 +46,7 @@ public:
     double m_eps = 0.0;
   };
 
-  CitiesBoundariesTable(Index const & index) : m_index(index) {}
+  explicit CitiesBoundariesTable(Index const & index) : m_index(index) {}
 
   bool Load();
 
