@@ -1263,6 +1263,9 @@
 		F6BD1D231CA412E30047B8E8 /* MWMOsmAuthAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */; };
 		F6BD1D241CA412E40047B8E8 /* MWMOsmAuthAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */; };
 		F6BD33871B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD33861B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm */; };
+		F6C16A651F9626B1000FE296 /* ReviewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3430291B1F87BC3000D0A07C /* ReviewsViewController.xib */; };
+		F6C16A661F9626B2000FE296 /* ReviewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3430291B1F87BC3000D0A07C /* ReviewsViewController.xib */; };
+		F6C16A671F9626B2000FE296 /* ReviewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3430291B1F87BC3000D0A07C /* ReviewsViewController.xib */; };
 		F6C269F61F14D76F00EB6519 /* ugc_types.csv in Resources */ = {isa = PBXBuildFile; fileRef = F642D1221F0F9D1D005E3C25 /* ugc_types.csv */; };
 		F6C269F71F14D76F00EB6519 /* ugc_types.csv in Resources */ = {isa = PBXBuildFile; fileRef = F642D1221F0F9D1D005E3C25 /* ugc_types.csv */; };
 		F6E2FD4F1E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FBFF1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.mm */; };
@@ -5110,6 +5113,7 @@
 				349D1AD41E2E325B004A2006 /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
 				349D1AE01E2E325C004A2006 /* MWMBottomMenuViewController.xib in Resources */,
 				34D3B01D1E389D05004100F9 /* MWMButtonCell.xib in Resources */,
+				F6C16A651F9626B1000FE296 /* ReviewsViewController.xib in Resources */,
 				349A357B1B53D4C9009677EE /* MWMCircularProgress.xib in Resources */,
 				F64F199E1AB81A00006EAF7E /* MWMDefaultAlert.xib in Resources */,
 				F6E2FE451E097BA00083EBEC /* MWMDirectionView.xib in Resources */,
@@ -5344,6 +5348,7 @@
 				F6E2FE0D1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
 				F6E2FE161E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.xib in Resources */,
 				F6E2FE1C1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.xib in Resources */,
+				F6C16A671F9626B2000FE296 /* ReviewsViewController.xib in Resources */,
 				F6BD1D241CA412E40047B8E8 /* MWMOsmAuthAlert.xib in Resources */,
 				F6FE3C3C1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */,
 				F6E2FE581E097BA00083EBEC /* MWMPlacePageActionBar.xib in Resources */,
@@ -5532,6 +5537,7 @@
 				F6E2FE0E1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
 				F6E2FE171E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.xib in Resources */,
 				F6E2FE1D1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.xib in Resources */,
+				F6C16A661F9626B2000FE296 /* ReviewsViewController.xib in Resources */,
 				849CF65A1DE842290024A8A5 /* MWMOsmAuthAlert.xib in Resources */,
 				849CF5E81DE842290024A8A5 /* MWMPlaceDoesntExistAlert.xib in Resources */,
 				F6E2FE591E097BA00083EBEC /* MWMPlacePageActionBar.xib in Resources */,

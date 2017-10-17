@@ -1,5 +1,7 @@
 #import "MWMReviewsViewModelProtocol.h"
 
+#include <vector>
+
 typedef NS_ENUM(NSUInteger, MWMUGCViewModelPrice) {
   MWMUGCViewModelPriceLow,
   MWMUGCViewModelPriceMedium,
@@ -10,7 +12,17 @@ namespace ugc
 {
 struct UGC;
 struct UGCUpdate;
-}
+
+namespace view_model
+{
+enum class ReviewRow
+{
+  YourReview,
+  Review,
+  MoreReviews
+};
+}  // namespace view_model
+}  // namespace ugc
 
 @class MWMUGCRatingValueType;
 @class MWMUGCRatingStars;
@@ -27,6 +39,7 @@ struct UGCUpdate;
 
 - (NSUInteger)ratingCellsCount;
 - (NSUInteger)addReviewCellsCount;
+- (std::vector<ugc::view_model::ReviewRow> const &)reviewRows;
 
 - (NSUInteger)totalReviewsCount;
 - (MWMUGCRatingValueType *)summaryRating;
