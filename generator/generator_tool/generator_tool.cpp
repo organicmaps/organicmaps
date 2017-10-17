@@ -192,7 +192,7 @@ int main(int argc, char ** argv)
       FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
       FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_generate_traffic_keys ||
-      FLAGS_transit_path != "")
+      FLAGS_transit_path != "" || FLAGS_ugc_data != "")
   {
     classificator::Load();
     classif().SortClassificator();
