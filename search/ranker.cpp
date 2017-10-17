@@ -319,13 +319,13 @@ public:
 // static
 size_t const Ranker::kBatchSize = 10;
 
-Ranker::Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter,
-               Emitter & emitter, CategoriesHolder const & categories,
-               vector<Suggest> const & suggests, VillagesCache & villagesCache,
-               my::Cancellable const & cancellable)
+Ranker::Ranker(Index const & index, CitiesBoundariesTable const & boundariesTable,
+               storage::CountryInfoGetter const & infoGetter, Emitter & emitter,
+               CategoriesHolder const & categories, vector<Suggest> const & suggests,
+               VillagesCache & villagesCache, my::Cancellable const & cancellable)
   : m_reverseGeocoder(index)
   , m_cancellable(cancellable)
-  , m_localities(index, villagesCache)
+  , m_localities(index, boundariesTable, villagesCache)
   , m_index(index)
   , m_infoGetter(infoGetter)
   , m_emitter(emitter)

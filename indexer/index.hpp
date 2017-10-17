@@ -232,6 +232,12 @@ public:
     ForEachInIntervals(implFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
   }
 
+  template <typename F>
+  void ReadFeature(F && f, FeatureID const & feature) const
+  {
+    return ReadFeatures(forward<F>(f), {feature});
+  }
+
   // "features" must be sorted using FeatureID::operator< as predicate.
   template <typename F>
   void ReadFeatures(F && f, std::vector<FeatureID> const & features) const

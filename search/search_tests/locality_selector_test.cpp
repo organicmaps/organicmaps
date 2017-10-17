@@ -18,7 +18,7 @@ StringUtf8Multilang ToMultilang(string const & name)
 struct City
 {
   City(string const & name, m2::PointD const & center, uint64_t population)
-    : m_item(ToMultilang(name), center, population)
+    : m_item(ToMultilang(name), center, {} /* boundaries */, population)
   {
   }
 
@@ -37,18 +37,14 @@ string GetMatchedCity(m2::PointD const & point, vector<City> const & cities)
   return name;
 }
 
-// TODO (@y): this test fails for now. Need to uncomment it as soon as
-// locality finder will be fixed.
-//
-// UNIT_TEST(LocalitySelector_Test1)
-// {
-//   auto const name = GetMatchedCity(
-//       m2::PointD(-97.56345, 26.79672),
-//       {{"Matamoros", m2::PointD(-97.50665, 26.79718), 10000},
+UNIT_TEST(LocalitySelector_Test1)
+{
+  auto const name = GetMatchedCity(m2::PointD(-97.56345, 26.79672),
+                                   {{"Matamoros", m2::PointD(-97.50665, 26.79718), 918536},
 
-//        {"Brownsville", m2::PointD(-97.48910, 26.84558), 180663}});
-//   TEST_EQUAL(name, "Matamoros", ());
-// }
+                                    {"Brownsville", m2::PointD(-97.48910, 26.84558), 180663}});
+  TEST_EQUAL(name, "Matamoros", ());
+}
 
 UNIT_TEST(LocalitySelector_Test2)
 {

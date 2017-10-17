@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/city_boundary.hpp"
+#include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -10,6 +11,11 @@
 #include <vector>
 
 class Index;
+
+namespace feature
+{
+struct FeatureID;
+}
 
 namespace search
 {
@@ -40,12 +46,19 @@ public:
     double m_eps = 0.0;
   };
 
-  bool Load(Index const & index);
+  CitiesBoundariesTable(Index const & index) : m_index(index) {}
 
+  bool Load();
+
+  bool Has(FeatureID const & fid) const { return fid.m_mwmId == m_mwmId && Has(fid.m_index); }
   bool Has(uint32_t fid) const { return m_table.find(fid) != m_table.end(); }
+
+  bool Get(FeatureID const & fid, Boundaries & bs) const;
   bool Get(uint32_t fid, Boundaries & bs) const;
 
 private:
+  Index const & m_index;
+  MwmSet::MwmId m_mwmId;
   std::unordered_map<uint32_t, std::vector<indexer::CityBoundary>> m_table;
   double m_eps = 0.0;
 };

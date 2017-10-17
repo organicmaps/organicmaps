@@ -31,7 +31,9 @@ public:
   TestSearchEngine(unique_ptr<::search::ProcessorFactory> factory, Engine::Params const & params);
   ~TestSearchEngine() override;
 
-  inline void SetLocale(string const & locale) { m_engine.SetLocale(locale); }
+  void SetLocale(string const & locale) { m_engine.SetLocale(locale); }
+
+  void LoadCitiesBoundaries() { m_engine.LoadCitiesBoundariesForTesting(); }
 
   weak_ptr<search::ProcessorHandle> Search(search::SearchParams const & params,
                                            m2::RectD const & viewport);

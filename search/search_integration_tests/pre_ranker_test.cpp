@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "search/categories_cache.hpp"
+#include "search/cities_boundaries_table.hpp"
 #include "search/emitter.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/model.hpp"
@@ -44,11 +45,11 @@ namespace
 class TestRanker : public Ranker
 {
 public:
-  TestRanker(TestSearchEngine & engine, Emitter & emitter, vector<Suggest> const & suggests,
-             VillagesCache & villagesCache, my::Cancellable const & cancellable,
-             vector<PreResult1> & results)
-    : Ranker(static_cast<Index const &>(engine), engine.GetCountryInfoGetter(), emitter,
-             GetDefaultCategories(), suggests, villagesCache, cancellable)
+  TestRanker(TestSearchEngine & engine, CitiesBoundariesTable const & boundariesTable,
+             Emitter & emitter, vector<Suggest> const & suggests, VillagesCache & villagesCache,
+             my::Cancellable const & cancellable, vector<PreResult1> & results)
+    : Ranker(static_cast<Index const &>(engine), boundariesTable, engine.GetCountryInfoGetter(),
+             emitter, GetDefaultCategories(), suggests, villagesCache, cancellable)
     , m_results(results)
   {
   }
@@ -113,8 +114,10 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
 
   vector<PreResult1> results;
   Emitter emitter;
+  CitiesBoundariesTable boundariesTable(m_engine);
   VillagesCache villagesCache(m_cancellable);
-  TestRanker ranker(m_engine, emitter, m_suggests, villagesCache, m_cancellable, results);
+  TestRanker ranker(m_engine, boundariesTable, emitter, m_suggests, villagesCache, m_cancellable,
+                    results);
 
   PreRanker preRanker(m_engine, ranker, pois.size());
   PreRanker::Params params;

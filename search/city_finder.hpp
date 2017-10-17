@@ -14,8 +14,13 @@ namespace search
 class CityFinder
 {
 public:
+  // TODO (@milchakov): consider to reuse locality finder from search
+  // engine.  Otherwise, CityFinder won't benefit from approximated
+  // cities boundaries.
   explicit CityFinder(Index const & index)
-    : m_unusedCache(m_cancellable), m_finder(index, m_unusedCache)
+    : m_unusedBoundaries(index)
+    , m_unusedCache(m_cancellable)
+    , m_finder(index, m_unusedBoundaries, m_unusedCache)
   {
   }
 
@@ -29,6 +34,7 @@ public:
 
 private:
   my::Cancellable m_cancellable;
+  search::CitiesBoundariesTable m_unusedBoundaries;
   search::VillagesCache m_unusedCache;
   search::LocalityFinder m_finder;
 };

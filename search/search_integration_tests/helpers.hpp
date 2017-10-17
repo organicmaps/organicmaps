@@ -39,7 +39,8 @@ public:
 class SearchTest : public TestWithClassificator
 {
 public:
-  using TRules = vector<shared_ptr<tests_support::MatchingRule>>;
+  using TRule = shared_ptr<tests_support::MatchingRule>;
+  using TRules = vector<TRule>;
 
   SearchTest();
 
@@ -83,7 +84,9 @@ public:
   template <typename TBuildFn>
   MwmSet::MwmId BuildWorld(TBuildFn && fn)
   {
-    return BuildMwm("testWorld", feature::DataHeader::world, forward<TBuildFn>(fn));
+    auto const id = BuildMwm("testWorld", feature::DataHeader::world, forward<TBuildFn>(fn));
+    m_engine.LoadCitiesBoundaries();
+    return id;
   }
 
   template <typename TBuildFn>
@@ -112,6 +115,8 @@ public:
   bool ResultsMatch(vector<search::Result> const & results, TRules const & rules);
 
   bool ResultsMatch(SearchParams const & params, TRules const & rules);
+
+  bool ResultMatches(search::Result const & result, TRule const & rule);
 
   unique_ptr<tests_support::TestSearchRequest> MakeRequest(string const & query,
                                                            string const & locale = "en");

@@ -57,9 +57,11 @@ private:
 class LocalitiesLoader
 {
 public:
-  LocalitiesLoader(MwmContext const & ctx, Filter const & filter, LocalityFinder::Holder & holder,
+  LocalitiesLoader(MwmContext const & ctx, CitiesBoundariesTable const & boundaries,
+                   Filter const & filter, LocalityFinder::Holder & holder,
                    map<MwmSet::MwmId, unordered_set<uint32_t>> & loadedIds)
     : m_ctx(ctx)
+    , m_boundaries(boundaries)
     , m_filter(filter)
     , m_holder(holder)
     , m_loadedIds(loadedIds[m_ctx.GetId()])
@@ -99,12 +101,16 @@ public:
     auto const names = ft.GetNames();
     auto const center = ft.GetCenter();
 
-    m_holder.Add(LocalityItem(names, center, population));
+    CitiesBoundariesTable::Boundaries boundaries;
+    m_boundaries.Get(FeatureID(m_ctx.GetId(), id), boundaries);
+
+    m_holder.Add(LocalityItem(names, center, boundaries, population));
     m_loadedIds.insert(id);
   }
 
 private:
   MwmContext const & m_ctx;
+  CitiesBoundariesTable const & m_boundaries;
   Filter const & m_filter;
 
   LocalityFinder::Holder & m_holder;
@@ -114,8 +120,8 @@ private:
 
 // LocalityItem ------------------------------------------------------------------------------------
 LocalityItem::LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center,
-                           uint64_t population)
-  : m_names(names), m_center(center), m_population(population)
+                           Boundaries const & boundaries, uint64_t population)
+  : m_names(names), m_center(center), m_boundaries(boundaries), m_population(population)
 {
 }
 
@@ -130,19 +136,27 @@ string DebugPrint(LocalityItem const & item)
 
 // LocalitySelector --------------------------------------------------------------------------------
 LocalitySelector::LocalitySelector(m2::PointD const & p) : m_p(p) {}
-
 void LocalitySelector::operator()(LocalityItem const & item)
 {
+  auto const inside = item.m_boundaries.HasPoint(m_p);
+
   // TODO (@y, @m): replace this naive score by p-values on
   // multivariate Gaussian.
   double const distance = MercatorBounds::DistanceOnEarth(item.m_center, m_p);
 
   double const score =
       ftypes::GetPopulationByRadius(distance) / static_cast<double>(item.m_population);
-  if (score < m_bestScore)
+
+  if (!inside && m_inside)
+    return;
+
+  ASSERT(inside || !m_inside, ());
+
+  if ((inside && !m_inside) || (score < m_score))
   {
-    m_bestScore = score;
-    m_bestLocality = &item;
+    m_inside = inside;
+    m_score = score;
+    m_locality = &item;
   }
 }
 
@@ -189,8 +203,10 @@ void LocalityFinder::Holder::Clear()
 }
 
 // LocalityFinder ----------------------------------------------------------------------------------
-LocalityFinder::LocalityFinder(Index const & index, VillagesCache & villagesCache)
+LocalityFinder::LocalityFinder(Index const & index, CitiesBoundariesTable const & boundariesTable,
+                               VillagesCache & villagesCache)
   : m_index(index)
+  , m_boundariesTable(boundariesTable)
   , m_villagesCache(villagesCache)
   , m_cities(kMaxCityRadiusMeters)
   , m_villages(kMaxVillageRadiusMeters)
@@ -228,7 +244,8 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
         m_ranks = make_unique<DummyRankTable>();
 
       MwmContext ctx(move(handle));
-      ctx.ForEachIndex(crect, LocalitiesLoader(ctx, CityFilter(*m_ranks), m_cities, m_loadedIds));
+      ctx.ForEachIndex(crect, LocalitiesLoader(ctx, m_boundariesTable, CityFilter(*m_ranks),
+                                               m_cities, m_loadedIds));
     }
 
     m_cities.SetCovered(p);
@@ -243,8 +260,9 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
         return;
 
       MwmContext ctx(move(handle));
-      ctx.ForEachIndex(vrect, LocalitiesLoader(ctx, VillageFilter(ctx, m_villagesCache), m_villages,
-                                               m_loadedIds));
+      ctx.ForEachIndex(vrect,
+                       LocalitiesLoader(ctx, m_boundariesTable, VillageFilter(ctx, m_villagesCache),
+                                        m_villages, m_loadedIds));
     });
 
     m_villages.SetCovered(p);

@@ -35,9 +35,10 @@ class CountryInfoGetter;
 
 namespace search
 {
-class VillagesCache;
+class CitiesBoundariesTable;
 class Emitter;
 class PreResult2Maker;
+class VillagesCache;
 
 class Ranker
 {
@@ -71,7 +72,8 @@ public:
 
   static size_t const kBatchSize;
 
-  Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter, Emitter & emitter,
+  Ranker(Index const & index, CitiesBoundariesTable const & boundariesTable,
+         storage::CountryInfoGetter const & infoGetter, Emitter & emitter,
          CategoriesHolder const & categories, vector<Suggest> const & suggests,
          VillagesCache & villagesCache, my::Cancellable const & cancellable);
   virtual ~Ranker() = default;

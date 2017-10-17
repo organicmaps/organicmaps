@@ -1113,8 +1113,8 @@ UNIT_CLASS_TEST(ProcessorTest, CityBoundaryLoad)
     TEST(ResultsMatch("moscow", "en", rules), ());
   }
 
-  CitiesBoundariesTable table;
-  TEST(table.Load(m_engine), ());
+  CitiesBoundariesTable table(m_engine);
+  TEST(table.Load(), ());
   TEST(table.Has(0 /* fid */), ());
   TEST(!table.Has(10 /* fid */), ());
 
@@ -1128,6 +1128,55 @@ UNIT_CLASS_TEST(ProcessorTest, CityBoundaryLoad)
 
   TEST(!boundaries.HasPoint(m2::PointD(0.6, 0.6)), ());
   TEST(!boundaries.HasPoint(m2::PointD(-1, 0.5)), ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, CityBoundarySmoke)
+{
+  TestCity moscow(vector<m2::PointD>({m2::PointD(0, 0), m2::PointD(0.5, 0), m2::PointD(0.5, 0.5),
+                                      m2::PointD(0, 0.5)}),
+                  "Москва", "ru", 100 /* rank */);
+  TestCity khimki(vector<m2::PointD>({m2::PointD(0.25, 0.5), m2::PointD(0.5, 0.5),
+                                      m2::PointD(0.5, 0.75), m2::PointD(0.25, 0.75)}),
+                  "Химки", "ru", 50 /* rank */);
+
+  TestPOI cafeMoscow(m2::PointD(0.49, 0.49), "Москвичка", "ru");
+  cafeMoscow.SetTypes({{"amenity", "cafe"}, {"internet_access", "wlan"}});
+
+  TestPOI cafeKhimki(m2::PointD(0.49, 0.51), "Химичка", "ru");
+  cafeKhimki.SetTypes({{"amenity", "cafe"}, {"internet_access", "wlan"}});
+
+  BuildWorld([&](TestMwmBuilder & builder) {
+    builder.Add(moscow);
+    builder.Add(khimki);
+  });
+
+  auto countryId = BuildCountry("Россия" /* countryName */, [&](TestMwmBuilder & builder) {
+    builder.Add(cafeMoscow);
+    builder.Add(cafeKhimki);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
+
+  {
+    auto request = MakeRequest("кафе", "ru");
+    auto const & results = request->Results();
+
+    TRules rules{ExactMatch(countryId, cafeMoscow), ExactMatch(countryId, cafeKhimki)};
+    TEST(ResultsMatch(results, rules), ());
+
+    for (auto const & result : results)
+    {
+      if (ResultMatches(result, ExactMatch(countryId, cafeMoscow)))
+      {
+        TEST_EQUAL(result.GetAddress(), "Москва, Россия", ());
+      }
+      else
+      {
+        TEST(ResultMatches(result, ExactMatch(countryId, cafeKhimki)), ());
+        TEST_EQUAL(result.GetAddress(), "Химки, Россия", ());
+      }
+    }
+  }
 }
 }  // namespace
 }  // namespace search

@@ -79,6 +79,11 @@ bool SearchTest::ResultsMatch(SearchParams const & params, TRules const & rules)
   return ResultsMatch(request.Results(), rules);
 }
 
+bool SearchTest::ResultMatches(search::Result const & result, TRule const & rule)
+{
+  return tests_support::ResultMatches(m_engine, rule, result);
+}
+
 unique_ptr<tests_support::TestSearchRequest> SearchTest::MakeRequest(
     string const & query, string const & locale /* = "en" */)
 {

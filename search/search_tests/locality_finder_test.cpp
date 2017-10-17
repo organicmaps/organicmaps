@@ -29,12 +29,16 @@ class LocalityFinderTest : public TestWithClassificator
 
   my::Cancellable m_cancellable;
   search::VillagesCache m_villagesCache;
+  search::CitiesBoundariesTable m_boundariesTable;
 
   search::LocalityFinder m_finder;
   m2::RectD m_worldRect;
 
 public:
-  LocalityFinderTest() : m_villagesCache(m_cancellable), m_finder(m_index, m_villagesCache)
+  LocalityFinderTest()
+    : m_villagesCache(m_cancellable)
+    , m_boundariesTable(m_index)
+    , m_finder(m_index, m_boundariesTable, m_villagesCache)
   {
     m_worldFile = platform::LocalCountryFile::MakeForTesting("World");
 
@@ -47,6 +51,7 @@ public:
       TEST(id.IsAlive(), ());
 
       m_worldRect = id.GetInfo()->m_limitRect;
+      m_boundariesTable.Load();
     }
     catch (RootException const & ex)
     {

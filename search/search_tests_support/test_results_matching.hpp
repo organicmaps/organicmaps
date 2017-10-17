@@ -74,6 +74,8 @@ shared_ptr<MatchingRule> AlternativesMatch(TArgs &&... args)
 
 bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
                   vector<search::Result> const & actual);
+bool ResultMatches(Index const & index, shared_ptr<MatchingRule> rule,
+                   search::Result const & result);
 
 string DebugPrint(MatchingRule const & rule);
 }  // namespace tests_support

@@ -183,8 +183,9 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   , m_suggestsEnabled(true)
   , m_viewportSearch(false)
   , m_villagesCache(static_cast<my::Cancellable const &>(*this))
-  , m_ranker(index, infoGetter, m_emitter, categories, suggests, m_villagesCache,
-             static_cast<my::Cancellable const &>(*this))
+  , m_citiesBoundaries(index)
+  , m_ranker(index, m_citiesBoundaries, infoGetter, m_emitter, categories, suggests,
+             m_villagesCache, static_cast<my::Cancellable const &>(*this))
   , m_preRanker(index, m_ranker, kPreResultsCount)
   , m_geocoder(index, infoGetter, m_preRanker, m_villagesCache,
                static_cast<my::Cancellable const &>(*this))
@@ -389,6 +390,8 @@ void Processor::SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool 
 }
 
 void Processor::ClearCache(size_t ind) { m_viewport[ind].MakeEmpty(); }
+
+void Processor::LoadCitiesBoundaries() { m_citiesBoundaries.Load(); }
 
 Locales Processor::GetCategoryLocales() const
 {

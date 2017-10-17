@@ -1,5 +1,7 @@
 #pragma once
 
+#include "search/cities_boundaries_table.hpp"
+
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
 
@@ -26,7 +28,10 @@ class VillagesCache;
 
 struct LocalityItem
 {
-  LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center, uint64_t population);
+  using Boundaries = CitiesBoundariesTable::Boundaries;
+
+  LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center,
+               Boundaries const & boundaries, uint64_t population);
 
   bool GetName(int8_t lang, string & name) const { return m_names.GetString(lang, name); }
 
@@ -37,6 +42,7 @@ struct LocalityItem
 
   StringUtf8Multilang m_names;
   m2::PointD m_center;
+  Boundaries m_boundaries;
   uint64_t m_population;
 };
 
@@ -52,16 +58,18 @@ public:
   template <typename Fn>
   bool WithBestLocality(Fn && fn) const
   {
-    if (!m_bestLocality)
+    if (!m_locality)
       return false;
-    fn(*m_bestLocality);
+    fn(*m_locality);
     return true;
   }
 
 private:
   m2::PointD const m_p;
-  double m_bestScore = std::numeric_limits<double>::max();
-  LocalityItem const * m_bestLocality = nullptr;
+
+  bool m_inside = false;
+  double m_score = std::numeric_limits<double>::max();
+  LocalityItem const * m_locality = nullptr;
 };
 
 class LocalityFinder
@@ -91,7 +99,8 @@ public:
     DISALLOW_COPY_AND_MOVE(Holder);
   };
 
-  LocalityFinder(Index const & index, VillagesCache & villagesCache);
+  LocalityFinder(Index const & index, CitiesBoundariesTable const & boundaries,
+                 VillagesCache & villagesCache);
 
   template <typename Fn>
   bool GetLocality(m2::PointD const & p, Fn && fn)
@@ -116,6 +125,7 @@ private:
   void UpdateMaps();
 
   Index const & m_index;
+  CitiesBoundariesTable const & m_boundariesTable;
   VillagesCache & m_villagesCache;
 
   Holder m_cities;

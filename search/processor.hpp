@@ -1,6 +1,7 @@
 #pragma once
 #include "search/categories_cache.hpp"
 #include "search/categories_set.hpp"
+#include "search/cities_boundaries_table.hpp"
 #include "search/emitter.hpp"
 #include "search/geocoder.hpp"
 #include "search/hotels_filter.hpp"
@@ -111,6 +112,7 @@ public:
   void InitEmitter();
 
   void ClearCaches();
+  void LoadCitiesBoundaries();
 
 protected:
   enum ViewportID
@@ -180,6 +182,7 @@ protected:
   bool m_viewportSearch;
 
   VillagesCache m_villagesCache;
+  CitiesBoundariesTable m_citiesBoundaries;
 
   Emitter m_emitter;
   Ranker m_ranker;

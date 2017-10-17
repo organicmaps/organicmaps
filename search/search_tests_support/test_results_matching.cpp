@@ -99,6 +99,14 @@ bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
   return false;
 }
 
+bool ResultMatches(Index const & index, shared_ptr<MatchingRule> rule,
+                   search::Result const & result)
+{
+  bool matches = false;
+  index.ReadFeature([&](FeatureType & ft) { matches = rule->Matches(ft); }, result.GetFeatureID());
+  return matches;
+}
+
 string DebugPrint(MatchingRule const & rule) { return rule.ToString(); }
 }  // namespace tests_support
 }  // namespace search
