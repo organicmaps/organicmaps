@@ -9,7 +9,7 @@ set(
   num_mwm_id.hpp
   pedestrian_model.cpp
   pedestrian_model.hpp
-  transit_max_speed.hpp
+  transit_speed_limits.hpp
   transit_serdes.hpp
   transit_types.cpp
   transit_types.hpp

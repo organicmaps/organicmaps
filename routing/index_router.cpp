@@ -23,7 +23,7 @@
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
-#include "routing_common/transit_max_speed.hpp"
+#include "routing_common/transit_speed_limits.hpp"
 
 #include "indexer/feature_altitude.hpp"
 
@@ -61,7 +61,7 @@ double CalcMaxSpeed(NumMwmIds const & numMwmIds,
                     VehicleType vehicleType)
 {
   if (vehicleType == VehicleType::Transit)
-    return kTransitMaxSpeedKMpH;
+    return transit::kTransitMaxSpeedKMpH;
 
   double maxSpeed = 0.0;
   numMwmIds.ForEachId([&](NumMwmId id) {
