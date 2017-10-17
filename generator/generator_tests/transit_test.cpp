@@ -42,10 +42,8 @@ UNIT_TEST(DeserializerFromJson_TitleAnchors)
     { "min_zoom": 14, "anchor": 6 }
   ]})";
 
-  vector<TitleAnchor> expected = {
-    TitleAnchor(11 /* min zoom */, dp::Anchor::Top),
-    TitleAnchor(14 /* min zoom */, dp::Anchor::RightTop)
-  };
+  vector<TitleAnchor> expected = {TitleAnchor(11 /* min zoom */, dp::Anchor::Top),
+                                  TitleAnchor(14 /* min zoom */, dp::Anchor::RightTop)};
   TestDeserializerFromJson(jsonBuffer, "title_anchors", expected);
 }
 
@@ -183,9 +181,9 @@ UNIT_TEST(DeserializerFromJson_Transfers)
     }
   ]})";
 
-  vector<Transfer> const expected = {Transfer(922337203 /* stop id */,
-                                              {27.5619844, 64.24325959173672} /* point */,
-                                              {209186416, 277039518} /* stopIds */, {} /* anchors */)};
+  vector<Transfer> const expected = {
+      Transfer(922337203 /* stop id */, {27.5619844, 64.24325959173672} /* point */,
+               {209186416, 277039518} /* stopIds */, {} /* anchors */)};
 
   TestDeserializerFromJson(jsonBuffer, "transfers", expected);
 }

@@ -76,8 +76,8 @@ UNIT_TEST(Transit_StopSerialization)
     TestSerialization(stop);
   }
   {
-    Stop stop(1234 /* id */, 5678 /* feature id */, 7 /* transfer id */, {7, 8, 9, 10} /* line id */,
-              {55.0, 37.0} /* point */, {} /* anchors */);
+    Stop stop(1234 /* id */, 5678 /* feature id */, 7 /* transfer id */,
+              {7, 8, 9, 10} /* line id */, {55.0, 37.0} /* point */, {} /* anchors */);
     TestSerialization(stop);
   }
 }
@@ -111,7 +111,7 @@ UNIT_TEST(Transit_EdgeSerialization)
 UNIT_TEST(Transit_TransferSerialization)
 {
   Transfer transfer(1 /* id */, {40.0, 35.0} /* point */, {1, 2, 3} /* stop ids */,
-                    { TitleAnchor(16, 3)});
+                    {TitleAnchor(16, 3)});
   TestSerialization(transfer);
 }
 

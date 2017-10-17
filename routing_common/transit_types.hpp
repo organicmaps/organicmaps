@@ -131,7 +131,7 @@ class SingleMwmSegment
 public:
   SingleMwmSegment() = default;
   SingleMwmSegment(FeatureId featureId, uint32_t segmentIdx, bool forward);
-  bool IsEqualForTesting(SingleMwmSegment const & s) const ;
+  bool IsEqualForTesting(SingleMwmSegment const & s) const;
 
   FeatureId GetFeatureId() const { return m_featureId; }
   uint32_t GetSegmentIdx() const { return m_segmentIdx; }

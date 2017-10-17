@@ -55,9 +55,7 @@ bool TransitHeader::IsEqualForTesting(TransitHeader const & header) const
 }
 
 // TitleAnchor ------------------------------------------------------------------------------------
-TitleAnchor::TitleAnchor(uint8_t minZoom, Anchor anchor) : m_minZoom(minZoom), m_anchor(anchor)
-{
-}
+TitleAnchor::TitleAnchor(uint8_t minZoom, Anchor anchor) : m_minZoom(minZoom), m_anchor(anchor) {}
 
 bool TitleAnchor::operator==(TitleAnchor const & titleAnchor) const
 {
@@ -165,8 +163,7 @@ bool Transfer::IsEqualForTesting(Transfer const & transfer) const
 {
   return m_id == transfer.m_id &&
          my::AlmostEqualAbs(m_point, transfer.m_point, kPointsEqualEpsilon) &&
-         m_stopIds == transfer.m_stopIds &&
-         m_titleAnchors == transfer.m_titleAnchors;
+         m_stopIds == transfer.m_stopIds && m_titleAnchors == transfer.m_titleAnchors;
 }
 
 // Line -------------------------------------------------------------------------------------------

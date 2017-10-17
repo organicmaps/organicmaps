@@ -50,23 +50,24 @@ public:
     WriteToSink(m_sink, t);
   }
 
-  template<typename T>
-  typename std::enable_if<std::is_same<T, uint32_t>::value || std::is_same<T, uint64_t>::value>::type
-      operator()(T t, char const * name = nullptr) const
+  template <typename T>
+  typename std::enable_if<std::is_same<T, uint32_t>::value ||
+                          std::is_same<T, uint64_t>::value>::type
+  operator()(T t, char const * name = nullptr) const
   {
     WriteVarUint(m_sink, t);
   }
 
-  template<typename T>
+  template <typename T>
   typename std::enable_if<std::is_same<T, int32_t>::value || std::is_same<T, int64_t>::value>::type
-      operator()(T t, char const * name = nullptr) const
+  operator()(T t, char const * name = nullptr) const
   {
     WriteVarInt(m_sink, t);
   }
 
-  template<typename T>
+  template <typename T>
   typename std::enable_if<std::is_same<T, double>::value || std::is_same<T, float>::value>::type
-      operator()(T d, char const * name = nullptr)
+  operator()(T d, char const * name = nullptr)
   {
     CHECK_GREATER_OR_EQUAL(d, kMinDoubleAtTransitSection, ());
     CHECK_LESS_OR_EQUAL(d, kMaxDoubleAtTransitSection, ());
@@ -131,23 +132,24 @@ public:
     ReadPrimitiveFromSource(m_source, t);
   }
 
-  template<typename T>
-  typename std::enable_if<std::is_same<T, uint32_t>::value || std::is_same<T, uint64_t>::value>::type
-      operator()(T & t, char const * name = nullptr)
+  template <typename T>
+  typename std::enable_if<std::is_same<T, uint32_t>::value ||
+                          std::is_same<T, uint64_t>::value>::type
+  operator()(T & t, char const * name = nullptr)
   {
     t = ReadVarUint<T, Source>(m_source);
   }
 
-  template<typename T>
+  template <typename T>
   typename std::enable_if<std::is_same<T, int32_t>::value || std::is_same<T, int64_t>::value>::type
-      operator()(T & t, char const * name = nullptr)
+  operator()(T & t, char const * name = nullptr)
   {
     t = ReadVarInt<T, Source>(m_source);
   }
 
-  template<typename T>
+  template <typename T>
   typename std::enable_if<std::is_same<T, double>::value || std::is_same<T, float>::value>::type
-      operator()(T & d, char const * name = nullptr)
+  operator()(T & d, char const * name = nullptr)
   {
     uint32_t ui;
     (*this)(ui, name);
