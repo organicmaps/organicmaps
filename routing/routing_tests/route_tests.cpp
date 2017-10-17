@@ -56,10 +56,11 @@ void GetTestRouteSegments(vector<m2::PointD> const & routePoints, Route::TTurns 
   {
     routeLengthMeters += MercatorBounds::DistanceOnEarth(routePoints[i - 1], routePoints[i]);
     routeLengthMertc += routePoints[i - 1].Length(routePoints[i]);
-    routeSegments.emplace_back(
-        Segment(0 /* mwm id */, static_cast<uint32_t>(i) /* feature id */, 0 /* seg id */, true /* forward */), turns[i],
-        Junction(routePoints[i], feature::kInvalidAltitude), streets[i], routeLengthMeters,
-        routeLengthMertc, times[i], traffic::SpeedGroup::Unknown);
+    routeSegments.emplace_back(Segment(0 /* mwm id */, static_cast<uint32_t>(i) /* feature id */,
+                                       0 /* seg id */, true /* forward */),
+                               turns[i], Junction(routePoints[i], feature::kInvalidAltitude),
+                               streets[i], routeLengthMeters, routeLengthMertc, times[i],
+                               traffic::SpeedGroup::Unknown, TransitInfo(TransitInfo::Type::None));
   }
 }
 

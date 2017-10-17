@@ -137,10 +137,24 @@ RouteWeight TransitWorldGraph::CalcLeapWeight(m2::PointD const & from, m2::Point
 
 bool TransitWorldGraph::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }
 
-//static
-bool TransitWorldGraph::IsTransitSegment(Segment const & segment)
+TransitInfo TransitWorldGraph::GetTransitInfo(Segment const & segment)
 {
-  return TransitGraph::IsTransitSegment(segment);
+  if (!TransitGraph::IsTransitSegment(segment))
+    return TransitInfo(TransitInfo::Type::None);
+
+  auto & transitGraph = GetTransitGraph(segment.GetMwmId());
+  if (transitGraph.IsGate(segment))
+    return TransitInfo(TransitInfo::Type::Gate);
+
+  // Fake segment between pedestrian feature and gate.
+  if (!transitGraph.IsEdge(segment))
+    return TransitInfo(TransitInfo::Type::None);
+
+  auto const & edge = transitGraph.GetEdge(segment);
+  if (edge.GetTransfer())
+    return TransitInfo(TransitInfo::Type::Transfer);
+
+  return TransitInfo(edge);
 }
 
 void TransitWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,

@@ -83,9 +83,11 @@ void FillSubroutesInfo(Route & route)
   for (auto const & point : kTestRoute)
     junctions.emplace_back(point, feature::kDefaultAltitudeMeters);
 
+  vector<TransitInfo> const transitInfo(kTestSegments.size(), TransitInfo(TransitInfo::Type::None));
+
   vector<RouteSegment> segmentInfo;
-  FillSegmentInfo(kTestSegments, junctions, kTestTurns, {}, kTestTimes,
-                  nullptr /* trafficStash */, segmentInfo);
+  FillSegmentInfo(kTestSegments, junctions, kTestTurns, {}, kTestTimes, nullptr /* trafficStash */,
+                  transitInfo, segmentInfo);
   route.SetRouteSegments(move(segmentInfo));
   route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
       {Route::SubrouteAttrs(junctions.front(), junctions.back(), 0, kTestSegments.size())}));

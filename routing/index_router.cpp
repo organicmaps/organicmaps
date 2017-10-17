@@ -817,10 +817,15 @@ IRouter::ResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     time += starter.CalcRouteSegmentWeight(segments, i).GetWeight();
     times.emplace_back(static_cast<uint32_t>(i + 1), time);
   }
-  
+
+  map<Segment, TransitInfo> segmentToTransitInfo;
+  auto & worldGraph = starter.GetGraph();
+  for (auto const & segment : segments)
+    segmentToTransitInfo.emplace(segment, worldGraph.GetTransitInfo(segment));
+
   CHECK(m_directionsEngine, ());
-  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, move(times),
-                   route);
+  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions,
+                   segmentToTransitInfo, move(times), route);
 
   if (!route.IsValid())
   {

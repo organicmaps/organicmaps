@@ -113,6 +113,23 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Gat
   AddConnections(ingoing, false /* isOutgoing */);
 }
 
+bool TransitGraph::IsGate(Segment const & segment) const
+{
+  return m_segmentToGate.count(segment) > 0;
+}
+
+bool TransitGraph::IsEdge(Segment const & segment) const
+{
+  return m_segmentToEdge.count(segment) > 0;
+}
+
+transit::Edge const & TransitGraph::GetEdge(Segment const & segment) const
+{
+  auto const it = m_segmentToEdge.find(segment);
+  CHECK(it != m_segmentToEdge.cend(), ("Unknown transit segment."));
+  return it->second;
+}
+
 Segment TransitGraph::GetTransitSegment(uint32_t segmentIdx) const
 {
   return Segment(m_mwmId, kTransitFeatureId, segmentIdx, false);
@@ -209,23 +226,6 @@ void TransitGraph::AddConnections(map<transit::StopId, set<Segment>> const & con
       }
     }
   }
-}
-
-bool TransitGraph::IsGate(Segment const & segment) const
-{
-  return m_segmentToGate.count(segment) > 0;
-}
-
-bool TransitGraph::IsEdge(Segment const & segment) const
-{
-  return m_segmentToEdge.count(segment) > 0;
-}
-
-transit::Edge const & TransitGraph::GetEdge(Segment const & segment) const
-{
-  auto const it = m_segmentToEdge.find(segment);
-  CHECK(it != m_segmentToEdge.cend(), ("Unknown transit segment."));
-  return it->second;
 }
 
 transit::Gate const & TransitGraph::GetGate(Segment const & segment) const

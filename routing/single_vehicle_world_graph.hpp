@@ -6,6 +6,7 @@
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/road_graph.hpp"
+#include "routing/route.hpp"
 #include "routing/segment.hpp"
 #include "routing/world_graph.hpp"
 
@@ -42,6 +43,7 @@ public:
   RouteWeight CalcSegmentWeight(Segment const & segment) override;
   RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const override;
   bool LeapIsAllowed(NumMwmId mwmId) const override;
+  TransitInfo GetTransitInfo(Segment const & segment) override;
 
   // This method should be used for tests only
   IndexGraph & GetIndexGraphForTests(NumMwmId numMwmId)

@@ -119,6 +119,11 @@ bool SingleVehicleWorldGraph::LeapIsAllowed(NumMwmId mwmId) const
   return m_estimator->LeapIsAllowed(mwmId);
 }
 
+TransitInfo SingleVehicleWorldGraph::GetTransitInfo(Segment const & segment)
+{
+  return TransitInfo(TransitInfo::Type::None);
+}
+
 RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)
 {
   return m_loader->GetIndexGraph(mwmId).GetGeometry().GetRoad(featureId);

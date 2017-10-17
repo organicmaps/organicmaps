@@ -3,6 +3,7 @@
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/road_graph.hpp"
+#include "routing/route.hpp"
 #include "routing/segment.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
@@ -67,6 +68,10 @@ public:
   virtual RouteWeight CalcSegmentWeight(Segment const & segment) = 0;
   virtual RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const = 0;
   virtual bool LeapIsAllowed(NumMwmId mwmId) const = 0;
+
+  // Returns transit-specific information for segment. For nontransit segments returns
+  // TransitInfo with m_type == TransitInfo::Type::None.
+  virtual TransitInfo GetTransitInfo(Segment const & segment) = 0;
 };
 
 std::string DebugPrint(WorldGraph::Mode mode);

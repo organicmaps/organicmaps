@@ -8,7 +8,6 @@
 
 #include <algorithm>
 #include <utility>
-#include <vector>
 
 namespace
 {
@@ -23,15 +22,15 @@ using namespace traffic;
 void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & junctions,
                      Route::TTurns const & turns, Route::TStreets const & streets,
                      Route::TTimes const & times, shared_ptr<TrafficStash> const & trafficStash,
-                     vector<RouteSegment> & routeSegment)
+                     vector<TransitInfo> const & transitInfo, vector<RouteSegment> & routeSegment)
 {
   CHECK_EQUAL(segments.size() + 1, junctions.size(), ());
   CHECK(!turns.empty(), ());
   CHECK(!times.empty(), ());
 
-  CHECK(std::is_sorted(turns.cbegin(), turns.cend(), my::LessBy(&turns::TurnItem::m_index)), ());
-  CHECK(std::is_sorted(streets.cbegin(), streets.cend(), my::LessBy(&Route::TStreetItem::first)), ());
-  CHECK(std::is_sorted(times.cbegin(), times.cend(), my::LessBy(&Route::TTimeItem::first)), ());
+  CHECK(is_sorted(turns.cbegin(), turns.cend(), my::LessBy(&turns::TurnItem::m_index)), ());
+  CHECK(is_sorted(streets.cbegin(), streets.cend(), my::LessBy(&Route::TStreetItem::first)), ());
+  CHECK(is_sorted(times.cbegin(), times.cend(), my::LessBy(&Route::TTimeItem::first)), ());
 
   CHECK_LESS(turns.back().m_index, junctions.size(), ());
   if (!streets.empty())
@@ -92,15 +91,17 @@ void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & 
     routeLengthMerc += junctions[i].GetPoint().Length(junctions[i + 1].GetPoint());
 
     routeSegment.emplace_back(
-        segments[i], curTurn, junctions[i + 1], curStreet, routeLengthMeters,
-        routeLengthMerc, timeFromBeginningS,
-        trafficStash ? trafficStash->GetSpeedGroup(segments[i]) : traffic::SpeedGroup::Unknown);
+        segments[i], curTurn, junctions[i + 1], curStreet, routeLengthMeters, routeLengthMerc,
+        timeFromBeginningS,
+        trafficStash ? trafficStash->GetSpeedGroup(segments[i]) : traffic::SpeedGroup::Unknown,
+        transitInfo[i]);
   }
 }
 
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       shared_ptr<TrafficStash> const & trafficStash,
                       my::Cancellable const & cancellable, vector<Junction> const & path,
+                      map<Segment, TransitInfo> const & segmentToTransitInfo,
                       Route::TTimes && times, Route & route)
 {
   if (path.empty())
@@ -115,9 +116,21 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   vector<Junction> junctions;
   Route::TStreets streetNames;
   vector<Segment> segments;
+  vector<TransitInfo> transitInfo;
 
   if (!engine.Generate(graph, path, cancellable, turnsDir, streetNames, junctions, segments))
     return;
+
+  for (auto const & segment : segments)
+  {
+    auto const it = segmentToTransitInfo.find(segment);
+    if (it != segmentToTransitInfo.cend())
+      transitInfo.push_back(it->second);
+    else
+      transitInfo.push_back(TransitInfo(TransitInfo::Type::None));
+  }
+
+  CHECK_EQUAL(transitInfo.size(), segments.size(), ());
 
   if (cancellable.IsCancelled())
     return;
@@ -133,7 +146,8 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
               ("Size of path:", path.size(), "size of junctions:", junctions.size()));
 
   vector<RouteSegment> segmentInfo;
-  FillSegmentInfo(segments, junctions, turnsDir, streetNames, times, trafficStash, segmentInfo);
+  FillSegmentInfo(segments, junctions, turnsDir, streetNames, times, trafficStash, transitInfo,
+                  segmentInfo);
   CHECK_EQUAL(segmentInfo.size(), segments.size(), ());
   route.SetRouteSegments(move(segmentInfo));
 

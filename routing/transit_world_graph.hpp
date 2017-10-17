@@ -5,6 +5,7 @@
 #include "routing/geometry.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/road_graph.hpp"
+#include "routing/route.hpp"
 #include "routing/segment.hpp"
 #include "routing/transit_graph_loader.hpp"
 #include "routing/world_graph.hpp"
@@ -47,8 +48,7 @@ public:
   RouteWeight CalcSegmentWeight(Segment const & segment) override;
   RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const override;
   bool LeapIsAllowed(NumMwmId mwmId) const override;
-
-  static bool IsTransitSegment(Segment const & segment);
+  TransitInfo GetTransitInfo(Segment const & segment) override;
 
 private:
   RoadGeometry const & GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId);

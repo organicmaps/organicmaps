@@ -27,6 +27,7 @@
 #include "base/assert.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/map.hpp"
 #include "std/queue.hpp"
 #include "std/set.hpp"
 
@@ -211,7 +212,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(Checkpoints const & checkpoi
     route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
         {Route::SubrouteAttrs(startPos, finalPos, 0, result.m_path.size() - 1)}));
     ReconstructRoute(*m_directionsEngine, *m_roadGraph, nullptr /* trafficStash */, delegate,
-                     result.m_path, std::move(times), route);
+                     result.m_path, map<Segment, TransitInfo>(), std::move(times), route);
   }
 
   m_roadGraph->ResetFakes();
