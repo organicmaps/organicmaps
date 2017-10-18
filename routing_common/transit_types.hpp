@@ -182,6 +182,8 @@ private:
   // |m_featureId| is feature id of a point feature which represents gates.
   FeatureId m_featureId = kInvalidFeatureId;
   // |m_bestPedestrianSegment| is a segment which can be used for pedestrian routing to leave and enter the gate.
+  // The segment may be invalid because of map date. If so there's no pedestrian segment which can be used
+  // to reach the gate.
   SingleMwmSegment m_bestPedestrianSegment;
   bool m_entrance = true;
   bool m_exit = true;

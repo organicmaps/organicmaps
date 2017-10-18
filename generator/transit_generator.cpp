@@ -48,7 +48,7 @@ using namespace std;
 
 namespace
 {
-bool CompStopsById(Stop const & s1, Stop const & s2)
+bool LessById(Stop const & s1, Stop const & s2)
 {
   return s1.GetId() < s2.GetId();
 }
@@ -56,12 +56,13 @@ bool CompStopsById(Stop const & s1, Stop const & s2)
 /// \returns ref to a stop at |stops| by |stopId|.
 Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
 {
+  ASSERT(is_sorted(stops.cbegin(), stops.cend(), LessById), ());
   auto s1Id = equal_range(stops.cbegin(), stops.cend(),
-                          Stop(stopId, kInvalidFeatureId, kInvalidTransferId, {}, m2::PointD(), {}),
-                          CompStopsById);
+          Stop(stopId, kInvalidFeatureId, kInvalidTransferId, {}, m2::PointD(), {}),
+          LessById);
   CHECK(s1Id.first != stops.cend(), ("No a stop with id:", stopId, "in stops:", stops));
   CHECK_EQUAL(distance(s1Id.first, s1Id.second), 1, ("A stop with id:", stopId, "is not unique in stops:", stops));
-  return *(s1Id.first);
+  return *s1Id.first;
 }
 
 /// Extracts the file name from |filePath| and drops all extensions.
@@ -148,12 +149,7 @@ void DeserializeGatesFromJson(my::Json const & root, string const & mwmDir, stri
 template <class Item>
 bool IsValid(vector<Item> const & items)
 {
-  for (auto const & i : items)
-  {
-    if (!i.IsValid())
-      return false;
-  }
-  return true;
+  return all_of(items.cbegin(), items.cend(), [](Item const & item) { return item.IsValid(); });
 }
 
 /// \brief Reads from |root| (json) and serializes an array to |serializer|.
@@ -166,21 +162,21 @@ void SerializeObject(my::Json const & root, string const & key, Serializer<FileW
   serializer(items);
 }
 
-/// \brief Updates |edges| by adding valid value for Edge::m_weight.
+/// \brief Updates |edges| by adding valid value for Edge::m_weight if it's not valid.
 /// \note Edge::m_stop1Id and Edge::m_stop2Id should be valid for every edge in |edges| before call.
 void CalculateEdgeWeight(vector<Stop> const & stops, vector<transit::Edge> & edges)
 {
-  CHECK(is_sorted(stops.cbegin(), stops.cend(), CompStopsById), ());
+  CHECK(is_sorted(stops.cbegin(), stops.cend(), LessById), ());
 
   for (auto & e : edges)
   {
+    if (e.GetWeight() != kInvalidWeight)
+      continue;
+
     Stop const & s1 = FindStopById(stops, e.GetStop1Id());
     Stop const & s2 = FindStopById(stops, e.GetStop2Id());
     double const lengthInMeters = MercatorBounds::DistanceOnEarth(s1.GetPoint(), s2.GetPoint());
-    // Note. 3.6 == 3600 (number of seconds in an hour) / 1000 (number of meters in a kilometer).
-    // In other words: weighInSec = 3600 * lengthInMeters / (1000 * kTransitAverageSpeedKMpH);
-    double const weighInSec = 3.6 * lengthInMeters / kTransitAverageSpeedKMpH;
-    e.SetWeight(weighInSec);
+    e.SetWeight(lengthInMeters / kTransitAverageSpeedMPS);
   }
 }
 }  // namespace
@@ -263,7 +259,7 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   vector<Stop> stops;
   DeserializeFromJson(root, "stops", stops);
   CHECK(IsValid(stops), ("stops:", stops));
-  sort(stops.begin(), stops.end(), CompStopsById);
+  sort(stops.begin(), stops.end(), LessById);
   serializer(stops);
   header.m_gatesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 

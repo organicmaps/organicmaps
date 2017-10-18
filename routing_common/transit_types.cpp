@@ -119,7 +119,7 @@ bool SingleMwmSegment::IsEqualForTesting(SingleMwmSegment const & s) const
 
 bool SingleMwmSegment::IsValid() const
 {
-  return true;
+  return m_featureId != kInvalidFeatureId;
 }
 
 // Gate -------------------------------------------------------------------------------------------
@@ -145,7 +145,7 @@ bool Gate::IsEqualForTesting(Gate const & gate) const
 
 bool Gate::IsValid() const
 {
-  return m_weight != kInvalidWeight && !m_stopIds.empty();
+  return m_weight != kInvalidWeight && (m_entrance || m_exit) && !m_stopIds.empty();
 }
 
 // Edge -------------------------------------------------------------------------------------------
@@ -170,6 +170,12 @@ bool Edge::IsEqualForTesting(Edge const & edge) const
 
 bool Edge::IsValid() const
 {
+  if (m_transfer && (m_lineId != kInvalidLineId || !m_shapeIds.empty()))
+    return false;
+
+  if (!m_transfer && m_lineId == kInvalidLineId)
+    return false;
+
   return m_stop1Id != kInvalidStopId && m_stop2Id != kInvalidStopId && m_weight != kInvalidWeight &&
          m_lineId != kInvalidLineId;
 }
@@ -241,7 +247,7 @@ bool Shape::IsEqualForTesting(Shape const & shape) const
 bool Shape::IsValid() const
 {
   return m_id != kInvalidShapeId && m_stop1_id != kInvalidStopId && m_stop2_id != kInvalidStopId &&
-         !m_polyline.empty();
+         m_polyline.size() > 1;
 }
 
 // Network ----------------------------------------------------------------------------------------
