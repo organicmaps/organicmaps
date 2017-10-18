@@ -53,7 +53,7 @@ enum RowInMetaInfo
   auto data = self.data;
   NSAssert(data, @"Data can't be nil!");
   self.cachedDescription = data.bookmarkDescription;
-  self.cachedTitle = data.externalTitle ?: data.title;
+  self.cachedTitle = data.title;
   self.cachedCategory = data.bookmarkCategory;
   self.cachedColor = data.bookmarkColor;
   m_cachedBookmarkAndCategory = data.bookmarkAndCategory;
