@@ -931,10 +931,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mPlacePage != null && !mPlacePage.isHidden())
     {
-      if (isChangingConfigurations())
-        mPlacePage.setState(State.HIDDEN);
       outState.putInt(STATE_PP, mPlacePage.getState().ordinal());
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
+      if (isChangingConfigurations())
+        mPlacePage.setState(State.HIDDEN);
     }
 
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
