@@ -308,7 +308,7 @@ int main(int argc, char ** argv)
       routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
 
     if (!FLAGS_transit_path.empty())
-      routing::transit::BuildTransit(datFile, FLAGS_transit_path);
+      routing::transit::BuildTransit(datFile, osmToFeatureFilename, FLAGS_transit_path);
 
     if (FLAGS_make_routing_index)
     {

@@ -40,7 +40,9 @@ Anchor constexpr kInvalidAnchor = std::numeric_limits<Anchor>::max();
     template<class Source> friend class Deserializer;                                          \
     friend class DeserializerFromJson;                                                         \
     friend class routing::TransitGraphLoader;                                                  \
-    friend void BuildTransit(std::string const & mwmPath, std::string const & transitDir);     \
+    friend void BuildTransit(std::string const & mwmPath,                                      \
+                             std::string const & osmIdsToFeatureIdPath,                        \
+                             std::string const & transitDir);                                  \
     template<class Obj> friend void TestSerialization(Obj const & obj);                        \
 
 struct TransitHeader

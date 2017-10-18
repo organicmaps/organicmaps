@@ -28,6 +28,7 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -83,17 +84,18 @@ string GetFileName(string const & filePath)
 }
 
 template <class Item>
-void DeserializeFromJson(my::Json const & root, string const & key, vector<Item> & items)
+void DeserializeFromJson(my::Json const & root, string const & key,
+                         shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIdsMap, vector<Item> & items)
 {
   items.clear();
-  DeserializerFromJson deserializer(root.get());
+  DeserializerFromJson deserializer(root.get(), osmIdToFeatureIdsMap);
   deserializer(items, key.c_str());
 }
 
 void DeserializeGatesFromJson(my::Json const & root, string const & mwmDir, string const & countryId,
-                              vector<Gate> & gates)
+                              shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIdsMap, vector<Gate> & gates)
 {
-  DeserializeFromJson(root, "gates", gates);
+  DeserializeFromJson(root, "gates", osmIdToFeatureIdsMap, gates);
 
   // Creating IndexRouter.
   SingleMwmIndex index(my::JoinFoldersToPath(mwmDir, countryId + DATA_FILE_EXTENSION));
@@ -154,10 +156,11 @@ bool IsValid(vector<Item> const & items)
 
 /// \brief Reads from |root| (json) and serializes an array to |serializer|.
 template <class Item>
-void SerializeObject(my::Json const & root, string const & key, Serializer<FileWriter> & serializer)
+void SerializeObject(my::Json const & root, string const & key,
+                     shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIdsMap, Serializer<FileWriter> & serializer)
 {
   vector<Item> items;
-  DeserializeFromJson(root, key, items);
+  DeserializeFromJson(root, key, osmIdToFeatureIdsMap, items);
   CHECK(IsValid(items), ("key:", key, "items:", items));
   serializer(items);
 }
@@ -179,6 +182,15 @@ void CalculateEdgeWeight(vector<Stop> const & stops, vector<transit::Edge> & edg
     e.SetWeight(lengthInMeters / kTransitAverageSpeedMPS);
   }
 }
+
+void FillOsmIdToFeatureIdMap(string const & osmIdsToFeatureIdPath, OsmIdToFeatureIdsMap & map)
+{
+  CHECK(ForEachOsmId2FeatureId(osmIdsToFeatureIdPath,
+                               [&map](osm::Id const & osmId, uint32_t featureId) {
+                                 map[osmId].push_back(featureId);
+                               }),
+        ());
+}
 }  // namespace
 
 namespace routing
@@ -198,8 +210,14 @@ void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
   FromJSONObject(pointItem, "x", p.x);
   FromJSONObject(pointItem, "y", p.y);
 }
+DeserializerFromJson::DeserializerFromJson(json_struct_t * node,
+                                           shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIds)
+  : m_node(node), m_osmIdToFeatureIds(osmIdToFeatureIds)
+{
+}
 
-void BuildTransit(string const & mwmPath, string const & transitDir)
+void BuildTransit(string const & mwmPath, string const & osmIdsToFeatureIdPath,
+                  string const & transitDir)
 {
   LOG(LERROR, ("This method is under construction and should not be used for building production mwm "
       "sections."));
@@ -241,10 +259,13 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   my::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json file:", graphFullPath));
 
+  auto mapping = make_shared<OsmIdToFeatureIdsMap>();
+  FillOsmIdToFeatureIdMap(osmIdsToFeatureIdPath, *mapping);
+
   // Note. |gates| has to be deserialized from json before starting writing transit section to mwm since
   // the mwm is used to filled |gates|.
   vector<Gate> gates;
-  DeserializeGatesFromJson(root, my::GetDirectory(mwmPath), countryId, gates);
+  DeserializeGatesFromJson(root, my::GetDirectory(mwmPath), countryId, mapping, gates);
   CHECK(IsValid(gates), (gates));
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
@@ -257,7 +278,7 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   header.Visit(serializer);
 
   vector<Stop> stops;
-  DeserializeFromJson(root, "stops", stops);
+  DeserializeFromJson(root, "stops", mapping, stops);
   CHECK(IsValid(stops), ("stops:", stops));
   sort(stops.begin(), stops.end(), LessById);
   serializer(stops);
@@ -267,22 +288,22 @@ void BuildTransit(string const & mwmPath, string const & transitDir)
   header.m_edgesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
   vector<Edge> edges;
-  DeserializeFromJson(root, "edges", edges);
+  DeserializeFromJson(root, "edges", mapping, edges);
   CalculateEdgeWeight(stops, edges);
   CHECK(IsValid(stops), ("edges:", edges));
   serializer(edges);
   header.m_transfersOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  SerializeObject<Transfer>(root, "transfers", serializer);
+  SerializeObject<Transfer>(root, "transfers", mapping, serializer);
   header.m_linesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  SerializeObject<Line>(root, "lines", serializer);
+  SerializeObject<Line>(root, "lines", mapping, serializer);
   header.m_shapesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  SerializeObject<Shape>(root, "shapes", serializer);
+  SerializeObject<Shape>(root, "shapes", mapping, serializer);
   header.m_networksOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  SerializeObject<Network>(root, "networks", serializer);
+  SerializeObject<Network>(root, "networks", mapping, serializer);
   header.m_endOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
   // Rewriting header info.

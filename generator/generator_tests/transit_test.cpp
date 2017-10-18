@@ -7,6 +7,7 @@
 #include "base/assert.hpp"
 
 #include <string>
+#include <utility>
 #include <vector>
 
 using namespace routing;
@@ -21,7 +22,7 @@ void TestDeserializerFromJson(string const & jsonBuffer, string const & name, ve
   my::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json."));
 
-  DeserializerFromJson deserializer(root.get());
+  DeserializerFromJson deserializer(root.get(), make_shared<OsmIdToFeatureIdsMap>());
 
   vector<Obj> objects;
   deserializer(objects, name.c_str());

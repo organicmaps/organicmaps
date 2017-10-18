@@ -1,5 +1,9 @@
 #pragma once
 
+#include "generator/osm_id.hpp"
+
+#include "routing_common/transit_types.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/macros.hpp"
@@ -7,6 +11,8 @@
 #include "3party/jansson/myjansson.hpp"
 
 #include <cstdint>
+#include <map>
+#include <memory>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -15,10 +21,12 @@ namespace routing
 {
 namespace transit
 {
+using OsmIdToFeatureIdsMap = std::map<osm::Id, std::vector<FeatureId>>;
+
 class DeserializerFromJson
 {
 public:
-  DeserializerFromJson(json_struct_t * node) : m_node(node) {}
+  DeserializerFromJson(json_struct_t* node, std::shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIds);
 
   template<typename T>
   typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value || std::is_same<T, double>::value>::type
@@ -43,7 +51,7 @@ public:
     vs.resize(sz);
     for (size_t i = 0; i < sz; ++i)
     {
-      DeserializerFromJson arrayItem(json_array_get(arr, i));
+      DeserializerFromJson arrayItem(json_array_get(arr, i), m_osmIdToFeatureIds);
       arrayItem(vs[i]);
     }
   }
@@ -77,6 +85,7 @@ private:
   }
 
   json_struct_t * m_node;
+  std::shared_ptr<OsmIdToFeatureIdsMap> m_osmIdToFeatureIds;
 };
 
 /// \brief Builds the transit section in the mwm.
@@ -86,6 +95,7 @@ private:
 /// \note An mwm pointed by |mwmPath| should contain:
 /// * feature geometry
 /// * index graph (ROUTING_FILE_TAG)
-void BuildTransit(std::string const & mwmPath, std::string const & transitDir);
+void BuildTransit(std::string const & mwmPath, std::string const & osmIdsToFeatureIdPath,
+                  std::string const & transitDir);
 }  // namespace transit
 }  // namespace routing
