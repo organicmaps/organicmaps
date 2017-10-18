@@ -78,7 +78,7 @@ public class RatingView extends View
     mBackgroundPaint.setColor(mRatingColor);
     mBackgroundPaint.setAlpha(31 /* 12% */);
     if (mDrawSmile)
-      mDrawable = res.getDrawable(impress.getDrawableId());
+      mDrawable = DrawableCompat.wrap(res.getDrawable(impress.getDrawableId()));
     mTextPaint.setColor(mRatingColor);
     invalidate();
     requestLayout();
