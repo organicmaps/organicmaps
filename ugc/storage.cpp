@@ -2,6 +2,7 @@
 #include "ugc/serdes.hpp"
 #include "ugc/serdes_json.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
@@ -296,6 +297,7 @@ string Storage::GetUGCToSend() const
     ToJSONObject(*embeddedNode.get(), "data_version", index.m_dataVersion);
     ToJSONObject(*embeddedNode.get(), "mwm_name", index.m_mwmName);
     ToJSONObject(*embeddedNode.get(), "feature_id", index.m_featureId);
+    ToJSONObject(*embeddedNode.get(), "feature_type", classif().GetReadableObjectName(index.m_type));
     ToJSONObject(*serializedUgc.get(), "feature", *embeddedNode.release());
     json_array_append_new(array.get(), serializedUgc.get_deep_copy());
   }

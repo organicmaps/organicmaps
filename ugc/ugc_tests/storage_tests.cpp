@@ -294,10 +294,20 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
   }
 
   my::Json ugcNode(data);
+  auto const & indexes = storage.GetIndexesForTesting();
+  TEST_EQUAL(indexes.size(), 2, ());
+  auto const & firstIndex = indexes.front();
+  auto const & lastIndex = indexes.back();
+  TEST(firstIndex.m_deleted, ());
+  TEST(!lastIndex.m_deleted, ());
+  TEST(!firstIndex.m_synchronized, ());
+  TEST(!lastIndex.m_synchronized, ());
+
   auto embeddedNode = my::NewJSONObject();
-  ToJSONObject(*embeddedNode.get(), "data_version", cafeId.GetMwmVersion() );
-  ToJSONObject(*embeddedNode.get(), "mwm_name", cafeId.GetMwmName());
-  ToJSONObject(*embeddedNode.get(), "feature_id", cafeId.m_index);
+  ToJSONObject(*embeddedNode.get(), "data_version", lastIndex.m_dataVersion);
+  ToJSONObject(*embeddedNode.get(), "mwm_name", lastIndex.m_mwmName);
+  ToJSONObject(*embeddedNode.get(), "feature_id", lastIndex.m_featureId);
+  ToJSONObject(*embeddedNode.get(), "feature_type", classif().GetReadableObjectName(lastIndex.m_type));
   ToJSONObject(*ugcNode.get(), "feature", *embeddedNode.release());
 
   auto array = my::NewJSONArray();
@@ -307,4 +317,7 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
   unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(reviewsNode.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
   string const toSendExpected(buffer.get());
   TEST_EQUAL(toSendActual, toSendExpected, ());
+  storage.MarkAllAsSynchronized();
+  TEST(firstIndex.m_synchronized, ());
+  TEST(lastIndex.m_synchronized, ());
 }
