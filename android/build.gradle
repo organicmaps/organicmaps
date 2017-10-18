@@ -133,6 +133,7 @@ android {
     buildConfigField 'String', 'PW_APPID', /"${pwProps['pwAppId']}"/
     manifestPlaceholders += ['PW_PROJECT_ID': pwProps['pwProjectId']]
     multiDexEnabled true
+    multiDexKeepFile file('multidex-config.txt')
 
     externalNativeBuild {
       cmake {

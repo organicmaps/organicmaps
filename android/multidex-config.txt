@@ -1,0 +1,12 @@
+com/mapswithme/maps/bookmarks/data/MapObject.class
+com/mapswithme/maps/bookmarks/data/FeatureId.class
+com/mapswithme/maps/bookmarks/data/Bookmark.class
+com/my/tracker/MyTracker.class
+com/mapswithme/util/HttpClient.class
+com/mapswithme/util/HttpClient$Params.class
+com/mapswithme/util/HttpClient$HttpHeader.class
+com/mapswithme/maps/location/PlatformSocket.class
+com/mapswithme/util/Utils.class
+com/mapswithme/maps/ads/Banner.class
+com/mapswithme/maps/ugc/UGC$Rating.class
+com/mapswithme/util/log/LoggerFactory.class
