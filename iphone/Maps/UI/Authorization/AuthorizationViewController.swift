@@ -118,7 +118,10 @@ final class AuthorizationViewController: MWMViewController {
   }
 
   @IBAction func onCancel() {
-    dismiss(animated: true, completion: nil)
+    dismiss(animated: true, completion: {
+      (UIApplication.shared.keyWindow?.rootViewController as?
+              UINavigationController)?.popToRootViewController(animated: true)
+    })
   }
 
   private func process(error: Error) {
