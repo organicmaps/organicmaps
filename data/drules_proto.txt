@@ -64488,6 +64488,14 @@ cont {
   element {
     scale: 16
     symbol {
+      name: "portal-l"
+      priority: 16537
+    }
+    apply_if: "rating=1"
+  }
+  element {
+    scale: 16
+    symbol {
       name: "artefact-l"
       priority: 16537
     }
@@ -64512,6 +64520,14 @@ cont {
   element {
     scale: 17
     symbol {
+      name: "portal-l"
+      priority: 16537
+    }
+    apply_if: "rating=1"
+  }
+  element {
+    scale: 17
+    symbol {
       name: "artefact-l"
       priority: 16537
     }
@@ -64536,6 +64552,14 @@ cont {
   element {
     scale: 18
     symbol {
+      name: "portal-l"
+      priority: 16537
+    }
+    apply_if: "rating=1"
+  }
+  element {
+    scale: 18
+    symbol {
       name: "artefact-l"
       priority: 16537
     }
@@ -64556,6 +64580,14 @@ cont {
       priority: 16537
     }
     apply_if: "rating=4"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "portal-l"
+      priority: 16537
+    }
+    apply_if: "rating=1"
   }
   element {
     scale: 19
