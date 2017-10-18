@@ -59,8 +59,8 @@ final class UGCAddReviewController: MWMTableViewController {
       nc.popViewController(animated: true)
     } else {
       let authVC = AuthorizationViewController(barButtonItem: navigationItem.rightBarButtonItem!,
-                                               completion: { nc.popViewController(animated: true) })
-      nc.show(authVC, sender: self)
+                                               completion: { nc.popToRootViewController(animated: true) })
+      present(authVC, animated: true, completion: nil);
     }
   }
 
