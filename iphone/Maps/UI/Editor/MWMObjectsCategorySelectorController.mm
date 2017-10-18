@@ -136,10 +136,10 @@ string locale()
   auto const & featureID = object.GetID();
   [Statistics logEvent:kStatEditorAddStart
         withParameters:@{
-          kStatEditorIsAuthenticated : @(AuthorizationHaveCredentials()),
-          kStatIsOnline : Platform::IsConnected() ? kStatYes : kStatNo,
-          kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
-          kStatEditorMWMVersion : @(featureID.GetMwmVersion())
+          kStatIsAuthenticated: @(AuthorizationHaveCredentials()),
+          kStatIsOnline: Platform::IsConnected() ? kStatYes : kStatNo,
+          kStatEditorMWMName: @(featureID.GetMwmName().c_str()),
+          kStatEditorMWMVersion: @(featureID.GetMwmVersion())
         }];
 }
 

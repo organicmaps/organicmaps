@@ -20,7 +20,7 @@ typedef UIView * _Nullable (^MWMPlacePageButtonsDismissBlock)(NSInteger);
     referenceViewWhenDismissingHandler:
         (nonnull MWMPlacePageButtonsDismissBlock)referenceViewWhenDismissingHandler;
 - (void)showGallery;
-- (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value;
+- (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromPreview:(BOOL)fromPreview;
 
 - (void)openLocalAdsURL;
 

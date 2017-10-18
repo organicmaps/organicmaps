@@ -34,6 +34,12 @@ final class UGCAddReviewController: MWMTableViewController {
     configTableView()
   }
 
+  override func backTap() {
+    guard let nc = navigationController else { return }
+    Statistics.logEvent(kStatUGCReviewCancel);
+    nc.popToRootViewController(animated: true)
+  }
+
   private func configNavBar() {
     title = model.title
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDone))
@@ -52,12 +58,14 @@ final class UGCAddReviewController: MWMTableViewController {
       assert(false);
       return
     }
+    Statistics.logEvent(kStatUGCReviewSuccess)
     model.text = text
     onSave(model)
     guard let nc = navigationController else { return }
     if MWMAuthorizationViewModel.isAuthenticated() {
       nc.popViewController(animated: true)
     } else {
+      Statistics.logEvent(kStatUGCReviewAuthShown, withParameters: [kStatFrom : kStatAfterSave])
       let authVC = AuthorizationViewController(barButtonItem: navigationItem.rightBarButtonItem!,
                                                completion: { nc.popToRootViewController(animated: true) })
       present(authVC, animated: true, completion: nil);

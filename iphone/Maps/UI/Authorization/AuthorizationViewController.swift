@@ -118,18 +118,22 @@ final class AuthorizationViewController: MWMViewController {
   }
 
   @IBAction func onCancel() {
+    Statistics.logEvent(kStatUGCReviewAuthDeclined)
     dismiss(animated: true, completion: {
       (UIApplication.shared.keyWindow?.rootViewController as?
               UINavigationController)?.popToRootViewController(animated: true)
     })
   }
 
-  private func process(error: Error) {
+  private func process(error: Error, type: MWMSocialTokenType) {
+    Statistics.logEvent(kStatUGCReviewAuthError, withParameters: [kStatProvider : type == .facebook ? kStatFacebook : kStatGoogle,
+                                                                  kStatError : error.localizedDescription])
     textLabel.text = L("profile_authorization_error")
     Crashlytics.sharedInstance().recordError(error)
   }
 
   private func process(token: String, type: MWMSocialTokenType) {
+    Statistics.logEvent(kStatUGCReviewAuthExternalRequestSuccess, withParameters: [kStatProvider : type == .facebook ? kStatFacebook : kStatGoogle])
     ViewModel.authenticate(withToken: token, type: type)
     dismiss(animated: true, completion: completion)
   }
@@ -138,7 +142,7 @@ final class AuthorizationViewController: MWMViewController {
 extension AuthorizationViewController: FBSDKLoginButtonDelegate {
   func loginButton(_: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
     if let error = error {
-      process(error: error)
+      process(error: error, type: .facebook)
     } else if let result = result {
       process(token: result.token.tokenString, type: .facebook)
     }
@@ -153,7 +157,7 @@ extension AuthorizationViewController: GIDSignInUIDelegate {
 extension AuthorizationViewController: GIDSignInDelegate {
   func sign(_: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
     if let error = error {
-      process(error: error)
+      process(error: error, type: .google)
     } else {
       process(token: user.authentication.idToken, type: .google)
     }

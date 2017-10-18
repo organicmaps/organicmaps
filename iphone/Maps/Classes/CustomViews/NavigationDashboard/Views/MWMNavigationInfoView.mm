@@ -174,13 +174,15 @@ BOOL defaultOrientation(CGSize const & size)
   case NavigationSearchState::Maximized:
     [MWMSearchManager manager].state = MWMSearchManagerStateDefault;
     [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
-    [Statistics logEvent:kStatRoutingSearchClicked withParameters:@{ kStatRoutingMode : kStatRoutingModeOnRoute }];
+    [Statistics logEvent:kStatRoutingSearchClicked
+          withParameters:@{kStatMode: kStatRoutingModeOnRoute}];
     break;
   case NavigationSearchState::MinimizedNormal:
     if (self.state == MWMNavigationInfoViewStatePrepare)
     {
       [MWMSearchManager manager].state = MWMSearchManagerStateDefault;
-      [Statistics logEvent:kStatRoutingSearchClicked withParameters:@{ kStatRoutingMode : kStatRoutingModePlanning }];
+      [Statistics logEvent:kStatRoutingSearchClicked
+            withParameters:@{kStatMode: kStatRoutingModePlanning}];
     }
     else
     {
@@ -227,7 +229,7 @@ BOOL defaultOrientation(CGSize const & size)
   BOOL const isOnRoute = (self.state == MWMNavigationInfoViewStateNavigation);
   [Statistics logEvent:kStatRoutingBookmarksClicked
         withParameters:@{
-          kStatRoutingMode : (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
+          kStatMode: (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
         }];
   [[MapViewController controller] openBookmarks];
 }
