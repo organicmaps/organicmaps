@@ -28,7 +28,7 @@ class OsmIdCode:
 
 def get_extended_osm_id(osm_id, osm_type):
     try:
-        return osm_id | OsmIdCode.TYPE2CODE[osm_type[0]]
+        return str(osm_id | OsmIdCode.TYPE2CODE[osm_type[0]])
     except KeyError:
         raise ValueError('Unknown OSM type: ' + osm_type)
 
@@ -38,7 +38,7 @@ def get_line_id(road_id, line_index):
 
 
 def get_interchange_node_id(min_stop_id):
-    return 1 << 63 | min_stop_id
+    return 1 << 62 | min_stop_id
 
 
 def clamp(value, min_value, max_value):
