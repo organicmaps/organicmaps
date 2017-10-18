@@ -192,7 +192,8 @@ namespace feature
 
       m_writer.Finish();
 
-      if (m_header.GetType() == DataHeader::country)
+      if (m_header.GetType() == DataHeader::country ||
+          m_header.GetType() == DataHeader::world)
       {
         FileWriter osm2ftWriter(m_writer.GetFileName() + OSM2FEATURE_FILE_EXTENSION);
         m_osm2ft.Flush(osm2ftWriter);
