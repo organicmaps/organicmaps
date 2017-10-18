@@ -115,7 +115,7 @@ UNIT_TEST(DeserializerFromJson_Gates)
     {
       "entrance": true,
       "exit": true,
-      "osm_id": "46116861",
+      "osm_id": "18446744073709551615",
       "point": {
         "x": 43.9290544,
         "y": 68.41120791512581
@@ -133,7 +133,8 @@ UNIT_TEST(DeserializerFromJson_Gates)
 
   auto mapping = make_shared<OsmIdToFeatureIdsMap>();
   (*mapping)[osm::Id(46116860)] = vector<FeatureId>({0});
-  (*mapping)[osm::Id(46116861)] = vector<FeatureId>({2});
+  // Note. std::numeric_limits<uint64_t>::max() == 18446744073709551615
+  (*mapping)[osm::Id(18446744073709551615U)] = vector<FeatureId>({2});
   TestDeserializerFromJson(jsonBuffer, mapping, "gates", expected);
 }
 
