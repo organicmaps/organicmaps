@@ -163,13 +163,16 @@ class Processor
 {
   search::ReverseGeocoder m_geocoder;
   my::Cancellable m_cancellable;
+  search::CitiesBoundariesTable m_boundariesTable;
   search::VillagesCache m_villagesCache;
   search::LocalityFinder m_finder;
 
 public:
-  Processor(Index const & index)
-    : m_geocoder(index), m_villagesCache(m_cancellable), m_finder(index, m_villagesCache)
-  {
+  Processor(Index const &index)
+      : m_geocoder(index), m_boundariesTable(index),
+        m_villagesCache(m_cancellable),
+        m_finder(index, m_boundariesTable, m_villagesCache) {
+    m_boundariesTable.Load();
   }
 
   void ClearCache() { m_villagesCache.Clear(); }
