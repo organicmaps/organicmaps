@@ -143,6 +143,7 @@ class ResponseProvider:
                 "/partners/price": self.partners_price,
                 "/booking/min_price": self.partners_minprice,
                 "/booking/min_price.getHotelAvailability": self.partners_minprice,
+                "/booking/min_price/hotelAvailability": self.partners_hotel_availability,
                 "/partners/taxi_info": self.partners_yandex_taxi_info,
                 "/partners/get-offers-in-bbox/": self.partners_rent_nearby,
             }[url]()
@@ -222,6 +223,9 @@ class ResponseProvider:
 
     def partners_minprice(self):
         return Payload(jsons.PARTNERS_MINPRICE)
+
+    def partners_hotel_availability(self):
+        return Payload(jsons.HOTEL_AVAILABILITY)
 
     def partners_yandex_taxi_info(self):
         return Payload(jsons.PARTNERS_TAXI_INFO)

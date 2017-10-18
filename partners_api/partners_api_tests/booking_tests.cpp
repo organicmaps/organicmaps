@@ -6,6 +6,8 @@
 
 #include "base/scope_guard.hpp"
 
+#include <chrono>
+
 using namespace partners_api;
 
 namespace
@@ -24,6 +26,20 @@ UNIT_TEST(Booking_GetExtendedInfo)
   string result;
   TEST(booking::RawApi::GetExtendedInfo(kHotelId, "en", result), ());
   TEST(!result.empty(), ());
+}
+
+UNIT_TEST(Booking_HotelAvailability)
+{
+  booking::AvailabilityParams params;
+  params.m_hotelIds = {"98251"};
+  params.m_rooms = {"A,A"};
+  params.m_checkin = std::chrono::system_clock::now() + std::chrono::hours(24);
+  params.m_checkout = std::chrono::system_clock::now() + std::chrono::hours(24 * 7);
+  params.m_stars = {"4", "5"};
+  string result;
+  TEST(booking::RawApi::HotelAvailability(params, result), ());
+  TEST(!result.empty(), ());
+  LOG(LINFO, (result));
 }
 
 UNIT_CLASS_TEST(AsyncGuiThread, Booking_GetMinPrice)
@@ -109,5 +125,32 @@ UNIT_CLASS_TEST(AsyncGuiThread, GetHotelInfo)
   TEST_EQUAL(info.m_photos.size(), 2, ());
   TEST_EQUAL(info.m_facilities.size(), 7, ());
   TEST_EQUAL(info.m_reviews.size(), 4, ());
+}
+
+UNIT_CLASS_TEST(AsyncGuiThread, GetHotelAvailability)
+{
+  booking::SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
+  MY_SCOPE_GUARD(cleanup, []() { booking::SetBookingUrlForTesting(""); });
+
+  booking::AvailabilityParams params;
+  params.m_hotelIds = {"77615", "10623"};
+  params.m_rooms = {"A,A"};
+  params.m_checkin = std::chrono::system_clock::now() + std::chrono::hours(24);
+  params.m_checkout = std::chrono::system_clock::now() + std::chrono::hours(24 * 7);
+  params.m_stars = {"4"};
+  booking::Api api;
+  std::vector<uint64_t> result;
+
+  api.GetHotelAvailability(params, [&result](std::vector<uint64_t> const & r)
+  {
+    result = r;
+    testing::Notify();
+  });
+  testing::Wait();
+
+  TEST_EQUAL(result.size(), 3, ());
+  TEST_EQUAL(result[0], 10623, ());
+  TEST_EQUAL(result[1], 10624, ());
+  TEST_EQUAL(result[2], 10625, ());
 }
 }
