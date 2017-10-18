@@ -299,7 +299,7 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
                                                                            true);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2)
-                                  : dp::OverlayRank0);
+                                  : (isPrimary ? dp::OverlayRank0 : dp::OverlayRank1));
   handle->SetExtendingSize(m_params.m_extendingSize);
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
     handle->SetUserMarkOverlay(true);
@@ -350,7 +350,7 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
                                                                            true);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2)
-                                  : dp::OverlayRank0);
+                                  : (isPrimary ? dp::OverlayRank0 : dp::OverlayRank1));
   handle->SetExtendingSize(m_params.m_extendingSize);
 
   dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
