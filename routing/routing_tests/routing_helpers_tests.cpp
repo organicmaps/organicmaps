@@ -29,10 +29,8 @@ UNIT_TEST(FillSegmentInfoSmokeTest)
   Route::TStreets const streets = {};
   Route::TTimes const times = {{0 /* point index */, 0.0 /* time in seconds */}, {1, 1.0}};
 
-  vector<TransitInfo> const transitInfo(segments.size(), TransitInfo(TransitInfo::Type::None));
-
   vector<RouteSegment> segmentInfo;
-  FillSegmentInfo(segments, junctions, turnDirs, streets, times, nullptr, transitInfo, segmentInfo);
+  FillSegmentInfo(segments, junctions, turnDirs, streets, times, nullptr, segmentInfo);
 
   TEST_EQUAL(segmentInfo.size(), 1, ());
   TEST_EQUAL(segmentInfo[0].GetTurn().m_turn, CarDirection::ReachedYourDestination, ());
@@ -53,10 +51,8 @@ UNIT_TEST(FillSegmentInfoTest)
   Route::TTimes const times = {
       {0 /* point index */, 0.0 /* time in seconds */}, {1, 1.0}, {2, 2.0}};
 
-  vector<TransitInfo> const transitInfo(segments.size(), TransitInfo(TransitInfo::Type::None));
-
   vector<RouteSegment> segmentInfo;
-  FillSegmentInfo(segments, junctions, turnDirs, streets, times, nullptr, transitInfo, segmentInfo);
+  FillSegmentInfo(segments, junctions, turnDirs, streets, times, nullptr, segmentInfo);
 
   TEST_EQUAL(segmentInfo.size(), 2, ());
   TEST_EQUAL(segmentInfo[0].GetTurn().m_turn, CarDirection::TurnRight, ());

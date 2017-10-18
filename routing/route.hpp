@@ -3,11 +3,10 @@
 #include "routing/road_graph.hpp"
 #include "routing/routing_settings.hpp"
 #include "routing/segment.hpp"
+#include "routing/transit_info.hpp"
 #include "routing/turns.hpp"
 
 #include "routing/base/followed_polyline.hpp"
-
-#include "routing_common/transit_types.hpp"
 
 #include "traffic/speed_groups.hpp"
 
@@ -18,6 +17,7 @@
 #include "base/assert.hpp"
 
 #include <limits>
+#include <memory>
 #include <set>
 #include <string>
 #include <utility>
@@ -34,35 +34,6 @@ namespace routing
 using SubrouteUid = uint64_t;
 SubrouteUid constexpr kInvalidSubrouteId = std::numeric_limits<uint64_t>::max();
 
-class TransitInfo final
-{
-public:
-  enum class Type
-  {
-    None,
-    Gate,
-    Edge,
-    Transfer
-  };
-
-  explicit TransitInfo(Type type) : m_type(type) { ASSERT_NOT_EQUAL(type, Type::Edge, ()); }
-  explicit TransitInfo(transit::Edge const & edge)
-    : m_type(Type::Edge), m_lineId(edge.GetLineId()), m_shapeIds(edge.GetShapeIds())
-  {
-  }
-
-  Type GetType() const { return m_type; }
-  transit::LineId GetLineId() const { return m_lineId; }
-  std::vector<transit::ShapeId> const & GetShapeIds() const { return m_shapeIds; }
-
-private:
-  Type m_type = Type::None;
-  // Valid for m_type == Type::Edge only.
-  transit::LineId m_lineId = transit::kInvalidLineId;
-  // Valid for m_type == Type::Edge only.
-  std::vector<transit::ShapeId> m_shapeIds;
-};
-
 /// \brief The route is composed of one or several subroutes. Every subroute is composed of segments.
 /// For every Segment is kept some attributes in the structure SegmentInfo.
 class RouteSegment final
@@ -71,7 +42,7 @@ public:
   RouteSegment(Segment const & segment, turns::TurnItem const & turn, Junction const & junction,
                std::string const & street, double distFromBeginningMeters,
                double distFromBeginningMerc, double timeFromBeginningS, traffic::SpeedGroup traffic,
-               TransitInfo transitInfo)
+               std::unique_ptr<TransitInfo> transitInfo)
     : m_segment(segment)
     , m_turn(turn)
     , m_junction(junction)
@@ -80,8 +51,13 @@ public:
     , m_distFromBeginningMerc(distFromBeginningMerc)
     , m_timeFromBeginningS(timeFromBeginningS)
     , m_traffic(traffic)
-    , m_transitInfo(transitInfo)
+    , m_transitInfo(move(transitInfo))
   {
+  }
+
+  void SetTransitInfo(std::unique_ptr<TransitInfo> transitInfo)
+  {
+    m_transitInfo.Set(move(transitInfo));
   }
 
   Segment const & GetSegment() const { return m_segment; }
@@ -92,7 +68,9 @@ public:
   double GetDistFromBeginningMerc() const { return m_distFromBeginningMerc; }
   double GetTimeFromBeginningSec() const { return m_timeFromBeginningS; }
   traffic::SpeedGroup GetTraffic() const { return m_traffic; }
-  TransitInfo const & GetTransitInfo() const { return m_transitInfo; }
+
+  bool HasTransitInfo() const { return m_transitInfo.HasTransitInfo(); }
+  TransitInfo const & GetTransitInfo() const { return m_transitInfo.Get(); }
 
 private:
   Segment m_segment;
@@ -111,8 +89,7 @@ private:
   double m_timeFromBeginningS = 0.0;
   traffic::SpeedGroup m_traffic = traffic::SpeedGroup::Unknown;
   /// Information needed to display transit segments properly.
-  /// Nontransit segments have m_transitInfo.m_type == TransitInfo::Type::None.
-  TransitInfo m_transitInfo;
+  TransitInfoWrapper m_transitInfo;
 };
 
 class Route
@@ -226,6 +203,8 @@ public:
       }
     }
   }
+
+  std::vector<RouteSegment> & GetRouteSegments() { return m_routeSegments; }
 
   void SetCurrentSubrouteIdx(size_t currentSubrouteIdx) { m_currentSubrouteIdx = currentSubrouteIdx; }
 
@@ -368,15 +347,4 @@ private:
   size_t m_currentSubrouteIdx = 0;
   std::vector<SubrouteAttrs> m_subrouteAttrs;
 };
-
-inline std::string DebugPrint(TransitInfo::Type type)
-{
-  switch (type)
-  {
-  case TransitInfo::Type::None: return "None";
-  case TransitInfo::Type::Gate: return "Gate";
-  case TransitInfo::Type::Edge: return "Edge";
-  case TransitInfo::Type::Transfer: return "Transfer";
-  }
-}
 } // namespace routing

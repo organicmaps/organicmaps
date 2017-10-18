@@ -16,6 +16,7 @@
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
+#include "routing/transit_info.hpp"
 #include "routing/transit_world_graph.hpp"
 #include "routing/turns_generator.hpp"
 #include "routing/vehicle_mask.hpp"
@@ -818,14 +819,13 @@ IRouter::ResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     times.emplace_back(static_cast<uint32_t>(i + 1), time);
   }
 
-  map<Segment, TransitInfo> segmentToTransitInfo;
-  auto & worldGraph = starter.GetGraph();
-  for (auto const & segment : segments)
-    segmentToTransitInfo.emplace(segment, worldGraph.GetTransitInfo(segment));
-
   CHECK(m_directionsEngine, ());
-  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions,
-                   segmentToTransitInfo, move(times), route);
+  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, move(times),
+                   route);
+
+  auto & worldGraph = starter.GetGraph();
+  for (auto & routeSegment : route.GetRouteSegments())
+    routeSegment.SetTransitInfo(worldGraph.GetTransitInfo(routeSegment.GetSegment()));
 
   if (!route.IsValid())
   {

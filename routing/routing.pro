@@ -147,6 +147,7 @@ HEADERS += \
     traffic_stash.hpp \
     transit_graph.hpp \
     transit_graph_loader.hpp \
+    transit_info.hpp \
     transit_world_graph.hpp \
     transition_points.hpp \
     turn_candidate.hpp \

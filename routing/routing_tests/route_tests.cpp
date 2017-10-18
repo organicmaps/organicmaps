@@ -60,7 +60,7 @@ void GetTestRouteSegments(vector<m2::PointD> const & routePoints, Route::TTurns 
                                        0 /* seg id */, true /* forward */),
                                turns[i], Junction(routePoints[i], feature::kInvalidAltitude),
                                streets[i], routeLengthMeters, routeLengthMertc, times[i],
-                               traffic::SpeedGroup::Unknown, TransitInfo(TransitInfo::Type::None));
+                               traffic::SpeedGroup::Unknown, nullptr /* transitInfo */);
   }
 }
 

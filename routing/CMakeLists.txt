@@ -133,6 +133,7 @@ set(
   transit_graph.hpp
   transit_graph_loader.cpp
   transit_graph_loader.hpp
+  transit_info.hpp
   transit_world_graph.cpp
   transit_world_graph.hpp
   transition_points.hpp

@@ -3,6 +3,8 @@
 #include "routing/index_graph.hpp"
 #include "routing/transit_graph.hpp"
 
+#include "base/stl_add.hpp"
+
 #include <utility>
 
 namespace routing
@@ -137,24 +139,20 @@ RouteWeight TransitWorldGraph::CalcLeapWeight(m2::PointD const & from, m2::Point
 
 bool TransitWorldGraph::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }
 
-TransitInfo TransitWorldGraph::GetTransitInfo(Segment const & segment)
+unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segment)
 {
   if (!TransitGraph::IsTransitSegment(segment))
-    return TransitInfo(TransitInfo::Type::None);
+    return {};
 
   auto & transitGraph = GetTransitGraph(segment.GetMwmId());
   if (transitGraph.IsGate(segment))
-    return TransitInfo(TransitInfo::Type::Gate);
+    return my::make_unique<TransitInfo>(transitGraph.GetGate(segment));
+
+  if (transitGraph.IsEdge(segment))
+    return my::make_unique<TransitInfo>(transitGraph.GetEdge(segment));
 
   // Fake segment between pedestrian feature and gate.
-  if (!transitGraph.IsEdge(segment))
-    return TransitInfo(TransitInfo::Type::None);
-
-  auto const & edge = transitGraph.GetEdge(segment);
-  if (edge.GetTransfer())
-    return TransitInfo(TransitInfo::Type::Transfer);
-
-  return TransitInfo(edge);
+  return {};
 }
 
 void TransitWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,

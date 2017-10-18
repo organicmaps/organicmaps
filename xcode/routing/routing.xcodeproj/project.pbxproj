@@ -70,6 +70,7 @@
 		40A111CD1F2F6776005E6AD5 /* route_weight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40A111CB1F2F6776005E6AD5 /* route_weight.cpp */; };
 		40A111CE1F2F6776005E6AD5 /* route_weight.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40A111CC1F2F6776005E6AD5 /* route_weight.hpp */; };
 		40A111D01F2F9704005E6AD5 /* astar_weight.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40A111CF1F2F9704005E6AD5 /* astar_weight.hpp */; };
+		40BEC0811F99FFD700E06CA4 /* transit_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40BEC0801F99FFD600E06CA4 /* transit_info.hpp */; };
 		40C227FE1F61C07C0046696C /* fake_edges_container.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40C227FD1F61C07C0046696C /* fake_edges_container.hpp */; };
 		40C645161F8D167F002E05A0 /* fake_ending.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40C645141F8D167E002E05A0 /* fake_ending.cpp */; };
 		40C645171F8D167F002E05A0 /* fake_ending.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40C645151F8D167E002E05A0 /* fake_ending.hpp */; };
@@ -367,6 +368,7 @@
 		40A111CB1F2F6776005E6AD5 /* route_weight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_weight.cpp; sourceTree = "<group>"; };
 		40A111CC1F2F6776005E6AD5 /* route_weight.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route_weight.hpp; sourceTree = "<group>"; };
 		40A111CF1F2F9704005E6AD5 /* astar_weight.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = astar_weight.hpp; sourceTree = "<group>"; };
+		40BEC0801F99FFD600E06CA4 /* transit_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_info.hpp; sourceTree = "<group>"; };
 		40C227FD1F61C07C0046696C /* fake_edges_container.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_edges_container.hpp; sourceTree = "<group>"; };
 		40C645141F8D167E002E05A0 /* fake_ending.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fake_ending.cpp; sourceTree = "<group>"; };
 		40C645151F8D167E002E05A0 /* fake_ending.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_ending.hpp; sourceTree = "<group>"; };
@@ -809,6 +811,7 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				40BEC0801F99FFD600E06CA4 /* transit_info.hpp */,
 				5670595B1F3AF97F0062672D /* checkpoint_predictor.cpp */,
 				5670595C1F3AF97F0062672D /* checkpoint_predictor.hpp */,
 				40A111CB1F2F6776005E6AD5 /* route_weight.cpp */,
@@ -1001,6 +1004,7 @@
 				6753441F1A3F644F00A0A8C3 /* turns.hpp in Headers */,
 				0C5FEC611DDE192A0017688C /* index_graph.hpp in Headers */,
 				6753441A1A3F644F00A0A8C3 /* osrm2feature_map.hpp in Headers */,
+				40BEC0811F99FFD700E06CA4 /* transit_info.hpp in Headers */,
 				4065EA861F8260010094DEF3 /* transit_graph_loader.hpp in Headers */,
 				6741AA9D1BF35331002C974C /* turns_notification_manager.hpp in Headers */,
 				674F9BD71B0A580E00704FFA /* turns_generator.hpp in Headers */,

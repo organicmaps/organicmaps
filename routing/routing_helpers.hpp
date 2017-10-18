@@ -13,7 +13,6 @@
 
 #include "base/cancellable.hpp"
 
-#include <map>
 #include <memory>
 #include <queue>
 #include <set>
@@ -32,15 +31,12 @@ bool IsRoad(TTypes const & types)
 
 void FillSegmentInfo(std::vector<Segment> const & segments, std::vector<Junction> const & junctions,
                      Route::TTurns const & turns, Route::TStreets const & streets,
-                     Route::TTimes const & times,
-                     std::shared_ptr<TrafficStash> const & trafficStash,
-                     std::vector<TransitInfo> const & transitInfo,
+                     Route::TTimes const & times, std::shared_ptr<TrafficStash> const & trafficStash,
                      std::vector<RouteSegment> & routeSegment);
 
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       std::shared_ptr<TrafficStash> const & trafficStash,
                       my::Cancellable const & cancellable, std::vector<Junction> const & path,
-                      std::map<Segment, TransitInfo> const & segmentToTransitInfo,
                       Route::TTimes && times, Route & route);
 
 /// \brief Converts |edge| to |segment|.
