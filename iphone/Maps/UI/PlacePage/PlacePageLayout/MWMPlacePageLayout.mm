@@ -699,7 +699,9 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     auto tv = self.placePageView.tableView;
     [tv reloadSections:[NSIndexSet indexSetWithIndex:0]
         withRowAnimation:UITableViewRowAnimationFade];
-    [self.previewLayoutHelper notifyHeightWashChanded];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self.previewLayoutHelper notifyHeightWashChanded];
+    });
   };
 
   data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d, BOOL isSection) {
