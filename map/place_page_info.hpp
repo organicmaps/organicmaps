@@ -78,10 +78,10 @@ public:
   bool ShouldShowEditPlace() const;
 
   /// UGC
-  bool ShouldShowUGC() const { return ftraits::UGC::IsUGCAvailable(m_types); }
-  bool CanBeRated() const { return ftraits::UGC::IsRatingAvailable(m_types); }
-  bool CanBeReviewed() const { return ftraits::UGC::IsReviewsAvailable(m_types); }
-  bool CanHaveExtendedReview() const { return ftraits::UGC::IsDetailsAvailable(m_types); }
+  bool ShouldShowUGC() const { return ftraits::UGC::IsUGCAvailable(m_sortedTypes); }
+  bool CanBeRated() const { return ftraits::UGC::IsRatingAvailable(m_sortedTypes); }
+  bool CanBeReviewed() const { return ftraits::UGC::IsReviewsAvailable(m_sortedTypes); }
+  bool CanHaveExtendedReview() const { return ftraits::UGC::IsDetailsAvailable(m_sortedTypes); }
   ftraits::UGCRatingCategories GetRatingCategories() const;
 
   /// @returns true if Back API button should be displayed.
@@ -270,6 +270,8 @@ private:
   /// Local experts
   std::string m_localsUrl;
   LocalsStatus m_localsStatus = LocalsStatus::NotAvailable;
+
+  feature::TypesHolder m_sortedTypes;
 };
 
 namespace rating
