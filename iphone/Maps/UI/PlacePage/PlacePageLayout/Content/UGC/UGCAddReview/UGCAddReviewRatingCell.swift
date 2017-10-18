@@ -17,7 +17,7 @@ final class UGCAddReviewRatingCell: MWMTableViewCell {
 
   var model: UGCRatingStars! {
     didSet {
-      titleLabel.text = model.title
+      titleLabel.text = L(model.title)
       ratingView.value = model.value
       ratingView.starsCount = 5
     }

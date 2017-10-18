@@ -1,7 +1,7 @@
 final class UGCAddReviewTextCell: MWMTableViewCell {
   @IBOutlet private weak var textView: MWMTextView! {
     didSet {
-      textView.placeholder = L("review_placeholder")
+      textView.placeholder = L("placepage_reviews_hint")
       textView.font = UIFont.regular16()
       textView.textColor = UIColor.blackPrimaryText()
       textView.placeholderView.textColor = UIColor.blackSecondaryText()
