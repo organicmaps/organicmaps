@@ -12,6 +12,13 @@ namespace routing_test
 {
 using namespace routing;
 
+// RestrictionTest
+void RestrictionTest::SetStarter(FakeEnding const & start, FakeEnding const & finish)
+{
+  CHECK(m_graph != nullptr, ("Init() was not called."));
+  m_starter = MakeStarter(start, finish, *m_graph);
+}
+
 // TestGeometryLoader ------------------------------------------------------------------------------
 void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
 {
@@ -124,26 +131,23 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
   CHECK(worldGraph != nullptr, ());
 
   auto const fakeStart =
-      MakeFakeEnding(Segment(kTestNumMwmId, startFeatureId, 0 /* segmentIdx */, true /* forward */),
-                     m2::PointD::Zero(), *worldGraph);
-  auto const fakeFinish = MakeFakeEnding(
-      Segment(kTestNumMwmId, finishFeatureId, 0 /* segmentIdx */, true /* forward */),
-      m2::PointD::Zero(), *worldGraph);
+      MakeFakeEnding(startFeatureId, 0 /* segmentIdx */, m2::PointD::Zero(), *worldGraph);
+  auto const fakeFinish =
+      MakeFakeEnding(finishFeatureId, 0 /* segmentIdx */, m2::PointD::Zero(), *worldGraph);
 
-  IndexGraphStarter starter(fakeStart, fakeFinish, 0 /* fakeNumerationStart */,
-                            false /* strictForward */, *worldGraph);
+  auto starter = MakeStarter(fakeStart, fakeFinish, *worldGraph);
 
   vector<Segment> routeSegs;
   double timeSec;
-  auto const resultCode = CalculateRoute(starter, routeSegs, timeSec);
+  auto const resultCode = CalculateRoute(*starter, routeSegs, timeSec);
 
   if (resultCode == AStarAlgorithm<IndexGraphStarter>::Result::NoPath)
     return false;
   CHECK_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::OK, ());
 
   CHECK_GREATER_OR_EQUAL(routeSegs.size(), 2, ());
-  CHECK_EQUAL(routeSegs.front(), starter.GetStartSegment(), ());
-  CHECK_EQUAL(routeSegs.back(), starter.GetFinishSegment(), ());
+  CHECK_EQUAL(routeSegs.front(), starter->GetStartSegment(), ());
+  CHECK_EQUAL(routeSegs.back(), starter->GetFinishSegment(), ());
 
   // We are not interested in the fake start and finish.
   pathEdges.resize(routeSegs.size() - 2);
@@ -151,7 +155,7 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
   for (size_t i = 1; i + 1 < routeSegs.size(); ++i)
   {
     auto seg = routeSegs[i];
-    if (!starter.ConvertToReal(seg))
+    if (!starter->ConvertToReal(seg))
       continue;
 
     auto const it = builder.m_segmentToEdge.find(seg);
@@ -375,5 +379,18 @@ void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopol
   TEST(my::AlmostEqualAbs(pathWeight, expectedWeight, kEpsilon),
        (pathWeight, expectedWeight, pathEdges));
   TEST_EQUAL(pathEdges, expectedEdges, ());
+}
+
+FakeEnding MakeFakeEnding(uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point,
+                          WorldGraph & graph)
+{
+  return MakeFakeEnding(Segment(kTestNumMwmId, featureId, segmentIdx, true /* forward */), point,
+                        graph);
+}
+unique_ptr<IndexGraphStarter> MakeStarter(FakeEnding const & start, FakeEnding const & finish,
+                                          WorldGraph & graph)
+{
+  return make_unique<IndexGraphStarter>(start, finish, 0 /* fakeNumerationStart */,
+                                        false /* strictForward */, graph);
 }
 }  // namespace routing_test

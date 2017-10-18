@@ -125,14 +125,12 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_EmptyTrafficColoring)
   TEST(!GetTrafficStash()->Has(kTestNumMwmId), ());
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
-                                    m2::PointD(2.0, -1.0), *graph);
-  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
-                                     m2::PointD(3.0, 3.0), *graph);
-  IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
-                            *graph);
+  auto const start =
+      MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
+  auto starter = MakeStarter(start, finish, *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
-  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
 // Route through XX graph with SpeedGroup::G0 on F3.
@@ -144,14 +142,12 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3)
   SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
-                                    m2::PointD(2.0, -1.0), *graph);
-  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
-                                     m2::PointD(3.0, 3.0), *graph);
-  IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
-                            *graph);
-  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};  
-  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  auto const start =
+      MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
+  auto starter = MakeStarter(start, finish, *graph);
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
+  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
 // Route through XX graph with SpeedGroup::TempBlock on F3.
@@ -163,14 +159,12 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_TempBlockonF3)
   SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
-                                    m2::PointD(2.0, -1.0), *graph);
-  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
-                                     m2::PointD(3.0, 3.0), *graph);
-  IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
-                            *graph);
+  auto const start =
+      MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
+  auto starter = MakeStarter(start, finish, *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
-  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
 // Route through XX graph with SpeedGroup::G0 in reverse direction on F3.
@@ -182,14 +176,12 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3ReverseDir)
   SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
-                                    m2::PointD(2.0, -1.0), *graph);
-  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
-                                     m2::PointD(3.0, 3.0), *graph);
-  IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
-                            *graph);
+  auto const start =
+      MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
+  auto starter = MakeStarter(start, finish, *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
-  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
 // Route through XX graph SpeedGroup::G1 on F3 and F6, SpeedGroup::G4 on F8 and F4.
@@ -207,14 +199,12 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
   SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
-                                    m2::PointD(2.0, -1.0), *graph);
-  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
-                                     m2::PointD(3.0, 3.0), *graph);
-  IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
-                            *graph);
+  auto const start =
+      MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
+  auto starter = MakeStarter(start, finish, *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
-  TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
 // Route through XX graph with changing traffic.
@@ -224,15 +214,13 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
   TEST(!GetTrafficStash()->Has(kTestNumMwmId), ());
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
-  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
-                                    m2::PointD(2.0, -1.0), *graph);
-  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
-                                     m2::PointD(3.0, 3.0), *graph);
-  IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
-                            *graph);
+  auto const start =
+      MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
+  auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
+  auto starter = MakeStarter(start, finish, *graph);
   vector<m2::PointD> const noTrafficGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
   {
-    TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
+    TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
   }
 
   // Heavy traffic (SpeedGroup::G0) on F3.
@@ -242,7 +230,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
   SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloringHeavyF3));
   {
     vector<m2::PointD> const heavyF3Geom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
-    TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, heavyF3Geom);
+    TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, heavyF3Geom);
   }
 
   // Overloading traffic jam on F3. Middle traffic (SpeedGroup::G3) on F1, F3, F4, F7 and F8.
@@ -259,7 +247,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
        SpeedGroup::G3}};
   SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloringMiddleF1F3F4F7F8));
   {
-    TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
+    TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
   }
 }
 }  // namespace

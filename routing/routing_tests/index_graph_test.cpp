@@ -40,11 +40,10 @@ using TestEdge = TestIndexGraphTopology::Edge;
 void TestRoute(FakeEnding const & start, FakeEnding const & finish, size_t expectedLength,
                vector<Segment> const * expectedRoute, WorldGraph & graph)
 {
-  IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
-                            graph);
+  auto starter = MakeStarter(start, finish, graph);
   vector<Segment> route;
   double timeSec;
-  auto const resultCode = CalculateRoute(starter, route, timeSec);
+  auto const resultCode = CalculateRoute(*starter, route, timeSec);
   TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::OK, ());
 
   TEST_GREATER(route.size(), 2, ());
@@ -53,7 +52,7 @@ void TestRoute(FakeEnding const & start, FakeEnding const & finish, size_t expec
   for (auto const & s : route)
   {
     auto real = s;
-    if (!starter.ConvertToReal(real))
+    if (!starter->ConvertToReal(real))
       continue;
     noFakeRoute.push_back(real);
   }
@@ -198,10 +197,9 @@ UNIT_TEST(FindPathCross)
   vector<FakeEnding> endPoints;
   for (uint32_t i = 0; i < 4; ++i)
   {
-    endPoints.push_back(MakeFakeEnding(Segment(kTestNumMwmId, 0, i, true /* forward */),
+    endPoints.push_back(MakeFakeEnding(0 /* featureId */, i /* segmentIdx */,
                                        m2::PointD(-1.5 + i, 0.0), *worldGraph));
-    endPoints.push_back(MakeFakeEnding(Segment(kTestNumMwmId, 1, i, true /* forward */),
-                                       m2::PointD(0.0, -1.5 + i), *worldGraph));
+    endPoints.push_back(MakeFakeEnding(1, i, m2::PointD(0.0, -1.5 + i), *worldGraph));
   }
 
   for (auto const & start : endPoints)
@@ -277,12 +275,10 @@ UNIT_TEST(FindPathManhattan)
   {
     for (uint32_t segmentId = 0; segmentId < kCitySize - 1; ++segmentId)
     {
-      endPoints.push_back(
-          MakeFakeEnding(Segment(kTestNumMwmId, featureId, segmentId, true /* forward */),
-                         m2::PointD(0.5 + segmentId, featureId), *worldGraph));
-      endPoints.push_back(MakeFakeEnding(
-          Segment(kTestNumMwmId, featureId + kCitySize, segmentId, true /* forward */),
-          m2::PointD(featureId, 0.5 + segmentId), *worldGraph));
+      endPoints.push_back(MakeFakeEnding(featureId, segmentId,
+                                         m2::PointD(0.5 + segmentId, featureId), *worldGraph));
+      endPoints.push_back(MakeFakeEnding(featureId + kCitySize, segmentId,
+                                         m2::PointD(featureId, 0.5 + segmentId), *worldGraph));
     }
   }
 
@@ -370,10 +366,9 @@ UNIT_TEST(RoadSpeed)
 
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
 
-  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, true /* forward */),
-                                    m2::PointD(0.5, 0), *worldGraph);
-  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 1, 3, true /* forward */),
-                                     m2::PointD(5.5, 0), *worldGraph);
+  auto const start =
+      MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(0.5, 0), *worldGraph);
+  auto const finish = MakeFakeEnding(1, 3, m2::PointD(5.5, 0), *worldGraph);
 
   vector<Segment> const expectedRoute({{kTestNumMwmId, 1, 0, true},
                                        {kTestNumMwmId, 0, 0, true},
@@ -441,16 +436,14 @@ UNIT_TEST(OneSegmentWayBackward)
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, vector<Joint>());
 
-  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, true /* forward */),
-                                    m2::PointD(2, 0), *worldGraph);
-  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, true /* forward */),
-                                     m2::PointD(1, 0), *worldGraph);
+  auto const start =
+      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *worldGraph);
+  auto const finish = MakeFakeEnding(0, 0, m2::PointD(1, 0), *worldGraph);
 
-  IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
-                            *worldGraph);
+  auto starter = MakeStarter(start, finish, *worldGraph);
   vector<Segment> route;
   double timeSec;
-  auto const resultCode = CalculateRoute(starter, route, timeSec);
+  auto const resultCode = CalculateRoute(*starter, route, timeSec);
   TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::NoPath, ());
 }
 
@@ -490,9 +483,8 @@ UNIT_TEST(FakeSegmentCoordinates)
       auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, finishIsForward),
                                          m2::PointD(3, 0), *worldGraph);
 
-      IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */,
-                                false /* strictForward */, *worldGraph);
-      TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+      auto starter = MakeStarter(start, finish, *worldGraph);
+      TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
     }
   }
 }
@@ -513,7 +505,7 @@ UNIT_TEST(FakeEndingAStarInvariant)
   loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
                   RoadGeometry::Points({{0.0, 0.0}, {8.0, 0.0}}));
   loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({{8.0, 0.0}, {8.0, 1.0/1000.0}}));
+                  RoadGeometry::Points({{8.0, 0.0}, {8.0, 1.0 / 1000.0}}));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0 /* featureId */, 1 /* pointId */}, {1, 0}}));
@@ -524,10 +516,9 @@ UNIT_TEST(FakeEndingAStarInvariant)
   vector<Segment> const expectedRoute(
       {{kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}});
 
-  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, true /* forward */),
-                                    m2::PointD(1, 1), *worldGraph);
-  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, true /* forward */),
-                                     m2::PointD(2, 1), *worldGraph);
+  auto const start =
+      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(1, 1), *worldGraph);
+  auto const finish = MakeFakeEnding(0, 0, m2::PointD(2, 1), *worldGraph);
 
   TestRoute(start, finish, expectedRoute.size(), &expectedRoute, *worldGraph);
 }
@@ -656,10 +647,9 @@ unique_ptr<SingleVehicleWorldGraph> BuildLoopGraph()
 UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
 {
   Init(BuildLoopGraph());
-  auto start = MakeFakeEnding(Segment(kTestNumMwmId, 1, 0 /* seg id */, true /* forward */),
-                              m2::PointD(0.0002, 0), *m_graph);
-  auto finish = MakeFakeEnding(Segment(kTestNumMwmId, 2, 0 /* seg id */, true /* forward */),
-                               m2::PointD(0.00005, 0.0004), *m_graph);
+  auto start =
+      MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(0.0002, 0), *m_graph);
+  auto finish = MakeFakeEnding(2, 0, m2::PointD(0.00005, 0.0004), *m_graph);
 
   vector<Segment> const expectedRoute = {{kTestNumMwmId, 1, 0, true},  {kTestNumMwmId, 0, 0, true},
                                          {kTestNumMwmId, 0, 1, true},  {kTestNumMwmId, 0, 8, false},

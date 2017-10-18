@@ -42,12 +42,7 @@ struct RestrictionTest
 {
   RestrictionTest() { classificator::Load(); }
   void Init(unique_ptr<SingleVehicleWorldGraph> graph) { m_graph = move(graph); }
-  void SetStarter(FakeEnding const & start, FakeEnding const & finish)
-  {
-    m_starter = make_unique<IndexGraphStarter>(start, finish, 0 /* fakeNumerationStart */,
-                                               false /* strictForward */, *m_graph);
-  }
-
+  void SetStarter(FakeEnding const & start, FakeEnding const & finish);
   void SetRestrictions(RestrictionVec && restrictions)
   {
     m_graph->GetIndexGraphForTests(kTestNumMwmId).SetRestrictions(move(restrictions));
@@ -216,4 +211,12 @@ void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopol
                        TestIndexGraphTopology::Vertex to, bool expectedPathFound,
                        double const expectedWeight,
                        vector<TestIndexGraphTopology::Edge> const & expectedEdges);
+
+// Creates FakeEnding projected to |Segment(kTestNumMwmId, featureId, segmentIdx, true /* forward
+// */)|.
+FakeEnding MakeFakeEnding(uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point,
+                          WorldGraph & graph);
+
+std::unique_ptr<IndexGraphStarter> MakeStarter(FakeEnding const & start, FakeEnding const & finish,
+                                               WorldGraph & graph);
 }  // namespace routing_test
