@@ -13294,6 +13294,8 @@ cont {
     lines {
       width: 5.8
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -13330,6 +13332,8 @@ cont {
     lines {
       width: 7.8
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -13366,6 +13370,8 @@ cont {
     lines {
       width: 9.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -14306,12 +14312,16 @@ cont {
     lines {
       width: 6.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14342,12 +14352,16 @@ cont {
     lines {
       width: 7.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14378,12 +14392,16 @@ cont {
     lines {
       width: 9.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14413,12 +14431,16 @@ cont {
     lines {
       width: 12.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 12.8
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14448,12 +14470,16 @@ cont {
     lines {
       width: 19.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 21.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14483,12 +14509,16 @@ cont {
     lines {
       width: 26.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -14518,12 +14548,16 @@ cont {
     lines {
       width: 32.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 34.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15211,12 +15245,16 @@ cont {
     lines {
       width: 3.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15247,12 +15285,16 @@ cont {
     lines {
       width: 4.8
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 5.6
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15282,12 +15324,16 @@ cont {
     lines {
       width: 6.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.8
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15317,12 +15363,16 @@ cont {
     lines {
       width: 10.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 12.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15352,12 +15402,16 @@ cont {
     lines {
       width: 14.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -15387,12 +15441,16 @@ cont {
     lines {
       width: 17.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 19.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17024,6 +17082,8 @@ cont {
     lines {
       width: 5.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -17060,6 +17120,8 @@ cont {
     lines {
       width: 7.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -17096,6 +17158,8 @@ cont {
     lines {
       width: 9.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -17445,6 +17509,8 @@ cont {
     lines {
       width: 1.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
@@ -17464,12 +17530,16 @@ cont {
     lines {
       width: 3.2
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 3.6
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17497,12 +17567,16 @@ cont {
     lines {
       width: 4.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17529,12 +17603,16 @@ cont {
     lines {
       width: 5.2
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17561,12 +17639,16 @@ cont {
     lines {
       width: 6.4
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17593,12 +17675,16 @@ cont {
     lines {
       width: 8.4
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -17625,12 +17711,16 @@ cont {
     lines {
       width: 10.4
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 11.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18212,12 +18302,16 @@ cont {
     lines {
       width: 6.4
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18248,12 +18342,16 @@ cont {
     lines {
       width: 8.4
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18283,12 +18381,16 @@ cont {
     lines {
       width: 9.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18318,12 +18420,16 @@ cont {
     lines {
       width: 15.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 17.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18353,12 +18459,16 @@ cont {
     lines {
       width: 22.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18388,12 +18498,16 @@ cont {
     lines {
       width: 28.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -18974,12 +19088,16 @@ cont {
     lines {
       width: 6.4
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -19010,12 +19128,16 @@ cont {
     lines {
       width: 8.4
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -19045,12 +19167,16 @@ cont {
     lines {
       width: 9.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -19080,12 +19206,16 @@ cont {
     lines {
       width: 15.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 17.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -19115,12 +19245,16 @@ cont {
     lines {
       width: 22.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -19150,12 +19284,16 @@ cont {
     lines {
       width: 28.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20108,12 +20246,16 @@ cont {
     lines {
       width: 3.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20144,12 +20286,16 @@ cont {
     lines {
       width: 6.4
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20179,12 +20325,16 @@ cont {
     lines {
       width: 8.8
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.6
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20214,12 +20364,16 @@ cont {
     lines {
       width: 13.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 15.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20249,12 +20403,16 @@ cont {
     lines {
       width: 20.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20284,12 +20442,16 @@ cont {
     lines {
       width: 26.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20800,12 +20962,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20828,12 +20994,16 @@ cont {
     lines {
       width: 12.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 12.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20856,12 +21026,16 @@ cont {
     lines {
       width: 18.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 18.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -20884,12 +21058,16 @@ cont {
     lines {
       width: 24.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 24.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21349,12 +21527,16 @@ cont {
     lines {
       width: 6.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.8
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21385,12 +21567,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.8
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21420,12 +21606,16 @@ cont {
     lines {
       width: 9.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21455,12 +21645,16 @@ cont {
     lines {
       width: 15.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 17.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21490,12 +21684,16 @@ cont {
     lines {
       width: 22.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21525,12 +21723,16 @@ cont {
     lines {
       width: 28.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21913,12 +22115,16 @@ cont {
     lines {
       width: 6.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.8
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21934,12 +22140,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.8
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21954,12 +22164,16 @@ cont {
     lines {
       width: 9.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -21982,12 +22196,16 @@ cont {
     lines {
       width: 15.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 17.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22010,12 +22228,16 @@ cont {
     lines {
       width: 22.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22038,12 +22260,16 @@ cont {
     lines {
       width: 28.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22351,12 +22577,16 @@ cont {
     lines {
       width: 3.2
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 3.6
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22379,12 +22609,16 @@ cont {
     lines {
       width: 4.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22407,12 +22641,16 @@ cont {
     lines {
       width: 6.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22435,12 +22673,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22600,12 +22842,16 @@ cont {
     lines {
       width: 3.2
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 3.6
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22628,12 +22874,16 @@ cont {
     lines {
       width: 4.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22656,12 +22906,16 @@ cont {
     lines {
       width: 6.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -22684,12 +22938,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23524,12 +23782,16 @@ cont {
     lines {
       width: 3.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23560,12 +23822,16 @@ cont {
     lines {
       width: 6.4
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23595,12 +23861,16 @@ cont {
     lines {
       width: 8.8
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.6
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23630,12 +23900,16 @@ cont {
     lines {
       width: 13.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 15.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23665,12 +23939,16 @@ cont {
     lines {
       width: 20.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -23700,12 +23978,16 @@ cont {
     lines {
       width: 26.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -24037,12 +24319,16 @@ cont {
     lines {
       width: 6.4
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -24057,12 +24343,16 @@ cont {
     lines {
       width: 8.8
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 9.6
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -24077,12 +24367,16 @@ cont {
     lines {
       width: 13.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 15.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -24097,12 +24391,16 @@ cont {
     lines {
       width: 20.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -24125,12 +24423,16 @@ cont {
     lines {
       width: 26.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -26619,12 +26921,16 @@ cont {
     lines {
       width: 6.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -26655,12 +26961,16 @@ cont {
     lines {
       width: 7.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -26691,12 +27001,16 @@ cont {
     lines {
       width: 9.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -26726,12 +27040,16 @@ cont {
     lines {
       width: 12.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 12.8
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -26761,12 +27079,16 @@ cont {
     lines {
       width: 19.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 21.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -26796,12 +27118,16 @@ cont {
     lines {
       width: 26.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -26831,12 +27157,16 @@ cont {
     lines {
       width: 32.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 34.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27471,12 +27801,16 @@ cont {
     lines {
       width: 3.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27507,12 +27841,16 @@ cont {
     lines {
       width: 4.8
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 5.6
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27542,12 +27880,16 @@ cont {
     lines {
       width: 6.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.8
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27577,12 +27919,16 @@ cont {
     lines {
       width: 10.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 12.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27612,12 +27958,16 @@ cont {
     lines {
       width: 14.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -27647,12 +27997,16 @@ cont {
     lines {
       width: 17.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 19.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28208,12 +28562,16 @@ cont {
     lines {
       width: 3.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28237,12 +28595,16 @@ cont {
     lines {
       width: 6.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 6.8
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28265,12 +28627,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.8
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28293,12 +28659,16 @@ cont {
     lines {
       width: 13.6
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 15.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28321,12 +28691,16 @@ cont {
     lines {
       width: 20.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -28349,12 +28723,16 @@ cont {
     lines {
       width: 26.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 28.0
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -47046,6 +47424,8 @@ cont {
     }
     lines {
       width: 5.6
+      dashdot {
+      }
       priority: 999
       cap: BUTTCAP
     }
@@ -47063,6 +47443,8 @@ cont {
     }
     lines {
       width: 6.0
+      dashdot {
+      }
       priority: 999
       cap: BUTTCAP
     }
@@ -47080,6 +47462,8 @@ cont {
     }
     lines {
       width: 6.0
+      dashdot {
+      }
       priority: 999
       cap: BUTTCAP
     }
@@ -47097,6 +47481,8 @@ cont {
     }
     lines {
       width: 6.0
+      dashdot {
+      }
       priority: 999
       cap: BUTTCAP
     }
@@ -47822,6 +48208,8 @@ cont {
     lines {
       width: 4.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -47837,6 +48225,8 @@ cont {
     lines {
       width: 4.4
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -47851,12 +48241,16 @@ cont {
     lines {
       width: 5.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 5.4
       color: 4473924
+      dashdot {
+      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -47880,12 +48274,16 @@ cont {
     lines {
       width: 6.8
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
+      dashdot {
+      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -47909,12 +48307,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
+      dashdot {
+      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -47938,12 +48340,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
+      dashdot {
+      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -48504,6 +48910,8 @@ cont {
     }
     lines {
       width: 5.6
+      dashdot {
+      }
       priority: 999
       cap: BUTTCAP
     }
@@ -48521,6 +48929,8 @@ cont {
     }
     lines {
       width: 6.0
+      dashdot {
+      }
       priority: 999
       cap: BUTTCAP
     }
@@ -48538,6 +48948,8 @@ cont {
     }
     lines {
       width: 6.0
+      dashdot {
+      }
       priority: 999
       cap: BUTTCAP
     }
@@ -48555,6 +48967,8 @@ cont {
     }
     lines {
       width: 6.0
+      dashdot {
+      }
       priority: 999
       cap: BUTTCAP
     }
@@ -48771,6 +49185,8 @@ cont {
     lines {
       width: 4.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
@@ -48786,6 +49202,8 @@ cont {
     lines {
       width: 4.4
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
@@ -48800,12 +49218,16 @@ cont {
     lines {
       width: 5.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 5.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -48829,12 +49251,16 @@ cont {
     lines {
       width: 6.8
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -48858,12 +49284,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -48887,12 +49317,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1207
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
+      dashdot {
+      }
       priority: 1200
       cap: BUTTCAP
     }
@@ -54970,6 +55404,8 @@ cont {
     lines {
       width: 4.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -54985,6 +55421,8 @@ cont {
     lines {
       width: 4.4
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
@@ -54999,12 +55437,16 @@ cont {
     lines {
       width: 5.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 5.4
       color: 4473924
+      dashdot {
+      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -55028,12 +55470,16 @@ cont {
     lines {
       width: 6.8
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 4473924
+      dashdot {
+      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -55057,12 +55503,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
+      dashdot {
+      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -55086,12 +55536,16 @@ cont {
     lines {
       width: 8.0
       color: 2236945
+      dashdot {
+      }
       priority: 1058
       cap: BUTTCAP
     }
     lines {
       width: 8.4
       color: 4473924
+      dashdot {
+      }
       priority: 1051
       cap: BUTTCAP
     }
@@ -60297,380 +60751,6 @@ cont {
   name: "sponsored-booking"
   element {
     scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15604
-    }
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15611
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15619
-    }
-    apply_if: "extra_tag=tourism=alpine_hut"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15626
-    }
-    apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15634
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15641
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15649
-    }
-    apply_if: "extra_tag=tourism=hotel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15656
-    }
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15664
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15671
-    }
-    apply_if: "extra_tag=tourism=alpine_hut"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15679
-    }
-    apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15686
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15694
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15701
-    }
-    apply_if: "extra_tag=tourism=hotel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=alpine_hut"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=hotel"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15761
-    }
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15768
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15776
-    }
-    apply_if: "extra_tag=tourism=alpine_hut"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15783
-    }
-    apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15791
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15798
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 14
     symbol {
       name: "hotel-s"
       priority: 16805
@@ -60690,317 +60770,11 @@ cont {
   }
   element {
     scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15820
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15828
-    }
-    apply_if: "extra_tag=tourism=alpine_hut"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15835
-    }
-    apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15843
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15850
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15858
-    }
-    apply_if: "extra_tag=tourism=hotel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 14
     symbol {
       name: "zero-icon"
       priority: 16597
-      min_distance: 24
     }
     apply_if: "rating<8"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15604
-    }
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15611
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15619
-    }
-    apply_if: "extra_tag=tourism=alpine_hut"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15626
-    }
-    apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15634
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15641
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15649
-    }
-    apply_if: "extra_tag=tourism=hotel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15656
-    }
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15664
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15671
-    }
-    apply_if: "extra_tag=tourism=alpine_hut"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15679
-    }
-    apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15686
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15694
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15701
-    }
-    apply_if: "extra_tag=tourism=hotel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=7"
   }
   element {
     scale: 15
@@ -61019,48 +60793,6 @@ cont {
       priority: 15813
     }
     apply_if: "extra_tag=tourism=alpine_hut"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=7"
   }
   element {
@@ -61084,209 +60816,14 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15761
-    }
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15768
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15776
-    }
-    apply_if: "extra_tag=tourism=alpine_hut"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15783
-    }
-    apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15791
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15798
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15805
-    }
-    apply_if: "extra_tag=tourism=hotel"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15820
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15828
-    }
-    apply_if: "extra_tag=tourism=alpine_hut"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15835
-    }
-    apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15843
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15850
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15858
-    }
-    apply_if: "extra_tag=tourism=hotel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 15
     symbol {
       name: "zero-icon"
       priority: 16597
-      min_distance: 24
     }
     apply_if: "rating<7"
   }
   element {
     scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15604
-    }
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 16
     symbol {
       name: "apartment-m"
       priority: 16611
@@ -61296,6 +60833,7 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15611
@@ -61343,34 +60881,6 @@ cont {
   }
   element {
     scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15634
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15641
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 16
     symbol {
       name: "hotel-l"
       priority: 16649
@@ -61390,19 +60900,6 @@ cont {
   }
   element {
     scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15656
-    }
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 16
     symbol {
       name: "apartment-m"
       priority: 16664
@@ -61412,6 +60909,7 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15664
@@ -61459,34 +60957,6 @@ cont {
   }
   element {
     scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15686
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15694
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 16
     symbol {
       name: "hotel-l"
       priority: 16701
@@ -61506,19 +60976,6 @@ cont {
   }
   element {
     scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 16
     symbol {
       name: "apartment-m"
       priority: 16813
@@ -61528,6 +60985,7 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15813
@@ -61575,34 +61033,6 @@ cont {
   }
   element {
     scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 16
     symbol {
       name: "hotel-l"
       priority: 16813
@@ -61622,19 +61052,6 @@ cont {
   }
   element {
     scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15761
-    }
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 16
     symbol {
       name: "apartment-m"
       priority: 16768
@@ -61644,6 +61061,7 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15768
@@ -61691,34 +61109,6 @@ cont {
   }
   element {
     scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15791
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15798
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 16
     symbol {
       name: "hotel-l"
       priority: 16805
@@ -61747,6 +61137,7 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15820
@@ -61790,34 +61181,6 @@ cont {
       priority: 15835
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15843
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15850
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=9"
   }
   element {
@@ -61922,24 +61285,12 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15597
     }
     apply_if: "extra_tag=tourism=apartment"
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15604
-    }
-    apply_if: "rating>=5"
   }
   element {
     scale: 17
@@ -61952,6 +61303,7 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15611
@@ -61999,34 +61351,6 @@ cont {
   }
   element {
     scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15634
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15641
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 17
     symbol {
       name: "hotel-l"
       priority: 16649
@@ -62046,19 +61370,6 @@ cont {
   }
   element {
     scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15656
-    }
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 17
     symbol {
       name: "apartment-m"
       priority: 16664
@@ -62068,6 +61379,7 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15664
@@ -62115,34 +61427,6 @@ cont {
   }
   element {
     scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15686
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15694
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 17
     symbol {
       name: "hotel-l"
       priority: 16701
@@ -62162,19 +61446,6 @@ cont {
   }
   element {
     scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 17
     symbol {
       name: "apartment-m"
       priority: 16813
@@ -62184,6 +61455,7 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15813
@@ -62231,34 +61503,6 @@ cont {
   }
   element {
     scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 17
     symbol {
       name: "hotel-l"
       priority: 16813
@@ -62278,19 +61522,6 @@ cont {
   }
   element {
     scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15761
-    }
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 17
     symbol {
       name: "apartment-m"
       priority: 16768
@@ -62300,6 +61531,7 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15768
@@ -62347,34 +61579,6 @@ cont {
   }
   element {
     scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15791
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15798
-    }
-    apply_if: "extra_tag=tourism=resort"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 17
     symbol {
       name: "hotel-l"
       priority: 16805
@@ -62403,6 +61607,7 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15820
@@ -62446,34 +61651,6 @@ cont {
       priority: 15835
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15843
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15850
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=9"
   }
   element {
@@ -62578,6 +61755,7 @@ cont {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15597
@@ -62586,28 +61764,16 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "apartment-l"
+      priority: 16611
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15604
-    }
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "apartment-l"
-      priority: 16611
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
         offset_y: 1
       }
       priority: 15611
@@ -62639,7 +61805,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16626
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -62651,34 +61817,6 @@ cont {
       priority: 15626
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15634
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15641
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=5"
   }
   element {
@@ -62702,28 +61840,16 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "apartment-l"
+      priority: 16664
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15656
-    }
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "apartment-l"
-      priority: 16664
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
         offset_y: 1
       }
       priority: 15664
@@ -62755,7 +61881,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16679
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -62767,34 +61893,6 @@ cont {
       priority: 15679
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15686
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15694
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=6"
   }
   element {
@@ -62818,28 +61916,16 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "apartment-l"
+      priority: 16813
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "apartment-l"
-      priority: 16813
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
         offset_y: 1
       }
       priority: 15813
@@ -62871,7 +61957,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16813
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -62883,34 +61969,6 @@ cont {
       priority: 15813
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=7"
   }
   element {
@@ -62934,28 +61992,16 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "apartment-l"
+      priority: 16768
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15761
-    }
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "apartment-l"
-      priority: 16768
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
         offset_y: 1
       }
       priority: 15768
@@ -62987,7 +62033,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16783
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -62999,34 +62045,6 @@ cont {
       priority: 15783
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15791
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15798
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=8"
   }
   element {
@@ -63053,12 +62071,13 @@ cont {
     symbol {
       name: "apartment-l"
       priority: 16820
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15820
@@ -63090,7 +62109,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16835
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -63102,34 +62121,6 @@ cont {
       priority: 15835
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15843
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15850
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=9"
   }
   element {
@@ -63192,7 +62183,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16597
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -63210,7 +62201,7 @@ cont {
     symbol {
       name: "alpine_hut-l"
       priority: 16597
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -63228,12 +62219,13 @@ cont {
     symbol {
       name: "apartment-l"
       priority: 16597
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15597
@@ -63242,28 +62234,16 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "apartment-l"
+      priority: 16611
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15604
-    }
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "apartment-l"
-      priority: 16611
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
         offset_y: 1
       }
       priority: 15611
@@ -63295,7 +62275,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16626
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -63307,34 +62287,6 @@ cont {
       priority: 15626
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15634
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=5"
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15641
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=5"
   }
   element {
@@ -63358,28 +62310,16 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "apartment-l"
+      priority: 16664
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15656
-    }
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "apartment-l"
-      priority: 16664
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
         offset_y: 1
       }
       priority: 15664
@@ -63411,7 +62351,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16679
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -63423,34 +62363,6 @@ cont {
       priority: 15679
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15686
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=6"
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15694
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=6"
   }
   element {
@@ -63474,28 +62386,16 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "apartment-l"
+      priority: 16813
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "apartment-l"
-      priority: 16813
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
         offset_y: 1
       }
       priority: 15813
@@ -63527,7 +62427,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16813
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -63539,34 +62439,6 @@ cont {
       priority: 15813
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=7"
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15813
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=7"
   }
   element {
@@ -63590,28 +62462,16 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "apartment-l"
+      priority: 16768
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15761
-    }
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "apartment-l"
-      priority: 16768
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
         offset_y: 1
       }
       priority: 15768
@@ -63643,7 +62503,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16783
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -63655,34 +62515,6 @@ cont {
       priority: 15783
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15791
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=8"
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15798
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=8"
   }
   element {
@@ -63709,12 +62541,13 @@ cont {
     symbol {
       name: "apartment-l"
       priority: 16820
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15820
@@ -63746,7 +62579,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16835
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -63758,34 +62591,6 @@ cont {
       priority: 15835
     }
     apply_if: "extra_tag=tourism=hostel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15843
-    }
-    apply_if: "extra_tag=tourism=motel"
-    apply_if: "rating>=9"
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        stroke_color: 856756497
-        offset_y: 1
-      }
-      priority: 15850
-    }
-    apply_if: "extra_tag=tourism=resort"
     apply_if: "rating>=9"
   }
   element {
@@ -63848,7 +62653,7 @@ cont {
     symbol {
       name: "hostel-l"
       priority: 16597
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -63866,7 +62671,7 @@ cont {
     symbol {
       name: "alpine_hut-l"
       priority: 16597
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -63884,12 +62689,13 @@ cont {
     symbol {
       name: "apartment-l"
       priority: 16597
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
         height: 10
         color: 5592405
+        stroke_color: 856756497
         offset_y: 1
       }
       priority: 15597
