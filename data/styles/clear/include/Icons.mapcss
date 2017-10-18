@@ -3169,8 +3169,8 @@ area|z18-[sponsored=cian]
 {font-size: 11;}
 
 
-node|z16-[sponsored=thor],
-area|z16-[sponsored=thor]
+node|z16-[sponsored=thor][rating=1],
+area|z16-[sponsored=thor][rating=1]
 {icon-image: portal-l.svg;}
 
 node|z16-[sponsored=thor][rating=2],
