@@ -214,6 +214,7 @@ DeserializerFromJson::DeserializerFromJson(json_struct_t * node,
                                            shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIds)
   : m_node(node), m_osmIdToFeatureIds(osmIdToFeatureIds)
 {
+  CHECK(m_osmIdToFeatureIds, ());
 }
 
 void BuildTransit(string const & mwmPath, string const & osmIdsToFeatureIdPath,

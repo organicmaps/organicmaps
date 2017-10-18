@@ -17,12 +17,13 @@ using namespace std;
 namespace
 {
 template <typename Obj>
-void TestDeserializerFromJson(string const & jsonBuffer, string const & name, vector<Obj> const & expected)
+void TestDeserializerFromJson(string const & jsonBuffer, shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIds,
+                              string const & name, vector<Obj> const & expected)
 {
   my::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json."));
 
-  DeserializerFromJson deserializer(root.get(), make_shared<OsmIdToFeatureIdsMap>());
+  DeserializerFromJson deserializer(root.get(), osmIdToFeatureIds);
 
   vector<Obj> objects;
   deserializer(objects, name.c_str());
@@ -43,7 +44,7 @@ UNIT_TEST(DeserializerFromJson_TitleAnchors)
 
   vector<TitleAnchor> expected = {TitleAnchor(11 /* min zoom */, 4 /* anchor */),
                                   TitleAnchor(14 /* min zoom */, 6 /* anchor */)};
-  TestDeserializerFromJson(jsonBuffer, "title_anchors", expected);
+  TestDeserializerFromJson(jsonBuffer, make_shared<OsmIdToFeatureIdsMap>(), "title_anchors", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Stops)
@@ -56,7 +57,7 @@ UNIT_TEST(DeserializerFromJson_Stops)
         19207936,
         19207937
       ],
-      "osm_id": 1234,
+      "osm_id": "1234",
       "point": {
         "x": 27.4970954,
         "y": 64.20146835878187
@@ -70,7 +71,7 @@ UNIT_TEST(DeserializerFromJson_Stops)
         19213568,
         19213569
       ],
-      "osm_id": 2345,
+      "osm_id": "2345",
       "point": {
         "x": 27.5227942,
         "y": 64.25206634443111
@@ -82,14 +83,17 @@ UNIT_TEST(DeserializerFromJson_Stops)
   ]})";
 
   vector<Stop> const expected = {
-      Stop(343259523 /* id */, 1234 /* featureId */, kInvalidTransferId /* transfer id */,
+      Stop(343259523 /* id */, 1 /* featureId */, kInvalidTransferId /* transfer id */,
            {19207936, 19207937} /* lineIds */, {27.4970954, 64.20146835878187} /* point */,
            {} /* anchors */),
-      Stop(266680843 /* id */, 2345 /* featureId */, 5 /* transfer id */,
+      Stop(266680843 /* id */, 2 /* featureId */, 5 /* transfer id */,
            {19213568, 19213569} /* lineIds */, {27.5227942, 64.25206634443111} /* point */,
            {TitleAnchor(12 /* min zoom */, 0 /* anchor */), TitleAnchor(15, 9)})};
 
-  TestDeserializerFromJson(jsonBuffer, "stops", expected);
+  auto mapping = make_shared<OsmIdToFeatureIdsMap>();
+  (*mapping)[osm::Id(1234)] = vector<FeatureId>({1});
+  (*mapping)[osm::Id(2345)] = vector<FeatureId>({2});
+  TestDeserializerFromJson(jsonBuffer, mapping, "stops", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Gates)
@@ -100,7 +104,7 @@ UNIT_TEST(DeserializerFromJson_Gates)
     {
       "entrance": true,
       "exit": true,
-      "osm_id": 46116860,
+      "osm_id": "46116860",
       "point": {
         "x": 43.8594864,
         "y": 68.33320554776377
@@ -111,7 +115,7 @@ UNIT_TEST(DeserializerFromJson_Gates)
     {
       "entrance": true,
       "exit": true,
-      "osm_id": 46116861,
+      "osm_id": "46116861",
       "point": {
         "x": 43.9290544,
         "y": 68.41120791512581
@@ -122,12 +126,15 @@ UNIT_TEST(DeserializerFromJson_Gates)
   ]})";
 
   vector<Gate> const expected = {
-      Gate(46116860 /* feature id */, true /* entrance */, true /* exit */, 60.0 /* weight */,
+      Gate(0 /* feature id */, true /* entrance */, true /* exit */, 60.0 /* weight */,
            {442018474} /* stop ids */, {43.8594864, 68.33320554776377} /* point */),
-      Gate(46116861 /* feature id */, true /* entrance */, true /* exit */, 60.0 /* weight */,
+      Gate(2 /* feature id */, true /* entrance */, true /* exit */, 60.0 /* weight */,
            {442018465} /* stop ids */, {43.9290544, 68.41120791512581} /* point */)};
 
-  TestDeserializerFromJson(jsonBuffer, "gates", expected);
+  auto mapping = make_shared<OsmIdToFeatureIdsMap>();
+  (*mapping)[osm::Id(46116860)] = vector<FeatureId>({0});
+  (*mapping)[osm::Id(46116861)] = vector<FeatureId>({2});
+  TestDeserializerFromJson(jsonBuffer, mapping, "gates", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Edges)
@@ -158,7 +165,7 @@ UNIT_TEST(DeserializerFromJson_Edges)
     Edge(442018445 /* stop 1 id */, 442018446 /* stop 2 id */, 345.6 /* weight */,
          72551680 /* line id */,  false /* transfer */, {} /* shape ids */)};
 
-  TestDeserializerFromJson(jsonBuffer, "edges", expected);
+  TestDeserializerFromJson(jsonBuffer, make_shared<OsmIdToFeatureIdsMap>(), "edges", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Transfers)
@@ -183,7 +190,7 @@ UNIT_TEST(DeserializerFromJson_Transfers)
       Transfer(922337203 /* stop id */, {27.5619844, 64.24325959173672} /* point */,
                {209186416, 277039518} /* stopIds */, {} /* anchors */)};
 
-  TestDeserializerFromJson(jsonBuffer, "transfers", expected);
+  TestDeserializerFromJson(jsonBuffer, make_shared<OsmIdToFeatureIdsMap>(), "transfers", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Lines)
@@ -231,7 +238,7 @@ UNIT_TEST(DeserializerFromJson_Lines)
                                       {246659391, 246659390, 209191855, 209191854, 209191853,
                                        209191852, 209191851} /* stop ids */)};
 
-  TestDeserializerFromJson(jsonBuffer, "lines", expected);
+  TestDeserializerFromJson(jsonBuffer, make_shared<OsmIdToFeatureIdsMap>(), "lines", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Shapes)
@@ -288,7 +295,7 @@ UNIT_TEST(DeserializerFromJson_Shapes)
                                   {m2::PointD(27.554025800000002, 64.250591911669844),
                                    m2::PointD(27.553906184631536, 64.250633404586054)} /* polyline */)};
 
-  TestDeserializerFromJson(jsonBuffer, "shapes", expected);
+  TestDeserializerFromJson(jsonBuffer, make_shared<OsmIdToFeatureIdsMap>(), "shapes", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Networks)
@@ -303,6 +310,6 @@ UNIT_TEST(DeserializerFromJson_Networks)
   ]})";
 
   vector<Network> const expected = {Network(2 /* network id */, "Минский метрополитен" /* title */)};
-  TestDeserializerFromJson(jsonBuffer, "networks", expected);
+  TestDeserializerFromJson(jsonBuffer, make_shared<OsmIdToFeatureIdsMap>(), "networks", expected);
 }
 }  // namespace

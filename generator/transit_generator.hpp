@@ -7,10 +7,12 @@
 #include "geometry/point2d.hpp"
 
 #include "base/macros.hpp"
+#include "base/string_utils.hpp"
 
 #include "3party/jansson/myjansson.hpp"
 
 #include <cstdint>
+#include <cstring>
 #include <map>
 #include <memory>
 #include <string>
@@ -32,7 +34,24 @@ public:
   typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value || std::is_same<T, double>::value>::type
       operator()(T & t, char const * name = nullptr)
   {
-    GetField(t, name);
+    if (name == nullptr || strcmp(name, "osm_id") != 0)
+    {
+      GetField(t, name);
+      return;
+    }
+
+    // Conversion osm id to feature id.
+    std::string osmIdStr;
+    GetField(osmIdStr, name);
+    CHECK(strings::is_number(osmIdStr), ());
+    uint64_t osmIdNum;
+    CHECK(strings::to_uint64(osmIdStr.c_str(), osmIdNum), ());
+    osm::Id const osmId(osmIdNum);
+    auto const it = m_osmIdToFeatureIds->find(osm::Id(osmIdNum));
+    CHECK(it != m_osmIdToFeatureIds->cend(), ());
+    CHECK_EQUAL(it->second.size(), 1,
+        ("Osm id:", osmId, "from transit graph doesn't present by a single feature in mwm."));
+    t = static_cast<T>(it->second[0]);
   }
 
   void operator()(std::string & s, char const * name = nullptr) { GetField(s, name); }
