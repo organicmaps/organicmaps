@@ -139,8 +139,8 @@ class TransitGraphBuilder:
     def __read_transfers(self):
         """Reads transfers between stops."""
         for transfer_item in self.input_data['transfers']:
-            transfer_edge = {'stop_1_id': transfer_item[0],
-                             'stop_2_id': transfer_item[1],
+            transfer_edge = {'stop1_id': transfer_item[0],
+                             'stop2_id': transfer_item[1],
                              'weight': transfer_item[2],
                              'transfer': True}
             self.edges.append(transfer_edge)
@@ -179,8 +179,8 @@ class TransitGraphBuilder:
                     for i in range(len(line_stops)):
                         self.stops[line_stops[i]]['line_ids'].append(line_id)
                         if i < len(line_stops) - 1:
-                            edge = {'stop_1_id': line_stops[i],
-                                    'stop_2_id': line_stops[i + 1],
+                            edge = {'stop1_id': line_stops[i],
+                                    'stop2_id': line_stops[i + 1],
                                     'transfer': False,
                                     'line_id': line_id,
                                     'shape_ids': []}
@@ -193,8 +193,8 @@ class TransitGraphBuilder:
         """Merges stops into transfer nodes."""
         for edge in self.edges:
             if edge['transfer']:
-                node1 = self.__get_interchange_node(edge['stop_1_id'])
-                node2 = self.__get_interchange_node(edge['stop_2_id'])
+                node1 = self.__get_interchange_node(edge['stop1_id'])
+                node2 = self.__get_interchange_node(edge['stop2_id'])
                 merged_node = tuple(sorted(set(node1 + node2)))
                 self.interchange_nodes.discard(node1)
                 self.interchange_nodes.discard(node2)
@@ -272,8 +272,8 @@ class TransitGraphBuilder:
         """Assigns a shape to each non-transfer edge."""
         for edge in self.edges:
             if not edge['transfer']:
-                stop1 = self.stops[edge['stop_1_id']]
-                stop2 = self.stops[edge['stop_2_id']]
+                stop1 = self.stops[edge['stop1_id']]
+                stop2 = self.stops[edge['stop2_id']]
                 id1 = stop1.get('transfer_id', stop1['id'])
                 id2 = stop2.get('transfer_id', stop2['id'])
                 seg = tuple(sorted([id1, id2]))
