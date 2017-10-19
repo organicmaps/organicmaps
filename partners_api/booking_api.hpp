@@ -1,10 +1,11 @@
 #pragma once
 
+#include "partners_api/booking_http.hpp"
+
 #include "platform/safe_callback.hpp"
 
 #include <chrono>
 #include <functional>
-#include <memory>
 #include <string>
 #include <vector>
 
@@ -47,34 +48,6 @@ struct HotelInfo
   uint32_t m_scoreCount = 0;
 };
 
-/// Params for checking availability of hotels.
-/// [m_hotelIds], [m_checkin], [m_checkout], [m_rooms] are required.
-struct AvailabilityParams
-{
-  using Time = std::chrono::system_clock::time_point;
-
-  std::vector<std::pair<std::string, std::string>> Get() const;
-
-  /// Limit the result list to the specified hotels where they have availability for the
-  /// specified guests and dates.
-  std::vector<std::string> m_hotelIds;
-  /// The arrival date. Must be within 360 days in the future and in the format yyyy-mm-dd.
-  Time m_checkin;
-  /// The departure date. Must be later than [m_checkin]. Must be between 1 and 30 days after
-  /// [m_checkin]. Must be within 360 days in the future and in the format yyyy-mm-dd.
-  Time m_checkout;
-  /// Each room is s comma separated array of guests to stay in this room where "A" represents an
-  /// adult and an integer represents a child. eg room1=A,A,4 would be a room with 2 adults and 1
-  /// four year-old child. Child age numbers are 0..17.
-  std::vector<std::string> m_rooms;
-  /// Show only hotels with review_score >= that. min_review_score should be in the range 1 to 10.
-  /// Values are rounded down: min_review_score 7.8 will result in properties with review scores
-  /// of 7 and up.
-  double m_minReviewScore = {};
-  /// Limit to hotels with the given number(s) of stars. Supported values 1-5.
-  vector<std::string> m_stars;
-};
-
 class RawApi
 {
 public:
@@ -82,7 +55,7 @@ public:
   static bool GetHotelAvailability(std::string const & hotelId, std::string const & currency, std::string & result);
   static bool GetExtendedInfo(std::string const & hotelId, std::string const & lang, std::string & result);
   // Booking Api v2 methods:
-  static bool HotelAvailability(AvailabilityParams const & params, std::string & result);
+  static bool HotelAvailability(http::AvailabilityParams const & params, std::string & result);
 };
 
 using GetMinPriceCallback = platform::SafeCallback<void(std::string const & hotelId, std::string const & price, std::string const & currency)>;
@@ -104,7 +77,7 @@ public:
   /// These methods use caching server to prevent Booking from being ddossed.
   void GetHotelInfo(std::string const & hotelId, std::string const & lang, GetHotelInfoCallback const & fn);
 
-  void GetHotelAvailability(AvailabilityParams const & params,
+  void GetHotelAvailability(http::AvailabilityParams const & params,
                             GetHotelAvailabilityCallback const & fn);
 };
 

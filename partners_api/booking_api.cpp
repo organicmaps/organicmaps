@@ -1,6 +1,5 @@
 #include "partners_api/booking_api.hpp"
 
-#include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/url_encode.hpp"
@@ -9,10 +8,7 @@
 #include "base/logging.hpp"
 #include "base/thread.hpp"
 
-#include <ctime>
-#include <iomanip>
 #include <iostream>
-#include <iterator>
 #include <sstream>
 #include <utility>
 
@@ -20,8 +16,8 @@
 
 #include "private.h"
 
-using namespace platform;
 using namespace booking;
+using namespace booking::http;
 using namespace std;
 using namespace std::chrono;
 
@@ -35,75 +31,20 @@ string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
 string const kSearchBaseUrl = "https://www.booking.com/search.html";
 string g_BookingUrlForTesting = "";
 
-bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & result)
-{
-  HttpClient request(url);
-
-  if (needAuth)
-    request.SetUserAndPassword(BOOKING_KEY, BOOKING_SECRET);
-
-  if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
-  {
-    result = request.ServerResponse();
-    return true;
-  }
-
-  return false;
-}
-
-string MakeApiUrl(string const & baseUrl, string const & func,
-                  vector<pair<string, string>> const & params)
-{
-  ASSERT_NOT_EQUAL(params.size(), 0, ());
-
-  ostringstream os;
-  if (!g_BookingUrlForTesting.empty())
-    os << g_BookingUrlForTesting << func << "?";
-  else
-    os << baseUrl << func << "?";
-
-  bool firstParam = true;
-  for (auto const & param : params)
-  {
-    if (firstParam)
-    {
-      firstParam = false;
-    }
-    else
-    {
-      os << "&";
-    }
-    os << param.first << "=" << param.second;
-  }
-
-  return os.str();
-}
-
 string MakeApiUrlV1(string const & func, vector<pair<string, string>> const & params)
 {
+  if (!g_BookingUrlForTesting.empty())
+    return MakeApiUrl(g_BookingUrlForTesting, "." + func, params);
+
   return MakeApiUrl(kBookingApiBaseUrlV1, "." + func, params);
 }
 
 string MakeApiUrlV2(string const & func, vector<pair<string, string>> const & params)
 {
+  if (!g_BookingUrlForTesting.empty())
+    return MakeApiUrl(g_BookingUrlForTesting, "/" + func, params);
+
   return MakeApiUrl(kBookingApiBaseUrlV2, "/" + func, params);
-}
-
-std::string FormatTime(system_clock::time_point p)
-{
-  time_t t = duration_cast<seconds>(p.time_since_epoch()).count();
-  ostringstream os;
-  os << put_time(std::gmtime(&t), "%Y-%m-%d");
-  return os.str();
-}
-
-string FormatByComma(vector<string> const & src)
-{
-  ostringstream os;
-  ostream_iterator<string> outIt(os, ",");
-  copy(src.cbegin(), src.cend(), outIt);
-
-  return os.str();
 }
 
 void ClearHotelInfo(HotelInfo & info)
@@ -291,26 +232,6 @@ void FillHotelIds(string const & src, vector<uint64_t> & result)
 
 namespace booking
 {
-vector<pair<string, string>> AvailabilityParams::Get() const
-{
-  vector<pair<string, string>> result;
-
-  result.push_back({"hotel_ids", FormatByComma(m_hotelIds)});
-  result.push_back({"checkin", FormatTime(m_checkin)});
-  result.push_back({"checkout", FormatTime(m_checkout)});
-
-  for (size_t i = 0; i < m_rooms.size(); ++i)
-    result.push_back({"room" + to_string(i+1), m_rooms[i]});
-
-  if (m_minReviewScore != 0.0)
-    result.push_back({"min_review_score", std::to_string(m_minReviewScore)});
-
-  if (!m_stars.empty())
-    result.push_back({"stars", FormatByComma(m_stars)});
-
-  return result;
-}
-
 // static
 bool RawApi::GetHotelAvailability(string const & hotelId, string const & currency, string & result)
 {
@@ -452,7 +373,6 @@ void Api::GetHotelAvailability(AvailabilityParams const & params,
     }
     catch (my::Json::Exception const & e)
     {
-      LOG(LINFO, (httpResult));
       LOG(LERROR, (e.Msg()));
       result.clear();
     }

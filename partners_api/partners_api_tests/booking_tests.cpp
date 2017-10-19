@@ -9,6 +9,8 @@
 #include <chrono>
 
 using namespace partners_api;
+using namespace booking;
+using namespace booking::http;
 
 namespace
 {
@@ -16,7 +18,7 @@ UNIT_TEST(Booking_GetHotelAvailability)
 {
   string const kHotelId = "98251";  // Booking hotel id for testing.
   string result;
-  TEST(booking::RawApi::GetHotelAvailability(kHotelId, "", result), ());
+  TEST(RawApi::GetHotelAvailability(kHotelId, "", result), ());
   TEST(!result.empty(), ());
 }
 
@@ -24,31 +26,31 @@ UNIT_TEST(Booking_GetExtendedInfo)
 {
   string const kHotelId = "0";  // Internal hotel id for testing.
   string result;
-  TEST(booking::RawApi::GetExtendedInfo(kHotelId, "en", result), ());
+  TEST(RawApi::GetExtendedInfo(kHotelId, "en", result), ());
   TEST(!result.empty(), ());
 }
 
 UNIT_TEST(Booking_HotelAvailability)
 {
-  booking::AvailabilityParams params;
+  AvailabilityParams params;
   params.m_hotelIds = {"98251"};
   params.m_rooms = {"A,A"};
   params.m_checkin = std::chrono::system_clock::now() + std::chrono::hours(24);
   params.m_checkout = std::chrono::system_clock::now() + std::chrono::hours(24 * 7);
   params.m_stars = {"4", "5"};
   string result;
-  TEST(booking::RawApi::HotelAvailability(params, result), ());
+  TEST(RawApi::HotelAvailability(params, result), ());
   TEST(!result.empty(), ());
   LOG(LINFO, (result));
 }
 
 UNIT_CLASS_TEST(AsyncGuiThread, Booking_GetMinPrice)
 {
-  booking::SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
-  MY_SCOPE_GUARD(cleanup, []() { booking::SetBookingUrlForTesting(""); });
+  SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
+  MY_SCOPE_GUARD(cleanup, []() { SetBookingUrlForTesting(""); });
 
   string const kHotelId = "0";  // Internal hotel id for testing.
-  booking::Api api;
+  Api api;
   {
     string price;
     string currency;
@@ -110,10 +112,10 @@ UNIT_CLASS_TEST(AsyncGuiThread, Booking_GetMinPrice)
 UNIT_CLASS_TEST(AsyncGuiThread, GetHotelInfo)
 {
   string const kHotelId = "0";  // Internal hotel id for testing.
-  booking::Api api;
-  booking::HotelInfo info;
+  Api api;
+  HotelInfo info;
 
-  api.GetHotelInfo(kHotelId, "en", [&info](booking::HotelInfo const & i)
+  api.GetHotelInfo(kHotelId, "en", [&info](HotelInfo const & i)
   {
     info = i;
     testing::Notify();
@@ -129,16 +131,16 @@ UNIT_CLASS_TEST(AsyncGuiThread, GetHotelInfo)
 
 UNIT_CLASS_TEST(AsyncGuiThread, GetHotelAvailability)
 {
-  booking::SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
-  MY_SCOPE_GUARD(cleanup, []() { booking::SetBookingUrlForTesting(""); });
+  SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
+  MY_SCOPE_GUARD(cleanup, []() { SetBookingUrlForTesting(""); });
 
-  booking::AvailabilityParams params;
+  AvailabilityParams params;
   params.m_hotelIds = {"77615", "10623"};
   params.m_rooms = {"A,A"};
   params.m_checkin = std::chrono::system_clock::now() + std::chrono::hours(24);
   params.m_checkout = std::chrono::system_clock::now() + std::chrono::hours(24 * 7);
   params.m_stars = {"4"};
-  booking::Api api;
+  Api api;
   std::vector<uint64_t> result;
 
   api.GetHotelAvailability(params, [&result](std::vector<uint64_t> const & r)

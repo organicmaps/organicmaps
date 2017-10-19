@@ -12,6 +12,7 @@ SOURCES += \
     ads_base.cpp \
     ads_engine.cpp \
     booking_api.cpp \
+    booking_http.cpp \
     cian_api.cpp \
     facebook_ads.cpp \
     google_ads.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     ads_engine.hpp \
     banner.hpp \
     booking_api.hpp \
+    booking_http.hpp \
     cian_api.hpp \
     facebook_ads.hpp \
     google_ads.hpp \
