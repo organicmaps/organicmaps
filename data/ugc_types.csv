@@ -2,11 +2,9 @@ OSM tag,Rating,Reviews,Details,Rating keys
 aerialway station,1,1,0,rating
 aeroway aerodrome,1,1,1,rating
 aeroway helipad,1,1,0,rating
-amenity,1,1,0,rating
 amenity atm,1,1,1,rating
 amenity bank,1,1,0,quality service value_for_money
 amenity bar,1,1,1,value_for_money service atmosphere
-amenity bench,1,1,0,rating
 amenity bicycle_rental,1,1,0,experience service value_for_money
 amenity bus_station,1,1,0,rating
 amenity cafe,1,1,1,cuisine service atmosphere
@@ -17,7 +15,6 @@ amenity clinic,1,1,0,expertise equipment value_for_money
 amenity college,1,1,0,rating
 amenity dentist,1,1,0,expertise equipment value_for_money
 amenity doctors,1,1,0,expertise equipment value_for_money
-amenity drinking_water,1,1,0,rating
 amenity embassy,1,1,0,quality service value_for_money
 amenity fast_food,1,1,1,cuisine service atmosphere
 amenity ferry_terminal,1,1,0,rating
@@ -34,7 +31,6 @@ amenity pharmacy,1,1,1,assortment service value_for_money
 amenity police,1,1,0,rating
 amenity post_office,1,1,0,quality service value_for_money
 amenity pub,1,1,1,value_for_money service atmosphere
-amenity recycling,1,1,0,rating
 amenity restaurant,1,1,1,cuisine service atmosphere
 amenity school,1,1,0,rating
 amenity shelter,1,1,0,rating
@@ -49,11 +45,7 @@ amenity ice_cream,1,1,1,cuisine service atmosphere
 amenity internet_cafe,1,1,0,quality service value_for_money
 amenity motorcycle_parking,1,1,1,rating
 amenity nursing_home,1,1,0,rating
-amenity payment_terminal,1,1,0,rating
 amenity shower,1,1,0,rating
-amenity water_point,1,1,0,rating
-barrier toll_booth,1,1,0,rating
-boundary administrative,1,1,0,rating
 building,1,1,0,rating
 building train_station,1,1,0,rating
 historic archaeological_site,1,1,0,experience value_for_money
@@ -62,14 +54,8 @@ historic memorial,1,1,0,experience value_for_money
 historic monument,1,1,0,experience value_for_money
 historic museum,1,1,0,experience value_for_money
 historic ruins,1,1,0,experience value_for_money
-hwtag lit,1,1,0,rating
 internet_access,1,1,0,rating
 internet_access wlan,1,1,0,rating
-landuse cemetery,1,1,0,rating
-landuse forest,1,1,0,rating
-landuse industrial,1,1,0,rating
-landuse residential,1,1,0,rating
-landuse retail,1,1,1,assortment service value_for_money
 leisure garden,1,1,0,experience service value_for_money
 leisure golf_course,1,1,0,experience service value_for_money
 leisure nature_reserve,1,1,0,experience value_for_money
@@ -135,7 +121,6 @@ shop chocolate,1,1,1,assortment service value_for_money
 shop computer,1,1,1,assortment service value_for_money
 shop cosmetics,1,1,1,assortment service value_for_money
 shop erotic,1,1,1,assortment service value_for_money
-shop funeral_directors,1,1,0,rating
 shop laundry,1,1,0,quality service value_for_money
 shop massage,1,1,0,experience service value_for_money
 shop motorcycle,1,1,1,assortment service value_for_money
