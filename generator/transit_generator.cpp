@@ -85,7 +85,7 @@ string GetFileName(string const & filePath)
 
 template <class Item>
 void DeserializeFromJson(my::Json const & root, string const & key,
-                         shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIdsMap, vector<Item> & items)
+                         OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, vector<Item> & items)
 {
   items.clear();
   DeserializerFromJson deserializer(root.get(), osmIdToFeatureIdsMap);
@@ -93,7 +93,7 @@ void DeserializeFromJson(my::Json const & root, string const & key,
 }
 
 void DeserializeGatesFromJson(my::Json const & root, string const & mwmDir, string const & countryId,
-                              shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIdsMap, vector<Gate> & gates)
+                              OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, vector<Gate> & gates)
 {
   DeserializeFromJson(root, "gates", osmIdToFeatureIdsMap, gates);
 
@@ -157,7 +157,7 @@ bool IsValid(vector<Item> const & items)
 /// \brief Reads from |root| (json) and serializes an array to |serializer|.
 template <class Item>
 void SerializeObject(my::Json const & root, string const & key,
-                     shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIdsMap, Serializer<FileWriter> & serializer)
+                     OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, Serializer<FileWriter> & serializer)
 {
   vector<Item> items;
   DeserializeFromJson(root, key, osmIdToFeatureIdsMap, items);
@@ -198,6 +198,12 @@ namespace routing
 namespace transit
 {
 // DeserializerFromJson ---------------------------------------------------------------------------
+DeserializerFromJson::DeserializerFromJson(json_struct_t* node,
+                                           OsmIdToFeatureIdsMap const & osmIdToFeatureIds)
+    : m_node(node), m_osmIdToFeatureIds(osmIdToFeatureIds)
+{
+}
+
 void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
 {
   json_t * pointItem = nullptr;
@@ -220,18 +226,11 @@ void DeserializerFromJson::operator()(OsmId & osmId, char const * name)
   uint64_t osmIdNum;
   CHECK(strings::to_uint64(osmIdStr.c_str(), osmIdNum), ());
   osm::Id const id(osmIdNum);
-  auto const it = m_osmIdToFeatureIds->find(id);
-  CHECK(it != m_osmIdToFeatureIds->cend(), ());
+  auto const it = m_osmIdToFeatureIds.find(id);
+  CHECK(it != m_osmIdToFeatureIds.cend(), ());
   CHECK_EQUAL(it->second.size(), 1,
               ("Osm id:", id, "from transit graph doesn't present by a single feature in mwm."));
   osmId = OsmId(it->second[0]);
-}
-
-DeserializerFromJson::DeserializerFromJson(json_struct_t * node,
-                                           shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIds)
-  : m_node(node), m_osmIdToFeatureIds(osmIdToFeatureIds)
-{
-  CHECK(m_osmIdToFeatureIds, ());
 }
 
 void BuildTransit(string const & mwmPath, string const & osmIdsToFeatureIdPath,
@@ -268,17 +267,11 @@ void BuildTransit(string const & mwmPath, string const & osmIdsToFeatureIdPath,
     LOG(LCRITICAL, ("Can't open", graphFullPath, ex.what()));
   }
 
-  // @TODO(bykoianko) If it's necessary to parse an integer jansson parser keeps it in long long value.
-  // It's not good because osm id and stop id are uint64_t. This should be solved before continue writing
-  // transit jansson parsing. According to C++ signed long long is not smaller than long and is at least 64 bits.
-  // So as a variant before saving to json osm id and stop id should be converted to signed long long and
-  // then after reading at generator they should be converted back.
-  // @TODO(bykoianko) |osmId| should be converted to feature id while deserialing from json.
   my::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json file:", graphFullPath));
 
-  auto mapping = make_shared<OsmIdToFeatureIdsMap>();
-  FillOsmIdToFeatureIdMap(osmIdsToFeatureIdPath, *mapping);
+  OsmIdToFeatureIdsMap mapping;
+  FillOsmIdToFeatureIdMap(osmIdsToFeatureIdPath, mapping);
 
   // Note. |gates| has to be deserialized from json before starting writing transit section to mwm since
   // the mwm is used to filled |gates|.

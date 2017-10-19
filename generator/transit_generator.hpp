@@ -14,7 +14,6 @@
 #include <cstdint>
 #include <cstring>
 #include <map>
-#include <memory>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -28,7 +27,7 @@ using OsmIdToFeatureIdsMap = std::map<osm::Id, std::vector<FeatureId>>;
 class DeserializerFromJson
 {
 public:
-  DeserializerFromJson(json_struct_t* node, std::shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIds);
+  DeserializerFromJson(json_struct_t* node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds);
 
   template<typename T>
   typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value || std::is_same<T, double>::value>::type
@@ -89,7 +88,7 @@ private:
   }
 
   json_struct_t * m_node;
-  std::shared_ptr<OsmIdToFeatureIdsMap> m_osmIdToFeatureIds;
+  OsmIdToFeatureIdsMap const & m_osmIdToFeatureIds;
 };
 
 /// \brief Builds the transit section in the mwm.
