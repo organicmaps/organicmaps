@@ -80,11 +80,11 @@ bool TitleAnchor::IsValid() const
 }
 
 // Stop -------------------------------------------------------------------------------------------
-Stop::Stop(StopId id, FeatureId featureId, TransferId transferId,
+Stop::Stop(StopId id, OsmId const & osmId, TransferId transferId,
            std::vector<LineId> const & lineIds, m2::PointD const & point,
            std::vector<TitleAnchor> const & titleAnchors)
   : m_id(id)
-  , m_osmId(featureId)
+  , m_osmId(osmId)
   , m_transferId(transferId)
   , m_lineIds(lineIds)
   , m_point(point)
@@ -123,9 +123,9 @@ bool SingleMwmSegment::IsValid() const
 }
 
 // Gate -------------------------------------------------------------------------------------------
-Gate::Gate(FeatureId featureId, bool entrance, bool exit, double weight,
+Gate::Gate(OsmId const & osmId, bool entrance, bool exit, double weight,
            std::vector<StopId> const & stopIds, m2::PointD const & point)
-  : m_osmId(featureId)
+  : m_osmId(osmId)
   , m_entrance(entrance)
   , m_exit(exit)
   , m_weight(weight)

@@ -59,7 +59,7 @@ Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
 {
   ASSERT(is_sorted(stops.cbegin(), stops.cend(), LessById), ());
   auto s1Id = equal_range(stops.cbegin(), stops.cend(),
-          Stop(stopId, kInvalidFeatureId, kInvalidTransferId, {}, m2::PointD(), {}),
+          Stop(stopId, OsmId(), kInvalidTransferId, {}, m2::PointD(), {}),
           LessById);
   CHECK(s1Id.first != stops.cend(), ("No a stop with id:", stopId, "in stops:", stops));
   CHECK_EQUAL(distance(s1Id.first, s1Id.second), 1, ("A stop with id:", stopId, "is not unique in stops:", stops));

@@ -89,11 +89,11 @@ UNIT_TEST(DeserializerFromJson_Stops)
   ]})";
 
   vector<Stop> const expected = {
-      Stop(343259523 /* id */, 1 /* featureId */, kInvalidTransferId /* transfer id */,
+      Stop(343259523 /* id */, OsmId(1 /* feature id */), kInvalidTransferId /* transfer id */,
            {19207936, 19207937} /* lineIds */, {27.4970954, 64.20146835878187} /* point */,
            {} /* anchors */),
-      Stop(266680843 /* id */, 2 /* featureId */, 5 /* transfer id */,
-           {19213568, 19213569} /* lineIds */, {27.5227942, 64.25206634443111} /* point */,
+      Stop(266680843 /* id */, OsmId(2 /* feature id */), 5 /* transfer id */,
+           {19213568, 19213569} /* line ids */, {27.5227942, 64.25206634443111} /* point */,
            {TitleAnchor(12 /* min zoom */, 0 /* anchor */), TitleAnchor(15, 9)})};
 
   OsmIdToFeatureIdsMap mapping;
@@ -132,9 +132,9 @@ UNIT_TEST(DeserializerFromJson_Gates)
   ]})";
 
   vector<Gate> const expected = {
-      Gate(0 /* feature id */, true /* entrance */, true /* exit */, 60.0 /* weight */,
+      Gate(OsmId(0 /* feature id */), true /* entrance */, true /* exit */, 60.0 /* weight */,
            {442018474} /* stop ids */, {43.8594864, 68.33320554776377} /* point */),
-      Gate(2 /* feature id */, true /* entrance */, true /* exit */, 60.0 /* weight */,
+      Gate(OsmId(2 /* feature id */), true /* entrance */, true /* exit */, 60.0 /* weight */,
            {442018465} /* stop ids */, {43.9290544, 68.41120791512581} /* point */)};
 
   OsmIdToFeatureIdsMap mapping;

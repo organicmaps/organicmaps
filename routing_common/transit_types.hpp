@@ -124,7 +124,7 @@ class Stop
 {
 public:
   Stop() = default;
-  Stop(StopId id, FeatureId featureId, TransferId transferId, std::vector<LineId> const & lineIds,
+  Stop(StopId id, OsmId const & osmId, TransferId transferId, std::vector<LineId> const & lineIds,
        m2::PointD const & point, std::vector<TitleAnchor> const & titleAnchors);
 
   bool IsEqualForTesting(Stop const & stop) const;
@@ -179,7 +179,7 @@ class Gate
 {
 public:
   Gate() = default;
-  Gate(FeatureId featureId, bool entrance, bool exit, double weight, std::vector<StopId> const & stopIds,
+  Gate(OsmId const & osmId, bool entrance, bool exit, double weight, std::vector<StopId> const & stopIds,
        m2::PointD const & point);
   bool IsEqualForTesting(Gate const & gate) const;
   bool IsValid() const;
