@@ -1237,6 +1237,7 @@
 		F69018BC1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */; };
 		F69018BD1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */; };
 		F69018BE1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */; };
+		F69080BE1F98DB2A0017C00C /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */; };
 		F692F3831EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */; };
 		F692F3841EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */; };
 		F69CE8D51E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69CE8D41E5C49B4002B5881 /* PPHotelCarouselCell.swift */; };
@@ -5072,6 +5073,7 @@
 				F6E2FEAE1E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */,
 				F6E2FEB11E097BA00083EBEC /* _MWMPPPSchedule.xib in Resources */,
 				3495433E1EB22DAC00F08F73 /* MPAdBrowserController.xib in Resources */,
+				F69080BE1F98DB2A0017C00C /* AuthorizationViewController.xib in Resources */,
 				F6E2FEB41E097BA00083EBEC /* _MWMPPPSpace.xib in Resources */,
 				F6E2FEB71E097BA00083EBEC /* _MWMPPPSubtitle.xib in Resources */,
 				F6E2FEBA1E097BA00083EBEC /* _MWMPPPTitle.xib in Resources */,
