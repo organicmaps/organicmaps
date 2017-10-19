@@ -51,5 +51,21 @@ UNIT_TEST(UgcTypes_Full)
     TEST(!UGC::IsDetailsAvailable(holder), ());
     ftraits::UGCRatingCategories expected = {};
     TEST_EQUAL(UGC::GetCategories(holder), expected, ());
+
+    holder.Assign(c.GetTypeByPath({"sponsored", "booking"}));
+    holder.Add(c.GetTypeByPath({"amenity", "hospital"}));
+    TEST(!UGC::IsUGCAvailable(holder), ());
+    TEST(!UGC::IsRatingAvailable(holder), ());
+    TEST(!UGC::IsReviewsAvailable(holder), ());
+    TEST(!UGC::IsDetailsAvailable(holder), ());
+    TEST_EQUAL(UGC::GetCategories(holder), expected, ());
+
+    holder.Assign(c.GetTypeByPath({"amenity", "hospital"}));
+    holder.Add(c.GetTypeByPath({"sponsored", "booking"}));
+    TEST(!UGC::IsUGCAvailable(holder), ());
+    TEST(!UGC::IsRatingAvailable(holder), ());
+    TEST(!UGC::IsReviewsAvailable(holder), ());
+    TEST(!UGC::IsDetailsAvailable(holder), ());
+    TEST_EQUAL(UGC::GetCategories(holder), expected, ());
   }
 }

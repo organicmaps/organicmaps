@@ -19,13 +19,18 @@
 
 namespace ftraits
 {
-template <typename Base, typename Value, bool allowDuplications = false>
+template <typename Base, typename Value>
 class TraitsBase
 {
 public:
   static Value GetValue(feature::TypesHolder const & types)
   {
     static Base instance;
+
+    auto const excluded = instance.m_excluded.Find(types);
+    if (instance.m_excluded.IsValid(excluded))
+      return Base::GetEmptyValue();
+
     auto const it = instance.m_matcher.Find(types);
     if (!instance.m_matcher.IsValid(it))
       return Base::GetEmptyValue();
@@ -34,7 +39,8 @@ public:
   }
 
 protected:
-  ftypes::Matcher<std::unordered_map<uint32_t, Value>, allowDuplications> m_matcher;
+  ftypes::HashMapMatcher<uint32_t, Value> m_matcher;
+  ftypes::HashSetMatcher<uint32_t> m_excluded;
 };
 
 enum UGCType
@@ -60,7 +66,7 @@ struct UGCItem
   UGCRatingCategories m_categories;
 };
 
-class UGC : public TraitsBase<UGC, UGCItem, true>
+class UGC : public TraitsBase<UGC, UGCItem>
 {
   friend class TraitsBase;
 
@@ -77,7 +83,12 @@ class UGC : public TraitsBase<UGC, UGCItem, true>
       ASSERT_EQUAL(row.size(), 5, ());
 
       UGCItem item(ReadMasks(row), ParseByWhitespaces(row[kCategoriesPos]));
-      m_matcher.AppendType(ParseByWhitespaces(row[kTypePos]), std::move(item));
+      auto typePath = ParseByWhitespaces(row[kTypePos]);
+
+      if (IsUGCAvailable(item.m_mask))
+        m_matcher.AppendType(std::move(typePath), std::move(item));
+      else
+        m_excluded.AppendType(std::move(typePath));
     });
   }
 
