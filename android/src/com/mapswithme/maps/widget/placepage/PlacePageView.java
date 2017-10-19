@@ -1481,8 +1481,7 @@ public class PlacePageView extends RelativeLayout
       mTvSponsoredPrice.setText(mSponsoredPrice);
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
       UiUtils.showIf((!isRatingEmpty || !isPriceEmpty) &&
-                     mSponsored.getType() != Sponsored.TYPE_THOR &&
-                     mSponsored.getType() != Sponsored.TYPE_HALLOWEEN, mPreviewRatingInfo);
+                     mSponsored.getType() == Sponsored.TYPE_BOOKING, mPreviewRatingInfo);
     }
   }
 

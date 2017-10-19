@@ -146,6 +146,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
   public void clear()
   {
+    UiUtils.hide(mUgcRootView, mLeaveReviewButton, mPreviewUgcInfoView);
     mUGCReviewAdapter.setItems(new ArrayList<UGC.Review>());
     mUGCRatingRecordsAdapter.setItems(new ArrayList<UGC.Rating>());
     mUGCUserRatingRecordsAdapter.setItems(new ArrayList<UGC.Rating>());
@@ -179,16 +180,11 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
   public void getUGC(@NonNull MapObject mapObject)
   {
+    if (!mapObject.shouldShowUGC())
+      return;
+
     mMapObject = mapObject;
-    if (mapObject.shouldShowUGC())
-    {
-      UiUtils.show(mUgcRootView);
-      UGC.requestUGC(mMapObject.getFeatureId());
-    }
-    else
-    {
-      UiUtils.hide(mUgcRootView);
-    }
+    UGC.requestUGC(mMapObject.getFeatureId());
   }
 
   public boolean isLeaveReviewButtonTouched(@NonNull MotionEvent event)
@@ -200,6 +196,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   public void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate, @UGC.Impress int impress,
                             @NonNull String rating)
   {
+    UiUtils.show(mUgcRootView);
     UiUtils.showIf(ugc != null || canUserRate(ugcUpdate) || ugcUpdate != null, mPreviewUgcInfoView);
     UiUtils.showIf(canUserRate(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
     UiUtils.showIf(ugc != null, mSummaryRootView, mUgcMoreReviews);
