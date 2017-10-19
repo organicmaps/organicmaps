@@ -91,5 +91,5 @@ int64_t LoadCountriesFromFile(std::string const & path, TCountryTree & countries
                               TMappingOldMwm * mapping = nullptr);
 
 void LoadCountryFile2CountryInfo(std::string const & jsonBuffer,
-                                 map<std::string, CountryInfo> & id2info, bool & isSingleMwm);
+                                 std::map<std::string, CountryInfo> & id2info, bool & isSingleMwm);
 }  // namespace storage
