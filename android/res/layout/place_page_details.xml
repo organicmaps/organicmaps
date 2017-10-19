@@ -11,11 +11,7 @@
     android:background="?windowBackgroundForced"
     android:orientation="vertical">
 
-    <include
-      layout="@layout/divider_horizontal"
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginBottom="@dimen/margin_half"/>
+    <include layout="@layout/place_page_fat_shadow"/>
 
     <include layout="@layout/place_page_sponsored_gallery"/>
 
@@ -67,37 +63,32 @@
 
       <include layout="@layout/place_page_latlon"/>
 
-      <include layout="@layout/divider_horizontal"/>
-
       <include layout="@layout/place_page_more"/>
 
       <include layout="@layout/place_page_local_ad"/>
     </LinearLayout>
 
     <include
-      android:id="@+id/place_page_taxi_divider"
-      layout="@layout/divider_horizontal"
+      android:id="@+id/place_page_taxi_shadow"
       android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginTop="@dimen/margin_half"/>
+      android:layout_height="wrap_content"
+      layout="@layout/place_page_fat_shadow"/>
+
+    <include
+      android:id="@+id/place_page_taxi_divider"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/divider_height"
+      layout="@layout/divider_horizontal"/>
 
     <include layout="@layout/place_page_taxi"/>
 
     <include layout="@layout/place_page_ugc"/>
 
-    <FrameLayout
+    <include
+      layout="@layout/place_page_fat_shadow"
+      android:id="@+id/edit_top_space"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-      <android.support.v4.widget.Space
-        android:id="@+id/edit_top_space"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_base"/>
-      <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/shadow_card"
-        android:scaleType="fitXY"/>
-    </FrameLayout>
+      android:layout_height="wrap_content"/>
 
     <include layout="@layout/place_page_editor"/>
 

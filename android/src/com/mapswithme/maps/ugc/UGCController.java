@@ -53,6 +53,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   @NonNull
   private final View mUserReviewDivider;
   @NonNull
+  private final View mReviewListDivider;
+  @NonNull
   private final View mSummaryRootView;
   @NonNull
   private final TextView mSummaryReviewCount;
@@ -136,6 +138,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
     mUserReviewView = mPlacePage.findViewById(R.id.rl_user_review);
     mUserReviewView.findViewById(R.id.rating).setVisibility(View.GONE);
+    mReviewListDivider = mPlacePage.findViewById(R.id.ugc_review_list_divider);
     mUserReviewDivider = mPlacePage.findViewById(R.id.user_review_divider);
 
     UGC.setListener(this);
@@ -218,6 +221,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     List<UGC.Review> reviews = ugc.getReviews();
     if (reviews != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
+    UiUtils.showIf(reviews != null, mReviewListDivider);
     UiUtils.showIf(reviews != null && reviews.size() > UGCReviewAdapter.MAX_COUNT, mUgcMoreReviews);
   }
 
@@ -250,7 +254,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
   private void setUserReviewAndRatingsView(@Nullable UGCUpdate update)
   {
-    UiUtils.showIf(update != null, mUserReviewView, mUserReviewDivider, mUserRatingRecordsContainer);
+    UiUtils.showIf(update != null, mUserReviewView, mUserReviewDivider,
+                   mUserRatingRecordsContainer);
     if (update == null)
       return;
     TextView name = (TextView) mUserReviewView.findViewById(R.id.name);
