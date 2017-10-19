@@ -5,9 +5,8 @@
 
 #include "indexer/classificator_loader.hpp"
 
+#include "storage/country.hpp"
 #include "storage/country_info_getter.hpp"
-#include "storage/index.hpp"
-#include "storage/storage.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -18,7 +17,8 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "base/logging.hpp"
+#include "base/assert.hpp"
+#include "base/stl_add.hpp"
 
 #include <boost/python.hpp>
 
@@ -30,24 +30,11 @@
 
 #include "defines.hpp"
 
+using namespace std;
+
 namespace
 {
-// TODO (@y, @m): following code is quite similar to
-// features_collector_tool and search_quality_tool. Need to replace
-// both tools by python scripts that use this library.
-
-void DidDownload(storage::TCountryId const & /* countryId */,
-                 shared_ptr<platform::LocalCountryFile> const & /* localFile */)
-{
-}
-
-bool WillDelete(storage::TCountryId const & /* countryId */,
-                shared_ptr<platform::LocalCountryFile> const & /* localFile */)
-{
-  return false;
-}
-
-unique_ptr<storage::Storage> g_storage;
+unique_ptr<storage::TMappingAffiliations> g_affiliations;
 
 void Init(string const & resource_path, string const & mwm_path)
 {
@@ -66,8 +53,10 @@ void Init(string const & resource_path, string const & mwm_path)
 
   classificator::Load();
 
-  g_storage = make_unique<storage::Storage>(countriesFile, mwm_path);
-  g_storage->Init(&DidDownload, &WillDelete);
+  g_affiliations = my::make_unique<storage::TMappingAffiliations>();
+  storage::TCountryTree countries;
+  auto const rv = storage::LoadCountriesFromFile(countriesFile, countries, *g_affiliations);
+  CHECK(rv != -1, ("Can't load countries from:", countriesFile));
 }
 
 struct Mercator
@@ -152,13 +141,13 @@ struct SearchEngineProxy
 {
   SearchEngineProxy()
   {
-    CHECK(g_storage.get() != nullptr, ("init() was not called."));
+    CHECK(g_affiliations.get(), ("init() was not called."));
     auto & platform = GetPlatform();
     auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(platform);
-    infoGetter->InitAffiliationsInfo(&g_storage->GetAffiliations());
+    infoGetter->InitAffiliationsInfo(&*g_affiliations);
 
     m_engine = make_shared<search::tests_support::TestSearchEngine>(
-        move(infoGetter), make_unique<search::ProcessorFactory>(), search::Engine::Params{});
+        move(infoGetter), my::make_unique<search::ProcessorFactory>(), search::Engine::Params{});
 
     vector<platform::LocalCountryFile> mwms;
     platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,

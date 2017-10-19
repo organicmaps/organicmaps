@@ -3,13 +3,16 @@
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/reader.hpp"
+
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
 #include "3party/jansson/myjansson.hpp"
 
-#include "std/utility.hpp"
+#include <utility>
 
+using namespace std;
 using platform::CountryFile;
 
 namespace storage
@@ -294,8 +297,9 @@ bool LoadCountriesTwoComponentMwmsImpl(string const & jsonBuffer,
   }
 }
 
-int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries,
-                      TMappingAffiliations & affiliations, TMappingOldMwm * mapping /* = nullptr */)
+int64_t LoadCountriesFromBuffer(string const & jsonBuffer, TCountryTree & countries,
+                                TMappingAffiliations & affiliations,
+                                TMappingOldMwm * mapping /* = nullptr */)
 {
   countries.Clear();
   affiliations.clear();
@@ -329,6 +333,14 @@ int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries,
   ss << version;
   GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapVersion, ss.str());
   return version;
+}
+
+int64_t LoadCountriesFromFile(string const & path, TCountryTree & countries,
+                              TMappingAffiliations & affiliations, TMappingOldMwm * mapping)
+{
+  string json;
+  ReaderPtr<Reader>(GetPlatform().GetReader(path)).ReadAsString(json);
+  return LoadCountriesFromBuffer(json, countries, affiliations, mapping);
 }
 
 void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info,

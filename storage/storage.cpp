@@ -12,7 +12,6 @@
 
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/reader.hpp"
 #include "coding/url_encode.hpp"
 
 #include "base/exception.hpp"
@@ -119,7 +118,7 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
   , m_maxMwmSizeBytes(0)
 {
   m_currentVersion =
-      LoadCountries(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations);
+      LoadCountriesFromBuffer(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations);
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
   CalMaxMwmSizeBytes();
 }
@@ -664,9 +663,8 @@ void Storage::LoadCountriesFile(string const & pathToCountriesFile, string const
 
   if (m_countries.IsEmpty())
   {
-    string json;
-    ReaderPtr<Reader>(GetPlatform().GetReader(pathToCountriesFile)).ReadAsString(json);
-    m_currentVersion = LoadCountries(json, m_countries, m_affiliations, mapping);
+    m_currentVersion = LoadCountriesFromFile(pathToCountriesFile, m_countries,
+                                             m_affiliations, mapping);
     LOG_SHORT(LINFO, ("Loaded countries list for version:", m_currentVersion));
     if (m_currentVersion < 0)
       LOG(LERROR, ("Can't load countries file", pathToCountriesFile));
