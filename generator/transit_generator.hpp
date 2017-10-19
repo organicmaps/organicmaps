@@ -34,28 +34,13 @@ public:
   typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value || std::is_same<T, double>::value>::type
       operator()(T & t, char const * name = nullptr)
   {
-    if (name == nullptr || strcmp(name, "osm_id") != 0)
-    {
-      GetField(t, name);
-      return;
-    }
-
-    // Conversion osm id to feature id.
-    std::string osmIdStr;
-    GetField(osmIdStr, name);
-    CHECK(strings::is_number(osmIdStr), ());
-    uint64_t osmIdNum;
-    CHECK(strings::to_uint64(osmIdStr.c_str(), osmIdNum), ());
-    osm::Id const osmId(osmIdNum);
-    auto const it = m_osmIdToFeatureIds->find(osm::Id(osmIdNum));
-    CHECK(it != m_osmIdToFeatureIds->cend(), ());
-    CHECK_EQUAL(it->second.size(), 1,
-        ("Osm id:", osmId, "from transit graph doesn't present by a single feature in mwm."));
-    t = static_cast<T>(it->second[0]);
+    GetField(t, name);
+    return;
   }
 
   void operator()(std::string & s, char const * name = nullptr) { GetField(s, name); }
   void operator()(m2::PointD & p, char const * name = nullptr);
+  void operator()(OsmId & osmId, char const * name = nullptr);
 
   template <typename T>
   void operator()(std::vector<T> & vs, char const * name = nullptr)

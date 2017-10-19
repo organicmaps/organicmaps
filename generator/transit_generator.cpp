@@ -210,6 +210,23 @@ void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
   FromJSONObject(pointItem, "x", p.x);
   FromJSONObject(pointItem, "y", p.y);
 }
+
+void DeserializerFromJson::operator()(OsmId & osmId, char const * name)
+{
+  // Conversion osm id to feature id.
+  std::string osmIdStr;
+  GetField(osmIdStr, name);
+  CHECK(strings::is_number(osmIdStr), ());
+  uint64_t osmIdNum;
+  CHECK(strings::to_uint64(osmIdStr.c_str(), osmIdNum), ());
+  osm::Id const id(osmIdNum);
+  auto const it = m_osmIdToFeatureIds->find(id);
+  CHECK(it != m_osmIdToFeatureIds->cend(), ());
+  CHECK_EQUAL(it->second.size(), 1,
+              ("Osm id:", id, "from transit graph doesn't present by a single feature in mwm."));
+  osmId = OsmId(it->second[0]);
+}
+
 DeserializerFromJson::DeserializerFromJson(json_struct_t * node,
                                            shared_ptr<OsmIdToFeatureIdsMap> const & osmIdToFeatureIds)
   : m_node(node), m_osmIdToFeatureIds(osmIdToFeatureIds)

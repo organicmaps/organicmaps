@@ -84,7 +84,7 @@ Stop::Stop(StopId id, FeatureId featureId, TransferId transferId,
            std::vector<LineId> const & lineIds, m2::PointD const & point,
            std::vector<TitleAnchor> const & titleAnchors)
   : m_id(id)
-  , m_featureId(featureId)
+  , m_osmId(featureId)
   , m_transferId(transferId)
   , m_lineIds(lineIds)
   , m_point(point)
@@ -95,7 +95,7 @@ Stop::Stop(StopId id, FeatureId featureId, TransferId transferId,
 bool Stop::IsEqualForTesting(Stop const & stop) const
 {
   double constexpr kPointsEqualEpsilon = 1e-6;
-  return m_id == stop.m_id && m_featureId == stop.m_featureId &&
+  return m_id == stop.m_id && m_osmId == stop.m_osmId &&
          m_transferId == stop.m_transferId && m_lineIds == stop.m_lineIds &&
          my::AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon) &&
          m_titleAnchors == stop.m_titleAnchors;
@@ -125,7 +125,7 @@ bool SingleMwmSegment::IsValid() const
 // Gate -------------------------------------------------------------------------------------------
 Gate::Gate(FeatureId featureId, bool entrance, bool exit, double weight,
            std::vector<StopId> const & stopIds, m2::PointD const & point)
-  : m_featureId(featureId)
+  : m_osmId(featureId)
   , m_entrance(entrance)
   , m_exit(exit)
   , m_weight(weight)
@@ -136,7 +136,7 @@ Gate::Gate(FeatureId featureId, bool entrance, bool exit, double weight,
 
 bool Gate::IsEqualForTesting(Gate const & gate) const
 {
-  return m_featureId == gate.m_featureId && m_entrance == gate.m_entrance &&
+  return m_osmId == gate.m_osmId && m_entrance == gate.m_entrance &&
          m_exit == gate.m_exit &&
          my::AlmostEqualAbs(m_weight, gate.m_weight, kWeightEqualEpsilon) &&
          m_stopIds == gate.m_stopIds &&

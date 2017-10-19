@@ -78,6 +78,26 @@ public:
 
 static_assert(sizeof(TransitHeader) == 32, "Wrong header size of transit section.");
 
+class OsmId
+{
+public:
+  OsmId() = default;
+  explicit OsmId(FeatureId featureId) : m_featureId(featureId) {}
+
+  bool operator==(OsmId const & rhs) const { return m_featureId == rhs.m_featureId; }
+  bool IsEqualForTesting(OsmId const & osmId) const { return *this == osmId; }
+  bool IsValid() const { return m_featureId != kInvalidFeatureId; }
+
+  FeatureId GetFeatureId() const { return m_featureId; }
+
+private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
+  DECLARE_VISITOR_AND_DEBUG_PRINT(OsmId, visitor(m_featureId, "feature_id"))
+
+  // |m_featureId| is a feature id corresponding to osm id which presents the class.
+  FeatureId m_featureId = kInvalidFeatureId;
+};
+
 class TitleAnchor
 {
 public:
@@ -111,7 +131,7 @@ public:
   bool IsValid() const;
 
   StopId GetId() const { return m_id; }
-  FeatureId GetFeatureId() const { return m_featureId; }
+  FeatureId GetFeatureId() const { return m_osmId.GetFeatureId(); }
   TransferId GetTransferId() const { return m_transferId; }
   std::vector<LineId> const & GetLineIds() const { return m_lineIds; }
   m2::PointD const & GetPoint() const { return m_point; }
@@ -119,13 +139,13 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_featureId, "osm_id"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_osmId, "osm_id"),
                                   visitor(m_transferId, "transfer_id"),
                                   visitor(m_lineIds, "line_ids"), visitor(m_point, "point"),
                                   visitor(m_titleAnchors, "title_anchors"))
 
   StopId m_id = kInvalidStopId;
-  FeatureId m_featureId = kInvalidFeatureId;
+  OsmId m_osmId;
   TransferId m_transferId = kInvalidTransferId;
   std::vector<LineId> m_lineIds;
   m2::PointD m_point;
@@ -165,7 +185,7 @@ public:
   bool IsValid() const;
   void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; };
 
-  FeatureId GetFeatureId() const { return m_featureId; }
+  FeatureId GetFeatureId() const { return m_osmId.GetFeatureId(); }
   SingleMwmSegment const & GetBestPedestrianSegment() const { return m_bestPedestrianSegment; }
   bool GetEntrance() const { return m_entrance; }
   bool GetExit() const { return m_exit; }
@@ -175,14 +195,14 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_featureId, "osm_id"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_osmId, "osm_id"),
                                   visitor(m_bestPedestrianSegment, "best_pedestrian_segment"),
                                   visitor(m_entrance, "entrance"), visitor(m_exit, "exit"),
                                   visitor(m_weight, "weight"), visitor(m_stopIds, "stop_ids"),
                                   visitor(m_point, "point"))
 
-  // |m_featureId| is feature id of a point feature which represents gates.
-  FeatureId m_featureId = kInvalidFeatureId;
+  // |m_osmId| contains feature id of a feature which represents gates. Usually it's a point feature.
+  OsmId m_osmId;
   // |m_bestPedestrianSegment| is a segment which can be used for pedestrian routing to leave and enter the gate.
   // The segment may be invalid because of map date. If so there's no pedestrian segment which can be used
   // to reach the gate.
