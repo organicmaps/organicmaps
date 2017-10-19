@@ -95,6 +95,9 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
   return ::GetFileAttributesA(filePath.c_str()) != INVALID_FILE_ATTRIBUTES;
 }
 
+//static
+void Platform::DisableBackupForFile(string const & filePath) {}
+
 // static
 Platform::EError Platform::RmDir(string const & dirName)
 {
