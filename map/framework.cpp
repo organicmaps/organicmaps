@@ -360,6 +360,7 @@ void Framework::Migrate(bool keepDownloaded)
 Framework::Framework(FrameworkParams const & params)
   : m_startForegroundTime(0.0)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
+  , m_enabledDiffs(params.m_enableDiffs)
   , m_bmManager([this]() -> StringsBundle const & { return m_stringsBundle; })
   , m_isRenderingEnabled(true)
   , m_routingManager(RoutingManager::Callbacks([this]() -> Index & { return m_model.GetIndex(); },
@@ -379,7 +380,6 @@ Framework::Framework(FrameworkParams const & params)
       m_drapeEngine->SetDisplacementMode(mode);
   })
   , m_lastReportedCountry(kInvalidCountryId)
-  , m_enabledDiffs(params.m_enableDiffs)
 {
   m_startBackgroundTime = my::Timer::LocalTime();
 
