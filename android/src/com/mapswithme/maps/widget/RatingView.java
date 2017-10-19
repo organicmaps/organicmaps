@@ -130,9 +130,8 @@ public class RatingView extends View
 
     if (mRating != null)
     {
-      float yPos = getHeight() / 2;
-      yPos += (Math.abs(mTextBounds.height())) / 2;
-      float xPos = mDrawable != null ? mDrawable.getBounds().right + getPaddingLeft()
+      int yPos = (int) ((canvas.getHeight() / 2) - ((mTextPaint.descent() + mTextPaint.ascent()) / 2)) ;
+      int xPos = mDrawable != null ? mDrawable.getBounds().right + getPaddingLeft()
                                      : getPaddingLeft();
       canvas.drawText(mRating, xPos, yPos, mTextPaint);
     }
