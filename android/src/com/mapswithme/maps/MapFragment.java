@@ -162,6 +162,12 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
+    if (isThemeChangingProcess())
+    {
+      LOGGER.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceCreated' callback");
+      return;
+    }
+
     LOGGER.d(TAG, "surfaceCreated, mContextCreated = " + mContextCreated);
     final Surface surface = surfaceHolder.getSurface();
     if (nativeIsEngineCreated())
@@ -210,6 +216,12 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height)
   {
+    if (isThemeChangingProcess())
+    {
+      LOGGER.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceChanged' callback");
+      return;
+    }
+
     LOGGER.d(TAG, "surfaceChanged, mContextCreated = " + mContextCreated);
     if (!mContextCreated ||
         (!mRequireResize && surfaceHolder.isCreating()))
@@ -237,7 +249,6 @@ public class MapFragment extends BaseMwmFragment
     if (!mContextCreated || !isAdded())
       return;
 
-    mSurfaceView.getHolder().removeCallback(this);
     nativeDetachSurface(!getActivity().isChangingConfigurations());
     mContextCreated = false;
   }
@@ -256,14 +267,10 @@ public class MapFragment extends BaseMwmFragment
   public void onStart()
   {
     super.onStart();
-    if (isGoingToBeRecreated())
-      return;
-
-    LOGGER.d(TAG, "onStart, surface.addCallback");
-    mSurfaceView.getHolder().addCallback(this);
+    LOGGER.d(TAG, "onStart");
   }
 
-  private boolean isGoingToBeRecreated()
+  private boolean isThemeChangingProcess()
   {
     return mUiThemeOnPause != null && !mUiThemeOnPause.equals(Config.getCurrentUiTheme());
   }
@@ -280,6 +287,7 @@ public class MapFragment extends BaseMwmFragment
   {
     View view = inflater.inflate(R.layout.fragment_map, container, false);
     mSurfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
+    mSurfaceView.getHolder().addCallback(this);
     return view;
   }
 
