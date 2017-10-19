@@ -1,6 +1,5 @@
 #include "generator/transit_generator.hpp"
 
-#include "generator/osm_id.hpp"
 #include "generator/utils.hpp"
 
 #include "traffic/traffic_cache.hpp"
@@ -32,6 +31,7 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <functional>
@@ -220,7 +220,7 @@ void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
 void DeserializerFromJson::operator()(OsmId & osmId, char const * name)
 {
   // Conversion osm id to feature id.
-  std::string osmIdStr;
+  string osmIdStr;
   GetField(osmIdStr, name);
   CHECK(strings::is_number(osmIdStr), ());
   uint64_t osmIdNum;

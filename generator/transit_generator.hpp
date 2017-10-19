@@ -7,7 +7,6 @@
 #include "geometry/point2d.hpp"
 
 #include "base/macros.hpp"
-#include "base/string_utils.hpp"
 
 #include "3party/jansson/myjansson.hpp"
 
