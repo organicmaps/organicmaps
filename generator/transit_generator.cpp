@@ -189,7 +189,7 @@ void FillOsmIdToFeatureIdMap(string const & osmIdsToFeatureIdPath, OsmIdToFeatur
                                [&map](osm::Id const & osmId, uint32_t featureId) {
                                  map[osmId].push_back(featureId);
                                }),
-        ());
+        (osmIdsToFeatureIdPath));
 }
 }  // namespace
 
@@ -224,7 +224,7 @@ void DeserializerFromJson::operator()(OsmId & osmId, char const * name)
   GetField(osmIdStr, name);
   CHECK(strings::is_number(osmIdStr), ());
   uint64_t osmIdNum;
-  CHECK(strings::to_uint64(osmIdStr.c_str(), osmIdNum), ());
+  CHECK(strings::to_uint64(osmIdStr, osmIdNum), ());
   osm::Id const id(osmIdNum);
   auto const it = m_osmIdToFeatureIds.find(id);
   CHECK(it != m_osmIdToFeatureIds.cend(), ());

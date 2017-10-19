@@ -33,6 +33,12 @@ void TestDeserializerFromJson(string const & jsonBuffer, OsmIdToFeatureIdsMap co
     TEST(objects[i].IsEqualForTesting(expected[i]), (objects[i], expected[i]));
 }
 
+template <typename Obj>
+void TestDeserializerFromJson(string const & jsonBuffer, string const & name, vector<Obj> const & expected)
+{
+  return TestDeserializerFromJson(jsonBuffer, OsmIdToFeatureIdsMap(), name, expected);
+}
+
 UNIT_TEST(DeserializerFromJson_TitleAnchors)
 {
   string const jsonBuffer = R"(
@@ -44,7 +50,7 @@ UNIT_TEST(DeserializerFromJson_TitleAnchors)
 
   vector<TitleAnchor> expected = {TitleAnchor(11 /* min zoom */, 4 /* anchor */),
                                   TitleAnchor(14 /* min zoom */, 6 /* anchor */)};
-  TestDeserializerFromJson(jsonBuffer, OsmIdToFeatureIdsMap(), "title_anchors", expected);
+  TestDeserializerFromJson(jsonBuffer, "title_anchors", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Stops)
@@ -134,7 +140,7 @@ UNIT_TEST(DeserializerFromJson_Gates)
   OsmIdToFeatureIdsMap mapping;
   mapping[osm::Id(46116860)] = vector<FeatureId>({0});
   // Note. std::numeric_limits<uint64_t>::max() == 18446744073709551615
-  mapping[osm::Id(18446744073709551615U)] = vector<FeatureId>({2});
+  mapping[osm::Id(18446744073709551615ULL)] = vector<FeatureId>({2});
   TestDeserializerFromJson(jsonBuffer, mapping, "gates", expected);
 }
 
@@ -166,7 +172,7 @@ UNIT_TEST(DeserializerFromJson_Edges)
     Edge(442018445 /* stop 1 id */, 442018446 /* stop 2 id */, 345.6 /* weight */,
          72551680 /* line id */,  false /* transfer */, {} /* shape ids */)};
 
-  TestDeserializerFromJson(jsonBuffer, OsmIdToFeatureIdsMap(), "edges", expected);
+  TestDeserializerFromJson(jsonBuffer, "edges", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Transfers)
@@ -191,7 +197,7 @@ UNIT_TEST(DeserializerFromJson_Transfers)
       Transfer(922337203 /* stop id */, {27.5619844, 64.24325959173672} /* point */,
                {209186416, 277039518} /* stopIds */, {} /* anchors */)};
 
-  TestDeserializerFromJson(jsonBuffer, OsmIdToFeatureIdsMap(), "transfers", expected);
+  TestDeserializerFromJson(jsonBuffer, "transfers", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Lines)
@@ -239,7 +245,7 @@ UNIT_TEST(DeserializerFromJson_Lines)
                                       {246659391, 246659390, 209191855, 209191854, 209191853,
                                        209191852, 209191851} /* stop ids */)};
 
-  TestDeserializerFromJson(jsonBuffer, OsmIdToFeatureIdsMap(), "lines", expected);
+  TestDeserializerFromJson(jsonBuffer, "lines", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Shapes)
@@ -296,7 +302,7 @@ UNIT_TEST(DeserializerFromJson_Shapes)
                                   {m2::PointD(27.554025800000002, 64.250591911669844),
                                    m2::PointD(27.553906184631536, 64.250633404586054)} /* polyline */)};
 
-  TestDeserializerFromJson(jsonBuffer, OsmIdToFeatureIdsMap(), "shapes", expected);
+  TestDeserializerFromJson(jsonBuffer, "shapes", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Networks)
@@ -311,6 +317,6 @@ UNIT_TEST(DeserializerFromJson_Networks)
   ]})";
 
   vector<Network> const expected = {Network(2 /* network id */, "Минский метрополитен" /* title */)};
-  TestDeserializerFromJson(jsonBuffer, OsmIdToFeatureIdsMap(), "networks", expected);
+  TestDeserializerFromJson(jsonBuffer, "networks", expected);
 }
 }  // namespace
