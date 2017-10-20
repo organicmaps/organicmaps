@@ -307,7 +307,7 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
   ToJSONObject(*embeddedNode.get(), "data_version", lastIndex.m_dataVersion);
   ToJSONObject(*embeddedNode.get(), "mwm_name", lastIndex.m_mwmName);
   ToJSONObject(*embeddedNode.get(), "feature_id", lastIndex.m_featureId);
-  ToJSONObject(*embeddedNode.get(), "feature_type", classif().GetReadableObjectName(lastIndex.m_type));
+  ToJSONObject(*embeddedNode.get(), "feature_type", classif().GetReadableObjectName(lastIndex.m_matchingType));
   ToJSONObject(*ugcNode.get(), "feature", *embeddedNode.release());
 
   auto array = my::NewJSONArray();
@@ -320,4 +320,5 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
   storage.MarkAllAsSynchronized();
   TEST(firstIndex.m_synchronized, ());
   TEST(lastIndex.m_synchronized, ());
+  TEST(DeleteIndexFile(), ());
 }

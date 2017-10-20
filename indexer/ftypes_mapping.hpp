@@ -35,6 +35,11 @@ public:
     return m_mapping.cend();
   }
 
+  ConstIterator End() const
+  {
+    return m_mapping.cend();
+  }
+
   bool IsValid(ConstIterator it) const
   {
     return it != m_mapping.cend();

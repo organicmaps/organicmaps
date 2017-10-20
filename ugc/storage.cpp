@@ -5,6 +5,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
+#include "indexer/ftraits.hpp"
 #include "indexer/index.hpp"
 
 #include "platform/platform.hpp"
@@ -121,6 +122,8 @@ void Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
   auto const mercator = feature::GetCenter(*feature);
   feature::TypesHolder th(*feature);
   th.SortBySpec();
+  uint32_t matchingType = 0;
+  CHECK(ftraits::UGC::GetType(th, matchingType), ());
   auto const type = th.GetBestType();
   for (auto & index : m_UGCIndexes)
   {
@@ -140,6 +143,7 @@ void Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 
   index.m_mercator = mercator;
   index.m_type = type;
+  index.m_matchingType = matchingType;
   index.m_mwmName = id.GetMwmName();
   index.m_dataVersion = id.GetMwmVersion();
   index.m_featureId = id.m_index;
@@ -297,7 +301,7 @@ string Storage::GetUGCToSend() const
     ToJSONObject(*embeddedNode.get(), "data_version", index.m_dataVersion);
     ToJSONObject(*embeddedNode.get(), "mwm_name", index.m_mwmName);
     ToJSONObject(*embeddedNode.get(), "feature_id", index.m_featureId);
-    ToJSONObject(*embeddedNode.get(), "feature_type", classif().GetReadableObjectName(index.m_type));
+    ToJSONObject(*embeddedNode.get(), "feature_type", classif().GetReadableObjectName(index.m_matchingType));
     ToJSONObject(*serializedUgc.get(), "feature", *embeddedNode.release());
     json_array_append_new(array.get(), serializedUgc.get_deep_copy());
   }

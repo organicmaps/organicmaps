@@ -15,23 +15,32 @@ UNIT_TEST(Wheelchair_GetType)
   feature::TypesHolder holder;
   {
     holder.Assign(c.GetTypeByPath({"wheelchair", "no"}));
-    TEST_EQUAL(Wheelchair::GetValue(holder), WheelchairAvailability::No, ());
+    WheelchairAvailability a;
+    TEST(Wheelchair::GetValue(holder, a), ());
+    TEST_EQUAL(a, WheelchairAvailability::No, ());
   }
   {
     holder.Assign(c.GetTypeByPath({"wheelchair", "yes"}));
-    TEST_EQUAL(Wheelchair::GetValue(holder), WheelchairAvailability::Yes, ());
+    WheelchairAvailability a;
+    TEST(Wheelchair::GetValue(holder, a), ());
+    TEST_EQUAL(a, WheelchairAvailability::Yes, ());
   }
   {
     holder.Assign(c.GetTypeByPath({"wheelchair", "limited"}));
-    TEST_EQUAL(Wheelchair::GetValue(holder), WheelchairAvailability::Limited, ());
+    WheelchairAvailability a;
+    TEST(Wheelchair::GetValue(holder, a), ());
+    TEST_EQUAL(a, WheelchairAvailability::Limited, ());
   }
   {
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
-    TEST_EQUAL(Wheelchair::GetValue(holder), WheelchairAvailability::No, ());
+    WheelchairAvailability a;
+    TEST(!Wheelchair::GetValue(holder, a), ());
   }
   {
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
     holder.Add(c.GetTypeByPath({"wheelchair", "yes"}));
-    TEST_EQUAL(Wheelchair::GetValue(holder), WheelchairAvailability::Yes, ());
+    WheelchairAvailability a;
+    TEST(Wheelchair::GetValue(holder, a), ());
+    TEST_EQUAL(a, WheelchairAvailability::Yes, ());
   }
 }

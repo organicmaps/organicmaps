@@ -36,9 +36,11 @@ bool BuildUgcMwmSection(std::string const & srcDbFilename, std::string const & m
   std::vector<IndexUGC> content;
 
   feature::ForEachFromDat(mwmFile, [&](FeatureType const & f, uint32_t featureId) {
-    auto const ugcMasks = ftraits::UGC::GetValue({f}).m_mask;
+    ftraits::UGCItem item;
+    if (!ftraits::UGC::GetValue({f}, item))
+      return;
 
-    if (!ftraits::UGC::IsUGCAvailable(ugcMasks))
+    if (!ftraits::UGC::IsUGCAvailable(item.m_mask))
       return;
 
     auto const it = featureToOsmId.find(featureId);

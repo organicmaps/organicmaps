@@ -23,22 +23,49 @@ template <typename Base, typename Value>
 class TraitsBase
 {
 public:
-  static Value GetValue(feature::TypesHolder const & types)
+  static bool GetValue(feature::TypesHolder const & types, Value & value)
   {
-    static Base instance;
+    auto const & instance = Instance();
+    auto const it = Find(types);
+    if (!instance.m_matcher.IsValid(it))
+      return false;
+
+    value = it->second;
+    return true;
+  }
+
+  static bool GetType(feature::TypesHolder const & types, uint32_t & type)
+  {
+    auto const & instance = Instance();
+    auto const it = Find(types);
+    if (!instance.m_matcher.IsValid(it))
+      return false;
+
+    type = it->first;
+    return true;
+  }
+
+private:
+  using ConstIterator = typename ftypes::HashMapMatcher<uint32_t, Value>::ConstIterator;
+
+  static ConstIterator Find(feature::TypesHolder const & types)
+  {
+    auto const & instance = Instance();
 
     auto const excluded = instance.m_excluded.Find(types);
     if (instance.m_excluded.IsValid(excluded))
-      return Base::GetEmptyValue();
+      return instance.m_matcher.End();
 
-    auto const it = instance.m_matcher.Find(types);
-    if (!instance.m_matcher.IsValid(it))
-      return Base::GetEmptyValue();
-
-    return it->second;
+    return instance.m_matcher.Find(types);
   }
 
 protected:
+  static TraitsBase const & Instance()
+  {
+    static Base instance;
+    return instance;
+  }
+
   ftypes::HashMapMatcher<uint32_t, Value> m_matcher;
   ftypes::HashSetMatcher<uint32_t> m_excluded;
 };
@@ -121,12 +148,6 @@ class UGC : public TraitsBase<UGC, UGCItem>
   }
 
 public:
-  static UGCItem const & GetEmptyValue()
-  {
-    static const UGCItem item;
-    return item;
-  }
-
   static bool IsUGCAvailable(UGCTypeMask mask) { return mask != UGCTYPE_NONE; }
   static bool IsRatingAvailable(UGCTypeMask mask) { return mask & UGCTYPE_RATING; }
   static bool IsReviewsAvailable(UGCTypeMask mask) { return mask & UGCTYPE_REVIEWS; }
@@ -134,23 +155,29 @@ public:
 
   static bool IsUGCAvailable(feature::TypesHolder const & types)
   {
-    return IsUGCAvailable(GetValue(types).m_mask);
+    UGCItem item;
+    return GetValue(types, item) ? IsUGCAvailable(item.m_mask) : false;
   }
   static bool IsRatingAvailable(feature::TypesHolder const & types)
   {
-    return IsRatingAvailable(GetValue(types).m_mask);
+    UGCItem item;
+    return GetValue(types, item) ? IsRatingAvailable(item.m_mask) : false;
   }
   static bool IsReviewsAvailable(feature::TypesHolder const & types)
   {
-    return IsReviewsAvailable(GetValue(types).m_mask);
+    UGCItem item;
+    return GetValue(types, item) ? IsReviewsAvailable(item.m_mask) : false;
   }
   static bool IsDetailsAvailable(feature::TypesHolder const & types)
   {
-    return IsDetailsAvailable(GetValue(types).m_mask);
+    UGCItem item;
+    return GetValue(types, item) ? IsDetailsAvailable(item.m_mask) : false;
   }
   static UGCRatingCategories GetCategories(feature::TypesHolder const & types)
   {
-    return GetValue(types).m_categories;
+    UGCItem item;
+    GetValue(types, item);
+    return item.m_categories;
   }
 };
 
@@ -184,9 +211,6 @@ class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
     m_matcher.Append<TypesInitializer>({{"wheelchair", "limited"}},
                                        WheelchairAvailability::Limited);
   }
-
-public:
-  static WheelchairAvailability GetEmptyValue() { return WheelchairAvailability::No; }
 };
 
 }  // namespace ftraits

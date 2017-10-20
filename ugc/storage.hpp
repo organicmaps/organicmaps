@@ -23,12 +23,14 @@ public:
   struct UGCIndex
   {
     DECLARE_VISITOR(visitor.VisitPoint(m_mercator, "x", "y"), visitor(m_type, "type"),
+                    visitor(m_matchingType, "matching_type"),
                     visitor(m_offset, "offset"), visitor(m_deleted, "deleted"),
                     visitor(m_synchronized, "synchronized"), visitor(m_mwmName, "mwm_name"),
                     visitor(m_dataVersion, "data_version"), visitor(m_featureId, "feature_id"))
 
     m2::PointD m_mercator{};
     uint32_t m_type = 0;
+    uint32_t m_matchingType = 0;
     uint64_t m_offset = 0;
     bool m_deleted = false;
     bool m_synchronized = false;
