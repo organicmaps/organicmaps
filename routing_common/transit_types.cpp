@@ -151,12 +151,12 @@ bool Gate::IsValid() const
 // ShapeId ----------------------------------------------------------------------------------------
 bool ShapeId::operator==(ShapeId const & rhs) const
 {
-  return m_stop1_id == rhs.m_stop1_id && m_stop2_id == rhs.m_stop2_id;
+  return m_stop1Id == rhs.m_stop1Id && m_stop2Id == rhs.m_stop2Id;
 }
 
 bool ShapeId::IsValid() const
 {
-  return m_stop1_id != kInvalidLineId && m_stop2_id != kInvalidNetworkId;
+  return m_stop1Id != kInvalidStopId && m_stop2Id != kInvalidStopId;
 }
 
 // Edge -------------------------------------------------------------------------------------------
@@ -236,7 +236,7 @@ bool Line::IsValid() const
 // Shape ------------------------------------------------------------------------------------------
 bool Shape::IsEqualForTesting(Shape const & shape) const
 {
-  if (!m_id.IsEqualForTesting(shape.m_id) && m_polyline.size() == shape.m_polyline.size())
+  if (!m_id.IsEqualForTesting(shape.m_id) || m_polyline.size() != shape.m_polyline.size())
     return false;
 
   for (size_t i = 0; i < m_polyline.size(); ++i)

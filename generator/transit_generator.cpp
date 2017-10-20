@@ -211,7 +211,7 @@ void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
 
 void DeserializerFromJson::operator()(ShapeId & id, char const * name)
 {
-  GetTwoParamDict(name, "stop1_id", "stop2_id", id.m_stop1_id, id.m_stop2_id);
+  GetTwoParamDict(name, "stop1_id", "stop2_id", id.m_stop1Id, id.m_stop2Id);
 }
 
 void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name)

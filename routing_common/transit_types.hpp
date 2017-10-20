@@ -220,22 +220,22 @@ class ShapeId
 {
 public:
   ShapeId() = default;
-  ShapeId(StopId stop1_id, StopId stop2_id) : m_stop1_id(stop1_id), m_stop2_id(stop2_id) {}
+  ShapeId(StopId stop1Id, StopId stop2Id) : m_stop1Id(stop1Id), m_stop2Id(stop2Id) {}
 
   bool operator==(ShapeId const & rhs) const;
   bool IsEqualForTesting(ShapeId const & rhs) const { return *this == rhs; }
 
   bool IsValid() const;
-  StopId GetStop1Id() const { return m_stop1_id; }
-  StopId GetStop2Id() const { return m_stop2_id; }
+  StopId GetStop1Id() const { return m_stop1Id; }
+  StopId GetStop2Id() const { return m_stop2Id; }
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(ShapeId, visitor(m_stop1_id, "stop1_id"),
-                                  visitor(m_stop2_id, "stop2_id"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(ShapeId, visitor(m_stop1Id, "stop1_id"),
+                                  visitor(m_stop2Id, "stop2_id"))
 
-  StopId m_stop1_id = kInvalidStopId;
-  StopId m_stop2_id = kInvalidStopId;
+  StopId m_stop1Id = kInvalidStopId;
+  StopId m_stop2Id = kInvalidStopId;
 };
 
 class Edge
