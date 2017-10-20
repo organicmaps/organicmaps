@@ -110,7 +110,7 @@ class UGC : public TraitsBase<UGC, UGCItem>
       ASSERT_EQUAL(row.size(), 5, ());
 
       UGCItem item(ReadMasks(row), ParseByWhitespaces(row[kCategoriesPos]));
-      auto typePath = ParseByWhitespaces(row[kTypePos]);
+      auto typePath = ParseByDashes(row[kTypePos]);
 
       if (IsUGCAvailable(item.m_mask))
         m_matcher.AppendType(std::move(typePath), std::move(item));
@@ -145,6 +145,16 @@ class UGC : public TraitsBase<UGC, UGCItem>
   {
     std::istringstream iss(str);
     return {std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>()};
+  }
+
+  std::vector<std::string> ParseByDashes(std::string const & str)
+  {
+    std::vector<std::string> result;
+    std::istringstream iss(str);
+    for (std::string tmp; std::getline(iss,  tmp, '-'); )
+      result.push_back(tmp);
+
+    return result;
   }
 
 public:
