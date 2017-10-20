@@ -148,6 +148,17 @@ bool Gate::IsValid() const
   return m_weight != kInvalidWeight && (m_entrance || m_exit) && !m_stopIds.empty();
 }
 
+// ShapeId ----------------------------------------------------------------------------------------
+bool ShapeId::operator==(ShapeId const & rhs) const
+{
+  return m_stop1_id == rhs.m_stop1_id && m_stop2_id == rhs.m_stop2_id;
+}
+
+bool ShapeId::IsValid() const
+{
+  return m_stop1_id != kInvalidLineId && m_stop2_id != kInvalidNetworkId;
+}
+
 // Edge -------------------------------------------------------------------------------------------
 Edge::Edge(StopId stop1Id, StopId stop2Id, double weight, LineId lineId, bool transfer,
            std::vector<ShapeId> const & shapeIds)
@@ -223,18 +234,10 @@ bool Line::IsValid() const
 }
 
 // Shape ------------------------------------------------------------------------------------------
-Shape::Shape(ShapeId id, StopId stop1_id, StopId stop2_id, std::vector<m2::PointD> const & polyline)
-  : m_id(id), m_stop1_id(stop1_id), m_stop2_id(stop2_id), m_polyline(polyline)
-{
-}
-
 bool Shape::IsEqualForTesting(Shape const & shape) const
 {
-  if (!(m_id == shape.m_id && m_stop1_id == shape.m_stop1_id && m_stop2_id == shape.m_stop2_id &&
-        m_polyline.size() == shape.m_polyline.size()))
-  {
+  if (!m_id.IsEqualForTesting(shape.m_id) && m_polyline.size() == shape.m_polyline.size())
     return false;
-  }
 
   for (size_t i = 0; i < m_polyline.size(); ++i)
   {
@@ -242,12 +245,6 @@ bool Shape::IsEqualForTesting(Shape const & shape) const
       return false;
   }
   return true;
-}
-
-bool Shape::IsValid() const
-{
-  return m_id != kInvalidShapeId && m_stop1_id != kInvalidStopId && m_stop2_id != kInvalidStopId &&
-         m_polyline.size() > 1;
 }
 
 // Network ----------------------------------------------------------------------------------------

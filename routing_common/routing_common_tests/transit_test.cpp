@@ -106,7 +106,7 @@ UNIT_TEST(Transit_GateSerialization)
 UNIT_TEST(Transit_EdgeSerialization)
 {
   Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123.4 /* weight */, 11 /* line id */,
-            false /* transfer */, {1, 2, 3} /* shape ids */);
+            false /* transfer */, {ShapeId(1, 2), ShapeId(3, 4), ShapeId(5, 6)} /* shape ids */);
   TestSerialization(edge);
 }
 
@@ -134,11 +134,11 @@ UNIT_TEST(Transit_LineSerialization)
 UNIT_TEST(Transit_ShapeSerialization)
 {
   {
-    Shape shape(1 /* shape id */, 10 /* stop 1 id */, 11 /* stop 2 id */, {} /* polyline */);
+    Shape shape(ShapeId(10, 20), {} /* polyline */);
     TestSerialization(shape);
   }
   {
-    Shape shape(1 /* shape id */, 10 /* stop 1 id */, 11 /* stop 2 id */,
+    Shape shape(ShapeId(11, 21),
                 {m2::PointD(20.0, 20.0), m2::PointD(21.0, 21.0), m2::PointD(22.0, 22.0)} /* polyline */);
     TestSerialization(shape);
   }

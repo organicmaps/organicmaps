@@ -206,15 +206,12 @@ DeserializerFromJson::DeserializerFromJson(json_struct_t* node,
 
 void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
 {
-  json_t * pointItem = nullptr;
-  if (name == nullptr)
-    pointItem = m_node; // Array item case
-  else
-    pointItem = my::GetJSONObligatoryField(m_node, name);
+  GetTwoParamDict(name, "x", "y", p.x, p.y);
+}
 
-  CHECK(json_is_object(pointItem), ());
-  FromJSONObject(pointItem, "x", p.x);
-  FromJSONObject(pointItem, "y", p.y);
+void DeserializerFromJson::operator()(ShapeId & id, char const * name)
+{
+  GetTwoParamDict(name, "stop1_id", "stop2_id", id.m_stop1_id, id.m_stop2_id);
 }
 
 void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name)

@@ -21,7 +21,6 @@ using TransferId = uint64_t;
 using NetworkId = uint32_t;
 using FeatureId = uint32_t;
 using OsmId = uint64_t;
-using ShapeId = uint32_t;
 using Weight = double;
 using Anchor = uint8_t;
 
@@ -31,7 +30,6 @@ TransferId constexpr kInvalidTransferId = std::numeric_limits<TransferId>::max()
 NetworkId constexpr kInvalidNetworkId = std::numeric_limits<NetworkId>::max();
 FeatureId constexpr kInvalidFeatureId = std::numeric_limits<FeatureId>::max();
 OsmId constexpr kInvalidOsmId = std::numeric_limits<OsmId>::max();
-ShapeId constexpr kInvalidShapeId = std::numeric_limits<ShapeId>::max();
 // Note. Weight may be a default param at json. The default value should be saved as uint32_t in mwm anyway.
 // To convert double to uint32_t at better accuracy |kInvalidWeight| should be close to real weight.
 Weight constexpr kInvalidWeight = -1.0;
@@ -218,6 +216,28 @@ private:
   m2::PointD m_point;
 };
 
+class ShapeId
+{
+public:
+  ShapeId() = default;
+  ShapeId(StopId stop1_id, StopId stop2_id) : m_stop1_id(stop1_id), m_stop2_id(stop2_id) {}
+
+  bool operator==(ShapeId const & rhs) const;
+  bool IsEqualForTesting(ShapeId const & rhs) const { return *this == rhs; }
+
+  bool IsValid() const;
+  StopId GetStop1Id() const { return m_stop1_id; }
+  StopId GetStop2Id() const { return m_stop2_id; }
+
+private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
+  DECLARE_VISITOR_AND_DEBUG_PRINT(ShapeId, visitor(m_stop1_id, "stop1_id"),
+                                  visitor(m_stop2_id, "stop2_id"))
+
+  StopId m_stop1_id = kInvalidStopId;
+  StopId m_stop2_id = kInvalidStopId;
+};
+
 class Edge
 {
 public:
@@ -311,23 +331,18 @@ class Shape
 {
 public:
   Shape() = default;
-  Shape(ShapeId id, StopId stop1_id, StopId stop2_id, std::vector<m2::PointD> const & polyline);
+  Shape(ShapeId const & id, std::vector<m2::PointD> const & polyline) : m_id(id), m_polyline(polyline) {}
   bool IsEqualForTesting(Shape const & shape) const;
-  bool IsValid() const;
+  bool IsValid() const { return m_id.IsValid() && m_polyline.size() > 1; }
 
   ShapeId GetId() const { return m_id; }
-  StopId GetStop1Id() const { return m_stop1_id; }
-  StopId GetStop2Id() const { return m_stop2_id; }
   std::vector<m2::PointD> const & GetPolyline() const { return m_polyline; }
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Shape, visitor(m_id, "id"), visitor(m_stop1_id, "stop1_id"),
-                                  visitor(m_stop2_id, "stop2_id"), visitor(m_polyline, "polyline"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Shape, visitor(m_id, "id"), visitor(m_polyline, "polyline"))
 
-  ShapeId m_id = kInvalidShapeId;
-  StopId m_stop1_id = kInvalidStopId;
-  StopId m_stop2_id = kInvalidStopId;
+  ShapeId m_id;
   std::vector<m2::PointD> m_polyline;
 };
 

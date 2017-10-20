@@ -154,7 +154,16 @@ UNIT_TEST(DeserializerFromJson_Edges)
     {
       "stop2_id": 442018445,
       "line_id": 72551680,
-      "shape_ids": [5, 7],
+      "shape_ids": [
+        {
+          "stop1_id": 209186407,
+          "stop2_id": 209186410
+        },
+        {
+          "stop1_id": 209186408,
+          "stop2_id": 209186411
+        }
+      ],
       "stop1_id": 442018444,
       "transfer": false
     },
@@ -169,10 +178,11 @@ UNIT_TEST(DeserializerFromJson_Edges)
   ]})";
 
   vector<Edge> const expected = {
-    Edge(442018444 /* stop 1 id */, 442018445 /* stop 2 id */, kInvalidWeight /* weight */,
-         72551680 /* line id */,  false /* transfer */, {5, 7} /* shape ids */),
-    Edge(442018445 /* stop 1 id */, 442018446 /* stop 2 id */, 345.6 /* weight */,
-         72551680 /* line id */,  false /* transfer */, {} /* shape ids */)};
+      Edge(442018444 /* stop 1 id */, 442018445 /* stop 2 id */, kInvalidWeight /* weight */,
+           72551680 /* line id */, false /* transfer */,
+           {ShapeId(209186407, 209186410), ShapeId(209186408, 209186411)}),
+      Edge(442018445 /* stop 1 id */, 442018446 /* stop 2 id */, 345.6 /* weight */,
+           72551680 /* line id */, false /* transfer */, {} /* shape ids */)};
 
   TestDeserializerFromJson(jsonBuffer, "edges", expected);
 }
@@ -256,9 +266,10 @@ UNIT_TEST(DeserializerFromJson_Shapes)
   {
   "shapes": [
     {
-      "id": 1,
-      "stop1_id": 209186424,
-      "stop2_id": 248520179,
+      "id": {
+        "stop1_id": 209186424,
+        "stop2_id": 248520179
+      },
       "polyline": [
         {
           "x": 27.5762295,
@@ -279,9 +290,10 @@ UNIT_TEST(DeserializerFromJson_Shapes)
       ]
     },
     {
-      "id": 2,
-      "stop1_id": 209191850,
-      "stop2_id": 209191851,
+      "id": {
+        "stop1_id": 209191850,
+        "stop2_id": 209191851
+      },
       "polyline": [
         {
           "x": 27.554025800000002,
@@ -295,12 +307,12 @@ UNIT_TEST(DeserializerFromJson_Shapes)
     }
   ]})";
 
-  vector<Shape> const expected = {Shape(1 /* shape id */, 209186424 /* stop 1 id */, 248520179 /* stop 2 id */,
+  vector<Shape> const expected = {Shape(ShapeId(209186424 /* stop 1 id */, 248520179 /* stop 2 id */),
                                   {m2::PointD(27.5762295, 64.256768574044699),
                                    m2::PointD(27.576325736220355, 64.256879325696005),
                                    m2::PointD(27.576420780761875, 64.256990221238539),
                                    m2::PointD(27.576514659541523, 64.257101255242176)} /* polyline */),
-                                  Shape(2 /* shape id */, 209191850 /* stop 1 id */, 209191851 /* stop 2 id */,
+                                  Shape(ShapeId(209191850 /* stop 1 id */, 209191851 /* stop 2 id */),
                                   {m2::PointD(27.554025800000002, 64.250591911669844),
                                    m2::PointD(27.553906184631536, 64.250633404586054)} /* polyline */)};
 
