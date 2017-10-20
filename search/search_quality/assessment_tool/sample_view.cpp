@@ -5,7 +5,7 @@
 
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
-#include "map/user_mark.hpp"
+#include "map/search_mark.hpp"
 
 #include "search/result.hpp"
 #include "search/search_quality/assessment_tool/helpers.hpp"
@@ -264,7 +264,7 @@ void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> co
 
     SearchMarkPoint * mark =
         static_cast<SearchMarkPoint *>(controller.CreateUserMark(result.m_pos));
-    mark->SetCustomSymbol("non-found-search-result");
+    mark->SetMarkType(SearchMarkType::NotFound);
   }
   controller.NotifyChanges();
 }

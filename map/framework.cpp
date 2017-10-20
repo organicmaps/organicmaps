@@ -142,15 +142,6 @@ double const kDistEqualQueryMeters = 100.0;
 double const kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 
-// Must correspond SearchMarkType.
-vector<string> kSearchMarks =
-{
-  "search-result",
-  "search-booking",
-  "search-adv",
-  "search-cian", // TODO: delete me after Cian project is finished.
-};
-
 // TODO!
 // To adjust GpsTrackFilter was added secret command "?gpstrackaccuracy:xxx;"
 // where xxx is a new value for horizontal accuracy.
@@ -961,8 +952,8 @@ void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & inf
 
 void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const
 {
-  if (smp.GetFoundFeature().IsValid())
-    FillFeatureInfo(smp.GetFoundFeature(), info);
+  if (smp.GetFeatureID().IsValid())
+    FillFeatureInfo(smp.GetFeatureID(), info);
   else
     FillPointInfo(smp.GetPivot(), smp.GetMatchedName(), info);
 }
@@ -1635,15 +1626,8 @@ bool Framework::Search(search::SearchParams const & params)
   // Cancels previous search request (if any) and initiates new search request.
   CancelQuery(intent.m_handle);
 
-  {
-    double eps = 0.0;
-    for (size_t i = 0; i < SearchMarkType::SearchMarkTypesCount; i++)
-    {
-      m2::PointD const markSize = GetSearchMarkSize(static_cast<SearchMarkType>(i));
-      eps = max(eps, max(markSize.x, markSize.y));
-    }
-    intent.m_params.m_minDistanceOnMapBetweenResults = eps;
-  }
+  double const eps = SearchMarkPoint::GetMaxSearchMarkDimension(m_currentModelView);
+  intent.m_params.m_minDistanceOnMapBetweenResults = eps;
 
   Search(intent);
 
@@ -1836,19 +1820,19 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
     if (isFeature && m_localAdsManager.Contains(r.GetFeatureID()))
     {
-      mark->SetCustomSymbol("search-adv");
+      mark->SetMarkType(SearchMarkType::LocalAds);
       continue;
     }
 
     // TODO: delete me after Cian project is finished.
     if (m_cianSearchMode)
     {
-      mark->SetCustomSymbol("search-cian");
+      mark->SetMarkType(SearchMarkType::Cian);
       continue;
     }
 
     if (r.m_metadata.m_isSponsoredHotel)
-      mark->SetCustomSymbol("search-booking");
+      mark->SetMarkType(SearchMarkType::Booking);
   }
 }
 
@@ -1996,9 +1980,10 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
 
-  m_drapeEngine->RequestSymbolsSize(kSearchMarks, [this](vector<m2::PointF> const & sizes)
+  m_drapeEngine->RequestSymbolsSize(SearchMarkPoint::GetAllSymbolsNames(),
+                                    [this](vector<m2::PointF> const & sizes)
   {
-    GetPlatform().RunOnGuiThread([this, sizes](){ m_searchMarksSizes = sizes; });
+    GetPlatform().RunOnGuiThread([this, sizes](){ SearchMarkPoint::SetSearchMarksSizes(sizes); });
   });
 
   m_drapeApi.SetDrapeEngine(make_ref(m_drapeEngine));
@@ -2801,18 +2786,6 @@ void Framework::BlockTapEvents(bool block)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->BlockTapEvents(block);
-}
-
-m2::PointD Framework::GetSearchMarkSize(SearchMarkType searchMarkType)
-{
-  if (m_searchMarksSizes.empty())
-    return m2::PointD();
-
-  ASSERT_LESS(static_cast<size_t>(searchMarkType), m_searchMarksSizes.size(), ());
-  m2::PointF const pixelSize = m_searchMarksSizes[searchMarkType];
-
-  double const pixelToMercator = m_currentModelView.GetScale();
-  return m2::PointD(pixelToMercator * pixelSize.x, pixelToMercator * pixelSize.y);
 }
 
 namespace feature

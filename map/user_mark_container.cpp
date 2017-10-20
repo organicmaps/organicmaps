@@ -1,5 +1,6 @@
 #include "map/framework.hpp"
 #include "map/user_mark_container.hpp"
+#include "map/search_mark.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/tile_key.hpp"
@@ -12,7 +13,6 @@
 
 namespace
 {
-
 class FindMarkFunctor
 {
 public:
@@ -51,8 +51,7 @@ df::MarkGroupID GenerateMarkGroupId(UserMarkContainer const * cont)
 {
   return reinterpret_cast<df::MarkGroupID>(cont);
 }
-
-} // namespace
+}  // namespace
 
 UserMarkContainer::UserMarkContainer(double layerDepth, UserMarkType type, Framework & fm)
   : m_framework(fm)
@@ -302,4 +301,3 @@ UserMark * ApiUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
 {
   return new ApiMarkPoint(ptOrg, this);
 }
-

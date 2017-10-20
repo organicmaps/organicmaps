@@ -10,6 +10,7 @@
 #include "map/place_page_info.hpp"
 #include "map/routing_manager.hpp"
 #include "map/routing_mark.hpp"
+#include "map/search_mark.hpp"
 #include "map/track.hpp"
 #include "map/traffic_manager.hpp"
 #include "map/user.hpp"
@@ -339,8 +340,6 @@ public:
   BookmarkAndCategory FindBookmark(UserMark const * mark) const;
   BookmarkManager & GetBookmarkManager() { return m_bmManager; }
 
-  m2::PointD GetSearchMarkSize(SearchMarkType searchMarkType);
-
   // Utilities
   void VisualizeRoadsInRect(m2::RectD const & rect);
 
@@ -446,8 +445,6 @@ private:
 
   /// Here we store last selected feature to get its polygons in case of adding organization.
   mutable FeatureID m_selectedFeature;
-
-  vector<m2::PointF> m_searchMarksSizes;
 
 private:
   vector<m2::TriangleD> GetSelectedFeatureTriangles() const;

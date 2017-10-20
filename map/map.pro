@@ -34,6 +34,7 @@ HEADERS += \
     reachable_by_taxi_checker.hpp \
     routing_manager.hpp \
     routing_mark.hpp \
+    search_mark.hpp \
     taxi_delegate.hpp \
     track.hpp \
     traffic_manager.hpp \
@@ -68,6 +69,7 @@ SOURCES += \
     reachable_by_taxi_checker.cpp \
     routing_manager.cpp \
     routing_mark.cpp \
+    search_mark.cpp \
     taxi_delegate.cpp \
     track.cpp \
     traffic_manager.cpp \
