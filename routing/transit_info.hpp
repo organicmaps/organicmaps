@@ -28,6 +28,7 @@ public:
       , m_stop2Id(edge.GetStop2Id())
       , m_shapeIds(edge.GetShapeIds())
     {
+      ASSERT(!edge.GetTransfer(), ());
     }
 
     transit::LineId m_lineId = transit::kInvalidLineId;
@@ -48,6 +49,7 @@ public:
     explicit Transfer(transit::Edge const & edge)
       : m_stop1Id(edge.GetStop1Id()), m_stop2Id(edge.GetStop2Id())
     {
+      ASSERT(edge.GetTransfer(), ());
     }
 
     transit::StopId m_stop1Id = transit::kInvalidStopId;
