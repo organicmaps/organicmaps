@@ -80,11 +80,11 @@ bool TitleAnchor::IsValid() const
 }
 
 // Stop -------------------------------------------------------------------------------------------
-Stop::Stop(StopId id, OsmId const & osmId, TransferId transferId,
+Stop::Stop(StopId id, FeatureIdentifiers const & featureIdentifiers, TransferId transferId,
            std::vector<LineId> const & lineIds, m2::PointD const & point,
            std::vector<TitleAnchor> const & titleAnchors)
   : m_id(id)
-  , m_osmId(osmId)
+  , m_featureIdentifiers(featureIdentifiers)
   , m_transferId(transferId)
   , m_lineIds(lineIds)
   , m_point(point)
@@ -95,7 +95,7 @@ Stop::Stop(StopId id, OsmId const & osmId, TransferId transferId,
 bool Stop::IsEqualForTesting(Stop const & stop) const
 {
   double constexpr kPointsEqualEpsilon = 1e-6;
-  return m_id == stop.m_id && m_osmId == stop.m_osmId &&
+  return m_id == stop.m_id && m_featureIdentifiers.IsEqualForTesting(stop.m_featureIdentifiers) &&
          m_transferId == stop.m_transferId && m_lineIds == stop.m_lineIds &&
          my::AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon) &&
          m_titleAnchors == stop.m_titleAnchors;
@@ -123,9 +123,9 @@ bool SingleMwmSegment::IsValid() const
 }
 
 // Gate -------------------------------------------------------------------------------------------
-Gate::Gate(OsmId const & osmId, bool entrance, bool exit, double weight,
+Gate::Gate(FeatureIdentifiers const & featureIdentifiers, bool entrance, bool exit, double weight,
            std::vector<StopId> const & stopIds, m2::PointD const & point)
-  : m_osmId(osmId)
+  : m_featureIdentifiers(featureIdentifiers)
   , m_entrance(entrance)
   , m_exit(exit)
   , m_weight(weight)
@@ -136,8 +136,8 @@ Gate::Gate(OsmId const & osmId, bool entrance, bool exit, double weight,
 
 bool Gate::IsEqualForTesting(Gate const & gate) const
 {
-  return m_osmId == gate.m_osmId && m_entrance == gate.m_entrance &&
-         m_exit == gate.m_exit &&
+  return m_featureIdentifiers.IsEqualForTesting(gate.m_featureIdentifiers) &&
+         m_entrance == gate.m_entrance && m_exit == gate.m_exit &&
          my::AlmostEqualAbs(m_weight, gate.m_weight, kWeightEqualEpsilon) &&
          m_stopIds == gate.m_stopIds &&
          my::AlmostEqualAbs(m_point, gate.m_point, kPointsEqualEpsilon);

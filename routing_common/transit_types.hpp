@@ -20,6 +20,7 @@ using StopId = uint64_t;
 using TransferId = uint64_t;
 using NetworkId = uint32_t;
 using FeatureId = uint32_t;
+using OsmId = uint64_t;
 using ShapeId = uint32_t;
 using Weight = double;
 using Anchor = uint8_t;
@@ -29,6 +30,7 @@ StopId constexpr kInvalidStopId = std::numeric_limits<StopId>::max();
 TransferId constexpr kInvalidTransferId = std::numeric_limits<TransferId>::max();
 NetworkId constexpr kInvalidNetworkId = std::numeric_limits<NetworkId>::max();
 FeatureId constexpr kInvalidFeatureId = std::numeric_limits<FeatureId>::max();
+OsmId constexpr kInvalidOsmId = std::numeric_limits<OsmId>::max();
 ShapeId constexpr kInvalidShapeId = std::numeric_limits<ShapeId>::max();
 // Note. Weight may be a default param at json. The default value should be saved as uint32_t in mwm anyway.
 // To convert double to uint32_t at better accuracy |kInvalidWeight| should be close to real weight.
@@ -78,23 +80,24 @@ public:
 
 static_assert(sizeof(TransitHeader) == 32, "Wrong header size of transit section.");
 
-class OsmId
+/// \brief This class represents osm id and feature id of the same feature.
+class FeatureIdentifiers
 {
 public:
-  OsmId() = default;
-  explicit OsmId(FeatureId featureId) : m_featureId(featureId) {}
+  FeatureIdentifiers() = default;
+  FeatureIdentifiers(OsmId osmId, FeatureId const & featureId) : m_osmId(osmId), m_featureId(featureId) {}
 
-  bool operator==(OsmId const & rhs) const { return m_featureId == rhs.m_featureId; }
-  bool IsEqualForTesting(OsmId const & osmId) const { return *this == osmId; }
+  bool IsEqualForTesting(FeatureIdentifiers const & rhs) const { return m_featureId == rhs.m_featureId; }
   bool IsValid() const { return m_featureId != kInvalidFeatureId; }
 
   FeatureId GetFeatureId() const { return m_featureId; }
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(OsmId, visitor(m_featureId, "feature_id"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FeatureIdentifiers, visitor(m_osmId, "osm_id"),
+                                  visitor(m_featureId, "feature_id"))
 
-  // |m_featureId| is a feature id corresponding to osm id which presents the class.
+  OsmId m_osmId = kInvalidOsmId;
   FeatureId m_featureId = kInvalidFeatureId;
 };
 
@@ -124,14 +127,15 @@ class Stop
 {
 public:
   Stop() = default;
-  Stop(StopId id, OsmId const & osmId, TransferId transferId, std::vector<LineId> const & lineIds,
-       m2::PointD const & point, std::vector<TitleAnchor> const & titleAnchors);
+  Stop(StopId id, FeatureIdentifiers const & featureIdentifiers, TransferId transferId,
+       std::vector<LineId> const & lineIds, m2::PointD const & point,
+       std::vector<TitleAnchor> const & titleAnchors);
 
   bool IsEqualForTesting(Stop const & stop) const;
   bool IsValid() const;
 
   StopId GetId() const { return m_id; }
-  FeatureId GetFeatureId() const { return m_osmId.GetFeatureId(); }
+  FeatureId GetFeatureId() const { return m_featureIdentifiers.GetFeatureId(); }
   TransferId GetTransferId() const { return m_transferId; }
   std::vector<LineId> const & GetLineIds() const { return m_lineIds; }
   m2::PointD const & GetPoint() const { return m_point; }
@@ -139,13 +143,13 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_osmId, "osm_id"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_featureIdentifiers, "osm_id"),
                                   visitor(m_transferId, "transfer_id"),
                                   visitor(m_lineIds, "line_ids"), visitor(m_point, "point"),
                                   visitor(m_titleAnchors, "title_anchors"))
 
   StopId m_id = kInvalidStopId;
-  OsmId m_osmId;
+  FeatureIdentifiers m_featureIdentifiers;
   TransferId m_transferId = kInvalidTransferId;
   std::vector<LineId> m_lineIds;
   m2::PointD m_point;
@@ -179,13 +183,13 @@ class Gate
 {
 public:
   Gate() = default;
-  Gate(OsmId const & osmId, bool entrance, bool exit, double weight, std::vector<StopId> const & stopIds,
-       m2::PointD const & point);
+  Gate(FeatureIdentifiers const & featureIdentifiers, bool entrance, bool exit, double weight,
+       std::vector<StopId> const & stopIds, m2::PointD const & point);
   bool IsEqualForTesting(Gate const & gate) const;
   bool IsValid() const;
   void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; };
 
-  FeatureId GetFeatureId() const { return m_osmId.GetFeatureId(); }
+  FeatureId GetFeatureId() const { return m_featureIdentifiers.GetFeatureId(); }
   SingleMwmSegment const & GetBestPedestrianSegment() const { return m_bestPedestrianSegment; }
   bool GetEntrance() const { return m_entrance; }
   bool GetExit() const { return m_exit; }
@@ -195,14 +199,14 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_osmId, "osm_id"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_featureIdentifiers, "osm_id"),
                                   visitor(m_bestPedestrianSegment, "best_pedestrian_segment"),
                                   visitor(m_entrance, "entrance"), visitor(m_exit, "exit"),
                                   visitor(m_weight, "weight"), visitor(m_stopIds, "stop_ids"),
                                   visitor(m_point, "point"))
 
-  // |m_osmId| contains feature id of a feature which represents gates. Usually it's a point feature.
-  OsmId m_osmId;
+  // |m_featureIdentifiers| contains feature id of a feature which represents gates. Usually it's a point feature.
+  FeatureIdentifiers m_featureIdentifiers;
   // |m_bestPedestrianSegment| is a segment which can be used for pedestrian routing to leave and enter the gate.
   // The segment may be invalid because of map date. If so there's no pedestrian segment which can be used
   // to reach the gate.

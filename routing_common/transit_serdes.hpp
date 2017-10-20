@@ -97,6 +97,11 @@ public:
     }
   }
 
+  void operator()(FeatureIdentifiers const & id, char const * name = nullptr)
+  {
+    (*this)(id.GetFeatureId(), name);
+  }
+
   template <typename T>
   void operator()(std::vector<T> const & vs, char const * /* name */ = nullptr)
   {
@@ -164,6 +169,13 @@ public:
   void operator()(m2::PointD & p, char const * /* name */ = nullptr)
   {
     p = Int64ToPoint(ReadVarInt<int64_t, Source>(m_source), POINT_COORD_BITS);
+  }
+
+  void operator()(FeatureIdentifiers & id, char const * name = nullptr)
+  {
+    FeatureId featureId;
+    operator()(featureId, name);
+    id = FeatureIdentifiers(kInvalidOsmId, featureId);
   }
 
   void operator()(vector<m2::PointD> & vs, char const * /* name */ = nullptr)

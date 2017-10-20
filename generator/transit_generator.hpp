@@ -38,7 +38,7 @@ public:
 
   void operator()(std::string & s, char const * name = nullptr) { GetField(s, name); }
   void operator()(m2::PointD & p, char const * name = nullptr);
-  void operator()(OsmId & osmId, char const * name = nullptr);
+  void operator()(FeatureIdentifiers & id, char const * name = nullptr);
 
   template <typename T>
   void operator()(std::vector<T> & vs, char const * name = nullptr)

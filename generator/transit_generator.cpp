@@ -59,7 +59,7 @@ Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
 {
   ASSERT(is_sorted(stops.cbegin(), stops.cend(), LessById), ());
   auto s1Id = equal_range(stops.cbegin(), stops.cend(),
-          Stop(stopId, OsmId(), kInvalidTransferId, {}, m2::PointD(), {}),
+          Stop(stopId, FeatureIdentifiers(), kInvalidTransferId, {}, m2::PointD(), {}),
           LessById);
   CHECK(s1Id.first != stops.cend(), ("No a stop with id:", stopId, "in stops:", stops));
   CHECK_EQUAL(distance(s1Id.first, s1Id.second), 1, ("A stop with id:", stopId, "is not unique in stops:", stops));
@@ -217,7 +217,7 @@ void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
   FromJSONObject(pointItem, "y", p.y);
 }
 
-void DeserializerFromJson::operator()(OsmId & osmId, char const * name)
+void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name)
 {
   // Conversion osm id to feature id.
   string osmIdStr;
@@ -225,12 +225,12 @@ void DeserializerFromJson::operator()(OsmId & osmId, char const * name)
   CHECK(strings::is_number(osmIdStr), ());
   uint64_t osmIdNum;
   CHECK(strings::to_uint64(osmIdStr, osmIdNum), ());
-  osm::Id const id(osmIdNum);
-  auto const it = m_osmIdToFeatureIds.find(id);
+  osm::Id const osmId(osmIdNum);
+  auto const it = m_osmIdToFeatureIds.find(osmId);
   CHECK(it != m_osmIdToFeatureIds.cend(), ());
   CHECK_EQUAL(it->second.size(), 1,
-              ("Osm id:", id, "from transit graph doesn't present by a single feature in mwm."));
-  osmId = OsmId(it->second[0]);
+              ("Osm id:", osmId, "from transit graph doesn't present by a single feature in mwm."));
+  id = FeatureIdentifiers(osmId.EncodedId() /* osm id */, it->second[0] /* feature id */);
 }
 
 void BuildTransit(string const & mwmPath, string const & osmIdsToFeatureIdPath,
