@@ -258,8 +258,7 @@ class TransitGraphBuilder:
             for point in curve_points:
                 polyline.append({'x': point[0], 'y': point[1]})
 
-            shape = {'stop1_id': id1,
-                     'stop2_id': id2,
+            shape = {'id': {'stop1_id': id1, 'stop2_id': id2},
                      'polyline': polyline}
             self.shapes.append(shape)
 
