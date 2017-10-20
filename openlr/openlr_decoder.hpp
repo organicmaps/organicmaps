@@ -19,7 +19,7 @@ struct DecodedPath;
 
 DECLARE_EXCEPTION(DecoderError, RootException);
 
-class OpenLRSimpleDecoder
+class OpenLRDecoder
 {
 public:
   using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
@@ -37,8 +37,8 @@ public:
     bool const m_multipointsOnly;
   };
 
-  OpenLRSimpleDecoder(std::vector<Index> const & indexes,
-                      CountryParentNameGetterFn const & countryParentNameGetterFn);
+  OpenLRDecoder(std::vector<Index> const & indexes,
+                CountryParentNameGetterFn const & countryParentNameGetterFn);
 
   // Maps partner segments to mwm paths. |segments| should be sorted by partner id.
   void Decode(std::vector<LinearSegment> const & segments, uint32_t const numThreads,

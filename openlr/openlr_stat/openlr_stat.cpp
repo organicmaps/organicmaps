@@ -1,4 +1,4 @@
-#include "openlr/openlr_simple_decoder.hpp"
+#include "openlr/openlr_decoder.hpp"
 
 #include "routing/road_graph.hpp"
 
@@ -167,7 +167,7 @@ std::vector<LinearSegment> LoadSegments(pugi::xml_document & document)
     exit(-1);
   }
 
-  OpenLRSimpleDecoder::SegmentsFilter filter(FLAGS_ids_path, FLAGS_multipoints_only);
+  OpenLRDecoder::SegmentsFilter filter(FLAGS_ids_path, FLAGS_multipoints_only);
   if (FLAGS_limit != kHandleAllSegments && FLAGS_limit >= 0 &&
       static_cast<size_t>(FLAGS_limit) < segments.size())
   {
@@ -243,8 +243,8 @@ int main(int argc, char * argv[])
   std::vector<Index> indexes(numThreads);
   LoadIndexes(FLAGS_mwms_path, indexes);
 
-  OpenLRSimpleDecoder decoder(indexes, storage::CountryParentGetter(FLAGS_countries_filename,
-                                                                    GetPlatform().ResourcesDir()));
+  OpenLRDecoder decoder(indexes, storage::CountryParentGetter(FLAGS_countries_filename,
+                                                              GetPlatform().ResourcesDir()));
 
   pugi::xml_document document;
   auto const load_result = document.load_file(FLAGS_input.data());

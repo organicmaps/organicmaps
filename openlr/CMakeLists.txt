@@ -4,12 +4,12 @@ set(
   SRC
   decoded_path.cpp
   decoded_path.hpp
+  openlr_decoder.cpp
+  openlr_decoder.hpp
   openlr_model.cpp
   openlr_model.hpp
   openlr_model_xml.cpp
   openlr_model_xml.hpp
-  openlr_simple_decoder.cpp
-  openlr_simple_decoder.hpp
   road_info_getter.cpp
   road_info_getter.hpp
   road_type_checkers.cpp

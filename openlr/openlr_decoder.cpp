@@ -1,4 +1,4 @@
-#include "openlr/openlr_simple_decoder.hpp"
+#include "openlr/openlr_decoder.hpp"
 
 #include "openlr/decoded_path.hpp"
 #include "openlr/openlr_model.hpp"
@@ -51,9 +51,9 @@ struct alignas(kCacheLineSize) Stats
 };
 }  // namespace
 
-// OpenLRSimpleDecoder::SegmentsFilter -------------------------------------------------------------
-OpenLRSimpleDecoder::SegmentsFilter::SegmentsFilter(string const & idsPath,
-                                                    bool const multipointsOnly)
+// OpenLRDecoder::SegmentsFilter -------------------------------------------------------------
+OpenLRDecoder::SegmentsFilter::SegmentsFilter(string const & idsPath,
+                                              bool const multipointsOnly)
   : m_idsSet(false), m_multipointsOnly(multipointsOnly)
 {
   if (idsPath.empty())
@@ -67,7 +67,7 @@ OpenLRSimpleDecoder::SegmentsFilter::SegmentsFilter(string const & idsPath,
   m_idsSet = true;
 }
 
-bool OpenLRSimpleDecoder::SegmentsFilter::Matches(LinearSegment const & segment) const
+bool OpenLRDecoder::SegmentsFilter::Matches(LinearSegment const & segment) const
 {
   if (m_multipointsOnly && segment.m_locationReference.m_points.size() == 2)
     return false;
@@ -76,15 +76,15 @@ bool OpenLRSimpleDecoder::SegmentsFilter::Matches(LinearSegment const & segment)
   return true;
 }
 
-// OpenLRSimpleDecoder -----------------------------------------------------------------------------
-OpenLRSimpleDecoder::OpenLRSimpleDecoder(
+// OpenLRDecoder -----------------------------------------------------------------------------
+OpenLRDecoder::OpenLRDecoder(
     vector<Index> const & indexes, CountryParentNameGetterFn const & countryParentNameGetterFn)
   : m_indexes(indexes), m_countryParentNameGetterFn(countryParentNameGetterFn)
 {
 }
 
-void OpenLRSimpleDecoder::Decode(std::vector<LinearSegment> const & segments,
-                                 uint32_t const numThreads, std::vector<DecodedPath> & paths)
+void OpenLRDecoder::Decode(std::vector<LinearSegment> const & segments,
+                           uint32_t const numThreads, std::vector<DecodedPath> & paths)
 {
   double const kOffsetToleranceM = 10;
 
