@@ -34,7 +34,7 @@ def get_extended_osm_id(osm_id, osm_type):
 
 
 def get_line_id(road_id, line_index):
-    return road_id << 8 | line_index
+    return road_id << 4 | line_index
 
 
 def get_interchange_node_id(min_stop_id):
@@ -236,11 +236,7 @@ class TransitGraphBuilder:
 
     def __generate_shapes_for_segments(self):
         """Generates a curve for each connection of two stops / transfer nodes."""
-        shape_id = 0
         for (id1, id2), info in self.segments.items():
-            info['shape_id'] = shape_id
-            shape_id += 1
-
             point1 = [self.__get_stop(id1)['point']['x'], self.__get_stop(id1)['point']['y']]
             point2 = [self.__get_stop(id2)['point']['x'], self.__get_stop(id2)['point']['y']]
 
@@ -262,8 +258,7 @@ class TransitGraphBuilder:
             for point in curve_points:
                 polyline.append({'x': point[0], 'y': point[1]})
 
-            shape = {'id': shape_id,
-                     'stop1_id': id1,
+            shape = {'stop1_id': id1,
                      'stop2_id': id2,
                      'polyline': polyline}
             self.shapes.append(shape)
@@ -278,7 +273,7 @@ class TransitGraphBuilder:
                 id2 = stop2.get('transfer_id', stop2['id'])
                 seg = tuple(sorted([id1, id2]))
                 if seg in self.segments:
-                    edge['shape_ids'].append(self.segments[seg]['shape_id'])
+                    edge['shape_ids'].append({'stop1_id': seg[0], 'stop2_id': seg[1]})
 
     def __create_scheme_shapes(self):
         self.__collect_segments()
