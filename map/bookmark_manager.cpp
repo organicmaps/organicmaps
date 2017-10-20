@@ -18,16 +18,26 @@
 
 #include <algorithm>
 
+using SearchUserMarkContainer = SpecifiedUserMarkContainer<SearchMarkPoint, UserMark::Type::SEARCH>;
+using ApiUserMarkContainer = SpecifiedUserMarkContainer<ApiMarkPoint, UserMark::Type::API>;
+using DebugUserMarkContainer = SpecifiedUserMarkContainer<DebugMarkPoint, UserMark::Type::DEBUG_MARK>;
+using RouteUserMarkContainer = SpecifiedUserMarkContainer<RouteMarkPoint, UserMark::Type::ROUTING>;
+using LocalAdsMarkContainer = SpecifiedUserMarkContainer<LocalAdsMark, UserMark::Type::LOCAL_ADS>;
+using StaticUserMarkContainer = SpecifiedUserMarkContainer<SearchMarkPoint, UserMark::Type::STATIC>;
+
 BookmarkManager::BookmarkManager(Framework & f)
   : m_framework(f)
 {
-  m_userMarkLayers.reserve(5);
-  m_userMarkLayers.emplace_back(new SearchUserMarkContainer(0.0 /* activePinDepth */, m_framework));
-  m_userMarkLayers.emplace_back(new ApiUserMarkContainer(0.0 /* activePinDepth */, m_framework));
-  m_userMarkLayers.emplace_back(new DebugUserMarkContainer(0.0 /* debugDepth */, m_framework));
-  m_userMarkLayers.emplace_back(new RouteUserMarkContainer(0.0 /* activePinDepth */, m_framework));
-  m_userMarkLayers.emplace_back(new LocalAdsMarkContainer(0.0 /* activePinDepth */, m_framework));
-  UserMarkContainer::InitStaticMarks(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
+  m_userMarkLayers.reserve(6);
+  m_userMarkLayers.emplace_back(my::make_unique<SearchUserMarkContainer>(m_framework));
+  m_userMarkLayers.emplace_back(my::make_unique<ApiUserMarkContainer>(m_framework));
+  m_userMarkLayers.emplace_back(my::make_unique<DebugUserMarkContainer>(m_framework));
+  m_userMarkLayers.emplace_back(my::make_unique<RouteUserMarkContainer>(m_framework));
+  m_userMarkLayers.emplace_back(my::make_unique<LocalAdsMarkContainer>(m_framework));
+
+  auto staticMarksContainer = my::make_unique<StaticUserMarkContainer>(m_framework);
+  UserMarkContainer::InitStaticMarks(staticMarksContainer.get());
+  m_userMarkLayers.emplace_back(std::move(staticMarksContainer));
 }
 
 BookmarkManager::~BookmarkManager()
@@ -187,45 +197,47 @@ bool BookmarkManager::DeleteBmCategory(size_t index)
 
 namespace
 {
-  class BestUserMarkFinder
+class BestUserMarkFinder
+{
+public:
+  explicit BestUserMarkFinder(BookmarkManager::TTouchRectHolder const & rectHolder)
+    : m_rectHolder(rectHolder)
+    , m_d(numeric_limits<double>::max())
+    , m_mark(nullptr)
+  {}
+
+  void operator()(UserMarkContainer const * container)
   {
-  public:
-    BestUserMarkFinder(BookmarkManager::TTouchRectHolder const & rectHolder)
-      : m_rectHolder(rectHolder)
-      , m_d(numeric_limits<double>::max())
-      , m_mark(NULL) {}
-
-    void operator() (UserMarkContainer const * container)
+    ASSERT(container != nullptr, ());
+    m2::AnyRectD const & rect = m_rectHolder(container->GetType());
+    if (UserMark const * p = container->FindMarkInRect(rect, m_d))
     {
-      m2::AnyRectD const & rect = m_rectHolder(container->GetType());
-      if (UserMark const * p = container->FindMarkInRect(rect, m_d))
-      {
-        double const kEps = 1e-5;
-        if (m_mark == nullptr || !p->GetPivot().EqualDxDy(m_mark->GetPivot(), kEps))
-          m_mark = p;
-      }
+      static double const kEps = 1e-5;
+      if (m_mark == nullptr || !p->GetPivot().EqualDxDy(m_mark->GetPivot(), kEps))
+        m_mark = p;
     }
+  }
 
-    UserMark const * GetFoundMark() const { return m_mark; }
+  UserMark const * GetFoundMark() const { return m_mark; }
 
-  private:
-    BookmarkManager::TTouchRectHolder const & m_rectHolder;
-    double m_d;
-    UserMark const * m_mark;
-  };
-}
+private:
+  BookmarkManager::TTouchRectHolder const & m_rectHolder;
+  double m_d;
+  UserMark const * m_mark;
+};
+}  // namespace
 
 UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
 {
-  return FindNearestUserMark([&rect](UserMarkType) { return rect; });
+  return FindNearestUserMark([&rect](UserMark::Type) { return rect; });
 }
 
 UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder) const
 {
   BestUserMarkFinder finder(holder);
-  finder(FindUserMarksContainer(UserMarkType::ROUTING_MARK));
-  finder(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
-  finder(FindUserMarksContainer(UserMarkType::API_MARK));
+  finder(FindUserMarksContainer(UserMark::Type::ROUTING));
+  finder(FindUserMarksContainer(UserMark::Type::SEARCH));
+  finder(FindUserMarksContainer(UserMark::Type::API));
   for (auto & cat : m_categories)
   {
     finder(cat.get());
@@ -234,17 +246,17 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
   return finder.GetFoundMark();
 }
 
-bool BookmarkManager::UserMarksIsVisible(UserMarkType type) const
+bool BookmarkManager::UserMarksIsVisible(UserMark::Type type) const
 {
   return FindUserMarksContainer(type)->IsVisible();
 }
 
-UserMarksController & BookmarkManager::GetUserMarksController(UserMarkType type)
+UserMarksController & BookmarkManager::GetUserMarksController(UserMark::Type type)
 {
   return *FindUserMarksContainer(type);
 }
 
-UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkType type) const
+UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMark::Type type) const
 {
   auto const iter = find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(),
                             [&type](unique_ptr<UserMarkContainer> const & cont)
@@ -255,7 +267,7 @@ UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkType t
   return iter->get();
 }
 
-UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMarkType type)
+UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMark::Type type)
 {
   auto iter = find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(),
                       [&type](unique_ptr<UserMarkContainer> const & cont)
@@ -266,7 +278,7 @@ UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMarkType type)
   return iter->get();
 }
 
-UserMarkNotificationGuard::UserMarkNotificationGuard(BookmarkManager & mng, UserMarkType type)
+UserMarkNotificationGuard::UserMarkNotificationGuard(BookmarkManager & mng, UserMark::Type type)
   : m_controller(mng.GetUserMarksController(type))
 {
 }

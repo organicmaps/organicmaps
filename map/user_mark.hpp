@@ -24,9 +24,8 @@ public:
   {
     API,
     SEARCH,
-    POI,
+    STATIC,
     BOOKMARK,
-    MY_POSITION,
     ROUTING,
     LOCAL_ADS,
     DEBUG_MARK
@@ -68,10 +67,10 @@ private:
   DISALLOW_COPY_AND_MOVE(UserMark);
 };
 
-class PoiMarkPoint : public UserMark
+class StaticMarkPoint : public UserMark
 {
 public:
-  explicit PoiMarkPoint(UserMarkContainer * container);
+  explicit StaticMarkPoint(UserMarkContainer * container);
 
   string GetSymbolName() const override { return {}; }
   UserMark::Type GetMarkType() const override;
@@ -79,12 +78,10 @@ public:
   void SetPtOrg(m2::PointD const & ptOrg);
 };
 
-class MyPositionMarkPoint : public PoiMarkPoint
+class MyPositionMarkPoint : public StaticMarkPoint
 {
 public:
   explicit MyPositionMarkPoint(UserMarkContainer * container);
-
-  UserMark::Type GetMarkType() const override;
 
   void SetUserPosition(m2::PointD const & pt, bool hasPosition)
   {

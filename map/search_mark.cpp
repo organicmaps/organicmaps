@@ -1,8 +1,24 @@
 #include "map/search_mark.hpp"
+#include "map/bookmark_manager.hpp"
+
+#include "drape_frontend/drape_engine.hpp"
+
+#include "platform/platform.hpp"
 
 #include <algorithm>
 
-std::vector<m2::PointF> SearchMarkPoint::m_searchMarksSizes;
+namespace
+{
+std::vector<std::string> const kSymbols =
+{
+  "search-result",  // Default.
+  "search-booking", // Booking.
+  "search-adv",     // LocalAds.
+  "search-cian",    // TODO: delete me after Cian project is finished.
+
+  "non-found-search-result", // NotFound.
+};
+}  // namespace
 
 SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
   : UserMark(ptOrg, container)
@@ -16,14 +32,12 @@ std::string SearchMarkPoint::GetSymbolName() const
     return "non-found-search-result";
   }
 
-  auto const & symbols = GetAllSymbolsNames();
-  auto const index = static_cast<size_t>(m_type);
-  if (index >= static_cast<size_t>(SearchMarkType::Count))
+  if (m_type >= SearchMarkType::Count)
   {
     ASSERT(false, ("Unknown search mark symbol."));
-    return symbols[static_cast<size_t>(SearchMarkType::Default)];
+    return kSymbols[static_cast<size_t>(SearchMarkType::Default)];
   }
-  return symbols[index];
+  return kSymbols[static_cast<size_t>(m_type)];
 }
 
 UserMark::Type SearchMarkPoint::GetMarkType() const
@@ -33,77 +47,58 @@ UserMark::Type SearchMarkPoint::GetMarkType() const
 
 void SearchMarkPoint::SetFoundFeature(FeatureID const & feature)
 {
-  if (m_featureID == feature)
-    return;
-
-  SetDirty();
-  m_featureID = feature;
+  SetAttributeValue(m_featureID, feature);
 }
 
 void SearchMarkPoint::SetMatchedName(std::string const & name)
 {
-  if (m_matchedName == name)
-    return;
-
-  SetDirty();
-  m_matchedName = name;
+  SetAttributeValue(m_matchedName, name);
 }
 
 void SearchMarkPoint::SetMarkType(SearchMarkType type)
 {
-  if (m_type == type)
-    return;
-
-  SetDirty();
-  m_type = type;
+  SetAttributeValue(m_type, type);
 }
 
 void SearchMarkPoint::SetPreparing(bool isPreparing)
 {
-  if (m_isPreparing == isPreparing)
+  SetAttributeValue(m_isPreparing, isPreparing);
+}
+
+SearchMarks::SearchMarks()
+  : m_bmManager(nullptr)
+{}
+
+void SearchMarks::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
+{
+  m_drapeEngine.Set(engine);
+  if (engine == nullptr)
     return;
 
-  SetDirty();
-  m_isPreparing = isPreparing;
-}
-
-// static
-std::vector<std::string> const & SearchMarkPoint::GetAllSymbolsNames()
-{
-  static std::vector<std::string> const kSymbols =
+  m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, kSymbols,
+                         [this](std::vector<m2::PointF> const & sizes)
   {
-    "search-result",  // Default.
-    "search-booking", // Booking.
-    "search-adv",     // LocalAds.
-    "search-cian",    // TODO: delete me after Cian project is finished.
-
-    "non-found-search-result", // NotFound.
-  };
-
-  return kSymbols;
+    GetPlatform().RunOnGuiThread([this, sizes](){ m_searchMarksSizes = sizes; });
+  });
 }
 
-// static
-void SearchMarkPoint::SetSearchMarksSizes(std::vector<m2::PointF> const & sizes)
+void SearchMarks::SetBookmarkManager(BookmarkManager * bmManager)
 {
-  m_searchMarksSizes = sizes;
+  m_bmManager = bmManager;
 }
 
-// static
-double SearchMarkPoint::GetMaxSearchMarkDimension(ScreenBase const & modelView)
+double SearchMarks::GetMaxDimension(ScreenBase const & modelView) const
 {
   double dimension = 0.0;
   for (size_t i = 0; i < static_cast<size_t>(SearchMarkType::Count); ++i)
   {
-    m2::PointD const markSize = GetSearchMarkSize(static_cast<SearchMarkType>(i), modelView);
+    m2::PointD const markSize = GetSize(static_cast<SearchMarkType>(i), modelView);
     dimension = std::max(dimension, std::max(markSize.x, markSize.y));
   }
   return dimension;
 }
 
-// static
-m2::PointD SearchMarkPoint::GetSearchMarkSize(SearchMarkType searchMarkType,
-                                              ScreenBase const & modelView)
+m2::PointD SearchMarks::GetSize(SearchMarkType searchMarkType, ScreenBase const & modelView) const
 {
   if (m_searchMarksSizes.empty())
     return {};
@@ -114,4 +109,21 @@ m2::PointD SearchMarkPoint::GetSearchMarkSize(SearchMarkType searchMarkType,
 
   double const pixelToMercator = modelView.GetScale();
   return {pixelToMercator * pixelSize.x, pixelToMercator * pixelSize.y};
+}
+
+void SearchMarks::SetPreparingState(std::vector<FeatureID> const & features, bool isPreparing)
+{
+  if (m_bmManager == nullptr)
+    return;
+
+  ASSERT(std::is_sorted(features.begin(), features.end()), ());
+
+  UserMarkNotificationGuard guard(*m_bmManager, UserMark::Type::SEARCH);
+  size_t const count = guard.m_controller.GetUserMarkCount();
+  for (size_t i = 0; i < count; ++i)
+  {
+    auto mark = static_cast<SearchMarkPoint *>(guard.m_controller.GetUserMarkForEdit(i));
+    if (std::binary_search(features.begin(), features.end(), mark->GetFeatureID()))
+      mark->SetPreparing(isPreparing);
+  }
 }

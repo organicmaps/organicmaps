@@ -42,11 +42,3 @@ private:
   FeatureID m_featureId;
   dp::TitleDecl m_titleDecl;
 };
-
-class LocalAdsMarkContainer : public UserMarkContainer
-{
-public:
-  LocalAdsMarkContainer(double layerDepth, Framework & fm);
-protected:
-  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
-};

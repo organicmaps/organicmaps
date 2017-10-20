@@ -139,7 +139,7 @@ Track const * BookmarkCategory::GetTrack(size_t index) const
 }
 
 BookmarkCategory::BookmarkCategory(std::string const & name, Framework & framework)
-  : TBase(0.0 /* bookmarkDepth */, UserMarkType::BOOKMARK_MARK, framework)
+  : TBase(0.0 /* bookmarkDepth */, UserMark::Type::BOOKMARK, framework)
   , m_name(name)
 {
 }

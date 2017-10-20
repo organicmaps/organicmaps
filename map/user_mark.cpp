@@ -19,7 +19,7 @@ m2::PointD const & UserMark::GetPivot() const
 
 m2::PointD UserMark::GetPixelOffset() const
 {
-  return m2::PointD(0.0, 0.0);
+  return {};
 }
 
 dp::Anchor UserMark::GetAnchor() const
@@ -48,34 +48,28 @@ ms::LatLon UserMark::GetLatLon() const
   return MercatorBounds::ToLatLon(m_ptOrg);
 }
 
-PoiMarkPoint::PoiMarkPoint(UserMarkContainer * container)
-  : UserMark(m2::PointD::Zero(), container)
+StaticMarkPoint::StaticMarkPoint(UserMarkContainer * container)
+  : UserMark(m2::PointD{}, container)
 {}
 
-UserMark::Type PoiMarkPoint::GetMarkType() const
+UserMark::Type StaticMarkPoint::GetMarkType() const
 {
-  return UserMark::Type::POI;
+  return UserMark::Type::STATIC;
 }
 
-void PoiMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
+void StaticMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
 {
   SetDirty();
   m_ptOrg = ptOrg;
 }
 
 MyPositionMarkPoint::MyPositionMarkPoint(UserMarkContainer * container)
-  : PoiMarkPoint(container)
+  : StaticMarkPoint(container)
 {}
-
-UserMark::Type MyPositionMarkPoint::GetMarkType() const
-{
-  return UserMark::Type::MY_POSITION;
-}
 
 DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg, UserMarkContainer * container)
   : UserMark(ptOrg, container)
-{
-}
+{}
 
 string DebugMarkPoint::GetSymbolName() const
 {
@@ -88,9 +82,8 @@ string DebugPrint(UserMark::Type type)
   {
   case UserMark::Type::API: return "API";
   case UserMark::Type::SEARCH: return "SEARCH";
-  case UserMark::Type::POI: return "POI";
+  case UserMark::Type::STATIC: return "STATIC";
   case UserMark::Type::BOOKMARK: return "BOOKMARK";
-  case UserMark::Type::MY_POSITION: return "MY_POSITION";
   case UserMark::Type::DEBUG_MARK: return "DEBUG_MARK";
   case UserMark::Type::ROUTING: return "ROUTING";
   case UserMark::Type::LOCAL_ADS: return "LOCAL_ADS";

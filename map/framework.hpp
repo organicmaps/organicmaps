@@ -188,6 +188,7 @@ protected:
   location::TMyPositionModeChanged m_myPositionListener;
 
   BookmarkManager m_bmManager;
+  SearchMarks m_searchMarks;
 
   unique_ptr<booking::Api> m_bookingApi = make_unique<booking::Api>();
   unique_ptr<viator::Api> m_viatorApi = make_unique<viator::Api>();

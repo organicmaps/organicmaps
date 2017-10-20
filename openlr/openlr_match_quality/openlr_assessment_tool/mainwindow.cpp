@@ -95,7 +95,7 @@ public:
 
   void VisualizePoints(std::vector<m2::PointD> const & points) override
   {
-    UserMarkNotificationGuard g(m_bm, UserMarkType::DEBUG_MARK);
+    UserMarkNotificationGuard g(m_bm, UserMark::Type::DEBUG_MARK);
     g.m_controller.SetIsVisible(true);
     g.m_controller.SetIsDrawable(true);
     for (auto const & p : points)
@@ -104,7 +104,7 @@ public:
 
   void ClearAllVisualizedPoints() override
   {
-    UserMarkNotificationGuard g(m_bm, UserMarkType::DEBUG_MARK);
+    UserMarkNotificationGuard g(m_bm, UserMark::Type::DEBUG_MARK);
     g.m_controller.Clear();
   }
 

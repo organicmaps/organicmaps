@@ -16,21 +16,11 @@
 
 class Framework;
 
-enum class UserMarkType
-{
-  SEARCH_MARK,
-  API_MARK,
-  DEBUG_MARK,
-  BOOKMARK_MARK,
-  ROUTING_MARK,
-  LOCAL_ADS_MARK
-};
-
 class UserMarksController
 {
 public:
   virtual size_t GetUserMarkCount() const = 0;
-  virtual UserMarkType GetType() const = 0;
+  virtual UserMark::Type GetType() const = 0;
   virtual void SetIsDrawable(bool isDrawable) = 0;
   virtual void SetIsVisible(bool isVisible) = 0;
 
@@ -50,7 +40,7 @@ class UserMarkContainer : public df::UserMarksProvider
 public:
   using TUserMarksList = deque<unique_ptr<UserMark>>;
 
-  UserMarkContainer(double layerDepth, UserMarkType type, Framework & fm);
+  UserMarkContainer(double layerDepth, UserMark::Type type, Framework & fm);
   virtual ~UserMarkContainer();
 
   // If not found mark on rect result is nullptr.
@@ -59,7 +49,7 @@ public:
   UserMark const * FindMarkInRect(m2::AnyRectD const & rect, double & d) const;
 
   static void InitStaticMarks(UserMarkContainer * container);
-  static PoiMarkPoint * UserMarkForPoi();
+  static StaticMarkPoint * UserMarkForPoi();
   static MyPositionMarkPoint * UserMarkForMyPostion();
 
   // UserMarksProvider implementation.
@@ -81,7 +71,7 @@ public:
   bool IsDrawable() const override;
   size_t GetUserMarkCount() const override;
   UserMark const * GetUserMark(size_t index) const override;
-  UserMarkType GetType() const override final;
+  UserMark::Type GetType() const override final;
 
   // UserMarksController implementation.
   UserMark * CreateUserMark(m2::PointD const & ptOrg) override;
@@ -104,35 +94,23 @@ private:
   bitset<4> m_flags;
   double m_layerDepth;
   TUserMarksList m_userMarks;
-  UserMarkType m_type;
+  UserMark::Type m_type;
   df::MarkIDCollection m_createdMarks;
   df::MarkIDCollection m_removedMarks;
   bool m_isDirty = false;
 };
 
-class SearchUserMarkContainer : public UserMarkContainer
+template<typename MarkPointClassType, UserMark::Type UserMarkType>
+class SpecifiedUserMarkContainer : public UserMarkContainer
 {
 public:
-  SearchUserMarkContainer(double layerDepth, Framework & framework);
+  explicit SpecifiedUserMarkContainer(Framework & framework)
+    : UserMarkContainer(0.0 /* layer depth */, UserMarkType, framework)
+  {}
 
 protected:
-  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
-};
-
-class DebugUserMarkContainer : public UserMarkContainer
-{
-public:
-  DebugUserMarkContainer(double layerDepth, Framework & framework);
-
-protected:
-  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
-};
-
-class ApiUserMarkContainer : public UserMarkContainer
-{
-public:
-  ApiUserMarkContainer(double layerDepth, Framework & framework);
-
-protected:
-  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
+  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override
+  {
+    return new MarkPointClassType(ptOrg, this);
+  }
 };

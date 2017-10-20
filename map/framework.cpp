@@ -413,6 +413,7 @@ Framework::Framework(FrameworkParams const & params)
 
   m_ParsedMapApi.SetBookmarkManager(&m_bmManager);
   m_routingManager.SetBookmarkManager(&m_bmManager);
+  m_searchMarks.SetBookmarkManager(&m_bmManager);
 
   // Init strings bundle.
   // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
@@ -1626,7 +1627,7 @@ bool Framework::Search(search::SearchParams const & params)
   // Cancels previous search request (if any) and initiates new search request.
   CancelQuery(intent.m_handle);
 
-  double const eps = SearchMarkPoint::GetMaxSearchMarkDimension(m_currentModelView);
+  double const eps = m_searchMarks.GetMaxDimension(m_currentModelView);
   intent.m_params.m_minDistanceOnMapBetweenResults = eps;
 
   Search(intent);
@@ -1801,7 +1802,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
 void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
                                        search::Results::ConstIter end)
 {
-  UserMarkNotificationGuard guard(m_bmManager, UserMarkType::SEARCH_MARK);
+  UserMarkNotificationGuard guard(m_bmManager, UserMark::Type::SEARCH);
   guard.m_controller.SetIsVisible(true);
   guard.m_controller.SetIsDrawable(true);
 
@@ -1833,12 +1834,15 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
     if (r.m_metadata.m_isSponsoredHotel)
       mark->SetMarkType(SearchMarkType::Booking);
+
+    //TODO: set mark in preparing state if some async filter will be applied.
+    //mark->SetPreparing(true);
   }
 }
 
 void Framework::ClearSearchResultsMarks()
 {
-  UserMarkNotificationGuard(m_bmManager, UserMarkType::SEARCH_MARK).m_controller.Clear();
+  UserMarkNotificationGuard(m_bmManager, UserMark::Type::SEARCH).m_controller.Clear();
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
@@ -1980,16 +1984,11 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
 
-  m_drapeEngine->RequestSymbolsSize(SearchMarkPoint::GetAllSymbolsNames(),
-                                    [this](vector<m2::PointF> const & sizes)
-  {
-    GetPlatform().RunOnGuiThread([this, sizes](){ SearchMarkPoint::SetSearchMarksSizes(sizes); });
-  });
-
   m_drapeApi.SetDrapeEngine(make_ref(m_drapeEngine));
   m_routingManager.SetDrapeEngine(make_ref(m_drapeEngine), allow3d);
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_localAdsManager.SetDrapeEngine(make_ref(m_drapeEngine));
+  m_searchMarks.SetDrapeEngine(make_ref(m_drapeEngine));
 
   benchmark::RunGraphicsBenchmark(this);
 }
@@ -2029,6 +2028,7 @@ void Framework::DestroyDrapeEngine()
     m_routingManager.SetDrapeEngine(nullptr, false);
     m_trafficManager.SetDrapeEngine(nullptr);
     m_localAdsManager.SetDrapeEngine(nullptr);
+    m_searchMarks.SetDrapeEngine(nullptr);
 
     m_trafficManager.Teardown();
     m_localAdsManager.Teardown();
@@ -2232,7 +2232,7 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
 
   // Clear every current API-mark.
   {
-    UserMarkNotificationGuard guard(m_bmManager, UserMarkType::API_MARK);
+    UserMarkNotificationGuard guard(m_bmManager, UserMark::Type::API);
     guard.m_controller.Clear();
     guard.m_controller.SetIsVisible(true);
     guard.m_controller.SetIsDrawable(true);
@@ -2388,9 +2388,9 @@ void Framework::InvalidateUserMarks()
 {
   m_bmManager.InitBookmarks();
 
-  vector<UserMarkType> const types = {UserMarkType::SEARCH_MARK, UserMarkType::API_MARK,
-                                           UserMarkType::DEBUG_MARK,  UserMarkType::ROUTING_MARK,
-                                           UserMarkType::LOCAL_ADS_MARK};
+  std::vector<UserMark::Type> const types = {UserMark::Type::SEARCH, UserMark::Type::API,
+                                             UserMark::Type::DEBUG_MARK, UserMark::Type::ROUTING,
+                                             UserMark::Type::LOCAL_ADS, UserMark::Type::STATIC};
   for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
     m_bmManager.GetUserMarksController(types[typeIndex]).NotifyChanges();
 }
@@ -2548,11 +2548,11 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
 
 UserMark const * Framework::FindUserMarkInTapPosition(df::TapInfo const & tapInfo) const
 {
-  UserMark const * mark = m_bmManager.FindNearestUserMark([this, &tapInfo](UserMarkType type)
+  UserMark const * mark = m_bmManager.FindNearestUserMark([this, &tapInfo](UserMark::Type type)
   {
-    if (type == UserMarkType::BOOKMARK_MARK)
+    if (type == UserMark::Type::BOOKMARK)
       return tapInfo.GetBookmarkSearchRect(m_currentModelView);
-    if (type == UserMarkType::ROUTING_MARK)
+    if (type == UserMark::Type::ROUTING)
       return tapInfo.GetRoutingPointSearchRect(m_currentModelView);
     return tapInfo.GetDefaultSearchRect(m_currentModelView);
   });

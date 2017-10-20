@@ -58,12 +58,3 @@ void LocalAdsMark::SetFeatureId(FeatureID const & id)
   SetDirty();
   m_featureId = id;
 }
-
-LocalAdsMarkContainer::LocalAdsMarkContainer(double layerDepth, Framework & fm)
-  : UserMarkContainer(layerDepth, UserMarkType::LOCAL_ADS_MARK, fm)
-{}
-
-UserMark * LocalAdsMarkContainer::AllocateUserMark(m2::PointD const & ptOrg)
-{
-  return new LocalAdsMark(ptOrg, this);
-}

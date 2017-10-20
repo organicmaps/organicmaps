@@ -234,7 +234,7 @@ namespace
     UserMark const * mark = GetMark(fm, pt);
     ASSERT(mark != NULL, ());
     ASSERT(mark->GetContainer() != NULL, ());
-    ASSERT(mark->GetContainer()->GetType() == UserMarkType::BOOKMARK_MARK, ());
+    ASSERT(mark->GetContainer()->GetType() == UserMark::Type::BOOKMARK, ());
     return static_cast<Bookmark const *>(mark);
   }
 
@@ -246,7 +246,7 @@ namespace
   BookmarkCategory const * GetCategory(Bookmark const * bm)
   {
     ASSERT(bm->GetContainer() != NULL, ());
-    ASSERT(bm->GetContainer()->GetType() == UserMarkType::BOOKMARK_MARK, ());
+    ASSERT(bm->GetContainer()->GetType() == UserMark::Type::BOOKMARK, ());
     return static_cast<BookmarkCategory const *>(bm->GetContainer());
   }
 
@@ -256,7 +256,7 @@ namespace
     if (mark == NULL)
       return false;
 
-    if (mark->GetContainer()->GetType() != UserMarkType::BOOKMARK_MARK)
+    if (mark->GetContainer()->GetType() != UserMark::Type::BOOKMARK)
       return false;
 
     return true;

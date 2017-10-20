@@ -25,7 +25,7 @@ void ToMercatoToLatLon(double & lat, double & lon)
   lat = MercatorBounds::YToLat(MercatorBounds::LatToY(lat));
 }
 
-UserMarkType const type = UserMarkType::API_MARK;
+UserMark::Type const type = UserMark::Type::API;
 
 class ApiTest
 {
@@ -104,7 +104,7 @@ bool IsValid(Framework & fm, string const & uriString)
   api.SetBookmarkManager(&fm.GetBookmarkManager());
   api.SetUriAndParse(uriString);
   {
-    UserMarkNotificationGuard guard(fm.GetBookmarkManager(), UserMarkType::API_MARK);
+    UserMarkNotificationGuard guard(fm.GetBookmarkManager(), UserMark::Type::API);
     guard.m_controller.Clear();
   }
 

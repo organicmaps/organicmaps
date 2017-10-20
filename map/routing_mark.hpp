@@ -71,14 +71,6 @@ private:
   bool m_followingMode = false;
 };
 
-class RouteUserMarkContainer : public UserMarkContainer
-{
-public:
-  RouteUserMarkContainer(double layerDepth, Framework & fm);
-protected:
-  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
-};
-
 class RoutePointsLayout
 {
 public:

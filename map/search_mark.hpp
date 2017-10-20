@@ -2,6 +2,8 @@
 
 #include "map/user_mark.hpp"
 
+#include "drape_frontend/drape_engine_safe_ptr.hpp"
+
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"
@@ -21,6 +23,8 @@ enum class SearchMarkType
   Count
 };
 
+class BookmarkManager;
+
 class SearchMarkPoint : public UserMark
 {
 public:
@@ -39,19 +43,41 @@ public:
 
   void SetPreparing(bool isPreparing);
 
-  static std::vector<std::string> const & GetAllSymbolsNames();
-  static void SetSearchMarksSizes(std::vector<m2::PointF> const & sizes);
-  static double GetMaxSearchMarkDimension(ScreenBase const & modelView);
-
 protected:
-  static m2::PointD GetSearchMarkSize(SearchMarkType searchMarkType,
-                                      ScreenBase const & modelView);
+  template<typename T> void SetAttributeValue(T & dst, T const & src)
+  {
+    if (dst == src)
+      return;
+
+    SetDirty();
+    dst = src;
+  }
 
   SearchMarkType m_type = SearchMarkType::Default;
   FeatureID m_featureID;
   // Used to pass exact search result matched string into a place page.
   std::string m_matchedName;
   bool m_isPreparing = false;
+};
 
-  static std::vector<m2::PointF> m_searchMarksSizes;
+class SearchMarks
+{
+public:
+  SearchMarks();
+
+  void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
+  void SetBookmarkManager(BookmarkManager * bmManager);
+
+  double GetMaxDimension(ScreenBase const & modelView) const;
+
+  // NOTE: Vector of features must be sorted.
+  void SetPreparingState(std::vector<FeatureID> const & features, bool isPreparing);
+
+private:
+  m2::PointD GetSize(SearchMarkType searchMarkType, ScreenBase const & modelView) const;
+
+  BookmarkManager * m_bmManager;
+  df::DrapeEngineSafePtr m_drapeEngine;
+
+  std::vector<m2::PointF> m_searchMarksSizes;
 };

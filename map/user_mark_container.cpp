@@ -1,12 +1,12 @@
-#include "map/framework.hpp"
 #include "map/user_mark_container.hpp"
+#include "map/framework.hpp"
 #include "map/search_mark.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/tile_key.hpp"
 
-#include "base/scope_guard.hpp"
 #include "base/macros.hpp"
+#include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 
 #include "std/algorithm.hpp"
@@ -53,7 +53,7 @@ df::MarkGroupID GenerateMarkGroupId(UserMarkContainer const * cont)
 }
 }  // namespace
 
-UserMarkContainer::UserMarkContainer(double layerDepth, UserMarkType type, Framework & fm)
+UserMarkContainer::UserMarkContainer(double layerDepth, UserMark::Type type, Framework & fm)
   : m_framework(fm)
   , m_layerDepth(layerDepth)
   , m_type(type)
@@ -84,22 +84,21 @@ UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, do
 
 namespace
 {
-
-unique_ptr<PoiMarkPoint> g_selectionUserMark;
+// TODO: refactor it, get rid of global pointers.
+unique_ptr<StaticMarkPoint> g_selectionUserMark;
 unique_ptr<MyPositionMarkPoint> g_myPosition;
-
-} // namespace
+}  // namespace
 
 void UserMarkContainer::InitStaticMarks(UserMarkContainer * container)
 {
   if (g_selectionUserMark == NULL)
-    g_selectionUserMark.reset(new PoiMarkPoint(container));
+    g_selectionUserMark.reset(new StaticMarkPoint(container));
 
   if (g_myPosition == NULL)
     g_myPosition.reset(new MyPositionMarkPoint(container));
 }
 
-PoiMarkPoint * UserMarkContainer::UserMarkForPoi()
+StaticMarkPoint * UserMarkContainer::UserMarkForPoi()
 {
   ASSERT(g_selectionUserMark != NULL, ());
   return g_selectionUserMark.get();
@@ -193,7 +192,7 @@ UserMark const * UserMarkContainer::GetUserMark(size_t index) const
   return m_userMarks[index].get();
 }
 
-UserMarkType UserMarkContainer::GetType() const
+UserMark::Type UserMarkContainer::GetType() const
 {
   return m_type;
 }
@@ -270,34 +269,4 @@ void UserMarkContainer::AcceptChanges(df::MarkIDCollection & createdMarks,
   m_removedMarks.Clear();
 
   m_isDirty = false;
-}
-
-SearchUserMarkContainer::SearchUserMarkContainer(double layerDepth, Framework & framework)
-  : UserMarkContainer(layerDepth, UserMarkType::SEARCH_MARK, framework)
-{
-}
-
-UserMark * SearchUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
-{
-  return new SearchMarkPoint(ptOrg, this);
-}
-
-DebugUserMarkContainer::DebugUserMarkContainer(double layerDepth, Framework & framework)
-  : UserMarkContainer(layerDepth, UserMarkType::DEBUG_MARK, framework)
-{
-}
-
-UserMark * DebugUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
-{
-  return new DebugMarkPoint(ptOrg, this);
-}
-
-ApiUserMarkContainer::ApiUserMarkContainer(double layerDepth, Framework & framework)
-  : UserMarkContainer(layerDepth, UserMarkType::API_MARK, framework)
-{
-}
-
-UserMark * ApiUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
-{
-  return new ApiMarkPoint(ptOrg, this);
 }

@@ -38,8 +38,6 @@ public:
 
   void ClearCategories();
 
-  void PrepareToShutdown();
-
   /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
   void LoadBookmark(string const & filePath);
@@ -67,24 +65,24 @@ public:
   void DeleteBmCategory(CategoryIter i);
   bool DeleteBmCategory(size_t index);
 
-  using TTouchRectHolder = function<m2::AnyRectD(UserMarkType)>;
+  using TTouchRectHolder = function<m2::AnyRectD(UserMark::Type)>;
 
   UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
   UserMark const * FindNearestUserMark(TTouchRectHolder const & holder) const;
 
   /// Additional layer methods
-  bool UserMarksIsVisible(UserMarkType type) const;
-  UserMarksController & GetUserMarksController(UserMarkType type);
+  bool UserMarksIsVisible(UserMark::Type type) const;
+  UserMarksController & GetUserMarksController(UserMark::Type type);
 
 private:
-  UserMarkContainer const * FindUserMarksContainer(UserMarkType type) const;
-  UserMarkContainer * FindUserMarksContainer(UserMarkType type);
+  UserMarkContainer const * FindUserMarksContainer(UserMark::Type type) const;
+  UserMarkContainer * FindUserMarksContainer(UserMark::Type type);
 };
 
 class UserMarkNotificationGuard
 {
 public:
-  UserMarkNotificationGuard(BookmarkManager & mng, UserMarkType type);
+  UserMarkNotificationGuard(BookmarkManager & mng, UserMark::Type type);
   ~UserMarkNotificationGuard();
 
   UserMarksController & m_controller;

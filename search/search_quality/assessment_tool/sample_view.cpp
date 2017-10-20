@@ -222,7 +222,7 @@ void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const &
 {
   CHECK_EQUAL(results.size(), entries.size(), ());
 
-  auto & controller = m_framework.GetBookmarkManager().GetUserMarksController(UserMarkType::SEARCH_MARK);
+  auto & controller = m_framework.GetBookmarkManager().GetUserMarksController(UserMark::Type::SEARCH);
   controller.SetIsVisible(true);
   controller.SetIsDrawable(true);
   controller.NotifyChanges();
@@ -251,7 +251,7 @@ void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> co
 {
   CHECK_EQUAL(results.size(), entries.size(), ());
 
-  auto & controller = m_framework.GetBookmarkManager().GetUserMarksController(UserMarkType::SEARCH_MARK);
+  auto & controller = m_framework.GetBookmarkManager().GetUserMarksController(UserMark::Type::SEARCH);
   controller.SetIsVisible(true);
   controller.SetIsDrawable(true);
 

@@ -127,15 +127,6 @@ std::string RouteMarkPoint::GetSymbolName() const
   }
 }
 
-RouteUserMarkContainer::RouteUserMarkContainer(double layerDepth, Framework & fm)
-  : UserMarkContainer(layerDepth, UserMarkType::ROUTING_MARK, fm)
-{}
-
-UserMark * RouteUserMarkContainer::AllocateUserMark(m2::PointD const & ptOrg)
-{
-  return new RouteMarkPoint(ptOrg, this);
-}
-
 size_t const RoutePointsLayout::kMaxIntermediatePointsCount = 3;
 
 RoutePointsLayout::RoutePointsLayout(UserMarksController & routeMarks)

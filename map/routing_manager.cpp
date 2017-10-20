@@ -250,7 +250,7 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 #ifdef SHOW_ROUTE_DEBUG_MARKS
     if (m_bmManager == nullptr)
       return;
-    auto & controller = m_bmManager->GetUserMarksController(UserMarkType::DEBUG_MARK);
+    auto & controller = m_bmManager->GetUserMarksController(UserMark::Type::DEBUG_MARK);
     controller.SetIsVisible(true);
     controller.SetIsDrawable(true);
     controller.CreateUserMark(pt);
@@ -337,7 +337,7 @@ void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateI
 {
   // Remove route point.
   ASSERT(m_bmManager != nullptr, ());
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
   routePoints.PassRoutePoint(type, intermediateIndex);
   routePoints.NotifyChanges();
 
@@ -540,7 +540,7 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
 
   if (removeRoutePoints)
   {
-    auto & controller = m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK);
+    auto & controller = m_bmManager->GetUserMarksController(UserMark::Type::ROUTING);
     controller.Clear();
     controller.NotifyChanges();
 
@@ -555,7 +555,7 @@ void RoutingManager::SetLastUsedRouter(RouterType type)
 
 void RoutingManager::HideRoutePoint(RouteMarkType type, size_t intermediateIndex)
 {
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
   RouteMarkPoint * mark = routePoints.GetRoutePoint(type, intermediateIndex);
   if (mark != nullptr)
   {
@@ -566,7 +566,7 @@ void RoutingManager::HideRoutePoint(RouteMarkType type, size_t intermediateIndex
 
 bool RoutingManager::IsMyPosition(RouteMarkType type, size_t intermediateIndex)
 {
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
   RouteMarkPoint * mark = routePoints.GetRoutePoint(type, intermediateIndex);
   return mark != nullptr ? mark->IsMyPosition() : false;
 }
@@ -574,7 +574,7 @@ bool RoutingManager::IsMyPosition(RouteMarkType type, size_t intermediateIndex)
 vector<RouteMarkData> RoutingManager::GetRoutePoints() const
 {
   vector<RouteMarkData> result;
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
   for (auto const & p : routePoints.GetRoutePoints())
     result.push_back(p->GetMarkData());
   return result;
@@ -582,7 +582,7 @@ vector<RouteMarkData> RoutingManager::GetRoutePoints() const
 
 size_t RoutingManager::GetRoutePointsCount() const
 {
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
   return routePoints.GetRoutePointsCount();
 }
 
@@ -591,14 +591,14 @@ bool RoutingManager::CouldAddIntermediatePoint() const
   if (!IsRoutingActive())
     return false;
 
-  auto const & controller = m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK);
+  auto const & controller = m_bmManager->GetUserMarksController(UserMark::Type::ROUTING);
   return controller.GetUserMarkCount() < RoutePointsLayout::kMaxIntermediatePointsCount + 2;
 }
 
 void RoutingManager::AddRoutePoint(RouteMarkData && markData)
 {
   ASSERT(m_bmManager != nullptr, ());
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
 
   // Always replace start and finish points.
   if (markData.m_pointType == RouteMarkType::Start || markData.m_pointType == RouteMarkType::Finish)
@@ -620,7 +620,7 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData)
 void RoutingManager::RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex)
 {
   ASSERT(m_bmManager != nullptr, ());
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
   routePoints.RemoveRoutePoint(type, intermediateIndex);
   routePoints.NotifyChanges();
 }
@@ -628,7 +628,7 @@ void RoutingManager::RemoveRoutePoint(RouteMarkType type, size_t intermediateInd
 void RoutingManager::RemoveRoutePoints()
 {
   ASSERT(m_bmManager != nullptr, ());
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
   routePoints.RemoveRoutePoints();
   routePoints.NotifyChanges();
 }
@@ -636,7 +636,7 @@ void RoutingManager::RemoveRoutePoints()
 void RoutingManager::RemoveIntermediateRoutePoints()
 {
   ASSERT(m_bmManager != nullptr, ());
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
   routePoints.RemoveIntermediateRoutePoints();
   routePoints.NotifyChanges();
 }
@@ -645,7 +645,7 @@ void RoutingManager::MoveRoutePoint(RouteMarkType currentType, size_t currentInt
                                     RouteMarkType targetType, size_t targetIntermediateIndex)
 {
   ASSERT(m_bmManager != nullptr, ());
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
   routePoints.MoveRoutePoint(currentType, currentIntermediateIndex,
                              targetType, targetIntermediateIndex);
   routePoints.NotifyChanges();
@@ -655,7 +655,7 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
 {
   ASSERT(m_bmManager != nullptr, ());
 
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
   size_t const sz = routePoints.GetRoutePointsCount();
   auto const convertIndex = [sz](RouteMarkType & type, size_t & index) {
     if (index == 0)
@@ -687,7 +687,7 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
 void RoutingManager::SetPointsFollowingMode(bool enabled)
 {
   ASSERT(m_bmManager != nullptr, ());
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
   routePoints.SetFollowingMode(enabled);
   routePoints.NotifyChanges();
 }
@@ -698,7 +698,7 @@ void RoutingManager::ReorderIntermediatePoints()
   vector<m2::PointD> prevPositions;
   prevPoints.reserve(RoutePointsLayout::kMaxIntermediatePointsCount);
   prevPositions.reserve(RoutePointsLayout::kMaxIntermediatePointsCount);
-  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMark::Type::ROUTING));
 
   RouteMarkPoint * addedPoint = nullptr;
   m2::PointD addedPosition;
@@ -1065,7 +1065,7 @@ void RoutingManager::CancelRoutePointsTransaction(uint32_t transactionId)
 
   // Revert route points.
   ASSERT(m_bmManager != nullptr, ());
-  auto & controller = m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK);
+  auto & controller = m_bmManager->GetUserMarksController(UserMark::Type::ROUTING);
   controller.Clear();
   RoutePointsLayout routePoints(controller);
   for (auto & markData : routeMarks)
@@ -1106,7 +1106,7 @@ bool RoutingManager::LoadRoutePoints()
   // If we have found my position, we use my position as start point.
   MyPositionMarkPoint * myPosMark = UserMarkContainer::UserMarkForMyPostion();
   ASSERT(m_bmManager != nullptr, ());
-  m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK).Clear();
+  m_bmManager->GetUserMarksController(UserMark::Type::ROUTING).Clear();
   for (auto & p : points)
   {
     if (p.m_pointType == RouteMarkType::Start && myPosMark->HasPosition())
