@@ -385,6 +385,7 @@ public class MapObject implements Parcelable
     dest.writeInt(mExtendedView ? 1 : 0);
     dest.writeInt(mShouldShowUGC ? 1 : 0);
     dest.writeInt(mCanBeRated ? 1 : 0);
+    dest.writeInt(mCanBeReviewed ? 1 : 0);
     dest.writeTypedList(mBanners);
     dest.writeList(mReachableByTaxiTypes);
     dest.writeTypedList(mRatings);
