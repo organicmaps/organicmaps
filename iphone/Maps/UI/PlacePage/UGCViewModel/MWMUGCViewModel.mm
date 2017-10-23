@@ -87,9 +87,9 @@ MWMUGCRatingValueType * ratingValueType(float rating)
 
 #pragma mark - MWMReviewsViewModelProtocol
 
-- (NSUInteger)numberOfReviews { return m_ugc.m_reviews.size() + !self.isUGCUpdateEmpty; }
+- (NSInteger)numberOfReviews { return m_ugc.m_reviews.size() + !self.isUGCUpdateEmpty; }
 
-- (id<MWMReviewProtocol> _Nonnull)reviewWithIndex:(NSUInteger)index
+- (id<MWMReviewProtocol> _Nonnull)reviewWithIndex:(NSInteger)index
 {
   auto idx = index;
   NSAssert(idx >= 0, @"Invalid index");
