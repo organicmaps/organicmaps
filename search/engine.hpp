@@ -106,9 +106,8 @@ public:
   // Posts request to clear caches to the queue.
   void ClearCaches();
 
-  // Posts request to reload cities boundaries tables. Must be used
-  // for testing only.
-  void LoadCitiesBoundariesForTesting() { return LoadCitiesBoundaries(); }
+  // Posts request to reload cities boundaries tables.
+  void LoadCitiesBoundaries();
 
 private:
   struct Message
@@ -143,8 +142,6 @@ private:
     // other threads.
     unique_ptr<Processor> m_processor;
   };
-
-  void LoadCitiesBoundaries();
 
   // *ALL* following methods are executed on the m_threads threads.
 

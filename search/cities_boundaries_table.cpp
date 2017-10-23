@@ -34,7 +34,10 @@ bool CitiesBoundariesTable::Load()
 {
   auto handle = FindWorld(m_index);
   if (!handle.IsAlive())
+  {
+    LOG(LWARNING, ("Can't find World map file."));
     return false;
+  }
 
   // Skip if table was already loaded from this file.
   if (handle.GetId() == m_mwmId)

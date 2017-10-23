@@ -17,4 +17,7 @@ using TestIdToBoundariesTable = base::ClusteringMap<uint64_t, indexer::CityBound
 bool BuildCitiesBoundaries(std::string const & dataPath, std::string const & osmToFeaturePath,
                            OsmIdToBoundariesTable & table);
 bool BuildCitiesBoundariesForTesting(std::string const & dataPath, TestIdToBoundariesTable & table);
+
+bool SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable & table);
+bool DeserializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable & table);
 }  // namespace generator

@@ -455,6 +455,9 @@ Framework::Framework(FrameworkParams const & params)
   RegisterAllMaps();
   LOG(LDEBUG, ("Maps initialized"));
 
+  // Need to reload cities boundaries because maps in indexer were updated.
+  m_searchEngine->LoadCitiesBoundaries();
+
   // Init storage with needed callback.
   m_storage.Init(
                  bind(&Framework::OnCountryFileDownloaded, this, _1, _2),

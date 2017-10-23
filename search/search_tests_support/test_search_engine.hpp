@@ -33,7 +33,7 @@ public:
 
   void SetLocale(string const & locale) { m_engine.SetLocale(locale); }
 
-  void LoadCitiesBoundaries() { m_engine.LoadCitiesBoundariesForTesting(); }
+  void LoadCitiesBoundaries() { m_engine.LoadCitiesBoundaries(); }
 
   weak_ptr<search::ProcessorHandle> Search(search::SearchParams const & params,
                                            m2::RectD const & viewport);

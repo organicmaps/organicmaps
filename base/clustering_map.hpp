@@ -24,6 +24,8 @@ public:
   // * m is the total number of values in the map
   // * α() is the inverse Ackermann function
   // * F is the complexity of find() in unordered_map
+  //
+  // Also, it's assumed that complexity to compare two keys is O(1).
 
   // Appends |value| to the list of values in the cluster
   // corresponding to |key|.
@@ -60,6 +62,54 @@ public:
     auto const & entry = GetRoot(key);
     return entry.m_values;
   }
+
+  // Complexity: O(n * log(n)).
+  template <typename Fn>
+  void ForEachCluster(Fn && fn)
+  {
+    struct EntryWithKey : public std::less<Entry const *>
+    {
+      EntryWithKey(Entry const * entry, Key const & key) : m_entry(entry), m_key(key) {}
+
+      bool operator<(EntryWithKey const & rhs) const
+      {
+        return std::less<Entry const *>::operator()(m_entry, rhs.m_entry);
+      }
+
+      Entry const * m_entry;
+      Key m_key;
+    };
+
+    std::vector<EntryWithKey> eks;
+    for (auto const & kv : m_table)
+    {
+      auto const & key = kv.first;
+      auto const & entry = GetRoot(key);
+      eks.emplace_back(&entry, key);
+    }
+    std::sort(eks.begin(), eks.end());
+
+    std::equal_to<Entry const *> equal;
+    size_t i = 0;
+    while (i < eks.size())
+    {
+      std::vector<Key> keys;
+      keys.push_back(eks[i].m_key);
+
+      size_t j = i + 1;
+      while (j < eks.size() && equal(eks[i].m_entry, eks[j].m_entry))
+      {
+        keys.push_back(eks[j].m_key);
+        ++j;
+      }
+
+      fn(keys, eks[i].m_entry->m_values);
+
+      i = j;
+    }
+  }
+
+  void Clear() { m_table.clear(); }
 
 private:
   struct Entry

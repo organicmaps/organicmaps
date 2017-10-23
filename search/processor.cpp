@@ -391,7 +391,13 @@ void Processor::SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool 
 
 void Processor::ClearCache(size_t ind) { m_viewport[ind].MakeEmpty(); }
 
-void Processor::LoadCitiesBoundaries() { m_citiesBoundaries.Load(); }
+void Processor::LoadCitiesBoundaries()
+{
+  if (m_citiesBoundaries.Load())
+    LOG(LINFO, ("Loaded cities boundaries"));
+  else
+    LOG(LWARNING, ("Can't load cities boundaries"));
+}
 
 Locales Processor::GetCategoryLocales() const
 {

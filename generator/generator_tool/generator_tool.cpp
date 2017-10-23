@@ -74,7 +74,11 @@ DEFINE_bool(generate_geometry, false,
             "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
-DEFINE_bool(generate_cities_boundaries, false, "Generate section with cities boundaries");
+
+DEFINE_bool(dump_cities_boundaries, false, "Dump cities boundaries to a file");
+DEFINE_bool(generate_cities_boundaries, false, "Generate cities boundaries section");
+DEFINE_string(cities_boundaries_path, "", "Path to collect cities boundaries");
+
 DEFINE_bool(generate_world, false, "Generate separate world file.");
 DEFINE_bool(split_by_polygons, false,
             "Use countries borders to split planet by regions and countries.");
@@ -160,9 +164,7 @@ int main(int argc, char ** argv)
   genInfo.m_opentableDatafileName = FLAGS_opentable_data;
   genInfo.m_opentableReferenceDir = FLAGS_opentable_reference_path;
   genInfo.m_viatorDatafileName = FLAGS_viator_data;
-
-  if (FLAGS_generate_cities_boundaries)
-    genInfo.m_boundariesTable = make_shared<generator::OsmIdToBoundariesTable>();
+  genInfo.m_boundariesTable = make_shared<generator::OsmIdToBoundariesTable>();
 
   genInfo.m_versionDate = static_cast<uint32_t>(FLAGS_planet_version);
 
@@ -223,6 +225,17 @@ int main(int argc, char ** argv)
     {
       genInfo.m_bucketNames.push_back(WORLD_FILE_NAME);
       genInfo.m_bucketNames.push_back(WORLD_COASTS_FILE_NAME);
+    }
+
+    if (FLAGS_dump_cities_boundaries)
+    {
+      CHECK(!FLAGS_cities_boundaries_path.empty(), ());
+      LOG(LINFO, ("Dumping cities boundaries to", FLAGS_cities_boundaries_path));
+      if (!generator::SerializeBoundariesTable(FLAGS_cities_boundaries_path,
+                                               *genInfo.m_boundariesTable))
+      {
+        LOG(LCRITICAL, ("Error serializing boundaries table to", FLAGS_cities_boundaries_path));
+      }
     }
   }
   else
@@ -295,13 +308,13 @@ int main(int argc, char ** argv)
 
     if (FLAGS_generate_cities_boundaries)
     {
+      CHECK(!FLAGS_cities_boundaries_path.empty(), ());
       LOG(LINFO, ("Generating cities boundaries for", datFile));
-      CHECK(genInfo.m_boundariesTable, ());
-      if (!generator::BuildCitiesBoundaries(datFile, osmToFeatureFilename,
-                                            *genInfo.m_boundariesTable))
-      {
+      generator::OsmIdToBoundariesTable table;
+      if (!generator::DeserializeBoundariesTable(FLAGS_cities_boundaries_path, table))
+        LOG(LCRITICAL, ("Error deserializing boundaries table"));
+      if (!generator::BuildCitiesBoundaries(datFile, osmToFeatureFilename, table))
         LOG(LCRITICAL, ("Error generating cities boundaries."));
-      }
     }
 
     if (!FLAGS_srtm_path.empty())

@@ -183,6 +183,7 @@ OPENTABLE_SCRIPT="$PYTHON_SCRIPTS_PATH/opentable_restaurants.py"
 OPENTABLE_FILE="${OPENTABLE_FILE:-$INTDIR/restaurants.csv}"
 VIATOR_SCRIPT="$PYTHON_SCRIPTS_PATH/viator_cities.py"
 VIATOR_FILE="${VIATOR_FILE:-$INTDIR/viator.csv}"
+CITIES_BOUNDARIES_FILE="${CITIES_BOUNDARIES_FILE:-$INTDIR/cities_boundaries}"
 TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
 PYTHON="$(which python2.7)"
 MWM_VERSION_FORMAT="%s"
@@ -460,8 +461,15 @@ if [ "$MODE" == "features" ]; then
   [ -f "$BOOKING_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --booking_data=$BOOKING_FILE"
   [ -f "$OPENTABLE_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --opentable_data=$OPENTABLE_FILE"
   [ -f "$VIATOR_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --viator_data=$VIATOR_FILE"
-  "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
-    --data_path="$TARGET" --user_resource_path="$DATA_PATH/" $PARAMS_SPLIT 2>> "$PLANET_LOG"
+  "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" \
+                    --node_storage=$NODE_STORAGE \
+                    --osm_file_type=o5m \
+                    --osm_file_name="$PLANET" \
+                    --data_path="$TARGET" \
+                    --user_resource_path="$DATA_PATH/" \
+                    --dump_cities_boundaries \
+                    --cities_boundaries_path="$CITIES_BOUNDARIES_FILE" \
+                    $PARAMS_SPLIT 2>> "$PLANET_LOG"
   MODE=mwm
 fi
 
@@ -487,7 +495,11 @@ if [ "$MODE" == "mwm" ]; then
   if [ -n "$OPT_WORLD" ]; then
     (
       "$GENERATOR_TOOL" $PARAMS --output=World 2>> "$LOG_PATH/World.log"
-      "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" \
+                        --generate_search_index \
+                        --generate_cities_boundaries \
+                        --cities_boundaries_path="$CITIES_BOUNDARIES_FILE" \
+                        --output=World 2>> "$LOG_PATH/World.log"
     ) &
     "$GENERATOR_TOOL" $PARAMS --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
   fi
