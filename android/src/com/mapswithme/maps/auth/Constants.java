@@ -9,5 +9,5 @@ class Constants
   static final String EXTRA_SOCIAL_TOKEN = "extra_social_token";
   static final String EXTRA_TOKEN_TYPE = "extra_token_type";
   static final List<String> FACEBOOK_PERMISSIONS =
-      Arrays.asList("email", "user_hometown", "user_tagged_places", "user_friends");
+      Arrays.asList("email", "user_friends");
 }
