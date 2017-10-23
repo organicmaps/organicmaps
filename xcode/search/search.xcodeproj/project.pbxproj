@@ -60,6 +60,10 @@
 		347F33301C4540A8009758CC /* suggest.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33151C4540A8009758CC /* suggest.hpp */; };
 		349B65891D4F21E5001798E2 /* lazy_centers_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 349B65871D4F21E5001798E2 /* lazy_centers_table.cpp */; };
 		349B658A1D4F21E5001798E2 /* lazy_centers_table.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 349B65881D4F21E5001798E2 /* lazy_centers_table.hpp */; };
+		34CC72521F9DE028002E931E /* cities_boundaries_table.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34CC72501F9DE027002E931E /* cities_boundaries_table.hpp */; };
+		34CC72531F9DE028002E931E /* cities_boundaries_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34CC72511F9DE028002E931E /* cities_boundaries_table.cpp */; };
+		34CC72561F9DE078002E931E /* localities_source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34CC72541F9DE077002E931E /* localities_source.hpp */; };
+		34CC72571F9DE078002E931E /* localities_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34CC72551F9DE077002E931E /* localities_source.cpp */; };
 		34EEAD701E55AE4300E95575 /* token_range.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34EEAD6F1E55AE4300E95575 /* token_range.hpp */; };
 		34EEAD721E55AE5C00E95575 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34EEAD711E55AE5C00E95575 /* utils.cpp */; };
 		34F5583B1DBF2E0E00A4FC11 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F5583A1DBF2E0E00A4FC11 /* libalohalitics.a */; };
@@ -241,6 +245,10 @@
 		347F33151C4540A8009758CC /* suggest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = suggest.hpp; sourceTree = "<group>"; };
 		349B65871D4F21E5001798E2 /* lazy_centers_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lazy_centers_table.cpp; sourceTree = "<group>"; };
 		349B65881D4F21E5001798E2 /* lazy_centers_table.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lazy_centers_table.hpp; sourceTree = "<group>"; };
+		34CC72501F9DE027002E931E /* cities_boundaries_table.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cities_boundaries_table.hpp; sourceTree = "<group>"; };
+		34CC72511F9DE028002E931E /* cities_boundaries_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cities_boundaries_table.cpp; sourceTree = "<group>"; };
+		34CC72541F9DE077002E931E /* localities_source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = localities_source.hpp; sourceTree = "<group>"; };
+		34CC72551F9DE077002E931E /* localities_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = localities_source.cpp; sourceTree = "<group>"; };
 		34EEAD6F1E55AE4300E95575 /* token_range.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = token_range.hpp; sourceTree = "<group>"; };
 		34EEAD711E55AE5C00E95575 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
 		34F558371DBF2C8B00A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
@@ -496,6 +504,8 @@
 				3461C99E1D79949600E6E6F5 /* categories_set.hpp */,
 				345C8DA91D2D15A50037E3A6 /* cbv.cpp */,
 				345C8DAA1D2D15A50037E3A6 /* cbv.hpp */,
+				34CC72511F9DE028002E931E /* cities_boundaries_table.cpp */,
+				34CC72501F9DE027002E931E /* cities_boundaries_table.hpp */,
 				3DFEBF751EF2D55800317D5C /* city_finder.hpp */,
 				F652D8BA1CFDE1E800FC29A0 /* common.hpp */,
 				0810EC341D6D9D2E00ABFEE7 /* displayed_categories.cpp */,
@@ -554,6 +564,8 @@
 				675346CE1A40560D00A0A8C3 /* latlon_match.hpp */,
 				349B65871D4F21E5001798E2 /* lazy_centers_table.cpp */,
 				349B65881D4F21E5001798E2 /* lazy_centers_table.hpp */,
+				34CC72551F9DE077002E931E /* localities_source.cpp */,
+				34CC72541F9DE077002E931E /* localities_source.hpp */,
 				675346CF1A40560D00A0A8C3 /* locality_finder.cpp */,
 				675346D01A40560D00A0A8C3 /* locality_finder.hpp */,
 				F652D8D31CFDE21900FC29A0 /* locality_scorer.cpp */,
@@ -642,6 +654,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34CC72521F9DE028002E931E /* cities_boundaries_table.hpp in Headers */,
 				34EEAD701E55AE4300E95575 /* token_range.hpp in Headers */,
 				3461C9A51D79949600E6E6F5 /* utils.hpp in Headers */,
 				345C8DB01D2D15A50037E3A6 /* cbv.hpp in Headers */,
@@ -687,6 +700,7 @@
 				347F33211C4540A8009758CC /* projection_on_street.hpp in Headers */,
 				F652D8EF1CFDE21900FC29A0 /* features_layer.hpp in Headers */,
 				F652D8F91CFDE21900FC29A0 /* intersection_result.hpp in Headers */,
+				34CC72561F9DE078002E931E /* localities_source.hpp in Headers */,
 				F652D8F11CFDE21900FC29A0 /* geocoder.hpp in Headers */,
 				F652D8F31CFDE21900FC29A0 /* geometry_cache.hpp in Headers */,
 				67BC92F91D22E45900A4A378 /* ranker.hpp in Headers */,
@@ -878,6 +892,7 @@
 				34586B8D1DCB1E8300CF7FC9 /* locality_selector_test.cpp in Sources */,
 				344A71381F3DA03200B8DDB8 /* segment_tree.cpp in Sources */,
 				3441CE501CFC1D7000CF30D4 /* processor.cpp in Sources */,
+				34CC72571F9DE078002E931E /* localities_source.cpp in Sources */,
 				F652D9041CFDE21900FC29A0 /* rank_table_cache.cpp in Sources */,
 				F652D8EE1CFDE21900FC29A0 /* features_layer.cpp in Sources */,
 				675346E21A40560D00A0A8C3 /* house_detector.cpp in Sources */,
@@ -905,6 +920,7 @@
 				675346E71A40560D00A0A8C3 /* keyword_lang_matcher.cpp in Sources */,
 				3453BD5A1DAF91C100380ECB /* hotels_filter.cpp in Sources */,
 				345C8DB31D2D15A50037E3A6 /* streets_matcher.cpp in Sources */,
+				34CC72531F9DE028002E931E /* cities_boundaries_table.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
