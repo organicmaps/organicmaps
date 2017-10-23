@@ -25,6 +25,8 @@
 #include "coding/url_encode.hpp"
 #include "coding/zlib.hpp"
 
+#include "base/url_helpers.hpp"
+
 #include "3party/jansson/myjansson.hpp"
 
 #include "private.h"
@@ -36,6 +38,8 @@
 // First implementation of local ads statistics serialization
 // is deflated JSON.
 #define TEMPORARY_LOCAL_ADS_JSON_SERIALIZATION
+
+using namespace base;
 
 namespace
 {
@@ -231,26 +235,18 @@ std::string MakeCampaignPageURL(FeatureID const & featureId)
   ss << kCampaignPageUrl << "/" << featureId.m_mwmId.GetInfo()->GetVersion() << "/"
      << UrlEncode(featureId.m_mwmId.GetInfo()->GetCountryName()) << "/" << featureId.m_index;
 
-  bool isFirstParam = true;
+  url::Params params;
+  params.reserve(kMarketingParameters.size());
   for (auto const & key : kMarketingParameters)
   {
     string value;
     if (!marketing::Settings::Get(key, value))
       continue;
 
-    if (isFirstParam)
-    {
-      ss << "?";
-      isFirstParam = false;
-    }
-    else
-    {
-      ss << "&";
-    }
-    ss << key << "=" << value;
+    params.push_back({key, value});
   }
 
-  return ss.str();
+  return url::Make(ss.str(), params);
 }
 }  // namespace
 

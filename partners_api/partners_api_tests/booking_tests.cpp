@@ -14,6 +14,20 @@ using namespace booking::http;
 
 namespace
 {
+class AsyncGuiThreadBooking : public AsyncGuiThread
+{
+public:
+  AsyncGuiThreadBooking()
+  {
+    SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
+  }
+
+  ~AsyncGuiThreadBooking() override
+  {
+    SetBookingUrlForTesting("");
+  }
+};
+
 UNIT_TEST(Booking_GetHotelAvailability)
 {
   string const kHotelId = "98251";  // Booking hotel id for testing.
@@ -44,11 +58,8 @@ UNIT_TEST(Booking_HotelAvailability)
   LOG(LINFO, (result));
 }
 
-UNIT_CLASS_TEST(AsyncGuiThread, Booking_GetMinPrice)
+UNIT_CLASS_TEST(AsyncGuiThreadBooking, Booking_GetMinPrice)
 {
-  SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
-  MY_SCOPE_GUARD(cleanup, []() { SetBookingUrlForTesting(""); });
-
   string const kHotelId = "0";  // Internal hotel id for testing.
   Api api;
   {
@@ -129,11 +140,8 @@ UNIT_CLASS_TEST(AsyncGuiThread, GetHotelInfo)
   TEST_EQUAL(info.m_reviews.size(), 4, ());
 }
 
-UNIT_CLASS_TEST(AsyncGuiThread, GetHotelAvailability)
+UNIT_CLASS_TEST(AsyncGuiThreadBooking, GetHotelAvailability)
 {
-  SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
-  MY_SCOPE_GUARD(cleanup, []() { SetBookingUrlForTesting(""); });
-
   AvailabilityParams params;
   params.m_hotelIds = {"77615", "10623"};
   params.m_rooms = {"A,A"};

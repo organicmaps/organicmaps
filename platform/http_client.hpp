@@ -44,6 +44,11 @@ public:
   // @note Implementations should transparently support all needed HTTP redirects.
   // Implemented for each platform.
   bool RunHttpRequest();
+  using SuccessChecker = std::function<bool(HttpClient const & request)>;
+  // Returns true and copy of server response into [response] in case when RunHttpRequest() and
+  // [checker] return true. When [checker] is equal to nullptr then default checker will be used.
+  // Check by default: ErrorCode() == 200
+  bool RunHttpRequest(string & response, SuccessChecker checker = nullptr);
 
   // Shared methods for all platforms, implemented at http_client.cpp
   HttpClient & SetDebugMode(bool debug_mode);

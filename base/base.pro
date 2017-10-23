@@ -36,6 +36,7 @@ SOURCES += \
     timegm.cpp \
     timer.cpp \
     uni_string_dfa.cpp \
+    url_helpers.cpp \
     worker_thread.cpp \
 
 HEADERS += \
@@ -100,6 +101,7 @@ HEADERS += \
     timegm.hpp \
     timer.hpp \
     uni_string_dfa.hpp \
+    url_helpers.hpp \
     visitor.hpp \
     waiter.hpp \
     worker_thread.hpp \

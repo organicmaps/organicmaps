@@ -17,6 +17,25 @@ HttpClient::HttpClient(string const & url) : m_urlRequested(url)
 #endif
 }
 
+bool HttpClient::RunHttpRequest(string & response, SuccessChecker checker /* = nullptr */)
+{
+  static auto const simpleChecker = [](HttpClient const & request)
+  {
+    return request.ErrorCode() == 200;
+  };
+
+  if (checker == nullptr)
+    checker = simpleChecker;
+
+  if (RunHttpRequest() && checker(*this))
+  {
+    response = ServerResponse();
+    return true;
+  }
+
+  return false;
+}
+
 HttpClient & HttpClient::SetUrlRequested(string const & url)
 {
   m_urlRequested = url;

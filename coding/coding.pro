@@ -99,4 +99,4 @@ HEADERS += \
     writer.hpp \
     zip_creator.hpp \
     zip_reader.hpp \
-    zlib.hpp \
+    zlib.hpp

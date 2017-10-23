@@ -7,6 +7,7 @@
 #include "base/get_time.hpp"
 #include "base/logging.hpp"
 #include "base/thread.hpp"
+#include "base/url_helpers.hpp"
 
 #include <iostream>
 #include <sstream>
@@ -16,6 +17,7 @@
 
 #include "private.h"
 
+using namespace base;
 using namespace booking;
 using namespace booking::http;
 using namespace std;
@@ -31,20 +33,20 @@ string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
 string const kSearchBaseUrl = "https://www.booking.com/search.html";
 string g_BookingUrlForTesting = "";
 
-string MakeApiUrlV1(string const & func, vector<pair<string, string>> const & params)
+string MakeApiUrlV1(string const & func, url::Params const & params)
 {
   if (!g_BookingUrlForTesting.empty())
-    return MakeApiUrl(g_BookingUrlForTesting, "." + func, params);
+    return url::Make(g_BookingUrlForTesting + "." + func, params);
 
-  return MakeApiUrl(kBookingApiBaseUrlV1, "." + func, params);
+  return url::Make(kBookingApiBaseUrlV1 + "." + func, params);
 }
 
-string MakeApiUrlV2(string const & func, vector<pair<string, string>> const & params)
+string MakeApiUrlV2(string const & func, url::Params const & params)
 {
   if (!g_BookingUrlForTesting.empty())
-    return MakeApiUrl(g_BookingUrlForTesting, "/" + func, params);
+    return url::Make(g_BookingUrlForTesting + "/" + func, params);
 
-  return MakeApiUrl(kBookingApiBaseUrlV2, "/" + func, params);
+  return url::Make(kBookingApiBaseUrlV2 + "/" + func, params);
 }
 
 void ClearHotelInfo(HotelInfo & info)
@@ -218,8 +220,6 @@ void FillHotelIds(string const & src, vector<uint64_t> & result)
   auto const resultsArray = json_object_get(root.get(), "result");
 
   auto const size = json_array_size(resultsArray);
-  if (size == 0)
-    return;
 
   result.resize(size);
   for (size_t i = 0; i < size; ++i)
