@@ -102,8 +102,9 @@ public:
       records.emplace_back(std::move(key), std::move(ratingValue));
     }
     jstring jtext = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_ratingTextFieldId));
-    ugc::Text text(jni::ToNativeString(env, jtext),
-                   StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()));
+    jstring jlocale = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_localeFieldId));
+    std::string normalizedLocale = languages::Normalize(jni::ToNativeString(env, jlocale));
+    ugc::Text text(jni::ToNativeString(env, jtext), StringUtf8Multilang::GetLangIndex(normalizedLocale));
     jlong jtime = env->GetLongField(ugcUpdate, m_updateTimeFieldId);
     uint64_t timeSec = static_cast<uint64_t>(jtime / 1000);
     return ugc::UGCUpdate(records, text, std::chrono::system_clock::from_time_t(timeSec));
@@ -126,11 +127,14 @@ private:
   {
     jni::TScopedLocalObjectArrayRef ratings(env, ToJavaRatings(env, ugcUpdate.m_ratings));
     jni::TScopedLocalRef text(env, jni::ToJavaString(env, ugcUpdate.m_text.m_text));
+    std::string locale(StringUtf8Multilang::GetLangByCode(ugcUpdate.m_text.m_lang));
+    jni::TScopedLocalRef localeRef(env, jni::ToJavaString(env, locale));
 
     jobject result = nullptr;
     if (!ugcUpdate.IsEmpty())
       result = env->NewObject(m_ugcUpdateClass, m_ugcUpdateCtor, ratings.get(),
-                              text.get(), ugc::ToMillisecondsSinceEpoch(ugcUpdate.m_time));
+                              text.get(), ugc::ToMillisecondsSinceEpoch(ugcUpdate.m_time),
+                              localeRef.get());
     return result;
   }
 
@@ -197,10 +201,11 @@ private:
 
     m_ugcUpdateClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGCUpdate");
     m_ugcUpdateCtor = jni::GetConstructorID(
-        env, m_ugcUpdateClass, "([Lcom/mapswithme/maps/ugc/UGC$Rating;Ljava/lang/String;J)V");
+        env, m_ugcUpdateClass, "([Lcom/mapswithme/maps/ugc/UGC$Rating;Ljava/lang/String;JLjava/lang/String;)V");
     m_ratingArrayFieldId = env->GetFieldID(m_ugcUpdateClass, "mRatings", "[Lcom/mapswithme/maps/ugc/UGC$Rating;");
     m_ratingTextFieldId = env->GetFieldID(m_ugcUpdateClass, "mText", "Ljava/lang/String;");
     m_updateTimeFieldId = env->GetFieldID(m_ugcUpdateClass, "mTimeMillis", "J");
+    m_localeFieldId = env->GetFieldID(m_ugcUpdateClass, "mLocale", "Ljava/lang/String;");
     m_ratingNameFieldId = env->GetFieldID(g_ratingClazz, "mName", "Ljava/lang/String;");
     m_ratingValueFieldId = env->GetFieldID(g_ratingClazz, "mValue", "F");
     m_initialized = true;
@@ -216,6 +221,7 @@ private:
   jfieldID m_ratingArrayFieldId;
   jfieldID m_ratingTextFieldId;
   jfieldID m_updateTimeFieldId;
+  jfieldID m_localeFieldId;
   jfieldID m_ratingNameFieldId;
   jfieldID m_ratingValueFieldId;
 

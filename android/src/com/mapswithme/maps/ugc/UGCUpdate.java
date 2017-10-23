@@ -14,12 +14,16 @@ class UGCUpdate
   @Nullable
   private String mText;
   private long mTimeMillis;
+  @NonNull
+  private final String mLocale;
 
-  UGCUpdate(@Nullable UGC.Rating[] ratings, @Nullable String text, long timeMillis)
+  UGCUpdate(@Nullable UGC.Rating[] ratings, @Nullable String text, long timeMillis,
+            @NonNull String locale)
   {
     mRatings = ratings;
     mText = text;
     mTimeMillis = timeMillis;
+    mLocale = locale;
   }
 
   public void setText(@Nullable String text)

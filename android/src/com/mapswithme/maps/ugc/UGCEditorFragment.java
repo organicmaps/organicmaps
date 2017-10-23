@@ -14,6 +14,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.widget.ToolbarController;
+import com.mapswithme.util.Language;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -92,7 +93,7 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
     UGC.Rating[] ratings = new UGC.Rating[modifiedRatings.size()];
     modifiedRatings.toArray(ratings);
     UGCUpdate update = new UGCUpdate(ratings, mReviewEditText.getText().toString(),
-                                     System.currentTimeMillis());
+                                     System.currentTimeMillis(), Language.getKeyboardLocale());
     FeatureId featureId = getArguments().getParcelable(ARG_FEATURE_ID);
     if (featureId == null)
       throw new AssertionError("Feature ID must be passed to this fragment!");
