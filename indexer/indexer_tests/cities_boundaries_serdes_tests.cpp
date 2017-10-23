@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "indexer/city_boundary.hpp"
 #include "indexer/cities_boundaries_serdes.hpp"
+#include "indexer/city_boundary.hpp"
 #include "indexer/coding_params.hpp"
 
 #include "coding/reader.hpp"
@@ -125,6 +125,38 @@ UNIT_TEST(CitiesBoundariesSerDes_Smoke)
 
     Boundaries const expected = {{boundary0, boundary1}};
     TestEncodeDecode(expected);
+  }
+}
+
+UNIT_TEST(CitiesBoundaries_Moscow)
+{
+  vector<m2::PointD> const points = {{37.04001, 67.55964},
+                                     {37.55650, 66.96428},
+                                     {38.02513, 67.37082},
+                                     {37.50865, 67.96618}};
+
+  m2::PointD const target(37.44765, 67.65243);
+
+  vector<uint8_t> buffer;
+  {
+    CityBoundary boundary(points);
+    TEST(boundary.HasPoint(target), ());
+
+    MemWriter<decltype(buffer)> sink(buffer);
+    CitiesBoundariesSerDes::Serialize(sink, {{boundary}});
+  }
+
+  {
+    Boundaries boundaries;
+    double precision;
+
+    MemReader reader(buffer.data(), buffer.size());
+    NonOwningReaderSource source(reader);
+    CitiesBoundariesSerDes::Deserialize(source, boundaries, precision);
+
+    TEST_EQUAL(boundaries.size(), 1, ());
+    TEST_EQUAL(boundaries[0].size(), 1, ());
+    TEST(boundaries[0][0].HasPoint(target, precision), ());
   }
 }
 }  // namespace

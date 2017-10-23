@@ -77,7 +77,7 @@ DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
 
 DEFINE_bool(dump_cities_boundaries, false, "Dump cities boundaries to a file");
 DEFINE_bool(generate_cities_boundaries, false, "Generate cities boundaries section");
-DEFINE_string(cities_boundaries_path, "", "Path to collect cities boundaries");
+DEFINE_string(cities_boundaries_data, "", "File with cities boundaries");
 
 DEFINE_bool(generate_world, false, "Generate separate world file.");
 DEFINE_bool(split_by_polygons, false,
@@ -229,12 +229,12 @@ int main(int argc, char ** argv)
 
     if (FLAGS_dump_cities_boundaries)
     {
-      CHECK(!FLAGS_cities_boundaries_path.empty(), ());
-      LOG(LINFO, ("Dumping cities boundaries to", FLAGS_cities_boundaries_path));
-      if (!generator::SerializeBoundariesTable(FLAGS_cities_boundaries_path,
+      CHECK(!FLAGS_cities_boundaries_data.empty(), ());
+      LOG(LINFO, ("Dumping cities boundaries to", FLAGS_cities_boundaries_data));
+      if (!generator::SerializeBoundariesTable(FLAGS_cities_boundaries_data,
                                                *genInfo.m_boundariesTable))
       {
-        LOG(LCRITICAL, ("Error serializing boundaries table to", FLAGS_cities_boundaries_path));
+        LOG(LCRITICAL, ("Error serializing boundaries table to", FLAGS_cities_boundaries_data));
       }
     }
   }
@@ -308,10 +308,10 @@ int main(int argc, char ** argv)
 
     if (FLAGS_generate_cities_boundaries)
     {
-      CHECK(!FLAGS_cities_boundaries_path.empty(), ());
+      CHECK(!FLAGS_cities_boundaries_data.empty(), ());
       LOG(LINFO, ("Generating cities boundaries for", datFile));
       generator::OsmIdToBoundariesTable table;
-      if (!generator::DeserializeBoundariesTable(FLAGS_cities_boundaries_path, table))
+      if (!generator::DeserializeBoundariesTable(FLAGS_cities_boundaries_data, table))
         LOG(LCRITICAL, ("Error deserializing boundaries table"));
       if (!generator::BuildCitiesBoundaries(datFile, osmToFeatureFilename, table))
         LOG(LCRITICAL, ("Error generating cities boundaries."));

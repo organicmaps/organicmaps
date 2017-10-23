@@ -130,12 +130,14 @@ string DebugPrint(LocalityItem const & item)
   stringstream os;
   os << "Names = " << DebugPrint(item.m_names) << ", ";
   os << "Center = " << DebugPrint(item.m_center) << ", ";
-  os << "Population = " << item.m_population;
+  os << "Population = " << item.m_population << ", ";
+  os << "Boundaries = " << DebugPrint(item.m_boundaries);
   return os.str();
 }
 
 // LocalitySelector --------------------------------------------------------------------------------
 LocalitySelector::LocalitySelector(m2::PointD const & p) : m_p(p) {}
+
 void LocalitySelector::operator()(LocalityItem const & item)
 {
   auto const inside = item.m_boundaries.HasPoint(m_p);

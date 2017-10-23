@@ -86,30 +86,11 @@ public:
 
       ASSERT_EQUAL(ps.size(), 4, ());
 
-      size_t bestCurr = ps.size();
-      double bestLength = -1;
-      for (size_t curr = 0; curr < ps.size(); ++curr)
-      {
-        size_t const next = (curr + 1) % ps.size();
-
-        auto const length = ps[curr].Length(ps[next]);
-        if (length > bestLength)
-        {
-          bestCurr = curr;
-          bestLength = length;
-        }
-      }
-
-      CHECK(bestCurr != ps.size(), ());
-      std::rotate(ps.begin(), ps.begin() + bestCurr, ps.end());
-
       auto const us = ToU(ps);
 
       (*this)(us[0]);
       EncodeDelta(us[0], us[1]);
-
-      uint64_t const width = us[3].Length(us[0]);
-      WriteVarUint(m_sink, width);
+      EncodeDelta(us[0], us[3]);
     }
 
     void operator()(m2::DiamondBox const & dbox)
@@ -246,24 +227,16 @@ public:
 
     void operator()(m2::CalipersBox & cbox)
     {
-      m2::PointU pivot;
-      (*this)(pivot);
+      std::vector<m2::PointU> us(4);
+      (*this)(us[0]);
+      us[1] = DecodeDelta(us[0]);
+      us[3] = DecodeDelta(us[0]);
 
-      std::vector<m2::PointU> points(4);
-      points[0] = pivot;
-      points[1] = DecodeDelta(pivot);
+      auto ps = FromU(us);
+      auto const dp = ps[3] - ps[0];
+      ps[2] = ps[1] + dp;
 
-      auto const width = ReadVarUint<uint64_t>(m_source);
-
-      auto r01 = m2::PointD(points[1] - points[0]);
-      if (!r01.IsAlmostZero())
-        r01 = r01.Normalize();
-      auto const r21 = r01.Ort() * width;
-
-      points[2] = points[1] + r21;
-      points[3] = points[0] + r21;
-
-      cbox = m2::CalipersBox(FromU(points));
+      cbox = m2::CalipersBox(ps);
     }
 
     void operator()(m2::DiamondBox & dbox)

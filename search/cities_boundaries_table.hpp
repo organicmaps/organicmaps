@@ -6,6 +6,8 @@
 #include "geometry/point2d.hpp"
 
 #include <cstdint>
+#include <sstream>
+#include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -40,6 +42,16 @@ public:
     // Returns true iff |p| is inside any of the regions bounded by
     // |*this|.
     bool HasPoint(m2::PointD const & p) const;
+
+    friend std::string DebugPrint(Boundaries const & boundaries)
+    {
+      std::ostringstream os;
+      os << "Boundaries [";
+      os << ::DebugPrint(boundaries.m_boundaries) << ", ";
+      os << "eps: " << boundaries.m_eps;
+      os << "]";
+      return os.str();
+    }
 
   private:
     std::vector<indexer::CityBoundary> m_boundaries;
