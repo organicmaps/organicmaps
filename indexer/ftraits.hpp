@@ -17,32 +17,32 @@
 #include <string>
 #include <utility>
 
+#include <boost/optional.hpp>
+
 namespace ftraits
 {
 template <typename Base, typename Value>
 class TraitsBase
 {
 public:
-  static bool GetValue(feature::TypesHolder const & types, Value & value)
+  static boost::optional<Value> GetValue(feature::TypesHolder const & types)
   {
     auto const & instance = Instance();
     auto const it = Find(types);
     if (!instance.m_matcher.IsValid(it))
-      return false;
+      return boost::none;
 
-    value = it->second;
-    return true;
+    return it->second;
   }
 
-  static bool GetType(feature::TypesHolder const & types, uint32_t & type)
+  static boost::optional<uint32_t> GetType(feature::TypesHolder const & types)
   {
     auto const & instance = Instance();
     auto const it = Find(types);
     if (!instance.m_matcher.IsValid(it))
-      return false;
+      return boost::none;
 
-    type = it->first;
-    return true;
+    return it->first;
   }
 
 private:
@@ -165,29 +165,30 @@ public:
 
   static bool IsUGCAvailable(feature::TypesHolder const & types)
   {
-    UGCItem item;
-    return GetValue(types, item) ? IsUGCAvailable(item.m_mask) : false;
+    auto const opt = GetValue(types);
+    return opt ? IsUGCAvailable(opt->m_mask) : false;
   }
   static bool IsRatingAvailable(feature::TypesHolder const & types)
   {
-    UGCItem item;
-    return GetValue(types, item) ? IsRatingAvailable(item.m_mask) : false;
+    auto const opt = GetValue(types);
+    return opt ? IsRatingAvailable(opt->m_mask) : false;
   }
   static bool IsReviewsAvailable(feature::TypesHolder const & types)
   {
-    UGCItem item;
-    return GetValue(types, item) ? IsReviewsAvailable(item.m_mask) : false;
+    auto const opt = GetValue(types);
+    return opt ? IsReviewsAvailable(opt->m_mask) : false;
   }
   static bool IsDetailsAvailable(feature::TypesHolder const & types)
   {
-    UGCItem item;
-    return GetValue(types, item) ? IsDetailsAvailable(item.m_mask) : false;
+    auto const opt = GetValue(types);
+    return opt ? IsDetailsAvailable(opt->m_mask) : false;
   }
   static UGCRatingCategories GetCategories(feature::TypesHolder const & types)
   {
-    UGCItem item;
-    GetValue(types, item);
-    return item.m_categories;
+    auto const opt = GetValue(types);
+    if (opt)
+      return opt->m_categories;
+    return {};
   }
 };
 

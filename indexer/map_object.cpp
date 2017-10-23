@@ -203,8 +203,8 @@ string MapObject::GetBuildingLevels() const
 
 ftraits::WheelchairAvailability MapObject::GetWheelchairType() const
 {
-  ftraits::WheelchairAvailability ret;
-  return ftraits::Wheelchair::GetValue(m_types, ret) ? ret : ftraits::WheelchairAvailability::No;
+  auto const opt = ftraits::Wheelchair::GetValue(m_types);
+  return opt ? *opt : ftraits::WheelchairAvailability::No;
 }
 
 feature::Metadata const & MapObject::GetMetadata() const { return m_metadata; }

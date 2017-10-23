@@ -21,8 +21,7 @@ UNIT_TEST(UgcTypes_Full)
     TEST(!UGC::IsDetailsAvailable(holder), ());
     ftraits::UGCRatingCategories expected = {"quality", "service", "value_for_money"};
     TEST_EQUAL(UGC::GetCategories(holder), expected, ());
-    uint32_t matchingType;
-    TEST(UGC::GetType(holder, matchingType), ());
+    auto const matchingType = *UGC::GetType(holder);
     TEST_EQUAL(matchingType, type, ());
     TEST_EQUAL(c.GetReadableObjectName(matchingType), "amenity-bank", ());
   }
@@ -35,8 +34,7 @@ UNIT_TEST(UgcTypes_Full)
     TEST(!UGC::IsDetailsAvailable(holder), ());
     ftraits::UGCRatingCategories expected = {"quality", "service", "value_for_money"};
     TEST_EQUAL(UGC::GetCategories(holder), expected, ());
-    uint32_t matchingType;
-    TEST(UGC::GetType(holder, matchingType), ());
+    auto const matchingType = *UGC::GetType(holder);
     TEST_EQUAL(matchingType, type, ());
     TEST_EQUAL(c.GetReadableObjectName(matchingType), "tourism-information-office", ());
   }
@@ -49,16 +47,14 @@ UNIT_TEST(UgcTypes_Full)
     TEST(!UGC::IsDetailsAvailable(holder), ());
     ftraits::UGCRatingCategories expected = {"expertise", "equipment", "value_for_money"};
     TEST_EQUAL(UGC::GetCategories(holder), expected, ());
-    uint32_t matchingType;
-    TEST(UGC::GetType(holder, matchingType), ());
+    auto const matchingType = *UGC::GetType(holder);
     TEST_EQUAL(matchingType, type, ());
     TEST_EQUAL(c.GetReadableObjectName(matchingType), "amenity-hospital", ());
   }
   {
     holder.Assign(c.GetTypeByPath({"traffic_calming", "bump"}));
     TEST(!UGC::IsUGCAvailable(holder), ());
-    uint32_t matchingType;
-    TEST(!UGC::GetType(holder, matchingType), ());
+    TEST(!UGC::GetType(holder), ());
   }
   {
     holder.Assign(c.GetTypeByPath({"sponsored", "booking"}));
@@ -68,8 +64,7 @@ UNIT_TEST(UgcTypes_Full)
     TEST(!UGC::IsDetailsAvailable(holder), ());
     ftraits::UGCRatingCategories expected = {};
     TEST_EQUAL(UGC::GetCategories(holder), expected, ());
-    uint32_t matchingType;
-    TEST(!UGC::GetType(holder, matchingType), ());
+    TEST(!UGC::GetType(holder), ());
 
     holder.Assign(c.GetTypeByPath({"sponsored", "booking"}));
     holder.Add(c.GetTypeByPath({"amenity", "hospital"}));
@@ -78,7 +73,7 @@ UNIT_TEST(UgcTypes_Full)
     TEST(!UGC::IsReviewsAvailable(holder), ());
     TEST(!UGC::IsDetailsAvailable(holder), ());
     TEST_EQUAL(UGC::GetCategories(holder), expected, ());
-    TEST(!UGC::GetType(holder, matchingType), ());
+    TEST(!UGC::GetType(holder), ());
 
     holder.Assign(c.GetTypeByPath({"amenity", "hospital"}));
     holder.Add(c.GetTypeByPath({"sponsored", "booking"}));
@@ -87,6 +82,6 @@ UNIT_TEST(UgcTypes_Full)
     TEST(!UGC::IsReviewsAvailable(holder), ());
     TEST(!UGC::IsDetailsAvailable(holder), ());
     TEST_EQUAL(UGC::GetCategories(holder), expected, ());
-    TEST(!UGC::GetType(holder, matchingType), ());
+    TEST(!UGC::GetType(holder), ());
   }
 }
