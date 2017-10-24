@@ -182,7 +182,7 @@ UNIT_CLASS_TEST(StorageTest, Smoke)
   auto const original = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
   Storage storage(builder.GetIndex());
   storage.Load();
-  storage.SetUGCUpdate(id, original);
+  TEST_EQUAL(storage.SetUGCUpdate(id, original), Storage::SettingResult::Success, ());
   auto const actual = storage.GetUGCUpdate(id);
   TEST_EQUAL(original, actual, ());
   TEST(!storage.GetUGCToSend().empty(), ());
@@ -204,11 +204,11 @@ UNIT_CLASS_TEST(StorageTest, DuplicatesAndDefragmentationSmoke)
   auto const last = MakeTestUGCUpdate(Time(chrono::hours(24 * 100)));
   Storage storage(builder.GetIndex());
   storage.Load();
-  storage.SetUGCUpdate(cafeId, first);
-  storage.SetUGCUpdate(cafeId, second);
-  storage.SetUGCUpdate(cafeId, third);
-  storage.SetUGCUpdate(cafeId, last);
-  storage.SetUGCUpdate(railwayId, first);
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, first), Storage::SettingResult::Success, ());
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, second), Storage::SettingResult::Success, ());
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, third), Storage::SettingResult::Success, ());
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, last), Storage::SettingResult::Success, ());
+  TEST_EQUAL(storage.SetUGCUpdate(railwayId, first), Storage::SettingResult::Success, ());
   TEST_EQUAL(last, storage.GetUGCUpdate(cafeId), ());
   TEST_EQUAL(storage.GetIndexesForTesting().size(), 5, ());
   TEST_EQUAL(storage.GetNumberOfDeletedForTesting(), 3, ());
@@ -230,8 +230,8 @@ UNIT_CLASS_TEST(StorageTest, DifferentTypes)
   auto const railwayUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
   Storage storage(builder.GetIndex());
   storage.Load();
-  storage.SetUGCUpdate(cafeId, cafeUGC);
-  storage.SetUGCUpdate(railwayId, railwayUGC);
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
+  TEST_EQUAL(storage.SetUGCUpdate(railwayId, railwayUGC), Storage::SettingResult::Success, ());
   TEST_EQUAL(railwayUGC, storage.GetUGCUpdate(railwayId), ());
   TEST_EQUAL(cafeUGC, storage.GetUGCUpdate(cafeId), ());
 }
@@ -250,8 +250,8 @@ UNIT_CLASS_TEST(StorageTest, LoadIndex)
   {
     Storage storage(builder.GetIndex());
     storage.Load();
-    storage.SetUGCUpdate(cafeId, cafeUGC);
-    storage.SetUGCUpdate(railwayId, railwayUGC);
+    TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
+    TEST_EQUAL(storage.SetUGCUpdate(railwayId, railwayUGC), Storage::SettingResult::Success, ());
     storage.SaveIndex();
   }
 
@@ -265,7 +265,7 @@ UNIT_CLASS_TEST(StorageTest, LoadIndex)
     TEST(!i.m_deleted, ());
   }
 
-  storage.SetUGCUpdate(cafeId, cafeUGC);
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
   TEST_EQUAL(indexArray.size(), 3, ());
   TEST(DeleteIndexFile(), ());
 }
@@ -280,8 +280,8 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
   auto const newUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
   Storage storage(builder.GetIndex());
   storage.Load();
-  storage.SetUGCUpdate(cafeId, oldUGC);
-  storage.SetUGCUpdate(cafeId, newUGC);
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, oldUGC), Storage::SettingResult::Success, ());
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, newUGC), Storage::SettingResult::Success, ());
   TEST_EQUAL(storage.GetIndexesForTesting().size(), 2, ());
   auto const toSendActual = storage.GetUGCToSend();
 
@@ -321,4 +321,29 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
   TEST(firstIndex.m_synchronized, ());
   TEST(lastIndex.m_synchronized, ());
   TEST(DeleteIndexFile(), ());
+}
+
+UNIT_CLASS_TEST(StorageTest, InvalidUGC)
+{
+  auto & builder = MwmBuilder::Builder();
+  m2::PointD const cafePoint(1.0, 1.0);
+  builder.Build({TestCafe(cafePoint)});
+  auto const cafeId = builder.FeatureIdForCafeAtPoint(cafePoint);
+  Storage storage(builder.GetIndex());
+  storage.Load();
+
+  UGCUpdate first;
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, first), Storage::SettingResult::InvalidUGC, ());
+  first.m_time = chrono::system_clock::now();
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, first), Storage::SettingResult::InvalidUGC, ());
+  TEST(storage.GetIndexesForTesting().empty(), ());
+  TEST(storage.GetUGCToSend().empty(), ());
+  first.m_text = Text("a", 1);
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, first), Storage::SettingResult::Success, ());
+  UGCUpdate second;
+  second.m_time = chrono::system_clock::now();
+  second.m_ratings.emplace_back("a", 0);
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, second), Storage::SettingResult::InvalidUGC, ());
+  second.m_ratings.emplace_back("b", 1);
+  TEST_EQUAL(storage.SetUGCUpdate(cafeId, second), Storage::SettingResult::Success, ());
 }

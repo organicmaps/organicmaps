@@ -259,6 +259,25 @@ struct UGCUpdate
     return !((!m_ratings.empty() || !m_text.m_text.empty()) && m_time != Time());
   }
 
+  bool IsValid() const
+  {
+    bool const timeIsValid = m_time != Time();
+    if (!m_text.m_text.empty())
+      return timeIsValid;
+
+    bool ratingIsValid = false;
+    for (auto const & r : m_ratings)
+    {
+      if (static_cast<int>(r.m_value) > 0)
+      {
+        ratingIsValid = true;
+        break;
+      }
+    }
+
+    return ratingIsValid && timeIsValid;
+  }
+
   Ratings m_ratings;
   Text m_text;
   Time m_time{};

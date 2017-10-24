@@ -42,7 +42,15 @@ public:
   explicit Storage(Index const & index) : m_index(index) {}
 
   UGCUpdate GetUGCUpdate(FeatureID const & id) const;
-  void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
+
+  enum class SettingResult
+  {
+    Success,
+    InvalidUGC,
+    WritingError
+  };
+
+  SettingResult SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
   void SaveIndex() const;
   std::string GetUGCToSend() const;
   void MarkAllAsSynchronized();
@@ -61,4 +69,14 @@ private:
   std::vector<UGCIndex> m_UGCIndexes;
   size_t m_numberOfDeleted = 0;
 };
+
+inline std::string DebugPrint(Storage::SettingResult const & result)
+{
+  switch (result)
+  {
+  case Storage::SettingResult::Success: return "Success";
+  case Storage::SettingResult::InvalidUGC: return "Invalid UGC";
+  case Storage::SettingResult::WritingError: return "Writing Error";
+  }
+}
 }  // namespace ugc

@@ -1,10 +1,12 @@
 #pragma once
 
-#include "base/worker_thread.hpp"
-
 #include "ugc/loader.hpp"
 #include "ugc/storage.hpp"
 #include "ugc/types.hpp"
+
+#include "platform/safe_callback.hpp"
+
+#include "base/worker_thread.hpp"
 
 #include <functional>
 
@@ -16,21 +18,23 @@ namespace ugc
 class Api
 {
 public:
-  using UGCCallback = std::function<void(UGC const & ugc, UGCUpdate const & update)>;
+  using UGCCallback = platform::SafeCallback<void(UGC const & ugc, UGCUpdate const & update)>;
   using UGCJsonToSendCallback = std::function<void(std::string && jsonStr)>;
+  using OnResultCallback = platform::SafeCallback<void(Storage::SettingResult const result)>;
 
   explicit Api(Index const & index);
 
-  void GetUGC(FeatureID const & id, UGCCallback callback);
-  void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
-  void GetUGCToSend(UGCJsonToSendCallback const & fn);
+  void GetUGC(FeatureID const & id, UGCCallback const & callback);
+  void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc,
+                    OnResultCallback const & callback = nullptr);
+  void GetUGCToSend(UGCJsonToSendCallback const & callback);
   void SendingCompleted();
   void SaveUGCOnDisk();
 
 private:
-  void GetUGCImpl(FeatureID const & id, UGCCallback callback);
-  void SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc);
-  void GetUGCToSendImpl(UGCJsonToSendCallback const & fn);
+  void GetUGCImpl(FeatureID const & id, UGCCallback const & callback);
+  Storage::SettingResult SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc);
+  void GetUGCToSendImpl(UGCJsonToSendCallback const & callback);
   void SendingCompletedImpl();
   void SaveUGCOnDiskImpl();
 

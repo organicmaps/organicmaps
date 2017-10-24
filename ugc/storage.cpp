@@ -116,8 +116,11 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
   return update;
 }
 
-void Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
+Storage::SettingResult Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 {
+  if (!ugc.IsValid())
+    return Storage::SettingResult::InvalidUGC;
+
   auto const feature = GetFeature(id);
   auto const mercator = feature::GetCenter(*feature);
   feature::TypesHolder th(*feature);
@@ -159,8 +162,10 @@ void Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
   catch (FileWriter::Exception const & exception)
   {
     LOG(LERROR, ("Exception while writing file:", ugcFilePath, "reason:", exception.Msg()));
-    return;
+    return Storage::SettingResult::WritingError;
   }
+
+  return Storage::SettingResult::Success;
 }
 
 void Storage::Load()

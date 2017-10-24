@@ -1,6 +1,6 @@
 #include "ugc/api.hpp"
 
-#include "platform/platform.hpp"
+#include "base/assert.hpp"
 
 #include <utility>
 
@@ -14,19 +14,24 @@ Api::Api(Index const & index) : m_storage(index), m_loader(index)
   m_thread.Push([this] { m_storage.Load(); });
 }
 
-void Api::GetUGC(FeatureID const & id, UGCCallback callback)
+void Api::GetUGC(FeatureID const & id, UGCCallback const & callback)
 {
   m_thread.Push([=] { GetUGCImpl(id, callback); });
 }
 
-void Api::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
+void Api::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc,
+                       OnResultCallback const & callback /* nullptr */)
 {
-  m_thread.Push([=] { SetUGCUpdateImpl(id, ugc); });
+  m_thread.Push([=] {
+    auto const res = SetUGCUpdateImpl(id, ugc);
+    if (callback)
+      callback(res);
+  });
 }
 
-void Api::GetUGCToSend(UGCJsonToSendCallback const & fn)
+void Api::GetUGCToSend(UGCJsonToSendCallback const & callback)
 {
-  m_thread.Push([fn, this] { GetUGCToSendImpl(fn); });
+  m_thread.Push([callback, this] { GetUGCToSendImpl(callback); });
 }
 
 void Api::SendingCompleted()
@@ -39,29 +44,31 @@ void Api::SaveUGCOnDisk()
   m_thread.Push([this] { SaveUGCOnDiskImpl(); });
 }
 
-void Api::GetUGCImpl(FeatureID const & id, UGCCallback callback)
+void Api::GetUGCImpl(FeatureID const & id, UGCCallback const & callback)
 {
+  CHECK(callback, ());
   if (!id.IsValid())
   {
-    GetPlatform().RunOnGuiThread([callback] { callback({}, {}); });
+    callback({}, {});
     return;
   }
 
   auto const update = m_storage.GetUGCUpdate(id);
   auto const ugc = m_loader.GetUGC(id);
 
-  GetPlatform().RunOnGuiThread([ugc, update, callback] { callback(ugc, update); });
+  callback(ugc, update);
 }
 
-void Api::SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc)
+Storage::SettingResult Api::SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc)
 {
-  m_storage.SetUGCUpdate(id, ugc);
+  return m_storage.SetUGCUpdate(id, ugc);
 }
 
-void Api::GetUGCToSendImpl(UGCJsonToSendCallback const & fn)
+void Api::GetUGCToSendImpl(UGCJsonToSendCallback const & callback)
 {
+  CHECK(callback, ());
   auto json = m_storage.GetUGCToSend();
-  fn(move(json));
+  callback(move(json));
 }
 
 void Api::SendingCompletedImpl()
