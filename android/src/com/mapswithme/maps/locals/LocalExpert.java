@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import android.support.annotation.NonNull;
 
-public final class LocalExpert implements Parcelable
+final class LocalExpert implements Parcelable
 {
   private final int mId;
   @NonNull
@@ -104,10 +104,7 @@ public final class LocalExpert implements Parcelable
   }
 
   @Override
-  public int describeContents()
-  {
-    return 0;
-  }
+  public int describeContents() { return 0; }
 
   int getId() { return mId; }
 
@@ -122,15 +119,9 @@ public final class LocalExpert implements Parcelable
 
   double getRating() { return mRating; }
 
-  int getReviewCount()
-  {
-    return mReviewCount;
-  }
+  int getReviewCount() { return mReviewCount; }
 
-  double getPrice()
-  {
-    return mPrice;
-  }
+  double getPrice() { return mPrice; }
 
   @NonNull
   String getCurrency() { return mCurrency; }
@@ -145,10 +136,7 @@ public final class LocalExpert implements Parcelable
   String getOfferDescription() { return mOfferDescription; }
 
   @NonNull
-  String getPageUrl()
-  {
-    return mPageUrl;
-  }
+  String getPageUrl() { return mPageUrl;}
 
   @NonNull
   String getPhotoUrl() { return mPhotoUrl; }
@@ -162,17 +150,40 @@ public final class LocalExpert implements Parcelable
     LocalExpert that = (LocalExpert) o;
 
     if (mId != that.mId) return false;
-    if (!mName.equals(that.mName)) return false;
-    if (!mCountry.equals(that.mCountry)) return false;
-    if (!mCity.equals(that.mCity)) return false;
     if (Double.compare(that.mRating, mRating) != 0) return false;
     if (mReviewCount != that.mReviewCount) return false;
     if (Double.compare(that.mPrice, mPrice) != 0) return false;
+    if (!mName.equals(that.mName)) return false;
+    if (!mCountry.equals(that.mCountry)) return false;
+    if (!mCity.equals(that.mCity)) return false;
     if (!mCurrency.equals(that.mCurrency)) return false;
     if (!mMotto.equals(that.mMotto)) return false;
     if (!mAboutExpert.equals(that.mAboutExpert)) return false;
     if (!mOfferDescription.equals(that.mOfferDescription)) return false;
-    if (!mPhotoUrl.equals(that.mPhotoUrl)) return false;
-    return mPageUrl.equals(that.mPageUrl);
+    if (!mPageUrl.equals(that.mPageUrl)) return false;
+    return mPhotoUrl.equals(that.mPhotoUrl);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int result;
+    long temp;
+    result = mId;
+    result = 31 * result + mName.hashCode();
+    result = 31 * result + mCountry.hashCode();
+    result = 31 * result + mCity.hashCode();
+    temp = Double.doubleToLongBits(mRating);
+    result = 31 * result + (int) (temp ^ (temp >>> 32));
+    result = 31 * result + mReviewCount;
+    temp = Double.doubleToLongBits(mPrice);
+    result = 31 * result + (int) (temp ^ (temp >>> 32));
+    result = 31 * result + mCurrency.hashCode();
+    result = 31 * result + mMotto.hashCode();
+    result = 31 * result + mAboutExpert.hashCode();
+    result = 31 * result + mOfferDescription.hashCode();
+    result = 31 * result + mPageUrl.hashCode();
+    result = 31 * result + mPhotoUrl.hashCode();
+    return result;
   }
 }
