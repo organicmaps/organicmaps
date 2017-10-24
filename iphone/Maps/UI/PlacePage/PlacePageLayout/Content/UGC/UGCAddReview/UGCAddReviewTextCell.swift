@@ -1,4 +1,8 @@
 final class UGCAddReviewTextCell: MWMTableViewCell {
+  private enum Const {
+    static let maxCharactersCount = 600
+  }
+
   @IBOutlet private weak var textView: MWMTextView! {
     didSet {
       textView.placeholder = L("placepage_reviews_hint")
@@ -15,4 +19,8 @@ final class UGCAddReviewTextCell: MWMTableViewCell {
 }
 
 extension UGCAddReviewTextCell: UITextViewDelegate {
+  func textView(_: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    let isNewLengthValid = reviewText.count + text.count - range.length <= Const.maxCharactersCount
+    return isNewLengthValid
+  }
 }
