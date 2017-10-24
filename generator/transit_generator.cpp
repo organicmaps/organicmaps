@@ -230,14 +230,15 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   id = FeatureIdentifiers(osmId.EncodedId() /* osm id */, it->second[0] /* feature id */);
 }
 
-void BuildTransit(string const & mwmPath, string const & osmIdsToFeatureIdPath,
-                  string const & transitDir)
+void BuildTransit(string const & mwmDir, string const & countryId,
+                  string const & osmIdsToFeatureIdPath, string const & transitDir)
 {
   LOG(LERROR, ("This method is under construction and should not be used for building production mwm "
       "sections."));
   NOTIMPLEMENTED();
 
-  string const countryId = GetFileName(mwmPath);
+//  string const countryId = GetFileName(mwmDir);
+  std::string const mwmPath = my::JoinFoldersToPath(mwmDir, countryId + DATA_FILE_EXTENSION);
   string const graphFullPath = my::JoinFoldersToPath(transitDir, countryId + TRANSIT_FILE_EXTENSION);
 
   Platform::EFileType fileType;
@@ -273,7 +274,7 @@ void BuildTransit(string const & mwmPath, string const & osmIdsToFeatureIdPath,
   // Note. |gates| has to be deserialized from json before starting writing transit section to mwm since
   // the mwm is used to filled |gates|.
   vector<Gate> gates;
-  DeserializeGatesFromJson(root, my::GetDirectory(mwmPath), countryId, mapping, gates);
+  DeserializeGatesFromJson(root, mwmDir, countryId, mapping, gates);
   CHECK(IsValid(gates), (gates));
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
