@@ -20,7 +20,6 @@ final class PPPReview: MWMTableViewCell {
       addReviewButton.setTitle("+ \(L("leave_a_review"))", for: .normal)
       addReviewButton.setTitleColor(UIColor.white, for: .normal)
       addReviewButton.titleLabel?.font = UIFont.bold12()
-      addReviewButton.layer.cornerRadius = addReviewButton.height / 2
     }
   }
 
@@ -39,6 +38,7 @@ final class PPPReview: MWMTableViewCell {
         ratingSummaryView.noValueColor = UIColor.blackSecondaryText()
         reviewsLabel.text = L("placepage_no_reviews")
         addReviewButton.isHidden = false
+        addReviewButton.layer.cornerRadius = addReviewButton.height / 2
       } else {
         ratingSummaryView.noValueImage = #imageLiteral(resourceName: "ic_12px_radio_on")
         ratingSummaryView.noValueColor = UIColor.linkBlue()

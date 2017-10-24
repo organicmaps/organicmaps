@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67u-jC-41D" customClass="RatingSummaryView" customModule="cm_beta" customModuleProvider="target">
-                        <rect key="frame" x="12" y="8" width="48" height="21.5"/>
+                        <rect key="frame" x="12" y="8" width="48" height="17.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="48" placeholder="YES" id="Ebr-Th-1jm"/>
@@ -76,7 +76,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ga0-6D-Ttl">
-                        <rect key="frame" x="190" y="8" width="118" height="21"/>
+                        <rect key="frame" x="190" y="8" width="118" height="17"/>
                         <inset key="contentEdgeInsets" minX="8" minY="2" maxX="8" maxY="2"/>
                         <state key="normal" title="+ Leave review"/>
                         <connections>
@@ -93,7 +93,7 @@
                     <constraint firstAttribute="bottom" secondItem="t1Z-Sp-Xi5" secondAttribute="bottom" id="MXa-Ha-DVe"/>
                     <constraint firstItem="Thk-j3-Or0" firstAttribute="centerY" secondItem="Zth-C7-aXm" secondAttribute="centerY" id="NbS-0e-2Dh"/>
                     <constraint firstAttribute="trailing" secondItem="t1Z-Sp-Xi5" secondAttribute="trailing" id="Ygd-7d-cGu"/>
-                    <constraint firstAttribute="bottom" secondItem="67u-jC-41D" secondAttribute="bottom" constant="8" id="dOX-Tv-3un"/>
+                    <constraint firstAttribute="bottom" secondItem="67u-jC-41D" secondAttribute="bottom" constant="12" id="dOX-Tv-3un"/>
                     <constraint firstAttribute="trailing" secondItem="Thk-j3-Or0" secondAttribute="trailing" constant="16" id="dgG-Cd-fzs"/>
                     <constraint firstItem="Ga0-6D-Ttl" firstAttribute="top" secondItem="67u-jC-41D" secondAttribute="top" id="hGC-mM-qmJ"/>
                     <constraint firstItem="Ga0-6D-Ttl" firstAttribute="bottom" secondItem="67u-jC-41D" secondAttribute="bottom" id="j4s-Yj-bcx"/>
