@@ -251,7 +251,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
           priceSetter:^(UILabel * _Nonnull) {
           }
           onAddReview:^{
-            [MWMPlacePageManagerHelper showUGCAddReview:MWMRatingSummaryViewValueTypeGood
+            [MWMPlacePageManagerHelper showUGCAddReview:MWMRatingSummaryViewValueTypeNoValue
                                             fromPreview:YES];
           }];
     }
