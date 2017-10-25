@@ -15,14 +15,14 @@ namespace routing
 class TransitGraphLoader;
 namespace transit
 {
+using Anchor = uint8_t;
+using FeatureId = uint32_t;
 using LineId = uint32_t;
+using NetworkId = uint32_t;
+using OsmId = uint64_t;
 using StopId = uint64_t;
 using TransferId = uint64_t;
-using NetworkId = uint32_t;
-using FeatureId = uint32_t;
-using OsmId = uint64_t;
 using Weight = double;
-using Anchor = uint8_t;
 using Ranges = std::vector<std::vector<StopId>>;
 
 LineId constexpr kInvalidLineId = std::numeric_limits<LineId>::max();
@@ -53,6 +53,7 @@ struct TransitHeader
   TransitHeader(uint16_t version, uint32_t gatesOffset, uint32_t edgesOffset,
                 uint32_t transfersOffset, uint32_t linesOffset, uint32_t shapesOffset,
                 uint32_t networksOffset, uint32_t endOffset);
+
   void Reset();
   bool IsEqualForTesting(TransitHeader const & header) const;
   bool IsValid() const;
@@ -185,6 +186,7 @@ public:
   Gate() = default;
   Gate(FeatureIdentifiers const & featureIdentifiers, bool entrance, bool exit, double weight,
        std::vector<StopId> const & stopIds, m2::PointD const & point);
+
   bool IsEqualForTesting(Gate const & gate) const;
   bool IsValid() const;
   void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; };
@@ -246,6 +248,7 @@ public:
   Edge() = default;
   Edge(StopId stop1Id, StopId stop2Id, double weight, LineId lineId, bool transfer,
        std::vector<ShapeId> const & shapeIds);
+
   bool IsEqualForTesting(Edge const & edge) const;
   bool IsValid() const;
   void SetWeight(double weight) { m_weight = weight; }
@@ -278,6 +281,7 @@ public:
   Transfer() = default;
   Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds,
            std::vector<TitleAnchor> const & titleAnchors);
+
   bool IsEqualForTesting(Transfer const & transfer) const;
   bool IsValid() const;
 
@@ -303,8 +307,8 @@ class StopIdRanges
 public:
   StopIdRanges() = default;
   explicit StopIdRanges(Ranges const & ids) : m_ids(ids) {}
+
   bool operator==(StopIdRanges const & rhs) const { return m_ids == rhs.m_ids; }
-  bool IsEqualForTesting(StopIdRanges const & rhs) const { return *this == rhs; }
   bool IsValid() const { return !m_ids.empty(); }
 
   Ranges const & GetIds() const { return m_ids; }
@@ -322,6 +326,7 @@ public:
   Line() = default;
   Line(LineId id, std::string const & number, std::string const & title, std::string const & type,
        NetworkId networkId, Ranges const & stopIds);
+
   bool IsEqualForTesting(Line const & line) const;
   bool IsValid() const;
 
@@ -352,6 +357,7 @@ class Shape
 public:
   Shape() = default;
   Shape(ShapeId const & id, std::vector<m2::PointD> const & polyline) : m_id(id), m_polyline(polyline) {}
+
   bool IsEqualForTesting(Shape const & shape) const;
   bool IsValid() const { return m_id.IsValid() && m_polyline.size() > 1; }
 
@@ -371,6 +377,7 @@ class Network
 public:
   Network() = default;
   Network(NetworkId id, std::string const & title);
+
   bool IsEqualForTesting(Network const & shape) const;
   bool IsValid() const;
 

@@ -227,7 +227,6 @@ void BuildTransit(string const & mwmDir, string const & countryId,
       "sections."));
   NOTIMPLEMENTED();
 
-//  string const countryId = GetFileName(mwmDir);
   std::string const mwmPath = my::JoinFoldersToPath(mwmDir, countryId + DATA_FILE_EXTENSION);
   string const graphFullPath = my::JoinFoldersToPath(transitDir, countryId + TRANSIT_FILE_EXTENSION);
 

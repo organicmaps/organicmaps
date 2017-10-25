@@ -108,8 +108,9 @@ private:
 };
 
 /// \brief Builds the transit section in the mwm.
-/// \param mwmDir relative or full path to an mwm. The name of mwm without extension is considered
-/// as country id.
+/// \param mwmDir relative or full path to a directory where mwm is located.
+/// \param countryId is an mwm name without extension of the processed mwm.
+/// \param osmIdsToFeatureIdPath is a path to a file with osm ids to feature id mapping.
 /// \param transitDir a path to directory with json files with transit graphs.
 /// \note An mwm pointed by |mwmPath| should contain:
 /// * feature geometry

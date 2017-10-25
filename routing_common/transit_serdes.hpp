@@ -102,11 +102,6 @@ public:
     (*this)(id.GetFeatureId(), name);
   }
 
-  void operator()(StopIdRanges const & rs, char const * name = nullptr)
-  {
-    (*this)(rs.GetIds(), name);
-  }
-
   template <typename T>
   void operator()(std::vector<T> const & vs, char const * /* name */ = nullptr)
   {
@@ -181,11 +176,6 @@ public:
     FeatureId featureId;
     operator()(featureId, name);
     id = FeatureIdentifiers(kInvalidOsmId, featureId);
-  }
-
-  void operator()(StopIdRanges & rs, char const * name = nullptr)
-  {
-    operator()(rs.m_ids, name);
   }
 
   void operator()(vector<m2::PointD> & vs, char const * /* name */ = nullptr)
