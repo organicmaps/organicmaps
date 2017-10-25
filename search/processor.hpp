@@ -22,7 +22,6 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "base/buffer_vector.hpp"
 #include "base/cancellable.hpp"
 #include "base/limited_priority_queue.hpp"
 #include "base/string_utils.hpp"
@@ -50,14 +49,7 @@ class CountryInfoGetter;
 
 namespace search
 {
-struct Locality;
-struct Region;
-
-class DoFindLocality;
-class FeatureLoader;
 class Geocoder;
-class HouseCompFactory;
-class PreResult2Maker;  // todo(@m) merge with Ranker
 class QueryParams;
 class Ranker;
 class ReverseGeocoder;
@@ -125,13 +117,6 @@ protected:
 
   friend string DebugPrint(ViewportID viewportId);
 
-  friend class BestNameFinder;
-  friend class DoFindLocality;
-  friend class FeatureLoader;
-  friend class HouseCompFactory;
-  friend class PreResult2Maker;
-  friend class Ranker;
-
   using TMWMVector = vector<shared_ptr<MwmInfo>>;
   using TOffsetsVector = map<MwmSet::MwmId, vector<uint32_t>>;
   using TFHeader = feature::DataHeader;
@@ -150,12 +135,21 @@ protected:
   void SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool forceUpdate);
   void ClearCache(size_t ind);
 
+  /// @name Get ranking params.
+  //@{
+  /// @return Rect for viewport-distance calculation.
+  m2::RectD const & GetViewport(ViewportID vID = DEFAULT_V) const;
+  //@}
+
+  void SetLanguage(int id, int8_t lang);
+  int8_t GetLanguage(int id) const;
+
   CategoriesHolder const & m_categories;
   storage::CountryInfoGetter const & m_infoGetter;
 
   string m_region;
   string m_query;
-  buffer_vector<strings::UniString, 32> m_tokens;
+  QueryTokens m_tokens;
   strings::UniString m_prefix;
   set<uint32_t> m_preferredTypes;
 
@@ -169,21 +163,12 @@ protected:
   bool m_cianMode = false;
   SearchParams::OnResults m_onResults;
 
-  /// @name Get ranking params.
-  //@{
-  /// @return Rect for viewport-distance calculation.
-  m2::RectD const & GetViewport(ViewportID vID = DEFAULT_V) const;
-  //@}
-
-  void SetLanguage(int id, int8_t lang);
-  int8_t GetLanguage(int id) const;
-
-protected:
   bool m_viewportSearch;
 
   VillagesCache m_villagesCache;
   CitiesBoundariesTable m_citiesBoundaries;
 
+  KeywordLangMatcher m_keywordsScorer;
   Emitter m_emitter;
   Ranker m_ranker;
   PreRanker m_preRanker;

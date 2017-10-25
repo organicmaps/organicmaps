@@ -166,7 +166,7 @@ struct FeatureNameInserter
     strings::UniString const uniName = search::NormalizeAndSimplifyString(name);
 
     // split input string on tokens
-    buffer_vector<strings::UniString, 32> tokens;
+    search::QueryTokens tokens;
     SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
 
     // add synonyms for input native string

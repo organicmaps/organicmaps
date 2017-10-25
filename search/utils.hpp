@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/common.hpp"
 #include "search/token_slice.hpp"
 
 #include "indexer/categories_holder.hpp"
@@ -7,9 +8,7 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/buffer_vector.hpp"
 #include "base/levenshtein_dfa.hpp"
-#include "base/small_set.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -24,8 +23,6 @@ class MwmInfo;
 
 namespace search
 {
-using Locales = base::SafeSmallSet<CategoriesHolder::kMaxSupportedLocaleIndex + 1>;
-
 // todo(@m, @y). Unite with the similar function in search/feature_offset_match.hpp.
 template <typename TrieIt, typename DFA, typename ToDo>
 bool MatchInTrie(TrieIt const & trieStartIt, DFA const & dfa, ToDo && toDo)

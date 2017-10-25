@@ -25,6 +25,7 @@ win32*|linux* {
 SOURCES += \
     ../../testing/testingmain.cpp \
     algos_tests.cpp \
+    highlighting_test.cpp \
     hotels_filter_test.cpp \
     house_detector_tests.cpp \
     house_numbers_matcher_test.cpp \
@@ -39,7 +40,6 @@ SOURCES += \
     query_saver_tests.cpp \
     ranking_tests.cpp \
     segment_tree_tests.cpp \
-    string_intersection_test.cpp \
     string_match_test.cpp \
 
 HEADERS += \

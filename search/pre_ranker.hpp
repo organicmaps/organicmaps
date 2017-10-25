@@ -87,7 +87,7 @@ private:
 
   Index const & m_index;
   Ranker & m_ranker;
-  vector<PreResult1> m_results;
+  vector<PreRankerResult> m_results;
   size_t const m_limit;
   Params m_params;
   bool m_viewportSearch = false;

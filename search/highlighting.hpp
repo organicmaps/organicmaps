@@ -2,12 +2,18 @@
 
 #include "indexer/search_delimiters.hpp"
 
-#include "std/utility.hpp"
+#include "search/common.hpp"
+#include "search/result.hpp"
+
+#include "base/string_utils.hpp"
+
+#include <string>
+#include <utility>
 
 namespace search
 {
 template <typename LowTokensIterType, typename F>
-void SearchStringTokensIntersectionRanges(string const & s, LowTokensIterType itLowBeg,
+void SearchStringTokensIntersectionRanges(std::string const & s, LowTokensIterType itLowBeg,
                                           LowTokensIterType itLowEnd, F f)
 {
   // split input query by tokens and prefix
@@ -31,7 +37,7 @@ void SearchStringTokensIntersectionRanges(string const & s, LowTokensIterType it
     strings::UniString subStr;
     subStr.assign(str.begin() + beg, str.begin() + pos);
     size_t maxCount = 0;
-    pair<uint16_t, uint16_t> result(0, 0);
+    std::pair<uint16_t, uint16_t> result(0, 0);
 
     for (LowTokensIterType itLow = itLowBeg; itLow != itLowEnd; ++itLow)
     {
@@ -49,4 +55,8 @@ void SearchStringTokensIntersectionRanges(string const & s, LowTokensIterType it
       f(result);
   }
 }
-}
+
+// Adds to |res| the ranges that match the query tokens and, therefore, should be highlighted.
+// The query is passed in |tokens| and |prefix|.
+void HighlightResult(QueryTokens const & tokens, strings::UniString const & prefix, Result & res);
+}  // namespace search

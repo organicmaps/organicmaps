@@ -37,6 +37,7 @@ HEADERS += \
     geocoder_locality.hpp \
     geometry_cache.hpp \
     geometry_utils.hpp \
+    highlighting.hpp \
     hotels_classifier.hpp \
     hotels_filter.hpp \
     house_detector.hpp \
@@ -78,7 +79,6 @@ HEADERS += \
     stats_cache.hpp \
     street_vicinity_loader.hpp \
     streets_matcher.hpp \
-    string_intersection.hpp \
     suggest.hpp \
     token_range.hpp \
     token_slice.hpp \
@@ -108,6 +108,7 @@ SOURCES += \
     geocoder_locality.cpp \
     geometry_cache.cpp \
     geometry_utils.cpp \
+    highlighting.cpp \
     hotels_classifier.cpp \
     hotels_filter.cpp \
     house_detector.cpp \
@@ -143,6 +144,7 @@ SOURCES += \
     segment_tree.cpp \
     street_vicinity_loader.cpp \
     streets_matcher.cpp \
+    suggest.cpp \
     token_slice.cpp \
     types_skipper.cpp \
     utils.cpp \

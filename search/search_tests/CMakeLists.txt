@@ -5,6 +5,7 @@ include_directories(${OMIM_ROOT}/3party/jansson/src)
 set(
   SRC
   algos_tests.cpp
+  highlighting_tests.cpp
   house_detector_tests.cpp
   house_numbers_matcher_test.cpp
   interval_set_test.cpp
@@ -19,7 +20,6 @@ set(
   query_saver_tests.cpp
   ranking_tests.cpp
   segment_tree_tests.cpp
-  string_intersection_test.cpp
   string_match_test.cpp
 )
 

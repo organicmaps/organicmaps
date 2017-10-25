@@ -46,10 +46,11 @@ class TestRanker : public Ranker
 {
 public:
   TestRanker(TestSearchEngine & engine, CitiesBoundariesTable const & boundariesTable,
-             Emitter & emitter, vector<Suggest> const & suggests, VillagesCache & villagesCache,
-             my::Cancellable const & cancellable, vector<PreResult1> & results)
+             KeywordLangMatcher & keywordsScorer, Emitter & emitter,
+             vector<Suggest> const & suggests, VillagesCache & villagesCache,
+             my::Cancellable const & cancellable, vector<PreRankerResult> & results)
     : Ranker(static_cast<Index const &>(engine), boundariesTable, engine.GetCountryInfoGetter(),
-             emitter, GetDefaultCategories(), suggests, villagesCache, cancellable)
+             keywordsScorer, emitter, GetDefaultCategories(), suggests, villagesCache, cancellable)
     , m_results(results)
   {
   }
@@ -57,11 +58,11 @@ public:
   inline bool Finished() const { return m_finished; }
 
   // Ranker overrides:
-  void SetPreResults1(vector<PreResult1> && preResults1) override
+  void SetPreRankerResults(vector<PreRankerResult> && preRankerResults) override
   {
     CHECK(!Finished(), ());
-    move(preResults1.begin(), preResults1.end(), back_inserter(m_results));
-    preResults1.clear();
+    move(preRankerResults.begin(), preRankerResults.end(), back_inserter(m_results));
+    preRankerResults.clear();
   }
 
   void UpdateResults(bool lastUpdate) override
@@ -72,7 +73,7 @@ public:
   }
 
 private:
-  vector<PreResult1> & m_results;
+  vector<PreRankerResult> & m_results;
   bool m_finished = false;
 };
 
@@ -112,12 +113,13 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
       builder.Add(poi);
   });
 
-  vector<PreResult1> results;
+  vector<PreRankerResult> results;
   Emitter emitter;
   CitiesBoundariesTable boundariesTable(m_engine);
   VillagesCache villagesCache(m_cancellable);
-  TestRanker ranker(m_engine, boundariesTable, emitter, m_suggests, villagesCache, m_cancellable,
-                    results);
+  KeywordLangMatcher keywordsScorer;
+  TestRanker ranker(m_engine, boundariesTable, keywordsScorer, emitter, m_suggests, villagesCache,
+                    m_cancellable, results);
 
   PreRanker preRanker(m_engine, ranker, pois.size());
   PreRanker::Params params;

@@ -117,7 +117,9 @@ public:
 private:
   FeatureID m_id;
   m2::PointD m_center;
-  string m_str, m_address, m_type;
+  string m_str;
+  string m_address;
+  string m_type;
   uint32_t m_featureType;
   string m_suggestionStr;
   buffer_vector<pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
@@ -199,7 +201,11 @@ private:
 
 struct AddressInfo
 {
-  string m_country, m_city, m_street, m_house, m_name;
+  string m_country;
+  string m_city;
+  string m_street;
+  string m_house;
+  string m_name;
   vector<string> m_types;
   double m_distanceMeters = -1.0;
 

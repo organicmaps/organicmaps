@@ -22,15 +22,15 @@ namespace search
 {
 class ReverseGeocoder;
 
-/// First pass results class. Objects are creating during search in trie.
-/// Works fast without feature loading and provide ranking.
-class PreResult1
+// First pass results class. Objects are created during search in trie.
+// Works fast because it does not load features.
+class PreRankerResult
 {
 public:
-  PreResult1(FeatureID const & fID, PreRankingInfo const & info);
+  PreRankerResult(FeatureID const & fID, PreRankingInfo const & info);
 
-  static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);
-  static bool LessDistance(PreResult1 const & r1, PreResult1 const & r2);
+  static bool LessRank(PreRankerResult const & r1, PreRankerResult const & r2);
+  static bool LessDistance(PreRankerResult const & r1, PreRankerResult const & r2);
 
   inline FeatureID GetId() const { return m_id; }
   inline double GetDistance() const { return m_info.m_distanceToPivot; }
@@ -39,32 +39,30 @@ public:
   inline PreRankingInfo const & GetInfo() const { return m_info; }
 
 private:
-  friend class PreResult2;
+  friend class RankerResult;
 
   FeatureID m_id;
   PreRankingInfo m_info;
 };
 
-/// Second result class. Objects are creating during reading of features.
-/// Read and fill needed info for ranking and getting final results.
-class PreResult2
+// Second result class. Objects are created during reading of features.
+// Read and fill needed info for ranking and getting final results.
+class RankerResult
 {
-  friend class PreResult2Maker;
-
 public:
-  enum ResultType
+  enum Type
   {
-    RESULT_LATLON,
-    RESULT_FEATURE,
-    RESULT_BUILDING  //!< Buildings are not filtered out in duplicates filter.
+    TYPE_LATLON,
+    TYPE_FEATURE,
+    TYPE_BUILDING  //!< Buildings are not filtered out in duplicates filter.
   };
 
   /// For RESULT_FEATURE and RESULT_BUILDING.
-  PreResult2(FeatureType const & f, m2::PointD const & center, m2::PointD const & pivot,
-             string const & displayName, string const & fileName);
+  RankerResult(FeatureType const & f, m2::PointD const & center, m2::PointD const & pivot,
+               string const & displayName, string const & fileName);
 
   /// For RESULT_LATLON.
-  PreResult2(double lat, double lon);
+  RankerResult(double lat, double lon);
 
   inline search::RankingInfo const & GetRankingInfo() const { return m_info; }
 
@@ -74,41 +72,6 @@ public:
     m_info = forward<TInfo>(info);
   }
 
-  /// @param[in]  infoGetter Need to get region for result.
-  /// @param[in]  pCat    Categories need to display readable type string.
-  /// @param[in]  pTypes  Set of preffered types that match input tokens by categories.
-  /// @param[in]  lang    Current system language.
-  /// @param[in]  coder   May be nullptr - no need to calculate address.
-  Result GenerateFinalResult(storage::CountryInfoGetter const & infoGetter,
-                             CategoriesHolder const * pCat, set<uint32_t> const * pTypes,
-                             int8_t locale, ReverseGeocoder const * coder) const;
-
-  /// Filter equal features for different mwm's.
-  class StrictEqualF
-  {
-  public:
-    StrictEqualF(PreResult2 const & r, double const epsMeters);
-
-    bool operator()(PreResult2 const & r) const;
-
-  private:
-    PreResult2 const & m_r;
-    double const m_epsMeters;
-  };
-
-  /// To filter equal linear objects.
-  //@{
-  struct LessLinearTypesF
-  {
-    bool operator() (PreResult2 const & r1, PreResult2 const & r2) const;
-  };
-  class EqualLinearTypesF
-  {
-  public:
-    bool operator() (PreResult2 const & r1, PreResult2 const & r2) const;
-  };
-  //@}
-
   string DebugPrint() const;
 
   bool IsStreet() const;
@@ -116,17 +79,23 @@ public:
   inline FeatureID const & GetID() const { return m_id; }
   inline string const & GetName() const { return m_str; }
   inline feature::TypesHolder const & GetTypes() const { return m_types; }
+  inline Type const & GetResultType() const { return m_resultType; }
   inline m2::PointD GetCenter() const { return m_region.m_point; }
+  inline double GetDistance() const { return m_distance; }
+  inline feature::EGeomType GetGeomType() const { return m_geomType; }
+  inline Result::Metadata GetMetadata() const { return m_metadata; }
 
-private:
-  bool IsEqualCommon(PreResult2 const & r) const;
+  inline double GetDistanceToPivot() const { return m_info.m_distanceToPivot; }
+  inline double GetLinearModelRank() const { return m_info.GetLinearModelRank(); }
 
-  FeatureID m_id;
-  feature::TypesHolder m_types;
+  string GetRegionName(storage::CountryInfoGetter const & infoGetter, uint32_t fType) const;
+
+  bool IsEqualCommon(RankerResult const & r) const;
 
   uint32_t GetBestType(set<uint32_t> const * pPrefferedTypes = 0) const;
 
-  string m_str;
+private:
+  friend class RankerResultMaker;
 
   struct RegionInfo
   {
@@ -141,60 +110,20 @@ private:
 
     void GetRegion(storage::CountryInfoGetter const & infoGetter,
                    storage::CountryInfo & info) const;
-  } m_region;
+  };
 
-  string GetRegionName(storage::CountryInfoGetter const & infoGetter, uint32_t fType) const;
-
+  RegionInfo m_region;
+  FeatureID m_id;
+  feature::TypesHolder m_types;
+  string m_str;
   double m_distance;
-  ResultType m_resultType;
+  Type m_resultType;
   RankingInfo m_info;
   feature::EGeomType m_geomType;
-
   Result::Metadata m_metadata;
 };
 
-inline string DebugPrint(PreResult2 const & t)
-{
-  return t.DebugPrint();
-}
+inline string DebugPrint(RankerResult const & t) { return t.DebugPrint(); }
 
 void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta);
-
-class IndexedValue
-{
-  /// @todo Do not use shared_ptr for optimization issues.
-  /// Need to rewrite std::unique algorithm.
-  unique_ptr<PreResult2> m_value;
-
-  double m_rank;
-  double m_distanceToPivot;
-
-  friend string DebugPrint(IndexedValue const & value)
-  {
-    ostringstream os;
-    os << "IndexedValue [";
-    if (value.m_value)
-      os << DebugPrint(*value.m_value);
-    os << "]";
-    return os.str();
-  }
-
-public:
-  explicit IndexedValue(unique_ptr<PreResult2> value)
-    : m_value(move(value)), m_rank(0.0), m_distanceToPivot(numeric_limits<double>::max())
-  {
-    if (!m_value)
-      return;
-
-    auto const & info = m_value->GetRankingInfo();
-    m_rank = info.GetLinearModelRank();
-    m_distanceToPivot = info.m_distanceToPivot;
-  }
-
-  PreResult2 const & operator*() const { return *m_value; }
-
-  inline double GetRank() const { return m_rank; }
-
-  inline double GetDistanceToPivot() const { return m_distanceToPivot; }
-};
 }  // namespace search

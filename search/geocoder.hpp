@@ -29,7 +29,6 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "base/buffer_vector.hpp"
 #include "base/cancellable.hpp"
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
@@ -57,7 +56,6 @@ class PreRanker;
 
 class FeaturesFilter;
 class FeaturesLayerMatcher;
-class SearchModel;
 class TokenSlice;
 
 // This class is used to retrieve all features corresponding to a
@@ -90,7 +88,6 @@ public:
   Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
            PreRanker & preRanker, VillagesCache & villagesCache,
            my::Cancellable const & cancellable);
-
   ~Geocoder();
 
   // Sets search query params.

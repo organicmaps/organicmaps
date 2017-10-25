@@ -50,6 +50,8 @@ set(
   geometry_cache.hpp
   geometry_utils.cpp
   geometry_utils.hpp
+  highlighting.cpp
+  highlighting.hpp
   hotels_classifier.cpp
   hotels_classifier.hpp
   hotels_filter.cpp
@@ -126,7 +128,7 @@ set(
   street_vicinity_loader.hpp
   streets_matcher.cpp
   streets_matcher.hpp
-  string_intersection.hpp
+  suggest.cpp
   suggest.hpp
   token_range.hpp
   token_slice.cpp

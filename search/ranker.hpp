@@ -37,7 +37,7 @@ namespace search
 {
 class CitiesBoundariesTable;
 class Emitter;
-class PreResult2Maker;
+class RankerResultMaker;
 class VillagesCache;
 
 class Ranker
@@ -54,7 +54,7 @@ public:
     bool m_viewportSearch = false;
 
     string m_query;
-    buffer_vector<strings::UniString, 32> m_tokens;
+    QueryTokens m_tokens;
     // Prefix of the last token in the query.
     // We need it here to make suggestions.
     strings::UniString m_prefix;
@@ -62,75 +62,59 @@ public:
     m2::PointD m_accuratePivotCenter = m2::PointD(0, 0);
 
     // A minimum distance between search results in meters, needed for
-    // filtering of indentical search results.
+    // filtering of identical search results.
     double m_minDistanceOnMapBetweenResults = 0.0;
 
     Locales m_categoryLocales;
 
+    // Default batch size. Override if needed.
+    size_t m_batchSize = 10;
+
+    // The maximum total number of results to be emitted in all batches.
     size_t m_limit = 0;
   };
 
-  static size_t const kBatchSize;
-
   Ranker(Index const & index, CitiesBoundariesTable const & boundariesTable,
-         storage::CountryInfoGetter const & infoGetter, Emitter & emitter,
-         CategoriesHolder const & categories, vector<Suggest> const & suggests,
+         storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer,
+         Emitter & emitter, CategoriesHolder const & categories, vector<Suggest> const & suggests,
          VillagesCache & villagesCache, my::Cancellable const & cancellable);
   virtual ~Ranker() = default;
 
   void Init(Params const & params, Geocoder::Params const & geocoderParams);
 
-  bool IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values);
+  Result MakeResult(RankerResult const & r) const;
 
-  void MakePreResult2(Geocoder::Params const & params, vector<IndexedValue> & cont);
-
-  Result MakeResult(PreResult2 const & r) const;
-  void MakeResultHighlight(Result & res) const;
-
-  void GetSuggestion(string const & name, string & suggest) const;
   void SuggestStrings();
-  void MatchForSuggestions(strings::UniString const & token, int8_t locale, string const & prolog);
-  void GetBestMatchName(FeatureType const & f, string & name) const;
-  void ProcessSuggestions(vector<IndexedValue> & vec) const;
 
-  virtual void SetPreResults1(vector<PreResult1> && preResults1) { m_preResults1 = move(preResults1); }
+  virtual void SetPreRankerResults(vector<PreRankerResult> && preRankerResults)
+  {
+    m_preRankerResults = move(preRankerResults);
+  }
   virtual void UpdateResults(bool lastUpdate);
 
   void ClearCaches();
 
-  inline void SetLocalityLanguage(int8_t code) { m_localityLang = code; }
-
-  inline void SetLanguage(pair<int, int> const & ind, int8_t lang)
-  {
-    m_keywordsScorer.SetLanguage(ind, lang);
-  }
-
-  inline int8_t GetLanguage(pair<int, int> const & ind) const
-  {
-    return m_keywordsScorer.GetLanguage(ind);
-  }
-
-  inline void SetLanguages(vector<vector<int8_t>> const & languagePriorities)
-  {
-    m_keywordsScorer.SetLanguages(languagePriorities);
-  }
-
-  inline void SetKeywords(KeywordMatcher::StringT const * keywords, size_t count,
-                          KeywordMatcher::StringT const & prefix)
-  {
-    m_keywordsScorer.SetKeywords(keywords, count, prefix);
-  }
-
   inline void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
+  inline void SetLocalityLanguage(int8_t code) { m_localityLang = code; }
+
 private:
-  friend class PreResult2Maker;
+  friend class RankerResultMaker;
+
+  void MakeRankerResults(Geocoder::Params const & params, vector<RankerResult> & results);
+
+  // todo(@m) Can we unify this and MakeResult?
+  Result GenerateFinalResult(RankerResult const & rankerResult, bool needAddress) const;
+
+  void GetBestMatchName(FeatureType const & f, string & name) const;
+  void MatchForSuggestions(strings::UniString const & token, int8_t locale, string const & prolog);
+  void ProcessSuggestions(vector<RankerResult> & vec) const;
 
   Params m_params;
   Geocoder::Params m_geocoderParams;
   ReverseGeocoder const m_reverseGeocoder;
   my::Cancellable const & m_cancellable;
-  KeywordLangMatcher m_keywordsScorer;
+  KeywordLangMatcher & m_keywordsScorer;
 
   mutable LocalityFinder m_localities;
   int8_t m_localityLang = StringUtf8Multilang::kDefaultCode;
@@ -141,7 +125,7 @@ private:
   CategoriesHolder const & m_categories;
   vector<Suggest> const & m_suggests;
 
-  vector<PreResult1> m_preResults1;
-  vector<IndexedValue> m_tentativeResults;
+  vector<PreRankerResult> m_preRankerResults;
+  vector<RankerResult> m_tentativeResults;
 };
 }  // namespace search

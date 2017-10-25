@@ -1,8 +1,12 @@
 #pragma once
 
+#include "search/common.hpp"
+#include "search/intermediate_result.hpp"
+
 #include "base/string_utils.hpp"
 
-#include "std/cstdint.hpp"
+#include <cstdint>
+#include <string>
 
 namespace search
 {
@@ -17,4 +21,7 @@ struct Suggest
   uint8_t m_prefixLength;
   int8_t m_locale;
 };
+
+void GetSuggestion(RankerResult const & res, string const & query, QueryTokens const & paramTokens,
+                   strings::UniString const & prefix, std::string & suggest);
 }  // namespace search

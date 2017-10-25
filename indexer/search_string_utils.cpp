@@ -5,6 +5,8 @@
 #include "base/macros.hpp"
 #include "base/mem_trie.hpp"
 
+#include "3party/utfcpp/source/utf8/unchecked.h"
+
 using namespace std;
 using namespace strings;
 
@@ -295,6 +297,28 @@ private:
 
 StreetsSynonymsHolder g_streets;
 }  // namespace
+
+void GetStringPrefix(string const & str, string & res)
+{
+  search::Delimiters delims;
+  using Iter = utf8::unchecked::iterator<string::const_iterator>;
+
+  // Find start iterator of prefix in input query.
+  Iter iter(str.end());
+  while (iter.base() != str.begin())
+  {
+    Iter prev = iter;
+    --prev;
+
+    if (delims(*prev))
+      break;
+
+    iter = prev;
+  }
+
+  // Assign the input string without prefix to result.
+  res.assign(str.begin(), iter.base());
+}
 
 UniString GetStreetNameAsKey(string const & name)
 {

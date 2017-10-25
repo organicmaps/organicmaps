@@ -19,36 +19,7 @@ namespace search
 {
 namespace
 {
-struct LessFeatureID
-{
-  using TValue = PreResult1;
-
-  inline bool operator()(TValue const & lhs, TValue const & rhs) const
-  {
-    return lhs.GetId() < rhs.GetId();
-  }
-};
-
-// Orders PreResult1 by following criterion:
-// 1. Feature Id (increasing), if same...
-// 2. Number of matched tokens from the query (decreasing), if same...
-// 3. Index of the first matched token from the query (increasing).
-struct ComparePreResult1
-{
-  bool operator()(PreResult1 const & lhs, PreResult1 const & rhs) const
-  {
-    if (lhs.GetId() != rhs.GetId())
-      return lhs.GetId() < rhs.GetId();
-
-    auto const & linfo = lhs.GetInfo();
-    auto const & rinfo = rhs.GetInfo();
-    if (linfo.GetNumTokens() != rinfo.GetNumTokens())
-      return linfo.GetNumTokens() > rinfo.GetNumTokens();
-    return linfo.InnermostTokenRange().Begin() < rinfo.InnermostTokenRange().Begin();
-  }
-};
-
-void SweepNearbyResults(double eps, vector<PreResult1> & results)
+void SweepNearbyResults(double eps, vector<PreRankerResult> & results)
 {
   m2::NearbyPointsSweeper sweeper(eps);
   for (size_t i = 0; i < results.size(); ++i)
@@ -57,7 +28,7 @@ void SweepNearbyResults(double eps, vector<PreResult1> & results)
     sweeper.Add(p.x, p.y, i);
   }
 
-  vector<PreResult1> filtered;
+  vector<PreRankerResult> filtered;
   sweeper.Sweep([&filtered, &results](size_t i)
                 {
                   filtered.push_back(results[i]);
@@ -92,7 +63,7 @@ void PreRanker::FillMissingFieldsInPreResults()
   if (fillCenters)
     m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
 
-  ForEach([&](PreResult1 & r) {
+  ForEach([&](PreRankerResult & r) {
     FeatureID const & id = r.GetId();
     PreRankingInfo & info = r.GetInfo();
     if (id.m_mwmId != mwmId)
@@ -132,18 +103,35 @@ void PreRanker::FillMissingFieldsInPreResults()
 
 void PreRanker::Filter(bool viewportSearch)
 {
-  using TSet = set<PreResult1, LessFeatureID>;
-  TSet filtered;
+  struct LessFeatureID
+  {
+    inline bool operator()(PreRankerResult const & lhs, PreRankerResult const & rhs) const
+    {
+      return lhs.GetId() < rhs.GetId();
+    }
+  };
 
-  sort(m_results.begin(), m_results.end(), ComparePreResult1());
-  m_results.erase(unique(m_results.begin(), m_results.end(), my::EqualsBy(&PreResult1::GetId)),
+  auto comparePreRankerResults = [](PreRankerResult const & lhs,
+                                    PreRankerResult const & rhs) -> bool {
+    if (lhs.GetId() != rhs.GetId())
+      return lhs.GetId() < rhs.GetId();
+
+    auto const & linfo = lhs.GetInfo();
+    auto const & rinfo = rhs.GetInfo();
+    if (linfo.GetNumTokens() != rinfo.GetNumTokens())
+      return linfo.GetNumTokens() > rinfo.GetNumTokens();
+    return linfo.InnermostTokenRange().Begin() < rinfo.InnermostTokenRange().Begin();
+  };
+
+  sort(m_results.begin(), m_results.end(), comparePreRankerResults);
+  m_results.erase(unique(m_results.begin(), m_results.end(), my::EqualsBy(&PreRankerResult::GetId)),
                   m_results.end());
 
   if (m_results.size() > BatchSize())
   {
     bool const centersLoaded =
         all_of(m_results.begin(), m_results.end(),
-               [](PreResult1 const & result) { return result.GetInfo().m_centerLoaded; });
+               [](PreRankerResult const & result) { return result.GetInfo().m_centerLoaded; });
     if (viewportSearch && centersLoaded)
     {
       FilterForViewportSearch();
@@ -153,7 +141,7 @@ void PreRanker::Filter(bool viewportSearch)
     }
     else
     {
-      sort(m_results.begin(), m_results.end(), &PreResult1::LessDistance);
+      sort(m_results.begin(), m_results.end(), &PreRankerResult::LessDistance);
 
       // Priority is some kind of distance from the viewport or
       // position, therefore if we have a bunch of results with the same
@@ -186,12 +174,17 @@ void PreRanker::Filter(bool viewportSearch)
       shuffle(b, e, m_rng);
     }
   }
+
+  using TSet = set<PreRankerResult, LessFeatureID>;
+  TSet filtered;
+
   filtered.insert(m_results.begin(), m_results.begin() + min(m_results.size(), BatchSize()));
 
   if (!viewportSearch)
   {
     size_t n = min(m_results.size(), BatchSize());
-    nth_element(m_results.begin(), m_results.begin() + n, m_results.end(), &PreResult1::LessRank);
+    nth_element(m_results.begin(), m_results.begin() + n, m_results.end(),
+                &PreRankerResult::LessRank);
     filtered.insert(m_results.begin(), m_results.begin() + n);
   }
 
@@ -203,7 +196,7 @@ void PreRanker::UpdateResults(bool lastUpdate)
   FillMissingFieldsInPreResults();
   Filter(m_viewportSearch);
   m_numSentResults += m_results.size();
-  m_ranker.SetPreResults1(move(m_results));
+  m_ranker.SetPreRankerResults(move(m_results));
   m_results.clear();
   m_ranker.UpdateResults(lastUpdate);
 
@@ -222,7 +215,7 @@ void PreRanker::FilterForViewportSearch()
 {
   auto const & viewport = m_params.m_viewport;
 
-  my::EraseIf(m_results, [&viewport](PreResult1 const & result) {
+  my::EraseIf(m_results, [&viewport](PreRankerResult const & result) {
     auto const & info = result.GetInfo();
     return !viewport.IsPointInside(info.m_center);
   });
@@ -254,7 +247,7 @@ void PreRanker::FilterForViewportSearch()
     buckets[dx * kNumYSlots + dy].push_back(i);
   }
 
-  vector<PreResult1> results;
+  vector<PreRankerResult> results;
   double const density = static_cast<double>(BatchSize()) / static_cast<double>(n);
   for (auto & bucket : buckets)
   {

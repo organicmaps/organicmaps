@@ -184,8 +184,8 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   , m_viewportSearch(false)
   , m_villagesCache(static_cast<my::Cancellable const &>(*this))
   , m_citiesBoundaries(index)
-  , m_ranker(index, m_citiesBoundaries, infoGetter, m_emitter, categories, suggests,
-             m_villagesCache, static_cast<my::Cancellable const &>(*this))
+  , m_ranker(index, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
+             suggests, m_villagesCache, static_cast<my::Cancellable const &>(*this))
   , m_preRanker(index, m_ranker, kPreResultsCount)
   , m_geocoder(index, infoGetter, m_preRanker, m_villagesCache,
                static_cast<my::Cancellable const &>(*this))
@@ -198,7 +198,7 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
       {StringUtf8Multilang::kInternationalCode, StringUtf8Multilang::kEnglishCode},
       {StringUtf8Multilang::kDefaultCode}};
 
-  m_ranker.SetLanguages(langPriorities);
+  m_keywordsScorer.SetLanguages(langPriorities);
 
   SetPreferredLocale("en");
 }
@@ -229,6 +229,7 @@ void Processor::SetPreferredLocale(string const & locale)
   // Default initialization.
   // If you want to reset input language, call SetInputLocale before search.
   SetInputLocale(locale);
+  m_ranker.SetLocalityLanguage(code);
 }
 
 void Processor::SetInputLocale(string const & locale)
@@ -262,7 +263,7 @@ void Processor::SetQuery(string const & query)
 
   search::Delimiters delims;
   {
-    buffer_vector<strings::UniString, 32> subTokens;
+    QueryTokens subTokens;
     for (auto const & token : tokens)
     {
       size_t numHashes = 0;
@@ -298,7 +299,7 @@ void Processor::SetQuery(string const & query)
     m_tokens.resize(maxTokensCount);
 
   // Assign tokens and prefix to scorer.
-  m_ranker.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
+  m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
 
   // Get preferred types to show in results.
   m_preferredTypes.clear();
@@ -323,12 +324,12 @@ void Processor::SetRankPivot(m2::PointD const & pivot)
 
 void Processor::SetLanguage(int id, int8_t lang)
 {
-  m_ranker.SetLanguage(GetLangIndex(id), lang);
+  m_keywordsScorer.SetLanguage(GetLangIndex(id), lang);
 }
 
 int8_t Processor::GetLanguage(int id) const
 {
-  return m_ranker.GetLanguage(GetLangIndex(id));
+  return m_keywordsScorer.GetLanguage(GetLangIndex(id));
 }
 
 m2::PointD Processor::GetPivotPoint() const
@@ -518,7 +519,7 @@ void Processor::SearchCoordinates()
   double lat, lon;
   if (!MatchLatLonDegree(m_query, lat, lon))
     return;
-  m_emitter.AddResultNoChecks(m_ranker.MakeResult(PreResult2(lat, lon)));
+  m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(lat, lon)));
   m_emitter.Emit();
 }
 
