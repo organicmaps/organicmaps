@@ -66,23 +66,6 @@ Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
   return *s1Id.first;
 }
 
-/// Extracts the file name from |filePath| and drops all extensions.
-string GetFileName(string const & filePath)
-{
-  string name = filePath;
-  my::GetNameFromFullPath(name);
-
-  string nameWithExt;
-  do
-  {
-    nameWithExt = name;
-    my::GetNameWithoutExt(name);
-  }
-  while (nameWithExt != name);
-
-  return name;
-}
-
 template <class Item>
 void DeserializeFromJson(my::Json const & root, string const & key,
                          OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, vector<Item> & items)
