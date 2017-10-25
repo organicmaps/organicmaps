@@ -47,7 +47,7 @@ void GetSuggestion(RankerResult const & res, string const & query, QueryTokens c
   if (!prefixMatched || fullPrefixMatched)
     return;
 
-  GetStringPrefix(query, suggest);
+  suggest = DropLastToken(query);
 
   // Appends unmatched result's tokens to the suggestion.
   for (size_t i = 0; i < tokens.size(); ++i)

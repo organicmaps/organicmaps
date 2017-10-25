@@ -16,6 +16,8 @@
 #include "std/iterator.hpp"
 #include "std/unique_ptr.hpp"
 
+#include <boost/optional.hpp>
+
 namespace search
 {
 namespace
@@ -83,7 +85,7 @@ void RemoveDuplicatingLinear(vector<RankerResult> & results)
     if (t1 != t2)
       return t1 < t2;
 
-    // Should stay the best feature, after unique, so add this criteria:
+    // After unique, the better feature should be kept.
     return r1.GetDistance() < r2.GetDistance();
   };
 
@@ -119,7 +121,6 @@ ftypes::Type GetLocalityIndex(feature::TypesHolder const & types)
 // TODO: Format street and house number according to local country's rules.
 string FormatStreetAndHouse(ReverseGeocoder::Address const & addr)
 {
-  ASSERT_GREATER_OR_EQUAL(addr.GetDistance(), 0, ());
   return addr.GetStreetName() + ", " + addr.GetHouseNumber();
 }
 
@@ -276,14 +277,13 @@ class RankerResultMaker
   }
 
 public:
-  explicit RankerResultMaker(Ranker & ranker, Index const & index,
-                             storage::CountryInfoGetter const & infoGetter,
-                             Geocoder::Params const & params)
+  RankerResultMaker(Ranker & ranker, Index const & index,
+                    storage::CountryInfoGetter const & infoGetter, Geocoder::Params const & params)
     : m_ranker(ranker), m_index(index), m_params(params), m_infoGetter(infoGetter)
   {
   }
 
-  unique_ptr<RankerResult> operator()(PreRankerResult const & preRankerResult)
+  boost::optional<RankerResult> operator()(PreRankerResult const & preRankerResult)
   {
     FeatureType ft;
     m2::PointD center;
@@ -293,15 +293,14 @@ public:
     if (!LoadFeature(preRankerResult.GetId(), ft, center, name, country))
       return {};
 
-    auto p = make_unique<RankerResult>(ft, center, m_ranker.m_params.m_position /* pivot */, name,
-                                       country);
+    RankerResult r(ft, center, m_ranker.m_params.m_position /* pivot */, name, country);
 
     search::RankingInfo info;
     InitRankingInfo(ft, center, preRankerResult, info);
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country);
-    p->SetRankingInfo(move(info));
+    r.SetRankingInfo(move(info));
 
-    return p;
+    return r;
   }
 };
 
@@ -352,8 +351,7 @@ void Ranker::SuggestStrings()
   if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
-  string prologue;
-  GetStringPrefix(m_params.m_query, prologue);
+  string prologue = DropLastToken(m_params.m_query);
 
   for (auto const & locale : m_params.m_categoryLocales)
     MatchForSuggestions(m_params.m_prefix, locale, prologue);
@@ -438,7 +436,7 @@ void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
     }
 
     if (!ResultExists(*p, results, m_params.m_minDistanceOnMapBetweenResults))
-      results.push_back(move(*p.release()));
+      results.push_back(move(*p));
   };
 }
 
@@ -516,7 +514,7 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
     if (suggest.m_prefixLength <= token.size()
         && token != s                  // do not push suggestion if it already equals to token
         && suggest.m_locale == locale  // push suggestions only for needed language
-        && strings::StartsWith(s.begin(), s.end(), token.begin(), token.end()))
+        && strings::StartsWith(s, token))
     {
       string const utf8Str = strings::ToUtf8(s);
       Result r(utf8Str, prologue + utf8Str + " ");

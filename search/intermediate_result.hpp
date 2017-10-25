@@ -27,7 +27,7 @@ class ReverseGeocoder;
 class PreRankerResult
 {
 public:
-  PreRankerResult(FeatureID const & fID, PreRankingInfo const & info);
+  PreRankerResult(FeatureID const & id, PreRankingInfo const & info);
 
   static bool LessRank(PreRankerResult const & r1, PreRankerResult const & r2);
   static bool LessDistance(PreRankerResult const & r1, PreRankerResult const & r2);
@@ -64,7 +64,9 @@ public:
   /// For RESULT_LATLON.
   RankerResult(double lat, double lon);
 
-  inline search::RankingInfo const & GetRankingInfo() const { return m_info; }
+  bool IsStreet() const;
+
+  search::RankingInfo const & GetRankingInfo() const { return m_info; }
 
   template <typename TInfo>
   inline void SetRankingInfo(TInfo && info)
@@ -72,23 +74,19 @@ public:
     m_info = forward<TInfo>(info);
   }
 
-  string DebugPrint() const;
+  FeatureID const & GetID() const { return m_id; }
+  string const & GetName() const { return m_str; }
+  feature::TypesHolder const & GetTypes() const { return m_types; }
+  Type const & GetResultType() const { return m_resultType; }
+  m2::PointD GetCenter() const { return m_region.m_point; }
+  double GetDistance() const { return m_distance; }
+  feature::EGeomType GetGeomType() const { return m_geomType; }
+  Result::Metadata GetMetadata() const { return m_metadata; }
 
-  bool IsStreet() const;
+  double GetDistanceToPivot() const { return m_info.m_distanceToPivot; }
+  double GetLinearModelRank() const { return m_info.GetLinearModelRank(); }
 
-  inline FeatureID const & GetID() const { return m_id; }
-  inline string const & GetName() const { return m_str; }
-  inline feature::TypesHolder const & GetTypes() const { return m_types; }
-  inline Type const & GetResultType() const { return m_resultType; }
-  inline m2::PointD GetCenter() const { return m_region.m_point; }
-  inline double GetDistance() const { return m_distance; }
-  inline feature::EGeomType GetGeomType() const { return m_geomType; }
-  inline Result::Metadata GetMetadata() const { return m_metadata; }
-
-  inline double GetDistanceToPivot() const { return m_info.m_distanceToPivot; }
-  inline double GetLinearModelRank() const { return m_info.GetLinearModelRank(); }
-
-  string GetRegionName(storage::CountryInfoGetter const & infoGetter, uint32_t fType) const;
+  string GetRegionName(storage::CountryInfoGetter const & infoGetter, uint32_t ftype) const;
 
   bool IsEqualCommon(RankerResult const & r) const;
 
@@ -123,7 +121,7 @@ private:
   Result::Metadata m_metadata;
 };
 
-inline string DebugPrint(RankerResult const & t) { return t.DebugPrint(); }
-
 void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta);
+
+string DebugPrint(RankerResult const & r);
 }  // namespace search

@@ -33,7 +33,7 @@
   formatter.dateStyle = NSDateFormatterLongStyle;
 
   self.date.text = [formatter stringFromDate:
-                    [NSDate dateWithTimeIntervalSince1970:duration_cast<seconds>(review.m_date.time_since_epoch()).count()]];
+                    [NSDate dateWithTimeIntervalSince1970:std::chrono::duration_cast<std::chrono::seconds>(review.m_date.time_since_epoch()).count()]];
 
   self.positiveReview.text = @(review.m_pros.c_str());
   self.negativeReview.text = @(review.m_cons.c_str());

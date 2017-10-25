@@ -13,7 +13,10 @@
 #include "base/random.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/iterator.hpp"
+#include <iterator>
+#include <set>
+
+using namespace std;
 
 namespace search
 {
@@ -175,8 +178,7 @@ void PreRanker::Filter(bool viewportSearch)
     }
   }
 
-  using TSet = set<PreRankerResult, LessFeatureID>;
-  TSet filtered;
+  set<PreRankerResult, LessFeatureID> filtered;
 
   filtered.insert(m_results.begin(), m_results.begin() + min(m_results.size(), BatchSize()));
 

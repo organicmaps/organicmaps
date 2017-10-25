@@ -5,14 +5,17 @@
 #include "indexer/feature_covering.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/cstdarg.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
 namespace
 {
-typedef pair<uint16_t, uint16_t> TestResult;
-typedef vector<strings::UniString> TokensVector;
-typedef vector<TestResult> TestResultVector;
+using TestResult = pair<uint16_t, uint16_t>;
+using TokensVector = vector<strings::UniString>;
+using TestResultVector = vector<TestResult>;
 
 struct TestData
 {
@@ -37,9 +40,8 @@ struct TestData
     va_end(ap);
   }
 
-  void AddResult(uint16_t pos, uint16_t len) { m_results.push_back(TestResult(pos, len)); }
+  void AddResult(uint16_t pos, uint16_t len) { m_results.emplace_back(pos, len); }
 };
-typedef vector<TestData> TestVector;
 
 class CheckRange
 {
@@ -86,7 +88,7 @@ UNIT_TEST(SearchStringTokensIntersectionRange)
   char const * lowTokens8[] = {"ул", "кар"};
   char const * lowTokens9[] = {"ул", "бог"};
 
-  TestVector tests;
+  vector<TestData> tests;
   // fill test data
   tests.push_back(TestData(str0, lowTokens0, 2, 2, 6, 5, 12, 6));
   tests.push_back(TestData(str1, lowTokens0, 2, 2, 4, 5, 10, 6));
@@ -112,12 +114,8 @@ UNIT_TEST(SearchStringTokensIntersectionRange)
   tests.push_back(TestData(str9, lowTokens8, 2, 2, 0, 2, 6, 3));
   tests.push_back(TestData(str11, lowTokens9, 2, 2, 0, 2, 14, 3));
 
-  // run tests
-  size_t count = 0;
-  for (TestVector::iterator it = tests.begin(); it != tests.end(); ++it, ++count)
+  for (TestData const & data : tests)
   {
-    TestData const & data = *it;
-
     search::SearchStringTokensIntersectionRanges(
         data.m_input, data.m_lowTokens.begin(), data.m_lowTokens.end(), CheckRange(data.m_results));
   }

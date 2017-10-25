@@ -135,11 +135,8 @@ protected:
   void SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool forceUpdate);
   void ClearCache(size_t ind);
 
-  /// @name Get ranking params.
-  //@{
-  /// @return Rect for viewport-distance calculation.
+  // Returns a Rect for viewport-distance calculations.
   m2::RectD const & GetViewport(ViewportID vID = DEFAULT_V) const;
-  //@}
 
   void SetLanguage(int id, int8_t lang);
   int8_t GetLanguage(int id) const;

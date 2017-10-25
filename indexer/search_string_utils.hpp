@@ -55,8 +55,8 @@ bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string const & s, Tokens & t
   return TokenizeStringAndCheckIfLastTokenIsPrefix(NormalizeAndSimplifyString(s), tokens, delims);
 }
 
-// Chops off the last query token (the "prefix" one) from |str| and stores the result in |res|.
-void GetStringPrefix(std::string const & str, std::string & res);
+// Chops off the last query token (the "prefix" one) from |str|.
+std::string DropLastToken(std::string const & str);
 
 strings::UniString GetStreetNameAsKey(std::string const & name);
 

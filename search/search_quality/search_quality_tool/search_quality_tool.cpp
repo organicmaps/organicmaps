@@ -378,8 +378,7 @@ int main(int argc, char * argv[])
   Engine::Params params;
   params.m_locale = FLAGS_locale;
   params.m_numThreads = FLAGS_num_threads;
-  TestSearchEngine engine(move(infoGetter), make_unique<ProcessorFactory>(), Engine::Params{});
-  engine.SetLocale(FLAGS_locale);
+  TestSearchEngine engine(move(infoGetter), make_unique<ProcessorFactory>(), params);
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())
