@@ -7366,6 +7366,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
@@ -7471,6 +7472,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
@@ -7577,6 +7579,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = "maps.me beta";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
@@ -7685,6 +7688,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
@@ -7794,6 +7798,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
@@ -7903,6 +7908,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
