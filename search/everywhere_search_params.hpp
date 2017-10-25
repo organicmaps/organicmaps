@@ -14,7 +14,7 @@ namespace search
 struct EverywhereSearchParams
 {
   using OnResults =
-      std::function<void(Results const & results, vector<bool> const & isLocalAdsCustomer)>;
+      std::function<void(Results const & results, std::vector<bool> const & isLocalAdsCustomer)>;
 
   std::string m_query;
   std::string m_inputLocale;

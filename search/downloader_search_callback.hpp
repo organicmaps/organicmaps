@@ -2,6 +2,8 @@
 
 #include "storage/downloader_search_params.hpp"
 
+#include <functional>
+
 class Index;
 
 namespace storage

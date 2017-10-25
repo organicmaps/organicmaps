@@ -37,8 +37,9 @@ public:
 
 protected:
   TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
-                    Mode mode, m2::RectD const & viewport, SearchParams::OnStarted onStarted,
-                    SearchParams::OnResults onResults);
+                    Mode mode, m2::RectD const & viewport,
+                    SearchParams::OnStarted const & onStarted,
+                    SearchParams::OnResults const & onResults);
 
   // Initiates the search.
   void Start();

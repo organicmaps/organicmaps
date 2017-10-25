@@ -6,9 +6,9 @@
 
 namespace search
 {
-ViewportSearchCallback::ViewportSearchCallback(Delegate & delegate, OnResults onResults)
+ViewportSearchCallback::ViewportSearchCallback(Delegate & delegate, OnResults const & onResults)
   : m_delegate(delegate)
-  , m_onResults(move(onResults))
+  , m_onResults(onResults)
   , m_hotelsModeSet(false)
   , m_firstCall(true)
   , m_lastResultsSize(0)

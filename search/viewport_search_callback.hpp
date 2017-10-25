@@ -29,7 +29,7 @@ public:
 
   using OnResults = SearchParams::OnResults;
 
-  ViewportSearchCallback(Delegate & delegate, OnResults onResults);
+  ViewportSearchCallback(Delegate & delegate, OnResults const & onResults);
 
   void operator()(Results const & results);
 

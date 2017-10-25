@@ -30,15 +30,15 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams par
 
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, Mode mode, m2::RectD const & viewport,
-                                     SearchParams::OnStarted onStarted,
-                                     SearchParams::OnResults onResults)
+                                     SearchParams::OnStarted const & onStarted,
+                                     SearchParams::OnResults const & onResults)
   : m_engine(engine), m_viewport(viewport)
 {
   m_params.m_query = query;
   m_params.m_inputLocale = locale;
   m_params.m_mode = mode;
-  m_params.m_onStarted = move(onStarted);
-  m_params.m_onResults = move(onResults);
+  m_params.m_onStarted = onStarted;
+  m_params.m_onResults = onResults;
 }
 
 void TestSearchRequest::Run()
