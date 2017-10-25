@@ -1367,7 +1367,6 @@
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = arm64;
 			};
 			name = AdHoc;
 		};
@@ -1393,7 +1392,6 @@
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = "Production Full";
 		};
@@ -1418,7 +1416,6 @@
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = x86_64;
 			};
 			name = "Simulator Release";
 		};
@@ -1443,7 +1440,6 @@
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = x86_64;
 			};
 			name = Simulator;
 		};
@@ -1468,7 +1464,6 @@
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = arm64;
 			};
 			name = Debug;
 		};
@@ -1481,7 +1476,6 @@
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = arm64;
 			};
 			name = Release;
 		};
@@ -1494,7 +1488,6 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				"VALID_ARCHS[sdk=iphonesimulator*]" = x86_64;
 			};
 			name = Debug;
 		};
@@ -1507,7 +1500,6 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				"VALID_ARCHS[sdk=iphonesimulator*]" = x86_64;
 			};
 			name = Release;
 		};
