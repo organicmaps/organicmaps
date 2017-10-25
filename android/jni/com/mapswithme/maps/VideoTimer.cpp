@@ -1,6 +1,6 @@
 #include "VideoTimer.hpp"
 
-#include "android/jni/com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"

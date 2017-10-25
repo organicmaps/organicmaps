@@ -3,10 +3,10 @@
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 
-#include "android/jni/com/mapswithme/core/jni_helper.hpp"
-#include "android/jni/com/mapswithme/core/logging.hpp"
-#include "android/jni/com/mapswithme/core/ScopedEnv.hpp"
-#include "android/jni/com/mapswithme/util/crashlytics.h"
+#include "com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/core/logging.hpp"
+#include "com/mapswithme/core/ScopedEnv.hpp"
+#include "com/mapswithme/util/crashlytics.h"
 
 #include <android/log.h>
 #include <cassert>

@@ -1,7 +1,7 @@
 #include "Framework.hpp"
 
-#include "android/jni/com/mapswithme/core/jni_helper.hpp"
-#include "android/jni/com/mapswithme/platform/Platform.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/platform/Platform.hpp"
 #include "map/place_page_info.hpp"
 #include "partners_api/booking_api.hpp"
 

@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.2)
 
 project(omim C CXX)
 
+set (CMAKE_CXX_STANDARD 11)
+
 # Options
 option(BUILD_DESIGNER "Build application as design tool" OFF)
 if (BUILD_DESIGNER)
@@ -31,19 +33,23 @@ function(omim_set_platform_var PLATFORM_VAR pattern)
   endif()
 endfunction()
 
-if (CMAKE_SYSTEM_NAME MATCHES "linux")
-  set(LINUX TRUE)
+if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+  set(LINUX_DETECTED TRUE)
 endif()
 
-if (CMAKE_SYSTEM MATCHES "Android")
-  set(ANDROID TRUE)
+if (CMAKE_SYSTEM_NAME MATCHES "Android")
+  set(ANDROID_DETECTED TRUE)
+endif()
+
+if (ANDROID_DETECTED AND (${OS} MATCHES "mac"))
+  set(DARWIN TRUE)
 endif()
 
 omim_set_platform_var(PLATFORM_IPHONE "iphone-.*")
-omim_set_platform_var(PLATFORM_ANDROID "android-.*" ${ANDROID})
+omim_set_platform_var(PLATFORM_ANDROID "android-.*" ${ANDROID_DETECTED})
 omim_set_platform_var(PLATFORM_MAC "macx-.*" ${APPLE})
 omim_set_platform_var(PLATFORM_WIN "win32-.*" ${WIN32})
-omim_set_platform_var(PLATFORM_LINUX "linux-.*" ${LINUX})
+omim_set_platform_var(PLATFORM_LINUX "linux-.*" ${LINUX_DETECTED})
 
 if (PLATFORM_LINUX OR PLATFORM_MAC OR PLATFORM_WIN)
   set(PLATFORM_DESKTOP TRUE)
@@ -126,8 +132,13 @@ find_package(Boost 1.54)
 
 if (NOT Boost_FOUND)
   if (DEFINED ENV{BOOST_ROOT})
-    set(Boost_INCLUDE_DIR "$ENV{BOOST_ROOT}/include")
-    set(Boost_LIBRARY_DIR "$ENV{BOOST_ROOT}/lib")
+    if (DARWIN)
+      set(Boost_INCLUDE_DIR "$ENV{BOOST_ROOT}/include")
+      set(Boost_LIBRARY_DIR "$ENV{BOOST_ROOT}/lib")
+    else()
+      set(Boost_INCLUDE_DIR "$ENV{BOOST_ROOT}")
+      set(Boost_LIBRARY_DIR "$ENV{BOOST_ROOT}/libs")
+    endif()
     find_package(Boost 1.54)
   else()
     message("Please set BOOST_ROOT environment variable (path to Boost dirs 'include, lib')")
@@ -327,8 +338,6 @@ endif()
 add_compile_options(
   "-Wall"
 )
-
-set (CMAKE_CXX_STANDARD 11)
 
 add_clang_compile_options("-Wshorten-64-to-32")
 

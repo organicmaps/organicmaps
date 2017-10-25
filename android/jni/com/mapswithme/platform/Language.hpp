@@ -1,6 +1,6 @@
 #pragma once
 
-#include "android/jni/com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 
 #include <string>
 

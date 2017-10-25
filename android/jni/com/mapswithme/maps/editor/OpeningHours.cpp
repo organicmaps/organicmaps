@@ -1,6 +1,6 @@
 #include <jni.h>
 
-#include "android/jni/com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 
 #include "editor/opening_hours_ui.hpp"
 #include "editor/ui2oh.hpp"

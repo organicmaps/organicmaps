@@ -1,6 +1,6 @@
 #include "Framework.hpp"
 
-#include "android/jni/com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 
 #include "coding/internal/file_data.hpp"
 

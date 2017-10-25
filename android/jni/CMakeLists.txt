@@ -14,6 +14,7 @@ include_directories(
   ${OMIM_ROOT}/3party/icu/i18n
   ${OMIM_ROOT}/3party/stb_image
   ${OMIM_ROOT}/3party/sdf_image
+  ${OMIM_ROOT}/android/jni
 )
 
 set(
@@ -84,14 +85,49 @@ set(
 
 add_library(mapswithme SHARED ${SRC})
 
-target_link_libraries(mapswithme
-                      # Android libs
-                      log android EGL GLESv2 atomic z
-                      # MapsWithMe libs
-                      map tracking routing traffic routing_common
-                      drape_frontend search storage ugc indexer drape
-                      platform editor partners_api local_ads mwm_diff bsdiff
-                      geometry coding base opening_hours pugixml oauthcpp expat
-                      freetype minizip jansson protobuf osrm stats_client
-                      succinct stb_image sdf_image icu agg
-                      )
+target_link_libraries(
+  mapswithme
+  # Android libs
+  log
+  android
+  EGL
+  GLESv2
+  atomic
+  z
+  # MapsWithMe libs
+  map
+  tracking
+  routing
+  traffic
+  routing_common
+  drape_frontend
+  search
+  storage
+  ugc
+  indexer
+  drape
+  platform
+  editor
+  partners_api
+  local_ads
+  mwm_diff
+  bsdiff
+  geometry
+  coding
+  base
+  opening_hours
+  pugixml
+  oauthcpp
+  expat
+  freetype
+  minizip
+  jansson
+  protobuf
+  osrm
+  stats_client
+  succinct
+  stb_image
+  sdf_image
+  icu
+  agg
+)

@@ -7,8 +7,6 @@ include_directories(
   ${OMIM_ROOT}/3party/glm
 )
 
-set (CMAKE_CXX_STANDARD 11)
-
 set(
   SRC
   ../api/src/c/api-client.c

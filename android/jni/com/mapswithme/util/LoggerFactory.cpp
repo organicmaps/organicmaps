@@ -1,5 +1,5 @@
 #include <jni.h>
-#include "android/jni/com/mapswithme/core/logging.hpp"
+#include "com/mapswithme/core/logging.hpp"
 
 extern "C" {
 JNIEXPORT void JNICALL

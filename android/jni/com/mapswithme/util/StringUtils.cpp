@@ -1,4 +1,4 @@
-#include "android/jni/com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 
 #include "indexer/search_string_utils.hpp"
 

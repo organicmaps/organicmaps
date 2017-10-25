@@ -1,7 +1,7 @@
-#include "android/jni/com/mapswithme/platform/Platform.hpp"
-#include "android/jni/com/mapswithme/platform/GuiThread.hpp"
+#include "com/mapswithme/platform/Platform.hpp"
+#include "com/mapswithme/platform/GuiThread.hpp"
 
-#include "android/jni/com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 
 #include "platform/settings.hpp"
 

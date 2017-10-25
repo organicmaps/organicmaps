@@ -1,6 +1,6 @@
-#include "android/jni/com/mapswithme/maps/Framework.hpp"
+#include "com/mapswithme/maps/Framework.hpp"
 
-#include "android/jni/com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 #include "partners_api/viator_api.hpp"
 
 namespace

@@ -1,11 +1,11 @@
-#include "android/jni/com/mapswithme/maps/Framework.hpp"
+#include "com/mapswithme/maps/Framework.hpp"
 
-#include "android/jni/com/mapswithme/util/crashlytics.h"
+#include "com/mapswithme/util/crashlytics.h"
 
-#include "android/jni/com/mapswithme/platform/GuiThread.hpp"
-#include "android/jni/com/mapswithme/platform/Platform.hpp"
+#include "com/mapswithme/platform/GuiThread.hpp"
+#include "com/mapswithme/platform/Platform.hpp"
 
-#include "android/jni/com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 
 crashlytics_context_t * g_crashlytics;
 
