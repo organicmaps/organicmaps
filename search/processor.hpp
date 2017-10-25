@@ -91,7 +91,7 @@ public:
   {
     m_minDistanceOnMapBetweenResults = distance;
   }
-  inline void SetOnResults(SearchParams::TOnResults const & onResults) { m_onResults = onResults; }
+  inline void SetOnResults(SearchParams::OnResults const & onResults) { m_onResults = onResults; }
   inline string const & GetPivotRegion() const { return m_region; }
   inline m2::PointD const & GetPosition() const { return m_position; }
 
@@ -167,7 +167,7 @@ protected:
   bool m_suggestsEnabled;
   shared_ptr<hotels_filter::Rule> m_hotelsFilter;
   bool m_cianMode = false;
-  SearchParams::TOnResults m_onResults;
+  SearchParams::OnResults m_onResults;
 
   /// @name Get ranking params.
   //@{

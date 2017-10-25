@@ -37,8 +37,8 @@ public:
 
 protected:
   TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
-                    Mode mode, m2::RectD const & viewport, SearchParams::TOnStarted onStarted,
-                    SearchParams::TOnResults onResults);
+                    Mode mode, m2::RectD const & viewport, SearchParams::OnStarted onStarted,
+                    SearchParams::OnResults onResults);
 
   // Initiates the search.
   void Start();
@@ -52,7 +52,7 @@ protected:
   void OnResults(search::Results const & results);
 
   // Overrides the default onResults callback.
-  void SetCustomOnResults(SearchParams::TOnResults const & onResults);
+  void SetCustomOnResults(SearchParams::OnResults const & onResults);
 
   condition_variable m_cv;
   mutable mutex m_mu;

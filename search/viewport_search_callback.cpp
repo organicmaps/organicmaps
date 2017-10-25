@@ -6,7 +6,7 @@
 
 namespace search
 {
-ViewportSearchCallback::ViewportSearchCallback(Delegate & delegate, TOnResults onResults)
+ViewportSearchCallback::ViewportSearchCallback(Delegate & delegate, OnResults onResults)
   : m_delegate(delegate)
   , m_onResults(move(onResults))
   , m_hotelsModeSet(false)

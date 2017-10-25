@@ -6,38 +6,38 @@
 
 #include "base/assert.hpp"
 
+#include <sstream>
+
+using namespace std;
+
 namespace search
 {
-void SearchParams::SetPosition(double lat, double lon)
-{
-  m_lat = lat;
-  m_lon = lon;
-  m_validPos = true;
-}
-
 m2::PointD SearchParams::GetPositionMercator() const
 {
   ASSERT(IsValidPosition(), ());
-  return MercatorBounds::FromLatLon(m_lat, m_lon);
+  return MercatorBounds::FromLatLon(*m_position);
 }
 
 ms::LatLon SearchParams::GetPositionLatLon() const
 {
   ASSERT(IsValidPosition(), ());
-  return ms::LatLon(m_lat, m_lon);
+  return *m_position;
 }
 
 bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
 {
   return m_query == rhs.m_query && m_inputLocale == rhs.m_inputLocale &&
-         m_validPos == rhs.m_validPos && m_mode == rhs.m_mode;
+         IsValidPosition() == rhs.IsValidPosition() && m_mode == rhs.m_mode;
 }
 
 string DebugPrint(SearchParams const & params)
 {
-  ostringstream ss;
-  ss << "{ SearchParams: Query = " << params.m_query << ", Locale = " << params.m_inputLocale
-     << ", Mode = " << DebugPrint(params.m_mode) << " }";
-  return ss.str();
+  ostringstream os;
+  os << "SearchParams [";
+  os << "query: " << params.m_query << ", ";
+  os << "locale: " << params.m_inputLocale << ", ";
+  os << "mode: " << DebugPrint(params.m_mode);
+  os << "]";
+  return os.str();
 }
 }  // namespace search

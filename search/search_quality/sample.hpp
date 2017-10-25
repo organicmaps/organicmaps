@@ -14,7 +14,7 @@ class FeatureType;
 
 namespace search
 {
-class SearchParams;
+struct SearchParams;
 
 struct Sample
 {

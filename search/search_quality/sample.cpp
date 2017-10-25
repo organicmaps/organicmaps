@@ -192,10 +192,7 @@ void Sample::FillSearchParams(search::SearchParams & params) const
   params.m_inputLocale = m_locale;
   params.m_mode = Mode::Everywhere;
   if (m_posAvailable)
-  {
-    auto const latLon = MercatorBounds::ToLatLon(m_pos);
-    params.SetPosition(latLon.lat, latLon.lon);
-  }
+    params.SetPosition(MercatorBounds::ToLatLon(m_pos));
 
   params.m_suggestsEnabled = false;
 }

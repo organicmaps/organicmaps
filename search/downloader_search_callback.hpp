@@ -25,7 +25,7 @@ public:
   public:
     virtual ~Delegate() = default;
 
-    virtual void RunUITask(function<void()> fn) = 0;
+    virtual void RunUITask(std::function<void()> fn) = 0;
   };
 
   DownloaderSearchCallback(Delegate & delegate, Index const & index,

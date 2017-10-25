@@ -81,6 +81,7 @@
 #include "geometry/angles.hpp"
 #include "geometry/any_rect2d.hpp"
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/latlon.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/tree4d.hpp"
 #include "geometry/triangle2d.hpp"
@@ -1656,7 +1657,7 @@ void Framework::SetCurrentPositionIfPossible(search::SearchParams & params)
   double lat;
   double lon;
   if (GetCurrentPosition(lat, lon))
-    params.SetPosition(lat, lon);
+    params.SetPosition(ms::LatLon(lat, lon));
 }
 
 bool Framework::QueryMayBeSkipped(SearchIntent const & intent, search::SearchParams const & params,

@@ -10,7 +10,7 @@ namespace search
 class Emitter
 {
 public:
-  inline void Init(SearchParams::TOnResults onResults)
+  inline void Init(SearchParams::OnResults onResults)
   {
     m_onResults = onResults;
     m_results.Clear();
@@ -39,7 +39,7 @@ public:
   }
 
 private:
-  SearchParams::TOnResults m_onResults;
+  SearchParams::OnResults m_onResults;
   Results m_results;
 };
 }  // namespace search

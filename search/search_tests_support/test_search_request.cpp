@@ -30,8 +30,8 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams par
 
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, Mode mode, m2::RectD const & viewport,
-                                     SearchParams::TOnStarted onStarted,
-                                     SearchParams::TOnResults onResults)
+                                     SearchParams::OnStarted onStarted,
+                                     SearchParams::OnResults onResults)
   : m_engine(engine), m_viewport(viewport)
 {
   m_params.m_query = query;
@@ -99,7 +99,7 @@ void TestSearchRequest::OnResults(search::Results const & results)
   }
 }
 
-void TestSearchRequest::SetCustomOnResults(SearchParams::TOnResults const & onResults)
+void TestSearchRequest::SetCustomOnResults(SearchParams::OnResults const & onResults)
 {
   m_params.m_onResults = onResults;
 }

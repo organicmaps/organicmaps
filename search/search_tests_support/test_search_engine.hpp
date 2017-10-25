@@ -19,7 +19,7 @@ class CountryInfoGetter;
 
 namespace search
 {
-class SearchParams;
+struct SearchParams;
 
 namespace tests_support
 {

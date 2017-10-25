@@ -7,32 +7,37 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "std/function.hpp"
-#include "std/string.hpp"
+#include <functional>
+#include <memory>
+#include <string>
+
+#include <boost/optional.hpp>
 
 namespace search
 {
 class Results;
 
-class SearchParams
+struct SearchParams
 {
-public:
-  using TOnStarted = function<void()>;
-  using TOnResults = function<void(Results const &)>;
+  using OnStarted = function<void()>;
+  using OnResults = function<void(Results const &)>;
 
-  void SetPosition(double lat, double lon);
+  void SetPosition(ms::LatLon const & position) { m_position = position; }
+  bool IsValidPosition() const { return static_cast<bool>(m_position); }
   m2::PointD GetPositionMercator() const;
   ms::LatLon GetPositionLatLon() const;
 
-  inline bool IsValidPosition() const { return m_validPos; }
   bool IsEqualCommon(SearchParams const & rhs) const;
-  inline void Clear() { m_query.clear(); }
 
-  TOnStarted m_onStarted;
-  TOnResults m_onResults;
+  void Clear() { m_query.clear(); }
 
-  string m_query;
-  string m_inputLocale;
+  OnStarted m_onStarted;
+  OnResults m_onResults;
+
+  std::string m_query;
+  std::string m_inputLocale;
+
+  boost::optional<ms::LatLon> m_position;
 
   // A minimum distance between search results in meters, needed for
   // pre-ranking of viewport search results.
@@ -42,15 +47,9 @@ public:
   bool m_forceSearch = false;
   bool m_suggestsEnabled = true;
 
-  shared_ptr<hotels_filter::Rule> m_hotelsFilter;
+  std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
   bool m_cianMode = false;
-
-  friend string DebugPrint(SearchParams const & params);
-
-private:
-  double m_lat = 0.0;
-  double m_lon = 0.0;
-
-  bool m_validPos = false;
 };
+
+std::string DebugPrint(SearchParams const & params);
 }  // namespace search
