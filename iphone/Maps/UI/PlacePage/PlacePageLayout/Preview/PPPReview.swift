@@ -30,6 +30,7 @@ final class PPPReview: MWMTableViewCell {
     ratingSummaryView.textFont = UIFont.bold12()
     addReviewButton.isHidden = true
     pricingLabel.isHidden = true
+    reviewsLabel.isHidden = false;
     ratingSummaryView.value = rating.value
     ratingSummaryView.type = rating.type
     if rating.type == .noValue {
@@ -43,7 +44,7 @@ final class PPPReview: MWMTableViewCell {
         ratingSummaryView.noValueImage = #imageLiteral(resourceName: "ic_12px_radio_on")
         ratingSummaryView.noValueColor = UIColor.linkBlue()
         reviewsLabel.text = L("placepage_reviewed")
-        pricingLabel.isHidden = false
+        pricingLabel.isHidden = false;
         priceSetter(pricingLabel)
       }
     } else {
