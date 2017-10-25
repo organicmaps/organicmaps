@@ -31,18 +31,19 @@ function(omim_set_platform_var PLATFORM_VAR pattern)
   endif()
 endfunction()
 
-omim_set_platform_var(PLATFORM_IPHONE "iphone-.*")
-omim_set_platform_var(PLATFORM_ANDROID "android-.*")
-omim_set_platform_var(PLATFORM_MAC "macx-.*" ${APPLE})
-omim_set_platform_var(PLATFORM_WIN "win32-.*" ${WIN32})
-
-if (UNIX AND (NOT PLATFORM_MAC))
-  set(LINUX_DETECTED TRUE)
-else()
-  set(LINUX_DETECTED FALSE)
+if (CMAKE_SYSTEM_NAME MATCHES "linux")
+  set(LINUX TRUE)
 endif()
 
-omim_set_platform_var(PLATFORM_LINUX "linux-.*" ${LINUX_DETECTED})
+if (CMAKE_SYSTEM MATCHES "Android")
+  set(ANDROID TRUE)
+endif()
+
+omim_set_platform_var(PLATFORM_IPHONE "iphone-.*")
+omim_set_platform_var(PLATFORM_ANDROID "android-.*" ${ANDROID})
+omim_set_platform_var(PLATFORM_MAC "macx-.*" ${APPLE})
+omim_set_platform_var(PLATFORM_WIN "win32-.*" ${WIN32})
+omim_set_platform_var(PLATFORM_LINUX "linux-.*" ${LINUX})
 
 if (PLATFORM_LINUX OR PLATFORM_MAC OR PLATFORM_WIN)
   set(PLATFORM_DESKTOP TRUE)
@@ -122,6 +123,17 @@ if (PLATFORM_MAC)
 endif()
 
 find_package(Boost 1.54)
+
+if (NOT Boost_FOUND)
+  if (DEFINED ENV{BOOST_ROOT})
+    set(Boost_INCLUDE_DIR "$ENV{BOOST_ROOT}/include")
+    set(Boost_LIBRARY_DIR "$ENV{BOOST_ROOT}/lib")
+    find_package(Boost 1.54)
+  else()
+    message("Please set BOOST_ROOT environment variable (path to Boost dirs 'include, lib')")
+    message("Note that for Android Boost version must be less than 1.6.*")
+  endif()
+endif()
 
 if (PYBINDINGS)
   if (PYTHON_VERSION VERSION_GREATER 3.0)
@@ -314,8 +326,9 @@ endif()
 
 add_compile_options(
   "-Wall"
-  "-std=c++11"
 )
+
+set (CMAKE_CXX_STANDARD 11)
 
 add_clang_compile_options("-Wshorten-64-to-32")
 
@@ -382,4 +395,8 @@ omim_add_test_subdirectory(3party/gmock)
 
 if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID AND NOT SKIP_DESKTOP)
     add_subdirectory(qt)
+endif()
+
+if (PLATFORM_ANDROID)
+  add_subdirectory(android/jni)
 endif()

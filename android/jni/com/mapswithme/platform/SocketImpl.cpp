@@ -1,4 +1,4 @@
-#include "../core/jni_helper.hpp"
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
 
 #include "platform/socket.hpp"
 

@@ -2,7 +2,7 @@
 
 #include "search/result.hpp"
 
-#include "../core/jni_helper.hpp"
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
 
 using TSearchRequest = search::QuerySaver::TSearchRequest;
 

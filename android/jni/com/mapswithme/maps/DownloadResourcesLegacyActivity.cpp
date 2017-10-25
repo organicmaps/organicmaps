@@ -14,7 +14,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "com/mapswithme/core/jni_helper.hpp"
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
 
 #include <functional>
 #include <memory>

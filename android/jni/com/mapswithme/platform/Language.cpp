@@ -1,6 +1,6 @@
 #include "Language.hpp"
 
-#include "../core/jni_helper.hpp"
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"

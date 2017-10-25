@@ -1,7 +1,7 @@
 #include "androidoglcontextfactory.hpp"
 #include "android_gl_utils.hpp"
 
-#include "../platform/Platform.hpp"
+#include "android/jni/com/mapswithme/platform/Platform.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"

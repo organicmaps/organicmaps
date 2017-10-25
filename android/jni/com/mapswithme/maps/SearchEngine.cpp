@@ -9,9 +9,9 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include "../core/jni_helper.hpp"
-#include "../platform/Language.hpp"
-#include "../platform/Platform.hpp"
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
+#include "android/jni/com/mapswithme/platform/Language.hpp"
+#include "android/jni/com/mapswithme/platform/Platform.hpp"
 
 #include <cstdint>
 #include <memory>

@@ -1,4 +1,4 @@
-#include "com/mapswithme/core/jni_helper.hpp"
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
 
 namespace network_policy
 {

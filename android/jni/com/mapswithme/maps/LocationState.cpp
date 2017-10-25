@@ -1,8 +1,8 @@
 #include "Framework.hpp"
 
-#include "../core/jni_helper.hpp"
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
 
-#include "../platform/Platform.hpp"
+#include "android/jni/com/mapswithme/platform/Platform.hpp"
 
 extern "C"
 {

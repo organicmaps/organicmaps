@@ -23,9 +23,9 @@ SOFTWARE.
 *******************************************************************************/
 #include <jni.h>
 
-#include "../core/jni_helper.hpp"
-#include "../core/ScopedEnv.hpp"
-#include "../core/ScopedLocalRef.hpp"
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
+#include "android/jni/com/mapswithme/core/ScopedEnv.hpp"
+#include "android/jni/com/mapswithme/core/ScopedLocalRef.hpp"
 
 #include "platform/http_client.hpp"
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../core/jni_helper.hpp"
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
 #include "androidoglcontext.hpp"
 #include "drape/oglcontextfactory.hpp"
 
