@@ -295,6 +295,35 @@
 			};
 			name = Release;
 		};
+		A8E540FE1F9FBBB600A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6F8E3B91EF83DF200F2DE8F /* common-release.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E540FF1F9FBBB600A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541001F9FBBB600A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.ugc-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 		F6F8E3AB1EF83D7600F2DE8F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F6F8E3B81EF83DF200F2DE8F /* common-debug.xcconfig */;
@@ -343,6 +372,7 @@
 			buildConfigurations = (
 				670E7B901EF97C1000A8E9ED /* Debug */,
 				670E7B911EF97C1000A8E9ED /* Release */,
+				A8E541001F9FBBB600A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -352,6 +382,7 @@
 			buildConfigurations = (
 				F6F8E3AB1EF83D7600F2DE8F /* Debug */,
 				F6F8E3AC1EF83D7600F2DE8F /* Release */,
+				A8E540FE1F9FBBB600A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -361,6 +392,7 @@
 			buildConfigurations = (
 				F6F8E3AE1EF83D7600F2DE8F /* Debug */,
 				F6F8E3AF1EF83D7600F2DE8F /* Release */,
+				A8E540FF1F9FBBB600A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

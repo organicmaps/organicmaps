@@ -4864,9 +4864,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* MAPS.ME */ = {
+		1D6058900D05DD3D006BFB54 /* qtMAPS.ME */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MAPS.ME" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "qtMAPS.ME" */;
 			buildPhases = (
 				FA3A60E715AD5BBD00F40D20 /* Run Script */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
@@ -4882,14 +4882,14 @@
 			dependencies = (
 				347040381EA6628300038379 /* PBXTargetDependency */,
 			);
-			name = MAPS.ME;
+			name = qtMAPS.ME;
 			productName = Maps;
 			productReference = 348E57981B0F49D8000FA02A /* maps.me dbg.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6741A93D1BF340DE002C974C /* xcMAPS.ME */ = {
+		6741A93D1BF340DE002C974C /* MAPS.ME */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "xcMAPS.ME" */;
+			buildConfigurationList = 6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "MAPS.ME" */;
 			buildPhases = (
 				6741A9411BF340DE002C974C /* Resources */,
 				6741A9A01BF340DE002C974C /* Sources */,
@@ -4904,7 +4904,7 @@
 			dependencies = (
 				3470403B1EA6628700038379 /* PBXTargetDependency */,
 			);
-			name = xcMAPS.ME;
+			name = MAPS.ME;
 			productName = Maps;
 			productReference = 6741AA5D1BF340DE002C974C /* xc dbg.app */;
 			productType = "com.apple.product-type.application";
@@ -5031,8 +5031,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* MAPS.ME */,
-				6741A93D1BF340DE002C974C /* xcMAPS.ME */,
+				1D6058900D05DD3D006BFB54 /* qtMAPS.ME */,
+				6741A93D1BF340DE002C974C /* MAPS.ME */,
 				849CF5E21DE842290024A8A5 /* cmMAPS.ME */,
 			);
 		};
@@ -6996,7 +6996,7 @@
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "xc pf";
+				PRODUCT_NAME = maps.me;
 			};
 			name = "Production Full";
 		};
@@ -7972,7 +7972,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MAPS.ME" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "qtMAPS.ME" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FAAB411A149BA83500C245B1 /* Simulator */,
@@ -7985,7 +7985,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = AdHoc;
 		};
-		6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "xcMAPS.ME" */ = {
+		6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "MAPS.ME" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6741AA551BF340DE002C974C /* Simulator */,

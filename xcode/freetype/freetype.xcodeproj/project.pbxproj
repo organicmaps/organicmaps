@@ -1976,6 +1976,32 @@
 			};
 			name = Release;
 		};
+		A8E5411B1F9FBCDC00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558671DBF474D00A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				FT2_BUILD_LIBRARY = 1;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/freetype/include",
+				);
+				WARNING_CFLAGS = "-Wno-implicit-function-declaration";
+			};
+			name = "Production Full";
+		};
+		A8E5411C1F9FBCDC00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FT2_BUILD_LIBRARY=1",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1984,6 +2010,7 @@
 			buildConfigurations = (
 				6753485B1A408D9300A0A8C3 /* Debug */,
 				6753485C1A408D9300A0A8C3 /* Release */,
+				A8E5411B1F9FBCDC00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1993,6 +2020,7 @@
 			buildConfigurations = (
 				6753485E1A408D9300A0A8C3 /* Debug */,
 				6753485F1A408D9300A0A8C3 /* Release */,
+				A8E5411C1F9FBCDC00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

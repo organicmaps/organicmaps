@@ -369,6 +369,30 @@
 			};
 			name = Release;
 		};
+		A8E541061F9FBC3500A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 671E78911E6A3C9C00B2859B /* common-release.xcconfig */;
+			buildSettings = {
+			};
+			name = "Production Full";
+		};
+		A8E541071F9FBC3500A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541081F9FBC3500A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.routing-common-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -377,6 +401,7 @@
 			buildConfigurations = (
 				671E787B1E6A3BE200B2859B /* Debug */,
 				671E787C1E6A3BE200B2859B /* Release */,
+				A8E541061F9FBC3500A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -386,6 +411,7 @@
 			buildConfigurations = (
 				671E787E1E6A3BE200B2859B /* Debug */,
 				671E787F1E6A3BE200B2859B /* Release */,
+				A8E541071F9FBC3500A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -395,6 +421,7 @@
 			buildConfigurations = (
 				671E78AB1E6A3DA800B2859B /* Debug */,
 				671E78AC1E6A3DA800B2859B /* Release */,
+				A8E541081F9FBC3500A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

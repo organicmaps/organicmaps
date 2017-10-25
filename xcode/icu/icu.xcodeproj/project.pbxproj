@@ -2511,6 +2511,38 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		A8E541041F9FBBF800A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBB16C1B1E8276A50058BF1E /* common-release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"U_I18N_IMPLEMENTATION=1",
+					"U_COMMON_IMPLEMENTATION=1",
+					"U_STATIC_IMPLEMENTATION=1",
+					"U_CHARSET_IS_UTF8=1",
+					"U_DISABLE_RENAMING=1",
+				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/icu/i18n",
+					"$(OMIM_ROOT)/3party/icu/common",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E541051F9FBBF800A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 		BBB165E01E8275120058BF1E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BBB16C1A1E8276A50058BF1E /* common-debug.xcconfig */;
@@ -2583,6 +2615,7 @@
 			buildConfigurations = (
 				BBB165E01E8275120058BF1E /* Debug */,
 				BBB165E11E8275120058BF1E /* Release */,
+				A8E541041F9FBBF800A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2592,6 +2625,7 @@
 			buildConfigurations = (
 				BBB165E31E8275120058BF1E /* Debug */,
 				BBB165E41E8275120058BF1E /* Release */,
+				A8E541051F9FBBF800A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

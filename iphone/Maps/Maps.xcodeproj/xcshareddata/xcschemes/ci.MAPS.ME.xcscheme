@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
                BuildableName = "maps.me beta.app"
-               BlueprintName = "MAPS.ME"
+               BlueprintName = "qtMAPS.ME"
                ReferencedContainer = "container:Maps.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -35,7 +35,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "maps.me beta.app"
-            BlueprintName = "MAPS.ME"
+            BlueprintName = "qtMAPS.ME"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -59,7 +59,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "maps.me beta.app"
-            BlueprintName = "MAPS.ME"
+            BlueprintName = "qtMAPS.ME"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -78,7 +78,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "maps.me beta.app"
-            BlueprintName = "MAPS.ME"
+            BlueprintName = "qtMAPS.ME"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

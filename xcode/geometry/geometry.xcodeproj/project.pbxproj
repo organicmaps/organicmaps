@@ -616,6 +616,34 @@
 			};
 			name = Release;
 		};
+		A8E5414A1F9FBD8B00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34AF87CE1DBE517700E5E7DC /* common-release.xcconfig */;
+			buildSettings = {
+			};
+			name = "Production Full";
+		};
+		A8E5414B1F9FBD8B00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E5414C1F9FBD8B00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
+				);
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = maps.me.geometry_tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -624,6 +652,7 @@
 			buildConfigurations = (
 				670F29611BA9D39A00F2ABF4 /* Debug */,
 				670F29621BA9D39A00F2ABF4 /* Release */,
+				A8E5414C1F9FBD8B00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -633,6 +662,7 @@
 			buildConfigurations = (
 				6753449A1A3F684600A0A8C3 /* Debug */,
 				6753449B1A3F684600A0A8C3 /* Release */,
+				A8E5414A1F9FBD8B00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -642,6 +672,7 @@
 			buildConfigurations = (
 				6753449D1A3F684600A0A8C3 /* Debug */,
 				6753449E1A3F684600A0A8C3 /* Release */,
+				A8E5414B1F9FBD8B00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

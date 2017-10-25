@@ -1393,7 +1393,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = arm64;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = "Production Full";
 		};

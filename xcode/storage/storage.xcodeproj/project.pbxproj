@@ -935,6 +935,54 @@
 			};
 			name = Release;
 		};
+		A8E541641F9FBDCA00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F5584B1DBF2FC000A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+					"$(OMIM_ROOT)/3party/glm/",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E541651F9FBDCA00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541661F9FBDCA00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
+				);
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "storage-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541671F9FBDCA00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
+				);
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = storage_integration_tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -943,6 +991,7 @@
 			buildConfigurations = (
 				675342E91A3F59EF00A0A8C3 /* Debug */,
 				675342EA1A3F59EF00A0A8C3 /* Release */,
+				A8E541641F9FBDCA00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -952,6 +1001,7 @@
 			buildConfigurations = (
 				675342EC1A3F59EF00A0A8C3 /* Debug */,
 				675342ED1A3F59EF00A0A8C3 /* Release */,
+				A8E541651F9FBDCA00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -961,6 +1011,7 @@
 			buildConfigurations = (
 				67F90B6D1C6A275B00CD458E /* Debug */,
 				67F90B6E1C6A275B00CD458E /* Release */,
+				A8E541661F9FBDCA00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -970,6 +1021,7 @@
 			buildConfigurations = (
 				67F90BCB1C6A29F700CD458E /* Debug */,
 				67F90BCC1C6A29F700CD458E /* Release */,
+				A8E541671F9FBDCA00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

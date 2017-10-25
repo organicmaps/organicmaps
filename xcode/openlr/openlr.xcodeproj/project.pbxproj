@@ -199,6 +199,21 @@
 			};
 			name = Release;
 		};
+		A8E5415E1F9FBDBA00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 671E79201E6A503F00B2859B /* common-release.xcconfig */;
+			buildSettings = {
+			};
+			name = "Production Full";
+		};
+		A8E5415F1F9FBDBA00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -207,6 +222,7 @@
 			buildConfigurations = (
 				671E78FC1E6A4FE400B2859B /* Debug */,
 				671E78FD1E6A4FE400B2859B /* Release */,
+				A8E5415E1F9FBDBA00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -216,6 +232,7 @@
 			buildConfigurations = (
 				671E78FF1E6A4FE400B2859B /* Debug */,
 				671E79001E6A4FE400B2859B /* Release */,
+				A8E5415F1F9FBDBA00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

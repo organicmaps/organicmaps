@@ -821,6 +821,51 @@
 			};
 			name = Release;
 		};
+		A8E541501F9FBD9900A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558541DBF3ACC00A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/gflags/src/",
+					"$(OMIM_ROOT)/3party/glm",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E541511F9FBD9900A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541521F9FBD9900A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				PRODUCT_NAME = generator_tests;
+				WARNING_CFLAGS = "-Wnull-conversion";
+			};
+			name = "Production Full";
+		};
+		A8E541531F9FBD9900A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541541F9FBD9900A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -829,6 +874,7 @@
 			buildConfigurations = (
 				6726C2331A4C2BBD005EEA39 /* Debug */,
 				6726C2341A4C2BBD005EEA39 /* Release */,
+				A8E541521F9FBD9900A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -838,6 +884,7 @@
 			buildConfigurations = (
 				673746641CF4639F005E6D1F /* Debug */,
 				673746651CF4639F005E6D1F /* Release */,
+				A8E541531F9FBD9900A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -847,6 +894,7 @@
 			buildConfigurations = (
 				6753415D1A3F54D800A0A8C3 /* Debug */,
 				6753415E1A3F54D800A0A8C3 /* Release */,
+				A8E541501F9FBD9900A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -856,6 +904,7 @@
 			buildConfigurations = (
 				675341601A3F54D800A0A8C3 /* Debug */,
 				675341611A3F54D800A0A8C3 /* Release */,
+				A8E541511F9FBD9900A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -865,6 +914,7 @@
 			buildConfigurations = (
 				679624621D100F2500AE4E3C /* Debug */,
 				679624631D100F2500AE4E3C /* Release */,
+				A8E541541F9FBD9900A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
