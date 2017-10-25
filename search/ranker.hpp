@@ -82,7 +82,10 @@ public:
 
   void Init(Params const & params, Geocoder::Params const & geocoderParams);
 
-  Result MakeResult(RankerResult const & r) const;
+  // Makes the final result that is shown to the user from a ranker's result.
+  // If |searchInViewport| is true, some fields (such as address and highlights)
+  // are not filled.
+  Result MakeResult(RankerResult const & r, bool searchInViewport) const;
 
   void SuggestStrings();
 
@@ -102,9 +105,6 @@ private:
   friend class RankerResultMaker;
 
   void MakeRankerResults(Geocoder::Params const & params, vector<RankerResult> & results);
-
-  // todo(@m) Can we unify this and MakeResult?
-  Result GenerateFinalResult(RankerResult const & rankerResult, bool needAddress) const;
 
   void GetBestMatchName(FeatureType const & f, string & name) const;
   void MatchForSuggestions(strings::UniString const & token, int8_t locale, string const & prolog);

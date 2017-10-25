@@ -329,20 +329,75 @@ void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams
   m_tentativeResults.clear();
 }
 
-Result Ranker::MakeResult(RankerResult const & r) const
+Result Ranker::MakeResult(RankerResult const & rankerResult, bool searchInViewport) const
 {
-  Result res = GenerateFinalResult(r, true /* needAddress */);
-  HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
-  if (ftypes::IsLocalityChecker::Instance().GetType(r.GetTypes()) == ftypes::NONE)
+  ReverseGeocoder::Address addr;
+  bool addrComputed = false;
+  bool const needAddress = !searchInViewport;
+
+  string name = rankerResult.GetName();
+  if (needAddress && name.empty())
   {
-    m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
-      string city;
-      if (item.GetSpecifiedOrDefaultName(m_localityLang, city))
-        res.AppendCity(city);
-    });
+    // Insert exact address (street and house number) instead of empty result name.
+    if (!addrComputed)
+    {
+      m_reverseGeocoder.GetNearbyAddress(rankerResult.GetCenter(), addr);
+      addrComputed = true;
+    }
+    if (addr.GetDistance() == 0)
+      name = FormatStreetAndHouse(addr);
   }
 
-  res.SetRankingInfo(r.GetRankingInfo());
+  uint32_t const type = rankerResult.GetBestType(&m_params.m_preferredTypes);
+
+  // Format full address only for suitable results.
+  string address;
+  if (needAddress)
+  {
+    address = rankerResult.GetRegionName(m_infoGetter, type);
+    if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
+    {
+      if (!addrComputed)
+      {
+        m_reverseGeocoder.GetNearbyAddress(rankerResult.GetCenter(), addr);
+        addrComputed = true;
+      }
+      address = FormatFullAddress(addr, address);
+    }
+  }
+
+  // todo(@m) Used because Result does not have a default constructor. Factor out?
+  auto mk = [&](RankerResult const & r) -> Result {
+    switch (r.GetResultType())
+    {
+    case RankerResult::Type::TYPE_FEATURE:
+    case RankerResult::Type::TYPE_BUILDING:
+      return Result(r.GetID(), r.GetCenter(), name, address,
+                    m_categories.GetReadableFeatureType(type, m_params.m_currentLocaleCode), type,
+                    r.GetMetadata());
+    default:
+      ASSERT_EQUAL(r.GetResultType(), RankerResult::Type::TYPE_LATLON, ());
+      return Result(r.GetCenter(), name, address);
+    }
+  };
+
+  auto res = mk(rankerResult);
+
+  if (!searchInViewport)
+  {
+    HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
+    if (ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::NONE)
+    {
+      m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
+        string city;
+        if (item.GetSpecifiedOrDefaultName(m_localityLang, city))
+          res.AppendCity(city);
+      });
+    }
+
+    res.SetRankingInfo(rankerResult.GetRankingInfo());
+  }
+
   return res;
 }
 
@@ -391,10 +446,12 @@ void Ranker::UpdateResults(bool lastUpdate)
 
     BailIfCancelled();
 
+    auto const & rankerResult = m_tentativeResults[i];
+
     if (m_params.m_viewportSearch)
     {
       // Viewport results don't need calculated address.
-      Result res = GenerateFinalResult(m_tentativeResults[i], false /* needAddress */);
+      Result res = MakeResult(rankerResult, true /* searchInViewport */);
       m_emitter.AddResultNoChecks(move(res));
     }
     else
@@ -402,10 +459,8 @@ void Ranker::UpdateResults(bool lastUpdate)
       if (count >= m_params.m_limit)
         break;
 
-      LOG(LDEBUG, (m_tentativeResults[i]));
-
-      auto const & rankerResult = m_tentativeResults[i];
-      if (m_emitter.AddResult(MakeResult(rankerResult)))
+      LOG(LDEBUG, (rankerResult));
+      if (m_emitter.AddResult(MakeResult(rankerResult, false /* searchInViewport */)))
         ++count;
     }
   }
@@ -438,55 +493,6 @@ void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
     if (!ResultExists(*p, results, m_params.m_minDistanceOnMapBetweenResults))
       results.push_back(move(*p));
   };
-}
-
-Result Ranker::GenerateFinalResult(RankerResult const & rankerResult, bool needAddress) const
-{
-  ReverseGeocoder::Address addr;
-  bool addrComputed = false;
-
-  string name = rankerResult.GetName();
-  if (needAddress && name.empty())
-  {
-    // Insert exact address (street and house number) instead of empty result name.
-    if (!addrComputed)
-    {
-      m_reverseGeocoder.GetNearbyAddress(rankerResult.GetCenter(), addr);
-      addrComputed = true;
-    }
-    if (addr.GetDistance() == 0)
-      name = FormatStreetAndHouse(addr);
-  }
-
-  uint32_t const type = rankerResult.GetBestType(&m_params.m_preferredTypes);
-
-  // Format full address only for suitable results.
-  string address;
-  if (needAddress)
-  {
-    address = rankerResult.GetRegionName(m_infoGetter, type);
-    if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
-    {
-      if (!addrComputed)
-      {
-        m_reverseGeocoder.GetNearbyAddress(rankerResult.GetCenter(), addr);
-        addrComputed = true;
-      }
-      address = FormatFullAddress(addr, address);
-    }
-  }
-
-  switch (rankerResult.GetResultType())
-  {
-  case RankerResult::Type::TYPE_FEATURE:
-  case RankerResult::Type::TYPE_BUILDING:
-    return Result(rankerResult.GetID(), rankerResult.GetCenter(), name, address,
-                  m_categories.GetReadableFeatureType(type, m_params.m_currentLocaleCode), type,
-                  rankerResult.GetMetadata());
-  default:
-    ASSERT_EQUAL(rankerResult.GetResultType(), RankerResult::Type::TYPE_LATLON, ());
-    return Result(rankerResult.GetCenter(), name, address);
-  }
 }
 
 void Ranker::GetBestMatchName(FeatureType const & f, string & name) const
@@ -542,7 +548,7 @@ void Ranker::ProcessSuggestions(vector<RankerResult> & vec) const
       if (!suggestion.empty() && added < MAX_SUGGESTS_COUNT)
       {
         // todo(@m) RankingInfo is not set here. Should it be?
-        if (m_emitter.AddResult(Result(MakeResult(r), suggestion)))
+        if (m_emitter.AddResult(Result(MakeResult(r, false /* searchInViewport */), suggestion)))
           ++added;
 
         i = vec.erase(i);
