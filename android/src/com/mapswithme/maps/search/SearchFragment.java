@@ -147,7 +147,7 @@ public class SearchFragment extends BaseMwmFragment
       if (mAdsLoader != null && !isInteractiveSearch() && query.length() >= MIN_QUERY_LENGTH_FOR_AD)
       {
         mAdsRequested = true;
-        mAdsLoader.scheduleAdsLoading(getActivity().getApplicationContext(), query);
+        mAdsLoader.scheduleAdsLoading(getActivity(), query);
       }
 
       runSearch();
