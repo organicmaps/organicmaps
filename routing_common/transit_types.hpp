@@ -85,13 +85,17 @@ static_assert(sizeof(TransitHeader) == 32, "Wrong header size of transit section
 class FeatureIdentifiers
 {
 public:
-  FeatureIdentifiers() = default;
-  FeatureIdentifiers(OsmId osmId, FeatureId const & featureId) : m_osmId(osmId), m_featureId(featureId) {}
+  explicit FeatureIdentifiers(bool serializeFeatureIdOnly) : m_serializeFeatureIdOnly(serializeFeatureIdOnly) {}
+  FeatureIdentifiers(OsmId osmId, FeatureId const & featureId, bool serializeFeatureIdOnly);
 
   bool IsEqualForTesting(FeatureIdentifiers const & rhs) const { return m_featureId == rhs.m_featureId; }
   bool IsValid() const { return m_featureId != kInvalidFeatureId; }
+  void SetOsmId(OsmId osmId) { m_osmId = osmId; }
+  void SetFeatureId(FeatureId featureId) { m_featureId = featureId; }
 
+  OsmId GetOsmId() const { return m_osmId; }
   FeatureId GetFeatureId() const { return m_featureId; }
+  bool IsSerializeFeatureIdOnly() const { return m_serializeFeatureIdOnly; }
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
@@ -100,6 +104,7 @@ private:
 
   OsmId m_osmId = kInvalidOsmId;
   FeatureId m_featureId = kInvalidFeatureId;
+  bool m_serializeFeatureIdOnly = true;
 };
 
 class TitleAnchor
@@ -127,8 +132,8 @@ private:
 class Stop
 {
 public:
-  Stop() = default;
-  Stop(StopId id, FeatureIdentifiers const & featureIdentifiers, TransferId transferId,
+  Stop() : m_featureIdentifiers(true /* serializeFeatureIdOnly */) {};
+  Stop(StopId id, OsmId osmId, FeatureId featureId, TransferId transferId,
        std::vector<LineId> const & lineIds, m2::PointD const & point,
        std::vector<TitleAnchor> const & titleAnchors);
 
@@ -183,8 +188,8 @@ private:
 class Gate
 {
 public:
-  Gate() = default;
-  Gate(FeatureIdentifiers const & featureIdentifiers, bool entrance, bool exit, double weight,
+  Gate() : m_featureIdentifiers(false /* serializeFeatureIdOnly */) {};
+  Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, double weight,
        std::vector<StopId> const & stopIds, m2::PointD const & point);
 
   bool IsEqualForTesting(Gate const & gate) const;

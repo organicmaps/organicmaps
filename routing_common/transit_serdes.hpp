@@ -99,7 +99,10 @@ public:
 
   void operator()(FeatureIdentifiers const & id, char const * name = nullptr)
   {
-    (*this)(id.GetFeatureId(), name);
+    if (id.IsSerializeFeatureIdOnly())
+      (*this)(id.GetFeatureId(), name);
+    else
+      id.Visit(*this);
   }
 
   template <typename T>
@@ -173,9 +176,16 @@ public:
 
   void operator()(FeatureIdentifiers & id, char const * name = nullptr)
   {
-    FeatureId featureId;
-    operator()(featureId, name);
-    id = FeatureIdentifiers(kInvalidOsmId, featureId);
+    if (id.IsSerializeFeatureIdOnly())
+    {
+      FeatureId featureId;
+      operator()(featureId, name);
+      id.SetOsmId(kInvalidOsmId);
+      id.SetFeatureId(featureId);
+      return;
+    }
+
+    id.Visit(*this);
   }
 
   void operator()(vector<m2::PointD> & vs, char const * /* name */ = nullptr)

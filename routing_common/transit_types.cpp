@@ -61,6 +61,12 @@ bool TransitHeader::IsValid() const
          m_shapesOffset <= m_networksOffset && m_networksOffset <= m_endOffset;
 }
 
+// FeatureIdentifiers -----------------------------------------------------------------------------
+FeatureIdentifiers::FeatureIdentifiers(OsmId osmId, FeatureId const & featureId, bool serializeFeatureIdOnly)
+    : m_osmId(osmId), m_featureId(featureId), m_serializeFeatureIdOnly(serializeFeatureIdOnly)
+{
+}
+
 // TitleAnchor ------------------------------------------------------------------------------------
 TitleAnchor::TitleAnchor(uint8_t minZoom, Anchor anchor) : m_minZoom(minZoom), m_anchor(anchor) {}
 
@@ -80,11 +86,11 @@ bool TitleAnchor::IsValid() const
 }
 
 // Stop -------------------------------------------------------------------------------------------
-Stop::Stop(StopId id, FeatureIdentifiers const & featureIdentifiers, TransferId transferId,
+Stop::Stop(StopId id, OsmId osmId, FeatureId featureId, TransferId transferId,
            std::vector<LineId> const & lineIds, m2::PointD const & point,
            std::vector<TitleAnchor> const & titleAnchors)
   : m_id(id)
-  , m_featureIdentifiers(featureIdentifiers)
+  , m_featureIdentifiers(osmId, featureId, true /* serializeFeatureIdOnly */)
   , m_transferId(transferId)
   , m_lineIds(lineIds)
   , m_point(point)
@@ -123,9 +129,9 @@ bool SingleMwmSegment::IsValid() const
 }
 
 // Gate -------------------------------------------------------------------------------------------
-Gate::Gate(FeatureIdentifiers const & featureIdentifiers, bool entrance, bool exit, double weight,
+Gate::Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, double weight,
            std::vector<StopId> const & stopIds, m2::PointD const & point)
-  : m_featureIdentifiers(featureIdentifiers)
+  : m_featureIdentifiers(osmId, featureId, false /* serializeFeatureIdOnly */)
   , m_entrance(entrance)
   , m_exit(exit)
   , m_weight(weight)

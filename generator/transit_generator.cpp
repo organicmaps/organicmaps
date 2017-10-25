@@ -59,7 +59,7 @@ Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
 {
   ASSERT(is_sorted(stops.cbegin(), stops.cend(), LessById), ());
   auto s1Id = equal_range(stops.cbegin(), stops.cend(),
-          Stop(stopId, FeatureIdentifiers(), kInvalidTransferId, {}, m2::PointD(), {}),
+          Stop(stopId, kInvalidOsmId, kInvalidFeatureId, kInvalidTransferId, {}, m2::PointD(), {}),
           LessById);
   CHECK(s1Id.first != stops.cend(), ("No a stop with id:", stopId, "in stops:", stops));
   CHECK_EQUAL(distance(s1Id.first, s1Id.second), 1, ("A stop with id:", stopId, "is not unique in stops:", stops));
@@ -210,7 +210,8 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   CHECK(it != m_osmIdToFeatureIds.cend(), ());
   CHECK_EQUAL(it->second.size(), 1,
               ("Osm id:", osmId, "from transit graph doesn't present by a single feature in mwm."));
-  id = FeatureIdentifiers(osmId.EncodedId() /* osm id */, it->second[0] /* feature id */);
+  id.SetFeatureId(it->second[0]);
+  id.SetOsmId(osmId.EncodedId());
 }
 
 void DeserializerFromJson::operator()(StopIdRanges & rs, char const * name)

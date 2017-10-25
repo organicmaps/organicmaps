@@ -76,9 +76,8 @@ UNIT_TEST(Transit_StopSerialization)
     TestSerialization(stop);
   }
   {
-    Stop stop(1234 /* id */, FeatureIdentifiers(kInvalidOsmId, 5678 /* feature id */),
-              7 /* transfer id */, {7, 8, 9, 10} /* line id */, {55.0, 37.0} /* point */,
-              {} /* anchors */);
+    Stop stop(1234 /* id */, kInvalidOsmId, 5678 /* feature id */, 7 /* transfer id */,
+              {7, 8, 9, 10} /* line id */, {55.0, 37.0} /* point */, {} /* anchors */);
     TestSerialization(stop);
   }
 }
@@ -97,9 +96,8 @@ UNIT_TEST(Transit_SingleMwmSegmentSerialization)
 
 UNIT_TEST(Transit_GateSerialization)
 {
-  Gate gate(FeatureIdentifiers(kInvalidOsmId, 12345 /* feature id */), true /* entrance */,
-            false /* exit */, 117.8 /* weight */, {1, 2, 3} /* stop ids */,
-            {30.0, 50.0} /* point */);
+  Gate gate(kInvalidOsmId, 12345 /* feature id */, true /* entrance */, false /* exit */,
+            117.8 /* weight */, {1, 2, 3} /* stop ids */, {30.0, 50.0} /* point */);
   TestSerialization(gate);
 }
 
