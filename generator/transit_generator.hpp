@@ -110,12 +110,12 @@ private:
 /// \brief Builds the transit section in the mwm.
 /// \param mwmDir relative or full path to a directory where mwm is located.
 /// \param countryId is an mwm name without extension of the processed mwm.
-/// \param osmIdsToFeatureIdPath is a path to a file with osm ids to feature id mapping.
+/// \param osmIdToFeatureIdsPath is a path to a file with osm id to feature ids mapping.
 /// \param transitDir a path to directory with json files with transit graphs.
 /// \note An mwm pointed by |mwmPath| should contain:
 /// * feature geometry
 /// * index graph (ROUTING_FILE_TAG)
 void BuildTransit(string const & mwmDir, string const & countryId,
-                  string const & osmIdsToFeatureIdPath, string const & transitDir);
+                  string const & osmIdToFeatureIdsPath, string const & transitDir);
 }  // namespace transit
 }  // namespace routing

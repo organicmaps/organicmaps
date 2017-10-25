@@ -166,13 +166,13 @@ void CalculateEdgeWeight(vector<Stop> const & stops, vector<transit::Edge> & edg
   }
 }
 
-void FillOsmIdToFeatureIdMap(string const & osmIdsToFeatureIdPath, OsmIdToFeatureIdsMap & map)
+void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatureIdsMap & map)
 {
-  CHECK(ForEachOsmId2FeatureId(osmIdsToFeatureIdPath,
+  CHECK(ForEachOsmId2FeatureId(osmIdToFeatureIdsPath,
                                [&map](osm::Id const & osmId, uint32_t featureId) {
                                  map[osmId].push_back(featureId);
                                }),
-        (osmIdsToFeatureIdPath));
+        (osmIdToFeatureIdsPath));
 }
 }  // namespace
 
@@ -221,7 +221,7 @@ void DeserializerFromJson::operator()(StopIdRanges & rs, char const * name)
 }
 
 void BuildTransit(string const & mwmDir, string const & countryId,
-                  string const & osmIdsToFeatureIdPath, string const & transitDir)
+                  string const & osmIdToFeatureIdsPath, string const & transitDir)
 {
   LOG(LERROR, ("This method is under construction and should not be used for building production mwm "
       "sections."));
@@ -258,7 +258,7 @@ void BuildTransit(string const & mwmDir, string const & countryId,
   CHECK(root.get() != nullptr, ("Cannot parse the json file:", graphFullPath));
 
   OsmIdToFeatureIdsMap mapping;
-  FillOsmIdToFeatureIdMap(osmIdsToFeatureIdPath, mapping);
+  FillOsmIdToFeatureIdsMap(osmIdToFeatureIdsPath, mapping);
 
   // Note. |gates| has to be deserialized from json before starting writing transit section to mwm since
   // the mwm is used to filled |gates|.
