@@ -2098,7 +2098,7 @@
 		348A8DF11F66775A00D83026 /* RatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		348A8DF21F66775A00D83026 /* RatingViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewDelegate.swift; sourceTree = "<group>"; };
 		348A8DF31F66775A00D83026 /* RatingViewSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewSettings.swift; sourceTree = "<group>"; };
-		348E57981B0F49D8000FA02A /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		348E57981B0F49D8000FA02A /* qt dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "qt dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		348F8A4D1F863A8500060C2A /* UGCYourReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UGCYourReview.swift; sourceTree = "<group>"; };
 		348F8A511F863B6100060C2A /* UGCReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UGCReview.swift; sourceTree = "<group>"; };
 		348F8A551F864A1700060C2A /* MWMRatingSummaryViewValueType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRatingSummaryViewValueType.h; sourceTree = "<group>"; };
@@ -2366,7 +2366,7 @@
 		671182DF1C7F0DD400CB8177 /* packed_polygons_obsolete.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons_obsolete.bin; path = ../../data/packed_polygons_obsolete.bin; sourceTree = "<group>"; };
 		671182E01C7F0DD400CB8177 /* WorldCoasts_obsolete.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts_obsolete.mwm; path = ../../data/WorldCoasts_obsolete.mwm; sourceTree = "<group>"; };
 		671E78D21E6A423300B2859B /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/librouting_common.a"; sourceTree = "<group>"; };
-		6741AA5D1BF340DE002C974C /* xc dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "xc dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6741AA5D1BF340DE002C974C /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAA21BF356B9002C974C /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
 		6741AAA31BF356B9002C974C /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		6741AAA51BF356B9002C974C /* libapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libapi.a; path = "../../../omim-xcode-build/Debug/libapi.a"; sourceTree = "<group>"; };
@@ -2967,8 +2967,8 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				348E57981B0F49D8000FA02A /* maps.me dbg.app */,
-				6741AA5D1BF340DE002C974C /* xc dbg.app */,
+				348E57981B0F49D8000FA02A /* qt dbg.app */,
+				6741AA5D1BF340DE002C974C /* maps.me dbg.app */,
 				849CF7A31DE842290024A8A5 /* cm dbg.app */,
 			);
 			name = Products;
@@ -4884,7 +4884,7 @@
 			);
 			name = qtMAPS.ME;
 			productName = Maps;
-			productReference = 348E57981B0F49D8000FA02A /* maps.me dbg.app */;
+			productReference = 348E57981B0F49D8000FA02A /* qt dbg.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6741A93D1BF340DE002C974C /* MAPS.ME */ = {
@@ -4906,7 +4906,7 @@
 			);
 			name = MAPS.ME;
 			productName = Maps;
-			productReference = 6741AA5D1BF340DE002C974C /* xc dbg.app */;
+			productReference = 6741AA5D1BF340DE002C974C /* maps.me dbg.app */;
 			productType = "com.apple.product-type.application";
 		};
 		849CF5E21DE842290024A8A5 /* cmMAPS.ME */ = {
@@ -6926,7 +6926,6 @@
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "xc dbg";
 			};
 			name = Simulator;
 		};
@@ -6940,7 +6939,6 @@
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "xc rel";
 			};
 			name = "Simulator Release";
 		};
@@ -6954,7 +6952,6 @@
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "xc dbg";
 			};
 			name = Debug;
 		};
@@ -6968,7 +6965,6 @@
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "xc beta";
 			};
 			name = AdHoc;
 		};
@@ -6982,7 +6978,6 @@
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "xc rel";
 			};
 			name = Release;
 		};
@@ -6996,7 +6991,6 @@
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = maps.me;
 			};
 			name = "Production Full";
 		};
@@ -7434,6 +7428,7 @@
 					"-lbsdiff",
 					"-lmwm_diff",
 				);
+				PRODUCT_NAME = "qt dbg";
 			};
 			name = Simulator;
 		};
@@ -7538,6 +7533,7 @@
 					"-lbsdiff",
 					"-lmwm_diff",
 				);
+				PRODUCT_NAME = "qt dbg";
 			};
 			name = Debug;
 		};
@@ -7644,6 +7640,7 @@
 					"-lbsdiff",
 					"-lmwm_diff",
 				);
+				PRODUCT_NAME = "qt beta";
 			};
 			name = AdHoc;
 		};
@@ -7751,6 +7748,7 @@
 					"-lbsdiff",
 					"-lmwm_diff",
 				);
+				PRODUCT_NAME = "qt pf";
 			};
 			name = "Production Full";
 		};
@@ -7858,6 +7856,7 @@
 					"-lbsdiff",
 					"-lmwm_diff",
 				);
+				PRODUCT_NAME = "qt rel";
 			};
 			name = Release;
 		};
@@ -7966,6 +7965,7 @@
 					"-lbsdiff",
 					"-lmwm_diff",
 				);
+				PRODUCT_NAME = "qt rel";
 			};
 			name = "Simulator Release";
 		};
