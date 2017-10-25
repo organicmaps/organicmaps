@@ -85,7 +85,7 @@ static_assert(sizeof(TransitHeader) == 32, "Wrong header size of transit section
 class FeatureIdentifiers
 {
 public:
-  explicit FeatureIdentifiers(bool serializeFeatureIdOnly) : m_serializeFeatureIdOnly(serializeFeatureIdOnly) {}
+  explicit FeatureIdentifiers(bool serializeFeatureIdOnly);
   FeatureIdentifiers(OsmId osmId, FeatureId const & featureId, bool serializeFeatureIdOnly);
 
   bool IsEqualForTesting(FeatureIdentifiers const & rhs) const { return m_featureId == rhs.m_featureId; }

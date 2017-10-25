@@ -62,8 +62,14 @@ bool TransitHeader::IsValid() const
 }
 
 // FeatureIdentifiers -----------------------------------------------------------------------------
-FeatureIdentifiers::FeatureIdentifiers(OsmId osmId, FeatureId const & featureId, bool serializeFeatureIdOnly)
-    : m_osmId(osmId), m_featureId(featureId), m_serializeFeatureIdOnly(serializeFeatureIdOnly)
+FeatureIdentifiers::FeatureIdentifiers(bool serializeFeatureIdOnly)
+  : m_serializeFeatureIdOnly(serializeFeatureIdOnly)
+{
+}
+
+FeatureIdentifiers::FeatureIdentifiers(OsmId osmId, FeatureId const & featureId,
+                                       bool serializeFeatureIdOnly)
+  : m_osmId(osmId), m_featureId(featureId), m_serializeFeatureIdOnly(serializeFeatureIdOnly)
 {
 }
 
