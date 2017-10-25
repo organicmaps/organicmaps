@@ -230,6 +230,13 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   id = FeatureIdentifiers(osmId.EncodedId() /* osm id */, it->second[0] /* feature id */);
 }
 
+void DeserializerFromJson::operator()(StopIdRanges & rs, char const * name)
+{
+  vector<StopId> stopIds;
+  (*this)(stopIds, name);
+  rs = StopIdRanges({stopIds});
+}
+
 void BuildTransit(string const & mwmDir, string const & countryId,
                   string const & osmIdsToFeatureIdPath, string const & transitDir)
 {

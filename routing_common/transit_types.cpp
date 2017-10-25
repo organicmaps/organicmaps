@@ -212,7 +212,7 @@ bool Transfer::IsValid() const
 
 // Line -------------------------------------------------------------------------------------------
 Line::Line(LineId id, std::string const & number, std::string const & title,
-           std::string const & type, NetworkId networkId, std::vector<StopId> const & stopIds)
+           std::string const & type, NetworkId networkId, Ranges const & stopIds)
   : m_id(id)
   , m_number(number)
   , m_title(title)
@@ -230,7 +230,7 @@ bool Line::IsEqualForTesting(Line const & line) const
 
 bool Line::IsValid() const
 {
-  return m_id != kInvalidLineId && m_networkId != kInvalidNetworkId && !m_stopIds.empty();
+  return m_id != kInvalidLineId && m_networkId != kInvalidNetworkId && m_stopIds.IsValid();
 }
 
 // Shape ------------------------------------------------------------------------------------------

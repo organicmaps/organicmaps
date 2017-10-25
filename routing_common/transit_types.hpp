@@ -23,6 +23,7 @@ using FeatureId = uint32_t;
 using OsmId = uint64_t;
 using Weight = double;
 using Anchor = uint8_t;
+using Ranges = std::vector<std::vector<StopId>>;
 
 LineId constexpr kInvalidLineId = std::numeric_limits<LineId>::max();
 StopId constexpr kInvalidStopId = std::numeric_limits<StopId>::max();
@@ -297,12 +298,30 @@ private:
   std::vector<TitleAnchor> m_titleAnchors;
 };
 
+class StopIdRanges
+{
+public:
+  StopIdRanges() = default;
+  explicit StopIdRanges(Ranges const & ids) : m_ids(ids) {}
+  bool operator==(StopIdRanges const & rhs) const { return m_ids == rhs.m_ids; }
+  bool IsEqualForTesting(StopIdRanges const & rhs) const { return *this == rhs; }
+  bool IsValid() const { return !m_ids.empty(); }
+
+  Ranges const & GetIds() const { return m_ids; }
+
+private:
+  DECLARE_TRANSIT_TYPE_FRIENDS
+  DECLARE_VISITOR_AND_DEBUG_PRINT(StopIdRanges, visitor(m_ids, "ids"))
+
+  Ranges m_ids;
+};
+
 class Line
 {
 public:
   Line() = default;
   Line(LineId id, std::string const & number, std::string const & title, std::string const & type,
-       NetworkId networkId, std::vector<StopId> const & stopIds);
+       NetworkId networkId, Ranges const & stopIds);
   bool IsEqualForTesting(Line const & line) const;
   bool IsValid() const;
 
@@ -311,7 +330,7 @@ public:
   std::string const & GetTitle() const { return m_title; }
   std::string const & GetType() const { return m_type; }
   NetworkId GetNetworkId() const { return m_networkId; }
-  std::vector<StopId> const & GetStopIds() const { return m_stopIds; }
+  Ranges const & GetStopIds() const { return m_stopIds.GetIds(); }
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
@@ -325,7 +344,7 @@ private:
   std::string m_title;
   std::string m_type;
   NetworkId m_networkId = kInvalidNetworkId;
-  std::vector<StopId> m_stopIds;
+  StopIdRanges m_stopIds;
 };
 
 class Shape

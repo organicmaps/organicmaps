@@ -40,6 +40,7 @@ public:
   void operator()(m2::PointD & p, char const * name = nullptr);
   void operator()(ShapeId & id, char const * name = nullptr);
   void operator()(FeatureIdentifiers & id, char const * name = nullptr);
+  void operator()(StopIdRanges & rs, char const * name = nullptr);
 
   template <typename T>
   void operator()(std::vector<T> & vs, char const * name = nullptr)
