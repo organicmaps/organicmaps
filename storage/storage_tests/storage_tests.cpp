@@ -42,9 +42,11 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/condition_variable.hpp"
 #include "std/exception.hpp"
+#include "std/iterator.hpp"
 #include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/shared_ptr.hpp"
@@ -66,6 +68,28 @@ class DummyDownloadingPolicy : public DownloadingPolicy
 {
 public:
   bool IsDownloadingAllowed() override { return false; }
+};
+
+class SometimesFailingDownloadingPolicy : public DownloadingPolicy
+{
+public:
+  SometimesFailingDownloadingPolicy(vector<uint64_t> const & failedRequests)
+    : m_failedRequests(failedRequests)
+  {
+    sort(m_failedRequests.begin(), m_failedRequests.end());
+  }
+
+  bool IsDownloadingAllowed() override
+  {
+    auto const allowed =
+        !binary_search(m_failedRequests.begin(), m_failedRequests.end(), m_request);
+    ++m_request;
+    return allowed;
+  }
+
+private:
+  vector<uint64_t> m_failedRequests;
+  uint64_t m_request = 0;
 };
 
 string const kSingleMwmCountriesTxt = string(R"({
@@ -1821,5 +1845,57 @@ UNIT_TEST(StorageTest_FalsePolicy)
     FailedDownloadingWaiter waiter(storage, countryId);
     storage.DownloadCountry(countryId, MapOptions::Map);
   }
+}
+
+UNIT_CLASS_TEST(StorageTest, MultipleMaps)
+{
+  // This test tries do download all maps from Russian Federation, but
+  // network policy sometimes changes, therefore some countries won't
+  // be downloaded.
+
+  vector<uint64_t> const failedRequests {{5, 10, 21}};
+  TEST(is_sorted(failedRequests.begin(), failedRequests.end()), ());
+
+  SometimesFailingDownloadingPolicy policy(failedRequests);
+  Storage storage;
+  storage.SetDownloadingPolicy(&policy);
+
+  auto const nodeId = storage.FindCountryIdByFile("Russian Federation");
+  TCountriesVec children;
+  storage.GetChildren(nodeId, children);
+  vector<bool> downloaded(children.size());
+
+  auto const onStatusChange = [&](TCountryId const &id) {
+    auto const status = storage.CountryStatusEx(id);
+    if (status != Status::EOnDisk)
+      return;
+
+    auto const it = find(children.cbegin(), children.cend(), id);
+    if (it == children.end())
+      return;
+
+    downloaded[distance(children.cbegin(), it)] = true;
+  };
+
+  auto const onProgress = [&](TCountryId const & /* countryId */,
+                              TLocalAndRemoteSize const & /* progress */) {};
+
+  auto const slot = storage.Subscribe(onStatusChange, onProgress);
+  MY_SCOPE_GUARD(cleanup, [&]() { storage.Unsubscribe(slot); });
+
+  storage.Init(&OnCountryDownloaded /* didDownload */,
+               [](TCountryId const &, TLocalFilePtr const) { return false; } /* willDelete */);
+  storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
+  storage.DownloadNode(nodeId);
+  runner.Run();
+
+  for (size_t i = 0; i < downloaded.size(); ++i)
+  {
+    auto const expected = !binary_search(failedRequests.begin(), failedRequests.end(), i);
+    TEST_EQUAL(downloaded[i], expected, ("Unexpected status for country:", children[i]));
+  }
+
+  // Unfortunately, whole country was not downloaded.
+  TEST_EQUAL(storage.CountryStatusEx(nodeId), Status::ENotDownloaded, ());
 }
 }  // namespace storage
