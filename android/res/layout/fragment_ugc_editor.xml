@@ -58,7 +58,7 @@
           android:paddingEnd="@dimen/margin_base"
           android:paddingBottom="@dimen/margin_base"
           android:textColorHint="?android:textColorSecondary"
-          android:inputType="textCapSentences"
+          android:inputType="textMultiLine"
           android:hint="@string/placepage_reviews_hint"/>
       </android.support.design.widget.TextInputLayout>
     </LinearLayout>
