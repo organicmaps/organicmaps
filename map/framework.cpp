@@ -295,7 +295,10 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     {
       auto & intent = m_searchIntents[i];
       if (intent.m_isDelayed)
+      {
+        intent.m_params.m_viewport = GetCurrentViewport();
         Search(intent);
+      }
     }
   }
 
@@ -1339,6 +1342,8 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
   p.m_mode = search::Mode::Everywhere;
+  if (m_isViewportInitialized)
+    p.m_viewport = GetCurrentViewport();
   p.m_forceSearch = true;
   p.m_suggestsEnabled = true;
   p.m_hotelsFilter = params.m_hotelsFilter;
@@ -1364,6 +1369,8 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
   search::SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
+  if (m_isViewportInitialized)
+    p.m_viewport = GetCurrentViewport();
   p.m_mode = search::Mode::Viewport;
   p.m_forceSearch = false;
   p.m_suggestsEnabled = false;
@@ -1391,6 +1398,8 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   search::SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
+  if (m_isViewportInitialized)
+    p.m_viewport = GetCurrentViewport();
   p.m_mode = search::Mode::Downloader;
   p.m_forceSearch = true;
   p.m_suggestsEnabled = false;
@@ -1624,7 +1633,7 @@ bool Framework::Search(search::SearchParams const & params)
   if (ParseEditorDebugCommand(params))
     return true;
 
-  if (QueryMayBeSkipped(intent, rParams, GetCurrentViewport()))
+  if (QueryMayBeSkipped(intent, rParams))
     return false;
 
   intent.m_params = rParams;
@@ -1647,8 +1656,7 @@ void Framework::Search(SearchIntent & intent) const
     return;
   }
 
-  intent.m_viewport = GetCurrentViewport();
-  intent.m_handle = m_searchEngine->Search(intent.m_params, intent.m_viewport);
+  intent.m_handle = m_searchEngine->Search(intent.m_params);
   intent.m_isDelayed = false;
 }
 
@@ -1660,11 +1668,13 @@ void Framework::SetCurrentPositionIfPossible(search::SearchParams & params)
     params.SetPosition(ms::LatLon(lat, lon));
 }
 
-bool Framework::QueryMayBeSkipped(SearchIntent const & intent, search::SearchParams const & params,
-                                  m2::RectD const & viewport) const
+bool Framework::QueryMayBeSkipped(SearchIntent const & intent,
+                                  search::SearchParams const & params) const
 {
   auto const & lastParams = intent.m_params;
-  auto const & lastViewport = intent.m_viewport;
+  auto const & lastViewport = lastParams.m_viewport;
+
+  auto const & viewport = params.m_viewport;
 
   if (params.m_forceSearch)
     return false;

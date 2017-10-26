@@ -26,7 +26,7 @@ class TestSearchRequest
 public:
   TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
                     Mode mode, m2::RectD const & viewport);
-  TestSearchRequest(TestSearchEngine & engine, SearchParams params, m2::RectD const & viewport);
+  TestSearchRequest(TestSearchEngine & engine, SearchParams const & params);
 
   // Initiates the search and waits for it to finish.
   void Run();
@@ -67,7 +67,6 @@ protected:
 
   TestSearchEngine & m_engine;
   SearchParams m_params;
-  m2::RectD m_viewport;
 };
 }  // namespace tests_support
 }  // namespace search

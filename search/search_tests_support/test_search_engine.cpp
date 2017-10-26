@@ -27,10 +27,9 @@ TestSearchEngine::TestSearchEngine(unique_ptr<::search::ProcessorFactory> factor
 
 TestSearchEngine::~TestSearchEngine() {}
 
-weak_ptr<::search::ProcessorHandle> TestSearchEngine::Search(::search::SearchParams const & params,
-                                                             m2::RectD const & viewport)
+weak_ptr<::search::ProcessorHandle> TestSearchEngine::Search(::search::SearchParams const & params)
 {
-  return m_engine.Search(params, viewport);
+  return m_engine.Search(params);
 }
 }  // namespace tests_support
 }  // namespace search

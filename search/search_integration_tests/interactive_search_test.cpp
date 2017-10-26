@@ -138,16 +138,15 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
 
   SearchParams params;
   params.m_query = "cafe";
-  params.m_mode = Mode::Viewport;
   params.m_inputLocale = "en";
+  params.m_viewport = m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5));
+  params.m_mode = Mode::Viewport;
   params.m_minDistanceOnMapBetweenResults = 0.5;
   params.m_forceSearch = true;
   params.m_suggestsEnabled = false;
 
-  m2::RectD const viewport(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5));
-
   {
-    TestSearchRequest request(m_engine, params, viewport);
+    TestSearchRequest request(m_engine, params);
     request.Run();
 
     TEST(MatchResults(m_engine, TRules{ExactMatch(id, cafe1), ExactMatch(id, cafe2),
@@ -159,7 +158,7 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
   params.m_minDistanceOnMapBetweenResults = 1.0;
 
   {
-    TestSearchRequest request(m_engine, params, viewport);
+    TestSearchRequest request(m_engine, params);
     request.Run();
 
     auto const & results = request.Results();

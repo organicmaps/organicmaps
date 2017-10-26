@@ -428,7 +428,7 @@ void Processor::ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && 
                                      forward<ToDo>(toDo));
 }
 
-void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
+void Processor::Search(SearchParams const & params)
 {
   if (params.m_onStarted)
     params.m_onStarted();
@@ -449,6 +449,7 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
   bool const viewportSearch = m_mode == Mode::Viewport;
 
   bool rankPivotIsSet = false;
+  auto const & viewport = params.m_viewport;
   if (!viewportSearch && params.IsValidPosition())
   {
     m2::PointD const pos = params.GetPositionMercator();

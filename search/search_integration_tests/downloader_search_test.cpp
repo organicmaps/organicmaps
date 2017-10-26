@@ -106,7 +106,7 @@ class DownloaderSearchRequest : public TestSearchRequest, public TestDelegate
 {
 public:
   DownloaderSearchRequest(TestSearchEngine & engine, string const & query)
-    : TestSearchRequest(engine, MakeSearchParams(query), m2::RectD(0, 0, 1, 1) /* viewport */)
+    : TestSearchRequest(engine, MakeSearchParams(query))
     , m_storage(kCountriesTxt, make_unique<TestMapFilesDownloader>())
     , m_downloaderCallback(static_cast<DownloaderSearchCallback::Delegate &>(*this),
                            m_engine /* index */, m_engine.GetCountryInfoGetter(), m_storage,
@@ -129,6 +129,7 @@ private:
     search::SearchParams p;
     p.m_query = query;
     p.m_inputLocale = "en";
+    p.m_viewport = m2::RectD(0, 0, 1, 1);
     p.m_mode = search::Mode::Downloader;
     p.m_forceSearch = true;
     p.m_suggestsEnabled = false;

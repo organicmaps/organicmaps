@@ -38,6 +38,7 @@ struct SearchParams
   std::string m_inputLocale;
 
   boost::optional<ms::LatLon> m_position;
+  m2::RectD m_viewport;
 
   // A minimum distance between search results in meters, needed for
   // pre-ranking of viewport search results.

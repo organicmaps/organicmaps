@@ -124,12 +124,12 @@ Engine::~Engine()
     thread.join();
 }
 
-weak_ptr<ProcessorHandle> Engine::Search(SearchParams const & params, m2::RectD const & viewport)
+weak_ptr<ProcessorHandle> Engine::Search(SearchParams const & params)
 {
   shared_ptr<ProcessorHandle> handle(new ProcessorHandle());
-  PostMessage(Message::TYPE_TASK, [this, params, viewport, handle](Processor & processor)
+  PostMessage(Message::TYPE_TASK, [this, params, handle](Processor & processor)
               {
-                DoSearch(params, viewport, handle, processor);
+                DoSearch(params, handle, processor);
               });
   return handle;
 }
@@ -222,8 +222,8 @@ void Engine::PostMessage(TArgs &&... args)
   m_cv.notify_one();
 }
 
-void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
-                      shared_ptr<ProcessorHandle> handle, Processor & processor)
+void Engine::DoSearch(SearchParams const & params, shared_ptr<ProcessorHandle> handle,
+                      Processor & processor)
 {
   bool const viewportSearch = params.m_mode == Mode::Viewport;
 
@@ -235,6 +235,6 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
                    handle->Detach();
                  });
 
-  processor.Search(params, viewport);
+  processor.Search(params);
 }
 }  // namespace search

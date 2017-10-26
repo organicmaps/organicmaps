@@ -178,7 +178,7 @@ int main(int argc, char * argv[])
 
     search::SearchParams params;
     sample.FillSearchParams(params);
-    TestSearchRequest request(engine, params, sample.m_viewport);
+    TestSearchRequest request(engine, params);
     request.Run();
 
     auto const & results = request.Results();

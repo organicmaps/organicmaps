@@ -519,7 +519,6 @@ private:
   {
     search::SearchParams m_params;
     weak_ptr<search::ProcessorHandle> m_handle;
-    m2::RectD m_viewport;
     bool m_isDelayed = false;
   };
 
@@ -546,10 +545,9 @@ private:
   bool Search(search::SearchParams const & params);
   void Search(SearchIntent & intent) const;
 
-  // Returns true when |params| and |viewport| are almost the same as
-  // the latest search query's params and viewport in the |intent|.
-  bool QueryMayBeSkipped(SearchIntent const & intent, search::SearchParams const & params,
-                         m2::RectD const & viewport) const;
+  // Returns true when |params| is almost the same as the latest
+  // search query params in |intent|.
+  bool QueryMayBeSkipped(SearchIntent const & intent, search::SearchParams const & params) const;
 
   void OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
                                       pair<size_t, size_t> const & toRemove);

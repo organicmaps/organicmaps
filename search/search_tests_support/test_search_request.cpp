@@ -13,17 +13,17 @@ namespace tests_support
 {
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, Mode mode, m2::RectD const & viewport)
-  : m_engine(engine), m_viewport(viewport)
+  : m_engine(engine)
 {
   m_params.m_query = query;
   m_params.m_inputLocale = locale;
+  m_params.m_viewport = viewport;
   m_params.m_mode = mode;
   SetUpCallbacks();
 }
 
-TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams params,
-                                     m2::RectD const & viewport)
-  : m_engine(engine), m_params(params), m_viewport(viewport)
+TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams const & params)
+  : m_engine(engine), m_params(params)
 {
   SetUpCallbacks();
 }
@@ -32,10 +32,11 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
                                      string const & locale, Mode mode, m2::RectD const & viewport,
                                      SearchParams::OnStarted const & onStarted,
                                      SearchParams::OnResults const & onResults)
-  : m_engine(engine), m_viewport(viewport)
+  : m_engine(engine)
 {
   m_params.m_query = query;
   m_params.m_inputLocale = locale;
+  m_params.m_viewport = viewport;
   m_params.m_mode = mode;
   m_params.m_onStarted = onStarted;
   m_params.m_onResults = onResults;
@@ -63,7 +64,7 @@ vector<search::Result> const & TestSearchRequest::Results() const
 
 void TestSearchRequest::Start()
 {
-  m_engine.Search(m_params, m_viewport);
+  m_engine.Search(m_params);
 }
 
 void TestSearchRequest::Wait()

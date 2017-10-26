@@ -311,15 +311,15 @@ UNIT_CLASS_TEST(ProcessorTest, DisableSuggests)
                               builder.Add(london2);
                             });
 
-  SetViewport(m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)));
   {
     SearchParams params;
     params.m_query = "londo";
     params.m_inputLocale = "en";
+    params.m_viewport = m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5));
     params.m_mode = Mode::Downloader;
     params.m_suggestsEnabled = false;
 
-    TestSearchRequest request(m_engine, params, m_viewport);
+    TestSearchRequest request(m_engine, params);
     request.Run();
     TRules rules = {ExactMatch(worldId, london1), ExactMatch(worldId, london2)};
 
@@ -839,10 +839,10 @@ UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)
   SearchParams params;
   params.m_query = "hotel";
   params.m_inputLocale = "en";
+  params.m_viewport = m2::RectD(m2::PointD(-1, -1), m2::PointD(2, 2));
   params.m_mode = Mode::Everywhere;
   params.m_suggestsEnabled = false;
 
-  SetViewport(m2::RectD(m2::PointD(-1, -1), m2::PointD(2, 2)));
   {
     TRules rules = {ExactMatch(id, h1), ExactMatch(id, h2), ExactMatch(id, h3), ExactMatch(id, h4)};
     TEST(ResultsMatch(params, rules), ());
@@ -1078,11 +1078,10 @@ UNIT_CLASS_TEST(ProcessorTest, Cian)
     builder.Add(nonameBuilding);
   });
 
-  SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
-
   SearchParams params;
   params.m_query = "cian";
   params.m_inputLocale = "en";
+  params.m_viewport = m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0));
   params.m_mode = Mode::Everywhere;
   params.m_suggestsEnabled = false;
 

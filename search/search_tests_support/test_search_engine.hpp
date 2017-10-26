@@ -2,8 +2,6 @@
 
 #include "indexer/index.hpp"
 
-#include "geometry/rect2d.hpp"
-
 #include "search/engine.hpp"
 
 #include "std/string.hpp"
@@ -35,8 +33,7 @@ public:
 
   void LoadCitiesBoundaries() { m_engine.LoadCitiesBoundaries(); }
 
-  weak_ptr<search::ProcessorHandle> Search(search::SearchParams const & params,
-                                           m2::RectD const & viewport);
+  weak_ptr<search::ProcessorHandle> Search(search::SearchParams const & params);
 
   storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
 

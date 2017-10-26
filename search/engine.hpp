@@ -7,8 +7,6 @@
 
 #include "indexer/categories_holder.hpp"
 
-#include "geometry/rect2d.hpp"
-
 #include "coding/reader.hpp"
 
 #include "base/macros.hpp"
@@ -98,7 +96,7 @@ public:
   ~Engine();
 
   // Posts search request to the queue and returns its handle.
-  weak_ptr<ProcessorHandle> Search(SearchParams const & params, m2::RectD const & viewport);
+  weak_ptr<ProcessorHandle> Search(SearchParams const & params);
 
   // Sets default locale on all query processors.
   void SetLocale(string const & locale);
@@ -154,8 +152,8 @@ private:
   template <typename... TArgs>
   void PostMessage(TArgs &&... args);
 
-  void DoSearch(SearchParams const & params, m2::RectD const & viewport,
-                shared_ptr<ProcessorHandle> handle, Processor & processor);
+  void DoSearch(SearchParams const & params, shared_ptr<ProcessorHandle> handle,
+                Processor & processor);
 
   vector<Suggest> m_suggests;
 

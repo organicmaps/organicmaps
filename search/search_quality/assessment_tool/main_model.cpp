@@ -169,7 +169,7 @@ void MainModel::OnSampleSelected(int index)
                                         relevances, goldenMatching, actualMatching));
     };
 
-    m_queryHandle = engine.Search(params, sample.m_viewport);
+    m_queryHandle = engine.Search(params);
     m_view->OnSearchStarted();
   }
 }

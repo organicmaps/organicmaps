@@ -91,7 +91,7 @@ public:
   int8_t m_inputLocaleCode, m_currentLocaleCode;
 
   inline bool IsEmptyQuery() const { return (m_prefix.empty() && m_tokens.empty()); }
-  void Search(SearchParams const & params, m2::RectD const & viewport);
+  void Search(SearchParams const & params);
 
   // Tries to generate a (lat, lon) result from |m_query|.
   void SearchCoordinates();

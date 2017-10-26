@@ -74,7 +74,7 @@ bool SearchTest::ResultsMatch(vector<search::Result> const & results, TRules con
 
 bool SearchTest::ResultsMatch(SearchParams const & params, TRules const & rules)
 {
-  tests_support::TestSearchRequest request(m_engine, params, m_viewport);
+  tests_support::TestSearchRequest request(m_engine, params);
   request.Run();
   return ResultsMatch(request.Results(), rules);
 }
@@ -90,10 +90,11 @@ unique_ptr<tests_support::TestSearchRequest> SearchTest::MakeRequest(
   SearchParams params;
   params.m_query = query;
   params.m_inputLocale = locale;
+  params.m_viewport = m_viewport;
   params.m_mode = Mode::Everywhere;
   params.m_suggestsEnabled = false;
 
-  auto request = make_unique<tests_support::TestSearchRequest>(m_engine, params, m_viewport);
+  auto request = make_unique<tests_support::TestSearchRequest>(m_engine, params);
   request->Run();
   return request;
 }

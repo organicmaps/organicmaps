@@ -190,6 +190,7 @@ void Sample::FillSearchParams(search::SearchParams & params) const
 {
   params.m_query = strings::ToUtf8(m_query);
   params.m_inputLocale = m_locale;
+  params.m_viewport = m_viewport;
   params.m_mode = Mode::Everywhere;
   if (m_posAvailable)
     params.SetPosition(MercatorBounds::ToLatLon(m_pos));
