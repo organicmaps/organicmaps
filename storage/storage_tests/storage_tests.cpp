@@ -73,7 +73,7 @@ public:
 class SometimesFailingDownloadingPolicy : public DownloadingPolicy
 {
 public:
-  SometimesFailingDownloadingPolicy(vector<uint64_t> const & failedRequests)
+  explicit SometimesFailingDownloadingPolicy(vector<uint64_t> const & failedRequests)
     : m_failedRequests(failedRequests)
   {
     sort(m_failedRequests.begin(), m_failedRequests.end());
