@@ -248,6 +248,8 @@ OTHER_FILES += \
     shaders/route_arrow.fsh.glsl \
     shaders/route_arrow.vsh.glsl \
     shaders/route_dash.fsh.glsl \
+    shaders/route_marker.fsh.glsl \
+    shaders/route_marker.vsh.glsl \
     shaders/ruler.vsh.glsl \
     shaders/screen_quad.vsh.glsl \
     shaders/shader_index.txt \

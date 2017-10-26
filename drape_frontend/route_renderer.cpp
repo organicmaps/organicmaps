@@ -396,12 +396,16 @@ void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t sub
   if (m_hiddenSubroutes.find(subrouteInfo.m_subrouteId) != m_hiddenSubroutes.end())
     return;
 
+  auto const & subrouteData = subrouteInfo.m_subrouteData[subrouteDataIndex];
+
   auto const screenHalfWidth = static_cast<float>(subrouteInfo.m_currentHalfWidth * screen.GetScale());
   auto dist = static_cast<float>(kInvalidDistance);
   if (m_followingEnabled)
-    dist = static_cast<float>(m_distanceFromBegin - subrouteInfo.m_subroute->m_baseDistance);
+  {
+    auto const distanceOffset = subrouteInfo.m_subroute->m_baseDistance + subrouteData->m_distanceOffset;
+    dist = static_cast<float>(m_distanceFromBegin - distanceOffset);
+  }
 
-  auto const & subrouteData = subrouteInfo.m_subrouteData[subrouteDataIndex];
   dp::GLState const & state = subrouteData->m_renderProperty.m_state;
   size_t const styleIndex = subrouteData->m_startPointIndex;
   ASSERT_LESS(styleIndex, subrouteInfo.m_subroute->m_style.size(), ());
@@ -484,6 +488,44 @@ void RouteRenderer::RenderSubrouteArrows(SubrouteInfo const & subrouteInfo,
     bucket->Render(state.GetDrawAsLine());
 }
 
+void RouteRenderer::RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
+                                          ref_ptr<dp::GpuProgramManager> mng,
+                                          dp::UniformValuesStorage const & commonUniforms)
+{
+  if (subrouteInfo.m_markersData == nullptr ||
+      subrouteInfo.m_markersData->m_renderProperty.m_buckets.empty() ||
+      m_hiddenSubroutes.find(subrouteInfo.m_subrouteId) != m_hiddenSubroutes.end())
+  {
+    return;
+  }
+
+  auto dist = static_cast<float>(kInvalidDistance);
+  if (m_followingEnabled)
+    dist = static_cast<float>(m_distanceFromBegin - subrouteInfo.m_subroute->m_baseDistance);
+
+  dp::GLState const & state = subrouteInfo.m_markersData->m_renderProperty.m_state;
+
+  // Set up shaders and apply common uniforms.
+  dp::UniformValuesStorage uniforms = commonUniforms;
+  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_markersData->m_pivot,
+                                                     kShapeCoordScalar);
+  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  uniforms.SetFloatValue("u_routeParams", subrouteInfo.m_currentHalfWidth, dist);
+  uniforms.SetFloatValue("u_opacity", 1.0f);
+
+  glsl::vec4 const maskColor = glsl::ToVec4(GetMaskColor(subrouteInfo.m_subroute->m_routeType,
+                                                         subrouteInfo.m_subroute->m_baseDistance,
+                                                         false /* arrows */));
+  uniforms.SetFloatValue("u_maskColor", maskColor.r, maskColor.g, maskColor.b, maskColor.a);
+
+  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ROUTE_MARKER_PROGRAM);
+  prg->Bind();
+  dp::ApplyState(state, prg);
+  dp::ApplyUniforms(uniforms, prg);
+  for (auto const & bucket : subrouteInfo.m_markersData->m_renderProperty.m_buckets)
+    bucket->Render(state.GetDrawAsLine());
+}
+
 void RouteRenderer::RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                                       dp::UniformValuesStorage const & commonUniforms)
 {
@@ -521,6 +563,9 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, bool trafficShown,
       for (size_t i = 0; i < subroute.m_subrouteData.size(); ++i)
         RenderSubroute(subroute, i, screen, trafficShown, mng, commonUniforms);
 
+      // Render markers.
+      RenderSubrouteMarkers(subroute, screen, mng, commonUniforms);
+
       // Render arrows.
       RenderSubrouteArrows(subroute, screen, mng, commonUniforms);
     }
@@ -543,6 +588,7 @@ void RouteRenderer::AddSubrouteData(drape_ptr<SubrouteData> && subrouteData,
       {
         // Remove obsolete subroute data.
         it->m_subrouteData.clear();
+        it->m_markersData.reset();
         it->m_arrowsData.reset();
         it->m_arrowBorders.clear();
 
@@ -586,6 +632,17 @@ void RouteRenderer::AddSubrouteArrowsData(drape_ptr<SubrouteArrowsData> && route
   {
     it->m_arrowsData = std::move(routeArrowsData);
     BuildBuckets(it->m_arrowsData->m_renderProperty, mng);
+  }
+}
+
+void RouteRenderer::AddSubrouteMarkersData(drape_ptr<SubrouteMarkersData> && subrouteMarkersData,
+                                           ref_ptr<dp::GpuProgramManager> mng)
+{
+  auto const it = FindSubroute(m_subroutes, subrouteMarkersData->m_subrouteId);
+  if (it != m_subroutes.end())
+  {
+    it->m_markersData = std::move(subrouteMarkersData);
+    BuildBuckets(it->m_markersData->m_renderProperty, mng);
   }
 }
 
@@ -642,6 +699,7 @@ void RouteRenderer::ClearGLDependentResources()
   for (auto & subroute : m_subroutes)
   {
     subroute.m_subrouteData.clear();
+    subroute.m_markersData.reset();
     subroute.m_arrowsData.reset();
     subroute.m_arrowBorders.clear();
   }

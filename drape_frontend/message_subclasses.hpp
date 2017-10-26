@@ -39,7 +39,6 @@
 
 namespace df
 {
-
 class BaseBlockingMessage : public Message
 {
 public:
@@ -123,7 +122,8 @@ private:
 class FlushRenderBucketMessage : public BaseTileMessage
 {
 public:
-  FlushRenderBucketMessage(TileKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer)
+  FlushRenderBucketMessage(TileKey const & key, dp::GLState const & state,
+                           drape_ptr<dp::RenderBucket> && buffer)
     : BaseTileMessage(key)
     , m_state(state)
     , m_buffer(move(buffer))
@@ -140,19 +140,23 @@ private:
   drape_ptr<dp::RenderBucket> m_buffer;
 };
 
-class FlushOverlaysMessage : public Message
+template <typename RenderDataType, Message::Type MessageType>
+class FlushRenderDataMessage : public Message
 {
 public:
-  FlushOverlaysMessage(TOverlaysRenderData && data) : m_data(move(data)) {}
+  explicit FlushRenderDataMessage(RenderDataType && data) : m_data(std::move(data)) {}
 
-  Type GetType() const override { return Message::FlushOverlays; }
+  Type GetType() const override { return MessageType; }
   bool IsGLContextDependent() const override { return true; }
 
-  TOverlaysRenderData && AcceptRenderData() { return move(m_data); }
+  RenderDataType && AcceptRenderData() { return std::move(m_data); }
 
 private:
-  TOverlaysRenderData m_data;
+  RenderDataType m_data;
 };
+
+using FlushOverlaysMessage = FlushRenderDataMessage<TOverlaysRenderData,
+                                                    Message::FlushOverlays>;
 
 class InvalidateRectMessage : public Message
 {
@@ -278,21 +282,8 @@ private:
   drape_ptr<MarkIDCollection> m_ids;
 };
 
-class FlushUserMarksMessage : public Message
-{
-public:
-  FlushUserMarksMessage(TUserMarksRenderData && renderData)
-    : m_renderData(std::move(renderData))
-  {}
-
-  Type GetType() const override { return Message::FlushUserMarks; }
-  bool IsGLContextDependent() const override { return true; }
-
-  TUserMarksRenderData && AcceptRenderData() { return std::move(m_renderData); }
-
-private:
-  TUserMarksRenderData m_renderData;
-};
+using FlushUserMarksMessage = FlushRenderDataMessage<TUserMarksRenderData,
+                                                     Message::FlushUserMarks>;
 
 class InvalidateUserMarksMessage : public Message
 {
@@ -610,37 +601,12 @@ private:
   bool m_deactivateFollowing;
 };
 
-class FlushSubrouteMessage : public Message
-{
-public:
-  explicit FlushSubrouteMessage(drape_ptr<SubrouteData> && subrouteData)
-    : m_subrouteData(std::move(subrouteData))
-  {}
-
-  Type GetType() const override { return Message::FlushSubroute; }
-
-  bool IsGLContextDependent() const override { return true; }
-  drape_ptr<SubrouteData> && AcceptSubrouteData() { return std::move(m_subrouteData); }
-
-private:
-  drape_ptr<SubrouteData> m_subrouteData;
-};
-
-class FlushSubrouteArrowsMessage : public Message
-{
-public:
-  explicit FlushSubrouteArrowsMessage(drape_ptr<SubrouteArrowsData> && subrouteArrowsData)
-    : m_subrouteArrowsData(std::move(subrouteArrowsData))
-  {}
-
-  Type GetType() const override { return Message::FlushSubrouteArrows; }
-
-  bool IsGLContextDependent() const override { return true; }
-  drape_ptr<SubrouteArrowsData> && AcceptSubrouteArrowsData() { return std::move(m_subrouteArrowsData); }
-
-private:
-  drape_ptr<SubrouteArrowsData> m_subrouteArrowsData;
-};
+using FlushSubrouteMessage = FlushRenderDataMessage<drape_ptr<SubrouteData>,
+                                                    Message::FlushSubroute>;
+using FlushSubrouteArrowsMessage = FlushRenderDataMessage<drape_ptr<SubrouteArrowsData>,
+                                                          Message::FlushSubrouteArrows>;
+using FlushSubrouteMarkersMessage = FlushRenderDataMessage<drape_ptr<SubrouteMarkersData>,
+                                                           Message::FlushSubrouteMarkers>;
 
 class AddRoutePreviewSegmentMessage : public Message
 {
@@ -865,24 +831,20 @@ private:
   Destination m_destination;
 };
 
-class FlushCirclesPackMessage : public Message
+using BaseFlushCirclesPackMessage = FlushRenderDataMessage<drape_ptr<CirclesPackRenderData>,
+                                                           Message::FlushCirclesPack>;
+class FlushCirclesPackMessage : public BaseFlushCirclesPackMessage
 {
 public:
-
   FlushCirclesPackMessage(drape_ptr<CirclesPackRenderData> && renderData,
                           CacheCirclesPackMessage::Destination dest)
-    : m_renderData(std::move(renderData))
+    : BaseFlushCirclesPackMessage(std::move(renderData))
     , m_destination(dest)
   {}
 
-  Type GetType() const override { return Message::FlushCirclesPack; }
-  bool IsGLContextDependent() const override { return true; }
-
-  drape_ptr<CirclesPackRenderData> && AcceptRenderData() { return std::move(m_renderData); }
   CacheCirclesPackMessage::Destination GetDestination() const { return m_destination; }
 
 private:
-  drape_ptr<CirclesPackRenderData> m_renderData;
   CacheCirclesPackMessage::Destination m_destination;
 };
 
@@ -1021,21 +983,8 @@ private:
   TrafficSegmentsColoring m_segmentsColoring;
 };
 
-class FlushTrafficDataMessage : public Message
-{
-public:
-  explicit FlushTrafficDataMessage(TrafficRenderData && trafficData)
-    : m_trafficData(move(trafficData))
-  {}
-
-  Type GetType() const override { return Message::FlushTrafficData; }
-  bool IsGLContextDependent() const override { return true; }
-
-  TrafficRenderData && AcceptTrafficData() { return move(m_trafficData); }
-
-private:
-  TrafficRenderData m_trafficData;
-};
+using FlushTrafficDataMessage = FlushRenderDataMessage<TrafficRenderData,
+                                                       Message::FlushTrafficData>;
 
 class ClearTrafficDataMessage : public Message
 {

@@ -45,6 +45,8 @@ public:
     drape_ptr<SubrouteArrowsData> m_arrowsData;
     std::vector<ArrowBorders> m_arrowBorders;
     float m_currentHalfWidth = 0.0f;
+
+    drape_ptr<SubrouteMarkersData> m_markersData;
   };
   using Subroutes = std::vector<SubrouteInfo>;
 
@@ -62,6 +64,9 @@ public:
 
   void AddSubrouteArrowsData(drape_ptr<SubrouteArrowsData> && subrouteArrowsData,
                              ref_ptr<dp::GpuProgramManager> mng);
+
+  void AddSubrouteMarkersData(drape_ptr<SubrouteMarkersData> && subrouteMarkersData,
+                              ref_ptr<dp::GpuProgramManager> mng);
 
   void AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && renderData,
                             ref_ptr<dp::GpuProgramManager> mng);
@@ -88,6 +93,9 @@ private:
   void RenderSubrouteArrows(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
                             ref_ptr<dp::GpuProgramManager> mng,
                             dp::UniformValuesStorage const & commonUniforms);
+  void RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
+                             ref_ptr<dp::GpuProgramManager> mng,
+                             dp::UniformValuesStorage const & commonUniforms);
   void RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                          dp::UniformValuesStorage const & commonUniforms);
   void ClearPreviewHandles();

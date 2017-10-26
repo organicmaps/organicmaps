@@ -112,7 +112,7 @@ void DebugRectRenderer::DrawRect(ScreenBase const & screen, m2::RectF const & re
   int8_t const location = m_program->GetUniformLocation("u_color");
   if (location >= 0)
     GLFunctions::glUniformValuef(location, color.GetRedF(), color.GetGreenF(),
-                                 color.GetBlueF(), color.GetAlfaF());
+                                 color.GetBlueF(), color.GetAlphaF());
 
   GLFunctions::glDrawArrays(gl_const::GLLineStrip, 0, static_cast<uint32_t>(vertices.size()));
 
@@ -157,7 +157,7 @@ void DebugRectRenderer::DrawArrow(ScreenBase const & screen,
   int8_t const location = m_program->GetUniformLocation("u_color");
   if (location >= 0)
     GLFunctions::glUniformValuef(location, data.m_arrowColor.GetRedF(), data.m_arrowColor.GetGreenF(),
-                                 data.m_arrowColor.GetBlueF(), data.m_arrowColor.GetAlfaF());
+                                 data.m_arrowColor.GetBlueF(), data.m_arrowColor.GetAlphaF());
 
   GLFunctions::glDrawArrays(gl_const::GLLineStrip, 0, static_cast<uint32_t>(vertices.size()));
 

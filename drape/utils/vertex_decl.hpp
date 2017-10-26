@@ -173,6 +173,23 @@ struct RouteVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
+struct RouteMarkerVertex : BaseVertex
+{
+  using TPosition = glsl::vec4;
+  using TNormal = glsl::vec3;
+  using TColor = glsl::vec4;
+
+  RouteMarkerVertex();
+  RouteMarkerVertex(TPosition const & position, TNormal const & normal,
+                    TColor const & color);
+
+  TPosition m_position;
+  TNormal m_normal;
+  TColor m_color;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
 struct ColoredSymbolVertex : BaseVertex
 {
   using TNormal = glsl::vec4;

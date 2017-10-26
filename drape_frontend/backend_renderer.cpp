@@ -55,6 +55,11 @@ BackendRenderer::BackendRenderer(Params && params)
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                               make_unique_dp<FlushSubrouteArrowsMessage>(std::move(subrouteArrowsData)),
                               MessagePriority::Normal);
+  }, [this](drape_ptr<SubrouteMarkersData> && subrouteMarkersData)
+  {
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                              make_unique_dp<FlushSubrouteMarkersMessage>(std::move(subrouteMarkersData)),
+                              MessagePriority::Normal);
   });
 
   StartThread();

@@ -23,6 +23,7 @@ BOOKMARK_ANIM_PROGRAM user_mark.vsh.glsl discarded_texturing.fsh.glsl
 ROUTE_PROGRAM route.vsh.glsl route.fsh.glsl
 ROUTE_DASH_PROGRAM route.vsh.glsl route_dash.fsh.glsl
 ROUTE_ARROW_PROGRAM route_arrow.vsh.glsl route_arrow.fsh.glsl
+ROUTE_MARKER_PROGRAM route_marker.vsh.glsl route_marker.fsh.glsl
 CIRCLE_POINT_PROGRAM circle_point.vsh.glsl circle_point.fsh.glsl
 DEBUG_RECT_PROGRAM debug_rect.vsh.glsl debug_rect.fsh.glsl
 SCREEN_QUAD_PROGRAM screen_quad.vsh.glsl texturing.fsh.glsl

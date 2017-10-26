@@ -2,10 +2,8 @@
 
 namespace gpu
 {
-
 namespace
 {
-
 enum VertexType
 {
   Area,
@@ -19,6 +17,7 @@ enum VertexType
   Line,
   DashedLine,
   Route,
+  RouteMarker,
   ColoredSymbol,
   TypeCount
 };
@@ -180,6 +179,20 @@ dp::BindingInfo RouteBindingInit()
   return filler.m_info;
 }
 
+dp::BindingInfo RouteMarkerBindingInit()
+{
+  static_assert(sizeof(RouteMarkerVertex) == sizeof(RouteMarkerVertex::TPosition) +
+                                             sizeof(RouteMarkerVertex::TNormal) +
+                                             sizeof(RouteMarkerVertex::TColor), "");
+
+  dp::BindingFiller<RouteMarkerVertex> filler(3);
+  filler.FillDecl<RouteMarkerVertex::TPosition>("a_position");
+  filler.FillDecl<RouteMarkerVertex::TNormal>("a_normal");
+  filler.FillDecl<RouteMarkerVertex::TColor>("a_color");
+
+  return filler.m_info;
+}
+
 dp::BindingInfo ColoredSymbolBindingInit()
 {
   static_assert(sizeof(ColoredSymbolVertex) == sizeof(ColoredSymbolVertex::TPosition) +
@@ -208,6 +221,7 @@ TInitFunction g_initFunctions[TypeCount] =
   &LineBindingInit,
   &DashedLineBindingInit,
   &RouteBindingInit,
+  &RouteMarkerBindingInit,
   &ColoredSymbolBindingInit
 };
 
@@ -222,20 +236,17 @@ dp::BindingInfo const & GetBinding(VertexType type)
 
   return node.m_info;
 }
-
-} // namespace
+}  // namespace
 
 AreaVertex::AreaVertex()
   : m_position(0.0, 0.0, 0.0)
   , m_colorTexCoord(0.0, 0.0)
-{
-}
+{}
 
 AreaVertex::AreaVertex(TPosition const & position, TTexCoord const & colorTexCoord)
   : m_position(position)
   , m_colorTexCoord(colorTexCoord)
-{
-}
+{}
 
 dp::BindingInfo const & AreaVertex::GetBindingInfo()
 {
@@ -246,16 +257,14 @@ Area3dVertex::Area3dVertex()
   : m_position(0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0, 0.0)
   , m_colorTexCoord(0.0, 0.0)
-{
-}
+{}
 
 Area3dVertex::Area3dVertex(TPosition const & position, TPosition const & normal,
                            TTexCoord const & colorTexCoord)
   : m_position(position)
   , m_normal(normal)
   , m_colorTexCoord(colorTexCoord)
-{
-}
+{}
 
 dp::BindingInfo const & Area3dVertex::GetBindingInfo()
 {
@@ -266,16 +275,14 @@ HatchingAreaVertex::HatchingAreaVertex()
   : m_position(0.0, 0.0, 0.0)
   , m_colorTexCoord(0.0, 0.0)
   , m_maskTexCoord(0.0, 0.0)
-{
-}
+{}
 
 HatchingAreaVertex::HatchingAreaVertex(TPosition const & position, TTexCoord const & colorTexCoord,
                                        TMaskTexCoord const & maskTexCoord)
   : m_position(position)
   , m_colorTexCoord(colorTexCoord)
   , m_maskTexCoord(maskTexCoord)
-{
-}
+{}
 
 dp::BindingInfo const & HatchingAreaVertex::GetBindingInfo()
 {
@@ -286,16 +293,14 @@ SolidTexturingVertex::SolidTexturingVertex()
   : m_position(0.0, 0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0)
   , m_colorTexCoord(0.0, 0.0)
-{
-}
+{}
 
 SolidTexturingVertex::SolidTexturingVertex(TPosition3d const & position, TNormal const & normal,
                                            TTexCoord const & colorTexCoord)
   : m_position(position)
   , m_normal(normal)
   , m_colorTexCoord(colorTexCoord)
-{
-}
+{}
 
 dp::BindingInfo const & SolidTexturingVertex::GetBindingInfo()
 {
@@ -307,8 +312,7 @@ MaskedTexturingVertex::MaskedTexturingVertex()
   , m_normal(0.0, 0.0)
   , m_colorTexCoord(0.0, 0.0)
   , m_maskTexCoord(0.0, 0.0)
-{
-}
+{}
 
 MaskedTexturingVertex::MaskedTexturingVertex(TPosition3d const & position, TNormal const & normal,
                                              TTexCoord const & colorTexCoord, TTexCoord const & maskTexCoord)
@@ -316,8 +320,7 @@ MaskedTexturingVertex::MaskedTexturingVertex(TPosition3d const & position, TNorm
   , m_normal(normal)
   , m_colorTexCoord(colorTexCoord)
   , m_maskTexCoord(maskTexCoord)
-{
-}
+{}
 
 dp::BindingInfo const & MaskedTexturingVertex::GetBindingInfo()
 {
@@ -328,8 +331,7 @@ TextOutlinedStaticVertex::TextOutlinedStaticVertex()
   : m_colorTexCoord(0.0, 0.0)
   , m_outlineTexCoord(0.0, 0.0)
   , m_maskTexCoord(0.0, 0.0)
-{
-}
+{}
 
 TextOutlinedStaticVertex::TextOutlinedStaticVertex(TTexCoord const & colorTexCoord,
                                                    TTexCoord const & outlineTexCoord,
@@ -337,8 +339,7 @@ TextOutlinedStaticVertex::TextOutlinedStaticVertex(TTexCoord const & colorTexCoo
   : m_colorTexCoord(colorTexCoord)
   , m_outlineTexCoord(outlineTexCoord)
   , m_maskTexCoord(maskTexCoord)
-{
-}
+{}
 
 dp::BindingInfo const & TextOutlinedStaticVertex::GetBindingInfo()
 {
@@ -348,14 +349,12 @@ dp::BindingInfo const & TextOutlinedStaticVertex::GetBindingInfo()
 TextDynamicVertex::TextDynamicVertex()
   : m_position(0.0, 0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0)
-{
-}
+{}
 
 TextDynamicVertex::TextDynamicVertex(const TPosition3d & position, TNormal const & normal)
   : m_position(position),
     m_normal(normal)
-{
-}
+{}
 
 dp::BindingInfo const & TextDynamicVertex::GetBindingInfo()
 {
@@ -371,15 +370,13 @@ LineVertex::LineVertex()
   : m_position(0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0, 0.0)
   , m_colorTexCoord(0.0, 0.0)
-{
-}
+{}
 
 LineVertex::LineVertex(TPosition const & position, TNormal const & normal, TTexCoord const & color)
   : m_position(position)
   , m_normal(normal)
   , m_colorTexCoord(color)
-{
-}
+{}
 
 dp::BindingInfo const & LineVertex::GetBindingInfo()
 {
@@ -388,8 +385,7 @@ dp::BindingInfo const & LineVertex::GetBindingInfo()
 
 DashedLineVertex::DashedLineVertex()
   : m_maskTexCoord(0.0, 0.0, 0.0, 0.0)
-{
-}
+{}
 
 DashedLineVertex::DashedLineVertex(TPosition const & position, TNormal const & normal,
                                    TTexCoord const & color, TMaskTexCoord const & mask)
@@ -397,8 +393,7 @@ DashedLineVertex::DashedLineVertex(TPosition const & position, TNormal const & n
   , m_normal(normal)
   , m_colorTexCoord(color)
   , m_maskTexCoord(mask)
-{
-}
+{}
 
 dp::BindingInfo const & DashedLineVertex::GetBindingInfo()
 {
@@ -425,17 +420,33 @@ dp::BindingInfo const & RouteVertex::GetBindingInfo()
   return GetBinding(Route);
 }
 
+RouteMarkerVertex::RouteMarkerVertex()
+  : m_position(0.0, 0.0, 0.0, 0.0)
+  , m_normal(0.0, 0.0, 0.0)
+  , m_color(0.0, 0.0, 0.0, 0.0)
+{}
+
+RouteMarkerVertex::RouteMarkerVertex(TPosition const & position, TNormal const & normal,
+                                     TColor const & color)
+  : m_position(position)
+  , m_normal(normal)
+  , m_color(color)
+{}
+
+dp::BindingInfo const & RouteMarkerVertex::GetBindingInfo()
+{
+  return GetBinding(RouteMarker);
+}
+
 TextStaticVertex::TextStaticVertex()
   : m_colorTexCoord(0.0, 0.0)
   , m_maskTexCoord(0.0, 0.0)
-{
-}
+{}
 
 TextStaticVertex::TextStaticVertex(TTexCoord const & colorTexCoord, TTexCoord const & maskTexCoord)
   : m_colorTexCoord(colorTexCoord)
   , m_maskTexCoord(maskTexCoord)
-{
-}
+{}
 
 dp::BindingInfo const & TextStaticVertex::GetBindingInfo()
 {
@@ -446,21 +457,18 @@ ColoredSymbolVertex::ColoredSymbolVertex()
   : m_position(0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0, 0.0, 0.0)
   , m_colorTexCoord(0.0, 0.0, 0.0, 0.0)
-{
-}
+{}
 
 ColoredSymbolVertex::ColoredSymbolVertex(TPosition const & position, TNormal const & normal,
                                          TTexCoord const & colorTexCoord)
   : m_position(position)
   , m_normal(normal)
   , m_colorTexCoord(colorTexCoord)
-{
-}
+{}
 
 dp::BindingInfo const & ColoredSymbolVertex::GetBindingInfo()
 {
   return GetBinding(ColoredSymbol);
 }
-
-} //namespace gpu
+}  // namespace gpu
 

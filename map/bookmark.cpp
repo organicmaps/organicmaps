@@ -752,7 +752,7 @@ void BookmarkCategory::SaveToKML(std::ostream & s)
     s << "<Style><LineStyle>";
     dp::Color const & col = track->GetColor(0);
     s << "<color>"
-      << NumToHex(col.GetAlfa())
+      << NumToHex(col.GetAlpha())
       << NumToHex(col.GetBlue())
       << NumToHex(col.GetGreen())
       << NumToHex(col.GetRed());

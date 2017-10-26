@@ -112,6 +112,23 @@ struct SubrouteStyle
   }
 };
 
+// Colored circle on the subroute.
+struct SubrouteMarker
+{
+  // Position in mercator.
+  m2::PointD m_position = {};
+  // Distance from the beginning of route.
+  double m_distance = 0.0;
+  // Array of colors in range [0;2].
+  std::vector<df::ColorConstant> m_colors;
+  // Color of inner circle.
+  df::ColorConstant m_innerColor;
+  // Normalized up vector to determine rotation of circle.
+  m2::PointD m_up = m2::PointD(0.0, 1.0);
+  // Scale (1.0 when the radius is equal to route line half-width).
+  float m_scale = 1.0f;
+};
+
 struct Subroute
 {
   df::RouteType m_routeType;
@@ -123,6 +140,8 @@ struct Subroute
 
   SubrouteStyleType m_styleType = SubrouteStyleType::Single;
   std::vector<SubrouteStyle> m_style;
+
+  std::vector<SubrouteMarker> m_markers;
 };
 
 using SubrouteConstPtr = std::shared_ptr<Subroute const>;
@@ -149,9 +168,12 @@ struct SubrouteData : public BaseSubrouteData
   SubrouteConstPtr m_subroute;
   size_t m_startPointIndex = 0;
   size_t m_endPointIndex = 0;
+  double m_distanceOffset = 0.0;
 };
 
 struct SubrouteArrowsData : public BaseSubrouteData {};
+
+struct SubrouteMarkersData : public BaseSubrouteData {};
 
 struct ArrowBorders
 {
@@ -167,10 +189,16 @@ public:
   using TGeometryBuffer = buffer_vector<RV, 128>;
   using AV = gpu::SolidTexturingVertex;
   using TArrowGeometryBuffer = buffer_vector<AV, 128>;
+  using MV = gpu::RouteMarkerVertex;
+  using TMarkersGeometryBuffer = buffer_vector<MV, 32>;
 
   static drape_ptr<df::SubrouteData> CacheRoute(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
                                                 size_t startIndex, size_t endIndex, int recacheId,
                                                 ref_ptr<dp::TextureManager> textures);
+
+  static drape_ptr<df::SubrouteMarkersData> CacheMarkers(dp::DrapeID subrouteId,
+                                                         SubrouteConstPtr subroute, int recacheId,
+                                                         ref_ptr<dp::TextureManager> textures);
 
   static void CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
                                std::vector<ArrowBorders> const & borders, double baseDepthIndex,
@@ -184,6 +212,10 @@ private:
                                    m2::RectF const & texRect, float depthStep, float depth,
                                    TArrowGeometryBuffer & geometry,
                                    TArrowGeometryBuffer & joinsGeometry);
+  static void PrepareMarkersGeometry(std::vector<SubrouteMarker> const & markers,
+                                     m2::PointD const & pivot, float baseDepth,
+                                     TMarkersGeometryBuffer & geometry);
+
   static void BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, uint32_t geomSize,
                             ref_ptr<void> joinsGeometry, uint32_t joinsGeomSize,
                             dp::BindingInfo const & bindingInfo, RouteRenderProperty & property);

@@ -432,7 +432,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::FlushSubroute:
     {
       ref_ptr<FlushSubrouteMessage> msg = message;
-      auto subrouteData = msg->AcceptSubrouteData();
+      auto subrouteData = msg->AcceptRenderData();
 
       if (subrouteData->m_recacheId < 0)
         subrouteData->m_recacheId = m_lastRecacheRouteId;
@@ -461,11 +461,26 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::FlushSubrouteArrows:
     {
       ref_ptr<FlushSubrouteArrowsMessage> msg = message;
-      drape_ptr<SubrouteArrowsData> routeArrowsData = msg->AcceptSubrouteArrowsData();
+      drape_ptr<SubrouteArrowsData> routeArrowsData = msg->AcceptRenderData();
       if (CheckRouteRecaching(make_ref(routeArrowsData)))
       {
         m_routeRenderer->AddSubrouteArrowsData(std::move(routeArrowsData),
                                                make_ref(m_gpuProgramManager));
+      }
+      break;
+    }
+
+  case Message::FlushSubrouteMarkers:
+    {
+      ref_ptr<FlushSubrouteMarkersMessage> msg = message;
+      drape_ptr<SubrouteMarkersData> markersData = msg->AcceptRenderData();
+      if (markersData->m_recacheId < 0)
+        markersData->m_recacheId = m_lastRecacheRouteId;
+
+      if (CheckRouteRecaching(make_ref(markersData)))
+      {
+        m_routeRenderer->AddSubrouteMarkersData(std::move(markersData),
+                                                make_ref(m_gpuProgramManager));
       }
       break;
     }
@@ -752,7 +767,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (!m_trafficEnabled)
         break;
       ref_ptr<FlushTrafficDataMessage> msg = message;
-      m_trafficRenderer->AddRenderData(make_ref(m_gpuProgramManager), msg->AcceptTrafficData());
+      m_trafficRenderer->AddRenderData(make_ref(m_gpuProgramManager), msg->AcceptRenderData());
       break;
     }
 

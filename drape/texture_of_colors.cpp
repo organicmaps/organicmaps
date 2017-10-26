@@ -142,7 +142,7 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
       uint8_t const red = c.m_color.GetRed();
       uint8_t const green = c.m_color.GetGreen();
       uint8_t const blue = c.m_color.GetBlue();
-      uint8_t const alpha = c.m_color.GetAlfa();
+      uint8_t const alpha = c.m_color.GetAlpha();
 
       for (size_t row = 0; row < kResourceSize; row++)
       {

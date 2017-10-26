@@ -40,6 +40,7 @@ public:
     CacheSubrouteArrows,
     FlushSubroute,
     FlushSubrouteArrows,
+    FlushSubrouteMarkers,
     FollowRoute,
     DeactivateRouteFollowing,
     SetSubrouteVisibility,

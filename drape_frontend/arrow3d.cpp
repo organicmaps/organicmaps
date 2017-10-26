@@ -158,7 +158,7 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
     dp::Color const outlineColor = df::GetColorConstant(df::kArrow3DOutlineColor);
     ref_ptr<dp::GpuProgram> outlineProgram = mng->GetProgram(gpu::ARROW_3D_OUTLINE_PROGRAM);
     RenderArrow(screen, outlineProgram,
-                dp::Color(outlineColor.GetRed(), outlineColor.GetGreen(), outlineColor.GetBlue(), color.GetAlfa()),
+                dp::Color(outlineColor.GetRed(), outlineColor.GetGreen(), outlineColor.GetBlue(), color.GetAlpha()),
                 0.0f /* dz */, kOutlineScale /* scaleFactor */, false /* hasNormals */);
   }
 

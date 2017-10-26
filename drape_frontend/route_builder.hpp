@@ -19,11 +19,12 @@ namespace df
 class RouteBuilder
 {
 public:
-  using TFlushRouteFn = std::function<void(drape_ptr<SubrouteData> &&)>;
-  using TFlushRouteArrowsFn = std::function<void(drape_ptr<SubrouteArrowsData> &&)>;
+  using FlushFn = std::function<void(drape_ptr<SubrouteData> &&)>;
+  using FlushArrowsFn = std::function<void(drape_ptr<SubrouteArrowsData> &&)>;
+  using FlushMarkersFn = std::function<void(drape_ptr<SubrouteMarkersData> &&)>;
 
-  RouteBuilder(TFlushRouteFn const & flushRouteFn,
-               TFlushRouteArrowsFn const & flushRouteArrowsFn);
+  RouteBuilder(FlushFn && flushFn, FlushArrowsFn && flushArrowsFn,
+               FlushMarkersFn && flushMarkersFn);
 
   void Build(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
              ref_ptr<dp::TextureManager> textures, int recacheId);
@@ -34,8 +35,9 @@ public:
   void ClearRouteCache();
 
 private:
-  TFlushRouteFn m_flushRouteFn;
-  TFlushRouteArrowsFn m_flushRouteArrowsFn;
+  FlushFn m_flushFn;
+  FlushArrowsFn m_flushArrowsFn;
+  FlushMarkersFn m_flushMarkersFn;
 
   struct RouteCacheData
   {

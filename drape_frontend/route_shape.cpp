@@ -21,7 +21,8 @@ float const kLeftSide = 1.0f;
 float const kCenter = 0.0f;
 float const kRightSide = -1.0f;
 
-float const kRouteDepth = 100.0f;
+float const kRouteDepth = 99.0f;
+float const kMarkersDepth = 100.0f;
 float const kArrowsDepth = 200.0f;
 float const kDepthPerSubroute = 200.0f;
 
@@ -131,6 +132,10 @@ void GenerateArrowsTriangles(glsl::vec4 const & pivot, std::vector<glsl::vec2> c
   }
 }
 
+glsl::vec3 MarkerNormal(float x, float y, float z, float cosAngle, float sinAngle)
+{
+  return glsl::vec3(x * cosAngle - y * sinAngle, x * sinAngle + y * cosAngle, z);
+}
 } // namespace
 
 void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
@@ -149,12 +154,12 @@ void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::Point
 
   // Build geometry.
   float length = 0.0f;
-  for (size_t i = 0; i < segments.size() ; ++i)
-    length += glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
+  for (auto const & segment : segments)
+    length += glsl::length(segment.m_points[EndPoint] - segment.m_points[StartPoint]);
 
   float depth = baseDepth;
   float const depthStep = kRouteDepth / (1 + segments.size());
-  for (int i = static_cast<int>(segments.size() - 1); i >= 0; i--)
+  for (auto i = static_cast<int>(segments.size() - 1); i >= 0; i--)
   {
     UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
                  (i < static_cast<int>(segments.size()) - 1) ? &segments[i + 1] : nullptr);
@@ -366,6 +371,80 @@ void RouteShape::PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::
   }
 }
 
+void RouteShape::PrepareMarkersGeometry(std::vector<SubrouteMarker> const & markers,
+                                        m2::PointD const & pivot, float baseDepth,
+                                        TMarkersGeometryBuffer & geometry)
+{
+  ASSERT(!markers.empty(), ());
+
+  static float const kSqrt3 = sqrt(3.0f);
+  static float const kSqrt2 = sqrt(2.0f);
+  static float const kInnerRadius = 0.6f;
+  static float const kOuterRadius = 1.0f;
+
+  float const depth = baseDepth - 0.5f;
+  float const innerDepth = baseDepth + 0.5f;
+  for (SubrouteMarker const & marker : markers)
+  {
+    if (marker.m_colors.empty())
+    {
+      LOG(LWARNING, ("Colors have not been specified."));
+      continue;
+    }
+
+    float const innerRadius = kInnerRadius * marker.m_scale;
+    float const outerRadius = kOuterRadius * marker.m_scale;
+
+    m2::PointD const pt = MapShape::ConvertToLocal(marker.m_position, pivot, kShapeCoordScalar);
+    MV::TPosition outerPos(pt.x, pt.y, depth, static_cast<float>(marker.m_distance));
+    MV::TPosition innerPos(pt.x, pt.y, innerDepth, static_cast<float>(marker.m_distance));
+
+    if (marker.m_colors.size() == 1)
+    {
+      dp::Color const color = df::GetColorConstant(marker.m_colors[0]);
+      MV::TColor const c(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), color.GetAlphaF());
+
+      // Here we use an equilateral triangle to render circle (incircle of a triangle).
+      geometry.emplace_back(outerPos, MV::TNormal(-kSqrt3, -1.0f, outerRadius), c);
+      geometry.emplace_back(outerPos, MV::TNormal(kSqrt3, -1.0f, outerRadius), c);
+      geometry.emplace_back(outerPos, MV::TNormal(0.0f, 2.0f, outerRadius), c);
+    }
+    else if (marker.m_colors.size() >= 2)
+    {
+      dp::Color const color1 = df::GetColorConstant(marker.m_colors[0]);
+      dp::Color const color2 = df::GetColorConstant(marker.m_colors[1]);
+      dp::Color const innerColor = df::GetColorConstant(marker.m_innerColor);
+      MV::TColor const c1(color1.GetRedF(), color1.GetGreenF(), color1.GetBlueF(), color1.GetAlphaF());
+      MV::TColor const c2(color2.GetRedF(), color2.GetGreenF(), color2.GetBlueF(), color2.GetAlphaF());
+      MV::TColor const ic(innerColor.GetRedF(), innerColor.GetGreenF(),
+                          innerColor.GetBlueF(), innerColor.GetAlphaF());
+
+      auto const cosAngle = static_cast<float>(m2::DotProduct(marker.m_up, m2::PointD(0.0, 1.0)));
+      auto const sinAngle = static_cast<float>(m2::CrossProduct(marker.m_up, m2::PointD(0.0, 1.0)));
+
+      // Here we use a right triangle to render half-circle.
+      geometry.emplace_back(outerPos, MarkerNormal(-kSqrt2, 0.0f, outerRadius, cosAngle, sinAngle), c1);
+      geometry.emplace_back(outerPos, MarkerNormal(0.0f, -kSqrt2, outerRadius, cosAngle, sinAngle), c1);
+      geometry.emplace_back(outerPos, MarkerNormal(0.0f, kSqrt2, outerRadius, cosAngle, sinAngle), c1);
+
+      geometry.emplace_back(outerPos, MarkerNormal(kSqrt2, 0.0f, outerRadius, cosAngle, sinAngle), c2);
+      geometry.emplace_back(outerPos, MarkerNormal(0.0f, kSqrt2, outerRadius, cosAngle, sinAngle), c2);
+      geometry.emplace_back(outerPos, MarkerNormal(0.0f, -kSqrt2, outerRadius, cosAngle, sinAngle), c2);
+    }
+
+    if (marker.m_colors.size() > 1 || marker.m_colors.front() != marker.m_innerColor)
+    {
+      dp::Color const innerColor = df::GetColorConstant(marker.m_innerColor);
+      MV::TColor const ic(innerColor.GetRedF(), innerColor.GetGreenF(),
+                          innerColor.GetBlueF(), innerColor.GetAlphaF());
+
+      geometry.emplace_back(innerPos, MV::TNormal(-kSqrt3, -1.0f, innerRadius), ic);
+      geometry.emplace_back(innerPos, MV::TNormal(kSqrt3, -1.0f, innerRadius), ic);
+      geometry.emplace_back(innerPos, MV::TNormal(0.0f, 2.0f, innerRadius), ic);
+    }
+  }
+}
+
 void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
                                   std::vector<ArrowBorders> const & borders, double baseDepthIndex,
                                   SubrouteArrowsData & routeArrowsData)
@@ -427,6 +506,7 @@ drape_ptr<df::SubrouteData> RouteShape::CacheRoute(dp::DrapeID subrouteId, Subro
   subrouteData->m_endPointIndex = endIndex;
   subrouteData->m_pivot = subroute->m_polyline.GetLimitRect().Center();
   subrouteData->m_recacheId = recacheId;
+  subrouteData->m_distanceOffset = subroute->m_polyline.GetLength(startIndex);
 
   TGeometryBuffer geometry;
   TGeometryBuffer joinsGeometry;
@@ -443,6 +523,46 @@ drape_ptr<df::SubrouteData> RouteShape::CacheRoute(dp::DrapeID subrouteId, Subro
                 RV::GetBindingInfo(), subrouteData->m_renderProperty);
 
   return subrouteData;
+}
+
+drape_ptr<df::SubrouteMarkersData> RouteShape::CacheMarkers(dp::DrapeID subrouteId,
+                                                            SubrouteConstPtr subroute, int recacheId,
+                                                            ref_ptr<dp::TextureManager> textures)
+{
+  if (subroute->m_markers.empty())
+    return nullptr;
+
+  auto markersData = make_unique_dp<df::SubrouteMarkersData>();
+  markersData->m_subrouteId = subrouteId;
+  markersData->m_pivot = subroute->m_polyline.GetLimitRect().Center();
+  markersData->m_recacheId = recacheId;
+
+  TMarkersGeometryBuffer geometry;
+  auto const depth = static_cast<float>(subroute->m_baseDepthIndex * kDepthPerSubroute + kMarkersDepth);
+  PrepareMarkersGeometry(subroute->m_markers, markersData->m_pivot, depth, geometry);
+  if (geometry.empty())
+    return nullptr;
+
+  auto state = CreateGLState(gpu::ROUTE_MARKER_PROGRAM, RenderState::GeometryLayer);
+  state.SetColorTexture(textures->GetSymbolsTexture());
+
+  // Batching.
+  {
+    uint32_t const kBatchSize = 200;
+    dp::Batcher batcher(kBatchSize, kBatchSize);
+    dp::SessionGuard guard(batcher, [&markersData](dp::GLState const & state,
+                                                   drape_ptr<dp::RenderBucket> &&b)
+    {
+      markersData->m_renderProperty.m_buckets.push_back(std::move(b));
+      markersData->m_renderProperty.m_state = state;
+    });
+
+    dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
+    provider.InitStream(0 /* stream index */, MV::GetBindingInfo(), geometry.data());
+    batcher.InsertTriangleList(state, make_ref(&provider));
+  }
+
+  return markersData;
 }
 
 void RouteShape::BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, uint32_t geomSize,

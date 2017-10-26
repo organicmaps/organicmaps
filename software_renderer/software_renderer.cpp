@@ -57,7 +57,7 @@ public:
     for (size_t y = 0; y < height; ++y)
     {
       m_baserenderer.blend_solid_hspan(pt.x, pt.y + y, (int)width,
-                                       agg::rgba8(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlfa()),
+                                       agg::rgba8(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()),
                                        &data[(height - y - 1) * width]);
     }
   }
@@ -145,7 +145,7 @@ void AlignImage(m2::PointD & pt, dp::Anchor anchor, size_t width, size_t height)
 
 bool HasOutline(dp::FontDecl const & fontDecl)
 {
-  return fontDecl.m_outlineColor.GetAlfa() != 0;
+  return fontDecl.m_outlineColor.GetAlpha() != 0;
 }
 
 SoftwareRenderer::SoftwareRenderer(GlyphCache::Params const & glyphCacheParams, string const & resourcesPostfix)
@@ -185,7 +185,7 @@ void SoftwareRenderer::BeginFrame(uint32_t width, uint32_t height, dp::Color con
   m_baseRenderer.reset_clipping(true);
   unsigned op = m_pixelFormat.comp_op();
   m_pixelFormat.comp_op(agg::comp_op_src);
-  m_baseRenderer.clear(agg::rgba8(bgColor.GetRed(), bgColor.GetGreen(), bgColor.GetBlue(), bgColor.GetAlfa()));
+  m_baseRenderer.clear(agg::rgba8(bgColor.GetRed(), bgColor.GetGreen(), bgColor.GetBlue(), bgColor.GetAlpha()));
   m_pixelFormat.comp_op(op);
 }
 
@@ -226,13 +226,13 @@ void SoftwareRenderer::DrawCircle(m2::PointD const & pt, dp::Anchor anchor, Circ
     stroke_path.width(info.m_outlineWidth * 2);
     rasterizer.add_path(stroke_path);
     agg::rgba8 color(info.m_outlineColor.GetRed(), info.m_outlineColor.GetGreen(),
-                     info.m_outlineColor.GetBlue(), info.m_outlineColor.GetAlfa());
+                     info.m_outlineColor.GetBlue(), info.m_outlineColor.GetAlpha());
     agg::render_scanlines_aa_solid(rasterizer, scanline, m_baseRenderer, color);
     rasterizer.reset();
   }
   rasterizer.add_path(path);
   agg::rgba8 color(info.m_color.GetRed(), info.m_color.GetGreen(),
-                   info.m_color.GetBlue(), info.m_color.GetAlfa());
+                   info.m_color.GetBlue(), info.m_color.GetAlpha());
   agg::render_scanlines_aa_solid(rasterizer, scanline, m_baseRenderer, color);
 }
 
@@ -302,7 +302,7 @@ void SoftwareRenderer::DrawPath(PathInfo const & geometry, PenInfo const & info)
 
   agg::scanline32_p8 scanline;
   agg::rgba8 color(info.m_color.GetRed(), info.m_color.GetGreen(),
-                   info.m_color.GetBlue(), info.m_color.GetAlfa());
+                   info.m_color.GetBlue(), info.m_color.GetAlpha());
   agg::render_scanlines_aa_solid(rasterizer, scanline, m_baseRenderer, color);
 }
 
@@ -329,7 +329,7 @@ void SoftwareRenderer::DrawArea(AreaInfo const & geometry, BrushInfo const & inf
   rasterizer.add_path(path);
   agg::scanline32_p8 scanline;
   agg::rgba8 color(info.m_color.GetRed(), info.m_color.GetGreen(),
-                   info.m_color.GetBlue(), info.m_color.GetAlfa());
+                   info.m_color.GetBlue(), info.m_color.GetAlpha());
   bool antialias = false;
   if (antialias)
   {

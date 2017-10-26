@@ -51,6 +51,14 @@ public:
     return dist;
   }
 
+  double GetLength(size_t pointIndex) const
+  {
+    double dist = 0;
+    for (size_t i = 0; i < min(pointIndex, m_points.size() - 1); ++i)
+      dist += m_points[i].Length(m_points[i + 1]);
+    return dist;
+  }
+
   double CalcMinSquaredDistance(m2::Point<T> const & point) const
   {
     double res = numeric_limits<double>::max();
@@ -140,8 +148,8 @@ public:
     }
 
     vector<Point<T>> result(endPointIndex - startPointIndex + 1);
-    for (size_t i = startPointIndex; i <= endPointIndex; ++i)
-      result[i] = m_points[i];
+    for (size_t i = startPointIndex, j = 0; i <= endPointIndex; ++i, ++j)
+      result[j] = m_points[i];
     return result;
   }
 

@@ -33,10 +33,11 @@ std::vector<std::pair<size_t, size_t>> SplitSubroute(df::SubrouteConstPtr subrou
 
 namespace df
 {
-RouteBuilder::RouteBuilder(TFlushRouteFn const & flushRouteFn,
-                           TFlushRouteArrowsFn const & flushRouteArrowsFn)
-  : m_flushRouteFn(flushRouteFn)
-  , m_flushRouteArrowsFn(flushRouteArrowsFn)
+RouteBuilder::RouteBuilder(FlushFn && flushFn, FlushArrowsFn && flushArrowsFn,
+                           FlushMarkersFn && flushMarkersFn)
+  : m_flushFn(std::move(flushFn))
+  , m_flushArrowsFn(std::move(flushArrowsFn))
+  , m_flushMarkersFn(std::move(flushMarkersFn))
 {}
 
 void RouteBuilder::Build(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
@@ -56,15 +57,20 @@ void RouteBuilder::Build(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
                                                   indices.second, recacheId, textures));
   }
 
+  auto markersData = RouteShape::CacheMarkers(subrouteId, subroute, recacheId, textures);
+
   // Flush route geometry.
   GLFunctions::glFlush();
 
-  if (m_flushRouteFn != nullptr)
+  if (m_flushFn != nullptr)
   {
     for (auto & data : subrouteData)
-      m_flushRouteFn(std::move(data));
+      m_flushFn(std::move(data));
     subrouteData.clear();
   }
+
+  if (m_flushMarkersFn != nullptr && markersData != nullptr)
+    m_flushMarkersFn(std::move(markersData));
 }
 
 void RouteBuilder::ClearRouteCache()
@@ -89,7 +95,7 @@ void RouteBuilder::BuildArrows(dp::DrapeID subrouteId, std::vector<ArrowBorders>
   // Flush route arrows geometry.
   GLFunctions::glFlush();
 
-  if (m_flushRouteArrowsFn != nullptr)
-    m_flushRouteArrowsFn(std::move(routeArrowsData));
+  if (m_flushArrowsFn != nullptr)
+    m_flushArrowsFn(std::move(routeArrowsData));
 }
 }  // namespace df
