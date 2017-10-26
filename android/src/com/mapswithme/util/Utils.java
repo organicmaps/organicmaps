@@ -224,8 +224,11 @@ public class Utils
     LoggerFactory.INSTANCE.zipLogs(new OnZipCompletedCallback(activity, subject));
   }
 
-  public static void navigateToParent(@NonNull Activity activity)
+  public static void navigateToParent(@Nullable Activity activity)
   {
+    if (activity == null)
+      return;
+
     if (activity instanceof CustomNavigateUpListener)
       ((CustomNavigateUpListener) activity).customOnNavigateUp();
     else
