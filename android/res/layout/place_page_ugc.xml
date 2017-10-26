@@ -90,6 +90,7 @@
       android:layout_marginRight="@dimen/margin_base"
       android:layout_marginEnd="@dimen/margin_base"
       android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+      android:gravity="center_horizontal"
       android:textStyle="bold"
       android:text="@string/placepage_rate_comment"
       tools:text="@string/placepage_rate_comment"/>
