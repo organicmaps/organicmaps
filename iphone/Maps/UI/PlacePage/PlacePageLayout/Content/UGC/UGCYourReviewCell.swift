@@ -29,7 +29,6 @@ final class UGCYourReviewCell: MWMTableViewCell {
   }
 
   @IBOutlet private weak var reviewBottomOffset: NSLayoutConstraint!
-  @IBOutlet private weak var ratingCollectionViewHeight: NSLayoutConstraint!
   @IBOutlet private weak var ratingCollectionView: UICollectionView! {
     didSet {
       ratingCollectionView.register(cellClass: UGCSummaryRatingStarsCell.self)

@@ -110,7 +110,6 @@
             <connections>
                 <outlet property="dateLabel" destination="qZ5-I9-7dJ" id="Hkf-h6-ybf"/>
                 <outlet property="ratingCollectionView" destination="w6j-GC-6Bv" id="SbY-HY-zXO"/>
-                <outlet property="ratingCollectionViewHeight" destination="2hn-mr-UAw" id="xbR-Dl-OR3"/>
                 <outlet property="reviewBottomOffset" destination="NW0-Eu-IsI" id="emL-VB-8lD"/>
                 <outlet property="reviewLabel" destination="G4x-pj-fmv" id="pWq-RG-xv0"/>
                 <outlet property="titleLabel" destination="nht-6C-S3i" id="1lQ-nA-n7z"/>
