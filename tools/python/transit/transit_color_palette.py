@@ -7,17 +7,16 @@ def to_rgb(color_str):
     return (r, g, b)
 
 
-def to_rgba(rgb):
-    return rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255
-
-
 class Palette:
     def __init__(self, colors):
         self.colors = []
         for color in colors['colors']:
-            color_info = {'clear': to_rgb(color['clear']),
-                          'night': to_rgb(color['night'])}
+            color_info = {'name': color['name'],
+                          'clear': to_rgb(color['clear'])}
             self.colors.append(color_info)
+
+    def get_default_color(self):
+        return self.colors[0]['name']
 
     def get_nearest_color(self, color_str):
         """Returns the nearest color from the palette."""
@@ -32,5 +31,4 @@ class Palette:
             if min_diff is None or diff < min_diff:
                 min_diff = diff
                 nearest_color_info = color_info
-        return {'clear': to_rgba(nearest_color_info['clear']),
-                'night': to_rgba(nearest_color_info['night'])}
+        return nearest_color_info['name']

@@ -1,20 +1,214 @@
 {
   "colors": [
     {
-      "clear": "000000",
-      "night": "555555"
+      "name": "default",
+      "clear": "231F20",
+      "night": "231F20",
+      "text": "231F20"
     },
     {
-      "clear": "ff0000",
-      "night": "aa0000"
+      "name": "gray",
+      "clear": "8B8B8C",
+      "night": "464647",
+      "text": "231F20"
     },
     {
-      "clear": "00ff00",
-      "night": "00aa00"
+      "name": "brown",
+      "clear": "9C491F",
+      "night": "4D210B",
+      "text": "3E2723"
     },
     {
-      "clear": "0000ff",
-      "night": "0000aa"
+      "name": "brown_light",
+      "clear": "B39B8F",
+      "night": "5A4E48",
+      "text": "3E2723"
+    },
+    {
+      "name": "red_dark",
+      "clear": "7A1212",
+      "night": "3E0A0A",
+      "text": "7A1212"
+    },
+    {
+      "name": "red",
+      "clear": "FA1E38",
+      "night": "800B19",
+      "text": "7A1212"
+    },
+    {
+      "name": "red_light",
+      "clear": "E57373",
+      "night": "733A3A",
+      "text": "7A1212"
+    },
+    {
+      "name": "orange",
+      "clear": "FF5722",
+      "night": "802C12",
+      "text": "E65100"
+    },
+    {
+      "name": "orange_light",
+      "clear": "FF8A65",
+      "night": "804633",
+      "text": "E65100"
+    },
+    {
+      "name": "amber_dark",
+      "clear": "EF6C00",
+      "night": "703400",
+      "text": "FF6F00"
+    },
+    {
+      "name": "amber",
+      "clear": "FF9800",
+      "night": "804D00",
+      "text": "FF6F00"
+    },
+    {
+      "name": "yellow_dark",
+      "clear": "E69B22",
+      "night": "744E12",
+      "text": "F57F17"
+    },
+    {
+      "name": "yellow",
+      "clear": "FFCC09",
+      "night": "8F7F06",
+      "text": "F57F17"
+    },
+    {
+      "name": "lime_dark",
+      "clear": "827717",
+      "night": "423C0C",
+      "text": "827717"
+    },
+    {
+      "name": "lime",
+      "clear": "33C73B",
+      "night": "34691B",
+      "text": "827717"
+    },
+    {
+      "name": "lime_light",
+      "clear": "B2D636",
+      "night": "4D661A",
+      "text": "827717"
+    },
+    {
+      "name": "green_dark",
+      "clear": "1B5E20",
+      "night": "0E3011",
+      "text": "1B5E20"
+    },
+    {
+      "name": "green",
+      "clear": "009A2C",
+      "night": "004D1A",
+      "text": "1B5E20"
+    },
+    {
+      "name": "green_light",
+      "clear": "81C784",
+      "night": "416443",
+      "text": "1B5E20"
+    },
+    {
+      "name": "teal_dark",
+      "clear": "00695C",
+      "night": "00352F",
+      "text": "004D40"
+    },
+    {
+      "name": "teal",
+      "clear": "00BFA5",
+      "night": "005441",
+      "text": "004D40"
+    },
+    {
+      "name": "teal_light",
+      "clear": "80CBC4",
+      "night": "34524F",
+      "text": "004D40"
+    },
+    {
+      "name": "blue_dark",
+      "clear": "02729C",
+      "night": "023A4F",
+      "text": "01579B"
+    },
+    {
+      "name": "blue",
+      "clear": "03A9F4",
+      "night": "02557B",
+      "text": "01579B"
+    },
+    {
+      "name": "blue_light",
+      "clear": "90CAF9",
+      "night": "466178",
+      "text": "01579B"
+    },
+    {
+      "name": "navy_dark",
+      "clear": "1A357D",
+      "night": "0F1B42",
+      "text": "1A357D"
+    },
+    {
+      "name": "navy",
+      "clear": "0068AD",
+      "night": "003557",
+      "text": "1A357D"
+    },
+    {
+      "name": "navy_light",
+      "clear": "7A96CC",
+      "night": "3D4866",
+      "text": "1A357D"
+    },
+    {
+      "name": "indigo",
+      "clear": "4824B5",
+      "night": "25135B",
+      "text": "4A148C"
+    },
+    {
+      "name": "purple_dark",
+      "clear": "4A148C",
+      "night": "360E66",
+      "text": "4A148C"
+    },
+    {
+      "name": "purple",
+      "clear": "BF00AF",
+      "night": "600058",
+      "text": "4A148C"
+    },
+    {
+      "name": "purple_light",
+      "clear": "CE93D8",
+      "night": "684A6D",
+      "text": "4A148C"
+    },
+    {
+      "name": "pink_dark",
+      "clear": "880E4F",
+      "night": "660A3B",
+      "text": "880E4F"
+    },
+    {
+      "name": "pink",
+      "clear": "F50057",
+      "night": "7B002C",
+      "text": "880E4F"
+    },
+    {
+      "name": "pink_light",
+      "clear": "F48FB1",
+      "night": "7B4859",
+      "text": "880E4F"
     }
   ]
 }

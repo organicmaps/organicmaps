@@ -168,19 +168,26 @@ class TransitGraphBuilder:
                             'network_id': network_id,
                             'title': line_name,
                             'number': route_item['ref'],
-                            'stop_ids': line_stops}
+                            'interval': line_item['interval'],
+                            'stop_ids': []}
                     if 'colour' in route_item:
                         line['color'] = self.palette.get_nearest_color(route_item['colour'])
+                    else:
+                        line['color'] = self.palette.get_default_color()
 
                     # TODO: Add processing of line_item['shape'] when this data will be available.
                     # TODO: Add processing of line_item['trip_ids'] when this data will be available.
 
                     # Create an edge for each connection of stops.
                     for i in range(len(line_stops)):
-                        self.stops[line_stops[i]]['line_ids'].append(line_id)
-                        if i < len(line_stops) - 1:
-                            edge = {'stop1_id': line_stops[i],
-                                    'stop2_id': line_stops[i + 1],
+                        stop1 = line_stops[i]
+                        line['stop_ids'].append(stop1[0])
+                        self.stops[stop1[0]]['line_ids'].append(line_id)
+                        if i + 1 < len(line_stops):
+                            stop2 = line_stops[i + 1]
+                            edge = {'stop1_id': stop1[0],
+                                    'stop2_id': stop2[0],
+                                    'weight': stop2[1] - stop1[1],
                                     'transfer': False,
                                     'line_id': line_id,
                                     'shape_ids': []}
