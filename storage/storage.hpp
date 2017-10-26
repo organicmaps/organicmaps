@@ -649,7 +649,7 @@ private:
                                                   TCountriesSet const & mwmsInQueue) const;
 
   void PushToJustDownloaded(TQueue::iterator justDownloadedItem);
-  void PeekFromQueue(TQueue::iterator it);
+  void PopFromQueue(TQueue::iterator it);
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> const & nodes, ToDo && toDo) const;
   /// Returns true if |node.Value().Name()| is a disputed territory and false otherwise.

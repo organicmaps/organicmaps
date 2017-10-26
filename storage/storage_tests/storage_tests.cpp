@@ -1809,8 +1809,8 @@ UNIT_TEST(StorageTest_FalsePolicy)
   auto const countryId = storage.FindCountryIdByFile("Uruguay");
   auto const countryFile = storage.GetCountryFile(countryId);
 
-  // To prevent interference from other tests and on other tests it's
-  // better to remove temprorary downloader files.
+  // To prevent interference with other tests and on other tests it's
+  // better to remove temporary downloader files.
   DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(), countryFile);
   MY_SCOPE_GUARD(cleanup, [&]() {
     DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(),
