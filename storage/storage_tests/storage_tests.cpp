@@ -62,6 +62,12 @@ namespace
 {
 using TLocalFilePtr = shared_ptr<LocalCountryFile>;
 
+class DummyDownloadingPolicy : public DownloadingPolicy
+{
+public:
+  bool IsDownloadingAllowed() override { return false; }
+};
+
 string const kSingleMwmCountriesTxt = string(R"({
            "id": "Countries",
            "v": )" + strings::to_string(version::FOR_TESTING_SINGLE_MWM1) + R"(,
@@ -1789,5 +1795,31 @@ UNIT_TEST(StorageTest_GetTopmostNodesForWithLevel)
   TEST_EQUAL(path[0], "France_Burgundy_Saone-et-Loire", ());
 }
 
+UNIT_TEST(StorageTest_FalsePolicy)
+{
+  DummyDownloadingPolicy policy;
+  Storage storage;
+  storage.SetDownloadingPolicy(&policy);
 
+  storage.Init(&OnCountryDownloaded /* didDownload */,
+               [](TCountryId const &, TLocalFilePtr const) { return false; } /* willDelete */);
+  storage.SetDownloaderForTesting(make_unique<TestMapFilesDownloader>());
+  storage.SetCurrentDataVersionForTesting(1234);
+
+  auto const countryId = storage.FindCountryIdByFile("Uruguay");
+  auto const countryFile = storage.GetCountryFile(countryId);
+
+  // To prevent interference from other tests and on other tests it's
+  // better to remove temprorary downloader files.
+  DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(), countryFile);
+  MY_SCOPE_GUARD(cleanup, [&]() {
+    DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(),
+                                    countryFile);
+  });
+
+  {
+    FailedDownloadingWaiter waiter(storage, countryId);
+    storage.DownloadCountry(countryId, MapOptions::Map);
+  }
+}
 }  // namespace storage

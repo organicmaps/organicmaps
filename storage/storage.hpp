@@ -648,7 +648,8 @@ private:
                                                   MapFilesDownloader::TProgress const & downloadingMwmProgress,
                                                   TCountriesSet const & mwmsInQueue) const;
 
-  void CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem);
+  void PushToJustDownloaded(TQueue::iterator justDownloadedItem);
+  void PeekFromQueue(TQueue::iterator it);
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> const & nodes, ToDo && toDo) const;
   /// Returns true if |node.Value().Name()| is a disputed territory and false otherwise.
