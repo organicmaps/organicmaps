@@ -25,7 +25,7 @@ win32*|linux* {
 SOURCES += \
     ../../testing/testingmain.cpp \
     algos_tests.cpp \
-    highlighting_test.cpp \
+    highlighting_tests.cpp \
     hotels_filter_test.cpp \
     house_detector_tests.cpp \
     house_numbers_matcher_test.cpp \
