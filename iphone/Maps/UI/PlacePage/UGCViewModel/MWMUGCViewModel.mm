@@ -30,7 +30,6 @@ MWMUGCRatingValueType * ratingValueType(float rating)
 
 @interface MWMUGCViewModel ()
 @property(copy, nonatomic) MWMVoidBlock refreshCallback;
-@property(nonatomic) NSDateComponentsFormatter * formatter;
 @end
 
 @implementation MWMUGCViewModel
@@ -99,7 +98,7 @@ MWMUGCRatingValueType * ratingValueType(float rating)
     {
       auto const & review = m_ugcUpdate;
       return [[MWMUGCYourReview alloc]
-              initWithDate:[self daysAgo:review.m_time]
+              initWithDate:[self reviewDate:review.m_time]
                   text:@(review.m_text.m_text.c_str())
                ratings:starsRatings(review.m_ratings)];
     }
@@ -109,28 +108,21 @@ MWMUGCRatingValueType * ratingValueType(float rating)
   auto const & review = m_ugc.m_reviews[idx];
   return [[MWMUGCReview alloc]
       initWithTitle:@(review.m_author.c_str())
-               date:[self daysAgo:review.m_time]
+               date:[self reviewDate:review.m_time]
                text:@(review.m_text.m_text.c_str())
              rating:ratingValueType(review.m_rating)];
 }
 
 #pragma mark - Propertis
 
-- (NSString *)daysAgo:(ugc::Time const &) time
+- (NSString *)reviewDate:(ugc::Time const &) time
 {
   using namespace std::chrono;
-  NSDate * reviewDate = [NSDate dateWithTimeIntervalSince1970:duration_cast<seconds>(time.time_since_epoch()).count()];
-  return [self.formatter stringFromDate:reviewDate toDate:[NSDate date]];
+  auto reviewDate = [NSDate dateWithTimeIntervalSince1970:duration_cast<seconds>(time.time_since_epoch()).count()];
+  auto formatter = [[NSDateFormatter alloc] init];
+  formatter.dateStyle = NSDateFormatterLongStyle;
+  formatter.timeStyle = NSDateFormatterNoStyle;
+  return [formatter stringFromDate:reviewDate];
 }
 
-- (NSDateComponentsFormatter *)formatter
-{
-  if (!_formatter)
-  {
-    _formatter = [[NSDateComponentsFormatter alloc] init];
-    _formatter.unitsStyle = NSDateComponentsFormatterUnitsStyleFull;
-    _formatter.allowedUnits = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
-  }
-  return _formatter;
-}
 @end

@@ -248,7 +248,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
       [reviewCell configWithRating:data.ugc.summaryRating
           canAddReview:data.ugc.isUGCUpdateEmpty
           reviewsCount:data.ugc.totalReviewsCount
-          priceSetter:^(UILabel * pricingLabel) {
+          priceSetter:^(UILabel * _Nonnull pricingLabel) {
             pricingLabel.text = @"";
           }
           onAddReview:^{
