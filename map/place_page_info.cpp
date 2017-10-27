@@ -32,6 +32,13 @@ bool Info::ShouldShowAddPlace() const
   return m_canEditOrAdd && !(IsFeature() && isPointOrBuilding);
 }
 
+bool Info::ShouldShowUGC() const
+{
+  return ftraits::UGC::IsUGCAvailable(m_sortedTypes) &&
+         (m_featureStatus == osm::Editor::FeatureStatus::Untouched ||
+          m_featureStatus == osm::Editor::FeatureStatus::Modified);
+}
+
 void Info::SetFromFeatureType(FeatureType const & ft)
 {
   MapObject::SetFromFeatureType(ft);

@@ -831,6 +831,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   auto const featureStatus = osm::Editor::Instance().GetFeatureStatus(ft.GetID());
   ASSERT_NOT_EQUAL(featureStatus, osm::Editor::FeatureStatus::Deleted,
                    ("Deleted features cannot be selected from UI."));
+  info.SetFeatureStatus(featureStatus);
 
   ASSERT(m_cityFinder, ());
   auto const city =

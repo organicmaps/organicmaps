@@ -13,6 +13,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/map_object.hpp"
+#include "indexer/osm_editor.hpp"
 
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
@@ -78,7 +79,7 @@ public:
   bool ShouldShowEditPlace() const;
 
   /// UGC
-  bool ShouldShowUGC() const { return ftraits::UGC::IsUGCAvailable(m_sortedTypes); }
+  bool ShouldShowUGC() const;
   bool CanBeRated() const { return ftraits::UGC::IsRatingAvailable(m_sortedTypes); }
   bool CanBeReviewed() const { return ftraits::UGC::IsReviewsAvailable(m_sortedTypes); }
   bool CanHaveExtendedReview() const { return ftraits::UGC::IsDetailsAvailable(m_sortedTypes); }
@@ -142,6 +143,9 @@ public:
   SponsoredType GetSponsoredType() const { return m_sponsoredType; }
   void SetPreviewIsExtended() { m_isPreviewExtended = true; }
   bool IsPreviewExtended() const { return m_isPreviewExtended; }
+
+  /// Feature status
+  void SetFeatureStatus(osm::Editor::FeatureStatus const status) { m_featureStatus = status; }
 
   /// Banner
   bool HasBanner() const;
@@ -258,6 +262,9 @@ private:
   ads::Engine * m_adsEngine = nullptr;
   /// Sponsored type or None.
   SponsoredType m_sponsoredType = SponsoredType::None;
+
+  /// Feature status
+  osm::Editor::FeatureStatus m_featureStatus = osm::Editor::FeatureStatus::Untouched;
 
   /// Sponsored feature urls.
   std::string m_sponsoredUrl;
