@@ -119,17 +119,19 @@ UNIT_TEST(Transit_LineSerialization)
 {
   {
     Line line(1 /* line id */, "2" /* number */, "Линия" /* title */,
-              "subway" /* type */, 3 /* network id */, {} /* stop ids */);
+              "subway" /* type */, "red" /* color */, 3 /* network id */, {} /* stop ids */);
     TestSerialization(line);
   }
   {
     Line line(10 /* line id */, "11" /* number */, "Линия" /* title */,
-              "subway" /* type */, 12 /* network id */, {{13, 14, 15}} /* stop ids */);
+              "subway" /* type */, "green" /* color */, 12 /* network id */,
+              {{13, 14, 15}} /* stop ids */);
     TestSerialization(line);
   }
   {
     Line line(100 /* line id */, "101" /* number */, "Линия" /* title */,
-              "subway" /* type */, 103 /* network id */, {{1, 2, 3}, {7, 8, 9}} /* stop ids */);
+              "subway" /* type */, "blue" /* color */, 103 /* network id */,
+              {{1, 2, 3}, {7, 8, 9}} /* stop ids */);
     TestSerialization(line);
   }
 }

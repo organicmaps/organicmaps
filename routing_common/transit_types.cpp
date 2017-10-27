@@ -224,11 +224,13 @@ bool Transfer::IsValid() const
 
 // Line -------------------------------------------------------------------------------------------
 Line::Line(LineId id, std::string const & number, std::string const & title,
-           std::string const & type, NetworkId networkId, Ranges const & stopIds)
+           std::string const & type, std::string const & color, NetworkId networkId,
+           Ranges const & stopIds)
   : m_id(id)
   , m_number(number)
   , m_title(title)
   , m_type(type)
+  , m_color(color)
   , m_networkId(networkId)
   , m_stopIds(stopIds)
 {
@@ -237,12 +239,14 @@ Line::Line(LineId id, std::string const & number, std::string const & title,
 bool Line::IsEqualForTesting(Line const & line) const
 {
   return m_id == line.m_id && m_number == line.m_number && m_title == line.m_title &&
-         m_type == line.m_type && m_networkId == line.m_networkId && m_stopIds == line.m_stopIds;
+         m_color == line.m_color && m_type == line.m_type && m_networkId == line.m_networkId &&
+         m_stopIds == line.m_stopIds;
 }
 
 bool Line::IsValid() const
 {
-  return m_id != kInvalidLineId && m_networkId != kInvalidNetworkId && m_stopIds.IsValid();
+  return m_id != kInvalidLineId && m_color != kInvalidColor && m_networkId != kInvalidNetworkId &&
+         m_stopIds.IsValid();
 }
 
 // Shape ------------------------------------------------------------------------------------------

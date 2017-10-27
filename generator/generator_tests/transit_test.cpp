@@ -30,7 +30,7 @@ void TestDeserializerFromJson(string const & jsonBuffer, OsmIdToFeatureIdsMap co
 
   TEST_EQUAL(objects.size(), expected.size(), ());
   for (size_t i = 0; i < objects.size(); ++i)
-    TEST(objects[i].IsEqualForTesting(expected[i]), (objects[i], expected[i]));
+    TEST(objects[i].IsEqualForTesting(expected[i]), (i, objects[i], expected[i]));
 }
 
 template <typename Obj>
@@ -229,7 +229,8 @@ UNIT_TEST(DeserializerFromJson_Lines)
         2947858576
       ],
       "title": "Московская линия",
-      "type": "subway"
+      "type": "subway",
+      "color": "green"
     },
     {
       "id": 19207937,
@@ -245,15 +246,16 @@ UNIT_TEST(DeserializerFromJson_Lines)
         209191851
       ],
       "title": "Московская линия",
-      "type": "subway"
+      "type": "subway",
+      "color": "red"
     }
   ]})";
 
   vector<Line> const expected = {Line(19207936 /* line id */, "1" /* number */, "Московская линия" /* title */,
-                                      "subway" /* type */, 2 /* network id */,
+                                      "subway" /* type */, "green" /* color */, 2 /* network id */,
                                       {{343262691, 343259523, 343252898, 209191847, 2947858576}} /* stop ids */),
                                  Line(19207937 /* line id */, "2" /* number */, "Московская линия" /* title */,
-                                      "subway" /* type */, 2 /* network id */,
+                                      "subway" /* type */, "red" /* color */, 2 /* network id */,
                                       {{246659391, 246659390, 209191855, 209191854, 209191853,
                                        209191852, 209191851}} /* stop ids */)};
 

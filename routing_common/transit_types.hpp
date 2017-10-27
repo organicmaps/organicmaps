@@ -25,16 +25,17 @@ using TransferId = uint64_t;
 using Weight = double;
 using Ranges = std::vector<std::vector<StopId>>;
 
+Anchor constexpr kInvalidAnchor = std::numeric_limits<Anchor>::max();
+std::string const kInvalidColor = std::string("");
+FeatureId constexpr kInvalidFeatureId = std::numeric_limits<FeatureId>::max();
 LineId constexpr kInvalidLineId = std::numeric_limits<LineId>::max();
+NetworkId constexpr kInvalidNetworkId = std::numeric_limits<NetworkId>::max();
+OsmId constexpr kInvalidOsmId = std::numeric_limits<OsmId>::max();
 StopId constexpr kInvalidStopId = std::numeric_limits<StopId>::max();
 TransferId constexpr kInvalidTransferId = std::numeric_limits<TransferId>::max();
-NetworkId constexpr kInvalidNetworkId = std::numeric_limits<NetworkId>::max();
-FeatureId constexpr kInvalidFeatureId = std::numeric_limits<FeatureId>::max();
-OsmId constexpr kInvalidOsmId = std::numeric_limits<OsmId>::max();
 // Note. Weight may be a default param at json. The default value should be saved as uint32_t in mwm anyway.
 // To convert double to uint32_t at better accuracy |kInvalidWeight| should be close to real weight.
 Weight constexpr kInvalidWeight = -1.0;
-Anchor constexpr kInvalidAnchor = std::numeric_limits<Anchor>::max();
 
 #define DECLARE_TRANSIT_TYPE_FRIENDS                                                           \
     template<class Sink> friend class Serializer;                                              \
@@ -330,7 +331,7 @@ class Line
 public:
   Line() = default;
   Line(LineId id, std::string const & number, std::string const & title, std::string const & type,
-       NetworkId networkId, Ranges const & stopIds);
+       std::string const & color, NetworkId networkId, Ranges const & stopIds);
 
   bool IsEqualForTesting(Line const & line) const;
   bool IsValid() const;
@@ -339,6 +340,7 @@ public:
   std::string const & GetNumber() const { return m_number; }
   std::string const & GetTitle() const { return m_title; }
   std::string const & GetType() const { return m_type; }
+  std::string const & GetColor() const { return m_color; }
   NetworkId GetNetworkId() const { return m_networkId; }
   Ranges const & GetStopIds() const { return m_stopIds.GetIds(); }
 
@@ -346,13 +348,14 @@ private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Line, visitor(m_id, "id"), visitor(m_number, "number"),
                                   visitor(m_title, "title"), visitor(m_type, "type"),
-                                  visitor(m_networkId, "network_id"),
+                                  visitor(m_color, "color"), visitor(m_networkId, "network_id"),
                                   visitor(m_stopIds, "stop_ids"))
 
   LineId m_id = kInvalidLineId;
   std::string m_number;
   std::string m_title;
   std::string m_type;
+  std::string m_color = kInvalidColor;
   NetworkId m_networkId = kInvalidNetworkId;
   StopIdRanges m_stopIds;
 };
