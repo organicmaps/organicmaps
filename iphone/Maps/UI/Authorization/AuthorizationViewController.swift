@@ -121,19 +121,21 @@ final class AuthorizationViewController: MWMViewController {
     Statistics.logEvent(kStatUGCReviewAuthDeclined)
     dismiss(animated: true, completion: {
       (UIApplication.shared.keyWindow?.rootViewController as?
-              UINavigationController)?.popToRootViewController(animated: true)
+        UINavigationController)?.popToRootViewController(animated: true)
     })
   }
 
   private func process(error: Error, type: MWMSocialTokenType) {
-    Statistics.logEvent(kStatUGCReviewAuthError, withParameters: [kStatProvider : type == .facebook ? kStatFacebook : kStatGoogle,
-                                                                  kStatError : error.localizedDescription])
+    Statistics.logEvent(kStatUGCReviewAuthError, withParameters: [
+      kStatProvider: type == .facebook ? kStatFacebook : kStatGoogle,
+      kStatError: error.localizedDescription,
+    ])
     textLabel.text = L("profile_authorization_error")
     Crashlytics.sharedInstance().recordError(error)
   }
 
   private func process(token: String, type: MWMSocialTokenType) {
-    Statistics.logEvent(kStatUGCReviewAuthExternalRequestSuccess, withParameters: [kStatProvider : type == .facebook ? kStatFacebook : kStatGoogle])
+    Statistics.logEvent(kStatUGCReviewAuthExternalRequestSuccess, withParameters: [kStatProvider: type == .facebook ? kStatFacebook : kStatGoogle])
     ViewModel.authenticate(withToken: token, type: type)
     dismiss(animated: true, completion: completion)
   }
@@ -143,8 +145,8 @@ extension AuthorizationViewController: FBSDKLoginButtonDelegate {
   func loginButton(_: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
     if let error = error {
       process(error: error, type: .facebook)
-    } else if let result = result {
-      process(token: result.token.tokenString, type: .facebook)
+    } else if let token = result.token {
+      process(token: token.tokenString, type: .facebook)
     }
   }
 
