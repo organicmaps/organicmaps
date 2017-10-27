@@ -566,6 +566,8 @@ public:
   /// Search for maps by countries or cities.
   bool SearchInDownloader(storage::DownloaderSearchParams const & params);
 
+  void SetViewportIfPossible(search::SearchParams & params);
+
   void CancelSearch(search::Mode mode);
   void CancelAllSearches();
 

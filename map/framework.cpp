@@ -1342,8 +1342,7 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
   p.m_mode = search::Mode::Everywhere;
-  if (m_isViewportInitialized)
-    p.m_viewport = GetCurrentViewport();
+  SetViewportIfPossible(p);  // Search request will be delayed if viewport is not available.
   p.m_forceSearch = true;
   p.m_suggestsEnabled = true;
   p.m_hotelsFilter = params.m_hotelsFilter;
@@ -1369,8 +1368,7 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
   search::SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
-  if (m_isViewportInitialized)
-    p.m_viewport = GetCurrentViewport();
+  SetViewportIfPossible(p);  // Search request will be delayed if viewport is not available.
   p.m_mode = search::Mode::Viewport;
   p.m_forceSearch = false;
   p.m_suggestsEnabled = false;
@@ -1398,8 +1396,7 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   search::SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
-  if (m_isViewportInitialized)
-    p.m_viewport = GetCurrentViewport();
+  SetViewportIfPossible(p);  // Search request will be delayed if viewport is not available.
   p.m_mode = search::Mode::Downloader;
   p.m_forceSearch = true;
   p.m_suggestsEnabled = false;
@@ -1407,6 +1404,12 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
       static_cast<search::DownloaderSearchCallback::Delegate &>(*this), m_model.GetIndex(),
       GetCountryInfoGetter(), GetStorage(), params);
   return Search(p);
+}
+
+void Framework::SetViewportIfPossible(search::SearchParams & params)
+{
+  if (m_isViewportInitialized)
+    params.m_viewport = GetCurrentViewport();
 }
 
 void Framework::CancelSearch(search::Mode mode)

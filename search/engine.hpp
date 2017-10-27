@@ -13,11 +13,11 @@
 #include "base/mutex.hpp"
 #include "base/thread.hpp"
 
-#include "std/atomic.hpp"
 #include "std/condition_variable.hpp"
 #include "std/function.hpp"
 #include "std/mutex.hpp"
 #include "std/queue.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
