@@ -87,6 +87,9 @@ version/version.hpp
 tools/win/MapsWithMe*
 GeneratedFiles
 
+# Android CMake
+android/.externalNativeBuild
+
 # data
 data/intermediate_data
 data/[0-9][0-9][0-9][0-9][0-9][0-9]

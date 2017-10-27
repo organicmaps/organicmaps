@@ -1,7 +1,5 @@
 project(generator_tests)
 
-find_package(sqlite3)
-
 set(
   SRC
   altitude_test.cpp
@@ -67,6 +65,7 @@ omim_link_libraries(
   opening_hours
   stb_image
   sdf_image
+  # TODO(syershov): Use FindPackage.
   sqlite3
   ${LIBZ}
 )

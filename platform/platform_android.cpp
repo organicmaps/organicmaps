@@ -174,8 +174,9 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
       {
         return make_unique<ZipFileReader>(m_resourcesDir, "assets/" + file, logPageSize, logPageCount);
       }
-      catch (Reader::OpenException const &)
+      catch (Reader::OpenException const & e)
       {
+          LOG(LWARNING, ("Can't get reader:", e.what()));
       }
       break;
 
