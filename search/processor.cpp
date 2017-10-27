@@ -210,9 +210,20 @@ void Processor::Init(bool viewportSearch)
   m_preRanker.SetViewportSearch(viewportSearch);
 }
 
-void Processor::SetViewport(m2::RectD const & viewport, bool forceUpdate)
+void Processor::SetViewport(m2::RectD const & viewport)
 {
-  SetViewportByIndex(viewport, CURRENT_V, forceUpdate);
+  ASSERT(viewport.IsValid(), ());
+
+  if (m_viewport.IsValid())
+  {
+    double constexpr epsMeters = 10.0;
+
+    // Skip if viewports are equal.
+    if (IsEqualMercator(m_viewport, viewport, epsMeters))
+      return;
+  }
+
+  m_viewport = viewport;
 }
 
 void Processor::SetPreferredLocale(string const & locale)
@@ -336,7 +347,7 @@ m2::PointD Processor::GetPivotPoint() const
 {
   bool const viewportSearch = m_mode == Mode::Viewport;
 
-  m2::RectD const & viewport = m_viewport[CURRENT_V];
+  auto const & viewport = GetViewport();
   if (viewportSearch || !viewport.IsPointInside(GetPosition()))
     return viewport.Center();
   return GetPosition();
@@ -344,53 +355,17 @@ m2::PointD Processor::GetPivotPoint() const
 
 m2::RectD Processor::GetPivotRect() const
 {
-  m2::RectD const & viewport = m_viewport[CURRENT_V];
+  auto const & viewport = GetViewport();
   if (viewport.IsPointInside(GetPosition()))
     return GetRectAroundPosition(GetPosition());
   return NormalizeViewport(viewport);
 }
 
-void Processor::SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool forceUpdate)
+m2::RectD const & Processor::GetViewport() const
 {
-  ASSERT(idx < COUNT_V, (idx));
-
-  if (viewport.IsValid())
-  {
-    // Check if we can skip this cache query.
-    if (m_viewport[idx].IsValid())
-    {
-      // Threshold to compare for equal or inner rects.
-      // It doesn't influence on result cached features because it's smaller
-      // than minimal cell size in geometry index (i'm almost sure :)).
-      double constexpr epsMeters = 10.0;
-
-      if (forceUpdate)
-      {
-        // skip if rects are equal
-        if (IsEqualMercator(m_viewport[idx], viewport, epsMeters))
-          return;
-      }
-      else
-      {
-        // skip if the new viewport is inside the old one (no need to recache)
-        m2::RectD r(m_viewport[idx]);
-        double constexpr eps = epsMeters * MercatorBounds::degreeInMetres;
-        r.Inflate(eps, eps);
-
-        if (r.IsRectInside(viewport))
-          return;
-      }
-    }
-
-    m_viewport[idx] = viewport;
-  }
-  else
-  {
-    ClearCache(idx);
-  }
+  ASSERT(m_viewport.IsValid(), ());
+  return m_viewport;
 }
-
-void Processor::ClearCache(size_t ind) { m_viewport[ind].MakeEmpty(); }
 
 void Processor::LoadCitiesBoundaries()
 {
@@ -450,6 +425,8 @@ void Processor::Search(SearchParams const & params)
 
   bool rankPivotIsSet = false;
   auto const & viewport = params.m_viewport;
+  ASSERT(viewport.IsValid(), ());
+
   if (!viewportSearch && params.IsValidPosition())
   {
     m2::PointD const pos = params.GetPositionMercator();
@@ -476,7 +453,7 @@ void Processor::Search(SearchParams const & params)
   SetInputLocale(params.m_inputLocale);
 
   SetQuery(params.m_query);
-  SetViewport(viewport, true /* forceUpdate */);
+  SetViewport(viewport);
   SetOnResults(params.m_onResults);
 
   Geocoder::Params geocoderParams;
@@ -576,7 +553,7 @@ void Processor::InitGeocoder(Geocoder::Params & params)
   InitParams(params);
   params.m_mode = m_mode;
   if (viewportSearch)
-    params.m_pivot = m_viewport[CURRENT_V];
+    params.m_pivot = GetViewport();
   else
     params.m_pivot = GetPivotRect();
   params.m_hotelsFilter = m_hotelsFilter;
@@ -638,37 +615,10 @@ void Processor::InitEmitter() { m_emitter.Init(m_onResults); }
 
 void Processor::ClearCaches()
 {
-  for (size_t i = 0; i < COUNT_V; ++i)
-    ClearCache(i);
-
   m_geocoder.ClearCaches();
   m_villagesCache.Clear();
   m_preRanker.ClearCaches();
   m_ranker.ClearCaches();
-}
-
-m2::RectD const & Processor::GetViewport(ViewportID vID /*= DEFAULT_V*/) const
-{
-  if (vID == LOCALITY_V)
-  {
-    // special case for search address - return viewport around location
-    return m_viewport[vID];
-  }
-
-  ASSERT(m_viewport[CURRENT_V].IsValid(), ());
-  return m_viewport[CURRENT_V];
-}
-
-string DebugPrint(Processor::ViewportID viewportId)
-{
-  switch (viewportId)
-  {
-  case Processor::DEFAULT_V: return "Default";
-  case Processor::CURRENT_V: return "Current";
-  case Processor::LOCALITY_V: return "Locality";
-  case Processor::COUNT_V: return "Count";
-  }
-  ASSERT(false, ("Unknown viewportId"));
-  return "Unknown";
+  m_viewport.MakeEmpty();
 }
 }  // namespace search

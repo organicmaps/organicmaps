@@ -68,9 +68,7 @@ public:
 
   void Init(bool viewportSearch);
 
-  /// @param[in]  forceUpdate Pass true (default) to recache feature's ids even
-  /// if viewport is a part of the old cached rect.
-  void SetViewport(m2::RectD const & viewport, bool forceUpdate);
+  void SetViewport(m2::RectD const & viewport);
   void SetPreferredLocale(string const & locale);
   void SetInputLocale(string const & locale);
   void SetQuery(string const & query);
@@ -88,9 +86,11 @@ public:
   inline m2::PointD const & GetPosition() const { return m_position; }
 
   /// Suggestions language code, not the same as we use in mwm data
-  int8_t m_inputLocaleCode, m_currentLocaleCode;
+  int8_t m_inputLocaleCode;
+  int8_t m_currentLocaleCode;
 
   inline bool IsEmptyQuery() const { return (m_prefix.empty() && m_tokens.empty()); }
+
   void Search(SearchParams const & params);
 
   // Tries to generate a (lat, lon) result from |m_query|.
@@ -107,16 +107,6 @@ public:
   void LoadCitiesBoundaries();
 
 protected:
-  enum ViewportID
-  {
-    DEFAULT_V = -1,
-    CURRENT_V = 0,
-    LOCALITY_V = 1,
-    COUNT_V = 2  // Should always be the last
-  };
-
-  friend string DebugPrint(ViewportID viewportId);
-
   using TMWMVector = vector<shared_ptr<MwmInfo>>;
   using TOffsetsVector = map<MwmSet::MwmId, vector<uint32_t>>;
   using TFHeader = feature::DataHeader;
@@ -132,11 +122,7 @@ protected:
   m2::PointD GetPivotPoint() const;
   m2::RectD GetPivotRect() const;
 
-  void SetViewportByIndex(m2::RectD const & viewport, size_t idx, bool forceUpdate);
-  void ClearCache(size_t ind);
-
-  // Returns a Rect for viewport-distance calculations.
-  m2::RectD const & GetViewport(ViewportID vID = DEFAULT_V) const;
+  m2::RectD const & GetViewport() const;
 
   void SetLanguage(int id, int8_t lang);
   int8_t GetLanguage(int id) const;
@@ -150,7 +136,7 @@ protected:
   strings::UniString m_prefix;
   set<uint32_t> m_preferredTypes;
 
-  m2::RectD m_viewport[COUNT_V];
+  m2::RectD m_viewport;
   m2::PointD m_pivot;
   m2::PointD m_position;
   double m_minDistanceOnMapBetweenResults;

@@ -12,6 +12,9 @@
 
 #include "platform/platform.hpp"
 
+#include "geometry/mercator.hpp"
+#include "geometry/rect2d.hpp"
+
 namespace search
 {
 // TestWithClassificator ---------------------------------------------------------------------------
@@ -29,6 +32,9 @@ SearchTest::SearchTest()
              Engine::Params())
 {
   indexer::tests_support::SetUpEditorForTesting(make_unique<EditorDelegate>(m_engine));
+
+  SetViewport(m2::RectD(MercatorBounds::minX, MercatorBounds::minY,
+                        MercatorBounds::maxX, MercatorBounds::maxY));
 }
 
 SearchTest::~SearchTest()
