@@ -2,12 +2,8 @@ project(minizip)
 
 add_definitions(-DUSE_FILE32API -DNOCRYPT)
 
-if (ANDROID_DETECTED)
-  if (DARWIN)
-    add_definitions(-D__APPLE__)
-  elseif(UNIX)
-    add_definitions(-DIOAPI_NO_64)
-  endif()
+if (ANDROID_DETECTED AND X32)
+  add_definitions(-DIOAPI_NO_64)
 endif()
 
 add_clang_compile_options("-Wno-unused-value")

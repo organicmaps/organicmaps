@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 
 project(omim C CXX)
 
-set (CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
 
 # Options
 option(BUILD_DESIGNER "Build application as design tool" OFF)
@@ -33,12 +33,21 @@ function(omim_set_platform_var PLATFORM_VAR pattern)
   endif()
 endfunction()
 
+function(omim_set_up_android ABI_VAR OS_VAR)
+  set(ANDROID_DETECTED TRUE PARENT_SCOPE)
+  if ("${ABI_VAR}" MATCHES "^(armeabi-v7a|x86)$")
+    set(X32 TRUE PARENT_SCOPE)
+  else()
+    set(X32 FALSE PARENT_SCOPE)
+  endif()
+endfunction()
+
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
   set(LINUX_DETECTED TRUE)
 endif()
 
 if (CMAKE_SYSTEM_NAME MATCHES "Android")
-  set(ANDROID_DETECTED TRUE)
+  omim_set_up_android(${ANDROID_ABI} ${OS})
 endif()
 
 if (ANDROID_DETECTED AND (${OS} MATCHES "mac"))
