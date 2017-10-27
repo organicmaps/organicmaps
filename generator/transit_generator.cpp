@@ -189,12 +189,17 @@ DeserializerFromJson::DeserializerFromJson(json_struct_t* node,
 
 void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
 {
-  GetTwoParamDict(name, "x", "y", p.x, p.y);
-}
+  // @todo(bykoianko) Instead of having a special operator() method for m2::PointD class it's necessary to
+  // add Point class to transit_types.hpp and process it in DeserializerFromJson with regular method.
+  json_t * item = nullptr;
+  if (name == nullptr)
+    item = m_node; // Array item case
+  else
+    item = my::GetJSONObligatoryField(m_node, name);
 
-void DeserializerFromJson::operator()(ShapeId & id, char const * name)
-{
-  GetTwoParamDict(name, "stop1_id", "stop2_id", id.m_stop1Id, id.m_stop2Id);
+  CHECK(json_is_object(item), ());
+  FromJSONObject(item, "x", p.x);
+  FromJSONObject(item, "y", p.y);
 }
 
 void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name)
@@ -207,7 +212,7 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   CHECK(strings::to_uint64(osmIdStr, osmIdNum), ());
   osm::Id const osmId(osmIdNum);
   auto const it = m_osmIdToFeatureIds.find(osmId);
-  CHECK(it != m_osmIdToFeatureIds.cend(), ());
+  CHECK(it != m_osmIdToFeatureIds.cend(), ("osm id:", osmId.EncodedId(), "size of m_osmIdToFeatureIds:", m_osmIdToFeatureIds.size()));
   CHECK_EQUAL(it->second.size(), 1,
               ("Osm id:", osmId, "from transit graph doesn't present by a single feature in mwm."));
   id.SetFeatureId(it->second[0]);

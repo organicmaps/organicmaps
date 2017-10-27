@@ -38,7 +38,6 @@ public:
 
   void operator()(std::string & s, char const * name = nullptr) { GetField(s, name); }
   void operator()(m2::PointD & p, char const * name = nullptr);
-  void operator()(ShapeId & id, char const * name = nullptr);
   void operator()(FeatureIdentifiers & id, char const * name = nullptr);
   void operator()(StopIdRanges & rs, char const * name = nullptr);
 
@@ -63,25 +62,21 @@ public:
   template<typename T>
   typename std::enable_if<std::is_class<T>::value>::type operator()(T & t, char const * name = nullptr)
   {
+    if (name != nullptr && json_is_object(m_node))
+    {
+      json_t * dictNode = my::GetJSONOptionalField(m_node, name);
+      if (dictNode == nullptr)
+        return; // No the node in json.
+
+      DeserializerFromJson dict(dictNode, m_osmIdToFeatureIds);
+      t.Visit(dict);
+      return;
+    }
+
     t.Visit(*this);
   }
 
 private:
-  template <typename T>
-  void GetTwoParamDict(char const * dictName, std::string const & paramName1,
-                       std::string const & paramName2, T & val1, T & val2)
-  {
-    json_t * item = nullptr;
-    if (dictName == nullptr)
-      item = m_node; // Array item case
-    else
-      item = my::GetJSONObligatoryField(m_node, dictName);
-
-    CHECK(json_is_object(item), ());
-    FromJSONObject(item, paramName1, val1);
-    FromJSONObject(item, paramName2, val2);
-  }
-
   template <typename T>
   void GetField(T & t, char const * name = nullptr)
   {
