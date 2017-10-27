@@ -197,7 +197,7 @@ void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
   else
     item = my::GetJSONObligatoryField(m_node, name);
 
-  CHECK(json_is_object(item), ("Item is not a json object(dictionary). name:", name));
+  CHECK(json_is_object(item), ("Item is not a json object:", name));
   FromJSONObject(item, "x", p.x);
   FromJSONObject(item, "y", p.y);
 }

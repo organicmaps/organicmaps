@@ -239,7 +239,7 @@ Line::Line(LineId id, std::string const & number, std::string const & title,
 bool Line::IsEqualForTesting(Line const & line) const
 {
   return m_id == line.m_id && m_number == line.m_number && m_title == line.m_title &&
-         m_color == line.m_color && m_type == line.m_type && m_networkId == line.m_networkId &&
+         m_type == line.m_type && m_color == line.m_color && m_networkId == line.m_networkId &&
          m_stopIds == line.m_stopIds;
 }
 

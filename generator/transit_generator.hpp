@@ -66,7 +66,7 @@ public:
     {
       json_t * dictNode = my::GetJSONOptionalField(m_node, name);
       if (dictNode == nullptr)
-        return; // No the node in json.
+        return; // No such field in json.
 
       DeserializerFromJson dict(dictNode, m_osmIdToFeatureIds);
       t.Visit(dict);
