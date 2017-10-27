@@ -197,7 +197,7 @@ void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
   else
     item = my::GetJSONObligatoryField(m_node, name);
 
-  CHECK(json_is_object(item), ());
+  CHECK(json_is_object(item), ("Item is not a json object(dictionary). name:", name));
   FromJSONObject(item, "x", p.x);
   FromJSONObject(item, "y", p.y);
 }
@@ -207,14 +207,17 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   // Conversion osm id to feature id.
   string osmIdStr;
   GetField(osmIdStr, name);
-  CHECK(strings::is_number(osmIdStr), ());
+  CHECK(strings::is_number(osmIdStr), ("Osm id string is not a number:", osmIdStr));
   uint64_t osmIdNum;
-  CHECK(strings::to_uint64(osmIdStr, osmIdNum), ());
+  CHECK(strings::to_uint64(osmIdStr, osmIdNum),
+        ("Cann't convert osm id string:", osmIdStr, "to a number."));
   osm::Id const osmId(osmIdNum);
   auto const it = m_osmIdToFeatureIds.find(osmId);
-  CHECK(it != m_osmIdToFeatureIds.cend(), ("osm id:", osmId.EncodedId(), "size of m_osmIdToFeatureIds:", m_osmIdToFeatureIds.size()));
+  CHECK(it != m_osmIdToFeatureIds.cend(), ("Osm id:", osmId, "(encoded", osmId.EncodedId(),
+                                           ") is not found in osm id to feature ids mapping."));
   CHECK_EQUAL(it->second.size(), 1,
-              ("Osm id:", osmId, "from transit graph doesn't present by a single feature in mwm."));
+              ("Osm id:", osmId, "(encoded", osmId.EncodedId(),
+               ") from transit graph doesn't present by a single feature in mwm."));
   id.SetFeatureId(it->second[0]);
   id.SetOsmId(osmId.EncodedId());
 }
