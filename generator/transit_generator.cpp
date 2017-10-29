@@ -8,7 +8,6 @@
 
 #include "routing_common/transit_serdes.hpp"
 #include "routing_common/transit_speed_limits.hpp"
-#include "routing_common/transit_types.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
@@ -67,103 +66,19 @@ Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
 }
 
 template <class Item>
-void DeserializeFromJson(my::Json const & root, string const & key,
-                         OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, vector<Item> & items)
+void DeserializeItemFromJson(my::Json const & root, string const & key,
+                             OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap,
+                             vector<Item> & items)
 {
   items.clear();
   DeserializerFromJson deserializer(root.get(), osmIdToFeatureIdsMap);
   deserializer(items, key.c_str());
 }
 
-void DeserializeGatesFromJson(my::Json const & root, string const & mwmDir, string const & countryId,
-                              OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, vector<Gate> & gates)
-{
-  DeserializeFromJson(root, "gates", osmIdToFeatureIdsMap, gates);
-
-  // Creating IndexRouter.
-  SingleMwmIndex index(my::JoinFoldersToPath(mwmDir, countryId + DATA_FILE_EXTENSION));
-
-  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
-  CHECK(infoGetter, ());
-
-  auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
-    return infoGetter->GetRegionCountryId(pt);
-  };
-
-  auto const getMwmRectByName = [&](string const & c) -> m2::RectD {
-    CHECK_EQUAL(countryId, c, ());
-    return infoGetter->GetLimitRectForLeaf(c);
-  };
-
-  CHECK_EQUAL(index.GetMwmId().GetInfo()->GetType(), MwmInfo::COUNTRY, ());
-  auto numMwmIds = make_shared<NumMwmIds>();
-  numMwmIds->RegisterFile(CountryFile(countryId));
-
-  // Note. |indexRouter| is valid while |index| is valid.
-  IndexRouter indexRouter(VehicleType::Pedestrian, false /* load altitudes */,
-                          CountryParentNameGetterFn(), countryFileGetter, getMwmRectByName,
-                          numMwmIds, MakeNumMwmTree(*numMwmIds, *infoGetter),
-                          traffic::TrafficCache(), index.GetIndex());
-
-  // Looking for the best segment for every gate.
-  for (auto & gate : gates)
-  {
-    // Note. For pedestrian routing all the segments are considered as twoway segments so
-    // IndexRouter.FindBestSegment() method finds the same segment for |isOutgoing| == true
-    // and |isOutgoing| == false.
-    Segment bestSegment;
-    try
-    {
-      if (indexRouter.FindBestSegmentInSingleMwm(gate.GetPoint(),
-                                                 m2::PointD::Zero() /* direction */,
-                                                 true /* isOutgoing */, bestSegment))
-      {
-        CHECK_EQUAL(bestSegment.GetMwmId(), 0, ());
-        gate.SetBestPedestrianSegment(SingleMwmSegment(
-            bestSegment.GetFeatureId(), bestSegment.GetSegmentIdx(), bestSegment.IsForward()));
-      }
-    }
-    catch (RootException const & e)
-    {
-      LOG(LDEBUG, ("Point of a gate belongs to several mwms or doesn't belong to any mwm. Gate:",
-                   gate, e.what()));
-    }
-  }
-}
-
 template <class Item>
 bool IsValid(vector<Item> const & items)
 {
   return all_of(items.cbegin(), items.cend(), [](Item const & item) { return item.IsValid(); });
-}
-
-/// \brief Reads from |root| (json) and serializes an array to |serializer|.
-template <class Item>
-void SerializeObject(my::Json const & root, string const & key,
-                     OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, Serializer<FileWriter> & serializer)
-{
-  vector<Item> items;
-  DeserializeFromJson(root, key, osmIdToFeatureIdsMap, items);
-  CHECK(IsValid(items), ("key:", key, "items:", items));
-  serializer(items);
-}
-
-/// \brief Updates |edges| by adding valid value for Edge::m_weight if it's not valid.
-/// \note Edge::m_stop1Id and Edge::m_stop2Id should be valid for every edge in |edges| before call.
-void CalculateEdgeWeight(vector<Stop> const & stops, vector<transit::Edge> & edges)
-{
-  CHECK(is_sorted(stops.cbegin(), stops.cend(), LessById), ());
-
-  for (auto & e : edges)
-  {
-    if (e.GetWeight() != kInvalidWeight)
-      continue;
-
-    Stop const & s1 = FindStopById(stops, e.GetStop1Id());
-    Stop const & s2 = FindStopById(stops, e.GetStop2Id());
-    double const lengthInMeters = MercatorBounds::DistanceOnEarth(s1.GetPoint(), s2.GetPoint());
-    e.SetWeight(lengthInMeters / kTransitAverageSpeedMPS);
-  }
 }
 
 void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatureIdsMap & map)
@@ -173,6 +88,11 @@ void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatu
                                  map[osmId].push_back(featureId);
                                }),
         (osmIdToFeatureIdsPath));
+}
+
+std::string GetMwmPath(std::string const & mwmDir, std::string const & countryId)
+{
+  return my::JoinFoldersToPath(mwmDir, countryId + DATA_FILE_EXTENSION);
 }
 }  // namespace
 
@@ -229,52 +149,20 @@ void DeserializerFromJson::operator()(StopIdRanges & rs, char const * name)
   rs = StopIdRanges({stopIds});
 }
 
-void BuildTransit(string const & mwmDir, string const & countryId,
-                  string const & osmIdToFeatureIdsPath, string const & transitDir)
+// GraphData --------------------------------------------------------------------------------------
+void GraphData::DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping)
 {
-  LOG(LERROR, ("This method is under construction and should not be used for building production mwm "
-      "sections."));
-  NOTIMPLEMENTED();
+  DeserializeItemFromJson(root, "stops", mapping, m_stops);
+  DeserializeItemFromJson(root, "gates", mapping, m_gates);
+  DeserializeItemFromJson(root, "edges", mapping, m_edges);
+  DeserializeItemFromJson(root, "transfers", mapping, m_transfers);
+  DeserializeItemFromJson(root, "lines", mapping, m_lines);
+  DeserializeItemFromJson(root, "shapes", mapping, m_shapes);
+  DeserializeItemFromJson(root, "networks", mapping, m_networks);
+}
 
-  std::string const mwmPath = my::JoinFoldersToPath(mwmDir, countryId + DATA_FILE_EXTENSION);
-  string const graphFullPath = my::JoinFoldersToPath(transitDir, countryId + TRANSIT_FILE_EXTENSION);
-
-  Platform::EFileType fileType;
-  Platform::EError const errCode = Platform::GetFileType(graphFullPath, fileType);
-  if (errCode != Platform::EError::ERR_OK || fileType != Platform::EFileType::FILE_TYPE_REGULAR)
-  {
-    LOG(LINFO, ("For mwm:", mwmPath, TRANSIT_FILE_EXTENSION, "file not found"));
-    return;
-  }
-
-  // @TODO(bykoianko) In the future transit edges which cross mwm border will be split in the generator. Then
-  // routing will support cross mwm transit routing. In current version every json with transit graph
-  // should have a special name: <country id>.transit.json.
-
-  LOG(LINFO, (TRANSIT_FILE_TAG, "section is being created. Country id:", countryId, ". Based on:", graphFullPath));
-
-  string jsonBuffer;
-  try
-  {
-    GetPlatform().GetReader(graphFullPath)->ReadAsString(jsonBuffer);
-  }
-  catch (RootException const & ex)
-  {
-    LOG(LCRITICAL, ("Can't open", graphFullPath, ex.what()));
-  }
-
-  my::Json root(jsonBuffer.c_str());
-  CHECK(root.get() != nullptr, ("Cannot parse the json file:", graphFullPath));
-
-  OsmIdToFeatureIdsMap mapping;
-  FillOsmIdToFeatureIdsMap(osmIdToFeatureIdsPath, mapping);
-
-  // Note. |gates| has to be deserialized from json before starting writing transit section to mwm since
-  // the mwm is used to filled |gates|.
-  vector<Gate> gates;
-  DeserializeGatesFromJson(root, mwmDir, countryId, mapping, gates);
-  CHECK(IsValid(gates), (gates));
-
+void GraphData::SerializeToMwm(std::string const & mwmPath) const
+{
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter w = cont.GetWriter(TRANSIT_FILE_TAG);
 
@@ -284,35 +172,27 @@ void BuildTransit(string const & mwmDir, string const & countryId,
   Serializer<FileWriter> serializer(w);
   FixedSizeSerializer<FileWriter> numberSerializer(w);
   numberSerializer(header);
-
-  vector<Stop> stops;
-  DeserializeFromJson(root, "stops", mapping, stops);
-  CHECK(IsValid(stops), ("stops:", stops));
-  sort(stops.begin(), stops.end(), LessById);
   header.m_stopsOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
-  serializer(stops);
+
+  serializer(m_stops);
   header.m_gatesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  serializer(gates);
+  serializer(m_gates);
   header.m_edgesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  vector<Edge> edges;
-  DeserializeFromJson(root, "edges", mapping, edges);
-  CalculateEdgeWeight(stops, edges);
-  CHECK(IsValid(stops), ("edges:", edges));
-  serializer(edges);
+  serializer(m_edges);
   header.m_transfersOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  SerializeObject<Transfer>(root, "transfers", mapping, serializer);
+  serializer(m_transfers);
   header.m_linesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  SerializeObject<Line>(root, "lines", mapping, serializer);
+  serializer(m_lines);
   header.m_shapesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  SerializeObject<Shape>(root, "shapes", mapping, serializer);
+  serializer(m_shapes);
   header.m_networksOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-  SerializeObject<Network>(root, "networks", mapping, serializer);
+  serializer(m_networks);
   header.m_endOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
   // Rewriting header info.
@@ -321,7 +201,168 @@ void BuildTransit(string const & mwmDir, string const & countryId,
   w.Seek(startOffset);
   numberSerializer(header);
   w.Seek(endOffset);
+
   LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Header:", header));
+}
+
+void GraphData::Append(GraphData const & rhs)
+{
+  m_stops.insert(m_stops.begin(), rhs.m_stops.begin(), rhs.m_stops.end());
+  m_gates.insert(m_gates.begin(), rhs.m_gates.begin(), rhs.m_gates.end());
+  m_edges.insert(m_edges.begin(), rhs.m_edges.begin(), rhs.m_edges.end());
+  m_transfers.insert(m_transfers.begin(), rhs.m_transfers.begin(), rhs.m_transfers.end());
+  m_lines.insert(m_lines.begin(), rhs.m_lines.begin(), rhs.m_lines.end());
+  m_shapes.insert(m_shapes.begin(), rhs.m_shapes.begin(), rhs.m_shapes.end());
+  m_networks.insert(m_networks.begin(), rhs.m_networks.begin(), rhs.m_networks.end());
+}
+
+void GraphData::Clear()
+{
+  m_stops.clear();
+  m_gates.clear();
+  m_edges.clear();
+  m_transfers.clear();
+  m_lines.clear();
+  m_shapes.clear();
+  m_networks.clear();
+}
+
+bool GraphData::IsValid() const
+{
+  return ::IsValid(m_stops) && ::IsValid(m_gates) && ::IsValid(m_edges) && ::IsValid(m_transfers) &&
+      ::IsValid(m_lines) && ::IsValid(m_shapes) && ::IsValid(m_networks);
+}
+
+void GraphData::SortStops() { sort(m_stops.begin(), m_stops.end(), LessById); }
+
+void GraphData::CalculateEdgeWeight()
+{
+  CHECK(is_sorted(m_stops.cbegin(), m_stops.cend(), LessById), ());
+
+  for (auto & e : m_edges)
+  {
+    if (e.GetWeight() != kInvalidWeight)
+      continue;
+
+    Stop const & s1 = FindStopById(m_stops, e.GetStop1Id());
+    Stop const & s2 = FindStopById(m_stops, e.GetStop2Id());
+    double const lengthInMeters = MercatorBounds::DistanceOnEarth(s1.GetPoint(), s2.GetPoint());
+    e.SetWeight(lengthInMeters / kTransitAverageSpeedMPS);
+  }
+}
+
+void GraphData::CalculateBestPedestrianSegment(string const & mwmPath, string const & countryId)
+{
+  // Creating IndexRouter.
+  SingleMwmIndex index(mwmPath);
+
+  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  CHECK(infoGetter, ());
+
+  auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
+    return infoGetter->GetRegionCountryId(pt);
+  };
+
+  auto const getMwmRectByName = [&](string const & c) -> m2::RectD {
+    CHECK_EQUAL(countryId, c, ());
+    return infoGetter->GetLimitRectForLeaf(c);
+  };
+
+  CHECK_EQUAL(index.GetMwmId().GetInfo()->GetType(), MwmInfo::COUNTRY, ());
+  auto numMwmIds = make_shared<NumMwmIds>();
+  numMwmIds->RegisterFile(CountryFile(countryId));
+
+  // Note. |indexRouter| is valid while |index| is valid.
+  IndexRouter indexRouter(VehicleType::Pedestrian, false /* load altitudes */,
+                          CountryParentNameGetterFn(), countryFileGetter, getMwmRectByName,
+                          numMwmIds, MakeNumMwmTree(*numMwmIds, *infoGetter),
+                          traffic::TrafficCache(), index.GetIndex());
+
+  // Looking for the best segment for every gate.
+  for (auto & gate : m_gates)
+  {
+    // Note. For pedestrian routing all the segments are considered as twoway segments so
+    // IndexRouter.FindBestSegment() method finds the same segment for |isOutgoing| == true
+    // and |isOutgoing| == false.
+    Segment bestSegment;
+    try
+    {
+      // @todo(bykoianko) For every call of the method below WorldGraph is created. It's not
+      // efficient to create WorldGraph for every gate. The code should be redesigned.
+      if (indexRouter.FindBestSegmentInSingleMwm(gate.GetPoint(),
+                                                 m2::PointD::Zero() /* direction */,
+                                                 true /* isOutgoing */, bestSegment))
+      {
+        CHECK_EQUAL(bestSegment.GetMwmId(), 0, ());
+        gate.SetBestPedestrianSegment(SingleMwmSegment(
+            bestSegment.GetFeatureId(), bestSegment.GetSegmentIdx(), bestSegment.IsForward()));
+      }
+    }
+    catch (RootException const & e)
+    {
+      LOG(LDEBUG, ("Point of a gate belongs to several mwms or doesn't belong to any mwm. Gate:",
+          gate, e.what()));
+    }
+  }
+}
+
+void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
+                         string const & transitJsonPath, GraphData & data)
+{
+  Platform::EFileType fileType;
+  Platform::EError const errCode = Platform::GetFileType(transitJsonPath, fileType);
+  CHECK_EQUAL(errCode, Platform::EError::ERR_OK, ("Transit graph not found:", transitJsonPath));
+  CHECK_EQUAL(fileType, Platform::EFileType::FILE_TYPE_REGULAR,
+              ("Transit graph not found:", transitJsonPath));
+
+  string jsonBuffer;
+  try
+  {
+    GetPlatform().GetReader(transitJsonPath)->ReadAsString(jsonBuffer);
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LCRITICAL, ("Can't open", transitJsonPath, ex.what()));
+  }
+
+  my::Json root(jsonBuffer.c_str());
+  CHECK(root.get() != nullptr, ("Cannot parse the json file:", transitJsonPath));
+
+  data.Clear();
+  data.DeserializeFromJson(root, mapping);
+}
+
+void ProcessGraph(string const & mwmPath, string const & countryId,
+                  OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data)
+{
+  data.CalculateBestPedestrianSegment(mwmPath, countryId);
+  data.SortStops();
+  data.CalculateEdgeWeight();
+  CHECK(data.IsValid(), (mwmPath));
+}
+
+void ClipGraphByMwm(string const & mwmDir, string const & countryId, GraphData & data)
+{
+}
+
+void BuildTransit(string const & mwmDir, string const & countryId,
+                  string const & osmIdToFeatureIdsPath, string const & transitDir)
+{
+  LOG(LERROR, ("This method is under construction and should not be used for building production mwm "
+      "sections."));
+  NOTIMPLEMENTED();
+
+  string const graphFullPath = my::JoinFoldersToPath(transitDir, countryId + TRANSIT_FILE_EXTENSION);
+
+  std::string const mwmPath = GetMwmPath(mwmDir, countryId);
+  OsmIdToFeatureIdsMap mapping;
+  FillOsmIdToFeatureIdsMap(osmIdToFeatureIdsPath, mapping);
+  GraphData data;
+
+  DeserializeFromJson(mapping, graphFullPath, data);
+  ProcessGraph(mwmPath, countryId, mapping, data);
+  ClipGraphByMwm(mwmDir, countryId, data);
+  data.SerializeToMwm(mwmPath);
 }
 }  // namespace transit
 }  // namespace routing

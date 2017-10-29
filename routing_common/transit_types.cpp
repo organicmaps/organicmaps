@@ -203,8 +203,7 @@ bool Edge::IsValid() const
   if (!m_transfer && m_lineId == kInvalidLineId)
     return false;
 
-  return m_stop1Id != kInvalidStopId && m_stop2Id != kInvalidStopId && m_weight != kInvalidWeight &&
-         m_lineId != kInvalidLineId;
+  return m_stop1Id != kInvalidStopId && m_stop2Id != kInvalidStopId && m_weight != kInvalidWeight;
 }
 
 // Transfer ---------------------------------------------------------------------------------------

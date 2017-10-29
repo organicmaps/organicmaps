@@ -102,6 +102,61 @@ private:
   OsmIdToFeatureIdsMap const & m_osmIdToFeatureIds;
 };
 
+/// \brief the data contains all the information to make TRANSIT_FILE_TAG section.
+class GraphData
+{
+public:
+  // @todo(bykoianko) All the methods below should be rewrite with the help of visitors.
+  void DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping);
+  void SerializeToMwm(std::string const & mwmPath) const;
+  void Append(GraphData const & rhs);
+  void Clear();
+  bool IsValid() const;
+
+  void SortStops();
+  /// \brief Calculates and updates |m_edges| by adding valid value for Edge::m_weight
+  /// if it's not valid.
+  /// \note |m_stops|, Edge::m_stop1Id and Edge::m_stop2Id in |m_edges| should be valid before call.
+  void CalculateEdgeWeight();
+  /// \brief Calculates best pedestrian segment for every gate in |m_gates|.
+  /// \note All gates in |m_gates| should have a valid |m_point| field before the call.
+  void CalculateBestPedestrianSegment(string const & mwmPath, string const & countryId);
+
+  std::vector<Stop> const & GetStops() const { return m_stops; }
+  std::vector<Gate> const & GetGates() const { return m_gates; }
+  std::vector<Edge> const & GetEdges() const { return m_edges; }
+  std::vector<Transfer> const & GetTransfers() const { return m_transfers; }
+  std::vector<Line> const & GetLines() const { return m_lines; }
+  std::vector<Shape> const & GetShapes() const { return m_shapes; }
+  std::vector<Network> const & GetNetworks() const { return m_networks; }
+
+private:
+  std::vector<Stop> m_stops;
+  std::vector<Gate> m_gates;
+  std::vector<Edge> m_edges;
+  std::vector<Transfer> m_transfers;
+  std::vector<Line> m_lines;
+  std::vector<Shape> m_shapes;
+  std::vector<Network> m_networks;
+};
+
+// @todo(bykoianko) Method below should be covered with tests.
+
+/// \brief Fills |data| according to a transit graph (|transitJsonPath|).
+/// \note Some of fields of |data| contains feature ids of a certain mwm. These fields are filled
+/// iff the mapping (|osmIdToFeatureIdsPath|) contains them. If not the fields have default value.
+void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, string const & transitJsonPath,
+                         GraphData & data);
+
+/// \brief Calculates and adds some information to transit graph (|data|) after deserializing
+/// from json.
+void ProcessGraph(string const & mwmPath, string const & countryId,
+                  OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data);
+
+/// \brief Removes some items from |data| if they outside the mwm (|countryId|) border.
+/// @todo(bykoinko) Certain rules which is used to clip the transit graph should be described here.
+void ClipGraphByMwm(string const & mwmDir, string const & countryId, GraphData & data);
+
 /// \brief Builds the transit section in the mwm.
 /// \param mwmDir relative or full path to a directory where mwm is located.
 /// \param countryId is an mwm name without extension of the processed mwm.
