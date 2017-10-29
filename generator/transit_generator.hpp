@@ -5,6 +5,7 @@
 #include "routing_common/transit_types.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/region2d.hpp"
 
 #include "base/macros.hpp"
 
@@ -121,6 +122,9 @@ public:
   /// \brief Calculates best pedestrian segment for every gate in |m_gates|.
   /// \note All gates in |m_gates| should have a valid |m_point| field before the call.
   void CalculateBestPedestrianSegment(string const & mwmPath, string const & countryId);
+  /// \brief Removes some items from all the class fields if they outside |mwmBorders|.
+  /// @todo(bykoinko) Certain rules which is used to clip the transit graph should be described here.
+  void ClipGraphByMwm(std::vector<m2::RegionD> const & mwmBorders);
 
   std::vector<Stop> const & GetStops() const { return m_stops; }
   std::vector<Gate> const & GetGates() const { return m_gates; }
@@ -153,15 +157,12 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, string const & tr
 void ProcessGraph(string const & mwmPath, string const & countryId,
                   OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data);
 
-/// \brief Removes some items from |data| if they outside the mwm (|countryId|) border.
-/// @todo(bykoinko) Certain rules which is used to clip the transit graph should be described here.
-void ClipGraphByMwm(string const & mwmDir, string const & countryId, GraphData & data);
-
 /// \brief Builds the transit section in the mwm.
 /// \param mwmDir relative or full path to a directory where mwm is located.
 /// \param countryId is an mwm name without extension of the processed mwm.
 /// \param osmIdToFeatureIdsPath is a path to a file with osm id to feature ids mapping.
-/// \param transitDir a path to directory with json files with transit graphs.
+/// \param transitDir a path with slash at the end to directory with json files with transit graphs.
+/// It's assumed that the files has extension TRANSIT_FILE_EXTENSION.
 /// \note An mwm pointed by |mwmPath| should contain:
 /// * feature geometry
 /// * index graph (ROUTING_FILE_TAG)
