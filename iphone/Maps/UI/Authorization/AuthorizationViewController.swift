@@ -20,6 +20,16 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
 
+  @IBOutlet private weak var tapView: UIView! {
+    didSet {
+      iPadSpecific {
+        tapView?.removeFromSuperview()
+      }
+    }
+  }
+
+  @IBOutlet private weak var contentView: UIView!
+
   @IBOutlet private weak var titleLabel: UILabel! {
     didSet {
       titleLabel.font = UIFont.bold22()
@@ -115,6 +125,11 @@ final class AuthorizationViewController: MWMViewController {
 
     let fbImage = facebookButton.subviews.first(where: { $0 is UIImageView && $0.frame != facebookButton.frame })
     fbImage?.frame = CGRect(x: 16, y: 8, width: 24, height: 24)
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    preferredContentSize = contentView.size
   }
 
   @IBAction func onCancel() {

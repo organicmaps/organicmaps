@@ -5,15 +5,17 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMAuthorizationViewController">
             <connections>
+                <outlet property="contentView" destination="mb9-vK-FLE" id="NNo-Na-BYT"/>
                 <outlet property="facebookButtonHolder" destination="iK0-TH-4mm" id="FRM-L8-FLN"/>
                 <outlet property="googleButton" destination="8iU-Se-s8N" id="rSq-jz-U5t"/>
                 <outlet property="separator" destination="hWD-aE-jYh" id="myS-1z-Saw"/>
+                <outlet property="tapView" destination="5kf-Pd-KAZ" id="QD3-Pa-zgR"/>
                 <outlet property="textLabel" destination="0EA-1u-hvB" id="oDy-2V-Lrx"/>
                 <outlet property="titleLabel" destination="LFT-Lb-6jj" id="uQG-BI-EAe"/>
                 <outlet property="view" destination="iN0-l3-epB" id="6le-MR-NDK"/>
@@ -108,6 +110,7 @@
                 <constraint firstAttribute="trailing" secondItem="5kf-Pd-KAZ" secondAttribute="trailing" id="MP9-cM-ON8"/>
                 <constraint firstItem="mb9-vK-FLE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="S7z-xe-BcP"/>
                 <constraint firstItem="5kf-Pd-KAZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="V7Y-js-5JA"/>
+                <constraint firstItem="mb9-vK-FLE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="250" id="VDg-qx-Y61"/>
                 <constraint firstAttribute="trailing" secondItem="mb9-vK-FLE" secondAttribute="trailing" id="cjh-uT-fAL"/>
                 <constraint firstItem="5kf-Pd-KAZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="mhC-Cp-zLW"/>
                 <constraint firstItem="mb9-vK-FLE" firstAttribute="top" secondItem="5kf-Pd-KAZ" secondAttribute="bottom" id="pkl-0y-Ozq"/>
