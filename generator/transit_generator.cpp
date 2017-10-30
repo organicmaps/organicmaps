@@ -6,6 +6,7 @@
 
 #include "traffic/traffic_cache.hpp"
 
+#include "routing/routing_exceptions.hpp"
 #include "routing/index_router.hpp"
 
 #include "routing_common/transit_serdes.hpp"
@@ -154,7 +155,6 @@ private:
   bool m_isSorted = true;
 };
 
-
 /// \returns ref to a stop at |stops| by |stopId|.
 Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
 {
@@ -180,11 +180,17 @@ string GetMwmPath(string const & mwmDir, string const & countryId)
   return my::JoinFoldersToPath(mwmDir, countryId + DATA_FILE_EXTENSION);
 }
 
-void LoadBorders(string const & dir, string const countryId, vector<m2::RegionD> & borders)
+void LoadBorders(string const & dir, string const & countryId, vector<m2::RegionD> & borders)
 {
   string const polyFile = my::JoinPath(dir, BORDERS_DIR, countryId + BORDERS_EXTENSION);
   borders.clear();
   osm::LoadBorders(polyFile, borders);
+}
+
+template <typename T>
+void Append(vector<T> const & src, vector<T> & dst)
+{
+  dst.insert(dst.end(), src.begin(), src.end());
 }
 }  // namespace
 
@@ -295,13 +301,13 @@ void GraphData::SerializeToMwm(string const & mwmPath) const
 
 void GraphData::Append(GraphData const & rhs)
 {
-  m_stops.insert(m_stops.begin(), rhs.m_stops.begin(), rhs.m_stops.end());
-  m_gates.insert(m_gates.begin(), rhs.m_gates.begin(), rhs.m_gates.end());
-  m_edges.insert(m_edges.begin(), rhs.m_edges.begin(), rhs.m_edges.end());
-  m_transfers.insert(m_transfers.begin(), rhs.m_transfers.begin(), rhs.m_transfers.end());
-  m_lines.insert(m_lines.begin(), rhs.m_lines.begin(), rhs.m_lines.end());
-  m_shapes.insert(m_shapes.begin(), rhs.m_shapes.begin(), rhs.m_shapes.end());
-  m_networks.insert(m_networks.begin(), rhs.m_networks.begin(), rhs.m_networks.end());
+  ::Append(rhs.m_stops, m_stops);
+  ::Append(rhs.m_gates, m_gates);
+  ::Append(rhs.m_edges, m_edges);
+  ::Append(rhs.m_transfers, m_transfers);
+  ::Append(rhs.m_lines, m_lines);
+  ::Append(rhs.m_shapes, m_shapes);
+  ::Append(rhs.m_networks, m_networks);
 }
 
 void GraphData::Clear()
@@ -326,7 +332,7 @@ void GraphData::Sort()
   Visit(v);
 }
 
-void GraphData::CalculateEdgeWeight()
+void GraphData::CalculateEdgeWeights()
 {
   CHECK(is_sorted(m_stops.cbegin(), m_stops.cend()), ());
 
@@ -342,7 +348,7 @@ void GraphData::CalculateEdgeWeight()
   }
 }
 
-void GraphData::CalculateBestPedestrianSegment(string const & mwmPath, string const & countryId)
+void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string const & countryId)
 {
   // Creating IndexRouter.
   SingleMwmIndex index(mwmPath);
@@ -389,9 +395,9 @@ void GraphData::CalculateBestPedestrianSegment(string const & mwmPath, string co
             bestSegment.GetFeatureId(), bestSegment.GetSegmentIdx(), bestSegment.IsForward()));
       }
     }
-    catch (RootException const & e)
+    catch (MwmIsNotAlifeException const & e)
     {
-      LOG(LDEBUG, ("Point of a gate belongs to several mwms or doesn't belong to any mwm. Gate:",
+      LOG(LERROR, ("Point of a gate belongs to several mwms or doesn't belong to any mwm. Gate:",
           gate, e.what()));
     }
   }
@@ -446,9 +452,9 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
 void ProcessGraph(string const & mwmPath, string const & countryId,
                   OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data)
 {
-  data.CalculateBestPedestrianSegment(mwmPath, countryId);
+  data.CalculateBestPedestrianSegments(mwmPath, countryId);
   data.Sort();
-  data.CalculateEdgeWeight();
+  data.CalculateEdgeWeights();
   CHECK(data.IsValid(), (mwmPath));
 }
 

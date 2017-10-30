@@ -4,6 +4,7 @@
 #include "routing/base/astar_progress.hpp"
 #include "routing/base/routing_result.hpp"
 #include "routing/bicycle_directions.hpp"
+#include "routing/routing_exceptions.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
@@ -317,8 +318,8 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   CHECK(m_directionsEngine, ());
 }
 
-bool IndexRouter::FindBestSegmentInSingleMwm(m2::PointD const &point, m2::PointD const &direction,
-                                             bool isOutgoing, Segment &bestSegment)
+bool IndexRouter::FindBestSegmentInSingleMwm(m2::PointD const & point, m2::PointD const & direction,
+                                             bool isOutgoing, Segment & bestSegment)
 {
   auto worldGraph = MakeWorldGraph();
   worldGraph->SetMode(WorldGraph::Mode::SingleMwm);
@@ -692,7 +693,7 @@ bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & d
   auto const file = platform::CountryFile(m_countryFileFn(point));
   MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
   if (!handle.IsAlive())
-    MYTHROW(RoutingException, ("Can't get mwm handle for", file));
+    MYTHROW(MwmIsNotAlifeException, ("Can't get mwm handle for", file));
 
   auto const mwmId = MwmSet::MwmId(handle.GetInfo());
   NumMwmId const numMwmId = m_numMwmIds->GetId(file);

@@ -29,9 +29,10 @@ class DeserializerFromJson
 public:
   DeserializerFromJson(json_struct_t* node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds);
 
-  template<typename T>
-  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value || std::is_same<T, double>::value>::type
-      operator()(T & t, char const * name = nullptr)
+  template <typename T>
+  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value ||
+                          std::is_same<T, double>::value>::type
+  operator()(T & t, char const * name = nullptr)
   {
     GetField(t, name);
     return;
@@ -60,8 +61,9 @@ public:
     }
   }
 
-  template<typename T>
-  typename std::enable_if<std::is_class<T>::value>::type operator()(T & t, char const * name = nullptr)
+  template <typename T>
+  typename std::enable_if<std::is_class<T>::value>::type operator()(T & t,
+                                                                    char const * name = nullptr)
   {
     if (name != nullptr && json_is_object(m_node))
     {
@@ -107,7 +109,6 @@ private:
 class GraphData
 {
 public:
-  // @todo(bykoianko) All the methods below should be rewrite with the help of visitors.
   void DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping);
   void SerializeToMwm(std::string const & mwmPath) const;
   void Append(GraphData const & rhs);
@@ -119,10 +120,10 @@ public:
   /// \brief Calculates and updates |m_edges| by adding valid value for Edge::m_weight
   /// if it's not valid.
   /// \note |m_stops|, Edge::m_stop1Id and Edge::m_stop2Id in |m_edges| should be valid before call.
-  void CalculateEdgeWeight();
+  void CalculateEdgeWeights();
   /// \brief Calculates best pedestrian segment for every gate in |m_gates|.
   /// \note All gates in |m_gates| should have a valid |m_point| field before the call.
-  void CalculateBestPedestrianSegment(string const & mwmPath, string const & countryId);
+  void CalculateBestPedestrianSegments(std::string const & mwmPath, std::string const & countryId);
   /// \brief Removes some items from all the class fields if they outside |mwmBorders|.
   /// @todo(bykoinko) Certain rules which is used to clip the transit graph should be described here.
   void ClipGraphByMwm(std::vector<m2::RegionD> const & mwmBorders);
@@ -157,13 +158,13 @@ private:
 
 /// \brief Fills |data| according to a transit graph (|transitJsonPath|).
 /// \note Some of fields of |data| contains feature ids of a certain mwm. These fields are filled
-/// iff the mapping (|osmIdToFeatureIdsPath|) contains them. If not the fields have default value.
-void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, string const & transitJsonPath,
+/// iff the mapping (|osmIdToFeatureIdsPath|) contains them. Otherwise the fields have default value.
+void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const & transitJsonPath,
                          GraphData & data);
 
 /// \brief Calculates and adds some information to transit graph (|data|) after deserializing
 /// from json.
-void ProcessGraph(string const & mwmPath, string const & countryId,
+void ProcessGraph(std::string const & mwmPath, std::string const & countryId,
                   OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data);
 
 /// \brief Builds the transit section in the mwm.
@@ -175,7 +176,7 @@ void ProcessGraph(string const & mwmPath, string const & countryId,
 /// \note An mwm pointed by |mwmPath| should contain:
 /// * feature geometry
 /// * index graph (ROUTING_FILE_TAG)
-void BuildTransit(string const & mwmDir, string const & countryId,
-                  string const & osmIdToFeatureIdsPath, string const & transitDir);
+void BuildTransit(std::string const & mwmDir, std::string const & countryId,
+                  std::string const & osmIdToFeatureIdsPath, std::string const & transitDir);
 }  // namespace transit
 }  // namespace routing
