@@ -1,4 +1,5 @@
 #pragma once
+
 #include "search/common.hpp"
 
 #include "base/string_utils.hpp"
@@ -8,17 +9,22 @@
 
 namespace search
 {
-
 class KeywordMatcher
 {
 public:
-  typedef strings::UniString StringT;
+  using StringT = strings::UniString;
 
   class ScoreT
   {
   public:
     ScoreT();
-    bool operator < (ScoreT const & s) const;
+
+    // *NOTE* m_nameTokensLength is usually used as a late stage tiebreaker
+    // and does not take part in the operators.
+    bool operator<(ScoreT const & s) const;
+    bool operator==(ScoreT const & s) const;
+    bool operator!=(ScoreT const & s) const { return !(*this == s); }
+
     bool LessInTokensLength(ScoreT const & s) const;
 
     bool IsQueryMatched() const { return m_bFullQueryMatched; }
@@ -53,5 +59,4 @@ private:
   vector<StringT> m_keywords;
   StringT m_prefix;
 };
-
 }  // namespace search

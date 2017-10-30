@@ -117,7 +117,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   Emitter emitter;
   CitiesBoundariesTable boundariesTable(m_engine);
   VillagesCache villagesCache(m_cancellable);
-  KeywordLangMatcher keywordsScorer;
+  KeywordLangMatcher keywordsScorer(0 /* maxLanguageTiers */);
   TestRanker ranker(m_engine, boundariesTable, keywordsScorer, emitter, m_suggests, villagesCache,
                     m_cancellable, results);
 

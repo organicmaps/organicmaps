@@ -11,7 +11,6 @@
 
 namespace search
 {
-
 KeywordMatcher::KeywordMatcher()
 {
   Clear();
@@ -39,13 +38,13 @@ KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const & name) const
   buffer_vector<StringT, MAX_TOKENS> tokens;
   SplitUniString(name, MakeBackInsertFunctor(tokens), Delimiters());
 
-  // Some names can have too many tokens. Trim them.
   return Score(tokens.data(), tokens.size());
 }
 
 KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const * tokens, size_t count) const
 {
-  count = min(count, size_t(MAX_TOKENS));
+  // Some names can have too many tokens. Trim them.
+  count = min(count, static_cast<size_t>(MAX_TOKENS));
 
   vector<bool> isQueryTokenMatched(m_keywords.size());
   vector<bool> isNameTokenMatched(count);
@@ -105,7 +104,7 @@ KeywordMatcher::ScoreT::ScoreT()
 {
 }
 
-bool KeywordMatcher::ScoreT::operator < (KeywordMatcher::ScoreT const & s) const
+bool KeywordMatcher::ScoreT::operator<(KeywordMatcher::ScoreT const & s) const
 {
   if (m_bFullQueryMatched != s.m_bFullQueryMatched)
     return m_bFullQueryMatched < s.m_bFullQueryMatched;
@@ -119,6 +118,15 @@ bool KeywordMatcher::ScoreT::operator < (KeywordMatcher::ScoreT const & s) const
     return m_sumTokenMatchDistance > s.m_sumTokenMatchDistance;
 
   return false;
+}
+
+bool KeywordMatcher::ScoreT::operator==(KeywordMatcher::ScoreT const & s) const
+{
+  return m_sumTokenMatchDistance == s.m_sumTokenMatchDistance
+      && m_nameTokensMatched == s.m_nameTokensMatched
+      && m_numQueryTokensAndPrefixMatched == s.m_numQueryTokensAndPrefixMatched
+      && m_bFullQueryMatched == s.m_bFullQueryMatched
+      && m_bPrefixMatched == s.m_bPrefixMatched;
 }
 
 bool KeywordMatcher::ScoreT::LessInTokensLength(ScoreT const & s) const
@@ -145,5 +153,4 @@ string DebugPrint(KeywordMatcher::ScoreT const & score)
   out << ")";
   return out.str();
 }
-
 }  // namespace search

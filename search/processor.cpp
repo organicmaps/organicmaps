@@ -58,25 +58,14 @@ namespace search
 {
 namespace
 {
-/// This indexes should match the initialization routine below.
-int const g_arrLang1[] = {0, 1, 2, 2, 3};
-int const g_arrLang2[] = {0, 0, 0, 1, 0};
-
-enum LangIndexT
+enum LanguageTier
 {
-  LANG_CURRENT = 0,
-  LANG_INPUT,
-  LANG_INTERNATIONAL,
-  LANG_EN,
-  LANG_DEFAULT,
-  LANG_COUNT
+  LANGUAGE_TIER_CURRENT = 0,
+  LANGUAGE_TIER_INPUT,
+  LANGUAGE_TIER_EN_AND_INTERNATIONAL,
+  LANGUAGE_TIER_DEFAULT,
+  LANGUAGE_TIER_COUNT
 };
-
-pair<int, int> GetLangIndex(int id)
-{
-  ASSERT_LESS(id, LANG_COUNT, ());
-  return make_pair(g_arrLang1[id], g_arrLang2[id]);
-}
 
 m2::RectD NormalizeViewport(m2::RectD viewport)
 {
@@ -184,21 +173,19 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   , m_viewportSearch(false)
   , m_villagesCache(static_cast<my::Cancellable const &>(*this))
   , m_citiesBoundaries(index)
+  , m_keywordsScorer(LanguageTier::LANGUAGE_TIER_COUNT)
   , m_ranker(index, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
              suggests, m_villagesCache, static_cast<my::Cancellable const &>(*this))
   , m_preRanker(index, m_ranker, kPreResultsCount)
   , m_geocoder(index, infoGetter, m_preRanker, m_villagesCache,
                static_cast<my::Cancellable const &>(*this))
 {
-  // Initialize keywords scorer.
-  // Note! This order should match the indexes arrays above.
-  vector<vector<int8_t>> langPriorities = {
-      {-1},  // future current lang
-      {-1},  // future input lang
-      {StringUtf8Multilang::kInternationalCode, StringUtf8Multilang::kEnglishCode},
-      {StringUtf8Multilang::kDefaultCode}};
-
-  m_keywordsScorer.SetLanguages(langPriorities);
+  // Current and input langs are to be set later.
+  m_keywordsScorer.SetLanguages(
+      LanguageTier::LANGUAGE_TIER_EN_AND_INTERNATIONAL,
+      {StringUtf8Multilang::kInternationalCode, StringUtf8Multilang::kEnglishCode});
+  m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_DEFAULT,
+                                {StringUtf8Multilang::kDefaultCode});
 
   SetPreferredLocale("en");
 }
@@ -231,7 +218,7 @@ void Processor::SetPreferredLocale(string const & locale)
   LOG(LINFO, ("New preferred locale:", locale));
 
   int8_t const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
-  SetLanguage(LANG_CURRENT, code);
+  m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_CURRENT, {code});
 
   m_currentLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 
@@ -247,7 +234,8 @@ void Processor::SetInputLocale(string const & locale)
     return;
 
   LOG(LDEBUG, ("New input locale:", locale));
-  SetLanguage(LANG_INPUT, StringUtf8Multilang::GetLangIndex(languages::Normalize(locale)));
+  int8_t const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
+  m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_INPUT, {code});
   m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 }
 
@@ -329,16 +317,6 @@ void Processor::SetRankPivot(m2::PointD const & pivot)
   }
 
   m_pivot = pivot;
-}
-
-void Processor::SetLanguage(int id, int8_t lang)
-{
-  m_keywordsScorer.SetLanguage(GetLangIndex(id), lang);
-}
-
-int8_t Processor::GetLanguage(int id) const
-{
-  return m_keywordsScorer.GetLanguage(GetLangIndex(id));
 }
 
 m2::PointD Processor::GetPivotPoint() const
@@ -541,8 +519,8 @@ void Processor::InitParams(QueryParams & params)
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
     my::SortUnique(params.GetTypeIndices(i));
 
-  for (int i = 0; i < LANG_COUNT; ++i)
-    params.GetLangs().Insert(GetLanguage(i));
+  m_keywordsScorer.ForEachLanguage(
+      [&](int8_t lang) { params.GetLangs().Insert(static_cast<uint64_t>(lang)); });
 }
 
 void Processor::InitGeocoder(Geocoder::Params & params)

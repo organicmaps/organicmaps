@@ -1,20 +1,23 @@
 #pragma once
+
 #include "search/keyword_matcher.hpp"
 
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <array>
+#include <utility>
+#include <vector>
 
 namespace search
 {
-
 class KeywordLangMatcher
 {
 public:
+  using StringT = KeywordMatcher::StringT;
+
   class ScoreT
   {
   public:
     ScoreT();
-    bool operator < (ScoreT const & s) const;
+    bool operator<(ScoreT const & s) const;
 
   private:
     friend class KeywordLangMatcher;
@@ -26,33 +29,41 @@ public:
     int m_langScore;
   };
 
-private:
-  typedef KeywordMatcher::StringT StringT;
+  // Constructs a matcher that supports up to |maxLanguageTiers| tiers.
+  // All languages in the same tier are considered equal.
+  // The lower the tier is, the more important the languages in it are.
+  explicit KeywordLangMatcher(size_t maxLanguageTiers);
 
-public:
-  /// @param[in] languagePriorities Should match the constants above (checked by assertions).
-  void SetLanguages(vector<vector<int8_t> > const & languagePriorities);
-  void SetLanguage(pair<int, int> const & ind, int8_t lang);
-  int8_t GetLanguage(pair<int, int> const & ind) const;
+  // Defines the languages in the |tier| to be exactly |languages|.
+  void SetLanguages(size_t const tier, std::vector<int8_t> && languages);
 
-  /// Store references to keywords from source array of strings.
+  // Calls |fn| on every language in every tier. Does not make a distinction
+  // between languages in different tiers.
+  template <typename Fn>
+  void ForEachLanguage(Fn && fn) const
+  {
+    for (auto const & langs : m_languagePriorities)
+    {
+      for (int8_t lang : langs)
+        fn(lang);
+    }
+  }
+
+  // Store references to keywords from source array of strings.
   inline void SetKeywords(StringT const * keywords, size_t count, StringT const & prefix)
   {
     m_keywordMatcher.SetKeywords(keywords, count, prefix);
   }
 
-  /// @return Score of the name (greater is better).
-  //@{
+  // Returns the Score of the name (greater is better).
   ScoreT Score(int8_t lang, string const & name) const;
   ScoreT Score(int8_t lang, StringT const & name) const;
   ScoreT Score(int8_t lang, StringT const * tokens, size_t count) const;
-  //@}
 
 private:
   int GetLangScore(int8_t lang) const;
 
-  vector<vector<int8_t> > m_languagePriorities;
+  std::vector<std::vector<int8_t>> m_languagePriorities;
   KeywordMatcher m_keywordMatcher;
 };
-
 }  // namespace search

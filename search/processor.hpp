@@ -127,9 +127,6 @@ protected:
 
   m2::RectD const & GetViewport() const;
 
-  void SetLanguage(int id, int8_t lang);
-  int8_t GetLanguage(int id) const;
-
   CategoriesHolder const & m_categories;
   storage::CountryInfoGetter const & m_infoGetter;
 
