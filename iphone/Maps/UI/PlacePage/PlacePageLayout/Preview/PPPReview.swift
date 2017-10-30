@@ -55,7 +55,7 @@ final class PPPReview: MWMTableViewCell {
       ratingSummaryView.excellentColor = UIColor.ratingGreen()
 
       if reviewsCount > 0 {
-        reviewsLabel.text = String(coreFormat: L("place_page_summary_rating_description"), arguments: [reviewsCount])
+        reviewsLabel.text = String(coreFormat: L("placepage_summary_rating_description"), arguments: [reviewsCount])
         reviewsLabel.isHidden = false
       } else {
         reviewsLabel.text = ""
