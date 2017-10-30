@@ -5,7 +5,6 @@
 #include "routing_common/transit_types.hpp"
 
 #include "geometry/point2d.hpp"
-#include "geometry/region2d.hpp"
 
 #include "base/macros.hpp"
 
@@ -105,7 +104,7 @@ private:
   OsmIdToFeatureIdsMap const & m_osmIdToFeatureIds;
 };
 
-/// \brief the data contains all the information to make TRANSIT_FILE_TAG section.
+/// \brief The class contains all the information to make TRANSIT_FILE_TAG section.
 class GraphData
 {
 public:
@@ -124,9 +123,6 @@ public:
   /// \brief Calculates best pedestrian segment for every gate in |m_gates|.
   /// \note All gates in |m_gates| should have a valid |m_point| field before the call.
   void CalculateBestPedestrianSegments(std::string const & mwmPath, std::string const & countryId);
-  /// \brief Removes some items from all the class fields if they outside |mwmBorders|.
-  /// @todo(bykoinko) Certain rules which is used to clip the transit graph should be described here.
-  void ClipGraphByMwm(std::vector<m2::RegionD> const & mwmBorders);
 
   std::vector<Stop> const & GetStops() const { return m_stops; }
   std::vector<Gate> const & GetGates() const { return m_gates; }
@@ -154,8 +150,6 @@ private:
   std::vector<Network> m_networks;
 };
 
-// @todo(bykoianko) Method below should be covered with tests.
-
 /// \brief Fills |data| according to a transit graph (|transitJsonPath|).
 /// \note Some of fields of |data| contains feature ids of a certain mwm. These fields are filled
 /// iff the mapping (|osmIdToFeatureIdsPath|) contains them. Otherwise the fields have default value.
@@ -167,12 +161,13 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const
 void ProcessGraph(std::string const & mwmPath, std::string const & countryId,
                   OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data);
 
-/// \brief Builds the transit section in the mwm.
+/// \brief Builds the transit section in the mwm based on transit graph in json which represents
+/// trasit graph clipped by the mwm borders.
 /// \param mwmDir relative or full path to a directory where mwm is located.
 /// \param countryId is an mwm name without extension of the processed mwm.
 /// \param osmIdToFeatureIdsPath is a path to a file with osm id to feature ids mapping.
 /// \param transitDir a path with slash at the end to directory with json files with transit graphs.
-/// It's assumed that the files has extension TRANSIT_FILE_EXTENSION.
+/// It's assumed that the files have name the same with country ids and extension TRANSIT_FILE_EXTENSION.
 /// \note An mwm pointed by |mwmPath| should contain:
 /// * feature geometry
 /// * index graph (ROUTING_FILE_TAG)

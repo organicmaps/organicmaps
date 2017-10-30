@@ -1,7 +1,5 @@
 #include "generator/transit_generator.hpp"
 
-#include "generator/borders_generator.hpp"
-#include "generator/borders_loader.hpp"
 #include "generator/utils.hpp"
 
 #include "traffic/traffic_cache.hpp"
@@ -51,16 +49,6 @@ using namespace std;
 namespace
 {
 template <class Item>
-void DeserializeItemFromJson(my::Json const & root, string const & key,
-                             OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap,
-                             vector<Item> & items)
-{
-  items.clear();
-  DeserializerFromJson deserializer(root.get(), osmIdToFeatureIdsMap);
-  deserializer(items, key.c_str());
-}
-
-template <class Item>
 bool IsValid(vector<Item> const & items)
 {
   return all_of(items.cbegin(), items.cend(), [](Item const & item) { return item.IsValid(); });
@@ -70,24 +58,6 @@ struct ClearVisitor
 {
   template <typename Cont>
   void operator()(Cont & c, char const * /* name */ = nullptr) const { c.clear(); }
-};
-
-struct DeserializeFromJsonVisitor
-{
-  DeserializeFromJsonVisitor(my::Json const & root, OsmIdToFeatureIdsMap const & mapping)
-      : m_root(root), m_mapping(mapping)
-  {
-  }
-
-  template <typename Cont>
-  void operator()(Cont & c, char const * name = nullptr) const
-  {
-    DeserializeItemFromJson(m_root, name, m_mapping, c);
-  }
-
-private:
-  my::Json const & m_root;
-  OsmIdToFeatureIdsMap const & m_mapping;
 };
 
 struct SortVisitor
@@ -180,13 +150,6 @@ string GetMwmPath(string const & mwmDir, string const & countryId)
   return my::JoinFoldersToPath(mwmDir, countryId + DATA_FILE_EXTENSION);
 }
 
-void LoadBorders(string const & dir, string const & countryId, vector<m2::RegionD> & borders)
-{
-  string const polyFile = my::JoinPath(dir, BORDERS_DIR, countryId + BORDERS_EXTENSION);
-  borders.clear();
-  osm::LoadBorders(polyFile, borders);
-}
-
 template <typename T>
 void Append(vector<T> const & src, vector<T> & dst)
 {
@@ -251,8 +214,8 @@ void DeserializerFromJson::operator()(StopIdRanges & rs, char const * name)
 // GraphData --------------------------------------------------------------------------------------
 void GraphData::DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping)
 {
-  DeserializeFromJsonVisitor const v(root, mapping);
-  Visit(v);
+  DeserializerFromJson deserializer(root.get(), mapping);
+  Visit(deserializer);
 }
 
 void GraphData::SerializeToMwm(string const & mwmPath) const
@@ -403,12 +366,6 @@ void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string c
   }
 }
 
-void GraphData::ClipGraphByMwm(std::vector<m2::RegionD> const & mwmBorders)
-{
-  // @todo(bykoianko) Rules for graph clipping should be implemented here.
-
-}
-
 bool GraphData::IsUnique() const
 {
   IsUniqueVisitor v;
@@ -461,33 +418,22 @@ void ProcessGraph(string const & mwmPath, string const & countryId,
 void BuildTransit(string const & mwmDir, string const & countryId,
                   string const & osmIdToFeatureIdsPath, string const & transitDir)
 {
+  // @todo(bykoianko) It's assumed that the method builds transit section based on clipped json.
+  // Json clipping should be implemented at the feature generation step.
+
   LOG(LERROR, ("This method is under construction and should not be used for building production mwm "
       "sections."));
   NOTIMPLEMENTED();
 
-  Platform::FilesList graphFiles;
-  Platform::GetFilesByExt(transitDir, TRANSIT_FILE_EXTENSION, graphFiles);
-
+  string const graphFullPath = my::JoinFoldersToPath(transitDir, countryId + TRANSIT_FILE_EXTENSION);
   string const mwmPath = GetMwmPath(mwmDir, countryId);
   OsmIdToFeatureIdsMap mapping;
   FillOsmIdToFeatureIdsMap(osmIdToFeatureIdsPath, mapping);
-  vector<m2::RegionD> mwmBorders;
-  LoadBorders(mwmDir, countryId, mwmBorders);
 
-  GraphData jointData;
-
-  for (auto const & filePath : graphFiles)
-  {
-    GraphData data;
-    DeserializeFromJson(mapping, filePath, data);
-    ProcessGraph(mwmPath, countryId, mapping, data);
-    data.ClipGraphByMwm(mwmBorders);
-    jointData.Append(data);
-  }
-
-  jointData.Sort();
-  CHECK(jointData.IsValid(), (mwmPath, countryId));
-  jointData.SerializeToMwm(mwmPath);
+  GraphData data;
+  DeserializeFromJson(mapping, graphFullPath, data);
+  ProcessGraph(mwmPath, countryId, mapping, data);
+  data.SerializeToMwm(mwmPath);
 }
 }  // namespace transit
 }  // namespace routing
