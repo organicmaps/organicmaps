@@ -136,7 +136,13 @@ public:
   std::vector<Network> const & GetNetworks() const { return m_networks; }
 
 private:
+  DECLARE_VISITOR_AND_DEBUG_PRINT(GraphData, visitor(m_stops, "stops"), visitor(m_gates, "gates"),
+                                  visitor(m_edges, "edges"), visitor(m_transfers, "transfers"),
+                                  visitor(m_lines, "lines"), visitor(m_shapes, "shapes"),
+                                  visitor(m_networks, "networks"))
+
   bool IsUnique() const;
+  bool IsSorted() const;
 
   std::vector<Stop> m_stops;
   std::vector<Gate> m_gates;

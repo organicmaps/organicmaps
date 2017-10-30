@@ -49,17 +49,6 @@ using namespace std;
 
 namespace
 {
-/// \returns ref to a stop at |stops| by |stopId|.
-Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
-{
-  ASSERT(is_sorted(stops.cbegin(), stops.cend()), ());
-  auto s1Id = equal_range(stops.cbegin(), stops.cend(),
-          Stop(stopId, kInvalidOsmId, kInvalidFeatureId, kInvalidTransferId, {}, m2::PointD(), {}));
-  CHECK(s1Id.first != stops.cend(), ("No a stop with id:", stopId, "in stops:", stops));
-  CHECK_EQUAL(distance(s1Id.first, s1Id.second), 1, ("A stop with id:", stopId, "is not unique in stops:", stops));
-  return *s1Id.first;
-}
-
 template <class Item>
 void DeserializeItemFromJson(my::Json const & root, string const & key,
                              OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap,
@@ -74,6 +63,107 @@ template <class Item>
 bool IsValid(vector<Item> const & items)
 {
   return all_of(items.cbegin(), items.cend(), [](Item const & item) { return item.IsValid(); });
+}
+
+struct ClearVisitor
+{
+  template <typename Cont>
+  void operator()(Cont & c, char const * /* name */ = nullptr) const { c.clear(); }
+};
+
+struct DeserializeFromJsonVisitor
+{
+  DeserializeFromJsonVisitor(my::Json const & root, OsmIdToFeatureIdsMap const & mapping)
+      : m_root(root), m_mapping(mapping)
+  {
+  }
+
+  template <typename Cont>
+  void operator()(Cont & c, char const * name = nullptr) const
+  {
+    DeserializeItemFromJson(m_root, name, m_mapping, c);
+  }
+
+private:
+  my::Json const & m_root;
+  OsmIdToFeatureIdsMap const & m_mapping;
+};
+
+struct SortVisitor
+{
+  template <typename Cont>
+  void operator()(Cont & c, char const * /* name */ = nullptr) const
+  {
+    sort(c.begin(), c.end());
+  }
+  void operator()(vector<transit::Edge> & c, char const * /* name */ = nullptr) const {}
+};
+
+struct IsValidVisitor
+{
+  template <typename Cont>
+  void operator()(Cont const & c, char const * /* name */ = nullptr)
+  {
+    if (!m_isValid)
+      return;
+
+    m_isValid = ::IsValid(c);
+  }
+
+  bool IsValid() const { return m_isValid; }
+
+private:
+  bool m_isValid = true;
+};
+
+struct IsUniqueVisitor
+{
+  template <typename Cont>
+  void operator()(Cont const & c, char const * /* name */ = nullptr)
+  {
+    if (!m_isUnique)
+      return;
+
+    m_isUnique = (adjacent_find(c.begin(), c.end()) == c.end());
+  }
+
+  void operator()(vector<transit::Edge> const & c, char const * /* name */ = nullptr) {}
+
+  bool IsUnique() const { return m_isUnique; }
+
+private:
+  bool m_isUnique = true;
+};
+
+struct IsSortedVisitor
+{
+  template <typename Cont>
+  void operator()(Cont const & c, char const * /* name */ = nullptr)
+  {
+    if (!m_isSorted)
+      return;
+
+    m_isSorted = is_sorted(c.begin(), c.end());
+  }
+
+  void operator()(vector<transit::Edge> const & c, char const * /* name */ = nullptr) {}
+
+  bool IsSorted() const { return m_isSorted; }
+
+private:
+  bool m_isSorted = true;
+};
+
+
+/// \returns ref to a stop at |stops| by |stopId|.
+Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
+{
+  ASSERT(is_sorted(stops.cbegin(), stops.cend()), ());
+  auto s1Id = equal_range(stops.cbegin(), stops.cend(),
+          Stop(stopId, kInvalidOsmId, kInvalidFeatureId, kInvalidTransferId, {}, m2::PointD(), {}));
+  CHECK(s1Id.first != stops.cend(), ("No a stop with id:", stopId, "in stops:", stops));
+  CHECK_EQUAL(distance(s1Id.first, s1Id.second), 1, ("A stop with id:", stopId, "is not unique in stops:", stops));
+  return *s1Id.first;
 }
 
 void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatureIdsMap & map)
@@ -155,13 +245,8 @@ void DeserializerFromJson::operator()(StopIdRanges & rs, char const * name)
 // GraphData --------------------------------------------------------------------------------------
 void GraphData::DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping)
 {
-  DeserializeItemFromJson(root, "stops", mapping, m_stops);
-  DeserializeItemFromJson(root, "gates", mapping, m_gates);
-  DeserializeItemFromJson(root, "edges", mapping, m_edges);
-  DeserializeItemFromJson(root, "transfers", mapping, m_transfers);
-  DeserializeItemFromJson(root, "lines", mapping, m_lines);
-  DeserializeItemFromJson(root, "shapes", mapping, m_shapes);
-  DeserializeItemFromJson(root, "networks", mapping, m_networks);
+  DeserializeFromJsonVisitor const v(root, mapping);
+  Visit(v);
 }
 
 void GraphData::SerializeToMwm(string const & mwmPath) const
@@ -221,32 +306,24 @@ void GraphData::Append(GraphData const & rhs)
 
 void GraphData::Clear()
 {
-  m_stops.clear();
-  m_gates.clear();
-  m_edges.clear();
-  m_transfers.clear();
-  m_lines.clear();
-  m_shapes.clear();
-  m_networks.clear();
+  ClearVisitor const v;
+  Visit(v);
 }
 
 bool GraphData::IsValid() const
 {
-  if (!IsUnique())
+  if (!IsSorted() || !IsUnique())
     return false;
 
-  return ::IsValid(m_stops) && ::IsValid(m_gates) && ::IsValid(m_edges) && ::IsValid(m_transfers) &&
-      ::IsValid(m_lines) && ::IsValid(m_shapes) && ::IsValid(m_networks);
+  IsValidVisitor v;
+  Visit(v);
+  return v.IsValid();
 }
 
 void GraphData::Sort()
 {
-  sort(m_stops.begin(), m_stops.end());
-  sort(m_gates.begin(), m_gates.end());
-  sort(m_transfers.begin(), m_transfers.end());
-  sort(m_lines.begin(), m_lines.end());
-  sort(m_shapes.begin(), m_shapes.end());
-  sort(m_networks.begin(), m_networks.end());
+  SortVisitor const v;
+  Visit(v);
 }
 
 void GraphData::CalculateEdgeWeight()
@@ -328,19 +405,16 @@ void GraphData::ClipGraphByMwm(std::vector<m2::RegionD> const & mwmBorders)
 
 bool GraphData::IsUnique() const
 {
-  if (adjacent_find(m_stops.begin(), m_stops.end()) != m_stops.end())
-    return false;
-  if (adjacent_find(m_gates.begin(), m_gates.end()) != m_gates.end())
-    return false;
-  if (adjacent_find(m_transfers.begin(), m_transfers.end()) != m_transfers.end())
-    return false;
-  if (adjacent_find(m_lines.begin(), m_lines.end()) != m_lines.end())
-    return false;
-  if (adjacent_find(m_shapes.begin(), m_shapes.end()) != m_shapes.end())
-    return false;
-  if (adjacent_find(m_networks.begin(), m_networks.end()) != m_networks.end())
-    return false;
-  return true;
+  IsUniqueVisitor v;
+  Visit(v);
+  return v.IsUnique();
+}
+
+bool GraphData::IsSorted() const
+{
+  IsSortedVisitor v;
+  Visit(v);
+  return v.IsSorted();
 }
 
 void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
