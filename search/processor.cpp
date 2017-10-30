@@ -216,10 +216,8 @@ void Processor::SetViewport(m2::RectD const & viewport)
 
   if (m_viewport.IsValid())
   {
-    double constexpr epsMeters = 10.0;
-
-    // Skip if viewports are equal.
-    if (IsEqualMercator(m_viewport, viewport, epsMeters))
+    double constexpr kEpsMeters = 10.0;
+    if (IsEqualMercator(m_viewport, viewport, kEpsMeters))
       return;
   }
 

@@ -20,12 +20,15 @@
 #include "indexer/rank_table.hpp"
 #include "indexer/string_slice.hpp"
 
+#include "coding/multilang_utf8_string.hpp"
+
 #include "geometry/rect2d.hpp"
 
 #include "base/cancellable.hpp"
 #include "base/limited_priority_queue.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/cstdint.hpp"
 #include "std/function.hpp"
 #include "std/map.hpp"
 #include "std/shared_ptr.hpp"
@@ -86,8 +89,8 @@ public:
   inline m2::PointD const & GetPosition() const { return m_position; }
 
   /// Suggestions language code, not the same as we use in mwm data
-  int8_t m_inputLocaleCode;
-  int8_t m_currentLocaleCode;
+  int8_t m_inputLocaleCode = StringUtf8Multilang::kUnsupportedLanguageCode;
+  int8_t m_currentLocaleCode = StringUtf8Multilang::kUnsupportedLanguageCode;
 
   inline bool IsEmptyQuery() const { return (m_prefix.empty() && m_tokens.empty()); }
 
