@@ -114,7 +114,8 @@ public:
   void Clear();
   bool IsValid() const;
 
-  void SortStops();
+  /// \brief Sorts all class fields execpt for |m_edges| by their ids.
+  void Sort();
   /// \brief Calculates and updates |m_edges| by adding valid value for Edge::m_weight
   /// if it's not valid.
   /// \note |m_stops|, Edge::m_stop1Id and Edge::m_stop2Id in |m_edges| should be valid before call.
@@ -135,6 +136,8 @@ public:
   std::vector<Network> const & GetNetworks() const { return m_networks; }
 
 private:
+  bool IsUnique() const;
+
   std::vector<Stop> m_stops;
   std::vector<Gate> m_gates;
   std::vector<Edge> m_edges;

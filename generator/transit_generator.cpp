@@ -49,18 +49,12 @@ using namespace std;
 
 namespace
 {
-bool LessById(Stop const & s1, Stop const & s2)
-{
-  return s1.GetId() < s2.GetId();
-}
-
 /// \returns ref to a stop at |stops| by |stopId|.
 Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
 {
-  ASSERT(is_sorted(stops.cbegin(), stops.cend(), LessById), ());
+  ASSERT(is_sorted(stops.cbegin(), stops.cend()), ());
   auto s1Id = equal_range(stops.cbegin(), stops.cend(),
-          Stop(stopId, kInvalidOsmId, kInvalidFeatureId, kInvalidTransferId, {}, m2::PointD(), {}),
-          LessById);
+          Stop(stopId, kInvalidOsmId, kInvalidFeatureId, kInvalidTransferId, {}, m2::PointD(), {}));
   CHECK(s1Id.first != stops.cend(), ("No a stop with id:", stopId, "in stops:", stops));
   CHECK_EQUAL(distance(s1Id.first, s1Id.second), 1, ("A stop with id:", stopId, "is not unique in stops:", stops));
   return *s1Id.first;
@@ -238,15 +232,26 @@ void GraphData::Clear()
 
 bool GraphData::IsValid() const
 {
+  if (!IsUnique())
+    return false;
+
   return ::IsValid(m_stops) && ::IsValid(m_gates) && ::IsValid(m_edges) && ::IsValid(m_transfers) &&
       ::IsValid(m_lines) && ::IsValid(m_shapes) && ::IsValid(m_networks);
 }
 
-void GraphData::SortStops() { sort(m_stops.begin(), m_stops.end(), LessById); }
+void GraphData::Sort()
+{
+  sort(m_stops.begin(), m_stops.end());
+  sort(m_gates.begin(), m_gates.end());
+  sort(m_transfers.begin(), m_transfers.end());
+  sort(m_lines.begin(), m_lines.end());
+  sort(m_shapes.begin(), m_shapes.end());
+  sort(m_networks.begin(), m_networks.end());
+}
 
 void GraphData::CalculateEdgeWeight()
 {
-  CHECK(is_sorted(m_stops.cbegin(), m_stops.cend(), LessById), ());
+  CHECK(is_sorted(m_stops.cbegin(), m_stops.cend()), ());
 
   for (auto & e : m_edges)
   {
@@ -318,6 +323,24 @@ void GraphData::CalculateBestPedestrianSegment(string const & mwmPath, string co
 void GraphData::ClipGraphByMwm(std::vector<m2::RegionD> const & mwmBorders)
 {
   // @todo(bykoianko) Rules for graph clipping should be implemented here.
+
+}
+
+bool GraphData::IsUnique() const
+{
+  if (adjacent_find(m_stops.begin(), m_stops.end()) != m_stops.end())
+    return false;
+  if (adjacent_find(m_gates.begin(), m_gates.end()) != m_gates.end())
+    return false;
+  if (adjacent_find(m_transfers.begin(), m_transfers.end()) != m_transfers.end())
+    return false;
+  if (adjacent_find(m_lines.begin(), m_lines.end()) != m_lines.end())
+    return false;
+  if (adjacent_find(m_shapes.begin(), m_shapes.end()) != m_shapes.end())
+    return false;
+  if (adjacent_find(m_networks.begin(), m_networks.end()) != m_networks.end())
+    return false;
+  return true;
 }
 
 void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
@@ -350,7 +373,7 @@ void ProcessGraph(string const & mwmPath, string const & countryId,
                   OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data)
 {
   data.CalculateBestPedestrianSegment(mwmPath, countryId);
-  data.SortStops();
+  data.Sort();
   data.CalculateEdgeWeight();
   CHECK(data.IsValid(), (mwmPath));
 }
@@ -382,6 +405,8 @@ void BuildTransit(string const & mwmDir, string const & countryId,
     jointData.Append(data);
   }
 
+  jointData.Sort();
+  CHECK(jointData.IsValid(), (mwmPath, countryId));
   jointData.SerializeToMwm(mwmPath);
 }
 }  // namespace transit

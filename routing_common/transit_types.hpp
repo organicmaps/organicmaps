@@ -87,6 +87,8 @@ public:
   explicit FeatureIdentifiers(bool serializeFeatureIdOnly);
   FeatureIdentifiers(OsmId osmId, FeatureId const & featureId, bool serializeFeatureIdOnly);
 
+  bool operator<(FeatureIdentifiers const & rhs) const { return m_osmId < rhs.m_osmId; }
+  bool operator==(FeatureIdentifiers const & rhs) const { return m_osmId == rhs.m_osmId; }
   bool IsEqualForTesting(FeatureIdentifiers const & rhs) const { return m_featureId == rhs.m_featureId; }
   bool IsValid() const { return m_featureId != kInvalidFeatureId; }
   void SetOsmId(OsmId osmId) { m_osmId = osmId; }
@@ -136,6 +138,8 @@ public:
        std::vector<LineId> const & lineIds, m2::PointD const & point,
        std::vector<TitleAnchor> const & titleAnchors);
 
+  bool operator<(Stop const & rhs) const { return m_id < rhs.m_id; }
+  bool operator==(Stop const & rhs) const { return m_id == rhs.m_id; }
   bool IsEqualForTesting(Stop const & stop) const;
   bool IsValid() const;
 
@@ -191,6 +195,8 @@ public:
   Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, double weight,
        std::vector<StopId> const & stopIds, m2::PointD const & point);
 
+  bool operator<(Gate const & rhs) const { return m_featureIdentifiers < rhs.m_featureIdentifiers; }
+  bool operator==(Gate const & rhs) const { return m_featureIdentifiers == rhs.m_featureIdentifiers; }
   bool IsEqualForTesting(Gate const & gate) const;
   bool IsValid() const;
   void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; };
@@ -230,6 +236,7 @@ public:
   ShapeId() = default;
   ShapeId(StopId stop1Id, StopId stop2Id) : m_stop1Id(stop1Id), m_stop2Id(stop2Id) {}
 
+  bool operator<(ShapeId const & rhs) const;
   bool operator==(ShapeId const & rhs) const;
   bool IsEqualForTesting(ShapeId const & rhs) const { return *this == rhs; }
 
@@ -286,6 +293,8 @@ public:
   Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds,
            std::vector<TitleAnchor> const & titleAnchors);
 
+  bool operator<(Transfer const & rhs) const { return m_id < rhs.m_id; }
+  bool operator==(Transfer const & rhs) const { return m_id == rhs.m_id; }
   bool IsEqualForTesting(Transfer const & transfer) const;
   bool IsValid() const;
 
@@ -331,6 +340,8 @@ public:
   Line(LineId id, std::string const & number, std::string const & title, std::string const & type,
        std::string const & color, NetworkId networkId, Ranges const & stopIds);
 
+  bool operator<(Line const & rhs) const { return m_id < rhs.m_id; }
+  bool operator==(Line const & rhs) const { return m_id == rhs.m_id; }
   bool IsEqualForTesting(Line const & line) const;
   bool IsValid() const;
 
@@ -364,6 +375,8 @@ public:
   Shape() = default;
   Shape(ShapeId const & id, std::vector<m2::PointD> const & polyline) : m_id(id), m_polyline(polyline) {}
 
+  bool operator<(Shape const & rhs) const { return m_id < rhs.m_id; }
+  bool operator==(Shape const & rhs) const { return m_id == rhs.m_id; }
   bool IsEqualForTesting(Shape const & shape) const;
   bool IsValid() const { return m_id.IsValid() && m_polyline.size() > 1; }
 
@@ -384,6 +397,8 @@ public:
   Network() = default;
   Network(NetworkId id, std::string const & title);
 
+  bool operator<(Network const & rhs) const { return m_id < rhs.m_id; }
+  bool operator==(Network const & rhs) const { return m_id == rhs.m_id; }
   bool IsEqualForTesting(Network const & shape) const;
   bool IsValid() const;
 
