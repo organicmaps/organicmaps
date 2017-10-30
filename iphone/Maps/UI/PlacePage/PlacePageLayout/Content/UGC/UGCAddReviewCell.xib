@@ -38,7 +38,7 @@
                                             <constraint firstAttribute="width" secondItem="D4Q-0A-Efb" secondAttribute="height" multiplier="1:1" id="bUS-re-59E"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackOpaque"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
@@ -90,7 +90,7 @@
                                                     <constraint firstAttribute="width" secondItem="ZfD-kJ-Q3m" secondAttribute="height" multiplier="1:1" id="z0R-9P-1b6"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackOpaque"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
@@ -143,7 +143,7 @@
                                             <constraint firstAttribute="width" secondItem="3W8-Mg-bTw" secondAttribute="height" multiplier="1:1" id="qaN-7W-Yvj"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackOpaque"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
@@ -191,7 +191,7 @@
                                                     <constraint firstAttribute="width" secondItem="lPm-nd-4qs" secondAttribute="height" multiplier="1:1" id="ROk-bX-OdS"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackOpaque"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
@@ -244,7 +244,7 @@
                                             <constraint firstAttribute="width" secondItem="U5X-iD-KyI" secondAttribute="height" multiplier="1:1" id="XZ1-91-XOt"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackOpaque"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>

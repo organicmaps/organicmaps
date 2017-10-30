@@ -28,11 +28,12 @@ final class PPPReview: MWMTableViewCell {
   @objc func config(rating: UGCRatingValueType, canAddReview: Bool, reviewsCount: UInt, priceSetter: (UILabel) -> Void, onAddReview: @escaping () -> Void) {
     self.onAddReview = onAddReview
     ratingSummaryView.textFont = UIFont.bold12()
+    ratingSummaryView.value = rating.value
+    ratingSummaryView.type = rating.type
+    ratingSummaryView.backgroundOpacity = 0.05
     addReviewButton.isHidden = true
     pricingLabel.isHidden = true
     reviewsLabel.isHidden = false
-    ratingSummaryView.value = rating.value
-    ratingSummaryView.type = rating.type
     if rating.type == .noValue {
       if canAddReview {
         ratingSummaryView.noValueImage = #imageLiteral(resourceName: "ic_12px_rating_normal")
