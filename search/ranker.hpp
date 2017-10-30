@@ -83,9 +83,9 @@ public:
   void Init(Params const & params, Geocoder::Params const & geocoderParams);
 
   // Makes the final result that is shown to the user from a ranker's result.
-  // If |searchInViewport| is true, some fields (such as address and highlights)
-  // are not filled.
-  Result MakeResult(RankerResult const & r, bool searchInViewport) const;
+  // |needAddress| and |needHighlighting| enable filling of optional fields
+  // that may take a considerable amount of time to compute.
+  Result MakeResult(RankerResult const & r, bool needAddress, bool needHighlighting) const;
 
   void SuggestStrings();
 

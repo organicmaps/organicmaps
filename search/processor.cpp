@@ -495,8 +495,8 @@ void Processor::SearchCoordinates()
   double lat, lon;
   if (!MatchLatLonDegree(m_query, lat, lon))
     return;
-  m_emitter.AddResultNoChecks(
-      m_ranker.MakeResult(RankerResult(lat, lon), false /* searchInViewport */));
+  m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(lat, lon), true /* needAddress */,
+                                                  true /* needHighlighting */));
   m_emitter.Emit();
 }
 
