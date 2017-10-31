@@ -284,24 +284,24 @@ void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosit
 
 void Framework::OnViewportChanged(ScreenBase const & screen)
 {
-  double constexpr kEps = 1.0E-4;
-  if (!screen.GlobalRect().EqualDxDy(m_currentModelView.GlobalRect(), kEps))
-    UpdateUserViewportChanged();
-
   m_currentModelView = screen;
+
   if (!m_isViewportInitialized)
   {
     m_isViewportInitialized = true;
     for (size_t i = 0; i < static_cast<size_t>(search::Mode::Count); i++)
     {
       auto & intent = m_searchIntents[i];
-      if (intent.m_isDelayed)
-      {
-        intent.m_params.m_viewport = GetCurrentViewport();
-        Search(intent);
-      }
+      // Viewport search will be triggered below, in UpdateUserViewportChanged().
+      if (!intent.m_isDelayed || static_cast<search::Mode>(i) == search::Mode::Viewport)
+        continue;
+      SetViewportIfPossible(intent.m_params);
+      SetCurrentPositionIfPossible(intent.m_params);
+      Search(intent);
     }
   }
+
+  UpdateUserViewportChanged();
 
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_localAdsManager.UpdateViewport(m_currentModelView);
@@ -1329,10 +1329,12 @@ void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged const & 
 
 void Framework::UpdateUserViewportChanged()
 {
-  if (!IsViewportSearchActive())
+  if (!m_isViewportInitialized || !IsViewportSearchActive())
     return;
 
-  auto & params = m_searchIntents[static_cast<size_t>(search::Mode::Viewport)].m_params;
+  // Copy is intended here, for correct checking of duplicating requests.
+  auto params = m_searchIntents[static_cast<size_t>(search::Mode::Viewport)].m_params;
+  SetViewportIfPossible(params);
   SetCurrentPositionIfPossible(params);
   Search(params);
 }
