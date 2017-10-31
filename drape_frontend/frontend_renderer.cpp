@@ -1763,9 +1763,9 @@ void FrontendRenderer::OnContextCreate()
 {
   LOG(LINFO, ("On context create."));
 
-  m_contextFactory->waitForInitialization();
-
   dp::OGLContext * context = m_contextFactory->getDrawContext();
+  m_contextFactory->waitForInitialization(context);
+
   context->makeCurrent();
 
   GLFunctions::Init(m_apiVersion);

@@ -20,7 +20,7 @@ public:
   bool isDrawContextCreated() const override;
   bool isUploadContextCreated() const override;
   
-  void waitForInitialization() override;
+  void waitForInitialization(dp::OGLContext * context) override;
   
   void setPresentAvailable(bool available);
 
@@ -31,6 +31,8 @@ private:
   iosOGLContext * m_uploadContext;
   
   bool m_isInitialized;
+  size_t m_initializationCounter;
+  bool m_presentAvailable;
   condition_variable m_initializationCondition;
   mutex m_initializationMutex;
 };

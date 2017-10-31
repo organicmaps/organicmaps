@@ -18,7 +18,7 @@ public:
   virtual OGLContext * getResourcesUploadContext() = 0;
   virtual bool isDrawContextCreated() const { return false; }
   virtual bool isUploadContextCreated() const { return false; }
-  virtual void waitForInitialization() {}
+  virtual void waitForInitialization(dp::OGLContext * context) {}
 };
 
 class ThreadSafeFactory : public OGLContextFactory
@@ -36,7 +36,7 @@ public:
     return static_cast<T *>(m_factory);
   }
 
-  void waitForInitialization() override;
+  void waitForInitialization(dp::OGLContext * context) override;
 
 protected:
   typedef function<OGLContext * ()> TCreateCtxFn;

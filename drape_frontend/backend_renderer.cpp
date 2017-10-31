@@ -520,8 +520,9 @@ void BackendRenderer::ReleaseResources()
 void BackendRenderer::OnContextCreate()
 {
   LOG(LINFO, ("On context create."));
-  m_contextFactory->waitForInitialization();
-  m_contextFactory->getResourcesUploadContext()->makeCurrent();
+  dp::OGLContext * context = m_contextFactory->getResourcesUploadContext();
+  m_contextFactory->waitForInitialization(context);
+  context->makeCurrent();
 
   GLFunctions::Init(m_apiVersion);
 
