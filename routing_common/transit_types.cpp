@@ -194,6 +194,20 @@ Edge::Edge(StopId stop1Id, StopId stop2Id, double weight, LineId lineId, bool tr
 {
 }
 
+bool Edge::operator<(Edge const & rhs) const
+{
+  if (m_stop1Id != rhs.m_stop1Id)
+    return m_stop1Id < rhs.m_stop1Id;
+  if (m_stop2Id != rhs.m_stop2Id)
+    return m_stop2Id < rhs.m_stop2Id;
+  return m_lineId < rhs.m_lineId;
+}
+
+bool Edge::operator==(Edge const & rhs) const
+{
+  return m_stop1Id == rhs.m_stop1Id && m_stop2Id == rhs.m_stop2Id && m_lineId == rhs.m_lineId;
+}
+
 bool Edge::IsEqualForTesting(Edge const & edge) const
 {
   return m_stop1Id == edge.m_stop1Id && m_stop2Id == edge.m_stop2Id &&

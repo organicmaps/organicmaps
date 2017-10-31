@@ -67,8 +67,6 @@ struct SortVisitor
   {
     sort(c.begin(), c.end());
   }
-
-  void operator()(vector<transit::Edge> & c, char const * /* name */) const {}
 };
 
 struct IsValidVisitor
@@ -93,8 +91,6 @@ struct IsUniqueVisitor
     m_isUnique = m_isUnique && (adjacent_find(c.begin(), c.end()) == c.end());
   }
 
-  void operator()(vector<transit::Edge> const & c, char const * /* name */ = nullptr) {}
-
   bool IsUnique() const { return m_isUnique; }
 
 private:
@@ -108,8 +104,6 @@ struct IsSortedVisitor
   {
     m_isSorted = m_isSorted && is_sorted(c.begin(), c.end());
   }
-
-  void operator()(vector<transit::Edge> const & c, char const * /* name */ = nullptr) {}
 
   bool IsSorted() const { return m_isSorted; }
 

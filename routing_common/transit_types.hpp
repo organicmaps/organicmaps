@@ -260,6 +260,8 @@ public:
   Edge(StopId stop1Id, StopId stop2Id, double weight, LineId lineId, bool transfer,
        std::vector<ShapeId> const & shapeIds);
 
+  bool operator<(Edge const & rhs) const;
+  bool operator==(Edge const & rhs) const;
   bool IsEqualForTesting(Edge const & edge) const;
   bool IsValid() const;
   void SetWeight(double weight) { m_weight = weight; }
