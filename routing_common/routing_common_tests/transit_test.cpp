@@ -17,22 +17,35 @@ namespace routing
 {
 namespace transit
 {
-template<class Obj>
-void TestSerialization(Obj const &obj)
+template<class S, class D, class Obj>
+void TestCommonSerialization(Obj const & obj)
 {
   vector<uint8_t> buffer;
   MemWriter<vector<uint8_t>> writer(buffer);
 
-  Serializer<MemWriter<vector<uint8_t>>> serializer(writer);
+  S serializer(writer);
   obj.Visit(serializer);
 
   MemReader reader(buffer.data(), buffer.size());
   ReaderSource<MemReader> src(reader);
   Obj deserializedObj;
-  Deserializer<ReaderSource<MemReader>> deserializer(src);
+  D deserializer(src);
   deserializedObj.Visit(deserializer);
 
   TEST(obj.IsEqualForTesting(deserializedObj), (obj, deserializedObj));
+}
+
+void TestSerialization(TransitHeader const & header)
+{
+  TestCommonSerialization<FixSizeNumberSerializer<MemWriter<vector<uint8_t>>>,
+                          FixSizeNumberDeserializer<ReaderSource<MemReader>>>(header);
+}
+
+template<class Obj>
+void TestSerialization(Obj const & obj)
+{
+  TestCommonSerialization<Serializer<MemWriter<vector<uint8_t>>>,
+                          Deserializer<ReaderSource<MemReader>>>(obj);
 }
 }  // namespace transit
 }  // namespace routing

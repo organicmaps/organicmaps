@@ -59,9 +59,10 @@ unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId numMwmI
     FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG));
     ReaderSource<FilesContainerR::TReader> src(reader);
     transit::Deserializer<ReaderSource<FilesContainerR::TReader>> deserializer(src);
+    transit::FixSizeNumberDeserializer<ReaderSource<FilesContainerR::TReader>> numberDeserializer(src);
 
     transit::TransitHeader header;
-    header.Visit(deserializer);
+    header.Visit(numberDeserializer);
 
     vector<transit::Stop> stops;
     deserializer(stops);

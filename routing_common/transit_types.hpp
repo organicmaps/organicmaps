@@ -37,16 +37,18 @@ TransferId constexpr kInvalidTransferId = std::numeric_limits<TransferId>::max()
 // To convert double to uint32_t at better accuracy |kInvalidWeight| should be close to real weight.
 Weight constexpr kInvalidWeight = -1.0;
 
-#define DECLARE_TRANSIT_TYPE_FRIENDS                                                           \
-    template<class Sink> friend class Serializer;                                              \
-    template<class Source> friend class Deserializer;                                          \
-    friend class DeserializerFromJson;                                                         \
-    friend class routing::TransitGraphLoader;                                                  \
-    friend void BuildTransit(std::string const & mwmDir,                                       \
-                             std::string const & countryId,                                    \
-                             std::string const & osmIdsToFeatureIdPath,                        \
-                             std::string const & transitDir);                                  \
-    template<class Obj> friend void TestSerialization(Obj const & obj);                        \
+#define DECLARE_TRANSIT_TYPE_FRIENDS                                                  \
+  template <class Sink>                                                               \
+  friend class Serializer;                                                            \
+  template <class Source>                                                             \
+  friend class Deserializer;                                                          \
+  friend class DeserializerFromJson;                                                  \
+  friend class routing::TransitGraphLoader;                                           \
+  friend void BuildTransit(std::string const & mwmDir, std::string const & countryId, \
+                           std::string const & osmIdsToFeatureIdPath,                 \
+                           std::string const & transitDir);                           \
+  template <class Ser, class Deser, class Obj>                                        \
+  void friend TestCommonSerialization(Obj const & obj);                               \
 
 struct TransitHeader
 {
