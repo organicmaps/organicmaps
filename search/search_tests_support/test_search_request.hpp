@@ -48,6 +48,7 @@ protected:
   void Wait();
 
   void SetUpCallbacks();
+  void SetUpResultParams();
 
   void OnStarted();
   void OnResults(search::Results const & results);

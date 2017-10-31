@@ -193,7 +193,7 @@ void Sample::FillSearchParams(search::SearchParams & params) const
   params.m_viewport = m_viewport;
   params.m_mode = Mode::Everywhere;
   if (m_posAvailable)
-    params.SetPosition(MercatorBounds::ToLatLon(m_pos));
+    params.m_position = m_pos;
 
   params.m_suggestsEnabled = false;
 }

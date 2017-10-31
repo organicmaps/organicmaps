@@ -395,18 +395,18 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
 
   auto res = mk(rankerResult);
 
-  if (needHighlighting)
+  if (needAddress &&
+      ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::NONE)
   {
-    HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
-    if (ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::NONE)
-    {
-      m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
-        string city;
-        if (item.GetSpecifiedOrDefaultName(m_localityLang, city))
-          res.AppendCity(city);
-      });
-    }
+    m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
+      string city;
+      if (item.GetSpecifiedOrDefaultName(m_localityLang, city))
+        res.AppendCity(city);
+    });
   }
+
+  if (needHighlighting)
+    HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
 
   res.SetRankingInfo(rankerResult.GetRankingInfo());
   return res;
@@ -459,20 +459,19 @@ void Ranker::UpdateResults(bool lastUpdate)
 
     auto const & rankerResult = m_tentativeResults[i];
 
+    if (count >= m_params.m_limit)
+      break;
+
+    Result result = MakeResult(rankerResult, m_params.m_needAddress, m_params.m_needHighlight);
+
     if (m_params.m_viewportSearch)
     {
-      // Viewport results don't need calculated address.
-      Result result =
-          MakeResult(rankerResult, false /* needAddress */, false /* needHighlighting */);
       m_emitter.AddResultNoChecks(move(result));
+      ++count;
     }
     else
     {
-      if (count >= m_params.m_limit)
-        break;
-
       LOG(LDEBUG, (rankerResult));
-      Result result = MakeResult(rankerResult, true /* needAddress */, true /* needHighlighting */);
       if (m_emitter.AddResult(move(result)))
         ++count;
     }

@@ -121,14 +121,15 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   TestRanker ranker(m_engine, boundariesTable, keywordsScorer, emitter, m_suggests, villagesCache,
                     m_cancellable, results);
 
-  PreRanker preRanker(m_engine, ranker, pois.size());
+  PreRanker preRanker(m_engine, ranker);
   PreRanker::Params params;
   params.m_viewport = kViewport;
   params.m_accuratePivotCenter = kPivot;
   params.m_scale = scales::GetUpperScale();
   params.m_batchSize = kBatchSize;
+  params.m_limit = pois.size();
+  params.m_viewportSearch = true;
   preRanker.Init(params);
-  preRanker.SetViewportSearch(true);
 
   vector<double> distances(pois.size());
   vector<bool> emit(pois.size());

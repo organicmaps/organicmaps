@@ -2,7 +2,6 @@
 
 #include "search/hotels_filter.hpp"
 #include "search/result.hpp"
-#include "search/search_params.hpp"
 
 #include <functional>
 #include <memory>

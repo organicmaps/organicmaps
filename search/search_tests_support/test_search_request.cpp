@@ -20,6 +20,7 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   m_params.m_viewport = viewport;
   m_params.m_mode = mode;
   SetUpCallbacks();
+  SetUpResultParams();
 }
 
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams const & params)
@@ -40,6 +41,7 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   m_params.m_mode = mode;
   m_params.m_onStarted = onStarted;
   m_params.m_onResults = onResults;
+  SetUpResultParams();
 }
 
 void TestSearchRequest::Run()
@@ -77,6 +79,25 @@ void TestSearchRequest::SetUpCallbacks()
 {
   m_params.m_onStarted = bind(&TestSearchRequest::OnStarted, this);
   m_params.m_onResults = bind(&TestSearchRequest::OnResults, this, _1);
+}
+
+void TestSearchRequest::SetUpResultParams()
+{
+  switch (m_params.m_mode)
+  {
+  case Mode::Everywhere:
+    m_params.m_needAddress = true;
+    m_params.m_suggestsEnabled = false;
+    m_params.m_needHighlight = true;
+    break;
+  case Mode::Viewport:  // fallthrough
+  case Mode::Downloader:
+    m_params.m_needAddress = false;
+    m_params.m_suggestsEnabled = false;
+    m_params.m_needHighlight = false;
+    break;
+  case Mode::Count: CHECK(false, ()); break;
+  }
 }
 
 void TestSearchRequest::OnStarted()

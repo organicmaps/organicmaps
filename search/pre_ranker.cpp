@@ -41,8 +41,8 @@ void SweepNearbyResults(double eps, vector<PreRankerResult> & results)
 }
 }  // namespace
 
-PreRanker::PreRanker(Index const & index, Ranker & ranker, size_t limit)
-  : m_index(index), m_ranker(ranker), m_limit(limit), m_pivotFeatures(index)
+PreRanker::PreRanker(Index const & index, Ranker & ranker)
+  : m_index(index), m_ranker(ranker), m_pivotFeatures(index)
 {
 }
 
@@ -196,7 +196,7 @@ void PreRanker::Filter(bool viewportSearch)
 void PreRanker::UpdateResults(bool lastUpdate)
 {
   FillMissingFieldsInPreResults();
-  Filter(m_viewportSearch);
+  Filter(m_params.m_viewportSearch);
   m_numSentResults += m_results.size();
   m_ranker.SetPreRankerResults(move(m_results));
   m_results.clear();

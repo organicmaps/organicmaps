@@ -225,15 +225,9 @@ void Engine::PostMessage(TArgs &&... args)
 void Engine::DoSearch(SearchParams const & params, shared_ptr<ProcessorHandle> handle,
                       Processor & processor)
 {
-  bool const viewportSearch = params.m_mode == Mode::Viewport;
-
   processor.Reset();
-  processor.Init(viewportSearch);
   handle->Attach(processor);
-  MY_SCOPE_GUARD(detach, [&handle]
-                 {
-                   handle->Detach();
-                 });
+  MY_SCOPE_GUARD(detach, [&handle] { handle->Detach(); });
 
   processor.Search(params);
 }

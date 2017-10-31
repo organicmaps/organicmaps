@@ -12,22 +12,10 @@ using namespace std;
 
 namespace search
 {
-m2::PointD SearchParams::GetPositionMercator() const
-{
-  ASSERT(IsValidPosition(), ());
-  return MercatorBounds::FromLatLon(*m_position);
-}
-
-ms::LatLon SearchParams::GetPositionLatLon() const
-{
-  ASSERT(IsValidPosition(), ());
-  return *m_position;
-}
-
 bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
 {
   return m_query == rhs.m_query && m_inputLocale == rhs.m_inputLocale &&
-         IsValidPosition() == rhs.IsValidPosition() && m_mode == rhs.m_mode;
+         static_cast<bool>(m_position) == static_cast<bool>(rhs.m_position) && m_mode == rhs.m_mode;
 }
 
 string DebugPrint(SearchParams const & params)

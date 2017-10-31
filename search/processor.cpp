@@ -5,6 +5,7 @@
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/latlon_match.hpp"
+#include "search/mode.hpp"
 #include "search/pre_ranking_info.hpp"
 #include "search/query_params.hpp"
 #include "search/ranking_info.hpp"
@@ -95,9 +96,9 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
     resultString.append("\t" + res[i].ToStringForStats());
 
   string posX, posY;
-  if (params.IsValidPosition())
+  if (params.m_position)
   {
-    auto const position = params.GetPositionMercator();
+    auto const position = *params.m_position;
     posX = strings::to_string(position.x);
     posY = strings::to_string(position.y);
   }
@@ -156,10 +157,9 @@ void RemoveStopWordsIfNeeded(QueryParams & params)
 
 // static
 size_t const Processor::kPreResultsCount = 200;
-
-// static
 double const Processor::kMinViewportRadiusM = 5.0 * 1000;
 double const Processor::kMaxViewportRadiusM = 50.0 * 1000;
+double const Processor::kMinDistanceOnMapBetweenResultsM = 100.0;
 
 Processor::Processor(Index const & index, CategoriesHolder const & categories,
                      vector<Suggest> const & suggests,
@@ -167,16 +167,12 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   : m_categories(categories)
   , m_infoGetter(infoGetter)
   , m_position(0, 0)
-  , m_minDistanceOnMapBetweenResults(0.0)
-  , m_mode(Mode::Everywhere)
-  , m_suggestsEnabled(true)
-  , m_viewportSearch(false)
   , m_villagesCache(static_cast<my::Cancellable const &>(*this))
   , m_citiesBoundaries(index)
   , m_keywordsScorer(LanguageTier::LANGUAGE_TIER_COUNT)
   , m_ranker(index, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
              suggests, m_villagesCache, static_cast<my::Cancellable const &>(*this))
-  , m_preRanker(index, m_ranker, kPreResultsCount)
+  , m_preRanker(index, m_ranker)
   , m_geocoder(index, infoGetter, m_preRanker, m_villagesCache,
                static_cast<my::Cancellable const &>(*this))
 {
@@ -188,13 +184,6 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
                                 {StringUtf8Multilang::kDefaultCode});
 
   SetPreferredLocale("en");
-}
-
-void Processor::Init(bool viewportSearch)
-{
-  m_tokens.clear();
-  m_prefix.clear();
-  m_preRanker.SetViewportSearch(viewportSearch);
 }
 
 void Processor::SetViewport(m2::RectD const & viewport)
@@ -242,10 +231,8 @@ void Processor::SetInputLocale(string const & locale)
 void Processor::SetQuery(string const & query)
 {
   m_query = query;
-
-  /// @todo Why Init is separated with SetQuery?
-  ASSERT(m_tokens.empty(), ());
-  ASSERT(m_prefix.empty(), ());
+  m_tokens.clear();
+  m_prefix.clear();
 
   // Following code splits input query by delimiters except hash tags
   // first, and then splits result tokens by hashtags. The goal is to
@@ -307,33 +294,34 @@ void Processor::SetQuery(string const & query)
                       });
 }
 
-void Processor::SetRankPivot(m2::PointD const & pivot)
+void Processor::SetLanguage(int id, int8_t lang)
 {
-  if (!m2::AlmostEqualULPs(pivot, m_pivot))
-  {
-    storage::CountryInfo ci;
-    m_infoGetter.GetRegionInfo(pivot, ci);
-    m_region.swap(ci.m_name);
-  }
-
-  m_pivot = pivot;
+  m_keywordsScorer.SetLanguage(GetLangIndex(id), lang);
 }
 
-m2::PointD Processor::GetPivotPoint() const
+int8_t Processor::GetLanguage(int id) const
 {
-  bool const viewportSearch = m_mode == Mode::Viewport;
+  return m_keywordsScorer.GetLanguage(GetLangIndex(id));
+}
 
+m2::PointD Processor::GetPivotPoint(bool viewportSearch) const
+{
   auto const & viewport = GetViewport();
   if (viewportSearch || !viewport.IsPointInside(GetPosition()))
     return viewport.Center();
   return GetPosition();
 }
 
-m2::RectD Processor::GetPivotRect() const
+m2::RectD Processor::GetPivotRect(bool viewportSearch) const
 {
   auto const & viewport = GetViewport();
+
+  if (viewportSearch)
+    return viewport;
+
   if (viewport.IsPointInside(GetPosition()))
     return GetRectAroundPosition(GetPosition());
+
   return NormalizeViewport(viewport);
 }
 
@@ -396,47 +384,26 @@ void Processor::Search(SearchParams const & params)
     return;
   }
 
-  SetMode(params.m_mode);
-  bool const viewportSearch = m_mode == Mode::Viewport;
+  bool const viewportSearch = params.m_mode == Mode::Viewport;
 
-  bool rankPivotIsSet = false;
   auto const & viewport = params.m_viewport;
   ASSERT(viewport.IsValid(), ());
 
-  if (!viewportSearch && params.IsValidPosition())
-  {
-    m2::PointD const pos = params.GetPositionMercator();
-    if (m2::Inflate(viewport, viewport.SizeX() / 4.0, viewport.SizeY() / 4.0).IsPointInside(pos))
-    {
-      SetRankPivot(pos);
-      rankPivotIsSet = true;
-    }
-  }
-  if (!rankPivotIsSet)
-    SetRankPivot(viewport.Center());
-
-  if (params.IsValidPosition())
-    SetPosition(params.GetPositionMercator());
+  if (params.m_position)
+    SetPosition(*params.m_position);
   else
     SetPosition(viewport.Center());
-
-  SetMinDistanceOnMapBetweenResults(params.m_minDistanceOnMapBetweenResults);
-
-  SetSuggestsEnabled(params.m_suggestsEnabled);
-  m_hotelsFilter = params.m_hotelsFilter;
-  m_cianMode = params.m_cianMode;
 
   SetInputLocale(params.m_inputLocale);
 
   SetQuery(params.m_query);
   SetViewport(viewport);
-  SetOnResults(params.m_onResults);
 
   Geocoder::Params geocoderParams;
-  InitGeocoder(geocoderParams);
-  InitPreRanker(geocoderParams);
-  InitRanker(geocoderParams);
-  InitEmitter();
+  InitGeocoder(geocoderParams, params);
+  InitPreRanker(geocoderParams, params);
+  InitRanker(geocoderParams, params);
+  InitEmitter(params);
 
   try
   {
@@ -523,72 +490,82 @@ void Processor::InitParams(QueryParams & params)
       [&](int8_t lang) { params.GetLangs().Insert(static_cast<uint64_t>(lang)); });
 }
 
-void Processor::InitGeocoder(Geocoder::Params & params)
+void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams const & searchParams)
 {
-  bool const viewportSearch = m_mode == Mode::Viewport;
+  auto const viewportSearch = searchParams.m_mode == Mode::Viewport;
 
-  InitParams(params);
-  params.m_mode = m_mode;
-  if (viewportSearch)
-    params.m_pivot = GetViewport();
-  else
-    params.m_pivot = GetPivotRect();
-  params.m_hotelsFilter = m_hotelsFilter;
-  params.m_cianMode = m_cianMode;
-  params.m_preferredTypes = m_preferredTypes;
+  InitParams(geocoderParams);
 
-  m_geocoder.SetParams(params);
+  geocoderParams.m_mode = searchParams.m_mode;
+  geocoderParams.m_pivot = GetPivotRect(viewportSearch);
+  geocoderParams.m_hotelsFilter = searchParams.m_hotelsFilter;
+  geocoderParams.m_cianMode = searchParams.m_cianMode;
+  geocoderParams.m_preferredTypes = m_preferredTypes;
+
+  m_geocoder.SetParams(geocoderParams);
 }
 
-void Processor::InitPreRanker(Geocoder::Params const & geocoderParams)
+void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
+                              SearchParams const & searchParams)
 {
-  bool const viewportSearch = m_mode == Mode::Viewport;
+  bool const viewportSearch = searchParams.m_mode == Mode::Viewport;
 
   PreRanker::Params params;
 
   if (viewportSearch)
   {
     params.m_viewport = GetViewport();
-    params.m_minDistanceOnMapBetweenResults = m_minDistanceOnMapBetweenResults;
+    params.m_minDistanceOnMapBetweenResults =
+        searchParams.m_minDistanceOnMapBetweenResults;
   }
-  params.m_accuratePivotCenter = GetPivotPoint();
+  params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
   params.m_scale = geocoderParams.GetScale();
+  params.m_limit = max(kPreResultsCount, searchParams.m_maxNumResults);
+  params.m_viewportSearch = viewportSearch;
 
   m_preRanker.Init(params);
 }
 
-void Processor::InitRanker(Geocoder::Params const & geocoderParams)
+void Processor::InitRanker(Geocoder::Params const & geocoderParams,
+                           SearchParams const & searchParams)
 {
-  size_t const kResultsCount = 30;
-  bool const viewportSearch = m_mode == Mode::Viewport;
+  bool const viewportSearch = searchParams.m_mode == Mode::Viewport;
+
   Ranker::Params params;
 
   params.m_currentLocaleCode = m_currentLocaleCode;
+
   if (viewportSearch)
   {
     params.m_viewport = GetViewport();
-    params.m_minDistanceOnMapBetweenResults = m_minDistanceOnMapBetweenResults;
-    params.m_limit = kPreResultsCount;
+    params.m_minDistanceOnMapBetweenResults = searchParams.m_minDistanceOnMapBetweenResults;
   }
   else
   {
-    params.m_minDistanceOnMapBetweenResults = 100.0;
-    params.m_limit = kResultsCount;
+    params.m_minDistanceOnMapBetweenResults = kMinDistanceOnMapBetweenResultsM;
   }
+
+  params.m_limit = searchParams.m_maxNumResults;
   params.m_position = GetPosition();
   params.m_pivotRegion = GetPivotRegion();
   params.m_preferredTypes = m_preferredTypes;
-  params.m_suggestsEnabled = m_suggestsEnabled;
+  params.m_suggestsEnabled = searchParams.m_suggestsEnabled;
+  params.m_needAddress = searchParams.m_needAddress;
+  params.m_needHighlight = searchParams.m_needHighlight;
   params.m_query = m_query;
   params.m_tokens = m_tokens;
   params.m_prefix = m_prefix;
   params.m_categoryLocales = GetCategoryLocales();
-  params.m_accuratePivotCenter = GetPivotPoint();
+  params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
   params.m_viewportSearch = viewportSearch;
+
   m_ranker.Init(params, geocoderParams);
 }
 
-void Processor::InitEmitter() { m_emitter.Init(m_onResults); }
+void Processor::InitEmitter(SearchParams const & searchParams)
+{
+  m_emitter.Init(searchParams.m_onResults);
+}
 
 void Processor::ClearCaches()
 {

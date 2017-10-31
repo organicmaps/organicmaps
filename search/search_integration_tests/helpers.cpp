@@ -98,6 +98,7 @@ unique_ptr<tests_support::TestSearchRequest> SearchTest::MakeRequest(
   params.m_inputLocale = locale;
   params.m_viewport = m_viewport;
   params.m_mode = Mode::Everywhere;
+  params.m_needAddress = true;
   params.m_suggestsEnabled = false;
 
   auto request = make_unique<tests_support::TestSearchRequest>(m_engine, params);

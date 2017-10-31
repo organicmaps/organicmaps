@@ -82,6 +82,7 @@
 #include "geometry/any_rect2d.hpp"
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/tree4d.hpp"
 #include "geometry/triangle2d.hpp"
@@ -1343,8 +1344,11 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
   p.m_inputLocale = params.m_inputLocale;
   p.m_mode = search::Mode::Everywhere;
   SetViewportIfPossible(p);  // Search request will be delayed if viewport is not available.
+  p.m_maxNumResults = search::SearchParams::kDefaultNumResultsEverywhere;
   p.m_forceSearch = true;
   p.m_suggestsEnabled = true;
+  p.m_needAddress = true;
+  p.m_needHighlight = true;
   p.m_hotelsFilter = params.m_hotelsFilter;
   p.m_cianMode = IsCianMode(params.m_query);
 
@@ -1369,9 +1373,12 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
   SetViewportIfPossible(p);  // Search request will be delayed if viewport is not available.
+  p.m_maxNumResults = search::SearchParams::kDefaultNumResultsInViewport;
   p.m_mode = search::Mode::Viewport;
   p.m_forceSearch = false;
   p.m_suggestsEnabled = false;
+  p.m_needAddress = false;
+  p.m_needHighlight = false;
   p.m_hotelsFilter = params.m_hotelsFilter;
   p.m_cianMode = m_cianSearchMode;
 
@@ -1397,9 +1404,12 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
   SetViewportIfPossible(p);  // Search request will be delayed if viewport is not available.
+  p.m_maxNumResults = search::SearchParams::kDefaultNumResultsEverywhere;
   p.m_mode = search::Mode::Downloader;
   p.m_forceSearch = true;
   p.m_suggestsEnabled = false;
+  p.m_needAddress = false;
+  p.m_needHighlight = false;
   p.m_onResults = search::DownloaderSearchCallback(
       static_cast<search::DownloaderSearchCallback::Delegate &>(*this), m_model.GetIndex(),
       GetCountryInfoGetter(), GetStorage(), params);
@@ -1668,7 +1678,7 @@ void Framework::SetCurrentPositionIfPossible(search::SearchParams & params)
   double lat;
   double lon;
   if (GetCurrentPosition(lat, lon))
-    params.SetPosition(ms::LatLon(lat, lon));
+    params.m_position = MercatorBounds::FromLatLon(lat, lon);
 }
 
 bool Framework::QueryMayBeSkipped(SearchIntent const & intent,
@@ -1689,14 +1699,14 @@ bool Framework::QueryMayBeSkipped(SearchIntent const & intent,
     return false;
   }
 
-  if (lastParams.IsValidPosition() && params.IsValidPosition() &&
-      ms::DistanceOnEarth(lastParams.GetPositionLatLon(), params.GetPositionLatLon()) >
+  if (lastParams.m_position && params.m_position &&
+      MercatorBounds::DistanceOnEarth(*lastParams.m_position, *params.m_position) >
           kDistEqualQueryMeters)
   {
     return false;
   }
 
-  if (lastParams.IsValidPosition() != params.IsValidPosition())
+  if (static_cast<bool>(lastParams.m_position) != static_cast<bool>(params.m_position))
     return false;
 
   if (!search::hotels_filter::Rule::IsIdentical(lastParams.m_hotelsFilter, params.m_hotelsFilter))

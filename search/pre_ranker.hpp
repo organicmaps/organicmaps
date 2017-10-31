@@ -43,18 +43,21 @@ public:
     int m_scale = 0;
 
     size_t m_batchSize = 100;
+
+    // The maximum total number of results to be emitted in all batches.
+    size_t m_limit = 0;
+
+    bool m_viewportSearch = false;
   };
 
-  PreRanker(Index const & index, Ranker & ranker, size_t limit);
+  PreRanker(Index const & index, Ranker & ranker);
 
   void Init(Params const & params);
-
-  inline void SetViewportSearch(bool viewportSearch) { m_viewportSearch = viewportSearch; }
 
   template <typename... TArgs>
   void Emplace(TArgs &&... args)
   {
-    if (m_numSentResults >= m_limit)
+    if (m_numSentResults >= Limit())
       return;
     m_results.emplace_back(forward<TArgs>(args)...);
   }
@@ -72,7 +75,7 @@ public:
   inline size_t Size() const { return m_results.size(); }
   inline size_t BatchSize() const { return m_params.m_batchSize; }
   inline size_t NumSentResults() const { return m_numSentResults; }
-  inline size_t Limit() const { return m_limit; }
+  inline size_t Limit() const { return m_params.m_limit; }
 
   template <typename TFn>
   void ForEach(TFn && fn)
@@ -88,9 +91,7 @@ private:
   Index const & m_index;
   Ranker & m_ranker;
   vector<PreRankerResult> m_results;
-  size_t const m_limit;
   Params m_params;
-  bool m_viewportSearch = false;
 
   // Amount of results sent up the pipeline.
   size_t m_numSentResults = 0;
