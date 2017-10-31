@@ -562,7 +562,7 @@ void Ranker::ProcessSuggestions(vector<RankerResult> & vec) const
       {
         // todo(@m) RankingInfo is lost here. Should it be?
         if (m_emitter.AddResult(Result(
-                MakeResult(r, true /* needAddress */, true /* needHighlighting */), suggestion)))
+                MakeResult(r, false /* needAddress */, true /* needHighlighting */), suggestion)))
           ++added;
 
         i = vec.erase(i);
