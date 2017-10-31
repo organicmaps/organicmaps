@@ -517,13 +517,6 @@ public class SearchFragment extends BaseMwmFragment
     mInitialHotelsFilter = arguments.getParcelable(SearchActivity.EXTRA_HOTELS_FILTER);
   }
 
-  private void hideSearch()
-  {
-    mToolbarController.clear();
-    mToolbarController.deactivate();
-    Utils.navigateToParent(getActivity());
-  }
-
   private boolean tryRecognizeLoggingCommand(@NonNull String str)
   {
     if (str.equals("?enableLogging"))
@@ -536,6 +529,12 @@ public class SearchFragment extends BaseMwmFragment
     {
       LoggerFactory.INSTANCE.setFileLoggingEnabled(false);
       MwmApplication.prefs().edit().putBoolean(PREFS_SHOW_ENABLE_LOGGING_SETTING, false).apply();
+      return true;
+    }
+
+    if (str.equals("?emulateBadStorage"))
+    {
+      SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(true);
       return true;
     }
 

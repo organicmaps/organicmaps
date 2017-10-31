@@ -177,9 +177,20 @@ public class MwmApplication extends Application
     initAppsFlyer();
   }
 
-  public void initPlatformAndCore(){
+  /**
+   * Initialize native part of application: platform and core. Caller must handle returned value
+   * and do nothing with native code if initialization is failed.
+   *
+   * @return boolean - indicator whether native initialization is successful or not.
+   */
+  public boolean initPlatformAndCore()
+  {
     initNativePlatform();
+    if (!mPlatformInitialized)
+      return false;
+
     initNativeCore();
+    return mFrameworkInitialized;
   }
 
   private void initNativePlatform()
@@ -195,7 +206,12 @@ public class MwmApplication extends Application
     mLogger.d(TAG, "onCreate(), setting path = " + settingsPath);
     String tempPath = getTempPath();
     mLogger.d(TAG, "onCreate(), temp path = " + tempPath);
-    createPlatformDirectories(settingsPath, tempPath);
+
+    // If platform directories are not created it means that native part of app will not be able
+    // to work at all. So, we just ignore native part initialization in this case, e.g. when the
+    // external storage is damaged or not available (read-only).
+    if (!createPlatformDirectories(settingsPath, tempPath))
+      return;
 
     // First we need initialize paths and platform to have access to settings and other components.
     nativePreparePlatform(settingsPath);
@@ -217,13 +233,15 @@ public class MwmApplication extends Application
     mPlatformInitialized = true;
   }
 
-  private void createPlatformDirectories(@NonNull String settingsPath, @NonNull String tempPath)
+  private boolean createPlatformDirectories(@NonNull String settingsPath, @NonNull String tempPath)
   {
-    createPlatformDirectory(settingsPath);
-    createPlatformDirectory(tempPath);
+    if (SharedPropertiesUtils.shouldEmulateBadExternalStorage())
+      return false;
+
+    return createPlatformDirectory(settingsPath) && createPlatformDirectory(tempPath);
   }
 
-  private void createPlatformDirectory(@NonNull String path)
+  private boolean createPlatformDirectory(@NonNull String path)
   {
     File directory = new File(path);
     if (!directory.exists() && !directory.mkdirs())
@@ -237,7 +255,9 @@ public class MwmApplication extends Application
                                     + " state = " + Environment.getExternalStorageState()
                                     + " isPermissionGranted = " + isPermissionGranted);
       CrashlyticsUtils.logException(error);
+      return false;
     }
+    return true;
   }
 
   private void initNativeCore()

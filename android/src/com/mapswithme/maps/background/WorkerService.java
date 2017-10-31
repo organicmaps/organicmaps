@@ -153,7 +153,16 @@ public class WorkerService extends IntentService
 
     MwmApplication application = MwmApplication.get();
     if (!application.arePlatformAndCoreInitialized())
-      application.initPlatformAndCore();
+    {
+      boolean success = application.initPlatformAndCore();
+      if (!success)
+      {
+        String message = "Native part couldn't be initialized successfully";
+        LOGGER.e(TAG, message);
+        CrashlyticsUtils.log(Log.ERROR, TAG, message);
+        return false;
+      }
+    }
 
     Location l = LocationHelper.INSTANCE.getLastKnownLocation();
     if (l == null)

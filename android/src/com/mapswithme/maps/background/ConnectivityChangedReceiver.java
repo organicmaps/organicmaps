@@ -35,7 +35,16 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
 
     MwmApplication application = MwmApplication.get();
     if (!application.arePlatformAndCoreInitialized())
-      application.initPlatformAndCore();
+    {
+      boolean success = application.initPlatformAndCore();
+      if (!success)
+      {
+        String message = "Native part couldn't be initialized successfully";
+        LOGGER.e(TAG, message);
+        CrashlyticsUtils.log(Log.ERROR, TAG, message);
+        return;
+      }
+    }
 
     if (!ConnectionState.isWifiConnected()
         || MapManager.nativeNeedMigrate())

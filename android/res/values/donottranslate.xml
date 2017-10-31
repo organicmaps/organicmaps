@@ -28,6 +28,7 @@
   <string name="pref_show_zoom_buttons" translatable="false">ZoomButtonsEnabled</string>
   <string name="pref_play_services" translatable="false">PlayServicesEnabled</string>
   <string name="pref_enable_logging" translatable="false">EnableLogging</string>
+  <string name="pref_emulate_bad_external_storage" translatable="false">EmulateBadExternalStorage</string>
   <string name="pref_about" translatable="false">AboutMapsWithMe</string>
   <string name="pref_rate_app" translatable="false">RateApp</string>
   <string name="pref_help" translatable="false">Help</string>
