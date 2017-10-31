@@ -1,10 +1,6 @@
 project(minizip)
 
-add_definitions(-DNOCRYPT)
-
-if (ANDROID_DETECTED AND X32)
-  add_definitions(-DUSE_FILE32API)
-endif()
+add_definitions(-DUSE_FILE32API -DNOCRYPT)
 
 add_clang_compile_options("-Wno-unused-value")
 
