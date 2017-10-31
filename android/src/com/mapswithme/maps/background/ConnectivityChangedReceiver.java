@@ -36,7 +36,7 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
     MwmApplication application = MwmApplication.get();
     if (!application.arePlatformAndCoreInitialized())
     {
-      boolean success = application.initPlatformAndCore();
+      boolean success = application.initCore();
       if (!success)
       {
         String message = "Native part couldn't be initialized successfully";

@@ -45,7 +45,7 @@ public class SplashActivity extends AppCompatActivity
   private boolean mPermissionsGranted;
   private boolean mNeedStoragePermission;
   private boolean mCanceled;
-  private boolean mNativePartInitialized;
+  private boolean mCoreInitialized;
 
   @NonNull
   private final Runnable mPermissionsDelayedTask = new Runnable()
@@ -189,7 +189,7 @@ public class SplashActivity extends AppCompatActivity
     if (mCanceled)
       return;
 
-    if (!mNativePartInitialized)
+    if (!mCoreInitialized)
     {
       showExternalStorageErrorDialog();
       return;
@@ -284,7 +284,7 @@ public class SplashActivity extends AppCompatActivity
 
   private void init()
   {
-    mNativePartInitialized = MwmApplication.get().initPlatformAndCore();
+    mCoreInitialized = MwmApplication.get().initCore();
   }
 
   @SuppressWarnings("unchecked")

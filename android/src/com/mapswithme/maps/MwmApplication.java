@@ -178,18 +178,18 @@ public class MwmApplication extends Application
   }
 
   /**
-   * Initialize native part of application: platform and core. Caller must handle returned value
+   * Initialize native core of application: platform and framework. Caller must handle returned value
    * and do nothing with native code if initialization is failed.
    *
    * @return boolean - indicator whether native initialization is successful or not.
    */
-  public boolean initPlatformAndCore()
+  public boolean initCore()
   {
     initNativePlatform();
     if (!mPlatformInitialized)
       return false;
 
-    initNativeCore();
+    initNativeFramework();
     return mFrameworkInitialized;
   }
 
@@ -260,7 +260,7 @@ public class MwmApplication extends Application
     return true;
   }
 
-  private void initNativeCore()
+  private void initNativeFramework()
   {
     if (mFrameworkInitialized)
       return;
