@@ -55,12 +55,12 @@ void InitMatcher(char const * query, KeywordMatcher & matcher)
 
 class TestScore
 {
-  typedef KeywordMatcher::ScoreT ScoreT;
-  ScoreT m_score;
+  typedef KeywordMatcher::Score Score;
+  Score m_score;
 
 public:
   TestScore() {}
-  TestScore(ScoreT const & score) : m_score(score) {}
+  TestScore(Score const & score) : m_score(score) {}
 
   bool operator<(TestScore const & s) const
   {
@@ -90,14 +90,14 @@ void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (
   {
     char const * const name = testCases[i].m_name;
     char const * const prevName = (i == 0 ? "N/A" : testCases[i-1].m_name);
-    TestScore const testScore = matcher.Score(name);
+    TestScore const testScore = matcher.CalcScore(name);
 
     // Test that a newly created matcher returns the same result
     {
       KeywordMatcher freshMatcher;
       InitMatcher(query, freshMatcher);
 
-      TestScore const freshScore = freshMatcher.Score(name);
+      TestScore const freshScore = freshMatcher.CalcScore(name);
       // TEST_EQUAL(testScore, freshScore, (query, name));
       TEST(!(testScore < freshScore), (query, name));
       TEST(!(freshScore < testScore), (query, name));
@@ -337,6 +337,6 @@ UNIT_TEST(KeywordMatcher_DifferentLangs)
   InitMatcher("не", matcher);
 
   char const * arr[] = { "Невский переулок", "Неўскі завулак" };
-  TEST(!(matcher.Score(arr[0]) < matcher.Score(arr[1])), ());
-  TEST(!(matcher.Score(arr[1]) < matcher.Score(arr[0])), ());
+  TEST(!(matcher.CalcScore(arr[0]) < matcher.CalcScore(arr[1])), ());
+  TEST(!(matcher.CalcScore(arr[1]) < matcher.CalcScore(arr[0])), ());
 }

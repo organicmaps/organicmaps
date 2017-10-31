@@ -2,6 +2,8 @@
 
 #include "search/keyword_matcher.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <array>
 #include <utility>
 #include <vector>
@@ -11,21 +13,19 @@ namespace search
 class KeywordLangMatcher
 {
 public:
-  using StringT = KeywordMatcher::StringT;
-
-  class ScoreT
+  class Score
   {
   public:
-    ScoreT();
-    bool operator<(ScoreT const & s) const;
+    Score();
+    bool operator<(Score const & s) const;
 
   private:
     friend class KeywordLangMatcher;
-    friend string DebugPrint(ScoreT const & score);
+    friend string DebugPrint(Score const & score);
 
-    ScoreT(KeywordMatcher::ScoreT const & score, int langScore);
+    Score(KeywordMatcher::Score const & score, int langScore);
 
-    KeywordMatcher::ScoreT m_parentScore;
+    KeywordMatcher::Score m_parentScore;
     int m_langScore;
   };
 
@@ -50,18 +50,19 @@ public:
   }
 
   // Store references to keywords from source array of strings.
-  inline void SetKeywords(StringT const * keywords, size_t count, StringT const & prefix)
+  inline void SetKeywords(strings::UniString const * keywords, size_t count,
+                          strings::UniString const & prefix)
   {
     m_keywordMatcher.SetKeywords(keywords, count, prefix);
   }
 
   // Returns the Score of the name (greater is better).
-  ScoreT Score(int8_t lang, string const & name) const;
-  ScoreT Score(int8_t lang, StringT const & name) const;
-  ScoreT Score(int8_t lang, StringT const * tokens, size_t count) const;
+  Score CalcScore(int8_t lang, string const & name) const;
+  Score CalcScore(int8_t lang, strings::UniString const & name) const;
+  Score CalcScore(int8_t lang, strings::UniString const * tokens, size_t count) const;
 
 private:
-  int GetLangScore(int8_t lang) const;
+  int CalcLangScore(int8_t lang) const;
 
   std::vector<std::vector<int8_t>> m_languagePriorities;
   KeywordMatcher m_keywordMatcher;

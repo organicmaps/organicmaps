@@ -12,7 +12,7 @@ using namespace std;
 namespace
 {
 using search::KeywordLangMatcher;
-using ScoreT = search::KeywordLangMatcher::ScoreT;
+using Score = search::KeywordLangMatcher::Score;
 
 enum
 {
@@ -62,13 +62,13 @@ UNIT_TEST(KeywordMatcher_LanguageMatchIsUsedWhenTokenMatchIsTheSame)
   char const * name = "test";
   KeywordLangMatcher matcher = CreateMatcher(query);
 
-  TEST(matcher.Score(LANG_UNKNOWN, name) < matcher.Score(LANG_SOME, name), ());
-  TEST(matcher.Score(LANG_UNKNOWN, name) < matcher.Score(LANG_SOME_OTHER, name), ());
-  TEST(matcher.Score(LANG_UNKNOWN, name) < matcher.Score(LANG_HIGH_PRIORITY, name), ());
+  TEST(matcher.CalcScore(LANG_UNKNOWN, name) < matcher.CalcScore(LANG_SOME, name), ());
+  TEST(matcher.CalcScore(LANG_UNKNOWN, name) < matcher.CalcScore(LANG_SOME_OTHER, name), ());
+  TEST(matcher.CalcScore(LANG_UNKNOWN, name) < matcher.CalcScore(LANG_HIGH_PRIORITY, name), ());
 
-  TEST(!(matcher.Score(LANG_SOME, name) < matcher.Score(LANG_SOME_OTHER, name)), ());
-  TEST(!(matcher.Score(LANG_SOME_OTHER, name) < matcher.Score(LANG_SOME, name)), ());
+  TEST(!(matcher.CalcScore(LANG_SOME, name) < matcher.CalcScore(LANG_SOME_OTHER, name)), ());
+  TEST(!(matcher.CalcScore(LANG_SOME_OTHER, name) < matcher.CalcScore(LANG_SOME, name)), ());
 
-  TEST(matcher.Score(LANG_SOME, name) < matcher.Score(LANG_HIGH_PRIORITY, name), ());
-  TEST(matcher.Score(LANG_SOME_OTHER, name) < matcher.Score(LANG_HIGH_PRIORITY, name), ());
+  TEST(matcher.CalcScore(LANG_SOME, name) < matcher.CalcScore(LANG_HIGH_PRIORITY, name), ());
+  TEST(matcher.CalcScore(LANG_SOME_OTHER, name) < matcher.CalcScore(LANG_HIGH_PRIORITY, name), ());
 }

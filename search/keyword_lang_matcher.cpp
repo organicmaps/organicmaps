@@ -14,17 +14,17 @@ using namespace std;
 
 namespace search
 {
-// KeywordLangMatcher::ScoreT ----------------------------------------------------------------------
-KeywordLangMatcher::ScoreT::ScoreT() : m_langScore(numeric_limits<int>::min())
+// KeywordLangMatcher::Score ----------------------------------------------------------------------
+KeywordLangMatcher::Score::Score() : m_langScore(numeric_limits<int>::min())
 {
 }
 
-KeywordLangMatcher::ScoreT::ScoreT(KeywordMatcher::ScoreT const & score, int langScore)
+KeywordLangMatcher::Score::Score(KeywordMatcher::Score const & score, int langScore)
   : m_parentScore(score), m_langScore(langScore)
 {
 }
 
-bool KeywordLangMatcher::ScoreT::operator<(KeywordLangMatcher::ScoreT const & score) const
+bool KeywordLangMatcher::Score::operator<(KeywordLangMatcher::Score const & score) const
 {
   if (m_parentScore != score.m_parentScore)
     return m_parentScore < score.m_parentScore;
@@ -49,7 +49,7 @@ void KeywordLangMatcher::SetLanguages(size_t tier, std::vector<int8_t> && langua
   m_languagePriorities[tier] = move(languages);
 }
 
-int KeywordLangMatcher::GetLangScore(int8_t lang) const
+int KeywordLangMatcher::CalcLangScore(int8_t lang) const
 {
   int const numTiers = static_cast<int>(m_languagePriorities.size());
   for (int i = 0; i < numTiers; ++i)
@@ -64,27 +64,29 @@ int KeywordLangMatcher::GetLangScore(int8_t lang) const
   return -numTiers;
 }
 
-KeywordLangMatcher::ScoreT KeywordLangMatcher::Score(int8_t lang, string const & name) const
+KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, string const & name) const
 {
-  return ScoreT(m_keywordMatcher.Score(name), GetLangScore(lang));
+  return Score(m_keywordMatcher.CalcScore(name), CalcLangScore(lang));
 }
 
-KeywordLangMatcher::ScoreT KeywordLangMatcher::Score(int8_t lang, StringT const & name) const
+KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang,
+                                                        strings::UniString const & name) const
 {
-  return ScoreT(m_keywordMatcher.Score(name), GetLangScore(lang));
+  return Score(m_keywordMatcher.CalcScore(name), CalcLangScore(lang));
 }
 
-KeywordLangMatcher::ScoreT KeywordLangMatcher::Score(int8_t lang,
-                                                     StringT const * tokens, size_t count) const
+KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang,
+                                                        strings::UniString const * tokens,
+                                                        size_t count) const
 {
-  return ScoreT(m_keywordMatcher.Score(tokens, count), GetLangScore(lang));
+  return Score(m_keywordMatcher.CalcScore(tokens, count), CalcLangScore(lang));
 }
 
 // Functions ---------------------------------------------------------------------------------------
-string DebugPrint(KeywordLangMatcher::ScoreT const & score)
+string DebugPrint(KeywordLangMatcher::Score const & score)
 {
   ostringstream ss;
-  ss << "KLM::ScoreT(" << DebugPrint(score.m_parentScore) << ", LS=" << score.m_langScore << ")";
+  ss << "KLM::Score(" << DebugPrint(score.m_parentScore) << ", LS=" << score.m_langScore << ")";
   return ss.str();
 }
 }  // namespace search
