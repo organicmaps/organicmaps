@@ -1237,4 +1237,7 @@
 	<string name="sponsored_thor_gather">Gather</string>
 	<string name="whats_new_ugc_title">Ratings and reviews</string>
 	<string name="whats_new_ugc_message">You can now leave ratings and reviews even offline! Don\'t forget to update your maps so you can see the changes.</string>
+	<string name="dialog_error_storage_title">Storage problem</string>
+	<string name="dialog_error_storage_message">Make sure please that external storage is available for writing.</string>
+	<string name="setting_emulate_bad_storage">Emulate bad external storage</string>
 </resources>

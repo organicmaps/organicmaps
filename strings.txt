@@ -26383,4 +26383,4 @@
 
   [setting_emulate_bad_storage]
     en = Emulate bad external storage
-    ru = Эмулировать плоху внешнюю память     
+    ru = Эмулировать плохую внешнюю память     

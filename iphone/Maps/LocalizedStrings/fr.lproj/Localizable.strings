@@ -2121,3 +2121,9 @@
 "whats_new_ugc_title" = "Ratings and reviews";
 
 "whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+
+"dialog_error_storage_title" = "Storage problem";
+
+"dialog_error_storage_message" = "Make sure please that external storage is available for writing.";
+
+"setting_emulate_bad_storage" = "Emulate bad external storage";
