@@ -160,7 +160,7 @@ extension AuthorizationViewController: FBSDKLoginButtonDelegate {
   func loginButton(_: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
     if let error = error {
       process(error: error, type: .facebook)
-    } else if let token = result.token {
+    } else if let token = result?.token {
       process(token: token.tokenString, type: .facebook)
     }
   }
