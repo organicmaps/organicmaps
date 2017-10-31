@@ -26,6 +26,7 @@ public:
 
   Junction const & GetJunction(Segment const & segment, bool front) const;
   RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator const & estimator) const;
+  RouteWeight GetTransferPenalty(Segment const & from, Segment const & to) const;
   void GetTransitEdges(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges,
                        EdgeEstimator const & estimator) const;
   std::set<Segment> const & GetFake(Segment const & real) const;
@@ -36,8 +37,8 @@ public:
   // modifications of geometry cache.
   // TODO (t.yan) get rid of indexGraph and estimator
   void Fill(std::vector<transit::Stop> const & stops, std::vector<transit::Gate> const & gates,
-            std::vector<transit::Edge> const & edges, EdgeEstimator const & estimator,
-            NumMwmId numMwmId, IndexGraph & indexGraph);
+            std::vector<transit::Edge> const & edges, std::vector<transit::Line> const & lines,
+            EdgeEstimator const & estimator, NumMwmId numMwmId, IndexGraph & indexGraph);
 
   bool IsGate(Segment const & segment) const;
   bool IsEdge(Segment const & segment) const;
@@ -61,6 +62,7 @@ private:
   FakeGraph<Segment, FakeVertex, Segment> m_fake;
   std::map<Segment, transit::Edge> m_segmentToEdge;
   std::map<Segment, transit::Gate> m_segmentToGate;
+  std::map<transit::LineId, double> m_transferPenalties;
   // TODO (@t.yan) move m_edgeToSegment, m_stopToBack, m_stopToFront to Fill
   std::map<transit::StopId, std::set<Segment>> m_stopToBack;
   std::map<transit::StopId, std::set<Segment>> m_stopToFront;

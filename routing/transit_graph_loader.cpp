@@ -64,18 +64,24 @@ unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId numMwmI
     transit::TransitHeader header;
     numberDeserializer(header);
 
+    CHECK_EQUAL(src.Pos(), header.m_stopsOffset, ("Wrong section format."));
     vector<transit::Stop> stops;
     deserializer(stops);
 
-    CHECK_EQUAL(src.Pos(), header.m_gatesOffset,("Wrong section format."));
+    CHECK_EQUAL(src.Pos(), header.m_gatesOffset, ("Wrong section format."));
     vector<transit::Gate> gates;
     deserializer(gates);
 
-    CHECK_EQUAL(src.Pos(), header.m_edgesOffset,("Wrong section format."));
+    CHECK_EQUAL(src.Pos(), header.m_edgesOffset, ("Wrong section format."));
     vector<transit::Edge> edges;
     deserializer(edges);
 
-    graphPtr->Fill(stops, gates, edges, *m_estimator, numMwmId, indexGraph);
+    src.Skip(header.m_linesOffset - src.Pos());
+    CHECK_EQUAL(src.Pos(), header.m_linesOffset, ("Wrong section format."));
+    vector<transit::Line> lines;
+    deserializer(lines);
+
+    graphPtr->Fill(stops, gates, edges, lines, *m_estimator, numMwmId, indexGraph);
   }
   catch (Reader::OpenException const & e)
   {

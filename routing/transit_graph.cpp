@@ -58,13 +58,33 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment,
                      0 /* nontransitCross */);
 }
 
+RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const & to) const
+{
+  if (!IsEdge(from) || !IsEdge(to))
+    return RouteWeight(0 /* weight */, 0 /* nontransitCross */);
+
+  auto lineIdFrom = GetEdge(from).GetLineId();
+  auto lineIdTo = GetEdge(to).GetLineId();
+
+  if (lineIdFrom == lineIdTo)
+    return RouteWeight(0 /* weight */, 0 /* nontransitCross */);
+
+  auto const it = m_transferPenalties.find(lineIdTo);
+  CHECK(it != m_transferPenalties.cend(), ("Segment", to, "belongs to unknown line:", lineIdTo));
+  return RouteWeight(it->second, 0 /* nontransitCross */);
+}
+
 void TransitGraph::GetTransitEdges(Segment const & segment, bool isOutgoing,
                                    vector<SegmentEdge> & edges,
                                    EdgeEstimator const & estimator) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
-    edges.emplace_back(s, CalcSegmentWeight(isOutgoing ? s : segment, estimator));
+  {
+    auto const & from = isOutgoing ? segment : s;
+    auto const & to = isOutgoing ? s : segment;
+    edges.emplace_back(s, CalcSegmentWeight(to, estimator) + GetTransferPenalty(from, to));
+  }
 }
 
 set<Segment> const & TransitGraph::GetFake(Segment const & real) const
@@ -78,10 +98,17 @@ bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
 }
 
 void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Gate> const & gates,
-                        vector<transit::Edge> const & edges, EdgeEstimator const & estimator,
-                        NumMwmId numMwmId, IndexGraph & indexGraph)
+                        vector<transit::Edge> const & edges, vector<transit::Line> const & lines,
+                        EdgeEstimator const & estimator, NumMwmId numMwmId, IndexGraph & indexGraph)
 {
   m_mwmId = numMwmId;
+
+  // TODO: replace kTransferPenaltySec with line.GetTransferPenalty() as soon as transit::Line will
+  // have GetTransferPenalty() method
+  double constexpr kTransferPenaltySec = 120.0;
+  for (auto const & line : lines)
+    m_transferPenalties[line.GetId()] = kTransferPenaltySec;
+
   map<transit::StopId, Junction> stopCoords;
   for (auto const & stop : stops)
     stopCoords[stop.GetId()] = Junction(stop.GetPoint(), feature::kDefaultAltitudeMeters);
