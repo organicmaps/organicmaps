@@ -26372,3 +26372,15 @@
   [whats_new_ugc_message]
     en = You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.
     ru = Теперь вы можете оставлять оценки и отзывы даже офлайн! Не забудьте обновить карты, чтобы увидеть изменения. 
+
+  [dialog_error_storage_title]
+    en = Storage problem
+    ru = Проблема с хранилищем
+
+  [dialog_error_storage_message]
+    en = Make sure please that external storage is available for writing.
+    ru = Убедитесь, пожалуйста, что внешняя память сейчас доступна для записи.
+
+  [setting_emulate_bad_storage]
+    en = Emulate bad external storage
+    ru = Эмулировать плоху внешнюю память     
