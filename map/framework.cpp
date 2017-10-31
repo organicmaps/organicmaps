@@ -1348,7 +1348,7 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
   p.m_forceSearch = true;
   p.m_suggestsEnabled = true;
   p.m_needAddress = true;
-  p.m_needHighlight = true;
+  p.m_needHighlighting = true;
   p.m_hotelsFilter = params.m_hotelsFilter;
   p.m_cianMode = IsCianMode(params.m_query);
 
@@ -1378,7 +1378,7 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
   p.m_forceSearch = false;
   p.m_suggestsEnabled = false;
   p.m_needAddress = false;
-  p.m_needHighlight = false;
+  p.m_needHighlighting = false;
   p.m_hotelsFilter = params.m_hotelsFilter;
   p.m_cianMode = m_cianSearchMode;
 
@@ -1409,7 +1409,7 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   p.m_forceSearch = true;
   p.m_suggestsEnabled = false;
   p.m_needAddress = false;
-  p.m_needHighlight = false;
+  p.m_needHighlighting = false;
   p.m_onResults = search::DownloaderSearchCallback(
       static_cast<search::DownloaderSearchCallback::Delegate &>(*this), m_model.GetIndex(),
       GetCountryInfoGetter(), GetStorage(), params);

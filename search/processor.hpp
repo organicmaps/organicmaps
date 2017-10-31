@@ -113,8 +113,6 @@ protected:
 
   m2::RectD m_viewport;
   m2::PointD m_position;
-  bool m_needAddress = true;
-  bool m_needHighlight = true;
 
   // Suggestions language code, not the same as we use in mwm data
   int8_t m_inputLocaleCode = StringUtf8Multilang::kUnsupportedLanguageCode;

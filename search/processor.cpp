@@ -294,16 +294,6 @@ void Processor::SetQuery(string const & query)
                       });
 }
 
-void Processor::SetLanguage(int id, int8_t lang)
-{
-  m_keywordsScorer.SetLanguage(GetLangIndex(id), lang);
-}
-
-int8_t Processor::GetLanguage(int id) const
-{
-  return m_keywordsScorer.GetLanguage(GetLangIndex(id));
-}
-
 m2::PointD Processor::GetPivotPoint(bool viewportSearch) const
 {
   auto const & viewport = GetViewport();
@@ -551,7 +541,7 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_preferredTypes = m_preferredTypes;
   params.m_suggestsEnabled = searchParams.m_suggestsEnabled;
   params.m_needAddress = searchParams.m_needAddress;
-  params.m_needHighlight = searchParams.m_needHighlight;
+  params.m_needHighlighting = searchParams.m_needHighlighting;
   params.m_query = m_query;
   params.m_tokens = m_tokens;
   params.m_prefix = m_prefix;

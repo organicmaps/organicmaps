@@ -88,13 +88,13 @@ void TestSearchRequest::SetUpResultParams()
   case Mode::Everywhere:
     m_params.m_needAddress = true;
     m_params.m_suggestsEnabled = false;
-    m_params.m_needHighlight = true;
+    m_params.m_needHighlighting = true;
     break;
   case Mode::Viewport:  // fallthrough
   case Mode::Downloader:
     m_params.m_needAddress = false;
     m_params.m_suggestsEnabled = false;
-    m_params.m_needHighlight = false;
+    m_params.m_needHighlighting = false;
     break;
   case Mode::Count: CHECK(false, ()); break;
   }

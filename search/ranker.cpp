@@ -462,7 +462,7 @@ void Ranker::UpdateResults(bool lastUpdate)
     if (count >= m_params.m_limit)
       break;
 
-    Result result = MakeResult(rankerResult, m_params.m_needAddress, m_params.m_needHighlight);
+    Result result = MakeResult(rankerResult, m_params.m_needAddress, m_params.m_needHighlighting);
 
     if (m_params.m_viewportSearch)
     {

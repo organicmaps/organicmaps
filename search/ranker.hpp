@@ -52,7 +52,7 @@ public:
     set<uint32_t> m_preferredTypes;
     bool m_suggestsEnabled = false;
     bool m_needAddress = false;
-    bool m_needHighlight = false;
+    bool m_needHighlighting = false;
     bool m_viewportSearch = false;
 
     string m_query;

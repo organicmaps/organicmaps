@@ -45,16 +45,18 @@ struct SearchParams
   double m_minDistanceOnMapBetweenResults = 0.0;
 
   Mode m_mode = Mode::Everywhere;
+
+  // When true, search request can't be skipped.
   bool m_forceSearch = false;
 
-  // Is it needed to generate search suggests.
+  // Needed to generate search suggests.
   bool m_suggestsEnabled = false;
 
-  // Is it needed to generate address for results.
+  // Needed to generate address for results.
   bool m_needAddress = false;
 
-  // Is it needed to highlight matching parts of search result names.
-  bool m_needHighlight = false;
+  // Needed to highlight matching parts of search result names.
+  bool m_needHighlighting = false;
 
   std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
   bool m_cianMode = false;
