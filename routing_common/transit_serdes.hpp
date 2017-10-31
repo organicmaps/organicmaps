@@ -233,6 +233,8 @@ public:
     WriteToSink(m_sink, t);
   }
 
+  void operator()(TransitHeader const & header) { header.Visit(*this); }
+
 private:
   Sink & m_sink;
 };
@@ -250,14 +252,10 @@ public:
     ReadPrimitiveFromSource(m_source, t);
   }
 
+  void operator()(TransitHeader & header) { header.Visit(*this); }
+
 private:
   Source & m_source;
 };
-
-template <class T>
-void VisitHeader(T & t, TransitHeader & header)
-{
-  header.Visit(t);
-}
 }  // namespace transit
 }  // namespace routing

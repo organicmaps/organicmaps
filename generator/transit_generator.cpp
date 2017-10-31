@@ -283,7 +283,7 @@ void BuildTransit(string const & mwmDir, string const & countryId,
   auto const startOffset = w.Pos();
   Serializer<FileWriter> serializer(w);
   FixedSizeSerializer<FileWriter> numberSerializer(w);
-  VisitHeader(numberSerializer, header);
+  numberSerializer(header);
 
   vector<Stop> stops;
   DeserializeFromJson(root, "stops", mapping, stops);
@@ -319,7 +319,7 @@ void BuildTransit(string const & mwmDir, string const & countryId,
   CHECK(header.IsValid(), (header));
   auto const endOffset = w.Pos();
   w.Seek(startOffset);
-  VisitHeader(numberSerializer, header);
+  numberSerializer(header);
   w.Seek(endOffset);
   LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Header:", header));
 }

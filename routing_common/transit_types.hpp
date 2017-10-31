@@ -14,8 +14,6 @@ namespace routing
 {
 namespace transit
 {
-struct TransitHeader;
-
 using Anchor = uint8_t;
 using FeatureId = uint32_t;
 using LineId = uint32_t;
@@ -39,14 +37,13 @@ TransferId constexpr kInvalidTransferId = std::numeric_limits<TransferId>::max()
 Weight constexpr kInvalidWeight = -1.0;
 
 #define DECLARE_TRANSIT_TYPE_FRIENDS                                                  \
-  template <class Sink>                                                               \
-  friend class Serializer;                                                            \
-  template <class Source>                                                             \
-  friend class Deserializer;                                                          \
+  template <class Sink> friend class Serializer;                                      \
+  template <class Source> friend class Deserializer;                                  \
   friend class DeserializerFromJson;                                                  \
   template <class Ser, class Deser, class Obj>                                        \
   friend void TestCommonSerialization(Obj const & obj);                               \
-  template <class T> friend void VisitHeader(T & t, TransitHeader & header);          \
+  template <typename Sink> friend class FixedSizeSerializer;                          \
+  template <typename Sink> friend class FixedSizeDeserializer;                        \
 
 struct TransitHeader
 {

@@ -61,14 +61,14 @@ UNIT_TEST(Transit_HeaderRewriting)
 
   // Writing.
   FixedSizeSerializer<MemWriter<vector<uint8_t>>> serializer(writer);
-  VisitHeader(serializer, header);
+  serializer(header);
   auto const endOffset = writer.Pos();
 
   // Rewriting.
   header = bigHeader;
 
   writer.Seek(0 /* start offset */);
-  VisitHeader(serializer, header);
+  serializer(header);
   TEST_EQUAL(writer.Pos(), endOffset, ());
 
   // Reading.
@@ -76,7 +76,7 @@ UNIT_TEST(Transit_HeaderRewriting)
   ReaderSource<MemReader> src(reader);
   TransitHeader deserializedHeader;
   FixedSizeDeserializer<ReaderSource<MemReader>> deserializer(src);
-  VisitHeader(deserializer, deserializedHeader);
+  deserializer(deserializedHeader);
 
   TEST(deserializedHeader.IsEqualForTesting(bigHeader), (deserializedHeader, bigHeader));
 }
