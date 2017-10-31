@@ -57,28 +57,26 @@ bool IsValid(vector<Item> const & items)
 struct ClearVisitor
 {
   template <typename Cont>
-  void operator()(Cont & c, char const * /* name */ = nullptr) const { c.clear(); }
+  void operator()(Cont & c, char const * /* name */) const { c.clear(); }
 };
 
 struct SortVisitor
 {
   template <typename Cont>
-  void operator()(Cont & c, char const * /* name */ = nullptr) const
+  void operator()(Cont & c, char const * /* name */) const
   {
     sort(c.begin(), c.end());
   }
-  void operator()(vector<transit::Edge> & c, char const * /* name */ = nullptr) const {}
+
+  void operator()(vector<transit::Edge> & c, char const * /* name */) const {}
 };
 
 struct IsValidVisitor
 {
   template <typename Cont>
-  void operator()(Cont const & c, char const * /* name */ = nullptr)
+  void operator()(Cont const & c, char const * /* name */ )
   {
-    if (!m_isValid)
-      return;
-
-    m_isValid = ::IsValid(c);
+    m_isValid = m_isValid && ::IsValid(c);
   }
 
   bool IsValid() const { return m_isValid; }
@@ -90,12 +88,9 @@ private:
 struct IsUniqueVisitor
 {
   template <typename Cont>
-  void operator()(Cont const & c, char const * /* name */ = nullptr)
+  void operator()(Cont const & c, char const * /* name */)
   {
-    if (!m_isUnique)
-      return;
-
-    m_isUnique = (adjacent_find(c.begin(), c.end()) == c.end());
+    m_isUnique = m_isUnique && (adjacent_find(c.begin(), c.end()) == c.end());
   }
 
   void operator()(vector<transit::Edge> const & c, char const * /* name */ = nullptr) {}
@@ -109,12 +104,9 @@ private:
 struct IsSortedVisitor
 {
   template <typename Cont>
-  void operator()(Cont const & c, char const * /* name */ = nullptr)
+  void operator()(Cont const & c, char const * /* name */)
   {
-    if (!m_isSorted)
-      return;
-
-    m_isSorted = is_sorted(c.begin(), c.end());
+    m_isSorted = m_isSorted && is_sorted(c.begin(), c.end());
   }
 
   void operator()(vector<transit::Edge> const & c, char const * /* name */ = nullptr) {}
@@ -130,7 +122,8 @@ Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
 {
   ASSERT(is_sorted(stops.cbegin(), stops.cend()), ());
   auto s1Id = equal_range(stops.cbegin(), stops.cend(),
-          Stop(stopId, kInvalidOsmId, kInvalidFeatureId, kInvalidTransferId, {}, m2::PointD(), {}));
+                          Stop(stopId, kInvalidOsmId, kInvalidFeatureId, kInvalidTransferId,
+                               {} /* line ids */, {} /* point */, {} /* title anchors */));
   CHECK(s1Id.first != stops.cend(), ("No a stop with id:", stopId, "in stops:", stops));
   CHECK_EQUAL(distance(s1Id.first, s1Id.second), 1, ("A stop with id:", stopId, "is not unique in stops:", stops));
   return *s1Id.first;
@@ -147,7 +140,7 @@ void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatu
 
 string GetMwmPath(string const & mwmDir, string const & countryId)
 {
-  return my::JoinFoldersToPath(mwmDir, countryId + DATA_FILE_EXTENSION);
+  return my::JoinPath(mwmDir, countryId + DATA_FILE_EXTENSION);
 }
 
 template <typename T>
@@ -262,7 +255,7 @@ void GraphData::SerializeToMwm(string const & mwmPath) const
   LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Header:", header));
 }
 
-void GraphData::Append(GraphData const & rhs)
+void GraphData::AppendTo(GraphData const & rhs)
 {
   ::Append(rhs.m_stops, m_stops);
   ::Append(rhs.m_gates, m_gates);
@@ -358,10 +351,10 @@ void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string c
             bestSegment.GetFeatureId(), bestSegment.GetSegmentIdx(), bestSegment.IsForward()));
       }
     }
-    catch (MwmIsNotAlifeException const & e)
+    catch (MwmIsNotAliveException const & e)
     {
-      LOG(LERROR, ("Point of a gate belongs to several mwms or doesn't belong to any mwm. Gate:",
-          gate, e.what()));
+      LOG(LERROR, ("Point of a gate belongs doesn't belong to any mwm according to "
+                   "packed_polygons.bin. Gate:", gate, e.what()));
     }
   }
 }
@@ -425,7 +418,7 @@ void BuildTransit(string const & mwmDir, string const & countryId,
       "sections."));
   NOTIMPLEMENTED();
 
-  string const graphFullPath = my::JoinFoldersToPath(transitDir, countryId + TRANSIT_FILE_EXTENSION);
+  string const graphFullPath = my::JoinPath(transitDir, countryId + TRANSIT_FILE_EXTENSION);
   string const mwmPath = GetMwmPath(mwmDir, countryId);
   OsmIdToFeatureIdsMap mapping;
   FillOsmIdToFeatureIdsMap(osmIdToFeatureIdsPath, mapping);

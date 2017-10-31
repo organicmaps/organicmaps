@@ -110,7 +110,7 @@ class GraphData
 public:
   void DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping);
   void SerializeToMwm(std::string const & mwmPath) const;
-  void Append(GraphData const & rhs);
+  void AppendTo(GraphData const & rhs);
   void Clear();
   bool IsValid() const;
 
@@ -167,7 +167,7 @@ void ProcessGraph(std::string const & mwmPath, std::string const & countryId,
 /// \param countryId is an mwm name without extension of the processed mwm.
 /// \param osmIdToFeatureIdsPath is a path to a file with osm id to feature ids mapping.
 /// \param transitDir a path with slash at the end to directory with json files with transit graphs.
-/// It's assumed that the files have name the same with country ids and extension TRANSIT_FILE_EXTENSION.
+/// It's assumed that the files have the same name with country ids and extension TRANSIT_FILE_EXTENSION.
 /// \note An mwm pointed by |mwmPath| should contain:
 /// * feature geometry
 /// * index graph (ROUTING_FILE_TAG)

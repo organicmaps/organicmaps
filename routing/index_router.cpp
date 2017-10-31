@@ -693,7 +693,7 @@ bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & d
   auto const file = platform::CountryFile(m_countryFileFn(point));
   MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
   if (!handle.IsAlive())
-    MYTHROW(MwmIsNotAlifeException, ("Can't get mwm handle for", file));
+    MYTHROW(MwmIsNotAliveException, ("Can't get mwm handle for", file));
 
   auto const mwmId = MwmSet::MwmId(handle.GetInfo());
   NumMwmId const numMwmId = m_numMwmIds->GetId(file);

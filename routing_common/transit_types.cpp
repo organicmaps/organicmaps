@@ -168,7 +168,7 @@ bool Gate::IsValid() const
 bool ShapeId::operator<(ShapeId const & rhs) const
 {
   if (m_stop1Id != rhs.m_stop1Id)
-    return rhs.m_stop1Id < m_stop1Id;
+    return m_stop1Id < rhs.m_stop1Id;
   return m_stop2Id < rhs.m_stop2Id;
 }
 
