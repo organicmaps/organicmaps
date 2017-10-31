@@ -47,6 +47,40 @@ void TestSerialization(Obj const & obj)
   TestCommonSerialization<Serializer<MemWriter<vector<uint8_t>>>,
                           Deserializer<ReaderSource<MemReader>>>(obj);
 }
+
+UNIT_TEST(Transit_HeaderRewriting)
+{
+  TransitHeader const bigHeader(1 /* version */, 1000 /* gatesOffset */, 200000 /* edgesOffset */,
+                                300000 /* transfersOffset */, 400000 /* linesOffset */,
+                                5000000 /* shapesOffset */, 6000000 /* networksOffset */,
+                                700000000 /* endOffset */);
+
+  TransitHeader header;
+  vector<uint8_t> buffer;
+  MemWriter<vector<uint8_t>> writer(buffer);
+
+  // Writing.
+  auto const startOffset = writer.Pos();
+  FixSizeNumberSerializer<MemWriter<vector<uint8_t>>> serializer(writer);
+  header.Visit(serializer);
+  auto const endOffset = writer.Pos();
+
+  // Rewriting.
+  header = bigHeader;
+
+  writer.Seek(startOffset);
+  header.Visit(serializer);
+  writer.Seek(endOffset);
+
+  // Reading.
+  MemReader reader(buffer.data(), buffer.size());
+  ReaderSource<MemReader> src(reader);
+  TransitHeader deserializedHeader;
+  FixSizeNumberDeserializer<ReaderSource<MemReader>> deserializer(src);
+  deserializedHeader.Visit(deserializer);
+
+  TEST(deserializedHeader.IsEqualForTesting(bigHeader), (deserializedHeader, bigHeader));
+}
 }  // namespace transit
 }  // namespace routing
 
