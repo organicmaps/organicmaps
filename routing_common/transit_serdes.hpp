@@ -221,14 +221,14 @@ private:
 };
 
 template <typename Sink>
-class FixSizeNumberSerializer
+class FixedSizeSerializer
 {
 public:
-  explicit FixSizeNumberSerializer(Sink & sink) : m_sink(sink) {}
+  explicit FixedSizeSerializer(Sink & sink) : m_sink(sink) {}
 
   template <typename T>
-  typename enable_if<is_integral<T>::value || is_enum<T>::value, void>::type operator()(
-      T const & t, char const * /* name */ = nullptr)
+  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value, void>::type
+  operator()(T const & t, char const * /* name */ = nullptr)
   {
     WriteToSink(m_sink, t);
   }
@@ -238,14 +238,14 @@ private:
 };
 
 template <typename Source>
-class FixSizeNumberDeserializer
+class FixedSizeDeserializer
 {
 public:
-  explicit FixSizeNumberDeserializer(Source & source) : m_source(source) {}
+  explicit FixedSizeDeserializer(Source & source) : m_source(source) {}
 
   template <typename T>
-  typename enable_if<is_integral<T>::value || is_enum<T>::value, void>::type operator()(
-      T & t, char const * name = nullptr)
+  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value, void>::type
+  operator()(T & t, char const * name = nullptr)
   {
     ReadPrimitiveFromSource(m_source, t);
   }

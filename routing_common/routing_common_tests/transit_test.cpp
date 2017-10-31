@@ -37,8 +37,8 @@ void TestCommonSerialization(Obj const & obj)
 
 void TestSerialization(TransitHeader const & header)
 {
-  TestCommonSerialization<FixSizeNumberSerializer<MemWriter<vector<uint8_t>>>,
-                          FixSizeNumberDeserializer<ReaderSource<MemReader>>>(header);
+  TestCommonSerialization<FixedSizeSerializer<MemWriter<vector<uint8_t>>>,
+                          FixedSizeDeserializer<ReaderSource<MemReader>>>(header);
 }
 
 template<class Obj>
@@ -60,8 +60,8 @@ UNIT_TEST(Transit_HeaderRewriting)
   MemWriter<vector<uint8_t>> writer(buffer);
 
   // Writing.
-  auto const startOffset = writer.Pos();
-  FixSizeNumberSerializer<MemWriter<vector<uint8_t>>> serializer(writer);
+  uint64_t constexpr startOffset = 0;
+  FixedSizeSerializer<MemWriter<vector<uint8_t>>> serializer(writer);
   header.Visit(serializer);
   auto const endOffset = writer.Pos();
 
@@ -70,13 +70,13 @@ UNIT_TEST(Transit_HeaderRewriting)
 
   writer.Seek(startOffset);
   header.Visit(serializer);
-  writer.Seek(endOffset);
+  TEST_EQUAL(writer.Pos(), endOffset, ());
 
   // Reading.
   MemReader reader(buffer.data(), buffer.size());
   ReaderSource<MemReader> src(reader);
   TransitHeader deserializedHeader;
-  FixSizeNumberDeserializer<ReaderSource<MemReader>> deserializer(src);
+  FixedSizeDeserializer<ReaderSource<MemReader>> deserializer(src);
   deserializedHeader.Visit(deserializer);
 
   TEST(deserializedHeader.IsEqualForTesting(bigHeader), (deserializedHeader, bigHeader));

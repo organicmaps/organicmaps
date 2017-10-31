@@ -282,7 +282,7 @@ void BuildTransit(string const & mwmDir, string const & countryId,
 
   auto const startOffset = w.Pos();
   Serializer<FileWriter> serializer(w);
-  FixSizeNumberSerializer<FileWriter> numberSerializer(w);
+  FixedSizeSerializer<FileWriter> numberSerializer(w);
   header.Visit(numberSerializer);
 
   vector<Stop> stops;

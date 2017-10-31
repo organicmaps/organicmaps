@@ -49,7 +49,7 @@ Weight constexpr kInvalidWeight = -1.0;
                            std::string const & transitDir);                           \
   template <class Ser, class Deser, class Obj>                                        \
   friend void TestCommonSerialization(Obj const & obj);                               \
-  friend void UnitTest_Transit_HeaderRewriting();                                   \
+  friend void UnitTest_Transit_HeaderRewriting();                                     \
 
 struct TransitHeader
 {
