@@ -13,11 +13,12 @@ namespace routing
 namespace transit
 {
 // TransitHeader ----------------------------------------------------------------------------------
-TransitHeader::TransitHeader(uint16_t version, uint32_t gatesOffset, uint32_t edgesOffset,
-                             uint32_t transfersOffset, uint32_t linesOffset, uint32_t shapesOffset,
-                             uint32_t networksOffset, uint32_t endOffset)
+TransitHeader::TransitHeader(uint16_t version, uint32_t stopsOffset, uint32_t gatesOffset,
+                             uint32_t edgesOffset, uint32_t transfersOffset, uint32_t linesOffset,
+                             uint32_t shapesOffset, uint32_t networksOffset, uint32_t endOffset)
   : m_version(version)
   , m_reserve(0)
+  , m_stopsOffset(stopsOffset)
   , m_gatesOffset(gatesOffset)
   , m_edgesOffset(edgesOffset)
   , m_transfersOffset(transfersOffset)
@@ -32,6 +33,7 @@ void TransitHeader::Reset()
 {
   m_version = 0;
   m_reserve = 0;
+  m_stopsOffset = 0;
   m_gatesOffset = 0;
   m_edgesOffset = 0;
   m_transfersOffset = 0;
@@ -45,6 +47,7 @@ bool TransitHeader::IsEqualForTesting(TransitHeader const & header) const
 {
   return m_version == header.m_version
          && m_reserve == header.m_reserve
+         && m_stopsOffset == header.m_stopsOffset
          && m_gatesOffset == header.m_gatesOffset
          && m_edgesOffset == header.m_edgesOffset
          && m_transfersOffset == header.m_transfersOffset
@@ -56,9 +59,10 @@ bool TransitHeader::IsEqualForTesting(TransitHeader const & header) const
 
 bool TransitHeader::IsValid() const
 {
-  return m_gatesOffset <= m_edgesOffset && m_edgesOffset <= m_transfersOffset &&
-         m_transfersOffset <= m_linesOffset && m_linesOffset <= m_shapesOffset &&
-         m_shapesOffset <= m_networksOffset && m_networksOffset <= m_endOffset;
+  return m_stopsOffset <= m_gatesOffset && m_gatesOffset <= m_edgesOffset &&
+         m_edgesOffset <= m_transfersOffset && m_transfersOffset <= m_linesOffset &&
+         m_linesOffset <= m_shapesOffset && m_shapesOffset <= m_networksOffset &&
+         m_networksOffset <= m_endOffset;
 }
 
 // FeatureIdentifiers -----------------------------------------------------------------------------

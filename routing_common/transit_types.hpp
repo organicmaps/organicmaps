@@ -12,9 +12,10 @@
 
 namespace routing
 {
-class TransitGraphLoader;
 namespace transit
 {
+struct TransitHeader;
+
 using Anchor = uint8_t;
 using FeatureId = uint32_t;
 using LineId = uint32_t;
@@ -43,18 +44,14 @@ Weight constexpr kInvalidWeight = -1.0;
   template <class Source>                                                             \
   friend class Deserializer;                                                          \
   friend class DeserializerFromJson;                                                  \
-  friend class routing::TransitGraphLoader;                                           \
-  friend void BuildTransit(std::string const & mwmDir, std::string const & countryId, \
-                           std::string const & osmIdsToFeatureIdPath,                 \
-                           std::string const & transitDir);                           \
   template <class Ser, class Deser, class Obj>                                        \
   friend void TestCommonSerialization(Obj const & obj);                               \
-  friend void UnitTest_Transit_HeaderRewriting();                                     \
+  template <class T> friend void VisitHeader(T & t, TransitHeader & header);          \
 
 struct TransitHeader
 {
   TransitHeader() { Reset(); }
-  TransitHeader(uint16_t version, uint32_t gatesOffset, uint32_t edgesOffset,
+  TransitHeader(uint16_t version, uint32_t stopsOffset, uint32_t gatesOffset, uint32_t edgesOffset,
                 uint32_t transfersOffset, uint32_t linesOffset, uint32_t shapesOffset,
                 uint32_t networksOffset, uint32_t endOffset);
 
@@ -66,14 +63,15 @@ private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(
       TransitHeader, visitor(m_version, "version"), visitor(m_reserve, "reserve"),
-      visitor(m_gatesOffset, "gatesOffset"), visitor(m_edgesOffset, "edgesOffset"),
-      visitor(m_transfersOffset, "transfersOffset"), visitor(m_linesOffset, "linesOffset"),
-      visitor(m_shapesOffset, "shapesOffset"), visitor(m_networksOffset, "networksOffset"),
-      visitor(m_endOffset, "endOffset"))
+      visitor(m_stopsOffset, "stops"), visitor(m_gatesOffset, "gatesOffset"),
+      visitor(m_edgesOffset, "edgesOffset"), visitor(m_transfersOffset, "transfersOffset"),
+      visitor(m_linesOffset, "linesOffset"), visitor(m_shapesOffset, "shapesOffset"),
+      visitor(m_networksOffset, "networksOffset"), visitor(m_endOffset, "endOffset"))
 
 public:
   uint16_t m_version;
   uint16_t m_reserve;
+  uint32_t m_stopsOffset;
   uint32_t m_gatesOffset;
   uint32_t m_edgesOffset;
   uint32_t m_transfersOffset;
@@ -83,7 +81,7 @@ public:
   uint32_t m_endOffset;
 };
 
-static_assert(sizeof(TransitHeader) == 32, "Wrong header size of transit section.");
+static_assert(sizeof(TransitHeader) == 36, "Wrong header size of transit section.");
 
 /// \brief This class represents osm id and feature id of the same feature.
 class FeatureIdentifiers

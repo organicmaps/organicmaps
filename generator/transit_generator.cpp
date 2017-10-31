@@ -283,12 +283,13 @@ void BuildTransit(string const & mwmDir, string const & countryId,
   auto const startOffset = w.Pos();
   Serializer<FileWriter> serializer(w);
   FixedSizeSerializer<FileWriter> numberSerializer(w);
-  header.Visit(numberSerializer);
+  VisitHeader(numberSerializer, header);
 
   vector<Stop> stops;
   DeserializeFromJson(root, "stops", mapping, stops);
   CHECK(IsValid(stops), ("stops:", stops));
   sort(stops.begin(), stops.end(), LessById);
+  header.m_stopsOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
   serializer(stops);
   header.m_gatesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
@@ -318,7 +319,7 @@ void BuildTransit(string const & mwmDir, string const & countryId,
   CHECK(header.IsValid(), (header));
   auto const endOffset = w.Pos();
   w.Seek(startOffset);
-  header.Visit(numberSerializer);
+  VisitHeader(numberSerializer, header);
   w.Seek(endOffset);
   LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Header:", header));
 }

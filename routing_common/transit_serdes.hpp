@@ -253,5 +253,11 @@ public:
 private:
   Source & m_source;
 };
+
+template <class T>
+void VisitHeader(T & t, TransitHeader & header)
+{
+  header.Visit(t);
+}
 }  // namespace transit
 }  // namespace routing

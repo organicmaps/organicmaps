@@ -50,26 +50,25 @@ void TestSerialization(Obj const & obj)
 
 UNIT_TEST(Transit_HeaderRewriting)
 {
-  TransitHeader const bigHeader(1 /* version */, 1000 /* gatesOffset */, 200000 /* edgesOffset */,
-                                300000 /* transfersOffset */, 400000 /* linesOffset */,
-                                5000000 /* shapesOffset */, 6000000 /* networksOffset */,
-                                700000000 /* endOffset */);
+  TransitHeader const bigHeader(1 /* version */, 500 /* stopsOffset */, 1000 /* gatesOffset */,
+                                200000 /* edgesOffset */, 300000 /* transfersOffset */,
+                                400000 /* linesOffset */, 5000000 /* shapesOffset */,
+                                6000000 /* networksOffset */, 700000000 /* endOffset */);
 
   TransitHeader header;
   vector<uint8_t> buffer;
   MemWriter<vector<uint8_t>> writer(buffer);
 
   // Writing.
-  uint64_t constexpr startOffset = 0;
   FixedSizeSerializer<MemWriter<vector<uint8_t>>> serializer(writer);
-  header.Visit(serializer);
+  VisitHeader(serializer, header);
   auto const endOffset = writer.Pos();
 
   // Rewriting.
   header = bigHeader;
 
-  writer.Seek(startOffset);
-  header.Visit(serializer);
+  writer.Seek(0 /* start offset */);
+  VisitHeader(serializer, header);
   TEST_EQUAL(writer.Pos(), endOffset, ());
 
   // Reading.
@@ -77,7 +76,7 @@ UNIT_TEST(Transit_HeaderRewriting)
   ReaderSource<MemReader> src(reader);
   TransitHeader deserializedHeader;
   FixedSizeDeserializer<ReaderSource<MemReader>> deserializer(src);
-  deserializedHeader.Visit(deserializer);
+  VisitHeader(deserializer, deserializedHeader);
 
   TEST(deserializedHeader.IsEqualForTesting(bigHeader), (deserializedHeader, bigHeader));
 }
@@ -93,9 +92,9 @@ UNIT_TEST(Transit_HeaderSerialization)
     TestSerialization(header);
   }
   {
-    TransitHeader header(1 /* version */, 1000 /* gatesOffset */, 2000 /* edgesOffset */,
-                         3000 /* transfersOffset */, 4000 /* linesOffset */, 5000 /* shapesOffset */,
-                         6000 /* networksOffset */, 7000 /* endOffset */);
+    TransitHeader header(1 /* version */, 500 /* stopsOffset */, 1000 /* gatesOffset */,
+                         2000 /* edgesOffset */, 3000 /* transfersOffset */, 4000 /* linesOffset */,
+                         5000 /* shapesOffset */, 6000 /* networksOffset */, 7000 /* endOffset */);
     TestSerialization(header);
   }
 }
