@@ -1453,7 +1453,7 @@ void Storage::OnDiffStatusReceived(diffs::Status const status)
         ASSERT_THREAD_CHECKER(m_threadChecker, ());
         if (!isSuccess)
         {
-          OnDownloadFailed(countryId);
+          m_failedCountries.insert(countryId);
           return;
         }
 
