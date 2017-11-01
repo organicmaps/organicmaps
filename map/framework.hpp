@@ -542,7 +542,7 @@ private:
   // because it must be used from the UI thread only.
   SearchIntent m_searchIntents[static_cast<size_t>(search::Mode::Count)];
 
-  bool Search(search::SearchParams const & params);
+  bool Search(search::SearchParams const & params, bool forceSearch);
   void Search(SearchIntent & intent) const;
 
   // Returns true when |params| is almost the same as the latest
@@ -555,15 +555,17 @@ private:
 public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;
 
+  // When search in viewport is active or delayed, restarts search in
+  // viewport.
   void PokeSearchInViewport();
 
-  /// Search everywhere.
+  // Search everywhere.
   bool SearchEverywhere(search::EverywhereSearchParams const & params);
 
-  /// Search in the viewport.
+  // Search in the viewport.
   bool SearchInViewport(search::ViewportSearchParams const & params);
 
-  /// Search for maps by countries or cities.
+  // Search for maps by countries or cities.
   bool SearchInDownloader(storage::DownloaderSearchParams const & params);
 
   void SetViewportIfPossible(search::SearchParams & params);

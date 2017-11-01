@@ -1332,11 +1332,11 @@ void Framework::PokeSearchInViewport()
   if (!m_isViewportInitialized || !IsViewportSearchActive())
     return;
 
-  // Copy is intended here, for correct checking of duplicating requests.
-  auto params = m_searchIntents[static_cast<size_t>(search::Mode::Viewport)].m_params;
+  auto & intent = m_searchIntents[static_cast<size_t>(search::Mode::Viewport)];
+  auto & params = intent.m_params;
   SetViewportIfPossible(params);
   SetCurrentPositionIfPossible(params);
-  Search(params);
+  Search(intent);
 }
 
 bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
@@ -1347,7 +1347,6 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
   p.m_mode = search::Mode::Everywhere;
   SetViewportIfPossible(p);  // Search request will be delayed if viewport is not available.
   p.m_maxNumResults = search::SearchParams::kDefaultNumResultsEverywhere;
-  p.m_forceSearch = true;
   p.m_suggestsEnabled = true;
   p.m_needAddress = true;
   p.m_needHighlighting = true;
@@ -1363,7 +1362,7 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
           });
       });
   SetCurrentPositionIfPossible(p);
-  return Search(p);
+  return Search(p, true /* forceSearch */);
 }
 
 bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
@@ -1377,7 +1376,6 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
   SetViewportIfPossible(p);  // Search request will be delayed if viewport is not available.
   p.m_maxNumResults = search::SearchParams::kDefaultNumResultsInViewport;
   p.m_mode = search::Mode::Viewport;
-  p.m_forceSearch = false;
   p.m_suggestsEnabled = false;
   p.m_needAddress = false;
   p.m_needHighlighting = false;
@@ -1397,7 +1395,7 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
       });
   SetCurrentPositionIfPossible(p);
 
-  return Search(p);
+  return Search(p, false /* forceSearch */);
 }
 
 bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
@@ -1408,14 +1406,13 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   SetViewportIfPossible(p);  // Search request will be delayed if viewport is not available.
   p.m_maxNumResults = search::SearchParams::kDefaultNumResultsEverywhere;
   p.m_mode = search::Mode::Downloader;
-  p.m_forceSearch = true;
   p.m_suggestsEnabled = false;
   p.m_needAddress = false;
   p.m_needHighlighting = false;
   p.m_onResults = search::DownloaderSearchCallback(
       static_cast<search::DownloaderSearchCallback::Delegate &>(*this), m_model.GetIndex(),
       GetCountryInfoGetter(), GetStorage(), params);
-  return Search(p);
+  return Search(p, true /* forceSearch */);
 }
 
 void Framework::SetViewportIfPossible(search::SearchParams & params)
@@ -1625,7 +1622,7 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
   return *m_displayedCategories;
 }
 
-bool Framework::Search(search::SearchParams const & params)
+bool Framework::Search(search::SearchParams const & params, bool forceSearch)
 {
   if (ParseDrapeDebugCommand(params.m_query))
     return false;
@@ -1648,7 +1645,7 @@ bool Framework::Search(search::SearchParams const & params)
   if (ParseEditorDebugCommand(params))
     return true;
 
-  if (QueryMayBeSkipped(intent, rParams))
+  if (!forceSearch && QueryMayBeSkipped(intent, rParams))
     return false;
 
   intent.m_params = rParams;
@@ -1691,8 +1688,6 @@ bool Framework::QueryMayBeSkipped(SearchIntent const & intent,
 
   auto const & viewport = params.m_viewport;
 
-  if (params.m_forceSearch)
-    return false;
   if (!lastParams.IsEqualCommon(params))
     return false;
   if (!lastViewport.IsValid() ||

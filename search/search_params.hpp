@@ -46,9 +46,6 @@ struct SearchParams
 
   Mode m_mode = Mode::Everywhere;
 
-  // When true, search request can't be skipped.
-  bool m_forceSearch = false;
-
   // Needed to generate search suggests.
   bool m_suggestsEnabled = false;
 

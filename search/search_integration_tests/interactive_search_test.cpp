@@ -142,7 +142,6 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
   params.m_viewport = m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5));
   params.m_mode = Mode::Viewport;
   params.m_minDistanceOnMapBetweenResults = 0.5;
-  params.m_forceSearch = true;
   params.m_suggestsEnabled = false;
 
   {
