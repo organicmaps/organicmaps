@@ -25,8 +25,8 @@ class TestSearchEngine : public Index
 {
 public:
   TestSearchEngine(unique_ptr<storage::CountryInfoGetter> infoGetter,
-                   unique_ptr<search::ProcessorFactory> factory, Engine::Params const & params);
-  TestSearchEngine(unique_ptr<::search::ProcessorFactory> factory, Engine::Params const & params);
+                   Engine::Params const & params);
+  TestSearchEngine(Engine::Params const & params);
   ~TestSearchEngine() override;
 
   void SetLocale(string const & locale) { m_engine.SetLocale(locale); }

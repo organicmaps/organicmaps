@@ -27,7 +27,6 @@
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/locality_finder.hpp"
-#include "search/processor_factory.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/viewport_search_params.hpp"
 
@@ -1528,9 +1527,8 @@ void Framework::InitSearchEngine()
     search::Engine::Params params;
     params.m_locale = languages::GetCurrentOrig();
     params.m_numThreads = 1;
-    m_searchEngine.reset(new search::Engine(const_cast<Index &>(m_model.GetIndex()),
-                                            GetDefaultCategories(), *m_infoGetter,
-                                            make_unique<search::ProcessorFactory>(), params));
+    m_searchEngine = make_unique<search::Engine>(const_cast<Index &>(m_model.GetIndex()),
+                                                 GetDefaultCategories(), *m_infoGetter, params);
   }
   catch (RootException const & e)
   {

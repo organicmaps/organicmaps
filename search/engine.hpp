@@ -1,6 +1,5 @@
 #pragma once
 
-#include "search/processor_factory.hpp"
 #include "search/result.hpp"
 #include "search/search_params.hpp"
 #include "search/suggest.hpp"
@@ -91,8 +90,7 @@ public:
 
   // Doesn't take ownership of index and categories.
   Engine(Index & index, CategoriesHolder const & categories,
-         storage::CountryInfoGetter const & infoGetter, unique_ptr<ProcessorFactory> factory,
-         Params const & params);
+         storage::CountryInfoGetter const & infoGetter, Params const & params);
   ~Engine();
 
   // Posts search request to the queue and returns its handle.

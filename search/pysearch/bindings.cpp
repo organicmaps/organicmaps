@@ -1,5 +1,4 @@
 #include "search/engine.hpp"
-#include "search/processor_factory.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
@@ -147,8 +146,8 @@ struct SearchEngineProxy
     auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(platform);
     infoGetter->InitAffiliationsInfo(&*g_affiliations);
 
-    m_engine = make_shared<search::tests_support::TestSearchEngine>(
-        move(infoGetter), my::make_unique<search::ProcessorFactory>(), search::Engine::Params{});
+    m_engine = make_shared<search::tests_support::TestSearchEngine>(move(infoGetter),
+                                                                    search::Engine::Params{});
 
     vector<platform::LocalCountryFile> mwms;
     platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
@@ -168,14 +167,14 @@ struct SearchEngineProxy
     sp.m_query = params.m_query;
     sp.m_inputLocale = params.m_locale;
     sp.m_mode = search::Mode::Everywhere;
-    sp.SetPosition(MercatorBounds::YToLat(params.m_position.m_y),
-                   MercatorBounds::XToLon(params.m_position.m_x));
-    sp.m_suggestsEnabled = false;
+    sp.m_position = m2::PointD(params.m_position.m_x, params.m_position.m_y);
+    sp.m_needAddress = true;
 
     auto const & bottomLeft = params.m_viewport.m_min;
     auto const & topRight = params.m_viewport.m_max;
-    m2::RectD const viewport(bottomLeft.m_x, bottomLeft.m_y, topRight.m_x, topRight.m_y);
-    search::tests_support::TestSearchRequest request(*m_engine, sp, viewport);
+    sp.m_viewport = m2::RectD(bottomLeft.m_x, bottomLeft.m_y, topRight.m_x, topRight.m_y);
+
+    search::tests_support::TestSearchRequest request(*m_engine, sp);
     request.Run();
 
     boost::python::list results;

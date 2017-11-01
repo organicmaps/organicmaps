@@ -3,7 +3,6 @@
 
 #include "map/framework.hpp"
 
-#include "search/processor_factory.hpp"
 #include "search/ranking_info.hpp"
 #include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"

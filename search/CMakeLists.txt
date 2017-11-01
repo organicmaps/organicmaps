@@ -96,7 +96,6 @@ set(
   pre_ranking_info.hpp
   processor.cpp
   processor.hpp
-  processor_factory.hpp
   projection_on_street.cpp
   projection_on_street.hpp
   query_params.cpp

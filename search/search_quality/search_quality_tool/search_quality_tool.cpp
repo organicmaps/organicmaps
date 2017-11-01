@@ -8,7 +8,6 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
-#include "search/processor_factory.hpp"
 #include "search/ranking_info.hpp"
 #include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
@@ -378,7 +377,7 @@ int main(int argc, char * argv[])
   Engine::Params params;
   params.m_locale = FLAGS_locale;
   params.m_numThreads = FLAGS_num_threads;
-  TestSearchEngine engine(move(infoGetter), make_unique<ProcessorFactory>(), params);
+  TestSearchEngine engine(move(infoGetter), params);
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())

@@ -17,9 +17,11 @@
 #include "platform/platform.hpp"
 
 #include "search/engine.hpp"
+#include "search/locality_finder.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/search_quality/helpers.hpp"
 
+#include "storage/country_info_getter.hpp"
 #include "storage/index.hpp"
 #include "storage/storage.hpp"
 

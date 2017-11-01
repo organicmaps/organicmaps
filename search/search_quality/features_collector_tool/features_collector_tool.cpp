@@ -151,7 +151,7 @@ int main(int argc, char * argv[])
   }
 
   classificator::Load();
-  TestSearchEngine engine(move(infoGetter), make_unique<ProcessorFactory>(), Engine::Params{});
+  TestSearchEngine engine(move(infoGetter), Engine::Params{});
 
   vector<platform::LocalCountryFile> mwms;
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,

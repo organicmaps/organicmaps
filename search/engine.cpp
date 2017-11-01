@@ -91,8 +91,7 @@ Engine::Params::Params(string const & locale, size_t numThreads)
 
 // Engine ------------------------------------------------------------------------------------------
 Engine::Engine(Index & index, CategoriesHolder const & categories,
-               storage::CountryInfoGetter const & infoGetter, unique_ptr<ProcessorFactory> factory,
-               Params const & params)
+               storage::CountryInfoGetter const & infoGetter, Params const & params)
   : m_shutdown(false)
 {
   InitSuggestions doInit;
@@ -102,7 +101,7 @@ Engine::Engine(Index & index, CategoriesHolder const & categories,
   m_contexts.resize(params.m_numThreads);
   for (size_t i = 0; i < params.m_numThreads; ++i)
   {
-    auto processor = factory->Build(index, categories, m_suggests, infoGetter);
+    auto processor = make_unique<Processor>(index, categories, m_suggests, infoGetter);
     processor->SetPreferredLocale(params.m_locale);
     m_contexts[i].m_processor = move(processor);
   }

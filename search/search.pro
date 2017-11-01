@@ -61,7 +61,6 @@ HEADERS += \
     pre_ranker.hpp \
     pre_ranking_info.hpp \
     processor.hpp \
-    processor_factory.hpp \
     projection_on_street.hpp \
     query_params.hpp \
     query_saver.hpp \
