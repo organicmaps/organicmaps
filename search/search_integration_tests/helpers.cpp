@@ -27,7 +27,7 @@ TestWithClassificator::TestWithClassificator()
 SearchTest::SearchTest()
   : m_platform(GetPlatform())
   , m_scopedLog(LDEBUG)
-  , m_engine(make_unique<storage::CountryInfoGetterForTesting>(), Engine::Params())
+  , m_engine(make_unique<storage::CountryInfoGetterForTesting>(), Engine::Params{})
 {
   indexer::tests_support::SetUpEditorForTesting(make_unique<EditorDelegate>(m_engine));
 
