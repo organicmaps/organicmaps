@@ -77,6 +77,30 @@ FeatureIdentifiers::FeatureIdentifiers(OsmId osmId, FeatureId const & featureId,
 {
 }
 
+bool FeatureIdentifiers::operator<(FeatureIdentifiers const & rhs) const
+{
+  CHECK_EQUAL(m_serializeFeatureIdOnly, rhs.m_serializeFeatureIdOnly, ());
+  if (m_serializeFeatureIdOnly)
+    return m_featureId < rhs.m_featureId;
+
+  if (m_featureId != rhs.m_featureId)
+    return m_featureId < rhs.m_featureId;
+  return m_osmId < rhs.m_osmId;
+}
+
+bool FeatureIdentifiers::operator==(FeatureIdentifiers const & rhs) const
+{
+  CHECK_EQUAL(m_serializeFeatureIdOnly, rhs.m_serializeFeatureIdOnly, ());
+  return m_serializeFeatureIdOnly ? m_featureId == rhs.m_featureId
+                                  : m_osmId == rhs.m_osmId && m_featureId == rhs.m_featureId;
+}
+
+bool FeatureIdentifiers::IsValid() const
+{
+  return m_serializeFeatureIdOnly ? m_featureId != kInvalidFeatureId
+                                  : m_osmId != kInvalidOsmId && m_featureId != kInvalidFeatureId;
+}
+
 // TitleAnchor ------------------------------------------------------------------------------------
 TitleAnchor::TitleAnchor(uint8_t minZoom, Anchor anchor) : m_minZoom(minZoom), m_anchor(anchor) {}
 
@@ -111,7 +135,7 @@ Stop::Stop(StopId id, OsmId osmId, FeatureId featureId, TransferId transferId,
 bool Stop::IsEqualForTesting(Stop const & stop) const
 {
   double constexpr kPointsEqualEpsilon = 1e-6;
-  return m_id == stop.m_id && m_featureIdentifiers.IsEqualForTesting(stop.m_featureIdentifiers) &&
+  return m_id == stop.m_id && m_featureIdentifiers == stop.m_featureIdentifiers &&
          m_transferId == stop.m_transferId && m_lineIds == stop.m_lineIds &&
          my::AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon) &&
          m_titleAnchors == stop.m_titleAnchors;
@@ -152,7 +176,7 @@ Gate::Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, double we
 
 bool Gate::IsEqualForTesting(Gate const & gate) const
 {
-  return m_featureIdentifiers.IsEqualForTesting(gate.m_featureIdentifiers) &&
+  return m_featureIdentifiers == gate.m_featureIdentifiers &&
          m_entrance == gate.m_entrance && m_exit == gate.m_exit &&
          my::AlmostEqualAbs(m_weight, gate.m_weight, kWeightEqualEpsilon) &&
          m_stopIds == gate.m_stopIds &&
@@ -161,7 +185,8 @@ bool Gate::IsEqualForTesting(Gate const & gate) const
 
 bool Gate::IsValid() const
 {
-  return m_weight != kInvalidWeight && (m_entrance || m_exit) && !m_stopIds.empty();
+  return m_featureIdentifiers.GetOsmId() != kInvalidOsmId && m_weight != kInvalidWeight &&
+         (m_entrance || m_exit) && !m_stopIds.empty();
 }
 
 // ShapeId ----------------------------------------------------------------------------------------

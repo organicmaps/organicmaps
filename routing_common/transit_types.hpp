@@ -87,10 +87,9 @@ public:
   explicit FeatureIdentifiers(bool serializeFeatureIdOnly);
   FeatureIdentifiers(OsmId osmId, FeatureId const & featureId, bool serializeFeatureIdOnly);
 
-  bool operator<(FeatureIdentifiers const & rhs) const { return m_osmId < rhs.m_osmId; }
-  bool operator==(FeatureIdentifiers const & rhs) const { return m_osmId == rhs.m_osmId; }
-  bool IsEqualForTesting(FeatureIdentifiers const & rhs) const { return m_featureId == rhs.m_featureId; }
-  bool IsValid() const { return m_featureId != kInvalidFeatureId; }
+  bool operator<(FeatureIdentifiers const & rhs) const;
+  bool operator==(FeatureIdentifiers const & rhs) const;
+  bool IsValid() const;
   void SetOsmId(OsmId osmId) { m_osmId = osmId; }
   void SetFeatureId(FeatureId featureId) { m_featureId = featureId; }
 
@@ -202,6 +201,7 @@ public:
   void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; };
 
   FeatureId GetFeatureId() const { return m_featureIdentifiers.GetFeatureId(); }
+  OsmId GetOsmId() const { return m_featureIdentifiers.GetOsmId(); }
   SingleMwmSegment const & GetBestPedestrianSegment() const { return m_bestPedestrianSegment; }
   bool GetEntrance() const { return m_entrance; }
   bool GetExit() const { return m_exit; }

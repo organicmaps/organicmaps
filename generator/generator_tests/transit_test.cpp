@@ -89,10 +89,10 @@ UNIT_TEST(DeserializerFromJson_Stops)
   ]})";
 
   vector<Stop> const expected = {
-      Stop(343259523 /* id */, kInvalidOsmId, 1 /* feature id */,
+      Stop(343259523 /* id */, 1234 /* osm id */, 1 /* feature id */,
            kInvalidTransferId /* transfer id */, {19207936, 19207937} /* lineIds */,
            {27.4970954, 64.20146835878187} /* point */, {} /* anchors */),
-      Stop(266680843 /* id */, kInvalidOsmId, 2 /* feature id */, 5 /* transfer id */,
+      Stop(266680843 /* id */, 2345 /* osm id */, 2 /* feature id */, 5 /* transfer id */,
            {19213568, 19213569} /* line ids */, {27.5227942, 64.25206634443111} /* point */,
            {TitleAnchor(12 /* min zoom */, 0 /* anchor */), TitleAnchor(15, 9)})};
 
