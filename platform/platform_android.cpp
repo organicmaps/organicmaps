@@ -176,7 +176,7 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
       }
       catch (Reader::OpenException const & e)
       {
-          LOG(LWARNING, ("Can't get reader:", e.what()));
+        LOG(LWARNING, ("Can't get reader:", e.what()));
       }
       break;
 
