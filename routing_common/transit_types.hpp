@@ -202,6 +202,7 @@ public:
   void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; };
 
   FeatureId GetFeatureId() const { return m_featureIdentifiers.GetFeatureId(); }
+  FeatureIdentifiers const & GetFeatureIdentifiers() const { return m_featureIdentifiers; }
   OsmId GetOsmId() const { return m_featureIdentifiers.GetOsmId(); }
   SingleMwmSegment const & GetBestPedestrianSegment() const { return m_bestPedestrianSegment; }
   bool GetEntrance() const { return m_entrance; }

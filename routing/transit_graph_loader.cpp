@@ -1,5 +1,6 @@
 #include "routing/transit_graph_loader.hpp"
 
+#include "routing/fake_ending.hpp"
 #include "routing/routing_exceptions.hpp"
 
 #include "routing_common/transit_serdes.hpp"
@@ -49,7 +50,7 @@ unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId numMwmI
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
   my::Timer timer;
-  auto graphPtr = make_unique<TransitGraph>();
+  auto graphPtr = make_unique<TransitGraph>(numMwmId);
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
   if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
     return graphPtr;
@@ -81,7 +82,20 @@ unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId numMwmI
     vector<transit::Line> lines;
     deserializer(lines);
 
-    graphPtr->Fill(stops, gates, edges, lines, *m_estimator, numMwmId, indexGraph);
+    map<transit::FeatureIdentifiers, FakeEnding> gateEndings;
+    for (auto const & gate : gates)
+    {
+      auto const & gateSegment = gate.GetBestPedestrianSegment();
+      if (gateSegment.IsValid())
+      {
+        Segment real(numMwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(),
+                     gateSegment.GetForward());
+        gateEndings.emplace(gate.GetFeatureIdentifiers(),
+                            MakeFakeEnding(real, gate.GetPoint(), *m_estimator, indexGraph));
+      }
+    }
+
+    graphPtr->Fill(stops, edges, lines, gates, gateEndings);
   }
   catch (Reader::OpenException const & e)
   {

@@ -24,6 +24,8 @@ public:
   static bool IsTransitFeature(uint32_t featureId);
   static bool IsTransitSegment(Segment const & segment);
 
+  explicit TransitGraph(NumMwmId numMwmId) : m_mwmId(numMwmId) {}
+
   Junction const & GetJunction(Segment const & segment, bool front) const;
   RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator const & estimator) const;
   RouteWeight GetTransferPenalty(Segment const & from, Segment const & to) const;
@@ -32,13 +34,9 @@ public:
   std::set<Segment> const & GetFake(Segment const & real) const;
   bool FindReal(Segment const & fake, Segment & real) const;
 
-  // Fills transit info based on data from transit section.
-  // Uses |indexGraph| to get road geometry: only modifications of |indexGraph| are
-  // modifications of geometry cache.
-  // TODO (t.yan) get rid of indexGraph and estimator
-  void Fill(std::vector<transit::Stop> const & stops, std::vector<transit::Gate> const & gates,
-            std::vector<transit::Edge> const & edges, std::vector<transit::Line> const & lines,
-            EdgeEstimator const & estimator, NumMwmId numMwmId, IndexGraph & indexGraph);
+  void Fill(std::vector<transit::Stop> const & stops, std::vector<transit::Edge> const & edges,
+            std::vector<transit::Line> const & lines, std::vector<transit::Gate> const & gates,
+            std::map<transit::FeatureIdentifiers, FakeEnding> const & gateEndings);
 
   bool IsGate(Segment const & segment) const;
   bool IsEdge(Segment const & segment) const;
@@ -58,12 +56,12 @@ private:
                       bool isOutgoing);
 
   static uint32_t constexpr kTransitFeatureId = FakeFeatureIds::kTransitGraphId;
-  NumMwmId m_mwmId = kFakeNumMwmId;
+  NumMwmId const m_mwmId = kFakeNumMwmId;
   FakeGraph<Segment, FakeVertex, Segment> m_fake;
   std::map<Segment, transit::Edge> m_segmentToEdge;
   std::map<Segment, transit::Gate> m_segmentToGate;
   std::map<transit::LineId, double> m_transferPenalties;
-  // TODO (@t.yan) move m_edgeToSegment, m_stopToBack, m_stopToFront to Fill
+  // TODO (@t.yan) move m_stopToBack, m_stopToFront to Fill
   std::map<transit::StopId, std::set<Segment>> m_stopToBack;
   std::map<transit::StopId, std::set<Segment>> m_stopToFront;
 };

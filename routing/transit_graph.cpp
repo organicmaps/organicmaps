@@ -97,12 +97,10 @@ bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
   return m_fake.FindReal(fake, real);
 }
 
-void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Gate> const & gates,
-                        vector<transit::Edge> const & edges, vector<transit::Line> const & lines,
-                        EdgeEstimator const & estimator, NumMwmId numMwmId, IndexGraph & indexGraph)
+void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edge> const & edges,
+                        vector<transit::Line> const & lines, vector<transit::Gate> const & gates,
+                        map<transit::FeatureIdentifiers, FakeEnding> const & gateEndings)
 {
-  m_mwmId = numMwmId;
-
   // Line has information about transit interval. Average time to wait transport for particular line
   // is half of this line interval.
   for (auto const & line : lines)
@@ -115,14 +113,16 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Gat
   for (auto const & gate : gates)
   {
     CHECK_NOT_EQUAL(gate.GetWeight(), transit::kInvalidWeight, ("Gate should have valid weight."));
-    auto const gateSegment = gate.GetBestPedestrianSegment();
-    Segment real(numMwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(), gateSegment.GetForward());
-    auto const ending =
-        MakeFakeEnding(real, gate.GetPoint(), estimator, indexGraph);
-    if (gate.GetEntrance())
-      AddGate(gate, ending, stopCoords, true /* isEnter */);
-    if (gate.GetExit())
-      AddGate(gate, ending, stopCoords, false /* isEnter */);
+
+    // Gate ending may have empty projections vector. It means gate is not connected to roads
+    auto const it = gateEndings.find(gate.GetFeatureIdentifiers());
+    if (it != gateEndings.cend())
+    {
+      if (gate.GetEntrance())
+        AddGate(gate, it->second, stopCoords, true /* isEnter */);
+      if (gate.GetExit())
+        AddGate(gate, it->second, stopCoords, false /* isEnter */);
+    }
   }
 
   map<transit::StopId, set<Segment>> outgoing;
