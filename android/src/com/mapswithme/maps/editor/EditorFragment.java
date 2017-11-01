@@ -621,7 +621,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
                                             public void onClick(DialogInterface dialog, int which)
                                             {
                                               Editor.nativeRollbackMapObject();
-                                              Framework.nativeUpdateUserViewportChanged();
+                                              Framework.nativePokeSearchInViewport();
                                               mParent.onBackPressed();
                                             }
                                           })

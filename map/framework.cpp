@@ -292,7 +292,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     for (size_t i = 0; i < static_cast<size_t>(search::Mode::Count); i++)
     {
       auto & intent = m_searchIntents[i];
-      // Viewport search will be triggered below, in UpdateUserViewportChanged().
+      // Viewport search will be triggered below, in PokeSearchInViewport().
       if (!intent.m_isDelayed || static_cast<search::Mode>(i) == search::Mode::Viewport)
         continue;
       SetViewportIfPossible(intent.m_params);
@@ -301,7 +301,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     }
   }
 
-  UpdateUserViewportChanged();
+  PokeSearchInViewport();
 
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_localAdsManager.UpdateViewport(m_currentModelView);
@@ -1327,7 +1327,7 @@ void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged const & 
   m_lastReportedCountry = kInvalidCountryId;
 }
 
-void Framework::UpdateUserViewportChanged()
+void Framework::PokeSearchInViewport()
 {
   if (!m_isViewportInitialized || !IsViewportSearchActive())
     return;

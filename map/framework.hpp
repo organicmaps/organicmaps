@@ -555,7 +555,7 @@ private:
 public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;
 
-  void UpdateUserViewportChanged();
+  void PokeSearchInViewport();
 
   /// Search everywhere.
   bool SearchEverywhere(search::EverywhereSearchParams const & params);

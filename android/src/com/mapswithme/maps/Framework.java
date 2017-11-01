@@ -170,7 +170,7 @@ public class Framework
 
   public static native int nativeGetDrawScale();
   
-  public static native int nativeUpdateUserViewportChanged();
+  public static native int nativePokeSearchInViewport();
 
   @Size(2)
   public static native double[] nativeGetScreenRectCenter();

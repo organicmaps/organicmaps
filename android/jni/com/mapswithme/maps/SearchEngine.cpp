@@ -366,7 +366,7 @@ void OnResults(Results const & results, vector<bool> const & isLocalAdsCustomer,
   {
     env->CallVoidMethod(g_javaListener, g_endResultsId, static_cast<jlong>(timestamp));
     if (isMapAndTable && results.IsEndedNormal())
-      g_framework->NativeFramework()->UpdateUserViewportChanged();
+      g_framework->NativeFramework()->PokeSearchInViewport();
   }
 }
 

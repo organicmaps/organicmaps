@@ -892,9 +892,9 @@ Java_com_mapswithme_maps_Framework_nativeGetDrawScale(JNIEnv * env, jclass)
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeUpdateUserViewportChanged(JNIEnv * env, jclass)
+Java_com_mapswithme_maps_Framework_nativePokeSearchInViewport(JNIEnv * env, jclass)
 {
-  frm()->UpdateUserViewportChanged();
+  frm()->PokeSearchInViewport();
 }
 
 JNIEXPORT jdoubleArray JNICALL

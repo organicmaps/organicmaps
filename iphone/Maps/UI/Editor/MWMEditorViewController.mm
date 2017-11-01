@@ -986,7 +986,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
     if (!f.RollBackChanges(fid))
       NSAssert(false, @"We shouldn't call this if we can't roll back!");
 
-    f.UpdateUserViewportChanged();
+    f.PokeSearchInViewport();
     [self backTap];
   };
 
