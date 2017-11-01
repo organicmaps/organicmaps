@@ -74,6 +74,12 @@ bool IsDownloaderFile(string const & name)
   return regex_match(name.begin(), name.end(), filter);
 }
 
+bool IsDiffFile(string const & name)
+{
+  return strings::EndsWith(name, DIFF_FILE_EXTENSION) ||
+         strings::EndsWith(name, DIFF_APPLYING_FILE_EXTENSION);
+}
+
 bool DirectoryHasIndexesOnly(string const & directory)
 {
   Platform::TFilesWithType fwts;
@@ -168,8 +174,8 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
 
     string name = fwt.first;
 
-    // Remove downloader files for old version directories.
-    if (IsDownloaderFile(name) && version < latestVersion)
+    // Remove downloader and diff files for old version directories.
+    if (version < latestVersion && (IsDownloaderFile(name) || IsDiffFile(name)))
     {
       my::DeleteFileX(my::JoinFoldersToPath(directory, name));
       continue;
