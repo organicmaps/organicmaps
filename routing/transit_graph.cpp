@@ -110,6 +110,8 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edg
   for (auto const & stop : stops)
     stopCoords[stop.GetId()] = Junction(stop.GetPoint(), feature::kDefaultAltitudeMeters);
 
+  map<transit::StopId, set<Segment>> stopToBack;
+  map<transit::StopId, set<Segment>> stopToFront;
   for (auto const & gate : gates)
   {
     CHECK_NOT_EQUAL(gate.GetWeight(), transit::kInvalidWeight, ("Gate should have valid weight."));
@@ -119,9 +121,9 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edg
     if (it != gateEndings.cend())
     {
       if (gate.GetEntrance())
-        AddGate(gate, it->second, stopCoords, true /* isEnter */);
+        AddGate(gate, it->second, stopCoords, true /* isEnter */, stopToBack, stopToFront);
       if (gate.GetExit())
-        AddGate(gate, it->second, stopCoords, false /* isEnter */);
+        AddGate(gate, it->second, stopCoords, false /* isEnter */, stopToBack, stopToFront);
     }
   }
 
@@ -130,13 +132,13 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edg
   for (auto const & edge : edges)
   {
     CHECK_NOT_EQUAL(edge.GetWeight(), transit::kInvalidWeight, ("Edge should have valid weight."));
-    auto const edgeSegment = AddEdge(edge, stopCoords);
+    auto const edgeSegment = AddEdge(edge, stopCoords, stopToBack, stopToFront);
     outgoing[edge.GetStop1Id()].insert(edgeSegment);
     ingoing[edge.GetStop2Id()].insert(edgeSegment);
   }
 
-  AddConnections(outgoing, true /* isOutgoing */);
-  AddConnections(ingoing, false /* isOutgoing */);
+  AddConnections(outgoing, stopToBack, stopToFront, true /* isOutgoing */);
+  AddConnections(ingoing, stopToBack, stopToFront, false /* isOutgoing */);
 }
 
 bool TransitGraph::IsGate(Segment const & segment) const
@@ -175,7 +177,9 @@ Segment TransitGraph::GetNewTransitSegment() const
 }
 
 void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending,
-                           map<transit::StopId, Junction> const & stopCoords, bool isEnter)
+                           map<transit::StopId, Junction> const & stopCoords, bool isEnter,
+                           map<transit::StopId, set<Segment>> & stopToBack,
+                           map<transit::StopId, set<Segment>> & stopToFront)
 {
   Segment const dummy = Segment();
   for (auto const & projection : ending.m_projections)
@@ -219,15 +223,17 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
                        false /* isPartOfReal */, dummy /* realSegment */);
       m_segmentToGate[gateSegment] = gate;
       if (isEnter)
-        m_stopToFront[stopId].insert(gateSegment);
+        stopToFront[stopId].insert(gateSegment);
       else
-        m_stopToBack[stopId].insert(gateSegment);
+        stopToBack[stopId].insert(gateSegment);
     }
   }
 }
 
 Segment TransitGraph::AddEdge(transit::Edge const & edge,
-                              map<transit::StopId, Junction> const & stopCoords)
+                              map<transit::StopId, Junction> const & stopCoords,
+                              map<transit::StopId, set<Segment>> & stopToBack,
+                              map<transit::StopId, set<Segment>> & stopToFront)
 {
   auto const edgeSegment = GetNewTransitSegment();
   auto const stopFromId = edge.GetStop1Id();
@@ -236,19 +242,21 @@ Segment TransitGraph::AddEdge(transit::Edge const & edge,
                         GetStopJunction(stopCoords, stopToId), FakeVertex::Type::PureFake);
   m_fake.AddStandaloneVertex(edgeSegment, edgeVertex);
   m_segmentToEdge[edgeSegment] = edge;
-  m_stopToBack[stopFromId].insert(edgeSegment);
-  m_stopToFront[stopToId].insert(edgeSegment);
+  stopToBack[stopFromId].insert(edgeSegment);
+  stopToFront[stopToId].insert(edgeSegment);
   return edgeSegment;
 }
 
 void TransitGraph::AddConnections(map<transit::StopId, set<Segment>> const & connections,
+                                  map<transit::StopId, set<Segment>> const & stopToBack,
+                                  map<transit::StopId, set<Segment>> const & stopToFront,
                                   bool isOutgoing)
 {
   for (auto const & connection : connections)
   {
     for (auto const & connectedSegment : connection.second)
     {
-      auto const & adjacentSegments = isOutgoing ? m_stopToFront : m_stopToBack;
+      auto const & adjacentSegments = isOutgoing ? stopToFront : stopToBack;
       auto const segmentsIt = adjacentSegments.find(connection.first);
       if (segmentsIt == adjacentSegments.cend())
         continue;

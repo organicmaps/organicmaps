@@ -48,11 +48,17 @@ private:
   Segment GetNewTransitSegment() const;
 
   void AddGate(transit::Gate const & gate, FakeEnding const & ending,
-               std::map<transit::StopId, Junction> const & stopCoords, bool isEnter);
+               std::map<transit::StopId, Junction> const & stopCoords, bool isEnter,
+               std::map<transit::StopId, std::set<Segment>> & stopToBack,
+               std::map<transit::StopId, std::set<Segment>> & stopToFront);
   // Adds transit edge to fake graph, returns corresponding transit segment.
   Segment AddEdge(transit::Edge const & edge,
-                  std::map<transit::StopId, Junction> const & stopCoords);
+                  std::map<transit::StopId, Junction> const & stopCoords,
+                  std::map<transit::StopId, std::set<Segment>> & stopToBack,
+                  std::map<transit::StopId, std::set<Segment>> & stopToFront);
   void AddConnections(std::map<transit::StopId, std::set<Segment>> const & connections,
+                      std::map<transit::StopId, std::set<Segment>> const & stopToBack,
+                      std::map<transit::StopId, std::set<Segment>> const & stopToFront,
                       bool isOutgoing);
 
   static uint32_t constexpr kTransitFeatureId = FakeFeatureIds::kTransitGraphId;
@@ -61,8 +67,5 @@ private:
   std::map<Segment, transit::Edge> m_segmentToEdge;
   std::map<Segment, transit::Gate> m_segmentToGate;
   std::map<transit::LineId, double> m_transferPenalties;
-  // TODO (@t.yan) move m_stopToBack, m_stopToFront to Fill
-  std::map<transit::StopId, std::set<Segment>> m_stopToBack;
-  std::map<transit::StopId, std::set<Segment>> m_stopToFront;
 };
 }  // namespace routing
