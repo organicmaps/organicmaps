@@ -738,6 +738,7 @@ Java_com_mapswithme_maps_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jc
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jclass clazz, jobject jListener)
 {
+  LOG(LINFO, ("Set global map object listener"));
   g_mapObjectListener = env->NewGlobalRef(jListener);
   // void onMapObjectActivated(MapObject object);
   jmethodID const activatedId = jni::GetMethodID(env, g_mapObjectListener, "onMapObjectActivated",
@@ -765,6 +766,7 @@ Java_com_mapswithme_maps_Framework_nativeRemoveMapObjectListener(JNIEnv * env, j
     return;
 
   frm()->SetMapSelectionListeners({}, {});
+  LOG(LINFO, ("Remove global map object listener"));
   env->DeleteGlobalRef(g_mapObjectListener);
 }
 

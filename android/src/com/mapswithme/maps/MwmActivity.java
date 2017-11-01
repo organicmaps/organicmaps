@@ -503,8 +503,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     Statistics.INSTANCE.trackConnectionState();
 
-    Framework.nativeSetMapObjectListener(this);
-
     mSearchController = new FloatingSearchToolbarController(this);
     mSearchController.setVisibilityListener(this);
     SearchEngine.INSTANCE.addListener(this);
@@ -913,14 +911,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onDestroy()
   {
-    if (!isInitializationComplete())
+    if (!isInitializationCompleted())
     {
       super.onDestroy();
       return;
     }
 
-    // TODO move listeners attach-deattach to onStart-onStop since onDestroy isn't guaranteed.
-    Framework.nativeRemoveMapObjectListener();
     BottomSheetHelper.free();
     SearchEngine.INSTANCE.removeListener(this);
     super.onDestroy();
@@ -1178,6 +1174,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStart()
   {
     super.onStart();
+    Framework.nativeSetMapObjectListener(this);
     RoutingController.get().attach(this);
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
@@ -1192,6 +1189,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStop()
   {
     super.onStop();
+    Framework.nativeRemoveMapObjectListener();
     LocationHelper.INSTANCE.detach(!isFinishing());
     RoutingController.get().detach();
     TrafficManager.INSTANCE.detachAll();
