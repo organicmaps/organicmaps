@@ -662,6 +662,8 @@ private:
   void LoadDiffScheme();
   void ApplyDiff(TCountryId const & countryId, function<void(bool isSuccess)> const & fn);
 
+  // Should be called once on startup, downloading process should be suspended until this method
+  // was not called. Do not call this method manually.
   void OnDiffStatusReceived(diffs::Status const status) override;
 };
 

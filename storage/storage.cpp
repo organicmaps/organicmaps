@@ -1454,6 +1454,7 @@ void Storage::OnDiffStatusReceived(diffs::Status const status)
         if (!isSuccess)
         {
           m_failedCountries.insert(countryId);
+          NotifyStatusChangedForHierarchy(countryId);
           return;
         }
 
