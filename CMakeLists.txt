@@ -45,6 +45,8 @@ if (ANDROID_DETECTED AND (${OS} MATCHES "mac"))
   set(DARWIN TRUE)
 endif()
 
+message(${OS})
+
 omim_set_platform_var(PLATFORM_IPHONE "iphone-.*")
 omim_set_platform_var(PLATFORM_ANDROID "android-.*" ${ANDROID_DETECTED})
 omim_set_platform_var(PLATFORM_MAC "macx-.*" ${APPLE})
@@ -119,6 +121,8 @@ endif()
 
 # Find installed packages
 
+get_filename_component(OMIM_ROOT . ABSOLUTE)
+
 find_package(Threads)
 
 set(Boost_USE_MULTITHREADED ON)
@@ -140,10 +144,11 @@ if (NOT Boost_FOUND)
       set(Boost_LIBRARY_DIR "$ENV{BOOST_ROOT}/libs")
     endif()
     find_package(Boost 1.54)
-  else()
-    message("Please set BOOST_ROOT environment variable (path to Boost dirs 'include, lib')")
-    message("Note that for Android Boost version must be less than 1.6.*")
   endif()
+else()
+  set(Boost_INCLUDE_DIR "${OMIM_ROOT}/3party/boost")
+  set(Boost_LIBRARY_DIR "${OMIM_ROOT}/3party/boost/libs")
+  find_package(Boost 1.54)
 endif()
 
 if (PYBINDINGS)
@@ -195,8 +200,6 @@ if (NOT DEVELOPER_FRAMEWORKS_DIR)
 else()
   include_directories(${DEVELOPER_FRAMEWORKS_DIR})
 endif()
-
-get_filename_component(OMIM_ROOT . ABSOLUTE)
 
 include_directories(
   ${CMAKE_HOME_DIRECTORY}

@@ -137,10 +137,9 @@ android {
     externalNativeBuild {
       cmake {
         abiFilters 'armeabi-v7a', 'x86'
-        cppFlags '-fexceptions', '-frtti'
-        cFlags '-ffunction-sections', '-fdata-sections', '-Wno-extern-c-compat'
-        arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
-         "-DOS=$osName"
+        cppFlags '-fexceptions', '-frtti', '-m32'
+        cFlags '-ffunction-sections', '-fdata-sections', '-Wno-extern-c-compat', '-m32'
+        arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static', "-DOS=$osName"
       }
     }
 
