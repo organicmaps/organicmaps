@@ -26374,13 +26374,13 @@
     ru = Теперь вы можете оставлять оценки и отзывы даже офлайн! Не забудьте обновить карты, чтобы увидеть изменения. 
 
   [dialog_error_storage_title]
-    en = Storage problem
-    ru = Проблема с хранилищем
+    en = Storage access problem
+    ru = Проблема с доступом к хранилищу
 
   [dialog_error_storage_message]
-    en = Make sure please that external storage is available for writing.
-    ru = Убедитесь, пожалуйста, что внешняя память сейчас доступна для записи.
+    en = External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me
+    ru = Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support@maps.me
 
   [setting_emulate_bad_storage]
-    en = Emulate bad external storage
-    ru = Эмулировать плохую внешнюю память     
+    en = Emulate bad storage
+    ru = Эмуляция ошибки с внешней памятью     
