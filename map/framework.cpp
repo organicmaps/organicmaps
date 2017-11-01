@@ -285,6 +285,8 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
 {
   m_currentModelView = screen;
 
+  auto const forceSearchInViewport = !m_isViewportInitialized;
+
   if (!m_isViewportInitialized)
   {
     m_isViewportInitialized = true;
@@ -300,7 +302,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     }
   }
 
-  PokeSearchInViewport();
+  PokeSearchInViewport(forceSearchInViewport);
 
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_localAdsManager.UpdateViewport(m_currentModelView);
@@ -1326,16 +1328,15 @@ void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged const & 
   m_lastReportedCountry = kInvalidCountryId;
 }
 
-void Framework::PokeSearchInViewport()
+void Framework::PokeSearchInViewport(bool forceSearch)
 {
   if (!m_isViewportInitialized || !IsViewportSearchActive())
     return;
 
-  auto & intent = m_searchIntents[static_cast<size_t>(search::Mode::Viewport)];
-  auto & params = intent.m_params;
+  auto params = m_searchIntents[static_cast<size_t>(search::Mode::Viewport)].m_params;
   SetViewportIfPossible(params);
   SetCurrentPositionIfPossible(params);
-  Search(intent);
+  Search(params, forceSearch);
 }
 
 bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)

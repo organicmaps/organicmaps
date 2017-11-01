@@ -4,6 +4,7 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 #include "storage/storage_helpers.hpp"
 

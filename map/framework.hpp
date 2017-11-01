@@ -557,7 +557,7 @@ public:
 
   // When search in viewport is active or delayed, restarts search in
   // viewport.
-  void PokeSearchInViewport();
+  void PokeSearchInViewport(bool forceSearch = true);
 
   // Search everywhere.
   bool SearchEverywhere(search::EverywhereSearchParams const & params);
