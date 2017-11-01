@@ -114,14 +114,14 @@ public:
   void Clear();
   bool IsValid() const;
 
-  /// \brief Sorts all class fields execpt for |m_edges| by their ids.
+  /// \brief Sorts all class fields except for |m_edges| by their ids.
   void Sort();
   /// \brief Calculates and updates |m_edges| by adding valid value for Edge::m_weight
   /// if it's not valid.
-  /// \note |m_stops|, Edge::m_stop1Id and Edge::m_stop2Id in |m_edges| should be valid before call.
+  /// \note |m_stops|, Edge::m_stop1Id and Edge::m_stop2Id in |m_edges| must be valid before call.
   void CalculateEdgeWeights();
   /// \brief Calculates best pedestrian segment for every gate in |m_gates|.
-  /// \note All gates in |m_gates| should have a valid |m_point| field before the call.
+  /// \note All gates in |m_gates| must have a valid |m_point| field before the call.
   void CalculateBestPedestrianSegments(std::string const & mwmPath, std::string const & countryId);
 
   std::vector<Stop> const & GetStops() const { return m_stops; }
@@ -151,7 +151,7 @@ private:
 };
 
 /// \brief Fills |data| according to a transit graph (|transitJsonPath|).
-/// \note Some of fields of |data| contains feature ids of a certain mwm. These fields are filled
+/// \note Some of fields of |data| contain feature ids of a certain mwm. These fields are filled
 /// iff the mapping (|osmIdToFeatureIdsPath|) contains them. Otherwise the fields have default value.
 void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const & transitJsonPath,
                          GraphData & data);
@@ -166,7 +166,7 @@ void ProcessGraph(std::string const & mwmPath, std::string const & countryId,
 /// \param mwmDir relative or full path to a directory where mwm is located.
 /// \param countryId is an mwm name without extension of the processed mwm.
 /// \param osmIdToFeatureIdsPath is a path to a file with osm id to feature ids mapping.
-/// \param transitDir a path with slash at the end to directory with json files with transit graphs.
+/// \param transitDir relative or full path to a directory with json files of transit graphs.
 /// It's assumed that the files have the same name with country ids and extension TRANSIT_FILE_EXTENSION.
 /// \note An mwm pointed by |mwmPath| should contain:
 /// * feature geometry

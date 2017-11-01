@@ -4,8 +4,8 @@
 
 #include "traffic/traffic_cache.hpp"
 
-#include "routing/routing_exceptions.hpp"
 #include "routing/index_router.hpp"
+#include "routing/routing_exceptions.hpp"
 
 #include "routing_common/transit_serdes.hpp"
 #include "routing_common/transit_speed_limits.hpp"
@@ -88,7 +88,7 @@ struct IsUniqueVisitor
   template <typename Cont>
   void operator()(Cont const & c, char const * /* name */)
   {
-    m_isUnique = m_isUnique && (adjacent_find(c.begin(), c.end()) == c.end());
+    m_isUnique = m_isUnique && (adjacent_find(c.cbegin(), c.cend()) == c.cend());
   }
 
   bool IsUnique() const { return m_isUnique; }
@@ -102,7 +102,7 @@ struct IsSortedVisitor
   template <typename Cont>
   void operator()(Cont const & c, char const * /* name */)
   {
-    m_isSorted = m_isSorted && is_sorted(c.begin(), c.end());
+    m_isSorted = m_isSorted && is_sorted(c.cbegin(), c.cend());
   }
 
   bool IsSorted() const { return m_isSorted; }
@@ -118,7 +118,7 @@ Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
   auto s1Id = equal_range(stops.cbegin(), stops.cend(),
                           Stop(stopId, kInvalidOsmId, kInvalidFeatureId, kInvalidTransferId,
                                {} /* line ids */, {} /* point */, {} /* title anchors */));
-  CHECK(s1Id.first != stops.cend(), ("No a stop with id:", stopId, "in stops:", stops));
+  CHECK(s1Id.first != stops.cend(), ("No stop with id:", stopId, "in stops:", stops));
   CHECK_EQUAL(distance(s1Id.first, s1Id.second), 1, ("A stop with id:", stopId, "is not unique in stops:", stops));
   return *s1Id.first;
 }
@@ -183,9 +183,9 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   auto const it = m_osmIdToFeatureIds.find(osmId);
   if (it != m_osmIdToFeatureIds.cend())
   {
-    CHECK_EQUAL(it->second.size(), 1,
-                ("Osm id:", osmId, "(encoded", osmId.EncodedId(),
-                 ") from transit graph doesn't present by a single feature in mwm."));
+    CHECK_EQUAL(it->second.size(), 1, ("Osm id:", osmId, "(encoded", osmId.EncodedId(),
+                 ") from transit graph is correspond to", it->second.size(), "features."
+                 "But osm id should be represented be one feature."));
     id.SetFeatureId(it->second[0]);
   }
   id.SetOsmId(osmId.EncodedId());
@@ -334,6 +334,8 @@ void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string c
     Segment bestSegment;
     try
     {
+       if (countryFileGetter(gate.GetPoint()) != countryId)
+         continue;
       // @todo(bykoianko) For every call of the method below WorldGraph is created. It's not
       // efficient to create WorldGraph for every gate. The code should be redesigned.
       if (indexRouter.FindBestSegmentInSingleMwm(gate.GetPoint(),
@@ -347,8 +349,13 @@ void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string c
     }
     catch (MwmIsNotAliveException const & e)
     {
-      LOG(LERROR, ("Point of a gate belongs doesn't belong to any mwm according to "
-                   "packed_polygons.bin. Gate:", gate, e.what()));
+      LOG(LCRITICAL, ("Point of a gate belongs to the processed mwm:", countryId, ","
+          "but the mwm is not alive. Gate:", gate, e.what()));
+    }
+    catch (RootException const & e)
+    {
+      LOG(LCRITICAL, ("Exception while looking for the best segment here gates. CountryId::",
+          countryId, ". Gate:", gate, e.what()));
     }
   }
 }
@@ -381,16 +388,23 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
   {
     GetPlatform().GetReader(transitJsonPath)->ReadAsString(jsonBuffer);
   }
-  catch (RootException const & ex)
+  catch (RootException const & e)
   {
-    LOG(LCRITICAL, ("Can't open", transitJsonPath, ex.what()));
+    LOG(LCRITICAL, ("Can't open", transitJsonPath, e.what()));
   }
 
   my::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json file:", transitJsonPath));
 
   data.Clear();
-  data.DeserializeFromJson(root, mapping);
+  try
+  {
+    data.DeserializeFromJson(root, mapping);
+  }
+  catch (RootException const & e)
+  {
+    LOG(LCRITICAL, ("Exception while parsing transit graph json. Json file path:", transitJsonPath, e.what()));
+  }
 }
 
 void ProcessGraph(string const & mwmPath, string const & countryId,

@@ -4,7 +4,7 @@
 
 namespace routing
 {
-DECLARE_EXCEPTION(CorruptedDataException, RootException);
 DECLARE_EXCEPTION(RoutingException, RootException);
-DECLARE_EXCEPTION(MwmIsNotAliveException, RootException);
+DECLARE_EXCEPTION(CorruptedDataException, RoutingException);
+DECLARE_EXCEPTION(MwmIsNotAliveException, RoutingException);
 }  // namespace routing
