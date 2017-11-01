@@ -6,6 +6,7 @@
 #include "routing_common/transit_serdes.hpp"
 #include "routing_common/transit_types.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <vector>
 
@@ -236,14 +237,8 @@ UNIT_TEST(Transit_ShapeSerialization)
 
 UNIT_TEST(Transit_ShapeIdRelational)
 {
-  ShapeId id1(0, 10);
-  ShapeId id2(0, 11);
-  ShapeId id3(1, 10);
-  ShapeId id4(1, 11);
-
-  TEST_LESS(id1, id2, ());
-  TEST_LESS(id2, id3, ());
-  TEST_LESS(id3, id4, ());
+  vector<ShapeId> const ids = {{0, 10}, {0, 11}, {1, 10}, {1, 11}};
+  TEST(is_sorted(ids.cbegin(), ids.cend()), ());
 }
 
 UNIT_TEST(Transit_NetworkSerialization)

@@ -114,7 +114,6 @@ private:
 /// \returns ref to a stop at |stops| by |stopId|.
 Stop const & FindStopById(vector<Stop> const & stops, StopId stopId)
 {
-  ASSERT(is_sorted(stops.cbegin(), stops.cend()), ());
   auto s1Id = equal_range(stops.cbegin(), stops.cend(),
                           Stop(stopId, kInvalidOsmId, kInvalidFeatureId, kInvalidTransferId,
                                {} /* line ids */, {} /* point */, {} /* title anchors */));
@@ -184,7 +183,7 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   if (it != m_osmIdToFeatureIds.cend())
   {
     CHECK_EQUAL(it->second.size(), 1, ("Osm id:", osmId, "(encoded", osmId.EncodedId(),
-                 ") from transit graph is correspond to", it->second.size(), "features."
+                 ") from transit graph corresponds to", it->second.size(), "features."
                  "But osm id should be represented be one feature."));
     id.SetFeatureId(it->second[0]);
   }
@@ -285,7 +284,6 @@ void GraphData::Sort()
 void GraphData::CalculateEdgeWeights()
 {
   CHECK(is_sorted(m_stops.cbegin(), m_stops.cend()), ());
-
   for (auto & e : m_edges)
   {
     if (e.GetWeight() != kInvalidWeight)
@@ -354,7 +352,7 @@ void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string c
     }
     catch (RootException const & e)
     {
-      LOG(LCRITICAL, ("Exception while looking for the best segment here gates. CountryId::",
+      LOG(LCRITICAL, ("Exception while looking for the best segment of a gate. CountryId:",
           countryId, ". Gate:", gate, e.what()));
     }
   }

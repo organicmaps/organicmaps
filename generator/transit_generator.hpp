@@ -151,7 +151,7 @@ private:
 };
 
 /// \brief Fills |data| according to a transit graph (|transitJsonPath|).
-/// \note Some of fields of |data| contain feature ids of a certain mwm. These fields are filled
+/// \note Some fields of |data| contain feature ids of a certain mwm. These fields are filled
 /// iff the mapping (|osmIdToFeatureIdsPath|) contains them. Otherwise the fields have default value.
 void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const & transitJsonPath,
                          GraphData & data);
