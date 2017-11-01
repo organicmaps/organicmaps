@@ -136,13 +136,26 @@ android {
 
     externalNativeBuild {
       cmake {
-        abiFilters 'armeabi-v7a', 'x86'
         cppFlags '-fexceptions', '-frtti', '-m32'
         cFlags '-ffunction-sections', '-fdata-sections', '-Wno-extern-c-compat', '-m32'
         arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static', "-DOS=$osName"
       }
     }
 
+    ndk {
+      abiFilters = new HashSet<>()
+      if (project.hasProperty('arm')) {
+        println("Building for the ARM architecture")
+        abiFilters.add("armeabi-v7a")
+      } else if (project.hasProperty('x86')) {
+        println("Building for the x86 architecture")
+        abiFilters.add("x86")
+      } else {
+        println("Building for the ARM and x86 architectures")
+        abiFilters.add("armeabi-v7a")
+        abiFilters.add("x86")
+      }
+    }
   }
 
   sourceSets.main {
@@ -252,11 +265,10 @@ android {
     }
   }
 
-  // Currently (as of 1.2.3 gradle plugin) ABI filters aren't supported inside of product flavors, so we cannot generate splitted builds only for Google build.
-  // TODO check that feature when new gradle plugins will appear
-  // connected bugreport https://code.google.com/p/android/issues/detail?id=178606
   splits.abi {
-    enable true
+    boolean enabled = project.hasProperty('splitApk');
+    println ("Create separate apks: " + enabled)
+    enable enabled
     reset()
     include 'x86', 'armeabi-v7a'
     universalApk true
