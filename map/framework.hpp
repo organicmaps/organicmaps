@@ -556,7 +556,9 @@ public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;
 
   // When search in viewport is active or delayed, restarts search in
-  // viewport.
+  // viewport. When |forceSearch| is false, request is skipped when it
+  // is similar to the previous request in the current
+  // search-in-viewport session.
   void PokeSearchInViewport(bool forceSearch = true);
 
   // Search everywhere.

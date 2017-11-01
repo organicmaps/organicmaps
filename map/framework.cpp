@@ -1333,6 +1333,7 @@ void Framework::PokeSearchInViewport(bool forceSearch)
   if (!m_isViewportInitialized || !IsViewportSearchActive())
     return;
 
+  // Copy is intentional here, to skip possible duplicating requests.
   auto params = m_searchIntents[static_cast<size_t>(search::Mode::Viewport)].m_params;
   SetViewportIfPossible(params);
   SetCurrentPositionIfPossible(params);
