@@ -1,5 +1,7 @@
 #pragma once
 
+#include "routing/segment.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/string_utils.hpp"
@@ -7,9 +9,9 @@
 #include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
 
-#include "std/initializer_list.hpp"
-#include "std/map.hpp"
-#include "std/vector.hpp"
+#include <initializer_list>
+#include <map>
+#include <vector>
 
 namespace routing
 {
@@ -130,9 +132,13 @@ public:
   /// @return Types for specified junction
   virtual void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const = 0;
 
+  // TODO: remove IsRouteEdgesImplemented and IsRouteSegmentsImplemented as soon as we get rid of
+  // IRoadGraph and RoadGraphRouter
   virtual bool IsRouteEdgesImplemented() const;
+  virtual bool IsRouteSegmentsImplemented() const;
 
   virtual void GetRouteEdges(TEdgeVector & routeEdges) const;
+  virtual std::vector<Segment> const & GetRouteSegments() const;
 };
 
 class IRoadGraph : public RoadGraphBase
@@ -155,7 +161,7 @@ public:
   {
     RoadInfo();
     RoadInfo(RoadInfo && ri);
-    RoadInfo(bool bidirectional, double speedKMPH, initializer_list<Junction> const & points);
+    RoadInfo(bool bidirectional, double speedKMPH, std::initializer_list<Junction> const & points);
     RoadInfo(RoadInfo const &) = default;
     RoadInfo & operator=(RoadInfo const &) = default;
 
@@ -296,7 +302,7 @@ public:
   void GetFakeIngoingEdges(Junction const & junction, TEdgeVector & edges) const;
 
 private:
-  void AddEdge(Junction const & j, Edge const & e, map<Junction, TEdgeVector> & edges);
+  void AddEdge(Junction const & j, Edge const & e, std::map<Junction, TEdgeVector> & edges);
 
   template <typename Fn>
   void ForEachFakeEdge(Fn && fn)
@@ -316,14 +322,14 @@ private:
 
   /// \note |m_fakeIngoingEdges| and |m_fakeOutgoingEdges| map junctions to sorted vectors.
   /// Items to these maps should be inserted with AddEdge() method only.
-  map<Junction, TEdgeVector> m_fakeIngoingEdges;
-  map<Junction, TEdgeVector> m_fakeOutgoingEdges;
+  std::map<Junction, TEdgeVector> m_fakeIngoingEdges;
+  std::map<Junction, TEdgeVector> m_fakeOutgoingEdges;
 };
 
 string DebugPrint(IRoadGraph::Mode mode);
 
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
-                                            initializer_list<m2::PointD> const & points);
+                                            std::initializer_list<m2::PointD> const & points);
 
 inline void JunctionsToPoints(vector<Junction> const & junctions, vector<m2::PointD> & points)
 {

@@ -64,10 +64,17 @@ bool PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
 
   CalculateTurns(graph, routeEdges, turns, cancellable);
 
-  segments.reserve(routeEdges.size());
-  for (Edge const & e : routeEdges)
-    segments.push_back(ConvertEdgeToSegment(*m_numMwmIds, e));
-  
+  if (graph.IsRouteSegmentsImplemented())
+  {
+    segments = graph.GetRouteSegments();
+  }
+  else
+  {
+    segments.reserve(routeEdges.size());
+    for (Edge const & e : routeEdges)
+      segments.push_back(ConvertEdgeToSegment(*m_numMwmIds, e));
+  }
+
   return true;
 }
 

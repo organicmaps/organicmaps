@@ -29,8 +29,9 @@ public:
   virtual void GetJunctionTypes(Junction const & junction,
                                 feature::TypesHolder & types) const override;
   virtual bool IsRouteEdgesImplemented() const override;
+  virtual bool IsRouteSegmentsImplemented() const override;
   virtual void GetRouteEdges(TEdgeVector & edges) const override;
-
+  virtual std::vector<Segment> const & GetRouteSegments() const override;
 
 private:
   void GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const;

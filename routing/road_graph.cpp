@@ -11,9 +11,11 @@
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/limits.hpp"
-#include "std/sstream.hpp"
+#include <algorithm>
+#include <limits>
+#include <sstream>
+
+using namespace std;
 
 namespace routing
 {
@@ -297,12 +299,16 @@ IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH
   return ri;
 }
 // RoadGraphBase ------------------------------------------------------------------
-bool RoadGraphBase::IsRouteEdgesImplemented() const
-{
-  return false;
-}
+bool RoadGraphBase::IsRouteEdgesImplemented() const { return false; }
+
+bool RoadGraphBase::IsRouteSegmentsImplemented() const { return false; }
 
 void RoadGraphBase::GetRouteEdges(TEdgeVector & routeEdges) const
+{
+  NOTIMPLEMENTED()
+}
+
+vector<Segment> const & RoadGraphBase::GetRouteSegments() const
 {
   NOTIMPLEMENTED()
 }
