@@ -180,6 +180,32 @@ UNIT_TEST(Transit_GateSerialization)
   TEST(gate.IsValid(), (gate));
 }
 
+UNIT_TEST(Transit_GatesRelational)
+{
+  vector<Gate> const gates = {{1234567 /* osm id */,
+                               123 /* feature id */,
+                               true /* entrance */,
+                               false /* exit */,
+                               1.0 /* weight */,
+                               {1, 2, 3} /* stops ids */,
+                               m2::PointD(0.0, 0.0)},
+                              {1234567 /* osm id */,
+                               1234 /* feature id */,
+                               true /* entrance */,
+                               false /* exit */,
+                               1.0 /* weight */,
+                               {1, 2, 3} /* stops ids */,
+                               m2::PointD(0.0, 0.0)},
+                              {1234567 /* osm id */,
+                               1234 /* feature id */,
+                               true /* entrance */,
+                               false /* exit */,
+                               1.0 /* weight */,
+                               {1, 2, 3, 4} /* stops ids */,
+                               m2::PointD(0.0, 0.0)}};
+  TEST(is_sorted(gates.cbegin(), gates.cend()), ());
+}
+
 UNIT_TEST(Transit_EdgeSerialization)
 {
   Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123.4 /* weight */, 11 /* line id */,
