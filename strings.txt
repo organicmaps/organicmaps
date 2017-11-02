@@ -24070,7 +24070,7 @@
     fr_CA = Mise à jour des cartes
     he = מעדכן מפות
     hi = मानचित्र अपडेट हो रहे
-    pt_BR = Atualizando mapas
+    pt-BR = Atualizando mapas
     sk = Prebieha aktualizácia máp
     sw = Inasasisha ramani
 
@@ -24108,7 +24108,7 @@
     fr_CA = Mettez à jour vos cartes téléchargées
     he = עדכן את המפות שהורדת
     hi = अपने डाउनलोड किए गए मानचित्र अपडेट करें
-    pt_BR = Atualize os mapas no seu dispositivo
+    pt-BR = Atualize os mapas no seu dispositivo
     sk = Aktualizujte svoje stiahnuté mapy
     sw = Sasisha ramani zako ulizopakua
 
@@ -24146,7 +24146,7 @@
     fr_CA = La mise à jour des cartes permet d'avoir des informations à jour sur les objets
     he = עדכון המפות שומר על המידע שבהן עדכני
     hi = मानचित्रों का अपडेट होना ऑब्जेक्ट्स के बारे में जानकारी अप टू डेट रखता है
-    pt_BR = A atualização de mapas mantém as informações sobre objetos atualizadas
+    pt-BR = A atualização de mapas mantém as informações sobre objetos atualizadas
     sk = Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované
     sw = Kusasisha ramani kunaweka taarifa kuhusu vipengee ikiwa ya hivi sasa zaidi
 
@@ -24184,7 +24184,7 @@
     fr_CA = Mettre à jour (%s)
     he = עדכן (%s)
     hi = (%s) अपडेट करें
-    pt_BR = Atualizar (%s)
+    pt-BR = Atualizar (%s)
     sk = Aktualizovať (%s)
     sw = Sasisha (%s)
 
@@ -24222,7 +24222,7 @@
     fr_CA = Plus tard (manuel)
     he = עדכן ידנית מאוחר יותר
     hi = बाद में मैनुअल रूप से अपडेट करें
-    pt_BR = Atualizar manualmente mais tarde
+    pt-BR = Atualizar manualmente mais tarde
     sk = Manuálne aktualizovať neskôr
     sw = Sasisha mwenyewe baadaye
 
@@ -24787,7 +24787,7 @@
     he = תעתיק ללטינית
     hi = लैटिन में लिप्यंतरण
     ms = Transliterasi kepada Latin
-    pt_BR = Transliteração para alfabeto latino
+    pt-BR = Transliteração para alfabeto latino
     sk = Prepis do latinčiny
     sw = Tafsiri kwa lugha ya Kilatini
 
@@ -24826,7 +24826,7 @@
     he = אם אין לרחוב או לאובייקט אחר שם בשפה שלך, הוא יתועתק באמצעות אותיות לטיניות.
     hi = यदि किसी गली, मुहल्ले या किसी अन्य चीज़ का आपकी भाषा में कोई नाम न हो तो यह लैटिन वर्णमाला का प्रयोग करते हुए उच्चारित होगा।
     ms = Jika objek atau jalan yang tidak mempunyai nama dalam bahasa anda, ia akan dieja menggunakan huruf Rumi.
-    pt_BR = Se uma rua ou um objeto não possui um nome em seu idioma, ele será soletrado usando o alfabeto latino.
+    pt-BR = Se uma rua ou um objeto não possui um nome em seu idioma, ele será soletrado usando o alfabeto latino.
     sk = Ak ulica alebo objekt nemá názov vo vašom jazyku, prepíše sa tento názov latinkou.
     sw = Ikiwa mtaa au kipengee hakina jina kwa lugha yako, kitaandikwa kwa herufi za alfabeti ya Kilatini.
 

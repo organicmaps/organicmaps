@@ -1816,6 +1816,7 @@ de:^Bahnübergang
 it:^Passaggio a livello
 es:^Paso a nivel
 pt:^Passagem de nível
+pt-BR:^Passagem em nível
 pl:^Przejazd kolejowy
 cs:^Železniční přejezd
 nl:^Overweg
@@ -2128,8 +2129,8 @@ ja:^教会|寺院|神社|仏閣|神殿|お寺
 ko:^교회|예배 장소|사찰
 nb:^Kirke|gudshus
 pl:^Kościół|świątynia
-pt:^Igreja|local de culto|templo
 pt:^Igreja|local de culto|templo|vistas
+pt-BR:^Igreja|local de culto|templo
 ro:^Biserică|loc de cult|templu
 es:^Iglesia|templo|lugar de culto
 sv:^Kyrka|plats för tillbedjan|tempel
@@ -2668,6 +2669,7 @@ nb:^Kjøre sammen
 nl:^Autodelen
 pl:^Carsharing
 pt:^Partilha de carro
+pt-BR:^Compartilhamento de carro
 ro:^Car Sharing
 sk:^Zdieľanie automobilov
 sv:^Samåkning
@@ -3071,7 +3073,7 @@ ja:クリニック|医師|医者|ドクター|救急|診療
 ko:의사|의사가
 pl:klinika|lekarz|doktor|leczenie
 pt:4Clínica|3médico|hospital
-pt-BR:4Clínica|3médico|saúde
+pt-BR:Hospital|3clínica|3médico|saúde
 sv:klinik|3läkare
 th:3โรงพยาบาล|แพทย์
 tr:3klinik|doktor
@@ -3414,6 +3416,7 @@ fr:3comptoir postal
 de:Postamt
 id:Kantor pos
 pl:listy
+pt-BR:3Correios
 ro:Oficiul postal
 es:4Oficina de correos|3post
 sv:Postkontor
@@ -4908,6 +4911,7 @@ es:Deportes ecuestres
 fr:Sport équestre
 hu:Lovassportok
 nl:Paardensport
+pt-BR:Esportes equestres
 
 sport-basketball
 en:^Basketball
@@ -4919,6 +4923,7 @@ fr:^Basket-ball
 it:^Pallacanestro
 hu:^Kosárlabda
 nl:^Basketbal
+pt-BR:^Basquetebol
 da:^Basketball
 
 sport-athletics
@@ -4931,6 +4936,7 @@ fr:^Athlétisme
 it:^Atletica leggera
 hu:^Atlétika
 nl:^Atletiek
+pt-BR:^Atletismo
 
 building|building-address
 en:^Building|U+1F3E0|U+1F3E1|U+1F3E2|cian
@@ -5007,6 +5013,7 @@ it:Posto di polizia
 ja:1屯所|ポリス|交番|お巡りさん|おまわりさん|通報
 ko:보안대|경찰
 pl:komisariat
+pt-BR:Polícia
 sv:Polisstation
 uk:4Поліція
 vi:Cảnh sát
@@ -5314,7 +5321,7 @@ ja:^弁護士事務所
 ko:^법률 사무소
 nb:^Advokatkontor
 pt:^Escritório de advogados
-pt-BR:^Escritório de advogado
+pt-BR:^Escritório de advogado|advocacia
 ro:^Firmă de avocatură
 es:^Despacho de abogados|bufete
 sv:^Advokatkontor
@@ -5896,7 +5903,7 @@ ko:^스피드 카메라
 nb:^Fotoboks
 pl:^Fotoradar
 pt:^Radar de velocidade
-pt-BR:^Câmera ou radar de velocidade
+pt-BR:^Radar de velocidade|Câmera de velocidade
 ro:^Detector de viteză
 es:^Radar de velocidad
 sv:^Hastighetskamera|fartkamera
@@ -6112,7 +6119,7 @@ ko:^타이어 상점|상점
 nb:^Dekkforretning
 pl:^Wulkanizacja|punkt
 pt:^Borracheiro|comércio
-pt-BR:^Loja de pneus|borracharia|comércio
+pt-BR:^Loja de pneus|borracharia|borracheiro|comércio
 ro:^Magazin anvelope
 es:^Tienda de neumáticos
 sv:^Däckaffär
@@ -6549,6 +6556,7 @@ ko:^동물원
 nb:^Dyrehage
 pl:^Ogród zoologiczny
 pt:^Jardim zoológico
+pt-BR:^Zoológico|Jardim zoológico
 ro:^Grădină zoologică
 es:^Zoo
 sv:^Zoo
@@ -7015,7 +7023,7 @@ ko:^와인 샵
 nb:^Alkoholutsalg
 pl:^Sklep monopolowy
 pt:^Vinho|Loja de Vinhos
-pt-BR:^Loka de vinhos|bebidas
+pt-BR:^Loja de vinhos|bebidas
 ro:^Magazin de băuturi alcolice
 es:^Establecimiento de bebidas alcohólicas
 sv:^Vinhandel
@@ -7358,6 +7366,7 @@ ko:^입구
 nb:^Inngangspassasje
 pl:^Wejście
 pt:^Entrada
+pt-BR:^Entrada
 ro:^Intrare
 es:^Entrada
 sv:^Ingång
@@ -7450,7 +7459,7 @@ ko:^디딤대
 nb:^Sperre
 pl:^Przełaz
 pt:^Elevação
-pt-BR:^Travessia em cercar ou muro
+pt-BR:^Travessia em cerca ou muro
 ro:^Barieră
 es:^Escalón
 sv:^Stätta
@@ -8103,6 +8112,7 @@ nb:^Kjøreskole
 nl:^Rijschool
 pl:^Szkoła jazdy
 pt:^Escola de condução
+pt-BR:^Autoescola|CFC
 ro:^Școală de șoferi
 sk:^Autoškola
 sv:^Körskola
@@ -8134,6 +8144,7 @@ nb:^Iskrem
 nl:^Ijsstand
 pl:^Stoisko z lodami
 pt:^Banca de gelados
+pt-BR:^Sorveteria
 ro:^Chioșc cu înghețată
 sk:^Zmrzlinový stánok
 sv:^Glasstånd
@@ -8165,6 +8176,7 @@ nb:^Internettkafé
 nl:^Internetcafe
 pl:^Kafejka internetowa
 pt:^Cibercafé
+pt-BR:^Cibercafé
 ro:^Internet Cafe
 sk:^Internetová kaviareň
 sv:^Internetkafé
@@ -8196,6 +8208,7 @@ nb:^Motorsykkelparkering
 nl:^Parking Motorfietsen
 pl:^Parking motocyklowy
 pt:^Estacionamento de motos
+pt-BR:^Estacionamento de motos
 ro:^Parcare de motociclete
 sk:^Parkovisko pre motocykle
 sv:^Motorcykelparkering
@@ -8227,6 +8240,7 @@ nb:^Sykehjem
 nl:^Bejaardentehuis
 pl:^Dom opieki
 pt:^Casa de repouso
+pt-BR:^Casa de repouso
 ro:^Centru de îngrijire
 sk:^Ošetrovateľská služba
 sv:^Vårdhem
@@ -8258,6 +8272,7 @@ nb:^Betalingsterminal
 nl:^Betaalautomaat
 pl:^Wpłatomat
 pt:^Terminal de pagamento
+pt-BR:^Terminal de pagamento
 ro:^Terminal de plăți
 sk:^Platobný terminál
 sv:^Betalningsterminal
@@ -8289,6 +8304,7 @@ nb:^Dusj
 nl:^Douche
 pl:^Prysznic
 pt:^Chuveiro
+pt-BR:^Chuveiro
 ro:^Duș
 sk:^Sprcha
 sv:^Dusch
@@ -8320,6 +8336,7 @@ nb:^Vannpunkt
 nl:^Waterpunt
 pl:^Ujęcie wody
 pt:^Ponto de água
+pt-BR:^Ponto de água
 ro:^Punct de alimentare cu apă
 sk:^Voda
 sv:^Vattenpost
@@ -8351,6 +8368,7 @@ nb:^Hjertestarter
 nl:^Defibrillator
 pl:^Defibrylator
 pt:^Desfibrilador
+pt-BR:^Desfibrilador
 ro:^Defibrilator
 sk:^Defibrilátor
 sv:^Defibrillator
@@ -8382,6 +8400,7 @@ nb:^Brannhydrant
 nl:^Brandkraan
 pl:^Hydrant
 pt:^Boca de Incêndios
+pt-BR:^Hidrante
 ro:^Hidrant
 sk:^Požiarny hydrant
 sv:^Brandpost
@@ -8413,6 +8432,7 @@ nb:^Treningssenter
 nl:^Fitness-Station
 pl:^Stacja fitness
 pt:^Estação de Fitness
+pt-BR:^Estação de fitness
 ro:^Sală de fitness
 sk:^Fitness
 sv:^Fitnesstation
@@ -8444,6 +8464,7 @@ nb:^Overvåkingskamera
 nl:^Bewakingscamera
 pl:^Kamera monitoringu
 pt:^Câmara de vigilância
+pt-BR:^Câmara de vigilância
 ro:^Cameră de supraveghere
 sk:^Bezpečnostná kamera
 sv:^Övervakningskamera
@@ -8475,6 +8496,7 @@ nb:^Vannkran
 nl:^Waterkraan
 pl:^Woda pitna
 pt:^Torneira de água
+pt-BR:^Torneira de água
 ro:^Robinet cu apă
 sk:^Vodovodný kohútik
 sv:^Vattenkran
@@ -8506,6 +8528,7 @@ nb:^Forsikring
 nl:^Verzekeringskantoor
 pl:^Biuro ubezpieczeń
 pt:^Escritório de seguros
+pt-BR:^Seguradora|Corretora de seguros
 ro:^Birou de asigurări
 sk:^Poisťovňa
 sv:^Försäkringskontor
@@ -8537,6 +8560,7 @@ nb:^NGO-kontor
 nl:^NGO-kantoor
 pl:^Biuro organizacji pozarządowej
 pt:^Escritório de ONG
+pt-BR:^Escritório de ONG
 ro:^Birou ONG
 sk:^Sídlo mimovládnej organizácie
 sv:^Kontor för icke-statlig organisation
@@ -8568,6 +8592,7 @@ nb:^Erotisk butikk
 nl:^Erotiekwinkel
 pl:^Sex shop
 pt:^Sex Shop
+pt-BR:^Sex Shop
 ro:^Magazin erotic
 sk:^Erotický obchod
 sv:^Erotisk butik
@@ -8599,6 +8624,7 @@ nb:^Begravelsebyrå
 nl:^Begrafenisondernemer
 pl:^Celebranci pogrzebowi
 pt:^Funerária
+pt-BR:^Funerária
 ro:^Pompe funebre
 sk:^Pohrebníctvo
 sv:^Begravningsentreprenörer
@@ -8630,6 +8656,7 @@ nb:^Massasjesalong
 nl:^Massagesalon
 pl:^Salon masażu
 pt:^Centro de massagens
+pt-BR:^Massagista
 ro:^Salon de masaj
 sk:^Masážny salón
 sv:^Massagesalong
@@ -8661,6 +8688,7 @@ nb:^Motorsykkelforretning
 nl:^Motorzaak
 pl:^Salon motocyklowy
 pt:^Loja de Motos
+pt-BR:^Loja de Motos
 ro:^Magazin moto
 sk:^Obchod s motocyklami
 sv:^Motorcykelaffär
@@ -8692,6 +8720,7 @@ nb:^Aviskiosk
 nl:^Kiosk
 pl:^Stoisko z prasą
 pt:^Banca de jornais
+pt-BR:^Banca de jornais|jornaleiro
 ro:^Chioșc cu ziare
 sk:^Novinový stánok
 sv:^Tidningsstånd
@@ -8723,6 +8752,7 @@ nb:^Pantelåner
 nl:^Pandjesbaas
 pl:^Lombard
 pt:^Casa de penhores
+pt-BR:^Casa de penhores
 ro:^Amanet
 sk:^Záložňa
 sv:^Pantbank
@@ -8754,6 +8784,7 @@ nb:^Bokhandel
 nl:^Kantoorboekhandel
 pl:^Artykuły papiernicze
 pt:^Papelaria
+pt-BR:^Papelaria
 ro:^Magazin de papetărie
 sk:^Papiernictvo
 sv:^Pappershandel
@@ -8785,6 +8816,7 @@ nb:^Tatovør
 nl:^Tattoosalon
 pl:^Salon tatuażu
 pt:^Estúdio de tatuagens
+pt-BR:^Estúdio de tatuagens|tatuador
 ro:^Salon de tatuaje
 sk:^Tetovací salón
 sv:^Tatuerare
@@ -8816,6 +8848,7 @@ nb:^Billigbutikk
 nl:^Bazaar
 pl:^Sklep z różnościami
 pt:^Loja dos 300
+pt-BR:^1,99|Loja de variedades
 ro:^Magazin universal
 sk:^Rozličný tovar
 sv:^Diverseaffär
@@ -8847,6 +8880,7 @@ nb:^Villmarkshytte
 nl:^Wildernishut
 pl:^Gajówka
 pt:^Cabana
+pt-BR:^Cabana
 ro:^Adăpost
 sk:^Chata
 sv:^Vildmarksstuga
