@@ -226,21 +226,22 @@ UNIT_TEST(Transit_LineSerialization)
 {
   {
     Line line(1 /* line id */, "2" /* number */, "Линия" /* title */,
-              "subway" /* type */, "red" /* color */, 3 /* network id */, {{1}} /* stop ids */);
+              "subway" /* type */, "red" /* color */, 3 /* network id */, {{1}} /* stop ids */,
+              10.0 /* interval */);
     TestSerialization(line);
     TEST(line.IsValid(), (line));
   }
   {
     Line line(10 /* line id */, "11" /* number */, "Линия" /* title */,
               "subway" /* type */, "green" /* color */, 12 /* network id */,
-              {{13, 14, 15}} /* stop ids */);
+              {{13, 14, 15}} /* stop ids */, 15.0 /* interval */);
     TestSerialization(line);
     TEST(line.IsValid(), (line));
   }
   {
     Line line(100 /* line id */, "101" /* number */, "Линия" /* title */,
               "subway" /* type */, "blue" /* color */, 103 /* network id */,
-              {{1, 2, 3}, {7, 8, 9}} /* stop ids */);
+              {{1, 2, 3}, {7, 8, 9}} /* stop ids */, 15.0 /* interval */);
     TestSerialization(line);
     TEST(line.IsValid(), (line));
   }

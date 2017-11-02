@@ -219,6 +219,7 @@ UNIT_TEST(DeserializerFromJson_Lines)
   "lines": [
     {
       "id": 19207936,
+      "interval": 150,
       "network_id": 2,
       "number": "1",
       "stop_ids": [
@@ -234,6 +235,7 @@ UNIT_TEST(DeserializerFromJson_Lines)
     },
     {
       "id": 19207937,
+      "interval": 150,
       "network_id": 2,
       "number": "2",
       "stop_ids": [
@@ -253,11 +255,12 @@ UNIT_TEST(DeserializerFromJson_Lines)
 
   vector<Line> const expected = {Line(19207936 /* line id */, "1" /* number */, "Московская линия" /* title */,
                                       "subway" /* type */, "green" /* color */, 2 /* network id */,
-                                      {{343262691, 343259523, 343252898, 209191847, 2947858576}} /* stop ids */),
+                                      {{343262691, 343259523, 343252898, 209191847, 2947858576}} /* stop ids */,
+                                      150.0 /* interval */),
                                  Line(19207937 /* line id */, "2" /* number */, "Московская линия" /* title */,
                                       "subway" /* type */, "red" /* color */, 2 /* network id */,
                                       {{246659391, 246659390, 209191855, 209191854, 209191853,
-                                       209191852, 209191851}} /* stop ids */)};
+                                       209191852, 209191851}} /* stop ids */, 150.0 /* interval */)};
 
   TestDeserializerFromJson(jsonBuffer, "lines", expected);
 }

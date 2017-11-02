@@ -341,7 +341,7 @@ class Line
 public:
   Line() = default;
   Line(LineId id, std::string const & number, std::string const & title, std::string const & type,
-       std::string const & color, NetworkId networkId, Ranges const & stopIds);
+       std::string const & color, NetworkId networkId, Ranges const & stopIds, Weight interval);
 
   bool operator<(Line const & rhs) const { return m_id < rhs.m_id; }
   bool operator==(Line const & rhs) const { return m_id == rhs.m_id; }
@@ -355,13 +355,14 @@ public:
   std::string const & GetColor() const { return m_color; }
   NetworkId GetNetworkId() const { return m_networkId; }
   Ranges const & GetStopIds() const { return m_stopIds.GetIds(); }
+  Weight GetInterval() const { return m_interval; }
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Line, visitor(m_id, "id"), visitor(m_number, "number"),
                                   visitor(m_title, "title"), visitor(m_type, "type"),
                                   visitor(m_color, "color"), visitor(m_networkId, "network_id"),
-                                  visitor(m_stopIds, "stop_ids"))
+                                  visitor(m_stopIds, "stop_ids"), visitor(m_interval, "interval"))
 
   LineId m_id = kInvalidLineId;
   std::string m_number;
@@ -370,6 +371,7 @@ private:
   std::string m_color = kInvalidColor;
   NetworkId m_networkId = kInvalidNetworkId;
   StopIdRanges m_stopIds;
+  Weight m_interval = kInvalidWeight;
 };
 
 class Shape

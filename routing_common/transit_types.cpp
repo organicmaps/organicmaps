@@ -294,7 +294,7 @@ bool Transfer::IsValid() const
 // Line -------------------------------------------------------------------------------------------
 Line::Line(LineId id, std::string const & number, std::string const & title,
            std::string const & type, std::string const & color, NetworkId networkId,
-           Ranges const & stopIds)
+           Ranges const & stopIds, Weight interval)
   : m_id(id)
   , m_number(number)
   , m_title(title)
@@ -302,6 +302,7 @@ Line::Line(LineId id, std::string const & number, std::string const & title,
   , m_color(color)
   , m_networkId(networkId)
   , m_stopIds(stopIds)
+  , m_interval(interval)
 {
 }
 
@@ -309,13 +310,13 @@ bool Line::IsEqualForTesting(Line const & line) const
 {
   return m_id == line.m_id && m_number == line.m_number && m_title == line.m_title &&
          m_type == line.m_type && m_color == line.m_color && m_networkId == line.m_networkId &&
-         m_stopIds == line.m_stopIds;
+         m_stopIds == line.m_stopIds && my::AlmostEqualAbs(m_interval, line.m_interval, kWeightEqualEpsilon);
 }
 
 bool Line::IsValid() const
 {
   return m_id != kInvalidLineId && m_color != kInvalidColor && m_networkId != kInvalidNetworkId &&
-         m_stopIds.IsValid();
+         m_stopIds.IsValid(), m_interval != kInvalidWeight;
 }
 
 // Shape ------------------------------------------------------------------------------------------
