@@ -96,7 +96,8 @@ class TransitGraphBuilder:
                 'weight': weight,
                 'stop_ids': [stop_id],
                 'entrance': is_entrance,
-                'exit': is_exit}
+                'exit': is_exit
+                }
         self.gates[(osm_id, weight)] = gate
 
     def __get_interchange_node(self, stop_id):
@@ -142,7 +143,8 @@ class TransitGraphBuilder:
             transfer_edge = {'stop1_id': transfer_item[0],
                              'stop2_id': transfer_item[1],
                              'weight': transfer_item[2],
-                             'transfer': True}
+                             'transfer': True
+                             }
             self.edges.append(transfer_edge)
 
     def __read_networks(self):
@@ -169,7 +171,8 @@ class TransitGraphBuilder:
                             'title': line_name,
                             'number': route_item['ref'],
                             'interval': line_item['interval'],
-                            'stop_ids': []}
+                            'stop_ids': []
+                            }
                     if 'colour' in route_item:
                         line['color'] = self.palette.get_nearest_color(route_item['colour'])
                     else:
@@ -190,7 +193,8 @@ class TransitGraphBuilder:
                                     'weight': stop2[1] - stop1[1],
                                     'transfer': False,
                                     'line_id': line_id,
-                                    'shape_ids': []}
+                                    'shape_ids': []
+                                    }
                             self.edges.append(edge)
 
                     self.lines.append(line)
@@ -212,7 +216,8 @@ class TransitGraphBuilder:
             transfer = {'id': get_interchange_node_id(self.stops[node_stop_ids[0]]['id']),
                         'stop_ids': list(node_stop_ids),
                         'point': {'x': point[0], 'y': point[1]},
-                        'title_anchors': []}
+                        'title_anchors': []
+                        }
 
             for stop_id in node_stop_ids:
                 self.stops[stop_id]['transfer_id'] = transfer['id']
