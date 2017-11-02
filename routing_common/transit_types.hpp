@@ -89,6 +89,7 @@ public:
 
   bool operator<(FeatureIdentifiers const & rhs) const;
   bool operator==(FeatureIdentifiers const & rhs) const;
+  bool operator!=(FeatureIdentifiers const & rhs) const { return !(*this == rhs); }
   bool IsValid() const;
   void SetOsmId(OsmId osmId) { m_osmId = osmId; }
   void SetFeatureId(FeatureId featureId) { m_featureId = featureId; }
@@ -194,8 +195,8 @@ public:
   Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, double weight,
        std::vector<StopId> const & stopIds, m2::PointD const & point);
 
-  bool operator<(Gate const & rhs) const { return m_featureIdentifiers < rhs.m_featureIdentifiers; }
-  bool operator==(Gate const & rhs) const { return m_featureIdentifiers == rhs.m_featureIdentifiers; }
+  bool operator<(Gate const & rhs) const;
+  bool operator==(Gate const & rhs) const;
   bool IsEqualForTesting(Gate const & gate) const;
   bool IsValid() const;
   void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; };

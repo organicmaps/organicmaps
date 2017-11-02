@@ -174,6 +174,26 @@ Gate::Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, double we
 {
 }
 
+bool Gate::operator<(Gate const & rhs) const
+{
+  if (m_featureIdentifiers != rhs.m_featureIdentifiers)
+    return m_featureIdentifiers < rhs.m_featureIdentifiers;
+
+  if (m_entrance != rhs.m_entrance)
+    return m_entrance < rhs.m_entrance;
+
+  if (m_exit != rhs.m_exit)
+    return m_exit < rhs.m_exit;
+
+  return m_stopIds < rhs.m_stopIds;
+}
+
+bool Gate::operator==(Gate const & rhs) const
+{
+  return m_featureIdentifiers == rhs.m_featureIdentifiers && m_entrance == rhs.m_entrance &&
+         m_exit == rhs.m_exit && m_stopIds == rhs.m_stopIds;
+}
+
 bool Gate::IsEqualForTesting(Gate const & gate) const
 {
   return m_featureIdentifiers == gate.m_featureIdentifiers &&
