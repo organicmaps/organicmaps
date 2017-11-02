@@ -117,3 +117,8 @@ omim_add_test_subdirectory(generator_tests)
 if (NOT SKIP_GTOOL)
   add_subdirectory(generator_tool)
 endif()
+
+add_subdirectory(booking_quality_check)
+add_subdirectory(feature_segments_checker)
+add_subdirectory(restaurants_info)
+add_subdirectory(srtm_coverage_checker)

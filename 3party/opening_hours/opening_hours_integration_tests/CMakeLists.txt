@@ -1,10 +1,10 @@
-project(opening_hours_tests)
+project(opening_hours_integration_tests)
 
 include_directories(${PROJECT_SOURCE_DIR} ${OMIM_ROOT}/3party/opening_hours)
 
 set(
   SRC
-  opening_hours_tests.cpp
+  opening_hours_integration_tests.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC})

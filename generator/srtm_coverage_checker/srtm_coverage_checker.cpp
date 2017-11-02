@@ -20,6 +20,37 @@
 DEFINE_string(srtm_path, "", "Path to directory with SRTM files");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
 
+// TODO: remove when routing_test_tools becomes a library.
+namespace
+{
+void ChangeMaxNumberOfOpenFiles(size_t n)
+{
+  struct rlimit rlp;
+  getrlimit(RLIMIT_NOFILE, &rlp);
+  rlp.rlim_cur = n;
+  setrlimit(RLIMIT_NOFILE, &rlp);
+}
+
+shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile> const & localFiles)
+{
+  size_t const maxOpenFileNumber = 1024;
+  ChangeMaxNumberOfOpenFiles(maxOpenFileNumber);
+  shared_ptr<model::FeaturesFetcher> featuresFetcher(new model::FeaturesFetcher);
+  featuresFetcher->InitClassificator();
+
+  for (LocalCountryFile const & localFile : localFiles)
+  {
+    auto p = featuresFetcher->RegisterMap(localFile);
+    if (p.second != MwmSet::RegResult::Success)
+    {
+      ASSERT(false, ("Can't register", localFile));
+      return nullptr;
+    }
+  }
+  return featuresFetcher;
+}
+}  // namespace
+
 int main(int argc, char * argv[])
 {
   google::SetUsageMessage("SRTM coverage checker.");
@@ -42,7 +73,7 @@ int main(int argc, char * argv[])
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
                                        localFiles);
 
-  auto fetcher = integration::CreateFeaturesFetcher(localFiles);
+  auto fetcher = CreateFeaturesFetcher(localFiles);
   generator::SrtmTileManager manager(FLAGS_srtm_path);
 
   for (auto & file : localFiles)
