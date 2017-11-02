@@ -136,7 +136,7 @@ void MainModel::OnSampleSelected(int index)
     return;
   }
 
-  auto & engine = m_framework.GetSearchEngine();
+  auto & engine = m_framework.GetSearchAPI().GetEngine();
   {
     search::SearchParams params;
     sample.FillSearchParams(params);

@@ -511,8 +511,6 @@ search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType & ft) const
 
 vector<string> Framework::GetPrintableFeatureTypes(FeatureType const & ft) const
 {
-  ASSERT(m_searchEngine, ());
-
   vector<string> results;
   int8_t const locale = CategoriesHolder::MapLocaleToInteger(languages::GetCurrentOrig());
 

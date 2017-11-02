@@ -10,6 +10,7 @@
 #include "map/place_page_info.hpp"
 #include "map/routing_manager.hpp"
 #include "map/routing_mark.hpp"
+#include "map/search_api.hpp"
 #include "map/search_mark.hpp"
 #include "map/track.hpp"
 #include "map/traffic_manager.hpp"
@@ -33,13 +34,9 @@
 
 #include "search/city_finder.hpp"
 #include "search/displayed_categories.hpp"
-#include "search/downloader_search_callback.hpp"
-#include "search/engine.hpp"
-#include "search/everywhere_search_callback.hpp"
 #include "search/mode.hpp"
 #include "search/query_saver.hpp"
 #include "search/result.hpp"
-#include "search/viewport_search_callback.hpp"
 
 #include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
@@ -75,7 +72,8 @@
 #include "std/target_os.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
-#include "std/weak_ptr.hpp"
+
+#include "boost/optional.hpp"
 
 namespace osm
 {
@@ -122,10 +120,7 @@ struct FrameworkParams
   {}
 };
 
-class Framework : public search::ViewportSearchCallback::Delegate,
-                  public search::DownloaderSearchCallback::Delegate,
-                  public search::EverywhereSearchCallback::Delegate,
-                  public RoutingManager::Delegate
+class Framework : public SearchAPI::Delegate, public RoutingManager::Delegate
 {
   DISALLOW_COPY(Framework);
 
@@ -166,7 +161,7 @@ protected:
 
   unique_ptr<ugc::Api> m_ugcApi;
 
-  unique_ptr<search::Engine> m_searchEngine;
+  unique_ptr<SearchAPI> m_searchAPI;
 
   search::QuerySaver m_searchQuerySaver;
 
@@ -304,8 +299,8 @@ public:
 
   Index const & GetIndex() const { return m_model.GetIndex(); }
 
-  search::Engine & GetSearchEngine() { return *m_searchEngine; }
-  search::Engine const & GetSearchEngine() const { return *m_searchEngine; }
+  SearchAPI & GetSearchAPI();
+  SearchAPI const & GetSearchAPI() const;
 
   /// @name Bookmarks, Tracks and other UserMarks
   //@{
@@ -346,29 +341,16 @@ public:
 
   ads::Engine const & GetAdsEngine() const;
 
-protected:
-  // search::ViewportSearchCallback::Delegate overrides:
-  void RunUITask(function<void()> fn) override { GetPlatform().RunOnGuiThread(move(fn)); }
-
-  void SetHotelDisplacementMode() override
-  {
-    SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, true /* show */);
-  }
-
-  bool IsViewportSearchActive() const override
-  {
-    return !m_searchIntents[static_cast<size_t>(search::Mode::Viewport)].m_params.m_query.empty();
-  }
-
-  void ShowViewportSearchResults(search::Results const & results) override
-  {
-    FillSearchResultsMarks(results);
-  }
-
-  void ClearViewportSearchResults() override { ClearSearchResultsMarks(); }
-
-  // EverywhereSearchCallback::Delegate overrides:
+public:
+  // SearchAPI::Delegate overrides:
+  void RunUITask(function<void()> fn) override;
+  void SetSearchDisplacementModeEnabled(bool enabled) override;
+  void ShowViewportSearchResults(search::Results const & results) override;
+  void ClearViewportSearchResults() override;
+  boost::optional<m2::PointD> GetCurrentPosition() const override;
+  bool ParseMagicSearchQuery(search::SearchParams const & params) override;
   bool IsLocalAdsCustomer(search::Result const & result) const override;
+  double GetMinDistanceBetweenResults() const override;
 
 private:
   void ActivateMapSelection(bool needAnimation,
@@ -515,39 +497,18 @@ public:
   void SetDisplacementMode(DisplacementModeManager::Slot slot, bool show);
 
 private:
-  struct SearchIntent
-  {
-    search::SearchParams m_params;
-    weak_ptr<search::ProcessorHandle> m_handle;
-    bool m_isDelayed = false;
-  };
-
   void InitCountryInfoGetter();
   void InitUGC();
-  void InitSearchEngine();
+  void InitSearchAPI();
 
   DisplacementModeManager m_displacementModeManager;
 
   bool m_connectToGpsTrack; // need to connect to tracker when Drape is being constructed
 
-  void SetCurrentPositionIfPossible(search::SearchParams & params);
-
   void OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel);
 
   storage::TCountryId m_lastReportedCountry;
   TCurrentCountryChanged m_currentCountryChanged;
-
-  // Descriptions of last search queries for different modes. May be
-  // used for search requests skipping. This field is not guarded
-  // because it must be used from the UI thread only.
-  SearchIntent m_searchIntents[static_cast<size_t>(search::Mode::Count)];
-
-  bool Search(search::SearchParams const & params, bool forceSearch);
-  void Search(SearchIntent & intent) const;
-
-  // Returns true when |params| is almost the same as the latest
-  // search query params in |intent|.
-  bool QueryMayBeSkipped(SearchIntent const & intent, search::SearchParams const & params) const;
 
   void OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
                                       pair<size_t, size_t> const & toRemove);
@@ -570,12 +531,8 @@ public:
   // Search for maps by countries or cities.
   bool SearchInDownloader(storage::DownloaderSearchParams const & params);
 
-  void SetViewportIfPossible(search::SearchParams & params);
-
   void CancelSearch(search::Mode mode);
   void CancelAllSearches();
-
-  bool GetCurrentPosition(double & lat, double & lon) const;
 
   // Moves viewport to the search result and taps on it.
   void SelectSearchResult(search::Result const & res, bool animation);
@@ -845,9 +802,6 @@ private:
   // search::CityFinder must be initialized before
   // taxi::Engine and, therefore, destroyed after taxi::Engine.
   unique_ptr<taxi::Engine> m_taxiEngine;
-
-  // TODO: delete me after Cian project is finished.
-  bool m_cianSearchMode = false;
 
   void InitCityFinder();
   void InitTaxiEngine();

@@ -58,6 +58,8 @@ set(
   routing_manager.hpp
   routing_mark.cpp
   routing_mark.hpp
+  search_api.cpp
+  search_api.hpp
   search_mark.cpp
   search_mark.hpp
   taxi_delegate.cpp

@@ -277,11 +277,12 @@ bool DrawWidget::Search(search::EverywhereSearchParams const & params)
 string DrawWidget::GetDistance(search::Result const & res) const
 {
   string dist;
-  double lat, lon;
-  if (m_framework.GetCurrentPosition(lat, lon))
+  if (auto const position = m_framework.GetCurrentPosition())
   {
+    auto const ll = MercatorBounds::ToLatLon(*position);
     double dummy;
-    (void) m_framework.GetDistanceAndAzimut(res.GetFeatureCenter(), lat, lon, -1.0, dist, dummy);
+    (void)m_framework.GetDistanceAndAzimut(res.GetFeatureCenter(), ll.lat, ll.lon, -1.0, dist,
+                                           dummy);
   }
   return dist;
 }
