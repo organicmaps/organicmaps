@@ -4,32 +4,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.util.ArrayList;
-
 public class UGCEditorActivity extends BaseMwmFragmentActivity
 {
-  //TODO: refactor to EditorParams with builder.
-  public static void start(@NonNull Activity activity, @NonNull String title,
-                           @NonNull FeatureId featureId, @Nullable ArrayList<UGC.Rating> ratings,
-                           @UGC.Impress int defaultRating, boolean canBeReviewed, boolean isFromPPP)
+  public static void start(@NonNull Activity activity, @NonNull EditParams params)
   {
-    Statistics.INSTANCE.trackUGCStart(false /* isEdit */, isFromPPP);
+    Statistics.INSTANCE.trackUGCStart(false /* isEdit */, params.isFromPP());
     final Intent i = new Intent(activity, UGCEditorActivity.class);
     Bundle args = new Bundle();
-    args.putParcelable(UGCEditorFragment.ARG_FEATURE_ID, featureId);
-    args.putString(UGCEditorFragment.ARG_TITLE, title);
-    args.putInt(UGCEditorFragment.ARG_DEFAULT_RATING, defaultRating);
-    args.putParcelableArrayList(UGCEditorFragment.ARG_RATING_LIST, ratings);
-    args.putBoolean(UGCEditorFragment.ARG_CAN_BE_REVIEWED, canBeReviewed);
+    args.putParcelable(UGCEditorFragment.ARG_FEATURE_ID, params.getFeatureId());
+    args.putString(UGCEditorFragment.ARG_TITLE, params.getTitle());
+    args.putInt(UGCEditorFragment.ARG_DEFAULT_RATING, params.getDefaultRating());
+    args.putParcelableArrayList(UGCEditorFragment.ARG_RATING_LIST, params.getRatings());
+    args.putBoolean(UGCEditorFragment.ARG_CAN_BE_REVIEWED, params.canBeReviewed());
     i.putExtras(args);
     activity.startActivity(i);
   }
