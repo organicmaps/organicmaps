@@ -22,6 +22,7 @@ public:
 
   struct Edge
   {
+    Edge() = default;
     explicit Edge(transit::Edge const & edge)
       : m_lineId(edge.GetLineId())
       , m_stop1Id(edge.GetStop1Id())
@@ -39,6 +40,7 @@ public:
 
   struct Gate
   {
+    Gate() = default;
     explicit Gate(transit::Gate const & gate) : m_featureId(gate.GetFeatureId()) {}
 
     transit::FeatureId m_featureId = transit::kInvalidFeatureId;
@@ -46,6 +48,7 @@ public:
 
   struct Transfer
   {
+    Transfer() = default;
     explicit Transfer(transit::Edge const & edge)
       : m_stop1Id(edge.GetStop1Id()), m_stop2Id(edge.GetStop2Id())
     {
@@ -57,15 +60,15 @@ public:
   };
 
   explicit TransitInfo(transit::Gate const & gate)
-    : m_type(Type::Gate), m_edge(transit::Edge()), m_gate(gate), m_transfer(transit::Edge())
+    : m_type(Type::Gate)
+    , m_gate(gate)
   {
   }
 
   explicit TransitInfo(transit::Edge const & edge)
     : m_type(edge.GetTransfer() ? Type::Transfer : Type::Edge)
-    , m_edge(edge.GetTransfer() ? transit::Edge() : edge)
-    , m_gate(transit::Gate())
-    , m_transfer(edge.GetTransfer() ? edge : transit::Edge())
+    , m_edge(edge.GetTransfer() ? Edge() : Edge(edge))
+    , m_transfer(edge.GetTransfer() ? Transfer(edge) : Transfer())
   {
   }
 
