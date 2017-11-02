@@ -14,6 +14,7 @@ import android.view.View;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
+import com.mapswithme.util.ConnectionState;
 
 /**
  * A base toolbar fragment which is responsible for the <b>authorization flow</b>,
@@ -44,7 +45,7 @@ public abstract class BaseMwmAuthorizationFragment extends BaseMwmToolbarFragmen
 
   private void authorize()
   {
-    if (Framework.nativeIsUserAuthenticated())
+    if (Framework.nativeIsUserAuthenticated() || !ConnectionState.isConnected())
     {
       finishActivity();
       return;
