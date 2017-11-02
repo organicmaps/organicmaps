@@ -103,11 +103,10 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Gat
 {
   m_mwmId = numMwmId;
 
-  // TODO: replace kTransferPenaltySec with line.GetTransferPenalty() as soon as transit::Line will
-  // have GetTransferPenalty() method
-  double constexpr kTransferPenaltySec = 120.0;
+  // Line has information about transit interval. Average time to wait transport for particular line
+  // is half of this line interval.
   for (auto const & line : lines)
-    m_transferPenalties[line.GetId()] = kTransferPenaltySec;
+    m_transferPenalties[line.GetId()] = line.GetInterval() / 2;
 
   map<transit::StopId, Junction> stopCoords;
   for (auto const & stop : stops)
