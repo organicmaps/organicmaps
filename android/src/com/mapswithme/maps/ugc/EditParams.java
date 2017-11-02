@@ -19,6 +19,12 @@ class EditParams
   private final int mDefaultRating;
   private final boolean mCanBeReviewed;
   private final boolean mFromPP;
+  // TODO: mLat, mLon, mAddress are added just for debugging null feature id for ugc object.
+  // Remove they after problem is fixed.
+  private double mLat;
+  private double mLon;
+  @Nullable
+  private String mAddress;
 
   private EditParams(@NonNull Builder builder)
   {
@@ -28,6 +34,9 @@ class EditParams
     mDefaultRating = builder.mDefaultRating;
     mCanBeReviewed = builder.mCanBeReviewed;
     mFromPP = builder.mFromPP;
+    mLat = builder.mLat;
+    mLon = builder.mLon;
+    mAddress = builder.mAddress;
   }
 
   @NonNull
@@ -63,6 +72,22 @@ class EditParams
     return mFromPP;
   }
 
+  double getLat()
+  {
+    return mLat;
+  }
+
+  double getLon()
+  {
+    return mLon;
+  }
+
+  @Nullable
+  String getAddress()
+  {
+    return mAddress;
+  }
+
   public static class Builder
   {
     @NonNull
@@ -75,6 +100,10 @@ class EditParams
     private int mDefaultRating;
     private boolean mCanBeReviewed;
     private boolean mFromPP;
+    private double mLat;
+    private double mLon;
+    @Nullable
+    private String mAddress;
 
     public Builder(@NonNull String title, @NonNull FeatureId featureId)
     {
@@ -103,6 +132,24 @@ class EditParams
     Builder setFromPP(boolean value)
     {
       mFromPP = value;
+      return this;
+    }
+
+    public Builder setLat(double lat)
+    {
+      mLat = lat;
+      return this;
+    }
+
+    public Builder setLon(double lon)
+    {
+      mLon = lon;
+      return this;
+    }
+
+    public Builder setAddress(@Nullable String address)
+    {
+      mAddress = address;
       return this;
     }
 

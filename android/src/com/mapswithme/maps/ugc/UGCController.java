@@ -255,7 +255,10 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   {
     return new EditParams.Builder(mapObject.getTitle(), mapObject.getFeatureId())
         .setRatings(mapObject.getDefaultRatings())
-        .setCanBeReviewed(mapObject.canBeReviewed());
+        .setCanBeReviewed(mapObject.canBeReviewed())
+        .setLat(mapObject.getLat())
+        .setLon(mapObject.getLon())
+        .setAddress(mapObject.getAddress());
   }
 
   private void setUserReviewAndRatingsView(@Nullable UGCUpdate update)

@@ -23,6 +23,9 @@ public class UGCEditorActivity extends BaseMwmFragmentActivity
     args.putInt(UGCEditorFragment.ARG_DEFAULT_RATING, params.getDefaultRating());
     args.putParcelableArrayList(UGCEditorFragment.ARG_RATING_LIST, params.getRatings());
     args.putBoolean(UGCEditorFragment.ARG_CAN_BE_REVIEWED, params.canBeReviewed());
+    args.putDouble(UGCEditorFragment.ARG_LAT, params.getLat());
+    args.putDouble(UGCEditorFragment.ARG_LON, params.getLon());
+    args.putString(UGCEditorFragment.ARG_ADDRESS, params.getAddress());
     i.putExtras(args);
     activity.startActivity(i);
   }
