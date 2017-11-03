@@ -118,7 +118,7 @@ class BookmarkCategory : public UserMarkContainer
   std::string m_file;
 
 public:
-  BookmarkCategory(std::string const & name, Framework & framework);
+  explicit BookmarkCategory(std::string const & name);
   ~BookmarkCategory() override;
 
   size_t GetUserLineCount() const override;
@@ -150,8 +150,8 @@ public:
   /// creates unique file name on first save and uses it every time.
   bool SaveToKMLFile();
 
-  /// @return 0 in the case of error
-  static BookmarkCategory * CreateFromKMLFile(std::string const & file, Framework & framework);
+  /// @return nullptr in the case of error
+  static std::unique_ptr<BookmarkCategory> CreateFromKMLFile(std::string const & file);
 
   /// Get valid file name from input (remove illegal symbols).
   static std::string RemoveInvalidSymbols(std::string const & name);

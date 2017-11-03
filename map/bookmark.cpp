@@ -1,7 +1,6 @@
 #include "map/bookmark.hpp"
+#include "map/api_mark_point.hpp"
 #include "map/track.hpp"
-
-#include "map/framework.hpp"
 
 #include "base/scope_guard.hpp"
 
@@ -30,14 +29,12 @@
 
 Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
   : TBase(ptOrg, container)
-{
-}
+{}
 
 Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
   : TBase(ptOrg, container)
   , m_data(data)
-{
-}
+{}
 
 void Bookmark::SetData(BookmarkData const & data)
 {
@@ -138,11 +135,10 @@ Track const * BookmarkCategory::GetTrack(size_t index) const
   return (index < m_tracks.size() ? m_tracks[index].get() : 0);
 }
 
-BookmarkCategory::BookmarkCategory(std::string const & name, Framework & framework)
-  : TBase(0.0 /* bookmarkDepth */, UserMark::Type::BOOKMARK, framework)
+BookmarkCategory::BookmarkCategory(std::string const & name)
+  : TBase(0.0 /* bookmarkDepth */, UserMark::Type::BOOKMARK)
   , m_name(name)
-{
-}
+{}
 
 BookmarkCategory::~BookmarkCategory()
 {
@@ -565,21 +561,21 @@ bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
 {
   ReaderSource<ReaderPtr<Reader> > src(reader);
   KMLParser parser(*this);
-  if (ParseXML(src, parser, true))
-    return true;
-  else
+  if (!ParseXML(src, parser, true))
   {
     LOG(LERROR, ("XML read error. Probably, incorrect file encoding."));
     return false;
   }
+  return true;
 }
 
-BookmarkCategory * BookmarkCategory::CreateFromKMLFile(std::string const & file, Framework & framework)
+// static
+std::unique_ptr<BookmarkCategory> BookmarkCategory::CreateFromKMLFile(std::string const & file)
 {
-  std::auto_ptr<BookmarkCategory> cat(new BookmarkCategory("", framework));
+  auto cat = my::make_unique<BookmarkCategory>("");
   try
   {
-    if (cat->LoadFromKML(make_unique<FileReader>(file)))
+    if (cat->LoadFromKML(my::make_unique<FileReader>(file)))
       cat->m_file = file;
     else
       cat.reset();
@@ -590,7 +586,7 @@ BookmarkCategory * BookmarkCategory::CreateFromKMLFile(std::string const & file,
     cat.reset();
   }
 
-  return cat.release();
+  return cat;
 }
 
 namespace

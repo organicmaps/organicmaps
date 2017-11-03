@@ -1,13 +1,19 @@
 #include "map/bookmark_manager.hpp"
-#include "map/framework.hpp"
+#include "map/api_mark_point.hpp"
 #include "map/local_ads_mark.hpp"
 #include "map/routing_mark.hpp"
+#include "map/search_mark.hpp"
 #include "map/user_mark.hpp"
+
+#include "drape_frontend/drape_engine.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
 #include "indexer/scales.hpp"
+
+#include "coding/file_writer.hpp"
 
 #include "geometry/transformations.hpp"
 
@@ -18,25 +24,35 @@
 
 #include <algorithm>
 
+namespace
+{
+char const * BOOKMARK_CATEGORY = "LastBookmarkCategory";
+char const * BOOKMARK_TYPE = "LastBookmarkType";
+
 using SearchUserMarkContainer = SpecifiedUserMarkContainer<SearchMarkPoint, UserMark::Type::SEARCH>;
 using ApiUserMarkContainer = SpecifiedUserMarkContainer<ApiMarkPoint, UserMark::Type::API>;
 using DebugUserMarkContainer = SpecifiedUserMarkContainer<DebugMarkPoint, UserMark::Type::DEBUG_MARK>;
 using RouteUserMarkContainer = SpecifiedUserMarkContainer<RouteMarkPoint, UserMark::Type::ROUTING>;
 using LocalAdsMarkContainer = SpecifiedUserMarkContainer<LocalAdsMark, UserMark::Type::LOCAL_ADS>;
 using StaticUserMarkContainer = SpecifiedUserMarkContainer<SearchMarkPoint, UserMark::Type::STATIC>;
+}  // namespace
 
-BookmarkManager::BookmarkManager(Framework & f)
-  : m_framework(f)
+BookmarkManager::BookmarkManager(GetStringsBundleFn && getStringsBundleFn)
+  : m_getStringsBundle(std::move(getStringsBundleFn))
 {
-  m_userMarkLayers.reserve(6);
-  m_userMarkLayers.emplace_back(my::make_unique<SearchUserMarkContainer>(m_framework));
-  m_userMarkLayers.emplace_back(my::make_unique<ApiUserMarkContainer>(m_framework));
-  m_userMarkLayers.emplace_back(my::make_unique<DebugUserMarkContainer>(m_framework));
-  m_userMarkLayers.emplace_back(my::make_unique<RouteUserMarkContainer>(m_framework));
-  m_userMarkLayers.emplace_back(my::make_unique<LocalAdsMarkContainer>(m_framework));
+  ASSERT(m_getStringsBundle != nullptr, ());
 
-  auto staticMarksContainer = my::make_unique<StaticUserMarkContainer>(m_framework);
-  UserMarkContainer::InitStaticMarks(staticMarksContainer.get());
+  m_userMarkLayers.reserve(6);
+  m_userMarkLayers.emplace_back(my::make_unique<SearchUserMarkContainer>());
+  m_userMarkLayers.emplace_back(my::make_unique<ApiUserMarkContainer>());
+  m_userMarkLayers.emplace_back(my::make_unique<DebugUserMarkContainer>());
+  m_userMarkLayers.emplace_back(my::make_unique<RouteUserMarkContainer>());
+  m_userMarkLayers.emplace_back(my::make_unique<LocalAdsMarkContainer>());
+
+  auto staticMarksContainer = my::make_unique<StaticUserMarkContainer>();
+  m_selectionMark = my::make_unique<StaticMarkPoint>(staticMarksContainer.get());
+  m_myPositionMark = my::make_unique<MyPositionMarkPoint>(staticMarksContainer.get());
+
   m_userMarkLayers.emplace_back(std::move(staticMarksContainer));
 }
 
@@ -47,10 +63,20 @@ BookmarkManager::~BookmarkManager()
   ClearCategories();
 }
 
-namespace
+void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
-char const * BOOKMARK_CATEGORY = "LastBookmarkCategory";
-char const * BOOKMARK_TYPE = "LastBookmarkType";
+  m_drapeEngine.Set(engine);
+
+  for (auto & userMarkLayer : m_userMarkLayers)
+    userMarkLayer->SetDrapeEngine(engine);
+
+  for (auto & category : m_categories)
+    category->SetDrapeEngine(engine);
+}
+
+void BookmarkManager::UpdateViewport(ScreenBase const & screen)
+{
+  m_viewport = screen;
 }
 
 void BookmarkManager::SaveState() const
@@ -74,21 +100,27 @@ void BookmarkManager::LoadBookmarks()
 {
   ClearCategories();
 
-  string const dir = GetPlatform().SettingsDir();
+  std::string const dir = GetPlatform().SettingsDir();
 
   Platform::FilesList files;
   Platform::GetFilesByExt(dir, BOOKMARKS_FILE_EXTENSION, files);
-  for (size_t i = 0; i < files.size(); ++i)
-    LoadBookmark(dir + files[i]);
+  for (auto const & file : files)
+    LoadBookmark(dir + file);
 
   LoadState();
 }
 
-void BookmarkManager::LoadBookmark(string const & filePath)
+void BookmarkManager::LoadBookmark(std::string const & filePath)
 {
-  std::unique_ptr<BookmarkCategory> cat(BookmarkCategory::CreateFromKMLFile(filePath, m_framework));
-  if (cat)
+  auto cat = BookmarkCategory::CreateFromKMLFile(filePath);
+  if (cat != nullptr)
+  {
+    df::DrapeEngineLockGuard lock(m_drapeEngine);
+    if (lock)
+      cat->SetDrapeEngine(lock.Get());
+
     m_categories.emplace_back(std::move(cat));
+  }
 }
 
 void BookmarkManager::InitBookmarks()
@@ -100,11 +132,11 @@ void BookmarkManager::InitBookmarks()
 size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkData & bm)
 {
   bm.SetTimeStamp(time(0));
-  bm.SetScale(m_framework.GetDrawScale());
+  bm.SetScale(df::GetDrawTileScale(m_viewport));
 
   BookmarkCategory & cat = *m_categories[categoryIndex];
 
-  Bookmark * bookmark = static_cast<Bookmark *>(cat.CreateUserMark(ptOrg));
+  auto bookmark = static_cast<Bookmark *>(cat.CreateUserMark(ptOrg));
   bookmark->SetData(bm);
   cat.SetIsVisible(true);
   cat.SaveToKMLFile();
@@ -123,8 +155,8 @@ size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t 
   BookmarkData data;
   m2::PointD ptOrg;
 
-  BookmarkCategory * cat = m_framework.GetBmCategory(curCatIndex);
-  Bookmark const * bm = static_cast<Bookmark const *>(cat->GetUserMark(bmIndex));
+  BookmarkCategory * cat = GetBmCategory(curCatIndex);
+  auto bm = static_cast<Bookmark const *>(cat->GetUserMark(bmIndex));
   data = bm->GetData();
   ptOrg = bm->GetPivot();
 
@@ -155,7 +187,7 @@ size_t BookmarkManager::LastEditedBMCategory()
   }
 
   if (m_categories.empty())
-    CreateBmCategory(m_framework.GetStringsBundle().GetString("my_places"));
+    CreateBmCategory(m_getStringsBundle().GetString("my_places"));
 
   return 0;
 }
@@ -172,7 +204,11 @@ BookmarkCategory * BookmarkManager::GetBmCategory(size_t index) const
 
 size_t BookmarkManager::CreateBmCategory(std::string const & name)
 {
-  m_categories.emplace_back(new BookmarkCategory(name, m_framework));
+  m_categories.emplace_back(new BookmarkCategory(name));
+  df::DrapeEngineLockGuard lock(m_drapeEngine);
+  if (lock)
+    m_categories.back()->SetDrapeEngine(lock.Get());
+
   return (m_categories.size() - 1);
 }
 
@@ -186,13 +222,11 @@ void BookmarkManager::DeleteBmCategory(CategoryIter it)
 
 bool BookmarkManager::DeleteBmCategory(size_t index)
 {
-  if (index < m_categories.size())
-  {
-    DeleteBmCategory(m_categories.begin() + index);
-    return true;
-  }
-  else
+  if (index >= m_categories.size())
     return false;
+
+  DeleteBmCategory(m_categories.begin() + index);
+  return true;
 }
 
 namespace
@@ -258,8 +292,8 @@ UserMarksController & BookmarkManager::GetUserMarksController(UserMark::Type typ
 
 UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMark::Type type) const
 {
-  auto const iter = find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(),
-                            [&type](unique_ptr<UserMarkContainer> const & cont)
+  auto const iter = std::find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(),
+                                 [&type](std::unique_ptr<UserMarkContainer> const & cont)
   {
     return cont->GetType() == type;
   });
@@ -269,8 +303,8 @@ UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMark::Type
 
 UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMark::Type type)
 {
-  auto iter = find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(),
-                      [&type](unique_ptr<UserMarkContainer> const & cont)
+  auto iter = std::find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(),
+                           [&type](std::unique_ptr<UserMarkContainer> const & cont)
   {
     return cont->GetType() == type;
   });
@@ -278,10 +312,33 @@ UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMark::Type type)
   return iter->get();
 }
 
+std::unique_ptr<StaticMarkPoint> & BookmarkManager::SelectionMark()
+{
+  ASSERT(m_selectionMark != nullptr, ());
+  return m_selectionMark;
+}
+
+std::unique_ptr<MyPositionMarkPoint> & BookmarkManager::MyPositionMark()
+{
+  ASSERT(m_myPositionMark != nullptr, ());
+  return m_myPositionMark;
+}
+
+std::unique_ptr<StaticMarkPoint> const & BookmarkManager::SelectionMark() const
+{
+  ASSERT(m_selectionMark != nullptr, ());
+  return m_selectionMark;
+}
+
+std::unique_ptr<MyPositionMarkPoint> const & BookmarkManager::MyPositionMark() const
+{
+  ASSERT(m_myPositionMark != nullptr, ());
+  return m_myPositionMark;
+}
+
 UserMarkNotificationGuard::UserMarkNotificationGuard(BookmarkManager & mng, UserMark::Type type)
   : m_controller(mng.GetUserMarksController(type))
-{
-}
+{}
 
 UserMarkNotificationGuard::~UserMarkNotificationGuard()
 {

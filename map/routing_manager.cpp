@@ -100,7 +100,7 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments,
   }
 }
 
-RouteMarkData GetLastPassedPoint(vector<RouteMarkData> const & points)
+RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, vector<RouteMarkData> const & points)
 {
   ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
   ASSERT(points[0].m_pointType == RouteMarkType::Start, ());
@@ -120,8 +120,7 @@ RouteMarkData GetLastPassedPoint(vector<RouteMarkData> const & points)
   data.m_intermediateIndex = 0;
   if (data.m_isMyPosition)
   {
-    MyPositionMarkPoint * myPosMark = UserMarkContainer::UserMarkForMyPostion();
-    data.m_position = myPosMark->GetPivot();
+    data.m_position = bmManager->MyPositionMark()->GetPivot();
     data.m_isMyPosition = false;
   }
 
@@ -156,14 +155,14 @@ RouteMarkData DeserializeRoutePoint(json_t * node)
   return data;
 }
 
-string SerializeRoutePoints(vector<RouteMarkData> const & points)
+string SerializeRoutePoints(BookmarkManager * bmManager, vector<RouteMarkData> const & points)
 {
   ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
   auto pointsNode = my::NewJSONArray();
 
   // Save last passed point. It will be used on points loading if my position
   // isn't determined.
-  auto lastPassedPoint = GetLastPassedPoint(points);
+  auto lastPassedPoint = GetLastPassedPoint(bmManager, points);
   auto lastPassedNode = my::NewJSONObject();
   SerializeRoutePoint(lastPassedNode.get(), lastPassedPoint);
   json_array_append_new(pointsNode.get(), lastPassedNode.release());
@@ -761,7 +760,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     if (!p.m_isMyPosition)
       continue;
 
-    MyPositionMarkPoint * myPosition = UserMarkContainer::UserMarkForMyPostion();
+    auto const & myPosition = m_bmManager->MyPositionMark();
     if (!myPosition->HasPosition())
     {
       CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
@@ -1104,7 +1103,7 @@ bool RoutingManager::LoadRoutePoints()
     return false;
 
   // If we have found my position, we use my position as start point.
-  MyPositionMarkPoint * myPosMark = UserMarkContainer::UserMarkForMyPostion();
+  auto const & myPosMark = m_bmManager->MyPositionMark();
   ASSERT(m_bmManager != nullptr, ());
   m_bmManager->GetUserMarksController(UserMark::Type::ROUTING).Clear();
   for (auto & p : points)
@@ -1144,7 +1143,7 @@ void RoutingManager::SaveRoutePoints() const
   {
     auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
     FileWriter writer(fileName);
-    string const pointsData = SerializeRoutePoints(points);
+    string const pointsData = SerializeRoutePoints(m_bmManager, points);
     writer.Write(pointsData.c_str(), pointsData.length());
   }
   catch (RootException const & ex)

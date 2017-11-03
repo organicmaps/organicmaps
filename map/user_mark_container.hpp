@@ -2,19 +2,18 @@
 
 #include "map/user_mark.hpp"
 
+#include "drape_frontend/drape_engine_safe_ptr.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/any_rect2d.hpp"
 
-#include "std/deque.hpp"
-#include "std/bitset.hpp"
+#include <base/macros.hpp>
 
-#include "std/noncopyable.hpp"
-#include "std/unique_ptr.hpp"
-
-class Framework;
+#include <bitset>
+#include <deque>
+#include <memory>
 
 class UserMarksController
 {
@@ -28,29 +27,26 @@ public:
   virtual UserMark const * GetUserMark(size_t index) const = 0;
   virtual UserMark * GetUserMarkForEdit(size_t index) = 0;
   virtual void DeleteUserMark(size_t index) = 0;
-  virtual void Clear(size_t skipCount = 0) = 0;
+  virtual void Clear() = 0;
   virtual void Update() = 0;
   virtual void NotifyChanges() = 0;
 };
 
 class UserMarkContainer : public df::UserMarksProvider
                         , public UserMarksController
-                        , private noncopyable
 {
 public:
-  using TUserMarksList = deque<unique_ptr<UserMark>>;
+  using TUserMarksList = std::deque<std::unique_ptr<UserMark>>;
 
-  UserMarkContainer(double layerDepth, UserMark::Type type, Framework & fm);
-  virtual ~UserMarkContainer();
+  UserMarkContainer(double layerDepth, UserMark::Type type);
+  ~UserMarkContainer() override;
+
+  void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
 
   // If not found mark on rect result is nullptr.
   // If mark is found in "d" return distance from rect center.
   // In multiple select choose mark with min(d).
   UserMark const * FindMarkInRect(m2::AnyRectD const & rect, double & d) const;
-
-  static void InitStaticMarks(UserMarkContainer * container);
-  static StaticMarkPoint * UserMarkForPoi();
-  static MyPositionMarkPoint * UserMarkForMyPostion();
 
   // UserMarksProvider implementation.
   size_t GetUserPointCount() const override;
@@ -77,7 +73,7 @@ public:
   UserMark * CreateUserMark(m2::PointD const & ptOrg) override;
   UserMark * GetUserMarkForEdit(size_t index) override;
   void DeleteUserMark(size_t index) override;
-  void Clear(size_t skipCount = 0) override;
+  void Clear() override;
   void SetIsDrawable(bool isDrawable) override;
   void SetIsVisible(bool isVisible) override;
   void Update() override;
@@ -88,24 +84,25 @@ protected:
 
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) = 0;
 
-  Framework & m_framework;
-
 private:
-  bitset<4> m_flags;
+  df::DrapeEngineSafePtr m_drapeEngine;
+  std::bitset<4> m_flags;
   double m_layerDepth;
   TUserMarksList m_userMarks;
   UserMark::Type m_type;
   df::MarkIDCollection m_createdMarks;
   df::MarkIDCollection m_removedMarks;
   bool m_isDirty = false;
+
+  DISALLOW_COPY_AND_MOVE(UserMarkContainer);
 };
 
 template<typename MarkPointClassType, UserMark::Type UserMarkType>
 class SpecifiedUserMarkContainer : public UserMarkContainer
 {
 public:
-  explicit SpecifiedUserMarkContainer(Framework & framework)
-    : UserMarkContainer(0.0 /* layer depth */, UserMarkType, framework)
+  explicit SpecifiedUserMarkContainer()
+    : UserMarkContainer(0.0 /* layer depth */, UserMarkType)
   {}
 
 protected:

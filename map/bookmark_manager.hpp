@@ -3,44 +3,39 @@
 #include "map/bookmark.hpp"
 #include "map/user_mark_container.hpp"
 
+#include "drape_frontend/drape_engine_safe_ptr.hpp"
+
 #include "geometry/any_rect2d.hpp"
+#include "geometry/screenbase.hpp"
+
+#include "base/macros.hpp"
+#include "base/strings_bundle.hpp"
 
 #include <functional>
 #include <memory>
 #include <string>
 #include <vector>
 
-class Framework;
-class PaintEvent;
-
-class BookmarkManager : private noncopyable
+class BookmarkManager final
 {
   using CategoriesCollection = std::vector<std::unique_ptr<BookmarkCategory>>;
   using CategoryIter = CategoriesCollection::iterator;
 
   using UserMarkLayers = std::vector<std::unique_ptr<UserMarkContainer>>;
-
-  CategoriesCollection m_categories;
-
-  std::string m_lastCategoryUrl;
-  std::string m_lastType;
-
-  Framework & m_framework;
-
-  UserMarkLayers m_userMarkLayers;
-
-  void SaveState() const;
-  void LoadState();
+  using GetStringsBundleFn = std::function<StringsBundle const &()>;
 
 public:
-  BookmarkManager(Framework & f);
+  explicit BookmarkManager(GetStringsBundleFn && getStringsBundleFn);
   ~BookmarkManager();
+
+  void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
+  void UpdateViewport(ScreenBase const & screen);
 
   void ClearCategories();
 
   /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
-  void LoadBookmark(string const & filePath);
+  void LoadBookmark(std::string const & filePath);
 
   void InitBookmarks();
 
@@ -74,9 +69,32 @@ public:
   bool UserMarksIsVisible(UserMark::Type type) const;
   UserMarksController & GetUserMarksController(UserMark::Type type);
 
+  std::unique_ptr<StaticMarkPoint> & SelectionMark();
+  std::unique_ptr<StaticMarkPoint> const & SelectionMark() const;
+  std::unique_ptr<MyPositionMarkPoint> & MyPositionMark();
+  std::unique_ptr<MyPositionMarkPoint> const & MyPositionMark() const;
+
 private:
   UserMarkContainer const * FindUserMarksContainer(UserMark::Type type) const;
   UserMarkContainer * FindUserMarksContainer(UserMark::Type type);
+
+  void SaveState() const;
+  void LoadState();
+
+  GetStringsBundleFn m_getStringsBundle;
+  df::DrapeEngineSafePtr m_drapeEngine;
+
+  ScreenBase m_viewport;
+
+  CategoriesCollection m_categories;
+  std::string m_lastCategoryUrl;
+  std::string m_lastType;
+  UserMarkLayers m_userMarkLayers;
+
+  std::unique_ptr<StaticMarkPoint> m_selectionMark;
+  std::unique_ptr<MyPositionMarkPoint> m_myPositionMark;
+
+  DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };
 
 class UserMarkNotificationGuard

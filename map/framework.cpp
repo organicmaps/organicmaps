@@ -267,8 +267,7 @@ LocalAdsManager & Framework::GetLocalAdsManager()
 
 void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosition)
 {
-  MyPositionMarkPoint * myPosition = UserMarkContainer::UserMarkForMyPostion();
-  myPosition->SetUserPosition(position, hasPosition);
+  m_bmManager.MyPositionMark()->SetUserPosition(position, hasPosition);
   m_routingManager.SetUserCurrentPosition(position);
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
 }
@@ -279,6 +278,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
 
   GetSearchAPI().OnViewportChanged(GetCurrentViewport());
 
+  m_bmManager.UpdateViewport(m_currentModelView);
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_localAdsManager.UpdateViewport(m_currentModelView);
 
@@ -360,7 +360,7 @@ void Framework::Migrate(bool keepDownloaded)
 Framework::Framework(FrameworkParams const & params)
   : m_startForegroundTime(0.0)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
-  , m_bmManager(*this)
+  , m_bmManager([this]() -> StringsBundle const & { return m_stringsBundle; })
   , m_isRenderingEnabled(true)
   , m_routingManager(RoutingManager::Callbacks([this]() -> Index & { return m_model.GetIndex(); },
                                                [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },
@@ -1526,7 +1526,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
 
-  UserMarkContainer::UserMarkForPoi()->SetPtOrg(center);
+  m_bmManager.SelectionMark()->SetPtOrg(center);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
   m_lastTapEvent = MakeTapEvent(center, info.GetID(), TapEvent::Source::Search);
 }
@@ -1787,8 +1787,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
 
-  InvalidateUserMarks();
-
   Allow3dMode(allow3d, allow3dBuildings);
   LoadViewport();
 
@@ -1797,11 +1795,14 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
 
+  m_bmManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_drapeApi.SetDrapeEngine(make_ref(m_drapeEngine));
   m_routingManager.SetDrapeEngine(make_ref(m_drapeEngine), allow3d);
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_localAdsManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_searchMarks.SetDrapeEngine(make_ref(m_drapeEngine));
+
+  InvalidateUserMarks();
 
   benchmark::RunGraphicsBenchmark(this);
 }
@@ -1842,6 +1843,7 @@ void Framework::DestroyDrapeEngine()
     m_trafficManager.SetDrapeEngine(nullptr);
     m_localAdsManager.SetDrapeEngine(nullptr);
     m_searchMarks.SetDrapeEngine(nullptr);
+    m_bmManager.SetDrapeEngine(nullptr);
 
     m_trafficManager.Teardown();
     m_localAdsManager.Teardown();
@@ -2026,7 +2028,7 @@ bool Framework::ShowMapForURL(string const & url)
       }
       else
       {
-        UserMarkContainer::UserMarkForPoi()->SetPtOrg(point);
+        m_bmManager.SelectionMark()->SetPtOrg(point);
         FillPointInfo(point, name, info);
         ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
       }
@@ -2360,7 +2362,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
 
   if (showMapSelection)
   {
-    UserMarkContainer::UserMarkForPoi()->SetPtOrg(outInfo.GetMercator());
+    m_bmManager.SelectionMark()->SetPtOrg(outInfo.GetMercator());
     return df::SelectionShape::OBJECT_POI;
   }
 
@@ -3145,8 +3147,7 @@ void Framework::ClearViewportSearchResults()
 
 boost::optional<m2::PointD> Framework::GetCurrentPosition() const
 {
-  m2::PointD position;
-  MyPositionMarkPoint * myPosMark = UserMarkContainer::UserMarkForMyPostion();
+  auto const & myPosMark = m_bmManager.MyPositionMark();
   if (!myPosMark->HasPosition())
     return {};
   return myPosMark->GetPivot();

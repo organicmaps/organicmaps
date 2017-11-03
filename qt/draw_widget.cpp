@@ -154,8 +154,8 @@ void DrawWidget::ChoosePositionModeDisable()
 
 void DrawWidget::initializeGL()
 {
-  MapWidget::initializeGL();
   m_framework.LoadBookmarks();
+  MapWidget::initializeGL();
 
   auto & routingManager = m_framework.GetRoutingManager();
   if (routingManager.LoadRoutePoints())

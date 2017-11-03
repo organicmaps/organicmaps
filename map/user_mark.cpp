@@ -9,8 +9,7 @@
 
 UserMark::UserMark(m2::PointD const & ptOrg, UserMarkContainer * container)
   : m_ptOrg(ptOrg), m_container(container)
-{
-}
+{}
 
 m2::PointD const & UserMark::GetPivot() const
 {

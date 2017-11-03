@@ -1,5 +1,4 @@
 #include "map/user_mark_container.hpp"
-#include "map/framework.hpp"
 #include "map/search_mark.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
@@ -9,7 +8,8 @@
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+#include <utility>
 
 namespace
 {
@@ -53,9 +53,8 @@ df::MarkGroupID GenerateMarkGroupId(UserMarkContainer const * cont)
 }
 }  // namespace
 
-UserMarkContainer::UserMarkContainer(double layerDepth, UserMark::Type type, Framework & fm)
-  : m_framework(fm)
-  , m_layerDepth(layerDepth)
+UserMarkContainer::UserMarkContainer(double layerDepth, UserMark::Type type)
+  : m_layerDepth(layerDepth)
   , m_type(type)
 {
   m_flags.set();
@@ -65,6 +64,11 @@ UserMarkContainer::~UserMarkContainer()
 {
   Clear();
   NotifyChanges();
+}
+
+void UserMarkContainer::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
+{
+  m_drapeEngine.Set(engine);
 }
 
 UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, double & d) const
@@ -82,42 +86,16 @@ UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, do
   return mark;
 }
 
-namespace
-{
-// TODO: refactor it, get rid of global pointers.
-unique_ptr<StaticMarkPoint> g_selectionUserMark;
-unique_ptr<MyPositionMarkPoint> g_myPosition;
-}  // namespace
-
-void UserMarkContainer::InitStaticMarks(UserMarkContainer * container)
-{
-  if (g_selectionUserMark == NULL)
-    g_selectionUserMark.reset(new StaticMarkPoint(container));
-
-  if (g_myPosition == NULL)
-    g_myPosition.reset(new MyPositionMarkPoint(container));
-}
-
-StaticMarkPoint * UserMarkContainer::UserMarkForPoi()
-{
-  ASSERT(g_selectionUserMark != NULL, ());
-  return g_selectionUserMark.get();
-}
-
-MyPositionMarkPoint * UserMarkContainer::UserMarkForMyPostion()
-{
-  ASSERT(g_myPosition != NULL, ());
-  return g_myPosition.get();
-}
-
 void UserMarkContainer::NotifyChanges()
 {
   if (!IsDirty())
     return;
 
-  ref_ptr<df::DrapeEngine> engine = m_framework.GetDrapeEngine();
-  if (engine == nullptr)
+  df::DrapeEngineLockGuard lock(m_drapeEngine);
+  if (!lock)
     return;
+
+  auto engine = lock.Get();
 
   df::MarkGroupID const groupId = GenerateMarkGroupId(this);
   engine->ChangeVisibilityUserMarksGroup(groupId, IsVisible() && IsDrawable());
@@ -159,7 +137,7 @@ df::UserLineMark const * UserMarkContainer::GetUserLineMark(size_t index) const
 
 float UserMarkContainer::GetPointDepth() const
 {
-  return m_layerDepth;
+  return static_cast<float>(m_layerDepth);
 }
 
 bool UserMarkContainer::IsVisible() const
@@ -204,11 +182,10 @@ UserMark * UserMarkContainer::GetUserMarkForEdit(size_t index)
   return m_userMarks[index].get();
 }
 
-void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
+void UserMarkContainer::Clear()
 {
   SetDirty();
-  if (skipCount < m_userMarks.size())
-    m_userMarks.erase(m_userMarks.begin(), m_userMarks.end() - skipCount);
+  m_userMarks.clear();
 }
 
 void UserMarkContainer::SetIsDrawable(bool isDrawable)

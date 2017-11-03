@@ -35,8 +35,7 @@ UNIT_TEST(KMZ_UnzipTest)
   MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, kmlFile));
   ZipFileReader::UnzipFile(kmzFile, "doc.kml", kmlFile);
 
-  Framework framework(FrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */));
-  BookmarkCategory cat("Default", framework);
+  BookmarkCategory cat("Default");
   TEST(cat.LoadFromKML(make_unique<FileReader>(kmlFile)), ());
 
   TEST_EQUAL(files.size(), 6, ("KMZ file wrong number of files"));
