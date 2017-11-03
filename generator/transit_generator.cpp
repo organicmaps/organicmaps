@@ -322,6 +322,7 @@ void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string c
                           CountryParentNameGetterFn(), countryFileGetter, getMwmRectByName,
                           numMwmIds, MakeNumMwmTree(*numMwmIds, *infoGetter),
                           traffic::TrafficCache(), index.GetIndex());
+  auto worldGraph = indexRouter.MakeSingleMwmWorldGraphForGenerator();
 
   // Looking for the best segment for every gate.
   for (auto & gate : m_gates)
@@ -332,13 +333,10 @@ void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string c
     Segment bestSegment;
     try
     {
-       if (countryFileGetter(gate.GetPoint()) != countryId)
-         continue;
-      // @todo(bykoianko) For every call of the method below WorldGraph is created. It's not
-      // efficient to create WorldGraph for every gate. The code should be redesigned.
-      if (indexRouter.FindBestSegmentInSingleMwm(gate.GetPoint(),
-                                                 m2::PointD::Zero() /* direction */,
-                                                 true /* isOutgoing */, bestSegment))
+      if (countryFileGetter(gate.GetPoint()) != countryId)
+        continue;
+      if (indexRouter.FindBestSegmentForGenerator(gate.GetPoint(), m2::PointD::Zero() /* direction */,
+                                                  true /* isOutgoing */, *worldGraph, bestSegment))
       {
         CHECK_EQUAL(bestSegment.GetMwmId(), 0, ());
         gate.SetBestPedestrianSegment(SingleMwmSegment(

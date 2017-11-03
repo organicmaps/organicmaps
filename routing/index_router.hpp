@@ -63,8 +63,9 @@ public:
               shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
               traffic::TrafficCache const & trafficCache, Index & index);
 
-  bool FindBestSegmentInSingleMwm(m2::PointD const & point, m2::PointD const & direction,
-                                  bool isOutgoing, Segment & bestSegment);
+  std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraphForGenerator();
+  bool FindBestSegmentForGenerator(m2::PointD const & point, m2::PointD const & direction,
+                                   bool isOutgoing, WorldGraph & worldGraph, Segment & bestSegment);
 
   // IRouter overrides:
   std::string GetName() const override { return m_name; }

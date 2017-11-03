@@ -318,13 +318,20 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   CHECK(m_directionsEngine, ());
 }
 
-bool IndexRouter::FindBestSegmentInSingleMwm(m2::PointD const & point, m2::PointD const & direction,
-                                             bool isOutgoing, Segment & bestSegment)
+std::unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraphForGenerator()
 {
   auto worldGraph = MakeWorldGraph();
   worldGraph->SetMode(WorldGraph::Mode::SingleMwm);
+  return worldGraph;
+}
+
+bool IndexRouter::FindBestSegmentForGenerator(m2::PointD const & point, m2::PointD const & direction,
+                                              bool isOutgoing, WorldGraph & worldGraph,
+                                              Segment & bestSegment)
+{
+
   bool dummy;
-  return FindBestSegment(point, direction, isOutgoing, *worldGraph, bestSegment,
+  return FindBestSegment(point, direction, isOutgoing, worldGraph, bestSegment,
                          dummy /* best segment is almost codirectional */);
 }
 
