@@ -338,7 +338,7 @@ UNIT_CLASS_TEST(StorageTest, InvalidUGC)
   TEST_EQUAL(storage.SetUGCUpdate(cafeId, first), Storage::SettingResult::InvalidUGC, ());
   TEST(storage.GetIndexesForTesting().empty(), ());
   TEST(storage.GetUGCToSend().empty(), ());
-  first.m_text = Text("a", 1);
+  first.m_text = KeyboardText("a", 1, {2});
   TEST_EQUAL(storage.SetUGCUpdate(cafeId, first), Storage::SettingResult::Success, ());
   UGCUpdate second;
   second.m_time = chrono::system_clock::now();
@@ -346,4 +346,27 @@ UNIT_CLASS_TEST(StorageTest, InvalidUGC)
   TEST_EQUAL(storage.SetUGCUpdate(cafeId, second), Storage::SettingResult::InvalidUGC, ());
   second.m_ratings.emplace_back("b", 1);
   TEST_EQUAL(storage.SetUGCUpdate(cafeId, second), Storage::SettingResult::Success, ());
+}
+
+UNIT_CLASS_TEST(StorageTest, DifferentUGCVersions)
+{
+  auto & builder = MwmBuilder::Builder();
+  m2::PointD const firstPoint(1.0, 1.0);
+  m2::PointD const secondPoint(2.0, 2.0);
+  builder.Build({TestCafe(firstPoint), TestCafe(secondPoint)});
+
+  Storage storage(builder.GetIndex());
+  storage.Load();
+
+  auto const firstId = builder.FeatureIdForCafeAtPoint(firstPoint);
+  auto const oldUGC = MakeTestUGCUpdateV0(Time(chrono::hours(24 * 10)));
+  TEST_EQUAL(storage.SetUGCUpdateForTesting(firstId, oldUGC), Storage::SettingResult::Success, ());
+  auto const secondId = builder.FeatureIdForCafeAtPoint(secondPoint);
+  auto const newUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 5)));
+  TEST_EQUAL(storage.SetUGCUpdate(secondId, newUGC), Storage::SettingResult::Success, ());
+
+  TEST_EQUAL(newUGC, storage.GetUGCUpdate(secondId), ());
+  UGCUpdate fromOld;
+  fromOld.BuildFrom(oldUGC);
+  TEST_EQUAL(fromOld, storage.GetUGCUpdate(firstId), ());
 }

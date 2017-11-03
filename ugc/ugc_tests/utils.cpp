@@ -43,7 +43,7 @@ UGC MakeTestUGC2(Time now)
   return UGC(records, reviews, 5.0 /* rating */, 1 /* votes */);
 }
 
-UGCUpdate MakeTestUGCUpdate(Time now)
+v0::UGCUpdate MakeTestUGCUpdateV0(Time now)
 {
   Ratings records;
   records.emplace_back("food" /* key */, 4.0 /* value */);
@@ -51,6 +51,20 @@ UGCUpdate MakeTestUGCUpdate(Time now)
   records.emplace_back("music" /* key */, 5.0 /* value */);
 
   Text text{"It's aways nice to visit this place", StringUtf8Multilang::kEnglishCode};
+
+  Time time{FromDaysAgo(now, 1)};
+
+  return v0::UGCUpdate(records, text, time);
+}
+
+UGCUpdate MakeTestUGCUpdate(Time now)
+{
+  Ratings records;
+  records.emplace_back("food" /* key */, 4.0 /* value */);
+  records.emplace_back("service" /* key */, 5.0 /* value */);
+  records.emplace_back("music" /* key */, 5.0 /* value */);
+
+  KeyboardText text{"It's aways nice to visit this place", StringUtf8Multilang::kEnglishCode, {1}};
 
   Time time{FromDaysAgo(now, 1)};
 

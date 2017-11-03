@@ -149,4 +149,26 @@ UNIT_TEST(SerDes_UGCUpdate)
 
   TEST_EQUAL(expectedUGC, actualUGC, ());
 }
+
+UNIT_TEST(SerDes_UGCUpdateDifferentVersions)
+{
+  auto const v0 = MakeTestUGCUpdateV0(Time(chrono::hours(24 * 10)));
+  TEST_EQUAL(v0, v0, ());
+
+  Buffer buffer;
+  {
+    auto sink = MakeSink(buffer);
+    Serialize(sink, v0, Version::V0);
+  }
+
+  UGCUpdate actualUGC{};
+  {
+    auto source = MakeSource(buffer);
+    Deserialize(source, actualUGC);
+  }
+
+  UGCUpdate expectedUgc;
+  expectedUgc.BuildFrom(v0);
+  TEST_EQUAL(expectedUgc, actualUGC, ());
+}
 }  // namespace

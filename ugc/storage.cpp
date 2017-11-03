@@ -72,6 +72,61 @@ string SerializeUGCIndex(vector<Storage::UGCIndex> const & indexes)
   unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(array.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
   return string(buffer.get());
 }
+
+template <typename UGCUpdate>
+Storage::SettingResult SetGenericUGCUpdate(
+    vector<Storage::UGCIndex> & indexes, size_t & numberOfDeleted, FeatureID const & id,
+    UGCUpdate const & ugc,
+    FeatureType const & featureType,
+    Version const version = Version::Latest)
+{
+  if (!ugc.IsValid())
+    return Storage::SettingResult::InvalidUGC;
+
+  auto const mercator = feature::GetCenter(featureType);
+  feature::TypesHolder th(featureType);
+  th.SortBySpec();
+  auto const optMatchingType = ftraits::UGC::GetType(th);
+  CHECK(optMatchingType, ());
+  auto const type = th.GetBestType();
+  for (auto & index : indexes)
+  {
+    if (type == index.m_type && mercator == index.m_mercator && !index.m_deleted)
+    {
+      index.m_deleted = true;
+      ++numberOfDeleted;
+      break;
+    }
+  }
+
+  Storage::UGCIndex index;
+  uint64_t offset;
+  if (!GetUGCFileSize(offset))
+    offset = 0;
+
+  index.m_mercator = mercator;
+  index.m_type = type;
+  index.m_matchingType = *optMatchingType;
+  index.m_mwmName = id.GetMwmName();
+  index.m_dataVersion = id.GetMwmVersion();
+  index.m_featureId = id.m_index;
+  index.m_offset = offset;
+
+  auto const ugcFilePath = GetUGCFilePath();
+  try
+  {
+    FileWriter w(ugcFilePath, FileWriter::Op::OP_APPEND);
+    Serialize(w, ugc, version);
+    indexes.emplace_back(move(index));
+  }
+  catch (FileWriter::Exception const & exception)
+  {
+    LOG(LERROR, ("Exception while writing file:", ugcFilePath, "reason:", exception.what()));
+    return Storage::SettingResult::WritingError;
+  }
+
+  return Storage::SettingResult::Success;
+}
 }  // namespace
 
 UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
@@ -105,7 +160,7 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
   }
   catch (FileReader::Exception const & exception)
   {
-    LOG(LERROR, ("Exception while reading file:", ugcFilePath, "reason:", exception.Msg()));
+    LOG(LERROR, ("Exception while reading file:", ugcFilePath, "reason:", exception.what()));
     return {};
   }
 
@@ -118,54 +173,9 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
 
 Storage::SettingResult Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 {
-  if (!ugc.IsValid())
-    return Storage::SettingResult::InvalidUGC;
-
   auto const feature = GetFeature(id);
-  auto const mercator = feature::GetCenter(*feature);
-  feature::TypesHolder th(*feature);
-  th.SortBySpec();
-  auto const optMatchingType = ftraits::UGC::GetType(th);
-  CHECK(optMatchingType, ());
-  auto const type = th.GetBestType();
-  for (auto & index : m_UGCIndexes)
-  {
-    if (type == index.m_type && mercator == index.m_mercator && !index.m_deleted)
-    {
-      index.m_deleted = true;
-      m_numberOfDeleted++;
-      break;
-    }
-  }
-  // TODO: Call Defragmentation().
-
-  UGCIndex index;
-  uint64_t offset;
-  if (!GetUGCFileSize(offset))
-    offset = 0;
-
-  index.m_mercator = mercator;
-  index.m_type = type;
-  index.m_matchingType = *optMatchingType;
-  index.m_mwmName = id.GetMwmName();
-  index.m_dataVersion = id.GetMwmVersion();
-  index.m_featureId = id.m_index;
-  index.m_offset = offset;
-
-  auto const ugcFilePath = GetUGCFilePath();
-  try
-  {
-    FileWriter w(ugcFilePath, FileWriter::Op::OP_APPEND);
-    Serialize(w, ugc);
-    m_UGCIndexes.emplace_back(move(index));
-  }
-  catch (FileWriter::Exception const & exception)
-  {
-    LOG(LERROR, ("Exception while writing file:", ugcFilePath, "reason:", exception.Msg()));
-    return Storage::SettingResult::WritingError;
-  }
-
-  return Storage::SettingResult::Success;
+  return SetGenericUGCUpdate(m_UGCIndexes, m_numberOfDeleted, id, ugc,
+                             *feature);
 }
 
 void Storage::Load()
@@ -179,7 +189,7 @@ void Storage::Load()
   }
   catch (FileReader::Exception const & exception)
   {
-    LOG(LWARNING, ("Exception while reading file:", indexFilePath, "reason:", exception.Msg()));
+    LOG(LWARNING, ("Exception while reading file:", indexFilePath, "reason:", exception.what()));
     return;
   }
 
@@ -205,7 +215,7 @@ void Storage::SaveIndex() const
   }
   catch (FileWriter::Exception const & exception)
   {
-    LOG(LERROR, ("Exception while writing file:", indexFilePath, "reason:", exception.Msg()));
+    LOG(LERROR, ("Exception while writing file:", indexFilePath, "reason:", exception.what()));
   }
 }
 
@@ -241,12 +251,12 @@ void Storage::Defragmentation()
   }
   catch (FileReader::Exception const & exception)
   {
-    LOG(LERROR, ("Exception while reading file:", ugcFilePath, "reason:", exception.Msg()));
+    LOG(LERROR, ("Exception while reading file:", ugcFilePath, "reason:", exception.what()));
     return;
   }
   catch (FileWriter::Exception const & exception)
   {
-    LOG(LERROR, ("Exception while writing file:", tmpUGCFilePath, "reason:", exception.Msg()));
+    LOG(LERROR, ("Exception while writing file:", tmpUGCFilePath, "reason:", exception.what()));
     return;
   }
 
@@ -285,7 +295,7 @@ string Storage::GetUGCToSend() const
     }
     catch (FileReader::Exception const & exception)
     {
-      LOG(LERROR, ("Exception while reading file:", ugcFilePath, "reason:", exception.Msg()));
+      LOG(LERROR, ("Exception while reading file:", ugcFilePath, "reason:", exception.what()));
       return string();
     }
 
@@ -371,4 +381,14 @@ unique_ptr<FeatureType> Storage::GetFeature(FeatureID const & id) const
   CHECK(feature, ());
   return feature;
 }
+
+// Testing
+Storage::SettingResult Storage::SetUGCUpdateForTesting(FeatureID const & id,
+                                                       v0::UGCUpdate const & ugc)
+{
+  auto const feature = GetFeature(id);
+  return SetGenericUGCUpdate(m_UGCIndexes, m_numberOfDeleted, id, ugc,
+                             *feature, Version::V0);
+}
+
 }  // namespace ugc

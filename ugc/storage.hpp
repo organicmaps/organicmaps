@@ -60,6 +60,7 @@ public:
   /// Testing
   std::vector<UGCIndex> const & GetIndexesForTesting() const { return m_UGCIndexes; }
   size_t GetNumberOfDeletedForTesting() const { return m_numberOfDeleted; }
+  SettingResult SetUGCUpdateForTesting(FeatureID const & id, v0::UGCUpdate const & ugc);
 
 private:
   uint64_t UGCSizeAtIndex(size_t const indexPosition) const;

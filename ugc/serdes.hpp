@@ -12,6 +12,7 @@
 
 #include <cmath>
 #include <cstdint>
+#include <vector>
 
 namespace ugc
 {
@@ -21,7 +22,8 @@ DECLARE_EXCEPTION(BadBlob, SerDesException);
 enum class Version : uint8_t
 {
   V0,
-  Latest = V0
+  V1,
+  Latest = V1
 };
 
 template <typename Sink>
@@ -48,6 +50,11 @@ public:
   void VisitLang(uint8_t const index, char const * /* name */ = nullptr)
   {
     WriteToSink(m_sink, index);
+  }
+
+  void VisitLangs(std::vector<uint8_t> const & indexes, char const * /* name */ = nullptr)
+  {
+    (*this)(indexes);
   }
 
   template <typename T>
@@ -127,6 +134,11 @@ public:
     ReadPrimitiveFromSource<uint8_t>(m_source, index);
   }
 
+  void VisitLangs(std::vector<uint8_t> & indexes, char const * /* name */ = nullptr)
+  {
+    (*this)(indexes);
+  }
+
   template <typename T>
   void VisitVarUint(T & t, char const * /* name */ = nullptr)
   {
@@ -177,20 +189,46 @@ private:
   Source & m_source;
 };
 
+// Version must be used only for testing.
+// We should use only the latest version in production.
 template <typename Sink, typename UGC>
-void Serialize(Sink & sink, UGC const & ugc)
+void Serialize(Sink & sink, UGC const & ugc, Version const version = Version::Latest)
 {
-  WriteToSink(sink, static_cast<uint8_t>(Version::Latest));
+  WriteToSink(sink, static_cast<uint8_t>(version));
   Serializer<Sink> ser(sink);
   ser(ugc);
 }
 
-template <typename Source, typename UGC>
+template <typename Source>
 void Deserialize(Source & source, UGC & ugc)
 {
   uint8_t version = 0;
   ReadPrimitiveFromSource(source, version);
+  if (version == static_cast<uint8_t>(Version::V0) || version == static_cast<uint8_t>(Version::V1))
+  {
+    DeserializerV0<Source> des(source);
+    des(ugc);
+    return;
+  }
+
+  MYTHROW(BadBlob, ("Unknown data version:", static_cast<int>(version)));
+}
+
+template <typename Source>
+void Deserialize(Source & source, UGCUpdate & ugc)
+{
+  uint8_t version = 0;
+  ReadPrimitiveFromSource(source, version);
   if (version == static_cast<uint8_t>(Version::V0))
+  {
+    DeserializerV0<Source> des(source);
+    v0::UGCUpdate old;
+    des(old);
+    ugc.BuildFrom(old);
+    return;
+  }
+
+  if (version == static_cast<uint8_t>(Version::V1))
   {
     DeserializerV0<Source> des(source);
     des(ugc);
