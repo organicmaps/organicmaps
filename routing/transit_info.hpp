@@ -60,14 +60,14 @@ public:
   };
 
   explicit TransitInfo(transit::Gate const & gate)
-    : m_type(Type::Gate)
-    , m_gate(gate)
+    : m_type(Type::Gate), m_edge(), m_gate(gate), m_transfer()
   {
   }
 
   explicit TransitInfo(transit::Edge const & edge)
     : m_type(edge.GetTransfer() ? Type::Transfer : Type::Edge)
     , m_edge(edge.GetTransfer() ? Edge() : Edge(edge))
+    , m_gate()
     , m_transfer(edge.GetTransfer() ? Transfer(edge) : Transfer())
   {
   }
