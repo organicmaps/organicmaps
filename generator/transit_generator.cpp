@@ -322,7 +322,7 @@ void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string c
                           CountryParentNameGetterFn(), countryFileGetter, getMwmRectByName,
                           numMwmIds, MakeNumMwmTree(*numMwmIds, *infoGetter),
                           traffic::TrafficCache(), index.GetIndex());
-  auto worldGraph = indexRouter.MakeSingleMwmWorldGraphForGenerator();
+  auto worldGraph = indexRouter.MakeSingleMwmWorldGraph();
 
   // Looking for the best segment for every gate.
   for (auto & gate : m_gates)
@@ -335,8 +335,8 @@ void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string c
     {
       if (countryFileGetter(gate.GetPoint()) != countryId)
         continue;
-      if (indexRouter.FindBestSegmentForGenerator(gate.GetPoint(), m2::PointD::Zero() /* direction */,
-                                                  true /* isOutgoing */, *worldGraph, bestSegment))
+      if (indexRouter.FindBestSegment(gate.GetPoint(), m2::PointD::Zero() /* direction */,
+                                      true /* isOutgoing */, *worldGraph, bestSegment))
       {
         CHECK_EQUAL(bestSegment.GetMwmId(), 0, ());
         gate.SetBestPedestrianSegment(SingleMwmSegment(
