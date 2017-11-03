@@ -416,6 +416,9 @@
 		347BFA8F1F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
 		347BFA901F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
 		347BFA911F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
+		347E03991FAC5F1D00426032 /* UIWindow+InputLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E03981FAC5F1D00426032 /* UIWindow+InputLanguage.swift */; };
+		347E039A1FAC5F1D00426032 /* UIWindow+InputLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E03981FAC5F1D00426032 /* UIWindow+InputLanguage.swift */; };
+		347E039B1FAC5F1D00426032 /* UIWindow+InputLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E03981FAC5F1D00426032 /* UIWindow+InputLanguage.swift */; };
 		347E1A881F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
 		347E1A891F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
 		347E1A8A1F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
@@ -2071,6 +2074,7 @@
 		347BFA931F28842300E5531F /* MWMNavigationDashboardObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardObserver.h; sourceTree = "<group>"; };
 		347D15C71F82362900E86251 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = GoogleSignIn/GoogleSignIn.framework; sourceTree = "<group>"; };
 		347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignInDependencies.framework; path = GoogleSignIn/GoogleSignInDependencies.framework; sourceTree = "<group>"; };
+		347E03981FAC5F1D00426032 /* UIWindow+InputLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+InputLanguage.swift"; sourceTree = "<group>"; };
 		347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CianItemModel.swift; sourceTree = "<group>"; };
 		347E1A8C1F1F71F1002BF7A8 /* PPCianCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPCianCarouselCell.swift; sourceTree = "<group>"; };
 		347E1A901F1F72AD002BF7A8 /* PPCianCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPCianCarouselCell.xib; sourceTree = "<group>"; };
@@ -3424,6 +3428,7 @@
 				349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */,
 				34F7422F1E0834F400AC1FD6 /* UIViewController+Navigation.h */,
 				34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */,
+				347E03981FAC5F1D00426032 /* UIWindow+InputLanguage.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -6032,6 +6037,7 @@
 				34926BE61EA4C2A700DCF14C /* SearchBanners.swift in Sources */,
 				34D4FA621E26572D003F53EF /* FirstLaunchController.swift in Sources */,
 				34C9BD041C6DB693000DC38D /* MWMViewController.mm in Sources */,
+				347E03991FAC5F1D00426032 /* UIWindow+InputLanguage.swift in Sources */,
 				3404165B1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				340475701E081A4600C92850 /* MWMSettings.mm in Sources */,
 				34E50DDF1F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */,
@@ -6393,6 +6399,7 @@
 				34E776271F14FE77003040B3 /* NavigationStreetNameView.swift in Sources */,
 				34926BE71EA4C2A700DCF14C /* SearchBanners.swift in Sources */,
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
+				347E039A1FAC5F1D00426032 /* UIWindow+InputLanguage.swift in Sources */,
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
 				3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				34E50DE01F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */,
@@ -6754,6 +6761,7 @@
 				34D3B02B1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
 				34E776281F14FE77003040B3 /* NavigationStreetNameView.swift in Sources */,
 				34926BE81EA4C2A700DCF14C /* SearchBanners.swift in Sources */,
+				347E039B1FAC5F1D00426032 /* UIWindow+InputLanguage.swift in Sources */,
 				3454D7C61E07F045004AF2AD /* UIButton+Orientation.mm in Sources */,
 				3404165D1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				34E50DE11F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */,

@@ -14,6 +14,8 @@ typedef NS_ENUM(NSInteger, MWMOpenGLDriver) {
 @property(nonatomic, readonly) NSString * bundleVersion;
 @property(nonatomic, readonly) NSString * buildNumber;
 @property(nonatomic, readonly) NSUUID * advertisingId;
+@property(nonatomic, readonly) NSString * inputLanguage;
+@property(nonatomic, readonly) NSString * twoLetterInputLanguage;
 @property(nonatomic, readonly) NSString * languageId;
 @property(nonatomic, readonly) NSString * twoLetterLanguageId;
 @property(nonatomic, readonly) NSDate * buildDate;
