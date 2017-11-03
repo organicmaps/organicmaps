@@ -66,7 +66,7 @@ bool PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
 
   if (graph.IsRouteSegmentsImplemented())
   {
-    segments = graph.GetRouteSegments();
+    graph.GetRouteSegments(segments);
   }
   else
   {

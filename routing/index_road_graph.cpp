@@ -103,7 +103,10 @@ void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
   }
 }
 
-vector<Segment> const & IndexRoadGraph::GetRouteSegments() const { return m_segments; }
+void IndexRoadGraph::GetRouteSegments(std::vector<Segment> & segments) const
+{
+  segments = m_segments;
+}
 
 void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const
 {

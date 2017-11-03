@@ -308,7 +308,7 @@ void RoadGraphBase::GetRouteEdges(TEdgeVector & routeEdges) const
   NOTIMPLEMENTED()
 }
 
-vector<Segment> const & RoadGraphBase::GetRouteSegments() const
+void RoadGraphBase::GetRouteSegments(std::vector<Segment> &) const
 {
   NOTIMPLEMENTED()
 }

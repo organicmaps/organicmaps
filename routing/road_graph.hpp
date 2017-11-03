@@ -138,7 +138,7 @@ public:
   virtual bool IsRouteSegmentsImplemented() const;
 
   virtual void GetRouteEdges(TEdgeVector & routeEdges) const;
-  virtual std::vector<Segment> const & GetRouteSegments() const;
+  virtual void GetRouteSegments(std::vector<Segment> & segments) const;
 };
 
 class IRoadGraph : public RoadGraphBase

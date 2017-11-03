@@ -31,7 +31,7 @@ public:
   virtual bool IsRouteEdgesImplemented() const override;
   virtual bool IsRouteSegmentsImplemented() const override;
   virtual void GetRouteEdges(TEdgeVector & edges) const override;
-  virtual std::vector<Segment> const & GetRouteSegments() const override;
+  virtual void GetRouteSegments(std::vector<Segment> & segments) const override;
 
 private:
   void GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const;
