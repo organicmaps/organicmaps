@@ -704,7 +704,8 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
   auto const locale =
       static_cast<uint8_t>(StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()));
-  Text t{reviewModel.text.UTF8String, locale};
+  // TODO: Set the list of keyboard's locales
+  KeyboardText t{reviewModel.text.UTF8String, locale, {}};
   Ratings r;
   for (MWMUGCRatingStars * star in reviewModel.ratings)
     r.emplace_back(star.title.UTF8String, star.value);
