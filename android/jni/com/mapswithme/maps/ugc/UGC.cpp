@@ -104,7 +104,8 @@ public:
     jstring jtext = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_ratingTextFieldId));
     jstring jlocale = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_localeFieldId));
     std::string normalizedLocale = languages::Normalize(jni::ToNativeString(env, jlocale));
-    ugc::Text text(jni::ToNativeString(env, jtext), StringUtf8Multilang::GetLangIndex(normalizedLocale));
+    // TODO: Set the list of keyboard's locales
+    ugc::KeyboardText text(jni::ToNativeString(env, jtext), StringUtf8Multilang::GetLangIndex(normalizedLocale), {});
     jlong jtime = env->GetLongField(ugcUpdate, m_updateTimeFieldId);
     uint64_t timeSec = static_cast<uint64_t>(jtime / 1000);
     return ugc::UGCUpdate(records, text, std::chrono::system_clock::from_time_t(timeSec));
@@ -127,7 +128,7 @@ private:
   {
     jni::TScopedLocalObjectArrayRef ratings(env, ToJavaRatings(env, ugcUpdate.m_ratings));
     jni::TScopedLocalRef text(env, jni::ToJavaString(env, ugcUpdate.m_text.m_text));
-    std::string locale(StringUtf8Multilang::GetLangByCode(ugcUpdate.m_text.m_lang));
+    std::string locale(StringUtf8Multilang::GetLangByCode(ugcUpdate.m_text.m_deviceLang));
     jni::TScopedLocalRef localeRef(env, jni::ToJavaString(env, locale));
 
     jobject result = nullptr;
