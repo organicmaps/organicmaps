@@ -1,6 +1,6 @@
 // NOTE: the purpose of this test is to test interaction between
 // SearchAPI and search engine. If you would like to test search
-// engine behaviour, please, consider to implement one more search
+// engine behaviour, please, consider implementing another search
 // integration test.
 
 #include "testing/testing.hpp"
@@ -73,7 +73,7 @@ protected:
   SearchAPI m_api;
 };
 
-UNIT_CLASS_TEST(SearchAPITest, MultipleViewportRequests)
+UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
 {
   TestCafe cafe1(m2::PointD(0, 0), "cafe 1", "en");
   TestCafe cafe2(m2::PointD(0, 0), "cafe 2", "en");

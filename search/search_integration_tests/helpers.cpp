@@ -15,8 +15,7 @@ SearchTest::SearchTest()
   : m_scopedLog(LDEBUG)
   , m_engine(m_index, make_unique<storage::CountryInfoGetterForTesting>(), Engine::Params{})
 {
-  SetViewport(m2::RectD(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX,
-                        MercatorBounds::maxY));
+  SetViewport(MercatorBounds::FullRect());
 }
 
 void SearchTest::RegisterCountry(string const & name, m2::RectD const & rect)
@@ -91,7 +90,7 @@ size_t SearchTest::CountFeatures(m2::RectD const & rect)
 }
 
 // static
-void SearchTest::OnMwmBuilded(MwmInfo const & info)
+void SearchTest::OnMwmBuilt(MwmInfo const & info)
 {
   switch (info.GetType())
   {

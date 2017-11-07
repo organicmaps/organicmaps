@@ -49,7 +49,7 @@ public:
   size_t CountFeatures(m2::RectD const & rect);
 
 protected:
-  void OnMwmBuilded(MwmInfo const & /* info */) override;
+  void OnMwmBuilt(MwmInfo const & /* info */) override;
 
   my::ScopedLogLevelChanger m_scopedLog;
 

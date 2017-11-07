@@ -56,7 +56,7 @@ public:
     auto const id = result.first;
     auto const info = id.GetInfo();
     CHECK(info.get(), ());
-    OnMwmBuilded(*info);
+    OnMwmBuilt(*info);
     return id;
   }
 
@@ -84,7 +84,7 @@ public:
 protected:
   static void Cleanup(platform::LocalCountryFile const & file);
 
-  virtual void OnMwmBuilded(MwmInfo const & /* info */) {}
+  virtual void OnMwmBuilt(MwmInfo const & /* info */) {}
 
   Index m_index;
   std::vector<platform::LocalCountryFile> m_files;
