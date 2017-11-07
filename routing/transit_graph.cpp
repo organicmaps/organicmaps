@@ -60,15 +60,26 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment,
 
 RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const & to) const
 {
-  if (!IsEdge(from) || !IsEdge(to))
+  // We need to wait transport and apply additional penalty only if we change to transit::Edge.
+  if (!IsEdge(to))
     return RouteWeight(0 /* weight */, 0 /* nontransitCross */);
 
-  auto lineIdFrom = GetEdge(from).GetLineId();
-  auto lineIdTo = GetEdge(to).GetLineId();
+  auto const & edgeTo = GetEdge(to);
 
-  if (lineIdFrom == lineIdTo)
+  // We are changing to transfer and do not need to apply extra penalty here. We'll do it while
+  // changing from transfer.
+  if (edgeTo.GetTransfer())
     return RouteWeight(0 /* weight */, 0 /* nontransitCross */);
 
+  auto const lineIdTo = edgeTo.GetLineId();
+
+  if (IsEdge(from) && GetEdge(from).GetLineId() == lineIdTo)
+    return RouteWeight(0 /* weight */, 0 /* nontransitCross */);
+
+  // We need to apply extra penalty when:
+  // 1. |from| is gate, |to| is edge
+  // 2. |from| is transfer, |to| is edge
+  // 3. |from| is edge, |to| is edge from another line directly connected to |from|.
   auto const it = m_transferPenalties.find(lineIdTo);
   CHECK(it != m_transferPenalties.cend(), ("Segment", to, "belongs to unknown line:", lineIdTo));
   return RouteWeight(it->second, 0 /* nontransitCross */);
