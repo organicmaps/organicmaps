@@ -102,6 +102,12 @@ public:
 
   Index & GetIndex() { return m_index; }
 
+  ~MwmBuilder()
+  {
+    platform::CountryIndexes::DeleteFromDisk(m_testMwm);
+    m_testMwm.DeleteFromDisk(MapOptions::Map);
+  }
+
 private:
   MwmBuilder()
   {
