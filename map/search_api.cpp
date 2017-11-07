@@ -13,6 +13,7 @@
 
 #include "base/string_utils.hpp"
 
+#include <string>
 #include <vector>
 
 using namespace search;
@@ -91,7 +92,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
       static_cast<EverywhereSearchCallback::Delegate &>(*this),
       [this, params](Results const & results, vector<bool> const & isLocalAdsCustomer) {
         if (params.m_onResults)
-          RunUITask([params, results, isLocalAdsCustomer]() {
+          RunUITask([params, results, isLocalAdsCustomer] {
             params.m_onResults(results, isLocalAdsCustomer);
           });
       });
@@ -117,7 +118,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   p.m_hotelsFilter = params.m_hotelsFilter;
   p.m_cianMode = m_cianSearchMode;
 
-  p.m_onStarted = [this, params]() {
+  p.m_onStarted = [this, params] {
     if (params.m_onStarted)
       RunUITask([params]() { params.m_onStarted(); });
   };
@@ -126,7 +127,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
       static_cast<ViewportSearchCallback::Delegate &>(*this),
       [this, params](Results const & results) {
         if (results.IsEndMarker() && params.m_onCompleted)
-          RunUITask([params, results]() { params.m_onCompleted(results); });
+          RunUITask([params, results] { params.m_onCompleted(results); });
       });
 
   return Search(p, false /* forceSearch */);
@@ -213,29 +214,19 @@ bool SearchAPI::IsLocalAdsCustomer(Result const & result) const
 
 bool SearchAPI::Search(SearchParams const & params, bool forceSearch)
 {
-  if (m_delegate.ParseMagicSearchQuery(params))
+  if (m_delegate.ParseSearchQueryCommand(params))
     return false;
 
   auto const mode = params.m_mode;
   auto & intent = m_searchIntents[static_cast<size_t>(mode)];
 
-#ifdef FIXED_LOCATION
-  SearchParams currParams = params;
-  if (currParams.IsValidPosition())
-  {
-    // TODO (@y): fix this
-    m_fixedPos.GetLat(currParams.m_lat);
-    m_fixedPos.GetLon(rParams.m_lon);
-  }
-#else
-  SearchParams const & currParams = params;
-#endif
-
-  if (!forceSearch && QueryMayBeSkipped(intent.m_params, currParams))
+  if (!forceSearch && QueryMayBeSkipped(intent.m_params, params))
     return false;
 
-  intent.m_params = currParams;
-  // Cancels previous search request (if any) and initiates new search request.
+  intent.m_params = params;
+
+  // Cancels previous search request (if any) and initiates a new
+  // search request.
   CancelQuery(intent.m_handle);
 
   intent.m_params.m_minDistanceOnMapBetweenResults = m_delegate.GetMinDistanceBetweenResults();

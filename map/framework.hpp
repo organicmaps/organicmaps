@@ -73,7 +73,7 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-#include "boost/optional.hpp"
+#include <boost/optional.hpp>
 
 namespace osm
 {
@@ -348,7 +348,7 @@ public:
   void ShowViewportSearchResults(search::Results const & results) override;
   void ClearViewportSearchResults() override;
   boost::optional<m2::PointD> GetCurrentPosition() const override;
-  bool ParseMagicSearchQuery(search::SearchParams const & params) override;
+  bool ParseSearchQueryCommand(search::SearchParams const & params) override;
   bool IsLocalAdsCustomer(search::Result const & result) const override;
   double GetMinDistanceBetweenResults() const override;
 

@@ -14,7 +14,6 @@
 #include <cstddef>
 #include <functional>
 #include <memory>
-#include <string>
 
 #include <boost/optional.hpp>
 
@@ -41,13 +40,22 @@ public:
     virtual ~Delegate() = default;
 
     virtual void RunUITask(std::function<void()> /* fn */) {}
+
     virtual void SetSearchDisplacementModeEnabled(bool /* enabled */) {}
+
     virtual void ShowViewportSearchResults(search::Results const & /* results */) {}
+
     virtual void ClearViewportSearchResults() {}
 
     virtual boost::optional<m2::PointD> GetCurrentPosition() const { return {}; };
-    virtual bool ParseMagicSearchQuery(search::SearchParams const & /* params */) { return false; };
+
+    virtual bool ParseSearchQueryCommand(search::SearchParams const & /* params */)
+    {
+      return false;
+    };
+
     virtual double GetMinDistanceBetweenResults() const { return 0.0; };
+
     virtual bool IsLocalAdsCustomer(search::Result const & /* result */) const { return false; }
   };
 

@@ -1399,8 +1399,9 @@ void Framework::InitSearchAPI()
   ASSERT(m_infoGetter.get(), ());
   try
   {
-    m_searchAPI = make_unique<SearchAPI>(const_cast<Index &>(m_model.GetIndex()), m_storage,
-                                         *m_infoGetter, static_cast<SearchAPI::Delegate &>(*this));
+    m_searchAPI =
+        make_unique<SearchAPI>(m_model.GetIndex(), m_storage, *m_infoGetter,
+                               static_cast<SearchAPI::Delegate &>(*this));
   }
   catch (RootException const & e)
   {
@@ -3137,7 +3138,10 @@ void Framework::ShowViewportSearchResults(search::Results const & results)
   FillSearchResultsMarks(results);
 }
 
-void Framework::ClearViewportSearchResults() { ClearSearchResultsMarks(); }
+void Framework::ClearViewportSearchResults()
+{
+  ClearSearchResultsMarks();
+}
 
 boost::optional<m2::PointD> Framework::GetCurrentPosition() const
 {
@@ -3145,12 +3149,10 @@ boost::optional<m2::PointD> Framework::GetCurrentPosition() const
   MyPositionMarkPoint * myPosMark = UserMarkContainer::UserMarkForMyPostion();
   if (!myPosMark->HasPosition())
     return {};
-
-  position = myPosMark->GetPivot();
-  return position;
+  return myPosMark->GetPivot();
 }
 
-bool Framework::ParseMagicSearchQuery(search::SearchParams const & params)
+bool Framework::ParseSearchQueryCommand(search::SearchParams const & params)
 {
   if (ParseDrapeDebugCommand(params.m_query))
     return true;
