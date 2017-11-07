@@ -52,10 +52,11 @@ void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bo
   vector<SegmentEdge> fakeFromReal;
   for (auto const & edge : edges)
   {
-    for (auto const & s : transitGraph.GetFake(edge.GetTarget()))
+    auto const & edgeSegment = edge.GetTarget();
+    for (auto const & s : transitGraph.GetFake(edgeSegment))
     {
-      bool const haveSameFront = GetJunction(segment, true /* front */) == GetJunction(s, true);
-      bool const haveSameBack = GetJunction(segment, false /* front */) == GetJunction(s, false);
+      bool const haveSameFront = GetJunction(edgeSegment, true /* front */) == GetJunction(s, true);
+      bool const haveSameBack = GetJunction(edgeSegment, false /* front */) == GetJunction(s, false);
       if ((isOutgoing && haveSameBack) || (!isOutgoing && haveSameFront))
         fakeFromReal.emplace_back(s, edge.GetWeight());
     }
