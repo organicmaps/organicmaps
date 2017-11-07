@@ -11,7 +11,6 @@
 		0810EC371D6D9D2E00ABFEE7 /* displayed_categories.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0810EC351D6D9D2E00ABFEE7 /* displayed_categories.hpp */; };
 		342D83341D5233B3000D8AEA /* hotels_classifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 342D83301D5233B3000D8AEA /* hotels_classifier.cpp */; };
 		342D83351D5233B3000D8AEA /* hotels_classifier.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 342D83311D5233B3000D8AEA /* hotels_classifier.hpp */; };
-		3441CE4F1CFC1D7000CF30D4 /* processor_factory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3441CE4A1CFC1D7000CF30D4 /* processor_factory.hpp */; };
 		3441CE501CFC1D7000CF30D4 /* processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3441CE4B1CFC1D7000CF30D4 /* processor.cpp */; };
 		3441CE511CFC1D7000CF30D4 /* processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3441CE4C1CFC1D7000CF30D4 /* processor.hpp */; };
 		3441CE521CFC1D7000CF30D4 /* query_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3441CE4D1CFC1D7000CF30D4 /* query_params.cpp */; };
@@ -200,7 +199,6 @@
 		0810EC351D6D9D2E00ABFEE7 /* displayed_categories.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = displayed_categories.hpp; sourceTree = "<group>"; };
 		342D83301D5233B3000D8AEA /* hotels_classifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hotels_classifier.cpp; sourceTree = "<group>"; };
 		342D83311D5233B3000D8AEA /* hotels_classifier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hotels_classifier.hpp; sourceTree = "<group>"; };
-		3441CE4A1CFC1D7000CF30D4 /* processor_factory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = processor_factory.hpp; sourceTree = "<group>"; };
 		3441CE4B1CFC1D7000CF30D4 /* processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = processor.cpp; sourceTree = "<group>"; };
 		3441CE4C1CFC1D7000CF30D4 /* processor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = processor.hpp; sourceTree = "<group>"; };
 		3441CE4D1CFC1D7000CF30D4 /* query_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = query_params.cpp; sourceTree = "<group>"; };
@@ -595,7 +593,6 @@
 				F659FC6C1CF4A30B000A06B1 /* pre_ranker.hpp */,
 				F652D8DB1CFDE21900FC29A0 /* pre_ranking_info.cpp */,
 				F652D8DC1CFDE21900FC29A0 /* pre_ranking_info.hpp */,
-				3441CE4A1CFC1D7000CF30D4 /* processor_factory.hpp */,
 				3441CE4B1CFC1D7000CF30D4 /* processor.cpp */,
 				3441CE4C1CFC1D7000CF30D4 /* processor.hpp */,
 				347F33051C4540A8009758CC /* projection_on_street.cpp */,
@@ -699,7 +696,6 @@
 				39BBC13C1F9FD65C009D1687 /* highlighting.hpp in Headers */,
 				347F33161C4540A8009758CC /* cancel_exception.hpp in Headers */,
 				342D83351D5233B3000D8AEA /* hotels_classifier.hpp in Headers */,
-				3441CE4F1CFC1D7000CF30D4 /* processor_factory.hpp in Headers */,
 				675346DE1A40560D00A0A8C3 /* approximate_string_match.hpp in Headers */,
 				3465B2831D5DE71A0021E14D /* search_params.hpp in Headers */,
 				3461C9A21D79949600E6E6F5 /* categories_set.hpp in Headers */,

@@ -7,6 +7,7 @@
 
 #include "Framework.h"
 
+#include "storage/country_info_getter.hpp"
 #include "storage/storage_helpers.hpp"
 
 namespace

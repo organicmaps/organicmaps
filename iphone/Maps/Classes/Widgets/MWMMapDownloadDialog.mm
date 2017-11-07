@@ -15,6 +15,8 @@
 
 #include "Framework.h"
 
+#include "storage/country_info_getter.hpp"
+
 #include "platform/local_country_file_utils.hpp"
 
 namespace
