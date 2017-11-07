@@ -36,7 +36,7 @@ public:
 
   void Fill(std::vector<transit::Stop> const & stops, std::vector<transit::Edge> const & edges,
             std::vector<transit::Line> const & lines, std::vector<transit::Gate> const & gates,
-            std::map<transit::FeatureIdentifiers, FakeEnding> const & gateEndings);
+            std::map<transit::OsmId, FakeEnding> const & gateEndings);
 
   bool IsGate(Segment const & segment) const;
   bool IsEdge(Segment const & segment) const;
@@ -44,22 +44,24 @@ public:
   transit::Edge const & GetEdge(Segment const & segment) const;
 
 private:
+  using StopToSegmentsMap = std::map<transit::StopId, std::set<Segment>>;
+
   Segment GetTransitSegment(uint32_t segmentIdx) const;
   Segment GetNewTransitSegment() const;
 
+  // Adds gate to fake graph. Also adds gate to temporary stopToBack, stopToFront maps used while
+  // TransitGraph::Fill.
   void AddGate(transit::Gate const & gate, FakeEnding const & ending,
                std::map<transit::StopId, Junction> const & stopCoords, bool isEnter,
-               std::map<transit::StopId, std::set<Segment>> & stopToBack,
-               std::map<transit::StopId, std::set<Segment>> & stopToFront);
-  // Adds transit edge to fake graph, returns corresponding transit segment.
+               StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
+  // Adds transit edge to fake graph, returns corresponding transit segment. Also adds gate to
+  // temporary stopToBack, stopToFront maps used while TransitGraph::Fill.
   Segment AddEdge(transit::Edge const & edge,
                   std::map<transit::StopId, Junction> const & stopCoords,
-                  std::map<transit::StopId, std::set<Segment>> & stopToBack,
-                  std::map<transit::StopId, std::set<Segment>> & stopToFront);
-  void AddConnections(std::map<transit::StopId, std::set<Segment>> const & connections,
-                      std::map<transit::StopId, std::set<Segment>> const & stopToBack,
-                      std::map<transit::StopId, std::set<Segment>> const & stopToFront,
-                      bool isOutgoing);
+                  StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
+  // Adds connections to fake graph.
+  void AddConnections(StopToSegmentsMap const & connections, StopToSegmentsMap const & stopToBack,
+                      StopToSegmentsMap const & stopToFront, bool isOutgoing);
 
   static uint32_t constexpr kTransitFeatureId = FakeFeatureIds::kTransitGraphId;
   NumMwmId const m_mwmId = kFakeNumMwmId;

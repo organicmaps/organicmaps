@@ -99,7 +99,7 @@ bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
 
 void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edge> const & edges,
                         vector<transit::Line> const & lines, vector<transit::Gate> const & gates,
-                        map<transit::FeatureIdentifiers, FakeEnding> const & gateEndings)
+                        map<transit::OsmId, FakeEnding> const & gateEndings)
 {
   // Line has information about transit interval. Average time to wait transport for particular line
   // is half of this line interval.
@@ -110,14 +110,14 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edg
   for (auto const & stop : stops)
     stopCoords[stop.GetId()] = Junction(stop.GetPoint(), feature::kDefaultAltitudeMeters);
 
-  map<transit::StopId, set<Segment>> stopToBack;
-  map<transit::StopId, set<Segment>> stopToFront;
+  StopToSegmentsMap stopToBack;
+  StopToSegmentsMap stopToFront;
   for (auto const & gate : gates)
   {
     CHECK_NOT_EQUAL(gate.GetWeight(), transit::kInvalidWeight, ("Gate should have valid weight."));
 
     // Gate ending may have empty projections vector. It means gate is not connected to roads
-    auto const it = gateEndings.find(gate.GetFeatureIdentifiers());
+    auto const it = gateEndings.find(gate.GetOsmId());
     if (it != gateEndings.cend())
     {
       if (gate.GetEntrance())
@@ -127,8 +127,8 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edg
     }
   }
 
-  map<transit::StopId, set<Segment>> outgoing;
-  map<transit::StopId, set<Segment>> ingoing;
+  StopToSegmentsMap outgoing;
+  StopToSegmentsMap ingoing;
   for (auto const & edge : edges)
   {
     CHECK_NOT_EQUAL(edge.GetWeight(), transit::kInvalidWeight, ("Edge should have valid weight."));
@@ -178,8 +178,7 @@ Segment TransitGraph::GetNewTransitSegment() const
 
 void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending,
                            map<transit::StopId, Junction> const & stopCoords, bool isEnter,
-                           map<transit::StopId, set<Segment>> & stopToBack,
-                           map<transit::StopId, set<Segment>> & stopToFront)
+                           StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
   Segment const dummy = Segment();
   for (auto const & projection : ending.m_projections)
@@ -232,8 +231,7 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
 
 Segment TransitGraph::AddEdge(transit::Edge const & edge,
                               map<transit::StopId, Junction> const & stopCoords,
-                              map<transit::StopId, set<Segment>> & stopToBack,
-                              map<transit::StopId, set<Segment>> & stopToFront)
+                              StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
   auto const edgeSegment = GetNewTransitSegment();
   auto const stopFromId = edge.GetStop1Id();
@@ -247,10 +245,9 @@ Segment TransitGraph::AddEdge(transit::Edge const & edge,
   return edgeSegment;
 }
 
-void TransitGraph::AddConnections(map<transit::StopId, set<Segment>> const & connections,
-                                  map<transit::StopId, set<Segment>> const & stopToBack,
-                                  map<transit::StopId, set<Segment>> const & stopToFront,
-                                  bool isOutgoing)
+void TransitGraph::AddConnections(StopToSegmentsMap const & connections,
+                                  StopToSegmentsMap const & stopToBack,
+                                  StopToSegmentsMap const & stopToFront, bool isOutgoing)
 {
   for (auto const & connection : connections)
   {

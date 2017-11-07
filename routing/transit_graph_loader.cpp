@@ -82,15 +82,15 @@ unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId numMwmI
     vector<transit::Line> lines;
     deserializer(lines);
 
-    map<transit::FeatureIdentifiers, FakeEnding> gateEndings;
+    map<transit::OsmId, FakeEnding> gateEndings;
     for (auto const & gate : gates)
     {
       auto const & gateSegment = gate.GetBestPedestrianSegment();
       if (gateSegment.IsValid())
       {
-        Segment real(numMwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(),
-                     gateSegment.GetForward());
-        gateEndings.emplace(gate.GetFeatureIdentifiers(),
+        Segment const real(numMwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(),
+                           gateSegment.GetForward());
+        gateEndings.emplace(gate.GetOsmId(),
                             MakeFakeEnding(real, gate.GetPoint(), *m_estimator, indexGraph));
       }
     }
