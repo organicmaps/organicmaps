@@ -5,6 +5,7 @@
 #include "routing_common/transit_types.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/region2d.hpp"
 
 #include "base/macros.hpp"
 
@@ -114,8 +115,13 @@ public:
   void Clear();
   bool IsValid() const;
 
-  /// \brief Sorts all class fields except for |m_edges| by their ids.
+  /// \brief Sorts all class fields by their ids.
   void Sort();
+  /// \brief Removes some items from all the class fields if they are outside |borders|.
+  /// Please see description for the other Crip*() method for excact rules of clipping.
+  /// \note Before call of the method every line in |m_stopIds| should contain |m_stopIds|
+  /// with only one stop range.
+  void ClipGraph(std::vector<m2::RegionD> const & borders);
   /// \brief Calculates and updates |m_edges| by adding valid value for Edge::m_weight
   /// if it's not valid.
   /// \note |m_stops|, Edge::m_stop1Id and Edge::m_stop2Id in |m_edges| must be valid before call.
@@ -140,6 +146,30 @@ private:
 
   bool IsUnique() const;
   bool IsSorted() const;
+
+  /// \brief Clipping |m_lines| with |borders|.
+  /// \details After a call of the method the following stop ids in |m_lines| are left:
+  /// * stops inside |borders|
+  /// * stops which are connected with an edge from |m_edges| with stops inside |borders|
+  /// \note Lines without stops are removed from |m_lines|.
+  /// \note Before call of the method every line in |m_lines| should contain |m_stopIds|
+  /// with only one stop range.
+  void ClipLines(std::vector<m2::RegionD> const & borders);
+  /// \brief Removes all stops from |m_stops| which are not contained in |m_lines| at field |m_stopIds|.
+  /// \note Only stops which stop ids contained in |m_lines| will left in |m_stops|
+  /// after call of this method.
+  void ClipStops();
+  /// \brief Removes all networks from |m_networks| which are not contained in |m_lines|
+  /// at field |m_networkId|.
+  void ClipNetworks();
+  /// \brief Removes gates from |m_gates| if there's no stop in |m_stops| with their stop ids.
+  void ClipGates();
+  /// \brief Removes transfers from |m_transfers| if there's no stop in |m_stops| with their stop ids.
+  void ClipTransfer();
+  /// \brief Removes edges from |m_edges| if their ends are not contained in |m_stops|.
+  void ClipEdges();
+  /// \brief Removes all shapes from |m_shapes| which are not reffered form |m_edges|.
+  void ClipShapes();
 
   std::vector<Stop> m_stops;
   std::vector<Gate> m_gates;

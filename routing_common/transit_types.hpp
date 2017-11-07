@@ -137,6 +137,7 @@ public:
   Stop(StopId id, OsmId osmId, FeatureId featureId, TransferId transferId,
        std::vector<LineId> const & lineIds, m2::PointD const & point,
        std::vector<TitleAnchor> const & titleAnchors);
+  explicit Stop(StopId id) : m_id(id), m_featureIdentifiers(true /* serializeFeatureIdOnly */) {}
 
   bool operator<(Stop const & rhs) const { return m_id < rhs.m_id; }
   bool operator==(Stop const & rhs) const { return m_id == rhs.m_id; }
@@ -401,6 +402,7 @@ class Network
 public:
   Network() = default;
   Network(NetworkId id, std::string const & title);
+  explicit Network(NetworkId id) : m_id(id), m_title("") {}
 
   bool operator<(Network const & rhs) const { return m_id < rhs.m_id; }
   bool operator==(Network const & rhs) const { return m_id == rhs.m_id; }
