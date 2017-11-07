@@ -39,15 +39,6 @@
 		340474F31E08199D00C92850 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DD1E08199D00C92850 /* Fabric.framework */; };
 		340474F41E08199D00C92850 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DD1E08199D00C92850 /* Fabric.framework */; };
 		340474F51E08199D00C92850 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DD1E08199D00C92850 /* Fabric.framework */; };
-		340474F61E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DE1E08199D00C92850 /* FBSDKCoreKit.framework */; };
-		340474F71E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DE1E08199D00C92850 /* FBSDKCoreKit.framework */; };
-		340474F81E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DE1E08199D00C92850 /* FBSDKCoreKit.framework */; };
-		340474F91E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DF1E08199D00C92850 /* FBSDKLoginKit.framework */; };
-		340474FA1E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DF1E08199D00C92850 /* FBSDKLoginKit.framework */; };
-		340474FB1E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DF1E08199D00C92850 /* FBSDKLoginKit.framework */; };
-		340474FC1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474E01E08199D00C92850 /* FBSDKShareKit.framework */; };
-		340474FD1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474E01E08199D00C92850 /* FBSDKShareKit.framework */; };
-		340474FE1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474E01E08199D00C92850 /* FBSDKShareKit.framework */; };
 		340474FF1E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474E41E08199D00C92850 /* libFlurry_7.8.2.a */; };
 		340475001E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474E41E08199D00C92850 /* libFlurry_7.8.2.a */; };
 		340475011E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474E41E08199D00C92850 /* libFlurry_7.8.2.a */; };
@@ -226,9 +217,6 @@
 		343064401E9FDC7300DC7665 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430643F1E9FDC7300DC7665 /* SearchIndex.swift */; };
 		343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430643F1E9FDC7300DC7665 /* SearchIndex.swift */; };
 		343064421E9FDC7300DC7665 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430643F1E9FDC7300DC7665 /* SearchIndex.swift */; };
-		3432E1781E49B3A2008477E9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E1771E49B3A2008477E9 /* Bolts.framework */; };
-		3432E1791E49B3A2008477E9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E1771E49B3A2008477E9 /* Bolts.framework */; };
-		3432E17A1E49B3A2008477E9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E1771E49B3A2008477E9 /* Bolts.framework */; };
 		343E75971E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		343E75981E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		343E75991E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
@@ -348,6 +336,30 @@
 		3463BA681DE81DB90082417F /* MWMTrafficButtonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3463BA651DE81DB90082417F /* MWMTrafficButtonViewController.xib */; };
 		3463BA691DE81DB90082417F /* MWMTrafficButtonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3463BA651DE81DB90082417F /* MWMTrafficButtonViewController.xib */; };
 		3465E7D81B6658C000854C4D /* MWMAPIBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3465E7D71B6658C000854C4D /* MWMAPIBar.mm */; };
+		3466A2C01FB1C734005494D3 /* AppsFlyerTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2BF1FB1C733005494D3 /* AppsFlyerTracker.framework */; };
+		3466A2C11FB1C734005494D3 /* AppsFlyerTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2BF1FB1C733005494D3 /* AppsFlyerTracker.framework */; };
+		3466A2C21FB1C734005494D3 /* AppsFlyerTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2BF1FB1C733005494D3 /* AppsFlyerTracker.framework */; };
+		3466A2CA1FB1C83B005494D3 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C31FB1C83A005494D3 /* FBSDKCoreKit.framework */; };
+		3466A2CB1FB1C83B005494D3 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C31FB1C83A005494D3 /* FBSDKCoreKit.framework */; };
+		3466A2CC1FB1C83B005494D3 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C31FB1C83A005494D3 /* FBSDKCoreKit.framework */; };
+		3466A2CD1FB1C83B005494D3 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C41FB1C83A005494D3 /* FBSDKLoginKit.framework */; };
+		3466A2CE1FB1C83B005494D3 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C41FB1C83A005494D3 /* FBSDKLoginKit.framework */; };
+		3466A2CF1FB1C83B005494D3 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C41FB1C83A005494D3 /* FBSDKLoginKit.framework */; };
+		3466A2D01FB1C83B005494D3 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C51FB1C83A005494D3 /* FBSDKShareKit.framework */; };
+		3466A2D11FB1C83B005494D3 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C51FB1C83A005494D3 /* FBSDKShareKit.framework */; };
+		3466A2D21FB1C83B005494D3 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C51FB1C83A005494D3 /* FBSDKShareKit.framework */; };
+		3466A2D31FB1C83B005494D3 /* FacebookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C61FB1C83A005494D3 /* FacebookShare.framework */; };
+		3466A2D41FB1C83C005494D3 /* FacebookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C61FB1C83A005494D3 /* FacebookShare.framework */; };
+		3466A2D51FB1C83C005494D3 /* FacebookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C61FB1C83A005494D3 /* FacebookShare.framework */; };
+		3466A2D61FB1C83C005494D3 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C71FB1C83B005494D3 /* Bolts.framework */; };
+		3466A2D71FB1C83C005494D3 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C71FB1C83B005494D3 /* Bolts.framework */; };
+		3466A2D81FB1C83C005494D3 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C71FB1C83B005494D3 /* Bolts.framework */; };
+		3466A2D91FB1C83C005494D3 /* FacebookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C81FB1C83B005494D3 /* FacebookCore.framework */; };
+		3466A2DA1FB1C83C005494D3 /* FacebookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C81FB1C83B005494D3 /* FacebookCore.framework */; };
+		3466A2DB1FB1C83C005494D3 /* FacebookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C81FB1C83B005494D3 /* FacebookCore.framework */; };
+		3466A2DC1FB1C83C005494D3 /* FacebookLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C91FB1C83B005494D3 /* FacebookLogin.framework */; };
+		3466A2DD1FB1C83C005494D3 /* FacebookLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C91FB1C83B005494D3 /* FacebookLogin.framework */; };
+		3466A2DE1FB1C83C005494D3 /* FacebookLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3466A2C91FB1C83B005494D3 /* FacebookLogin.framework */; };
 		346B42AB1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 346B42AA1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm */; };
 		346B42AC1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 346B42AA1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm */; };
 		346DB8271E5C4F6700E3123E /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB81E1E5C4F6700E3123E /* GalleryCell.swift */; };
@@ -840,9 +852,6 @@
 		4554B6ED1E55F0F00084017F /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */; };
 		4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
 		4554B6EF1E55F0F40084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
-		456E1B1D1F94D6DC009C32E1 /* AppsFlyerLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456E1B1C1F94D6DB009C32E1 /* AppsFlyerLib.framework */; };
-		456E1B1E1F94D704009C32E1 /* AppsFlyerLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456E1B1C1F94D6DB009C32E1 /* AppsFlyerLib.framework */; };
-		456E1B1F1F94D718009C32E1 /* AppsFlyerLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456E1B1C1F94D6DB009C32E1 /* AppsFlyerLib.framework */; };
 		4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0C31F48121A00DF9CE5 /* libbsdiff.a */; };
 		4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */; };
 		45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD65C1E965EBE00DB854E /* liblocal_ads.a */; };
@@ -1852,9 +1861,6 @@
 		3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosInteractionAnimator.swift; sourceTree = "<group>"; };
 		340474DC1E08199D00C92850 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		340474DD1E08199D00C92850 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		340474DE1E08199D00C92850 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		340474DF1E08199D00C92850 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
-		340474E01E08199D00C92850 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		340474E21E08199D00C92850 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		340474E31E08199D00C92850 /* FlurrySessionBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurrySessionBuilder.h; sourceTree = "<group>"; };
 		340474E41E08199D00C92850 /* libFlurry_7.8.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.8.2.a; sourceTree = "<group>"; };
@@ -1970,7 +1976,6 @@
 		3430291A1F87BC3000D0A07C /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		3430291B1F87BC3000D0A07C /* ReviewsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsViewController.xib; sourceTree = "<group>"; };
 		3430643F1E9FDC7300DC7665 /* SearchIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchIndex.swift; sourceTree = "<group>"; };
-		3432E1771E49B3A2008477E9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		343E75951E5B1EE20041226A /* MWMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCollectionViewController.h; sourceTree = "<group>"; };
 		343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCollectionViewController.mm; sourceTree = "<group>"; };
 		3444DFCB1F1760B900E73099 /* WidgetsArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetsArea.swift; sourceTree = "<group>"; };
@@ -2034,6 +2039,14 @@
 		3463BA651DE81DB90082417F /* MWMTrafficButtonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMTrafficButtonViewController.xib; sourceTree = "<group>"; };
 		3465E7D61B6658C000854C4D /* MWMAPIBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAPIBar.h; sourceTree = "<group>"; };
 		3465E7D71B6658C000854C4D /* MWMAPIBar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAPIBar.mm; sourceTree = "<group>"; };
+		3466A2BF1FB1C733005494D3 /* AppsFlyerTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppsFlyerTracker.framework; path = Carthage/Build/iOS/AppsFlyerTracker.framework; sourceTree = "<group>"; };
+		3466A2C31FB1C83A005494D3 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Carthage/Build/iOS/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		3466A2C41FB1C83A005494D3 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = Carthage/Build/iOS/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		3466A2C51FB1C83A005494D3 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = Carthage/Build/iOS/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		3466A2C61FB1C83A005494D3 /* FacebookShare.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookShare.framework; path = Carthage/Build/iOS/FacebookShare.framework; sourceTree = "<group>"; };
+		3466A2C71FB1C83B005494D3 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Carthage/Build/iOS/Bolts.framework; sourceTree = "<group>"; };
+		3466A2C81FB1C83B005494D3 /* FacebookCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookCore.framework; path = Carthage/Build/iOS/FacebookCore.framework; sourceTree = "<group>"; };
+		3466A2C91FB1C83B005494D3 /* FacebookLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookLogin.framework; path = Carthage/Build/iOS/FacebookLogin.framework; sourceTree = "<group>"; };
 		346B42A91DD5E3D20094EBEE /* MWMLocationNotFoundAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationNotFoundAlert.h; sourceTree = "<group>"; };
 		346B42AA1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLocationNotFoundAlert.mm; sourceTree = "<group>"; };
 		346B42AD1DD5E5450094EBEE /* MWMDefaultAlert_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDefaultAlert_Protected.h; sourceTree = "<group>"; };
@@ -2346,7 +2359,6 @@
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
 		4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_clear.bin; path = ../../data/drules_proto_vehicle_clear.bin; sourceTree = "<group>"; };
 		4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_dark.bin; path = ../../data/drules_proto_vehicle_dark.bin; sourceTree = "<group>"; };
-		456E1B1C1F94D6DB009C32E1 /* AppsFlyerLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppsFlyerLib.framework; path = 3party/AppsFlyerLib.framework; sourceTree = "<group>"; };
 		458287C21AD3BE2000BA8940 /* DownloadIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadIndicatorProtocol.h; sourceTree = "<group>"; };
 		4586D0C31F48121A00DF9CE5 /* libbsdiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbsdiff.a; path = ../../xcode/bsdiff/build/Debug/libbsdiff.a; sourceTree = "<group>"; };
 		4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmwm_diff.a; path = ../../xcode/mwm_diff/build/Debug/libmwm_diff.a; sourceTree = "<group>"; };
@@ -2796,34 +2808,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				456E1B1D1F94D6DC009C32E1 /* AppsFlyerLib.framework in Frameworks */,
+				3466A2D31FB1C83B005494D3 /* FacebookShare.framework in Frameworks */,
 				F68BDF051EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
 				341CF15E1E9E2AA9009AC928 /* libMopub.a in Frameworks */,
 				3411E7631F7CE5DD00A49FCD /* GoogleMobileAds.framework in Frameworks */,
+				3466A2C01FB1C734005494D3 /* AppsFlyerTracker.framework in Frameworks */,
 				344D63171E795A2D006F17CB /* SystemConfiguration.framework in Frameworks */,
 				67B78B4B1E422E2E0018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B4D1E422E2E0018E590 /* CoreData.framework in Frameworks */,
-				340474FC1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
 				34D808801E79361E002F0584 /* Alamofire.framework in Frameworks */,
-				340474F91E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				67B78B491E422E2E0018E590 /* iAd.framework in Frameworks */,
 				34D808871E793FA3002F0584 /* Pushwoosh.framework in Frameworks */,
-				340474F61E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
 				3488B03C1E9D14060068AFD8 /* UserNotifications.framework in Frameworks */,
 				340474F01E08199D00C92850 /* Crashlytics.framework in Frameworks */,
 				34570A3B1B13222600E6D4FD /* libz.dylib in Frameworks */,
 				34D8087E1E79361A002F0584 /* AlamofireImage.framework in Frameworks */,
 				345E8F501F83985500A826CC /* GoogleSignIn.framework in Frameworks */,
+				3466A2D91FB1C83C005494D3 /* FacebookCore.framework in Frameworks */,
 				340474FF1E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */,
 				67B78B4A1E422E2E0018E590 /* MessageUI.framework in Frameworks */,
 				3404750E1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
 				67B78B481E422E2E0018E590 /* MobileCoreServices.framework in Frameworks */,
 				34F4098B1E9E221700E57AC0 /* FBAudienceNetwork.framework in Frameworks */,
 				345E8F511F83985500A826CC /* GoogleSignInDependencies.framework in Frameworks */,
+				3466A2D01FB1C83B005494D3 /* FBSDKShareKit.framework in Frameworks */,
 				67B78B561E4233480018E590 /* AdSupport.framework in Frameworks */,
-				3432E1781E49B3A2008477E9 /* Bolts.framework in Frameworks */,
+				3466A2CA1FB1C83B005494D3 /* FBSDKCoreKit.framework in Frameworks */,
+				3466A2D61FB1C83C005494D3 /* Bolts.framework in Frameworks */,
 				340474F31E08199D00C92850 /* Fabric.framework in Frameworks */,
 				34E6F2DC1F459C1A008E14F9 /* GLKit.framework in Frameworks */,
+				3466A2CD1FB1C83B005494D3 /* FBSDKLoginKit.framework in Frameworks */,
+				3466A2DC1FB1C83C005494D3 /* FacebookLogin.framework in Frameworks */,
 				67B78B4C1E422E2E0018E590 /* SafariServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2832,7 +2847,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				456E1B1E1F94D704009C32E1 /* AppsFlyerLib.framework in Frameworks */,
 				345E8F4E1F83984500A826CC /* GoogleSignIn.framework in Frameworks */,
 				345E8F4F1F83984500A826CC /* GoogleSignInDependencies.framework in Frameworks */,
 				4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */,
@@ -2849,6 +2863,7 @@
 				34F4098C1E9E221700E57AC0 /* FBAudienceNetwork.framework in Frameworks */,
 				34D8087D1E79360D002F0584 /* AlamofireImage.framework in Frameworks */,
 				67B78B551E42333C0018E590 /* AdSupport.framework in Frameworks */,
+				3466A2DA1FB1C83C005494D3 /* FacebookCore.framework in Frameworks */,
 				67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */,
 				67B78B451E422C970018E590 /* iAd.framework in Frameworks */,
 				67B78B431E422C620018E590 /* MessageUI.framework in Frameworks */,
@@ -2858,23 +2873,24 @@
 				344D63181E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */,
 				3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */,
 				34201E0C1DC0E33100D24118 /* libtracking.a in Frameworks */,
+				3466A2CB1FB1C83B005494D3 /* FBSDKCoreKit.framework in Frameworks */,
 				341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */,
 				3411387D1C15AE73002E3B3E /* libeditor.a in Frameworks */,
 				6741AABD1BF356BA002C974C /* libagg.a in Frameworks */,
-				340474FA1E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */,
 				340475001E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */,
 				6741AAC01BF356BA002C974C /* libapi.a in Frameworks */,
 				6741AAC11BF356BA002C974C /* libbase.a in Frameworks */,
 				F68BDF061EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
 				6741AAC21BF356BA002C974C /* libcoding.a in Frameworks */,
+				3466A2D11FB1C83B005494D3 /* FBSDKShareKit.framework in Frameworks */,
 				6741AAC31BF356BA002C974C /* libexpat.a in Frameworks */,
 				6741AAC41BF356BA002C974C /* libfreetype.a in Frameworks */,
+				3466A2CE1FB1C83B005494D3 /* FBSDKLoginKit.framework in Frameworks */,
 				340474F41E08199D00C92850 /* Fabric.framework in Frameworks */,
 				6741AAC61BF356BA002C974C /* libgeometry.a in Frameworks */,
 				674A7E291C0DA576003D48E1 /* libsdf_image.a in Frameworks */,
 				6741AAC91BF356BA002C974C /* libindexer.a in Frameworks */,
-				3432E1791E49B3A2008477E9 /* Bolts.framework in Frameworks */,
 				6741AACA1BF356BA002C974C /* libjansson.a in Frameworks */,
 				340474F11E08199D00C92850 /* Crashlytics.framework in Frameworks */,
 				6741AACC1BF356BA002C974C /* libmap.a in Frameworks */,
@@ -2885,17 +2901,19 @@
 				6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */,
 				3404750F1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
 				6741AAD11BF356BA002C974C /* libprotobuf.a in Frameworks */,
+				3466A2D71FB1C83C005494D3 /* Bolts.framework in Frameworks */,
 				6741AAD31BF356BA002C974C /* librouting.a in Frameworks */,
 				674A7E281C0DA573003D48E1 /* libstb_image.a in Frameworks */,
 				6741AAD41BF356BA002C974C /* libsearch.a in Frameworks */,
 				6741AAD51BF356BA002C974C /* libstorage.a in Frameworks */,
 				6741AAD61BF356BA002C974C /* libsuccinct.a in Frameworks */,
+				3466A2D41FB1C83C005494D3 /* FacebookShare.framework in Frameworks */,
+				3466A2C11FB1C734005494D3 /* AppsFlyerTracker.framework in Frameworks */,
 				6741AA361BF340DE002C974C /* libz.dylib in Frameworks */,
 				674A7E2B1C0DA57C003D48E1 /* libdrape_frontend.a in Frameworks */,
-				340474F71E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
 				3411E7641F7CE5DF00A49FCD /* GoogleMobileAds.framework in Frameworks */,
 				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
-				340474FD1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
+				3466A2DD1FB1C83C005494D3 /* FacebookLogin.framework in Frameworks */,
 				34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2904,34 +2922,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				456E1B1F1F94D718009C32E1 /* AppsFlyerLib.framework in Frameworks */,
+				3466A2D51FB1C83C005494D3 /* FacebookShare.framework in Frameworks */,
 				F68BDF071EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
 				341CF15F1E9E2ADC009AC928 /* libMopub.a in Frameworks */,
 				3411E7651F7CE5E000A49FCD /* GoogleMobileAds.framework in Frameworks */,
+				3466A2C21FB1C734005494D3 /* AppsFlyerTracker.framework in Frameworks */,
 				67B78B511E422E300018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B531E422E300018E590 /* CoreData.framework in Frameworks */,
-				340474FE1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
 				34D808811E79361E002F0584 /* Alamofire.framework in Frameworks */,
-				340474FB1E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				67B78B4F1E422E300018E590 /* iAd.framework in Frameworks */,
 				344D63191E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */,
 				34D808881E793FA4002F0584 /* Pushwoosh.framework in Frameworks */,
-				340474F81E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
 				3488B03D1E9D14070068AFD8 /* UserNotifications.framework in Frameworks */,
 				340474F21E08199D00C92850 /* Crashlytics.framework in Frameworks */,
 				849CF7861DE842290024A8A5 /* libz.dylib in Frameworks */,
 				34D8087F1E79361B002F0584 /* AlamofireImage.framework in Frameworks */,
 				345E8F521F83985600A826CC /* GoogleSignIn.framework in Frameworks */,
+				3466A2DB1FB1C83C005494D3 /* FacebookCore.framework in Frameworks */,
 				340475011E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */,
 				67B78B501E422E300018E590 /* MessageUI.framework in Frameworks */,
 				340475101E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
 				67B78B4E1E422E300018E590 /* MobileCoreServices.framework in Frameworks */,
 				34F4098D1E9E221700E57AC0 /* FBAudienceNetwork.framework in Frameworks */,
 				345E8F531F83985600A826CC /* GoogleSignInDependencies.framework in Frameworks */,
+				3466A2D21FB1C83B005494D3 /* FBSDKShareKit.framework in Frameworks */,
 				67B78B571E42334A0018E590 /* AdSupport.framework in Frameworks */,
-				3432E17A1E49B3A2008477E9 /* Bolts.framework in Frameworks */,
+				3466A2CC1FB1C83B005494D3 /* FBSDKCoreKit.framework in Frameworks */,
+				3466A2D81FB1C83C005494D3 /* Bolts.framework in Frameworks */,
 				340474F51E08199D00C92850 /* Fabric.framework in Frameworks */,
 				34E6F2DD1F459C1A008E14F9 /* GLKit.framework in Frameworks */,
+				3466A2CF1FB1C83B005494D3 /* FBSDKLoginKit.framework in Frameworks */,
+				3466A2DE1FB1C83C005494D3 /* FacebookLogin.framework in Frameworks */,
 				67B78B521E422E300018E590 /* SafariServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3028,7 +3049,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				456E1B1C1F94D6DB009C32E1 /* AppsFlyerLib.framework */,
 				4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */,
 				4586D0C31F48121A00DF9CE5 /* libbsdiff.a */,
 				F6F8E3C41EF8469700F2DE8F /* libugc.a */,
@@ -3089,13 +3109,17 @@
 			children = (
 				34D8087A1E793606002F0584 /* Alamofire.framework */,
 				34D8087C1E79360D002F0584 /* AlamofireImage.framework */,
-				3432E1771E49B3A2008477E9 /* Bolts.framework */,
+				3466A2BF1FB1C733005494D3 /* AppsFlyerTracker.framework */,
+				3466A2C71FB1C83B005494D3 /* Bolts.framework */,
 				340474DC1E08199D00C92850 /* Crashlytics.framework */,
 				340474DD1E08199D00C92850 /* Fabric.framework */,
+				3466A2C81FB1C83B005494D3 /* FacebookCore.framework */,
+				3466A2C91FB1C83B005494D3 /* FacebookLogin.framework */,
+				3466A2C61FB1C83A005494D3 /* FacebookShare.framework */,
 				34F4098A1E9E221700E57AC0 /* FBAudienceNetwork.framework */,
-				340474DE1E08199D00C92850 /* FBSDKCoreKit.framework */,
-				340474DF1E08199D00C92850 /* FBSDKLoginKit.framework */,
-				340474E01E08199D00C92850 /* FBSDKShareKit.framework */,
+				3466A2C31FB1C83A005494D3 /* FBSDKCoreKit.framework */,
+				3466A2C41FB1C83A005494D3 /* FBSDKLoginKit.framework */,
+				3466A2C51FB1C83A005494D3 /* FBSDKShareKit.framework */,
 				340474E11E08199D00C92850 /* Flurry */,
 				3411E7621F7CE5DC00A49FCD /* GoogleMobileAds.framework */,
 				347D15C71F82362900E86251 /* GoogleSignIn.framework */,
@@ -5646,6 +5670,14 @@
 				"$(SRCROOT)/3party/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/AlamofireImage.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/Pushwoosh.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookCore.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKCoreKit.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/Bolts.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookLogin.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookShare.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKLoginKit.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKShareKit.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/AppsFlyerTracker.framework",
 			);
 			outputPaths = (
 			);
