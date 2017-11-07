@@ -101,8 +101,9 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edg
                         vector<transit::Line> const & lines, vector<transit::Gate> const & gates,
                         map<transit::OsmId, FakeEnding> const & gateEndings)
 {
-  // Line has information about transit interval. Average time to wait transport for particular line
-  // is half of this line interval.
+  // Line has information about transit interval.
+  // We assume arrival time has uniform distribution with min value |0| and max value |line.GetInterval()|.
+  // Expected value of time to wait transport for particular line is |line.GetInterval() / 2|.
   for (auto const & line : lines)
     m_transferPenalties[line.GetId()] = line.GetInterval() / 2;
 
