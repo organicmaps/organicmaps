@@ -13,7 +13,10 @@
 
 #include "indexer/scales.hpp"
 
+#include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
+#include "coding/zip_reader.hpp"
 
 #include "geometry/transformations.hpp"
 
@@ -28,6 +31,7 @@ namespace
 {
 char const * BOOKMARK_CATEGORY = "LastBookmarkCategory";
 char const * BOOKMARK_TYPE = "LastBookmarkType";
+char const * KMZ_EXTENSION = ".kmz";
 
 using SearchUserMarkContainer = SpecifiedUserMarkContainer<SearchMarkPoint, UserMark::Type::SEARCH>;
 using ApiUserMarkContainer = SpecifiedUserMarkContainer<ApiMarkPoint, UserMark::Type::API>;
@@ -35,10 +39,33 @@ using DebugUserMarkContainer = SpecifiedUserMarkContainer<DebugMarkPoint, UserMa
 using RouteUserMarkContainer = SpecifiedUserMarkContainer<RouteMarkPoint, UserMark::Type::ROUTING>;
 using LocalAdsMarkContainer = SpecifiedUserMarkContainer<LocalAdsMark, UserMark::Type::LOCAL_ADS>;
 using StaticUserMarkContainer = SpecifiedUserMarkContainer<SearchMarkPoint, UserMark::Type::STATIC>;
+
+// It returns extension with a dot in lower case
+std::string const GetFileExt(std::string const & filePath)
+{
+  std::string ext = my::GetFileExtension(filePath);
+  std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+  return ext;
+}
+
+std::string const GetFileName(std::string const & filePath)
+{
+  std::string ret = filePath;
+  my::GetNameFromFullPath(ret);
+  return ret;
+}
+
+std::string const GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
+{
+  std::string filePath = BookmarkCategory::RemoveInvalidSymbols(fileName);
+  filePath = BookmarkCategory::GenerateUniqueFileName(GetPlatform().SettingsDir(), filePath);
+  return filePath;
+}
 }  // namespace
 
 BookmarkManager::BookmarkManager(GetStringsBundleFn && getStringsBundleFn)
   : m_getStringsBundle(std::move(getStringsBundleFn))
+  , m_needTeardown(false)
 {
   ASSERT(m_getStringsBundle != nullptr, ());
 
@@ -79,6 +106,16 @@ void BookmarkManager::UpdateViewport(ScreenBase const & screen)
   m_viewport = screen;
 }
 
+void BookmarkManager::SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks)
+{
+  m_asyncLoadingCallbacks = std::move(callbacks);
+}
+
+void BookmarkManager::Teardown()
+{
+  m_needTeardown = true;
+}
+
 void BookmarkManager::SaveState() const
 {
   settings::Set(BOOKMARK_CATEGORY, m_lastCategoryUrl);
@@ -100,27 +137,152 @@ void BookmarkManager::LoadBookmarks()
 {
   ClearCategories();
 
-  std::string const dir = GetPlatform().SettingsDir();
+  StartAsyncLoading();
+  GetPlatform().RunOnFileThread([this]()
+  {
+    std::string const dir = GetPlatform().SettingsDir();
+    Platform::FilesList files;
+    Platform::GetFilesByExt(dir, BOOKMARKS_FILE_EXTENSION, files);
 
-  Platform::FilesList files;
-  Platform::GetFilesByExt(dir, BOOKMARKS_FILE_EXTENSION, files);
-  for (auto const & file : files)
-    LoadBookmark(dir + file);
+    auto collection = std::make_shared<CategoriesCollection>();
+    for (auto const & file : files)
+    {
+      auto cat = BookmarkCategory::CreateFromKMLFile(dir + file);
+      if (m_needTeardown)
+        return;
+
+      if (cat != nullptr)
+        collection->emplace_back(std::move(cat));
+    }
+    FinishAsyncLoading(std::move(collection));
+  });
 
   LoadState();
 }
 
-void BookmarkManager::LoadBookmark(std::string const & filePath)
+void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporaryFile)
 {
-  auto cat = BookmarkCategory::CreateFromKMLFile(filePath);
-  if (cat != nullptr)
+  StartAsyncLoading();
+  GetPlatform().RunOnFileThread([this, filePath, isTemporaryFile]()
   {
-    df::DrapeEngineLockGuard lock(m_drapeEngine);
-    if (lock)
-      cat->SetDrapeEngine(lock.Get());
+    auto collection = std::make_shared<CategoriesCollection>();
+    auto const fileSavePath = GetKMLPath(filePath);
+    if (m_needTeardown)
+      return;
 
-    m_categories.emplace_back(std::move(cat));
+    if (!fileSavePath)
+    {
+      NotifyAboutFile(false /* success */, filePath, isTemporaryFile);
+    }
+    else
+    {
+      auto cat = BookmarkCategory::CreateFromKMLFile(fileSavePath.get());
+      if (m_needTeardown)
+        return;
+
+      bool const categoryExists = (cat != nullptr);
+      if (categoryExists)
+        collection->emplace_back(std::move(cat));
+
+      NotifyAboutFile(categoryExists, filePath, isTemporaryFile);
+    }
+    FinishAsyncLoading(std::move(collection));
+  });
+}
+
+void BookmarkManager::StartAsyncLoading()
+{
+  if (m_needTeardown)
+    return;
+  
+  GetPlatform().RunOnGuiThread([this]()
+  {
+    m_asyncLoadingCounter++;
+    if (m_asyncLoadingCallbacks.m_onStarted != nullptr)
+      m_asyncLoadingCallbacks.m_onStarted();
+  });
+}
+
+void BookmarkManager::FinishAsyncLoading(std::shared_ptr<CategoriesCollection> && collection)
+{
+  if (m_needTeardown)
+    return;
+  
+  GetPlatform().RunOnGuiThread([this, collection]()
+  {
+    if (!collection->empty())
+      MergeCategories(std::move(*collection));
+
+    m_asyncLoadingCounter--;
+    if (m_asyncLoadingCounter == 0 && m_asyncLoadingCallbacks.m_onFinished != nullptr)
+      m_asyncLoadingCallbacks.m_onFinished();
+  });
+}
+
+void BookmarkManager::NotifyAboutFile(bool success, std::string const & filePath,
+                                      bool isTemporaryFile)
+{
+  if (m_needTeardown)
+    return;
+  
+  GetPlatform().RunOnGuiThread([this, success, filePath, isTemporaryFile]()
+  {
+    if (success)
+    {
+      if (m_asyncLoadingCallbacks.m_onFileSuccess != nullptr)
+        m_asyncLoadingCallbacks.m_onFileSuccess(filePath, isTemporaryFile);
+    }
+    else
+    {
+      if (m_asyncLoadingCallbacks.m_onFileError != nullptr)
+        m_asyncLoadingCallbacks.m_onFileError(filePath, isTemporaryFile);
+    }
+  });
+}
+
+boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & filePath)
+{
+  std::string const fileExt = GetFileExt(filePath);
+  string fileSavePath;
+  if (fileExt == BOOKMARKS_FILE_EXTENSION)
+  {
+    fileSavePath = GenerateValidAndUniqueFilePathForKML(GetFileName(filePath));
+    if (!my::CopyFileX(filePath, fileSavePath))
+      return {};
   }
+  else if (fileExt == KMZ_EXTENSION)
+  {
+    try
+    {
+      ZipFileReader::FileListT files;
+      ZipFileReader::FilesList(filePath, files);
+      string kmlFileName;
+      for (size_t i = 0; i < files.size(); ++i)
+      {
+        if (GetFileExt(files[i].first) == BOOKMARKS_FILE_EXTENSION)
+        {
+          kmlFileName = files[i].first;
+          break;
+        }
+      }
+      if (kmlFileName.empty())
+        return {};
+
+      fileSavePath = GenerateValidAndUniqueFilePathForKML(kmlFileName);
+      ZipFileReader::UnzipFile(filePath, kmlFileName, fileSavePath);
+    }
+    catch (RootException const & e)
+    {
+      LOG(LWARNING, ("Error unzipping file", filePath, e.Msg()));
+      return {};
+    }
+  }
+  else
+  {
+    LOG(LWARNING, ("Unknown file type", filePath));
+    return {};
+  }
+  return fileSavePath;
 }
 
 void BookmarkManager::InitBookmarks()
@@ -273,9 +435,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
   finder(FindUserMarksContainer(UserMark::Type::SEARCH));
   finder(FindUserMarksContainer(UserMark::Type::API));
   for (auto & cat : m_categories)
-  {
     finder(cat.get());
-  }
 
   return finder.GetFoundMark();
 }
@@ -334,6 +494,47 @@ std::unique_ptr<MyPositionMarkPoint> const & BookmarkManager::MyPositionMark() c
 {
   ASSERT(m_myPositionMark != nullptr, ());
   return m_myPositionMark;
+}
+
+void BookmarkManager::MergeCategories(CategoriesCollection && newCategories)
+{
+  for (auto & category : m_categories)
+  {
+    // Since all KML-files are being loaded asynchronously user can create
+    // new category during loading. So we have to merge categories after loading.
+    std::string const categoryName = category->GetName();
+    auto const it = std::find_if(newCategories.begin(), newCategories.end(),
+                                 [&categoryName](std::unique_ptr<BookmarkCategory> const & c)
+    {
+      return c->GetName() == categoryName;
+    });
+    if (it != newCategories.end())
+    {
+      // Copy bookmarks and tracks to the existing category.
+      for (size_t i = 0; i < (*it)->GetUserMarkCount(); ++i)
+      {
+        auto srcBookmark = static_cast<Bookmark const *>((*it)->GetUserMark(i));
+        auto bookmark = static_cast<Bookmark *>(category->CreateUserMark(srcBookmark->GetPivot()));
+        bookmark->SetData(srcBookmark->GetData());
+      }
+      category->AcceptTracks((*it)->MoveTracks());
+      category->SaveToKMLFile();
+
+      newCategories.erase(it);
+    }
+  }
+
+  std::move(newCategories.begin(), newCategories.end(), std::back_inserter(m_categories));
+
+  df::DrapeEngineLockGuard lock(m_drapeEngine);
+  if (lock)
+  {
+    for (auto & cat : m_categories)
+    {
+      cat->SetDrapeEngine(lock.Get());
+      cat->NotifyChanges();
+    }
+  }
 }
 
 UserMarkNotificationGuard::UserMarkNotificationGuard(BookmarkManager & mng, UserMark::Type type)

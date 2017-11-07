@@ -957,12 +957,6 @@ Java_com_mapswithme_maps_Framework_nativeSetWritableDir(JNIEnv * env, jclass, js
   g_framework->AddLocalMaps();
 }
 
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeLoadBookmarks(JNIEnv * env, jclass)
-{
-  frm()->LoadBookmarks();
-}
-
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsRoutingActive(JNIEnv * env, jclass)
 {

@@ -7,9 +7,81 @@
 #include "coding/zip_creator.hpp"
 #include "map/place_page_info.hpp"
 
+#include <utility>
+
+using namespace std::placeholders;
+
 namespace
 {
 ::Framework * frm() { return g_framework->NativeFramework(); }
+
+jclass g_bookmarkManagerClass;
+jfieldID g_bookmarkManagerInstanceField;
+jmethodID g_onBookmarksLoadingStartedMethod;
+jmethodID g_onBookmarksLoadingFinishedMethod;
+jmethodID g_onBookmarksLoadingFileMethod;
+
+void PrepareClassRefs(JNIEnv * env)
+{
+  if (g_bookmarkManagerClass)
+    return;
+
+  g_bookmarkManagerClass =
+    jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/BookmarkManager");
+  g_bookmarkManagerInstanceField = jni::GetStaticFieldID(env, g_bookmarkManagerClass, "INSTANCE",
+    "Lcom/mapswithme/maps/bookmarks/data/BookmarkManager;");
+
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  g_onBookmarksLoadingStartedMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksLoadingStarted", "()V");
+  g_onBookmarksLoadingFinishedMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksLoadingFinished", "()V");
+  g_onBookmarksLoadingFileMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksLoadingFile",
+                     "(ZLjava/lang/String;Z)V");
+}
+
+void OnAsyncLoadingStarted(JNIEnv * env)
+{
+  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  LOG(LINFO, ("!!!!!!"));
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksLoadingStartedMethod);
+  jni::HandleJavaException(env);
+}
+
+void OnAsyncLoadingFinished(JNIEnv * env)
+{
+  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksLoadingFinishedMethod);
+  jni::HandleJavaException(env);
+}
+
+void OnAsyncLoadingFileSuccess(JNIEnv * env, std::string const & fileName, bool isTemporaryFile)
+{
+  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  jni::TScopedLocalRef jFileName(env, jni::ToJavaString(env, fileName));
+  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksLoadingFileMethod,
+                      true /* success */, jFileName.get(), isTemporaryFile);
+  jni::HandleJavaException(env);
+}
+
+void OnAsyncLoadingFileError(JNIEnv * env, std::string const & fileName, bool isTemporaryFile)
+{
+  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  jni::TScopedLocalRef jFileName(env, jni::ToJavaString(env, fileName));
+  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksLoadingFileMethod,
+                      false /* success */, jFileName.get(), isTemporaryFile);
+  jni::HandleJavaException(env);
+}
 }  // namespace
 
 namespace bookmarks_helper
@@ -39,8 +111,16 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeShowBookmarkOnMap(
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIEnv * env, jobject)
 {
+  PrepareClassRefs(env);
+  BookmarkManager::AsyncLoadingCallbacks callbacks;
+  callbacks.m_onStarted = std::bind(&OnAsyncLoadingStarted, env);
+  callbacks.m_onFinished = std::bind(&OnAsyncLoadingFinished, env);
+  callbacks.m_onFileSuccess = std::bind(&OnAsyncLoadingFileSuccess, env, _1, _2);
+  callbacks.m_onFileError = std::bind(&OnAsyncLoadingFileError, env, _1, _2);
+  frm()->GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
+
   frm()->LoadBookmarks();
 }
 
@@ -118,7 +198,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastE
 }
 
 JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_getLastEditedCategory(
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastEditedCategory(
       JNIEnv * env, jobject thiz)
 {
   return frm()->LastEditedBMCategory();
@@ -132,10 +212,11 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGenerateUniqueFile
   return ToJavaString(env, bookmarkFileName);
 }
 
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadKmzFile(JNIEnv * env, jobject thiz, jstring path)
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadKmzFile(JNIEnv * env, jobject thiz,
+                                                                          jstring path, jboolean isTemporaryFile)
 {
-  return frm()->AddBookmarksFile(ToNativeString(env, path));
+  frm()->AddBookmarksFile(ToNativeString(env, path), isTemporaryFile);
 }
 
 JNIEXPORT jstring JNICALL
@@ -143,4 +224,11 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeFormatNewBookmarkN
 {
   return ToJavaString(env, g_framework->GetPlacePageInfo().FormatNewBookmarkName());
 }
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsAsyncBookmarksLoadingInProgress(JNIEnv * env, jclass)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().IsAsyncLoadingInProgress());
+}
+
 }  // extern "C"

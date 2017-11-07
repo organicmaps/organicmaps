@@ -1,19 +1,26 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.statistics.Statistics;
 
-public enum BookmarkManager
+@MainThread
+public class BookmarkManager
 {
-  INSTANCE;
+  public static final BookmarkManager INSTANCE = new BookmarkManager();
 
   public static final List<Icon> ICONS = new ArrayList<>();
+
+  private List<BookmarksLoadingListener> mListeners = new ArrayList<>();
+
+  private BookmarkManager() {}
 
   static
   {
@@ -28,7 +35,7 @@ public enum BookmarkManager
     ICONS.add(new Icon("placemark-hotel", "placemark-hotel", R.drawable.ic_bookmark_marker_hotel_off, R.drawable.ic_bookmark_marker_hotel_on));
   }
 
-  public static Icon getIconByType(String type)
+  static Icon getIconByType(String type)
   {
     for (Icon icon : ICONS)
     {
@@ -75,6 +82,47 @@ public enum BookmarkManager
     return bookmark;
   }
 
+  public void addListener(BookmarksLoadingListener listener)
+  {
+    mListeners.add(listener);
+  }
+
+  public void removeListener(BookmarksLoadingListener listener)
+  {
+    mListeners.remove(listener);
+  }
+
+  // Called from JNI.
+  @MainThread
+  public void onBookmarksLoadingStarted()
+  {
+    for (BookmarksLoadingListener listener : mListeners)
+      listener.onBookmarksLoadingStarted();
+  }
+
+  // Called from JNI.
+  @MainThread
+  public void onBookmarksLoadingFinished()
+  {
+    for (BookmarksLoadingListener listener : mListeners)
+      listener.onBookmarksLoadingFinished();
+  }
+
+  // Called from JNI.
+  @MainThread
+  public void onBookmarksLoadingFile(boolean success, String fileName, boolean isTemporaryFile)
+  {
+    // Android could create temporary file with bookmarks in some cases. Here we can delete it.
+    if (isTemporaryFile)
+    {
+      File tmpFile = new File(fileName);
+      tmpFile.delete();
+    }
+
+    for (BookmarksLoadingListener listener : mListeners)
+      listener.onBookmarksLoadingFile(success);
+  }
+
   public static native void nativeLoadBookmarks();
 
   private native void nativeDeleteTrack(int catId, int trackId);
@@ -103,7 +151,17 @@ public enum BookmarkManager
 
   public static native String nativeGenerateUniqueFileName(String baseName);
 
-  public static native boolean nativeLoadKmzFile(String path);
+  public static native void nativeLoadKmzFile(String path, boolean isTemporaryFile);
 
   public static native String nativeFormatNewBookmarkName();
+
+  public static native boolean nativeIsAsyncBookmarksLoadingInProgress();
+
+  public interface BookmarksLoadingListener
+  {
+    void onBookmarksLoadingStarted();
+    void onBookmarksLoadingFinished();
+
+    void onBookmarksLoadingFile(boolean success);
+  }
 }

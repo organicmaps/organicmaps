@@ -331,7 +331,7 @@ public:
 
   void ClearBookmarks();
 
-  bool AddBookmarksFile(string const & filePath);
+  void AddBookmarksFile(string const & filePath, bool isTemporaryFile);
 
   BookmarkAndCategory FindBookmark(UserMark const * mark) const;
   BookmarkManager & GetBookmarkManager() { return m_bmManager; }

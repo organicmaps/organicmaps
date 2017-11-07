@@ -13,7 +13,6 @@ import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
-import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
@@ -234,8 +233,6 @@ public class Framework
   public static native String nativeGetWritableDir();
 
   public static native void nativeSetWritableDir(String newPath);
-
-  public static native void nativeLoadBookmarks();
 
   // Routing.
   public static native boolean nativeIsRoutingActive();

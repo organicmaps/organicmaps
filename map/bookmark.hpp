@@ -110,12 +110,7 @@ private:
 
 class BookmarkCategory : public UserMarkContainer
 {
-  typedef UserMarkContainer TBase;
-  std::vector<std::unique_ptr<Track>> m_tracks;
-
-  std::string m_name;
-  /// Stores file name from which category was loaded
-  std::string m_file;
+  using TBase = UserMarkContainer;
 
 public:
   explicit BookmarkCategory(std::string const & name);
@@ -128,13 +123,13 @@ public:
 
   void ClearTracks();
 
-  /// @name Tracks routine.
-  //@{
   void AddTrack(std::unique_ptr<Track> && track);
   Track const * GetTrack(size_t index) const;
   inline size_t GetTracksCount() const { return m_tracks.size(); }
   void DeleteTrack(size_t index);
-  //@}
+
+  std::vector<std::unique_ptr<Track>> && MoveTracks() { return std::move(m_tracks); }
+  void AcceptTracks(std::vector<std::unique_ptr<Track>> && tracks);
 
   void SetName(std::string const & name) { m_name = name; }
   std::string const & GetName() const { return m_name; }
@@ -161,6 +156,13 @@ public:
 
 protected:
   UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
+
+private:
+  std::vector<std::unique_ptr<Track>> m_tracks;
+
+  std::string m_name;
+  /// Stores file name from which category was loaded
+  std::string m_file;
 };
 
 struct BookmarkAndCategory

@@ -104,6 +104,7 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.PlacePageTracker;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Stack;
@@ -122,7 +123,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  NativeSearchListener,
                                  NavigationButtonsAnimationController.OnTranslationChangedListener,
                                  RoutingPlanInplaceController.RoutingPlanListener,
-                                 RoutingBottomMenuListener
+                                 RoutingBottomMenuListener,
+                                 BookmarkManager.BookmarksLoadingListener
 {
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
@@ -502,6 +504,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initViews();
 
     Statistics.INSTANCE.trackConnectionState();
+
+    BookmarkManager.INSTANCE.addListener(this);
 
     mSearchController = new FloatingSearchToolbarController(this);
     mSearchController.setVisibilityListener(this);
@@ -919,6 +923,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     BottomSheetHelper.free();
     SearchEngine.INSTANCE.removeListener(this);
+
+    BookmarkManager.INSTANCE.removeListener(this);
+
     super.onDestroy();
   }
 
@@ -2197,6 +2204,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mNavigationController.performSearchClick();
       Statistics.INSTANCE.trackRoutingTooltipEvent(pointType, true);
     }
+  }
+
+  @Override
+  public void onBookmarksLoadingStarted()
+  {
+    // Do nothing
+  }
+
+  @Override
+  public void onBookmarksLoadingFinished()
+  {
+    // Do nothing
+  }
+
+  @Override
+  public void onBookmarksLoadingFile(boolean success)
+  {
+    Utils.toastShortcut(MwmActivity.this, success ? R.string.load_kmz_successful :
+        R.string.load_kmz_failed);
   }
 
   public static class ShowAuthorizationTask implements MapTask

@@ -103,6 +103,7 @@ protected:
   unique_ptr<base::TaskLoop> m_guiThread;
 
   base::WorkerThread m_networkThread;
+  base::WorkerThread m_fileThread;
 
 public:
   Platform();
@@ -215,6 +216,9 @@ public:
   template <typename Task>
   void RunOnNetworkThread(Task && task) { m_networkThread.Push(forward<Task>(task)); }
 
+  template <typename Task>
+  void RunOnFileThread(Task && task) { m_fileThread.Push(forward<Task>(task)); }
+
   enum Priority
   {
     EPriorityBackground,
@@ -265,6 +269,8 @@ public:
 
   MarketingService & GetMarketingService() { return m_marketingService; }
   platform::SecureStorage & GetSecureStorage() { return m_secureStorage; }
+
+  void ShutdownThreads();
 
   // Use this method for testing purposes only.
   void SetGuiThread(unique_ptr<base::TaskLoop> guiThread);

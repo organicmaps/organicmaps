@@ -298,13 +298,7 @@ using namespace osm_auth_ios;
   }
   else if (m_fileURL)
   {
-    if (!f.AddBookmarksFile(m_fileURL.UTF8String))
-      [self showLoadFileAlertIsSuccessful:NO];
-
-    [NSNotificationCenter.defaultCenter postNotificationName:@"KML file added" object:nil];
-    [self showLoadFileAlertIsSuccessful:YES];
-    [Statistics logEvent:kStatEventName(kStatApplication, kStatImport)
-          withParameters:@{kStatValue : kStatKML}];
+    f.AddBookmarksFile(m_fileURL.UTF8String, false /* isTemporaryFile */);
   }
   else
   {
@@ -545,6 +539,9 @@ using namespace osm_auth_ios;
                                     }];
   [[Crashlytics sharedInstance] recordError:err];
 #endif
+  
+  // Global cleanup
+  DeleteFramework();
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -706,8 +703,6 @@ using namespace osm_auth_ios;
 - (void)dealloc
 {
   [NSNotificationCenter.defaultCenter removeObserver:self];
-  // Global cleanup
-  DeleteFramework();
 }
 
 - (BOOL)initStatistics:(UIApplication *)application

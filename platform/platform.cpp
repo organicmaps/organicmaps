@@ -269,6 +269,12 @@ unsigned Platform::CpuCores() const
   return cores > 0 ? cores : 1;
 }
 
+void Platform::ShutdownThreads()
+{
+  m_networkThread.ShutdownAndJoin();
+  m_fileThread.ShutdownAndJoin();
+}
+
 string DebugPrint(Platform::EError err)
 {
   switch (err)

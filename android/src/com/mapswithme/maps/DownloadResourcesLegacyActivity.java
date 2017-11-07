@@ -73,7 +73,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private String mCurrentCountry;
   private MapTask mMapTaskToForward;
 
-  private boolean mIsReadingAttachment;
   private boolean mAreResourcesDownloaded;
 
   private static final int DOWNLOAD = 0;
@@ -433,7 +432,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private void showMap()
   {
-    if (mIsReadingAttachment || !mAreResourcesDownloaded)
+    if (!mAreResourcesDownloaded)
       return;
 
     final Intent intent = new Intent(this, MwmActivity.class);
@@ -734,20 +733,17 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     @Override
     public boolean process(Intent intent)
     {
-      mIsReadingAttachment = true;
       ThreadPool.getStorage().execute(new Runnable()
       {
         @Override
         public void run()
         {
-          final boolean result = readKmzFromIntent();
+          readKmzFromIntent();
           runOnUiThread(new Runnable()
           {
             @Override
             public void run()
             {
-              Utils.toastShortcut(DownloadResourcesLegacyActivity.this, result ? R.string.load_kmz_successful : R.string.load_kmz_failed);
-              mIsReadingAttachment = false;
               showMap();
             }
           });
@@ -756,10 +752,10 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return true;
     }
 
-    private boolean readKmzFromIntent()
+    private void readKmzFromIntent()
     {
       String path = null;
-      File tmpFile = null;
+      boolean isTemporaryFile = false;
       final String scheme = mData.getScheme();
       if (scheme != null && !scheme.equalsIgnoreCase(ContentResolver.SCHEME_FILE))
       {
@@ -775,7 +771,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
           {
             final String filePath = MwmApplication.get().getTempPath() + "Attachment" + ext;
 
-            tmpFile = new File(filePath);
+            File tmpFile = new File(filePath);
             output = new FileOutputStream(tmpFile);
             input = resolver.openInputStream(mData);
 
@@ -786,6 +782,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
             output.flush();
 
             path = filePath;
+            isTemporaryFile = true;
           }
         } catch (final Exception ex)
         {
@@ -799,20 +796,13 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       else
         path = mData.getPath();
 
-      boolean result = false;
       if (path != null)
       {
         LOGGER.d(TAG, "Loading bookmarks file from: " + path);
-        result = BookmarkManager.nativeLoadKmzFile(path);
+        BookmarkManager.nativeLoadKmzFile(path, isTemporaryFile);
       }
       else
         LOGGER.w(TAG, "Can't get bookmarks file from URI: " + mData);
-
-      if (tmpFile != null)
-        //noinspection ResultOfMethodCallIgnored
-        tmpFile.delete();
-
-      return result;
     }
 
     private String getExtensionFromMime(String mime)

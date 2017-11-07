@@ -11,10 +11,13 @@
 #include "base/macros.hpp"
 #include "base/strings_bundle.hpp"
 
+#include <atomic>
 #include <functional>
 #include <memory>
 #include <string>
 #include <vector>
+
+#include <boost/optional.hpp>
 
 class BookmarkManager final
 {
@@ -25,17 +28,31 @@ class BookmarkManager final
   using GetStringsBundleFn = std::function<StringsBundle const &()>;
 
 public:
+  using AsyncLoadingStartedCallback = std::function<void()>;
+  using AsyncLoadingFinishedCallback = std::function<void()>;
+  using AsyncLoadingFileCallback = std::function<void(std::string const &, bool)>;
+
+  struct AsyncLoadingCallbacks
+  {
+    AsyncLoadingStartedCallback m_onStarted;
+    AsyncLoadingFinishedCallback m_onFinished;
+    AsyncLoadingFileCallback m_onFileError;
+    AsyncLoadingFileCallback m_onFileSuccess;
+  };
+
   explicit BookmarkManager(GetStringsBundleFn && getStringsBundleFn);
   ~BookmarkManager();
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
   void UpdateViewport(ScreenBase const & screen);
+  void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
+  void Teardown();
 
   void ClearCategories();
 
   /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
-  void LoadBookmark(std::string const & filePath);
+  void LoadBookmark(std::string const & filePath, bool isTemporaryFile);
 
   void InitBookmarks();
 
@@ -74,15 +91,24 @@ public:
   std::unique_ptr<MyPositionMarkPoint> & MyPositionMark();
   std::unique_ptr<MyPositionMarkPoint> const & MyPositionMark() const;
 
+  bool IsAsyncLoadingInProgress() const { return m_asyncLoadingCounter != 0; }
+
 private:
   UserMarkContainer const * FindUserMarksContainer(UserMark::Type type) const;
   UserMarkContainer * FindUserMarksContainer(UserMark::Type type);
 
   void SaveState() const;
   void LoadState();
+  void MergeCategories(CategoriesCollection && newCategories);
+  void StartAsyncLoading();
+  void FinishAsyncLoading(std::shared_ptr<CategoriesCollection> && collection);
+  boost::optional<std::string> GetKMLPath(std::string const & filePath);
+  void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
 
   GetStringsBundleFn m_getStringsBundle;
   df::DrapeEngineSafePtr m_drapeEngine;
+  AsyncLoadingCallbacks m_asyncLoadingCallbacks;
+  std::atomic<bool> m_needTeardown;
 
   ScreenBase m_viewport;
 
@@ -93,6 +119,8 @@ private:
 
   std::unique_ptr<StaticMarkPoint> m_selectionMark;
   std::unique_ptr<MyPositionMarkPoint> m_myPositionMark;
+
+  size_t m_asyncLoadingCounter = 0;
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };

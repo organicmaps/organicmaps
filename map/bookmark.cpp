@@ -168,6 +168,11 @@ void BookmarkCategory::DeleteTrack(size_t index)
   m_tracks.erase(next(m_tracks.begin(), index));
 }
 
+void BookmarkCategory::AcceptTracks(std::vector<std::unique_ptr<Track>> && tracks)
+{
+  std::move(tracks.begin(), tracks.end(), std::back_inserter(m_tracks));
+}
+
 namespace
 {
   std::string const kPlacemark = "Placemark";
@@ -563,7 +568,7 @@ bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
   KMLParser parser(*this);
   if (!ParseXML(src, parser, true))
   {
-    LOG(LERROR, ("XML read error. Probably, incorrect file encoding."));
+    LOG(LWARNING, ("XML read error. Probably, incorrect file encoding."));
     return false;
   }
   return true;

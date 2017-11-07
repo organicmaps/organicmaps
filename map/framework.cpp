@@ -71,7 +71,6 @@
 #include "platform/settings.hpp"
 #include "platform/socket.hpp"
 
-#include "coding/internal/file_data.hpp"
 #include "coding/file_name_utils.hpp"
 #include "coding/transliteration.hpp"
 #include "coding/url_encode.hpp"
@@ -104,8 +103,6 @@
 #include "api/src/c/api-client.h"
 
 #include "3party/Alohalytics/src/alohalytics.h"
-
-#define KMZ_EXTENSION ".kmz"
 
 #define DEFAULT_BOOKMARK_TYPE "placemark-red"
 
@@ -481,10 +478,13 @@ Framework::Framework(FrameworkParams const & params)
 
 Framework::~Framework()
 {
+  m_bmManager.Teardown();
   m_trafficManager.Teardown();
   m_localAdsManager.Teardown();
   DestroyDrapeEngine();
   m_model.SetOnMapDeregisteredCallback(nullptr);
+
+  GetPlatform().ShutdownThreads();
 }
 
 booking::Api * Framework::GetBookingApi(platform::NetworkPolicy const & policy)
@@ -1008,80 +1008,9 @@ void Framework::ClearBookmarks()
   m_bmManager.ClearCategories();
 }
 
-namespace
+void Framework::AddBookmarksFile(string const & filePath, bool isTemporaryFile)
 {
-
-/// @return extension with a dot in lower case
-string const GetFileExt(string const & filePath)
-{
-  string ext = my::GetFileExtension(filePath);
-  transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
-  return ext;
-}
-
-string const GetFileName(string const & filePath)
-{
-  string ret = filePath;
-  my::GetNameFromFullPath(ret);
-  return ret;
-}
-
-string const GenerateValidAndUniqueFilePathForKML(string const & fileName)
-{
-  string filePath = BookmarkCategory::RemoveInvalidSymbols(fileName);
-  filePath = BookmarkCategory::GenerateUniqueFileName(GetPlatform().SettingsDir(), filePath);
-  return filePath;
-}
-
-} // namespace
-
-bool Framework::AddBookmarksFile(string const & filePath)
-{
-  string const fileExt = GetFileExt(filePath);
-  string fileSavePath;
-  if (fileExt == BOOKMARKS_FILE_EXTENSION)
-  {
-    fileSavePath = GenerateValidAndUniqueFilePathForKML(GetFileName(filePath));
-    if (!my::CopyFileX(filePath, fileSavePath))
-      return false;
-  }
-  else if (fileExt == KMZ_EXTENSION)
-  {
-    try
-    {
-      ZipFileReader::FileListT files;
-      ZipFileReader::FilesList(filePath, files);
-      string kmlFileName;
-      for (size_t i = 0; i < files.size(); ++i)
-      {
-        if (GetFileExt(files[i].first) == BOOKMARKS_FILE_EXTENSION)
-        {
-          kmlFileName = files[i].first;
-          break;
-        }
-      }
-      if (kmlFileName.empty())
-        return false;
-
-      fileSavePath = GenerateValidAndUniqueFilePathForKML(kmlFileName);
-      ZipFileReader::UnzipFile(filePath, kmlFileName, fileSavePath);
-    }
-    catch (RootException const & e)
-    {
-      LOG(LWARNING, ("Error unzipping file", filePath, e.Msg()));
-      return false;
-    }
-  }
-  else
-  {
-    LOG(LWARNING, ("Unknown file type", filePath));
-    return false;
-  }
-
-  // Update freshly added bookmarks
-  m_bmManager.LoadBookmark(fileSavePath);
-
-  return true;
+  m_bmManager.LoadBookmark(filePath, isTemporaryFile);
 }
 
 void Framework::PrepareToShutdown()

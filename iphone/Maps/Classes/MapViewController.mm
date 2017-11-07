@@ -354,8 +354,25 @@ BOOL gIsFirstMyPositionMode = YES;
     // May be better solution would be multiobservers support in the C++ core.
     [self processMyPositionStateModeEvent:location_helpers::mwmMyPositionMode(mode)];
   });
+  
+  // TODO(@igrechuhin): Move it to appropriate place.
+  BookmarkManager::AsyncLoadingCallbacks bookmarkCallbacks;
+  //bookmarkCallbacks.m_onStarted = ;
+  //bookmarkCallbacks.m_onFinished = ;
+  bookmarkCallbacks.m_onFileSuccess = [](std::string const & filePath, bool isTemporaryFile)
+  {
+    //[NSNotificationCenter.defaultCenter postNotificationName:@"KML file added" object:nil];
+    //[self showLoadFileAlertIsSuccessful:YES];
+    //[Statistics logEvent:kStatEventName(kStatApplication, kStatImport)
+    //      withParameters:@{kStatValue : kStatKML}];
+  };
+  bookmarkCallbacks.m_onFileError = [](std::string const & filePath, bool isTemporaryFile)
+  {
+    //[self showLoadFileAlertIsSuccessful:NO];
+  };
 
   self.userTouchesAction = UserTouchesActionNone;
+  GetFramework().GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
   GetFramework().LoadBookmarks();
   [MWMFrameworkListener addObserver:self];
 }

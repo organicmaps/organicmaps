@@ -62,6 +62,9 @@ public:
   // thread was shut down previously.
   bool Shutdown(Exit e);
 
+  // Sends a signal to the thread to shut down and waits for completion.
+  void ShutdownAndJoin();
+
   TimePoint Now() const { return Clock::now(); }
 
 private:

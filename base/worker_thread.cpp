@@ -13,9 +13,7 @@ WorkerThread::WorkerThread()
 
 WorkerThread::~WorkerThread()
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
-  Shutdown(Exit::SkipPending);
-  m_thread.join();
+  ShutdownAndJoin();
 }
 
 bool WorkerThread::Push(Task && t)
@@ -138,5 +136,13 @@ bool WorkerThread::Shutdown(Exit e)
   m_exit = e;
   m_cv.notify_one();
   return true;
+}
+
+void WorkerThread::ShutdownAndJoin()
+{
+  ASSERT(m_checker.CalledOnOriginalThread(), ());
+  Shutdown(Exit::SkipPending);
+  if (m_thread.joinable())
+    m_thread.join();
 }
 }  // namespace base
