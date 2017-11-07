@@ -51,6 +51,8 @@ SOURCES += \
     srtm_parser_test.cpp \
     tag_admixer_test.cpp \
     tesselator_test.cpp \
+    transit_graph_test.cpp \
     transit_test.cpp \
+    transit_tools.hpp \
     triangles_tree_coding_test.cpp \
     ugc_test.cpp \

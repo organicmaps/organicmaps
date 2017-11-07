@@ -1,11 +1,16 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests/transit_tools.hpp"
+
 #include "generator/transit_generator.hpp"
 
 #include "routing_common/transit_types.hpp"
 
 #include "base/assert.hpp"
 
+#include <std/unique_ptr.hpp>
+
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -17,8 +22,9 @@ using namespace std;
 namespace
 {
 template <typename Obj>
-void TestDeserializerFromJson(string const & jsonBuffer, OsmIdToFeatureIdsMap const & osmIdToFeatureIds,
-                              string const & name, vector<Obj> const & expected)
+void TestDeserializerFromJson(string const & jsonBuffer,
+                              OsmIdToFeatureIdsMap const & osmIdToFeatureIds, string const & name,
+                              vector<Obj> const & expected)
 {
   my::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json."));
@@ -29,12 +35,12 @@ void TestDeserializerFromJson(string const & jsonBuffer, OsmIdToFeatureIdsMap co
   deserializer(objects, name.c_str());
 
   TEST_EQUAL(objects.size(), expected.size(), ());
-  for (size_t i = 0; i < objects.size(); ++i)
-    TEST(objects[i].IsEqualForTesting(expected[i]), (i, objects[i], expected[i]));
+  TestForEquivalence(objects, expected);
 }
 
 template <typename Obj>
-void TestDeserializerFromJson(string const & jsonBuffer, string const & name, vector<Obj> const & expected)
+void TestDeserializerFromJson(string const & jsonBuffer, string const & name,
+                              vector<Obj> const & expected)
 {
   return TestDeserializerFromJson(jsonBuffer, OsmIdToFeatureIdsMap(), name, expected);
 }
@@ -260,7 +266,7 @@ UNIT_TEST(DeserializerFromJson_Lines)
                                  Line(19207937 /* line id */, "2" /* number */, "Московская линия" /* title */,
                                       "subway" /* type */, "red" /* color */, 2 /* network id */,
                                       {{246659391, 246659390, 209191855, 209191854, 209191853,
-                                       209191852, 209191851}} /* stop ids */, 150.0 /* interval */)};
+                                        209191852, 209191851}} /* stop ids */, 150.0 /* interval */)};
 
   TestDeserializerFromJson(jsonBuffer, "lines", expected);
 }
@@ -313,13 +319,13 @@ UNIT_TEST(DeserializerFromJson_Shapes)
   ]})";
 
   vector<Shape> const expected = {Shape(ShapeId(209186424 /* stop 1 id */, 248520179 /* stop 2 id */),
-                                  {m2::PointD(27.5762295, 64.256768574044699),
-                                   m2::PointD(27.576325736220355, 64.256879325696005),
-                                   m2::PointD(27.576420780761875, 64.256990221238539),
-                                   m2::PointD(27.576514659541523, 64.257101255242176)} /* polyline */),
+                                        {m2::PointD(27.5762295, 64.256768574044699),
+                                         m2::PointD(27.576325736220355, 64.256879325696005),
+                                         m2::PointD(27.576420780761875, 64.256990221238539),
+                                         m2::PointD(27.576514659541523, 64.257101255242176)} /* polyline */),
                                   Shape(ShapeId(209191850 /* stop 1 id */, 209191851 /* stop 2 id */),
-                                  {m2::PointD(27.554025800000002, 64.250591911669844),
-                                   m2::PointD(27.553906184631536, 64.250633404586054)} /* polyline */)};
+                                        {m2::PointD(27.554025800000002, 64.250591911669844),
+                                         m2::PointD(27.553906184631536, 64.250633404586054)} /* polyline */)};
 
   TestDeserializerFromJson(jsonBuffer, "shapes", expected);
 }
