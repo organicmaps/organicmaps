@@ -97,7 +97,8 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
     UGC.Rating[] ratings = new UGC.Rating[modifiedRatings.size()];
     modifiedRatings.toArray(ratings);
     UGCUpdate update = new UGCUpdate(ratings, mReviewEditText.getText().toString(),
-                                     System.currentTimeMillis(), Language.getDefaultLocale());
+                                     System.currentTimeMillis(), Language.getDefaultLocale(),
+                                     Language.getKeyboardLocale());
     FeatureId featureId = getArguments().getParcelable(ARG_FEATURE_ID);
     if (featureId == null)
     {

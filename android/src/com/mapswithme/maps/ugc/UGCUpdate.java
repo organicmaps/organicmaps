@@ -15,15 +15,18 @@ class UGCUpdate
   private String mText;
   private long mTimeMillis;
   @NonNull
-  private final String mLocale;
+  private final String mDeviceLocale;
+  @NonNull
+  private final String mKeyboardLocale;
 
   UGCUpdate(@Nullable UGC.Rating[] ratings, @Nullable String text, long timeMillis,
-            @NonNull String locale)
+            @NonNull String deviceLocale, @NonNull String keyboardLocale)
   {
     mRatings = ratings;
     mText = text;
     mTimeMillis = timeMillis;
-    mLocale = locale;
+    mDeviceLocale = deviceLocale;
+    mKeyboardLocale = keyboardLocale;
   }
 
   public void setText(@Nullable String text)

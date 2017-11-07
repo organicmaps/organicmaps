@@ -86,7 +86,7 @@ public:
     Init(env);
 
     jobjectArray jratings = static_cast<jobjectArray>(env->GetObjectField(ugcUpdate, m_ratingArrayFieldId));
-    int const length = env->GetArrayLength(jratings);
+    auto const length = static_cast<size_t>(env->GetArrayLength(jratings));
     std::vector<ugc::RatingRecord> records;
     records.reserve(length);
     for (int i = 0; i < length; i++)
@@ -102,16 +102,25 @@ public:
       records.emplace_back(std::move(key), std::move(ratingValue));
     }
     jstring jtext = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_ratingTextFieldId));
-    jstring jlocale = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_localeFieldId));
-    std::string normalizedLocale = languages::Normalize(jni::ToNativeString(env, jlocale));
-    // TODO: Set the list of keyboard's locales
-    ugc::KeyboardText text(jni::ToNativeString(env, jtext), StringUtf8Multilang::GetLangIndex(normalizedLocale), {});
+    jstring jdevicelocale = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_deviceLocaleFieldId));
+    jstring jkeyboardLocale = static_cast<jstring>(env->GetObjectField(ugcUpdate, m_keyboardLocaleFieldId));
+    std::vector<uint8_t> keyboardLangs;
+    keyboardLangs.push_back(ToNativeLangIndex(env, jkeyboardLocale));
+    ugc::KeyboardText text(jni::ToNativeString(env, jtext), ToNativeLangIndex(env, jdevicelocale),
+                           keyboardLangs);
     jlong jtime = env->GetLongField(ugcUpdate, m_updateTimeFieldId);
-    uint64_t timeSec = static_cast<uint64_t>(jtime / 1000);
+    auto const timeSec = static_cast<time_t>(jtime / 1000);
     return ugc::UGCUpdate(records, text, std::chrono::system_clock::from_time_t(timeSec));
   }
 
 private:
+
+  uint8_t ToNativeLangIndex(JNIEnv * env, jstring lang)
+  {
+    std::string normLocale = languages::Normalize(jni::ToNativeString(env, lang));
+    return static_cast<uint8_t>(StringUtf8Multilang::GetLangIndex(normLocale));
+  }
+
   jobject ToJavaUGC(JNIEnv * env, ugc::UGC const & ugc)
   {
     jni::TScopedLocalObjectArrayRef ratings(env, ToJavaRatings(env, ugc.m_ratings));
@@ -130,12 +139,17 @@ private:
     jni::TScopedLocalRef text(env, jni::ToJavaString(env, ugcUpdate.m_text.m_text));
     std::string locale(StringUtf8Multilang::GetLangByCode(ugcUpdate.m_text.m_deviceLang));
     jni::TScopedLocalRef localeRef(env, jni::ToJavaString(env, locale));
+    std::string keyboardLocale;
+    auto const & keyboardLangs = ugcUpdate.m_text.m_keyboardLangs;
+    if (!keyboardLangs.empty())
+      keyboardLocale = StringUtf8Multilang::GetLangByCode(keyboardLangs.front());
+    jni::TScopedLocalRef keyboardLocaleRef(env, jni::ToJavaString(env, keyboardLocale));
 
     jobject result = nullptr;
     if (!ugcUpdate.IsEmpty())
       result = env->NewObject(m_ugcUpdateClass, m_ugcUpdateCtor, ratings.get(),
                               text.get(), ugc::ToMillisecondsSinceEpoch(ugcUpdate.m_time),
-                              localeRef.get());
+                              localeRef.get(), keyboardLocaleRef.get());
     return result;
   }
 
@@ -202,11 +216,13 @@ private:
 
     m_ugcUpdateClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGCUpdate");
     m_ugcUpdateCtor = jni::GetConstructorID(
-        env, m_ugcUpdateClass, "([Lcom/mapswithme/maps/ugc/UGC$Rating;Ljava/lang/String;JLjava/lang/String;)V");
+        env, m_ugcUpdateClass, "([Lcom/mapswithme/maps/ugc/UGC$Rating;Ljava/lang/String;"
+                                 "JLjava/lang/String;Ljava/lang/String;)V");
     m_ratingArrayFieldId = env->GetFieldID(m_ugcUpdateClass, "mRatings", "[Lcom/mapswithme/maps/ugc/UGC$Rating;");
     m_ratingTextFieldId = env->GetFieldID(m_ugcUpdateClass, "mText", "Ljava/lang/String;");
     m_updateTimeFieldId = env->GetFieldID(m_ugcUpdateClass, "mTimeMillis", "J");
-    m_localeFieldId = env->GetFieldID(m_ugcUpdateClass, "mLocale", "Ljava/lang/String;");
+    m_deviceLocaleFieldId = env->GetFieldID(m_ugcUpdateClass, "mDeviceLocale", "Ljava/lang/String;");
+    m_keyboardLocaleFieldId = env->GetFieldID(m_ugcUpdateClass, "mKeyboardLocale", "Ljava/lang/String;");
     m_ratingNameFieldId = env->GetFieldID(g_ratingClazz, "mName", "Ljava/lang/String;");
     m_ratingValueFieldId = env->GetFieldID(g_ratingClazz, "mValue", "F");
     m_initialized = true;
@@ -222,7 +238,8 @@ private:
   jfieldID m_ratingArrayFieldId;
   jfieldID m_ratingTextFieldId;
   jfieldID m_updateTimeFieldId;
-  jfieldID m_localeFieldId;
+  jfieldID m_deviceLocaleFieldId;
+  jfieldID m_keyboardLocaleFieldId;
   jfieldID m_ratingNameFieldId;
   jfieldID m_ratingValueFieldId;
 
