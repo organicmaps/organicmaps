@@ -261,7 +261,7 @@ void GraphData::AppendTo(GraphData const & rhs)
 
 void GraphData::Clear()
 {
-  ClearVisitor const v;
+  ClearVisitor const v{};
   Visit(v);
 }
 
@@ -277,7 +277,7 @@ bool GraphData::IsValid() const
 
 void GraphData::Sort()
 {
-  SortVisitor const v;
+  SortVisitor const v{};
   Visit(v);
 }
 
