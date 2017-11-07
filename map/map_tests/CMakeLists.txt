@@ -15,6 +15,7 @@ set(
   gps_track_test.cpp
   kmz_unarchive_test.cpp
   mwm_url_tests.cpp
+  search_api_tests.cpp
   transliteration_test.cpp
   working_time_tests.cpp
 )
@@ -23,6 +24,10 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
+  search_tests_support
+  generator_tests_support
+  indexer_tests_support
+  generator
   map
   drape_frontend
   routing
@@ -59,6 +64,7 @@ omim_link_libraries(
   oauthcpp
   drape_frontend
   drape
+  tess2
   stb_image
   sdf_image
   ${Qt5Widgets_LIBRARIES}

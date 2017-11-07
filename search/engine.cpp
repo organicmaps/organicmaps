@@ -109,6 +109,8 @@ Engine::Engine(Index & index, CategoriesHolder const & categories,
   m_threads.reserve(params.m_numThreads);
   for (size_t i = 0; i < params.m_numThreads; ++i)
     m_threads.emplace_back(&Engine::MainLoop, this, ref(m_contexts[i]));
+
+  LoadCitiesBoundaries();
 }
 
 Engine::~Engine()

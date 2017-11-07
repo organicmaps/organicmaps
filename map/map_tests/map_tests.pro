@@ -6,10 +6,11 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map drape_frontend routing traffic routing_common search storage tracking drape \
+DEPENDENCIES = search_tests_support generator_tests_support indexer_tests_support generator \
+               map drape_frontend routing traffic routing_common search storage tracking drape \
                ugc indexer partners_api local_ads platform editor mwm_diff bsdiff geometry coding base \
                freetype expat protobuf jansson osrm stats_client minizip succinct pugixml \
-               stats_client stb_image sdf_image icu agg
+               stats_client tess2 stb_image sdf_image icu agg
 
 DEPENDENCIES *= opening_hours
 
@@ -44,6 +45,7 @@ SOURCES += \
   gps_track_test.cpp \
   kmz_unarchive_test.cpp \
   mwm_url_tests.cpp \
+  search_api_tests.cpp \
   transliteration_test.cpp \
 
 !linux* {

@@ -104,7 +104,7 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
                           ExactMatch(id, cafes[2]), ExactMatch(id, cafes[3])};
 
     TEST(!mode, ());
-    TEST(MatchResults(m_engine, rules, request.Results()), ());
+    TEST(MatchResults(m_index, rules, request.Results()), ());
   }
 
   {
@@ -117,7 +117,7 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
                           ExactMatch(id, hotels[2]), ExactMatch(id, hotels[3])};
 
     TEST(mode, ());
-    TEST(MatchResults(m_engine, rules, request.Results()), ());
+    TEST(MatchResults(m_index, rules, request.Results()), ());
   }
 }
 
@@ -148,8 +148,8 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
     TestSearchRequest request(m_engine, params);
     request.Run();
 
-    TEST(MatchResults(m_engine, TRules{ExactMatch(id, cafe1), ExactMatch(id, cafe2),
-                                       ExactMatch(id, cafe3), ExactMatch(id, cafe4)},
+    TEST(MatchResults(m_index, TRules{ExactMatch(id, cafe1), ExactMatch(id, cafe2),
+                                      ExactMatch(id, cafe3), ExactMatch(id, cafe4)},
                       request.Results()),
          ());
   }
@@ -162,8 +162,9 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
 
     auto const & results = request.Results();
 
-    TEST(MatchResults(m_engine, TRules{ExactMatch(id, cafe1), ExactMatch(id, cafe3)}, results) ||
-         MatchResults(m_engine, TRules{ExactMatch(id, cafe2), ExactMatch(id, cafe4)}, results), ());
+    TEST(MatchResults(m_index, TRules{ExactMatch(id, cafe1), ExactMatch(id, cafe3)}, results) ||
+             MatchResults(m_index, TRules{ExactMatch(id, cafe2), ExactMatch(id, cafe4)}, results),
+         ());
   }
 }
 }  // namespace

@@ -1,19 +1,13 @@
 #pragma once
 
-#include "indexer/index.hpp"
-
 #include "search/engine.hpp"
 
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/weak_ptr.hpp"
+#include "storage/country_info_getter.hpp"
 
-class Platform;
+#include <memory>
+#include <string>
 
-namespace storage
-{
-class CountryInfoGetter;
-}
+class Index;
 
 namespace search
 {
@@ -21,25 +15,23 @@ struct SearchParams;
 
 namespace tests_support
 {
-class TestSearchEngine : public Index
+class TestSearchEngine
 {
 public:
-  TestSearchEngine(unique_ptr<storage::CountryInfoGetter> infoGetter,
+  TestSearchEngine(Index & index, std::unique_ptr<storage::CountryInfoGetter> infoGetter,
                    Engine::Params const & params);
-  TestSearchEngine(Engine::Params const & params);
-  ~TestSearchEngine() override;
+  TestSearchEngine(Index & index, Engine::Params const & params);
 
-  void SetLocale(string const & locale) { m_engine.SetLocale(locale); }
+  void SetLocale(std::string const & locale) { m_engine.SetLocale(locale); }
 
   void LoadCitiesBoundaries() { m_engine.LoadCitiesBoundaries(); }
 
-  weak_ptr<search::ProcessorHandle> Search(search::SearchParams const & params);
+  std::weak_ptr<search::ProcessorHandle> Search(search::SearchParams const & params);
 
   storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
 
 private:
-  Platform & m_platform;
-  unique_ptr<storage::CountryInfoGetter> m_infoGetter;
+  std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
   search::Engine m_engine;
 };
 }  // namespace tests_support

@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/search_integration_tests/helpers.hpp"
+#include "search/search_tests_support/test_with_classificator.hpp"
 
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -15,8 +15,15 @@
 
 #include "platform/local_country_file.hpp"
 
-using namespace search;
+#include <cstdint>
+#include <set>
+#include <string>
+#include <utility>
+
 using namespace generator::tests_support;
+using namespace search::tests_support;
+using namespace search;
+using namespace std;
 
 namespace
 {

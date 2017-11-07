@@ -24,6 +24,8 @@
 using namespace generator::tests_support;
 using namespace search::tests_support;
 
+class Index;
+
 namespace search
 {
 namespace
@@ -105,12 +107,11 @@ public:
 class DownloaderSearchRequest : public TestSearchRequest, public TestDelegate
 {
 public:
-  DownloaderSearchRequest(TestSearchEngine & engine, string const & query)
+  DownloaderSearchRequest(Index & index, TestSearchEngine & engine, string const & query)
     : TestSearchRequest(engine, MakeSearchParams(query))
     , m_storage(kCountriesTxt, make_unique<TestMapFilesDownloader>())
-    , m_downloaderCallback(static_cast<DownloaderSearchCallback::Delegate &>(*this),
-                           m_engine /* index */, m_engine.GetCountryInfoGetter(), m_storage,
-                           MakeDownloaderParams(query))
+    , m_downloaderCallback(static_cast<DownloaderSearchCallback::Delegate &>(*this), index,
+                           m_engine.GetCountryInfoGetter(), m_storage, MakeDownloaderParams(query))
   {
     SetCustomOnResults(bind(&DownloaderSearchRequest::OnResultsDownloader, this, _1));
   }
@@ -221,7 +222,7 @@ UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
   BuildWorld();
 
   {
-    DownloaderSearchRequest request(m_engine, "square one");
+    DownloaderSearchRequest request(m_index, m_engine, "square one");
     request.Run();
 
     TestResults(request.GetResults(),
@@ -229,7 +230,7 @@ UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
   }
 
   {
-    DownloaderSearchRequest request(m_engine, "shortpondland");
+    DownloaderSearchRequest request(m_index, m_engine, "shortpondland");
     request.Run();
 
     TestResults(request.GetResults(),
@@ -237,14 +238,14 @@ UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
   }
 
   {
-    DownloaderSearchRequest request(m_engine, "flatland");
+    DownloaderSearchRequest request(m_index, m_engine, "flatland");
     request.Run();
 
     TestResults(request.GetResults(), {storage::DownloaderSearchResult("Flatland", "Flatland")});
   }
 
   {
-    DownloaderSearchRequest request(m_engine, "square");
+    DownloaderSearchRequest request(m_index, m_engine, "square");
     request.Run();
 
     TestResults(request.GetResults(),

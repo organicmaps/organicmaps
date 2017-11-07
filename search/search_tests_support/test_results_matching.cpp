@@ -99,6 +99,13 @@ bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
   return false;
 }
 
+bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
+                  search::Results const & actual)
+{
+  vector<search::Result> const results(actual.begin(), actual.end());
+  return MatchResults(index, rules, results);
+}
+
 bool ResultMatches(Index const & index, shared_ptr<MatchingRule> rule,
                    search::Result const & result)
 {

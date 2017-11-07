@@ -197,11 +197,11 @@ void Split(string const & s, char delim, vector<string> & parts)
 
 // Returns the position of the result that is expected to be found by geocoder completeness
 // tests in the |result| vector or -1 if it does not occur there.
-int FindResult(TestSearchEngine & engine, string const & mwmName, uint32_t const featureId,
-               double const lat, double const lon, vector<Result> const & results)
+int FindResult(Index & index, string const & mwmName, uint32_t const featureId, double const lat,
+               double const lon, vector<Result> const & results)
 {
   CHECK_LESS_OR_EQUAL(results.size(), numeric_limits<int>::max(), ());
-  auto const mwmId = engine.GetMwmIdByCountryFile(platform::CountryFile(mwmName));
+  auto const mwmId = index.GetMwmIdByCountryFile(platform::CountryFile(mwmName));
   FeatureID const expectedFeatureId(mwmId, featureId);
   for (size_t i = 0; i < results.size(); ++i)
   {
@@ -279,7 +279,8 @@ void ParseCompletenessQuery(string & s, CompletenessQuery & q)
 // from |path|, executes them against the |engine| with viewport set to |viewport|
 // and reports the number of queries whose expected result is among the returned results.
 // Exact feature id is expected, but a close enough (lat, lon) is good too.
-void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSearchEngine & engine)
+void CheckCompleteness(string const & path, m2::RectD const & viewport, Index & index,
+                       TestSearchEngine & engine)
 {
   my::ScopedLogAbortLevelChanger const logAbortLevel(LCRITICAL);
 
@@ -321,7 +322,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
 
     LOG(LDEBUG, (q.m_query, q.m_request->Results()));
     int pos =
-        FindResult(engine, q.m_mwmName, q.m_featureId, q.m_lat, q.m_lon, q.m_request->Results());
+        FindResult(index, q.m_mwmName, q.m_featureId, q.m_lat, q.m_lon, q.m_request->Results());
     if (pos >= 0)
       ++expectedResultsFound;
     if (pos == 0)
@@ -377,7 +378,8 @@ int main(int argc, char * argv[])
   Engine::Params params;
   params.m_locale = FLAGS_locale;
   params.m_numThreads = FLAGS_num_threads;
-  TestSearchEngine engine(move(infoGetter), params);
+
+  Index index;
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())
@@ -399,9 +401,11 @@ int main(int argc, char * argv[])
   {
     mwm.SyncWithDisk();
     cout << mwm.GetCountryName() << " " << ReadVersionFromHeader(mwm) << endl;
-    engine.RegisterMap(mwm);
+    index.RegisterMap(mwm);
   }
   cout << endl;
+
+  TestSearchEngine engine(index, move(infoGetter), params);
 
   m2::RectD viewport;
   {
@@ -421,7 +425,7 @@ int main(int argc, char * argv[])
 
   if (!FLAGS_check_completeness.empty())
   {
-    CheckCompleteness(FLAGS_check_completeness, viewport, engine);
+    CheckCompleteness(FLAGS_check_completeness, viewport, index, engine);
     return 0;
   }
 

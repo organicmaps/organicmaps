@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "search/search_tests_support/test_with_classificator.hpp"
+
 #include "indexer/data_header.hpp"
 #include "indexer/index.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -16,12 +18,7 @@
 
 namespace
 {
-struct TestWithClassificator
-{
-  TestWithClassificator() { classificator::Load(); }
-};
-
-class LocalityFinderTest : public TestWithClassificator
+class LocalityFinderTest : public search::tests_support::TestWithClassificator
 {
   platform::LocalCountryFile m_worldFile;
 
