@@ -123,10 +123,6 @@ public:
   /// \note Before call of the method every line in |m_stopIds| should contain |m_stopIds|
   /// with only one stop range.
   void ClipGraph(std::vector<m2::RegionD> const & borders);
-  /// \brief Calculates and updates |m_edges| by adding valid value for Edge::m_weight
-  /// if it's not valid.
-  /// \note |m_stops|, Edge::m_stop1Id and Edge::m_stop2Id in |m_edges| must be valid before call.
-  void CalculateEdgeWeights();
   /// \brief Calculates best pedestrian segment for every gate in |m_gates|.
   /// \note All gates in |m_gates| must have a valid |m_point| field before the call.
   void CalculateBestPedestrianSegments(std::string const & mwmPath, std::string const & countryId);

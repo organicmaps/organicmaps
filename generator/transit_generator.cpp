@@ -352,10 +352,6 @@ void GraphData::Sort()
 void GraphData::ClipGraph(std::vector<m2::RegionD> const & borders)
 {
   Sort();
-  // @todo(bykoianko) Edge weight should be calculated on transit graph preparation stage.
-  // When it's done it'll be checked at Edge::IsValid() and the call of |CalculateEdgeWeights();|
-  // will be removed.
-  CalculateEdgeWeights();
   CHECK(IsValid(), ());
 
   ClipLines(borders);
@@ -367,21 +363,6 @@ void GraphData::ClipGraph(std::vector<m2::RegionD> const & borders)
   ClipEdges();
   SortVisitor{}(m_edges, nullptr /* name */);
   ClipShapes();
-}
-
-void GraphData::CalculateEdgeWeights()
-{
-  CHECK(is_sorted(m_stops.cbegin(), m_stops.cend()), ());
-  for (auto & e : m_edges)
-  {
-    if (e.GetWeight() != kInvalidWeight)
-      continue;
-
-    Stop const & s1 = FindById(m_stops, e.GetStop1Id());
-    Stop const & s2 = FindById(m_stops, e.GetStop2Id());
-    double const lengthInMeters = MercatorBounds::DistanceOnEarth(s1.GetPoint(), s2.GetPoint());
-    e.SetWeight(lengthInMeters / kTransitAverageSpeedMPS);
-  }
 }
 
 void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string const & countryId)
@@ -635,10 +616,6 @@ void ProcessGraph(string const & mwmPath, string const & countryId,
 {
   data.CalculateBestPedestrianSegments(mwmPath, countryId);
   data.Sort();
-  // @todo(bykoianko) Edge weight should be calculated on transit graph preparation stage.
-  // When it's done it'll be checked at Edge::IsValid() and the call of |data.CalculateEdgeWeights();|
-  // will be removed.
-  data.CalculateEdgeWeights();
   CHECK(data.IsValid(), (mwmPath));
 }
 
