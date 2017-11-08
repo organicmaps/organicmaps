@@ -410,6 +410,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 + (void)start
 {
+  [self saveRoute];
   auto const doStart = ^{
     auto & rm = GetFramework().GetRoutingManager();
     auto const routePoints = rm.GetRoutePoints();
@@ -682,10 +683,12 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 #pragma mark - Save / Load route points
 
++ (void)saveRoute { GetFramework().GetRoutingManager().SaveRoutePoints(); }
+
 + (void)saveRouteIfNeeded
 {
   if ([self isOnRoute])
-    GetFramework().GetRoutingManager().SaveRoutePoints();
+    [self saveRoute];
 }
 
 + (void)restoreRouteIfNeeded
