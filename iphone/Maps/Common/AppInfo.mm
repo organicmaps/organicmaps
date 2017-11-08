@@ -3,10 +3,10 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <sys/utsname.h>
-#import "LocaleTranslator.h"
 #import "MWMCommon.h"
 #import "SwiftBridge.h"
 
+#include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
 extern string const kCountryCodeKey = "CountryCode";
@@ -207,18 +207,18 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
 
 - (NSString *)twoLetterInputLanguage
 {
-  return @(locale_translator::bcp47ToTwineLanguage(self.inputLanguage).c_str());
+  return @(languages::Normalize(self.inputLanguage.UTF8String).c_str());
 }
 
 - (NSString *)languageId
 {
-  NSArray * languages = NSLocale.preferredLanguages;
-  return languages.count == 0 ? nil : languages[0];
+  return NSLocale.preferredLanguages.firstObject;
 }
 
 - (NSString *)twoLetterLanguageId
 {
-  return @(locale_translator::bcp47ToTwineLanguage(self.languageId).c_str());
+  auto languageId = self.languageId;
+  return languageId ? @(languages::Normalize(languageId.UTF8String).c_str()) : @"en";
 }
 
 - (NSDate *)buildDate
