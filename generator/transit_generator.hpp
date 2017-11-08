@@ -4,6 +4,8 @@
 
 #include "routing_common/transit_types.hpp"
 
+#include "storage/index.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/region2d.hpp"
 
@@ -119,7 +121,7 @@ public:
   /// \brief Sorts all class fields by their ids.
   void Sort();
   /// \brief Removes some items from all the class fields if they are outside |borders|.
-  /// Please see description for the other Crip*() method for excact rules of clipping.
+  /// Please see description for the other Clip*() method for excact rules of clipping.
   /// \note Before call of the method every line in |m_stopIds| should contain |m_stopIds|
   /// with only one stop range.
   void ClipGraph(std::vector<m2::RegionD> const & borders);
@@ -185,7 +187,7 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const
 
 /// \brief Calculates and adds some information to transit graph (|data|) after deserializing
 /// from json.
-void ProcessGraph(std::string const & mwmPath, std::string const & countryId,
+void ProcessGraph(std::string const & mwmPath, storage::TCountryId const & countryId,
                   OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data);
 
 /// \brief Builds the transit section in the mwm based on transit graph in json which represents
@@ -198,7 +200,7 @@ void ProcessGraph(std::string const & mwmPath, std::string const & countryId,
 /// \note An mwm pointed by |mwmPath| should contain:
 /// * feature geometry
 /// * index graph (ROUTING_FILE_TAG)
-void BuildTransit(std::string const & mwmDir, std::string const & countryId,
+void BuildTransit(std::string const & mwmDir, storage::TCountryId const & countryId,
                   std::string const & osmIdToFeatureIdsPath, std::string const & transitDir);
 }  // namespace transit
 }  // namespace routing

@@ -357,7 +357,7 @@ unique_ptr<GraphData> CreateGraph()
     }
   ]})";
 
-  unique_ptr<GraphData> graph = my::make_unique<GraphData>();
+  auto graph = my::make_unique<GraphData>();
 
   OsmIdToFeatureIdsMap mapping;
   mapping[osm::Id(100)] = vector<FeatureId>({10});
@@ -376,7 +376,7 @@ unique_ptr<GraphData> CreateGraph()
 
 UNIT_TEST(ClipGraph_SmokeTest)
 {
-  unique_ptr<GraphData> graph = CreateGraph();
+  auto graph = CreateGraph();
   graph->Sort();
   TestGraph(*graph);
 }
@@ -397,7 +397,7 @@ UNIT_TEST(ClipGraph_SmokeTest)
 //
 UNIT_TEST(ClipGraph_OneLineTest)
 {
-  unique_ptr<GraphData> graph = CreateGraph();
+  auto graph = CreateGraph();
   vector<m2::PointD> points = {{3.0, 3.0}, {3.0, 0.0}, {-3.0, 0.0}, {-3.0, 3.0}, {3.0, 3.0}};
   graph->ClipGraph({m2::RegionD(move(points))});
 
@@ -472,7 +472,7 @@ UNIT_TEST(ClipGraph_OneLineTest)
 //
 UNIT_TEST(ClipGraph_TwoLinesTest)
 {
-  unique_ptr<GraphData> graph = CreateGraph();
+  auto graph = CreateGraph();
   vector<m2::PointD> points = {{2.5, 2.0}, {2.5, -2.0}, {0.5, -2.0}, {0.5, 2.0}, {2.5, 2.0}};
   graph->ClipGraph({m2::RegionD(move(points))});
 

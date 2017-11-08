@@ -7,8 +7,7 @@
 #include "routing_common/transit_types.hpp"
 
 #include "base/assert.hpp"
-
-#include <std/unique_ptr.hpp>
+#include "base/stl_add.hpp"
 
 #include <memory>
 #include <string>

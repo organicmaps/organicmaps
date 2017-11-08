@@ -48,6 +48,7 @@ using namespace platform;
 using namespace routing;
 using namespace routing::transit;
 using namespace std;
+using namespace storage;
 
 namespace
 {
@@ -134,7 +135,7 @@ void Append(vector<T> const & src, vector<T> & dst)
   dst.insert(dst.end(), src.begin(), src.end());
 }
 
-void LoadBorders(string const & dir, string const & countryId, vector<m2::RegionD> & borders)
+void LoadBorders(string const & dir, TCountryId const & countryId, vector<m2::RegionD> & borders)
 {
   string const polyFile = my::JoinPath(dir, BORDERS_DIR, countryId + BORDERS_EXTENSION);
   borders.clear();
@@ -147,45 +148,50 @@ bool HasStop(vector<Stop> const & stops, StopId stopId)
 }
 
 /// \brief Removes from |items| all items which stop ids is not contained in |stops|.
+/// \note This method keeps relative order of |items|.
 template <class Item>
 void ClipItemsByStops(vector<Stop> const & stops, vector<Item> & items)
 {
   CHECK(is_sorted(stops.cbegin(), stops.cend()), ());
 
   vector<Item> itemsToFill;
-  for (auto const & i : items)
+  for (auto const & item : items)
   {
-    for (auto const stopId : i.GetStopIds())
+    for (auto const stopId : item.GetStopIds())
     {
       if (HasStop(stops, stopId))
       {
-        itemsToFill.push_back(i);
+        itemsToFill.push_back(item);
         break;
       }
     }
   }
-  items = move(itemsToFill);
+
+  items.swap(itemsToFill);
 }
 
 /// \returns ref to an item at |items| by |id|.
+/// \note |items| must be sorted before a call of this method.
 template <class Id, class Item>
 Item const & FindById(vector<Item> const & items, Id id)
 {
-  auto s1Id = equal_range(items.cbegin(), items.cend(), Item(id));
-  CHECK(s1Id.first != items.cend(), ("No items with id:", id, "in:", items));
+  auto const s1Id = equal_range(items.cbegin(), items.cend(), Item(id));
   CHECK_EQUAL(distance(s1Id.first, s1Id.second), 1,
-              ("An item with id:", id, "is not unique in items:", items));
+              ("An item with id:", id, "is not unique or there's not such item. items:", items));
   return *s1Id.first;
 }
 
-// \brief Fills |items| with items which have ids from |ids|.
+/// \brief Fills |items| with items which have ids from |ids|.
+/// \note |items| must be sorted before a call of this method.
 template <class Id, class Item>
 void UpdateItems(set<Id> const & ids, vector<Item> & items)
 {
   vector<Item> itemsToFill;
   for (auto const id : ids)
     itemsToFill.push_back(FindById(items, id));
-  items = move(itemsToFill);
+
+  SortVisitor{}(itemsToFill, nullptr /* name */);
+  items.swap(itemsToFill);
 }
 
 void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatureIdsMap & map)
@@ -197,7 +203,7 @@ void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatu
         (osmIdToFeatureIdsPath));
 }
 
-string GetMwmPath(string const & mwmDir, string const & countryId)
+string GetMwmPath(string const & mwmDir, TCountryId const & countryId)
 {
   return my::JoinPath(mwmDir, countryId + DATA_FILE_EXTENSION);
 }
@@ -349,23 +355,21 @@ void GraphData::Sort()
   Visit(v);
 }
 
-void GraphData::ClipGraph(std::vector<m2::RegionD> const & borders)
+void GraphData::ClipGraph(vector<m2::RegionD> const & borders)
 {
   Sort();
   CHECK(IsValid(), ());
-
   ClipLines(borders);
   ClipStops();
   ClipNetworks();
-  SortVisitor{}(m_stops, nullptr /* name */);
   ClipGates();
   ClipTransfer();
   ClipEdges();
-  SortVisitor{}(m_edges, nullptr /* name */);
   ClipShapes();
+  CHECK(IsValid(), ());
 }
 
-void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, string const & countryId)
+void GraphData::CalculateBestPedestrianSegments(string const & mwmPath, TCountryId const & countryId)
 {
   // Creating IndexRouter.
   SingleMwmIndex index(mwmPath);
@@ -444,82 +448,70 @@ bool GraphData::IsSorted() const
 void GraphData::ClipLines(vector<m2::RegionD> const & borders)
 {
   // Set with stop ids with stops which are inside |borders|.
-  set<StopId> stopIdInsideBorders;
-  for (auto const & s : m_stops)
+  set<StopId> stopIdInside;
+  for (auto const & stop : m_stops)
   {
-    if (m2::RegionsContain(borders, s.GetPoint()))
-      stopIdInsideBorders.insert(s.GetId());
+    if (m2::RegionsContain(borders, stop.GetPoint()))
+      stopIdInside.insert(stop.GetId());
   }
 
-  // Map from stop id to stop ids connected with it by edges.
-  map<StopId, vector<StopId>> stopIdToOtherEdgeEnds;
-  for (auto const & e : m_edges)
+  set<StopId> hasNeighborInside;
+  for (auto const & edge : m_edges)
   {
-    stopIdToOtherEdgeEnds[e.GetStop1Id()].push_back(e.GetStop2Id());
-    stopIdToOtherEdgeEnds[e.GetStop2Id()].push_back(e.GetStop1Id());
+    auto const stop1Inside = stopIdInside.count(edge.GetStop1Id()) != 0;
+    auto const stop2Inside = stopIdInside.count(edge.GetStop2Id()) != 0;
+    if (stop1Inside && !stop2Inside)
+      hasNeighborInside.insert(edge.GetStop2Id());
+    if (stop2Inside && !stop1Inside)
+      hasNeighborInside.insert(edge.GetStop1Id());
   }
 
-  // Returns true if any of stops connected with |stopId| by an edge from |m_edges|
-  // is inside |borders|.
-  auto const isAnyOfNeighborsInside = [&](StopId stopId) {
-    auto const it = stopIdToOtherEdgeEnds.find(stopId);
-    CHECK(it != stopIdToOtherEdgeEnds.cend(), ());
-    auto const & neighbors = it->second;
-    return any_of(neighbors.cbegin(), neighbors.cend(),
-                  [&](StopId neighbor) { return stopIdInsideBorders.count(neighbor) != 0; });
-  };
+  stopIdInside.insert(hasNeighborInside.cbegin(), hasNeighborInside.cend());
 
   // Filling |lines| with stops inside |borders|.
-  std::vector<Line> lines;
-  for (auto const & l : m_lines)
+  vector<Line> lines;
+  for (auto const & line : m_lines)
   {
-    Ranges const & stopIds = l.GetStopIds();
-    CHECK_EQUAL(stopIds.size(), 1, ());
     // Note. |stopIdsToFill| will be filled with continuous sequences of stop ids.
-    // In most cases only one sequence of stop ids should be place to |stopIdsToFill|.
-    // But if a line is split by |borders| three and more times then several
-    // continuous sequences of stop ids will be place to |stopIdsToFill|.
-    // The loop below goes through all the stop ids belong the line |l| and keep in |stopIdsToFill|
-    // continuous sequences of stop ids which is inside |borders|.
+    // In most cases only one sequence of stop ids should be placed to |stopIdsToFill|.
+    // But if a line is split by |borders| several times then several
+    // continuous groups of stop ids will be placed to |stopIdsToFill|.
+    // The loop below goes through all the stop ids belong the line |line| and
+    // keeps in |stopIdsToFill| continuous groups of stop ids which are inside |borders|.
     Ranges stopIdsToFill;
-    bool stopWasOutsideBorders = true;
-    for (StopId const stopId : stopIds[0])
-    {
-      if (stopIdInsideBorders.count(stopId) != 0 || isAnyOfNeighborsInside(stopId))
-      {
-        if (stopWasOutsideBorders)
-        {
-          stopIdsToFill.emplace_back(); // Push an empty vector.
-          stopWasOutsideBorders = false;
-        }
-        stopIdsToFill.back().push_back(stopId);
-      }
-      else
-      {
-        stopWasOutsideBorders = true;
-      }
+    Ranges const & ranges = line.GetStopIds();
+    CHECK_EQUAL(ranges.size(), 1, ());
+    vector<StopId> const & stopIds = ranges[0];
+    auto it = stopIds.begin();
+    while (it != stopIds.end()) {
+      while (it != stopIds.end() && stopIdInside.count(*it) == 0)
+        ++it;
+      auto jt = it;
+      while (jt != stopIds.end() && stopIdInside.count(*jt) != 0)
+        ++jt;
+      if (it != jt)
+        stopIdsToFill.emplace_back(it, jt);
+      it = jt;
     }
 
     if (!stopIdsToFill.empty())
     {
-      lines.emplace_back(l.GetId(), l.GetNumber(), l.GetTitle(), l.GetType(), l.GetColor(),
-                         l.GetNetworkId(), stopIdsToFill, l.GetInterval());
+      lines.emplace_back(line.GetId(), line.GetNumber(), line.GetTitle(), line.GetType(),
+                         line.GetColor(), line.GetNetworkId(), stopIdsToFill, line.GetInterval());
     }
   }
-  m_lines = move(lines);
+
+  m_lines.swap(lines);
 }
 
 void GraphData::ClipStops()
 {
   CHECK(is_sorted(m_stops.cbegin(), m_stops.cend()), ());
   set<StopId> stopIds;
-  for (auto const & l : m_lines)
+  for (auto const & line : m_lines)
   {
-    for (auto const & range : l.GetStopIds())
-    {
-      for (auto const stopId : range)
-        stopIds.insert(stopId);
-    }
+    for (auto const & range : line.GetStopIds())
+      stopIds.insert(range.cbegin(), range.cend());
   }
 
   UpdateItems(stopIds, m_stops);
@@ -529,8 +521,8 @@ void GraphData::ClipNetworks()
 {
   CHECK(is_sorted(m_networks.cbegin(), m_networks.cend()), ());
   set<NetworkId> networkIds;
-  for (auto const & l : m_lines)
-    networkIds.insert(l.GetNetworkId());
+  for (auto const & line : m_lines)
+    networkIds.insert(line.GetNetworkId());
 
   UpdateItems(networkIds, m_networks);
 }
@@ -556,7 +548,8 @@ void GraphData::ClipEdges()
       edges.push_back(edge);
   }
 
-  m_edges = move(edges);
+  SortVisitor{}(edges, nullptr /* name */);
+  m_edges.swap(edges);
 }
 
 void GraphData::ClipShapes()
@@ -565,8 +558,11 @@ void GraphData::ClipShapes()
 
   // Set with shape ids contained in m_edges.
   set<ShapeId> shapeIdInEdges;
-  for (auto const & s : m_edges)
-    shapeIdInEdges.insert(s.GetShapeIds().cbegin(), s.GetShapeIds().cend());
+  for (auto const & edge : m_edges)
+  {
+    auto const & shapeIds = edge.GetShapeIds();
+    shapeIdInEdges.insert(shapeIds.cbegin(), shapeIds.cend());
+  }
 
   vector<Shape> shapes;
   for (auto const & shape : m_shapes)
@@ -575,7 +571,7 @@ void GraphData::ClipShapes()
       shapes.push_back(shape);
   }
 
-  m_shapes = move(shapes);
+  m_shapes.swap(shapes);
 }
 
 void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
@@ -583,9 +579,9 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
 {
   Platform::EFileType fileType;
   Platform::EError const errCode = Platform::GetFileType(transitJsonPath, fileType);
-  CHECK_EQUAL(errCode, Platform::EError::ERR_OK, ("Transit graph is not found:", transitJsonPath));
+  CHECK_EQUAL(errCode, Platform::EError::ERR_OK, ("Transit graph was not found:", transitJsonPath));
   CHECK_EQUAL(fileType, Platform::EFileType::FILE_TYPE_REGULAR,
-              ("Transit graph is not found:", transitJsonPath));
+              ("Transit graph was not found:", transitJsonPath));
 
   string jsonBuffer;
   try
@@ -611,7 +607,7 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
   }
 }
 
-void ProcessGraph(string const & mwmPath, string const & countryId,
+void ProcessGraph(string const & mwmPath, TCountryId const & countryId,
                   OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data)
 {
   data.CalculateBestPedestrianSegments(mwmPath, countryId);
@@ -619,7 +615,7 @@ void ProcessGraph(string const & mwmPath, string const & countryId,
   CHECK(data.IsValid(), (mwmPath));
 }
 
-void BuildTransit(string const & mwmDir, string const & countryId,
+void BuildTransit(string const & mwmDir, TCountryId const & countryId,
                   string const & osmIdToFeatureIdsPath, string const & transitDir)
 {
   LOG(LERROR, ("This method is under construction and should not be used for building production mwm "
@@ -639,7 +635,6 @@ void BuildTransit(string const & mwmDir, string const & countryId,
   for (auto const & fileName : graphFiles)
   {
     auto const filePath = my::JoinPath(transitDir, fileName);
-    LOG(LINFO, ("JSON:", filePath));
     GraphData data;
     DeserializeFromJson(mapping, filePath, data);
     // @todo(bykoianko) Json should be clipped on feature generation step. It's much more efficient.
