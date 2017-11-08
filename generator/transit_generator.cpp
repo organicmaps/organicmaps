@@ -86,6 +86,20 @@ private:
   bool m_isValid = true;
 };
 
+struct IsEmptyVisitor
+{
+  template <typename Cont>
+  void operator()(Cont const & c, char const * /* name */ )
+  {
+    m_isEmpty = m_isEmpty && c.empty();
+  }
+
+  bool IsEmpty() const { return m_isEmpty; }
+
+private:
+  bool m_isEmpty = true;
+};
+
 struct IsUniqueVisitor
 {
   template <typename Cont>
@@ -322,6 +336,13 @@ bool GraphData::IsValid() const
   return v.IsValid();
 }
 
+bool GraphData::IsEmpty() const
+{
+  IsEmptyVisitor v;
+  Visit(v);
+  return v.IsEmpty();
+}
+
 void GraphData::Sort()
 {
   SortVisitor const v{};
@@ -443,7 +464,7 @@ void GraphData::ClipLines(vector<m2::RegionD> const & borders)
 {
   // Set with stop ids with stops which are inside |borders|.
   set<StopId> stopIdInsideBorders;
-  for (auto const s : m_stops)
+  for (auto const & s : m_stops)
   {
     if (m2::RegionsContain(borders, s.GetPoint()))
       stopIdInsideBorders.insert(s.GetId());
@@ -563,7 +584,7 @@ void GraphData::ClipShapes()
 
   // Set with shape ids contained in m_edges.
   set<ShapeId> shapeIdInEdges;
-  for (auto const s : m_edges)
+  for (auto const & s : m_edges)
     shapeIdInEdges.insert(s.GetShapeIds().cbegin(), s.GetShapeIds().cend());
 
   vector<Shape> shapes;
@@ -581,9 +602,9 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
 {
   Platform::EFileType fileType;
   Platform::EError const errCode = Platform::GetFileType(transitJsonPath, fileType);
-  CHECK_EQUAL(errCode, Platform::EError::ERR_OK, ("Transit graph not found:", transitJsonPath));
+  CHECK_EQUAL(errCode, Platform::EError::ERR_OK, ("Transit graph is not found:", transitJsonPath));
   CHECK_EQUAL(fileType, Platform::EFileType::FILE_TYPE_REGULAR,
-              ("Transit graph not found:", transitJsonPath));
+              ("Transit graph is not found:", transitJsonPath));
 
   string jsonBuffer;
   try
@@ -638,8 +659,9 @@ void BuildTransit(string const & mwmDir, string const & countryId,
   LoadBorders(mwmDir, countryId, mwmBorders);
 
   GraphData jointData;
-  for (auto const & filePath : graphFiles)
+  for (auto const & fileName : graphFiles)
   {
+    auto const filePath = my::JoinPath(transitDir, fileName);
     LOG(LINFO, ("JSON:", filePath));
     GraphData data;
     DeserializeFromJson(mapping, filePath, data);
@@ -647,6 +669,9 @@ void BuildTransit(string const & mwmDir, string const & countryId,
     data.ClipGraph(mwmBorders);
     jointData.AppendTo(data);
   }
+
+  if (jointData.IsEmpty())
+    return; // Empty transit section.
 
   ProcessGraph(mwmPath, countryId, mapping, jointData);
   CHECK(jointData.IsValid(), (mwmPath, countryId));

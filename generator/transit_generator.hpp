@@ -114,6 +114,7 @@ public:
   void AppendTo(GraphData const & rhs);
   void Clear();
   bool IsValid() const;
+  bool IsEmpty() const;
 
   /// \brief Sorts all class fields by their ids.
   void Sort();

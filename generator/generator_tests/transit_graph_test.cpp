@@ -6,7 +6,7 @@
 
 #include "routing_common/transit_types.hpp"
 
-#include <std/unique_ptr.hpp>
+#include "base/stl_add.hpp"
 
 #include <memory>
 #include <string>
@@ -357,7 +357,7 @@ unique_ptr<GraphData> CreateGraph()
     }
   ]})";
 
-  unique_ptr<GraphData> graph = make_unique<GraphData>();
+  unique_ptr<GraphData> graph = my::make_unique<GraphData>();
 
   OsmIdToFeatureIdsMap mapping;
   mapping[osm::Id(100)] = vector<FeatureId>({10});
