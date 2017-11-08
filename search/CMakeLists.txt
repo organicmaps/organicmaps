@@ -132,6 +132,8 @@ set(
   token_range.hpp
   token_slice.cpp
   token_slice.hpp
+  tracer.cpp
+  tracer.hpp
   types_skipper.cpp
   types_skipper.hpp
   utils.cpp

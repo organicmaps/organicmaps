@@ -81,6 +81,7 @@ HEADERS += \
     suggest.hpp \
     token_range.hpp \
     token_slice.hpp \
+    tracer.hpp \
     types_skipper.hpp \
     utils.hpp \
     viewport_search_callback.hpp \
@@ -145,6 +146,7 @@ SOURCES += \
     streets_matcher.cpp \
     suggest.cpp \
     token_slice.cpp \
+    tracer.cpp \
     types_skipper.cpp \
     utils.cpp \
     viewport_search_callback.cpp \

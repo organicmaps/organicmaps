@@ -64,7 +64,7 @@ public:
   void GetTopLocalities(size_t limit)
   {
     BaseContext ctx;
-    ctx.m_usedTokens.assign(m_params.GetNumTokens(), false);
+    ctx.m_tokens.assign(m_params.GetNumTokens(), BaseContext::TOKEN_TYPE_COUNT);
     ctx.m_numTokens = m_params.GetNumTokens();
 
     for (size_t i = 0; i < m_params.GetNumTokens(); ++i)

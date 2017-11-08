@@ -10,6 +10,7 @@
 #include "search/processor.hpp"
 #include "search/retrieval.hpp"
 #include "search/token_slice.hpp"
+#include "search/tracer.hpp"
 #include "search/utils.hpp"
 
 #include "indexer/classificator.hpp"
@@ -78,32 +79,37 @@ UniString const kUniSpace(MakeUniString(" "));
 
 struct ScopedMarkTokens
 {
-  ScopedMarkTokens(vector<bool> & usedTokens, TokenRange const & range)
-    : m_usedTokens(usedTokens), m_range(range)
+  static BaseContext::TokenType constexpr kUnused = BaseContext::TOKEN_TYPE_COUNT;
+
+  ScopedMarkTokens(vector<BaseContext::TokenType> & tokens, BaseContext::TokenType type,
+                   TokenRange const & range)
+    : m_tokens(tokens), m_type(type), m_range(range)
   {
     ASSERT(m_range.IsValid(), ());
-    ASSERT_LESS_OR_EQUAL(m_range.End(), m_usedTokens.size(), ());
+    ASSERT_LESS_OR_EQUAL(m_range.End(), m_tokens.size(), ());
 #if defined(DEBUG)
     for (size_t i : m_range)
-      ASSERT(!m_usedTokens[i], (i));
+      ASSERT_EQUAL(m_tokens[i], kUnused, (i));
 #endif
-    fill(m_usedTokens.begin() + m_range.Begin(), m_usedTokens.begin() + m_range.End(),
-         true /* used */);
+    fill(m_tokens.begin() + m_range.Begin(), m_tokens.begin() + m_range.End(), m_type);
   }
 
   ~ScopedMarkTokens()
   {
 #if defined(DEBUG)
     for (size_t i : m_range)
-      ASSERT(m_usedTokens[i], (i));
+      ASSERT_EQUAL(m_tokens[i], m_type, (i));
 #endif
-    fill(m_usedTokens.begin() + m_range.Begin(), m_usedTokens.begin() + m_range.End(),
-         false /* used */);
+    fill(m_tokens.begin() + m_range.Begin(), m_tokens.begin() + m_range.End(), kUnused);
   }
 
-  vector<bool> & m_usedTokens;
+  vector<search::BaseContext::TokenType> & m_tokens;
+  search::BaseContext::TokenType const m_type;
   TokenRange const m_range;
 };
+
+// static
+BaseContext::TokenType constexpr ScopedMarkTokens::kUnused;
 
 class LazyRankTable : public RankTable
 {
@@ -573,7 +579,7 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
 {
   Retrieval retrieval(*m_context, m_cancellable);
 
-  ctx.m_usedTokens.assign(m_params.GetNumTokens(), false);
+  ctx.m_tokens.assign(m_params.GetNumTokens(), BaseContext::TOKEN_TYPE_COUNT);
   ctx.m_numTokens = m_params.GetNumTokens();
   ctx.m_features.resize(ctx.m_numTokens);
   for (size_t i = 0; i < ctx.m_features.size(); ++i)
@@ -849,7 +855,7 @@ void Geocoder::MatchRegions(BaseContext & ctx, Region::Type type)
       ctx.m_regions.push_back(&region);
       MY_SCOPE_GUARD(cleanup, [&ctx]() { ctx.m_regions.pop_back(); });
 
-      ScopedMarkTokens mark(ctx.m_usedTokens, tokenRange);
+      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::FromRegionType(type), tokenRange);
       if (ctx.AllTokensUsed())
       {
         // Region matches to search query, we need to emit it as is.
@@ -888,7 +894,7 @@ void Geocoder::MatchCities(BaseContext & ctx)
         continue;
       }
 
-      ScopedMarkTokens mark(ctx.m_usedTokens, tokenRange);
+      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_CITY, tokenRange);
       ctx.m_city = &city;
       MY_SCOPE_GUARD(cleanup, [&ctx]() { ctx.m_city = nullptr; });
 
@@ -954,7 +960,7 @@ void Geocoder::WithPostcodes(BaseContext & ctx, TFn && fn)
     size_t endToken = startToken;
     for (size_t n = 1; startToken + n <= ctx.m_numTokens && n <= maxPostcodeTokens; ++n)
     {
-      if (ctx.m_usedTokens[startToken + n - 1])
+      if (ctx.IsTokenUsed(startToken + n - 1))
         break;
 
       TokenSlice slice(m_params, TokenRange(startToken, startToken + n));
@@ -972,7 +978,7 @@ void Geocoder::WithPostcodes(BaseContext & ctx, TFn && fn)
 
     if (!postcodes.IsEmpty())
     {
-      ScopedMarkTokens mark(ctx.m_usedTokens, tokenRange);
+      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_POSTCODE, tokenRange);
 
       m_postcodes.Clear();
       m_postcodes.m_tokenRange = tokenRange;
@@ -1011,7 +1017,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   });
   layer.m_sortedFeatures = &sortedFeatures;
 
-  ScopedMarkTokens mark(ctx.m_usedTokens, prediction.m_tokenRange);
+  ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_STREET, prediction.m_tokenRange);
   MatchPOIsAndBuildings(ctx, 0 /* curToken */);
 }
 
@@ -1114,7 +1120,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
   features.SetFull();
 
   // Try to consume [curToken, m_numTokens) tokens range.
-  for (size_t n = 1; curToken + n <= ctx.m_numTokens && !ctx.m_usedTokens[curToken + n - 1]; ++n)
+  for (size_t n = 1; curToken + n <= ctx.m_numTokens && !ctx.IsTokenUsed(curToken + n - 1); ++n)
   {
     // At this point |features| is the intersection of
     // m_addressFeatures[curToken], m_addressFeatures[curToken + 1],
@@ -1194,6 +1200,8 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
       }
 
       layer.m_type = static_cast<Model::Type>(i);
+      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::FromModelType(layer.m_type),
+                            TokenRange(curToken, curToken + n));
       if (IsLayerSequenceSane(layers))
         MatchPOIsAndBuildings(ctx, curToken + n);
     }
@@ -1283,6 +1291,9 @@ void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, 
   if (m_params.m_cianMode && type != Model::TYPE_BUILDING)
     return;
 
+  if (m_params.m_tracer)
+    m_params.m_tracer->EmitParse(ctx.m_tokens);
+
   // Distance and rank will be filled at the end, for all results at once.
   //
   // TODO (@y, @m): need to skip zero rank features that are too
@@ -1343,7 +1354,7 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
 
   auto startToken = curToken;
   for (curToken = ctx.SkipUsedTokens(curToken);
-       curToken < ctx.m_numTokens && !ctx.m_usedTokens[curToken]; ++curToken)
+       curToken < ctx.m_numTokens && !ctx.IsTokenUsed(curToken); ++curToken)
   {
     allFeatures = allFeatures.Intersect(ctx.m_features[curToken]);
   }

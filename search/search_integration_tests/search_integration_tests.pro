@@ -33,6 +33,7 @@ SOURCES += \
     processor_test.cpp \
     search_edited_features_test.cpp \
     smoke_test.cpp \
+    tracer_tests.cpp \
 
 HEADERS += \
     helpers.hpp \

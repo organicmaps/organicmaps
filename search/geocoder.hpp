@@ -37,6 +37,7 @@
 
 #include "std/limits.hpp"
 #include "std/set.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/unordered_map.hpp"
@@ -52,11 +53,11 @@ class CountryInfoGetter;
 
 namespace search
 {
-class PreRanker;
-
 class FeaturesFilter;
 class FeaturesLayerMatcher;
+class PreRanker;
 class TokenSlice;
+class Tracer;
 
 // This class is used to retrieve all features corresponding to a
 // search query.  Search query is represented as a sequence of tokens
@@ -83,6 +84,7 @@ public:
     shared_ptr<hotels_filter::Rule> m_hotelsFilter;
     bool m_cianMode = false;
     set<uint32_t> m_preferredTypes;
+    shared_ptr<Tracer> m_tracer;
   };
 
   Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,

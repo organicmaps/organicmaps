@@ -1,7 +1,5 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests_support/test_feature.hpp"
-
 #include "search/viewport_search_callback.hpp"
 #include "search/mode.hpp"
 #include "search/search_integration_tests/helpers.hpp"
@@ -17,24 +15,6 @@ namespace search
 {
 namespace
 {
-class TestCafe : public TestPOI
-{
-public:
-  TestCafe(m2::PointD const & center) : TestPOI(center, "cafe", "en")
-  {
-    SetTypes({{"amenity", "cafe"}});
-  }
-};
-
-class TestHotel : public TestPOI
-{
-public:
-  TestHotel(m2::PointD const & center) : TestPOI(center, "hotel", "en")
-  {
-    SetTypes({{"tourism", "hotel"}});
-  }
-};
-
 class TestDelegate : public ViewportSearchCallback::Delegate
 {
 public:

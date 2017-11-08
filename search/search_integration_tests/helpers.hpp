@@ -5,6 +5,8 @@
 #include "search/search_tests_support/test_search_request.hpp"
 #include "search/search_tests_support/test_with_custom_mwms.hpp"
 
+#include "generator/generator_tests_support/test_feature.hpp"
+
 #include "indexer/indexer_tests_support/helpers.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -56,5 +58,29 @@ protected:
   tests_support::TestSearchEngine m_engine;
 
   m2::RectD m_viewport;
+};
+
+class TestCafe : public generator::tests_support::TestPOI
+{
+public:
+  TestCafe(m2::PointD const & center, std::string const & name, std::string const & lang)
+    : TestPOI(center, name, lang)
+  {
+    SetTypes({{"amenity", "cafe"}});
+  }
+
+  explicit TestCafe(m2::PointD const & center) : TestCafe(center, "cafe", "en") {}
+};
+
+class TestHotel : public generator::tests_support::TestPOI
+{
+public:
+  TestHotel(m2::PointD const & center, std::string const & name, std::string const & lang)
+    : TestPOI(center, name, lang)
+  {
+    SetTypes({{"tourism", "hotel"}});
+  }
+
+  explicit TestHotel(m2::PointD const & center) : TestHotel(center, "hotel", "en") {}
 };
 }  // namespace search
