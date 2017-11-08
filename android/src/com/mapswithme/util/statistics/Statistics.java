@@ -217,6 +217,7 @@ public enum Statistics
     public static final String ROUTING_PEDESTRIAN_SET = "Routing. Set pedestrian";
     public static final String ROUTING_BICYCLE_SET = "Routing. Set bicycle";
     public static final String ROUTING_TAXI_SET = "Routing. Set taxi";
+    public static final String ROUTING_TRANSIT_SET = "Routing. Set transit";
     public static final String ROUTING_SWAP_POINTS = "Routing. Swap points";
     public static final String ROUTING_TOGGLE = "Routing. Toggle";
     public static final String ROUTING_SEARCH_POINT = "Routing. Search point";

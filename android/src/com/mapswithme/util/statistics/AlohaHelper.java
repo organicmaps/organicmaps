@@ -75,6 +75,7 @@ public class AlohaHelper
   public static final String ROUTING_PEDESTRIAN_SET = "routerSetPedestrian";
   public static final String ROUTING_BICYCLE_SET = "routerSetBicycle";
   public static final String ROUTING_TAXI_SET = "routerSetTaxi";
+  public static final String ROUTING_TRANSIT_SET = "routerSetTransit";
   public static final String ROUTING_SWAP_POINTS = "routeSwapPoints";
   public static final String ROUTING_TOGGLE = "routeToggle";
   public static final String ROUTING_SEARCH_POINT = "routSearchPoint";

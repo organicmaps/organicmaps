@@ -30,9 +30,15 @@ public class RoutingPlanController extends ToolbarController
 
   protected final View mFrame;
   private final RadioGroup mRouterTypes;
+  @NonNull
   private final WheelProgressView mProgressVehicle;
+  @NonNull
   private final WheelProgressView mProgressPedestrian;
+  @NonNull
+  private final WheelProgressView mProgressTransit;
+  @NonNull
   private final WheelProgressView mProgressBicycle;
+  @NonNull
   private final WheelProgressView mProgressTaxi;
 
   @NonNull
@@ -115,9 +121,21 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
+    setupRouterButton(R.id.transit, R.drawable.ic_transit, new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        AlohaHelper.logClick(AlohaHelper.ROUTING_TRANSIT_SET);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_TRANSIT_SET);
+        RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TRANSIT);
+      }
+    });
+
     View progressFrame = mToolbar.findViewById(R.id.progress_frame);
     mProgressVehicle = (WheelProgressView) progressFrame.findViewById(R.id.progress_vehicle);
     mProgressPedestrian = (WheelProgressView) progressFrame.findViewById(R.id.progress_pedestrian);
+    mProgressTransit = (WheelProgressView) progressFrame.findViewById(R.id.progress_transit);
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
     mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
@@ -162,7 +180,8 @@ public class RoutingPlanController extends ToolbarController
 
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
-    UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressBicycle, mProgressTaxi);
+    UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressTransit,
+                      mProgressBicycle, mProgressTaxi);
     WheelProgressView progressView;
     if (router == Framework.ROUTER_TYPE_VEHICLE)
     {
@@ -178,6 +197,11 @@ public class RoutingPlanController extends ToolbarController
     {
       mRouterTypes.check(R.id.taxi);
       progressView = mProgressTaxi;
+    }
+    else if (router == Framework.ROUTER_TYPE_TRANSIT)
+    {
+      mRouterTypes.check(R.id.transit);
+      progressView = mProgressTransit;
     }
     else
     {

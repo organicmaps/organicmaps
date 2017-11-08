@@ -375,6 +375,11 @@ public enum LocationHelper
         mInterval = INTERVAL_NAVIGATION_BICYCLE_MS;
         break;
 
+      case Framework.ROUTER_TYPE_TRANSIT:
+        // TODO: what is the interval should be for transit type?
+        mInterval = INTERVAL_NAVIGATION_PEDESTRIAN_MS;
+        break;
+
       default:
         throw new IllegalArgumentException("Unsupported router type: " + router);
       }

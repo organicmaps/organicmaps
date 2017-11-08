@@ -2339,6 +2339,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
           case "taxi":
             routerType = Framework.ROUTER_TYPE_TAXI;
             break;
+          case "transit":
+            routerType = Framework.ROUTER_TYPE_TRANSIT;
+            break;
         }
       }
 
