@@ -10,7 +10,7 @@ using namespace std;
 namespace search
 {
 // Tracer::Parse -----------------------------------------------------------------------------------
-Tracer::Parse::Parse(std::vector<TokenType> const & types)
+Tracer::Parse::Parse(vector<TokenType> const & types)
 {
   size_t i = 0;
   while (i != types.size())
@@ -30,7 +30,7 @@ Tracer::Parse::Parse(vector<pair<TokenType, TokenRange>> const & ranges)
     m_ranges[kv.first] = kv.second;
 }
 
-std::string DebugPrint(Tracer::Parse const & parse)
+string DebugPrint(Tracer::Parse const & parse)
 {
   using TokenType = Tracer::Parse::TokenType;
 
