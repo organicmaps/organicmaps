@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/feature_decl.hpp"
+#include "indexer/feature_meta.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/point2d.hpp"
@@ -124,11 +125,13 @@ public:
   inline void SetHouseNumber(std::string const & houseNumber) { m_houseNumber = houseNumber; }
   inline void SetStreet(TestStreet const & street) { m_streetName = street.GetName(); }
   inline void SetTypes(std::vector<std::vector<std::string>> const & types) { m_types = types; }
+  inline void SetMetadata(feature::Metadata const & metadata) { m_metadata = metadata; }
 
 private:
   std::string m_houseNumber;
   std::string m_streetName;
   std::vector<std::vector<std::string>> m_types;
+  feature::Metadata m_metadata;
 };
 
 class TestBuilding : public TestFeature

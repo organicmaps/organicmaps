@@ -7,8 +7,6 @@
 
 #include "std/unique_ptr.hpp"
 
-class Index;
-
 namespace indexer
 {
 namespace tests_support

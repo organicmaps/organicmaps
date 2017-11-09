@@ -231,6 +231,8 @@ void TestPOI::Serialize(FeatureBuilder1 & fb) const
     fb.AddHouseNumber(m_houseNumber);
   if (!m_streetName.empty())
     fb.AddStreet(m_streetName);
+  if (!m_metadata.Empty())
+    fb.GetMetadataForTesting() = m_metadata;
 }
 
 string TestPOI::ToString() const
