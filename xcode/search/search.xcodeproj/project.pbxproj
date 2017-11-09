@@ -72,6 +72,9 @@
 		3913DA511F9FCC88004AA681 /* suggest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3913DA501F9FCC88004AA681 /* suggest.cpp */; };
 		397AFE061D6C9AC700F583E7 /* downloader_search_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 397AFE041D6C9AC700F583E7 /* downloader_search_callback.cpp */; };
 		397AFE071D6C9AC700F583E7 /* downloader_search_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 397AFE051D6C9AC700F583E7 /* downloader_search_callback.hpp */; };
+		39AEF8361FB4597300943FC9 /* tracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39AEF8351FB4597300943FC9 /* tracer.cpp */; };
+		39AEF8381FB4597F00943FC9 /* point_rect_matcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39AEF8371FB4597E00943FC9 /* point_rect_matcher.hpp */; };
+		39AEF83A1FB4598900943FC9 /* tracer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39AEF8391FB4598900943FC9 /* tracer.hpp */; };
 		39BBC13B1F9FD65C009D1687 /* highlighting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC1391F9FD65C009D1687 /* highlighting.cpp */; };
 		39BBC13C1F9FD65C009D1687 /* highlighting.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39BBC13A1F9FD65C009D1687 /* highlighting.hpp */; };
 		39BBC13E1F9FD679009D1687 /* segment_tree_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC13D1F9FD679009D1687 /* segment_tree_tests.cpp */; };
@@ -262,6 +265,9 @@
 		3913DA501F9FCC88004AA681 /* suggest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = suggest.cpp; sourceTree = "<group>"; };
 		397AFE041D6C9AC700F583E7 /* downloader_search_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = downloader_search_callback.cpp; sourceTree = "<group>"; };
 		397AFE051D6C9AC700F583E7 /* downloader_search_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_search_callback.hpp; sourceTree = "<group>"; };
+		39AEF8351FB4597300943FC9 /* tracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tracer.cpp; sourceTree = "<group>"; };
+		39AEF8371FB4597E00943FC9 /* point_rect_matcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = point_rect_matcher.hpp; sourceTree = "<group>"; };
+		39AEF8391FB4598900943FC9 /* tracer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tracer.hpp; sourceTree = "<group>"; };
 		39BBC1391F9FD65C009D1687 /* highlighting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = highlighting.cpp; sourceTree = "<group>"; };
 		39BBC13A1F9FD65C009D1687 /* highlighting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = highlighting.hpp; sourceTree = "<group>"; };
 		39BBC13D1F9FD679009D1687 /* segment_tree_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = segment_tree_tests.cpp; sourceTree = "<group>"; };
@@ -503,6 +509,9 @@
 		675346B21A4055CF00A0A8C3 /* search */ = {
 			isa = PBXGroup;
 			children = (
+				39AEF8391FB4598900943FC9 /* tracer.hpp */,
+				39AEF8371FB4597E00943FC9 /* point_rect_matcher.hpp */,
+				39AEF8351FB4597300943FC9 /* tracer.cpp */,
 				39BBC1391F9FD65C009D1687 /* highlighting.cpp */,
 				39BBC13A1F9FD65C009D1687 /* highlighting.hpp */,
 				3913DA501F9FCC88004AA681 /* suggest.cpp */,
@@ -677,6 +686,7 @@
 				F652D8ED1CFDE21900FC29A0 /* features_layer_path_finder.hpp in Headers */,
 				3453BD5B1DAF91C100380ECB /* hotels_filter.hpp in Headers */,
 				F652D90A1CFDE21900FC29A0 /* stats_cache.hpp in Headers */,
+				39AEF83A1FB4598900943FC9 /* tracer.hpp in Headers */,
 				675346E11A40560D00A0A8C3 /* geometry_utils.hpp in Headers */,
 				675346E31A40560D00A0A8C3 /* house_detector.hpp in Headers */,
 				F652D9071CFDE21900FC29A0 /* ranking_info.hpp in Headers */,
@@ -687,6 +697,7 @@
 				F652D9031CFDE21900FC29A0 /* pre_ranking_info.hpp in Headers */,
 				675346E61A40560D00A0A8C3 /* intermediate_result.hpp in Headers */,
 				347F33301C4540A8009758CC /* suggest.hpp in Headers */,
+				39AEF8381FB4597F00943FC9 /* point_rect_matcher.hpp in Headers */,
 				F652D9091CFDE21900FC29A0 /* ranking_utils.hpp in Headers */,
 				345C8DB41D2D15A50037E3A6 /* streets_matcher.hpp in Headers */,
 				345C8DB21D2D15A50037E3A6 /* geocoder_context.hpp in Headers */,
@@ -921,6 +932,7 @@
 				56D5456E1C74A48C00E3719C /* mode.cpp in Sources */,
 				397AFE061D6C9AC700F583E7 /* downloader_search_callback.cpp in Sources */,
 				F652D8EC1CFDE21900FC29A0 /* features_layer_path_finder.cpp in Sources */,
+				39AEF8361FB4597300943FC9 /* tracer.cpp in Sources */,
 				3DF37FAA1EA11B380012CB31 /* everywhere_search_callback.cpp in Sources */,
 				F6E2AFFF1D9E794800793C36 /* categories_cache.cpp in Sources */,
 				3441CE521CFC1D7000CF30D4 /* query_params.cpp in Sources */,
