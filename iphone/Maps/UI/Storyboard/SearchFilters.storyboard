@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,16 +13,16 @@
         <scene sceneID="Rgk-Uh-KhM">
             <objects>
                 <tableViewController storyboardIdentifier="MWMSearchHotelsFilterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ba5-kG-Q6e" customClass="MWMSearchHotelsFilterViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="18" id="h41-fx-HZL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="18" id="h41-fx-HZL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterRatingCell" id="S86-4W-dBQ" customClass="MWMFilterRatingCell">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="48"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S86-4W-dBQ" id="k1w-ko-jKp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="47.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="3XN-J7-em8">
@@ -108,10 +108,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterPriceCategoryCell" id="v9h-eu-GaI" customClass="MWMFilterPriceCategoryCell">
-                                <rect key="frame" x="0.0" y="103.5" width="375" height="48"/>
+                                <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v9h-eu-GaI" id="BUk-m8-14p">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="47.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="mqG-GU-eru">
@@ -173,18 +173,18 @@
                                     <outlet property="two" destination="G1g-Nv-ywz" id="oNr-H9-ySh"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MWMFilterCollectionHolderCell" rowHeight="36" id="ZRo-hf-WJG" customClass="MWMFilterCollectionHolderCell">
-                                <rect key="frame" x="0.0" y="151.5" width="375" height="36"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MWMFilterCollectionHolderCell" id="ZRo-hf-WJG" customClass="MWMFilterCollectionHolderCell">
+                                <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZRo-hf-WJG" id="5F8-bU-App">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="35.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="v8G-NE-XjS">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="36" id="UzV-Pb-ui4"/>
+                                                <constraint firstAttribute="height" priority="999" constant="43.5" id="b2e-bF-rYZ"/>
                                             </constraints>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="12" minimumInteritemSpacing="8" id="lQh-zk-VkZ" customClass="TypeCellFlowLayout" customModule="cm_beta" customModuleProvider="target">
                                                 <size key="itemSize" width="50" height="36"/>
@@ -246,10 +246,10 @@
                                         </collectionView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="v8G-NE-XjS" secondAttribute="trailing" id="2P3-Yb-inY"/>
-                                        <constraint firstAttribute="bottom" secondItem="v8G-NE-XjS" secondAttribute="bottom" priority="750" id="bMe-Ub-6Iq"/>
-                                        <constraint firstItem="v8G-NE-XjS" firstAttribute="top" secondItem="5F8-bU-App" secondAttribute="top" id="ddT-sW-XHt"/>
-                                        <constraint firstItem="v8G-NE-XjS" firstAttribute="leading" secondItem="5F8-bU-App" secondAttribute="leading" id="eru-09-vHL"/>
+                                        <constraint firstItem="v8G-NE-XjS" firstAttribute="top" secondItem="5F8-bU-App" secondAttribute="top" id="IQA-OX-qzV"/>
+                                        <constraint firstAttribute="bottom" secondItem="v8G-NE-XjS" secondAttribute="bottom" id="TgL-XO-DZm"/>
+                                        <constraint firstAttribute="trailing" secondItem="v8G-NE-XjS" secondAttribute="trailing" id="XVe-BC-wbE"/>
+                                        <constraint firstItem="v8G-NE-XjS" firstAttribute="leading" secondItem="5F8-bU-App" secondAttribute="leading" id="yNU-lt-sCT"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -257,8 +257,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="collectionView" destination="v8G-NE-XjS" id="fS9-FK-R6q"/>
-                                    <outlet property="collectionViewHeight" destination="UzV-Pb-ui4" id="Dq9-OP-8GO"/>
+                                    <outlet property="collectionView" destination="v8G-NE-XjS" id="Csm-Es-fPO"/>
+                                    <outlet property="collectionViewHeight" destination="b2e-bF-rYZ" id="kVU-Mw-tCL"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

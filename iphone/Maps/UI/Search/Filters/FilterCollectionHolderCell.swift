@@ -5,12 +5,9 @@ final class FilterCollectionHolderCell: MWMTableViewCell {
   private weak var tableView: UITableView?
   override var frame: CGRect {
     didSet {
-      guard #available(iOS 10, *) else {
-        if frame.size.height < 1 /* minimal correct height */ {
-          frame.size.height = max(collectionViewHeight.constant, 1)
-          tableView?.refresh()
-        }
-        return
+      if frame.size.height < 1 /* minimal correct height */ {
+        frame.size.height = max(collectionViewHeight.constant, 1)
+        tableView?.refresh()
       }
     }
   }
@@ -22,15 +19,11 @@ final class FilterCollectionHolderCell: MWMTableViewCell {
   }
 
   @objc func config(tableView: UITableView?) {
+    self.tableView = tableView
     layout()
     collectionView.allowsMultipleSelection = true
     isSeparatorHidden = true
     backgroundColor = UIColor.pressBackground()
-
-    guard #available(iOS 10, *) else {
-      self.tableView = tableView
-      return
-    }
   }
 
   override func layoutSubviews() {
