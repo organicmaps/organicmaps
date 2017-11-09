@@ -16,7 +16,6 @@ namespace filter
 namespace availability
 {
 using Results = platform::SafeCallback<void(search::Results const &results)>;
-using ResultsUnsafe = std::function<void(search::Results const &results)>;
 
 struct Params
 {
@@ -26,11 +25,16 @@ struct Params
   Results m_callback;
 };
 
-struct ParamsInternal
+namespace internal
+{
+using ResultsUnsafe = std::function<void(search::Results const &results)>;
+
+struct Params
 {
   AvailabilityParams m_params;
   ResultsUnsafe m_callback;
 };
+}  // namespace internal
 }  // namespace availability
 }  // namespace filter
 }  // namespace booking

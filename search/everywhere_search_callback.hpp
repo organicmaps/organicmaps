@@ -22,6 +22,8 @@ public:
     virtual bool IsLocalAdsCustomer(Result const & result) const = 0;
   };
 
+  // The signature of the callback should be the same as EverywhereSaerchParams::OnResults, but
+  // EverywhereSaerchParams is located in map project and we do not need dependency.
   using OnResults =
     std::function<void(Results const & results, std::vector<bool> const & isLocalAdsCustomer)>;
 
