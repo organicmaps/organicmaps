@@ -132,12 +132,6 @@ void Platform::RunOnGuiThread(TFunctor const & fn)
   fn();
 }
 
-void Platform::RunAsync(TFunctor const & fn, Priority p)
-{
-  /// @todo
-  fn();
-}
-
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   // @TODO Add implementation

@@ -505,8 +505,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     Statistics.INSTANCE.trackConnectionState();
 
-    BookmarkManager.INSTANCE.addListener(this);
-
     mSearchController = new FloatingSearchToolbarController(this);
     mSearchController.setVisibilityListener(this);
     SearchEngine.INSTANCE.addListener(this);
@@ -924,8 +922,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BottomSheetHelper.free();
     SearchEngine.INSTANCE.removeListener(this);
 
-    BookmarkManager.INSTANCE.removeListener(this);
-
     super.onDestroy();
   }
 
@@ -1182,6 +1178,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onStart();
     Framework.nativeSetMapObjectListener(this);
+    BookmarkManager.INSTANCE.addListener(this);
     RoutingController.get().attach(this);
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
@@ -1197,6 +1194,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onStop();
     Framework.nativeRemoveMapObjectListener();
+    BookmarkManager.INSTANCE.removeListener(this);
     LocationHelper.INSTANCE.detach(!isFinishing());
     RoutingController.get().detach();
     TrafficManager.INSTANCE.detachAll();
@@ -2219,7 +2217,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onBookmarksLoadingFile(boolean success)
+  public void onBookmarksFileLoaded(boolean success)
   {
     Utils.toastShortcut(MwmActivity.this, success ? R.string.load_kmz_successful :
         R.string.load_kmz_failed);

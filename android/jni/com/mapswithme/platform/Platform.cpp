@@ -147,13 +147,6 @@ Platform::~Platform()
     env->DeleteGlobalRef(m_functorProcessObject);
 }
 
-void Platform::ProcessFunctor(jlong functionPointer)
-{
-  TFunctor * fn = reinterpret_cast<TFunctor *>(functionPointer);
-  (*fn)();
-  delete fn;
-}
-
 void Platform::OnExternalStorageStatusChanged(bool isAvailable)
 {
 }

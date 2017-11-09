@@ -142,7 +142,7 @@ void CreateLocalAdsMarks(BookmarkManager * bmManager, CampaignData const & campa
     return;
 
   // Here we copy campaign data, because we can create user marks only from UI thread.
-  GetPlatform().RunOnGuiThread([bmManager, campaignData]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, campaignData]()
   {
     UserMarkNotificationGuard guard(*bmManager, UserMark::Type::LOCAL_ADS);
     for (auto const & data : campaignData)
@@ -161,7 +161,7 @@ void DeleteLocalAdsMarks(BookmarkManager * bmManager, MwmSet::MwmId const & mwmI
   if (bmManager == nullptr)
     return;
 
-  GetPlatform().RunOnGuiThread([bmManager, mwmId]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, mwmId]()
   {
     UserMarkNotificationGuard guard(*bmManager, UserMark::Type::LOCAL_ADS);
     for (size_t i = 0; i < guard.m_controller.GetUserMarkCount();)
@@ -182,7 +182,7 @@ void DeleteAllLocalAdsMarks(BookmarkManager * bmManager)
   if (bmManager == nullptr)
     return;
 
-  GetPlatform().RunOnGuiThread([bmManager]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [bmManager]()
   {
     UserMarkNotificationGuard guard(*bmManager, UserMark::Type::LOCAL_ADS);
     guard.m_controller.Clear();

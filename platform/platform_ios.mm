@@ -120,12 +120,6 @@ int Platform::VideoMemoryLimit() const { return 8 * 1024 * 1024; }
 int Platform::PreCachingDepth() const { return 2; }
 
 string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
-static void PerformImpl(void * obj)
-{
-  Platform::TFunctor * f = reinterpret_cast<Platform::TFunctor *>(obj);
-  (*f)();
-  delete f;
-}
 
 string Platform::GetMemoryInfo() const
 {
@@ -157,19 +151,6 @@ void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
 {
   ASSERT(m_guiThread, ());
   m_guiThread->Push(task);
-}
-
-void Platform::RunAsync(TFunctor const & fn, Priority p)
-{
-  int priority = DISPATCH_QUEUE_PRIORITY_DEFAULT;
-  switch (p)
-  {
-  case EPriorityBackground: priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND; break;
-  case EPriorityDefault: priority = DISPATCH_QUEUE_PRIORITY_DEFAULT; break;
-  case EPriorityHigh: priority = DISPATCH_QUEUE_PRIORITY_HIGH; break;
-  case EPriorityLow: priority = DISPATCH_QUEUE_PRIORITY_LOW; break;
-  }
-  dispatch_async_f(dispatch_get_global_queue(priority, 0), new TFunctor(fn), &PerformImpl);
 }
 
 Platform::EConnectionType Platform::ConnectionStatus()

@@ -68,6 +68,13 @@ public:
     Unplugged
   };
 
+  enum class Thread : uint8_t
+  {
+    File,
+    Network,
+    Gui
+  };
+
   using TFilesWithType = vector<pair<string, EFileType>>;
 
 protected:
@@ -208,28 +215,6 @@ public:
   TStorageStatus GetWritableStorageStatus(uint64_t neededSize) const;
   uint64_t GetWritableStorageSpace() const;
 
-  /// @name Functions for concurrent tasks.
-  //@{
-  void RunOnGuiThread(base::TaskLoop::Task && task);
-  void RunOnGuiThread(base::TaskLoop::Task const & task);
-
-  template <typename Task>
-  void RunOnNetworkThread(Task && task) { m_networkThread.Push(forward<Task>(task)); }
-
-  template <typename Task>
-  void RunOnFileThread(Task && task) { m_fileThread.Push(forward<Task>(task)); }
-
-  enum Priority
-  {
-    EPriorityBackground,
-    EPriorityLow,
-    EPriorityDefault,
-    EPriorityHigh
-  };
-  using TFunctor = function<void()>;
-  void RunAsync(TFunctor const & fn, Priority p = EPriorityDefault);
-  //@}
-
   // Please note, that number of active cores can vary at runtime.
   // DO NOT assume for the same return value between calls.
   unsigned CpuCores() const;
@@ -270,12 +255,49 @@ public:
   MarketingService & GetMarketingService() { return m_marketingService; }
   platform::SecureStorage & GetSecureStorage() { return m_secureStorage; }
 
+  template <typename Task>
+  void RunTask(Thread thread, Task && task)
+  {
+    switch (thread)
+    {
+      case Thread::File:
+        m_fileThread.Push(forward<Task>(task));
+        break;
+      case Thread::Network:
+        m_networkThread.Push(forward<Task>(task));
+        break;
+      case Thread::Gui:
+        RunOnGuiThread(forward<Task>(task));
+        break;
+    }
+  }
+
+  template <typename Task>
+  void RunTask(Thread thread, Task const & task)
+  {
+    switch (thread)
+    {
+      case Thread::File:
+        m_fileThread.Push(task);
+        break;
+      case Thread::Network:
+        m_networkThread.Push(task);
+        break;
+      case Thread::Gui:
+        RunOnGuiThread(task);
+        break;
+    }
+  }
+
   void ShutdownThreads();
 
   // Use this method for testing purposes only.
   void SetGuiThread(unique_ptr<base::TaskLoop> guiThread);
 
 private:
+  void RunOnGuiThread(base::TaskLoop::Task && task);
+  void RunOnGuiThread(base::TaskLoop::Task const & task);
+
   void GetSystemFontNames(FilesList & res) const;
 };
 

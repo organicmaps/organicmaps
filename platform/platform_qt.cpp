@@ -95,11 +95,6 @@ void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
   ASSERT(m_guiThread, ());
   m_guiThread->Push(task);
 }
-
-void Platform::RunAsync(TFunctor const & fn, Priority p)
-{
-  async(fn);
-}
 #endif  // defined(OMIM_OS_LINUX)
 
 extern Platform & GetPlatform()

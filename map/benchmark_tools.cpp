@@ -62,7 +62,7 @@ void RunScenario(Framework * framework, std::shared_ptr<BenchmarkHandle> handle)
     auto const drapeStatistic = df::DrapeMeasurer::Instance().GetDrapeStatistic();
     handle->m_drapeStatistic.push_back(make_pair(name, drapeStatistic));
 #endif
-    GetPlatform().RunOnGuiThread([framework, handle]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [framework, handle]()
     {
       handle->m_currentScenario++;
       RunScenario(framework, handle);

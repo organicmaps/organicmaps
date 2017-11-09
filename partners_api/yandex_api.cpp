@@ -85,7 +85,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 
   auto const baseUrl = m_baseUrl;
 
-  GetPlatform().RunOnNetworkThread([from, to, baseUrl, successFn, errorFn]()
+  GetPlatform().RunTask(Platform::Thread::Network, [from, to, baseUrl, successFn, errorFn]()
   {
     std::string result;
     if (!RawApi::GetTaxiInfo(from, to, result, baseUrl))

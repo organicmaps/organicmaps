@@ -95,8 +95,8 @@ uint64_t Api::GetLocals(double lat, double lon, std::string const & lang,
                         LocalsErrorCallback const & errorFn)
 {
   uint64_t id = ++m_requestId;
-  GetPlatform().RunOnNetworkThread([id, lat, lon, lang,
-                                   resultsOnPage, pageNumber, successFn, errorFn]()
+  GetPlatform().RunTask(Platform::Thread::Network,
+                        [id, lat, lon, lang, resultsOnPage, pageNumber, successFn, errorFn]()
   {
     std::string result;
     if (!RawApi::Get(lat, lon, lang, resultsOnPage, pageNumber, result))

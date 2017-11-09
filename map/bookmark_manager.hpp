@@ -100,8 +100,8 @@ private:
   void SaveState() const;
   void LoadState();
   void MergeCategories(CategoriesCollection && newCategories);
-  void StartAsyncLoading();
-  void FinishAsyncLoading(std::shared_ptr<CategoriesCollection> && collection);
+  void NotifyAboutStartAsyncLoading();
+  void NotifyAboutFinishAsyncLoading(std::shared_ptr<CategoriesCollection> && collection);
   boost::optional<std::string> GetKMLPath(std::string const & filePath);
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
 

@@ -61,12 +61,6 @@ void Platform::RunOnGuiThread(TFunctor const & fn)
   fn();
 }
 
-void Platform::RunAsync(TFunctor const & fn, Priority p)
-{
-  /// @todo
-  fn();
-}
-
 ModelReader * Platform::GetReader(string const & file, string const & searchScope) const
 {
   return new FileReader(ReadPathForFile(file, searchScope),

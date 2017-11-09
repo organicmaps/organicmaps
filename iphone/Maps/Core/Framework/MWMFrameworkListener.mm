@@ -95,13 +95,6 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   using namespace routing;
   using namespace storage;
   Observers * observers = self.routeBuildingObservers;
-  // TODO(ldragunov,rokuz): Thise two routing callbacks are the only framework callbacks which does
-  // not guarantee
-  // that they are called on a main UI thread context. Discuss it with Lev.
-  // Simplest solution is to insert RunOnGuiThread() call in the core where callbacks are called.
-  // This will help to avoid unnecessary parameters copying and will make all our framework
-  // callbacks
-  // consistent: every notification to UI will run on a main UI thread.
   auto & rm = GetFramework().GetRoutingManager();
   rm.SetRouteBuildingListener(
       [observers](IRouter::ResultCode code, TCountriesVec const & absentCountries) {

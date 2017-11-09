@@ -200,7 +200,7 @@ void Api::GetTop5Products(std::string const & destId, std::string const & curren
   std::string curr =
       kSupportedCurrencies.find(currency) == kSupportedCurrencies.cend() ? "USD" : currency;
 
-  GetPlatform().RunOnNetworkThread([destId, curr, fn]()
+  GetPlatform().RunTask(Platform::Thread::Network, [destId, curr, fn]()
   {
     string result;
     if (!RawApi::GetTopProducts(destId, curr, 5, result))

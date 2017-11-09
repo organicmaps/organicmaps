@@ -15,8 +15,8 @@ namespace base
 {
 // This class represents a simple worker thread with a queue of tasks.
 //
-// *NOTE* This class IS thread-safe, but it must be destroyed on the
-// same thread it was created.
+// *NOTE* This class IS NOT thread-safe, it must be destroyed on the
+// same thread it was created, but Push* methods are thread-safe.
 class WorkerThread : public TaskLoop
 {
 public:

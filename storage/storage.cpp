@@ -1422,7 +1422,7 @@ void Storage::ApplyDiff(TCountryId const & countryId, function<void(bool isSucce
 
   m_diffManager.ApplyDiff(move(params), [this, fn, diffFile] (bool const result)
   {
-    GetPlatform().RunOnGuiThread([this, fn, diffFile, result]
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, fn, diffFile, result]
     {
       if (result)
       {

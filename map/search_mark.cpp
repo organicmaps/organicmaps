@@ -78,7 +78,7 @@ void SearchMarks::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, kSymbols,
                          [this](std::vector<m2::PointF> const & sizes)
   {
-    GetPlatform().RunOnGuiThread([this, sizes](){ m_searchMarksSizes = sizes; });
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, sizes](){ m_searchMarksSizes = sizes; });
   });
 }
 

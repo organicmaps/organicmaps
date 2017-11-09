@@ -32,7 +32,7 @@ public:
 
   void operator()(Args... args) const
   {
-    GetPlatform().RunOnGuiThread(std::bind(m_fn, std::move(args)...));
+    GetPlatform().RunTask(Platform::Thread::Gui, std::bind(m_fn, std::move(args)...));
   }
 
 private:

@@ -12,15 +12,14 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.statistics.Statistics;
 
 @MainThread
-public class BookmarkManager
+public enum BookmarkManager
 {
-  public static final BookmarkManager INSTANCE = new BookmarkManager();
+  INSTANCE;
 
   public static final List<Icon> ICONS = new ArrayList<>();
 
+  @NonNull
   private List<BookmarksLoadingListener> mListeners = new ArrayList<>();
-
-  private BookmarkManager() {}
 
   static
   {
@@ -82,12 +81,12 @@ public class BookmarkManager
     return bookmark;
   }
 
-  public void addListener(BookmarksLoadingListener listener)
+  public void addListener(@NonNull BookmarksLoadingListener listener)
   {
     mListeners.add(listener);
   }
 
-  public void removeListener(BookmarksLoadingListener listener)
+  public void removeListener(@NonNull BookmarksLoadingListener listener)
   {
     mListeners.remove(listener);
   }
@@ -110,9 +109,11 @@ public class BookmarkManager
 
   // Called from JNI.
   @MainThread
-  public void onBookmarksLoadingFile(boolean success, String fileName, boolean isTemporaryFile)
+  public void onBookmarksFileLoaded(boolean success, @NonNull String fileName,
+                                    boolean isTemporaryFile)
   {
-    // Android could create temporary file with bookmarks in some cases. Here we can delete it.
+    // Android could create temporary file with bookmarks in some cases (KML/KMZ file is a blob
+    // in the intent, so we have to create a temporary file on the disk). Here we can delete it.
     if (isTemporaryFile)
     {
       File tmpFile = new File(fileName);
@@ -120,7 +121,7 @@ public class BookmarkManager
     }
 
     for (BookmarksLoadingListener listener : mListeners)
-      listener.onBookmarksLoadingFile(success);
+      listener.onBookmarksFileLoaded(success);
   }
 
   public static native void nativeLoadBookmarks();
@@ -151,7 +152,7 @@ public class BookmarkManager
 
   public static native String nativeGenerateUniqueFileName(String baseName);
 
-  public static native void nativeLoadKmzFile(String path, boolean isTemporaryFile);
+  public static native void nativeLoadKmzFile(@NonNull String path, boolean isTemporaryFile);
 
   public static native String nativeFormatNewBookmarkName();
 
@@ -161,7 +162,6 @@ public class BookmarkManager
   {
     void onBookmarksLoadingStarted();
     void onBookmarksLoadingFinished();
-
-    void onBookmarksLoadingFile(boolean success);
+    void onBookmarksFileLoaded(boolean success);
   }
 }

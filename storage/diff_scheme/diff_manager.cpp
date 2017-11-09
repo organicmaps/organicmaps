@@ -41,7 +41,7 @@ void Manager::Load(LocalMapsInfo && info)
 
     auto & observers = m_observers;
     auto status = m_status;
-    GetPlatform().RunOnGuiThread([observers, status]() mutable {
+    GetPlatform().RunTask(Platform::Thread::Gui, [observers, status]() mutable {
       observers.ForEach(&Observer::OnDiffStatusReceived, status);
     });
   });

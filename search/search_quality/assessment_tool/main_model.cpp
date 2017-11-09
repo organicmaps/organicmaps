@@ -165,8 +165,8 @@ void MainModel::OnSampleSelected(int index)
         }
       }
 
-      GetPlatform().RunOnGuiThread(bind(&MainModel::OnResults, this, timestamp, index, results,
-                                        relevances, goldenMatching, actualMatching));
+      GetPlatform().RunTask(Platform::Thread::Gui, bind(&MainModel::OnResults, this, timestamp, index, results,
+                                                        relevances, goldenMatching, actualMatching));
     };
 
     m_queryHandle = engine.Search(params);

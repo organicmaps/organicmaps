@@ -19,7 +19,7 @@ jclass g_bookmarkManagerClass;
 jfieldID g_bookmarkManagerInstanceField;
 jmethodID g_onBookmarksLoadingStartedMethod;
 jmethodID g_onBookmarksLoadingFinishedMethod;
-jmethodID g_onBookmarksLoadingFileMethod;
+jmethodID g_onBookmarksFileLoadedMethod;
 
 void PrepareClassRefs(JNIEnv * env)
 {
@@ -37,15 +37,14 @@ void PrepareClassRefs(JNIEnv * env)
     jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksLoadingStarted", "()V");
   g_onBookmarksLoadingFinishedMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksLoadingFinished", "()V");
-  g_onBookmarksLoadingFileMethod =
-    jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksLoadingFile",
+  g_onBookmarksFileLoadedMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksFileLoaded",
                      "(ZLjava/lang/String;Z)V");
 }
 
 void OnAsyncLoadingStarted(JNIEnv * env)
 {
   ASSERT(g_bookmarkManagerClass != nullptr, ());
-  LOG(LINFO, ("!!!!!!"));
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksLoadingStartedMethod);
@@ -67,7 +66,7 @@ void OnAsyncLoadingFileSuccess(JNIEnv * env, std::string const & fileName, bool 
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   jni::TScopedLocalRef jFileName(env, jni::ToJavaString(env, fileName));
-  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksLoadingFileMethod,
+  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksFileLoadedMethod,
                       true /* success */, jFileName.get(), isTemporaryFile);
   jni::HandleJavaException(env);
 }
@@ -78,7 +77,7 @@ void OnAsyncLoadingFileError(JNIEnv * env, std::string const & fileName, bool is
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   jni::TScopedLocalRef jFileName(env, jni::ToJavaString(env, fileName));
-  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksLoadingFileMethod,
+  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksFileLoadedMethod,
                       false /* success */, jFileName.get(), isTemporaryFile);
   jni::HandleJavaException(env);
 }

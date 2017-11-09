@@ -252,7 +252,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 
   maker->Reset(reqId);
 
-  GetPlatform().RunOnNetworkThread([maker, from, reqId, baseUrl, successFn, errorFn]()
+  GetPlatform().RunTask(Platform::Thread::Network, [maker, from, reqId, baseUrl, successFn, errorFn]()
   {
     string result;
     if (!RawApi::GetEstimatedTime(from, result, baseUrl))
@@ -262,7 +262,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
     maker->MakeProducts(reqId, successFn, errorFn);
   });
 
-  GetPlatform().RunOnNetworkThread([maker, from, to, reqId, baseUrl, successFn, errorFn]()
+  GetPlatform().RunTask(Platform::Thread::Network, [maker, from, to, reqId, baseUrl, successFn, errorFn]()
   {
     string result;
     if (!RawApi::GetEstimatedPrice(from, to, result, baseUrl))

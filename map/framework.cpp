@@ -607,7 +607,7 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   if (m_storage.GetThreadChecker().CalledOnOriginalThread())
     action();
   else
-    GetPlatform().RunOnGuiThread(action);
+    GetPlatform().RunTask(Platform::Thread::Gui, action);
 
   auto const mwmId = m_model.GetIndex().GetMwmIdByCountryFile(localFile.GetCountryFile());
   m_trafficManager.OnMwmDeregistered(mwmId);
@@ -1220,7 +1220,7 @@ void Framework::OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel)
 
    m_lastReportedCountry = newCountryId;
 
-   GetPlatform().RunOnGuiThread([this, newCountryId]()
+   GetPlatform().RunTask(Platform::Thread::Gui, [this, newCountryId]()
    {
      if (m_currentCountryChanged != nullptr)
        m_currentCountryChanged(newCountryId);
@@ -1639,7 +1639,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   auto myPositionModeChangedFn = [this](location::EMyPositionMode mode, bool routingActive)
   {
-    GetPlatform().RunOnGuiThread([this, mode, routingActive]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, mode, routingActive]()
     {
       // Deactivate selection (and hide place page) if we return to routing in F&R mode.
       if (routingActive && mode == location::FollowAndRotate)
@@ -1701,16 +1701,16 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   m_drapeEngine->SetModelViewListener([this](ScreenBase const & screen)
   {
-    GetPlatform().RunOnGuiThread([this, screen](){ OnViewportChanged(screen); });
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, screen](){ OnViewportChanged(screen); });
   });
   m_drapeEngine->SetTapEventInfoListener([this](df::TapInfo const & tapInfo) {
-    GetPlatform().RunOnGuiThread([this, tapInfo]() {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, tapInfo]() {
       OnTapEvent({tapInfo, TapEvent::Source::User});
     });
   });
   m_drapeEngine->SetUserPositionListener([this](m2::PointD const & position, bool hasPosition)
   {
-    GetPlatform().RunOnGuiThread([this, position, hasPosition](){
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, position, hasPosition](){
       OnUserPositionChanged(position, hasPosition);
     });
   });
@@ -3058,7 +3058,10 @@ ads::Engine const & Framework::GetAdsEngine() const
   return *m_adsEngine;
 }
 
-void Framework::RunUITask(function<void()> fn) { GetPlatform().RunOnGuiThread(move(fn)); }
+void Framework::RunUITask(function<void()> fn)
+{
+  GetPlatform().RunTask(Platform::Thread::Gui, move(fn));
+}
 
 void Framework::SetSearchDisplacementModeEnabled(bool enabled)
 {

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "map/track.hpp"
 #include "map/user_mark.hpp"
 #include "map/user_mark_container.hpp"
 
@@ -21,8 +22,6 @@ namespace anim
 {
   class Task;
 }
-
-class Track;
 
 class BookmarkData
 {
@@ -71,7 +70,7 @@ private:
 
 class Bookmark : public UserMark
 {
-  using TBase = UserMark;
+  using Base = UserMark;
 public:
   Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container);
 
@@ -110,8 +109,7 @@ private:
 
 class BookmarkCategory : public UserMarkContainer
 {
-  using TBase = UserMarkContainer;
-
+  using Base = UserMarkContainer;
 public:
   explicit BookmarkCategory(std::string const & name);
   ~BookmarkCategory() override;
@@ -128,8 +126,8 @@ public:
   inline size_t GetTracksCount() const { return m_tracks.size(); }
   void DeleteTrack(size_t index);
 
-  std::vector<std::unique_ptr<Track>> && MoveTracks() { return std::move(m_tracks); }
-  void AcceptTracks(std::vector<std::unique_ptr<Track>> && tracks);
+  std::vector<std::unique_ptr<Track>> StealTracks();
+  void AppendTracks(std::vector<std::unique_ptr<Track>> && tracks);
 
   void SetName(std::string const & name) { m_name = name; }
   std::string const & GetName() const { return m_name; }
@@ -161,7 +159,7 @@ private:
   std::vector<std::unique_ptr<Track>> m_tracks;
 
   std::string m_name;
-  /// Stores file name from which category was loaded
+  // Stores file name from which bookmarks were loaded.
   std::string m_file;
 };
 

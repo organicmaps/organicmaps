@@ -138,7 +138,7 @@ uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const 
   auto const mercatorRect = MercatorBounds::MetresToXY(latlon.lat, latlon.lon, kSearchRadius);
   auto const rect = MercatorBounds::ToLatLonRect(mercatorRect);
 
-  GetPlatform().RunOnNetworkThread([reqId, rect, onSuccess, onError, baseUrl]() {
+  GetPlatform().RunTask(Platform::Thread::Network, [reqId, rect, onSuccess, onError, baseUrl]() {
     std::vector<RentPlace> result;
 
     auto const rawResult = RawApi::GetRentNearby(rect, baseUrl);

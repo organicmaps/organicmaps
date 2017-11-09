@@ -80,7 +80,7 @@ void TrafficManager::Teardown()
 
 void TrafficManager::SetStateListener(TrafficStateChangedFn const & onStateChangedFn)
 {
-  GetPlatform().RunOnGuiThread([this, onStateChangedFn]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, onStateChangedFn]()
   {
     m_onStateChangedFn = onStateChangedFn;
   });
@@ -440,7 +440,7 @@ void TrafficManager::ClearCache(MwmSet::MwmId const & mwmId)
 
     m_drapeEngine.SafeCall(&df::DrapeEngine::ClearTrafficCache, mwmId);
 
-    GetPlatform().RunOnGuiThread([this, mwmId]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, mwmId]()
     {
       m_observer.OnTrafficInfoRemoved(mwmId);
     });
@@ -527,7 +527,7 @@ void TrafficManager::ChangeState(TrafficState newState)
       "$TrafficChangeState",
       alohalytics::TStringMap({{"state", DebugPrint(m_state.load())}}));
 
-  GetPlatform().RunOnGuiThread([this, newState]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, newState]()
   {
     if (m_onStateChangedFn != nullptr)
       m_onStateChangedFn(newState);

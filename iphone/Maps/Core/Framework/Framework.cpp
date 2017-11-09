@@ -3,11 +3,11 @@
 #include "base/assert.hpp"
 
 static Framework * g_framework = 0;
-bool wasDeleted = false;
+bool g_wasDeleted = false;
 
 Framework & GetFramework()
 {
-  CHECK(!wasDeleted, ());
+  CHECK(!g_wasDeleted, ());
   if (g_framework == 0)
     g_framework = new Framework();
   return *g_framework;
@@ -15,7 +15,7 @@ Framework & GetFramework()
 
 void DeleteFramework()
 {
-  wasDeleted = true;
+  g_wasDeleted = true;
   delete g_framework;
   g_framework = nullptr;
 }

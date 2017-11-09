@@ -322,7 +322,7 @@ string Api::GetSearchUrl(string const & city, string const & name) const
 void Api::GetMinPrice(string const & hotelId, string const & currency,
                       GetMinPriceCallback const & fn) const
 {
-  GetPlatform().RunOnNetworkThread([hotelId, currency, fn]()
+  GetPlatform().RunTask(Platform::Thread::Network, [hotelId, currency, fn]()
   {
     string minPrice;
     string priceCurrency;
@@ -350,7 +350,7 @@ void Api::GetMinPrice(string const & hotelId, string const & currency,
 void Api::GetHotelInfo(string const & hotelId, string const & lang,
                        GetHotelInfoCallback const & fn) const
 {
-  GetPlatform().RunOnNetworkThread([hotelId, lang, fn]()
+  GetPlatform().RunTask(Platform::Thread::Network, [hotelId, lang, fn]()
   {
     HotelInfo info;
     info.m_hotelId = hotelId;
@@ -379,7 +379,7 @@ void Api::GetHotelInfo(string const & hotelId, string const & lang,
 void Api::GetHotelAvailability(AvailabilityParams const & params,
                                GetHotelAvailabilityCallback const & fn) const
 {
-  GetPlatform().RunOnNetworkThread([params, fn]()
+  GetPlatform().RunTask(Platform::Thread::Network, [params, fn]()
   {
     std::vector<std::string> result;
     string httpResult;

@@ -263,7 +263,7 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 
   m_routingSession.SetCheckpointCallback([this](size_t passedCheckpointIdx)
   {
-    GetPlatform().RunOnGuiThread([this, passedCheckpointIdx]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, passedCheckpointIdx]()
     {
       size_t const pointsCount = GetRoutePointsCount();
 

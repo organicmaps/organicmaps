@@ -28,11 +28,11 @@
 #include <memory>
 
 Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
-  : TBase(ptOrg, container)
+  : Base(ptOrg, container)
 {}
 
 Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
-  : TBase(ptOrg, container)
+  : Base(ptOrg, container)
   , m_data(data)
 {}
 
@@ -136,7 +136,7 @@ Track const * BookmarkCategory::GetTrack(size_t index) const
 }
 
 BookmarkCategory::BookmarkCategory(std::string const & name)
-  : TBase(0.0 /* bookmarkDepth */, UserMark::Type::BOOKMARK)
+  : Base(0.0 /* bookmarkDepth */, UserMark::Type::BOOKMARK)
   , m_name(name)
 {}
 
@@ -168,7 +168,14 @@ void BookmarkCategory::DeleteTrack(size_t index)
   m_tracks.erase(next(m_tracks.begin(), index));
 }
 
-void BookmarkCategory::AcceptTracks(std::vector<std::unique_ptr<Track>> && tracks)
+std::vector<std::unique_ptr<Track>> BookmarkCategory::StealTracks()
+{
+  std::vector<std::unique_ptr<Track>> tracks;
+  std::swap(m_tracks, tracks);
+  return std::move(tracks);
+}
+
+void BookmarkCategory::AppendTracks(std::vector<std::unique_ptr<Track>> && tracks)
 {
   std::move(tracks.begin(), tracks.end(), std::back_inserter(m_tracks));
 }

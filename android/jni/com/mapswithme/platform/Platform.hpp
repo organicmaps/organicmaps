@@ -26,8 +26,6 @@ public:
 
   ~Platform() override;
 
-  void ProcessFunctor(jlong functionPointer);
-
   void OnExternalStorageStatusChanged(bool isAvailable);
 
   /// get storage path without ending "/MapsWithMe/"

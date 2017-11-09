@@ -40,7 +40,7 @@ using RouteUserMarkContainer = SpecifiedUserMarkContainer<RouteMarkPoint, UserMa
 using LocalAdsMarkContainer = SpecifiedUserMarkContainer<LocalAdsMark, UserMark::Type::LOCAL_ADS>;
 using StaticUserMarkContainer = SpecifiedUserMarkContainer<SearchMarkPoint, UserMark::Type::STATIC>;
 
-// It returns extension with a dot in lower case
+// Returns extension with a dot in a lower case.
 std::string const GetFileExt(std::string const & filePath)
 {
   std::string ext = my::GetFileExtension(filePath);
@@ -137,8 +137,8 @@ void BookmarkManager::LoadBookmarks()
 {
   ClearCategories();
 
-  StartAsyncLoading();
-  GetPlatform().RunOnFileThread([this]()
+  NotifyAboutStartAsyncLoading();
+  GetPlatform().RunTask(Platform::Thread::File, [this]()
   {
     std::string const dir = GetPlatform().SettingsDir();
     Platform::FilesList files;
@@ -154,7 +154,7 @@ void BookmarkManager::LoadBookmarks()
       if (cat != nullptr)
         collection->emplace_back(std::move(cat));
     }
-    FinishAsyncLoading(std::move(collection));
+    NotifyAboutFinishAsyncLoading(std::move(collection));
   });
 
   LoadState();
@@ -162,8 +162,8 @@ void BookmarkManager::LoadBookmarks()
 
 void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporaryFile)
 {
-  StartAsyncLoading();
-  GetPlatform().RunOnFileThread([this, filePath, isTemporaryFile]()
+  NotifyAboutStartAsyncLoading();
+  GetPlatform().RunTask(Platform::Thread::File, [this, filePath, isTemporaryFile]()
   {
     auto collection = std::make_shared<CategoriesCollection>();
     auto const fileSavePath = GetKMLPath(filePath);
@@ -186,16 +186,16 @@ void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporar
 
       NotifyAboutFile(categoryExists, filePath, isTemporaryFile);
     }
-    FinishAsyncLoading(std::move(collection));
+    NotifyAboutFinishAsyncLoading(std::move(collection));
   });
 }
 
-void BookmarkManager::StartAsyncLoading()
+void BookmarkManager::NotifyAboutStartAsyncLoading()
 {
   if (m_needTeardown)
     return;
   
-  GetPlatform().RunOnGuiThread([this]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
   {
     m_asyncLoadingCounter++;
     if (m_asyncLoadingCallbacks.m_onStarted != nullptr)
@@ -203,12 +203,12 @@ void BookmarkManager::StartAsyncLoading()
   });
 }
 
-void BookmarkManager::FinishAsyncLoading(std::shared_ptr<CategoriesCollection> && collection)
+void BookmarkManager::NotifyAboutFinishAsyncLoading(std::shared_ptr<CategoriesCollection> && collection)
 {
   if (m_needTeardown)
     return;
   
-  GetPlatform().RunOnGuiThread([this, collection]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, collection]()
   {
     if (!collection->empty())
       MergeCategories(std::move(*collection));
@@ -225,7 +225,7 @@ void BookmarkManager::NotifyAboutFile(bool success, std::string const & filePath
   if (m_needTeardown)
     return;
   
-  GetPlatform().RunOnGuiThread([this, success, filePath, isTemporaryFile]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, success, filePath, isTemporaryFile]()
   {
     if (success)
     {
@@ -256,7 +256,7 @@ boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & fil
     {
       ZipFileReader::FileListT files;
       ZipFileReader::FilesList(filePath, files);
-      string kmlFileName;
+      std::string kmlFileName;
       for (size_t i = 0; i < files.size(); ++i)
       {
         if (GetFileExt(files[i].first) == BOOKMARKS_FILE_EXTENSION)
@@ -508,20 +508,20 @@ void BookmarkManager::MergeCategories(CategoriesCollection && newCategories)
     {
       return c->GetName() == categoryName;
     });
-    if (it != newCategories.end())
-    {
-      // Copy bookmarks and tracks to the existing category.
-      for (size_t i = 0; i < (*it)->GetUserMarkCount(); ++i)
-      {
-        auto srcBookmark = static_cast<Bookmark const *>((*it)->GetUserMark(i));
-        auto bookmark = static_cast<Bookmark *>(category->CreateUserMark(srcBookmark->GetPivot()));
-        bookmark->SetData(srcBookmark->GetData());
-      }
-      category->AcceptTracks((*it)->MoveTracks());
-      category->SaveToKMLFile();
+    if (it == newCategories.end())
+      continue;
 
-      newCategories.erase(it);
+    // Copy bookmarks and tracks to the existing category.
+    for (size_t i = 0; i < (*it)->GetUserMarkCount(); ++i)
+    {
+      auto srcBookmark = static_cast<Bookmark const *>((*it)->GetUserMark(i));
+      auto bookmark = static_cast<Bookmark *>(category->CreateUserMark(srcBookmark->GetPivot()));
+      bookmark->SetData(srcBookmark->GetData());
     }
+    category->AppendTracks((*it)->StealTracks());
+    category->SaveToKMLFile();
+
+    newCategories.erase(it);
   }
 
   std::move(newCategories.begin(), newCategories.end(), std::back_inserter(m_categories));
