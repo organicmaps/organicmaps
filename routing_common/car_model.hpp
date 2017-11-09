@@ -11,6 +11,9 @@ public:
   CarModel();
   CarModel(VehicleModel::InitListT const & roadLimits);
 
+  // VehicleModelInterface overrides
+  double GetOffroadSpeed() const override;
+
   static CarModel const & AllLimitsInstance();
   static InitListT const & GetLimits();
   static std::vector<AdditionalRoadTags> const & GetAdditionalTags();

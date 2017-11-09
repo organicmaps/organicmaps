@@ -34,6 +34,10 @@ public:
   /// @returns Max speed in KMpH for this model
   virtual double GetMaxSpeed() const = 0;
 
+  /// @return Offroad speed in KMpH for vehicle. This speed should be used for non-feature routing
+  /// e.g. to connect start point to nearest feature.
+  virtual double GetOffroadSpeed() const = 0;
+
   virtual bool IsOneWay(FeatureType const & f) const = 0;
 
   /// @returns true iff feature |f| can be used for routing with corresponding vehicle model.

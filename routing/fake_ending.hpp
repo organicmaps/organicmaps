@@ -39,6 +39,5 @@ struct FakeEnding final
 };
 
 FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, WorldGraph & graph);
-FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point,
-                          EdgeEstimator const & estimator, IndexGraph & graph);
+FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, IndexGraph & graph);
 }  // namespace routing

@@ -67,7 +67,7 @@ public:
   virtual RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to) = 0;
   virtual RouteWeight HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to) = 0;
   virtual RouteWeight CalcSegmentWeight(Segment const & segment) = 0;
-  virtual RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const = 0;
+  virtual RouteWeight CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const = 0;
   virtual bool LeapIsAllowed(NumMwmId mwmId) const = 0;
 
   // Returns transit-specific information for segment. For nontransit segments returns nullptr.

@@ -13,6 +13,7 @@
 
 #include <cstdint>
 #include <map>
+#include <memory>
 #include <set>
 #include <vector>
 
@@ -24,13 +25,13 @@ public:
   static bool IsTransitFeature(uint32_t featureId);
   static bool IsTransitSegment(Segment const & segment);
 
-  explicit TransitGraph(NumMwmId numMwmId) : m_mwmId(numMwmId) {}
+  TransitGraph(NumMwmId numMwmId, std::shared_ptr<EdgeEstimator> estimator);
 
   Junction const & GetJunction(Segment const & segment, bool front) const;
-  RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator const & estimator) const;
+  RouteWeight CalcSegmentWeight(Segment const & segment) const;
   RouteWeight GetTransferPenalty(Segment const & from, Segment const & to) const;
-  void GetTransitEdges(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges,
-                       EdgeEstimator const & estimator) const;
+  void GetTransitEdges(Segment const & segment, bool isOutgoing,
+                       std::vector<SegmentEdge> & edges) const;
   std::set<Segment> const & GetFake(Segment const & real) const;
   bool FindReal(Segment const & fake, Segment & real) const;
 
@@ -65,6 +66,7 @@ private:
 
   static uint32_t constexpr kTransitFeatureId = FakeFeatureIds::kTransitGraphId;
   NumMwmId const m_mwmId = kFakeNumMwmId;
+  std::shared_ptr<EdgeEstimator> m_estimator;
   FakeGraph<Segment, FakeVertex, Segment> m_fake;
   std::map<Segment, transit::Edge> m_segmentToEdge;
   std::map<Segment, transit::Gate> m_segmentToGate;

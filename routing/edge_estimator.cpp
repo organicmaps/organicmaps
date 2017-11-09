@@ -78,9 +78,11 @@ double CalcClimbSegmentWeight(Segment const & segment, RoadGeometry const & road
 namespace routing
 {
 // EdgeEstimator -----------------------------------------------------------------------------------
-EdgeEstimator::EdgeEstimator(double maxSpeedKMpH) : m_maxSpeedMPS(maxSpeedKMpH * kKMPH2MPS)
+EdgeEstimator::EdgeEstimator(double maxSpeedKMpH, double offroadSpeedKMpH)
+  : m_maxSpeedMPS(maxSpeedKMpH * kKMPH2MPS), m_offroadSpeedMPS(offroadSpeedKMpH * kKMPH2MPS)
 {
-  CHECK_GREATER(m_maxSpeedMPS, 0.0, ());
+  CHECK_GREATER(m_offroadSpeedMPS, 0.0, ());
+  CHECK_GREATER_OR_EQUAL(m_maxSpeedMPS, m_offroadSpeedMPS, ());
 }
 
 double EdgeEstimator::CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const
@@ -97,11 +99,19 @@ double EdgeEstimator::CalcLeapWeight(m2::PointD const & from, m2::PointD const &
   return TimeBetweenSec(from, to, m_maxSpeedMPS / 2.0);
 }
 
+double EdgeEstimator::CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const
+{
+  return TimeBetweenSec(from, to, m_offroadSpeedMPS);
+}
+
 // PedestrianEstimator -----------------------------------------------------------------------------
 class PedestrianEstimator final : public EdgeEstimator
 {
 public:
-  explicit PedestrianEstimator(double maxSpeedKMpH) : EdgeEstimator(maxSpeedKMpH) {}
+  PedestrianEstimator(double maxSpeedKMpH, double offroadSpeedKMpH)
+    : EdgeEstimator(maxSpeedKMpH, offroadSpeedKMpH)
+  {
+  }
 
   // EdgeEstimator overrides:
   double GetUTurnPenalty() const override { return 0.0 /* seconds */; }
@@ -117,7 +127,10 @@ public:
 class BicycleEstimator final : public EdgeEstimator
 {
 public:
-  explicit BicycleEstimator(double maxSpeedKMpH) : EdgeEstimator(maxSpeedKMpH) {}
+  BicycleEstimator(double maxSpeedKMpH, double offroadSpeedKMpH)
+    : EdgeEstimator(maxSpeedKMpH, offroadSpeedKMpH)
+  {
+  }
 
   // EdgeEstimator overrides:
   double GetUTurnPenalty() const override { return 20.0 /* seconds */; }
@@ -133,7 +146,7 @@ public:
 class CarEstimator final : public EdgeEstimator
 {
 public:
-  CarEstimator(shared_ptr<TrafficStash> trafficStash, double maxSpeedKMpH);
+  CarEstimator(shared_ptr<TrafficStash> trafficStash, double maxSpeedKMpH, double offroadSpeedKMpH);
 
   // EdgeEstimator overrides:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override;
@@ -144,9 +157,9 @@ private:
   shared_ptr<TrafficStash> m_trafficStash;
 };
 
-CarEstimator::CarEstimator(shared_ptr<TrafficStash> trafficStash, double maxSpeedKMpH)
-  : EdgeEstimator(maxSpeedKMpH)
-  , m_trafficStash(move(trafficStash))
+CarEstimator::CarEstimator(shared_ptr<TrafficStash> trafficStash, double maxSpeedKMpH,
+                           double offroadSpeedKMpH)
+  : EdgeEstimator(maxSpeedKMpH, offroadSpeedKMpH), m_trafficStash(move(trafficStash))
 {
 }
 
@@ -186,17 +199,29 @@ bool CarEstimator::LeapIsAllowed(NumMwmId mwmId) const { return !m_trafficStash-
 // EdgeEstimator -----------------------------------------------------------------------------------
 // static
 shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, double maxSpeedKMpH,
+                                                double offroadSpeedKMpH,
                                                 shared_ptr<TrafficStash> trafficStash)
 {
   switch (vehicleType)
   {
   case VehicleType::Pedestrian:
-  case VehicleType::Transit: return make_shared<PedestrianEstimator>(maxSpeedKMpH);
-  case VehicleType::Bicycle: return make_shared<BicycleEstimator>(maxSpeedKMpH);
-  case VehicleType::Car: return make_shared<CarEstimator>(trafficStash, maxSpeedKMpH);
+  case VehicleType::Transit:
+    return make_shared<PedestrianEstimator>(maxSpeedKMpH, offroadSpeedKMpH);
+  case VehicleType::Bicycle: return make_shared<BicycleEstimator>(maxSpeedKMpH, offroadSpeedKMpH);
+  case VehicleType::Car:
+    return make_shared<CarEstimator>(trafficStash, maxSpeedKMpH, offroadSpeedKMpH);
   case VehicleType::Count:
     CHECK(false, ("Can't create EdgeEstimator for", vehicleType));
     return nullptr;
   }
+}
+
+// static
+shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType,
+                                                VehicleModelInterface const & vehicleModel,
+                                                shared_ptr<TrafficStash> trafficStash)
+{
+  return Create(vehicleType, vehicleModel.GetMaxSpeed(), vehicleModel.GetOffroadSpeed(),
+                trafficStash);
 }
 }  // namespace routing

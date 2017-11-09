@@ -2,6 +2,8 @@
 
 #include "routing/fake_edges_container.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include <map>
 
 namespace
@@ -174,7 +176,17 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment) const
   }
 
   auto const & vertex = m_fake.GetVertex(segment);
-  return m_graph.CalcLeapWeight(vertex.GetPointFrom(), vertex.GetPointTo());
+  Segment real;
+  if (m_fake.FindReal(segment, real))
+  {
+    auto const partLen = MercatorBounds::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
+    auto const fullLen = MercatorBounds::DistanceOnEarth(GetPoint(real, false /* front */),
+                                                         GetPoint(real, true /* front */));
+    CHECK_GREATER(fullLen, 0.0, ());
+    return partLen / fullLen * m_graph.CalcSegmentWeight(real);
+  }
+
+  return m_graph.CalcOffroadWeight(vertex.GetPointFrom(), vertex.GetPointTo());
 }
 
 RouteWeight IndexGraphStarter::CalcRouteSegmentWeight(vector<Segment> const & route,
@@ -238,10 +250,10 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
     if (it != otherSegments.end())
     {
       auto const & otherJunction = it->second;
-      auto const distBackToThis = m_graph.CalcLeapWeight(backJunction.GetPoint(),
-                                                         projection.m_junction.GetPoint());
-      auto const distBackToOther = m_graph.CalcLeapWeight(backJunction.GetPoint(),
-                                                          otherJunction.GetPoint());
+      auto const distBackToThis = MercatorBounds::DistanceOnEarth(backJunction.GetPoint(),
+                                                                  projection.m_junction.GetPoint());
+      auto const distBackToOther = MercatorBounds::DistanceOnEarth(backJunction.GetPoint(),
+                                                                   otherJunction.GetPoint());
       if (distBackToThis < distBackToOther)
         frontJunction = otherJunction;
       else

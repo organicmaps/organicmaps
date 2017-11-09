@@ -50,7 +50,7 @@ unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId numMwmI
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
   my::Timer timer;
-  auto graphPtr = make_unique<TransitGraph>(numMwmId);
+  auto graphPtr = make_unique<TransitGraph>(numMwmId, m_estimator);
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
   if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
     return graphPtr;
@@ -90,8 +90,7 @@ unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId numMwmI
       {
         Segment const real(numMwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(),
                            gateSegment.GetForward());
-        gateEndings.emplace(gate.GetOsmId(),
-                            MakeFakeEnding(real, gate.GetPoint(), *m_estimator, indexGraph));
+        gateEndings.emplace(gate.GetOsmId(), MakeFakeEnding(real, gate.GetPoint(), indexGraph));
       }
     }
 

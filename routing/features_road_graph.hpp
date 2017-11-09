@@ -34,6 +34,7 @@ private:
     // VehicleModelInterface overrides:
     double GetSpeed(FeatureType const & f) const override;
     double GetMaxSpeed() const override;
+    double GetOffroadSpeed() const override;
     bool IsOneWay(FeatureType const & f) const override;
     bool IsRoad(FeatureType const & f) const override;
     bool IsTransitAllowed(FeatureType const & f) const override;
@@ -45,6 +46,7 @@ private:
 
     shared_ptr<VehicleModelFactoryInterface> const m_vehicleModelFactory;
     double const m_maxSpeedKMPH;
+    double const m_offroadSpeedKMPH;
 
     mutable map<MwmSet::MwmId, shared_ptr<VehicleModelInterface>> m_cache;
   };

@@ -95,8 +95,10 @@ class WeightedEdgeEstimator final : public EdgeEstimator
 {
 public:
   // maxSpeedKMpH doesn't matter, but should be greater then any road speed in all tests.
+  // offroadSpeedKMpH doesn't matter, but should be > 0 and <= maxSpeedKMpH.
   explicit WeightedEdgeEstimator(map<Segment, double> const & segmentWeights)
-    : EdgeEstimator(1e10 /* maxSpeedKMpH */), m_segmentWeights(segmentWeights)
+    : EdgeEstimator(1e10 /* maxSpeedKMpH */, 1.0 /* offroadSpeedKMpH */)
+    , m_segmentWeights(segmentWeights)
   {
   }
 

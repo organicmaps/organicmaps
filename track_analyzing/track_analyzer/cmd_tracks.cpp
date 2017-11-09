@@ -148,8 +148,8 @@ void CmdTracks(string const & filepath, string const & trackExtension, StringFil
     Geometry geometry(
         GeometryLoader::CreateFromFile(GetCurrentVersionMwmFile(storage, mwmName), vehicleModel));
 
-    shared_ptr<EdgeEstimator> estimator = EdgeEstimator::Create(
-        VehicleType::Car, vehicleModel->GetMaxSpeed(), nullptr /* trafficStash */);
+    shared_ptr<EdgeEstimator> estimator =
+        EdgeEstimator::Create(VehicleType::Car, *vehicleModel, nullptr /* trafficStash */);
 
     for (auto it : userToMatchedTracks)
     {

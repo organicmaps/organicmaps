@@ -32,8 +32,10 @@ void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoi
     // point. So |isEnter| below should be set to true.
     m_crossMwmGraph->ForEachTransition(
         segment.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
-          edges.emplace_back(transition,
-                             CalcLeapWeight(segmentPoint, GetPoint(transition, isOutgoing)));
+          edges.emplace_back(
+              transition, RouteWeight(m_estimator->CalcLeapWeight(segmentPoint,
+                                                                  GetPoint(transition, isOutgoing)),
+                                      0 /* nontransitCross */));
         });
     return;
   }
@@ -108,10 +110,10 @@ RouteWeight SingleVehicleWorldGraph::CalcSegmentWeight(Segment const & segment)
                      0 /* nontransitCross */);
 }
 
-RouteWeight SingleVehicleWorldGraph::CalcLeapWeight(m2::PointD const & from,
-                                                    m2::PointD const & to) const
+RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(m2::PointD const & from,
+                                                       m2::PointD const & to) const
 {
-  return RouteWeight(m_estimator->CalcLeapWeight(from, to), 0 /* nontransitCross */);
+  return RouteWeight(m_estimator->CalcOffroadWeight(from, to), 0 /* nontransitCross */);
 }
 
 bool SingleVehicleWorldGraph::LeapIsAllowed(NumMwmId mwmId) const

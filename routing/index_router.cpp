@@ -76,6 +76,11 @@ double CalcMaxSpeed(NumMwmIds const & numMwmIds,
   return maxSpeed;
 }
 
+double CalcOffroadSpeed(VehicleModelFactoryInterface const & vehicleModelFactory)
+{
+  return vehicleModelFactory.GetVehicleModel()->GetOffroadSpeed();
+}
+
 shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
     VehicleType vehicleType, CountryParentNameGetterFn const & countryParentNameGetterFn)
 {
@@ -307,7 +312,7 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                 m_vehicleModelFactory)
   , m_estimator(EdgeEstimator::Create(
         m_vehicleType, CalcMaxSpeed(*m_numMwmIds, *m_vehicleModelFactory, m_vehicleType),
-        m_trafficStash))
+        CalcOffroadSpeed(*m_vehicleModelFactory), m_trafficStash))
   , m_directionsEngine(CreateDirectionsEngine(m_vehicleType, m_numMwmIds, m_index))
 {
   CHECK(!m_name.empty(), ());

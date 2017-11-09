@@ -35,6 +35,11 @@ bool TransitGraph::IsTransitSegment(Segment const & segment)
   return IsTransitFeature(segment.GetFeatureId());
 }
 
+TransitGraph::TransitGraph(NumMwmId numMwmId, shared_ptr<EdgeEstimator> estimator)
+  : m_mwmId(numMwmId), m_estimator(estimator)
+{
+}
+
 Junction const & TransitGraph::GetJunction(Segment const & segment, bool front) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
@@ -42,8 +47,7 @@ Junction const & TransitGraph::GetJunction(Segment const & segment, bool front) 
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
-RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment,
-                                            EdgeEstimator const & estimator) const
+RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   if (IsGate(segment))
@@ -52,10 +56,10 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment,
   if (IsEdge(segment))
     return RouteWeight(GetEdge(segment).GetWeight(), 0 /* nontransitCross */);
 
-  // Estimate weight for part of real and projections.
-  return RouteWeight(estimator.CalcLeapWeight(GetJunction(segment, false /* front */).GetPoint(),
-                                              GetJunction(segment, true /* front */).GetPoint()),
-                     0 /* nontransitCross */);
+  return RouteWeight(
+      m_estimator->CalcOffroadWeight(GetJunction(segment, false /* front */).GetPoint(),
+                                     GetJunction(segment, true /* front */).GetPoint()),
+      0 /* nontransitCross */);
 }
 
 RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const & to) const
@@ -86,15 +90,14 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
 }
 
 void TransitGraph::GetTransitEdges(Segment const & segment, bool isOutgoing,
-                                   vector<SegmentEdge> & edges,
-                                   EdgeEstimator const & estimator) const
+                                   vector<SegmentEdge> & edges) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
   {
     auto const & from = isOutgoing ? segment : s;
     auto const & to = isOutgoing ? s : segment;
-    edges.emplace_back(s, CalcSegmentWeight(to, estimator) + GetTransferPenalty(from, to));
+    edges.emplace_back(s, CalcSegmentWeight(to) + GetTransferPenalty(from, to));
   }
 }
 

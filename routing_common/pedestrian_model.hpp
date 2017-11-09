@@ -11,8 +11,10 @@ public:
   PedestrianModel();
   PedestrianModel(VehicleModel::InitListT const & speedLimits);
 
-  /// VehicleModel overrides:
+  /// VehicleModelInterface overrides:
   bool IsOneWay(FeatureType const &) const override { return false; }
+  double GetOffroadSpeed() const override;
+
   static PedestrianModel const & AllLimitsInstance();
 
 protected:

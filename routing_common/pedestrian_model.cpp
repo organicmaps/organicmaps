@@ -49,6 +49,7 @@ double constexpr kSpeedPedestrianKMpH = 5.0;
 double constexpr kSpeedFootwayKMpH = 5.0;
 double constexpr kSpeedPlatformKMpH = 5.0;
 double constexpr kSpeedPierKMpH = 4.0;
+double constexpr kSpeedOffroadKMpH = 3.0;
 
 // Default
 VehicleModel::InitListT const g_pedestrianLimitsDefault =
@@ -277,6 +278,8 @@ PedestrianModel::PedestrianModel(VehicleModel::InitListT const & speedLimits)
 {
   Init();
 }
+
+double PedestrianModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
 
 void PedestrianModel::Init()
 {

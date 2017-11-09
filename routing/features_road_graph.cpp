@@ -40,6 +40,7 @@ FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(
     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory)
   : m_vehicleModelFactory(vehicleModelFactory)
   , m_maxSpeedKMPH(m_vehicleModelFactory->GetVehicleModel()->GetMaxSpeed())
+  , m_offroadSpeedKMPH(m_vehicleModelFactory->GetVehicleModel()->GetOffroadSpeed())
 {
 }
 
@@ -51,6 +52,11 @@ double FeaturesRoadGraph::CrossCountryVehicleModel::GetSpeed(FeatureType const &
 double FeaturesRoadGraph::CrossCountryVehicleModel::GetMaxSpeed() const
 {
   return m_maxSpeedKMPH;
+}
+
+double FeaturesRoadGraph::CrossCountryVehicleModel::GetOffroadSpeed() const
+{
+  return m_offroadSpeedKMPH;
 }
 
 bool FeaturesRoadGraph::CrossCountryVehicleModel::IsOneWay(FeatureType const & f) const

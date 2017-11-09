@@ -288,8 +288,8 @@ shared_ptr<EdgeEstimator> CreateEstimatorForCar(traffic::TrafficCache const & tr
 
 shared_ptr<EdgeEstimator> CreateEstimatorForCar(shared_ptr<TrafficStash> trafficStash)
 {
-  return EdgeEstimator::Create(VehicleType::Car,
-                               CarModelFactory({}).GetVehicleModel()->GetMaxSpeed(), trafficStash);
+  auto const carModel = CarModelFactory({}).GetVehicleModel();
+  return EdgeEstimator::Create(VehicleType::Car, *carModel, trafficStash);
 }
 
 AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & starter,

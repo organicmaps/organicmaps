@@ -11,8 +11,9 @@ public:
   BicycleModel();
   BicycleModel(VehicleModel::InitListT const & speedLimits);
 
-  /// VehicleModel overrides:
+  /// VehicleModelInterface overrides:
   bool IsOneWay(FeatureType const & f) const override;
+  double GetOffroadSpeed() const override;
 
   static BicycleModel const & AllLimitsInstance();
 

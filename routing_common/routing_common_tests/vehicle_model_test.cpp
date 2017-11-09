@@ -32,6 +32,9 @@ class TestVehicleModel : public routing::VehicleModel
 
 public:
   TestVehicleModel() : VehicleModel(classif(), s_testLimits) {}
+
+  // We are not going to use offroad routing in these tests.
+  double GetOffroadSpeed() const override { return 0.0; }
 };
 
 uint32_t GetType(char const * s0, char const * s1 = 0, char const * s2 = 0)

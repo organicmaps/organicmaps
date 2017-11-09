@@ -38,6 +38,7 @@ double constexpr kSpeedFerryMotorcarVehicleKMpH = 15.0;
 double constexpr kSpeedRailMotorcarVehicleKMpH = 25.0;
 double constexpr kSpeedShuttleTrainKMpH = 25.0;
 double constexpr kSpeedPierKMpH = 10.0;
+double constexpr kSpeedOffroadKMpH = 10.0;
 
 VehicleModel::InitListT const g_carLimitsDefault =
 {
@@ -215,6 +216,8 @@ CarModel::CarModel(VehicleModel::InitListT const & roadLimits)
 {
   InitAdditionalRoadTypes();
 }
+
+double CarModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
 
 void CarModel::InitAdditionalRoadTypes()
 {

@@ -32,7 +32,7 @@ void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bo
 
   if (TransitGraph::IsTransitSegment(segment))
   {
-    transitGraph.GetTransitEdges(segment, isOutgoing, edges, *m_estimator);
+    transitGraph.GetTransitEdges(segment, isOutgoing, edges);
     // TODO (@t.yan) GetTwins for transit edges
 
     Segment real;
@@ -125,7 +125,7 @@ RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment)
   if (TransitGraph::IsTransitSegment(segment))
   {
     TransitGraph & transitGraph = GetTransitGraph(segment.GetMwmId());
-    return transitGraph.CalcSegmentWeight(segment, *m_estimator);
+    return transitGraph.CalcSegmentWeight(segment);
   }
 
   return RouteWeight(m_estimator->CalcSegmentWeight(
@@ -133,9 +133,10 @@ RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment)
                      0 /* nontransitCross */);
 }
 
-RouteWeight TransitWorldGraph::CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const
+RouteWeight TransitWorldGraph::CalcOffroadWeight(m2::PointD const & from,
+                                                 m2::PointD const & to) const
 {
-  return RouteWeight(m_estimator->CalcLeapWeight(from, to), 0 /* nontransitCross */);
+  return RouteWeight(m_estimator->CalcOffroadWeight(from, to), 0 /* nontransitCross */);
 }
 
 bool TransitWorldGraph::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }

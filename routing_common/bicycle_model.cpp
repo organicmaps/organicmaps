@@ -49,6 +49,7 @@ double constexpr kSpeedPedestrianKMpH = 5.0;
 double constexpr kSpeedFootwayKMpH = 7.0;
 double constexpr kSpeedPlatformKMpH = 3.0;
 double constexpr kSpeedPierKMpH = 7.0;
+double constexpr kSpeedOffroadKMpH = 3.0;
 
 // Default
 VehicleModel::InitListT const g_bicycleLimitsDefault =
@@ -469,6 +470,8 @@ bool BicycleModel::IsOneWay(FeatureType const & f) const
   return VehicleModel::IsOneWay(f);
 }
 
+double BicycleModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
+
 // If one of feature types will be disabled for bicycles, features of this type will be simplyfied
 // in generator. Look FeatureBuilder1::IsRoad() for more details.
 // static
@@ -509,5 +512,4 @@ BicycleModelFactory::BicycleModelFactory(
   m_models["United Kingdom"] = make_shared<BicycleModel>(g_bicycleLimitsUK);
   m_models["United States of America"] = make_shared<BicycleModel>(g_bicycleLimitsUS);
 }
-
 }  // routing
