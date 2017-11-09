@@ -5,30 +5,19 @@ set(CMAKE_AUTOUIC ON)
 
 QT5_ADD_RESOURCES(RES_SOURCES res/resources.qrc)
 
-set(RESOURCES_FOLDER ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app/Contents/Resources)
+set(BUNDLE_FOLDER ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app)
+set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
 
 execute_process(
-  COMMAND mkdir -p ${RESOURCES_FOLDER}
+  COMMAND mkdir -p ${RESOURCES_FOLDER}/shaders_compiler
+  COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac.icns ${RESOURCES_FOLDER}
+  COMMAND cp ${PROJECT_SOURCE_DIR}/res/designer.icns ${RESOURCES_FOLDER}
 )
-
-if (BUILD_DESIGNER)
-  execute_process(
-    COMMAND cp -rf ${OMIM_ROOT}/data/resources-mdpi_clear/ ${OMIM_ROOT}/data/resources-mdpi_design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/resources-hdpi_clear/ ${OMIM_ROOT}/data/resources-hdpi_design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/resources-xhdpi_clear/ ${OMIM_ROOT}/data/resources-xhdpi_design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/resources-xxhdpi_clear/ ${OMIM_ROOT}/data/resources-xxhdpi_design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/resources-6plus_clear/ ${OMIM_ROOT}/data/resources-6plus_design/
-    COMMAND cp -f ${OMIM_ROOT}/data/drules_proto_clear.bin ${OMIM_ROOT}/data/drules_proto_design.bin
-    COMMAND cp -f ${OMIM_ROOT}/data/colors.txt ${OMIM_ROOT}/data/colors_design.txt
-    COMMAND cp -f ${OMIM_ROOT}/data/patterns.txt ${OMIM_ROOT}/data/patterns_design.txt
-  )
-endif()
 
 include_directories(
   ${OMIM_ROOT}/3party/glm
   ${OMIM_ROOT}/3party/gflags/src
-  ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 set(
@@ -122,25 +111,7 @@ omim_link_libraries(
 link_opengl(${PROJECT_NAME})
 link_qt5_core(${PROJECT_NAME})
 
-if (PLATFORM_MAC)
-  target_link_libraries(
-    ${PROJECT_NAME}
-    "-framework Foundation"
-    "-framework CoreLocation"
-    "-framework CoreWLAN"
-    "-framework SystemConfiguration"
-    "-framework CFNetwork"
-  )
-
-  set_target_properties(
-    ${PROJECT_NAME}
-    PROPERTIES
-    MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/res/Info.plist
-  )
-endif()
-
 function(copy_resources)
-  set(files "")
   foreach(file ${ARGN})
     execute_process(
       COMMAND cp -r ${DATA_DIR}/${file} ${RESOURCES_FOLDER}
@@ -186,21 +157,129 @@ copy_resources(
   05_khmeros.ttf
   06_code2000.ttf
   07_roboto_medium.ttf
-
-  ../tools/shaders_compiler
 )
 
+if (PLATFORM_MAC)
+  execute_process(
+    COMMAND cp -r ${OMIM_ROOT}/tools/shaders_compiler/macos ${RESOURCES_FOLDER}/shaders_compiler
+  )
+elseif(PLATFORM_LINUX)
+  execute_process(
+    COMMAND cp -r ${OMIM_ROOT}/tools/shaders_compiler/linux ${RESOURCES_FOLDER}/shaders_compiler
+  )
+endif()
+
+if (PLATFORM_MAC)
+  target_link_libraries(
+    ${PROJECT_NAME}
+    "-framework Foundation"
+    "-framework CoreLocation"
+    "-framework CoreWLAN"
+    "-framework SystemConfiguration"
+    "-framework CFNetwork"
+  )
+
+  set(BUNDLE_EXECUTABLE ${PROJECT_NAME})
+
+  if (NOT APP_VERSION)
+    set(BUNDLE_VERSION "UNKNOWN")
+  else()
+    set(BUNDLE_VERSION ${APP_VERSION})
+  endif()
+
+  if (BUILD_DESIGNER)
+    set(BUNDLE_NAME "MAPS.ME desktop designer")
+    set(BUNDLE_DISPLAY_NAME "MAPS.ME desktop designer")
+    set(BUNDLE_ICON designer.icns)
+  else()
+    set(BUNDLE_NAME "MAPS.ME desktop")
+    set(BUNDLE_DISPLAY_NAME "MAPS.ME desktop")
+    set(BUNDLE_ICON mac.icns)
+  endif()
+
+  configure_file(${PROJECT_SOURCE_DIR}/res/Info.plist.in ${PROJECT_SOURCE_DIR}/res/Info.plist)
+
+  set_target_properties(
+    ${PROJECT_NAME}
+    PROPERTIES
+    MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/res/Info.plist
+  )
+endif()
+
+function(omim_append_builded_tools)
+  foreach(tool ${ARGN})
+    add_custom_command(
+      TARGET desktop
+      POST_BUILD
+      DEPENDS ${tool}
+      COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/${tool} ${RESOURCES_FOLDER}
+    )
+  endforeach()
+endfunction()
+
 if (BUILD_DESIGNER)
+  execute_process(
+    COMMAND cp -rf ${OMIM_ROOT}/data/resources-mdpi_clear/ ${OMIM_ROOT}/data/resources-mdpi_design/
+    COMMAND cp -rf ${OMIM_ROOT}/data/resources-hdpi_clear/ ${OMIM_ROOT}/data/resources-hdpi_design/
+    COMMAND cp -rf ${OMIM_ROOT}/data/resources-xhdpi_clear/ ${OMIM_ROOT}/data/resources-xhdpi_design/
+    COMMAND cp -rf ${OMIM_ROOT}/data/resources-xxhdpi_clear/ ${OMIM_ROOT}/data/resources-xxhdpi_design/
+    COMMAND cp -rf ${OMIM_ROOT}/data/resources-6plus_clear/ ${OMIM_ROOT}/data/resources-6plus_design/
+    COMMAND cp -f ${OMIM_ROOT}/data/drules_proto_clear.bin ${OMIM_ROOT}/data/drules_proto_design.bin
+    COMMAND cp -f ${OMIM_ROOT}/data/colors.txt ${OMIM_ROOT}/data/colors_design.txt
+    COMMAND cp -f ${OMIM_ROOT}/data/patterns.txt ${OMIM_ROOT}/data/patterns_design.txt
+  )
+
   copy_resources(
+    colors_design.txt
+    drules_proto_design.bin
+    mapcss-dynamic.txt
+    mapcss-mapping.csv
+    patterns_design.txt
     resources-mdpi_design
     resources-hdpi_design
     resources-xhdpi_design
     resources-xxhdpi_design
     resources-6plus_design
-    colors_design.txt
-    patterns_design.txt
-    drules_proto_design.bin
   )
+
+  omim_append_builded_tools(
+    generator_tool
+    skin_generator_tool
+  )
+
+  if (NOT SKIP_TESTS)
+    omim_append_builded_tools(style_tests)
+  endif()
+
+  execute_process(
+    COMMAND cp ${OMIM_ROOT}/tools/python/recalculate_geom_index.py ${RESOURCES_FOLDER}
+    COMMAND cp ${OMIM_ROOT}/tools/python/generate_styles_override.py ${RESOURCES_FOLDER}
+    COMMAND cp -rf ${OMIM_ROOT}/tools/kothic ${RESOURCES_FOLDER}/kothic/
+    COMMAND cp -f ${OMIM_ROOT}/tools/python/stylesheet/drules_info.py ${RESOURCES_FOLDER}/kothic/src/
+    COMMAND cp -rf ${OMIM_ROOT}/tools/python/stylesheet/ ${RESOURCES_FOLDER}/kothic/src/
+    COMMAND cp -f ${OMIM_ROOT}/3party/protobuf/protobuf-3.3.0-py2.7.egg ${RESOURCES_FOLDER}/kothic/
+  )
+
+  # Generate DMG
+  install(DIRECTORY ${DATA_DIR}/styles DESTINATION .)
+  install(CODE "
+    execute_process(
+      COMMAND macdeployqt \"${BUNDLE_FOLDER}\"
+    )
+    file(WRITE \"${RESOURCES_FOLDER}/qt.conf\" \"\")
+    file(GLOB_RECURSE QTPLUGINS
+    \"${BUNDLE_FOLDER}/Contents/PlugIns/*/*${CMAKE_SHARED_LIBRARY_SUFFIX}\"
+     )
+    include(BundleUtilities)
+    fixup_bundle(\"${BUNDLE_FOLDER}\" \"\${QTPLUGINS}\" \"${Qt5_DIR}/lib\")
+    ")
+  install(TARGETS ${PROJECT_NAME} DESTINATION .)
+
+  set(CPACK_GENERATOR DragNDrop)
+  set(CPACK_DMG_FORMAT UDZO)
+  set(CPACK_DMG_VOLUME_NAME ${PROJECT_NAME})
+  set(CPACK_PACKAGE_ICON ${PROJECT_SOURCE_DIR}/res/designer.icns)
+  include(CPack)
 endif()
 
 add_subdirectory(qt_common)
