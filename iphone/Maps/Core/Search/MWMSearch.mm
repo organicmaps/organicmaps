@@ -8,8 +8,8 @@
 
 #include "partners_api/ads_engine.hpp"
 
-#include "search/everywhere_search_params.hpp"
-#include "search/viewport_search_params.hpp"
+#include "map/everywhere_search_params.hpp"
+#include "map/viewport_search_params.hpp"
 
 extern NSString * const kCianCategory;
 
