@@ -1,3 +1,5 @@
 github "Alamofire/Alamofire"
 github "Alamofire/AlamofireImage"
+github "AppsFlyerSDK/AppsFlyerFramework"
 github "Pushwoosh/pushwoosh-ios-sdk"
+github "facebook/Facebook-SDK-Swift"

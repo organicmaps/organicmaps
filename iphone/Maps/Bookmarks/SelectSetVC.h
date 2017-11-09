@@ -4,14 +4,14 @@ struct BookmarkAndCategory;
 
 @protocol MWMSelectSetDelegate <NSObject>
 
-- (void)didSelectCategory:(NSString *)category withBac:(BookmarkAndCategory const &)bac;
+- (void)didSelectCategory:(NSString *)category withCategoryIndex:(size_t)categoryIndex;
 
 @end
 
 @interface SelectSetVC : MWMTableViewController
 
 - (instancetype)initWithCategory:(NSString *)category
-                             bac:(BookmarkAndCategory const &)bac
+                   categoryIndex:(size_t)categoryIndex
                         delegate:(id<MWMSelectSetDelegate>)delegate;
 
 @end

@@ -4,6 +4,8 @@
 
 #include "ugc/types.hpp"
 
+#include <chrono>
+
 using namespace place_page;
 
 namespace
@@ -35,6 +37,7 @@ MWMUGCRatingValueType * ratingValueType(float rating)
   place_page::Info m_info;
   ugc::UGC m_ugc;
   ugc::UGCUpdate m_ugcUpdate;
+  std::vector<ugc::view_model::ReviewRow> m_reviewRows;
 }
 
 - (instancetype)initWithUGC:(ugc::UGC const &)ugc update:(ugc::UGCUpdate const &)update
@@ -44,8 +47,32 @@ MWMUGCRatingValueType * ratingValueType(float rating)
   {
     m_ugc = ugc;
     m_ugcUpdate = update;
+    [self fillReviewRows];
   }
   return self;
+}
+
+- (void)fillReviewRows
+{
+  using namespace ugc::view_model;
+  m_reviewRows.clear();
+  if (!m_ugcUpdate.IsEmpty())
+    m_reviewRows.push_back(ReviewRow::YourReview);
+
+  if (m_ugc.IsEmpty())
+    return;
+
+  auto const reviewsSize = m_ugc.m_reviews.size();
+  auto constexpr kMaxSize = 3;
+  if (reviewsSize > kMaxSize)
+  {
+    m_reviewRows.insert(m_reviewRows.end(), kMaxSize, ReviewRow::Review);
+    m_reviewRows.push_back(ReviewRow::MoreReviews);
+  }
+  else
+  {
+    m_reviewRows.insert(m_reviewRows.end(), reviewsSize, ReviewRow::Review);
+  }
 }
 
 - (BOOL)isUGCEmpty { return static_cast<BOOL>(m_ugc.IsEmpty()); }
@@ -55,12 +82,13 @@ MWMUGCRatingValueType * ratingValueType(float rating)
 - (NSUInteger)totalReviewsCount { return static_cast<NSUInteger>(m_ugc.m_basedOn); }
 - (MWMUGCRatingValueType *)summaryRating { return ratingValueType(m_ugc.m_totalRating); }
 - (NSArray<MWMUGCRatingStars *> *)ratings { return starsRatings(m_ugc.m_ratings); }
+- (std::vector<ugc::view_model::ReviewRow> const &)reviewRows { return m_reviewRows; }
 
 #pragma mark - MWMReviewsViewModelProtocol
 
-- (NSUInteger)numberOfReviews { return m_ugc.m_reviews.size() + !self.isUGCUpdateEmpty; }
+- (NSInteger)numberOfReviews { return m_ugc.m_reviews.size() + !self.isUGCUpdateEmpty; }
 
-- (id<MWMReviewProtocol> _Nonnull)reviewWithIndex:(NSUInteger)index
+- (id<MWMReviewProtocol> _Nonnull)reviewWithIndex:(NSInteger)index
 {
   auto idx = index;
   NSAssert(idx >= 0, @"Invalid index");
@@ -70,8 +98,7 @@ MWMUGCRatingValueType * ratingValueType(float rating)
     {
       auto const & review = m_ugcUpdate;
       return [[MWMUGCYourReview alloc]
-          initWithDate:[NSDate
-                           dateWithTimeIntervalSince1970:review.m_time.time_since_epoch().count()]
+              initWithDate:[self reviewDate:review.m_time]
                   text:@(review.m_text.m_text.c_str())
                ratings:starsRatings(review.m_ratings)];
     }
@@ -81,9 +108,21 @@ MWMUGCRatingValueType * ratingValueType(float rating)
   auto const & review = m_ugc.m_reviews[idx];
   return [[MWMUGCReview alloc]
       initWithTitle:@(review.m_author.c_str())
-               date:[NSDate dateWithTimeIntervalSince1970:review.m_time.time_since_epoch().count()]
+               date:[self reviewDate:review.m_time]
                text:@(review.m_text.m_text.c_str())
              rating:ratingValueType(review.m_rating)];
+}
+
+#pragma mark - Propertis
+
+- (NSString *)reviewDate:(ugc::Time const &) time
+{
+  using namespace std::chrono;
+  auto reviewDate = [NSDate dateWithTimeIntervalSince1970:duration_cast<seconds>(time.time_since_epoch()).count()];
+  auto formatter = [[NSDateFormatter alloc] init];
+  formatter.dateStyle = NSDateFormatterLongStyle;
+  formatter.timeStyle = NSDateFormatterNoStyle;
+  return [formatter stringFromDate:reviewDate];
 }
 
 @end

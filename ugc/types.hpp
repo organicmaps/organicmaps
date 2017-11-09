@@ -140,6 +140,42 @@ inline std::string DebugPrint(Text const & text)
   return os.str();
 }
 
+struct KeyboardText
+{
+  KeyboardText() = default;
+  KeyboardText(std::string const & text, uint8_t const deviceLang,
+               std::vector<uint8_t> const & keyboardLangs)
+    : m_text(text), m_deviceLang(deviceLang), m_keyboardLangs(keyboardLangs)
+  {
+  }
+
+  DECLARE_VISITOR(visitor(m_text, "text"), visitor.VisitLang(m_deviceLang, "lang"),
+                  visitor.VisitLangs(m_keyboardLangs, "kbd_langs"))
+
+  bool operator==(KeyboardText const & rhs) const
+  {
+    return m_text == rhs.m_text && m_deviceLang == rhs.m_deviceLang &&
+           m_keyboardLangs == rhs.m_keyboardLangs;
+  }
+
+  std::string m_text;
+  uint8_t m_deviceLang = StringUtf8Multilang::kDefaultCode;
+  std::vector<uint8_t> m_keyboardLangs;
+};
+
+inline std::string DebugPrint(KeyboardText const & text)
+{
+  std::ostringstream os;
+  os << "Keyboard text [ " << StringUtf8Multilang::GetLangByCode(text.m_deviceLang) << ": "
+     << text.m_text << " ]";
+  os << "Keyboard locales [ ";
+  for (auto const index : text.m_keyboardLangs)
+    os << StringUtf8Multilang::GetLangByCode(index) << " ";
+
+  os << " ]";
+  return os.str();
+}
+
 struct Review
 {
   using ReviewId = uint64_t;
@@ -199,6 +235,84 @@ struct Attribute
   TranslationKey m_value{};
 };
 
+struct ReviewFeedback
+{
+  ReviewFeedback() = default;
+  ReviewFeedback(Sentiment const sentiment, Time const & time)
+    : m_sentiment(sentiment), m_time(time)
+  {
+  }
+
+  Sentiment m_sentiment{};
+  Time m_time{};
+};
+
+struct ReviewAbuse
+{
+  ReviewAbuse() = default;
+  ReviewAbuse(std::string const & reason, Time const & time) : m_reason(reason), m_time(time) {}
+
+  std::string m_reason{};
+  Time m_time{};
+};
+
+namespace v0
+{
+struct UGCUpdate
+{
+  UGCUpdate() = default;
+  UGCUpdate(Ratings const & records, Text const & text, Time const & time)
+    : m_ratings(records), m_text(text), m_time(time)
+  {
+  }
+
+  DECLARE_VISITOR(visitor(m_ratings, "ratings"), visitor(m_text, "text"), visitor(m_time, "date"))
+
+  bool operator==(UGCUpdate const & rhs) const
+  {
+    return m_ratings == rhs.m_ratings && m_text == rhs.m_text && m_time == rhs.m_time;
+  }
+
+  bool IsEmpty() const
+  {
+    return (m_ratings.empty() && m_text.m_text.empty()) || m_time == Time();
+  }
+
+  bool IsValid() const
+  {
+    bool const timeIsValid = m_time != Time();
+    if (!m_text.m_text.empty())
+      return timeIsValid;
+
+    bool ratingIsValid = false;
+    for (auto const & r : m_ratings)
+    {
+      if (static_cast<int>(r.m_value) > 0)
+      {
+        ratingIsValid = true;
+        break;
+      }
+    }
+
+    return ratingIsValid && timeIsValid;
+  }
+
+  Ratings m_ratings;
+  Text m_text;
+  Time m_time{};
+};
+
+inline std::string DebugPrint(UGCUpdate const & ugcUpdate)
+{
+  std::ostringstream os;
+  os << "UGCUpdate [ ";
+  os << "records:" << ::DebugPrint(ugcUpdate.m_ratings) << ", ";
+  os << "text:" << DebugPrint(ugcUpdate.m_text) << ", ";
+  os << "days since epoch:" << ToDaysSinceEpoch(ugcUpdate.m_time) << " ]";
+  return os.str();
+}
+}  // namespace v0
+
 struct UGC
 {
   UGC() = default;
@@ -242,7 +356,7 @@ inline std::string DebugPrint(UGC const & ugc)
 struct UGCUpdate
 {
   UGCUpdate() = default;
-  UGCUpdate(Ratings const & records, Text const & text, Time const & time)
+  UGCUpdate(Ratings const & records, KeyboardText const & text, Time const & time)
     : m_ratings(records), m_text(text), m_time(time)
   {
   }
@@ -254,13 +368,40 @@ struct UGCUpdate
     return m_ratings == rhs.m_ratings && m_text == rhs.m_text && m_time == rhs.m_time;
   }
 
+  void BuildFrom(v0::UGCUpdate const & update)
+  {
+    m_ratings = update.m_ratings;
+    m_text.m_text = update.m_text.m_text;
+    m_text.m_deviceLang = update.m_text.m_lang;
+    m_time = update.m_time;
+  }
+
   bool IsEmpty() const
   {
-    return !((!m_ratings.empty() || !m_text.m_text.empty()) && m_time != Time());
+    return (m_ratings.empty() && m_text.m_text.empty()) || m_time == Time();
+  }
+
+  bool IsValid() const
+  {
+    bool const timeIsValid = m_time != Time();
+    if (!m_text.m_text.empty())
+      return timeIsValid;
+
+    bool ratingIsValid = false;
+    for (auto const & r : m_ratings)
+    {
+      if (static_cast<int>(r.m_value) > 0)
+      {
+        ratingIsValid = true;
+        break;
+      }
+    }
+
+    return ratingIsValid && timeIsValid;
   }
 
   Ratings m_ratings;
-  Text m_text;
+  KeyboardText m_text;
   Time m_time{};
 };
 
@@ -273,26 +414,5 @@ inline std::string DebugPrint(UGCUpdate const & ugcUpdate)
   os << "days since epoch:" << ToDaysSinceEpoch(ugcUpdate.m_time) << " ]";
   return os.str();
 }
-
-struct ReviewFeedback
-{
-  ReviewFeedback() = default;
-  ReviewFeedback(Sentiment const sentiment, Time const & time)
-    : m_sentiment(sentiment), m_time(time)
-  {
-  }
-
-  Sentiment m_sentiment{};
-  Time m_time{};
-};
-
-struct ReviewAbuse
-{
-  ReviewAbuse() = default;
-  ReviewAbuse(std::string const & reason, Time const & time) : m_reason(reason), m_time(time) {}
-
-  std::string m_reason{};
-  Time m_time{};
-};
 }  // namespace ugc
 

@@ -4,7 +4,9 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <sys/utsname.h>
 #import "MWMCommon.h"
+#import "SwiftBridge.h"
 
+#include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
 extern string const kCountryCodeKey = "CountryCode";
@@ -79,7 +81,6 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
   @"iPhone9,3" : @"iPhone 7",
   @"iPhone9,4" : @"iPhone 7 Plus"
 };
-
 }  // namespace
 
 @interface AppInfo ()
@@ -192,23 +193,32 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
   return _advertisingId;
 }
 
+- (NSString *)inputLanguage
+{
+  auto window = UIApplication.sharedApplication.keyWindow;
+  auto firstResponder = [window firstResponder];
+  if (!firstResponder)
+    return self.languageId;
+  auto textInputMode = firstResponder.textInputMode;
+  if (!textInputMode)
+    return self.languageId;
+  return textInputMode.primaryLanguage;
+}
+
+- (NSString *)twoLetterInputLanguage
+{
+  return @(languages::Normalize(self.inputLanguage.UTF8String).c_str());
+}
+
 - (NSString *)languageId
 {
-  NSArray * languages = NSLocale.preferredLanguages;
-  return languages.count == 0 ? nil : languages[0];
+  return NSLocale.preferredLanguages.firstObject;
 }
 
 - (NSString *)twoLetterLanguageId
 {
-  NSString * languageId = self.languageId;
-  auto constexpr maxCodeLength = 2UL;
-  auto const length = languageId.length;
-  if (length > maxCodeLength)
-    languageId = [languageId substringToIndex:maxCodeLength];
-  else if (length < maxCodeLength)
-    languageId = @"en";
-
-  return languageId;
+  auto languageId = self.languageId;
+  return languageId ? @(languages::Normalize(languageId.UTF8String).c_str()) : @"en";
 }
 
 - (NSDate *)buildDate

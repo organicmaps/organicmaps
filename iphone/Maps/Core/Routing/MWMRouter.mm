@@ -62,11 +62,11 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     method = kStatRoutingPointMethodNoPlanning;
   [Statistics logEvent:eventType
         withParameters:@{
-          kStatRoutingPointType : pointTypeStr,
-          kStatRoutingPointValue :
+          kStatRoutingPointType: pointTypeStr,
+          kStatRoutingPointValue:
               (point.isMyPosition ? kStatRoutingPointValueMyPosition : kStatRoutingPointValuePoint),
-          kStatRoutingPointMethod : method,
-          kStatRoutingMode : ([MWMRouter isOnRoute] ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
+          kStatRoutingPointMethod: method,
+          kStatMode: ([MWMRouter isOnRoute] ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
         }];
 }
 }  // namespace

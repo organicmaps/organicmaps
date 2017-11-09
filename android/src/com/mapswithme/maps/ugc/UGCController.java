@@ -53,6 +53,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   @NonNull
   private final View mUserReviewDivider;
   @NonNull
+  private final View mReviewListDivider;
+  @NonNull
   private final View mSummaryRootView;
   @NonNull
   private final TextView mSummaryReviewCount;
@@ -65,10 +67,11 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       if (mMapObject == null)
         return;
 
-      UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
-                              mMapObject.getFeatureId(),
-                              mMapObject.getDefaultRatings(), UGC.RATING_NONE, mMapObject.canBeReviewed(),
-                              true /* isFromPPP */);
+      EditParams.Builder builder = prepareEditParamsBuilder(mMapObject)
+          .setDefaultRating(UGC.RATING_NONE)
+          .setFromPP(true);
+
+      UGCEditorActivity.start((Activity) mPlacePage.getContext(), builder.build());
     }
   };
   @NonNull
@@ -136,6 +139,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
     mUserReviewView = mPlacePage.findViewById(R.id.rl_user_review);
     mUserReviewView.findViewById(R.id.rating).setVisibility(View.GONE);
+    mReviewListDivider = mPlacePage.findViewById(R.id.ugc_review_list_divider);
     mUserReviewDivider = mPlacePage.findViewById(R.id.user_review_divider);
 
     UGC.setListener(this);
@@ -143,6 +147,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
   public void clear()
   {
+    UiUtils.hide(mUgcRootView, mLeaveReviewButton, mPreviewUgcInfoView);
     mUGCReviewAdapter.setItems(new ArrayList<UGC.Review>());
     mUGCRatingRecordsAdapter.setItems(new ArrayList<UGC.Rating>());
     mUGCUserRatingRecordsAdapter.setItems(new ArrayList<UGC.Rating>());
@@ -176,16 +181,11 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
   public void getUGC(@NonNull MapObject mapObject)
   {
+    if (!mapObject.shouldShowUGC())
+      return;
+
     mMapObject = mapObject;
-    if (mapObject.shouldShowUGC())
-    {
-      UiUtils.show(mUgcRootView);
-      UGC.requestUGC(mMapObject.getFeatureId());
-    }
-    else
-    {
-      UiUtils.hide(mUgcRootView);
-    }
+    UGC.requestUGC(mMapObject.getFeatureId());
   }
 
   public boolean isLeaveReviewButtonTouched(@NonNull MotionEvent event)
@@ -197,6 +197,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   public void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate, @UGC.Impress int impress,
                             @NonNull String rating)
   {
+    UiUtils.show(mUgcRootView);
     UiUtils.showIf(ugc != null || canUserRate(ugcUpdate) || ugcUpdate != null, mPreviewUgcInfoView);
     UiUtils.showIf(canUserRate(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
     UiUtils.showIf(ugc != null, mSummaryRootView, mUgcMoreReviews);
@@ -218,6 +219,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     List<UGC.Review> reviews = ugc.getReviews();
     if (reviews != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
+    UiUtils.showIf(reviews != null, mReviewListDivider);
     UiUtils.showIf(reviews != null && reviews.size() > UGCReviewAdapter.MAX_COUNT, mUgcMoreReviews);
   }
 
@@ -242,15 +244,27 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     if (mMapObject == null)
       return;
 
-    UGCEditorActivity.start((Activity) mPlacePage.getContext(), mMapObject.getTitle(),
-                            mMapObject.getFeatureId(),
-                            mMapObject.getDefaultRatings(), rating, mMapObject.canBeReviewed(),
-                            false /* isFromPPP */);
+    EditParams.Builder builder = prepareEditParamsBuilder(mMapObject)
+        .setDefaultRating(rating)
+        .setFromPP(false);
+    UGCEditorActivity.start((Activity) mPlacePage.getContext(), builder.build());
+  }
+
+  @NonNull
+  private static EditParams.Builder prepareEditParamsBuilder(@NonNull MapObject mapObject)
+  {
+    return new EditParams.Builder(mapObject.getTitle(), mapObject.getFeatureId())
+        .setRatings(mapObject.getDefaultRatings())
+        .setCanBeReviewed(mapObject.canBeReviewed())
+        .setLat(mapObject.getLat())
+        .setLon(mapObject.getLon())
+        .setAddress(mapObject.getAddress());
   }
 
   private void setUserReviewAndRatingsView(@Nullable UGCUpdate update)
   {
-    UiUtils.showIf(update != null, mUserReviewView, mUserReviewDivider, mUserRatingRecordsContainer);
+    UiUtils.showIf(update != null, mUserReviewView, mUserReviewDivider,
+                   mUserRatingRecordsContainer);
     if (update == null)
       return;
     TextView name = (TextView) mUserReviewView.findViewById(R.id.name);

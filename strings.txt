@@ -26372,3 +26372,15 @@
   [whats_new_ugc_message]
     en = You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.
     ru = Теперь вы можете оставлять оценки и отзывы даже офлайн! Не забудьте обновить карты, чтобы увидеть изменения. 
+
+  [dialog_error_storage_title]
+    en = Storage access problem
+    ru = Проблема с доступом к хранилищу
+
+  [dialog_error_storage_message]
+    en = External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me
+    ru = Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support@maps.me
+
+  [setting_emulate_bad_storage]
+    en = Emulate bad storage
+    ru = Эмуляция ошибки с внешней памятью     

@@ -1281,6 +1281,38 @@
 			};
 			name = Release;
 		};
+		A8E541601F9FBDC400A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558381DBF2C8B00A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+			};
+			name = "Production Full";
+		};
+		A8E541611F9FBDC400A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541621F9FBDC400A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = maps.me.search_tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541631F9FBDC400A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1298,6 +1330,7 @@
 			buildConfigurations = (
 				671C62111AE9225100076BD0 /* Debug */,
 				671C62121AE9225100076BD0 /* Release */,
+				A8E541621F9FBDC400A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1307,6 +1340,7 @@
 			buildConfigurations = (
 				675346B91A4055CF00A0A8C3 /* Debug */,
 				675346BA1A4055CF00A0A8C3 /* Release */,
+				A8E541601F9FBDC400A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1316,6 +1350,7 @@
 			buildConfigurations = (
 				675346BC1A4055CF00A0A8C3 /* Debug */,
 				675346BD1A4055CF00A0A8C3 /* Release */,
+				A8E541611F9FBDC400A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1325,6 +1360,7 @@
 			buildConfigurations = (
 				6796248B1D10133300AE4E3C /* Debug */,
 				6796248C1D10133300AE4E3C /* Release */,
+				A8E541631F9FBDC400A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

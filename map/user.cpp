@@ -91,6 +91,11 @@ std::string ParseAccessToken(std::string const & src)
   return tokenStr;
 }
 
+std::string BuildAuthorizationToken(std::string const & accessToken)
+{
+  return "Bearer " + accessToken;
+}
+
 std::vector<uint64_t> DeserializeReviewIds(std::string const & reviewIdsSrc)
 {
   my::Json root(reviewIdsSrc.c_str());
@@ -234,7 +239,7 @@ void User::RequestUserDetails()
   {
     Request(url, [this](platform::HttpClient & request)
     {
-      request.SetRawHeader("Authorization", m_accessToken);
+      request.SetRawHeader("Authorization", BuildAuthorizationToken(m_accessToken));
     },
     [this](std::string const & response)
     {
@@ -267,14 +272,14 @@ void User::UploadUserReviews(std::string && dataStr,
     size_t const bytesCount = dataStr.size();
     Request(url, [this, dataStr](platform::HttpClient & request)
     {
-      request.SetRawHeader("Authorization", m_accessToken);
+      request.SetRawHeader("Authorization", BuildAuthorizationToken(m_accessToken));
       request.SetBodyData(dataStr, "application/json");
     },
     [this, bytesCount, onCompleteUploading](std::string const &)
     {
       alohalytics::Stats::Instance().LogEvent("UGC_DataUpload_finished",
                                               strings::to_string(bytesCount));
-      LOG(LWARNING, ("Reviews have been uploaded."));
+      LOG(LINFO, ("Reviews have been uploaded."));
 
       if (onCompleteUploading != nullptr)
         onCompleteUploading(true /* isSuccessful */);
@@ -283,7 +288,7 @@ void User::UploadUserReviews(std::string && dataStr,
     {
       alohalytics::Stats::Instance().LogEvent("UGC_DataUpload_error",
                                               strings::to_string(errorCode));
-      LOG(LWARNING, ("Reviews have not been uploaded."));
+      LOG(LWARNING, ("Reviews have not been uploaded. Code =", errorCode));
 
       if (onCompleteUploading != nullptr)
         onCompleteUploading(false /* isSuccessful */);

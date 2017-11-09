@@ -294,9 +294,9 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   case Sections::HotelDescription: return data.descriptionRows.size();
   case Sections::HotelFacilities: return data.hotelFacilitiesRows.size();
   case Sections::HotelReviews: return data.hotelReviewsRows.size();
-  case Sections::UGCRating: return [data.ugc ratingCellsCount];
-  case Sections::UGCAddReview: return [data.ugc addReviewCellsCount];
-  case Sections::UGCReviews: return MIN([data.ugc numberOfReviews], 3) + 1 /* More button */;
+  case Sections::UGCRating: return data.ugc.ratingCellsCount;
+  case Sections::UGCAddReview: return data.ugc.addReviewCellsCount;
+  case Sections::UGCReviews: return data.ugc.reviewRows.size();
   }
 }
 
@@ -523,14 +523,40 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     auto c = static_cast<MWMUGCAddReviewCell *>(
         [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
     c.onRateTap = ^(MWMRatingSummaryViewValueType value) {
-      [delegate showUGCAddReview:value];
+      [delegate showUGCAddReview:value fromPreview:NO];
     };
     return c;
   }
   case Sections::UGCReviews:
   {
     auto ugc = data.ugc;
-    if ([tableView numberOfRowsInSection:indexPath.section] - 1 == indexPath.row)
+    auto const & reviewRows = ugc.reviewRows;
+    using namespace ugc::view_model;
+    auto onUpdate = ^{
+      [tableView refresh];
+    };
+
+    switch (reviewRows[indexPath.row])
+    {
+    case ReviewRow::YourReview:
+    {
+      Class cls = [MWMUGCYourReviewCell class];
+      auto c = static_cast<MWMUGCYourReviewCell *>(
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      [c configWithYourReview:static_cast<MWMUGCYourReview *>([ugc reviewWithIndex:indexPath.row])
+                      onUpdate:onUpdate];
+      return c;
+    }
+    case ReviewRow::Review:
+    {
+      Class cls = [MWMUGCReviewCell class];
+      auto c = static_cast<MWMUGCReviewCell *>(
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      [c configWithReview:static_cast<MWMUGCReview *>([ugc reviewWithIndex:indexPath.row])
+                  onUpdate:onUpdate];
+      return c;
+    }
+    case ReviewRow::MoreReviews:
     {
       Class cls = [MWMPlacePageButtonCell class];
       auto c = static_cast<MWMPlacePageButtonCell *>(
@@ -542,23 +568,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
             isInsetButton:NO];
       return c;
     }
-    auto onUpdate = ^{
-      [tableView refresh];
-    };
-    id review = [ugc reviewWithIndex:indexPath.row];
-    if ([review isKindOfClass:[MWMUGCYourReview class]])
-    {
-      Class cls = [MWMUGCYourReviewCell class];
-      auto c = static_cast<MWMUGCYourReviewCell *>(
-          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWithYourReview:static_cast<MWMUGCYourReview *>(review) onUpdate:onUpdate];
-      return c;
     }
-    Class cls = [MWMUGCReviewCell class];
-    auto c = static_cast<MWMUGCReviewCell *>(
-        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    [c configWithReview:static_cast<MWMUGCReview *>(review) onUpdate:onUpdate];
-    return c;
   }
   }
 }
@@ -689,7 +699,9 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     auto tv = self.placePageView.tableView;
     [tv reloadSections:[NSIndexSet indexSetWithIndex:0]
         withRowAnimation:UITableViewRowAnimationFade];
-    [self.previewLayoutHelper notifyHeightWashChanded];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self.previewLayoutHelper notifyHeightWashChanded];
+    });
   };
 
   data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d, BOOL isSection) {

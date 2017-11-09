@@ -1,0 +1,6 @@
+framework module FBSDKPlacesKit {
+    umbrella header "FBSDKPlacesKit.h"
+
+    export *
+    module * { export * }
+}

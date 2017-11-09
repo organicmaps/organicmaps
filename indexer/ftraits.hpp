@@ -17,24 +17,57 @@
 #include <string>
 #include <utility>
 
+#include <boost/optional.hpp>
+
 namespace ftraits
 {
-template <typename Base, typename Value, bool allowDuplications = false>
+template <typename Base, typename Value>
 class TraitsBase
 {
 public:
-  static Value GetValue(feature::TypesHolder const & types)
+  static boost::optional<Value> GetValue(feature::TypesHolder const & types)
   {
-    static Base instance;
-    auto const it = instance.m_matcher.Find(types);
+    auto const & instance = Instance();
+    auto const it = Find(types);
     if (!instance.m_matcher.IsValid(it))
-      return Base::GetEmptyValue();
+      return boost::none;
 
     return it->second;
   }
 
+  static boost::optional<uint32_t> GetType(feature::TypesHolder const & types)
+  {
+    auto const & instance = Instance();
+    auto const it = Find(types);
+    if (!instance.m_matcher.IsValid(it))
+      return boost::none;
+
+    return it->first;
+  }
+
+private:
+  using ConstIterator = typename ftypes::HashMapMatcher<uint32_t, Value>::ConstIterator;
+
+  static ConstIterator Find(feature::TypesHolder const & types)
+  {
+    auto const & instance = Instance();
+
+    auto const excluded = instance.m_excluded.Find(types);
+    if (instance.m_excluded.IsValid(excluded))
+      return instance.m_matcher.End();
+
+    return instance.m_matcher.Find(types);
+  }
+
 protected:
-  ftypes::Matcher<std::unordered_map<uint32_t, Value>, allowDuplications> m_matcher;
+  static TraitsBase const & Instance()
+  {
+    static Base instance;
+    return instance;
+  }
+
+  ftypes::HashMapMatcher<uint32_t, Value> m_matcher;
+  ftypes::HashSetMatcher<uint32_t> m_excluded;
 };
 
 enum UGCType
@@ -60,7 +93,7 @@ struct UGCItem
   UGCRatingCategories m_categories;
 };
 
-class UGC : public TraitsBase<UGC, UGCItem, true>
+class UGC : public TraitsBase<UGC, UGCItem>
 {
   friend class TraitsBase;
 
@@ -77,7 +110,12 @@ class UGC : public TraitsBase<UGC, UGCItem, true>
       ASSERT_EQUAL(row.size(), 5, ());
 
       UGCItem item(ReadMasks(row), ParseByWhitespaces(row[kCategoriesPos]));
-      m_matcher.AppendType(ParseByWhitespaces(row[kTypePos]), std::move(item));
+      auto typePath = ParseByDashes(row[kTypePos]);
+
+      if (IsUGCAvailable(item.m_mask))
+        m_matcher.AppendType(std::move(typePath), std::move(item));
+      else
+        m_excluded.AppendType(std::move(typePath));
     });
   }
 
@@ -109,13 +147,17 @@ class UGC : public TraitsBase<UGC, UGCItem, true>
     return {std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>()};
   }
 
-public:
-  static UGCItem const & GetEmptyValue()
+  std::vector<std::string> ParseByDashes(std::string const & str)
   {
-    static const UGCItem item;
-    return item;
+    std::vector<std::string> result;
+    std::istringstream iss(str);
+    for (std::string tmp; std::getline(iss,  tmp, '-'); )
+      result.push_back(tmp);
+
+    return result;
   }
 
+public:
   static bool IsUGCAvailable(UGCTypeMask mask) { return mask != UGCTYPE_NONE; }
   static bool IsRatingAvailable(UGCTypeMask mask) { return mask & UGCTYPE_RATING; }
   static bool IsReviewsAvailable(UGCTypeMask mask) { return mask & UGCTYPE_REVIEWS; }
@@ -123,23 +165,30 @@ public:
 
   static bool IsUGCAvailable(feature::TypesHolder const & types)
   {
-    return IsUGCAvailable(GetValue(types).m_mask);
+    auto const opt = GetValue(types);
+    return opt ? IsUGCAvailable(opt->m_mask) : false;
   }
   static bool IsRatingAvailable(feature::TypesHolder const & types)
   {
-    return IsRatingAvailable(GetValue(types).m_mask);
+    auto const opt = GetValue(types);
+    return opt ? IsRatingAvailable(opt->m_mask) : false;
   }
   static bool IsReviewsAvailable(feature::TypesHolder const & types)
   {
-    return IsReviewsAvailable(GetValue(types).m_mask);
+    auto const opt = GetValue(types);
+    return opt ? IsReviewsAvailable(opt->m_mask) : false;
   }
   static bool IsDetailsAvailable(feature::TypesHolder const & types)
   {
-    return IsDetailsAvailable(GetValue(types).m_mask);
+    auto const opt = GetValue(types);
+    return opt ? IsDetailsAvailable(opt->m_mask) : false;
   }
   static UGCRatingCategories GetCategories(feature::TypesHolder const & types)
   {
-    return GetValue(types).m_categories;
+    auto const opt = GetValue(types);
+    if (opt)
+      return opt->m_categories;
+    return {};
   }
 };
 
@@ -173,9 +222,6 @@ class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
     m_matcher.Append<TypesInitializer>({{"wheelchair", "limited"}},
                                        WheelchairAvailability::Limited);
   }
-
-public:
-  static WheelchairAvailability GetEmptyValue() { return WheelchairAvailability::No; }
 };
 
 }  // namespace ftraits

@@ -19,11 +19,14 @@
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/xattr.h>
 
 #import "iphone/Maps/Common/MWMCommon.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
+#import <CoreFoundation/CFURL.h>
+#import <CoreFoundation/CoreFoundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <netinet/in.h>
 
@@ -61,6 +64,26 @@ Platform::Platform()
 
 // static
 bool Platform::IsCustomTextureAllocatorSupported() { return !isIOS8; }
+
+//static
+void Platform::DisableBackupForFile(string const & filePath)
+{
+  // We need to disable iCloud backup for downloaded files.
+  // This is the reason for rejecting from the AppStore
+  // https://developer.apple.com/library/iOS/qa/qa1719/_index.html
+  CFURLRef url = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault,
+                                                         reinterpret_cast<unsigned char const *>(filePath.c_str()),
+                                                         filePath.size(),
+                                                         0);
+  CFErrorRef err;
+  BOOL valueRaw = YES;
+  CFNumberRef value = CFNumberCreate(kCFAllocatorDefault, kCFNumberCharType, &valueRaw);
+  if (!CFURLSetResourcePropertyForKey(url, kCFURLIsExcludedFromBackupKey, value, &err))
+    NSLog(@"Error while disabling iCloud backup for file: %s", filePath.c_str());
+
+  CFRelease(value);
+  CFRelease(url);
+}
 
 // static
 Platform::EError Platform::MkDir(string const & dirName)

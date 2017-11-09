@@ -28,7 +28,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
 {
   private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
 
-  private boolean mInitializationComplete = false;
+  private boolean mInitializationCompleted = false;
 
   @Override
   public Activity get()
@@ -60,7 +60,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
       goToSplashScreen();
       return;
     }
-    mInitializationComplete = true;
+    mInitializationCompleted = true;
 
     mBaseDelegate.onCreate();
     super.onCreate(savedInstanceState);
@@ -91,9 +91,9 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     attachDefaultFragment();
   }
 
-  protected boolean isInitializationComplete()
+  protected boolean isInitializationCompleted()
   {
-    return mInitializationComplete;
+    return mInitializationCompleted;
   }
 
   @ColorRes

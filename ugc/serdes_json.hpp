@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <cstdlib>
+#include <vector>
 
 namespace ugc
 {
@@ -83,6 +84,15 @@ public:
   void VisitLang(uint8_t const index, char const * name = nullptr)
   {
     ToJSONObject(*m_json, name, StringUtf8Multilang::GetLangByCode(index));
+  }
+
+  void VisitLangs(std::vector<uint8_t> const & indexes, char const * name = nullptr)
+  {
+    std::vector<std::string> langs;
+    for (auto const index : indexes)
+      langs.emplace_back(StringUtf8Multilang::GetLangByCode(index));
+
+    ToJSONObject(*m_json, name, langs);
   }
 
   void VisitPoint(m2::PointD const & pt, char const * x = nullptr, char const * y = nullptr)
@@ -212,6 +222,14 @@ public:
     std::string lang;
     FromJSONObject(m_json, name, lang);
     index = StringUtf8Multilang::GetLangIndex(lang);
+  }
+
+  void VisitLangs(std::vector<uint8_t> & indexes, char const * name = nullptr)
+  {
+    std::vector<std::string> langs;
+    FromJSONObject(m_json, name, langs);
+    for (auto const & lang : langs)
+      indexes.emplace_back(StringUtf8Multilang::GetLangIndex(lang));
   }
 
   void VisitPoint(m2::PointD & pt, char const * x = nullptr, char const * y = nullptr)

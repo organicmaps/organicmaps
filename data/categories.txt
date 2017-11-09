@@ -8895,3 +8895,7 @@ zh-Hant:^山屋
 sponsored-thor
 en:Collect all the items and win prizes!
 ru:Соберите все и выиграйте призы!
+
+sponsored-halloween
+en:Let's check your luck. Trick or treat?
+ru:Проверим вашу удачу? Нажмите на «Trick» или «Treat»

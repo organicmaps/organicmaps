@@ -584,7 +584,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
 }
 
-- (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value
+- (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromPreview:(BOOL)fromPreview
 {
   auto data = self.data;
   if (!data)
@@ -596,6 +596,15 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
                                                           value:value
                                                        maxValue:5.0f]];
   auto title = data.title;
+
+  [Statistics logEvent:kStatUGCReviewStart
+        withParameters:@{
+          kStatIsAuthenticated: @([MWMAuthorizationViewModel isAuthenticated]),
+          kStatIsOnline:
+              @(GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_NONE),
+          kStatMode: kStatAdd,
+          kStatFrom: fromPreview ? kStatPlacePagePreview : kStatPlacePage
+        }];
   auto ugcReviewModel =
       [[MWMUGCReviewModel alloc] initWithReviewValue:value ratings:ratings title:title text:@""];
   auto ugcVC = [MWMUGCAddReviewController instanceWithModel:ugcReviewModel

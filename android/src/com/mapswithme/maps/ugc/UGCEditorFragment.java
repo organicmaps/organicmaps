@@ -14,6 +14,8 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.widget.ToolbarController;
+import com.mapswithme.util.CrashlyticsUtils;
+import com.mapswithme.util.Language;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -26,6 +28,9 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   static final String ARG_DEFAULT_RATING = "arg_default_rating";
   static final String ARG_RATING_LIST = "arg_rating_list";
   static final String ARG_CAN_BE_REVIEWED = "arg_can_be_reviewed";
+  static final String ARG_LAT = "arg_lat";
+  static final String ARG_LON = "arg_lon";
+  static final String ARG_ADDRESS = "arg_address";
   @NonNull
   private final UGCRatingAdapter mUGCRatingAdapter = new UGCRatingAdapter();
   @SuppressWarnings("NullableProblems")
@@ -92,10 +97,18 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
     UGC.Rating[] ratings = new UGC.Rating[modifiedRatings.size()];
     modifiedRatings.toArray(ratings);
     UGCUpdate update = new UGCUpdate(ratings, mReviewEditText.getText().toString(),
-                                     System.currentTimeMillis());
+                                     System.currentTimeMillis(), Language.getDefaultLocale(),
+                                     Language.getKeyboardLocale());
     FeatureId featureId = getArguments().getParcelable(ARG_FEATURE_ID);
     if (featureId == null)
-      throw new AssertionError("Feature ID must be passed to this fragment!");
+    {
+
+      throw new AssertionError("Feature ID must be non-null for ugc object! " +
+                               "Title = " + getArguments().getString(ARG_TITLE) +
+                               "; address = " + getArguments().getString(ARG_ADDRESS) +
+                               "; lat = " + getArguments().getDouble(ARG_LAT) +
+                               "; lon = " + getArguments().getDouble(ARG_LON));
+    }
     UGC.setUGCUpdate(featureId, update);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_SUCCESS);
   }

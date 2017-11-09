@@ -600,6 +600,35 @@
 			};
 			name = Release;
 		};
+		A8E541431F9FBD7400A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34AF87CA1DBE4F4900E5E7DC /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"U_DISABLE_RENAMING=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/glm/",
+					"$(OMIM_ROOT)/3party/freetype/include",
+					"$(OMIM_ROOT)/3party/expat/lib",
+					"$(OMIM_ROOT)/3party/icu/common",
+					"$(OMIM_ROOT)/3party/icu/i18n",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E541441F9FBD7400A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = hw_texture_ios.mm;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -608,6 +637,7 @@
 			buildConfigurations = (
 				6729A4FA1A691F6A007D5872 /* Debug */,
 				6729A4FB1A691F6A007D5872 /* Release */,
+				A8E541431F9FBD7400A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -617,6 +647,7 @@
 			buildConfigurations = (
 				6729A4FD1A691F6A007D5872 /* Debug */,
 				6729A4FE1A691F6A007D5872 /* Release */,
+				A8E541441F9FBD7400A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

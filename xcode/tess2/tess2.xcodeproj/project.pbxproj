@@ -224,6 +224,28 @@
 			};
 			name = Release;
 		};
+		A8E541381F9FBD5100A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F5585B1DBF3DC500A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/libtess2/Include",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E541391F9FBD5100A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -232,6 +254,7 @@
 			buildConfigurations = (
 				6719DD3A1B95A8E70018166F /* Debug */,
 				6719DD3B1B95A8E70018166F /* Release */,
+				A8E541381F9FBD5100A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -241,6 +264,7 @@
 			buildConfigurations = (
 				6719DD3D1B95A8E70018166F /* Debug */,
 				6719DD3E1B95A8E70018166F /* Release */,
+				A8E541391F9FBD5100A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

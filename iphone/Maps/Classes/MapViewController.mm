@@ -385,10 +385,10 @@ BOOL gIsFirstMyPositionMode = YES;
 
   [Statistics logEvent:kStatEditorEditStart
         withParameters:@{
-          kStatEditorIsAuthenticated : @(AuthorizationHaveCredentials()),
-          kStatIsOnline : Platform::IsConnected() ? kStatYes : kStatNo,
-          kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
-          kStatEditorMWMVersion : @(featureID.GetMwmVersion())
+          kStatIsAuthenticated: @(AuthorizationHaveCredentials()),
+          kStatIsOnline: Platform::IsConnected() ? kStatYes : kStatNo,
+          kStatEditorMWMName: @(featureID.GetMwmName().c_str()),
+          kStatEditorMWMVersion: @(featureID.GetMwmVersion())
         }];
   [self performSegueWithIdentifier:kEditorSegue sender:self.controlsManager.featureHolder];
 }

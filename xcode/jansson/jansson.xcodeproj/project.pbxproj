@@ -252,6 +252,26 @@
 			};
 			name = Release;
 		};
+		A8E5411F1F9FBCF500A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558691DBF483000A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E541201F9FBCF500A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -260,6 +280,7 @@
 			buildConfigurations = (
 				675344561A3F664300A0A8C3 /* Debug */,
 				675344571A3F664300A0A8C3 /* Release */,
+				A8E5411F1F9FBCF500A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -269,6 +290,7 @@
 			buildConfigurations = (
 				675344591A3F664300A0A8C3 /* Debug */,
 				6753445A1A3F664300A0A8C3 /* Release */,
+				A8E541201F9FBCF500A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

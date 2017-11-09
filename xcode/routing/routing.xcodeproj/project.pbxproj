@@ -1494,6 +1494,65 @@
 			};
 			name = Release;
 		};
+		A8E541091F9FBC3E00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558361DBF2A2600A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
+					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E5410A1F9FBC3E00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E5410B1F9FBC3E00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)_common/build/Debug",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = mail.ru.routing_tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E5410C1F9FBC3E00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)_common/build/Debug",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = mail.ru.routing_integration_tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E5410D1F9FBC3E00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = mail.ru.routing_benchmarks;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1502,6 +1561,7 @@
 			buildConfigurations = (
 				56F0D75D1D896A5300045886 /* Debug */,
 				56F0D75E1D896A5300045886 /* Release */,
+				A8E5410D1F9FBC3E00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1511,6 +1571,7 @@
 			buildConfigurations = (
 				6742AD231C68A91B009CB89E /* Debug */,
 				6742AD241C68A91B009CB89E /* Release */,
+				A8E5410B1F9FBC3E00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1520,6 +1581,7 @@
 			buildConfigurations = (
 				675344011A3F640D00A0A8C3 /* Debug */,
 				675344021A3F640D00A0A8C3 /* Release */,
+				A8E541091F9FBC3E00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1529,6 +1591,7 @@
 			buildConfigurations = (
 				675344041A3F640D00A0A8C3 /* Debug */,
 				675344051A3F640D00A0A8C3 /* Release */,
+				A8E5410A1F9FBC3E00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1538,6 +1601,7 @@
 			buildConfigurations = (
 				67BD35AA1C69F03E003AA26F /* Debug */,
 				67BD35AB1C69F03E003AA26F /* Release */,
+				A8E5410C1F9FBC3E00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

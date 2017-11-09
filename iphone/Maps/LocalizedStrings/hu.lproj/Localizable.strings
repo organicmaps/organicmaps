@@ -2121,3 +2121,9 @@
 "whats_new_ugc_title" = "Ratings and reviews";
 
 "whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+
+"dialog_error_storage_title" = "Storage access problem";
+
+"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+
+"setting_emulate_bad_storage" = "Emulate bad storage";

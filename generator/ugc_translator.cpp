@@ -29,9 +29,14 @@ bool UGCTranslator::TranslateUGC(osm::Id const & id, ugc::UGC & ugc)
 
   my::Json json(str);
 
-  if (json_array_size(json.get()) != 1)
+  auto const size = json_array_size(json.get());
+
+  if (size == 0)
+    return false;
+
+  if (size > 1)
   {
-    LOG(LWARNING, ("Osm id duplication in UGC database", id));
+    LOG(LWARNING, ("Osm id duplication in UGC database", id.EncodedId()));
     return false;
   }
 

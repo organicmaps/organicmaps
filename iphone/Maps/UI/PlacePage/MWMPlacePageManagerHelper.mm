@@ -11,7 +11,7 @@
 @interface MWMPlacePageManager ()
 
 - (void)updateAvailableArea:(CGRect)frame;
-- (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value;
+- (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromPreview:(BOOL)fromPreview;
 
 @end
 
@@ -22,9 +22,10 @@
   [[MWMMapViewControlsManager manager].placePageManager updateAvailableArea:frame];
 }
 
-+ (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value
++ (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromPreview:(BOOL)fromPreview
 {
-  [[MWMMapViewControlsManager manager].placePageManager showUGCAddReview:value];
+  [[MWMMapViewControlsManager manager].placePageManager showUGCAddReview:value
+                                                             fromPreview:fromPreview];
 }
 
 @end

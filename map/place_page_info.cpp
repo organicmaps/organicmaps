@@ -32,12 +32,21 @@ bool Info::ShouldShowAddPlace() const
   return m_canEditOrAdd && !(IsFeature() && isPointOrBuilding);
 }
 
+bool Info::ShouldShowUGC() const
+{
+  return ftraits::UGC::IsUGCAvailable(m_sortedTypes) &&
+         (m_featureStatus == osm::Editor::FeatureStatus::Untouched ||
+          m_featureStatus == osm::Editor::FeatureStatus::Modified);
+}
+
 void Info::SetFromFeatureType(FeatureType const & ft)
 {
   MapObject::SetFromFeatureType(ft);
   std::string primaryName;
   std::string secondaryName;
   GetPrefferedNames(primaryName, secondaryName);
+  m_sortedTypes = m_types;
+  m_sortedTypes.SortBySpec();
   if (IsBookmark())
   {
     m_uiTitle = m_bookmarkData.GetName();
@@ -181,7 +190,7 @@ bool Info::ShouldShowEditPlace() const
 
 ftraits::UGCRatingCategories Info::GetRatingCategories() const
 {
-  return ftraits::UGC::GetCategories(m_types);
+  return ftraits::UGC::GetCategories(m_sortedTypes);
 }
 
 string Info::FormatNewBookmarkName() const

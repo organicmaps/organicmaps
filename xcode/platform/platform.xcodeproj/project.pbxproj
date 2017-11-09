@@ -319,6 +319,7 @@
 				678338A91C6DF4BD00FD6263 /* Resources */,
 				675343791A3F5CF500A0A8C3 /* Products */,
 				3496AB6F1DC1F5AB00C5DDBA /* Frameworks */,
+				A8E540F51F9F97CD00A1B8FA /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -416,6 +417,14 @@
 			);
 			name = Resources;
 			path = ../../data;
+			sourceTree = "<group>";
+		};
+		A8E540F51F9F97CD00A1B8FA /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				676C841F1C64CD3300DC9603 /* mwm_traits.hpp */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -760,6 +769,58 @@
 			};
 			name = Release;
 		};
+		A8E5410E1F9FBC4C00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558341DBF273C00A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
+					platform_mac.mm,
+					secure_storage_qt.cpp,
+				);
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					platform_mac.mm,
+					secure_storage_qt.cpp,
+				);
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
+					"ios_*",
+					platform_ios.mm,
+					secure_storage_ios.mm,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+					"$(QT_PATH)/include",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E5410F1F9FBC4C00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541101F9FBC4C00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541111F9FBC4C00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.platform-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -768,6 +829,7 @@
 			buildConfigurations = (
 				675340F21C58C496002CF0D9 /* Debug */,
 				675340F31C58C496002CF0D9 /* Release */,
+				A8E541101F9FBC4C00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -777,6 +839,7 @@
 			buildConfigurations = (
 				675343811A3F5CF500A0A8C3 /* Debug */,
 				675343821A3F5CF500A0A8C3 /* Release */,
+				A8E5410E1F9FBC4C00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -786,6 +849,7 @@
 			buildConfigurations = (
 				675343841A3F5CF500A0A8C3 /* Debug */,
 				675343851A3F5CF500A0A8C3 /* Release */,
+				A8E5410F1F9FBC4C00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -795,6 +859,7 @@
 			buildConfigurations = (
 				678338931C6DE54700FD6263 /* Debug */,
 				678338941C6DE54700FD6263 /* Release */,
+				A8E541111F9FBC4C00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

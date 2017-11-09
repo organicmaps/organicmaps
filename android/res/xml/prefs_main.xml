@@ -91,13 +91,18 @@
       android:title="@string/enable_logging"
       android:defaultValue="false"
       android:order="12"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_emulate_bad_external_storage"
+      android:title="@string/setting_emulate_bad_storage"
+      android:defaultValue="false"
+      android:order="13"/>
     <ListPreference
       android:key="@string/pref_use_mobile_data"
       android:title="@string/mobile_data"
       android:summary="@string/mobile_data_option_ask"
       android:entries="@array/mobile_data_options"
       android:entryValues="@array/mobile_data_options_values"
-      android:order="13"/>
+      android:order="14"/>
   </android.support.v7.preference.PreferenceCategory>
 
   <android.support.v7.preference.PreferenceCategory

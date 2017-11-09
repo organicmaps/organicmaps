@@ -648,7 +648,8 @@ private:
                                                   MapFilesDownloader::TProgress const & downloadingMwmProgress,
                                                   TCountriesSet const & mwmsInQueue) const;
 
-  void CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem);
+  void PushToJustDownloaded(TQueue::iterator justDownloadedItem);
+  void PopFromQueue(TQueue::iterator it);
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> const & nodes, ToDo && toDo) const;
   /// Returns true if |node.Value().Name()| is a disputed territory and false otherwise.
@@ -661,6 +662,8 @@ private:
   void LoadDiffScheme();
   void ApplyDiff(TCountryId const & countryId, function<void(bool isSuccess)> const & fn);
 
+  // Should be called once on startup, downloading process should be suspended until this method
+  // was not called. Do not call this method manually.
   void OnDiffStatusReceived(diffs::Status const status) override;
 };
 

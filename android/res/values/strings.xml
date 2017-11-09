@@ -1237,4 +1237,7 @@
 	<string name="sponsored_thor_gather">Gather</string>
 	<string name="whats_new_ugc_title">Ratings and reviews</string>
 	<string name="whats_new_ugc_message">You can now leave ratings and reviews even offline! Don\'t forget to update your maps so you can see the changes.</string>
+	<string name="dialog_error_storage_title">Storage access problem</string>
+	<string name="dialog_error_storage_message">External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Emulate bad storage</string>
 </resources>

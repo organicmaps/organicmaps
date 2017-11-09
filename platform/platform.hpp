@@ -109,6 +109,7 @@ public:
   virtual ~Platform() = default;
 
   static bool IsFileExistsByFullPath(string const & filePath);
+  static void DisableBackupForFile(string const & filePath);
 
   /// @return true if we can create custom texture allocator in drape
   static bool IsCustomTextureAllocatorSupported();

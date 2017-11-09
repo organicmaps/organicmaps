@@ -37,10 +37,7 @@ final class UGCReviewCell: MWMTableViewCell {
 
   @objc func config(review: UGCReview, onUpdate: @escaping () -> Void) {
     titleLabel.text = review.title
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .medium
-    dateFormatter.timeStyle = .none
-    dateLabel.text = dateFormatter.string(from: review.date)
+    dateLabel.text = review.date
     reviewLabel.text = review.text
     reviewLabel.onUpdate = onUpdate
     ratingView.value = review.rating.value

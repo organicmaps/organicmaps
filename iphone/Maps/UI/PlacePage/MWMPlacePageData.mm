@@ -1,4 +1,5 @@
 #import "MWMPlacePageData.h"
+#import "AppInfo.h"
 #import "LocaleTranslator.h"
 #import "MWMBannerHelpers.h"
 #import "MWMNetworkPolicy.h"
@@ -701,10 +702,15 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel
 {
   using namespace ugc;
-
+  auto appInfo = AppInfo.sharedInfo;
   auto const locale =
-      static_cast<uint8_t>(StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()));
-  Text t{reviewModel.text.UTF8String, locale};
+      static_cast<uint8_t>(StringUtf8Multilang::GetLangIndex(appInfo.twoLetterLanguageId.UTF8String));
+  std::vector<uint8_t> keyboardLanguages;
+  // TODO: Set the list of used keyboard languages (not only the recent one).
+  auto lastInputLanguage = appInfo.twoLetterInputLanguage;
+  keyboardLanguages.emplace_back(StringUtf8Multilang::GetLangIndex(lastInputLanguage.UTF8String));
+
+  KeyboardText t{reviewModel.text.UTF8String, locale, keyboardLanguages};
   Ratings r;
   for (MWMUGCRatingStars * star in reviewModel.ratings)
     r.emplace_back(star.title.UTF8String, star.value);

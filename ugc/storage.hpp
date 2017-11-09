@@ -23,12 +23,14 @@ public:
   struct UGCIndex
   {
     DECLARE_VISITOR(visitor.VisitPoint(m_mercator, "x", "y"), visitor(m_type, "type"),
+                    visitor(m_matchingType, "matching_type"),
                     visitor(m_offset, "offset"), visitor(m_deleted, "deleted"),
                     visitor(m_synchronized, "synchronized"), visitor(m_mwmName, "mwm_name"),
                     visitor(m_dataVersion, "data_version"), visitor(m_featureId, "feature_id"))
 
     m2::PointD m_mercator{};
     uint32_t m_type = 0;
+    uint32_t m_matchingType = 0;
     uint64_t m_offset = 0;
     bool m_deleted = false;
     bool m_synchronized = false;
@@ -40,7 +42,15 @@ public:
   explicit Storage(Index const & index) : m_index(index) {}
 
   UGCUpdate GetUGCUpdate(FeatureID const & id) const;
-  void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
+
+  enum class SettingResult
+  {
+    Success,
+    InvalidUGC,
+    WritingError
+  };
+
+  SettingResult SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
   void SaveIndex() const;
   std::string GetUGCToSend() const;
   void MarkAllAsSynchronized();
@@ -50,6 +60,7 @@ public:
   /// Testing
   std::vector<UGCIndex> const & GetIndexesForTesting() const { return m_UGCIndexes; }
   size_t GetNumberOfDeletedForTesting() const { return m_numberOfDeleted; }
+  SettingResult SetUGCUpdateForTesting(FeatureID const & id, v0::UGCUpdate const & ugc);
 
 private:
   uint64_t UGCSizeAtIndex(size_t const indexPosition) const;
@@ -59,4 +70,14 @@ private:
   std::vector<UGCIndex> m_UGCIndexes;
   size_t m_numberOfDeleted = 0;
 };
+
+inline std::string DebugPrint(Storage::SettingResult const & result)
+{
+  switch (result)
+  {
+  case Storage::SettingResult::Success: return "Success";
+  case Storage::SettingResult::InvalidUGC: return "Invalid UGC";
+  case Storage::SettingResult::WritingError: return "Writing Error";
+  }
+}
 }  // namespace ugc

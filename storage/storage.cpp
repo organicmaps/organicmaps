@@ -594,8 +594,6 @@ void Storage::DownloadNextCountryFromQueue()
       !PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId)))
   {
     OnMapDownloadFinished(countryId, false /* success */, queuedCountry.GetInitOptions());
-    NotifyStatusChangedForHierarchy(countryId);
-    CorrectJustDownloadedAndQueue(m_queue.begin());
     DownloadNextCountryFromQueue();
     return;
   }
@@ -838,7 +836,8 @@ void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions o
     m_didDownload(countryId, localFile);
 
     CHECK(!m_queue.empty(), ());
-    CorrectJustDownloadedAndQueue(m_queue.begin());
+    PushToJustDownloaded(m_queue.begin());
+    PopFromQueue(m_queue.begin());
     SaveDownloadQueue();
 
     m_downloader->Reset();
@@ -1169,17 +1168,9 @@ bool Storage::DeleteCountryFilesFromDownloader(TCountryId const & countryId)
   // Remove country from the queue if there's nothing to download.
   if (queuedCountry->GetInitOptions() == MapOptions::Nothing)
   {
-    auto it = find(m_queue.cbegin(), m_queue.cend(), countryId);
-    ASSERT(it != m_queue.cend(), ());
-    if (m_queue.size() == 1)
-    {  // If m_queue is about to be empty.
-      m_justDownloaded.clear();
-      m_queue.clear();
-    }
-    else
-    {  // A deleted map should not be moved to m_justDownloaded.
-      m_queue.erase(it);
-    }
+    auto it = find(m_queue.begin(), m_queue.end(), countryId);
+    ASSERT(it != m_queue.end(), ());
+    PopFromQueue(it);
     SaveDownloadQueue();
   }
 
@@ -1434,8 +1425,10 @@ void Storage::ApplyDiff(TCountryId const & countryId, function<void(bool isSucce
     GetPlatform().RunOnGuiThread([this, fn, diffFile, result]
     {
       if (result)
+      {
         RegisterCountryFiles(diffFile);
-
+        Platform::DisableBackupForFile(diffFile->GetPath(MapOptions::Map));
+      }
       fn(result);
     });
   });
@@ -1460,7 +1453,8 @@ void Storage::OnDiffStatusReceived(diffs::Status const status)
         ASSERT_THREAD_CHECKER(m_threadChecker, ());
         if (!isSuccess)
         {
-          OnDownloadFailed(countryId);
+          m_failedCountries.insert(countryId);
+          NotifyStatusChangedForHierarchy(countryId);
           return;
         }
 
@@ -1772,11 +1766,15 @@ bool Storage::GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInf
   return true;
 }
 
-void Storage::CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem)
+void Storage::PushToJustDownloaded(TQueue::iterator justDownloadedItem)
 {
   m_justDownloaded.insert(justDownloadedItem->GetCountryId());
+}
+
+void Storage::PopFromQueue(TQueue::iterator it)
+{
   CHECK(!m_queue.empty(), ());
-  m_queue.erase(justDownloadedItem);
+  m_queue.erase(it);
   if (m_queue.empty())
     m_justDownloaded.clear();
 }
@@ -1896,9 +1894,9 @@ TMwmSize Storage::GetRemoteSize(CountryFile const & file, MapOptions opt, int64_
 void Storage::OnDownloadFailed(TCountryId const & countryId)
 {
   m_failedCountries.insert(countryId);
-  auto it = find(m_queue.cbegin(), m_queue.cend(), countryId);
-  if (it != m_queue.cend())
-    m_queue.erase(it);
+  auto it = find(m_queue.begin(), m_queue.end(), countryId);
+  if (it != m_queue.end())
+    PopFromQueue(it);
   NotifyStatusChangedForHierarchy(countryId);
 }
 }  // namespace storage

@@ -152,6 +152,9 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
   return stat(filePath.c_str(), &s) == 0;
 }
 
+//static
+void Platform::DisableBackupForFile(string const & filePath) {}
+
 // static
 bool Platform::IsCustomTextureAllocatorSupported() { return true; }
 

@@ -20,6 +20,16 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
 
+  @IBOutlet private weak var tapView: UIView! {
+    didSet {
+      iPadSpecific {
+        tapView?.removeFromSuperview()
+      }
+    }
+  }
+
+  @IBOutlet private weak var contentView: UIView!
+
   @IBOutlet private weak var titleLabel: UILabel! {
     didSet {
       titleLabel.font = UIFont.bold22()
@@ -117,16 +127,30 @@ final class AuthorizationViewController: MWMViewController {
     fbImage?.frame = CGRect(x: 16, y: 8, width: 24, height: 24)
   }
 
-  @IBAction func onCancel() {
-    dismiss(animated: true, completion: nil)
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    preferredContentSize = contentView.size
   }
 
-  private func process(error: Error) {
+  @IBAction func onCancel() {
+    Statistics.logEvent(kStatUGCReviewAuthDeclined)
+    dismiss(animated: true, completion: {
+      (UIApplication.shared.keyWindow?.rootViewController as?
+        UINavigationController)?.popToRootViewController(animated: true)
+    })
+  }
+
+  private func process(error: Error, type: MWMSocialTokenType) {
+    Statistics.logEvent(kStatUGCReviewAuthError, withParameters: [
+      kStatProvider: type == .facebook ? kStatFacebook : kStatGoogle,
+      kStatError: error.localizedDescription,
+    ])
     textLabel.text = L("profile_authorization_error")
     Crashlytics.sharedInstance().recordError(error)
   }
 
   private func process(token: String, type: MWMSocialTokenType) {
+    Statistics.logEvent(kStatUGCReviewAuthExternalRequestSuccess, withParameters: [kStatProvider: type == .facebook ? kStatFacebook : kStatGoogle])
     ViewModel.authenticate(withToken: token, type: type)
     dismiss(animated: true, completion: completion)
   }
@@ -135,9 +159,9 @@ final class AuthorizationViewController: MWMViewController {
 extension AuthorizationViewController: FBSDKLoginButtonDelegate {
   func loginButton(_: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
     if let error = error {
-      process(error: error)
-    } else if let result = result {
-      process(token: result.token.tokenString, type: .facebook)
+      process(error: error, type: .facebook)
+    } else if let token = result?.token {
+      process(token: token.tokenString, type: .facebook)
     }
   }
 
@@ -150,7 +174,7 @@ extension AuthorizationViewController: GIDSignInUIDelegate {
 extension AuthorizationViewController: GIDSignInDelegate {
   func sign(_: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
     if let error = error {
-      process(error: error)
+      process(error: error, type: .google)
     } else {
       process(token: user.authentication.idToken, type: .google)
     }

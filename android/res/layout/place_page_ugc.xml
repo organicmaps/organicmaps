@@ -80,10 +80,7 @@
     android:layout_height="wrap_content"
     android:background="?cardBackground"
     android:gravity="center_horizontal">
-    <View
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider_height"
-      android:background="?dividerHorizontal"/>
+    <include layout="@layout/divider_horizontal"/>
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -93,6 +90,7 @@
       android:layout_marginRight="@dimen/margin_base"
       android:layout_marginEnd="@dimen/margin_base"
       android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+      android:gravity="center_horizontal"
       android:textStyle="bold"
       android:text="@string/placepage_rate_comment"
       tools:text="@string/placepage_rate_comment"/>
@@ -226,9 +224,12 @@
     </LinearLayout>
   </LinearLayout>
 
-  <include layout="@layout/place_page_fat_shadow"/>
-
   <!-- User review block -->
+  <include
+    android:id="@+id/user_review_divider"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/divider_height"
+    layout="@layout/divider_horizontal"/>
   <include
     layout="@layout/item_ugc_comment"
     android:id="@+id/rl_user_review"
@@ -238,7 +239,7 @@
     android:id="@+id/user_rating_records"
     layout="@layout/place_page_rating_records"/>
   <View
-    android:id="@+id/user_review_divider"
+    android:id="@+id/ugc_review_list_divider"
     android:layout_width="match_parent"
     android:layout_height="@dimen/divider_height"
     android:background="?dividerHorizontal"/>

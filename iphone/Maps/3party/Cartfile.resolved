@@ -1,3 +1,7 @@
 github "Alamofire/Alamofire" "4.5.1"
 github "Alamofire/AlamofireImage" "3.3.0"
-github "Pushwoosh/pushwoosh-ios-sdk" "5.3.6"
+github "AppsFlyerSDK/AppsFlyerFramework" "4.8.1"
+github "BoltsFramework/Bolts-ObjC" "1.8.4"
+github "Pushwoosh/pushwoosh-ios-sdk" "5.4.0"
+github "facebook/Facebook-SDK-Swift" "0.3.0"
+github "facebook/facebook-ios-sdk" "sdk-version-4.27.1"

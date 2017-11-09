@@ -1465,9 +1465,6 @@ area|z16[amenity=community_centre]
 
 /* 4.2 Apartament */
 
-node|z14-[sponsored=booking],
-area|z14-[sponsored=booking]
-{icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z16-[tourism=hotel],
 node|z16-[tourism=hostel],
 node|z16-[tourism=guest_house],
@@ -1552,7 +1549,7 @@ node|z14[sponsored=booking][tourism=hotel][rating>=8],
 area|z14[sponsored=booking][tourism=hotel][rating>=8],
 node|z14[sponsored=booking][tourism=resort][rating>=8],
 area|z14[sponsored=booking][tourism=resort][rating>=8]
-{icon-image: hotel-s.svg;}
+{icon-image: hotel-s.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z14[sponsored=booking][rating<8],
 area|z14[sponsored=booking][rating<8]
 {icon-image: zero-icon.svg;text: none;}
@@ -1563,12 +1560,12 @@ node|z15[sponsored=booking][tourism=resort][rating>=7],
 area|z15[sponsored=booking][tourism=resort][rating>=7],
 node|z15[sponsored=booking][tourism=motel][rating>=7],
 area|z15[sponsored=booking][tourism=motel][rating>=7]
-{icon-image: hotel-m.svg;}
+{icon-image: hotel-m.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z15[sponsored=booking][tourism=alpine_hut][rating>=7],
 area|z15[sponsored=booking][tourism=alpine_hut][rating>=7],
 node|z15[sponsored=booking][tourism=wilderness_hut][rating>=7],
 area|z15[sponsored=booking][tourism=wilderness_hut][rating>=7]
-{icon-image:alpine_hut-m.svg;}
+{icon-image:alpine_hut-m.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z15[sponsored=booking][rating<7],
 area|z15[sponsored=booking][rating<7]
 {icon-image: zero-icon.svg;text: none;} 
@@ -1579,23 +1576,23 @@ node|z16- [sponsored=booking][tourism=resort],
 area|z16- [sponsored=booking][tourism=resort],
 node|z16- [sponsored=booking][tourism=motel],
 area|z16- [sponsored=booking][tourism=motel]
-{icon-image: hotel-l.svg;}
+{icon-image: hotel-l.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z16- [sponsored=booking][tourism=alpine_hut],
 area|z16- [sponsored=booking][tourism=alpine_hut],
 node|z16- [sponsored=booking][tourism=wilderness_hut],
 area|z16- [sponsored=booking][tourism=wilderness_hut]
-{icon-image: alpine_hut-l.svg;}
+{icon-image: alpine_hut-l.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z16- [sponsored=booking][tourism=hostel],
 area|z16- [sponsored=booking][tourism=hostel]
-{icon-image: hostel-m.svg;}
+{icon-image: hostel-m.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z16- [sponsored=booking][tourism=chalet],
 area|z16- [sponsored=booking][tourism=chalet]
-{icon-image: alpine_hut-m.svg;}
+{icon-image: alpine_hut-m.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z16- [sponsored=booking][tourism=apartment],
 area|z16- [sponsored=booking][tourism=apartment],
 node|z16- [sponsored=booking][tourism=guest_house],
 area|z16- [sponsored=booking][tourism=guest_house]
-{icon-image: apartment-m.svg;text-halo-radius: 0;}
+{icon-image: apartment-m.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 
 node|z17-[sponsored=booking],
 area|z17-[sponsored=booking]
@@ -1603,15 +1600,15 @@ area|z17-[sponsored=booking]
 
 node|z18- [sponsored=booking][tourism=hostel],
 area|z18- [sponsored=booking][tourism=hostel]
-{icon-image: hostel-l.svg;}
+{icon-image: hostel-l.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z18- [sponsored=booking][tourism=chalet],
 area|z18- [sponsored=booking][tourism=chalet]
-{icon-image: alpine_hut-l.svg;}
+{icon-image: alpine_hut-l.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z18- [sponsored=booking][tourism=apartment],
 area|z18- [sponsored=booking][tourism=apartment],
 node|z18- [sponsored=booking][tourism=guest_house],
 area|z18- [sponsored=booking][tourism=guest_house]
-{icon-image: apartment-l.svg;text-halo-radius: 0;}
+{icon-image: apartment-l.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 
 node|z15-16[tourism=camp_site],
 area|z15-16[tourism=camp_site]
@@ -3169,8 +3166,8 @@ area|z18-[sponsored=cian]
 {font-size: 11;}
 
 
-node|z16-[sponsored=thor],
-area|z16-[sponsored=thor]
+node|z16-[sponsored=thor][rating=1],
+area|z16-[sponsored=thor][rating=1]
 {icon-image: portal-l.svg;}
 
 node|z16-[sponsored=thor][rating=2],

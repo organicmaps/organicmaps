@@ -7,13 +7,12 @@
   android:layout_height="wrap_content"
   android:orientation="vertical">
 
+  <include layout="@layout/divider_horizontal"/>
+
   <TextView
     style="@style/PlacePageMetadataText.Button"
     android:height="@dimen/height_block_base"
     android:background="?clickableBackground"
     android:gravity="center"
     android:text="@string/details_on_bookingcom"/>
-
-  <include layout="@layout/divider_horizontal"/>
-
 </LinearLayout>

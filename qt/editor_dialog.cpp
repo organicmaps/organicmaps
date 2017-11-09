@@ -98,7 +98,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
         street += " / " + nearbyStreets[i].m_localizedName;
       cmb->addItem(street.c_str());
       if (emo.GetStreet() == nearbyStreets[i])
-        cmb->setCurrentIndex(i);
+        cmb->setCurrentIndex(static_cast<int>(i));
     }
     cmb->setObjectName(kStreetObjectName);
     grid->addWidget(cmb, row++, 1);

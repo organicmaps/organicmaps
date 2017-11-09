@@ -78,7 +78,7 @@ public class RatingView extends View
     mBackgroundPaint.setColor(mRatingColor);
     mBackgroundPaint.setAlpha(31 /* 12% */);
     if (mDrawSmile)
-      mDrawable = res.getDrawable(impress.getDrawableId());
+      mDrawable = DrawableCompat.wrap(res.getDrawable(impress.getDrawableId()));
     mTextPaint.setColor(mRatingColor);
     invalidate();
     requestLayout();
@@ -130,9 +130,8 @@ public class RatingView extends View
 
     if (mRating != null)
     {
-      float yPos = getHeight() / 2;
-      yPos += (Math.abs(mTextBounds.height())) / 2;
-      float xPos = mDrawable != null ? mDrawable.getBounds().right + getPaddingLeft()
+      int yPos = (int) ((canvas.getHeight() / 2) - ((mTextPaint.descent() + mTextPaint.ascent()) / 2)) ;
+      int xPos = mDrawable != null ? mDrawable.getBounds().right + getPaddingLeft()
                                      : getPaddingLeft();
       canvas.drawText(mRating, xPos, yPos, mTextPaint);
     }

@@ -1,0 +1,10 @@
+//
+// Prefix header for all source files of the 'AppsFlyerLib' target in the 'AppsFlyerLib' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
+
+#define kAppsFlyerSDKBuildNumber  @"4.8.1"
+#define kJenkinsBuildNumber  @"602"

@@ -1,5 +1,3 @@
-#include "Language.hpp"
-
 #include "com/mapswithme/core/jni_helper.hpp"
 
 #include "base/assert.hpp"
@@ -7,19 +5,6 @@
 #include "base/string_utils.hpp"
 
 #include <string>
-
-std::string ReplaceDeprecatedLanguageCode(std::string const & lang)
-{
-  // in* -> id
-  // iw* -> he
-
-  if (strings::StartsWith(lang, "in"))
-    return "id";
-  else if (strings::StartsWith(lang, "iw"))
-    return "he";
-
-  return lang;
-}
 
 /// This function is called from native c++ code
 std::string GetAndroidSystemLanguage()
@@ -33,16 +18,14 @@ std::string GetAndroidSystemLanguage()
     return DEFAULT_LANG;
   }
 
-  static jclass const localeClass = jni::GetGlobalClassRef(env, "java/util/Locale");
-  static jmethodID const localeGetDefaultId = jni::GetStaticMethodID(env, localeClass, "getDefault", "()Ljava/util/Locale;");
-  static jmethodID const localeToStringId = env->GetMethodID(localeClass, "toString", "()Ljava/lang/String;");
+  static jclass const languageClass = jni::GetGlobalClassRef(env, "com/mapswithme/util/Language");
+  static jmethodID const getDefaultLocaleId = jni::GetStaticMethodID(env, languageClass, "getDefaultLocale", "()Ljava/lang/String;");
 
-  jni::TScopedLocalRef localeInstance(env, env->CallStaticObjectMethod(localeClass, localeGetDefaultId));
-  jni::TScopedLocalRef langString(env, env->CallObjectMethod(localeInstance.get(), localeToStringId));
+  jni::TScopedLocalRef localeRef(env, env->CallStaticObjectMethod(languageClass, getDefaultLocaleId));
 
-  std::string res = jni::ToNativeString(env, (jstring) langString.get());
+  std::string res = jni::ToNativeString(env, (jstring) localeRef.get());
   if (res.empty())
     res = DEFAULT_LANG;
 
-  return ReplaceDeprecatedLanguageCode(res);
+  return res;
 }

@@ -530,6 +530,64 @@
 			};
 			name = Release;
 		};
+		A8E541251F9FBD0F00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558651DBF460300A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+			};
+			name = "Production Full";
+		};
+		A8E541261F9FBD0F00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541271F9FBD0F00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541281F9FBD0F00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541291F9FBD0F00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E5412A1F9FBD0F00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = opening_hours_tests_ios/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = opening_hours_tests_ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E5412B1F9FBD0F00A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = opening_hours_integration_tests_ios/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = opening_hours_integration_tests_ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 		E91738B81BECD02B00717F6E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -606,6 +664,7 @@
 			buildConfigurations = (
 				670C61F01AC3511700C38A8C /* Debug */,
 				670C61F11AC3511700C38A8C /* Release */,
+				A8E541251F9FBD0F00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -615,6 +674,7 @@
 			buildConfigurations = (
 				670C61F31AC3511700C38A8C /* Debug */,
 				670C61F41AC3511700C38A8C /* Release */,
+				A8E541261F9FBD0F00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -624,6 +684,7 @@
 			buildConfigurations = (
 				670C62041AC351AC00C38A8C /* Debug */,
 				670C62051AC351AC00C38A8C /* Release */,
+				A8E541271F9FBD0F00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -633,6 +694,7 @@
 			buildConfigurations = (
 				E91738B81BECD02B00717F6E /* Debug */,
 				E91738B91BECD02B00717F6E /* Release */,
+				A8E541281F9FBD0F00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -642,6 +704,7 @@
 			buildConfigurations = (
 				E91738C51BECD08500717F6E /* Debug */,
 				E91738C61BECD08500717F6E /* Release */,
+				A8E541291F9FBD0F00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -651,6 +714,7 @@
 			buildConfigurations = (
 				E91738FA1BECD36F00717F6E /* Debug */,
 				E91738FB1BECD36F00717F6E /* Release */,
+				A8E5412A1F9FBD0F00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -660,6 +724,7 @@
 			buildConfigurations = (
 				E917391D1BECD60000717F6E /* Debug */,
 				E917391E1BECD60000717F6E /* Release */,
+				A8E5412B1F9FBD0F00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

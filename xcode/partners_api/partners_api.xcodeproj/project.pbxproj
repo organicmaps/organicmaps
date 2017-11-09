@@ -440,6 +440,39 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		A8E541121F9FBC5600A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3475E0E21DBF581B004C7E69 /* common-release.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E541131F9FBC5600A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		A8E541141F9FBC5600A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/MAPSME.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = partners_api_test;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 		F6B536361DA5209F0067EEA5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3475E0E11DBF581B004C7E69 /* common-debug.xcconfig */;
@@ -514,6 +547,7 @@
 			buildConfigurations = (
 				F6B536361DA5209F0067EEA5 /* Debug */,
 				F6B536371DA5209F0067EEA5 /* Release */,
+				A8E541121F9FBC5600A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -523,6 +557,7 @@
 			buildConfigurations = (
 				F6B536391DA5209F0067EEA5 /* Debug */,
 				F6B5363A1DA5209F0067EEA5 /* Release */,
+				A8E541131F9FBC5600A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -532,6 +567,7 @@
 			buildConfigurations = (
 				F6B536651DA522BB0067EEA5 /* Debug */,
 				F6B536661DA522BB0067EEA5 /* Release */,
+				A8E541141F9FBC5600A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

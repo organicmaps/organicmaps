@@ -8,7 +8,6 @@ import android.location.Location;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.CountryItem;
@@ -153,7 +152,16 @@ public class WorkerService extends IntentService
 
     MwmApplication application = MwmApplication.get();
     if (!application.arePlatformAndCoreInitialized())
-      application.initPlatformAndCore();
+    {
+      boolean success = application.initCore();
+      if (!success)
+      {
+        String message = "Native part couldn't be initialized successfully";
+        LOGGER.e(TAG, message);
+        CrashlyticsUtils.log(Log.ERROR, TAG, message);
+        return false;
+      }
+    }
 
     Location l = LocationHelper.INSTANCE.getLastKnownLocation();
     if (l == null)

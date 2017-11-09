@@ -2,12 +2,14 @@ package com.mapswithme.maps;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -43,6 +45,7 @@ public class SplashActivity extends AppCompatActivity
   private boolean mPermissionsGranted;
   private boolean mNeedStoragePermission;
   private boolean mCanceled;
+  private boolean mCoreInitialized;
 
   @NonNull
   private final Runnable mPermissionsDelayedTask = new Runnable()
@@ -186,6 +189,12 @@ public class SplashActivity extends AppCompatActivity
     if (mCanceled)
       return;
 
+    if (!mCoreInitialized)
+    {
+      showExternalStorageErrorDialog();
+      return;
+    }
+
     if (Counters.isMigrationNeeded())
     {
       Config.migrateCountersToSharedPrefs();
@@ -228,6 +237,24 @@ public class SplashActivity extends AppCompatActivity
     }
   }
 
+  private void showExternalStorageErrorDialog()
+  {
+    AlertDialog dialog = new AlertDialog.Builder(this)
+        .setTitle(R.string.dialog_error_storage_title)
+        .setMessage(R.string.dialog_error_storage_message)
+        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            SplashActivity.this.finish();
+          }
+        })
+        .setCancelable(false)
+        .create();
+    dialog.show();
+  }
+
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                          @NonNull int[] grantResults)
@@ -257,7 +284,7 @@ public class SplashActivity extends AppCompatActivity
 
   private void init()
   {
-    MwmApplication.get().initPlatformAndCore();
+    mCoreInitialized = MwmApplication.get().initCore();
   }
 
   @SuppressWarnings("unchecked")

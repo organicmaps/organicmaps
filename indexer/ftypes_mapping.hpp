@@ -11,10 +11,7 @@
 
 namespace ftypes
 {
-// When [allowDuplications] is true then we are support duplications in ierarchy,
-// for ex. shop and shop-alcohol. shop-alcohol is duplicaton of shop, because shop contains
-// shop-alcohol.
-template <typename Container, bool allowDuplications = false>
+template <typename Container>
 class Matcher
 {
 public:
@@ -38,6 +35,11 @@ public:
     return m_mapping.cend();
   }
 
+  ConstIterator End() const
+  {
+    return m_mapping.cend();
+  }
+
   bool IsValid(ConstIterator it) const
   {
     return it != m_mapping.cend();
@@ -50,14 +52,6 @@ public:
   template <typename Type, typename... Args>
   void AppendType(Type && type, Args &&... args)
   {
-#if defined(DEBUG)
-      if (!allowDuplications)
-      {
-        feature::TypesHolder holder;
-        holder.Assign(classif().GetTypeByPath(type));
-        ASSERT(Find(holder) == m_mapping.cend(), ("This type already exists", type));
-      }
-#endif
     m_mapping.emplace(classif().GetTypeByPath(std::forward<Type>(type)),
                       std::forward<Args>(args)...);
   }

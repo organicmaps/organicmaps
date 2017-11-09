@@ -179,9 +179,6 @@
   <color name="rating_normal">#F5B027</color>
   <color name="rating_bad">#F4511E</color>
   <color name="rating_horrible">#E53935</color>
-  <!-- TODO: ask Igor for color -->
   <color name="rating_none">#FF888A82</color>
-  <!-- TODO: ask Igor for color -->
   <color name="rating_coming_soon">#FF1E96F0</color>
-
 </resources>

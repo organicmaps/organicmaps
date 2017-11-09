@@ -26,8 +26,7 @@ Countries const kYandexEnabledPlaces = {
      {"Ukraine", {"Dnipro", "Kyiv", "Lviv", "Odessa", "Kharkiv"}},
      {"Moldova", {"Kishinev"}},
      {"Russian Federation",
-      {"Almetyevsk",
-       "Anapa",
+      {"Anapa",
        "Aprelevka",
        "Arzamas",
        "Arkhangelsk",
@@ -146,7 +145,6 @@ Countries const kYandexEnabledPlaces = {
        "Troitsk",
        "Tula",
        "Tyumen",
-       "Ulan-Ude",
        "Ulyanovsk",
        "Ufa",
        "Fryazino",
@@ -160,7 +158,6 @@ Countries const kYandexEnabledPlaces = {
        "Shchyolkovo",
        "Elektrostal",
        "Elektrougli",
-       "Yakutsk",
        "Yaroslavl"}}}};
 }  // namespace places
 }  // namespace taxi

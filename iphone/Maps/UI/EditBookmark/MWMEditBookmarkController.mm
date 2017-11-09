@@ -29,6 +29,7 @@ enum RowInMetaInfo
   RowsInMetaInfoCount
 };
 
+static int const kInvalidCategoryIndex = -1;
 }  // namespace
 
 @interface MWMEditBookmarkController () <MWMButtonCellDelegate, MWMNoteCelLDelegate, MWMBookmarkColorDelegate,
@@ -42,6 +43,7 @@ enum RowInMetaInfo
 @property (copy, nonatomic) NSString * cachedTitle;
 @property (copy, nonatomic) NSString * cachedColor;
 @property (copy, nonatomic) NSString * cachedCategory;
+@property(nonatomic) int64_t cachedCategoryIndex;
 
 @end
 
@@ -50,10 +52,11 @@ enum RowInMetaInfo
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  self.cachedCategoryIndex = kInvalidCategoryIndex;
   auto data = self.data;
   NSAssert(data, @"Data can't be nil!");
   self.cachedDescription = data.bookmarkDescription;
-  self.cachedTitle = data.externalTitle ?: data.title;
+  self.cachedTitle = data.title;
   self.cachedCategory = data.bookmarkCategory;
   self.cachedColor = data.bookmarkColor;
   m_cachedBookmarkAndCategory = data.bookmarkAndCategory;
@@ -89,12 +92,22 @@ enum RowInMetaInfo
 {
   [self.view endEditing:YES];
   auto & f = GetFramework();
+  if (self.cachedCategoryIndex != kInvalidCategoryIndex)
+  {
+    auto const index = static_cast<size_t>(
+                                 f.MoveBookmark(m_cachedBookmarkAndCategory.m_bookmarkIndex,
+                                                m_cachedBookmarkAndCategory.m_categoryIndex,
+                                                self.cachedCategoryIndex));
+    m_cachedBookmarkAndCategory.m_bookmarkIndex = index;
+    m_cachedBookmarkAndCategory.m_categoryIndex = self.cachedCategoryIndex;
+  }
+
   BookmarkCategory * category = f.GetBmCategory(m_cachedBookmarkAndCategory.m_categoryIndex);
   if (!category)
     return;
 
   auto bookmark = static_cast<Bookmark *>(
-      category->GetUserMarkForEdit(m_cachedBookmarkAndCategory.m_bookmarkIndex));
+                        category->GetUserMarkForEdit(m_cachedBookmarkAndCategory.m_bookmarkIndex));
   if (!bookmark)
     return;
 
@@ -227,7 +240,7 @@ enum RowInMetaInfo
   case Category:
   {
     SelectSetVC * svc = [[SelectSetVC alloc] initWithCategory:self.cachedCategory
-                                                          bac:m_cachedBookmarkAndCategory
+                                                categoryIndex:m_cachedBookmarkAndCategory.m_categoryIndex
                                                      delegate:self];
     [self.navigationController pushViewController:svc animated:YES];
     break;
@@ -273,10 +286,10 @@ enum RowInMetaInfo
 
 #pragma mark - MWMSelectSetDelegate
 
-- (void)didSelectCategory:(NSString *)category withBac:(BookmarkAndCategory const &)bac
+- (void)didSelectCategory:(NSString *)category withCategoryIndex:(size_t)categoryIndex
 {
   self.cachedCategory = category;
-  m_cachedBookmarkAndCategory = bac;
+  self.cachedCategoryIndex = categoryIndex;
   [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:Category inSection:MetaInfo]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

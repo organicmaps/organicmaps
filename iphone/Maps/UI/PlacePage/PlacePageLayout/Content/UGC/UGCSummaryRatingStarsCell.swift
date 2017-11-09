@@ -12,7 +12,7 @@ final class UGCSummaryRatingStarsCell: UICollectionViewCell {
   }
 
   func config(rating: UGCRatingStars) {
-    ratingView.topText = rating.title
+    ratingView.topText = L(rating.title)
     ratingView.value = rating.value
     ratingView.starsCount = Int(rating.maxValue)
   }

@@ -303,6 +303,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initSimplifiedTrafficColorsPrefsCallbacks();
     initDisplayShowcasePrefs();
     initLoggingEnabledPrefsCallbacks();
+    initEmulationBadStorage();
     initUseMobileDataPrefsCallbacks();
 
     updateTts();
@@ -538,6 +539,16 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         }
       });
     }
+  }
+
+  private void initEmulationBadStorage()
+  {
+    Preference pref = findPreference(getString(R.string.pref_emulate_bad_external_storage));
+    if (pref == null)
+      return;
+
+    if (!SharedPropertiesUtils.shouldShowEmulateBadStorageSetting())
+      removePreference(getString(R.string.pref_settings_general), pref);
   }
 
   private void initAutoZoomPrefsCallbacks()

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYO-sw-mr0">
-                        <rect key="frame" x="8" y="14" width="42" height="15.5"/>
+                        <rect key="frame" x="16" y="14" width="42" height="15.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -41,7 +41,7 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="ZYO-sw-mr0" secondAttribute="bottom" constant="14" id="JGH-iW-T5A"/>
                     <constraint firstAttribute="trailing" secondItem="FRG-q1-pKr" secondAttribute="trailing" constant="16" id="RsB-As-Tpo"/>
-                    <constraint firstItem="ZYO-sw-mr0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="UzX-2P-uVU"/>
+                    <constraint firstItem="ZYO-sw-mr0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="UzX-2P-uVU"/>
                     <constraint firstItem="FRG-q1-pKr" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Yo0-tP-fqk"/>
                     <constraint firstItem="ZYO-sw-mr0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="mps-PB-xMQ"/>
                 </constraints>

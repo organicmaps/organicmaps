@@ -1,9 +1,7 @@
 @objc(MWMUGCYourReviewCell)
 final class UGCYourReviewCell: MWMTableViewCell {
   private enum Config {
-    static let minimumInteritemSpacing: CGFloat = 16
-    static let minItemsPerRow: CGFloat = 3
-    static let estimatedItemSize = CGSize(width: 96, height: 32)
+    static let defaultReviewBottomOffset: CGFloat = 16
   }
 
   @IBOutlet private weak var titleLabel: UILabel! {
@@ -30,12 +28,10 @@ final class UGCYourReviewCell: MWMTableViewCell {
     }
   }
 
-  @IBOutlet private weak var ratingCollectionViewHeight: NSLayoutConstraint!
+  @IBOutlet private weak var reviewBottomOffset: NSLayoutConstraint!
   @IBOutlet private weak var ratingCollectionView: UICollectionView! {
     didSet {
       ratingCollectionView.register(cellClass: UGCSummaryRatingStarsCell.self)
-      let layout = ratingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-      layout.estimatedItemSize = Config.estimatedItemSize
     }
   }
 
@@ -44,49 +40,29 @@ final class UGCYourReviewCell: MWMTableViewCell {
   override var frame: CGRect {
     didSet {
       if frame.size != oldValue.size {
-        updateCollectionView(nil)
+        updateCollectionView()
       }
     }
   }
 
   @objc func config(yourReview: UGCYourReview, onUpdate: @escaping () -> Void) {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .medium
-    dateFormatter.timeStyle = .none
-    dateLabel.text = dateFormatter.string(from: yourReview.date)
+    dateLabel.text = yourReview.date
     self.yourReview = yourReview
     reviewLabel.text = yourReview.text
+    reviewBottomOffset.constant = yourReview.text.isEmpty ? 0 : Config.defaultReviewBottomOffset
     reviewLabel.onUpdate = onUpdate
-    updateCollectionView { [weak self] in
-      self?.ratingCollectionView.reloadSections(IndexSet(integer: 0))
-    }
+    updateCollectionView()
     isSeparatorHidden = true
   }
 
   override func didMoveToSuperview() {
     super.didMoveToSuperview()
-    updateCollectionView(nil)
+    updateCollectionView()
   }
 
-  private func updateCollectionView(_ updates: (() -> Void)?) {
-    guard let sv = superview else { return }
+  private func updateCollectionView() {
     DispatchQueue.main.async {
-      let layout = self.ratingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-      let inset = layout.sectionInset
-      let viewWidth = sv.size.width - inset.left - inset.right
-      let maxItemWidth = layout.estimatedItemSize.width
-
-      let ratingsCount = CGFloat(self.yourReview?.ratings.count ?? 0)
-      let itemsPerRow = floor(min(max(viewWidth / maxItemWidth, Config.minItemsPerRow), ratingsCount))
-      let itemWidth = floor(min((viewWidth - (itemsPerRow - 1) * Config.minimumInteritemSpacing) / itemsPerRow, maxItemWidth))
-      let interitemSpacing = floor((viewWidth - itemWidth * itemsPerRow) / (itemsPerRow - 1))
-      layout.minimumInteritemSpacing = interitemSpacing
-      layout.itemSize = CGSize(width: itemWidth, height: Config.estimatedItemSize.height)
-
-      assert(itemsPerRow > 0);
-      let rowsCount = ceil(ratingsCount / itemsPerRow)
-      self.ratingCollectionViewHeight.constant = rowsCount * Config.estimatedItemSize.height + (rowsCount - 1) * layout.minimumLineSpacing + inset.top + inset.bottom
-      self.ratingCollectionView.performBatchUpdates(updates, completion: nil)
+      self.ratingCollectionView.reloadData()
     }
   }
 }
