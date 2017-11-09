@@ -11,8 +11,7 @@
 #include "search/search_tests_support/test_with_custom_mwms.hpp"
 
 #include "map/search_api.hpp"
-
-#include "search/viewport_search_params.hpp"
+#include "map/viewport_search_params.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"

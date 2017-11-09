@@ -1,10 +1,10 @@
 #include "testing/testing.hpp"
 
-#include "search/viewport_search_callback.hpp"
 #include "search/mode.hpp"
 #include "search/search_integration_tests/helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
+#include "search/viewport_search_callback.hpp"
 
 #include "base/macros.hpp"
 

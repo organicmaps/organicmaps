@@ -42,8 +42,6 @@
 		3465B2831D5DE71A0021E14D /* search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3465B27E1D5DE71A0021E14D /* search_params.hpp */; };
 		3465B2841D5DE71A0021E14D /* viewport_search_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3465B27F1D5DE71A0021E14D /* viewport_search_callback.cpp */; };
 		3465B2851D5DE71A0021E14D /* viewport_search_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3465B2801D5DE71A0021E14D /* viewport_search_callback.hpp */; };
-		3465B2861D5DE71A0021E14D /* viewport_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3465B2811D5DE71A0021E14D /* viewport_search_params.hpp */; };
-		3469FAD31D6C5D9C00F35A88 /* everywhere_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3469FAD01D6C5D9C00F35A88 /* everywhere_search_params.hpp */; };
 		347F33161C4540A8009758CC /* cancel_exception.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F32FB1C4540A8009758CC /* cancel_exception.hpp */; };
 		347F33191C4540A8009758CC /* dummy_rank_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F32FE1C4540A8009758CC /* dummy_rank_table.cpp */; };
 		347F331A1C4540A8009758CC /* dummy_rank_table.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F32FF1C4540A8009758CC /* dummy_rank_table.hpp */; };
@@ -310,8 +308,6 @@
 		3465B27E1D5DE71A0021E14D /* search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_params.hpp; sourceTree = "<group>"; };
 		3465B27F1D5DE71A0021E14D /* viewport_search_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viewport_search_callback.cpp; sourceTree = "<group>"; };
 		3465B2801D5DE71A0021E14D /* viewport_search_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viewport_search_callback.hpp; sourceTree = "<group>"; };
-		3465B2811D5DE71A0021E14D /* viewport_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viewport_search_params.hpp; sourceTree = "<group>"; };
-		3469FAD01D6C5D9C00F35A88 /* everywhere_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = everywhere_search_params.hpp; sourceTree = "<group>"; };
 		347F32FB1C4540A8009758CC /* cancel_exception.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cancel_exception.hpp; sourceTree = "<group>"; };
 		347F32FE1C4540A8009758CC /* dummy_rank_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dummy_rank_table.cpp; sourceTree = "<group>"; };
 		347F32FF1C4540A8009758CC /* dummy_rank_table.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dummy_rank_table.hpp; sourceTree = "<group>"; };
@@ -722,7 +718,6 @@
 				F652D8BC1CFDE1E800FC29A0 /* engine.hpp */,
 				3DF37FA81EA11B380012CB31 /* everywhere_search_callback.cpp */,
 				3DF37FA91EA11B380012CB31 /* everywhere_search_callback.hpp */,
-				3469FAD01D6C5D9C00F35A88 /* everywhere_search_params.hpp */,
 				675346C11A40560D00A0A8C3 /* feature_offset_match.hpp */,
 				F652D8BD1CFDE1E800FC29A0 /* features_filter.cpp */,
 				F652D8C21CFDE21900FC29A0 /* features_filter.hpp */,
@@ -824,7 +819,6 @@
 				3461C9A11D79949600E6E6F5 /* utils.hpp */,
 				3465B27F1D5DE71A0021E14D /* viewport_search_callback.cpp */,
 				3465B2801D5DE71A0021E14D /* viewport_search_callback.hpp */,
-				3465B2811D5DE71A0021E14D /* viewport_search_params.hpp */,
 			);
 			name = search;
 			path = ../../search;
@@ -913,8 +907,6 @@
 				F652D8EB1CFDE21900FC29A0 /* features_layer_matcher.hpp in Headers */,
 				347F331B1C4540A8009758CC /* interval_set.hpp in Headers */,
 				F652D9051CFDE21900FC29A0 /* rank_table_cache.hpp in Headers */,
-				3469FAD31D6C5D9C00F35A88 /* everywhere_search_params.hpp in Headers */,
-				3465B2861D5DE71A0021E14D /* viewport_search_params.hpp in Headers */,
 				F652D8C01CFDE1E800FC29A0 /* engine.hpp in Headers */,
 				39AEF84D1FB45D7800943FC9 /* feature_loader.hpp in Headers */,
 				675346DF1A40560D00A0A8C3 /* feature_offset_match.hpp in Headers */,

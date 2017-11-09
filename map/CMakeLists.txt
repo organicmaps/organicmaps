@@ -25,6 +25,7 @@ set(
   displacement_mode_manager.hpp
   displayed_categories_modifiers.cpp
   displayed_categories_modifiers.hpp
+  everywhere_search_params.hpp
   feature_vec_model.cpp
   feature_vec_model.hpp
   framework.cpp
@@ -74,6 +75,7 @@ set(
   user_mark_container.hpp
   user_mark.cpp
   user_mark.hpp
+  viewport_search_params.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "map/booking_filter_availability_params.hpp"
+
 #include "search/hotels_filter.hpp"
 #include "search/result.hpp"
 
@@ -18,6 +20,7 @@ struct EverywhereSearchParams
   std::string m_query;
   std::string m_inputLocale;
   std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
+  booking::filter::availability::Params m_bookingFilterParams;
 
   OnResults m_onResults;
 };

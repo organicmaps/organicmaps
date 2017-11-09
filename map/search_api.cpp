@@ -1,9 +1,10 @@
 #include "map/search_api.hpp"
 
-#include "search/everywhere_search_params.hpp"
+#include "map/everywhere_search_params.hpp"
+#include "map/viewport_search_params.hpp"
+
 #include "search/geometry_utils.hpp"
 #include "search/hotels_filter.hpp"
-#include "search/viewport_search_params.hpp"
 
 #include "storage/downloader_search_params.hpp"
 

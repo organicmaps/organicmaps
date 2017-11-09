@@ -1,7 +1,8 @@
 #pragma once
 
+#include "map/everywhere_search_params.hpp"
+
 #include "search/result.hpp"
-#include "search/everywhere_search_params.hpp"
 
 #include "base/thread_checker.hpp"
 

@@ -28,7 +28,6 @@ set(
   engine.hpp
   everywhere_search_callback.cpp
   everywhere_search_callback.hpp
-  everywhere_search_params.hpp
   feature_loader.cpp
   feature_loader.hpp
   feature_offset_match.hpp
@@ -140,7 +139,6 @@ set(
   utils.hpp
   viewport_search_callback.cpp
   viewport_search_callback.hpp
-  viewport_search_params.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})

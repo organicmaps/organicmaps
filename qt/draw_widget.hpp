@@ -2,10 +2,10 @@
 
 #include "qt/qt_common/map_widget.hpp"
 
+#include "map/everywhere_search_params.hpp"
 #include "map/place_page_info.hpp"
 #include "map/routing_manager.hpp"
 
-#include "search/everywhere_search_params.hpp"
 #include "search/result.hpp"
 
 #include "routing/router.hpp"

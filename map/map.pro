@@ -18,6 +18,7 @@ HEADERS += \
     chart_generator.hpp \
     displacement_mode_manager.hpp \
     displayed_categories_modifiers.hpp \
+    everywhere_search_params.hpp \
     feature_vec_model.hpp \
     framework.hpp \
     ge0_parser.hpp \
@@ -42,6 +43,7 @@ HEADERS += \
     user.hpp \
     user_mark.hpp \
     user_mark_container.hpp \
+    viewport_search_params.hpp \
 
 SOURCES += \
     ../api/src/c/api-client.c \

@@ -25,7 +25,6 @@ HEADERS += \
     emitter.hpp \
     engine.hpp \
     everywhere_search_callback.hpp \
-    everywhere_search_params.hpp \
     feature_loader.hpp \
     feature_offset_match.hpp \
     features_filter.hpp \
@@ -85,7 +84,6 @@ HEADERS += \
     types_skipper.hpp \
     utils.hpp \
     viewport_search_callback.hpp \
-    viewport_search_params.hpp \
 
 SOURCES += \
     approximate_string_match.cpp \
