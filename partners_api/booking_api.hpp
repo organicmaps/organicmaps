@@ -60,11 +60,10 @@ public:
 
 using GetMinPriceCallback = platform::SafeCallback<void(std::string const & hotelId, std::string const & price, std::string const & currency)>;
 using GetHotelInfoCallback = platform::SafeCallback<void(HotelInfo const & hotelInfo)>;
-// NOTE: this callback will be called NOT on main thread.
+// NOTE: this callback will be called on the network thread.
 using GetHotelAvailabilityCallback = std::function<void(std::vector<std::string> hotelIds)>;
 
-/// Guarantees the preservation of the sequence of calls callbacks in accordance with
-/// the sequence of method calls.
+/// Callbacks will be called in the same order as methods are called.
 class Api
 {
 public:
@@ -78,7 +77,7 @@ public:
   void GetMinPrice(std::string const & hotelId, std::string const & currency,
                    GetMinPriceCallback const & fn) const;
 
-  /// NOTE: callback will be called NOT on main thread.
+  /// NOTE: callback will be called on the network thread.
   void GetHotelAvailability(AvailabilityParams const & params,
                             GetHotelAvailabilityCallback const & fn) const;
 

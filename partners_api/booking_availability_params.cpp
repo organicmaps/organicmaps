@@ -3,9 +3,7 @@
 
 #include "base/string_utils.hpp"
 
-#include "private.h"
-
-using namespace base::url;
+using namespace base;
 
 namespace
 {
@@ -17,9 +15,9 @@ std::string FormatTime(booking::AvailabilityParams::Time p)
 
 namespace booking
 {
-Params AvailabilityParams::Get() const
+url::Params AvailabilityParams::Get() const
 {
-  Params result;
+  url::Params result;
 
   result.push_back({"hotel_ids", strings::JoinStrings(m_hotelIds, ',')});
   result.push_back({"checkin", FormatTime(m_checkin)});

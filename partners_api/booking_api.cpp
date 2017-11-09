@@ -232,20 +232,20 @@ void FillPriceAndCurrency(string const & src, string const & currency, string & 
   }
 }
 
-void FillHotelIds(string const & src, vector<std::string> & result)
+void FillHotelIds(string const & src, vector<std::string> & ids)
 {
   my::Json root(src.c_str());
   auto const resultsArray = json_object_get(root.get(), "result");
 
   auto const size = json_array_size(resultsArray);
 
-  result.resize(size);
+  ids.resize(size);
   for (size_t i = 0; i < size; ++i)
   {
     auto const obj = json_array_get(resultsArray, i);
     uint64_t id = 0;
     FromJSONObject(obj, "hotel_id", id);
-    result[i] = std::to_string(id);
+    ids[i] = std::to_string(id);
   }
 }
 }  // namespace
