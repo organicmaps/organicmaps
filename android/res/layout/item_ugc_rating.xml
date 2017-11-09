@@ -23,6 +23,5 @@
     android:layout_height="24dp"
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"
-    android:numStars="5"
-    android:stepSize="1"/>
+    android:numStars="5"/>
 </RelativeLayout>

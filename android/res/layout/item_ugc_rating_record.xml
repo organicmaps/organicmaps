@@ -16,7 +16,6 @@
     style="@style/MwmWidget.RatingBarSmall.Ugc"
     android:layout_marginTop="@dimen/margin_quarter"
     android:numStars="5"
-    android:stepSize="1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"/>
 </LinearLayout>
