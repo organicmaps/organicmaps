@@ -20,6 +20,8 @@
 		34F5588D1DBF4C9600A4FC11 /* sponsored_scoring.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F558841DBF4C9600A4FC11 /* sponsored_scoring.hpp */; };
 		34F5588F1DBF4C9F00A4FC11 /* restaurants_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5588E1DBF4C9F00A4FC11 /* restaurants_info.cpp */; };
 		34F558911DBF4CC300A4FC11 /* srtm_coverage_checker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F558901DBF4CC300A4FC11 /* srtm_coverage_checker.cpp */; };
+		39B2B9781FB468CC00AB85A1 /* cities_boundaries_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39B2B9761FB468CC00AB85A1 /* cities_boundaries_builder.cpp */; };
+		39B2B9791FB468CC00AB85A1 /* cities_boundaries_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39B2B9771FB468CC00AB85A1 /* cities_boundaries_builder.hpp */; };
 		3D51BC481D5E50F700F1FA8D /* centers_table_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */; };
 		3D51BC491D5E50F700F1FA8D /* centers_table_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */; };
 		3D51BC521D5E512500F1FA8D /* altitude_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */; };
@@ -130,6 +132,8 @@
 		34F558841DBF4C9600A4FC11 /* sponsored_scoring.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sponsored_scoring.hpp; sourceTree = "<group>"; };
 		34F5588E1DBF4C9F00A4FC11 /* restaurants_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = restaurants_info.cpp; path = restaurants_info/restaurants_info.cpp; sourceTree = "<group>"; };
 		34F558901DBF4CC300A4FC11 /* srtm_coverage_checker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srtm_coverage_checker.cpp; path = srtm_coverage_checker/srtm_coverage_checker.cpp; sourceTree = "<group>"; };
+		39B2B9761FB468CC00AB85A1 /* cities_boundaries_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cities_boundaries_builder.cpp; sourceTree = "<group>"; };
+		39B2B9771FB468CC00AB85A1 /* cities_boundaries_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cities_boundaries_builder.hpp; sourceTree = "<group>"; };
 		3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = centers_table_builder.cpp; sourceTree = "<group>"; };
 		3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = centers_table_builder.hpp; sourceTree = "<group>"; };
 		3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = altitude_generator.cpp; sourceTree = "<group>"; };
@@ -271,6 +275,8 @@
 		6753401D1A3F2A1B00A0A8C3 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				39B2B9761FB468CC00AB85A1 /* cities_boundaries_builder.cpp */,
+				39B2B9771FB468CC00AB85A1 /* cities_boundaries_builder.hpp */,
 				3D74EF051F86841C0081202C /* ugc_section_builder.cpp */,
 				3D74EF061F86841C0081202C /* ugc_section_builder.hpp */,
 				5687625E1F6A9B18002C22A6 /* transit_generator.cpp */,
@@ -413,6 +419,7 @@
 				675340781A3F2A7400A0A8C3 /* intermediate_elements.hpp in Headers */,
 				3DFEBF7E1EF2D58900317D5C /* utils.hpp in Headers */,
 				6753406B1A3F2A7400A0A8C3 /* feature_emitter_iface.hpp in Headers */,
+				39B2B9791FB468CC00AB85A1 /* cities_boundaries_builder.hpp in Headers */,
 				6753408C1A3F2A7400A0A8C3 /* world_map_generator.hpp in Headers */,
 				67C79BB41E2CEEAB00C40034 /* restriction_writer.hpp in Headers */,
 				6753408E1A3F2A7400A0A8C3 /* osm_element.hpp in Headers */,
@@ -543,6 +550,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39B2B9781FB468CC00AB85A1 /* cities_boundaries_builder.cpp in Sources */,
 				670E7BCA1EF9C29A00A8E9ED /* ugc_translator.cpp in Sources */,
 				6753406C1A3F2A7400A0A8C3 /* feature_generator.cpp in Sources */,
 				67C79BB51E2CEEAB00C40034 /* traffic_generator.cpp in Sources */,

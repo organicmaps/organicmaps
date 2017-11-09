@@ -14,6 +14,9 @@
 		345C55F61C93140A00B6783F /* clipping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 345C55F41C93140A00B6783F /* clipping.hpp */; };
 		347F33701C454205009758CC /* triangle2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F336E1C454205009758CC /* triangle2d.cpp */; };
 		347F33711C454205009758CC /* triangle2d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F336F1C454205009758CC /* triangle2d.hpp */; };
+		39B2B9701FB4680500AB85A1 /* diamond_box.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39B2B96E1FB4680500AB85A1 /* diamond_box.hpp */; };
+		39B2B9711FB4680500AB85A1 /* diamond_box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39B2B96F1FB4680500AB85A1 /* diamond_box.cpp */; };
+		39B2B9731FB4681400AB85A1 /* line2d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39B2B9721FB4681400AB85A1 /* line2d.hpp */; };
 		45A2D9BE1F7526E6003310A0 /* bounding_box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A2D9B71F7526E6003310A0 /* bounding_box.cpp */; };
 		45A2D9BF1F7526E6003310A0 /* bounding_box.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45A2D9B81F7526E6003310A0 /* bounding_box.hpp */; };
 		45A2D9C01F7526E6003310A0 /* calipers_box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A2D9B91F7526E6003310A0 /* calipers_box.cpp */; };
@@ -124,6 +127,9 @@
 		347F336F1C454205009758CC /* triangle2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = triangle2d.hpp; sourceTree = "<group>"; };
 		34AF87CD1DBE517700E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34AF87CE1DBE517700E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		39B2B96E1FB4680500AB85A1 /* diamond_box.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = diamond_box.hpp; sourceTree = "<group>"; };
+		39B2B96F1FB4680500AB85A1 /* diamond_box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = diamond_box.cpp; sourceTree = "<group>"; };
+		39B2B9721FB4681400AB85A1 /* line2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = line2d.hpp; sourceTree = "<group>"; };
 		45A2D9B71F7526E6003310A0 /* bounding_box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bounding_box.cpp; sourceTree = "<group>"; };
 		45A2D9B81F7526E6003310A0 /* bounding_box.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bounding_box.hpp; sourceTree = "<group>"; };
 		45A2D9B91F7526E6003310A0 /* calipers_box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = calipers_box.cpp; sourceTree = "<group>"; };
@@ -307,6 +313,9 @@
 		675344931A3F684600A0A8C3 /* geometry */ = {
 			isa = PBXGroup;
 			children = (
+				39B2B9721FB4681400AB85A1 /* line2d.hpp */,
+				39B2B96F1FB4680500AB85A1 /* diamond_box.cpp */,
+				39B2B96E1FB4680500AB85A1 /* diamond_box.hpp */,
 				45A2D9B71F7526E6003310A0 /* bounding_box.cpp */,
 				45A2D9B81F7526E6003310A0 /* bounding_box.hpp */,
 				45A2D9B91F7526E6003310A0 /* calipers_box.cpp */,
@@ -381,6 +390,7 @@
 			files = (
 				675344BD1A3F687400A0A8C3 /* angles.hpp in Headers */,
 				675344E01A3F68F900A0A8C3 /* boost_concept.hpp in Headers */,
+				39B2B9731FB4681400AB85A1 /* line2d.hpp in Headers */,
 				344A713D1F3DA07000B8DDB8 /* nearby_points_sweeper.hpp in Headers */,
 				675344C01A3F687400A0A8C3 /* cellid.hpp in Headers */,
 				45A2D9BF1F7526E6003310A0 /* bounding_box.hpp in Headers */,
@@ -413,6 +423,7 @@
 				675344DF1A3F68F900A0A8C3 /* binary_operators.hpp in Headers */,
 				45A2D9C31F7526E6003310A0 /* convex_hull.hpp in Headers */,
 				675344D61A3F687400A0A8C3 /* transformations.hpp in Headers */,
+				39B2B9701FB4680500AB85A1 /* diamond_box.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +560,7 @@
 				6741AAA01BF35476002C974C /* latlon.cpp in Sources */,
 				E92D8BD41C15AFAA00A98D17 /* mercator.cpp in Sources */,
 				E92D8BD11C15AF9100A98D17 /* mercator_test.cpp in Sources */,
+				39B2B9711FB4680500AB85A1 /* diamond_box.cpp in Sources */,
 				675344C61A3F687400A0A8C3 /* packer.cpp in Sources */,
 				675344DE1A3F68F900A0A8C3 /* binary_operators.cpp in Sources */,
 				56EB1ED01C6B6DF30022D831 /* segment2d.cpp in Sources */,
