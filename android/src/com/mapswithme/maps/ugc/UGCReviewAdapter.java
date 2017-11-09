@@ -69,6 +69,8 @@ class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
       mCommentDate = (TextView) itemView.findViewById(R.id.date);
       mReview = (TextView) itemView.findViewById(R.id.review);
       mRating = (RatingView) itemView.findViewById(R.id.rating);
+      // TODO: remove "gone" visibility when review rating behaviour is fixed on the server.
+      mRating.setVisibility(View.GONE);
     }
 
     public void bind(UGC.Review review)
