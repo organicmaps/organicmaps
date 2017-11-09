@@ -15,6 +15,7 @@ set(
   api_mark_point.hpp
   benchmark_tools.hpp
   benchmark_tools.cpp
+  booking_filter_availability_params.hpp
   bookmark_manager.cpp
   bookmark_manager.hpp
   bookmark.cpp

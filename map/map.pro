@@ -13,6 +13,7 @@ include($$ROOT_DIR/common.pri)
 HEADERS += \
     api_mark_point.hpp \
     benchmark_tools.hpp \
+    booking_filter_availability_params.hpp \
     bookmark.hpp \
     bookmark_manager.hpp \
     chart_generator.hpp \
