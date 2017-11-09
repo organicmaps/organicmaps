@@ -34,7 +34,6 @@ MWMUGCRatingValueType * ratingValueType(float rating)
 
 @implementation MWMUGCViewModel
 {
-  place_page::Info m_info;
   ugc::UGC m_ugc;
   ugc::UGCUpdate m_ugcUpdate;
   std::vector<ugc::view_model::ReviewRow> m_reviewRows;
