@@ -77,6 +77,13 @@ UNIT_TEST(Serialization_Smoke)
         {120003, 456, 15, 13, 6}
       }, Version::V2), ());
 
+  TEST(TestSerialization({
+         {241925, 6022, 255, 16, 6},
+         {241927, 6036, 255, 16, 0},
+         {164169, 3004, 255, 15, 0},
+         {164172, 3001, 255, 15, 7}
+       }, Version::V2), ());
+
   TEST(TestSerialization(GenerateCampaignsV1(100), Version::V1), ());
   TEST(TestSerialization(GenerateCampaignsV1(1000), Version::V1), ());
   TEST(TestSerialization(GenerateCampaignsV1(10000), Version::V1), ());
