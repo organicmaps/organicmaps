@@ -30,6 +30,17 @@ class Storage;
 struct DownloaderSearchParams;
 }
 
+namespace booking
+{
+namespace filter
+{
+namespace availability
+{
+struct Params;
+}
+}
+}
+
 class SearchAPI : public search::DownloaderSearchCallback::Delegate,
                   public search::EverywhereSearchCallback::Delegate,
                   public search::ViewportSearchCallback::Delegate
@@ -57,6 +68,11 @@ public:
     virtual double GetMinDistanceBetweenResults() const { return 0.0; };
 
     virtual bool IsLocalAdsCustomer(search::Result const & /* result */) const { return false; }
+
+    virtual void FilterSearchResults(booking::filter::availability::Params const & params,
+                                     search::Results const & results, bool inViewport)
+    {
+    }
   };
 
   SearchAPI(Index & index, storage::Storage const & storage,

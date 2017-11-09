@@ -13,7 +13,9 @@ include($$ROOT_DIR/common.pri)
 HEADERS += \
     api_mark_point.hpp \
     benchmark_tools.hpp \
+    booking_filter.hpp \
     booking_filter_availability_params.hpp \
+    booking_filter_cache.hpp \
     bookmark.hpp \
     bookmark_manager.hpp \
     chart_generator.hpp \
@@ -52,6 +54,8 @@ SOURCES += \
     address_finder.cpp \
     api_mark_point.cpp \
     benchmark_tools.cpp \
+    booking_filter.cpp \
+    booking_filter_cache.cpp \
     bookmark.cpp \
     bookmark_manager.cpp \
     chart_generator.cpp \

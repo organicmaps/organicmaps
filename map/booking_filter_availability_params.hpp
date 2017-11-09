@@ -27,7 +27,7 @@ struct Params
 
 namespace internal
 {
-using ResultsUnsafe = std::function<void(search::Results const &results)>;
+using ResultsUnsafe = std::function<void(search::Results const & results)>;
 
 struct Params
 {

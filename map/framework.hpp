@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/api_mark_point.hpp"
+#include "map/booking_filter.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/displacement_mode_manager.hpp"
@@ -202,6 +203,8 @@ protected:
   LocalAdsManager m_localAdsManager;
 
   User m_user;
+
+  booking::filter::Filter m_bookingFilter;
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
@@ -820,4 +823,8 @@ public:
 private:
   // Filters user's reviews.
   ugc::Reviews FilterUGCReviews(ugc::Reviews const & reviews) const;
+
+public:
+  void FilterSearchResults(booking::filter::availability::Params const & params,
+                           search::Results const & results, bool inViewport) override;
 };

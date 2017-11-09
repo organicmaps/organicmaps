@@ -12,6 +12,7 @@ template <typename T>
 class SafeCallback;
 
 // Calls callback on main thread, all params are copied.
+// If not initialized nothing will be done.
 // *NOTE* The class is not thread-safe.
 template <typename R, typename ...Args>
 class SafeCallback<R(Args...)>
@@ -32,7 +33,8 @@ public:
 
   void operator()(Args... args) const
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, std::bind(m_fn, std::move(args)...));
+    if (m_fn)
+      GetPlatform().RunTask(Platform::Thread::Gui, std::bind(m_fn, std::move(args)...));
   }
 
 private:

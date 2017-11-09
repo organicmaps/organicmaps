@@ -96,6 +96,11 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
           RunUITask([params, results, isLocalAdsCustomer] {
             params.m_onResults(results, isLocalAdsCustomer);
           });
+        if (results.IsEndMarker() && results.IsEndedNormal() &&
+            !params.m_bookingFilterParams.IsEmpty())
+        {
+          m_delegate.FilterSearchResults(params.m_bookingFilterParams, results, false);
+        }
       });
 
   return Search(p, true /* forceSearch */);
@@ -129,6 +134,11 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
       [this, params](Results const & results) {
         if (results.IsEndMarker() && params.m_onCompleted)
           RunUITask([params, results] { params.m_onCompleted(results); });
+        if (results.IsEndMarker() && results.IsEndedNormal() &&
+            !params.m_bookingFilterParams.IsEmpty())
+        {
+          m_delegate.FilterSearchResults(params.m_bookingFilterParams, results, true);
+        }
       });
 
   return Search(p, false /* forceSearch */);

@@ -376,6 +376,7 @@ Framework::Framework(FrameworkParams const & params)
   , m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
                       bind(&Framework::GetMwmIdByName, this, _1),
                       bind(&Framework::ReadFeatures, this, _1, _2))
+  , m_bookingFilter(m_model.GetIndex(), *m_bookingApi)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     if (m_drapeEngine != nullptr)
@@ -3303,4 +3304,41 @@ ugc::Reviews Framework::FilterUGCReviews(ugc::Reviews const & reviews) const
       result.push_back(review);
   }
   return result;
+}
+
+void Framework::FilterSearchResults(booking::filter::availability::Params const & params,
+                                    search::Results const & results, bool inViewport)
+{
+  using namespace booking::filter;
+
+  auto const & cb = params.m_callback;
+  availability::internal::Params const paramsInternal
+  {
+    params.m_params,
+    [this, cb, inViewport](search::Results const & results)
+    {
+      if (results.GetCount() == 0)
+        return;
+
+      if (inViewport)
+      {
+        std::vector<FeatureID> features;
+        for (auto const r : results)
+        {
+          features.push_back(r.GetFeatureID());
+        }
+
+        std::sort(features.begin(), features.end());
+
+        GetPlatform().RunOnGuiThread([this, features]()
+        {
+          m_searchMarks.SetPreparingState(features, false);
+        });
+      }
+
+      cb(results);
+    }
+  };
+
+  m_bookingFilter.Availability(results, paramsInternal);
 }
