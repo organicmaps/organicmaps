@@ -4,13 +4,10 @@
 
 #include "partners_api/booking_api.hpp"
 
-#include "base/scope_guard.hpp"
-
 #include <chrono>
 
 using namespace partners_api;
 using namespace booking;
-using namespace booking::http;
 
 namespace
 {
@@ -143,15 +140,15 @@ UNIT_CLASS_TEST(AsyncGuiThread, GetHotelInfo)
 UNIT_CLASS_TEST(AsyncGuiThreadBooking, GetHotelAvailability)
 {
   AvailabilityParams params;
-  params.m_hotelIds = {"77615", "10623"};
+  params.m_hotelIds = {"0"}; // Internal hotel id for testing.
   params.m_rooms = {"A,A"};
   params.m_checkin = std::chrono::system_clock::now() + std::chrono::hours(24);
   params.m_checkout = std::chrono::system_clock::now() + std::chrono::hours(24 * 7);
   params.m_stars = {"4"};
   Api api;
-  std::vector<uint64_t> result;
+  std::vector<std::string> result;
 
-  api.GetHotelAvailability(params, [&result](std::vector<uint64_t> const & r)
+  api.GetHotelAvailability(params, [&result](std::vector<std::string> const & r)
   {
     result = r;
     testing::Notify();
@@ -159,8 +156,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadBooking, GetHotelAvailability)
   testing::Wait();
 
   TEST_EQUAL(result.size(), 3, ());
-  TEST_EQUAL(result[0], 10623, ());
-  TEST_EQUAL(result[1], 10624, ());
-  TEST_EQUAL(result[2], 10625, ());
+  TEST_EQUAL(result[0], "10623", ());
+  TEST_EQUAL(result[1], "10624", ());
+  TEST_EQUAL(result[2], "10625", ());
 }
 }

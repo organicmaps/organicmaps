@@ -8,22 +8,17 @@
 
 namespace booking
 {
-namespace http
-{
-bool RunSimpleHttpRequest(bool const needAuth, std::string const & url, std::string & result);
-
-using Time = std::chrono::system_clock::time_point;
-using Hotels = std::vector<std::string>;
-using Rooms = std::vector<std::string>;
-using Stars = std::vector<std::string>;
-
-std::string FormatTime(Time p);
-
 /// Params for checking availability of hotels.
 /// [m_hotelIds], [m_checkin], [m_checkout], [m_rooms] are required.
 struct AvailabilityParams
 {
+  using Time = std::chrono::system_clock::time_point;
+  using Hotels = std::vector<std::string>;
+  using Rooms = std::vector<std::string>;
+  using Stars = std::vector<std::string>;
+
   base::url::Params Get() const;
+  bool IsEmpty() const;
 
   /// Limit the result list to the specified hotels where they have availability for the
   /// specified guests and dates.
@@ -44,5 +39,4 @@ struct AvailabilityParams
   /// Limit to hotels with the given number(s) of stars. Supported values 1-5.
   Stars m_stars;
 };
-}  // namespace http
 }  // namespace booking

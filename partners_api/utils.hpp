@@ -2,6 +2,7 @@
 
 #include "platform/http_client.hpp"
 
+#include <chrono>
 #include <string>
 
 namespace partners_api
@@ -22,15 +23,8 @@ struct Result
   std::string m_data;
 };
 
-inline Result RunSimpleRequest(std::string const & url)
-{
-  platform::HttpClient request(url);
-  bool result = false;
-
-  if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
-    result = true;
-
-  return {result, request.ErrorCode(), request.ServerResponse()};
-}
+Result RunSimpleRequest(std::string const & url);
 }  // namespace http
+
+std::string FormatTime(std::chrono::system_clock::time_point p, std::string const & format);
 }  // namespace partners_api

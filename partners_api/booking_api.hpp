@@ -1,6 +1,6 @@
 #pragma once
 
-#include "partners_api/booking_http.hpp"
+#include "partners_api/booking_availability_params.hpp"
 
 #include "platform/safe_callback.hpp"
 
@@ -55,13 +55,16 @@ public:
   static bool GetHotelAvailability(std::string const & hotelId, std::string const & currency, std::string & result);
   static bool GetExtendedInfo(std::string const & hotelId, std::string const & lang, std::string & result);
   // Booking Api v2 methods:
-  static bool HotelAvailability(http::AvailabilityParams const & params, std::string & result);
+  static bool HotelAvailability(AvailabilityParams const & params, std::string & result);
 };
 
 using GetMinPriceCallback = platform::SafeCallback<void(std::string const & hotelId, std::string const & price, std::string const & currency)>;
 using GetHotelInfoCallback = platform::SafeCallback<void(HotelInfo const & hotelInfo)>;
-using GetHotelAvailabilityCallback = platform::SafeCallback<void(std::vector<uint64_t> hotelIds)>;
+// NOTE: this callback will be called NOT on main thread.
+using GetHotelAvailabilityCallback = std::function<void(std::vector<std::string> hotelIds)>;
 
+/// Guarantees the preservation of the sequence of calls callbacks in accordance with
+/// the sequence of method calls.
 class Api
 {
 public:
@@ -72,14 +75,17 @@ public:
 
   /// Real-time information methods (used for retrieving rapidly changing information).
   /// These methods send requests directly to Booking.
-  void GetMinPrice(std::string const & hotelId, std::string const & currency, GetMinPriceCallback const & fn);
+  void GetMinPrice(std::string const & hotelId, std::string const & currency,
+                   GetMinPriceCallback const & fn) const;
+
+  /// NOTE: callback will be called NOT on main thread.
+  void GetHotelAvailability(AvailabilityParams const & params,
+                            GetHotelAvailabilityCallback const & fn) const;
 
   /// Static information methods (use for information that can be cached).
   /// These methods use caching server to prevent Booking from being ddossed.
-  void GetHotelInfo(std::string const & hotelId, std::string const & lang, GetHotelInfoCallback const & fn);
-
-  void GetHotelAvailability(http::AvailabilityParams const & params,
-                            GetHotelAvailabilityCallback const & fn);
+  void GetHotelInfo(std::string const & hotelId, std::string const & lang,
+                    GetHotelInfoCallback const & fn) const;
 };
 
 void SetBookingUrlForTesting(std::string const & url);

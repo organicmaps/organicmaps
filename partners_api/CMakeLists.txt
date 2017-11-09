@@ -11,8 +11,8 @@ set(
   banner.hpp
   booking_api.cpp
   booking_api.hpp
-  booking_http.cpp
-  booking_http.hpp
+  booking_availability_params.cpp
+  booking_availability_params.hpp
   cian_api.cpp
   cian_api.hpp
   facebook_ads.cpp
@@ -37,6 +37,7 @@ set(
   taxi_provider.hpp
   uber_api.cpp
   uber_api.hpp
+  utils.cpp
   utils.hpp
   viator_api.cpp
   viator_api.hpp

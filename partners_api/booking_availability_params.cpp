@@ -1,41 +1,22 @@
-#include "partners_api/booking_http.hpp"
-
-#include "platform/http_client.hpp"
+#include "partners_api/booking_availability_params.hpp"
+#include "partners_api/utils.hpp"
 
 #include "base/string_utils.hpp"
-
-#include <ctime>
-#include <iomanip>
 
 #include "private.h"
 
 using namespace base::url;
-using namespace platform;
-using namespace std;
-using namespace std::chrono;
+
+namespace
+{
+std::string FormatTime(booking::AvailabilityParams::Time p)
+{
+  return partners_api::FormatTime(p, "%Y-%m-%d");
+}
+}  // namespace
 
 namespace booking
 {
-namespace http
-{
-bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & result)
-{
-  HttpClient request(url);
-
-  if (needAuth)
-    request.SetUserAndPassword(BOOKING_KEY, BOOKING_SECRET);
-
-  return request.RunHttpRequest(result);
-}
-
-string FormatTime(Time p)
-{
-  time_t t = duration_cast<seconds>(p.time_since_epoch()).count();
-  ostringstream os;
-  os << put_time(gmtime(&t), "%Y-%m-%d");
-  return os.str();
-}
-
 Params AvailabilityParams::Get() const
 {
   Params result;
@@ -55,5 +36,9 @@ Params AvailabilityParams::Get() const
 
   return result;
 }
-}  // namespace http
+
+bool AvailabilityParams::IsEmpty() const
+{
+  return m_checkin == Time() || m_checkout == Time() || m_rooms.empty();
+}
 }  // namespace booking

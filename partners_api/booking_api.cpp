@@ -1,5 +1,7 @@
 #include "partners_api/booking_api.hpp"
+#include "partners_api/utils.hpp"
 
+#include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/url_encode.hpp"
@@ -9,6 +11,7 @@
 #include "base/thread.hpp"
 #include "base/url_helpers.hpp"
 
+#include <chrono>
 #include <iostream>
 #include <sstream>
 #include <utility>
@@ -19,7 +22,7 @@
 
 using namespace base;
 using namespace booking;
-using namespace booking::http;
+using namespace platform;
 using namespace std;
 using namespace std::chrono;
 
@@ -32,6 +35,21 @@ string const kPhotoOriginalUrl = "http://aff.bstatic.com/images/hotel/max500/";
 string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
 string const kSearchBaseUrl = "https://www.booking.com/search.html";
 string g_BookingUrlForTesting = "";
+
+bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & result)
+{
+  HttpClient request(url);
+
+  if (needAuth)
+    request.SetUserAndPassword(BOOKING_KEY, BOOKING_SECRET);
+
+  return request.RunHttpRequest(result);
+}
+
+std::string FormatTime(system_clock::time_point p)
+{
+  return partners_api::FormatTime(p, "%Y-%m-%d");
+}
 
 string MakeApiUrlV1(string const & func, url::Params const & params)
 {
@@ -214,7 +232,7 @@ void FillPriceAndCurrency(string const & src, string const & currency, string & 
   }
 }
 
-void FillHotelIds(string const & src, vector<uint64_t> & result)
+void FillHotelIds(string const & src, vector<std::string> & result)
 {
   my::Json root(src.c_str());
   auto const resultsArray = json_object_get(root.get(), "result");
@@ -225,7 +243,9 @@ void FillHotelIds(string const & src, vector<uint64_t> & result)
   for (size_t i = 0; i < size; ++i)
   {
     auto const obj = json_array_get(resultsArray, i);
-    FromJSONObject(obj, "hotel_id", result[i]);
+    uint64_t id = 0;
+    FromJSONObject(obj, "hotel_id", id);
+    result[i] = std::to_string(id);
   }
 }
 }  // namespace
@@ -299,7 +319,8 @@ string Api::GetSearchUrl(string const & city, string const & name) const
   return resultStream.str();
 }
 
-void Api::GetMinPrice(string const & hotelId, string const & currency, GetMinPriceCallback const & fn)
+void Api::GetMinPrice(string const & hotelId, string const & currency,
+                      GetMinPriceCallback const & fn) const
 {
   GetPlatform().RunOnNetworkThread([hotelId, currency, fn]()
   {
@@ -326,7 +347,8 @@ void Api::GetMinPrice(string const & hotelId, string const & currency, GetMinPri
   });
 }
 
-void Api::GetHotelInfo(string const & hotelId, string const & lang, GetHotelInfoCallback const & fn)
+void Api::GetHotelInfo(string const & hotelId, string const & lang,
+                       GetHotelInfoCallback const & fn) const
 {
   GetPlatform().RunOnNetworkThread([hotelId, lang, fn]()
   {
@@ -355,15 +377,15 @@ void Api::GetHotelInfo(string const & hotelId, string const & lang, GetHotelInfo
 }
 
 void Api::GetHotelAvailability(AvailabilityParams const & params,
-                               GetHotelAvailabilityCallback const & fn)
+                               GetHotelAvailabilityCallback const & fn) const
 {
   GetPlatform().RunOnNetworkThread([params, fn]()
   {
-    std::vector<uint64_t> result;
+    std::vector<std::string> result;
     string httpResult;
     if (!RawApi::HotelAvailability(params, httpResult))
     {
-      fn(result);
+      fn(std::move(result));
       return;
     }
 
@@ -377,7 +399,7 @@ void Api::GetHotelAvailability(AvailabilityParams const & params,
       result.clear();
     }
 
-    fn(result);
+    fn(std::move(result));
   });
 }
 
