@@ -18,7 +18,8 @@ class ScopedDir;
 class ScopedFile
 {
 public:
-  ScopedFile(string const & relativePath);
+  explicit ScopedFile(string const & relativePath);
+
   ScopedFile(string const & relativePath, string const & contents);
 
   ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, MapOptions file,
@@ -34,7 +35,7 @@ public:
 
 private:
   string const m_fullPath;
-  bool m_reset;
+  bool m_reset = false;
 
   DISALLOW_COPY_AND_MOVE(ScopedFile);
 };

@@ -50,13 +50,13 @@ ScopedDir::~ScopedDir()
     case Platform::ERR_OK:
       break;
     case Platform::ERR_FILE_DOES_NOT_EXIST:
-      LOG(LWARNING, (fullPath, "was deleted before destruction of ScopedDir."));
+      LOG(LERROR, (fullPath, "was deleted before destruction of ScopedDir."));
       break;
     case Platform::ERR_DIRECTORY_NOT_EMPTY:
-      LOG(LWARNING, ("There are files in", fullPath));
+      LOG(LERROR, ("There are files in", fullPath));
       break;
     default:
-      LOG(LWARNING, ("Platform::RmDir() error for", fullPath, ":", ret));
+      LOG(LERROR, ("Platform::RmDir() error for", fullPath, ":", ret));
       break;
   }
 }

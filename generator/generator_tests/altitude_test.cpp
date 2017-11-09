@@ -25,11 +25,14 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
+#include "defines.hpp"
+
 #include <string>
 
 using namespace feature;
 using namespace generator;
 using namespace platform;
+using namespace platform::tests_support;
 using namespace routing;
 
 namespace
@@ -163,16 +166,17 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads, bool hasAltitudeE
 {
   classificator::Load();
   Platform & platform = GetPlatform();
-  std::string const testDirFullPath = my::JoinFoldersToPath(platform.WritableDir(), kTestDir);
+  std::string const testDirFullPath = my::JoinPath(platform.WritableDir(), kTestDir);
 
   // Building mwm without altitude section.
   LocalCountryFile country(testDirFullPath, CountryFile(kTestMwm), 1);
-  platform::tests_support::ScopedDir testScopedDir(kTestDir);
-  platform::tests_support::ScopedFile testScopedMwm(country.GetPath(MapOptions::Map));
+  ScopedDir testScopedDir(kTestDir);
+  ScopedFile testScopedMwm(my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION));
+
   BuildMwmWithoutAltitudes(roads, country);
 
   // Adding altitude section to mwm.
-  std::string const mwmPath = my::JoinFoldersToPath(testDirFullPath, kTestMwm + DATA_FILE_EXTENSION);
+  auto const mwmPath = testScopedMwm.GetFullPath();
   BuildRoadAltitudes(mwmPath, altitudeGetter);
 
   // Reading from mwm and testing altitude information.

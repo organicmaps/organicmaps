@@ -9,7 +9,9 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/writer.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include "std/sstream.hpp"
@@ -18,20 +20,22 @@ namespace platform
 {
 namespace tests_support
 {
-ScopedFile::ScopedFile(string const & relativePath)
-    : m_fullPath(my::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath)),
-      m_reset(false)
-{
-}
+ScopedFile::ScopedFile(string const & relativePath) : ScopedFile(relativePath, {} /* contents */) {}
 
 ScopedFile::ScopedFile(string const & relativePath, string const & contents)
-    : ScopedFile(relativePath)
+  : m_fullPath(my::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath))
 {
+  try
   {
     FileWriter writer(GetFullPath());
     writer.Write(contents.data(), contents.size());
   }
-  TEST(Exists(), ("Can't create test file", GetFullPath()));
+  catch (Writer::Exception const & e)
+  {
+    LOG(LERROR, ("Can't create test file:", e.what()));
+  }
+
+  CHECK(Exists(), ("Can't create test file", GetFullPath()));
 }
 
 ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, MapOptions file,
@@ -40,6 +44,7 @@ ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, M
                                      GetFileName(countryFile.GetName(), file, version::FOR_TESTING_TWO_COMPONENT_MWM1)),
                contents)
 {
+  CHECK(Exists(), ("Can't create test file", GetFullPath()));
 }
 
 ScopedFile::~ScopedFile()
@@ -48,11 +53,11 @@ ScopedFile::~ScopedFile()
     return;
   if (!Exists())
   {
-    LOG(LWARNING, ("File", GetFullPath(), "was deleted before dtor of ScopedFile."));
+    LOG(LERROR, ("File", GetFullPath(), "was deleted before dtor of ScopedFile."));
     return;
   }
   if (!my::DeleteFileX(GetFullPath()))
-    LOG(LWARNING, ("Can't remove test file:", GetFullPath()));
+    LOG(LERROR, ("Can't remove test file:", GetFullPath()));
 }
 
 string DebugPrint(ScopedFile const & file)
