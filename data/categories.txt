@@ -64,6 +64,7 @@ zh-Hant:飲食
 el:Φαγητό
 he:אוכל
 sk:Jedlo
+fa:غذا
 
 @transport
 en:Transport
@@ -96,6 +97,7 @@ zh-Hant:運輸
 el:Συγκοινωνία
 he:תחבורה
 sk:Doprava
+fa:حمل و نقل
 
 @fuel
 en:2Gas
@@ -129,6 +131,7 @@ el:Βενζίνη
 he:גז
 sk:3^Čerpacia stanica
 sw:Sheli
+fa:سوخت
 
 @parking
 en:^Parking
@@ -161,6 +164,7 @@ zh-Hant:^停車場
 el:^Χώρος στάθμευσης
 he:^חניה
 sk:^Parkovisko
+fa:پارکینگ
 
 @shop
 en:^Shop
@@ -194,6 +198,7 @@ el:^Μαγαζί
 he:^חנות
 sk:^Obchod
 sw:^Duka
+fa:فروشگاه
 
 @hotel
 en:^Hotel
@@ -226,6 +231,7 @@ zh-Hant:^飯店
 el:^Ξενοδοχείο
 he:^מלון
 sk:^Hotel
+fa:هتل
 
 @tourism
 en:Sights
@@ -258,6 +264,7 @@ zh-Hant:旅遊景點
 el:Αξιοθέατα
 he:נקודות עיניין
 sk:Pamätihodnosť
+fa:گردشگری
 
 @entertainment
 en:Entertainment
@@ -290,6 +297,7 @@ zh-Hant:娛樂
 el:Ψυχαγωγία
 he:בידור
 sk:Zábava
+fa:سرگرمی
 
 @atm
 en:^ATM|Cash machine
@@ -323,6 +331,7 @@ el:^ATM
 he:^כספומט
 sk:3^Bankomat
 sw:^Benki|fedha
+fa:خودپرداز
 
 amenity-atm|@atm
 en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -354,6 +363,7 @@ zh-Hans:钱|atm
 zh-Hant:1atm|理財|錢|金錢
 el:χρήματα
 sk:sporiteľna|peniaze
+fa:دستگاه خودپرداز
 
 @bank
 en:3^Bank
@@ -387,6 +397,7 @@ el:^Τράπεζα
 he:^בנק
 sk:3^Banka
 sw:^Benki|fedha
+fa:بانک
 
 amenity-bank|@bank
 en:money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -416,6 +427,7 @@ zh-Hans:钱
 zh-Hant:錢
 el:χρήματα
 sk:peniaze
+fa:بانک
 
 amenity-bureau_de_change
 en:3^Currency Exchange|3exchange|money|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -447,6 +459,7 @@ zh-Hans:1^货币兑换|兑换|钱
 zh-Hant:1^匯率|理財|外幣|兌換|貨幣
 el:^Συνάλλαγμα|ανταλλακτήριο|χρήματα
 sk:3^Zmenáreň|peniaze
+fa:صرافی
 
 amenity-bar|@food
 en:2^Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376
@@ -479,6 +492,7 @@ zh-Hant:1^酒吧|酒館|飲酒|PUB|吧台|飲食
 el:^Μπαρ|Παμπ|μπύρα|ποτό|φαγητό
 sk:2^Bar|pivo|pitie|voda|pitná voda|tekutiny
 sw:^Baa|vinywaji
+fa:^میکده|کاباره
 
 amenity-pub|@food
 en:2^Pub|bar|beer|U+1F37A|U+1F37B
@@ -510,6 +524,7 @@ zh-Hans:^酒馆|酒馆์|啤酒|饮料|食物
 zh-Hant:^酒館|啤酒吧|酒吧|飲酒|PUB|吧台|飲食
 el:^Παμπ|μπαρ|μπύρα|φαγητό
 sk:^Pohostinstvo|Bar|pivo|pitie|voda|pitná voda|tekutiny
+fa:^میکده|کاباره
 
 amenity-cafe|@food
 en:3^Cafe|3restaurant|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375
@@ -542,6 +557,7 @@ zh-Hant:2^咖啡廳|咖啡|3cafe|餐廳|飲食
 el:^Καφετέρια|εστιατόριο|φαγητό
 sk:3^Kaviareň|reštaurácia|pohostinstvo
 sw:^Mgahawa|hoteli|chakula
+fa:^کافه|قهوه فروشی|قهوه خانه
 
 amenity-fast_food|@food
 en:4^Fast Food|3restaurant|3cafe|takeaway|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374
@@ -573,6 +589,7 @@ zh-Hans:1^快餐|餐厅|外卖|食物
 zh-Hant:1^速食店|麥當勞|肯德雞|漢堡王|頂呱呱|薯條|速食|用餐|飲食
 el:^Εστιατόριο|καφετέρια|φαγητό για το σπίτι|φαγητό
 sk:2^Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia
+fa:^فست فود|غذای حاضری
 
 amenity-restaurant|@food
 en:3^Restaurant|3cafe|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
@@ -605,6 +622,7 @@ zh-Hant:1^餐廳|餐館|吃飯|餐點|早餐|午餐|晚餐|食堂|飲食|用餐
 el:^Εστιατόριο|καφετέρια|φαγητό
 sk:3^Reštaurácia|pohostinstvo|kaviareň
 sw:^Hoteli|restorenti|mgahawa|chakula
+fa:رستوران
 
 amenity-fuel|@fuel
 en:^Gas Station|3fuel|petrol|petrol station|U+26FD
@@ -634,6 +652,7 @@ zh-Hant:2^加氣站|汽油|加油|天然氣
 el:^Βενζινάδικο|καύσιμο|βενζίνη|πρατήριο
 sk:3^Benzínová pumpa
 sw:mafuta
+fa:جایگاه سوخت
 
 shop-bakery|@shop
 en:3^Bakery|U+1F35E
@@ -666,6 +685,7 @@ zh-Hant:1^麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
 el:^Αρτοποιείο|κατάστημα
 sk:3^Pekáreň
 sw:^Kituo cha kuwoka mikate
+fa:نانوایی
 
 shop|@shop
 en:U+1F3EA|U+1F3EC
@@ -681,6 +701,7 @@ uk:2Магазин|крамниця
 zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα
+fa:^فروشگاه|مرکزخرید
 
 shop-cosmetics|@shop
 en:4^Beauty Care|home care|U+1F3EC|U+1F3EA
@@ -714,6 +735,7 @@ el:^Καλλυντικά
 he:^הקיטמסוק
 sk:4^Kozmetika
 sw:^Vipodozi
+fa:لوازم ارایشی بهداشتی
 
 shop-convenience|@shop
 en:4^Convenience Store|U+1F3EC|U+1F3EA
@@ -746,6 +768,7 @@ zh-Hant:^便利商店|便利超商|購物
 el:^Ψιλικατζίδικο|κατάστημα
 sk:^Príležitostné potreby
 sw:^Duka
+fa:بقالی
 
 shop-garden_centre|@shop
 en:^Garden Store|U+1F3EC|U+1F3EA|U+1F3E1
@@ -777,6 +800,7 @@ zh-Hans:^幼儿园|商店
 zh-Hant:^園藝店|購物
 el:^Κατάστημα ειδών κήπου|κατάστημα
 sk:^Škôlka|materská škôlka
+fa:فروشگاه تجهیزات باغبانی
 
 shop-mobile_phone|@shop
 en:^Cell Phones|Mobile Phones|electronics store|U+1F3EC|U+1F3EA|U+1F4F1|U+1F4F2
@@ -809,6 +833,7 @@ zh-Hant:^手機專賣店|購物
 el:^Κινητά τηλέφωνα|Κινητά|κατάστημα ηλεκτρονικών|κατάστημα
 sk:^Mobilné telefóny
 sw:^Duka la simu
+fa:موبایل فروشی
 
 shop-florist|@shop
 en:^Florist’s|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E
@@ -840,6 +865,7 @@ zh-Hans:^花店|商店
 zh-Hant:^花店|1購物|店鋪|商店|雜貨店|便利商店
 el:^Ανθοπωλείο|κατάστημα
 sk:^Kvety|kvetinárstvo
+fa:گل فروشی
 
 shop-butcher|@shop
 en:^Butcher’s|U+1F356|U+1F357
@@ -871,6 +897,7 @@ zh-Hans:^肉商|商店
 zh-Hant:^肉商|1購物|店鋪|商店|雜貨店|便利商店
 el:^Κρεοπωλείο|κατάστημα
 sk:^Mäsiar
+fa:قصابی
 
 shop-furniture|@shop
 en:^Furniture Store
@@ -902,6 +929,7 @@ zh-Hans:^家具店|商店
 zh-Hant:^家具店|1購物|店鋪|商店|雜貨店|便利商店
 el:^Κατάστημα επίπλων|κατάστημα
 sk:^Nábytok
+fa:فروشگاه لوازم خانگی
 
 shop-alcohol|@shop
 en:^Liquor Store|liquor|U+1F377
@@ -933,6 +961,7 @@ zh-Hans:^烈酒|商店
 zh-Hant:^烈酒|1購物|店鋪|商店|雜貨店|便利商店
 el:^Κάβα|ποτά|κατάστημα
 sk:^Liehoviny|alkohol
+fa:مشروب فروشی
 
 shop-books|@shop
 en:^Bookstore|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5
@@ -964,6 +993,7 @@ zh-Hans:^书店|商店
 zh-Hant:^書店|1購物|店鋪|商店|雜貨店|便利商店
 el:^Βιβλιοπωλείο|κατάστημα
 sk:^Kníhkupectvo
+fa:کتاب فروشی
 
 shop-shoes|@shop
 en:^Shoe Store|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F
@@ -995,6 +1025,7 @@ zh-Hans:^鞋店|商店
 zh-Hant:^鞋店|1購物|店鋪|商店|雜貨店|便利商店
 el:^Κατάστημα παπουτσιών|κατάστημα
 sk:^Obuvníctvo
+fa:کفش فروشی
 
 shop-electronics|@shop
 en:^Electronics|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1
@@ -1026,6 +1057,7 @@ zh-Hans:^电子产品|商店
 zh-Hant:^電子產品|電器店|1購物|店鋪|商店|雜貨店|便利商店
 el:^Ηλεκτρονικά|κατάστημα
 sk:^Elektronika
+fa:فروشگاه تجهیزات الکترونیکی
 
 shop-hardware|shop-doityourself|@shop
 en:^Hardware Store|DIY|do it yourself|U+1F3EC|U+1F3EA|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614
@@ -1057,6 +1089,7 @@ zh-Hans:^硬件店|自助商店|商店
 zh-Hant:^五金行|硬件店|購物|店鋪|商店|雜貨店|便利商店
 el:^Κατάστημα εξοπλισμού|DIY|Κάντεο μόνος σου|κατάστημα
 sk:^Železiarstvo|Náradie
+fa:فروشگاه ابزار و یراق
 
 shop-jewelry|@shop
 en:^Jewelry|U+1F48D
@@ -1088,6 +1121,7 @@ zh-Hans:^珠宝店|商店
 zh-Hant:^珠寶店|1購物|店鋪|商店|雜貨店|便利商店
 el:^Κοσμηματοπωλείο|κατάστημα
 sk:^Klenotníctvo
+fa:^طلا فروشی|جواهرفروشی
 
 shop-optician|@shop
 en:^Optician’s|U+1F453
@@ -1119,6 +1153,7 @@ zh-Hans:^眼镜店|商店
 zh-Hant:^眼鏡店|1購物|店鋪|商店|雜貨店|便利商店
 el:^Κατάστημα οπτικών
 sk:^Optika
+fa:عینک فروشی 
 
 shop-gift|@shop
 en:^Gift Shop|U+1F381
@@ -1150,6 +1185,7 @@ zh-Hans:^礼品店|商店
 zh-Hant:^禮品店|1購物|店鋪|商店|雜貨店|便利商店
 el:^Είδη δώρου|κατάστημα
 sk:^Darčeky
+fa:مغازه کادو فروشی
 
 shop-beauty
 en:^Beauty Shop|beautician|U+1F484
@@ -1183,6 +1219,7 @@ el:^Ινστιτούτο αισθητικής
 he:^יפוי ןוכמ
 sk:^Kozmetický salón
 sw:^Uzuri saluni
+fa:سالن زیبایی
 
 shop-greengrocer|@shop
 en:4^Greengrocer's|greengrocers|3grocery|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
@@ -1214,6 +1251,7 @@ zh-Hans:^蔬果零售店|商店
 zh-Hant:^蔬果零售店|1購物|店鋪|商店|雜貨店|便利商店
 el:^Μανάβικο|οπωροπωλείο|παντοπωλείο|κατάστημα
 sk:^Zelovoc
+fa:میوه فروشی
 
 shop-sports|@shop
 en:^Sports Goods|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3
@@ -1245,6 +1283,7 @@ zh-Hans:^运动商品店|商店
 zh-Hant:^運動商品店|1購物|店鋪|商店|雜貨店|便利商店
 el:^Αθλητικά είδη|κατάστημα
 sk:^Športové potreby
+fa:فروشگاه لوازم ورزشی
 
 shop-supermarket|@shop
 en:3^Supermarket|U+1F3EA|U+1F3EC
@@ -1277,6 +1316,7 @@ zh-Hant:1^超級市場|市場|購物
 el:^Σούπερ μάρκετ|κατάστημα
 sk:3^Supermarket
 sw:^Supamaketi
+fa:سوپر مارکت
 
 shop-mall|@shop
 en:^Mall|5shopping mall
@@ -1310,6 +1350,7 @@ el:^Το εμπορικό κέντρο|μαγαζί
 he:^ןוינקה
 sk:^The Mall
 sw:^Ununuzi maduka
+fa:مرکز خرید
 
 shop-department_store|@shop
 en:^Department Store|U+1F3EC|U+1F3EA
@@ -1341,6 +1382,7 @@ zh-Hans:^百货商店|商店
 zh-Hant:^百貨公司|購物
 el:^Πολυκατάστημα|κατάστημα
 sk:^Obchodný dom
+fa:^مرکز خرید|پاساژ
 
 shop-beverages|@shop
 en:^Beverages|drinks|U+1F379
@@ -1372,6 +1414,7 @@ zh-Hans:^饮料|商店
 zh-Hant:^飲料|飲料店|購物
 el:^Οινοπνευματώδη|ποτά|κατάστημα
 sk:^Nápoje
+fa:نوشیدنی فروشی
 
 shop-computer|@shop
 en:^Computer Store|U+1F4BB
@@ -1403,6 +1446,7 @@ zh-Hans:^电脑商店|商店
 zh-Hant:^電腦商店|電腦專賣店|購物
 el:^Κατάστημα υπολογιστών|κατάστημα
 sk:^Obchod s výpočtovou technikou
+fa:فروشگاه کامپیوتر
 
 shop-confectionery|@shop
 en:^Sweets|3confectionery|candy store|U+1F36C|U+1F36D
@@ -1434,6 +1478,7 @@ zh-Hans:^糖果店|商店
 zh-Hant:^糕餅店|糕餅行|購物
 el:^Γλυκά|ζαχαροπλαστική|ζαχαροπλαστείο|κατάστημα
 sk:^Cukrovinky
+fa:شیرینی فروشی
 
 shop-laundry
 en:4^Laundry|laundromat
@@ -1465,6 +1510,7 @@ zh-Hans:^洗衣店
 zh-Hant:^洗衣店
 el:^Άπλυτα|κατάστημα με πλυντήρια τούχων
 sk:4^Práčovňa
+fa:لباس شویی
 
 shop-toys|@shop
 en:^Toy Store
@@ -1496,6 +1542,7 @@ zh-Hans:^玩具店|商店
 zh-Hant:^玩具商店|購物
 el:^Κατάστημα παιχνιδιών|κατάστημα
 sk:^Hračkárstvo
+fa:اسباب بازی فروشی
 
 amenity-marketplace|@shop
 en:3^Marketplace|market
@@ -1525,6 +1572,7 @@ zh-Hant:1^市場|市集|購物
 el:^Αγορά|αγορά|κατάστημα
 sk:3^Trhovisko|samoobsluha
 sw:^Soko
+fa:بازار
 
 shop-clothes|@shop
 en:^Clothes Shop|4clothes|U+1F45A|U+1F457|U+1F456|U+1F455
@@ -1557,6 +1605,7 @@ zh-Hant:1^買衣服|衣服|購物
 el:^Κατάστημα ρούχων|ρούχα|κατάστημα
 sk:^Oblečenie
 sw:^Duka la nguo|nguo
+fa:^لباس فروشی|بوتیک
 
 shop-car|@shop
 en:^Car Shop|U+1F697|U+1F698|U+1F699
@@ -1589,6 +1638,7 @@ zh-Hant:1^買車|購車|購物
 el:^Κατάστημα αυτοκινήτων|κατάστημα
 sk:^Predajňa áut
 sw:^Yadi|duka la gari|gari
+fa:فروشگاه خودرو
 
 shop-bicycle|@shop
 en:4^Bicycle Shop|cycle|bike|U+1F6B2|U+1F6B4|U+1F6B5
@@ -1621,6 +1671,7 @@ zh-Hant:1^自行車店|腳踏車|單車|商店|購物
 el:^Κατάστημα ποδηλάτων|ποδηλασία|ποδήλατο|κατάστημα
 sk:3^Cyklistický obchod|bicykel
 sw:^Duka la baiskeli|baiskeli
+fa:فروشگاه دوچرخه
 
 shop-kiosk|@shop
 en:^Kiosk|U+1F4F0
@@ -1648,6 +1699,7 @@ zh-Hant:1^小舖|小店|購物|商店|小攤|攤子|攤販
 el:^Περίπτερο|κατάστημα
 sk:^Kiosk
 sw:^Kioski
+fa:^دَکهِ|کیوسک
 
 highway-bus_stop|@transport
 en:^Bus Stop|2bus|stop|U+1F68C|U+1F68F|U+1F68E|U+1F690
@@ -1680,6 +1732,7 @@ zh-Hant:1^巴士站|巴士|運輸|交通|客運站|公車|公車站
 el:^Στάση λεωφορείου|λεωφορείο|στάση|μεταφορές
 sk:^Autobusová zastávka|4autobus|2bus|zastávka|stanica
 sw:^Kituo cha basi|basi|usafiri
+fa:ایستگاه اتوبوس
 
 railway-tram_stop|@transport
 en:^Tram Stop|3tram|stop|U+1F683
@@ -1711,6 +1764,7 @@ zh-Hans:1^电车站|运输|交通
 zh-Hant:1^電車站|電車|運輸|交通|鐵路|大眾運輸
 el:^Στάση τραμ|τραμ|στάση|μεταφορές
 sk:^Električková zastávka|3električka|4zastávka|stanica
+fa:^ایستگاه قطار|ایستگاه تراموا
 
 amenity-bus_station|@transport
 en:^Bus Station|2bus|station|U+1F68C|U+1F68F|U+1F68D
@@ -1743,6 +1797,7 @@ zh-Hant:1^巴士|巴士站|交通|運輸
 el:^Σταθμός λεωφορείων|λεωφορείο|σταθμός|μεταφορές
 sk:^Autobusové nástupište|zastávka|bus
 sw:^Stendi ya basi|basi|stendi|usafiri
+fa:ایستگاه اتوبوس
 
 railway-station|railway-halt|building-train_station|@transport
 en:3^Train Station|4railway|railroad|3train|4station|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B
@@ -1775,6 +1830,7 @@ zh-Hant:1^鐵道|鐵路|火車|火車站|高鐵站|運輸
 el:^Σιδηροδρομικός σταθμός|σιδηρόδρομος|σιδηροδρομικό|τρένο|σταθμός|μεταφορές
 sk:3^Železničná stanica|vlakové nástupište|2vlak
 sw:^Kituo cha treni|treni|usafiri
+fa:^ایستگاه قطار|ایستگاه تراموا
 
 railway-subway_entrance|railway-station-subway|@transport
 en:3^Subway|3tube|3metro|3underground|U+1F687
@@ -1807,6 +1863,7 @@ zh-Hant:1^地鐵|捷運|2地下鐵|運輸
 el:^Υπόγειος|σωλήνας|μετρό|υπόγεια|μεταφορές
 sk:3^Metro|podzemná doprava
 sw:^Reli ya chini
+fa:ایستگاه مترو
 
 railway-level_crossing
 en:^Level Crossing
@@ -1823,6 +1880,7 @@ nl:^Overweg
 da:^Jernbaneoverskæring
 fi:^Tasoristeys
 hu:^Útátjáró
+fa:تقاطع هم سطح با راه اهن
 
 amenity-ferry_terminal|@transport
 en:3^Ferry|terminal|U+1F6A2|U+1F6A4|U+2693
@@ -1855,6 +1913,7 @@ zh-Hant:1^渡船|運輸
 el:^Πορθμείο|τερματικό|μεταφορές
 sk:3^Trajekt
 sw:^Bandali|kivuko
+fa:ترمینال کِشتی
 
 amenity-taxi|@transport
 en:3^Taxi|U+1F695|U+1F696
@@ -1887,6 +1946,7 @@ zh-Hant:1^計程車|交通
 el:^Ταξί|μεταφορές
 sk:3^Taxi
 sw:^Teksi|usafiri
+fa:^تاکسی|اژانس
 
 amenity-townhall|@tourism
 en:3^Town Hall|3tourism
@@ -1919,6 +1979,7 @@ zh-Hant:1^市政廳|1市鎮大廳|1旅遊景點
 el:^Δημαρχείο|τουρισμός|αξιοθέατα
 sk:3^Radnica|3pamiatka
 sw:^Ukumbi|utalii
+fa:شهرداری
 
 tourism-attraction
 en:3^Attraction|3tourism|3sights|U+1F3A0|U+1F3A1|U+1F3A2|U+1F3AA
@@ -1951,6 +2012,7 @@ zh-Hant:1^景點|3旅遊景點|旅遊|3觀光景點|觀光|名勝
 el:^Αξιοθέατα|τουρισμός|περιηγήσεις
 sk:3^Atrakcia|3pamiatka|3zaujímavosť
 sw:^Kivutio|utalii
+fa:جاذبه گردشگری
 
 tourism-artwork|@tourism
 en:3^Artwork|3tourism|U+1F3A8
@@ -1983,6 +2045,7 @@ zh-Hant:1^藝術品|3旅遊景點
 el:^Έργα τέχνης|τουρισμός|αξιοθέατα
 sk:3^Umelecké diela
 sw:^Kazi ya kisanaa|utalii
+fa:اثارهنری
 
 tourism-viewpoint|@tourism
 en:4^Viewpoint|tourism
@@ -2015,6 +2078,7 @@ zh-Hant:1^視野|景觀|景點|觀光|3旅遊景點
 el:^Άποψη|τουρισμός|αξιοθέατα
 sk:3^Vyhliadka
 sw:^Genge|utalii
+fa:مناظرگردشگری
 
 tourism-information|@tourism
 en:4^Tourist Information|4information|U+1F481
@@ -2047,6 +2111,7 @@ zh-Hant:2^觀光諮詢|旅遊中心|旅遊問題|資訊|旅遊資訊
 el:^Τουριστικές πληροφορίες|πληροφορίες|αξιοθέατα
 sk:4^Infocentrum|4turistické informácie
 sw:^Taarifa ya utalii|taarifa
+fa:اطلاعات گردشگری
 
 tourism-picnic_site|amenity-bbq
 en:3^Picnic Site
@@ -2079,6 +2144,7 @@ zh-Hant:1^野餐|旅遊
 el:^Χώρος εκδρομής
 sk:3^Piknik
 sw:^Sehemu ya madhazi
+fa:مکان پیک نیک
 
 amenity-place_of_worship|@tourism
 en:4^Place of Worship|3temple|U+1F64F
@@ -2111,6 +2177,7 @@ zh-Hant:1^寺廟|1禱告|寺|禪寺|旅遊景點
 el:^Τόπος λατρείας|ναός|αξιοθέατα
 sk:3^Svätyňa|3chrám|3posvätné miesto
 sw:^Sehemu ya kusali
+fa:معبد
 
 amenity-place_of_worship-christian|@tourism
 en:^Church|place of worship|temple|U+1F64F|U+26EA|U+271D|U+2626
@@ -2142,6 +2209,7 @@ zh-Hans:^教堂|礼拜场所|庙|景点
 zh-Hant:^教堂|寺廟|禱告|寺|禪寺|旅遊景點
 el:^Εκκλησία|τόπος λατρείας|ναός|αξιοθέατα
 sk:^Chrám|kostol|svätyňa|posvätné miesto
+fa:کلیسا
 
 amenity-place_of_worship-muslim|@tourism
 en:^Mosque|tekke|place of worship|temple|U+1F64F|U+262A|U+1F54B|U+1F54C|U+262A
@@ -2173,6 +2241,7 @@ zh-Hans:^清真寺|礼拜场所|庙|景点
 zh-Hant:^清真寺|寺廟|禱告|寺|禪寺|旅遊景點
 el:^Τζαμί|τεκκέ|τόπος λατρείας|ναός|αξιοθέατα
 sk:^Mešita|chrám|svätyňa|posvätné miesto
+fa:مسجد
 
 amenity-place_of_worship-buddhist|@tourism
 en:^Temple|place of worship|U+1F64F|U+26EA|U+2638
@@ -2204,6 +2273,7 @@ zh-Hans:^寺庙|礼拜场所|庙|景点
 zh-Hant:^寺廟|佛|寺廟|禱告|寺|禪寺|旅遊景點
 el:^Ναός|τόπος λατρείας|αξιοθέατα
 sk:^Chrám|svätyňa|posvätné miesto
+fa:معبد بودا
 
 amenity-place_of_worship-hindu|@tourism
 en:^Temple|place of worship|U+1F64F|U+1F549
@@ -2235,6 +2305,7 @@ zh-Hans:^寺庙|礼拜场所|庙|景点
 zh-Hant:^寺廟|寺廟|禱告|寺|禪寺|旅遊景點
 el:^Ναός|τόπος λατρείας|αξιοθέατα
 sk:^Chrám|svätyňa|posvätné miesto
+fa:معبد هندو
 
 amenity-place_of_worship-shinto|@tourism
 en:^Shrine|place of worship|temple|U+1F64F|U+26E9
@@ -2266,6 +2337,7 @@ zh-Hans:^圣殿|礼拜场所|庙|景点
 zh-Hant:^聖殿|寺廟|禱告|寺|禪寺|旅遊景點
 el:^Ιερό|τόπος λατρείας|ναός|αξιοθέατα
 sk:^Svätyňa|chrám|svätyňa|posvätné miesto
+fa:معبد شنتو
 
 amenity-place_of_worship-jewish|@tourism
 en:^Synagogue|place of worship|temple|U+1F64F|U+1F54D|U+2721
@@ -2297,6 +2369,7 @@ zh-Hans:^犹太教堂|礼拜场所|庙|景点
 zh-Hant:^猶太教堂|寺廟|禱告|寺|禪寺|旅遊景點
 el:^Συναγωγή|τόπος λατρείας|ναός|αξιοθέατα
 sk:^Synagóga|chrám|svätyňa|posvätné miesto
+fa:کنیسه
 
 amenity-place_of_worship-taoist|@tourism
 en:^Temple|place of worship|U+1F64F|U+262F
@@ -2328,6 +2401,7 @@ zh-Hans:^寺庙|礼拜场所|庙|景点
 zh-Hant:^寺廟|禱告|寺|禪寺|旅遊景點
 el:^Ναός|τόπος λατρείας|αξιοθέατα
 sk:^Chrám|svätyňa|posvätné miesto
+fa:معبد طاوی
 
 tourism-museum|@tourism
 en:2^Museum|attraction|tourism|U+1F3A8
@@ -2360,6 +2434,7 @@ zh-Hant:1^博物館|旅遊|觀光|景點|遊覽|歷史|旅遊景點
 el:^Μουσείο|θέαμα|τουρισμός|αξιοθέατα
 sk:2^Múzeum
 sw:^Makumbusho|kivutio|utalii
+fa:موزه
 
 waterway-waterfall|@tourism
 en:2^Waterfall
@@ -2392,6 +2467,7 @@ zh-Hant:1^瀑布|旅遊景點
 el:^Καταρράκτης|αξιοθέατα
 sk:2^Vodopád
 sw:^Maporomoko ya maji
+fa:ابشار
 
 historic-memorial|@tourism
 en:^Memorial|monument|attraction|tourism|U+1F5FC|U+1F5FD|U+1F5FF
@@ -2424,6 +2500,7 @@ zh-Hant:^紀念館|1紀念碑|紀念館|旅遊景點
 el:^Επιμνημόσυνο|μνημείο|θέαμα|τουρισμός|αξιοθέατα
 sk:^Pomník|pamiatka|atrakcia|zaujímavosť
 sw:^Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
+fa:یادبود تاریخی
 
 historic-monument|@tourism
 en:^Monument|attraction|tourism|U+1F5FD|U+1F5FF
@@ -2456,6 +2533,7 @@ zh-Hant:1^紀念碑|紀念塔|紀念館|旅遊景點
 el:^Μνημείο|θέαμα|τουρισμός|αξιοθέατα
 sk:^Zaujímavosť|pomník|pamiatka
 sw:^Makumbusho|kivutio|utalii
+fa:بنای تاریخی
 
 historic-ruins|@tourism
 en:^Ruins|attraction|tourism|U+1F5FF
@@ -2488,6 +2566,7 @@ zh-Hant:1^廢墟|古蹟|遺址|旅遊景點
 el:^Αρχεία|θέαμα|τουρισμός|αξιοθέατα
 sk:^Zrúcanina|ruiny
 sw:^Maeneo ya kale|jengo la kale|chakavu
+fa:خرابه های تاریخی
 
 historic-castle|@tourism
 en:^Castle|attraction|tourism|U+1F3EF|U+1F3F0|U+1F451|U+1F478
@@ -2520,6 +2599,7 @@ zh-Hant:^城堡|堡|古蹟|歷史|旅遊景點
 el:^Κάστρο|θέαμα|τουρισμός|αξιοθέατα
 sk:^Zámok|atrakcia
 sw:^Ngome|kivutio|utalii
+fa:قلعه تاریخی
 
 historic-archaeological_site|@tourism
 en:^Archaeological Site|attraction|tourism
@@ -2552,6 +2632,7 @@ zh-Hant:1^考古遺址|考古|遺址|古蹟|歷史|旅遊景點
 el:^Αρχαιολογικός χώρος|θέαμα|τουρισμός|αξιοθέατα
 sk:^Vykopávky
 sw:^Machimbo ya kihistoria|kivutio|utalii
+fa:سایت باستان شناسی
 
 leisure-garden|@tourism
 en:2^Garden
@@ -2584,6 +2665,7 @@ zh-Hant:1^花園|旅遊景點
 el:^Κήπος|αξιοθέατα
 sk:2^Záhrada
 sw:^Bustani
+fa:باغ تفریحی
 
 amenity-bench
 en:^Bench
@@ -2616,6 +2698,7 @@ zh-Hant:1^長板凳|板凳|長椅|長椅子|條凳
 el:^Πάγκος
 sk:^Lavička
 sw:^Benchi
+fa:^سَکو|نیمکت
 
 amenity-bicycle_rental
 en:4^Bicycle Rental|cycle|bike|3rental|U+1F6B2|U+1F6B4|U+1F6B5
@@ -2648,6 +2731,7 @@ zh-Hant:1^自行車出租|腳踏車|單車|租金|租錢
 el:^Ενοικιάσεις ποδηλάτων|δίκυκλο|ποδήλατο|ενοικιάσεις
 sk:2^Požičovňa bicyklov|bicykle|požičovňa
 sw:^Kodi ya baiskeli|baiskeli|kodi
+fa:مکان اجاره دوچرخه
 
 amenity-car_sharing
 en:^Car Sharing|car|sharing|U+1F697|U+1F698|U+1F699
@@ -2712,6 +2796,7 @@ zh-Hant:1^租車|出租|租金|租錢
 el:^Ενοικίαση αυτοκινήτων|αυτοκίνητο|ενοικιάσεις|κοινή χρήση
 sk:3^Autopožičovňa|požičovňa áut
 sw:^Kodi ya gari|gari|kodi
+fa:مکان اجاره ماشین
 
 amenity-cinema|@entertainment
 en:3^Cinema|U+1F3A6|U+1F3AC
@@ -2744,6 +2829,7 @@ zh-Hant:1^電影院|電影|娛樂
 el:^Κινηματογράφος|ψυχαγωγία
 sk:3^Kino
 sw:^Sinema|burudani
+fa:سینما
 
 amenity-theatre|@entertainment
 en:3^Theatre|theater|U+1F3AD
@@ -2776,6 +2862,7 @@ zh-Hant:1^劇場|戲院|劇院|娛樂
 el:^Θέατρο|θέατρο|ψυχαγωγία
 sk:3^Divadlo
 sw:^Thieta|burudani|maonyesho
+fa:تئاتر
 
 amenity-nightclub|@entertainment
 en:3^Nightclub|night club|3disco|dance|U+1F378|U+1F379|U+1F46F|U+1F483
@@ -2808,6 +2895,7 @@ zh-Hant:1^夜店|2俱樂部|酒|喝酒|跳舞|舞|2夜生活|娛樂
 el:^Νυχτερινό κέντρο διασκέδασης|ντίσκο|χορός|ψυχαγωγία
 sk:4^Nočný klub|3disco|3nightclub|night club
 sw:^Ukumbi wa starehe|klabu|burudani
+fa:^کلوپ شبانه|کلوپ رقص
 
 amenity-brothel|@entertainment
 en:^Brothel|U+1F3E9
@@ -2837,6 +2925,7 @@ zh-Hant:^妓院|娛樂
 el:^Πορνείο|ψυχαγωγία
 sk:^Nevestinec|verejný dom
 sw:^Danguro
+fa:^فاحشه خانه|جنده خانه
 
 amenity-casino|@entertainment
 en:^Casino|U+1F3B0|U+1F3B2|U+1F3B4
@@ -2866,6 +2955,7 @@ zh-Hant:^賭場|娛樂
 el:^Καζίνο|ψυχαγωγία
 sk:^Kasíno
 sw:^Kasino|burudani
+fa:^قمارخانه|کازینو
 
 amenity-college
 en:^College|U+1F3EB
@@ -2898,6 +2988,7 @@ zh-Hant:1^大學|學院|專科院校|院校
 el:^Κολέγιο
 sk:^Vysoká škola
 sw:^Chuo
+fa:دانشگاه
 
 amenity-drinking_water
 en:4^Drinking Water|U+1F6B0
@@ -2930,6 +3021,7 @@ zh-Hant:1^飲用水|飲水機|可喝的水|2飲水設施|喝水|口渴
 el:^Πόσιμο νερό
 sk:4^Pitná voda
 sw:^Maji ya kunywa
+fa:اب اشامیدنی
 
 amenity-fire_station
 en:^Fire Station|U+1F692
@@ -2962,6 +3054,7 @@ zh-Hant:1^消防局|滅火隊|消防隊|消防車|救難|緊急
 el:^Πυροσβεστικός σταθμός
 sk:^Hasičská stanica|hasiči
 sw:^Kituo cha zimamoto
+fa:ایستگاه اتش نشانی
 
 amenity-fountain
 en:^Fountain|U+26F2
@@ -2993,6 +3086,7 @@ zh-Hans:1^喷泉
 zh-Hant:1^噴泉|2噴水池|噴水
 el:^Συντριβάνι
 sk:^Fontána
+fa:فواره
 
 amenity-grave_yard|landuse-cemetery
 en:^Graveyard|cemetery
@@ -3025,6 +3119,7 @@ zh-Hant:1^墓地
 el:^Νεκροταφείο|κοιμητήριο
 sk:^Cintorín
 sw:^Makabulini
+fa:قبرستان
 
 @hospital
 en:4^Hospital
@@ -3058,6 +3153,7 @@ el:^Νοσοκομείο
 he:^ביתחולים
 sk:4^Nemocnica
 sw:^Hospitali
+fa:بیمارستان
 
 amenity-hospital|@hospital
 en:clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A
@@ -3083,6 +3179,7 @@ zh-Hant:醫生|診所|醫療|診療
 el:κλινική|γιατρός
 sk:klinika|pohotovosť|zdravotnícke zariadenie|3lekár|doktor
 sw:zahanati|daktari
+fa:درمانگاه
 
 amenity-clinic
 en:^Clinic|1hospital|doctor|U+1F3E5|U+1F489
@@ -3114,6 +3211,7 @@ zh-Hans:^诊所|医院
 zh-Hant:^診所|醫院
 el:^Κλινική|νοσοκομείο|γιατρός
 sk:^Poliklinika|nemocnica|zdravotné stredisko
+fa:کلینیک|مطب
 
 amenity-doctors
 en:^Doctor|clinic|U+1F489|U+1F3E5|U+1F691|hospital
@@ -3145,6 +3243,7 @@ zh-Hans:^医师办公室|诊所|医院
 zh-Hant:^醫師診間|診所|醫院
 el:^Γιατρός|κλινική|νοσοκομείο
 sk:^Ambulancia|Poliklinika|nemocnica
+fa:دکتر
 
 amenity-dentist
 en:^Dentist
@@ -3175,6 +3274,7 @@ zh-Hans:^牙科医生
 zh-Hant:^牙醫
 el:^Οδοντίατρος
 sk:^Zubár
+fa:دندان پزشکی
 
 amenity-hunting_stand
 en:^Hunting Stand
@@ -3206,6 +3306,7 @@ zh-Hant:1^狩獵場|打獵|狩獵|獵人|獵
 el:^Βάση σκόπευσης
 sk:^Lovecké stanovisko|posiedka
 sw:^Uwanja wa mawindo
+fa:محل شکار
 
 amenity-kindergarten
 en:^Kindergarten|U+1F476|U+1F37C|U+1F6BC
@@ -3238,6 +3339,7 @@ zh-Hant:^幼兒園|1幼稚園
 el:^Νηπιαγωγείο
 sk:^Škôlka|materská škola|detská škôlka
 sw:^Chekechea
+fa:مهد کودک
 
 amenity-library
 en:3^Library|U+1F4D6
@@ -3270,6 +3372,7 @@ zh-Hant:1^圖書館
 el:^Βιβλιοθήκη
 sk:3^Knižnica
 sw:^Maktaba
+fa:کتابخانه
 
 amenity-parking|@parking
 en:U+1F697|U+1F17F|U+1F698|U+1F699
@@ -3289,6 +3392,7 @@ vi:Đỗ xe
 zh-Hans:1停车
 zh-Hant:1停車場|停車|泊車
 sw:Maegesho
+fa:پارکینگ
 
 @pharmacy
 en:3^Pharmacy
@@ -3322,6 +3426,7 @@ el:^Φαρμακείο
 he:^ביתמרקחת
 sk:3^Lekáreň
 sw:^Duka la dawa
+fa:داروخانه
 
 amenity-pharmacy|@pharmacy
 en:3drugstore|apothecary|dispensary|U+1F489|U+1F48A
@@ -3341,6 +3446,7 @@ vi:3Hiệu thuốc
 zh-Hans:药店|药剂师
 zh-Hant:成藥
 el:φαρμακείο|φαρμακοποιός|χορήγηση φαρμάκων
+داروخانه
 
 amenity-post_box
 en:3^Postbox|post|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+1F4EE|U+1F4EC|U+1F4ED
@@ -3373,6 +3479,7 @@ zh-Hant:1^郵筒|郵件
 el:^Ταχυδρομική θυρίδα|ταχυδρομείο
 sk:3^Poštová schránka|3schránka
 sw:^Sanduku la posta
+fa:صندوق پست
 
 @post
 en:3^Post
@@ -3406,6 +3513,7 @@ el:^Δημοσίευση
 he:^דואר
 sk:3^Pošta
 sw:^Posta
+fa:پست
 
 amenity-post_office|@post
 en:U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
@@ -3424,6 +3532,7 @@ tr:3Postane
 vi:Bưu điện
 zh-Hant:郵筒
 sk:poštový úrad
+fa:اداره پست
 
 amenity-waste_disposal
 en:^Dumpster|Trash|bin|garbage|waste disposal|U+1F6AE
@@ -3456,6 +3565,7 @@ zh-Hant:^垃圾|回收|回收場
 el:^Σκουπίδια
 he:^במכולה|הפשא
 sk:^Odpadky|kôš
+fa:مکان دفع زباله
 
 amenity-recycling
 en:^Recycling Center|U+1F6AE|U+267B
@@ -3487,6 +3597,7 @@ zh-Hant:^回收中心|回收站
 el:^Κέντρο ανακύκλωσης
 sk:^Zberné suroviny
 sw:^Chombo cha kutia taka
+fa:مرکز بازیافت
 
 amenity-school
 en:3^School|U+1F392|U+1F3EB
@@ -3519,6 +3630,7 @@ zh-Hant:1^學校
 el:^Σχολείο
 sk:3^Škola
 sw:^Shule|skuli
+fa:مدرسه
 
 amenity-shelter
 en:^Shelter
@@ -3551,6 +3663,7 @@ zh-Hant:1^隱藏處
 el:^Καταφύγιο
 sk:^Prístrešok|úkryt
 sw:^Malazi
+fa:پناهگاه
 
 amenity-telephone
 en:2^Phone|U+260E|U+1F4DE
@@ -3583,6 +3696,7 @@ zh-Hant:1^電話|2電話亭|2公共電話|3公用電話
 el:^Τηλέφωνο
 sk:2^Telefón|telefónna búdka|telefónny automat
 sw:^Simu
+fa:تلفن خانه
 
 @toilet
 en:3^Toilet
@@ -3616,6 +3730,7 @@ el:^Τουαλέτα
 he:^שירותים
 sk:^Záchody
 sw:^Choo
+fa:توالت
 
 amenity-toilets|@toilet
 en:wc|5restroom|4bathroom|loo|lavatory|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
@@ -3635,6 +3750,7 @@ vi:Nhà vệ sinh
 zh-Hant:2洗手間|wc
 el:μπάνιο|χώρος ανάγκης|αποχωρητήριο|wc
 sk:3Toalety|wc
+fa:توالت
 
 amenity-university
 en:4^University|U+1F393
@@ -3667,6 +3783,7 @@ zh-Hant:1^大學|學院
 el:^Πανεπιστήμιο
 sk:3^Univerzita
 sw:^Chuo
+fa:دانشگاه
 
 place-continent
 en:^Continent|U+1F30D|U+1F30E|U+1F30F
@@ -3699,6 +3816,7 @@ zh-Hant:1^大陸|洲
 el:^Ήπειρος
 sk:^Kontinent|svetadiel
 sw:^Bara
+fa:قاره
 
 place-country
 en:^Country
@@ -3731,6 +3849,7 @@ zh-Hant:^國|國家
 el:^Χώρα
 sk:^Krajina
 sw:^Nchi
+fa:کشور
 
 place-city
 en:^City|town
@@ -3763,6 +3882,7 @@ zh-Hant:1^城鎮|城市|市|鎮市
 el:^Πόλη|κωμόπολη
 sk:^Mesto
 sw:^Mji
+fa:شهر
 
 place-town
 en:^Town|city
@@ -3795,6 +3915,7 @@ zh-Hant:^鎮|城鎮|鄉|鄉鎮
 el:^Κωμόπολη|πόλη
 sk:^Mesto
 sw:^Mji mdogo
+fa:^شهر|شهرک
 
 place-city-capital
 en:^Capital|city
@@ -3827,6 +3948,7 @@ zh-Hant:1^首都|城市|市
 el:^Πρωτεύουσα|πόλη
 sk:^Hlavné mesto|metropole
 sw:^Mji mkuu
+fa:پایتخت
 
 place-county
 en:^County
@@ -3858,6 +3980,7 @@ zh-Hans:^国家
 zh-Hant:^縣
 el:^Κομητεία
 sk:^Krajina
+fa:بخش
 
 place-state
 en:^State|province
@@ -3890,6 +4013,7 @@ zh-Hant:^省|州
 el:^Πολιτεία|επαρχία
 sk:^Štát|kraj
 sw:^Jimbo
+fa:ایالت
 
 place-region
 en:^Region
@@ -3922,6 +4046,7 @@ zh-Hant:1^地區
 el:^Περιοχή
 sk:^Región|oblasť|zóna|sektor
 sw:^Mkoa
+fa:منطقه
 
 place-island|place-islet
 en:^Island|islet
@@ -3954,6 +4079,7 @@ zh-Hant:^島|小島|島嶼
 el:^Νησί|νησίδα
 sk:^Ostrov
 sw:^Kisiwa
+fa:جزیره
 
 place-suburb
 en:^Suburb|district
@@ -3986,6 +4112,7 @@ zh-Hant:1^郊區|近郊
 el:^Προάστιο|συνοικία
 sk:^Predmestie|mestská časť
 sw:^Kiunga
+fa:^حومه|حومه شهر|شهرک
 
 place-hamlet
 en:^Hamlet|village
@@ -4018,6 +4145,7 @@ zh-Hant:^村|1村莊|鄉下
 el:^Χωριουδάκι|χωριό
 sk:^Dedina
 sw:^Kijiji kidogo
+fa:^روستا|دِه
 
 place-village
 en:^Village|hamlet
@@ -4050,6 +4178,7 @@ zh-Hant:1^村莊|村|鄉下
 el:^Χωριό|χωριουδάκι
 sk:^Dedina
 sw:^Kijiji
+fa:^روستا|دِه
 
 place-locality
 en:^Locality
@@ -4082,6 +4211,7 @@ zh-Hant:1^當地|地方
 el:^Τοποθεσία
 sk:^Lokalita
 sw:^Mahali jirani
+fa:^محله|ناحیه
 
 place-farm
 en:^Farm|U+1F411|U+1F414|U+1F417|U+1F42E|U+1F404|U+1F430|U+1F407|U+1F40F|U+1F410|U+1F413|U+1F424|U+1F437|U+1F43D|U+1F69C
@@ -4114,6 +4244,7 @@ zh-Hant:1^農場|農田
 el:^Αγρόκτημα
 sk:^Farma
 sw:^Shamba
+fa:مزرعه
 
 waterway-river|waterway-stream|waterway-riverbank
 en:^River
@@ -4146,6 +4277,7 @@ zh-Hant:1^河流|河
 el:^Ποταμός
 sk:^Rieka
 sw:^Mto
+fa:رودخانه
 
 waterway-canal
 en:^Canal
@@ -4178,6 +4310,7 @@ zh-Hant:1^運河
 el:^Κανάλι
 sk:^Kanál
 sw:^Mfereji
+fa:کانال اب
 
 highway-raceway
 en:^Racetrack|U+1F3C1
@@ -4209,6 +4342,7 @@ zh-Hans:^跑马场
 zh-Hant:1^跑道|賽道|2賽車道|賽車|2賽車場
 el:^Πίστα αγώνων
 sk:^Pretekárska dráha
+fa:کانال
 
 highway-path|highway-footway|highway-steps
 en:^Path
@@ -4241,6 +4375,7 @@ zh-Hant:1^人行步道|步道
 el:^Διαδρομή
 sk:^Cesta
 sw:^Jia
+fa:مسیر
 
 highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-motorway_link|highway-motorway
 en:^Street|st|str|ave|road|rd
@@ -4273,6 +4408,7 @@ zh-Hant:^路|街
 el:2^Οδός|4Λεωφόρος|2δρόμος
 sk:^Ulica|cesta|ul
 sw:^Barabara|mtaa|barabara kuu
+fa:جاده
 
 highway-motorway_junction
 en:3^Exit|3junction
@@ -4302,6 +4438,7 @@ zh-Hant:1^交流道|出口處|高速公路|公路
 el:^Έξοδος|διασταύρωση
 sk:^Dopravný uzol|3diaľnica
 sw:^Njia panda
+fa:تقاطع
 
 natural-peak
 en:^Peak|mountain|U+1F5FB|U+1F304
@@ -4334,6 +4471,7 @@ zh-Hant:1^山峰|1山脈|山|峰
 el:^Κορυφή|βουνό
 sk:^Hora|pohorie
 sw:^Kilele|mlima
+fa:قله|کوه|کوهستان
 
 natural-water|landuse-basin|landuse-reservoir
 en:^Water
@@ -4366,6 +4504,7 @@ zh-Hant:1^水庫|盆地|休閒|大自然
 el:^Νερό
 sk:^Voda
 sw:^Maji
+fa:اب
 
 natural-pond
 en:^Pond|water
@@ -4398,6 +4537,7 @@ zh-Hant:^潭|池塘
 el:^Δεξαμενή|νερό
 sk:^Rybník|vodná nádrž|voda
 sw:^Bwawa
+fa:تالاب
 
 natural-lake
 en:^Lake|water
@@ -4430,6 +4570,7 @@ zh-Hant:1^湖泊|湖
 el:^Λίμνη|νερό
 sk:^Jazero|vodná nádrž|voda
 sw:^Ziwa
+fa:دریاچه
 
 natural-wood|landuse-forest
 en:^Forest|U+1F332|U+1F333
@@ -4462,6 +4603,7 @@ zh-Hant:1^樹林|森林|樹木
 el:^Δάσος
 sk:^Les
 sw:^Msitu
+fa:جنگل
 
 leisure-park
 en:^Park|U+1F332|U+1F333|U+1F60C
@@ -4494,6 +4636,7 @@ zh-Hant:1^公園
 el:^Πάρκο
 sk:^Park
 sw:^Mbuga
+fa:پارک
 
 tourism-hostel|@hotel
 en:3^Hostel|motel|U+1F3E8
@@ -4526,6 +4669,7 @@ zh-Hant:1^旅舍|旅館|青年旅舍|青年旅館|住宿|飯店|3汽車旅館|3m
 el:^Πανδοχείο|ξενοδοχείο|μοτέλ
 sk:3^Hostel|ubytovňa|motel
 sw:^Bweni
+fa:مسافر خانه
 
 tourism-hotel|@hotel
 en:motel|U+1F3E8|U+1F62A|U+1F634
@@ -4552,6 +4696,7 @@ zh-Hant:1飯店|1汽車旅館|旅館|住宿|賓館|酒店|招待所
 el:μοτέλ
 sk:ubytovňa|motel
 sw:Hoteli
+fa:هتل
 
 tourism-guest_house|@hotel
 en:^Guest House|hostel|U+1F3E8
@@ -4584,6 +4729,7 @@ zh-Hant:1^賓館|旅館|飯店|酒店|旅舍|住宿|招待所
 el:^Ξενώνας|ξενοδοχείο|ξενώνας
 sk:^Penzión|hostel|ubytovňa
 sw:^Gesti
+fa:مهمان خانه
 
 tourism-motel|@hotel
 en:3^Motel|hostel|U+1F3E8
@@ -4615,6 +4761,7 @@ zh-Hans:1^汽车旅馆|旅店
 zh-Hant:1^汽車旅館|3motel|旅館|飯店|住宿|
 el:^Μοτέλ|ξενοδοχείο|ξενώνας
 sk:3^Motel|penzión|hostel|ubytovňa
+fa=مُتل
 
 tourism-alpine_hut
 en:^Mountains Lodging|hotel|hostel|alpine hut|U+1F3E8
@@ -4678,6 +4825,7 @@ zh-Hant:1^理髮師|美髮師|髮型設計師
 el:^Κομμωτής
 sk:4^Kaderníctvo|4holičstvo
 sw:^Saluni
+fa:ارایشگاه
 
 aeroway-aerodrome
 en:3^Airport|3plane|U+2708
@@ -4710,6 +4858,7 @@ zh-Hant:1^機場|2航空站|3航空公司|2飛機場
 el:^Αεροδρόμιο|αεροπλάνο
 sk:3^Letisko
 sw:^Uwanja wa ndege
+fa:فرودگاه
 
 leisure-stadium
 en:^Stadium|4sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F4AA|U+1F3C9
@@ -4742,6 +4891,7 @@ zh-Hant:1^體育中心|2運動場|2體育館|體育|運動
 el:^Γήπεδο|Αθλητισμός
 sk:^Štadión|4šport
 sw:^Kiwanja cha michezo
+fa:استادیوم
 
 leisure-playground
 en:^Playground
@@ -4774,6 +4924,7 @@ zh-Hant:1^遊樂場
 el:^Παιδική χαρά
 sk:^Ihrisko
 sw:^Viwanja vya michezo
+fa:زمین بازی
 
 leisure-sports_centre
 en:^Sports Center|sport|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9
@@ -4806,6 +4957,7 @@ zh-Hant:1^體育中心|2體育館|體育|運動|健身
 el:^Αθλητικό κέντρο|Αθλητισμός
 sk:^Športové centrum|šport
 sw:^Viwanja vya michezo
+fa:مرکزورزشی
 
 leisure-golf_course
 en:^Golf Course|sport|U+26F3
@@ -4838,6 +4990,7 @@ zh-Hant:3^高爾夫球場|2高爾夫球|高爾夫|體育|運動
 el:^Γήπεδο γκολφ|Αθλητισμός
 sk:^Golf|šport
 sw:^Uwanja wa gofu|michezo
+fa:زمین گلف
 
 leisure-pitch
 en:^Sports Ground|sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F3C9|U+1F3C3
@@ -4870,6 +5023,7 @@ zh-Hant:2^運動場|體育館|球場|2足球場|體育|運動|健身
 el:^Γήπεδο αθλοπαιδιών|Αθλητισμός
 sk:^Športovisko|šport
 sw:^Uwanja|michezo
+fa:زمین ورزشی
 
 leisure-swimming_pool
 en:4^Swimming Pool|sport|U+1F3CA
@@ -4902,6 +5056,7 @@ zh-Hant:2^游泳池|游泳|玩水
 el:^Πισίνα|Αθλητισμός
 sk:4^Kúpalisko|3bazén|aquapark|4kúpele
 sw:^Bwawa la kuogelea
+fa:استخرشنا
 
 sport-equestrian
 en:Equestrian Sports
@@ -4925,6 +5080,7 @@ hu:^Kosárlabda
 nl:^Basketbal
 pt-BR:^Basquetebol
 da:^Basketball
+fa:بسکتبال
 
 sport-athletics
 en:^Athletics
@@ -4969,6 +5125,7 @@ zh-Hant:1^建築物
 el:^Κτίριο
 sk:^Budova|stavba
 sw:^Jengo
+fa:ساختمان
 
 @police
 en:4^Police
@@ -5002,6 +5159,7 @@ el:^Αστυνομία
 he:^משטרה
 sk:3^Polícia
 sw:^Polisi
+fa:پلیس
 
 amenity-police|@police
 en:U+1F693|U+1F46E|U+1F694|U+1F482|U+1F6A8
@@ -5019,6 +5177,7 @@ uk:4Поліція
 vi:Cảnh sát
 zh-Hant:警察|警員
 sk:3policajná stanica
+fa:^کلانتری|اگاهی
 
 amenity-embassy
 en:4^Embassy
@@ -5051,6 +5210,7 @@ zh-Hant:1^大使館|使館
 el:^Πρεσβεία
 sk:4^Veľvyslanectvo|4ambasáda
 sw:^Ubalozi
+fa:سفارت
 
 natural-bay
 en:^Bay
@@ -5082,6 +5242,7 @@ zh-Hant:1^海灣|灣|灣區
 el:^Κόλπος
 sk:^Záliv
 sw:^Ghuba
+fa:خلیج
 
 natural-spring
 en:^Spring
@@ -5114,6 +5275,7 @@ zh-Hant:1^泉水|泉|玩水
 el:^Άνοιξη
 sk:^Prameň
 sw:^Chemchemi
+fa:چشمه
 
 shop-car_repair
 en:3^Car Repair Shop|4service station|auto|garage|U+1F527
@@ -5146,6 +5308,7 @@ zh-Hant:1^汽車維修|維修|汽車|修理
 el:^Κατάστημα επισκευής αυτοκινήτων|Σταθμός επισκευής|αυτόματο|γκαράζ
 sk:3^Autoservis|autoopravovňa
 sw:^Fundi wa gari
+fa:تعمیرگاه ماشین
 
 tourism-camp_site
 en:4^Camping|campsite|campground|U+26FA
@@ -5178,6 +5341,7 @@ zh-Hant:^露營|營地|營區|2露營區
 el:^Κάμπινγκ|χώρος κάμπινγκ|χώρος κατασκήνωσης
 sk:4^Camping|kemp|camp|kemping|kempovanie
 sw:^Kambi
+fa:محل چادر زنی
 
 tourism-caravan_site
 en:4^Caravan Site|RV site|U+1F69A|U+26FA|U+1F69B
@@ -5242,6 +5406,7 @@ sk:^Kancelária|úrad
 el:^Γραφείο|εταιρεία
 sk:^Kancelária|úrad
 sw:^Ofisi|kampuni
+fa:اداره
 
 office-company
 en:^Company Office
@@ -5272,6 +5437,7 @@ zh-Hans:^公司办公室
 zh-Hant:^公司辦公室
 el:^Γραφείο επιχείρησης
 sk:^Sídlo spoločnosti
+fa:دفتر شرکت
 
 office-government
 en:^Government Office
@@ -5303,6 +5469,7 @@ zh-Hant:^政府辦公室|政府機關
 el:^Κυβερνητικό γραφείο
 sk:^Štátny úrad
 sw:^Ofisi ya serikali
+fa:اداره دولتی
 
 office-lawyer
 en:^Lawyer|advocate|attorney|barrister|counsel|councellor|solicitor
@@ -5333,6 +5500,7 @@ zh-Hans:^律师事务所
 zh-Hant:^律師事務所
 el:^Δικηγόρος|υπεράσπιση|πληρεξούσιος|συνήγορος|σύνεδρος|σύμβουλος|νομικός
 sk:^Advokátska kancelária
+fa:دفتر وکالت
 
 office-telecommunication
 en:^Mobile Operator
@@ -5363,6 +5531,7 @@ zh-Hans:^移动运营商
 zh-Hant:^行動電話業者|電信業者
 el:^Εταιρεία κινητής τηλεφωνίας
 sk:^Mobilný operátor
+fa:اپراتور تلفن همراه
 
 craft-brewery
 en:^Brewery
@@ -5393,6 +5562,7 @@ zh-Hans:^酿酒厂
 zh-Hant:^釀酒廠
 el:^Ζυθοποιείο
 sk:^Pivovar
+fa:کارخانه ابجوسازی
 
 craft-carpenter
 en:^Carpenter
@@ -5423,6 +5593,7 @@ zh-Hans:^木工
 zh-Hant:^木工
 el:^Ξυλουργός
 sk:^Tesár
+fa:نجار
 
 craft-electrician
 en:^Electrician
@@ -5453,6 +5624,7 @@ zh-Hans:^电工
 zh-Hant:^電工
 el:^Ηλεκτρολόγος
 sk:^Elektrikár
+fa:برق کار
 
 craft-gardener
 en:^Gardener|Landscaper
@@ -5483,6 +5655,7 @@ zh-Hans:^园林设计师
 zh-Hant:^園藝師
 el:^Κηπουρός|Κηποτέχνης
 sk:^Záhradníctvo
+fa:باغبان
 
 craft-hvac
 en:^Hvac|Air Conditioner
@@ -5544,6 +5717,7 @@ zh-Hans:^金属制造工
 zh-Hant:^鐵工
 el:^Μεταλλουργός
 sk:^Kovorobotník|kovospracovanie
+fa:اهن کار
 
 craft-painter
 en:^Painter
@@ -5574,6 +5748,7 @@ zh-Hans:^油漆匠
 zh-Hant:^油漆工
 el:^Ζωγράφος
 sk:^Maliar natierač
+fa:نقاش
 
 craft-photographer
 en:^Photographer|photography Studio
@@ -5605,6 +5780,7 @@ zh-Hans:^摄影师
 zh-Hant:^攝影師
 el:^Φωτογράφος|Στούντιο φωτογραφίας
 sk:^Fotograf|fotoateliér
+fa:عکاس
 
 craft-plumber
 en:^Plumber
@@ -5635,6 +5811,7 @@ zh-Hans:^管道工
 zh-Hant:^水管工人|水電工
 el:^Υδραυλικός
 sk:^Klampiarstvo
+fa:لوله کش
 
 craft-shoemaker
 en:^Shoe Repair
@@ -5665,6 +5842,7 @@ zh-Hans:^修鞋匠
 zh-Hant:^修鞋工
 el:^Επισκευή υποδημάτων
 sk:^Oprava obuvy
+fa:کفاش
 
 craft-tailor
 en:^Tailor
@@ -5695,6 +5873,7 @@ zh-Hans:^裁缝
 zh-Hant:^裁縫師
 el:^Ράφτης
 sk:^Krajčírstvo
+fa:خیاط
 
 area:highway-footway|area:highway-pedestrian|area:highway-steps
 en:^Square
@@ -5726,6 +5905,7 @@ zh-Hans:^广场
 zh-Hant:^廣場
 el:^Πλατεία
 sk:^Námestie
+fa:میدان
 
 place-sea
 en:^Sea|U+1F30A
@@ -5758,6 +5938,7 @@ zh-Hant:^海
 el:^Θάλασσα
 sk:^More
 sw:^Bahari
+fa:دریا
 
 place-ocean
 en:^Ocean|U+1F30A
@@ -5790,6 +5971,7 @@ zh-Hant:^海洋
 el:^Ωκεανός
 sk:^Oceán
 sw:^Bahari
+fa:اقیانوس
 
 @wifi
 en:WiFi|Wi-Fi
@@ -5822,6 +6004,7 @@ zh-Hant:無線網路
 el:WiFi|Wi-Fi
 sk:WiFi|Wi-Fi
 sw:WiFi|Wi-Fi
+fa:وای فای
 
 internet_access|internet_access-wlan|@wifi
 en:3^Internet|U+1F4F6
@@ -5853,6 +6036,7 @@ zh-Hant:3^互聯網|WiFi|3Internet
 el:^Ίντερνετ
 sk:3^Internet
 sw:^Intaneti
+fa:اینترنت
 
 natural-beach
 en:^Beach|U+1F459
@@ -5884,6 +6068,7 @@ zh-Hans:^海滩
 zh-Hant:^海灘
 el:^Παραλία
 sw:^Pwani
+fa:ساحل
 
 highway-speed_camera
 en:3^Speed Camera
@@ -5915,6 +6100,7 @@ zh-Hans:^测速照相机
 zh-Hant:^測速照相機
 el:^Κάμερα ταχύτητας
 sk:^Rýchlostná kamera
+fa:دوربین سرعت سنج 
 
 man_made-lighthouse
 en:^Lighthouse
@@ -5946,6 +6132,7 @@ zh-Hans:^灯塔
 zh-Hant:^燈塔
 el:^Φάρος
 sk:^Maják
+fa:فانوس دریایی
 
 shop-copyshop
 en:^Copy Shop|Printer
@@ -5976,6 +6163,7 @@ zh-Hans:^复印店|打印机
 zh-Hant:^復印店|打印機
 el:^Φωτοτυπείο|Εκτυπωτής
 sk:^Kopírovacie služby|Tlačiarne
+fa:فروشگاه چاپ و تکثیر
 
 shop-photo|@shop
 en:^Photo Shop|frames
@@ -6038,6 +6226,7 @@ zh-Hans:^旅行社|游览
 zh-Hant:^旅行社|遊覽
 el:^Ταξιδιωτικό γραφείο|Περιηγήσεις
 sk:^Cestovná kancelária|Zájazdy
+fa:اژانس مسافرتی
 
 shop-outdoor|@shop
 en:^Outdoor Equipment|trekking|climbing|camping
@@ -6100,6 +6289,7 @@ zh-Hans:^干洗|清洁
 zh-Hant:^乾洗|清潔
 el:^Στεγνό καθάρισμα|καθαρισμός
 sk:^Čistiareň|čistenie
+fa:خشک شویی
 
 shop-tyres|@shop
 en:^Tyre Shop
@@ -6131,6 +6321,7 @@ zh-Hans:^轮胎店|商店
 zh-Hant:^輪胎店|商店
 el:^Κατάστημα ελαστικών|κατάστημα
 sk:^Obchod s pneumatikami
+fa:فروشگاه لاستیک
 
 amenity-car_wash
 en:^Car Wash
@@ -6162,6 +6353,7 @@ zh-Hans:^洗车
 zh-Hant:^洗車
 el:^Πλύσιμο αυτοκινήτων
 sk:^Autoumývareň
+fa:کارواش
 
 amenity-veterinary
 en:^Veterinary Doctor
@@ -6193,6 +6385,7 @@ zh-Hans:^兽医
 zh-Hant:^獸醫
 el:^Κτηνίατρος
 sk:^Veterinár
+fa:دامپزشکی
 
 amenity-charging_station
 en:^Charging Station|charging
@@ -6224,6 +6417,7 @@ zh-Hans:^充电站|充电
 zh-Hant:^充電站|充電
 el:^Σταθμός φόρτισης|φόρτιση
 sk:^Dobíjacia stanica|dobíjanie
+fa:ایستگاه شارژ
 
 amenity-childcare
 en:^Nursery|Child Care
@@ -6255,6 +6449,7 @@ zh-Hans:^托儿所|儿童看护
 zh-Hant:^保育|幼兒園|兒童看護
 el:^Βρεφικός σταθμός|Φροντίδα παιδιών
 sk:^Jasle|Starostlivosť o deti
+fa:شیرخوارگاه
 
 amenity-bicycle_parking
 en:^Bicycle Parking
@@ -6286,6 +6481,7 @@ zh-Hans:^自行车存放处
 zh-Hant:^腳踏車停放區
 el:^Χώρος στάθμευσης ποδηλάτων
 sk:^Stojan na bicykle
+fa:پارکینگ دوچرخه
 
 amenity-waste_basket
 en:^Trash Bin|Litter Bin|Waste Basket
@@ -6317,6 +6513,7 @@ zh-Hans:^垃圾篓
 zh-Hant:^垃圾箱
 el:^Κάδος απορριμμάτων|Δοχείο απορριμάτων|Καλάθι αποβλήτων
 sk:^Odpadkový kôš
+fa:سطل زباله
 
 emergency-phone
 en:^Emergency Phone
@@ -6350,6 +6547,7 @@ el:^τηλεφώνου έκτακτης ανάγκης
 he:^טלפון חירום
 sk:^Tiesňového volania
 sw:^Simu ya dharura
+fa:تلفن اضطراری
 
 leisure-fitness_centre
 en:^Fitness Centre|Gym|U+1F4AA
@@ -6381,6 +6579,7 @@ zh-Hans:^健身中心|健身房
 zh-Hant:^健身中心|健身房
 el:^Λέντρο γυμναστικής|Γυμναστήριο
 sk:^Fitnescentrum|telocvičňa
+fa:باشگاه بدنسازی
 
 leisure-sauna
 en:^Sauna
@@ -6412,6 +6611,7 @@ zh-Hans:^桑拿
 zh-Hant:^桑拿
 el:^Σάουνα
 sk:^Sauna
+fa:سونا
 
 man_made-water_well
 en:^Water Well
@@ -6443,6 +6643,7 @@ zh-Hans:^水井
 zh-Hant:^水井
 el:^Πηγάδι νερού
 sk:^Studňa
+fa:چاه اب
 
 shop-car_repair-tyres
 en:^Tyre Repair|tire repair|tyre|tire
@@ -6474,6 +6675,7 @@ zh-Hans:^轮胎修理
 zh-Hant:^輪胎修補
 el:^Επισκευή ελαστικών|επισκευή ελαστικών|ελαστικά|λάστιχα
 sk:^Pneuservis
+fa:^اپاراتی|پنچرگیری
 
 shop-chemist|@shop
 en:^Chemist Shop
@@ -6506,6 +6708,7 @@ zh-Hant:^藥妝店
 el:^Κατάστημα χημικών
 sk:^Drogéria
 sw:^Duka la Kemikali na Dawa za Nyumbani
+fa:فروشگاه مواد شیمیایی
 
 shop-pet|@shop
 en:^Petshop
@@ -6537,6 +6740,7 @@ zh-Hans:^宠物店
 zh-Hant:^寵物店
 el:^Κατάστημα για κατοικίδια
 sk:^Obchod zo zvieratami
+fa:فروشگاه حیوانات خانگی
 
 tourism-zoo|@tourism
 en:2^Zoo
@@ -6570,6 +6774,7 @@ el:^Ζωολογικός κήπος
 he:^גַן חַיוֹת
 sk:^Zoologická záhrada
 sw:^Zoo
+fa:باغ وحش
 
 tourism-information-office|@tourism
 en:^Tourist Office
@@ -6601,6 +6806,7 @@ zh-Hans:^旅游服务处
 zh-Hant:^旅遊辦事處
 el:^Τουριστικό γραφείο
 sk:^Turistické informačné centrum
+fa:دفتر گردشگری
 
 amenity-community_centre
 en:^Community Centre
@@ -6632,6 +6838,7 @@ zh-Hans:^社区中心
 zh-Hant:^社區活動中心
 el:^Κέντρο κοινότητας
 sk:^Dom kultúry
+fa:مرکزاجتماعی
 
 amenity-courthouse
 en:^Courthouse
@@ -6663,6 +6870,7 @@ zh-Hans:^法院
 zh-Hant:^法院
 el:^Δικαστικό μέγαρο
 sk:^Súd
+fa:دادگاه
 
 amenity-vending_machine-cigarettes
 en:^Cigarette Dispenser
@@ -6694,6 +6902,7 @@ zh-Hans:^自动售烟机
 zh-Hant:^香菸自動販賣機
 el:^Τσιγαροθήκη
 sk:^Automat na cigarety
+fa:ماشین سیگار فروشی
 
 amenity-vending_machine-drinks
 en:^Drink Dispenser
@@ -6725,6 +6934,7 @@ zh-Hans:^饮料售卖机
 zh-Hant:^飲料自動販賣機
 el:^Δοχείο για ποτά
 sk:^Nápojový automat
+fa:ماشین فروش نوشیدنی
 
 building-garage
 en:^Garage
@@ -6756,6 +6966,7 @@ zh-Hans:^车库
 zh-Hant:^車庫
 el:^Γκαράζ
 sk:^Garáž
+fa:گاراژ
 
 highway-rest_area
 en:^Highway Rest Area
@@ -6818,6 +7029,7 @@ zh-Hans:^交通信号灯
 zh-Hant:^紅綠燈
 el:^Φανάρια κυκλοφορίας
 sk:^Semafor
+fa:چراغ راهنما
 
 man_made-chimney
 en:^Factory Chimney
@@ -6880,6 +7092,7 @@ zh-Hans:^高塔
 zh-Hant:^塔
 el:^Πύργος
 sk:^Veža
+fa:برج
 
 power-substation
 en:^Substation
@@ -6942,6 +7155,7 @@ zh-Hans:^做书店
 zh-Hant:^賭博業者
 el:^Πράκτορας στοιχημάτων
 sk:^Stávková kancelária
+fa:صحافی
 
 shop-seafood|@shop
 en:^Seafood Shop
@@ -6973,6 +7187,7 @@ zh-Hans:^鱼商
 zh-Hant:^魚販
 el:^Κατάστημα με θαλασσινά
 sk:^Obchodník s rybami
+fa:فروشگاه غذای دریایی
 
 shop-ticket|@shop
 en:^Ticket Shop
@@ -7004,6 +7219,7 @@ zh-Hans:^售票处
 zh-Hant:^售票處
 el:^Κατάστημα πώλησης εισιτηρίων
 sk:^Pokladnica
+fa:بلیط فروشی
 
 shop-wine|@shop
 en:^Wine Shop
@@ -7035,6 +7251,7 @@ zh-Hans:^酒店
 zh-Hant:^販酒處
 el:^Οινοπωλείο
 sk:^Vinotéka
+fa:مشروب فروشی
 
 shop-car_parts|@shop
 en:^Car Parts
@@ -7068,6 +7285,7 @@ el:^Εξαρτήματα αυτοκινήτου
 he:^תינוכמ יקלח
 sk:^Autodiely
 sw:^Vipuri vya magari
+fa:لوازم یدکی
 
 tourism-chalet|@hotel
 en:^Chalet
@@ -7099,6 +7317,7 @@ zh-Hans:^木屋
 zh-Hant:^木屋
 el:^Σαλέ
 sk:^Chata
+fa:کلبه
 
 tourism-information-board|@tourism
 en:^Information Board
@@ -7130,6 +7349,7 @@ zh-Hans:^公告板
 zh-Hant:^資訊中心
 el:^Πίνακας πληροφοριών
 sk:^Informačné centrum
+fa:تابلو اعلانات 
 
 tourism-information-map|@tourism
 en:^Tourist Map
@@ -7161,6 +7381,7 @@ zh-Hans:^旅游地图
 zh-Hant:^旅遊地圖
 el:^Τουριστικός χάρτης
 sk:^Turistická mapa
+fa:نقشه گردشگری
 
 aerialway-station
 en:^Aerialway Station|Cable Car Station
@@ -7223,6 +7444,7 @@ zh-Hans:^直升机停机坪
 zh-Hant:^直升機停機坪
 el:^Ελικοδρόμιο
 sk:^Pristávacia plocha pre vrtuľníky
+fa:پد فرود بالگرد
 
 amenity-vending_machine-parking_tickets
 en:^Parking Tickets
@@ -7254,6 +7476,7 @@ zh-Hans:^停车场付费机
 zh-Hant:^違規停車罰單繳費機
 el:^Εισιτήρια στάθμευσης
 sk:^Automat na výdaj parkovacích lístkov
+fa:پارکو متر
 
 barrier-block
 en:^Block
@@ -7285,6 +7508,7 @@ zh-Hans:^障碍
 zh-Hant:^街區
 el:^Αποκλεισμός
 sk:^Blok
+fa:بلوک|حفاظ
 
 barrier-bollard
 en:^Pillar
@@ -7316,6 +7540,7 @@ zh-Hans:^柱子
 zh-Hant:^柱
 el:^Πυλώνας
 sk:^Pilier
+fa:ستون
 
 barrier-border_control
 en:^Border Control
@@ -7347,6 +7572,7 @@ zh-Hans:^边检
 zh-Hant:^邊境管制
 el:^Έλεγχος συνόρων
 sk:^Hraničná kontrola
+fa:کنترل مرزی
 
 barrier-entrance
 en:^Entrance
@@ -7378,6 +7604,7 @@ zh-Hans:^入口
 zh-Hant:^入口
 el:^Είσοδος
 sk:^Vstup
+fa:ورودی
 
 barrier-gate
 en:^Gate
@@ -7409,6 +7636,7 @@ zh-Hans:^门
 zh-Hant:^大門
 el:^Πύλη
 sk:^Brána
+fa:ورودی
 
 barrier-lift_gate
 en:^Lift Gate
@@ -7440,6 +7668,7 @@ zh-Hans:^水栅门
 zh-Hant:^遮斷機
 el:^Πόρτα φόρτωσης
 sk:^Závora
+fa:اسانسور
 
 barrier-stile
 en:^Stile
@@ -7471,6 +7700,7 @@ zh-Hans:^台阶
 zh-Hant:^梯磴
 el:^Σκαλοπάτι
 sk:^Turniket
+fa:پلکان
 
 barrier-toll_booth
 en:^Toll Booth
@@ -7502,6 +7732,7 @@ zh-Hans:^收费亭
 zh-Hant:^收費站
 el:^Σταθμός διοδίων
 sk:^Mýtne
+fa:گیشه عوارضی
 
 entrance
 en:^Entrance
@@ -7533,6 +7764,7 @@ zh-Hans:^入口
 zh-Hant:^入口
 el:^Είσοδος
 sk:^Vstup
+fa:ورودی
 
 leisure-water_park
 en:^Water Park
@@ -7564,6 +7796,7 @@ zh-Hans:^水上乐园
 zh-Hant:^水上樂園
 el:^Υδάτινο πάρκο
 sk:^Vodný park
+fa:پارک ابی
 
 man_made-water_tower
 en:^Water Tower
@@ -7595,6 +7828,7 @@ zh-Hans:^水塔
 zh-Hant:^水塔
 el:^Πύργος νερού
 sk:^Vodojem
+fa:منبع اب
 
 man_made-windmill
 en:^Windmill
@@ -7626,6 +7860,7 @@ zh-Hans:^风车
 zh-Hant:^風車
 el:^Ανεμόμυλος
 sk:^Veterný mlyn
+fa:توربین بادی
 
 military-bunker
 en:^Bunker
@@ -7657,6 +7892,7 @@ zh-Hans:^地堡
 zh-Hant:^地堡
 el:^Αποθήκη
 sk:^Bunker
+fa:پناهگاه
 
 natural-cave_entrance
 en:^Cave Entrance
@@ -7688,6 +7924,7 @@ zh-Hans:^山洞入口
 zh-Hant:^洞穴入口
 el:^Είσοδος σπηλαίου
 sk:^Vstup do jaskyne
+fa:ورودی غار
 
 natural-tree
 en:^Tree
@@ -7719,6 +7956,7 @@ zh-Hans:^树
 zh-Hant:^樹
 el:^Δέντρο
 sk:^Strom
+fa:درخت
 
 natural-volcano
 en:^Volcano
@@ -7750,6 +7988,7 @@ zh-Hans:^火山
 zh-Hant:^火山
 el:^Ηφαίστειο
 sk:^Vulkán
+fa:اتشفشان
 
 office-estate_agent
 en:^Estate Agent|Realtor
@@ -7781,6 +8020,7 @@ zh-Hans:^房屋中介
 zh-Hant:^地產代理
 el:^Κτηματομεσίτης|Μεσίτης
 sk:^Realitný agent
+fa:بنگاه معاملات ملکی
 
 power-pole|power-tower
 en:^Power Tower
@@ -7812,6 +8052,7 @@ zh-Hans:^电线杆
 zh-Hant:^電塔
 el:^Μπάρα γυμναστικής
 sk:^Stĺp elektrického vedenia
+fa:برج قدرت
 
 waterway-lock_gate
 en:^Lock Gate
@@ -7905,6 +8146,7 @@ zh-Hans:^攀登中心
 zh-Hant:^攀登中心
 el:^Κέντρο αναρρίχησης
 sk:^Lezecké centrum
+fa:مرکز صعود
 
 leisure-sports_centre-shooting
 en:^Shooting Range|rifle range
@@ -7936,6 +8178,7 @@ zh-Hans:^射击域
 zh-Hant:^射擊域
 el:^Σκοπευτήριο|βεληνεκές
 sk:^Strelnica
+fa:محل تیراندازی
 
 leisure-sports_centre-swimming
 en:^Swimming Centre|swimming pool
@@ -7967,6 +8210,7 @@ zh-Hans:^游泳中心
 zh-Hant:^遊泳中心
 el:^Κολυμβητήριο|πισίνα
 sk:^Plavecký areál
+fa:استخرشنا
 
 leisure-sports_centre-yoga
 en:^Yoga Studio
@@ -7998,6 +8242,7 @@ zh-Hans:^瑜伽工作室
 zh-Hant:^瑜伽工作室
 el:^Στούντιο γιόγκα
 sk:^Štúdio jogy
+fa:سالن یوگا
 
 tourism-apartment|@hotel
 en:^Apartments
@@ -8029,6 +8274,7 @@ zh-Hans:^公寓
 zh-Hant:^公寓
 el:^Διαμερίσματα
 sk:^Apartmány
+fa:^اپارتمان|سوئیت
 
 tourism-resort|@hotel
 en:^Resort
@@ -8060,6 +8306,7 @@ zh-Hans:^度假村
 zh-Hant:^度假酒店
 el:^Θέρετρο
 sk:^Rezort
+fa:تفریحگاه
 
 amenity-biergarten|@food
 en:^Biergarten
@@ -8123,6 +8370,7 @@ uk:^Автошкола
 vi:^Trường lái xe
 zh-Hans:^驾校
 zh-Hant:^駕訓班
+fa:اموزشگاه رانندگی
 
 amenity-ice_cream|@food
 en:^Ice Cream Stand
@@ -8155,6 +8403,7 @@ uk:^Кіоск з морозивом
 vi:^Quầy kem
 zh-Hans:^冰淇淋摊
 zh-Hant:^冰淇淋攤
+fa:بستنی فروشی
 
 amenity-internet_cafe
 en:^Internet Cafe
@@ -8187,6 +8436,7 @@ uk:^Інтернет-кафе
 vi:^Quán Internet
 zh-Hans:^网吧
 zh-Hant:^網路咖啡店
+fa:کافی نت
 
 amenity-motorcycle_parking
 en:^Motorcycle Parking
@@ -8219,6 +8469,7 @@ uk:^Парковка для мотоциклів
 vi:^Bãi đỗ xe máy
 zh-Hans:^摩托车停车场
 zh-Hant:^機車停車格
+fa:پارکینگ موتورسیکلت
 
 amenity-nursing_home
 en:^Nursing Home
@@ -8251,6 +8502,7 @@ uk:^Будинок для людей похилого віку
 vi:^Nhà dưỡng lão
 zh-Hans:^养老院
 zh-Hant:^養老院
+fa:خانه سالمندان
 
 amenity-payment_terminal
 en:^Payment Terminal
@@ -8315,6 +8567,7 @@ uk:^Душ
 vi:^Nhà tắm
 zh-Hans:^淋浴
 zh-Hant:^淋浴間
+fa:حمام
 
 amenity-water_point
 en:^Water Point
@@ -8379,6 +8632,7 @@ uk:^Дефібрилятор
 vi:^Máy khử rung tim
 zh-Hans:^除颤器
 zh-Hant:^心臟電擊器
+fa:دستگاه شوک
 
 emergency-fire_hydrant
 en:^Fire Hydrant
@@ -8411,6 +8665,7 @@ uk:^Пожежний кран
 vi:^Vòi chữa cháy
 zh-Hans:^消防栓
 zh-Hant:^消防栓
+fa:شیراتش نشانی
 
 leisure-fitness_station
 en:^Fitness Station
@@ -8443,6 +8698,7 @@ uk:^Фітнес-зал
 vi:^Trạm tập thể hình
 zh-Hans:^健身驿站
 zh-Hant:^健身房
+fa:پارک سلامت
 
 man_made-surveillance
 en:^Surveillance Camera
@@ -8475,6 +8731,7 @@ uk:^Камера спостереження
 vi:^Camera giám sát
 zh-Hans:^监控摄像头
 zh-Hant:^監控攝影機
+fa:دوربین نظارتی
 
 man_made-water_tap
 en:^Water Tap
@@ -8507,6 +8764,7 @@ uk:^Водопровідний кран
 vi:^Vòi nước
 zh-Hans:^水龙头
 zh-Hant:^水龍頭
+fa:شیراب
 
 office-insurance
 en:^Insurance Office
@@ -8539,6 +8797,7 @@ uk:^Офіс страхової компанії
 vi:^Văn phòng bảo hiểm
 zh-Hans:^保险机构
 zh-Hant:^保險公司
+fa:دفتر بیمه
 
 office-ngo
 en:^NGO Office
@@ -8571,6 +8830,7 @@ uk:^Офіс громадської організації
 vi:^Văn phòng NGO
 zh-Hans:^非政府组织办公室
 zh-Hant:^非政府組織辦公室
+fa:دفتر سازمان خیریه
 
 shop-erotic|@shop
 en:^Erotic Shop
@@ -8603,6 +8863,7 @@ uk:^Секс-шоп
 vi:^Cửa hàng người lớn
 zh-Hans:^成人用品店
 zh-Hant:^情趣用品店
+fa:فروشگاه لوازم جنسی
 
 shop-funeral_directors
 en:^Funeral Directors
@@ -8667,6 +8928,7 @@ uk:^Масажний кабінет
 vi:^Quán massage
 zh-Hans:^按摩院
 zh-Hant:^按摩館
+fa:سالن ماساژ
 
 shop-motorcycle|@shop
 en:^Motorcycle Shop
@@ -8699,6 +8961,7 @@ uk:^Магазин мотоциклів
 vi:^Cửa hàng xe máy
 zh-Hans:^摩托车商店
 zh-Hant:^機車行
+fa:فروشگاه موتورسیکلت
 
 shop-newsagent|@shop
 en:^Newspaper Stand
@@ -8731,6 +8994,7 @@ uk:^Газетний кіоск
 vi:^Quầy báo
 zh-Hans:^报刊亭
 zh-Hant:^報攤
+fa:دَکه روزنامه فروشی
 
 shop-pawnbroker
 en:^Pawnbroker
@@ -8795,6 +9059,7 @@ uk:^Магазин канцелярських товарів
 vi:^Cửa hàng văn phòng phẩm
 zh-Hans:^文具店
 zh-Hant:^文具用品店
+fa:^لوازم التحریر|نوشت افزار
 
 shop-tattoo
 en:^Tattoo Parlour
@@ -8827,6 +9092,7 @@ uk:^Тату-салон
 vi:^Tiệm xăm
 zh-Hans:^纹身店
 zh-Hant:^刺青店
+fa:سالن خالکوبی
 
 shop-variety_store|@shop
 en:^Variety Store
@@ -8859,6 +9125,7 @@ uk:^Магазин господарських товарів
 vi:^Cửa hàng tiện lợi
 zh-Hans:^杂货店
 zh-Hant:^雜貨店
+fa:خرازی
 
 tourism-wilderness_hut|@hotel
 en:^Wilderness Hut
