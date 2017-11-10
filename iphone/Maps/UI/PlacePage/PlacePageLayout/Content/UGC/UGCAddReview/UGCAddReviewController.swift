@@ -19,7 +19,7 @@ final class UGCAddReviewController: MWMTableViewController {
   private var model: Model! {
     didSet {
       sections = []
-      assert(!model.ratings.isEmpty);
+      assert(!model.ratings.isEmpty)
       sections.append(.ratings)
       sections.append(.text)
     }
@@ -36,7 +36,7 @@ final class UGCAddReviewController: MWMTableViewController {
 
   override func backTap() {
     guard let nc = navigationController else { return }
-    Statistics.logEvent(kStatUGCReviewCancel);
+    Statistics.logEvent(kStatUGCReviewCancel)
     nc.popToRootViewController(animated: true)
   }
 
@@ -55,20 +55,20 @@ final class UGCAddReviewController: MWMTableViewController {
 
   @objc private func onDone() {
     guard let text = textCell?.reviewText else {
-      assert(false);
+      assert(false)
       return
     }
     Statistics.logEvent(kStatUGCReviewSuccess)
     model.text = text
     onSave(model)
     guard let nc = navigationController else { return }
-    if MWMAuthorizationViewModel.isAuthenticated() {
+    if MWMPlatform.networkConnectionType() == .none || MWMAuthorizationViewModel.isAuthenticated() {
       nc.popViewController(animated: true)
     } else {
-      Statistics.logEvent(kStatUGCReviewAuthShown, withParameters: [kStatFrom : kStatAfterSave])
+      Statistics.logEvent(kStatUGCReviewAuthShown, withParameters: [kStatFrom: kStatAfterSave])
       let authVC = AuthorizationViewController(barButtonItem: navigationItem.rightBarButtonItem!,
                                                completion: { nc.popToRootViewController(animated: true) })
-      present(authVC, animated: true, completion: nil);
+      present(authVC, animated: true, completion: nil)
     }
   }
 
@@ -92,7 +92,7 @@ final class UGCAddReviewController: MWMTableViewController {
     case .text:
       let cell = tableView.dequeueReusableCell(withCellClass: UGCAddReviewTextCell.self, indexPath: indexPath) as! UGCAddReviewTextCell
       cell.reviewText = model.text
-      textCell = cell;
+      textCell = cell
       return cell
     }
   }

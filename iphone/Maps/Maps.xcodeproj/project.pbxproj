@@ -220,6 +220,9 @@
 		343E75971E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		343E75981E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		343E75991E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
+		343F5A821FB6102A007DF002 /* MWMPlatform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F5A811FB6102A007DF002 /* MWMPlatform.mm */; };
+		343F5A831FB6102A007DF002 /* MWMPlatform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F5A811FB6102A007DF002 /* MWMPlatform.mm */; };
+		343F5A841FB6102A007DF002 /* MWMPlatform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F5A811FB6102A007DF002 /* MWMPlatform.mm */; };
 		3444DFCC1F1760B900E73099 /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFCB1F1760B900E73099 /* WidgetsArea.swift */; };
 		3444DFCD1F1760B900E73099 /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFCB1F1760B900E73099 /* WidgetsArea.swift */; };
 		3444DFCE1F1760B900E73099 /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFCB1F1760B900E73099 /* WidgetsArea.swift */; };
@@ -1978,6 +1981,8 @@
 		3430643F1E9FDC7300DC7665 /* SearchIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchIndex.swift; sourceTree = "<group>"; };
 		343E75951E5B1EE20041226A /* MWMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCollectionViewController.h; sourceTree = "<group>"; };
 		343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCollectionViewController.mm; sourceTree = "<group>"; };
+		343F5A801FB6102A007DF002 /* MWMPlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPlatform.h; sourceTree = "<group>"; };
+		343F5A811FB6102A007DF002 /* MWMPlatform.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlatform.mm; sourceTree = "<group>"; };
 		3444DFCB1F1760B900E73099 /* WidgetsArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetsArea.swift; sourceTree = "<group>"; };
 		3444DFCF1F17620C00E73099 /* MWMMapWidgetsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgetsHelper.h; sourceTree = "<group>"; };
 		3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgetsHelper.mm; sourceTree = "<group>"; };
@@ -3198,16 +3203,17 @@
 		340475281E081A4600C92850 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				34763EE31F2F392300F4D2D3 /* TextToSpeech */,
 				34F4071C1E9E1AFF00E57AC0 /* Ads */,
 				3486B50F1E27AD3B0069C126 /* Framework */,
 				340475291E081A4600C92850 /* Location */,
 				340475301E081A4600C92850 /* NetworkPolicy */,
 				3486B5041E27A4B50069C126 /* Notifications */,
+				343F5A7F1FB61012007DF002 /* Platform */,
 				340475331E081A4600C92850 /* Routing */,
 				340475391E081A4600C92850 /* Search */,
 				3404753F1E081A4600C92850 /* Settings */,
 				340475421E081A4600C92850 /* Storage */,
+				34763EE31F2F392300F4D2D3 /* TextToSpeech */,
 				340475451E081A4600C92850 /* Traffic */,
 			);
 			path = Core;
@@ -3377,6 +3383,15 @@
 				3488B0111E9D0AEC0068AFD8 /* AdBanner.xib */,
 			);
 			path = Ads;
+			sourceTree = "<group>";
+		};
+		343F5A7F1FB61012007DF002 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				343F5A801FB6102A007DF002 /* MWMPlatform.h */,
+				343F5A811FB6102A007DF002 /* MWMPlatform.mm */,
+			);
+			path = Platform;
 			sourceTree = "<group>";
 		};
 		3445324A1F714FD70059FBCC /* UGCAddReview */ = {
@@ -5856,6 +5871,7 @@
 				F6E2FE601E097BA00083EBEC /* MWMBookmarkCell.mm in Sources */,
 				F6E2FEA21E097BA00083EBEC /* MWMPPView.mm in Sources */,
 				F6791B131C43DEA7007A8A6E /* MWMStartButton.mm in Sources */,
+				343F5A821FB6102A007DF002 /* MWMPlatform.mm in Sources */,
 				46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */,
 				EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */,
 				F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */,
@@ -6218,6 +6234,7 @@
 				F6E2FEA31E097BA00083EBEC /* MWMPPView.mm in Sources */,
 				3454D7D11E07F045004AF2AD /* UIImage+RGBAData.mm in Sources */,
 				6741A9B71BF340DE002C974C /* EAGLView.mm in Sources */,
+				343F5A831FB6102A007DF002 /* MWMPlatform.mm in Sources */,
 				6741A9B81BF340DE002C974C /* MapViewController.mm in Sources */,
 				6741A9B91BF340DE002C974C /* MWMRateAlert.mm in Sources */,
 				349D1ABC1E2D05EF004A2006 /* SearchBar.swift in Sources */,
@@ -6580,6 +6597,7 @@
 				F6E2FE621E097BA00083EBEC /* MWMBookmarkCell.mm in Sources */,
 				F6E2FEA41E097BA00083EBEC /* MWMPPView.mm in Sources */,
 				849CF69F1DE842290024A8A5 /* MWMStartButton.mm in Sources */,
+				343F5A841FB6102A007DF002 /* MWMPlatform.mm in Sources */,
 				849CF6A01DE842290024A8A5 /* EAGLView.mm in Sources */,
 				849CF6A21DE842290024A8A5 /* MapViewController.mm in Sources */,
 				3404757F1E081B3300C92850 /* iosOGLContext.mm in Sources */,

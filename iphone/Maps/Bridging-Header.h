@@ -38,6 +38,7 @@
 #import "MWMPlacePageCellUpdateProtocol.h"
 #import "MWMPlacePageManagerHelper.h"
 #import "MWMPlacePageTaxiProvider.h"
+#import "MWMPlatform.h"
 #import "MWMPushNotifications.h"
 #import "MWMRatingSummaryViewValueType.h"
 #import "MWMReviewsViewModelProtocol.h"
