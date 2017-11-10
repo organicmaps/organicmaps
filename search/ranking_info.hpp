@@ -1,9 +1,13 @@
 #pragma once
 
-#include "search/common.hpp"
 #include "search/model.hpp"
 #include "search/pre_ranking_info.hpp"
 #include "search/ranking_utils.hpp"
+
+#include <cstddef>
+#include <cstdint>
+#include <ostream>
+#include <string>
 
 class FeatureType;
 
@@ -37,9 +41,9 @@ struct RankingInfo
   // tokens are categorial ones.
   bool m_falseCats = false;
 
-  static void PrintCSVHeader(ostream & os);
+  static void PrintCSVHeader(std::ostream & os);
 
-  void ToCSV(ostream & os) const;
+  void ToCSV(std::ostream & os) const;
 
   // Returns rank calculated by a linear model. Large values
   // correspond to important features.
@@ -48,5 +52,5 @@ struct RankingInfo
   size_t GetErrorsMade() const;
 };
 
-string DebugPrint(RankingInfo const & info);
+std::string DebugPrint(RankingInfo const & info);
 }  // namespace search

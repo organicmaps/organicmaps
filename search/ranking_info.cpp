@@ -1,9 +1,10 @@
 #include "search/ranking_info.hpp"
 
-#include "std/cmath.hpp"
-#include "std/iomanip.hpp"
-#include "std/limits.hpp"
-#include "std/sstream.hpp"
+#include <iomanip>
+#include <limits>
+#include <sstream>
+
+using namespace std;
 
 namespace search
 {

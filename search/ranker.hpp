@@ -20,6 +20,7 @@
 
 #include "base/string_utils.hpp"
 
+#include <cstddef>
 #include <cstdint>
 #include <set>
 #include <string>
@@ -50,13 +51,13 @@ public:
     m2::RectD m_viewport;
     m2::PointD m_position;
     string m_pivotRegion;
-    set<uint32_t> m_preferredTypes;
+    std::set<uint32_t> m_preferredTypes;
     bool m_suggestsEnabled = false;
     bool m_needAddress = false;
     bool m_needHighlighting = false;
     bool m_viewportSearch = false;
 
-    string m_query;
+    std::string m_query;
     QueryTokens m_tokens;
     // Prefix of the last token in the query.
     // We need it here to make suggestions.
@@ -79,8 +80,9 @@ public:
 
   Ranker(Index const & index, CitiesBoundariesTable const & boundariesTable,
          storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer,
-         Emitter & emitter, CategoriesHolder const & categories, vector<Suggest> const & suggests,
-         VillagesCache & villagesCache, my::Cancellable const & cancellable);
+         Emitter & emitter, CategoriesHolder const & categories,
+         std::vector<Suggest> const & suggests, VillagesCache & villagesCache,
+         my::Cancellable const & cancellable);
   virtual ~Ranker() = default;
 
   void Init(Params const & params, Geocoder::Params const & geocoderParams);
@@ -92,26 +94,28 @@ public:
 
   void SuggestStrings();
 
-  virtual void SetPreRankerResults(vector<PreRankerResult> && preRankerResults)
+  virtual void SetPreRankerResults(std::vector<PreRankerResult> && preRankerResults)
   {
-    m_preRankerResults = move(preRankerResults);
+    m_preRankerResults = std::move(preRankerResults);
   }
+
   virtual void UpdateResults(bool lastUpdate);
 
   void ClearCaches();
 
-  inline void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
+  void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
-  inline void SetLocalityLanguage(int8_t code) { m_localityLang = code; }
+  void SetLocalityLanguage(int8_t code) { m_localityLang = code; }
 
 private:
   friend class RankerResultMaker;
 
-  void MakeRankerResults(Geocoder::Params const & params, vector<RankerResult> & results);
+  void MakeRankerResults(Geocoder::Params const & params, std::vector<RankerResult> & results);
 
-  void GetBestMatchName(FeatureType const & f, string & name) const;
-  void MatchForSuggestions(strings::UniString const & token, int8_t locale, string const & prolog);
-  void ProcessSuggestions(vector<RankerResult> & vec) const;
+  void GetBestMatchName(FeatureType const & f, std::string & name) const;
+  void MatchForSuggestions(strings::UniString const & token, int8_t locale,
+                           std::string const & prolog);
+  void ProcessSuggestions(std::vector<RankerResult> & vec) const;
 
   Params m_params;
   Geocoder::Params m_geocoderParams;
@@ -126,9 +130,9 @@ private:
   storage::CountryInfoGetter const & m_infoGetter;
   Emitter & m_emitter;
   CategoriesHolder const & m_categories;
-  vector<Suggest> const & m_suggests;
+  std::vector<Suggest> const & m_suggests;
 
-  vector<PreRankerResult> m_preRankerResults;
-  vector<RankerResult> m_tentativeResults;
+  std::vector<PreRankerResult> m_preRankerResults;
+  std::vector<RankerResult> m_tentativeResults;
 };
 }  // namespace search

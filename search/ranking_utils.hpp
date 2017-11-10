@@ -1,8 +1,8 @@
 #pragma once
 
+#include "search/common.hpp"
 #include "search/model.hpp"
 #include "search/query_params.hpp"
-#include "search/utils.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -39,8 +39,8 @@ public:
   // |holder|.
   bool IsPureCategories() const { return m_pureCategories; }
 
-  // Returns true when all tokens are categories tokens but do not
-  // correspond to categories in |holder|.
+  // Returns true when all tokens are categories tokens but none of
+  // them correspond to categories in |holder|.
   bool IsFalseCategories() const { return m_falseCategories; }
 
 private:

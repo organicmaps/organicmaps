@@ -55,6 +55,7 @@ CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice c
   });
 }
 
+// ErrorsMade --------------------------------------------------------------------------------------
 string DebugPrint(ErrorsMade const & errorsMade)
 {
   ostringstream os;

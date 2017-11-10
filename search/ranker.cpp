@@ -12,11 +12,13 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/iterator.hpp"
-#include "std/unique_ptr.hpp"
+#include <algorithm>
+#include <memory>
+#include <utility>
 
 #include <boost/optional.hpp>
+
+using namespace std;
 
 namespace search
 {
@@ -31,7 +33,7 @@ struct NameScores
 template <typename TSlice>
 void UpdateNameScores(string const & name, TSlice const & slice, NameScores & bestScores)
 {
-  bestScores.m_nameScore = std::max(bestScores.m_nameScore, GetNameScore(name, slice));
+  bestScores.m_nameScore = max(bestScores.m_nameScore, GetNameScore(name, slice));
   bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(name, slice));
 }
 
@@ -39,7 +41,7 @@ template <typename TSlice>
 void UpdateNameScores(vector<strings::UniString> const & tokens, TSlice const & slice,
                      NameScores & bestScores)
 {
-  bestScores.m_nameScore = std::max(bestScores.m_nameScore, GetNameScore(tokens, slice));
+  bestScores.m_nameScore = max(bestScores.m_nameScore, GetNameScore(tokens, slice));
   bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(tokens, slice));
 }
 
