@@ -137,7 +137,6 @@ CGFloat const kMinOffset = 1;
 
 - (void)heightWasChanged
 {
-  auto scrollView = self.scrollView;
   dispatch_async(dispatch_get_main_queue(), ^{
     auto actionBar = self.actionBar;
     actionBar.maxY = actionBar.superview.height;
