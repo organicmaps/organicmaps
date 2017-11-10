@@ -81,7 +81,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     @Override
     public void onClick(View v)
     {
-      Toast.makeText(v.getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+      // TODO: coming soon.
     }
   };
 
@@ -220,7 +220,9 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     if (reviews != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
     UiUtils.showIf(reviews != null, mReviewListDivider);
-    UiUtils.showIf(reviews != null && reviews.size() > UGCReviewAdapter.MAX_COUNT, mUgcMoreReviews);
+    // TODO: don't show "more reviews" button while reviews screen activity is not ready.
+    UiUtils.showIf(false /* reviews != null && reviews.size() > UGCReviewAdapter.MAX_COUNT */,
+                   mUgcMoreReviews);
   }
 
   private void setSummaryViews(@NonNull UGC ugc, @UGC.Impress int impress, @NonNull String rating)
