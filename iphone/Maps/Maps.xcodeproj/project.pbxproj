@@ -5669,15 +5669,15 @@
 			inputPaths = (
 				"$(SRCROOT)/3party/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/AlamofireImage.framework",
-				"$(SRCROOT)/3party/Carthage/Build/iOS/Pushwoosh.framework",
-				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookCore.framework",
-				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKCoreKit.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/AppsFlyerTracker.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/Bolts.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookCore.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookLogin.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookShare.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKCoreKit.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKLoginKit.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKShareKit.framework",
-				"$(SRCROOT)/3party/Carthage/Build/iOS/AppsFlyerTracker.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/Pushwoosh.framework",
 			);
 			outputPaths = (
 			);
@@ -5693,6 +5693,14 @@
 			inputPaths = (
 				"$(SRCROOT)/3party/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/AlamofireImage.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/AppsFlyerTracker.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/Bolts.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookCore.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookLogin.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookShare.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKCoreKit.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKLoginKit.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKShareKit.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/Pushwoosh.framework",
 			);
 			outputPaths = (
@@ -5709,6 +5717,14 @@
 			inputPaths = (
 				"$(SRCROOT)/3party/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/AlamofireImage.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/AppsFlyerTracker.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/Bolts.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookCore.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookLogin.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FacebookShare.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKCoreKit.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKLoginKit.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKShareKit.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/Pushwoosh.framework",
 			);
 			outputPaths = (
