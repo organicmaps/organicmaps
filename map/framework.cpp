@@ -3345,6 +3345,11 @@ void Framework::GetUGC(FeatureID const & id, ugc::Api::UGCCallback const & callb
   {
     ugc::UGC filteredUGC = ugc;
     filteredUGC.m_reviews = FilterUGCReviews(ugc.m_reviews);
+    std::sort(filteredUGC.m_reviews.begin(), filteredUGC.m_reviews.end(),
+              [](ugc::Review const & r1, ugc::Review const & r2)
+    {
+      return r1.m_time > r2.m_time;
+    });
     callback(filteredUGC, update);
   });
 }
