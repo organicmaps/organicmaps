@@ -127,6 +127,23 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edg
 
   StopToSegmentsMap stopToBack;
   StopToSegmentsMap stopToFront;
+  StopToSegmentsMap outgoing;
+  StopToSegmentsMap ingoing;
+
+  // It's important to add transit edges first to ensure fake segment id for particular edge is edge order
+  // in mwm. We use edge fake segments in cross-mwm section and they should be stable.
+  CHECK_EQUAL(m_fake.GetSize(), 0, ());
+  for (size_t i = 0; i < edges.size(); ++i)
+  {
+    CHECK_NOT_EQUAL(edges[i].GetWeight(), transit::kInvalidWeight, ("Edge should have valid weight."));
+    auto const edgeSegment = AddEdge(edges[i], stopCoords, stopToBack, stopToFront);
+    // Check fake segment id is edge order in mwm.
+    CHECK_EQUAL(edgeSegment.GetSegmentIdx(), i, ());
+    outgoing[edges[i].GetStop1Id()].insert(edgeSegment);
+    ingoing[edges[i].GetStop2Id()].insert(edgeSegment);
+  }
+  CHECK_EQUAL(m_fake.GetSize(), edges.size(), ());
+
   for (auto const & gate : gates)
   {
     CHECK_NOT_EQUAL(gate.GetWeight(), transit::kInvalidWeight, ("Gate should have valid weight."));
@@ -140,16 +157,6 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edg
       if (gate.GetExit())
         AddGate(gate, it->second, stopCoords, false /* isEnter */, stopToBack, stopToFront);
     }
-  }
-
-  StopToSegmentsMap outgoing;
-  StopToSegmentsMap ingoing;
-  for (auto const & edge : edges)
-  {
-    CHECK_NOT_EQUAL(edge.GetWeight(), transit::kInvalidWeight, ("Edge should have valid weight."));
-    auto const edgeSegment = AddEdge(edge, stopCoords, stopToBack, stopToFront);
-    outgoing[edge.GetStop1Id()].insert(edgeSegment);
-    ingoing[edge.GetStop2Id()].insert(edgeSegment);
   }
 
   AddConnections(outgoing, stopToBack, stopToFront, true /* isOutgoing */);
