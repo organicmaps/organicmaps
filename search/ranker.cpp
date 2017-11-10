@@ -252,25 +252,12 @@ class RankerResultMaker
     info.m_nameScore = nameScore;
     info.m_errorsMade = errorsMade;
 
-    TokenSlice slice(m_params, preInfo.InnermostTokenRange());
-    feature::TypesHolder holder(ft);
-    vector<pair<size_t, size_t>> matched(slice.Size());
-    ForEachCategoryType(QuerySlice(slice), m_ranker.m_params.m_categoryLocales,
-                        m_ranker.m_categories, [&](size_t i, uint32_t t)
-                        {
-                          ++matched[i].second;
-                          if (holder.Has(t))
-                            ++matched[i].first;
-                        });
+    CategoriesInfo const categoriesInfo(feature::TypesHolder(ft),
+                                        TokenSlice(m_params, preInfo.InnermostTokenRange()),
+                                        m_ranker.m_params.m_categoryLocales, m_ranker.m_categories);
 
-    info.m_pureCats = all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
-                             {
-                               return m.first != 0;
-                             });
-    info.m_falseCats = all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
-                              {
-                                return m.first == 0 && m.second != 0;
-                              });
+    info.m_pureCats = categoriesInfo.IsPureCategories();
+    info.m_falseCats = categoriesInfo.IsFalseCategories();
   }
 
   uint8_t NormalizeRank(uint8_t rank, Model::Type type, m2::PointD const & center,

@@ -20,10 +20,11 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/set.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
 
 class CategoriesHolder;
 class Index;

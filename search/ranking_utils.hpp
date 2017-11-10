@@ -17,9 +17,36 @@
 #include <string>
 #include <vector>
 
+class CategoriesHolder;
+
+namespace feature
+{
+class TypesHolder;
+}
+
 namespace search
 {
 class QueryParams;
+class TokenSlice;
+
+class CategoriesInfo
+{
+public:
+  CategoriesInfo(feature::TypesHolder const & holder, TokenSlice const & tokens,
+                 Locales const & locales, CategoriesHolder const & categories);
+
+  // Returns true when all tokens correspond to categories in
+  // |holder|.
+  bool IsPureCategories() const { return m_pureCategories; }
+
+  // Returns true when all tokens are categories tokens but do not
+  // correspond to categories in |holder|.
+  bool IsFalseCategories() const { return m_falseCategories; }
+
+private:
+  bool m_pureCategories = false;
+  bool m_falseCategories = false;
+};
 
 struct ErrorsMade
 {

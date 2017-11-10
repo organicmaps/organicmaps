@@ -1,10 +1,9 @@
 #pragma once
 
+#include "search/common.hpp"
 #include "search/model.hpp"
 #include "search/pre_ranking_info.hpp"
 #include "search/ranking_utils.hpp"
-
-#include "std/iostream.hpp"
 
 class FeatureType;
 
