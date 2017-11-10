@@ -3446,7 +3446,7 @@ vi:3Hiệu thuốc
 zh-Hans:药店|药剂师
 zh-Hant:成藥
 el:φαρμακείο|φαρμακοποιός|χορήγηση φαρμάκων
-داروخانه
+fa:داروخانه
 
 amenity-post_box
 en:3^Postbox|post|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+1F4EE|U+1F4EC|U+1F4ED
