@@ -111,7 +111,7 @@ using Observers = NSHashTable<Observer>;
             }
 
             auto & f = GetFramework();
-            if (IPAD || self.searchOnMap)
+            if (![MWMRouter isRoutingActive] && (IPAD || self.searchOnMap))
               f.ShowSearchResults(m_everywhereResults);
             f.SearchInViewport(m_viewportParams);
           }
