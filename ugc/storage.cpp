@@ -32,13 +32,23 @@ string const kTmpFileExtension = ".tmp";
 
 using Sink = MemWriter<string>;
 
-string GetUGCFilePath() { return my::JoinPath(GetPlatform().WritableDir(), kUGCUpdateFileName); }
+string GetUGCFilePath() { return my::JoinPath(GetPlatform().SettingsDir(), kUGCUpdateFileName); }
 
-string GetIndexFilePath() { return my::JoinPath(GetPlatform().WritableDir(), kIndexFileName); }
+string GetIndexFilePath() { return my::JoinPath(GetPlatform().SettingsDir(), kIndexFileName); }
 
 bool GetUGCFileSize(uint64_t & size)
 {
-  return GetPlatform().GetFileSizeByName(kUGCUpdateFileName, size);
+  try
+  {
+    FileReader reader(GetUGCFilePath(), true /* with exceptions */);
+    size = reader.Size();
+  }
+  catch (RootException const &)
+  {
+    return false;
+  }
+
+  return true;
 }
 
 void DeserializeUGCIndex(string const & jsonData, vector<Storage::UGCIndex> & res)
