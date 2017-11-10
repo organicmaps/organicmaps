@@ -256,4 +256,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
   override var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections {
     return .bottom
   }
+
+  override var widgetsAreaAffectDirections: MWMAvailableAreaAffectDirections {
+    return alternative(iPhone: .bottom, iPad: []) }
 }
