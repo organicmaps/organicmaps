@@ -19,12 +19,13 @@ class Api
 {
 public:
   using UGCCallback = platform::SafeCallback<void(UGC const & ugc, UGCUpdate const & update)>;
+  using UGCCallbackUnsafe = std::function<void(UGC const & ugc, UGCUpdate const & update)>;
   using UGCJsonToSendCallback = std::function<void(std::string && jsonStr)>;
   using OnResultCallback = platform::SafeCallback<void(Storage::SettingResult const result)>;
 
   explicit Api(Index const & index);
 
-  void GetUGC(FeatureID const & id, UGCCallback const & callback);
+  void GetUGC(FeatureID const & id, UGCCallbackUnsafe const & callback);
   void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc,
                     OnResultCallback const & callback = nullptr);
   void GetUGCToSend(UGCJsonToSendCallback const & callback);
@@ -32,7 +33,7 @@ public:
   void SaveUGCOnDisk();
 
 private:
-  void GetUGCImpl(FeatureID const & id, UGCCallback const & callback);
+  void GetUGCImpl(FeatureID const & id, UGCCallbackUnsafe const & callback);
   Storage::SettingResult SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc);
   void GetUGCToSendImpl(UGCJsonToSendCallback const & callback);
   void SendingCompletedImpl();

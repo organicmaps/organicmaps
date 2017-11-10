@@ -584,7 +584,7 @@ void Framework::RequestViatorProducts(JNIEnv * env, jobject policy, std::string 
 
 void Framework::RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & ugcCallback)
 {
-  m_work.GetUGCApi()->GetUGC(fid, ugcCallback);
+  m_work.GetUGC(fid, ugcCallback);
 }
 
 void Framework::SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc)

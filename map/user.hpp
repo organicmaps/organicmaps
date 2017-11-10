@@ -21,6 +21,7 @@ public:
   struct Details
   {
     using ReviewId = uint64_t;
+    // m_reviewIds must be sorted.
     std::vector<ReviewId> m_reviewIds;
   };
   enum SocialTokenType

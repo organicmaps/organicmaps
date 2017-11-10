@@ -3338,3 +3338,26 @@ void Framework::UploadUGC(User::CompleteUploadingHandler const & onCompleteUploa
     }
   });
 }
+
+void Framework::GetUGC(FeatureID const & id, ugc::Api::UGCCallback const & callback)
+{
+  m_ugcApi->GetUGC(id, [this, callback](ugc::UGC const & ugc, ugc::UGCUpdate const & update)
+  {
+    ugc::UGC filteredUGC = ugc;
+    filteredUGC.m_reviews = FilterUGCReviews(ugc.m_reviews);
+    callback(filteredUGC, update);
+  });
+}
+
+ugc::Reviews Framework::FilterUGCReviews(ugc::Reviews const & reviews) const
+{
+  ugc::Reviews result;
+  auto const details = m_user.GetDetails();
+  ASSERT(std::is_sorted(details.m_reviewIds.begin(), details.m_reviewIds.end()), ());
+  for (auto const & review : reviews)
+  {
+    if (!std::binary_search(details.m_reviewIds.begin(), details.m_reviewIds.end(), review.m_id))
+      result.push_back(review);
+  }
+  return result;
+}

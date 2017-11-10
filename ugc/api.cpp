@@ -14,7 +14,7 @@ Api::Api(Index const & index) : m_storage(index), m_loader(index)
   m_thread.Push([this] { m_storage.Load(); });
 }
 
-void Api::GetUGC(FeatureID const & id, UGCCallback const & callback)
+void Api::GetUGC(FeatureID const & id, UGCCallbackUnsafe const & callback)
 {
   m_thread.Push([=] { GetUGCImpl(id, callback); });
 }
@@ -44,7 +44,7 @@ void Api::SaveUGCOnDisk()
   m_thread.Push([this] { SaveUGCOnDiskImpl(); });
 }
 
-void Api::GetUGCImpl(FeatureID const & id, UGCCallback const & callback)
+void Api::GetUGCImpl(FeatureID const & id, UGCCallbackUnsafe const & callback)
 {
   CHECK(callback, ());
   if (!id.IsValid())

@@ -816,4 +816,8 @@ private:
 public:
   // UGC.
   void UploadUGC(User::CompleteUploadingHandler const & onCompleteUploading);
+  void GetUGC(FeatureID const & id, ugc::Api::UGCCallback const & callback);
+private:
+  // Filters user's reviews.
+  ugc::Reviews FilterUGCReviews(ugc::Reviews const & reviews) const;
 };

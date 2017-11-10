@@ -143,7 +143,10 @@ void User::Init()
 
   std::string reviewIds;
   if (GetPlatform().GetSecureStorage().Load(kReviewIdsKey, reviewIds))
+  {
     m_details.m_reviewIds = DeserializeReviewIds(reviewIds);
+    std::sort(m_details.m_reviewIds.begin(), m_details.m_reviewIds.end());
+  }
 
   // Update user details on start up.
   auto const status = GetPlatform().ConnectionStatus();
@@ -249,6 +252,7 @@ void User::RequestUserDetails()
         GetPlatform().GetSecureStorage().Save(kReviewIdsKey, response);
         std::lock_guard<std::mutex> lock(m_mutex);
         m_details.m_reviewIds = reviewIds;
+        std::sort(m_details.m_reviewIds.begin(), m_details.m_reviewIds.end());
       }
     });
   });
