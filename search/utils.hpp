@@ -138,7 +138,7 @@ bool IsCategorialRequest(QuerySliceOnRawStrings<T> const & slice, Locales const 
     if (!locales.Contains(static_cast<uint64_t>(categorySynonym.m_locale)))
       return;
 
-    if (token != strings::MakeUniString(categorySynonym.m_name))
+    if (token != search::NormalizeAndSimplifyString(categorySynonym.m_name))
       return;
 
     found = true;

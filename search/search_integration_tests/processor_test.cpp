@@ -719,6 +719,13 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
   TestPOI hotelDeVille(m2::PointD(0, 0.04), "Hôtel De Ville", "en");
   hotelDeVille.SetTypes({{"amenity", "townhall"}});
 
+  TestPOI nightclub(m2::PointD(0, 0.05), "Moulin Rouge", "fr");
+  nightclub.SetTypes({{"amenity", "nightclub"}});
+
+  // A POI with that matches "entertainment" only by name.
+  TestPOI laundry(m2::PointD(0, 0.06), "Entertainment 720", "en");
+  laundry.SetTypes({{"shop", "laundry"}});
+
   auto const testWorldId = BuildWorld([&](TestMwmBuilder & builder) {
     builder.Add(sanDiego);
     builder.Add(homel);
@@ -728,6 +735,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
     builder.Add(hotel2);
     builder.Add(hotelCafe);
     builder.Add(hotelDeVille);
+    builder.Add(nightclub);
+    builder.Add(laundry);
   });
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
@@ -735,8 +744,17 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
   {
     TRules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2)};
 
-    auto request = MakeRequest("hotel ");
-    TEST(ResultsMatch(request->Results(), rules), ());
+    TEST(ResultsMatch("hotel ", rules), ());
+    TEST(ResultsMatch("hôTeL ", rules), ());
+  }
+
+  {
+    TRules const rules = {ExactMatch(wonderlandId, nightclub)};
+
+    // A category with a rare name. The word "Entertainment"
+    // occurs exactly once in the list of categories and starts
+    // with a capital letter. This is a test for normalization.
+    TEST(ResultsMatch("entertainment ", rules), ());
   }
 
   {
@@ -771,8 +789,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
                           ExactMatch(wonderlandId, hotelDeVille)};
     // It looks like a category search but we cannot tell it, so
     // even the features that match only by name are emitted.
-    auto request = MakeRequest("hotel san diego ");
-    TEST(ResultsMatch(request->Results(), rules), ());
+    TEST(ResultsMatch("hotel san diego ", rules), ());
   }
 
   {
@@ -780,8 +797,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
                           ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
                           ExactMatch(wonderlandId, hotelDeVille)};
     // Homel matches exactly, other features are matched by fuzzy names.
-    auto request = MakeRequest("homel ");
-    TEST(ResultsMatch(request->Results(), rules), ());
+    TEST(ResultsMatch("homel ", rules), ());
   }
 
   {
@@ -789,15 +805,13 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
                           ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
                           ExactMatch(wonderlandId, hotelDeVille)};
     // A typo in search: all features fit.
-    auto request = MakeRequest("hofel ");
-    TEST(ResultsMatch(request->Results(), rules), ());
+    TEST(ResultsMatch("hofel ", rules), ());
   }
 
   {
     TRules const rules = {ExactMatch(wonderlandId, hotelDeVille)};
 
-    auto request = MakeRequest("hotel de ville ");
-    TEST(ResultsMatch(request->Results(), rules), ());
+    TEST(ResultsMatch("hotel de ville ", rules), ());
   }
 }
 
