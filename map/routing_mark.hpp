@@ -100,3 +100,37 @@ private:
 
   UserMarksController & m_routeMarks;
 };
+
+class TransitMark : public UserMark
+{
+public:
+  TransitMark(m2::PointD const & ptOrg, UserMarkContainer * container);
+  virtual ~TransitMark() {}
+
+  dp::Anchor GetAnchor() const override { return dp::Center; }
+  df::RenderState::DepthLayer GetDepthLayer() const override { return df::RenderState::TransitMarkLayer; }
+  std::string GetSymbolName() const override { return ""; }
+  UserMark::Type GetMarkType() const override { return Type::TRANSIT; }
+
+  bool HasSymbolPriority() const override { return false; }
+  bool HasTitlePriority() const override { return true; }
+
+  void SetMinZoom(int minZoom);
+  int GetMinZoom() const override { return m_minZoom; }
+
+  void SetSymbolSizes(std::vector<m2::PointF> const & symbolSizes);
+  drape_ptr<std::vector<m2::PointF>> GetSymbolSizes() const override;
+
+  void SetPrimaryText(std::string const & primary);
+  void SetSecondaryText(std::string const & secondary);
+  void SetTextPosition(dp::Anchor anchor, m2::PointF const & primaryOffset = m2::PointF(0.0f, 0.0f),
+                       m2::PointF const & secondaryOffset = m2::PointF(0.0f, 0.0f));
+  void SetPrimaryTextColor(dp::Color color);
+  void SetSecondaryTextColor(dp::Color color);
+  drape_ptr<dp::TitleDecl> GetTitleDecl() const override;
+
+private:
+  int m_minZoom = 1;
+  dp::TitleDecl m_titleDecl;
+  std::vector<m2::PointF> m_symbolSizes;
+};

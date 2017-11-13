@@ -164,6 +164,7 @@ bool RenderGroup::IsUserMark() const
   auto const depthLayer = GetDepthLayer(m_state);
   return depthLayer == RenderState::UserLineLayer ||
          depthLayer == RenderState::UserMarkLayer ||
+         depthLayer == RenderState::TransitMarkLayer ||
          depthLayer == RenderState::RoutingMarkLayer ||
          depthLayer == RenderState::LocalAdsMarkLayer;
 }

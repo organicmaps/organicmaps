@@ -20,6 +20,7 @@ struct UserMarkRenderParams
   m2::PointD m_pixelOffset = m2::PointD(0.0, 0.0);
   std::string m_symbolName;
   dp::Anchor m_anchor = dp::Center;
+  drape_ptr<std::vector<m2::PointF>> m_symbolSizes;
   drape_ptr<dp::TitleDecl> m_titleDecl;
   bool m_hasSymbolPriority = false;
   bool m_hasTitlePriority = false;

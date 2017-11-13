@@ -27,6 +27,7 @@ public:
     STATIC,
     BOOKMARK,
     ROUTING,
+    TRANSIT,
     LOCAL_ADS,
     DEBUG_MARK
   };
@@ -43,6 +44,7 @@ public:
   float GetDepth() const override;
   df::RenderState::DepthLayer GetDepthLayer() const override;
   drape_ptr<dp::TitleDecl> GetTitleDecl() const override { return nullptr; }
+  drape_ptr<std::vector<m2::PointF>> GetSymbolSizes() const override { return nullptr; }
   uint16_t GetPriority() const override { return kDefaultUserMarkPriority; }
   bool HasSymbolPriority() const override { return false; }
   bool HasTitlePriority() const override { return false; }

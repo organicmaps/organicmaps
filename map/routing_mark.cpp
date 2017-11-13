@@ -11,9 +11,14 @@ static std::string const kRouteMarkPrimaryTextOutline = "RouteMarkPrimaryTextOut
 static std::string const kRouteMarkSecondaryText = "RouteMarkSecondaryText";
 static std::string const kRouteMarkSecondaryTextOutline = "RouteMarkSecondaryTextOutline";
 
+// TODO(@darina) Use separate colors.
+static std::string const kTransitMarkText = "RouteMarkPrimaryText";
+static std::string const kTransitMarkTextOutline = "RouteMarkPrimaryTextOutline";
+
 float const kRouteMarkPrimaryTextSize = 11.0f;
 float const kRouteMarkSecondaryTextSize = 10.0f;
 float const kRouteMarkSecondaryOffsetY = 2.0f;
+float const kTransitMarkTextSize = 13.0f;
 }  // namespace
 
 RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
@@ -366,4 +371,71 @@ void RoutePointsLayout::ForEachIntermediatePoint(TRoutePointCallback const & fn)
 void RoutePointsLayout::NotifyChanges()
 {
   m_routeMarks.NotifyChanges();
+}
+
+TransitMark::TransitMark(m2::PointD const & ptOrg, UserMarkContainer * container)
+    : UserMark(ptOrg, container)
+{
+  m_titleDecl.m_anchor = dp::Center;
+  m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kTransitMarkText);
+  m_titleDecl.m_primaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkTextOutline);
+  m_titleDecl.m_primaryTextFont.m_size = kTransitMarkTextSize;
+  m_titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kTransitMarkText);
+  m_titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkTextOutline);
+  m_titleDecl.m_secondaryTextFont.m_size = kTransitMarkTextSize;
+}
+
+void TransitMark::SetMinZoom(int minZoom)
+{
+  SetDirty();
+  m_minZoom = minZoom;
+}
+
+void TransitMark::SetSymbolSizes(std::vector<m2::PointF> const & symbolSizes)
+{
+  SetDirty();
+  m_symbolSizes = symbolSizes;
+}
+
+void TransitMark::SetPrimaryText(std::string const & primary)
+{
+  SetDirty();
+  m_titleDecl.m_primaryText = primary;
+}
+
+void TransitMark::SetSecondaryText(std::string const & secondary)
+{
+  SetDirty();
+  m_titleDecl.m_secondaryText = secondary;
+}
+
+void TransitMark::SetTextPosition(dp::Anchor anchor,
+                                  m2::PointF const & primaryOffset, m2::PointF const & secondaryOffset)
+{
+  SetDirty();
+  m_titleDecl.m_primaryOffset = primaryOffset;
+  m_titleDecl.m_secondaryOffset = secondaryOffset;
+  m_titleDecl.m_anchor = anchor;
+}
+
+void TransitMark::SetPrimaryTextColor(dp::Color color)
+{
+  SetDirty();
+  m_titleDecl.m_primaryTextFont.m_color = color;
+}
+
+void TransitMark::SetSecondaryTextColor(dp::Color color)
+{
+  SetDirty();
+  m_titleDecl.m_secondaryTextFont.m_color = color;
+}
+
+drape_ptr<dp::TitleDecl> TransitMark::GetTitleDecl() const
+{
+  return make_unique_dp<dp::TitleDecl>(m_titleDecl);
+}
+
+drape_ptr<std::vector<m2::PointF>> TransitMark::GetSymbolSizes() const
+{
+  return make_unique_dp<std::vector<m2::PointF>>(m_symbolSizes);
 }

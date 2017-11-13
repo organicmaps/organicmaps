@@ -54,6 +54,7 @@ public:
   virtual RenderState::DepthLayer GetDepthLayer() const = 0;
   virtual bool IsVisible() const = 0;
   virtual drape_ptr<dp::TitleDecl> GetTitleDecl() const = 0;
+  virtual drape_ptr<std::vector<m2::PointF>> GetSymbolSizes() const = 0;
   virtual uint16_t GetPriority() const = 0;
   virtual bool HasSymbolPriority() const = 0;
   virtual bool HasTitlePriority() const = 0;

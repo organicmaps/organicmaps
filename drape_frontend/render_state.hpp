@@ -18,6 +18,7 @@ public:
     LocalAdsMarkLayer,
     UserMarkLayer,
     NavigationLayer,
+    TransitMarkLayer,
     RoutingMarkLayer,
     GuiLayer,
     LayersCount

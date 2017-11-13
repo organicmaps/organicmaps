@@ -130,7 +130,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
                      0 /* textIndex */).Draw(&batcher, textures);
     }
-    else
+    else if (!renderInfo.m_symbolName.empty())
     {
       buffer.reserve(vertexCount);
 
@@ -180,9 +180,16 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_specialPriority = renderInfo.m_priority;
       }
 
-      dp::TextureManager::SymbolRegion region;
-      textures->GetSymbolRegion(renderInfo.m_symbolName, region);
-      m2::PointF const symbolSize = region.GetPixelSize();
+      m2::PointF symbolSize;
+      if (renderInfo.m_symbolSizes != nullptr)
+      {
+        symbolSize = renderInfo.m_symbolSizes->at(static_cast<size_t>(tileKey.m_zoomLevel)) * vs;
+      }
+      else
+      {
+        textures->GetSymbolRegion(renderInfo.m_symbolName, region);
+        symbolSize = region.GetPixelSize();
+      }
 
       TextShape(renderInfo.m_pivot, params, tileKey, renderInfo.m_hasSymbolPriority /* hasPOI */,
                 symbolSize, renderInfo.m_anchor, 0 /* textIndex */).Draw(&batcher, textures);

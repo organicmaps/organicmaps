@@ -38,6 +38,7 @@ using ApiUserMarkContainer = SpecifiedUserMarkContainer<ApiMarkPoint, UserMark::
 using DebugUserMarkContainer = SpecifiedUserMarkContainer<DebugMarkPoint, UserMark::Type::DEBUG_MARK>;
 using RouteUserMarkContainer = SpecifiedUserMarkContainer<RouteMarkPoint, UserMark::Type::ROUTING>;
 using LocalAdsMarkContainer = SpecifiedUserMarkContainer<LocalAdsMark, UserMark::Type::LOCAL_ADS>;
+using TransitMarkContainer = SpecifiedUserMarkContainer<TransitMark, UserMark::Type::TRANSIT>;
 using StaticUserMarkContainer = SpecifiedUserMarkContainer<SearchMarkPoint, UserMark::Type::STATIC>;
 
 // Returns extension with a dot in a lower case.
@@ -69,12 +70,13 @@ BookmarkManager::BookmarkManager(GetStringsBundleFn && getStringsBundleFn)
 {
   ASSERT(m_getStringsBundle != nullptr, ());
 
-  m_userMarkLayers.reserve(6);
+  m_userMarkLayers.reserve(7);
   m_userMarkLayers.emplace_back(my::make_unique<SearchUserMarkContainer>());
   m_userMarkLayers.emplace_back(my::make_unique<ApiUserMarkContainer>());
   m_userMarkLayers.emplace_back(my::make_unique<DebugUserMarkContainer>());
   m_userMarkLayers.emplace_back(my::make_unique<RouteUserMarkContainer>());
   m_userMarkLayers.emplace_back(my::make_unique<LocalAdsMarkContainer>());
+  m_userMarkLayers.emplace_back(my::make_unique<TransitMarkContainer>());
 
   auto staticMarksContainer = my::make_unique<StaticUserMarkContainer>();
   m_selectionMark = my::make_unique<StaticMarkPoint>(staticMarksContainer.get());
