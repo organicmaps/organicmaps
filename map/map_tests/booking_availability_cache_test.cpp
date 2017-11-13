@@ -12,7 +12,7 @@ namespace
 {
 UNIT_TEST(AvailabilityCache_Smoke)
 {
-  Cache cache(2, 0);
+  Cache cache(2 /* maxCount */, 0 /* expiryPeriodSeconds */);
 
   std::string kHotelId = "0";
 
@@ -26,14 +26,14 @@ UNIT_TEST(AvailabilityCache_Smoke)
 
   TEST_EQUAL(cache.Get(kHotelId), Cache::HotelStatus::Available, ());
 
-  cache.Insert(kHotelId, Cache::HotelStatus::UnAvailable);
+  cache.Insert(kHotelId, Cache::HotelStatus::Unavailable);
 
-  TEST_EQUAL(cache.Get(kHotelId), Cache::HotelStatus::UnAvailable, ());
+  TEST_EQUAL(cache.Get(kHotelId), Cache::HotelStatus::Unavailable, ());
 }
 
 UNIT_TEST(AvailabilityCache_RemoveExtra)
 {
-  Cache cache(3, 0);
+  Cache cache(3 /* maxCount */, 0 /* expiryPeriodSeconds */);
   std::vector<std::string> const kHotelIds = {"1", "2", "3"};
 
   for (auto const & id : kHotelIds)

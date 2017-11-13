@@ -3,12 +3,12 @@
 #include "map/booking_filter_availability_params.hpp"
 #include "map/booking_filter_cache.hpp"
 
+class Index;
+
 namespace search
 {
 class Results;
 }
-
-class Index;
 
 namespace booking
 {
@@ -20,8 +20,9 @@ class Filter
 {
 public:
   Filter(Index const & index, booking::Api const & api);
+
   void Availability(search::Results const & results,
-                    availability::internal::Params const & params) const;
+                    availability::internal::Params && params) const;
 
 private:
   Index const & m_index;

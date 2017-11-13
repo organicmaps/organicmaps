@@ -33,39 +33,34 @@ UNIT_TEST(BookingFilter_AvailabilitySmoke)
 
   env.BuildMwm("TestMwm", [&kHotelIds](TestMwmBuilder & builder)
   {
-    feature::Metadata metadata;
-    metadata.Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[0]);
     TestPOI hotel1(m2::PointD(1.0, 1.0), "hotel 1", "en");
-    hotel1.SetMetadata(metadata);
+    hotel1.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[0]);
     builder.Add(hotel1);
 
     TestPOI hotel2(m2::PointD(1.1, 1.1), "hotel 2", "en");
-    metadata.Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[1]);
-    hotel2.SetMetadata(metadata);
+    hotel2.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[1]);
     builder.Add(hotel2);
 
     TestPOI hotel3(m2::PointD(0.9, 0.9), "hotel 3", "en");
-    metadata.Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[2]);
-    hotel3.SetMetadata(metadata);
+    hotel3.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[2]);
     builder.Add(hotel3);
   });
 
-  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
-      m2::PointD(1.0, 1.0), 2 / MercatorBounds::degreeInMetres /* rect width */);
+  m2::RectD const rect(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5));
   search::Results results;
   results.AddResult({"suggest for testing", "suggest for testing"});
-  search::Results expctedResults;
+  search::Results expectedResults;
   env.GetIndex().ForEachInRect(
-      [&results, &expctedResults](FeatureType & ft) {
+      [&results, &expectedResults](FeatureType & ft) {
         search::Result::Metadata metadata;
         metadata.m_isSponsoredHotel = true;
         search::Result result(ft.GetID(), ft.GetCenter(), "", "", "", 0, metadata);
         auto copy = result;
         results.AddResult(std::move(result));
-        expctedResults.AddResult(std::move(copy));
+        expectedResults.AddResult(std::move(copy));
       },
       rect, scales::GetUpperScale());
-  availability::ParamsInternal params;
+  availability::internal::Params params;
   search::Results filteredResults;
   params.m_callback = [&filteredResults](search::Results const & results)
   {
@@ -73,16 +68,16 @@ UNIT_TEST(BookingFilter_AvailabilitySmoke)
     testing::Notify();
   };
 
-  filter.Availability(results, params);
+  filter.Availability(results, std::move(params));
 
   testing::Wait();
 
   TEST_NOT_EQUAL(filteredResults.GetCount(), 0, ());
-  TEST_EQUAL(filteredResults.GetCount(), expctedResults.GetCount(), ());
+  TEST_EQUAL(filteredResults.GetCount(), expectedResults.GetCount(), ());
 
   for (size_t i = 0; i < filteredResults.GetCount(); ++i)
   {
-    TEST_EQUAL(filteredResults[i].GetFeatureID(), expctedResults[i].GetFeatureID(), ());
+    TEST_EQUAL(filteredResults[i].GetFeatureID(), expectedResults[i].GetFeatureID(), ());
   }
 }
 }  // namespace

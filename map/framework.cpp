@@ -3306,13 +3306,13 @@ ugc::Reviews Framework::FilterUGCReviews(ugc::Reviews const & reviews) const
   return result;
 }
 
-void Framework::FilterSearchResults(booking::filter::availability::Params const & params,
-                                    search::Results const & results, bool inViewport)
+void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Params const & params,
+                                             search::Results const & results, bool inViewport)
 {
   using namespace booking::filter;
 
   auto const & cb = params.m_callback;
-  availability::internal::Params const paramsInternal
+  availability::internal::Params paramsInternal
   {
     params.m_params,
     [this, cb, inViewport](search::Results const & results)
@@ -3340,5 +3340,5 @@ void Framework::FilterSearchResults(booking::filter::availability::Params const 
     }
   };
 
-  m_bookingFilter.Availability(results, paramsInternal);
+  m_bookingFilter.Availability(results, std::move(paramsInternal));
 }

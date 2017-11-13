@@ -99,7 +99,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
         if (results.IsEndMarker() && results.IsEndedNormal() &&
             !params.m_bookingFilterParams.IsEmpty())
         {
-          m_delegate.FilterSearchResults(params.m_bookingFilterParams, results, false);
+          m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results, false);
         }
       });
 
@@ -137,7 +137,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
         if (results.IsEndMarker() && results.IsEndedNormal() &&
             !params.m_bookingFilterParams.IsEmpty())
         {
-          m_delegate.FilterSearchResults(params.m_bookingFilterParams, results, true);
+          m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results, true);
         }
       });
 

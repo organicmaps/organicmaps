@@ -17,9 +17,13 @@ class Cache
 public:
   enum class HotelStatus
   {
+    // The hotel is absent in cache.
     Absent,
+    // Information about the hotel was requested, but request is not ready yet.
     NotReady,
-    UnAvailable,
+    // The hotel is unavailable for booking.
+    Unavailable,
+    // The hotel is available for booking.
     Available,
   };
 
@@ -40,8 +44,6 @@ public:
   void Reserve(std::string const & hotelId);
   void Insert(std::string const & hotelId, HotelStatus const s);
 
-  DISALLOW_COPY_AND_MOVE(Cache);
-
 private:
   void RemoveOutdated();
   void RemoveExtra();
@@ -54,6 +56,8 @@ private:
   size_t const m_maxCount = 1000;
   // Aging process is disabled when |m_expiryPeriodSeconds| is equal to zero.
   size_t const m_expiryPeriodSeconds = 60;
+
+  DISALLOW_COPY_AND_MOVE(Cache);
 };
 
 std::string DebugPrint(Cache::HotelStatus status);

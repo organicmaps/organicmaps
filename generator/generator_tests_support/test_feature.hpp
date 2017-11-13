@@ -32,6 +32,7 @@ public:
   inline void SetPostcode(std::string const & postcode) { m_postcode = postcode; }
   inline uint64_t GetId() const { return m_id; }
   inline std::string const & GetName() const { return m_name; }
+  inline feature::Metadata & GetMetadata() { return m_metadata; }
 
   virtual void Serialize(FeatureBuilder1 & fb) const;
   virtual std::string ToString() const = 0;
@@ -56,6 +57,10 @@ protected:
   std::string const m_name;
   std::string const m_lang;
   std::string m_postcode;
+  feature::Metadata m_metadata;
+
+private:
+  void Init();
 };
 
 class TestCountry : public TestFeature
@@ -125,13 +130,11 @@ public:
   inline void SetHouseNumber(std::string const & houseNumber) { m_houseNumber = houseNumber; }
   inline void SetStreet(TestStreet const & street) { m_streetName = street.GetName(); }
   inline void SetTypes(std::vector<std::vector<std::string>> const & types) { m_types = types; }
-  inline void SetMetadata(feature::Metadata const & metadata) { m_metadata = metadata; }
 
 private:
   std::string m_houseNumber;
   std::string m_streetName;
   std::vector<std::vector<std::string>> m_types;
-  feature::Metadata m_metadata;
 };
 
 class TestBuilding : public TestFeature

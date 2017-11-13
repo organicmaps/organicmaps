@@ -825,6 +825,6 @@ private:
   ugc::Reviews FilterUGCReviews(ugc::Reviews const & reviews) const;
 
 public:
-  void FilterSearchResults(booking::filter::availability::Params const & params,
-                           search::Results const & results, bool inViewport) override;
+  void FilterSearchResultsOnBooking(booking::filter::availability::Params const & params,
+                                    search::Results const & results, bool inViewport) override;
 };

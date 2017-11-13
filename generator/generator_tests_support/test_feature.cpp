@@ -40,11 +40,13 @@ uint64_t GenUniqueId()
 TestFeature::TestFeature(string const & name, string const & lang)
   : m_id(GenUniqueId()), m_center(0, 0), m_type(Type::Unknown), m_name(name), m_lang(lang)
 {
+  Init();
 }
 
 TestFeature::TestFeature(m2::PointD const & center, string const & name, string const & lang)
   : m_id(GenUniqueId()), m_center(center), m_type(Type::Point), m_name(name), m_lang(lang)
 {
+  Init();
 }
 
 TestFeature::TestFeature(vector<m2::PointD> const & boundary, string const & name,
@@ -52,6 +54,12 @@ TestFeature::TestFeature(vector<m2::PointD> const & boundary, string const & nam
   : m_id(GenUniqueId()), m_boundary(boundary), m_type(Type::Area), m_name(name), m_lang(lang)
 {
   ASSERT(!m_boundary.empty(), ());
+  Init();
+}
+
+void TestFeature::Init()
+{
+  m_metadata.Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
 }
 
 bool TestFeature::Matches(FeatureType const & feature) const
@@ -64,8 +72,18 @@ bool TestFeature::Matches(FeatureType const & feature) const
 
 void TestFeature::Serialize(FeatureBuilder1 & fb) const
 {
-  auto & metadata = fb.GetMetadataForTesting();
-  metadata.Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
+  using feature::Metadata;
+  size_t i = static_cast<size_t>(Metadata::EType::FMD_CUISINE);
+  size_t const count = static_cast<size_t>(Metadata::EType::FMD_COUNT);
+  for (; i < count; ++i)
+  {
+    auto const type = static_cast<Metadata::EType>(i);
+    if (m_metadata.Has(type))
+    {
+      auto const value = m_metadata.Get(type);
+      fb.GetMetadataForTesting().Set(type, value);
+    }
+  }
 
   switch (m_type)
   {
@@ -231,8 +249,6 @@ void TestPOI::Serialize(FeatureBuilder1 & fb) const
     fb.AddHouseNumber(m_houseNumber);
   if (!m_streetName.empty())
     fb.AddStreet(m_streetName);
-  if (!m_metadata.Empty())
-    fb.GetMetadataForTesting() = m_metadata;
 }
 
 string TestPOI::ToString() const

@@ -69,8 +69,8 @@ public:
 
     virtual bool IsLocalAdsCustomer(search::Result const & /* result */) const { return false; }
 
-    virtual void FilterSearchResults(booking::filter::availability::Params const & params,
-                                     search::Results const & results, bool inViewport)
+    virtual void FilterSearchResultsOnBooking(booking::filter::availability::Params const & params,
+                                              search::Results const & results, bool inViewport)
     {
     }
   };

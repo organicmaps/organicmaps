@@ -29,8 +29,7 @@ void Cache::Reserve(std::string const & hotelId)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
 
-  Item item;
-  m_hotelToResult.emplace(hotelId, std::move(item));
+  m_hotelToResult.emplace(hotelId, HotelStatus::NotReady);
 }
 
 void Cache::Insert(std::string const & hotelId, HotelStatus const s)
@@ -43,9 +42,7 @@ void Cache::Insert(std::string const & hotelId, HotelStatus const s)
   m_hotelToResult[hotelId] = std::move(item);
 
   if (!m_agingInProgress)
-  {
     RemoveOutdated();
-  }
 }
 
 void Cache::RemoveOutdated()
@@ -95,7 +92,7 @@ std::string DebugPrint(Cache::HotelStatus status)
   {
   case Cache::HotelStatus::Absent: return "Absent";
   case Cache::HotelStatus::NotReady: return "NotReady";
-  case Cache::HotelStatus::UnAvailable: return "UnAvailable";
+  case Cache::HotelStatus::Unavailable: return "Unavailable";
   case Cache::HotelStatus::Available: return "Available";
   }
 }
