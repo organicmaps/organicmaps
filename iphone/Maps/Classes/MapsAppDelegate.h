@@ -4,14 +4,12 @@
 
 @class MapViewController;
 
-@interface MapsAppDelegate
-    : UIResponder<UIApplicationDelegate, UIAlertViewDelegate, DownloadIndicatorProtocol>
+@interface MapsAppDelegate : UIResponder<UIApplicationDelegate, DownloadIndicatorProtocol>
 {
   NSInteger m_activeDownloadsCounter;
   UIBackgroundTaskIdentifier m_backgroundTask;
   UIBackgroundTaskIdentifier m_editorUploadBackgroundTask;
   UIBackgroundTaskIdentifier m_ugcUploadBackgroundTask;
-  UIAlertView * m_loadingAlertView;
 }
 
 @property(nonatomic) UIWindow * window;

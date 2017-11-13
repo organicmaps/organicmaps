@@ -1,5 +1,6 @@
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
+#import "MWMBookmarksManager.h"
 #import "Statistics.h"
 #import "UIImageView+Coloring.h"
 
@@ -10,6 +11,8 @@
 extern NSString * const kBookmarkCategoryDeletedNotification =
     @"BookmarkCategoryDeletedNotification";
 
+@interface BookmarksRootVC ()<MWMBookmarksObserver>
+@end
 
 @implementation BookmarksRootVC
 
@@ -21,10 +24,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     self.title = L(@"bookmarks");
 
     self.tableView.allowsSelectionDuringEditing = YES;
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(newCategoryAdded)
-                                               name:@"KML file added"
-                                             object:nil];
+    [MWMBookmarksManager addObserver:self];
   }
   return self;
 }
@@ -302,14 +302,9 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
   return NO;
 }
 
--(void)newCategoryAdded
-{
-  [self.tableView reloadData];
-}
+#pragma mark : - MWMBookmarksObserver
+- (void)onBookmarksLoadFinished { [self.tableView reloadData]; }
 
--(void)dealloc
-{
-  [NSNotificationCenter.defaultCenter removeObserver:self];
-}
+- (void)onBookmarksFileLoadSuccess { [self.tableView reloadData]; }
 
 @end

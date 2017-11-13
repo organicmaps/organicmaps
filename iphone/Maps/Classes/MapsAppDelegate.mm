@@ -539,7 +539,7 @@ using namespace osm_auth_ios;
                                     }];
   [[Crashlytics sharedInstance] recordError:err];
 #endif
-  
+
   // Global cleanup
   DeleteFramework();
 }
@@ -862,23 +862,6 @@ using namespace osm_auth_ios;
                                                      annotation:annotation];
 }
 
-- (void)showLoadFileAlertIsSuccessful:(BOOL)successful
-{
-  m_loadingAlertView = [[UIAlertView alloc]
-          initWithTitle:L(@"load_kmz_title")
-                message:(successful ? L(@"load_kmz_successful") : L(@"load_kmz_failed"))
-               delegate:nil
-      cancelButtonTitle:L(@"ok")
-      otherButtonTitles:nil];
-  m_loadingAlertView.delegate = self;
-  [m_loadingAlertView show];
-  [NSTimer scheduledTimerWithTimeInterval:5.0
-                                   target:self
-                                 selector:@selector(dismissAlert)
-                                 userInfo:nil
-                                  repeats:NO];
-}
-
 - (BOOL)checkLaunchURL:(NSURL *)url
 {
   NSString * scheme = url.scheme;
@@ -901,17 +884,6 @@ using namespace osm_auth_ios;
   }
   NSLog(@"Scheme %@ is not supported", scheme);
   return NO;
-}
-
-- (void)dismissAlert
-{
-  if (m_loadingAlertView)
-    [m_loadingAlertView dismissWithClickedButtonIndex:0 animated:YES];
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-  m_loadingAlertView = nil;
 }
 
 - (void)showMap
