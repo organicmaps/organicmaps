@@ -27,5 +27,5 @@ public:
       std::shared_ptr<EdgeEstimator> estimator, Index & index);
 };
 
-void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleMask vehicleMask, IndexGraph & graph);
+void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, IndexGraph & graph);
 }  // namespace routing

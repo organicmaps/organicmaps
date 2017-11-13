@@ -29,7 +29,7 @@ public:
 private:
   IndexGraph & Load(NumMwmId mwmId);
 
-  VehicleMask m_vehicleMask;
+  VehicleType m_vehicleType;
   bool m_loadAltitudes;
   Index & m_index;
   shared_ptr<NumMwmIds> m_numMwmIds;
@@ -38,10 +38,11 @@ private:
   unordered_map<NumMwmId, unique_ptr<IndexGraph>> m_graphs;
 };
 
-IndexGraphLoaderImpl::IndexGraphLoaderImpl(VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
-                                           shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-                                           shared_ptr<EdgeEstimator> estimator, Index & index)
-  : m_vehicleMask(GetVehicleMask(vehicleType))
+IndexGraphLoaderImpl::IndexGraphLoaderImpl(
+    VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
+    shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
+    shared_ptr<EdgeEstimator> estimator, Index & index)
+  : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
   , m_index(index)
   , m_numMwmIds(numMwmIds)
@@ -79,7 +80,7 @@ IndexGraph & IndexGraphLoaderImpl::Load(NumMwmId numMwmId)
 
   my::Timer timer;
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
-  DeserializeIndexGraph(mwmValue, m_vehicleMask, graph);
+  DeserializeIndexGraph(mwmValue, m_vehicleType, graph);
   m_graphs[numMwmId] = move(graphPtr);
   LOG(LINFO, (ROUTING_FILE_TAG, "section for", file.GetName(), "loaded in", timer.ElapsedSeconds(),
               "seconds"));
@@ -88,7 +89,8 @@ IndexGraph & IndexGraphLoaderImpl::Load(NumMwmId numMwmId)
 
 void IndexGraphLoaderImpl::Clear() { m_graphs.clear(); }
 
-bool ReadRoadAccessFromMwm(MwmValue const & mwmValue, RoadAccess & roadAccess)
+bool ReadRoadAccessFromMwm(MwmValue const & mwmValue, VehicleType vehicleType,
+                           RoadAccess & roadAccess)
 {
   if (!mwmValue.m_cont.IsExist(ROAD_ACCESS_FILE_TAG))
     return false;
@@ -98,7 +100,7 @@ bool ReadRoadAccessFromMwm(MwmValue const & mwmValue, RoadAccess & roadAccess)
     auto const reader = mwmValue.m_cont.GetReader(ROAD_ACCESS_FILE_TAG);
     ReaderSource<FilesContainerR::TReader> src(reader);
 
-    RoadAccessSerializer::Deserialize(src, VehicleType::Car, roadAccess);
+    RoadAccessSerializer::Deserialize(src, vehicleType, roadAccess);
   }
   catch (Reader::OpenException const & e)
   {
@@ -121,17 +123,17 @@ unique_ptr<IndexGraphLoader> IndexGraphLoader::Create(
                                            estimator, index);
 }
 
-void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleMask vehicleMask, IndexGraph & graph)
+void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, IndexGraph & graph)
 {
   FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(ROUTING_FILE_TAG));
   ReaderSource<FilesContainerR::TReader> src(reader);
-  IndexGraphSerializer::Deserialize(graph, src, vehicleMask);
+  IndexGraphSerializer::Deserialize(graph, src, GetVehicleMask(vehicleType));
   RestrictionLoader restrictionLoader(mwmValue, graph);
   if (restrictionLoader.HasRestrictions())
     graph.SetRestrictions(restrictionLoader.StealRestrictions());
 
   RoadAccess roadAccess;
-  if (ReadRoadAccessFromMwm(mwmValue, roadAccess))
+  if (ReadRoadAccessFromMwm(mwmValue, vehicleType, roadAccess))
     graph.SetRoadAccess(move(roadAccess));
 }
 }  // namespace routing

@@ -66,7 +66,7 @@ TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId,
       GeometryLoader::Create(m_index, handle, m_vehicleModel, false /* loadAltitudes */),
       EdgeEstimator::Create(VehicleType::Car, *m_vehicleModel, nullptr /* trafficStash */));
 
-  DeserializeIndexGraph(*handle.GetValue<MwmValue>(), kCarMask, *m_graph);
+  DeserializeIndexGraph(*handle.GetValue<MwmValue>(), VehicleType::Car, *m_graph);
 }
 
 void TrackMatcher::MatchTrack(vector<DataPoint> const & track, vector<MatchedTrack> & matchedTracks)
