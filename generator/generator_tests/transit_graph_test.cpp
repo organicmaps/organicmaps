@@ -78,15 +78,15 @@ void TestNetworks(vector<Network> const & networks)
 void TestEdges(vector<Edge> const & edges)
 {
   vector<Edge> const expectedEdges = {
-      {0 /* stop 1 id */, 1 /* stop 2 id */, 20.0 /* weight */, 1 /* line id */, false /* transfer */,
+      {0 /* stop 1 id */, 1 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
        {{0, 1}} /* shape ids */},
-      {1 /* stop 1 id */, 2 /* stop 2 id */, 20.0 /* weight */, 1 /* line id */, false /* transfer */,
+      {1 /* stop 1 id */, 2 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
        {{1, 2}} /* shape ids */},
-      {2 /* stop 1 id */, 3 /* stop 2 id */, 20.0 /* weight */, 1 /* line id */, false /* transfer */,
+      {2 /* stop 1 id */, 3 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
        {{2, 3}} /* shape ids */},
-      {3 /* stop 1 id */, 4 /* stop 2 id */, 10.0 /* weight */, 1 /* line id */, false /* transfer */,
+      {3 /* stop 1 id */, 4 /* stop 2 id */, 10 /* weight */, 1 /* line id */, false /* transfer */,
        {{3, 4}} /* shape ids */},
-      {5 /* stop 1 id */, 6 /* stop 2 id */, 20.0 /* weight */, 2 /* line id */, false /* transfer */,
+      {5 /* stop 1 id */, 6 /* stop 2 id */, 20 /* weight */, 2 /* line id */, false /* transfer */,
        {{5, 6}} /* shape ids */}
   };
   TestForEquivalence(edges, expectedEdges);
@@ -439,11 +439,11 @@ UNIT_TEST(ClipGraph_OneLineTest)
   TestTransfers(graph->GetTransfers());
 
   vector<Edge> const expectedEdges = {
-      {0 /* stop 1 id */, 1 /* stop 2 id */, 20.0 /* weight */, 1 /* line id */, false /* transfer */,
+      {0 /* stop 1 id */, 1 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
        {{0, 1}} /* shape ids */},
-      {1 /* stop 1 id */, 2 /* stop 2 id */, 20.0 /* weight */, 1 /* line id */, false /* transfer */,
+      {1 /* stop 1 id */, 2 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
        {{1, 2}} /* shape ids */},
-      {2 /* stop 1 id */, 3 /* stop 2 id */, 20.0 /* weight */, 1 /* line id */, false /* transfer */,
+      {2 /* stop 1 id */, 3 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
        {{2, 3}} /* shape ids */}
   };
   TestForEquivalence(graph->GetEdges(), expectedEdges);
@@ -520,11 +520,11 @@ UNIT_TEST(ClipGraph_TwoLinesTest)
   TestTransfers(graph->GetTransfers());
 
   vector<Edge> const expectedEdges = {
-      {1 /* stop 1 id */, 2 /* stop 2 id */, 20.0 /* weight */, 1 /* line id */, false /* transfer */,
+      {1 /* stop 1 id */, 2 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
        {{1, 2}} /* shape ids */},
-      {2 /* stop 1 id */, 3 /* stop 2 id */, 20.0 /* weight */, 1 /* line id */, false /* transfer */,
+      {2 /* stop 1 id */, 3 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
        {{2, 3}} /* shape ids */},
-      {5 /* stop 1 id */, 6 /* stop 2 id */, 20.0 /* weight */, 2 /* line id */, false /* transfer */,
+      {5 /* stop 1 id */, 6 /* stop 2 id */, 20 /* weight */, 2 /* line id */, false /* transfer */,
        {{5, 6}} /* shape ids */}
   };
   TestForEquivalence(graph->GetEdges(), expectedEdges);

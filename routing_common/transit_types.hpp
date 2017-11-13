@@ -4,6 +4,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include "base/newtype.hpp"
 #include "base/visitor.hpp"
 
 #include <cstdint>
@@ -21,7 +22,7 @@ using NetworkId = uint32_t;
 using OsmId = uint64_t;
 using StopId = uint64_t;
 using TransferId = uint64_t;
-using Weight = double;
+using Weight = int32_t;
 using Ranges = std::vector<std::vector<StopId>>;
 
 Anchor constexpr kInvalidAnchor = std::numeric_limits<Anchor>::max();
@@ -32,9 +33,7 @@ NetworkId constexpr kInvalidNetworkId = std::numeric_limits<NetworkId>::max();
 OsmId constexpr kInvalidOsmId = std::numeric_limits<OsmId>::max();
 StopId constexpr kInvalidStopId = std::numeric_limits<StopId>::max();
 TransferId constexpr kInvalidTransferId = std::numeric_limits<TransferId>::max();
-// Note. Weight may be a default param at json. The default value should be saved as uint32_t in mwm anyway.
-// To convert double to uint32_t at better accuracy |kInvalidWeight| should be close to real weight.
-Weight constexpr kInvalidWeight = -1.0;
+Weight constexpr kInvalidWeight = std::numeric_limits<Weight>::max();
 
 #define DECLARE_TRANSIT_TYPE_FRIENDS                                                  \
   template <class Sink> friend class Serializer;                                      \
@@ -133,6 +132,8 @@ private:
 class Stop
 {
 public:
+  NEWTYPE(StopId, MonotoneStopId);
+
   Stop() : m_featureIdentifiers(true /* serializeFeatureIdOnly */) {};
   Stop(StopId id, OsmId osmId, FeatureId featureId, TransferId transferId,
        std::vector<LineId> const & lineIds, m2::PointD const & point,
@@ -144,7 +145,7 @@ public:
   bool IsEqualForTesting(Stop const & stop) const;
   bool IsValid() const;
 
-  StopId GetId() const { return m_id; }
+  StopId GetId() const { return m_id.Get(); }
   FeatureId GetFeatureId() const { return m_featureIdentifiers.GetFeatureId(); }
   TransferId GetTransferId() const { return m_transferId; }
   std::vector<LineId> const & GetLineIds() const { return m_lineIds; }
@@ -158,13 +159,14 @@ private:
                                   visitor(m_lineIds, "line_ids"), visitor(m_point, "point"),
                                   visitor(m_titleAnchors, "title_anchors"))
 
-  StopId m_id = kInvalidStopId;
+  MonotoneStopId m_id = MonotoneStopId(kInvalidStopId);
   FeatureIdentifiers m_featureIdentifiers;
   TransferId m_transferId = kInvalidTransferId;
   std::vector<LineId> m_lineIds;
   m2::PointD m_point;
   std::vector<TitleAnchor> m_titleAnchors;
 };
+NEWTYPE_SIMPLE_OUTPUT(Stop::MonotoneStopId)
 
 class SingleMwmSegment
 {
@@ -193,7 +195,7 @@ class Gate
 {
 public:
   Gate() : m_featureIdentifiers(false /* serializeFeatureIdOnly */) {};
-  Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, double weight,
+  Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, Weight weight,
        std::vector<StopId> const & stopIds, m2::PointD const & point);
 
   bool operator<(Gate const & rhs) const;
@@ -207,7 +209,7 @@ public:
   SingleMwmSegment const & GetBestPedestrianSegment() const { return m_bestPedestrianSegment; }
   bool GetEntrance() const { return m_entrance; }
   bool GetExit() const { return m_exit; }
-  double GetWeight() const { return m_weight; }
+  Weight GetWeight() const { return m_weight; }
   std::vector<StopId> const & GetStopIds() const { return m_stopIds; }
   m2::PointD const & GetPoint() const { return m_point; }
 
@@ -227,7 +229,7 @@ private:
   SingleMwmSegment m_bestPedestrianSegment;
   bool m_entrance = true;
   bool m_exit = true;
-  double m_weight = kInvalidWeight;
+  Weight m_weight = kInvalidWeight;
   std::vector<StopId> m_stopIds;
   m2::PointD m_point;
 };
@@ -258,8 +260,10 @@ private:
 class Edge
 {
 public:
+  NEWTYPE(StopId, MonotoneEdgeId);
+
   Edge() = default;
-  Edge(StopId stop1Id, StopId stop2Id, double weight, LineId lineId, bool transfer,
+  Edge(StopId stop1Id, StopId stop2Id, Weight weight, LineId lineId, bool transfer,
        std::vector<ShapeId> const & shapeIds);
 
   bool operator<(Edge const & rhs) const;
@@ -268,9 +272,9 @@ public:
   bool IsValid() const;
   void SetWeight(double weight) { m_weight = weight; }
 
-  StopId GetStop1Id() const { return m_stop1Id; }
+  StopId GetStop1Id() const { return m_stop1Id.Get(); }
   StopId GetStop2Id() const { return m_stop2Id; }
-  double GetWeight() const { return m_weight; }
+  Weight GetWeight() const { return m_weight; }
   LineId GetLineId() const { return m_lineId; }
   bool GetTransfer() const { return m_transfer; }
   std::vector<ShapeId> const & GetShapeIds() const { return m_shapeIds; }
@@ -282,13 +286,14 @@ private:
                                   visitor(m_weight, "weight"), visitor(m_lineId, "line_id"),
                                   visitor(m_transfer, "transfer"), visitor(m_shapeIds, "shape_ids"))
 
-  StopId m_stop1Id = kInvalidStopId;
+  MonotoneEdgeId m_stop1Id = MonotoneEdgeId(kInvalidStopId);
   StopId m_stop2Id = kInvalidStopId;
-  double m_weight = kInvalidWeight; // in seconds
+  Weight m_weight = kInvalidWeight; // in seconds
   LineId m_lineId = kInvalidLineId;
   bool m_transfer = false;
   std::vector<ShapeId> m_shapeIds;
 };
+NEWTYPE_SIMPLE_OUTPUT(Edge::MonotoneEdgeId)
 
 class Transfer
 {

@@ -4,7 +4,6 @@
 
 namespace
 {
-double constexpr kWeightEqualEpsilon = 1e-2;
 double constexpr kPointsEqualEpsilon = 1e-6;
 }  // namespace
 
@@ -143,7 +142,7 @@ bool Stop::IsEqualForTesting(Stop const & stop) const
 
 bool Stop::IsValid() const
 {
-  return m_id != kInvalidStopId && !m_lineIds.empty();
+  return m_id.Get() != kInvalidStopId && !m_lineIds.empty();
 }
 
 // SingleMwmSegment -------------------------------------------------------------------------------
@@ -163,7 +162,7 @@ bool SingleMwmSegment::IsValid() const
 }
 
 // Gate -------------------------------------------------------------------------------------------
-Gate::Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, double weight,
+Gate::Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, Weight weight,
            std::vector<StopId> const & stopIds, m2::PointD const & point)
   : m_featureIdentifiers(osmId, featureId, false /* serializeFeatureIdOnly */)
   , m_entrance(entrance)
@@ -196,10 +195,8 @@ bool Gate::operator==(Gate const & rhs) const
 
 bool Gate::IsEqualForTesting(Gate const & gate) const
 {
-  return m_featureIdentifiers == gate.m_featureIdentifiers &&
-         m_entrance == gate.m_entrance && m_exit == gate.m_exit &&
-         my::AlmostEqualAbs(m_weight, gate.m_weight, kWeightEqualEpsilon) &&
-         m_stopIds == gate.m_stopIds &&
+  return m_featureIdentifiers == gate.m_featureIdentifiers && m_entrance == gate.m_entrance &&
+         m_exit == gate.m_exit && m_weight == gate.m_weight && m_stopIds == gate.m_stopIds &&
          my::AlmostEqualAbs(m_point, gate.m_point, kPointsEqualEpsilon);
 }
 
@@ -228,7 +225,7 @@ bool ShapeId::IsValid() const
 }
 
 // Edge -------------------------------------------------------------------------------------------
-Edge::Edge(StopId stop1Id, StopId stop2Id, double weight, LineId lineId, bool transfer,
+Edge::Edge(StopId stop1Id, StopId stop2Id, Weight weight, LineId lineId, bool transfer,
            std::vector<ShapeId> const & shapeIds)
   : m_stop1Id(stop1Id)
   , m_stop2Id(stop2Id)
@@ -255,8 +252,7 @@ bool Edge::operator==(Edge const & rhs) const
 
 bool Edge::IsEqualForTesting(Edge const & edge) const
 {
-  return m_stop1Id == edge.m_stop1Id && m_stop2Id == edge.m_stop2Id &&
-         my::AlmostEqualAbs(m_weight, edge.m_weight, kWeightEqualEpsilon) &&
+  return m_stop1Id == edge.m_stop1Id && m_stop2Id == edge.m_stop2Id && m_weight == edge.m_weight &&
          m_lineId == edge.m_lineId && m_transfer == edge.m_transfer &&
          m_shapeIds == edge.m_shapeIds;
 }
@@ -269,7 +265,7 @@ bool Edge::IsValid() const
   if (!m_transfer && m_lineId == kInvalidLineId)
     return false;
 
-  return m_stop1Id != kInvalidStopId && m_stop2Id != kInvalidStopId && m_weight != kInvalidWeight;
+  return m_stop1Id.Get() != kInvalidStopId && m_stop2Id != kInvalidStopId && m_weight != kInvalidWeight;
 }
 
 // Transfer ---------------------------------------------------------------------------------------
@@ -310,7 +306,7 @@ bool Line::IsEqualForTesting(Line const & line) const
 {
   return m_id == line.m_id && m_number == line.m_number && m_title == line.m_title &&
          m_type == line.m_type && m_color == line.m_color && m_networkId == line.m_networkId &&
-         m_stopIds == line.m_stopIds && my::AlmostEqualAbs(m_interval, line.m_interval, kWeightEqualEpsilon);
+         m_stopIds == line.m_stopIds && m_interval == line.m_interval;
 }
 
 bool Line::IsValid() const

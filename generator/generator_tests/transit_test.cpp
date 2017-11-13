@@ -138,10 +138,10 @@ UNIT_TEST(DeserializerFromJson_Gates)
 
   vector<Gate> const expected = {
       Gate(46116860 /* osm id */, 0 /* feature id */, true /* entrance */,
-           true /* exit */, 60.0 /* weight */, {442018474} /* stop ids */,
+           true /* exit */, 60 /* weight */, {442018474} /* stop ids */,
            {43.8594864, 68.33320554776377} /* point */),
       Gate(18446744073709551615ULL /* osm id */, 2 /* feature id */, true /* entrance */,
-           true /* exit */, 60.0 /* weight */, {442018465} /* stop ids */,
+           true /* exit */, 60 /* weight */, {442018465} /* stop ids */,
            {43.9290544, 68.41120791512581} /* point */)};
 
   OsmIdToFeatureIdsMap mapping;
@@ -176,7 +176,7 @@ UNIT_TEST(DeserializerFromJson_Edges)
       "stop2_id": 442018446,
       "line_id": 72551680,
       "shape_ids": [],
-      "weight" : 345.6,
+      "weight" : 345,
       "stop1_id": 442018445,
       "transfer": false
     }
@@ -186,7 +186,7 @@ UNIT_TEST(DeserializerFromJson_Edges)
       Edge(442018444 /* stop 1 id */, 442018445 /* stop 2 id */, kInvalidWeight /* weight */,
            72551680 /* line id */, false /* transfer */,
            {ShapeId(209186407, 209186410), ShapeId(209186408, 209186411)}),
-      Edge(442018445 /* stop 1 id */, 442018446 /* stop 2 id */, 345.6 /* weight */,
+      Edge(442018445 /* stop 1 id */, 442018446 /* stop 2 id */, 345 /* weight */,
            72551680 /* line id */, false /* transfer */, {} /* shape ids */)};
 
   TestDeserializerFromJson(jsonBuffer, "edges", expected);
@@ -261,11 +261,11 @@ UNIT_TEST(DeserializerFromJson_Lines)
   vector<Line> const expected = {Line(19207936 /* line id */, "1" /* number */, "Московская линия" /* title */,
                                       "subway" /* type */, "green" /* color */, 2 /* network id */,
                                       {{343262691, 343259523, 343252898, 209191847, 2947858576}} /* stop ids */,
-                                      150.0 /* interval */),
+                                      150 /* interval */),
                                  Line(19207937 /* line id */, "2" /* number */, "Московская линия" /* title */,
                                       "subway" /* type */, "red" /* color */, 2 /* network id */,
                                       {{246659391, 246659390, 209191855, 209191854, 209191853,
-                                        209191852, 209191851}} /* stop ids */, 150.0 /* interval */)};
+                                        209191852, 209191851}} /* stop ids */, 150 /* interval */)};
 
   TestDeserializerFromJson(jsonBuffer, "lines", expected);
 }

@@ -46,6 +46,16 @@ public:
   void operator()(StopIdRanges & rs, char const * name = nullptr);
 
   template <typename T>
+  typename std::enable_if<std::is_same<T, Edge::MonotoneEdgeId>::value ||
+      std::is_same<T, Stop::MonotoneStopId>::value>::type
+  operator()(T & t, char const * name = nullptr)
+  {
+    typename T::RepType id;
+    operator()(id, name);
+    t.Set(id);
+  }
+
+  template <typename T>
   void operator()(std::vector<T> & vs, char const * name = nullptr)
   {
     auto * arr = my::GetJSONOptionalField(m_node, name);
@@ -64,8 +74,10 @@ public:
   }
 
   template <typename T>
-  typename std::enable_if<std::is_class<T>::value>::type operator()(T & t,
-                                                                    char const * name = nullptr)
+  typename std::enable_if<std::is_class<T>::value &&
+                          !std::is_same<T, Edge::MonotoneEdgeId>::value &&
+                          !std::is_same<T, Stop::MonotoneStopId>::value>::type
+  operator()(T & t, char const * name = nullptr)
   {
     if (name != nullptr && json_is_object(m_node))
     {

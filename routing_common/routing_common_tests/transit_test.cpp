@@ -175,7 +175,7 @@ UNIT_TEST(Transit_SingleMwmSegmentSerialization)
 UNIT_TEST(Transit_GateSerialization)
 {
   Gate gate(12345678 /* osm id */, 12345 /* feature id */, true /* entrance */, false /* exit */,
-            117.8 /* weight */, {1, 2, 3} /* stop ids */, {30.0, 50.0} /* point */);
+            117 /* weight */, {1, 2, 3} /* stop ids */, {30.0, 50.0} /* point */);
   TestSerialization(gate);
   TEST(gate.IsValid(), (gate));
 }
@@ -186,21 +186,21 @@ UNIT_TEST(Transit_GatesRelational)
                                123 /* feature id */,
                                true /* entrance */,
                                false /* exit */,
-                               1.0 /* weight */,
+                               1 /* weight */,
                                {1, 2, 3} /* stops ids */,
                                m2::PointD(0.0, 0.0)},
                               {12345678 /* osm id */,
                                1234 /* feature id */,
                                true /* entrance */,
                                false /* exit */,
-                               1.0 /* weight */,
+                               1 /* weight */,
                                {1, 2, 3} /* stops ids */,
                                m2::PointD(0.0, 0.0)},
                               {12345678 /* osm id */,
                                1234 /* feature id */,
                                true /* entrance */,
                                false /* exit */,
-                               1.0 /* weight */,
+                               1 /* weight */,
                                {1, 2, 3, 4} /* stops ids */,
                                m2::PointD(0.0, 0.0)}};
   TEST(is_sorted(gates.cbegin(), gates.cend()), ());
@@ -208,7 +208,7 @@ UNIT_TEST(Transit_GatesRelational)
 
 UNIT_TEST(Transit_EdgeSerialization)
 {
-  Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123.4 /* weight */, 11 /* line id */,
+  Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
             false /* transfer */, {ShapeId(1, 2), ShapeId(3, 4), ShapeId(5, 6)} /* shape ids */);
   TestSerialization(edge);
   TEST(edge.IsValid(), (edge));
@@ -227,21 +227,21 @@ UNIT_TEST(Transit_LineSerialization)
   {
     Line line(1 /* line id */, "2" /* number */, "Линия" /* title */,
               "subway" /* type */, "red" /* color */, 3 /* network id */, {{1}} /* stop ids */,
-              10.0 /* interval */);
+              10 /* interval */);
     TestSerialization(line);
     TEST(line.IsValid(), (line));
   }
   {
     Line line(10 /* line id */, "11" /* number */, "Линия" /* title */,
               "subway" /* type */, "green" /* color */, 12 /* network id */,
-              {{13, 14, 15}} /* stop ids */, 15.0 /* interval */);
+              {{13, 14, 15}} /* stop ids */, 15 /* interval */);
     TestSerialization(line);
     TEST(line.IsValid(), (line));
   }
   {
     Line line(100 /* line id */, "101" /* number */, "Линия" /* title */,
               "subway" /* type */, "blue" /* color */, 103 /* network id */,
-              {{1, 2, 3}, {7, 8, 9}} /* stop ids */, 15.0 /* interval */);
+              {{1, 2, 3}, {7, 8, 9}} /* stop ids */, 15 /* interval */);
     TestSerialization(line);
     TEST(line.IsValid(), (line));
   }

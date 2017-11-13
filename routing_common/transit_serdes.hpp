@@ -15,6 +15,7 @@
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 #include "base/macros.hpp"
+#include "base/newtype.hpp"
 
 #include <cmath>
 #include <cstdint>
@@ -97,6 +98,20 @@ public:
     }
   }
 
+  void operator()(Edge::MonotoneEdgeId const & t, char const * /* name */ = nullptr)
+  {
+    CHECK_GREATER_OR_EQUAL(t.Get(), m_lastEncodedMonotoneEdgeId.Get(), ());
+    WriteVarUint(m_sink, static_cast<uint64_t>(t.Get() - m_lastEncodedMonotoneEdgeId.Get()));
+    m_lastEncodedMonotoneEdgeId = t;
+  }
+
+  void operator()(Stop::MonotoneStopId const & t, char const * /* name */ = nullptr)
+  {
+    CHECK_GREATER_OR_EQUAL(t.Get(), m_lastEncodedMonotoneStopId.Get(), ());
+    WriteVarUint(m_sink, static_cast<uint64_t>(t.Get() - m_lastEncodedMonotoneStopId.Get()));
+    m_lastEncodedMonotoneStopId = t;
+  }
+
   void operator()(FeatureIdentifiers const & id, char const * name = nullptr)
   {
     if (id.IsSerializeFeatureIdOnly())
@@ -122,6 +137,8 @@ public:
 
 private:
   Sink & m_sink;
+  Edge::MonotoneEdgeId m_lastEncodedMonotoneEdgeId = Edge::MonotoneEdgeId(0);
+  Stop::MonotoneStopId m_lastEncodedMonotoneStopId = Stop::MonotoneStopId(0);
 };
 
 template <typename Source>
@@ -174,6 +191,18 @@ public:
     p = Int64ToPoint(ReadVarInt<int64_t, Source>(m_source), POINT_COORD_BITS);
   }
 
+  void operator()(Edge::MonotoneEdgeId & t, char const * /* name */ = nullptr)
+  {
+    t = m_lastDecodedMonotoneEdgeId + Edge::MonotoneEdgeId(ReadVarUint<uint64_t, Source>(m_source));
+    m_lastDecodedMonotoneEdgeId = t;
+  }
+
+  void operator()(Stop::MonotoneStopId & t, char const * /* name */ = nullptr)
+  {
+    t = m_lastDecodedMonotoneStopId + Stop::MonotoneStopId(ReadVarUint<uint64_t, Source>(m_source));
+    m_lastDecodedMonotoneStopId = t;
+  }
+
   void operator()(FeatureIdentifiers & id, char const * name = nullptr)
   {
     if (id.IsSerializeFeatureIdOnly())
@@ -210,14 +239,17 @@ public:
       (*this)(v);
   }
 
-  template<typename T>
-  typename std::enable_if<std::is_class<T>::value>::type operator()(T & t, char const * /* name */ = nullptr)
+  template <typename T>
+  typename std::enable_if<std::is_class<T>::value>::type
+  operator()(T & t, char const * /* name */ = nullptr)
   {
     t.Visit(*this);
   }
 
 private:
   Source & m_source;
+  Edge::MonotoneEdgeId m_lastDecodedMonotoneEdgeId = Edge::MonotoneEdgeId(0);
+  Stop::MonotoneStopId m_lastDecodedMonotoneStopId = Stop::MonotoneStopId(0);
 };
 
 template <typename Sink>
