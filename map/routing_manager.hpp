@@ -50,6 +50,32 @@ struct RoutePointInfo
   m2::PointD m_position;
 };
 
+struct TransitStepInfo
+{
+  TransitStepInfo(bool isPedestrian, double distance, double time,
+                  std::string const & type = "", std::string const & number = "", std::string const & color = "");
+
+  bool IsEqualType(TransitStepInfo const & ts) const;
+
+  bool m_isPedestrian = false;
+  double m_distance = 0.0;
+  double m_time = 0.0;
+  std::string m_type;
+  std::string m_number;
+  std::string m_color;
+};
+
+struct TransitRouteInfo
+{
+  double m_totalDistance = 0.0;
+  double m_totalTime = 0.0;
+  double m_totalPedestrianDistance = 0.0;
+  double m_totalPedestrianTime = 0.0;
+  std::vector<TransitStepInfo> m_steps;
+
+  void AddStep(TransitStepInfo const & step);
+};
+
 class RoutingManager final
 {
 public:
@@ -142,6 +168,9 @@ public:
   {
     m_routingSession.GetRouteFollowingInfo(info);
   }
+
+  TransitRouteInfo GetTransitRouteInfo() const;
+
   m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
   /// Returns the most situable router engine type.
   routing::RouterType GetBestRouter(m2::PointD const & startPoint,
@@ -285,6 +314,8 @@ private:
   mutable std::mutex m_drapeSubroutesMutex;
 
   std::unique_ptr<location::GpsInfo> m_gpsInfoCache;
+
+  TransitRouteInfo m_transitRouteInfo;
 
   struct RoutePointsTransaction
   {

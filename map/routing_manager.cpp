@@ -41,7 +41,10 @@
 #include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/jansson/myjansson.hpp"
 
+#include <iomanip>
+#include <ios>
 #include <map>
+#include <sstream>
 
 using namespace routing;
 using namespace std;
@@ -190,9 +193,19 @@ void AddTransitShapes(std::vector<transit::ShapeId> const & shapeIds, TransitSha
   subroute.m_style.emplace_back(move(style));
 }
 
+string ColorToHexStr(dp::Color const & color)
+{
+  stringstream ss;
+  ss << nouppercase << hex << setfill('0');
+  ss << setw(2) << static_cast<int>(color.GetRed())
+     << setw(2) << static_cast<int>(color.GetGreen())
+     << setw(2) << static_cast<int>(color.GetBlue());
+  return ss.str();
+}
+
 void FillTransitStyleForRendering(vector<RouteSegment> const & segments, TransitReadManager & transitReadManager,
                                   GetMwmIdFn const & getMwmIdFn, df::Subroute & subroute,
-                                  vector<TransitMarkInfo> & transitMarks)
+                                  vector<TransitMarkInfo> & transitMarks, TransitRouteInfo & routeInfo)
 {
   TransitDisplayInfos transitDisplayInfos;
   CollectTransitDisplayInfo(segments, getMwmIdFn, transitDisplayInfos);
@@ -210,13 +223,20 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
   df::SubrouteMarker marker;
   TransitMarkInfo transitMarkInfo;
 
-  double distance = 0;
+  double prevDistance = routeInfo.m_totalDistance;
+  double prevTime = routeInfo.m_totalDistance;
+
   bool pendingEntrance = false;
 
   for (auto const & s : segments)
   {
+    auto const time = s.GetTimeFromBeginningSec() - prevTime;
+    auto const distance = s.GetDistFromBeginningMeters() - prevDistance;
+
     if (!s.HasTransitInfo())
     {
+      routeInfo.AddStep(TransitStepInfo(true /* isPedestrian */, distance, time));
+
       AddTransitPedestrianSegment(s.GetJunction().GetPoint(), subroute);
       lastColor = "";
       continue;
@@ -234,12 +254,16 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
       auto const & line = displayInfo.m_lines.at(edge.m_lineId);
       auto const currentColor = df::GetTransitColorName(line.GetColor());
 
+      string const hexColor = ColorToHexStr(df::GetColorConstant(currentColor));
+      routeInfo.AddStep(TransitStepInfo(false /* isPedestrian */, distance, time,
+                                        line.GetType(), line.GetNumber(), hexColor));
+
       auto const & stop1 = displayInfo.m_stops.at(edge.m_stop1Id);
       auto const & stop2 = displayInfo.m_stops.at(edge.m_stop2Id);
       bool const isTransfer1 = stop1.GetTransferId() != transit::kInvalidTransferId;
       bool const isTransfer2 = stop2.GetTransferId() != transit::kInvalidTransferId;
 
-      marker.m_distance = distance;
+      marker.m_distance = prevDistance;
       marker.m_scale = kStopMarkerScale;
       marker.m_innerColor = currentColor;
       if (isTransfer1)
@@ -296,9 +320,8 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
       transitMarkInfo = TransitMarkInfo();
 
       lastDir = currentDir;
-      distance += stop1.GetPoint().Length(stop2.GetPoint());
 
-      marker.m_distance = distance;
+      marker.m_distance = s.GetDistFromBeginningMeters();
       marker.m_scale = kStopMarkerScale;
       marker.m_innerColor = currentColor;
       marker.m_colors.push_back(currentColor);
@@ -323,6 +346,8 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
       auto const & gate = transitInfo.GetGate();
       if (!lastColor.empty())
       {
+        routeInfo.AddStep(TransitStepInfo(true /* isPedestrian */, distance, time));
+
         AddTransitGateSegment(s.GetJunction().GetPoint(), subroute);
 
         subroute.m_markers.push_back(marker);
@@ -336,7 +361,13 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
         pendingEntrance = true;
       }
     }
+
+    prevDistance = s.GetDistFromBeginningMeters();
+    prevTime = s.GetTimeFromBeginningSec();
   }
+
+  routeInfo.m_totalDistance = prevDistance;
+  routeInfo.m_totalTime = prevTime;
 
   if (subroute.m_markers.size() > 1)
   {
@@ -532,6 +563,44 @@ namespace marketing
 {
 char const * const kRoutingCalculatingRoute = "Routing_CalculatingRoute";
 }  // namespace marketing
+
+TransitStepInfo::TransitStepInfo(bool isPedestrian, double distance, double time,
+                std::string const & type, std::string const & number, std::string const & color)
+    : m_isPedestrian(isPedestrian)
+    , m_distance(distance)
+    , m_time(time)
+    , m_type(type)
+    , m_number(number)
+    , m_color(color)
+{}
+
+bool TransitStepInfo::IsEqualType(TransitStepInfo const & ts) const
+{
+  if (m_isPedestrian)
+    return ts.m_isPedestrian;
+
+  return m_isPedestrian == ts.m_isPedestrian &&
+      (m_isPedestrian || (m_type == ts.m_type && m_number == ts.m_number && m_color == ts.m_color));
+}
+
+void TransitRouteInfo::AddStep(TransitStepInfo const & step)
+{
+  if (!m_steps.empty() && m_steps.back().IsEqualType(step))
+  {
+    m_steps.back().m_distance += step.m_distance;
+    m_steps.back().m_time += step.m_time;
+  }
+  else
+  {
+    m_steps.push_back(step);
+  }
+
+  if (step.m_isPedestrian)
+  {
+    m_totalPedestrianDistance += step.m_distance;
+    m_totalPedestrianTime += step.m_time;
+  }
+}
 
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   : m_callbacks(move(callbacks))
@@ -742,6 +811,7 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
   {
     lock_guard<mutex> lock(m_drapeSubroutesMutex);
     m_drapeSubroutes.clear();
+    m_transitRouteInfo = TransitRouteInfo();
   }
 }
 
@@ -756,6 +826,7 @@ void RoutingManager::InsertRoute(Route const & route)
   vector<RouteSegment> segments;
   vector<m2::PointD> points;
   double distance = 0.0;
+  TransitRouteInfo transitRouteInfo;
   auto const subroutesCount = route.GetSubrouteCount();
   for (size_t subrouteIndex = route.GetCurrentSubrouteIdx(); subrouteIndex < subroutesCount; ++subrouteIndex)
   {
@@ -810,7 +881,8 @@ void RoutingManager::InsertRoute(Route const & route)
           };
 
           vector<TransitMarkInfo> transitMarks;
-          FillTransitStyleForRendering(segments, m_transitReadManager, getMwmIdFn, *subroute.get(), transitMarks);
+          FillTransitStyleForRendering(segments, m_transitReadManager, getMwmIdFn, *subroute.get(),
+                                       transitMarks, transitRouteInfo);
 
           auto & marksController = m_bmManager->GetUserMarksController(UserMark::Type::TRANSIT);
           CreateTransitMarks(transitMarks, marksController);
@@ -838,6 +910,7 @@ void RoutingManager::InsertRoute(Route const & route)
 
     lock_guard<mutex> lock(m_drapeSubroutesMutex);
     m_drapeSubroutes.push_back(subrouteId);
+    m_transitRouteInfo = transitRouteInfo;
   }
 }
 
@@ -1530,6 +1603,12 @@ void RoutingManager::CancelRecommendation(Recommendation recommendation)
 {
   if (recommendation == Recommendation::RebuildAfterPointsLoading)
     m_loadRoutePointsTimestamp = chrono::steady_clock::time_point();
+}
+
+TransitRouteInfo RoutingManager::GetTransitRouteInfo() const
+{
+  lock_guard<mutex> lock(m_drapeSubroutesMutex);
+  return m_transitRouteInfo;
 }
 
 std::vector<dp::DrapeID> RoutingManager::GetSubrouteIds() const
