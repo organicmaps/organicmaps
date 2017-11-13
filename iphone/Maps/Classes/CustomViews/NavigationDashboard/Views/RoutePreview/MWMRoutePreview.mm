@@ -20,6 +20,7 @@
 @property(weak, nonatomic) IBOutlet UIView * bicycle;
 @property(weak, nonatomic) IBOutlet UIView * contentView;
 @property(weak, nonatomic) IBOutlet UIView * pedestrian;
+@property(weak, nonatomic) IBOutlet UIView * publicTransport;
 @property(weak, nonatomic) IBOutlet UIView * taxi;
 @property(weak, nonatomic) IBOutlet UIView * vehicle;
 
@@ -43,6 +44,9 @@
 {
   [self addProgress:self.vehicle imageName:@"ic_car" routerType:MWMRouterTypeVehicle];
   [self addProgress:self.pedestrian imageName:@"ic_pedestrian" routerType:MWMRouterTypePedestrian];
+  [self addProgress:self.publicTransport
+          imageName:@"ic_train"
+         routerType:MWMRouterTypePublicTransport];
   [self addProgress:self.bicycle imageName:@"ic_bike" routerType:MWMRouterTypeBicycle];
   [self addProgress:self.taxi imageName:@"ic_taxi" routerType:MWMRouterTypeTaxi];
 }
@@ -121,6 +125,7 @@
     {
     case MWMRouterTypeVehicle: routerTypeString = kStatVehicle; break;
     case MWMRouterTypePedestrian: routerTypeString = kStatPedestrian; break;
+    case MWMRouterTypePublicTransport: routerTypeString = kStatPublicTransport; break;
     case MWMRouterTypeBicycle: routerTypeString = kStatBicycle; break;
     case MWMRouterTypeTaxi: routerTypeString = kStatTaxi; break;
     }

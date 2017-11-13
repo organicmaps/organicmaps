@@ -88,6 +88,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   switch ([self type])
   {
   case MWMRouterTypeVehicle:
+  case MWMRouterTypePublicTransport:
   case MWMRouterTypeTaxi: return NO;
   case MWMRouterTypePedestrian:
   case MWMRouterTypeBicycle: return GetFramework().GetRoutingManager().HasRouteAltitude();

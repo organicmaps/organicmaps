@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager">
             <connections>
@@ -49,10 +54,10 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQc-l8-sZH" userLabel="Buttons Box">
-                            <rect key="frame" x="54" y="0.0" width="212" height="44"/>
+                            <rect key="frame" x="48" y="3" width="234" height="38"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZF-Ha-2tB">
-                                    <rect key="frame" x="6" y="3" width="38" height="38"/>
+                                    <rect key="frame" x="6" y="0.0" width="38" height="38"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <accessibility key="accessibilityConfiguration" identifier="routeAuto"/>
                                     <constraints>
@@ -60,47 +65,58 @@
                                         <constraint firstAttribute="height" constant="38" id="mp7-b4-xot"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FuO-c6-y9C" userLabel="Bicycle">
-                                    <rect key="frame" x="60" y="3" width="38" height="38"/>
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="routeBicycle"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="38" id="9fe-fw-05J"/>
-                                        <constraint firstAttribute="height" constant="38" id="gbm-NL-zgv"/>
-                                    </constraints>
-                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6D3-QF-6wm">
-                                    <rect key="frame" x="114" y="3" width="38" height="38"/>
+                                    <rect key="frame" x="52" y="0.0" width="38" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <accessibility key="accessibilityConfiguration" identifier="routePedestrian"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="38" id="815-LJ-2tk"/>
-                                        <constraint firstAttribute="height" constant="38" id="hXi-E7-GUb"/>
-                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yIt-eq-pV5">
+                                    <rect key="frame" x="98" y="0.0" width="38" height="38"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="routeAuto"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FuO-c6-y9C" userLabel="Bicycle">
+                                    <rect key="frame" x="144" y="0.0" width="38" height="38"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="routeBicycle"/>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15Q-ZN-NzE" userLabel="Taxi">
-                                    <rect key="frame" x="168" y="3" width="38" height="38"/>
+                                    <rect key="frame" x="190" y="0.0" width="38" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <accessibility key="accessibilityConfiguration" identifier="routeTaxi"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="38" id="ibp-pJ-TuK"/>
-                                        <constraint firstAttribute="height" constant="38" id="zPC-M0-Jo1"/>
-                                    </constraints>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="FuO-c6-y9C" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="1De-4s-V8t"/>
-                                <constraint firstItem="6D3-QF-6wm" firstAttribute="leading" secondItem="FuO-c6-y9C" secondAttribute="trailing" constant="16" id="91z-iC-oKp"/>
-                                <constraint firstItem="cZF-Ha-2tB" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="MQh-op-cpN"/>
+                                <constraint firstItem="6D3-QF-6wm" firstAttribute="height" secondItem="cZF-Ha-2tB" secondAttribute="height" id="4Qi-EG-IAQ"/>
+                                <constraint firstItem="6D3-QF-6wm" firstAttribute="centerY" secondItem="cZF-Ha-2tB" secondAttribute="centerY" id="59W-uU-VjX"/>
+                                <constraint firstItem="yIt-eq-pV5" firstAttribute="centerY" secondItem="6D3-QF-6wm" secondAttribute="centerY" id="Asc-c8-I4S"/>
+                                <constraint firstAttribute="bottom" secondItem="cZF-Ha-2tB" secondAttribute="bottom" id="CUK-cL-Kgn"/>
+                                <constraint firstItem="cZF-Ha-2tB" firstAttribute="top" secondItem="oQc-l8-sZH" secondAttribute="top" id="Gph-Eh-TU4"/>
+                                <constraint firstItem="yIt-eq-pV5" firstAttribute="width" secondItem="6D3-QF-6wm" secondAttribute="width" id="H4Q-ur-uYs"/>
+                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="height" secondItem="FuO-c6-y9C" secondAttribute="height" id="MJ2-gy-RuF"/>
                                 <constraint firstItem="cZF-Ha-2tB" firstAttribute="leading" secondItem="oQc-l8-sZH" secondAttribute="leading" constant="6" id="MjU-UA-Kax"/>
-                                <constraint firstAttribute="height" constant="44" id="Mws-KZ-ghs"/>
-                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="leading" secondItem="6D3-QF-6wm" secondAttribute="trailing" constant="16" id="Td5-UQ-kzj"/>
+                                <constraint firstAttribute="trailing" secondItem="FuO-c6-y9C" secondAttribute="trailing" priority="750" constant="6" id="Mnf-65-B96"/>
+                                <constraint firstItem="yIt-eq-pV5" firstAttribute="leading" secondItem="6D3-QF-6wm" secondAttribute="trailing" constant="8" id="SZ8-HG-7Hp">
+                                    <variation key="heightClass=compact" constant="16"/>
+                                </constraint>
+                                <constraint firstItem="FuO-c6-y9C" firstAttribute="leading" secondItem="yIt-eq-pV5" secondAttribute="trailing" constant="8" id="SZW-Df-ewG">
+                                    <variation key="heightClass=compact" constant="16"/>
+                                </constraint>
                                 <constraint firstAttribute="trailing" secondItem="15Q-ZN-NzE" secondAttribute="trailing" constant="6" id="WHK-N0-dCc"/>
-                                <constraint firstItem="FuO-c6-y9C" firstAttribute="leading" secondItem="cZF-Ha-2tB" secondAttribute="trailing" constant="16" id="Z6M-UV-6x2"/>
-                                <constraint firstItem="6D3-QF-6wm" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="vXO-6g-q4L"/>
-                                <constraint firstAttribute="trailing" secondItem="6D3-QF-6wm" secondAttribute="trailing" priority="750" constant="6" id="zmG-EZ-8Wk"/>
-                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="zvc-uG-Izm"/>
+                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="leading" secondItem="FuO-c6-y9C" secondAttribute="trailing" constant="8" id="Wve-9m-8zL">
+                                    <variation key="heightClass=compact" constant="16"/>
+                                </constraint>
+                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="centerY" secondItem="FuO-c6-y9C" secondAttribute="centerY" id="XnT-CH-4hj"/>
+                                <constraint firstItem="FuO-c6-y9C" firstAttribute="height" secondItem="yIt-eq-pV5" secondAttribute="height" id="bVx-od-f1R"/>
+                                <constraint firstItem="6D3-QF-6wm" firstAttribute="leading" secondItem="cZF-Ha-2tB" secondAttribute="trailing" constant="8" id="ogb-pD-gIt">
+                                    <variation key="heightClass=compact" constant="16"/>
+                                </constraint>
+                                <constraint firstItem="FuO-c6-y9C" firstAttribute="centerY" secondItem="yIt-eq-pV5" secondAttribute="centerY" id="tk3-wG-hnn"/>
+                                <constraint firstItem="6D3-QF-6wm" firstAttribute="width" secondItem="cZF-Ha-2tB" secondAttribute="width" id="ubg-3e-PYE"/>
+                                <constraint firstItem="FuO-c6-y9C" firstAttribute="width" secondItem="yIt-eq-pV5" secondAttribute="width" id="vV6-AH-LBg"/>
+                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="width" secondItem="FuO-c6-y9C" secondAttribute="width" id="wjk-Hk-xXs"/>
+                                <constraint firstItem="yIt-eq-pV5" firstAttribute="height" secondItem="6D3-QF-6wm" secondAttribute="height" id="wrQ-Mh-rRk"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -110,7 +126,9 @@
                         <constraint firstItem="oQc-l8-sZH" firstAttribute="centerY" secondItem="wpf-tw-Coz" secondAttribute="centerY" id="NwC-Dq-AAM"/>
                         <constraint firstItem="wpf-tw-Coz" firstAttribute="leading" secondItem="WqK-Yb-PmP" secondAttribute="leading" id="bK5-4Q-Rv9"/>
                         <constraint firstItem="wpf-tw-Coz" firstAttribute="top" secondItem="WqK-Yb-PmP" secondAttribute="top" id="cPc-fO-vAa"/>
-                        <constraint firstItem="oQc-l8-sZH" firstAttribute="centerX" secondItem="WqK-Yb-PmP" secondAttribute="centerX" id="ltA-tm-z3P"/>
+                        <constraint firstItem="oQc-l8-sZH" firstAttribute="centerX" secondItem="WqK-Yb-PmP" secondAttribute="centerX" priority="750" id="ltA-tm-z3P"/>
+                        <constraint firstItem="oQc-l8-sZH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wpf-tw-Coz" secondAttribute="trailing" constant="4" id="nBk-gt-mzb"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oQc-l8-sZH" secondAttribute="trailing" constant="4" id="yBS-u8-1oX"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="primary"/>
@@ -133,6 +151,7 @@
                 <outlet property="bicycle" destination="FuO-c6-y9C" id="UR2-pF-Amb"/>
                 <outlet property="contentView" destination="WqK-Yb-PmP" id="4ph-Dm-EFr"/>
                 <outlet property="pedestrian" destination="6D3-QF-6wm" id="bdh-zx-9LW"/>
+                <outlet property="publicTransport" destination="yIt-eq-pV5" id="yIX-eM-Hrs"/>
                 <outlet property="taxi" destination="15Q-ZN-NzE" id="RaD-7N-ZE2"/>
                 <outlet property="vehicle" destination="cZF-Ha-2tB" id="QP3-tU-nfO"/>
             </connections>

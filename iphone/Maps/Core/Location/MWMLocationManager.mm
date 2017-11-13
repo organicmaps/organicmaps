@@ -335,6 +335,7 @@ void setPermissionRequested()
     switch ([MWMRouter type])
     {
     case MWMRouterTypeVehicle: manager.geoMode = GeoMode::VehicleRouting; break;
+    case MWMRouterTypePublicTransport:
     case MWMRouterTypePedestrian: manager.geoMode = GeoMode::PedestrianRouting; break;
     case MWMRouterTypeBicycle: manager.geoMode = GeoMode::BicycleRouting; break;
     case MWMRouterTypeTaxi: break;
