@@ -208,10 +208,30 @@ UNIT_TEST(Transit_GatesRelational)
 
 UNIT_TEST(Transit_EdgeSerialization)
 {
-  Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
-            false /* transfer */, {ShapeId(1, 2), ShapeId(3, 4), ShapeId(5, 6)} /* shape ids */);
-  TestSerialization(edge);
-  TEST(edge.IsValid(), (edge));
+  {
+    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
+              false /* transfer */, {ShapeId(1, 2), ShapeId(3, 4), ShapeId(5, 6)} /* shape ids */);
+    TestSerialization(edge);
+    TEST(edge.IsValid(), (edge));
+  }
+  {
+    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
+              false /* transfer */, {ShapeId(1, 2)} /* shape ids */);
+    TestSerialization(edge);
+    TEST(edge.IsValid(), (edge));
+  }
+  {
+    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
+              false /* transfer */, {ShapeId(2, 1)} /* shape ids */);
+    TestSerialization(edge);
+    TEST(edge.IsValid(), (edge));
+  }
+  {
+    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
+              true /* transfer */, {} /* shape ids */);
+    TestSerialization(edge);
+    TEST(edge.IsValid(), (edge));
+  }
 }
 
 UNIT_TEST(Transit_TransferSerialization)
