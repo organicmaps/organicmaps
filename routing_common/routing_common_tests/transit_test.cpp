@@ -25,13 +25,13 @@ void TestCommonSerialization(Obj const & obj)
   MemWriter<vector<uint8_t>> writer(buffer);
 
   S serializer(writer);
-  obj.Visit(serializer);
+  serializer(obj);
 
   MemReader reader(buffer.data(), buffer.size());
   ReaderSource<MemReader> src(reader);
   Obj deserializedObj;
   D deserializer(src);
-  deserializedObj.Visit(deserializer);
+  deserializer(deserializedObj);
 
   TEST(obj.IsEqualForTesting(deserializedObj), (obj, deserializedObj));
 }

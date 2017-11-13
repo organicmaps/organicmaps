@@ -2,6 +2,8 @@
 
 #include "routing_common/transit_serdes.hpp"
 
+#include "base/string_utils.hpp"
+
 namespace
 {
 double constexpr kPointsEqualEpsilon = 1e-6;
@@ -224,6 +226,17 @@ bool ShapeId::IsValid() const
   return m_stop1Id != kInvalidStopId && m_stop2Id != kInvalidStopId;
 }
 
+// EdgeFlags --------------------------------------------------------------------------------------
+void EdgeFlags::SetBit(bool bit, uint8_t bitMask)
+{
+  if (bit)
+    m_flags |= bitMask;
+  else
+    m_flags &= ~bitMask;
+}
+
+string DebugPrint(EdgeFlags const & f) { return strings::to_string(f.GetFlags()); }
+
 // Edge -------------------------------------------------------------------------------------------
 Edge::Edge(StopId stop1Id, StopId stop2Id, Weight weight, LineId lineId, bool transfer,
            std::vector<ShapeId> const & shapeIds)
@@ -231,7 +244,7 @@ Edge::Edge(StopId stop1Id, StopId stop2Id, Weight weight, LineId lineId, bool tr
   , m_stop2Id(stop2Id)
   , m_weight(weight)
   , m_lineId(lineId)
-  , m_transfer(transfer)
+  , m_flags(GetEdgeFlags(transfer, stop1Id, stop2Id, shapeIds))
   , m_shapeIds(shapeIds)
 {
 }
@@ -253,16 +266,16 @@ bool Edge::operator==(Edge const & rhs) const
 bool Edge::IsEqualForTesting(Edge const & edge) const
 {
   return m_stop1Id == edge.m_stop1Id && m_stop2Id == edge.m_stop2Id && m_weight == edge.m_weight &&
-         m_lineId == edge.m_lineId && m_transfer == edge.m_transfer &&
+         m_lineId == edge.m_lineId && m_flags.IsTransfer() == edge.m_flags.IsTransfer() &&
          m_shapeIds == edge.m_shapeIds;
 }
 
 bool Edge::IsValid() const
 {
-  if (m_transfer && (m_lineId != kInvalidLineId || !m_shapeIds.empty()))
+  if (m_flags.IsTransfer() && (m_lineId != kInvalidLineId || !m_shapeIds.empty()))
     return false;
 
-  if (!m_transfer && m_lineId == kInvalidLineId)
+  if (!m_flags.IsTransfer() && m_lineId == kInvalidLineId)
     return false;
 
   return m_stop1Id.Get() != kInvalidStopId && m_stop2Id != kInvalidStopId && m_weight != kInvalidWeight;
@@ -343,6 +356,24 @@ bool Network::IsEqualForTesting(Network const & shape) const
 bool Network::IsValid() const
 {
   return m_id != kInvalidNetworkId;
+}
+
+EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2,
+                       vector<ShapeId> const & shapeIds)
+{
+  EdgeFlags flags;
+  flags.SetTransfer(transfer);
+  flags.SetEmptyShapeIds(shapeIds.empty());
+  bool const singleShapeId = (shapeIds.size() == 1);
+  flags.SetSingleShapeId(singleShapeId);
+  if (singleShapeId)
+  {
+    flags.SetShapeIdTheSame(stopId1 == shapeIds[0].GetStop1Id() &&
+                            stopId2 == shapeIds[0].GetStop2Id());
+    flags.SetShapeIdReversed(stopId1 == shapeIds[0].GetStop2Id() &&
+                             stopId2 == shapeIds[0].GetStop1Id());
+  }
+  return flags;
 }
 }  // namespace transit
 }  // namespace routing

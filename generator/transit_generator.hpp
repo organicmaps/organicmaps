@@ -43,6 +43,7 @@ public:
   void operator()(std::string & s, char const * name = nullptr) { GetField(s, name); }
   void operator()(m2::PointD & p, char const * name = nullptr);
   void operator()(FeatureIdentifiers & id, char const * name = nullptr);
+  void operator()(EdgeFlags & edgeFlags, char const * name = nullptr);
   void operator()(StopIdRanges & rs, char const * name = nullptr);
 
   template <typename T>

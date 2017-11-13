@@ -54,7 +54,7 @@ public:
   template <typename T>
   typename std::enable_if<std::is_same<T, uint32_t>::value ||
                           std::is_same<T, uint64_t>::value>::type
-  operator()(T t, char const * name = nullptr) const
+  operator()(T t, char const * /* name */ = nullptr) const
   {
     WriteVarUint(m_sink, t);
   }
@@ -119,6 +119,26 @@ public:
     else
       id.Visit(*this);
   }
+
+  void operator()(Edge const & e, char const * /* name */ = nullptr)
+  {
+    (*this)(e.m_stop1Id);
+    (*this)(e.m_stop2Id);
+    (*this)(e.m_weight);
+    (*this)(e.m_lineId);
+    // Note. |Edge::m_flags| is not filled fully after deserialization from json.
+    // So it's necessary to it here.
+    EdgeFlags const flags =
+        GetEdgeFlags(e.GetTransfer(), e.GetStop1Id(), e.GetStop2Id(), e.GetShapeIds());
+    (*this)(flags);
+
+    if (flags.IsEmptyShapeIds() || flags.IsShapeIdTheSame() || flags.IsShapeIdReversed())
+      return;
+
+    (*this)(e.GetShapeIds());
+  }
+
+  void operator()(EdgeFlags const & f, char const * /* name */ = nullptr) { (*this)(f.GetFlags()); }
 
   template <typename T>
   void operator()(std::vector<T> const & vs, char const * /* name */ = nullptr)
@@ -216,6 +236,32 @@ public:
 
     id.Visit(*this);
   }
+
+  void operator()(Edge & e, char const * name = nullptr)
+  {
+    (*this)(e.m_stop1Id);
+    (*this)(e.m_stop2Id);
+    (*this)(e.m_weight);
+    (*this)(e.m_lineId);
+    (*this)(e.m_flags);
+
+    e.m_shapeIds.clear();
+    if (e.m_flags.IsEmptyShapeIds())
+      return;
+    if (e.m_flags.IsShapeIdTheSame())
+    {
+      e.m_shapeIds.emplace_back(e.GetStop1Id(), e.GetStop2Id());
+      return;
+    }
+    if (e.m_flags.IsShapeIdReversed())
+    {
+      e.m_shapeIds.emplace_back(e.GetStop2Id(), e.GetStop1Id());
+      return;
+    }
+    (*this)(e.m_shapeIds);
+  }
+
+  void operator()(EdgeFlags & f, char const * /* name */ = nullptr) { (*this)(f.m_flags); }
 
   void operator()(vector<m2::PointD> & vs, char const * /* name */ = nullptr)
   {

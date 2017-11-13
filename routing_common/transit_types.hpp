@@ -39,8 +39,6 @@ Weight constexpr kInvalidWeight = std::numeric_limits<Weight>::max();
   template <class Sink> friend class Serializer;                                      \
   template <class Source> friend class Deserializer;                                  \
   friend class DeserializerFromJson;                                                  \
-  template <class Ser, class Deser, class Obj>                                        \
-  friend void TestCommonSerialization(Obj const & obj);                               \
   template <typename Sink> friend class FixedSizeSerializer;                          \
   template <typename Sink> friend class FixedSizeDeserializer;                        \
 
@@ -257,6 +255,52 @@ private:
   StopId m_stop2Id = kInvalidStopId;
 };
 
+class EdgeFlags
+{
+public:
+  DECLARE_TRANSIT_TYPE_FRIENDS
+
+  bool IsTransfer() const { return IsBit(kTransferMask); }
+  void SetTransfer(bool transfer) { SetBit(transfer, kTransferMask); }
+
+  /// \returns true if |Edge::m_shapeIds| is empty.
+  bool IsEmptyShapeIds() const { return IsBit(kEmptyShapeIdsMask); }
+  void SetEmptyShapeIds(bool emptyShapeIds) { SetBit(emptyShapeIds, kEmptyShapeIdsMask); }
+
+  /// \returns true if |Edge::m_shapeIds| contains only one item.
+  bool IsSingleShapeId() const { return IsBit(kSingleShapeIdMask); }
+  void SetSingleShapeId(bool singleShapeId) { SetBit(singleShapeId, kSingleShapeIdMask); }
+
+  /// \note It's valid only if IsSingleShapeId() returns true.
+  /// \returns true if
+  /// |Edge::m_stop1Id == m_shapeIds[0].m_stop1Id && Edge::m_stop2Id == m_shapeIds[0].m_stop2Id|.
+  bool IsShapeIdTheSame() const { return IsBit(kShapeIdIsTheSameMask); }
+  void SetShapeIdTheSame(bool same) { SetBit(same, kShapeIdIsTheSameMask); }
+
+  /// \note It's valid only if IsSingleShapeId() returns true.
+  /// \returns true if
+  /// |Edge::m_stop1Id == m_shapeIds[0].m_stop2Id && Edge::m_stop2Id == m_shapeIds[0].m_stop1Id|.
+  bool IsShapeIdReversed() const { return IsBit(kShapeIdIsReversedMask); }
+  void SetShapeIdReversed(bool reversed) { SetBit(reversed, kShapeIdIsReversedMask); }
+
+  uint8_t GetFlags() const { return m_flags; }
+  void SetFlags(uint8_t flags) { m_flags = flags; }
+
+private:
+  bool IsBit(uint8_t bitMask) const { return m_flags & bitMask; }
+  void SetBit(bool bit, uint8_t bitMask);
+
+  static uint8_t constexpr kTransferMask = 1;
+  static uint8_t constexpr kEmptyShapeIdsMask = (1 << 1);
+  static uint8_t constexpr kSingleShapeIdMask = (1 << 2);
+  static uint8_t constexpr kShapeIdIsTheSameMask = (1 << 3);
+  static uint8_t constexpr kShapeIdIsReversedMask = (1 << 4);
+
+  uint8_t m_flags = 0;
+};
+
+std::string DebugPrint(EdgeFlags const & f);
+
 class Edge
 {
 public:
@@ -270,27 +314,27 @@ public:
   bool operator==(Edge const & rhs) const;
   bool IsEqualForTesting(Edge const & edge) const;
   bool IsValid() const;
-  void SetWeight(double weight) { m_weight = weight; }
+  void SetWeight(Weight weight) { m_weight = weight; }
 
   StopId GetStop1Id() const { return m_stop1Id.Get(); }
   StopId GetStop2Id() const { return m_stop2Id; }
   Weight GetWeight() const { return m_weight; }
   LineId GetLineId() const { return m_lineId; }
-  bool GetTransfer() const { return m_transfer; }
+  bool GetTransfer() const { return m_flags.IsTransfer(); }
   std::vector<ShapeId> const & GetShapeIds() const { return m_shapeIds; }
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_stop1Id, "stop1_id"),
-                                  visitor(m_stop2Id, "stop2_id"),
-                                  visitor(m_weight, "weight"), visitor(m_lineId, "line_id"),
-                                  visitor(m_transfer, "transfer"), visitor(m_shapeIds, "shape_ids"))
+                                  visitor(m_stop2Id, "stop2_id"), visitor(m_weight, "weight"),
+                                  visitor(m_lineId, "line_id"), visitor(m_flags, "transfer"),
+                                  visitor(m_shapeIds, "shape_ids"))
 
   MonotoneEdgeId m_stop1Id = MonotoneEdgeId(kInvalidStopId);
   StopId m_stop2Id = kInvalidStopId;
   Weight m_weight = kInvalidWeight; // in seconds
   LineId m_lineId = kInvalidLineId;
-  bool m_transfer = false;
+  EdgeFlags m_flags;
   std::vector<ShapeId> m_shapeIds;
 };
 NEWTYPE_SIMPLE_OUTPUT(Edge::MonotoneEdgeId)
@@ -424,6 +468,9 @@ private:
   NetworkId m_id = kInvalidNetworkId;
   std::string m_title;
 };
+
+EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2,
+                       std::vector<ShapeId> const & shapeIds);
 
 #undef DECLARE_TRANSIT_TYPE_FRIENDS
 }  // namespace transit
