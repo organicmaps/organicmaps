@@ -33,7 +33,9 @@ public:
 
 private:
   VehicleType m_vehicleType;
-  TagMapping const * m_tagMapping;
+  // Order of tag mappings in m_tagMappings is from more to less specific.
+  // e.g. for car: motorcar, motorvehicle, vehicle, general access tags.
+  std::vector<TagMapping const *> m_tagMappings;
 };
 
 class RoadAccessWriter

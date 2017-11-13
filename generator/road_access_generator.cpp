@@ -22,9 +22,6 @@
 #include "defines.hpp"
 
 #include <algorithm>
-#include <map>
-#include <string>
-#include <vector>
 
 using namespace routing;
 using namespace std;
@@ -35,23 +32,55 @@ char constexpr kDelim[] = " \t\r\n";
 
 using TagMapping = routing::RoadAccessTagProcessor::TagMapping;
 
-TagMapping const kEmptyTagMapping = {};
+TagMapping const kMotorCarTagMapping = {
+    {OsmElement::Tag("motorcar", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("motorcar", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("motorcar", "private"), RoadAccess::Type::Private},
+    {OsmElement::Tag("motorcar", "destination"), RoadAccess::Type::Destination},
+};
 
-TagMapping const kCarTagMapping = {
-    {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
+TagMapping const kMotorVehicleTagMapping = {
+    {OsmElement::Tag("motor_vehicle", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("motor_vehicle", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("motor_vehicle", "private"), RoadAccess::Type::Private},
+    {OsmElement::Tag("motor_vehicle", "destination"), RoadAccess::Type::Destination},
+};
+
+TagMapping const kVehicleTagMapping = {
+    {OsmElement::Tag("vehicle", "yes"), RoadAccess::Type::Yes},
     {OsmElement::Tag("vehicle", "no"), RoadAccess::Type::No},
-    {OsmElement::Tag("access", "private"), RoadAccess::Type::Private},
-    {OsmElement::Tag("access", "destination"), RoadAccess::Type::Destination},
+    {OsmElement::Tag("vehicle", "private"), RoadAccess::Type::Private},
+    {OsmElement::Tag("vehicle", "destination"), RoadAccess::Type::Destination},
 };
 
 TagMapping const kPedestrianTagMapping = {
-    {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("foot", "yes"), RoadAccess::Type::Yes},
     {OsmElement::Tag("foot", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("foot", "private"), RoadAccess::Type::Private},
+    {OsmElement::Tag("foot", "destination"), RoadAccess::Type::Destination},
 };
 
 TagMapping const kBicycleTagMapping = {
-    {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("bicycle", "yes"), RoadAccess::Type::Yes},
     {OsmElement::Tag("bicycle", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("bicycle", "private"), RoadAccess::Type::Private},
+    {OsmElement::Tag("bicycle", "destination"), RoadAccess::Type::Destination},
+};
+
+// Allow everything to keep transit section empty. We'll use pedestrian section for
+// transit + pedestrian combination.
+TagMapping const kTransitTagMapping = {
+    {OsmElement::Tag("access", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("access", "no"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("access", "private"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("access", "destination"), RoadAccess::Type::Yes},
+};
+
+TagMapping const kDefaultTagMapping = {
+    {OsmElement::Tag("access", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("access", "private"), RoadAccess::Type::Private},
+    {OsmElement::Tag("access", "destination"), RoadAccess::Type::Destination},
 };
 
 bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const & osmIdToFeatureId,
@@ -133,21 +162,54 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
 
   return true;
 }
+
+// If |elem| has access tag from |mapping|, returns corresponding RoadAccess::Type.
+// Tags in |mapping| should be mutually exclusive. Caller is responsible for that. If there are
+// multiple access tags from |mapping| in |elem|, returns RoadAccess::Type for any of them.
+// Returns RoadAccess::Type::Count if |elem| has no access tags from |mapping|.
+RoadAccess::Type GetAccessTypeFromMapping(OsmElement const & elem, TagMapping const * mapping)
+{
+  for (auto const & tag : elem.m_tags)
+  {
+    auto const it = mapping->find(tag);
+    if (it != mapping->cend())
+      return it->second;
+  }
+  return RoadAccess::Type::Count;
+}
 }  // namespace
 
 namespace routing
 {
 // RoadAccessTagProcessor --------------------------------------------------------------------------
 RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
-  : m_vehicleType(vehicleType), m_tagMapping(nullptr)
+  : m_vehicleType(vehicleType)
 {
   switch (vehicleType)
   {
-  case VehicleType::Car: m_tagMapping = &kCarTagMapping; break;
-  case VehicleType::Pedestrian: m_tagMapping = &kPedestrianTagMapping; break;
-  case VehicleType::Bicycle: m_tagMapping = &kBicycleTagMapping; break;
-  case VehicleType::Transit: m_tagMapping = &kEmptyTagMapping; break;
-  case VehicleType::Count: CHECK(false, ("Bad vehicle type")); break;
+  case VehicleType::Car:
+    m_tagMappings.push_back(&kMotorCarTagMapping);
+    m_tagMappings.push_back(&kMotorVehicleTagMapping);
+    m_tagMappings.push_back(&kVehicleTagMapping);
+    m_tagMappings.push_back(&kDefaultTagMapping);
+    break;
+  case VehicleType::Pedestrian:
+    m_tagMappings.push_back(&kPedestrianTagMapping);
+    m_tagMappings.push_back(&kDefaultTagMapping);
+    break;
+  case VehicleType::Bicycle:
+    m_tagMappings.push_back(&kBicycleTagMapping);
+    m_tagMappings.push_back(&kVehicleTagMapping);
+    m_tagMappings.push_back(&kDefaultTagMapping);
+    break;
+  case VehicleType::Transit:
+    // Use kTransitTagMapping to keep transit section empty. We'll use pedestrian section for
+    // transit + pedestrian combination.
+    m_tagMappings.push_back(&kTransitTagMapping);
+    break;
+  case VehicleType::Count:
+    CHECK(false, ("Bad vehicle type"));
+    break;
   }
 }
 
@@ -157,12 +219,15 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss) co
   if (elem.type != OsmElement::EntityType::Way)
     return;
 
-  for (auto const & tag : elem.m_tags)
+  for (auto const tagMapping : m_tagMappings)
   {
-    auto const it = m_tagMapping->find(tag);
-    if (it == m_tagMapping->cend())
-      continue;
-    oss << ToString(m_vehicleType) << " " << ToString(it->second) << " " << elem.id << endl;
+    auto const accessType = GetAccessTypeFromMapping(elem, tagMapping);
+    if (accessType != RoadAccess::Type::Count)
+    {
+      if (accessType != RoadAccess::Type::Yes)
+        oss << ToString(m_vehicleType) << " " << ToString(accessType) << " " << elem.id << endl;
+      return;
+    }
   }
 }
 
