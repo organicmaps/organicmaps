@@ -238,6 +238,7 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   , m_delegate(delegate)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
+  , m_transitReadManager(m_callbacks.m_indexGetter(), m_callbacks.m_readFeaturesFn)
 {
   auto const routingStatisticsFn = [](map<string, string> const & statistics) {
     alohalytics::LogEvent("Routing_CalculatingRoute", statistics);

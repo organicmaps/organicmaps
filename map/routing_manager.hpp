@@ -2,6 +2,7 @@
 
 #include "map/bookmark_manager.hpp"
 #include "map/routing_mark.hpp"
+#include "map/transit_reader.hpp"
 
 #include "routing/route.hpp"
 #include "routing/routing_session.hpp"
@@ -66,18 +67,23 @@ public:
     using IndexGetterFn = std::function<Index &()>;
     using CountryInfoGetterFn = std::function<storage::CountryInfoGetter &()>;
     using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
+    using FeatureCallback = std::function<void (FeatureType const &)>;
+    using ReadFeaturesFn = std::function<void (FeatureCallback const &, std::vector<FeatureID> const &)>;
 
-    template <typename IndexGetter, typename CountryInfoGetter, typename CountryParentNameGetter>
+
+    template <typename IndexGetter, typename CountryInfoGetter, typename CountryParentNameGetter, typename FeatureReader>
     Callbacks(IndexGetter && featureIndexGetter, CountryInfoGetter && countryInfoGetter,
-              CountryParentNameGetter && countryParentNameGetter)
+              CountryParentNameGetter && countryParentNameGetter, FeatureReader && readFeatures)
       : m_indexGetter(std::forward<IndexGetter>(featureIndexGetter))
       , m_countryInfoGetter(std::forward<CountryInfoGetter>(countryInfoGetter))
       , m_countryParentNameGetterFn(std::forward<CountryParentNameGetter>(countryParentNameGetter))
+      , m_readFeaturesFn(std::forward<FeatureReader>(readFeatures))
     {}
 
     IndexGetterFn m_indexGetter;
     CountryInfoGetterFn m_countryInfoGetter;
     CountryParentNameGetterFn m_countryParentNameGetterFn;
+    TReadFeaturesFn m_readFeaturesFn;
   };
 
   using RouteBuildingCallback =
@@ -286,6 +292,8 @@ private:
   };
   std::map<uint32_t, RoutePointsTransaction> m_routePointsTransactions;
   std::chrono::steady_clock::time_point m_loadRoutePointsTimestamp;
+
+  TransitReadManager m_transitReadManager;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };
