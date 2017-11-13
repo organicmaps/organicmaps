@@ -4,27 +4,25 @@
 
 namespace
 {
-std::vector<std::pair<size_t, size_t>> SplitSubroute(df::SubrouteConstPtr subroute)
+std::map<size_t, std::pair<size_t, size_t>> SplitSubroute(df::SubrouteConstPtr subroute)
 {
   ASSERT(subroute != nullptr, ());
 
-  std::vector<std::pair<size_t, size_t>> result;
+  std::map<size_t, std::pair<size_t, size_t>> result;
   if (subroute->m_styleType == df::SubrouteStyleType::Single)
   {
     ASSERT(!subroute->m_style.empty(), ());
-    result.emplace_back(std::make_pair(0, subroute->m_polyline.GetSize() - 1));
+    result[0] = std::make_pair(0, subroute->m_polyline.GetSize() - 1);
     return result;
   }
 
-  ASSERT_EQUAL(subroute->m_style.size() + 1, subroute->m_polyline.GetSize(), ());
-
-  size_t startIndex = 0;
+  size_t startStyleIndex = 0;
   for (size_t i = 1; i <= subroute->m_style.size(); ++i)
   {
-    if (i == subroute->m_style.size() || subroute->m_style[i] != subroute->m_style[startIndex])
+    if (i == subroute->m_style.size() || subroute->m_style[i] != subroute->m_style[i - 1])
     {
-      result.emplace_back(std::make_pair(startIndex, i));
-      startIndex = i;
+      result[i - 1] = std::make_pair(subroute->m_style[startStyleIndex].m_startIndex, subroute->m_style[i - 1].m_endIndex);
+      startStyleIndex = i;
     }
   }
   return result;
@@ -53,8 +51,8 @@ void RouteBuilder::Build(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
   subrouteData.reserve(subrouteIndices.size());
   for (auto const & indices : subrouteIndices)
   {
-    subrouteData.push_back(RouteShape::CacheRoute(subrouteId, subroute, indices.first,
-                                                  indices.second, recacheId, textures));
+    subrouteData.push_back(RouteShape::CacheRoute(subrouteId, subroute, indices.second.first,
+                                                  indices.second.second, indices.first, recacheId, textures));
   }
 
   auto markersData = RouteShape::CacheMarkers(subrouteId, subroute, recacheId, textures);

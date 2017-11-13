@@ -35,6 +35,9 @@ float const kArrowTailFactor = static_cast<float>(2.0 * kArrowTailTextureWidth /
 double const kArrowHeightFactor = kArrowTextureHeight / kArrowBodyHeight;
 double const kArrowAspect = kArrowTextureWidth / kArrowTextureHeight;
 
+extern std::vector<float> const kRouteHalfWidthInPixelCar;
+extern std::vector<float> const kRouteHalfWidthInPixelOthers;
+
 enum class RouteType : uint8_t
 {
   Car,
@@ -78,6 +81,8 @@ struct SubrouteStyle
   df::ColorConstant m_color;
   df::ColorConstant m_outlineColor;
   df::RoutePattern m_pattern;
+  size_t m_startIndex = 0;
+  size_t m_endIndex = 0;
 
   SubrouteStyle() = default;
   SubrouteStyle(df::ColorConstant const & color)
@@ -168,6 +173,7 @@ struct SubrouteData : public BaseSubrouteData
   SubrouteConstPtr m_subroute;
   size_t m_startPointIndex = 0;
   size_t m_endPointIndex = 0;
+  size_t m_styleIndex = 0;
   double m_distanceOffset = 0.0;
 };
 
@@ -193,7 +199,7 @@ public:
   using TMarkersGeometryBuffer = buffer_vector<MV, 32>;
 
   static drape_ptr<df::SubrouteData> CacheRoute(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
-                                                size_t startIndex, size_t endIndex, int recacheId,
+                                                size_t startIndex, size_t endIndex, size_t styleIndex, int recacheId,
                                                 ref_ptr<dp::TextureManager> textures);
 
   static drape_ptr<df::SubrouteMarkersData> CacheMarkers(dp::DrapeID subrouteId,

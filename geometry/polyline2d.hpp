@@ -90,6 +90,12 @@ public:
     m_points.insert(m_points.end(), poly.m_points.cbegin(), poly.m_points.cend());
   }
 
+  template <class Iter>
+  void Append(Iter beg, Iter end)
+  {
+    m_points.insert(m_points.end(), beg, end);
+  }
+
   void PopBack()
   {
     ASSERT(!m_points.empty(), ());

@@ -15,6 +15,22 @@
 
 namespace df
 {
+std::vector<float> const kRouteHalfWidthInPixelCar =
+{
+    // 1   2     3     4     5     6     7     8     9     10
+    1.0f, 1.0f, 1.5f, 1.5f, 1.5f, 2.0f, 2.0f, 2.0f, 2.5f, 2.5f,
+    //11   12    13    14    15   16    17    18    19     20
+    3.0f, 3.0f, 4.0f, 5.0f, 6.0, 8.0f, 10.0f, 10.0f, 18.0f, 27.0f
+};
+
+std::vector<float> const kRouteHalfWidthInPixelOthers =
+{
+    // 1   2     3     4     5     6     7     8     9     10
+    1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.2f, 1.2f,
+    //11   12    13    14    15   16    17    18    19     20
+    1.5f, 1.5f, 2.0f, 2.5f, 3.0, 4.0f, 5.0f, 5.0f, 9.0f, 13.0f
+};
+
 namespace
 {
 float const kLeftSide = 1.0f;
@@ -474,7 +490,7 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
 }
 
 drape_ptr<df::SubrouteData> RouteShape::CacheRoute(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
-                                                   size_t startIndex, size_t endIndex, int recacheId,
+                                                   size_t startIndex, size_t endIndex, size_t styleIndex, int recacheId,
                                                    ref_ptr<dp::TextureManager> textures)
 {
   ASSERT_LESS(startIndex, endIndex, ());
@@ -504,6 +520,7 @@ drape_ptr<df::SubrouteData> RouteShape::CacheRoute(dp::DrapeID subrouteId, Subro
   subrouteData->m_subroute = subroute;
   subrouteData->m_startPointIndex = startIndex;
   subrouteData->m_endPointIndex = endIndex;
+  subrouteData->m_styleIndex = styleIndex;
   subrouteData->m_pivot = subroute->m_polyline.GetLimitRect().Center();
   subrouteData->m_recacheId = recacheId;
   subrouteData->m_distanceOffset = subroute->m_polyline.GetLength(startIndex);
@@ -514,7 +531,7 @@ drape_ptr<df::SubrouteData> RouteShape::CacheRoute(dp::DrapeID subrouteId, Subro
                   static_cast<float>(subroute->m_baseDepthIndex * kDepthPerSubroute),
                   geometry, joinsGeometry);
 
-  auto state = CreateGLState(subroute->m_style[startIndex].m_pattern.m_isDashed ?
+  auto state = CreateGLState(subroute->m_style[styleIndex].m_pattern.m_isDashed ?
                              gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM, RenderState::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());
 

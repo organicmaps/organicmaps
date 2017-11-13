@@ -28,24 +28,12 @@ std::string const kRouteMaskBicycle = "RouteMaskBicycle";
 std::string const kRouteArrowsMaskBicycle = "RouteArrowsMaskBicycle";
 std::string const kRouteMaskPedestrian = "RouteMaskPedestrian";
 
+// TODO(@darina) Use separate colors.
+std::string const kGateColor = "Route";
+std::string const kTransitOutlineColor = "RouteMarkPrimaryTextOutline";
+
 namespace
 {
-std::vector<float> const kHalfWidthInPixelCar =
-{
-  // 1   2     3     4     5     6     7     8     9     10
-  1.0f, 1.0f, 1.5f, 1.5f, 1.5f, 2.0f, 2.0f, 2.0f, 2.5f, 2.5f,
-  //11   12    13    14    15   16    17    18    19     20
-  3.0f, 3.0f, 4.0f, 5.0f, 6.0, 8.0f, 10.0f, 10.0f, 18.0f, 27.0f
-};
-
-std::vector<float> const kHalfWidthInPixelOthers =
-{
-  // 1   2     3     4     5     6     7     8     9     10
-  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.2f, 1.2f,
-  //11   12    13    14    15   16    17    18    19     20
-  1.5f, 1.5f, 2.0f, 2.5f, 3.0, 4.0f, 5.0f, 5.0f, 9.0f, 13.0f
-};
-
 std::vector<float> const kPreviewPointRadiusInPixel =
 {
   // 1   2     3     4     5     6     7     8     9     10
@@ -68,9 +56,9 @@ void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & scr
   float lerpCoef = 0.0f;
   ExtractZoomFactors(screen, zoom, index, lerpCoef);
 
-  std::vector<float> const * halfWidthInPixel = &kHalfWidthInPixelOthers;
+  std::vector<float> const * halfWidthInPixel = &kRouteHalfWidthInPixelOthers;
   if (subroute->m_routeType == RouteType::Car || subroute->m_routeType == RouteType::Taxi)
-    halfWidthInPixel = &kHalfWidthInPixelCar;
+    halfWidthInPixel = &kRouteHalfWidthInPixelCar;
 
   halfWidth = InterpolateByZoomLevels(index, lerpCoef, *halfWidthInPixel);
   halfWidth *= static_cast<float>(df::VisualParams::Instance().GetVisualScale());
@@ -407,7 +395,7 @@ void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t sub
   }
 
   dp::GLState const & state = subrouteData->m_renderProperty.m_state;
-  size_t const styleIndex = subrouteData->m_startPointIndex;
+  size_t const styleIndex = subrouteData->m_styleIndex;
   ASSERT_LESS(styleIndex, subrouteInfo.m_subroute->m_style.size(), ());
   auto const & style = subrouteInfo.m_subroute->m_style[styleIndex];
 
