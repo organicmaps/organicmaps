@@ -62,10 +62,7 @@ using TLoopBlock = void (^)(Observer observer);
   {
     __weak auto wSelf = self;
     bookmarkCallbacks.m_onStarted = [wSelf]() {
-      __strong auto self = wSelf;
-      if (!self)
-        return;
-      self.areBookmarksLoaded = NO;
+      wSelf.areBookmarksLoaded = NO;
     };
   }
   {
@@ -76,8 +73,7 @@ using TLoopBlock = void (^)(Observer observer);
         return;
       self.areBookmarksLoaded = YES;
       [self loopObservers:^(Observer observer) {
-        if ([observer respondsToSelector:@selector(onBookmarksLoadFinished)])
-          [observer onBookmarksLoadFinished];
+        [observer onBookmarksLoadFinished];
       }];
     };
   }

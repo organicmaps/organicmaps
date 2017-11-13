@@ -302,9 +302,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
   return NO;
 }
 
-#pragma mark : - MWMBookmarksObserver
+#pragma mark - MWMBookmarksObserver
 - (void)onBookmarksLoadFinished { [self.tableView reloadData]; }
-
-- (void)onBookmarksFileLoadSuccess { [self.tableView reloadData]; }
 
 @end

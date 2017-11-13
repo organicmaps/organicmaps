@@ -1,7 +1,8 @@
 @protocol MWMBookmarksObserver<NSObject>
 
-@optional
 - (void)onBookmarksLoadFinished;
+
+@optional
 - (void)onBookmarksFileLoadSuccess;
 
 @end
