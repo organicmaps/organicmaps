@@ -12,6 +12,7 @@ include($$ROOT_DIR/common.pri)
 INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/protobuf/src
 INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
+INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
 
 SOURCES += \
     animation/animation.cpp \

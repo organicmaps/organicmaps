@@ -1149,6 +1149,8 @@
 		978D4A31199A11E600D72CA7 /* faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 978D4A30199A11E600D72CA7 /* faq.html */; };
 		97A5967F19B9CD47007A963F /* copyright.html in Resources */ = {isa = PBXBuildFile; fileRef = 97A5967E19B9CD47007A963F /* copyright.html */; };
 		A367C93B1B17334800E2B6E7 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
+		BB25B1A61FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
+		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
 		BB7626B51E8559980031D71C /* icudt57l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt57l.dat */; };
 		BB7626B61E85599C0031D71C /* icudt57l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt57l.dat */; };
 		BB7626B71E85599C0031D71C /* icudt57l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt57l.dat */; };
@@ -2433,6 +2435,7 @@
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
 		9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_droidsans-fallback.ttf"; path = "../../data/02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 		A367C93A1B17334800E2B6E7 /* resources-default */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-default"; path = "../../data/resources-default"; sourceTree = "<group>"; };
+		BB25B1A51FB32767007276FA /* transit_colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = transit_colors.txt; path = ../../data/transit_colors.txt; sourceTree = "<group>"; };
 		BB7626B41E8559980031D71C /* icudt57l.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = icudt57l.dat; path = ../../data/icudt57l.dat; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
 		ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ColorPickerView.mm; sourceTree = "<group>"; };
@@ -4848,6 +4851,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BB25B1A51FB32767007276FA /* transit_colors.txt */,
 				F642D1221F0F9D1D005E3C25 /* ugc_types.csv */,
 				450703081E9E6CF000E8C029 /* local_ads_symbols.txt */,
 				BB7626B41E8559980031D71C /* icudt57l.dat */,
@@ -5250,6 +5254,7 @@
 				F6E2FF381E097BA00083EBEC /* MWMSearchSuggestionCell.xib in Resources */,
 				F6664C041E6459DA00E703C2 /* PPReviewHeaderCell.xib in Resources */,
 				F6E2FF1A1E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
+				BB25B1A61FB32767007276FA /* transit_colors.txt in Resources */,
 				F6E2FF201E097BA00083EBEC /* MWMSearchTabbedViewController.xib in Resources */,
 				F6E2FF291E097BA00083EBEC /* MWMSearchTabButtonsView.xib in Resources */,
 				344532501F714FD70059FBCC /* UGCAddReviewController.xib in Resources */,
@@ -5438,6 +5443,7 @@
 				F6E2FF211E097BA00083EBEC /* MWMSearchTabbedViewController.xib in Resources */,
 				F6664C051E6459DA00E703C2 /* PPReviewHeaderCell.xib in Resources */,
 				F6E2FF2A1E097BA00083EBEC /* MWMSearchTabButtonsView.xib in Resources */,
+				BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */,
 				F6E2FF421E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
 				F6E2FEEE1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
 				344532511F714FD70059FBCC /* UGCAddReviewController.xib in Resources */,
