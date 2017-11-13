@@ -206,7 +206,7 @@ if (PLATFORM_MAC)
   )
 endif()
 
-function(omim_append_builded_tools)
+function(omim_append_built_tools)
   foreach(tool ${ARGN})
     add_custom_command(
       TARGET desktop
@@ -242,13 +242,13 @@ if (BUILD_DESIGNER)
     resources-6plus_design
   )
 
-  omim_append_builded_tools(
+  omim_append_built_tools(
     generator_tool
     skin_generator_tool
   )
 
   if (NOT SKIP_TESTS)
-    omim_append_builded_tools(style_tests)
+    omim_append_built_tools(style_tests)
   endif()
 
   execute_process(

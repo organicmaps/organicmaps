@@ -4,15 +4,6 @@ project(omim C CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 
-# Options
-option(BUILD_DESIGNER "Build application as design tool" OFF)
-if (BUILD_DESIGNER)
-  message("Designer tool building is enabled")
-  add_definitions(-DBUILD_DESIGNER)
-else()
-  message("Designer tool building is disabled")
-endif()
-
 # Set target platform:
 function(omim_set_platform_var PLATFORM_VAR pattern)
   set(${PLATFORM_VAR} FALSE PARENT_SCOPE)
@@ -58,7 +49,29 @@ else()
 endif()
 # End of setting the target platform
 
+# Set build type:
+if (NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release")
+endif()
+
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  add_definitions(-DDEBUG)
+elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+  add_definitions(-DRELEASE)
+else()
+  message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
+endif()
+
+message("Build type: " ${CMAKE_BUILD_TYPE})
+# End of setting build type
+
 # Options
+option(BUILD_DESIGNER "Build application as design tool" OFF)
+if (BUILD_DESIGNER)
+  message("Designer tool building is enabled")
+  add_definitions(-DBUILD_DESIGNER)
+endif()
+
 option(USE_ASAN "Enable Address Sanitizer" OFF)
 option(USE_TSAN "Enable Thread Sanitizer" OFF)
 option(PYBINDINGS "Create makefiles for building python bindings" OFF)
@@ -74,6 +87,10 @@ endif()
 
 if (USE_TSAN)
   message("Thread Sanitizer is enabled")
+endif()
+
+if (USE_ASAN AND USE_TSAN)
+  message(FATAL_ERROR "Can't use two different sanitizers together")
 endif()
 
 if (USE_PPROF)
@@ -92,20 +109,6 @@ if ($ENV{QT_PATH})
 else()
   set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/usr/local/opt/qt5")
 endif()
-
-if (NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Release")
-endif()
-
-if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-  add_definitions(-DDEBUG)
-elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-  add_definitions(-DRELEASE)
-else()
-  message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
-endif()
-
-message("Build type: " ${CMAKE_BUILD_TYPE})
 
 if (NOT SKIP_TESTS)
   set(SKIP_TESTS FALSE)
@@ -170,6 +173,9 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   find_package(Qt5Core)
   if (NOT Qt5Core_FOUND)
     message(FATAL_ERROR "Qt5 cmake files were not found, please set QT_PATH environment variable")
+  endif()
+  if (Qt5Core_VERSION VERSION_LESS 5.5.0)
+        message(FATAL_ERROR "Minimum supported Qt5 version is 5.5")
   endif()
   find_package(Qt5Network REQUIRED)
   if (NOT SKIP_DESKTOP)
