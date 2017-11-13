@@ -260,6 +260,8 @@ bool StartsWith(UniString const & s, UniString const & p)
 
 bool StartsWith(std::string const & s1, char const * s2) { return (s1.compare(0, strlen(s2), s2) == 0); }
 
+bool StartsWith(std::string const & s1, std::string const & s2) { return (s1.compare(0, s2.length(), s2) == 0); }
+
 bool EndsWith(std::string const & s1, char const * s2)
 {
   size_t const n = s1.size();

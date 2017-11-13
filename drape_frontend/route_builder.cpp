@@ -2,33 +2,6 @@
 
 #include "drape_frontend/route_shape.hpp"
 
-namespace
-{
-std::map<size_t, std::pair<size_t, size_t>> SplitSubroute(df::SubrouteConstPtr subroute)
-{
-  ASSERT(subroute != nullptr, ());
-
-  std::map<size_t, std::pair<size_t, size_t>> result;
-  if (subroute->m_styleType == df::SubrouteStyleType::Single)
-  {
-    ASSERT(!subroute->m_style.empty(), ());
-    result[0] = std::make_pair(0, subroute->m_polyline.GetSize() - 1);
-    return result;
-  }
-
-  size_t startStyleIndex = 0;
-  for (size_t i = 1; i <= subroute->m_style.size(); ++i)
-  {
-    if (i == subroute->m_style.size() || subroute->m_style[i] != subroute->m_style[i - 1])
-    {
-      result[i - 1] = std::make_pair(subroute->m_style[startStyleIndex].m_startIndex, subroute->m_style[i - 1].m_endIndex);
-      startStyleIndex = i;
-    }
-  }
-  return result;
-}
-}  // namespace
-
 namespace df
 {
 RouteBuilder::RouteBuilder(FlushFn && flushFn, FlushArrowsFn && flushArrowsFn,
@@ -46,13 +19,13 @@ void RouteBuilder::Build(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
   cacheData.m_baseDepthIndex = subroute->m_baseDepthIndex;
   m_routeCache[subrouteId] = std::move(cacheData);
 
-  auto const & subrouteIndices = SplitSubroute(subroute);
   std::vector<drape_ptr<df::SubrouteData>> subrouteData;
-  subrouteData.reserve(subrouteIndices.size());
-  for (auto const & indices : subrouteIndices)
+  subrouteData.reserve(subroute->m_style.size());
+
+  ASSERT(!subroute->m_style.empty(), ());
+  for (size_t styleIndex = 0; styleIndex < subroute->m_style.size(); ++styleIndex)
   {
-    subrouteData.push_back(RouteShape::CacheRoute(subrouteId, subroute, indices.second.first,
-                                                  indices.second.second, indices.first, recacheId, textures));
+    subrouteData.push_back(RouteShape::CacheRoute(subrouteId, subroute, styleIndex, recacheId, textures));
   }
 
   auto markersData = RouteShape::CacheMarkers(subrouteId, subroute, recacheId, textures);

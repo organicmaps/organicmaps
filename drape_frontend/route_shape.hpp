@@ -36,6 +36,7 @@ double const kArrowHeightFactor = kArrowTextureHeight / kArrowBodyHeight;
 double const kArrowAspect = kArrowTextureWidth / kArrowTextureHeight;
 
 extern std::vector<float> const kRouteHalfWidthInPixelCar;
+extern std::vector<float> const kRouteHalfWidthInPixelTransit;
 extern std::vector<float> const kRouteHalfWidthInPixelOthers;
 
 enum class RouteType : uint8_t
@@ -136,6 +137,8 @@ struct SubrouteMarker
 
 struct Subroute
 {
+  void AddStyle(SubrouteStyle const & style);
+
   df::RouteType m_routeType;
   m2::PolylineD m_polyline;
   std::vector<double> m_turns;
@@ -199,7 +202,7 @@ public:
   using TMarkersGeometryBuffer = buffer_vector<MV, 32>;
 
   static drape_ptr<df::SubrouteData> CacheRoute(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
-                                                size_t startIndex, size_t endIndex, size_t styleIndex, int recacheId,
+                                                size_t styleIndex, int recacheId,
                                                 ref_ptr<dp::TextureManager> textures);
 
   static drape_ptr<df::SubrouteMarkersData> CacheMarkers(dp::DrapeID subrouteId,

@@ -23,6 +23,14 @@ std::vector<float> const kRouteHalfWidthInPixelCar =
     3.0f, 3.0f, 4.0f, 5.0f, 6.0, 8.0f, 10.0f, 10.0f, 18.0f, 27.0f
 };
 
+std::vector<float> const kRouteHalfWidthInPixelTransit =
+{
+    // 1   2     3     4     5     6     7     8     9     10
+    1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.2f, 1.2f,
+    //11   12    13    14    15   16    17    18    19     20
+    1.5f, 1.5f, 2.0f, 2.5f, 3.0, 4.0f, 5.0f, 5.0f, 9.0f, 13.0f
+};
+
 std::vector<float> const kRouteHalfWidthInPixelOthers =
 {
     // 1   2     3     4     5     6     7     8     9     10
@@ -153,6 +161,18 @@ glsl::vec3 MarkerNormal(float x, float y, float z, float cosAngle, float sinAngl
   return glsl::vec3(x * cosAngle - y * sinAngle, x * sinAngle + y * cosAngle, z);
 }
 } // namespace
+
+void Subroute::AddStyle(SubrouteStyle const & style)
+{
+  if (!m_style.empty() && m_style.back() == style)
+  {
+    m_style.back().m_endIndex = style.m_endIndex;
+  }
+  else
+  {
+    m_style.push_back(style);
+  }
+}
 
 void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
                                  std::vector<glsl::vec4> const & segmentsColors, float baseDepth,
@@ -489,10 +509,24 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
                 AV::GetBindingInfo(), routeArrowsData.m_renderProperty);
 }
 
-drape_ptr<df::SubrouteData> RouteShape::CacheRoute(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
-                                                   size_t startIndex, size_t endIndex, size_t styleIndex, int recacheId,
-                                                   ref_ptr<dp::TextureManager> textures)
+drape_ptr<df::SubrouteData> RouteShape::CacheRoute(dp::DrapeID subrouteId, SubrouteConstPtr subroute, size_t styleIndex,
+                                                   int recacheId, ref_ptr<dp::TextureManager> textures)
 {
+  size_t startIndex;
+  size_t endIndex;
+  if (subroute->m_styleType == df::SubrouteStyleType::Single)
+  {
+    ASSERT_EQUAL(styleIndex, 0, ());
+    startIndex = 0;
+    endIndex = subroute->m_polyline.GetSize() - 1;
+  }
+  else
+  {
+    auto const & style = subroute->m_style[styleIndex];
+    startIndex = style.m_startIndex;
+    endIndex = style.m_endIndex;
+  }
+
   ASSERT_LESS(startIndex, endIndex, ());
 
   auto const points = subroute->m_polyline.ExtractSegment(startIndex, endIndex);

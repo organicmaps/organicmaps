@@ -16,12 +16,16 @@
 #include <fstream>
 #include <map>
 
+using namespace std;
+
 namespace
 {
+string const kTransitColorFileName = "transit_colors.txt";
+
 class TransitColorsHolder
 {
 public:
-  dp::Color GetColor(std::string const & name) const
+  dp::Color GetColor(string const & name) const
   {
     auto const style = GetStyleReader().GetCurrentStyle();
     auto const isDarkStyle = style == MapStyle::MapStyleDark || style == MapStyle::MapStyleVehicleDark;
@@ -37,10 +41,10 @@ public:
 
   void Load()
   {
-    std::string data;
+    string data;
     try
     {
-      ReaderPtr<Reader>(GetPlatform().GetReader("transit_colors.txt")).ReadAsString(data);
+      ReaderPtr<Reader>(GetPlatform().GetReader(kTransitColorFileName)).ReadAsString(data);
     }
     catch (RootException const & ex)
     {
@@ -66,7 +70,7 @@ public:
         ASSERT(name != nullptr, ());
         ASSERT(colorInfo != nullptr, ());
 
-        std::string strValue;
+        string strValue;
         FromJSONObject(colorInfo, "clear", strValue);
         m_clearColors[df::GetTransitColorName(name)] = ParseColor(strValue);
         FromJSONObject(colorInfo, "night", strValue);
@@ -74,7 +78,6 @@ public:
         FromJSONObject(colorInfo, "text", strValue);
         m_clearColors[df::GetTransitTextColorName(name)] = ParseColor(strValue);
         m_nightColors[df::GetTransitTextColorName(name)] = ParseColor(strValue);
-
       }
     }
     catch (my::Json::Exception const & e)
@@ -84,16 +87,17 @@ public:
   }
 
 private:
-  dp::Color ParseColor(std::string const & colorStr)
+  dp::Color ParseColor(string const & colorStr)
   {
     unsigned int color;
     if (strings::to_uint(colorStr, color, 16))
       return df::ToDrapeColor(static_cast<uint32_t>(color));
+    LOG(LWARNING, ("Color parsing failed:", colorStr));
     return dp::Color();
   }
 
-  std::map<std::string, dp::Color> m_clearColors;
-  std::map<std::string, dp::Color> m_nightColors;
+  map<string, dp::Color> m_clearColors;
+  map<string, dp::Color> m_nightColors;
 };
 
 TransitColorsHolder & TransitColors()
@@ -101,13 +105,13 @@ TransitColorsHolder & TransitColors()
   static TransitColorsHolder h;
   return h;
 }
-} // namespace
+}  // namespace
 
 namespace df
 {
-std::string const kTransitColorPrefix = "transit_";
-std::string const kTransitTextPrefix = "text_";
-std::string const kTransitLinePrefix = "line_";
+string const kTransitColorPrefix = "transit_";
+string const kTransitTextPrefix = "text_";
+string const kTransitLinePrefix = "line_";
 
 ColorConstant GetTransitColorName(ColorConstant const & localName)
 {
@@ -121,7 +125,7 @@ ColorConstant GetTransitTextColorName(ColorConstant const & localName)
 
 bool IsTransitColor(ColorConstant const & constant)
 {
-  return strings::StartsWith(constant, kTransitColorPrefix.c_str());
+  return strings::StartsWith(constant, kTransitColorPrefix);
 }
 
 dp::Color GetColorConstant(ColorConstant const & constant)
@@ -136,4 +140,4 @@ void LoadTransitColors()
 {
   TransitColors().Load();
 }
-} // namespace df
+}  // namespace df

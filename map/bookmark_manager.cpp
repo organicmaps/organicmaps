@@ -70,7 +70,6 @@ BookmarkManager::BookmarkManager(GetStringsBundleFn && getStringsBundleFn)
 {
   ASSERT(m_getStringsBundle != nullptr, ());
 
-  m_userMarkLayers.reserve(7);
   m_userMarkLayers.emplace_back(my::make_unique<SearchUserMarkContainer>());
   m_userMarkLayers.emplace_back(my::make_unique<ApiUserMarkContainer>());
   m_userMarkLayers.emplace_back(my::make_unique<DebugUserMarkContainer>());

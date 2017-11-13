@@ -108,7 +108,7 @@ struct TransitMarkInfo
   vector<TransitTitle> m_titles;
 };
 
-using GetMwmIdFn = std::function<MwmSet::MwmId (routing::NumMwmId numMwmId)>;
+using GetMwmIdFn = function<MwmSet::MwmId (routing::NumMwmId numMwmId)>;
 void CollectTransitDisplayInfo(vector<RouteSegment> const & segments, GetMwmIdFn const & getMwmIdFn,
                                TransitDisplayInfos & transitDisplayInfos)
 {
@@ -128,55 +128,58 @@ void CollectTransitDisplayInfo(vector<RouteSegment> const & segments, GetMwmIdFn
     {
       case TransitInfo::Type::Edge:
       {
-        auto const & edge = transitInfo.GetEdge();
+        auto const &edge = transitInfo.GetEdge();
 
         mwmTransit->m_stops[edge.m_stop1Id] = {};
-        mwmTransit->m_stops[edge.m_stop2Id] ={};
+        mwmTransit->m_stops[edge.m_stop2Id] = {};
         mwmTransit->m_lines[edge.m_lineId] = {};
-        for (auto const & shapeId : edge.m_shapeIds)
+        for (auto const &shapeId : edge.m_shapeIds)
           mwmTransit->m_shapes[shapeId] = {};
-      }
         break;
+      }
       case TransitInfo::Type::Transfer:
       {
-        auto const & transfer = transitInfo.GetTransfer();
+        auto const &transfer = transitInfo.GetTransfer();
         mwmTransit->m_stops[transfer.m_stop1Id] = {};
         mwmTransit->m_stops[transfer.m_stop2Id] = {};
-      }
         break;
+      }
       case TransitInfo::Type::Gate:
       {
-        auto const & gate = transitInfo.GetGate();
+        auto const &gate = transitInfo.GetGate();
         auto const featureId = FeatureID(mwmId, gate.m_featureId);
         mwmTransit->m_features[featureId] = {};
-      }
         break;
+      }
     }
   }
 }
 
 void AddTransitGateSegment(m2::PointD const & destPoint, df::Subroute & subroute)
 {
+  ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
   df::SubrouteStyle style(df::kGateColor, df::RoutePattern(1.0, 1.0));
   style.m_startIndex = subroute.m_polyline.GetSize() - 1;
   auto const vec = destPoint - subroute.m_polyline.Back();
   subroute.m_polyline.Add(destPoint);
   style.m_endIndex = subroute.m_polyline.GetSize() - 1;
-  subroute.m_style.push_back(style);
+  subroute.AddStyle(style);
 }
 
 void AddTransitPedestrianSegment(m2::PointD const & destPoint, df::Subroute & subroute)
 {
+  ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
   df::SubrouteStyle style(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0));
   style.m_startIndex = subroute.m_polyline.GetSize() - 1;
   subroute.m_polyline.Add(destPoint);
   style.m_endIndex = subroute.m_polyline.GetSize() - 1;
-  subroute.m_style.push_back(style);
+  subroute.AddStyle(style);
 }
 
 void AddTransitShapes(std::vector<transit::ShapeId> const & shapeIds, TransitShapesInfo const & shapes,
                       df::ColorConstant const & color, bool isInverted, df::Subroute & subroute)
 {
+  ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
   df::SubrouteStyle style(color);
   style.m_startIndex = subroute.m_polyline.GetSize() - 1;
 
@@ -190,7 +193,7 @@ void AddTransitShapes(std::vector<transit::ShapeId> const & shapeIds, TransitSha
   }
 
   style.m_endIndex = subroute.m_polyline.GetSize() - 1;
-  subroute.m_style.emplace_back(move(style));
+  subroute.AddStyle(style);
 }
 
 string ColorToHexStr(dp::Color const & color)
@@ -289,6 +292,7 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
 
       AddTransitShapes(edge.m_shapeIds, displayInfo.m_shapes, currentColor, isInverted, subroute);
 
+      ASSERT_GREATER(subroute.m_polyline.GetSize(), 1, ());
       auto const & p1 = *(subroute.m_polyline.End() - 2);
       auto const & p2 = *(subroute.m_polyline.End() - 1);
       m2::PointD currentDir = (p2 - p1).Normalize();
@@ -300,8 +304,8 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
         marker.m_colors.push_back(currentColor);
 
         auto const fid = FeatureID(mwmId, stop1.GetFeatureId());
-        transitMarkInfo.m_titles.push_back(TransitTitle(displayInfo.m_features.at(fid).m_title,
-                                                        df::GetTransitTextColorName(line.GetColor())));
+        transitMarkInfo.m_titles.emplace_back(displayInfo.m_features.at(fid).m_title,
+                                              df::GetTransitTextColorName(line.GetColor()));
       }
       lastColor = currentColor;
 
@@ -379,8 +383,8 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
 vector<m2::PointF> GetTransitMarkerSizes(float markerScale)
 {
   vector<m2::PointF> markerSizes;
-  markerSizes.reserve(df::kRouteHalfWidthInPixelOthers.size());
-  for (auto const halfWidth : df::kRouteHalfWidthInPixelOthers)
+  markerSizes.reserve(df::kRouteHalfWidthInPixelTransit.size());
+  for (auto const halfWidth : df::kRouteHalfWidthInPixelTransit)
   {
     float const d = 2 * halfWidth * markerScale;
     markerSizes.push_back(m2::PointF(d, d));
@@ -390,7 +394,7 @@ vector<m2::PointF> GetTransitMarkerSizes(float markerScale)
 
 void CreateTransitMarks(vector<TransitMarkInfo> const & transitMarks, UserMarksController & marksController)
 {
-  static vector<m2::PointF> const kTrasferMarkerSizes = GetTransitMarkerSizes(kTransferMarkerScale);
+  static vector<m2::PointF> const kTransferMarkerSizes = GetTransitMarkerSizes(kTransferMarkerScale);
   static vector<m2::PointF> const kStopMarkerSizes = GetTransitMarkerSizes(kStopMarkerScale);
 
   for (size_t i = 0; i < transitMarks.size(); ++i)
@@ -408,7 +412,7 @@ void CreateTransitMarks(vector<TransitMarkInfo> const & transitMarks, UserMarksC
       if (mark.m_titles.size() > 1)
       {
         transitMark->SetTextPosition(dp::Bottom);
-        transitMark->SetSymbolSizes(kTrasferMarkerSizes);
+        transitMark->SetSymbolSizes(kTransferMarkerSizes);
 
         userMark = marksController.CreateUserMark(mark.m_point);
         ASSERT(dynamic_cast<TransitMark *>(userMark) != nullptr, ());
@@ -417,7 +421,7 @@ void CreateTransitMarks(vector<TransitMarkInfo> const & transitMarks, UserMarksC
         transitMark2->SetPrimaryText(mark.m_titles.back().m_text);
         transitMark2->SetPrimaryTextColor(df::GetColorConstant(mark.m_titles.back().m_color));
         transitMark2->SetTextPosition(dp::Top);
-        transitMark2->SetSymbolSizes(kTrasferMarkerSizes);
+        transitMark2->SetSymbolSizes(kTransferMarkerSizes);
       }
       else
       {
@@ -566,19 +570,16 @@ char const * const kRoutingCalculatingRoute = "Routing_CalculatingRoute";
 
 TransitStepInfo::TransitStepInfo(bool isPedestrian, double distance, double time,
                 std::string const & type, std::string const & number, std::string const & color)
-    : m_isPedestrian(isPedestrian)
-    , m_distance(distance)
-    , m_time(time)
-    , m_type(type)
-    , m_number(number)
-    , m_color(color)
+  : m_isPedestrian(isPedestrian)
+  , m_distance(distance)
+  , m_time(time)
+  , m_type(type)
+  , m_number(number)
+  , m_color(color)
 {}
 
 bool TransitStepInfo::IsEqualType(TransitStepInfo const & ts) const
 {
-  if (m_isPedestrian)
-    return ts.m_isPedestrian;
-
   return m_isPedestrian == ts.m_isPedestrian &&
       (m_isPedestrian || (m_type == ts.m_type && m_number == ts.m_number && m_color == ts.m_color));
 }
@@ -864,7 +865,7 @@ void RoutingManager::InsertRoute(Route const & route)
       case RouterType::Taxi:
         subroute->m_routeType = m_currentRouterType == RouterType::Vehicle ?
                                 df::RouteType::Car : df::RouteType::Taxi;
-        subroute->m_style.emplace_back(df::kRouteColor, df::kRouteOutlineColor);
+        subroute->AddStyle(df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor));
         FillTrafficForRendering(segments, subroute->m_traffic);
         FillTurnsDistancesForRendering(segments, subroute->m_baseDistance,
                                        subroute->m_turns);
@@ -891,11 +892,11 @@ void RoutingManager::InsertRoute(Route const & route)
         break;
       case RouterType::Pedestrian:
         subroute->m_routeType = df::RouteType::Pedestrian;
-        subroute->m_style.emplace_back(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0));
+        subroute->AddStyle(df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0)));
         break;
       case RouterType::Bicycle:
         subroute->m_routeType = df::RouteType::Bicycle;
-        subroute->m_style.emplace_back(df::kRouteBicycle, df::RoutePattern(8.0, 2.0));
+        subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
         FillTurnsDistancesForRendering(segments, subroute->m_baseDistance,
                                        subroute->m_turns);
         break;

@@ -59,6 +59,8 @@ void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & scr
   std::vector<float> const * halfWidthInPixel = &kRouteHalfWidthInPixelOthers;
   if (subroute->m_routeType == RouteType::Car || subroute->m_routeType == RouteType::Taxi)
     halfWidthInPixel = &kRouteHalfWidthInPixelCar;
+  else if (subroute->m_routeType == RouteType::Transit)
+    halfWidthInPixel = &kRouteHalfWidthInPixelTransit;
 
   halfWidth = InterpolateByZoomLevels(index, lerpCoef, *halfWidthInPixel);
   halfWidth *= static_cast<float>(df::VisualParams::Instance().GetVisualScale());

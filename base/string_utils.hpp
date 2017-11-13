@@ -457,6 +457,8 @@ bool StartsWith(UniString const & s, UniString const & p);
 
 bool StartsWith(std::string const & s1, char const * s2);
 
+bool StartsWith(std::string const & s1, std::string const & s2);
+
 bool EndsWith(std::string const & s1, char const * s2);
 
 bool EndsWith(std::string const & s1, std::string const & s2);
