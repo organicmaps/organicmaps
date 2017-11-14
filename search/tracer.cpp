@@ -3,6 +3,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <cstddef>
+#include <iomanip>
 #include <sstream>
 
 using namespace std;
@@ -36,7 +37,7 @@ string DebugPrint(Tracer::Parse const & parse)
   using TokenType = Tracer::Parse::TokenType;
 
   ostringstream os;
-  os << "Parse [parse: ";
+  os << "Parse [";
 
   bool first = true;
   for (size_t i = 0; i < TokenType::TOKEN_TYPE_COUNT; ++i)
@@ -52,7 +53,7 @@ string DebugPrint(Tracer::Parse const & parse)
     first = false;
   }
 
-  os << ", category: " << ::DebugPrint(parse.m_category);
+  os << ", category: " << boolalpha << parse.m_category;
   os << "]";
 
   return os.str();
