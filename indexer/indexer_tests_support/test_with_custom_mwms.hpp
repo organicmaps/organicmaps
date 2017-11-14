@@ -1,7 +1,6 @@
 #pragma once
 
 #include "indexer/indexer_tests_support/test_with_classificator.hpp"
-#include "indexer/indexer_tests_support/helpers.hpp"
 
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -17,8 +16,8 @@
 #include "base/assert.hpp"
 
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace indexer
 {
@@ -70,15 +69,6 @@ public:
     return BuildMwm(name, feature::DataHeader::country, std::forward<BuildFn>(fn));
   }
 
-  template <typename EditorFn>
-  void EditFeature(FeatureID const & id, EditorFn && fn)
-  {
-    Index::FeaturesLoaderGuard loader(m_index, id.m_mwmId);
-    FeatureType ft;
-    CHECK(loader.GetFeatureByIndex(id.m_index, ft), ());
-    indexer::tests_support::EditFeature(ft, forward<EditorFn>(fn));
-  }
-
 protected:
   static void Cleanup(platform::LocalCountryFile const & file);
 
@@ -89,4 +79,3 @@ protected:
 };
 }  // namespace tests_support
 }  // namespace indexer
-
