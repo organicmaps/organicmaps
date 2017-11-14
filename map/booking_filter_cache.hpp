@@ -1,6 +1,6 @@
 #pragma once
 
-#include "base/worker_thread.hpp"
+#include "base/macros.hpp"
 
 #include <map>
 #include <mutex>
@@ -27,34 +27,34 @@ public:
     Available,
   };
 
+  using Clock = std::chrono::steady_clock;
+
   struct Item
   {
     Item() = default;
 
     explicit Item(HotelStatus const s) : m_status(s) {}
 
-    base::WorkerThread::TimePoint m_timestamp = base::WorkerThread::Now();
+    Clock::time_point m_timestamp = Clock::now();
     HotelStatus m_status = HotelStatus::NotReady;
   };
 
   Cache() = default;
   Cache(size_t maxCount, size_t expiryPeriodSeconds);
 
-  HotelStatus Get(std::string const & hotelId) const;
+  HotelStatus Get(std::string const & hotelId);
   void Reserve(std::string const & hotelId);
   void Insert(std::string const & hotelId, HotelStatus const s);
 
-private:
   void RemoveOutdated();
+  void Drop();
+private:
   void RemoveExtra();
 
   std::map<std::string, Item> m_hotelToResult;
-  mutable std::mutex m_mutex;
-  int m_agingInProgress = false;
-  base::WorkerThread m_agingThread;
   // Count is unlimited when |m_maxCount| is equal to zero.
   size_t const m_maxCount = 1000;
-  // Aging process is disabled when |m_expiryPeriodSeconds| is equal to zero.
+  // Do not use aging when |m_expiryPeriodSeconds| is equal to zero.
   size_t const m_expiryPeriodSeconds = 60;
 
   DISALLOW_COPY_AND_MOVE(Cache);

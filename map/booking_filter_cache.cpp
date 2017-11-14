@@ -13,36 +13,37 @@ Cache::Cache(size_t maxCount, size_t expiryPeriodSeconds)
 {
 }
 
-Cache::HotelStatus Cache::Get(std::string const & hotelId) const
+Cache::HotelStatus Cache::Get(std::string const & hotelId)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-
   auto const it = m_hotelToResult.find(hotelId);
 
   if (it == m_hotelToResult.cend())
     return HotelStatus::Absent;
+
+  if (m_expiryPeriodSeconds != 0)
+  {
+    auto const timeDiff = Clock::now() - it->second.m_timestamp;
+    if (timeDiff > seconds(m_expiryPeriodSeconds))
+    {
+      m_hotelToResult.erase(it);
+      return HotelStatus::Absent;
+    }
+  }
 
   return it->second.m_status;
 }
 
 void Cache::Reserve(std::string const & hotelId)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-
   m_hotelToResult.emplace(hotelId, HotelStatus::NotReady);
 }
 
 void Cache::Insert(std::string const & hotelId, HotelStatus const s)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-
   RemoveExtra();
 
   Item item(s);
   m_hotelToResult[hotelId] = std::move(item);
-
-  if (!m_agingInProgress)
-    RemoveOutdated();
 }
 
 void Cache::RemoveOutdated()
@@ -50,26 +51,19 @@ void Cache::RemoveOutdated()
   if (m_expiryPeriodSeconds == 0)
     return;
 
-  m_agingThread.PushDelayed(seconds(m_expiryPeriodSeconds), [this]()
+  for (auto it = m_hotelToResult.begin(); it != m_hotelToResult.end();)
   {
-    std::lock_guard<std::mutex> lock(m_mutex);
-
-    for (auto it = m_hotelToResult.begin(); it != m_hotelToResult.end();)
-    {
-      auto const timeDiff = base::WorkerThread::Now() - it->second.m_timestamp;
-      if (timeDiff > seconds(m_expiryPeriodSeconds))
-        it = m_hotelToResult.erase(it);
-      else
-        ++it;
-    }
-
-    if (m_hotelToResult.empty())
-      m_agingInProgress = false;
+    auto const timeDiff = Clock::now() - it->second.m_timestamp;
+    if (timeDiff > seconds(m_expiryPeriodSeconds))
+      it = m_hotelToResult.erase(it);
     else
-      RemoveOutdated();
-  });
+      ++it;
+  }
+}
 
-  m_agingInProgress = true;
+void Cache::Drop()
+{
+  m_hotelToResult.clear();
 }
 
 void Cache::RemoveExtra()

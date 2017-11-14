@@ -132,31 +132,53 @@ namespace filter
 Filter::Filter(Index const & index, booking::Api const & api) : m_index(index), m_api(api) {}
 
 void Filter::Availability(search::Results const & results,
-                          availability::internal::Params && params) const
+                          availability::internal::Params && params)
 {
-  auto & p = params.m_params;
-  auto const & cb = params.m_callback;
-
-  ASSERT(p.m_hotelIds.empty(), ());
-
-  HotelToResults hotelToResults;
-
-  PrepareData(m_index, results, hotelToResults, m_availabilityCache, p);
-
-  auto const apiCallback = [this, cb, hotelToResults](std::vector<std::string> hotelIds) mutable
+  m_filterThread.Push([this, results, params]()
   {
-    std::sort(hotelIds.begin(), hotelIds.end());
+    std::lock_guard<std::mutex> lock(m_mutex);
 
-    search::Results result;
-    for (auto & item : hotelToResults)
+    auto const & cb = params.m_callback;
+
+    ASSERT(params.m_params.m_hotelIds.empty(), ());
+
+    if (m_currentParams != params.m_params)
     {
-      FillAvailability(item, hotelIds, m_availabilityCache, result);
+      m_currentParams = std::move(params.m_params);
+      m_availabilityCache.Drop();
+      ++m_cacheDropCounter;
     }
 
-    cb(result);
-  };
+    HotelToResults hotelToResults;
 
-  m_api.GetHotelAvailability(p, apiCallback);
+    PrepareData(m_index, results, hotelToResults, m_availabilityCache, m_currentParams);
+
+    auto const dropCounter = m_cacheDropCounter;
+
+    // This callback will be called on network thread.
+    auto const apiCallback = [this, dropCounter, cb, hotelToResults](std::vector<std::string> hotelIds) mutable
+    {
+      search::Results result;
+      {
+        std::lock_guard<std::mutex> lock(m_mutex);
+
+        if (m_cacheDropCounter == dropCounter)
+        {
+          std::sort(hotelIds.begin(), hotelIds.end());
+
+          for (auto & item : hotelToResults)
+          {
+            FillAvailability(item, hotelIds, m_availabilityCache, result);
+          }
+        }
+      }
+
+      cb(result);
+    };
+
+    m_api.GetHotelAvailability(m_currentParams, apiCallback);
+    m_availabilityCache.RemoveOutdated();
+  });
 }
 }  // namespace filter
 }  // namespace booking
