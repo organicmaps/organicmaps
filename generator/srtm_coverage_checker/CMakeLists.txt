@@ -16,7 +16,6 @@ omim_link_libraries(
   ${PROJECT_NAME}
   generator
   map
-  editor
   routing
   routing_common
   search
@@ -24,8 +23,8 @@ omim_link_libraries(
   ugc
   traffic
   indexer
-  platform
   editor
+  platform
   geometry
   coding
   base
