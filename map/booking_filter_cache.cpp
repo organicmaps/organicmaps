@@ -35,7 +35,8 @@ Cache::HotelStatus Cache::Get(std::string const & hotelId)
 
 void Cache::Reserve(std::string const & hotelId)
 {
-  m_hotelToResult.emplace(hotelId, HotelStatus::NotReady);
+  Item item;
+  m_hotelToResult.emplace(hotelId, std::move(item));
 }
 
 void Cache::Insert(std::string const & hotelId, HotelStatus const s)
