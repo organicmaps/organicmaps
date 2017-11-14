@@ -12,6 +12,26 @@ namespace routing_test
 {
 using namespace routing;
 
+namespace
+{
+template <typename Graph>
+Graph & GetGraph(unordered_map<NumMwmId, unique_ptr<Graph>> const & graphs, NumMwmId mwmId)
+{
+  auto it = graphs.find(mwmId);
+  CHECK(it != graphs.end(), ("Not found graph for mwm", mwmId));
+  return *it->second;
+}
+
+template <typename Graph>
+void AddGraph(unordered_map<NumMwmId, unique_ptr<Graph>> & graphs, NumMwmId mwmId,
+              unique_ptr<Graph> graph)
+{
+  auto it = graphs.find(mwmId);
+  CHECK(it == graphs.end(), ("Already contains graph for mwm", mwmId));
+  graphs[mwmId] = move(graph);
+}
+}  // namespace
+
 // RestrictionTest
 void RestrictionTest::SetStarter(FakeEnding const & start, FakeEnding const & finish)
 {
@@ -56,18 +76,27 @@ void ZeroGeometryLoader::Load(uint32_t /* featureId */, routing::RoadGeometry & 
 // TestIndexGraphLoader ----------------------------------------------------------------------------
 IndexGraph & TestIndexGraphLoader::GetIndexGraph(NumMwmId mwmId)
 {
-  auto it = m_graphs.find(mwmId);
-  CHECK(it != m_graphs.end(), ("Not found mwm", mwmId));
-  return *it->second;
+  return GetGraph(m_graphs, mwmId);
 }
 
 void TestIndexGraphLoader::Clear() { m_graphs.clear(); }
 
 void TestIndexGraphLoader::AddGraph(NumMwmId mwmId, unique_ptr<IndexGraph> graph)
 {
-  auto it = m_graphs.find(mwmId);
-  CHECK(it == m_graphs.end(), ("Already contains mwm", mwmId));
-  m_graphs[mwmId] = move(graph);
+  routing_test::AddGraph(m_graphs, mwmId, move(graph));
+}
+
+// TestTransitGraphLoader ----------------------------------------------------------------------------
+TransitGraph & TestTransitGraphLoader::GetTransitGraph(NumMwmId mwmId, IndexGraph &)
+{
+  return GetGraph(m_graphs, mwmId);
+}
+
+void TestTransitGraphLoader::Clear() { m_graphs.clear(); }
+
+void TestTransitGraphLoader::AddGraph(NumMwmId mwmId, unique_ptr<TransitGraph> graph)
+{
+  routing_test::AddGraph(m_graphs, mwmId, move(graph));
 }
 
 // WeightedEdgeEstimator --------------------------------------------------------------
@@ -268,6 +297,29 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoade
   indexLoader->AddGraph(kTestNumMwmId, move(graph));
   return make_unique<SingleVehicleWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
                                               estimator);
+}
+
+unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geometryLoader,
+                                              shared_ptr<EdgeEstimator> estimator,
+                                              vector<Joint> const & joints,
+                                              TransitGraph::TransitData const & transitData)
+{
+  auto indexGraph = make_unique<IndexGraph>(move(geometryLoader), estimator);
+  indexGraph->Import(joints);
+
+  auto transitGraph = make_unique<TransitGraph>(kTestNumMwmId, estimator);
+  TransitGraph::GateEndings gateEndings;
+  MakeGateEndings(transitData.m_gates, kTestNumMwmId, *indexGraph, gateEndings);
+  transitGraph->Fill(transitData, gateEndings);
+
+  auto indexLoader = make_unique<TestIndexGraphLoader>();
+  indexLoader->AddGraph(kTestNumMwmId, move(indexGraph));
+
+  auto transitLoader = make_unique<TestTransitGraphLoader>();
+  transitLoader->AddGraph(kTestNumMwmId, move(transitGraph));
+  
+  return make_unique<TransitWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
+                                        move(transitLoader), estimator);
 }
 
 Joint MakeJoint(vector<RoadPoint> const & points)

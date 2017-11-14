@@ -10,10 +10,13 @@
 #include "routing/road_point.hpp"
 #include "routing/segment.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
+#include "routing/transit_graph_loader.hpp"
+#include "routing/transit_world_graph.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
+#include "routing_common/transit_types.hpp"
 
 #include "traffic/traffic_info.hpp"
 
@@ -56,6 +59,8 @@ class TestGeometryLoader final : public routing::GeometryLoader
 {
 public:
   // GeometryLoader overrides:
+  ~TestGeometryLoader() override = default;
+
   void Load(uint32_t featureId, routing::RoadGeometry & road) override;
 
   void AddRoad(uint32_t featureId, bool oneWay, float speed,
@@ -71,6 +76,8 @@ class ZeroGeometryLoader final : public routing::GeometryLoader
 {
 public:
   // GeometryLoader overrides:
+  ~ZeroGeometryLoader() override = default;
+
   void Load(uint32_t featureId, routing::RoadGeometry & road) override;
 };
 
@@ -78,13 +85,30 @@ class TestIndexGraphLoader final : public IndexGraphLoader
 {
 public:
   // IndexGraphLoader overrides:
+  ~TestIndexGraphLoader() override = default;
+
   IndexGraph & GetIndexGraph(NumMwmId mwmId) override;
-  virtual void Clear() override;
+  void Clear() override;
 
   void AddGraph(NumMwmId mwmId, unique_ptr<IndexGraph> graph);
 
 private:
   unordered_map<NumMwmId, unique_ptr<IndexGraph>> m_graphs;
+};
+
+class TestTransitGraphLoader : public TransitGraphLoader
+{
+public:
+  // TransitGraphLoader overrides:
+  ~TestTransitGraphLoader() override = default;
+
+  TransitGraph & GetTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) override;
+  void Clear() override;
+
+  void AddGraph(NumMwmId mwmId, unique_ptr<TransitGraph> graph);
+
+private:
+  unordered_map<NumMwmId, unique_ptr<TransitGraph>> m_graphs;
 };
 
 // An estimator that uses the information from the supported |segmentWeights| map
@@ -103,6 +127,8 @@ public:
   }
 
   // EdgeEstimator overrides:
+  ~WeightedEdgeEstimator() override = default;
+
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & /* road */) const override;
   double GetUTurnPenalty() const override;
   bool LeapIsAllowed(NumMwmId /* mwmId */) const override;

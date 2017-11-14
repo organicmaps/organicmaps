@@ -12,25 +12,46 @@
 
 #include "coding/file_container.hpp"
 
+#include "base/stl_add.hpp"
 #include "base/timer.hpp"
 
-#include "std/unique_ptr.hpp"
-
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
 
 namespace routing
 {
-TransitGraphLoader::TransitGraphLoader(shared_ptr<NumMwmIds> numMwmIds, Index & index,
-                                       shared_ptr<EdgeEstimator> estimator)
+class TransitGraphLoaderImpl : public TransitGraphLoader
+{
+public:
+  TransitGraphLoaderImpl(Index & index, shared_ptr<NumMwmIds> numMwmIds,
+                         shared_ptr<EdgeEstimator> estimator);
+
+  // TransitGraphLoader overrides.
+  ~TransitGraphLoaderImpl() override = default;
+
+  TransitGraph & GetTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) override;
+  void Clear() override;
+
+private:
+  unique_ptr<TransitGraph> CreateTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) const;
+
+  Index & m_index;
+  shared_ptr<NumMwmIds> m_numMwmIds;
+  shared_ptr<EdgeEstimator> m_estimator;
+  unordered_map<NumMwmId, unique_ptr<TransitGraph>> m_graphs;
+};
+
+TransitGraphLoaderImpl::TransitGraphLoaderImpl(Index & index, shared_ptr<NumMwmIds> numMwmIds,
+                                               shared_ptr<EdgeEstimator> estimator)
   : m_index(index), m_numMwmIds(numMwmIds), m_estimator(estimator)
 {
 }
 
-void TransitGraphLoader::Clear() { m_graphs.clear(); }
+void TransitGraphLoaderImpl::Clear() { m_graphs.clear(); }
 
-TransitGraph & TransitGraphLoader::GetTransitGraph(NumMwmId numMwmId, IndexGraph & indexGraph)
+TransitGraph & TransitGraphLoaderImpl::GetTransitGraph(NumMwmId numMwmId, IndexGraph & indexGraph)
 {
   auto const it = m_graphs.find(numMwmId);
   if (it != m_graphs.cend())
@@ -41,8 +62,8 @@ TransitGraph & TransitGraphLoader::GetTransitGraph(NumMwmId numMwmId, IndexGraph
   return *(emplaceRes.first)->second;
 }
 
-unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId numMwmId,
-                                                                IndexGraph & indexGraph) const
+unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId numMwmId,
+                                                                    IndexGraph & indexGraph) const
 {
   platform::CountryFile const & file = m_numMwmIds->GetFile(numMwmId);
   MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
@@ -50,10 +71,10 @@ unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId numMwmI
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
   my::Timer timer;
-  auto graphPtr = make_unique<TransitGraph>(numMwmId, m_estimator);
+  auto graph = my::make_unique<TransitGraph>(numMwmId, m_estimator);
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
   if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
-    return graphPtr;
+    return graph;
 
   try
   {
@@ -65,36 +86,25 @@ unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId numMwmI
     transit::TransitHeader header;
     numberDeserializer(header);
 
+    TransitGraph::TransitData transitData;
+
     CHECK_EQUAL(src.Pos(), header.m_stopsOffset, ("Wrong section format."));
-    vector<transit::Stop> stops;
-    deserializer(stops);
+    deserializer(transitData.m_stops);
 
     CHECK_EQUAL(src.Pos(), header.m_gatesOffset, ("Wrong section format."));
-    vector<transit::Gate> gates;
-    deserializer(gates);
+    deserializer(transitData.m_gates);
 
     CHECK_EQUAL(src.Pos(), header.m_edgesOffset, ("Wrong section format."));
-    vector<transit::Edge> edges;
-    deserializer(edges);
+    deserializer(transitData.m_edges);
 
     src.Skip(header.m_linesOffset - src.Pos());
     CHECK_EQUAL(src.Pos(), header.m_linesOffset, ("Wrong section format."));
-    vector<transit::Line> lines;
-    deserializer(lines);
+    deserializer(transitData.m_lines);
 
-    map<transit::OsmId, FakeEnding> gateEndings;
-    for (auto const & gate : gates)
-    {
-      auto const & gateSegment = gate.GetBestPedestrianSegment();
-      if (gateSegment.IsValid())
-      {
-        Segment const real(numMwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(),
-                           gateSegment.GetForward());
-        gateEndings.emplace(gate.GetOsmId(), MakeFakeEnding(real, gate.GetPoint(), indexGraph));
-      }
-    }
+    TransitGraph::GateEndings gateEndings;
+    MakeGateEndings(transitData.m_gates, numMwmId, indexGraph, gateEndings);
 
-    graphPtr->Fill(stops, edges, lines, gates, gateEndings);
+    graph->Fill(transitData, gateEndings);
   }
   catch (Reader::OpenException const & e)
   {
@@ -104,6 +114,15 @@ unique_ptr<TransitGraph> TransitGraphLoader::CreateTransitGraph(NumMwmId numMwmI
 
   LOG(LINFO, (TRANSIT_FILE_TAG, "section for", file.GetName(), "loaded in",
               timer.ElapsedSeconds(), "seconds"));
-  return graphPtr;
+  return graph;
 }
+
+// static
+unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(Index & index,
+                                                          shared_ptr<NumMwmIds> numMwmIds,
+                                                          shared_ptr<EdgeEstimator> estimator)
+{
+  return my::make_unique<TransitGraphLoaderImpl>(index, numMwmIds, estimator);
+}
+
 }  // namespace routing

@@ -1,5 +1,7 @@
 #include "routing/transit_graph.hpp"
 
+#include "routing/index_graph.hpp"
+
 #include "indexer/feature_altitude.hpp"
 
 namespace routing
@@ -111,18 +113,16 @@ bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
   return m_fake.FindReal(fake, real);
 }
 
-void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edge> const & edges,
-                        vector<transit::Line> const & lines, vector<transit::Gate> const & gates,
-                        map<transit::OsmId, FakeEnding> const & gateEndings)
+void TransitGraph::Fill(TransitData const & transitData, GateEndings const & gateEndings)
 {
   // Line has information about transit interval.
   // We assume arrival time has uniform distribution with min value |0| and max value |line.GetInterval()|.
   // Expected value of time to wait transport for particular line is |line.GetInterval() / 2|.
-  for (auto const & line : lines)
+  for (auto const & line : transitData.m_lines)
     m_transferPenalties[line.GetId()] = line.GetInterval() / 2;
 
   map<transit::StopId, Junction> stopCoords;
-  for (auto const & stop : stops)
+  for (auto const & stop : transitData.m_stops)
     stopCoords[stop.GetId()] = Junction(stop.GetPoint(), feature::kDefaultAltitudeMeters);
 
   StopToSegmentsMap stopToBack;
@@ -133,18 +133,19 @@ void TransitGraph::Fill(vector<transit::Stop> const & stops, vector<transit::Edg
   // It's important to add transit edges first to ensure fake segment id for particular edge is edge order
   // in mwm. We use edge fake segments in cross-mwm section and they should be stable.
   CHECK_EQUAL(m_fake.GetSize(), 0, ());
-  for (size_t i = 0; i < edges.size(); ++i)
+  for (size_t i = 0; i < transitData.m_edges.size(); ++i)
   {
-    CHECK_NOT_EQUAL(edges[i].GetWeight(), transit::kInvalidWeight, ("Edge should have valid weight."));
-    auto const edgeSegment = AddEdge(edges[i], stopCoords, stopToBack, stopToFront);
+    auto const & edge = transitData.m_edges[i];
+    CHECK_NOT_EQUAL(edge.GetWeight(), transit::kInvalidWeight, ("Edge should have valid weight."));
+    auto const edgeSegment = AddEdge(edge, stopCoords, stopToBack, stopToFront);
     // Check fake segment id is edge order in mwm.
     CHECK_EQUAL(edgeSegment.GetSegmentIdx(), i, ());
-    outgoing[edges[i].GetStop1Id()].insert(edgeSegment);
-    ingoing[edges[i].GetStop2Id()].insert(edgeSegment);
+    outgoing[edge.GetStop1Id()].insert(edgeSegment);
+    ingoing[edge.GetStop2Id()].insert(edgeSegment);
   }
-  CHECK_EQUAL(m_fake.GetSize(), edges.size(), ());
+  CHECK_EQUAL(m_fake.GetSize(), transitData.m_edges.size(), ());
 
-  for (auto const & gate : gates)
+  for (auto const & gate : transitData.m_gates)
   {
     CHECK_NOT_EQUAL(gate.GetWeight(), transit::kInvalidWeight, ("Gate should have valid weight."));
 
@@ -194,7 +195,7 @@ Segment TransitGraph::GetTransitSegment(uint32_t segmentIdx) const
 
 Segment TransitGraph::GetNewTransitSegment() const
 {
-  CHECK_LESS_OR_EQUAL(m_fake.GetSize(), std::numeric_limits<uint32_t>::max(), ());
+  CHECK_LESS_OR_EQUAL(m_fake.GetSize(), numeric_limits<uint32_t>::max(), ());
   return GetTransitSegment(static_cast<uint32_t>(m_fake.GetSize()) /* segmentIdx */);
 }
 
@@ -285,6 +286,21 @@ void TransitGraph::AddConnections(StopToSegmentsMap const & connections,
                              isOutgoing ? connectedSegment : segment);
       }
     }
+  }
+}
+
+void MakeGateEndings(vector<transit::Gate> const & gates, NumMwmId mwmId,
+                     IndexGraph & indexGraph, TransitGraph::GateEndings & gateEndings)
+{
+  for (auto const & gate : gates)
+  {
+    auto const & gateSegment = gate.GetBestPedestrianSegment();
+    if (!gateSegment.IsValid())
+      continue;
+
+    Segment const real(mwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(),
+                       gateSegment.GetForward());
+    gateEndings.emplace(gate.GetOsmId(), MakeFakeEnding(real, gate.GetPoint(), indexGraph));
   }
 }
 }  // namespace routing

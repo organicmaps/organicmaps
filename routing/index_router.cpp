@@ -692,7 +692,7 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
   if (m_vehicleType != VehicleType::Transit)
     return make_unique<SingleVehicleWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
                                                 m_estimator);
-  auto transitGraphLoader = make_unique<TransitGraphLoader>(m_numMwmIds, m_index, m_estimator);
+  auto transitGraphLoader = TransitGraphLoader::Create(m_index, m_numMwmIds, m_estimator);
   return make_unique<TransitWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
                                         move(transitGraphLoader), m_estimator);
 }

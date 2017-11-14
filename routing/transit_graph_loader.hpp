@@ -9,25 +9,19 @@
 #include "indexer/index.hpp"
 
 #include <memory>
-#include <unordered_map>
 
 namespace routing
 {
-class TransitGraphLoader final
+class TransitGraphLoader
 {
 public:
-  TransitGraphLoader(std::shared_ptr<NumMwmIds> numMwmIds, Index & index,
-                     std::shared_ptr<EdgeEstimator> estimator);
+  virtual ~TransitGraphLoader() = default;
 
-  TransitGraph & GetTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph);
-  void Clear();
+  virtual TransitGraph & GetTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) = 0;
+  virtual void Clear() = 0;
 
-private:
-  std::unique_ptr<TransitGraph> CreateTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) const;
-
-  Index & m_index;
-  std::shared_ptr<NumMwmIds> m_numMwmIds;
-  std::shared_ptr<EdgeEstimator> m_estimator;
-  std::unordered_map<NumMwmId, std::unique_ptr<TransitGraph>> m_graphs;
+  static std::unique_ptr<TransitGraphLoader> Create(Index & index,
+                                                    std::shared_ptr<NumMwmIds> numMwmIds,
+                                                    std::shared_ptr<EdgeEstimator> estimator);
 };
 }  // namespace routing
