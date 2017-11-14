@@ -41,6 +41,13 @@
     <attr name="drawSmile" format="boolean"/>
   </declare-styleable>
 
+  <declare-styleable name="TransitStepView">
+    <attr name="android:textSize"/>
+    <attr name="android:textColor"/>
+    <attr name="android:text"/>
+    <attr name="android:drawable"/>
+  </declare-styleable>
+
   <declare-styleable name="GoogleAds" >
     <attr name="colorLocation" format="string"/>
     <attr name="fontSizeLocation" format="string"/>
