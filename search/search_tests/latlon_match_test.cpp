@@ -1,11 +1,49 @@
 #include "testing/testing.hpp"
+
 #include "search/latlon_match.hpp"
-#include "std/utility.hpp"
+
+#include "base/math.hpp"
+
+using namespace search;
 
 UNIT_TEST(LatLon_Degree_Match)
 {
-  using namespace search;
   double lat, lon;
+
+  TEST(!MatchLatLonDegree("10,20", lat, lon), ());
+
+  TEST(MatchLatLonDegree("10, 20", lat, lon), ());
+  TEST_ALMOST_EQUAL_ULPS(lat, 10.0, ());
+  TEST_ALMOST_EQUAL_ULPS(lon, 20.0, ());
+
+  TEST(MatchLatLonDegree("10.0 20.0", lat, lon), ());
+  TEST_ALMOST_EQUAL_ULPS(lat, 10.0, ());
+  TEST_ALMOST_EQUAL_ULPS(lon, 20.0, ());
+
+  TEST(MatchLatLonDegree("10.0, 20,0", lat, lon), ());
+  TEST_ALMOST_EQUAL_ULPS(lat, 10.0, ());
+  TEST_ALMOST_EQUAL_ULPS(lon, 20.0, ());
+
+  TEST(MatchLatLonDegree("10.10, 20.20", lat, lon), ());
+  TEST_ALMOST_EQUAL_ULPS(lat, 10.1, ());
+  TEST_ALMOST_EQUAL_ULPS(lon, 20.2, ());
+
+  TEST(MatchLatLonDegree("10,10 20,20", lat, lon), ());
+  TEST_ALMOST_EQUAL_ULPS(lat, 10.1, ());
+  TEST_ALMOST_EQUAL_ULPS(lon, 20.2, ());
+
+  TEST(MatchLatLonDegree("10,10, 20,20", lat, lon), ());
+  TEST_ALMOST_EQUAL_ULPS(lat, 10.1, ());
+  TEST_ALMOST_EQUAL_ULPS(lon, 20.2, ());
+
+  // The ".123" form is not accepted, so our best-effort
+  // parse results in "10" and "20".
+  TEST(MatchLatLonDegree(".10, ,20", lat, lon), ());
+  TEST_ALMOST_EQUAL_ULPS(lat, 10.0, ());
+  TEST_ALMOST_EQUAL_ULPS(lon, 20.0, ());
+
+  TEST(!MatchLatLonDegree("., .", lat, lon), ());
+  TEST(!MatchLatLonDegree("10, .", lat, lon), ());
 
   TEST(MatchLatLonDegree("0*30\', 1*0\'30\"", lat, lon), ());
   TEST_ALMOST_EQUAL_ULPS(lat, 0.5, ());
