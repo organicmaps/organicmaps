@@ -20,22 +20,21 @@ omim_link_libraries(
   map
   ugc
   indexer
-  platform
   editor
   geometry
+  platform
   coding
   base
-  opening_hours
-  gflags
-  jansson
-  protobuf
-  succinct
-  pugixml
-  oauthcpp
-  gflags
-  stats_client
-  icu
   agg
+  gflags
+  icu
+  jansson
+  oauthcpp
+  opening_hours
+  protobuf
+  pugixml
+  stats_client
+  succinct
   ${LIBZ}
 )
 

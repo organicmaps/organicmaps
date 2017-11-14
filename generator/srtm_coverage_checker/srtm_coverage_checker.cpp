@@ -15,6 +15,8 @@
 
 #include <algorithm>
 
+#include <sys/resource.h>
+
 #include "3party/gflags/src/gflags/gflags.h"
 
 DEFINE_string(srtm_path, "", "Path to directory with SRTM files");

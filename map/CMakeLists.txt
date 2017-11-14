@@ -85,4 +85,6 @@ omim_add_test_subdirectory(map_tests)
 omim_add_test_subdirectory(mwm_tests)
 omim_add_test_subdirectory(style_tests)
 
-add_subdirectory(benchmark_tool)
+if (PLATFORM_DESKTOP)
+  add_subdirectory(benchmark_tool)
+endif()

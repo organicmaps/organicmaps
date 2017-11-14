@@ -19,8 +19,8 @@ omim_link_libraries(
   routing
   routing_common
   indexer
-  geometry
   editor
+  geometry
   platform
   coding
   base

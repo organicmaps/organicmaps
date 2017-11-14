@@ -16,13 +16,13 @@ omim_link_libraries(
   ${PROJECT_NAME}
   generator
   map
-  editor
   routing
   traffic
   routing_common
-  storage
   ugc
   indexer
+  editor
+  storage
   platform
   geometry
   coding
