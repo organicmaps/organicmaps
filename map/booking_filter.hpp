@@ -36,8 +36,6 @@ private:
   // |m_cacheDropCounter| and |m_currentParams| are used to identify request actuality.
   uint32_t m_cacheDropCounter = {};
   AvailabilityParams m_currentParams;
-
-  base::WorkerThread m_filterThread;
 };
 }  // namespace filter
 }  // namespace booking

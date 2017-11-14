@@ -1576,7 +1576,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     }
 
     // TODO: delete me after Cian project is finished.
-    if (GetSearchAPI().IsCianSearchMode())
+    if (GetSearchAPI().GetSponsoredMode() == SearchAPI::SponsoredMode::Cian)
     {
       mark->SetMarkType(SearchMarkType::Cian);
       continue;
@@ -1585,8 +1585,8 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     if (r.m_metadata.m_isSponsoredHotel)
       mark->SetMarkType(SearchMarkType::Booking);
 
-    //TODO: set mark in preparing state if some async filter will be applied.
-    //mark->SetPreparing(true);
+    if (GetSearchAPI().GetSponsoredMode() == SearchAPI::SponsoredMode::Booking)
+      mark->SetPreparing(true);
   }
 }
 
@@ -3330,7 +3330,7 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Para
 
         std::sort(features.begin(), features.end());
 
-        GetPlatform().RunOnGuiThread([this, features]()
+        GetPlatform().RunTask(Platform::Thread::Gui, [this, features]()
         {
           m_searchMarks.SetPreparingState(features, false);
         });

@@ -143,6 +143,8 @@
 		39BBC13E1F9FD679009D1687 /* segment_tree_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC13D1F9FD679009D1687 /* segment_tree_tests.cpp */; };
 		39BBC1401F9FD683009D1687 /* point_rect_matcher_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC13F1F9FD683009D1687 /* point_rect_matcher_tests.cpp */; };
 		39BBC1421F9FD68C009D1687 /* highlighting_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC1411F9FD68C009D1687 /* highlighting_tests.cpp */; };
+		3D0AEB021FBB102C00AD042B /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB041FBB102C00AD042B /* libgenerator_tests_support.a */; };
+		3D0AEB031FBB102C00AD042B /* libindexer_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB051FBB102C00AD042B /* libindexer_tests_support.a */; };
 		3DF37FAA1EA11B380012CB31 /* everywhere_search_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF37FA81EA11B380012CB31 /* everywhere_search_callback.cpp */; };
 		3DF37FAB1EA11B380012CB31 /* everywhere_search_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF37FA91EA11B380012CB31 /* everywhere_search_callback.hpp */; };
 		3DFEBF761EF2D55800317D5C /* city_finder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF751EF2D55800317D5C /* city_finder.hpp */; };
@@ -371,6 +373,8 @@
 		39BBC13D1F9FD679009D1687 /* segment_tree_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = segment_tree_tests.cpp; sourceTree = "<group>"; };
 		39BBC13F1F9FD683009D1687 /* point_rect_matcher_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_rect_matcher_tests.cpp; sourceTree = "<group>"; };
 		39BBC1411F9FD68C009D1687 /* highlighting_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = highlighting_tests.cpp; sourceTree = "<group>"; };
+		3D0AEB041FBB102C00AD042B /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0AEB051FBB102C00AD042B /* libindexer_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF37FA81EA11B380012CB31 /* everywhere_search_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = everywhere_search_callback.cpp; sourceTree = "<group>"; };
 		3DF37FA91EA11B380012CB31 /* everywhere_search_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = everywhere_search_callback.hpp; sourceTree = "<group>"; };
 		3DFEBF751EF2D55800317D5C /* city_finder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = city_finder.hpp; sourceTree = "<group>"; };
@@ -522,6 +526,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0AEB021FBB102C00AD042B /* libgenerator_tests_support.a in Frameworks */,
+				3D0AEB031FBB102C00AD042B /* libindexer_tests_support.a in Frameworks */,
 				34F558491DBF2EC700A4FC11 /* libz.tbd in Frameworks */,
 				39AEF8471FB45C8900943FC9 /* libicu.a in Frameworks */,
 				34F558471DBF2E8100A4FC11 /* libsuccinct.a in Frameworks */,
@@ -562,6 +568,8 @@
 		34F558391DBF2E0E00A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D0AEB041FBB102C00AD042B /* libgenerator_tests_support.a */,
+				3D0AEB051FBB102C00AD042B /* libindexer_tests_support.a */,
 				39B2B9841FB469ED00AB85A1 /* libminizip.a */,
 				39B2B9751FB4687500AB85A1 /* libgflags.a */,
 				39B2B96D1FB4633200AB85A1 /* libtess2.a */,
@@ -1213,6 +1221,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
+		};
+		3D0AEB061FBB102C00AD042B /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = search_tests;
+			};
+			name = "Production Full";
 		};
 		671C62111AE9225100076BD0 /* Debug */ = {
 			isa = XCBuildConfiguration;

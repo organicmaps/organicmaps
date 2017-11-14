@@ -20,6 +20,9 @@
 		34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34921F611BFA0A6900737D6E /* api_mark_point.hpp */; };
 		34DDA1811DBE5DF40088A609 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DDA17F1DBE5DF40088A609 /* libpartners_api.a */; };
 		34DDA1821DBE5DF40088A609 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DDA1801DBE5DF40088A609 /* libtracking.a */; };
+		3D0AEAFC1FBB0FF400AD042B /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */; };
+		3D0AEAFD1FBB0FF400AD042B /* libindexer_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB001FBB0FF400AD042B /* libindexer_tests_support.a */; };
+		3D0AEAFE1FBB0FF400AD042B /* libsearch_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */; };
 		3D47B2931F054BC5000828D2 /* taxi_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B2901F054BC5000828D2 /* taxi_delegate.cpp */; };
 		3D47B2941F054BC5000828D2 /* taxi_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2911F054BC5000828D2 /* taxi_delegate.hpp */; };
 		3D47B2C71F20EF06000828D2 /* displayed_categories_modifiers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B2C51F20EF06000828D2 /* displayed_categories_modifiers.cpp */; };
@@ -164,6 +167,9 @@
 		34AF87EA1DBE5AD000E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		34DDA17F1DBE5DF40088A609 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "/Users/igrechuhin/Repo/omim/xcode/partners_api/../../../omim-xcode-build/Debug/libpartners_api.a"; sourceTree = "<absolute>"; };
 		34DDA1801DBE5DF40088A609 /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "/Users/igrechuhin/Repo/omim/xcode/tracking/../../../omim-xcode-build/Debug/libtracking.a"; sourceTree = "<absolute>"; };
+		3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0AEB001FBB0FF400AD042B /* libindexer_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsearch_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D47B2901F054BC5000828D2 /* taxi_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_delegate.cpp; sourceTree = "<group>"; };
 		3D47B2911F054BC5000828D2 /* taxi_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = taxi_delegate.hpp; sourceTree = "<group>"; };
 		3D47B2C51F20EF06000828D2 /* displayed_categories_modifiers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = displayed_categories_modifiers.cpp; sourceTree = "<group>"; };
@@ -300,6 +306,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0AEAFC1FBB0FF400AD042B /* libgenerator_tests_support.a in Frameworks */,
+				3D0AEAFD1FBB0FF400AD042B /* libindexer_tests_support.a in Frameworks */,
+				3D0AEAFE1FBB0FF400AD042B /* libsearch_tests_support.a in Frameworks */,
 				F6C269F91F16174E00EB6519 /* libugc.a in Frameworks */,
 				45D287671E966E3400587F05 /* liblocal_ads.a in Frameworks */,
 				F685EB631E955C45003CA3FF /* libicu.a in Frameworks */,
@@ -354,6 +363,9 @@
 		34DDA17E1DBE5DF40088A609 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */,
+				3D0AEB001FBB0FF400AD042B /* libindexer_tests_support.a */,
+				3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */,
 				F6C269F81F16174E00EB6519 /* libugc.a */,
 				45D287661E966E3400587F05 /* liblocal_ads.a */,
 				F685EB621E955C45003CA3FF /* libicu.a */,

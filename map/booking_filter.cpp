@@ -6,6 +6,8 @@
 
 #include "indexer/index.hpp"
 
+#include "platform/platform.hpp"
+
 #include <algorithm>
 #include <utility>
 #include <vector>
@@ -134,7 +136,7 @@ Filter::Filter(Index const & index, booking::Api const & api) : m_index(index), 
 void Filter::Availability(search::Results const & results,
                           availability::internal::Params && params)
 {
-  m_filterThread.Push([this, results, params]()
+  GetPlatform().RunTask(Platform::Thread::File, [this, results, params]()
   {
     std::lock_guard<std::mutex> lock(m_mutex);
 

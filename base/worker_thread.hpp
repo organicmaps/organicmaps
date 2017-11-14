@@ -65,7 +65,7 @@ public:
   // Sends a signal to the thread to shut down and waits for completion.
   void ShutdownAndJoin();
 
-  static TimePoint Now() const { return Clock::now(); }
+  static TimePoint Now() { return Clock::now(); }
 
 private:
   enum QueueType

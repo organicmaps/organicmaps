@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "generator/generator_tests_support/test_feature.hpp"
-#include "indexer/indexer_tests_support/test_mwm_environment.hpp"
+#include "indexer/indexer_tests_support/test_with_custom_mwms.hpp"
 
 #include "map/booking_filter.hpp"
 
@@ -10,6 +10,8 @@
 #include "search/result.hpp"
 
 #include "indexer/feature_meta.hpp"
+
+#include "storage/country_info_getter.hpp"
 
 #include "base/scope_guard.hpp"
 
@@ -20,9 +22,21 @@ using namespace generator::tests_support;
 
 namespace
 {
+class TestMwmEnvironment : public indexer::tests_support::TestWithCustomMwms
+{
+protected:
+  void OnMwmBuilt(MwmInfo const & info) override
+  {
+    m_infoGetter.AddCountry(storage::CountryDef(info.GetCountryName(), info.m_limitRect));
+  }
+
+private:
+  storage::CountryInfoGetterForTesting m_infoGetter;
+};
+
 UNIT_TEST(BookingFilter_AvailabilitySmoke)
 {
-  indexer::tests_support::TestMwmEnvironment env;
+  TestMwmEnvironment env;
   booking::Api api;
   Filter filter(env.GetIndex(), api);
 
@@ -31,7 +45,7 @@ UNIT_TEST(BookingFilter_AvailabilitySmoke)
 
   std::vector<std::string> const kHotelIds = {"10623", "10624", "10625"};
 
-  env.BuildMwm("TestMwm", [&kHotelIds](TestMwmBuilder & builder)
+  env.BuildCountry("TestMwm", [&kHotelIds](TestMwmBuilder & builder)
   {
     TestPOI hotel1(m2::PointD(1.0, 1.0), "hotel 1", "en");
     hotel1.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[0]);
