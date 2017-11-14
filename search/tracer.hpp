@@ -17,13 +17,24 @@ public:
   {
     using TokenType = BaseContext::TokenType;
 
-    explicit Parse(std::vector<TokenType> const & types);
-    explicit Parse(std::vector<std::pair<TokenType, TokenRange>> const & ranges);
+    explicit Parse(std::vector<TokenType> const & types, bool category = false);
+    explicit Parse(std::vector<std::pair<TokenType, TokenRange>> const & ranges,
+                   bool category = false);
 
-    bool operator==(Parse const & rhs) const { return m_ranges == rhs.m_ranges; }
-    bool operator<(Parse const & rhs) const { return m_ranges < rhs.m_ranges; }
+    bool operator==(Parse const & rhs) const
+    {
+      return m_ranges == rhs.m_ranges && m_category == rhs.m_category;
+    }
+
+    bool operator<(Parse const & rhs) const
+    {
+      if (m_ranges != rhs.m_ranges)
+        return m_ranges < rhs.m_ranges;
+      return m_category < rhs.m_category;
+    }
 
     std::array<TokenRange, TokenType::TOKEN_TYPE_COUNT> m_ranges;
+    bool m_category = false;
   };
 
   template <typename ...Args>

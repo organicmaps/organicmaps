@@ -1,7 +1,9 @@
 #pragma once
+
 #include "search/categories_cache.hpp"
 #include "search/categories_set.hpp"
 #include "search/cities_boundaries_table.hpp"
+#include "search/common.hpp"
 #include "search/emitter.hpp"
 #include "search/geocoder.hpp"
 #include "search/pre_ranker.hpp"

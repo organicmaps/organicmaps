@@ -53,9 +53,10 @@ UNIT_CLASS_TEST(TracerTest, Smoke)
   auto const actual = tracer->GetUniqueParses();
 
   vector<Tracer::Parse> const expected{
-      Tracer::Parse{{{TokenType::TOKEN_TYPE_POI, TokenRange(0, 2)}}},
+      Tracer::Parse{{{TokenType::TOKEN_TYPE_POI, TokenRange(0, 2)}}, false /* category */},
       Tracer::Parse{{{TokenType::TOKEN_TYPE_CITY, TokenRange(0, 1)},
-                     {TokenType::TOKEN_TYPE_POI, TokenRange(1, 2)}}}};
+                     {TokenType::TOKEN_TYPE_POI, TokenRange(1, 2)}},
+                    true /* category */}};
 
   TEST_EQUAL(expected, actual, ());
 }

@@ -10,7 +10,7 @@ using namespace std;
 namespace search
 {
 // Tracer::Parse -----------------------------------------------------------------------------------
-Tracer::Parse::Parse(vector<TokenType> const & types)
+Tracer::Parse::Parse(vector<TokenType> const & types, bool category) : m_category(category)
 {
   size_t i = 0;
   while (i != types.size())
@@ -24,7 +24,8 @@ Tracer::Parse::Parse(vector<TokenType> const & types)
   }
 }
 
-Tracer::Parse::Parse(vector<pair<TokenType, TokenRange>> const & ranges)
+Tracer::Parse::Parse(vector<pair<TokenType, TokenRange>> const & ranges, bool category)
+  : m_category(category)
 {
   for (auto const & kv : ranges)
     m_ranges[kv.first] = kv.second;
@@ -35,7 +36,7 @@ string DebugPrint(Tracer::Parse const & parse)
   using TokenType = Tracer::Parse::TokenType;
 
   ostringstream os;
-  os << "Parse [";
+  os << "Parse [parse: ";
 
   bool first = true;
   for (size_t i = 0; i < TokenType::TOKEN_TYPE_COUNT; ++i)
@@ -51,7 +52,9 @@ string DebugPrint(Tracer::Parse const & parse)
     first = false;
   }
 
+  os << ", category: " << ::DebugPrint(parse.m_category);
   os << "]";
+
   return os.str();
 }
 

@@ -173,7 +173,7 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   , m_ranker(index, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
              suggests, m_villagesCache, static_cast<my::Cancellable const &>(*this))
   , m_preRanker(index, m_ranker)
-  , m_geocoder(index, infoGetter, m_preRanker, m_villagesCache,
+  , m_geocoder(index, infoGetter, categories, m_preRanker, m_villagesCache,
                static_cast<my::Cancellable const &>(*this))
 {
   // Current and input langs are to be set later.
@@ -488,6 +488,7 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
 
   geocoderParams.m_mode = searchParams.m_mode;
   geocoderParams.m_pivot = GetPivotRect(viewportSearch);
+  geocoderParams.m_categoryLocales = GetCategoryLocales();
   geocoderParams.m_hotelsFilter = searchParams.m_hotelsFilter;
   geocoderParams.m_cianMode = searchParams.m_cianMode;
   geocoderParams.m_preferredTypes = m_preferredTypes;

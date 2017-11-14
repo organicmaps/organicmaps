@@ -20,7 +20,6 @@
 #include "search/streets_matcher.hpp"
 #include "search/token_range.hpp"
 
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -43,7 +42,8 @@
 #include "std/unordered_map.hpp"
 #include "std/vector.hpp"
 
-class MwmInfo;
+class CategoriesHolder;
+class Index;
 class MwmValue;
 
 namespace storage
@@ -81,6 +81,7 @@ public:
   {
     Mode m_mode = Mode::Everywhere;
     m2::RectD m_pivot;
+    Locales m_categoryLocales;
     shared_ptr<hotels_filter::Rule> m_hotelsFilter;
     bool m_cianMode = false;
     set<uint32_t> m_preferredTypes;
@@ -88,8 +89,8 @@ public:
   };
 
   Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
-           PreRanker & preRanker, VillagesCache & villagesCache,
-           my::Cancellable const & cancellable);
+           CategoriesHolder const & categories, PreRanker & preRanker,
+           VillagesCache & villagesCache, my::Cancellable const & cancellable);
   ~Geocoder();
 
   // Sets search query params.
@@ -198,6 +199,9 @@ private:
   // the lowest layer.
   void FindPaths(BaseContext const & ctx);
 
+  void TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::MwmId const & mwmId,
+                   uint32_t ftId, Model::Type type, TokenRange const & tokenRange);
+
   // Forms result and feeds it to |m_preRanker|.
   void EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
                   Model::Type type, TokenRange const & tokenRange,
@@ -222,8 +226,8 @@ private:
                                              Model::Type & type);
 
   Index const & m_index;
-
   storage::CountryInfoGetter const & m_infoGetter;
+  CategoriesHolder const & m_categories;
 
   StreetsCache m_streetsCache;
   VillagesCache & m_villagesCache;

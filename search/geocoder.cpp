@@ -334,10 +334,11 @@ CBV DecimateCianResults(CBV const & cbv)
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
-                   PreRanker & preRanker, VillagesCache & villagesCache,
-                   my::Cancellable const & cancellable)
+                   CategoriesHolder const & categories, PreRanker & preRanker,
+                   VillagesCache & villagesCache, my::Cancellable const & cancellable)
   : m_index(index)
   , m_infoGetter(infoGetter)
+  , m_categories(categories)
   , m_streetsCache(cancellable)
   , m_villagesCache(villagesCache)
   , m_hotelsCache(cancellable)
@@ -1279,6 +1280,29 @@ void Geocoder::FindPaths(BaseContext const & ctx)
       });
 }
 
+void Geocoder::TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::MwmId const & mwmId,
+                           uint32_t ftId, Model::Type type, TokenRange const & tokenRange)
+{
+  MY_SCOPE_GUARD(emitParse, [&]() { tracer.EmitParse(ctx.m_tokens); });
+
+  if (type != Model::TYPE_POI && type != Model::TYPE_BUILDING)
+    return;
+
+  if (mwmId != m_context->GetId())
+    return;
+
+  FeatureType ft;
+  if (!m_context->GetFeature(ftId, ft))
+    return;
+
+  feature::TypesHolder holder(ft);
+  CategoriesInfo catInfo(holder, TokenSlice(m_params, tokenRange), m_params.m_categoryLocales,
+                         m_categories);
+
+  emitParse.release();
+  tracer.EmitParse(ctx.m_tokens, catInfo.IsPureCategories());
+}
+
 void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
                           Model::Type type, TokenRange const & tokenRange,
                           IntersectionResult const * geoParts)
@@ -1292,7 +1316,7 @@ void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, 
     return;
 
   if (m_params.m_tracer)
-    m_params.m_tracer->EmitParse(ctx.m_tokens);
+    TraceResult(*m_params.m_tracer, ctx, mwmId, ftId, type, tokenRange);
 
   // Distance and rank will be filled at the end, for all results at once.
   //
