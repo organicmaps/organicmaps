@@ -19,16 +19,8 @@
 {
   self = [super init];
   if (self)
-  {
     _delegate = delegate;
-    [MWMSearch addObserver:self];
-  }
   return self;
-}
-
-- (void)dealloc
-{
-  [MWMSearch removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -64,7 +56,7 @@
 {
   [coordinator
       animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self onSearchResultsUpdated];
+        [self reloadData];
       }
                       completion:nil];
 }
@@ -168,16 +160,10 @@
 
 - (void)onSearchCompleted
 {
-  [self onSearchResultsUpdated];
+  [self reloadData];
   BOOL const noResults = [MWMSearch resultsCount] == 0;
   self.tableView.hidden = noResults;
   [(MWMSearchTableView *)self.view hideNoResultsView:!noResults];
-  [self reloadData];
-}
-
-- (void)onSearchResultsUpdated
-{
-  [self reloadData];
 }
 
 @end

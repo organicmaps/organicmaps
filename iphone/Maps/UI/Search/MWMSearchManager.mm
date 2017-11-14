@@ -324,8 +324,15 @@ using Observers = NSHashTable<Observer>;
 
 - (void)onSearchCompleted
 {
-  if (self.state == MWMSearchManagerStateTableSearch)
-    [self updateTableSearchActionBar];
+  if (self.state != MWMSearchManagerStateTableSearch)
+     return;
+  [self.tableViewController onSearchCompleted];
+  [self updateTableSearchActionBar];
+}
+
+- (void)onSearchResultsUpdated
+{
+  [self.tableViewController reloadData];
 }
 
 - (void)updateTableSearchActionBar
