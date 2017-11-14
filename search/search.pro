@@ -90,6 +90,7 @@ SOURCES += \
     categories_cache.cpp \
     cbv.cpp \
     cities_boundaries_table.cpp \
+    city_finder.cpp \
     displayed_categories.cpp \
     downloader_search_callback.cpp \
     dummy_rank_table.cpp \

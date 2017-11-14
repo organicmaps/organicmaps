@@ -102,9 +102,10 @@ public:
     auto const center = ft.GetCenter();
 
     CitiesBoundariesTable::Boundaries boundaries;
-    m_boundaries.Get(FeatureID(m_ctx.GetId(), id), boundaries);
+    auto const fid = ft.GetID();
+    m_boundaries.Get(fid, boundaries);
 
-    m_holder.Add(LocalityItem(names, center, boundaries, population));
+    m_holder.Add(LocalityItem(names, center, boundaries, population, fid));
     m_loadedIds.insert(id);
   }
 
@@ -120,8 +121,8 @@ private:
 
 // LocalityItem ------------------------------------------------------------------------------------
 LocalityItem::LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center,
-                           Boundaries const & boundaries, uint64_t population)
-  : m_names(names), m_center(center), m_boundaries(boundaries), m_population(population)
+                           Boundaries const & boundaries, uint64_t population, FeatureID const & id)
+  : m_names(names), m_center(center), m_boundaries(boundaries), m_population(population), m_id(id)
 {
 }
 

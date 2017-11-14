@@ -8,6 +8,9 @@
 #include "base/cancellable.hpp"
 
 #include <cstdint>
+#include <string>
+
+struct FeatureID;
 
 namespace search
 {
@@ -17,20 +20,10 @@ public:
   // TODO (@milchakov): consider to reuse locality finder from search
   // engine.  Otherwise, CityFinder won't benefit from approximated
   // cities boundaries.
-  explicit CityFinder(Index const & index)
-    : m_unusedBoundaries(index)
-    , m_unusedCache(m_cancellable)
-    , m_finder(index, m_unusedBoundaries, m_unusedCache)
-  {
-  }
+  explicit CityFinder(Index const & index);
 
-  string GetCityName(m2::PointD const & p, int8_t lang)
-  {
-    string city;
-    m_finder.GetLocality(
-        p, [&](LocalityItem const & item) { item.GetSpecifiedOrDefaultName(lang, city); });
-    return city;
-  }
+  std::string GetCityName(m2::PointD const & p, int8_t lang);
+  FeatureID GetCityFeatureID(m2::PointD const & p);
 
 private:
   my::Cancellable m_cancellable;

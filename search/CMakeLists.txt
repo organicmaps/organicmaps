@@ -13,6 +13,7 @@ set(
   cbv.hpp
   cities_boundaries_table.cpp
   cities_boundaries_table.hpp
+  city_finder.cpp
   city_finder.hpp
   common.hpp
   displayed_categories.cpp

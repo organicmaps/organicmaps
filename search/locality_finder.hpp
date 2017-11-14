@@ -31,7 +31,7 @@ struct LocalityItem
   using Boundaries = CitiesBoundariesTable::Boundaries;
 
   LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center,
-               Boundaries const & boundaries, uint64_t population);
+               Boundaries const & boundaries, uint64_t population, FeatureID const & id);
 
   bool GetName(int8_t lang, string & name) const { return m_names.GetString(lang, name); }
 
@@ -44,6 +44,7 @@ struct LocalityItem
   m2::PointD m_center;
   Boundaries m_boundaries;
   uint64_t m_population;
+  FeatureID m_id;
 };
 
 string DebugPrint(LocalityItem const & item);
