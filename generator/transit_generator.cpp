@@ -262,7 +262,7 @@ void DeserializerFromJson::operator()(EdgeFlags & edgeFlags, char const * name)
   bool transfer = false;
   (*this)(transfer, name);
   // Note. Only |transfer| field of |edgeFlags| may be set at this point because the
-  // other fields of |edgeFlags| is unknown.
+  // other fields of |edgeFlags| are unknown.
   edgeFlags.SetFlags(0);
   edgeFlags.SetTransfer(transfer);
 }

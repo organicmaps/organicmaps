@@ -130,7 +130,7 @@ private:
 class Stop
 {
 public:
-  NEWTYPE(StopId, MonotoneStopId);
+  NEWTYPE(StopId, WrappedStopId);
 
   Stop() : m_featureIdentifiers(true /* serializeFeatureIdOnly */) {};
   Stop(StopId id, OsmId osmId, FeatureId featureId, TransferId transferId,
@@ -157,14 +157,14 @@ private:
                                   visitor(m_lineIds, "line_ids"), visitor(m_point, "point"),
                                   visitor(m_titleAnchors, "title_anchors"))
 
-  MonotoneStopId m_id = MonotoneStopId(kInvalidStopId);
+  WrappedStopId m_id = WrappedStopId(kInvalidStopId);
   FeatureIdentifiers m_featureIdentifiers;
   TransferId m_transferId = kInvalidTransferId;
   std::vector<LineId> m_lineIds;
   m2::PointD m_point;
   std::vector<TitleAnchor> m_titleAnchors;
 };
-NEWTYPE_SIMPLE_OUTPUT(Stop::MonotoneStopId)
+NEWTYPE_SIMPLE_OUTPUT(Stop::WrappedStopId)
 
 class SingleMwmSegment
 {
@@ -304,7 +304,7 @@ std::string DebugPrint(EdgeFlags const & f);
 class Edge
 {
 public:
-  NEWTYPE(StopId, MonotoneEdgeId);
+  NEWTYPE(StopId, WrappedEdgeId);
 
   Edge() = default;
   Edge(StopId stop1Id, StopId stop2Id, Weight weight, LineId lineId, bool transfer,
@@ -330,14 +330,14 @@ private:
                                   visitor(m_lineId, "line_id"), visitor(m_flags, "transfer"),
                                   visitor(m_shapeIds, "shape_ids"))
 
-  MonotoneEdgeId m_stop1Id = MonotoneEdgeId(kInvalidStopId);
+  WrappedEdgeId m_stop1Id = WrappedEdgeId(kInvalidStopId);
   StopId m_stop2Id = kInvalidStopId;
   Weight m_weight = kInvalidWeight; // in seconds
   LineId m_lineId = kInvalidLineId;
   EdgeFlags m_flags;
   std::vector<ShapeId> m_shapeIds;
 };
-NEWTYPE_SIMPLE_OUTPUT(Edge::MonotoneEdgeId)
+NEWTYPE_SIMPLE_OUTPUT(Edge::WrappedEdgeId)
 
 class Transfer
 {

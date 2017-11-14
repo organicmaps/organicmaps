@@ -47,8 +47,8 @@ public:
   void operator()(StopIdRanges & rs, char const * name = nullptr);
 
   template <typename T>
-  typename std::enable_if<std::is_same<T, Edge::MonotoneEdgeId>::value ||
-      std::is_same<T, Stop::MonotoneStopId>::value>::type
+  typename std::enable_if<std::is_same<T, Edge::WrappedEdgeId>::value ||
+      std::is_same<T, Stop::WrappedStopId>::value>::type
   operator()(T & t, char const * name = nullptr)
   {
     typename T::RepType id;
@@ -76,8 +76,8 @@ public:
 
   template <typename T>
   typename std::enable_if<std::is_class<T>::value &&
-                          !std::is_same<T, Edge::MonotoneEdgeId>::value &&
-                          !std::is_same<T, Stop::MonotoneStopId>::value>::type
+                          !std::is_same<T, Edge::WrappedEdgeId>::value &&
+                          !std::is_same<T, Stop::WrappedStopId>::value>::type
   operator()(T & t, char const * name = nullptr)
   {
     if (name != nullptr && json_is_object(m_node))

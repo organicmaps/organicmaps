@@ -98,18 +98,18 @@ public:
     }
   }
 
-  void operator()(Edge::MonotoneEdgeId const & t, char const * /* name */ = nullptr)
+  void operator()(Edge::WrappedEdgeId const & id, char const * /* name */ = nullptr)
   {
-    CHECK_GREATER_OR_EQUAL(t.Get(), m_lastEncodedMonotoneEdgeId.Get(), ());
-    WriteVarUint(m_sink, static_cast<uint64_t>(t.Get() - m_lastEncodedMonotoneEdgeId.Get()));
-    m_lastEncodedMonotoneEdgeId = t;
+    CHECK_GREATER_OR_EQUAL(id.Get(), m_lastWrappedEdgeId.Get(), ());
+    WriteVarUint(m_sink, static_cast<uint64_t>(id.Get() - m_lastWrappedEdgeId.Get()));
+    m_lastWrappedEdgeId = id;
   }
 
-  void operator()(Stop::MonotoneStopId const & t, char const * /* name */ = nullptr)
+  void operator()(Stop::WrappedStopId const & id, char const * /* name */ = nullptr)
   {
-    CHECK_GREATER_OR_EQUAL(t.Get(), m_lastEncodedMonotoneStopId.Get(), ());
-    WriteVarUint(m_sink, static_cast<uint64_t>(t.Get() - m_lastEncodedMonotoneStopId.Get()));
-    m_lastEncodedMonotoneStopId = t;
+    CHECK_GREATER_OR_EQUAL(id.Get(), m_lastWrappedStopId.Get(), ());
+    WriteVarUint(m_sink, static_cast<uint64_t>(id.Get() - m_lastWrappedStopId.Get()));
+    m_lastWrappedStopId = id;
   }
 
   void operator()(FeatureIdentifiers const & id, char const * name = nullptr)
@@ -157,8 +157,8 @@ public:
 
 private:
   Sink & m_sink;
-  Edge::MonotoneEdgeId m_lastEncodedMonotoneEdgeId = Edge::MonotoneEdgeId(0);
-  Stop::MonotoneStopId m_lastEncodedMonotoneStopId = Stop::MonotoneStopId(0);
+  Edge::WrappedEdgeId m_lastWrappedEdgeId = {};
+  Stop::WrappedStopId m_lastWrappedStopId = {};
 };
 
 template <typename Source>
@@ -211,16 +211,16 @@ public:
     p = Int64ToPoint(ReadVarInt<int64_t, Source>(m_source), POINT_COORD_BITS);
   }
 
-  void operator()(Edge::MonotoneEdgeId & t, char const * /* name */ = nullptr)
+  void operator()(Edge::WrappedEdgeId & t, char const * /* name */ = nullptr)
   {
-    t = m_lastDecodedMonotoneEdgeId + Edge::MonotoneEdgeId(ReadVarUint<uint64_t, Source>(m_source));
-    m_lastDecodedMonotoneEdgeId = t;
+    t = m_lastWrappedEdgeId + Edge::WrappedEdgeId(ReadVarUint<uint64_t, Source>(m_source));
+    m_lastWrappedEdgeId = t;
   }
 
-  void operator()(Stop::MonotoneStopId & t, char const * /* name */ = nullptr)
+  void operator()(Stop::WrappedStopId & t, char const * /* name */ = nullptr)
   {
-    t = m_lastDecodedMonotoneStopId + Stop::MonotoneStopId(ReadVarUint<uint64_t, Source>(m_source));
-    m_lastDecodedMonotoneStopId = t;
+    t = m_lastWrappedStopId + Stop::WrappedStopId(ReadVarUint<uint64_t, Source>(m_source));
+    m_lastWrappedStopId = t;
   }
 
   void operator()(FeatureIdentifiers & id, char const * name = nullptr)
@@ -294,8 +294,8 @@ public:
 
 private:
   Source & m_source;
-  Edge::MonotoneEdgeId m_lastDecodedMonotoneEdgeId = Edge::MonotoneEdgeId(0);
-  Stop::MonotoneStopId m_lastDecodedMonotoneStopId = Stop::MonotoneStopId(0);
+  Edge::WrappedEdgeId m_lastWrappedEdgeId = {};
+  Stop::WrappedStopId m_lastWrappedStopId = {};
 };
 
 template <typename Sink>
