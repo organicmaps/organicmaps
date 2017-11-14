@@ -88,10 +88,7 @@
 		39AEF8491FB45D2F00943FC9 /* libsearch_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624831D10133300AE4E3C /* libsearch_tests_support.a */; };
 		39AEF84C1FB45D7800943FC9 /* feature_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39AEF84A1FB45D7700943FC9 /* feature_loader.cpp */; };
 		39AEF84D1FB45D7800943FC9 /* feature_loader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39AEF84B1FB45D7800943FC9 /* feature_loader.hpp */; };
-		39AEF8521FB45DA100943FC9 /* test_with_classificator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39AEF84E1FB45DA100943FC9 /* test_with_classificator.cpp */; };
 		39AEF8531FB45DA100943FC9 /* test_with_custom_mwms.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39AEF84F1FB45DA100943FC9 /* test_with_custom_mwms.hpp */; };
-		39AEF8541FB45DA100943FC9 /* test_with_custom_mwms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39AEF8501FB45DA100943FC9 /* test_with_custom_mwms.cpp */; };
-		39AEF8551FB45DA100943FC9 /* test_with_classificator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39AEF8511FB45DA100943FC9 /* test_with_classificator.hpp */; };
 		39AEF86C1FB45E1600943FC9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558481DBF2EC700A4FC11 /* libz.tbd */; };
 		39AEF86D1FB45E1600943FC9 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39AEF8481FB45C8900943FC9 /* libicu.a */; };
 		39AEF86E1FB45E1600943FC9 /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558461DBF2E8100A4FC11 /* libsuccinct.a */; };
@@ -344,10 +341,7 @@
 		39AEF8481FB45C8900943FC9 /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		39AEF84A1FB45D7700943FC9 /* feature_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_loader.cpp; sourceTree = "<group>"; };
 		39AEF84B1FB45D7800943FC9 /* feature_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_loader.hpp; sourceTree = "<group>"; };
-		39AEF84E1FB45DA100943FC9 /* test_with_classificator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_with_classificator.cpp; sourceTree = "<group>"; };
 		39AEF84F1FB45DA100943FC9 /* test_with_custom_mwms.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_with_custom_mwms.hpp; sourceTree = "<group>"; };
-		39AEF8501FB45DA100943FC9 /* test_with_custom_mwms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_with_custom_mwms.cpp; sourceTree = "<group>"; };
-		39AEF8511FB45DA100943FC9 /* test_with_classificator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_with_classificator.hpp; sourceTree = "<group>"; };
 		39AEF8811FB45E1600943FC9 /* search_integration_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = search_integration_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39B2B93B1FB461F800AB85A1 /* interactive_search_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interactive_search_test.cpp; sourceTree = "<group>"; };
 		39B2B93C1FB461F800AB85A1 /* generate_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = generate_tests.cpp; sourceTree = "<group>"; };
@@ -827,9 +821,6 @@
 		6796248E1D10134200AE4E3C /* search_tests_support */ = {
 			isa = PBXGroup;
 			children = (
-				39AEF84E1FB45DA100943FC9 /* test_with_classificator.cpp */,
-				39AEF8511FB45DA100943FC9 /* test_with_classificator.hpp */,
-				39AEF8501FB45DA100943FC9 /* test_with_custom_mwms.cpp */,
 				39AEF84F1FB45DA100943FC9 /* test_with_custom_mwms.hpp */,
 				6796248F1D10137D00AE4E3C /* test_results_matching.cpp */,
 				679624901D10137D00AE4E3C /* test_results_matching.hpp */,
@@ -849,7 +840,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39AEF8551FB45DA100943FC9 /* test_with_classificator.hpp in Headers */,
 				456E1B3F1F9A3C8E009C32E1 /* cities_boundaries_table.hpp in Headers */,
 				34EEAD701E55AE4300E95575 /* token_range.hpp in Headers */,
 				3461C9A51D79949600E6E6F5 /* utils.hpp in Headers */,
@@ -1147,7 +1137,6 @@
 				F652D9041CFDE21900FC29A0 /* rank_table_cache.cpp in Sources */,
 				F652D8EE1CFDE21900FC29A0 /* features_layer.cpp in Sources */,
 				675346E21A40560D00A0A8C3 /* house_detector.cpp in Sources */,
-				39AEF8521FB45DA100943FC9 /* test_with_classificator.cpp in Sources */,
 				345C8DAF1D2D15A50037E3A6 /* cbv.cpp in Sources */,
 				34586B8A1DCB1E8300CF7FC9 /* house_numbers_matcher_test.cpp in Sources */,
 				F659FC6D1CF4A30B000A06B1 /* pre_ranker.cpp in Sources */,
@@ -1181,7 +1170,6 @@
 				3453BD5A1DAF91C100380ECB /* hotels_filter.cpp in Sources */,
 				345C8DB31D2D15A50037E3A6 /* streets_matcher.cpp in Sources */,
 				456E1B3E1F9A3C8E009C32E1 /* cities_boundaries_table.cpp in Sources */,
-				39AEF8541FB45DA100943FC9 /* test_with_custom_mwms.cpp in Sources */,
 				39BBC1421F9FD68C009D1687 /* highlighting_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1199,6 +1187,13 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		34E7184D1FBB074300FC98CC /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = search_tests;
+			};
+			name = "Production Full";
+		};
 		39AEF87F1FB45E1600943FC9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1321,6 +1316,7 @@
 			buildConfigurations = (
 				39AEF87F1FB45E1600943FC9 /* Debug */,
 				39AEF8801FB45E1600943FC9 /* Release */,
+				34E7184D1FBB074300FC98CC /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
