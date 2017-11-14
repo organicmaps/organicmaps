@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/search_tests_support/test_with_classificator.hpp"
+#include "indexer/indexer_tests_support/test_with_classificator.hpp"
 
 #include "indexer/data_header.hpp"
 #include "indexer/index.hpp"
@@ -18,7 +18,7 @@
 
 namespace
 {
-class LocalityFinderTest : public search::tests_support::TestWithClassificator
+class LocalityFinderTest : public indexer::tests_support::TestWithClassificator
 {
   platform::LocalCountryFile m_worldFile;
 

@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/search_tests_support/test_with_classificator.hpp"
+#include "indexer/indexer_tests_support/test_with_classificator.hpp"
 
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -21,13 +21,11 @@
 #include <utility>
 
 using namespace generator::tests_support;
-using namespace search::tests_support;
-using namespace search;
 using namespace std;
 
 namespace
 {
-class GenerateTest : public TestWithClassificator
+class GenerateTest : public indexer::tests_support::TestWithClassificator
 {
 public:
   void MakeFeature(TestMwmBuilder & builder, pair<string, string> const & tag,

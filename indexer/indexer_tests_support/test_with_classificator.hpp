@@ -1,6 +1,6 @@
 #pragma once
 
-namespace search
+namespace indexer
 {
 namespace tests_support
 {
@@ -11,4 +11,4 @@ public:
   virtual ~TestWithClassificator() = default;
 };
 }  // namespace tests_support
-}  // namespace search
+}  // namespace indexer

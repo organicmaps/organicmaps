@@ -5,9 +5,9 @@
 #include "search/search_tests_support/test_search_request.hpp"
 #include "search/search_tests_support/test_with_custom_mwms.hpp"
 
-#include "generator/generator_tests_support/test_feature.hpp"
-
 #include "indexer/indexer_tests_support/helpers.hpp"
+
+#include "generator/generator_tests_support/test_feature.hpp"
 
 #include "geometry/rect2d.hpp"
 

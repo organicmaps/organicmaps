@@ -33,7 +33,7 @@ HEADERS += \
     ads_engine.hpp \
     banner.hpp \
     booking_api.hpp \
-    booking_availability_params.hpp
+    booking_availability_params.hpp \
     cian_api.hpp \
     facebook_ads.hpp \
     google_ads.hpp \
