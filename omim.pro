@@ -165,7 +165,8 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
 #    SUBDIRS *= downloader_tests
 
     search_tests.subdir = search/search_tests
-    search_tests.depends = 3party base coding geometry platform indexer search
+    search_tests.depends = 3party base coding geometry platform indexer search \
+                           search_tests_support indexer_tests_support generator_tests_support
     SUBDIRS *= search_tests
 
     MapDepLibs = 3party base coding geometry editor platform storage indexer search map \
@@ -177,15 +178,15 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
     # storage_tests.depends should be set to |3party base coding geometry platform storage indexer stats|
     # as it was before.
     storage_tests.subdir = storage/storage_tests
-    storage_tests.depends = $$MapDepLibs generator_tests_support generator
+    storage_tests.depends = $$MapDepLibs generator_tests_support generator partners_api
     SUBDIRS *= storage_tests
 
     storage_integration_tests.subdir = storage/storage_integration_tests
-    storage_integration_tests.depends = $$MapDepLibs
+    storage_integration_tests.depends = $$MapDepLibs partners_api
     SUBDIRS *= storage_integration_tests
 
     map_tests.subdir = map/map_tests
-    map_tests.depends = $$MapDepLibs
+    map_tests.depends = $$MapDepLibs search_tests_support
     SUBDIRS *= map_tests
 
     mwm_tests.subdir = map/mwm_tests
@@ -229,8 +230,8 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
     SUBDIRS *= search_tests_support
 
     search_integration_tests.subdir = search/search_integration_tests
-    search_integration_tests.depends = $$MapDepLibs search_tests_support \
-                                       generator_tests_support indexer_tests_support generator
+    search_integration_tests.depends = $$MapDepLibs \
+                                       search_tests_support generator_tests_support indexer_tests_support generator
     SUBDIRS *= search_integration_tests
 
     search_quality_tests.subdir = search/search_quality/search_quality_tests
