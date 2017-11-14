@@ -23,44 +23,33 @@ public:
     : m_index(index)
   {}
 
-  void ReadStops(MwmSet::MwmId const & mwmId, std::vector<routing::transit::Stop> & stops);
-  void ReadShapes(MwmSet::MwmId const & mwmId, std::vector<routing::transit::Shape> & shapes);
-  void ReadTransfers(MwmSet::MwmId const & mwmId, std::vector<routing::transit::Transfer> & transfers);
-  void ReadLines(MwmSet::MwmId const & mwmId, std::vector<routing::transit::Line> & lines);
-  void ReadNetworks(MwmSet::MwmId const & mwmId, std::vector<routing::transit::Network> & networks);
+  bool Init(MwmSet::MwmId const & mwmId);
+  bool IsValid() const;
+
+  void ReadStops(std::vector<routing::transit::Stop> & stops);
+  void ReadShapes(std::vector<routing::transit::Shape> & shapes);
+  void ReadTransfers(std::vector<routing::transit::Transfer> & transfers);
+  void ReadLines(std::vector<routing::transit::Line> & lines);
+  void ReadNetworks(std::vector<routing::transit::Network> & networks);
 
 private:
+  using TransitReaderSource = ReaderSource<FilesContainerR::TReader>;
+  std::unique_ptr<TransitReaderSource> GetReader(MwmSet::MwmId const & mwmId);
+
+  void ReadHeader();
+
   using GetItemsOffsetFn = std::function<uint32_t (routing::transit::TransitHeader const & header)>;
   template <typename T>
-  void ReadTable(MwmSet::MwmId const & mwmId, GetItemsOffsetFn getItemsOffsetFn, std::vector<T> & items)
+  void ReadTable(uint32_t offset, std::vector<T> & items)
   {
+    ASSERT(m_src != nullptr, ());
     items.clear();
     try
     {
-      MwmSet::MwmHandle handle = m_index.GetMwmHandleById(mwmId);
-      if (!handle.IsAlive())
-      {
-        LOG(LWARNING, ("Can't get mwm handle for", mwmId));
-        return;
-      }
-      MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
-      if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
-      {
-        LOG(LWARNING, ("Can't get transit for", mwmId));
-        return;
-      }
-      FilesContainerR::TReader reader = mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG);
-      ReaderSource<FilesContainerR::TReader> src(reader);
+      CHECK_GREATER_OR_EQUAL(offset, m_src->Pos(), ("Wrong section format."));
+      m_src->Skip(offset - m_src->Pos());
 
-      routing::transit::FixedSizeDeserializer<ReaderSource<FilesContainerR::TReader>> fixedSizeDeserializer(src);
-      routing::transit::TransitHeader header;
-      fixedSizeDeserializer(header);
-
-      auto const offset = getItemsOffsetFn(header);
-      CHECK_GREATER_OR_EQUAL(offset, src.Pos(), ("Wrong section format."));
-      src.Skip(offset - src.Pos());
-
-      routing::transit::Deserializer<ReaderSource<FilesContainerR::TReader>> deserializer(src);
+      routing::transit::Deserializer<ReaderSource<FilesContainerR::TReader>> deserializer(*m_src.get());
       deserializer(items);
     }
     catch (Reader::OpenException const & e)
@@ -71,6 +60,8 @@ private:
   }
 
   Index & m_index;
+  std::unique_ptr<TransitReaderSource> m_src;
+  routing::transit::TransitHeader m_header;
 };
 
 struct TransitFeatureInfo
@@ -103,12 +94,12 @@ using TReadFeaturesFn = std::function<void (TReadCallback<FeatureType> const & ,
 class ReadTransitTask: public threads::IRoutine
 {
 public:
-  ReadTransitTask(TransitReader & reader,
+  ReadTransitTask(Index & index,
                   TReadFeaturesFn const & readFeaturesFn)
-    : m_transitReader(reader), m_readFeaturesFn(readFeaturesFn)
+    : m_transitReader(index), m_readFeaturesFn(readFeaturesFn)
   {}
 
-  void Init(uint64_t id, MwmSet::MwmId const & mwmId, std::unique_ptr<TransitDisplayInfo> && transitInfo = nullptr);
+  bool Init(uint64_t id, MwmSet::MwmId const & mwmId, std::unique_ptr<TransitDisplayInfo> && transitInfo = nullptr);
   uint64_t GetId() const { return m_id; }
 
   void Do() override;
@@ -135,10 +126,10 @@ private:
     }
   };
 
-  TransitReader & m_transitReader;
+  TransitReader m_transitReader;
   TReadFeaturesFn m_readFeaturesFn;
 
-  uint64_t m_id;
+  uint64_t m_id = 0;
   MwmSet::MwmId m_mwmId;
   std::unique_ptr<TransitDisplayInfo> m_transitInfo;
 
@@ -156,7 +147,7 @@ public:
   void Start();
   void Stop();
 
-  void GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos);
+  bool GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos);
 
   // TODO(@darina) Clear cache for deleted mwm.
   //void OnMwmDeregistered(MwmSet::MwmId const & mwmId);
@@ -169,12 +160,11 @@ private:
   std::mutex m_mutex;
   std::condition_variable m_event;
 
-  std::atomic<uint64_t> m_nextTasksGroupId;
+  uint64_t m_nextTasksGroupId = 0;
   std::map<uint64_t, size_t> m_tasksGroups;
 
-  TransitReader m_transitReader;
+  Index & m_index;
   TReadFeaturesFn m_readFeaturesFn;
-
   // TODO(@darina) In case of reading the whole mwm transit section, save it in the cache for transit scheme rendering.
   //TransitDisplayInfos m_transitDisplayCache;
 };

@@ -366,7 +366,7 @@ Framework::Framework(FrameworkParams const & params)
                                                  return m_storage.GetParentIdFor(id);
                                                },
                                                [this](RoutingManager::Callbacks::FeatureCallback const & fn,
-                                                      std::vector<FeatureID> const & features)
+                                                      vector<FeatureID> const & features)
                                                {
                                                  return m_model.ReadFeatures(fn, features);
                                                }),

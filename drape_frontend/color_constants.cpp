@@ -48,7 +48,7 @@ public:
     }
     catch (RootException const & ex)
     {
-      LOG(LWARNING, ("Loading transit colors failed:", ex.Msg()));
+      LOG(LWARNING, ("Loading transit colors failed:", ex.what()));
       return;
     }
 

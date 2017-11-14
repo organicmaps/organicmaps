@@ -128,7 +128,7 @@ void CollectTransitDisplayInfo(vector<RouteSegment> const & segments, GetMwmIdFn
     {
       case TransitInfo::Type::Edge:
       {
-        auto const &edge = transitInfo.GetEdge();
+        auto const & edge = transitInfo.GetEdge();
 
         mwmTransit->m_stops[edge.m_stop1Id] = {};
         mwmTransit->m_stops[edge.m_stop2Id] = {};
@@ -139,16 +139,19 @@ void CollectTransitDisplayInfo(vector<RouteSegment> const & segments, GetMwmIdFn
       }
       case TransitInfo::Type::Transfer:
       {
-        auto const &transfer = transitInfo.GetTransfer();
+        auto const & transfer = transitInfo.GetTransfer();
         mwmTransit->m_stops[transfer.m_stop1Id] = {};
         mwmTransit->m_stops[transfer.m_stop2Id] = {};
         break;
       }
       case TransitInfo::Type::Gate:
       {
-        auto const &gate = transitInfo.GetGate();
-        auto const featureId = FeatureID(mwmId, gate.m_featureId);
-        mwmTransit->m_features[featureId] = {};
+        auto const & gate = transitInfo.GetGate();
+        if (gate.m_featureId != transit::kInvalidFeatureId)
+        {
+          auto const featureId = FeatureID(mwmId, gate.m_featureId);
+          mwmTransit->m_features[featureId] = {};
+        }
         break;
       }
     }
@@ -214,7 +217,8 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
   CollectTransitDisplayInfo(segments, getMwmIdFn, transitDisplayInfos);
 
   // Read transit display info.
-  transitReadManager.GetTransitDisplayInfo(transitDisplayInfos);
+  if (!transitReadManager.GetTransitDisplayInfo(transitDisplayInfos))
+    return;
 
   subroute.m_styleType = df::SubrouteStyleType::Multiple;
   subroute.m_style.clear();
@@ -303,9 +307,12 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
           marker.m_scale = kTransferMarkerScale;
         marker.m_colors.push_back(currentColor);
 
-        auto const fid = FeatureID(mwmId, stop1.GetFeatureId());
-        transitMarkInfo.m_titles.emplace_back(displayInfo.m_features.at(fid).m_title,
-                                              df::GetTransitTextColorName(line.GetColor()));
+        if (stop1.GetFeatureId() != transit::kInvalidFeatureId)
+        {
+          auto const fid = FeatureID(mwmId, stop1.GetFeatureId());
+          transitMarkInfo.m_titles.emplace_back(displayInfo.m_features.at(fid).m_title,
+                                                df::GetTransitTextColorName(line.GetColor()));
+        }
       }
       lastColor = currentColor;
 
@@ -341,9 +348,12 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
       }
 
       transitMarkInfo.m_point = marker.m_position;
-      auto const fid = FeatureID(mwmId, stop2.GetFeatureId());
-      transitMarkInfo.m_titles.push_back(TransitTitle(displayInfo.m_features.at(fid).m_title,
-                                               df::GetTransitTextColorName(line.GetColor())));
+      if (stop2.GetFeatureId() != transit::kInvalidFeatureId)
+      {
+        auto const fid = FeatureID(mwmId, stop2.GetFeatureId());
+        transitMarkInfo.m_titles.push_back(TransitTitle(displayInfo.m_features.at(fid).m_title,
+                                                        df::GetTransitTextColorName(line.GetColor())));
+      }
     }
     else if (transitInfo.GetType() == TransitInfo::Type::Gate)
     {
@@ -844,7 +854,7 @@ void RoutingManager::InsertRoute(Route const & route)
       points.clear();
       points.reserve(segments.size() + 1);
       points.push_back(startPt);
-      for (auto const &s : segments)
+      for (auto const & s : segments)
         points.push_back(s.GetJunction().GetPoint());
       if (points.size() < 2)
       {
@@ -884,7 +894,11 @@ void RoutingManager::InsertRoute(Route const & route)
           vector<TransitMarkInfo> transitMarks;
           FillTransitStyleForRendering(segments, m_transitReadManager, getMwmIdFn, *subroute.get(),
                                        transitMarks, transitRouteInfo);
-
+          if (subroute->m_polyline.GetSize() < 2)
+          {
+            LOG(LWARNING, ("Invalid transit subroute. Points number =", subroute->m_polyline.GetSize()));
+            continue;
+          }
           auto & marksController = m_bmManager->GetUserMarksController(UserMark::Type::TRANSIT);
           CreateTransitMarks(transitMarks, marksController);
           marksController.NotifyChanges();

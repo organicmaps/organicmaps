@@ -3,32 +3,74 @@
 using namespace routing;
 using namespace std;
 
-void TransitReader::ReadStops(MwmSet::MwmId const & mwmId, std::vector<transit::Stop> & stops)
+bool TransitReader::Init(MwmSet::MwmId const & mwmId)
 {
-  ReadTable(mwmId, [](transit::TransitHeader const & header){ return header.m_stopsOffset; }, stops);
+  m_src = move(GetReader(mwmId));
+  if (m_src != nullptr)
+    ReadHeader();
+  return IsValid();
 }
 
-void TransitReader::ReadShapes(MwmSet::MwmId const & mwmId, std::vector<transit::Shape> & shapes)
+bool TransitReader::IsValid() const
 {
-  ReadTable(mwmId, [](transit::TransitHeader const & header){ return header.m_shapesOffset; }, shapes);
+  return m_src != nullptr;
 }
 
-void TransitReader::ReadTransfers(MwmSet::MwmId const & mwmId, std::vector<transit::Transfer> & transfers)
+unique_ptr<TransitReader::TransitReaderSource> TransitReader::GetReader(MwmSet::MwmId const & mwmId)
 {
-  ReadTable(mwmId, [](transit::TransitHeader const & header){ return header.m_transfersOffset; }, transfers);
+  MwmSet::MwmHandle handle = m_index.GetMwmHandleById(mwmId);
+  if (!handle.IsAlive())
+  {
+    LOG(LWARNING, ("Can't get mwm handle for", mwmId));
+    return unique_ptr<TransitReaderSource>();
+  }
+  MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
+  if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
+    return unique_ptr<TransitReaderSource>();
+  FilesContainerR::TReader reader = mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG);
+  return my::make_unique<TransitReaderSource>(reader);
 }
 
-void TransitReader::ReadLines(MwmSet::MwmId const & mwmId, std::vector<transit::Line> & lines)
+void TransitReader::ReadHeader()
 {
-  ReadTable(mwmId, [](transit::TransitHeader const & header){ return header.m_linesOffset; }, lines);
+  try
+  {
+    transit::FixedSizeDeserializer<ReaderSource<FilesContainerR::TReader>> fixedSizeDeserializer(*m_src.get());
+    fixedSizeDeserializer(m_header);
+  }
+  catch (Reader::OpenException const & e)
+  {
+    LOG(LERROR, ("Error while reading transit header.", e.Msg()));
+    throw;
+  }
 }
 
-void TransitReader::ReadNetworks(MwmSet::MwmId const & mwmId, std::vector<transit::Network> & networks)
+void TransitReader::ReadStops(vector<transit::Stop> & stops)
 {
-  ReadTable(mwmId, [](transit::TransitHeader const & header){ return header.m_networksOffset; }, networks);
+  ReadTable(m_header.m_stopsOffset, stops);
 }
 
-void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, std::unique_ptr<TransitDisplayInfo> && transitInfo)
+void TransitReader::ReadShapes(vector<transit::Shape> & shapes)
+{
+  ReadTable(m_header.m_shapesOffset, shapes);
+}
+
+void TransitReader::ReadTransfers(vector<transit::Transfer> & transfers)
+{
+  ReadTable(m_header.m_transfersOffset, transfers);
+}
+
+void TransitReader::ReadLines(vector<transit::Line> & lines)
+{
+  ReadTable(m_header.m_linesOffset, lines);
+}
+
+void TransitReader::ReadNetworks(vector<transit::Network> & networks)
+{
+  ReadTable(m_header.m_networksOffset, networks);
+}
+
+bool ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, unique_ptr<TransitDisplayInfo> && transitInfo)
 {
   m_id = id;
   m_mwmId = mwmId;
@@ -40,26 +82,20 @@ void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, std::unique
   else
   {
     m_loadSubset = true;
-    m_transitInfo = std::move(transitInfo);
+    m_transitInfo = move(transitInfo);
   }
+  return m_transitReader.Init(mwmId);
 }
 
 void ReadTransitTask::Do()
 {
-  std::vector<transit::Stop> stops;
-  m_transitReader.ReadStops(m_mwmId, stops);
+  if (!m_transitReader.IsValid())
+    return;
+
+  vector<transit::Stop> stops;
+  m_transitReader.ReadStops(stops);
   FillItemsByIdMap(stops, m_transitInfo->m_stops);
   stops.clear();
-
-  std::vector<transit::Line> lines;
-  m_transitReader.ReadLines(m_mwmId, lines);
-  FillItemsByIdMap(lines, m_transitInfo->m_lines);
-  lines.clear();
-
-  std::vector<transit::Shape> shapes;
-  m_transitReader.ReadShapes(m_mwmId, shapes);
-  FillItemsByIdMap(shapes, m_transitInfo->m_shapes);
-  shapes.clear();
 
   for (auto const & stop : m_transitInfo->m_stops)
   {
@@ -68,21 +104,27 @@ void ReadTransitTask::Do()
       auto const featureId = FeatureID(m_mwmId, stop.second.GetFeatureId());
       m_transitInfo->m_features[featureId] = {};
     }
-    else
-    {
-      LOG(LWARNING, ("Invalid feature id for transit stop", stop.first));
-    }
 
     if (stop.second.GetTransferId() != transit::kInvalidTransferId)
       m_transitInfo->m_transfers[stop.second.GetTransferId()] = {};
   }
 
-  std::vector<transit::Transfer> transfers;
-  m_transitReader.ReadTransfers(m_mwmId, transfers);
+  vector<transit::Transfer> transfers;
+  m_transitReader.ReadTransfers(transfers);
   FillItemsByIdMap(transfers, m_transitInfo->m_transfers);
   transfers.clear();
 
-  std::vector<FeatureID> features;
+  vector<transit::Line> lines;
+  m_transitReader.ReadLines(lines);
+  FillItemsByIdMap(lines, m_transitInfo->m_lines);
+  lines.clear();
+
+  vector<transit::Shape> shapes;
+  m_transitReader.ReadShapes(shapes);
+  FillItemsByIdMap(shapes, m_transitInfo->m_shapes);
+  shapes.clear();
+
+  vector<FeatureID> features;
   for (auto & id : m_transitInfo->m_features)
     features.push_back(id.first);
 
@@ -97,17 +139,17 @@ void ReadTransitTask::Do()
 void ReadTransitTask::Reset()
 {
   m_transitInfo.reset();
+  m_id = 0;
   IRoutine::Reset();
 }
 
-std::unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
+unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
 {
-  return std::move(m_transitInfo);
+  return move(m_transitInfo);
 }
 
 TransitReadManager::TransitReadManager(Index & index, TReadFeaturesFn const & readFeaturesFn)
-  : m_nextTasksGroupId(0)
-  , m_transitReader(index)
+  : m_index(index)
   , m_readFeaturesFn(readFeaturesFn)
 {
   Start();
@@ -123,10 +165,10 @@ void TransitReadManager::Start()
   if (m_threadsPool != nullptr)
     return;
 
-  using namespace std::placeholders;
+  using namespace placeholders;
   uint8_t constexpr kThreadsCount = 2;
   m_threadsPool = my::make_unique<threads::ThreadPool>(
-      kThreadsCount, std::bind(&TransitReadManager::OnTaskCompleted, this, _1));
+      kThreadsCount, bind(&TransitReadManager::OnTaskCompleted, this, _1));
 }
 
 void TransitReadManager::Stop()
@@ -136,41 +178,49 @@ void TransitReadManager::Stop()
   m_threadsPool.reset();
 }
 
-void TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos)
+bool TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos)
 {
-  auto const groupId = m_nextTasksGroupId++;
-  std::map<MwmSet::MwmId, unique_ptr<ReadTransitTask>> transitTasks;
+  unique_lock<mutex> lock(m_mutex);
+  auto const groupId = ++m_nextTasksGroupId;
+  lock.unlock();
+
+  map<MwmSet::MwmId, unique_ptr<ReadTransitTask>> transitTasks;
   for (auto & mwmTransitPair : transitDisplayInfos)
   {
-    auto task = my::make_unique<ReadTransitTask>(m_transitReader, m_readFeaturesFn);
-    task->Init(groupId, mwmTransitPair.first, std::move(mwmTransitPair.second));
-    transitTasks[mwmTransitPair.first] = std::move(task);
+    auto const & mwmId = mwmTransitPair.first;
+    auto task = my::make_unique<ReadTransitTask>(m_index, m_readFeaturesFn);
+    if (!task->Init(groupId, mwmId, move(mwmTransitPair.second)))
+    {
+      LOG(LWARNING, ("Getting transit info failed for", mwmId));
+      return false;
+    }
+    transitTasks[mwmId] = move(task);
   }
 
-  {
-    std::unique_lock<std::mutex> lock(m_mutex);
-    m_tasksGroups[groupId] = transitTasks.size();
-    lock.unlock();
-    for (auto const &task : transitTasks)
-    {
-      m_threadsPool->PushBack(task.second.get());
-    }
-    lock.lock();
-    m_event.wait(lock, [&]() { return m_tasksGroups[groupId] == 0; });
-    m_tasksGroups.erase(groupId);
-  }
+  lock.lock();
+  m_tasksGroups[groupId] = transitTasks.size();
+  lock.unlock();
+
+  for (auto const & task : transitTasks)
+    m_threadsPool->PushBack(task.second.get());
+
+  lock.lock();
+  m_event.wait(lock, [&]() { return m_tasksGroups[groupId] == 0; });
+  m_tasksGroups.erase(groupId);
+  lock.unlock();
 
   for (auto const & transitTask : transitTasks)
-  {
     transitDisplayInfos[transitTask.first] = transitTask.second->GetTransitInfo();
-  }
+  return true;
 }
 
 void TransitReadManager::OnTaskCompleted(threads::IRoutine * task)
 {
   ASSERT(dynamic_cast<ReadTransitTask *>(task) != nullptr, ());
   ReadTransitTask * t = static_cast<ReadTransitTask *>(task);
-  std::unique_lock<std::mutex> m_lock(m_mutex);
+
+  lock_guard<mutex> lock(m_mutex);
+
   if (--m_tasksGroups[t->GetId()] == 0)
     m_event.notify_all();
 }
