@@ -15,7 +15,6 @@ set(
   locality_finder_test.cpp
   locality_scorer_test.cpp
   locality_selector_test.cpp
-  match_cost_mock.hpp
   point_rect_matcher_tests.cpp
   query_saver_tests.cpp
   ranking_tests.cpp

@@ -42,6 +42,3 @@ SOURCES += \
     ranking_tests.cpp \
     segment_tree_tests.cpp \
     string_match_test.cpp \
-
-HEADERS += \
-    match_cost_mock.hpp \

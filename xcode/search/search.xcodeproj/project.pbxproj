@@ -389,7 +389,6 @@
 		671C62161AE9227C00076BD0 /* keyword_matcher_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = keyword_matcher_test.cpp; sourceTree = "<group>"; };
 		671C62171AE9227C00076BD0 /* latlon_match_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = latlon_match_test.cpp; sourceTree = "<group>"; };
 		671C62181AE9227C00076BD0 /* locality_finder_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locality_finder_test.cpp; sourceTree = "<group>"; };
-		671C62191AE9227C00076BD0 /* match_cost_mock.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = match_cost_mock.hpp; sourceTree = "<group>"; };
 		671C621B1AE9227C00076BD0 /* string_match_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_match_test.cpp; sourceTree = "<group>"; };
 		671C62241AE9229A00076BD0 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		671C62271AE9233200076BD0 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libindexer.a"; sourceTree = "<group>"; };
@@ -643,7 +642,6 @@
 				671C62161AE9227C00076BD0 /* keyword_matcher_test.cpp */,
 				671C62171AE9227C00076BD0 /* latlon_match_test.cpp */,
 				671C62181AE9227C00076BD0 /* locality_finder_test.cpp */,
-				671C62191AE9227C00076BD0 /* match_cost_mock.hpp */,
 				671C621B1AE9227C00076BD0 /* string_match_test.cpp */,
 			);
 			name = search_tests;

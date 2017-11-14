@@ -4,30 +4,54 @@
 
 #include "indexer/search_delimiters.hpp"
 
-#include "search/search_tests/match_cost_mock.hpp"
-
 #include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
 
-#include "std/cstring.hpp"
-
+#include <cstdint>
+#include <cstring>
+#include <vector>
 
 using namespace search;
+using namespace std;
 using namespace strings;
 
 namespace
 {
+struct MatchCostMock
+{
+  uint32_t Cost10(char) const { return 1; }
+  uint32_t Cost01(char) const { return 1; }
+  uint32_t Cost11(char, char) const { return 1; }
+  uint32_t Cost12(char a, char const * pB) const
+  {
+    if (a == 'X' && pB[0] == '>' && pB[1] == '<')
+      return 0;
+    return 2;
+  }
+  uint32_t Cost21(char const * pA, char b) const { return Cost12(b, pA); }
+  uint32_t Cost22(char const *, char const *) const { return 2; }
+  uint32_t SwapCost(char, char) const { return 1; }
+};
 
 uint32_t FullMatchCost(char const * a, char const * b, uint32_t maxCost = 1000)
 {
-  return StringMatchCost(a, strlen(a), b, strlen(b), MatchCostMock<char>(), maxCost);
+  return StringMatchCost(a, strlen(a), b, strlen(b), MatchCostMock(), maxCost);
 }
 
 uint32_t PrefixMatchCost(char const * a, char const * b)
 {
-  return StringMatchCost(a, strlen(a), b, strlen(b), MatchCostMock<char>(), 1000, true);
+  return StringMatchCost(a, strlen(a), b, strlen(b), MatchCostMock(), 1000, true);
 }
 
+void TestEqual(vector<UniString> const v, char const * arr[])
+{
+  for (size_t i = 0; i < v.size(); ++i)
+  {
+    TEST_EQUAL(ToUtf8(v[i]), arr[i], ());
+    TEST_EQUAL(v[i], MakeUniString(arr[i]), ());
+  }
 }
+}  // namespace
 
 UNIT_TEST(StringMatchCost_FullMatch)
 {
@@ -75,20 +99,6 @@ UNIT_TEST(StringMatchCost_PrefixMatch)
   TEST_EQUAL(PrefixMatchCost("Hx", "Hello!"), 1, ());
   TEST_EQUAL(PrefixMatchCost("Helpo", "Hello!"), 1, ());
   TEST_EQUAL(PrefixMatchCost("Happo", "Hello!"), 3, ());
-}
-
-namespace
-{
-
-void TestEqual(vector<UniString> const v, char const * arr[])
-{
-  for (size_t i = 0; i < v.size(); ++i)
-  {
-    TEST_EQUAL(ToUtf8(v[i]), arr[i], ());
-    TEST_EQUAL(v[i], MakeUniString(arr[i]), ());
-  }
-}
-
 }
 
 UNIT_TEST(StringSplit_Smoke)
