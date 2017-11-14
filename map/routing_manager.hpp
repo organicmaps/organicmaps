@@ -50,19 +50,26 @@ struct RoutePointInfo
   m2::PointD m_position;
 };
 
+enum class TransitType: uint32_t
+{
+  // Do not change the order!
+  Pedestrian,
+  Subway
+};
+
 struct TransitStepInfo
 {
-  TransitStepInfo(bool isPedestrian, double distance, double time,
-                  std::string const & type = "", std::string const & number = "", std::string const & color = "");
+  TransitStepInfo() = default;
+  TransitStepInfo(TransitType type, double distance, double time,
+                  std::string const & number = "", uint32_t color = 0);
 
   bool IsEqualType(TransitStepInfo const & ts) const;
 
-  bool m_isPedestrian = false;
+  TransitType m_type = TransitType::Pedestrian;
   double m_distance = 0.0;
   double m_time = 0.0;
-  std::string m_type;
   std::string m_number;
-  std::string m_color;
+  uint32_t m_color;
 };
 
 struct TransitRouteInfo

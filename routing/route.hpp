@@ -81,11 +81,12 @@ private:
   Junction m_junction;
   /// Street name of |m_segment| if any. Otherwise |m_street| is empty.
   std::string m_street;
-  /// Distance from the route beginning to the farthest end of |m_segment| in meters.
+  /// Distance from the route (not the subroute) beginning to the farthest end of |m_segment| in meters.
   double m_distFromBeginningMeters = 0.0;
-  /// Distance from the route beginning to the farthest end of |m_segment| in mercator.
+  /// Distance from the route (not the subroute) beginning to the farthest end of |m_segment| in mercator.
   double m_distFromBeginningMerc = 0.0;
-  /// ETA from the route beginning in seconds to reach the farthest from the route beginning end of |m_segment|.
+  /// ETA from the route beginning (not the subroute) in seconds to reach the farthest from the route beginning
+  /// end of |m_segment|.
   double m_timeFromBeginningS = 0.0;
   traffic::SpeedGroup m_traffic = traffic::SpeedGroup::Unknown;
   /// Information needed to display transit segments properly.

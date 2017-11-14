@@ -199,14 +199,16 @@ void AddTransitShapes(std::vector<transit::ShapeId> const & shapeIds, TransitSha
   subroute.AddStyle(style);
 }
 
-string ColorToHexStr(dp::Color const & color)
+uint32_t ColorToARGB(df::ColorConstant const & colorConstant)
 {
-  stringstream ss;
-  ss << nouppercase << hex << setfill('0');
-  ss << setw(2) << static_cast<int>(color.GetRed())
-     << setw(2) << static_cast<int>(color.GetGreen())
-     << setw(2) << static_cast<int>(color.GetBlue());
-  return ss.str();
+  auto const color = df::GetColorConstant(colorConstant);
+  return color.GetAlpha() << 24 | color.GetRed() << 16 | color.GetGreen() << 8 | color.GetBlue();
+}
+
+TransitType GetTransitType(string const & type)
+{
+  ASSERT_EQUAL(type, "subway", ());
+  return TransitType::Subway;
 }
 
 void FillTransitStyleForRendering(vector<RouteSegment> const & segments, TransitReadManager & transitReadManager,
@@ -231,7 +233,7 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
   TransitMarkInfo transitMarkInfo;
 
   double prevDistance = routeInfo.m_totalDistance;
-  double prevTime = routeInfo.m_totalDistance;
+  double prevTime = routeInfo.m_totalTime;
 
   bool pendingEntrance = false;
 
@@ -242,7 +244,7 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
 
     if (!s.HasTransitInfo())
     {
-      routeInfo.AddStep(TransitStepInfo(true /* isPedestrian */, distance, time));
+      routeInfo.AddStep(TransitStepInfo(TransitType::Pedestrian, distance, time));
 
       AddTransitPedestrianSegment(s.GetJunction().GetPoint(), subroute);
       lastColor = "";
@@ -261,9 +263,8 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
       auto const & line = displayInfo.m_lines.at(edge.m_lineId);
       auto const currentColor = df::GetTransitColorName(line.GetColor());
 
-      string const hexColor = ColorToHexStr(df::GetColorConstant(currentColor));
-      routeInfo.AddStep(TransitStepInfo(false /* isPedestrian */, distance, time,
-                                        line.GetType(), line.GetNumber(), hexColor));
+      routeInfo.AddStep(TransitStepInfo(GetTransitType(line.GetType()), distance, time,
+                                        line.GetNumber(), ColorToARGB(currentColor)));
 
       auto const & stop1 = displayInfo.m_stops.at(edge.m_stop1Id);
       auto const & stop2 = displayInfo.m_stops.at(edge.m_stop2Id);
@@ -360,7 +361,7 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
       auto const & gate = transitInfo.GetGate();
       if (!lastColor.empty())
       {
-        routeInfo.AddStep(TransitStepInfo(true /* isPedestrian */, distance, time));
+        routeInfo.AddStep(TransitStepInfo(TransitType::Pedestrian, distance, time));
 
         AddTransitGateSegment(s.GetJunction().GetPoint(), subroute);
 
@@ -578,20 +579,23 @@ namespace marketing
 char const * const kRoutingCalculatingRoute = "Routing_CalculatingRoute";
 }  // namespace marketing
 
-TransitStepInfo::TransitStepInfo(bool isPedestrian, double distance, double time,
-                std::string const & type, std::string const & number, std::string const & color)
-  : m_isPedestrian(isPedestrian)
+TransitStepInfo::TransitStepInfo(TransitType type, double distance, double time,
+                                 std::string const & number, uint32_t color)
+  : m_type(type)
   , m_distance(distance)
   , m_time(time)
-  , m_type(type)
   , m_number(number)
   , m_color(color)
 {}
 
 bool TransitStepInfo::IsEqualType(TransitStepInfo const & ts) const
 {
-  return m_isPedestrian == ts.m_isPedestrian &&
-      (m_isPedestrian || (m_type == ts.m_type && m_number == ts.m_number && m_color == ts.m_color));
+  if (m_type != ts.m_type)
+    return false;
+
+  if (m_type != TransitType::Pedestrian)
+    return m_number == ts.m_number && m_color == ts.m_color;
+  return true;
 }
 
 void TransitRouteInfo::AddStep(TransitStepInfo const & step)
@@ -606,7 +610,7 @@ void TransitRouteInfo::AddStep(TransitStepInfo const & step)
     m_steps.push_back(step);
   }
 
-  if (step.m_isPedestrian)
+  if (step.m_type == TransitType::Pedestrian)
   {
     m_totalPedestrianDistance += step.m_distance;
     m_totalPedestrianTime += step.m_time;

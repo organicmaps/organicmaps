@@ -1290,6 +1290,44 @@ Java_com_mapswithme_maps_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
   });
 }
 
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)
+{
+  auto const info = frm()->GetRoutingManager().GetTransitRouteInfo();
+
+  static jclass const transitStepClass = jni::GetGlobalClassRef(env,
+                                         "com/mapswithme/maps/routing/TransitStepInfo");
+  // Java signature : TransitStepInfo(@TransitType int type, double distance, double time,
+  //                                  @Nullable String number, int color)
+  static jmethodID const transitStepConstructor = jni::GetConstructorID(env, transitStepClass,
+                                                  "(IDDLjava/lang/String;I)V");
+
+  jni::TScopedLocalRef const steps(env, jni::ToJavaArray(env, transitStepClass,
+                                                         info.m_steps,
+                                                         [&](JNIEnv * env, TransitStepInfo const & info)
+  {
+      jni::TScopedLocalRef const number(env, jni::ToJavaString(env, info.m_number));
+      return env->NewObject(transitStepClass, transitStepConstructor,
+                            static_cast<jint>(info.m_type),
+                            static_cast<jdouble>(info.m_distance),
+                            static_cast<jdouble>(info.m_time),
+                            number.get(),
+                            static_cast<jint>(info.m_color));
+  }));
+
+  static jclass const transitRouteInfoClass = jni::GetGlobalClassRef(env,
+                                                                     "com/mapswithme/maps/routing/TransitRouteInfo");
+  // Java signature : TransitRouteInfo(double totalDistance, double totalTime,
+  //                                   double totalPedestrianDistance, double totalPedestrianTime,
+  //                                   TransitStepInfo[] steps)
+  static jmethodID const transitRouteInfoConstructor = jni::GetConstructorID(env, transitRouteInfoClass,
+                                                                             "(DDDD[Lcom/mapswithme/maps/routing/TransitStepInfo;)V");
+
+  return env->NewObject(transitRouteInfoClass, transitRouteInfoConstructor,
+                        info.m_totalDistance, info.m_totalTime, info.m_totalPedestrianDistance,
+                        info.m_totalPedestrianTime, steps.get());
+}
+
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeRegisterMaps(JNIEnv * env, jclass)
 {

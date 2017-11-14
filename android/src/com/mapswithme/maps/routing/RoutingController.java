@@ -106,6 +106,8 @@ public class RoutingController implements TaxiManager.TaxiListener
   private String[] mLastMissingMaps;
   @Nullable
   private RoutingInfo mCachedRoutingInfo;
+  @Nullable
+  private TransitRouteInfo mCachedTransitRouteInfo;
   private boolean mTaxiRequestHandled;
   private boolean mTaxiPlanning;
   private boolean mInternetConnected;
@@ -134,6 +136,8 @@ public class RoutingController implements TaxiManager.TaxiListener
               || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
           {
             mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
+            if (mLastRouterType == Framework.ROUTER_TYPE_TRANSIT)
+              mCachedTransitRouteInfo = Framework.nativeGetTransitRouteInfo();
             setBuildState(BuildState.BUILT);
             mLastBuildProgress = 100;
             if (mContainer != null)

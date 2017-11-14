@@ -19,6 +19,8 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RouteMarkData;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingInfo;
+import com.mapswithme.maps.routing.TransitRouteInfo;
+import com.mapswithme.maps.routing.TransitStepInfo;
 import com.mapswithme.util.Constants;
 
 import java.lang.annotation.Retention;
@@ -308,7 +310,8 @@ public class Framework
   public static native boolean nativeCouldAddIntermediatePoint();
   @NonNull
   public static native RouteMarkData[] nativeGetRoutePoints();
-
+  @NonNull
+  public static native TransitRouteInfo nativeGetTransitRouteInfo();
   /**
    * Registers all maps(.mwms). Adds them to the models, generates indexes and does all necessary stuff.
    */
