@@ -1,11 +1,5 @@
 @objc(MWMUGCSummaryRatingCell)
 final class UGCSummaryRatingCell: MWMTableViewCell {
-  private enum Config {
-    static let minimumInteritemSpacing: CGFloat = 16
-    static let minItemsPerRow: CGFloat = 3
-    static let estimatedItemSize = CGSize(width: 96, height: 32)
-  }
-
   @IBOutlet private weak var titleLabel: UILabel! {
     didSet {
       titleLabel.font = UIFont.bold22()
@@ -37,8 +31,6 @@ final class UGCSummaryRatingCell: MWMTableViewCell {
   @IBOutlet private weak var ratingCollectionView: UICollectionView! {
     didSet {
       ratingCollectionView.register(cellClass: UGCSummaryRatingStarsCell.self)
-      let layout = ratingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-      layout.estimatedItemSize = Config.estimatedItemSize
     }
   }
 
@@ -47,7 +39,7 @@ final class UGCSummaryRatingCell: MWMTableViewCell {
   override var frame: CGRect {
     didSet {
       if frame.size != oldValue.size {
-        updateCollectionView(nil)
+        updateCollectionView()
       }
     }
   }
@@ -57,34 +49,19 @@ final class UGCSummaryRatingCell: MWMTableViewCell {
     ratingSummaryView.value = summaryRating.value
     ratingSummaryView.type = summaryRating.type
     self.ratings = ratings
-    updateCollectionView { [weak self] in
-      self?.ratingCollectionView.reloadSections(IndexSet(integer: 0))
-    }
+    updateCollectionView()
     isSeparatorHidden = true
   }
 
   override func didMoveToSuperview() {
     super.didMoveToSuperview()
-    updateCollectionView(nil)
+    updateCollectionView()
   }
 
-  private func updateCollectionView(_ updates: (() -> Void)?) {
-    guard let sv = superview else { return }
-    let layout = ratingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-    let inset = layout.sectionInset
-    let viewWidth = sv.size.width - inset.left - inset.right
-    let maxItemWidth = layout.estimatedItemSize.width
-
-    let ratingsCount = CGFloat(ratings?.count ?? 0)
-    let itemsPerRow = floor(min(max(viewWidth / maxItemWidth, Config.minItemsPerRow), ratingsCount))
-    let itemWidth = floor(min((viewWidth - (itemsPerRow - 1) * Config.minimumInteritemSpacing) / itemsPerRow, maxItemWidth))
-    let interitemSpacing = floor((viewWidth - itemWidth * itemsPerRow) / (itemsPerRow - 1))
-    layout.minimumInteritemSpacing = interitemSpacing
-    layout.itemSize = CGSize(width: itemWidth, height: Config.estimatedItemSize.height)
-
-    let rowsCount = ceil(ratingsCount / itemsPerRow)
-    ratingCollectionViewHeight.constant = rowsCount * Config.estimatedItemSize.height + (rowsCount - 1) * layout.minimumLineSpacing + inset.top + inset.bottom
-    ratingCollectionView.performBatchUpdates(updates, completion: nil)
+  private func updateCollectionView() {
+    DispatchQueue.main.async {
+      self.ratingCollectionView.reloadData()
+    }
   }
 }
 
