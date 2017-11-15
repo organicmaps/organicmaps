@@ -75,14 +75,11 @@ Cache::HotelStatus Cache::Get(HotelsMap & src, std::string const & hotelId)
   if (it == src.cend())
     return HotelStatus::Absent;
 
-  if (m_expiryPeriodSeconds != 0)
-  {
-    if (IsExpired(it->second.m_timestamp))
+    if (m_expiryPeriodSeconds != 0 && IsExpired(it->second.m_timestamp))
     {
       src.erase(it);
       return HotelStatus::Absent;
     }
-  }
 
   return it->second.m_status;
 }

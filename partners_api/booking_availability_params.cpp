@@ -40,12 +40,12 @@ bool AvailabilityParams::IsEmpty() const
   return m_checkin == Time() || m_checkout == Time() || m_rooms.empty();
 }
 
-bool AvailabilityParams::operator!=(AvailabilityParams const & rhs)
+bool AvailabilityParams::operator!=(AvailabilityParams const & rhs) const
 {
   return m_checkin != rhs.m_checkin || m_checkout != rhs.m_checkout || m_rooms != rhs.m_rooms ||
     m_minReviewScore != m_minReviewScore || m_stars != rhs.m_stars;
 }
-bool AvailabilityParams::operator==(AvailabilityParams const & rhs)
+bool AvailabilityParams::operator==(AvailabilityParams const & rhs) const
 {
   return !this->operator!=(rhs);
 }

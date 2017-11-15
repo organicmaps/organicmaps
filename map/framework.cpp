@@ -3340,5 +3340,5 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Para
     }
   };
 
-  m_bookingFilter.Availability(results, std::move(paramsInternal));
+  m_bookingFilter.FilterAvailability(results, std::move(paramsInternal));
 }

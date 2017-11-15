@@ -19,8 +19,8 @@ struct AvailabilityParams
 
   base::url::Params Get() const;
   bool IsEmpty() const;
-  bool operator!=(AvailabilityParams const & rhs);
-  bool operator==(AvailabilityParams const & rhs);
+  bool operator!=(AvailabilityParams const & rhs) const;
+  bool operator==(AvailabilityParams const & rhs) const;
 
   /// Limit the result list to the specified hotels where they have availability for the
   /// specified guests and dates.

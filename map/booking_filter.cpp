@@ -27,43 +27,47 @@ struct HotelToResult
 
 using HotelToResults = std::vector<HotelToResult>;
 
-void FillAvailability(HotelToResult & hotelToResult, std::vector<std::string> const & hotelIds,
-                      availability::Cache & cache, search::Results & results)
+void FillResults(HotelToResults && hotelToResults, std::vector<std::string> const & hotelIds,
+                 availability::Cache & cache, search::Results & results)
 {
   using availability::Cache;
 
-  switch (hotelToResult.m_cacheStatus)
+  for (auto & hotelToResult : hotelToResults)
   {
-  case Cache::HotelStatus::Unavailable:
-    return;
-  case Cache::HotelStatus::Available:
-  {
-    results.AddResult(std::move(hotelToResult.m_result));
-    return;
-  }
-  case Cache::HotelStatus::NotReady:
-  {
-    auto hotelStatus = cache.Get(hotelToResult.m_hotelId);
-    CHECK_NOT_EQUAL(hotelStatus, Cache::HotelStatus::Absent, ());
-    CHECK_NOT_EQUAL(hotelStatus, Cache::HotelStatus::NotReady, ());
-
-    if (hotelStatus == Cache::HotelStatus::Available)
-      results.AddResult(std::move(hotelToResult.m_result));
-
-    return;
-  }
-  case Cache::HotelStatus::Absent:
-  {
-    if (std::binary_search(hotelIds.cbegin(), hotelIds.cend(), hotelToResult.m_hotelId))
+    switch (hotelToResult.m_cacheStatus)
     {
-      results.AddResult(std::move(hotelToResult.m_result));
-      cache.Insert(hotelToResult.m_hotelId, Cache::HotelStatus::Available);
+      case Cache::HotelStatus::Unavailable: continue;
+      case Cache::HotelStatus::Available:
+      {
+        results.AddResult(std::move(hotelToResult.m_result));
+        continue;
+      }
+      case Cache::HotelStatus::NotReady:
+      {
+        auto hotelStatus = cache.Get(hotelToResult.m_hotelId);
+        CHECK_NOT_EQUAL(hotelStatus, Cache::HotelStatus::Absent, ());
+        CHECK_NOT_EQUAL(hotelStatus, Cache::HotelStatus::NotReady, ());
+
+        if (hotelStatus == Cache::HotelStatus::Available)
+          results.AddResult(std::move(hotelToResult.m_result));
+
+        continue;
+      }
+      case Cache::HotelStatus::Absent:
+      {
+        if (std::binary_search(hotelIds.cbegin(), hotelIds.cend(), hotelToResult.m_hotelId))
+        {
+          results.AddResult(std::move(hotelToResult.m_result));
+          cache.Insert(hotelToResult.m_hotelId, Cache::HotelStatus::Available);
+        }
+        else
+        {
+          cache.Insert(hotelToResult.m_hotelId, Cache::HotelStatus::Unavailable);
+        }
+
+        continue;
+      }
     }
-    else
-    {
-      cache.Insert(hotelToResult.m_hotelId, Cache::HotelStatus::Unavailable);
-    }
-  }
   }
 }
 
@@ -133,13 +137,11 @@ namespace filter
 {
 Filter::Filter(Index const & index, booking::Api const & api) : m_index(index), m_api(api) {}
 
-void Filter::Availability(search::Results const & results,
-                          availability::internal::Params && params)
+void Filter::FilterAvailability(search::Results const & results,
+                                availability::internal::Params && params)
 {
   GetPlatform().RunTask(Platform::Thread::File, [this, results, params]()
   {
-    std::lock_guard<std::mutex> lock(m_mutex);
-
     auto const & cb = params.m_callback;
 
     ASSERT(params.m_params.m_hotelIds.empty(), ());
@@ -148,34 +150,36 @@ void Filter::Availability(search::Results const & results,
     {
       m_currentParams = std::move(params.m_params);
       m_availabilityCache.Clear();
-      ++m_cacheDropCounter;
     }
 
     HotelToResults hotelToResults;
-
     PrepareData(m_index, results, hotelToResults, m_availabilityCache, m_currentParams);
 
-    auto const dropCounter = m_cacheDropCounter;
-
-    // This callback will be called on network thread.
-    auto const apiCallback = [this, dropCounter, cb, hotelToResults](std::vector<std::string> hotelIds) mutable
+    if (m_currentParams.m_hotelIds.empty())
     {
       search::Results result;
-      {
-        std::lock_guard<std::mutex> lock(m_mutex);
+      FillResults(std::move(hotelToResults), {}, m_availabilityCache, result);
+      cb(result);
 
-        if (m_cacheDropCounter == dropCounter)
+      return;
+    }
+
+    auto const paramsCopy = m_currentParams;
+    auto const apiCallback =
+      [this, paramsCopy, cb, hotelToResults](std::vector<std::string> hotelIds) mutable
+    {
+      GetPlatform().RunTask(Platform::Thread::File,
+                            [this, paramsCopy, cb, hotelToResults, hotelIds]() mutable
+      {
+        search::Results result;
+        if (paramsCopy == m_currentParams)
         {
           std::sort(hotelIds.begin(), hotelIds.end());
-
-          for (auto & item : hotelToResults)
-          {
-            FillAvailability(item, hotelIds, m_availabilityCache, result);
-          }
+          FillResults(std::move(hotelToResults), hotelIds, m_availabilityCache, result);
         }
-      }
 
-      cb(result);
+        cb(result);
+      });
     };
 
     m_api.GetHotelAvailability(m_currentParams, apiCallback);
