@@ -6,13 +6,7 @@ set -e -u
 
 # Add your path into this array
 KNOWN_QMAKE_PATHS=( \
-  /Developer/Tools/qmake \
-  /usr/local/opt/qt5/bin/qmake \
-  /usr/local/opt/qt@5.?/bin/qmake \
-  ~/Developer/Qt/5.?/clang_64/bin/qmake \
-  ~/Qt/5.?/clang_64/bin/qmake \
-  ~/Qt5.?.0/5.?/clang_64/bin/qmake \
-  /cygdrive/c/Qt/5.?/msvc2013_64/bin/qmake.exe \
+  ~/Developer/Qt/5.8/clang_64/bin/qmake \
 )
 
 # Prints path to directory with found qmake binary or prints nothing if not found
