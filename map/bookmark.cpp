@@ -158,6 +158,7 @@ df::UserLineMark const * BookmarkCategory::GetUserLineMark(size_t index) const
 
 void BookmarkCategory::ClearTracks()
 {
+  SetDirty();
   m_tracks.clear();
 }
 
@@ -177,6 +178,7 @@ std::vector<std::unique_ptr<Track>> BookmarkCategory::StealTracks()
 
 void BookmarkCategory::AppendTracks(std::vector<std::unique_ptr<Track>> && tracks)
 {
+  SetDirty();
   std::move(tracks.begin(), tracks.end(), std::back_inserter(m_tracks));
 }
 
@@ -861,7 +863,9 @@ bool BookmarkCategory::SaveToKMLFile()
     }
   }
   else
+  {
     m_file = GenerateUniqueFileName(GetPlatform().SettingsDir(), name);
+  }
 
   std::string const fileTmp = m_file + ".tmp";
 

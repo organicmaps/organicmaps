@@ -13,6 +13,7 @@
 
 #include <atomic>
 #include <functional>
+#include <list>
 #include <memory>
 #include <string>
 #include <vector>
@@ -91,7 +92,7 @@ public:
   std::unique_ptr<MyPositionMarkPoint> & MyPositionMark();
   std::unique_ptr<MyPositionMarkPoint> const & MyPositionMark() const;
 
-  bool IsAsyncLoadingInProgress() const { return m_asyncLoadingCounter != 0; }
+  bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
 private:
   UserMarkContainer const * FindUserMarksContainer(UserMark::Type type) const;
@@ -104,11 +105,13 @@ private:
   void NotifyAboutFinishAsyncLoading(std::shared_ptr<CategoriesCollection> && collection);
   boost::optional<std::string> GetKMLPath(std::string const & filePath);
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
+  void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
 
   GetStringsBundleFn m_getStringsBundle;
   df::DrapeEngineSafePtr m_drapeEngine;
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
+  bool m_loadBookmarksFinished = false;
 
   ScreenBase m_viewport;
 
@@ -120,7 +123,17 @@ private:
   std::unique_ptr<StaticMarkPoint> m_selectionMark;
   std::unique_ptr<MyPositionMarkPoint> m_myPositionMark;
 
-  size_t m_asyncLoadingCounter = 0;
+  bool m_asyncLoadingInProgress = false;
+  struct BookmarkLoaderInfo
+  {
+    std::string m_filename;
+    bool m_isTemporaryFile = false;
+    BookmarkLoaderInfo() {}
+    BookmarkLoaderInfo(std::string const & filename, bool isTemporaryFile)
+      : m_filename(filename), m_isTemporaryFile(isTemporaryFile)
+    {}
+  };
+  std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };

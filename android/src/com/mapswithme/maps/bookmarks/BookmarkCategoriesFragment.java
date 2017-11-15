@@ -19,20 +19,24 @@ import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.SharingHelper;
 
 public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                                      implements EditTextDialogFragment.OnTextSaveListener,
                                                 MenuItem.OnMenuItemClickListener,
                                                 RecyclerClickListener,
-                                                RecyclerLongClickListener
+                                                RecyclerLongClickListener,
+                                                BookmarkManager.BookmarksLoadingListener
 {
   private int mSelectedPosition;
+  @Nullable
+  private View mLoadingPlaceholder;
 
   @Override
   protected @LayoutRes int getLayoutRes()
   {
-    return R.layout.fragment_search_base;
+    return R.layout.fragment_bookmark_categories;
   }
 
   @Override
@@ -55,6 +59,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     super.onViewCreated(view, savedInstanceState);
 
+    mLoadingPlaceholder = view.findViewById(R.id.placeholder_loading);
+
     if (getAdapter() != null)
     {
       getAdapter().setOnClickListener(this);
@@ -73,13 +79,43 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   private void updateResultsPlaceholder()
   {
     if (getAdapter() != null)
-      showPlaceholder(getAdapter().getItemCount() == 0);
+    {
+      boolean showLoadingPlaceholder = BookmarkManager.nativeIsAsyncBookmarksLoadingInProgress();
+      showPlaceholder(!showLoadingPlaceholder && getAdapter().getItemCount() == 0);
+    }
+  }
+
+  private void updateLoadingPlaceholder()
+  {
+    if (mLoadingPlaceholder != null)
+    {
+      boolean showLoadingPlaceholder = BookmarkManager.nativeIsAsyncBookmarksLoadingInProgress();
+      if (getAdapter() != null && getAdapter().getItemCount() != 0)
+        showLoadingPlaceholder = false;
+
+      UiUtils.showIf(showLoadingPlaceholder, mLoadingPlaceholder);
+    }
+  }
+
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+    BookmarkManager.INSTANCE.addListener(this);
+  }
+
+  @Override
+  public void onStop()
+  {
+    super.onStop();
+    BookmarkManager.INSTANCE.removeListener(this);
   }
 
   @Override
   public void onResume()
   {
     super.onResume();
+    updateLoadingPlaceholder();
     if (getAdapter() != null)
       getAdapter().notifyDataSetChanged();
   }
@@ -158,6 +194,29 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   protected void setupPlaceholder(@NonNull PlaceholderView placeholder)
   {
-    placeholder.setContent(R.drawable.img_bookmarks, R.string.bookmarks_empty_title, R.string.bookmarks_usage_hint);
+    placeholder.setContent(R.drawable.img_bookmarks, R.string.bookmarks_empty_title,
+        R.string.bookmarks_usage_hint);
+  }
+
+  @Override
+  public void onBookmarksLoadingStarted()
+  {
+    updateLoadingPlaceholder();
+    updateResultsPlaceholder();
+  }
+
+  @Override
+  public void onBookmarksLoadingFinished()
+  {
+    updateLoadingPlaceholder();
+    updateResultsPlaceholder();
+    if (getAdapter() != null)
+      getAdapter().notifyDataSetChanged();
+  }
+
+  @Override
+  public void onBookmarksFileLoaded(boolean success)
+  {
+    // Do nothing here.
   }
 }

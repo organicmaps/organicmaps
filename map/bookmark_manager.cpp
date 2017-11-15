@@ -137,6 +137,7 @@ void BookmarkManager::ClearCategories()
 void BookmarkManager::LoadBookmarks()
 {
   ClearCategories();
+  m_loadBookmarksFinished = false;
 
   NotifyAboutStartAsyncLoading();
   GetPlatform().RunTask(Platform::Thread::File, [this]()
@@ -163,6 +164,17 @@ void BookmarkManager::LoadBookmarks()
 
 void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporaryFile)
 {
+  if (!m_loadBookmarksFinished || m_asyncLoadingInProgress)
+  {
+    m_bookmarkLoadingQueue.emplace_back(filePath, isTemporaryFile);
+    return;
+  }
+  LoadBookmarkRoutine(filePath, isTemporaryFile);
+}
+
+void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile)
+{
+  ASSERT(!m_asyncLoadingInProgress, ());
   NotifyAboutStartAsyncLoading();
   GetPlatform().RunTask(Platform::Thread::File, [this, filePath, isTemporaryFile]()
   {
@@ -198,7 +210,7 @@ void BookmarkManager::NotifyAboutStartAsyncLoading()
   
   GetPlatform().RunTask(Platform::Thread::Gui, [this]()
   {
-    m_asyncLoadingCounter++;
+    m_asyncLoadingInProgress = true;
     if (m_asyncLoadingCallbacks.m_onStarted != nullptr)
       m_asyncLoadingCallbacks.m_onStarted();
   });
@@ -211,12 +223,20 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(std::shared_ptr<CategoriesCo
   
   GetPlatform().RunTask(Platform::Thread::Gui, [this, collection]()
   {
+    m_asyncLoadingInProgress = false;
+    m_loadBookmarksFinished = true;
     if (!collection->empty())
       MergeCategories(std::move(*collection));
 
-    m_asyncLoadingCounter--;
-    if (m_asyncLoadingCounter == 0 && m_asyncLoadingCallbacks.m_onFinished != nullptr)
+    if (m_asyncLoadingCallbacks.m_onFinished != nullptr)
       m_asyncLoadingCallbacks.m_onFinished();
+
+    if (!m_bookmarkLoadingQueue.empty())
+    {
+      LoadBookmarkRoutine(m_bookmarkLoadingQueue.front().m_filename,
+                          m_bookmarkLoadingQueue.front().m_isTemporaryFile);
+      m_bookmarkLoadingQueue.pop_front();
+    }
   });
 }
 
@@ -521,6 +541,9 @@ void BookmarkManager::MergeCategories(CategoriesCollection && newCategories)
     }
     category->AppendTracks((*it)->StealTracks());
     category->SaveToKMLFile();
+
+    // Delete file since it has been merged.
+    my::DeleteFileX((*it)->GetFileName());
 
     newCategories.erase(it);
   }
