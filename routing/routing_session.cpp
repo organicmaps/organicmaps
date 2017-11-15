@@ -49,6 +49,17 @@ double constexpr kMinimumETASec = 60.0;
 
 namespace routing
 {
+void FormatDistance(double dist, string & value, string & suffix)
+{
+  /// @todo Make better formatting of distance and units.
+  UNUSED_VALUE(measurement_utils::FormatDistance(dist, value));
+
+  size_t const delim = value.find(' ');
+  ASSERT(delim != string::npos, ());
+  suffix = value.substr(delim + 1);
+  value.erase(delim);
+};
+
 RoutingSession::RoutingSession()
   : m_router(nullptr)
   , m_route(make_shared<Route>(string()))
@@ -304,17 +315,6 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
 
 void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 {
-  auto formatDistFn = [](double dist, string & value, string & suffix)
-  {
-    /// @todo Make better formatting of distance and units.
-    UNUSED_VALUE(measurement_utils::FormatDistance(dist, value));
-
-    size_t const delim = value.find(' ');
-    ASSERT(delim != string::npos, ());
-    suffix = value.substr(delim + 1);
-    value.erase(delim);
-  };
-
   threads::MutexGuard guard(m_routingSessionMutex);
 
   ASSERT(m_route, ());
@@ -329,17 +329,17 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   if (!IsNavigable())
   {
     info = FollowingInfo();
-    formatDistFn(m_route->GetTotalDistanceMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
+    FormatDistance(m_route->GetTotalDistanceMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
     info.m_time = static_cast<int>(max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
     return;
   }
 
-  formatDistFn(m_route->GetCurrentDistanceToEndMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
+  FormatDistance(m_route->GetCurrentDistanceToEndMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
 
   double distanceToTurnMeters = 0.;
   turns::TurnItem turn;
   m_route->GetCurrentTurn(distanceToTurnMeters, turn);
-  formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
+  FormatDistance(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
   info.m_turn = turn.m_turn;
 
   // The turn after the next one.

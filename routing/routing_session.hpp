@@ -249,5 +249,7 @@ private:
   mutable double m_lastCompletionPercent;
 };
 
+void FormatDistance(double dist, string & value, string & suffix);
+
 string DebugPrint(RoutingSession::State state);
 }  // namespace routing

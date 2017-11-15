@@ -1274,7 +1274,7 @@ Java_com_mapswithme_maps_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
   //                                boolean isPassed, double lat, double lon)
   static jmethodID const pointConstructor = jni::GetConstructorID(env, pointClazz,
                                             "(Ljava/lang/String;Ljava/lang/String;IIZZZDD)V");
-  return jni::ToJavaArray(env, pointClazz, points, [&](JNIEnv * env, RouteMarkData const & data)
+  return jni::ToJavaArray(env, pointClazz, points, [&](JNIEnv * jEnv, RouteMarkData const & data)
   {
     jni::TScopedLocalRef const title(env, jni::ToJavaString(env, data.m_title));
     jni::TScopedLocalRef const subtitle(env, jni::ToJavaString(env, data.m_subTitle));
@@ -1293,39 +1293,49 @@ Java_com_mapswithme_maps_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)
 {
-  auto const info = frm()->GetRoutingManager().GetTransitRouteInfo();
+  auto const routeInfo = frm()->GetRoutingManager().GetTransitRouteInfo();
 
   static jclass const transitStepClass = jni::GetGlobalClassRef(env,
                                          "com/mapswithme/maps/routing/TransitStepInfo");
-  // Java signature : TransitStepInfo(@TransitType int type, double distance, double time,
-  //                                  @Nullable String number, int color)
+  // Java signature : TransitStepInfo(@TransitType int type, @Nullable String distance, @Nullable String distanceUnits,
+  //                                  int timeInSec, @Nullable String number, int color, int intermediateIndex)
   static jmethodID const transitStepConstructor = jni::GetConstructorID(env, transitStepClass,
-                                                  "(IDDLjava/lang/String;I)V");
+                                                  "(ILjava/lang/String;Ljava/lang/String;ILjava/lang/String;II)V");
 
   jni::TScopedLocalRef const steps(env, jni::ToJavaArray(env, transitStepClass,
-                                                         info.m_steps,
-                                                         [&](JNIEnv * env, TransitStepInfo const & info)
+                                                         routeInfo.m_steps,
+                                                         [&](JNIEnv * jEnv, TransitStepInfo const & stepInfo)
   {
-      jni::TScopedLocalRef const number(env, jni::ToJavaString(env, info.m_number));
+      jni::TScopedLocalRef const distance(env, jni::ToJavaString(env, stepInfo.m_distanceStr));
+      jni::TScopedLocalRef const distanceUnits(env, jni::ToJavaString(env, stepInfo.m_distanceUnitsSuffix));
+      jni::TScopedLocalRef const number(env, jni::ToJavaString(env, stepInfo.m_number));
       return env->NewObject(transitStepClass, transitStepConstructor,
-                            static_cast<jint>(info.m_type),
-                            static_cast<jdouble>(info.m_distance),
-                            static_cast<jdouble>(info.m_time),
+                            static_cast<jint>(stepInfo.m_type),
+                            distance.get(),
+                            distanceUnits.get(),
+                            static_cast<jint>(stepInfo.m_timeInSec),
                             number.get(),
-                            static_cast<jint>(info.m_color));
+                            static_cast<jint>(stepInfo.m_colorARGB),
+                            static_cast<jint>(stepInfo.m_intermediateIndex));
   }));
 
   static jclass const transitRouteInfoClass = jni::GetGlobalClassRef(env,
                                                                      "com/mapswithme/maps/routing/TransitRouteInfo");
-  // Java signature : TransitRouteInfo(double totalDistance, double totalTime,
-  //                                   double totalPedestrianDistance, double totalPedestrianTime,
-  //                                   TransitStepInfo[] steps)
+  // Java signature : TransitRouteInfo(@NonNull String totalDistance, @NonNull String totalDistanceUnits, int totalTimeInSec,
+  //                                   @NonNull String totalPedestrianDistance, @NonNull String totalPedestrianDistanceUnits,
+  //                                   int totalPedestrianTimeInSec, @NonNull TransitStepInfo[] steps)
   static jmethodID const transitRouteInfoConstructor = jni::GetConstructorID(env, transitRouteInfoClass,
-                                                                             "(DDDD[Lcom/mapswithme/maps/routing/TransitStepInfo;)V");
-
+                                                                             "(Ljava/lang/String;Ljava/lang/String;I"
+                                                                             "Ljava/lang/String;Ljava/lang/String;I"
+                                                                             "[Lcom/mapswithme/maps/routing/TransitStepInfo;)V");
+  jni::TScopedLocalRef const distance(env, jni::ToJavaString(env, routeInfo.m_totalDistanceStr));
+  jni::TScopedLocalRef const distanceUnits(env, jni::ToJavaString(env, routeInfo.m_totalDistanceUnitsSuffix));
+  jni::TScopedLocalRef const distancePedestrian(env, jni::ToJavaString(env, routeInfo.m_totalPedestrianDistanceStr));
+  jni::TScopedLocalRef const distancePedestrianUnits(env, jni::ToJavaString(env, routeInfo.m_totalPedestrianUnitsSuffix));
   return env->NewObject(transitRouteInfoClass, transitRouteInfoConstructor,
-                        info.m_totalDistance, info.m_totalTime, info.m_totalPedestrianDistance,
-                        info.m_totalPedestrianTime, steps.get());
+                        distance.get(), distanceUnits.get(), static_cast<jint>(routeInfo.m_totalTimeInSec),
+                        distancePedestrian.get(), distancePedestrianUnits.get(), static_cast<jint>(routeInfo.m_totalPedestrianTimeInSec),
+                        steps.get());
 }
 
 JNIEXPORT void JNICALL

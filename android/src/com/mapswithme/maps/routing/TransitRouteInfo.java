@@ -7,21 +7,29 @@ import android.support.annotation.NonNull;
  */
 public class TransitRouteInfo
 {
-    public final double mTotalDistance;
-    public final double mTotalTime;
-    public final double mTotalPedestrianDistance;
-    public final double mTotalPedestrianTime;
-    @NonNull
-    public final TransitStepInfo[] mSteps;
+  @NonNull
+  public final String mTotalDistance;
+  @NonNull
+  public final String mTotalDistanceUnits;
+  public final int mTotalTimeInSec;
+  @NonNull
+  public final String mTotalPedestrianDistance;
+  @NonNull
+  public final String mTotalPedestrianDistanceUnits;
+  public final int mTotalPedestrianTimeInSec;
+  @NonNull
+  public final TransitStepInfo[] mSteps;
 
-    public TransitRouteInfo(double totalDistance, double totalTime,
-                            double totalPedestrianDistance, double totalPedestrianTime,
-                            @NonNull TransitStepInfo[] steps)
-    {
-        mTotalDistance = totalDistance;
-        mTotalTime = totalTime;
-        mTotalPedestrianDistance = totalPedestrianDistance;
-        mTotalPedestrianTime = totalPedestrianTime;
-        mSteps = steps;
-    }
+  public TransitRouteInfo(@NonNull String totalDistance, @NonNull String totalDistanceUnits, int totalTimeInSec,
+                          @NonNull String totalPedestrianDistance, @NonNull String totalPedestrianDistanceUnits,
+                          int totalPedestrianTimeInSec, @NonNull TransitStepInfo[] steps)
+  {
+    mTotalDistance = totalDistance;
+    mTotalDistanceUnits = totalDistanceUnits;
+    mTotalTimeInSec = totalTimeInSec;
+    mTotalPedestrianDistance = totalPedestrianDistance;
+    mTotalPedestrianDistanceUnits = totalPedestrianDistanceUnits;
+    mTotalPedestrianTimeInSec = totalPedestrianTimeInSec;
+    mSteps = steps;
+  }
 }

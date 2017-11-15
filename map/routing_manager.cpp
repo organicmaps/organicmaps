@@ -207,8 +207,15 @@ uint32_t ColorToARGB(df::ColorConstant const & colorConstant)
 
 TransitType GetTransitType(string const & type)
 {
-  ASSERT_EQUAL(type, "subway", ());
-  return TransitType::Subway;
+  if (type == "subway")
+    return TransitType::Subway;
+  if (type == "light_rail")
+    return TransitType::LightRail;
+  if (type == "monorail")
+    return TransitType::Monorail;
+
+  ASSERT_EQUAL(type, "train", ());
+  return TransitType::Train;
 }
 
 void FillTransitStyleForRendering(vector<RouteSegment> const & segments, TransitReadManager & transitReadManager,
@@ -232,14 +239,14 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
   df::SubrouteMarker marker;
   TransitMarkInfo transitMarkInfo;
 
-  double prevDistance = routeInfo.m_totalDistance;
-  double prevTime = routeInfo.m_totalTime;
+  double prevDistance = routeInfo.m_totalDistInMeters;
+  double prevTime = routeInfo.m_totalTimeInSec;
 
   bool pendingEntrance = false;
 
   for (auto const & s : segments)
   {
-    auto const time = s.GetTimeFromBeginningSec() - prevTime;
+    auto const time = static_cast<int>(ceil(s.GetTimeFromBeginningSec() - prevTime));
     auto const distance = s.GetDistFromBeginningMeters() - prevDistance;
 
     if (!s.HasTransitInfo())
@@ -381,8 +388,8 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
     prevTime = s.GetTimeFromBeginningSec();
   }
 
-  routeInfo.m_totalDistance = prevDistance;
-  routeInfo.m_totalTime = prevTime;
+  routeInfo.m_totalDistInMeters = prevDistance;
+  routeInfo.m_totalTimeInSec = static_cast<int>(ceil(prevTime));
 
   if (subroute.m_markers.size() > 1)
   {
@@ -579,13 +586,15 @@ namespace marketing
 char const * const kRoutingCalculatingRoute = "Routing_CalculatingRoute";
 }  // namespace marketing
 
-TransitStepInfo::TransitStepInfo(TransitType type, double distance, double time,
-                                 std::string const & number, uint32_t color)
+TransitStepInfo::TransitStepInfo(TransitType type, double distance, int time,
+                                 std::string const & number, uint32_t color,
+                                 int intermediateIndex)
   : m_type(type)
-  , m_distance(distance)
-  , m_time(time)
+  , m_distanceInMeters(distance)
+  , m_timeInSec(time)
   , m_number(number)
-  , m_color(color)
+  , m_colorARGB(color)
+  , m_intermediateIndex(intermediateIndex)
 {}
 
 bool TransitStepInfo::IsEqualType(TransitStepInfo const & ts) const
@@ -593,8 +602,8 @@ bool TransitStepInfo::IsEqualType(TransitStepInfo const & ts) const
   if (m_type != ts.m_type)
     return false;
 
-  if (m_type != TransitType::Pedestrian)
-    return m_number == ts.m_number && m_color == ts.m_color;
+  if (m_type != TransitType::Pedestrian && m_type != TransitType::IntermediatePoint)
+    return m_number == ts.m_number && m_colorARGB == ts.m_colorARGB;
   return true;
 }
 
@@ -602,8 +611,8 @@ void TransitRouteInfo::AddStep(TransitStepInfo const & step)
 {
   if (!m_steps.empty() && m_steps.back().IsEqualType(step))
   {
-    m_steps.back().m_distance += step.m_distance;
-    m_steps.back().m_time += step.m_time;
+    m_steps.back().m_distanceInMeters += step.m_distanceInMeters;
+    m_steps.back().m_timeInSec += step.m_timeInSec;
   }
   else
   {
@@ -612,9 +621,22 @@ void TransitRouteInfo::AddStep(TransitStepInfo const & step)
 
   if (step.m_type == TransitType::Pedestrian)
   {
-    m_totalPedestrianDistance += step.m_distance;
-    m_totalPedestrianTime += step.m_time;
+    m_totalPedestrianDistInMeters += step.m_distanceInMeters;
+    m_totalPedestrianTimeInSec += step.m_timeInSec;
   }
+}
+
+void TransitRouteInfo::UpdateDistanceStrings()
+{
+  if (m_steps.empty())
+    return;
+  for (auto step : m_steps)
+  {
+    FormatDistance(step.m_distanceInMeters, step.m_distanceStr, step.m_distanceUnitsSuffix);
+  }
+  FormatDistance(m_totalDistInMeters, m_totalDistanceStr, m_totalDistanceUnitsSuffix);
+  FormatDistance(m_totalPedestrianDistInMeters, m_totalPedestrianDistanceStr,
+                 m_totalPedestrianUnitsSuffix);
 }
 
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
@@ -896,18 +918,28 @@ void RoutingManager::InsertRoute(Route const & route)
           };
 
           vector<TransitMarkInfo> transitMarks;
+          if (subrouteIndex > 0)
+          {
+            TransitStepInfo step;
+            step.m_type = TransitType::IntermediatePoint;
+            step.m_intermediateIndex = static_cast<int>(subrouteIndex - 1);
+            transitRouteInfo.AddStep(step);
+          }
+
           FillTransitStyleForRendering(segments, m_transitReadManager, getMwmIdFn, *subroute.get(),
                                        transitMarks, transitRouteInfo);
+
           if (subroute->m_polyline.GetSize() < 2)
           {
             LOG(LWARNING, ("Invalid transit subroute. Points number =", subroute->m_polyline.GetSize()));
             continue;
           }
+
           auto & marksController = m_bmManager->GetUserMarksController(UserMark::Type::TRANSIT);
           CreateTransitMarks(transitMarks, marksController);
           marksController.NotifyChanges();
+          break;
         }
-        break;
       case RouterType::Pedestrian:
         subroute->m_routeType = df::RouteType::Pedestrian;
         subroute->AddStyle(df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0)));
@@ -929,6 +961,7 @@ void RoutingManager::InsertRoute(Route const & route)
 
     lock_guard<mutex> lock(m_drapeSubroutesMutex);
     m_drapeSubroutes.push_back(subrouteId);
+    transitRouteInfo.UpdateDistanceStrings();
     m_transitRouteInfo = transitRouteInfo;
   }
 }
