@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-               BuildableName = "qt beta.app"
-               BlueprintName = "qtMAPS.ME"
+               BlueprintIdentifier = "6741A93D1BF340DE002C974C"
+               BuildableName = "maps.me beta.app"
+               BlueprintName = "MAPS.ME"
                ReferencedContainer = "container:Maps.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,9 +33,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "qt beta.app"
-            BlueprintName = "qtMAPS.ME"
+            BlueprintIdentifier = "6741A93D1BF340DE002C974C"
+            BuildableName = "maps.me beta.app"
+            BlueprintName = "MAPS.ME"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -43,7 +43,7 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       language = ""
@@ -57,9 +57,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "qt beta.app"
-            BlueprintName = "qtMAPS.ME"
+            BlueprintIdentifier = "6741A93D1BF340DE002C974C"
+            BuildableName = "maps.me beta.app"
+            BlueprintName = "MAPS.ME"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -76,18 +76,18 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "qt beta.app"
-            BlueprintName = "qtMAPS.ME"
+            BlueprintIdentifier = "6741A93D1BF340DE002C974C"
+            BuildableName = "maps.me beta.app"
+            BlueprintName = "MAPS.ME"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "AdHoc">
+      buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "AdHoc"
+      buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
