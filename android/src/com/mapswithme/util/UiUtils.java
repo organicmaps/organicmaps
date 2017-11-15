@@ -116,12 +116,12 @@ public final class UiUtils
     });
   }
 
-  public static void hide(View view)
+  public static void hide(@NonNull View view)
   {
     view.setVisibility(View.GONE);
   }
 
-  public static void hide(View... views)
+  public static void hide(@NonNull View... views)
   {
     for (final View v : views)
       v.setVisibility(View.GONE);

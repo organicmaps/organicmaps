@@ -2,23 +2,27 @@ package com.mapswithme.maps.routing;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Represents TransitRouteInfo from core.
  */
 public class TransitRouteInfo
 {
   @NonNull
-  public final String mTotalDistance;
+  private final String mTotalDistance;
   @NonNull
-  public final String mTotalDistanceUnits;
-  public final int mTotalTimeInSec;
+  private final String mTotalDistanceUnits;
+  private final int mTotalTimeInSec;
   @NonNull
-  public final String mTotalPedestrianDistance;
+  private final String mTotalPedestrianDistance;
   @NonNull
-  public final String mTotalPedestrianDistanceUnits;
-  public final int mTotalPedestrianTimeInSec;
+  private final String mTotalPedestrianDistanceUnits;
+  private final int mTotalPedestrianTimeInSec;
   @NonNull
-  public final TransitStepInfo[] mSteps;
+  private final TransitStepInfo[] mSteps;
 
   public TransitRouteInfo(@NonNull String totalDistance, @NonNull String totalDistanceUnits, int totalTimeInSec,
                           @NonNull String totalPedestrianDistance, @NonNull String totalPedestrianDistanceUnits,
@@ -31,5 +35,16 @@ public class TransitRouteInfo
     mTotalPedestrianDistanceUnits = totalPedestrianDistanceUnits;
     mTotalPedestrianTimeInSec = totalPedestrianTimeInSec;
     mSteps = steps;
+  }
+
+  int getTotalTime()
+  {
+    return mTotalTimeInSec;
+  }
+
+  @NonNull
+  List<TransitStepInfo> getTransitSteps()
+  {
+    return new ArrayList<>(Arrays.asList(mSteps));
   }
 }

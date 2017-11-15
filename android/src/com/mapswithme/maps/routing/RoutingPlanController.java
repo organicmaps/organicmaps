@@ -171,6 +171,14 @@ public class RoutingPlanController extends ToolbarController
       return;
     }
 
+    if (isTransitType())
+    {
+      TransitRouteInfo info = RoutingController.get().getCachedTransitInfo();
+      if (info != null)
+        mRoutingBottomMenuController.showTransitInfo(info);
+      return;
+    }
+
     if (!isTaxiRouterType())
     {
       mRoutingBottomMenuController.setStartButton();
@@ -243,9 +251,19 @@ public class RoutingPlanController extends ToolbarController
     return RoutingController.get().isTaxiRouterType();
   }
 
+  private boolean isTransitType()
+  {
+    return RoutingController.get().isTransitType();
+  }
+
   public void showTaxiInfo(@NonNull TaxiInfo info)
   {
     mRoutingBottomMenuController.showTaxiInfo(info);
+  }
+
+  public void showTransitInfo(@NonNull TransitRouteInfo info)
+  {
+    mRoutingBottomMenuController.showTransitInfo(info);
   }
 
   public void showTaxiError(@NonNull TaxiManager.ErrorCode code)

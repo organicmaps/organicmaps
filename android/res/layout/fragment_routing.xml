@@ -14,6 +14,11 @@
     android:layout_height="wrap_content"/>
 
   <include
+    layout="@layout/routing_bottom_panel_transit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+  <include
     layout="@layout/taxi_panel"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>

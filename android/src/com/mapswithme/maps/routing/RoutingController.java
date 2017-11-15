@@ -694,6 +694,11 @@ public class RoutingController implements TaxiManager.TaxiListener
     return mLastRouterType == Framework.ROUTER_TYPE_TAXI;
   }
 
+  boolean isTransitType()
+  {
+    return mLastRouterType == Framework.ROUTER_TYPE_TRANSIT;
+  }
+
   boolean isVehicleRouterType()
   {
     return mLastRouterType == Framework.ROUTER_TYPE_VEHICLE;
@@ -797,6 +802,12 @@ public class RoutingController implements TaxiManager.TaxiListener
   RoutingInfo getCachedRoutingInfo()
   {
     return mCachedRoutingInfo;
+  }
+
+  @Nullable
+  TransitRouteInfo getCachedTransitInfo()
+  {
+    return mCachedTransitRouteInfo;
   }
 
   private void setPointsInternal(@Nullable MapObject startPoint, @Nullable MapObject endPoint)

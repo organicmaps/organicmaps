@@ -12,6 +12,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,6 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.taxi.TaxiAdapter;
@@ -30,6 +30,7 @@ import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiLinks;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.DotPager;
+import com.mapswithme.maps.widget.recycler.TagLayoutManager;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -49,6 +50,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private final Activity mContext;
   @NonNull
   private final View mAltitudeChartFrame;
+  @NonNull
+  private final View mTransitFrame;
   @NonNull
   private final View mTaxiFrame;
   @NonNull
@@ -83,6 +86,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
                                                  @Nullable RoutingBottomMenuListener listener)
   {
     View altitudeChartFrame = getViewById(activity, frame, R.id.altitude_chart_panel);
+    View transitFrame = getViewById(activity, frame, R.id.transit_panel);
     View taxiFrame = getViewById(activity, frame, R.id.taxi_panel);
     TextView error = (TextView) getViewById(activity, frame, R.id.error);
     Button start = (Button) getViewById(activity, frame, R.id.start);
@@ -91,9 +95,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View numbersFrame = getViewById(activity, frame, R.id.numbers);
     View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
 
-    return new RoutingBottomMenuController(activity, altitudeChartFrame, taxiFrame, error, start,
-                                           altitudeChart, altitudeDifference, numbersFrame,
-                                           actionFrame, listener);
+    return new RoutingBottomMenuController(activity, altitudeChartFrame, transitFrame, taxiFrame,
+                                           error, start, altitudeChart, altitudeDifference,
+                                           numbersFrame, actionFrame, listener);
   }
 
   @NonNull
@@ -106,6 +110,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   private RoutingBottomMenuController(@NonNull Activity context,
                                       @NonNull View altitudeChartFrame,
+                                      @NonNull View transitFrame,
                                       @NonNull View taxiFrame,
                                       @NonNull TextView error,
                                       @NonNull Button start,
@@ -117,6 +122,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     mContext = context;
     mAltitudeChartFrame = altitudeChartFrame;
+    mTransitFrame = transitFrame;
     mTaxiFrame = taxiFrame;
     mError = error;
     mStart = start;
@@ -136,7 +142,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showAltitudeChartAndRoutingDetails()
   {
-    UiUtils.hide(mError, mTaxiFrame, mActionFrame);
+    UiUtils.hide(mError, mTaxiFrame, mActionFrame, mTransitFrame);
 
     showRouteAltitudeChart();
     showRoutingDetails();
@@ -153,7 +159,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showTaxiInfo(@NonNull TaxiInfo info)
   {
-    UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame);
+    UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mTransitFrame);
     UiUtils.showTaxiIcon((ImageView) mTaxiFrame.findViewById(R.id.iv__logo), info.getType());
     final List<TaxiInfo.Product> products = info.getProducts();
     mTaxiInfo = info;
@@ -176,9 +182,27 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.show(mTaxiFrame);
   }
 
+  void showTransitInfo(@NonNull TransitRouteInfo info)
+  {
+    UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mAltitudeChartFrame, mTaxiFrame);
+    UiUtils.show(mTransitFrame);
+    RecyclerView rv = (RecyclerView) mTransitFrame.findViewById(R.id.transit_recycler_view);
+    TransitStepAdapter adapter = new TransitStepAdapter();
+    rv.setLayoutManager(new TagLayoutManager());
+    rv.setNestedScrollingEnabled(false);
+    // TODO: make dot decorator.
+    rv.setAdapter(adapter);
+    adapter.setItems(info.getTransitSteps());
+
+    TextView totalTimeView = (TextView) mTransitFrame.findViewById(R.id.total_time);
+    totalTimeView.setText(RoutingController.formatRoutingTime(mContext, (int) info.getTotalTime(),
+                                                            R.dimen.text_size_routing_number));
+    // TODO: set pedestrian total distance.
+  }
+
   void showAddStartFrame()
   {
-    UiUtils.hide(mTaxiFrame, mError);
+    UiUtils.hide(mTaxiFrame, mError, mTransitFrame);
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_start_point);
     mActionMessage.setTag(RoutePointInfo.ROUTE_MARK_START);
@@ -198,7 +222,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showAddFinishFrame()
   {
-    UiUtils.hide(mTaxiFrame, mError);
+    UiUtils.hide(mTaxiFrame, mError, mTransitFrame);
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_finish_point);
     mActionMessage.setTag(RoutePointInfo.ROUTE_MARK_FINISH);
@@ -272,7 +296,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   private void showError(@NonNull String message)
   {
-    UiUtils.hide(mTaxiFrame, mAltitudeChartFrame, mActionFrame);
+    UiUtils.hide(mTaxiFrame, mAltitudeChartFrame, mActionFrame, mTransitFrame);
     mError.setText(message);
     mError.setVisibility(View.VISIBLE);
     showStartButton(false);

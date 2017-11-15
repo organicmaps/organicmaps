@@ -9,6 +9,8 @@
   <include layout="@layout/altitude_chart_panel"
            tools:visibility="gone"/>
 
+  <include layout="@layout/routing_bottom_panel_transit"/>
+
   <include layout="@layout/taxi_panel"/>
 
   <include

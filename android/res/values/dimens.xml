@@ -81,6 +81,7 @@
   <dimen name="routing_shadow_bottom_margin_dragging">4dp</dimen>
   <dimen name="routing_turns_padding">8dp</dimen>
   <dimen name="routing_transit_step_corner_radius">2dp</dimen>
+  <dimen name="routing_transit_step_min_height">20dp</dimen>
 
   <!-- Bottom menu -->
   <dimen name="menu_line_height">48dp</dimen>

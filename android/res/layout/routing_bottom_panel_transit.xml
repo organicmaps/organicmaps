@@ -49,7 +49,7 @@
     android:layout_height="wrap_content"
     tools:text="1 km"/>
   <android.support.v7.widget.RecyclerView
-    android:id="@+id/transit"
+    android:id="@+id/transit_recycler_view"
     android:layout_marginTop="@dimen/margin_half_plus"
     android:layout_alignParentStart="true"
     android:layout_alignParentLeft="true"
