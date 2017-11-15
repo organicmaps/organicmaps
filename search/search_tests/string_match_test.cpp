@@ -43,7 +43,7 @@ uint32_t PrefixMatchCost(char const * a, char const * b)
   return StringMatchCost(a, strlen(a), b, strlen(b), MatchCostMock(), 1000, true);
 }
 
-void TestEqual(vector<UniString> const v, char const * arr[])
+void TestEqual(vector<UniString> const & v, char const * arr[])
 {
   for (size_t i = 0; i < v.size(); ++i)
   {

@@ -128,9 +128,8 @@ double EatDouble(char const * str, char ** strEnd)
     string const part1(str, markPos);
     string const part2(markPos + 1, p);
     *strEnd = const_cast<char *>(p);
-    char * unused;
-    auto const x1 = strtod(part1.c_str(), &unused);
-    auto const x2 = strtod(part2.c_str(), &unused);
+    auto const x1 = atof(part1.c_str());
+    auto const x2 = atof(part2.c_str());
     return x1 + x2 * pow(10.0, -static_cast<double>(part2.size()));
   }
 
