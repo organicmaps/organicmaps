@@ -227,20 +227,13 @@ bool ShapeId::IsValid() const
 }
 
 // EdgeFlags --------------------------------------------------------------------------------------
-EdgeFlags::EdgeFlags()
-  : m_transfer(0)
-  , m_isShapeIdsEmpty(0)
-  , m_isShapeIdsSingle(0)
-  , m_isShapeIdsSame(0)
-  , m_isShapeIdsReversed(0)
-{
-}
-
 uint8_t EdgeFlags::GetFlags() const
 {
-  return m_transfer + m_isShapeIdsEmpty * kEmptyShapeIdsMask +
-         m_isShapeIdsSingle * kSingleShapeIdMask + m_isShapeIdsSame * kShapeIdIsSameMask +
-         m_isShapeIdsReversed * kShapeIdIsReversedMask;
+  return BoolToUint(m_transfer) * kTransferMask +
+         BoolToUint(m_isShapeIdsEmpty) * kEmptyShapeIdsMask +
+         BoolToUint(m_isShapeIdsSingle) * kSingleShapeIdMask +
+         BoolToUint(m_isShapeIdsSame) * kShapeIdIsSameMask +
+         BoolToUint(m_isShapeIdsReversed) * kShapeIdIsReversedMask;
 }
 
 void EdgeFlags::SetFlags(uint8_t flags)
@@ -255,11 +248,11 @@ void EdgeFlags::SetFlags(uint8_t flags)
 string DebugPrint(EdgeFlags const & f)
 {
   std::ostringstream ss;
-  ss << "EdgeFlags [m_transfer:" << f.IsTransfer();
-  ss << ", m_isShapeIdsEmpty:" << f.IsEmptyShapeIds();
-  ss << ", m_isShapeIdsSingle:" << f.IsSingleShapeId();
-  ss << ", m_isShapeIdsSame:" << f.IsShapeIdTheSame();
-  ss << ", m_isShapeIdsReversed:" << f.IsShapeIdReversed() << "]";
+  ss << "EdgeFlags [m_transfer:" << f.m_transfer;
+  ss << ", m_isShapeIdsEmpty:" << f.m_isShapeIdsEmpty;
+  ss << ", m_isShapeIdsSingle:" << f.m_isShapeIdsSingle;
+  ss << ", m_isShapeIdsSame:" << f.m_isShapeIdsSame;
+  ss << ", m_isShapeIdsReversed:" << f.m_isShapeIdsReversed << "]";
   return ss.str();
 }
 
@@ -388,16 +381,16 @@ EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2,
                        vector<ShapeId> const & shapeIds)
 {
   EdgeFlags flags;
-  flags.SetTransfer(transfer);
-  flags.SetEmptyShapeIds(shapeIds.empty());
+  flags.m_transfer = transfer;
+  flags.m_isShapeIdsEmpty = shapeIds.empty();
   bool const singleShapeId = (shapeIds.size() == 1);
-  flags.SetSingleShapeId(singleShapeId);
+  flags.m_isShapeIdsSingle = singleShapeId;
   if (singleShapeId)
   {
-    flags.SetShapeIdTheSame(stopId1 == shapeIds[0].GetStop1Id() &&
-                            stopId2 == shapeIds[0].GetStop2Id());
-    flags.SetShapeIdReversed(stopId1 == shapeIds[0].GetStop2Id() &&
-                             stopId2 == shapeIds[0].GetStop1Id());
+    flags.m_isShapeIdsSame =
+        (stopId1 == shapeIds[0].GetStop1Id() && stopId2 == shapeIds[0].GetStop2Id());
+    flags.m_isShapeIdsReversed =
+        stopId1 == shapeIds[0].GetStop2Id() && stopId2 == shapeIds[0].GetStop1Id();
   }
   return flags;
 }

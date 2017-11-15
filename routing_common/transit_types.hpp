@@ -259,53 +259,36 @@ class EdgeFlags
 {
 public:
   DECLARE_TRANSIT_TYPE_FRIENDS
-
-  EdgeFlags();
-
-  bool IsTransfer() const { return m_transfer == 1; }
-  void SetTransfer(bool transfer) { m_transfer = BoolToUint(transfer); }
-
-  /// \returns true if |Edge::m_shapeIds| is empty.
-  bool IsEmptyShapeIds() const { return m_isShapeIdsEmpty == 1; }
-  void SetEmptyShapeIds(bool emptyShapeIds) { m_isShapeIdsEmpty = BoolToUint(emptyShapeIds); }
-
-  /// \returns true if |Edge::m_shapeIds| contains only one item.
-  bool IsSingleShapeId() const { return m_isShapeIdsSingle == 1; }
-  void SetSingleShapeId(bool singleShapeId) { m_isShapeIdsSingle = BoolToUint(singleShapeId); }
-
-  /// \note It's valid only if IsSingleShapeId() returns true.
-  /// \returns true if
-  /// |Edge::m_stop1Id == m_shapeIds[0].m_stop1Id && Edge::m_stop2Id == m_shapeIds[0].m_stop2Id|.
-  bool IsShapeIdTheSame() const { return m_isShapeIdsSame == 1; }
-  void SetShapeIdTheSame(bool same) { m_isShapeIdsSame = BoolToUint(same); }
-
-  /// \note It's valid only if IsSingleShapeId() returns true.
-  /// \returns true if
-  /// |Edge::m_stop1Id == m_shapeIds[0].m_stop2Id && Edge::m_stop2Id == m_shapeIds[0].m_stop1Id|.
-  bool IsShapeIdReversed() const { return m_isShapeIdsReversed == 1; }
-  void SetShapeIdReversed(bool reversed) { m_isShapeIdsReversed = BoolToUint(reversed); }
+  friend string DebugPrint(EdgeFlags const & f);
 
   uint8_t GetFlags() const;
   void SetFlags(uint8_t flags);
 
+  // |m_transfer == true| if |Edge::m_shapeIds| is empty.
+  bool m_transfer = false;
+  /// |m_isShapeIdsEmpty == true| if |Edge::m_shapeIds| is empty.
+  bool m_isShapeIdsEmpty = false;
+  // |m_isShapeIdsSingle == true| if |Edge::m_shapeIds| contains only one item.
+  bool m_isShapeIdsSingle = false;
+  // Note. If |m_isShapeIdsSingle == true| |m_isShapeIdsSame| is set to
+  // |Edge::m_stop1Id == m_shapeIds[0].m_stop1Id && Edge::m_stop2Id == m_shapeIds[0].m_stop2Id|.
+  // |m_isShapeIdsSingle| is invalid otherwise.
+  bool m_isShapeIdsSame = false;
+  // Note. If |m_isShapeIdsSingle == true| |m_isShapeIdsReversed| is set to
+  // |Edge::m_stop1Id == m_shapeIds[0].m_stop2Id && Edge::m_stop2Id == m_shapeIds[0].m_stop1Id|.
+  // |m_isShapeIdsReversed| is invalid otherwise.
+  bool m_isShapeIdsReversed = false;
+
 private:
-  uint8_t BoolToUint(bool b) { return static_cast<uint8_t>(b ? 1 : 0); }
-  uint8_t GetBit(uint8_t flags, uint8_t mask) { return BoolToUint(flags & mask); }
+  uint8_t BoolToUint(bool b) const { return static_cast<uint8_t>(b ? 1 : 0); }
+  uint8_t GetBit(uint8_t flags, uint8_t mask) const { return BoolToUint(flags & mask); }
 
   static uint8_t constexpr kTransferMask = 1;
   static uint8_t constexpr kEmptyShapeIdsMask = (1 << 1);
   static uint8_t constexpr kSingleShapeIdMask = (1 << 2);
   static uint8_t constexpr kShapeIdIsSameMask = (1 << 3);
   static uint8_t constexpr kShapeIdIsReversedMask = (1 << 4);
-
-  uint8_t m_transfer : 1;
-  uint8_t m_isShapeIdsEmpty : 1;
-  uint8_t m_isShapeIdsSingle : 1;
-  uint8_t m_isShapeIdsSame : 1;
-  uint8_t m_isShapeIdsReversed : 1;
 };
-
-static_assert(sizeof(EdgeFlags) == 1, "Wrong EdgeFlags size.");
 
 std::string DebugPrint(EdgeFlags const & f);
 
@@ -328,7 +311,7 @@ public:
   StopId GetStop2Id() const { return m_stop2Id; }
   Weight GetWeight() const { return m_weight; }
   LineId GetLineId() const { return m_lineId; }
-  bool GetTransfer() const { return m_flags.IsTransfer(); }
+  bool GetTransfer() const { return m_flags.m_transfer; }
   std::vector<ShapeId> const & GetShapeIds() const { return m_shapeIds; }
 
 private:

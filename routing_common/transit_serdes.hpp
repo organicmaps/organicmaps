@@ -132,10 +132,10 @@ public:
         GetEdgeFlags(e.GetTransfer(), e.GetStop1Id(), e.GetStop2Id(), e.GetShapeIds());
     (*this)(flags);
 
-    if (flags.IsEmptyShapeIds() || flags.IsShapeIdTheSame() || flags.IsShapeIdReversed())
+    if (flags.m_isShapeIdsEmpty || flags.m_isShapeIdsSame || flags.m_isShapeIdsReversed)
       return;
 
-    if (flags.IsSingleShapeId())
+    if (flags.m_isShapeIdsSingle)
     {
       CHECK_EQUAL(e.GetShapeIds().size(), 1, ());
       (*this)(e.GetShapeIds()[0]);
@@ -253,22 +253,22 @@ public:
     (*this)(e.m_flags);
 
     e.m_shapeIds.clear();
-    if (e.m_flags.IsEmptyShapeIds())
+    if (e.m_flags.m_isShapeIdsEmpty)
       return;
 
-    if (e.m_flags.IsShapeIdTheSame())
+    if (e.m_flags.m_isShapeIdsSame)
     {
       e.m_shapeIds.emplace_back(e.GetStop1Id(), e.GetStop2Id());
       return;
     }
 
-    if (e.m_flags.IsShapeIdReversed())
+    if (e.m_flags.m_isShapeIdsReversed)
     {
       e.m_shapeIds.emplace_back(e.GetStop2Id(), e.GetStop1Id());
       return;
     }
 
-    if (e.m_flags.IsSingleShapeId())
+    if (e.m_flags.m_isShapeIdsSingle)
     {
       e.m_shapeIds.resize(1 /* single shape id */);
       (*this)(e.m_shapeIds.back());
