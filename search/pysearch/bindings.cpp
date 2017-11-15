@@ -1,6 +1,7 @@
 #include "search/engine.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
+#include "search/tracer.hpp"
 
 #include "indexer/classificator_loader.hpp"
 
@@ -21,6 +22,7 @@
 
 #include <boost/python.hpp>
 
+#include <iomanip>
 #include <limits>
 #include <memory>
 #include <sstream>
@@ -35,6 +37,25 @@ using namespace std;
 namespace
 {
 unique_ptr<storage::TMappingAffiliations> g_affiliations;
+
+string ToString(search::Tracer::Parse::TokenType type)
+{
+  using TokenType = search::Tracer::Parse::TokenType;
+
+  switch (type)
+  {
+  case TokenType::TOKEN_TYPE_POI: return "poi";
+  case TokenType::TOKEN_TYPE_BUILDING: return "building";
+  case TokenType::TOKEN_TYPE_STREET: return "street";
+  case TokenType::TOKEN_TYPE_UNCLASSIFIED: return "unclassified";
+  case TokenType::TOKEN_TYPE_VILLAGE: return "village";
+  case TokenType::TOKEN_TYPE_CITY: return "city";
+  case TokenType::TOKEN_TYPE_STATE: return "state";
+  case TokenType::TOKEN_TYPE_COUNTRY: return "country";
+  case TokenType::TOKEN_TYPE_POSTCODE: return "postcode";
+  case TokenType::TOKEN_TYPE_COUNT: return "count";
+  }
+}
 
 void Init(string const & resource_path, string const & mwm_path)
 {
@@ -137,6 +158,20 @@ struct Result
   Mercator m_center;
 };
 
+struct TraceResult
+{
+  string ToString() const
+  {
+    ostringstream os;
+    os << "parse: [" << strings::JoinStrings(m_parse, ", ") << "], ";
+    os << "is_category: " << boolalpha << m_isCategory;
+    return os.str();
+  }
+
+  vector<string> m_parse;
+  bool m_isCategory = false;
+};
+
 unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
 {
   CHECK(g_affiliations.get(), ("init() was not called."));
@@ -168,10 +203,8 @@ struct SearchEngineProxy
     }
   }
 
-  boost::python::list Query(Params const & params) const
+  search::SearchParams MakeSearchParams(Params const & params) const
   {
-    m_context->m_engine.SetLocale(params.m_locale);
-
     search::SearchParams sp;
     sp.m_query = params.m_query;
     sp.m_inputLocale = params.m_locale;
@@ -183,13 +216,47 @@ struct SearchEngineProxy
     auto const & topRight = params.m_viewport.m_max;
     sp.m_viewport = m2::RectD(bottomLeft.m_x, bottomLeft.m_y, topRight.m_x, topRight.m_y);
 
-    search::tests_support::TestSearchRequest request(m_context->m_engine, sp);
+    return sp;
+  }
+
+  boost::python::list Query(Params const & params) const
+  {
+    m_context->m_engine.SetLocale(params.m_locale);
+    search::tests_support::TestSearchRequest request(m_context->m_engine, MakeSearchParams(params));
     request.Run();
 
     boost::python::list results;
     for (auto const & result : request.Results())
       results.append(Result(result));
     return results;
+  }
+
+  boost::python::list Trace(Params const &params) const
+  {
+    m_context->m_engine.SetLocale(params.m_locale);
+
+    auto sp = MakeSearchParams(params);
+    auto tracer = make_shared<search::Tracer>();
+    sp.m_tracer = tracer;
+
+    search::tests_support::TestSearchRequest request(m_context->m_engine, sp);
+    request.Run();
+
+    boost::python::list trs;
+    for (auto const & parse : tracer->GetUniqueParses())
+    {
+      TraceResult tr;
+      for (size_t i = 0; i < parse.m_ranges.size(); ++i)
+      {
+        auto const & range = parse.m_ranges[i];
+        if (!range.Empty())
+          tr.m_parse.push_back(ToString(static_cast<search::Tracer::Parse::TokenType>(i)));
+      }
+      tr.m_isCategory = parse.m_category;
+      trs.append(tr);
+    }
+
+    return trs;
   }
 
   shared_ptr<Context> m_context;
@@ -226,7 +293,14 @@ BOOST_PYTHON_MODULE(pysearch)
       .def_readwrite("address", &Result::m_address)
       .def_readwrite("has_center", &Result::m_hasCenter)
       .def_readwrite("center", &Result::m_center)
-      .def("to_string", &Result::ToString);
+      .def("__repr__", &Result::ToString);
 
-  class_<SearchEngineProxy>("SearchEngine").def("query", &SearchEngineProxy::Query);
+  class_<TraceResult>("TraceResult")
+      .def_readwrite("parse", &TraceResult::m_parse)
+      .def_readwrite("is_category", &TraceResult::m_isCategory)
+      .def("__repr__", &TraceResult::ToString);
+
+  class_<SearchEngineProxy>("SearchEngine")
+      .def("query", &SearchEngineProxy::Query)
+      .def("trace", &SearchEngineProxy::Trace);
 }

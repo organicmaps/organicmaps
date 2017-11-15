@@ -25,5 +25,5 @@ params.locale = 'ru'
 params.position = search.Mercator(37.618705, 67.455669)
 params.viewport = search.Viewport(search.Mercator(37.1336, 67.1349),
                                   search.Mercator(38.0314, 67.7348))
-for result in engine.query(params):
-    print(result.to_string())
+print(engine.query(params))
+print(engine.trace(params))
