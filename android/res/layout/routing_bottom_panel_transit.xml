@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/transit_panel"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingLeft="@dimen/margin_base"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingRight="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_base"
+  android:paddingTop="@dimen/margin_half_plus">
+  <TextView
+    android:id="@+id/total_time"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:textAppearance="@style/MwmWidget.TextView.PlanDetail.Number.Time"
+    tools:text="40 min"/>
+  <TextView
+    android:id="@+id/dot"
+    android:layout_toRightOf="@id/total_time"
+    android:layout_toEndOf="@id/total_time"
+    style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
+    android:layout_marginLeft="@dimen/margin_quarter_plus"
+    android:layout_marginStart="@dimen/margin_quarter_plus"
+    android:layout_marginRight="@dimen/margin_quarter_plus"
+    android:layout_marginTop="@dimen/margin_eighth"
+    android:text="•"
+    tools:ignore="HardcodedText"/>
+  <ImageView
+    android:id="@+id/pedestrian_icon"
+    android:layout_toRightOf="@id/dot"
+    android:layout_toEndOf="@id/dot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_eighth"
+    android:src="@drawable/ic_20px_route_planning_walk"
+    android:tint="?iconTint"/>
+  <TextView
+    android:id="@+id/total_distance"
+    android:layout_toRightOf="@id/pedestrian_icon"
+    android:layout_toEndOf="@id/pedestrian_icon"
+    style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:text="1 km"/>
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/transit"
+    android:layout_marginTop="@dimen/margin_half_plus"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentLeft="true"
+    android:layout_below="@id/total_distance"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+</RelativeLayout>
