@@ -1,6 +1,7 @@
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
 #import "MWMBookmarksManager.h"
+#import "MWMCircularProgress.h"
 #import "Statistics.h"
 #import "UIImageView+Coloring.h"
 
@@ -12,6 +13,9 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     @"BookmarkCategoryDeletedNotification";
 
 @interface BookmarksRootVC ()<MWMBookmarksObserver>
+
+@property(nonatomic) MWMCircularProgress * spinner;
+
 @end
 
 @implementation BookmarksRootVC
@@ -43,11 +47,17 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     m_hint.backgroundColor = UIColor.clearColor;
 
     UILabel * label = [[UILabel alloc] initWithFrame:rect];
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = UIColor.clearColor;
-    bool const showDetailedHint = !GetFramework().GetBmCategoriesCount();
-    label.text = showDetailedHint ? L(@"bookmarks_usage_hint")
-                                  : L(@"bookmarks_usage_hint_import_only");
+    if ([self shouldShowSpinner])
+    {
+      label.text = L(@"load_kmz_title");
+    }
+    else
+    {
+      bool const showDetailedHint = !GetFramework().GetBmCategoriesCount();
+      label.text =
+          showDetailedHint ? L(@"bookmarks_usage_hint") : L(@"bookmarks_usage_hint_import_only");
+    }
     label.textAlignment = NSTextAlignmentCenter;
     label.lineBreakMode = NSLineBreakByWordWrapping;
     label.numberOfLines = 0;
@@ -63,10 +73,36 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
   return m_hint.bounds.size.height;
 }
 
+- (BOOL)shouldShowSpinner
+{
+  return GetFramework().GetBmCategoriesCount() != 0 && ![MWMBookmarksManager areBookmarksLoaded];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  return [self shouldShowSpinner] ? 40 : 0;
+}
+
 // Used to display hint when no any categories with bookmarks are present
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
   return m_hint;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+  if (![self shouldShowSpinner])
+    return nil;
+  auto header = [[UIView alloc] initWithFrame:tableView.bounds];
+  CGFloat const size = [self tableView:tableView heightForHeaderInSection:section];
+  CGFloat const offset = 10;
+  CGRect const rect = CGRectInset({{}, {size, size}}, offset, offset);
+  auto spinnerView = [[UIView alloc] initWithFrame:rect];
+  [header addSubview:spinnerView];
+  spinnerView.center = {header.width / 2, spinnerView.center.y};
+  self.spinner = [[MWMCircularProgress alloc] initWithParentView:spinnerView];
+  self.spinner.state = MWMCircularProgressStateSpinner;
+  return header;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
