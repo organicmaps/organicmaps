@@ -90,6 +90,7 @@ DEFINE_bool(make_cross_section, false, "Make cross section in routing file for c
 DEFINE_bool(make_routing_index, false, "Make sections with the routing information.");
 DEFINE_bool(make_cross_mwm, false,
             "Make section for cross mwm routing (for dynamic indexed routing).");
+DEFINE_bool(make_transit_cross_mwm, false, "Make section for cross mwm transit routing.");
 DEFINE_bool(disable_cross_mwm_progress, false,
             "Disable log of cross mwm section building progress.");
 DEFINE_string(srtm_path, "",
@@ -191,8 +192,8 @@ int main(int argc, char ** argv)
       FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_generate_cities_boundaries ||
       FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
-      FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_generate_traffic_keys ||
-      FLAGS_transit_path != "" || FLAGS_ugc_data != "")
+      FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
+      FLAGS_generate_traffic_keys || FLAGS_transit_path != "" || FLAGS_ugc_data != "")
   {
     classificator::Load();
     classif().SortClassificator();
@@ -200,11 +201,8 @@ int main(int argc, char ** argv)
 
   // Load mwm tree only if we need it
   std::unique_ptr<storage::CountryParentGetter> countryParentGetter;
-  if (FLAGS_make_routing_index || FLAGS_make_cross_mwm)
-  {
-    countryParentGetter =
-        make_unique<storage::CountryParentGetter>();
-  }
+  if (FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm)
+    countryParentGetter = make_unique<storage::CountryParentGetter>();
 
   // Generate dat file.
   if (FLAGS_generate_features || FLAGS_make_coasts)
@@ -343,7 +341,7 @@ int main(int argc, char ** argv)
       routing::BuildRoutingIndex(datFile, country, *countryParentGetter);
     }
 
-    if (FLAGS_make_cross_mwm)
+    if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm)
     {
       if (!countryParentGetter)
       {
@@ -353,9 +351,17 @@ int main(int argc, char ** argv)
         return -1;
       }
 
-      if (!routing::BuildCrossMwmSection(path, datFile, country, *countryParentGetter,
-                                         osmToFeatureFilename, FLAGS_disable_cross_mwm_progress))
-        LOG(LCRITICAL, ("Error generating cross mwm section."));
+      if (FLAGS_make_cross_mwm)
+      {
+        CHECK(routing::BuildCrossMwmSection(path, datFile, country, *countryParentGetter,
+                                            osmToFeatureFilename, FLAGS_disable_cross_mwm_progress),
+              ("Error generating cross mwm section.", path, datFile, country));
+      }
+
+      if (FLAGS_make_transit_cross_mwm)
+      {
+        ; // @todo(bykoianko) It's necessary to put here serialization of transit cross mwm section.
+      }
     }
 
     if (!FLAGS_ugc_data.empty())

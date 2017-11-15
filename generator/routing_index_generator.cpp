@@ -209,7 +209,7 @@ double CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
 
 void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string const & country,
                              CountryParentNameGetterFn const & countryParentNameGetterFn,
-                             map<uint32_t, osm::Id> const & featureIdToOsmId,
+                             map<uint32_t, uint64_t> const & featureIdToOsmId,
                              vector<CrossMwmConnectorSerializer::Transition> & transitions,
                              CrossMwmConnectorPerVehicleType & connectors)
 {
@@ -232,7 +232,7 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
 
     auto osmIt = featureIdToOsmId.find(featureId);
     CHECK(osmIt != featureIdToOsmId.end(), ("Can't find osm id for feature id", featureId));
-    uint64_t const osmId = osmIt->second.OsmId();
+    uint64_t const osmId = osmIt->second;
 
     bool prevPointIn = m2::RegionsContain(borders, f.GetPoint(0));
 
@@ -378,14 +378,8 @@ bool BuildRoutingIndex(string const & filename, string const & country,
 
 bool BuildCrossMwmSection(string const & path, string const & mwmFile, string const & country,
                           CountryParentNameGetterFn const & countryParentNameGetterFn,
-                          string const & osmToFeatureFile, bool disableCrossMwmProgress)
+                          map<uint32_t, uint64_t> const & featureIdToOsmId, bool disableCrossMwmProgress)
 {
-  LOG(LINFO, ("Building cross mwm section for", country));
-
-  map<uint32_t, osm::Id> featureIdToOsmId;
-  if (!ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId))
-    return false;
-
   CrossMwmConnectorPerVehicleType connectors;
 
   vector<CrossMwmConnectorSerializer::Transition> transitions;
@@ -414,5 +408,19 @@ bool BuildCrossMwmSection(string const & path, string const & mwmFile, string co
 
   LOG(LINFO, ("Cross mwm section generated, size:", sectionSize, "bytes"));
   return true;
+}
+
+bool BuildCrossMwmSection(string const & path, string const & mwmFile, string const & country,
+                          CountryParentNameGetterFn const & countryParentNameGetterFn,
+                          string const & osmToFeatureFile, bool disableCrossMwmProgress)
+{
+  LOG(LINFO, ("Building cross mwm section for", country));
+
+  map<uint32_t, uint64_t> featureIdToOsmId;
+  if (!ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId))
+    return false;
+
+  return BuildCrossMwmSection(path, mwmFile, country, countryParentNameGetterFn, featureIdToOsmId,
+                              disableCrossMwmProgress);
 }
 }  // namespace routing
