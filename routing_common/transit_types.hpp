@@ -281,7 +281,7 @@ public:
 
 private:
   uint8_t BoolToUint(bool b) const { return static_cast<uint8_t>(b ? 1 : 0); }
-  uint8_t GetBit(uint8_t flags, uint8_t mask) const { return BoolToUint(flags & mask); }
+  uint8_t GetBit(uint8_t flags, uint8_t mask) const { return BoolToUint((flags & mask) != 0); }
 
   static uint8_t constexpr kTransferMask = 1;
   static uint8_t constexpr kEmptyShapeIdsMask = (1 << 1);

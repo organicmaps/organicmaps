@@ -248,11 +248,11 @@ void EdgeFlags::SetFlags(uint8_t flags)
 string DebugPrint(EdgeFlags const & f)
 {
   std::ostringstream ss;
-  ss << "EdgeFlags [m_transfer:" << f.m_transfer;
-  ss << ", m_isShapeIdsEmpty:" << f.m_isShapeIdsEmpty;
-  ss << ", m_isShapeIdsSingle:" << f.m_isShapeIdsSingle;
-  ss << ", m_isShapeIdsSame:" << f.m_isShapeIdsSame;
-  ss << ", m_isShapeIdsReversed:" << f.m_isShapeIdsReversed << "]";
+  ss << "EdgeFlags [transfer:" << f.m_transfer;
+  ss << ", isShapeIdsEmpty:" << f.m_isShapeIdsEmpty;
+  ss << ", isShapeIdsSingle:" << f.m_isShapeIdsSingle;
+  ss << ", isShapeIdsSame:" << f.m_isShapeIdsSame;
+  ss << ", isShapeIdsReversed:" << f.m_isShapeIdsReversed << "]";
   return ss.str();
 }
 
@@ -388,7 +388,7 @@ EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2,
   if (singleShapeId)
   {
     flags.m_isShapeIdsSame =
-        (stopId1 == shapeIds[0].GetStop1Id() && stopId2 == shapeIds[0].GetStop2Id());
+        stopId1 == shapeIds[0].GetStop1Id() && stopId2 == shapeIds[0].GetStop2Id();
     flags.m_isShapeIdsReversed =
         stopId1 == shapeIds[0].GetStop2Id() && stopId2 == shapeIds[0].GetStop1Id();
   }

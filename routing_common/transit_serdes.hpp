@@ -127,7 +127,7 @@ public:
     (*this)(e.m_weight);
     (*this)(e.m_lineId);
     // Note. |Edge::m_flags| is not filled fully after deserialization from json.
-    // So it's necessary to it here.
+    // So it's necessary to fill it here.
     EdgeFlags const flags =
         GetEdgeFlags(e.GetTransfer(), e.GetStop1Id(), e.GetStop2Id(), e.GetShapeIds());
     (*this)(flags);
