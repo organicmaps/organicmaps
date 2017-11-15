@@ -135,6 +135,13 @@ public:
     if (flags.IsEmptyShapeIds() || flags.IsShapeIdTheSame() || flags.IsShapeIdReversed())
       return;
 
+    if (flags.IsSingleShapeId())
+    {
+      CHECK_EQUAL(e.GetShapeIds().size(), 1, ());
+      (*this)(e.GetShapeIds()[0]);
+      return;
+    }
+
     (*this)(e.GetShapeIds());
   }
 
@@ -248,16 +255,26 @@ public:
     e.m_shapeIds.clear();
     if (e.m_flags.IsEmptyShapeIds())
       return;
+
     if (e.m_flags.IsShapeIdTheSame())
     {
       e.m_shapeIds.emplace_back(e.GetStop1Id(), e.GetStop2Id());
       return;
     }
+
     if (e.m_flags.IsShapeIdReversed())
     {
       e.m_shapeIds.emplace_back(e.GetStop2Id(), e.GetStop1Id());
       return;
     }
+
+    if (e.m_flags.IsSingleShapeId())
+    {
+      e.m_shapeIds.resize(1 /* single shape id */);
+      (*this)(e.m_shapeIds.back());
+      return;
+    }
+
     (*this)(e.m_shapeIds);
   }
 
