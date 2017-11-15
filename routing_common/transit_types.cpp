@@ -292,16 +292,16 @@ bool Edge::operator==(Edge const & rhs) const
 bool Edge::IsEqualForTesting(Edge const & edge) const
 {
   return m_stop1Id == edge.m_stop1Id && m_stop2Id == edge.m_stop2Id && m_weight == edge.m_weight &&
-         m_lineId == edge.m_lineId && m_flags.IsTransfer() == edge.m_flags.IsTransfer() &&
+         m_lineId == edge.m_lineId && GetTransfer() == edge.GetTransfer() &&
          m_shapeIds == edge.m_shapeIds;
 }
 
 bool Edge::IsValid() const
 {
-  if (m_flags.IsTransfer() && (m_lineId != kInvalidLineId || !m_shapeIds.empty()))
+  if (GetTransfer() && (m_lineId != kInvalidLineId || !m_shapeIds.empty()))
     return false;
 
-  if (!m_flags.IsTransfer() && m_lineId == kInvalidLineId)
+  if (!GetTransfer() && m_lineId == kInvalidLineId)
     return false;
 
   return m_stop1Id.Get() != kInvalidStopId && m_stop2Id != kInvalidStopId && m_weight != kInvalidWeight;

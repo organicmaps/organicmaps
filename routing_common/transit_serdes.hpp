@@ -211,16 +211,16 @@ public:
     p = Int64ToPoint(ReadVarInt<int64_t, Source>(m_source), POINT_COORD_BITS);
   }
 
-  void operator()(Edge::WrappedEdgeId & t, char const * /* name */ = nullptr)
+  void operator()(Edge::WrappedEdgeId & id, char const * /* name */ = nullptr)
   {
-    t = m_lastWrappedEdgeId + Edge::WrappedEdgeId(ReadVarUint<uint64_t, Source>(m_source));
-    m_lastWrappedEdgeId = t;
+    id = m_lastWrappedEdgeId + Edge::WrappedEdgeId(ReadVarUint<uint64_t, Source>(m_source));
+    m_lastWrappedEdgeId = id;
   }
 
-  void operator()(Stop::WrappedStopId & t, char const * /* name */ = nullptr)
+  void operator()(Stop::WrappedStopId & id, char const * /* name */ = nullptr)
   {
-    t = m_lastWrappedStopId + Stop::WrappedStopId(ReadVarUint<uint64_t, Source>(m_source));
-    m_lastWrappedStopId = t;
+    id = m_lastWrappedStopId + Stop::WrappedStopId(ReadVarUint<uint64_t, Source>(m_source));
+    m_lastWrappedStopId = id;
   }
 
   void operator()(FeatureIdentifiers & id, char const * name = nullptr)
