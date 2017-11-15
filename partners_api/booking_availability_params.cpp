@@ -45,4 +45,8 @@ bool AvailabilityParams::operator!=(AvailabilityParams const & rhs)
   return m_checkin != rhs.m_checkin || m_checkout != rhs.m_checkout || m_rooms != rhs.m_rooms ||
     m_minReviewScore != m_minReviewScore || m_stars != rhs.m_stars;
 }
+bool AvailabilityParams::operator==(AvailabilityParams const & rhs)
+{
+  return !this->operator!=(rhs);
+}
 }  // namespace booking

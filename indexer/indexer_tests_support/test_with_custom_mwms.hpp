@@ -69,9 +69,6 @@ public:
     return BuildMwm(name, feature::DataHeader::country, std::forward<BuildFn>(fn));
   }
 
-  Index & GetIndex() { return m_index; }
-  Index const & GetIndex() const { return m_index; }
-
 protected:
   static void Cleanup(platform::LocalCountryFile const & file);
 

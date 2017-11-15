@@ -3,7 +3,6 @@
 #include "base/macros.hpp"
 
 #include <map>
-#include <mutex>
 
 namespace booking
 {
@@ -11,7 +10,6 @@ namespace filter
 {
 namespace availability
 {
-// *NOTE* This class IS thread-safe.
 class Cache
 {
 public:
@@ -47,11 +45,19 @@ public:
   void Insert(std::string const & hotelId, HotelStatus const s);
 
   void RemoveOutdated();
-  void Drop();
-private:
-  void RemoveExtra();
+  void Clear();
 
-  std::map<std::string, Item> m_hotelToResult;
+private:
+  using HotelsMap = std::map<std::string, Item>;
+  // In case when size >= |m_maxCount| removes items except of those who have the status
+  // HotelStatus::NotReady.
+  void RemoveExtra();
+  bool IsExpired(Clock::time_point const & timestamp) const;
+  HotelStatus Get(HotelsMap & src, std::string const & hotelId);
+  void RemoveOutdated(HotelsMap & src);
+
+  HotelsMap m_hotelToResult;
+  HotelsMap m_notReadyHotels;
   // Count is unlimited when |m_maxCount| is equal to zero.
   size_t const m_maxCount = 1000;
   // Do not use aging when |m_expiryPeriodSeconds| is equal to zero.

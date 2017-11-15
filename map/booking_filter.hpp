@@ -3,7 +3,7 @@
 #include "map/booking_filter_availability_params.hpp"
 #include "map/booking_filter_cache.hpp"
 
-#include "base/worker_thread.hpp"
+#include <mutex>
 
 class Index;
 
@@ -33,7 +33,7 @@ private:
   std::mutex m_mutex;
   availability::Cache m_availabilityCache;
 
-  // |m_cacheDropCounter| and |m_currentParams| are used to identify request actuality.
+  // |m_cacheDropCounter| and |m_currentParams| are used to identify request freshness.
   uint32_t m_cacheDropCounter = {};
   AvailabilityParams m_currentParams;
 };

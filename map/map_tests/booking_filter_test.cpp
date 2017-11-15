@@ -13,8 +13,6 @@
 
 #include "storage/country_info_getter.hpp"
 
-#include "base/scope_guard.hpp"
-
 #include <utility>
 
 using namespace booking::filter;
@@ -25,6 +23,16 @@ namespace
 class TestMwmEnvironment : public indexer::tests_support::TestWithCustomMwms
 {
 protected:
+  TestMwmEnvironment()
+  {
+    booking::SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
+  }
+
+  ~TestMwmEnvironment()
+  {
+    booking::SetBookingUrlForTesting("");
+  }
+
   void OnMwmBuilt(MwmInfo const & info) override
   {
     m_infoGetter.AddCountry(storage::CountryDef(info.GetCountryName(), info.m_limitRect));
@@ -34,18 +42,14 @@ private:
   storage::CountryInfoGetterForTesting m_infoGetter;
 };
 
-UNIT_TEST(BookingFilter_AvailabilitySmoke)
+UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
 {
-  TestMwmEnvironment env;
   booking::Api api;
-  Filter filter(env.GetIndex(), api);
-
-  booking::SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
-  MY_SCOPE_GUARD(cleanup, []() { booking::SetBookingUrlForTesting(""); });
+  Filter filter(m_index, api);
 
   std::vector<std::string> const kHotelIds = {"10623", "10624", "10625"};
 
-  env.BuildCountry("TestMwm", [&kHotelIds](TestMwmBuilder & builder)
+  BuildCountry("TestMwm", [&kHotelIds](TestMwmBuilder & builder)
   {
     TestPOI hotel1(m2::PointD(1.0, 1.0), "hotel 1", "en");
     hotel1.GetMetadata().Set(feature::Metadata::FMD_SPONSORED_ID, kHotelIds[0]);
@@ -64,7 +68,7 @@ UNIT_TEST(BookingFilter_AvailabilitySmoke)
   search::Results results;
   results.AddResult({"suggest for testing", "suggest for testing"});
   search::Results expectedResults;
-  env.GetIndex().ForEachInRect(
+  m_index.ForEachInRect(
       [&results, &expectedResults](FeatureType & ft) {
         search::Result::Metadata metadata;
         metadata.m_isSponsoredHotel = true;

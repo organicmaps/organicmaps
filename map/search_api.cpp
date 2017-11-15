@@ -79,7 +79,8 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
   // TODO: delete me after Cian project is finished.
   if (IsCianMode(params.m_query))
     m_sponsoredMode = SponsoredMode::Cian;
-  else if (!params.m_bookingFilterParams.IsEmpty())
+
+  if (!params.m_bookingFilterParams.IsEmpty())
     m_sponsoredMode = SponsoredMode::Booking;
 
   SearchParams p;
@@ -105,7 +106,8 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
         if (results.IsEndMarker() && results.IsEndedNormal() &&
             !params.m_bookingFilterParams.IsEmpty())
         {
-          m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results, false);
+          m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results,
+                                                  false /* inViewport */);
         }
       });
 
@@ -117,7 +119,8 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   // TODO: delete me after Cian project is finished.
   if (IsCianMode(params.m_query))
     m_sponsoredMode = SponsoredMode::Cian;
-  else if (!params.m_bookingFilterParams.IsEmpty())
+
+  if (!params.m_bookingFilterParams.IsEmpty())
     m_sponsoredMode = SponsoredMode::Booking;
 
   SearchParams p;
@@ -146,7 +149,8 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
         if (results.IsEndMarker() && results.IsEndedNormal() &&
             !params.m_bookingFilterParams.IsEmpty())
         {
-          m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results, true);
+          m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results,
+                                                  true /* inViewport */);
         }
       });
 

@@ -46,7 +46,7 @@ class SearchAPI : public search::DownloaderSearchCallback::Delegate,
                   public search::ViewportSearchCallback::Delegate
 {
 public:
-  enum SponsoredMode
+  enum class SponsoredMode
   {
     None,
     // TODO (@y, @m): delete me after Cian project is finished.

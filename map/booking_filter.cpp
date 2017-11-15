@@ -18,7 +18,7 @@ namespace
 {
 struct HotelToResult
 {
-  HotelToResult(search::Result const & result) : m_result(result) {}
+  explicit HotelToResult(search::Result const & result) : m_result(result) {}
 
   search::Result m_result;
   std::string m_hotelId;
@@ -32,16 +32,16 @@ void FillAvailability(HotelToResult & hotelToResult, std::vector<std::string> co
 {
   using availability::Cache;
 
-  if (hotelToResult.m_cacheStatus == Cache::HotelStatus::Unavailable)
+  switch (hotelToResult.m_cacheStatus)
+  {
+  case Cache::HotelStatus::Unavailable:
     return;
-
-  if (hotelToResult.m_cacheStatus == Cache::HotelStatus::Available)
+  case Cache::HotelStatus::Available:
   {
     results.AddResult(std::move(hotelToResult.m_result));
     return;
   }
-
-  if (hotelToResult.m_cacheStatus == Cache::HotelStatus::NotReady)
+  case Cache::HotelStatus::NotReady:
   {
     auto hotelStatus = cache.Get(hotelToResult.m_hotelId);
     CHECK_NOT_EQUAL(hotelStatus, Cache::HotelStatus::Absent, ());
@@ -52,8 +52,7 @@ void FillAvailability(HotelToResult & hotelToResult, std::vector<std::string> co
 
     return;
   }
-
-  if (hotelToResult.m_cacheStatus == Cache::HotelStatus::Absent)
+  case Cache::HotelStatus::Absent:
   {
     if (std::binary_search(hotelIds.cbegin(), hotelIds.cend(), hotelToResult.m_hotelId))
     {
@@ -64,6 +63,7 @@ void FillAvailability(HotelToResult & hotelToResult, std::vector<std::string> co
     {
       cache.Insert(hotelToResult.m_hotelId, Cache::HotelStatus::Unavailable);
     }
+  }
   }
 }
 
@@ -98,10 +98,10 @@ void PrepareData(Index const & index, search::Results const & results,
     }
 
     auto it = std::find_if(hotelToResults.begin(), hotelToResults.end(),
-                              [&featureId](HotelToResult const & item)
-                              {
-                                return item.m_result.GetFeatureID() == featureId;
-                              });
+                          [&featureId](HotelToResult const & item)
+                          {
+                            return item.m_result.GetFeatureID() == featureId;
+                          });
     ASSERT(it != hotelToResults.cend(), ());
 
     FeatureType ft;
@@ -112,7 +112,7 @@ void PrepareData(Index const & index, search::Results const & results,
       continue;
     }
 
-    std::string hotelId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+    auto const hotelId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
     auto const status = cache.Get(hotelId);
 
     it->m_hotelId = hotelId;
@@ -147,7 +147,7 @@ void Filter::Availability(search::Results const & results,
     if (m_currentParams != params.m_params)
     {
       m_currentParams = std::move(params.m_params);
-      m_availabilityCache.Drop();
+      m_availabilityCache.Clear();
       ++m_cacheDropCounter;
     }
 
