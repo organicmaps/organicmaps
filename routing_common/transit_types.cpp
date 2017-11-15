@@ -227,15 +227,41 @@ bool ShapeId::IsValid() const
 }
 
 // EdgeFlags --------------------------------------------------------------------------------------
-void EdgeFlags::SetBit(bool bit, uint8_t bitMask)
+EdgeFlags::EdgeFlags()
+  : m_transfer(0)
+  , m_isShapeIdsEmpty(0)
+  , m_isShapeIdsSingle(0)
+  , m_isShapeIdsSame(0)
+  , m_isShapeIdsReversed(0)
 {
-  if (bit)
-    m_flags |= bitMask;
-  else
-    m_flags &= ~bitMask;
 }
 
-string DebugPrint(EdgeFlags const & f) { return strings::to_string(f.GetFlags()); }
+uint8_t EdgeFlags::GetFlags() const
+{
+  return m_transfer + m_isShapeIdsEmpty * kEmptyShapeIdsMask +
+         m_isShapeIdsSingle * kSingleShapeIdMask + m_isShapeIdsSame * kShapeIdIsSameMask +
+         m_isShapeIdsReversed * kShapeIdIsReversedMask;
+}
+
+void EdgeFlags::SetFlags(uint8_t flags)
+{
+  m_transfer = GetBit(flags, kTransferMask);
+  m_isShapeIdsEmpty = GetBit(flags, kEmptyShapeIdsMask);
+  m_isShapeIdsSingle = GetBit(flags, kSingleShapeIdMask);
+  m_isShapeIdsSame = GetBit(flags, kShapeIdIsSameMask);
+  m_isShapeIdsReversed = GetBit(flags, kShapeIdIsReversedMask);
+}
+
+string DebugPrint(EdgeFlags const & f)
+{
+  std::ostringstream ss;
+  ss << "EdgeFlags [m_transfer:" << f.IsTransfer();
+  ss << ", m_isShapeIdsEmpty:" << f.IsEmptyShapeIds();
+  ss << ", m_isShapeIdsSingle:" << f.IsSingleShapeId();
+  ss << ", m_isShapeIdsSame:" << f.IsShapeIdTheSame();
+  ss << ", m_isShapeIdsReversed:" << f.IsShapeIdReversed() << "]";
+  return ss.str();
+}
 
 // Edge -------------------------------------------------------------------------------------------
 Edge::Edge(StopId stop1Id, StopId stop2Id, Weight weight, LineId lineId, bool transfer,

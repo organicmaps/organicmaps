@@ -227,10 +227,17 @@ UNIT_TEST(Transit_EdgeSerialization)
     TEST(edge.IsValid(), (edge));
   }
   {
-    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
+    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, kInvalidLineId,
               true /* transfer */, {} /* shape ids */);
     TestSerialization(edge);
     TEST(edge.IsValid(), (edge));
+  }
+  {
+    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
+              true /* transfer */, {} /* shape ids */);
+    TestSerialization(edge);
+    // Note. A transfer edge (transfer == true) with a valid line id is not allowable.
+    TEST(!edge.IsValid(), (edge));
   }
 }
 

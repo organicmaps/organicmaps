@@ -261,7 +261,12 @@ public:
     (*this)(e.m_shapeIds);
   }
 
-  void operator()(EdgeFlags & f, char const * /* name */ = nullptr) { (*this)(f.m_flags); }
+  void operator()(EdgeFlags & f, char const * /* name */ = nullptr)
+  {
+    uint8_t flags = 0;
+    (*this)(flags);
+    f.SetFlags(flags);
+  }
 
   void operator()(vector<m2::PointD> & vs, char const * /* name */ = nullptr)
   {
