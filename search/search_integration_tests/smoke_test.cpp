@@ -52,24 +52,26 @@ class SmokeTest : public SearchTest
 {
 };
 
-class TestAlcoholShop : public TestPOI
+class AlcoShop : public TestPOI
 {
 public:
-  TestAlcoholShop(m2::PointD const & center, std::string const & name, std::string const & lang)
+  AlcoShop(m2::PointD const & center, string const & name, string const & lang)
     : TestPOI(center, name, lang)
   {
     SetTypes({{"shop", "alcohol"}});
   }
+
+  ~AlcoShop() override = default;
 };
 
 UNIT_CLASS_TEST(SmokeTest, Smoke)
 {
   char const kCountryName[] = "BuzzTown";
 
-  TestAlcoholShop wineShop(m2::PointD(0, 0), "Wine shop", "en");
-  TestAlcoholShop tequilaShop(m2::PointD(1, 0), "Tequila shop", "en");
-  TestAlcoholShop brandyShop(m2::PointD(0, 1), "Brandy shop", "en");
-  TestAlcoholShop vodkaShop(m2::PointD(1, 1), "Russian vodka shop", "en");
+  AlcoShop wineShop(m2::PointD(0, 0), "Wine shop", "en");
+  AlcoShop tequilaShop(m2::PointD(1, 0), "Tequila shop", "en");
+  AlcoShop brandyShop(m2::PointD(0, 1), "Brandy shop", "en");
+  AlcoShop vodkaShop(m2::PointD(1, 1), "Russian vodka shop", "en");
 
   auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
     builder.Add(wineShop);
