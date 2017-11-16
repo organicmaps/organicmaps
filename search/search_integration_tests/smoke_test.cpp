@@ -16,11 +16,11 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/vector.hpp"
+#include <string>
 
 using namespace generator::tests_support;
 using namespace search::tests_support;
+using namespace std;
 
 namespace search
 {
@@ -52,14 +52,24 @@ class SmokeTest : public SearchTest
 {
 };
 
+class TestAlcoholShop : public TestPOI
+{
+public:
+  TestAlcoholShop(m2::PointD const & center, std::string const & name, std::string const & lang)
+    : TestPOI(center, name, lang)
+  {
+    SetTypes({{"shop", "alcohol"}});
+  }
+};
+
 UNIT_CLASS_TEST(SmokeTest, Smoke)
 {
   char const kCountryName[] = "BuzzTown";
 
-  TestPOI wineShop(m2::PointD(0, 0), "Wine shop", "en");
-  TestPOI tequilaShop(m2::PointD(1, 0), "Tequila shop", "en");
-  TestPOI brandyShop(m2::PointD(0, 1), "Brandy shop", "en");
-  TestPOI vodkaShop(m2::PointD(1, 1), "Russian vodka shop", "en");
+  TestAlcoholShop wineShop(m2::PointD(0, 0), "Wine shop", "en");
+  TestAlcoholShop tequilaShop(m2::PointD(1, 0), "Tequila shop", "en");
+  TestAlcoholShop brandyShop(m2::PointD(0, 1), "Brandy shop", "en");
+  TestAlcoholShop vodkaShop(m2::PointD(1, 1), "Russian vodka shop", "en");
 
   auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
     builder.Add(wineShop);
