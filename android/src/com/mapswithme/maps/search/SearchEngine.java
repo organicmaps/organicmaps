@@ -110,18 +110,19 @@ public enum SearchEngine implements NativeSearchListener,
   }
 
   public static void searchInteractive(@NonNull String query, @NonNull String locale, long timestamp,
-                                       boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter)
+                                       boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter,
+                                       @Nullable BookingFilterParams bookingParams)
   {
     try
     {
-      nativeRunInteractiveSearch(query.getBytes("utf-8"), locale, timestamp, isMapAndTable, hotelsFilter);
+      nativeRunInteractiveSearch(query.getBytes("utf-8"), locale, timestamp, isMapAndTable, hotelsFilter, bookingParams);
     } catch (UnsupportedEncodingException ignored) { }
   }
 
   public static void searchInteractive(@NonNull String query, long timestamp, boolean isMapAndTable,
-                                       @Nullable HotelsFilter hotelsFilter)
+                                       @Nullable HotelsFilter hotelsFilter, @Nullable BookingFilterParams bookingParams)
   {
-    searchInteractive(query, Language.getKeyboardLocale(), timestamp, isMapAndTable, hotelsFilter);
+    searchInteractive(query, Language.getKeyboardLocale(), timestamp, isMapAndTable, hotelsFilter, bookingParams);
   }
 
   public static void searchMaps(String query, long timestamp)
@@ -177,12 +178,16 @@ public enum SearchEngine implements NativeSearchListener,
   /**
    * @param bytes utf-8 formatted bytes of query.
    */
-  private static native boolean nativeRunSearch(byte[] bytes, String language, long timestamp, boolean hasLocation, double lat, double lon, @Nullable HotelsFilter hotelsFilter);
+  private static native boolean nativeRunSearch(byte[] bytes, String language, long timestamp, boolean hasLocation,
+                                                double lat, double lon, @Nullable HotelsFilter hotelsFilter);
 
   /**
    * @param bytes utf-8 formatted query bytes
+   * @param bookingParams
    */
-  private static native void nativeRunInteractiveSearch(byte[] bytes, String language, long timestamp, boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter);
+  private static native void nativeRunInteractiveSearch(byte[] bytes, String language, long timestamp,
+                                                        boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter,
+                                                        BookingFilterParams bookingParams);
 
   /**
    * @param bytes utf-8 formatted query bytes

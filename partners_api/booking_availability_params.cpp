@@ -3,6 +3,8 @@
 
 #include "base/string_utils.hpp"
 
+#include <sstream>
+
 using namespace base;
 
 namespace
@@ -15,6 +17,43 @@ std::string FormatTime(booking::AvailabilityParams::Time p)
 
 namespace booking
 {
+AvailabilityParams::Room::Room(uint8_t adultsCount, int8_t ageOfChild)
+  : m_adultsCount(adultsCount), m_ageOfChild(ageOfChild)
+{
+}
+
+void AvailabilityParams::Room::SetAdultsCount(uint8_t adultsCount)
+{
+  m_adultsCount = adultsCount;
+}
+
+void AvailabilityParams::Room::SetAgeOfChild(int8_t ageOfChild)
+{
+  m_ageOfChild = ageOfChild;
+}
+
+std::string AvailabilityParams::Room::ToString() const
+{
+  static std::string const kAdult = "A";
+  std::vector<std::string> adults(m_adultsCount, kAdult);
+  std::string child = m_ageOfChild == kNoChildren ? "" : "," + std::to_string(m_ageOfChild);
+
+  std::ostringstream os;
+  os << strings::JoinStrings(adults, ',') << child;
+
+  return os.str();
+}
+
+bool AvailabilityParams::Room::operator!=(AvailabilityParams::Room const & rhs) const
+{
+  return m_adultsCount != rhs.m_adultsCount || m_ageOfChild != rhs.m_ageOfChild;
+}
+
+bool AvailabilityParams::Room::operator==(AvailabilityParams::Room const & rhs) const
+{
+  return !this->operator!=(rhs);
+}
+
 url::Params AvailabilityParams::Get() const
 {
   url::Params result;
@@ -24,7 +63,7 @@ url::Params AvailabilityParams::Get() const
   result.push_back({"checkout", FormatTime(m_checkout)});
 
   for (size_t i = 0; i < m_rooms.size(); ++i)
-    result.push_back({"room" + to_string(i + 1), m_rooms[i]});
+    result.push_back({"room" + to_string(i + 1), m_rooms[i].ToString()});
 
   if (m_minReviewScore != 0.0)
     result.push_back({"min_review_score", to_string(m_minReviewScore)});
@@ -43,7 +82,7 @@ bool AvailabilityParams::IsEmpty() const
 bool AvailabilityParams::operator!=(AvailabilityParams const & rhs) const
 {
   return m_checkin != rhs.m_checkin || m_checkout != rhs.m_checkout || m_rooms != rhs.m_rooms ||
-    m_minReviewScore != m_minReviewScore || m_stars != rhs.m_stars;
+         m_minReviewScore != rhs.m_minReviewScore || m_stars != rhs.m_stars;
 }
 bool AvailabilityParams::operator==(AvailabilityParams const & rhs) const
 {

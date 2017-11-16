@@ -13,6 +13,7 @@
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
 
+#include <chrono>
 #include <cstdint>
 #include <memory>
 #include <vector>
@@ -242,6 +243,68 @@ private:
   bool m_initialized = false;
 } g_hotelsFilterBuilder;
 
+class BookingAvailabilityParamsBuilder
+{
+public:
+  void Init(JNIEnv * env)
+  {
+    if (m_initialized)
+      return;
+
+    m_bookingFilterParamsClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/BookingFilterParams");
+    m_roomClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/BookingFilterParams$Room");
+    m_checkinMillisecId = env->GetFieldID(m_bookingFilterParamsClass, "mCheckinMillisec", "J");
+    m_checkoutMillisecId = env->GetFieldID(m_bookingFilterParamsClass, "mCheckoutMillisec", "J");
+    m_roomsId = env->GetFieldID(m_bookingFilterParamsClass, "mRooms",
+                              "[Lcom/mapswithme/maps/search/BookingFilterParams$Room;");
+    m_roomAdultsCountId = env->GetFieldID(m_roomClass, "mAdultsCount", "I");
+    m_roomAgeOfChildId = env->GetFieldID(m_roomClass, "mAgeOfChild", "I");
+
+    m_initialized = true;
+  }
+
+  booking::AvailabilityParams Build(JNIEnv * env, jobject bookingFilterParams)
+  {
+    booking::AvailabilityParams result;
+
+    if (!m_initialized || bookingFilterParams == nullptr)
+      return result;
+
+    jlong const jcheckin = env->GetLongField(bookingFilterParams, m_checkinMillisecId) / 1000;
+    result.m_checkin = booking::AvailabilityParams::Clock::from_time_t(jcheckin);
+
+    jlong const jcheckout = env->GetLongField(bookingFilterParams, m_checkoutMillisecId) / 1000;
+    result.m_checkout = booking::AvailabilityParams::Clock::from_time_t(jcheckout);
+
+    jobjectArray const jrooms =
+            static_cast<jobjectArray>(env->GetObjectField(bookingFilterParams, m_roomsId));
+    auto const length = static_cast<size_t>(env->GetArrayLength(jrooms));
+    result.m_rooms.resize(length);
+    for (size_t i = 0; i < length; ++i)
+    {
+      jobject jroom = env->GetObjectArrayElement(jrooms, i);
+
+      booking::AvailabilityParams::Room room;
+      room.SetAdultsCount(static_cast<uint8_t>(env->GetIntField(jroom, m_roomAdultsCountId)));
+      room.SetAgeOfChild(static_cast<int8_t>(env->GetIntField(jroom, m_roomAgeOfChildId)));
+      result.m_rooms[i] = std::move(room);
+    }
+
+    return result;
+  }
+
+private:
+  jclass m_bookingFilterParamsClass = nullptr;
+  jclass m_roomClass = nullptr;
+  jfieldID m_checkinMillisecId = nullptr;
+  jfieldID m_checkoutMillisecId = nullptr;
+  jfieldID m_roomsId = nullptr;
+  jfieldID m_roomAdultsCountId = nullptr;
+  jfieldID m_roomAgeOfChildId = nullptr;
+
+  bool m_initialized = false;
+} g_bookingAvailabilityParamsBuilder;
+
 // TODO yunitsky
 // Do not cache search results here, after new search will be implemented.
 // Currently we cannot serialize FeatureID of search result properly.
@@ -422,6 +485,7 @@ extern "C"
     g_mapResultCtor = jni::GetConstructorID(env, g_mapResultClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 
     g_hotelsFilterBuilder.Init(env);
+    g_bookingAvailabilityParamsBuilder.Init(env);
   }
 
   JNIEXPORT jboolean JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearch(
@@ -442,12 +506,14 @@ extern "C"
 
   JNIEXPORT void JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunInteractiveSearch(
       JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp,
-      jboolean isMapAndTable, jobject hotelsFilter)
+      jboolean isMapAndTable, jobject hotelsFilter, jobject bookingFilterParams)
   {
     search::ViewportSearchParams vparams;
     vparams.m_query = jni::ToNativeString(env, bytes);
     vparams.m_inputLocale = jni::ToNativeString(env, lang);
     vparams.m_hotelsFilter = g_hotelsFilterBuilder.Build(env, hotelsFilter);
+    vparams.m_bookingFilterParams.m_params =
+      g_bookingAvailabilityParamsBuilder.Build(env, bookingFilterParams);
 
     // TODO (@alexzatsepin): set up vparams.m_onCompleted here and use
     // HotelsClassifier for hotel queries detection.

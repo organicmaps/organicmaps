@@ -12,9 +12,29 @@ namespace booking
 /// [m_hotelIds], [m_checkin], [m_checkout], [m_rooms] are required.
 struct AvailabilityParams
 {
-  using Time = std::chrono::system_clock::time_point;
+  struct Room
+  {
+    static constexpr int8_t kNoChildren = -1;
+    Room() = default;
+    Room(uint8_t adultsCount, int8_t ageOfChild);
+
+    void SetAdultsCount(uint8_t adultsCount);
+    void SetAgeOfChild(int8_t ageOfChild);
+
+    std::string ToString() const;
+
+    bool operator!=(Room const & rhs) const;
+    bool operator==(Room const & rhs) const;
+  private:
+    uint8_t m_adultsCount = 0;
+    // No children by default.
+    int8_t m_ageOfChild = kNoChildren;
+  };
+
+  using Clock = std::chrono::system_clock;
+  using Time = Clock::time_point;
   using Hotels = std::vector<std::string>;
-  using Rooms = std::vector<std::string>;
+  using Rooms = std::vector<Room>;
   using Stars = std::vector<std::string>;
 
   base::url::Params Get() const;

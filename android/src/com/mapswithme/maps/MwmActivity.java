@@ -586,7 +586,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     SearchEngine.searchInteractive(mSearchController.getQuery(), System.nanoTime(),
                                    false /* isMapAndTable */,
-                                   mFilterController != null ? mFilterController.getFilter() : null);
+                                   mFilterController != null ? mFilterController.getFilter() : null,
+                                   null /* bookingParams */);
     SearchEngine.showAllResults(mSearchController.getQuery());
   }
 

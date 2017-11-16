@@ -585,7 +585,7 @@ public class SearchFragment extends BaseMwmFragment
     SearchEngine.searchInteractive(
         query, !TextUtils.isEmpty(mInitialLocale)
                ? mInitialLocale : com.mapswithme.util.Language.getKeyboardLocale(),
-        mLastQueryTimestamp, false /* isMapAndTable */, hotelsFilter);
+        mLastQueryTimestamp, false /* isMapAndTable */, hotelsFilter, null /* bookingParams */);
     SearchEngine.showAllResults(query);
     Utils.navigateToParent(getActivity());
 
@@ -629,7 +629,7 @@ public class SearchFragment extends BaseMwmFragment
     if (isInteractiveSearch())
     {
       SearchEngine.searchInteractive(
-          getQuery(), mLastQueryTimestamp, true /* isMapAndTable */, hotelsFilter);
+          getQuery(), mLastQueryTimestamp, true /* isMapAndTable */, hotelsFilter, null /* bookingParams */);
     }
     else
     {
