@@ -197,7 +197,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     TextView totalTimeView = (TextView) mTransitFrame.findViewById(R.id.total_time);
     totalTimeView.setText(RoutingController.formatRoutingTime(mContext, (int) info.getTotalTime(),
                                                             R.dimen.text_size_routing_number));
-    // TODO: set pedestrian total distance.
+    TextView distanceView = (TextView) mTransitFrame.findViewById(R.id.total_distance);
+    distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalDistanceUnits());
   }
 
   void showAddStartFrame()

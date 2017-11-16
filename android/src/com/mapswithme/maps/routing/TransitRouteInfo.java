@@ -37,6 +37,18 @@ public class TransitRouteInfo
     mSteps = steps;
   }
 
+  @NonNull
+  String getTotalPedestrianDistance()
+  {
+    return mTotalPedestrianDistance;
+  }
+
+  @NonNull
+  String getTotalDistanceUnits()
+  {
+    return mTotalDistanceUnits;
+  }
+
   int getTotalTime()
   {
     return mTotalTimeInSec;
