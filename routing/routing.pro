@@ -21,7 +21,6 @@ SOURCES += \
     cross_mwm_connector.cpp \
     cross_mwm_connector_serialization.cpp \
     cross_mwm_graph.cpp \
-    cross_mwm_index_graph.cpp \
     cross_mwm_osrm_graph.cpp \
     cross_mwm_road_graph.cpp \
     cross_mwm_router.cpp \

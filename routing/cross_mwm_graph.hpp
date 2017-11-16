@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/cross_mwm_ids.hpp"
 #include "routing/cross_mwm_index_graph.hpp"
 #include "routing/cross_mwm_osrm_graph.hpp"
 #include "routing/segment.hpp"
@@ -154,7 +155,9 @@ private:
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
   CourntryRectFn const & m_countryRectFn;
-  CrossMwmIndexGraph m_crossMwmIndexGraph;
+  // @todo(@tatiana-kondakova) For the time being CrossMwmGraph is implemented for osm id.
+  // To add cross mwm for transit graph it's necessary to add CrossMwmIndexGraph<TransitId>.
+  CrossMwmIndexGraph<connector::OsmId> m_crossMwmIndexGraph;
   CrossMwmOsrmGraph m_crossMwmOsrmGraph;
 };
 

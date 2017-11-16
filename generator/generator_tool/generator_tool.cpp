@@ -43,6 +43,7 @@
 
 #include <cstdlib>
 #include <string>
+#include <routing/cross_mwm_ids.hpp>
 
 #include "defines.hpp"
 
@@ -353,14 +354,14 @@ int main(int argc, char ** argv)
 
       if (FLAGS_make_cross_mwm)
       {
-        CHECK(routing::BuildCrossMwmSection(path, datFile, country, *countryParentGetter,
-                                            osmToFeatureFilename, FLAGS_disable_cross_mwm_progress),
-              ("Error generating cross mwm section.", path, datFile, country));
+        routing::BuildRoutingCrossMwmSection(path, datFile, country, *countryParentGetter,
+                                             osmToFeatureFilename, FLAGS_disable_cross_mwm_progress);
       }
 
       if (FLAGS_make_transit_cross_mwm)
       {
-        ; // @todo(bykoianko) It's necessary to put here serialization of transit cross mwm section.
+        routing::BuildTransitCrossMwmSection(path, datFile, country, *countryParentGetter,
+                                             FLAGS_disable_cross_mwm_progress);
       }
     }
 

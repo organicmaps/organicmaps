@@ -1,17 +1,20 @@
 #include "testing/testing.hpp"
 
 #include "routing/cross_mwm_connector_serialization.hpp"
+#include "routing/cross_mwm_ids.hpp"
 
 #include "coding/writer.hpp"
 
 using namespace routing;
+using namespace routing::connector;
 using namespace std;
 
 namespace
 {
 NumMwmId constexpr mwmId = 777;
 
-void TestConnectorConsistency(CrossMwmConnector const & connector)
+template <typename CrossMwmId>
+void TestConnectorConsistency(CrossMwmConnector<CrossMwmId> const & connector)
 {
   for (Segment const & enter : connector.GetEnters())
   {
@@ -26,7 +29,8 @@ void TestConnectorConsistency(CrossMwmConnector const & connector)
   }
 }
 
-void TestEdges(CrossMwmConnector const & connector, Segment const & from, bool isOutgoing,
+template <typename CrossMwmId>
+void TestEdges(CrossMwmConnector<CrossMwmId> const & connector, Segment const & from, bool isOutgoing,
                vector<SegmentEdge> const & expectedEdges)
 {
   vector<SegmentEdge> edges;
@@ -39,10 +43,10 @@ namespace routing_test
 {
 UNIT_TEST(OneWayEnter)
 {
-  uint64_t constexpr osmId = 1;
+  OsmId constexpr osmId = 1;
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  CrossMwmConnector connector(mwmId);
+  CrossMwmConnector<OsmId> connector(mwmId);
   connector.AddTransition(osmId, featureId, segmentIdx, true /* oneWay */, true /* forwardIsEnter */,
                           {} /* backPoint */, {} /* frontPoint */);
 
@@ -65,10 +69,10 @@ UNIT_TEST(OneWayEnter)
 
 UNIT_TEST(OneWayExit)
 {
-  uint64_t constexpr osmId = 1;
+  OsmId constexpr osmId = 1;
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  CrossMwmConnector connector(mwmId);
+  CrossMwmConnector<OsmId> connector(mwmId);
   connector.AddTransition(osmId, featureId, segmentIdx, true /* oneWay */, false /* forwardIsEnter */,
                           {} /* backPoint */, {} /* frontPoint */);
 
@@ -91,10 +95,10 @@ UNIT_TEST(OneWayExit)
 
 UNIT_TEST(TwoWayEnter)
 {
-  uint64_t constexpr osmId = 1;
+  OsmId constexpr osmId = 1;
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  CrossMwmConnector connector(mwmId);
+  CrossMwmConnector<OsmId> connector(mwmId);
   connector.AddTransition(osmId, featureId, segmentIdx, false /* oneWay */, true /* forwardIsEnter */,
                           {} /* backPoint */, {} /* frontPoint */);
 
@@ -117,10 +121,10 @@ UNIT_TEST(TwoWayEnter)
 
 UNIT_TEST(TwoWayExit)
 {
-  uint64_t constexpr osmId = 1;
+  OsmId constexpr osmId = 1;
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  CrossMwmConnector connector(mwmId);
+  CrossMwmConnector<OsmId> connector(mwmId);
   connector.AddTransition(osmId, featureId, segmentIdx, false /* oneWay */, false /* forwardIsEnter */,
                           {} /* backPoint */, {} /* frontPoint */);
 
@@ -147,14 +151,14 @@ UNIT_TEST(Serialization)
 
   vector<uint8_t> buffer;
   {
-    vector<CrossMwmConnectorSerializer::Transition> transitions = {
+    vector<CrossMwmConnectorSerializer::Transition<OsmId>> transitions = {
         /* osmId featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter, backPoint, frontPoint */
         {100, 10, 1, kCarMask, kCarMask, true, m2::PointD(1.1, 1.2), m2::PointD(1.3, 1.4)},
         {200, 20, 2, kCarMask, 0, true, m2::PointD(2.1, 2.2), m2::PointD(2.3, 2.4)},
         {300, 30, 3, kPedestrianMask, kCarMask, true, m2::PointD(3.1, 3.2), m2::PointD(3.3, 3.4)}};
 
-    CrossMwmConnectorPerVehicleType connectors;
-    CrossMwmConnector & carConnector = connectors[static_cast<size_t>(VehicleType::Car)];
+    CrossMwmConnectorPerVehicleType<OsmId> connectors;
+    CrossMwmConnector<OsmId> & carConnector = connectors[static_cast<size_t>(VehicleType::Car)];
     for (auto const & transition : transitions)
       CrossMwmConnectorSerializer::AddTransition(transition, kCarMask, carConnector);
 
@@ -166,7 +170,7 @@ UNIT_TEST(Serialization)
     CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
   }
 
-  CrossMwmConnector connector(mwmId);
+  CrossMwmConnector<OsmId> connector(mwmId);
   {
     MemReader reader(buffer.data(), buffer.size());
     ReaderSource<MemReader> source(reader);
@@ -248,13 +252,12 @@ UNIT_TEST(WeightsSerialization)
 {
   size_t constexpr kNumTransitions = 3;
   vector<double> const weights = {
-      4.0,  20.0, CrossMwmConnector::kNoRoute, 12.0, CrossMwmConnector::kNoRoute, 40.0, 48.0,
-      24.0, 12.0};
+      4.0, 20.0, connector::kNoRoute, 12.0, connector::kNoRoute, 40.0, 48.0, 24.0, 12.0};
   TEST_EQUAL(weights.size(), kNumTransitions * kNumTransitions, ());
 
   vector<uint8_t> buffer;
   {
-    vector<CrossMwmConnectorSerializer::Transition> transitions;
+    vector<CrossMwmConnectorSerializer::Transition<OsmId>> transitions;
     for (uint32_t featureId = 0; featureId < kNumTransitions; ++featureId)
     {
       auto const osmId = static_cast<uint64_t>(featureId * 10);
@@ -262,8 +265,8 @@ UNIT_TEST(WeightsSerialization)
                                true /* forwardIsEnter */, m2::PointD::Zero(), m2::PointD::Zero());
     }
 
-    CrossMwmConnectorPerVehicleType connectors;
-    CrossMwmConnector & carConnector = connectors[static_cast<size_t>(VehicleType::Car)];
+    CrossMwmConnectorPerVehicleType<OsmId> connectors;
+    CrossMwmConnector<OsmId> & carConnector = connectors[static_cast<size_t>(VehicleType::Car)];
     for (auto const & transition : transitions)
       CrossMwmConnectorSerializer::AddTransition(transition, kCarMask, carConnector);
 
@@ -276,7 +279,7 @@ UNIT_TEST(WeightsSerialization)
     CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
   }
 
-  CrossMwmConnector connector(mwmId);
+  CrossMwmConnector<OsmId> connector(mwmId);
   {
     MemReader reader(buffer.data(), buffer.size());
     ReaderSource<MemReader> source(reader);
@@ -308,7 +311,7 @@ UNIT_TEST(WeightsSerialization)
     for (uint32_t exitId = 0; exitId < kNumTransitions; ++exitId)
     {
       auto const weight = weights[weightIdx];
-      if (weight != CrossMwmConnector::kNoRoute)
+      if (weight != connector::kNoRoute)
       {
         expectedEdges.emplace_back(Segment(mwmId, exitId, 1 /* segmentIdx */, false /* forward */),
                                    RouteWeight::FromCrossMwmWeight(weight));

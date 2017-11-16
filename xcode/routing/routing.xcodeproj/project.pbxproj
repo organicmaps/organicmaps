@@ -118,7 +118,6 @@
 		56CA09E91E30F19800D05C9A /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CA09E81E30F19800D05C9A /* libtraffic.a */; };
 		56CA630A1F619C1000E6681B /* road_graph_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA63061F61206700E6681B /* road_graph_tests.cpp */; };
 		56CC5A371E3884960016AC46 /* cross_mwm_index_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56CC5A361E3884960016AC46 /* cross_mwm_index_graph.hpp */; };
-		56D637D61E4B12AA00B86D7B /* cross_mwm_index_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D637D51E4B12AA00B86D7B /* cross_mwm_index_graph.cpp */; };
 		56EA2FD51D8FD8590083F01A /* routing_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EA2FD41D8FD8590083F01A /* routing_helpers.hpp */; };
 		56ED7DBD1F69425700B67156 /* turn_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567E9F741F5850460064CB96 /* turn_test.cpp */; };
 		56F0D7341D896A5300045886 /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DE1C69F198003AA26F /* libmap.a */; };
@@ -152,6 +151,7 @@
 		56F0D7591D896A5300045886 /* packed_polygons_obsolete.bin in Resources */ = {isa = PBXBuildFile; fileRef = 671182E81C7F0E1F00CB8177 /* packed_polygons_obsolete.bin */; };
 		56F0D75A1D896A5300045886 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD531C68BB14009CB89E /* classificator.txt */; };
 		56F0D75B1D896A5300045886 /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD611C68F747009CB89E /* sound-strings */; };
+		56FA20471FBF23A90045DE78 /* cross_mwm_ids.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56FA20461FBF23A90045DE78 /* cross_mwm_ids.hpp */; };
 		670B84C01A9381D900CE4492 /* cross_routing_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */; };
 		670B84C11A9381D900CE4492 /* cross_routing_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */; };
 		670C62131AC5A15700C38A8C /* routing_mapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670C62111AC5A15700C38A8C /* routing_mapping.cpp */; };
@@ -414,9 +414,9 @@
 		56CA09E81E30F19800D05C9A /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "/Users/vladimirbykoyanko/src_github_master/omim/xcode/traffic/../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<absolute>"; };
 		56CA63061F61206700E6681B /* road_graph_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_graph_tests.cpp; sourceTree = "<group>"; };
 		56CC5A361E3884960016AC46 /* cross_mwm_index_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_index_graph.hpp; sourceTree = "<group>"; };
-		56D637D51E4B12AA00B86D7B /* cross_mwm_index_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_mwm_index_graph.cpp; sourceTree = "<group>"; };
 		56EA2FD41D8FD8590083F01A /* routing_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_helpers.hpp; sourceTree = "<group>"; };
 		56F0D75F1D896A5300045886 /* routing_benchmarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = routing_benchmarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		56FA20461FBF23A90045DE78 /* cross_mwm_ids.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_ids.hpp; sourceTree = "<group>"; };
 		670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_routing_context.cpp; sourceTree = "<group>"; };
 		670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_routing_context.hpp; sourceTree = "<group>"; };
 		670C62111AC5A15700C38A8C /* routing_mapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_mapping.cpp; sourceTree = "<group>"; };
@@ -811,6 +811,7 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				56FA20461FBF23A90045DE78 /* cross_mwm_ids.hpp */,
 				40BEC0801F99FFD600E06CA4 /* transit_info.hpp */,
 				5670595B1F3AF97F0062672D /* checkpoint_predictor.cpp */,
 				5670595C1F3AF97F0062672D /* checkpoint_predictor.hpp */,
@@ -826,7 +827,6 @@
 				56C439251E93BF8C00998E29 /* cross_mwm_graph.hpp */,
 				56C439261E93BF8C00998E29 /* cross_mwm_osrm_graph.cpp */,
 				56C439271E93BF8C00998E29 /* cross_mwm_osrm_graph.hpp */,
-				56D637D51E4B12AA00B86D7B /* cross_mwm_index_graph.cpp */,
 				674F9BBA1B0A580E00704FFA /* async_router.cpp */,
 				674F9BBB1B0A580E00704FFA /* async_router.hpp */,
 				671F58BA1B874EA20032311E /* base */,
@@ -1019,6 +1019,7 @@
 				56099E341CC9247E00A7772A /* bicycle_directions.hpp in Headers */,
 				670EE55E1B6001E7001E8064 /* routing_session.hpp in Headers */,
 				56099E291CC7C97D00A7772A /* loaded_path_segment.hpp in Headers */,
+				56FA20471FBF23A90045DE78 /* cross_mwm_ids.hpp in Headers */,
 				670EE55F1B6001E7001E8064 /* routing_settings.hpp in Headers */,
 				56CA09E61E30E73B00D05C9A /* index_graph_tools.hpp in Headers */,
 				0C81E1581F0258AA00DC66DF /* segmented_route.hpp in Headers */,
@@ -1289,7 +1290,6 @@
 				5694CECC1EBA25F7004576D3 /* road_access.cpp in Sources */,
 				A1616E2B1B6B60AB003F078E /* router_delegate.cpp in Sources */,
 				6741AA9C1BF35331002C974C /* turns_notification_manager.cpp in Sources */,
-				56D637D61E4B12AA00B86D7B /* cross_mwm_index_graph.cpp in Sources */,
 				0C0DF9211DE898B70055A22F /* index_graph_starter.cpp in Sources */,
 				A120B3471B4A7BE5002F3808 /* cross_mwm_router.cpp in Sources */,
 				56C439281E93BF8C00998E29 /* cross_mwm_graph.cpp in Sources */,

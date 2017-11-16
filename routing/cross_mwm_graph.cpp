@@ -153,7 +153,7 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
   if (allNeighborsHaveCrossMwmSection && currentMwmStatus == MwmStatus::CrossMwmSectionExists)
   {
     DeserializeTransitions(neighbors);
-    m_crossMwmIndexGraph.GetTwinsByOsmId(s, isOutgoing, neighbors, twins);
+    m_crossMwmIndexGraph.GetTwinsByCrossMwmId(s, isOutgoing, neighbors, twins);
   }
   else
   {

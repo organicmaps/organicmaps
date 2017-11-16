@@ -9,7 +9,7 @@ namespace routing
 double RouteWeight::ToCrossMwmWeight() const
 {
   if (m_nonPassThroughCross > 0)
-    return CrossMwmConnector::kNoRoute;
+    return connector::kNoRoute;
   return GetWeight();
 }
 
