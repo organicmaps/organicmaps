@@ -7055,19 +7055,6 @@
 			};
 			name = Debug;
 		};
-		6741AA591BF340DE002C974C /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
-					"$(PROJECT_DIR)/3party/GoogleSignIn",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-			};
-			name = AdHoc;
-		};
 		6741AA5A1BF340DE002C974C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7259,61 +7246,6 @@
 			};
 			name = Debug;
 		};
-		849CF7A01DE842290024A8A5 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
-					"$(PROJECT_DIR)/3party/GoogleSignIn",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/../omim-iphone-cmake-release-$(CURRENT_ARCH)/out/release",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-ldrape_frontend",
-					"-ldrape",
-					"-lstorage",
-					"-lrouting",
-					"-lrouting_common",
-					"-lindexer",
-					"-lplatform",
-					"-lpartners_api",
-					"-ltracking",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lminizip",
-					"-ljansson",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-lsuccinct",
-					"-ObjC",
-					"-lopening_hours",
-					"-lpugixml",
-					"-loauthcpp",
-					"-leditor",
-					"-ltraffic",
-					"-lstb_image",
-					"-lsdf_image",
-					"-licu",
-					"-llocal_ads",
-					"-lbsdiff",
-					"-lmwm_diff",
-					"-lugc",
-					"-lagg",
-				);
-				PRODUCT_NAME = "cm beta";
-			};
-			name = AdHoc;
-		};
 		849CF7A11DE842290024A8A5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7423,6 +7355,183 @@
 				PRODUCT_NAME = "cm pf";
 			};
 			name = "Production Full";
+		};
+		A6E0F06B1FBD9CC30006D64C /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 347526FB1DC0B00F00918CF5 /* common-release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				BUNDLE_IDENTIFIER = mapsme.beta;
+				DEVELOPMENT_TEAM = L2QFT5NA2Q;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party",
+					"$(PROJECT_DIR)/3party/MyTarget",
+					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
+				);
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					NS_BLOCK_ASSERTIONS,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/glm",
+					"$(PROJECT_DIR)/3party/MoPubSDK/**",
+				);
+				INFOPLIST_FILE = MAPSME.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/Flurry",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-Wall",
+					"-Wno-unused-local-typedef",
+					"-Wimplicit-retain-self",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
+				PRODUCT_NAME = "maps.me beta";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Beta;
+		};
+		A6E0F06C1FBD9CC30006D64C /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/../omim-iphone-release-$(CURRENT_ARCH)/out/release",
+				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-ldrape_frontend",
+					"-ldrape",
+					"-lstorage",
+					"-lrouting",
+					"-lrouting_common",
+					"-lindexer",
+					"-lplatform",
+					"-lpartners_api",
+					"-ltracking",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lminizip",
+					"-ljansson",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-lsuccinct",
+					"-ObjC",
+					"-lopening_hours",
+					"-lpugixml",
+					"-loauthcpp",
+					"-leditor",
+					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
+					"-licu",
+					"-llocal_ads",
+					"-lugc",
+					"-lagg",
+					"-lbsdiff",
+					"-lmwm_diff",
+				);
+				PRODUCT_NAME = "qt rel";
+			};
+			name = Beta;
+		};
+		A6E0F06D1FBD9CC30006D64C /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+			};
+			name = Beta;
+		};
+		A6E0F06E1FBD9CC30006D64C /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+					"$(PROJECT_DIR)/3party/GoogleSignIn",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/../omim-iphone-cmake-release-$(CURRENT_ARCH)/out/release",
+				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-ldrape_frontend",
+					"-ldrape",
+					"-lstorage",
+					"-lrouting",
+					"-lrouting_common",
+					"-lindexer",
+					"-lplatform",
+					"-lpartners_api",
+					"-ltracking",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lminizip",
+					"-ljansson",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-lsuccinct",
+					"-ObjC",
+					"-lopening_hours",
+					"-lpugixml",
+					"-loauthcpp",
+					"-leditor",
+					"-ltraffic",
+					"-lstb_image",
+					"-lsdf_image",
+					"-licu",
+					"-llocal_ads",
+					"-lbsdiff",
+					"-lmwm_diff",
+					"-lugc",
+					"-lagg",
+				);
+				PRODUCT_NAME = "cm rel";
+			};
+			name = Beta;
 		};
 		FAAB4119149BA83500C245B1 /* Simulator */ = {
 			isa = XCBuildConfiguration;
@@ -7638,114 +7747,6 @@
 				PRODUCT_NAME = "qt dbg";
 			};
 			name = Debug;
-		};
-		FAAB411D149BA85500C245B1 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 347526FB1DC0B00F00918CF5 /* common-release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUNDLE_IDENTIFIER = "com.my.maps-beta-enterprise";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = L2QFT5NA2Q;
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party",
-					"$(PROJECT_DIR)/3party/MyTarget",
-					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
-				);
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/glm",
-					"$(PROJECT_DIR)/3party/MoPubSDK/**",
-				);
-				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/Flurry",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-Wall",
-					"-Wno-unused-local-typedef",
-					"-Wimplicit-retain-self",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
-				PRODUCT_NAME = "maps.me beta";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = AdHoc;
-		};
-		FAAB411E149BA85500C245B1 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
-					"$(PROJECT_DIR)/3party/GoogleSignIn",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/../omim-iphone-production-$(CURRENT_ARCH)/out/production",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-ldrape_frontend",
-					"-ldrape",
-					"-lstorage",
-					"-lrouting",
-					"-lrouting_common",
-					"-lindexer",
-					"-lplatform",
-					"-lpartners_api",
-					"-ltracking",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lminizip",
-					"-ljansson",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-lsuccinct",
-					"-ObjC",
-					"-lopening_hours",
-					"-lpugixml",
-					"-loauthcpp",
-					"-leditor",
-					"-ltraffic",
-					"-lstb_image",
-					"-lsdf_image",
-					"-licu",
-					"-llocal_ads",
-					"-lugc",
-					"-lagg",
-					"-lbsdiff",
-					"-lmwm_diff",
-				);
-				PRODUCT_NAME = "qt beta";
-			};
-			name = AdHoc;
 		};
 		FAAB411F149BA86000C245B1 /* Production Full */ = {
 			isa = XCBuildConfiguration;
@@ -8084,12 +8085,12 @@
 				FAAB411A149BA83500C245B1 /* Simulator */,
 				FACFE54515F8F35600CE8B20 /* Simulator Release */,
 				FAAB411C149BA84700C245B1 /* Debug */,
-				FAAB411E149BA85500C245B1 /* AdHoc */,
 				FABB561F149CD957006969C0 /* Release */,
+				A6E0F06C1FBD9CC30006D64C /* Beta */,
 				FAAB4120149BA86000C245B1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
+			defaultConfigurationName = Simulator;
 		};
 		6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "MAPS.ME" */ = {
 			isa = XCConfigurationList;
@@ -8097,12 +8098,12 @@
 				6741AA551BF340DE002C974C /* Simulator */,
 				6741AA561BF340DE002C974C /* Simulator Release */,
 				6741AA571BF340DE002C974C /* Debug */,
-				6741AA591BF340DE002C974C /* AdHoc */,
 				6741AA5A1BF340DE002C974C /* Release */,
+				A6E0F06D1FBD9CC30006D64C /* Beta */,
 				6741AA5C1BF340DE002C974C /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
+			defaultConfigurationName = Simulator;
 		};
 		849CF79C1DE842290024A8A5 /* Build configuration list for PBXNativeTarget "cmMAPS.ME" */ = {
 			isa = XCConfigurationList;
@@ -8110,12 +8111,12 @@
 				849CF79D1DE842290024A8A5 /* Simulator */,
 				849CF79E1DE842290024A8A5 /* Simulator Release */,
 				849CF79F1DE842290024A8A5 /* Debug */,
-				849CF7A01DE842290024A8A5 /* AdHoc */,
 				849CF7A11DE842290024A8A5 /* Release */,
+				A6E0F06E1FBD9CC30006D64C /* Beta */,
 				849CF7A21DE842290024A8A5 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
+			defaultConfigurationName = Simulator;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Maps" */ = {
 			isa = XCConfigurationList;
@@ -8123,12 +8124,12 @@
 				FAAB4119149BA83500C245B1 /* Simulator */,
 				FACFE54415F8F35600CE8B20 /* Simulator Release */,
 				FAAB411B149BA84700C245B1 /* Debug */,
-				FAAB411D149BA85500C245B1 /* AdHoc */,
 				FABB561E149CD957006969C0 /* Release */,
+				A6E0F06B1FBD9CC30006D64C /* Beta */,
 				FAAB411F149BA86000C245B1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
+			defaultConfigurationName = Simulator;
 		};
 /* End XCConfigurationList section */
 	};
