@@ -35,7 +35,7 @@ void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoi
           edges.emplace_back(
               transition, RouteWeight(m_estimator->CalcLeapWeight(segmentPoint,
                                                                   GetPoint(transition, isOutgoing)),
-                                      0 /* nontransitCross */));
+                                      0 /* nonPassThroughCross */));
         });
     return;
   }
@@ -73,9 +73,9 @@ bool SingleVehicleWorldGraph::IsOneWay(NumMwmId mwmId, uint32_t featureId)
   return GetRoadGeometry(mwmId, featureId).IsOneWay();
 }
 
-bool SingleVehicleWorldGraph::IsTransitAllowed(NumMwmId mwmId, uint32_t featureId)
+bool SingleVehicleWorldGraph::IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId)
 {
-  return GetRoadGeometry(mwmId, featureId).IsTransitAllowed();
+  return GetRoadGeometry(mwmId, featureId).IsPassThroughAllowed();
 }
 
 void SingleVehicleWorldGraph::GetOutgoingEdgesList(Segment const & segment,
@@ -100,20 +100,20 @@ RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(Segment const & from,
 RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(m2::PointD const & from,
                                                            m2::PointD const & to)
 {
-  return RouteWeight(m_estimator->CalcHeuristic(from, to), 0 /* nontransitCross */);
+  return RouteWeight(m_estimator->CalcHeuristic(from, to), 0 /* nonPassThroughCross */);
 }
 
 RouteWeight SingleVehicleWorldGraph::CalcSegmentWeight(Segment const & segment)
 {
   return RouteWeight(m_estimator->CalcSegmentWeight(
                          segment, GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())),
-                     0 /* nontransitCross */);
+                     0 /* nonPassThroughCross */);
 }
 
 RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(m2::PointD const & from,
                                                        m2::PointD const & to) const
 {
-  return RouteWeight(m_estimator->CalcOffroadWeight(from, to), 0 /* nontransitCross */);
+  return RouteWeight(m_estimator->CalcOffroadWeight(from, to), 0 /* nonPassThroughCross */);
 }
 
 bool SingleVehicleWorldGraph::LeapIsAllowed(NumMwmId mwmId) const
@@ -141,7 +141,7 @@ void SingleVehicleWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,
     // in different mwms. But if we have mwms with different versions and feature
     // was moved in one of them we can have nonzero weight here.
     double const weight = m_estimator->CalcHeuristic(from, to);
-    edges.emplace_back(twin, RouteWeight(weight, 0 /* nontransitCross */));
+    edges.emplace_back(twin, RouteWeight(weight, 0 /* nonPassThroughCross */));
   }
 }
 }  // namespace routing

@@ -114,7 +114,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   m_valid = vehicleModel.IsRoad(feature);
   m_isOneWay = vehicleModel.IsOneWay(feature);
   m_speed = vehicleModel.GetSpeed(feature);
-  m_isTransitAllowed = vehicleModel.IsTransitAllowed(feature);
+  m_isPassThroughAllowed = vehicleModel.IsPassThroughAllowed(feature);
 
   m_junctions.clear();
   m_junctions.reserve(feature.GetPointsCount());

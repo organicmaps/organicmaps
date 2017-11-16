@@ -69,9 +69,9 @@ bool FeaturesRoadGraph::CrossCountryVehicleModel::IsRoad(FeatureType const & f) 
   return GetVehicleModel(f.GetID())->IsRoad(f);
 }
 
-bool FeaturesRoadGraph::CrossCountryVehicleModel::IsTransitAllowed(FeatureType const & f) const
+bool FeaturesRoadGraph::CrossCountryVehicleModel::IsPassThroughAllowed(FeatureType const & f) const
 {
-  return GetVehicleModel(f.GetID())->IsTransitAllowed(f);
+  return GetVehicleModel(f.GetID())->IsPassThroughAllowed(f);
 }
 
 VehicleModelInterface * FeaturesRoadGraph::CrossCountryVehicleModel::GetVehicleModel(FeatureID const & featureId) const

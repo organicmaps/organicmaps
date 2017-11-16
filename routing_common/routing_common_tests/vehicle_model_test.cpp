@@ -27,7 +27,7 @@ public:
 class TestVehicleModel : public routing::VehicleModel
 {
   friend void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue);
-  friend void CheckTransitAllowed(initializer_list<uint32_t> const & types, bool expectedValue);
+  friend void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expectedValue);
   friend void CheckSpeed(initializer_list<uint32_t> const & types, double expectedSpeed);
 
 public:
@@ -69,14 +69,14 @@ void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
   TEST_EQUAL(vehicleModel.HasOneWayType(h), expectedValue, ());
 }
 
-void CheckTransitAllowed(initializer_list<uint32_t> const & types, bool expectedValue)
+void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expectedValue)
 {
   TestVehicleModel vehicleModel;
   feature::TypesHolder h;
   for (uint32_t t : types)
     h.Add(t);
 
-  TEST_EQUAL(vehicleModel.HasTransitType(h), expectedValue, ());
+  TEST_EQUAL(vehicleModel.HasPassThroughType(h), expectedValue, ());
 }
 }  // namespace
 
@@ -134,9 +134,9 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_DifferentSpeeds)
   CheckOneWay({typePrimary, typeOneway, typeSecondary}, true);
 }
 
-UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_TransitAllowed)
+UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_PassThroughAllowed)
 {
-  CheckTransitAllowed({GetType("highway", "secondary")}, true);
-  CheckTransitAllowed({GetType("highway", "primary")}, true);
-  CheckTransitAllowed({GetType("highway", "service")}, false);
+  CheckPassThroughAllowed({GetType("highway", "secondary")}, true);
+  CheckPassThroughAllowed({GetType("highway", "primary")}, true);
+  CheckPassThroughAllowed({GetType("highway", "service")}, false);
 }

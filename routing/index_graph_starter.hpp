@@ -74,10 +74,10 @@ public:
 
   std::set<NumMwmId> GetMwms() const;
 
-  // Checks |result| meets nontransit crossing restrictions according to placement of
-  // |result.path| start and finish in transit/nontransit area and number of nontransit crosses
-  bool DoesRouteCrossNontransit(
-      RoutingResult<Segment, RouteWeight> const & result) const;
+  // Checks |result| meets non-pass-through crossing restrictions according to placement of
+  // |result.path| start and finish in pass through/non-pass-through area and number of
+  // non-pass-through crosses.
+  bool DoesRouteCrossNonPassThrough(RoutingResult<Segment, RouteWeight> const & result) const;
 
   void GetEdgesList(Segment const & segment, bool isOutgoing,
                     std::vector<SegmentEdge> & edges) const;

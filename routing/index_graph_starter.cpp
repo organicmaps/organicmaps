@@ -109,37 +109,37 @@ set<NumMwmId> IndexGraphStarter::GetMwms() const
   return mwms;
 }
 
-bool IndexGraphStarter::DoesRouteCrossNontransit(
+bool IndexGraphStarter::DoesRouteCrossNonPassThrough(
     RoutingResult<Segment, RouteWeight> const & result) const
 {
-  int nontransitCrossAllowed = 0;
+  int nonPassThroughCrossAllowed = 0;
   auto isRealOrPart = [this](Segment const & segment) {
     if (!IsFakeSegment(segment))
       return true;
     Segment dummy;
     return m_fake.FindReal(segment, dummy);
   };
-  auto isTransitAllowed = [this](Segment const & segment) {
+  auto isPassThroughAllowed = [this](Segment const & segment) {
     auto real = segment;
     bool const convertionResult = ConvertToReal(real);
     CHECK(convertionResult, ());
-    return m_graph.IsTransitAllowed(real.GetMwmId(), real.GetFeatureId());
+    return m_graph.IsPassThroughAllowed(real.GetMwmId(), real.GetFeatureId());
   };
 
   auto const firstRealOrPart = find_if(result.m_path.begin(), result.m_path.end(), isRealOrPart);
-  if (firstRealOrPart != result.m_path.end() && !isTransitAllowed(*firstRealOrPart))
-    ++nontransitCrossAllowed;
+  if (firstRealOrPart != result.m_path.end() && !isPassThroughAllowed(*firstRealOrPart))
+    ++nonPassThroughCrossAllowed;
 
   auto const lastRealOrPart = find_if(result.m_path.rbegin(), result.m_path.rend(), isRealOrPart);
   // If firstRealOrPart and lastRealOrPart point to the same segment increment
-  // nontransitCrossAllowed once
+  // nonPassThroughCrossAllowed once
   if (lastRealOrPart != result.m_path.rend() && &*lastRealOrPart != &*firstRealOrPart &&
-      !isTransitAllowed(*lastRealOrPart))
+      !isPassThroughAllowed(*lastRealOrPart))
   {
-    ++nontransitCrossAllowed;
+    ++nonPassThroughCrossAllowed;
   }
 
-  return nontransitCrossAllowed < result.m_distance.GetNontransitCross();
+  return nonPassThroughCrossAllowed < result.m_distance.GetNonPassThroughCross();
 }
 
 void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,

@@ -37,7 +37,7 @@ private:
     double GetOffroadSpeed() const override;
     bool IsOneWay(FeatureType const & f) const override;
     bool IsRoad(FeatureType const & f) const override;
-    bool IsTransitAllowed(FeatureType const & f) const override;
+    bool IsPassThroughAllowed(FeatureType const & f) const override;
 
     void Clear();
 

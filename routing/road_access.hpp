@@ -28,7 +28,7 @@ public:
     // Moving through the road requires a special permission.
     Private,
 
-    // No transit through the road is allowed; however, it can
+    // No pass through the road is allowed; however, it can
     // be used if it is close enough to the destination point
     // of the route.
     Destination,

@@ -566,7 +566,7 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   if (result != IRouter::NoError)
     return result;
 
-  if (starter.DoesRouteCrossNontransit(routingResult))
+  if (starter.DoesRouteCrossNonPassThrough(routingResult))
     return IRouter::RouteNotFound;
 
   IRouter::ResultCode const leapsResult =
@@ -637,9 +637,10 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
   AStarAlgorithm<IndexGraphStarter> algorithm;
   RoutingResult<Segment, RouteWeight> result;
-  auto resultCode = ConvertResult<IndexGraphStarter>(algorithm.AdjustRoute(
-      starter, starter.GetStartSegment(), prevEdges,
-      RouteWeight(kAdjustLimitSec, 0 /* nontransitCross */), result, delegate, onVisitJunction));
+  auto resultCode = ConvertResult<IndexGraphStarter>(
+      algorithm.AdjustRoute(starter, starter.GetStartSegment(), prevEdges,
+                            RouteWeight(kAdjustLimitSec, 0 /* nonPassThroughCross */), result,
+                            delegate, onVisitJunction));
   if (resultCode != IRouter::NoError)
     return resultCode;
 

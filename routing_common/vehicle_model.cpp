@@ -18,8 +18,8 @@ VehicleModel::AdditionalRoadType::AdditionalRoadType(Classificator const & c,
 {
 }
 
-VehicleModel::RoadLimits::RoadLimits(double speedKMpH, bool isTransitAllowed)
-  : m_speedKMpH(speedKMpH), m_isTransitAllowed(isTransitAllowed)
+VehicleModel::RoadLimits::RoadLimits(double speedKMpH, bool isPassThroughAllowed)
+  : m_speedKMpH(speedKMpH), m_isPassThroughAllowed(isPassThroughAllowed)
 {
   CHECK_GREATER(m_speedKMpH, 0.0, ());
 }
@@ -32,7 +32,7 @@ VehicleModel::VehicleModel(Classificator const & c, InitListT const & featureTyp
   {
     m_maxSpeedKMpH = max(m_maxSpeedKMpH, v.m_speedKMpH);
     m_types.emplace(c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)),
-                    RoadLimits(v.m_speedKMpH, v.m_isTransitAllowed));
+                    RoadLimits(v.m_speedKMpH, v.m_isPassThroughAllowed));
   }
 }
 
@@ -111,19 +111,19 @@ bool VehicleModel::IsRoad(FeatureType const & f) const
   return HasRoadType(types);
 }
 
-bool VehicleModel::IsTransitAllowed(FeatureType const & f) const
+bool VehicleModel::IsPassThroughAllowed(FeatureType const & f) const
 {
   feature::TypesHolder const types(f);
-  return HasTransitType(types);
+  return HasPassThroughType(types);
 }
 
-bool VehicleModel::HasTransitType(feature::TypesHolder const & types) const
+bool VehicleModel::HasPassThroughType(feature::TypesHolder const & types) const
 {
   for (uint32_t t : types)
   {
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
     auto it = m_types.find(type);
-    if (it != m_types.end() && it->second.IsTransitAllowed())
+    if (it != m_types.end() && it->second.IsPassThroughAllowed())
       return true;
   }
 

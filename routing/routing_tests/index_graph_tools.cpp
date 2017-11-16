@@ -55,14 +55,14 @@ void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
   auto it = m_roads.find(featureId);
   CHECK(it == m_roads.end(), ("Already contains feature", featureId));
   m_roads[featureId] = RoadGeometry(oneWay, speed, points);
-  m_roads[featureId].SetTransitAllowedForTests(true);
+  m_roads[featureId].SetPassThroughAllowedForTests(true);
 }
 
-void TestGeometryLoader::SetTransitAllowed(uint32_t featureId, bool transitAllowed)
+void TestGeometryLoader::SetPassThroughAllowed(uint32_t featureId, bool passThroughAllowed)
 {
   auto it = m_roads.find(featureId);
   CHECK(it != m_roads.end(), ("No feature", featureId));
-  m_roads[featureId].SetTransitAllowedForTests(transitAllowed);
+  m_roads[featureId].SetPassThroughAllowedForTests(passThroughAllowed);
 }
 
 // ZeroGeometryLoader ------------------------------------------------------------------------------
@@ -355,7 +355,7 @@ AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & sta
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), routingResult,
       {} /* cancellable */, {} /* onVisitedVertexCallback */);
 
-  if (starter.DoesRouteCrossNontransit(routingResult))
+  if (starter.DoesRouteCrossNonPassThrough(routingResult))
     resultCode = AStarAlgorithm<IndexGraphStarter>::Result::NoPath;
 
   timeSec = routingResult.m_distance.GetWeight();

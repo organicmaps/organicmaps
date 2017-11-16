@@ -43,8 +43,11 @@ public:
   /// @returns true iff feature |f| can be used for routing with corresponding vehicle model.
   virtual bool IsRoad(FeatureType const & f) const = 0;
 
-  /// @returns true iff feature |f| can be used for transit with corresponding vehicle model.
-  virtual bool IsTransitAllowed(FeatureType const & f) const = 0;
+  /// @returns true iff feature |f| can be used for through passage with corresponding vehicle model.
+  /// e.g. in Russia roads tagged "highway = service" are not allowed for through passage;
+  /// however, road with this tag can be be used if it is close enough to the start or destination
+  /// point of the route.
+  virtual bool IsPassThroughAllowed(FeatureType const & f) const = 0;
 };
 
 class VehicleModelFactoryInterface
@@ -65,9 +68,9 @@ class VehicleModel : public VehicleModelInterface
 public:
   struct FeatureTypeLimits final
   {
-    char const * m_types[2];  /// 2-arity road type
-    double m_speedKMpH;       /// max allowed speed on this road type
-    bool m_isTransitAllowed;  /// transit allowed for this road type
+    char const * m_types[2];      /// 2-arity road type
+    double m_speedKMpH;           /// max allowed speed on this road type
+    bool m_isPassThroughAllowed;  /// pass through this road type is allowed
   };
 
   struct AdditionalRoadTags final
@@ -92,7 +95,7 @@ public:
   double GetMaxSpeed() const override { return m_maxSpeedKMpH; }
   bool IsOneWay(FeatureType const & f) const override;
   bool IsRoad(FeatureType const & f) const override;
-  bool IsTransitAllowed(FeatureType const & f) const override;
+  bool IsPassThroughAllowed(FeatureType const & f) const override;
 
 public:
   /// @returns true if |m_types| or |m_addRoadTypes| contains |type| and false otherwise.
@@ -131,7 +134,7 @@ protected:
   /// may be considered as features with forward geometry.
   bool HasOneWayType(feature::TypesHolder const & types) const;
 
-  bool HasTransitType(feature::TypesHolder const & types) const;
+  bool HasPassThroughType(feature::TypesHolder const & types) const;
 
   double GetMinTypeSpeed(feature::TypesHolder const & types) const;
 
@@ -151,18 +154,19 @@ private:
   {
   public:
     RoadLimits() = delete;
-    RoadLimits(double speedKMpH, bool isTransitAllowed);
+    RoadLimits(double speedKMpH, bool isPassThroughAllowed);
 
     double GetSpeedKMpH() const { return m_speedKMpH; };
-    bool IsTransitAllowed() const { return m_isTransitAllowed; };
+    bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; };
     bool operator==(RoadLimits const & rhs) const
     {
-      return (m_speedKMpH == rhs.m_speedKMpH) && (m_isTransitAllowed == rhs.m_isTransitAllowed);
+      return (m_speedKMpH == rhs.m_speedKMpH) &&
+             (m_isPassThroughAllowed == rhs.m_isPassThroughAllowed);
     }
 
   private:
     double const m_speedKMpH;
-    bool const m_isTransitAllowed;
+    bool const m_isPassThroughAllowed;
   };
 
   std::vector<AdditionalRoadType>::const_iterator FindRoadType(uint32_t type) const;

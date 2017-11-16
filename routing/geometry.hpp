@@ -33,7 +33,7 @@ public:
   bool IsOneWay() const { return m_isOneWay; }
   // Kilometers per hour.
   double GetSpeed() const { return m_speed; }
-  bool IsTransitAllowed() const { return m_isTransitAllowed; }
+  bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; }
 
   Junction const & GetJunction(uint32_t junctionId) const
   {
@@ -57,14 +57,17 @@ public:
     return pointId == 0 || pointId + 1 == GetPointsCount();
   }
 
-  void SetTransitAllowedForTests(bool transitAllowed) { m_isTransitAllowed = transitAllowed; }
+  void SetPassThroughAllowedForTests(bool passThroughAllowed)
+  {
+    m_isPassThroughAllowed = passThroughAllowed;
+  }
 
 private:
   buffer_vector<Junction, 32> m_junctions;
   double m_speed = 0.0;
   bool m_isOneWay = false;
   bool m_valid = false;
-  bool m_isTransitAllowed = false;
+  bool m_isPassThroughAllowed = false;
 };
 
 class GeometryLoader

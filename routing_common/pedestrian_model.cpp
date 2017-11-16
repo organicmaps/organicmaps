@@ -54,7 +54,7 @@ double constexpr kSpeedOffroadKMpH = 3.0;
 // Default
 VehicleModel::InitListT const g_pedestrianLimitsDefault =
 {
-  { {"highway", "trunk"},          kSpeedTrunkKMpH,         true /* transitAllowed */ },
+  { {"highway", "trunk"},          kSpeedTrunkKMpH,         true /* passThroughAllowed */ },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
   { {"highway", "primary"},        kSpeedPrimaryKMpH,       true },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH,   true },

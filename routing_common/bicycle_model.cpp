@@ -54,7 +54,7 @@ double constexpr kSpeedOffroadKMpH = 3.0;
 // Default
 VehicleModel::InitListT const g_bicycleLimitsDefault =
 {
-  { {"highway", "trunk"},          kSpeedTrunkKMpH,         true /* transitAllowed */ },
+  { {"highway", "trunk"},          kSpeedTrunkKMpH,         true /* passThroughAllowed */ },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
   { {"highway", "primary"},        kSpeedPrimaryKMpH,       true },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH,   true },
@@ -327,7 +327,7 @@ VehicleModel::InitListT const g_bicycleLimitsRomania = g_bicycleLimitsNoTrunk;
 VehicleModel::InitListT const g_bicycleLimitsRussia =
 {
   // Footway and pedestrian are allowed
-  // No transit for service and living_street
+  // No pass through service and living_street
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
   { {"highway", "primary"},        kSpeedPrimaryKMpH,       true },
@@ -367,7 +367,7 @@ VehicleModel::InitListT const g_bicycleLimitsUkraine =
 {
   // No trunk
   // Footway and perestrian are allowed
-  // No transit for living_street and service
+  // No pass through living_street and service
   { {"highway", "primary"},        kSpeedPrimaryKMpH,       true },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH,   true },
   { {"highway", "secondary"},      kSpeedSecondaryKMpH,     true },

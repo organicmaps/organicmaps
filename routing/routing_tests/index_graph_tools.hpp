@@ -66,7 +66,7 @@ public:
   void AddRoad(uint32_t featureId, bool oneWay, float speed,
                routing::RoadGeometry::Points const & points);
 
-  void SetTransitAllowed(uint32_t featureId, bool transitAllowed);
+  void SetPassThroughAllowed(uint32_t featureId, bool passThroughAllowed);
 
 private:
   unordered_map<uint32_t, routing::RoadGeometry> m_roads;

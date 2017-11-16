@@ -85,11 +85,11 @@ bool TransitWorldGraph::IsOneWay(NumMwmId mwmId, uint32_t featureId)
   return GetRealRoadGeometry(mwmId, featureId).IsOneWay();
 }
 
-bool TransitWorldGraph::IsTransitAllowed(NumMwmId mwmId, uint32_t featureId)
+bool TransitWorldGraph::IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId)
 {
   if (TransitGraph::IsTransitFeature(featureId))
     return true;
-  return GetRealRoadGeometry(mwmId, featureId).IsTransitAllowed();
+  return GetRealRoadGeometry(mwmId, featureId).IsPassThroughAllowed();
 }
 
 void TransitWorldGraph::ClearCachedGraphs()

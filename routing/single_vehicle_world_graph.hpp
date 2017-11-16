@@ -32,7 +32,7 @@ public:
   Junction const & GetJunction(Segment const & segment, bool front) override;
   m2::PointD const & GetPoint(Segment const & segment, bool front) override;
   bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override;
-  bool IsTransitAllowed(NumMwmId mwmId, uint32_t featureId) override;
+  bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) override;
   void ClearCachedGraphs() override { m_loader->Clear(); }
   void SetMode(Mode mode) override { m_mode = mode; }
   Mode GetMode() const override { return m_mode; }

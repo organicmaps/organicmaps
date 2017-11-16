@@ -50,10 +50,8 @@ public:
   virtual m2::PointD const & GetPoint(Segment const & segment, bool front) = 0;
   virtual bool IsOneWay(NumMwmId mwmId, uint32_t featureId) = 0;
 
-  // Checks feature is allowed for through pass.
-  // TODO (t.yan) it's better to use "transit" only for public transport. We should rename
-  // IsTransitAllowed to something like IsThroughPassAllowed everywhere.
-  virtual bool IsTransitAllowed(NumMwmId mwmId, uint32_t featureId) = 0;
+  // Checks feature is allowed for through passage.
+  virtual bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) = 0;
 
   // Clear memory used by loaded graphs.
   virtual void ClearCachedGraphs() = 0;

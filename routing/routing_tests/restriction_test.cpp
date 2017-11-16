@@ -823,23 +823,24 @@ UNIT_CLASS_TEST(RestrictionTest, FGraph_RestrictionF0F2Only)
 //                  |        |
 // 0 Start *---F0---*---F1---*---F2---* Finish
 //         0        1        2        3
-unique_ptr<SingleVehicleWorldGraph> BuildNontransitGraph(bool transitStart, bool transitShortWay,
-                                                         bool transitLongWay)
+unique_ptr<SingleVehicleWorldGraph> BuildNonPassThroughGraph(bool passThroughStart,
+                                                             bool passThroughShortWay,
+                                                             bool passThroughLongWay)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, false /* one way */, 1.0 /* speed */,
                   RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}}));
-  loader->SetTransitAllowed(0 /* feature id */, transitStart);
+  loader->SetPassThroughAllowed(0 /* feature id */, passThroughStart);
   loader->AddRoad(1 /* feature id */, false /* one way */, 1.0 /* speed */,
                   RoadGeometry::Points({{1.0, 0.0}, {2.0, 0.0}}));
-  loader->SetTransitAllowed(1 /* feature id */, transitShortWay);
+  loader->SetPassThroughAllowed(1 /* feature id */, passThroughShortWay);
   loader->AddRoad(2 /* feature id */, false /* one way */, 1.0 /* speed */,
                   RoadGeometry::Points({{2.0, 0.0}, {3.0, 0.0}}));
   loader->AddRoad(3 /* feature id */, false /* one way */, 1.0 /* speed */,
                   RoadGeometry::Points({{1.0, 0.0}, {1.0, 1.0}}));
   loader->AddRoad(4 /* feature id */, false /* one way */, 1.0 /* speed */,
                   RoadGeometry::Points({{1.0, 1.0}, {2.0, 1.0}}));
-  loader->SetTransitAllowed(4 /* feature id */, transitLongWay);
+  loader->SetPassThroughAllowed(4 /* feature id */, passThroughLongWay);
   loader->AddRoad(5 /* feature id */, false /* one way */, 1.0 /* speed */,
                   RoadGeometry::Points({{2.0, 1.0}, {2.0, 0.0}}));
 
@@ -857,10 +858,10 @@ unique_ptr<SingleVehicleWorldGraph> BuildNontransitGraph(bool transitStart, bool
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
-UNIT_CLASS_TEST(RestrictionTest, NontransitStart)
+UNIT_CLASS_TEST(RestrictionTest, NonPassThroughStart)
 {
-  Init(BuildNontransitGraph(false /* transitStart */, true /* transitShortWay */,
-                            true /* transitLongWay */));
+  Init(BuildNonPassThroughGraph(false /* passThroughStart */, true /* passThroughShortWay */,
+                                true /* passThroughLongWay */));
   vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}};
 
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
@@ -868,10 +869,10 @@ UNIT_CLASS_TEST(RestrictionTest, NontransitStart)
   TestRouteGeometry(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
-UNIT_CLASS_TEST(RestrictionTest, NontransitShortWay)
+UNIT_CLASS_TEST(RestrictionTest, NonPassThroughShortWay)
 {
-  Init(BuildNontransitGraph(true /* transitStart */, false /* transitShortWay */,
-                            true /* transitLongWay */));
+  Init(BuildNonPassThroughGraph(true /* passThroughStart */, false /* passThroughShortWay */,
+                                true /* passThroughLongWay */));
   vector<m2::PointD> const expectedGeom = {
       {0 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {2, 1}, {2, 0}, {3, 0}};
 
@@ -880,10 +881,10 @@ UNIT_CLASS_TEST(RestrictionTest, NontransitShortWay)
   TestRouteGeometry(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 
-UNIT_CLASS_TEST(RestrictionTest, NontransitWay)
+UNIT_CLASS_TEST(RestrictionTest, NonPassThroughWay)
 {
-  Init(BuildNontransitGraph(true /* transitStart */, false /* transitShortWay */,
-                            false /* transitLongWay */));
+  Init(BuildNonPassThroughGraph(true /* passThroughStart */, false /* passThroughShortWay */,
+                                false /* passThroughLongWay */));
 
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
@@ -892,9 +893,9 @@ UNIT_CLASS_TEST(RestrictionTest, NontransitWay)
 
 UNIT_CLASS_TEST(RestrictionTest, NontransiStartAndShortWay)
 {
-  Init(BuildNontransitGraph(false /* transitStart */, false /* transitShortWay */,
-                            true /* transitLongWay */));
-  // We can get F1 because F0 is in the same nontransit area/
+  Init(BuildNonPassThroughGraph(false /* passThroughStart */, false /* passThroughShortWay */,
+                                true /* passThroughLongWay */));
+  // We can get F1 because F0 is in the same non-pass-through area/
   vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}};
 
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
