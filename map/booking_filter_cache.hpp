@@ -31,7 +31,7 @@ public:
   {
     Item() = default;
 
-    explicit Item(HotelStatus const s) : m_status(s) {}
+    explicit Item(HotelStatus s) : m_status(s) {}
 
     Clock::time_point m_timestamp = Clock::now();
     HotelStatus m_status = HotelStatus::NotReady;
@@ -49,15 +49,16 @@ public:
 
 private:
   using HotelsMap = std::map<std::string, Item>;
-  // In case when size >= |m_maxCount| removes items except of those who have the status
+  // In case when size >= |m_maxCount| removes items except those who have the status
   // HotelStatus::NotReady.
   void RemoveExtra();
   bool IsExpired(Clock::time_point const & timestamp) const;
   HotelStatus Get(HotelsMap & src, std::string const & hotelId);
   void RemoveOutdated(HotelsMap & src);
 
-  HotelsMap m_hotelToResult;
+  HotelsMap m_hotelToStatus;
   HotelsMap m_notReadyHotels;
+  // Max count of |m_hotelToStatus| container.
   // Count is unlimited when |m_maxCount| is equal to zero.
   size_t const m_maxCount = 1000;
   // Do not use aging when |m_expiryPeriodSeconds| is equal to zero.

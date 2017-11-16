@@ -103,8 +103,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
           RunUITask([params, results, isLocalAdsCustomer] {
             params.m_onResults(results, isLocalAdsCustomer);
           });
-        if (results.IsEndMarker() && results.IsEndedNormal() &&
-            !params.m_bookingFilterParams.IsEmpty())
+        if (results.IsEndedNormal() && !params.m_bookingFilterParams.IsEmpty())
         {
           m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results,
                                                   false /* inViewport */);
@@ -146,8 +145,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
       [this, params](Results const & results) {
         if (results.IsEndMarker() && params.m_onCompleted)
           RunUITask([params, results] { params.m_onCompleted(results); });
-        if (results.IsEndMarker() && results.IsEndedNormal() &&
-            !params.m_bookingFilterParams.IsEmpty())
+        if (results.IsEndedNormal() && !params.m_bookingFilterParams.IsEmpty())
         {
           m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results,
                                                   true /* inViewport */);

@@ -47,6 +47,6 @@ bool AvailabilityParams::operator!=(AvailabilityParams const & rhs) const
 }
 bool AvailabilityParams::operator==(AvailabilityParams const & rhs) const
 {
-  return !this->operator!=(rhs);
+  return !(*this != rhs);
 }
 }  // namespace booking

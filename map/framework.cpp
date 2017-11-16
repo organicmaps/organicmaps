@@ -1586,7 +1586,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
       mark->SetMarkType(SearchMarkType::Booking);
 
     if (GetSearchAPI().GetSponsoredMode() == SearchAPI::SponsoredMode::Booking)
-      mark->SetPreparing(true);
+      mark->SetPreparing(true /* isPreparing */);
   }
 }
 
@@ -3323,7 +3323,7 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Para
       if (inViewport)
       {
         std::vector<FeatureID> features;
-        for (auto const r : results)
+        for (auto const & r : results)
         {
           features.push_back(r.GetFeatureID());
         }
@@ -3332,7 +3332,7 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Para
 
         GetPlatform().RunTask(Platform::Thread::Gui, [this, features]()
         {
-          m_searchMarks.SetPreparingState(features, false);
+          m_searchMarks.SetPreparingState(features, false /* isPreparing */);
         });
       }
 
@@ -3340,5 +3340,5 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Para
     }
   };
 
-  m_bookingFilter.FilterAvailability(results, std::move(paramsInternal));
+  m_bookingFilter.FilterAvailability(results, paramsInternal);
 }

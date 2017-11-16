@@ -86,7 +86,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
     testing::Notify();
   };
 
-  filter.FilterAvailability(results, std::move(params));
+  filter.FilterAvailability(results, params);
 
   testing::Wait();
 
