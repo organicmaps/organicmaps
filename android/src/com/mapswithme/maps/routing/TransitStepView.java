@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Dimension;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -85,13 +86,30 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   public void setTransitStepInfo(@NonNull TransitStepInfo info)
   {
     mStepType = info.getType();
-    mDrawable = getResources().getDrawable(mStepType.getDrawable());
+    mDrawable = getResources().getDrawable(mStepType == TransitStepType.INTERMEDIATE_POINT
+                                           ? getIntermediatePointDrawableId(info.getIntermediateIndex())
+                                           : mStepType.getDrawable());
     mBackgroundPaint.setColor(mStepType == TransitStepType.PEDESTRIAN
                               ? ThemeUtils.getColor(getContext(), R.attr.transitPedestrianBackground)
                               : info.getColor());
     mText = info.getNumber();
     invalidate();
     requestLayout();
+  }
+
+  @DrawableRes
+  private static int getIntermediatePointDrawableId(int index)
+  {
+    switch (index)
+    {
+      case 0:
+        return R.drawable.ic_24px_route_point_a;
+      case 1:
+        return R.drawable.ic_24px_route_point_b;
+      case 2:
+        return R.drawable.ic_24px_route_point_c;
+    }
+    throw new AssertionError("Unknown intermediate point index: " + index);
   }
 
   @Override
@@ -172,6 +190,11 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     {
       drawable.mutate();
       DrawableCompat.setTint(drawable, ThemeUtils.getColor(context, R.attr.iconTint));
+    }
+    else if (type == TransitStepType.INTERMEDIATE_POINT)
+    {
+      drawable.mutate();
+      DrawableCompat.setTint(drawable, getResources().getColor(R.color.routing_intermediate_point));
     }
     drawable.setBounds(mDrawableBounds);
     drawable.draw(canvas);
