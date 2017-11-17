@@ -2,6 +2,7 @@
 # Generates transit graph for MWM transit section generator.
 # Also shows preview of transit scheme lines.
 import argparse
+import copy
 import json
 import math
 import matplotlib.pyplot as plt
@@ -140,12 +141,14 @@ class TransitGraphBuilder:
     def __read_transfers(self):
         """Reads transfers between stops."""
         for transfer_item in self.input_data['transfers']:
-            transfer_edge = {'stop1_id': transfer_item[0],
-                             'stop2_id': transfer_item[1],
-                             'weight': transfer_item[2],
-                             'transfer': True
-                             }
-            self.edges.append(transfer_edge)
+            edge = {'stop1_id': transfer_item[0],
+                    'stop2_id': transfer_item[1],
+                    'weight': transfer_item[2],
+                    'transfer': True
+                    }
+            self.edges.append(copy.deepcopy(edge))
+            edge['stop1_id'], edge['stop2_id'] = edge['stop2_id'], edge['stop1_id']
+            self.edges.append(edge)
 
     def __read_networks(self):
         """Reads networks and routes."""
