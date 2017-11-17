@@ -9,7 +9,7 @@
   android:paddingStart="@dimen/margin_base"
   android:paddingRight="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base"
-  android:paddingBottom="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_half"
   android:paddingTop="@dimen/margin_half_plus">
   <TextView
     android:id="@+id/total_time"

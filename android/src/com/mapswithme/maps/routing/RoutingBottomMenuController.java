@@ -1,6 +1,7 @@
 package com.mapswithme.maps.routing;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -30,7 +31,8 @@ import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiLinks;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.DotPager;
-import com.mapswithme.maps.widget.recycler.TagLayoutManager;
+import com.mapswithme.maps.widget.recycler.DotDividerItemDecoration;
+import com.mapswithme.maps.widget.recycler.MultilineLayoutManager;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -72,7 +74,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private final View mActionButton;
   @NonNull
   private final ImageView mActionIcon;
-
+  @NonNull
+  private final DotDividerItemDecoration mTransitViewDecorator;
   @Nullable
   private TaxiInfo mTaxiInfo;
   @Nullable
@@ -138,6 +141,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mActionIcon = (ImageView) mActionButton.findViewById(R.id.iv__icon);
     UiUtils.hide(mAltitudeChartFrame, mTaxiFrame, mActionFrame);
     mListener = listener;
+    Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.dot_divider);
+    Resources res = mContext.getResources();
+    mTransitViewDecorator = new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
+                                                         res.getDimensionPixelSize(R.dimen.margin_half));
   }
 
   void showAltitudeChartAndRoutingDetails()
@@ -188,9 +195,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.show(mTransitFrame);
     RecyclerView rv = (RecyclerView) mTransitFrame.findViewById(R.id.transit_recycler_view);
     TransitStepAdapter adapter = new TransitStepAdapter();
-    rv.setLayoutManager(new TagLayoutManager());
+    rv.setLayoutManager(new MultilineLayoutManager());
     rv.setNestedScrollingEnabled(false);
-    // TODO: make dot decorator.
+    rv.removeItemDecoration(mTransitViewDecorator);
+    rv.addItemDecoration(mTransitViewDecorator);
     rv.setAdapter(adapter);
     adapter.setItems(info.getTransitSteps());
 
