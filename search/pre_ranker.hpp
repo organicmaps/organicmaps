@@ -54,6 +54,8 @@ public:
 
   void Init(Params const & params);
 
+  void Finish(bool cancelled);
+
   template <typename... TArgs>
   void Emplace(TArgs &&... args)
   {
@@ -68,8 +70,7 @@ public:
   void Filter(bool viewportSearch);
 
   // Emit a new batch of results up the pipeline (i.e. to ranker).
-  // Use lastUpdate in geocoder to indicate that
-  // no more results will be added.
+  // Use |lastUpdate| to indicate that no more results will be added.
   void UpdateResults(bool lastUpdate);
 
   inline size_t Size() const { return m_results.size(); }

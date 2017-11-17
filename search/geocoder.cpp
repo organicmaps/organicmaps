@@ -433,6 +433,11 @@ void Geocoder::GoInViewport()
   GoImpl(infos, true /* inViewport */);
 }
 
+void Geocoder::Finish(bool cancelled)
+{
+  m_preRanker.Finish(cancelled);
+}
+
 void Geocoder::ClearCaches()
 {
   m_pivotRectsCache.Clear();
@@ -568,8 +573,6 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
 
     // Iterates through all alive mwms and performs geocoding.
     ForEachCountry(infos, processCountry);
-
-    m_preRanker.UpdateResults(true /* lastUpdate */);
   }
   catch (CancelException & e)
   {

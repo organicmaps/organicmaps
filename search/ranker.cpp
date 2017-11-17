@@ -342,6 +342,12 @@ void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams
   m_tentativeResults.clear();
 }
 
+void Ranker::Finish(bool cancelled)
+{
+  // The results have been updated by PreRanker.
+  m_emitter.Finish(cancelled);
+}
+
 Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
                           bool needHighlighting) const
 {
@@ -470,7 +476,10 @@ void Ranker::UpdateResults(bool lastUpdate)
   m_preRankerResults.clear();
 
   BailIfCancelled();
-  m_emitter.Emit();
+
+  // The last update must be handled by a call to Finish().
+  if (!lastUpdate)
+    m_emitter.Emit();
 }
 
 void Ranker::ClearCaches() { m_localities.ClearCache(); }

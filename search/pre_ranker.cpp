@@ -54,6 +54,14 @@ void PreRanker::Init(Params const & params)
   m_currEmit.clear();
 }
 
+void PreRanker::Finish(bool cancelled)
+{
+  if (!cancelled)
+    UpdateResults(true /* lastUpdate */);
+
+  m_ranker.Finish(cancelled);
+}
+
 void PreRanker::FillMissingFieldsInPreResults()
 {
   MwmSet::MwmId mwmId;

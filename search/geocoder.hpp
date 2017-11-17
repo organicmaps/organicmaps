@@ -101,6 +101,19 @@ public:
   void GoEverywhere();
   void GoInViewport();
 
+  // Ends geocoding and informs the following stages
+  // of the pipeline (PreRanker).
+  // This method must be called from the previous stage
+  // of the pipeline (the Processor).
+  // If |cancelled| is true, the reason for calling Finish must
+  // be the cancellation of processing the search request, otherwise
+  // the reason must be the normal exit from GoEverywhere of GoInViewport.
+  //
+  // *NOTE* The caller assumes that a call to this method will never
+  // result in search::CancelException even if the shutdown takes
+  // noticeable time.
+  void Finish(bool cancelled);
+
   void ClearCaches();
 
 private:

@@ -410,8 +410,6 @@ void Processor::Search(SearchParams const & params)
 
       m_geocoder.GoEverywhere();
     }
-
-    m_ranker.UpdateResults(true /* lastUpdate */);
   }
   catch (CancelException const &)
   {
@@ -422,7 +420,7 @@ void Processor::Search(SearchParams const & params)
     SendStatistics(params, viewport, m_emitter.GetResults());
 
   // Emit finish marker to client.
-  m_emitter.Finish(IsCancelled());
+  m_geocoder.Finish(IsCancelled());
 }
 
 void Processor::SearchCoordinates()

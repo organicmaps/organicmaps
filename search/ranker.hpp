@@ -87,6 +87,8 @@ public:
 
   void Init(Params const & params, Geocoder::Params const & geocoderParams);
 
+  void Finish(bool cancelled);
+
   // Makes the final result that is shown to the user from a ranker's result.
   // |needAddress| and |needHighlighting| enable filling of optional fields
   // that may take a considerable amount of time to compute.
