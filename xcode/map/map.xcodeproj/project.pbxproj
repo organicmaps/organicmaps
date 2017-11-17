@@ -125,6 +125,9 @@
 		F627BFC41E8E89B600B1CBF4 /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F627BFC31E8E89B600B1CBF4 /* librouting_common.a */; };
 		F63421F81DF9BF9100A96868 /* reachable_by_taxi_checker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F63421F61DF9BF9100A96868 /* reachable_by_taxi_checker.cpp */; };
 		F63421F91DF9BF9100A96868 /* reachable_by_taxi_checker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F63421F71DF9BF9100A96868 /* reachable_by_taxi_checker.hpp */; };
+		F63CE2BF1FBDE7D300716AD3 /* discovery_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F63CE2BD1FBDE7D200716AD3 /* discovery_manager.cpp */; };
+		F63CE2C01FBDE7D300716AD3 /* discovery_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F63CE2BE1FBDE7D300716AD3 /* discovery_manager.hpp */; };
+		F63CE2C51FBF052E00716AD3 /* discovery_client_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F63CE2C41FBF052E00716AD3 /* discovery_client_params.hpp */; };
 		F685EB631E955C45003CA3FF /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F685EB621E955C45003CA3FF /* libicu.a */; };
 		F6B283031C1B03320081957A /* gps_track_collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B282FB1C1B03320081957A /* gps_track_collection.cpp */; };
 		F6B283041C1B03320081957A /* gps_track_collection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B282FC1C1B03320081957A /* gps_track_collection.hpp */; };
@@ -280,6 +283,9 @@
 		F627BFC31E8E89B600B1CBF4 /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "/Users/v.mikhaylenko/mapsme/omim/xcode/routing_common/../../../omim-build/xcode/Debug/librouting_common.a"; sourceTree = "<absolute>"; };
 		F63421F61DF9BF9100A96868 /* reachable_by_taxi_checker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = reachable_by_taxi_checker.cpp; sourceTree = "<group>"; };
 		F63421F71DF9BF9100A96868 /* reachable_by_taxi_checker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reachable_by_taxi_checker.hpp; sourceTree = "<group>"; };
+		F63CE2BD1FBDE7D200716AD3 /* discovery_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = discovery_manager.cpp; sourceTree = "<group>"; };
+		F63CE2BE1FBDE7D300716AD3 /* discovery_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = discovery_manager.hpp; sourceTree = "<group>"; };
+		F63CE2C41FBF052E00716AD3 /* discovery_client_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = discovery_client_params.hpp; sourceTree = "<group>"; };
 		F685EB621E955C45003CA3FF /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "/Users/v.mikhaylenko/mapsme/omim/xcode/icu/../../../omim-build/xcode/Debug/libicu.a"; sourceTree = "<absolute>"; };
 		F6B282FB1C1B03320081957A /* gps_track_collection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_collection.cpp; sourceTree = "<group>"; };
 		F6B282FC1C1B03320081957A /* gps_track_collection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_collection.hpp; sourceTree = "<group>"; };
@@ -475,10 +481,13 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				F63CE2C41FBF052E00716AD3 /* discovery_client_params.hpp */,
 				3D4E999F1FB4A6400025B48C /* booking_filter_cache.cpp */,
 				3D4E999E1FB4A6400025B48C /* booking_filter_cache.hpp */,
 				3D4E99A01FB4A6410025B48C /* booking_filter.cpp */,
 				3D4E99A11FB4A6410025B48C /* booking_filter.hpp */,
+				F63CE2BD1FBDE7D200716AD3 /* discovery_manager.cpp */,
+				F63CE2BE1FBDE7D300716AD3 /* discovery_manager.hpp */,
 				675345CB1A4054E800A0A8C3 /* address_finder.cpp */,
 				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
 				34921F611BFA0A6900737D6E /* api_mark_point.hpp */,
@@ -595,9 +604,11 @@
 				675346651A4054E800A0A8C3 /* framework.hpp in Headers */,
 				674A2A381B2715FB001A525C /* osm_opening_hours.hpp in Headers */,
 				F6D2CE7F1EDEB7F500636DFD /* routing_manager.hpp in Headers */,
+				F63CE2C51FBF052E00716AD3 /* discovery_client_params.hpp in Headers */,
 				670E39411C46C5C700E9C0A6 /* gps_tracker.hpp in Headers */,
 				45580ABF1E2CBD5E00CD535D /* benchmark_tools.hpp in Headers */,
 				456E1B3B1F9A3C2A009C32E1 /* search_mark.hpp in Headers */,
+				F63CE2C01FBDE7D300716AD3 /* discovery_manager.hpp in Headers */,
 				BBD9E2C71EE9D01900DF189A /* routing_mark.hpp in Headers */,
 				342D833B1D5233E8000D8AEA /* displacement_mode_manager.hpp in Headers */,
 				F6B283041C1B03320081957A /* gps_track_collection.hpp in Headers */,
@@ -731,6 +742,7 @@
 				F6D2CE7E1EDEB7F500636DFD /* routing_manager.cpp in Sources */,
 				3D74ABBE1EA76F1D0063A898 /* local_ads_supported_types.cpp in Sources */,
 				45A2D9D51F7556EB003310A0 /* user.cpp in Sources */,
+				F63CE2BF1FBDE7D300716AD3 /* discovery_manager.cpp in Sources */,
 				0C2B73DE1E92AB9900530BB8 /* local_ads_manager.cpp in Sources */,
 				F6B283071C1B03320081957A /* gps_track_storage.cpp in Sources */,
 				6753463A1A4054E800A0A8C3 /* address_finder.cpp in Sources */,

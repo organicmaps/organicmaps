@@ -4,6 +4,7 @@
 #include "map/booking_filter.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
+#include "map/discovery_manager.hpp"
 #include "map/displacement_mode_manager.hpp"
 #include "map/feature_vec_model.hpp"
 #include "map/local_ads_manager.hpp"
@@ -72,6 +73,7 @@
 #include "std/string.hpp"
 #include "std/target_os.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 #include <boost/optional.hpp>
@@ -201,6 +203,8 @@ protected:
   TrafficManager m_trafficManager;
 
   LocalAdsManager m_localAdsManager;
+
+  unique_ptr<discovery::Manager> m_discoveryManager;
 
   User m_user;
 
@@ -503,6 +507,7 @@ private:
   void InitCountryInfoGetter();
   void InitUGC();
   void InitSearchAPI();
+  void InitDiscoveryManager();
 
   DisplacementModeManager m_displacementModeManager;
 
@@ -744,6 +749,17 @@ public:
 
   bool LoadTrafficSimplifiedColors();
   void SaveTrafficSimplifiedColors(bool simplified);
+
+public:
+  template <typename ResultCallback>
+  void Discover(discovery::ClientParams && params, ResultCallback const & result,
+                discovery::Manager::ErrorCalback const & error) const
+  {
+    CHECK(m_discoveryManager.get(), ());
+    m_discoveryManager->Discover(GetDiscoveryParams(move(params)), result, error);
+  }
+
+  discovery::Manager::Params GetDiscoveryParams(discovery::ClientParams && clientParams) const;
 
 public:
   /// Routing Manager

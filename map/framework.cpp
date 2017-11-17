@@ -97,7 +97,6 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/target_os.hpp"
-#include "std/utility.hpp"
 
 #include "api/internal/c/api-client-internals.h"
 #include "api/src/c/api-client.h"
@@ -331,6 +330,7 @@ void Framework::Migrate(bool keepDownloaded)
   m_infoGetter.reset();
   m_taxiEngine.reset();
   m_cityFinder.reset();
+  m_discoveryManager.reset();
   m_ugcApi.reset();
   TCountriesVec existedCountries;
   GetStorage().DeleteAllLocalMaps(&existedCountries);
@@ -341,6 +341,7 @@ void Framework::Migrate(bool keepDownloaded)
   InitUGC();
   InitSearchAPI();
   InitCityFinder();
+  InitDiscoveryManager();
   InitTaxiEngine();
   RegisterAllMaps();
 
@@ -433,6 +434,7 @@ Framework::Framework(FrameworkParams const & params)
   LOG(LDEBUG, ("Search API initialized"));
 
   InitCityFinder();
+  InitDiscoveryManager();
   InitTaxiEngine();
 
   // All members which re-initialize in Migrate() method should be initialized before RegisterAllMaps().
@@ -1344,6 +1346,16 @@ void Framework::InitSearchAPI()
   {
     LOG(LCRITICAL, ("Can't load needed resources for SearchAPI:", e.Msg()));
   }
+}
+
+void Framework::InitDiscoveryManager()
+{
+  CHECK(m_searchAPI.get(), ("InitDiscoveryManager() must be called after InitSearchApi()"));
+  CHECK(m_cityFinder.get(), ("InitDiscoveryManager() must be called after InitCityFinder()"));
+
+  discovery::Manager::APIs const apis(m_searchAPI.get(), m_viatorApi.get(), m_localsApi.get());
+  m_discoveryManager =
+      make_unique<discovery::Manager>(m_model.GetIndex(), m_cityFinder.get(), apis);
 }
 
 void Framework::InitTransliteration()
@@ -2516,6 +2528,21 @@ void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool ap
   if (m_drapeEngine != nullptr)
     m_drapeEngine->EnableChoosePositionMode(enable, enableBounds ? GetSelectedFeatureTriangles() : vector<m2::TriangleD>(),
                                             applyPosition, position);
+}
+
+discovery::Manager::Params Framework::GetDiscoveryParams(
+    discovery::ClientParams && clientParams) const
+{
+  auto constexpr rectSide = 2000.0;
+  discovery::Manager::Params p;
+  auto const currentPosition = GetCurrentPosition();
+  p.m_viewportCenter = currentPosition ? *currentPosition : GetViewportCenter();
+  p.m_viewport = MercatorBounds::RectByCenterXYAndSizeInMeters(p.m_viewportCenter, rectSide);
+  p.m_curency = clientParams.m_currency;
+  p.m_lang = clientParams.m_lang;
+  p.m_itemsCount = clientParams.m_itemsCount;
+  p.m_itemTypes = move(clientParams.m_itemTypes);
+  return p;
 }
 
 vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
