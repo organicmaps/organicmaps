@@ -248,6 +248,8 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
   {
     auto const time = static_cast<int>(ceil(s.GetTimeFromBeginningSec() - prevTime));
     auto const distance = s.GetDistFromBeginningMeters() - prevDistance;
+    prevDistance = s.GetDistFromBeginningMeters();
+    prevTime = s.GetTimeFromBeginningSec();
 
     if (!s.HasTransitInfo())
     {
@@ -383,9 +385,6 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
         pendingEntrance = true;
       }
     }
-
-    prevDistance = s.GetDistFromBeginningMeters();
-    prevTime = s.GetTimeFromBeginningSec();
   }
 
   routeInfo.m_totalDistInMeters = prevDistance;
