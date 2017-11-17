@@ -1,5 +1,7 @@
 #include "map/transit_reader.hpp"
 
+#include "indexer/feature_algo.hpp"
+
 using namespace routing;
 using namespace std;
 
@@ -132,7 +134,7 @@ void ReadTransitTask::Do()
   {
     auto & featureInfo = m_transitInfo->m_features[ft.GetID()];
     ft.GetReadableName(featureInfo.m_title);
-    featureInfo.m_point = ft.GetCenter();
+    featureInfo.m_point = feature::GetCenter(ft);
   }, features);
 }
 

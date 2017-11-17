@@ -630,7 +630,7 @@ void TransitRouteInfo::UpdateDistanceStrings()
 {
   if (m_steps.empty())
     return;
-  for (auto step : m_steps)
+  for (auto & step : m_steps)
   {
     FormatDistance(step.m_distanceInMeters, step.m_distanceStr, step.m_distanceUnitsSuffix);
   }
