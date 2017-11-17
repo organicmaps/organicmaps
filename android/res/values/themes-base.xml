@@ -114,6 +114,8 @@
     <!-- if don't override this attribute the app will be crashed on start on Android 4.xx,
       because on old prelolipop devices vector drawables don't work correctly -->
     <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
+
+    <item name="transitPedestrianBackground">@color/black_4</item>
   </style>
 
   <!-- Night theme -->
@@ -228,5 +230,7 @@
     <!-- if don't override this attribute the app will be crashed on start on Android 4.xx,
       because on old prelolipop devices vector drawables don't work correctly -->
     <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
+
+    <item name="transitPedestrianBackground">@color/white_4</item>
   </style>
 </resources>

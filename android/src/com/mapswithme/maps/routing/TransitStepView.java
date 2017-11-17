@@ -86,7 +86,9 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   {
     mStepType = info.getType();
     mDrawable = getResources().getDrawable(mStepType.getDrawable());
-    mBackgroundPaint.setColor(info.getColor());
+    mBackgroundPaint.setColor(mStepType == TransitStepType.PEDESTRIAN
+                              ? ThemeUtils.getColor(getContext(), R.attr.transitPedestrianBackground)
+                              : info.getColor());
     mText = info.getNumber();
     invalidate();
     requestLayout();
