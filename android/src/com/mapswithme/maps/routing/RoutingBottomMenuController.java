@@ -1,5 +1,6 @@
 package com.mapswithme.maps.routing;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -189,6 +190,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.show(mTaxiFrame);
   }
 
+  @SuppressLint("SetTextI18n")
   void showTransitInfo(@NonNull TransitRouteInfo info)
   {
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mAltitudeChartFrame, mTaxiFrame);
@@ -205,7 +207,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     TextView totalTimeView = (TextView) mTransitFrame.findViewById(R.id.total_time);
     totalTimeView.setText(RoutingController.formatRoutingTime(mContext, (int) info.getTotalTime(),
                                                             R.dimen.text_size_routing_number));
+    View dotView = mTransitFrame.findViewById(R.id.dot);
+    View pedestrianIcon = mTransitFrame.findViewById(R.id.pedestrian_icon);
     TextView distanceView = (TextView) mTransitFrame.findViewById(R.id.total_distance);
+    UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
     distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalDistanceUnits());
   }
 

@@ -43,6 +43,11 @@ public class TransitRouteInfo
     return mTotalPedestrianDistance;
   }
 
+  int getTotalPedestrianTimeInSec()
+  {
+    return mTotalPedestrianTimeInSec;
+  }
+
   @NonNull
   String getTotalDistanceUnits()
   {

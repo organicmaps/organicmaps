@@ -37,7 +37,6 @@
     android:layout_toEndOf="@id/dot"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_eighth"
     android:src="@drawable/ic_20px_route_planning_walk"
     android:tint="?iconTint"/>
   <TextView
