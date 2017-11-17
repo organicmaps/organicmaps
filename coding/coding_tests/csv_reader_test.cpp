@@ -8,6 +8,12 @@
 #include <string>
 #include <vector>
 
+using coding::CSVReader;
+using platform::tests_support::ScopedFile;
+
+using Row = std::vector<std::string>;
+using File = std::vector<Row>;
+
 namespace
 {
 std::string const kCSV1 = "a,b,c,d\ne,f,g h";
@@ -15,14 +21,10 @@ std::string const kCSV2 = "a,b,cd a b, c";
 std::string const kCSV3 = "";
 }  // namespace
 
-using coding::CSVReader;
-using Row = std::vector<std::string>;
-using File = std::vector<Row>;
-
 UNIT_TEST(CSVReaderSmoke)
 {
   auto const fileName = "test.csv";
-  platform::tests_support::ScopedFile sf(fileName, kCSV1);
+  ScopedFile sf(fileName, kCSV1);
   FileReader fileReader(sf.GetFullPath());
   CSVReader reader;
   reader.Read(fileReader, [](File const & file) {
@@ -46,7 +48,7 @@ UNIT_TEST(CSVReaderSmoke)
 UNIT_TEST(CSVReaderCustomDelimiter)
 {
   auto const fileName = "test.csv";
-  platform::tests_support::ScopedFile sf(fileName, kCSV2);
+  ScopedFile sf(fileName, kCSV2);
   FileReader fileReader(sf.GetFullPath());
   CSVReader reader;
   CSVReader::Params p;
@@ -64,7 +66,7 @@ UNIT_TEST(CSVReaderCustomDelimiter)
 UNIT_TEST(CSVReaderEmptyFile)
 {
   auto const fileName = "test.csv";
-  platform::tests_support::ScopedFile sf(fileName, kCSV2);
+  ScopedFile sf(fileName, kCSV2);
   FileReader fileReader(sf.GetFullPath());
 
   CSVReader reader;

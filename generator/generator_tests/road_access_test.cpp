@@ -93,7 +93,7 @@ RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(string const 
                            0 /* version */);
   ScopedDir const scopedDir(kTestDir);
   string const mwmRelativePath = my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
-  ScopedFile const scopedMwm(mwmRelativePath);
+  ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
   BuildTestMwmWithRoads(country);
 
   // Creating a file with road access.
@@ -102,7 +102,7 @@ RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(string const 
 
   // Creating osm ids to feature ids mapping.
   string const mappingRelativePath = my::JoinPath(kTestDir, kOsmIdsToFeatureIdsName);
-  ScopedFile const mappingFile(mappingRelativePath);
+  ScopedFile const mappingFile(mappingRelativePath, ScopedFile::Mode::Create);
   string const mappingFullPath = mappingFile.GetFullPath();
   ReEncodeOsmIdsToFeatureIdsMapping(mappingContent, mappingFullPath);
 

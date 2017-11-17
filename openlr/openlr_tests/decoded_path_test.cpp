@@ -121,7 +121,8 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
 
   LocalCountryFile country(mwmPath, CountryFile(kTestMwm), 0 /* version */);
   ScopedDir testScopedDir(kTestDir);
-  ScopedFile testScopedMwm(my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION));
+  ScopedFile testScopedMwm(my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION),
+                           ScopedFile::Mode::Create);
 
   {
     TestMwmBuilder builder(country, feature::DataHeader::country);

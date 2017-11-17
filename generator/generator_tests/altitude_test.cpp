@@ -171,7 +171,8 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads, bool hasAltitudeE
   // Building mwm without altitude section.
   LocalCountryFile country(testDirFullPath, CountryFile(kTestMwm), 1);
   ScopedDir testScopedDir(kTestDir);
-  ScopedFile testScopedMwm(my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION));
+  ScopedFile testScopedMwm(my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION),
+                           ScopedFile::Mode::Create);
 
   BuildMwmWithoutAltitudes(roads, country);
 

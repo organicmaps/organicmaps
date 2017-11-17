@@ -8,10 +8,11 @@
 
 using namespace local_ads;
 using namespace std;
+using platform::tests_support::ScopedFile;
 
 UNIT_TEST(LocalAdsHelpers_Read_Write_Country_Name)
 {
-  platform::tests_support::ScopedFile testFile("la_tests.dat");
+  ScopedFile testFile("la_tests.dat", ScopedFile::Mode::Create);
 
   string const countryName = "Russia_Moscow";
   {
@@ -31,7 +32,7 @@ UNIT_TEST(LocalAdsHelpers_Read_Write_Country_Name)
 
 UNIT_TEST(LocalAdsHelpers_Read_Write_Timestamp)
 {
-  platform::tests_support::ScopedFile testFile("la_tests.dat");
+  ScopedFile testFile("la_tests.dat", ScopedFile::Mode::Create);
 
   auto ts = local_ads::Clock::now();
   {
@@ -55,7 +56,7 @@ UNIT_TEST(LocalAdsHelpers_Read_Write_Timestamp)
 
 UNIT_TEST(LocalAdsHelpers_Read_Write_RawData)
 {
-  platform::tests_support::ScopedFile testFile("la_tests.dat");
+  ScopedFile testFile("la_tests.dat", ScopedFile::Mode::Create);
 
   vector<uint8_t> rawData = {1, 2, 3, 4, 5};
   {

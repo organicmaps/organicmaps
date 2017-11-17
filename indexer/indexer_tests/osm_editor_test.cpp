@@ -21,6 +21,7 @@
 
 using namespace generator::tests_support;
 using namespace indexer::tests_support;
+using platform::tests_support::ScopedFile;
 
 namespace
 {
@@ -648,7 +649,7 @@ void EditorTest::HaveMapEditsOrNotesToUploadTest()
   editor.ClearAllLocalEdits();
   TEST(!editor.HaveMapEditsOrNotesToUpload(), ());
 
-  platform::tests_support::ScopedFile sf("test_notes.xml");
+  ScopedFile sf("test_notes.xml", ScopedFile::Mode::DoNotCreate);
 
   editor.m_notes = Notes::MakeNotes(sf.GetFullPath(), true);
 
@@ -825,11 +826,9 @@ void EditorTest::CreateNoteTest()
     builder.Add(TestCafe(m2::PointD(2.0, 2.0), "Cafe", "en"));
   });
 
-  auto const createAndCheckNote = [&editor](FeatureID const & fId,
-                                            ms::LatLon const & pos,
-                                            osm::Editor::NoteProblemType const noteType)
-  {
-    platform::tests_support::ScopedFile sf("test_notes.xml");
+  auto const createAndCheckNote = [&editor](FeatureID const & fId, ms::LatLon const & pos,
+                                            osm::Editor::NoteProblemType const noteType) {
+    ScopedFile sf("test_notes.xml", ScopedFile::Mode::DoNotCreate);
     editor.m_notes = Notes::MakeNotes(sf.GetFullPath(), true);
     feature::TypesHolder holder;
     holder.Assign(classif().GetTypeByPath({"amenity", "restaurant"}));

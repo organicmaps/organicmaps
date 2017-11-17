@@ -107,7 +107,7 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
                                                30, 3,
                                                40, 4)";
   Platform const & platform = Platform();
-  ScopedFile mappingScopedFile(osmIdsToFeatureIdsPath);
+  ScopedFile mappingScopedFile(osmIdsToFeatureIdsPath, ScopedFile::Mode::Create);
   std::string const osmIdsToFeatureIdsFullPath = mappingScopedFile.GetFullPath();
   ReEncodeOsmIdsToFeatureIdsMapping(kOsmIdsToFeatureIdsContent, osmIdsToFeatureIdsFullPath);
 

@@ -914,7 +914,7 @@ UNIT_CLASS_TEST(StorageTest, CancelDownloadingWhenAlmostDone)
 
 UNIT_CLASS_TEST(StorageTest, DeleteCountry)
 {
-  tests_support::ScopedFile map("Wonderland.mwm", "map");
+  tests_support::ScopedFile map("Wonderland.mwm", ScopedFile::Mode::Create);
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_SINGLE_MWM1);
   TEST_EQUAL(MapOptions::MapWithCarRouting, file.GetFiles(), ());
@@ -940,7 +940,7 @@ UNIT_CLASS_TEST(StorageTest, DeleteCountry)
 
 UNIT_CLASS_TEST(TwoComponentStorageTest, DeleteCountry)
 {
-  tests_support::ScopedFile map("Wonderland.mwm", "map");
+  tests_support::ScopedFile map("Wonderland.mwm", ScopedFile::Mode::Create);
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_TWO_COMPONENT_MWM1);
   TEST_EQUAL(MapOptions::Map, file.GetFiles(), ());
@@ -1003,12 +1003,12 @@ UNIT_TEST(StorageTest_ObsoleteMapsRemoval)
   CountryFile country("Azerbaijan");
 
   tests_support::ScopedDir dir1("1");
-  tests_support::ScopedFile map1(dir1, country, MapOptions::Map, "map1");
+  tests_support::ScopedFile map1(dir1, country, MapOptions::Map);
   LocalCountryFile file1(dir1.GetFullPath(), country, 1 /* version */);
   CountryIndexes::PreparePlaceOnDisk(file1);
 
   tests_support::ScopedDir dir2("2");
-  tests_support::ScopedFile map2(dir2, country, MapOptions::Map, "map2");
+  tests_support::ScopedFile map2(dir2, country, MapOptions::Map);
   LocalCountryFile file2(dir2.GetFullPath(), country, 2 /* version */);
   CountryIndexes::PreparePlaceOnDisk(file2);
 

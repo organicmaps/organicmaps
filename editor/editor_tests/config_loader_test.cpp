@@ -10,6 +10,7 @@
 namespace
 {
 using namespace editor;
+using platform::tests_support::ScopedFile;
 
 void CheckGeneralTags(pugi::xml_document const & doc)
 {
@@ -45,7 +46,7 @@ UNIT_TEST(ConfigLoader_GetRemoteConfig)
 
 UNIT_TEST(ConfigLoader_SaveLoadHash)
 {
-  platform::tests_support::ScopedFile sf("test.hash");
+  ScopedFile sf("test.hash", ScopedFile::Mode::Create);
   auto const testHash = "12345 678909 87654 321 \n 32";
 
   ConfigLoader::SaveHash(testHash, sf.GetFullPath());

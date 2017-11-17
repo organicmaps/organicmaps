@@ -17,7 +17,7 @@ namespace platform
 {
 namespace tests_support
 {
-ScopedMwm::ScopedMwm(string const & relativePath) : m_file(relativePath, "")
+ScopedMwm::ScopedMwm(string const & relativePath) : m_file(relativePath, ScopedFile::Mode::Create)
 {
   DataHeader header;
   {

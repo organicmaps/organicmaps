@@ -20,11 +20,31 @@ namespace platform
 {
 namespace tests_support
 {
-ScopedFile::ScopedFile(string const & relativePath) : ScopedFile(relativePath, {} /* contents */) {}
+ScopedFile::ScopedFile(string const & relativePath, Mode mode)
+  : ScopedFile(relativePath, {} /* contents */, mode)
+{
+}
 
 ScopedFile::ScopedFile(string const & relativePath, string const & contents)
+  : ScopedFile(relativePath, contents, Mode::Create)
+{
+}
+
+ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile,
+                       MapOptions mapOptions)
+  : ScopedFile(
+        my::JoinPath(dir.GetRelativePath(), GetFileName(countryFile.GetName(), mapOptions,
+                                                        version::FOR_TESTING_TWO_COMPONENT_MWM1)),
+        Mode::Create)
+{
+}
+
+ScopedFile::ScopedFile(string const & relativePath, string const & contents, Mode mode)
   : m_fullPath(my::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath))
 {
+  if (mode == Mode::DoNotCreate)
+    return;
+
   try
   {
     FileWriter writer(GetFullPath());
@@ -38,22 +58,13 @@ ScopedFile::ScopedFile(string const & relativePath, string const & contents)
   CHECK(Exists(), ("Can't create test file", GetFullPath()));
 }
 
-ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, MapOptions file,
-                       string const & contents)
-  : ScopedFile(my::JoinFoldersToPath(dir.GetRelativePath(),
-                                     GetFileName(countryFile.GetName(), file, version::FOR_TESTING_TWO_COMPONENT_MWM1)),
-               contents)
-{
-  CHECK(Exists(), ("Can't create test file", GetFullPath()));
-}
-
 ScopedFile::~ScopedFile()
 {
   if (m_reset)
     return;
   if (!Exists())
   {
-    LOG(LERROR, ("File", GetFullPath(), "was deleted before dtor of ScopedFile."));
+    LOG(LERROR, ("File", GetFullPath(), "did not exist or was deleted before dtor of ScopedFile."));
     return;
   }
   if (!my::DeleteFileX(GetFullPath()))
