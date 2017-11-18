@@ -211,7 +211,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View pedestrianIcon = mTransitFrame.findViewById(R.id.pedestrian_icon);
     TextView distanceView = (TextView) mTransitFrame.findViewById(R.id.total_distance);
     UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
-    distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalDistanceUnits());
+    distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
   }
 
   void showAddStartFrame()

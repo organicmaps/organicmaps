@@ -49,9 +49,9 @@ public class TransitRouteInfo
   }
 
   @NonNull
-  String getTotalDistanceUnits()
+  String getTotalPedestrianDistanceUnits()
   {
-    return mTotalDistanceUnits;
+    return mTotalPedestrianDistanceUnits;
   }
 
   int getTotalTime()
