@@ -89,12 +89,24 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     mDrawable = getResources().getDrawable(mStepType == TransitStepType.INTERMEDIATE_POINT
                                            ? getIntermediatePointDrawableId(info.getIntermediateIndex())
                                            : mStepType.getDrawable());
-    mBackgroundPaint.setColor(mStepType == TransitStepType.PEDESTRIAN
-                              ? ThemeUtils.getColor(getContext(), R.attr.transitPedestrianBackground)
-                              : info.getColor());
+    mBackgroundPaint.setColor(getBackgroundColor(getContext(), info));
     mText = info.getNumber();
     invalidate();
     requestLayout();
+  }
+
+  @ColorInt
+  private static int getBackgroundColor(@NonNull Context context, @NonNull TransitStepInfo info)
+  {
+    switch (info.getType())
+    {
+      case PEDESTRIAN:
+        return ThemeUtils.getColor(context, R.attr.transitPedestrianBackground);
+      case INTERMEDIATE_POINT:
+        return Color.TRANSPARENT;
+      default:
+        return info.getColor();
+    }
   }
 
   @DrawableRes
@@ -153,13 +165,17 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   {
     // If the clear view height, i.e. without top/bottom padding, is greater than the drawable height
     // the drawable should be centered vertically by adding additional vertical top/bottom padding.
+    // If the drawable height is greater than the clear view height the drawable will be fitted
+    // (squeezed) into the parent container.
     int clearHeight = height - getPaddingTop() - getPaddingBottom();
     int vPad = 0;
-    if (clearHeight > drawable.getIntrinsicHeight())
+    if (clearHeight >= drawable.getIntrinsicHeight())
       vPad = (clearHeight - drawable.getIntrinsicHeight()) / 2;
+    int acceptableDrawableHeight = clearHeight >= drawable.getIntrinsicHeight() ? drawable.getIntrinsicHeight()
+                                                                                : clearHeight;
     mDrawableBounds.set(getPaddingLeft(), getPaddingTop() + vPad,
                         drawable.getIntrinsicWidth() + getPaddingLeft(),
-                        getPaddingTop() + vPad + drawable.getIntrinsicHeight());
+                        getPaddingTop() + vPad + acceptableDrawableHeight);
   }
 
   @Override
