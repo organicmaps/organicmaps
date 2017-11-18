@@ -261,11 +261,6 @@ public class RoutingPlanController extends ToolbarController
     mRoutingBottomMenuController.showTaxiInfo(info);
   }
 
-  public void showTransitInfo(@NonNull TransitRouteInfo info)
-  {
-    mRoutingBottomMenuController.showTransitInfo(info);
-  }
-
   public void showTaxiError(@NonNull TaxiManager.ErrorCode code)
   {
     switch (code)

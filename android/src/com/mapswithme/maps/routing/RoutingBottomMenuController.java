@@ -194,6 +194,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void showTransitInfo(@NonNull TransitRouteInfo info)
   {
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mAltitudeChartFrame, mTaxiFrame);
+    showStartButton(false);
     UiUtils.show(mTransitFrame);
     RecyclerView rv = (RecyclerView) mTransitFrame.findViewById(R.id.transit_recycler_view);
     TransitStepAdapter adapter = new TransitStepAdapter();
