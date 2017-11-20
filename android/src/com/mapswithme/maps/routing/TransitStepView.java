@@ -132,7 +132,7 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     if (mDrawable != null)
     {
       calculateDrawableBounds(height, mDrawable);
-      width += mDrawable.getIntrinsicWidth();
+      width += mDrawableBounds.width();
     }
 
     if (!TextUtils.isEmpty(mText))
@@ -173,8 +173,12 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
       vPad = (clearHeight - drawable.getIntrinsicHeight()) / 2;
     int acceptableDrawableHeight = clearHeight >= drawable.getIntrinsicHeight() ? drawable.getIntrinsicHeight()
                                                                                 : clearHeight;
+    // A transit icon must be squared-shaped. So, if the drawable width is greater than height the
+    // drawable will be squeezed horizontally to make it squared-shape.
+    int acceptableDrawableWidth = drawable.getIntrinsicWidth() > acceptableDrawableHeight
+                                  ? acceptableDrawableHeight : drawable.getIntrinsicWidth();
     mDrawableBounds.set(getPaddingLeft(), getPaddingTop() + vPad,
-                        drawable.getIntrinsicWidth() + getPaddingLeft(),
+                        acceptableDrawableWidth + getPaddingLeft(),
                         getPaddingTop() + vPad + acceptableDrawableHeight);
   }
 
