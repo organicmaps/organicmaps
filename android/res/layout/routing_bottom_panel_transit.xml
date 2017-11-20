@@ -18,7 +18,7 @@
     android:layout_alignParentTop="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    android:textAppearance="@style/MwmWidget.TextView.PlanDetail.Number.Time"
+    style="@style/MwmWidget.TextView.PlanDetail.Number.Time"
     tools:text="40 min"/>
   <TextView
     android:id="@+id/dot"
