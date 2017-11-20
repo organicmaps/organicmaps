@@ -6,7 +6,7 @@
       "text": "231F20"
     },
     "gray": {
-      "clear": "8B8B8C",
+      "clear": "A4A4A6",
       "night": "464647",
       "text": "231F20"
     },
@@ -121,17 +121,17 @@
       "text": "01579B"
     },
     "blue_light": {
-      "clear": "90CAF9",
+      "clear": "B2D8F8",
       "night": "466178",
       "text": "01579B"
     },
     "navy_dark": {
-      "clear": "1A357D",
+      "clear": "193380",
       "night": "0F1B42",
       "text": "1A357D"
     },
     "navy": {
-      "clear": "0068AD",
+      "clear": "243BB3",
       "night": "003557",
       "text": "1A357D"
     },
@@ -140,13 +140,8 @@
       "night": "3D4866",
       "text": "1A357D"
     },
-    "indigo": {
-      "clear": "4824B5",
-      "night": "25135B",
-      "text": "4A148C"
-    },
     "purple_dark": {
-      "clear": "4A148C",
+      "clear": "52138B",
       "night": "360E66",
       "text": "4A148C"
     },

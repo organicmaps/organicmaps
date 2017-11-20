@@ -6,6 +6,7 @@ import copy
 import json
 import math
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 import numpy as np
 import os.path
 import sys, io
@@ -70,6 +71,7 @@ class TransitGraphBuilder:
         self.segments = {}
         self.shapes = []
         self.transit_graph = None
+        self.matched_colors = {}
 
     def __get_average_stops_point(self, stop_ids):
         """Returns an average position of the stops."""
@@ -176,10 +178,7 @@ class TransitGraphBuilder:
                             'interval': line_item['interval'],
                             'stop_ids': []
                             }
-                    if 'colour' in route_item:
-                        line['color'] = self.palette.get_nearest_color(route_item['colour'])
-                    else:
-                        line['color'] = self.palette.get_default_color()
+                    line['color'] = self.__match_color(route_item.get('colour', ''), route_item.get('casing', ''))
 
                     # TODO: Add processing of line_item['shape'] when this data will be available.
                     # TODO: Add processing of line_item['trip_ids'] when this data will be available.
@@ -203,6 +202,17 @@ class TransitGraphBuilder:
                     self.lines.append(line)
                     line_index += 1
 
+    def __match_color(self, color_str, casing_str):
+        if len(color_str) == 0:
+            return self.palette.get_default_color()
+        matched_colors_key = color_str + "/" + casing_str
+        if matched_colors_key in self.matched_colors:
+            return self.matched_colors[matched_colors_key]
+        c = self.palette.get_nearest_color(color_str, casing_str, self.matched_colors.values())
+        if c != self.palette.get_default_color():
+            self.matched_colors[matched_colors_key] = c
+        return c
+            
     def __generate_transfer_nodes(self):
         """Merges stops into transfer nodes."""
         for edge in self.edges:
@@ -332,6 +342,27 @@ class TransitGraphBuilder:
             plt.scatter([point['x']], [point['y']], size, color)
         plt.show()
 
+    def show_color_maching_table(self, title, colors_ref_table):
+        fig = plt.figure()
+        ax = fig.add_subplot(111, aspect='equal')
+        plt.title(title)
+        sz = 1.0 / (2.0 * len(self.matched_colors))
+        delta_y = sz * 0.5
+        for c in self.matched_colors:
+            tokens = c.split('/')
+            if len(tokens[1]) == 0:
+                tokens[1] = tokens[0]
+            ax.add_patch(patches.Rectangle((sz, delta_y), sz, sz, facecolor="#" + tokens[0], edgecolor="#" + tokens[1]))
+            rect_title = tokens[0]
+            if tokens[0] != tokens[1]:
+                rect_title += "/" + tokens[1]
+            ax.text(2.5 * sz, delta_y, rect_title + " -> ")
+            ref_color = colors_ref_table[self.matched_colors[c]]
+            ax.add_patch(patches.Rectangle((0.3 + sz, delta_y), sz, sz, facecolor="#" + ref_color))
+            ax.text(0.3 + 2.5 * sz, delta_y, ref_color + " (" + self.matched_colors[c] + ")")
+            delta_y += sz * 2.0
+        plt.show()
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -342,6 +373,9 @@ if __name__ == '__main__':
                         help='transit colors file COLORS_FILE_PATH', metavar='COLORS_FILE_PATH')
     parser.add_argument('-p', '--preview', action="store_true", default=False,
                         help="show preview of the transit scheme")
+    parser.add_argument('-m', '--matched_colors', action="store_true", default=False,
+                        help="show the matched colors table")
+
 
     parser.add_argument('-a', '--alpha', type=float, default=0.5, help='the curves generator parameter value ALPHA',
                         metavar='ALPHA')
@@ -360,9 +394,9 @@ if __name__ == '__main__':
     result = transit.build()
 
     output_file = args.output_file
+    head, tail = os.path.split(os.path.abspath(args.input_file))
+    name, extension = os.path.splitext(tail)
     if output_file is None:
-        head, tail = os.path.split(os.path.abspath(args.input_file))
-        name, extension = os.path.splitext(tail)
         output_file = os.path.join(head, name + '.transit' + extension)
     with io.open(output_file, 'w', encoding='utf8') as json_file:
         result_data = json.dumps(result, ensure_ascii=False, indent=4, sort_keys=True)
@@ -371,3 +405,9 @@ if __name__ == '__main__':
 
     if args.preview:
         transit.show_preview()
+
+    if args.matched_colors:
+        colors_ref_table = {}
+        for color_name, color_info in colors['colors'].iteritems():
+            colors_ref_table[color_name] = color_info['clear']
+        transit.show_color_maching_table(name, colors_ref_table)
