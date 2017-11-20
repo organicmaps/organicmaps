@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "Om een kaart bij te werken, moet u nu enkel de missende gegevens downloaden";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Start vanaf";
 
 "rating" = "Rating";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Geen beoordelingen";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "U hebt deze plaats al beoordeeld";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Samengevatte rating";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "Gebaseerd op %s beoordelingen";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Tap om deze plaats te raten en te beoordelen.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Verschrikkelijk";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Slecht";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "Normaal";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Goed";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Uitstekend";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "Meest recent";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "Nuttigst";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "Hoogste rating";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "Laagste rating";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "Enkel de nuttigste beoordelingen worden in de offline modus weergegeven";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Uw beoordeling";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Nutteloos";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Ongepast";
 
 "placepage_reviews_spam" = "Spam";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Wat is hier goed of slecht?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Bewerk uw beoordeling";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Nieuwe beoordeling";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Vertalen";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Origineel weergeven";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Meer beoordelingen op Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Aanmelden met";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Eenvoudig aanmelden zonder gebruikersnaam en wachtwoord in enkele seconden";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "Oeps, er is een fout opgetreden. Probeer opnieuw aan te melden.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "Dienst";
 
-"service" = "Service";
+"atmosphere" = "Sfeer";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "Waarde voor geld";
 
-"value_for_money" = "Value for money";
+"experience" = "Ervaring";
 
-"experience" = "Experience";
-
-"assortment" = "Assortment";
+"assortment" = "Assortiment";
 
 "expertise" = "Expertise";
 
-"equipment" = "Equipment";
+"equipment" = "Uitrusting";
 
-"quality" = "Quality";
+"quality" = "Kwaliteit";
 
-"sponsored_thor_gather" = "Gather";
+"sponsored_thor_gather" = "Verzamelen";
 
-"whats_new_ugc_title" = "Ratings and reviews";
+"whats_new_ugc_title" = "Ratings en beoordelingen";
 
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Nu kunt u zelfs offline ratings en beoordelingen nalaten! Vergeet uw kaarten niet bij te werken zodat u de wijzigingen kunt zien.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

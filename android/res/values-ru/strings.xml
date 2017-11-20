@@ -1205,7 +1205,6 @@
 	<string name="placepage_reviews_inappropriate">Неуместный</string>
 	<string name="placepage_reviews_spam">Спам</string>
 	<string name="placepage_reviews_hint">Что тут хорошо или плохо?</string>
-	<string name="placepage_reviews_error">Напишите что-нибудь ещё, чтобы помочь путешественникам. Минимальное количество символов: 40</string>
 	<string name="placepage_reviews_edit_your_review">Редактировать ваш отзыв</string>
 	<string name="placepage_reviews_new_review">Новый отзыв</string>
 	<string name="placepage_translate_button">Перевести</string>

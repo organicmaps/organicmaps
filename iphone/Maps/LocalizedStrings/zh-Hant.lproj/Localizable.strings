@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "若要更新地圖，現在您只需要下載缺少的資料即可";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "起點";
 
-"rating" = "Rating";
+"rating" = "評分";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "無評論";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "您已評論過這個地方";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "評分摘要";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "根據 %s 則評論";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "點選以為這個地點評分或評論。";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "很糟";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "不好";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "一般";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "好";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "極好";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "最近";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "最實用";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "最高評分";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "最低評分";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "離線模式中只會顯示最實用的評論";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "您的評論";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "沒有幫助";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "不恰當";
 
-"placepage_reviews_spam" = "Spam";
+"placepage_reviews_spam" = "垃圾訊息";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "這裡的優點與缺點是什麼？";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "編輯您的評論";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "新評論";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "翻譯";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "顯示原文";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Booking.com 上的更多評價";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "登入方式";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "無須帳號密碼，在幾秒內輕鬆登入。";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "噢，發生錯誤。請嘗試再次登入。";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "服務";
 
-"service" = "Service";
+"atmosphere" = "氣氛";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "物有所值";
 
-"value_for_money" = "Value for money";
+"experience" = "體驗";
 
-"experience" = "Experience";
+"assortment" = "分類";
 
-"assortment" = "Assortment";
+"expertise" = "專業";
 
-"expertise" = "Expertise";
+"equipment" = "設備";
 
-"equipment" = "Equipment";
+"quality" = "品質";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "收集";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "評分與評論";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "現在即使離線，您也能留下評分和評論！別忘了更新地圖，才能看到變更。";
 
 "dialog_error_storage_title" = "Storage access problem";
 

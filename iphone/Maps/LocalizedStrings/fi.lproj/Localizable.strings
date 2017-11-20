@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "Kun päivität kartan, sinun täytyy nyt ladata vain puuttuvat tiedot";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Aloita kohdasta";
 
-"rating" = "Rating";
+"rating" = "Arvio";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Ei arvosteluja";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Olet jo arvioinut tämän paikan";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Yhteenvetoarvio";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "%s arvion perusteella";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Arvioi ja arvostele tämä paikka napauttamalla.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Kamala";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Huono";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "Normaali";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Hyvä";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Erinomainen";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "Viimeisimmät";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "Hyödyllisimmät";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "Parhaat";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "Huonoimmat";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "Vain hyödyllisimmät arvostelut näytetään offline-tilassa";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Arviosi";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Hyödytön";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Sopimaton";
 
-"placepage_reviews_spam" = "Spam";
+"placepage_reviews_spam" = "Spämmi";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Mitä hyvää tai huonoa täällä on?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Muokkaa arviotasi";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Uusi arvio";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Käännä";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Näytä alkuperäinen";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Lisää arvosteluja Booking.comissa";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Kirjaudu sisään käyttämällä palvelua";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Helppo sisäänkirjautuminen ilman käyttäjätunnusta ja salasanaa parissa sekunnissa";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "Tapahtui virhe. Yritä kirjautua sisään uudelleen.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "Palvelu";
 
-"service" = "Service";
+"atmosphere" = "Ilmapiiri";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "Vastinetta rahoille";
 
-"value_for_money" = "Value for money";
+"experience" = "Kokemus";
 
-"experience" = "Experience";
+"assortment" = "Valikoima";
 
-"assortment" = "Assortment";
+"expertise" = "Asiantuntemus";
 
-"expertise" = "Expertise";
+"equipment" = "Laitteet";
 
-"equipment" = "Equipment";
+"quality" = "Laatu";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "Kerää";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "Arviot ja arvostelut";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Nyt voit jättää arvioita ja arvosteluja myös offline-tilassa! Älä unohda päivittää karttojasi, jotta näet muutokset.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

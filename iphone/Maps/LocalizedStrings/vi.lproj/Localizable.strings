@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "Để cập nhật bản đồ, giờ đây bạn chỉ cần tải về dữ liệu còn thiếu";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Bắt đầu từ";
 
-"rating" = "Rating";
+"rating" = "Cho điểm";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Không có đánh giá";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Bạn đã đánh giá nơi này";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Điểm tóm tắt";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "Dựa trên %s đánh giá";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Chạm để cho điểm và đánh giá nơi này.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Khủng khiếp";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Tồi tệ";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "Bình thường";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Tốt";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Xuất sắc";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "Gần đây nhất";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "Hữu ích nhất";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "Điểm cao nhất";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "Điểm thấp nhất";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "Chỉ những đánh giá hữu ích nhất mới được hiển thị trong chế độ ngoại tuyến";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Đánh giá của bạn";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Không hữu ích";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Không phù hợp";
 
-"placepage_reviews_spam" = "Spam";
+"placepage_reviews_spam" = "Thư rác";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Những điểm tốt và xấu ở đây?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Sửa đánh giá của bạn";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Đánh giá mới";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Dịch";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Hiển thị bản gốc";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Xem thêm đánh giá trên Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Đăng nhập với";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Dễ dàng đăng nhập chỉ trong một vài giây mà không cần tên người dùng và mật khẩu";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "Rất tiếc, đã có lỗi xảy ra. Hãy thử đăng nhập lại.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "Dịch vụ";
 
-"service" = "Service";
+"atmosphere" = "Không khí";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "Đáng đồng tiền";
 
-"value_for_money" = "Value for money";
+"experience" = "Trải nghiệm";
 
-"experience" = "Experience";
+"assortment" = "Phân loại";
 
-"assortment" = "Assortment";
+"expertise" = "Chuyên môn";
 
-"expertise" = "Expertise";
+"equipment" = "Thiết bị";
 
-"equipment" = "Equipment";
+"quality" = "Chất lượng";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "Tụ tập";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "Điểm và đánh giá";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Giờ đây bạn có thể để lại điểm và đánh giá kể cả khi ngoại tuyến! Đừng quên cập nhật bản đồ của bạn để có thể thấy các thay đổi.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

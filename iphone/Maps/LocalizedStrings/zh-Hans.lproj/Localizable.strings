@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "要更新地图，您现在只需下载缺少的数据即可";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "起点";
 
-"rating" = "Rating";
+"rating" = "评分";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "无评价";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "您已评价这个地方";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "评分汇总";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "基于 %s 条评价";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "点按，为这个地方留下评分和评价。";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "极差";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "差";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "一般";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "好";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "极好";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "最近";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "最有用";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "评分最高";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "评分最低";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "离线模式仅会显示最有用的评价";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "您的评价";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "没有帮助";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "不适当";
 
-"placepage_reviews_spam" = "Spam";
+"placepage_reviews_spam" = "垃圾内容";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "有什么好或者差的方面？";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "编辑您的评价";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "新评价";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "翻译";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "显示源语言";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Booking.com 上的更多评价";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "登录方式";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "在几秒内轻松登录，无需登录名和密码";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "糟糕，出错了。请尝试重新登录。";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "服务";
 
-"service" = "Service";
+"atmosphere" = "氛围";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "物有所值";
 
-"value_for_money" = "Value for money";
+"experience" = "经验";
 
-"experience" = "Experience";
+"assortment" = "分类";
 
-"assortment" = "Assortment";
+"expertise" = "专业";
 
-"expertise" = "Expertise";
+"equipment" = "设备";
 
-"equipment" = "Equipment";
+"quality" = "质量";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "收集";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "评分和评价";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "现在，即使离线您也可以留下评分和评价！记得更新您的地图，这样您可以看到更改。";
 
 "dialog_error_storage_title" = "Storage access problem";
 

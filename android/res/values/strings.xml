@@ -1217,7 +1217,6 @@
 	<string name="placepage_reviews_inappropriate">Inappropriate</string>
 	<string name="placepage_reviews_spam">Spam</string>
 	<string name="placepage_reviews_hint">What\'s good or bad here?</string>
-	<string name="placepage_reviews_error">Write something to help travellers. Minimum number of characters: 40</string>
 	<string name="placepage_reviews_edit_your_review">Edit your review</string>
 	<string name="placepage_reviews_new_review">New review</string>
 	<string name="placepage_translate_button">Translate</string>

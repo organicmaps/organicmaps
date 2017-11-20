@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "Du trenger nå bare å laste ned manglende data for å oppdatere et kart";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Start fra";
 
-"rating" = "Rating";
+"rating" = "Vurdering";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Ingen vurderinger";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Du har allerede gitt din vurdering av stedet";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Sammendrag av vurderinger";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "Basert på %s vurderinger";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Trykk for å gi din vurdering av stedet.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Elendig";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Dårlig";
 
 "placepage_rate_normal" = "Normal";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Bra";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Utmerket";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "De nyligste";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "De nyttigste";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "Høyest rangerte";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "Lavest rangerte";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "Bare de nyttigste vurderingene vises i frakoblet modus";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Din vurdering";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Unyttig";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Upassende";
 
-"placepage_reviews_spam" = "Spam";
+"placepage_reviews_spam" = "Søppel";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Hva er bra og dårlig her?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Redigere vurdering";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Ny vurdering";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Oversette";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Vis original";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Flere anmeldelser på Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Logg inn med";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Enkel innlogging uten innloggingsinfo og passord på bare noen sekunder";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
-
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"profile_authorization_error" = "Oops, en feil oppstod. Prøv å logge inn på nytt.";
 
 "service" = "Service";
 
-"atmosphere" = "Atmosphere";
+"atmosphere" = "Atmosfære";
 
-"value_for_money" = "Value for money";
+"value_for_money" = "Valuta for pengene";
 
-"experience" = "Experience";
+"experience" = "Erfaren";
 
-"assortment" = "Assortment";
+"assortment" = "Utvalg";
 
-"expertise" = "Expertise";
+"expertise" = "Kompetanse";
 
-"equipment" = "Equipment";
+"equipment" = "Utstyr";
 
-"quality" = "Quality";
+"quality" = "Kvalitet";
 
-"sponsored_thor_gather" = "Gather";
+"sponsored_thor_gather" = "Samle";
 
-"whats_new_ugc_title" = "Ratings and reviews";
+"whats_new_ugc_title" = "Rangeringer og vurderinger";
 
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Nå kan du gi dine vurderinger selv i frakoblet modus! Ikke glem å oppdatere kartene dine for å se endringene.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

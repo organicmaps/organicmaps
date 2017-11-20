@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "지도를 업데이트하려면, 이제 누락된 데이터만 다운로드하면 됩니다.";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "시작 위치:";
 
-"rating" = "Rating";
+"rating" = "평가";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "리뷰 없음";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "이미 이 곳을 리뷰했습니다.";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "요약 평가";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "%s개 리뷰 기준";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "탭하여 이곳을 평가하고 리뷰를 남기세요.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "최악";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "나쁨";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "보통";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "양호";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "탁월";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "가장 최신";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "가장 유용";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "최고 평가";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "최저 평가";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "가장 유용한 리뷰만 오프라인 모드에서 표시됩니다.";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "귀하의 리뷰";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "도움이 되지 않음";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "부적절함";
 
-"placepage_reviews_spam" = "Spam";
+"placepage_reviews_spam" = "스팸";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "좋은 점이나 나쁜 점이 무엇인가요?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "리뷰 편집";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "새 리뷰";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "번역";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "원본 표시";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Booking.com의 추가 리뷰";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "로그인";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "로그인 및 암호 없이 몇 초 내에 간편하게 로그인";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "죄송합니다. 오류가 발생했습니다. 다시 로그인해 보세요.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "서비스";
 
-"service" = "Service";
+"atmosphere" = "분위기";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "가성비";
 
-"value_for_money" = "Value for money";
+"experience" = "경험";
 
-"experience" = "Experience";
+"assortment" = "구색";
 
-"assortment" = "Assortment";
+"expertise" = "전문성";
 
-"expertise" = "Expertise";
+"equipment" = "장비";
 
-"equipment" = "Equipment";
+"quality" = "품질";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "수집";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "평점 및 리뷰";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "이제 평점과 리뷰를 오프라인에서도 남길 수 있습니다! 변경 사항을 볼 수 있도록 지도를 업데이트하는 것을 잊지 마세요.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

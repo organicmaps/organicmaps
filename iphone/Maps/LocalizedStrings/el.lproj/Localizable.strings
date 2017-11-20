@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "Για να ενημερώσετε ένα χάρτη, χρειάζεται πλέον να κατεβάσετε μόνο τα δεδομένα που λείπουν";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Έναρξη από";
 
-"rating" = "Rating";
+"rating" = "Βαθμολογία";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Δεν υπάρχουν κριτικές";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Έχετε ήδη παρέχει μια κριτική για αυτό το μέρος";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Σύνοψη κριτικών";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "Σύμφωνα με %s κριτικές";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Πατήστε για να βαθμολογήσετε και να γράψετε μια κριτική για αυτό το μέρος.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Απαίσιο";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Κακό";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "Ουδέτερο";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Καλή";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Τέλεια";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "Πιο πρόσφατες";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "Πιο χρήσιμες";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "Με την υψηλότερη βαθμολογία";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "Με τη χαμηλότερη βαθμολογία";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "Στη λειτουργία εκτός σύνδεσης, εμφανίζονται μόνο οι πιο χρήσιμες κριτικές";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Η κριτική σας";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Άχρηστη";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Ακατάλληλη";
 
 "placepage_reviews_spam" = "Spam";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Τι είναι καλό ή κακό εδώ;";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Επεξεργαστείτε την κριτική σας";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Νέα κριτική";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Μετάφραση";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Εμφάνιση αρχικής";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Περισσότερες κριτικές στο Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Συνδεθείτε με";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Εύκολη σύνδεση χωρίς όνομα χρήστη και κωδικό πρόσβασης σε λίγα δευτερόλεπτα";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "Ωχ, παρουσιάστηκε σφάλμα. Προσπαθήστε να συνδεθείτε ξανά.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "Εξυπηρέτηση";
 
-"service" = "Service";
+"atmosphere" = "Ατμόσφαιρα";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "Αξία για τα χρήματα";
 
-"value_for_money" = "Value for money";
+"experience" = "Εμπειρία";
 
-"experience" = "Experience";
+"assortment" = "Κατάταξη";
 
-"assortment" = "Assortment";
+"expertise" = "Τεχνογνωσία";
 
-"expertise" = "Expertise";
+"equipment" = "Εξοπλισμός";
 
-"equipment" = "Equipment";
+"quality" = "Ποιότητα";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "Συλλογή";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "Βαθμολογίες και κριτικές";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Μπορείτε πλέον να αφήσετε βαθμολογίεςς και κριτικές ακόμα και όταν δεν είστε συνδεδεμένοι! Μην ξεχάσετε να ενημερώσετε τους χάρτες σας για να μπορείτε να δείτε τις αλλαγές.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

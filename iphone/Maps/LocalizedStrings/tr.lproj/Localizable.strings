@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "Artık bir haritayı güncellemek için sadece eksik verileri indirmeniz yeterli";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Buradan başla";
 
-"rating" = "Rating";
+"rating" = "Oy Verin";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Değerlendirme yok";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Bu yer için zaten yorum eklediniz";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Değerlendirme özeti";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "%s değerlendirmeye göre";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Bu yeri değerlendirmek ve oylamak için dokunun.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Korkunç";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Kötü";
 
 "placepage_rate_normal" = "Normal";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "İyi";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Mükemmel";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "En son";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "En yararlı";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "En yüksek oy";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "En düşük oy";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "Çevrimdışı modda sadece en yararlı değerlendirmeler gösterilir";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Yorumunuz";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Yararsız";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Uygunsuz";
 
 "placepage_reviews_spam" = "Spam";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Buranın iyi ve kötü yanları nedir?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Değerlendirmenizi düzenleyin";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Yeni değerlendirme";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Çevir";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Orijinali göster";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Booking.com hakkında daha fazla değerlendirme";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Oturum aç";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Kullanıcı adı ve şifreye gerek kalmadan saniyeler içinde kolayca oturum açın";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "Üzgünüz, bir hata oluştu. Tekrar oturum açmayı deneyin.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "Hizmet";
 
-"service" = "Service";
+"atmosphere" = "Ortam";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "Fiyat/Fayda";
 
-"value_for_money" = "Value for money";
+"experience" = "Tecrübe";
 
-"experience" = "Experience";
+"assortment" = "Ürün çeşitliliği";
 
-"assortment" = "Assortment";
+"expertise" = "Uzmanlık";
 
-"expertise" = "Expertise";
+"equipment" = "Ekipman";
 
-"equipment" = "Equipment";
+"quality" = "Kalite";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "Toplam";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "Puanlamalar ve değerlendirmeler";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Artık puanlamalarınızı ve değerlendirmelerinizi çevrimdışıyken bırakabilirsiniz! Değişiklikleri görebilmek için haritalarınızı güncellemeyi unutmayın.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

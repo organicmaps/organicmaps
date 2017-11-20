@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "Egy térkép frissítéséhez már elegendő a hiányzó adatok letöltése";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Elkezdi innen:";
 
-"rating" = "Rating";
+"rating" = "Minősítés";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Nincs véleményezés";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Ezt a helyet már átnézte";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Összesített minősítés";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "%s értékelések alapján";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "A hely értékeléséhez és minősítéséhez koppintson rá.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Borzalmas";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Rossz";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "Normál";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Jó";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Kiváló";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "Legutóbbi";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "Leghasznosabb";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "Legmagasabb értékelés";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "Legalacsonyabb értékelés";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "Csak a leghasznosabb értékelések láthatók kapcsolat nélküli módban";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Az Ön felülvizsgálata";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Haszontalan";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Nem megfelelő";
 
 "placepage_reviews_spam" = "Spam";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Mi a jó vagy rossz itt?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Szerkessze értékelését";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Új értékelés";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Lefordítja";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Az eredeti megjelenítése";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "További vélemények a Booking.com-on";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Bejelentkezés ezzel";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Egyszerű bejelentkezés jelszó és bejelentkezési név nélkül, pár másodperc alatt";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "Hoppá, volt egy hiba. Próbáljon meg újra bejelentkezni.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "Szolgáltatások";
 
-"service" = "Service";
+"atmosphere" = "Légkör";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "Ár-érték arány";
 
-"value_for_money" = "Value for money";
+"experience" = "Tapasztalat";
 
-"experience" = "Experience";
+"assortment" = "Választék";
 
-"assortment" = "Assortment";
+"expertise" = "Szakértelem";
 
-"expertise" = "Expertise";
+"equipment" = "Berendezések";
 
-"equipment" = "Equipment";
+"quality" = "Minőség";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "Összegyűjtve";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "Minősítések és értékelések";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Most már kapcsolat nélkül is hagyhat minősítéseket és értékeléseket! Ne felejtse el frissíteni a térképeket, hogy láthassa a módosításokat.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

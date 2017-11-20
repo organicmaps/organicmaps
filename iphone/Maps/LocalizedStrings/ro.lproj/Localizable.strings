@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "Pentru a actualiza o hartă, nu trebuie decât să descarci datele care lipsesc";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Începând de la";
 
-"rating" = "Rating";
+"rating" = "Clasificare";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Nicio recenzie";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Ați recenzat deja acest loc";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Calificativ sumar";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "Bazat pe %s recenzii";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Atingeți pentru a evalua și a recenza acest loc.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Oribil";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Rău";
 
 "placepage_rate_normal" = "Normal";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Bine";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Excelent";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "Cele mai recente";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "Cele mai utile";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "Cele mai bune calificative";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "Cele mai slabe calificative";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "În modul offline nu sunt afișate decât cele mai utile recenzii";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Recenzia dvs";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Inutile";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Inadecvate";
 
 "placepage_reviews_spam" = "Spam";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Ce a fost bun sau rău aici?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Editați recenzia";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Recenzie nouă";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Traducere";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Afișare original";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Mai multe recenzii pe Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Conectare cu";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Conectare rapidă în câteva secunde, fără autentificare și parolă";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "Ups, a survenit o eroare. Încercați să vă conectați din nou.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "Servicii";
 
-"service" = "Service";
+"atmosphere" = "Atmosferă";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "Raport calitate/preț";
 
-"value_for_money" = "Value for money";
+"experience" = "Experiență";
 
-"experience" = "Experience";
+"assortment" = "Varietate";
 
-"assortment" = "Assortment";
+"expertise" = "Expertiză";
 
-"expertise" = "Expertise";
+"equipment" = "Echipamente";
 
-"equipment" = "Equipment";
+"quality" = "Calitate";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "Adună";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "Calificative și recenzii";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Acum puteți lăsa calificative și recenzii chiar și când sunteți offline! Nu uitați să vă actualizați hărțile pentru a vedea modificările.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

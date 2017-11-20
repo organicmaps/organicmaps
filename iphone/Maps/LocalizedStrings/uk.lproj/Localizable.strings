@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "Тепер, щоб оновити карту, достатньо просто завантажити відсутні дані";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Почати з";
 
-"rating" = "Rating";
+"rating" = "Рейтинг";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Відгуки відсутні";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Ви вже залишили відгук для цього місця";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Сумарний рейтинг";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "На основі %s відгуків(-у)";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Торкніться, щоб оцінити це місце та залишити свій відгук.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Жахливо";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Погано";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "Нормально";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Добре";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Чудово";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "Найновіші";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "Найкорисніші";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "З найвищою оцінкою";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "З найнижчою оцінкою";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "В офлайн-режимі показуються тільки найкорисніші відгуки";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Ваш відгук";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Не є корисним";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Недоречний";
 
-"placepage_reviews_spam" = "Spam";
+"placepage_reviews_spam" = "Спам";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Що тут добре чи погано?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Редагувати відгук";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Новий відгук";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Перекласти";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Показати оригінал";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Більше відгуків на Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Увійти за допомогою";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Швидкий вхід без логіна та пароля за кілька секунд";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "Ой, трапилася помилка. Спробуйте ввійти знову.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "Обслуговування";
 
-"service" = "Service";
+"atmosphere" = "Атмосфера";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "Співвідношення ціна/якість";
 
-"value_for_money" = "Value for money";
+"experience" = "Загальне враження";
 
-"experience" = "Experience";
+"assortment" = "Асортимент";
 
-"assortment" = "Assortment";
+"expertise" = "Досвід співробітників";
 
-"expertise" = "Expertise";
+"equipment" = "Обладнання";
 
-"equipment" = "Equipment";
-
-"quality" = "Quality";
+"quality" = "Якість";
 
 "sponsored_thor_gather" = "Gather";
 
-"whats_new_ugc_title" = "Ratings and reviews";
+"whats_new_ugc_title" = "Оцінки й відгуки";
 
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Тепер ви можете ставити оцінки й залишати відгуки навіть в автономному режимі! Не забудьте оновити свої карти, щоб переглянути зміни.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

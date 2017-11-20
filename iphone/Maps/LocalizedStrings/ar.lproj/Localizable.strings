@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "لتحديث الخريطة، يلزمك الآن فقط تنزيل البيانات المفقودة";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "بدء من";
 
-"rating" = "Rating";
+"rating" = "تصنيف";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "لا توجد مراجعات";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "لقد راجعت بالفعل هذا المكان";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "ملخص التقييم";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "استنادًا إلى %s مراجعة";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "المس لتقييم ومراجعة هذا المكان.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "كريه";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "سيء";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "عادي";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "جيد";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "ممتاز";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "الحديث";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "الأكثر فائدة";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "الأعلى تقييمًا";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "الأقل تقييمًا";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "يتم فقط عرض المراجعات الأكثر فائدة في وضع عدم الاتصال";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "المراجعة الخاصة بك";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "غير مفيد";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "غير مناسب";
 
-"placepage_reviews_spam" = "Spam";
+"placepage_reviews_spam" = "بريد عشوائي";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "ما الجيد أو السيء هنا؟";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "تحرير المراجعة الخاصة بك";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "مراجعة جديدة";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "ترجمة";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "إظهار الأصل";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "المزيد من المراجعات عن Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "تسجيل الدخول باستخدام";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "تسجيل الدخول بسهولة بدون اسم مستخدم وكلمة مرور في غضون بضع ثوان";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "الخدمة";
 
-"service" = "Service";
+"atmosphere" = "المناخ";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "القيمة مقابل المال";
 
-"value_for_money" = "Value for money";
+"experience" = "التجربة";
 
-"experience" = "Experience";
+"assortment" = "التصنيف";
 
-"assortment" = "Assortment";
+"expertise" = "الخبرة";
 
-"expertise" = "Expertise";
+"equipment" = "المعدات";
 
-"equipment" = "Equipment";
+"quality" = "الجودة";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "جمع";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "التقييمات والمراجعات";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "يمكنك الآن ترك تقييمات ومراجعات حتى عندما تكون بدون اتصال! لا تنس تحديث خرائطك لكي تتمكن من رؤية التغييرات.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

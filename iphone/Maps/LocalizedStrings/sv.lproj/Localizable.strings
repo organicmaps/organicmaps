@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "För att uppdatera en karta behöver du bara ladda ned data som saknas";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Starta från";
 
-"rating" = "Rating";
+"rating" = "Omdöme";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Inga omdömen";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Du har redan lämnat ett omdöme om den här platsen";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Sammanfattning av omdömen";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "Baserat på %s omdömen";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Tryck för att betygsätta och lämna ett omdöme om den här platsen.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Hemskt";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Dåligt";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "OK";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Bra";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Utmärkt";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "Senaste";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "Mest användbara";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "Högst betyg";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "Lägst betyg";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "Bara de mest användbara omdömena visas i offlineläge";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Ditt omdöme";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Ohjälpsam";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Olämplig";
 
-"placepage_reviews_spam" = "Spam";
+"placepage_reviews_spam" = "Skräppost";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Vad är bra eller dåligt här?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Redigera ditt omdöme";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Nytt omdöme";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Översätt";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Visa original";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Fler omdömen på Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Logga in med";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Enkelt att logga in utan inloggning och lösenord inom ett par sekunder";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
-
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"profile_authorization_error" = "Hoppsan, ett fel har inträffat. Försök att logga in igen.";
 
 "service" = "Service";
 
-"atmosphere" = "Atmosphere";
+"atmosphere" = "Atmosfär";
 
-"value_for_money" = "Value for money";
+"value_for_money" = "Valuta för pengarna";
 
-"experience" = "Experience";
+"experience" = "Erfarenhet";
 
-"assortment" = "Assortment";
+"assortment" = "Urval";
 
-"expertise" = "Expertise";
+"expertise" = "Expertis";
 
-"equipment" = "Equipment";
+"equipment" = "Utrustning";
 
-"quality" = "Quality";
+"quality" = "Kvalitet";
 
-"sponsored_thor_gather" = "Gather";
+"sponsored_thor_gather" = "Samla";
 
-"whats_new_ugc_title" = "Ratings and reviews";
+"whats_new_ugc_title" = "Betyg och omdömen";
 
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Nu kan du betygsätta och lämna omdömen offline! Glöm inte att uppdatera dina kartor så att du kan se ändringarna.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

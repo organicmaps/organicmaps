@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "K aktualizaci mapy Vám nyní stačí stáhnout pouze chybějící data";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Začít z";
 
-"rating" = "Rating";
+"rating" = "Hodnocení";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Žádná hodnocení";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Toto místo jste již hodnotili";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Souhrnné hodnocení";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "Na základě %s hodnocení";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Pro ohodnocení tohoto místa a napsání recenze klepněte níže.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Hrozné";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Špatné";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "Normální";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Dobré";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Vynikající";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "Nejnovější";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "Nejužitečnější";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "Nejlépe hodnocené";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "Nejhůře hodnocené";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "V režimu offline jsou zobrazena pouze nejužitečnější hodnocení";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Vaše recenze";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Neužitečné";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Nevhodné";
 
 "placepage_reviews_spam" = "Spam";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Co je zde dobré nebo špatné?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Upravit recenzi";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Nová recenze";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Přeložit";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Zobrazit originál";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Více recenzí na Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Přihlásit se s";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Snadné přihlášení bez uživatelského jména a hesla během několika sekund";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "Jejda, došlo k chybě. Zkuste se přihlásit znovu.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "Služba";
 
-"service" = "Service";
+"atmosphere" = "Atmosféra";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "Poměr hodnoty a ceny";
 
-"value_for_money" = "Value for money";
+"experience" = "Zážitek";
 
-"experience" = "Experience";
+"assortment" = "Sortiment";
 
-"assortment" = "Assortment";
+"expertise" = "Odborné znalosti";
 
-"expertise" = "Expertise";
+"equipment" = "Vybavení";
 
-"equipment" = "Equipment";
+"quality" = "Kvalita";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "Posbírat";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "Hodnocení a recenze";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Hodnocení a recenze nyní můžete zanechat i offline! Nezapomeňte si aktualizovat své mapy, abyste viděli změny.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

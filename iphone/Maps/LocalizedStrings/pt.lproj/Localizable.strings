@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "Para atualizar um mapa, agora apenas necessita de fazer download dos dados em falta";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Iniciar a partir de";
 
-"rating" = "Rating";
+"rating" = "Classificação";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Sem avaliações";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Já avaliou este lugar";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Classificação média";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "Baseado em %s avaliações";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Prima para classificar e avaliar este local.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Horrível";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Mau";
 
 "placepage_rate_normal" = "Normal";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Bom";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Excelente";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "Mais recente";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "Mais útil";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "Melhor classificado";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "Pior classificado";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "No modo offline são mostradas apenas as avaliações mais úteis";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "A sua avaliação";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Inútil";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Desadequado";
 
 "placepage_reviews_spam" = "Spam";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "O que é bom ou mau aqui?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Editar a sua avaliação";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Nova avaliação";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Traduzir";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Mostrar original";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Mais opiniões em Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Iniciar sessao com";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Início de sessão fácil e em apenas alguns segundos, sem dados de acesso e palavra-passe";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "Ups, ocorreu um erro. Tente iniciar sessão novamente.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "Serviço";
 
-"service" = "Service";
+"atmosphere" = "Atmosfera";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "Relação qualidade-preço";
 
-"value_for_money" = "Value for money";
+"experience" = "Experiência";
 
-"experience" = "Experience";
+"assortment" = "Variedade";
 
-"assortment" = "Assortment";
+"expertise" = "Especialidade";
 
-"expertise" = "Expertise";
+"equipment" = "Equipamento";
 
-"equipment" = "Equipment";
+"quality" = "Qualidade";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "Reunir";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "Classificações e avaliações";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Agora pode efetuar classificações e avaliações mesmo estando offline! Não se esqueça de atualizar os seus mapas para que possa ver as alterações.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

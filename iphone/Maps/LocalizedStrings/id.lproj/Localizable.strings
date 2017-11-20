@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "Untuk memperbarui peta, Anda hanya harus mengunduh data yang tidak ada";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "Mulai dari";
 
-"rating" = "Rating";
+"rating" = "Peringkat";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "Tidak ada ulasan";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "Anda sudah mengulas tempat ini";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "Rangkuman peringkat";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "Berdasarkan %s ulasan";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "Ketuk untuk memberikan peringkat dan mengulas tempat ini.";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "Buruk sekali";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "Buruk";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "Biasa";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "Bagus";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "Luar Biasa";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "Paling baru";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "Paling bermanfaat";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "Peringkat tertinggi";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "Peringkat terendah";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "Hanya ulasan paling bermanfaat yang diperlihatkan pada mode offline";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "Ulasan Anda";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "Tidak bermanfaat";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "Tidak pantas";
 
 "placepage_reviews_spam" = "Spam";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "Apa yang bagus atau buruk di sini?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "Edit ulasan Anda";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "Ulasan baru";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "Terjemahkan";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "Perlihatkan yang asli";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Ulasan lain di Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "Masuk dengan";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "Masuk dengan mudah tanpa kredensial dan kata sandi dalam beberapa detik";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "Ah, tadi ada kesalahan. Coba masuk kembali.";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "Layanan";
 
-"service" = "Service";
+"atmosphere" = "Suasana";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "Kepantasan harga";
 
-"value_for_money" = "Value for money";
+"experience" = "Pengalaman";
 
-"experience" = "Experience";
+"assortment" = "Lain-Lain";
 
-"assortment" = "Assortment";
+"expertise" = "Keahlian";
 
-"expertise" = "Expertise";
+"equipment" = "Perlengkapan";
 
-"equipment" = "Equipment";
+"quality" = "Mutu";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "Kumpulkan";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "Peringkat dan ulasan";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "Kini Anda bisa memberikan peringkat dan ulasan, meskipun tanpa internet! Jangan lupa untuk memperbarui peta Anda agar dapat melihat perubahannya.";
 
 "dialog_error_storage_title" = "Storage access problem";
 

@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "ในการที่จะอัปเดตแผนที่ ตอนนี้คุณจำเป็นต้องดาวน์โหลดเพียงแค่ข้อมูลที่ขาดไปเท่านั้น";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "เริ่มจาก";
 
-"rating" = "Rating";
+"rating" = "อันดับ";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "ไม่มีรีวิว";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "คุณได้รีวิวสถานที่นี้ไปแล้ว";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "อันดับคะแนนสรุป";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "จาก %s รีวิว";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "แตะเพื่อให้คะแนนและรีวิวสถานที่นี";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "แย่มาก";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "แย่";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "ธรรมดา";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "ดี";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "ยอดเยี่ยม";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "ล่าสุด";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "มีประโยชน์ที่สุด";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "ที่ได้คะแนนสูงสุด";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "ที่ได้คะแนนต่ำสุด";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "มีเพียงรีวิวที่มีประโยชน์ที่สุดเท่านั้นจึงจะแสดงในโหมดออฟไลน์";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "รีวิวของคุณ";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "ไร้ประโยชน์";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "ไม่เหมาะสม";
 
-"placepage_reviews_spam" = "Spam";
+"placepage_reviews_spam" = "สแปม";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "ที่นี่มีอะไรดีหรือไม่ดีบ้าง?";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "แก้ไขรีวิวของคุณ";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "รีวิวใหม่";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "แปล";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "แสดงต้นฉบับ";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "รีวิวเพิ่มเติมบน Booking.com";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "ลงชื่อเข้าใช้ด้วย";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "ลงชื่อเข้าใช้อย่างง่ายโดยไม่ต้องใช้ชื่อเข้าสู่ระบบและรหัสผ่านเพียงไม่กี่วินาที";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "โอ๊ะ มีข้อผิดพลาดเกิดขึ้น ลองลงชื่อเข้าใช้อีกครั้ง";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "บริการ";
 
-"service" = "Service";
+"atmosphere" = "บรรยากาศ";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "คุ้มค่าเงิน";
 
-"value_for_money" = "Value for money";
+"experience" = "ประสบการณ์";
 
-"experience" = "Experience";
+"assortment" = "การแบ่งประเภท";
 
-"assortment" = "Assortment";
+"expertise" = "ความเชี่ยวชาญ";
 
-"expertise" = "Expertise";
+"equipment" = "อุปกรณ์";
 
-"equipment" = "Equipment";
+"quality" = "คุณภาพ";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "รวบรวม";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "อันดับคะแนนและรีวิว";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "ขณะนี้คุณสามารถให้คะแนนและรีวิวได้แม้กระทั่งออฟไลน์อยู่! อย่าลืมอัปเดตแผนที่ของคุณเพื่อจะได้เห็นการเปลี่ยนแปลง";
 
 "dialog_error_storage_title" = "Storage access problem";
 

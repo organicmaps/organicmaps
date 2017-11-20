@@ -2038,89 +2038,87 @@
 
 "whats_new_message_maps_update" = "地図を更新する際、不足しているデータのみをダウンロードするだけで良くなりました。";
 
-"start_from_my_position" = "Start from";
+"start_from_my_position" = "開始位置";
 
-"rating" = "Rating";
+"rating" = "評価";
 
-"placepage_no_reviews" = "No reviews";
+"placepage_no_reviews" = "レビューなし";
 
-"placepage_reviewed" = "You have already reviewed this place";
+"placepage_reviewed" = "このスポットはすでにレビュー済みです";
 
-"placepage_summary_rating" = "Summary rating";
+"placepage_summary_rating" = "評価の概要";
 
-"placepage_summary_rating_description" = "Based on %s reviews";
+"placepage_summary_rating_description" = "%s 件のレビューに基づいています";
 
-"placepage_rate_comment" = "Tap to rate and review this place.";
+"placepage_rate_comment" = "タップしてこのスポットを評価し、レビューします。";
 
-"placepage_rate_horrible" = "Horrible";
+"placepage_rate_horrible" = "ひどい";
 
-"placepage_rate_bad" = "Bad";
+"placepage_rate_bad" = "悪い";
 
-"placepage_rate_normal" = "Normal";
+"placepage_rate_normal" = "普通";
 
-"placepage_rate_good" = "Good";
+"placepage_rate_good" = "良い";
 
-"placepage_rate_excellent" = "Excellent";
+"placepage_rate_excellent" = "最高";
 
-"placepage_reviews_most_recent" = "Most recent";
+"placepage_reviews_most_recent" = "最新順";
 
-"placepage_reviews_most_useful" = "Most useful";
+"placepage_reviews_most_useful" = "有用な順";
 
-"placepage_reviews_highest_rated" = "Highest rated";
+"placepage_reviews_highest_rated" = "評価の高い順";
 
-"placepage_reviews_lowest_rated" = "Lowest rated";
+"placepage_reviews_lowest_rated" = "評価の低い順";
 
-"placepage_reviews_offline_comment" = "Only the most useful reviews are showed in the offline mode";
+"placepage_reviews_offline_comment" = "オフラインモードでは最も有用なレビューのみが表示されます";
 
-"placepage_reviews_your_comment" = "Your review";
+"placepage_reviews_your_comment" = "あなたのレビュー";
 
-"placepage_reviews_unhelpful" = "Unhelpful";
+"placepage_reviews_unhelpful" = "役に立たない";
 
-"placepage_reviews_inappropriate" = "Inappropriate";
+"placepage_reviews_inappropriate" = "不適切";
 
-"placepage_reviews_spam" = "Spam";
+"placepage_reviews_spam" = "スパム";
 
-"placepage_reviews_hint" = "What's good or bad here?";
+"placepage_reviews_hint" = "このスポットの良い点や悪い点は何ですか？";
 
-"placepage_reviews_error" = "Write something to help travellers. Minimum number of characters: 40";
+"placepage_reviews_edit_your_review" = "自分のレビューを編集";
 
-"placepage_reviews_edit_your_review" = "Edit your review";
+"placepage_reviews_new_review" = "新しいレビュー";
 
-"placepage_reviews_new_review" = "New review";
+"placepage_translate_button" = "翻訳する";
 
-"placepage_translate_button" = "Translate";
+"placepage_show_original_button" = "オリジナルを表示";
 
-"placepage_show_original_button" = "Show original";
+"placepage_more_reviews_booking_button" = "Booking.com の詳細レビュー";
 
-"placepage_more_reviews_booking_button" = "More reviews on Booking.com";
+"profile_authorization_title" = "サインイン方法";
 
-"profile_authorization_title" = "Sing in with";
+"profile_authorization_message" = "ログイン名とパスワードなしですぐに簡単にサインインできます";
 
-"profile_authorization_message" = "Easy sign in without login and password in a couple of seconds";
+"profile_authorization_error" = "エラーが発生しました。もう一度サインインしてみてください。";
 
-"profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
+"service" = "サービス";
 
-"service" = "Service";
+"atmosphere" = "雰囲気";
 
-"atmosphere" = "Atmosphere";
+"value_for_money" = "金額に見合う価値";
 
-"value_for_money" = "Value for money";
+"experience" = "経験";
 
-"experience" = "Experience";
+"assortment" = "品揃え";
 
-"assortment" = "Assortment";
+"expertise" = "専門知識";
 
-"expertise" = "Expertise";
+"equipment" = "設備";
 
-"equipment" = "Equipment";
+"quality" = "品質";
 
-"quality" = "Quality";
+"sponsored_thor_gather" = "収集";
 
-"sponsored_thor_gather" = "Gather";
+"whats_new_ugc_title" = "評価とレビュー";
 
-"whats_new_ugc_title" = "Ratings and reviews";
-
-"whats_new_ugc_message" = "You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.";
+"whats_new_ugc_message" = "オフライン時にも評価とレビューを残せるようになりました！変更箇所を確認できるよう、忘れずに地図を更新してください。";
 
 "dialog_error_storage_title" = "Storage access problem";
 
