@@ -19,8 +19,8 @@ HEADERS += \
     bookmark.hpp \
     bookmark_manager.hpp \
     chart_generator.hpp \
-    discovery_client_params.hpp \
-    discovery_manager.hpp \
+    discovery/discovery_client_params.hpp \
+    discovery/discovery_manager.hpp \
     displacement_mode_manager.hpp \
     displayed_categories_modifiers.hpp \
     everywhere_search_params.hpp \
@@ -61,7 +61,7 @@ SOURCES += \
     bookmark.cpp \
     bookmark_manager.cpp \
     chart_generator.cpp \
-    discovery_manager.cpp \
+    discovery/discovery_manager.cpp \
     displacement_mode_manager.cpp \
     displayed_categories_modifiers.cpp \
     feature_vec_model.cpp \

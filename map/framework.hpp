@@ -4,7 +4,7 @@
 #include "map/booking_filter.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
-#include "map/discovery_manager.hpp"
+#include "map/discovery/discovery_manager.hpp"
 #include "map/displacement_mode_manager.hpp"
 #include "map/feature_vec_model.hpp"
 #include "map/local_ads_manager.hpp"
@@ -204,8 +204,6 @@ protected:
 
   LocalAdsManager m_localAdsManager;
 
-  unique_ptr<discovery::Manager> m_discoveryManager;
-
   User m_user;
 
   booking::filter::Filter m_bookingFilter;
@@ -242,7 +240,6 @@ public:
   locals::Api * GetLocalsApi(platform::NetworkPolicy const & policy);
   ugc::Api * GetUGCApi() { return m_ugcApi.get(); }
   ugc::Api const * GetUGCApi() const { return m_ugcApi.get(); }
-
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
 
@@ -752,11 +749,11 @@ public:
 
 public:
   template <typename ResultCallback>
-  void Discover(discovery::ClientParams && params, ResultCallback const & result,
-                discovery::Manager::ErrorCalback const & error) const
+  void Discover(discovery::ClientParams && params, ResultCallback const & onResult,
+                discovery::Manager::ErrorCalback const & onError) const
   {
     CHECK(m_discoveryManager.get(), ());
-    m_discoveryManager->Discover(GetDiscoveryParams(move(params)), result, error);
+    m_discoveryManager->Discover(GetDiscoveryParams(move(params)), onResult, onError);
   }
 
   discovery::Manager::Params GetDiscoveryParams(discovery::ClientParams && clientParams) const;
@@ -843,4 +840,8 @@ private:
 public:
   void FilterSearchResultsOnBooking(booking::filter::availability::Params const & params,
                                     search::Results const & results, bool inViewport) override;
+
+private:
+  // m_discoveryManager must be bellow m_searchApi, m_viatorApi, m_localsApi
+  unique_ptr<discovery::Manager> m_discoveryManager;
 };

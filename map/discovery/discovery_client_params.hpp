@@ -11,7 +11,7 @@ enum class ItemType
 {
   Viator,
   Attractions,
-  Cafe,
+  Cafes,
   Hotels,
   LocalExperts
 };

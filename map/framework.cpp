@@ -326,11 +326,11 @@ void Framework::Migrate(bool keepDownloaded)
     OnDestroyGLContext();
   }
   m_selectedFeature = FeatureID();
+  m_discoveryManager.reset();
   m_searchAPI.reset();
   m_infoGetter.reset();
   m_taxiEngine.reset();
   m_cityFinder.reset();
-  m_discoveryManager.reset();
   m_ugcApi.reset();
   TCountriesVec existedCountries;
   GetStorage().DeleteAllLocalMaps(&existedCountries);
@@ -1353,9 +1353,9 @@ void Framework::InitDiscoveryManager()
   CHECK(m_searchAPI.get(), ("InitDiscoveryManager() must be called after InitSearchApi()"));
   CHECK(m_cityFinder.get(), ("InitDiscoveryManager() must be called after InitCityFinder()"));
 
-  discovery::Manager::APIs const apis(m_searchAPI.get(), m_viatorApi.get(), m_localsApi.get());
+  discovery::Manager::APIs const apis(*m_searchAPI.get(), *m_viatorApi.get(), *m_localsApi.get());
   m_discoveryManager =
-      make_unique<discovery::Manager>(m_model.GetIndex(), m_cityFinder.get(), apis);
+      make_unique<discovery::Manager>(m_model.GetIndex(), *m_cityFinder.get(), apis);
 }
 
 void Framework::InitTransliteration()
@@ -2533,11 +2533,11 @@ void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool ap
 discovery::Manager::Params Framework::GetDiscoveryParams(
     discovery::ClientParams && clientParams) const
 {
-  auto constexpr rectSide = 2000.0;
+  auto constexpr kRectSideM = 2000.0;
   discovery::Manager::Params p;
   auto const currentPosition = GetCurrentPosition();
   p.m_viewportCenter = currentPosition ? *currentPosition : GetViewportCenter();
-  p.m_viewport = MercatorBounds::RectByCenterXYAndSizeInMeters(p.m_viewportCenter, rectSide);
+  p.m_viewport = MercatorBounds::RectByCenterXYAndSizeInMeters(p.m_viewportCenter, kRectSideM);
   p.m_curency = clientParams.m_currency;
   p.m_lang = clientParams.m_lang;
   p.m_itemsCount = clientParams.m_itemsCount;
