@@ -15,6 +15,7 @@ import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.discovery.DiscoveryParams;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RouteMarkData;
 import com.mapswithme.maps.routing.RoutePointInfo;
@@ -383,4 +384,6 @@ public class Framework
   public static native void nativeAuthenticateUser(@NonNull String socialToken,
                                                    @SocialTokenType int socialTokenType);
   public static native boolean nativeIsUserAuthenticated();
+
+  public static native void nativeDiscover(@NonNull DiscoveryParams params);
 }

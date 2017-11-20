@@ -75,11 +75,11 @@ public:
 
         m_viatorApi.GetTop5Products(
             sponsoredId, params.m_curency,
-            [this, sponsoredId, onResult, type](std::string const & destId,
+            [this, sponsoredId, onResult](std::string const & destId,
                                                 std::vector<viator::Product> const & products) {
               ASSERT_THREAD_CHECKER(m_threadChecker, ());
               if (destId == sponsoredId)
-                onResult(products, type);
+                onResult(products);
             });
         break;
       }
@@ -107,11 +107,11 @@ public:
         auto constexpr pageNumber = 1;
         m_localsApi.GetLocals(
             latLon.lat, latLon.lon, params.m_lang, params.m_itemsCount, pageNumber,
-            [this, onResult, type](uint64_t id, std::vector<locals::LocalExpert> const & locals,
+            [this, onResult](uint64_t id, std::vector<locals::LocalExpert> const & locals,
                                    size_t /* pageNumber */, size_t /* countPerPage */,
                                    bool /* hasPreviousPage */, bool /* hasNextPage */) {
               ASSERT_THREAD_CHECKER(m_threadChecker, ());
-              onResult(locals, type);
+              onResult(locals);
             },
             [this, onError, type](uint64_t id, int errorCode, std::string const & errorMessage) {
               ASSERT_THREAD_CHECKER(m_threadChecker, ());

@@ -42,6 +42,13 @@ struct EverywhereSearchParams;
 
 namespace android
 {
+  struct DiscoveryCallback
+  {
+    void operator()(search::Results const & results, discovery::ItemType const type) const { }
+    void operator()(vector<viator::Product> const & products) const { }
+    void operator()(vector<locals::LocalExpert> const & experts) const { }
+  };
+
   class Framework
   {
   private:
@@ -71,11 +78,15 @@ namespace android
 
     place_page::Info m_info;
 
+    DiscoveryCallback m_discoveryCallback;
+
   public:
     Framework();
 
     storage::Storage & GetStorage();
     Index const & GetIndex();
+
+    DiscoveryCallback const & GetDiscoveryCallback() const { return m_discoveryCallback; }
 
     void ShowNode(storage::TCountryId const & countryId, bool zoomToDownloadButton);
 
