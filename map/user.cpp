@@ -46,7 +46,7 @@ std::string AuthenticationUrl(std::string const & socialToken,
     socialTokenStr = "facebook";
     break;
   case User::SocialTokenType::Google:
-    socialTokenStr = "google";
+    socialTokenStr = "google-oauth2";
     break;
   default:
     LOG(LWARNING, ("Unknown social token type"));
