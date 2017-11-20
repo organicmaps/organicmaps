@@ -420,7 +420,8 @@ void Ranker::SuggestStrings()
 
 void Ranker::UpdateResults(bool lastUpdate)
 {
-  BailIfCancelled();
+  if (!lastUpdate)
+    BailIfCancelled();
 
   MakeRankerResults(m_geocoderParams, m_tentativeResults);
   RemoveDuplicatingLinear(m_tentativeResults);
@@ -450,7 +451,8 @@ void Ranker::UpdateResults(bool lastUpdate)
     if (!lastUpdate && i >= m_params.m_batchSize && !m_params.m_viewportSearch)
       break;
 
-    BailIfCancelled();
+    if (!lastUpdate)
+      BailIfCancelled();
 
     auto const & rankerResult = m_tentativeResults[i];
 
@@ -475,11 +477,12 @@ void Ranker::UpdateResults(bool lastUpdate)
 
   m_preRankerResults.clear();
 
-  BailIfCancelled();
-
   // The last update must be handled by a call to Finish().
   if (!lastUpdate)
+  {
+    BailIfCancelled();
     m_emitter.Emit();
+  }
 }
 
 void Ranker::ClearCaches() { m_localities.ClearCache(); }
