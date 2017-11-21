@@ -2,6 +2,7 @@
 
 #include "routing_common/transit_types.hpp"
 
+#include "base/newtype.hpp"
 #include "base/visitor.hpp"
 
 #include <cstdint>
@@ -12,7 +13,8 @@ namespace connector
 {
 // Identifier to find a border edge in neighbouring mwm while cross mwm transition
 // for pedestrian, bicycle and car routing.
-using OsmId = uint64_t;
+NEWTYPE(uint64_t, OsmId);
+NEWTYPE_SIMPLE_OUTPUT(OsmId);
 
 // Identifier to find a border edge in neighbouring mwm while cross mwm transition
 // for transit routing.
@@ -50,7 +52,7 @@ struct HashKey
 {
   size_t operator()(OsmId const & key) const
   {
-    return std::hash<OsmId>()(key);
+    return std::hash<OsmId::RepType>()(key.Get());
   }
 
   size_t operator()(TransitId const & key) const

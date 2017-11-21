@@ -233,7 +233,7 @@ void CalcCrossMwmTransitions(
           ("Can't parse feature id to osm id mapping. File:", mappingFile));
     auto it = featureIdToOsmId.find(featureId);
     CHECK(it != featureIdToOsmId.end(), ("Can't find osm id for feature id", featureId));
-    auto const crossMwmId = it->second;
+    auto const osmId = it->second;
 
     bool prevPointIn = m2::RegionsContain(borders, f.GetPoint(0));
 
@@ -246,7 +246,7 @@ void CalcCrossMwmTransitions(
       auto const segmentIdx = base::asserted_cast<uint32_t>(i - 1);
       VehicleMask const oneWayMask = maskMaker.CalcOneWayMask(f);
 
-      transitions.emplace_back(crossMwmId, featureId, segmentIdx, roadMask, oneWayMask, currPointIn,
+      transitions.emplace_back(osmId, featureId, segmentIdx, roadMask, oneWayMask, currPointIn,
                                f.GetPoint(i - 1), f.GetPoint(i));
 
       prevPointIn = currPointIn;
@@ -254,6 +254,7 @@ void CalcCrossMwmTransitions(
   });
 }
 
+/// \brief Fills |transitions| for transit id case. That means for VehicleType::Transit.
 void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
                              vector<m2::RegionD> const & borders, string const & country,
                              CountryParentNameGetterFn const & countryParentNameGetterFn,

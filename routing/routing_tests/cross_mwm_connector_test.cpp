@@ -43,7 +43,7 @@ namespace routing_test
 {
 UNIT_TEST(OneWayEnter)
 {
-  OsmId constexpr osmId = 1;
+  OsmId constexpr osmId(1ULL);
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
   CrossMwmConnector<OsmId> connector(mwmId);
@@ -69,7 +69,7 @@ UNIT_TEST(OneWayEnter)
 
 UNIT_TEST(OneWayExit)
 {
-  OsmId constexpr osmId = 1;
+  OsmId constexpr osmId(1ULL);
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
   CrossMwmConnector<OsmId> connector(mwmId);
@@ -95,7 +95,7 @@ UNIT_TEST(OneWayExit)
 
 UNIT_TEST(TwoWayEnter)
 {
-  OsmId constexpr osmId = 1;
+  OsmId constexpr osmId(1ULL);
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
   CrossMwmConnector<OsmId> connector(mwmId);
@@ -121,7 +121,7 @@ UNIT_TEST(TwoWayEnter)
 
 UNIT_TEST(TwoWayExit)
 {
-  OsmId constexpr osmId = 1;
+  OsmId constexpr osmId(1ULL);
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
   CrossMwmConnector<OsmId> connector(mwmId);
@@ -153,9 +153,9 @@ UNIT_TEST(Serialization)
   {
     vector<CrossMwmConnectorSerializer::Transition<OsmId>> transitions = {
         /* osmId featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter, backPoint, frontPoint */
-        {100, 10, 1, kCarMask, kCarMask, true, m2::PointD(1.1, 1.2), m2::PointD(1.3, 1.4)},
-        {200, 20, 2, kCarMask, 0, true, m2::PointD(2.1, 2.2), m2::PointD(2.3, 2.4)},
-        {300, 30, 3, kPedestrianMask, kCarMask, true, m2::PointD(3.1, 3.2), m2::PointD(3.3, 3.4)}};
+        {OsmId(100ULL), 10, 1, kCarMask, kCarMask, true, m2::PointD(1.1, 1.2), m2::PointD(1.3, 1.4)},
+        {OsmId(200ULL), 20, 2, kCarMask, 0, true, m2::PointD(2.1, 2.2), m2::PointD(2.3, 2.4)},
+        {OsmId(300ULL), 30, 3, kPedestrianMask, kCarMask, true, m2::PointD(3.1, 3.2), m2::PointD(3.3, 3.4)}};
 
     CrossMwmConnectorPerVehicleType<OsmId> connectors;
     CrossMwmConnector<OsmId> & carConnector = connectors[static_cast<size_t>(VehicleType::Car)];
@@ -261,7 +261,7 @@ UNIT_TEST(WeightsSerialization)
     for (uint32_t featureId = 0; featureId < kNumTransitions; ++featureId)
     {
       auto const osmId = static_cast<uint64_t>(featureId * 10);
-      transitions.emplace_back(osmId, featureId, 1 /* segmentIdx */, kCarMask, 0 /* oneWayMask */,
+      transitions.emplace_back(connector::OsmId(osmId), featureId, 1 /* segmentIdx */, kCarMask, 0 /* oneWayMask */,
                                true /* forwardIsEnter */, m2::PointD::Zero(), m2::PointD::Zero());
     }
 

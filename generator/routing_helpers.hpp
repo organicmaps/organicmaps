@@ -4,6 +4,8 @@
 #include "generator/road_access_generator.hpp"
 #include "generator/restriction_writer.hpp"
 
+#include "routing/cross_mwm_ids.hpp"
+
 #include <cstdint>
 #include <map>
 #include <string>
@@ -31,5 +33,5 @@ void AddFeatureId(osm::Id osmId, uint32_t featureId, std::map<osm::Id, uint32_t>
 bool ParseOsmIdToFeatureIdMapping(std::string const & osmIdsToFeatureIdPath,
                                   std::map<osm::Id, uint32_t> & osmIdToFeatureId);
 bool ParseFeatureIdToOsmIdMapping(std::string const & osmIdsToFeatureIdPath,
-                                  std::map<uint32_t, uint64_t> & featureIdToOsmId);
+                                  std::map<uint32_t, connector::OsmId> & featureIdToOsmId);
 }  // namespace routing
