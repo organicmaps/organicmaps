@@ -468,115 +468,105 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
 {
   // base::PProf pprof("/tmp/geocoder.prof");
 
-  try
+  // Tries to find world and fill localities table.
   {
-    // Tries to find world and fill localities table.
+    m_cities.clear();
+    for (auto & regions : m_regions)
+      regions.clear();
+    MwmSet::MwmHandle handle = FindWorld(m_index, infos);
+    if (handle.IsAlive())
     {
-      m_cities.clear();
-      for (auto & regions : m_regions)
-        regions.clear();
-      MwmSet::MwmHandle handle = FindWorld(m_index, infos);
-      if (handle.IsAlive())
+      auto & value = *handle.GetValue<MwmValue>();
+
+      // All MwmIds are unique during the application lifetime, so
+      // it's ok to save MwmId.
+      m_worldId = handle.GetId();
+      m_context = make_unique<MwmContext>(move(handle));
+
+      if (value.HasSearchIndex())
       {
-        auto & value = *handle.GetValue<MwmValue>();
-
-        // All MwmIds are unique during the application lifetime, so
-        // it's ok to save MwmId.
-        m_worldId = handle.GetId();
-        m_context = make_unique<MwmContext>(move(handle));
-
-        if (value.HasSearchIndex())
-        {
-          BaseContext ctx;
-          InitBaseContext(ctx);
-          FillLocalitiesTable(ctx);
-        }
-
-        m_context.reset();
+        BaseContext ctx;
+        InitBaseContext(ctx);
+        FillLocalitiesTable(ctx);
       }
+
+      m_context.reset();
+    }
+  }
+
+  // Orders countries by distance from viewport center and position.
+  // This order is used during MatchAroundPivot() stage - we try to
+  // match as many features as possible without trying to match
+  // locality (COUNTRY or CITY), and only when there are too many
+  // features, viewport and position vicinity filter is used.  To
+  // prevent full search in all mwms, we need to limit somehow a set
+  // of mwms for MatchAroundPivot(), so, we always call
+  // MatchAroundPivot() on maps intersecting with pivot rect, other
+  // maps are ordered by distance from pivot, and we stop to call
+  // MatchAroundPivot() on them as soon as at least one feature is
+  // found.
+  size_t const numIntersectingMaps = OrderCountries(m_params.m_pivot, infos);
+
+  // MatchAroundPivot() should always be matched in mwms
+  // intersecting with position and viewport.
+  auto processCountry = [&](size_t index, unique_ptr<MwmContext> context) {
+    ASSERT(context, ());
+    m_context = move(context);
+
+    MY_SCOPE_GUARD(cleanup, [&]() {
+      LOG(LDEBUG, (m_context->GetName(), "geocoding complete."));
+      m_matcher->OnQueryFinished();
+      m_matcher = nullptr;
+      m_context.reset();
+    });
+
+    auto it = m_matchersCache.find(m_context->GetId());
+    if (it == m_matchersCache.end())
+    {
+      it = m_matchersCache
+               .insert(make_pair(m_context->GetId(),
+                                 my::make_unique<FeaturesLayerMatcher>(m_index, m_cancellable)))
+               .first;
+    }
+    m_matcher = it->second.get();
+    m_matcher->SetContext(m_context.get());
+
+    BaseContext ctx;
+    InitBaseContext(ctx);
+
+    if (inViewport)
+    {
+      auto const viewportCBV =
+          RetrieveGeometryFeatures(*m_context, m_params.m_pivot, RECT_ID_PIVOT);
+      for (auto & features : ctx.m_features)
+        features = features.Intersect(viewportCBV);
     }
 
-    // Orders countries by distance from viewport center and position.
-    // This order is used during MatchAroundPivot() stage - we try to
-    // match as many features as possible without trying to match
-    // locality (COUNTRY or CITY), and only when there are too many
-    // features, viewport and position vicinity filter is used.  To
-    // prevent full search in all mwms, we need to limit somehow a set
-    // of mwms for MatchAroundPivot(), so, we always call
-    // MatchAroundPivot() on maps intersecting with pivot rect, other
-    // maps are ordered by distance from pivot, and we stop to call
-    // MatchAroundPivot() on them as soon as at least one feature is
-    // found.
-    size_t const numIntersectingMaps = OrderCountries(m_params.m_pivot, infos);
+    ctx.m_villages = m_villagesCache.Get(*m_context);
 
-    // MatchAroundPivot() should always be matched in mwms
-    // intersecting with position and viewport.
-    auto processCountry = [&](size_t index, unique_ptr<MwmContext> context)
+    auto citiesFromWorld = m_cities;
+    FillVillageLocalities(ctx);
+    MY_SCOPE_GUARD(remove_villages, [&]() { m_cities = citiesFromWorld; });
+
+    bool const intersectsPivot = index < numIntersectingMaps;
+    if (m_params.IsCategorialRequest())
     {
-      ASSERT(context, ());
-      m_context = move(context);
+      MatchCategories(ctx, intersectsPivot);
+    }
+    else
+    {
+      MatchRegions(ctx, Region::TYPE_COUNTRY);
 
-      MY_SCOPE_GUARD(cleanup, [&]()
-                     {
-                       LOG(LDEBUG, (m_context->GetName(), "geocoding complete."));
-                       m_matcher->OnQueryFinished();
-                       m_matcher = nullptr;
-                       m_context.reset();
-                     });
+      if (intersectsPivot || m_preRanker.NumSentResults() == 0)
+        MatchAroundPivot(ctx);
+    }
 
-      auto it = m_matchersCache.find(m_context->GetId());
-      if (it == m_matchersCache.end())
-      {
-        it = m_matchersCache.insert(make_pair(m_context->GetId(), my::make_unique<FeaturesLayerMatcher>(
-                                                                      m_index, m_cancellable)))
-                 .first;
-      }
-      m_matcher = it->second.get();
-      m_matcher->SetContext(m_context.get());
+    if (index + 1 >= numIntersectingMaps)
+      m_preRanker.UpdateResults(false /* lastUpdate */);
+  };
 
-      BaseContext ctx;
-      InitBaseContext(ctx);
-
-      if (inViewport)
-      {
-        auto const viewportCBV =
-            RetrieveGeometryFeatures(*m_context, m_params.m_pivot, RECT_ID_PIVOT);
-        for (auto & features : ctx.m_features)
-          features = features.Intersect(viewportCBV);
-      }
-
-      ctx.m_villages = m_villagesCache.Get(*m_context);
-
-      auto citiesFromWorld = m_cities;
-      FillVillageLocalities(ctx);
-      MY_SCOPE_GUARD(remove_villages, [&]()
-                     {
-                       m_cities = citiesFromWorld;
-                     });
-
-      bool const intersectsPivot = index < numIntersectingMaps;
-      if (m_params.IsCategorialRequest())
-      {
-        MatchCategories(ctx, intersectsPivot);
-      }
-      else
-      {
-        MatchRegions(ctx, Region::TYPE_COUNTRY);
-
-        if (intersectsPivot || m_preRanker.NumSentResults() == 0)
-          MatchAroundPivot(ctx);
-      }
-
-      if (index + 1 >= numIntersectingMaps)
-        m_preRanker.UpdateResults(false /* lastUpdate */);
-    };
-
-    // Iterates through all alive mwms and performs geocoding.
-    ForEachCountry(infos, processCountry);
-  }
-  catch (CancelException & e)
-  {
-  }
+  // Iterates through all alive mwms and performs geocoding.
+  ForEachCountry(infos, processCountry);
 }
 
 void Geocoder::InitBaseContext(BaseContext & ctx)
