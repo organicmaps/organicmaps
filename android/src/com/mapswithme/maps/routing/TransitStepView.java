@@ -79,6 +79,8 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     mTextPaint.setTextSize(textSize);
     mTextPaint.setColor(textColor);
     mDrawable = a.getDrawable(R.styleable.TransitStepView_android_drawable);
+    if (mDrawable != null)
+      mDrawable = DrawableCompat.wrap(mDrawable);
     mStepType = TransitStepType.PEDESTRIAN;
     a.recycle();
   }
@@ -89,6 +91,7 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     mDrawable = getResources().getDrawable(mStepType == TransitStepType.INTERMEDIATE_POINT
                                            ? getIntermediatePointDrawableId(info.getIntermediateIndex())
                                            : mStepType.getDrawable());
+    mDrawable = DrawableCompat.wrap(mDrawable);
     mBackgroundPaint.setColor(getBackgroundColor(getContext(), info));
     mText = info.getNumber();
     invalidate();
