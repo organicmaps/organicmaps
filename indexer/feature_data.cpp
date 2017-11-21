@@ -305,7 +305,7 @@ bool FeatureParams::AddHouseNumber(string houseNumber)
   // Remove leading zeroes from house numbers.
   // It's important for debug checks of serialized-deserialized feature.
   size_t i = 0;
-  while (i < houseNumber.size() && houseNumber[i] == '0')
+  while (i + 1 < houseNumber.size() && houseNumber[i] == '0')
     ++i;
   houseNumber.erase(0, i);
 
