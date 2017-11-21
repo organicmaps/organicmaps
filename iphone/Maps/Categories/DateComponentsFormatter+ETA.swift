@@ -3,7 +3,7 @@ extension DateComponentsFormatter {
     let formatter = DateComponentsFormatter()
     formatter.allowedUnits = [.minute, .hour, .day]
     formatter.maximumUnitCount = 2
-    formatter.unitsStyle = .abbreviated
+    formatter.unitsStyle = .short
     formatter.zeroFormattingBehavior = .dropAll
     return formatter.string(from: ti)
   }
