@@ -7243,7 +7243,7 @@ pl:^Sklep monopolowy
 pt:^Vinho|Loja de Vinhos
 pt-BR:^Loja de vinhos|bebidas
 ro:^Magazin de băuturi alcolice
-es:^Establecimiento de bebidas alcohólicas
+es:^Vino|Tienda de vinos
 sv:^Vinhandel
 th:^ร้านขายไวน์
 tr:^Caviste
@@ -8234,7 +8234,7 @@ pl:^Studio jogi
 pt:^Estúdio de ioga
 pt-BR:^Estúdio de ioga
 ro:^Studio yoga
-es:^Estudio de yoga
+es:^Centro de yoga
 sv:^Yogastudio
 th:^โยคะสตูดิโอ
 tr:^Yoga Stüdyosu
@@ -8415,7 +8415,7 @@ cs:^Internetová kavárna
 da:^Internetcafe
 de:^Internetcafé
 el:^Καφετέρια με Ίντερνετ
-es:^Locutorio
+es:^Cibercafé
 fi:^Internetkahvila
 fr:^Internet café
 hu:^Internet kávézó
@@ -8809,7 +8809,7 @@ cs:^Kancelář nevládní organizace
 da:^NGO-kontor
 de:^Büro einer Nichtregierungsorganisation
 el:^Γραφείο ΜΚΟ
-es:^Oficina de ONG
+es:^Sede de ONG
 fi:^Valtioista riippumattoman järjestön toimisto
 fr:^Bureau ONG
 hu:^Civil szervezet irodája
@@ -8973,7 +8973,7 @@ cs:^Novinový stánek
 da:^Avis-kiosk
 de:^Zeitungsstand
 el:^Περίπτερο εφημερίδων
-es:^Venta de periódicos
+es:^Puesto de venta de periódicos
 fi:^Lehtikioski
 fr:^Kiosque à journaux
 hu:^Újságárus
