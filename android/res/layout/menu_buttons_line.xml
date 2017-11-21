@@ -33,6 +33,17 @@
       android:layout_weight="1"/>
 
     <ImageView
+      android:id="@+id/discover"
+      style="@style/MwmTheme.Menu.Line.Button"
+      android:src="@drawable/ic_menu_discovery"
+      android:tag="@string/tag_menu_collapse"/>
+
+    <Space
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"/>
+
+    <ImageView
       android:id="@+id/bookmarks"
       style="@style/MwmTheme.Menu.Line.Button"
       android:src="@drawable/ic_menu_bookmarks"
