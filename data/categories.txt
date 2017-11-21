@@ -153,7 +153,7 @@ pl:^Parking
 pt:^Estacionamento
 pt-BR:^Estacionamento
 ro:^Parcare
-es:^Estacionamiento
+es:^Aparcamiento
 sv:^Parkering
 th:^ที่จอดรถ
 tr:^Otopark
@@ -319,7 +319,7 @@ pl:5^Bankomat
 pt:3^Multibanco
 pt-BR:3^Caixa eletrônico
 ro:3^Bancomat
-es:^ATM
+es:^Cajero
 sv:3^Bankomat
 th:2^เอทีเอ็ม
 tr:3^Bankamatik
@@ -757,7 +757,7 @@ pl:^Sklep spożywczy
 pt:^Loja de conveniência
 pt-BR:^Loja de conveniência|4mercadinho|compras
 ro:4^Magazin mixt
-es:^Tienda de abarrotes|chino|bazar
+es:^Tienda|chino|bazar
 sv:^Närbutik
 th:^ร้านสะดวกซื้อ
 tr:^Bakkal
@@ -822,7 +822,7 @@ pl:^Sklep z elektroniką|sklep elektroniczny
 pt:^Loja de telemóveis|loja de aparelhos eletrónicos
 pt-BR:^Loja de celulares|telefone|compras
 ro:^Magazin de telefoane mobile|magazin de electronice
-es:^Celulares|Tienda de telefonía móvil|tienda de electrónica
+es:^Móviles|Tienda de telefonía móvil|tienda de aparatos electrónicos
 sv:^Mobilbutik|elektronikaffär
 th:^ร้านขายโทรศัพท์มือถือ|ร้านขายอุปกรณ์อิเล็กโทรนิก
 tr:^Cep telefonu mağazası|elektronik mağazası
@@ -1207,7 +1207,7 @@ pl:^Salon piękności
 pt:^Salão de beleza
 pt-BR:^Salão de beleza
 ro:^Salon de infrumusetare
-es:^Salón de belleza
+es:^Centro de belleza
 sv:^Skönhetssalong
 th:2^ร้านเสริมสวย|2ร้านขายผลิตภัณฑ์ความงาม
 tr:^Güzellik salonu
@@ -1273,7 +1273,7 @@ pl:^Sklep sportowy|towary
 pt:^Artigos esportivos|2loja
 pt-BR:^Artigos esportivos|2loja|compras
 ro:^Articole sportive
-es:^Productos de deporte
+es:^Artículos de deporte
 sv:^Sportaffär
 th:^สินค้ากีฬา
 tr:^Spor ürünleri
@@ -1338,7 +1338,7 @@ pl:^Centrum handlowe
 pt:^O Shopping
 pt-BR:^Shopping center|compras
 ro:^Mall-ul
-es:^El centro comercial
+es:^Centro comercial
 sv:^Galleria|köpcentrum
 th:^เดอะมอลล์
 tr:^Alışveriş merkezi
@@ -1660,7 +1660,7 @@ pl:^Sklep rowerowy|4rower
 pt:^Loja de bicicletas|4bicicleta
 pt-BR:^Loja de bicicletas|4bicicletaria|4bicicleta|bike
 ro:3^Bicicletă|Magazin biciclete
-es:^Bicicletería|bicicleta
+es:^Tienda de bicicletas|bicicleta|bici
 sv:4^Cykelaffär|cykel
 th:4^จักรยาน|ร้าน
 tr:^Bisiklet
@@ -1721,7 +1721,7 @@ pl:2^Przystanek autobusowy|autobus
 pt:2^Paragem de autocarro|via férrea
 pt-BR:2^Ponto de ônibus
 ro:3^Stație de autobuz
-es:^Parada de autobuses
+es:^Parada de autobús
 sv:^Busshållplats|3buss|hållplats
 th:^ป้ายรถเมล์|รถเมล์|ขนส่ง
 tr:^Otobüs durağı|3otobüs
@@ -1754,7 +1754,7 @@ pl:3^Przystanek tramwajowy|tramwaj
 pt:3^Paragem de elétrico|via férrea
 pt-BR:3^Parada de bonde|via férrea
 ro:3^Stație de tramvai
-es:^Parada
+es:^Parada de tranvía
 sv:^Spårvagnshållplats|3spårvagn|hållplats
 th:^ป้ายรถราง|ขนส่ง
 tr:3^Tramvay durağı
@@ -1852,7 +1852,7 @@ pl:3^Metro|kolej podziemna
 pt:^Metro
 pt-BR:^Entrada de estação do metrô
 ro:3^Metrou
-es:3^Metro|3subte
+es:3^Metro
 sv:3^Tunnelbana|3tunnelbana|3metro|3tunnelbana
 th:3^รถไฟ|สถานีรถไฟใต้ดิน|ท่อ|เมโทร|ใต้ดิน
 tr:2^Metro|3yer altı metrosu
@@ -1902,7 +1902,7 @@ pl:2^Prom
 pt:2^Balsa
 pt-BR:2^Estação de barcas|balsa
 ro:3^Feribot|terminal
-es:3^Transbordador
+es:3^Transbordador|terminal
 sv:3^Färja|färjeläge|terminal
 th:2^เฟอร์รี่|สถานี
 tr:3^Feribot|terminal
@@ -1935,7 +1935,7 @@ pl:3^Taxi|taksówka
 pt:3^Táxi
 pt-BR:3^Táxi
 ro:3^Taxi
-es:3^Taxi|4colectivo
+es:3^Taxi
 sv:3^Taxi
 th:3^แท็กซี่
 tr:3^Taksi
@@ -2621,7 +2621,7 @@ pl:5^Odkrywka archeologiczna|wykopaliska
 pt:^Sítio arqueológico|turismo
 pt-BR:^Sítio arqueológico|atração
 ro:^Sit arheologic
-es:^Sitio arqueológico
+es:^Yacimiento arqueológico
 sv:^Arkeologisk plats|fornminne|attraktion|turism
 th:^โบราณสถาน|แหล่งท่องเที่ยว|การท่องเที่ยว
 tr:^Arkeolojik alan|cazibe merkezleri|turizm
@@ -2687,7 +2687,7 @@ pl:^Ławka
 pt:^Assento|Banco
 pt-BR:^Assento|Banco de praça
 ro:^Banchetă|Bancă|Bancă parc
-es:^Banca
+es:^Banco
 sv:^Bänk
 th:^ม้านั่ง
 tr:^Bank
@@ -2785,7 +2785,7 @@ pl:^Wynajem samochodów|samochód|auto|Wynajem
 pt:^Aluguel de automóveis|carro|aluguel
 pt-BR:^Aluguel de automóveis|carro|aluguel
 ro:^Închiriere mașini
-es:3^Coche compartido|alquiler
+es:3^Coche de alquiler|alquiler
 sv:3^Biluthyrning|bilpool|bil|uthyrning|delning
 th:3^รถยนต์|บริการรถเช่า
 tr:3^Araç kiralama|araba
@@ -2884,7 +2884,7 @@ pl:3^Dyskoteka|klub nocny
 pt:3^Discoteca|3dançar
 pt-BR:3^Boate|3discoteca|4casa noturna|3dançar
 ro:^Club de noapte
-es:3^Discoteca|nightclub|night club
+es:3^Discoteca
 sv:3^Nattklubb|3disco|dans
 th:3^ไนต์คลับ|การเต้นรำ
 tr:3^Gece kulübü|dans
@@ -3201,7 +3201,7 @@ pl:^Klinika|Szpital
 pt:^Clínica|centro de saúde|hospital
 pt-BR:^Clínica|centro de saúde|posto de saúde|hospital
 ro:^Clinică|spital
-es:^Clínica|hospital
+es:^Clínica|centro de salud|hospital
 sv:^Klinik|sjukhus
 th:^คลินิก|โรงพยาบาล
 tr:^Klinik|hastane
@@ -3296,6 +3296,7 @@ pl:4^Budka myśliwska|polowanie|łowiectwo|stanowisko łowieckie
 pt:^Suporte de caça
 pt-BR:^Estande de caça
 ro:^Stand de vânătoare
+es:^Galería de caza
 sv:^Jakttorn
 th:^จุดล่าสัตว์
 tr:^Avlanma alanı
@@ -3328,7 +3329,7 @@ pl:4^Przedszkole|dzieci|zerówka
 pt:^Jardim de infância
 pt-BR:^Jardim de infância|escola infantil|pré-escola
 ro:^Grădiniță
-es:^Guardería|Kindergarden|preescolar
+es:^Guardería
 sv:^Förskola|dagis
 th:4^โรงเรียนอนุบาล
 tr:4^Anaokulu
@@ -3652,7 +3653,7 @@ pl:3^Szopa|schronienie
 pt:^Abrigo
 pt-BR:^Abrigo
 ro:^Adăpost
-es:^Refugio|Abrigo|Marquesina
+es:^Refugio|Albergue
 sv:^Skyddsrum
 th:^ที่อยู่อาศัย
 tr:^Barınak
@@ -3718,7 +3719,7 @@ pl:3^Toaleta
 pt:^WC
 pt-BR:^Banheiro
 ro:^Toaletă
-es:^Baños
+es:^WC
 sv:3^Toalett
 th:3^ห้องน้ำ
 tr:3^Tuvalet
@@ -3744,7 +3745,7 @@ it:WC
 ja:お手洗い|便所|厠
 pl:wc|ubikacja|wychodek
 pt-BR:toalete|wc|sanitários
-es:3Baños|servicios sanitarios|3lavabo|inodoro|baño|wc
+es:3Baños|aseos|3lavabo|inodoro|baño|wc
 sv:WC|toalett
 vi:Nhà vệ sinh
 zh-Hant:2洗手間|wc
@@ -3970,7 +3971,7 @@ pl:^Wieś|ląd
 pt:^Município
 pt-BR:^Município
 ro:^Județ
-es:^Condado
+es:^Municipio
 sv:^Län
 th:^เขต
 tr:^Kırsal kesim
@@ -4134,7 +4135,7 @@ pl:^Wieś|wioska
 pt:^Lugarejo
 pt-BR:^Lugarejo|aldeia|vila
 ro:^Cătun
-es:^Aldea|pueblo
+es:^Aldea
 sv:^By|by
 th:^หมู่บ้านเล็ก ๆ|หมู่บ้าน
 tr:^Küçük|köy
@@ -4233,7 +4234,7 @@ pl:^Farma|gospodarstwo
 pt:^Quinta
 pt-BR:^Fazenda|sítio|chácara
 ro:^Fermă
-es:^Granja|hacienda
+es:^Granja
 sv:^Bondgård|gård
 th:^ฟาร์ม
 tr:^Çiftlik
@@ -4364,7 +4365,7 @@ pl:3^Ścieżka|dróżka|droga
 pt:^Caminho
 pt-BR:^Caminho|trilha
 ro:^Cale
-es:^Sendero
+es:^Camino
 sv:^Gångväg|gångstig|stig|väg
 th:^เส้นทาง
 tr:^Yol
@@ -4397,7 +4398,7 @@ pl:3^Ulica|droga
 pt:^Rua
 pt-BR:^Rua|rodovia|estrada|avenida
 ro:^Stradă
-es:^Calle|avenue|camino
+es:^Calle
 sv:^Gata|väg
 th:^ถนน
 tr:^Cadde
@@ -4428,6 +4429,7 @@ pl:3^Wyjazd|wyjście
 pt:4^Saída|3junção
 pt-BR:2^Saída|3junção
 ro:^Ieșire
+es:^Salida|3intersección
 sv:3^Avfart|3korsning
 th:4^ทางออก
 tr:2^Çıkış|3kavşak
@@ -4460,7 +4462,7 @@ pl:3^Góra|szczyt|wierzchołek
 pt:^Pico|montanha
 pt-BR:^Pico|montanha
 ro:^Munte
-es:^Cima|pico
+es:^Cima|pico|montaña
 sv:^Bergstopp|berg
 th:^จุดสูงสุด|ภูเขา
 tr:2^Zirve|dağ
@@ -4526,7 +4528,7 @@ pl:3^Źródło|woda
 pt:^Lagoa|água
 pt-BR:^Lagoa|água
 ro:^Heleșteu
-es:^Estanque|aljibe
+es:^Estanque|agua
 sv:^Damm|vatten
 th:1^บ่อ|น้ำ
 tr:^Gölet|su
@@ -4559,7 +4561,7 @@ pl:3^Jezioro|woda|akwen|zbiornik
 pt:^Lago|água
 pt-BR:^Lago|água
 ro:^Lac
-es:^Lago|aljibe
+es:^Lago|agua
 sv:^Sjö|vatten
 th:2^ทะเลสาบ|น้ำ
 tr:^Göl|su
@@ -4658,7 +4660,7 @@ pl:4^Hostel|4motel
 pt:3^Hostel|3Pousada|motel|Albergue
 pt-BR:3^Hostel|3pousada|2albergue
 ro:^Hostel
-es:3^Albergue juvenil|4residencia
+es:3^Albergue juvenil|hostal|motel
 sv:3^Vandrarhem|motell
 th:3^หอพัก|โมเทล
 tr:3^Pansiyon|motel
@@ -4686,7 +4688,7 @@ ja:宿|宿泊|旅館
 pl:motel
 pt:motel
 pt-BR:motel
-es:residencia
+es:motel
 sv:motell
 th:โมเทล
 tr:motel
@@ -4718,7 +4720,7 @@ pl:4^Pensjonat|hostel|gościnne pokoje
 pt:^Casa de hóspedes|pousada|motel
 pt-BR:^Pousada|casa de hóspedes|hospedagem
 ro:^Pensiune
-es:^Casa de huéspedes|albergue juvenil|residencia
+es:^Casa de huéspedes|albergue juvenil|hostal
 sv:^Gästhus|vandrarhem
 th:3^เกสท์เฮ้าส์|โรงแรม์|์โรงแรม
 tr:^Misafir evi|pansiyon
@@ -4751,7 +4753,7 @@ pl:3^Motel|hostel
 pt:3^Motel|3Pousada
 pt-BR:3^Motel|3hotel de estrada|3pousada
 ro:^Motel
-es:3^Motel|albergue juvenil|residencia
+es:3^Motel|albergue juvenil|hostal
 sv:3^Motell|vandrarhem
 th:3^โมเทล|หอพัก
 tr:3^Motel|pansiyon
@@ -4783,7 +4785,7 @@ pl:3^Schronisko|chata w górach|goście|hotel|nocleg|bacówka
 pt:^Alojamento nas montanhas|cabana alpina|3pousada|motel|hotel
 pt-BR:^Abrigo de montanha|cabana alpina|3pousada|motel|hotel
 ro:^Cabană de munte|hotel
-es:4^Cabaña|cabaña de los Alpes|hotel de montaña|hotel
+es:4^Cabaña|cabaña alpina|hotel de montaña|hotel
 sv:^Bergsboende|hotell|vandrarhem|fjällstuga
 th:2^ที่พักบนภูเขาโรงแรม
 tr:3^Dağda konaklama|otel
@@ -4946,7 +4948,7 @@ pl:^Cebtrum sportowe|sport
 pt:^Desporto|sport
 pt-BR:^Centro esportivo|clube|esporte
 ro:^Sport
-es:^Centro deportivo|deporte
+es:^Polideportivo|deporte
 sv:^Sportcenter|sport
 th:^กีฬา
 tr:^Spor
@@ -5297,7 +5299,7 @@ pl:3^Naprawa samochodu|warsztat samochodowy|warsztat|samochód|auto
 pt:^Oficina de reparação de automóveis|estação de serviço
 pt-BR:^Oficina de automóveis|mecânica|mecânico|auto elétro
 ro:^Atelier de reparații auto
-es:^Taller|3reparaciones auto|coche|automóvil|3auto|carro
+es:^Taller|3reparación de automóviles|coche|automóvil
 sv:3^Bilreparatör|bilverkstad|4servicestation|bil
 th:3^ร้านซ่อมรถยนต์|สถานีบริการ
 tr:3^Oto tamir dükkanı|servis istasyonu|araba
@@ -5427,7 +5429,7 @@ nb:^Firmakontor
 pt:^Escritório da empresa
 pt-BR:^Escritório de empresa
 ro:^Sediu companei
-es:^Oficina de empresa
+es:^Oficina
 sv:^Företagskontor
 th:^สำนักงานบริษัท
 tr:^Şirket bürosu|ofis
@@ -6153,7 +6155,7 @@ pl:^Punkt ksero|Drukarnia
 pt:^Copiadora|Impressões
 pt-BR:^Copiadora|impressões
 ro:^Centru copiere|Imprimare
-es:^Copistería|imprenta|poligrafía
+es:^Copistería|imprenta
 sv:^Kopieringsbutik|Tryckare
 th:^ร้านถ่ายเอกสาร|เครื่องพิมพ์
 tr:^Kopyalama Merkezi|Yazıcı
@@ -6248,7 +6250,7 @@ pl:^Sprzęt turystyczny|wędrowanie|wspinaczka|camping
 pt:^Equipamentos esportivos|caminhada|escalada|camping|comércio
 pt-BR:^Equipamentos esportivos|caminhada|escalada|camping|comércio
 ro:^Echipament de exterior|trekking|cățărare|campare
-es:^Equipamiento
+es:^Equipamiento|senderismo|escalada|acampada
 sv:^Fritidsutrustning|vandring|klättring|camping
 th:^อุปกรณ์กลางแจ้ง|เดินป่า|ปีนเขา|ตั้งแคมป์|ร้าน
 tr:^Dış Mekan Ekipmanları|yürüyüş|tırmanma|kamp
@@ -6439,7 +6441,7 @@ pl:^Żłobek|Przedszkole
 pt:^Creche|jardim de infância
 pt-BR:^Creche|jardim de infância
 ro:^De îngrijire a copilului|Grădiniță|Îngrijire copii
-es:^Ludoteca|habitación infantil|guardería
+es:^Guardería
 sv:^Barnomsorg|Förskola
 th:^สถานรับเลี้ยงเด็ก|ดูแลเด็ก
 tr:^Çocuk Yuvası|Kreş
@@ -6471,7 +6473,7 @@ pl:^Parking dla rowerów
 pt:^Estacionamento de bicicletas
 pt-BR:^Bicicletário|estacionamento de bicicletas
 ro:^Parcare biciclete
-es:^Estacionamiento de bicis
+es:^Aparcamiento de bicis
 sv:^Cykelparkering
 th:^ที่จอดจักรยาน
 tr:^Parking à vélo
@@ -6892,7 +6894,7 @@ pl:^Automat z papierosami
 pt:^Máquina de venda de tabaco
 pt-BR:^Máquina de venda de cigarros
 ro:^Automat de țigări
-es:^Máquina de tabaco
+es:^Máquina expendedora de tabaco
 sv:^Cigarettmaskin|cigarettautomat
 th:^เครื่องขายบุหรี่
 tr:^Distributeur de cigarettes
@@ -6924,7 +6926,7 @@ pl:^Automat z napojami
 pt:^Máquina de venda de bebidas
 pt-BR:^Máquina de venda de bebidas
 ro:^Automat de băuturi
-es:^Máquina de bebidas
+es:^Máquina expendedora de bebidas
 sv:^Läskautomat
 th:^เครื่องขายเครื่องดื่มอัตโนมัติ
 tr:^Distributeur de boissons
@@ -6956,7 +6958,7 @@ pl:^Warsztat samochodowy
 pt:^Garagem
 pt-BR:^Garagem
 ro:^Garaj
-es:^Taller mecánico
+es:^Garaje
 sv:^Garage
 th:^อาคารจอดรถ
 tr:^Garage
@@ -6988,7 +6990,7 @@ pl:^Miejsce wypoczynku
 pt:^Área de descanso
 pt-BR:^Área de descanso
 ro:^Zonă de odihnă
-es:^Zona de descanso
+es:^Área de descanso
 sv:^Viloplats
 th:^บริเวณพักผ่อน
 tr:^Aire de repos
@@ -7209,7 +7211,7 @@ pl:^Kasa biletowa
 pt:^Bilheteira
 pt-BR:^Bilheteria
 ro:^Casă de bilete
-es:^Oficina de venta de entradas
+es:^Venta de entradas
 sv:^Biljettkontor
 th:^จุดจำหน่ายตั๋ว
 tr:^Billetterie
@@ -7498,7 +7500,7 @@ pl:^Blok
 pt:^Bloqueio
 pt-BR:^Bloqueio
 ro:^Bloc
-es:^Bloqueo
+es:^Bloque
 sv:^Blockering
 th:^บล็อก
 tr:^Bloc
@@ -7722,7 +7724,7 @@ pl:^Kasa
 pt:^Cabina de portagem
 pt-BR:^Cabine de pedágio
 ro:^Cabină de taxare
-es:^Cabina de peaje
+es:^Peaje
 sv:^Tullhus
 th:^ด่านเก็บเงิน
 tr:^Poste de péage
@@ -7914,7 +7916,7 @@ pl:^Wejście do jaskini
 pt:^Entrada de caverna
 pt-BR:^Entrada de caverna
 ro:^Intrare peșteră
-es:^Entrada a cueva
+es:^Entrada a la cueva
 sv:^Grottöppning
 th:^ทางเข้าถ้ำ
 tr:^Entrée de la cave
