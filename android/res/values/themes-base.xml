@@ -116,6 +116,7 @@
     <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
 
     <item name="transitPedestrianBackground">@color/black_4</item>
+    <item name="transitStepDivider">@drawable/dot_divider</item>
   </style>
 
   <!-- Night theme -->
@@ -232,5 +233,6 @@
     <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
 
     <item name="transitPedestrianBackground">@color/white_4</item>
+    <item name="transitStepDivider">@drawable/dot_divider_night</item>
   </style>
 </resources>

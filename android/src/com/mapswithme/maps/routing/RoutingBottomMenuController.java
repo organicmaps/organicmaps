@@ -35,6 +35,7 @@ import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.recycler.DotDividerItemDecoration;
 import com.mapswithme.maps.widget.recycler.MultilineLayoutManager;
 import com.mapswithme.util.Graphics;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -142,7 +143,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mActionIcon = (ImageView) mActionButton.findViewById(R.id.iv__icon);
     UiUtils.hide(mAltitudeChartFrame, mTaxiFrame, mActionFrame);
     mListener = listener;
-    Drawable dividerDrawable = ContextCompat.getDrawable(mContext, R.drawable.dot_divider);
+    int dividerRes = ThemeUtils.getResource(mContext, R.attr.transitStepDivider);
+    Drawable dividerDrawable = ContextCompat.getDrawable(mContext, dividerRes);
     Resources res = mContext.getResources();
     mTransitViewDecorator = new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
                                                          res.getDimensionPixelSize(R.dimen.margin_half));

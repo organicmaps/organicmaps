@@ -93,6 +93,7 @@
     <attr name="ratingButtonBackground" format="reference"/>
     <attr name="reviewButtonBackground" format="reference"/>
     <attr name="transitPedestrianBackground" format="color"/>
+    <attr name="transitStepDivider" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">
