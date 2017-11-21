@@ -33,6 +33,7 @@
     tools:ignore="HardcodedText"/>
   <ImageView
     android:id="@+id/pedestrian_icon"
+    android:layout_alignBottom="@id/total_time"
     android:layout_toRightOf="@id/dot"
     android:layout_toEndOf="@id/dot"
     android:layout_width="wrap_content"
