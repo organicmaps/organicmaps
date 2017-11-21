@@ -358,8 +358,9 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
   if (resultCode == Result::OK)
   {
     context.ReconstructPath(finalVertex, result.m_path);
-    result.m_distance =
-        context.GetDistance(finalVertex) - graph.HeuristicCostEstimate(startVertex, finalVertex);
+    result.m_distance = context.GetDistance(finalVertex) -
+                        graph.HeuristicCostEstimate(finalVertex, finalVertex) +
+                        graph.HeuristicCostEstimate(startVertex, finalVertex);
   }
 
   return resultCode;
