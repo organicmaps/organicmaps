@@ -138,12 +138,13 @@ template <typename Graph>
 IRouter::ResultCode FindPath(
     typename Graph::TVertexType const & start, typename Graph::TVertexType const & finish,
     RouterDelegate const & delegate, Graph & graph,
-    typename AStarAlgorithm<Graph>::TOnVisitedVertexCallback const & onVisitedVertexCallback,
+    typename AStarAlgorithm<Graph>::OnVisitedVertexCallback const & onVisitedVertexCallback,
+    typename AStarAlgorithm<Graph>::CheckLengthCallback const & checkLengthCallback,
     RoutingResult<typename Graph::TVertexType, typename Graph::TWeightType> & routingResult)
 {
   AStarAlgorithm<Graph> algorithm;
-  return ConvertResult<Graph>(algorithm.FindPathBidirectional(graph, start, finish, routingResult,
-                                                              delegate, onVisitedVertexCallback));
+  return ConvertResult<Graph>(algorithm.FindPathBidirectional(
+      graph, start, finish, routingResult, delegate, onVisitedVertexCallback, checkLengthCallback));
 }
 
 bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph)
@@ -561,13 +562,12 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   };
 
   RoutingResult<Segment, RouteWeight> routingResult;
-  IRouter::ResultCode const result = FindPath(starter.GetStartSegment(), starter.GetFinishSegment(),
-                                              delegate, starter, onVisitJunction, routingResult);
+  IRouter::ResultCode const result = FindPath(
+      starter.GetStartSegment(), starter.GetFinishSegment(), delegate, starter, onVisitJunction,
+      [&starter](RouteWeight const & weight) { return starter.CheckLength(weight); },
+      routingResult);
   if (result != IRouter::NoError)
     return result;
-
-  if (starter.DoesRouteCrossNonPassThrough(routingResult))
-    return IRouter::RouteNotFound;
 
   IRouter::ResultCode const leapsResult =
       ProcessLeaps(routingResult.m_path, delegate, starter.GetGraph().GetMode(), starter, subroute);
@@ -635,12 +635,15 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
     delegate.OnPointCheck(point);
   };
 
+  auto const checkLength = [&starter](RouteWeight const & weight) {
+    return weight <= RouteWeight(kAdjustLimitSec) && starter.CheckLength(weight);
+  };
+
   AStarAlgorithm<IndexGraphStarter> algorithm;
   RoutingResult<Segment, RouteWeight> result;
   auto resultCode = ConvertResult<IndexGraphStarter>(
-      algorithm.AdjustRoute(starter, starter.GetStartSegment(), prevEdges,
-                            RouteWeight(kAdjustLimitSec, 0 /* nonPassThroughCross */), result,
-                            delegate, onVisitJunction));
+      algorithm.AdjustRoute(starter, starter.GetStartSegment(), prevEdges, result, delegate,
+                            onVisitJunction, checkLength));
   if (resultCode != IRouter::NoError)
     return resultCode;
 
@@ -784,14 +787,18 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
     {
       // World graph route.
       worldGraph.SetMode(WorldGraph::Mode::NoLeaps);
-      result = FindPath(current, next, delegate, worldGraph, {} /* onVisitedVertexCallback */, routingResult);
     }
     else
     {
       // Single mwm route.
       worldGraph.SetMode(WorldGraph::Mode::SingleMwm);
-      result = FindPath(current, next, delegate, worldGraph, {} /* onVisitedVertexCallback */, routingResult);
     }
+
+    result =
+        FindPath(current, next, delegate, worldGraph, {} /* onVisitedVertexCallback */,
+                 [&starter](RouteWeight const & weight) { return starter.CheckLength(weight); },
+                 routingResult);
+
     if (result != IRouter::NoError)
       return result;
 

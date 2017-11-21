@@ -41,16 +41,25 @@ IndexGraphStarter::IndexGraphStarter(FakeEnding const & startEnding,
                                      FakeEnding const & finishEnding, uint32_t fakeNumerationStart,
                                      bool strictForward, WorldGraph & graph)
   : m_graph(graph)
+  , m_startId(fakeNumerationStart)
+  , m_startPassThroughAllowed(EndingPassThroughAllowed(startEnding))
+  , m_finishPassThroughAllowed(EndingPassThroughAllowed(finishEnding))
 {
-  m_startId = fakeNumerationStart;
   AddStart(startEnding, finishEnding, strictForward, fakeNumerationStart);
   m_finishId = fakeNumerationStart;
   AddFinish(finishEnding, startEnding, fakeNumerationStart);
+  auto const startPoint = GetPoint(GetStartSegment(), false /* front */);
+  auto const finishPoint = GetPoint(GetFinishSegment(), true /* front */);
+  m_startToFinishDistanceM = MercatorBounds::DistanceOnEarth(startPoint, finishPoint);
 }
 
 void IndexGraphStarter::Append(FakeEdgesContainer const & container)
 {
   m_finishId = container.m_finishId;
+  m_finishPassThroughAllowed = container.m_finishPassThroughAllowed;
+  auto const startPoint = GetPoint(GetStartSegment(), false /* front */);
+  auto const finishPoint = GetPoint(GetFinishSegment(), true /* front */);
+  m_startToFinishDistanceM = MercatorBounds::DistanceOnEarth(startPoint, finishPoint);
   m_fake.Append(container.m_fake);
 }
 
@@ -109,37 +118,15 @@ set<NumMwmId> IndexGraphStarter::GetMwms() const
   return mwms;
 }
 
-bool IndexGraphStarter::DoesRouteCrossNonPassThrough(
-    RoutingResult<Segment, RouteWeight> const & result) const
+bool IndexGraphStarter::CheckLength(RouteWeight const & weight) const
 {
-  int nonPassThroughCrossAllowed = 0;
-  auto isRealOrPart = [this](Segment const & segment) {
-    if (!IsFakeSegment(segment))
-      return true;
-    Segment dummy;
-    return m_fake.FindReal(segment, dummy);
-  };
-  auto isPassThroughAllowed = [this](Segment const & segment) {
-    auto real = segment;
-    bool const convertionResult = ConvertToReal(real);
-    CHECK(convertionResult, ());
-    return m_graph.IsPassThroughAllowed(real.GetMwmId(), real.GetFeatureId());
-  };
+  // We allow 1 pass-through/non-pass-through crossing per ending located in
+  // non-pass-through zone to allow user to leave this zone.
+  int const nonPassThroughCrossAllowed =
+      (m_startPassThroughAllowed ? 0 : 1) + (m_finishPassThroughAllowed ? 0 : 1);
 
-  auto const firstRealOrPart = find_if(result.m_path.begin(), result.m_path.end(), isRealOrPart);
-  if (firstRealOrPart != result.m_path.end() && !isPassThroughAllowed(*firstRealOrPart))
-    ++nonPassThroughCrossAllowed;
-
-  auto const lastRealOrPart = find_if(result.m_path.rbegin(), result.m_path.rend(), isRealOrPart);
-  // If firstRealOrPart and lastRealOrPart point to the same segment increment
-  // nonPassThroughCrossAllowed once
-  if (lastRealOrPart != result.m_path.rend() && &*lastRealOrPart != &*firstRealOrPart &&
-      !isPassThroughAllowed(*lastRealOrPart))
-  {
-    ++nonPassThroughCrossAllowed;
-  }
-
-  return nonPassThroughCrossAllowed < result.m_distance.GetNonPassThroughCross();
+  return weight.GetNonPassThroughCross() <= nonPassThroughCrossAllowed &&
+         m_graph.CheckLength(weight, m_startToFinishDistanceM);
 }
 
 void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
@@ -320,5 +307,14 @@ void IndexGraphStarter::AddRealEdges(Segment const & segment, bool isOutgoing,
 {
   bool const isEnding = !m_fake.GetFake(segment).empty();
   m_graph.GetEdgeList(segment, isOutgoing, IsLeap(segment.GetMwmId()), isEnding, edges);
+}
+
+bool IndexGraphStarter::EndingPassThroughAllowed(FakeEnding const & ending)
+{
+  return any_of(ending.m_projections.cbegin(), ending.m_projections.cend(),
+                [this](Projection const & projection) {
+                  return m_graph.IsPassThroughAllowed(projection.m_segment.GetMwmId(),
+                                                      projection.m_segment.GetFeatureId());
+                });
 }
 }  // namespace routing

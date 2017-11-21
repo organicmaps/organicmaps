@@ -19,6 +19,7 @@ class FakeEdgesContainer final
 public:
   FakeEdgesContainer(IndexGraphStarter && starter)
     : m_finishId(starter.m_finishId)
+    , m_finishPassThroughAllowed(starter.m_finishPassThroughAllowed)
     , m_fake(std::move(starter.m_fake))
   {
   }
@@ -32,8 +33,10 @@ public:
   }
 
 private:
-  // finish segment id
+  // Finish segment id.
   uint32_t m_finishId;
+  // Finish segment is located in a pass-through/non-pass-through area.
+  bool m_finishPassThroughAllowed;
   FakeGraph<Segment, FakeVertex, Segment> m_fake;
 };
 }  // namespace routing

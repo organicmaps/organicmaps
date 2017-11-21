@@ -205,7 +205,7 @@ void TrackMatcher::Step::ChooseSegment(Step const & nextStep, IndexGraph & index
 
   vector<SegmentEdge> edges;
   indexGraph.GetEdgeList(nextStep.m_segment, false /* isOutgoing */, edges);
-  edges.emplace_back(nextStep.m_segment, RouteWeight(0.0, 0));
+  edges.emplace_back(nextStep.m_segment, GetAStarWeightZero<RouteWeight>());
 
   for (Candidate const & candidate : m_candidates)
   {

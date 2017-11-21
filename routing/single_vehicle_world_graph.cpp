@@ -32,10 +32,8 @@ void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoi
     // point. So |isEnter| below should be set to true.
     m_crossMwmGraph->ForEachTransition(
         segment.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
-          edges.emplace_back(
-              transition, RouteWeight(m_estimator->CalcLeapWeight(segmentPoint,
-                                                                  GetPoint(transition, isOutgoing)),
-                                      0 /* nonPassThroughCross */));
+          edges.emplace_back(transition, RouteWeight(m_estimator->CalcLeapWeight(
+                                             segmentPoint, GetPoint(transition, isOutgoing))));
         });
     return;
   }
@@ -100,20 +98,19 @@ RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(Segment const & from,
 RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(m2::PointD const & from,
                                                            m2::PointD const & to)
 {
-  return RouteWeight(m_estimator->CalcHeuristic(from, to), 0 /* nonPassThroughCross */);
+  return RouteWeight(m_estimator->CalcHeuristic(from, to));
 }
 
 RouteWeight SingleVehicleWorldGraph::CalcSegmentWeight(Segment const & segment)
 {
   return RouteWeight(m_estimator->CalcSegmentWeight(
-                         segment, GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())),
-                     0 /* nonPassThroughCross */);
+      segment, GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())));
 }
 
 RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(m2::PointD const & from,
                                                        m2::PointD const & to) const
 {
-  return RouteWeight(m_estimator->CalcOffroadWeight(from, to), 0 /* nonPassThroughCross */);
+  return RouteWeight(m_estimator->CalcOffroadWeight(from, to));
 }
 
 bool SingleVehicleWorldGraph::LeapIsAllowed(NumMwmId mwmId) const
@@ -141,7 +138,7 @@ void SingleVehicleWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,
     // in different mwms. But if we have mwms with different versions and feature
     // was moved in one of them we can have nonzero weight here.
     double const weight = m_estimator->CalcHeuristic(from, to);
-    edges.emplace_back(twin, RouteWeight(weight, 0 /* nonPassThroughCross */));
+    edges.emplace_back(twin, RouteWeight(weight));
   }
 }
 }  // namespace routing

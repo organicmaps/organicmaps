@@ -29,6 +29,7 @@ public:
   // WorldGraph overrides:
   void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap, bool isEnding,
                    std::vector<SegmentEdge> & edges) override;
+  bool CheckLength(RouteWeight const &, double) const override { return true; }
   Junction const & GetJunction(Segment const & segment, bool front) override;
   m2::PointD const & GetPoint(Segment const & segment, bool front) override;
   bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override;

@@ -74,10 +74,9 @@ public:
 
   std::set<NumMwmId> GetMwms() const;
 
-  // Checks |result| meets non-pass-through crossing restrictions according to placement of
-  // |result.path| start and finish in pass through/non-pass-through area and number of
-  // non-pass-through crosses.
-  bool DoesRouteCrossNonPassThrough(RoutingResult<Segment, RouteWeight> const & result) const;
+  // Checks whether |weight| meets non-pass-through crossing restrictions according to placement of
+  // start and finish in pass-through/non-pass-through area and number of non-pass-through crosses.
+  bool CheckLength(RouteWeight const & weight) const;
 
   void GetEdgesList(Segment const & segment, bool isOutgoing,
                     std::vector<SegmentEdge> & edges) const;
@@ -131,12 +130,20 @@ private:
   void AddRealEdges(Segment const & segment, bool isOutgoing,
                     std::vector<SegmentEdge> & edges) const;
 
+  // Checks whether ending belongs to pass-through or non-pass-through zone.
+  bool EndingPassThroughAllowed(FakeEnding const & ending);
+
   static uint32_t constexpr kFakeFeatureId = FakeFeatureIds::kIndexGraphStarterId;
   WorldGraph & m_graph;
   // Start segment id
   uint32_t m_startId;
   // Finish segment id
   uint32_t m_finishId;
+  // Start segment is located in a pass-through/non-pass-through area.
+  bool m_startPassThroughAllowed;
+  // Finish segment is located in a pass-through/non-pass-through area.
+  bool m_finishPassThroughAllowed;
+  double m_startToFinishDistanceM;
   FakeGraph<Segment, FakeVertex, Segment> m_fake;
 };
 }  // namespace routing

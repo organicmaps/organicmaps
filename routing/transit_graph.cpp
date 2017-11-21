@@ -54,34 +54,39 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   if (IsGate(segment))
-    return RouteWeight(GetGate(segment).GetWeight(), 0 /* nontransitCross */);
+  {
+    auto const weight = GetGate(segment).GetWeight();
+    return RouteWeight(weight /* weight */, 0 /* nonPassThrougCross */, weight /* transitTime */);
+  }
 
   if (IsEdge(segment))
-    return RouteWeight(GetEdge(segment).GetWeight(), 0 /* nontransitCross */);
+  {
+    auto const weight = GetEdge(segment).GetWeight();
+    return RouteWeight(weight /* weight */, 0 /* nonPassThrougCross */, weight /* transitTime */);
+  }
 
   return RouteWeight(
       m_estimator->CalcOffroadWeight(GetJunction(segment, false /* front */).GetPoint(),
-                                     GetJunction(segment, true /* front */).GetPoint()),
-      0 /* nontransitCross */);
+                                     GetJunction(segment, true /* front */).GetPoint()));
 }
 
 RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const & to) const
 {
   // We need to wait transport and apply additional penalty only if we change to transit::Edge.
   if (!IsEdge(to))
-    return RouteWeight(0 /* weight */, 0 /* nontransitCross */);
+    return GetAStarWeightZero<RouteWeight>();
 
   auto const & edgeTo = GetEdge(to);
 
   // We are changing to transfer and do not need to apply extra penalty here. We'll do it while
   // changing from transfer.
   if (edgeTo.GetTransfer())
-    return RouteWeight(0 /* weight */, 0 /* nontransitCross */);
+    return GetAStarWeightZero<RouteWeight>();
 
   auto const lineIdTo = edgeTo.GetLineId();
 
   if (IsEdge(from) && GetEdge(from).GetLineId() == lineIdTo)
-    return RouteWeight(0 /* weight */, 0 /* nontransitCross */);
+    return GetAStarWeightZero<RouteWeight>();
 
   // We need to apply extra penalty when:
   // 1. |from| is gate, |to| is edge
@@ -89,7 +94,8 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
   // 3. |from| is edge, |to| is edge from another line directly connected to |from|.
   auto const it = m_transferPenalties.find(lineIdTo);
   CHECK(it != m_transferPenalties.cend(), ("Segment", to, "belongs to unknown line:", lineIdTo));
-  return RouteWeight(it->second, 0 /* nontransitCross */);
+  return RouteWeight(it->second /* weight */, 0 /* nonPassThrougCross */,
+                     it->second /* transitTime */);
 }
 
 void TransitGraph::GetTransitEdges(Segment const & segment, bool isOutgoing,

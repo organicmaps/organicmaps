@@ -18,7 +18,7 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
 {
   using TAlgorithm = AStarAlgorithm<CrossMwmRoadGraph>;
 
-  TAlgorithm::TOnVisitedVertexCallback onVisitedVertex =
+  TAlgorithm::OnVisitedVertexCallback onVisitedVertex =
       [&delegate](BorderCross const & cross, BorderCross const & /* target */)
   {
     delegate.OnPointCheck(MercatorBounds::FromLatLon(cross.fromNode.point));

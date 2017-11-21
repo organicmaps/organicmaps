@@ -117,7 +117,7 @@ RouteWeight TransitWorldGraph::HeuristicCostEstimate(Segment const & from, Segme
 
 RouteWeight TransitWorldGraph::HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to)
 {
-  return RouteWeight(m_estimator->CalcHeuristic(from, to), 0 /* nontransitCross */);
+  return RouteWeight(m_estimator->CalcHeuristic(from, to));
 }
 
 RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment)
@@ -129,14 +129,13 @@ RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment)
   }
 
   return RouteWeight(m_estimator->CalcSegmentWeight(
-                         segment, GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())),
-                     0 /* nontransitCross */);
+      segment, GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())));
 }
 
 RouteWeight TransitWorldGraph::CalcOffroadWeight(m2::PointD const & from,
                                                  m2::PointD const & to) const
 {
-  return RouteWeight(m_estimator->CalcOffroadWeight(from, to), 0 /* nontransitCross */);
+  return RouteWeight(m_estimator->CalcOffroadWeight(from, to));
 }
 
 bool TransitWorldGraph::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }
@@ -172,7 +171,7 @@ void TransitWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,
     // in different mwms. But if we have mwms with different versions and feature
     // was moved in one of them we can have nonzero weight here.
     double const weight = m_estimator->CalcHeuristic(from, to);
-    edges.emplace_back(twin, RouteWeight(weight, 0 /* nontransitCross */));
+    edges.emplace_back(twin, RouteWeight(weight));
   }
 }
 

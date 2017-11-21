@@ -93,6 +93,33 @@ UNIT_TEST(AStarAlgorithm_Sample)
   TestAStar(graph, expectedRoute, 23);
 }
 
+UNIT_TEST(AStarAlgorithm_CheckLength)
+{
+  UndirectedGraph graph;
+
+  // Inserts edges in a format: <source, target, weight>.
+  graph.AddEdge(0, 1, 10);
+  graph.AddEdge(1, 2, 5);
+  graph.AddEdge(2, 3, 5);
+  graph.AddEdge(2, 4, 10);
+  graph.AddEdge(3, 4, 3);
+
+  TAlgorithm algo;
+  RoutingResult<unsigned /* VertexType */, double /* WeightType */> routingResult;
+  TAlgorithm::Result result =
+      algo.FindPath(graph, 0u, 4u, routingResult, {} /* cancellable */,
+                    {} /* onVisitedVertexCallback */, [](double weight) { return weight < 23; });
+  // Best route weight is 23 so we expect to find no route with restriction |weight < 23|.
+  TEST_EQUAL(result, TAlgorithm::Result::NoPath, ());
+
+  routingResult = {};
+  result = algo.FindPathBidirectional(graph, 0u, 4u, routingResult, {} /* cancellable */,
+                                      {} /* onVisitedVertexCallback */,
+                                      [](double weight) { return weight < 23; });
+  // Best route weight is 23 so we expect to find no route with restriction |weight < 23|.
+  TEST_EQUAL(result, TAlgorithm::Result::NoPath, ());
+}
+
 UNIT_TEST(AdjustRoute)
 {
   UndirectedGraph graph;
@@ -109,8 +136,9 @@ UNIT_TEST(AdjustRoute)
 
   TAlgorithm algo;
   RoutingResult<unsigned /* VertexType */, double /* WeightType */> result;
-  auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, 1.0 /* limit */, result,
-                               my::Cancellable(), nullptr /* onVisitedVertexCallback */);
+  auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, result,
+                               my::Cancellable(), nullptr /* onVisitedVertexCallback */,
+                               [](double weight){ return weight <= 1.0; });
 
   vector<unsigned> const expectedRoute = {6, 2, 3, 4, 5};
   TEST_EQUAL(code, TAlgorithm::Result::OK, ());
@@ -130,8 +158,9 @@ UNIT_TEST(AdjustRouteNoPath)
 
   TAlgorithm algo;
   RoutingResult<unsigned /* VertexType */, double /* WeightType */> result;
-  auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, 1.0 /* limit */, result,
-                               my::Cancellable(), nullptr /* onVisitedVertexCallback */);
+  auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, result,
+                               my::Cancellable(), nullptr /* onVisitedVertexCallback */,
+                               [](double weight){ return weight <= 1.0; });
 
   TEST_EQUAL(code, TAlgorithm::Result::NoPath, ());
   TEST(result.m_path.empty(), ());
@@ -151,8 +180,9 @@ UNIT_TEST(AdjustRouteOutOfLimit)
 
   TAlgorithm algo;
   RoutingResult<unsigned /* VertexType */, double /* WeightType */> result;
-  auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, 1.0 /* limit */, result,
-                               my::Cancellable(), nullptr /* onVisitedVertexCallback */);
+  auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, result,
+                               my::Cancellable(), nullptr /* onVisitedVertexCallback */,
+                               [](double weight){ return weight <= 1.0; });
 
   TEST_EQUAL(code, TAlgorithm::Result::NoPath, ());
   TEST(result.m_path.empty(), ());

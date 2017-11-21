@@ -112,15 +112,13 @@ void IndexGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge
 RouteWeight IndexGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
 {
   return RouteWeight(
-      m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */)),
-      0 /* nonPassThroughCross */);
+      m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */)));
 }
 
 RouteWeight IndexGraph::CalcSegmentWeight(Segment const & segment)
 {
   return RouteWeight(
-      m_estimator->CalcSegmentWeight(segment, m_geometry.GetRoad(segment.GetFeatureId())),
-      0 /* nonPassThroughCross */);
+      m_estimator->CalcSegmentWeight(segment, m_geometry.GetRoad(segment.GetFeatureId())));
 }
 
 void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
@@ -178,8 +176,8 @@ RouteWeight IndexGraph::GetPenalties(Segment const & u, Segment const & v)
   uint32_t const passThroughPenalty = fromPassThroughAllowed == toPassThroughAllowed ? 0 : 1;
 
   if (IsUTurn(u, v))
-    return RouteWeight(m_estimator->GetUTurnPenalty(), passThroughPenalty);
+    return RouteWeight(m_estimator->GetUTurnPenalty(), passThroughPenalty, 0.0 /* transitTime */);
 
-  return RouteWeight(0.0, passThroughPenalty);
+  return RouteWeight(0.0, passThroughPenalty, 0.0 /* transitTime */);
 }
 }  // namespace routing

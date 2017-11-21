@@ -353,10 +353,8 @@ AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & sta
 
   auto resultCode = algorithm.FindPathBidirectional(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), routingResult,
-      {} /* cancellable */, {} /* onVisitedVertexCallback */);
-
-  if (starter.DoesRouteCrossNonPassThrough(routingResult))
-    resultCode = AStarAlgorithm<IndexGraphStarter>::Result::NoPath;
+      {} /* cancellable */, {} /* onVisitedVertexCallback */,
+      [&](RouteWeight const & weight) { return starter.CheckLength(weight); });
 
   timeSec = routingResult.m_distance.GetWeight();
   roadPoints = routingResult.m_path;

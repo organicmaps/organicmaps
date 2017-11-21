@@ -46,11 +46,15 @@ public:
   virtual void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap, bool isEnding,
                            std::vector<SegmentEdge> & edges) = 0;
 
+  // Checks whether path length meets restrictions. Restrictions may depend on the distance from
+  // start to finish of the route.
+  virtual bool CheckLength(RouteWeight const & weight, double startToFinishDistanceM) const = 0;
+
   virtual Junction const & GetJunction(Segment const & segment, bool front) = 0;
   virtual m2::PointD const & GetPoint(Segment const & segment, bool front) = 0;
   virtual bool IsOneWay(NumMwmId mwmId, uint32_t featureId) = 0;
 
-  // Checks feature is allowed for through passage.
+  // Checks whether feature is allowed for through passage.
   virtual bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) = 0;
 
   // Clear memory used by loaded graphs.

@@ -15,12 +15,14 @@ double RouteWeight::ToCrossMwmWeight() const
 
 ostream & operator<<(ostream & os, RouteWeight const & routeWeight)
 {
-  os << "(" << routeWeight.GetNonPassThroughCross() << ", " << routeWeight.GetWeight() << ")";
+  os << "(" << routeWeight.GetNonPassThroughCross() << ", " << routeWeight.GetWeight() << ", "
+     << routeWeight.GetTransitTime() << ")";
   return os;
 }
 
 RouteWeight operator*(double lhs, RouteWeight const & rhs)
 {
-  return RouteWeight(lhs * rhs.GetWeight(), rhs.GetNonPassThroughCross());
+  return RouteWeight(lhs * rhs.GetWeight(), rhs.GetNonPassThroughCross(),
+                     lhs * rhs.GetTransitTime());
 }
 }  // namespace routing
