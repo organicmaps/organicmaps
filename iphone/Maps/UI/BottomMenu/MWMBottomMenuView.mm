@@ -14,12 +14,10 @@ CGFloat constexpr kDefaultMenuButtonWidth = 60;
 
 @property(nonatomic) CGFloat layoutDuration;
 @property(nonatomic) CGRect availableArea;
-@property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * mainButtonConstraintsLeftToRight;
 @property(weak, nonatomic) IBOutlet MWMButton * menuButton;
 @property(weak, nonatomic) IBOutlet MWMButton * searchButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsHeight;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * menuButtonWidth;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * separatorHeight;
 @property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 @property(weak, nonatomic) IBOutlet UIView * downloadBadge;
@@ -27,18 +25,6 @@ CGFloat constexpr kDefaultMenuButtonWidth = 60;
 @end
 
 @implementation MWMBottomMenuView
-
-- (void)awakeFromNib
-{
-  [super awakeFromNib];
-  self.additionalButtons.hidden = YES;
-
-  if (isInterfaceRightToLeft())
-  {
-    for (NSLayoutConstraint * constraint in self.mainButtonConstraintsLeftToRight)
-      constraint.priority = UILayoutPriorityFittingSizeLevel;
-  }
-}
 
 - (void)didMoveToSuperview
 {
@@ -100,7 +86,6 @@ CGFloat constexpr kDefaultMenuButtonWidth = 60;
     return;
   self.separatorHeight.constant = 0.0;
   self.additionalButtonsHeight.constant = 0.0;
-  self.menuButtonWidth.constant = kDefaultMenuButtonWidth;
   self.mainButtonsHeight.constant = kDefaultMainButtonsHeight;
   switch (self.state)
   {

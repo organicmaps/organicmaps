@@ -1,98 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMBottomMenuViewController">
             <connections>
-                <outlet property="additionalButtons" destination="hSd-fM-qKd" id="tT1-ml-chk"/>
-                <outlet property="downloadBadge" destination="WLn-2O-Ivv" id="BPU-t1-YS6"/>
-                <outlet property="mainButtonsHeight" destination="HtR-j8-Qpc" id="uZ3-Im-taa"/>
-                <outlet property="searchButton" destination="IzQ-aQ-aPH" id="XWA-9H-Hvg"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="additionalButtons" destination="NfG-tt-q8G" id="YqY-OZ-EBY"/>
+                <outlet property="downloadBadge" destination="uDI-ZC-4wx" id="fAf-cy-Ozn"/>
+                <outlet property="mainButtonsHeight" destination="69A-eu-uLp" id="lKP-wl-wEn"/>
+                <outlet property="searchButton" destination="No0-ld-JX3" id="m5F-UT-j94"/>
+                <outlet property="view" destination="zuH-WU-hiP" id="eoa-4I-wKs"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="MWMBottomMenuView">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="zuH-WU-hiP" customClass="MWMBottomMenuView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="197"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kbJ-If-gUR" userLabel="MainButtons">
+                <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vum-s3-PHx" userLabel="MainButtons">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IzQ-aQ-aPH" userLabel="Search" customClass="MWMButton">
-                            <rect key="frame" x="0.0" y="0.0" width="60" height="48"/>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="No0-ld-JX3" userLabel="Search" customClass="MWMButton">
+                            <rect key="frame" x="0.0" y="0.0" width="64" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="60" id="J9X-GZ-6tZ"/>
-                            </constraints>
                             <state key="normal" image="ic_menu_search"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="searchButtonTouchUpInside" destination="-1" eventType="touchUpInside" id="BmJ-rD-ZTU"/>
+                                <action selector="searchButtonTouchUpInside" destination="-1" eventType="touchUpInside" id="uiJ-y8-jqM"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQ0-ZK-UXk" userLabel="P2P" customClass="MWMButton">
-                            <rect key="frame" x="87.5" y="0.0" width="60" height="48"/>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-7Z-N6a" userLabel="P2P" customClass="MWMButton">
+                            <rect key="frame" x="64" y="0.0" width="64" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="p2pButton"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="60" id="paN-sx-04o"/>
-                            </constraints>
                             <state key="normal" image="ic_menu_point_to_point"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="point2PointButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="F4o-Qz-QbZ"/>
+                                <action selector="point2PointButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="Lss-d4-B9C"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVh-dm-DDH" userLabel="Bookmarks" customClass="MWMButton">
-                            <rect key="frame" x="175.5" y="0.0" width="60" height="48"/>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHY-LD-odP" userLabel="Discover" customClass="MWMButton">
+                            <rect key="frame" x="128" y="0.0" width="64" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="bookmarksButton"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="60" id="EmN-5v-BhH"/>
-                            </constraints>
+                            <state key="normal" image="ic_menu_discovery"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-ki-3tB" userLabel="Bookmarks" customClass="MWMButton">
+                            <rect key="frame" x="192" y="0.0" width="64" height="48"/>
+                            <accessibility key="accessibilityConfiguration" identifier="bookmarksButton"/>
                             <state key="normal" image="ic_menu_bookmark_list"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="bookmarksButtonTouchUpInside" destination="-1" eventType="touchUpInside" id="c14-Dx-sRy"/>
+                                <action selector="bookmarksButtonTouchUpInside" destination="-1" eventType="touchUpInside" id="SXl-Zi-E37"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLY-C4-SBu" userLabel="Menu" customClass="MWMButton">
-                            <rect key="frame" x="260" y="0.0" width="60" height="48"/>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svD-yi-GrZ" userLabel="Menu" customClass="MWMButton">
+                            <rect key="frame" x="256" y="0.0" width="64" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="menuButton"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="60" id="ams-2s-vhw"/>
-                            </constraints>
                             <state key="normal" image="ic_menu"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="menuButtonTouchUpInside" destination="-1" eventType="touchUpInside" id="BAE-Wv-6zU"/>
+                                <action selector="menuButtonTouchUpInside" destination="-1" eventType="touchUpInside" id="Bz9-ty-nzH"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WLn-2O-Ivv" userLabel="DownloadBadge">
-                            <rect key="frame" x="293" y="11" width="10" height="10"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDI-ZC-4wx" userLabel="DownloadBadge">
+                            <rect key="frame" x="291" y="11" width="10" height="10"/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="10" id="ToN-Zr-4oh"/>
-                                <constraint firstAttribute="height" constant="10" id="XeO-2q-gDj"/>
+                                <constraint firstAttribute="width" constant="10" id="tEP-Xi-qnU"/>
+                                <constraint firstAttribute="height" constant="10" id="wNg-5Z-7AO"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -104,82 +96,86 @@
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="YLY-C4-SBu" secondAttribute="trailing" identifier="menuTrailing" id="Ade-MQ-41P"/>
-                        <constraint firstItem="WLn-2O-Ivv" firstAttribute="centerY" secondItem="YLY-C4-SBu" secondAttribute="centerY" constant="-8" id="CjF-ja-g56"/>
-                        <constraint firstItem="YLY-C4-SBu" firstAttribute="centerY" secondItem="kbJ-If-gUR" secondAttribute="centerY" id="Hly-tK-GHj"/>
-                        <constraint firstAttribute="height" constant="48" id="HtR-j8-Qpc"/>
-                        <constraint firstItem="IzQ-aQ-aPH" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="JFI-3b-72w"/>
-                        <constraint firstItem="xQ0-ZK-UXk" firstAttribute="centerX" secondItem="kbJ-If-gUR" secondAttribute="centerX" multiplier="22:30" priority="999" id="RMv-Kx-9s6"/>
-                        <constraint firstItem="qVh-dm-DDH" firstAttribute="centerY" secondItem="kbJ-If-gUR" secondAttribute="centerY" id="Rgu-Ok-h30"/>
-                        <constraint firstItem="qVh-dm-DDH" firstAttribute="centerX" secondItem="kbJ-If-gUR" secondAttribute="centerX" multiplier="22:30" priority="998" id="SJM-MP-uAt"/>
-                        <constraint firstItem="xQ0-ZK-UXk" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="WRQ-HY-d1P"/>
-                        <constraint firstItem="qVh-dm-DDH" firstAttribute="centerX" secondItem="kbJ-If-gUR" secondAttribute="centerX" multiplier="385:300" priority="999" id="Wda-vl-hB4"/>
-                        <constraint firstItem="qVh-dm-DDH" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="d2K-hv-PmH"/>
-                        <constraint firstItem="WLn-2O-Ivv" firstAttribute="centerX" secondItem="YLY-C4-SBu" secondAttribute="centerX" constant="8" id="lUQ-gw-psA"/>
-                        <constraint firstItem="IzQ-aQ-aPH" firstAttribute="centerY" secondItem="kbJ-If-gUR" secondAttribute="centerY" id="nbW-x7-1M5"/>
-                        <constraint firstItem="IzQ-aQ-aPH" firstAttribute="leading" secondItem="kbJ-If-gUR" secondAttribute="leading" id="qEI-fz-zc8"/>
-                        <constraint firstItem="xQ0-ZK-UXk" firstAttribute="centerX" secondItem="kbJ-If-gUR" secondAttribute="centerX" multiplier="385:300" priority="998" id="r8v-8m-Uxx"/>
-                        <constraint firstItem="YLY-C4-SBu" firstAttribute="height" secondItem="kbJ-If-gUR" secondAttribute="height" id="wGb-xV-jeL"/>
-                        <constraint firstItem="xQ0-ZK-UXk" firstAttribute="centerY" secondItem="kbJ-If-gUR" secondAttribute="centerY" id="xfg-wf-76Q"/>
+                        <constraint firstAttribute="height" constant="48" id="69A-eu-uLp"/>
+                        <constraint firstItem="No0-ld-JX3" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="8nL-zT-Y7b"/>
+                        <constraint firstItem="No0-ld-JX3" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="9eR-I7-7at"/>
+                        <constraint firstItem="svD-yi-GrZ" firstAttribute="leading" secondItem="dgG-ki-3tB" secondAttribute="trailing" id="Bsa-EZ-etN"/>
+                        <constraint firstItem="svD-yi-GrZ" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="Fde-um-JL6"/>
+                        <constraint firstItem="dgG-ki-3tB" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="FvH-gW-qvX"/>
+                        <constraint firstItem="dgG-ki-3tB" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="JjT-sc-hIY"/>
+                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="Kpo-Yp-UaG"/>
+                        <constraint firstItem="lHY-LD-odP" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="NkM-Gg-qtW"/>
+                        <constraint firstItem="No0-ld-JX3" firstAttribute="leading" secondItem="vum-s3-PHx" secondAttribute="leading" id="Q7C-0J-qf8"/>
+                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="leading" secondItem="No0-ld-JX3" secondAttribute="trailing" id="RVj-Dx-wtX"/>
+                        <constraint firstItem="dgG-ki-3tB" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="Rs8-Hl-CAc"/>
+                        <constraint firstItem="uDI-ZC-4wx" firstAttribute="centerX" secondItem="svD-yi-GrZ" secondAttribute="centerX" constant="8" id="XNb-Ba-Hn7"/>
+                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="Zug-zY-KIX"/>
+                        <constraint firstItem="lHY-LD-odP" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="enM-5c-KwM"/>
+                        <constraint firstItem="lHY-LD-odP" firstAttribute="centerX" secondItem="vum-s3-PHx" secondAttribute="centerX" id="gx1-YB-Mnb"/>
+                        <constraint firstItem="lHY-LD-odP" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="hwM-L5-UAn"/>
+                        <constraint firstItem="No0-ld-JX3" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="qZh-XR-VeU"/>
+                        <constraint firstItem="svD-yi-GrZ" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="sja-hO-YY3"/>
+                        <constraint firstItem="svD-yi-GrZ" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="u75-4c-Jlg"/>
+                        <constraint firstAttribute="trailing" secondItem="svD-yi-GrZ" secondAttribute="trailing" identifier="menuTrailing" id="w4O-sY-Sb2"/>
+                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="yTg-8g-H1p"/>
+                        <constraint firstItem="uDI-ZC-4wx" firstAttribute="centerY" secondItem="svD-yi-GrZ" secondAttribute="centerY" constant="-8" id="yq3-ui-IaL"/>
                     </constraints>
                 </view>
-                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYy-JN-hGA" userLabel="Separator">
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxg-Qt-HzS" userLabel="Separator">
                     <rect key="frame" x="0.0" y="48" width="320" height="1"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="Kgm-bO-O6Q"/>
+                        <constraint firstAttribute="height" constant="1" id="wSx-Bp-1WM"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <collectionView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hSd-fM-qKd" userLabel="AdditionalButtons">
+                <collectionView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="NfG-tt-q8G" userLabel="AdditionalButtons">
                     <rect key="frame" x="0.0" y="49" width="320" height="148"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="148" id="fsD-HQ-mF9"/>
+                        <constraint firstAttribute="height" constant="148" id="Tiw-DM-q4q"/>
                     </constraints>
-                    <collectionViewLayout key="collectionViewLayout" id="GUG-1I-oV0" customClass="MWMBottomMenuLayout"/>
+                    <collectionViewLayout key="collectionViewLayout" id="Xha-UD-5U7" customClass="MWMBottomMenuLayout"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="EIY-Yp-ecW"/>
-                        <outlet property="delegate" destination="-1" id="vCZ-oz-Dam"/>
+                        <outlet property="dataSource" destination="-1" id="igw-5H-Hsl"/>
+                        <outlet property="delegate" destination="-1" id="OpY-Sq-1bZ"/>
                     </connections>
                 </collectionView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="hSd-fM-qKd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2jm-k3-CLB"/>
-                <constraint firstItem="kbJ-If-gUR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7id-li-IXL"/>
-                <constraint firstItem="kbJ-If-gUR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="EW9-WF-5Ww"/>
-                <constraint firstItem="hSd-fM-qKd" firstAttribute="width" secondItem="kbJ-If-gUR" secondAttribute="width" id="ZyG-aC-n5g"/>
-                <constraint firstItem="nYy-JN-hGA" firstAttribute="width" secondItem="kbJ-If-gUR" secondAttribute="width" id="aPf-C5-OHV"/>
-                <constraint firstItem="nYy-JN-hGA" firstAttribute="top" secondItem="kbJ-If-gUR" secondAttribute="bottom" id="dBo-Kv-eJX"/>
-                <constraint firstItem="nYy-JN-hGA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hat-Yn-atq"/>
-                <constraint firstAttribute="trailing" secondItem="kbJ-If-gUR" secondAttribute="trailing" id="jqh-CM-yl5"/>
-                <constraint firstItem="hSd-fM-qKd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="49" id="mSh-nB-1Bt"/>
+                <constraint firstItem="NfG-tt-q8G" firstAttribute="top" secondItem="zuH-WU-hiP" secondAttribute="top" constant="49" id="BPe-1P-hHH"/>
+                <constraint firstItem="oxg-Qt-HzS" firstAttribute="top" secondItem="vum-s3-PHx" secondAttribute="bottom" id="NZl-aK-dLq"/>
+                <constraint firstItem="vum-s3-PHx" firstAttribute="top" secondItem="zuH-WU-hiP" secondAttribute="top" id="PQS-ro-25e"/>
+                <constraint firstItem="NfG-tt-q8G" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" id="cgE-Yw-p2V"/>
+                <constraint firstItem="vum-s3-PHx" firstAttribute="leading" secondItem="zuH-WU-hiP" secondAttribute="leading" id="kza-JN-Dul"/>
+                <constraint firstItem="oxg-Qt-HzS" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" id="ohC-pa-lJs"/>
+                <constraint firstAttribute="trailing" secondItem="vum-s3-PHx" secondAttribute="trailing" id="sM6-P2-rN9"/>
+                <constraint firstItem="oxg-Qt-HzS" firstAttribute="leading" secondItem="zuH-WU-hiP" secondAttribute="leading" id="vjV-VK-BXO"/>
+                <constraint firstItem="NfG-tt-q8G" firstAttribute="leading" secondItem="zuH-WU-hiP" secondAttribute="leading" id="yBY-MG-2lk"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="additionalButtons" destination="hSd-fM-qKd" id="Rgj-Fo-JK8"/>
-                <outlet property="additionalButtonsHeight" destination="fsD-HQ-mF9" id="zki-cR-ZH6"/>
-                <outlet property="downloadBadge" destination="WLn-2O-Ivv" id="0Aw-al-hGI"/>
-                <outlet property="mainButtonsHeight" destination="HtR-j8-Qpc" id="eF8-KH-F9n"/>
-                <outlet property="menuButton" destination="YLY-C4-SBu" id="A5G-Bc-IlQ"/>
-                <outlet property="menuButtonWidth" destination="ams-2s-vhw" id="Til-tN-VJX"/>
-                <outlet property="searchButton" destination="IzQ-aQ-aPH" id="2dy-QI-T39"/>
-                <outlet property="separatorHeight" destination="Kgm-bO-O6Q" id="RGg-dL-lKg"/>
-                <outletCollection property="mainButtonConstraintsLeftToRight" destination="RMv-Kx-9s6" id="bdV-lr-UW4"/>
-                <outletCollection property="mainButtonConstraintsLeftToRight" destination="Wda-vl-hB4" id="mlw-3b-7eT"/>
+                <outlet property="additionalButtons" destination="NfG-tt-q8G" id="44E-Zh-Sfk"/>
+                <outlet property="additionalButtonsHeight" destination="Tiw-DM-q4q" id="bNP-wf-rYd"/>
+                <outlet property="downloadBadge" destination="uDI-ZC-4wx" id="7BL-z6-Xyh"/>
+                <outlet property="mainButtonsHeight" destination="69A-eu-uLp" id="Q4N-kN-l4l"/>
+                <outlet property="menuButton" destination="svD-yi-GrZ" id="JH2-aG-h1U"/>
+                <outlet property="searchButton" destination="No0-ld-JX3" id="M7a-qp-wGF"/>
+                <outlet property="separatorHeight" destination="wSx-Bp-1WM" id="f7K-ic-Yai"/>
             </connections>
-            <point key="canvasLocation" x="34" y="53.5"/>
+            <point key="canvasLocation" x="34" y="309"/>
         </view>
     </objects>
     <resources>
         <image name="ic_menu" width="48" height="48"/>
         <image name="ic_menu_bookmark_list" width="48" height="48"/>
+        <image name="ic_menu_discovery" width="48" height="48"/>
         <image name="ic_menu_point_to_point" width="48" height="48"/>
         <image name="ic_menu_search" width="48" height="48"/>
     </resources>
