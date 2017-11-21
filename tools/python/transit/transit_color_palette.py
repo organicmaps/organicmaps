@@ -112,8 +112,9 @@ class Palette:
 
         bluish = is_bluish(color)
         for name, palette_color in self.colors.iteritems():
-            if name in excluded_names:
-                continue
+            # Uncomment if you want to exclude duplicates.
+            #if name in excluded_names:
+            #    continue
             if bluish:
                 diff = lum_distance(palette_color, color)
             else:

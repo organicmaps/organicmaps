@@ -3,172 +3,212 @@
     "default": {
       "clear": "231F20",
       "night": "231F20",
-      "text": "231F20"
+      "text": "231F20",
+      "text_night": "464647"
     },
     "gray": {
       "clear": "A4A4A6",
       "night": "464647",
-      "text": "231F20"
+      "text": "231F20",
+      "text_night": "464647"
+    },
+    "brown_dark": {
+      "clear": "664433",
+      "night": "33221A",
+      "text": "3E2723",
+      "text_night": "5A4E48"    
     },
     "brown": {
       "clear": "9C491F",
       "night": "4D210B",
-      "text": "3E2723"
+      "text": "3E2723",
+      "text_night": "5A4E48"
     },
     "brown_light": {
       "clear": "B39B8F",
       "night": "5A4E48",
-      "text": "3E2723"
+      "text": "3E2723",
+      "text_night": "5A4E48"
     },
     "red_dark": {
       "clear": "7A1212",
       "night": "3E0A0A",
-      "text": "7A1212"
+      "text": "7A1212",
+      "text_night": "733A3A"
     },
     "red": {
       "clear": "FA1E38",
       "night": "800B19",
-      "text": "7A1212"
+      "text": "7A1212",
+      "text_night": "733A3A"
     },
     "red_light": {
       "clear": "E57373",
       "night": "733A3A",
-      "text": "7A1212"
+      "text": "7A1212",
+      "text_night": "733A3A"
     },
     "orange": {
       "clear": "FF5722",
       "night": "802C12",
-      "text": "E65100"
+      "text": "E65100",
+      "text_night": "804633"
     },
     "orange_light": {
       "clear": "FF8A65",
       "night": "804633",
-      "text": "E65100"
+      "text": "E65100",
+      "text_night": "804633"
     },
     "amber_dark": {
       "clear": "EF6C00",
       "night": "703400",
-      "text": "FF6F00"
+      "text": "FF6F00",
+      "text_night": "A98F67"
     },
     "amber": {
       "clear": "FF9800",
       "night": "804D00",
-      "text": "FF6F00"
+      "text": "FF6F00",
+      "text_night": "A98F67"
     },
     "yellow_dark": {
-      "clear": "E69B22",
-      "night": "744E12",
-      "text": "F57F17"
+      "clear": "CC953D",
+      "night": "664510",
+      "text": "F57F17",
+      "text_night": "B4AE7E"
     },
     "yellow": {
       "clear": "FFCC09",
       "night": "8F7F06",
-      "text": "F57F17"
+      "text": "F57F17",
+      "text_night": "B4AE7E"
     },
     "lime_dark": {
       "clear": "827717",
       "night": "423C0C",
-      "text": "827717"
+      "text": "827717",
+      "text_night": "5B6D36"
     },
     "lime": {
       "clear": "33C73B",
       "night": "34691B",
-      "text": "827717"
+      "text": "827717",
+      "text_night": "5B6D36"
     },
     "lime_light": {
       "clear": "B2D636",
       "night": "4D661A",
-      "text": "827717"
+      "text": "827717",
+      "text_night": "5B6D36"
     },
     "green_dark": {
       "clear": "1B5E20",
       "night": "0E3011",
-      "text": "1B5E20"
+      "text": "1B5E20",
+      "text_night": "416443"
     },
     "green": {
       "clear": "009A2C",
       "night": "004D1A",
-      "text": "1B5E20"
+      "text": "1B5E20",
+      "text_night": "416443"
     },
     "green_light": {
       "clear": "81C784",
       "night": "416443",
-      "text": "1B5E20"
+      "text": "1B5E20",
+      "text_night": "416443"
     },
     "teal_dark": {
       "clear": "00695C",
       "night": "00352F",
-      "text": "004D40"
+      "text": "004D40",
+      "text_night": "34524F"
     },
     "teal": {
       "clear": "00BFA5",
       "night": "005441",
-      "text": "004D40"
+      "text": "004D40",
+      "text_night": "34524F"
     },
     "teal_light": {
       "clear": "80CBC4",
       "night": "34524F",
-      "text": "004D40"
+      "text": "004D40",
+      "text_night": "34524F"
     },
     "blue_dark": {
       "clear": "02729C",
       "night": "023A4F",
-      "text": "01579B"
+      "text": "01579B",
+      "text_night": "466178"
     },
     "blue": {
       "clear": "03A9F4",
       "night": "02557B",
-      "text": "01579B"
+      "text": "01579B",
+      "text_night": "466178"
     },
     "blue_light": {
       "clear": "B2D8F8",
       "night": "466178",
-      "text": "01579B"
+      "text": "01579B",
+      "text_night": "466178"
     },
     "navy_dark": {
       "clear": "193380",
       "night": "0F1B42",
-      "text": "1A357D"
+      "text": "1A357D",
+      "text_night": "3D4866"
     },
     "navy": {
       "clear": "243BB3",
       "night": "003557",
-      "text": "1A357D"
+      "text": "1A357D",
+      "text_night": "3D4866"
     },
     "navy_light": {
       "clear": "7A96CC",
       "night": "3D4866",
-      "text": "1A357D"
+      "text": "1A357D",
+      "text_night": "3D4866"
     },
     "purple_dark": {
       "clear": "52138B",
       "night": "360E66",
-      "text": "4A148C"
+      "text": "4A148C",
+      "text_night": "684A6D"
     },
     "purple": {
       "clear": "BF00AF",
       "night": "600058",
-      "text": "4A148C"
+      "text": "4A148C",
+      "text_night": "684A6D"
     },
     "purple_light": {
       "clear": "CE93D8",
       "night": "684A6D",
-      "text": "4A148C"
+      "text": "4A148C",
+      "text_night": "684A6D"
     },
     "pink_dark": {
       "clear": "880E4F",
       "night": "660A3B",
-      "text": "880E4F"
+      "text": "880E4F",
+      "text_night": "7B4859"
     },
     "pink": {
       "clear": "F50057",
       "night": "7B002C",
-      "text": "880E4F"
+      "text": "880E4F",
+      "text_night": "7B4859"
     },
     "pink_light": {
       "clear": "F48FB1",
       "night": "7B4859",
-      "text": "880E4F"
+      "text": "880E4F",
+      "text_night": "7B4859"
     }
   }
 }
