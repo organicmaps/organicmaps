@@ -43,8 +43,8 @@ public:
   /// \note In cross_mwm section transitions are defined by osm ids of theirs features.
   /// \note This method fills |twins| with all available twins iff all neighboring of mwm of |s|
   //        have cross_mwm section.
-  void GetTwinsByCrossMwmId(Segment const & s, bool isOutgoing, vector<NumMwmId> const & neighbors,
-                            vector<Segment> & twins)
+  void GetTwinsByCrossMwmId(Segment const & s, bool isOutgoing, std::vector<NumMwmId> const & neighbors,
+                            std::vector<Segment> & twins)
   {
     auto const & crossMwmId = GetCrossMwmConnectorWithTransitions(s.GetMwmId()).GetCrossMwmId(s);
 
@@ -68,7 +68,7 @@ public:
     }
   }
 
-  void GetEdgeList(Segment const & s, bool isOutgoing, vector<SegmentEdge> & edges)
+  void GetEdgeList(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges)
   {
     CrossMwmConnector<CrossMwmId> const & c = GetCrossMwmConnectorWithWeights(s.GetMwmId());
     c.GetEdgeList(s, isOutgoing, edges);

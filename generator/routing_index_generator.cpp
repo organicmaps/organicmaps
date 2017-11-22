@@ -217,6 +217,9 @@ void CalcCrossMwmTransitions(
     vector<CrossMwmConnectorSerializer::Transition<connector::OsmId>> & transitions)
 {
   VehicleMaskBuilder const maskMaker(country, countryParentNameGetterFn);
+  map<uint32_t, connector::OsmId> featureIdToOsmId;
+  CHECK(ParseFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
+        ("Can't parse feature id to osm id mapping. File:", mappingFile));
 
   ForEachFromDat(mwmFile, [&](FeatureType const & f, uint32_t featureId) {
     VehicleMask const roadMask = maskMaker.CalcRoadMask(f);
@@ -228,9 +231,6 @@ void CalcCrossMwmTransitions(
     if (pointsCount == 0)
       return;
 
-    map<uint32_t, connector::OsmId> featureIdToOsmId;
-    CHECK(ParseFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
-          ("Can't parse feature id to osm id mapping. File:", mappingFile));
     auto it = featureIdToOsmId.find(featureId);
     CHECK(it != featureIdToOsmId.end(), ("Can't find osm id for feature id", featureId));
     auto const osmId = it->second;

@@ -6,6 +6,7 @@
 #include "base/visitor.hpp"
 
 #include <cstdint>
+#include <functional>
 
 namespace routing
 {
