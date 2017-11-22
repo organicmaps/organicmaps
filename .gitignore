@@ -67,6 +67,7 @@ tools/emacsmode/build
 **/DerivedData/*
 **/xcshareddata
 **/xcuserdata
+**/xcschemes
 iphone/**/*.moved-aside
 iphone/**/*.swp
 iphone/**/*.mode1v3
