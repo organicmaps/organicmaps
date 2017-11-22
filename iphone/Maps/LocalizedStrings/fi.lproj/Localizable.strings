@@ -2125,3 +2125,29 @@
 "dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
 
 "setting_emulate_bad_storage" = "Emulate bad storage";
+
+"discover_button_title" = "Discover nearby";
+
+"discover_button_subtitle1" = "Things to do";
+
+"discover_button_subtitle2" = "Attractions";
+
+"discover_button_subtitle3" = "Eat and drink";
+
+"discover_button_subtitle4" = "Local Guides";
+
+"discover_button_viator_offline_title" = "Discover tours and unusual things to do";
+
+"discover_button_viator_offline_subtitle" = "You will need internet for it. Press here to change your network preferences";
+
+"discover_button_viator_loading_title" = "Discover tours and unusual things to do";
+
+"discover_button_viator_loading_subtitle" = "Tours, things to do, sightseeing tours and more.";
+
+"discover_button_viator_error_title" = "Error loading data";
+
+"discover_button_viator_error_subtitle" = "Please check your connection settings";
+
+"discover_button_other_error_title" = "Error loading data";
+
+"discover_button_other_loading_title" = "Data is loading";

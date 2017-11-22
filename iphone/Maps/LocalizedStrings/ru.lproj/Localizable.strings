@@ -2125,3 +2125,29 @@
 "dialog_error_storage_message" = "Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support@maps.me";
 
 "setting_emulate_bad_storage" = "Эмуляция ошибки с внешней памятью";
+
+"discover_button_title" = "Поблизости";
+
+"discover_button_subtitle1" = "Развлечения";
+
+"discover_button_subtitle2" = "Достопримечательности";
+
+"discover_button_subtitle3" = "Перекусить";
+
+"discover_button_subtitle4" = "Местные гиды";
+
+"discover_button_viator_offline_title" = "Discover tours and unusual things to do";
+
+"discover_button_viator_offline_subtitle" = "You will need internet for it. Press here to change your network preferences";
+
+"discover_button_viator_loading_title" = "Discover tours and unusual things to do";
+
+"discover_button_viator_loading_subtitle" = "Tours, things to do, sightseeing tours and more.";
+
+"discover_button_viator_error_title" = "Ошибка загрузки данных";
+
+"discover_button_viator_error_subtitle" = "Проверьте ваши настройки соединения";
+
+"discover_button_other_error_title" = "Ошибка загрузки данных";
+
+"discover_button_other_loading_title" = "Данные загружаются";

@@ -1239,4 +1239,17 @@
 	<string name="dialog_error_storage_title">Storage access problem</string>
 	<string name="dialog_error_storage_message">External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support\@maps.me</string>
 	<string name="setting_emulate_bad_storage">Emulate bad storage</string>
+	<string name="discover_button_title">Discover nearby</string>
+	<string name="discover_button_subtitle1">Things to do</string>
+	<string name="discover_button_subtitle2">Attractions</string>
+	<string name="discover_button_subtitle3">Eat and drink</string>
+	<string name="discover_button_subtitle4">Local Guides</string>
+	<string name="discover_button_viator_offline_title">Discover tours and unusual things to do</string>
+	<string name="discover_button_viator_offline_subtitle">You will need internet for it. Press here to change your network preferences</string>
+	<string name="discover_button_viator_loading_title">Discover tours and unusual things to do</string>
+	<string name="discover_button_viator_loading_subtitle">Tours, things to do, sightseeing tours and more.</string>
+	<string name="discover_button_viator_error_title">Error loading data</string>
+	<string name="discover_button_viator_error_subtitle">Please check your connection settings</string>
+	<string name="discover_button_other_error_title">Error loading data</string>
+	<string name="discover_button_other_loading_title">Data is loading</string>
 </resources>
