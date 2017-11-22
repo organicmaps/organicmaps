@@ -19,6 +19,7 @@
 
 #include <array>
 #include <cstdint>
+#include <type_traits>
 #include <vector>
 
 namespace routing
@@ -30,8 +31,8 @@ using CrossMwmConnectorPerVehicleType =
 class CrossMwmConnectorSerializer final
 {
 public:
-  static uint8_t constexpr stopIdBits = 64;
-  static uint8_t constexpr lineIdBits = 32;
+  static uint8_t constexpr kStopIdBits = 64;
+  static uint8_t constexpr kLineIdBits = 32;
 
   template <typename CrossMwmId>
   class Transition final
@@ -54,17 +55,17 @@ public:
     }
 
     template <class Sink>
-    void WriteCrossMwmId(connector::OsmId const & id, uint8_t n, BitWriter<Sink> & w) const
+    void WriteCrossMwmId(connector::OsmId const & id, uint8_t bits, BitWriter<Sink> & w) const
     {
-      w.WriteAtMost64Bits(id.Get(), n);
+      w.WriteAtMost64Bits(id.Get(), bits);
     }
 
     template <class Sink>
     void WriteCrossMwmId(connector::TransitId const & id, uint8_t /* n */, BitWriter<Sink> & w) const
     {
-      w.WriteAtMost64Bits(id.m_stop1Id, stopIdBits);
-      w.WriteAtMost64Bits(id.m_stop2Id, stopIdBits);
-      w.WriteAtMost32Bits(id.m_lineId, lineIdBits);
+      w.WriteAtMost64Bits(id.m_stop1Id, kStopIdBits);
+      w.WriteAtMost64Bits(id.m_stop2Id, kStopIdBits);
+      w.WriteAtMost32Bits(id.m_lineId, kLineIdBits);
     }
 
     template <class Sink>
@@ -86,9 +87,9 @@ public:
     template <class Source>
     void ReadCrossMwmId(uint8_t /* n */, BitReader<Source> & reader, connector::TransitId & readed)
     {
-      readed.m_stop1Id = reader.ReadAtMost64Bits(stopIdBits);
-      readed.m_stop2Id = reader.ReadAtMost64Bits(stopIdBits);
-      readed.m_lineId = reader.ReadAtMost32Bits(lineIdBits);
+      readed.m_stop1Id = reader.ReadAtMost64Bits(kStopIdBits);
+      readed.m_stop2Id = reader.ReadAtMost64Bits(kStopIdBits);
+      readed.m_lineId = reader.ReadAtMost32Bits(kLineIdBits);
     };
 
     template <class Source>
@@ -152,7 +153,7 @@ public:
 
     for (size_t i = 0; i < connectors.size(); ++i)
     {
-      CrossMwmConnector<CrossMwmId> const & connector = connectors[i];
+      auto const & connector = connectors[i];
       if (connector.m_weights.empty())
         continue;
 
@@ -454,6 +455,6 @@ private:
   static void WriteWeights(std::vector<Weight> const & weights, std::vector<uint8_t> & buffer);
 };
 
-static_assert(sizeof(transit::StopId) * 8 == 64, "Wrong transit::StopId size");
-static_assert(sizeof(transit::LineId) * 8 == 32, "Wrong transit::LineId size");
+static_assert(CrossMwmConnectorSerializer::kStopIdBits <= 64, "Wrong kStopIdBits.");
+static_assert(CrossMwmConnectorSerializer::kLineIdBits <= 32, "Wrong kLineIdBitsю");
 }  // namespace routing

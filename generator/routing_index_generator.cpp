@@ -209,8 +209,9 @@ double CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
   return distance;
 }
 
-/// \brief Fills |transitions| for osm id case. That means for VehicleType::Pedestrian,
-/// VehicleType::Bicycle and VehicleType::Car.
+/// \brief Fills |transitions| for osm id case. That means |Transition::m_roadMask| for items in
+/// |transitions| will be combination of |VehicleType::Pedestrian|, |VehicleType::Bicycle|
+/// and |VehicleType::Car|.
 void CalcCrossMwmTransitions(
     string const & mwmFile, string const & mappingFile, vector<m2::RegionD> const & borders,
     string const & country, CountryParentNameGetterFn const & countryParentNameGetterFn,
@@ -254,7 +255,8 @@ void CalcCrossMwmTransitions(
   });
 }
 
-/// \brief Fills |transitions| for transit id case. That means for VehicleType::Transit.
+/// \brief Fills |transitions| for transit case. That means Transition::m_roadMask for items in
+/// |transitions| will be equal to VehicleType::Transit after call of this method.
 void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
                              vector<m2::RegionD> const & borders, string const & country,
                              CountryParentNameGetterFn const & countryParentNameGetterFn,
@@ -265,7 +267,7 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
   // @todo(bykoianko) Filling |transitions| based on transit section should be implemented.
 }
 
-/// \brief Fills |transitions| and |connectors| fields.
+/// \brief Fills |transitions| and |connectors| params.
 /// \note This method fills only |connections| which are applicable for |CrossMwmId|.
 /// For example |VehicleType::Pedestrian|, |VehicleType::Bicycle| and |VehicleType::Car|
 /// are applicable for |connector::OsmId|.
@@ -319,7 +321,7 @@ void CalcCrossMwmConnectors(
   for (size_t i = 0; i < connectors.size(); ++i)
   {
     auto const vehicleType = static_cast<VehicleType>(i);
-    CrossMwmConnector<CrossMwmId> const & connector = connectors[i];
+    auto const & connector = connectors[i];
     LOG(LINFO, (vehicleType, "model: enters:", connector.GetEnters().size(), ", exits:",
         connector.GetExits().size()));
   }
@@ -431,7 +433,7 @@ bool BuildRoutingIndex(string const & filename, string const & country,
 /// \brief Serializes all the cross mwm information to |sectionName| of |mwmFile| including:
 /// * header
 /// * transitions
-/// * weight buffers if there are
+/// * weight buffers if any
 template <typename CrossMwmId>
 void SerializeCrossMwm(string const & mwmFile, string const & sectionName,
                        CrossMwmConnectorPerVehicleType<CrossMwmId> const & connectors,
@@ -439,7 +441,7 @@ void SerializeCrossMwm(string const & mwmFile, string const & sectionName,
 {
   serial::CodingParams const codingParams = LoadCodingParams(mwmFile);
   FilesContainerW cont(mwmFile, FileWriter::OP_WRITE_EXISTING);
-  FileWriter writer = cont.GetWriter(sectionName);
+  auto writer = cont.GetWriter(sectionName);
   auto const startPos = writer.Pos();
   CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
   auto const sectionSize = writer.Pos() - startPos;
@@ -465,6 +467,7 @@ void BuildRoutingCrossMwmSection(string const & path, string const & mwmFile,
   FillWeights(path, mwmFile, country, countryParentNameGetterFn, disableCrossMwmProgress,
               connectors[static_cast<size_t>(VehicleType::Car)]);
 
+  CHECK(connectors[static_cast<size_t>(VehicleType::Transit)].IsEmpty(), ());
   SerializeCrossMwm(mwmFile, CROSS_MWM_FILE_TAG, connectors, transitions);
 }
 
@@ -480,6 +483,10 @@ void BuildTransitCrossMwmSection(string const & path, string const & mwmFile,
 
   CalcCrossMwmConnectors(path, mwmFile, country, countryParentNameGetterFn, "" /* mapping file */,
                          transitions, connectors);
+
+  CHECK(connectors[static_cast<size_t>(VehicleType::Pedestrian)].IsEmpty(), ());
+  CHECK(connectors[static_cast<size_t>(VehicleType::Bicycle)].IsEmpty(), ());
+  CHECK(connectors[static_cast<size_t>(VehicleType::Car)].IsEmpty(), ());
   SerializeCrossMwm(mwmFile, TRANSIT_CROSS_MWM_FILE_TAG, connectors, transitions);
 }
 }  // namespace routing

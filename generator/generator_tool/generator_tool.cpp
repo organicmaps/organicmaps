@@ -21,6 +21,8 @@
 #include "generator/ugc_section_builder.hpp"
 #include "generator/unpack_mwm.hpp"
 
+#include "routing/cross_mwm_ids.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
@@ -43,7 +45,6 @@
 
 #include <cstdlib>
 #include <string>
-#include <routing/cross_mwm_ids.hpp>
 
 #include "defines.hpp"
 

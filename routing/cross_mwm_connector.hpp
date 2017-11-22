@@ -19,7 +19,7 @@ namespace routing
 {
 namespace connector
 {
-uint32_t constexpr kFakeId = std::numeric_limits<uint32_t>::max();
+uint32_t constexpr kFakeIndex = std::numeric_limits<uint32_t>::max();
 double constexpr kNoRoute = 0.0;
 
 using Weight = uint32_t;
@@ -46,8 +46,8 @@ public:
                      bool forwardIsEnter, m2::PointD const & backPoint,
                      m2::PointD const & frontPoint)
   {
-    Transition<CrossMwmId> transition(connector::kFakeId, connector::kFakeId, crossMwmId, oneWay,
-                                      forwardIsEnter, backPoint, frontPoint);
+    Transition<CrossMwmId> transition(connector::kFakeIndex, connector::kFakeIndex, crossMwmId,
+                                      oneWay, forwardIsEnter, backPoint, frontPoint);
 
     if (forwardIsEnter)
     {
@@ -103,15 +103,15 @@ public:
   }
 
   // returns nullptr if there is no transition for such osm id.
-  Segment const * GetTransition(CrossMwmId crossMwmId, uint32_t segmentIdx, bool isEnter) const
+  Segment const * GetTransition(CrossMwmId const & crossMwmId, uint32_t segmentIdx, bool isEnter) const
   {
-    auto fIt = m_crossMwmIdToFeatureId.find(crossMwmId);
+    auto const fIt = m_crossMwmIdToFeatureId.find(crossMwmId);
     if (fIt == m_crossMwmIdToFeatureId.cend())
       return nullptr;
 
     uint32_t const featureId = fIt->second;
 
-    auto tIt = m_transitions.find(Key(featureId, segmentIdx));
+    auto const tIt = m_transitions.find(Key(featureId, segmentIdx));
     if (tIt == m_transitions.cend())
       return nullptr;
 
@@ -142,7 +142,7 @@ public:
     auto const & transition = GetTransition(segment);
     if (isOutgoing)
     {
-      ASSERT_NOT_EQUAL(transition.m_enterIdx, connector::kFakeId, ());
+      ASSERT_NOT_EQUAL(transition.m_enterIdx, connector::kFakeIndex, ());
       for (size_t exitIdx = 0; exitIdx < m_exits.size(); ++exitIdx)
       {
         auto const weight = GetWeight(base::asserted_cast<size_t>(transition.m_enterIdx), exitIdx);
@@ -151,7 +151,7 @@ public:
     }
     else
     {
-      ASSERT_NOT_EQUAL(transition.m_exitIdx, connector::kFakeId, ());
+      ASSERT_NOT_EQUAL(transition.m_exitIdx, connector::kFakeIndex, ());
       for (size_t enterIdx = 0; enterIdx < m_enters.size(); ++enterIdx)
       {
         auto const weight = GetWeight(enterIdx, base::asserted_cast<size_t>(transition.m_exitIdx));
@@ -176,6 +176,7 @@ public:
   }
 
   bool HasWeights() const { return !m_weights.empty(); }
+  bool IsEmpty() const { return m_enters.empty() && m_exits.empty(); }
 
   bool WeightsWereLoaded() const
   {
@@ -252,7 +253,7 @@ private:
 
     uint32_t m_enterIdx = 0;
     uint32_t m_exitIdx = 0;
-    CrossMwmIdInner m_crossMwmId = CrossMwmIdInner();
+    CrossMwmIdInner m_crossMwmId = {};
     // Endpoints of transition segment.
     // m_backPoint = points[segmentIdx]
     // m_frontPoint = points[segmentIdx + 1]

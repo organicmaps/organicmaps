@@ -344,7 +344,7 @@ bool Line::IsEqualForTesting(Line const & line) const
 bool Line::IsValid() const
 {
   return m_id != kInvalidLineId && m_color != kInvalidColor && m_networkId != kInvalidNetworkId &&
-         m_stopIds.IsValid(), m_interval != kInvalidWeight;
+         m_stopIds.IsValid() && m_interval != kInvalidWeight;
 }
 
 // Shape ------------------------------------------------------------------------------------------
