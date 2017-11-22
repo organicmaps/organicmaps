@@ -874,7 +874,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
   {
   case MWMEditorCellTypePhoneNumber:
     m_mapObject.SetPhone(val);
-    if (!osm::EditableMapObject::ValidatePhone(val))
+    if (!osm::EditableMapObject::ValidatePhoneList(val))
       [self markCellAsInvalid:indexPath];
     break;
   case MWMEditorCellTypeWebsite:

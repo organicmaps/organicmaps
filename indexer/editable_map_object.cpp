@@ -631,33 +631,53 @@ bool EditableMapObject::ValidatePostCode(string const & postCode)
 }
 
 // static
-bool EditableMapObject::ValidatePhone(string const & phone)
+bool EditableMapObject::ValidatePhoneList(string const & phone)
 {
+  // BNF:
+  // <digit>            ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+  // <available_chars>  ::= ' ' | '+' | '-' | '(' | ')' | '' <available_chars>
+  // <delimeter>        ::= ',' | ';'
+  // <phone>            ::= <digit> | <available_chars> <phone>
+  // <phone_list>       ::= '' | <phone> | <phone> <delimeter> <phone_list>
+
   if (phone.empty())
     return true;
-
-  auto curr = begin(phone);
-  auto const last = end(phone);
 
   auto const kMaxNumberLen = 15;
   auto const kMinNumberLen = 5;
 
-  if (*curr == '+')
-    ++curr;
+  if (phone.size() < kMinNumberLen)
+    return false;
 
-  auto digitsCount = 0;
-  for (; curr != last; ++curr)
+  auto curr = phone.begin();
+  auto last = phone.begin();
+
+  do
   {
-    auto const isCharValid = isdigit(*curr) || *curr == '(' ||
-                             *curr == ')' || *curr == ' ' || *curr == '-';
-    if (!isCharValid)
+    last = find_if(curr, phone.end(), [](string::value_type const & ch)
+    {
+      return ch == ',' || ch == ';';
+    });
+
+    auto digitsCount = 0;
+    string const symbols = "+-() ";
+    for (; curr != last; ++curr)
+    {
+      if (!isdigit(*curr) && find(symbols.begin(), symbols.end(), *curr) == symbols.end())
+        return false;
+
+      if (isdigit(*curr))
+          ++digitsCount;
+    }
+
+    if (digitsCount < kMinNumberLen || digitsCount > kMaxNumberLen)
       return false;
 
-    if (isdigit(*curr))
-      ++digitsCount;
+    curr = last;
   }
+  while (last != phone.end() && ++curr != phone.end());
 
-  return kMinNumberLen <= digitsCount && digitsCount <= kMaxNumberLen;
+  return true;
 }
 
 // static

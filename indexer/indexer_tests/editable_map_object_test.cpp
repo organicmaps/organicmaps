@@ -111,23 +111,34 @@ UNIT_TEST(EditableMapObject_ValidateFlats)
 // {
 // }
 
-UNIT_TEST(EditableMapObject_ValidatePhone)
+UNIT_TEST(EditableMapObject_ValidatePhoneList)
 {
-  TEST(EditableMapObject::ValidatePhone(""), ());
-  TEST(EditableMapObject::ValidatePhone("+7 000 000 00 00"), ());
-  TEST(EditableMapObject::ValidatePhone("+7 (000) 000 00 00"), ());
-  TEST(EditableMapObject::ValidatePhone("+7 0000000000"), ());
-  TEST(EditableMapObject::ValidatePhone("+7 0000 000 000"), ());
-  TEST(EditableMapObject::ValidatePhone("8 0000-000-000"), ());
+  TEST(EditableMapObject::ValidatePhoneList(""), ());
+  TEST(EditableMapObject::ValidatePhoneList("+7 000 000 00 00"), ());
+  TEST(EditableMapObject::ValidatePhoneList("+7 (000) 000 00 00"), ());
+  TEST(EditableMapObject::ValidatePhoneList("+7 0000000000"), ());
+  TEST(EditableMapObject::ValidatePhoneList("+7 0000 000 000"), ());
+  TEST(EditableMapObject::ValidatePhoneList("8 0000-000-000"), ());
 
-  TEST(EditableMapObject::ValidatePhone("000 00 00"), ());
-  TEST(EditableMapObject::ValidatePhone("000 000 00"), ());
-  TEST(EditableMapObject::ValidatePhone("+00 0000 000 000"), ());
+  TEST(EditableMapObject::ValidatePhoneList("000 00 00"), ());
+  TEST(EditableMapObject::ValidatePhoneList("000 000 00"), ());
+  TEST(EditableMapObject::ValidatePhoneList("+00 0000 000 000"), ());
 
-  TEST(!EditableMapObject::ValidatePhone("+00 0000 000 0000 000"), ());
-  TEST(!EditableMapObject::ValidatePhone("00 00"), ());
-  TEST(!EditableMapObject::ValidatePhone("acb"), ());
-  TEST(!EditableMapObject::ValidatePhone("000 000 00b"), ());
+  TEST(EditableMapObject::ValidatePhoneList("+7 000 000 00 00; +7 000 000 00 00"), ());
+  TEST(EditableMapObject::ValidatePhoneList("+7 (000) 000 00 00, +7 (000) 000 00 00"), ());
+  TEST(EditableMapObject::ValidatePhoneList("+7 0000000000;+7 0000000000"), ());
+  TEST(EditableMapObject::ValidatePhoneList("+7 0000 000 000,+7 0000 000 000"), ());
+  TEST(EditableMapObject::ValidatePhoneList("8 0000-000-000; 8 0000-000-000"), ());
+
+  TEST(EditableMapObject::ValidatePhoneList("+7 00 00;7 (0)00 0, 800-00-0; 000000000000000,12345"), ());
+
+  TEST(!EditableMapObject::ValidatePhoneList("+00 0000 000 0000 000"), ());
+  TEST(!EditableMapObject::ValidatePhoneList("00 00"), ());
+  TEST(!EditableMapObject::ValidatePhoneList("acb"), ());
+  TEST(!EditableMapObject::ValidatePhoneList("000 000 00b"), ());
+  TEST(!EditableMapObject::ValidatePhoneList(";"), ());
+  TEST(!EditableMapObject::ValidatePhoneList(","), ());
+  TEST(!EditableMapObject::ValidatePhoneList(";;;;;;"), ());
 }
 
 UNIT_TEST(EditableMapObject_ValidateWebsite)

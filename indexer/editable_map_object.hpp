@@ -161,7 +161,7 @@ public:
   static bool ValidateHouseNumber(string const & houseNumber);
   static bool ValidateFlats(string const & flats);
   static bool ValidatePostCode(string const & postCode);
-  static bool ValidatePhone(string const & phone);
+  static bool ValidatePhoneList(string const & phone);
   static bool ValidateWebsite(string const & site);
   static bool ValidateEmail(string const & email);
   static bool ValidateLevel(string const & level);
