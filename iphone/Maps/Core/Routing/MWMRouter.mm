@@ -503,10 +503,16 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 {
   if (![MWMRouter isRoutingActive])
     return;
+  auto const & rm = GetFramework().GetRoutingManager();
   location::FollowingInfo info;
-  GetFramework().GetRoutingManager().GetRouteFollowingInfo(info);
-  if (info.IsValid())
-    [[MWMNavigationDashboardManager manager] updateFollowingInfo:info];
+  rm.GetRouteFollowingInfo(info);
+  auto navManager = [MWMNavigationDashboardManager manager];
+  if (!info.IsValid())
+    return;
+  if ([MWMRouter type] == MWMRouterTypePublicTransport)
+    [navManager updateTransitInfo:rm.GetTransitRouteInfo()];
+  else
+    [navManager updateFollowingInfo:info];
 }
 
 + (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block

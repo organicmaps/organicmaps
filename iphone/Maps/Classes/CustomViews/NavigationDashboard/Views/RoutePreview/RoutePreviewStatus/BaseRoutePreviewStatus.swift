@@ -1,5 +1,5 @@
-@objc(MWMRoutePreviewStatus)
-final class RoutePreviewStatus: SolidTouchView {
+@objc(MWMBaseRoutePreviewStatus)
+final class BaseRoutePreviewStatus: SolidTouchView {
   @IBOutlet private weak var errorBox: UIView!
   @IBOutlet private weak var resultsBox: UIView!
   @IBOutlet private weak var heightBox: UIView!
@@ -49,7 +49,7 @@ final class RoutePreviewStatus: SolidTouchView {
     }
   }
 
-  var isVisible = false {
+  private var isVisible = false {
     didSet {
       alternative(iPhone: {
         guard self.isVisible != oldValue else { return }
@@ -120,15 +120,11 @@ final class RoutePreviewStatus: SolidTouchView {
     manageRouteButtonCompact?.isHidden = !isCompact
   }
 
-  @objc func stateHidden() {
+  @objc func hide() {
     isVisible = false
   }
 
-  @objc func statePrepare() {
-    isVisible = false
-  }
-
-  @objc func stateError(message: String) {
+  @objc func showError(message: String) {
     isVisible = true
     errorBox.isHidden = false
     resultsBox.isHidden = true
@@ -141,7 +137,7 @@ final class RoutePreviewStatus: SolidTouchView {
     updateHeight()
   }
 
-  @objc func stateReady() {
+  @objc func showReady() {
     isVisible = true
     errorBox.isHidden = true
 
@@ -173,10 +169,6 @@ final class RoutePreviewStatus: SolidTouchView {
     }
     updateManageRouteVisibility()
     updateHeight()
-  }
-
-  @objc func stateNavigation() {
-    isVisible = false
   }
 
   private func updateResultsLabel() {

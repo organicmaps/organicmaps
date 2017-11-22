@@ -16,9 +16,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager">
             <connections>
+                <outlet property="baseRoutePreviewStatus" destination="hIE-BJ-nFm" id="Kwy-sL-krz"/>
                 <outlet property="routePreview" destination="aNH-vh-DPz" id="ORz-pz-7sV"/>
-                <outlet property="statusBox" destination="hIE-BJ-nFm" id="j6g-xk-RgK"/>
                 <outlet property="taxiCollectionView" destination="Dm8-yS-U68" id="crw-jv-vGq"/>
+                <outlet property="transportRoutePreviewStatus" destination="iWi-pM-AJF" id="ah9-rm-QeN"/>
                 <outletCollection property="goButtons" destination="ZXz-KM-xQz" id="14O-qB-UJl"/>
                 <outletCollection property="goButtons" destination="CQB-xn-DSM" id="FPU-6h-5CN"/>
             </connections>
@@ -157,7 +158,7 @@
             </connections>
             <point key="canvasLocation" x="448" y="341"/>
         </view>
-        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIE-BJ-nFm" userLabel="Status Box" customClass="MWMRoutePreviewStatus">
+        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIE-BJ-nFm" customClass="MWMBaseRoutePreviewStatus">
             <rect key="frame" x="0.0" y="0.0" width="320" height="152"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fD2-1N-x27" userLabel="Error Box">
@@ -396,13 +397,58 @@
                 <outlet property="manageRouteBoxBottom" destination="kPq-9v-D4c" id="FPP-Hc-DGv"/>
                 <outlet property="manageRouteButtonCompact" destination="Zzm-Yo-BvL" id="MAs-VL-pR0"/>
                 <outlet property="manageRouteButtonRegular" destination="K37-2W-GE8" id="I40-pl-MM4"/>
-                <outlet property="resultLabel" destination="sjQ-Sc-mtN" id="XIY-sS-M2V"/>
+                <outlet property="resultLabel" destination="sjQ-Sc-mtN" id="GLa-P4-7XO"/>
                 <outlet property="resultsBox" destination="Tai-sE-6DC" id="l4p-m2-z4z"/>
                 <outlet property="resultsBoxBottom" destination="trf-mi-xeb" id="tdb-sa-2ak"/>
                 <outlet property="taxiBox" destination="5a5-vb-p6T" id="MLv-mh-dK2"/>
                 <outlet property="taxiBoxBottom" destination="LNP-ys-o3e" id="B9A-Lx-cDJ"/>
             </connections>
             <point key="canvasLocation" x="448" y="521"/>
+        </view>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iWi-pM-AJF" customClass="MWMTransportRoutePreviewStatus">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iu4-M8-t6g">
+                    <rect key="frame" x="16" y="12" width="42" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <collectionView userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVh-LF-kSn" customClass="TransportTransitStepsCollectionView" customModule="cm_dbg" customModuleProvider="target">
+                    <rect key="frame" x="16" y="44" width="288" height="20"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="eGu-Mr-auv"/>
+                    </constraints>
+                    <collectionViewLayout key="collectionViewLayout" id="d3P-nT-IFD" customClass="TransportTransitFlowLayout" customModule="cm_dbg" customModuleProvider="target"/>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Iu4-M8-t6g" firstAttribute="leading" secondItem="iWi-pM-AJF" secondAttribute="leading" constant="16" id="5Ge-fx-3pw"/>
+                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="CQk-tf-wu9"/>
+                <constraint firstItem="RVh-LF-kSn" firstAttribute="top" secondItem="Iu4-M8-t6g" secondAttribute="bottom" constant="12" id="DOH-Jl-zYW"/>
+                <constraint firstItem="RVh-LF-kSn" firstAttribute="leading" secondItem="Iu4-M8-t6g" secondAttribute="leading" id="Jo0-dN-03y"/>
+                <constraint firstItem="Iu4-M8-t6g" firstAttribute="top" secondItem="iWi-pM-AJF" secondAttribute="top" constant="12" id="Zyw-PT-55a"/>
+                <constraint firstAttribute="bottom" secondItem="RVh-LF-kSn" secondAttribute="bottom" constant="16" id="b0R-Xj-EVN"/>
+                <constraint firstAttribute="trailing" secondItem="RVh-LF-kSn" secondAttribute="trailing" constant="16" id="nhh-en-tgm"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
+                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                    <integer key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="etaLabel" destination="Iu4-M8-t6g" id="hJe-KS-ctT"/>
+                <outlet property="stepsCollectionView" destination="RVh-LF-kSn" id="3uG-nE-mt3"/>
+                <outlet property="stepsCollectionViewHeight" destination="eGu-Mr-auv" id="K2J-yO-yQ5"/>
+            </connections>
+            <point key="canvasLocation" x="449" y="737"/>
         </view>
     </objects>
     <resources>

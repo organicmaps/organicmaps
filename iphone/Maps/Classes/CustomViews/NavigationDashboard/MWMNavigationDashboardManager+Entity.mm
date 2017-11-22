@@ -2,9 +2,12 @@
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRouter.h"
+#import "MWMRouterTransitStepInfo.h"
 #import "SwiftBridge.h"
 
 #include "routing/turns.hpp"
+
+#include "map/routing_manager.hpp"
 
 #include "platform/location.hpp"
 
@@ -45,10 +48,44 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
     return nil;
   return [UIImage imageNamed:isNextTurn ? [imageName stringByAppendingString:@"_then"] : imageName];
 }
+
+NSAttributedString * estimate(NSTimeInterval time, NSAttributedString * dot, NSString * distance,
+                              NSString * distanceUnits, NSDictionary * primaryAttributes,
+                              NSDictionary * secondaryAttributes, BOOL isWalk)
+{
+  NSString * eta = [NSDateComponentsFormatter etaStringFrom:time];
+  auto result = [[NSMutableAttributedString alloc] initWithString:eta attributes:primaryAttributes];
+  [result appendAttributedString:dot];
+
+  if (isWalk)
+  {
+    UIFont * font = primaryAttributes[NSFontAttributeName];
+    auto textAttachment = [[NSTextAttachment alloc] init];
+    auto image = [UIImage imageNamed:@"ic_walk"];
+    textAttachment.image = image;
+    auto const height = font.lineHeight;
+    auto const y = height - image.size.height;
+    auto const width = image.size.width * height / image.size.height;
+    textAttachment.bounds = CGRectIntegral({{0, y}, {width, height}});
+
+    NSMutableAttributedString * attrStringWithImage =
+        [NSAttributedString attributedStringWithAttachment:textAttachment].mutableCopy;
+    [attrStringWithImage addAttributes:secondaryAttributes
+                                 range:NSMakeRange(0, attrStringWithImage.length)];
+    [result appendAttributedString:attrStringWithImage];
+  }
+
+  auto target = [NSString stringWithFormat:@"%@ %@", distance, distanceUnits];
+  [result appendAttributedString:[[NSAttributedString alloc] initWithString:target
+                                                                 attributes:secondaryAttributes]];
+
+  return result;
+}
 }  // namespace
 
 @interface MWMNavigationDashboardEntity ()
 
+@property(copy, nonatomic, readwrite) NSArray<MWMRouterTransitStepInfo *> * transitSteps;
 @property(copy, nonatomic, readwrite) NSAttributedString * estimate;
 @property(copy, nonatomic, readwrite) NSString * distanceToTurn;
 @property(copy, nonatomic, readwrite) NSString * streetName;
@@ -65,9 +102,16 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
 
 @end
 
+@interface MWMRouterTransitStepInfo ()
+
+- (instancetype)initWithStepInfo:(TransitStepInfo const &)info;
+
+@end
+
 @interface MWMNavigationDashboardManager ()
 
 @property(copy, nonatomic) NSDictionary * etaAttributes;
+@property(copy, nonatomic) NSDictionary * etaSecondaryAttributes;
 @property(nonatomic) MWMNavigationDashboardEntity * entity;
 
 - (void)onNavigationInfoUpdated;
@@ -87,7 +131,7 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
 
   if (auto entity = self.entity)
   {
-    entity.isValid = info.IsValid();
+    entity.isValid = YES;
     entity.timeToTarget = info.m_time;
     entity.targetDistance = @(info.m_distToTarget.c_str());
     entity.targetUnits = @(info.m_targetUnitsSuffix.c_str());
@@ -97,12 +141,9 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
     entity.streetName = @(info.m_displayedStreetName.c_str());
     entity.nextTurnImage = image(info.m_nextTurn, true);
 
-    NSString * eta = [NSDateComponentsFormatter etaStringFrom:entity.timeToTarget];
-    auto result = [[NSMutableAttributedString alloc] initWithString:eta attributes:self.etaAttributes];
-    [result appendAttributedString:entity.estimateDot];
-    auto target = [NSString stringWithFormat:@"%@ %@", entity.targetDistance, entity.targetUnits];
-    [result appendAttributedString:[[NSAttributedString alloc] initWithString:target attributes:self.etaAttributes]];
-    entity.estimate = result;
+    entity.estimate =
+        estimate(entity.timeToTarget, entity.estimateDot, entity.targetDistance, entity.targetUnits,
+                 self.etaAttributes, self.etaSecondaryAttributes, NO);
 
     using namespace routing::turns;
     CarDirection const turn = info.m_turn;
@@ -116,6 +157,23 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
       entity.roundExitNumber = 0;
   }
 
+  [self onNavigationInfoUpdated];
+}
+
+- (void)updateTransitInfo:(TransitRouteInfo const &)info
+{
+  if (auto entity = self.entity)
+  {
+    entity.isValid = YES;
+    entity.estimate = estimate(info.m_totalTimeInSec, entity.estimateDot,
+                               @(info.m_totalPedestrianDistanceStr.c_str()),
+                               @(info.m_totalPedestrianUnitsSuffix.c_str()), self.etaAttributes,
+                               self.etaSecondaryAttributes, YES);
+    NSMutableArray<MWMRouterTransitStepInfo *> * transitSteps = [@[] mutableCopy];
+    for (auto const & stepInfo : info.m_steps)
+      [transitSteps addObject:[[MWMRouterTransitStepInfo alloc] initWithStepInfo:stepInfo]];
+    entity.transitSteps = transitSteps;
+  }
   [self onNavigationInfoUpdated];
 }
 

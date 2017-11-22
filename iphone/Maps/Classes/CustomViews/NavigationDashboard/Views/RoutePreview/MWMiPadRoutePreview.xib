@@ -17,10 +17,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager">
             <connections>
+                <outlet property="baseRoutePreviewStatus" destination="87p-Qg-8f3" id="ddh-nm-Ux9"/>
+                <outlet property="goButtonsContainer" destination="gcR-zj-b7P" id="RuF-Qu-ahX"/>
                 <outlet property="routePreview" destination="u2u-Vb-2eH" id="VZw-5q-2P6"/>
                 <outlet property="showRouteManagerButton" destination="NAs-km-8uw" id="pJx-0l-Skz"/>
-                <outlet property="statusBox" destination="87p-Qg-8f3" id="dze-gL-fnK"/>
                 <outlet property="taxiCollectionView" destination="t6d-gI-JcN" id="b5y-vn-rwV"/>
+                <outlet property="transportRoutePreviewStatus" destination="FXb-tH-ZTF" id="P0g-ys-6wW"/>
                 <outletCollection property="goButtons" destination="4IJ-pR-Ztp" id="ePc-jh-SfE"/>
             </connections>
         </placeholder>
@@ -127,7 +129,7 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="primary"/>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87p-Qg-8f3" userLabel="Status Box" customClass="MWMRoutePreviewStatus">
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87p-Qg-8f3" customClass="MWMBaseRoutePreviewStatus">
                     <rect key="frame" x="0.0" y="100" width="375" height="180"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QEP-6s-YTM" userLabel="Error Box">
@@ -354,6 +356,49 @@
                         <outlet property="taxiBoxBottom" destination="CCT-23-3wk" id="e2w-eO-HqA"/>
                     </connections>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FXb-tH-ZTF" customClass="MWMTransportRoutePreviewStatus">
+                    <rect key="frame" x="0.0" y="100" width="375" height="80"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuZ-25-ltG">
+                            <rect key="frame" x="16" y="12" width="42" height="20"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <collectionView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ey-lL-uzF" customClass="TransportTransitStepsCollectionView" customModule="cm_dbg" customModuleProvider="target">
+                            <rect key="frame" x="16" y="44" width="343" height="20"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="4NI-xp-o3L"/>
+                            </constraints>
+                            <collectionViewLayout key="collectionViewLayout" id="PJv-Hi-Xu3" customClass="TransportTransitFlowLayout" customModule="cm_dbg" customModuleProvider="target"/>
+                        </collectionView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="tuZ-25-ltG" firstAttribute="top" secondItem="FXb-tH-ZTF" secondAttribute="top" constant="12" id="1Aj-rm-MMr"/>
+                        <constraint firstItem="8Ey-lL-uzF" firstAttribute="top" secondItem="tuZ-25-ltG" secondAttribute="bottom" constant="12" id="CKR-P5-B2a"/>
+                        <constraint firstItem="tuZ-25-ltG" firstAttribute="leading" secondItem="FXb-tH-ZTF" secondAttribute="leading" constant="16" id="GJC-Gt-255"/>
+                        <constraint firstAttribute="bottom" secondItem="8Ey-lL-uzF" secondAttribute="bottom" constant="16" id="KxL-xf-eVL"/>
+                        <constraint firstAttribute="trailing" secondItem="8Ey-lL-uzF" secondAttribute="trailing" constant="16" id="ejR-Po-Dxm"/>
+                        <constraint firstItem="8Ey-lL-uzF" firstAttribute="leading" secondItem="tuZ-25-ltG" secondAttribute="leading" id="gkU-xQ-hb2"/>
+                        <constraint firstAttribute="height" priority="100" constant="80" id="lLi-5o-PDI"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
+                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="etaLabel" destination="tuZ-25-ltG" id="Rwo-UC-mvq"/>
+                        <outlet property="stepsCollectionView" destination="8Ey-lL-uzF" id="qrI-Cw-rAJ"/>
+                        <outlet property="stepsCollectionViewHeight" destination="4NI-xp-o3L" id="Z11-UU-Mca"/>
+                    </connections>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gcR-zj-b7P">
                     <rect key="frame" x="0.0" y="619" width="375" height="48"/>
                     <subviews>
@@ -402,13 +447,16 @@
                 <constraint firstAttribute="trailing" secondItem="87p-Qg-8f3" secondAttribute="trailing" id="5wh-lx-rUz"/>
                 <constraint firstItem="3s2-BV-X5i" firstAttribute="top" secondItem="3zr-me-gbI" secondAttribute="bottom" id="6c0-tH-qlJ"/>
                 <constraint firstItem="87p-Qg-8f3" firstAttribute="top" secondItem="3s2-BV-X5i" secondAttribute="bottom" constant="36" id="8nt-tf-wyq"/>
+                <constraint firstItem="FXb-tH-ZTF" firstAttribute="top" secondItem="3s2-BV-X5i" secondAttribute="bottom" constant="36" id="9Bz-NL-px6"/>
                 <constraint firstItem="87p-Qg-8f3" firstAttribute="leading" secondItem="u2u-Vb-2eH" secondAttribute="leading" id="9bA-9R-pwq"/>
+                <constraint firstItem="FXb-tH-ZTF" firstAttribute="leading" secondItem="u2u-Vb-2eH" secondAttribute="leading" id="Mmr-RH-iDm"/>
                 <constraint firstAttribute="trailing" secondItem="3zr-me-gbI" secondAttribute="trailing" id="OZ2-dP-mna"/>
                 <constraint firstAttribute="bottom" secondItem="gcR-zj-b7P" secondAttribute="bottom" id="QYs-r4-Jyl"/>
                 <constraint firstItem="3s2-BV-X5i" firstAttribute="leading" secondItem="u2u-Vb-2eH" secondAttribute="leading" id="e90-R4-YQR"/>
                 <constraint firstItem="3zr-me-gbI" firstAttribute="top" secondItem="u2u-Vb-2eH" secondAttribute="top" id="hE5-50-mMA"/>
                 <constraint firstAttribute="trailing" secondItem="3s2-BV-X5i" secondAttribute="trailing" id="lnu-7l-aPG"/>
                 <constraint firstAttribute="trailing" secondItem="gcR-zj-b7P" secondAttribute="trailing" id="n9j-dG-kOB"/>
+                <constraint firstAttribute="trailing" secondItem="FXb-tH-ZTF" secondAttribute="trailing" id="sFK-Dz-Ta2"/>
                 <constraint firstItem="3zr-me-gbI" firstAttribute="leading" secondItem="u2u-Vb-2eH" secondAttribute="leading" id="xgY-7G-jgv"/>
             </constraints>
             <userDefinedRuntimeAttributes>

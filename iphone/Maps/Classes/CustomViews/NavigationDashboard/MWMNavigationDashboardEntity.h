@@ -1,5 +1,8 @@
+@class MWMRouterTransitStepInfo;
+
 @interface MWMNavigationDashboardEntity : NSObject
 
+@property(copy, nonatomic, readonly) NSArray<MWMRouterTransitStepInfo *> * transitSteps;
 @property(copy, nonatomic, readonly) NSAttributedString * estimate;
 @property(copy, nonatomic, readonly) NSAttributedString * estimateDot;
 @property(copy, nonatomic, readonly) NSString * distanceToTurn;

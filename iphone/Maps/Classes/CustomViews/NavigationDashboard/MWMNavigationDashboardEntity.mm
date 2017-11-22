@@ -1,6 +1,7 @@
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMCoreUnits.h"
 #import "MWMLocationManager.h"
+#import "MWMRouterTransitStepInfo.h"
 #import "MWMSettings.h"
 #import "SwiftBridge.h"
 
@@ -8,6 +9,7 @@
 
 @interface MWMNavigationDashboardEntity ()
 
+@property(copy, nonatomic, readwrite) NSArray<MWMRouterTransitStepInfo *> * transitSteps;
 @property(copy, nonatomic, readwrite) NSAttributedString * estimate;
 @property(copy, nonatomic, readwrite) NSAttributedString * estimateDot;
 @property(copy, nonatomic, readwrite) NSString * distanceToTurn;

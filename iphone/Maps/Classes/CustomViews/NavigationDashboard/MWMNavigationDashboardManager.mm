@@ -31,11 +31,13 @@ using Observers = NSHashTable<Observer>;
 @interface MWMNavigationDashboardManager ()<MWMSearchManagerObserver>
 
 @property(copy, nonatomic) NSDictionary * etaAttributes;
+@property(copy, nonatomic) NSDictionary * etaSecondaryAttributes;
 @property(copy, nonatomic) NSString * errorMessage;
+@property(nonatomic) IBOutlet MWMBaseRoutePreviewStatus * baseRoutePreviewStatus;
 @property(nonatomic) IBOutlet MWMNavigationControlView * navigationControlView;
 @property(nonatomic) IBOutlet MWMNavigationInfoView * navigationInfoView;
 @property(nonatomic) IBOutlet MWMRoutePreview * routePreview;
-@property(nonatomic) IBOutlet MWMRoutePreviewStatus * statusBox;
+@property(nonatomic) IBOutlet MWMTransportRoutePreviewStatus * transportRoutePreviewStatus;
 @property(nonatomic) IBOutletCollection(MWMRouteStartButton) NSArray * goButtons;
 @property(nonatomic) MWMNavigationDashboardEntity * entity;
 @property(nonatomic) MWMRouteManagerTransitioningManager * routeManagerTransitioningManager;
@@ -43,6 +45,7 @@ using Observers = NSHashTable<Observer>;
 @property(nonatomic, readwrite) MWMTaxiPreviewDataSource * taxiDataSource;
 @property(weak, nonatomic) IBOutlet MWMTaxiCollectionView * taxiCollectionView;
 @property(weak, nonatomic) IBOutlet UIButton * showRouteManagerButton;
+@property(weak, nonatomic) IBOutlet UIView * goButtonsContainer;
 @property(weak, nonatomic) UIView * ownerView;
 
 @end
@@ -65,12 +68,14 @@ using Observers = NSHashTable<Observer>;
   return self;
 }
 
-- (void)loadPreviewWithStatusBox
+- (void)loadPreviewWithStatusBoxes
 {
   [NSBundle.mainBundle loadNibNamed:IPAD ? kRoutePreviewIPADXibName : kRoutePreviewIPhoneXibName
                               owner:self
                             options:nil];
-  _statusBox.ownerView = self.ownerView;
+  auto ownerView = self.ownerView;
+  _baseRoutePreviewStatus.ownerView = ownerView;
+  _transportRoutePreviewStatus.ownerView = ownerView;
 }
 
 #pragma mark - MWMRoutePreview
@@ -100,7 +105,8 @@ using Observers = NSHashTable<Observer>;
   [_routePreview mwm_refreshUI];
   [_navigationInfoView mwm_refreshUI];
   [_navigationControlView mwm_refreshUI];
-  [_statusBox mwm_refreshUI];
+  [_baseRoutePreviewStatus mwm_refreshUI];
+  [_transportRoutePreviewStatus mwm_refreshUI];
 }
 
 - (void)onNavigationInfoUpdated
@@ -109,7 +115,10 @@ using Observers = NSHashTable<Observer>;
   if (!entity.isValid)
     return;
   [_navigationInfoView onNavigationInfoUpdated:entity];
-  [_statusBox onNavigationInfoUpdated:entity];
+  if ([MWMRouter type] == MWMRouterTypePublicTransport)
+    [_transportRoutePreviewStatus onNavigationInfoUpdated:entity];
+  else
+    [_baseRoutePreviewStatus onNavigationInfoUpdated:entity];
   [_navigationControlView onNavigationInfoUpdated:entity];
 }
 
@@ -141,8 +150,10 @@ using Observers = NSHashTable<Observer>;
   self.navigationInfoView = nil;
   _navigationControlView.isVisible = NO;
   _navigationControlView = nil;
-  [self.statusBox stateHidden];
-  self.statusBox = nil;
+  [_baseRoutePreviewStatus hide];
+  _baseRoutePreviewStatus = nil;
+  [_transportRoutePreviewStatus hide];
+  _transportRoutePreviewStatus = nil;
 }
 
 - (void)statePrepare
@@ -153,7 +164,8 @@ using Observers = NSHashTable<Observer>;
   [routePreview statePrepare];
   [routePreview selectRouter:[MWMRouter type]];
   [self updateGoButtonTitle];
-  [self.statusBox statePrepare];
+  [_baseRoutePreviewStatus hide];
+  [_transportRoutePreviewStatus hide];
   for (MWMRouteStartButton * button in self.goButtons)
     [button statePrepare];
 }
@@ -193,7 +205,7 @@ using Observers = NSHashTable<Observer>;
   auto routePreview = self.routePreview;
   [routePreview router:[MWMRouter type] setState:MWMCircularProgressStateFailed];
   [self updateGoButtonTitle];
-  [self.statusBox stateErrorWithMessage:self.errorMessage];
+  [self.baseRoutePreviewStatus showErrorWithMessage:self.errorMessage];
   for (MWMRouteStartButton * button in self.goButtons)
     [button stateError];
 }
@@ -203,7 +215,12 @@ using Observers = NSHashTable<Observer>;
   NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (ready)");
   [self setRouteBuilderProgress:100.];
   [self updateGoButtonTitle];
-  [self.statusBox stateReady];
+  auto const isTransport = ([MWMRouter type] == MWMRouterTypePublicTransport);
+  if (isTransport)
+    [self.transportRoutePreviewStatus showReady];
+  else
+    [self.baseRoutePreviewStatus showReady];
+  self.goButtonsContainer.hidden = isTransport;
   for (MWMRouteStartButton * button in self.goButtons)
     [button stateReady];
 }
@@ -216,8 +233,10 @@ using Observers = NSHashTable<Observer>;
   self.routePreview = nil;
   self.navigationInfoView.state = MWMNavigationInfoViewStateNavigation;
   self.navigationControlView.isVisible = YES;
-  [self.statusBox stateNavigation];
-  self.statusBox = nil;
+  [_baseRoutePreviewStatus hide];
+  _baseRoutePreviewStatus = nil;
+  [_transportRoutePreviewStatus hide];
+  _transportRoutePreviewStatus = nil;
   [self onNavigationInfoUpdated];
 }
 
@@ -318,6 +337,18 @@ using Observers = NSHashTable<Observer>;
   return _etaAttributes;
 }
 
+- (NSDictionary *)etaSecondaryAttributes
+{
+  if (!_etaSecondaryAttributes)
+  {
+    _etaSecondaryAttributes = @{
+      NSForegroundColorAttributeName: [UIColor blackSecondaryText],
+      NSFontAttributeName: [UIFont medium17]
+    };
+  }
+  return _etaSecondaryAttributes;
+}
+
 - (void)setState:(MWMNavigationDashboardState)state
 {
   if (_state == state)
@@ -351,15 +382,22 @@ using Observers = NSHashTable<Observer>;
 - (MWMRoutePreview *)routePreview
 {
   if (!_routePreview)
-    [self loadPreviewWithStatusBox];
+    [self loadPreviewWithStatusBoxes];
   return _routePreview;
 }
 
-- (MWMRoutePreviewStatus *)statusBox
+- (MWMBaseRoutePreviewStatus *)baseRoutePreviewStatus
 {
-  if (!_statusBox)
-    [self loadPreviewWithStatusBox];
-  return _statusBox;
+  if (!_baseRoutePreviewStatus)
+    [self loadPreviewWithStatusBoxes];
+  return _baseRoutePreviewStatus;
+}
+
+- (MWMTransportRoutePreviewStatus *)transportRoutePreviewStatus
+{
+  if (!_transportRoutePreviewStatus)
+    [self loadPreviewWithStatusBoxes];
+  return _transportRoutePreviewStatus;
 }
 
 - (MWMNavigationInfoView *)navigationInfoView
