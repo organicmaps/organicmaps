@@ -22,7 +22,7 @@ SPONSORED_CHECKER(IsBookingChecker, "booking");
 SPONSORED_CHECKER(IsOpentableChecker, "opentable");
 SPONSORED_CHECKER(IsViatorChecker, "viator");
 SPONSORED_CHECKER(IsThorChecker, "thor");
-SPONSORED_CHECKER(IsHalloweenChecker, "halloween");
+SPONSORED_CHECKER(IsHolidayChecker, "holiday");
 
 #undef SPONSORED_CHECKER
 }  // namespace ftypes

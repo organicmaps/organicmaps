@@ -903,10 +903,10 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.SetSponsoredDescriptionUrl(url);
     GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kSponsoredThorDiscovered);
   }
-  else if (ftypes::IsHalloweenChecker::Instance()(ft) &&
+  else if (ftypes::IsHolidayChecker::Instance()(ft) &&
            !info.GetMetadata().Get(feature::Metadata::FMD_RATING).empty())
   {
-    info.SetSponsoredType(place_page::SponsoredType::Halloween);
+    info.SetSponsoredType(place_page::SponsoredType::Holiday);
   }
 
   FillLocalExperts(ft, info);
@@ -2192,6 +2192,15 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
                                     {"meters", strings::to_string_dac(metersToTap, 0)}};
       if (info.IsFeature())
         kv["types"] = DebugPrint(info.GetTypes());
+
+      if (info.GetSponsoredType() == SponsoredType::Holiday)
+      {
+        kv["holiday"] = "1";
+        auto const & mwmInfo = info.GetID().m_mwmId.GetInfo();
+        if (mwmInfo)
+          kv["mwmVersion"] = strings::to_string(mwmInfo->GetVersion());
+      }
+
       // Older version of statistics used "$GetUserMark" event.
       alohalytics::Stats::Instance().LogEvent("$SelectMapObject", kv,
                                               alohalytics::Location::FromLatLon(ll.lat, ll.lon));

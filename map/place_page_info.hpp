@@ -41,7 +41,7 @@ enum class SponsoredType
   Viator,
   Cian,
   Thor,
-  Halloween
+  Holiday
 };
 
 enum class LocalAdsStatus

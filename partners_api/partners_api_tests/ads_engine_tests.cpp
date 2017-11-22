@@ -146,7 +146,7 @@ UNIT_TEST(AdsEngine_Smoke)
   }
   {
     feature::TypesHolder holder;
-    holder.Assign(c.GetTypeByPath({"sponsored", "halloween"}));
+    holder.Assign(c.GetTypeByPath({"sponsored", "banner"}));
     TEST(engine.HasBanner(holder, {"Russian Federation"}, "ru"), ());
     auto result = engine.GetBanners(holder, {"Russian Federation"}, "ru");
     TEST(!result.empty(), ());
@@ -154,7 +154,7 @@ UNIT_TEST(AdsEngine_Smoke)
   }
   {
     feature::TypesHolder holder;
-    holder.Assign(c.GetTypeByPath({"sponsored", "halloween"}));
+    holder.Assign(c.GetTypeByPath({"sponsored", "banner"}));
     TEST(engine.HasBanner(holder, {"United States"}, "en"), ());
     auto result = engine.GetBanners(holder, {"United States"}, "en");
     TEST(!result.empty(), ());
