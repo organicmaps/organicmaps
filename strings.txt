@@ -27500,4 +27500,52 @@
 
   [setting_emulate_bad_storage]
     en = Emulate bad storage
-    ru = Эмуляция ошибки с внешней памятью     
+    ru = Эмуляция ошибки с внешней памятью
+
+  [discover_button_title]
+    en = Discover nearby
+    ru = Поблизости
+  
+  [discover_button_subtitle1]
+    en = Things to do
+    ru = Развлечения
+  
+  [discover_button_subtitle2]
+    en = Attractions
+    ru = Достопримечательности
+  
+  [discover_button_subtitle3]
+    en = Eat and drink
+    ru = Перекусить
+  
+  [discover_button_subtitle4]
+    en = Local Guides
+    ru = Местные гиды
+  
+  [discover_button_viator_offline_title]
+    en = Discover tours and unusual things to do
+
+  [discover_button_viator_offline_subtitle]
+    en = You will need internet for it. Press here to change your network preferences
+   
+  [discover_button_viator_loading_title]
+    en = Discover tours and unusual things to do
+
+  [discover_button_viator_loading_subtitle]
+    en = Tours, things to do, sightseeing tours and more.
+
+  [discover_button_viator_error_title]
+    en = Error loading data
+    ru = Ошибка загрузки данных
+
+  [discover_button_viator_error_subtitle]
+    en = Please check your connection settings
+    ru = Проверьте ваши настройки соединения
+  
+  [discover_button_other_error_title]
+    en = Error loading data
+    ru = Ошибка загрузки данных
+  
+  [discover_button_other_loading_title]
+    en = Data is loading
+    ru = Данные загружаются     
