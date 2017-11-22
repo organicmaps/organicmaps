@@ -23,6 +23,12 @@ struct TransitId
   DECLARE_VISITOR_AND_DEBUG_PRINT(TransitId, visitor(m_stop1Id, "stop1_id"),
                                   visitor(m_stop2Id, "stop2_id"), visitor(m_lineId, "line_id"))
 
+  TransitId() = default;
+  TransitId(transit::StopId stop1Id, transit::StopId stop2Id, transit::LineId lineId)
+    : m_stop1Id(stop1Id), m_stop2Id(stop2Id), m_lineId(lineId)
+  {
+  }
+
   bool operator==(TransitId const & rhs) const
   {
     return m_stop1Id == rhs.m_stop1Id && m_stop2Id == rhs.m_stop2Id && m_lineId == rhs.m_lineId;
