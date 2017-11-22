@@ -757,7 +757,7 @@ pl:^Sklep spożywczy
 pt:^Loja de conveniência
 pt-BR:^Loja de conveniência|4mercadinho|compras
 ro:4^Magazin mixt
-es:^Tienda|chino|bazar
+es:^Tienda de barrio
 sv:^Närbutik
 th:^ร้านสะดวกซื้อ
 tr:^Bakkal
@@ -3653,7 +3653,7 @@ pl:3^Szopa|schronienie
 pt:^Abrigo
 pt-BR:^Abrigo
 ro:^Adăpost
-es:^Refugio|Albergue
+es:^Refugio
 sv:^Skyddsrum
 th:^ที่อยู่อาศัย
 tr:^Barınak
@@ -7243,7 +7243,7 @@ pl:^Sklep monopolowy
 pt:^Vinho|Loja de Vinhos
 pt-BR:^Loja de vinhos|bebidas
 ro:^Magazin de băuturi alcolice
-es:^Vino|Tienda de vinos
+es:^Tienda de vinos|Vino
 sv:^Vinhandel
 th:^ร้านขายไวน์
 tr:^Caviste
