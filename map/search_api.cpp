@@ -76,12 +76,7 @@ void SearchAPI::OnViewportChanged(m2::RectD const & viewport)
 
 bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
 {
-  // TODO: delete me after Cian project is finished.
-  if (IsCianMode(params.m_query))
-    m_sponsoredMode = SponsoredMode::Cian;
-
-  if (!params.m_bookingFilterParams.IsEmpty())
-    m_sponsoredMode = SponsoredMode::Booking;
+  UpdateSponsoredMode(params.m_query, params.m_bookingFilterParams);
 
   SearchParams p;
   p.m_query = params.m_query;
@@ -115,12 +110,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
 
 bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
 {
-  // TODO: delete me after Cian project is finished.
-  if (IsCianMode(params.m_query))
-    m_sponsoredMode = SponsoredMode::Cian;
-
-  if (!params.m_bookingFilterParams.IsEmpty())
-    m_sponsoredMode = SponsoredMode::Booking;
+  UpdateSponsoredMode(params.m_query, params.m_bookingFilterParams);
 
   SearchParams p;
   p.m_query = params.m_query;
@@ -157,6 +147,8 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
 
 bool SearchAPI::SearchInDownloader(storage::DownloaderSearchParams const & params)
 {
+  m_sponsoredMode = SponsoredMode::None;
+
   SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
@@ -304,4 +296,26 @@ bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams,
     return false;
 
   return true;
+}
+
+void SearchAPI::UpdateSponsoredMode(std::string const & query,
+                                    booking::filter::availability::Params const & params)
+{
+  m_sponsoredMode = SponsoredMode::None;
+  // TODO: delete me after Cian project is finished.
+  if (IsCianMode(query))
+    m_sponsoredMode = SponsoredMode::Cian;
+  if (!params.IsEmpty())
+    m_sponsoredMode = SponsoredMode::Booking;
+}
+
+string DebugPrint(SearchAPI::SponsoredMode mode) {
+  switch (mode) {
+  case SearchAPI::SponsoredMode::None:
+    return "None";
+  case SearchAPI::SponsoredMode::Cian:
+    return "Cian";
+  case SearchAPI::SponsoredMode::Booking:
+    return "Booking";
+  }
 }

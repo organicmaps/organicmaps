@@ -27,7 +27,24 @@ void ViewportSearchCallback::operator()(Results const & results)
     m_hotelsModeSet = true;
   }
 
-  if (!results.IsEndMarker())
+  // We need to clear old results and show a new bunch of results when
+  // the search is completed normally (note that there may be empty
+  // set of results), or when the search is not completed and there is
+  // something in results.
+  //
+  // We don't need to clear old results or show current results if the
+  // search is cancelled, because:
+
+  // * current request is cancelled because of the next
+  // search-in-viewport request - in this case it is the
+  // responsibility of the next search request to clean up old results
+  // and there is no need to clean up current results. We don't want
+  // to show blinking results.
+  //
+  // * search in viewport may be cancelled completely - it is the
+  // responsibility of the user of this class to handle this case and
+  // clean up results.
+  if (results.IsEndedNormal() || (!results.IsEndMarker() && results.GetCount() != 0))
   {
     auto & delegate = m_delegate;
     bool const firstCall = m_firstCall;

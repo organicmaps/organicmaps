@@ -14,6 +14,7 @@
 #include <cstddef>
 #include <functional>
 #include <memory>
+#include <string>
 
 #include <boost/optional.hpp>
 
@@ -139,6 +140,9 @@ private:
   bool QueryMayBeSkipped(search::SearchParams const & prevParams,
                          search::SearchParams const & currParams) const;
 
+  void UpdateSponsoredMode(std::string const & query,
+                           booking::filter::availability::Params const & params);
+
   Index & m_index;
   storage::Storage const & m_storage;
   storage::CountryInfoGetter const & m_infoGetter;
@@ -156,3 +160,5 @@ private:
 
   SponsoredMode m_sponsoredMode = SponsoredMode::None;
 };
+
+std::string DebugPrint(SearchAPI::SponsoredMode mode);

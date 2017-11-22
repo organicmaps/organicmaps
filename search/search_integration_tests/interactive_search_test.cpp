@@ -15,28 +15,43 @@ namespace search
 {
 namespace
 {
+struct Stats
+{
+  size_t m_shownResults = 0;
+  bool m_mode = false;
+};
+
 class TestDelegate : public ViewportSearchCallback::Delegate
 {
 public:
-  TestDelegate(bool & mode) : m_mode(mode) {}
+  explicit TestDelegate(Stats & stats) : m_stats(stats) {}
+
+  ~TestDelegate() override = default;
 
   // ViewportSearchCallback::Delegate overrides:
-  void RunUITask(function<void()> /* fn */) override {}
-  void SetHotelDisplacementMode() override { m_mode = true; }
+  void RunUITask(function<void()> fn) override { fn(); }
+
+  void SetHotelDisplacementMode() override { m_stats.m_mode = true; }
+
   bool IsViewportSearchActive() const override { return true; }
-  void ShowViewportSearchResults(Results const & /* results */) override {}
-  void ClearViewportSearchResults() override {}
+
+  void ShowViewportSearchResults(Results const & results) override
+  {
+    m_stats.m_shownResults = results.GetCount();
+  }
+
+  void ClearViewportSearchResults() override { m_stats.m_shownResults = 0; }
 
  private:
-  bool & m_mode;
+  Stats & m_stats;
 };
 
 class InteractiveSearchRequest : public TestDelegate, public TestSearchRequest
 {
 public:
   InteractiveSearchRequest(TestSearchEngine & engine, string const & query,
-                           m2::RectD const & viewport, bool & mode)
-    : TestDelegate(mode)
+                           m2::RectD const & viewport, Stats & stats)
+    : TestDelegate(stats)
     , TestSearchRequest(engine, query, "en" /* locale */, Mode::Viewport, viewport)
   {
     SetCustomOnResults(
@@ -75,28 +90,30 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
   });
 
   {
-    bool mode = false;
+    Stats stats;
     InteractiveSearchRequest request(
-        m_engine, "cafe", m2::RectD(m2::PointD(-1.5, -1.5), m2::PointD(-0.5, -0.5)), mode);
+        m_engine, "cafe", m2::RectD(m2::PointD(-1.5, -1.5), m2::PointD(-0.5, -0.5)), stats);
     request.Run();
 
     TRules const rules = {ExactMatch(id, cafes[0]), ExactMatch(id, cafes[1]),
                           ExactMatch(id, cafes[2]), ExactMatch(id, cafes[3])};
 
-    TEST(!mode, ());
+    TEST(!stats.m_mode, ());
+    TEST_EQUAL(stats.m_shownResults, 4, ());
     TEST(MatchResults(m_index, rules, request.Results()), ());
   }
 
   {
-    bool mode = false;
+    Stats stats;
     InteractiveSearchRequest request(m_engine, "hotel",
-                                     m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)), mode);
+                                     m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)), stats);
     request.Run();
 
     TRules const rules = {ExactMatch(id, hotels[0]), ExactMatch(id, hotels[1]),
                           ExactMatch(id, hotels[2]), ExactMatch(id, hotels[3])};
 
-    TEST(mode, ());
+    TEST(stats.m_mode, ());
+    TEST_EQUAL(stats.m_shownResults, 4, ());
     TEST(MatchResults(m_index, rules, request.Results()), ());
   }
 }
