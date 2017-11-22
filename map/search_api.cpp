@@ -309,13 +309,12 @@ void SearchAPI::UpdateSponsoredMode(std::string const & query,
     m_sponsoredMode = SponsoredMode::Booking;
 }
 
-string DebugPrint(SearchAPI::SponsoredMode mode) {
-  switch (mode) {
-  case SearchAPI::SponsoredMode::None:
-    return "None";
-  case SearchAPI::SponsoredMode::Cian:
-    return "Cian";
-  case SearchAPI::SponsoredMode::Booking:
-    return "Booking";
+string DebugPrint(SearchAPI::SponsoredMode mode)
+{
+  switch (mode)
+  {
+  case SearchAPI::SponsoredMode::None: return "None";
+  case SearchAPI::SponsoredMode::Cian: return "Cian";
+  case SearchAPI::SponsoredMode::Booking: return "Booking";
   }
 }

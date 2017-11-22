@@ -34,7 +34,7 @@ void ViewportSearchCallback::operator()(Results const & results)
   //
   // We don't need to clear old results or show current results if the
   // search is cancelled, because:
-
+  //
   // * current request is cancelled because of the next
   // search-in-viewport request - in this case it is the
   // responsibility of the next search request to clean up old results

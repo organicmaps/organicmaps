@@ -17,8 +17,8 @@ namespace
 {
 struct Stats
 {
-  size_t m_shownResults = 0;
-  bool m_mode = false;
+  size_t m_numShownResults = 0;
+  bool m_hotelDisplacementModeSet = false;
 };
 
 class TestDelegate : public ViewportSearchCallback::Delegate
@@ -31,16 +31,16 @@ public:
   // ViewportSearchCallback::Delegate overrides:
   void RunUITask(function<void()> fn) override { fn(); }
 
-  void SetHotelDisplacementMode() override { m_stats.m_mode = true; }
+  void SetHotelDisplacementMode() override { m_stats.m_hotelDisplacementModeSet = true; }
 
   bool IsViewportSearchActive() const override { return true; }
 
   void ShowViewportSearchResults(Results const & results) override
   {
-    m_stats.m_shownResults = results.GetCount();
+    m_stats.m_numShownResults = results.GetCount();
   }
 
-  void ClearViewportSearchResults() override { m_stats.m_shownResults = 0; }
+  void ClearViewportSearchResults() override { m_stats.m_numShownResults = 0; }
 
  private:
   Stats & m_stats;
@@ -98,8 +98,8 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
     TRules const rules = {ExactMatch(id, cafes[0]), ExactMatch(id, cafes[1]),
                           ExactMatch(id, cafes[2]), ExactMatch(id, cafes[3])};
 
-    TEST(!stats.m_mode, ());
-    TEST_EQUAL(stats.m_shownResults, 4, ());
+    TEST(!stats.m_hotelDisplacementModeSet, ());
+    TEST_EQUAL(stats.m_numShownResults, 4, ());
     TEST(MatchResults(m_index, rules, request.Results()), ());
   }
 
@@ -112,8 +112,8 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
     TRules const rules = {ExactMatch(id, hotels[0]), ExactMatch(id, hotels[1]),
                           ExactMatch(id, hotels[2]), ExactMatch(id, hotels[3])};
 
-    TEST(stats.m_mode, ());
-    TEST_EQUAL(stats.m_shownResults, 4, ());
+    TEST(stats.m_hotelDisplacementModeSet, ());
+    TEST_EQUAL(stats.m_numShownResults, 4, ());
     TEST(MatchResults(m_index, rules, request.Results()), ());
   }
 }
