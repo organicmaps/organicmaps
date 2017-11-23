@@ -53,6 +53,13 @@ pugi::xml_node GetLinearLocationReference(pugi::xml_node const & node)
   return node.select_node(".//olr:locationReference/olr:optionLinearLocationReference").node();
 }
 
+bool NoLocationReferenceButCoordinates(pugi::xml_node const & node)
+{
+  if (node.select_node(".//olr:locationReference").node())
+    return false;
+  return node.select_node("coordinates").node();
+}
+
 // This helper is used do deal with xml nodes of the form
 // <node>
 //   <value>integer<value>
@@ -253,8 +260,16 @@ bool ParseOpenlr(pugi::xml_document const & document, vector<LinearSegment> & se
   for (auto const segmentXpathNode : document.select_nodes("//reportSegments"))
   {
     LinearSegment segment;
+    if (NoLocationReferenceButCoordinates(segmentXpathNode.node()))
+    {
+      LOG(LWARNING, ("A segment with <coordinates> instead of <optionLinearLocationReference> "
+                     "encounted, skipping..."));
+      continue;
+    }
+
     if (!SegmentFromXML(segmentXpathNode.node(), segment))
       return false;
+
     segments.push_back(segment);
   }
   return true;
