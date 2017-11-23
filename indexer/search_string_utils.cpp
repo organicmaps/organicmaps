@@ -143,6 +143,8 @@ class StreetsSynonymsHolder
 public:
   struct BooleanSum
   {
+    using value_type = bool;
+
     void Add(bool value) { m_value = m_value || value; }
 
     template <typename ToDo>

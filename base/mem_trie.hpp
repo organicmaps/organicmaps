@@ -61,14 +61,15 @@ private:
 template <typename Value>
 struct VectorValues
 {
-  template <typename V>
-  void Add(V && v)
+  using value_type = Value;
+
+  template <typename... Args>
+  void Add(Args &&... args)
   {
-    m_values.emplace_back(std::forward<V>(v));
+    m_values.emplace_back(std::forward<Args>(args)...);
   }
 
-  template <typename V>
-  void Erase(V const & v)
+  void Erase(Value const & v)
   {
     auto const it = find(m_values.begin(), m_values.end(), v);
     if (it != m_values.end())
@@ -90,7 +91,7 @@ struct VectorValues
 
 // This class is a simple in-memory trie which allows to add
 // key-value pairs and then traverse them in a sorted order.
-template <typename String, typename Values, template <typename...> class Moves = MapMoves>
+template <typename String, class ValuesHolder, template <typename...> class Moves = MapMoves>
 class MemTrie
 {
 private:
@@ -98,6 +99,7 @@ private:
 
 public:
   using Char = typename String::value_type;
+  using Value = typename ValuesHolder::value_type;
 
   MemTrie() = default;
   MemTrie(MemTrie && rhs) { *this = std::move(rhs); }
@@ -140,8 +142,8 @@ public:
   };
 
   // Adds a key-value pair to the trie.
-  template <typename Value>
-  void Add(String const & key, Value && value)
+  template <typename... Args>
+  void Add(String const & key, Args &&... args)
   {
     auto * cur = &m_root;
     for (auto const & c : key)
@@ -151,10 +153,9 @@ public:
       if (created)
         ++m_numNodes;
     }
-    cur->Add(std::forward<Value>(value));
+    cur->Add(std::forward<Args>(args)...);
   }
 
-  template <typename Value>
   void Erase(String const & key, Value const & value)
   {
     return Erase(m_root, 0 /* level */, key, value);
@@ -215,13 +216,12 @@ private:
 
     void EraseMove(Char const & c) { m_moves.EraseSubtree(c); }
 
-    template <typename Value>
-    void Add(Value && value)
+    template <typename... Args>
+    void Add(Args &&... args)
     {
-      m_values.Add(std::forward<Value>(value));
+      m_values.Add(std::forward<Args>(args)...);
     }
 
-    template <typename Value>
     void EraseValue(Value const & value)
     {
       m_values.Erase(value);
@@ -236,7 +236,7 @@ private:
     }
 
     Moves<Char, Node> m_moves;
-    Values m_values;
+    ValuesHolder m_values;
 
     DISALLOW_COPY(Node);
   };
@@ -253,7 +253,6 @@ private:
     return cur;
   }
 
-  template <typename Value>
   void Erase(Node & root, size_t level, String const & key, Value const & value)
   {
     if (level == key.size())
