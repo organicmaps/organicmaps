@@ -1,9 +1,11 @@
 #pragma once
 
+#include "base/assert.hpp"
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
 #include <algorithm>
+#include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -46,6 +48,10 @@ public:
     return *node;
   }
 
+  void EraseSubtree(Char const & c) { m_subtrees.erase(c); }
+
+  bool Empty() const { return m_subtrees.empty(); }
+
   void Clear() { m_subtrees.clear(); }
 
 private:
@@ -61,11 +67,21 @@ struct VectorValues
     m_values.emplace_back(std::forward<V>(v));
   }
 
+  template <typename V>
+  void Erase(V const & v)
+  {
+    auto const it = find(m_values.begin(), m_values.end(), v);
+    if (it != m_values.end())
+      m_values.erase(it);
+  }
+
   template <typename ToDo>
   void ForEach(ToDo && toDo) const
   {
     std::for_each(m_values.begin(), m_values.end(), std::forward<ToDo>(toDo));
   }
+
+  bool Empty() const { return m_values.empty(); }
 
   void Clear() { m_values.clear(); }
 
@@ -138,6 +154,12 @@ public:
     cur->Add(std::forward<Value>(value));
   }
 
+  template <typename Value>
+  void Erase(String const & key, Value const & value)
+  {
+    return Erase(m_root, 0 /* level */, key, value);
+  }
+
   // Traverses all key-value pairs in the trie and calls |toDo| on each of them.
   template <typename ToDo>
   void ForEachInTrie(ToDo && toDo) const
@@ -189,11 +211,23 @@ private:
       return m_moves.GetOrCreateSubtree(c, created);
     }
 
+    Node * GetMove(Char const & c) const { return m_moves.GetSubtree(c); }
+
+    void EraseMove(Char const & c) { m_moves.EraseSubtree(c); }
+
     template <typename Value>
     void Add(Value && value)
     {
       m_values.Add(std::forward<Value>(value));
     }
+
+    template <typename Value>
+    void EraseValue(Value const & value)
+    {
+      m_values.Erase(value);
+    }
+
+    bool Empty() const { return m_moves.Empty() && m_values.Empty(); }
 
     void Clear()
     {
@@ -212,11 +246,32 @@ private:
     auto const * cur = &m_root;
     for (auto const & c : key)
     {
-      cur = cur->m_moves.GetSubtree(c);
+      cur = cur->GetMove(c);
       if (!cur)
         break;
     }
     return cur;
+  }
+
+  template <typename Value>
+  void Erase(Node & root, size_t level, String const & key, Value const & value)
+  {
+    if (level == key.size())
+    {
+      root.EraseValue(value);
+      return;
+    }
+
+    ASSERT_LESS(level, key.size(), ());
+    auto * child = root.GetMove(key[level]);
+    if (!child)
+      return;
+    Erase(*child, level + 1, key, value);
+    if (child->Empty())
+    {
+      root.EraseMove(key[level]);
+      --m_numNodes;
+    }
   }
 
   // Calls |toDo| for each key-value pair in a |node| that is
