@@ -27,6 +27,7 @@ SOURCES += \
     drules_selector_parser.cpp \
     editable_map_object.cpp \
     edits_migration.cpp \
+    fake_feature_ids.cpp \
     feature.cpp \
     feature_algo.cpp \
     feature_covering.cpp \
@@ -85,6 +86,7 @@ HEADERS += \
     drules_selector_parser.hpp \
     editable_map_object.hpp \
     edits_migration.hpp \
+    fake_feature_ids.hpp \
     feature.hpp \
     feature_algo.hpp \
     feature_altitude.hpp \

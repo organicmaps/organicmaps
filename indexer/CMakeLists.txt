@@ -44,6 +44,8 @@ set(
   editable_map_object.hpp
   edits_migration.cpp
   edits_migration.hpp
+  fake_feature_ids.cpp
+  fake_feature_ids.hpp
   feature_algo.cpp
   feature_algo.hpp
   feature_altitude.hpp

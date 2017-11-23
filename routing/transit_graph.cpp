@@ -1,5 +1,6 @@
 #include "routing/transit_graph.hpp"
 
+#include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph.hpp"
 
 #include "indexer/feature_altitude.hpp"
@@ -26,10 +27,10 @@ Junction const & GetStopJunction(map<transit::StopId, Junction> const & stopCoor
 }  // namespace
 
 // static
-uint32_t constexpr TransitGraph::kTransitFeatureId;
-
-// static
-bool TransitGraph::IsTransitFeature(uint32_t featureId) { return featureId == kTransitFeatureId; }
+bool TransitGraph::IsTransitFeature(uint32_t featureId)
+{
+  return FakeFeatureIds::IsTransitFeature(featureId); 
+}
 
 // static
 bool TransitGraph::IsTransitSegment(Segment const & segment)
@@ -138,8 +139,9 @@ void TransitGraph::Fill(TransitData const & transitData, GateEndings const & gat
     auto const & edge = transitData.m_edges[i];
     CHECK_NOT_EQUAL(edge.GetWeight(), transit::kInvalidWeight, ("Edge should have valid weight."));
     auto const edgeSegment = AddEdge(edge, stopCoords, stopToBack, stopToFront);
-    // Check fake segment id is edge order in mwm.
-    CHECK_EQUAL(edgeSegment.GetSegmentIdx(), i, ());
+    // Checks fake feature ids have consecutive numeration starting from
+    // FakeFeatureIds::kTransitGraphFeaturesStart.
+    CHECK_EQUAL(edgeSegment.GetFeatureId(), i + FakeFeatureIds::kTransitGraphFeaturesStart, ());
     outgoing[edge.GetStop1Id()].insert(edgeSegment);
     ingoing[edge.GetStop2Id()].insert(edgeSegment);
   }
@@ -188,15 +190,17 @@ transit::Edge const & TransitGraph::GetEdge(Segment const & segment) const
   return it->second;
 }
 
-Segment TransitGraph::GetTransitSegment(uint32_t segmentIdx) const
+Segment TransitGraph::GetTransitSegment(uint32_t featureId) const
 {
-  return Segment(m_mwmId, kTransitFeatureId, segmentIdx, false);
+  CHECK(IsTransitFeature(featureId), ("Feature id is out of transit id interval."));
+  return Segment(m_mwmId, featureId, 0 /* segmentIdx*/, false /* isForward */);
 }
 
 Segment TransitGraph::GetNewTransitSegment() const
 {
-  CHECK_LESS_OR_EQUAL(m_fake.GetSize(), numeric_limits<uint32_t>::max(), ());
-  return GetTransitSegment(static_cast<uint32_t>(m_fake.GetSize()) /* segmentIdx */);
+  auto const featureId = m_fake.GetSize() + FakeFeatureIds::kTransitGraphFeaturesStart;
+  CHECK_LESS_OR_EQUAL(featureId, numeric_limits<uint32_t>::max(), ());
+  return GetTransitSegment(static_cast<uint32_t>(featureId));
 }
 
 void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending,

@@ -1,13 +1,15 @@
+#include "indexer/osm_editor.hpp"
+
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/edits_migration.hpp"
+#include "indexer/fake_feature_ids.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
-#include "indexer/osm_editor.hpp"
 #include "indexer/index_helpers.hpp"
 
 #include "platform/local_country_file_utils.hpp"
@@ -404,14 +406,9 @@ void Editor::DeleteFeature(FeatureID const & fid)
   Invalidate();
 }
 
-namespace
-{
-constexpr uint32_t kStartIndexForCreatedFeatures = numeric_limits<uint32_t>::max() - 0xfffff;
-}  // namespace
-
 bool Editor::IsCreatedFeature(FeatureID const & fid)
 {
-  return fid.m_index >= kStartIndexForCreatedFeatures;
+  return feature::FakeFeatureIds::IsEditorCreatedFeature(fid.m_index);
 }
 
 bool Editor::OriginalFeatureHasDefaultName(FeatureID const & fid) const
@@ -1041,7 +1038,7 @@ FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id)
 {
   DECLARE_AND_ASSERT_THREAD_CHECKER("GenerateNewFeatureId is single-threaded.");
   // TODO(vng): Double-check if new feature indexes should uninterruptedly continue after existing indexes in mwm file.
-  uint32_t featureIndex = kStartIndexForCreatedFeatures;
+  uint32_t featureIndex = feature::FakeFeatureIds::kEditorCreatedFeaturesStart;
   auto const found = m_features.find(id);
   if (found != m_features.end())
   {
@@ -1052,6 +1049,7 @@ FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id)
         featureIndex = feature.first + 1;
     }
   }
+  CHECK(feature::FakeFeatureIds::IsEditorCreatedFeature(featureIndex), ());
   return FeatureID(id, featureIndex);
 }
 
