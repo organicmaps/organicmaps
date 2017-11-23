@@ -43,6 +43,7 @@ import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.discovery.DiscoveryActivity;
 import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
@@ -843,6 +844,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         case P2P:
           startLocationToPoint(Statistics.EventName.MENU_P2P, AlohaHelper.MENU_POINT2POINT,
                                null /* endPoint */, false /* canUseMyPositionAsStart */);
+          break;
+
+        case DISCOVERY:
+          DiscoveryActivity.start(MwmActivity.this);
           break;
 
         case BOOKMARKS:

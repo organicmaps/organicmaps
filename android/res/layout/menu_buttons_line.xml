@@ -33,7 +33,7 @@
       android:layout_weight="1"/>
 
     <ImageView
-      android:id="@+id/discover"
+      android:id="@+id/discovery"
       style="@style/MwmTheme.Menu.Line.Button"
       android:src="@drawable/ic_menu_discovery"
       android:tag="@string/tag_menu_collapse"/>

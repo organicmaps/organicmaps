@@ -362,10 +362,18 @@
           android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
-    <!-- ugc -->
     <activity
       android:name=".ugc.UGCEditorActivity"
       android:configChanges="keyboardHidden|orientation|screenSize"
+      android:parentActivityName=".MwmActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.mapswithme.maps.MwmActivity"/>
+    </activity>
+
+    <activity
+      android:name=".discovery.DiscoveryActivity"
       android:parentActivityName=".MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data

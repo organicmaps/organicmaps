@@ -191,4 +191,11 @@
   <style name="MwmTextAppearance.Tab" parent="MwmTextAppearance.Body4">
     <item name="android:textAllCaps">true</item>
   </style>
+
+  <style name="MwmTextAppearance.Discovery.Subtitle" parent="MwmTextAppearance.Body3">
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">2</item>
+  </style>
 </resources>
