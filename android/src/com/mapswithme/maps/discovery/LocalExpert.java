@@ -1,4 +1,4 @@
-package com.mapswithme.maps.locals;
+package com.mapswithme.maps.discovery;
 
 import android.os.Parcel;
 import android.os.Parcelable;

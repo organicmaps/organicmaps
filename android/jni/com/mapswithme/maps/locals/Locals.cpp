@@ -21,22 +21,22 @@ void PrepareClassRefs(JNIEnv * env)
   if (g_localsClass != nullptr)
     return;
 
-  g_localsClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/locals/Locals");
+  g_localsClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/Locals");
   static jfieldID const localsInstanceField = jni::GetStaticFieldID(env, g_localsClass, "INSTANCE",
-                                                                    "Lcom/mapswithme/maps/locals/Locals;");
+                                                                    "Lcom/mapswithme/maps/discovery/Locals;");
   g_localsInstance = env->GetStaticObjectField(g_localsClass, localsInstanceField);
   g_onLocalsReceivedMethod = jni::GetMethodID(env, g_localsInstance, "onLocalsReceived",
-                                              "([Lcom/mapswithme/maps/locals/LocalExpert;)V");
+                                              "([Lcom/mapswithme/maps/discovery/LocalExpert;)V");
   g_onLocalsErrorReceivedMethod = jni::GetMethodID(env, g_localsInstance,
                                                    "onLocalsErrorReceived",
-                                                   "(Lcom/mapswithme/maps/locals/LocalsError;)V");
+                                                   "(Lcom/mapswithme/maps/discovery/LocalsError;)V");
 
   // int id, @NonNull String name, @NonNull String country,
   // @NonNull String city, double rating, int reviewCount,
   // double price, @NonNull String currency, @NonNull String motto,
   // @NonNull String about, @NonNull String offer, @NonNull String pageUrl,
   // @NonNull String photoUrl
-  g_localExpertClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/locals/LocalExpert");
+  g_localExpertClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/LocalExpert");
   g_localExpertConstructor =
       jni::GetConstructorID(env, g_localExpertClass,
                             "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DID"
@@ -44,7 +44,7 @@ void PrepareClassRefs(JNIEnv * env)
                             "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 
   // @ErrorCode int code, @NonNull String message
-  g_localErrorClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/locals/LocalError");
+  g_localErrorClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/LocalError");
   g_localErrorConstructor = jni::GetConstructorID(env, g_localErrorClass,
                                                   "(ILjava/lang/String;)V");
 }
