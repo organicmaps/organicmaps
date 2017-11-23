@@ -139,6 +139,13 @@ UNIT_TEST(EditableMapObject_ValidatePhoneList)
   TEST(!EditableMapObject::ValidatePhoneList(";"), ());
   TEST(!EditableMapObject::ValidatePhoneList(","), ());
   TEST(!EditableMapObject::ValidatePhoneList(";;;;;;"), ());
+
+  // Now it is possible to specify the following incorrect phone numbers.
+  // TODO: replace current implementation of ValidatePhoneList by a correct one.
+  TEST(EditableMapObject::ValidatePhoneList("7+ 10 10"), ());
+  TEST(EditableMapObject::ValidatePhoneList("+7 )10( 10"), ());
+  TEST(EditableMapObject::ValidatePhoneList("+7 )10 10"), ());
+  TEST(EditableMapObject::ValidatePhoneList("+7 10 (---) 10"), ());
 }
 
 UNIT_TEST(EditableMapObject_ValidateWebsite)

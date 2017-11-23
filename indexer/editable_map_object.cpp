@@ -635,9 +635,9 @@ bool EditableMapObject::ValidatePhoneList(string const & phone)
 {
   // BNF:
   // <digit>            ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
-  // <available_chars>  ::= ' ' | '+' | '-' | '(' | ')' | '' <available_chars>
+  // <available_char>   ::= ' ' | '+' | '-' | '(' | ')'
   // <delimeter>        ::= ',' | ';'
-  // <phone>            ::= <digit> | <available_chars> <phone>
+  // <phone>            ::= (<digit> | <available_chars>)+
   // <phone_list>       ::= '' | <phone> | <phone> <delimeter> <phone_list>
 
   if (phone.empty())
@@ -667,7 +667,7 @@ bool EditableMapObject::ValidatePhoneList(string const & phone)
         return false;
 
       if (isdigit(*curr))
-          ++digitsCount;
+        ++digitsCount;
     }
 
     if (digitsCount < kMinNumberLen || digitsCount > kMaxNumberLen)
