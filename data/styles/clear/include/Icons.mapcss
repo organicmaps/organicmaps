@@ -3183,14 +3183,14 @@ area|z16-[sponsored=thor][rating=4]
 {icon-image: odin-l.svg;}
 
 
-node|z16-[sponsored=halloween][rating=1],
-area|z16-[sponsored=halloween][rating=1]
+node|z16-[sponsored=holiday][rating=1],
+area|z16-[sponsored=holiday][rating=1]
 {icon-image: pumpkin.svg;}
 
-node|z16-[sponsored=halloween][rating=2],
-area|z16-[sponsored=halloween][rating=2]
+node|z16-[sponsored=holiday][rating=2],
+area|z16-[sponsored=holiday][rating=2]
 {icon-image: bat.svg;}
 
-node|z16-[sponsored=halloween][rating=3],
-area|z16-[sponsored=halloween][rating=3]
+node|z16-[sponsored=holiday][rating=3],
+area|z16-[sponsored=holiday][rating=3]
 {icon-image: ghost.svg;}

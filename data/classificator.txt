@@ -863,7 +863,7 @@ world  +
             {}
         booking  -
         cian  -
-        halloween  -
+        holiday  -
         opentable  -
         thor  -
         viator  -

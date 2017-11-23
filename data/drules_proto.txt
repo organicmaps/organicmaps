@@ -63199,7 +63199,7 @@ cont {
   }
 }
 cont {
-  name: "sponsored-halloween"
+  name: "sponsored-holiday"
   element {
     scale: 16
     symbol {
