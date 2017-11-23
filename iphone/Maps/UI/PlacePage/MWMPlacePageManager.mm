@@ -261,8 +261,8 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     parameters[kStatProvider] = kStatCian;
   else if (data.isThor)
     parameters[kStatProvider] = kStatThor;
-  else if (data.isHalloween)
-    parameters[kStatProvider] = kStatHalloween;
+  else if (data.isHolidayObject)
+    parameters[kStatProvider] = kStatHoliday;
   switch (Platform::ConnectionStatus())
   {
   case Platform::EConnectionType::CONNECTION_NONE:

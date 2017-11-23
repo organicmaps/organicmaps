@@ -827,7 +827,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (BOOL)isViator { return m_info.GetSponsoredType() == SponsoredType::Viator; }
 - (BOOL)isCian { return m_info.GetSponsoredType() == SponsoredType::Cian; }
 - (BOOL)isThor { return m_info.GetSponsoredType() == SponsoredType::Thor; }
-- (BOOL)isHalloween { return m_info.GetSponsoredType() == SponsoredType::Halloween; }
+- (BOOL)isHolidayObject { return m_info.GetSponsoredType() == SponsoredType::Holiday; }
 - (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isHTMLDescription { return strings::IsHTML(m_info.GetBookmarkData().GetDescription()); }
