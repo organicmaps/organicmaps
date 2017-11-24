@@ -3,6 +3,8 @@
 #include "search/emitter.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/highlighting.hpp"
+#include "search/model.hpp"
+#include "search/pre_ranking_info.hpp"
 #include "search/token_slice.hpp"
 #include "search/utils.hpp"
 
@@ -231,6 +233,7 @@ class RankerResultMaker
     info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
     info.m_type = preInfo.m_type;
+    info.m_allTokensUsed = preInfo.m_allTokensUsed;
 
     auto const nameScores = GetNameScores(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
 

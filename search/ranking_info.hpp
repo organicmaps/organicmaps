@@ -29,6 +29,10 @@ struct RankingInfo
   // Number of typos.
   ErrorsMade m_errorsMade;
 
+  // True iff all tokens that are not stop-words
+  // were used when retrieving the feature.
+  bool m_allTokensUsed = true;
+
   // Search type for the feature.
   Model::Type m_type = Model::TYPE_COUNT;
 

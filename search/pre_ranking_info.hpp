@@ -22,13 +22,13 @@ struct PreRankingInfo
     m_tokenRange[m_type] = range;
   }
 
-  inline TokenRange const & InnermostTokenRange() const
+  TokenRange const & InnermostTokenRange() const
   {
     ASSERT_LESS(m_type, Model::TYPE_COUNT, ());
     return m_tokenRange[m_type];
   }
 
-  inline size_t GetNumTokens() const { return InnermostTokenRange().Size(); }
+  size_t GetNumTokens() const { return InnermostTokenRange().Size(); }
 
   // An abstract distance from the feature to the pivot.  Measurement
   // units do not matter here.
@@ -43,6 +43,10 @@ struct PreRankingInfo
   // Different geo-parts extracted from query.  Currently only poi,
   // building and street ids are in |m_geoParts|.
   IntersectionResult m_geoParts;
+
+  // True iff all tokens that are not stop-words
+  // were used when retrieving the feature.
+  bool m_allTokensUsed = true;
 
   // Rank of the feature.
   uint8_t m_rank = 0;

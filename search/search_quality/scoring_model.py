@@ -19,7 +19,7 @@ MAX_RANK = 255
 RELEVANCES = {'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring', 'Prefix', 'Full Match']
 SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
-FEATURES = ['DistanceToPivot', 'Rank', 'FalseCats', 'ErrorsMade'] + NAME_SCORES + SEARCH_TYPES
+FEATURES = ['DistanceToPivot', 'Rank', 'FalseCats', 'ErrorsMade', 'AllTokensUsed'] + NAME_SCORES + SEARCH_TYPES
 
 BOOTSTRAP_ITERATIONS = 10000
 
@@ -37,6 +37,7 @@ def normalize_data(data):
     data['DistanceToPivot'] = data['DistanceToPivot'].apply(transform_distance)
     data['Rank'] = data['Rank'].apply(lambda v: v / MAX_RANK)
     data['Relevance'] = data['Relevance'].apply(lambda v: RELEVANCES[v])
+    data['AllTokensUsed'] = data['AllTokensUsed'].apply(lambda v : +1 if bool(v) else -1)
 
     cats = data['PureCats'].combine(data['FalseCats'], max)
 
