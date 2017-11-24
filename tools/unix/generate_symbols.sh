@@ -5,36 +5,26 @@ set -e -u
 export PYTHONDONTWRITEBYTECODE=1
 
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
-SKIN_GENERATOR="$OMIM_PATH/out/release/skin_generator"
+OUT_PATH="$OMIM_PATH/out/release"
+SKIN_GENERATOR="$OUT_PATH/skin_generator_tool"
 DATA_PATH="$OMIM_PATH/data"
 LOCAL_ADS_SYMBOLS_GENERATOR="$OMIM_PATH/tools/python/generate_local_ads_symbols.py"
 
 # If skin_generator does not exist then build it
-if [ ! -f $SKIN_GENERATOR ];
+if [ ! -f "$SKIN_GENERATOR" ];
 then
-  source "$OMIM_PATH/tools/autobuild/detect_qmake.sh"
-
+  source "$OMIM_PATH/tools/autobuild/detect_cmake.sh"
   # OS-specific parameters
   if [ "$(uname -s)" == "Darwin" ]; then
-    SPEC=${SPEC:-macx-clang}
     PROCESSES=$(sysctl -n hw.ncpu)
   else
-    SPEC=${SPEC:-linux-clang-libc++}
     PROCESSES=$(nproc)
   fi
-
-  for project in freetype gflags
-  do
-    cd "$OMIM_PATH/3party/$project"
-    "$QMAKE" $project.pro -r -spec $SPEC CONFIG+=x86_64
-    make -j $PROCESSES
-  done
-  for project in base coding geometry skin_generator
-  do
-    cd "$OMIM_PATH/$project"
-    "$QMAKE" $project.pro -r -spec $SPEC CONFIG+=x86_64
-    make -j $PROCESSES
-  done
+  mkdir -p "$OUT_PATH"
+  pushd "$OUT_PATH" > /dev/null
+  "$CMAKE" "$OMIM_PATH" -DSKIP_TESTS:bool=true
+  make skin_generator_tool -j$PROCESSES
+  popd > /dev/null
 fi
 
 # Helper function to build skin
@@ -61,7 +51,7 @@ function BuildSkin() {
   STYLE_PATH="$DATA_PATH/styles/$styleType/style-$styleName"
   PNG_PATH="$STYLE_PATH/symbols/png"
   rm -rf "$PNG_PATH" || true
-  ln -s "$STYLE_PATH/$resourceName" $PNG_PATH
+  ln -s "$STYLE_PATH/$resourceName" "$PNG_PATH"
   # Run sking generator
   if [ $colorCorrection = "true" ]; then
     COLOR_CORR="--colorCorrection true"
@@ -71,7 +61,7 @@ function BuildSkin() {
   "$SKIN_GENERATOR" --symbolWidth $symbolSize --symbolHeight $symbolSize --symbolsDir "$STYLE_PATH/$symbolsFolder" \
       --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix="$symbolsSuffix" $COLOR_CORR
   # Reset environment
-  rm -r $PNG_PATH || true
+  rm -r "$PNG_PATH" || true
 }
 
 # Cleanup
@@ -108,11 +98,11 @@ BuildSkin clear  clear xhdpi  44 false _clear symbols-ad -ad
 BuildSkin clear  clear xxhdpi 68 false _clear symbols-ad -ad
 BuildSkin clear  clear 6plus  68 false _clear symbols-ad -ad
 
-rm -rf $OMIM_PATH/data/resources-{*}
+rm -rf "$OMIM_PATH"/data/resources-{*}
 
-rm -rf $OMIM_PATH/data/resources-*_design
+rm -rf "$OMIM_PATH"/data/resources-*_design
 for i in mdpi hdpi xhdpi xxhdpi 6plus; do
-  cp -r $OMIM_PATH/data/resources-${i}_clear/ $OMIM_PATH/data/resources-${i}_design/
+  cp -r "$OMIM_PATH"/data/resources-${i}_clear/ "$OMIM_PATH"/data/resources-${i}_design/
 done
 
 echo "Generate local ads symbols"
