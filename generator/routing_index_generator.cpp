@@ -322,8 +322,8 @@ void CalcCrossMwmConnectors(
   {
     auto const vehicleType = static_cast<VehicleType>(i);
     auto const & connector = connectors[i];
-    LOG(LINFO, (vehicleType, "model: enters:", connector.GetEnters().size(), ", exits:",
-        connector.GetExits().size()));
+    LOG(LINFO, (vehicleType, "model. Number of enters:", connector.GetEnters().size(),
+                "Number of exits:", connector.GetExits().size()));
   }
 }
 
@@ -473,8 +473,7 @@ void BuildRoutingCrossMwmSection(string const & path, string const & mwmFile,
 
 void BuildTransitCrossMwmSection(string const & path, string const & mwmFile,
                                  string const & country,
-                                 CountryParentNameGetterFn const & countryParentNameGetterFn,
-                                 bool disableCrossMwmProgress)
+                                 CountryParentNameGetterFn const & countryParentNameGetterFn)
 {
   LOG(LINFO, ("Building transit cross mwm section for", country));
   using CrossMwmId = connector::TransitId;

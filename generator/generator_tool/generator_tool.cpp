@@ -360,10 +360,7 @@ int main(int argc, char ** argv)
       }
 
       if (FLAGS_make_transit_cross_mwm)
-      {
-        routing::BuildTransitCrossMwmSection(path, datFile, country, *countryParentGetter,
-                                             FLAGS_disable_cross_mwm_progress);
-      }
+        routing::BuildTransitCrossMwmSection(path, datFile, country, *countryParentGetter);
     }
 
     if (!FLAGS_ugc_data.empty())
