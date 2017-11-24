@@ -355,6 +355,7 @@ private:
   };
   std::map<uint32_t, RoutePointsTransaction> m_routePointsTransactions;
   std::chrono::steady_clock::time_point m_loadRoutePointsTimestamp;
+  std::map<std::string, m2::PointF> m_transitSymbolSizes;
 
   TransitReadManager m_transitReadManager;
 

@@ -804,6 +804,7 @@
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 				);
 			};
 			name = Debug;
@@ -822,6 +823,7 @@
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 				);
 			};
 			name = Release;
@@ -858,6 +860,7 @@
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 				);
 			};
 			name = "Production Full";
