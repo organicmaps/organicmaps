@@ -4,7 +4,6 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.viator.ViatorProduct;
 
@@ -17,7 +16,7 @@ enum  DiscoveryManager
 
   public void discover(@NonNull DiscoveryParams params)
   {
-    Framework.nativeDiscover(params);
+    DiscoveryManager.nativeDiscover(params);
   }
 
   // Called from JNI.
@@ -60,6 +59,13 @@ enum  DiscoveryManager
       mCallback.onLocalExpertsReceived(experts);
   }
 
+  // Called from JNI.
+  @MainThread
+  private void onError(@DiscoveryParams.ItemType int type)
+  {
+    // TODO: not implemented yet.
+  }
+
   void attach(@NonNull UICallback callback)
   {
     mCallback = callback;
@@ -69,4 +75,6 @@ enum  DiscoveryManager
   {
     mCallback = null;
   }
+
+  public static native void nativeDiscover(@NonNull DiscoveryParams params);
 }

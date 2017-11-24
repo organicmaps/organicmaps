@@ -1,4 +1,6 @@
-#include "Framework.hpp"
+#include "com/mapswithme/maps/SearchEngine.hpp"
+#include "com/mapswithme/maps/Framework.hpp"
+#include "com/mapswithme/platform/Platform.hpp"
 
 #include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_params.hpp"
@@ -9,9 +11,6 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-
-#include "com/mapswithme/core/jni_helper.hpp"
-#include "com/mapswithme/platform/Platform.hpp"
 
 #include <chrono>
 #include <cstdint>
@@ -387,26 +386,6 @@ jobject ToJavaResult(Result & result, bool isLocalAdsCustomer, bool hasPosition,
   return ret;
 }
 
-jobjectArray BuildJavaResults(Results const & results, vector<bool> const & isLocalAdsCustomer,
-                              bool hasPosition, double lat, double lon)
-{
-  JNIEnv * env = jni::GetEnv();
-
-  g_results = results;
-
-  int const count = g_results.GetCount();
-  jobjectArray const jResults = env->NewObjectArray(count, g_resultClass, nullptr);
-
-  ASSERT_EQUAL(results.GetCount(), isLocalAdsCustomer.size(), ());
-  for (int i = 0; i < count; i++)
-  {
-    jni::TScopedLocalRef jRes(
-        env, ToJavaResult(g_results[i], isLocalAdsCustomer[i], hasPosition, lat, lon));
-    env->SetObjectArrayElement(jResults, i, jRes.get());
-  }
-  return jResults;
-}
-
 void OnResults(Results const & results, vector<bool> const & isLocalAdsCustomer,
                long long timestamp, bool isMapAndTable, bool hasPosition, double lat, double lon)
 {
@@ -419,7 +398,7 @@ void OnResults(Results const & results, vector<bool> const & isLocalAdsCustomer,
   if (!results.IsEndMarker() || results.IsEndedNormal())
   {
     jni::TScopedLocalObjectArrayRef jResults(
-        env, BuildJavaResults(results, isLocalAdsCustomer, hasPosition, lat, lon));
+        env, BuildSearchResults(results, isLocalAdsCustomer, hasPosition, lat, lon));
     env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(),
                         static_cast<jlong>(timestamp),
                         search::HotelsClassifier::IsHotelResults(results));
@@ -460,8 +439,27 @@ void OnMapSearchResults(storage::DownloaderSearchResults const & results, long l
   jni::TScopedLocalObjectArrayRef jResults(env, BuildJavaMapResults(results.m_results));
   env->CallVoidMethod(g_javaListener, g_mapResultsMethod, jResults.get(), static_cast<jlong>(timestamp), results.m_endMarker);
 }
-
 }  // namespace
+
+jobjectArray BuildSearchResults(Results const & results, vector<bool> const & isLocalAdsCustomer,
+                                bool hasPosition, double lat, double lon)
+{
+  JNIEnv * env = jni::GetEnv();
+
+  g_results = results;
+
+  int const count = g_results.GetCount();
+  jobjectArray const jResults = env->NewObjectArray(count, g_resultClass, nullptr);
+
+  ASSERT_EQUAL(results.GetCount(), isLocalAdsCustomer.size(), ());
+  for (int i = 0; i < count; i++)
+  {
+    jni::TScopedLocalRef jRes(
+      env, ToJavaResult(g_results[i], isLocalAdsCustomer[i], hasPosition, lat, lon));
+    env->SetObjectArrayElement(jResults, i, jRes.get());
+  }
+  return jResults;
+}
 
 extern "C"
 {

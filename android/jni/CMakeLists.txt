@@ -25,7 +25,10 @@ set(
   com/mapswithme/core/logging.hpp
   com/mapswithme/core/ScopedEnv.hpp
   com/mapswithme/core/ScopedLocalRef.hpp
+  com/mapswithme/maps/discovery/Locals.hpp
   com/mapswithme/maps/Framework.hpp
+  com/mapswithme/maps/SearchEngine.hpp
+  com/mapswithme/maps/viator/Viator.hpp
   com/mapswithme/opengl/android_gl_utils.hpp
   com/mapswithme/opengl/androidoglcontext.hpp
   com/mapswithme/opengl/androidoglcontextfactory.hpp
@@ -40,6 +43,8 @@ set(
   com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp
   com/mapswithme/maps/bookmarks/data/BookmarkCategory.cpp
   com/mapswithme/maps/cian/Cian.cpp
+  com/mapswithme/maps/discovery/DiscoveryManager.cpp
+  com/mapswithme/maps/discovery/Locals.cpp
   com/mapswithme/maps/DisplayedCategories.cpp
   com/mapswithme/maps/DownloadResourcesLegacyActivity.cpp
   com/mapswithme/maps/editor/OpeningHours.cpp

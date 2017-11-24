@@ -749,11 +749,11 @@ public:
 
 public:
   template <typename ResultCallback>
-  void Discover(discovery::ClientParams && params, ResultCallback const & onResult,
-                discovery::Manager::ErrorCalback const & onError) const
+  uint32_t Discover(discovery::ClientParams && params, ResultCallback const & onResult,
+                    discovery::Manager::ErrorCalback const & onError) const
   {
     CHECK(m_discoveryManager.get(), ());
-    m_discoveryManager->Discover(GetDiscoveryParams(move(params)), onResult, onError);
+    return m_discoveryManager->Discover(GetDiscoveryParams(move(params)), onResult, onError);
   }
 
   discovery::Manager::Params GetDiscoveryParams(discovery::ClientParams && clientParams) const;

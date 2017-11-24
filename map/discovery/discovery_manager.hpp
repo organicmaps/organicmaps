@@ -49,13 +49,14 @@ public:
     ItemTypes m_itemTypes;
   };
 
-  using ErrorCalback = std::function<void(ItemType const type)>;
+  using ErrorCalback = std::function<void(uint32_t const requestId, ItemType const type)>;
 
   Manager(Index const & index, search::CityFinder & cityFinder, APIs const & apis);
 
   template <typename ResultCallback>
-  void Discover(Params && params, ResultCallback const & onResult, ErrorCalback const & onError)
+  uint32_t Discover(Params && params, ResultCallback const & onResult, ErrorCalback const & onError)
   {
+    uint32_t const requestId = ++m_requestCounter;
     ASSERT_THREAD_CHECKER(m_threadChecker, ());
     auto const & types = params.m_itemTypes;
     ASSERT(!types.empty(), ("Types must contain at least one element."));
@@ -69,17 +70,17 @@ public:
         std::string const sponsoredId = GetCityViatorId(params.m_viewportCenter);
         if (sponsoredId.empty())
         {
-          onError(type);
+          onError(requestId, type);
           break;
         }
 
         m_viatorApi.GetTop5Products(
             sponsoredId, params.m_curency,
-            [this, sponsoredId, onResult](std::string const & destId,
-                                                std::vector<viator::Product> const & products) {
+            [this, requestId, sponsoredId, onResult](std::string const & destId,
+                                                     std::vector<viator::Product> const & products) {
               ASSERT_THREAD_CHECKER(m_threadChecker, ());
               if (destId == sponsoredId)
-                onResult(products);
+                onResult(requestId, products);
             });
         break;
       }
@@ -87,11 +88,14 @@ public:
       case ItemType::Cafes:
       {
         auto p = GetSearchParams(params, type);
-        p.m_onResults = [onResult, type](search::Results const & results) {
+        auto const viewportCenter = params.m_viewportCenter;
+        p.m_onResults = [requestId, onResult, type, viewportCenter](search::Results const & results) {
           if (!results.IsEndMarker())
             return;
           GetPlatform().RunTask(Platform::Thread::Gui,
-                                [onResult, type, results] { onResult(results, type); });
+                                [requestId, onResult, type, results, viewportCenter] {
+            onResult(requestId, results, type, viewportCenter);
+          });
         };
         m_searchApi.GetEngine().Search(p);
         break;
@@ -107,20 +111,21 @@ public:
         auto constexpr pageNumber = 1;
         m_localsApi.GetLocals(
             latLon.lat, latLon.lon, params.m_lang, params.m_itemsCount, pageNumber,
-            [this, onResult](uint64_t id, std::vector<locals::LocalExpert> const & locals,
-                                   size_t /* pageNumber */, size_t /* countPerPage */,
-                                   bool /* hasPreviousPage */, bool /* hasNextPage */) {
+            [this, requestId, onResult](uint64_t id, std::vector<locals::LocalExpert> const & locals,
+                                        size_t /* pageNumber */, size_t /* countPerPage */,
+                                        bool /* hasPreviousPage */, bool /* hasNextPage */) {
               ASSERT_THREAD_CHECKER(m_threadChecker, ());
-              onResult(locals);
+              onResult(requestId, locals);
             },
-            [this, onError, type](uint64_t id, int errorCode, std::string const & errorMessage) {
+            [this, requestId, onError, type](uint64_t id, int errorCode, std::string const & errorMessage) {
               ASSERT_THREAD_CHECKER(m_threadChecker, ());
-              onError(type);
+              onError(requestId, type);
             });
         break;
       }
       }
     }
+    return requestId;
   }
 
 private:
@@ -132,6 +137,7 @@ private:
   SearchAPI & m_searchApi;
   viator::Api const & m_viatorApi;
   locals::Api & m_localsApi;
+  uint32_t m_requestCounter = 0;
   ThreadChecker m_threadChecker;
 };
 }  // namespace discovery

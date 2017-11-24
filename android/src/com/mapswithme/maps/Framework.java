@@ -384,6 +384,4 @@ public class Framework
   public static native void nativeAuthenticateUser(@NonNull String socialToken,
                                                    @SocialTokenType int socialTokenType);
   public static native boolean nativeIsUserAuthenticated();
-
-  public static native void nativeDiscover(@NonNull DiscoveryParams params);
 }

@@ -1,8 +1,7 @@
-#include "android/jni/com/mapswithme/core/jni_helper.hpp"
-#include "android/jni/com/mapswithme/maps/Framework.hpp"
+#include "com/mapswithme/maps/discovery/Locals.hpp"
+#include "com/mapswithme/maps/Framework.hpp"
 
 #include <string>
-#include <vector>
 
 namespace
 {
@@ -48,15 +47,12 @@ void PrepareClassRefs(JNIEnv * env)
   g_localErrorConstructor = jni::GetConstructorID(env, g_localErrorClass,
                                                   "(ILjava/lang/String;)V");
 }
+}  // namespace
 
-void OnLocalsSuccess(uint64_t requestId, std::vector<locals::LocalExpert> const & locals,
-                     size_t pageNumber, size_t countPerPage, bool hasPreviousPage,
-                     bool hasNextPage)
+jobjectArray ToLocalExpertsArray(std::vector<locals::LocalExpert> const & locals)
 {
-  if (g_lastRequestId != requestId)
-    return;
-
   JNIEnv * env = jni::GetEnv();
+  PrepareClassRefs(env);
 
   auto const localExpertBuilder = [](JNIEnv * env, locals::LocalExpert const & expert)
   {
@@ -77,9 +73,19 @@ void OnLocalsSuccess(uint64_t requestId, std::vector<locals::LocalExpert> const 
                           jOfferDescription.get(), jPageUrl.get(), jPhotoUrl.get());
   };
 
-  jni::TScopedLocalObjectArrayRef jLocals(env, jni::ToJavaArray(env, g_localExpertClass, locals,
-                                                                localExpertBuilder));
+  return jni::ToJavaArray(env, g_localExpertClass, locals, localExpertBuilder);
 
+}
+
+void OnLocalsSuccess(uint64_t requestId, std::vector<locals::LocalExpert> const & locals,
+                     size_t pageNumber, size_t countPerPage, bool hasPreviousPage,
+                     bool hasNextPage)
+{
+  if (g_lastRequestId != requestId)
+    return;
+
+  JNIEnv * env = jni::GetEnv();
+  jni::TScopedLocalObjectArrayRef jLocals(env, ToLocalExpertsArray(locals));
   env->CallVoidMethod(g_localsInstance, g_onLocalsReceivedMethod, jLocals.get());
 
   jni::HandleJavaException(env);
@@ -100,12 +106,11 @@ void OnLocalsError(uint64_t requestId, int errorCode, std::string const & errorM
 
   jni::HandleJavaException(env);
 }
-}  // namespace
 
 extern "C" {
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_locals_Locals_nativeRequestLocals(JNIEnv * env, jclass clazz,
+Java_com_mapswithme_maps_discovery_Locals_nativeRequestLocals(JNIEnv * env, jclass clazz,
                                                            jobject policy, jdouble lat,
                                                            jdouble lon)
 {
