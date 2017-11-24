@@ -27,13 +27,13 @@ public final class CianAdapter extends BaseSponsoredAdapter
 
   public CianAdapter(@NonNull String url, boolean hasError, @Nullable ItemSelectedListener listener)
   {
-    super(Sponsored.TYPE_CIAN, url, hasError, listener);
+    super(url, hasError, listener);
   }
 
   public CianAdapter(@NonNull RentPlace[] items, @NonNull String url,
                        @Nullable ItemSelectedListener listener)
   {
-    super(Sponsored.TYPE_CIAN, convertItems(items), url, listener);
+    super(convertItems(items), url, listener, true);
   }
 
   @NonNull
@@ -134,7 +134,7 @@ public final class CianAdapter extends BaseSponsoredAdapter
     private Item(@NonNull String title, @NonNull String url, @NonNull String price,
                  @NonNull String address)
     {
-      super(TYPE_PRODUCT, Sponsored.TYPE_CIAN, title, url, null, false, false);
+      super(TYPE_PRODUCT, title, url, null, false, false);
       mPrice = price;
       mAddress = address;
     }

@@ -44,27 +44,23 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
   private final List<Item> mItems;
   @Nullable
   private final ItemSelectedListener mListener;
-  @Sponsored.SponsoredType
-  private final int mSponsoredType;
 
-  public BaseSponsoredAdapter(@Sponsored.SponsoredType int sponsoredType, @NonNull String url,
-                              boolean hasError, @Nullable ItemSelectedListener listener)
+
+  public BaseSponsoredAdapter(@NonNull String url, boolean hasError,
+                              @Nullable ItemSelectedListener listener)
   {
-    mSponsoredType = sponsoredType;
     mItems = new ArrayList<>();
     mListener = listener;
-    mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, getLoadingSubtitle(),
+    mItems.add(new Item(TYPE_LOADING, getLoadingTitle(), url, getLoadingSubtitle(),
                         hasError, false));
   }
 
-  public BaseSponsoredAdapter(@Sponsored.SponsoredType int sponsoredType,
-                              @NonNull List<? extends Item> items, @NonNull String url,
-                              @Nullable ItemSelectedListener listener)
+  public BaseSponsoredAdapter(@NonNull List<? extends Item> items, @NonNull String url,
+                              @Nullable ItemSelectedListener listener, boolean shouldShowMoreItem)
   {
-    mSponsoredType = sponsoredType;
     mItems = new ArrayList<>();
     mListener = listener;
-    boolean showMoreItem = items.size() >= MAX_ITEMS;
+    boolean showMoreItem = shouldShowMoreItem && items.size() >= MAX_ITEMS;
     int size = showMoreItem ? MAX_ITEMS : items.size();
     for (int i = 0; i < size; i++)
     {
@@ -72,7 +68,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
       mItems.add(product);
     }
     if (showMoreItem)
-      mItems.add(new Item(TYPE_MORE, sponsoredType, MORE, url, null, false, false));
+      mItems.add(new Item(TYPE_MORE, MORE, url, null, false, false));
   }
 
   @Override
@@ -118,7 +114,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
   public void setLoadingError(@Sponsored.SponsoredType int sponsoredType, @NonNull String url)
   {
     mItems.clear();
-    mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, getLoadingSubtitle(),
+    mItems.add(new Item(TYPE_LOADING, getLoadingTitle(), url, getLoadingSubtitle(),
                         true, false));
     notifyItemChanged(0/* position */);
   }
@@ -126,7 +122,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
   public void setLoadingCompleted(@Sponsored.SponsoredType int sponsoredType, @NonNull String url)
   {
     mItems.clear();
-    mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, getLoadingSubtitle(),
+    mItems.add(new Item(TYPE_LOADING, getLoadingTitle(), url, getLoadingSubtitle(),
                         false, true));
     notifyItemChanged(0/* position */);
   }
@@ -198,9 +194,9 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
       if (mAdapter.mListener != null)
       {
         if (item.mType == TYPE_PRODUCT)
-          mAdapter.mListener.onItemSelected(item.mUrl, item.mSponsoredType);
+          mAdapter.mListener.onItemSelected(item.mUrl);
         else if (item.mType == TYPE_MORE || item.mType == TYPE_LOADING)
-          mAdapter.mListener.onMoreItemSelected(item.mUrl, item.mSponsoredType);
+          mAdapter.mListener.onMoreItemSelected(item.mUrl);
       }
     }
   }
@@ -257,11 +253,11 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
       if (mAdapter.mListener != null)
       {
         if (item.mType == TYPE_PRODUCT)
-          mAdapter.mListener.onItemSelected(item.mUrl, item.mSponsoredType);
+          mAdapter.mListener.onItemSelected(item.mUrl);
         else if (item.mType == TYPE_MORE)
-          mAdapter.mListener.onMoreItemSelected(item.mUrl, item.mSponsoredType);
+          mAdapter.mListener.onMoreItemSelected(item.mUrl);
         else if (item.mType == TYPE_LOADING && item.mLoadingError)
-          mAdapter.mListener.onItemSelected(item.mUrl, item.mSponsoredType);
+          mAdapter.mListener.onItemSelected(item.mUrl);
       }
     }
   }
@@ -270,8 +266,6 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
   {
     @ViewType
     private final int mType;
-    @Sponsored.SponsoredType
-    private final int mSponsoredType;
     @NonNull
     private final String mTitle;
     @NonNull
@@ -281,12 +275,10 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
     private final boolean mLoadingError;
     private final boolean mFinished;
 
-    protected Item(@ViewType int type, @Sponsored.SponsoredType int sponsoredType,
-                   @NonNull String title, @NonNull String url, @Nullable String subtitle,
-                   boolean loadingError, boolean finished)
+    protected Item(@ViewType int type, @NonNull String title, @NonNull String url,
+                   @Nullable String subtitle, boolean loadingError, boolean finished)
     {
       mType = type;
-      mSponsoredType = sponsoredType;
       mTitle = title;
       mUrl = url;
       mSubtitle = subtitle;
@@ -297,7 +289,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
 
   public interface ItemSelectedListener
   {
-    void onItemSelected(@NonNull String url, @Sponsored.SponsoredType int type);
-    void onMoreItemSelected(@NonNull String url, @Sponsored.SponsoredType int type);
+    void onItemSelected(@NonNull String url);
+    void onMoreItemSelected(@NonNull String url);
   }
 }

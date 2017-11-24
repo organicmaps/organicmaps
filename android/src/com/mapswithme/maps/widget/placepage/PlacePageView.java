@@ -888,7 +888,7 @@ public class PlacePageView extends RelativeLayout
     {
       if (mSponsoredAdapter == null || !mSponsoredAdapter.containsLoading())
       {
-        mSponsoredAdapter = new ViatorAdapter(products, cityUrl, this);
+        mSponsoredAdapter = new ViatorAdapter(products, cityUrl, this, true);
         mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
       }
       else
@@ -898,7 +898,7 @@ public class PlacePageView extends RelativeLayout
           public void onAnimationFinished()
           {
             mRvSponsoredProducts.setItemAnimator(new DefaultItemAnimator());
-            mSponsoredAdapter = new ViatorAdapter(products, cityUrl, PlacePageView.this);
+            mSponsoredAdapter = new ViatorAdapter(products, cityUrl, PlacePageView.this, true);
             mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
           }
         });
@@ -995,19 +995,21 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onItemSelected(@NonNull String url, @Sponsored.SponsoredType int type)
+  public void onItemSelected(@NonNull String url)
   {
     Utils.openUrl(getContext(), url);
-    Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_ITEM_SELECTED,
-                                            type);
+    if (mSponsored != null)
+      Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_ITEM_SELECTED,
+                                              mSponsored.getType());
   }
 
   @Override
-  public void onMoreItemSelected(@NonNull String url, @Sponsored.SponsoredType int type)
+  public void onMoreItemSelected(@NonNull String url)
   {
     Utils.openUrl(getContext(), url);
-    Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
-                                            type);
+    if (mSponsored != null)
+      Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
+                                              mSponsored.getType());
   }
 
   @Override

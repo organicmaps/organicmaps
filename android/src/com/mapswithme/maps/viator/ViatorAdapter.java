@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseSponsoredAdapter;
-import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
@@ -30,13 +29,13 @@ public final class ViatorAdapter extends BaseSponsoredAdapter
   public ViatorAdapter(@NonNull String url, boolean hasError,
                        @Nullable ItemSelectedListener listener)
   {
-    super(Sponsored.TYPE_VIATOR, url, hasError, listener);
+    super(url, hasError, listener);
   }
 
   public ViatorAdapter(@NonNull ViatorProduct[] items, @NonNull String cityUrl,
-                       @Nullable ItemSelectedListener listener)
+                       @Nullable ItemSelectedListener listener, boolean shouldShowMoreItem)
   {
-    super(Sponsored.TYPE_VIATOR, convertItems(items), cityUrl, listener);
+    super(convertItems(items), cityUrl, listener, shouldShowMoreItem);
   }
 
   @NonNull
@@ -154,7 +153,7 @@ public final class ViatorAdapter extends BaseSponsoredAdapter
                  @Nullable String duration, double rating, @Nullable String price,
                  @NonNull String url)
     {
-      super(TYPE_PRODUCT, Sponsored.TYPE_VIATOR, title, url, null, false, false);
+      super(TYPE_PRODUCT, title, url, null, false, false);
       mPhotoUrl = photoUrl;
       mDuration = duration;
       mRating = rating;
