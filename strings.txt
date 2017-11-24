@@ -27551,4 +27551,8 @@
   
   [discover_button_other_loading_title]
     en = Data is loading
-    ru = Данные загружаются     
+    ru = Данные загружаются
+
+  [entrance]
+    en = Entrance
+    ru = Вход

@@ -407,6 +407,8 @@ Framework::Framework(FrameworkParams const & params)
   // It's better to use strings form strings.txt intead of hardcoding them here.
   m_stringsBundle.SetDefaultString("placepage_unknown_place", "Unknown Place");
   m_stringsBundle.SetDefaultString("my_places", "My Places");
+  m_stringsBundle.SetDefaultString("entrance", "Entrance");
+  m_stringsBundle.SetDefaultString("exit", "Exit");
   m_stringsBundle.SetDefaultString("routes", "Routes");
   m_stringsBundle.SetDefaultString("wifi", "WiFi");
 

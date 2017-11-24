@@ -439,7 +439,7 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
 
         gateMarkInfo.m_featureId = fid;
         gateMarkInfo.m_symbolName = symbolName;
-        string title = pendingEntrance ? "entrance" : "exit";//getStringsBundleFn().GetString(pendingEntrance ? "entrance" : "exit");
+        auto const title = getStringsBundleFn().GetString(pendingEntrance ? "entrance" : "exit");
         gateMarkInfo.m_titles.push_back(TransitTitle(title, df::GetTransitTextColorName("default")));
       }
 
