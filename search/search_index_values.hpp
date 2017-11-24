@@ -10,9 +10,10 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <memory>
+#include <vector>
 
 /// Following classes are supposed to be used with StringsFile. They
 /// allow to write/read them, compare or serialize to an in-memory
@@ -62,38 +63,38 @@ struct FeatureWithRankAndCenter
   uint8_t m_rank;        // Rank of the feature.
 };
 
-template <typename TValue>
+template <typename Value>
 class SingleValueSerializer;
 
 template <>
 class SingleValueSerializer<FeatureWithRankAndCenter>
 {
 public:
-  using TValue = FeatureWithRankAndCenter;
+  using Value = FeatureWithRankAndCenter;
 
   SingleValueSerializer(serial::CodingParams const & codingParams) : m_codingParams(codingParams) {}
 
-  template <typename TWriter>
-  void Serialize(TWriter & writer, TValue const & v) const
+  template <typename Sink>
+  void Serialize(Sink & sink, Value const & v) const
   {
-    serial::SavePoint(writer, v.m_pt, m_codingParams);
-    WriteToSink(writer, v.m_featureId);
-    WriteToSink(writer, v.m_rank);
+    serial::SavePoint(sink, v.m_pt, m_codingParams);
+    WriteToSink(sink, v.m_featureId);
+    WriteToSink(sink, v.m_rank);
   }
 
-  template <typename TReader>
-  void Deserialize(TReader & reader, TValue & v) const
+  template <typename Reader>
+  void Deserialize(Reader & reader, Value & v) const
   {
-    ReaderSource<TReader> src(reader);
-    DeserializeFromSource(src, v);
+    ReaderSource<Reader> source(reader);
+    DeserializeFromSource(source, v);
   }
 
-  template <typename TSource>
-  void DeserializeFromSource(TSource & src, TValue & v) const
+  template <typename Source>
+  void DeserializeFromSource(Source & source, Value & v) const
   {
-    v.m_pt = serial::LoadPoint(src, m_codingParams);
-    v.m_featureId = ReadPrimitiveFromSource<uint32_t>(src);
-    v.m_rank = ReadPrimitiveFromSource<uint8_t>(src);
+    v.m_pt = serial::LoadPoint(source, m_codingParams);
+    v.m_featureId = ReadPrimitiveFromSource<uint32_t>(source);
+    v.m_rank = ReadPrimitiveFromSource<uint8_t>(source);
   }
 
 private:
@@ -104,7 +105,7 @@ template <>
 class SingleValueSerializer<FeatureIndexValue>
 {
 public:
-  using TValue = FeatureIndexValue;
+  using Value = FeatureIndexValue;
 
   SingleValueSerializer() = default;
 
@@ -113,23 +114,23 @@ public:
 
   // The serialization and deserialization is needed for StringsFile.
   // Use ValueList for group serialization in CBVs.
-  template <typename TWriter>
-  void Serialize(TWriter & writer, TValue const & v) const
+  template <typename Sink>
+  void Serialize(Sink & sink, Value const & v) const
   {
-    WriteToSink(writer, v.m_featureId);
+    WriteToSink(sink, v.m_featureId);
   }
 
-  template <typename TReader>
-  void Deserialize(TReader & reader, TValue & v) const
+  template <typename Reader>
+  void Deserialize(Reader & reader, Value & v) const
   {
-    ReaderSource<TReader> src(reader);
-    DeserializeFromSource(src, v);
+    ReaderSource<Reader> source(reader);
+    DeserializeFromSource(source, v);
   }
 
-  template <typename TSource>
-  void DeserializeFromSource(TSource & src, TValue & v) const
+  template <typename Source>
+  void DeserializeFromSource(Source & source, Value & v) const
   {
-    v.m_featureId = ReadPrimitiveFromSource<uint64_t>(src);
+    v.m_featureId = ReadPrimitiveFromSource<uint64_t>(source);
   }
 };
 
@@ -144,7 +145,7 @@ template <>
 class ValueList<FeatureIndexValue>
 {
 public:
-  using TValue = FeatureIndexValue;
+  using Value = FeatureIndexValue;
 
   ValueList() = default;
 
@@ -154,9 +155,9 @@ public:
       m_cbv = o.m_cbv->Clone();
   }
 
-  void Init(vector<FeatureIndexValue> const & values)
+  void Init(std::vector<FeatureIndexValue> const & values)
   {
-    vector<uint64_t> ids(values.size());
+    std::vector<uint64_t> ids(values.size());
     for (size_t i = 0; i < ids.size(); ++i)
       ids[i] = values[i].m_featureId;
     m_cbv = coding::CompressedBitVectorBuilder::FromBitPositions(move(ids));
@@ -172,12 +173,12 @@ public:
 
   bool IsEmpty() const { return Size() == 0; }
 
-  template <typename TSink>
-  void Serialize(TSink & sink, SingleValueSerializer<TValue> const & /* serializer */) const
+  template <typename Sink>
+  void Serialize(Sink & sink, SingleValueSerializer<Value> const & /* serializer */) const
   {
     if (IsEmpty())
       return;
-    vector<uint8_t> buf;
+    std::vector<uint8_t> buf;
     MemWriter<decltype(buf)> writer(buf);
     m_cbv->Serialize(writer);
     sink.Write(buf.data(), buf.size());
@@ -191,9 +192,9 @@ public:
   // read each FeatureWithRankAndCenter one by one.
   // A better approach is to make Serialize/Deserialize responsible for
   // every part of serialization and as such it should not need valueCount.
-  template <typename TSource>
-  void Deserialize(TSource & src, uint32_t valueCount,
-                   SingleValueSerializer<TValue> const & /* serializer */)
+  template <typename Source>
+  void Deserialize(Source & src, uint32_t valueCount,
+                   SingleValueSerializer<Value> const & /* serializer */)
   {
     if (valueCount > 0)
       m_cbv = coding::CompressedBitVectorBuilder::DeserializeFromSource(src);
@@ -201,8 +202,8 @@ public:
       m_cbv.reset();
   }
 
-  template <typename TSource>
-  void Deserialize(TSource & src, SingleValueSerializer<TValue> const & /* serializer */)
+  template <typename Source>
+  void Deserialize(Source & src, SingleValueSerializer<Value> const & /* serializer */)
   {
     if (src.Size() > 0)
       m_cbv = coding::CompressedBitVectorBuilder::DeserializeFromSource(src);
@@ -210,19 +211,17 @@ public:
       m_cbv.reset();
   }
 
-  template <typename TF>
-  void ForEach(TF && f) const
+  template <typename ToDo>
+  void ForEach(ToDo && toDo) const
   {
     if (IsEmpty())
       return;
-    coding::CompressedBitVectorEnumerator::ForEach(*m_cbv, [&f](uint64_t const bitPosition)
-                                                   {
-                                                     f(TValue(bitPosition));
-                                                   });
+    coding::CompressedBitVectorEnumerator::ForEach(
+        *m_cbv, [&toDo](uint64_t const bitPosition) { toDo(Value(bitPosition)); });
   }
 
 private:
-  unique_ptr<coding::CompressedBitVector> m_cbv;
+  std::unique_ptr<coding::CompressedBitVector> m_cbv;
 };
 
 /// ValueList<FeatureWithRankAndCenter> sequentially serializes
@@ -231,25 +230,25 @@ template <>
 class ValueList<FeatureWithRankAndCenter>
 {
 public:
-  using TValue = FeatureWithRankAndCenter;
-  using TSerializer = SingleValueSerializer<TValue>;
+  using Value = FeatureWithRankAndCenter;
+  using Serializer = SingleValueSerializer<Value>;
 
-  void Init(vector<TValue> const & values) { m_values = values; }
+  void Init(std::vector<Value> const & values) { m_values = values; }
 
   size_t Size() const { return m_values.size(); }
 
   bool IsEmpty() const { return m_values.empty(); }
 
-  template <typename TSink>
-  void Serialize(TSink & sink, SingleValueSerializer<TValue> const & serializer) const
+  template <typename Sink>
+  void Serialize(Sink & sink, SingleValueSerializer<Value> const & serializer) const
   {
     for (auto const & value : m_values)
       serializer.Serialize(sink, value);
   }
 
-  template <typename TSource>
-  void Deserialize(TSource & src, uint32_t valueCount,
-                   SingleValueSerializer<TValue> const & serializer)
+  template <typename Source>
+  void Deserialize(Source & src, uint32_t valueCount,
+                   SingleValueSerializer<Value> const & serializer)
   {
     m_values.resize(valueCount);
     for (size_t i = 0; i < valueCount; ++i)
@@ -258,24 +257,24 @@ public:
 
   // When valueCount is not known, Deserialize reads
   // until the source is exhausted.
-  template <typename TSource>
-  void Deserialize(TSource & src, SingleValueSerializer<TValue> const & serializer)
+  template <typename Source>
+  void Deserialize(Source & src, SingleValueSerializer<Value> const & serializer)
   {
     m_values.clear();
     while (src.Size() > 0)
     {
-      m_values.push_back(TValue());
+      m_values.emplace_back();
       serializer.DeserializeFromSource(src, m_values.back());
     }
   }
 
-  template <typename TF>
-  void ForEach(TF && f) const
+  template <typename ToDo>
+  void ForEach(ToDo && toDo) const
   {
     for (auto const & value : m_values)
-      f(value);
+      toDo(value);
   }
 
 private:
-  vector<TValue> m_values;
+  std::vector<Value> m_values;
 };

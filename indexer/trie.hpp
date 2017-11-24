@@ -4,7 +4,8 @@
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
 
-#include "std/unique_ptr.hpp"
+#include <cstddef>
+#include <memory>
 
 namespace trie
 {
@@ -15,41 +16,37 @@ using TrieChar = uint32_t;
 // However 0 is used because the first byte is actually language id.
 uint32_t constexpr kDefaultChar = 0;
 
-template <typename TValueList>
-class Iterator
+template <typename ValueList>
+struct Iterator
 {
-
-public:
-  using TValue = typename TValueList::TValue;
+  using Value = typename ValueList::Value;
 
   struct Edge
   {
-    using TEdgeLabel = buffer_vector<TrieChar, 8>;
-    TEdgeLabel m_label;
+    using EdgeLabel = buffer_vector<TrieChar, 8>;
+    EdgeLabel m_label;
   };
-
-  buffer_vector<Edge, 8> m_edge;
-  TValueList m_valueList;
 
   virtual ~Iterator() = default;
 
-  virtual unique_ptr<Iterator<TValueList>> Clone() const = 0;
-  virtual unique_ptr<Iterator<TValueList>> GoToEdge(size_t i) const = 0;
+  virtual std::unique_ptr<Iterator<ValueList>> Clone() const = 0;
+  virtual std::unique_ptr<Iterator<ValueList>> GoToEdge(size_t i) const = 0;
+
+  buffer_vector<Edge, 8> m_edges;
+  ValueList m_values;
 };
 
-template <typename TValueList, typename TF, typename TString>
-void ForEachRef(Iterator<TValueList> const & it, TF && f, TString const & s)
+template <typename ValueList, typename ToDo, typename String>
+void ForEachRef(Iterator<ValueList> const & it, ToDo && toDo, String const & s)
 {
-  it.m_valueList.ForEach([&f, &s](typename TValueList::TValue const & value)
-                         {
-                           f(s, value);
-                         });
-  for (size_t i = 0; i < it.m_edge.size(); ++i)
+  it.m_values.ForEach([&toDo, &s](typename ValueList::Value const & value) { toDo(s, value); });
+
+  for (size_t i = 0; i < it.m_edges.size(); ++i)
   {
-    TString s1(s);
-    s1.insert(s1.end(), it.m_edge[i].m_label.begin(), it.m_edge[i].m_label.end());
+    String s1(s);
+    s1.insert(s1.end(), it.m_edges[i].m_label.begin(), it.m_edges[i].m_label.end());
     auto nextIt = it.GoToEdge(i);
-    ForEachRef(*nextIt, f, s1);
+    ForEachRef(*nextIt, toDo, s1);
   }
 }
 }  // namespace trie

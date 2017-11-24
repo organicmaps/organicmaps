@@ -23,10 +23,6 @@ namespace
 {
 struct ChildNodeInfo
 {
-  bool m_isLeaf;
-  uint32_t m_size;
-  vector<uint32_t> m_edge;
-
   ChildNodeInfo(bool isLeaf, uint32_t size, char const * edge) : m_isLeaf(isLeaf), m_size(size)
   {
     while (*edge)
@@ -37,76 +33,78 @@ struct ChildNodeInfo
   bool IsLeaf() const { return m_isLeaf; }
   uint32_t const * GetEdge() const { return &m_edge[0]; }
   size_t GetEdgeSize() const { return m_edge.size(); }
+
+  bool m_isLeaf;
+  uint32_t m_size;
+  vector<uint32_t> m_edge;
 };
 
 // The SingleValueSerializer and ValueList classes are similar to
 // those in indexer/search_index_values.hpp.
-template <typename TPrimitive>
+template <typename Primitive>
 class SingleValueSerializer
 {
 public:
 #if !defined(OMIM_OS_LINUX)
-  static_assert(std::is_trivially_copyable<TPrimitive>::value, "");
+  static_assert(std::is_trivially_copyable<Primitive>::value, "");
 #endif
 
-  template <typename TWriter>
-  void Serialize(TWriter & writer, TPrimitive const & v) const
+  template <typename Sink>
+  void Serialize(Sink & sink, Primitive const & v) const
   {
-    WriteToSink(writer, v);
+    WriteToSink(sink, v);
   }
 };
 
-template <typename TPrimitive>
+template <typename Primitive>
 class ValueList
 {
 public:
-  using TValue = TPrimitive;
-  using TSerializer = SingleValueSerializer<TValue>;
+  using Value = Primitive;
+  using Serializer = SingleValueSerializer<Value>;
 
 #if !defined(OMIM_OS_LINUX)
-  static_assert(std::is_trivially_copyable<TPrimitive>::value, "");
+  static_assert(std::is_trivially_copyable<Primitive>::value, "");
 #endif
 
-  ValueList() = default;
-
-  void Init(vector<TValue> const & values) { m_values = values; }
+  void Init(vector<Value> const & values) { m_values = values; }
 
   size_t Size() const { return m_values.size(); }
 
   bool IsEmpty() const { return m_values.empty(); }
 
-  template <typename TSink>
-  void Serialize(TSink & sink, TSerializer const & /* serializer */) const
+  template <typename Sink>
+  void Serialize(Sink & sink, Serializer const & /* serializer */) const
   {
     for (auto const & value : m_values)
       WriteToSink(sink, value);
   }
 
-  template <typename TSource>
-  void Deserialize(TSource & src, uint32_t valueCount, TSerializer const & /* serializer */)
+  template <typename Source>
+  void Deserialize(Source & src, uint32_t valueCount, Serializer const & /* serializer */)
   {
     m_values.resize(valueCount);
     for (size_t i = 0; i < valueCount; ++i)
-      m_values[i] = ReadPrimitiveFromSource<TValue>(src);
+      m_values[i] = ReadPrimitiveFromSource<Value>(src);
   }
 
-  template <typename TSource>
-  void Deserialize(TSource & src, TSerializer const & /* serializer */)
+  template <typename Source>
+  void Deserialize(Source & source, Serializer const & /* serializer */)
   {
     m_values.clear();
-    while (src.Size() > 0)
-      m_values.emplace_back(ReadPrimitiveFromSource<TValue>(src));
+    while (source.Size() > 0)
+      m_values.emplace_back(ReadPrimitiveFromSource<Value>(source));
   }
 
-  template <typename TF>
-  void ForEach(TF && f) const
+  template <typename ToDo>
+  void ForEach(ToDo && toDo) const
   {
     for (auto const & value : m_values)
-      f(value);
+      toDo(value);
   }
 
 private:
-  vector<TValue> m_values;
+  vector<Value> m_values;
 };
 }  //  namespace
 
@@ -158,18 +156,18 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
 
 UNIT_TEST(TrieBuilder_Build)
 {
-  int const base = 3;
-  int const maxLen = 3;
+  int const kBase = 3;
+  int const kMaxLen = 3;
 
-  vector<string> possibleStrings(1, string());
-  for (int len = 1; len <= maxLen; ++len)
+  vector<string> possibleStrings(1, string{});
+  for (int len = 1; len <= kMaxLen; ++len)
   {
-    for (int i = 0, p = static_cast<int>(pow((double)base, len)); i < p; ++i)
+    for (int i = 0, p = static_cast<int>(pow(double{kBase}, len)); i < p; ++i)
     {
       string s(len, 'A');
       int t = i;
-      for (int l = len - 1; l >= 0; --l, t /= base)
-        s[l] += (t % base);
+      for (int l = len - 1; l >= 0; --l, t /= kBase)
+        s[l] += (t % kBase);
       possibleStrings.push_back(s);
     }
   }
@@ -183,14 +181,14 @@ UNIT_TEST(TrieBuilder_Build)
     {
       for (int i2 = i1; i2 < count; ++i2)
       {
-        using TKey = buffer_vector<trie::TrieChar, 8>;
-        using TValue = uint32_t;
-        using TKeyValuePair = pair<TKey, TValue>;
+        using Key = buffer_vector<trie::TrieChar, 8>;
+        using Value = uint32_t;
+        using KeyValuePair = pair<Key, Value>;
 
-        vector<TKeyValuePair> v;
+        vector<KeyValuePair> v;
         auto makeKey = [](string const & s)
         {
-          return TKey(s.begin(), s.end());
+          return Key(s.begin(), s.end());
         };
         if (i0 >= 0)
           v.emplace_back(makeKey(possibleStrings[i0]), i0);
@@ -205,18 +203,18 @@ UNIT_TEST(TrieBuilder_Build)
         vector<uint8_t> buf;
         PushBackByteSink<vector<uint8_t>> sink(buf);
         SingleValueSerializer<uint32_t> serializer;
-        trie::Build<PushBackByteSink<vector<uint8_t>>, TKey, ValueList<uint32_t>,
+        trie::Build<PushBackByteSink<vector<uint8_t>>, Key, ValueList<uint32_t>,
                     SingleValueSerializer<uint32_t>>(sink, serializer, v);
         reverse(buf.begin(), buf.end());
 
         MemReader memReader = MemReader(&buf[0], buf.size());
         auto const root = trie::ReadTrie<MemReader, ValueList<uint32_t>>(memReader, serializer);
-        vector<TKeyValuePair> res;
-        auto addKeyValuePair = [&res](TKey const & k, TValue const & v)
+        vector<KeyValuePair> res;
+        auto addKeyValuePair = [&res](Key const & k, Value const & v)
         {
           res.emplace_back(k, v);
         };
-        trie::ForEachRef(*root, addKeyValuePair, TKey());
+        trie::ForEachRef(*root, addKeyValuePair, Key{});
         sort(res.begin(), res.end());
         TEST_EQUAL(v, res, ());
       }

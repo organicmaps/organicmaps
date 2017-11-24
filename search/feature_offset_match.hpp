@@ -32,12 +32,12 @@ namespace
 template <typename Value>
 bool FindLangIndex(trie::Iterator<ValueList<Value>> const & trieRoot, uint8_t lang, uint32_t & langIx)
 {
-  ASSERT_LESS(trieRoot.m_edge.size(), numeric_limits<uint32_t>::max(), ());
+  ASSERT_LESS(trieRoot.m_edges.size(), numeric_limits<uint32_t>::max(), ());
 
-  uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edge.size());
+  uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edges.size());
   for (uint32_t i = 0; i < numLangs; ++i)
   {
-    auto const & edge = trieRoot.m_edge[i].m_label;
+    auto const & edge = trieRoot.m_edges[i].m_label;
     ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
     if (edge[0] == lang)
     {
@@ -80,14 +80,14 @@ bool MatchInTrie(trie::Iterator<ValueList<Value>> const & trieRoot,
 
     if (dfaIt.Accepts())
     {
-      trieIt->m_valueList.ForEach(toDo);
+      trieIt->m_values.ForEach(toDo);
       found = true;
     }
 
-    size_t const numEdges = trieIt->m_edge.size();
+    size_t const numEdges = trieIt->m_edges.size();
     for (size_t i = 0; i < numEdges; ++i)
     {
-      auto const & edge = trieIt->m_edge[i];
+      auto const & edge = trieIt->m_edges[i];
 
       auto curIt = dfaIt;
       strings::DFAMove(curIt, edge.m_label.begin(), edge.m_label.end());
@@ -164,7 +164,7 @@ struct TrieRootPrefix
   strings::UniChar const * m_prefix;
   size_t m_prefixSize;
 
-  TrieRootPrefix(Iterator const & root, typename Iterator::Edge::TEdgeLabel const & edge)
+  TrieRootPrefix(Iterator const & root, typename Iterator::Edge::EdgeLabel const & edge)
     : m_root(root)
   {
     if (edge.size() == 1)
@@ -242,7 +242,7 @@ bool MatchCategoriesInTrie(SearchTrieRequest<DFA> const & request,
   if (!impl::FindLangIndex(trieRoot, search::kCategoriesLang, langIx))
     return false;
 
-  auto const & edge = trieRoot.m_edge[langIx].m_label;
+  auto const & edge = trieRoot.m_edges[langIx].m_label;
   ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
 
   auto const catRoot = trieRoot.GoToEdge(langIx);
@@ -257,12 +257,12 @@ template <typename DFA, typename Value, typename ToDo>
 void ForEachLangPrefix(SearchTrieRequest<DFA> const & request,
                        trie::Iterator<ValueList<Value>> const & trieRoot, ToDo && toDo)
 {
-  ASSERT_LESS(trieRoot.m_edge.size(), numeric_limits<uint32_t>::max(), ());
+  ASSERT_LESS(trieRoot.m_edges.size(), numeric_limits<uint32_t>::max(), ());
 
-  uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edge.size());
+  uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edges.size());
   for (uint32_t langIx = 0; langIx < numLangs; ++langIx)
   {
-    auto const & edge = trieRoot.m_edge[langIx].m_label;
+    auto const & edge = trieRoot.m_edges[langIx].m_label;
     ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
     int8_t const lang = static_cast<int8_t>(edge[0]);
     if (edge[0] < search::kCategoriesLang && request.IsLangExist(lang))
@@ -309,7 +309,7 @@ void MatchPostcodesInTrie(TokenSlice const & slice,
   if (!impl::FindLangIndex(trieRoot, search::kPostcodesLang, langIx))
     return;
 
-  auto const & edge = trieRoot.m_edge[langIx].m_label;
+  auto const & edge = trieRoot.m_edges[langIx].m_label;
   auto const postcodesRoot = trieRoot.GoToEdge(langIx);
 
   impl::OffsetIntersector<Filter, Value> intersector(filter);

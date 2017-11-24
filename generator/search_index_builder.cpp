@@ -466,8 +466,8 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
 
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
 {
-  using TKey = strings::UniString;
-  using TValue = FeatureIndexValue;
+  using Key = strings::UniString;
+  using Value = FeatureIndexValue;
 
   Platform & platform = GetPlatform();
 
@@ -478,15 +478,15 @@ void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
 
   FeaturesVectorTest features(container);
   auto codingParams = trie::GetCodingParams(features.GetHeader().GetDefCodingParams());
-  SingleValueSerializer<TValue> serializer(codingParams);
+  SingleValueSerializer<Value> serializer(codingParams);
 
-  vector<pair<TKey, TValue>> searchIndexKeyValuePairs;
+  vector<pair<Key, Value>> searchIndexKeyValuePairs;
   AddFeatureNameIndexPairs(features, categoriesHolder, searchIndexKeyValuePairs);
 
   sort(searchIndexKeyValuePairs.begin(), searchIndexKeyValuePairs.end());
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
 
-  trie::Build<Writer, TKey, ValueList<TValue>, SingleValueSerializer<TValue>>(
+  trie::Build<Writer, Key, ValueList<Value>, SingleValueSerializer<Value>>(
       indexWriter, serializer, searchIndexKeyValuePairs);
 
   LOG(LINFO, ("End building search index, elapsed seconds:", timer.ElapsedSeconds()));
