@@ -30,15 +30,23 @@ LocalAdsMark::LocalAdsMark(m2::PointD const & ptOrg,
   m_titleDecl.m_secondaryOffset = m2::PointF(0, kSecondaryOffsetY);
 }
 
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> LocalAdsMark::GetSymbolNames() const
+{
+  auto symbol = make_unique_dp<SymbolNameZoomInfo>();
+  symbol->insert(std::make_pair(1 /* zoomLevel */, m_data.m_symbolName));
+  return symbol;
+}
+
 df::RenderState::DepthLayer LocalAdsMark::GetDepthLayer() const
 {
   return df::RenderState::LocalAdsMarkLayer;
 }
 
-drape_ptr<dp::TitleDecl> LocalAdsMark::GetTitleDecl() const
+drape_ptr<df::UserPointMark::TitlesInfo> LocalAdsMark::GetTitleDecl() const
 {
-  drape_ptr<dp::TitleDecl> titleDecl = make_unique_dp<dp::TitleDecl>(m_titleDecl);
-  return titleDecl;
+  auto titles = make_unique_dp<TitlesInfo>();
+  titles->push_back(m_titleDecl);
+  return titles;
 }
 
 void LocalAdsMark::SetData(LocalAdsMarkData && data)

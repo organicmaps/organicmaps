@@ -19,6 +19,7 @@
 
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/drape_engine.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
@@ -104,8 +105,19 @@ struct TransitTitle
 
 struct TransitMarkInfo
 {
+  enum class Type
+  {
+    Stop,
+    KeyStop,
+    Transfer,
+    Gate
+  };
+  Type m_type = Type::Stop;
   m2::PointD m_point;
   vector<TransitTitle> m_titles;
+  std::string m_symbolName;
+  df::ColorConstant m_color;
+  FeatureID m_featureId;
 };
 
 using GetMwmIdFn = function<MwmSet::MwmId (routing::NumMwmId numMwmId)>;
@@ -150,7 +162,9 @@ void CollectTransitDisplayInfo(vector<RouteSegment> const & segments, GetMwmIdFn
         if (gate.m_featureId != transit::kInvalidFeatureId)
         {
           auto const featureId = FeatureID(mwmId, gate.m_featureId);
-          mwmTransit->m_features[featureId] = {};
+          TransitFeatureInfo featureInfo;
+          featureInfo.m_isGate = true;
+          mwmTransit->m_features[featureId] = featureInfo;
         }
         break;
       }
@@ -158,10 +172,10 @@ void CollectTransitDisplayInfo(vector<RouteSegment> const & segments, GetMwmIdFn
   }
 }
 
-void AddTransitGateSegment(m2::PointD const & destPoint, df::Subroute & subroute)
+void AddTransitGateSegment(m2::PointD const & destPoint, df::ColorConstant const & color, df::Subroute & subroute)
 {
   ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
-  df::SubrouteStyle style(df::kGateColor, df::RoutePattern(1.0, 1.0));
+  df::SubrouteStyle style(color, df::RoutePattern(4.0, 2.0));
   style.m_startIndex = subroute.m_polyline.GetSize() - 1;
   auto const vec = destPoint - subroute.m_polyline.Back();
   subroute.m_polyline.Add(destPoint);
@@ -219,8 +233,10 @@ TransitType GetTransitType(string const & type)
 }
 
 void FillTransitStyleForRendering(vector<RouteSegment> const & segments, TransitReadManager & transitReadManager,
-                                  GetMwmIdFn const & getMwmIdFn, df::Subroute & subroute,
-                                  vector<TransitMarkInfo> & transitMarks, TransitRouteInfo & routeInfo)
+                                  GetMwmIdFn const & getMwmIdFn,
+                                  RoutingManager::Callbacks::GetStringsBundleFn const & getStringsBundleFn,
+                                  df::Subroute & subroute, vector<TransitMarkInfo> & transitMarks,
+                                  TransitRouteInfo & routeInfo)
 {
   TransitDisplayInfos transitDisplayInfos;
   CollectTransitDisplayInfo(segments, getMwmIdFn, transitDisplayInfos);
@@ -238,6 +254,7 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
 
   df::SubrouteMarker marker;
   TransitMarkInfo transitMarkInfo;
+  std::string transitType;
 
   double prevDistance = routeInfo.m_totalDistInMeters;
   double prevTime = routeInfo.m_totalTimeInSec;
@@ -257,6 +274,7 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
 
       AddTransitPedestrianSegment(s.GetJunction().GetPoint(), subroute);
       lastColor = "";
+      transitType = "";
       continue;
     }
 
@@ -271,8 +289,9 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
 
       auto const & line = displayInfo.m_lines.at(edge.m_lineId);
       auto const currentColor = df::GetTransitColorName(line.GetColor());
+      transitType = line.GetType();
 
-      routeInfo.AddStep(TransitStepInfo(GetTransitType(line.GetType()), distance, time,
+      routeInfo.AddStep(TransitStepInfo(GetTransitType(transitType), distance, time,
                                         line.GetNumber(), ColorToARGB(currentColor)));
 
       auto const & stop1 = displayInfo.m_stops.at(edge.m_stop1Id);
@@ -296,7 +315,10 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
 
       if (pendingEntrance)
       {
-        AddTransitGateSegment(marker.m_position, subroute);
+        transitMarkInfo.m_type = TransitMarkInfo::Type::KeyStop;
+        transitMarkInfo.m_symbolName = transitType;
+        transitMarkInfo.m_color = currentColor;
+        AddTransitGateSegment(marker.m_position, currentColor, subroute);
         pendingEntrance = false;
       }
 
@@ -314,12 +336,16 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
       if (lastColor != currentColor)
       {
         if (!lastColor.empty())
+        {
           marker.m_scale = kTransferMarkerScale;
+          transitMarkInfo.m_type = TransitMarkInfo::Type::Transfer;
+        }
         marker.m_colors.push_back(currentColor);
 
         if (stop1.GetFeatureId() != transit::kInvalidFeatureId)
         {
           auto const fid = FeatureID(mwmId, stop1.GetFeatureId());
+          transitMarkInfo.m_featureId = fid;
           transitMarkInfo.m_titles.emplace_back(displayInfo.m_features.at(fid).m_title,
                                                 df::GetTransitTextColorName(line.GetColor()));
         }
@@ -361,6 +387,7 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
       if (stop2.GetFeatureId() != transit::kInvalidFeatureId)
       {
         auto const fid = FeatureID(mwmId, stop2.GetFeatureId());
+        transitMarkInfo.m_featureId = fid;
         transitMarkInfo.m_titles.push_back(TransitTitle(displayInfo.m_features.at(fid).m_title,
                                                         df::GetTransitTextColorName(line.GetColor())));
       }
@@ -372,11 +399,14 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
       {
         routeInfo.AddStep(TransitStepInfo(TransitType::Pedestrian, distance, time));
 
-        AddTransitGateSegment(s.GetJunction().GetPoint(), subroute);
+        AddTransitGateSegment(s.GetJunction().GetPoint(), lastColor, subroute);
 
         subroute.m_markers.push_back(marker);
         marker = df::SubrouteMarker();
 
+        transitMarkInfo.m_type = TransitMarkInfo::Type::KeyStop;
+        transitMarkInfo.m_symbolName = transitType;
+        transitMarkInfo.m_color = lastColor;
         transitMarks.push_back(transitMarkInfo);
         transitMarkInfo = TransitMarkInfo();
       }
@@ -384,17 +414,30 @@ void FillTransitStyleForRendering(vector<RouteSegment> const & segments, Transit
       {
         pendingEntrance = true;
       }
+
+      auto gateMarkInfo = TransitMarkInfo();
+      gateMarkInfo.m_point = pendingEntrance ? subroute.m_polyline.Back() : s.GetJunction().GetPoint();
+      gateMarkInfo.m_type = TransitMarkInfo::Type::Gate;
+      if (gate.m_featureId != transit::kInvalidFeatureId)
+      {
+        auto const fid = FeatureID(mwmId, gate.m_featureId);
+        auto const & featureInfo = displayInfo.m_features.at(fid);
+        auto symbolName = featureInfo.m_gateSymbolName;
+        if (strings::EndsWith(symbolName, "-s") || strings::EndsWith(symbolName, "-m") || strings::EndsWith(symbolName, "-l"))
+          symbolName = symbolName.substr(0, symbolName.length() - 2);
+
+        gateMarkInfo.m_featureId = fid;
+        gateMarkInfo.m_symbolName = symbolName;
+        string title = pendingEntrance ? "entrance" : "exit";//getStringsBundleFn().GetString(pendingEntrance ? "entrance" : "exit");
+        gateMarkInfo.m_titles.push_back(TransitTitle(title, df::GetTransitTextColorName("default")));
+      }
+
+      transitMarks.push_back(gateMarkInfo);
     }
   }
 
   routeInfo.m_totalDistInMeters = prevDistance;
   routeInfo.m_totalTimeInSec = static_cast<int>(ceil(prevTime));
-
-  if (subroute.m_markers.size() > 1)
-  {
-    subroute.m_markers.front().m_innerColor = df::kTransitOutlineColor;
-    subroute.m_markers.back().m_innerColor = df::kTransitOutlineColor;
-  }
 }
 
 vector<m2::PointF> GetTransitMarkerSizes(float markerScale)
@@ -414,39 +457,125 @@ void CreateTransitMarks(vector<TransitMarkInfo> const & transitMarks, UserMarksC
   static vector<m2::PointF> const kTransferMarkerSizes = GetTransitMarkerSizes(kTransferMarkerScale);
   static vector<m2::PointF> const kStopMarkerSizes = GetTransitMarkerSizes(kStopMarkerScale);
 
+  static const int kSmallIconZoom = 1;
+  static const int kMediumIconZoom = 10;
+  static const int kLargeIconZoom = 15;
+
+  static const float kSmallStationR = 12.0f;
+  static const float kMediumStationR = 17.0f;
+  static const float kLargeStationR = 20.0f;
+
+  auto const vs = df::VisualParams::Instance().GetVisualScale();
   for (size_t i = 0; i < transitMarks.size(); ++i)
   {
-    auto const & mark = transitMarks[i];
-    if (!mark.m_titles.empty())
+    auto const &mark = transitMarks[i];
+
+    auto userMark = marksController.CreateUserMark(mark.m_point);
+    ASSERT(dynamic_cast<TransitMark *>(userMark) != nullptr, ());
+    auto transitMark = static_cast<TransitMark *>(userMark);
+    dp::TitleDecl titleDecl;
+
+    transitMark->SetFeatureId(mark.m_featureId);
+
+    if (mark.m_type == TransitMarkInfo::Type::Gate)
     {
-      auto userMark = marksController.CreateUserMark(mark.m_point);
-      ASSERT(dynamic_cast<TransitMark *>(userMark) != nullptr, ());
-      auto transitMark = static_cast<TransitMark *>(userMark);
-
-      transitMark->SetPrimaryText(mark.m_titles.front().m_text);
-      transitMark->SetPrimaryTextColor(df::GetColorConstant(mark.m_titles.front().m_color));
-
+      if (!mark.m_titles.empty())
+      {
+        TransitMark::GetDefaultTransitTitle(titleDecl);
+        titleDecl.m_primaryText = mark.m_titles.front().m_text;
+        titleDecl.m_anchor = dp::Anchor::Top;
+        titleDecl.m_primaryOptional = true;
+        transitMark->AddTitle(titleDecl);
+      }
+      df::UserPointMark::SymbolNameZoomInfo symbolNames;
+      symbolNames[kSmallIconZoom] = mark.m_symbolName + "-s";
+      symbolNames[kMediumIconZoom] = mark.m_symbolName + "-m";
+      symbolNames[kLargeIconZoom] = mark.m_symbolName + "-l";
+      transitMark->SetSymbolNames(symbolNames);
+      transitMark->SetPriority(UserMark::Priority::Transit_Gate);
+    }
+    else if (mark.m_type == TransitMarkInfo::Type::Transfer)
+    {
       if (mark.m_titles.size() > 1)
       {
-        transitMark->SetTextPosition(dp::Bottom);
-        transitMark->SetSymbolSizes(kTransferMarkerSizes);
+        TransitMark::GetDefaultTransitTitle(titleDecl);
+        titleDecl.m_primaryText = mark.m_titles.front().m_text;
+        titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(mark.m_titles.front().m_color);
+        titleDecl.m_anchor = dp::Anchor::Bottom;
+        titleDecl.m_primaryOptional = true;
+        transitMark->AddTitle(titleDecl);
 
-        userMark = marksController.CreateUserMark(mark.m_point);
-        ASSERT(dynamic_cast<TransitMark *>(userMark) != nullptr, ());
-        auto transitMark2 = static_cast<TransitMark *>(userMark);
+        titleDecl.m_primaryText = mark.m_titles.back().m_text;
+        titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(mark.m_titles.back().m_color);
+        titleDecl.m_anchor = dp::Anchor::Top;
+        titleDecl.m_primaryOptional = true;
+        transitMark->AddTitle(titleDecl);
+      }
+      df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
+      for (size_t sizeIndex = 0; sizeIndex < kTransferMarkerSizes.size(); ++sizeIndex)
+      {
+        auto const zoomLevel = sizeIndex + 1;
+        auto const & sz = kTransferMarkerSizes[sizeIndex];
+        df::ColoredSymbolViewParams params;
+        params.m_radiusInPixels = static_cast<float>(max(sz.x, sz.y) * vs) / 2.0f;
+        params.m_color = dp::Color::Transparent();
+        if (coloredSymbol.empty() || coloredSymbol.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
+          coloredSymbol.insert(make_pair(zoomLevel, params));
+      }
+      transitMark->SetColoredSymbols(coloredSymbol);
+      transitMark->SetPriority(UserMark::Priority::Transit_Transfer);
+    }
+    else
+    {
+      if (!mark.m_titles.empty())
+      {
+        TransitMark::GetDefaultTransitTitle(titleDecl);
+        titleDecl.m_primaryText = mark.m_titles.front().m_text;
+        titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(mark.m_titles.front().m_color);
+        titleDecl.m_anchor = dp::Anchor::Top;
+        titleDecl.m_primaryOptional = true;
+        transitMark->AddTitle(titleDecl);
+      }
+      if (mark.m_type == TransitMarkInfo::Type::KeyStop)
+      {
+        df::UserPointMark::SymbolNameZoomInfo symbolNames;
+        symbolNames[kSmallIconZoom] = mark.m_symbolName + "-s";
+        symbolNames[kMediumIconZoom] = mark.m_symbolName + "-m";
+        symbolNames[kLargeIconZoom] = mark.m_symbolName + "-l";
+        transitMark->SetSymbolNames(symbolNames);
 
-        transitMark2->SetPrimaryText(mark.m_titles.back().m_text);
-        transitMark2->SetPrimaryTextColor(df::GetColorConstant(mark.m_titles.back().m_color));
-        transitMark2->SetTextPosition(dp::Top);
-        transitMark2->SetSymbolSizes(kTransferMarkerSizes);
+        df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
+        df::ColoredSymbolViewParams params;
+        params.m_color = df::GetColorConstant(mark.m_color);
+
+        params.m_radiusInPixels = static_cast<float>(kSmallStationR * vs);
+        coloredSymbol[kSmallIconZoom] = params;
+
+        params.m_radiusInPixels = static_cast<float>(kMediumStationR * vs);
+        coloredSymbol[kMediumIconZoom] = params;
+
+        params.m_radiusInPixels = static_cast<float>(kLargeStationR * vs);
+        coloredSymbol[kLargeIconZoom] = params;
+
+        transitMark->SetColoredSymbols(coloredSymbol);
+        transitMark->SetPriority(UserMark::Priority::Transit_KeyStop);
       }
       else
       {
-        transitMark->SetTextPosition(dp::Left);
-        transitMark->SetSymbolSizes(kStopMarkerSizes);
-        int const kMinZoomSimpleStopLabel = 16;
-        if (i > 0 && i + 1 < transitMarks.size())
-          transitMark->SetMinZoom(kMinZoomSimpleStopLabel);
+        df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
+        for (size_t sizeIndex = 0; sizeIndex < kStopMarkerSizes.size(); ++sizeIndex)
+        {
+          auto const zoomLevel = sizeIndex + 1;
+          auto const & sz = kStopMarkerSizes[sizeIndex];
+          df::ColoredSymbolViewParams params;
+          params.m_radiusInPixels = static_cast<float>(max(sz.x, sz.y) * vs) / 2.0f;
+          params.m_color = dp::Color::Transparent();
+          if (coloredSymbol.empty() || coloredSymbol.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
+            coloredSymbol.insert(make_pair(zoomLevel, params));
+        }
+        transitMark->SetMinZoom(16);
+        transitMark->SetColoredSymbols(coloredSymbol);
+        transitMark->SetPriority(UserMark::Priority::Transit_Stop);
       }
     }
   }
@@ -925,8 +1054,8 @@ void RoutingManager::InsertRoute(Route const & route)
             transitRouteInfo.AddStep(step);
           }
 
-          FillTransitStyleForRendering(segments, m_transitReadManager, getMwmIdFn, *subroute.get(),
-                                       transitMarks, transitRouteInfo);
+          FillTransitStyleForRendering(segments, m_transitReadManager, getMwmIdFn, m_callbacks.m_stringsBundleGetter,
+                                       *subroute.get(), transitMarks, transitRouteInfo);
 
           if (subroute->m_polyline.GetSize() < 2)
           {

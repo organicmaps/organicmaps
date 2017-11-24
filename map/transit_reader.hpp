@@ -66,6 +66,8 @@ private:
 
 struct TransitFeatureInfo
 {
+  bool m_isGate = false;
+  std::string m_gateSymbolName;
   std::string m_title;
   m2::PointD m_point;
 };

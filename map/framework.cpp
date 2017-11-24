@@ -370,7 +370,8 @@ Framework::Framework(FrameworkParams const & params)
                                                       vector<FeatureID> const & features)
                                                {
                                                  return m_model.ReadFeatures(fn, features);
-                                               }),
+                                               },
+                                               [this]() -> StringsBundle const & { return m_stringsBundle; }),
                      static_cast<RoutingManager::Delegate &>(*this))
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())

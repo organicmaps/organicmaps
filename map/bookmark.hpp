@@ -81,7 +81,7 @@ public:
   BookmarkData const & GetData() const;
 
   dp::Anchor GetAnchor() const override;
-  std::string GetSymbolName() const override;
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   bool HasCreationAnimation() const override;
 
   Type GetMarkType() const override;

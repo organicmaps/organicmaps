@@ -557,7 +557,6 @@ void RuleDrawer::DrawTileNet(TInsertShapeFn const & insertShape)
   tp.m_titleDecl.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
   tp.m_titleDecl.m_primaryOffset = {0.f, 0.f};
   drape_ptr<TextShape> textShape = make_unique_dp<TextShape>(r.Center(), tp, key,
-                                                             false /* hasPOI */,
                                                              m2::PointF(0.0, 0.0) /* symbolSize */,
                                                              dp::Anchor::Center,
                                                              0 /* textIndex */);

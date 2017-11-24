@@ -235,6 +235,8 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
         make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor, m_point, pixelSize,
                                          m_params.m_offset, GetOverlayPriority(), true /* isBound */,
                                          debugName, true /* isBillboard */) : nullptr;
+  if (m_needOverlay && m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
+    handle->SetUserMarkOverlay(true);
 
   auto state = CreateGLState(gpu::COLORED_SYMBOL_PROGRAM, m_params.m_depthLayer);
   state.SetProgram3dIndex(gpu::COLORED_SYMBOL_BILLBOARD_PROGRAM);
@@ -251,6 +253,9 @@ uint64_t ColoredSymbolShape::GetOverlayPriority() const
   // Special displacement mode.
   if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode)
     return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
+
+  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
+    return dp::CalculateUserMarkPriority(m_params.m_minVisibleScale, m_params.m_specialPriority);
 
   return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
 }

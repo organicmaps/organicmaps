@@ -24,20 +24,26 @@ SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * c
   : UserMark(ptOrg, container)
 {}
 
-std::string SearchMarkPoint::GetSymbolName() const
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames() const
 {
+  std::string name;
   if (m_isPreparing)
   {
     //TODO: set symbol for preparing state.
-    return "non-found-search-result";
+    name = "non-found-search-result";
   }
-
-  if (m_type >= SearchMarkType::Count)
+  else if (m_type >= SearchMarkType::Count)
   {
     ASSERT(false, ("Unknown search mark symbol."));
-    return kSymbols[static_cast<size_t>(SearchMarkType::Default)];
+    name = kSymbols[static_cast<size_t>(SearchMarkType::Default)];
   }
-  return kSymbols[static_cast<size_t>(m_type)];
+  else
+  {
+    name = kSymbols[static_cast<size_t>(m_type)];
+  }
+  auto symbol = make_unique_dp<SymbolNameZoomInfo>();
+  symbol->insert(std::make_pair(1 /* zoomLevel */, name));
+  return symbol;
 }
 
 UserMark::Type SearchMarkPoint::GetMarkType() const

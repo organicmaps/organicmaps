@@ -52,9 +52,12 @@ dp::Anchor Bookmark::GetAnchor() const
   return dp::Bottom;
 }
 
-std::string Bookmark::GetSymbolName() const
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() const
 {
-  return GetType();
+  auto const name = GetType();
+  auto symbol = make_unique_dp<SymbolNameZoomInfo>();
+  symbol->insert(std::make_pair(1 /* zoomLevel */, name));
+  return symbol;
 }
 
 bool Bookmark::HasCreationAnimation() const

@@ -157,6 +157,7 @@ drape_ptr<dp::OverlayHandle> PoiSymbolShape::CreateOverlayHandle(m2::PointF cons
   handle->SetExtendingSize(m_params.m_extendingSize);
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
     handle->SetUserMarkOverlay(true);
+  handle->SetOverlayRank(m_params.m_startOverlayRank);
   return handle;
 }
 

@@ -36,7 +36,7 @@ public:
   dp::Anchor GetAnchor() const override;
   df::RenderState::DepthLayer GetDepthLayer() const override;
 
-  std::string GetSymbolName() const override;
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   UserMark::Type GetMarkType() const override { return Type::ROUTING; }
   bool IsAvailableForSearch() const override { return !IsPassed(); }
 
@@ -58,7 +58,7 @@ public:
   RouteMarkData const & GetMarkData() const { return m_markData; }
   void SetMarkData(RouteMarkData && data);
 
-  drape_ptr<dp::TitleDecl> GetTitleDecl() const override;
+  drape_ptr<TitlesInfo> GetTitleDecl() const override;
 
   bool HasSymbolPriority() const override { return false; }
   bool HasTitlePriority() const override { return true; }
@@ -109,28 +109,40 @@ public:
 
   dp::Anchor GetAnchor() const override { return dp::Center; }
   df::RenderState::DepthLayer GetDepthLayer() const override { return df::RenderState::TransitMarkLayer; }
-  std::string GetSymbolName() const override { return ""; }
   UserMark::Type GetMarkType() const override { return Type::TRANSIT; }
 
-  bool HasSymbolPriority() const override { return false; }
+  bool HasSymbolPriority() const override { return !m_symbolNames.empty() || !m_coloredSymbols.empty(); }
   bool HasTitlePriority() const override { return true; }
+
+  void SetFeatureId(FeatureID featureId);
+  FeatureID GetFeatureID() const override { return m_featureId; }
+
+  void SetPriority(Priority priority);
+  uint16_t GetPriority() const override { return static_cast<uint16_t>(m_priority); }
 
   void SetMinZoom(int minZoom);
   int GetMinZoom() const override { return m_minZoom; }
 
-  void SetSymbolSizes(std::vector<m2::PointF> const & symbolSizes);
-  drape_ptr<std::vector<m2::PointF>> GetSymbolSizes() const override;
+  void SetSymbolSizes(SymbolSizesZoomInfo const & symbolSizes);
+  drape_ptr<SymbolSizesZoomInfo> GetSymbolSizes() const override;
 
-  void SetPrimaryText(std::string const & primary);
-  void SetSecondaryText(std::string const & secondary);
-  void SetTextPosition(dp::Anchor anchor, m2::PointF const & primaryOffset = m2::PointF(0.0f, 0.0f),
-                       m2::PointF const & secondaryOffset = m2::PointF(0.0f, 0.0f));
-  void SetPrimaryTextColor(dp::Color color);
-  void SetSecondaryTextColor(dp::Color color);
-  drape_ptr<dp::TitleDecl> GetTitleDecl() const override;
+  void SetColoredSymbols(ColoredSymbolZoomInfo const & symbolParams);
+  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
+
+  void SetSymbolNames(SymbolNameZoomInfo const & symbolNames);
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+
+  void AddTitle(dp::TitleDecl const & titleDecl);
+  drape_ptr<TitlesInfo> GetTitleDecl() const override;
+
+  static void GetDefaultTransitTitle(dp::TitleDecl & titleDecl);
 
 private:
   int m_minZoom = 1;
-  dp::TitleDecl m_titleDecl;
-  std::vector<m2::PointF> m_symbolSizes;
+  Priority m_priority;
+  FeatureID m_featureId;
+  TitlesInfo m_titles;
+  SymbolSizesZoomInfo m_symbolSizes;
+  SymbolNameZoomInfo m_symbolNames;
+  ColoredSymbolZoomInfo m_coloredSymbols;
 };

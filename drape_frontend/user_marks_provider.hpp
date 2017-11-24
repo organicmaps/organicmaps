@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape_frontend/render_state.hpp"
+#include "drape_frontend/shape_view_params.hpp"
 
 #include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
@@ -38,6 +39,11 @@ struct MarkIDCollection
 class UserPointMark
 {
 public:
+  using ColoredSymbolZoomInfo = std::map<int, df::ColoredSymbolViewParams>;
+  using SymbolNameZoomInfo = std::map<int, std::string>;
+  using SymbolSizesZoomInfo = std::vector<m2::PointF>;
+  using TitlesInfo = std::vector<dp::TitleDecl>;
+
   UserPointMark();
   virtual ~UserPointMark() {}
 
@@ -48,13 +54,14 @@ public:
 
   virtual m2::PointD const & GetPivot() const = 0;
   virtual m2::PointD GetPixelOffset() const = 0;
-  virtual std::string GetSymbolName() const  = 0;
   virtual dp::Anchor GetAnchor() const = 0;
   virtual float GetDepth() const = 0;
   virtual RenderState::DepthLayer GetDepthLayer() const = 0;
   virtual bool IsVisible() const = 0;
-  virtual drape_ptr<dp::TitleDecl> GetTitleDecl() const = 0;
-  virtual drape_ptr<std::vector<m2::PointF>> GetSymbolSizes() const = 0;
+  virtual drape_ptr<TitlesInfo> GetTitleDecl() const = 0;
+  virtual drape_ptr<SymbolSizesZoomInfo> GetSymbolSizes() const = 0;
+  virtual drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const = 0;
+  virtual drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const = 0;
   virtual uint16_t GetPriority() const = 0;
   virtual bool HasSymbolPriority() const = 0;
   virtual bool HasTitlePriority() const = 0;

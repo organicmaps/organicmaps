@@ -603,8 +603,8 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     textParams.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
                                                                : SpecialDisplacement::None;
     textParams.m_specialPriority = specialModePriority;
-    m_insertShape(make_unique_dp<TextShape>(m_centerPoint, textParams, m_tileKey,
-                                            hasPOI, symbolSize,
+    textParams.m_startOverlayRank = hasPOI ? dp::OverlayRank1 : dp::OverlayRank0;
+    m_insertShape(make_unique_dp<TextShape>(m_centerPoint, textParams, m_tileKey, symbolSize,
                                             dp::Center /* symbolAnchor */, 0 /* textIndex */));
   }
 }
@@ -989,6 +989,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_titleDecl.m_primaryOptional = false;
   textParams.m_titleDecl.m_secondaryOptional = false;
   textParams.m_extendingSize = 0;
+  textParams.m_startOverlayRank = dp::OverlayRank1;
 
   TextLayout textLayout;
   textLayout.Init(strings::MakeUniString(roadNumber), font.m_size, font.m_isSdf, texMng);
@@ -1188,7 +1189,7 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
       if (!CheckShieldsNearby(shieldPos, shieldPixelSize, scaledMinDistance, generatedShieldRects))
         continue;
 
-      m_insertShape(make_unique_dp<TextShape>(shieldPos, textParams, m_tileKey, true /* hasPOI */,
+      m_insertShape(make_unique_dp<TextShape>(shieldPos, textParams, m_tileKey,
                                               m2::PointF(0.0f, 0.0f) /* symbolSize */,
                                               dp::Center /* symbolAnchor */, textIndex));
       if (IsColoredRoadShield(shield))

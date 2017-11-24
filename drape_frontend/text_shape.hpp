@@ -16,7 +16,7 @@ class TextShape : public MapShape
 {
 public:
   TextShape(m2::PointD const & basePoint, TextViewParams const & params,
-            TileKey const & tileKey, bool hasPOI, m2::PointF const & symbolSize,
+            TileKey const & tileKey, m2::PointF const & symbolSize,
             dp::Anchor symbolAnchor, uint32_t textIndex);
 
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
@@ -42,7 +42,6 @@ private:
   m2::PointD m_basePoint;
   TextViewParams m_params;
   m2::PointI m_tileCoords;
-  bool m_hasPOI;
   m2::PointF m_symbolSize;
   dp::Anchor m_symbolAnchor;
   uint32_t m_textIndex;

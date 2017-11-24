@@ -70,9 +70,11 @@ DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg, UserMarkContainer * con
   : UserMark(ptOrg, container)
 {}
 
-string DebugMarkPoint::GetSymbolName() const
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> DebugMarkPoint::GetSymbolNames() const
 {
-  return "api-result";
+  auto symbol = make_unique_dp<SymbolNameZoomInfo>();
+  symbol->insert(std::make_pair(1 /* zoomLevel */, "api-result"));
+  return symbol;
 }
 
 string DebugPrint(UserMark::Type type)

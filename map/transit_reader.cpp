@@ -1,6 +1,10 @@
 #include "map/transit_reader.hpp"
 
+#include "indexer/drawing_rules.hpp"
+#include "indexer/drules_include.hpp"
 #include "indexer/feature_algo.hpp"
+
+#include "drape_frontend/stylist.hpp"
 
 using namespace routing;
 using namespace std;
@@ -134,6 +138,19 @@ void ReadTransitTask::Do()
   {
     auto & featureInfo = m_transitInfo->m_features[ft.GetID()];
     ft.GetReadableName(featureInfo.m_title);
+    if (featureInfo.m_isGate)
+    {
+      df::Stylist stylist;
+      if (df::InitStylist(ft, 0, 19, false, stylist))
+      {
+        stylist.ForEachRule([&](df::Stylist::TRuleWrapper const & rule)
+        {
+          auto const * symRule = rule.first->GetSymbol();
+          if (symRule != nullptr)
+            featureInfo.m_gateSymbolName = symRule->name();
+        });
+      }
+    }
     featureInfo.m_point = feature::GetCenter(ft);
   }, features);
 }

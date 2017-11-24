@@ -17,6 +17,7 @@ namespace df
 {
 double const kShapeCoordScalar = 1000;
 int constexpr kBuildingOutlineSize = 16;
+uint32_t constexpr kStartUserMarkOverlayIndex = 1000;
 
 struct CommonViewParams
 {
@@ -38,6 +39,7 @@ struct CommonOverlayViewParams : public CommonViewParams
 {
   SpecialDisplacement m_specialDisplacement = SpecialDisplacement::None;
   uint16_t m_specialPriority = std::numeric_limits<uint16_t>::max();
+  int m_startOverlayRank = 0;
 };
 
 struct PoiSymbolViewParams : CommonOverlayViewParams

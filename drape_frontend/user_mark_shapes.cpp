@@ -1,5 +1,6 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 
+#include "drape_frontend/colored_symbol_shape.hpp"
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/poi_symbol_shape.hpp"
@@ -117,24 +118,67 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     m2::PointD const tileCenter = tileKey.GetGlobalRect().Center();
     depthLayer = renderInfo.m_depthLayer;
 
+    m2::PointF symbolSize;
+    std::string symbolName;
+    if (renderInfo.m_symbolNames != nullptr)
+    {
+      for (auto itName = renderInfo.m_symbolNames->rbegin(); itName != renderInfo.m_symbolNames->rend(); ++itName)
+      {
+        if (itName->first <= tileKey.m_zoomLevel)
+        {
+          symbolName = itName->second;
+          break;
+        }
+      }
+    }
+
     if (renderInfo.m_hasSymbolPriority)
     {
-      PoiSymbolViewParams params(renderInfo.m_featureId);
-      params.m_tileCenter = tileCenter;
-      params.m_depth = renderInfo.m_depth;
-      params.m_depthLayer = renderInfo.m_depthLayer;
-      params.m_minVisibleScale = renderInfo.m_minZoom;
-      params.m_specialDisplacement = SpecialDisplacement::UserMark;
-      params.m_specialPriority = renderInfo.m_priority;
-      params.m_symbolName = renderInfo.m_symbolName;
-      PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
-                     0 /* textIndex */).Draw(&batcher, textures);
+      if (renderInfo.m_coloredSymbols != nullptr)
+      {
+        for (auto itSym = renderInfo.m_coloredSymbols->rbegin(); itSym != renderInfo.m_coloredSymbols->rend(); ++itSym)
+        {
+          if (itSym->first <= tileKey.m_zoomLevel)
+          {
+            ColoredSymbolViewParams params = itSym->second;
+            if (params.m_shape == ColoredSymbolViewParams::Shape::Circle)
+              symbolSize = m2::PointF(params.m_radiusInPixels, params.m_radiusInPixels);
+            else
+              symbolSize = params.m_sizeInPixels;
+
+            params.m_featureID = renderInfo.m_featureId;
+            params.m_tileCenter = tileCenter;
+            params.m_depth = renderInfo.m_depth;
+            params.m_depthLayer = renderInfo.m_depthLayer;
+            params.m_minVisibleScale = renderInfo.m_minZoom;
+            params.m_specialDisplacement = SpecialDisplacement::UserMark;
+            params.m_specialPriority = renderInfo.m_priority;
+            ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
+                               kStartUserMarkOverlayIndex).Draw(&batcher, textures);
+            break;
+          }
+        }
+      }
+      if (renderInfo.m_symbolNames != nullptr)
+      {
+        PoiSymbolViewParams params(renderInfo.m_featureId);
+        params.m_tileCenter = tileCenter;
+        params.m_depth = renderInfo.m_depth;
+        params.m_depthLayer = renderInfo.m_depthLayer;
+        params.m_minVisibleScale = renderInfo.m_minZoom;
+        params.m_specialDisplacement = SpecialDisplacement::UserMark;
+        params.m_specialPriority = renderInfo.m_priority;
+        params.m_symbolName = symbolName;
+        params.m_startOverlayRank = renderInfo.m_coloredSymbols != nullptr ? dp::OverlayRank1 : dp::OverlayRank0;
+        PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
+                       kStartUserMarkOverlayIndex).Draw(&batcher, textures);
+      }
     }
-    else if (!renderInfo.m_symbolName.empty())
+    else if (renderInfo.m_symbolNames != nullptr)
     {
       buffer.reserve(vertexCount);
 
-      textures->GetSymbolRegion(renderInfo.m_symbolName, region);
+      textures->GetSymbolRegion(symbolName, region);
       m2::RectF const & texRect = region.GetTexRect();
       m2::PointF const pxSize = region.GetPixelSize();
       dp::Anchor const anchor = renderInfo.m_anchor;
@@ -157,42 +201,58 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       buffer.emplace_back(pos, right + up + offset, glsl::ToVec2(texRect.RightBottom()), runAnim);
     }
 
-    if (renderInfo.m_titleDecl != nullptr && !renderInfo.m_titleDecl->m_primaryText.empty())
+    if (renderInfo.m_symbolSizes != nullptr)
     {
-      TextViewParams params;
-      params.m_featureID = renderInfo.m_featureId;
-      params.m_tileCenter = tileCenter;
-      params.m_titleDecl = *renderInfo.m_titleDecl;
+      symbolSize = renderInfo.m_symbolSizes->at(static_cast<size_t>(tileKey.m_zoomLevel - 1)) * vs;
+    }
+    else
+    {
+      textures->GetSymbolRegion(symbolName, region);
+      symbolSize.x = max(region.GetPixelSize().x, symbolSize.x);
+      symbolSize.y = max(region.GetPixelSize().y, symbolSize.y);
+    }
 
-      // Here we use visual scale to adapt texts sizes and offsets
-      // to different screen resolutions and DPI.
-      params.m_titleDecl.m_primaryTextFont.m_size *= vs;
-      params.m_titleDecl.m_secondaryTextFont.m_size *= vs;
-      params.m_titleDecl.m_primaryOffset *= vs;
-      params.m_titleDecl.m_secondaryOffset *= vs;
-
-      params.m_depth = renderInfo.m_depth;
-      params.m_depthLayer = renderInfo.m_depthLayer;
-      params.m_minVisibleScale = renderInfo.m_minZoom;
-      if (renderInfo.m_hasTitlePriority)
+    if (renderInfo.m_titleDecl != nullptr)
+    {
+      for (auto const & titleDecl : *renderInfo.m_titleDecl)
       {
-        params.m_specialDisplacement = SpecialDisplacement::UserMark;
-        params.m_specialPriority = renderInfo.m_priority;
-      }
+        if (titleDecl.m_primaryText.empty())
+          continue;
 
-      m2::PointF symbolSize;
-      if (renderInfo.m_symbolSizes != nullptr)
-      {
-        symbolSize = renderInfo.m_symbolSizes->at(static_cast<size_t>(tileKey.m_zoomLevel)) * vs;
-      }
-      else
-      {
-        textures->GetSymbolRegion(renderInfo.m_symbolName, region);
-        symbolSize = region.GetPixelSize();
-      }
+        TextViewParams params;
+        params.m_featureID = renderInfo.m_featureId;
+        params.m_tileCenter = tileCenter;
+        params.m_titleDecl = titleDecl;
 
-      TextShape(renderInfo.m_pivot, params, tileKey, renderInfo.m_hasSymbolPriority /* hasPOI */,
-                symbolSize, renderInfo.m_anchor, 0 /* textIndex */).Draw(&batcher, textures);
+        // Here we use visual scale to adapt texts sizes and offsets
+        // to different screen resolutions and DPI.
+        params.m_titleDecl.m_primaryTextFont.m_size *= vs;
+        params.m_titleDecl.m_secondaryTextFont.m_size *= vs;
+        params.m_titleDecl.m_primaryOffset *= vs;
+        params.m_titleDecl.m_secondaryOffset *= vs;
+
+        params.m_depth = renderInfo.m_depth;
+        params.m_depthLayer = renderInfo.m_depthLayer;
+        params.m_minVisibleScale = renderInfo.m_minZoom;
+
+        uint32_t overlayIndex = 0;
+        if (renderInfo.m_hasTitlePriority)
+        {
+          params.m_specialDisplacement = SpecialDisplacement::UserMark;
+          params.m_specialPriority = renderInfo.m_priority;
+          overlayIndex = kStartUserMarkOverlayIndex;
+
+          params.m_startOverlayRank = dp::OverlayRank0;
+          if (renderInfo.m_symbolNames != nullptr)
+            params.m_startOverlayRank++;
+          if (renderInfo.m_coloredSymbols != nullptr)
+            params.m_startOverlayRank++;
+          ASSERT_LESS(params.m_startOverlayRank, dp::OverlayRanksCount, ());
+        }
+
+        TextShape(renderInfo.m_pivot, params, tileKey,
+                  symbolSize, renderInfo.m_anchor, overlayIndex).Draw(&batcher, textures);
+      }
     }
 
     renderInfo.m_justCreated = false;

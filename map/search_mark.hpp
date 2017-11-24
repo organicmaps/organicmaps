@@ -30,7 +30,7 @@ class SearchMarkPoint : public UserMark
 public:
   SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
 
-  std::string GetSymbolName() const override;
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   UserMark::Type GetMarkType() const override;
 
   FeatureID GetFeatureID() const override { return m_featureID; }

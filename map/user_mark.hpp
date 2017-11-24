@@ -18,7 +18,14 @@ class UserMarkContainer;
 class UserMark : public df::UserPointMark
 {
 public:
-  static uint16_t constexpr kDefaultUserMarkPriority = 0xFFFF;
+  enum class Priority: uint16_t
+  {
+    Default = 0,
+    Transit_Stop,
+    Transit_Gate,
+    Transit_Transfer,
+    Transit_KeyStop
+  };
 
   enum class Type
   {
@@ -43,9 +50,10 @@ public:
   dp::Anchor GetAnchor() const override;
   float GetDepth() const override;
   df::RenderState::DepthLayer GetDepthLayer() const override;
-  drape_ptr<dp::TitleDecl> GetTitleDecl() const override { return nullptr; }
-  drape_ptr<std::vector<m2::PointF>> GetSymbolSizes() const override { return nullptr; }
-  uint16_t GetPriority() const override { return kDefaultUserMarkPriority; }
+  drape_ptr<TitlesInfo> GetTitleDecl() const override { return nullptr; }
+  drape_ptr<SymbolSizesZoomInfo> GetSymbolSizes() const override { return nullptr; }
+  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override { return nullptr; }
+  uint16_t GetPriority() const override { return static_cast<uint16_t >(Priority::Default); }
   bool HasSymbolPriority() const override { return false; }
   bool HasTitlePriority() const override { return false; }
   int GetMinZoom() const override { return 1; }
@@ -74,7 +82,7 @@ class StaticMarkPoint : public UserMark
 public:
   explicit StaticMarkPoint(UserMarkContainer * container);
 
-  string GetSymbolName() const override { return {}; }
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override { return nullptr; }
   UserMark::Type GetMarkType() const override;
 
   void SetPtOrg(m2::PointD const & ptOrg);
@@ -101,7 +109,7 @@ class DebugMarkPoint : public UserMark
 public:
   DebugMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
 
-  string GetSymbolName() const override;
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 
   Type GetMarkType() const override { return UserMark::Type::DEBUG_MARK; }
 };

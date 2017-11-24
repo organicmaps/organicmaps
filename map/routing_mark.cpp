@@ -96,12 +96,14 @@ void RouteMarkPoint::SetMarkData(RouteMarkData && data)
     m_titleDecl.m_secondaryText.clear();
 }
 
-drape_ptr<dp::TitleDecl> RouteMarkPoint::GetTitleDecl() const
+drape_ptr<df::UserPointMark::TitlesInfo> RouteMarkPoint::GetTitleDecl() const
 {
   if (m_followingMode)
     return nullptr;
 
-  return make_unique_dp<dp::TitleDecl>(m_titleDecl);
+  auto titles = make_unique_dp<TitlesInfo>();
+  titles->push_back(m_titleDecl);
+  return titles;
 }
 
 void RouteMarkPoint::SetFollowingMode(bool enabled)
@@ -113,23 +115,27 @@ void RouteMarkPoint::SetFollowingMode(bool enabled)
   m_followingMode = enabled;
 }
 
-std::string RouteMarkPoint::GetSymbolName() const
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames() const
 {
+  std::string name;
   switch (m_markData.m_pointType)
   {
-  case RouteMarkType::Start: return "route-point-start";
+  case RouteMarkType::Start: name = "route-point-start";  break;
   case RouteMarkType::Intermediate:
   {
     switch (m_markData.m_intermediateIndex)
     {
-    case 0: return "route-point-a";
-    case 1: return "route-point-b";
-    case 2: return "route-point-c";
-    default: return "";
+    case 0: name = "route-point-a"; break;
+    case 1: name = "route-point-b"; break;
+    case 2: name = "route-point-c"; break;
+    default: name = ""; break;
     }
   }
-  case RouteMarkType::Finish: return "route-point-finish";
+  case RouteMarkType::Finish: name = "route-point-finish"; break;
   }
+  auto symbol = make_unique_dp<SymbolNameZoomInfo>();
+  symbol->insert(std::make_pair(1 /* zoomLevel */, name));
+  return symbol;
 }
 
 size_t const RoutePointsLayout::kMaxIntermediatePointsCount = 3;
@@ -375,14 +381,18 @@ void RoutePointsLayout::NotifyChanges()
 
 TransitMark::TransitMark(m2::PointD const & ptOrg, UserMarkContainer * container)
     : UserMark(ptOrg, container)
+{}
+
+void TransitMark::SetFeatureId(FeatureID featureId)
 {
-  m_titleDecl.m_anchor = dp::Center;
-  m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kTransitMarkText);
-  m_titleDecl.m_primaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkTextOutline);
-  m_titleDecl.m_primaryTextFont.m_size = kTransitMarkTextSize;
-  m_titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kTransitMarkText);
-  m_titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkTextOutline);
-  m_titleDecl.m_secondaryTextFont.m_size = kTransitMarkTextSize;
+  SetDirty();
+  m_featureId = featureId;
+}
+
+void TransitMark::SetPriority(Priority priority)
+{
+  SetDirty();
+  m_priority = priority;
 }
 
 void TransitMark::SetMinZoom(int minZoom)
@@ -391,51 +401,65 @@ void TransitMark::SetMinZoom(int minZoom)
   m_minZoom = minZoom;
 }
 
+void TransitMark::AddTitle(dp::TitleDecl const & titleDecl)
+{
+  SetDirty();
+  m_titles.push_back(titleDecl);
+}
+
+drape_ptr<df::UserPointMark::TitlesInfo> TransitMark::GetTitleDecl() const
+{
+  auto titles = make_unique_dp<TitlesInfo>(m_titles);
+  return titles;
+}
+
+void TransitMark::SetSymbolNames(std::map<int, std::string> const & symbolNames)
+{
+  SetDirty();
+  m_symbolNames = symbolNames;
+}
+
 void TransitMark::SetSymbolSizes(std::vector<m2::PointF> const & symbolSizes)
 {
   SetDirty();
   m_symbolSizes = symbolSizes;
 }
 
-void TransitMark::SetPrimaryText(std::string const & primary)
+void TransitMark::SetColoredSymbols(std::map<int, df::ColoredSymbolViewParams> const & symbolParams)
 {
   SetDirty();
-  m_titleDecl.m_primaryText = primary;
+  m_coloredSymbols = symbolParams;
 }
 
-void TransitMark::SetSecondaryText(std::string const & secondary)
+drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> TransitMark::GetColoredSymbols() const
 {
-  SetDirty();
-  m_titleDecl.m_secondaryText = secondary;
+  if (m_coloredSymbols.empty())
+    return nullptr;
+  return make_unique_dp<ColoredSymbolZoomInfo>(m_coloredSymbols);
 }
 
-void TransitMark::SetTextPosition(dp::Anchor anchor,
-                                  m2::PointF const & primaryOffset, m2::PointF const & secondaryOffset)
+drape_ptr<df::UserPointMark::SymbolSizesZoomInfo> TransitMark::GetSymbolSizes() const
 {
-  SetDirty();
-  m_titleDecl.m_primaryOffset = primaryOffset;
-  m_titleDecl.m_secondaryOffset = secondaryOffset;
-  m_titleDecl.m_anchor = anchor;
+  if (m_symbolSizes.empty())
+    return nullptr;
+  return make_unique_dp<SymbolSizesZoomInfo>(m_symbolSizes);
 }
 
-void TransitMark::SetPrimaryTextColor(dp::Color color)
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TransitMark::GetSymbolNames() const
 {
-  SetDirty();
-  m_titleDecl.m_primaryTextFont.m_color = color;
-}
+  if (m_symbolNames.empty())
+    return nullptr;
+  return make_unique_dp<SymbolNameZoomInfo>(m_symbolNames);
+};
 
-void TransitMark::SetSecondaryTextColor(dp::Color color)
+// static
+void TransitMark::GetDefaultTransitTitle(dp::TitleDecl & titleDecl)
 {
-  SetDirty();
-  m_titleDecl.m_secondaryTextFont.m_color = color;
-}
-
-drape_ptr<dp::TitleDecl> TransitMark::GetTitleDecl() const
-{
-  return make_unique_dp<dp::TitleDecl>(m_titleDecl);
-}
-
-drape_ptr<std::vector<m2::PointF>> TransitMark::GetSymbolSizes() const
-{
-  return make_unique_dp<std::vector<m2::PointF>>(m_symbolSizes);
+  titleDecl = dp::TitleDecl();
+  titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kTransitMarkText);
+  titleDecl.m_primaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkTextOutline);
+  titleDecl.m_primaryTextFont.m_size = kTransitMarkTextSize;
+  titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kTransitMarkText);
+  titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkTextOutline);
+  titleDecl.m_secondaryTextFont.m_size = kTransitMarkTextSize;
 }

@@ -25,7 +25,7 @@ public:
   ApiMarkPoint(string const & name, string const & id, string const & style,
                m2::PointD const & ptOrg, UserMarkContainer * container);
 
-  string GetSymbolName() const override;
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   UserMark::Type GetMarkType() const override;
   m2::PointD GetPixelOffset() const override;
 

@@ -101,7 +101,7 @@ void RenderGroup::Render(ScreenBase const & screen)
   int const programIndex = m_state.GetProgramIndex();
   int const program3dIndex = m_state.GetProgram3dIndex();
 
-  if (IsOverlay())
+  if (IsOverlay() || GetDepthLayer(m_state) == RenderState::TransitMarkLayer)
   {
     if (programIndex == gpu::COLORED_SYMBOL_PROGRAM ||
         programIndex == gpu::COLORED_SYMBOL_BILLBOARD_PROGRAM)

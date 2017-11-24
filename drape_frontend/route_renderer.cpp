@@ -29,7 +29,6 @@ std::string const kRouteArrowsMaskBicycle = "RouteArrowsMaskBicycle";
 std::string const kRouteMaskPedestrian = "RouteMaskPedestrian";
 
 // TODO(@darina) Use separate colors.
-std::string const kGateColor = "Route";
 std::string const kTransitOutlineColor = "RouteMarkPrimaryTextOutline";
 
 namespace

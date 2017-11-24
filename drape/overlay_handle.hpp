@@ -27,7 +27,7 @@ enum OverlayRank
   OverlayRank0 = 0,
   OverlayRank1,
   OverlayRank2,
-
+  OverlayRank3,
   OverlayRanksCount
 };
 

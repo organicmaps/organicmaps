@@ -110,13 +110,12 @@ private:
 }  // namespace
 
 TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params,
-                     TileKey const & tileKey, bool hasPOI,
+                     TileKey const & tileKey,
                      m2::PointF const & symbolSize, dp::Anchor symbolAnchor,
                      uint32_t textIndex)
   : m_basePoint(basePoint)
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
-  , m_hasPOI(hasPOI)
   , m_symbolSize(symbolSize)
   , m_symbolAnchor(symbolAnchor)
   , m_textIndex(textIndex)
@@ -298,8 +297,10 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
                                                                            std::move(dynamicBuffer),
                                                                            true);
   handle->SetPivotZ(m_params.m_posZ);
-  handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2)
-                                  : (isPrimary ? dp::OverlayRank0 : dp::OverlayRank1));
+
+  ASSERT_LESS(m_params.m_startOverlayRank + 1, dp::OverlayRanksCount, ());
+  handle->SetOverlayRank(isPrimary ? m_params.m_startOverlayRank : m_params.m_startOverlayRank + 1);
+
   handle->SetExtendingSize(m_params.m_extendingSize);
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
     handle->SetUserMarkOverlay(true);
@@ -349,9 +350,13 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
                                                                            std::move(dynamicBuffer),
                                                                            true);
   handle->SetPivotZ(m_params.m_posZ);
-  handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2)
-                                  : (isPrimary ? dp::OverlayRank0 : dp::OverlayRank1));
+
+  ASSERT_LESS(m_params.m_startOverlayRank + 1, dp::OverlayRanksCount, ());
+  handle->SetOverlayRank(isPrimary ? m_params.m_startOverlayRank : m_params.m_startOverlayRank + 1);
+
   handle->SetExtendingSize(m_params.m_extendingSize);
+  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
+    handle->SetUserMarkOverlay(true);
 
   dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
   provider.InitStream(0, gpu::TextOutlinedStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));

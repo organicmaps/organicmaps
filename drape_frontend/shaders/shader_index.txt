@@ -1,6 +1,6 @@
+COLORED_SYMBOL_PROGRAM colored_symbol.vsh.glsl colored_symbol.fsh.glsl
 TEXTURING_PROGRAM texturing.vsh.glsl texturing.fsh.glsl
 MASKED_TEXTURING_PROGRAM masked_texturing.vsh.glsl masked_texturing.fsh.glsl
-COLORED_SYMBOL_PROGRAM colored_symbol.vsh.glsl colored_symbol.fsh.glsl
 TEXT_OUTLINED_PROGRAM text_outlined.vsh.glsl text.fsh.glsl
 TEXT_PROGRAM text.vsh.glsl text.fsh.glsl
 TEXT_FIXED_PROGRAM text.vsh.glsl text_fixed.fsh.glsl

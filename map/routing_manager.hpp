@@ -123,21 +123,25 @@ public:
     using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
     using FeatureCallback = std::function<void (FeatureType const &)>;
     using ReadFeaturesFn = std::function<void (FeatureCallback const &, std::vector<FeatureID> const &)>;
+    using GetStringsBundleFn = std::function<StringsBundle const &()>;
 
-
-    template <typename IndexGetter, typename CountryInfoGetter, typename CountryParentNameGetter, typename FeatureReader>
+    template <typename IndexGetter, typename CountryInfoGetter, typename CountryParentNameGetter,
+        typename FeatureReader, typename StringsBundleGetter>
     Callbacks(IndexGetter && featureIndexGetter, CountryInfoGetter && countryInfoGetter,
-              CountryParentNameGetter && countryParentNameGetter, FeatureReader && readFeatures)
+              CountryParentNameGetter && countryParentNameGetter,
+              FeatureReader && readFeatures, StringsBundleGetter && stringsBundleGetter)
       : m_indexGetter(std::forward<IndexGetter>(featureIndexGetter))
       , m_countryInfoGetter(std::forward<CountryInfoGetter>(countryInfoGetter))
       , m_countryParentNameGetterFn(std::forward<CountryParentNameGetter>(countryParentNameGetter))
       , m_readFeaturesFn(std::forward<FeatureReader>(readFeatures))
+      , m_stringsBundleGetter(std::forward<StringsBundleGetter>(stringsBundleGetter))
     {}
 
     IndexGetterFn m_indexGetter;
     CountryInfoGetterFn m_countryInfoGetter;
     CountryParentNameGetterFn m_countryParentNameGetterFn;
     TReadFeaturesFn m_readFeaturesFn;
+    GetStringsBundleFn m_stringsBundleGetter;
   };
 
   using RouteBuildingCallback =
