@@ -236,6 +236,7 @@ void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * 
       renderInfo->m_depth = mark->GetDepth();
       renderInfo->m_depthLayer = mark->GetDepthLayer();
       renderInfo->m_minZoom = mark->GetMinZoom();
+      renderInfo->m_minTitleZoom = mark->GetMinTitleZoom();
       renderInfo->m_isVisible = mark->IsVisible();
       renderInfo->m_pivot = mark->GetPivot();
       renderInfo->m_pixelOffset = mark->GetPixelOffset();

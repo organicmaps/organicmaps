@@ -57,7 +57,7 @@ namespace
 char const kRouterTypeKey[] = "router";
 
 double const kRouteScaleMultiplier = 1.5;
-float const kStopMarkerScale = 2.0f;
+float const kStopMarkerScale = 2.2f;
 float const kTransferMarkerScale = 4.0f;
 
 string const kRoutePointsFile = "route_points.dat";
@@ -472,8 +472,11 @@ void CreateTransitMarks(vector<TransitMarkInfo> const & transitMarks, std::map<s
   static const int kSmallIconZoom = 1;
   static const int kMediumIconZoom = 10;
   static const int kLargeIconZoom = 15;
-
+  static const int kMinStopTitleZoom = 14;
   static const float kGateBgScale = 1.2f;
+  static const int kTransferTitleOffset = 1;
+  static const int kStopTitleOffset = 0;
+  static const int kGateTitleOffset = 0;
 
   auto const vs = df::VisualParams::Instance().GetVisualScale();
   for (size_t i = 0; i < transitMarks.size(); ++i)
@@ -493,6 +496,7 @@ void CreateTransitMarks(vector<TransitMarkInfo> const & transitMarks, std::map<s
       {
         TransitMark::GetDefaultTransitTitle(titleDecl);
         titleDecl.m_primaryText = mark.m_titles.front().m_text;
+        titleDecl.m_primaryOffset.y = kGateTitleOffset;
         titleDecl.m_anchor = dp::Anchor::Top;
         titleDecl.m_primaryOptional = true;
         transitMark->AddTitle(titleDecl);
@@ -511,12 +515,14 @@ void CreateTransitMarks(vector<TransitMarkInfo> const & transitMarks, std::map<s
         TransitMark::GetDefaultTransitTitle(titleDecl);
         titleDecl.m_primaryText = mark.m_titles.front().m_text;
         titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(mark.m_titles.front().m_color);
+        titleDecl.m_primaryOffset.y = -kTransferTitleOffset;
         titleDecl.m_anchor = dp::Anchor::Bottom;
         titleDecl.m_primaryOptional = true;
         transitMark->AddTitle(titleDecl);
 
         titleDecl.m_primaryText = mark.m_titles.back().m_text;
         titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(mark.m_titles.back().m_color);
+        titleDecl.m_primaryOffset.y = kTransferTitleOffset;
         titleDecl.m_anchor = dp::Anchor::Top;
         titleDecl.m_primaryOptional = true;
         transitMark->AddTitle(titleDecl);
@@ -542,6 +548,7 @@ void CreateTransitMarks(vector<TransitMarkInfo> const & transitMarks, std::map<s
         TransitMark::GetDefaultTransitTitle(titleDecl);
         titleDecl.m_primaryText = mark.m_titles.front().m_text;
         titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(mark.m_titles.front().m_color);
+        titleDecl.m_primaryOffset.y = kStopTitleOffset;
         titleDecl.m_anchor = dp::Anchor::Top;
         titleDecl.m_primaryOptional = true;
         transitMark->AddTitle(titleDecl);
@@ -586,9 +593,9 @@ void CreateTransitMarks(vector<TransitMarkInfo> const & transitMarks, std::map<s
           if (coloredSymbol.empty() || coloredSymbol.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
             coloredSymbol.insert(make_pair(zoomLevel, params));
         }
-        transitMark->SetMinZoom(16);
         transitMark->SetColoredSymbols(coloredSymbol);
         transitMark->SetPriority(UserMark::Priority::Transit_Stop);
+        transitMark->SetMinTitleZoom(kMinStopTitleZoom);
       }
     }
   }

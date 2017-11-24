@@ -123,6 +123,9 @@ public:
   void SetMinZoom(int minZoom);
   int GetMinZoom() const override { return m_minZoom; }
 
+  void SetMinTitleZoom(int minTitleZoom);
+  int GetMinTitleZoom() const override { return m_minTitleZoom; }
+
   void SetSymbolSizes(SymbolSizesZoomInfo const & symbolSizes);
   drape_ptr<SymbolSizesZoomInfo> GetSymbolSizes() const override;
 
@@ -139,6 +142,7 @@ public:
 
 private:
   int m_minZoom = 1;
+  int m_minTitleZoom = 1;
   Priority m_priority;
   FeatureID m_featureId;
   TitlesInfo m_titles;

@@ -57,6 +57,7 @@ public:
   bool HasSymbolPriority() const override { return false; }
   bool HasTitlePriority() const override { return false; }
   int GetMinZoom() const override { return 1; }
+  int GetMinTitleZoom() const override { return GetMinZoom(); }
   FeatureID GetFeatureID() const override { return FeatureID(); }
   bool HasCreationAnimation() const override { return false; }
 

@@ -18,7 +18,7 @@ static std::string const kTransitMarkTextOutline = "RouteMarkPrimaryTextOutline"
 float const kRouteMarkPrimaryTextSize = 11.0f;
 float const kRouteMarkSecondaryTextSize = 10.0f;
 float const kRouteMarkSecondaryOffsetY = 2.0f;
-float const kTransitMarkTextSize = 13.0f;
+float const kTransitMarkTextSize = 12.0f;
 }  // namespace
 
 RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
@@ -399,6 +399,12 @@ void TransitMark::SetMinZoom(int minZoom)
 {
   SetDirty();
   m_minZoom = minZoom;
+}
+
+void TransitMark::SetMinTitleZoom(int minTitleZoom)
+{
+  SetDirty();
+  m_minTitleZoom = minTitleZoom;
 }
 
 void TransitMark::AddTitle(dp::TitleDecl const & titleDecl)

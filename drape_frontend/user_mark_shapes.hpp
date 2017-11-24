@@ -16,6 +16,7 @@ namespace df
 struct UserMarkRenderParams
 {
   int m_minZoom = 1;
+  int m_minTitleZoom = 1;
   m2::PointD m_pivot = m2::PointD(0.0, 0.0);
   m2::PointD m_pixelOffset = m2::PointD(0.0, 0.0);
   dp::Anchor m_anchor = dp::Center;

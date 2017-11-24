@@ -142,7 +142,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
           {
             ColoredSymbolViewParams params = itSym->second;
             if (params.m_shape == ColoredSymbolViewParams::Shape::Circle)
-              symbolSize = m2::PointF(params.m_radiusInPixels, params.m_radiusInPixels);
+              symbolSize = m2::PointF(params.m_radiusInPixels * 2.0f, params.m_radiusInPixels * 2.0f);
             else
               symbolSize = params.m_sizeInPixels;
 
@@ -205,14 +205,14 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     {
       symbolSize = renderInfo.m_symbolSizes->at(static_cast<size_t>(tileKey.m_zoomLevel - 1)) * vs;
     }
-    else
+    else if (!symbolName.empty())
     {
       textures->GetSymbolRegion(symbolName, region);
       symbolSize.x = max(region.GetPixelSize().x, symbolSize.x);
       symbolSize.y = max(region.GetPixelSize().y, symbolSize.y);
     }
 
-    if (renderInfo.m_titleDecl != nullptr)
+    if (renderInfo.m_titleDecl != nullptr && renderInfo.m_minTitleZoom <= tileKey.m_zoomLevel)
     {
       for (auto const & titleDecl : *renderInfo.m_titleDecl)
       {

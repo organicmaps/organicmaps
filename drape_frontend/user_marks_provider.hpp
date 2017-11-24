@@ -66,6 +66,7 @@ public:
   virtual bool HasSymbolPriority() const = 0;
   virtual bool HasTitlePriority() const = 0;
   virtual int GetMinZoom() const = 0;
+  virtual int GetMinTitleZoom() const = 0;
   virtual FeatureID GetFeatureID() const = 0;
   virtual bool HasCreationAnimation() const = 0;
 
