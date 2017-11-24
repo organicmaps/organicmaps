@@ -1377,6 +1377,8 @@
 
 "error_enter_correct_zip_code" = "Inserire il codice postale corretto";
 
+"error_enter_correct_name" = "error enter correct name";
+
 /* Place Page title for long tap */
 "placepage_unknown_place" = "Luogo sconosciuto";
 

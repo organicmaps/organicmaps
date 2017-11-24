@@ -832,6 +832,7 @@
 	<string name="error_enter_correct_storey_number">The number of floors must non exceed 25</string>
 	<string name="editor_zip_code">ZIP Code</string>
 	<string name="error_enter_correct_zip_code">Enter a valid ZIP code</string>
+	<string name="error_enter_correct_name">error enter correct name</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Unknown Place</string>
 	<string name="editor_other_info">Additional info</string>

@@ -1377,6 +1377,8 @@
 
 "error_enter_correct_zip_code" = "Geben Sie die korrekte Postleitzahl ein";
 
+"error_enter_correct_name" = "error enter correct name";
+
 /* Place Page title for long tap */
 "placepage_unknown_place" = "Unbekannter Ort";
 
