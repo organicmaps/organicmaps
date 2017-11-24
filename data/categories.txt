@@ -9162,9 +9162,9 @@ zh-Hans:^荒野小屋
 zh-Hant:^山屋
 
 sponsored-thor
-en:Collect all the items and win prizes!
-ru:Соберите все и выиграйте призы!
+en:^Collect all the items and win prizes!
+ru:^Соберите все и выиграйте призы!
 
 sponsored-holiday
-en:Let's check your luck. Trick or treat?
-ru:Проверим вашу удачу? Нажмите на «Trick» или «Treat»
+en:^Let's check your luck. Trick or treat?
+ru:^Проверим вашу удачу? Нажмите на «Trick» или «Treat»
