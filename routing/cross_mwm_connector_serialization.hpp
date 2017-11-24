@@ -2,6 +2,7 @@
 
 #include "routing/coding.hpp"
 #include "routing/cross_mwm_connector.hpp"
+#include "routing/cross_mwm_ids.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -24,6 +25,27 @@
 
 namespace routing
 {
+namespace connector
+{
+static uint8_t constexpr kOsmIdBits = 64;
+static uint8_t constexpr kStopIdBits = 64;
+static uint8_t constexpr kLineIdBits = 32;
+
+inline uint32_t CalcBitsPerTransitId() { return 2 * kStopIdBits + kLineIdBits; }
+
+template <class CrossMwmId>
+inline void CheckBitsPerCrossMwmId(uint32_t bitsPerCrossMwmId)
+{
+  CHECK_LESS_OR_EQUAL(bitsPerCrossMwmId, kOsmIdBits, ());
+}
+
+template <>
+inline void CheckBitsPerCrossMwmId<TransitId>(uint32_t bitsPerCrossMwmId)
+{
+  CHECK_EQUAL(bitsPerCrossMwmId, CalcBitsPerTransitId(), ());
+}
+}  // namespace connector
+
 template <typename CrossMwmId>
 using CrossMwmConnectorPerVehicleType =
     std::array<CrossMwmConnector<CrossMwmId>, static_cast<size_t>(VehicleType::Count)>;
@@ -31,9 +53,6 @@ using CrossMwmConnectorPerVehicleType =
 class CrossMwmConnectorSerializer final
 {
 public:
-  static uint8_t constexpr kStopIdBits = 64;
-  static uint8_t constexpr kLineIdBits = 32;
-
   template <typename CrossMwmId>
   class Transition final
   {
@@ -63,9 +82,9 @@ public:
     template <class Sink>
     void WriteCrossMwmId(connector::TransitId const & id, uint8_t /* n */, BitWriter<Sink> & w) const
     {
-      w.WriteAtMost64Bits(id.m_stop1Id, kStopIdBits);
-      w.WriteAtMost64Bits(id.m_stop2Id, kStopIdBits);
-      w.WriteAtMost32Bits(id.m_lineId, kLineIdBits);
+      w.WriteAtMost64Bits(id.m_stop1Id, connector::kStopIdBits);
+      w.WriteAtMost64Bits(id.m_stop2Id, connector::kStopIdBits);
+      w.WriteAtMost32Bits(id.m_lineId, connector::kLineIdBits);
     }
 
     template <class Sink>
@@ -85,28 +104,30 @@ public:
     }
 
     template <class Source>
-    void ReadCrossMwmId(uint8_t /* n */, BitReader<Source> & reader, connector::TransitId & readed)
+    void ReadCrossMwmId(uint8_t /* bitsPerCrossMwmId */, BitReader<Source> & reader,
+                        connector::TransitId & readed)
     {
-      readed.m_stop1Id = reader.ReadAtMost64Bits(kStopIdBits);
-      readed.m_stop2Id = reader.ReadAtMost64Bits(kStopIdBits);
-      readed.m_lineId = reader.ReadAtMost32Bits(kLineIdBits);
+      readed.m_stop1Id = reader.ReadAtMost64Bits(connector::kStopIdBits);
+      readed.m_stop2Id = reader.ReadAtMost64Bits(connector::kStopIdBits);
+      readed.m_lineId = reader.ReadAtMost32Bits(connector::kLineIdBits);
     };
 
     template <class Source>
-    void ReadCrossMwmId(uint8_t n, BitReader<Source> & reader, connector::OsmId & readed)
+    void ReadCrossMwmId(uint8_t bitsPerCrossMwmId, BitReader<Source> & reader,
+                        connector::OsmId & readed)
     {
-      readed.Set(reader.ReadAtMost64Bits(n));
+      readed.Set(reader.ReadAtMost64Bits(bitsPerCrossMwmId));
     }
 
     template <class Source>
-    void Deserialize(serial::CodingParams const & codingParams, uint32_t bitsPerOsmId,
+    void Deserialize(serial::CodingParams const & codingParams, uint32_t bitsPerCrossMwmId,
                      uint8_t bitsPerMask, Source & src)
     {
       m_backPoint = serial::LoadPoint(src, codingParams);
       m_frontPoint = serial::LoadPoint(src, codingParams);
 
       BitReader<Source> reader(src);
-      ReadCrossMwmId(bitsPerOsmId, reader, m_crossMwmId);
+      ReadCrossMwmId(bitsPerCrossMwmId, reader, m_crossMwmId);
       m_featureId = ReadDelta<decltype(m_featureId)>(reader) - 1;
       m_segmentIdx = ReadDelta<decltype(m_segmentIdx)>(reader) - 1;
       m_roadMask = base::asserted_cast<VehicleMask>(reader.ReadAtMost32Bits(bitsPerMask));
@@ -180,6 +201,7 @@ public:
 
     Header header;
     header.Deserialize(src);
+    connector::CheckBitsPerCrossMwmId<CrossMwmId>(header.GetBitsPerCrossMwmId());
 
     uint64_t weightsOffset = src.Pos() + header.GetSizeTransitions();
     VehicleMask const requiredMask = GetVehicleMask(requiredVehicle);
@@ -188,7 +210,7 @@ public:
     for (size_t i = 0; i < numTransitions; ++i)
     {
       Transition<CrossMwmId> transition;
-      transition.Deserialize(header.GetCodingParams(), header.GetBitsPerOsmId(),
+      transition.Deserialize(header.GetCodingParams(), header.GetBitsPerCrossMwmId(),
                              header.GetBitsPerMask(), src);
       AddTransition(transition, requiredMask, connector);
     }
@@ -331,8 +353,6 @@ private:
     VehicleType m_vehicleType = VehicleType::Pedestrian;
   };
 
-  // @todo(bykoianko) It's necessary to consider implementation Header template class.
-  // For different cross mwm id may be needs different headers. For example without |bitsPerOsmId|.
   class Header final
   {
   public:
@@ -393,7 +413,7 @@ private:
     uint64_t GetSizeTransitions() const { return m_sizeTransitions; }
     Weight GetGranularity() const { return m_granularity; }
     serial::CodingParams const & GetCodingParams() const { return m_codingParams; }
-    uint8_t GetBitsPerOsmId() const { return m_bitsPerCrossMwmId; }
+    uint8_t GetBitsPerCrossMwmId() const { return m_bitsPerCrossMwmId; }
     uint8_t GetBitsPerMask() const { return m_bitsPerMask; }
     std::vector<Section> const & GetSections() const { return m_sections; }
 
@@ -421,8 +441,7 @@ private:
   static uint32_t CalcBitsPerCrossMwmId(
       std::vector<Transition<connector::TransitId>> const & /* transitions */)
   {
-    // Bit per osm id is not actual for TransitId case.
-    return 0;
+    return connector::CalcBitsPerTransitId();
   }
 
   template <typename T>
@@ -455,6 +474,7 @@ private:
   static void WriteWeights(std::vector<Weight> const & weights, std::vector<uint8_t> & buffer);
 };
 
-static_assert(CrossMwmConnectorSerializer::kStopIdBits <= 64, "Wrong kStopIdBits.");
-static_assert(CrossMwmConnectorSerializer::kLineIdBits <= 32, "Wrong kLineIdBitsю");
+static_assert(connector::kOsmIdBits == 64, "Wrong kOsmIdBits.");
+static_assert(connector::kStopIdBits == 64, "Wrong kStopIdBits.");
+static_assert(connector::kLineIdBits == 32, "Wrong kLineIdBits.");
 }  // namespace routing
