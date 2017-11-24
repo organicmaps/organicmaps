@@ -1,5 +1,5 @@
 #pragma once
-#include "trie.hpp"
+#include "indexer/trie.hpp"
 
 #include "coding/byte_stream.hpp"
 #include "coding/varint.hpp"
@@ -8,9 +8,11 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/vector.hpp"
-#include "std/utility.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <utility>
+#include <vector>
 
 // Trie format:
 // [1: header]
@@ -67,14 +69,15 @@ void WriteNode(Sink & sink, Serializer const & serializer, TrieChar baseChar,
     return;
   }
   uint32_t const childCount = base::asserted_cast<uint32_t>(endChild - begChild);
-  uint8_t const header = static_cast<uint32_t>((min(valueCount, 3U) << 6) + min(childCount, 63U));
+  uint8_t const header =
+      static_cast<uint32_t>((std::min(valueCount, 3U) << 6) + std::min(childCount, 63U));
   sink.Write(&header, 1);
   if (valueCount >= 3)
     WriteVarUint(sink, valueCount);
   if (childCount >= 63)
     WriteVarUint(sink, childCount);
   valueList.Serialize(sink, serializer);
-  for (ChildIter it = begChild; it != endChild; /*++it*/)
+  for (ChildIter it = begChild; it != endChild;)
   {
     uint8_t header = (it->IsLeaf() ? 128 : 0);
     TrieChar const * const edge = it->GetEdge();
@@ -117,10 +120,6 @@ void WriteNode(Sink & sink, Serializer const & serializer, TrieChar baseChar,
 
 struct ChildInfo
 {
-  bool m_isLeaf;
-  uint32_t m_size;
-  vector<TrieChar> m_edge;
-
   ChildInfo(bool isLeaf, uint32_t size, TrieChar c) : m_isLeaf(isLeaf), m_size(size), m_edge(1, c)
   {
   }
@@ -129,14 +128,29 @@ struct ChildInfo
   bool IsLeaf() const { return m_isLeaf; }
   TrieChar const * GetEdge() const { return m_edge.data(); }
   size_t GetEdgeSize() const { return m_edge.size(); }
+
+  bool m_isLeaf;
+  uint32_t m_size;
+  std::vector<TrieChar> m_edge;
 };
 
 template <typename ValueList>
 struct NodeInfo
 {
+  NodeInfo() = default;
+  NodeInfo(uint64_t pos, TrieChar trieChar) : m_begPos(pos), m_char(trieChar) {}
+
+  // It is finalized in the sense that no more appends are possible
+  // so it is a fine moment to initialize the underlying ValueList.
+  void FinalizeValueList()
+  {
+    m_valueList.Init(m_temporaryValueList);
+    m_mayAppend = false;
+  }
+
   uint64_t m_begPos = 0;
   TrieChar m_char = 0;
-  vector<ChildInfo> m_children;
+  std::vector<ChildInfo> m_children;
 
   // This is ugly but will do until we rename ValueList.
   // Here is the rationale. ValueList<> is the entity that
@@ -151,20 +165,9 @@ struct NodeInfo
   // need to update a node's ValueList until the node is finalized
   // this vector is needed here. It is better to leave it here
   // than to expose it in ValueList.
-  vector<typename ValueList::Value> m_temporaryValueList;
+  std::vector<typename ValueList::Value> m_temporaryValueList;
   ValueList m_valueList = {};
   bool m_mayAppend = true;
-
-  NodeInfo() = default;
-  NodeInfo(uint64_t pos, TrieChar trieChar) : m_begPos(pos), m_char(trieChar) {}
-
-  // It is finalized in the sense that no more appends are possible
-  // so it is a fine moment to initialize the underlying ValueList.
-  void FinalizeValueList()
-  {
-    m_valueList.Init(m_temporaryValueList);
-    m_mayAppend = false;
-  }
 };
 
 template <typename Sink, typename ValueList, typename Serializer>
@@ -177,7 +180,7 @@ void WriteNodeReverse(Sink & sink, Serializer const & serializer, TrieChar baseC
   node.FinalizeValueList();
   WriteNode(outSink, serializer, baseChar, node.m_valueList, node.m_children.rbegin(),
             node.m_children.rend(), isRoot);
-  reverse(out.begin(), out.end());
+  std::reverse(out.begin(), out.end());
   sink.Write(out.data(), out.size());
 }
 
@@ -229,16 +232,16 @@ void AppendValue(NodeInfo & node, Value const & value)
 
 template <typename Sink, typename Key, typename ValueList, typename Serializer>
 void Build(Sink & sink, Serializer const & serializer,
-           vector<pair<Key, typename ValueList::Value>> const & data)
+           std::vector<std::pair<Key, typename ValueList::Value>> const & data)
 {
   using Value = typename ValueList::Value;
   using NodeInfo = NodeInfo<ValueList>;
 
-  vector<NodeInfo> nodes;
+  std::vector<NodeInfo> nodes;
   nodes.emplace_back(sink.Pos(), kDefaultChar);
 
   Key prevKey;
-  pair<Key, Value> prevE;  // e for "element".
+  std::pair<Key, Value> prevE;  // e for "element".
 
   for (auto it = data.begin(); it != data.end(); ++it)
   {
@@ -249,7 +252,7 @@ void Build(Sink & sink, Serializer const & serializer,
     auto const & key = e.first;
     CHECK(!(key < prevKey), (key, prevKey));
     size_t nCommon = 0;
-    while (nCommon < min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
+    while (nCommon < std::min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
       ++nCommon;
 
     // Root is also a common node.
@@ -260,7 +263,7 @@ void Build(Sink & sink, Serializer const & serializer,
     AppendValue(nodes.back(), e.second);
 
     prevKey = key;
-    swap(e, prevE);
+    std::swap(e, prevE);
   }
 
   // Pop all the nodes from the stack.
