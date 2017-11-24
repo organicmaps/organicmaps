@@ -7,10 +7,13 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cctype.hpp"
-#include "std/cmath.hpp"
-#include "std/regex.hpp"
-#include "std/sstream.hpp"
+#include <codecvt>
+#include <cctype>
+#include <cmath>
+#include <regex>
+#include <sstream>
+
+using namespace std;
 
 namespace
 {
@@ -755,5 +758,36 @@ bool EditableMapObject::ValidateLevel(string const & level)
   double result;
   return strings::to_double(level, result) && result > kMinBuildingLevel &&
          result <= kMaximumLevelsEditableByUsers;
+}
+
+// static
+bool EditableMapObject::ValidateName(string const & name)
+{
+  if (name.empty())
+    return true;
+
+  if (strings::IsASCIIString(name))
+    return regex_match(name, regex(R"(^[ A-Za-z0-9.,?!@()\-:;"'`]+$)"));
+
+  std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;
+
+  std::u32string const u32name = converter.from_bytes(name);
+
+  std::u32string const excludedSymbols = U"$%^~§><{}[]*=_#№±\n\t\r\v\f|√•π÷×¶∆°";
+
+  for (auto const ch : u32name)
+  {
+    // Exclude arrows, mathematical symbols, borders, geometric shapes.
+    if (ch >= U'\U00002190' && ch <= U'\U00002BFF')
+      return false;
+    // Exclude format controls, musical symbols, emoticons, ornamental and pictographs,
+    // ancient and exotic alphabets.
+    if (ch >= U'\U0000FFF0' && ch <= U'\U0001F9FF')
+      return false;
+
+    if (find(excludedSymbols.cbegin(), excludedSymbols.cend(), ch) != excludedSymbols.cend())
+      return false;
+  }
+  return true;
 }
 }  // namespace osm

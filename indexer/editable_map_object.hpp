@@ -165,6 +165,7 @@ public:
   static bool ValidateWebsite(string const & site);
   static bool ValidateEmail(string const & email);
   static bool ValidateLevel(string const & level);
+  static bool ValidateName(string const & name);
 
   /// Check whether langCode can be used as default name.
   static bool CanUseAsDefaultName(int8_t const langCode, vector<int8_t> const & nativeMwmLanguages);
