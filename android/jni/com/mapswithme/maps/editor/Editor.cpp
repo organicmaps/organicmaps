@@ -592,6 +592,13 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsEmailValid(JNIEnv * env, jclass c
   return osm::EditableMapObject::ValidateEmail(jni::ToNativeString(env, email));
 }
 
+// static bool ValidateName(string const & name)
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsNameValid(JNIEnv * env, jclass clazz, jstring name)
+{
+  return osm::EditableMapObject::ValidateName(jni::ToNativeString(env, name));
+}
+
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetCategory(JNIEnv * env, jclass clazz)
 {

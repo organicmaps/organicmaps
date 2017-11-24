@@ -28,6 +28,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.Metadata.MetadataType;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
+import com.mapswithme.maps.editor.data.LocalizedName;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
@@ -280,6 +281,28 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       return false;
     }
 
+    if (!validateNames())
+      return false;
+
+    return true;
+  }
+
+  private boolean validateNames()
+  {
+    for (int pos = 0; pos < mNamesAdapter.getItemCount(); pos++)
+    {
+      LocalizedName localizedName = mNamesAdapter.getNameAtPos(pos);
+      if (Editor.nativeIsNameValid(localizedName.name))
+        continue;
+
+      View nameView = mNamesView.getChildAt(pos);
+      nameView.requestFocus();
+
+      InputUtils.showKeyboard(nameView);
+
+      return false;
+    }
+
     return true;
   }
 
@@ -488,6 +511,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       break;
     case R.id.more_names:
     case R.id.show_additional_names:
+      if (mNamesAdapter.areAdditionalLanguagesShown() && !validateNames())
+        break;
       showAdditionalNames(!mNamesAdapter.areAdditionalLanguagesShown());
       break;
     case R.id.add_langs:

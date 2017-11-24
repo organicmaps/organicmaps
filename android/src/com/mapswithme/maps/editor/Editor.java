@@ -124,6 +124,7 @@ public final class Editor
   public static native boolean nativeIsPhoneValid(String phone);
   public static native boolean nativeIsWebsiteValid(String site);
   public static native boolean nativeIsEmailValid(String email);
+  public static native boolean nativeIsNameValid(String name);
 
 
   public static native boolean nativeHasSomethingToUpload();

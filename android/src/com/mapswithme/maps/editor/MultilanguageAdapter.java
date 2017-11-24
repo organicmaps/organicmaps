@@ -54,6 +54,8 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
     return mNames.size();
   }
 
+  public LocalizedName getNameAtPos(int pos) { return mNames.get(pos); }
+
   public int getMandatoryNamesCount()
   {
     return mMandatoryNamesCount;
@@ -99,6 +101,7 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count)
         {
+          UiUtils.setInputError(inputLayout, Editor.nativeIsNameValid(s.toString()) ? 0 : R.string.error_enter_correct_name);
           mNames.get(getAdapterPosition()).name = s.toString();
         }
       });
