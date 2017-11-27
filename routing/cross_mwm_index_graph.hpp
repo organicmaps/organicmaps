@@ -22,6 +22,21 @@
 
 namespace routing
 {
+namespace connector
+{
+template <typename CrossMwmId>
+inline FilesContainerR::TReader GetReader(FilesContainerR const & cont)
+{
+  return cont.GetReader(CROSS_MWM_FILE_TAG);
+}
+
+template <>
+inline FilesContainerR::TReader GetReader<TransitId>(FilesContainerR const & cont)
+{
+  return cont.GetReader(TRANSIT_CROSS_MWM_FILE_TAG);
+}
+}  // namespace connector
+
 template <typename CrossMwmId>
 class CrossMwmIndexGraph final
 {
@@ -132,7 +147,7 @@ private:
     CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
 
     FilesContainerR::TReader const reader =
-        FilesContainerR::TReader(value->m_cont.GetReader(CROSS_MWM_FILE_TAG));
+        FilesContainerR::TReader(connector::GetReader<CrossMwmId>(value->m_cont));
     ReaderSourceFile src(reader);
     auto it = m_connectors.find(numMwmId);
     if (it == m_connectors.end())
