@@ -7,6 +7,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/region2d.hpp"
 
+#include "coding/file_writer.hpp"
+
 #include "base/macros.hpp"
 #include "base/osm_id.hpp"
 
@@ -124,7 +126,7 @@ class GraphData
 {
 public:
   void DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping);
-  void SerializeToMwm(std::string const & mwmPath) const;
+  void SerializeToMwm(FileWriter & writer) const;
   void AppendTo(GraphData const & rhs);
   void Clear();
   bool IsValid() const;

@@ -22,7 +22,6 @@
 
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
-#include "coding/file_writer.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
@@ -275,46 +274,43 @@ void GraphData::DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap 
   Visit(deserializer);
 }
 
-void GraphData::SerializeToMwm(string const & mwmPath) const
+void GraphData::SerializeToMwm(FileWriter & writer) const
 {
-  FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter w = cont.GetWriter(TRANSIT_FILE_TAG);
-
   TransitHeader header;
 
-  auto const startOffset = w.Pos();
-  Serializer<FileWriter> serializer(w);
-  FixedSizeSerializer<FileWriter> numberSerializer(w);
+  auto const startOffset = writer.Pos();
+  Serializer<FileWriter> serializer(writer);
+  FixedSizeSerializer<FileWriter> numberSerializer(writer);
   numberSerializer(header);
-  header.m_stopsOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+  header.m_stopsOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_stops);
-  header.m_gatesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+  header.m_gatesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_gates);
-  header.m_edgesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+  header.m_edgesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_edges);
-  header.m_transfersOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+  header.m_transfersOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_transfers);
-  header.m_linesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+  header.m_linesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_lines);
-  header.m_shapesOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+  header.m_shapesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_shapes);
-  header.m_networksOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+  header.m_networksOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_networks);
-  header.m_endOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
+  header.m_endOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   // Rewriting header info.
   CHECK(header.IsValid(), (header));
-  auto const endOffset = w.Pos();
-  w.Seek(startOffset);
+  auto const endOffset = writer.Pos();
+  writer.Seek(startOffset);
   numberSerializer(header);
-  w.Seek(endOffset);
+  writer.Seek(endOffset);
 
   LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Header:", header));
 }
@@ -648,7 +644,10 @@ void BuildTransit(string const & mwmDir, TCountryId const & countryId,
 
   ProcessGraph(mwmPath, countryId, mapping, jointData);
   CHECK(jointData.IsValid(), (mwmPath, countryId));
-  jointData.SerializeToMwm(mwmPath);
+
+  FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
+  FileWriter writer = cont.GetWriter(TRANSIT_FILE_TAG);
+  jointData.SerializeToMwm(writer);
 }
 }  // namespace transit
 }  // namespace routing
