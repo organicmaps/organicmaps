@@ -58,7 +58,16 @@ final class BannersCache: NSObject {
   @objc func get(coreBanners: [CoreBanner], cacheOnly: Bool, loadNew: Bool = true, completion: @escaping Completion) {
     self.completion = completion
     self.cacheOnly = cacheOnly
-    loadStates = loadStates ?? []
+    setupLoadStates(coreBanners: coreBanners, loadNew: loadNew)
+    onCompletion(isAsync: false)
+  }
+
+  @objc func refresh(coreBanners: [CoreBanner]) {
+    setupLoadStates(coreBanners: coreBanners, loadNew: true)
+  }
+
+  fileprivate func setupLoadStates(coreBanners: [CoreBanner], loadNew: Bool) {
+    loadStates = []
     coreBanners.forEach { coreBanner in
       let bannerType = BannerType(type: coreBanner.mwmType, id: coreBanner.bannerID, query: coreBanner.query)
       if let banner = cache[bannerType], (!banner.isPossibleToReload || banner.isNeedToRetain) {
@@ -68,20 +77,6 @@ final class BannersCache: NSObject {
           get(bannerType: bannerType)
         }
         appendLoadState(.notLoaded(bannerType))
-      }
-    }
-
-    onCompletion(isAsync: false)
-  }
-
-  @objc func refresh(coreBanners: [CoreBanner]) {
-    loadStates = loadStates ?? []
-    coreBanners.forEach { coreBanner in
-      let bannerType = BannerType(type: coreBanner.mwmType, id: coreBanner.bannerID, query: coreBanner.query)
-      let state = LoadState.notLoaded(bannerType)
-      if loadStates.index(of: state) == nil {
-        get(bannerType: bannerType)
-        appendLoadState(state)
       }
     }
   }
