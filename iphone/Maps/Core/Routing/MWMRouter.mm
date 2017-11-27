@@ -636,8 +636,11 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 - (void)processRouteBuilderProgress:(CGFloat)progress
 {
-  if (![MWMRouter isTaxi])
-    [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:progress];
+  if ([MWMRouter isTaxi])
+    return;
+  auto navigationManager = [MWMNavigationDashboardManager manager];
+  [navigationManager onRoutePlanning];
+  [navigationManager setRouteBuilderProgress:progress];
 }
 
 - (void)processRouteRecommendation:(MWMRouterRecommendation)recommendation
