@@ -50,7 +50,7 @@ final class PhotoScalingView: UIScrollView {
   private func centerScrollViewContents() {
     let horizontalInset: CGFloat = contentSize.width < bounds.width ? (bounds.width - contentSize.width) * 0.5 : 0
     let verticalInset: CGFloat = contentSize.height < bounds.height ? (bounds.height - contentSize.height) * 0.5 : 0
-    contentInset = UIEdgeInsetsMake(verticalInset, horizontalInset, verticalInset, horizontalInset)
+    contentInset = UIEdgeInsets(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
   }
 
   private func updateImage(_ photo: GalleryItemModel?) {
