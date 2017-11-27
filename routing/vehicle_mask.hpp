@@ -29,6 +29,7 @@ VehicleMask constexpr kAllVehiclesMask = kNumVehicleMasks - 1;
 VehicleMask constexpr kPedestrianMask = GetVehicleMask(VehicleType::Pedestrian);
 VehicleMask constexpr kBicycleMask = GetVehicleMask(VehicleType::Bicycle);
 VehicleMask constexpr kCarMask = GetVehicleMask(VehicleType::Car);
+VehicleMask constexpr kTransitMask = GetVehicleMask(VehicleType::Transit);
 
 std::string DebugPrint(VehicleType vehicleType);
 std::string ToString(VehicleType vehicleType);

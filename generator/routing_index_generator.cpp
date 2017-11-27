@@ -16,15 +16,19 @@
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
+#include "routing_common/transit_serdes.hpp"
 
 #include "indexer/coding_params.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
 #include "coding/point_to_integer.hpp"
+#include "coding/reader.hpp"
 
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
@@ -262,9 +266,63 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
                              CountryParentNameGetterFn const & countryParentNameGetterFn,
                              vector<CrossMwmConnectorSerializer::Transition<connector::TransitId>> & transitions)
 {
+  LOG(LINFO, ("CalcCrossMwmTransitions(", mwmFile, "...)"));
   CHECK(mappingFile.empty(), ());
-  NOTIMPLEMENTED();
-  // @todo(bykoianko) Filling |transitions| based on transit section should be implemented.
+  try
+  {
+    FilesContainerR cont(mwmFile);
+    CHECK(cont.IsExist(TRANSIT_FILE_TAG),
+          (TRANSIT_FILE_TAG, "should be generated before", TRANSIT_CROSS_MWM_FILE_TAG));
+    auto reader = cont.GetReader(TRANSIT_FILE_TAG);
+    ReaderSource<FilesContainerR::TReader> src(reader);
+
+    transit::FixedSizeDeserializer<ReaderSource<FilesContainerR::TReader>> numberDeserializer(src);
+    transit::TransitHeader header;
+    numberDeserializer(header);
+    CHECK(header.IsValid(), ("TransitHeader is not valid.", header));
+
+    transit::Deserializer<ReaderSource<FilesContainerR::TReader>> deserializer(src);
+    vector<transit::Stop> stops;
+    deserializer(stops);
+    CHECK(IsValidSortedUnique(stops), ("Transit stops are not valid. Mwm:", mwmFile));
+    src.Skip(header.m_edgesOffset - header.m_gatesOffset); // Skipping gates.
+    vector<transit::Edge> edges;
+    deserializer(edges);
+    CHECK(IsValidSortedUnique(edges), ("Transit edges are not valid. Mwm:", mwmFile));
+
+    auto const getStopIdPoint = [&stops] (transit::StopId stopId) -> m2::PointD const & {
+      auto const it = equal_range(stops.cbegin(), stops.cend(), transit::Stop(stopId));
+      CHECK_EQUAL(distance(it.first, it.second), 1,
+                  ("An stop with id:", stopId, "is not unique or there's not such item. stops:", stops));
+      return it.first->GetPoint();
+    };
+
+    LOG(LINFO, ("CalcCrossMwmTransitions() edges.size():", edges.size()));
+
+    // Index |i| is zero based edge index. This zero based index should be increased with
+    // |FakeFeatureIds::kTransitGraphFeaturesStart| and then used in Segment class as
+    // feature id in transit case.Ø
+    for (size_t i = 0; i < edges.size(); ++i)
+    {
+      auto const & e = edges[i];
+      m2::PointD const stop1Point = getStopIdPoint(e.GetStop1Id());
+      m2::PointD const stop2Point = getStopIdPoint(e.GetStop2Id());
+      bool const stop2In = m2::RegionsContain(borders, stop2Point);
+      if (m2::RegionsContain(borders, stop1Point) == stop2In)
+        continue;
+
+      LOG(LINFO, ("CalcCrossMwmTransitions() crossing edge:", e));
+      // Note. One way mask is set to kTransitMask because all transit edges are one way edges.
+      transitions.emplace_back(connector::TransitId(e.GetStop1Id(), e.GetStop2Id(), e.GetLineId()),
+                               i /* feature id */, 0 /* segment index */, kTransitMask,
+                               kTransitMask /* one way mask */, stop2In /* forward is enter */,
+                               stop1Point, stop2Point);
+    }
+  }
+  catch (Reader::OpenException const & e)
+  {
+    CHECK(false, ("Error while reading", TRANSIT_FILE_TAG, "section.", e.Msg()));
+  }
 }
 
 /// \brief Fills |transitions| and |connectors| params.

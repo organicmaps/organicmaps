@@ -7,9 +7,11 @@
 #include "base/newtype.hpp"
 #include "base/visitor.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <limits>
 #include <string>
+#include <vector>
 
 namespace routing
 {
@@ -459,6 +461,19 @@ private:
   NetworkId m_id = kInvalidNetworkId;
   std::string m_title;
 };
+
+template <class Item>
+bool IsValid(std::vector<Item> const & items)
+{
+  return std::all_of(items.cbegin(), items.cend(), [](Item const & item) { return item.IsValid(); });
+}
+
+template <class Item>
+bool IsValidSortedUnique(std::vector<Item> const & items)
+{
+  return IsValid(items) && std::is_sorted(items.cbegin(), items.cend()) &&
+         std::adjacent_find(items.cbegin(), items.cend()) == items.cend();
+}
 
 EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2,
                        std::vector<ShapeId> const & shapeIds);

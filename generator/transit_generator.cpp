@@ -52,12 +52,6 @@ using namespace storage;
 
 namespace
 {
-template <class Item>
-bool IsValid(vector<Item> const & items)
-{
-  return all_of(items.cbegin(), items.cend(), [](Item const & item) { return item.IsValid(); });
-}
-
 struct ClearVisitor
 {
   template <typename Cont>
@@ -628,10 +622,6 @@ void ProcessGraph(string const & mwmPath, TCountryId const & countryId,
 void BuildTransit(string const & mwmDir, TCountryId const & countryId,
                   string const & osmIdToFeatureIdsPath, string const & transitDir)
 {
-  LOG(LERROR, ("This method is under construction and should not be used for building production mwm "
-      "sections."));
-  NOTIMPLEMENTED();
-
   Platform::FilesList graphFiles;
   Platform::GetFilesByExt(my::AddSlashIfNeeded(transitDir), TRANSIT_FILE_EXTENSION, graphFiles);
 
