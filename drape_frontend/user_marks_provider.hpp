@@ -41,7 +41,6 @@ class UserPointMark
 public:
   using ColoredSymbolZoomInfo = std::map<int, df::ColoredSymbolViewParams>;
   using SymbolNameZoomInfo = std::map<int, std::string>;
-  using SymbolSizesZoomInfo = std::vector<m2::PointF>;
   using TitlesInfo = std::vector<dp::TitleDecl>;
 
   UserPointMark();
@@ -59,7 +58,6 @@ public:
   virtual RenderState::DepthLayer GetDepthLayer() const = 0;
   virtual bool IsVisible() const = 0;
   virtual drape_ptr<TitlesInfo> GetTitleDecl() const = 0;
-  virtual drape_ptr<SymbolSizesZoomInfo> GetSymbolSizes() const = 0;
   virtual drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const = 0;
   virtual drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const = 0;
   virtual uint16_t GetPriority() const = 0;

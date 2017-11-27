@@ -51,7 +51,6 @@ public:
   float GetDepth() const override;
   df::RenderState::DepthLayer GetDepthLayer() const override;
   drape_ptr<TitlesInfo> GetTitleDecl() const override { return nullptr; }
-  drape_ptr<SymbolSizesZoomInfo> GetSymbolSizes() const override { return nullptr; }
   drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override { return nullptr; }
   uint16_t GetPriority() const override { return static_cast<uint16_t >(Priority::Default); }
   bool HasSymbolPriority() const override { return false; }

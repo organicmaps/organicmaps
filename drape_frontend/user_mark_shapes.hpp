@@ -20,7 +20,6 @@ struct UserMarkRenderParams
   m2::PointD m_pivot = m2::PointD(0.0, 0.0);
   m2::PointD m_pixelOffset = m2::PointD(0.0, 0.0);
   dp::Anchor m_anchor = dp::Center;
-  drape_ptr<UserPointMark::SymbolSizesZoomInfo> m_symbolSizes;
   drape_ptr<UserPointMark::ColoredSymbolZoomInfo> m_coloredSymbols;
   drape_ptr<UserPointMark::SymbolNameZoomInfo> m_symbolNames;
   drape_ptr<UserPointMark::TitlesInfo> m_titleDecl;

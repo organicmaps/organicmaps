@@ -1,4 +1,4 @@
-#include "map/transit_reader.hpp"
+#include "map/transit/transit_reader.hpp"
 
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"

@@ -32,10 +32,7 @@ public:
     auto const & colors = isDarkStyle ? m_nightColors : m_clearColors;
     auto const it = colors.find(name);
     if (it == colors.cend())
-    {
-      LOG(LWARNING, ("Requested transit color '" + name + "' is not found"));
       return dp::Color();
-    }
     return it->second;
   }
 

@@ -201,11 +201,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       buffer.emplace_back(pos, right + up + offset, glsl::ToVec2(texRect.RightBottom()), runAnim);
     }
 
-    if (renderInfo.m_symbolSizes != nullptr)
-    {
-      symbolSize = renderInfo.m_symbolSizes->at(static_cast<size_t>(tileKey.m_zoomLevel - 1)) * vs;
-    }
-    else if (!symbolName.empty())
+    if (!symbolName.empty())
     {
       textures->GetSymbolRegion(symbolName, region);
       symbolSize.x = max(region.GetPixelSize().x, symbolSize.x);

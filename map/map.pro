@@ -45,7 +45,8 @@ HEADERS += \
     taxi_delegate.hpp \
     track.hpp \
     traffic_manager.hpp \
-    transit_reader.hpp \
+    transit/transit_display.hpp \
+    transit/transit_reader.hpp \
     user.hpp \
     user_mark.hpp \
     user_mark_container.hpp \
@@ -86,7 +87,8 @@ SOURCES += \
     taxi_delegate.cpp \
     track.cpp \
     traffic_manager.cpp \
-    transit_reader.cpp \
+    transit/transit_display.cpp \
+    transit/transit_reader.cpp \
     user.cpp \
     user_mark.cpp \
     user_mark_container.cpp \

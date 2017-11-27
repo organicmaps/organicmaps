@@ -425,12 +425,6 @@ void TransitMark::SetSymbolNames(std::map<int, std::string> const & symbolNames)
   m_symbolNames = symbolNames;
 }
 
-void TransitMark::SetSymbolSizes(std::vector<m2::PointF> const & symbolSizes)
-{
-  SetDirty();
-  m_symbolSizes = symbolSizes;
-}
-
 void TransitMark::SetColoredSymbols(std::map<int, df::ColoredSymbolViewParams> const & symbolParams)
 {
   SetDirty();
@@ -442,13 +436,6 @@ drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> TransitMark::GetColoredSymbo
   if (m_coloredSymbols.empty())
     return nullptr;
   return make_unique_dp<ColoredSymbolZoomInfo>(m_coloredSymbols);
-}
-
-drape_ptr<df::UserPointMark::SymbolSizesZoomInfo> TransitMark::GetSymbolSizes() const
-{
-  if (m_symbolSizes.empty())
-    return nullptr;
-  return make_unique_dp<SymbolSizesZoomInfo>(m_symbolSizes);
 }
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TransitMark::GetSymbolNames() const

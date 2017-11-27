@@ -2,7 +2,8 @@
 
 #include "map/bookmark_manager.hpp"
 #include "map/routing_mark.hpp"
-#include "map/transit_reader.hpp"
+#include "map/transit/transit_display.hpp"
+#include "map/transit/transit_reader.hpp"
 
 #include "routing/route.hpp"
 #include "routing/routing_session.hpp"
@@ -48,60 +49,6 @@ struct RoutePointInfo
   bool m_isPassed = false;
   bool m_isMyPosition = false;
   m2::PointD m_position;
-};
-
-enum class TransitType: uint32_t
-{
-  // Do not change the order!
-  IntermediatePoint,
-  Pedestrian,
-  Subway,
-  Train,
-  LightRail,
-  Monorail
-};
-
-struct TransitStepInfo
-{
-  TransitStepInfo() = default;
-  TransitStepInfo(TransitType type, double distance, int time,
-                  std::string const & number = "", uint32_t color = 0,
-                  int intermediateIndex = 0);
-
-  bool IsEqualType(TransitStepInfo const & ts) const;
-
-  TransitType m_type = TransitType::Pedestrian;
-
-  double m_distanceInMeters = 0.0;
-  int m_timeInSec = 0;
-
-  std::string m_distanceStr;
-  std::string m_distanceUnitsSuffix;
-
-  // Is valid for TransitType::Subway
-  std::string m_number;
-  uint32_t m_colorARGB = 0;
-
-  // Is valid for TransitType::IntermediatePoint
-  int m_intermediateIndex = 0;
-};
-
-struct TransitRouteInfo
-{
-  double m_totalDistInMeters = 0.0;
-  double m_totalPedestrianDistInMeters = 0.0;
-  int m_totalTimeInSec = 0;
-  int m_totalPedestrianTimeInSec = 0;
-
-  std::string m_totalDistanceStr;
-  std::string m_totalDistanceUnitsSuffix;
-  std::string m_totalPedestrianDistanceStr;
-  std::string m_totalPedestrianUnitsSuffix;
-
-  std::vector<TransitStepInfo> m_steps;
-
-  void AddStep(TransitStepInfo const & step);
-  void UpdateDistanceStrings();
 };
 
 class RoutingManager final

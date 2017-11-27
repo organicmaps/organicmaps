@@ -126,9 +126,6 @@ public:
   void SetMinTitleZoom(int minTitleZoom);
   int GetMinTitleZoom() const override { return m_minTitleZoom; }
 
-  void SetSymbolSizes(SymbolSizesZoomInfo const & symbolSizes);
-  drape_ptr<SymbolSizesZoomInfo> GetSymbolSizes() const override;
-
   void SetColoredSymbols(ColoredSymbolZoomInfo const & symbolParams);
   drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
 
@@ -146,7 +143,6 @@ private:
   Priority m_priority;
   FeatureID m_featureId;
   TitlesInfo m_titles;
-  SymbolSizesZoomInfo m_symbolSizes;
   SymbolNameZoomInfo m_symbolNames;
   ColoredSymbolZoomInfo m_coloredSymbols;
 };

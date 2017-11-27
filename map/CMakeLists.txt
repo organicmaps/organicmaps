@@ -77,8 +77,10 @@ set(
   track.hpp
   traffic_manager.cpp
   traffic_manager.hpp
-  transit_reader.cpp
-  transit_reader.hpp
+  transit/transit_display.cpp
+  transit/transit_display.hpp
+  transit/transit_reader.cpp
+  transit/transit_reader.hpp
   user.cpp
   user.hpp
   user_mark_container.cpp
