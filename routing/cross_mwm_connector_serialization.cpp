@@ -2,8 +2,6 @@
 
 #include "base/bits.hpp"
 
-#include <algorithm>
-
 using namespace std;
 
 namespace routing

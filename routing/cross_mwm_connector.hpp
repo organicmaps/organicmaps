@@ -102,7 +102,7 @@ public:
     return GetTransition(segment).m_crossMwmId;
   }
 
-  // returns nullptr if there is no transition for such osm id.
+  // returns nullptr if there is no transition for such cross mwm id.
   Segment const * GetTransition(CrossMwmId const & crossMwmId, uint32_t segmentIdx, bool isEnter) const
   {
     auto const fIt = m_crossMwmIdToFeatureId.find(crossMwmId);

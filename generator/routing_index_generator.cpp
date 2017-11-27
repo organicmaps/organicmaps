@@ -232,7 +232,7 @@ void CalcCrossMwmTransitions(
     if (pointsCount == 0)
       return;
 
-    auto it = featureIdToOsmId.find(featureId);
+    auto const it = featureIdToOsmId.find(featureId);
     CHECK(it != featureIdToOsmId.end(), ("Can't find osm id for feature id", featureId));
     auto const osmId = it->second;
 

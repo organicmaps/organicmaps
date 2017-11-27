@@ -18,6 +18,7 @@
 
 #include "base/checked_cast.hpp"
 
+#include <algorithm>
 #include <array>
 #include <cstdint>
 #include <type_traits>
@@ -31,7 +32,7 @@ static uint8_t constexpr kOsmIdBits = 64;
 static uint8_t constexpr kStopIdBits = 64;
 static uint8_t constexpr kLineIdBits = 32;
 
-inline uint32_t CalcBitsPerTransitId() { return 2 * kStopIdBits + kLineIdBits; }
+inline uint32_t constexpr CalcBitsPerTransitId() { return 2 * kStopIdBits + kLineIdBits; }
 
 template <class CrossMwmId>
 inline void CheckBitsPerCrossMwmId(uint32_t bitsPerCrossMwmId)
@@ -80,8 +81,9 @@ public:
     }
 
     template <class Sink>
-    void WriteCrossMwmId(connector::TransitId const & id, uint8_t /* n */, BitWriter<Sink> & w) const
+    void WriteCrossMwmId(connector::TransitId const & id, uint8_t bitsPerCrossMwmId, BitWriter<Sink> & w) const
     {
+      CHECK_EQUAL(bitsPerCrossMwmId, connector::CalcBitsPerTransitId(), ("Wrong TransitId size."));
       w.WriteAtMost64Bits(id.m_stop1Id, connector::kStopIdBits);
       w.WriteAtMost64Bits(id.m_stop2Id, connector::kStopIdBits);
       w.WriteAtMost32Bits(id.m_lineId, connector::kLineIdBits);
@@ -104,9 +106,10 @@ public:
     }
 
     template <class Source>
-    void ReadCrossMwmId(uint8_t /* bitsPerCrossMwmId */, BitReader<Source> & reader,
+    void ReadCrossMwmId(uint8_t bitsPerCrossMwmId, BitReader<Source> & reader,
                         connector::TransitId & readed)
     {
+      CHECK_EQUAL(bitsPerCrossMwmId, connector::CalcBitsPerTransitId(), ("Wrong TransitId size."));
       readed.m_stop1Id = reader.ReadAtMost64Bits(connector::kStopIdBits);
       readed.m_stop2Id = reader.ReadAtMost64Bits(connector::kStopIdBits);
       readed.m_lineId = reader.ReadAtMost32Bits(connector::kLineIdBits);
@@ -145,7 +148,7 @@ public:
     VehicleMask GetOneWayMask() const { return m_oneWayMask; }
 
   private:
-    CrossMwmId m_crossMwmId = CrossMwmId();
+    CrossMwmId m_crossMwmId = {};
     uint32_t m_featureId = 0;
     uint32_t m_segmentIdx = 0;
     m2::PointD m_backPoint = m2::PointD::Zero();
@@ -465,7 +468,7 @@ private:
                                serial::CodingParams const & codingParams, uint32_t bitsPerOsmId,
                                uint8_t bitsPerMask, std::vector<uint8_t> & buffer)
   {
-    MemWriter<vector<uint8_t>> memWriter(buffer);
+    MemWriter<std::vector<uint8_t>> memWriter(buffer);
 
     for (auto const & transition : transitions)
       transition.Serialize(codingParams, bitsPerOsmId, bitsPerMask, memWriter);
