@@ -1,5 +1,6 @@
 package com.mapswithme.maps.editor;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.editor.data.LocalizedName;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 
 public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdapter.Holder>
 {
@@ -54,7 +56,8 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
     return mNames.size();
   }
 
-  public LocalizedName getNameAtPos(int pos) { return mNames.get(pos); }
+  @NonNull
+  LocalizedName getNameAtPos(int pos) { return mNames.get(pos); }
 
   public int getMandatoryNamesCount()
   {
@@ -101,7 +104,9 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count)
         {
-          UiUtils.setInputError(inputLayout, Editor.nativeIsNameValid(s.toString()) ? 0 : R.string.error_enter_correct_name);
+          UiUtils.setInputError(inputLayout, Editor.nativeIsNameValid(s.toString()) ?
+                                                                      Utils.INVALID_ID :
+                                                                      R.string.error_enter_correct_name);
           mNames.get(getAdapterPosition()).name = s.toString();
         }
       });

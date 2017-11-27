@@ -281,10 +281,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       return false;
     }
 
-    if (!validateNames())
-      return false;
-
-    return true;
+    return validateNames();
   }
 
   private boolean validateNames()

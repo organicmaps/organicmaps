@@ -7,6 +7,7 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <codecvt>
 #include <cctype>
 #include <cmath>
@@ -618,7 +619,7 @@ bool EditableMapObject::ValidateFlats(string const & flats)
 
     for (auto const & rangeBorder : range)
     {
-      if (!all_of(begin(rangeBorder), end(rangeBorder), isalnum))
+      if (!all_of(begin(rangeBorder), end(rangeBorder), ::isalnum))
         return false;
     }
   }
@@ -767,13 +768,13 @@ bool EditableMapObject::ValidateName(string const & name)
     return true;
 
   if (strings::IsASCIIString(name))
-    return regex_match(name, regex(R"(^[ A-Za-z0-9.,?!@()\-:;"'`]+$)"));
+    return regex_match(name, regex(R"(^[ A-Za-z0-9.,?!@$%()\-:;"'`]+$)"));
 
   std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;
 
   std::u32string const u32name = converter.from_bytes(name);
 
-  std::u32string const excludedSymbols = U"$%^~§><{}[]*=_#№±\n\t\r\v\f|√•π÷×¶∆°";
+  std::u32string const excludedSymbols = U"^~§><{}[]*=_#№±\n\t\r\v\f|√•π÷×¶∆°";
 
   for (auto const ch : u32name)
   {
