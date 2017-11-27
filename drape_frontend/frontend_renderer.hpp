@@ -162,7 +162,10 @@ private:
   void RenderOverlayLayer(ScreenBase const & modelView);
   void RenderNavigationOverlayLayer(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId);
-  void RenderTrafficAndRouteLayer(ScreenBase const & modelView);
+  void RenderTrafficLayer(ScreenBase const & modelView);
+  void RenderRouteLayer(ScreenBase const & modelView);
+
+  bool HasTransitData();
 
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   void PrepareScene(ScreenBase const & modelView);

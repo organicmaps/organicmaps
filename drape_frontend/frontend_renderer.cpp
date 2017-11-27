@@ -1153,13 +1153,17 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   if (m_buildingsFramebuffer->IsSupported())
   {
-    RenderTrafficAndRouteLayer(modelView);
+    RenderTrafficLayer(modelView);
+    if (!HasTransitData())
+      RenderRouteLayer(modelView);
     Render3dLayer(modelView, true /* useFramebuffer */);
   }
   else
   {
     Render3dLayer(modelView, false /* useFramebuffer */);
-    RenderTrafficAndRouteLayer(modelView);
+    RenderTrafficLayer(modelView);
+    if (!HasTransitData())
+      RenderRouteLayer(modelView);
   }
 
   GLFunctions::glDisable(gl_const::GLDepthTest);
@@ -1197,6 +1201,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
                              m_generalUniforms);
   }
+
+  if (HasTransitData())
+    RenderRouteLayer(modelView);
 
   {
     StencilWriterGuard guard(make_ref(m_postprocessRenderer));
@@ -1293,7 +1300,12 @@ void FrontendRenderer::RenderNavigationOverlayLayer(ScreenBase const & modelView
   }
 }
 
-void FrontendRenderer::RenderTrafficAndRouteLayer(ScreenBase const & modelView)
+bool FrontendRenderer::HasTransitData()
+{
+  return !m_layers[RenderState::TransitMarkLayer].m_renderGroups.empty();
+}
+
+void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
 {
   GLFunctions::glClear(gl_const::GLDepthBit);
   GLFunctions::glEnable(gl_const::GLDepthTest);
@@ -1302,7 +1314,12 @@ void FrontendRenderer::RenderTrafficAndRouteLayer(ScreenBase const & modelView)
     m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, 1.0f /* opacity */,
                                      make_ref(m_gpuProgramManager), m_generalUniforms);
   }
+}
+
+void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
+{
   GLFunctions::glClear(gl_const::GLDepthBit);
+  GLFunctions::glEnable(gl_const::GLDepthTest);
   m_routeRenderer->RenderRoute(modelView, m_trafficRenderer->HasRenderData(),
                                make_ref(m_gpuProgramManager), m_generalUniforms);
 }
