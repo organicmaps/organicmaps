@@ -246,6 +246,7 @@ void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * 
       renderInfo->m_hasSymbolPriority = mark->HasSymbolPriority();
       renderInfo->m_hasTitlePriority = mark->HasTitlePriority();
       renderInfo->m_priority = mark->GetPriority();
+      renderInfo->m_index = mark->GetIndex();
       renderInfo->m_featureId = mark->GetFeatureID();
       renderInfo->m_hasCreationAnimation = mark->HasCreationAnimation();
 

@@ -154,7 +154,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
             params.m_specialDisplacement = SpecialDisplacement::UserMark;
             params.m_specialPriority = renderInfo.m_priority;
             ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
-                               kStartUserMarkOverlayIndex).Draw(&batcher, textures);
+                               kStartUserMarkOverlayIndex + renderInfo.m_index).Draw(&batcher, textures);
             break;
           }
         }
@@ -171,7 +171,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_symbolName = symbolName;
         params.m_startOverlayRank = renderInfo.m_coloredSymbols != nullptr ? dp::OverlayRank1 : dp::OverlayRank0;
         PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
-                       kStartUserMarkOverlayIndex).Draw(&batcher, textures);
+                       kStartUserMarkOverlayIndex + renderInfo.m_index).Draw(&batcher, textures);
       }
     }
     else if (renderInfo.m_symbolNames != nullptr)
@@ -236,7 +236,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         {
           params.m_specialDisplacement = SpecialDisplacement::UserMark;
           params.m_specialPriority = renderInfo.m_priority;
-          overlayIndex = kStartUserMarkOverlayIndex;
+          overlayIndex = kStartUserMarkOverlayIndex + renderInfo.m_index;
 
           params.m_startOverlayRank = dp::OverlayRank0;
           if (renderInfo.m_symbolNames != nullptr)

@@ -61,6 +61,7 @@ public:
   virtual drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const = 0;
   virtual drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const = 0;
   virtual uint16_t GetPriority() const = 0;
+  virtual uint32_t GetIndex() const = 0;
   virtual bool HasSymbolPriority() const = 0;
   virtual bool HasTitlePriority() const = 0;
   virtual int GetMinZoom() const = 0;

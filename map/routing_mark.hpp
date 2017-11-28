@@ -117,6 +117,9 @@ public:
   void SetFeatureId(FeatureID featureId);
   FeatureID GetFeatureID() const override { return m_featureId; }
 
+  void SetIndex(uint32_t index);
+  uint32_t GetIndex() const override { return m_index; }
+
   void SetPriority(Priority priority);
   uint16_t GetPriority() const override { return static_cast<uint16_t>(m_priority); }
 
@@ -140,6 +143,7 @@ public:
 private:
   int m_minZoom = 1;
   int m_minTitleZoom = 1;
+  uint32_t m_index = 0;
   Priority m_priority;
   FeatureID m_featureId;
   TitlesInfo m_titles;

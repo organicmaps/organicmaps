@@ -26,6 +26,7 @@ struct UserMarkRenderParams
   bool m_hasSymbolPriority = false;
   bool m_hasTitlePriority = false;
   uint16_t m_priority = 0;
+  uint32_t m_index = 0;
   float m_depth = 0.0;
   RenderState::DepthLayer m_depthLayer = RenderState::UserMarkLayer;
   bool m_hasCreationAnimation = false;

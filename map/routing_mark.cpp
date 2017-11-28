@@ -130,6 +130,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames(
     case 2: name = "route-point-c"; break;
     default: name = ""; break;
     }
+    break;
   }
   case RouteMarkType::Finish: name = "route-point-finish"; break;
   }
@@ -387,6 +388,12 @@ void TransitMark::SetFeatureId(FeatureID featureId)
 {
   SetDirty();
   m_featureId = featureId;
+}
+
+void TransitMark::SetIndex(uint32_t index)
+{
+  SetDirty();
+  m_index = index;
 }
 
 void TransitMark::SetPriority(Priority priority)

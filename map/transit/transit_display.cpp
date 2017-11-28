@@ -452,11 +452,12 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
   static vector<m2::PointF> const kStopMarkerSizes = GetTransitMarkerSizes(kStopMarkerScale);
 
   auto & marksController = m_bmManager->GetUserMarksController(UserMark::Type::TRANSIT);
+  uint32_t nextIndex = static_cast<uint32_t>(marksController.GetUserMarkCount());
 
   auto const vs = df::VisualParams::Instance().GetVisualScale();
   for (size_t i = 0; i < transitMarks.size(); ++i)
   {
-    auto const &mark = transitMarks[i];
+    auto const & mark = transitMarks[i];
 
     auto userMark = marksController.CreateUserMark(mark.m_point);
     ASSERT(dynamic_cast<TransitMark *>(userMark) != nullptr, ());
@@ -464,7 +465,7 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
     dp::TitleDecl titleDecl;
 
     transitMark->SetFeatureId(mark.m_featureId);
-
+    transitMark->SetIndex(nextIndex++);
     if (mark.m_type == TransitMarkInfo::Type::Gate)
     {
       if (!mark.m_titles.empty())
