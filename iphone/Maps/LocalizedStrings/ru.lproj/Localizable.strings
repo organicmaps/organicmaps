@@ -2128,28 +2128,26 @@
 
 "setting_emulate_bad_storage" = "Эмуляция ошибки с внешней памятью";
 
-"discover_button_title" = "Поблизости";
+"discovery_button_title" = "Поблизости";
 
-"discover_button_subtitle1" = "Развлечения";
+"discovery_button_subtitle_things_to_do" = "Развлечения";
 
-"discover_button_subtitle2" = "Достопримечательности";
+"discovery_button_subtitle_attractions" = "Достопримечательности";
 
-"discover_button_subtitle3" = "Перекусить";
+"discovery_button_subtitle_eat_and_drink" = "Перекусить";
 
-"discover_button_subtitle4" = "Местные гиды";
+"discovery_button_subtitle_local_guides" = "Местные гиды";
 
-"discover_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "Откройте для себя туры и необычные активности";
 
-"discover_button_viator_offline_subtitle" = "You will need internet for it. Press here to change your network preferences";
+"discovery_button_viator_offline_message" = "Туры, активности, достопримечательности и многое другое";
 
-"discover_button_viator_loading_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_error_title" = "Ошибка загрузки данных";
 
-"discover_button_viator_loading_subtitle" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_other_error_message" = "Ошибка загрузки данных";
 
-"discover_button_viator_error_title" = "Ошибка загрузки данных";
+"discovery_button_other_loading_message" = "Данные загружаются";
 
-"discover_button_viator_error_subtitle" = "Проверьте ваши настройки соединения";
+"discovery_button_404_error_title" = "Not found";
 
-"discover_button_other_error_title" = "Ошибка загрузки данных";
-
-"discover_button_other_loading_title" = "Данные загружаются";
+"discovery_button_404_error_message" = "Ого, мы ничего не нашли интересного вокруг. Добавьте новые места если знаете.";
