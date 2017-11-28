@@ -37,6 +37,7 @@ SOURCES += \
     locality_finder_test.cpp \
     locality_scorer_test.cpp \
     locality_selector_test.cpp \
+    mem_search_index_tests.cpp \
     point_rect_matcher_tests.cpp \
     query_saver_tests.cpp \
     ranking_tests.cpp \

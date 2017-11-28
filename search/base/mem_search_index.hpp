@@ -6,9 +6,14 @@
 
 #include "base/assert.hpp"
 #include "base/mem_trie.hpp"
+#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <cstdint>
+#include <memory>
+#include <utility>
 #include <vector>
 
 namespace search
@@ -30,15 +35,14 @@ public:
     using Base = trie::Iterator<List>;
     using InnerIterator = typename Trie::Iterator;
 
-    explicit Iterator(InnerIterator const & inIt)
+    explicit Iterator(InnerIterator const & innerIt)
     {
-      Base::m_values = inIt.GetValues();
-      inIt.ForEachMove([&](Char c, InnerIterator it)
-                       {
-                         Base::m_edges.emplace_back();
-                         Base::m_edges.back().m_label.push_back(c);
-                         m_moves.push_back(it);
-                       });
+      Base::m_values = innerIt.GetValues();
+      innerIt.ForEachMove([&](Char c, InnerIterator it) {
+        Base::m_edges.emplace_back();
+        Base::m_edges.back().m_label.push_back(c);
+        m_moves.push_back(it);
+      });
     }
 
     ~Iterator() override = default;
@@ -68,18 +72,29 @@ public:
 
   Iterator GetRootIterator() const { return Iterator(m_trie.GetRootIterator()); }
 
+  std::vector<Id> GetAllIds() const
+  {
+    std::vector<Id> ids;
+    m_trie.ForEachInTrie([&](Token const & /* token */, Id const & id) { ids.push_back(id); });
+    my::SortUnique(ids);
+    return ids;
+  }
+
 private:
+  static Token AddLang(int8_t lang, Token const & token)
+  {
+    Token r(1 + token.size());
+    r[0] = static_cast<Char>(lang);
+    std::copy(token.begin(), token.end(), r.begin() + 1);
+    return r;
+  }
+
   template <typename Fn>
   void ForEachToken(Id const & id, Doc const & doc, Fn && fn)
   {
     doc.ForEachToken([&](int8_t lang, Token const & token) {
-      if (lang < 0)
-        return;
-
-      Token t;
-      t.push_back(static_cast<Char>(lang));
-      t.insert(t.end(), token.begin(), token.end());
-      fn(t);
+      if (lang >= 0)
+        fn(AddLang(lang, token));
     });
   }
 

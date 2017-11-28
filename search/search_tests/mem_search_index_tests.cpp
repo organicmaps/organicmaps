@@ -7,6 +7,8 @@
 
 #include "coding/multilang_utf8_string.hpp"
 
+#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/uni_string_dfa.hpp"
 
@@ -21,25 +23,9 @@ using namespace search;
 using namespace std;
 using namespace strings;
 
-struct Id
+namespace
 {
-  explicit Id(uint64_t id) : m_id(id) {}
-
-  bool operator==(Id const & rhs) const { return m_id == rhs.m_id; }
-  bool operator!=(Id const & rhs) const { return !(*this == rhs); }
-  bool operator<(Id const & rhs) const { return m_id < rhs.m_id; }
-
-  uint64_t m_id;
-};
-
-string DebugPrint(Id const & id) { return DebugPrint(id.m_id); }
-
-template<>
-class hash<Id>
-{
-public:
-  size_t operator()(Id const & id) const { return std::hash<uint64_t>{}(id.m_id); }
-};
+using Id = uint64_t;
 
 class Doc
 {
@@ -64,47 +50,42 @@ private:
 class MemSearchIndexTest
 {
 public:
+  using Index = MemSearchIndex<Id, Doc>;
+
   void Add(Id const & id, Doc const & doc) { m_index.Add(id, doc); }
 
   void Erase(Id const & id, Doc const & doc) { m_index.Erase(id, doc); }
 
   vector<Id> StrictQuery(string const & query, string const & lang) const
   {
-    vector<Id> prev;
-    bool full = true;
+    auto prev = m_index.GetAllIds();
+    TEST(IsSortedAndUnique(prev.cbegin(), prev.cend()), ());
 
     vector<UniString> tokens;
     NormalizeAndTokenizeString(query, tokens);
     for (auto const & token : tokens)
     {
-      vector<Id> curr;
-
       SearchTrieRequest<UniStringDFA> request;
       request.m_names.emplace_back(token);
       request.m_langs.Insert(StringUtf8Multilang::GetLangIndex(lang));
+
+      vector<Id> curr;
       MatchFeaturesInTrie(request, m_index.GetRootIterator(),
-                          [](uint64_t /* id */) { return true; },
-                          [&curr](Id const & id) { curr.push_back(id); });
+                          [](Id const & /* id */) { return true; } /* filter */,
+                          [&curr](Id const & id) { curr.push_back(id); } /* toDo */);
       my::SortUnique(curr);
-      if (full)
-      {
-        prev = curr;
-        full = false;
-      }
-      else
-      {
-        vector<Id> intersection;
-        set_intersection(prev.begin(), prev.end(), curr.begin(), curr.end(),
-                         back_inserter(intersection));
-        prev = intersection;
-      }
+
+      vector<Id> intersection;
+      set_intersection(prev.begin(), prev.end(), curr.begin(), curr.end(),
+                       back_inserter(intersection));
+      prev = intersection;
     }
 
     return prev;
   }
 
 protected:
-  MemSearchIndex<Id, Doc> m_index;
+  Index m_index;
 };
 
 UNIT_CLASS_TEST(MemSearchIndexTest, Smoke)
@@ -130,3 +111,4 @@ UNIT_CLASS_TEST(MemSearchIndexTest, Smoke)
   Erase(kHamlet, hamlet);
   TEST_EQUAL(StrictQuery("question", "en"), vector<Id>{}, ());
 }
+}  // namespace

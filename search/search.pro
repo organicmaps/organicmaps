@@ -11,6 +11,8 @@ include($$ROOT_DIR/common.pri)
 HEADERS += \
     algos.hpp \
     approximate_string_match.hpp \
+    base/inverted_list.hpp \
+    base/mem_search_index.hpp \
     cancel_exception.hpp \
     categories_cache.hpp \
     categories_set.hpp \

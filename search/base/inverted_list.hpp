@@ -10,6 +10,8 @@ namespace search
 {
 namespace base
 {
+// This class is supposed to be used in inverted index to store list
+// of document ids.
 template <typename Id>
 class InvertedList
 {

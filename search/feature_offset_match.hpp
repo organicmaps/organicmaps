@@ -116,10 +116,8 @@ public:
     if (m_prevSet && !m_prevSet->count(v))
       return;
 
-    if (!m_filter(v.m_id))
-      return;
-
-    m_set->insert(v);
+    if (m_filter(v))
+      m_set->insert(v);
   }
 
   void NextStep()
@@ -176,7 +174,7 @@ public:
 
   void operator()(Value const & v)
   {
-    if (m_filter(v.m_id))
+    if (m_filter(v))
       m_values.push_back(v);
   }
 

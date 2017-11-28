@@ -49,7 +49,7 @@ public:
   {
     if ((++m_counter & 0xFF) == 0)
       BailIfCancelled(m_cancellable);
-    m_features.push_back(value.m_id);
+    m_features.push_back(value.m_featureId);
   }
 
   inline void operator()(uint32_t feature) { m_features.push_back(feature); }
@@ -207,9 +207,9 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
 
   MatchFeaturesInTrie(
       request, root,
-      [&holder](uint64_t featureIndex) {
-        return !holder.ModifiedOrDeleted(base::asserted_cast<uint32_t>(featureIndex));
-      },
+      [&holder](Value const & value) {
+        return !holder.ModifiedOrDeleted(base::asserted_cast<uint32_t>(value.m_featureId));
+      } /* filter */,
       collector);
 
   holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index) {
@@ -231,9 +231,9 @@ unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
 
   MatchPostcodesInTrie(
       slice, root,
-      [&holder](uint64_t featureIndex) {
-        return !holder.ModifiedOrDeleted(base::asserted_cast<uint32_t>(featureIndex));
-      },
+      [&holder](Value const & value) {
+        return !holder.ModifiedOrDeleted(base::asserted_cast<uint32_t>(value.m_featureId));
+      } /* filter */,
       collector);
 
   holder.ForEachModifiedOrCreated([&](FeatureType & ft, uint64_t index) {
