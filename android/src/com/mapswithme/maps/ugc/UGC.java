@@ -98,6 +98,8 @@ public class UGC
 
   public static native void nativeUploadUGC();
 
+  public static native int nativeToImpress(float rating);
+
   public static void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate,
                                    @Impress int impress, @NonNull String rating)
   {

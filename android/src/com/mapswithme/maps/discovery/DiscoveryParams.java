@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Arrays;
 
 /**
  * Represents discovery::ClientParams from core.
@@ -48,4 +49,15 @@ public final class DiscoveryParams {
 
     @NonNull
     public int[] getItemTypes() { return mItemTypes; }
+
+    @Override
+    public String toString()
+    {
+        return "DiscoveryParams{" +
+               "mCurrency='" + mCurrency + '\'' +
+               ", mLang='" + mLang + '\'' +
+               ", mItemsCount=" + mItemsCount +
+               ", mItemTypes=" + Arrays.toString(mItemTypes) +
+               '}';
+    }
 }

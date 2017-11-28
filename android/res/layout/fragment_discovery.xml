@@ -22,6 +22,7 @@
       <TextView
         android:id="@+id/thingsToDoTitle"
         android:textAppearance="@style/MwmTextAppearance.Discovery.Subtitle"
+        style="@style/MwmWidget.Discovery.Subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -31,7 +32,7 @@
         android:layout_marginEnd="@dimen/margin_half"
         android:layout_toLeftOf="@+id/viatorLogo"
         android:layout_toStartOf="@+id/viatorLogo"
-        android:text="@string/discover_button_subtitle1"/>
+        android:text="@string/discovery_button_subtitle_things_to_do"/>
       <ImageView
         android:id="@id/viatorLogo"
         android:layout_width="wrap_content"
@@ -51,8 +52,9 @@
       tools:listitem="@layout/item_viator_product"/>
     <TextView
       android:id="@+id/attractionsTitle"
-      android:text="@string/discover_button_subtitle2"
+      android:text="@string/discovery_button_subtitle_attractions"
       android:textAppearance="@style/MwmTextAppearance.Discovery.Subtitle"
+      style="@style/MwmWidget.Discovery.Subtitle"
       android:layout_marginLeft="@dimen/margin_base"
       android:layout_marginStart="@dimen/margin_base"
       android:layout_marginRight="@dimen/margin_base"
@@ -67,8 +69,9 @@
       android:layout_marginBottom="@dimen/margin_base_plus"/>
     <TextView
       android:id="@+id/eatAndDrinkTitle"
-      android:text="@string/discover_button_subtitle3"
+      android:text="@string/discovery_button_subtitle_eat_and_drink"
       android:textAppearance="@style/MwmTextAppearance.Discovery.Subtitle"
+      style="@style/MwmWidget.Discovery.Subtitle"
       android:layout_marginLeft="@dimen/margin_base"
       android:layout_marginStart="@dimen/margin_base"
       android:layout_marginRight="@dimen/margin_base"
@@ -83,8 +86,9 @@
       android:layout_marginBottom="@dimen/margin_base_plus"/>
     <TextView
       android:id="@+id/localGuidesTitle"
-      android:text="@string/discover_button_subtitle4"
+      android:text="@string/discovery_button_subtitle_local_guides"
       android:textAppearance="@style/MwmTextAppearance.Discovery.Subtitle"
+      style="@style/MwmWidget.Discovery.Subtitle"
       android:layout_marginLeft="@dimen/margin_base"
       android:layout_marginStart="@dimen/margin_base"
       android:layout_marginRight="@dimen/margin_base"

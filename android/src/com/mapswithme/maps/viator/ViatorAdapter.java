@@ -8,13 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseSponsoredAdapter;
+import com.mapswithme.maps.ugc.Impress;
+import com.mapswithme.maps.ugc.UGC;
+import com.mapswithme.maps.widget.RatingView;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
@@ -26,13 +28,13 @@ public final class ViatorAdapter extends BaseSponsoredAdapter
       .get().getString(R.string.preloader_viator_title);
   private static final String LOADING_SUBTITLE = MwmApplication
       .get().getString(R.string.preloader_viator_message);
-  public ViatorAdapter(@NonNull String url, boolean hasError,
+  public ViatorAdapter(@Nullable String url, boolean hasError,
                        @Nullable ItemSelectedListener listener)
   {
     super(url, hasError, listener);
   }
 
-  public ViatorAdapter(@NonNull ViatorProduct[] items, @NonNull String cityUrl,
+  public ViatorAdapter(@NonNull ViatorProduct[] items, @Nullable String cityUrl,
                        @Nullable ItemSelectedListener listener, boolean shouldShowMoreItem)
   {
     super(convertItems(items), cityUrl, listener, shouldShowMoreItem);
@@ -102,7 +104,7 @@ public final class ViatorAdapter extends BaseSponsoredAdapter
     @NonNull
     TextView mDuration;
     @NonNull
-    RatingBar mRating;
+    RatingView mRating;
     @NonNull
     TextView mPrice;
 
@@ -115,7 +117,7 @@ public final class ViatorAdapter extends BaseSponsoredAdapter
       mContext = itemView.getContext();
       mImage = (ImageView) itemView.findViewById(R.id.iv__image);
       mDuration = (TextView) itemView.findViewById(R.id.tv__duration);
-      mRating = (RatingBar) itemView.findViewById(R.id.rb__rate);
+      mRating = (RatingView) itemView.findViewById(R.id.ratingView);
       mPrice = (TextView) itemView.findViewById(R.id.tv__price);
     }
 
@@ -134,8 +136,11 @@ public final class ViatorAdapter extends BaseSponsoredAdapter
       }
 
       UiUtils.setTextAndHideIfEmpty(mDuration, product.mDuration);
-      UiUtils.setTextAndHideIfEmpty(mPrice, product.mPrice);
-      mRating.setRating((float) product.mRating);
+      UiUtils.setTextAndHideIfEmpty(mPrice, mContext.getString(R.string.place_page_starting_from,
+                                                               product.mPrice));
+      float rating = (float) product.mRating;
+      Impress impress = Impress.values()[UGC.nativeToImpress(rating)];
+      mRating.setRating(impress, String.valueOf(rating));
     }
   }
 

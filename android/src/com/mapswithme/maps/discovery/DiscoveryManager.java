@@ -6,16 +6,20 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.viator.ViatorProduct;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 enum  DiscoveryManager
 {
   INSTANCE;
-
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = DiscoveryManager.class.getSimpleName();
   @Nullable
   private UICallback mCallback;
 
   public void discover(@NonNull DiscoveryParams params)
   {
+    LOGGER.d(TAG, "discover: " + params);
     DiscoveryManager.nativeDiscover(params);
   }
 
@@ -23,6 +27,7 @@ enum  DiscoveryManager
   @MainThread
   private void onResultReceived(@Nullable SearchResult[] results, @DiscoveryParams.ItemType int type)
   {
+    LOGGER.d(TAG, "onResultReceived for type: " + type);
     if (mCallback == null)
       return;
 
@@ -47,6 +52,7 @@ enum  DiscoveryManager
   @MainThread
   private void onViatorProductsReceived(@Nullable ViatorProduct[] products)
   {
+    LOGGER.d(TAG, "onViatorProductsReceived");
     if (mCallback != null)
       mCallback.onViatorProductsReceived(products);
   }
@@ -55,6 +61,7 @@ enum  DiscoveryManager
   @MainThread
   private void onLocalExpertsReceived(@Nullable LocalExpert[] experts)
   {
+    LOGGER.d(TAG, "onLocalExpertsReceived");
     if (mCallback != null)
       mCallback.onLocalExpertsReceived(experts);
   }
@@ -63,6 +70,7 @@ enum  DiscoveryManager
   @MainThread
   private void onError(@DiscoveryParams.ItemType int type)
   {
+    LOGGER.w(TAG, "onError for type: " + type);
     // TODO: not implemented yet.
   }
 

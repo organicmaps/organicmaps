@@ -313,4 +313,32 @@
     <item name="android:background">?selectableItemBackgroundBorderless</item>
     <item name="android:tint">?iconTint</item>
   </style>
+
+  <style name="MwmWidget.Discovery.Item.Button" parent="android:Widget.TextView">
+    <item name="android:minHeight">@dimen/discovery_button_min_height</item>
+    <item name="android:gravity">center</item>
+    <item name="android:paddingLeft">@dimen/margin_base</item>
+    <item name="android:paddingStart" tools:ignore="NewApi">@dimen/margin_base</item>
+    <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
+    <item name="android:paddingRight">@dimen/margin_base</item>
+    <item name="android:paddingTop">@dimen/margin_half_plus</item>
+    <item name="android:paddingBottom">@dimen/margin_half_plus</item>
+    <item name="android:background">?windowBackgroundForced</item>
+  </style>
+
+  <style name="MwmWidget.Discovery.Item.Title" parent="android:Widget.TextView">
+    <item name="android:maxLines">2</item>
+    <item name="android:minLines">2</item>
+    <item name="android:ellipsize">end</item>
+  </style>
+
+  <style name="MwmWidget.Discovery.Item.Subtitle" parent="android:Widget.TextView">
+    <item name="android:maxLines">1</item>
+    <item name="android:ellipsize">end</item>
+  </style>
+
+  <style name="MwmWidget.Discovery.Subtitle" parent="android:Widget.TextView">
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">2</item>
+  </style>
 </resources>

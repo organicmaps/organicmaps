@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
   private final ItemSelectedListener mListener;
 
 
-  public BaseSponsoredAdapter(@NonNull String url, boolean hasError,
+  public BaseSponsoredAdapter(@Nullable String url, boolean hasError,
                               @Nullable ItemSelectedListener listener)
   {
     mItems = new ArrayList<>();
@@ -55,7 +56,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
                         hasError, false));
   }
 
-  public BaseSponsoredAdapter(@NonNull List<? extends Item> items, @NonNull String url,
+  public BaseSponsoredAdapter(@NonNull List<? extends Item> items, @Nullable String url,
                               @Nullable ItemSelectedListener listener, boolean shouldShowMoreItem)
   {
     mItems = new ArrayList<>();
@@ -191,7 +192,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
 
     void onItemSelected(@NonNull Item item)
     {
-      if (mAdapter.mListener != null)
+      if (mAdapter.mListener != null && !TextUtils.isEmpty(item.mUrl))
       {
         if (item.mType == TYPE_PRODUCT)
           mAdapter.mListener.onItemSelected(item.mUrl);
@@ -250,7 +251,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
 
     void onItemSelected(@NonNull Item item)
     {
-      if (mAdapter.mListener != null)
+      if (mAdapter.mListener != null && !TextUtils.isEmpty(item.mUrl))
       {
         if (item.mType == TYPE_PRODUCT)
           mAdapter.mListener.onItemSelected(item.mUrl);
@@ -268,14 +269,14 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
     private final int mType;
     @NonNull
     private final String mTitle;
-    @NonNull
+    @Nullable
     private final String mUrl;
     @Nullable
     private final String mSubtitle;
     private final boolean mLoadingError;
     private final boolean mFinished;
 
-    protected Item(@ViewType int type, @NonNull String title, @NonNull String url,
+    protected Item(@ViewType int type, @NonNull String title, @Nullable String url,
                    @Nullable String subtitle, boolean loadingError, boolean finished)
     {
       mType = type;

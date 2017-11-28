@@ -195,7 +195,15 @@
   <style name="MwmTextAppearance.Discovery.Subtitle" parent="MwmTextAppearance.Body3">
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
     <item name="android:textAllCaps">true</item>
-    <item name="android:ellipsize">end</item>
-    <item name="android:maxLines">2</item>
+  </style>
+
+  <style name="MwmTextAppearance.Discovery.Item.Title" parent="MwmTextAppearance.Body3.Primary">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="MwmTextAppearance.Discovery.Item.Button" parent="MwmTextAppearance.Body3.Primary">
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">?colorAccent</item>
+    <item name="android:textAllCaps">true</item>
   </style>
 </resources>

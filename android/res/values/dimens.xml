@@ -10,6 +10,7 @@
   <dimen name="margin_quarter">4dp</dimen>
   <dimen name="margin_quarter_plus">6dp</dimen>
   <dimen name="margin_half">8dp</dimen>
+  <dimen name="margin_half_plus_eight">10dp</dimen>
   <dimen name="margin_half_plus">12dp</dimen>
   <dimen name="margin_half_double_plus">14dp</dimen>
   <dimen name="margin_base">16dp</dimen>
@@ -207,10 +208,9 @@
   <dimen name="info_page_image_size">240dp</dimen>
 
   <!-- Viator-->
-  <dimen name="viator_product_height">208dp</dimen>
+  <dimen name="viator_product_height">218dp</dimen>
   <dimen name="viator_product_width">160dp</dimen>
-  <dimen name="viator_product_image_height">100dp</dimen>
-  <dimen name="viator_height">284dp</dimen>
+  <dimen name="viator_product_image_height">80dp</dimen>
 
   <!-- Cian-->
   <dimen name="cian_product_height">140dp</dimen>
@@ -229,4 +229,7 @@
   <dimen name="auth_dialog_facebook_btn_height">40dp</dimen>
 
   <dimen name="divider_height">1dp</dimen>
+
+  <!-- Discovery-->
+  <dimen name="discovery_button_min_height">40dp</dimen>
 </resources>

@@ -76,7 +76,7 @@ public:
                               ToImpress(ugc.m_totalRating), jrating.get());
   }
 
-  const int ToImpress(float const rating)
+  static int const ToImpress(float const rating)
   {
     return static_cast<int>(place_page::rating::GetImpress(rating));
   }
@@ -277,5 +277,11 @@ JNIEXPORT
 void JNICALL Java_com_mapswithme_maps_ugc_UGC_nativeUploadUGC(JNIEnv * env, jclass /* clazz */)
 {
   g_framework->UploadUGC();
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_ugc_UGC_nativeToImpress(JNIEnv  *env, jclass type, jfloat rating)
+{
+  return JavaBridge::ToImpress(static_cast<float>(rating));
 }
 }
