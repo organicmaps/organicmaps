@@ -15,6 +15,7 @@
       android:layout_height="?attr/actionBarSize"
       android:theme="@style/MwmWidget.ToolbarTheme"/>
     <RelativeLayout
+      android:id="@+id/thingsToDoLayout"
       android:layout_width="match_parent"
       android:layout_height="@dimen/height_block_base"
       android:paddingLeft="@dimen/margin_base"

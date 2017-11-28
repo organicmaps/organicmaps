@@ -13,16 +13,19 @@ import android.view.ViewGroup;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.search.SearchResult;
-import com.mapswithme.maps.viator.ViatorAdapter;
 import com.mapswithme.maps.viator.ViatorProduct;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Language;
+import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
 public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallback
 {
   private static final int ITEMS_COUNT = 5;
   private static final int[] ITEM_TYPES = { DiscoveryParams.ITEM_TYPE_VIATOR };
+  private boolean mOnlineMode;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private RecyclerView mThingsToDo;
@@ -61,9 +64,60 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     super.onViewCreated(view, savedInstanceState);
     mToolbarController.setTitle(R.string.discovery_button_title);
-    mThingsToDo.setAdapter(new ViatorAdapter(null, false, null));
-    DiscoveryParams params = new DiscoveryParams(Utils.getCurrencyCode(), Language.getDefaultLocale(),
-                                                 ITEMS_COUNT, ITEM_TYPES);
+    requestDiscoveryInfoAndInitAdapters();
+  }
+
+  private void requestDiscoveryInfoAndInitAdapters()
+  {
+    NetworkPolicy.checkNetworkPolicy(getFragmentManager(), new NetworkPolicy.NetworkPolicyListener()
+    {
+      @Override
+      public void onResult(@NonNull NetworkPolicy policy)
+      {
+        mOnlineMode = policy.сanUseNetwork();
+        initNetworkBasedAdapters();
+        requestDiscoveryInfo();
+      }
+    });
+  }
+
+  private void initNetworkBasedAdapters()
+  {
+    if (mOnlineMode)
+    {
+      // TODO: set loading adapter for local experts here.
+      mThingsToDo.setAdapter(DiscoveryAdapterFactory.createViatorLoadingAdapter());
+      return;
+    }
+
+    // It means that the user doesn't permit mobile network usage, so network based galleries UI
+    // should be hidden in this case.
+    if (ConnectionState.isMobileConnected())
+    {
+      UiUtils.hide(getView(), R.id.thingsToDoLayout, R.id.thingsToDo,
+                   R.id.localGuidesTitle, R.id.localGuides);
+    }
+    else
+    {
+      UiUtils.show(getView(), R.id.thingsToDoLayout, R.id.thingsToDo);
+      mThingsToDo.setAdapter(DiscoveryAdapterFactory.createViatorOfflineAdapter());
+    }
+  }
+
+  private void requestDiscoveryInfo()
+  {
+    DiscoveryParams params;
+    if (mOnlineMode)
+    {
+      params = new DiscoveryParams(Utils.getCurrencyCode(), Language.getDefaultLocale(),
+                                   ITEMS_COUNT, ITEM_TYPES);
+    }
+    else
+    {
+      params = new DiscoveryParams(Utils.getCurrencyCode(), Language.getDefaultLocale(),
+                                   ITEMS_COUNT, DiscoveryParams.ITEM_TYPE_ATTRACTIONS,
+                                   DiscoveryParams.ITEM_TYPE_CAFES);
+    }
     DiscoveryManager.INSTANCE.discover(params);
   }
 
@@ -86,7 +140,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onViatorProductsReceived(@Nullable ViatorProduct[] products)
   {
     if (products != null)
-      mThingsToDo.setAdapter(new ViatorAdapter(products, null, null, false));
+      mThingsToDo.setAdapter(DiscoveryAdapterFactory.createViatorAdapter(products));
   }
 
   @MainThread

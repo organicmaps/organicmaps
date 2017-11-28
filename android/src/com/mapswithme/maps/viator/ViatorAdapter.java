@@ -22,16 +22,23 @@ import com.mapswithme.util.UiUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class ViatorAdapter extends BaseSponsoredAdapter
+public class ViatorAdapter extends BaseSponsoredAdapter
 {
   private static final String LOADING_TITLE = MwmApplication
       .get().getString(R.string.preloader_viator_title);
   private static final String LOADING_SUBTITLE = MwmApplication
       .get().getString(R.string.preloader_viator_message);
+
+  ViatorAdapter(@Nullable String url, boolean hasError,
+                       @Nullable ItemSelectedListener listener, @ViewType int type)
+  {
+    super(url, hasError, listener, type);
+  }
+
   public ViatorAdapter(@Nullable String url, boolean hasError,
                        @Nullable ItemSelectedListener listener)
   {
-    super(url, hasError, listener);
+    super(url, hasError, listener, TYPE_LOADING);
   }
 
   public ViatorAdapter(@NonNull ViatorProduct[] items, @Nullable String cityUrl,
@@ -70,10 +77,23 @@ public final class ViatorAdapter extends BaseSponsoredAdapter
     return inflater.inflate(R.layout.item_viator_loading, parent, false);
   }
 
+  @NonNull
+  @Override
+  protected View inflateOfflineView(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent)
+  {
+    return inflateLoadingView(inflater, parent);
+  }
+
   @Override
   protected int getMoreLabelForLoadingView()
   {
     return R.string.preloader_viator_button;
+  }
+
+  @Override
+  protected int getMoreLabelForOfflineView()
+  {
+    return R.string.details;
   }
 
   @NonNull

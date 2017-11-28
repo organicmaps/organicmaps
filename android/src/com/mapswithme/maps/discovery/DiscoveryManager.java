@@ -76,11 +76,13 @@ enum  DiscoveryManager
 
   void attach(@NonNull UICallback callback)
   {
+    LOGGER.d(TAG, "attach callback: " + callback);
     mCallback = callback;
   }
 
   void detach()
   {
+    LOGGER.d(TAG, "detach callback: " + mCallback);
     mCallback = null;
   }
 

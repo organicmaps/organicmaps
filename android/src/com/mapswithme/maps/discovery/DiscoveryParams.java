@@ -31,7 +31,8 @@ public final class DiscoveryParams {
     @NonNull
     private final int[] mItemTypes;
 
-    public DiscoveryParams(@Nullable String currency, @Nullable String lang, int itemsCount, @NonNull int[] itemTypes)
+    public DiscoveryParams(@Nullable String currency, @Nullable String lang, int itemsCount,
+                           @NonNull @ItemType int... itemTypes)
     {
       mCurrency = currency;
       mLang = lang;

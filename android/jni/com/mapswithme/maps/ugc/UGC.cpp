@@ -76,7 +76,7 @@ public:
                               ToImpress(ugc.m_totalRating), jrating.get());
   }
 
-  static int const ToImpress(float const rating)
+  static int ToImpress(float const rating)
   {
     return static_cast<int>(place_page::rating::GetImpress(rating));
   }

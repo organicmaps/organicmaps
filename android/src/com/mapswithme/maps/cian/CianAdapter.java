@@ -27,7 +27,7 @@ public final class CianAdapter extends BaseSponsoredAdapter
 
   public CianAdapter(@NonNull String url, boolean hasError, @Nullable ItemSelectedListener listener)
   {
-    super(url, hasError, listener);
+    super(url, hasError, listener, TYPE_LOADING);
   }
 
   public CianAdapter(@NonNull RentPlace[] items, @NonNull String url,
@@ -72,10 +72,23 @@ public final class CianAdapter extends BaseSponsoredAdapter
     return inflater.inflate(R.layout.item_cian_loading, parent, false);
   }
 
+  @NonNull
+  @Override
+  protected View inflateOfflineView(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent)
+  {
+    throw new UnsupportedOperationException("This adapter doesn't support offline mode!");
+  }
+
   @Override
   protected int getMoreLabelForLoadingView()
   {
     return R.string.preloader_cian_button;
+  }
+
+  @Override
+  protected int getMoreLabelForOfflineView()
+  {
+    throw new UnsupportedOperationException("This adapter doesn't support offline mode!");
   }
 
   @NonNull

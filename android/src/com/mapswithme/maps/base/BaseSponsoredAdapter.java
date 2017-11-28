@@ -30,7 +30,8 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
 
   protected static final int TYPE_PRODUCT = 0;
   private static final int TYPE_MORE = 1;
-  private static final int TYPE_LOADING = 2;
+  protected static final int TYPE_LOADING = 2;
+  public static final int TYPE_OFFLINE_MESSAGE = 3;
 
   private static final String MORE = MwmApplication.get().getString(R.string.placepage_more_button);
   private static final int TARGET_LOAD_WIDTH = UiUtils.dimen(MwmApplication.get(),
@@ -38,8 +39,8 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
   private static final int MARGING_QUARTER = UiUtils.dimen(MwmApplication.get(),
                                                              R.dimen.margin_quarter);
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_PRODUCT, TYPE_MORE, TYPE_LOADING })
-  @interface ViewType{}
+  @IntDef({ TYPE_PRODUCT, TYPE_MORE, TYPE_LOADING, TYPE_OFFLINE_MESSAGE })
+  protected @interface ViewType{}
 
   @NonNull
   private final List<Item> mItems;
@@ -48,11 +49,11 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
 
 
   public BaseSponsoredAdapter(@Nullable String url, boolean hasError,
-                              @Nullable ItemSelectedListener listener)
+                              @Nullable ItemSelectedListener listener, @ViewType int type)
   {
     mItems = new ArrayList<>();
     mListener = listener;
-    mItems.add(new Item(TYPE_LOADING, getLoadingTitle(), url, getLoadingSubtitle(),
+    mItems.add(new Item(type, getLoadingTitle(), url, getLoadingSubtitle(),
                         hasError, false));
   }
 
@@ -84,6 +85,8 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
                                             .inflate(getMoreLayout(), parent, false), this);
       case TYPE_LOADING:
         return createLoadingViewHolder(LayoutInflater.from(parent.getContext()), parent);
+      case TYPE_OFFLINE_MESSAGE:
+        return createOfflineViewHolder(LayoutInflater.from(parent.getContext()), parent);
     }
     return null;
   }
@@ -133,8 +136,8 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
                                                  @NonNull ViewGroup parent);
 
   @NonNull
-  protected ViewHolder createLoadingViewHolder(@NonNull LayoutInflater inflater,
-                                                        @NonNull ViewGroup parent)
+  private ViewHolder createLoadingViewHolder(@NonNull LayoutInflater inflater,
+                                             @NonNull ViewGroup parent)
   {
     View loadingView = inflateLoadingView(inflater, parent);
     TextView moreView = (TextView) loadingView.findViewById(R.id.tv__more);
@@ -143,11 +146,28 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
   }
 
   @NonNull
+  private ViewHolder createOfflineViewHolder(@NonNull LayoutInflater inflater,
+                                             @NonNull ViewGroup parent)
+  {
+    View offlineView = inflateOfflineView(inflater, parent);
+    TextView moreView = (TextView) offlineView.findViewById(R.id.tv__more);
+    moreView.setText(getMoreLabelForOfflineView());
+    return new OfflineViewHolder(offlineView, this);
+  }
+
+  @NonNull
   protected abstract View inflateLoadingView(@NonNull LayoutInflater inflater,
+                                             @NonNull ViewGroup parent);
+
+  @NonNull
+  protected abstract View inflateOfflineView(@NonNull LayoutInflater inflater,
                                              @NonNull ViewGroup parent);
 
   @StringRes
   protected abstract int getMoreLabelForLoadingView();
+
+  @StringRes
+  protected abstract int getMoreLabelForOfflineView();
 
   @NonNull
   protected abstract String getLoadingTitle();
@@ -260,6 +280,53 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
         else if (item.mType == TYPE_LOADING && item.mLoadingError)
           mAdapter.mListener.onItemSelected(item.mUrl);
       }
+    }
+  }
+
+  public static class OfflineViewHolder extends ViewHolder
+      implements View.OnClickListener
+  {
+    @NonNull
+    ProgressBar mProgressBar;
+    @NonNull
+    TextView mSubtitle;
+    @NonNull
+    TextView mTitle;
+
+    OfflineViewHolder(@NonNull View itemView, @NonNull BaseSponsoredAdapter adapter)
+    {
+      super(itemView, adapter);
+      mProgressBar = (ProgressBar) itemView.findViewById(R.id.pb__progress);
+      UiUtils.hide(mProgressBar);
+      mTitle = (TextView) itemView.findViewById(R.id.tv__title);
+      mSubtitle = (TextView) itemView.findViewById(R.id.tv__subtitle);
+    }
+
+    @CallSuper
+    @Override
+    public void bind(@NonNull Item item)
+    {
+      super.bind(item);
+      UiUtils.setTextAndHideIfEmpty(mTitle, item.mTitle);
+      UiUtils.setTextAndHideIfEmpty(mSubtitle, item.mSubtitle);
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      int position = getAdapterPosition();
+      if (position == RecyclerView.NO_POSITION)
+        return;
+
+      onItemSelected(mAdapter.mItems.get(position));
+    }
+
+    void onItemSelected(@NonNull Item item)
+    {
+      if (mAdapter.mListener == null)
+        return;
+
+      // TODO: coming soon.
     }
   }
 
