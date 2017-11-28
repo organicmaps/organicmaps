@@ -17,6 +17,7 @@
 #include "coding/writer.hpp"
 
 #include "base/checked_cast.hpp"
+#include "base/osm_id.hpp"
 
 #include <algorithm>
 #include <array>
@@ -75,9 +76,9 @@ public:
     }
 
     template <class Sink>
-    void WriteCrossMwmId(connector::OsmId const & id, uint8_t bits, BitWriter<Sink> & w) const
+    void WriteCrossMwmId(osm::Id const & id, uint8_t bits, BitWriter<Sink> & w) const
     {
-      w.WriteAtMost64Bits(id.Get(), bits);
+      w.WriteAtMost64Bits(id.EncodedId(), bits);
     }
 
     template <class Sink>
@@ -117,9 +118,9 @@ public:
 
     template <class Source>
     void ReadCrossMwmId(uint8_t bitsPerCrossMwmId, BitReader<Source> & reader,
-                        connector::OsmId & readed)
+                        osm::Id & readed)
     {
-      readed.Set(reader.ReadAtMost64Bits(bitsPerCrossMwmId));
+      readed = osm::Id(reader.ReadAtMost64Bits(bitsPerCrossMwmId));
     }
 
     template <class Source>
@@ -148,7 +149,7 @@ public:
     VehicleMask GetOneWayMask() const { return m_oneWayMask; }
 
   private:
-    CrossMwmId m_crossMwmId = {};
+    CrossMwmId m_crossMwmId = CrossMwmId();
     uint32_t m_featureId = 0;
     uint32_t m_segmentIdx = 0;
     m2::PointD m_backPoint = m2::PointD::Zero();
@@ -432,13 +433,13 @@ private:
   };
 
   static uint32_t CalcBitsPerCrossMwmId(
-      std::vector<Transition<connector::OsmId>> const & transitions)
+      std::vector<Transition<osm::Id>> const & transitions)
   {
-    connector::OsmId osmId(0ULL);
-    for (Transition<connector::OsmId> const & transition : transitions)
+    osm::Id osmId(0ULL);
+    for (Transition<osm::Id> const & transition : transitions)
       osmId = std::max(osmId, transition.GetCrossMwmId());
 
-    return bits::NumUsedBits(osmId.Get());
+    return bits::NumUsedBits(osmId.OsmId());
   }
 
   static uint32_t CalcBitsPerCrossMwmId(

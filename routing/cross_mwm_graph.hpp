@@ -14,6 +14,7 @@
 #include "geometry/tree4d.hpp"
 
 #include "base/math.hpp"
+#include "base/osm_id.hpp"
 
 #include <map>
 #include <memory>
@@ -157,7 +158,7 @@ private:
   CourntryRectFn const & m_countryRectFn;
   // @todo(@tatiana-kondakova) For the time being CrossMwmGraph is implemented for osm id.
   // To add cross mwm for transit graph it's necessary to add CrossMwmIndexGraph<TransitId>.
-  CrossMwmIndexGraph<connector::OsmId> m_crossMwmIndexGraph;
+  CrossMwmIndexGraph<osm::Id> m_crossMwmIndexGraph;
   CrossMwmOsrmGraph m_crossMwmOsrmGraph;
 };
 

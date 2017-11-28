@@ -253,7 +253,7 @@ private:
 
     uint32_t m_enterIdx = 0;
     uint32_t m_exitIdx = 0;
-    CrossMwmIdInner m_crossMwmId = {};
+    CrossMwmIdInner m_crossMwmId = CrossMwmIdInner();
     // Endpoints of transition segment.
     // m_backPoint = points[segmentIdx]
     // m_frontPoint = points[segmentIdx + 1]

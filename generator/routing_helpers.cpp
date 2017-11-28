@@ -41,14 +41,14 @@ bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
 }
 
 bool ParseFeatureIdToOsmIdMapping(string const & osmIdsToFeatureIdPath,
-                                  map<uint32_t, connector::OsmId> & featureIdToOsmId)
+                                  map<uint32_t, osm::Id> & featureIdToOsmId)
 {
   featureIdToOsmId.clear();
   bool idsAreOk = true;
 
   bool const readSuccess =
-      ForEachRoadFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, osm::Id osmId) {
-        auto const emplaced = featureIdToOsmId.emplace(featureId, connector::OsmId(osmId.OsmId()));
+      ForEachRoadFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, osm::Id const & osmId) {
+        auto const emplaced = featureIdToOsmId.emplace(featureId, osmId);
         if (emplaced.second)
           return;
 

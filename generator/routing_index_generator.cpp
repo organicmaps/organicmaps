@@ -215,10 +215,10 @@ double CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
 void CalcCrossMwmTransitions(
     string const & mwmFile, string const & mappingFile, vector<m2::RegionD> const & borders,
     string const & country, CountryParentNameGetterFn const & countryParentNameGetterFn,
-    vector<CrossMwmConnectorSerializer::Transition<connector::OsmId>> & transitions)
+    vector<CrossMwmConnectorSerializer::Transition<osm::Id>> & transitions)
 {
   VehicleMaskBuilder const maskMaker(country, countryParentNameGetterFn);
-  map<uint32_t, connector::OsmId> featureIdToOsmId;
+  map<uint32_t, osm::Id> featureIdToOsmId;
   CHECK(ParseFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
         ("Can't parse feature id to osm id mapping. File:", mappingFile));
 
@@ -455,7 +455,7 @@ void BuildRoutingCrossMwmSection(string const & path, string const & mwmFile,
                                  string const & osmToFeatureFile, bool disableCrossMwmProgress)
 {
   LOG(LINFO, ("Building cross mwm section for", country));
-  using CrossMwmId = connector::OsmId;
+  using CrossMwmId = osm::Id;
   CrossMwmConnectorPerVehicleType<CrossMwmId> connectors;
   vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> transitions;
 
