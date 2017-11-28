@@ -3347,32 +3347,33 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Para
 {
   using namespace booking::filter;
 
+  auto const & p = params.m_params;
   auto const & cb = params.m_callback;
   availability::internal::Params paramsInternal
   {
-    params.m_params,
-    [this, cb, inViewport](search::Results const & results)
+    p,
+    [this, p, cb, inViewport](search::Results const & results)
     {
       if (results.GetCount() == 0)
         return;
 
+      std::vector<FeatureID> features;
+      for (auto const & r : results)
+      {
+        features.push_back(r.GetFeatureID());
+      }
+
+      std::sort(features.begin(), features.end());
+
       if (inViewport)
       {
-        std::vector<FeatureID> features;
-        for (auto const & r : results)
-        {
-          features.push_back(r.GetFeatureID());
-        }
-
-        std::sort(features.begin(), features.end());
-
         GetPlatform().RunTask(Platform::Thread::Gui, [this, features]()
         {
           m_searchMarks.SetPreparingState(features, false /* isPreparing */);
         });
       }
 
-      cb(results);
+      cb(p, features);
     }
   };
 

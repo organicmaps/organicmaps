@@ -4,6 +4,10 @@
 
 #include "platform/safe_callback.hpp"
 
+#include "indexer/feature_decl.hpp"
+
+#include <vector>
+
 namespace search
 {
 class Results;
@@ -15,7 +19,8 @@ namespace filter
 {
 namespace availability
 {
-using Results = platform::SafeCallback<void(search::Results const &results)>;
+using Results = platform::SafeCallback<void(AvailabilityParams const & params,
+                                            std::vector<FeatureID> const & featuresSorted)>;
 
 struct Params
 {
