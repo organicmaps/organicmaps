@@ -1,12 +1,12 @@
 #include "generator/restriction_writer.hpp"
 
 #include "generator/intermediate_elements.hpp"
-#include "base/osm_id.hpp"
 #include "generator/restriction_collector.hpp"
 
 #include "routing/restrictions_serialization.hpp"
 
 #include "base/logging.hpp"
+#include "base/osm_id.hpp"
 
 #include <algorithm>
 #include <fstream>

@@ -3,7 +3,6 @@
 #include "testing/testing.hpp"
 
 #include "generator/gen_mwm_info.hpp"
-#include "base/osm_id.hpp"
 
 #include "coding/file_writer.hpp"
 

@@ -2,7 +2,6 @@
 
 #include "generator/borders_generator.hpp"
 #include "generator/borders_loader.hpp"
-#include "base/osm_id.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
@@ -29,6 +28,7 @@
 
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
+#include "base/osm_id.hpp"
 
 #include <algorithm>
 #include <cstdint>

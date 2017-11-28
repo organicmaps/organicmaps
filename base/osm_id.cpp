@@ -1,5 +1,6 @@
-#include "base/assert.hpp"
 #include "base/osm_id.hpp"
+
+#include "base/assert.hpp"
 
 #include <sstream>
 

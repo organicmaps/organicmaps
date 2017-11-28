@@ -10,9 +10,9 @@
 
 #include "coding/file_name_utils.hpp"
 
+#include "base/osm_id.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
-#include "base/osm_id.hpp"
 
 #include <cstdlib>
 #include <cstring>

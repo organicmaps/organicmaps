@@ -2,7 +2,6 @@
 
 #include "generator/ugc_db.hpp"
 #include "generator/ugc_translator.hpp"
-#include "base/osm_id.hpp"
 
 #include "ugc/types.hpp"
 
