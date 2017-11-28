@@ -551,6 +551,8 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
                        langCode:name.m_code
                        langName:@(name.m_langName)
                            name:@(name.m_name.c_str())
+                   errorMessage:L(@"error_enter_correct_name")
+                        isValid:isValid
                    keyboardType:UIKeyboardTypeDefault];
     }
     else
@@ -570,6 +572,8 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
                        langCode:langCode
                        langName:@(StringUtf8Multilang::GetLangNameByCode(langCode))
                            name:@(name.c_str())
+                   errorMessage:L(@"error_enter_correct_name")
+                        isValid:isValid
                    keyboardType:UIKeyboardTypeDefault];
     }
     break;
@@ -856,7 +860,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
 
 #pragma mark - MWMEditorCellProtocol
 
-- (void)tryToChangeInvalidStateForCell:(MWMEditorTextTableViewCell *)cell
+- (void)tryToChangeInvalidStateForCell:(MWMTableViewCell *)cell
 {
   [self.tableView update:^{
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -870,48 +874,42 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
   NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:cell.center];
   MWMEditorCellType const cellType = [self cellTypeForIndexPath:indexPath];
   string const val = changeText.UTF8String;
+  BOOL isFieldValid = YES;
   switch (cellType)
   {
   case MWMEditorCellTypePhoneNumber:
     m_mapObject.SetPhone(val);
-    if (!osm::EditableMapObject::ValidatePhoneList(val))
-      [self markCellAsInvalid:indexPath];
+    isFieldValid = osm::EditableMapObject::ValidatePhoneList(val);
     break;
   case MWMEditorCellTypeWebsite:
     m_mapObject.SetWebsite(val);
-    if (!osm::EditableMapObject::ValidateWebsite(val))
-      [self markCellAsInvalid:indexPath];
+    isFieldValid = osm::EditableMapObject::ValidateWebsite(val);
     break;
   case MWMEditorCellTypeEmail:
     m_mapObject.SetEmail(val);
-    if (!osm::EditableMapObject::ValidateEmail(val))
-      [self markCellAsInvalid:indexPath];
+    isFieldValid = osm::EditableMapObject::ValidateEmail(val);
     break;
   case MWMEditorCellTypeOperator: m_mapObject.SetOperator(val); break;
   case MWMEditorCellTypeBuilding:
     m_mapObject.SetHouseNumber(val);
-    if (!osm::EditableMapObject::ValidateHouseNumber(val))
-      [self markCellAsInvalid:indexPath];
+    isFieldValid = osm::EditableMapObject::ValidateHouseNumber(val);
     break;
   case MWMEditorCellTypeZipCode:
     m_mapObject.SetPostcode(val);
-    if (!osm::EditableMapObject::ValidatePostCode(val))
-      [self markCellAsInvalid:indexPath];
+    isFieldValid = osm::EditableMapObject::ValidatePostCode(val);
     break;
   case MWMEditorCellTypeBuildingLevels:
     m_mapObject.SetBuildingLevels(val);
-    if (!osm::EditableMapObject::ValidateBuildingLevels(val))
-      [self markCellAsInvalid:indexPath];
+    isFieldValid = osm::EditableMapObject::ValidateBuildingLevels(val);
     break;
   case MWMEditorCellTypeAdditionalName:
-  {
-    MWMEditorAdditionalNameTableViewCell * tCell =
-        static_cast<MWMEditorAdditionalNameTableViewCell *>(cell);
-    m_mapObject.SetName(val, tCell.code);
+    m_mapObject.SetName(val, static_cast<MWMEditorAdditionalNameTableViewCell *>(cell).code);
+    isFieldValid = osm::EditableMapObject::ValidateName(val);
     break;
-  }
   default: NSAssert(false, @"Invalid field for changeText");
   }
+  if (!isFieldValid)
+    [self markCellAsInvalid:indexPath];
 }
 
 - (void)cell:(UITableViewCell *)cell changeSwitch:(BOOL)changeSwitch

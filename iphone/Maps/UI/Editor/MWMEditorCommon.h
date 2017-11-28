@@ -6,7 +6,7 @@
 - (void)cell:(MWMTableViewCell *)cell changedText:(NSString *)changeText;
 - (void)cell:(UITableViewCell *)cell changeSwitch:(BOOL)changeSwitch;
 - (void)cellSelect:(UITableViewCell *)cell;
-- (void)tryToChangeInvalidStateForCell:(MWMEditorTextTableViewCell *)cell;
+- (void)tryToChangeInvalidStateForCell:(MWMTableViewCell *)cell;
 
 @end
 
