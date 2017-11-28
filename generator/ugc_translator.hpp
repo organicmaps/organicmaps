@@ -3,7 +3,8 @@
 #include "ugc_db.hpp"
 
 #include "ugc/types.hpp"
-#include "generator/osm_id.hpp"
+
+#include "base/osm_id.hpp"
 
 namespace generator
 {

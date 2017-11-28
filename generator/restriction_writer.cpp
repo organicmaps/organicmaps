@@ -1,7 +1,7 @@
 #include "generator/restriction_writer.hpp"
 
 #include "generator/intermediate_elements.hpp"
-#include "generator/osm_id.hpp"
+#include "base/osm_id.hpp"
 #include "generator/restriction_collector.hpp"
 
 #include "routing/restrictions_serialization.hpp"

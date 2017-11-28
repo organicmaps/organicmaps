@@ -35,7 +35,6 @@ SOURCES += \
     osm2meta.cpp \
     osm2type.cpp \
     osm_element.cpp \
-    osm_id.cpp \
     osm_source.cpp \
     region_meta.cpp \
     restriction_collector.cpp \
@@ -84,7 +83,6 @@ HEADERS += \
     osm2meta.hpp \
     osm2type.hpp \
     osm_element.hpp \
-    osm_id.hpp \
     osm_o5m_source.hpp \
     osm_translator.hpp \
     osm_xml_source.hpp \

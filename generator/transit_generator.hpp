@@ -1,7 +1,5 @@
 #pragma once
 
-#include "generator/osm_id.hpp"
-
 #include "routing_common/transit_types.hpp"
 
 #include "storage/index.hpp"
@@ -10,6 +8,7 @@
 #include "geometry/region2d.hpp"
 
 #include "base/macros.hpp"
+#include "base/osm_id.hpp"
 
 #include "3party/jansson/myjansson.hpp"
 

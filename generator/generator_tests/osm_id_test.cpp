@@ -1,9 +1,9 @@
 #include "testing/testing.hpp"
 
-#include "generator/osm_id.hpp"
 #include "generator/feature_builder.hpp"
 
 #include "base/logging.hpp"
+#include "base/osm_id.hpp"
 
 using namespace osm;
 

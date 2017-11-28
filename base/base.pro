@@ -20,6 +20,7 @@ SOURCES += \
     lower_case.cpp \
     move_to_front.cpp \
     normalize_unicode.cpp \
+    osm_id.cpp \
     pprof.cpp \
     random.cpp \
     shared_buffer_manager.cpp \
@@ -70,6 +71,7 @@ HEADERS += \
     mutex.hpp \
     newtype.hpp \
     observer_list.hpp \
+    osm_id.hpp \
     pprof.hpp \
     random.hpp \
     range_iterator.hpp \

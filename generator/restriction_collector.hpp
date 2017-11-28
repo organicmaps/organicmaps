@@ -1,8 +1,7 @@
 #pragma once
-
-#include "generator/osm_id.hpp"
-
 #include "routing/restrictions_serialization.hpp"
+
+#include "base/osm_id.hpp"
 
 #include <functional>
 #include <limits>

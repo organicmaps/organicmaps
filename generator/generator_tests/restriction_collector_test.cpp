@@ -2,7 +2,6 @@
 
 #include "generator/generator_tests_support/routing_helpers.hpp"
 
-#include "generator/osm_id.hpp"
 #include "generator/restriction_collector.hpp"
 
 #include "routing/restrictions_serialization.hpp"
@@ -14,6 +13,7 @@
 
 #include "coding/file_name_utils.hpp"
 
+#include "base/osm_id.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <string>

@@ -43,6 +43,8 @@ set(
   newtype.hpp
   normalize_unicode.cpp
   observer_list.hpp
+  osm_id.cpp
+  osm_id.hpp
   pprof.cpp
   pprof.hpp
   random.cpp

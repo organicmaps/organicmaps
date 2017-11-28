@@ -50,8 +50,6 @@ set(SRC
   osm2type.hpp
   osm_element.cpp
   osm_element.hpp
-  osm_id.cpp
-  osm_id.hpp
   osm_o5m_source.hpp
   osm_source.cpp
   osm_translator.hpp

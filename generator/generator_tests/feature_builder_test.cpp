@@ -8,6 +8,8 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_visibility.hpp"
 
+#include "base/osm_id.hpp"
+
 using namespace tests;
 
 

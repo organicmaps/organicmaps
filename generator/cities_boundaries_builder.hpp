@@ -1,10 +1,9 @@
 #pragma once
 
-#include "generator/osm_id.hpp"
-
 #include "indexer/city_boundary.hpp"
 
 #include "base/clustering_map.hpp"
+#include "base/osm_id.hpp"
 
 #include <cstdint>
 #include <string>

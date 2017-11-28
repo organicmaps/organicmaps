@@ -10,6 +10,8 @@
 #include "indexer/feature_processor.hpp"
 #include "indexer/ftraits.hpp"
 
+#include "base/osm_id.hpp"
+
 #include <unordered_map>
 #include <utility>
 

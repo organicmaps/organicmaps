@@ -1,9 +1,8 @@
 #pragma once
 
-#include "generator/osm_id.hpp"
-
 #include "base/exception.hpp"
 #include "base/macros.hpp"
+#include "base/osm_id.hpp"
 
 #include <cstdint>
 #include <string>

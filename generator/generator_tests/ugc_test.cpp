@@ -2,11 +2,12 @@
 
 #include "generator/ugc_db.hpp"
 #include "generator/ugc_translator.hpp"
-#include "generator/osm_id.hpp"
+#include "base/osm_id.hpp"
 
 #include "ugc/types.hpp"
 
 #include "base/math.hpp"
+#include "base/osm_id.hpp"
 
 std::string g_database(R"LLL(
                        PRAGMA foreign_keys=OFF;

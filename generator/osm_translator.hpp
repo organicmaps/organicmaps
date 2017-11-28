@@ -19,6 +19,7 @@
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
+#include "base/osm_id.hpp"
 
 #include <list>
 #include <type_traits>

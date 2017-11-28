@@ -1,6 +1,5 @@
-#include "generator/osm_id.hpp"
-
 #include "base/assert.hpp"
+#include "base/osm_id.hpp"
 
 #include <sstream>
 
@@ -76,5 +75,4 @@ std::string DebugPrint(osm::Id const & id)
   stream << id.Type() << " " << id.OsmId();
   return stream.str();
 }
-
 }  // namespace osm

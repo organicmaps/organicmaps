@@ -6,7 +6,6 @@
 
 namespace osm
 {
-
 class Id
 {
   uint64_t m_encodedId;
@@ -41,4 +40,4 @@ struct HashId : private std::hash<uint64_t>
 };
 
 std::string DebugPrint(osm::Id const & id);
-} // namespace osm
+}  // namespace osm

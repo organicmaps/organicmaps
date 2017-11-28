@@ -2,7 +2,7 @@
 
 #include "generator/borders_generator.hpp"
 #include "generator/borders_loader.hpp"
-#include "generator/osm_id.hpp"
+#include "base/osm_id.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/base/astar_algorithm.hpp"

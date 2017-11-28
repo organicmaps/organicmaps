@@ -1,6 +1,5 @@
 #include "generator/road_access_generator.hpp"
 
-#include "generator/osm_id.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/road_access.hpp"
@@ -16,6 +15,7 @@
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+#include "base/osm_id.hpp"
 
 #include <initializer_list>
 

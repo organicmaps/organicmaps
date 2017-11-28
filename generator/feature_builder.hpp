@@ -1,11 +1,11 @@
 #pragma once
 
-#include "generator/osm_id.hpp"
-
 #include "indexer/feature.hpp"
 
 #include "coding/file_reader.hpp"
 #include "coding/read_write_utils.hpp"
+
+#include "base/osm_id.hpp"
 
 #include <functional>
 #include <list>
