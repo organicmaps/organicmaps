@@ -1314,6 +1314,7 @@ void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
     m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, 1.0f /* opacity */,
                                      make_ref(m_gpuProgramManager), m_generalUniforms);
   }
+  GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
 void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
@@ -1322,6 +1323,7 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
   GLFunctions::glEnable(gl_const::GLDepthTest);
   m_routeRenderer->RenderRoute(modelView, m_trafficRenderer->HasRenderData(),
                                make_ref(m_gpuProgramManager), m_generalUniforms);
+  GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId)

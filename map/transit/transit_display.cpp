@@ -376,7 +376,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
             strings::EndsWith(symbolName, "-m") ||
             strings::EndsWith(symbolName, "-l"))
         {
-          symbolName = symbolName.substr(0, symbolName.length() - 2);
+          symbolName = symbolName.substr(0, symbolName.rfind('-'));
         }
 
         gateMarkInfo.m_featureId = fid;
@@ -481,7 +481,7 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
       symbolNames[kMediumIconZoom] = mark.m_symbolName + "-m";
       symbolNames[kLargeIconZoom] = mark.m_symbolName + "-l";
       transitMark->SetSymbolNames(symbolNames);
-      transitMark->SetPriority(UserMark::Priority::Transit_Gate);
+      transitMark->SetPriority(UserMark::Priority::TransitGate);
     }
     else if (mark.m_type == TransitMarkInfo::Type::Transfer)
     {
@@ -514,7 +514,7 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
           coloredSymbol.insert(make_pair(zoomLevel, params));
       }
       transitMark->SetColoredSymbols(coloredSymbol);
-      transitMark->SetPriority(UserMark::Priority::Transit_Transfer);
+      transitMark->SetPriority(UserMark::Priority::TransitTransfer);
     }
     else
     {
@@ -553,7 +553,7 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
         coloredSymbol[kLargeIconZoom] = params;
 
         transitMark->SetColoredSymbols(coloredSymbol);
-        transitMark->SetPriority(UserMark::Priority::Transit_KeyStop);
+        transitMark->SetPriority(UserMark::Priority::TransitKeyStop);
       }
       else
       {
@@ -569,7 +569,7 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
             coloredSymbol.insert(make_pair(zoomLevel, params));
         }
         transitMark->SetColoredSymbols(coloredSymbol);
-        transitMark->SetPriority(UserMark::Priority::Transit_Stop);
+        transitMark->SetPriority(UserMark::Priority::TransitStop);
         transitMark->SetMinTitleZoom(kMinStopTitleZoom);
       }
     }

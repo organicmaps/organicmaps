@@ -21,10 +21,10 @@ public:
   enum class Priority: uint16_t
   {
     Default = 0,
-    Transit_Stop,
-    Transit_Gate,
-    Transit_Transfer,
-    Transit_KeyStop
+    TransitStop,
+    TransitGate,
+    TransitTransfer,
+    TransitKeyStop
   };
 
   enum class Type

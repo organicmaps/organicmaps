@@ -204,8 +204,8 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     if (!symbolName.empty())
     {
       textures->GetSymbolRegion(symbolName, region);
-      symbolSize.x = max(region.GetPixelSize().x, symbolSize.x);
-      symbolSize.y = max(region.GetPixelSize().y, symbolSize.y);
+      symbolSize.x = std::max(region.GetPixelSize().x, symbolSize.x);
+      symbolSize.y = std::max(region.GetPixelSize().y, symbolSize.y);
     }
 
     if (renderInfo.m_titleDecl != nullptr && renderInfo.m_minTitleZoom <= tileKey.m_zoomLevel)
