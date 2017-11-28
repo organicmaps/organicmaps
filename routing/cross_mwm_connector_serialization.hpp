@@ -78,6 +78,7 @@ public:
     template <class Sink>
     void WriteCrossMwmId(osm::Id const & id, uint8_t bits, BitWriter<Sink> & w) const
     {
+      CHECK_LESS_OR_EQUAL(bits, connector::kOsmIdBits, ());
       w.WriteAtMost64Bits(id.EncodedId(), bits);
     }
 
@@ -117,10 +118,10 @@ public:
     };
 
     template <class Source>
-    void ReadCrossMwmId(uint8_t bitsPerCrossMwmId, BitReader<Source> & reader,
-                        osm::Id & readed)
+    void ReadCrossMwmId(uint8_t bits, BitReader<Source> & reader, osm::Id & readed)
     {
-      readed = osm::Id(reader.ReadAtMost64Bits(bitsPerCrossMwmId));
+      CHECK_LESS_OR_EQUAL(bits, connector::kOsmIdBits, ());
+      readed = osm::Id(reader.ReadAtMost64Bits(bits));
     }
 
     template <class Source>
