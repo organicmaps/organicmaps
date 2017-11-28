@@ -23,7 +23,7 @@ class QueryParams
 public:
   using String = strings::UniString;
   using TypeIndices = vector<uint32_t>;
-  using Langs = base::SafeSmallSet<StringUtf8Multilang::kMaxSupportedLanguages>;
+  using Langs = ::base::SafeSmallSet<StringUtf8Multilang::kMaxSupportedLanguages>;
 
   struct Token
   {

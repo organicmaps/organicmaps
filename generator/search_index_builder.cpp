@@ -214,7 +214,7 @@ struct ValueBuilder<FeatureWithRankAndCenter>
 
   void MakeValue(FeatureType const & ft, uint32_t index, FeatureWithRankAndCenter & v) const
   {
-    v.m_featureId = index;
+    v.m_id = index;
 
     // get BEST geometry rect of feature
     v.m_pt = feature::GetCenter(ft);
@@ -229,7 +229,7 @@ struct ValueBuilder<FeatureIndexValue>
 
   void MakeValue(FeatureType const & /* f */, uint32_t index, FeatureIndexValue & value) const
   {
-    value.m_featureId = index;
+    value.m_id = index;
   }
 };
 

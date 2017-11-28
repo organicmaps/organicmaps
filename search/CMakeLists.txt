@@ -5,6 +5,8 @@ set(
   algos.hpp
   approximate_string_match.cpp
   approximate_string_match.hpp
+  base/inverted_list.hpp
+  base/mem_search_index.hpp
   cancel_exception.hpp
   categories_cache.cpp
   categories_cache.hpp

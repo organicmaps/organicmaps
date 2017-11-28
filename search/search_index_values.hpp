@@ -25,43 +25,69 @@
 // A wrapper around feature index.
 struct FeatureIndexValue
 {
-  FeatureIndexValue() : m_featureId(0) {}
+  FeatureIndexValue() : m_id(0) {}
 
-  FeatureIndexValue(uint64_t featureId) : m_featureId(featureId) {}
+  FeatureIndexValue(uint64_t id) : m_id(id) {}
 
-  bool operator<(FeatureIndexValue const & o) const { return m_featureId < o.m_featureId; }
+  bool operator<(FeatureIndexValue const & o) const { return m_id < o.m_id; }
 
-  bool operator==(FeatureIndexValue const & o) const { return m_featureId == o.m_featureId; }
+  bool operator==(FeatureIndexValue const & o) const { return m_id == o.m_id; }
 
-  void Swap(FeatureIndexValue & o) { swap(m_featureId, o.m_featureId); }
+  void Swap(FeatureIndexValue & o) { swap(m_id, o.m_id); }
 
-  uint64_t m_featureId;
+  uint64_t m_id;
 };
+
+namespace std
+{
+template <>
+class hash<FeatureIndexValue>
+{
+public:
+  size_t operator()(FeatureIndexValue const & value) const
+  {
+    return std::hash<uint64_t>{}(value.m_id);
+  }
+};
+}  // namespace std
 
 struct FeatureWithRankAndCenter
 {
-  FeatureWithRankAndCenter() : m_pt(m2::PointD()), m_featureId(0), m_rank(0) {}
+  FeatureWithRankAndCenter() : m_pt(m2::PointD()), m_id(0), m_rank(0) {}
 
-  FeatureWithRankAndCenter(m2::PointD pt, uint32_t featureId, uint8_t rank)
-    : m_pt(pt), m_featureId(featureId), m_rank(rank)
+  FeatureWithRankAndCenter(m2::PointD pt, uint32_t id, uint8_t rank)
+    : m_pt(pt), m_id(id), m_rank(rank)
   {
   }
 
-  bool operator<(FeatureWithRankAndCenter const & o) const { return m_featureId < o.m_featureId; }
+  bool operator<(FeatureWithRankAndCenter const & o) const { return m_id < o.m_id; }
 
-  bool operator==(FeatureWithRankAndCenter const & o) const { return m_featureId == o.m_featureId; }
+  bool operator==(FeatureWithRankAndCenter const & o) const { return m_id == o.m_id; }
 
   void Swap(FeatureWithRankAndCenter & o)
   {
     swap(m_pt, o.m_pt);
-    swap(m_featureId, o.m_featureId);
+    swap(m_id, o.m_id);
     swap(m_rank, o.m_rank);
   }
 
-  m2::PointD m_pt;       // Center point of the feature.
-  uint32_t m_featureId;  // Feature identifier.
-  uint8_t m_rank;        // Rank of the feature.
+  m2::PointD m_pt;  // Center point of the feature.
+  uint32_t m_id;    // Feature identifier.
+  uint8_t m_rank;   // Rank of the feature.
 };
+
+namespace std
+{
+template <>
+class hash<FeatureWithRankAndCenter>
+{
+public:
+  size_t operator()(FeatureWithRankAndCenter const & value) const
+  {
+    return std::hash<uint64_t>{}(value.m_id);
+  }
+};
+}  // namespace std
 
 template <typename Value>
 class SingleValueSerializer;
@@ -78,7 +104,7 @@ public:
   void Serialize(Sink & sink, Value const & v) const
   {
     serial::SavePoint(sink, v.m_pt, m_codingParams);
-    WriteToSink(sink, v.m_featureId);
+    WriteToSink(sink, v.m_id);
     WriteToSink(sink, v.m_rank);
   }
 
@@ -93,7 +119,7 @@ public:
   void DeserializeFromSource(Source & source, Value & v) const
   {
     v.m_pt = serial::LoadPoint(source, m_codingParams);
-    v.m_featureId = ReadPrimitiveFromSource<uint32_t>(source);
+    v.m_id = ReadPrimitiveFromSource<uint32_t>(source);
     v.m_rank = ReadPrimitiveFromSource<uint8_t>(source);
   }
 
@@ -117,7 +143,7 @@ public:
   template <typename Sink>
   void Serialize(Sink & sink, Value const & v) const
   {
-    WriteToSink(sink, v.m_featureId);
+    WriteToSink(sink, v.m_id);
   }
 
   template <typename Reader>
@@ -130,7 +156,7 @@ public:
   template <typename Source>
   void DeserializeFromSource(Source & source, Value & v) const
   {
-    v.m_featureId = ReadPrimitiveFromSource<uint64_t>(source);
+    v.m_id = ReadPrimitiveFromSource<uint64_t>(source);
   }
 };
 
@@ -159,7 +185,7 @@ public:
   {
     std::vector<uint64_t> ids(values.size());
     for (size_t i = 0; i < ids.size(); ++i)
-      ids[i] = values[i].m_featureId;
+      ids[i] = values[i].m_id;
     m_cbv = coding::CompressedBitVectorBuilder::FromBitPositions(move(ids));
   }
 

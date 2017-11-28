@@ -29,8 +29,8 @@ namespace impl
 {
 namespace
 {
-template <typename Value>
-bool FindLangIndex(trie::Iterator<ValueList<Value>> const & trieRoot, uint8_t lang, uint32_t & langIx)
+template <typename ValueList>
+bool FindLangIndex(trie::Iterator<ValueList> const & trieRoot, uint8_t lang, uint32_t & langIx)
 {
   ASSERT_LESS(trieRoot.m_edges.size(), numeric_limits<uint32_t>::max(), ());
 
@@ -49,12 +49,12 @@ bool FindLangIndex(trie::Iterator<ValueList<Value>> const & trieRoot, uint8_t la
 }
 }  // namespace
 
-template <typename Value, typename DFA, typename ToDo>
-bool MatchInTrie(trie::Iterator<ValueList<Value>> const & trieRoot,
+template <typename ValueList, typename DFA, typename ToDo>
+bool MatchInTrie(trie::Iterator<ValueList> const & trieRoot,
                  strings::UniChar const * rootPrefix, size_t rootPrefixSize, DFA const & dfa,
                  ToDo && toDo)
 {
-  using TrieDFAIt = shared_ptr<trie::Iterator<ValueList<Value>>>;
+  using TrieDFAIt = shared_ptr<trie::Iterator<ValueList>>;
   using DFAIt = typename DFA::Iterator;
   using State = pair<TrieDFAIt, DFAIt>;
 
@@ -102,20 +102,7 @@ bool MatchInTrie(trie::Iterator<ValueList<Value>> const & trieRoot,
 template <typename Filter, typename Value>
 class OffsetIntersector
 {
-  struct Hash
-  {
-    size_t operator()(Value const & v) const { return v.m_featureId; }
-  };
-
-  struct Equal
-  {
-    bool operator()(Value const & v1, Value const & v2) const
-    {
-      return v1.m_featureId == v2.m_featureId;
-    }
-  };
-
-  using Set = unordered_set<Value, Hash, Equal>;
+  using Set = unordered_set<Value>;
 
   Filter const & m_filter;
   unique_ptr<Set> m_prevSet;
@@ -129,7 +116,7 @@ public:
     if (m_prevSet && !m_prevSet->count(v))
       return;
 
-    if (!m_filter(v.m_featureId))
+    if (!m_filter(v.m_id))
       return;
 
     m_set->insert(v);
@@ -155,10 +142,11 @@ public:
 };
 }  // namespace impl
 
-template <typename Value>
+template <typename ValueList>
 struct TrieRootPrefix
 {
-  using Iterator = trie::Iterator<ValueList<Value>>;
+  using Value = typename ValueList::Value;
+  using Iterator = trie::Iterator<ValueList>;
 
   Iterator const & m_root;
   strings::UniChar const * m_prefix;
@@ -188,7 +176,7 @@ public:
 
   void operator()(Value const & v)
   {
-    if (m_filter(v.m_featureId))
+    if (m_filter(v.m_id))
       m_values.push_back(v);
   }
 
@@ -224,8 +212,8 @@ struct SearchTrieRequest
 // Calls |toDo| for each feature accepted by at least one DFA.
 //
 // *NOTE* |toDo| may be called several times for the same feature.
-template <typename DFA, typename Value, typename ToDo>
-void MatchInTrie(vector<DFA> const & dfas, TrieRootPrefix<Value> const & trieRoot, ToDo && toDo)
+template <typename DFA, typename ValueList, typename ToDo>
+void MatchInTrie(vector<DFA> const & dfas, TrieRootPrefix<ValueList> const & trieRoot, ToDo && toDo)
 {
   for (auto const & dfa : dfas)
     impl::MatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize, dfa, toDo);
@@ -234,9 +222,9 @@ void MatchInTrie(vector<DFA> const & dfas, TrieRootPrefix<Value> const & trieRoo
 // Calls |toDo| for each feature in categories branch matching to |request|.
 //
 // *NOTE* |toDo| may be called several times for the same feature.
-template <typename DFA, typename Value, typename ToDo>
+template <typename DFA, typename ValueList, typename ToDo>
 bool MatchCategoriesInTrie(SearchTrieRequest<DFA> const & request,
-                           trie::Iterator<ValueList<Value>> const & trieRoot, ToDo && toDo)
+                           trie::Iterator<ValueList> const & trieRoot, ToDo && toDo)
 {
   uint32_t langIx = 0;
   if (!impl::FindLangIndex(trieRoot, search::kCategoriesLang, langIx))
@@ -246,16 +234,16 @@ bool MatchCategoriesInTrie(SearchTrieRequest<DFA> const & request,
   ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
 
   auto const catRoot = trieRoot.GoToEdge(langIx);
-  MatchInTrie(request.m_categories, TrieRootPrefix<Value>(*catRoot, edge), toDo);
+  MatchInTrie(request.m_categories, TrieRootPrefix<ValueList>(*catRoot, edge), toDo);
 
   return true;
 }
 
 // Calls |toDo| with trie root prefix and language code on each
 // language allowed by |request|.
-template <typename DFA, typename Value, typename ToDo>
+template <typename DFA, typename ValueList, typename ToDo>
 void ForEachLangPrefix(SearchTrieRequest<DFA> const & request,
-                       trie::Iterator<ValueList<Value>> const & trieRoot, ToDo && toDo)
+                       trie::Iterator<ValueList> const & trieRoot, ToDo && toDo)
 {
   ASSERT_LESS(trieRoot.m_edges.size(), numeric_limits<uint32_t>::max(), ());
 
@@ -268,7 +256,7 @@ void ForEachLangPrefix(SearchTrieRequest<DFA> const & request,
     if (edge[0] < search::kCategoriesLang && request.IsLangExist(lang))
     {
       auto const langRoot = trieRoot.GoToEdge(langIx);
-      TrieRootPrefix<Value> langPrefix(*langRoot, edge);
+      TrieRootPrefix<ValueList> langPrefix(*langRoot, edge);
       toDo(langPrefix, lang);
     }
   }
@@ -276,20 +264,23 @@ void ForEachLangPrefix(SearchTrieRequest<DFA> const & request,
 
 // Calls |toDo| for each feature whose description matches to
 // |request|.  Each feature will be passed to |toDo| only once.
-template <typename DFA, typename Value, typename Filter, typename ToDo>
+template <typename DFA, typename ValueList, typename Filter, typename ToDo>
 void MatchFeaturesInTrie(SearchTrieRequest<DFA> const & request,
-                         trie::Iterator<ValueList<Value>> const & trieRoot, Filter const & filter,
+                         trie::Iterator<ValueList> const & trieRoot, Filter const & filter,
                          ToDo && toDo)
 {
+  using Value = typename ValueList::Value;
+
   TrieValuesHolder<Filter, Value> categoriesHolder(filter);
   bool const categoriesMatched = MatchCategoriesInTrie(request, trieRoot, categoriesHolder);
 
   impl::OffsetIntersector<Filter, Value> intersector(filter);
 
-  ForEachLangPrefix(request, trieRoot,
-                    [&request, &intersector](TrieRootPrefix<Value> & langRoot, int8_t /* lang */) {
-                      MatchInTrie(request.m_names, langRoot, intersector);
-                    });
+  ForEachLangPrefix(
+      request, trieRoot,
+      [&request, &intersector](TrieRootPrefix<ValueList> & langRoot, int8_t /* lang */) {
+        MatchInTrie(request.m_names, langRoot, intersector);
+      });
 
   if (categoriesMatched)
     categoriesHolder.ForEachValue(intersector);
@@ -298,12 +289,12 @@ void MatchFeaturesInTrie(SearchTrieRequest<DFA> const & request,
   intersector.ForEachResult(forward<ToDo>(toDo));
 }
 
-template <typename Value, typename Filter, typename ToDo>
-void MatchPostcodesInTrie(TokenSlice const & slice,
-                          trie::Iterator<ValueList<Value>> const & trieRoot,
+template <typename ValueList, typename Filter, typename ToDo>
+void MatchPostcodesInTrie(TokenSlice const & slice, trie::Iterator<ValueList> const & trieRoot,
                           Filter const & filter, ToDo && toDo)
 {
   using namespace strings;
+  using Value = typename ValueList::Value;
 
   uint32_t langIx = 0;
   if (!impl::FindLangIndex(trieRoot, search::kPostcodesLang, langIx))
@@ -319,13 +310,13 @@ void MatchPostcodesInTrie(TokenSlice const & slice,
     {
       vector<PrefixDFAModifier<UniStringDFA>> dfas;
       slice.Get(i).ForEach([&dfas](UniString const & s) { dfas.emplace_back(UniStringDFA(s)); });
-      MatchInTrie(dfas, TrieRootPrefix<Value>(*postcodesRoot, edge), intersector);
+      MatchInTrie(dfas, TrieRootPrefix<ValueList>(*postcodesRoot, edge), intersector);
     }
     else
     {
       vector<UniStringDFA> dfas;
       slice.Get(i).ForEach([&dfas](UniString const & s) { dfas.emplace_back(s); });
-      MatchInTrie(dfas, TrieRootPrefix<Value>(*postcodesRoot, edge), intersector);
+      MatchInTrie(dfas, TrieRootPrefix<ValueList>(*postcodesRoot, edge), intersector);
     }
 
     intersector.NextStep();

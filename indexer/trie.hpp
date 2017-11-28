@@ -19,7 +19,8 @@ uint32_t constexpr kDefaultChar = 0;
 template <typename ValueList>
 struct Iterator
 {
-  using Value = typename ValueList::Value;
+  using List = ValueList;
+  using Value = typename List::Value;
 
   struct Edge
   {
@@ -33,7 +34,7 @@ struct Iterator
   virtual std::unique_ptr<Iterator<ValueList>> GoToEdge(size_t i) const = 0;
 
   buffer_vector<Edge, 8> m_edges;
-  ValueList m_values;
+  List m_values;
 };
 
 template <typename ValueList, typename ToDo, typename String>

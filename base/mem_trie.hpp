@@ -137,6 +137,8 @@ public:
       m_node.m_values.ForEach(std::forward<ToDo>(toDo));
     }
 
+    ValuesHolder const & GetValues() const { return m_node.m_values; }
+
   private:
     MemTrie::Node const & m_node;
   };

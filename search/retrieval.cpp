@@ -49,7 +49,7 @@ public:
   {
     if ((++m_counter & 0xFF) == 0)
       BailIfCancelled(m_cancellable);
-    m_features.push_back(value.m_featureId);
+    m_features.push_back(value.m_id);
   }
 
   inline void operator()(uint32_t feature) { m_features.push_back(feature); }
