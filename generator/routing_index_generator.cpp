@@ -266,7 +266,6 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
                              CountryParentNameGetterFn const & countryParentNameGetterFn,
                              vector<CrossMwmConnectorSerializer::Transition<connector::TransitId>> & transitions)
 {
-  LOG(LINFO, ("CalcCrossMwmTransitions(", mwmFile, "...)"));
   CHECK(mappingFile.empty(), ());
   try
   {
@@ -297,8 +296,6 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
       return it.first->GetPoint();
     };
 
-    LOG(LINFO, ("CalcCrossMwmTransitions() edges.size():", edges.size()));
-
     // Index |i| is zero based edge index. This zero based index should be increased with
     // |FakeFeatureIds::kTransitGraphFeaturesStart| and then used in Segment class as
     // feature id in transit case.Ø
@@ -311,7 +308,6 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
       if (m2::RegionsContain(borders, stop1Point) == stop2In)
         continue;
 
-      LOG(LINFO, ("CalcCrossMwmTransitions() crossing edge:", e));
       // Note. One way mask is set to kTransitMask because all transit edges are one way edges.
       transitions.emplace_back(connector::TransitId(e.GetStop1Id(), e.GetStop2Id(), e.GetLineId()),
                                i /* feature id */, 0 /* segment index */, kTransitMask,
