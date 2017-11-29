@@ -275,7 +275,7 @@ void GraphData::DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap 
   Visit(deserializer);
 }
 
-void GraphData::SerializeToMwm(Writer & writer) const
+void GraphData::Serialize(Writer & writer) const
 {
   TransitHeader header;
 
@@ -316,11 +316,11 @@ void GraphData::SerializeToMwm(Writer & writer) const
   LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Header:", header));
 }
 
-void GraphData::DeserializeForTesting(MemReader & reader)
+void GraphData::Deserialize(Reader & reader)
 {
-  ReaderSource<MemReader> src(reader);
-  transit::Deserializer<ReaderSource<MemReader>> deserializer(src);
-  transit::FixedSizeDeserializer<ReaderSource<MemReader>> numberDeserializer(src);
+  NonOwningReaderSource src(reader);
+  transit::Deserializer<NonOwningReaderSource> deserializer(src);
+  transit::FixedSizeDeserializer<NonOwningReaderSource> numberDeserializer(src);
 
   transit::TransitHeader header;
   numberDeserializer(header);
@@ -328,31 +328,31 @@ void GraphData::DeserializeForTesting(MemReader & reader)
 
   CHECK_EQUAL(src.Pos(), header.m_stopsOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
   deserializer(m_stops);
-  CHECK(transit::IsValid(m_stops), ());
+  CHECK(transit::IsValidSortedUnique(m_stops), ());
 
   CHECK_EQUAL(src.Pos(), header.m_gatesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
   deserializer(m_gates);
-  CHECK(transit::IsValid(m_gates), ());
+  CHECK(transit::IsValidSortedUnique(m_gates), ());
 
   CHECK_EQUAL(src.Pos(), header.m_edgesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
   deserializer(m_edges);
-  CHECK(transit::IsValid(m_edges), ());
+  CHECK(transit::IsValidSortedUnique(m_edges), ());
 
   CHECK_EQUAL(src.Pos(), header.m_transfersOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
   deserializer(m_transfers);
-  CHECK(transit::IsValid(m_transfers), ());
+  CHECK(transit::IsValidSortedUnique(m_transfers), ());
 
   CHECK_EQUAL(src.Pos(), header.m_linesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
   deserializer(m_lines);
-  CHECK(transit::IsValid(m_lines), ());
+  CHECK(transit::IsValidSortedUnique(m_lines), ());
 
   CHECK_EQUAL(src.Pos(), header.m_shapesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
   deserializer(m_shapes);
-  CHECK(transit::IsValid(m_shapes), ());
+  CHECK(transit::IsValidSortedUnique(m_shapes), ());
 
   CHECK_EQUAL(src.Pos(), header.m_networksOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
   deserializer(m_networks);
-  CHECK(transit::IsValid(m_networks), ());
+  CHECK(transit::IsValidSortedUnique(m_networks), ());
 
   CHECK_EQUAL(src.Pos(), header.m_endOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
 }
@@ -689,7 +689,7 @@ void BuildTransit(string const & mwmDir, TCountryId const & countryId,
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter writer = cont.GetWriter(TRANSIT_FILE_TAG);
-  jointData.SerializeToMwm(writer);
+  jointData.Serialize(writer);
 }
 }  // namespace transit
 }  // namespace routing

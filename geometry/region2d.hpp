@@ -1,15 +1,15 @@
 #pragma once
 
+#include "geometry/distance.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
-#include "geometry/distance.hpp"
 
 #include "base/math.hpp"
 
-#include "std/vector.hpp"
 #include "std/algorithm.hpp"
 #include "std/type_traits.hpp"
-
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 namespace m2
 {
@@ -103,7 +103,8 @@ namespace m2
   public:
     Region() = default;
 
-    explicit Region(vector<PointD> && points) : m_points(move(points))
+    template <class Points>
+    explicit Region(Points && points) : m_points(std::forward<Points>(points))
     {
       CalcLimitRect();
     }

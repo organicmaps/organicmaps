@@ -127,8 +127,8 @@ class GraphData
 {
 public:
   void DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping);
-  void SerializeToMwm(Writer & writer) const;
-  void DeserializeForTesting(MemReader & reader);
+  void Serialize(Writer & writer) const;
+  void Deserialize(Reader & reader);
   void AppendTo(GraphData const & rhs);
   void Clear();
   bool IsValid() const;
