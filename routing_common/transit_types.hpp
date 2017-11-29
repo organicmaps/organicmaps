@@ -5,6 +5,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/newtype.hpp"
+#include "base/stl_add.hpp"
 #include "base/visitor.hpp"
 
 #include <algorithm>
