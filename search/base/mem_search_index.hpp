@@ -27,38 +27,8 @@ public:
   using Token = strings::UniString;
   using Char = Token::value_type;
   using List = InvertedList<Id>;
-  using Trie = my::MemTrie<Token, List>;
-
-  class Iterator : public trie::Iterator<List>
-  {
-  public:
-    using Base = trie::Iterator<List>;
-    using InnerIterator = typename Trie::Iterator;
-
-    explicit Iterator(InnerIterator const & innerIt)
-    {
-      Base::m_values = innerIt.GetValues();
-      innerIt.ForEachMove([&](Char c, InnerIterator it) {
-        Base::m_edges.emplace_back();
-        Base::m_edges.back().m_label.push_back(c);
-        m_moves.push_back(it);
-      });
-    }
-
-    ~Iterator() override = default;
-
-    // trie::Iterator<List> overrides:
-    std::unique_ptr<Base> Clone() const override { return my::make_unique<Iterator>(*this); }
-
-    std::unique_ptr<Base> GoToEdge(size_t i) const override
-    {
-      ASSERT_LESS(i, m_moves.size(), ());
-      return my::make_unique<Iterator>(m_moves[i]);
-    }
-
-  private:
-    std::vector<InnerIterator> m_moves;
-  };
+  using Trie = ::base::MemTrie<Token, List>;
+  using Iterator = trie::MemTrieIterator<Token, List>;
 
   void Add(Id const & id, Doc const & doc)
   {

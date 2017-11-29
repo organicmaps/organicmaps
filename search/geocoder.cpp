@@ -316,7 +316,7 @@ CBV DecimateCianResults(CBV const & cbv)
   size_t const kMaxCianResults = 10000;
   minstd_rand rng(0);
   auto survivedIds =
-      base::RandomSample(base::checked_cast<size_t>(cbv.PopCount()), kMaxCianResults, rng);
+      base::RandomSample(::base::checked_cast<size_t>(cbv.PopCount()), kMaxCianResults, rng);
   sort(survivedIds.begin(), survivedIds.end());
   auto it = survivedIds.begin();
   vector<uint64_t> setBits;
@@ -380,7 +380,7 @@ void Geocoder::SetParams(Params const & params)
       });
       for (auto const & index : m_params.GetTypeIndices(i))
         request.m_categories.emplace_back(FeatureTypeToString(index));
-      request.m_langs = m_params.GetLangs();
+      request.SetLangs(m_params.GetLangs());
     }
     else
     {
@@ -390,7 +390,7 @@ void Geocoder::SetParams(Params const & params)
       });
       for (auto const & index : m_params.GetTypeIndices(i))
         request.m_categories.emplace_back(FeatureTypeToString(index));
-      request.m_langs = m_params.GetLangs();
+      request.SetLangs(m_params.GetLangs());
     }
   }
 
@@ -780,7 +780,7 @@ void Geocoder::MatchCategories(BaseContext & ctx, bool aroundPivot)
   }
 
   auto emit = [&](uint64_t bit) {
-    auto const featureId = base::asserted_cast<uint32_t>(bit);
+    auto const featureId = ::base::asserted_cast<uint32_t>(bit);
     Model::Type type;
     if (!GetTypeInGeocoding(ctx, featureId, type))
       return;
@@ -1009,7 +1009,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   vector<uint32_t> sortedFeatures;
   sortedFeatures.reserve(base::checked_cast<size_t>(prediction.m_features.PopCount()));
   prediction.m_features.ForEach([&sortedFeatures](uint64_t bit) {
-    sortedFeatures.push_back(base::asserted_cast<uint32_t>(bit));
+    sortedFeatures.push_back(::base::asserted_cast<uint32_t>(bit));
   });
   layer.m_sortedFeatures = &sortedFeatures;
 
@@ -1044,7 +1044,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
       if (m_filter->NeedToFilter(m_postcodes.m_features))
         filtered = m_filter->Filter(m_postcodes.m_features);
       filtered.ForEach([&](uint64_t bit) {
-        auto const featureId = base::asserted_cast<uint32_t>(bit);
+        auto const featureId = ::base::asserted_cast<uint32_t>(bit);
         Model::Type type;
         if (GetTypeInGeocoding(ctx, featureId, type))
         {
@@ -1085,7 +1085,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
 
     vector<uint32_t> features;
     m_postcodes.m_features.ForEach([&features](uint64_t bit) {
-      features.push_back(base::asserted_cast<uint32_t>(bit));
+      features.push_back(::base::asserted_cast<uint32_t>(bit));
     });
     layer.m_sortedFeatures = &features;
     return FindPaths(ctx);
@@ -1103,7 +1103,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
   // any.
   auto clusterize = [&](uint64_t bit)
   {
-    auto const featureId = base::asserted_cast<uint32_t>(bit);
+    auto const featureId = ::base::asserted_cast<uint32_t>(bit);
     Model::Type type;
     if (!GetTypeInGeocoding(ctx, featureId, type))
       return;
@@ -1164,7 +1164,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
         ends[i] = clusters[i].size();
       filtered.ForEach([&](uint64_t bit)
                        {
-                         auto const featureId = base::asserted_cast<uint32_t>(bit);
+                         auto const featureId = ::base::asserted_cast<uint32_t>(bit);
                          bool found = false;
                          for (size_t i = 0; i < kNumClusters && !found; ++i)
                          {
@@ -1393,7 +1393,7 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
 
   auto emitUnclassified = [&](uint64_t bit)
   {
-    auto const featureId = base::asserted_cast<uint32_t>(bit);
+    auto const featureId = ::base::asserted_cast<uint32_t>(bit);
     Model::Type type;
     if (!GetTypeInGeocoding(ctx, featureId, type))
       return;

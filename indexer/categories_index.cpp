@@ -12,7 +12,7 @@
 
 namespace
 {
-void AddAllNonemptySubstrings(my::MemTrie<string, my::VectorValues<uint32_t>> & trie,
+void AddAllNonemptySubstrings(base::MemTrie<string, base::VectorValues<uint32_t>> & trie,
                               string const & s, uint32_t value)
 {
   ASSERT(!s.empty(), ());
@@ -37,7 +37,7 @@ void ForEachToken(string const & s, TF && fn)
     fn(strings::ToUtf8(token));
 }
 
-void TokenizeAndAddAllSubstrings(my::MemTrie<string, my::VectorValues<uint32_t>> & trie,
+void TokenizeAndAddAllSubstrings(base::MemTrie<string, base::VectorValues<uint32_t>> & trie,
                                  string const & s, uint32_t value)
 {
   auto fn = [&](string const & token)

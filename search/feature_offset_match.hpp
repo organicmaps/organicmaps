@@ -194,18 +194,29 @@ private:
 template <typename DFA>
 struct SearchTrieRequest
 {
-  bool IsLangExist(int8_t lang) const { return m_langs.Contains(lang); }
+  template <typename Langs>
+  void SetLangs(Langs const & langs)
+  {
+    m_langs.clear();
+    for (auto const & lang : langs)
+    {
+      if (lang >= 0 && lang <= numeric_limits<int8_t>::max())
+        m_langs.insert(static_cast<int8_t>(lang));
+    }
+  }
+
+  bool HasLang(int8_t lang) const { return m_langs.find(lang) != m_langs.cend(); }
 
   void Clear()
   {
     m_names.clear();
     m_categories.clear();
-    m_langs.Clear();
+    m_langs.clear();
   }
 
   std::vector<DFA> m_names;
   std::vector<strings::UniStringDFA> m_categories;
-  QueryParams::Langs m_langs;
+  std::unordered_set<int8_t> m_langs;
 };
 
 // Calls |toDo| for each feature accepted by at least one DFA.
@@ -253,7 +264,7 @@ void ForEachLangPrefix(SearchTrieRequest<DFA> const & request,
     auto const & edge = trieRoot.m_edges[langIx].m_label;
     ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
     int8_t const lang = static_cast<int8_t>(edge[0]);
-    if (edge[0] < search::kCategoriesLang && request.IsLangExist(lang))
+    if (edge[0] < search::kCategoriesLang && request.HasLang(lang))
     {
       auto const langRoot = trieRoot.GoToEdge(langIx);
       TrieRootPrefix<ValueList> langPrefix(*langRoot, edge);

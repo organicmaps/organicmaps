@@ -7,6 +7,8 @@
 
 #include "3party/utfcpp/source/utf8/unchecked.h"
 
+#include <algorithm>
+
 using namespace std;
 using namespace strings;
 
@@ -145,7 +147,13 @@ public:
   {
     using value_type = bool;
 
-    void Add(bool value) { m_value = m_value || value; }
+    BooleanSum() { Clear(); }
+
+    void Add(bool value)
+    {
+      m_value = m_value || value;
+      m_empty = false;
+    }
 
     template <typename ToDo>
     void ForEach(ToDo && toDo) const
@@ -153,52 +161,22 @@ public:
       toDo(m_value);
     }
 
-    void Clear() { m_value = false; }
-
-    bool m_value = false;
-  };
-
-  template <typename Char, typename Subtree>
-  class Moves
-  {
-  public:
-    template <typename ToDo>
-    void ForEach(ToDo && toDo) const
+    void Clear()
     {
-      for (auto const & subtree : m_subtrees)
-        toDo(subtree.first, *subtree.second);
+      m_value = false;
+      m_empty = true;
     }
 
-    Subtree * GetSubtree(Char const & c) const
+    bool Empty() const { return m_empty; }
+
+    void Swap(BooleanSum & rhs)
     {
-      for (auto const & subtree : m_subtrees)
-      {
-        if (subtree.first == c)
-          return subtree.second.get();
-      }
-      return nullptr;
+      swap(m_value, rhs.m_value);
+      swap(m_empty, rhs.m_empty);
     }
 
-    Subtree & GetOrCreateSubtree(Char const & c, bool & created)
-    {
-      for (size_t i = 0; i < m_subtrees.size(); ++i)
-      {
-        if (m_subtrees[i].first == c)
-        {
-          created = false;
-          return *m_subtrees[i].second;
-        }
-      }
-
-      created = true;
-      m_subtrees.emplace_back(c, make_unique<Subtree>());
-      return *m_subtrees.back().second;
-    }
-
-    void Clear() { m_subtrees.clear(); }
-
-  private:
-    buffer_vector<pair<Char, std::unique_ptr<Subtree>>, 8> m_subtrees;
+    bool m_value;
+    bool m_empty;
   };
 
   StreetsSynonymsHolder()
@@ -273,28 +251,11 @@ public:
     }
   }
 
-  bool MatchPrefix(UniString const & s) const
-  {
-    bool found = false;
-    m_strings.ForEachInNode(s, [&](UniString const & prefix, bool /* value */) {
-      ASSERT_EQUAL(s, prefix, ());
-      found = true;
-    });
-    return found;
-  }
-
-  bool FullMatch(UniString const & s) const
-  {
-    bool found = false;
-    m_strings.ForEachInNode(s, [&](UniString const & prefix, bool value) {
-      ASSERT_EQUAL(s, prefix, ());
-      found = value;
-    });
-    return found;
-  }
+  bool MatchPrefix(UniString const & s) const { return m_strings.HasPrefix(s); }
+  bool FullMatch(UniString const & s) const { return m_strings.HasKey(s); }
 
 private:
-  my::MemTrie<UniString, BooleanSum, Moves> m_strings;
+  base::MemTrie<UniString, BooleanSum, base::VectorMoves> m_strings;
 };
 
 StreetsSynonymsHolder g_streets;

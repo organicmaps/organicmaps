@@ -1,18 +1,19 @@
 #pragma once
 
 #include "base/assert.hpp"
+#include "base/buffer_vector.hpp"
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
 #include <algorithm>
 #include <cstddef>
-#include <cstdint>
 #include <functional>
 #include <map>
 #include <memory>
+#include <utility>
 #include <vector>
 
-namespace my
+namespace base
 {
 template <typename Char, typename Subtree>
 class MapMoves
@@ -20,6 +21,13 @@ class MapMoves
 public:
   template <typename ToDo>
   void ForEach(ToDo && toDo) const
+  {
+    for (auto const & subtree : m_subtrees)
+      toDo(subtree.first, *subtree.second);
+  }
+
+  template <typename ToDo>
+  void ForEach(ToDo && toDo)
   {
     for (auto const & subtree : m_subtrees)
       toDo(subtree.first, *subtree.second);
@@ -48,20 +56,83 @@ public:
     return *node;
   }
 
+  void AddSubtree(Char const & c, std::unique_ptr<Subtree> subtree)
+  {
+    ASSERT(!GetSubtree(c), ());
+    m_subtrees.emplace(c, move(subtree));
+  }
+
   void EraseSubtree(Char const & c) { m_subtrees.erase(c); }
 
+  size_t Size() const { return m_subtrees.size(); }
   bool Empty() const { return m_subtrees.empty(); }
 
   void Clear() { m_subtrees.clear(); }
+
+  void Swap(MapMoves & rhs) { m_subtrees.swap(rhs.m_subtrees); }
 
 private:
   std::map<Char, std::unique_ptr<Subtree>> m_subtrees;
 };
 
-template <typename Value>
+template <typename Char, typename Subtree>
+class VectorMoves
+{
+public:
+  template <typename ToDo>
+  void ForEach(ToDo && toDo) const
+  {
+    for (auto const & subtree : m_subtrees)
+      toDo(subtree.first, *subtree.second);
+  }
+
+  Subtree * GetSubtree(Char const & c) const
+  {
+    for (auto const & subtree : m_subtrees)
+    {
+      if (subtree.first == c)
+        return subtree.second.get();
+    }
+    return nullptr;
+  }
+
+  Subtree & GetOrCreateSubtree(Char const & c, bool & created)
+  {
+    for (size_t i = 0; i < m_subtrees.size(); ++i)
+    {
+      if (m_subtrees[i].first == c)
+      {
+        created = false;
+        return *m_subtrees[i].second;
+      }
+    }
+
+    created = true;
+    m_subtrees.emplace_back(c, my::make_unique<Subtree>());
+    return *m_subtrees.back().second;
+  }
+
+  void AddSubtree(Char const & c, std::unique_ptr<Subtree> subtree)
+  {
+    ASSERT(!GetSubtree(c), ());
+    m_subtrees.emplace_back(c, std::move(subtree));
+  }
+
+  bool Empty() const { return m_subtrees.empty(); }
+
+  void Clear() { m_subtrees.clear(); }
+
+  void Swap(VectorMoves & rhs) { m_subtrees.swap(rhs.m_subtrees); }
+
+private:
+  std::vector<std::pair<Char, std::unique_ptr<Subtree>>> m_subtrees;
+};
+
+template <typename V>
 struct VectorValues
 {
-  using value_type = Value;
+  using value_type = V;
+  using Value = V;
 
   template <typename... Args>
   void Add(Args &&... args)
@@ -79,12 +150,15 @@ struct VectorValues
   template <typename ToDo>
   void ForEach(ToDo && toDo) const
   {
-    std::for_each(m_values.begin(), m_values.end(), std::forward<ToDo>(toDo));
+    for (auto const & value : m_values)
+      toDo(value);
   }
 
   bool Empty() const { return m_values.empty(); }
 
   void Clear() { m_values.clear(); }
+
+  void Swap(VectorValues & rhs) { m_values.swap(rhs.m_values); }
 
   std::vector<Value> m_values;
 };
@@ -107,7 +181,6 @@ public:
   MemTrie & operator=(MemTrie && rhs)
   {
     m_root = std::move(rhs.m_root);
-    m_numNodes = rhs.m_numNodes;
     rhs.Clear();
     return *this;
   }
@@ -137,6 +210,7 @@ public:
       m_node.m_values.ForEach(std::forward<ToDo>(toDo));
     }
 
+    String GetLabel() const { return m_node.m_edge.template As<String>(); }
     ValuesHolder const & GetValues() const { return m_node.m_values; }
 
   private:
@@ -147,20 +221,57 @@ public:
   template <typename... Args>
   void Add(String const & key, Args &&... args)
   {
-    auto * cur = &m_root;
-    for (auto const & c : key)
+    auto * curr = &m_root;
+
+    auto it = key.begin();
+    while (it != key.end())
     {
       bool created;
-      cur = &cur->GetMove(c, created);
+      curr = &curr->GetOrCreateMove(*it, created);
+
+      auto & edge = curr->m_edge;
+
       if (created)
-        ++m_numNodes;
+      {
+        edge.Assign(it, key.end());
+        it = key.end();
+        continue;
+      }
+
+      ASSERT(!edge.Empty(), ());
+      ASSERT_EQUAL(edge[0], *it, ());
+
+      size_t i = 0;
+      SkipEqual(edge, key.end(), i, it);
+
+      if (i == edge.Size())
+      {
+        // We may directly add value to the |curr| values, when edge
+        // equals to the rest of the |key|.  Otherwise we need to jump
+        // to the next iteration of the loop and continue traversal of
+        // the trie.
+        continue;
+      }
+
+      // We need to split the edge to |curr|.
+      auto node = my::make_unique<Node>();
+
+      ASSERT_LESS(i, edge.Size(), ());
+      node->m_edge = edge.Drop(i);
+
+      ASSERT(!edge.Empty(), ());
+      auto const next = edge[0];
+
+      node->Swap(*curr);
+      curr->AddChild(next, std::move(node));
     }
-    cur->Add(std::forward<Args>(args)...);
+
+    curr->AddValue(std::forward<Args>(args)...);
   }
 
   void Erase(String const & key, Value const & value)
   {
-    return Erase(m_root, 0 /* level */, key, value);
+    Erase(m_root, key.begin(), key.end(), value);
   }
 
   // Traverses all key-value pairs in the trie and calls |toDo| on each of them.
@@ -177,31 +288,106 @@ public:
   template <typename ToDo>
   void ForEachInNode(String const & prefix, ToDo && toDo) const
   {
-    if (auto const * root = MoveTo(prefix))
-      ForEachInNode(*root, prefix, std::forward<ToDo>(toDo));
+    MoveTo(prefix, true /* fullMatch */,
+           [&](Node const & node, Edge const & /* edge */, size_t /* offset */) {
+             node.m_values.ForEach(std::forward<ToDo>(toDo));
+           });
   }
 
   // Calls |toDo| for each key-value pair in a subtree that is
   // reachable by |prefix| from the trie root. Does nothing if such
   // subtree does not exist.
   template <typename ToDo>
-  void ForEachInSubtree(String prefix, ToDo && toDo) const
+  void ForEachInSubtree(String const & prefix, ToDo && toDo) const
   {
-    if (auto const * root = MoveTo(prefix))
-      ForEachInSubtree(*root, prefix, std::forward<ToDo>(toDo));
+    MoveTo(prefix, false /* fullMatch */, [&](Node const & node, Edge const & edge, size_t offset) {
+      String p = prefix;
+      for (; offset < edge.Size(); ++offset)
+        p.push_back(edge[offset]);
+      ForEachInSubtree(node, p, std::forward<ToDo>(toDo));
+    });
   }
 
-  void Clear()
+  bool HasKey(String const & key) const
   {
-    m_root.Clear();
-    m_numNodes = 1;
+    bool exists = false;
+    MoveTo(key, true /* fullMatch */,
+           [&](Node const & node, Edge const & /* edge */, size_t /* offset */) {
+             exists = !node.m_values.Empty();
+           });
+    return exists;
   }
 
-  size_t GetNumNodes() const { return m_numNodes; }
+  bool HasPrefix(String const & prefix) const
+  {
+    bool exists = false;
+    MoveTo(prefix, false /* fullMatch */, [&](Node const & node, Edge const & /* edge */,
+                                              size_t /* offset */) { exists = !node.Empty(); });
+    return exists;
+  }
+
+  void Clear() { m_root.Clear(); }
+
+  size_t GetNumNodes() const { return m_root.GetNumNodes(); }
+
   Iterator GetRootIterator() const { return Iterator(m_root); }
+
   Node const & GetRoot() const { return m_root; }
 
 private:
+  class Edge
+  {
+  public:
+    Edge() = default;
+
+    template <typename It>
+    Edge(It begin, It end)
+    {
+      Assign(begin, end);
+    }
+
+    template <typename It>
+    void Assign(It begin, It end)
+    {
+      m_label.assign(begin, end);
+      std::reverse(m_label.begin(), m_label.end());
+    }
+
+    Edge Drop(size_t n)
+    {
+      ASSERT_LESS_OR_EQUAL(n, Size(), ());
+
+      Edge prefix(m_label.rbegin(), m_label.rbegin() + n);
+      m_label.erase(m_label.begin() + Size() - n, m_label.end());
+      return prefix;
+    }
+
+    void Prepend(Edge const & prefix)
+    {
+      m_label.insert(m_label.end(), prefix.m_label.begin(), prefix.m_label.end());
+    }
+
+    Char operator[](size_t i) const
+    {
+      ASSERT_LESS(i, Size(), ());
+      return *(m_label.rbegin() + i);
+    }
+
+    size_t Size() const { return m_label.size(); }
+
+    bool Empty() const { return Size() == 0; }
+
+    void Swap(Edge & rhs) { m_label.swap(rhs.m_label); }
+
+    template <typename Sequence>
+    Sequence As() const { return {m_label.rbegin(), m_label.rend()}; }
+
+    friend std::string DebugPrint(Edge const & edge) { return edge.template As<std::string>(); }
+
+  private:
+    std::vector<Char> m_label;
+  };
+
   struct Node
   {
     Node() = default;
@@ -209,17 +395,22 @@ private:
 
     Node & operator=(Node && /* rhs */) = default;
 
-    Node & GetMove(Char const & c, bool & created)
+    Node & GetOrCreateMove(Char const & c, bool & created)
     {
       return m_moves.GetOrCreateSubtree(c, created);
     }
 
     Node * GetMove(Char const & c) const { return m_moves.GetSubtree(c); }
 
+    void AddChild(Char const & c, std::unique_ptr<Node> node)
+    {
+      m_moves.AddSubtree(c, std::move(node));
+    }
+
     void EraseMove(Char const & c) { m_moves.EraseSubtree(c); }
 
     template <typename... Args>
-    void Add(Args &&... args)
+    void AddValue(Args &&... args)
     {
       m_values.Add(std::forward<Args>(args)...);
     }
@@ -237,51 +428,103 @@ private:
       m_values.Clear();
     }
 
+    size_t GetNumNodes() const
+    {
+      size_t size = 1;
+      m_moves.ForEach(
+          [&size](Char /* c */, Node const & child) { size += child.GetNumNodes(); });
+      return size;
+    }
+
+    void Swap(Node & rhs)
+    {
+      m_edge.Swap(rhs.m_edge);
+      m_moves.Swap(rhs.m_moves);
+      m_values.Swap(rhs.m_values);
+    }
+
+    Edge m_edge;
     Moves<Char, Node> m_moves;
     ValuesHolder m_values;
 
     DISALLOW_COPY(Node);
   };
 
-  Node const * MoveTo(String const & key) const
+  template <typename Fn>
+  void MoveTo(String const & prefix, bool fullMatch, Fn && fn) const
   {
     auto const * cur = &m_root;
-    for (auto const & c : key)
+
+    auto it = prefix.begin();
+
+    if (it == prefix.end())
     {
-      cur = cur->GetMove(c);
-      if (!cur)
-        break;
+      fn(*cur, cur->m_edge, 0 /* offset */);
+      return;
     }
-    return cur;
+
+    while (true)
+    {
+      ASSERT(it != prefix.end(), ());
+
+      cur = cur->GetMove(*it);
+      if (!cur)
+        return;
+
+      auto const & edge = cur->m_edge;
+      size_t i = 0;
+      SkipEqual(edge, prefix.end(), i, it);
+
+      if (i < edge.Size())
+      {
+        if (it != prefix.end() || fullMatch)
+          return;
+      }
+
+      ASSERT(i == edge.Size() || (it == prefix.end() && !fullMatch), ());
+
+      if (it == prefix.end())
+      {
+        fn(*cur, edge, i /* offset */);
+        return;
+      }
+
+      ASSERT(it != prefix.end() && i == edge.Size(), ());
+    }
   }
 
-  void Erase(Node & root, size_t level, String const & key, Value const & value)
+  template <typename It>
+  void Erase(Node & root, It cur, It end, Value const & value)
   {
-    if (level == key.size())
+    if (cur == end)
     {
       root.EraseValue(value);
+      if (root.m_values.Empty() && root.m_moves.Size() == 1)
+      {
+        Node child;
+        root.m_moves.ForEach([&](Char const & /* c */, Node & node) { child.Swap(node); });
+        child.m_edge.Prepend(root.m_edge);
+        root.Swap(child);
+      }
       return;
     }
 
-    ASSERT_LESS(level, key.size(), ());
-    auto * child = root.GetMove(key[level]);
+    auto const symbol = *cur;
+
+    auto * child = root.GetMove(symbol);
     if (!child)
       return;
-    Erase(*child, level + 1, key, value);
-    if (child->Empty())
-    {
-      root.EraseMove(key[level]);
-      --m_numNodes;
-    }
-  }
 
-  // Calls |toDo| for each key-value pair in a |node| that is
-  // reachable by |prefix| from the trie root.
-  template <typename ToDo>
-  void ForEachInNode(Node const & node, String const & prefix, ToDo && toDo) const
-  {
-    node.m_values.ForEach(
-        std::bind(std::forward<ToDo>(toDo), std::ref(prefix), std::placeholders::_1));
+    auto const & edge = child->m_edge;
+    size_t i = 0;
+    SkipEqual(edge, end, i, cur);
+
+    if (i == edge.Size())
+    {
+      Erase(*child, cur, end, value);
+      if (child->Empty())
+        root.EraseMove(symbol);
+    }
   }
 
   // Calls |toDo| for each key-value pair in subtree where |node| is a
@@ -290,19 +533,30 @@ private:
   template <typename ToDo>
   void ForEachInSubtree(Node const & node, String & prefix, ToDo && toDo) const
   {
-    ForEachInNode(node, prefix, toDo);
+    node.m_values.ForEach([&prefix, &toDo](Value const & value) { toDo(prefix, value); });
 
     node.m_moves.ForEach([&](Char c, Node const & node)
                          {
-                           prefix.push_back(c);
+                           auto const size = prefix.size();
+                           auto const edge = node.m_edge.template As<String>();
+                           prefix.insert(prefix.end(), edge.begin(), edge.end());
                            ForEachInSubtree(node, prefix, toDo);
-                           prefix.pop_back();
+                           prefix.resize(size);
                          });
   }
 
+  template <typename It>
+  void SkipEqual(Edge const & edge, It end, size_t & i, It & cur) const
+  {
+    while (i < edge.Size() && cur != end && edge[i] == *cur)
+    {
+      ++i;
+      ++cur;
+    }
+  }
+
   Node m_root;
-  size_t m_numNodes = 1;
 
   DISALLOW_COPY(MemTrie);
 };
-}  // namespace my
+}  // namespace base

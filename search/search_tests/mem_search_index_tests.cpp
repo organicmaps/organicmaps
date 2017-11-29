@@ -67,7 +67,7 @@ public:
     {
       SearchTrieRequest<UniStringDFA> request;
       request.m_names.emplace_back(token);
-      request.m_langs.Insert(StringUtf8Multilang::GetLangIndex(lang));
+      request.m_langs.insert(StringUtf8Multilang::GetLangIndex(lang));
 
       vector<Id> curr;
       MatchFeaturesInTrie(request, m_index.GetRootIterator(),

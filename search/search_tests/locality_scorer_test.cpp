@@ -83,8 +83,7 @@ public:
         }
         else
         {
-          m_searchIndex.ForEachInNode(name, [&](UniString const & /* prefix */,
-                                                uint32_t featureId) { ids.push_back(featureId); });
+          m_searchIndex.ForEachInNode(name, [&](uint32_t featureId) { ids.push_back(featureId); });
         }
       });
 
@@ -115,7 +114,7 @@ protected:
   unordered_map<uint32_t, vector<string>> m_names;
   LocalityScorer m_scorer;
 
-  my::MemTrie<UniString, my::VectorValues<uint32_t>> m_searchIndex;
+  base::MemTrie<UniString, base::VectorValues<uint32_t>> m_searchIndex;
 };
 }  // namespace
 

@@ -3,9 +3,12 @@
 #include "base/assert.hpp"
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
+#include "base/mem_trie.hpp"
+#include "base/stl_add.hpp"
 
 #include <cstddef>
 #include <memory>
+#include <vector>
 
 namespace trie
 {
@@ -25,6 +28,12 @@ struct Iterator
   struct Edge
   {
     using EdgeLabel = buffer_vector<TrieChar, 8>;
+
+    Edge() = default;
+
+    template <typename It>
+    Edge(It begin, It end): m_label(begin, end) {}
+
     EdgeLabel m_label;
   };
 
@@ -35,6 +44,40 @@ struct Iterator
 
   buffer_vector<Edge, 8> m_edges;
   List m_values;
+};
+
+template <typename String, typename ValueList>
+class MemTrieIterator final : public trie::Iterator<ValueList>
+{
+public:
+  using Base = trie::Iterator<ValueList>;
+
+  using Char = typename String::value_type;
+  using InnerIterator = typename base::MemTrie<String, ValueList>::Iterator;
+
+  explicit MemTrieIterator(InnerIterator const & inIt)
+  {
+    Base::m_values = inIt.GetValues();
+    inIt.ForEachMove([&](Char c, InnerIterator it) {
+      auto const label = it.GetLabel();
+      Base::m_edges.emplace_back(label.begin(), label.end());
+      m_moves.push_back(it);
+    });
+  }
+
+  ~MemTrieIterator() override = default;
+
+  // Iterator<ValueList> overrides:
+  std::unique_ptr<Base> Clone() const override { return my::make_unique<MemTrieIterator>(*this); }
+
+  std::unique_ptr<Base> GoToEdge(size_t i) const override
+  {
+    ASSERT_LESS(i, m_moves.size(), ());
+    return my::make_unique<MemTrieIterator>(m_moves[i]);
+  }
+
+private:
+  std::vector<InnerIterator> m_moves;
 };
 
 template <typename ValueList, typename ToDo, typename String>

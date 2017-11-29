@@ -50,6 +50,8 @@ public:
 
   void Clear() { m_ids.clear(); }
 
+  void Swap(InvertedList & rhs) { m_ids.swap(rhs.m_ids); }
+
 private:
   std::vector<Id> m_ids;
 };

@@ -83,7 +83,7 @@ bool CitiesBoundariesTable::Load()
   size_t boundary = 0;
   localities.ForEach([&](uint64_t fid) {
     ASSERT_LESS(boundary, all.size(), ());
-    m_table[base::asserted_cast<uint32_t>(fid)] = move(all[boundary]);
+    m_table[::base::asserted_cast<uint32_t>(fid)] = move(all[boundary]);
     ++boundary;
   });
   ASSERT_EQUAL(boundary, all.size(), ());

@@ -160,7 +160,7 @@ bool MatchFeatureByNameAndType(FeatureType const & ft, SearchTrieRequest<DFA> co
 
   bool matched = false;
   ft.ForEachName([&](int8_t lang, string const & name) {
-    if (name.empty() || !request.IsLangExist(lang))
+    if (name.empty() || !request.HasLang(lang))
       return base::ControlFlow::Continue;
 
     vector<UniString> tokens;

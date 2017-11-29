@@ -1,21 +1,23 @@
 #pragma once
 
 #include "search/common.hpp"
+#include "search/feature_offset_match.hpp"
 #include "search/token_slice.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
+#include "indexer/trie.hpp"
 
 #include "base/levenshtein_dfa.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include <algorithm>
+#include <cstddef>
+#include <cstdint>
 #include <functional>
 #include <memory>
-#include <queue>
 #include <vector>
 
 class Index;
@@ -23,50 +25,6 @@ class MwmInfo;
 
 namespace search
 {
-// todo(@m, @y). Unite with the similar function in search/feature_offset_match.hpp.
-template <typename TrieIt, typename DFA, typename ToDo>
-bool MatchInTrie(TrieIt const & trieStartIt, DFA const & dfa, ToDo && toDo)
-{
-  using Char = typename TrieIt::Char;
-  using DFAIt = typename DFA::Iterator;
-  using State = pair<TrieIt, DFAIt>;
-
-  std::queue<State> q;
-
-  {
-    auto it = dfa.Begin();
-    if (it.Rejects())
-      return false;
-    q.emplace(trieStartIt, it);
-  }
-
-  bool found = false;
-
-  while (!q.empty())
-  {
-    auto const p = q.front();
-    q.pop();
-
-    auto const & trieIt = p.first;
-    auto const & dfaIt = p.second;
-
-    if (dfaIt.Accepts())
-    {
-      trieIt.ForEachInNode(toDo);
-      found = true;
-    }
-
-    trieIt.ForEachMove([&](Char const & c, TrieIt const & nextTrieIt) {
-      auto nextDfaIt = dfaIt;
-      nextDfaIt.Move(c);
-      if (!nextDfaIt.Rejects())
-        q.emplace(nextTrieIt, nextDfaIt);
-    });
-  }
-
-  return found;
-}
-
 size_t GetMaxErrorsForToken(strings::UniString const & token);
 
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
@@ -100,23 +58,22 @@ template <typename ToDo>
 void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & locales,
                               CategoriesHolder const & categories, ToDo && todo)
 {
-  using Trie = my::MemTrie<strings::UniString, my::VectorValues<uint32_t>>;
+  using Iterator = trie::MemTrieIterator<strings::UniString, base::VectorValues<uint32_t>>;
 
   auto const & trie = categories.GetNameToTypesTrie();
-  auto const & trieRootIt = trie.GetRootIterator();
+  Iterator const iterator(trie.GetRootIterator());
 
   for (size_t i = 0; i < slice.Size(); ++i)
   {
-    auto const & token = slice.Get(i);
     // todo(@m, @y). We build dfa twice for each token: here and in geocoder.cpp.
     // A possible optimization is to build each dfa once and save it. Note that
     // dfas for the prefix tokens differ, i.e. we ignore slice.IsPrefix(i) here.
-    strings::LevenshteinDFA const dfa(BuildLevenshteinDFA(token));
+    SearchTrieRequest<strings::LevenshteinDFA> request;
+    request.m_names.push_back(BuildLevenshteinDFA(slice.Get(i)));
+    request.SetLangs(locales);
 
-    trieRootIt.ForEachMove([&](Trie::Char const & c, Trie::Iterator const & trieStartIt) {
-      if (locales.Contains(static_cast<uint64_t>(c)))
-        MatchInTrie(trieStartIt, dfa, std::bind<void>(todo, i, std::placeholders::_1));
-    });
+    MatchFeaturesInTrie(request, iterator, [&](uint32_t /* type */) { return true; } /* filter */,
+                        std::bind<void>(todo, i, std::placeholders::_1));
   }
 }
 
