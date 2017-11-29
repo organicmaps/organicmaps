@@ -772,7 +772,16 @@ bool EditableMapObject::ValidateName(string const & name)
 
   std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;
 
-  std::u32string const u32name = converter.from_bytes(name);
+  std::u32string u32name;
+  try
+  {
+    u32name = converter.from_bytes(name);
+  }
+  catch (std::range_error const &)
+  {
+    // Cannot convert, for ex. it is possible for some emoji.
+    return false;
+  }
 
   std::u32string const excludedSymbols = U"^~§><{}[]*=_±\n\t\r\v\f|√•π÷×¶∆°";
 
