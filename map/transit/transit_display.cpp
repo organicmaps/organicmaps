@@ -166,6 +166,15 @@ TransitRouteDisplay::TransitRouteDisplay(TransitReadManager & transitReadManager
   , m_bmManager(bmManager)
   , m_symbolSizes(transitSymbolSizes)
 {
+  float maxSymbolSize = -1.0f;
+  for (auto const & symbolSize : m_symbolSizes)
+  {
+    if (maxSymbolSize < symbolSize.second.x)
+      maxSymbolSize = symbolSize.second.x;
+    if (maxSymbolSize < symbolSize.second.y)
+      maxSymbolSize = symbolSize.second.y;
+  }
+  m_maxSubrouteWidth = maxSymbolSize * kGateBgScale / kStopMarkerScale;
 }
 
 TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
@@ -194,6 +203,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
   std::vector<TransitMarkInfo> transitMarks;
 
+  subroute.m_maxPixelWidth = m_maxSubrouteWidth;
   subroute.m_styleType = df::SubrouteStyleType::Multiple;
   subroute.m_style.clear();
   subroute.m_style.reserve(segments.size());

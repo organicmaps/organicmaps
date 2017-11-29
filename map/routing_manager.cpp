@@ -497,13 +497,15 @@ void RoutingManager::InsertRoute(Route const & route)
     {
       case RouterType::Vehicle:
       case RouterType::Taxi:
-        subroute->m_routeType = m_currentRouterType == RouterType::Vehicle ?
-                                df::RouteType::Car : df::RouteType::Taxi;
-        subroute->AddStyle(df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor));
-        FillTrafficForRendering(segments, subroute->m_traffic);
-        FillTurnsDistancesForRendering(segments, subroute->m_baseDistance,
-                                       subroute->m_turns);
-        break;
+        {
+          subroute->m_routeType = m_currentRouterType == RouterType::Vehicle ?
+                                  df::RouteType::Car : df::RouteType::Taxi;
+          subroute->AddStyle(df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor));
+          FillTrafficForRendering(segments, subroute->m_traffic);
+          FillTurnsDistancesForRendering(segments, subroute->m_baseDistance,
+                                         subroute->m_turns);
+          break;
+        }
       case RouterType::Transit:
         {
           subroute->m_routeType = df::RouteType::Transit;
@@ -517,15 +519,19 @@ void RoutingManager::InsertRoute(Route const & route)
           break;
         }
       case RouterType::Pedestrian:
-        subroute->m_routeType = df::RouteType::Pedestrian;
-        subroute->AddStyle(df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0)));
-        break;
+        {
+          subroute->m_routeType = df::RouteType::Pedestrian;
+          subroute->AddStyle(df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0)));
+          break;
+        }
       case RouterType::Bicycle:
-        subroute->m_routeType = df::RouteType::Bicycle;
-        subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
-        FillTurnsDistancesForRendering(segments, subroute->m_baseDistance,
-                                       subroute->m_turns);
-        break;
+        {
+          subroute->m_routeType = df::RouteType::Bicycle;
+          subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
+          FillTurnsDistancesForRendering(segments, subroute->m_baseDistance,
+                                         subroute->m_turns);
+          break;
+        }
       default: ASSERT(false, ("Unknown router type"));
     }
 
@@ -972,19 +978,19 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
   }
   m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
                          [this](std::vector<m2::PointF> const & sizes)
-                         {
-                           GetPlatform().RunTask(Platform::Thread::Gui, [this, sizes]()
-                           {
-                             auto it = kTransitSymbols.begin();
-                             for (size_t i = 0; i < sizes.size(); i += 3)
-                             {
-                               m_transitSymbolSizes[it->second + "-s"] = sizes[i];
-                               m_transitSymbolSizes[it->second + "-m"] = sizes[i + 1];
-                               m_transitSymbolSizes[it->second + "-l"] = sizes[i + 2];
-                               ++it;
-                             }
-                           });
-                         });
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, sizes]()
+    {
+      auto it = kTransitSymbols.begin();
+      for (size_t i = 0; i < sizes.size(); i += 3)
+      {
+        m_transitSymbolSizes[it->second + "-s"] = sizes[i];
+        m_transitSymbolSizes[it->second + "-m"] = sizes[i + 1];
+        m_transitSymbolSizes[it->second + "-l"] = sizes[i + 2];
+        ++it;
+      }
+    });
+  });
 
   // In case of the engine reinitialization recover route.
   if (IsRoutingActive())

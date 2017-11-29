@@ -145,6 +145,7 @@ struct Subroute
   std::vector<traffic::SpeedGroup> m_traffic;
   double m_baseDistance = 0.0;
   double m_baseDepthIndex = 0.0;
+  float m_maxPixelWidth = -1.0f;
 
   SubrouteStyleType m_styleType = SubrouteStyleType::Single;
   std::vector<SubrouteStyle> m_style;

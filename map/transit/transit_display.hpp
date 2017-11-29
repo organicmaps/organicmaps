@@ -126,4 +126,5 @@ private:
   TransitRouteInfo m_routeInfo;
 
   int m_subrouteIndex = 0;
+  float m_maxSubrouteWidth = -1.0f;
 };

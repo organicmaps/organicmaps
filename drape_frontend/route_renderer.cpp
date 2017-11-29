@@ -229,6 +229,14 @@ RouteRenderer::Subroutes::iterator FindSubroute(RouteRenderer::Subroutes & subro
     return info.m_subrouteId == subrouteId;
   });
 }
+
+float GetCurrentHalfWidth(df::RouteRenderer::SubrouteInfo const & subrouteInfo)
+{
+  if (subrouteInfo.m_subroute->m_maxPixelWidth < 0.0f)
+    return subrouteInfo.m_baseHalfWidth;
+
+  return std::min(subrouteInfo.m_baseHalfWidth, subrouteInfo.m_subroute->m_maxPixelWidth * 0.5f);
+}
 }  // namespace
 
 RouteRenderer::RouteRenderer(PreviewPointsRequestCallback && previewPointsRequest)
@@ -249,7 +257,7 @@ void RouteRenderer::UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallb
     double zoom = 0.0;
     float halfWidth = 0.0;
     InterpolateByZoom(subrouteInfo.m_subroute, screen, halfWidth, zoom);
-    subrouteInfo.m_currentHalfWidth = halfWidth;
+    subrouteInfo.m_baseHalfWidth = halfWidth;
 
     if (zoom < kArrowAppearingZoomLevel)
     {
@@ -386,8 +394,9 @@ void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t sub
     return;
 
   auto const & subrouteData = subrouteInfo.m_subrouteData[subrouteDataIndex];
+  float const currentHalfWidth = GetCurrentHalfWidth(subrouteInfo);
 
-  auto const screenHalfWidth = static_cast<float>(subrouteInfo.m_currentHalfWidth * screen.GetScale());
+  auto const screenHalfWidth = static_cast<float>(currentHalfWidth * screen.GetScale());
   auto dist = static_cast<float>(kInvalidDistance);
   if (m_followingEnabled)
   {
@@ -408,7 +417,7 @@ void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t sub
   glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(style.m_color));
   uniforms.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
 
-  uniforms.SetFloatValue("u_routeParams", subrouteInfo.m_currentHalfWidth, screenHalfWidth, dist,
+  uniforms.SetFloatValue("u_routeParams", currentHalfWidth, screenHalfWidth, dist,
                          trafficShown ? 1.0f : 0.0f);
 
   glsl::vec4 const maskColor = glsl::ToVec4(GetMaskColor(subrouteData->m_subroute->m_routeType,
@@ -454,13 +463,14 @@ void RouteRenderer::RenderSubrouteArrows(SubrouteInfo const & subrouteInfo,
   }
 
   dp::GLState const & state = subrouteInfo.m_arrowsData->m_renderProperty.m_state;
+  float const currentHalfWidth = GetCurrentHalfWidth(subrouteInfo);
 
   // Set up shaders and apply common uniforms.
   dp::UniformValuesStorage uniforms = commonUniforms;
   math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_arrowsData->m_pivot,
                                                      kShapeCoordScalar);
   uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-  auto const arrowHalfWidth = static_cast<float>(subrouteInfo.m_currentHalfWidth * kArrowHeightFactor);
+  auto const arrowHalfWidth = static_cast<float>(currentHalfWidth * kArrowHeightFactor);
   uniforms.SetFloatValue("u_arrowHalfWidth", arrowHalfWidth);
   uniforms.SetFloatValue("u_opacity", 1.0f);
 
@@ -493,13 +503,14 @@ void RouteRenderer::RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, Scr
     dist = static_cast<float>(m_distanceFromBegin - subrouteInfo.m_subroute->m_baseDistance);
 
   dp::GLState const & state = subrouteInfo.m_markersData->m_renderProperty.m_state;
+  float const currentHalfWidth = GetCurrentHalfWidth(subrouteInfo);
 
   // Set up shaders and apply common uniforms.
   dp::UniformValuesStorage uniforms = commonUniforms;
   math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_markersData->m_pivot,
                                                      kShapeCoordScalar);
   uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-  uniforms.SetFloatValue("u_routeParams", subrouteInfo.m_currentHalfWidth, dist);
+  uniforms.SetFloatValue("u_routeParams", currentHalfWidth, dist);
   uniforms.SetFloatValue("u_opacity", 1.0f);
 
   glsl::vec4 const maskColor = glsl::ToVec4(GetMaskColor(subrouteInfo.m_subroute->m_routeType,
@@ -544,20 +555,17 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, bool trafficShown,
                                 ref_ptr<dp::GpuProgramManager> mng,
                                 dp::UniformValuesStorage const & commonUniforms)
 {
-  if (!m_subroutes.empty())
+  for (auto const & subroute : m_subroutes)
   {
-    for (auto const & subroute : m_subroutes)
-    {
-      // Render subroutes.
-      for (size_t i = 0; i < subroute.m_subrouteData.size(); ++i)
-        RenderSubroute(subroute, i, screen, trafficShown, mng, commonUniforms);
+    // Render subroutes.
+    for (size_t i = 0; i < subroute.m_subrouteData.size(); ++i)
+      RenderSubroute(subroute, i, screen, trafficShown, mng, commonUniforms);
 
-      // Render markers.
-      RenderSubrouteMarkers(subroute, screen, mng, commonUniforms);
+    // Render markers.
+    RenderSubrouteMarkers(subroute, screen, mng, commonUniforms);
 
-      // Render arrows.
-      RenderSubrouteArrows(subroute, screen, mng, commonUniforms);
-    }
+    // Render arrows.
+    RenderSubrouteArrows(subroute, screen, mng, commonUniforms);
   }
 
   // Render preview.
@@ -729,5 +737,15 @@ void RouteRenderer::SetSubrouteVisibility(dp::DrapeID id, bool isVisible)
     m_hiddenSubroutes.erase(id);
   else
     m_hiddenSubroutes.insert(id);
+}
+
+bool RouteRenderer::HasTransitData() const
+{
+  for (auto const & subroute : m_subroutes)
+  {
+    if (subroute.m_subroute->m_routeType == RouteType::Transit)
+      return true;
+  }
+  return false;
 }
 }  // namespace df

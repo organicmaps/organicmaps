@@ -45,7 +45,7 @@ public:
 
     drape_ptr<SubrouteArrowsData> m_arrowsData;
     std::vector<ArrowBorders> m_arrowBorders;
-    float m_currentHalfWidth = 0.0f;
+    float m_baseHalfWidth = 0.0f;
 
     drape_ptr<SubrouteMarkersData> m_markersData;
   };
@@ -86,6 +86,8 @@ public:
   void RemoveAllPreviewSegments();
 
   void SetSubrouteVisibility(dp::DrapeID id, bool isVisible);
+
+  bool HasTransitData() const;
 
 private:
   void RenderSubroute(SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,

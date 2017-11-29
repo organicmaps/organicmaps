@@ -1302,7 +1302,7 @@ void FrontendRenderer::RenderNavigationOverlayLayer(ScreenBase const & modelView
 
 bool FrontendRenderer::HasTransitData()
 {
-  return !m_layers[RenderState::TransitMarkLayer].m_renderGroups.empty();
+  return m_routeRenderer->HasTransitData();
 }
 
 void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
