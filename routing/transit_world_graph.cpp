@@ -33,7 +33,6 @@ void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bo
   if (TransitGraph::IsTransitSegment(segment))
   {
     transitGraph.GetTransitEdges(segment, isOutgoing, edges);
-    // TODO (@t.yan) GetTwins for transit edges
 
     Segment real;
     if (transitGraph.FindReal(segment, real))
@@ -43,6 +42,8 @@ void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bo
       if ((isOutgoing && haveSameFront) || (!isOutgoing && haveSameBack))
         AddRealEdges(real, isOutgoing, edges);
     }
+
+    GetTwins(segment, isOutgoing, edges);
   }
   else
   {
@@ -159,8 +160,12 @@ unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segmen
 void TransitWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,
                                  vector<SegmentEdge> & edges)
 {
-  // TODO (@t.yan) GetTwins for fake transit segments.
-  CHECK(!TransitGraph::IsTransitSegment(segment), ("Not implemented"));
+  if (m_mode == Mode::SingleMwm || !m_crossMwmGraph ||
+      !m_crossMwmGraph->IsTransition(segment, isOutgoing))
+  {
+    return;
+  }
+
   m_twins.clear();
   m_crossMwmGraph->GetTwins(segment, isOutgoing, m_twins);
   for (Segment const & twin : m_twins)
@@ -186,12 +191,7 @@ void TransitWorldGraph::AddRealEdges(Segment const & segment, bool isOutgoing,
 {
   auto & indexGraph = GetIndexGraph(segment.GetMwmId());
   indexGraph.GetEdgeList(segment, isOutgoing, edges);
-
-  if (m_mode != Mode::SingleMwm && m_crossMwmGraph &&
-      m_crossMwmGraph->IsTransition(segment, isOutgoing))
-  {
-    GetTwins(segment, isOutgoing, edges);
-  }
+  GetTwins(segment, isOutgoing, edges);
 }
 
 IndexGraph & TransitWorldGraph::GetIndexGraph(NumMwmId mwmId)

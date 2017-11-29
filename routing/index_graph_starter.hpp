@@ -105,7 +105,10 @@ public:
 private:
   static Segment GetFakeSegment(uint32_t segmentIdx)
   {
-    return Segment(kFakeNumMwmId, kFakeFeatureId, segmentIdx, false);
+    // We currently ignore |isForward| and use FakeGraph to get ingoing/outgoing.
+    // But all fake segments are oneway and placement of segment head and tail
+    // correspond forward direction.
+    return Segment(kFakeNumMwmId, kFakeFeatureId, segmentIdx, true /* isForward */);
   }
 
   static Segment GetFakeSegmentAndIncr(uint32_t & segmentIdx)

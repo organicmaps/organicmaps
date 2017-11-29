@@ -199,7 +199,13 @@ transit::Edge const & TransitGraph::GetEdge(Segment const & segment) const
 Segment TransitGraph::GetTransitSegment(uint32_t featureId) const
 {
   CHECK(IsTransitFeature(featureId), ("Feature id is out of transit id interval."));
-  return Segment(m_mwmId, featureId, 0 /* segmentIdx*/, false /* isForward */);
+  // All transit segments are oneway forward segments.
+  // Edge segment has tail in stop1 and head in stop2.
+  // Gate segment has tail in gate and head in stop.
+  // Pedestrian projection and parts of real have tail in |0| and head in |1|.
+  // We rely on this rule in cross-mwm to have same behaviour of transit and
+  // non-transit segments.
+  return Segment(m_mwmId, featureId, 0 /* segmentIdx*/, true /* isForward */);
 }
 
 Segment TransitGraph::GetNewTransitSegment() const

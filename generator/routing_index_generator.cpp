@@ -307,10 +307,9 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
     };
 
     // Index |i| is a zero based edge index. This zero based index should be increased with
-    // |FakeFeatureIds::kTransitGraphFeaturesStart| and then used in Segment class as
+    // |FakeFeatureIds::kTransitGraphFeaturesStart| by setting it as |featureNumerationOffset| for
+    // CrossMwmConnector (see CrossMwmIndexGraph::Deserialize()) and then used in Segment class as
     // feature id in transit case.
-    // @todo(tatiana-kondakova) The comment above should be rewritten when the zero based edge
-    // index is used.
     for (size_t i = 0; i < edges.size(); ++i)
     {
       auto const & e = edges[i];

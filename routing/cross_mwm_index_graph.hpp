@@ -3,6 +3,7 @@
 #include "routing/cross_mwm_connector.hpp"
 #include "routing/cross_mwm_connector_serialization.hpp"
 #include "routing/cross_mwm_road_graph.hpp"
+#include "routing/fake_feature_ids.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/segment.hpp"
 #include "routing/transition_points.hpp"
@@ -34,6 +35,18 @@ template <>
 inline FilesContainerR::TReader GetReader<TransitId>(FilesContainerR const & cont)
 {
   return cont.GetReader(TRANSIT_CROSS_MWM_FILE_TAG);
+}
+
+template <typename CrossMwmId>
+uint32_t constexpr GetFeaturesOffset() noexcept
+{
+  return 0;
+}
+
+template <>
+uint32_t constexpr GetFeaturesOffset<connector::TransitId>() noexcept
+{
+  return FakeFeatureIds::kTransitGraphFeaturesStart;
 }
 }  // namespace connector
 
@@ -112,6 +125,11 @@ public:
         CrossMwmConnectorSerializer::DeserializeTransitions<ReaderSourceFile, CrossMwmId>);
   }
 
+  void LoadCrossMwmConnectorWithTransitions(NumMwmId numMwmId)
+  {
+    GetCrossMwmConnectorWithTransitions(numMwmId);
+  }
+
   template <typename Fn>
   void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
   {
@@ -151,7 +169,10 @@ private:
     ReaderSourceFile src(reader);
     auto it = m_connectors.find(numMwmId);
     if (it == m_connectors.end())
-      it = m_connectors.emplace(numMwmId, CrossMwmConnector<CrossMwmId>(numMwmId)).first;
+      it = m_connectors
+               .emplace(numMwmId, CrossMwmConnector<CrossMwmId>(
+                                      numMwmId, connector::GetFeaturesOffset<CrossMwmId>()))
+               .first;
 
     fn(m_vehicleType, it->second, src);
     return it->second;

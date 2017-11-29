@@ -31,8 +31,8 @@ public:
   enum class MwmStatus
   {
     NotLoaded,
-    CrossMwmSectionExists,
-    NoCrossMwmSection,
+    SectionExists,
+    NoSection,
   };
 
   CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
@@ -93,6 +93,10 @@ public:
 
   void Clear();
 
+  // Applies |fn| to each nontransit transition. We never need to apply function to both transit
+  // and nontransit transitions.
+  // We may need to implement ForEachTransitTransition() or |isTransit| flag here when we'll have
+  // leaps for transit.
   template <typename Fn>
   void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
   {
@@ -121,8 +125,11 @@ private:
   /// one or very small in rare cases in OSRM.
   TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);
 
-  MwmStatus GetMwmStatus(NumMwmId numMwmId) const;
-  bool CrossMwmSectionExists(NumMwmId numMwmId);
+  MwmStatus GetMwmStatus(NumMwmId numMwmId, std::string const & sectionName) const;
+  MwmStatus GetCrossMwmStatus(NumMwmId numMwmId) const;
+  MwmStatus GetTransitCrossMwmStatus(NumMwmId numMwmId) const;
+  bool CrossMwmSectionExists(NumMwmId numMwmId) const;
+  bool TransitCrossMwmSectionExists(NumMwmId numMwmId) const;
 
   /// \brief Fills |twins| with transition segments of feature |ft| of type |isOutgoing|.
   void GetTwinCandidates(FeatureType const & ft, bool isOutgoing,
@@ -150,15 +157,15 @@ private:
                              bool & allNeighborsHaveCrossMwmSection);
   /// \brief Deserizlize transitions for mwm with |ids|.
   void DeserializeTransitions(std::vector<NumMwmId> const & mwmIds);
+  void DeserializeTransitTransitions(std::vector<NumMwmId> const & mwmIds);
 
   Index & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
   CourntryRectFn const & m_countryRectFn;
-  // @todo(@tatiana-kondakova) For the time being CrossMwmGraph is implemented for osm id.
-  // To add cross mwm for transit graph it's necessary to add CrossMwmIndexGraph<TransitId>.
   CrossMwmIndexGraph<osm::Id> m_crossMwmIndexGraph;
+  CrossMwmIndexGraph<connector::TransitId> m_crossMwmTransitGraph;
   CrossMwmOsrmGraph m_crossMwmOsrmGraph;
 };
 

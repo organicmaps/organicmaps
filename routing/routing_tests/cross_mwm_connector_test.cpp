@@ -16,6 +16,12 @@ namespace
 NumMwmId constexpr mwmId = 777;
 
 template <typename CrossMwmId>
+CrossMwmConnector<CrossMwmId> CreateConnector()
+{
+  return CrossMwmConnector<CrossMwmId>(mwmId, 0 /* featuresNumerationOffset */);
+}
+
+template <typename CrossMwmId>
 void TestConnectorConsistency(CrossMwmConnector<CrossMwmId> const & connector)
 {
   for (Segment const & enter : connector.GetEnters())
@@ -45,7 +51,7 @@ void TestOneWayEnter(CrossMwmId const & crossMwmId)
 {
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  CrossMwmConnector<CrossMwmId> connector(mwmId);
+  auto connector = CreateConnector<CrossMwmId>();
   connector.AddTransition(crossMwmId, featureId, segmentIdx, true /* oneWay */,
                           true /* forwardIsEnter */, {} /* backPoint */, {} /* frontPoint */);
 
@@ -71,7 +77,7 @@ void TestOneWayExit(CrossMwmId const & crossMwmId)
 {
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  CrossMwmConnector<CrossMwmId> connector(mwmId);
+  auto connector = CreateConnector<CrossMwmId>();
   connector.AddTransition(crossMwmId, featureId, segmentIdx, true /* oneWay */,
                           false /* forwardIsEnter */, {} /* backPoint */, {} /* frontPoint */);
 
@@ -97,7 +103,7 @@ void TestTwoWayEnter(CrossMwmId const & crossMwmId)
 {
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  CrossMwmConnector<CrossMwmId> connector(mwmId);
+  auto connector = CreateConnector<CrossMwmId>();
   connector.AddTransition(crossMwmId, featureId, segmentIdx, false /* oneWay */,
                           true /* forwardIsEnter */, {} /* backPoint */, {} /* frontPoint */);
 
@@ -122,7 +128,7 @@ void TestTwoWayExit(CrossMwmId const & crossMwmId)
 {
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  CrossMwmConnector<CrossMwmId> connector(mwmId);
+  auto connector = CreateConnector<CrossMwmId>();
   connector.AddTransition(crossMwmId, featureId, segmentIdx, false /* oneWay */,
                           false /* forwardIsEnter */, {} /* backPoint */, {} /* frontPoint */);
 
@@ -163,7 +169,7 @@ void TestSerialization(vector<CrossMwmConnectorSerializer::Transition<CrossMwmId
     CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
   }
 
-  CrossMwmConnector<CrossMwmId> connector(mwmId);
+  auto connector = CreateConnector<CrossMwmId>();
   {
     MemReader reader(buffer.data(), buffer.size());
     ReaderSource<MemReader> source(reader);
@@ -281,7 +287,7 @@ void TestWeightsSerialization()
     CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
   }
 
-  CrossMwmConnector<CrossMwmId> connector(mwmId);
+  auto connector = CreateConnector<CrossMwmId>();
   {
     MemReader reader(buffer.data(), buffer.size());
     ReaderSource<MemReader> source(reader);

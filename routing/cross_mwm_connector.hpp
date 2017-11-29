@@ -40,12 +40,17 @@ class CrossMwmConnector final
 {
 public:
   CrossMwmConnector() : m_mwmId(kFakeNumMwmId) {}
-  explicit CrossMwmConnector(NumMwmId mwmId) : m_mwmId(mwmId) {}
+  CrossMwmConnector(NumMwmId mwmId, uint32_t featureNumerationOffset)
+    : m_mwmId(mwmId), m_featureNumerationOffset(featureNumerationOffset)
+  {
+  }
 
   void AddTransition(CrossMwmId const & crossMwmId, uint32_t featureId, uint32_t segmentIdx, bool oneWay,
                      bool forwardIsEnter, m2::PointD const & backPoint,
                      m2::PointD const & frontPoint)
   {
+    featureId += m_featureNumerationOffset;
+
     Transition<CrossMwmId> transition(connector::kFakeIndex, connector::kFakeIndex, crossMwmId,
                                       oneWay, forwardIsEnter, backPoint, frontPoint);
 
@@ -299,6 +304,10 @@ private:
   std::unordered_map<Key, Transition<CrossMwmId>, HashKey> m_transitions;
   std::unordered_map<CrossMwmId, uint32_t, connector::HashKey> m_crossMwmIdToFeatureId;
   connector::WeightsLoadState m_weightsLoadState = connector::WeightsLoadState::Unknown;
+  // For some connectors we may need to shift features with some offset.
+  // For example for versions and transit section compatibility we number transit features
+  // starting from 0 in mwm and shift them with |m_featureNumerationOffset| in runtime.
+  uint32_t const m_featureNumerationOffset = 0;
   uint64_t m_weightsOffset = 0;
   connector::Weight m_granularity = 0;
   // |m_weights| stores edge weights.
