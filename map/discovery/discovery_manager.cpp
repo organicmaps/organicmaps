@@ -39,6 +39,20 @@ search::SearchParams Manager::GetSearchParams(Manager::Params const & params, It
   return p;
 }
 
+std::string Manager::GetViatorUrl(m2::PointD const & point) const
+{
+  auto const viatorId = GetCityViatorId(point);
+  if (viatorId.empty())
+    return {};
+  return viator::Api::GetCityUrl(viatorId);
+}
+
+std::string Manager::GetLocalExpertsUrl(m2::PointD const & point) const
+{
+  UNUSED_VALUE(point);
+  return locals::Api::GetLocalsPageUrl();
+}
+
 std::string Manager::GetCityViatorId(m2::PointD const & point) const
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());

@@ -77,4 +77,10 @@ enum  DiscoveryManager
   }
 
   public static native void nativeDiscover(@NonNull DiscoveryParams params);
+
+  @NonNull
+  public static native String nativeGetViatorUrl();
+
+  @NonNull
+  public static native String nativeGetLocalExpertsUrl();
 }

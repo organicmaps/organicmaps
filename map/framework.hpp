@@ -758,6 +758,12 @@ public:
 
   discovery::Manager::Params GetDiscoveryParams(discovery::ClientParams && clientParams) const;
 
+  std::string GetDiscoveryViatorUrl() const;
+  std::string GetDiscoveryLocalExpertsUrl() const;
+
+private:
+  m2::PointD GetDiscoveryViewportCenter() const;
+
 public:
   /// Routing Manager
   RoutingManager & GetRoutingManager() { return m_routingManager; }

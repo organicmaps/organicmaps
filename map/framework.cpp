@@ -2547,14 +2547,29 @@ discovery::Manager::Params Framework::GetDiscoveryParams(
 {
   auto constexpr kRectSideM = 2000.0;
   discovery::Manager::Params p;
-  auto const currentPosition = GetCurrentPosition();
-  p.m_viewportCenter = currentPosition ? *currentPosition : GetViewportCenter();
+  p.m_viewportCenter = GetDiscoveryViewportCenter();
   p.m_viewport = MercatorBounds::RectByCenterXYAndSizeInMeters(p.m_viewportCenter, kRectSideM);
   p.m_curency = clientParams.m_currency;
   p.m_lang = clientParams.m_lang;
   p.m_itemsCount = clientParams.m_itemsCount;
   p.m_itemTypes = move(clientParams.m_itemTypes);
   return p;
+}
+
+std::string Framework::GetDiscoveryViatorUrl() const
+{
+  return m_discoveryManager->GetViatorUrl(GetDiscoveryViewportCenter());
+}
+
+std::string Framework::GetDiscoveryLocalExpertsUrl() const
+{
+  return m_discoveryManager->GetLocalExpertsUrl(GetDiscoveryViewportCenter());
+}
+
+m2::PointD Framework::GetDiscoveryViewportCenter() const
+{
+  auto const currentPosition = GetCurrentPosition();
+  return currentPosition ? *currentPosition : GetViewportCenter();
 }
 
 vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const

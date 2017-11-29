@@ -128,6 +128,9 @@ public:
     return requestId;
   }
 
+  std::string GetViatorUrl(m2::PointD const & point) const;
+  std::string GetLocalExpertsUrl(m2::PointD const & point) const;
+
 private:
   static search::SearchParams GetSearchParams(Params const & params, ItemType const type);
   std::string GetCityViatorId(m2::PointD const & point) const;

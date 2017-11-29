@@ -180,4 +180,16 @@ Java_com_mapswithme_maps_discovery_DiscoveryManager_nativeDiscover(JNIEnv * env,
   g_lastRequestId = g_framework->NativeFramework()->Discover(std::move(p), DiscoveryCallback(),
                                                              std::bind(&OnDiscoveryError, _1, _2));
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_discovery_DiscoveryManager_nativeGetViatorUrl(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_framework->NativeFramework()->GetDiscoveryViatorUrl());
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_discovery_DiscoveryManager_nativeGetLocalExpertsUrl(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_framework->NativeFramework()->GetDiscoveryLocalExpertsUrl());
+}
 }  // extern "C"
