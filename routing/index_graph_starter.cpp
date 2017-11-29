@@ -57,10 +57,13 @@ void IndexGraphStarter::Append(FakeEdgesContainer const & container)
 {
   m_finishId = container.m_finishId;
   m_finishPassThroughAllowed = container.m_finishPassThroughAllowed;
+  m_fake.Append(container.m_fake);
+
+  // It's important to calculate distance after m_fake.Append() because
+  // we don't have finish segment in fake graph before m_fake.Append().
   auto const startPoint = GetPoint(GetStartSegment(), false /* front */);
   auto const finishPoint = GetPoint(GetFinishSegment(), true /* front */);
   m_startToFinishDistanceM = MercatorBounds::DistanceOnEarth(startPoint, finishPoint);
-  m_fake.Append(container.m_fake);
 }
 
 Junction const & IndexGraphStarter::GetStartJunction() const
