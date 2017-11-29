@@ -17,4 +17,6 @@ public interface UICallback
   void onViatorProductsReceived(@Nullable ViatorProduct[] products);
   @MainThread
   void onLocalExpertsReceived(@Nullable LocalExpert[] experts);
+  @MainThread
+  void onError(@NonNull ItemType type);
 }

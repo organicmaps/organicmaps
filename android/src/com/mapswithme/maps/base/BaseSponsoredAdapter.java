@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.UiUtils;
 
 import java.lang.annotation.Retention;
@@ -31,7 +30,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
   protected static final int TYPE_PRODUCT = 0;
   private static final int TYPE_MORE = 1;
   protected static final int TYPE_LOADING = 2;
-  public static final int TYPE_OFFLINE_MESSAGE = 3;
+  protected static final int TYPE_OFFLINE_MESSAGE = 3;
 
   private static final String MORE = MwmApplication.get().getString(R.string.placepage_more_button);
   private static final int TARGET_LOAD_WIDTH = UiUtils.dimen(MwmApplication.get(),
@@ -115,7 +114,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
     return mItems.size() == 1 && mItems.get(0).mType == TYPE_LOADING;
   }
 
-  public void setLoadingError(@Sponsored.SponsoredType int sponsoredType, @NonNull String url)
+  public void setLoadingError(@Nullable String url)
   {
     mItems.clear();
     mItems.add(new Item(TYPE_LOADING, getLoadingTitle(), url, getLoadingSubtitle(),
@@ -123,7 +122,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
     notifyItemChanged(0/* position */);
   }
 
-  public void setLoadingCompleted(@Sponsored.SponsoredType int sponsoredType, @NonNull String url)
+  public void setLoadingCompleted(@NonNull String url)
   {
     mItems.clear();
     mItems.add(new Item(TYPE_LOADING, getLoadingTitle(), url, getLoadingSubtitle(),
@@ -212,13 +211,13 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
 
     void onItemSelected(@NonNull Item item)
     {
-      if (mAdapter.mListener != null && !TextUtils.isEmpty(item.mUrl))
-      {
-        if (item.mType == TYPE_PRODUCT)
-          mAdapter.mListener.onItemSelected(item.mUrl);
-        else if (item.mType == TYPE_MORE || item.mType == TYPE_LOADING)
-          mAdapter.mListener.onMoreItemSelected(item.mUrl);
-      }
+      if (mAdapter.mListener == null || TextUtils.isEmpty(item.mUrl))
+        return;
+
+      if (item.mType == TYPE_PRODUCT)
+        mAdapter.mListener.onItemSelected(item.mUrl);
+      else if (item.mType == TYPE_MORE || item.mType == TYPE_LOADING)
+        mAdapter.mListener.onMoreItemSelected(item.mUrl);
     }
   }
 
@@ -232,7 +231,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
     @NonNull
     TextView mMore;
 
-    public LoadingViewHolder(@NonNull View itemView, @NonNull BaseSponsoredAdapter adapter)
+    LoadingViewHolder(@NonNull View itemView, @NonNull BaseSponsoredAdapter adapter)
     {
       super(itemView, adapter);
       mProgressBar = (ProgressBar) itemView.findViewById(R.id.pb__progress);
@@ -271,15 +270,15 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
 
     void onItemSelected(@NonNull Item item)
     {
-      if (mAdapter.mListener != null && !TextUtils.isEmpty(item.mUrl))
-      {
-        if (item.mType == TYPE_PRODUCT)
-          mAdapter.mListener.onItemSelected(item.mUrl);
-        else if (item.mType == TYPE_MORE)
-          mAdapter.mListener.onMoreItemSelected(item.mUrl);
-        else if (item.mType == TYPE_LOADING && item.mLoadingError)
-          mAdapter.mListener.onItemSelected(item.mUrl);
-      }
+      if (mAdapter.mListener == null || TextUtils.isEmpty(item.mUrl))
+        return;
+
+      if (item.mType == TYPE_PRODUCT)
+        mAdapter.mListener.onItemSelected(item.mUrl);
+      else if (item.mType == TYPE_MORE)
+        mAdapter.mListener.onMoreItemSelected(item.mUrl);
+      else if (item.mType == TYPE_LOADING && item.mLoadingError)
+        mAdapter.mListener.onItemSelected(item.mUrl);
     }
   }
 

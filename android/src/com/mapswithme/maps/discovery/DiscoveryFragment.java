@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
+import com.mapswithme.maps.base.BaseSponsoredAdapter;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.viator.ViatorProduct;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
@@ -148,5 +149,20 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onLocalExpertsReceived(@Nullable LocalExpert[] experts)
   {
 
+  }
+
+  @Override
+  public void onError(@NonNull ItemType type)
+  {
+    switch (type)
+    {
+      case VIATOR:
+        if (mThingsToDo.getAdapter() != null)
+          // TODO: pass cityUrl instead of null.
+          ((BaseSponsoredAdapter) mThingsToDo.getAdapter()).setLoadingError(null);
+        break;
+
+      // TODO: processing for other adapters is coming soon.
+    }
   }
 }

@@ -71,7 +71,8 @@ enum  DiscoveryManager
   private void onError(@DiscoveryParams.ItemType int type)
   {
     LOGGER.w(TAG, "onError for type: " + type);
-    // TODO: not implemented yet.
+    if (mCallback != null)
+      mCallback.onError(ItemType.values()[type]);
   }
 
   void attach(@NonNull UICallback callback)
