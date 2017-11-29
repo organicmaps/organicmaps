@@ -19,123 +19,6 @@ using namespace std;
 
 namespace
 {
-//             ^
-//             |
-//             * 2
-//
-//   s0--------s1--------s2--------s3---s4 Line 1
-//
-//   *    *    *    *    *    *    *    *   -->
-//  -2         0              3    4    5
-//        s5--------s6 Line 2
-//
-void TestStops(vector<Stop> const & stops)
-{
-  vector<Stop> const expectedStops = {
-      {0 /* stop id */, 100 /* osm id */, 10 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(-2.0, 1.0), {}},
-      {1 /* stop id */, 101 /* osm id */, 11 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(0.0, 1.0), {}},
-      {2 /* stop id */, 102 /* osm id */, 12 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(2.0, 1.0), {}},
-      {3 /* stop id */, 103 /* osm id */, 13 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(4.0, 1.0), {}},
-      {4 /* stop id */, 104 /* osm id */, 14 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(5.0, 1.0), {}},
-      {5 /* stop id */, 105 /* osm id */, 15 /* feature id */, kInvalidTransferId, {2} /* line ids */,
-       m2::PointD(-1.0, -1.0), {}},
-      {6 /* stop id */, 106 /* osm id */, 16 /* feature id */, kInvalidTransferId, {2} /* line ids */,
-       m2::PointD(1.0, -1.0), {}}};
-  TestForEquivalence(stops, expectedStops);
-}
-
-void TestLines(vector<Line> const & lines)
-{
-  vector<Line> const expectedLines = {
-      {1 /* line id */, "1" /* number */, "Московская линия" /* title */, "subway" /* type */, "green",
-       2 /* network id */, {{0, 1, 2, 3, 4}} /* stop id */,
-       150 /* interval */},
-      {2 /* line id */, "2" /* number */, "Варшавская линия" /* title */, "subway" /* type */, "red",
-       2 /* network id */, {{5, 6}} /* stop id */,
-       150 /* interval */}
-  };
-  TestForEquivalence(lines, expectedLines);
-}
-
-void TestTransfers(vector<Transfer> const & transfers)
-{
-  TEST(transfers.empty(), ());
-}
-
-void TestNetworks(vector<Network> const & networks)
-{
-  vector<Network> const expectedNetworks = {
-      {2 /* network id */, "Минский метрополитен" /* title */}
-  };
-  TestForEquivalence(networks, expectedNetworks);
-}
-
-void TestEdges(vector<Edge> const & edges)
-{
-  vector<Edge> const expectedEdges = {
-      {0 /* stop 1 id */, 1 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
-       {{0, 1}} /* shape ids */},
-      {1 /* stop 1 id */, 2 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
-       {{1, 2}} /* shape ids */},
-      {2 /* stop 1 id */, 3 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
-       {{2, 3}} /* shape ids */},
-      {3 /* stop 1 id */, 4 /* stop 2 id */, 10 /* weight */, 1 /* line id */, false /* transfer */,
-       {{3, 4}} /* shape ids */},
-      {5 /* stop 1 id */, 6 /* stop 2 id */, 20 /* weight */, 2 /* line id */, false /* transfer */,
-       {{5, 6}} /* shape ids */}
-  };
-  TestForEquivalence(edges, expectedEdges);
-}
-
-void TestShapes(vector<Shape> const & shapes)
-{
-  vector<Shape> const expectedShapes = {
-      {{0, 1} /* shape id */, {{-2.0, 1.0}, {0.0, 1.0}} /* polyline */},
-      {{1, 2} /* shape id */, {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
-      {{2, 3} /* shape id */, {{2.0, 1.0}, {4.0, 1.0}} /* polyline */},
-      {{3, 4} /* shape id */, {{4.0, 1.0}, {5.0, 1.0}} /* polyline */},
-      {{5, 6} /* shape id */, {{-1.0, -1.0}, {1.0, -1.0}} /* polyline */}
-  };
-  TestForEquivalence(shapes, expectedShapes);
-}
-
-void TestGates(vector<Gate> const & gates)
-{
-  vector<Gate> const expectedGates = {
-      {100 /* osm id */, 10 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {0} /* stop ids */, m2::PointD(-2.0, 1.0)},
-      {101 /* osm id */, 11 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {1} /* stop ids */, m2::PointD(0.0, 1.0)},
-      {102 /* osm id */, 12 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {2} /* stop ids */, m2::PointD(2.0, 1.0)},
-      {103 /* osm id */, 13 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {3} /* stop ids */, m2::PointD(4.0, 1.0)},
-      {104 /* osm id */, 14 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {4} /* stop ids */, m2::PointD(5.0, 1.0)},
-      {105 /* osm id */, 15 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {5} /* stop ids */, m2::PointD(-1.0, -1.0)},
-      {106 /* osm id */, 16 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {6} /* stop ids */, m2::PointD(1.0, -1.0)},
-  };
-  TestForEquivalence(gates, expectedGates);
-}
-
-void TestGraph(GraphData const & graph)
-{
-  TestStops(graph.GetStops());
-  TestLines(graph.GetLines());
-  TestTransfers(graph.GetTransfers());
-  TestNetworks(graph.GetNetworks());
-  TestEdges(graph.GetEdges());
-  TestShapes(graph.GetShapes());
-  TestGates(graph.GetGates());
-}
-
 unique_ptr<GraphData> CreateGraph()
 {
   string const jsonBuffer = R"(
@@ -374,11 +257,317 @@ unique_ptr<GraphData> CreateGraph()
   return graph;
 }
 
+void TestStops(vector<Stop> const & stops)
+{
+  vector<Stop> const expectedStops = {
+      {0 /* stop id */, 100 /* osm id */, 10 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(-2.0, 1.0), {}},
+      {1 /* stop id */, 101 /* osm id */, 11 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(0.0, 1.0), {}},
+      {2 /* stop id */, 102 /* osm id */, 12 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(2.0, 1.0), {}},
+      {3 /* stop id */, 103 /* osm id */, 13 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(4.0, 1.0), {}},
+      {4 /* stop id */, 104 /* osm id */, 14 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(5.0, 1.0), {}},
+      {5 /* stop id */, 105 /* osm id */, 15 /* feature id */, kInvalidTransferId, {2} /* line ids */,
+       m2::PointD(-1.0, -1.0), {}},
+      {6 /* stop id */, 106 /* osm id */, 16 /* feature id */, kInvalidTransferId, {2} /* line ids */,
+       m2::PointD(1.0, -1.0), {}}};
+  TestForEquivalence(stops, expectedStops);
+}
+
+void TestLines(vector<Line> const & lines)
+{
+  vector<Line> const expectedLines = {
+      {1 /* line id */, "1" /* number */, "Московская линия" /* title */, "subway" /* type */, "green",
+       2 /* network id */, {{0, 1, 2, 3, 4}} /* stop id */,
+       150 /* interval */},
+      {2 /* line id */, "2" /* number */, "Варшавская линия" /* title */, "subway" /* type */, "red",
+       2 /* network id */, {{5, 6}} /* stop id */,
+       150 /* interval */}
+  };
+  TestForEquivalence(lines, expectedLines);
+}
+
+void TestTransfers(vector<Transfer> const & transfers)
+{
+  TEST(transfers.empty(), ());
+}
+
+void TestNetworks(vector<Network> const & networks)
+{
+  vector<Network> const expectedNetworks = {
+      {2 /* network id */, "Минский метрополитен" /* title */}
+  };
+  TestForEquivalence(networks, expectedNetworks);
+}
+
+void TestEdges(vector<Edge> const & edges)
+{
+  vector<Edge> const expectedEdges = {
+      {0 /* stop 1 id */, 1 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
+       {{0, 1}} /* shape ids */},
+      {1 /* stop 1 id */, 2 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
+       {{1, 2}} /* shape ids */},
+      {2 /* stop 1 id */, 3 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
+       {{2, 3}} /* shape ids */},
+      {3 /* stop 1 id */, 4 /* stop 2 id */, 10 /* weight */, 1 /* line id */, false /* transfer */,
+       {{3, 4}} /* shape ids */},
+      {5 /* stop 1 id */, 6 /* stop 2 id */, 20 /* weight */, 2 /* line id */, false /* transfer */,
+       {{5, 6}} /* shape ids */}
+  };
+  TestForEquivalence(edges, expectedEdges);
+}
+
+void TestShapes(vector<Shape> const & shapes)
+{
+  vector<Shape> const expectedShapes = {
+      {{0, 1} /* shape id */, {{-2.0, 1.0}, {0.0, 1.0}} /* polyline */},
+      {{1, 2} /* shape id */, {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
+      {{2, 3} /* shape id */, {{2.0, 1.0}, {4.0, 1.0}} /* polyline */},
+      {{3, 4} /* shape id */, {{4.0, 1.0}, {5.0, 1.0}} /* polyline */},
+      {{5, 6} /* shape id */, {{-1.0, -1.0}, {1.0, -1.0}} /* polyline */}
+  };
+  TestForEquivalence(shapes, expectedShapes);
+}
+
+void TestGates(vector<Gate> const & gates)
+{
+  vector<Gate> const expectedGates = {
+      {100 /* osm id */, 10 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {0} /* stop ids */, m2::PointD(-2.0, 1.0)},
+      {101 /* osm id */, 11 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {1} /* stop ids */, m2::PointD(0.0, 1.0)},
+      {102 /* osm id */, 12 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {2} /* stop ids */, m2::PointD(2.0, 1.0)},
+      {103 /* osm id */, 13 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {3} /* stop ids */, m2::PointD(4.0, 1.0)},
+      {104 /* osm id */, 14 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {4} /* stop ids */, m2::PointD(5.0, 1.0)},
+      {105 /* osm id */, 15 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {5} /* stop ids */, m2::PointD(-1.0, -1.0)},
+      {106 /* osm id */, 16 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {6} /* stop ids */, m2::PointD(1.0, -1.0)},
+  };
+  TestForEquivalence(gates, expectedGates);
+}
+
+void TestGraph(GraphData const & graph)
+{
+  TestStops(graph.GetStops());
+  TestLines(graph.GetLines());
+  TestTransfers(graph.GetTransfers());
+  TestNetworks(graph.GetNetworks());
+  TestEdges(graph.GetEdges());
+  TestShapes(graph.GetShapes());
+  TestGates(graph.GetGates());
+}
+
+void TestOneLineStops(vector<Stop> const & stops)
+{
+  vector<Stop> const expectedStops = {
+      {0 /* stop id */, 100 /* osm id */, 10 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(-2.0, 1.0), {}},
+      {1 /* stop id */, 101 /* osm id */, 11 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(0.0, 1.0), {}},
+      {2 /* stop id */, 102 /* osm id */, 12 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(2.0, 1.0), {}},
+      {3 /* stop id */, 103 /* osm id */, 13 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(4.0, 1.0), {}}
+  };
+  TestForEquivalence(stops, expectedStops);
+}
+
+void TestOneLineLines(vector<Line> const & lines)
+{
+  vector<Line> const expectedLines = {
+      {1 /* line id */, "1" /* number */, "Московская линия" /* title */, "subway" /* type */, "green",
+       2 /* network id */, {{0, 1, 2, 3}} /* stop id */,
+       150 /* interval */}
+  };
+  TestForEquivalence(lines, expectedLines);
+}
+
+void TestOneLineTransfers(vector<Transfer> const & transfers)
+{
+  TestTransfers(transfers);
+}
+
+void TestOneLineNetworks(vector<Network> const & networks)
+{
+  TestNetworks(networks);
+}
+
+void TestOneLineEdges(vector<Edge> const & edges)
+{
+  vector<Edge> const expectedEdges = {
+      {0 /* stop 1 id */, 1 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
+       {{0, 1}} /* shape ids */},
+      {1 /* stop 1 id */, 2 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
+       {{1, 2}} /* shape ids */},
+      {2 /* stop 1 id */, 3 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
+       {{2, 3}} /* shape ids */}
+  };
+  TestForEquivalence(edges, expectedEdges);
+}
+
+void TestOneLineShapes(vector<Shape> const & shapes)
+{
+  vector<Shape> const expectedShapes = {
+      {{0, 1} /* shape id */, {{-2.0, 1.0}, {0.0, 1.0}} /* polyline */},
+      {{1, 2} /* shape id */, {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
+      {{2, 3} /* shape id */, {{2.0, 1.0}, {4.0, 1.0}} /* polyline */}
+  };
+  TestForEquivalence(shapes, expectedShapes);
+}
+
+void TestOneLineGates(vector<Gate> const & gates)
+{
+  vector<Gate> const expectedGates = {
+      {100 /* osm id */, 10 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {0} /* stop ids */, m2::PointD(-2.0, 1.0)},
+      {101 /* osm id */, 11 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {1} /* stop ids */, m2::PointD(0.0, 1.0)},
+      {102 /* osm id */, 12 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {2} /* stop ids */, m2::PointD(2.0, 1.0)},
+      {103 /* osm id */, 13 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {3} /* stop ids */, m2::PointD(4.0, 1.0)}
+  };
+  TestForEquivalence(gates, expectedGates);
+}
+
+void TestOneLineGraph(GraphData const & graph)
+{
+  TestOneLineStops(graph.GetStops());
+  TestOneLineLines(graph.GetLines());
+  TestOneLineTransfers(graph.GetTransfers());
+  TestOneLineNetworks(graph.GetNetworks());
+  TestOneLineEdges(graph.GetEdges());
+  TestOneLineShapes(graph.GetShapes());
+  TestOneLineGates(graph.GetGates());
+}
+
+void TestTwoLinesStops(vector<Stop> const & stops)
+{
+  vector<Stop> const expectedStops = {
+      {1 /* stop id */, 101 /* osm id */, 11 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(0.0, 1.0), {}},
+      {2 /* stop id */, 102 /* osm id */, 12 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(2.0, 1.0), {}},
+      {3 /* stop id */, 103 /* osm id */, 13 /* feature id */, kInvalidTransferId, {1} /* line ids */,
+       m2::PointD(4.0, 1.0), {}},
+      {5 /* stop id */, 105 /* osm id */, 15 /* feature id */, kInvalidTransferId, {2} /* line ids */,
+       m2::PointD(-1.0, -1.0), {}},
+      {6 /* stop id */, 106 /* osm id */, 16 /* feature id */, kInvalidTransferId, {2} /* line ids */,
+       m2::PointD(1.0, -1.0), {}}};
+  TestForEquivalence(stops, expectedStops);
+}
+
+void TestTwoLinesLines(vector<Line> const & lines)
+{
+  vector<Line> const expectedLines = {
+      {1 /* line id */, "1" /* number */, "Московская линия" /* title */, "subway" /* type */, "green",
+       2 /* network id */, {{1, 2, 3}} /* stop id */,
+       150 /* interval */},
+      {2 /* line id */, "2" /* number */, "Варшавская линия" /* title */, "subway" /* type */, "red",
+       2 /* network id */, {{5, 6}} /* stop id */,
+       150 /* interval */}
+  };
+  TestForEquivalence(lines, expectedLines);
+}
+
+void TestTwoLinesTransfers(vector<Transfer> const & transfers)
+{
+  TestTransfers(transfers);
+}
+
+void TestTwoLinesNetworks(vector<Network> const & networks)
+{
+  TestNetworks(networks);
+}
+
+void TestTwoLinesEdges(vector<Edge> const & edges)
+{
+  vector<Edge> const expectedEdges = {
+      {1 /* stop 1 id */, 2 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
+       {{1, 2}} /* shape ids */},
+      {2 /* stop 1 id */, 3 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
+       {{2, 3}} /* shape ids */},
+      {5 /* stop 1 id */, 6 /* stop 2 id */, 20 /* weight */, 2 /* line id */, false /* transfer */,
+       {{5, 6}} /* shape ids */}
+  };
+  TestForEquivalence(edges, expectedEdges);
+}
+
+void TestTwoLinesShapes(vector<Shape> const & shapes)
+{
+  vector<Shape> const expectedShapes = {
+      {{1, 2} /* shape id */, {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
+      {{2, 3} /* shape id */, {{2.0, 1.0}, {4.0, 1.0}} /* polyline */},
+      {{5, 6} /* shape id */, {{-1.0, -1.0}, {1.0, -1.0}} /* polyline */}
+  };
+  TestForEquivalence(shapes, expectedShapes);
+}
+
+void TestTwoLinesGates(vector<Gate> const & gates)
+{
+  vector<Gate> const expectedGates = {
+      {101 /* osm id */, 11 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {1} /* stop ids */, m2::PointD(0.0, 1.0)},
+      {102 /* osm id */, 12 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {2} /* stop ids */, m2::PointD(2.0, 1.0)},
+      {103 /* osm id */, 13 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {3} /* stop ids */, m2::PointD(4.0, 1.0)},
+      {105 /* osm id */, 15 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {5} /* stop ids */, m2::PointD(-1.0, -1.0)},
+      {106 /* osm id */, 16 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
+       {6} /* stop ids */, m2::PointD(1.0, -1.0)},
+  };
+  TestForEquivalence(gates, expectedGates);
+}
+
+void TestTwoLinesGraph(GraphData const & graph)
+{
+  TestTwoLinesStops(graph.GetStops());
+  TestTwoLinesLines(graph.GetLines());
+  TestTwoLinesTransfers(graph.GetTransfers());
+  TestTwoLinesNetworks(graph.GetNetworks());
+  TestTwoLinesEdges(graph.GetEdges());
+  TestTwoLinesShapes(graph.GetShapes());
+  TestTwoLinesGates(graph.GetGates());
+}
+
+void SerializeAndDeserializeGraph(GraphData const & src, GraphData & dest)
+{
+  vector<uint8_t> buffer;
+  MemWriter<decltype(buffer)> writer(buffer);
+  src.SerializeToMwm(writer);
+
+  MemReader reader(buffer.data(), buffer.size());
+  dest.DeserializeForTesting(reader);
+  TEST(dest.IsValid(), ());
+}
+
+//             ^
+//             |
+//             * 2
+//
+//   s0--------s1--------s2--------s3---s4 Line 1
+//
+//   *    *    *    *    *    *    *    *   -->
+//  -2         0              3    4    5
+//        s5--------s6 Line 2
+//
 UNIT_TEST(ClipGraph_SmokeTest)
 {
   auto graph = CreateGraph();
   graph->Sort();
   TestGraph(*graph);
+
+  GraphData readedGraph;
+  SerializeAndDeserializeGraph(*graph, readedGraph);
+  TestGraph(readedGraph);
 }
 
 //                       ^
@@ -400,60 +589,11 @@ UNIT_TEST(ClipGraph_OneLineTest)
   auto graph = CreateGraph();
   vector<m2::PointD> points = {{3.0, 3.0}, {3.0, 0.0}, {-3.0, 0.0}, {-3.0, 3.0}, {3.0, 3.0}};
   graph->ClipGraph({m2::RegionD(move(points))});
+  TestOneLineGraph(*graph);
 
-  vector<Line> const expectedLines = {
-      {1 /* line id */, "1" /* number */, "Московская линия" /* title */, "subway" /* type */, "green",
-       2 /* network id */, {{0, 1, 2, 3}} /* stop id */,
-       150 /* interval */}
-  };
-  TestForEquivalence(graph->GetLines(), expectedLines);
-
-  vector<Stop> const expectedStops = {
-      {0 /* stop id */, 100 /* osm id */, 10 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(-2.0, 1.0), {}},
-      {1 /* stop id */, 101 /* osm id */, 11 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(0.0, 1.0), {}},
-      {2 /* stop id */, 102 /* osm id */, 12 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(2.0, 1.0), {}},
-      {3 /* stop id */, 103 /* osm id */, 13 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(4.0, 1.0), {}}
-  };
-  TestForEquivalence(graph->GetStops(), expectedStops);
-
-  // After clipping GraphData::m_networks field is not changed.
-  TestNetworks(graph->GetNetworks());
-
-  vector<Gate> const expectedGates = {
-      {100 /* osm id */, 10 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {0} /* stop ids */, m2::PointD(-2.0, 1.0)},
-      {101 /* osm id */, 11 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {1} /* stop ids */, m2::PointD(0.0, 1.0)},
-      {102 /* osm id */, 12 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {2} /* stop ids */, m2::PointD(2.0, 1.0)},
-      {103 /* osm id */, 13 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {3} /* stop ids */, m2::PointD(4.0, 1.0)}
-  };
-  TestForEquivalence(graph->GetGates(), expectedGates);
-
-  // After clipping GraphData::m_networks field is not changed.
-  TestTransfers(graph->GetTransfers());
-
-  vector<Edge> const expectedEdges = {
-      {0 /* stop 1 id */, 1 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
-       {{0, 1}} /* shape ids */},
-      {1 /* stop 1 id */, 2 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
-       {{1, 2}} /* shape ids */},
-      {2 /* stop 1 id */, 3 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
-       {{2, 3}} /* shape ids */}
-  };
-  TestForEquivalence(graph->GetEdges(), expectedEdges);
-
-  vector<Shape> const expectedShapes = {
-      {{0, 1} /* shape id */, {{-2.0, 1.0}, {0.0, 1.0}} /* polyline */},
-      {{1, 2} /* shape id */, {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
-      {{2, 3} /* shape id */, {{2.0, 1.0}, {4.0, 1.0}} /* polyline */}
-  };
-  TestForEquivalence(graph->GetShapes(), expectedShapes);
+  GraphData readedGraph;
+  SerializeAndDeserializeGraph(*graph, readedGraph);
+  TestOneLineGraph(readedGraph);
 }
 
 //                       ^
@@ -476,64 +616,10 @@ UNIT_TEST(ClipGraph_TwoLinesTest)
   vector<m2::PointD> points = {{2.5, 2.0}, {2.5, -2.0}, {0.5, -2.0}, {0.5, 2.0}, {2.5, 2.0}};
   graph->ClipGraph({m2::RegionD(move(points))});
 
-  vector<Line> const expectedLines = {
-      {1 /* line id */, "1" /* number */, "Московская линия" /* title */, "subway" /* type */, "green",
-       2 /* network id */, {{1, 2, 3}} /* stop id */,
-       150 /* interval */},
-      {2 /* line id */, "2" /* number */, "Варшавская линия" /* title */, "subway" /* type */, "red",
-       2 /* network id */, {{5, 6}} /* stop id */,
-       150 /* interval */}
-  };
-  TestForEquivalence(graph->GetLines(), expectedLines);
+  TestTwoLinesGraph(*graph);
 
-  vector<Stop> const expectedStops = {
-      {1 /* stop id */, 101 /* osm id */, 11 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(0.0, 1.0), {}},
-      {2 /* stop id */, 102 /* osm id */, 12 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(2.0, 1.0), {}},
-      {3 /* stop id */, 103 /* osm id */, 13 /* feature id */, kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(4.0, 1.0), {}},
-      {5 /* stop id */, 105 /* osm id */, 15 /* feature id */, kInvalidTransferId, {2} /* line ids */,
-       m2::PointD(-1.0, -1.0), {}},
-      {6 /* stop id */, 106 /* osm id */, 16 /* feature id */, kInvalidTransferId, {2} /* line ids */,
-       m2::PointD(1.0, -1.0), {}}};
-  TestForEquivalence(graph->GetStops(), expectedStops);
-
-  // After clipping GraphData::m_networks field is not changed.
-  TestNetworks(graph->GetNetworks());
-
-  vector<Gate> const expectedGates = {
-      {101 /* osm id */, 11 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {1} /* stop ids */, m2::PointD(0.0, 1.0)},
-      {102 /* osm id */, 12 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {2} /* stop ids */, m2::PointD(2.0, 1.0)},
-      {103 /* osm id */, 13 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {3} /* stop ids */, m2::PointD(4.0, 1.0)},
-      {105 /* osm id */, 15 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {5} /* stop ids */, m2::PointD(-1.0, -1.0)},
-      {106 /* osm id */, 16 /* feature id */, true /* entrance */, true /* exit */, 0 /* weight */,
-       {6} /* stop ids */, m2::PointD(1.0, -1.0)},
-  };
-  TestForEquivalence(graph->GetGates(), expectedGates);
-
-  // After clipping GraphData::m_networks field is not changed.
-  TestTransfers(graph->GetTransfers());
-
-  vector<Edge> const expectedEdges = {
-      {1 /* stop 1 id */, 2 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
-       {{1, 2}} /* shape ids */},
-      {2 /* stop 1 id */, 3 /* stop 2 id */, 20 /* weight */, 1 /* line id */, false /* transfer */,
-       {{2, 3}} /* shape ids */},
-      {5 /* stop 1 id */, 6 /* stop 2 id */, 20 /* weight */, 2 /* line id */, false /* transfer */,
-       {{5, 6}} /* shape ids */}
-  };
-  TestForEquivalence(graph->GetEdges(), expectedEdges);
-
-  vector<Shape> const expectedShapes = {
-      {{1, 2} /* shape id */, {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
-      {{2, 3} /* shape id */, {{2.0, 1.0}, {4.0, 1.0}} /* polyline */},
-      {{5, 6} /* shape id */, {{-1.0, -1.0}, {1.0, -1.0}} /* polyline */}
-  };
-  TestForEquivalence(graph->GetShapes(), expectedShapes);
+  GraphData readedGraph;
+  SerializeAndDeserializeGraph(*graph, readedGraph);
+  TestTwoLinesGraph(readedGraph);
 }
 }  // namespace
