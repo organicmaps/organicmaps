@@ -85,21 +85,26 @@ unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId num
 
     transit::TransitHeader header;
     numberDeserializer(header);
+    CHECK(header.IsValid(), ());
 
     TransitGraph::TransitData transitData;
 
     CHECK_EQUAL(src.Pos(), header.m_stopsOffset, ("Wrong section format."));
     deserializer(transitData.m_stops);
+    CHECK(IsValidSortedUnique(transitData.m_stops), ());
 
     CHECK_EQUAL(src.Pos(), header.m_gatesOffset, ("Wrong section format."));
     deserializer(transitData.m_gates);
+    CHECK(IsValidSortedUnique(transitData.m_gates), ());
 
     CHECK_EQUAL(src.Pos(), header.m_edgesOffset, ("Wrong section format."));
     deserializer(transitData.m_edges);
+    CHECK(IsValidSortedUnique(transitData.m_edges), ());
 
     src.Skip(header.m_linesOffset - src.Pos());
     CHECK_EQUAL(src.Pos(), header.m_linesOffset, ("Wrong section format."));
     deserializer(transitData.m_lines);
+    CHECK(IsValidSortedUnique(transitData.m_lines), ());
 
     TransitGraph::GateEndings gateEndings;
     MakeGateEndings(transitData.m_gates, numMwmId, indexGraph, gateEndings);
