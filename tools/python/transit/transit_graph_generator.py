@@ -203,8 +203,10 @@ class TransitGraphBuilder:
                     line_index += 1
 
     def __match_color(self, color_str, casing_str):
-        if len(color_str) == 0:
+        if color_str is None or len(color_str) == 0:
             return self.palette.get_default_color()
+        if casing_str is None:
+            casing_str = ''
         matched_colors_key = color_str + "/" + casing_str
         if matched_colors_key in self.matched_colors:
             return self.matched_colors[matched_colors_key]
