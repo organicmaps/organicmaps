@@ -1014,7 +1014,8 @@ bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
 
   auto removePredicate = [&tileKey](drape_ptr<RenderGroup> const & group)
   {
-    return group->GetTileKey() == tileKey && group->GetTileKey().m_generation < tileKey.m_generation;
+    return group->GetTileKey() == tileKey && (group->GetTileKey().m_generation < tileKey.m_generation ||
+        (group->IsUserMark() && group->GetTileKey().m_userMarksGeneration < tileKey.m_userMarksGeneration));
   };
   RemoveRenderGroupsLater(removePredicate);
 
