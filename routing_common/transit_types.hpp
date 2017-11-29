@@ -471,8 +471,7 @@ bool IsValid(std::vector<Item> const & items)
 template <class Item>
 bool IsValidSortedUnique(std::vector<Item> const & items)
 {
-  return IsValid(items) && std::is_sorted(items.cbegin(), items.cend()) &&
-         std::adjacent_find(items.cbegin(), items.cend()) == items.cend();
+  return IsValid(items) && IsSortedAndUnique(items.cbegin(), items.cend());
 }
 
 EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2,

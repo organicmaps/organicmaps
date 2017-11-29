@@ -263,7 +263,7 @@ void CalcCrossMwmTransitions(
 /// |transitions| will be equal to VehicleType::Transit after call of this method.
 void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
                              vector<m2::RegionD> const & borders, string const & country,
-                             CountryParentNameGetterFn const & countryParentNameGetterFn,
+                             CountryParentNameGetterFn const & /* countryParentNameGetterFn */,
                              vector<CrossMwmConnectorSerializer::Transition<connector::TransitId>> & transitions)
 {
   CHECK(mappingFile.empty(), ());
@@ -273,37 +273,45 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
     CHECK(cont.IsExist(TRANSIT_FILE_TAG),
           (TRANSIT_FILE_TAG, "should be generated before", TRANSIT_CROSS_MWM_FILE_TAG));
     auto reader = cont.GetReader(TRANSIT_FILE_TAG);
-    ReaderSource<FilesContainerR::TReader> src(reader);
 
-    transit::FixedSizeDeserializer<ReaderSource<FilesContainerR::TReader>> numberDeserializer(src);
+    using Source = ReaderSource<FilesContainerR::TReader>;
+    Source src(reader);
     transit::TransitHeader header;
-    numberDeserializer(header);
-    CHECK(header.IsValid(), ("TransitHeader is not valid.", header));
+    {
+      transit::FixedSizeDeserializer<Source> des(src);
+      des(header);
+      CHECK(header.IsValid(), ("TransitHeader is not valid.", header));
+    }
 
-    transit::Deserializer<ReaderSource<FilesContainerR::TReader>> deserializer(src);
     vector<transit::Stop> stops;
-    deserializer(stops);
-    CHECK(IsValidSortedUnique(stops), ("Transit stops are not valid. Mwm:", mwmFile));
-    src.Skip(header.m_edgesOffset - header.m_gatesOffset); // Skipping gates.
     vector<transit::Edge> edges;
-    deserializer(edges);
-    CHECK(IsValidSortedUnique(edges), ("Transit edges are not valid. Mwm:", mwmFile));
+    {
+      transit::Deserializer<Source> des(src);
+      des(stops);
+      CHECK(IsValidSortedUnique(stops), ("Transit stops are not valid. Mwm:", mwmFile));
+      src.Skip(header.m_edgesOffset - header.m_gatesOffset); // Skipping gates.
+      des(edges);
+      CHECK(IsValidSortedUnique(edges), ("Transit edges are not valid. Mwm:", mwmFile));
+    }
 
-    auto const getStopIdPoint = [&stops] (transit::StopId stopId) -> m2::PointD const & {
+    auto const getStopIdPoint = [&stops](transit::StopId stopId) -> m2::PointD const & {
       auto const it = equal_range(stops.cbegin(), stops.cend(), transit::Stop(stopId));
-      CHECK_EQUAL(distance(it.first, it.second), 1,
-                  ("An stop with id:", stopId, "is not unique or there's not such item. stops:", stops));
+      CHECK_EQUAL(
+          distance(it.first, it.second), 1,
+          ("A stop with id:", stopId, "is not unique or there's no such item in stops:", stops));
       return it.first->GetPoint();
     };
 
-    // Index |i| is zero based edge index. This zero based index should be increased with
+    // Index |i| is a zero based edge index. This zero based index should be increased with
     // |FakeFeatureIds::kTransitGraphFeaturesStart| and then used in Segment class as
-    // feature id in transit case.Ø
+    // feature id in transit case.
+    // @todo(tatiana-kondakova) The comment above should be rewritten when the zero based edge
+    // index is used.
     for (size_t i = 0; i < edges.size(); ++i)
     {
       auto const & e = edges[i];
-      m2::PointD const stop1Point = getStopIdPoint(e.GetStop1Id());
-      m2::PointD const stop2Point = getStopIdPoint(e.GetStop2Id());
+      m2::PointD const & stop1Point = getStopIdPoint(e.GetStop1Id());
+      m2::PointD const & stop2Point = getStopIdPoint(e.GetStop2Id());
       bool const stop2In = m2::RegionsContain(borders, stop2Point);
       if (m2::RegionsContain(borders, stop1Point) == stop2In)
         continue;
