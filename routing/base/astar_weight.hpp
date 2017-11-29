@@ -4,8 +4,8 @@
 
 namespace routing
 {
-template <typename WeightType>
-constexpr WeightType GetAStarWeightZero();
+template <typename Weight>
+constexpr Weight GetAStarWeightZero();
 
 template <>
 constexpr double GetAStarWeightZero<double>()
@@ -14,8 +14,8 @@ constexpr double GetAStarWeightZero<double>()
 }
 
 // Precision of comparison weights.
-template <typename WeightType>
-constexpr WeightType GetAStarWeightEpsilon();
+template <typename Weight>
+constexpr Weight GetAStarWeightEpsilon();
 
 template <>
 constexpr double GetAStarWeightEpsilon<double>()
@@ -23,8 +23,8 @@ constexpr double GetAStarWeightEpsilon<double>()
   return 1e-6;
 }
 
-template <typename WeightType>
-constexpr WeightType GetAStarWeightMax();
+template <typename Weight>
+constexpr Weight GetAStarWeightMax();
 
 template <>
 constexpr double GetAStarWeightMax<double>()

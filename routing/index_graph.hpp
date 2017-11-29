@@ -24,9 +24,9 @@ class IndexGraph final
 {
 public:
   // AStarAlgorithm types aliases:
-  using TVertexType = Segment;
-  using TEdgeType = SegmentEdge;
-  using TWeightType = RouteWeight;
+  using Vertex = Segment;
+  using Edge = SegmentEdge;
+  using Weight = RouteWeight;
 
   IndexGraph() = default;
   explicit IndexGraph(unique_ptr<GeometryLoader> loader, shared_ptr<EdgeEstimator> estimator);

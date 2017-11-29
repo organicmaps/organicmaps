@@ -136,11 +136,11 @@ IRouter::ResultCode ConvertResult(typename AStarAlgorithm<Graph>::Result result)
 
 template <typename Graph>
 IRouter::ResultCode FindPath(
-    typename Graph::TVertexType const & start, typename Graph::TVertexType const & finish,
+    typename Graph::Vertex const & start, typename Graph::Vertex const & finish,
     RouterDelegate const & delegate, Graph & graph,
     typename AStarAlgorithm<Graph>::OnVisitedVertexCallback const & onVisitedVertexCallback,
     typename AStarAlgorithm<Graph>::CheckLengthCallback const & checkLengthCallback,
-    RoutingResult<typename Graph::TVertexType, typename Graph::TWeightType> & routingResult)
+    RoutingResult<typename Graph::Vertex, typename Graph::Weight> & routingResult)
 {
   AStarAlgorithm<Graph> algorithm;
   return ConvertResult<Graph>(algorithm.FindPathBidirectional(

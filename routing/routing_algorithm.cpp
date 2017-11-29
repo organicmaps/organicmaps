@@ -49,9 +49,9 @@ private:
 class RoadGraph
 {
 public:
-  using TVertexType = Junction;
-  using TEdgeType = WeightedEdge;
-  using TWeightType = double;
+  using Vertex = Junction;
+  using Edge = WeightedEdge;
+  using Weight = double;
 
   RoadGraph(IRoadGraph const & roadGraph)
     : m_roadGraph(roadGraph)

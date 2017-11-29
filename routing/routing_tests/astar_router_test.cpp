@@ -30,7 +30,7 @@ void TestAStarRouterMock(Junction const & startPos, Junction const & finalPos,
   InitRoadGraphMockSourceWithTest2(graph);
 
   RouterDelegate delegate;
-  RoutingResult<Junction, double /* WeightType */> result;
+  RoutingResult<Junction, double /* Weight */> result;
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
              algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
@@ -98,7 +98,7 @@ UNIT_TEST(AStarRouter_SimpleGraph_RouteIsFound)
       MakeJunctionForTesting(m2::PointD(0, 60)), MakeJunctionForTesting(m2::PointD(40, 100))};
 
   RouterDelegate delegate;
-  RoutingResult<Junction, double /* WeightType */> result;
+  RoutingResult<Junction, double /* Weight */> result;
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
              algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
@@ -167,7 +167,7 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     {
       RouterDelegate delegate;
       Junction const finalPos = roadInfo_2[j].m_junctions[0];
-      RoutingResult<Junction, double /* WeightType */> result;
+      RoutingResult<Junction, double /* Weight */> result;
       TEST_EQUAL(TRoutingAlgorithm::Result::NoPath,
                  algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
       TEST_EQUAL(TRoutingAlgorithm::Result::NoPath,
@@ -183,7 +183,7 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     {
       RouterDelegate delegate;
       Junction const finalPos = roadInfo_1[j].m_junctions[0];
-      RoutingResult<Junction, double /* WeightType */> result;
+      RoutingResult<Junction, double /* Weight */> result;
       TEST_EQUAL(TRoutingAlgorithm::Result::OK,
                  algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
       TEST_EQUAL(TRoutingAlgorithm::Result::OK,
@@ -199,7 +199,7 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     {
       RouterDelegate delegate;
       Junction const finalPos = roadInfo_2[j].m_junctions[0];
-      RoutingResult<Junction, double /* WeightType */> result;
+      RoutingResult<Junction, double /* Weight */> result;
       TEST_EQUAL(TRoutingAlgorithm::Result::OK,
                  algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
       TEST_EQUAL(TRoutingAlgorithm::Result::OK,
@@ -227,7 +227,7 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad1)
   // path3 = 1/5 + 8/4 + 1/5 = 2.4
 
   RouterDelegate delegate;
-  RoutingResult<Junction, double /* WeightType */> result;
+  RoutingResult<Junction, double /* Weight */> result;
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
@@ -262,7 +262,7 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad2)
   // path3 = 1/5 + 8/4.4 + 1/5 = 2.2
 
   RouterDelegate delegate;
-  RoutingResult<Junction, double /* WeightType */> result;
+  RoutingResult<Junction, double /* Weight */> result;
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
@@ -294,7 +294,7 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
   // path3 = 1/5 + 8/4.9 + 1/5 = 2.03
 
   RouterDelegate delegate;
-  RoutingResult<Junction, double /* WeightType */> result;
+  RoutingResult<Junction, double /* Weight */> result;
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),

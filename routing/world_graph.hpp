@@ -19,14 +19,10 @@ namespace routing
 class WorldGraph
 {
 public:
-  // AStarAlgorithm types aliases:
-  using TVertexType = IndexGraph::TVertexType;
-  using TEdgeType = IndexGraph::TEdgeType;
-  using TWeightType = IndexGraph::TWeightType;
-
-  // CheckGraphConnectivity() types aliases:
-  using Vertex = TVertexType;
-  using Edge = TEdgeType;
+  // AStarAlgorithm and CheckGraphConnectivity() types aliases:
+  using Vertex = IndexGraph::Vertex;
+  using Edge = IndexGraph::Edge;
+  using Weight = IndexGraph::Weight;
 
   enum class Mode
   {

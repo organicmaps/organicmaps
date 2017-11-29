@@ -124,7 +124,7 @@ bool FindCrossNode(CrossRoutingContextReader const & currentContext, CrossNode c
 template <class Fn>
 vector<BorderCross> const & ConstructBorderCrossImpl(
     TWrittenNodeId nodeId, TRoutingMappingPtr const & currentMapping,
-    unordered_map<CrossMwmRoadGraph::TCachingKey, vector<BorderCross>,
+    unordered_map<CrossMwmRoadGraph::CachingKey, vector<BorderCross>,
                   CrossMwmRoadGraph::Hash> const & cachedNextNodes,
     Fn && borderCrossConstructor)
 {

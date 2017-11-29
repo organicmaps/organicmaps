@@ -15,14 +15,13 @@
 
 namespace routing
 {
-template <typename TGraph>
+template <typename Graph>
 class AStarAlgorithm
 {
 public:
-  using TGraphType = TGraph;
-  using TVertexType = typename TGraphType::TVertexType;
-  using TEdgeType = typename TGraphType::TEdgeType;
-  using TWeightType = typename TGraphType::TWeightType;
+  using Vertex = typename Graph::Vertex;
+  using Edge = typename Graph::Edge;
+  using Weight = typename Graph::Weight;
 
   enum class Result
   {
@@ -48,11 +47,11 @@ public:
     return os;
   }
 
-  using OnVisitedVertexCallback = std::function<void(TVertexType const &, TVertexType const &)>;
+  using OnVisitedVertexCallback = std::function<void(Vertex const &, Vertex const &)>;
   // Callback used to check path length from start/finish to the edge (including the edge itself)
   // before adding the edge to AStar queue.
   // Can be used to clip some path which does not meet restrictions.
-  using CheckLengthCallback = std::function<bool(TWeightType const &)>;
+  using CheckLengthCallback = std::function<bool(Weight const &)>;
 
   class Context final
   {
@@ -63,12 +62,12 @@ public:
       m_parents.clear();
     }
 
-    bool HasDistance(TVertexType const & vertex) const
+    bool HasDistance(Vertex const & vertex) const
     {
       return m_distanceMap.find(vertex) != m_distanceMap.cend();
     }
 
-    TWeightType GetDistance(TVertexType const & vertex) const
+    Weight GetDistance(Vertex const & vertex) const
     {
       auto const & it = m_distanceMap.find(vertex);
       if (it == m_distanceMap.cend())
@@ -77,52 +76,48 @@ public:
       return it->second;
     }
 
-    void SetDistance(TVertexType const & vertex, TWeightType const & distance)
+    void SetDistance(Vertex const & vertex, Weight const & distance)
     {
       m_distanceMap[vertex] = distance;
     }
 
-    void SetParent(TVertexType const & parent, TVertexType const & child)
-    {
-      m_parents[parent] = child;
-    }
+    void SetParent(Vertex const & parent, Vertex const & child) { m_parents[parent] = child; }
 
-    void ReconstructPath(TVertexType const & v, std::vector<TVertexType> & path) const;
+    void ReconstructPath(Vertex const & v, std::vector<Vertex> & path) const;
 
   private:
-    std::map<TVertexType, TWeightType> m_distanceMap;
-    std::map<TVertexType, TVertexType> m_parents;
+    std::map<Vertex, Weight> m_distanceMap;
+    std::map<Vertex, Vertex> m_parents;
   };
 
   // VisitVertex returns true: wave will continue
   // VisitVertex returns false: wave will stop
   template <typename VisitVertex, typename AdjustEdgeWeight, typename FilterStates>
-  void PropagateWave(TGraphType & graph, TVertexType const & startVertex,
-                     VisitVertex && visitVertex, AdjustEdgeWeight && adjustEdgeWeight,
-                     FilterStates && filterStates, Context & context) const;
+  void PropagateWave(Graph & graph, Vertex const & startVertex, VisitVertex && visitVertex,
+                     AdjustEdgeWeight && adjustEdgeWeight, FilterStates && filterStates,
+                     Context & context) const;
 
   template <typename VisitVertex>
-  void PropagateWave(TGraphType & graph, TVertexType const & startVertex,
-                     VisitVertex && visitVertex, Context & context) const;
+  void PropagateWave(Graph & graph, Vertex const & startVertex, VisitVertex && visitVertex,
+                     Context & context) const;
 
-  Result FindPath(TGraphType & graph, TVertexType const & startVertex,
-                  TVertexType const & finalVertex, RoutingResult<TVertexType, TWeightType> & result,
+  Result FindPath(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
+                  RoutingResult<Vertex, Weight> & result,
                   my::Cancellable const & cancellable = my::Cancellable(),
                   OnVisitedVertexCallback onVisitedVertexCallback = {},
                   CheckLengthCallback checkLengthCallback = {}) const;
 
-  Result FindPathBidirectional(TGraphType & graph, TVertexType const & startVertex,
-                               TVertexType const & finalVertex,
-                               RoutingResult<TVertexType, TWeightType> & result,
+  Result FindPathBidirectional(Graph & graph, Vertex const & startVertex,
+                               Vertex const & finalVertex, RoutingResult<Vertex, Weight> & result,
                                my::Cancellable const & cancellable = my::Cancellable(),
                                OnVisitedVertexCallback onVisitedVertexCallback = {},
                                CheckLengthCallback checkLengthCallback = {}) const;
 
   // Adjust route to the previous one.
   // Expects |checkLengthCallback| to check wave propagation limit.
-  typename AStarAlgorithm<TGraph>::Result AdjustRoute(
-      TGraphType & graph, TVertexType const & startVertex, std::vector<TEdgeType> const & prevRoute,
-      RoutingResult<TVertexType, TWeightType> & result, my::Cancellable const & cancellable,
+  typename AStarAlgorithm<Graph>::Result AdjustRoute(
+      Graph & graph, Vertex const & startVertex, std::vector<Edge> const & prevRoute,
+      RoutingResult<Vertex, Weight> & result, my::Cancellable const & cancellable,
       OnVisitedVertexCallback onVisitedVertexCallback,
       CheckLengthCallback checkLengthCallback) const;
 
@@ -131,9 +126,9 @@ private:
   static uint32_t constexpr kQueueSwitchPeriod = 128;
 
   // Precision of comparison weights.
-  static TWeightType constexpr kEpsilon = GetAStarWeightEpsilon<TWeightType>();
-  static TWeightType constexpr kZeroDistance = GetAStarWeightZero<TWeightType>();
-  static TWeightType constexpr kInfiniteDistance = GetAStarWeightMax<TWeightType>();
+  static Weight constexpr kEpsilon = GetAStarWeightEpsilon<Weight>();
+  static Weight constexpr kZeroDistance = GetAStarWeightZero<Weight>();
+  static Weight constexpr kInfiniteDistance = GetAStarWeightMax<Weight>();
 
   class PeriodicPollCancellable final
   {
@@ -156,15 +151,12 @@ private:
   // comment for FindPath for more information.
   struct State
   {
-    State(TVertexType const & vertex, TWeightType const & distance)
-      : vertex(vertex), distance(distance)
-    {
-    }
+    State(Vertex const & vertex, Weight const & distance) : vertex(vertex), distance(distance) {}
 
     inline bool operator>(State const & rhs) const { return distance > rhs.distance; }
 
-    TVertexType vertex;
-    TWeightType distance;
+    Vertex vertex;
+    Weight distance;
   };
 
   // BidirectionalStepContext keeps all the information that is needed to
@@ -172,17 +164,20 @@ private:
   // purpose is to make the code that changes directions more readable.
   struct BidirectionalStepContext
   {
-    BidirectionalStepContext(bool forward, TVertexType const & startVertex,
-                             TVertexType const & finalVertex, TGraphType & graph)
-        : forward(forward), startVertex(startVertex), finalVertex(finalVertex), graph(graph)
-        , m_piRT(graph.HeuristicCostEstimate(finalVertex, startVertex))
-        , m_piFS(graph.HeuristicCostEstimate(startVertex, finalVertex))
+    BidirectionalStepContext(bool forward, Vertex const & startVertex, Vertex const & finalVertex,
+                             Graph & graph)
+      : forward(forward)
+      , startVertex(startVertex)
+      , finalVertex(finalVertex)
+      , graph(graph)
+      , m_piRT(graph.HeuristicCostEstimate(finalVertex, startVertex))
+      , m_piFS(graph.HeuristicCostEstimate(startVertex, finalVertex))
     {
       bestVertex = forward ? startVertex : finalVertex;
       pS = ConsistentHeuristic(bestVertex);
     }
 
-    TWeightType TopDistance() const
+    Weight TopDistance() const
     {
       ASSERT(!queue.empty(), ());
       return bestDistance.at(queue.top().vertex);
@@ -191,7 +186,7 @@ private:
     // p_f(v) = 0.5*(π_f(v) - π_r(v)) + 0.5*π_r(t)
     // p_r(v) = 0.5*(π_r(v) - π_f(v)) + 0.5*π_f(s)
     // p_r(v) + p_f(v) = const. Note: this condition is called consistence.
-    TWeightType ConsistentHeuristic(TVertexType const & v) const
+    Weight ConsistentHeuristic(Vertex const & v) const
     {
       auto const piF = graph.HeuristicCostEstimate(v, finalVertex);
       auto const piR = graph.HeuristicCostEstimate(v, startVertex);
@@ -209,7 +204,7 @@ private:
       }
     }
 
-    void GetAdjacencyList(TVertexType const & v, std::vector<TEdgeType> & adj)
+    void GetAdjacencyList(Vertex const & v, std::vector<Edge> & adj)
     {
       if (forward)
         graph.GetOutgoingEdgesList(v, adj);
@@ -218,43 +213,42 @@ private:
     }
 
     bool const forward;
-    TVertexType const & startVertex;
-    TVertexType const & finalVertex;
-    TGraph & graph;
-    TWeightType const m_piRT;
-    TWeightType const m_piFS;
+    Vertex const & startVertex;
+    Vertex const & finalVertex;
+    Graph & graph;
+    Weight const m_piRT;
+    Weight const m_piFS;
 
     std::priority_queue<State, std::vector<State>, std::greater<State>> queue;
-    std::map<TVertexType, TWeightType> bestDistance;
-    std::map<TVertexType, TVertexType> parent;
-    TVertexType bestVertex;
+    std::map<Vertex, Weight> bestDistance;
+    std::map<Vertex, Vertex> parent;
+    Vertex bestVertex;
 
-    TWeightType pS;
+    Weight pS;
   };
 
-  static void ReconstructPath(TVertexType const & v,
-                              std::map<TVertexType, TVertexType> const & parent,
-                              std::vector<TVertexType> & path);
-  static void ReconstructPathBidirectional(TVertexType const & v, TVertexType const & w,
-                                           std::map<TVertexType, TVertexType> const & parentV,
-                                           std::map<TVertexType, TVertexType> const & parentW,
-                                           std::vector<TVertexType> & path);
+  static void ReconstructPath(Vertex const & v, std::map<Vertex, Vertex> const & parent,
+                              std::vector<Vertex> & path);
+  static void ReconstructPathBidirectional(Vertex const & v, Vertex const & w,
+                                           std::map<Vertex, Vertex> const & parentV,
+                                           std::map<Vertex, Vertex> const & parentW,
+                                           std::vector<Vertex> & path);
 };
 
-template <typename TGraph>
-constexpr typename TGraph::TWeightType AStarAlgorithm<TGraph>::kEpsilon;
-template <typename TGraph>
-constexpr typename TGraph::TWeightType AStarAlgorithm<TGraph>::kInfiniteDistance;
-template <typename TGraph>
-constexpr typename TGraph::TWeightType AStarAlgorithm<TGraph>::kZeroDistance;
+template <typename Graph>
+constexpr typename Graph::Weight AStarAlgorithm<Graph>::kEpsilon;
+template <typename Graph>
+constexpr typename Graph::Weight AStarAlgorithm<Graph>::kInfiniteDistance;
+template <typename Graph>
+constexpr typename Graph::Weight AStarAlgorithm<Graph>::kZeroDistance;
 
-template <typename TGraph>
+template <typename Graph>
 template <typename VisitVertex, typename AdjustEdgeWeight, typename FilterStates>
-void AStarAlgorithm<TGraph>::PropagateWave(TGraphType & graph, TVertexType const & startVertex,
-                                           VisitVertex && visitVertex,
-                                           AdjustEdgeWeight && adjustEdgeWeight,
-                                           FilterStates && filterStates,
-                                           AStarAlgorithm<TGraph>::Context & context) const
+void AStarAlgorithm<Graph>::PropagateWave(Graph & graph, Vertex const & startVertex,
+                                          VisitVertex && visitVertex,
+                                          AdjustEdgeWeight && adjustEdgeWeight,
+                                          FilterStates && filterStates,
+                                          AStarAlgorithm<Graph>::Context & context) const
 {
   context.Clear();
 
@@ -263,7 +257,7 @@ void AStarAlgorithm<TGraph>::PropagateWave(TGraphType & graph, TVertexType const
   context.SetDistance(startVertex, kZeroDistance);
   queue.push(State(startVertex, kZeroDistance));
 
-  std::vector<TEdgeType> adj;
+  std::vector<Edge> adj;
 
   while (!queue.empty())
   {
@@ -301,13 +295,13 @@ void AStarAlgorithm<TGraph>::PropagateWave(TGraphType & graph, TVertexType const
   }
 }
 
-template <typename TGraph>
+template <typename Graph>
 template <typename VisitVertex>
-void AStarAlgorithm<TGraph>::PropagateWave(TGraphType & graph, TVertexType const & startVertex,
-                                           VisitVertex && visitVertex,
-                                           AStarAlgorithm<TGraph>::Context & context) const
+void AStarAlgorithm<Graph>::PropagateWave(Graph & graph, Vertex const & startVertex,
+                                          VisitVertex && visitVertex,
+                                          AStarAlgorithm<Graph>::Context & context) const
 {
-  auto const adjustEdgeWeight = [](TVertexType const & /* vertex */, TEdgeType const & edge) {
+  auto const adjustEdgeWeight = [](Vertex const & /* vertex */, Edge const & edge) {
     return edge.GetWeight();
   };
   auto const filterStates = [](State const & /* state */) { return true; };
@@ -325,39 +319,39 @@ void AStarAlgorithm<TGraph>::PropagateWave(TGraphType & graph, TVertexType const
 // http://research.microsoft.com/pubs/154937/soda05.pdf
 // http://www.cs.princeton.edu/courses/archive/spr06/cos423/Handouts/EPP%20shortest%20path%20algorithms.pdf
 
-template <typename TGraph>
-typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
-    TGraphType & graph, TVertexType const & startVertex, TVertexType const & finalVertex,
-    RoutingResult<TVertexType, TWeightType> & result, my::Cancellable const & cancellable,
+template <typename Graph>
+typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPath(
+    Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
+    RoutingResult<Vertex, Weight> & result, my::Cancellable const & cancellable,
     OnVisitedVertexCallback onVisitedVertexCallback, CheckLengthCallback checkLengthCallback) const
 {
   result.Clear();
   if (onVisitedVertexCallback == nullptr)
-    onVisitedVertexCallback = [](TVertexType const &, TVertexType const &) {};
+    onVisitedVertexCallback = [](Vertex const &, Vertex const &) {};
 
   if (checkLengthCallback == nullptr)
-    checkLengthCallback = [](TWeightType const & /* weight */) { return true; };
+    checkLengthCallback = [](Weight const & /* weight */) { return true; };
 
   Context context;
   PeriodicPollCancellable periodicCancellable(cancellable);
   Result resultCode = Result::NoPath;
 
-  auto const heuristicDiff = [&](TVertexType const & vertexFrom, TVertexType const & vertexTo) {
+  auto const heuristicDiff = [&](Vertex const & vertexFrom, Vertex const & vertexTo) {
     return graph.HeuristicCostEstimate(vertexFrom, finalVertex) -
            graph.HeuristicCostEstimate(vertexTo, finalVertex);
   };
 
-  auto const fullToReducedLength = [&](TVertexType const & vertexFrom, TVertexType const & vertexTo,
-                                       TWeightType const length) {
+  auto const fullToReducedLength = [&](Vertex const & vertexFrom, Vertex const & vertexTo,
+                                       Weight const length) {
     return length - heuristicDiff(vertexFrom, vertexTo);
   };
 
-  auto const reducedToFullLength = [&](TVertexType const & vertexFrom, TVertexType const & vertexTo,
-                                       TWeightType const reducedLength) {
+  auto const reducedToFullLength = [&](Vertex const & vertexFrom, Vertex const & vertexTo,
+                                       Weight const reducedLength) {
     return reducedLength + heuristicDiff(vertexFrom, vertexTo);
   };
 
-  auto visitVertex = [&](TVertexType const & vertex) {
+  auto visitVertex = [&](Vertex const & vertex) {
     if (periodicCancellable.IsCancelled())
     {
       resultCode = Result::Cancelled;
@@ -375,7 +369,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     return true;
   };
 
-  auto const adjustEdgeWeight = [&](TVertexType const & vertexV, TEdgeType const & edge) {
+  auto const adjustEdgeWeight = [&](Vertex const & vertexV, Edge const & edge) {
     auto const reducedWeight = fullToReducedLength(vertexV, edge.GetTarget(), edge.GetWeight());
 
     CHECK_GREATER_OR_EQUAL(reducedWeight, -kEpsilon, ("Invariant violated."));
@@ -402,17 +396,17 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
   return resultCode;
 }
 
-template <typename TGraph>
-typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirectional(
-    TGraphType & graph, TVertexType const & startVertex, TVertexType const & finalVertex,
-    RoutingResult<TVertexType, TWeightType> & result, my::Cancellable const & cancellable,
+template <typename Graph>
+typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectional(
+    Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
+    RoutingResult<Vertex, Weight> & result, my::Cancellable const & cancellable,
     OnVisitedVertexCallback onVisitedVertexCallback, CheckLengthCallback checkLengthCallback) const
 {
   if (onVisitedVertexCallback == nullptr)
-    onVisitedVertexCallback = [](TVertexType const &, TVertexType const &){};
+    onVisitedVertexCallback = [](Vertex const &, Vertex const &) {};
 
   if (checkLengthCallback == nullptr)
-    checkLengthCallback = [](TWeightType const & /* weight */) { return true; };
+    checkLengthCallback = [](Weight const & /* weight */) { return true; };
 
   BidirectionalStepContext forward(true /* forward */, startVertex, finalVertex, graph);
   BidirectionalStepContext backward(false /* forward */, startVertex, finalVertex, graph);
@@ -434,7 +428,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
   BidirectionalStepContext * cur = &forward;
   BidirectionalStepContext * nxt = &backward;
 
-  std::vector<TEdgeType> adj;
+  std::vector<Edge> adj;
 
   // It is not necessary to check emptiness for both queues here
   // because if we have not found a path by the time one of the
@@ -546,10 +540,10 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
   return Result::NoPath;
 }
 
-template <typename TGraph>
-typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::AdjustRoute(
-    TGraphType & graph, TVertexType const & startVertex, std::vector<TEdgeType> const & prevRoute,
-    RoutingResult<TVertexType, TWeightType> & result, my::Cancellable const & cancellable,
+template <typename Graph>
+typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::AdjustRoute(
+    Graph & graph, Vertex const & startVertex, std::vector<Edge> const & prevRoute,
+    RoutingResult<Vertex, Weight> & result, my::Cancellable const & cancellable,
     OnVisitedVertexCallback onVisitedVertexCallback, CheckLengthCallback checkLengthCallback) const
 {
   CHECK(!prevRoute.empty(), ());
@@ -559,13 +553,13 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::AdjustRoute(
 
   result.Clear();
   if (onVisitedVertexCallback == nullptr)
-    onVisitedVertexCallback = [](TVertexType const &, TVertexType const &) {};
+    onVisitedVertexCallback = [](Vertex const &, Vertex const &) {};
 
   bool wasCancelled = false;
   auto minDistance = kInfiniteDistance;
-  TVertexType returnVertex;
+  Vertex returnVertex;
 
-  std::map<TVertexType, TWeightType> remainingDistances;
+  std::map<Vertex, Weight> remainingDistances;
   auto remainingDistance = kZeroDistance;
 
   for (auto it = prevRoute.crbegin(); it != prevRoute.crend(); ++it)
@@ -577,7 +571,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::AdjustRoute(
   Context context;
   PeriodicPollCancellable periodicCancellable(cancellable);
 
-  auto visitVertex = [&](TVertexType const & vertex) {
+  auto visitVertex = [&](Vertex const & vertex) {
 
     if (periodicCancellable.IsCancelled())
     {
@@ -601,7 +595,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::AdjustRoute(
     return true;
   };
 
-  auto const adjustEdgeWeight = [](TVertexType const & /* vertex */, TEdgeType const & edge) {
+  auto const adjustEdgeWeight = [](Vertex const & /* vertex */, Edge const & edge) {
     return edge.GetWeight();
   };
 
@@ -642,13 +636,13 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::AdjustRoute(
 }
 
 // static
-template <typename TGraph>
-void AStarAlgorithm<TGraph>::ReconstructPath(TVertexType const & v,
-                                             std::map<TVertexType, TVertexType> const & parent,
-                                             std::vector<TVertexType> & path)
+template <typename Graph>
+void AStarAlgorithm<Graph>::ReconstructPath(Vertex const & v,
+                                            std::map<Vertex, Vertex> const & parent,
+                                            std::vector<Vertex> & path)
 {
   path.clear();
-  TVertexType cur = v;
+  Vertex cur = v;
   while (true)
   {
     path.push_back(cur);
@@ -661,15 +655,15 @@ void AStarAlgorithm<TGraph>::ReconstructPath(TVertexType const & v,
 }
 
 // static
-template <typename TGraph>
-void AStarAlgorithm<TGraph>::ReconstructPathBidirectional(
-    TVertexType const & v, TVertexType const & w,
-    std::map<TVertexType, TVertexType> const & parentV,
-    std::map<TVertexType, TVertexType> const & parentW, std::vector<TVertexType> & path)
+template <typename Graph>
+void AStarAlgorithm<Graph>::ReconstructPathBidirectional(Vertex const & v, Vertex const & w,
+                                                         std::map<Vertex, Vertex> const & parentV,
+                                                         std::map<Vertex, Vertex> const & parentW,
+                                                         std::vector<Vertex> & path)
 {
-  std::vector<TVertexType> pathV;
+  std::vector<Vertex> pathV;
   ReconstructPath(v, parentV, pathV);
-  std::vector<TVertexType> pathW;
+  std::vector<Vertex> pathW;
   ReconstructPath(w, parentW, pathW);
   path.clear();
   path.reserve(pathV.size() + pathW.size());
@@ -677,10 +671,10 @@ void AStarAlgorithm<TGraph>::ReconstructPathBidirectional(
   path.insert(path.end(), pathW.rbegin(), pathW.rend());
 }
 
-template <typename TGraph>
-void AStarAlgorithm<TGraph>::Context::ReconstructPath(TVertexType const & v,
-                                                      std::vector<TVertexType> & path) const
+template <typename Graph>
+void AStarAlgorithm<Graph>::Context::ReconstructPath(Vertex const & v,
+                                                     std::vector<Vertex> & path) const
 {
-  AStarAlgorithm<TGraph>::ReconstructPath(v, m_parents, path);
+  AStarAlgorithm<Graph>::ReconstructPath(v, m_parents, path);
 }
 }  // namespace routing

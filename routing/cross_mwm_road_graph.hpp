@@ -123,14 +123,14 @@ private:
 class CrossMwmRoadGraph final
 {
 public:
-  using TCachingKey = pair<TWrittenNodeId, Index::MwmId>;
-  using TVertexType = BorderCross;
-  using TEdgeType = CrossWeightedEdge;
-  using TWeightType = double;
+  using CachingKey = pair<TWrittenNodeId, Index::MwmId>;
+  using Vertex = BorderCross;
+  using Edge = CrossWeightedEdge;
+  using Weight = double;
 
   struct Hash
   {
-    size_t operator()(TCachingKey const & p) const
+    size_t operator()(CachingKey const & p) const
     {
       return hash<TWrittenNodeId>()(p.first) ^ hash<string>()(p.second.GetInfo()->GetCountryName());
     }
@@ -181,8 +181,8 @@ private:
   mutable RoutingIndexManager m_indexManager;
 
   // @TODO(bykoianko) Consider removing key work mutable.
-  mutable unordered_map<TCachingKey, vector<BorderCross>, Hash> m_cachedNextNodesByIngoing;
-  mutable unordered_map<TCachingKey, vector<BorderCross>, Hash> m_cachedNextNodesByOutgoing;
+  mutable unordered_map<CachingKey, vector<BorderCross>, Hash> m_cachedNextNodesByIngoing;
+  mutable unordered_map<CachingKey, vector<BorderCross>, Hash> m_cachedNextNodesByOutgoing;
 };
 
 //--------------------------------------------------------------------------------------------------

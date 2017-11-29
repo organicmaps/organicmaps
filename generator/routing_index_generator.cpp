@@ -151,27 +151,27 @@ class DijkstraWrapper final
 {
 public:
   // AStarAlgorithm types aliases:
-  using TVertexType = Segment;
-  using TEdgeType = SegmentEdge;
-  using TWeightType = RouteWeight;
+  using Vertex = Segment;
+  using Edge = SegmentEdge;
+  using Weight = RouteWeight;
 
   explicit DijkstraWrapper(IndexGraph & graph) : m_graph(graph) {}
 
-  void GetOutgoingEdgesList(TVertexType const & vertex, vector<TEdgeType> & edges)
+  void GetOutgoingEdgesList(Vertex const & vertex, vector<Edge> & edges)
   {
     edges.clear();
     m_graph.GetEdgeList(vertex, true /* isOutgoing */, edges);
   }
 
-  void GetIngoingEdgesList(TVertexType const & vertex, vector<TEdgeType> & edges)
+  void GetIngoingEdgesList(Vertex const & vertex, vector<Edge> & edges)
   {
     edges.clear();
     m_graph.GetEdgeList(vertex, false /* isOutgoing */, edges);
   }
 
-  TWeightType HeuristicCostEstimate(TVertexType const & /* from */, TVertexType const & /* to */)
+  Weight HeuristicCostEstimate(Vertex const & /* from */, Vertex const & /* to */)
   {
-    return GetAStarWeightZero<TWeightType>();
+    return GetAStarWeightZero<Weight>();
   }
 
 private:

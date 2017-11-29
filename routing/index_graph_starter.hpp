@@ -30,9 +30,9 @@ class IndexGraphStarter final
 {
 public:
   // AStarAlgorithm types aliases:
-  using TVertexType = IndexGraph::TVertexType;
-  using TEdgeType = IndexGraph::TEdgeType;
-  using TWeightType = IndexGraph::TWeightType;
+  using Vertex = IndexGraph::Vertex;
+  using Edge = IndexGraph::Edge;
+  using Weight = IndexGraph::Weight;
 
   friend class FakeEdgesContainer;
 
@@ -81,17 +81,17 @@ public:
   void GetEdgesList(Segment const & segment, bool isOutgoing,
                     std::vector<SegmentEdge> & edges) const;
 
-  void GetOutgoingEdgesList(TVertexType const & segment, std::vector<TEdgeType> & edges) const
+  void GetOutgoingEdgesList(Vertex const & segment, std::vector<Edge> & edges) const
   {
     GetEdgesList(segment, true /* isOutgoing */, edges);
   }
 
-  void GetIngoingEdgesList(TVertexType const & segment, std::vector<TEdgeType> & edges) const
+  void GetIngoingEdgesList(Vertex const & segment, std::vector<Edge> & edges) const
   {
     GetEdgesList(segment, false /* isOutgoing */, edges);
   }
 
-  RouteWeight HeuristicCostEstimate(TVertexType const & from, TVertexType const & to) const
+  RouteWeight HeuristicCostEstimate(Vertex const & from, Vertex const & to) const
   {
     return m_graph.HeuristicCostEstimate(GetPoint(from, true /* front */),
                                          GetPoint(to, true /* front */));
