@@ -22,6 +22,7 @@
 
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
+#include "coding/file_writer.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
@@ -208,7 +209,7 @@ namespace routing
 namespace transit
 {
 // DeserializerFromJson ---------------------------------------------------------------------------
-DeserializerFromJson::DeserializerFromJson(json_struct_t* node,
+DeserializerFromJson::DeserializerFromJson(json_struct_t * node,
                                            OsmIdToFeatureIdsMap const & osmIdToFeatureIds)
     : m_node(node), m_osmIdToFeatureIds(osmIdToFeatureIds)
 {
@@ -274,13 +275,13 @@ void GraphData::DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap 
   Visit(deserializer);
 }
 
-void GraphData::SerializeToMwm(FileWriter & writer) const
+void GraphData::SerializeToMwm(Writer & writer) const
 {
   TransitHeader header;
 
   auto const startOffset = writer.Pos();
-  Serializer<FileWriter> serializer(writer);
-  FixedSizeSerializer<FileWriter> numberSerializer(writer);
+  Serializer<Writer> serializer(writer);
+  FixedSizeSerializer<Writer> numberSerializer(writer);
   numberSerializer(header);
   header.m_stopsOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
@@ -313,6 +314,47 @@ void GraphData::SerializeToMwm(FileWriter & writer) const
   writer.Seek(endOffset);
 
   LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Header:", header));
+}
+
+void GraphData::DeserializeForTesting(MemReader & reader)
+{
+  ReaderSource<MemReader> src(reader);
+  transit::Deserializer<ReaderSource<MemReader>> deserializer(src);
+  transit::FixedSizeDeserializer<ReaderSource<MemReader>> numberDeserializer(src);
+
+  transit::TransitHeader header;
+  numberDeserializer(header);
+  CHECK(header.IsValid(), ());
+
+  CHECK_EQUAL(src.Pos(), header.m_stopsOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_stops);
+  CHECK(transit::IsValid(m_stops), ());
+
+  CHECK_EQUAL(src.Pos(), header.m_gatesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_gates);
+  CHECK(transit::IsValid(m_gates), ());
+
+  CHECK_EQUAL(src.Pos(), header.m_edgesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_edges);
+  CHECK(transit::IsValid(m_edges), ());
+
+  CHECK_EQUAL(src.Pos(), header.m_transfersOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_transfers);
+  CHECK(transit::IsValid(m_transfers), ());
+
+  CHECK_EQUAL(src.Pos(), header.m_linesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_lines);
+  CHECK(transit::IsValid(m_lines), ());
+
+  CHECK_EQUAL(src.Pos(), header.m_shapesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_shapes);
+  CHECK(transit::IsValid(m_shapes), ());
+
+  CHECK_EQUAL(src.Pos(), header.m_networksOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_networks);
+  CHECK(transit::IsValid(m_networks), ());
+
+  CHECK_EQUAL(src.Pos(), header.m_endOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
 }
 
 void GraphData::AppendTo(GraphData const & rhs)

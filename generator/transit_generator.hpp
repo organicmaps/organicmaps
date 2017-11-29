@@ -7,7 +7,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/region2d.hpp"
 
-#include "coding/file_writer.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
 #include "base/macros.hpp"
 #include "base/osm_id.hpp"
@@ -30,7 +31,7 @@ using OsmIdToFeatureIdsMap = std::map<osm::Id, std::vector<FeatureId>>;
 class DeserializerFromJson
 {
 public:
-  DeserializerFromJson(json_struct_t* node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds);
+  DeserializerFromJson(json_struct_t * node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds);
 
   template <typename T>
   typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value ||
@@ -126,7 +127,8 @@ class GraphData
 {
 public:
   void DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping);
-  void SerializeToMwm(FileWriter & writer) const;
+  void SerializeToMwm(Writer & writer) const;
+  void DeserializeForTesting(MemReader & reader);
   void AppendTo(GraphData const & rhs);
   void Clear();
   bool IsValid() const;
