@@ -37,7 +37,6 @@ def normalize_data(data):
     data['DistanceToPivot'] = data['DistanceToPivot'].apply(transform_distance)
     data['Rank'] = data['Rank'].apply(lambda v: v / MAX_RANK)
     data['Relevance'] = data['Relevance'].apply(lambda v: RELEVANCES[v])
-    data['AllTokensUsed'] = data['AllTokensUsed'].apply(lambda v : +1 if bool(v) else -1)
 
     cats = data['PureCats'].combine(data['FalseCats'], max)
 

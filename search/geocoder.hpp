@@ -167,49 +167,41 @@ private:
   inline void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
   // A fast-path branch for categorial requests.
-  // Returns the number of emitted results.
-  size_t MatchCategories(BaseContext & ctx, bool aroundPivot);
+  void MatchCategories(BaseContext & ctx, bool aroundPivot);
 
   // Tries to find all countries and states in a search query and then
   // performs matching of cities in found maps.
-  // Returns the number of emitted results.
-  size_t MatchRegions(BaseContext & ctx, Region::Type type);
+  void MatchRegions(BaseContext & ctx, Region::Type type);
 
   // Tries to find all cities in a search query and then performs
   // matching of streets in found cities.
-  // Returns the number of emitted results.
-  size_t MatchCities(BaseContext & ctx);
+  void MatchCities(BaseContext & ctx);
 
   // Tries to do geocoding without localities, ie. find POIs,
   // BUILDINGs and STREETs without knowledge about country, state,
   // city or village. If during the geocoding too many features are
   // retrieved, viewport is used to throw away excess features.
-  // Returns the number of emitted results.
-  size_t MatchAroundPivot(BaseContext & ctx);
+  void MatchAroundPivot(BaseContext & ctx);
 
   // Tries to do geocoding in a limited scope, assuming that knowledge
   // about high-level features, like cities or countries, is
   // incorporated into |filter|.
-  // Returns the number of emitted results.
-  size_t LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter);
+  void LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter);
 
   template <typename TFn>
   void WithPostcodes(BaseContext & ctx, TFn && fn);
 
   // Tries to match some adjacent tokens in the query as streets and
   // then performs geocoding in street vicinities.
-  // Returns the number of emitted results.
-  size_t GreedilyMatchStreets(BaseContext & ctx);
+  void GreedilyMatchStreets(BaseContext & ctx);
 
-  // Returns the number of emitted results.
-  size_t CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
-                                               StreetsMatcher::Prediction const & prediction);
+  void CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
+                                             StreetsMatcher::Prediction const & prediction);
 
   // Tries to find all paths in a search tree, where each edge is
   // marked with some substring of the query tokens. These paths are
   // called "layer sequence" and current path is stored in |m_layers|.
-  // Returns the number of emitted results.
-  size_t MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken);
+  void MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken);
 
   // Returns true if current path in the search tree (see comment for
   // MatchPOIsAndBuildings()) looks sane. This method is used as a fast
@@ -218,26 +210,24 @@ private:
 
   // Finds all paths through layers and emits reachable features from
   // the lowest layer.
-  // Returns the number of emitted results.
-  size_t FindPaths(BaseContext const & ctx);
+  void FindPaths(BaseContext & ctx);
 
   void TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::MwmId const & mwmId,
                    uint32_t ftId, Model::Type type, TokenRange const & tokenRange);
 
   // Forms result and feeds it to |m_preRanker|.
-  void EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
-                  Model::Type type, TokenRange const & tokenRange,
-                  IntersectionResult const * geoParts, bool allTokensUsed);
-  void EmitResult(BaseContext const & ctx, Region const & region, TokenRange const & tokenRange,
+  void EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId, Model::Type type,
+                  TokenRange const & tokenRange, IntersectionResult const * geoParts,
                   bool allTokensUsed);
-  void EmitResult(BaseContext const & ctx, City const & city, TokenRange const & tokenRange,
+  void EmitResult(BaseContext & ctx, Region const & region, TokenRange const & tokenRange,
+                  bool allTokensUsed);
+  void EmitResult(BaseContext & ctx, City const & city, TokenRange const & tokenRange,
                   bool allTokensUsed);
 
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all
   // UNCLASSIFIED objects that match to all currently unused tokens.
-  // Returns the number of emitted results.
-  size_t MatchUnclassified(BaseContext & ctx, size_t curToken);
+  void MatchUnclassified(BaseContext & ctx, size_t curToken);
 
   // A wrapper around RetrievePostcodeFeatures.
   CBV RetrievePostcodeFeatures(MwmContext const & context, TokenSlice const & slice);

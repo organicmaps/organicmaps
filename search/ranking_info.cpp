@@ -12,26 +12,26 @@ namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
-double const kDistanceToPivot = -0.3359819;
-double const kRank = 0.3886029;
-double const kFalseCats = 0.0000000;
-double const kErrorsMade = 0.0201364;
+double const kDistanceToPivot = -0.1940753;
+double const kRank = 0.6904166;
+double const kFalseCats = -0.0944214;
+double const kErrorsMade = -0.0167366;
 double const kAllTokensUsed = 1.0000000;
 double const kNameScore[NameScore::NAME_SCORE_COUNT] = {
-  -0.6731264 /* Zero */,
-  0.2244507 /* Substring */,
-  0.2141080 /* Prefix */,
-  0.2345677 /* Full Match */
+  -0.0704004 /* Zero */,
+  0.0178957 /* Substring */,
+  0.0274588 /* Prefix */,
+  0.0250459 /* Full Match */
 };
 double const kType[Model::TYPE_COUNT] = {
-  -0.1749965 /* POI */,
-  -0.1749965 /* Building */,
-  -0.0777042 /* Street */,
-  -0.0695158 /* Unclassified */,
-  -0.1233553 /* Village */,
-  0.0391744 /* City */,
-  0.1592614 /* State */,
-  0.2471361 /* Country */
+  -0.0164093 /* POI */,
+  -0.0164093 /* Building */,
+  0.0067338 /* Street */,
+  0.0388209 /* Unclassified */,
+  -0.0599702 /* Village */,
+  -0.0996292 /* City */,
+  0.0929370 /* State */,
+  0.0375170 /* Country */
 };
 
 double TransformDistance(double distance)
@@ -113,7 +113,7 @@ double RankingInfo::GetLinearModelRank() const
   result += kErrorsMade * GetErrorsMade();
   result += kType[m_type];
   result += m_falseCats * kFalseCats;
-  result += (m_allTokensUsed ? +1.0 : -1.0) * kAllTokensUsed;
+  result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
   return result;
 }
 
