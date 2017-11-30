@@ -25,6 +25,8 @@
 #include "storage/index.hpp"
 #include "storage/storage.hpp"
 
+#include "base/control_flow.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/iostream.hpp"
 
@@ -120,10 +122,9 @@ string BuildUniqueId(ms::LatLon const & coords, string const & name)
 void AppendNames(FeatureType const & f, vector<string> & columns)
 {
   vector<string> names(kLangCount);
-  f.GetNames().ForEach([&names](int8_t code, string const & name) -> bool
-  {
+  f.GetNames().ForEach([&names](int8_t code, string const & name) -> base::ControlFlow {
     names[code] = string(name);
-    return true;
+    return base::ControlFlow::Continue;
   });
   columns.insert(columns.end(), next(names.begin()), names.end());
 }

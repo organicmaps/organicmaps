@@ -25,6 +25,7 @@
 #include "coding/reader_wrapper.hpp"
 
 #include "base/checked_cast.hpp"
+#include "base/control_flow.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/utility.hpp"
@@ -160,15 +161,15 @@ bool MatchFeatureByNameAndType(FeatureType const & ft, SearchTrieRequest<DFA> co
   bool matched = false;
   ft.ForEachName([&](int8_t lang, string const & name) {
     if (name.empty() || !request.IsLangExist(lang))
-      return true /* continue ForEachName */;
+      return base::ControlFlow::Continue;
 
     vector<UniString> tokens;
     NormalizeAndTokenizeString(name, tokens, Delimiters());
     if (!MatchesByName(tokens, request.m_names) && !MatchesByType(th, request.m_categories))
-      return true /* continue ForEachName */;
+      return base::ControlFlow::Continue;
 
     matched = true;
-    return false /* break ForEachName */;
+    return base::ControlFlow::Break;
   });
 
   return matched;

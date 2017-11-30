@@ -4,6 +4,8 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/editable_map_object.hpp"
 
+#include "base/control_flow.hpp"
+
 namespace
 {
 using osm::EditableMapObject;
@@ -27,7 +29,7 @@ string DebugPrint(ExpectedName const & expectedName)
 void CheckExpectations(StringUtf8Multilang const & s, vector<ExpectedName> const & expectations)
 {
   size_t counter = 0;
-  s.ForEach([&expectations, &counter](int8_t const code, string const & name) {
+  s.ForEach([&expectations, &counter](int8_t const code, string const & name) -> base::ControlFlow {
     auto const it = find_if(expectations.begin(), expectations.end(), [&code](ExpectedName const & item)
     {
       return GetLangCode(item.m_lang.c_str()) == code;
@@ -38,7 +40,7 @@ void CheckExpectations(StringUtf8Multilang const & s, vector<ExpectedName> const
 
     TEST_EQUAL(name, it->m_value, ());
     ++counter;
-    return true;
+    return base::ControlFlow::Continue;
   });
 
   TEST_EQUAL(counter, expectations.size(), ("Unexpected count of names, expected ", expectations.size(),
@@ -579,9 +581,9 @@ UNIT_TEST(EditableMapObject_RemoveBlankNames)
 {
   auto const getCountOfNames = [](StringUtf8Multilang const & names) {
     size_t counter = 0;
-    names.ForEach([&counter](int8_t const, string const &) {
+    names.ForEach([&counter](int8_t const, string const &) -> base::ControlFlow {
       ++counter;
-      return true;
+      return base::ControlFlow::Continue;
     });
 
     return counter;

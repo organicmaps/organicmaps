@@ -11,6 +11,7 @@
 #include "coding/transliteration.hpp"
 
 #include "base/base.hpp"
+#include "base/control_flow.hpp"
 
 #include "std/unordered_map.hpp"
 #include "std/utility.hpp"
@@ -78,10 +79,10 @@ bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
   src.ForEach([&](int8_t code, string const & name)
   {
     if (bestIndex == 0)
-      return false;
+      return base::ControlFlow::Break;
 
     findAndSet(priorityList, code, name, bestIndex, out);
-    return true;
+    return base::ControlFlow::Continue;
   });
 
   // There are many "junk" names in Arabian island.

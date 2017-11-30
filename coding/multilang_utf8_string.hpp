@@ -5,6 +5,7 @@
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
+#include "base/control_flow.hpp"
 
 #include "std/array.hpp"
 #include "std/string.hpp"
@@ -97,7 +98,7 @@ public:
     while (i < sz)
     {
       size_t const next = GetNextIndex(i);
-      if (!fn((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)))
+      if (fn((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)) == base::ControlFlow::Break)
         return;
       i = next;
     }

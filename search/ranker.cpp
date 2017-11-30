@@ -11,6 +11,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/search_string_utils.hpp"
 
+#include "base/control_flow.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
@@ -514,14 +515,14 @@ void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
 void Ranker::GetBestMatchName(FeatureType const & f, string & name) const
 {
   KeywordLangMatcher::Score bestScore;
-  auto bestNameFinder = [&](int8_t lang, string const & s) -> bool {
+  auto bestNameFinder = [&](int8_t lang, string const & s) -> base::ControlFlow {
     auto const score = m_keywordsScorer.CalcScore(lang, s);
     if (bestScore < score)
     {
       bestScore = score;
       name = s;
     }
-    return true;
+    return base::ControlFlow::Continue;
   };
   UNUSED_VALUE(f.ForEachName(bestNameFinder));
 }

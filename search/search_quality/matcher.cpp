@@ -9,6 +9,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/control_flow.hpp"
 #include "base/stl_add.hpp"
 
 namespace search
@@ -68,9 +69,9 @@ bool Matcher::Matches(Sample::Result const & golden, FeatureType & ft)
       if (golden.m_name == strings::MakeUniString(name))
       {
         nameMatches = true;
-        return false;  // breaks the loop
+        return base::ControlFlow::Break;
       }
-      return true;  // continues the loop
+      return base::ControlFlow::Continue;
     });
   }
 

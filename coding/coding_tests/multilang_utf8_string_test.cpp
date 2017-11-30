@@ -2,49 +2,65 @@
 
 #include "coding/multilang_utf8_string.hpp"
 
-#include "3party/utfcpp/source/utf8.h"
+#include "base/control_flow.hpp"
 
+#include "3party/utfcpp/source/utf8.h"
 
 namespace
 {
-  struct lang_string
-  {
-    char const * m_lang;
-    char const * m_str;
-  };
+struct lang_string
+{
+  char const * m_lang;
+  char const * m_str;
+};
 
-  void TestMultilangString(lang_string const * arr, size_t count)
-  {
-    StringUtf8Multilang s;
-
-    for (size_t i = 0; i < count; ++i)
-    {
-      string src(arr[i].m_str);
-      TEST(utf8::is_valid(src.begin(), src.end()), ());
-
-      s.AddString(arr[i].m_lang, src);
-
-      string comp;
-      TEST(s.GetString(arr[i].m_lang, comp), ());
-      TEST_EQUAL(src, comp, ());
-    }
-
-    for (size_t i = 0; i < count; ++i)
-    {
-      string comp;
-      TEST(s.GetString(arr[i].m_lang, comp), ());
-      TEST_EQUAL(arr[i].m_str, comp, ());
-    }
-
-    string test;
-    TEST(!s.GetString("xxx", test), ());
-  }
-}
-
-lang_string gArr[] = { {"default", "default"},
+lang_string gArr[] = {{"default", "default"},
                       {"en", "abcd"},
                       {"ru", "\xD0\xA0\xD0\xB0\xD1\x88\xD0\xBA\xD0\xB0"},
-                      {"be", "\xE2\x82\xAC\xF0\xA4\xAD\xA2"} };
+                      {"be", "\xE2\x82\xAC\xF0\xA4\xAD\xA2"}};
+
+struct LangChecker
+{
+  LangChecker() = default;
+
+  base::ControlFlow operator()(char lang, string const & utf8s)
+  {
+    TEST_EQUAL(lang, StringUtf8Multilang::GetLangIndex(gArr[m_index].m_lang), ());
+    TEST_EQUAL(utf8s, gArr[m_index].m_str, ());
+    ++m_index;
+    return base::ControlFlow::Continue;
+  }
+
+  size_t m_index = 0;
+};
+
+void TestMultilangString(lang_string const * arr, size_t count)
+{
+  StringUtf8Multilang s;
+
+  for (size_t i = 0; i < count; ++i)
+  {
+    string src(arr[i].m_str);
+    TEST(utf8::is_valid(src.begin(), src.end()), ());
+
+    s.AddString(arr[i].m_lang, src);
+
+    string comp;
+    TEST(s.GetString(arr[i].m_lang, comp), ());
+    TEST_EQUAL(src, comp, ());
+  }
+
+  for (size_t i = 0; i < count; ++i)
+  {
+    string comp;
+    TEST(s.GetString(arr[i].m_lang, comp), ());
+    TEST_EQUAL(arr[i].m_str, comp, ());
+  }
+
+  string test;
+  TEST(!s.GetString("xxx", test), ());
+}
+}  // namespace
 
 UNIT_TEST(MultilangString_Smoke)
 {
@@ -52,21 +68,6 @@ UNIT_TEST(MultilangString_Smoke)
 
   TestMultilangString(gArr, ARRAY_SIZE(gArr));
 }
-
-class LangChecker
-{
-  size_t m_index;
-
-public:
-  LangChecker() : m_index(0) {}
-  bool operator() (char lang, string const & utf8s)
-  {
-    TEST_EQUAL(lang, StringUtf8Multilang::GetLangIndex(gArr[m_index].m_lang), ());
-    TEST_EQUAL(utf8s, gArr[m_index].m_str, ());
-    ++m_index;
-    return true;
-  }
-};
 
 UNIT_TEST(MultilangString_ForEach)
 {

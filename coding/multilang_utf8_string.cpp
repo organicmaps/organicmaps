@@ -214,29 +214,33 @@ namespace
 
 struct Printer
 {
-  string & m_out;
-  Printer(string & out) : m_out(out) {}
-  bool operator()(int8_t code, string const & name) const
+  explicit Printer(string & out) : m_out(out) {}
+
+  base::ControlFlow operator()(int8_t code, string const & name) const
   {
     m_out += string(StringUtf8Multilang::GetLangByCode(code)) + string(":") + name + " ";
-    return true;
+    return base::ControlFlow::Continue;
   }
+
+  string & m_out;
 };
 
 struct Finder
 {
-  string const & m_s;
-  int8_t m_res;
-  Finder(string const & s) : m_s(s), m_res(-1) {}
-  bool operator()(int8_t code, string const & name)
+  explicit Finder(string const & s) : m_s(s), m_res(-1) {}
+
+  base::ControlFlow operator()(int8_t code, string const & name)
   {
     if (name == m_s)
     {
       m_res = code;
-      return false;
+      return base::ControlFlow::Break;
     }
-    return true;
+    return base::ControlFlow::Continue;
   }
+
+  string const & m_s;
+  int8_t m_res;
 };
 
 } // namespace

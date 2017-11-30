@@ -54,6 +54,7 @@ HEADERS += \
     clustering_map.hpp \
     collection_cast.hpp \
     condition.hpp \
+    control_flow.hpp \
     deferred_task.hpp \
     dfa_helpers.hpp \
     exception.hpp \
