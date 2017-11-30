@@ -7,7 +7,6 @@ namespace
 {
 CGFloat constexpr kAdditionalHeight = 64;
 CGFloat constexpr kDefaultMainButtonsHeight = 48;
-CGFloat constexpr kDefaultMenuButtonWidth = 60;
 }  // namespace
 
 @interface MWMBottomMenuView ()

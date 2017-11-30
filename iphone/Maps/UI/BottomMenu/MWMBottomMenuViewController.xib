@@ -56,6 +56,9 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="discoveryTap" destination="-1" eventType="touchUpInside" id="TlT-QN-jAJ"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-ki-3tB" userLabel="Bookmarks" customClass="MWMButton">
                             <rect key="frame" x="192" y="0.0" width="64" height="48"/>

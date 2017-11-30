@@ -1209,13 +1209,37 @@
 		EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
 		EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
 		EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
+		F5BD20464E2550CDA3ACF716 /* DiscoveryCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */; };
+		F5BD255A0838E70EC012748E /* DiscoverySearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2ED6E94925472A9901B4 /* DiscoverySearchCell.swift */; };
+		F5BD25C85C8B109067592B0B /* DiscoverySpinnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD246A7E6BE8CD8600EDD9 /* DiscoverySpinnerCell.swift */; };
+		F5BD2735D0F31DF8429A041D /* DiscoverySearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2ED6E94925472A9901B4 /* DiscoverySearchCell.swift */; };
+		F5BD29562DAEA6D8B6705C60 /* DiscoveryCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */; };
+		F5BD29FF26AD58255766C51A /* DiscoverySpinnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD246A7E6BE8CD8600EDD9 /* DiscoverySpinnerCell.swift */; };
+		F5BD2CA4DBEFACBC48195F39 /* DiscoveryCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */; };
+		F5BD2CF683971DE125D1F21A /* DiscoverySearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2ED6E94925472A9901B4 /* DiscoverySearchCell.swift */; };
+		F5BD2E06C15E80313135E861 /* DiscoverySpinnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD246A7E6BE8CD8600EDD9 /* DiscoverySpinnerCell.swift */; };
 		F607C1871C032A8800B53A87 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = F607C1831C032A8800B53A87 /* resources-hdpi_clear */; };
 		F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = F607C1831C032A8800B53A87 /* resources-hdpi_clear */; };
 		F607C1891C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
 		F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
 		F607C18E1C047FDC00B53A87 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
+		F60C8BEA1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BE91FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib */; };
+		F60C8BEB1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BE91FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib */; };
+		F60C8BEC1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BE91FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib */; };
+		F60C8BEE1FCED15900DCF5FB /* DiscoverySearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BED1FCED15900DCF5FB /* DiscoverySearchCell.xib */; };
+		F60C8BEF1FCED15A00DCF5FB /* DiscoverySearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BED1FCED15900DCF5FB /* DiscoverySearchCell.xib */; };
+		F60C8BF01FCED15A00DCF5FB /* DiscoverySearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BED1FCED15900DCF5FB /* DiscoverySearchCell.xib */; };
 		F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */; };
 		F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */; };
+		F61757E81FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61757E71FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib */; };
+		F61757E91FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61757E71FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib */; };
+		F61757EA1FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61757E71FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib */; };
+		F61757EC1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61757EB1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift */; };
+		F61757ED1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61757EB1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift */; };
+		F61757EE1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61757EB1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift */; };
+		F61757F01FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61757EF1FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib */; };
+		F61757F11FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61757EF1FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib */; };
+		F61757F21FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61757EF1FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib */; };
 		F623DA6B1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
 		F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
 		F623DA6F1C9C2E62006A3436 /* MWMAddPlaceNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = F653CE171C71F62400A453F1 /* MWMAddPlaceNavigationBar.xib */; };
@@ -1303,6 +1327,9 @@
 		F69080BE1F98DB2A0017C00C /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */; };
 		F692F3831EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */; };
 		F692F3841EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */; };
+		F69739B11FD197DB00FDA07D /* MWMDiscoveryTableManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69739B01FD197DB00FDA07D /* MWMDiscoveryTableManager.mm */; };
+		F69739B21FD197DB00FDA07D /* MWMDiscoveryTableManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69739B01FD197DB00FDA07D /* MWMDiscoveryTableManager.mm */; };
+		F69739B31FD197DB00FDA07D /* MWMDiscoveryTableManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69739B01FD197DB00FDA07D /* MWMDiscoveryTableManager.mm */; };
 		F69CE8D51E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69CE8D41E5C49B4002B5881 /* PPHotelCarouselCell.swift */; };
 		F69CE8D61E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69CE8D41E5C49B4002B5881 /* PPHotelCarouselCell.swift */; };
 		F69CE8D71E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69CE8D41E5C49B4002B5881 /* PPHotelCarouselCell.swift */; };
@@ -1781,6 +1808,12 @@
 		F6E2FF681E097BA00083EBEC /* MWMUnitsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD4D1E097BA00083EBEC /* MWMUnitsController.mm */; };
 		F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD4D1E097BA00083EBEC /* MWMUnitsController.mm */; };
 		F6E2FF6A1E097BA00083EBEC /* MWMUnitsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD4D1E097BA00083EBEC /* MWMUnitsController.mm */; };
+		F6E407CF1FC45EF5001F7821 /* MWMDiscoveryController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E407CE1FC45EF5001F7821 /* MWMDiscoveryController.mm */; };
+		F6E407D01FC45EF5001F7821 /* MWMDiscoveryController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E407CE1FC45EF5001F7821 /* MWMDiscoveryController.mm */; };
+		F6E407D11FC45EF5001F7821 /* MWMDiscoveryController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E407CE1FC45EF5001F7821 /* MWMDiscoveryController.mm */; };
+		F6E407D31FC4722F001F7821 /* MWMDiscoveryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E407D21FC4722F001F7821 /* MWMDiscoveryController.xib */; };
+		F6E407D41FC4722F001F7821 /* MWMDiscoveryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E407D21FC4722F001F7821 /* MWMDiscoveryController.xib */; };
+		F6E407D51FC4722F001F7821 /* MWMDiscoveryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E407D21FC4722F001F7821 /* MWMDiscoveryController.xib */; };
 		F6F8E3C51EF8469700F2DE8F /* libugc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6F8E3C41EF8469700F2DE8F /* libugc.a */; };
 		F6FE3C381CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FE3C371CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm */; };
 		F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FE3C371CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm */; };
@@ -2511,13 +2544,21 @@
 		EED10A4411F78D120095FAD4 /* MapViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_blacklist.txt; path = ../../data/fonts_blacklist.txt; sourceTree = "<group>"; };
 		EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = ../../data/fonts_whitelist.txt; sourceTree = "<group>"; };
+		F5BD246A7E6BE8CD8600EDD9 /* DiscoverySpinnerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverySpinnerCell.swift; sourceTree = "<group>"; };
+		F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryCollectionHolderCell.swift; sourceTree = "<group>"; };
+		F5BD2ED6E94925472A9901B4 /* DiscoverySearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverySearchCell.swift; sourceTree = "<group>"; };
 		F607C1831C032A8800B53A87 /* resources-hdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_clear"; path = "../../data/resources-hdpi_clear"; sourceTree = "<group>"; };
 		F607C1841C032A8800B53A87 /* resources-hdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_dark"; path = "../../data/resources-hdpi_dark"; sourceTree = "<group>"; };
 		F607C18C1C047FDC00B53A87 /* MWMSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSegue.h; sourceTree = "<group>"; };
 		F607C18D1C047FDC00B53A87 /* MWMSegue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSegue.mm; sourceTree = "<group>"; };
+		F60C8BE91FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryCollectionHolderCell.xib; sourceTree = "<group>"; };
+		F60C8BED1FCED15900DCF5FB /* DiscoverySearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoverySearchCell.xib; sourceTree = "<group>"; };
 		F61579321AC2CE9A0032D8E9 /* MWMRateAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRateAlert.h; sourceTree = "<group>"; };
 		F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMRateAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRateAlert.xib; sourceTree = "<group>"; };
+		F61757E71FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoverySpinnerCell.xib; sourceTree = "<group>"; };
+		F61757EB1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryOnlineTemplateCell.swift; sourceTree = "<group>"; };
+		F61757EF1FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryOnlineTemplateCell.xib; sourceTree = "<group>"; };
 		F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = opening_hours_how_to_edit.html; path = ../../data/opening_hours_how_to_edit.html; sourceTree = "<group>"; };
 		F626D52C1C3E6CAA00C17D15 /* MWMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTableViewCell.h; sourceTree = "<group>"; };
 		F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTableViewCell.mm; sourceTree = "<group>"; };
@@ -2577,6 +2618,10 @@
 		F69018B61E9E601400B3C10B /* MWMAutoupdateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAutoupdateController.h; sourceTree = "<group>"; };
 		F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAutoupdateController.mm; sourceTree = "<group>"; };
 		F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAutoupdateController.xib; sourceTree = "<group>"; };
+		F69739AF1FD197DB00FDA07D /* MWMDiscoveryTableManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryTableManager.h; sourceTree = "<group>"; };
+		F69739B01FD197DB00FDA07D /* MWMDiscoveryTableManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryTableManager.mm; sourceTree = "<group>"; };
+		F69739B41FD198E300FDA07D /* DiscoveryControllerViewModel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DiscoveryControllerViewModel.hpp; sourceTree = "<group>"; };
+		F69739B51FD19D9900FDA07D /* MWMDiscoveryTapDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryTapDelegate.h; sourceTree = "<group>"; };
 		F69CE8D41E5C49B4002B5881 /* PPHotelCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPHotelCarouselCell.swift; sourceTree = "<group>"; };
 		F69CE8D81E5C5088002B5881 /* PPHotelCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPHotelCarouselCell.xib; sourceTree = "<group>"; };
 		F69CE8DC1E5C51AB002B5881 /* CarouselElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarouselElement.xib; sourceTree = "<group>"; };
@@ -2851,6 +2896,9 @@
 		F6E2FD4B1E097BA00083EBEC /* MWMTTSSettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTTSSettingsViewController.mm; sourceTree = "<group>"; };
 		F6E2FD4C1E097BA00083EBEC /* MWMUnitsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMUnitsController.h; sourceTree = "<group>"; };
 		F6E2FD4D1E097BA00083EBEC /* MWMUnitsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMUnitsController.mm; sourceTree = "<group>"; };
+		F6E407CD1FC45EF5001F7821 /* MWMDiscoveryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryController.h; sourceTree = "<group>"; };
+		F6E407CE1FC45EF5001F7821 /* MWMDiscoveryController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryController.mm; sourceTree = "<group>"; };
+		F6E407D21FC4722F001F7821 /* MWMDiscoveryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMDiscoveryController.xib; sourceTree = "<group>"; };
 		F6F8E3C41EF8469700F2DE8F /* libugc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libugc.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-fbvotunmmtqmjnezabjibwxwryev/Build/Products/Debug-iphonesimulator/libugc.a"; sourceTree = "<group>"; };
 		F6FE3C361CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlaceDoesntExistAlert.h; sourceTree = "<group>"; };
 		F6FE3C371CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMPlaceDoesntExistAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -4374,6 +4422,7 @@
 		F6E2FBFB1E097B9F0083EBEC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F6E407CC1FC45ED4001F7821 /* Discovery */,
 				3432E17F1E49BEFA008477E9 /* Ads */,
 				34574A601E3B5B2A0061E839 /* Appearance */,
 				34BBD6491F826BD50070CA50 /* Authorization */,
@@ -4931,6 +4980,28 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		F6E407CC1FC45ED4001F7821 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+				F6E407CD1FC45EF5001F7821 /* MWMDiscoveryController.h */,
+				F6E407CE1FC45EF5001F7821 /* MWMDiscoveryController.mm */,
+				F69739B41FD198E300FDA07D /* DiscoveryControllerViewModel.hpp */,
+				F69739B51FD19D9900FDA07D /* MWMDiscoveryTapDelegate.h */,
+				F69739AF1FD197DB00FDA07D /* MWMDiscoveryTableManager.h */,
+				F69739B01FD197DB00FDA07D /* MWMDiscoveryTableManager.mm */,
+				F6E407D21FC4722F001F7821 /* MWMDiscoveryController.xib */,
+				F5BD246A7E6BE8CD8600EDD9 /* DiscoverySpinnerCell.swift */,
+				F61757E71FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib */,
+				F61757EB1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift */,
+				F61757EF1FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib */,
+				F5BD2ED6E94925472A9901B4 /* DiscoverySearchCell.swift */,
+				F60C8BED1FCED15900DCF5FB /* DiscoverySearchCell.xib */,
+				F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */,
+				F60C8BE91FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib */,
+			);
+			path = Discovery;
+			sourceTree = "<group>";
+		};
 		F6FE3C351CC50FDF00A73196 /* PlaceDoesntExist */ = {
 			isa = PBXGroup;
 			children = (
@@ -5221,12 +5292,14 @@
 				341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */,
 				EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */,
 				34AB667F1FC5AA330078E451 /* MWMiPhoneRoutePreview.xib in Resources */,
+				F61757F01FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib in Resources */,
 				EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */,
 				EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */,
 				EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */,
 				FAF30A95173AB23900818BF6 /* 07_roboto_medium.ttf in Resources */,
 				F6E2FE6C1E097BA00083EBEC /* _MWMOHHeaderCell.xib in Resources */,
 				F6E2FE6F1E097BA00083EBEC /* _MWMOHSubCell.xib in Resources */,
+				F60C8BEE1FCED15900DCF5FB /* DiscoverySearchCell.xib in Resources */,
 				F6E2FEA81E097BA00083EBEC /* _MWMPPPAddress.xib in Resources */,
 				F6E2FEAB1E097BA00083EBEC /* PPPReview.xib in Resources */,
 				F6E2FEAE1E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */,
@@ -5234,6 +5307,7 @@
 				3495433E1EB22DAC00F08F73 /* MPAdBrowserController.xib in Resources */,
 				34AB66131FC5AA320078E451 /* MWMNavigationInfoView.xib in Resources */,
 				F69080BE1F98DB2A0017C00C /* AuthorizationViewController.xib in Resources */,
+				F61757E81FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib in Resources */,
 				F6E2FEB41E097BA00083EBEC /* _MWMPPPSpace.xib in Resources */,
 				F6E2FEB71E097BA00083EBEC /* _MWMPPPSubtitle.xib in Resources */,
 				F6E2FEBA1E097BA00083EBEC /* _MWMPPPTitle.xib in Resources */,
@@ -5323,6 +5397,7 @@
 				F6E2FE1B1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.xib in Resources */,
 				F6BD1D231CA412E30047B8E8 /* MWMOsmAuthAlert.xib in Resources */,
 				F6FE3C3B1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */,
+				F6E407D31FC4722F001F7821 /* MWMDiscoveryController.xib in Resources */,
 				F6E2FE571E097BA00083EBEC /* MWMPlacePageActionBar.xib in Resources */,
 				F6E2FE691E097BA00083EBEC /* MWMPlacePageButtonCell.xib in Resources */,
 				F6E2FE8A1E097BA00083EBEC /* MWMPlacePageInfoCell.xib in Resources */,
@@ -5334,6 +5409,7 @@
 				F6E2FE931E097BA00083EBEC /* PlacePageTaxiCell.xib in Resources */,
 				F6E2FEA51E097BA00083EBEC /* MWMPPView.xib in Resources */,
 				F69CE8D91E5C5088002B5881 /* PPHotelCarouselCell.xib in Resources */,
+				F60C8BEA1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */,
 				F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */,
 				F63774E71B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib in Resources */,
 				F6E2FEFF1E097BA00083EBEC /* MWMSearchCategoryCell.xib in Resources */,
@@ -5414,12 +5490,14 @@
 				6741A9581BF340DE002C974C /* 04_padauk.ttf in Resources */,
 				6741A9591BF340DE002C974C /* 05_khmeros.ttf in Resources */,
 				34AB66801FC5AA330078E451 /* MWMiPhoneRoutePreview.xib in Resources */,
+				F61757F11FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib in Resources */,
 				6741A95B1BF340DE002C974C /* 06_code2000.ttf in Resources */,
 				6741A99F1BF340DE002C974C /* 07_roboto_medium.ttf in Resources */,
 				F6E2FE6D1E097BA00083EBEC /* _MWMOHHeaderCell.xib in Resources */,
 				F6E2FE701E097BA00083EBEC /* _MWMOHSubCell.xib in Resources */,
 				F6E2FEA91E097BA00083EBEC /* _MWMPPPAddress.xib in Resources */,
 				F6E2FEAC1E097BA00083EBEC /* PPPReview.xib in Resources */,
+				F60C8BEF1FCED15A00DCF5FB /* DiscoverySearchCell.xib in Resources */,
 				F6E2FEAF1E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */,
 				F6E2FEB21E097BA00083EBEC /* _MWMPPPSchedule.xib in Resources */,
 				F6E2FEB51E097BA00083EBEC /* _MWMPPPSpace.xib in Resources */,
@@ -5427,6 +5505,7 @@
 				4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */,
 				34AB66141FC5AA320078E451 /* MWMNavigationInfoView.xib in Resources */,
 				F6E2FEBB1E097BA00083EBEC /* _MWMPPPTitle.xib in Resources */,
+				F61757E91FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib in Resources */,
 				6741A9781BF340DE002C974C /* AddSetTableViewCell.xib in Resources */,
 				340E1EEC1E2F614400CE49BF /* Authorization.storyboard in Resources */,
 				6741A95C1BF340DE002C974C /* categories.txt in Resources */,
@@ -5516,6 +5595,7 @@
 				F6BD1D241CA412E40047B8E8 /* MWMOsmAuthAlert.xib in Resources */,
 				F6FE3C3C1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */,
 				F6E2FE581E097BA00083EBEC /* MWMPlacePageActionBar.xib in Resources */,
+				F6E407D41FC4722F001F7821 /* MWMDiscoveryController.xib in Resources */,
 				F6E2FE6A1E097BA00083EBEC /* MWMPlacePageButtonCell.xib in Resources */,
 				F6E2FE8B1E097BA00083EBEC /* MWMPlacePageInfoCell.xib in Resources */,
 				F6E2FE8E1E097BA00083EBEC /* MWMPlacePageLinkCell.xib in Resources */,
@@ -5527,6 +5607,7 @@
 				F6E2FEA61E097BA00083EBEC /* MWMPPView.xib in Resources */,
 				6741A9811BF340DE002C974C /* MWMRateAlert.xib in Resources */,
 				6741A9601BF340DE002C974C /* MWMRoutingDisclaimerAlert.xib in Resources */,
+				F60C8BEB1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */,
 				F6E2FF001E097BA00083EBEC /* MWMSearchCategoryCell.xib in Resources */,
 				F6E2FF331E097BA00083EBEC /* MWMSearchCommonCell.xib in Resources */,
 				F6E2FF061E097BA00083EBEC /* MWMSearchHistoryClearCell.xib in Resources */,
@@ -5648,6 +5729,7 @@
 				849CF6641DE842290024A8A5 /* MWMAddPlaceNavigationBar.xib in Resources */,
 				849CF67B1DE842290024A8A5 /* MWMAlertViewController.xib in Resources */,
 				849CF6621DE842290024A8A5 /* MWMAPIBarView.xib in Resources */,
+				F61757EA1FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib in Resources */,
 				F6C269F71F14D76F00EB6519 /* ugc_types.csv in Resources */,
 				F6E2FE651E097BA00083EBEC /* MWMBookmarkCell.xib in Resources */,
 				34AB66811FC5AA330078E451 /* MWMiPhoneRoutePreview.xib in Resources */,
@@ -5698,6 +5780,7 @@
 				34E50DE41F6FCBA1008EED49 /* UGCAddReviewCell.xib in Resources */,
 				F6E2FDF61E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFC1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
+				F60C8BF01FCED15A00DCF5FB /* DiscoverySearchCell.xib in Resources */,
 				342639381EA0E60B0025EB89 /* local_ads_symbols.txt in Resources */,
 				F6E2FE771E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
 				4554B6ED1E55F0F00084017F /* drules_proto_vehicle_clear.bin in Resources */,
@@ -5710,11 +5793,13 @@
 				F6C16A661F9626B2000FE296 /* ReviewsViewController.xib in Resources */,
 				849CF65A1DE842290024A8A5 /* MWMOsmAuthAlert.xib in Resources */,
 				849CF5E81DE842290024A8A5 /* MWMPlaceDoesntExistAlert.xib in Resources */,
+				F6E407D51FC4722F001F7821 /* MWMDiscoveryController.xib in Resources */,
 				F6E2FE591E097BA00083EBEC /* MWMPlacePageActionBar.xib in Resources */,
 				F6E2FE6B1E097BA00083EBEC /* MWMPlacePageButtonCell.xib in Resources */,
 				F6E2FE8C1E097BA00083EBEC /* MWMPlacePageInfoCell.xib in Resources */,
 				F6E2FE8F1E097BA00083EBEC /* MWMPlacePageLinkCell.xib in Resources */,
 				F6E2FE801E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.xib in Resources */,
+				F61757F21FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib in Resources */,
 				34BBD6481F82649E0070CA50 /* GoogleSignIn.bundle in Resources */,
 				F6E2FE861E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				F6E2FE951E097BA00083EBEC /* PlacePageTaxiCell.xib in Resources */,
@@ -5724,6 +5809,7 @@
 				849CF6191DE842290024A8A5 /* MWMRoutingDisclaimerAlert.xib in Resources */,
 				F6E2FF011E097BA00083EBEC /* MWMSearchCategoryCell.xib in Resources */,
 				F6E2FF341E097BA00083EBEC /* MWMSearchCommonCell.xib in Resources */,
+				F60C8BEC1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */,
 				3488B0171E9D0AEC0068AFD8 /* AdBanner.xib in Resources */,
 				F6E2FF071E097BA00083EBEC /* MWMSearchHistoryClearCell.xib in Resources */,
 				BB7626B71E85599C0031D71C /* icudt57l.dat in Resources */,
@@ -5971,6 +6057,7 @@
 				1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */,
 				340B33C51F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */,
 				F6E2FE181E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
+				F6E407CF1FC45EF5001F7821 /* MWMDiscoveryController.mm in Sources */,
 				F6E2FDEB1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				34BBD64B1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,
 				F6E2FE0F1E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
@@ -6001,6 +6088,7 @@
 				34AB66461FC5AA330078E451 /* RouteManagerTableView.swift in Sources */,
 				34D3B0411E389D05004100F9 /* MWMEditorTextTableViewCell.mm in Sources */,
 				3404163B1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */,
+				F69739B11FD197DB00FDA07D /* MWMDiscoveryTableManager.mm in Sources */,
 				F6E2FE601E097BA00083EBEC /* MWMBookmarkCell.mm in Sources */,
 				F6E2FEA21E097BA00083EBEC /* MWMPPView.mm in Sources */,
 				F6791B131C43DEA7007A8A6E /* MWMStartButton.mm in Sources */,
@@ -6055,6 +6143,7 @@
 				346DB8271E5C4F6700E3123E /* GalleryCell.swift in Sources */,
 				3406FA151C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
 				F6E2FECC1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
+				F61757EC1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift in Sources */,
 				F6E2FF111E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
 				34C9BD021C6DB693000DC38D /* MWMTableViewController.mm in Sources */,
 				346DB8331E5C4F6700E3123E /* GalleryViewController.swift in Sources */,
@@ -6308,6 +6397,9 @@
 				F6A218491CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */,
 				34845DB21E165E24003D55B9 /* SearchNoResultsViewController.swift in Sources */,
 				34AB660A1FC5AA320078E451 /* MWMNavigationDashboardEntity.mm in Sources */,
+				F5BD25C85C8B109067592B0B /* DiscoverySpinnerCell.swift in Sources */,
+				F5BD2CF683971DE125D1F21A /* DiscoverySearchCell.swift in Sources */,
+				F5BD29562DAEA6D8B6705C60 /* DiscoveryCollectionHolderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6344,6 +6436,7 @@
 				F6E2FDF81E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.mm in Sources */,
 				340B33C61F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */,
 				F6E2FE191E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
+				F6E407D01FC45EF5001F7821 /* MWMDiscoveryController.mm in Sources */,
 				F6E2FDEC1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				34BBD64C1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,
 				F6E2FE101E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
@@ -6375,6 +6468,7 @@
 				34AB66471FC5AA330078E451 /* RouteManagerTableView.swift in Sources */,
 				F6E2FE611E097BA00083EBEC /* MWMBookmarkCell.mm in Sources */,
 				F6E2FEA31E097BA00083EBEC /* MWMPPView.mm in Sources */,
+				F69739B21FD197DB00FDA07D /* MWMDiscoveryTableManager.mm in Sources */,
 				3454D7D11E07F045004AF2AD /* UIImage+RGBAData.mm in Sources */,
 				6741A9B71BF340DE002C974C /* EAGLView.mm in Sources */,
 				343F5A831FB6102A007DF002 /* MWMPlatform.mm in Sources */,
@@ -6430,6 +6524,7 @@
 				F6E2FDFE1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
 				F6E2FEDC1E097BA00083EBEC /* MWMSearchManager+Filter.mm in Sources */,
 				346DB8341E5C4F6700E3123E /* GalleryViewController.swift in Sources */,
+				F61757ED1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift in Sources */,
 				34943BB71E26222300B14F84 /* WelcomeProtocol.swift in Sources */,
 				F6E2FD5F1E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
 				34F4073B1E9E1AFF00E57AC0 /* MopubBanner.swift in Sources */,
@@ -6682,6 +6777,9 @@
 				6741AA2D1BF340DE002C974C /* AddSetTableViewCell.mm in Sources */,
 				34845DB31E165E24003D55B9 /* SearchNoResultsViewController.swift in Sources */,
 				34AB660B1FC5AA320078E451 /* MWMNavigationDashboardEntity.mm in Sources */,
+				F5BD29FF26AD58255766C51A /* DiscoverySpinnerCell.swift in Sources */,
+				F5BD255A0838E70EC012748E /* DiscoverySearchCell.swift in Sources */,
+				F5BD2CA4DBEFACBC48195F39 /* DiscoveryCollectionHolderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6718,6 +6816,7 @@
 				845E4B1C1DEC839800D6BED8 /* MWMTrafficButtonViewController.mm in Sources */,
 				340B33C71F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */,
 				F6E2FDF91E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.mm in Sources */,
+				F6E407D11FC45EF5001F7821 /* MWMDiscoveryController.mm in Sources */,
 				F6E2FE1A1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
 				F6E2FDED1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				34BBD64D1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,
@@ -6749,6 +6848,7 @@
 				34AB66481FC5AA330078E451 /* RouteManagerTableView.swift in Sources */,
 				3404163D1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */,
 				F6E2FE621E097BA00083EBEC /* MWMBookmarkCell.mm in Sources */,
+				F69739B31FD197DB00FDA07D /* MWMDiscoveryTableManager.mm in Sources */,
 				F6E2FEA41E097BA00083EBEC /* MWMPPView.mm in Sources */,
 				849CF69F1DE842290024A8A5 /* MWMStartButton.mm in Sources */,
 				343F5A841FB6102A007DF002 /* MWMPlatform.mm in Sources */,
@@ -6804,6 +6904,7 @@
 				340475781E081A4600C92850 /* MWMTrafficManager.mm in Sources */,
 				F6E2FECE1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
 				F6E2FF131E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
+				F61757EE1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift in Sources */,
 				849CF6D21DE842290024A8A5 /* MWMNavigationController.mm in Sources */,
 				346DB8351E5C4F6700E3123E /* GalleryViewController.swift in Sources */,
 				F6E2FDFF1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
@@ -7056,6 +7157,9 @@
 				849CF76E1DE842290024A8A5 /* MWMEditorViralActivityItem.mm in Sources */,
 				34845DB41E165E24003D55B9 /* SearchNoResultsViewController.swift in Sources */,
 				34AB660C1FC5AA320078E451 /* MWMNavigationDashboardEntity.mm in Sources */,
+				F5BD2E06C15E80313135E861 /* DiscoverySpinnerCell.swift in Sources */,
+				F5BD2735D0F31DF8429A041D /* DiscoverySearchCell.swift in Sources */,
+				F5BD20464E2550CDA3ACF716 /* DiscoveryCollectionHolderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

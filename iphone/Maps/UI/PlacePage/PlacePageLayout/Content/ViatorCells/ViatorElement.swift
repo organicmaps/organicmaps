@@ -1,3 +1,4 @@
+@objc(MWMViatorElement)
 final class ViatorElement: UICollectionViewCell {
   @IBOutlet private weak var more: UIButton!
 
@@ -52,6 +53,7 @@ final class ViatorElement: UICollectionViewCell {
     onMoreAction?()
   }
 
+  @objc
   var model: ViatorItemModel? {
     didSet {
       if let model = model {

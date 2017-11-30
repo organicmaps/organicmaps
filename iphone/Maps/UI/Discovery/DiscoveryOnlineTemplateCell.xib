@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiscoveryOnlineTemplateCell" rowHeight="218" id="9IM-3s-P1U" customClass="MWMDiscoveryOnlineTemplateCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="218"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9IM-3s-P1U" id="RFj-It-lNu">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="217.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMh-FO-rZJ">
+                        <rect key="frame" x="20" y="79" width="335" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="XSe-2e-PrA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Jk-er-UUa">
+                        <rect key="frame" x="20" y="99" width="335" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="e1q-4W-JhV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dCP-Yu-fFz">
+                        <rect key="frame" x="175" y="47" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="JmM-dN-DAf"/>
+                            <constraint firstAttribute="height" constant="24" id="RP9-kK-iAl"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WoO-mw-61q">
+                        <rect key="frame" x="0.0" y="177" width="375" height="40"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="JKj-h8-ljn"/>
+                        </constraints>
+                        <state key="normal" title="DETAILS"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="details"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="onTap" destination="9IM-3s-P1U" eventType="touchUpInside" id="wGN-bL-0IS"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="UMh-FO-rZJ" firstAttribute="top" secondItem="dCP-Yu-fFz" secondAttribute="bottom" constant="8" id="BY1-6k-WBn"/>
+                    <constraint firstAttribute="trailing" secondItem="UMh-FO-rZJ" secondAttribute="trailing" constant="20" id="Rsw-ey-7z8"/>
+                    <constraint firstItem="WoO-mw-61q" firstAttribute="top" secondItem="4Jk-er-UUa" secondAttribute="bottom" constant="62" id="afG-Ho-xVJ"/>
+                    <constraint firstAttribute="trailing" secondItem="WoO-mw-61q" secondAttribute="trailing" id="c97-re-08v"/>
+                    <constraint firstItem="4Jk-er-UUa" firstAttribute="leading" secondItem="RFj-It-lNu" secondAttribute="leading" constant="20" id="iEA-Ea-7qS"/>
+                    <constraint firstItem="WoO-mw-61q" firstAttribute="leading" secondItem="RFj-It-lNu" secondAttribute="leading" id="leN-MX-iDP"/>
+                    <constraint firstAttribute="bottom" secondItem="WoO-mw-61q" secondAttribute="bottom" constant="0.5" id="njG-qV-vDU"/>
+                    <constraint firstItem="dCP-Yu-fFz" firstAttribute="centerX" secondItem="RFj-It-lNu" secondAttribute="centerX" id="p1k-Ug-WjO"/>
+                    <constraint firstItem="UMh-FO-rZJ" firstAttribute="leading" secondItem="RFj-It-lNu" secondAttribute="leading" constant="20" id="pOY-Nu-Av9"/>
+                    <constraint firstItem="4Jk-er-UUa" firstAttribute="top" secondItem="UMh-FO-rZJ" secondAttribute="bottom" constant="4" id="uED-OK-PG4"/>
+                    <constraint firstItem="dCP-Yu-fFz" firstAttribute="top" secondItem="RFj-It-lNu" secondAttribute="top" constant="47" id="wjy-Fv-MDg"/>
+                    <constraint firstAttribute="trailing" secondItem="4Jk-er-UUa" secondAttribute="trailing" constant="20" id="xiC-I1-7yp"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="spinner" destination="dCP-Yu-fFz" id="0nk-0c-1AG"/>
+                <outlet property="subtitle" destination="4Jk-er-UUa" id="oHh-a4-HLJ"/>
+                <outlet property="title" destination="UMh-FO-rZJ" id="Bqr-Qj-R0g"/>
+            </connections>
+            <point key="canvasLocation" x="-187.5" y="105"/>
+        </tableViewCell>
+    </objects>
+</document>

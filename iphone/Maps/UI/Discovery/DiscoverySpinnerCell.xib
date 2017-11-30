@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiscoverySpinnerCell" rowHeight="129" id="R8F-rL-wUT" customClass="MWMDiscoverySpinnerCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="129"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R8F-rL-wUT" id="ZpU-1p-iwg">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="128.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nnN-TV-Qoh">
+                        <rect key="frame" x="175.5" y="36" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="WDz-jE-PBg"/>
+                            <constraint firstAttribute="width" constant="24" id="yrz-JV-NVf"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HoJ-LP-bTg">
+                        <rect key="frame" x="20" y="76" width="335" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Discover_button_other_loading_title"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="HoJ-LP-bTg" secondAttribute="bottom" constant="32.5" id="0sd-7p-Pf0"/>
+                    <constraint firstItem="nnN-TV-Qoh" firstAttribute="top" secondItem="ZpU-1p-iwg" secondAttribute="top" constant="36" id="ADW-em-rm8"/>
+                    <constraint firstItem="HoJ-LP-bTg" firstAttribute="leading" secondItem="ZpU-1p-iwg" secondAttribute="leading" constant="20" id="bou-4M-Y3D"/>
+                    <constraint firstAttribute="trailing" secondItem="HoJ-LP-bTg" secondAttribute="trailing" constant="20" id="cac-jo-Tm1"/>
+                    <constraint firstItem="HoJ-LP-bTg" firstAttribute="top" secondItem="nnN-TV-Qoh" secondAttribute="bottom" constant="16" id="mfa-E5-wxQ"/>
+                    <constraint firstItem="nnN-TV-Qoh" firstAttribute="centerX" secondItem="ZpU-1p-iwg" secondAttribute="centerX" id="sYn-ve-NIV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="spinner" destination="nnN-TV-Qoh" id="zyd-eX-fJN"/>
+            </connections>
+            <point key="canvasLocation" x="-95.5" y="78.5"/>
+        </tableViewCell>
+    </objects>
+</document>

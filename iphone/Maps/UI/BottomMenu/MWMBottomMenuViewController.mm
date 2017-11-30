@@ -5,6 +5,7 @@
 #import "MWMBottomMenuLayout.h"
 #import "MWMButton.h"
 #import "MWMCommon.h"
+#import "MWMDiscoveryController.h"
 #import "MWMMapViewControlsManager.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
@@ -281,6 +282,13 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     searchManager.state = MWMSearchManagerStateDefault;
   else
     searchManager.state = MWMSearchManagerStateHidden;
+}
+
+- (IBAction)discoveryTap
+{
+  // Log event
+  auto discovery = [MWMDiscoveryController instance];
+  [self.controller.navigationController pushViewController:discovery animated:YES];
 }
 
 - (IBAction)bookmarksButtonTouchUpInside
