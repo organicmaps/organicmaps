@@ -209,52 +209,30 @@ bool StringUtf8Multilang::HasString(int8_t lang) const
   return false;
 }
 
-namespace
+int8_t StringUtf8Multilang::FindString(string const & utf8s) const
 {
+  int8_t result = kUnsupportedLanguageCode;
 
-struct Printer
-{
-  explicit Printer(string & out) : m_out(out) {}
-
-  base::ControlFlow operator()(int8_t code, string const & name) const
-  {
-    m_out += string(StringUtf8Multilang::GetLangByCode(code)) + string(":") + name + " ";
-    return base::ControlFlow::Continue;
-  }
-
-  string & m_out;
-};
-
-struct Finder
-{
-  explicit Finder(string const & s) : m_s(s), m_res(-1) {}
-
-  base::ControlFlow operator()(int8_t code, string const & name)
-  {
-    if (name == m_s)
+  ForEach([&utf8s, &result](int8_t code, string const & name) -> base::ControlFlow {
+    if (name == utf8s)
     {
-      m_res = code;
+      result = code;
       return base::ControlFlow::Break;
     }
     return base::ControlFlow::Continue;
-  }
+  });
 
-  string const & m_s;
-  int8_t m_res;
-};
-
-} // namespace
-
-int8_t StringUtf8Multilang::FindString(string const & utf8s) const
-{
-  Finder finder(utf8s);
-  ForEach(finder);
-  return finder.m_res;
+  return result;
 }
 
 string DebugPrint(StringUtf8Multilang const & s)
 {
-  string out;
-  s.ForEach(Printer(out));
-  return out;
+  string result;
+
+  s.ForEach([&result](int8_t code, string const & name) -> base::ControlFlow {
+    result += string(StringUtf8Multilang::GetLangByCode(code)) + string(":") + name + " ";
+    return base::ControlFlow::Continue;
+  });
+
+  return result;
 }
