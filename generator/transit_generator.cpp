@@ -622,6 +622,7 @@ void ProcessGraph(string const & mwmPath, TCountryId const & countryId,
 void BuildTransit(string const & mwmDir, TCountryId const & countryId,
                   string const & osmIdToFeatureIdsPath, string const & transitDir)
 {
+  LOG(LINFO, ("Building transit section for", countryId));
   Platform::FilesList graphFiles;
   Platform::GetFilesByExt(my::AddSlashIfNeeded(transitDir), TRANSIT_FILE_EXTENSION, graphFiles);
 
