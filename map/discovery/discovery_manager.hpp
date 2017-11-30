@@ -20,6 +20,7 @@
 
 #include <functional>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace discovery
@@ -70,17 +71,36 @@ public:
         std::string const sponsoredId = GetCityViatorId(params.m_viewportCenter);
         if (sponsoredId.empty())
         {
-          onError(requestId, type);
+          GetPlatform().RunTask(Platform::Thread::Gui,
+                                [requestId, onResult, type] {
+                                    onResult(requestId, std::vector<viator::Product>());
+                                });
+          break;
+        }
+
+        if (m_cachedViator.first == sponsoredId)
+        {
+          GetPlatform().RunTask(Platform::Thread::Gui, [this, requestId, onResult] {
+            onResult(requestId, m_cachedViator.second);
+          });
           break;
         }
 
         m_viatorApi.GetTop5Products(
             sponsoredId, params.m_curency,
-            [this, requestId, sponsoredId, onResult](std::string const & destId,
+            [this, requestId, sponsoredId, onResult, onError](std::string const & destId,
                                                      std::vector<viator::Product> const & products) {
               ASSERT_THREAD_CHECKER(m_threadChecker, ());
               if (destId == sponsoredId)
+              {
+                if (products.empty())
+                {
+                  onError(requestId, ItemType::Viator);
+                  return;
+                }
+                m_cachedViator = std::make_pair(sponsoredId, products);
                 onResult(requestId, products);
+              }
             });
         break;
       }
@@ -142,5 +162,9 @@ private:
   locals::Api & m_localsApi;
   uint32_t m_requestCounter = 0;
   ThreadChecker m_threadChecker;
+
+  // We save last succeed viator result for the nearest city and rewrite it when the nearest city
+  // was changed.
+  std::pair<std::string, std::vector<viator::Product>> m_cachedViator;
 };
 }  // namespace discovery

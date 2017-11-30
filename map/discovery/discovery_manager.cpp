@@ -31,7 +31,7 @@ search::SearchParams Manager::GetSearchParams(Manager::Params const & params, It
 {
   search::SearchParams p;
   p.m_query = GetQuery(type);
-  p.m_inputLocale = params.m_lang;
+  p.m_inputLocale = "en";
   p.m_viewport = params.m_viewport;
   p.m_position = params.m_viewportCenter;
   p.m_maxNumResults = params.m_itemsCount;
