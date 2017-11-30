@@ -497,9 +497,15 @@ void Storage::DownloadCountry(TCountryId const & countryId, MapOptions opt)
   m_failedCountries.erase(countryId);
   m_queue.push_back(QueuedCountry(countryId, opt));
   if (m_queue.size() == 1)
+  {
+    if (m_startDownloadingCallback)
+      m_startDownloadingCallback();
     DownloadNextCountryFromQueue();
+  }
   else
+  {
     NotifyStatusChangedForHierarchy(countryId);
+  }
   SaveDownloadQueue();
 }
 
@@ -1438,6 +1444,13 @@ bool Storage::IsPossibleToAutoupdate() const
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return m_diffManager.IsPossibleToAutoupdate();
+}
+
+void Storage::SetStartDownloadingCallback(StartDownloadingCallback const & cb)
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  m_startDownloadingCallback = cb;
 }
 
 void Storage::OnDiffStatusReceived(diffs::Status const status)

@@ -453,6 +453,7 @@ Framework::Framework(FrameworkParams const & params)
                  bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  bind(&Framework::OnCountryFileDelete, this, _1, _2));
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
+  m_storage.SetStartDownloadingCallback([this]() { UpdatePlacePageInfoForCurrentSelection(); });
   LOG(LDEBUG, ("Storage initialized"));
 
   // Local ads manager should be initialized after storage initialization.
@@ -2829,7 +2830,10 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, Index const
 }
 }  // namespace
 
-bool Framework::CanEditMap() const { return version::IsSingleMwm(GetCurrentDataVersion()); }
+bool Framework::CanEditMap() const
+{
+  return version::IsSingleMwm(GetCurrentDataVersion()) && !GetStorage().IsDownloadInProgress();
+}
 
 bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,
                                 osm::EditableMapObject & emo) const

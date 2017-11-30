@@ -141,6 +141,7 @@ class Storage : public diffs::Manager::Observer
 {
 public:
   struct StatusCallback;
+  using StartDownloadingCallback = function<void()>;
   using TUpdateCallback = function<void(storage::TCountryId const &, TLocalFilePtr const)>;
   using TDeleteCallback = function<bool(storage::TCountryId const &, TLocalFilePtr const)>;
   using TChangeCountryFunction = function<void(TCountryId const &)>;
@@ -250,6 +251,8 @@ private:
   vector<platform::LocalCountryFile> m_notAppliedDiffs;
 
   vector<vector<string>> m_deferredDownloads;
+
+  StartDownloadingCallback m_startDownloadingCallback;
 
   void DownloadNextCountryFromQueue();
 
@@ -556,6 +559,8 @@ public:
   /// Returns true if the diff scheme is available and all local outdated maps can be updated via
   /// diffs.
   bool IsPossibleToAutoupdate() const;
+
+  void SetStartDownloadingCallback(StartDownloadingCallback const & cb);
 
 private:
   friend struct UnitClass_StorageTest_DeleteCountry;
