@@ -119,7 +119,7 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
 }
 
 // Removes all full-token stop words from |tokens|.
-// Does nothing if all tokens in are non-prefix stop words.
+// Does nothing if all tokens are non-prefix stop words.
 void RemoveStopWordsIfNeeded(QueryTokens & tokens, strings::UniString & prefix)
 {
   size_t numStopWords = 0;
@@ -252,8 +252,8 @@ void Processor::SetQuery(string const & query)
     }
   }
 
+  static_assert(kMaxNumTokens > 0, "");
   size_t const maxTokensCount = kMaxNumTokens - 1;
-  ASSERT_GREATER(maxTokensCount, 0, ());
   if (m_tokens.size() > maxTokensCount)
   {
     m_tokens.resize(maxTokensCount);

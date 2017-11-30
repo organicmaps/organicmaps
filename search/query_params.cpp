@@ -5,7 +5,7 @@
 
 #include "indexer/feature_impl.hpp"
 
-#include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -52,7 +52,7 @@ private:
 }  // namespace
 
 // QueryParams::Token ------------------------------------------------------------------------------
-void QueryParams::Token::AddSynonym(std::string const & s)
+void QueryParams::Token::AddSynonym(string const & s)
 {
   AddSynonym(strings::MakeUniString(s));
 }

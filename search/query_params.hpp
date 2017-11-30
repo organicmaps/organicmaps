@@ -8,9 +8,11 @@
 #include "base/small_set.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <string>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 namespace search
@@ -34,17 +36,19 @@ public:
 
     // Calls |fn| on the original token and on synonyms.
     template <typename Fn>
-    typename enable_if<is_same<typename result_of<Fn(String)>::type, void>::value>::type ForEach(
-        Fn && fn) const
+    typename std::enable_if<
+        std::is_same<typename std::result_of<Fn(String)>::type, void>::value>::type
+    ForEach(Fn && fn) const
     {
       fn(m_original);
-      for_each(m_synonyms.begin(), m_synonyms.end(), std::forward<Fn>(fn));
+      std::for_each(m_synonyms.begin(), m_synonyms.end(), std::forward<Fn>(fn));
     }
 
     // Calls |fn| on the original token and on synonyms until |fn| return false.
     template <typename Fn>
-    typename enable_if<is_same<typename result_of<Fn(String)>::type, bool>::value>::type ForEach(
-        Fn && fn) const
+    typename std::enable_if<
+        std::is_same<typename std::result_of<Fn(String)>::type, bool>::value>::type
+    ForEach(Fn && fn) const
     {
       if (!fn(m_original))
         return;

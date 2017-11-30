@@ -178,7 +178,7 @@ struct FeatureNameInserter
                           });
     }
 
-    CHECK_GREATER(search::kMaxNumTokens, 0, ());
+    static_assert(search::kMaxNumTokens > 0, "");
     size_t const maxTokensCount = search::kMaxNumTokens - 1;
     if (tokens.size() > maxTokensCount)
     {
