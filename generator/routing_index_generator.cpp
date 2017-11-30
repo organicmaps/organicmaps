@@ -270,8 +270,12 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
   try
   {
     FilesContainerR cont(mwmFile);
-    CHECK(cont.IsExist(TRANSIT_FILE_TAG),
-          (TRANSIT_FILE_TAG, "should be generated before", TRANSIT_CROSS_MWM_FILE_TAG));
+    if (!cont.IsExist(TRANSIT_FILE_TAG))
+    {
+      LOG(LINFO, ("Transit cross mwm section is not generated because no transit section in mwm:",
+                  mwmFile));
+      return;
+    }
     auto reader = cont.GetReader(TRANSIT_FILE_TAG);
 
     using Source = ReaderSource<FilesContainerR::TReader>;
