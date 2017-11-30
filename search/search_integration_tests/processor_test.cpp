@@ -992,12 +992,18 @@ UNIT_CLASS_TEST(ProcessorTest, StopWords)
       vector<m2::PointD>{m2::PointD(-0.001, -0.001), m2::PointD(0, 0), m2::PointD(0.001, 0.001)},
       "Rue de la Paix", "en");
 
+  TestPOI bakery(m2::PointD(0.0, 0.0), "" /* name */, "en");
+  bakery.SetTypes({{"shop", "bakery"}});
+
   BuildWorld([&](TestMwmBuilder & builder) {
     builder.Add(country);
     builder.Add(city);
   });
 
-  auto id = BuildCountry(country.GetName(), [&](TestMwmBuilder & builder) { builder.Add(street); });
+  auto id = BuildCountry(country.GetName(), [&](TestMwmBuilder & builder) {
+    builder.Add(street);
+    builder.Add(bakery);
+  });
 
   {
     auto request = MakeRequest("la France à Paris Rue de la Paix");
@@ -1009,6 +1015,18 @@ UNIT_CLASS_TEST(ProcessorTest, StopWords)
 
     auto const & info = results[0].GetRankingInfo();
     TEST_EQUAL(info.m_nameScore, NAME_SCORE_FULL_MATCH, ());
+  }
+
+  {
+    TRules rules = {ExactMatch(id, bakery)};
+
+    TEST(ResultsMatch("la boulangerie ", "fr", rules), ());
+  }
+
+  {
+    TEST(ResultsMatch("la motviderie ", "fr", TRules{}), ());
+    TEST(ResultsMatch("la la le la la la ", "fr", {ExactMatch(id, street)}), ());
+    TEST(ResultsMatch("la la le la la la", "fr", TRules{}), ());
   }
 }
 

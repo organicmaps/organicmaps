@@ -114,7 +114,7 @@ bool IsStopWord(UniString const & s)
 {
   /// @todo Get all common used stop words and factor out this array into
   /// search_string_utils.cpp module for example.
-  static char const * arr[] = {"a", "de", "da", "la"};
+  static char const * arr[] = {"a", "de", "da", "la", "le"};
 
   static set<UniString> const kStopWords(
       make_transform_iterator(arr, &AsciiToUniString),

@@ -162,7 +162,7 @@ bool Results::AddResult(Result && result)
 
   if (result.IsSuggest())
   {
-    if (distance(m_results.begin(), it) >= MAX_SUGGESTS_COUNT)
+    if (distance(m_results.begin(), it) >= kMaxNumSuggests)
       return false;
 
     for (auto i = m_results.begin(); i != it; ++i)

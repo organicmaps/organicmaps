@@ -16,7 +16,7 @@ namespace
 {
 
 using search::KeywordMatcher;
-using search::MAX_TOKENS;
+using search::kMaxNumTokens;
 
 enum ExpectedMatchResult
 {
@@ -259,7 +259,7 @@ string GetManyTokens(string tokenPrefix, int tokenCount, bool countForward = tru
 
 UNIT_TEST(KeywordMatcher_QueryTooLong)
 {
-  for (int queryLength = MAX_TOKENS - 2; queryLength <= MAX_TOKENS + 2; ++queryLength)
+  for (int queryLength = kMaxNumTokens - 2; queryLength <= kMaxNumTokens + 2; ++queryLength)
   {
     string const query = GetManyTokens("Q", queryLength);
     string const queryWithPrefix = query + " Prefix";
@@ -292,11 +292,10 @@ UNIT_TEST(KeywordMatcher_QueryTooLong)
 
 UNIT_TEST(KeywordMatcher_NameTooLong)
 {
-  string const name[] =
-  {
-    "Aa Bb " + GetManyTokens("T", MAX_TOKENS + 1),
-    "Aa Bb " + GetManyTokens("T", MAX_TOKENS),
-    "Aa Bb " + GetManyTokens("T", MAX_TOKENS - 1),
+  string const name[] = {
+      "Aa Bb " + GetManyTokens("T", kMaxNumTokens + 1),
+      "Aa Bb " + GetManyTokens("T", kMaxNumTokens),
+      "Aa Bb " + GetManyTokens("T", kMaxNumTokens - 1),
   };
 
   KeywordMatcherTestCase const testCases[] =
@@ -315,9 +314,9 @@ UNIT_TEST(KeywordMatcher_NameTooLong)
 
 UNIT_TEST(KeywordMatcher_ManyTokensInReverseOrder)
 {
-  string const query = GetManyTokens("Q", MAX_TOKENS);
-  string const name = GetManyTokens("Q", MAX_TOKENS);
-  string const reversedName = GetManyTokens("Q", MAX_TOKENS, false);
+  string const query = GetManyTokens("Q", kMaxNumTokens);
+  string const name = GetManyTokens("Q", kMaxNumTokens);
+  string const reversedName = GetManyTokens("Q", kMaxNumTokens, false);
 
   KeywordMatcherTestCase const testCases[] =
   {

@@ -550,7 +550,7 @@ void Ranker::ProcessSuggestions(vector<RankerResult> & vec) const
   if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
-  int added = 0;
+  size_t added = 0;
   for (auto i = vec.begin(); i != vec.end();)
   {
     RankerResult const & r = *i;
@@ -560,12 +560,14 @@ void Ranker::ProcessSuggestions(vector<RankerResult> & vec) const
     {
       string suggestion;
       GetSuggestion(r, m_params.m_query, m_params.m_tokens, m_params.m_prefix, suggestion);
-      if (!suggestion.empty() && added < MAX_SUGGESTS_COUNT)
+      if (!suggestion.empty() && added < kMaxNumSuggests)
       {
         // todo(@m) RankingInfo is lost here. Should it be?
         if (m_emitter.AddResult(Result(
                 MakeResult(r, false /* needAddress */, true /* needHighlighting */), suggestion)))
+        {
           ++added;
+        }
 
         i = vec.erase(i);
         continue;

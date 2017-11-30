@@ -8,11 +8,10 @@
 #include "base/small_set.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/type_traits.hpp"
-#include "std/unordered_set.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <string>
+#include <type_traits>
+#include <vector>
 
 namespace search
 {
@@ -22,7 +21,7 @@ class QueryParams
 {
 public:
   using String = strings::UniString;
-  using TypeIndices = vector<uint32_t>;
+  using TypeIndices = std::vector<uint32_t>;
   using Langs = ::base::SafeSmallSet<StringUtf8Multilang::kMaxSupportedLanguages>;
 
   struct Token
@@ -30,8 +29,8 @@ public:
     Token() = default;
     Token(String const & original) : m_original(original) {}
 
-    void AddSynonym(String const & s) { m_synonyms.push_back(s); }
-    void AddSynonym(string const & s) { m_synonyms.push_back(strings::MakeUniString(s)); }
+    void AddSynonym(std::string const & s);
+    void AddSynonym(String const & s);
 
     // Calls |fn| on the original token and on synonyms.
     template <typename Fn>
@@ -39,7 +38,7 @@ public:
         Fn && fn) const
     {
       fn(m_original);
-      for_each(m_synonyms.begin(), m_synonyms.end(), forward<Fn>(fn));
+      for_each(m_synonyms.begin(), m_synonyms.end(), std::forward<Fn>(fn));
     }
 
     // Calls |fn| on the original token and on synonyms until |fn| return false.
@@ -63,7 +62,7 @@ public:
     }
 
     String m_original;
-    vector<String> m_synonyms;
+    std::vector<String> m_synonyms;
   };
 
   QueryParams() = default;
@@ -82,7 +81,7 @@ public:
   {
     Clear();
     for (; tokenBegin != tokenEnd; ++tokenBegin)
-      m_tokens.push_back(*tokenBegin);
+      m_tokens.emplace_back(*tokenBegin);
     m_prefixToken.m_original = prefix;
     m_hasPrefix = true;
     m_typeIndices.resize(GetNumTokens());
@@ -121,18 +120,18 @@ public:
   inline int GetScale() const { return m_scale; }
 
 private:
-  friend string DebugPrint(QueryParams const & params);
+  friend std::string DebugPrint(QueryParams const & params);
 
-  vector<Token> m_tokens;
+  std::vector<Token> m_tokens;
   Token m_prefixToken;
   bool m_hasPrefix = false;
   bool m_isCategorialRequest = false;
 
-  vector<TypeIndices> m_typeIndices;
+  std::vector<TypeIndices> m_typeIndices;
 
   Langs m_langs;
   int m_scale = scales::GetUpperScale();
 };
 
-string DebugPrint(QueryParams::Token const & token);
+std::string DebugPrint(QueryParams::Token const & token);
 }  // namespace search

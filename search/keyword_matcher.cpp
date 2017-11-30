@@ -39,7 +39,7 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(string const & name) const
 
 KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const & name) const
 {
-  buffer_vector<strings::UniString, MAX_TOKENS> tokens;
+  buffer_vector<strings::UniString, kMaxNumTokens> tokens;
   SplitUniString(name, MakeBackInsertFunctor(tokens), Delimiters());
 
   return CalcScore(tokens.data(), tokens.size());
@@ -49,7 +49,7 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const * token
                                                 size_t count) const
 {
   // Some names can have too many tokens. Trim them.
-  count = min(count, static_cast<size_t>(MAX_TOKENS));
+  count = min(count, kMaxNumTokens);
 
   vector<bool> isQueryTokenMatched(m_keywords.size());
   vector<bool> isNameTokenMatched(count);
@@ -103,7 +103,7 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const * token
   for (size_t i = 0; i < count; ++i)
   {
     if (isNameTokenMatched[i])
-      score.m_nameTokensMatched |= (1 << (MAX_TOKENS-1 - i));
+      score.m_nameTokensMatched |= (1 << (kMaxNumTokens - 1 - i));
     score.m_nameTokensLength += tokens[i].size();
   }
 
@@ -164,7 +164,7 @@ string DebugPrint(KeywordMatcher::Score const & score)
   out << ",nQTM=" << static_cast<int>(score.m_numQueryTokensAndPrefixMatched);
   out << ",PM=" << score.m_prefixMatched;
   out << ",NTM=";
-  for (int i = MAX_TOKENS-1; i >= 0; --i)
+  for (int i = static_cast<int>(kMaxNumTokens) - 1; i >= 0; --i)
     out << ((score.m_nameTokensMatched >> i) & 1);
   out << ",STMD=" << score.m_sumTokenMatchDistance;
   out << ")";

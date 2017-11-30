@@ -403,12 +403,12 @@ public:
     insert(where, &value, &value + 1);
   }
 
-  template <class TFn>
-  void erase_if(TFn fn)
+  template <class Fn>
+  void erase_if(Fn && fn)
   {
     iterator b = begin();
     iterator e = end();
-    iterator i = std::remove_if(b, e, fn);
+    iterator i = std::remove_if(b, e, std::forward<Fn>(fn));
     if (i != e)
       resize(std::distance(b, i));
   }

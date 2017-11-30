@@ -118,40 +118,21 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kSearchEmitResultsAndCoords, {});
 }
 
-// Removes all full-token stop words from |params|.
-// Does nothing if all tokens in |params| are non-prefix stop words.
-void RemoveStopWordsIfNeeded(QueryParams & params)
+// Removes all full-token stop words from |tokens|.
+// Does nothing if all tokens in are non-prefix stop words.
+void RemoveStopWordsIfNeeded(QueryTokens & tokens, strings::UniString & prefix)
 {
   size_t numStopWords = 0;
-  for (size_t i = 0; i < params.GetNumTokens(); ++i)
+  for (auto const & token : tokens)
   {
-    auto & token = params.GetToken(i);
-    if (!params.IsPrefixToken(i) && IsStopWord(token.m_original))
+    if (IsStopWord(token))
       ++numStopWords;
   }
 
-  if (numStopWords == params.GetNumTokens())
+  if (numStopWords == tokens.size() && prefix.empty())
     return;
 
-  for (size_t i = 0; i < params.GetNumTokens();)
-  {
-    if (params.IsPrefixToken(i))
-    {
-      ++i;
-      continue;
-    }
-
-    auto & token = params.GetToken(i);
-    if (IsStopWord(token.m_original))
-    {
-      params.RemoveToken(i);
-    }
-    else
-    {
-      my::EraseIf(token.m_synonyms, &IsStopWord);
-      ++i;
-    }
-  }
+  tokens.erase_if(&IsStopWord);
 }
 }  // namespace
 
@@ -271,16 +252,23 @@ void Processor::SetQuery(string const & query)
     }
   }
 
-  // Assign prefix with last parsed token.
-  if (!m_tokens.empty() && !delims(strings::LastUniChar(query)))
+  size_t const maxTokensCount = kMaxNumTokens - 1;
+  ASSERT_GREATER(maxTokensCount, 0, ());
+  if (m_tokens.size() > maxTokensCount)
   {
-    m_prefix.swap(m_tokens.back());
-    m_tokens.pop_back();
+    m_tokens.resize(maxTokensCount);
+  }
+  else
+  {
+    // Assign the last parsed token to prefix.
+    if (!m_tokens.empty() && !delims(strings::LastUniChar(query)))
+    {
+      m_prefix.swap(m_tokens.back());
+      m_tokens.pop_back();
+    }
   }
 
-  int const maxTokensCount = MAX_TOKENS - 1;
-  if (m_tokens.size() > maxTokensCount)
-    m_tokens.resize(maxTokensCount);
+  RemoveStopWordsIfNeeded(m_tokens, m_prefix);
 
   // Assign tokens and prefix to scorer.
   m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
@@ -440,11 +428,9 @@ void Processor::InitParams(QueryParams & params)
   else
     params.InitWithPrefix(m_tokens.begin(), m_tokens.end(), m_prefix);
 
-  RemoveStopWordsIfNeeded(params);
-
   // Add names of categories (and synonyms).
   Classificator const & c = classif();
-  auto addSynonyms = [&](size_t i, uint32_t t) {
+  auto addCategorySynonyms = [&](size_t i, uint32_t t) {
     uint32_t const index = c.GetIndexForType(t);
     params.GetTypeIndices(i).push_back(index);
   };
@@ -454,12 +440,12 @@ void Processor::InitParams(QueryParams & params)
   params.SetCategorialRequest(isCategorialRequest);
   if (isCategorialRequest)
   {
-    ForEachCategoryType(tokenSlice, addSynonyms);
+    ForEachCategoryType(tokenSlice, addCategorySynonyms);
   }
   else
   {
     // todo(@m, @y). Shall we match prefix tokens for categories?
-    ForEachCategoryTypeFuzzy(tokenSlice, addSynonyms);
+    ForEachCategoryTypeFuzzy(tokenSlice, addCategorySynonyms);
   }
 
   // Remove all type indices for streets, as they're considired

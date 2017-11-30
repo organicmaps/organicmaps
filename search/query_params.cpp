@@ -1,10 +1,13 @@
 #include "search/query_params.hpp"
 
+#include "search/ranking_utils.hpp"
 #include "search/token_range.hpp"
 
 #include "indexer/feature_impl.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+
+using namespace std;
 
 namespace search
 {
@@ -48,6 +51,27 @@ private:
 };
 }  // namespace
 
+// QueryParams::Token ------------------------------------------------------------------------------
+void QueryParams::Token::AddSynonym(std::string const & s)
+{
+  AddSynonym(strings::MakeUniString(s));
+}
+
+void QueryParams::Token::AddSynonym(String const & s)
+{
+  if (!IsStopWord(s))
+    m_synonyms.push_back(s);
+}
+
+string DebugPrint(QueryParams::Token const & token)
+{
+  ostringstream os;
+  os << "Token [ m_original=" << DebugPrint(token.m_original)
+     << ", m_synonyms=" << DebugPrint(token.m_synonyms) << " ]";
+  return os.str();
+}
+
+// QueryParams -------------------------------------------------------------------------------------
 void QueryParams::Clear()
 {
   m_tokens.clear();
@@ -136,14 +160,6 @@ string DebugPrint(QueryParams const & params)
      << ", m_prefixToken=" << DebugPrint(params.m_prefixToken)
      << ", m_typeIndices=" << ::DebugPrint(params.m_typeIndices)
      << ", m_langs=" << DebugPrint(params.m_langs) << " ]";
-  return os.str();
-}
-
-string DebugPrint(QueryParams::Token const & token)
-{
-  ostringstream os;
-  os << "Token [ m_original=" << DebugPrint(token.m_original)
-     << ", m_synonyms=" << DebugPrint(token.m_synonyms) << " ]";
   return os.str();
 }
 }  // namespace search

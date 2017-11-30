@@ -178,7 +178,8 @@ struct FeatureNameInserter
                           });
     }
 
-    int const maxTokensCount = search::MAX_TOKENS - 1;
+    CHECK_GREATER(search::kMaxNumTokens, 0, ());
+    size_t const maxTokensCount = search::kMaxNumTokens - 1;
     if (tokens.size() > maxTokensCount)
     {
       LOG(LWARNING, ("Name has too many tokens:", name));

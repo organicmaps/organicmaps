@@ -19,8 +19,8 @@ public:
     : m_begin(static_cast<uint8_t>(begin)), m_end(static_cast<uint8_t>(end))
 
   {
-    ASSERT_LESS_OR_EQUAL(begin, MAX_TOKENS, ());
-    ASSERT_LESS_OR_EQUAL(end, MAX_TOKENS, ());
+    ASSERT_LESS_OR_EQUAL(begin, kMaxNumTokens, ());
+    ASSERT_LESS_OR_EQUAL(end, kMaxNumTokens, ());
     ASSERT(IsValid(), (*this));
   }
 
