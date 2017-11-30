@@ -27545,14 +27545,70 @@
     en = Data is loading
     ru = Данные загружаются
 
+  [discovery_button_404_error_title]
+    en = Not found
+    ru = Ничего не найдено
+
+  [discovery_button_404_error_message]
+    en = Oops, we did not find anything interesting around.
+    ru = Ого, мы не нашли ничего интересного вокруг.
+
+  [booking_filters_check_in]
+    en = Check in
+    ru = Заезд
+
+  [booking_filters_check_out]
+    en = Check Out
+    ru = Отъезд
+
+  [booking_filters_offline]
+    en = Not available online.
+    ru = Недоступно без интернета.
+
+  [directions_finish]
+    en = Destination
+    ru = Место назначения
+
+  [directions_on_foot]
+    en = Walk %s
+    ru = Пешком %s
+
   [entrance]
     en = Entrance
     ru = Вход
 
-  [discovery_button_404_error_title]
-    en = Not found
+  [coffee]
+    en = Coffee
+    ru = Кофе
 
-  [discovery_button_404_error_message]
-    en = Translation is needed!!!!
-    ru = Ого, мы ничего не нашли интересного вокруг. Добавьте новые места если знаете.     
+  [cleanliness]
+    en = Cleanliness
+    ru = Чистота
 
+  [crowdedness]
+    en = Crowdedness
+    ru = Многолюдность
+
+  [error_enter_correct_name]
+    en = Please, enter a correct name
+    ru = Пожалуйста, введите название правильно
+
+  [hotel_available]
+    en = Available
+    ru = Есть места
+
+  [whats_new_transit_title]
+    en = Subways available
+    ru = Ура! Метро!
+
+  [whats_new_transit_message]
+    en = Build your routes using subways! Please update maps to see changes.
+    ru = Стройте маршруты с помощью метро! Чтобы увидеть изменения, пожалуйста, обновите карты.
+  
+  [whats_new_discovery_title]
+    en = Discovery button
+    ru = Места “Поблизости”
+
+  [whats_new_discovery_message]
+    en = Discover things around in one click!
+    ru = Ищите места “Поблизости” в один клик!
