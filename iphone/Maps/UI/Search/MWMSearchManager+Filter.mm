@@ -46,11 +46,6 @@
 - (IBAction)clearFilter { [MWMSearch clearFilter]; }
 - (void)configNavigationBar:(UINavigationBar *)navBar
 {
-  UIColor * white = [UIColor white];
-  navBar.tintColor = white;
-  navBar.barTintColor = white;
-  [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-  navBar.shadowImage = [UIImage imageWithColor:[UIColor fadeBackground]];
   navBar.titleTextAttributes = @{
     NSForegroundColorAttributeName : [UIColor blackPrimaryText],
     NSFontAttributeName : [UIFont regular17]

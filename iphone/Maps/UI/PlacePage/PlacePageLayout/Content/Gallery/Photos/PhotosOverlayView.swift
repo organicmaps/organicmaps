@@ -46,7 +46,6 @@ final class PhotosOverlayView: UIView {
     navigationBar.backgroundColor = UIColor.clear
     navigationBar.barTintColor = nil
     navigationBar.isTranslucent = true
-    navigationBar.shadowImage = UIImage()
     navigationBar.setBackgroundImage(UIImage(), for: .default)
 
     navigationItem = UINavigationItem(title: "")
