@@ -51,6 +51,8 @@
   }
   self.titleLabel.attributedText = attributedTitle;
   [self.titleLabel sizeToFit];
+
+  self.backgroundColor = [UIColor white];
 }
 
 - (NSDictionary *)selectedTitleAttributes

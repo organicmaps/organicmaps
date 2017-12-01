@@ -59,35 +59,38 @@ NSAttributedString * makeString(NSString * primaryText, NSDictionary * primaryAt
 
 void configButton(UIButton * button, NSString * primaryText, NSString * secondaryText)
 {
-  UIFont * regular17 = [UIFont regular17];
-  UIFont * regular10 = [UIFont regular10];
+  UIFont * primaryFont = [UIFont regular14];
+  UIFont * secondaryFont = [UIFont medium10];
 
   UIColor * white = [UIColor white];
 
   UIImage * linkBlueImage = [UIImage imageWithColor:[UIColor linkBlue]];
+  UIImage * linkBlueHighlightedImage = [UIImage imageWithColor:[UIColor linkBlueHighlighted]];
 
   [button setBackgroundImage:[UIImage imageWithColor:white] forState:UIControlStateNormal];
   [button setBackgroundImage:linkBlueImage forState:UIControlStateSelected];
-  [button setBackgroundImage:linkBlueImage
+  [button setBackgroundImage:linkBlueHighlightedImage forState:UIControlStateHighlighted];
+  [button setBackgroundImage:linkBlueHighlightedImage
                     forState:UIControlStateSelected | UIControlStateHighlighted];
 
   NSDictionary * primarySelected =
-      @{NSFontAttributeName : regular17, NSForegroundColorAttributeName : white};
+      @{NSFontAttributeName: primaryFont, NSForegroundColorAttributeName: white};
   NSDictionary * secondarySelected =
-      @{NSFontAttributeName : regular10, NSForegroundColorAttributeName : white};
+      @{NSFontAttributeName: secondaryFont, NSForegroundColorAttributeName: white};
   NSAttributedString * titleSelected =
       makeString(primaryText, primarySelected, secondaryText, secondarySelected);
   [button setAttributedTitle:titleSelected forState:UIControlStateSelected];
+  [button setAttributedTitle:titleSelected forState:UIControlStateHighlighted];
   [button setAttributedTitle:titleSelected
                     forState:UIControlStateSelected | UIControlStateHighlighted];
 
   NSDictionary * primaryNormal = @{
-    NSFontAttributeName : regular17,
-    NSForegroundColorAttributeName : [UIColor blackPrimaryText]
+    NSFontAttributeName: primaryFont,
+    NSForegroundColorAttributeName: [UIColor blackPrimaryText]
   };
   NSDictionary * secondaryNormal = @{
-    NSFontAttributeName : regular10,
-    NSForegroundColorAttributeName : [UIColor blackSecondaryText]
+    NSFontAttributeName: secondaryFont,
+    NSForegroundColorAttributeName: [UIColor blackSecondaryText]
   };
   NSAttributedString * titleNormal =
       makeString(primaryText, primaryNormal, secondaryText, secondaryNormal);

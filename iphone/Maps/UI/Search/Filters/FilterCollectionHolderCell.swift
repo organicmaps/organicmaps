@@ -22,8 +22,12 @@ final class FilterCollectionHolderCell: MWMTableViewCell {
     self.tableView = tableView
     layout()
     collectionView.allowsMultipleSelection = true
+  }
+
+  override func awakeFromNib() {
+    super.awakeFromNib()
     isSeparatorHidden = true
-    backgroundColor = UIColor.pressBackground()
+    backgroundColor = UIColor.clear
   }
 
   override func layoutSubviews() {
