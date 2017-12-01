@@ -60,7 +60,10 @@ public:
     Base::m_values = inIt.GetValues();
     inIt.ForEachMove([&](Char c, InnerIterator it) {
       auto const label = it.GetLabel();
-      Base::m_edges.emplace_back(label.begin(), label.end());
+      Base::m_edges.emplace_back();
+      auto & edge = Base::m_edges.back().m_label;
+      edge.push_back(c);
+      edge.append(label);
       m_moves.push_back(it);
     });
   }

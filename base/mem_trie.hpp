@@ -227,7 +227,7 @@ public:
     while (it != key.end())
     {
       bool created;
-      curr = &curr->GetOrCreateMove(*it, created);
+      curr = &curr->GetOrCreateMove(*it++, created);
 
       auto & edge = curr->m_edge;
 
@@ -237,9 +237,6 @@ public:
         it = key.end();
         continue;
       }
-
-      ASSERT(!edge.Empty(), ());
-      ASSERT_EQUAL(edge[0], *it, ());
 
       size_t i = 0;
       SkipEqual(edge, key.end(), i, it);
@@ -261,6 +258,7 @@ public:
 
       ASSERT(!edge.Empty(), ());
       auto const next = edge[0];
+      edge.Drop(1);
 
       node->Swap(*curr);
       curr->AddChild(next, std::move(node));
@@ -361,6 +359,8 @@ private:
       m_label.erase(m_label.begin() + Size() - n, m_label.end());
       return prefix;
     }
+
+    void Prepend(Char c) { m_label.push_back(c); }
 
     void Prepend(Edge const & prefix)
     {
@@ -467,7 +467,7 @@ private:
     {
       ASSERT(it != prefix.end(), ());
 
-      cur = cur->GetMove(*it);
+      cur = cur->GetMove(*it++);
       if (!cur)
         return;
 
@@ -502,14 +502,19 @@ private:
       if (root.m_values.Empty() && root.m_moves.Size() == 1)
       {
         Node child;
-        root.m_moves.ForEach([&](Char const & /* c */, Node & node) { child.Swap(node); });
+        Char c;
+        root.m_moves.ForEach([&](Char const & mc, Node & mn) {
+          c = mc;
+          child.Swap(mn);
+        });
+        child.m_edge.Prepend(c);
         child.m_edge.Prepend(root.m_edge);
         root.Swap(child);
       }
       return;
     }
 
-    auto const symbol = *cur;
+    auto const symbol = *cur++;
 
     auto * child = root.GetMove(symbol);
     if (!child)
@@ -539,6 +544,7 @@ private:
                          {
                            auto const size = prefix.size();
                            auto const edge = node.m_edge.template As<String>();
+                           prefix.push_back(c);
                            prefix.insert(prefix.end(), edge.begin(), edge.end());
                            ForEachInSubtree(node, prefix, toDo);
                            prefix.resize(size);
