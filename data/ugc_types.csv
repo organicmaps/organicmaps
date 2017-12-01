@@ -56,20 +56,20 @@ historic-museum,1,1,0,experience value_for_money
 historic-ruins,1,1,0,experience value_for_money
 internet_access,1,1,0,rating
 internet_access-wlan,1,1,0,rating
-leisure-garden,1,1,0,experience service value_for_money
+leisure-garden,1,1,0,experience cleanliness crowdedness
 leisure-golf_course,1,1,0,experience service value_for_money
-leisure-nature_reserve,1,1,0,experience value_for_money
-leisure-park,1,1,0,experience service value_for_money
+leisure-nature_reserve,1,1,0,experience cleanliness crowdedness
+leisure-park,1,1,0,experience cleanliness crowdedness
 leisure-pitch,1,1,0,equipment service value_for_money
-leisure-playground,1,1,0,experience service value_for_money
+leisure-playground,1,1,0,experience equipment crowdedness
 leisure-sports_centre,1,1,0,equipment service value_for_money
 leisure-stadium,1,1,0,experience service value_for_money
 leisure-swimming_pool,1,1,0,equipment service value_for_money
 leisure-fitness_station,1,1,0,equipment service value_for_money
 leisure-water_park,1,1,0,experience service value_for_money
 man_made-lighthouse,1,1,0,experience value_for_money
-natural-beach,1,1,0,experience value_for_money
-natural-cave_entrance,1,1,0,experience value_for_money
+natural-beach,1,1,0,experience cleanliness crowdedness
+natural-cave_entrance,1,1,0,experience cleanliness crowdedness
 natural-peak,1,1,0,rating
 natural-spring,1,1,0,rating
 natural-volcano,1,1,0,rating
