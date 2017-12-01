@@ -13,6 +13,7 @@ set(
   collection_cast_test.cpp
   condition_test.cpp
   containers_test.cpp
+  control_flow_tests.cpp
   levenshtein_dfa_test.cpp
   logging_test.cpp
   math_test.cpp

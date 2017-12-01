@@ -88,35 +88,19 @@ public:
       AddString(l, utf8s);
   }
 
-  // Calls |fn| for each pair of |lang| and |utf8s| stored in this multilang string.
-  // To avoid excessive calls, |fn| may signal the end of execution via its return value.
   template <typename Fn>
-  typename enable_if<
-      is_same<typename result_of<Fn(int8_t, std::string)>::type, base::ControlFlow>::value,
-      void>::type
-  ForEach(Fn && fn) const
+  void ForEach(Fn && fn) const
   {
     size_t i = 0;
     size_t const sz = m_s.size();
+    base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
     while (i < sz)
     {
       size_t const next = GetNextIndex(i);
-      if (fn((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)) == base::ControlFlow::Break)
-        return;
+      if (wrapper((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)) == base::ControlFlow::Break)
+        break;
       i = next;
     }
-  }
-
-  // Calls |fn| for each pair of |lang| and |utf8s| stored in this multilang string.
-  template <typename Fn>
-  typename enable_if<is_same<typename result_of<Fn(int8_t, std::string)>::type, void>::value,
-                     void>::type
-  ForEach(Fn && fn) const
-  {
-    ForEach([&](int8_t lang, std::string utf8s) {
-      fn(lang, utf8s);
-      return base::ControlFlow::Continue;
-    });
   }
 
   bool GetString(int8_t lang, string & utf8s) const;
