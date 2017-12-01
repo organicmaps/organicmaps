@@ -579,13 +579,18 @@ public class SearchFragment extends BaseMwmFragment
     mLastQueryTimestamp = System.nanoTime();
 
     HotelsFilter hotelsFilter = null;
+    BookingFilterParams bookingFilterParams = null;
     if (mFilterController != null)
+    {
       hotelsFilter = mFilterController.getFilter();
+      bookingFilterParams = mFilterController.getBookingFilterParams();
+    }
 
     SearchEngine.searchInteractive(
         query, !TextUtils.isEmpty(mInitialLocale)
                ? mInitialLocale : com.mapswithme.util.Language.getKeyboardLocale(),
-        mLastQueryTimestamp, false /* isMapAndTable */, hotelsFilter, null /* bookingParams */);
+        mLastQueryTimestamp, false /* isMapAndTable */,
+        hotelsFilter, bookingFilterParams);
     SearchEngine.showAllResults(query);
     Utils.navigateToParent(getActivity());
 
@@ -622,19 +627,24 @@ public class SearchFragment extends BaseMwmFragment
   private void runSearch()
   {
     HotelsFilter hotelsFilter = null;
+    BookingFilterParams bookingFilterParams = null;
     if (mFilterController != null)
+    {
       hotelsFilter = mFilterController.getFilter();
+      bookingFilterParams = mFilterController.getBookingFilterParams();
+    }
 
     mLastQueryTimestamp = System.nanoTime();
     if (isInteractiveSearch())
     {
-      SearchEngine.searchInteractive(
-          getQuery(), mLastQueryTimestamp, true /* isMapAndTable */, hotelsFilter, null /* bookingParams */);
+      SearchEngine.searchInteractive(getQuery(), mLastQueryTimestamp, true /* isMapAndTable */,
+                                     hotelsFilter, bookingFilterParams);
     }
     else
     {
       if (!SearchEngine.search(getQuery(), mLastQueryTimestamp, mLastPosition.valid,
-              mLastPosition.lat, mLastPosition.lon, hotelsFilter))
+                               mLastPosition.lat, mLastPosition.lon,
+                               hotelsFilter, bookingFilterParams))
       {
         return;
       }

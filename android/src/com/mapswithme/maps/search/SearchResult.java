@@ -1,5 +1,7 @@
 package com.mapswithme.maps.search;
 
+import com.mapswithme.maps.bookmarks.data.FeatureId;
+
 import static com.mapswithme.maps.search.SearchResultTypes.TYPE_LOCAL_ADS_CUSTOMER;
 import static com.mapswithme.maps.search.SearchResultTypes.TYPE_RESULT;
 import static com.mapswithme.maps.search.SearchResultTypes.TYPE_SUGGEST;
@@ -17,6 +19,7 @@ public class SearchResult implements SearchData
 
   public static class Description
   {
+    public final FeatureId featureId;
     public final String featureType;
     public final String region;
     public final String distance;
@@ -26,9 +29,10 @@ public class SearchResult implements SearchData
     public final int stars;
     public final int openNow;
 
-    public Description(String featureType, String region, String distance,
+    public Description(FeatureId featureId, String featureType, String region, String distance,
                        String cuisine, String rating, String pricing, int stars, int openNow)
     {
+      this.featureId = featureId;
       this.featureType = featureType;
       this.region = region;
       this.distance = distance;

@@ -37,6 +37,9 @@ public class SearchFilterController
   @Nullable
   private HotelsFilter mFilter;
 
+  @Nullable
+  private BookingFilterParams mBookingFilterParams;
+
   private final float mElevation;
 
   @NonNull
@@ -180,6 +183,17 @@ public class SearchFilterController
       mFilterText.setTextColor(ContextCompat.getColor(mFrame.getContext(),
           UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.colorAccent)));
     }
+  }
+
+  @Nullable
+  public BookingFilterParams getBookingFilterParams()
+  {
+    return mBookingFilterParams;
+  }
+
+  public void setBookingFilterParams(@Nullable BookingFilterParams params)
+  {
+    mBookingFilterParams = params;
   }
 
   public boolean onBackPressed()

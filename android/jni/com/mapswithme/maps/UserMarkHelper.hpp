@@ -39,4 +39,7 @@ jintArray ToReachableByTaxiProvidersArray(JNIEnv * env, vector<taxi::Provider::T
 jobject CreateLocalAdInfo(JNIEnv * env, place_page::Info const & info);
 
 jobject CreateRoutePointInfo(JNIEnv * env, place_page::Info const & info);
+
+jobject CreateFeatureId(JNIEnv * env, FeatureID const & fid);
+jobjectArray ToFeatureIdArray(JNIEnv * env, vector<FeatureID> const & ids);
 }  // namespace usermark_helper

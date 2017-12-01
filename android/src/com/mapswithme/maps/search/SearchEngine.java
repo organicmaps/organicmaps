@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.concurrency.UiThread;
@@ -12,7 +13,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 public enum SearchEngine implements NativeSearchListener,
-                                    NativeMapSearchListener
+                                    NativeMapSearchListener,
+                                    NativeBookingFilterListener
 {
   INSTANCE;
 
@@ -65,6 +67,12 @@ public enum SearchEngine implements NativeSearchListener,
     });
   }
 
+  @Override
+  public void onFilterAvailableHotels(FeatureId[] availableHotels)
+  {
+    //TODO: implement
+  }
+
   private final Listeners<NativeSearchListener> mListeners = new Listeners<>();
   private final Listeners<NativeMapSearchListener> mMapListeners = new Listeners<>();
 
@@ -99,11 +107,14 @@ public enum SearchEngine implements NativeSearchListener,
    * @param timestamp Search results are filtered according to it after multiple requests.
    * @return whether search was actually started.
    */
-  public static boolean search(String query, long timestamp, boolean hasLocation, double lat, double lon, @Nullable HotelsFilter hotelsFilter)
+  public static boolean search(String query, long timestamp, boolean hasLocation,
+                               double lat, double lon, @Nullable HotelsFilter hotelsFilter,
+                               @Nullable BookingFilterParams bookingParams)
   {
     try
     {
-      return nativeRunSearch(query.getBytes("utf-8"), Language.getKeyboardLocale(), timestamp, hasLocation, lat, lon, hotelsFilter);
+      return nativeRunSearch(query.getBytes("utf-8"), Language.getKeyboardLocale(),
+                             timestamp, hasLocation, lat, lon, hotelsFilter, bookingParams);
     } catch (UnsupportedEncodingException ignored) { }
 
     return false;
@@ -115,7 +126,8 @@ public enum SearchEngine implements NativeSearchListener,
   {
     try
     {
-      nativeRunInteractiveSearch(query.getBytes("utf-8"), locale, timestamp, isMapAndTable, hotelsFilter, bookingParams);
+      nativeRunInteractiveSearch(query.getBytes("utf-8"), locale, timestamp, isMapAndTable,
+                                 hotelsFilter, bookingParams);
     } catch (UnsupportedEncodingException ignored) { }
   }
 
@@ -179,7 +191,8 @@ public enum SearchEngine implements NativeSearchListener,
    * @param bytes utf-8 formatted bytes of query.
    */
   private static native boolean nativeRunSearch(byte[] bytes, String language, long timestamp, boolean hasLocation,
-                                                double lat, double lon, @Nullable HotelsFilter hotelsFilter);
+                                                double lat, double lon, @Nullable HotelsFilter hotelsFilter,
+                                                @Nullable BookingFilterParams bookingParams);
 
   /**
    * @param bytes utf-8 formatted query bytes
@@ -187,7 +200,7 @@ public enum SearchEngine implements NativeSearchListener,
    */
   private static native void nativeRunInteractiveSearch(byte[] bytes, String language, long timestamp,
                                                         boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter,
-                                                        BookingFilterParams bookingParams);
+                                                        @Nullable BookingFilterParams bookingParams);
 
   /**
    * @param bytes utf-8 formatted query bytes

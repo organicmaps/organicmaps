@@ -240,4 +240,27 @@ jobject CreateRoutePointInfo(JNIEnv * env, place_page::Info const & info)
   int const markType = static_cast<int>(info.GetRouteMarkType());
   return env->NewObject(clazz, ctorId, markType, info.GetIntermediateIndex());
 }
+
+jobject CreateFeatureId(JNIEnv * env, FeatureID const & fid)
+{
+  static jmethodID const featureCtorId =
+    jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
+
+  auto const & info = fid.m_mwmId.GetInfo();
+  jni::TScopedLocalRef jMwmName(env, jni::ToJavaString(env, info ? info->GetCountryName() : ""));
+  return env->NewObject(g_featureIdClazz, featureCtorId, jMwmName.get(),
+                        info ? static_cast<jlong>(info->GetVersion()) : 0,
+                        static_cast<jint>(fid.m_index));
+}
+
+jobjectArray ToFeatureIdArray(JNIEnv * env, vector<FeatureID> const & ids)
+{
+  if (ids.empty())
+    return nullptr;
+
+  return jni::ToJavaArray(env, g_featureIdClazz, ids,
+                          [](JNIEnv * env, FeatureID const & fid) {
+                            return CreateFeatureId(env, fid);
+                          });
+}
 }  // namespace usermark_helper
