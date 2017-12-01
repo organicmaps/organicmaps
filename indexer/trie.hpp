@@ -55,10 +55,10 @@ public:
   using Char = typename String::value_type;
   using InnerIterator = typename base::MemTrie<String, ValueList>::Iterator;
 
-  explicit MemTrieIterator(InnerIterator const & inIt)
+  explicit MemTrieIterator(InnerIterator const & innerIt)
   {
-    Base::m_values = inIt.GetValues();
-    inIt.ForEachMove([&](Char c, InnerIterator it) {
+    Base::m_values = innerIt.GetValues();
+    innerIt.ForEachMove([&](Char c, InnerIterator it) {
       auto const label = it.GetLabel();
       Base::m_edges.emplace_back();
       auto & edge = Base::m_edges.back().m_label;

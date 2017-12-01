@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base/assert.hpp"
-#include "base/buffer_vector.hpp"
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
@@ -65,7 +64,7 @@ public:
   void EraseSubtree(Char const & c) { m_subtrees.erase(c); }
 
   size_t Size() const { return m_subtrees.size(); }
-  bool Empty() const { return m_subtrees.empty(); }
+  bool Empty() const { return Size() == 0; }
 
   void Clear() { m_subtrees.clear(); }
 
@@ -88,23 +87,16 @@ public:
 
   Subtree * GetSubtree(Char const & c) const
   {
-    for (auto const & subtree : m_subtrees)
-    {
-      if (subtree.first == c)
-        return subtree.second.get();
-    }
-    return nullptr;
+    auto const it = Find(c);
+    return it != m_subtrees.cend() ? it->second.get() : nullptr;
   }
 
   Subtree & GetOrCreateSubtree(Char const & c, bool & created)
   {
-    for (size_t i = 0; i < m_subtrees.size(); ++i)
+    if (auto * const subtree = GetSubtree(c))
     {
-      if (m_subtrees[i].first == c)
-      {
-        created = false;
-        return *m_subtrees[i].second;
-      }
+      created = false;
+      return *subtree;
     }
 
     created = true;
@@ -118,14 +110,37 @@ public:
     m_subtrees.emplace_back(c, std::move(subtree));
   }
 
-  bool Empty() const { return m_subtrees.empty(); }
+  void EraseSubtree(Char const & c)
+  {
+    auto const it = Find(c);
+    if (it != m_subtrees.end())
+      m_subtrees.erase(it);
+  }
+
+  size_t Size() const { return m_subtrees.size(); }
+  bool Empty() const { return Size() == 0; }
 
   void Clear() { m_subtrees.clear(); }
 
   void Swap(VectorMoves & rhs) { m_subtrees.swap(rhs.m_subtrees); }
 
 private:
-  std::vector<std::pair<Char, std::unique_ptr<Subtree>>> m_subtrees;
+  using Entry = std::pair<Char, std::unique_ptr<Subtree>>;
+  using Entries = std::vector<Entry>;
+
+  typename Entries::iterator Find(Char const & c)
+  {
+    return std::find_if(m_subtrees.begin(), m_subtrees.end(),
+                        [&c](Entry const & entry) { return entry.first == c; });
+  }
+
+  typename Entries::const_iterator Find(Char const & c) const
+  {
+    return std::find_if(m_subtrees.cbegin(), m_subtrees.cend(),
+                        [&c](Entry const & entry) { return entry.first == c; });
+  }
+
+  Entries m_subtrees;
 };
 
 template <typename V>
@@ -142,7 +157,7 @@ struct VectorValues
 
   void Erase(Value const & v)
   {
-    auto const it = find(m_values.begin(), m_values.end(), v);
+    auto const it = std::find(m_values.begin(), m_values.end(), v);
     if (it != m_values.end())
       m_values.erase(it);
   }
@@ -200,7 +215,7 @@ public:
     template <typename ToDo>
     void ForEachMove(ToDo && toDo) const
     {
-      m_node.m_moves.ForEach([&](Char c, Node const & node) { toDo(c, Iterator(node)); });
+      m_node.m_moves.ForEach([&](Char const & c, Node const & node) { toDo(c, Iterator(node)); });
     }
 
     // Calls |toDo| for every value in this Iterator's node.
@@ -254,11 +269,11 @@ public:
       auto node = my::make_unique<Node>();
 
       ASSERT_LESS(i, edge.Size(), ());
-      node->m_edge = edge.Drop(i);
+      node->m_edge = edge.DropFirst(i);
 
       ASSERT(!edge.Empty(), ());
       auto const next = edge[0];
-      edge.Drop(1);
+      edge.DropFirst(1);
 
       node->Swap(*curr);
       curr->AddChild(next, std::move(node));
@@ -333,6 +348,9 @@ public:
   Node const & GetRoot() const { return m_root; }
 
 private:
+  // Stores tail (all characters except the first one) of an edge from
+  // a parent node to a child node. Characters are stored in reverse
+  // order, because we need to efficiently add and cut prefixes.
   class Edge
   {
   public:
@@ -351,20 +369,29 @@ private:
       std::reverse(m_label.begin(), m_label.end());
     }
 
-    Edge Drop(size_t n)
+    // Drops first |n| characters from the edge.
+    //
+    // Complexity: amortized O(n).
+    Edge DropFirst(size_t n)
     {
       ASSERT_LESS_OR_EQUAL(n, Size(), ());
 
-      Edge prefix(m_label.rbegin(), m_label.rbegin() + n);
+      Edge const prefix(m_label.rbegin(), m_label.rbegin() + n);
       m_label.erase(m_label.begin() + Size() - n, m_label.end());
       return prefix;
     }
 
-    void Prepend(Char c) { m_label.push_back(c); }
+    // Prepends |c| to the edge.
+    //
+    // Complexity: amortized O(1).
+    void Prepend(Char const & c) { m_label.push_back(c); }
 
+    // Prepends |prefix| to the edge.
+    //
+    // Complexity: amortized O(|prefix|)
     void Prepend(Edge const & prefix)
     {
-      m_label.insert(m_label.end(), prefix.m_label.begin(), prefix.m_label.end());
+      m_label.insert(m_label.end(), prefix.m_label.cbegin(), prefix.m_label.cend());
     }
 
     Char operator[](size_t i) const
@@ -432,19 +459,19 @@ private:
     {
       size_t size = 1;
       m_moves.ForEach(
-          [&size](Char /* c */, Node const & child) { size += child.GetNumNodes(); });
+          [&size](Char const & /* c */, Node const & child) { size += child.GetNumNodes(); });
       return size;
     }
 
     void Swap(Node & rhs)
     {
-      m_edge.Swap(rhs.m_edge);
       m_moves.Swap(rhs.m_moves);
+      m_edge.Swap(rhs.m_edge);
       m_values.Swap(rhs.m_values);
     }
 
-    Edge m_edge;
     Moves<Char, Node> m_moves;
+    Edge m_edge;
     ValuesHolder m_values;
 
     DISALLOW_COPY(Node);
@@ -534,13 +561,18 @@ private:
 
   // Calls |toDo| for each key-value pair in subtree where |node| is a
   // root of the subtree. |prefix| is a path from the trie root to the
-  // |node|.
+  // |node|. Because we need to accumulate labels from the root to the
+  // current |node| somewhere, |prefix| is passed by reference here,
+  // but after the call the contents of the |prefix| will be the same
+  // as before the call.
   template <typename ToDo>
   void ForEachInSubtree(Node const & node, String & prefix, ToDo && toDo) const
   {
-    node.m_values.ForEach([&prefix, &toDo](Value const & value) { toDo(prefix, value); });
+    node.m_values.ForEach([&prefix, &toDo](Value const & value) {
+      toDo(static_cast<String const &>(prefix), value);
+    });
 
-    node.m_moves.ForEach([&](Char c, Node const & node)
+    node.m_moves.ForEach([&](Char const & c, Node const & node)
                          {
                            auto const size = prefix.size();
                            auto const edge = node.m_edge.template As<String>();

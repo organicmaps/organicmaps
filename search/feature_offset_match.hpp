@@ -216,6 +216,11 @@ struct SearchTrieRequest
 
   std::vector<DFA> m_names;
   std::vector<strings::UniStringDFA> m_categories;
+
+  // Set of languages, will be prepended to all DFAs in |m_names|
+  // during retrieval from a search index.  Semantics of this field
+  // depends on the search index, for example this can be a set of
+  // langs from StringUtf8Multilang, or a set of locale indices.
   std::unordered_set<int8_t> m_langs;
 };
 
