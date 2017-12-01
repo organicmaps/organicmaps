@@ -30,12 +30,6 @@
     popover.permittedArrowDirections = UIPopoverArrowDirectionLeft;
     popover.delegate = self;
   }
-  else
-  {
-    navController.modalPresentationStyle = UIModalPresentationCustom;
-    self.filterTransitioningManager = [[MWMSearchFilterTransitioningManager alloc] init];
-    navController.transitioningDelegate = self.filterTransitioningManager;
-  }
 
   [self configNavigationBar:navController.navigationBar];
   [self configNavigationItem:navController.topViewController.navigationItem];
@@ -102,9 +96,9 @@
 
 #pragma mark - Actions
 
-- (void)doneAction
+- (void)closeAction
 {
-  [MWMSearch update];
+  [Statistics logEvent:kStatSearchFilterCancel withParameters:@{kStatCategory: kStatHotel}];
   [self.ownerController dismissViewControllerAnimated:YES completion:nil];
 }
 

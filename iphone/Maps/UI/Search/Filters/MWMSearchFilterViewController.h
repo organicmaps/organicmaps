@@ -1,4 +1,6 @@
-#import "MWMTableViewController.h"
+#import "MWMViewController.h"
+
+#include "map/booking_filter_availability_params.hpp"
 
 #include "std/shared_ptr.hpp"
 
@@ -10,12 +12,11 @@ struct Rule;
 }  // namespace hotels_filter
 }  // namespace search
 
-@interface MWMSearchFilterViewController : MWMTableViewController
+@interface MWMSearchFilterViewController : MWMViewController
 
 + (MWMSearchFilterViewController *)controller;
 
 - (shared_ptr<search::hotels_filter::Rule>)rules;
-
-- (void)reset;
+- (booking::filter::availability::Params)availabilityParams;
 
 @end

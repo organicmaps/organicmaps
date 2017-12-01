@@ -87,7 +87,8 @@
                                indexPath:indexPath]);
     auto const & result = [MWMSearch resultWithContainerIndex:containerIndex];
     auto const isLocalAds = [MWMSearch isLocalAdsWithContainerIndex:containerIndex];
-    [cell config:result isLocalAds:isLocalAds];
+    auto const isBookingAvailable = [MWMSearch isBookingAvailableWithContainerIndex:containerIndex];
+    [cell config:result isLocalAds:isLocalAds isAvailable:isBookingAvailable];
     return cell;
   }
   case MWMSearchItemTypeMopub:

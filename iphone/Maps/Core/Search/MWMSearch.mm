@@ -53,8 +53,9 @@ using Observers = NSHashTable<Observer>;
   search::EverywhereSearchParams m_everywhereParams;
   search::ViewportSearchParams m_viewportParams;
   search::Results m_everywhereResults;
-  vector<bool> m_isLocalAdsCustomer;
-  string m_filterQuery;
+  std::vector<bool> m_isLocalAdsCustomer;
+  std::vector<FeatureID> m_bookingAvailableFeatureIDs;
+  std::string m_filterQuery;
 }
 
 #pragma mark - Instance
@@ -127,6 +128,18 @@ using Observers = NSHashTable<Observer>;
   }
   {
     __weak auto weakSelf = self;
+    m_everywhereParams.m_bookingFilterParams.m_callback =
+        [weakSelf](booking::AvailabilityParams const & params,
+                   std::vector<FeatureID> const & featuresSorted) {
+          __strong auto self = weakSelf;
+          if (!self || self->m_everywhereParams.m_bookingFilterParams.m_params != params)
+            return;
+          self->m_bookingAvailableFeatureIDs = featuresSorted;
+          [self onSearchResultsUpdated];
+        };
+  }
+  {
+    __weak auto weakSelf = self;
     m_viewportParams.m_onStarted = [weakSelf] {
       __strong auto self = weakSelf;
       if (!self)
@@ -169,6 +182,11 @@ using Observers = NSHashTable<Observer>;
   shared_ptr<search::hotels_filter::Rule> const hotelsRules = self.filter ? [self.filter rules] : nullptr;
   m_viewportParams.m_hotelsFilter = hotelsRules;
   m_everywhereParams.m_hotelsFilter = hotelsRules;
+
+  auto const availabilityParams =
+      self.filter ? [self.filter availabilityParams] : booking::filter::availability::Params();
+  m_viewportParams.m_bookingFilterParams = availabilityParams;
+  m_everywhereParams.m_bookingFilterParams = availabilityParams;
 }
 
 - (void)update
@@ -176,8 +194,8 @@ using Observers = NSHashTable<Observer>;
   [MWMSearch reset];
   if (m_everywhereParams.m_query.empty())
     return;
-  [self updateCallbacks];
   [self updateFilters];
+  [self updateCallbacks];
   auto & f = GetFramework();
   if ([MWMSearch isCianSearch:@(m_everywhereParams.m_query.c_str())])
     f.SearchInViewport(m_viewportParams);
@@ -252,6 +270,14 @@ using Observers = NSHashTable<Observer>;
   return [[MWMSearch manager].banners bannerAtIndex:index];
 }
 
++ (BOOL)isBookingAvailableWithContainerIndex:(NSUInteger)index
+{
+  auto const & resultFeatureID = [self resultWithContainerIndex:index].GetFeatureID();
+  auto const & bookingAvailableIDs = [MWMSearch manager]->m_bookingAvailableFeatureIDs;
+  return std::binary_search(bookingAvailableIDs.begin(), bookingAvailableIDs.end(),
+                            resultFeatureID);
+}
+
 + (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row
 {
   auto itemsIndex = [MWMSearch manager].itemsIndex;
@@ -273,6 +299,11 @@ using Observers = NSHashTable<Observer>;
   GetFramework().CancelAllSearches();
   manager.everywhereSearchCompleted = NO;
   manager.viewportSearchCompleted = NO;
+  manager->m_everywhereResults.Clear();
+  manager->m_bookingAvailableFeatureIDs.clear();
+  auto const availabilityParams = booking::filter::availability::Params();
+  manager->m_viewportParams.m_bookingFilterParams = availabilityParams;
+  manager->m_everywhereParams.m_bookingFilterParams = availabilityParams;
   if (manager->m_filterQuery != manager->m_everywhereParams.m_query)
     manager.isHotelResults = NO;
   [manager onSearchResultsUpdated];
@@ -281,11 +312,10 @@ using Observers = NSHashTable<Observer>;
 + (void)clear
 {
   auto manager = [MWMSearch manager];
-  manager->m_everywhereResults.Clear();
   manager->m_everywhereParams.m_query.clear();
   manager->m_viewportParams.m_query.clear();
   manager.suggestionsCount = 0;
-  [manager.filter reset];
+  manager.filter = nil;
   [self reset];
 }
 
@@ -305,7 +335,15 @@ using Observers = NSHashTable<Observer>;
 
 #pragma mark - Filters
 
-+ (BOOL)hasFilter { return [[MWMSearch manager].filter rules] != nullptr; }
++ (BOOL)hasFilter
+{
+  auto filter = [MWMSearch manager].filter;
+  if (!filter)
+    return NO;
+  auto const hasRules = [filter rules] != nullptr;
+  auto const hasBookingParams = ![filter availabilityParams].IsEmpty();
+  return hasRules || hasBookingParams;
+}
 
 + (MWMSearchFilterViewController *)getFilter
 {
@@ -318,7 +356,7 @@ using Observers = NSHashTable<Observer>;
 + (void)clearFilter
 {
   MWMSearch * manager = [MWMSearch manager];
-  [manager.filter reset];
+  manager.filter = nil;
   [manager update];
 }
 
