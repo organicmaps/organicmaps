@@ -7,21 +7,21 @@
 
 #include "indexer/trie.hpp"
 
+#include "base/assert.hpp"
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
-#include "base/mutex.hpp"
-#include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 #include "base/uni_string_dfa.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/queue.hpp"
-#include "std/target_os.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/unordered_set.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <limits>
+#include <memory>
+#include <queue>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 namespace search
 {
@@ -32,7 +32,7 @@ namespace
 template <typename ValueList>
 bool FindLangIndex(trie::Iterator<ValueList> const & trieRoot, uint8_t lang, uint32_t & langIx)
 {
-  ASSERT_LESS(trieRoot.m_edges.size(), numeric_limits<uint32_t>::max(), ());
+  ASSERT_LESS(trieRoot.m_edges.size(), std::numeric_limits<uint32_t>::max(), ());
 
   uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edges.size());
   for (uint32_t i = 0; i < numLangs; ++i)
@@ -54,11 +54,11 @@ bool MatchInTrie(trie::Iterator<ValueList> const & trieRoot,
                  strings::UniChar const * rootPrefix, size_t rootPrefixSize, DFA const & dfa,
                  ToDo && toDo)
 {
-  using TrieDFAIt = shared_ptr<trie::Iterator<ValueList>>;
+  using TrieDFAIt = std::shared_ptr<trie::Iterator<ValueList>>;
   using DFAIt = typename DFA::Iterator;
-  using State = pair<TrieDFAIt, DFAIt>;
+  using State = std::pair<TrieDFAIt, DFAIt>;
 
-  queue<State> q;
+  std::queue<State> q;
 
   {
     auto it = dfa.Begin();
@@ -102,14 +102,15 @@ bool MatchInTrie(trie::Iterator<ValueList> const & trieRoot,
 template <typename Filter, typename Value>
 class OffsetIntersector
 {
-  using Set = unordered_set<Value>;
+  using Set = std::unordered_set<Value>;
 
   Filter const & m_filter;
-  unique_ptr<Set> m_prevSet;
-  unique_ptr<Set> m_set;
+  std::unique_ptr<Set> m_prevSet;
+  std::unique_ptr<Set> m_set;
 
 public:
-  explicit OffsetIntersector(Filter const & filter) : m_filter(filter), m_set(make_unique<Set>()) {}
+  explicit OffsetIntersector(Filter const &filter)
+      : m_filter(filter), m_set(my::make_unique<Set>()) {}
 
   void operator()(Value const & v)
   {
@@ -123,7 +124,7 @@ public:
   void NextStep()
   {
     if (!m_prevSet)
-      m_prevSet = make_unique<Set>();
+      m_prevSet = my::make_unique<Set>();
 
     m_prevSet.swap(m_set);
     m_set->clear();
@@ -186,24 +187,24 @@ public:
   }
 
 private:
-  vector<Value> m_values;
+  std::vector<Value> m_values;
   Filter const & m_filter;
 };
 
 template <typename DFA>
 struct SearchTrieRequest
 {
-  inline bool IsLangExist(int8_t lang) const { return m_langs.Contains(lang); }
+  bool IsLangExist(int8_t lang) const { return m_langs.Contains(lang); }
 
-  inline void Clear()
+  void Clear()
   {
     m_names.clear();
     m_categories.clear();
     m_langs.Clear();
   }
 
-  vector<DFA> m_names;
-  vector<strings::UniStringDFA> m_categories;
+  std::vector<DFA> m_names;
+  std::vector<strings::UniStringDFA> m_categories;
   QueryParams::Langs m_langs;
 };
 
@@ -211,7 +212,8 @@ struct SearchTrieRequest
 //
 // *NOTE* |toDo| may be called several times for the same feature.
 template <typename DFA, typename ValueList, typename ToDo>
-void MatchInTrie(vector<DFA> const & dfas, TrieRootPrefix<ValueList> const & trieRoot, ToDo && toDo)
+void MatchInTrie(std::vector<DFA> const & dfas, TrieRootPrefix<ValueList> const & trieRoot,
+                 ToDo && toDo)
 {
   for (auto const & dfa : dfas)
     impl::MatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize, dfa, toDo);
@@ -243,7 +245,7 @@ template <typename DFA, typename ValueList, typename ToDo>
 void ForEachLangPrefix(SearchTrieRequest<DFA> const & request,
                        trie::Iterator<ValueList> const & trieRoot, ToDo && toDo)
 {
-  ASSERT_LESS(trieRoot.m_edges.size(), numeric_limits<uint32_t>::max(), ());
+  ASSERT_LESS(trieRoot.m_edges.size(), std::numeric_limits<uint32_t>::max(), ());
 
   uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edges.size());
   for (uint32_t langIx = 0; langIx < numLangs; ++langIx)
@@ -306,13 +308,13 @@ void MatchPostcodesInTrie(TokenSlice const & slice, trie::Iterator<ValueList> co
   {
     if (slice.IsPrefix(i))
     {
-      vector<PrefixDFAModifier<UniStringDFA>> dfas;
+      std::vector<PrefixDFAModifier<UniStringDFA>> dfas;
       slice.Get(i).ForEach([&dfas](UniString const & s) { dfas.emplace_back(UniStringDFA(s)); });
       MatchInTrie(dfas, TrieRootPrefix<ValueList>(*postcodesRoot, edge), intersector);
     }
     else
     {
-      vector<UniStringDFA> dfas;
+      std::vector<UniStringDFA> dfas;
       slice.Get(i).ForEach([&dfas](UniString const & s) { dfas.emplace_back(s); });
       MatchInTrie(dfas, TrieRootPrefix<ValueList>(*postcodesRoot, edge), intersector);
     }
@@ -320,6 +322,6 @@ void MatchPostcodesInTrie(TokenSlice const & slice, trie::Iterator<ValueList> co
     intersector.NextStep();
   }
 
-  intersector.ForEachResult(forward<ToDo>(toDo));
+  intersector.ForEachResult(std::forward<ToDo>(toDo));
 }
 }  // namespace search
