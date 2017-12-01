@@ -664,6 +664,9 @@
 		34AC8FDA1EFC062400E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC8FD91EFC062400E7F910 /* UILabel+NumberOfVisibleLines.swift */; };
 		34AC8FDB1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC8FD91EFC062400E7F910 /* UILabel+NumberOfVisibleLines.swift */; };
 		34AC8FDC1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC8FD91EFC062400E7F910 /* UILabel+NumberOfVisibleLines.swift */; };
+		34B1104B1FC843420010F76F /* CoreActionSheetPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B1104A1FC843420010F76F /* CoreActionSheetPicker.framework */; };
+		34B1104C1FC8474D0010F76F /* CoreActionSheetPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B1104A1FC843420010F76F /* CoreActionSheetPicker.framework */; };
+		34B1104D1FC8474E0010F76F /* CoreActionSheetPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B1104A1FC843420010F76F /* CoreActionSheetPicker.framework */; };
 		34B127E91FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B127E81FBDD410008713D9 /* MWMRouterTransitStepInfo.mm */; };
 		34B127EA1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B127E81FBDD410008713D9 /* MWMRouterTransitStepInfo.mm */; };
 		34B127EB1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B127E81FBDD410008713D9 /* MWMRouterTransitStepInfo.mm */; };
@@ -2250,6 +2253,7 @@
 		34AC8FC71EFC01F500E7F910 /* MWMRoutePoint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutePoint.mm; sourceTree = "<group>"; };
 		34AC8FC81EFC01F500E7F910 /* MWMRoutePoint+CPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMRoutePoint+CPP.h"; sourceTree = "<group>"; };
 		34AC8FD91EFC062400E7F910 /* UILabel+NumberOfVisibleLines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+NumberOfVisibleLines.swift"; sourceTree = "<group>"; };
+		34B1104A1FC843420010F76F /* CoreActionSheetPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreActionSheetPicker.framework; path = Carthage/Build/iOS/CoreActionSheetPicker.framework; sourceTree = "<group>"; };
 		34B127E61FBDD358008713D9 /* MWMRouterTransitType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterTransitType.h; sourceTree = "<group>"; };
 		34B127E71FBDD410008713D9 /* MWMRouterTransitStepInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterTransitStepInfo.h; sourceTree = "<group>"; };
 		34B127E81FBDD410008713D9 /* MWMRouterTransitStepInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouterTransitStepInfo.mm; sourceTree = "<group>"; };
@@ -2899,6 +2903,7 @@
 				67B78B561E4233480018E590 /* AdSupport.framework in Frameworks */,
 				3466A2CA1FB1C83B005494D3 /* FBSDKCoreKit.framework in Frameworks */,
 				3466A2D61FB1C83C005494D3 /* Bolts.framework in Frameworks */,
+				34B1104B1FC843420010F76F /* CoreActionSheetPicker.framework in Frameworks */,
 				340474F31E08199D00C92850 /* Fabric.framework in Frameworks */,
 				34E6F2DC1F459C1A008E14F9 /* GLKit.framework in Frameworks */,
 				3466A2CD1FB1C83B005494D3 /* FBSDKLoginKit.framework in Frameworks */,
@@ -2917,6 +2922,7 @@
 				4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */,
 				34E6F2DB1F459C05008E14F9 /* GLKit.framework in Frameworks */,
 				F6F8E3C51EF8469700F2DE8F /* libugc.a in Frameworks */,
+				34B1104C1FC8474D0010F76F /* CoreActionSheetPicker.framework in Frameworks */,
 				34F409891E9E1DD200E57AC0 /* libMopub.a in Frameworks */,
 				3488B03B1E9D13EF0068AFD8 /* UserNotifications.framework in Frameworks */,
 				45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */,
@@ -3013,6 +3019,7 @@
 				67B78B571E42334A0018E590 /* AdSupport.framework in Frameworks */,
 				3466A2CC1FB1C83B005494D3 /* FBSDKCoreKit.framework in Frameworks */,
 				3466A2D81FB1C83C005494D3 /* Bolts.framework in Frameworks */,
+				34B1104D1FC8474E0010F76F /* CoreActionSheetPicker.framework in Frameworks */,
 				340474F51E08199D00C92850 /* Fabric.framework in Frameworks */,
 				34E6F2DD1F459C1A008E14F9 /* GLKit.framework in Frameworks */,
 				3466A2CF1FB1C83B005494D3 /* FBSDKLoginKit.framework in Frameworks */,
@@ -3175,6 +3182,7 @@
 				34D8087C1E79360D002F0584 /* AlamofireImage.framework */,
 				3466A2BF1FB1C733005494D3 /* AppsFlyerTracker.framework */,
 				3466A2C71FB1C83B005494D3 /* Bolts.framework */,
+				34B1104A1FC843420010F76F /* CoreActionSheetPicker.framework */,
 				340474DC1E08199D00C92850 /* Crashlytics.framework */,
 				340474DD1E08199D00C92850 /* Fabric.framework */,
 				3466A2C81FB1C83B005494D3 /* FacebookCore.framework */,
@@ -5020,7 +5028,7 @@
 				F6D434721AD2AB97007C7728 /* Embed App Extensions */,
 				34A62D4A1C9034D0007FDCB7 /* ShellScript */,
 				34DF99C31E5C6892005D79D7 /* Embed Frameworks */,
-				34D808831E7939DF002F0584 /* ShellScript */,
+				34D808831E7939DF002F0584 /* Copy frameworks */,
 			);
 			buildRules = (
 			);
@@ -5040,9 +5048,9 @@
 				6741A9A01BF340DE002C974C /* Sources */,
 				6741AA311BF340DE002C974C /* Frameworks */,
 				6741AA521BF340DE002C974C /* Embed App Extensions */,
-				34F7422E1E08328300AC1FD6 /* ShellScript */,
+				34F7422E1E08328300AC1FD6 /* Run Script */,
 				340D943B1E643AA700CB037A /* Embed Frameworks */,
-				34D808821E79363A002F0584 /* ShellScript */,
+				34D808821E79363A002F0584 /* Copy frameworks */,
 			);
 			buildRules = (
 			);
@@ -5065,7 +5073,7 @@
 				849CF79A1DE842290024A8A5 /* Embed App Extensions */,
 				849CF79B1DE842290024A8A5 /* ShellScript */,
 				34DF99CC1E5C689B005D79D7 /* Embed Frameworks */,
-				34D808841E793A01002F0584 /* ShellScript */,
+				34D808841E793A01002F0584 /* Copy frameworks */,
 			);
 			buildRules = (
 			);
@@ -5788,7 +5796,7 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\n\nLOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  LINE=`grep CRASHLYTICS_IOS_KEY ../../private.h`\n    if [[ $LINE =~ \\\"(.*)\\\" ]]; then\n      CRASHLYTICS_KEY=${BASH_REMATCH[1]}\n      if [[ \"$CRASHLYTICS_KEY\" ]]; then\n        bash \"./3party/Fabric.framework/run\" \"$CRASHLYTICS_KEY\"\n      fi\n    fi\nfi\n";
 		};
-		34D808821E79363A002F0584 /* ShellScript */ = {
+		34D808821E79363A002F0584 /* Copy frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -5805,14 +5813,16 @@
 				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKLoginKit.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKShareKit.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/Pushwoosh.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/CoreActionSheetPicker.framework",
 			);
+			name = "Copy frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
-		34D808831E7939DF002F0584 /* ShellScript */ = {
+		34D808831E7939DF002F0584 /* Copy frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -5829,14 +5839,16 @@
 				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKLoginKit.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKShareKit.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/Pushwoosh.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/CoreActionSheetPicker.framework",
 			);
+			name = "Copy frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
-		34D808841E793A01002F0584 /* ShellScript */ = {
+		34D808841E793A01002F0584 /* Copy frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -5853,20 +5865,23 @@
 				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKLoginKit.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/FBSDKShareKit.framework",
 				"$(SRCROOT)/3party/Carthage/Build/iOS/Pushwoosh.framework",
+				"$(SRCROOT)/3party/Carthage/Build/iOS/CoreActionSheetPicker.framework",
 			);
+			name = "Copy frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
-		34F7422E1E08328300AC1FD6 /* ShellScript */ = {
+		34F7422E1E08328300AC1FD6 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

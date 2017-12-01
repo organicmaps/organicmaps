@@ -12,8 +12,7 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
-#define PUSHWOOSH_VERSION @"5.4.0"
-
+#define PUSHWOOSH_VERSION @"5.5.1"
 
 @class PushNotificationManager;
 
@@ -319,6 +318,8 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  @param badge Current badge value.
  */
 - (void)sendBadges:(NSInteger)badge;
+
++ (NSString *)pushwooshVersion;
 
 #if TARGET_OS_IPHONE
 /**

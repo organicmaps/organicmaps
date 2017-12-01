@@ -1,0 +1,6 @@
+framework module CoreActionSheetPicker {
+  umbrella header "CoreActionSheetPicker.h"
+
+  export *
+  module * { export * }
+}
