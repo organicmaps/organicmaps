@@ -19,21 +19,6 @@ lang_string gArr[] = {{"default", "default"},
                       {"ru", "\xD0\xA0\xD0\xB0\xD1\x88\xD0\xBA\xD0\xB0"},
                       {"be", "\xE2\x82\xAC\xF0\xA4\xAD\xA2"}};
 
-struct LangChecker
-{
-  LangChecker() = default;
-
-  base::ControlFlow operator()(char lang, string const & utf8s)
-  {
-    TEST_EQUAL(lang, StringUtf8Multilang::GetLangIndex(gArr[m_index].m_lang), ());
-    TEST_EQUAL(utf8s, gArr[m_index].m_str, ());
-    ++m_index;
-    return base::ControlFlow::Continue;
-  }
-
-  size_t m_index = 0;
-};
-
 void TestMultilangString(lang_string const * arr, size_t count)
 {
   StringUtf8Multilang s;
@@ -75,7 +60,30 @@ UNIT_TEST(MultilangString_ForEach)
   for (size_t i = 0; i < ARRAY_SIZE(gArr); ++i)
     s.AddString(gArr[i].m_lang, gArr[i].m_str);
 
-  s.ForEach(LangChecker());
+  {
+    size_t index = 0;
+    s.ForEach([&index](char lang, string const & utf8s) {
+      TEST_EQUAL(lang, StringUtf8Multilang::GetLangIndex(gArr[index].m_lang), ());
+      TEST_EQUAL(utf8s, gArr[index].m_str, ());
+      ++index;
+    });
+    TEST_EQUAL(index, ARRAY_SIZE(gArr), ());
+  }
+
+  {
+    size_t index = 0;
+    vector<string> const expected = {"default", "en", "ru"};
+    vector<string> actual;
+    s.ForEach([&index, &actual](char lang, string const & utf8s) {
+      actual.push_back(gArr[index].m_lang);
+      ++index;
+      if (index == 3)
+        return base::ControlFlow::Break;
+      return base::ControlFlow::Continue;
+    });
+    TEST_EQUAL(index, 3, ());
+    TEST_EQUAL(actual, expected, ());
+  }
 }
 
 UNIT_TEST(MultilangString_Unique)

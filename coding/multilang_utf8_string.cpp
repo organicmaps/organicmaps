@@ -2,6 +2,8 @@
 
 #include "defines.hpp"
 
+using namespace std;
+
 namespace
 {
 // TODO(AlexZ): Review and replace invalid languages which does not map correctly to
@@ -213,7 +215,7 @@ int8_t StringUtf8Multilang::FindString(string const & utf8s) const
 {
   int8_t result = kUnsupportedLanguageCode;
 
-  ForEach([&utf8s, &result](int8_t code, string const & name) -> base::ControlFlow {
+  ForEach([&utf8s, &result](int8_t code, string const & name) {
     if (name == utf8s)
     {
       result = code;
@@ -229,9 +231,8 @@ string DebugPrint(StringUtf8Multilang const & s)
 {
   string result;
 
-  s.ForEach([&result](int8_t code, string const & name) -> base::ControlFlow {
+  s.ForEach([&result](int8_t code, string const & name) {
     result += string(StringUtf8Multilang::GetLangByCode(code)) + string(":") + name + " ";
-    return base::ControlFlow::Continue;
   });
 
   return result;

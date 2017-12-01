@@ -13,7 +13,6 @@
 #include "geometry/distance.hpp"
 #include "geometry/robust_orientation.hpp"
 
-#include "base/control_flow.hpp"
 #include "base/range_iterator.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -128,7 +127,6 @@ editor::XMLFeature FeatureType::ToXML(bool serializeType) const
   ForEachName([&feature](uint8_t const & lang, string const & name)
               {
                 feature.SetName(lang, name);
-                return base::ControlFlow::Continue;
               });
 
   string const house = GetHouseNumber();
@@ -378,10 +376,9 @@ void FeatureType::SetNames(StringUtf8Multilang const & newNames)
 {
   m_params.name.Clear();
   // Validate passed string to clean up empty names (if any).
-  newNames.ForEach([this](int8_t langCode, string const & name) -> base::ControlFlow {
+  newNames.ForEach([this](int8_t langCode, string const & name) {
     if (!name.empty())
       m_params.name.AddString(langCode, name);
-    return base::ControlFlow::Continue;
   });
 
   if (m_params.name.IsEmpty())

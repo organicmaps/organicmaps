@@ -104,15 +104,13 @@ void DumpRestaurants(std::vector<FeatureBuilder1> const & features, std::ostream
     std::string defaultName;
     std::vector<std::string> translations;
     multilangName.ForEach(
-        [&translations, &defaultName](uint8_t const langCode,
-                                      std::string const & name) -> base::ControlFlow {
+        [&translations, &defaultName](uint8_t const langCode, std::string const & name) {
           if (langCode == StringUtf8Multilang::kDefaultCode)
           {
             defaultName = name;
-            return base::ControlFlow::Continue;
+            return;
           }
           translations.push_back(name);
-          return base::ControlFlow::Continue;
         });
     auto const center = MercatorBounds::ToLatLon(f.GetKeyPoint());
 

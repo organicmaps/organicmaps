@@ -29,7 +29,6 @@
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
-#include "base/control_flow.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
@@ -162,7 +161,7 @@ struct FeatureNameInserter
     m_keyValuePairs.emplace_back(key, m_val);
   }
 
-  base::ControlFlow operator()(signed char lang, string const & name) const
+  void operator()(signed char lang, string const & name) const
   {
     strings::UniString const uniName = search::NormalizeAndSimplifyString(name);
 
@@ -201,8 +200,6 @@ struct FeatureNameInserter
       for (auto const & token : tokens)
         AddToken(lang, token);
     }
-
-    return base::ControlFlow::Continue;
   }
 };
 

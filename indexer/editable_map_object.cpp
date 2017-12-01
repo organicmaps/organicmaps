@@ -170,8 +170,6 @@ void RemoveFakesFromName(osm::FakeNames const & fakeNames, StringUtf8Multilang &
     auto const it = find(codesToExclude.begin(), codesToExclude.end(), langCode);
     if (it == codesToExclude.end())
       nameWithoutFakes.AddString(langCode, value);
-
-    return base::ControlFlow::Continue;
   });
 
   name = nameWithoutFakes;
@@ -266,11 +264,10 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
     ++mandatoryCount;
 
   // Push other languages.
-  source.ForEach([&names, mandatoryCount](int8_t const code,
-                                          string const & name) -> base::ControlFlow {
+  source.ForEach([&names, mandatoryCount](int8_t const code, string const & name) {
     // Exclude default name.
     if (StringUtf8Multilang::kDefaultCode == code)
-      return base::ControlFlow::Continue;
+      return;
 
     auto const mandatoryNamesEnd = names.begin() + mandatoryCount;
     // Exclude languages which are already in container (languages with top priority).
@@ -280,8 +277,6 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
 
     if (mandatoryNamesEnd == it)
       names.emplace_back(code, name);
-
-    return base::ControlFlow::Continue;
   });
 
   return result;
@@ -549,8 +544,6 @@ void EditableMapObject::RemoveBlankAndDuplicationsForDefault()
     auto const duplicate = langCode != StringUtf8Multilang::kDefaultCode && defaultName == name;
     if (!name.empty() && !duplicate)
       editedName.AddString(langCode, name);
-
-    return base::ControlFlow::Continue;
   });
 
   m_name = editedName;

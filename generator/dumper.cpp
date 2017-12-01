@@ -11,7 +11,6 @@
 
 #include "coding/multilang_utf8_string.hpp"
 
-#include "base/control_flow.hpp"
 #include "base/logging.hpp"
 
 #include <algorithm>
@@ -124,7 +123,7 @@ namespace feature
   public:
     TokensContainerT m_stats;
 
-    base::ControlFlow operator()(int8_t langCode, string const & name)
+    void operator()(int8_t langCode, string const & name)
     {
       CHECK(!name.empty(), ("Feature name is empty"));
 
@@ -133,7 +132,7 @@ namespace feature
                              MakeBackInsertFunctor(tokens), search::Delimiters());
 
       if (tokens.empty())
-        return base::ControlFlow::Continue;
+        return;
 
       for (size_t i = 1; i < tokens.size(); ++i)
       {
@@ -148,7 +147,6 @@ namespace feature
         if (!found.second)
           found.first->second.first++;
       }
-      return base::ControlFlow::Continue;
     }
 
     void operator()(FeatureType & f, uint32_t)
@@ -218,13 +216,12 @@ namespace feature
   void DumpFeatureNames(string const & fPath, string const & lang)
   {
     int8_t const langIndex = StringUtf8Multilang::GetLangIndex(lang);
-    auto printName = [&](int8_t langCode, string const & name) -> base::ControlFlow {
+    auto printName = [&](int8_t langCode, string const & name) {
       CHECK(!name.empty(), ("Feature name is empty"));
       if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
         cout << StringUtf8Multilang::GetLangByCode(langCode) << ' ' << name << endl;
       else if (langCode == langIndex)
         cout << name << endl;
-      return base::ControlFlow::Continue;
     };
 
     feature::ForEachFromDat(fPath, [&](FeatureType & f, uint32_t)
@@ -232,5 +229,4 @@ namespace feature
                               f.ForEachName(printName);
                             });
   }
-
 }  // namespace feature
