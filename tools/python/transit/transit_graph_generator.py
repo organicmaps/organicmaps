@@ -131,12 +131,12 @@ class TransitGraphBuilder:
             self.stops[stop['id']] = stop
 
             for entrance_item in stop_item['entrances']:
-                ex_id = get_extended_osm_id(entrance_item['node_id'], 'n')
+                ex_id = get_extended_osm_id(entrance_item['osm_id'], entrance_item['osm_type'])
                 point = get_mercator_point(entrance_item['lat'], entrance_item['lon'])
                 self.__add_gate(ex_id, True, False, point, entrance_item['distance'], stop['id'])
 
             for exit_item in stop_item['exits']:
-                ex_id = get_extended_osm_id(exit_item['node_id'], 'n')
+                ex_id = get_extended_osm_id(exit_item['osm_id'], exit_item['osm_type'])
                 point = get_mercator_point(exit_item['lat'], exit_item['lon'])
                 self.__add_gate(ex_id, False, True, point, exit_item['distance'], stop['id'])
 
