@@ -1,4 +1,5 @@
 #!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
 # Generates transit graph for MWM transit section generator.
 # Also shows preview of transit scheme lines.
 import argparse
@@ -72,6 +73,7 @@ class TransitGraphBuilder:
         self.shapes = []
         self.transit_graph = None
         self.matched_colors = {}
+        self.stop_names = {}
 
     def __get_average_stops_point(self, stop_ids):
         """Returns an average position of the stops."""
@@ -116,6 +118,19 @@ class TransitGraphBuilder:
             return self.stops[stop_id]
         return self.transfers[stop_id]
 
+    def __check_line_title(self, line, route_name):
+        """Formats correct line name."""
+        if line['title']:
+            return
+        name = route_name if route_name else line['number']
+        if len(line['stop_ids']) > 1:
+            first_stop = self.stop_names[line['stop_ids'][0]]
+            last_stop = self.stop_names[line['stop_ids'][-1]]
+            if first_stop and last_stop:
+                line['title'] = u'{0}: {1} - {2}'.format(name, first_stop, last_stop)
+                return
+        line['title'] = name
+
     def __read_stops(self):
         """Reads stops, their exits and entrances."""
         for stop_item in self.input_data['stops']:
@@ -129,6 +144,7 @@ class TransitGraphBuilder:
             # TODO: Save stop names stop_item['name'] and stop_item['int_name'] for text anchors calculation.
             stop['title_anchors'] = []
             self.stops[stop['id']] = stop
+            self.stop_names[stop['id']] = stop_item['name']
 
             for entrance_item in stop_item['entrances']:
                 ex_id = get_extended_osm_id(entrance_item['osm_id'], entrance_item['osm_type'])
@@ -164,16 +180,12 @@ class TransitGraphBuilder:
                 line_index = 0
                 # Create a line for each itinerary.
                 for line_item in route_item['itineraries']:
-                    if 'name' in line_item:
-                        line_name = '{0} ({1})'.format(route_item['name'], line_item[name])
-                    else:
-                        line_name = route_item['name']
                     line_stops = line_item['stops']
                     line_id = get_line_id(route_item['route_id'], line_index)
                     line = {'id': line_id,
+                            'title': line_item.get('name', ''),
                             'type': route_item['type'],
                             'network_id': network_id,
-                            'title': line_name,
                             'number': route_item['ref'],
                             'interval': line_item['interval'],
                             'stop_ids': []
@@ -199,6 +211,7 @@ class TransitGraphBuilder:
                                     }
                             self.edges.append(edge)
 
+                    self.__check_line_title(line, route_item.get('name', ''))
                     self.lines.append(line)
                     line_index += 1
 
