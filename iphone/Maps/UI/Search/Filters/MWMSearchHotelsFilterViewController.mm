@@ -2,6 +2,7 @@
 #import <CoreActionSheetPicker/ActionSheetPicker.h>
 #import "MWMSearch.h"
 #import "MWMSearchFilterViewController_Protected.h"
+#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "search/hotels_filter.hpp"
@@ -130,6 +131,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  [Statistics logEvent:kStatSearchFilterOpen withParameters:@{kStatCategory: kStatHotel}];
   [self.tableView reloadData];
   [self refreshAppearance];
   [self setNeedsStatusBarAppearanceUpdate];
@@ -160,6 +162,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 
 - (IBAction)applyAction
 {
+  [Statistics logEvent:kStatSearchFilterApply withParameters:@{kStatCategory: kStatHotel}];
   [MWMSearch update];
   [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -407,6 +410,22 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
   auto const type = kTypes[indexPath.row];
+
+  auto typeString = @"";
+  switch (type)
+  {
+  case ftypes::IsHotelChecker::Type::Hotel: typeString = kStatHotel; break;
+  case ftypes::IsHotelChecker::Type::Apartment: typeString = kStatApartment; break;
+  case ftypes::IsHotelChecker::Type::CampSite: typeString = kStatCampSite; break;
+  case ftypes::IsHotelChecker::Type::Chalet: typeString = kStatChalet; break;
+  case ftypes::IsHotelChecker::Type::GuestHouse: typeString = kStatGuestHouse; break;
+  case ftypes::IsHotelChecker::Type::Hostel: typeString = kStatHostel; break;
+  case ftypes::IsHotelChecker::Type::Motel: typeString = kStatMotel; break;
+  case ftypes::IsHotelChecker::Type::Resort: typeString = kStatResort; break;
+  case ftypes::IsHotelChecker::Type::Count: break;
+  }
+  [Statistics logEvent:kStatSearchFilterClick
+        withParameters:@{kStatCategory: kStatHotel, kStatType: typeString}];
   m_selectedTypes.emplace_back(type);
 }
 

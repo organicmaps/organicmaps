@@ -2,6 +2,7 @@
 #import "MWMSearchFilterTransitioningManager.h"
 #import "MWMSearchFilterViewController.h"
 #import "MWMSearchManager+Filter.h"
+#import "Statistics.h"
 
 @interface MWMSearchManager ()<UIPopoverPresentationControllerDelegate>
 
@@ -111,6 +112,7 @@
 
 - (void)resetAction
 {
+  [Statistics logEvent:kStatSearchFilterReset withParameters:@{kStatCategory: kStatHotel}];
   [self clearFilter];
 }
 
