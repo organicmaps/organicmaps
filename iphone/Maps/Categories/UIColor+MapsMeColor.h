@@ -38,6 +38,7 @@
 + (UIColor *)bannerButtonBackground;
 + (UIColor *)toastBackground;
 + (UIColor *)statusBarBackground;
++ (UIColor *)transparentGreen;
 + (UIColor *)ratingRed;
 + (UIColor *)ratingOrange;
 + (UIColor *)ratingYellow;

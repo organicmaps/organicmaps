@@ -313,6 +313,11 @@ UIColor * color(SEL cmd)
   return [UIColor colorWithRed:scaled(218.) green:scaled(55) blue:scaled(67) alpha:alpha100];
 }
 
++ (UIColor *)transparentGreen
+{
+  return [UIColor colorWithRed:scaled(233) green:scaled(244) blue:scaled(233) alpha:alpha26];
+}
+
 + (UIColor *)ratingRed
 {
   return [UIColor colorWithRed:scaled(229) green:scaled(57) blue:scaled(53) alpha:alpha100];
