@@ -205,8 +205,8 @@ SquareHandle::SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD c
                            uint64_t priority, bool isBound, std::string const & debugStr,
                            bool isBillboard)
   : TBase(id, anchor, priority, isBillboard)
-  , m_gbPivot(gbPivot)
   , m_pxHalfSize(pxSize.x / 2.0, pxSize.y / 2.0)
+  , m_gbPivot(gbPivot)
   , m_pxOffset(pxOffset)
   , m_isBound(isBound)
 #ifdef DEBUG_OVERLAYS_OUTPUT
@@ -243,6 +243,7 @@ void SquareHandle::GetPixelShape(ScreenBase const & screen, bool perspective, Re
 }
 
 bool SquareHandle::IsBound() const { return m_isBound; }
+
 #ifdef DEBUG_OVERLAYS_OUTPUT
 std::string SquareHandle::GetOverlayDebugInfo()
 {

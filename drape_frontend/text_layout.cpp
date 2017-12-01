@@ -25,6 +25,8 @@ public:
     , m_buffer(buffer)
   {}
 
+  void SetPen(glsl::vec2 const & penOffset) {}
+
   void operator() (dp::TextureManager::GlyphRegion const & glyph)
   {
     m2::RectF const & mask = glyph.GetTexRect();
@@ -41,21 +43,23 @@ protected:
   gpu::TTextStaticVertexBuffer & m_buffer;
 };
 
-template<typename TParentGenerator>
-class StraightTextGeometryGenerator : public TParentGenerator
+class StraightTextGeometryGenerator
 {
 public:
-  template<typename... TParentGeneratorParams>
   StraightTextGeometryGenerator(glsl::vec4 const & pivot,
                                 glsl::vec2 const & pixelOffset, float textRatio,
-                                gpu::TTextDynamicVertexBuffer & dynBuffer,
-                                TParentGeneratorParams & ... parentGeneratorParams)
-    : TParentGenerator(parentGeneratorParams...)
-    , m_pivot(pivot)
-    , m_penPosition(pixelOffset)
+                                gpu::TTextDynamicVertexBuffer & dynBuffer)
+    : m_pivot(pivot)
+    , m_pixelOffset(pixelOffset)
     , m_buffer(dynBuffer)
     , m_textRatio(textRatio)
   {}
+
+  void SetPen(glsl::vec2 const & penPosition)
+  {
+    m_penPosition = penPosition;
+    m_isFirstGlyph = true;
+  }
 
   void operator()(dp::TextureManager::GlyphRegion const & glyph)
   {
@@ -76,17 +80,16 @@ public:
     }
 
     using TDV = gpu::TextDynamicVertex;
-    m_buffer.emplace_back(TDV(m_pivot, m_penPosition + glsl::vec2(xOffset, bottomVector)));
-    m_buffer.emplace_back(TDV(m_pivot, m_penPosition + glsl::vec2(xOffset, upVector)));
-    m_buffer.emplace_back(TDV(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
-    m_buffer.emplace_back(TDV(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
+    m_buffer.emplace_back(TDV(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(xOffset, bottomVector)));
+    m_buffer.emplace_back(TDV(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(xOffset, upVector)));
+    m_buffer.emplace_back(TDV(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
+    m_buffer.emplace_back(TDV(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
     m_penPosition += glsl::vec2(glyph.GetAdvanceX() * m_textRatio, glyph.GetAdvanceY() * m_textRatio);
-
-    TParentGenerator::operator()(glyph);
   }
 
 private:
   glsl::vec4 const & m_pivot;
+  glsl::vec2 m_pixelOffset;
   glsl::vec2 m_penPosition;
   gpu::TTextDynamicVertexBuffer & m_buffer;
   float m_textRatio = 0.0f;
@@ -103,6 +106,8 @@ public:
     , m_outlineCoord(glsl::ToVec2(outline.GetTexRect().Center()))
     , m_buffer(buffer)
   {}
+
+  void SetPen(glsl::vec2 const & penOffset) {}
 
   void operator() (dp::TextureManager::GlyphRegion const & glyph)
   {
@@ -352,45 +357,57 @@ StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fo
   CalculateOffsets(anchor, m_textSizeRatio, m_metrics, delimIndexes, m_offsets, m_pixelSize);
 }
 
-void StraightTextLayout::Cache(glm::vec4 const & pivot, glm::vec2 const & pixelOffset,
-                               dp::TextureManager::ColorRegion const & colorRegion,
-                               dp::TextureManager::ColorRegion const & outlineRegion,
-                               gpu::TTextOutlinedStaticVertexBuffer & staticBuffer,
-                               gpu::TTextDynamicVertexBuffer & dynamicBuffer) const
+void StraightTextLayout::AdjustTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor, dp::Anchor symbolAnchor,
+                                          glsl::vec2 & offset) const
 {
-  size_t beginOffset = 0;
-  for (pair<size_t, glsl::vec2> const & node : m_offsets)
+  offset = m_baseOffset;
+
+  float const halfSymbolW = symbolSize.x / 2.0f;
+  float const halfSymbolH = symbolSize.y / 2.0f;
+
+  auto const adjustOffset = [&](dp::Anchor anchor)
   {
-    StraightTextGeometryGenerator<TextOutlinedGeometryGenerator> generator(
-          pivot, pixelOffset + node.second, m_textSizeRatio, dynamicBuffer,
-          colorRegion, outlineRegion, staticBuffer);
+    if (anchor & dp::Top)
+      offset.y += halfSymbolH;
+    else if (anchor & dp::Bottom)
+      offset.y -= halfSymbolH;
 
-    size_t const endOffset = node.first;
-    for (size_t index = beginOffset; index < endOffset && index < m_metrics.size(); ++index)
-      generator(m_metrics[index]);
+    if (anchor & dp::Left)
+      offset.x += halfSymbolW;
+    else if (anchor & dp::Right)
+      offset.x -= halfSymbolW;
+  };
 
-    beginOffset = endOffset;
-  }
+  adjustOffset(textAnchor);
+  adjustOffset(symbolAnchor);
 }
 
-void StraightTextLayout::Cache(glm::vec4 const & pivot, glm::vec2 const & pixelOffset,
-                               dp::TextureManager::ColorRegion const & color,
-                               gpu::TTextStaticVertexBuffer & staticBuffer,
-                               gpu::TTextDynamicVertexBuffer & dynamicBuffer) const
+void StraightTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
+                                             gpu::TTextStaticVertexBuffer & staticBuffer) const
 {
-  size_t beginOffset = 0;
-  for (pair<size_t, glsl::vec2> const & node : m_offsets)
-  {
-    StraightTextGeometryGenerator<TextGeometryGenerator> generator(
-          pivot, pixelOffset + node.second, m_textSizeRatio, dynamicBuffer,
-          color, staticBuffer);
+  TextGeometryGenerator staticGenerator(colorRegion, staticBuffer);
+  Cache(staticGenerator);
+}
 
-    size_t const endOffset = node.first;
-    for (size_t index = beginOffset; index < endOffset && index < m_metrics.size(); ++index)
-      generator(m_metrics[index]);
+void StraightTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
+                                             dp::TextureManager::ColorRegion const & outlineRegion,
+                                             gpu::TTextOutlinedStaticVertexBuffer & staticBuffer) const
+{
+  TextOutlinedGeometryGenerator outlinedGenerator(colorRegion, outlineRegion, staticBuffer);
+  Cache(outlinedGenerator);
+}
 
-    beginOffset = endOffset;
-  }
+void StraightTextLayout::SetBasePosition(glm::vec4 const & pivot, glm::vec2 const & baseOffset)
+{
+  m_pivot = pivot;
+  m_baseOffset = baseOffset;
+}
+
+void StraightTextLayout::CacheDynamicGeometry(glsl::vec2 const & pixelOffset,
+                                              gpu::TTextDynamicVertexBuffer & dynamicBuffer) const
+{
+  StraightTextGeometryGenerator generator(m_pivot, pixelOffset, m_textSizeRatio, dynamicBuffer);
+  Cache(generator);
 }
 
 PathTextLayout::PathTextLayout(m2::PointD const & tileCenter, strings::UniString const & text,

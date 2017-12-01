@@ -8,6 +8,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include <vector>
+
 namespace df
 {
 class StraightTextLayout;
@@ -19,6 +21,10 @@ public:
             TileKey const & tileKey, m2::PointF const & symbolSize,
             dp::Anchor symbolAnchor, uint32_t textIndex);
 
+  TextShape(m2::PointD const & basePoint, TextViewParams const & params,
+            TileKey const & tileKey, std::vector<m2::PointF> const & symbolSizes,
+            dp::Anchor symbolAnchor, uint32_t textIndex);
+
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
   MapShapeType GetType() const override { return MapShapeType::OverlayType; }
 
@@ -26,7 +32,7 @@ public:
   void DisableDisplacing() { m_disableDisplacing = true; }
 
 private:
-  void DrawSubString(StraightTextLayout const & layout, dp::FontDecl const & font,
+  void DrawSubString(StraightTextLayout & layout, dp::FontDecl const & font,
                      glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
                      ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const;
 
@@ -42,7 +48,7 @@ private:
   m2::PointD m_basePoint;
   TextViewParams m_params;
   m2::PointI m_tileCoords;
-  m2::PointF m_symbolSize;
+  std::vector<m2::PointF> m_symbolSizes;
   dp::Anchor m_symbolAnchor;
   uint32_t m_textIndex;
 

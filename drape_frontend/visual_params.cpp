@@ -313,6 +313,15 @@ float InterpolateByZoomLevels(int index, float lerpCoef, std::vector<float> cons
   return values[scales::UPPER_STYLE_SCALE];
 }
 
+m2::PointF InterpolateByZoomLevels(int index, float lerpCoef, std::vector<m2::PointF> const & values)
+{
+  ASSERT_GREATER_OR_EQUAL(index, 0, ());
+  ASSERT_GREATER(values.size(), scales::UPPER_STYLE_SCALE, ());
+  if (index < scales::UPPER_STYLE_SCALE)
+    return values[index] + (values[index + 1] - values[index]) * lerpCoef;
+  return values[scales::UPPER_STYLE_SCALE];
+}
+
 double GetNormalizedZoomLevel(double scale, int minZoom)
 {
   double const kMaxZoom = scales::GetUpperStyleScale() + 1.0;

@@ -216,9 +216,11 @@ public:
   virtual std::string GetOverlayDebugInfo() override;
 #endif
 
+protected:
+  m2::PointD m_pxHalfSize;
+
 private:
   m2::PointD m_gbPivot;
-  m2::PointD m_pxHalfSize;
   m2::PointD m_pxOffset;
   bool m_isBound;
 

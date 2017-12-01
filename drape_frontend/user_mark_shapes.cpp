@@ -153,8 +153,16 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
             params.m_minVisibleScale = renderInfo.m_minZoom;
             params.m_specialDisplacement = SpecialDisplacement::UserMark;
             params.m_specialPriority = renderInfo.m_priority;
-            ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
-                               kStartUserMarkOverlayIndex + renderInfo.m_index).Draw(&batcher, textures);
+            if (renderInfo.m_symbolSizes != nullptr)
+            {
+              ColoredSymbolShape(renderInfo.m_pivot, params, tileKey, kStartUserMarkOverlayIndex + renderInfo.m_index,
+                                 *renderInfo.m_symbolSizes.get()).Draw(&batcher, textures);
+            }
+            else
+            {
+              ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
+                                 kStartUserMarkOverlayIndex + renderInfo.m_index).Draw(&batcher, textures);
+            }
             break;
           }
         }
@@ -246,8 +254,16 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
           ASSERT_LESS(params.m_startOverlayRank, dp::OverlayRanksCount, ());
         }
 
-        TextShape(renderInfo.m_pivot, params, tileKey,
-                  symbolSize, renderInfo.m_anchor, overlayIndex).Draw(&batcher, textures);
+        if (renderInfo.m_symbolSizes != nullptr)
+        {
+          TextShape(renderInfo.m_pivot, params, tileKey,
+                    *renderInfo.m_symbolSizes.get(), renderInfo.m_anchor, overlayIndex).Draw(&batcher, textures);
+        }
+        else
+        {
+          TextShape(renderInfo.m_pivot, params, tileKey,
+                    symbolSize, renderInfo.m_anchor, overlayIndex).Draw(&batcher, textures);
+        }
       }
     }
 

@@ -23,6 +23,7 @@ struct UserMarkRenderParams
   drape_ptr<UserPointMark::ColoredSymbolZoomInfo> m_coloredSymbols;
   drape_ptr<UserPointMark::SymbolNameZoomInfo> m_symbolNames;
   drape_ptr<UserPointMark::TitlesInfo> m_titleDecl;
+  drape_ptr<UserPointMark::SymbolSizes> m_symbolSizes;
   bool m_hasSymbolPriority = false;
   bool m_hasTitlePriority = false;
   uint16_t m_priority = 0;

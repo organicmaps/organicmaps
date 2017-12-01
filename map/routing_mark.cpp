@@ -445,6 +445,18 @@ drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> TransitMark::GetColoredSymbo
   return make_unique_dp<ColoredSymbolZoomInfo>(m_coloredSymbols);
 }
 
+void TransitMark::SetSymbolSizes(SymbolSizes const & symbolSizes)
+{
+  m_symbolSizes = symbolSizes;
+}
+
+drape_ptr<df::UserPointMark::SymbolSizes> TransitMark::GetSymbolSizes() const
+{
+  if (m_symbolSizes.empty())
+    return nullptr;
+  return make_unique_dp<SymbolSizes>(m_symbolSizes);
+}
+
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TransitMark::GetSymbolNames() const
 {
   if (m_symbolNames.empty())

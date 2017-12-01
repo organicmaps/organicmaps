@@ -39,6 +39,37 @@ glsl::vec2 ShiftNormal(glsl::vec2 const & n, ColoredSymbolViewParams const & par
 }
 }  // namespace
 
+class DynamicSquareHandle : public dp::SquareHandle
+{
+  using TBase = dp::SquareHandle;
+
+public:
+  DynamicSquareHandle(dp::OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
+                      std::vector<m2::PointF> const & pxSizes, m2::PointD const & pxOffset,
+                      uint64_t priority, bool isBound, std::string const & debugStr,
+                      bool isBillboard)
+    : TBase(id, anchor, gbPivot, m2::PointD::Zero(), pxOffset, priority, isBound, debugStr, isBillboard)
+    , m_pxSizes(pxSizes)
+  {
+    ASSERT_GREATER(pxSizes.size(), 0, ());
+  }
+
+  bool Update(ScreenBase const & screen) override
+  {
+    double zoom = 0.0;
+    int index = 0;
+    float lerpCoef = 0.0f;
+    ExtractZoomFactors(screen, zoom, index, lerpCoef);
+    auto const size = InterpolateByZoomLevels(index, lerpCoef, m_pxSizes);
+    m_pxHalfSize.x = size.x * 0.5;
+    m_pxHalfSize.y = size.y * 0.5;
+    return true;
+  }
+
+private:
+  std::vector<m2::PointF> m_pxSizes;
+};
+
 ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSymbolViewParams const & params,
                                        TileKey const & tileKey, uint32_t textIndex, bool needOverlay)
   : m_point(mercatorPt)
@@ -46,6 +77,17 @@ ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSym
   , m_tileCoords(tileKey.GetTileCoords())
   , m_textIndex(textIndex)
   , m_needOverlay(needOverlay)
+{}
+
+ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSymbolViewParams const & params,
+                                       TileKey const & tileKey, uint32_t textIndex,
+                                       std::vector<m2::PointF> const & overlaySizes)
+  : m_point(mercatorPt)
+  , m_params(params)
+  , m_tileCoords(tileKey.GetTileCoords())
+  , m_textIndex(textIndex)
+  , m_needOverlay(true)
+  , m_overlaySizes(overlaySizes)
 {}
 
 void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
@@ -231,13 +273,25 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
   std::string const debugName = strings::to_string(m_params.m_featureID.m_index) + "-" +
                                 strings::to_string(m_textIndex);
 
-  drape_ptr<dp::OverlayHandle> handle = m_needOverlay ?
-        make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor, m_point, pixelSize,
-                                         m_params.m_offset, GetOverlayPriority(), true /* isBound */,
-                                         debugName, true /* isBillboard */) : nullptr;
-  if (m_needOverlay && m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
-    handle->SetUserMarkOverlay(true);
+  drape_ptr<dp::OverlayHandle> handle;
+  if (m_needOverlay)
+  {
+    if (!m_overlaySizes.empty())
+    {
+      handle = make_unique_dp<DynamicSquareHandle>(overlayId, m_params.m_anchor, m_point, m_overlaySizes,
+                                                   m_params.m_offset, GetOverlayPriority(), true /* isBound */,
+                                                   debugName, true /* isBillboard */);
+    }
+    else
+    {
+      handle = make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor, m_point, pixelSize,
+                                                m_params.m_offset, GetOverlayPriority(), true /* isBound */,
+                                                debugName, true /* isBillboard */);
+    }
 
+    if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
+      handle->SetUserMarkOverlay(true);
+  }
   auto state = CreateGLState(gpu::COLORED_SYMBOL_PROGRAM, m_params.m_depthLayer);
   state.SetProgram3dIndex(gpu::COLORED_SYMBOL_BILLBOARD_PROGRAM);
   state.SetColorTexture(colorRegion.GetTexture());

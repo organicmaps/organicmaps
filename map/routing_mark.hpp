@@ -135,6 +135,9 @@ public:
   void SetSymbolNames(SymbolNameZoomInfo const & symbolNames);
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 
+  void SetSymbolSizes(SymbolSizes const & symbolSizes);
+  drape_ptr<SymbolSizes> GetSymbolSizes() const override;
+
   void AddTitle(dp::TitleDecl const & titleDecl);
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
 
@@ -149,4 +152,5 @@ private:
   TitlesInfo m_titles;
   SymbolNameZoomInfo m_symbolNames;
   ColoredSymbolZoomInfo m_coloredSymbols;
+  SymbolSizes m_symbolSizes;
 };

@@ -57,20 +57,37 @@ public:
                      ref_ptr<dp::TextureManager> textures,
                      dp::Anchor anchor);
 
-  void Cache(const glm::vec4 & pivot, glsl::vec2 const & pixelOffset,
-             dp::TextureManager::ColorRegion const & colorRegion,
-             dp::TextureManager::ColorRegion const & outlineRegion,
-             gpu::TTextOutlinedStaticVertexBuffer & staticBuffer,
-             gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
+  void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
+                           gpu::TTextStaticVertexBuffer & staticBuffer) const;
 
-  void Cache(const glm::vec4 & pivot, glsl::vec2 const & pixelOffset,
-             dp::TextureManager::ColorRegion const & color,
-             gpu::TTextStaticVertexBuffer & staticBuffer,
-             gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
+  void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
+                           dp::TextureManager::ColorRegion const & outlineRegion,
+                           gpu::TTextOutlinedStaticVertexBuffer & staticBuffer) const;
+
+  void SetBasePosition(glm::vec4 const & pivot, glm::vec2 const & baseOffset);
+  void CacheDynamicGeometry(glsl::vec2 const & pixelOffset, gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
 
   m2::PointF const & GetPixelSize() const { return m_pixelSize; }
 
+  void AdjustTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor, dp::Anchor symbolAnchor,
+                        glsl::vec2 & offset) const;
 private:
+  template <typename TGenerator>
+  void Cache(TGenerator & generator) const
+  {
+    size_t beginOffset = 0;
+    for (pair<size_t, glsl::vec2> const & node : m_offsets)
+    {
+      size_t const endOffset = node.first;
+      generator.SetPen(node.second);
+      for (size_t index = beginOffset; index < endOffset && index < m_metrics.size(); ++index)
+        generator(m_metrics[index]);
+      beginOffset = endOffset;
+    }
+  }
+
+  glm::vec2 m_baseOffset;
+  glm::vec4 m_pivot;
   buffer_vector<pair<size_t, glsl::vec2>, 2> m_offsets;
   m2::PointF m_pixelSize;
 };
