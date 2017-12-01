@@ -1251,5 +1251,20 @@
 	<string name="discovery_button_other_error_message">Error loading data</string>
 	<string name="discovery_button_other_loading_message">Data is loading</string>
 	<string name="discovery_button_404_error_title">Not found</string>
-	<string name="discovery_button_404_error_message"></string>
+	<string name="discovery_button_404_error_message">Oops, we did not find anything interesting around.</string>
+	<string name="booking_filters_check_in">Check in</string>
+	<string name="booking_filters_check_out">Check Out</string>
+	<string name="booking_filters_offline">Not available online.</string>
+	<string name="directions_finish">Destination</string>
+	<string name="directions_on_foot">Walk %s</string>
+	<string name="entrance">Entrance</string>
+	<string name="coffee">Coffee</string>
+	<string name="cleanliness">Cleanliness</string>
+	<string name="crowdedness">Crowdedness</string>
+	<string name="error_enter_correct_name">Please, enter a correct name</string>
+	<string name="hotel_available">Available</string>
+	<string name="whats_new_transit_title">Subways available</string>
+	<string name="whats_new_transit_message">Build your routes using subways! Please update maps to see changes.</string>
+	<string name="whats_new_discovery_title">Discovery button</string>
+	<string name="whats_new_discovery_message">Discover things around in one click!</string>
 </resources>

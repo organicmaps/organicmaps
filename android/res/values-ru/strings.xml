@@ -1237,5 +1237,21 @@
 	<string name="discovery_button_viator_error_title">Ошибка загрузки данных</string>
 	<string name="discovery_button_other_error_message">Ошибка загрузки данных</string>
 	<string name="discovery_button_other_loading_message">Данные загружаются</string>
-	<string name="discovery_button_404_error_message">Ого, мы ничего не нашли интересного вокруг. Добавьте новые места если знаете.</string>
+	<string name="discovery_button_404_error_title">Ничего не найдено</string>
+	<string name="discovery_button_404_error_message">Ого, мы не нашли ничего интересного вокруг.</string>
+	<string name="booking_filters_check_in">Заезд</string>
+	<string name="booking_filters_check_out">Отъезд</string>
+	<string name="booking_filters_offline">Недоступно без интернета.</string>
+	<string name="directions_finish">Место назначения</string>
+	<string name="directions_on_foot">Пешком %s</string>
+	<string name="entrance">Вход</string>
+	<string name="coffee">Кофе</string>
+	<string name="cleanliness">Чистота</string>
+	<string name="crowdedness">Многолюдность</string>
+	<string name="error_enter_correct_name">Пожалуйста, введите название правильно</string>
+	<string name="hotel_available">Есть места</string>
+	<string name="whats_new_transit_title">Ура! Метро!</string>
+	<string name="whats_new_transit_message">Стройте маршруты с помощью метро! Чтобы увидеть изменения, пожалуйста, обновите карты.</string>
+	<string name="whats_new_discovery_title">Места “Поблизости”</string>
+	<string name="whats_new_discovery_message">Ищите места “Поблизости” в один клик!</string>
 </resources>

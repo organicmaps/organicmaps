@@ -2148,6 +2148,36 @@
 
 "discovery_button_other_loading_message" = "Данные загружаются";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "Ничего не найдено";
 
-"discovery_button_404_error_message" = "Ого, мы ничего не нашли интересного вокруг. Добавьте новые места если знаете.";
+"discovery_button_404_error_message" = "Ого, мы не нашли ничего интересного вокруг.";
+
+"booking_filters_check_in" = "Заезд";
+
+"booking_filters_check_out" = "Отъезд";
+
+"booking_filters_offline" = "Недоступно без интернета.";
+
+"directions_finish" = "Место назначения";
+
+"directions_on_foot" = "Пешком %s";
+
+"entrance" = "Вход";
+
+"coffee" = "Кофе";
+
+"cleanliness" = "Чистота";
+
+"crowdedness" = "Многолюдность";
+
+"error_enter_correct_name" = "Пожалуйста, введите название правильно";
+
+"hotel_available" = "Есть места";
+
+"whats_new_transit_title" = "Ура! Метро!";
+
+"whats_new_transit_message" = "Стройте маршруты с помощью метро! Чтобы увидеть изменения, пожалуйста, обновите карты.";
+
+"whats_new_discovery_title" = "Места “Поблизости”";
+
+"whats_new_discovery_message" = "Ищите места “Поблизости” в один клик!";

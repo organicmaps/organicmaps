@@ -2150,4 +2150,34 @@
 
 "discovery_button_404_error_title" = "Not found";
 
-"discovery_button_404_error_message" = "";
+"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+
+"booking_filters_check_in" = "Check in";
+
+"booking_filters_check_out" = "Check Out";
+
+"booking_filters_offline" = "Not available online.";
+
+"directions_finish" = "Destination";
+
+"directions_on_foot" = "Walk %s";
+
+"entrance" = "Entrance";
+
+"coffee" = "Coffee";
+
+"cleanliness" = "Cleanliness";
+
+"crowdedness" = "Crowdedness";
+
+"error_enter_correct_name" = "Please, enter a correct name";
+
+"hotel_available" = "Available";
+
+"whats_new_transit_title" = "Subways available";
+
+"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+
+"whats_new_discovery_title" = "Discovery button";
+
+"whats_new_discovery_message" = "Discover things around in one click!";
