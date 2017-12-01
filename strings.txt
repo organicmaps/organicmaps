@@ -17375,9 +17375,6 @@
     el = Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα
     sk = Zadajte správne PSČ
 
-  [error_enter_correct_name]
-    en = error enter correct name
-
   [placepage_unknown_place]
     comment = Place Page title for long tap
     tags = ios, android
