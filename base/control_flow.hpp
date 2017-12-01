@@ -1,5 +1,6 @@
 #pragma once
 
+#include <type_traits>
 #include <utility>
 
 namespace base
@@ -15,8 +16,9 @@ enum class ControlFlow
 // To avoid excessive calls, |fn| may signal the end of execution via its return value,
 // which should then be checked by the wrapper's user.
 template <typename Fn>
-struct ControlFlowWrapper
+class ControlFlowWrapper
 {
+public:
   template <typename Gn>
   explicit ControlFlowWrapper(Gn && gn) : m_fn(std::forward<Gn>(gn))
   {
@@ -40,6 +42,7 @@ struct ControlFlowWrapper
     return ControlFlow::Continue;
   }
 
+private:
   Fn m_fn;
 };
 }  // namespace base

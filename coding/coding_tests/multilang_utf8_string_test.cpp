@@ -6,6 +6,12 @@
 
 #include "3party/utfcpp/source/utf8.h"
 
+#include <cstddef>
+#include <string>
+#include <vector>
+
+using namespace std;
+
 namespace
 {
 struct lang_string

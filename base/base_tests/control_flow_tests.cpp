@@ -20,7 +20,7 @@ struct Repeater
     {
       ++m_calls;
       if (wrapper() == ControlFlow::Break)
-        break;
+        return;
     }
   }
 

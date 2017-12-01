@@ -8,8 +8,10 @@
 #include "base/control_flow.hpp"
 
 #include <array>
+#include <cstddef>
+#include <cstdint>
 #include <string>
-#include <type_traits>
+#include <utility>
 
 namespace utils
 {
@@ -88,6 +90,7 @@ public:
       AddString(l, utf8s);
   }
 
+  // Calls |fn| for each pair of |lang| and |utf8s| stored in this multilang string.
   template <typename Fn>
   void ForEach(Fn && fn) const
   {
@@ -98,7 +101,7 @@ public:
     {
       size_t const next = GetNextIndex(i);
       if (wrapper((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)) == base::ControlFlow::Break)
-        break;
+        return;
       i = next;
     }
   }
