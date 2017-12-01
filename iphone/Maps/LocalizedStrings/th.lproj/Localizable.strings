@@ -1377,8 +1377,6 @@
 
 "error_enter_correct_zip_code" = "กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง";
 
-"error_enter_correct_name" = "error enter correct name";
-
 /* Place Page title for long tap */
 "placepage_unknown_place" = "ไม่ทราบชื่อสถานที่";
 

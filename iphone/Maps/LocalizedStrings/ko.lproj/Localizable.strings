@@ -1377,8 +1377,6 @@
 
 "error_enter_correct_zip_code" = "올바른 우편번호를 입력하세요";
 
-"error_enter_correct_name" = "error enter correct name";
-
 /* Place Page title for long tap */
 "placepage_unknown_place" = "장소 알 수 없음";
 
