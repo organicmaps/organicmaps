@@ -87,52 +87,52 @@ public final class ViatorProduct implements Parcelable
   }
 
   @NonNull
-  String getTitle()
+  public String getTitle()
   {
     return mTitle;
   }
 
-  double getRating()
+  public double getRating()
   {
     return mRating;
   }
 
-  int getReviewCount()
+  public int getReviewCount()
   {
     return mReviewCount;
   }
 
   @NonNull
-  String getDuration()
+  public String getDuration()
   {
     return mDuration;
   }
 
-  double getPrice()
+  public double getPrice()
   {
     return mPrice;
   }
 
   @NonNull
-  String getPriceFormatted()
+  public String getPriceFormatted()
   {
     return mPriceFormatted;
   }
 
   @NonNull
-  String getCurrency()
+  public String getCurrency()
   {
     return mCurrency;
   }
 
   @NonNull
-  String getPhotoUrl()
+  public String getPhotoUrl()
   {
     return mPhotoUrl;
   }
 
   @NonNull
-  String getPageUrl()
+  public String getPageUrl()
   {
     return mPageUrl;
   }

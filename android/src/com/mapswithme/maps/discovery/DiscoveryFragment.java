@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
-import com.mapswithme.maps.base.BaseSponsoredAdapter;
+import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.viator.ViatorProduct;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
@@ -87,7 +87,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     if (mOnlineMode)
     {
       // TODO: set loading adapter for local experts here.
-      mThingsToDo.setAdapter(DiscoveryAdapterFactory.createViatorLoadingAdapter());
+      mThingsToDo.setAdapter(Factory.createViatorLoadingAdapter(null, null));
       return;
     }
 
@@ -101,7 +101,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     else
     {
       UiUtils.show(getView(), R.id.thingsToDoLayout, R.id.thingsToDo);
-      mThingsToDo.setAdapter(DiscoveryAdapterFactory.createViatorOfflineAdapter());
+      mThingsToDo.setAdapter(Factory.createViatorOfflineAdapter(null));
     }
   }
 
@@ -141,7 +141,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onViatorProductsReceived(@Nullable ViatorProduct[] products)
   {
     if (products != null)
-      mThingsToDo.setAdapter(DiscoveryAdapterFactory.createViatorAdapter(products));
+      mThingsToDo.setAdapter(Factory.createViatorAdapter(products, null, null));
   }
 
   @MainThread
@@ -157,9 +157,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     switch (type)
     {
       case VIATOR:
-        if (mThingsToDo.getAdapter() != null)
-          // TODO: pass cityUrl instead of null.
-          ((BaseSponsoredAdapter) mThingsToDo.getAdapter()).setLoadingError(null);
+        // TODO: pass cityUrl instead of null and non-null ItemSelectedListener.
+        mThingsToDo.setAdapter(Factory.createViatorErrorAdapter(null, null));
         break;
 
       // TODO: processing for other adapters is coming soon.
