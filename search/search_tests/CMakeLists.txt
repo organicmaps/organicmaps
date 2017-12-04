@@ -5,6 +5,7 @@ include_directories(${OMIM_ROOT}/3party/jansson/src)
 set(
   SRC
   algos_tests.cpp
+  bookmarks_processor_tests.cpp
   highlighting_tests.cpp
   house_detector_tests.cpp
   house_numbers_matcher_test.cpp

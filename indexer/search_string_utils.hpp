@@ -37,6 +37,12 @@ void NormalizeAndTokenizeString(std::string const & s, Tokens & tokens)
                  search::Delimiters());
 }
 
+template <typename Fn>
+void ForEachNormalizedToken(std::string const & s, Fn && fn)
+{
+  SplitUniString(NormalizeAndSimplifyString(s), std::forward<Fn>(fn), search::Delimiters());
+}
+
 strings::UniString FeatureTypeToString(uint32_t type);
 
 template <class Tokens, class Delims>

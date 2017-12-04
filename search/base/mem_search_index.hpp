@@ -44,10 +44,27 @@ public:
 
   std::vector<Id> GetAllIds() const
   {
-    std::vector<Id> ids;
-    m_trie.ForEachInTrie([&](Token const & /* token */, Id const & id) { ids.push_back(id); });
-    my::SortUnique(ids);
-    return ids;
+    return WithIds([&](std::vector<Id> & ids) {
+      m_trie.ForEachInTrie([&](Token const & /* token */, Id const & id) { ids.push_back(id); });
+    });
+  }
+
+  size_t GetNumDocs(int8_t lang, strings::UniString const & token, bool prefix) const
+  {
+    auto const key = AddLang(lang, token);
+
+    if (!prefix)
+    {
+      size_t numDocs = 0;
+      m_trie.WithValuesHolder(key, [&](List const & list) { numDocs = list.Size(); });
+      return numDocs;
+    }
+
+    return WithIds([&](std::vector<Id> & ids) {
+             m_trie.ForEachInSubtree(
+                 key, [&](Token const & /* token */, Id const & id) { ids.push_back(id); });
+           })
+        .size();
   }
 
 private:
@@ -66,6 +83,15 @@ private:
       if (lang >= 0)
         fn(AddLang(lang, token));
     });
+  }
+
+  template <typename Fn>
+  static std::vector<Id> WithIds(Fn && fn)
+  {
+    std::vector<Id> ids;
+    fn(ids);
+    my::SortUnique(ids);
+    return ids;
   }
 
   Trie m_trie;

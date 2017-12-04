@@ -148,9 +148,9 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit,
     // localities tokens, because it's expensive to compute IDF map
     // for all localities tokens.  Therefore, for tokens not in the
     // query, some default IDF value will be used.
-    GetDocVecs(idfs, els[i].GetId(), dvs);
+    GetDocVecs(els[i].GetId(), dvs);
     for (; i < j; ++i)
-      els[i].m_similarity = GetSimilarity(els[i].m_locality.m_queryVec, dvs);
+      els[i].m_similarity = GetSimilarity(els[i].m_locality.m_queryVec, idfs, dvs);
   }
 
   LeaveTopBySimilarityAndRank(limit, els);
@@ -206,7 +206,7 @@ void LocalityScorer::LeaveTopBySimilarityAndRank(size_t limit, vector<ExLocality
   els.erase(els.begin() + n, els.end());
 }
 
-void LocalityScorer::GetDocVecs(IdfMap & idfs, uint32_t localityId, vector<DocVec> & dvs) const
+void LocalityScorer::GetDocVecs(uint32_t localityId, vector<DocVec> & dvs) const
 {
   vector<string> names;
   m_delegate.GetNames(localityId, names);
@@ -219,17 +219,17 @@ void LocalityScorer::GetDocVecs(IdfMap & idfs, uint32_t localityId, vector<DocVe
     DocVec::Builder builder;
     for (auto const & token : tokens)
       builder.Add(token);
-    dvs.emplace_back(idfs, builder);
+    dvs.emplace_back(builder);
   }
 }
 
-double LocalityScorer::GetSimilarity(QueryVec & qv, vector<DocVec> & dvc) const
+double LocalityScorer::GetSimilarity(QueryVec & qv, IdfMap & docIdfs, vector<DocVec> & dvc) const
 {
   double const kScale = 1e6;
 
   double similarity = 0;
   for (auto & dv : dvc)
-    similarity = max(similarity, qv.Similarity(dv));
+    similarity = max(similarity, qv.Similarity(docIdfs, dv));
 
   // We need to scale similarity here to prevent floating-point
   // artifacts, and to make sorting by similarity more robust, as 1e-6

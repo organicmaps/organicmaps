@@ -7,6 +7,9 @@ set(
   approximate_string_match.hpp
   base/inverted_list.hpp
   base/mem_search_index.hpp
+  bookmarks/data.hpp
+  bookmarks/processor.cpp
+  bookmarks/processor.hpp
   cancel_exception.hpp
   categories_cache.cpp
   categories_cache.hpp

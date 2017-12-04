@@ -4,7 +4,7 @@
 
 namespace search
 {
-IdfMap::IdfMap(Delegate & delegate, double unknownIdf)
+IdfMap::IdfMap(Delegate const & delegate, double unknownIdf)
   : m_delegate(delegate), m_unknownIdf(unknownIdf)
 {
   ASSERT_GREATER(m_unknownIdf, 0.0, ());

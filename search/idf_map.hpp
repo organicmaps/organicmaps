@@ -17,7 +17,7 @@ public:
     virtual uint64_t GetNumDocs(strings::UniString const & token, bool isPrefix) const = 0;
   };
 
-  IdfMap(Delegate & delegate, double unknownIdf);
+  IdfMap(Delegate const & delegate, double unknownIdf);
 
   void Set(strings::UniString const & s, bool isPrefix, double idf)
   {
@@ -38,7 +38,7 @@ private:
   Map m_fullIdfs;
   Map m_prefixIdfs;
 
-  Delegate & m_delegate;
+  Delegate const & m_delegate;
   double m_unknownIdf;
 };
 }  // namespace search

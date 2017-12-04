@@ -307,6 +307,13 @@ public:
            });
   }
 
+  template <typename ToDo>
+  void WithValuesHolder(String const & prefix, ToDo && toDo) const
+  {
+    MoveTo(prefix, true /* fullMatch */, [&toDo](Node const & node, Edge const & /* edge */,
+                                                 size_t /* offset */) { toDo(node.m_values); });
+  }
+
   // Calls |toDo| for each key-value pair in a subtree that is
   // reachable by |prefix| from the trie root. Does nothing if such
   // subtree does not exist.

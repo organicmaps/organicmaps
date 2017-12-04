@@ -83,12 +83,9 @@ string DebugPrint(TokenFrequencyPair const & tf)
 }
 
 // DocVec ------------------------------------------------------------------------------------------
-DocVec::DocVec(IdfMap & idfs, Builder const & builder) : m_idfs(&idfs)
-{
-  SortAndMerge(builder.m_tokens, m_tfs);
-}
+DocVec::DocVec(Builder const & builder) { SortAndMerge(builder.m_tokens, m_tfs); }
 
-double DocVec::Norm() { return SqrL2(*m_idfs, m_tfs); }
+double DocVec::Norm(IdfMap & idfs) const { return SqrL2(idfs, m_tfs); }
 
 strings::UniString const & DocVec::GetToken(size_t i) const
 {
@@ -96,16 +93,16 @@ strings::UniString const & DocVec::GetToken(size_t i) const
   return m_tfs[i].m_token;
 }
 
-double DocVec::GetIdf(size_t i)
+double DocVec::GetIdf(IdfMap & idfs, size_t i) const
 {
   ASSERT_LESS(i, m_tfs.size(), ());
-  return m_idfs->Get(m_tfs[i].m_token, false /* isPrefix */);
+  return idfs.Get(m_tfs[i].m_token, false /* isPrefix */);
 }
 
-double DocVec::GetWeight(size_t i)
+double DocVec::GetWeight(IdfMap & idfs, size_t i) const
 {
   ASSERT_LESS(i, m_tfs.size(), ());
-  return GetWeightImpl(*m_idfs, m_tfs[i], false /* isPrefix */);
+  return GetWeightImpl(idfs, m_tfs[i], false /* isPrefix */);
 }
 
 // QueryVec ----------------------------------------------------------------------------------------
@@ -115,7 +112,7 @@ QueryVec::QueryVec(IdfMap & idfs, Builder const & builder)
   SortAndMerge(builder.m_tokens, m_tfs);
 }
 
-double QueryVec::Similarity(DocVec & rhs)
+double QueryVec::Similarity(IdfMap & docIdfs, DocVec const & rhs)
 {
   size_t kInvalidIndex = numeric_limits<size_t>::max();
 
@@ -146,7 +143,7 @@ double QueryVec::Similarity(DocVec & rhs)
       }
       else
       {
-        dot += GetFullTokenWeight(i) * rhs.GetWeight(j);
+        dot += GetFullTokenWeight(i) * rhs.GetWeight(docIdfs, j);
         rsMatchTo[j] = i;
         ++i;
         ++j;
@@ -155,7 +152,7 @@ double QueryVec::Similarity(DocVec & rhs)
   }
 
   auto const ln = Norm();
-  auto const rn = rhs.Norm();
+  auto const rn = rhs.Norm(docIdfs);
 
   // This similarity metric assumes that prefix is not matched in the document.
   double const similarityNoPrefix = ln > 0 && rn > 0 ? dot / sqrt(ln) / sqrt(rn) : 0;
@@ -185,10 +182,10 @@ double QueryVec::Similarity(DocVec & rhs)
       // - so we need to update correspondingly dot product and
       // vector norms of query and doc.
       auto const oldW = GetPrefixTokenWeight();
-      auto const newW = GetTfIdf(1 /* frequency */, rhs.GetIdf(j));
+      auto const newW = GetTfIdf(1 /* frequency */, rhs.GetIdf(docIdfs, j));
       auto const l = max(0.0, ln - oldW * oldW + newW * newW);
 
-      num = dot + newW * rhs.GetWeight(j);
+      num = dot + newW * rhs.GetWeight(docIdfs, j);
       denom = sqrt(l) * sqrt(rn);
     }
     else
@@ -206,7 +203,7 @@ double QueryVec::Similarity(DocVec & rhs)
 
       auto const l = ln - oldFW * oldFW - oldPW * oldPW + newW * newW;
 
-      num = dot + (newW - oldFW) * rhs.GetWeight(j);
+      num = dot + (newW - oldFW) * rhs.GetWeight(docIdfs, j);
       denom = sqrt(l) * sqrt(rn);
     }
 

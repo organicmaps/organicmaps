@@ -58,18 +58,17 @@ public:
     std::vector<strings::UniString> m_tokens;
   };
 
-  explicit DocVec(IdfMap & idfs) : m_idfs(&idfs) {}
-
-  DocVec(IdfMap & idfs, Builder const & builder);
+  DocVec() = default;
+  explicit DocVec(Builder const & builder);
 
   // Computes vector norm of the doc.
-  double Norm();
+  double Norm(IdfMap & idfs) const;
 
   size_t GetNumTokens() const { return m_tfs.size(); }
 
   strings::UniString const & GetToken(size_t i) const;
-  double GetIdf(size_t i);
-  double GetWeight(size_t i);
+  double GetIdf(IdfMap & idfs, size_t i) const;
+  double GetWeight(IdfMap & idfs, size_t i) const;
 
   bool Empty() const { return m_tfs.empty(); }
 
@@ -79,7 +78,6 @@ private:
     return "DocVec " + ::DebugPrint(dv.m_tfs);
   }
 
-  IdfMap * m_idfs;
   std::vector<TokenFrequencyPair> m_tfs;
 };
 
@@ -114,7 +112,7 @@ public:
   QueryVec(IdfMap & idfs, Builder const & builder);
 
   // Computes cosine similarity between |*this| and |rhs|.
-  double Similarity(DocVec & rhs);
+  double Similarity(IdfMap & docIdfs, DocVec const & rhs);
 
   // Computes vector norm of the query.
   double Norm();

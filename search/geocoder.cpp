@@ -343,7 +343,7 @@ CBV DecimateCianResults(CBV const & cbv)
   size_t const kMaxCianResults = 10000;
   minstd_rand rng(0);
   auto survivedIds =
-      base::RandomSample(::base::checked_cast<size_t>(cbv.PopCount()), kMaxCianResults, rng);
+      ::base::RandomSample(::base::checked_cast<size_t>(cbv.PopCount()), kMaxCianResults, rng);
   sort(survivedIds.begin(), survivedIds.end());
   auto it = survivedIds.begin();
   vector<uint64_t> setBits;
@@ -1034,7 +1034,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   InitLayer(Model::TYPE_STREET, prediction.m_tokenRange, layer);
 
   vector<uint32_t> sortedFeatures;
-  sortedFeatures.reserve(base::checked_cast<size_t>(prediction.m_features.PopCount()));
+  sortedFeatures.reserve(::base::checked_cast<size_t>(prediction.m_features.PopCount()));
   prediction.m_features.ForEach([&sortedFeatures](uint64_t bit) {
     sortedFeatures.push_back(::base::asserted_cast<uint32_t>(bit));
   });

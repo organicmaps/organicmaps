@@ -69,8 +69,8 @@ private:
   // the query and rank.
   void LeaveTopBySimilarityAndRank(size_t limit, std::vector<ExLocality> & els) const;
 
-  void GetDocVecs(IdfMap & idfs, uint32_t localityId, std::vector<DocVec> & dvs) const;
-  double GetSimilarity(QueryVec & qv, std::vector<DocVec> & dvs) const;
+  void GetDocVecs(uint32_t localityId, std::vector<DocVec> & dvs) const;
+  double GetSimilarity(QueryVec & qv, IdfMap & docIdfs, std::vector<DocVec> & dvs) const;
 
   QueryParams const & m_params;
   Delegate const & m_delegate;
