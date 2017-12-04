@@ -306,6 +306,7 @@ public:
 
   bool operator<(Edge const & rhs) const;
   bool operator==(Edge const & rhs) const;
+  bool operator!=(Edge const & rhs) const { return !(*this == rhs); }
   bool IsEqualForTesting(Edge const & edge) const;
   bool IsValid() const;
   void SetWeight(Weight weight) { m_weight = weight; }

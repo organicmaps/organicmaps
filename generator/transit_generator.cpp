@@ -33,6 +33,7 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
@@ -259,6 +260,19 @@ void GraphData::DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap 
 {
   DeserializerFromJson deserializer(root.get(), mapping);
   Visit(deserializer);
+
+  // Removes equivalent edges from |m_edges|. If there are several equivalent edges only
+  // the most lightweight edge is left.
+  // Note. It's possible that two stops are connected with the same line several times
+  // in the same direction. It happens in Oslo metro (T-banen):
+  // https://en.wikipedia.org/wiki/Oslo_Metro#/media/File:Oslo_Metro_Map.svg branch 5.
+  my::SortUnique(m_edges,
+                 [](Edge const & e1, Edge const & e2) {
+                   if (e1 != e2)
+                     return e1 < e2;
+                   return e1.GetWeight() < e2.GetWeight();
+                 },
+                 [](Edge const & e1, Edge const & e2) { return e1 == e2; });
 }
 
 void GraphData::Serialize(Writer & writer) const
