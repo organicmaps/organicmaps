@@ -206,4 +206,8 @@
     <item name="android:textColor">?colorAccent</item>
     <item name="android:textAllCaps">true</item>
   </style>
+
+  <style name="MwmTextAppearance.Discovery.Item.Distance" parent="MwmTextAppearance.Body3.Primary">
+    <item name="android:textColor">?colorAccent</item>
+  </style>
 </resources>

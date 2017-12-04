@@ -69,9 +69,6 @@
         android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Button"
         style="@style/MwmWidget.Discovery.Item.Button"
         android:layout_gravity="bottom"
-        android:gravity="center"
-        android:maxLines="1"
-        android:ellipsize="end"
         tools:text="$55"/>
     </RelativeLayout>
   </android.support.v7.widget.CardView>
