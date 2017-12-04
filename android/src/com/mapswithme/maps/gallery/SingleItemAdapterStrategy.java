@@ -7,8 +7,10 @@ import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 
 abstract class SingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.Item>>
     extends AdapterStrategy<T, Items.Item>
@@ -29,6 +31,19 @@ abstract class SingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.
   @NonNull
   protected abstract View inflateView(@NonNull LayoutInflater inflater,
                                       @NonNull ViewGroup parent);
+
+  @NonNull
+  @Override
+  protected T createViewHolder(@NonNull ViewGroup parent, int viewType,
+                                                       @NonNull GalleryAdapter adapter)
+  {
+    View itemView = inflateView(LayoutInflater.from(parent.getContext()), parent);
+    TextView button = (TextView) itemView.findViewById(R.id.button);
+    button.setText(getLabelForDetailsView());
+    return createViewHolder(itemView, adapter);
+  }
+
+  protected abstract T createViewHolder(@NonNull View itemView, @NonNull GalleryAdapter adapter);
 
   @StringRes
   protected abstract int getLabelForDetailsView();

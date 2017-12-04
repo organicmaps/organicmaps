@@ -1,17 +1,20 @@
 package com.mapswithme.maps.discovery;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
+import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.viator.ViatorProduct;
@@ -26,6 +29,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
 {
   private static final int ITEMS_COUNT = 5;
   private static final int[] ITEM_TYPES = { DiscoveryParams.ITEM_TYPE_VIATOR };
+  private static final GalleryAdapter.ItemSelectedListener LISTENER = new BaseItemSelectedListener();
   private boolean mOnlineMode;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -37,13 +41,26 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     View view = inflater.inflate(R.layout.fragment_discovery, container, false);
 
+    initViatorGallery(view);
+    return view;
+  }
+
+  private void initViatorGallery(@NonNull View view)
+  {
+    view.findViewById(R.id.viatorLogo).setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        Utils.openUrl(getActivity(), DiscoveryManager.nativeGetViatorUrl());
+      }
+    });
     mThingsToDo = (RecyclerView) view.findViewById(R.id.thingsToDo);
     mThingsToDo.setLayoutManager(new LinearLayoutManager(getContext(),
-                                                        LinearLayoutManager.HORIZONTAL,
-                                                        false));
+                                                         LinearLayoutManager.HORIZONTAL,
+                                                         false));
     mThingsToDo.addItemDecoration(
         ItemDecoratorFactory.createSponsoredGalleryDecorator(getContext(), LinearLayoutManager.HORIZONTAL));
-    return view;
   }
 
   @Override
@@ -87,7 +104,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     if (mOnlineMode)
     {
       // TODO: set loading adapter for local experts here.
-      mThingsToDo.setAdapter(Factory.createViatorLoadingAdapter(null, null));
+      mThingsToDo.setAdapter(Factory.createViatorLoadingAdapter(DiscoveryManager.nativeGetViatorUrl(),
+                                                                LISTENER));
       return;
     }
 
@@ -101,7 +119,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     else
     {
       UiUtils.show(getView(), R.id.thingsToDoLayout, R.id.thingsToDo);
-      mThingsToDo.setAdapter(Factory.createViatorOfflineAdapter(null));
+      mThingsToDo.setAdapter(Factory.createViatorOfflineAdapter(new ViatorOfflineSelectedListener()));
     }
   }
 
@@ -141,7 +159,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onViatorProductsReceived(@Nullable ViatorProduct[] products)
   {
     if (products != null)
-      mThingsToDo.setAdapter(Factory.createViatorAdapter(products, null, null));
+      mThingsToDo.setAdapter(Factory.createViatorAdapter(products, DiscoveryManager.nativeGetViatorUrl(),
+                                                         LISTENER));
   }
 
   @MainThread
@@ -157,11 +176,45 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     switch (type)
     {
       case VIATOR:
-        // TODO: pass cityUrl instead of null and non-null ItemSelectedListener.
-        mThingsToDo.setAdapter(Factory.createViatorErrorAdapter(null, null));
+        mThingsToDo.setAdapter(Factory.createViatorErrorAdapter(DiscoveryManager.nativeGetViatorUrl(),
+                                                                LISTENER));
         break;
 
       // TODO: processing for other adapters is coming soon.
+    }
+  }
+
+  private static class BaseItemSelectedListener implements GalleryAdapter.ItemSelectedListener
+  {
+
+    @Override
+    public void onItemSelected(@NonNull Context context, @NonNull String url)
+    {
+      Utils.openUrl(context, url);
+    }
+
+    @Override
+    public void onMoreItemSelected(@NonNull Context context, @NonNull String url)
+    {
+      Utils.openUrl(context, url);
+    }
+
+    @Override
+    public void onDetailsSelected(@NonNull Context context, @Nullable String url)
+    {
+      if (TextUtils.isEmpty(url))
+        return;
+
+      Utils.openUrl(context, url);
+    }
+  }
+
+  private static class ViatorOfflineSelectedListener extends BaseItemSelectedListener
+  {
+    @Override
+    public void onDetailsSelected(@NonNull Context context, @Nullable String url)
+    {
+      Utils.showWirelessSettings(context);
     }
   }
 }

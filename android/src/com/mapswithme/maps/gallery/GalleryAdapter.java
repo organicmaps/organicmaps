@@ -1,5 +1,6 @@
 package com.mapswithme.maps.gallery;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -51,7 +52,8 @@ public class GalleryAdapter<VH extends Holders.BaseViewHolder<I>, I extends Item
 
   public interface ItemSelectedListener
   {
-    void onItemSelected(@NonNull String url);
-    void onMoreItemSelected(@NonNull String url);
+    void onItemSelected(@NonNull Context context, @NonNull String url);
+    void onMoreItemSelected(@NonNull Context context, @NonNull String url);
+    void onDetailsSelected(@NonNull Context context, @Nullable String url);
   }
 }

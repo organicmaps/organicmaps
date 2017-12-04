@@ -72,13 +72,13 @@ public class Holders
     }
 
     @Override
-    protected void onItemSelected(@NonNull ViatorItem item)
+    protected void onItemSelected(@NonNull Context context, @NonNull ViatorItem item)
     {
       GalleryAdapter.ItemSelectedListener listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
-      listener.onItemSelected(item.getUrl());
+      listener.onItemSelected(context, item.getUrl());
     }
   }
 
@@ -92,13 +92,13 @@ public class Holders
     }
 
     @Override
-    protected void onItemSelected(@NonNull Items.ViatorItem item)
+    protected void onItemSelected(@NonNull Context context, @NonNull Items.ViatorItem item)
     {
       GalleryAdapter.ItemSelectedListener listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
-      listener.onMoreItemSelected(item.getUrl());
+      listener.onMoreItemSelected(context, item.getUrl());
     }
   }
 
@@ -135,13 +135,13 @@ public class Holders
     }
 
     @Override
-    protected void onItemSelected(@NonNull T item)
+    protected void onItemSelected(@NonNull Context context, @NonNull T item)
     {
       GalleryAdapter.ItemSelectedListener listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
-      listener.onMoreItemSelected(item.getUrl());
+      listener.onMoreItemSelected(context, item.getUrl());
     }
   }
 
@@ -155,7 +155,7 @@ public class Holders
     @NonNull
     GalleryAdapter mAdapter;
 
-    protected BaseViewHolder(@NonNull View itemView, @NonNull List<I> items,
+    BaseViewHolder(@NonNull View itemView, @NonNull List<I> items,
                              @NonNull GalleryAdapter adapter)
     {
       super(itemView);
@@ -178,10 +178,10 @@ public class Holders
       if (position == RecyclerView.NO_POSITION || mItems.isEmpty())
         return;
 
-      onItemSelected(mItems.get(position));
+      onItemSelected(mTitle.getContext(), mItems.get(position));
     }
 
-    protected void onItemSelected(@NonNull I item)
+    protected void onItemSelected(@NonNull Context context, @NonNull I item)
     {
     }
   }
@@ -201,7 +201,7 @@ public class Holders
       super(itemView, items, adapter);
       mProgressBar = (ProgressBar) itemView.findViewById(R.id.pb__progress);
       mSubtitle = (TextView) itemView.findViewById(R.id.tv__subtitle);
-      mMore = (TextView) itemView.findViewById(R.id.tv__more);
+      mMore = (TextView) itemView.findViewById(R.id.button);
     }
 
     @CallSuper
@@ -219,20 +219,20 @@ public class Holders
       if (position == RecyclerView.NO_POSITION)
         return;
 
-      onItemSelected(mItems.get(position));
+      onItemSelected(mProgressBar.getContext(), mItems.get(position));
     }
 
     @Override
-    protected void onItemSelected(@NonNull Items.Item item)
+    protected void onItemSelected(@NonNull Context context, @NonNull Items.Item item)
     {
       if (mAdapter.getListener() == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
-      mAdapter.getListener().onItemSelected(item.getUrl());
+      mAdapter.getListener().onDetailsSelected(context, item.getUrl());
     }
   }
 
-  public static class ErrorViewHolder extends LoadingViewHolder
+  static class ErrorViewHolder extends LoadingViewHolder
   {
 
     ErrorViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items, @NonNull GalleryAdapter adapter)
@@ -260,12 +260,12 @@ public class Holders
     }
 
     @Override
-    protected void onItemSelected(@NonNull Items.Item item)
+    protected void onItemSelected(@NonNull Context context, @NonNull Items.Item item)
     {
       if (mAdapter.getListener() == null)
         return;
 
-      // TODO: coming soon.
+      mAdapter.getListener().onDetailsSelected(mTitle.getContext(), item.getUrl());
     }
   }
 }

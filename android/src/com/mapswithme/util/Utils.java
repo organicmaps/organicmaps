@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -376,6 +377,18 @@ public class Utils
     {
       LOGGER.e(TAG, "Failed to call phone", e);
       AlohaHelper.logException(e);
+    }
+  }
+
+  public static void showWirelessSettings(@NonNull Context context)
+  {
+    try
+    {
+      context.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+    }
+    catch (ActivityNotFoundException e)
+    {
+      LOGGER.e(TAG, "Failed to open wireless settings", e);
     }
   }
 

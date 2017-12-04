@@ -923,21 +923,30 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onItemSelected(@NonNull String url)
+  public void onItemSelected(@NonNull Context context, @NonNull String url)
   {
-    Utils.openUrl(getContext(), url);
+    Utils.openUrl(context, url);
     if (mSponsored != null)
       Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_ITEM_SELECTED,
                                               mSponsored.getType());
   }
 
   @Override
-  public void onMoreItemSelected(@NonNull String url)
+  public void onMoreItemSelected(@NonNull Context context, @NonNull String url)
   {
-    Utils.openUrl(getContext(), url);
+    Utils.openUrl(context, url);
     if (mSponsored != null)
       Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
                                               mSponsored.getType());
+  }
+
+  @Override
+  public void onDetailsSelected(@NonNull Context context, @Nullable String url)
+  {
+    if (TextUtils.isEmpty(url))
+      return;
+
+    Utils.openUrl(context, url);
   }
 
   @Override
