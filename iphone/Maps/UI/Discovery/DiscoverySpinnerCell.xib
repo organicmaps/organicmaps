@@ -31,7 +31,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Discover_button_other_loading_title"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="discovery_button_other_loading_message"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>

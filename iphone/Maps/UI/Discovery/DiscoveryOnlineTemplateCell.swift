@@ -32,11 +32,11 @@ final class DiscoveryOnlineTemplateCell: MWMTableViewCell {
 
     switch type {
       case .viator:
-        title.text = L("Discover_button_viator_loading_title")
-        subtitle.text = L("Discover_button_viator_loading_subtitle")
+        title.text = L("preloader_viator_title")
+        subtitle.text = L("preloader_viator_message")
       case .locals:
-        title.text = L("Discover_button_viator_loading_title")
-        subtitle.text = L("Discover_button_viator_loading_subtitle")
+        title.text = L("preloader_locals_title")
+        subtitle.text = L("preloader_locals_message")
     }
 
     spinner.isHidden = !needSpinner

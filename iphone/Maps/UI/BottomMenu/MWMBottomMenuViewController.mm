@@ -7,11 +7,15 @@
 #import "MWMCommon.h"
 #import "MWMDiscoveryController.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMNetworkPolicy.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
+#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
+
+#include "platform/platform.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateKey;
@@ -286,8 +290,41 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (IBAction)discoveryTap
 {
-  // Log event
+  auto mode = ^MWMDiscoveryMode (BOOL canUseNetwork) {
+    return canUseNetwork ? MWMDiscoveryModeOnline : MWMDiscoveryModeOffline;
+  };
+
+  auto const connectionType = GetPlatform().ConnectionStatus();
+  auto connectionKey = ^NSString * (Platform::EConnectionType type)
+  {
+    switch (type)
+    {
+    case Platform::EConnectionType::CONNECTION_WWAN:
+      return kStatMobile;
+    case Platform::EConnectionType::CONNECTION_WIFI:
+      return kStatWifi;
+    case Platform::EConnectionType::CONNECTION_NONE:
+      return kStatNone;
+    }
+  } (connectionType);
+
+  [Statistics logEvent:kStatDiscoveryButtonOpen
+        withParameters:@{kStatConnection : connectionKey}];
+
   auto discovery = [MWMDiscoveryController instance];
+  using namespace network_policy;
+  auto const canUseNetwork = CanUseNetwork();
+  if (!canUseNetwork && connectionType == Platform::EConnectionType::CONNECTION_WWAN &&
+     GetStage() == platform::NetworkPolicy::Stage::Session)
+  {
+    [[MWMAlertViewController activeAlertController] presentMobileInternetAlertWithBlock:^{
+      discovery.mode = mode(CanUseNetwork());
+      [self.controller.navigationController pushViewController:discovery animated:YES];
+    }];
+    return;
+  }
+
+  discovery.mode = mode(canUseNetwork);
   [self.controller.navigationController pushViewController:discovery animated:YES];
 }
 

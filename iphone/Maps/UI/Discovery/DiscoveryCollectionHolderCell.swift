@@ -34,6 +34,7 @@ final class DiscoveryCollectionHolderCell: UITableViewCell {
   @objc func configSearchLayout() {
     let size = Size.search;
     cellHeight.constant = size.height;
+    setNeedsLayout()
     collectionView.collectionViewLayout = DiscoveryItemLayout(size: Size.search)
     collectionView.register(cellClass: DiscoverySearchCell.self)
   }
@@ -41,6 +42,7 @@ final class DiscoveryCollectionHolderCell: UITableViewCell {
   @objc func configViatorLayout() {
     let size = Size.viator;
     cellHeight.constant = size.height;
+    setNeedsLayout()
     collectionView.collectionViewLayout = DiscoveryItemLayout(size: Size.viator)
     collectionView.register(cellClass: ViatorElement.self)
   }

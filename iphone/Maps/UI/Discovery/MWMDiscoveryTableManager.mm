@@ -1,5 +1,6 @@
 #import "MWMDiscoveryTableManager.h"
 #import "MWMDiscoveryTapDelegate.h"
+#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "DiscoveryControllerViewModel.hpp"
@@ -21,6 +22,22 @@
 #include <utility>
 
 using namespace std;
+
+namespace discovery
+{
+pair<NSString *, NSString *> StatCategoryAndProvider(ItemType const type)
+{
+  switch (type)
+  {
+    case ItemType::Viator: return {kStatThingsToDo, kStatViator};
+    case ItemType::LocalExperts: return {kStatLocals, kStatLocalsProvider};
+    case ItemType::Attractions: return {kStatAttractions, kStatSearch};
+    case ItemType::Cafes: return {kStatEatAndDrink, kStatSearch};
+    case ItemType::Hotels: ASSERT(false, @""); return {};
+  }
+}
+}  // namespace discovery
+
 using namespace discovery;
 
 namespace
@@ -94,7 +111,6 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
     [self removeItem:type];
     return;
   }
-
   m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), type),
                        m_loadingTypes.end());
   m_failedTypes.erase(remove(m_failedTypes.begin(), m_failedTypes.end(), type),
@@ -102,6 +118,11 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   auto const position = [self position:type];
   [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:position]]
                         withRowAnimation:kDefaultRowAnimation];
+
+  auto const categoryAndProvider = StatCategoryAndProvider(type);
+  [Statistics logEvent:kStatDiscoveryButtonItemShow
+        withParameters:@{kStatCategory : categoryAndProvider.first,
+                         kStatProvider : categoryAndProvider.second}];
 }
 
 - (void)errorAtItem:(ItemType const)type
