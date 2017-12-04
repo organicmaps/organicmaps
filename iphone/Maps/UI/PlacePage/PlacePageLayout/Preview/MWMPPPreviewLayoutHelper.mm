@@ -115,25 +115,18 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
 
 @interface MWMPPPreviewLayoutHelper ()
 
-@property(weak, nonatomic) UITableView * tableView;
-
-@property(weak, nonatomic) NSLayoutConstraint * distanceCellTrailing;
-@property(weak, nonatomic) UIView * distanceView;
-
-@property(weak, nonatomic) MWMPlacePageData * data;
-@property(weak, nonatomic) id<MWMPPPreviewLayoutHelperDelegate> delegate;
-
-@property(nonatomic) CGFloat leading;
-@property(nonatomic) MWMDirectionView * directionView;
 @property(copy, nonatomic) NSString * distance;
 @property(copy, nonatomic) NSString * speedAndAltitude;
-@property(weak, nonatomic) UIImageView * compass;
-@property(nonatomic) NSIndexPath * lastCellIndexPath;
-@property(nonatomic) BOOL lastCellIsBanner;
+@property(nonatomic) MWMDirectionView * directionView;
 @property(nonatomic) NSUInteger distanceRow;
-
 @property(weak, nonatomic) MWMAdBanner * cachedBannerCell;
+@property(weak, nonatomic) MWMPlacePageData * data;
+@property(weak, nonatomic) NSLayoutConstraint * distanceCellTrailing;
+@property(weak, nonatomic) UIImageView * compass;
+@property(weak, nonatomic) UITableView * tableView;
+@property(weak, nonatomic) UIView * distanceView;
 @property(weak, nonatomic) _MWMPPPSubtitle * cachedSubtitle;
+@property(weak, nonatomic) id<MWMPPPreviewLayoutHelperDelegate> delegate;
 
 @end
 
@@ -162,8 +155,6 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
   self.data = data;
   auto const & previewRows = data.previewRows;
   using place_page::PreviewRows;
-  self.lastCellIsBanner = NO;
-  self.lastCellIndexPath = [NSIndexPath indexPathForRow:previewRows.size() - 1 inSection:0];
 
   if (data.isMyPosition || previewRows.size() == 1)
   {
@@ -340,12 +331,6 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
   auto data = self.data;
   if (!data)
     return;
-  auto const & previewRows = data.previewRows;
-  auto const size = previewRows.size();
-  self.lastCellIsBanner = previewRows.back() == place_page::PreviewRows::Banner;
-  self.lastCellIndexPath =
-      [NSIndexPath indexPathForRow:size - 1
-                         inSection:static_cast<NSUInteger>(place_page::Sections::Preview)];
   [self.tableView insertRowsAtIndexPaths:@[ self.lastCellIndexPath ]
                         withRowAnimation:UITableViewRowAnimationLeft];
   [self.delegate heightWasChanged];
@@ -390,6 +375,23 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
   if (!_directionView)
     _directionView = [[MWMDirectionView alloc] init];
   return _directionView;
+}
+
+- (NSIndexPath *)lastCellIndexPath
+{
+  auto data = self.data;
+  if (!data)
+    return nil;
+  return [NSIndexPath indexPathForRow:data.previewRows.size() - 1
+                            inSection:static_cast<NSUInteger>(place_page::Sections::Preview)];
+}
+
+- (BOOL)lastCellIsBanner
+{
+  auto data = self.data;
+  if (!data)
+    return NO;
+  return data.previewRows.back() == place_page::PreviewRows::Banner;
 }
 
 @end
