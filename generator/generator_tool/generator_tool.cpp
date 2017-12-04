@@ -59,7 +59,7 @@ DEFINE_bool(emit_coasts, false,
 // Generator settings and paths.
 DEFINE_string(osm_file_name, "", "Input osm area file.");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m].");
-DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
+DEFINE_string(data_path, "", "Directory for mwm generation, 'path_to_exe/../../data' if empty.");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 DEFINE_string(intermediate_data_path, "", "Path to stored nodes, ways, relations.");
 DEFINE_string(output, "", "File name for process (without 'mwm' ext).");

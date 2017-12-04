@@ -531,7 +531,7 @@ if [ "$MODE" == "mwm" ]; then
 fi
 
 if [ "$MODE" == "routing" ]; then
-  putmode "Step 6: Using freshly generated *.mwm and *.osrm to create routing files"
+  putmode "Step 6: Using freshly generated *.mwm to create routing files"
   # If *.mwm.osm2ft were moved to INTDIR, let's put them back
   [ -z "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" -a -n "$(ls "$INTDIR" | grep '\.mwm\.osm2ft')" ] && mv "$INTDIR"/*.mwm.osm2ft "$TARGET"
 
