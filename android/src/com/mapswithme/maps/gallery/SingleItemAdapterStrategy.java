@@ -17,6 +17,11 @@ abstract class SingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.
 {
   SingleItemAdapterStrategy(@Nullable String url)
   {
+    buildItem(url);
+  }
+
+  protected void buildItem(@Nullable String url)
+  {
     Resources res = MwmApplication.get().getResources();
     mItems.add(new Items.Item(res.getString(getTitle()), url,
                               res.getString(getSubtitle())));
@@ -35,7 +40,7 @@ abstract class SingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.
   @NonNull
   @Override
   protected T createViewHolder(@NonNull ViewGroup parent, int viewType,
-                                                       @NonNull GalleryAdapter adapter)
+                               @NonNull GalleryAdapter adapter)
   {
     View itemView = inflateView(LayoutInflater.from(parent.getContext()), parent);
     TextView button = (TextView) itemView.findViewById(R.id.button);

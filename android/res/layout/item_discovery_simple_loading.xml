@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingLeft="@dimen/margin_quarter"
+  android:paddingStart="@dimen/margin_quarter"
+  android:paddingRight="@dimen/margin_half_plus"
+  android:paddingEnd="@dimen/margin_half_plus"
+  android:paddingTop="@dimen/margin_quarter"
+  android:paddingBottom="@dimen/margin_quarter"
+  android:clipToPadding="false">
+  <android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:minHeight="@dimen/discovery_search_item_min_height"
+      android:orientation="vertical"
+      android:gravity="center_horizontal">
+      <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="@dimen/margin_base_plus"
+        android:layout_height="@dimen/margin_base_plus"
+        android:layout_marginTop="@dimen/margin_double_plus"/>
+      <include layout="@layout/item_discovery_simple_message"/>
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
+</FrameLayout>

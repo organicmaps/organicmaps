@@ -65,4 +65,16 @@ public class Factory
   {
     return new GalleryAdapter<>(new SearchBasedAdapterStrategy(results), listener);
   }
+
+  @NonNull
+  public static GalleryAdapter createSearchBasedLoadingAdapter()
+  {
+    return new GalleryAdapter<>(new SimpleLoadingAdapterStrategy(), null);
+  }
+
+  @NonNull
+  public static GalleryAdapter createSearchBasedErrorAdapter()
+  {
+    return new GalleryAdapter<>(new SimpleErrorAdapterStrategy(), null);
+  }
 }

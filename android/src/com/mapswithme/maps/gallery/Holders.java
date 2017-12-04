@@ -154,7 +154,8 @@ public class Holders
     @NonNull
     private final TextView mButton;
 
-    public SearchViewHolder(@NonNull View itemView, @NonNull List<Items.SearchItem> items, @NonNull GalleryAdapter adapter)
+    public SearchViewHolder(@NonNull View itemView, @NonNull List<Items.SearchItem> items,
+                            @NonNull GalleryAdapter adapter)
     {
       super(itemView, items, adapter);
       mTitle = (TextView) itemView.findViewById(R.id.title);
@@ -258,6 +259,16 @@ public class Holders
         return;
 
       mAdapter.getListener().onDetailsSelected(context, item.getUrl());
+    }
+  }
+
+  public static class SimpleViewHolder extends BaseViewHolder<Items.Item>
+  {
+    public SimpleViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
+                            @NonNull GalleryAdapter adapter)
+    {
+      super(itemView, items, adapter);
+      mTitle = (TextView) itemView.findViewById(R.id.message);
     }
   }
 

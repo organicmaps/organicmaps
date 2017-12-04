@@ -2,6 +2,7 @@ package com.mapswithme.maps.discovery;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -33,59 +34,50 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
                                             DiscoveryParams.ITEM_TYPE_CAFES };
   private static final GalleryAdapter.ItemSelectedListener LISTENER = new BaseItemSelectedListener();
   private boolean mOnlineMode;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private RecyclerView mThingsToDo;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private RecyclerView mAttractions;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private RecyclerView mFood;
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    View view = inflater.inflate(R.layout.fragment_discovery, container, false);
-
-    initViatorGallery(view);
-    initAttractionsGallery(view);
-    initFoodGallery(view);
-    return view;
+    return inflater.inflate(R.layout.fragment_discovery, container, false);
   }
 
-  private void initViatorGallery(@NonNull View view)
+  private void initViatorGallery()
   {
-    view.findViewById(R.id.viatorLogo).setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        Utils.openUrl(getActivity(), DiscoveryManager.nativeGetViatorUrl());
-      }
-    });
-    mThingsToDo = (RecyclerView) view.findViewById(R.id.thingsToDo);
-    setLayoutManagerAndItemDecoration(getContext(), mThingsToDo);
+    setLayoutManagerAndItemDecoration(getContext(), getGallery(R.id.thingsToDo));
   }
 
-  private void initAttractionsGallery(@NonNull View view)
+  private void initAttractionsGallery()
   {
-    mAttractions = (RecyclerView) view.findViewById(R.id.attractions);
-    setLayoutManagerAndItemDecoration(getContext(), mAttractions);
+    setLayoutManagerAndItemDecoration(getContext(), getGallery(R.id.attractions));
   }
 
-  private void initFoodGallery(@NonNull View view)
+  private void initFoodGallery()
   {
-    mFood = (RecyclerView) view.findViewById(R.id.food);
-    setLayoutManagerAndItemDecoration(getContext(), mFood);
+    setLayoutManagerAndItemDecoration(getContext(), getGallery(R.id.food));
   }
 
-  private static void setLayoutManagerAndItemDecoration(@NonNull Context context, @NonNull RecyclerView rv)
+  private static void setLayoutManagerAndItemDecoration(@NonNull Context context,
+                                                        @NonNull RecyclerView rv)
   {
-    rv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false));
+    rv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,
+                                                false));
     rv.addItemDecoration(
-        ItemDecoratorFactory.createSponsoredGalleryDecorator(context, LinearLayoutManager.HORIZONTAL));
+        ItemDecoratorFactory.createSponsoredGalleryDecorator(context,
+                                                             LinearLayoutManager.HORIZONTAL));
+  }
+
+  @NonNull
+  private RecyclerView getGallery(@IdRes int id)
+  {
+    View view = getView();
+    if (view == null)
+      throw new AssertionError("Root view is not initialized yet!");
+
+    RecyclerView rv = (RecyclerView) view.findViewById(id);
+    if (rv == null)
+      throw new AssertionError("RecyclerView must be within root view!");
+    return rv;
   }
 
   @Override
@@ -107,11 +99,24 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     super.onViewCreated(view, savedInstanceState);
     mToolbarController.setTitle(R.string.discovery_button_title);
+    view.findViewById(R.id.viatorLogo).setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        Utils.openUrl(getActivity(), DiscoveryManager.nativeGetViatorUrl());
+      }
+    });
+    initViatorGallery();
+    initAttractionsGallery();
+    initFoodGallery();
     requestDiscoveryInfoAndInitAdapters();
   }
 
   private void requestDiscoveryInfoAndInitAdapters()
   {
+    initSearchBasedAdapters();
+
     NetworkPolicy.checkNetworkPolicy(getFragmentManager(), new NetworkPolicy.NetworkPolicyListener()
     {
       @Override
@@ -124,12 +129,19 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     });
   }
 
+  private void initSearchBasedAdapters()
+  {
+    getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedLoadingAdapter());
+    getGallery(R.id.food).setAdapter(Factory.createSearchBasedLoadingAdapter());
+  }
+
   private void initNetworkBasedAdapters()
   {
     if (mOnlineMode)
     {
       // TODO: set loading adapter for local experts here.
-      mThingsToDo.setAdapter(Factory.createViatorLoadingAdapter(DiscoveryManager.nativeGetViatorUrl(),
+      RecyclerView thinsToDo = getGallery(R.id.thingsToDo);
+      thinsToDo.setAdapter(Factory.createViatorLoadingAdapter(DiscoveryManager.nativeGetViatorUrl(),
                                                                 LISTENER));
       return;
     }
@@ -144,7 +156,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     else
     {
       UiUtils.show(getView(), R.id.thingsToDoLayout, R.id.thingsToDo);
-      mThingsToDo.setAdapter(Factory.createViatorOfflineAdapter(new ViatorOfflineSelectedListener()));
+      RecyclerView thinsToDo = getGallery(R.id.thingsToDo);
+      thinsToDo.setAdapter(Factory.createViatorOfflineAdapter(new ViatorOfflineSelectedListener()));
     }
   }
 
@@ -172,7 +185,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     if (results == null)
       return;
 
-    mAttractions.setAdapter(Factory.createSearchBasedAdapter(results, LISTENER));
+    getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedAdapter(results, LISTENER));
   }
 
   @MainThread
@@ -182,7 +195,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     if (results == null)
       return;
 
-    mFood.setAdapter(Factory.createSearchBasedAdapter(results, LISTENER));
+    getGallery(R.id.food).setAdapter(Factory.createSearchBasedAdapter(results, LISTENER));
   }
 
   @MainThread
@@ -192,8 +205,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     if (products == null)
       return;
 
-    mThingsToDo.setAdapter(Factory.createViatorAdapter(products, DiscoveryManager.nativeGetViatorUrl(),
-                                                         LISTENER));
+    String url = DiscoveryManager.nativeGetViatorUrl();
+    getGallery(R.id.thingsToDo).setAdapter(Factory.createViatorAdapter(products, url, LISTENER));
   }
 
   @MainThread
@@ -209,11 +222,20 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     switch (type)
     {
       case VIATOR:
-        mThingsToDo.setAdapter(Factory.createViatorErrorAdapter(DiscoveryManager.nativeGetViatorUrl(),
-                                                                LISTENER));
+        String url = DiscoveryManager.nativeGetViatorUrl();
+        getGallery(R.id.thingsToDo).setAdapter(Factory.createViatorErrorAdapter(url, LISTENER));
         break;
-
-      // TODO: processing for other adapters is coming soon.
+      case ATTRACTIONS:
+        getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedErrorAdapter());
+        break;
+      case CAFES:
+        getGallery(R.id.food).setAdapter(Factory.createSearchBasedErrorAdapter());
+        break;
+      case LOCAL_EXPERTS:
+        //TODO: coming soon.
+        break;
+      default:
+        throw new AssertionError("Unknown item type: " + type);
     }
   }
 
