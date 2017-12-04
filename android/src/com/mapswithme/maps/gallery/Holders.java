@@ -145,6 +145,35 @@ public class Holders
     }
   }
 
+  public static final class SearchViewHolder extends BaseViewHolder<Items.SearchItem>
+  {
+    @NonNull
+    private final TextView mSubtitle;
+    @NonNull
+    private final TextView mDistance;
+    @NonNull
+    private final TextView mButton;
+
+    public SearchViewHolder(@NonNull View itemView, @NonNull List<Items.SearchItem> items, @NonNull GalleryAdapter adapter)
+    {
+      super(itemView, items, adapter);
+      mTitle = (TextView) itemView.findViewById(R.id.title);
+      mSubtitle = (TextView) itemView.findViewById(R.id.subtitle);
+      mDistance = (TextView) itemView.findViewById(R.id.distance);
+      mButton = (TextView) itemView.findViewById(R.id.button);
+      mButton.setText(R.string.p2p_to_here);
+    }
+
+    @Override
+    public void bind(@NonNull Items.SearchItem item)
+    {
+      super.bind(item);
+      UiUtils.setTextAndHideIfEmpty(mTitle, item.getTitle());
+      UiUtils.setTextAndHideIfEmpty(mSubtitle, item.getSubtitle());
+      UiUtils.setTextAndHideIfEmpty(mDistance, item.getDistance());
+    }
+  }
+
   public static class BaseViewHolder<I extends Items.Item> extends RecyclerView.ViewHolder
       implements View.OnClickListener
   {

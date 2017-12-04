@@ -74,6 +74,25 @@ public class Items
     }
   }
 
+  public static class SearchItem extends RegularAdapterStrategy.Item
+  {
+    @NonNull
+    private final String mDistance;
+
+    public SearchItem(@NonNull String title, @Nullable String url,
+                      @Nullable String subtitle, @NonNull String distance)
+    {
+      super(TYPE_PRODUCT, title, url, subtitle);
+      mDistance = distance;
+    }
+
+    @NonNull
+    public String getDistance()
+    {
+      return mDistance;
+    }
+  }
+
   public static class CianMoreItem extends CianItem
   {
 

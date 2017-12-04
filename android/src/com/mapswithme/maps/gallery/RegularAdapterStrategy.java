@@ -45,6 +45,12 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
   }
 
   @Override
+  protected void onBindViewHolder(Holders.BaseViewHolder<T> holder, int position)
+  {
+    holder.bind(mItems.get(position));
+  }
+
+  @Override
   protected int getItemViewType(int position)
   {
     return mItems.get(position).getType();
@@ -54,7 +60,7 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
   protected abstract Holders.BaseViewHolder<T> createProductViewHodler(@NonNull ViewGroup parent,
                                                                        int viewType,
                                                                        @NonNull GalleryAdapter adapter);
-
+  @NonNull
   protected abstract Holders.BaseViewHolder<T> createMoreProductsViewHolder(@NonNull ViewGroup parent,
                                                                             int viewType,
                                                                             @NonNull GalleryAdapter adapter);

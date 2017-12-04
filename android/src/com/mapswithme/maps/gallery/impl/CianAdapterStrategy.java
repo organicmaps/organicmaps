@@ -55,12 +55,6 @@ class CianAdapterStrategy extends RegularAdapterStrategy<Items.CianItem>
     return new Holders.CianMoreItemViewHolder<>(view, mItems, adapter);
   }
 
-  @Override
-  protected void onBindViewHolder(Holders.BaseViewHolder<Items.CianItem> holder, int position)
-  {
-    holder.bind(mItems.get(position));
-  }
-
   @NonNull
   private static List<Items.CianItem> convertItems(@NonNull RentPlace[] items)
   {

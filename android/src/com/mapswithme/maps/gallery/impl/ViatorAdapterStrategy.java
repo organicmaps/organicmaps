@@ -53,12 +53,6 @@ public class ViatorAdapterStrategy
     return new Holders.ViatorMoreItemViewHolder(view, mItems, adapter);
   }
 
-  @Override
-  protected void onBindViewHolder(Holders.BaseViewHolder<Items.ViatorItem> holder, int position)
-  {
-    holder.bind(mItems.get(position));
-  }
-
   @NonNull
   private static List<Items.ViatorItem> convertItems(@NonNull ViatorProduct[] items)
   {

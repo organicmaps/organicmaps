@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.cian.RentPlace;
 import com.mapswithme.maps.gallery.GalleryAdapter;
+import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.viator.ViatorProduct;
 
 public class Factory
@@ -56,5 +57,12 @@ public class Factory
                                                  @Nullable GalleryAdapter.ItemSelectedListener listener)
   {
     return new GalleryAdapter<>(new CianAdapterStrategy(products, url), listener);
+  }
+
+  @NonNull
+  public static GalleryAdapter createSearchBasedAdapter(@NonNull SearchResult[] results,
+                                                        @Nullable GalleryAdapter.ItemSelectedListener listener)
+  {
+    return new GalleryAdapter<>(new SearchBasedAdapterStrategy(results), listener);
   }
 }

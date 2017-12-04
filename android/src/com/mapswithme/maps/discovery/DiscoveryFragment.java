@@ -28,12 +28,20 @@ import com.mapswithme.util.Utils;
 public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallback
 {
   private static final int ITEMS_COUNT = 5;
-  private static final int[] ITEM_TYPES = { DiscoveryParams.ITEM_TYPE_VIATOR };
+  private static final int[] ITEM_TYPES = { DiscoveryParams.ITEM_TYPE_VIATOR,
+                                            DiscoveryParams.ITEM_TYPE_ATTRACTIONS,
+                                            DiscoveryParams.ITEM_TYPE_CAFES };
   private static final GalleryAdapter.ItemSelectedListener LISTENER = new BaseItemSelectedListener();
   private boolean mOnlineMode;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private RecyclerView mThingsToDo;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private RecyclerView mAttractions;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private RecyclerView mFood;
 
   @Nullable
   @Override
@@ -42,6 +50,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     View view = inflater.inflate(R.layout.fragment_discovery, container, false);
 
     initViatorGallery(view);
+    initAttractionsGallery(view);
+    initFoodGallery(view);
     return view;
   }
 
@@ -56,11 +66,26 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
       }
     });
     mThingsToDo = (RecyclerView) view.findViewById(R.id.thingsToDo);
-    mThingsToDo.setLayoutManager(new LinearLayoutManager(getContext(),
-                                                         LinearLayoutManager.HORIZONTAL,
-                                                         false));
-    mThingsToDo.addItemDecoration(
-        ItemDecoratorFactory.createSponsoredGalleryDecorator(getContext(), LinearLayoutManager.HORIZONTAL));
+    setLayoutManagerAndItemDecoration(getContext(), mThingsToDo);
+  }
+
+  private void initAttractionsGallery(@NonNull View view)
+  {
+    mAttractions = (RecyclerView) view.findViewById(R.id.attractions);
+    setLayoutManagerAndItemDecoration(getContext(), mAttractions);
+  }
+
+  private void initFoodGallery(@NonNull View view)
+  {
+    mFood = (RecyclerView) view.findViewById(R.id.food);
+    setLayoutManagerAndItemDecoration(getContext(), mFood);
+  }
+
+  private static void setLayoutManagerAndItemDecoration(@NonNull Context context, @NonNull RecyclerView rv)
+  {
+    rv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false));
+    rv.addItemDecoration(
+        ItemDecoratorFactory.createSponsoredGalleryDecorator(context, LinearLayoutManager.HORIZONTAL));
   }
 
   @Override
@@ -144,22 +169,30 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   @Override
   public void onAttractionsReceived(@Nullable SearchResult[] results)
   {
+    if (results == null)
+      return;
 
+    mAttractions.setAdapter(Factory.createSearchBasedAdapter(results, LISTENER));
   }
 
   @MainThread
   @Override
   public void onCafesReceived(@Nullable SearchResult[] results)
   {
+    if (results == null)
+      return;
 
+    mFood.setAdapter(Factory.createSearchBasedAdapter(results, LISTENER));
   }
 
   @MainThread
   @Override
   public void onViatorProductsReceived(@Nullable ViatorProduct[] products)
   {
-    if (products != null)
-      mThingsToDo.setAdapter(Factory.createViatorAdapter(products, DiscoveryManager.nativeGetViatorUrl(),
+    if (products == null)
+      return;
+
+    mThingsToDo.setAdapter(Factory.createViatorAdapter(products, DiscoveryManager.nativeGetViatorUrl(),
                                                          LISTENER));
   }
 
