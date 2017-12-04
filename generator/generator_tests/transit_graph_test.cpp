@@ -147,6 +147,22 @@ unique_ptr<GraphData> CreateGraphFromJson()
       "weight" : 10
     },
     {
+      "stop1_id": 3,
+      "stop2_id": 4,
+      "line_id": 1,
+      "shape_ids": [ { "stop1_id": 3, "stop2_id": 4 }],
+      "transfer": false,
+      "weight" : 20
+    },
+    {
+      "stop1_id": 3,
+      "stop2_id": 4,
+      "line_id": 1,
+      "shape_ids": [ { "stop1_id": 3, "stop2_id": 4 }],
+      "transfer": false,
+      "weight" : 20
+    },
+    {
       "stop1_id": 5,
       "stop2_id": 6,
       "line_id": 2,
@@ -503,15 +519,15 @@ void SerializeAndDeserializeGraph(GraphData const & src, GraphData & dst)
   TEST(dst.IsValid(), ());
 }
 
-//             ^
-//             |
-//             * 2
-//
-//   s0--------s1--------s2--------s3---s4 Line 1
-//
-//   *    *    *    *    *    *    *    *   -->
-//  -2         0              3    4    5
-//        s5--------s6 Line 2
+//                       ^
+//                       |
+//                       * 2                     _______
+//                                               |     |
+//           s0----------s1----------s2----------s3----s4 Line 1
+//                                               |_____|
+//     *     *     *     *     *     *     *     *     *   -->
+//    -3    -2    -1     0     1     2     3     4     5
+//                 s5----------s6 Line 2
 //
 UNIT_TEST(ClipGraph_SmokeTest)
 {
@@ -532,10 +548,10 @@ UNIT_TEST(ClipGraph_SmokeTest)
 //
 //     ------------------* 3-----------Border
 //     |                                   |
-//     |                 * 2               |
-//     |                                   |
+//     |                 * 2               |     _______
+//     |                                   |     |     |
 //     |     s0----------s1----------s2----|-----s3----s4 Line 1
-//     |                                   |
+//     |                                   |     |_____|
 //     *-----*-----*-----*-----*-----*-----*     *     *   -->
 //    -3    -2    -1     0     1     2     3     4     5
 //                 s5----------s6 Line 2
@@ -557,10 +573,10 @@ UNIT_TEST(ClipGraph_OneLineTest)
 //                       |
 //                       * 3
 //
-//                       * 2----------Border
-//                          |           |
+//                       * 2----------Border     _______
+//                          |           |        |     |
 //           s0----------s1-|--------s2-|--------s3----s4 Line 1
-//                          |           |
+//                          |           |        |_____|
 //     *     *     *     *  |  *     *  |  *     *     *   -->
 //    -3    -2    -1     0  |  1     2  |  3     4     5
 //         Line 2  s5-------|--s6       |
