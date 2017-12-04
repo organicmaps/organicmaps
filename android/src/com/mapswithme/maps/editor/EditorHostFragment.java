@@ -225,7 +225,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     for (LocalizedName name : sNames)
       languages.add(name.lang);
     args.putStringArrayList(LanguagesFragment.EXISTING_LOCALIZED_NAMES, languages);
-    UiUtils.hide(mToolbarController.findViewById(R.id.save));
     editWithFragment(Mode.LANGUAGE, R.string.choose_language, args, LanguagesFragment.class, false);
   }
 
@@ -284,6 +283,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       case CUISINE:
         String[] cuisines = ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).getCuisines();
         Editor.nativeSetSelectedCuisines(cuisines);
+        editMapObject();
+        break;
+      case LANGUAGE:
         editMapObject();
         break;
       case MAP_OBJECT:
