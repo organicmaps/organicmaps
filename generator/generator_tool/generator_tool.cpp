@@ -50,6 +50,19 @@
 
 #include "3party/gflags/src/gflags/gflags.h"
 
+namespace
+{
+std::string GetDataPathText() noexcept
+{
+  return std::string(
+             "Directory where the generated mwms are put into. Also used as the path for helper "
+             "functions, such as those that calculate statistics and regenerate sections. ") +
+         Platform::GetWorkingDirectory() + "/../../data'.";
+}
+
+string const gDataPathText = GetDataPathText();
+}  // namespace
+
 // Coastlines.
 DEFINE_bool(make_coasts, false, "Create intermediate file with coasts data.");
 DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
@@ -59,7 +72,7 @@ DEFINE_bool(emit_coasts, false,
 // Generator settings and paths.
 DEFINE_string(osm_file_name, "", "Input osm area file.");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m].");
-DEFINE_string(data_path, "", "Directory for mwm generation, 'path_to_exe/../../data' if empty.");
+DEFINE_string(data_path, "", (gDataPathText.c_str()));
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 DEFINE_string(intermediate_data_path, "", "Path to stored nodes, ways, relations.");
 DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
