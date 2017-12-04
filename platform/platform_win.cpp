@@ -99,13 +99,13 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
 void Platform::DisableBackupForFile(string const & filePath) {}
 
 // static
-string Platform::GetWorkingDirectory() noexcept
+string Platform::GetCurrentWorkingDirectory() noexcept
 {
   char path[PATH_MAX];
-  char const * const answer = getcwd(path, PATH_MAX);
-  if (answer == nullptr)
+  char const * const dir = getcwd(path, PATH_MAX);
+  if (dir == nullptr)
     return {};
-  return answer;
+  return dir;
 }
 
 // static

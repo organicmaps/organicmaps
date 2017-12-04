@@ -52,15 +52,15 @@
 
 namespace
 {
-std::string GetDataPathText() noexcept
+char const * GetDataPathHelp()
 {
-  return std::string(
-             "Directory where the generated mwms are put into. Also used as the path for helper "
-             "functions, such as those that calculate statistics and regenerate sections. ") +
-         Platform::GetWorkingDirectory() + "/../../data'.";
+  static std::string const kHelp =
+      "Directory where the generated mwms are put into. Also used as the path for helper "
+      "functions, such as those that calculate statistics and regenerate sections. "
+      "Default: " +
+      Platform::GetCurrentWorkingDirectory() + "/../../data'.";
+  return kHelp.c_str();
 }
-
-string const gDataPathText = GetDataPathText();
 }  // namespace
 
 // Coastlines.
@@ -72,7 +72,7 @@ DEFINE_bool(emit_coasts, false,
 // Generator settings and paths.
 DEFINE_string(osm_file_name, "", "Input osm area file.");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m].");
-DEFINE_string(data_path, "", (gDataPathText.c_str()));
+DEFINE_string(data_path, "", GetDataPathHelp());
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 DEFINE_string(intermediate_data_path, "", "Path to stored nodes, ways, relations.");
 DEFINE_string(output, "", "File name for process (without 'mwm' ext).");

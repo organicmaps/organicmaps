@@ -121,7 +121,9 @@ public:
 
   /// @return true if we can create custom texture allocator in drape
   static bool IsCustomTextureAllocatorSupported();
-  static string GetWorkingDirectory() noexcept;
+  /// @returns path to current working directory.
+  /// @note In case of an error returns an empty string.
+  static string GetCurrentWorkingDirectory() noexcept;
   /// @return always the same writable dir for current user with slash at the end
   string WritableDir() const { return m_writableDir; }
   /// Set writable dir — use for testing and linux stuff only

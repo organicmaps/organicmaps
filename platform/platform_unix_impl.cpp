@@ -156,17 +156,17 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
 void Platform::DisableBackupForFile(string const & filePath) {}
 
 // static
-string Platform::GetWorkingDirectory() noexcept
-{
-  char path[PATH_MAX];
-  char const * const answer = getcwd(path, PATH_MAX);
-  if (answer == nullptr)
-    return {};
-  return answer;
-}
+bool Platform::IsCustomTextureAllocatorSupported() { return true; }
 
 // static
-bool Platform::IsCustomTextureAllocatorSupported() { return true; }
+string Platform::GetCurrentWorkingDirectory() noexcept
+{
+  char path[PATH_MAX];
+  char const * const dir = getcwd(path, PATH_MAX);
+  if (dir == nullptr)
+    return {};
+  return dir;
+}
 
 bool Platform::IsDirectoryEmpty(string const & directory)
 {
