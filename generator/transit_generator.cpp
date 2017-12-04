@@ -81,20 +81,6 @@ private:
   bool m_isValid = true;
 };
 
-struct IsEmptyVisitor
-{
-  template <typename Cont>
-  void operator()(Cont const & c, char const * /* name */ )
-  {
-    m_isEmpty = m_isEmpty && c.empty();
-  }
-
-  bool IsEmpty() const { return m_isEmpty; }
-
-private:
-  bool m_isEmpty = true;
-};
-
 struct IsUniqueVisitor
 {
   template <typename Cont>
@@ -386,9 +372,9 @@ bool GraphData::IsValid() const
 
 bool GraphData::IsEmpty() const
 {
-  IsEmptyVisitor v;
-  Visit(v);
-  return v.IsEmpty();
+  // Note. |m_transfers| may be empty if GraphData instance is not empty.
+  return m_stops.empty() || m_gates.empty() || m_edges.empty() || m_lines.empty()
+      || m_shapes.empty() || m_networks.empty();
 }
 
 void GraphData::Sort()
