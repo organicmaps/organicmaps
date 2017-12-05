@@ -141,7 +141,10 @@ int main(int argc, char ** argv)
   Platform & pl = GetPlatform();
 
   if (!FLAGS_user_resource_path.empty())
+  {
     pl.SetResourceDir(FLAGS_user_resource_path);
+    pl.SetSettingsDir(FLAGS_user_resource_path);
+  }
 
   std::string const path =
       FLAGS_data_path.empty() ? pl.WritableDir() : my::AddSlashIfNeeded(FLAGS_data_path);

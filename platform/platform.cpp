@@ -97,7 +97,7 @@ bool Platform::RmDirRecursively(string const & dirName)
   return res;
 }
 
-void Platform::SetSettingsDirForTests(string const & path)
+void Platform::SetSettingsDir(string const & path)
 {
   m_settingsDir = my::AddSlashIfNeeded(path);
 }
