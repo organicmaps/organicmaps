@@ -81,5 +81,4 @@ private:
 
   my::Cancellable const & m_cancellable;
 };
-
 }  // namespace search

@@ -7,6 +7,7 @@
 #include "indexer/features_vector.hpp"
 
 #include "base/cancellable.hpp"
+#include "base/stl_helpers.hpp"
 
 namespace search
 {
@@ -125,8 +126,10 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
     reachable.swap(buffer);
   }
 
+  vector<uint32_t> const & lowestLevel = reachable;
+
   IntersectionResult result;
-  for (auto const & id : reachable)
+  for (auto const & id : lowestLevel)
   {
     if (GetPath(id, layers, parent, result))
       results.push_back(result);
@@ -144,25 +147,34 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
 
   TParentGraph parent;
 
+  vector<uint32_t> lowestLevel = reachable;
+  // True iff |addEdge| works with the lowest level.
+  bool first = true;
+
   auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature) {
     if (parent.find(childFeature) != parent.end())
       return;
     parent[childFeature] = parentFeature;
     buffer.push_back(parentFeature);
+
+    if (first)
+      lowestLevel.push_back(childFeature);
   };
 
   for (size_t i = 0; i + 1 != layers.size(); ++i)
   {
     BailIfCancelled(m_cancellable);
 
-    if (reachable.empty())
-      return;
+    // Note that unlike the top-down path we cannot return
+    // here even if |reachable| is empty because of the delayed features.
 
     FeaturesLayer child(*layers[i]);
     if (i != 0)
       my::SortUnique(reachable);
     child.m_sortedFeatures = &reachable;
-    child.m_hasDelayedFeatures = false;
+    child.m_hasDelayedFeatures =
+        i == 0 && child.m_type == Model::TYPE_BUILDING &&
+        house_numbers::LooksLikeHouseNumber(child.m_subQuery, child.m_lastTokenIsPrefix);
 
     FeaturesLayer parent(*layers[i + 1]);
     parent.m_hasDelayedFeatures =
@@ -172,14 +184,17 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
     buffer.clear();
     matcher.Match(child, parent, addEdge);
     reachable.swap(buffer);
+
+    first = false;
   }
 
+  my::SortUnique(lowestLevel);
+
   IntersectionResult result;
-  for (auto const & id : *(layers.front()->m_sortedFeatures))
+  for (auto const & id : lowestLevel)
   {
     if (GetPath(id, layers, parent, result))
       results.push_back(result);
   }
 }
-
 }  // namespace search
