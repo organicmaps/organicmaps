@@ -512,6 +512,9 @@ void RouteRenderer::RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, Scr
   uniforms.SetMatrix4x4Value("modelView", mv.m_data);
   uniforms.SetFloatValue("u_routeParams", currentHalfWidth, dist);
   uniforms.SetFloatValue("u_opacity", 1.0f);
+  uniforms.SetFloatValue("u_angleCosSin",
+                         static_cast<float>(cos(screen.GetAngle())),
+                         static_cast<float>(sin(screen.GetAngle())));
 
   glsl::vec4 const maskColor = glsl::ToVec4(GetMaskColor(subrouteInfo.m_subroute->m_routeType,
                                                          subrouteInfo.m_subroute->m_baseDistance,
