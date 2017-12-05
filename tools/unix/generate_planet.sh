@@ -538,8 +538,12 @@ if [ "$MODE" == "routing" ]; then
   for file in "$TARGET"/*.mwm; do
     if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
       BASENAME="$(basename "$file" .mwm)"
-      "$GENERATOR_TOOL" --data_path="$TARGET" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" \
-        --make_cross_mwm --disable_cross_mwm_progress --make_routing_index --generate_traffic_keys --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
+      (
+        "$GENERATOR_TOOL" --data_path="$TARGET" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" \
+        --make_cross_mwm --disable_cross_mwm_progress --make_routing_index --generate_traffic_keys --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log"
+        "$GENERATOR_TOOL" --data_path="$TARGET" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" \
+        --make_transit_cross_mwm --transit_path="$DATA_PATH" --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log"
+        ) &
       forky
     fi
   done
