@@ -778,7 +778,7 @@ bool EditableMapObject::ValidateName(string const & name)
     return false;
   }
 
-  std::u32string const excludedSymbols = U"^~§><{}[]*=_±\n\t\r\v\f|√•π÷×¶∆°";
+  std::u32string const excludedSymbols = U"^~§><{}[]*=_±\n\t\r\v\f|√•÷×¶°";
 
   for (auto const ch : u32name)
   {
