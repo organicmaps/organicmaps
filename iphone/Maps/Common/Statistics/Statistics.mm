@@ -1,4 +1,5 @@
 #import "Statistics.h"
+#import "Statistics+ConnectionTypeLogging.h"
 #import "AppInfo.h"
 #import "MWMCustomFacebookEvents.h"
 #import "MWMSettings.h"
@@ -148,6 +149,23 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
 + (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters atLocation:(CLLocation *)location
 {
   [[self instance] logEvent:eventName withParameters:parameters atLocation:location];
+}
+
+@end
+
+@implementation Statistics (ConnectionTypeLogging)
+
++ (NSString *)connectionTypeToString:(Platform::EConnectionType)type
+{
+  switch (type)
+  {
+  case Platform::EConnectionType::CONNECTION_WWAN:
+    return kStatOffline;
+  case Platform::EConnectionType::CONNECTION_WIFI:
+    return kStatWifi;
+  case Platform::EConnectionType::CONNECTION_NONE:
+    return kStatNone;
+  }
 }
 
 @end

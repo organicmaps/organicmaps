@@ -11,6 +11,7 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+#import "Statistics+ConnectionTypeLogging.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -295,21 +296,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   };
 
   auto const connectionType = GetPlatform().ConnectionStatus();
-  auto connectionKey = ^NSString * (Platform::EConnectionType type)
-  {
-    switch (type)
-    {
-    case Platform::EConnectionType::CONNECTION_WWAN:
-      return kStatMobile;
-    case Platform::EConnectionType::CONNECTION_WIFI:
-      return kStatWifi;
-    case Platform::EConnectionType::CONNECTION_NONE:
-      return kStatNone;
-    }
-  } (connectionType);
 
   [Statistics logEvent:kStatDiscoveryButtonOpen
-        withParameters:@{kStatConnection : connectionKey}];
+        withParameters:@{kStatConnection : [Statistics connectionTypeToString:connectionType]}];
 
   auto discovery = [MWMDiscoveryController instance];
   using namespace network_policy;

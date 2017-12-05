@@ -2622,6 +2622,7 @@
 		F69739B01FD197DB00FDA07D /* MWMDiscoveryTableManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryTableManager.mm; sourceTree = "<group>"; };
 		F69739B41FD198E300FDA07D /* DiscoveryControllerViewModel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DiscoveryControllerViewModel.hpp; sourceTree = "<group>"; };
 		F69739B51FD19D9900FDA07D /* MWMDiscoveryTapDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryTapDelegate.h; sourceTree = "<group>"; };
+		F69739D41FD6B4EE00FDA07D /* Statistics+ConnectionTypeLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Statistics+ConnectionTypeLogging.h"; sourceTree = "<group>"; };
 		F69CE8D41E5C49B4002B5881 /* PPHotelCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPHotelCarouselCell.swift; sourceTree = "<group>"; };
 		F69CE8D81E5C5088002B5881 /* PPHotelCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPHotelCarouselCell.xib; sourceTree = "<group>"; };
 		F69CE8DC1E5C51AB002B5881 /* CarouselElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarouselElement.xib; sourceTree = "<group>"; };
@@ -3314,6 +3315,7 @@
 				340475221E081A4600C92850 /* MWMCustomFacebookEvents.mm */,
 				340475231E081A4600C92850 /* Statistics.h */,
 				340475241E081A4600C92850 /* Statistics.mm */,
+				F69739D41FD6B4EE00FDA07D /* Statistics+ConnectionTypeLogging.h */,
 				340475251E081A4600C92850 /* StatisticsStrings.h */,
 			);
 			path = Statistics;

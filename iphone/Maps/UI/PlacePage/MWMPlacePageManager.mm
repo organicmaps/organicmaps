@@ -15,6 +15,7 @@
 #import "MWMUGCViewModel.h"
 #import "MapViewController.h"
 #import "Statistics.h"
+#import "Statistics+ConnectionTypeLogging.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -263,14 +264,8 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     parameters[kStatProvider] = kStatThor;
   else if (data.isHolidayObject)
     parameters[kStatProvider] = kStatHoliday;
-  switch (Platform::ConnectionStatus())
-  {
-  case Platform::EConnectionType::CONNECTION_NONE:
-    parameters[kStatConnection] = kStatOffline;
-    break;
-  case Platform::EConnectionType::CONNECTION_WIFI: parameters[kStatConnection] = kStatWifi; break;
-  case Platform::EConnectionType::CONNECTION_WWAN: parameters[kStatConnection] = kStatMobile; break;
-  }
+  
+  parameters[kStatConnection] = [Statistics connectionTypeToString:Platform::ConnectionStatus()];
   parameters[kStatTags] = data.statisticsTags;
   [Statistics logEvent:kStatPlacepageSponsoredOpen withParameters:parameters];
 }
