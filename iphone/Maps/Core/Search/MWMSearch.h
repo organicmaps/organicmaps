@@ -10,8 +10,6 @@ class Result;
 
 @interface MWMSearch : NSObject
 
-+ (BOOL)isCianSearch:(NSString *)query;
-
 + (void)addObserver:(id<MWMSearchObserver>)observer;
 + (void)removeObserver:(id<MWMSearchObserver>)observer;
 
@@ -30,7 +28,6 @@ class Result;
 + (void)update;
 + (void)clear;
 
-+ (BOOL)isSearchOnMap;
 + (void)setSearchOnMap:(BOOL)searchOnMap;
 
 + (NSUInteger)suggestionsCount;
