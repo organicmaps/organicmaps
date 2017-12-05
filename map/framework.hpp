@@ -349,7 +349,8 @@ public:
   // SearchAPI::Delegate overrides:
   void RunUITask(function<void()> fn) override;
   void SetSearchDisplacementModeEnabled(bool enabled) override;
-  void ShowViewportSearchResults(search::Results const & results) override;
+  void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
+                                 search::Results::ConstIter end) override;
   void ClearViewportSearchResults() override;
   boost::optional<m2::PointD> GetCurrentPosition() const override;
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
@@ -548,8 +549,9 @@ public:
 
   size_t ShowSearchResults(search::Results const & results);
 
-  void FillSearchResultsMarks(search::Results const & results);
-  void FillSearchResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end);
+  void FillSearchResultsMarks(bool clear, search::Results const & results);
+  void FillSearchResultsMarks(bool clear, search::Results::ConstIter begin,
+                              search::Results::ConstIter end);
   void ClearSearchResultsMarks();
 
   list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }

@@ -1519,7 +1519,7 @@ size_t Framework::ShowSearchResults(search::Results const & results)
     return count;
   }
 
-  FillSearchResultsMarks(results);
+  FillSearchResultsMarks(true /* clear */, results);
 
   // Setup viewport according to results.
   m2::AnyRectD viewport = m_currentModelView.GlobalRect();
@@ -1565,17 +1565,21 @@ size_t Framework::ShowSearchResults(search::Results const & results)
   return count;
 }
 
-void Framework::FillSearchResultsMarks(search::Results const & results)
+void Framework::FillSearchResultsMarks(bool clear, search::Results const & results)
 {
-  FillSearchResultsMarks(results.begin(), results.end());
+  FillSearchResultsMarks(clear, results.begin(), results.end());
 }
 
-void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
+void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter begin,
                                        search::Results::ConstIter end)
 {
   UserMarkNotificationGuard guard(m_bmManager, UserMark::Type::SEARCH);
-  guard.m_controller.SetIsVisible(true);
-  guard.m_controller.SetIsDrawable(true);
+
+  auto & controller = guard.m_controller;
+  if (clear)
+    controller.Clear();
+  controller.SetIsVisible(true);
+  controller.SetIsDrawable(true);
 
   for (auto it = begin; it != end; ++it)
   {
@@ -1583,7 +1587,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     if (!r.HasPoint())
       continue;
 
-    auto mark = static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(r.GetFeatureCenter()));
+    auto mark = static_cast<SearchMarkPoint *>(controller.CreateUserMark(r.GetFeatureCenter()));
     ASSERT_EQUAL(mark->GetMarkType(), UserMark::Type::SEARCH, ());
     auto const isFeature = r.GetResultType() == search::Result::RESULT_FEATURE;
     if (isFeature)
@@ -3138,9 +3142,10 @@ void Framework::SetSearchDisplacementModeEnabled(bool enabled)
   SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, enabled /* show */);
 }
 
-void Framework::ShowViewportSearchResults(search::Results const & results)
+void Framework::ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
+                                          search::Results::ConstIter end)
 {
-  FillSearchResultsMarks(results);
+  FillSearchResultsMarks(clear, begin, end);
 }
 
 void Framework::ClearViewportSearchResults()

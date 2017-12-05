@@ -213,12 +213,11 @@ bool SearchAPI::IsViewportSearchActive() const
   return !m_searchIntents[static_cast<size_t>(Mode::Viewport)].m_params.m_query.empty();
 }
 
-void SearchAPI::ShowViewportSearchResults(Results const & results)
+void SearchAPI::ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
+                                          search::Results::ConstIter end)
 {
-  return m_delegate.ShowViewportSearchResults(results);
+  return m_delegate.ShowViewportSearchResults(clear, begin, end);
 }
-
-void SearchAPI::ClearViewportSearchResults() { return m_delegate.ClearViewportSearchResults(); }
 
 bool SearchAPI::IsLocalAdsCustomer(Result const & result) const
 {

@@ -8,8 +8,13 @@
 
 #include "base/macros.hpp"
 
+#include <cstddef>
+#include <functional>
+#include <iterator>
+
 using namespace generator::tests_support;
 using namespace search::tests_support;
+using namespace std;
 
 namespace search
 {
@@ -35,12 +40,13 @@ public:
 
   bool IsViewportSearchActive() const override { return true; }
 
-  void ShowViewportSearchResults(Results const & results) override
+  void ShowViewportSearchResults(bool clear, Results::ConstIter begin,
+                                 Results::ConstIter end) override
   {
-    m_stats.m_numShownResults = results.GetCount();
+    if (clear)
+      m_stats.m_numShownResults = 0;
+    m_stats.m_numShownResults += distance(begin, end);
   }
-
-  void ClearViewportSearchResults() override { m_stats.m_numShownResults = 0; }
 
  private:
   Stats & m_stats;
