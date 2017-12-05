@@ -893,7 +893,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       }
       else
       {
-        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo);
+        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo,
+                                                           intent.getStringExtra(EXTRA_ROUTER));
       }
 
       return true;

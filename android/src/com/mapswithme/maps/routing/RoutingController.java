@@ -38,7 +38,6 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Calendar;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_ADD;
@@ -410,10 +409,17 @@ public class RoutingController implements TaxiManager.TaxiListener
     prepare(canUseMyPositionAsStart, endPoint, false);
   }
 
-  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint, boolean fromApi)
+  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint,  boolean fromApi)
   {
     MapObject startPoint = canUseMyPositionAsStart ? LocationHelper.INSTANCE.getMyPosition() : null;
     prepare(startPoint, endPoint, fromApi);
+  }
+
+  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint,
+                      @Framework.RouterType int type, boolean fromApi)
+  {
+    MapObject startPoint = canUseMyPositionAsStart ? LocationHelper.INSTANCE.getMyPosition() : null;
+    prepare(startPoint, endPoint, type, fromApi);
   }
 
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)

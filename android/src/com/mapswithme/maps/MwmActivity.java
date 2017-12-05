@@ -105,7 +105,6 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.PlacePageTracker;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Stack;
@@ -2325,9 +2324,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                        TextUtils.isEmpty(addr) ? "" : addr, "", lat, lon);
     }
 
-    BuildRouteTask(double latTo, double lonTo)
+    BuildRouteTask(double latTo, double lonTo, @Nullable String router)
     {
-      this(latTo, lonTo, null, null, null, null, null);
+      this(latTo, lonTo, null, null, null, null, router);
     }
 
     BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
@@ -2385,6 +2384,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom, mSaddr),
                                         fromLatLon(mLatTo, mLonTo, mDaddr), true /* fromApi */);
+      }
+      else if (routerType > 0)
+      {
+        RoutingController.get().prepare(true /* canUseMyPositionAsStart */,
+                                        fromLatLon(mLatTo, mLonTo, mDaddr), routerType,
+                                        true /* fromApi */);
       }
       else
       {
