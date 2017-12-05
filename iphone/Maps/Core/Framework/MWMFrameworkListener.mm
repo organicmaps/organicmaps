@@ -151,7 +151,18 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   auto & f = GetFramework();
   f.SetCurrentCountryChangedListener([observers](TCountryId const & countryId) {
     for (TDrapeObserver observer in observers)
-      [observer processViewportCountryEvent:countryId];
+    {
+      if ([observer respondsToSelector:@selector(processViewportCountryEvent:)])
+        [observer processViewportCountryEvent:countryId];
+    }
+  });
+
+  f.SetViewportListener([observers](ScreenBase const & screen) {
+    for (TDrapeObserver observer in observers)
+    {
+      if ([observer respondsToSelector:@selector(processViewportChangedEvent)])
+        [observer processViewportChangedEvent];
+    }
   });
 }
 

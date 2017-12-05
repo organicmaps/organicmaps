@@ -1,6 +1,7 @@
 #import "MWMSearch.h"
 #import <Crashlytics/Crashlytics.h>
 #import "MWMBannerHelpers.h"
+#import "MWMFrameworkListener.h"
 #import "MWMSearchHotelsFilterViewController.h"
 #import "SwiftBridge.h"
 
@@ -19,7 +20,7 @@ using Observer = id<MWMSearchObserver>;
 using Observers = NSHashTable<Observer>;
 }  // namespace
 
-@interface MWMSearch ()
+@interface MWMSearch ()<MWMFrameworkDrapeObserver>
 
 @property(nonatomic) NSUInteger suggestionsCount;
 @property(nonatomic) BOOL searchOnMap;
@@ -74,7 +75,10 @@ using Observers = NSHashTable<Observer>;
 {
   self = [super init];
   if (self)
+  {
     _observers = [Observers weakObjectsHashTable];
+    [MWMFrameworkListener addObserver:self];
+  }
   return self;
 }
 
@@ -113,11 +117,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)searchInViewport
 {
-  m_viewportParams.m_onStarted = [self] {
-    self.searchCount += 1;
-    if (IPAD)
-      [self searchEverywhere];
-  };
+  m_viewportParams.m_onStarted = [self] { self.searchCount += 1; };
   m_viewportParams.m_onCompleted = [self](search::Results const & results) {
     if (!results.IsEndMarker())
       return;
@@ -147,12 +147,7 @@ using Observers = NSHashTable<Observer>;
     return;
   [self updateFilters];
 
-  if (IPAD)
-  {
-    [self searchInViewport];
-    //[self searchEverywhere]; will be called in m_viewportParams.m_onStarted callback
-  }
-  else if ([self isCianSearch])
+  if (IPAD || [self isCianSearch])
   {
     [self searchInViewport];
     [self searchEverywhere];
@@ -388,6 +383,16 @@ using Observers = NSHashTable<Observer>;
     if ([observer respondsToSelector:@selector(onSearchResultsUpdated)])
       [observer onSearchResultsUpdated];
   }
+}
+
+#pragma mark - MWMFrameworkDrapeObserver
+
+- (void)processViewportChangedEvent
+{
+  if (!GetFramework().GetSearchAPI().IsViewportSearchActive())
+    return;
+  if (IPAD)
+    [self searchEverywhere];
 }
 
 #pragma mark - Properties

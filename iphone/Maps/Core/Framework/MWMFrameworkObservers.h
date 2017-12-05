@@ -35,6 +35,9 @@ using namespace storage;
 
 @protocol MWMFrameworkDrapeObserver<MWMFrameworkObserver>
 
+@optional
+
 - (void)processViewportCountryEvent:(TCountryId const &)countryId;
+- (void)processViewportChangedEvent;
 
 @end
