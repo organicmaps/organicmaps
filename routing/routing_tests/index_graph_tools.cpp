@@ -151,47 +151,47 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
   // for the end of our path and another loop at start for the bidirectional search.
   auto const startFeatureId = static_cast<uint32_t>(edgeRequests.size());
   AddDirectedEdge(edgeRequests, start, start, 0.0);
+  // |startSegment| corresponds to edge from |start| to |start| which has featureId |startFeatureId|
+  // and the only segment with segmentIdx |0|. It is a loop so direction does not matter.
+  auto const startSegment = Segment(kTestNumMwmId, startFeatureId, 0 /* segmentIdx */,
+                                    true /* forward */);
+
   auto const finishFeatureId = static_cast<uint32_t>(edgeRequests.size());
   AddDirectedEdge(edgeRequests, finish, finish, 0.0);
+  // |finishSegment| corresponds to edge from |finish| to |finish| which has featureId |finishFeatureId|
+  // and the only segment with segmentIdx |0|. It is a loop so direction does not matter.
+  auto const finishSegment = Segment(kTestNumMwmId, finishFeatureId, 0 /* segmentIdx */,
+                                     true /* forward */);
 
   Builder builder(m_numVertices);
   builder.BuildGraphFromRequests(edgeRequests);
   auto const worldGraph = builder.PrepareIndexGraph();
   CHECK(worldGraph != nullptr, ());
 
-  auto const fakeStart =
-      MakeFakeEnding(startFeatureId, 0 /* segmentIdx */, m2::PointD::Zero(), *worldGraph);
-  auto const fakeFinish =
-      MakeFakeEnding(finishFeatureId, 0 /* segmentIdx */, m2::PointD::Zero(), *worldGraph);
+  AStarAlgorithm<WorldGraph> algorithm;
+  RoutingResult<Segment, RouteWeight> routingResult;
 
-  auto starter = MakeStarter(fakeStart, fakeFinish, *worldGraph);
+  auto const resultCode = algorithm.FindPathBidirectional(
+      *worldGraph, startSegment, finishSegment, routingResult, {} /* cancellable */,
+      {} /* onVisitedVertexCallback */, {} /* checkLengthCallback */);
 
-  vector<Segment> routeSegs;
-  double timeSec;
-  auto const resultCode = CalculateRoute(*starter, routeSegs, timeSec);
-
-  if (resultCode == AStarAlgorithm<IndexGraphStarter>::Result::NoPath)
+  if (resultCode == AStarAlgorithm<WorldGraph>::Result::NoPath)
     return false;
-  CHECK_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::OK, ());
+  CHECK_EQUAL(resultCode, AStarAlgorithm<WorldGraph>::Result::OK, ());
 
-  CHECK_GREATER_OR_EQUAL(routeSegs.size(), 2, ());
-  CHECK_EQUAL(routeSegs.front(), starter->GetStartSegment(), ());
-  CHECK_EQUAL(routeSegs.back(), starter->GetFinishSegment(), ());
+  CHECK_GREATER_OR_EQUAL(routingResult.m_path.size(), 2, ());
+  CHECK_EQUAL(routingResult.m_path.front(), startSegment, ());
+  CHECK_EQUAL(routingResult.m_path.back(), finishSegment, ());
 
-  // We are not interested in the fake start and finish.
-  pathEdges.resize(routeSegs.size() - 2);
+  pathEdges.reserve(routingResult.m_path.size());
   pathWeight = 0.0;
-  for (size_t i = 1; i + 1 < routeSegs.size(); ++i)
+  for (auto const & s : routingResult.m_path)
   {
-    auto seg = routeSegs[i];
-    if (!starter->ConvertToReal(seg))
-      continue;
-
-    auto const it = builder.m_segmentToEdge.find(seg);
+    auto const it = builder.m_segmentToEdge.find(s);
     CHECK(it != builder.m_segmentToEdge.cend(), ());
     auto const & edge = it->second;
-    pathEdges[i - 1] = edge;
-    pathWeight += builder.m_segmentWeights[seg];
+    pathEdges.push_back(edge);
+    pathWeight += builder.m_segmentWeights[s];
   }
 
   // The loops from start to start and from finish to finish.

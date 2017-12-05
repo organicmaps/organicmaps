@@ -671,8 +671,7 @@ UNIT_TEST(IndexGraph_OnlyTopology_1)
   graph.AddDirectedEdge(2, 3, 2.0);
 
   double const expectedWeight = 2.0;
-  // Firs and last edges are projections.
-  vector<TestEdge> const expectedEdges = {{0, 0}, {0, 1}, {1, 3}, {3, 3}};
+  vector<TestEdge> const expectedEdges = {{0, 1}, {1, 3}};
 
   TestTopologyGraph(graph, 0, 3, true /* pathFound */, expectedWeight, expectedEdges);
   TestTopologyGraph(graph, 0, 4, false /* pathFound */, 0.0, {});
@@ -698,8 +697,7 @@ UNIT_TEST(IndexGraph_OnlyTopology_3)
   graph.AddDirectedEdge(0, 1, 1.0);
   graph.AddDirectedEdge(1, 0, 1.0);
   double const expectedWeight = 1.0;
-  // Firs and last edges are projections.
-  vector<TestEdge> const expectedEdges = {{0, 0}, {0, 1}, {1, 1}};
+  vector<TestEdge> const expectedEdges = {{0, 1}};
 
   TestTopologyGraph(graph, 0, 1, true /* pathFound */, expectedWeight, expectedEdges);
 }
