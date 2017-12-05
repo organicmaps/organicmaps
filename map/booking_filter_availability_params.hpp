@@ -20,7 +20,7 @@ namespace filter
 namespace availability
 {
 using Results = platform::SafeCallback<void(AvailabilityParams const & params,
-                                            std::vector<FeatureID> const & featuresSorted)>;
+                                            std::vector<FeatureID> const & sortedFeatures)>;
 
 struct Params
 {

@@ -29,7 +29,7 @@ using Observers = NSHashTable<Observer>;
 
 @property(nonatomic) Observers * observers;
 
-@property(nonatomic) NSUInteger lastSearchStamp;
+@property(nonatomic) NSUInteger lastSearchTimestamp;
 
 @property(nonatomic) MWMSearchFilterViewController * filter;
 
@@ -65,12 +65,6 @@ using Observers = NSHashTable<Observer>;
   return manager;
 }
 
-- (BOOL)isCianSearch
-{
-  return [@(m_everywhereParams.m_query.c_str())
-      isEqualToString:[L(kCianCategory) stringByAppendingString:@" "]];
-}
-
 - (instancetype)initManager
 {
   self = [super init];
@@ -84,18 +78,18 @@ using Observers = NSHashTable<Observer>;
 
 - (void)searchEverywhere
 {
-  NSUInteger const timestamp = ++self.lastSearchStamp;
+  self.lastSearchTimestamp += 1;
+  NSUInteger const timestamp = self.lastSearchTimestamp;
   m_everywhereParams.m_onResults = [self, timestamp](search::Results const & results,
                                                      vector<bool> const & isLocalAdsCustomer) {
 
-    if (timestamp == self.lastSearchStamp)
+    if (timestamp == self.lastSearchTimestamp)
     {
       self->m_everywhereResults = results;
       self->m_isLocalAdsCustomer = isLocalAdsCustomer;
       self.suggestionsCount = results.GetSuggestsCount();
 
-      if (!results.IsEndMarker())
-        [self onSearchResultsUpdated];
+      [self onSearchResultsUpdated];
     }
 
     if (results.IsEndMarker())
@@ -104,10 +98,10 @@ using Observers = NSHashTable<Observer>;
 
   m_everywhereParams.m_bookingFilterParams.m_callback =
       [self](booking::AvailabilityParams const & params,
-             std::vector<FeatureID> const & featuresSorted) {
+             std::vector<FeatureID> const & sortedFeatures) {
         if (self->m_everywhereParams.m_bookingFilterParams.m_params != params)
           return;
-        self->m_bookingAvailableFeatureIDs = featuresSorted;
+        self->m_bookingAvailableFeatureIDs = sortedFeatures;
         [self onSearchResultsUpdated];
       };
 
@@ -147,7 +141,7 @@ using Observers = NSHashTable<Observer>;
     return;
   [self updateFilters];
 
-  if (IPAD || [self isCianSearch])
+  if (IPAD)
   {
     [self searchInViewport];
     [self searchEverywhere];
@@ -253,7 +247,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)reset
 {
-  self.lastSearchStamp++;
+  self.lastSearchTimestamp += 1;
   GetFramework().CancelAllSearches();
 
   m_everywhereResults.Clear();
