@@ -409,7 +409,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     prepare(canUseMyPositionAsStart, endPoint, false);
   }
 
-  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint,  boolean fromApi)
+  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint, boolean fromApi)
   {
     MapObject startPoint = canUseMyPositionAsStart ? LocationHelper.INSTANCE.getMyPosition() : null;
     prepare(startPoint, endPoint, fromApi);

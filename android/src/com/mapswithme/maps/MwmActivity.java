@@ -1,6 +1,7 @@
 package com.mapswithme.maps;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -142,7 +143,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String STATE_MAP_OBJECT = "MapObject";
   private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
 
-  private static final int LOCATION_REQUEST = 1;
+  private static final int REQ_CODE_LOCATION_PERMISSION = 1;
+  private static final int REQ_CODE_DISCOVERY = 2;
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -212,7 +214,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (!PermissionsUtils.isLocationGranted())
       {
         if (PermissionsUtils.isLocationExplanationNeeded(MwmActivity.this))
-          PermissionsUtils.requestLocationPermission(MwmActivity.this, LOCATION_REQUEST);
+          PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
         else
           Toast.makeText(MwmActivity.this, R.string.enable_location_services, Toast.LENGTH_SHORT)
                .show();
@@ -846,7 +848,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case DISCOVERY:
-          DiscoveryActivity.start(MwmActivity.this);
+          Intent i = new Intent(MwmActivity.this, DiscoveryActivity.class);
+          startActivityForResult(i, REQ_CODE_DISCOVERY);
           break;
 
         case BOOKMARKS:
@@ -1028,11 +1031,46 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (resultCode != Activity.RESULT_OK)
+      return;
+
+    switch (requestCode)
+    {
+      case REQ_CODE_DISCOVERY:
+        handleDiscoveryResult(data);
+        break;
+    }
+  }
+
+  private void handleDiscoveryResult(@NonNull Intent data)
+  {
+    final MapObject destination = data.getParcelableExtra(DiscoveryActivity
+                                                              .EXTRA_DISCOVERY_OBJECT);
+    if (destination == null)
+      return;
+
+    addTask(new MapTask()
+    {
+      @Override
+      public boolean run(MwmActivity target)
+      {
+        RoutingController.get().setRouterType(Framework.ROUTER_TYPE_PEDESTRIAN);
+        RoutingController.get().prepare(true, destination);
+        return false;
+      }
+    });
+  }
+
+  @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                          @NonNull int[] grantResults)
   {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    if (requestCode != LOCATION_REQUEST || grantResults.length == 0)
+    if (requestCode != REQ_CODE_LOCATION_PERMISSION || grantResults.length == 0)
       return;
 
     PermissionsResult result = PermissionsUtils.computePermissionsResult(permissions, grantResults);

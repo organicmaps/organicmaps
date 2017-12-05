@@ -31,9 +31,8 @@ class SearchBasedAdapterStrategy extends RegularAdapterStrategy<Items.SearchItem
 
   @NonNull
   @Override
-  protected Holders.BaseViewHolder<Items.SearchItem> createProductViewHodler(@NonNull ViewGroup parent,
-                                                                             int viewType,
-                                                                             @NonNull GalleryAdapter adapter)
+  protected Holders.BaseViewHolder<Items.SearchItem> createProductViewHodler
+      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
   {
     View view = LayoutInflater.from(parent.getContext())
                               .inflate(R.layout.item_discovery_search, parent, false);
@@ -42,9 +41,8 @@ class SearchBasedAdapterStrategy extends RegularAdapterStrategy<Items.SearchItem
 
   @NonNull
   @Override
-  protected final Holders.BaseViewHolder<Items.SearchItem> createMoreProductsViewHolder(@NonNull ViewGroup parent,
-                                                                                        int viewType,
-                                                                                        @NonNull GalleryAdapter adapter)
+  protected final Holders.BaseViewHolder<Items.SearchItem> createMoreProductsViewHolder
+      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
   {
     throw new UnsupportedOperationException("More item is not supported yet for this strategy!");
   }
@@ -54,10 +52,7 @@ class SearchBasedAdapterStrategy extends RegularAdapterStrategy<Items.SearchItem
   {
     List<Items.SearchItem> viewItems = new ArrayList<>();
     for (SearchResult result : results)
-    {
-      SearchResult.Description d = result.description;
-      viewItems.add(new Items.SearchItem(result.name, null, d.featureType, d.distance));
-    }
+      viewItems.add(new Items.SearchItem(result));
     return viewItems;
   }
 }

@@ -11,49 +11,54 @@
     android:layout_height="wrap_content">
     <RelativeLayout
       android:layout_width="@dimen/viator_product_width"
-      android:layout_height="wrap_content"
-      android:foreground="?clickableBackground">
-      <TextView
-        android:id="@+id/title"
+      android:layout_height="wrap_content">
+      <LinearLayout
+        android:id="@+id/infoLayout"
         android:layout_alignParentTop="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half_double_plus"
-        android:layout_marginLeft="@dimen/margin_half_plus"
-        android:layout_marginRight="@dimen/margin_half_plus"
-        style="@style/MwmWidget.Discovery.Item.Title"
-        android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Title"
-        tools:text="Las Ramblas"/>
-      <TextView
-        android:id="@+id/subtitle"
-        android:layout_below="@id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_eighth"
-        android:layout_marginLeft="@dimen/margin_half_plus"
-        android:layout_marginRight="@dimen/margin_half_plus"
-        style="@style/MwmWidget.Discovery.Item.Subtitle"
-        android:textAppearance="@style/MwmTextAppearance.Body3"
-        tools:text="Attraction"/>
-      <TextView
-        android:id="@+id/distance"
-        android:layout_below="@id/subtitle"
-        android:layout_marginTop="@dimen/margin_eighth"
-        android:layout_marginLeft="@dimen/margin_half_plus"
-        android:layout_marginStart="@dimen/margin_half_plus"
-        android:layout_marginRight="@dimen/margin_half_plus"
-        android:layout_marginEnd="@dimen/margin_half_plus"
-        android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Distance"
-        android:ellipsize="end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="950 m"/>
+        android:paddingBottom="@dimen/margin_half_double_plus"
+        android:foreground="?clickableBackground"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+          android:id="@+id/title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_half_double_plus"
+          android:layout_marginLeft="@dimen/margin_half_plus"
+          android:layout_marginRight="@dimen/margin_half_plus"
+          style="@style/MwmWidget.Discovery.Item.Title"
+          android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Title"
+          tools:text="Las Ramblas"/>
+        <TextView
+          android:id="@+id/subtitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_eighth"
+          android:layout_marginLeft="@dimen/margin_half_plus"
+          android:layout_marginRight="@dimen/margin_half_plus"
+          style="@style/MwmWidget.Discovery.Item.Subtitle"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          tools:text="Attraction"/>
+        <TextView
+          android:id="@+id/distance"
+          android:layout_marginTop="@dimen/margin_eighth"
+          android:layout_marginLeft="@dimen/margin_half_plus"
+          android:layout_marginStart="@dimen/margin_half_plus"
+          android:layout_marginRight="@dimen/margin_half_plus"
+          android:layout_marginEnd="@dimen/margin_half_plus"
+          android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Distance"
+          android:ellipsize="end"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="950 m"/>
+      </LinearLayout>
       <TextView
         android:id="@+id/button"
-        android:layout_below="@id/distance"
+        android:foreground="?clickableBackground"
+        android:layout_below="@id/infoLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half_double_plus"
         android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Button"
         style="@style/MwmWidget.Discovery.Item.Button"
         android:layout_gravity="bottom"

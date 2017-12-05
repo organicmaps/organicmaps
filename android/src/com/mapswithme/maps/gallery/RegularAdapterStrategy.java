@@ -30,7 +30,7 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
   @NonNull
   @Override
   Holders.BaseViewHolder<T> createViewHolder(@NonNull ViewGroup parent, int viewType,
-                                             @NonNull GalleryAdapter adapter)
+                                             @NonNull GalleryAdapter<?, T> adapter)
   {
     switch (viewType)
     {
@@ -59,11 +59,11 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
   @NonNull
   protected abstract Holders.BaseViewHolder<T> createProductViewHodler(@NonNull ViewGroup parent,
                                                                        int viewType,
-                                                                       @NonNull GalleryAdapter adapter);
+                                                                       @NonNull GalleryAdapter<?, T> adapter);
   @NonNull
   protected abstract Holders.BaseViewHolder<T> createMoreProductsViewHolder(@NonNull ViewGroup parent,
                                                                             int viewType,
-                                                                            @NonNull GalleryAdapter adapter);
+                                                                            @NonNull GalleryAdapter<?, T> adapter);
 
   public static class Item extends Items.Item
   {

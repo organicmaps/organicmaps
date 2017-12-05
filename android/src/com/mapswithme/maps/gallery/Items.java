@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.search.SearchResult;
 
 import static com.mapswithme.maps.gallery.Constants.TYPE_MORE;
 import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
@@ -77,19 +78,29 @@ public class Items
   public static class SearchItem extends RegularAdapterStrategy.Item
   {
     @NonNull
-    private final String mDistance;
+    private final SearchResult mResult;
 
-    public SearchItem(@NonNull String title, @Nullable String url,
-                      @Nullable String subtitle, @NonNull String distance)
+    public SearchItem(@NonNull SearchResult result)
     {
-      super(TYPE_PRODUCT, title, url, subtitle);
-      mDistance = distance;
+      super(TYPE_PRODUCT, result.name, null, result.description.featureType);
+      mResult = result;
     }
 
     @NonNull
     public String getDistance()
     {
-      return mDistance;
+      SearchResult.Description d = mResult.description;
+      return d != null ? d.distance : "";
+    }
+
+    public double getLat()
+    {
+      return mResult.lat;
+    }
+
+    public double getLon()
+    {
+      return mResult.lon;
     }
   }
 

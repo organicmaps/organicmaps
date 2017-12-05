@@ -40,7 +40,7 @@ public class Holders
     Context mContext;
 
     public ViatorProductViewHolder(@NonNull View itemView, @NonNull List<ViatorItem> items,
-                                   @NonNull GalleryAdapter adapter)
+                                   @NonNull GalleryAdapter<?, ViatorItem> adapter)
     {
       super(itemView, items, adapter);
       mContext = itemView.getContext();
@@ -72,13 +72,13 @@ public class Holders
     }
 
     @Override
-    protected void onItemSelected(@NonNull Context context, @NonNull ViatorItem item)
+    protected void onItemSelected(@NonNull ViatorItem item)
     {
-      GalleryAdapter.ItemSelectedListener listener = mAdapter.getListener();
+      ItemSelectedListener<ViatorItem> listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
-      listener.onItemSelected(context, item.getUrl());
+      listener.onItemSelected(item);
     }
   }
 
@@ -86,19 +86,19 @@ public class Holders
   {
 
     public ViatorMoreItemViewHolder(@NonNull View itemView, @NonNull List<Items.ViatorItem> items,
-                                    @NonNull GalleryAdapter adapter)
+                                    @NonNull GalleryAdapter<?, Items.ViatorItem> adapter)
     {
       super(itemView, items, adapter);
     }
 
     @Override
-    protected void onItemSelected(@NonNull Context context, @NonNull Items.ViatorItem item)
+    protected void onItemSelected(@NonNull Items.ViatorItem item)
     {
-      GalleryAdapter.ItemSelectedListener listener = mAdapter.getListener();
+      ItemSelectedListener<ViatorItem> listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
-      listener.onMoreItemSelected(context, item.getUrl());
+      listener.onMoreItemSelected(item);
     }
   }
 
@@ -109,7 +109,8 @@ public class Holders
     @NonNull
     TextView mAddress;
 
-    public CianProductViewHolder(@NonNull View itemView, @NonNull List<CianItem> items, @NonNull GalleryAdapter adapter)
+    public CianProductViewHolder(@NonNull View itemView, @NonNull List<CianItem> items,
+                                 @NonNull GalleryAdapter<?, CianItem> adapter)
     {
       super(itemView, items, adapter);
       mPrice = (TextView) itemView.findViewById(R.id.tv__price);
@@ -129,19 +130,19 @@ public class Holders
   {
 
     public CianMoreItemViewHolder(@NonNull View itemView, @NonNull List<T> items,
-                                  @NonNull GalleryAdapter adapter)
+                                  @NonNull GalleryAdapter<?, T> adapter)
     {
       super(itemView, items, adapter);
     }
 
     @Override
-    protected void onItemSelected(@NonNull Context context, @NonNull T item)
+    protected void onItemSelected(@NonNull T item)
     {
-      GalleryAdapter.ItemSelectedListener listener = mAdapter.getListener();
+      ItemSelectedListener<T> listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
-      listener.onMoreItemSelected(context, item.getUrl());
+      listener.onMoreItemSelected(item);
     }
   }
 
@@ -155,13 +156,15 @@ public class Holders
     private final TextView mButton;
 
     public SearchViewHolder(@NonNull View itemView, @NonNull List<Items.SearchItem> items,
-                            @NonNull GalleryAdapter adapter)
+                            @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
     {
       super(itemView, items, adapter);
       mTitle = (TextView) itemView.findViewById(R.id.title);
       mSubtitle = (TextView) itemView.findViewById(R.id.subtitle);
       mDistance = (TextView) itemView.findViewById(R.id.distance);
       mButton = (TextView) itemView.findViewById(R.id.button);
+      mButton.setOnClickListener(this);
+      itemView.findViewById(R.id.infoLayout).setOnClickListener(this);
       mButton.setText(R.string.p2p_to_here);
     }
 
@@ -173,6 +176,29 @@ public class Holders
       UiUtils.setTextAndHideIfEmpty(mSubtitle, item.getSubtitle());
       UiUtils.setTextAndHideIfEmpty(mDistance, item.getDistance());
     }
+
+    @Override
+    public void onClick(View v)
+    {
+      int position = getAdapterPosition();
+      if (position == RecyclerView.NO_POSITION || mItems.isEmpty())
+        return;
+
+      ItemSelectedListener<Items.SearchItem> listener = mAdapter.getListener();
+      if (listener == null)
+        return;
+
+      Items.SearchItem item = mItems.get(position);
+      switch (v.getId())
+      {
+        case R.id.infoLayout:
+          listener.onItemSelected(item);
+          break;
+        case R.id.button:
+          listener.onActionButtonSelected(item);
+          break;
+      }
+    }
   }
 
   public static class BaseViewHolder<I extends Items.Item> extends RecyclerView.ViewHolder
@@ -183,10 +209,10 @@ public class Holders
     @NonNull
     protected List<I> mItems;
     @NonNull
-    GalleryAdapter mAdapter;
+    GalleryAdapter<?, I> mAdapter;
 
     BaseViewHolder(@NonNull View itemView, @NonNull List<I> items,
-                             @NonNull GalleryAdapter adapter)
+                             @NonNull GalleryAdapter<?, I> adapter)
     {
       super(itemView);
       mTitle = (TextView) itemView.findViewById(R.id.tv__title);
@@ -208,10 +234,10 @@ public class Holders
       if (position == RecyclerView.NO_POSITION || mItems.isEmpty())
         return;
 
-      onItemSelected(mTitle.getContext(), mItems.get(position));
+      onItemSelected(mItems.get(position));
     }
 
-    protected void onItemSelected(@NonNull Context context, @NonNull I item)
+    protected void onItemSelected(@NonNull I item)
     {
     }
   }
@@ -226,7 +252,8 @@ public class Holders
     @NonNull
     TextView mMore;
 
-    LoadingViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items, @NonNull GalleryAdapter adapter)
+    LoadingViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
+                      @NonNull GalleryAdapter<?, Items.Item> adapter)
     {
       super(itemView, items, adapter);
       mProgressBar = (ProgressBar) itemView.findViewById(R.id.pb__progress);
@@ -249,23 +276,23 @@ public class Holders
       if (position == RecyclerView.NO_POSITION)
         return;
 
-      onItemSelected(mProgressBar.getContext(), mItems.get(position));
+      onItemSelected(mItems.get(position));
     }
 
     @Override
-    protected void onItemSelected(@NonNull Context context, @NonNull Items.Item item)
+    protected void onItemSelected(@NonNull Items.Item item)
     {
       if (mAdapter.getListener() == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
-      mAdapter.getListener().onDetailsSelected(context, item.getUrl());
+      mAdapter.getListener().onActionButtonSelected(item);
     }
   }
 
   public static class SimpleViewHolder extends BaseViewHolder<Items.Item>
   {
     public SimpleViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
-                            @NonNull GalleryAdapter adapter)
+                            @NonNull GalleryAdapter<?, Items.Item> adapter)
     {
       super(itemView, items, adapter);
       mTitle = (TextView) itemView.findViewById(R.id.message);
@@ -275,7 +302,8 @@ public class Holders
   static class ErrorViewHolder extends LoadingViewHolder
   {
 
-    ErrorViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items, @NonNull GalleryAdapter adapter)
+    ErrorViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
+                    @NonNull GalleryAdapter<?, Items.Item> adapter)
     {
       super(itemView, items, adapter);
       UiUtils.hide(mProgressBar);
@@ -285,7 +313,7 @@ public class Holders
   public static class OfflineViewHolder extends LoadingViewHolder
   {
     OfflineViewHolder(@NonNull View itemView, @NonNull List<Items.Item> items,
-                      @NonNull GalleryAdapter adapter)
+                      @NonNull GalleryAdapter<?, Items.Item> adapter)
     {
       super(itemView, items, adapter);
       UiUtils.hide(mProgressBar);
@@ -300,12 +328,12 @@ public class Holders
     }
 
     @Override
-    protected void onItemSelected(@NonNull Context context, @NonNull Items.Item item)
+    protected void onItemSelected(@NonNull Items.Item item)
     {
       if (mAdapter.getListener() == null)
         return;
 
-      mAdapter.getListener().onDetailsSelected(mTitle.getContext(), item.getUrl());
+      mAdapter.getListener().onActionButtonSelected(item);
     }
   }
 }

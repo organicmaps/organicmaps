@@ -1,6 +1,5 @@
 package com.mapswithme.maps.gallery;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -12,18 +11,19 @@ public class GalleryAdapter<VH extends Holders.BaseViewHolder<I>, I extends Item
   @NonNull
   private final AdapterStrategy<VH, I> mStrategy;
   @Nullable
-  private ItemSelectedListener mListener;
-  @Nullable
-  public ItemSelectedListener getListener()
-  {
-    return mListener;
-  }
+  private final ItemSelectedListener<I> mListener;
 
   public GalleryAdapter(@NonNull AdapterStrategy<VH, I> strategy,
-                        @Nullable ItemSelectedListener listener)
+                        @Nullable ItemSelectedListener<I> listener)
   {
     mStrategy = strategy;
     mListener = listener;
+  }
+
+  @Nullable
+  public ItemSelectedListener<I> getListener()
+  {
+    return mListener;
   }
 
   @Override
@@ -48,12 +48,5 @@ public class GalleryAdapter<VH extends Holders.BaseViewHolder<I>, I extends Item
   public int getItemViewType(int position)
   {
     return mStrategy.getItemViewType(position);
-  }
-
-  public interface ItemSelectedListener
-  {
-    void onItemSelected(@NonNull Context context, @NonNull String url);
-    void onMoreItemSelected(@NonNull Context context, @NonNull String url);
-    void onDetailsSelected(@NonNull Context context, @Nullable String url);
   }
 }

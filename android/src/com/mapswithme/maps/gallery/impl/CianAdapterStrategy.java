@@ -35,9 +35,8 @@ class CianAdapterStrategy extends RegularAdapterStrategy<Items.CianItem>
 
   @NonNull
   @Override
-  protected Holders.BaseViewHolder<Items.CianItem> createProductViewHodler(@NonNull ViewGroup parent,
-                                                                           int viewType,
-                                                                           @NonNull GalleryAdapter adapter)
+  protected Holders.BaseViewHolder<Items.CianItem> createProductViewHodler
+      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.CianItem> adapter)
   {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cian_product, parent,
                                                                  false);
@@ -46,9 +45,8 @@ class CianAdapterStrategy extends RegularAdapterStrategy<Items.CianItem>
 
   @NonNull
   @Override
-  protected Holders.BaseViewHolder<Items.CianItem> createMoreProductsViewHolder(@NonNull ViewGroup parent,
-                                                                                int viewType,
-                                                                                @NonNull GalleryAdapter adapter)
+  protected Holders.BaseViewHolder<Items.CianItem> createMoreProductsViewHolder
+      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.CianItem> adapter)
   {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cian_more, parent,
                                                                  false);

@@ -33,9 +33,8 @@ public class ViatorAdapterStrategy
 
   @NonNull
   @Override
-  protected Holders.BaseViewHolder<Items.ViatorItem> createProductViewHodler(@NonNull ViewGroup parent,
-                                                                             int viewType,
-                                                                             @NonNull GalleryAdapter adapter)
+  protected Holders.BaseViewHolder<Items.ViatorItem> createProductViewHodler
+      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.ViatorItem> adapter)
   {
     View view = LayoutInflater.from(parent.getContext())
                               .inflate(R.layout.item_viator_product, parent,
@@ -45,8 +44,8 @@ public class ViatorAdapterStrategy
 
   @NonNull
   @Override
-  protected Holders.BaseViewHolder<Items.ViatorItem> createMoreProductsViewHolder(
-      @NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter adapter)
+  protected Holders.BaseViewHolder<Items.ViatorItem> createMoreProductsViewHolder
+      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.ViatorItem> adapter)
   {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_viator_more, parent,
                                                                  false);

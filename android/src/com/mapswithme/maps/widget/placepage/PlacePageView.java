@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.res.Resources;
@@ -63,6 +64,9 @@ import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
 import com.mapswithme.maps.gallery.Image;
+import com.mapswithme.maps.gallery.ItemSelectedListener;
+import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.Review;
@@ -121,7 +125,6 @@ public class PlacePageView extends RelativeLayout
                EditBookmarkFragment.EditBookmarkListener,
                BannerController.BannerListener,
                Viator.ViatorListener,
-               com.mapswithme.maps.gallery.GalleryAdapter.ItemSelectedListener,
                Cian.CianListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -226,6 +229,8 @@ public class PlacePageView extends RelativeLayout
   private final NearbyAdapter mNearbyAdapter = new NearbyAdapter(this);
   @NonNull
   private final ReviewAdapter mReviewAdapter = new ReviewAdapter();
+  @NonNull
+  private final ItemSelectedListener<Items.Item> mDefaultGalleryItemListener;
 
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
@@ -294,7 +299,7 @@ public class PlacePageView extends RelativeLayout
   public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs);
-
+    mDefaultGalleryItemListener = new SponsoredItemSelectedListener<>((Activity) context);
     mIsLatLonDms = MwmApplication.prefs().getBoolean(PREF_USE_DMS, false);
     mGalleryAdapter = new com.mapswithme.maps.widget.placepage.GalleryAdapter(context);
     mMarginBase = (int) getResources().getDimension(R.dimen.margin_base);
@@ -834,7 +839,7 @@ public class PlacePageView extends RelativeLayout
   public void onErrorReceived(int errorCode)
   {
     String url = mSponsored != null ? mSponsored.getUrl() : "";
-    mRvSponsoredProducts.setAdapter(Factory.createCianErrorAdapter(url, this));
+    mRvSponsoredProducts.setAdapter(Factory.createCianErrorAdapter(url, mDefaultGalleryItemListener));
     Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_CIAN, String.valueOf(errorCode));
   }
 
@@ -857,13 +862,16 @@ public class PlacePageView extends RelativeLayout
   {
     if (products.length == 0)
     {
-      mRvSponsoredProducts.setAdapter(Factory.createViatorErrorAdapter(cityUrl, this));
+      mRvSponsoredProducts.setAdapter(Factory.createViatorErrorAdapter(cityUrl,
+                                                                       mDefaultGalleryItemListener));
       Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_VIATOR,
                                                      Statistics.ParamValue.NO_PRODUCTS);
     }
     else
     {
-      mRvSponsoredProducts.setAdapter(Factory.createViatorAdapter(products, cityUrl, this));
+      ItemSelectedListener<Items.ViatorItem> listener
+          = new SponsoredItemSelectedListener<>(getActivity());
+      mRvSponsoredProducts.setAdapter(Factory.createViatorAdapter(products, cityUrl, listener));
     }
   }
 
@@ -871,13 +879,14 @@ public class PlacePageView extends RelativeLayout
   {
     if (products.length == 0)
     {
-      mRvSponsoredProducts.setAdapter(Factory.createCianErrorAdapter(url, this));
+      mRvSponsoredProducts.setAdapter(Factory.createCianErrorAdapter(url, mDefaultGalleryItemListener));
       Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_CIAN,
                                                      Statistics.ParamValue.NO_PRODUCTS);
     }
     else
     {
-      mRvSponsoredProducts.setAdapter(Factory.createCianAdapter(products, url, this));
+      ItemSelectedListener<Items.CianItem> listener = new SponsoredItemSelectedListener<>(getActivity());
+      mRvSponsoredProducts.setAdapter(Factory.createCianAdapter(products, url, listener));
     }
   }
 
@@ -897,13 +906,15 @@ public class PlacePageView extends RelativeLayout
   private void showLoadingViatorProducts(@NonNull String id, @NonNull String cityUrl)
   {
     if (!Viator.hasCache(id))
-      mRvSponsoredProducts.setAdapter(Factory.createViatorLoadingAdapter(cityUrl, this));
+      mRvSponsoredProducts.setAdapter(Factory.createViatorLoadingAdapter(cityUrl,
+                                                                         mDefaultGalleryItemListener));
   }
 
   private void showLoadingCianProducts(@NonNull FeatureId id, @NonNull String url)
   {
     if (!Cian.hasCache(id))
-      mRvSponsoredProducts.setAdapter(Factory.createCianLoadingAdapter(url, this));
+      mRvSponsoredProducts.setAdapter(Factory.createCianLoadingAdapter(url,
+                                                                       mDefaultGalleryItemListener));
   }
 
   private void updateGallerySponsoredTitle(@Sponsored.SponsoredType int type)
@@ -920,33 +931,6 @@ public class PlacePageView extends RelativeLayout
   private void clearSponsoredGalleryViews()
   {
     mRvSponsoredProducts.swapAdapter(null /* adapter */ , false);
-  }
-
-  @Override
-  public void onItemSelected(@NonNull Context context, @NonNull String url)
-  {
-    Utils.openUrl(context, url);
-    if (mSponsored != null)
-      Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_ITEM_SELECTED,
-                                              mSponsored.getType());
-  }
-
-  @Override
-  public void onMoreItemSelected(@NonNull Context context, @NonNull String url)
-  {
-    Utils.openUrl(context, url);
-    if (mSponsored != null)
-      Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
-                                              mSponsored.getType());
-  }
-
-  @Override
-  public void onDetailsSelected(@NonNull Context context, @Nullable String url)
-  {
-    if (TextUtils.isEmpty(url))
-      return;
-
-    Utils.openUrl(context, url);
   }
 
   @Override
@@ -2176,6 +2160,40 @@ public class PlacePageView extends RelativeLayout
     {
       mPreview.setPadding(mPreview.getPaddingLeft(), mPreview.getPaddingTop(),
                           getPaddingRight(), mMarginBase);
+    }
+  }
+
+  private class SponsoredItemSelectedListener<I extends Items.Item>
+      extends BaseItemSelectedListener<I>
+  {
+
+    SponsoredItemSelectedListener(@NonNull Activity context)
+    {
+      super(context);
+    }
+
+    @Override
+    public void onItemSelected(@NonNull I item)
+    {
+      Utils.openUrl(getActivity(), item.getUrl());
+      if (mSponsored != null)
+        Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_ITEM_SELECTED,
+                                                mSponsored.getType());
+    }
+
+    @Override
+    public void onMoreItemSelected(@NonNull I item)
+    {
+      Utils.openUrl(getActivity(), item.getUrl());
+      if (mSponsored != null)
+        Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
+                                                mSponsored.getType());
+    }
+
+    @Override
+    public void onActionButtonSelected(@NonNull I item)
+    {
+      Utils.openUrl(getActivity(), item.getUrl());
     }
   }
 }
