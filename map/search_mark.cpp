@@ -18,6 +18,16 @@ std::vector<std::string> const kSymbols =
 
   "non-found-search-result", // NotFound.
 };
+
+std::vector<std::string> const kPreparingSymbols =
+{
+  "search-result",           // Default.
+  "search-booking-inactive", // Booking.
+  "search-adv",              // LocalAds.
+  "search-cian",             // TODO: delete me after Cian project is finished.
+
+  "non-found-search-result", // NotFound.
+};
 }  // namespace
 
 SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
@@ -27,15 +37,14 @@ SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * c
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames() const
 {
   std::string name;
-  if (m_isPreparing)
-  {
-    //TODO: set symbol for preparing state.
-    name = "non-found-search-result";
-  }
-  else if (m_type >= SearchMarkType::Count)
+  if (m_type >= SearchMarkType::Count)
   {
     ASSERT(false, ("Unknown search mark symbol."));
     name = kSymbols[static_cast<size_t>(SearchMarkType::Default)];
+  }
+  else if (m_isPreparing)
+  {
+    name = kPreparingSymbols[static_cast<size_t>(m_type)];
   }
   else
   {
