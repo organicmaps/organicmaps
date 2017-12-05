@@ -152,6 +152,9 @@ EditorTest::EditorTest()
 
 EditorTest::~EditorTest()
 {
+
+  indexer::tests_support::TearDownEditorForTesting();
+
   for (auto const & file : m_mwmFiles)
     Cleanup(file);
 }

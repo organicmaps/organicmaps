@@ -89,6 +89,8 @@ public:
     m_storage = move(storage);
   }
 
+  void SetDefaultStorage();
+
   void SetInvalidateFn(TInvalidateFn const & fn) { m_invalidateFn = fn; }
 
   void LoadMapEdits();

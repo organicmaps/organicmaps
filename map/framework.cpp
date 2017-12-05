@@ -491,6 +491,11 @@ Framework::Framework(FrameworkParams const & params)
 
 Framework::~Framework()
 {
+  osm::Editor & editor = osm::Editor::Instance();
+
+  editor.SetDelegate({});
+  editor.SetInvalidateFn({});
+
   m_bmManager.Teardown();
   m_trafficManager.Teardown();
   m_localAdsManager.Teardown();

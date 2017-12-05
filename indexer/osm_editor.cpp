@@ -136,17 +136,20 @@ namespace osm
 // TODO(AlexZ): Normalize osm multivalue strings for correct merging
 // (e.g. insert/remove spaces after ';' delimeter);
 
-Editor::Editor()
-  : m_configLoader(m_config)
-  , m_notes(editor::Notes::MakeNotes())
-  , m_storage(make_unique<editor::LocalStorage>())
+Editor::Editor() : m_configLoader(m_config), m_notes(editor::Notes::MakeNotes())
 {
+  SetDefaultStorage();
 }
 
 Editor & Editor::Instance()
 {
   static Editor instance;
   return instance;
+}
+
+void Editor::SetDefaultStorage()
+{
+  m_storage = make_unique<editor::LocalStorage>();
 }
 
 void Editor::LoadMapEdits()

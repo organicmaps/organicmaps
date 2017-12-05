@@ -25,7 +25,7 @@ public:
     indexer::tests_support::SetUpEditorForTesting(my::make_unique<EditorDelegate>(m_index));
   }
 
-  ~TestWithCustomMwms() override = default;
+  ~TestWithCustomMwms() override { indexer::tests_support::TearDownEditorForTesting(); }
 
   template <typename EditorFn>
   void EditFeature(FeatureID const & id, EditorFn && fn)
