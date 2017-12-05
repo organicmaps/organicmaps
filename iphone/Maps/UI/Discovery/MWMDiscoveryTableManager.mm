@@ -16,6 +16,8 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#include "base/logging.hpp"
+
 #include <algorithm>
 #include <iterator>
 #include <string>
@@ -29,11 +31,11 @@ pair<NSString *, NSString *> StatCategoryAndProvider(ItemType const type)
 {
   switch (type)
   {
-    case ItemType::Viator: return {kStatThingsToDo, kStatViator};
-    case ItemType::LocalExperts: return {kStatLocals, kStatLocalsProvider};
-    case ItemType::Attractions: return {kStatAttractions, kStatSearch};
-    case ItemType::Cafes: return {kStatEatAndDrink, kStatSearch};
-    case ItemType::Hotels: ASSERT(false, @""); return {};
+  case ItemType::Viator: return {kStatThingsToDo, kStatViator};
+  case ItemType::LocalExperts: return {kStatLocals, kStatLocalsProvider};
+  case ItemType::Attractions: return {kStatAttractions, kStatSearch};
+  case ItemType::Cafes: return {kStatEatAndDrink, kStatSearch};
+  case ItemType::Hotels: ASSERT(false, ()); return {};
   }
 }
 }  // namespace discovery
