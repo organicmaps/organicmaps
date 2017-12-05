@@ -79,7 +79,7 @@ private:
     for (pair<size_t, glsl::vec2> const & node : m_offsets)
     {
       size_t const endOffset = node.first;
-      generator.SetPen(node.second);
+      generator.SetPenPosition(node.second);
       for (size_t index = beginOffset; index < endOffset && index < m_metrics.size(); ++index)
         generator(m_metrics[index]);
       beginOffset = endOffset;

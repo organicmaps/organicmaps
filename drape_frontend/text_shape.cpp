@@ -37,8 +37,8 @@ public:
     , m_isOptional(isOptional)
   {}
 
-  void SetDynamicSymbolSizes(StraightTextLayout const &layout,
-                             std::vector<m2::PointF> const &symbolSizes,
+  void SetDynamicSymbolSizes(StraightTextLayout const & layout,
+                             std::vector<m2::PointF> const & symbolSizes,
                              dp::Anchor symbolAnchor)
   {
     m_layout = make_unique_dp<StraightTextLayout>(layout);

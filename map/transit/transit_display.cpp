@@ -459,8 +459,8 @@ void TransitRouteDisplay::CollectTransitDisplayInfo(vector<RouteSegment> const &
 
 void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const & transitMarks)
 {
-  static vector<m2::PointF> const kTransferMarkerSizes = GetTransitMarkerSizes(kTransferMarkerScale, m_maxSubrouteWidth);
-  static vector<m2::PointF> const kStopMarkerSizes = GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
+  std::vector<m2::PointF> const transferMarkerSizes = GetTransitMarkerSizes(kTransferMarkerScale, m_maxSubrouteWidth);
+  std::vector<m2::PointF> const stopMarkerSizes = GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
 
   auto & marksController = m_bmManager->GetUserMarksController(UserMark::Type::TRANSIT);
   uint32_t nextIndex = static_cast<uint32_t>(marksController.GetUserMarkCount());
@@ -514,17 +514,17 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
         transitMark->AddTitle(titleDecl);
       }
       df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
-      for (size_t sizeIndex = 0; sizeIndex < kTransferMarkerSizes.size(); ++sizeIndex)
+      for (size_t sizeIndex = 0; sizeIndex < transferMarkerSizes.size(); ++sizeIndex)
       {
         auto const zoomLevel = sizeIndex + 1;
-        auto const & sz = kTransferMarkerSizes[sizeIndex];
+        auto const & sz = transferMarkerSizes[sizeIndex];
         df::ColoredSymbolViewParams params;
         params.m_radiusInPixels = max(sz.x, sz.y) * 0.5f;
         params.m_color = dp::Color::Transparent();
         if (coloredSymbol.empty() || coloredSymbol.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
           coloredSymbol.insert(make_pair(zoomLevel, params));
       }
-      transitMark->SetSymbolSizes(kTransferMarkerSizes);
+      transitMark->SetSymbolSizes(transferMarkerSizes);
       transitMark->SetColoredSymbols(coloredSymbol);
       transitMark->SetPriority(UserMark::Priority::TransitTransfer);
     }
@@ -570,17 +570,17 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
       else
       {
         df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
-        for (size_t sizeIndex = 0; sizeIndex < kStopMarkerSizes.size(); ++sizeIndex)
+        for (size_t sizeIndex = 0; sizeIndex < stopMarkerSizes.size(); ++sizeIndex)
         {
           auto const zoomLevel = sizeIndex + 1;
-          auto const & sz = kStopMarkerSizes[sizeIndex];
+          auto const & sz = stopMarkerSizes[sizeIndex];
           df::ColoredSymbolViewParams params;
           params.m_radiusInPixels = max(sz.x, sz.y) * 0.5f;
           params.m_color = dp::Color::Transparent();
           if (coloredSymbol.empty() || coloredSymbol.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
             coloredSymbol.insert(make_pair(zoomLevel, params));
         }
-        transitMark->SetSymbolSizes(kStopMarkerSizes);
+        transitMark->SetSymbolSizes(stopMarkerSizes);
         transitMark->SetColoredSymbols(coloredSymbol);
         transitMark->SetPriority(UserMark::Priority::TransitStop);
         transitMark->SetMinTitleZoom(kMinStopTitleZoom);

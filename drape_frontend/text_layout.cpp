@@ -25,7 +25,7 @@ public:
     , m_buffer(buffer)
   {}
 
-  void SetPen(glsl::vec2 const & penOffset) {}
+  void SetPenPosition(glsl::vec2 const & penOffset) {}
 
   void operator() (dp::TextureManager::GlyphRegion const & glyph)
   {
@@ -55,7 +55,7 @@ public:
     , m_textRatio(textRatio)
   {}
 
-  void SetPen(glsl::vec2 const & penPosition)
+  void SetPenPosition(glsl::vec2 const & penPosition)
   {
     m_penPosition = penPosition;
     m_isFirstGlyph = true;
@@ -107,7 +107,7 @@ public:
     , m_buffer(buffer)
   {}
 
-  void SetPen(glsl::vec2 const & penOffset) {}
+  void SetPenPosition(glsl::vec2 const & penOffset) {}
 
   void operator() (dp::TextureManager::GlyphRegion const & glyph)
   {
