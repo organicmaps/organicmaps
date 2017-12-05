@@ -5,16 +5,6 @@ set(CMAKE_AUTOUIC ON)
 
 QT5_ADD_RESOURCES(RES_SOURCES res/resources.qrc)
 
-set(BUNDLE_FOLDER ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app)
-set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
-set(DATA_DIR ${OMIM_ROOT}/data)
-
-execute_process(
-  COMMAND mkdir -p ${RESOURCES_FOLDER}/shaders_compiler
-  COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac.icns ${RESOURCES_FOLDER}
-  COMMAND cp ${PROJECT_SOURCE_DIR}/res/designer.icns ${RESOURCES_FOLDER}
-)
-
 include_directories(
   ${OMIM_ROOT}/3party/glm
   ${OMIM_ROOT}/3party/gflags/src
@@ -112,6 +102,34 @@ omim_link_libraries(
 link_opengl(${PROJECT_NAME})
 link_qt5_core(${PROJECT_NAME})
 
+if (BUILD_DESIGNER)
+  set(BUNDLE_NAME "MAPS.ME.Designer")
+  set(BUNDLE_DISPLAY_NAME "MAPS.ME Designer")
+  set(BUNDLE_ICON designer.icns)
+else()
+  set(BUNDLE_NAME "MAPS.ME")
+  set(BUNDLE_DISPLAY_NAME "MAPS.ME Desktop")
+  set(BUNDLE_ICON mac.icns)
+endif()
+
+set_target_properties(
+  ${PROJECT_NAME}
+  PROPERTIES
+  OUTPUT_NAME ${BUNDLE_NAME}
+)
+
+set(BUNDLE_EXECUTABLE ${BUNDLE_NAME})
+
+set(BUNDLE_FOLDER ${CMAKE_BINARY_DIR}/${BUNDLE_NAME}.app)
+set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
+set(DATA_DIR ${OMIM_ROOT}/data)
+
+execute_process(
+  COMMAND mkdir -p ${RESOURCES_FOLDER}/shaders_compiler
+  COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac.icns ${RESOURCES_FOLDER}
+  COMMAND cp ${PROJECT_SOURCE_DIR}/res/designer.icns ${RESOURCES_FOLDER}
+)
+
 function(copy_resources)
   foreach(file ${ARGN})
     execute_process(
@@ -180,22 +198,10 @@ if (PLATFORM_MAC)
     "-framework CFNetwork"
   )
 
-  set(BUNDLE_EXECUTABLE ${PROJECT_NAME})
-
   if (NOT APP_VERSION)
     set(BUNDLE_VERSION "UNKNOWN")
   else()
     set(BUNDLE_VERSION ${APP_VERSION})
-  endif()
-
-  if (BUILD_DESIGNER)
-    set(BUNDLE_NAME "MAPS.ME desktop designer")
-    set(BUNDLE_DISPLAY_NAME "MAPS.ME desktop designer")
-    set(BUNDLE_ICON designer.icns)
-  else()
-    set(BUNDLE_NAME "MAPS.ME desktop")
-    set(BUNDLE_DISPLAY_NAME "MAPS.ME desktop")
-    set(BUNDLE_ICON mac.icns)
   endif()
 
   configure_file(${PROJECT_SOURCE_DIR}/res/Info.plist.in ${PROJECT_SOURCE_DIR}/res/Info.plist)
@@ -203,6 +209,7 @@ if (PLATFORM_MAC)
   set_target_properties(
     ${PROJECT_NAME}
     PROPERTIES
+    OUTPUT_NAME ${BUNDLE_NAME}
     MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/res/Info.plist
   )
 endif()
@@ -210,7 +217,7 @@ endif()
 function(omim_append_built_tools)
   foreach(tool ${ARGN})
     add_custom_command(
-      TARGET desktop
+      TARGET ${PROJECT_NAME}
       POST_BUILD
       DEPENDS ${tool}
       COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/${tool} ${RESOURCES_FOLDER}
@@ -278,7 +285,7 @@ if (BUILD_DESIGNER)
 
   set(CPACK_GENERATOR DragNDrop)
   set(CPACK_DMG_FORMAT UDZO)
-  set(CPACK_DMG_VOLUME_NAME ${PROJECT_NAME})
+  set(CPACK_DMG_VOLUME_NAME ${BUNDLE_NAME})
   set(CPACK_PACKAGE_ICON ${PROJECT_SOURCE_DIR}/res/designer.icns)
   include(CPack)
 endif()

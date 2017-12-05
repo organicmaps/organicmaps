@@ -11,9 +11,7 @@ OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 if [ -z "${GENERATOR_TOOL-}" -o ! -x "${GENERATOR_TOOL-}" ]; then
   IT_PATHS_ARRAY=()
   for i in "${BUILD_PATH-}" "$OMIM_PATH" "$OMIM_PATH/.."/*omim*elease* "$OMIM_PATH/.."/*omim*ebug; do
-    if [ -d "$i/out" ]; then
-      IT_PATHS_ARRAY+=("$i/out/release/generator_tool" "$i/out/debug/generator_tool")
-    fi
+    IT_PATHS_ARRAY+=("$i/generator_tool")
   done
 
   if [ -d "$OMIM_PATH/../omim-xcode-build" ]; then
@@ -28,5 +26,5 @@ if [ -z "${GENERATOR_TOOL-}" -o ! -x "${GENERATOR_TOOL-}" ]; then
   done
 fi
 
-[ -z ${GENERATOR_TOOL-} -o ! -x "${GENERATOR_TOOL-}" ] && fail "No generator_tool found in ${IT_PATHS_ARRAY[*]-${GENERATOR_TOOL-}}"
+[ -z "${GENERATOR_TOOL-}" -o ! -x "${GENERATOR_TOOL-}" ] && fail "No generator_tool found in ${IT_PATHS_ARRAY[*]-${GENERATOR_TOOL-}}"
 echo "Using tool: $GENERATOR_TOOL"
