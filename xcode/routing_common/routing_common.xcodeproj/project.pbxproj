@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		40FF45D01F388EF80046BD40 /* vehicle_model_for_country_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40FF45CF1F388EF80046BD40 /* vehicle_model_for_country_test.cpp */; };
+		562D42921FD83FE100A995F3 /* transit_graph_data.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 562D42901FD83FE000A995F3 /* transit_graph_data.hpp */; };
+		562D42931FD83FE100A995F3 /* transit_graph_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 562D42911FD83FE100A995F3 /* transit_graph_data.cpp */; };
 		5647A4511F72BEB600DE1125 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5647A4521F72BEB600DE1125 /* libicu.a */; };
 		5667C1DD1F751F2700C6B31B /* transit_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5647A4531F72BF2B00DE1125 /* transit_test.cpp */; };
 		56D0E47D1F8E335D0084B18C /* num_mwm_id.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D0E47C1F8E335D0084B18C /* num_mwm_id.hpp */; };
@@ -43,6 +45,8 @@
 
 /* Begin PBXFileReference section */
 		40FF45CF1F388EF80046BD40 /* vehicle_model_for_country_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vehicle_model_for_country_test.cpp; sourceTree = "<group>"; };
+		562D42901FD83FE000A995F3 /* transit_graph_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_graph_data.hpp; sourceTree = "<group>"; };
+		562D42911FD83FE100A995F3 /* transit_graph_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_graph_data.cpp; sourceTree = "<group>"; };
 		5647A4521F72BEB600DE1125 /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5647A4531F72BF2B00DE1125 /* transit_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_test.cpp; sourceTree = "<group>"; };
 		5667C1DE1F751F4200C6B31B /* routing_common.pro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routing_common.pro; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 		671E78741E6A3BE200B2859B /* routing_common */ = {
 			isa = PBXGroup;
 			children = (
+				562D42911FD83FE100A995F3 /* transit_graph_data.cpp */,
+				562D42901FD83FE000A995F3 /* transit_graph_data.hpp */,
 				56E6E73F1F95D5690022CBD3 /* transit_speed_limits.hpp */,
 				56D0E47C1F8E335D0084B18C /* num_mwm_id.hpp */,
 				56E2EDA31F7E3F890092E9C2 /* transit_serdes.hpp */,
@@ -203,6 +209,7 @@
 				56E41D881F72B42F00E28E2D /* transit_types.hpp in Headers */,
 				56E2EDA61F7E3F8A0092E9C2 /* transit_serdes.hpp in Headers */,
 				56E6E7401F95D5690022CBD3 /* transit_speed_limits.hpp in Headers */,
+				562D42921FD83FE100A995F3 /* transit_graph_data.hpp in Headers */,
 				671E78891E6A3C5D00B2859B /* bicycle_model.hpp in Headers */,
 				671E788B1E6A3C5D00B2859B /* car_model.hpp in Headers */,
 				671E788F1E6A3C5D00B2859B /* vehicle_model.hpp in Headers */,
@@ -300,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56E2EDA81F7E3F8A0092E9C2 /* transit_types.cpp in Sources */,
+				562D42931FD83FE100A995F3 /* transit_graph_data.cpp in Sources */,
 				671E788A1E6A3C5D00B2859B /* car_model.cpp in Sources */,
 				671E78881E6A3C5D00B2859B /* bicycle_model.cpp in Sources */,
 				671E788E1E6A3C5D00B2859B /* vehicle_model.cpp in Sources */,
@@ -325,6 +333,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 671E78901E6A3C9C00B2859B /* common-debug.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
 			};
 			name = Debug;
 		};
@@ -332,6 +346,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 671E78911E6A3C9C00B2859B /* common-release.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
 			};
 			name = Release;
 		};
@@ -373,6 +393,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 671E78911E6A3C9C00B2859B /* common-release.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
 			};
 			name = "Production Full";
 		};

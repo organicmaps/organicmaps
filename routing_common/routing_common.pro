@@ -16,6 +16,7 @@ SOURCES += \
     bicycle_model.cpp \
     car_model.cpp \
     pedestrian_model.cpp \
+    transit_graph_data.cpp \
     transit_types.cpp \
     vehicle_model.cpp \
 
@@ -25,6 +26,7 @@ HEADERS += \
     car_model.hpp \
     num_mwm_id.hpp \
     pedestrian_model.hpp \
+    transit_graph_data.hpp \
     transit_serdes.hpp \
     transit_speed_limits.hpp \
     transit_types.hpp \
