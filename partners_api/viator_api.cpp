@@ -165,6 +165,9 @@ void MakeProducts(std::string const & src, std::vector<Product> & products)
     FromJSONObject(item, "currencyCode", product.m_currency);
     FromJSONObject(item, "thumbnailHiResURL", product.m_photoUrl);
     FromJSONObject(item, "webURL", product.m_pageUrl);
+
+    // Rescale rating to [0.0; 10.0] range
+    product.m_rating *= 2;
     products.push_back(move(product));
   }
 }
