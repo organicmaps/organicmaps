@@ -118,7 +118,7 @@ struct Callback
 
   auto getTypes = [](MWMDiscoveryMode m) -> vector<ItemType> {
     if (m == MWMDiscoveryModeOnline)
-      return {ItemType::Viator, ItemType::Attractions, ItemType::Cafes};
+      return {ItemType::Viator, ItemType::Attractions, ItemType::Cafes, ItemType::LocalExperts};
     return {ItemType::Attractions, ItemType::Cafes};
   };
 

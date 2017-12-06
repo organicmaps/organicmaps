@@ -21,7 +21,11 @@ final class DiscoveryLocalExpertCell: UICollectionViewCell {
                     price: Double,
                     currency: String,
                     tap: @escaping Tap) {
-    avatar.af_setImage(withURL: URL(string: avatarURL)!)
+    if avatarURL.count > 0 {
+      avatar.af_setImage(withURL: URL(string: avatarURL)!, imageTransition: .crossDissolve(kDefaultAnimationDuration))
+    } else {
+      avatar.image = nil
+    }
     self.name.text = name
     rating.value = ratingValue
     rating.type = ratingType

@@ -70,6 +70,10 @@ void ParseLocals(std::string const & src, std::vector<LocalExpert> & locals,
     FromJSONObject(item, "currency", local.m_currency);
     FromJSONObject(item, "about_me", local.m_aboutExpert);
     FromJSONObject(item, "i_will_show_you", local.m_offerDescription);
+
+    // Rescale rating to [0.0; 10.0] range.
+    local.m_rating *= 2;
+
     locals.push_back(move(local));
   }
 }
