@@ -676,9 +676,6 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
   if (m_notes->NotUploadedNotesCount())
     UploadNotes(key, secret);
 
-  // We need to be sure edits will be applied for correct features (all features are migrated).
-  LoadMapEdits();
-
   if (!HaveMapEditsToUpload())
   {
     LOG(LDEBUG, ("There are no local edits to upload."));
