@@ -10,13 +10,15 @@ import com.mapswithme.maps.viator.ViatorProduct;
 public interface UICallback
 {
   @MainThread
-  void onAttractionsReceived(@Nullable SearchResult[] results);
+  void onAttractionsReceived(@NonNull SearchResult[] results);
   @MainThread
-  void onCafesReceived(@Nullable SearchResult[] results);
+  void onCafesReceived(@NonNull SearchResult[] results);
   @MainThread
-  void onViatorProductsReceived(@Nullable ViatorProduct[] products);
+  void onViatorProductsReceived(@NonNull ViatorProduct[] products);
   @MainThread
-  void onLocalExpertsReceived(@Nullable LocalExpert[] experts);
+  void onLocalExpertsReceived(@NonNull LocalExpert[] experts);
   @MainThread
   void onError(@NonNull ItemType type);
+  @MainThread
+  void onNotFound();
 }

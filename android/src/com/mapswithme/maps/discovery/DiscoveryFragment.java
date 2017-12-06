@@ -25,6 +25,7 @@ import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.viator.ViatorProduct;
+import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Language;
@@ -189,33 +190,27 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
 
   @MainThread
   @Override
-  public void onAttractionsReceived(@Nullable SearchResult[] results)
+  public void onAttractionsReceived(@NonNull SearchResult[] results)
   {
-    if (results == null)
-      return;
-
+    updateViewsVisibility(results, R.id.attractionsTitle, R.id.attractions);
     ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(getActivity());
     getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedAdapter(results, listener));
   }
 
   @MainThread
   @Override
-  public void onCafesReceived(@Nullable SearchResult[] results)
+  public void onCafesReceived(@NonNull SearchResult[] results)
   {
-    if (results == null)
-      return;
-
+    updateViewsVisibility(results, R.id.eatAndDrinkTitle, R.id.food);
     ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(getActivity());
     getGallery(R.id.food).setAdapter(Factory.createSearchBasedAdapter(results, listener));
   }
 
   @MainThread
   @Override
-  public void onViatorProductsReceived(@Nullable ViatorProduct[] products)
+  public void onViatorProductsReceived(@NonNull ViatorProduct[] products)
   {
-    if (products == null)
-      return;
-
+    updateViewsVisibility(products, R.id.thingsToDoLayout, R.id.thingsToDo);
     String url = DiscoveryManager.nativeGetViatorUrl();
     ItemSelectedListener<Items.ViatorItem> listener = new BaseItemSelectedListener<>(getActivity());
     getGallery(R.id.thingsToDo).setAdapter(Factory.createViatorAdapter(products, url, listener));
@@ -223,9 +218,11 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
 
   @MainThread
   @Override
-  public void onLocalExpertsReceived(@Nullable LocalExpert[] experts)
+  public void onLocalExpertsReceived(@NonNull LocalExpert[] experts)
   {
+    updateViewsVisibility(experts, R.id.localGuidesTitle, R.id.localGuides);
 
+    //TODO: coming soon.
   }
 
   @Override
@@ -249,6 +246,34 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
       default:
         throw new AssertionError("Unknown item type: " + type);
     }
+  }
+
+  @Override
+  public void onNotFound()
+  {
+    View view = getRootView();
+
+    UiUtils.hide(view, R.id.galleriesLayout);
+
+    PlaceholderView placeholder = (PlaceholderView) view.findViewById(R.id.placeholder);
+    placeholder.setContent(R.drawable.img_cactus, R.string.discovery_button_404_error_title,
+                           R.string.discovery_button_404_error_message);
+    UiUtils.show(placeholder);
+  }
+
+  private <T> void updateViewsVisibility(@NonNull T[] results, @IdRes int... viewsId)
+  {
+    for (@IdRes int id : viewsId)
+      UiUtils.showIf(results.length != 0, getRootView().findViewById(id));
+  }
+
+  @NonNull
+  public View getRootView()
+  {
+    View view = getView();
+    if (view == null)
+      throw new AssertionError("Don't call getRootView when view is not created yet!");
+    return view;
   }
 
   private static class ViatorOfflineSelectedListener extends BaseItemSelectedListener<Items.Item>

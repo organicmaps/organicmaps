@@ -49,7 +49,7 @@ public final class DiscoveryParams {
     public int getItemsCount() { return mItemsCount; }
 
     @NonNull
-    public int[] getItemTypes() { return mItemTypes; }
+    int[] getItemTypes() { return mItemTypes; }
 
     @Override
     public String toString()
