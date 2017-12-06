@@ -14,6 +14,7 @@
 #include <bitset>
 #include <deque>
 #include <memory>
+#include <set>
 
 class UserMarksController
 {
@@ -90,8 +91,8 @@ private:
   double m_layerDepth;
   TUserMarksList m_userMarks;
   UserMark::Type m_type;
-  df::MarkIDCollection m_createdMarks;
-  df::MarkIDCollection m_removedMarks;
+  std::set<df::MarkID> m_createdMarks;
+  std::set<df::MarkID> m_removedMarks;
   bool m_isDirty = false;
 
   DISALLOW_COPY_AND_MOVE(UserMarkContainer);

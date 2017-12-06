@@ -155,7 +155,7 @@ UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
   // Push front an user mark.
   SetDirty();
   m_userMarks.push_front(unique_ptr<UserMark>(AllocateUserMark(ptOrg)));
-  m_createdMarks.m_marksID.push_back(m_userMarks.front()->GetId());
+  m_createdMarks.insert(m_userMarks.front()->GetId());
   return m_userMarks.front().get();
 }
 
@@ -185,6 +185,13 @@ UserMark * UserMarkContainer::GetUserMarkForEdit(size_t index)
 void UserMarkContainer::Clear()
 {
   SetDirty();
+
+  for (auto const & mark : m_userMarks)
+  {
+    if (m_createdMarks.find(mark->GetId()) == m_createdMarks.end())
+      m_removedMarks.insert(mark->GetId());
+  }
+  m_createdMarks.clear();
   m_userMarks.clear();
 }
 
@@ -227,7 +234,12 @@ void UserMarkContainer::DeleteUserMark(size_t index)
   ASSERT_LESS(index, m_userMarks.size(), ());
   if (index < m_userMarks.size())
   {
-    m_removedMarks.m_marksID.push_back(m_userMarks[index]->GetId());
+    auto const markId = m_userMarks[index]->GetId();
+    auto const it = m_createdMarks.find(markId);
+    if (it != m_createdMarks.end())
+      m_createdMarks.erase(it);
+    else
+      m_removedMarks.insert(markId);
     m_userMarks.erase(m_userMarks.begin() + index);
   }
   else
@@ -239,11 +251,18 @@ void UserMarkContainer::DeleteUserMark(size_t index)
 void UserMarkContainer::AcceptChanges(df::MarkIDCollection & createdMarks,
                                       df::MarkIDCollection & removedMarks)
 {
-  std::swap(m_createdMarks, createdMarks);
-  m_createdMarks.Clear();
+  createdMarks.Clear();
+  removedMarks.Clear();
 
-  std::swap(m_removedMarks, removedMarks);
-  m_removedMarks.Clear();
+  createdMarks.m_marksID.reserve(m_createdMarks.size());
+  for (auto const & markId : m_createdMarks)
+    createdMarks.m_marksID.push_back(markId);
+  m_createdMarks.clear();
+
+  removedMarks.m_marksID.reserve(m_removedMarks.size());
+  for (auto const & markId : m_removedMarks)
+    removedMarks.m_marksID.push_back(markId);
+  m_removedMarks.clear();
 
   m_isDirty = false;
 }
