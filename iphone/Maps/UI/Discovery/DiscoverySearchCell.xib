@@ -24,7 +24,6 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="2EQ-Jv-uS6"/>
                             <constraint firstAttribute="height" constant="40" id="NA2-Jb-7xH"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="wzq-Kw-z3I"/>
                         </constraints>
                         <state key="normal" title="Button"/>
                         <userDefinedRuntimeAttributes>

@@ -316,12 +316,16 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
             auto pageURL = [NSURL URLWithString:@(p.m_pageUrl.c_str())];
             if (!imageURL || !pageURL)
               continue;
-            auto item = [[MWMViatorItemModel alloc] initWithImageURL:imageURL
-                                                             pageURL:pageURL
-                                                               title:@(p.m_title.c_str())
-                                                              rating:p.m_rating
-                                                            duration:@(p.m_duration.c_str())
-                                                               price:@(p.m_priceFormatted.c_str())];
+            std::string const ratingFormatted = rating::GetRatingFormatted(p.m_rating);
+            auto const ratingValue = rating::GetImpress(p.m_rating);
+            auto item = [[MWMViatorItemModel alloc]
+                initWithImageURL:imageURL
+                         pageURL:pageURL
+                           title:@(p.m_title.c_str())
+                 ratingFormatted:@(ratingFormatted.c_str())
+                      ratingType:static_cast<MWMRatingSummaryViewValueType>(ratingValue)
+                        duration:@(p.m_duration.c_str())
+                           price:@(p.m_priceFormatted.c_str())];
             [items addObject:item];
           }
 

@@ -5,6 +5,8 @@
 
 #include "DiscoveryControllerViewModel.hpp"
 
+#include "map/place_page_info.hpp"
+
 #include "partners_api/locals_api.hpp"
 #include "partners_api/viator_api.hpp"
 
@@ -149,8 +151,12 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
                       m_failedTypes.end());
   m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), type),
                        m_loadingTypes.end());
-  [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:position]
-                withRowAnimation:kDefaultRowAnimation];
+
+  auto indexSet = [NSIndexSet indexSetWithIndex:position];
+  if (m_types.empty())
+    [self.tableView reloadSections:indexSet withRowAnimation:kDefaultRowAnimation];
+  else
+    [self.tableView deleteSections:indexSet withRowAnimation:kDefaultRowAnimation];
 }
 
 - (void)registerCells
@@ -159,6 +165,7 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   [tv registerWithCellClass:[MWMDiscoverySpinnerCell class]];
   [tv registerWithCellClass:[MWMDiscoveryOnlineTemplateCell class]];
   [tv registerWithCellClass:[MWMDiscoveryCollectionHolderCell class]];
+  [tv registerWithCellClass:[MWMDiscoveryNoResultsCell class]];
 }
 
 - (NSInteger)position:(ItemType const)type
@@ -195,6 +202,9 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+  if (m_types.empty())
+    return nil;
+
   switch (m_types[section])
   {
   case ItemType::Viator: return L(@"discovery_button_subtitle_things_to_do");
@@ -216,8 +226,9 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
 {
   if (m_types.empty())
   {
-    // TODO: Use placeholder
-    return nil;
+    Class cls = [MWMDiscoveryNoResultsCell class];
+    return static_cast<MWMDiscoveryNoResultsCell *>(
+        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
   }
 
   auto const type = m_types[indexPath.section];
@@ -320,16 +331,40 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
     auto const & v = model.GetViatorAt(indexPath.row);
     auto imageURL = [NSURL URLWithString:@(v.m_photoUrl.c_str())];
     auto pageURL = [NSURL URLWithString:@(v.m_pageUrl.c_str())];
-    auto viatorModel = [[MWMViatorItemModel alloc] initWithImageURL:imageURL
-                                                            pageURL:pageURL
-                                                              title:@(v.m_title.c_str())
-                                                             rating:v.m_rating
-                                                           duration:@(v.m_duration.c_str())
-                                                              price:@(v.m_priceFormatted.c_str())];
+    string const ratingFormatted = place_page::rating::GetRatingFormatted(v.m_rating);
+    auto const ratingValue = static_cast<int>(place_page::rating::GetImpress(v.m_rating));
+    auto viatorModel = [[MWMViatorItemModel alloc]
+        initWithImageURL:imageURL
+                 pageURL:pageURL
+                   title:@(v.m_title.c_str())
+         ratingFormatted:@(ratingFormatted.c_str())
+              ratingType:static_cast<MWMRatingSummaryViewValueType>(ratingValue)
+                duration:@(v.m_duration.c_str())
+                   price:@(v.m_priceFormatted.c_str())];
     cell.model = viatorModel;
     return cell;
   }
-  case ItemType::LocalExperts: return nil;
+  case ItemType::LocalExperts:
+  {
+    Class cls = [MWMDiscoveryLocalExpertCell class];
+    auto cell = static_cast<MWMDiscoveryLocalExpertCell *>(
+        [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+    auto const & expert = model.GetExpertAt(indexPath.row);
+
+    string const ratingFormatted = place_page::rating::GetRatingFormatted(expert.m_rating);
+    auto const ratingValue = static_cast<int>(place_page::rating::GetImpress(expert.m_rating));
+
+    [cell configWithAvatarURL:@(expert.m_photoUrl.c_str())
+                         name:@(expert.m_name.c_str())
+                  ratingValue:@(ratingFormatted.c_str())
+                   ratingType:static_cast<MWMRatingSummaryViewValueType>(ratingValue)
+                        price:expert.m_pricePerHour
+                     currency:@(expert.m_currency.c_str())
+                          tap:^{
+                            [self.delegate tapOnItem:type atIndex:indexPath.row];
+                          }];
+    return cell;
+  }
   case ItemType::Hotels: NSAssert(false, @""); return nil;
   }
 }

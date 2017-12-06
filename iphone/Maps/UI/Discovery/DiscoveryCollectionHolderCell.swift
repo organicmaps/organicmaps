@@ -32,22 +32,23 @@ final class DiscoveryCollectionHolderCell: UITableViewCell {
   @IBOutlet private(set) weak var collectionView: UICollectionView!
 
   @objc func configSearchLayout() {
-    let size = Size.search;
-    cellHeight.constant = size.height;
-    setNeedsLayout()
-    collectionView.collectionViewLayout = DiscoveryItemLayout(size: Size.search)
+    config(size: Size.search)
     collectionView.register(cellClass: DiscoverySearchCell.self)
   }
 
   @objc func configViatorLayout() {
-    let size = Size.viator;
-    cellHeight.constant = size.height;
-    setNeedsLayout()
-    collectionView.collectionViewLayout = DiscoveryItemLayout(size: Size.viator)
+    config(size: Size.viator)
     collectionView.register(cellClass: ViatorElement.self)
   }
 
   @objc func configLocalExpertsLayout() {
-    // TODO: config local expert layout and register cell.
+    config(size: Size.localExpert)
+    collectionView.register(cellClass: DiscoveryLocalExpertCell.self)
+  }
+
+  private func config(size: CGSize) {
+    cellHeight.constant = size.height
+    setNeedsLayout()
+    collectionView.collectionViewLayout = DiscoveryItemLayout(size: size)
   }
 }

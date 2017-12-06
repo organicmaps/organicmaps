@@ -16,11 +16,7 @@ final class UGCReviewCell: MWMTableViewCell {
 
   @IBOutlet private weak var ratingView: RatingSummaryView! {
     didSet {
-      ratingView.horribleColor = UIColor.ratingRed()
-      ratingView.badColor = UIColor.ratingOrange()
-      ratingView.normalColor = UIColor.ratingYellow()
-      ratingView.goodColor = UIColor.ratingLightGreen()
-      ratingView.excellentColor = UIColor.ratingGreen()
+      ratingView.defaultConfig()
       ratingView.textFont = UIFont.bold16()
       ratingView.textSize = 16
     }

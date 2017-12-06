@@ -23,6 +23,9 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="mUK-tO-itf">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                    </userDefinedRuntimeAttributes>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -32,6 +35,9 @@
                 <constraint firstAttribute="trailing" secondItem="mUK-tO-itf" secondAttribute="trailing" id="TAe-XS-STX"/>
                 <constraint firstItem="mUK-tO-itf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gRc-X1-7hY"/>
             </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+            </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="33.5" y="54.5"/>
         </view>
     </objects>

@@ -1,6 +1,7 @@
 @objc(MWMViatorElement)
 final class ViatorElement: UICollectionViewCell {
   @IBOutlet private weak var more: UIButton!
+  @IBOutlet private weak var priceView: UIView!
 
   @IBOutlet private weak var image: UIImageView!
   @IBOutlet private weak var title: UILabel! {
@@ -19,12 +20,18 @@ final class ViatorElement: UICollectionViewCell {
 
   @IBOutlet private weak var price: UILabel! {
     didSet {
-      price.font = UIFont.medium14()
       price.textColor = UIColor.linkBlue()
+      price.font = UIFont.medium14()
     }
   }
 
-  @IBOutlet private var rating: [UIImageView]!
+  @IBOutlet private weak var rating: RatingSummaryView! {
+    didSet {
+      rating.defaultConfig()
+      rating.textFont = UIFont.bold12()
+      rating.textSize = 12
+    }
+  }
 
   private var isLastCell = false {
     didSet {
@@ -33,7 +40,8 @@ final class ViatorElement: UICollectionViewCell {
       title.isHidden = isLastCell
       duration.isHidden = isLastCell
       price.isHidden = isLastCell
-      rating.forEach { $0.isHidden = isLastCell }
+      rating.isHidden = isLastCell
+      priceView.isHidden = isLastCell
     }
   }
 
@@ -60,14 +68,9 @@ final class ViatorElement: UICollectionViewCell {
         image.af_setImage(withURL: model.imageURL, imageTransition: .crossDissolve(kDefaultAnimationDuration))
         title.text = model.title
         duration.text = model.duration
-        price.text = model.price
-        rating.forEach {
-          if Double($0.tag) <= model.rating.rounded(.up) {
-            $0.image = #imageLiteral(resourceName: "ic_star_rating_on")
-          } else {
-            $0.image = UIColor.isNightMode() ? #imageLiteral(resourceName: "ic_star_rating_off_dark") : #imageLiteral(resourceName: "ic_star_rating_off_light")
-          }
-        }
+        price.text = String(coreFormat: L("place_page_starting_from"), arguments: [model.price])
+        rating.value = model.ratingFormatted
+        rating.type = model.ratingType
 
         backgroundColor = UIColor.white()
         layer.cornerRadius = 6

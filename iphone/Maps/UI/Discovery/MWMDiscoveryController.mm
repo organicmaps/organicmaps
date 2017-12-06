@@ -181,7 +181,8 @@ struct Callback
                                                    subtitle:@(item.GetFeatureType().c_str())
                                                        type:MWMRoutePointTypeFinish
                                           intermediateIndex:0];
-  [MWMRouter buildToPoint:pt bestRouter:YES];
+  [MWMRouter setType:MWMRouterTypePedestrian];
+  [MWMRouter buildToPoint:pt bestRouter:NO];
   [self.navigationController popViewControllerAnimated:YES];
 
   auto const categoryAndProvider = StatCategoryAndProvider(type);

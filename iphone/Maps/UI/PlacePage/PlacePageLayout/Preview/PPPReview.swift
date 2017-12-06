@@ -49,11 +49,7 @@ final class PPPReview: MWMTableViewCell {
         priceSetter(pricingLabel)
       }
     } else {
-      ratingSummaryView.horribleColor = UIColor.ratingRed()
-      ratingSummaryView.badColor = UIColor.ratingOrange()
-      ratingSummaryView.normalColor = UIColor.ratingYellow()
-      ratingSummaryView.goodColor = UIColor.ratingLightGreen()
-      ratingSummaryView.excellentColor = UIColor.ratingGreen()
+      ratingSummaryView.defaultConfig()
 
       if reviewsCount > 0 {
         reviewsLabel.text = String(coreFormat: L("placepage_summary_rating_description"), arguments: [reviewsCount])

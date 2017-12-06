@@ -8,9 +8,9 @@ final class DiscoverySearchCell: UICollectionViewCell {
   private var tap: Tap?
 
   @objc func config(title: String, subtitle: String, distance: String, tap: @escaping Tap) {
-    self.title.text = title;
-    self.subtitle.text = subtitle;
-    self.distance.text = distance;
+    self.title.text = title
+    self.subtitle.text = subtitle
+    self.distance.text = distance
     self.tap = tap
   }
 

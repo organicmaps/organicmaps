@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiscoveryLocalExpertCell" id="bjC-eX-cME" customClass="MWMDiscoveryLocalExpertCell">
+            <rect key="frame" x="0.0" y="0.0" width="160" height="196"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="160" height="196"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WIp-9D-zCf">
+                        <rect key="frame" x="40" y="12" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="SzI-04-VFX"/>
+                            <constraint firstAttribute="width" constant="80" id="aTd-ud-dX2"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="40"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WvH-Ak-fYM">
+                        <rect key="frame" x="12" y="104" width="136" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="136" id="0qb-xy-rRb"/>
+                            <constraint firstAttribute="height" constant="20" id="D3X-Qh-8pr"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KmA-vt-YxO" customClass="RatingSummaryView" customModule="cm_dbg" customModuleProvider="target">
+                        <rect key="frame" x="56" y="128" width="48" height="20"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="6WJ-qD-apL"/>
+                            <constraint firstAttribute="height" constant="20" id="jcd-OG-vjG"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="excellentImage" value="ic_24px_rating_excellent"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="goodImage" value="ic_24px_rating_excellent"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="normalImage" value="ic_24px_rating_normal"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="badImage" value="ic_24px_rating_bad"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="horribleImage" value="ic_24px_rating_horrible"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="topOffset">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="bottomOffset">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="leadingImageOffset">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="margin">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="trailingTextOffset">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vR-oH-2gt">
+                        <rect key="frame" x="0.0" y="156" width="160" height="40"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="NFU-3P-bPD"/>
+                            <constraint firstAttribute="height" constant="40" id="Yyw-mG-8Io"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="tapOnPrice" destination="bjC-eX-cME" eventType="touchUpInside" id="Stz-gF-ZeN"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="5vR-oH-2gt" firstAttribute="centerX" secondItem="bjC-eX-cME" secondAttribute="centerX" id="A7d-cI-icR"/>
+                <constraint firstItem="WIp-9D-zCf" firstAttribute="top" secondItem="bjC-eX-cME" secondAttribute="top" constant="12" id="Hdr-qF-Wyu"/>
+                <constraint firstItem="WvH-Ak-fYM" firstAttribute="centerX" secondItem="WIp-9D-zCf" secondAttribute="centerX" id="JT7-a1-XfK"/>
+                <constraint firstItem="KmA-vt-YxO" firstAttribute="centerX" secondItem="WvH-Ak-fYM" secondAttribute="centerX" id="ai8-rn-tev"/>
+                <constraint firstItem="WIp-9D-zCf" firstAttribute="centerX" secondItem="bjC-eX-cME" secondAttribute="centerX" id="fbj-br-6kW"/>
+                <constraint firstItem="KmA-vt-YxO" firstAttribute="top" secondItem="WvH-Ak-fYM" secondAttribute="bottom" constant="4" id="iw3-ld-rqj"/>
+                <constraint firstAttribute="bottom" secondItem="5vR-oH-2gt" secondAttribute="bottom" priority="750" id="lUj-bi-oC1"/>
+                <constraint firstItem="5vR-oH-2gt" firstAttribute="top" secondItem="KmA-vt-YxO" secondAttribute="bottom" constant="8" id="pDT-4d-d9L"/>
+                <constraint firstItem="WvH-Ak-fYM" firstAttribute="top" secondItem="WIp-9D-zCf" secondAttribute="bottom" constant="12" id="uvh-8Y-Ed6"/>
+            </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="6"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                    <integer key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="avatar" destination="WIp-9D-zCf" id="NO6-oZ-fBH"/>
+                <outlet property="name" destination="WvH-Ak-fYM" id="SDk-7F-Ff1"/>
+                <outlet property="price" destination="5vR-oH-2gt" id="IFd-Z9-x8k"/>
+                <outlet property="rating" destination="KmA-vt-YxO" id="fp1-El-5cn"/>
+            </connections>
+            <point key="canvasLocation" x="-165" y="-28"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_24px_rating_bad" width="24" height="24"/>
+        <image name="ic_24px_rating_excellent" width="24" height="24"/>
+        <image name="ic_24px_rating_horrible" width="24" height="24"/>
+        <image name="ic_24px_rating_normal" width="24" height="24"/>
+    </resources>
+</document>
