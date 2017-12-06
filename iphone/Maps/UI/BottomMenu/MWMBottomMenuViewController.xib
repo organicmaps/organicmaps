@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -169,7 +169,6 @@
                 <outlet property="downloadBadge" destination="uDI-ZC-4wx" id="7BL-z6-Xyh"/>
                 <outlet property="mainButtonsHeight" destination="69A-eu-uLp" id="Q4N-kN-l4l"/>
                 <outlet property="menuButton" destination="svD-yi-GrZ" id="JH2-aG-h1U"/>
-                <outlet property="searchButton" destination="No0-ld-JX3" id="M7a-qp-wGF"/>
                 <outlet property="separatorHeight" destination="wSx-Bp-1WM" id="f7K-ic-Yai"/>
             </connections>
             <point key="canvasLocation" x="34" y="309"/>

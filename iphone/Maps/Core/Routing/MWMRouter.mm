@@ -9,7 +9,6 @@
 #import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouterRecommendation.h"
-#import "MWMSearch.h"
 #import "MWMStorage.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
@@ -480,7 +479,6 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 + (void)stop:(BOOL)removeRoutePoints
 {
   [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
-  [MWMSearch clear];
   [self doStop:removeRoutePoints];
   [[MWMMapViewControlsManager manager] onRouteStop];
   [MWMRouter router].canAutoAddLastLocation = YES;

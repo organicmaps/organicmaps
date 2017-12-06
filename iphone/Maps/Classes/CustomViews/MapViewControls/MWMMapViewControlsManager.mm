@@ -272,6 +272,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)onRouteStop
 {
+  self.searchManager.state = MWMSearchManagerStateHidden;
   self.sideButtons.zoomHidden = self.zoomHidden;
   [self.navigationManager onRouteStop];
   self.disableStandbyOnRouteFollowing = NO;

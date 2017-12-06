@@ -14,7 +14,6 @@ CGFloat constexpr kDefaultMainButtonsHeight = 48;
 @property(nonatomic) CGFloat layoutDuration;
 @property(nonatomic) CGRect availableArea;
 @property(weak, nonatomic) IBOutlet MWMButton * menuButton;
-@property(weak, nonatomic) IBOutlet MWMButton * searchButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsHeight;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * separatorHeight;
