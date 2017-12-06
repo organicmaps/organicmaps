@@ -15,8 +15,14 @@ include($$ROOT_DIR/common.pri)
 
 QT *= core
 
+HEADERS += \
+  transit_tools.hpp \
+
 SOURCES += \
   ../../testing/testingmain.cpp \
+  transit_graph_test.cpp \
+  transit_json_parsing_test.cpp \
+  transit_test.cpp
   transit_test.cpp \
   vehicle_model_for_country_test.cpp \
   vehicle_model_test.cpp \

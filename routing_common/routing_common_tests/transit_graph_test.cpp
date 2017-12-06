@@ -1,9 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests/transit_tools.hpp"
+#include "routing_common/routing_common_tests/transit_tools.hpp"
 
-#include "generator/transit_generator.hpp"
-
+#include "routing_common/transit_graph_data.hpp"
 #include "routing_common/transit_types.hpp"
 
 #include "base/stl_add.hpp"

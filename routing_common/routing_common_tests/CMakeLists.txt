@@ -2,7 +2,10 @@ project(routing_common_tests)
 
 set(
   SRC
+  transit_graph_test.cpp
+  transit_json_parsing_test.cpp
   transit_test.cpp
+  transit_tools.hpp
   vehicle_model_for_country_test.cpp
   vehicle_model_test.cpp
 )
