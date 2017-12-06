@@ -1037,6 +1037,12 @@ void Framework::ShowTrack(Track const & track)
 
 void Framework::ShowFeatureByMercator(m2::PointD const & pt)
 {
+  if (m_drapeEngine != nullptr)
+  {
+    m_drapeEngine->SetModelViewCenter(pt, scales::GetUpperComfortScale(), true /* isAnim */,
+                                      true /* trackVisibleViewport */);
+  }
+
   place_page::Info info;
   std::string name;
   GetBookmarkManager().SelectionMark()->SetPtOrg(pt);
