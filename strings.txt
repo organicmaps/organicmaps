@@ -27609,3 +27609,7 @@
   [whats_new_discovery_message]
     en = Discover things around in one click!
     ru = Ищите места “Поблизости” в один клик!
+
+  [price_per_hour]
+    en = %s/hour
+    ru = %s/час
