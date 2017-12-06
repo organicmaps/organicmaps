@@ -112,10 +112,7 @@ add_library(${PROJECT_NAME} ${SRC})
 omim_add_test_subdirectory(generator_tests_support)
 omim_add_test_subdirectory(generator_tests)
 
-if (NOT SKIP_GTOOL)
-  add_subdirectory(generator_tool)
-endif()
-
+add_subdirectory(generator_tool)
 add_subdirectory(booking_quality_check)
 add_subdirectory(feature_segments_checker)
 add_subdirectory(restaurants_info)
