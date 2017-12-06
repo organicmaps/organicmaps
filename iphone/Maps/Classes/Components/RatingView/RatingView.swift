@@ -308,6 +308,9 @@ import UIKit
   }
 
   private var viewSize = CGSize()
+
+  var scheduledUpdate: DispatchWorkItem?
+
   func updateImpl() {
     let layers = createLayers()
     layer.sublayers = layers
@@ -317,16 +320,10 @@ import UIKit
     frame.size = intrinsicContentSize
   }
 
-  @objc func doUpdate() {
-    DispatchQueue.main.async {
-      self.updateImpl()
-    }
-  }
-
   func update() {
-    let sel = #selector(doUpdate)
-    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: sel, object: nil)
-    perform(sel, with: nil, afterDelay: 1 / 120)
+    scheduledUpdate?.cancel()
+    scheduledUpdate = DispatchWorkItem { self.updateImpl() }
+    DispatchQueue.main.async(execute: scheduledUpdate!)
   }
 
   override var intrinsicContentSize: CGSize {
