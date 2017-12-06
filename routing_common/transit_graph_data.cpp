@@ -221,86 +221,58 @@ void GraphData::DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap 
                  [](Edge const & e1, Edge const & e2) { return e1 == e2; });
 }
 
-void GraphData::Serialize(Writer & writer) const
+void GraphData::Serialize(Writer & writer)
 {
-  TransitHeader header;
-
   auto const startOffset = writer.Pos();
   Serializer<Writer> serializer(writer);
   FixedSizeSerializer<Writer> numberSerializer(writer);
-  numberSerializer(header);
-  header.m_stopsOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  m_header.Reset();
+  numberSerializer(m_header);
+  m_header.m_stopsOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_stops);
-  header.m_gatesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  m_header.m_gatesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_gates);
-  header.m_edgesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  m_header.m_edgesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_edges);
-  header.m_transfersOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  m_header.m_transfersOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_transfers);
-  header.m_linesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  m_header.m_linesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_lines);
-  header.m_shapesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  m_header.m_shapesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_shapes);
-  header.m_networksOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  m_header.m_networksOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   serializer(m_networks);
-  header.m_endOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  m_header.m_endOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   // Rewriting header info.
-  CHECK(header.IsValid(), (header));
+  CHECK(m_header.IsValid(), (m_header));
   auto const endOffset = writer.Pos();
   writer.Seek(startOffset);
-  numberSerializer(header);
+  numberSerializer(m_header);
   writer.Seek(endOffset);
 
-  LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Header:", header));
+  LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Header:", m_header));
 }
 
 void GraphData::Deserialize(Reader & reader)
 {
   NonOwningReaderSource src(reader);
-  transit::Deserializer<NonOwningReaderSource> deserializer(src);
-  transit::FixedSizeDeserializer<NonOwningReaderSource> numberDeserializer(src);
 
-  transit::TransitHeader header;
-  numberDeserializer(header);
-  CHECK(header.IsValid(), ());
-
-  CHECK_EQUAL(src.Pos(), header.m_stopsOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_stops);
-  CHECK(transit::IsValidSortedUnique(m_stops), ());
-
-  CHECK_EQUAL(src.Pos(), header.m_gatesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_gates);
-  CHECK(transit::IsValidSortedUnique(m_gates), ());
-
-  CHECK_EQUAL(src.Pos(), header.m_edgesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_edges);
-  CHECK(transit::IsValidSortedUnique(m_edges), ());
-
-  CHECK_EQUAL(src.Pos(), header.m_transfersOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_transfers);
-  CHECK(transit::IsValidSortedUnique(m_transfers), ());
-
-  CHECK_EQUAL(src.Pos(), header.m_linesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_lines);
-  CHECK(transit::IsValidSortedUnique(m_lines), ());
-
-  CHECK_EQUAL(src.Pos(), header.m_shapesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_shapes);
-  CHECK(transit::IsValidSortedUnique(m_shapes), ());
-
-  CHECK_EQUAL(src.Pos(), header.m_networksOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_networks);
-  CHECK(transit::IsValidSortedUnique(m_networks), ());
-
-  CHECK_EQUAL(src.Pos(), header.m_endOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  ReadHeader(src);
+  ReadStops(src);
+  ReadGates(src);
+  ReadEdges(src);
+  ReadTransfers(src);
+  ReadLines(src);
+  ReadShapes(src);
+  ReadNetworks(src);
 }
 
 void GraphData::AppendTo(GraphData const & rhs)
@@ -504,6 +476,77 @@ void GraphData::ClipShapes()
   }
 
   m_shapes.swap(shapes);
+}
+
+void GraphData::ReadHeader(NonOwningReaderSource & src)
+{
+  FixedSizeDeserializer<NonOwningReaderSource> numberDeserializer(src);
+  numberDeserializer(m_header);
+  CHECK_EQUAL(src.Pos(), m_header.m_stopsOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  CHECK(m_header.IsValid(), ());
+}
+
+void GraphData::ReadStops(NonOwningReaderSource & src)
+{
+  Deserializer<NonOwningReaderSource> deserializer(src);
+  CHECK_EQUAL(src.Pos(), m_header.m_stopsOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_stops);
+  CHECK_EQUAL(src.Pos(), m_header.m_gatesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  CHECK(IsValidSortedUnique(m_stops), ());
+}
+
+void GraphData::ReadGates(NonOwningReaderSource & src)
+{
+  Deserializer<NonOwningReaderSource> deserializer(src);
+  CHECK_EQUAL(src.Pos(), m_header.m_gatesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_gates);
+  CHECK_EQUAL(src.Pos(), m_header.m_edgesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  CHECK(IsValidSortedUnique(m_gates), ());
+}
+
+void GraphData::ReadEdges(NonOwningReaderSource & src)
+{
+  Deserializer<NonOwningReaderSource> deserializer(src);
+  CHECK_EQUAL(src.Pos(), m_header.m_edgesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_edges);
+  CHECK_EQUAL(src.Pos(), m_header.m_transfersOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  CHECK(IsValidSortedUnique(m_edges), ());
+}
+
+void GraphData::ReadTransfers(NonOwningReaderSource & src)
+{
+  Deserializer<NonOwningReaderSource> deserializer(src);
+  CHECK_EQUAL(src.Pos(), m_header.m_transfersOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_transfers);
+  CHECK_EQUAL(src.Pos(), m_header.m_linesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  CHECK(IsValidSortedUnique(m_transfers), ());
+}
+
+void GraphData::ReadLines(NonOwningReaderSource & src)
+{
+  Deserializer<NonOwningReaderSource> deserializer(src);
+  CHECK_EQUAL(src.Pos(), m_header.m_linesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_lines);
+  CHECK_EQUAL(src.Pos(), m_header.m_shapesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  CHECK(IsValidSortedUnique(m_lines), ());
+}
+
+void GraphData::ReadShapes(NonOwningReaderSource & src)
+{
+  Deserializer<NonOwningReaderSource> deserializer(src);
+  CHECK_EQUAL(src.Pos(), m_header.m_shapesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_shapes);
+  CHECK_EQUAL(src.Pos(), m_header.m_networksOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  CHECK(IsValidSortedUnique(m_shapes), ());
+}
+
+void GraphData::ReadNetworks(NonOwningReaderSource & src)
+{
+  Deserializer<NonOwningReaderSource> deserializer(src);
+  CHECK_EQUAL(src.Pos(), m_header.m_networksOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(m_networks);
+  CHECK_EQUAL(src.Pos(), m_header.m_endOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  CHECK(IsValidSortedUnique(m_networks), ());
 }
 }  // namespace transit
 }  // namespace routing

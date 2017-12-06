@@ -507,7 +507,7 @@ void TestGraph(GraphData const & actualGraph, Graph const & expectedGraph)
   TestForEquivalence(actualGraph.GetNetworks(), expectedGraph.m_networks);
 }
 
-void SerializeAndDeserializeGraph(GraphData const & src, GraphData & dst)
+void SerializeAndDeserializeGraph(GraphData & src, GraphData & dst)
 {
   vector<uint8_t> buffer;
   MemWriter<decltype(buffer)> writer(buffer);

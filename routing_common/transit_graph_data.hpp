@@ -126,7 +126,7 @@ class GraphData
 {
 public:
   void DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping);
-  void Serialize(Writer & writer) const;
+  void Serialize(Writer & writer);
   void Deserialize(Reader & reader);
   void AppendTo(GraphData const & rhs);
   void Clear();
@@ -152,9 +152,9 @@ public:
 
 private:
   DECLARE_VISITOR_AND_DEBUG_PRINT(GraphData, visitor(m_stops, "stops"), visitor(m_gates, "gates"),
-  visitor(m_edges, "edges"), visitor(m_transfers, "transfers"),
-  visitor(m_lines, "lines"), visitor(m_shapes, "shapes"),
-  visitor(m_networks, "networks"))
+                                  visitor(m_edges, "edges"), visitor(m_transfers, "transfers"),
+                                  visitor(m_lines, "lines"), visitor(m_shapes, "shapes"),
+                                  visitor(m_networks, "networks"))
 
   bool IsUnique() const;
   bool IsSorted() const;
@@ -183,6 +183,16 @@ private:
   /// \brief Removes all shapes from |m_shapes| which are not reffered form |m_edges|.
   void ClipShapes();
 
+  void ReadHeader(NonOwningReaderSource & src);
+  void ReadStops(NonOwningReaderSource & src);
+  void ReadGates(NonOwningReaderSource & src);
+  void ReadEdges(NonOwningReaderSource & src);
+  void ReadTransfers(NonOwningReaderSource & src);
+  void ReadLines(NonOwningReaderSource & src);
+  void ReadShapes(NonOwningReaderSource & src);
+  void ReadNetworks(NonOwningReaderSource & src);
+
+  TransitHeader m_header;
   std::vector<Stop> m_stops;
   std::vector<Gate> m_gates;
   std::vector<Edge> m_edges;
