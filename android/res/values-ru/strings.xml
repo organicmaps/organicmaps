@@ -1254,4 +1254,5 @@
 	<string name="whats_new_transit_message">Стройте маршруты с помощью метро! Чтобы увидеть изменения, пожалуйста, обновите карты.</string>
 	<string name="whats_new_discovery_title">Места “Поблизости”</string>
 	<string name="whats_new_discovery_message">Ищите места “Поблизости” в один клик!</string>
+	<string name="price_per_hour">%s/час</string>
 </resources>

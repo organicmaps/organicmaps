@@ -2179,3 +2179,5 @@
 "whats_new_discovery_title" = "Места “Поблизости”";
 
 "whats_new_discovery_message" = "Ищите места “Поблизости” в один клик!";
+
+"price_per_hour" = "%s/час";
