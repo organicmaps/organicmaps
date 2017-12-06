@@ -1053,16 +1053,37 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (destination == null)
       return;
 
-    addTask(new MapTask()
+    String action = data.getAction();
+    if (TextUtils.isEmpty(action))
+      return;
+
+    MapTask task;
+    if (action.equals(DiscoveryActivity.ACTION_ROUTE_TO))
     {
-      @Override
-      public boolean run(MwmActivity target)
+      task = new MapTask()
       {
-        RoutingController.get().setRouterType(Framework.ROUTER_TYPE_PEDESTRIAN);
-        RoutingController.get().prepare(true, destination);
-        return false;
-      }
-    });
+        @Override
+        public boolean run(MwmActivity target)
+        {
+          RoutingController.get().setRouterType(Framework.ROUTER_TYPE_PEDESTRIAN);
+          RoutingController.get().prepare(true, destination);
+          return false;
+        }
+      };
+    }
+    else
+    {
+      task = new MapTask()
+      {
+        @Override
+        public boolean run(MwmActivity target)
+        {
+          Framework.nativeShowFeatureByLatLon(destination.getLat(), destination.getLon());
+          return false;
+        }
+      };
+    }
+    addTask(task);
   }
 
   @Override

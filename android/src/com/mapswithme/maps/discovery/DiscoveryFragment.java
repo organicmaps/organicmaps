@@ -301,20 +301,32 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     @Override
     public void onItemSelected(@NonNull Items.SearchItem item)
     {
-      // TODO: Show point on the map. Coming soon.
+      Intent intent = new Intent(DiscoveryActivity.ACTION_SHOW_ON_MAP);
+      setResult(item, intent);
     }
 
     @Override
     public void onActionButtonSelected(@NonNull Items.SearchItem item)
     {
-      Intent intent = new Intent();
-      String title = TextUtils.isEmpty(item.getTitle()) ? "" : item.getTitle();
-      String subtitle = TextUtils.isEmpty(item.getSubtitle()) ? "" : item.getSubtitle();
-      MapObject poi = MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH, title, subtitle,
-                                                item.getLat(), item.getLon());
+      Intent intent = new Intent(DiscoveryActivity.ACTION_ROUTE_TO);
+      setResult(item, intent);
+    }
+
+    private void setResult(@NonNull Items.SearchItem item, @NonNull Intent intent)
+    {
+      MapObject poi = createMapObject(item);
       intent.putExtra(DiscoveryActivity.EXTRA_DISCOVERY_OBJECT, poi);
       getContext().setResult(Activity.RESULT_OK, intent);
       getContext().finish();
+    }
+
+    @NonNull
+    private static MapObject createMapObject(@NonNull Items.SearchItem item)
+    {
+      String title = TextUtils.isEmpty(item.getTitle()) ? "" : item.getTitle();
+      String subtitle = TextUtils.isEmpty(item.getSubtitle()) ? "" : item.getSubtitle();
+      return MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH, title, subtitle,
+                                       item.getLat(), item.getLon());
     }
   }
 }
