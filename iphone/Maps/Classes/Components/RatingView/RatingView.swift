@@ -322,7 +322,7 @@ import UIKit
 
   func update() {
     scheduledUpdate?.cancel()
-    scheduledUpdate = DispatchWorkItem { self.updateImpl() }
+    scheduledUpdate = DispatchWorkItem { [weak self] in self?.updateImpl() }
     DispatchQueue.main.async(execute: scheduledUpdate!)
   }
 
