@@ -27,7 +27,7 @@ class UndirectedGraph
 {
 public:
   using Vertex = unsigned;
-  using Edge = Edge;
+  using Edge = routing_test::Edge;
   using Weight = double;
 
   void AddEdge(unsigned u, unsigned v, unsigned w)
