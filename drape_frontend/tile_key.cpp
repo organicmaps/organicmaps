@@ -14,13 +14,15 @@ namespace df
 TileKey::TileKey()
   : m_x(-1), m_y(-1),
     m_zoomLevel(-1),
-    m_generation(0)
+    m_generation(0),
+    m_userMarksGeneration(0)
 {}
 
 TileKey::TileKey(int x, int y, int zoomLevel)
   : m_x(x), m_y(y),
     m_zoomLevel(zoomLevel),
-    m_generation(0)
+    m_generation(0),
+    m_userMarksGeneration(0)
 {}
 
 TileKey::TileKey(TileKey const & key, uint64_t generation, uint64_t userMarksGeneration)

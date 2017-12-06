@@ -753,15 +753,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_forceUpdateScene = true;
       break;
     }
+
   case Message::InvalidateUserMarks:
     {
-      RemoveRenderGroupsLater([](drape_ptr<RenderGroup> const & group)
-      {
-        return group->IsUserMark();
-      });
       m_forceUpdateUserMarks = true;
       break;
     }
+
   case Message::FlushTrafficData:
     {
       if (!m_trafficEnabled)
