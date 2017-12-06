@@ -332,6 +332,7 @@ public:
 
   void ShowBookmark(BookmarkAndCategory const & bnc);
   void ShowTrack(Track const & track);
+  void ShowFeatureByMercator(m2::PointD const & pt);
 
   void ClearBookmarks();
 

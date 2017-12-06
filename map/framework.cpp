@@ -1035,6 +1035,16 @@ void Framework::ShowTrack(Track const & track)
   ShowRect(rect);
 }
 
+void Framework::ShowFeatureByMercator(m2::PointD const & pt)
+{
+  place_page::Info info;
+  std::string name;
+  GetBookmarkManager().SelectionMark()->SetPtOrg(pt);
+  FillPointInfo(pt, name, info);
+  ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
+  m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
+}
+
 void Framework::ClearBookmarks()
 {
   GetBookmarkManager().ClearCategories();

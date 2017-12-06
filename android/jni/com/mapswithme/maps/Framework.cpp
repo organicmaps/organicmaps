@@ -1567,4 +1567,11 @@ Java_com_mapswithme_maps_Framework_nativeIsUserAuthenticated()
 {
   return frm()->GetUser().IsAuthenticated();
 }
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeShowFeatureByLatLon(JNIEnv * env, jclass,
+                                                             jdouble lat, jdouble lon)
+{
+  frm()->ShowFeatureByMercator(MercatorBounds::FromLatLon(ms::LatLon(lat, lon)));
+}
 }  // extern "C"

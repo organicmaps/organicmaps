@@ -384,4 +384,6 @@ public class Framework
   public static native void nativeAuthenticateUser(@NonNull String socialToken,
                                                    @SocialTokenType int socialTokenType);
   public static native boolean nativeIsUserAuthenticated();
+
+  public static native void nativeShowFeatureByLatLon(double lat, double lon);
 }
