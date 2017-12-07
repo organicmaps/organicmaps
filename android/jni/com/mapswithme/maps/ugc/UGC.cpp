@@ -81,6 +81,11 @@ public:
     return static_cast<int>(place_page::rating::GetImpress(rating));
   }
 
+  static std::string FormatRating(float const rating)
+  {
+    return place_page::rating::GetRatingFormatted(rating);
+  }
+
   ugc::UGCUpdate ToNativeUGCUpdate(JNIEnv * env, jobject ugcUpdate)
   {
     Init(env);
@@ -283,5 +288,11 @@ JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_ugc_UGC_nativeToImpress(JNIEnv  *env, jclass type, jfloat rating)
 {
   return JavaBridge::ToImpress(static_cast<float>(rating));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_ugc_UGC_nativeFormatRating(JNIEnv  *env, jclass type, jfloat rating)
+{
+  return jni::ToJavaString(env, JavaBridge::FormatRating(static_cast<float>(rating)));
 }
 }

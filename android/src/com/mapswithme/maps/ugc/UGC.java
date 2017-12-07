@@ -100,6 +100,9 @@ public class UGC
 
   public static native int nativeToImpress(float rating);
 
+  @NonNull
+  public static native String nativeFormatRating(float rating);
+
   public static void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate,
                                    @Impress int impress, @NonNull String rating)
   {

@@ -208,7 +208,7 @@ public class Holders
       UiUtils.setTextAndHideIfEmpty(mButton, priceLabel);
       float rating = (float) item.getRating();
       Impress impress = Impress.values()[UGC.nativeToImpress(rating)];
-      mRating.setRating(impress, String.valueOf(rating));
+      mRating.setRating(impress, UGC.nativeFormatRating(rating));
     }
 
     @Override
