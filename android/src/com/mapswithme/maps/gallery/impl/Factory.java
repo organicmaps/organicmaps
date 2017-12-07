@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.cian.RentPlace;
+import com.mapswithme.maps.discovery.LocalExpert;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
@@ -84,5 +85,14 @@ public class Factory
   public static GalleryAdapter createSearchBasedErrorAdapter()
   {
     return new GalleryAdapter<>(new SimpleErrorAdapterStrategy(), null);
+  }
+
+  @NonNull
+  public static GalleryAdapter createLocalExpertsAdapter(@NonNull LocalExpert[] experts,
+                                                         @Nullable String expertsUrl,
+                                                         @Nullable ItemSelectedListener<Items
+                                                             .LocalExpertItem> listener)
+  {
+    return new GalleryAdapter<>(new LocalExpertsAdapterStrategy(experts, expertsUrl), listener);
   }
 }

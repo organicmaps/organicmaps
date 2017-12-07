@@ -75,6 +75,68 @@ public class Items
     }
   }
 
+  public static class CianMoreItem extends CianItem
+  {
+
+    public CianMoreItem(@Nullable String url)
+    {
+      super(TYPE_MORE, MwmApplication.get().getString(R.string.placepage_more_button), url);
+    }
+  }
+
+  public static class LocalExpertItem extends RegularAdapterStrategy.Item
+  {
+    @Nullable
+    private final String mPhotoUrl;
+    private final double mPrice;
+    @NonNull
+    private final String mCurrency;
+    private final double mRating;
+
+    public LocalExpertItem(@Constants.ViewType int viewType, @NonNull String title,
+                           @Nullable String url, @Nullable String photoUrl, double price,
+                           @NonNull String currency, double rating)
+    {
+      super(viewType, title, url, null);
+      mPhotoUrl = photoUrl;
+      mPrice = price;
+      mCurrency = currency;
+      mRating = rating;
+    }
+
+    @Nullable
+    String getPhotoUrl()
+    {
+      return mPhotoUrl;
+    }
+
+    public double getPrice()
+    {
+      return mPrice;
+    }
+
+    @NonNull
+    public String getCurrency()
+    {
+      return mCurrency;
+    }
+
+    public double getRating()
+    {
+      return mRating;
+    }
+  }
+
+  public static class LocalExpertMoreItem extends LocalExpertItem
+  {
+
+    public LocalExpertMoreItem(@Nullable String url)
+    {
+      super(TYPE_MORE, MwmApplication.get().getString(R.string.placepage_more_button), url,
+            null, 0, "", 0);
+    }
+  }
+
   public static class SearchItem extends RegularAdapterStrategy.Item
   {
     @NonNull
@@ -101,15 +163,6 @@ public class Items
     public double getLon()
     {
       return mResult.lon;
-    }
-  }
-
-  public static class CianMoreItem extends CianItem
-  {
-
-    public CianMoreItem(@Nullable String url)
-    {
-      super(TYPE_MORE, MwmApplication.get().getString(R.string.placepage_more_button), url);
     }
   }
 

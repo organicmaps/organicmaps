@@ -43,7 +43,7 @@ void PrepareClassRefs(JNIEnv * env)
                             "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 
   // @ErrorCode int code, @NonNull String message
-  g_localErrorClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/LocalError");
+  g_localErrorClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/discovery/LocalsError");
   g_localErrorConstructor = jni::GetConstructorID(env, g_localErrorClass,
                                                   "(ILjava/lang/String;)V");
 }

@@ -18,6 +18,7 @@
       android:id="@+id/galleriesLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:paddingBottom="@dimen/margin_base_plus"
       android:orientation="vertical">
       <RelativeLayout
         android:id="@+id/thingsToDoLayout"
@@ -54,7 +55,6 @@
         android:id="@+id/thingsToDo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_base_plus"
         tools:listitem="@layout/item_viator_product"/>
       <TextView
         android:id="@+id/attractionsTitle"
@@ -66,19 +66,20 @@
         android:layout_marginRight="@dimen/margin_base"
         android:layout_marginEnd="@dimen/margin_base"
         android:layout_marginBottom="@dimen/margin_half_plus"
+        android:layout_marginTop="@dimen/margin_base_plus"
         android:layout_gravity="start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
       <android.support.v7.widget.RecyclerView
         android:id="@+id/attractions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_base_plus"/>
+        android:layout_height="wrap_content"/>
       <TextView
         android:id="@+id/eatAndDrinkTitle"
         android:text="@string/discovery_button_subtitle_eat_and_drink"
         android:textAppearance="@style/MwmTextAppearance.Discovery.Subtitle"
         style="@style/MwmWidget.Discovery.Subtitle"
+        android:layout_marginTop="@dimen/margin_base_plus"
         android:layout_marginLeft="@dimen/margin_base"
         android:layout_marginStart="@dimen/margin_base"
         android:layout_marginRight="@dimen/margin_base"
@@ -90,13 +91,13 @@
       <android.support.v7.widget.RecyclerView
         android:id="@+id/food"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_base_plus"/>
+        android:layout_height="wrap_content"/>
       <TextView
         android:id="@+id/localGuidesTitle"
         android:text="@string/discovery_button_subtitle_local_guides"
         android:textAppearance="@style/MwmTextAppearance.Discovery.Subtitle"
         style="@style/MwmWidget.Discovery.Subtitle"
+        android:layout_marginTop="@dimen/margin_base_plus"
         android:layout_marginLeft="@dimen/margin_base"
         android:layout_marginStart="@dimen/margin_base"
         android:layout_marginRight="@dimen/margin_base"

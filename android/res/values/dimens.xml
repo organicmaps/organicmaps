@@ -14,6 +14,7 @@
   <dimen name="margin_half_plus">12dp</dimen>
   <dimen name="margin_half_double_plus">14dp</dimen>
   <dimen name="margin_base">16dp</dimen>
+  <dimen name="margin_base_plus_quarter">20dp</dimen>
   <dimen name="margin_base_plus">24dp</dimen>
   <dimen name="margin_double">32dp</dimen>
   <dimen name="margin_double_and_half">40dp</dimen>
@@ -233,4 +234,5 @@
   <!-- Discovery-->
   <dimen name="discovery_button_min_height">40dp</dimen>
   <dimen name="discovery_search_item_min_height">148dp</dimen>
+  <dimen name="discovery_expert_item_min_height">196dp</dimen>
 </resources>

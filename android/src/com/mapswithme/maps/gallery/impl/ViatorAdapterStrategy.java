@@ -16,19 +16,12 @@ import com.mapswithme.maps.viator.ViatorProduct;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViatorAdapterStrategy
+public class  ViatorAdapterStrategy
     extends RegularAdapterStrategy<Items.ViatorItem>
 {
-
   ViatorAdapterStrategy(@NonNull ViatorProduct[] products, @Nullable String moreUrl)
   {
     super(convertItems(products), new Items.ViatorMoreItem(moreUrl));
-  }
-
-  public ViatorAdapterStrategy(@NonNull List<Items.ViatorItem> items,
-                               @Nullable Items.ViatorItem moreItem)
-  {
-    super(items, moreItem);
   }
 
   @NonNull

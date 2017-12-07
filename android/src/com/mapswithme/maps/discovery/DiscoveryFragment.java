@@ -38,7 +38,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   private static final int ITEMS_COUNT = 5;
   private static final int[] ITEM_TYPES = { DiscoveryParams.ITEM_TYPE_VIATOR,
                                             DiscoveryParams.ITEM_TYPE_ATTRACTIONS,
-                                            DiscoveryParams.ITEM_TYPE_CAFES };
+                                            DiscoveryParams.ITEM_TYPE_CAFES,
+                                            DiscoveryParams.ITEM_TYPE_LOCAL_EXPERTS };
   @Nullable
   private BaseItemSelectedListener<Items.Item> mDefaultListener;
   private boolean mOnlineMode;
@@ -63,6 +64,11 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   private void initFoodGallery()
   {
     setLayoutManagerAndItemDecoration(getContext(), getGallery(R.id.food));
+  }
+
+  private void initLocalExpertsGallery()
+  {
+    setLayoutManagerAndItemDecoration(getContext(), getGallery(R.id.localGuides));
   }
 
   private static void setLayoutManagerAndItemDecoration(@NonNull Context context,
@@ -119,6 +125,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     initViatorGallery();
     initAttractionsGallery();
     initFoodGallery();
+    initLocalExpertsGallery();
     requestDiscoveryInfoAndInitAdapters();
   }
 
@@ -221,8 +228,9 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onLocalExpertsReceived(@NonNull LocalExpert[] experts)
   {
     updateViewsVisibility(experts, R.id.localGuidesTitle, R.id.localGuides);
-
-    //TODO: coming soon.
+    String url = DiscoveryManager.nativeGetLocalExpertsUrl();
+    ItemSelectedListener<Items.LocalExpertItem> listener = new BaseItemSelectedListener<>(getActivity());
+    getGallery(R.id.localGuides).setAdapter(Factory.createLocalExpertsAdapter(experts, url, listener));
   }
 
   @Override

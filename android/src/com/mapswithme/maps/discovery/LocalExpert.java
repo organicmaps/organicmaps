@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import android.support.annotation.NonNull;
 
-final class LocalExpert implements Parcelable
+public final class LocalExpert implements Parcelable
 {
   private final int mId;
   @NonNull
@@ -109,7 +109,7 @@ final class LocalExpert implements Parcelable
   int getId() { return mId; }
 
   @NonNull
-  String getName() { return mName; }
+  public String getName() { return mName; }
 
   @NonNull
   String getCountry() { return mCountry; }
@@ -117,14 +117,14 @@ final class LocalExpert implements Parcelable
   @NonNull
   String getCity() { return mCity; }
 
-  double getRating() { return mRating; }
+  public double getRating() { return mRating; }
 
   int getReviewCount() { return mReviewCount; }
 
-  double getPrice() { return mPrice; }
+  public double getPrice() { return mPrice; }
 
   @NonNull
-  String getCurrency() { return mCurrency; }
+  public String getCurrency() { return mCurrency; }
 
   @NonNull
   String getMotto() { return mMotto; }
@@ -136,10 +136,10 @@ final class LocalExpert implements Parcelable
   String getOfferDescription() { return mOfferDescription; }
 
   @NonNull
-  String getPageUrl() { return mPageUrl;}
+  public String getPageUrl() { return mPageUrl;}
 
   @NonNull
-  String getPhotoUrl() { return mPhotoUrl; }
+  public String getPhotoUrl() { return mPhotoUrl; }
 
   @Override
   public boolean equals(Object o)

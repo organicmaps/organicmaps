@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_height="wrap_content"
+  android:layout_width="wrap_content"
+  android:padding="@dimen/margin_quarter"
+  android:clipToPadding="false">
+  <android.support.v7.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+      android:foreground="?clickableBackground"
+      android:orientation="vertical"
+      android:layout_width="@dimen/viator_product_width"
+      android:layout_height="wrap_content"
+      android:minHeight="@dimen/discovery_expert_item_min_height">
+      <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/margin_half_plus"/>
+      <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_half_plus"
+        android:layout_marginStart="@dimen/margin_base_plus_quarter"
+        android:layout_marginEnd="@dimen/margin_base_plus_quarter"
+        style="@style/MwmWidget.Discovery.Item.Title"
+        android:maxLines="1"
+        android:minLines="1"
+        android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Title"
+        tools:text="Irina Severintseva"/>
+      <com.mapswithme.maps.widget.RatingView
+        android:id="@+id/ratingView"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/margin_eighth"
+        android:layout_marginBottom="@dimen/margin_half"
+        android:layout_height="@dimen/rating_view_height_small"
+        android:paddingLeft="@dimen/margin_quarter_plus"
+        android:paddingStart="@dimen/margin_quarter_plus"
+        android:paddingRight="@dimen/margin_quarter_plus"
+        android:paddingEnd="@dimen/margin_quarter_plus"
+        android:paddingTop="@dimen/margin_quarter"
+        android:paddingBottom="@dimen/margin_quarter"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/text_size_body_4"
+        tools:visibility="visible"/>
+      <include layout="@layout/item_discovery_button"/>
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
+</FrameLayout>

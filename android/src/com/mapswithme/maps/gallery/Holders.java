@@ -1,8 +1,11 @@
 package com.mapswithme.maps.gallery;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGC;
@@ -139,6 +143,94 @@ public class Holders
     protected void onItemSelected(@NonNull T item)
     {
       ItemSelectedListener<T> listener = mAdapter.getListener();
+      if (listener == null || TextUtils.isEmpty(item.getUrl()))
+        return;
+
+      listener.onMoreItemSelected(item);
+    }
+  }
+
+  public static class LocalExpertViewHolder extends BaseViewHolder<Items.LocalExpertItem>
+  {
+    @NonNull
+    private final ImageView mAvatar;
+    @NonNull
+    private final RatingView mRating;
+    @NonNull
+    private final TextView mButton;
+
+    public LocalExpertViewHolder(@NonNull View itemView, @NonNull List<Items.LocalExpertItem> items,
+                          @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
+    {
+      super(itemView, items, adapter);
+      mTitle = (TextView) itemView.findViewById(R.id.name);
+      mAvatar = (ImageView) itemView.findViewById(R.id.avatar);
+      mRating = (RatingView) itemView.findViewById(R.id.ratingView);
+      mButton = (TextView) itemView.findViewById(R.id.button);
+    }
+
+    @Override
+    public void bind(@NonNull Items.LocalExpertItem item)
+    {
+      super.bind(item);
+
+      if (!TextUtils.isEmpty(item.getPhotoUrl()))
+      {
+        Glide.with(mAvatar.getContext())
+             .load(item.getPhotoUrl())
+             .asBitmap()
+             .centerCrop()
+             .into(new BitmapImageViewTarget(mAvatar)
+             {
+               @Override
+               protected void setResource(Bitmap resource)
+               {
+                 RoundedBitmapDrawable circularBitmapDrawable =
+                     RoundedBitmapDrawableFactory.create(mAvatar.getContext().getResources(),
+                                                         resource);
+                 circularBitmapDrawable.setCircular(true);
+                 mAvatar.setImageDrawable(circularBitmapDrawable);
+               }
+             });
+      }
+
+      Context context = mButton.getContext();
+      String priceLabel;
+      if (item.getPrice() == 0 || TextUtils.isEmpty(item.getCurrency()))
+        priceLabel = context.getString(R.string.free);
+      else
+        priceLabel = context.getString(R.string.price_per_hour,
+                                       item.getCurrency()
+                                       + String.valueOf(item.getPrice()));
+      UiUtils.setTextAndHideIfEmpty(mButton, priceLabel);
+      float rating = (float) item.getRating();
+      Impress impress = Impress.values()[UGC.nativeToImpress(rating)];
+      mRating.setRating(impress, String.valueOf(rating));
+    }
+
+    @Override
+    protected void onItemSelected(@NonNull Items.LocalExpertItem item)
+    {
+      ItemSelectedListener<Items.LocalExpertItem> listener = mAdapter.getListener();
+      if (listener == null || TextUtils.isEmpty(item.getUrl()))
+        return;
+
+      listener.onItemSelected(item);
+    }
+  }
+
+  public static class LocalExpertMoreItemViewHolder extends BaseViewHolder<Items.LocalExpertItem>
+  {
+    public LocalExpertMoreItemViewHolder(@NonNull View itemView, @NonNull List<Items.LocalExpertItem>
+        items, @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
+    {
+      super(itemView, items, adapter);
+    }
+
+    @Override
+    protected void onItemSelected(@NonNull Items.LocalExpertItem item)
+    {
+      ItemSelectedListener<Items.LocalExpertItem> listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
