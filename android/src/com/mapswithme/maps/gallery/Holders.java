@@ -20,6 +20,7 @@ import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.widget.RatingView;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 
 import java.util.List;
 
@@ -160,7 +161,7 @@ public class Holders
     private final TextView mButton;
 
     public LocalExpertViewHolder(@NonNull View itemView, @NonNull List<Items.LocalExpertItem> items,
-                          @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
+                                 @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
     {
       super(itemView, items, adapter);
       mTitle = (TextView) itemView.findViewById(R.id.name);
@@ -174,34 +175,36 @@ public class Holders
     {
       super.bind(item);
 
-      if (!TextUtils.isEmpty(item.getPhotoUrl()))
-      {
-        Glide.with(mAvatar.getContext())
-             .load(item.getPhotoUrl())
-             .asBitmap()
-             .centerCrop()
-             .into(new BitmapImageViewTarget(mAvatar)
+      Glide.with(mAvatar.getContext())
+           .load(item.getPhotoUrl())
+           .asBitmap()
+           .centerCrop()
+           .placeholder(R.drawable.ic_local_expert_default)
+           .into(new BitmapImageViewTarget(mAvatar)
+           {
+             @Override
+             protected void setResource(Bitmap resource)
              {
-               @Override
-               protected void setResource(Bitmap resource)
-               {
-                 RoundedBitmapDrawable circularBitmapDrawable =
-                     RoundedBitmapDrawableFactory.create(mAvatar.getContext().getResources(),
-                                                         resource);
-                 circularBitmapDrawable.setCircular(true);
-                 mAvatar.setImageDrawable(circularBitmapDrawable);
-               }
-             });
-      }
+               RoundedBitmapDrawable circularBitmapDrawable =
+                   RoundedBitmapDrawableFactory.create(mAvatar.getContext().getResources(),
+                                                       resource);
+               circularBitmapDrawable.setCircular(true);
+               mAvatar.setImageDrawable(circularBitmapDrawable);
+             }
+           });
 
       Context context = mButton.getContext();
       String priceLabel;
-      if (item.getPrice() == 0 || TextUtils.isEmpty(item.getCurrency()))
+      if (item.getPrice() == 0 && TextUtils.isEmpty(item.getCurrency()))
+      {
         priceLabel = context.getString(R.string.free);
+      }
       else
-        priceLabel = context.getString(R.string.price_per_hour,
-                                       item.getCurrency()
-                                       + String.valueOf(item.getPrice()));
+      {
+        String formattedPrice = Utils.formatCurrencyString(String.valueOf(item.getPrice()),
+                                                           item.getCurrency());
+        priceLabel = context.getString(R.string.price_per_hour, formattedPrice);
+      }
       UiUtils.setTextAndHideIfEmpty(mButton, priceLabel);
       float rating = (float) item.getRating();
       Impress impress = Impress.values()[UGC.nativeToImpress(rating)];
@@ -221,8 +224,9 @@ public class Holders
 
   public static class LocalExpertMoreItemViewHolder extends BaseViewHolder<Items.LocalExpertItem>
   {
-    public LocalExpertMoreItemViewHolder(@NonNull View itemView, @NonNull List<Items.LocalExpertItem>
-        items, @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
+    public LocalExpertMoreItemViewHolder(@NonNull View itemView,
+                                         @NonNull List<Items.LocalExpertItem> items,
+                                         @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
     {
       super(itemView, items, adapter);
     }

@@ -29,8 +29,7 @@ public class SimpleErrorAdapterStrategy
 
   @Override
   protected Holders.SimpleViewHolder createViewHolder(@NonNull View itemView,
-                                                      @NonNull GalleryAdapter<?, Items.Item>
-                                                          adapter)
+                                                      @NonNull GalleryAdapter<?, Items.Item> adapter)
   {
     return new Holders.SimpleViewHolder(itemView, mItems, adapter);
   }

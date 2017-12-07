@@ -28,8 +28,7 @@ public class LocalExpertsAdapterStrategy extends RegularAdapterStrategy<Items.Lo
   @NonNull
   @Override
   protected Holders.BaseViewHolder<Items.LocalExpertItem> createProductViewHodler
-      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.LocalExpertItem>
-          adapter)
+      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
   {
     View view = LayoutInflater.from(parent.getContext())
                               .inflate(R.layout.item_discovery_expert, parent,
@@ -40,8 +39,7 @@ public class LocalExpertsAdapterStrategy extends RegularAdapterStrategy<Items.Lo
   @NonNull
   @Override
   protected Holders.BaseViewHolder<Items.LocalExpertItem> createMoreProductsViewHolder
-      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.LocalExpertItem>
-          adapter)
+      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
   {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_viator_more, parent,
                                                                  false);

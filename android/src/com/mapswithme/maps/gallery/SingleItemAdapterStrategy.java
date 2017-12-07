@@ -48,8 +48,8 @@ abstract class SingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.
     return createViewHolder(itemView, adapter);
   }
 
-  protected abstract T createViewHolder(@NonNull View itemView, @NonNull GalleryAdapter<?, Items
-      .Item> adapter);
+  protected abstract T createViewHolder(@NonNull View itemView,
+                                        @NonNull GalleryAdapter<?, Items.Item> adapter);
 
   @StringRes
   protected abstract int getLabelForDetailsView();
