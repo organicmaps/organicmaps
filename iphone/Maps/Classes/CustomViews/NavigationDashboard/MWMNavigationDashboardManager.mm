@@ -138,7 +138,13 @@ using Observers = NSHashTable<Observer>;
     self.state = MWMNavigationDashboardStateReady;
 }
 
-- (void)onRoutePointsUpdated { [self.navigationInfoView updateToastView]; }
+- (void)onRoutePointsUpdated
+{
+  if (self.state == MWMNavigationDashboardStateHidden)
+    self.state = MWMNavigationDashboardStatePrepare;
+  [self.navigationInfoView updateToastView];
+}
+
 #pragma mark - State changes
 
 - (void)stateHidden
