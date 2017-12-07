@@ -461,6 +461,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 
   glsl::vec4 const pivot(glsl::ToVec2(MapShape::ConvertToLocal(globalPivot, m_tileCenter,
                                                                kShapeCoordScalar)), depth, 0.0f);
+  static float const kEps = 1e-5f;
   for (size_t i = 0; i < m_metrics.size(); ++i)
   {
     GlyphRegion const & g = m_metrics[i];
@@ -469,8 +470,9 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 
     m2::PointD const baseVector = penIter.m_pos - pxPivot;
     m2::PointD const currentTangent = penIter.m_avrDir.Normalize();
-
-    penIter.Advance(advanceSign * xAdvance);
+    
+    if (fabs(xAdvance) > kEps)
+      penIter.Advance(advanceSign * xAdvance);
     m2::PointD const newTangent = penIter.m_avrDir.Normalize();
 
     glsl::vec2 tangent = glsl::ToVec2(newTangent);
@@ -492,7 +494,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 
     if (i > 0)
     {
-      float const dotProduct = m2::DotProduct(currentTangent, newTangent);
+      auto const dotProduct = static_cast<float>(m2::DotProduct(currentTangent, newTangent));
       if (dotProduct < kValidSplineTurn)
         return false;
     }
