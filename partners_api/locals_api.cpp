@@ -14,24 +14,9 @@
 
 #include "private.h"
 
-#define LOCALS_MOCKING_ENABLED
-
 namespace
 {
 using namespace locals;
-
-#ifdef LOCALS_MOCKING_ENABLED
-std::string const kTempImageLink = "https://cdn.pixabay.com/photo/2017/08/01/08/29/people-2563491_1280.jpg";
-std::string const kTempImageLink2 = "https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_1280.jpg";
-std::vector<LocalExpert> const kLocalsMocking =
-{
-  {1, "Angelina", "Russian Federation", "Moscow", 10.0, 2, 100.0, "USD", "", "", "", "", kTempImageLink},
-  {2, "Veronika", "Russian Federation", "Moscow", 8.0, 3, 89.99, "USD", "", "", "", "", ""},
-  {3, "Snejana", "Russian Federation", "Moscow", 7.5, 4, 200.0, "USD", "", "", "", "", ""},
-  {4, "Ella Petrovna", "Russian Federation", "Saint-Petersburg", 10.0, 1500, 0.0, "", "", "", "", "", ""},
-  {5, "Boris", "Russian Federation", "Chelyabinsk", 9.0, 7, 1000.0, "RUB", "", "", "", "", kTempImageLink2}
-};
-#endif
 
 void ParseError(std::string const & src, int & errorCode, std::string & message)
 {
@@ -71,10 +56,14 @@ void ParseLocals(std::string const & src, std::vector<LocalExpert> & locals,
     FromJSONObject(item, "about_me", local.m_aboutExpert);
     FromJSONObject(item, "i_will_show_you", local.m_offerDescription);
 
-    // Rescale rating to [0.0; 10.0] range.
-    local.m_rating *= 2;
+    // Rescale rating to (0.0; 10.0] range. Rating 0.0 is invalid.
+    static double const kInvalidRating = -1.0;
+    if (local.m_rating == 0.0)
+      local.m_rating = kInvalidRating;
+    else
+      local.m_rating *= 2.0;
 
-    locals.push_back(move(local));
+    locals.push_back(std::move(local));
   }
 }
 }  // namespace
@@ -117,7 +106,6 @@ uint64_t Api::GetLocals(double lat, double lon, std::string const & lang,
   GetPlatform().RunTask(Platform::Thread::Network,
                         [id, lat, lon, lang, resultsOnPage, pageNumber, successFn, errorFn]()
   {
-#ifndef LOCALS_MOCKING_ENABLED
     std::string result;
     if (!RawApi::Get(lat, lon, lang, resultsOnPage, pageNumber, result))
     {
@@ -148,11 +136,6 @@ uint64_t Api::GetLocals(double lat, double lon, std::string const & lang,
       LOG(LWARNING, ("Locals response parsing failed:", e.Msg(), ", response:", result));
       errorFn(id, kUnknownErrorCode, "Response parsing failed: " + e.Msg());
     }
-#else
-    std::vector<LocalExpert> locals = kLocalsMocking;
-    bool hasPreviousPage = false;
-    bool hasNextPage = false;
-#endif
 
     successFn(id, locals, pageNumber, resultsOnPage, hasPreviousPage, hasNextPage);
   });
@@ -174,5 +157,4 @@ std::string DebugPrint(LocalExpert const & localExpert)
       << "motto: " << localExpert.m_motto << std::endl;
   return out.str();
 }
-
 }  // namespace locals

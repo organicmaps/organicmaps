@@ -81,6 +81,7 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="margin">
                                 <real key="value" value="4"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="image" keyPath="noValueImage" value="ic_12px_rating_normal"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vji-Hy-ASy">
@@ -136,6 +137,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="ic_12px_rating_normal" width="12" height="12"/>
         <image name="ic_24px_rating_bad" width="24" height="24"/>
         <image name="ic_24px_rating_excellent" width="24" height="24"/>
         <image name="ic_24px_rating_good" width="24" height="24"/>

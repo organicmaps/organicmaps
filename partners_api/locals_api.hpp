@@ -5,7 +5,7 @@
 
 #include <string>
 
-#define STAGE_LOCALS_SERVER
+//#define STAGE_LOCALS_SERVER
 
 namespace locals
 {
