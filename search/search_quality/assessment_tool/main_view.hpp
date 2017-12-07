@@ -123,4 +123,7 @@ private:
 
   State m_state = State::BeforeSearch;
   FeatureID m_selectedFeature;
+
+  bool m_skipFeatureInfoDialog = false;
+  std::string m_sampleLocale;
 };

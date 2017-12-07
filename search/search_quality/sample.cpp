@@ -195,7 +195,9 @@ void Sample::FillSearchParams(search::SearchParams & params) const
   if (m_posAvailable)
     params.m_position = m_pos;
 
+  params.m_needAddress = true;
   params.m_suggestsEnabled = false;
+  params.m_needHighlighting = false;
 }
 
 void FromJSONObject(json_t * root, string const & field, Sample::Result::Relevance & relevance)

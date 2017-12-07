@@ -4,6 +4,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -66,7 +67,7 @@ bool Matcher::Matches(Sample::Result const & golden, FeatureType & ft)
   else
   {
     ft.ForEachName([&golden, &nameMatches](int8_t /* lang */, string const & name) {
-      if (golden.m_name == strings::MakeUniString(name))
+      if (NormalizeAndSimplifyString(ToUtf8(golden.m_name)) == NormalizeAndSimplifyString(name))
       {
         nameMatches = true;
         return base::ControlFlow::Break;
@@ -75,8 +76,13 @@ bool Matcher::Matches(Sample::Result const & golden, FeatureType & ft)
     });
   }
 
-  return nameMatches && golden.m_houseNumber == houseNumber &&
-         MercatorBounds::DistanceOnEarth(golden.m_pos, center) < kToleranceMeters;
+  bool houseNumberMatches = true;
+  if (!golden.m_houseNumber.empty() && !houseNumber.empty())
+    houseNumberMatches = golden.m_houseNumber == houseNumber;
+
+  return nameMatches && houseNumberMatches &&
+         MercatorBounds::DistanceOnEarth(golden.m_pos, center) <
+             kToleranceMeters;
 }
 
 bool Matcher::Matches(Sample::Result const & golden, search::Result const & actual)

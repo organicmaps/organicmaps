@@ -13,6 +13,8 @@ set(
   context.hpp
   edits.cpp
   edits.hpp
+  feature_info_dialog.cpp
+  feature_info_dialog.hpp
   helpers.cpp
   helpers.hpp
   main_model.cpp

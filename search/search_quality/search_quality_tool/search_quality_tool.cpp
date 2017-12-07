@@ -368,7 +368,7 @@ int main(int argc, char * argv[])
   LOG(LINFO, ("writable dir =", platform.WritableDir()));
   LOG(LINFO, ("resources dir =", platform.ResourcesDir()));
 
-  Storage storage(countriesFile, FLAGS_mwm_path);
+  Storage storage(countriesFile);
   storage.Init(&DidDownload, &WillDelete);
   auto infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
   infoGetter->InitAffiliationsInfo(&storage.GetAffiliations());

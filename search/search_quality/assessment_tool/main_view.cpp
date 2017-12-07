@@ -1,5 +1,6 @@
 #include "search/search_quality/assessment_tool/main_view.hpp"
 
+#include "search/search_quality/assessment_tool/feature_info_dialog.hpp"
 #include "search/search_quality/assessment_tool/helpers.hpp"
 #include "search/search_quality/assessment_tool/model.hpp"
 #include "search/search_quality/assessment_tool/results_view.hpp"
@@ -11,6 +12,8 @@
 
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
+
+#include "indexer/feature_algo.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -48,8 +51,23 @@ MainView::MainView(Framework & framework) : m_framework(framework)
   m_framework.SetMapSelectionListeners(
       [this](place_page::Info const & info) {
         auto const & selectedFeature = info.GetID();
-        if (selectedFeature.IsValid())
-          m_selectedFeature = selectedFeature;
+        if (!selectedFeature.IsValid())
+          return;
+        m_selectedFeature = selectedFeature;
+
+        if (m_skipFeatureInfoDialog)
+        {
+          m_skipFeatureInfoDialog = false;
+          return;
+        }
+
+        FeatureType ft;
+        if (!m_framework.GetFeatureByID(selectedFeature, ft))
+          return;
+
+        auto const address = m_framework.GetAddressInfoAtPoint(feature::GetCenter(ft));
+        FeatureInfoDialog dialog(this /* parent */, ft, address, m_sampleLocale);
+        dialog.exec();
       },
       [this](bool /* switchFullScreenMode */) { m_selectedFeature = FeatureID(); });
 }
@@ -84,6 +102,8 @@ void MainView::OnSearchCompleted()
 void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample, bool positionAvailable,
                           m2::PointD const & position, bool hasEdits)
 {
+  m_sampleLocale = sample.m_locale;
+
   MoveViewportToRect(sample.m_viewport);
 
   m_sampleView->SetContents(sample, positionAvailable, position);
@@ -122,6 +142,7 @@ void MainView::ClearSearchResultMarks() { m_sampleView->ClearSearchResultMarks()
 
 void MainView::MoveViewportToResult(search::Result const & result)
 {
+  m_skipFeatureInfoDialog = true;
   m_framework.SelectSearchResult(result, false /* animation */);
 }
 
@@ -186,6 +207,9 @@ void MainView::Clear()
 
   m_sampleView->Clear();
   SetSampleDockTitle(false /* hasEdits */);
+
+  m_skipFeatureInfoDialog = false;
+  m_sampleLocale.clear();
 }
 
 void MainView::closeEvent(QCloseEvent * event)

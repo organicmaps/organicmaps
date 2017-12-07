@@ -123,7 +123,7 @@ int main(int argc, char * argv[])
   LOG(LINFO, ("writable dir =", platform.WritableDir()));
   LOG(LINFO, ("resources dir =", platform.ResourcesDir()));
 
-  Storage storage(countriesFile, FLAGS_mwm_path);
+  Storage storage(countriesFile);
   storage.Init(&DidDownload, &WillDelete);
   auto infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
   infoGetter->InitAffiliationsInfo(&storage.GetAffiliations());
@@ -177,8 +177,6 @@ int main(int argc, char * argv[])
   {
     auto const & sample = samples[i];
 
-    engine.SetLocale(sample.m_locale);
-
     search::SearchParams params;
     sample.FillSearchParams(params);
     TestSearchRequest request(engine, params);
@@ -217,6 +215,7 @@ int main(int argc, char * argv[])
 
   if (FLAGS_stats_path.empty())
   {
+    cerr << string(34, '=') << " Statistics " << string(34, '=') << endl;
     DisplayStats(cerr, samples, stats);
   }
   else
