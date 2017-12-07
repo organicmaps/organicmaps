@@ -75,7 +75,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
 
 - (BOOL)shouldShowSpinner
 {
-  return GetFramework().GetBmCategoriesCount() != 0 && ![MWMBookmarksManager areBookmarksLoaded];
+  return ![MWMBookmarksManager areBookmarksLoaded];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
