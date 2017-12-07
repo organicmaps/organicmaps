@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.Holders;
+import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.gallery.SimpleSingleItemAdapterStrategy;
 
 public class SimpleErrorAdapterStrategy
@@ -28,7 +29,8 @@ public class SimpleErrorAdapterStrategy
 
   @Override
   protected Holders.SimpleViewHolder createViewHolder(@NonNull View itemView,
-                                                      @NonNull GalleryAdapter adapter)
+                                                      @NonNull GalleryAdapter<?, Items.Item>
+                                                          adapter)
   {
     return new Holders.SimpleViewHolder(itemView, mItems, adapter);
   }

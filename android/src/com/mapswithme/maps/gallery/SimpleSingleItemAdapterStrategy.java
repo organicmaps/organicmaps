@@ -27,7 +27,7 @@ public abstract class SimpleSingleItemAdapterStrategy<T extends Holders.BaseView
   @NonNull
   @Override
   protected T createViewHolder(@NonNull ViewGroup parent, int viewType,
-                               @NonNull GalleryAdapter adapter)
+                               @NonNull GalleryAdapter<?, Items.Item> adapter)
   {
     View itemView = inflateView(LayoutInflater.from(parent.getContext()), parent);
     return createViewHolder(itemView, adapter);

@@ -95,4 +95,16 @@ public class Factory
   {
     return new GalleryAdapter<>(new LocalExpertsAdapterStrategy(experts, expertsUrl), listener);
   }
+
+  @NonNull
+  public static GalleryAdapter createLocalExpertsLoadingAdapter()
+  {
+    return new GalleryAdapter<>(new LocalExpertsLoadingAdapterStrategy(), null);
+  }
+
+  @NonNull
+  public static GalleryAdapter createLocalExpertsErrorAdapter()
+  {
+    return new GalleryAdapter<>(new LocalExpertsErrorAdapterStrategy(), null);
+  }
 }

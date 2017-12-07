@@ -6,7 +6,8 @@ import android.view.View;
 
 import com.mapswithme.maps.R;
 
-public abstract class OfflineAdapterStrategy extends SingleItemAdapterStrategy<Holders.OfflineViewHolder>
+public abstract class OfflineAdapterStrategy extends SingleItemAdapterStrategy<Holders
+    .OfflineViewHolder>
 {
   protected OfflineAdapterStrategy(@Nullable String url)
   {
@@ -14,7 +15,8 @@ public abstract class OfflineAdapterStrategy extends SingleItemAdapterStrategy<H
   }
 
   @Override
-  protected Holders.OfflineViewHolder createViewHolder(@NonNull View itemView, @NonNull GalleryAdapter adapter)
+  protected Holders.OfflineViewHolder createViewHolder(@NonNull View itemView, @NonNull
+      GalleryAdapter<?, Items.Item> adapter)
   {
     return new Holders.OfflineViewHolder(itemView, mItems, adapter);
   }

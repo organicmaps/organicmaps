@@ -223,6 +223,17 @@ public final class UiUtils
       hide(views);
   }
 
+  public static void showIf(boolean condition, View parent, @IdRes int... viewIds)
+  {
+    for (@IdRes int id : viewIds)
+    {
+      if (condition)
+        show(parent.findViewById(id));
+      else
+        hide(parent.findViewById(id));
+    }
+  }
+
   public static void setTextAndShow(TextView tv, CharSequence text)
   {
     tv.setText(text);

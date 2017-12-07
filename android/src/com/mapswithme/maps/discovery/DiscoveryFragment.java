@@ -46,7 +46,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.fragment_discovery, container, false);
   }
@@ -153,12 +154,15 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
 
   private void initNetworkBasedAdapters()
   {
+    UiUtils.showIf(mOnlineMode, getRootView(), R.id.localGuidesTitle, R.id.localGuides);
     if (mOnlineMode)
     {
-      // TODO: set loading adapter for local experts here.
       RecyclerView thinsToDo = getGallery(R.id.thingsToDo);
       thinsToDo.setAdapter(Factory.createViatorLoadingAdapter(DiscoveryManager.nativeGetViatorUrl(),
                                                               mDefaultListener));
+
+      RecyclerView localGuides = getGallery(R.id.localGuides);
+      localGuides.setAdapter(Factory.createLocalExpertsLoadingAdapter());
       return;
     }
 
@@ -249,7 +253,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
         getGallery(R.id.food).setAdapter(Factory.createSearchBasedErrorAdapter());
         break;
       case LOCAL_EXPERTS:
-        //TODO: coming soon.
+        getGallery(R.id.localGuides).setAdapter(Factory.createLocalExpertsErrorAdapter());
         break;
       default:
         throw new AssertionError("Unknown item type: " + type);
