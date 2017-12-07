@@ -14,6 +14,16 @@ final class DiscoveryLocalExpertCell: UICollectionViewCell {
   typealias Tap = () -> ()
   private var tap: Tap!
 
+  override var isHighlighted: Bool {
+    didSet {
+      UIView.animate(withDuration: kDefaultAnimationDuration,
+                     delay: 0,
+                     options: [.allowUserInteraction, .beginFromCurrentState],
+                     animations: { self.alpha = self.isHighlighted ? 0.3 : 1 },
+                     completion: nil)
+    }
+  }
+
   @objc func config(avatarURL: String,
                     name: String,
                     ratingValue: String,
@@ -22,10 +32,11 @@ final class DiscoveryLocalExpertCell: UICollectionViewCell {
                     currency: String,
                     tap: @escaping Tap) {
     if avatarURL.count > 0 {
-      avatar.af_setImage(withURL: URL(string: avatarURL)!, imageTransition: .crossDissolve(kDefaultAnimationDuration))
+      avatar.af_setImage(withURL: URL(string: avatarURL)!, placeholderImage: #imageLiteral(resourceName: "img_localsdefault"), imageTransition: .crossDissolve(kDefaultAnimationDuration))
     } else {
-      avatar.image = nil
+      avatar.image = #imageLiteral(resourceName: "img_localsdefault")
     }
+    
     self.name.text = name
     rating.value = ratingValue
     rating.type = ratingType
