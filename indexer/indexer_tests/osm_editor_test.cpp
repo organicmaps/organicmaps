@@ -438,7 +438,7 @@ void EditorTest::IsFeatureUploadedTest()
   pugi::xml_document doc;
   GenerateUploadedFeature(mwmId, emo, doc);
   editor.m_storage->Save(doc);
-  editor.LoadMapEdits();
+  editor.LoadEdits();
 
   TEST(editor.IsFeatureUploaded(emo.GetID().m_mwmId, emo.GetID().m_index), ());
 }
@@ -756,7 +756,7 @@ void EditorTest::GetStatsTest()
   pugi::xml_document doc;
   GenerateUploadedFeature(mwmId, emo, doc);
   editor.m_storage->Save(doc);
-  editor.LoadMapEdits();
+  editor.LoadEdits();
 
   stats = editor.GetStats();
   TEST_EQUAL(stats.m_edits.size(), 1, ());
@@ -931,7 +931,7 @@ void EditorTest::LoadMapEditsTest()
   features.emplace_back(emo.GetID());
 
   editor.Save();
-  editor.LoadMapEdits();
+  editor.LoadEdits();
 
   auto const fillLoaded = [&editor](vector<FeatureID> & loadedFeatures)
   {
@@ -962,7 +962,7 @@ void EditorTest::LoadMapEditsTest()
     builder.Add(TestCafe(m2::PointD(6.0, 6.0), "Moscow Cafe4", "en"));
   }, 1);
 
-  editor.LoadMapEdits();
+  editor.LoadEdits();
   fillLoaded(loadedFeatures);
 
   TEST_EQUAL(features.size(), loadedFeatures.size(), ());
@@ -972,7 +972,7 @@ void EditorTest::LoadMapEditsTest()
 
   TEST_EQUAL(editor.m_features.size(), 2, ());
 
-  editor.LoadMapEdits();
+  editor.LoadEdits();
   fillLoaded(loadedFeatures);
 
   TEST_EQUAL(editor.m_features.size(), 1, ());
@@ -984,7 +984,7 @@ void EditorTest::LoadMapEditsTest()
   pugi::xml_document doc;
   GenerateUploadedFeature(gbMwmId, gbEmo, doc);
   editor.m_storage->Save(doc);
-  editor.LoadMapEdits();
+  editor.LoadEdits();
   fillLoaded(loadedFeatures);
 
   TEST_EQUAL(editor.m_features.size(), 1, ());
@@ -1001,7 +1001,7 @@ void EditorTest::LoadMapEditsTest()
 
   newGbMwmId.GetInfo()->m_version.SetSecondsSinceEpoch(time(nullptr) + 1);
 
-  editor.LoadMapEdits();
+  editor.LoadEdits();
   TEST(editor.m_features.empty(), ());
 }
 

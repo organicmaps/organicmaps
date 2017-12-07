@@ -475,7 +475,7 @@ Framework::Framework(FrameworkParams const & params)
 
   editor.SetDelegate(make_unique<search::EditorDelegate>(m_model.GetIndex()));
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
-  editor.LoadMapEdits();
+  editor.LoadEdits();
 
   m_model.GetIndex().AddObserver(editor);
 

@@ -12,7 +12,7 @@
 
 namespace editor
 {
-FeatureID MigrateNodeFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach,
+FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
                                   XMLFeature const & xml,
                                   osm::Editor::FeatureStatus const featureStatus,
                                   TGenerateIDFn const & generateID)
@@ -44,7 +44,7 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEac
 }
 
 FeatureID MigrateWayFeatureIndex(
-    osm::Editor::TForEachFeaturesNearByFn & forEach, XMLFeature const & xml,
+    osm::Editor::ForEachFeaturesNearByFn & forEach, XMLFeature const & xml,
     osm::Editor::FeatureStatus const /* Unused for now (we don't create/delete area features)*/,
     TGenerateIDFn const & /*Unused for the same reason*/)
 {
@@ -108,7 +108,7 @@ FeatureID MigrateWayFeatureIndex(
   return feature->GetID();
 }
 
-FeatureID MigrateFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach,
+FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
                               XMLFeature const & xml,
                               osm::Editor::FeatureStatus const featureStatus,
                               TGenerateIDFn const & generateID)

@@ -34,7 +34,7 @@ string EditorDelegate::GetOriginalFeatureStreet(FeatureType & ft) const
   return {};
 }
 
-void EditorDelegate::ForEachFeatureAtPoint(osm::Editor::TFeatureTypeFn && fn,
+void EditorDelegate::ForEachFeatureAtPoint(osm::Editor::FeatureTypeFn && fn,
                                            m2::PointD const & point) const
 {
   auto const kToleranceMeters = 1e-2;
