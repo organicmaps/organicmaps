@@ -75,16 +75,6 @@ public class Holders
       Impress impress = Impress.values()[UGC.nativeToImpress(rating)];
       mRating.setRating(impress, String.valueOf(rating));
     }
-
-    @Override
-    protected void onItemSelected(@NonNull ViatorItem item)
-    {
-      ItemSelectedListener<ViatorItem> listener = mAdapter.getListener();
-      if (listener == null || TextUtils.isEmpty(item.getUrl()))
-        return;
-
-      listener.onItemSelected(item);
-    }
   }
 
   public static final class ViatorMoreItemViewHolder extends BaseViewHolder<Items.ViatorItem>
@@ -210,16 +200,6 @@ public class Holders
       Impress impress = Impress.values()[UGC.nativeToImpress(rating)];
       mRating.setRating(impress, UGC.nativeFormatRating(rating));
     }
-
-    @Override
-    protected void onItemSelected(@NonNull Items.LocalExpertItem item)
-    {
-      ItemSelectedListener<Items.LocalExpertItem> listener = mAdapter.getListener();
-      if (listener == null || TextUtils.isEmpty(item.getUrl()))
-        return;
-
-      listener.onItemSelected(item);
-    }
   }
 
   public static class LocalExpertMoreItemViewHolder extends BaseViewHolder<Items.LocalExpertItem>
@@ -335,6 +315,11 @@ public class Holders
 
     protected void onItemSelected(@NonNull I item)
     {
+      ItemSelectedListener<I> listener = mAdapter.getListener();
+      if (listener == null || TextUtils.isEmpty(item.getUrl()))
+        return;
+
+      listener.onItemSelected(item);
     }
   }
 

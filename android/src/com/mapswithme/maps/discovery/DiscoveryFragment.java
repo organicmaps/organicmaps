@@ -2,7 +2,6 @@ package com.mapswithme.maps.discovery;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.MainThread;
@@ -16,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -26,6 +26,7 @@ import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.viator.ViatorProduct;
 import com.mapswithme.maps.widget.PlaceholderView;
+import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Language;
@@ -43,6 +44,30 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   @Nullable
   private BaseItemSelectedListener<Items.Item> mDefaultListener;
   private boolean mOnlineMode;
+  @Nullable
+  private CustomNavigateUpListener mNavigateUpListener;
+  @Nullable
+  private DiscoveryListener mDiscoveryListener;
+
+  @Override
+  public void onAttach(Context context)
+  {
+    super.onAttach(context);
+
+    if (context instanceof CustomNavigateUpListener)
+      mNavigateUpListener = (CustomNavigateUpListener) context;
+
+    if (context instanceof DiscoveryListener)
+      mDiscoveryListener = (DiscoveryListener) context;
+  }
+
+  @Override
+  public void onDetach()
+  {
+    super.onDetach();
+    mNavigateUpListener = null;
+    mDiscoveryListener = null;
+  }
 
   @Nullable
   @Override
@@ -204,7 +229,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onAttractionsReceived(@NonNull SearchResult[] results)
   {
     updateViewsVisibility(results, R.id.attractionsTitle, R.id.attractions);
-    ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(getActivity());
+    ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(this);
     getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedAdapter(results, listener));
   }
 
@@ -213,7 +238,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onCafesReceived(@NonNull SearchResult[] results)
   {
     updateViewsVisibility(results, R.id.eatAndDrinkTitle, R.id.food);
-    ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(getActivity());
+    ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(this);
     getGallery(R.id.food).setAdapter(Factory.createSearchBasedAdapter(results, listener));
   }
 
@@ -288,6 +313,45 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     return view;
   }
 
+  private void routeTo(@NonNull Items.SearchItem item)
+  {
+    if (mDiscoveryListener == null)
+      return;
+
+    mDiscoveryListener.onRouteToDiscoveredObject(createMapObject(item));
+  }
+
+  private void showOnMap(@NonNull Items.SearchItem item)
+  {
+    if (mDiscoveryListener != null)
+      mDiscoveryListener.onShowDiscoveredObject(createMapObject(item));
+  }
+
+  @NonNull
+  private static MapObject createMapObject(@NonNull Items.SearchItem item)
+  {
+    String title = TextUtils.isEmpty(item.getTitle()) ? "" : item.getTitle();
+    String subtitle = TextUtils.isEmpty(item.getSubtitle()) ? "" : item.getSubtitle();
+    return MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH, title, subtitle,
+                                     item.getLat(), item.getLon());
+  }
+
+  @Override
+  protected ToolbarController onCreateToolbarController(@NonNull View root)
+  {
+    return new ToolbarController(getRootView(), getActivity())
+    {
+      @Override
+      public void onUpClick()
+      {
+        if (mNavigateUpListener == null)
+          return;
+
+        mNavigateUpListener.customOnNavigateUp();
+      }
+    };
+  }
+
   private static class ViatorOfflineSelectedListener extends BaseItemSelectedListener<Items.Item>
   {
     private ViatorOfflineSelectedListener(@NonNull Activity context)
@@ -304,41 +368,30 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
 
   private static class SearchBasedListener extends BaseItemSelectedListener<Items.SearchItem>
   {
-    private SearchBasedListener(@NonNull Activity context)
-    {
-      super(context);
+    @NonNull
+    private final DiscoveryFragment mFragment;
 
+    private SearchBasedListener(@NonNull DiscoveryFragment fragment)
+    {
+      super(fragment.getActivity());
+      mFragment = fragment;
     }
 
     @Override
     public void onItemSelected(@NonNull Items.SearchItem item)
     {
-      Intent intent = new Intent(DiscoveryActivity.ACTION_SHOW_ON_MAP);
-      setResult(item, intent);
+      mFragment.showOnMap(item);
     }
 
     @Override
     public void onActionButtonSelected(@NonNull Items.SearchItem item)
     {
-      Intent intent = new Intent(DiscoveryActivity.ACTION_ROUTE_TO);
-      setResult(item, intent);
+      mFragment.routeTo(item);
     }
+  }
 
-    private void setResult(@NonNull Items.SearchItem item, @NonNull Intent intent)
-    {
-      MapObject poi = createMapObject(item);
-      intent.putExtra(DiscoveryActivity.EXTRA_DISCOVERY_OBJECT, poi);
-      getContext().setResult(Activity.RESULT_OK, intent);
-      getContext().finish();
-    }
-
-    @NonNull
-    private static MapObject createMapObject(@NonNull Items.SearchItem item)
-    {
-      String title = TextUtils.isEmpty(item.getTitle()) ? "" : item.getTitle();
-      String subtitle = TextUtils.isEmpty(item.getSubtitle()) ? "" : item.getSubtitle();
-      return MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH, title, subtitle,
-                                       item.getLat(), item.getLon());
-    }
+  public interface DiscoveryListener {
+    void onRouteToDiscoveredObject(@NonNull MapObject object);
+    void onShowDiscoveredObject(@NonNull MapObject object);
   }
 }

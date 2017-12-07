@@ -15,7 +15,7 @@
     android:id="@+id/tv__title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_half_plus"
+    android:layout_marginTop="@dimen/margin_double_plus"
     android:layout_marginLeft="@dimen/margin_half_plus"
     android:layout_marginRight="@dimen/margin_half_plus"
     android:textAppearance="@style/MwmTextAppearance.Body3.Primary"

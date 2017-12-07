@@ -45,6 +45,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.discovery.DiscoveryActivity;
+import com.mapswithme.maps.discovery.DiscoveryFragment;
 import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
@@ -125,7 +126,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  NavigationButtonsAnimationController.OnTranslationChangedListener,
                                  RoutingPlanInplaceController.RoutingPlanListener,
                                  RoutingBottomMenuListener,
-                                 BookmarkManager.BookmarksLoadingListener
+                                 BookmarkManager.BookmarksLoadingListener,
+                                 DiscoveryFragment.DiscoveryListener
 {
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
@@ -137,7 +139,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                      MigrationFragment.class.getName(),
                                                      RoutingPlanFragment.class.getName(),
                                                      EditorHostFragment.class.getName(),
-                                                     ReportFragment.class.getName() };
+                                                     ReportFragment.class.getName(),
+                                                     DiscoveryFragment.class.getName() };
   // Instance state
   private static final String STATE_PP = "PpState";
   private static final String STATE_MAP_OBJECT = "MapObject";
@@ -848,8 +851,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case DISCOVERY:
-          Intent i = new Intent(MwmActivity.this, DiscoveryActivity.class);
-          startActivityForResult(i, REQ_CODE_DISCOVERY);
+          showDiscovery();
           break;
 
         case BOOKMARKS:
@@ -909,6 +911,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mPlacePage != null && mPlacePage.isDocked())
       mPlacePage.setLeftAnimationTrackListener(mMainMenu.getLeftAnimationTrackListener());
+  }
+
+  private void showDiscovery()
+  {
+    if (mIsFragmentContainer)
+    {
+      replaceFragment(DiscoveryFragment.class, null, null);
+    }
+    else
+    {
+      Intent i = new Intent(MwmActivity.this, DiscoveryActivity.class);
+      startActivityForResult(i, REQ_CODE_DISCOVERY);
+    }
   }
 
   private void initOnmapDownloader()
@@ -1057,33 +1072,39 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (TextUtils.isEmpty(action))
       return;
 
-    MapTask task;
     if (action.equals(DiscoveryActivity.ACTION_ROUTE_TO))
-    {
-      task = new MapTask()
-      {
-        @Override
-        public boolean run(MwmActivity target)
-        {
-          RoutingController.get().setRouterType(Framework.ROUTER_TYPE_PEDESTRIAN);
-          RoutingController.get().prepare(true, destination);
-          return false;
-        }
-      };
-    }
+      onRouteToDiscoveredObject(destination);
     else
+      onShowDiscoveredObject(destination);
+  }
+
+  @Override
+  public void onRouteToDiscoveredObject(@NonNull final MapObject object)
+  {
+    addTask(new MapTask()
     {
-      task = new MapTask()
+      @Override
+      public boolean run(MwmActivity target)
       {
-        @Override
-        public boolean run(MwmActivity target)
-        {
-          Framework.nativeShowFeatureByLatLon(destination.getLat(), destination.getLon());
-          return false;
-        }
-      };
-    }
-    addTask(task);
+        RoutingController.get().setRouterType(Framework.ROUTER_TYPE_PEDESTRIAN);
+        RoutingController.get().prepare(true, object);
+        return false;
+      }
+    });
+  }
+
+  @Override
+  public void onShowDiscoveredObject(@NonNull final MapObject object)
+  {
+    addTask(new MapTask()
+    {
+      @Override
+      public boolean run(MwmActivity target)
+      {
+        Framework.nativeShowFeatureByLatLon(object.getLat(), object.getLon());
+        return false;
+      }
+    });
   }
 
   @Override
