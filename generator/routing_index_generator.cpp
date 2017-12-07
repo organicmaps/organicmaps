@@ -16,6 +16,7 @@
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
+#include "routing_common/transit_graph_data.hpp"
 #include "routing_common/transit_serdes.hpp"
 
 #include "indexer/coding_params.hpp"
@@ -278,25 +279,10 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
     }
     auto reader = cont.GetReader(TRANSIT_FILE_TAG);
 
-    using Source = ReaderSource<FilesContainerR::TReader>;
-    Source src(reader);
-    transit::TransitHeader header;
-    {
-      transit::FixedSizeDeserializer<Source> des(src);
-      des(header);
-      CHECK(header.IsValid(), ("TransitHeader is not valid.", header));
-    }
-
-    vector<transit::Stop> stops;
-    vector<transit::Edge> edges;
-    {
-      transit::Deserializer<Source> des(src);
-      des(stops);
-      CHECK(IsValidSortedUnique(stops), ("Transit stops are not valid. Mwm:", mwmFile));
-      src.Skip(header.m_edgesOffset - header.m_gatesOffset); // Skipping gates.
-      des(edges);
-      CHECK(IsValidSortedUnique(edges), ("Transit edges are not valid. Mwm:", mwmFile));
-    }
+    transit::GraphData graphData;
+    graphData.DeserializeForCrossMwm(*reader.GetPtr());
+    auto const & stops = graphData.GetStops();
+    auto const & edges = graphData.GetEdges();
 
     auto const getStopIdPoint = [&stops](transit::StopId stopId) -> m2::PointD const & {
       auto const it = equal_range(stops.cbegin(), stops.cend(), transit::Stop(stopId));

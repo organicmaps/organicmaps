@@ -299,6 +299,16 @@ void GraphData::DeserializeForRendering(Reader & reader)
   ReadShapes(src);
 }
 
+void GraphData::DeserializeForCrossMwm(Reader & reader)
+{
+  NonOwningReaderSource src(reader);
+
+  ReadHeader(src);
+  ReadStops(src);
+  src.Skip(m_header.m_edgesOffset - src.Pos());
+  ReadEdges(src);
+}
+
 void GraphData::AppendTo(GraphData const & rhs)
 {
   ::Append(rhs.m_stops, m_stops);
