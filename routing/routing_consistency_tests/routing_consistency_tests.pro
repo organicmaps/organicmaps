@@ -7,12 +7,16 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map routing traffic routing_common search storage indexer platform editor geometry coding base osrm \
-               jansson protobuf succinct stats_client generator gflags pugixml icu agg
+DEPENDENCIES = map routing traffic routing_common search storage mwm_diff indexer platform editor geometry coding \
+               base osrm jansson protobuf bsdiff succinct stats_client generator gflags pugixml icu agg
 
 include($$ROOT_DIR/common.pri)
 
 QT *= core
+
+!iphone*:!android*:!tizen:!macx-* {
+  QT *= network
+}
 
 macx-* {
   QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)

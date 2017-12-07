@@ -17,6 +17,8 @@
 
 #include "indexer/index.hpp"
 
+#include "storage/country_parent_getter.hpp"
+
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
@@ -24,6 +26,8 @@
 
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
+
+#include "base/stl_add.hpp"
 
 #include "std/functional.hpp"
 #include "std/limits.hpp"
@@ -102,8 +106,11 @@ namespace integration
         numMwmIds->RegisterFile(countryFile);
     }
 
+    auto countryParentGetter = my::make_unique<storage::CountryParentGetter>();
+    CHECK(countryParentGetter, ());
+
     auto indexRouter = make_unique<IndexRouter>(vehicleType, false /* load altitudes*/,
-                                                CountryParentNameGetterFn(), countryFileGetter,
+                                                *countryParentGetter, countryFileGetter,
                                                 getMwmRectByName, numMwmIds,
                                                 MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index);
 

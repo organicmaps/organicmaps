@@ -22,6 +22,7 @@ omim_link_libraries(
   routing_common
   search
   storage
+  mwm_diff
   indexer
   platform
   editor
@@ -33,6 +34,7 @@ omim_link_libraries(
   osrm
   jansson
   protobuf
+  bsdiff
   succinct
   stats_client
   generator
@@ -45,3 +47,4 @@ omim_link_libraries(
 )
 
 link_qt5_core(${PROJECT_NAME})
+link_qt5_network(${PROJECT_NAME})

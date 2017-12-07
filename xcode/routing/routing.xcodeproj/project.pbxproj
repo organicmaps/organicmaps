@@ -67,6 +67,8 @@
 		4065EA871F8260010094DEF3 /* transit_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4065EA841F8260000094DEF3 /* transit_graph.hpp */; };
 		4081AD4E1F8E4C1D006CE8A5 /* transit_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4081AD4D1F8E4C1C006CE8A5 /* transit_graph.cpp */; };
 		40858A871F8CEAE60065CFF7 /* fake_feature_ids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40858A861F8CEAE60065CFF7 /* fake_feature_ids.cpp */; };
+		408B55C11FD9541300F4E78B /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 408B55BF1FD953F100F4E78B /* libbsdiff.a */; };
+		408B55C21FD9541800F4E78B /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 408B55C01FD9540F00F4E78B /* libmwm_diff.a */; };
 		40A111CD1F2F6776005E6AD5 /* route_weight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40A111CB1F2F6776005E6AD5 /* route_weight.cpp */; };
 		40A111CE1F2F6776005E6AD5 /* route_weight.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40A111CC1F2F6776005E6AD5 /* route_weight.hpp */; };
 		40A111D01F2F9704005E6AD5 /* astar_weight.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40A111CF1F2F9704005E6AD5 /* astar_weight.hpp */; };
@@ -365,6 +367,8 @@
 		4065EA841F8260000094DEF3 /* transit_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_graph.hpp; sourceTree = "<group>"; };
 		4081AD4D1F8E4C1C006CE8A5 /* transit_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_graph.cpp; sourceTree = "<group>"; };
 		40858A861F8CEAE60065CFF7 /* fake_feature_ids.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fake_feature_ids.cpp; sourceTree = "<group>"; };
+		408B55BF1FD953F100F4E78B /* libbsdiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbsdiff.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		408B55C01FD9540F00F4E78B /* libmwm_diff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmwm_diff.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A111CB1F2F6776005E6AD5 /* route_weight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_weight.cpp; sourceTree = "<group>"; };
 		40A111CC1F2F6776005E6AD5 /* route_weight.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route_weight.hpp; sourceTree = "<group>"; };
 		40A111CF1F2F9704005E6AD5 /* astar_weight.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = astar_weight.hpp; sourceTree = "<group>"; };
@@ -627,6 +631,7 @@
 				67BD35EE1C69F198003AA26F /* libsdf_image.a in Frameworks */,
 				67BD35EF1C69F198003AA26F /* libstb_image.a in Frameworks */,
 				67BD35D51C69F155003AA26F /* libstorage.a in Frameworks */,
+				408B55C21FD9541800F4E78B /* libmwm_diff.a in Frameworks */,
 				67BD35D31C69F139003AA26F /* librouting.a in Frameworks */,
 				67BD35C91C69F121003AA26F /* libosrm.a in Frameworks */,
 				67BD35C41C69F121003AA26F /* libjansson.a in Frameworks */,
@@ -644,6 +649,7 @@
 				67BD35CF1C69F121003AA26F /* libindexer.a in Frameworks */,
 				67BD35C31C69F121003AA26F /* libsuccinct.a in Frameworks */,
 				67BD35CD1C69F121003AA26F /* libalohalitics.a in Frameworks */,
+				408B55C11FD9541300F4E78B /* libbsdiff.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,6 +660,8 @@
 			isa = PBXGroup;
 			children = (
 				567E9F801F5853370064CB96 /* libtraffic.a */,
+				408B55BF1FD953F100F4E78B /* libbsdiff.a */,
+				408B55C01FD9540F00F4E78B /* libmwm_diff.a */,
 				567E9F7E1F58530D0064CB96 /* librouting_common.a */,
 				567E9F7C1F5852C00064CB96 /* libicu.a */,
 				567059611F3AFC5C0062672D /* librouting_common.a */,

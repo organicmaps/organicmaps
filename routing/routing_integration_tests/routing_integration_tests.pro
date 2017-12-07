@@ -11,10 +11,14 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map routing traffic routing_common search storage ugc indexer platform editor geometry coding base \
-               osrm jansson protobuf succinct stats_client pugixml icu agg
+DEPENDENCIES = map routing traffic routing_common search storage mwm_diff ugc indexer platform editor geometry \
+               coding base osrm jansson protobuf bsdiff succinct stats_client pugixml icu agg
 
 DEPENDENCIES += opening_hours
+
+!iphone*:!android*:!tizen:!macx-* {
+  QT *= network
+}
 
 macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 

@@ -31,6 +31,7 @@ omim_link_libraries(
   routing
   search
   storage
+  mwm_diff
   indexer
   editor
   traffic
@@ -43,6 +44,7 @@ omim_link_libraries(
   osrm
   jansson
   protobuf
+  bsdiff
   succinct
   stats_client
   pugixml
@@ -53,3 +55,4 @@ omim_link_libraries(
 )
 
 link_qt5_core(${PROJECT_NAME})
+link_qt5_network(${PROJECT_NAME})
