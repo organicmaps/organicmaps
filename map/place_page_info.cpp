@@ -181,6 +181,12 @@ void Info::SetBac(BookmarkAndCategory const & bac)
   m_uiSubtitle = FormatSubtitle(IsFeature() /* withType */);
 }
 
+bool Info::IsNotEditableSponsored() const
+{
+  return m_sponsoredType == SponsoredType::Booking ||
+         m_sponsoredType == SponsoredType::Holiday;
+}
+
 bool Info::ShouldShowEditPlace() const
 {
   return m_canEditOrAdd &&

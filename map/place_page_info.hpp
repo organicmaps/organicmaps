@@ -130,7 +130,7 @@ public:
 
   /// Sponsored
   bool IsSponsored() const { return m_sponsoredType != SponsoredType::None; }
-  bool IsNotEditableSponsored() const { return m_sponsoredType == SponsoredType::Booking; }
+  bool IsNotEditableSponsored() const;
   void SetBookingSearchUrl(std::string const & url) { m_bookingSearchUrl = url; }
   std::string const & GetBookingSearchUrl() const { return m_bookingSearchUrl; }
   void SetSponsoredUrl(std::string const & url) { m_sponsoredUrl = url; }
