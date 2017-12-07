@@ -1,9 +1,11 @@
 #pragma once
 
-#include "routing_common/transit_serdes.hpp"
+#include "routing_common/transit_types.hpp"
 
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
+
+#include "coding/reader.hpp"
 
 #include "base/thread.hpp"
 #include "base/thread_pool.hpp"
@@ -19,49 +21,15 @@
 class TransitReader
 {
 public:
-  TransitReader(Index & index)
-    : m_index(index)
-  {}
+  TransitReader(Index & index) : m_index(index) {}
 
   bool Init(MwmSet::MwmId const & mwmId);
-  bool IsValid() const;
-
-  void ReadStops(std::vector<routing::transit::Stop> & stops);
-  void ReadShapes(std::vector<routing::transit::Shape> & shapes);
-  void ReadTransfers(std::vector<routing::transit::Transfer> & transfers);
-  void ReadLines(std::vector<routing::transit::Line> & lines);
-  void ReadNetworks(std::vector<routing::transit::Network> & networks);
+  bool IsValid() const { return m_reader != nullptr; }
+  Reader & GetReader();
 
 private:
-  using TransitReaderSource = ReaderSource<FilesContainerR::TReader>;
-  std::unique_ptr<TransitReaderSource> GetReader(MwmSet::MwmId const & mwmId);
-
-  void ReadHeader();
-
-  using GetItemsOffsetFn = std::function<uint32_t (routing::transit::TransitHeader const & header)>;
-  template <typename T>
-  void ReadTable(uint32_t offset, std::vector<T> & items)
-  {
-    ASSERT(m_src != nullptr, ());
-    items.clear();
-    try
-    {
-      CHECK_GREATER_OR_EQUAL(offset, m_src->Pos(), ("Wrong section format."));
-      m_src->Skip(offset - m_src->Pos());
-
-      routing::transit::Deserializer<ReaderSource<FilesContainerR::TReader>> deserializer(*m_src.get());
-      deserializer(items);
-    }
-    catch (Reader::OpenException const & e)
-    {
-      LOG(LERROR, ("Error while reading", TRANSIT_FILE_TAG, "section.", e.Msg()));
-      throw;
-    }
-  }
-
   Index & m_index;
-  std::unique_ptr<TransitReaderSource> m_src;
-  routing::transit::TransitHeader m_header;
+  std::unique_ptr<FilesContainerR::TReader> m_reader;
 };
 
 struct TransitFeatureInfo

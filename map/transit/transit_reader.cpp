@@ -1,5 +1,7 @@
 #include "map/transit/transit_reader.hpp"
 
+#include "routing_common/transit_graph_data.hpp"
+
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
 #include "indexer/feature_algo.hpp"
@@ -9,73 +11,30 @@
 using namespace routing;
 using namespace std;
 
+// TransitReader ----------------------------------------------------------------------------------
 bool TransitReader::Init(MwmSet::MwmId const & mwmId)
-{
-  m_src = move(GetReader(mwmId));
-  if (m_src != nullptr)
-    ReadHeader();
-  return IsValid();
-}
-
-bool TransitReader::IsValid() const
-{
-  return m_src != nullptr;
-}
-
-unique_ptr<TransitReader::TransitReaderSource> TransitReader::GetReader(MwmSet::MwmId const & mwmId)
 {
   MwmSet::MwmHandle handle = m_index.GetMwmHandleById(mwmId);
   if (!handle.IsAlive())
   {
     LOG(LWARNING, ("Can't get mwm handle for", mwmId));
-    return unique_ptr<TransitReaderSource>();
+    return {};
   }
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
   if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
-    return unique_ptr<TransitReaderSource>();
-  FilesContainerR::TReader reader = mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG);
-  return my::make_unique<TransitReaderSource>(reader);
+    return {};
+
+  m_reader = make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG));
+  return IsValid();
 }
 
-void TransitReader::ReadHeader()
+Reader & TransitReader::GetReader()
 {
-  try
-  {
-    transit::FixedSizeDeserializer<ReaderSource<FilesContainerR::TReader>> fixedSizeDeserializer(*m_src.get());
-    fixedSizeDeserializer(m_header);
-  }
-  catch (Reader::OpenException const & e)
-  {
-    LOG(LERROR, ("Error while reading transit header.", e.Msg()));
-    throw;
-  }
+  CHECK(IsValid(), ());
+  return *m_reader->GetPtr();
 }
 
-void TransitReader::ReadStops(vector<transit::Stop> & stops)
-{
-  ReadTable(m_header.m_stopsOffset, stops);
-}
-
-void TransitReader::ReadShapes(vector<transit::Shape> & shapes)
-{
-  ReadTable(m_header.m_shapesOffset, shapes);
-}
-
-void TransitReader::ReadTransfers(vector<transit::Transfer> & transfers)
-{
-  ReadTable(m_header.m_transfersOffset, transfers);
-}
-
-void TransitReader::ReadLines(vector<transit::Line> & lines)
-{
-  ReadTable(m_header.m_linesOffset, lines);
-}
-
-void TransitReader::ReadNetworks(vector<transit::Network> & networks)
-{
-  ReadTable(m_header.m_networksOffset, networks);
-}
-
+// ReadTransitTask --------------------------------------------------------------------------------
 bool ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, unique_ptr<TransitDisplayInfo> && transitInfo)
 {
   m_id = id;
@@ -98,11 +57,10 @@ void ReadTransitTask::Do()
   if (!m_transitReader.IsValid())
     return;
 
-  vector<transit::Stop> stops;
-  m_transitReader.ReadStops(stops);
-  FillItemsByIdMap(stops, m_transitInfo->m_stops);
-  stops.clear();
+  transit::GraphData graphData;
+  graphData.DeserializeForRendering(m_transitReader.GetReader());
 
+  FillItemsByIdMap(graphData.GetStops(), m_transitInfo->m_stops);
   for (auto const & stop : m_transitInfo->m_stops)
   {
     if (stop.second.GetFeatureId() != transit::kInvalidFeatureId)
@@ -114,21 +72,9 @@ void ReadTransitTask::Do()
     if (stop.second.GetTransferId() != transit::kInvalidTransferId)
       m_transitInfo->m_transfers[stop.second.GetTransferId()] = {};
   }
-
-  vector<transit::Transfer> transfers;
-  m_transitReader.ReadTransfers(transfers);
-  FillItemsByIdMap(transfers, m_transitInfo->m_transfers);
-  transfers.clear();
-
-  vector<transit::Line> lines;
-  m_transitReader.ReadLines(lines);
-  FillItemsByIdMap(lines, m_transitInfo->m_lines);
-  lines.clear();
-
-  vector<transit::Shape> shapes;
-  m_transitReader.ReadShapes(shapes);
-  FillItemsByIdMap(shapes, m_transitInfo->m_shapes);
-  shapes.clear();
+  FillItemsByIdMap(graphData.GetTransfers(), m_transitInfo->m_transfers);
+  FillItemsByIdMap(graphData.GetLines(), m_transitInfo->m_lines);
+  FillItemsByIdMap(graphData.GetShapes(), m_transitInfo->m_shapes);
 
   vector<FeatureID> features;
   for (auto & id : m_transitInfo->m_features)

@@ -129,6 +129,7 @@ public:
   void Serialize(Writer & writer);
   void DeserializeAll(Reader & reader);
   void DeserializeForRouting(Reader & reader);
+  void DeserializeForRendering(Reader & reader);
   void AppendTo(GraphData const & rhs);
   void Clear();
   bool IsValid() const;

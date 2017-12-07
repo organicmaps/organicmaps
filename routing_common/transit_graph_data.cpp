@@ -287,6 +287,18 @@ void GraphData::DeserializeForRouting(Reader & reader)
   ReadLines(src);
 }
 
+void GraphData::DeserializeForRendering(Reader & reader)
+{
+  NonOwningReaderSource src(reader);
+
+  ReadHeader(src);
+  ReadStops(src);
+  src.Skip(m_header.m_transfersOffset - src.Pos());
+  ReadTransfers(src);
+  ReadLines(src);
+  ReadShapes(src);
+}
+
 void GraphData::AppendTo(GraphData const & rhs)
 {
   ::Append(rhs.m_stops, m_stops);
