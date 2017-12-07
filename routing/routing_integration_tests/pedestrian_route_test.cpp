@@ -105,7 +105,7 @@ UNIT_TEST(FranceParis_AvoidBridleway)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
       MercatorBounds::FromLatLon(48.859, 2.25452), {0., 0.},
-      MercatorBounds::FromLatLon(48.8634, 2.24315), 1307.);
+      MercatorBounds::FromLatLon(48.8634, 2.24315), 1049.);
 }
 
 UNIT_TEST(HungaryBudapest_AvoidMotorway)
@@ -177,7 +177,7 @@ UNIT_TEST(BelarusBobruisk50LetVlksmToSanatoryShinnik)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
       MercatorBounds::FromLatLon(53.1638, 29.1804), {0., 0.},
-      MercatorBounds::FromLatLon(53.179, 29.1682), 2661.);
+      MercatorBounds::FromLatLon(53.179, 29.1682), 2400.);
 }
 
 UNIT_TEST(BelarusBobruisk50LetVlksmToArena)
@@ -224,7 +224,7 @@ UNIT_TEST(RussiaTaganrogCheckhova267k2ToKotlostroy33)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
-      MercatorBounds::FromLatLon(47.2198, 38.8906), {0., 0.},
+      MercatorBounds::FromLatLon(47.2200, 38.8906), {0., 0.},
       MercatorBounds::FromLatLon(47.2459, 38.8937), 3485.);
 }
 
@@ -232,7 +232,7 @@ UNIT_TEST(RussiaTaganrogCheckhova267k2ToBolBulvarnaya8)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
-      MercatorBounds::FromLatLon(47.2198, 38.8906), {0., 0.},
+      MercatorBounds::FromLatLon(47.2200, 38.8906), {0., 0.},
       MercatorBounds::FromLatLon(47.2412, 38.8902), 2897.);
 }
 
@@ -372,12 +372,12 @@ UNIT_TEST(USANewYorkEmpireStateBuildingToUnitedNations)
       MercatorBounds::FromLatLon(40.75047, -73.96759), 2265.);
 }
 
-UNIT_TEST(CrossMwmEgyptTabaToJordanAqaba)
+UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
-      MercatorBounds::FromLatLon(29.49271, 34.89571), {0., 0.},
-      MercatorBounds::FromLatLon(29.52774, 35.00324), 29016);
+      MercatorBounds::FromLatLon(55.15414, 20.85378), {0., 0.},
+      MercatorBounds::FromLatLon(56.51119, 21.01847), 192000);
 }
 
 UNIT_TEST(CrossMwmRussiaPStaiToBelarusDrazdy)
@@ -428,6 +428,7 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
   TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
+// Fails to generate "Downstairs" direction.
 UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
 {
   TRouteResult const routeResult =
@@ -448,6 +449,7 @@ UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
   TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
+// Fails to generate "LiftGate" direction.
 UNIT_TEST(RussiaMoscowTrubnikovPereulok30Ac1LiftGate)
 {
   TRouteResult const routeResult =
@@ -467,6 +469,7 @@ UNIT_TEST(RussiaMoscowTrubnikovPereulok30Ac1LiftGate)
   TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
+// Fails to generate "Gate" direction.
 UNIT_TEST(RussiaMoscowKhlebnyyLane15c1Gate)
 {
   TRouteResult const routeResult =
@@ -486,6 +489,7 @@ UNIT_TEST(RussiaMoscowKhlebnyyLane15c1Gate)
   TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
+// Fails to generate "LiftGate"/"Gate" directions.
 UNIT_TEST(RussiaMoscowKhlebnyyLane19LiftGateAndGate)
 {
   TRouteResult const routeResult =
@@ -531,7 +535,7 @@ UNIT_TEST(RussiaMoscowSevTushinoParkPedestrianOnePointTurnTest)
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
-  integration::TestTurnCount(route, 0);
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
   integration::TestRouteLength(route, 0.0);
 }
 

@@ -18,14 +18,15 @@ namespace
         MercatorBounds::FromLatLon(19.17289, 30.47315), 10283.7);
   }
 
-  UNIT_TEST(MoscowShortRoadUnpacking)
+  UNIT_TEST(MoscowKashirskoeShosseCrossing)
   {
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
-        MercatorBounds::FromLatLon(55.66218, 37.63253), {0., 0.},
-        MercatorBounds::FromLatLon(55.66237, 37.63560), 101.);
+        MercatorBounds::FromLatLon(55.66216, 37.63259), {0., 0.},
+        MercatorBounds::FromLatLon(55.66237, 37.63560), 1700.);
   }
 
+  // Fails because cheackpoints are far from roads (inside Kremlin and inside airport).
   UNIT_TEST(MoscowToSVOAirport)
   {
     integration::CalculateRouteAndTestRouteLength(
@@ -44,7 +45,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
         MercatorBounds::FromLatLon(55.77399, 37.68468), {0., 0.},
-        MercatorBounds::FromLatLon(55.77198, 37.68782), 700.);
+        MercatorBounds::FromLatLon(55.77198, 37.68782), 1032.);
   }
 
   UNIT_TEST(RestrictionTestNearMetroShodnenskaya)
@@ -73,12 +74,20 @@ namespace
         MercatorBounds::FromLatLon(54.9228, 58.1469), 164667.);
   }
 
-  UNIT_TEST(RussiaMoscow)
+  UNIT_TEST(RussiaMoscowNoServiceCrossing)
   {
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
         MercatorBounds::FromLatLon(55.77787, 37.70405), {0., 0.},
-        MercatorBounds::FromLatLon(55.77682, 37.70391), 185.);
+        MercatorBounds::FromLatLon(55.77682, 37.70391), 3140.);
+  }
+
+  UNIT_TEST(RussiaMoscowShortWayToService)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents<VehicleType::Car>(),
+        MercatorBounds::FromLatLon(55.77787, 37.70405), {0., 0.},
+        MercatorBounds::FromLatLon(55.77691, 37.70428), 150.);
   }
 
   // Geometry unpacking test.
@@ -255,12 +264,12 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
         MercatorBounds::FromLatLon(45.38053, 36.73226), {0., 0.},
-        MercatorBounds::FromLatLon(45.36078, 36.60866), 13150.);
+        MercatorBounds::FromLatLon(45.36078, 36.60866), 15500.);
     // And backward case
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
         MercatorBounds::FromLatLon(45.36078, 36.60866), {0., 0.},
-        MercatorBounds::FromLatLon(45.38053, 36.73226), 13110.);
+        MercatorBounds::FromLatLon(45.38053, 36.73226), 15500.);
   }
 
   UNIT_TEST(ParisCrossDestinationInForwardHeapCase)
@@ -277,6 +286,7 @@ namespace
         MercatorBounds::FromLatLon(49.85015, 2.24296), 126000.);
   }
 
+  // Fails to return correct time.
   UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
   {
     TRouteResult const routeResult =
@@ -301,7 +311,7 @@ namespace
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
 
-    integration::TestRouteTime(route, 745.);
+    integration::TestRouteTime(route, 730.);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
@@ -318,7 +328,7 @@ namespace
     TEST_EQUAL(route.GetSubrouteCount(), 1, ());
     vector<RouteSegment> info;
     route.GetSubrouteInfo(0, info);
-    TEST_EQUAL(info.size(), 336, ());
+    TEST_EQUAL(info.size(), 330, ());
   }
 
   UNIT_TEST(USALosAnglesAriaTwentyninePalmsHighwayTimeTest)

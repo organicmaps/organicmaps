@@ -31,7 +31,7 @@ UNIT_TEST(RussiaDomodedovoSteps)
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents<VehicleType::Bicycle>(),
       MercatorBounds::FromLatLon(55.44010, 37.77416), {0., 0.},
-      MercatorBounds::FromLatLon(55.43975, 37.77272), 123.0);
+      MercatorBounds::FromLatLon(55.43975, 37.77272), 100.0);
 }
 
 UNIT_TEST(SwedenStockholmCyclewayPriority)
@@ -62,7 +62,7 @@ UNIT_TEST(NetherlandsAmsterdamBicycleYes)
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
-  TEST(my::AlmostEqualAbs(route.GetTotalTimeSec(), 356.0, 1.0), ());
+  TEST(my::AlmostEqualAbs(route.GetTotalTimeSec(), 357.0, 1.0), ());
 }
 
 UNIT_TEST(NetherlandsAmsterdamSingelStOnewayBicycleNo)
@@ -78,7 +78,17 @@ UNIT_TEST(RussiaMoscowKashirskoe16ToCapLongRoute)
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents<VehicleType::Bicycle>(),
       MercatorBounds::FromLatLon(55.66230, 37.63214), {0., 0.},
-      MercatorBounds::FromLatLon(55.68895, 37.70286), 7057.0);
+      MercatorBounds::FromLatLon(55.68927, 37.70356), 7726.0);
+}
+
+// No pass through service road in Russia
+UNIT_TEST(RussiaMoscowNoServicePassThrough)
+{
+  TRouteResult route =
+        integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Bicycle>(),
+                                    MercatorBounds::FromLatLon(55.66230, 37.63214), {0., 0.},
+                                    MercatorBounds::FromLatLon(55.68895, 37.70286));
+  TEST_EQUAL(route.second, IRouter::RouteNotFound, ());
 }
 
 UNIT_TEST(RussiaKerchStraitFerryRoute)
