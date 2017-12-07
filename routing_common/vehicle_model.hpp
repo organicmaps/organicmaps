@@ -47,6 +47,8 @@ public:
   /// e.g. in Russia roads tagged "highway = service" are not allowed for through passage;
   /// however, road with this tag can be be used if it is close enough to the start or destination
   /// point of the route.
+  /// Roads with additional types e.g. "path = ferry", "vehicle_type = yes" considered as allowed
+  /// to pass through.
   virtual bool IsPassThroughAllowed(FeatureType const & f) const = 0;
 };
 

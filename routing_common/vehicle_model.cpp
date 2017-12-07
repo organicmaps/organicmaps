@@ -114,6 +114,13 @@ bool VehicleModel::IsRoad(FeatureType const & f) const
 bool VehicleModel::IsPassThroughAllowed(FeatureType const & f) const
 {
   feature::TypesHolder const types(f);
+  // Allow pass through additional road types e.g. peer, ferry.
+  for (uint32_t t : types)
+  {
+    auto const addRoadInfoIter = FindRoadType(t);
+    if (addRoadInfoIter != m_addRoadTypes.cend())
+      return true;
+  }
   return HasPassThroughType(types);
 }
 
