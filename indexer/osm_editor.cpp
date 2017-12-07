@@ -68,7 +68,13 @@ constexpr char const * kWrongMatch = "Matched feature has no tags";
 
 struct XmlSection
 {
-  osm::Editor::FeatureStatus m_status;
+  XmlSection(osm::Editor::FeatureStatus status, std::string const & sectionName)
+    : m_status(status)
+    , m_sectionName(sectionName)
+  {
+  }
+
+  osm::Editor::FeatureStatus m_status = osm::Editor::FeatureStatus::Untouched;
   std::string m_sectionName;
 };
 
@@ -83,13 +89,14 @@ array<XmlSection, 4> const kXmlSections =
 struct LogHelper
 {
   LogHelper(MwmSet::MwmId const & mwmId) : m_mwmId(mwmId) {}
+
   ~LogHelper()
   {
     LOG(LINFO, ("For", m_mwmId, ". Was loaded", m_modified, "modified,", m_created, "created,",
                 m_deleted, "deleted and", m_obsolete, "obsolete features."));
   }
 
-  void Increment(osm::Editor::FeatureStatus status)
+  void OnStatus(osm::Editor::FeatureStatus status)
   {
     switch (status)
     {
@@ -101,10 +108,10 @@ struct LogHelper
     }
   }
 
-  int m_deleted = 0;
-  int m_obsolete = 0;
-  int m_modified = 0;
-  int m_created = 0;
+  uint32_t m_deleted = 0;
+  uint32_t m_obsolete = 0;
+  uint32_t m_modified = 0;
+  uint32_t m_created = 0;
   MwmSet::MwmId const & m_mwmId;
 };
 
@@ -216,7 +223,8 @@ void Editor::LoadEdits()
     int64_t const mapVersion = mwm.attribute("version").as_llong(0);
     auto const mwmId = GetMwmIdByMapName(mapName);
 
-    // TODO(mgsergio): A map could be renamed, we'll treat it as deleted.
+    // TODO(mgsergio, milchakov): |mapName| may change between launches.
+    // The right thing to do here is to try to migrate all changes anyway.
     if (!mwmId.IsAlive())
     {
       LOG(LINFO, ("Mwm", mapName, "was deleted"));
@@ -1216,7 +1224,7 @@ void Editor::LoadMwmEdits(xml_node const & mwm, MwmSet::MwmId const & mwmId, boo
         if (!FillFeatureInfo(section.m_status, xml, fid, fti))
           continue;
 
-        logHelper.Increment(section.m_status);
+        logHelper.OnStatus(section.m_status);
 
         m_features[fid.m_mwmId].emplace(fid.m_index, move(fti));
       }

@@ -230,6 +230,7 @@ private:
     string m_uploadStatus;
     string m_uploadError;
   };
+
   bool FillFeatureInfo(FeatureStatus status, editor::XMLFeature const & xml, FeatureID const & fid,
                        FeatureTypeInfo & fti) const;
   /// @returns pointer to m_features[id][index] if exists, nullptr otherwise.
