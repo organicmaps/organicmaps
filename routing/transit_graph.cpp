@@ -3,6 +3,8 @@
 #include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph.hpp"
 
+#include "routing_common/transit_graph_data.hpp"
+
 #include "indexer/feature_altitude.hpp"
 
 namespace routing
@@ -120,16 +122,16 @@ bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
   return m_fake.FindReal(fake, real);
 }
 
-void TransitGraph::Fill(TransitData const & transitData, GateEndings const & gateEndings)
+void TransitGraph::Fill(transit::GraphData const & transitData, GateEndings const & gateEndings)
 {
   // Line has information about transit interval.
   // We assume arrival time has uniform distribution with min value |0| and max value |line.GetInterval()|.
   // Expected value of time to wait transport for particular line is |line.GetInterval() / 2|.
-  for (auto const & line : transitData.m_lines)
+  for (auto const & line : transitData.GetLines())
     m_transferPenalties[line.GetId()] = line.GetInterval() / 2;
 
   map<transit::StopId, Junction> stopCoords;
-  for (auto const & stop : transitData.m_stops)
+  for (auto const & stop : transitData.GetStops())
     stopCoords[stop.GetId()] = Junction(stop.GetPoint(), feature::kDefaultAltitudeMeters);
 
   StopToSegmentsMap stopToBack;
@@ -139,10 +141,11 @@ void TransitGraph::Fill(TransitData const & transitData, GateEndings const & gat
 
   // It's important to add transit edges first to ensure fake segment id for particular edge is edge order
   // in mwm. We use edge fake segments in cross-mwm section and they should be stable.
+  auto const & edges = transitData.GetEdges();
   CHECK_EQUAL(m_fake.GetSize(), 0, ());
-  for (size_t i = 0; i < transitData.m_edges.size(); ++i)
+  for (size_t i = 0; i < edges.size(); ++i)
   {
-    auto const & edge = transitData.m_edges[i];
+    auto const & edge = edges[i];
     CHECK_NOT_EQUAL(edge.GetWeight(), transit::kInvalidWeight, ("Edge should have valid weight."));
     auto const edgeSegment = AddEdge(edge, stopCoords, stopToBack, stopToFront);
     // Checks fake feature ids have consecutive numeration starting from
@@ -151,9 +154,9 @@ void TransitGraph::Fill(TransitData const & transitData, GateEndings const & gat
     outgoing[edge.GetStop1Id()].insert(edgeSegment);
     ingoing[edge.GetStop2Id()].insert(edgeSegment);
   }
-  CHECK_EQUAL(m_fake.GetSize(), transitData.m_edges.size(), ());
+  CHECK_EQUAL(m_fake.GetSize(), edges.size(), ());
 
-  for (auto const & gate : transitData.m_gates)
+  for (auto const & gate : transitData.GetGates())
   {
     CHECK_NOT_EQUAL(gate.GetWeight(), transit::kInvalidWeight, ("Gate should have valid weight."));
 

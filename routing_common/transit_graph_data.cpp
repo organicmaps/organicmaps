@@ -261,7 +261,7 @@ void GraphData::Serialize(Writer & writer)
   LOG(LINFO, (TRANSIT_FILE_TAG, "section is ready. Header:", m_header));
 }
 
-void GraphData::Deserialize(Reader & reader)
+void GraphData::DeserializeAll(Reader & reader)
 {
   NonOwningReaderSource src(reader);
 
@@ -273,6 +273,18 @@ void GraphData::Deserialize(Reader & reader)
   ReadLines(src);
   ReadShapes(src);
   ReadNetworks(src);
+}
+
+void GraphData::DeserializeForRouting(Reader & reader)
+{
+  NonOwningReaderSource src(reader);
+
+  ReadHeader(src);
+  ReadStops(src);
+  ReadGates(src);
+  ReadEdges(src);
+  src.Skip(m_header.m_linesOffset - src.Pos());
+  ReadLines(src);
 }
 
 void GraphData::AppendTo(GraphData const & rhs)

@@ -79,35 +79,11 @@ unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId num
   try
   {
     FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG));
-    ReaderSource<FilesContainerR::TReader> src(reader);
-    transit::Deserializer<ReaderSource<FilesContainerR::TReader>> deserializer(src);
-    transit::FixedSizeDeserializer<ReaderSource<FilesContainerR::TReader>> numberDeserializer(src);
-
-    transit::TransitHeader header;
-    numberDeserializer(header);
-    CHECK(header.IsValid(), ());
-
-    TransitGraph::TransitData transitData;
-
-    CHECK_EQUAL(src.Pos(), header.m_stopsOffset, ("Wrong section format."));
-    deserializer(transitData.m_stops);
-    CHECK(IsValidSortedUnique(transitData.m_stops), ());
-
-    CHECK_EQUAL(src.Pos(), header.m_gatesOffset, ("Wrong section format."));
-    deserializer(transitData.m_gates);
-    CHECK(IsValidSortedUnique(transitData.m_gates), ());
-
-    CHECK_EQUAL(src.Pos(), header.m_edgesOffset, ("Wrong section format."));
-    deserializer(transitData.m_edges);
-    CHECK(IsValidSortedUnique(transitData.m_edges), ());
-
-    src.Skip(header.m_linesOffset - src.Pos());
-    CHECK_EQUAL(src.Pos(), header.m_linesOffset, ("Wrong section format."));
-    deserializer(transitData.m_lines);
-    CHECK(IsValidSortedUnique(transitData.m_lines), ());
+    transit::GraphData transitData;
+    transitData.DeserializeForRouting(*reader.GetPtr());
 
     TransitGraph::GateEndings gateEndings;
-    MakeGateEndings(transitData.m_gates, numMwmId, indexGraph, gateEndings);
+    MakeGateEndings(transitData.GetGates(), numMwmId, indexGraph, gateEndings);
 
     graph->Fill(transitData, gateEndings);
   }

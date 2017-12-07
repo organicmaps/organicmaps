@@ -127,7 +127,8 @@ class GraphData
 public:
   void DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping);
   void Serialize(Writer & writer);
-  void Deserialize(Reader & reader);
+  void DeserializeAll(Reader & reader);
+  void DeserializeForRouting(Reader & reader);
   void AppendTo(GraphData const & rhs);
   void Clear();
   bool IsValid() const;
@@ -183,6 +184,8 @@ private:
   /// \brief Removes all shapes from |m_shapes| which are not reffered form |m_edges|.
   void ClipShapes();
 
+  /// \brief Read a transit table form |srs|.
+  /// \note Before calling any of the method except for ReadHeader() |m_header| has to be filled.
   void ReadHeader(NonOwningReaderSource & src);
   void ReadStops(NonOwningReaderSource & src);
   void ReadGates(NonOwningReaderSource & src);

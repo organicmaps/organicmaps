@@ -317,14 +317,14 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoade
 unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geometryLoader,
                                               shared_ptr<EdgeEstimator> estimator,
                                               vector<Joint> const & joints,
-                                              TransitGraph::TransitData const & transitData)
+                                              transit::GraphData const & transitData)
 {
   auto indexGraph = make_unique<IndexGraph>(move(geometryLoader), estimator);
   indexGraph->Import(joints);
 
   auto transitGraph = make_unique<TransitGraph>(kTestNumMwmId, estimator);
   TransitGraph::GateEndings gateEndings;
-  MakeGateEndings(transitData.m_gates, kTestNumMwmId, *indexGraph, gateEndings);
+  MakeGateEndings(transitData.GetGates(), kTestNumMwmId, *indexGraph, gateEndings);
   transitGraph->Fill(transitData, gateEndings);
 
   auto indexLoader = make_unique<TestIndexGraphLoader>();

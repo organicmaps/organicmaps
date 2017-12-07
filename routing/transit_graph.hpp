@@ -8,6 +8,7 @@
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
 
+#include "routing_common/transit_graph_data.hpp"
 #include "routing_common/transit_types.hpp"
 
 #include <cstdint>
@@ -25,14 +26,6 @@ class TransitGraph final
 public:
   using GateEndings = std::map<transit::OsmId, FakeEnding>;
 
-  struct TransitData
-  {
-    std::vector<transit::Stop> m_stops;
-    std::vector<transit::Edge> m_edges;
-    std::vector<transit::Line> m_lines;
-    std::vector<transit::Gate> m_gates;
-  };
-
   static bool IsTransitFeature(uint32_t featureId);
   static bool IsTransitSegment(Segment const & segment);
 
@@ -46,7 +39,7 @@ public:
   std::set<Segment> const & GetFake(Segment const & real) const;
   bool FindReal(Segment const & fake, Segment & real) const;
 
-  void Fill(TransitData const & transitData, GateEndings const & gateEndings);
+  void Fill(transit::GraphData const & transitData, GateEndings const & gateEndings);
 
   bool IsGate(Segment const & segment) const;
   bool IsEdge(Segment const & segment) const;
