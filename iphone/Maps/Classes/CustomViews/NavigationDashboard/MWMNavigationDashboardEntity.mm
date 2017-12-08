@@ -11,7 +11,6 @@
 
 @property(copy, nonatomic, readwrite) NSArray<MWMRouterTransitStepInfo *> * transitSteps;
 @property(copy, nonatomic, readwrite) NSAttributedString * estimate;
-@property(copy, nonatomic, readwrite) NSAttributedString * estimateDot;
 @property(copy, nonatomic, readwrite) NSString * distanceToTurn;
 @property(copy, nonatomic, readwrite) NSString * streetName;
 @property(copy, nonatomic, readwrite) NSString * targetDistance;
@@ -55,13 +54,11 @@
 
 - (NSAttributedString *)estimateDot
 {
-  if (!_estimateDot)
-  {
-    auto attributes = @{NSForegroundColorAttributeName : [UIColor blackSecondaryText],
-                        NSFontAttributeName : [UIFont medium17]};
-    _estimateDot = [[NSAttributedString alloc] initWithString:@" • " attributes:attributes];
-  }
-  return _estimateDot;
+  auto attributes = @{
+    NSForegroundColorAttributeName: [UIColor blackSecondaryText],
+    NSFontAttributeName: [UIFont medium17]
+  };
+  return [[NSAttributedString alloc] initWithString:@" • " attributes:attributes];
 }
 
 @end

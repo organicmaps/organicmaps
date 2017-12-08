@@ -1,6 +1,6 @@
 final class TransportTransitSeparator: UICollectionReusableView {
   enum Config {
-    static let imageColor = UIColor.blackSecondaryText()!
+    static var imageColor: UIColor { return UIColor.blackSecondaryText()! }
   }
 
   override init(frame: CGRect) {

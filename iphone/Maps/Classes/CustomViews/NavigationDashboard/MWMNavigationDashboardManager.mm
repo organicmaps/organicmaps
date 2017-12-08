@@ -107,6 +107,8 @@ using Observers = NSHashTable<Observer>;
   [_navigationControlView mwm_refreshUI];
   [_baseRoutePreviewStatus mwm_refreshUI];
   [_transportRoutePreviewStatus mwm_refreshUI];
+  _etaAttributes = nil;
+  _etaSecondaryAttributes = nil;
 }
 
 - (void)onNavigationInfoUpdated
