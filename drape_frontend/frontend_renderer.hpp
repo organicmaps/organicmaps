@@ -327,6 +327,9 @@ private:
   bool m_firstLaunchAnimationTriggered = false;
   bool m_firstLaunchAnimationInterrupted = false;
 
+  bool m_finishTexturesInitialization = false;
+  drape_ptr<ScreenQuadRenderer> m_transitBackground;
+
 #ifdef DEBUG
   bool m_isTeardowned;
 #endif

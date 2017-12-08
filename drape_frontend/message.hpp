@@ -84,6 +84,7 @@ public:
     RunFirstLaunchAnimation,
     UpdateMetalines,
     PostUserEvent,
+    FinishTexturesInitialization,
   };
 
   virtual ~Message() {}

@@ -1172,4 +1172,10 @@ public:
 private:
   drape_ptr<UserEvent> m_event;
 };
+
+class FinishTexturesInitializationMessage : public Message
+{
+public:
+  Type GetType() const override { return Message::FinishTexturesInitialization; }
+};
 }  // namespace df

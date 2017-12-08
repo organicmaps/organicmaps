@@ -48,6 +48,8 @@ float constexpr kIsometryAngle = static_cast<float>(math::pi) * 76.0f / 180.0f;
 double const kVSyncInterval = 0.06;
 //double const kVSyncInterval = 0.014;
 
+std::string const kTransitBackgroundColor = "TransitBackground";
+
 struct MergedGroupKey
 {
   dp::GLState m_state;
@@ -576,6 +578,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         layer.m_isDirty = false;
       }
 
+      // Must be recreated on map style changing.
+      m_transitBackground.reset(new ScreenQuadRenderer());
+
       // Invalidate read manager.
       {
         BaseBlockingMessage::Blocker blocker;
@@ -829,6 +834,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<PostUserEventMessage> msg = message;
       AddUserEvent(msg->AcceptEvent());
+      break;
+    }
+
+  case Message::FinishTexturesInitialization:
+    {
+      ref_ptr<FinishTexturesInitializationMessage> msg = message;
+      m_finishTexturesInitialization = true;
       break;
     }
 
@@ -1318,6 +1330,21 @@ void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
 {
+  if (m_finishTexturesInitialization && HasTransitData())
+  {
+    GLFunctions::glDisable(gl_const::GLDepthTest);
+
+    dp::TextureManager::ColorRegion region;
+    m_texMng->GetColorRegion(df::GetColorConstant(kTransitBackgroundColor), region);
+    if (!m_transitBackground->IsInitialized())
+    {
+      auto prg = m_gpuProgramManager->GetProgram(gpu::SCREEN_QUAD_PROGRAM);
+      m_transitBackground->SetTextureRect(region.GetTexRect(), prg);
+    }
+    m_transitBackground->RenderTexture(make_ref(m_gpuProgramManager),
+                                       static_cast<uint32_t>(region.GetTexture()->GetID()), 1.0f);
+  }
+
   GLFunctions::glClear(gl_const::GLDepthBit);
   GLFunctions::glEnable(gl_const::GLDepthTest);
   m_routeRenderer->RenderRoute(modelView, m_trafficRenderer->HasRenderData(),
@@ -1769,6 +1796,8 @@ void FrontendRenderer::OnContextDestroy()
   m_drapeApiRenderer->Clear();
   m_postprocessRenderer->ClearGLDependentResources();
 
+  m_transitBackground.reset();
+
   dp::DebugRectRenderer::Instance().Destroy();
 
   m_gpuProgramManager.reset();
@@ -1777,6 +1806,8 @@ void FrontendRenderer::OnContextDestroy()
   m_needRestoreSize = true;
   m_firstTilesReady = false;
   m_firstLaunchAnimationInterrupted = false;
+
+  m_finishTexturesInitialization = false;
 }
 
 void FrontendRenderer::OnContextCreate()
@@ -1829,6 +1860,8 @@ void FrontendRenderer::OnContextCreate()
   {
     m_postprocessRenderer->OnFramebufferFallback();
   });
+
+  m_transitBackground.reset(new ScreenQuadRenderer());
 }
 
 FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(renderer) {}
@@ -1950,6 +1983,7 @@ void FrontendRenderer::ReleaseResources()
   m_screenQuadRenderer.reset();
   m_trafficRenderer.reset();
   m_postprocessRenderer.reset();
+  m_transitBackground.reset();
 
   m_gpuProgramManager.reset();
   m_contextFactory->getDrawContext()->doneCurrent();
