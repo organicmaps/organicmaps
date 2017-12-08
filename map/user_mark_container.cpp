@@ -53,9 +53,11 @@ df::MarkGroupID GenerateMarkGroupId(UserMarkContainer const * cont)
 }
 }  // namespace
 
-UserMarkContainer::UserMarkContainer(double layerDepth, UserMark::Type type)
+UserMarkContainer::UserMarkContainer(double layerDepth, UserMark::Type type,
+                                     Listeners const & listeners)
   : m_layerDepth(layerDepth)
   , m_type(type)
+  , m_listeners(listeners)
 {
   m_flags.set();
 }
@@ -69,6 +71,21 @@ UserMarkContainer::~UserMarkContainer()
 void UserMarkContainer::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
   m_drapeEngine.Set(engine);
+}
+
+void UserMarkContainer::SetListeners(Listeners const & listeners)
+{
+  m_listeners = listeners;
+}
+
+UserMark const * UserMarkContainer::GetUserMarkById(df::MarkID id) const
+{
+  for (auto const & mark : m_userMarks)
+  {
+    if (mark->GetId() == id)
+      return mark.get();
+  }
+  return nullptr;
 }
 
 UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, double & d) const
@@ -86,10 +103,40 @@ UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, do
   return mark;
 }
 
+void UserMarkContainer::NotifyListeners()
+{
+  if (!IsDirty())
+    return;
+
+  if (m_listeners.m_createListener != nullptr && !m_createdMarks.empty())
+  {
+    df::IDCollection marks(m_createdMarks.begin(), m_createdMarks.end());
+    m_listeners.m_createListener(this, marks);
+  }
+  if (m_listeners.m_updateListener != nullptr)
+  {
+    df::IDCollection marks;
+    for (auto const & mark : m_userMarks)
+    {
+      if (mark->IsDirty() && m_createdMarks.find(mark->GetId()) == m_createdMarks.end())
+        marks.push_back(mark->GetId());
+    }
+    if (!marks.empty())
+      m_listeners.m_updateListener(this, marks);
+  }
+  if (m_listeners.m_deleteListener != nullptr && !m_removedMarks.empty())
+  {
+    df::IDCollection marks(m_removedMarks.begin(), m_removedMarks.end());
+    m_listeners.m_deleteListener(this, marks);
+  }
+}
+
 void UserMarkContainer::NotifyChanges()
 {
   if (!IsDirty())
     return;
+
+  NotifyListeners();
 
   df::DrapeEngineLockGuard lock(m_drapeEngine);
   if (!lock)

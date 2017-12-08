@@ -64,8 +64,20 @@ std::string const GenerateValidAndUniqueFilePathForKML(std::string const & fileN
 }
 }  // namespace
 
-BookmarkManager::BookmarkManager(GetStringsBundleFn && getStringsBundleFn)
+BookmarkManager::BookmarkManager(GetStringsBundleFn && getStringsBundleFn,
+                                 CreatedBookmarksCallback && createdBookmarksCallback,
+                                 UpdatedBookmarksCallback && updatedBookmarksCallback,
+                                 DeletedBookmarksCallback && deletedBookmarksCallback)
   : m_getStringsBundle(std::move(getStringsBundleFn))
+  , m_createdBookmarksCallback(std::move(createdBookmarksCallback))
+  , m_updatedBookmarksCallback(std::move(updatedBookmarksCallback))
+  , m_deletedBookmarksCallback(std::move(deletedBookmarksCallback))
+  , m_bookmarksListeners(std::bind(&BookmarkManager::OnCreateUserMarks, this,
+                                   std::placeholders::_1, std::placeholders::_2),
+                         std::bind(&BookmarkManager::OnUpdateUserMarks, this,
+                                   std::placeholders::_1, std::placeholders::_2),
+                         std::bind(&BookmarkManager::OnDeleteUserMarks, this,
+                                   std::placeholders::_1, std::placeholders::_2))
   , m_needTeardown(false)
 {
   ASSERT(m_getStringsBundle != nullptr, ());
@@ -149,7 +161,7 @@ void BookmarkManager::LoadBookmarks()
     auto collection = std::make_shared<CategoriesCollection>();
     for (auto const & file : files)
     {
-      auto cat = BookmarkCategory::CreateFromKMLFile(dir + file);
+      auto cat = BookmarkCategory::CreateFromKMLFile(dir + file, m_bookmarksListeners);
       if (m_needTeardown)
         return;
 
@@ -189,7 +201,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     }
     else
     {
-      auto cat = BookmarkCategory::CreateFromKMLFile(fileSavePath.get());
+      auto cat = BookmarkCategory::CreateFromKMLFile(fileSavePath.get(), m_bookmarksListeners);
       if (m_needTeardown)
         return;
 
@@ -385,9 +397,64 @@ BookmarkCategory * BookmarkManager::GetBmCategory(size_t index) const
   return (index < m_categories.size() ? m_categories[index].get() : 0);
 }
 
+void BookmarkManager::OnCreateUserMarks(UserMarkContainer * container, df::IDCollection const & markIds)
+{
+  if (container->GetType() != UserMark::Type::BOOKMARK)
+    return;
+
+  if (m_createdBookmarksCallback == nullptr)
+    return;
+
+  std::vector<std::pair<df::MarkID, BookmarkData>> marksInfo;
+  GetBookmarksData(container, markIds, marksInfo);
+
+  m_createdBookmarksCallback(marksInfo);
+}
+
+void BookmarkManager::OnUpdateUserMarks(UserMarkContainer * container, df::IDCollection const & markIds)
+{
+  if (container->GetType() != UserMark::Type::BOOKMARK)
+    return;
+
+  if (m_updatedBookmarksCallback == nullptr)
+    return;
+
+  std::vector<std::pair<df::MarkID, BookmarkData>> marksInfo;
+  GetBookmarksData(container, markIds, marksInfo);
+
+  m_updatedBookmarksCallback(marksInfo);
+}
+
+void BookmarkManager::OnDeleteUserMarks(UserMarkContainer * container, df::IDCollection const & markIds)
+{
+  if (container->GetType() != UserMark::Type::BOOKMARK)
+    return;
+
+  if (m_deletedBookmarksCallback == nullptr)
+    return;
+
+  m_deletedBookmarksCallback(markIds);
+}
+
+void BookmarkManager::GetBookmarksData(UserMarkContainer * container, df::IDCollection const & markIds,
+                                       std::vector<std::pair<df::MarkID, BookmarkData>> & data) const
+{
+  data.reserve(markIds.size());
+  for (auto markId : markIds)
+  {
+    auto const userMark = container->GetUserMarkById(markId);
+    ASSERT(userMark != nullptr, ());
+    ASSERT(dynamic_cast<Bookmark const *>(userMark) != nullptr, ());
+
+    auto const bookmark = static_cast<Bookmark const *>(userMark);
+    data.push_back(std::make_pair(markId, bookmark->GetData()));
+  }
+}
+
 size_t BookmarkManager::CreateBmCategory(std::string const & name)
 {
-  m_categories.emplace_back(new BookmarkCategory(name));
+  m_categories.emplace_back(new BookmarkCategory(name, m_bookmarksListeners));
+
   df::DrapeEngineLockGuard lock(m_drapeEngine);
   if (lock)
     m_categories.back()->SetDrapeEngine(lock.Get());

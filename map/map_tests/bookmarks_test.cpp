@@ -157,7 +157,7 @@ char const * kmlString =
 
 UNIT_TEST(Bookmarks_ImportKML)
 {
-  BookmarkCategory cat("Default");
+  BookmarkCategory cat("Default", UserMarkContainer::Listeners());
   TEST(cat.LoadFromKML(make_unique<MemReader>(kmlString, strlen(kmlString))), ());
 
   CheckBookmarks(cat);
@@ -171,7 +171,7 @@ UNIT_TEST(Bookmarks_ExportKML)
 {
   char const * BOOKMARKS_FILE_NAME = "UnitTestBookmarks.kml";
 
-  BookmarkCategory cat("Default");
+  BookmarkCategory cat("Default", UserMarkContainer::Listeners());
   TEST(cat.LoadFromKML(make_unique<MemReader>(kmlString, strlen(kmlString))), ());
   CheckBookmarks(cat);
 
@@ -191,7 +191,7 @@ UNIT_TEST(Bookmarks_ExportKML)
   CheckBookmarks(cat);
   TEST_EQUAL(cat.IsVisible(), true, ());
 
-  auto cat2 = BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME);
+  auto cat2 = BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME, UserMarkContainer::Listeners());
   CheckBookmarks(*cat2);
 
   TEST(cat2->SaveToKMLFile(), ());
@@ -201,7 +201,7 @@ UNIT_TEST(Bookmarks_ExportKML)
 
   // MapName is the <name> tag in test kml data.
   string const catFileName = GetPlatform().SettingsDir() + "MapName.kml";
-  cat2 = BookmarkCategory::CreateFromKMLFile(catFileName);
+  cat2 = BookmarkCategory::CreateFromKMLFile(catFileName, UserMarkContainer::Listeners());
   CheckBookmarks(*cat2);
   TEST(my::DeleteFileX(catFileName), ());
 }
@@ -536,7 +536,7 @@ char const * kmlString2 =
 
 UNIT_TEST(Bookmarks_InnerFolder)
 {
-  BookmarkCategory cat("Default");
+  BookmarkCategory cat("Default", UserMarkContainer::Listeners());
   TEST(cat.LoadFromKML(make_unique<MemReader>(kmlString2, strlen(kmlString2))), ());
 
   TEST_EQUAL(cat.GetUserMarkCount(), 1, ());
@@ -544,7 +544,7 @@ UNIT_TEST(Bookmarks_InnerFolder)
 
 UNIT_TEST(BookmarkCategory_EmptyName)
 {
-  unique_ptr<BookmarkCategory> pCat(new BookmarkCategory(""));
+  unique_ptr<BookmarkCategory> pCat(new BookmarkCategory("", UserMarkContainer::Listeners()));
   static_cast<Bookmark *>(pCat->CreateUserMark(m2::PointD(0, 0)))->SetData(BookmarkData("", "placemark-red"));
   TEST(pCat->SaveToKMLFile(), ());
 
@@ -593,13 +593,14 @@ char const * kmlString3 =
 
 UNIT_TEST(Bookmarks_SpecialXMLNames)
 {
-  BookmarkCategory cat1("");
+  BookmarkCategory cat1("", UserMarkContainer::Listeners());
   TEST(cat1.LoadFromKML(make_unique<MemReader>(kmlString3, strlen(kmlString3))), ());
 
   TEST_EQUAL(cat1.GetUserMarkCount(), 1, ());
   TEST(cat1.SaveToKMLFile(), ());
 
-  unique_ptr<BookmarkCategory> const cat2(BookmarkCategory::CreateFromKMLFile(cat1.GetFileName()));
+  unique_ptr<BookmarkCategory> const cat2(BookmarkCategory::CreateFromKMLFile(cat1.GetFileName(),
+                                                                              UserMarkContainer::Listeners()));
   TEST(cat2.get(), ());
   TEST_EQUAL(cat2->GetUserMarkCount(), 1, ());
 
@@ -617,7 +618,7 @@ UNIT_TEST(Bookmarks_SpecialXMLNames)
 UNIT_TEST(TrackParsingTest_1)
 {
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-kml.test");
-  auto cat = BookmarkCategory::CreateFromKMLFile(kmlFile);
+  auto cat = BookmarkCategory::CreateFromKMLFile(kmlFile, UserMarkContainer::Listeners());
   TEST(cat, ("Category can't be created"));
 
   TEST_EQUAL(cat->GetTracksCount(), 4, ());
@@ -642,7 +643,7 @@ UNIT_TEST(TrackParsingTest_1)
 UNIT_TEST(TrackParsingTest_2)
 {
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-from-google-earth.test");
-  auto cat = BookmarkCategory::CreateFromKMLFile(kmlFile);
+  auto cat = BookmarkCategory::CreateFromKMLFile(kmlFile, UserMarkContainer::Listeners());
   TEST(cat, ("Category can't be created"));
 
   TEST_EQUAL(cat->GetTracksCount(), 1, ());

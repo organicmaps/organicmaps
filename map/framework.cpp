@@ -359,7 +359,19 @@ Framework::Framework(FrameworkParams const & params)
   : m_startForegroundTime(0.0)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
-  , m_bmManager([this]() -> StringsBundle const & { return m_stringsBundle; })
+  , m_bmManager([this]() -> StringsBundle const & { return m_stringsBundle; },
+                [](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
+                {
+                  // TODO: Add processing of the created marks.
+                },
+                [](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
+                {
+                  // TODO: Add processing of the updated marks.
+                },
+                [](std::vector<df::MarkID> const & marks)
+                {
+                  // TODO: Add processing of the deleted marks.
+                })
   , m_isRenderingEnabled(true)
   , m_routingManager(RoutingManager::Callbacks([this]() -> Index & { return m_model.GetIndex(); },
                                                [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },

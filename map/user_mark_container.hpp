@@ -13,6 +13,7 @@
 
 #include <bitset>
 #include <deque>
+#include <functional>
 #include <memory>
 #include <set>
 
@@ -38,11 +39,31 @@ class UserMarkContainer : public df::UserMarksProvider
 {
 public:
   using TUserMarksList = std::deque<std::unique_ptr<UserMark>>;
+  using NotifyChangesFn = std::function<void (UserMarkContainer *, df::IDCollection const &)>;
 
-  UserMarkContainer(double layerDepth, UserMark::Type type);
+  struct Listeners
+  {
+    Listeners() = default;
+    Listeners(NotifyChangesFn const & createListener,
+              NotifyChangesFn const & updateListener,
+              NotifyChangesFn const & deleteListener)
+      : m_createListener(createListener)
+      , m_updateListener(updateListener)
+      , m_deleteListener(deleteListener)
+    {}
+
+    NotifyChangesFn m_createListener;
+    NotifyChangesFn m_updateListener;
+    NotifyChangesFn m_deleteListener;
+  };
+
+  UserMarkContainer(double layerDepth, UserMark::Type type,
+                    Listeners const & listeners = Listeners());
   ~UserMarkContainer() override;
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
+  void SetListeners(Listeners const & listeners);
+  UserMark const * GetUserMarkById(df::MarkID id) const;
 
   // If not found mark on rect result is nullptr.
   // If mark is found in "d" return distance from rect center.
@@ -86,6 +107,8 @@ protected:
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) = 0;
 
 private:
+  void NotifyListeners();
+
   df::DrapeEngineSafePtr m_drapeEngine;
   std::bitset<4> m_flags;
   double m_layerDepth;
@@ -94,6 +117,8 @@ private:
   std::set<df::MarkID> m_createdMarks;
   std::set<df::MarkID> m_removedMarks;
   bool m_isDirty = false;
+
+  Listeners m_listeners;
 
   DISALLOW_COPY_AND_MOVE(UserMarkContainer);
 };

@@ -32,6 +32,9 @@ public:
   using AsyncLoadingStartedCallback = std::function<void()>;
   using AsyncLoadingFinishedCallback = std::function<void()>;
   using AsyncLoadingFileCallback = std::function<void(std::string const &, bool)>;
+  using CreatedBookmarksCallback = std::function<void(std::vector<std::pair<df::MarkID, BookmarkData>> const &)>;
+  using UpdatedBookmarksCallback = std::function<void(std::vector<std::pair<df::MarkID, BookmarkData>> const &)>;
+  using DeletedBookmarksCallback = std::function<void(std::vector<df::MarkID> const &)>;
 
   struct AsyncLoadingCallbacks
   {
@@ -41,7 +44,10 @@ public:
     AsyncLoadingFileCallback m_onFileSuccess;
   };
 
-  explicit BookmarkManager(GetStringsBundleFn && getStringsBundleFn);
+  explicit BookmarkManager(GetStringsBundleFn && getStringsBundleFn,
+                           CreatedBookmarksCallback && createdBookmarksCallback,
+                           UpdatedBookmarksCallback && updatedBookmarksCallback,
+                           DeletedBookmarksCallback && deletedBookmarksCallback);
   ~BookmarkManager();
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
@@ -107,7 +113,18 @@ private:
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
 
+  void OnCreateUserMarks(UserMarkContainer * container, df::IDCollection const & markIds);
+  void OnUpdateUserMarks(UserMarkContainer * container, df::IDCollection const & markIds);
+  void OnDeleteUserMarks(UserMarkContainer * container, df::IDCollection const & markIds);
+  void GetBookmarksData(UserMarkContainer * container, df::IDCollection const & markIds,
+                        std::vector<std::pair<df::MarkID, BookmarkData>> & data) const;
+
   GetStringsBundleFn m_getStringsBundle;
+  CreatedBookmarksCallback m_createdBookmarksCallback;
+  UpdatedBookmarksCallback m_updatedBookmarksCallback;
+  DeletedBookmarksCallback m_deletedBookmarksCallback;
+  UserMarkContainer::Listeners m_bookmarksListeners;
+
   df::DrapeEngineSafePtr m_drapeEngine;
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;

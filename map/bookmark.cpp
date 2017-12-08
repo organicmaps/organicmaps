@@ -138,8 +138,9 @@ Track const * BookmarkCategory::GetTrack(size_t index) const
   return (index < m_tracks.size() ? m_tracks[index].get() : 0);
 }
 
-BookmarkCategory::BookmarkCategory(std::string const & name)
-  : Base(0.0 /* bookmarkDepth */, UserMark::Type::BOOKMARK)
+BookmarkCategory::BookmarkCategory(std::string const & name,
+                                   Listeners const & listeners)
+  : Base(0.0 /* bookmarkDepth */, UserMark::Type::BOOKMARK, listeners)
   , m_name(name)
 {}
 
@@ -587,9 +588,10 @@ bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
 }
 
 // static
-std::unique_ptr<BookmarkCategory> BookmarkCategory::CreateFromKMLFile(std::string const & file)
+std::unique_ptr<BookmarkCategory> BookmarkCategory::CreateFromKMLFile(std::string const & file,
+                                                                      Listeners const & listeners)
 {
-  auto cat = my::make_unique<BookmarkCategory>("");
+  auto cat = my::make_unique<BookmarkCategory>("", listeners);
   try
   {
     if (cat->LoadFromKML(my::make_unique<FileReader>(file)))
