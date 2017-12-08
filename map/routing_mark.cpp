@@ -91,7 +91,10 @@ void RouteMarkPoint::SetMarkData(RouteMarkData && data)
   m_markData = std::move(data);
   m_titleDecl.m_primaryText = m_markData.m_title;
   if (!m_titleDecl.m_primaryText.empty())
+  {
     m_titleDecl.m_secondaryText = m_markData.m_subTitle;
+    m_titleDecl.m_secondaryOptional = true;
+  }
   else
     m_titleDecl.m_secondaryText.clear();
 }

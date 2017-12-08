@@ -239,19 +239,20 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_depthLayer = renderInfo.m_depthLayer;
         params.m_minVisibleScale = renderInfo.m_minZoom;
 
-        uint32_t overlayIndex = 0;
+        uint32_t const overlayIndex = kStartUserMarkOverlayIndex + renderInfo.m_index;
         if (renderInfo.m_hasTitlePriority)
         {
           params.m_specialDisplacement = SpecialDisplacement::UserMark;
           params.m_specialPriority = renderInfo.m_priority;
-          overlayIndex = kStartUserMarkOverlayIndex + renderInfo.m_index;
-
           params.m_startOverlayRank = dp::OverlayRank0;
-          if (renderInfo.m_symbolNames != nullptr)
-            params.m_startOverlayRank++;
-          if (renderInfo.m_coloredSymbols != nullptr)
-            params.m_startOverlayRank++;
-          ASSERT_LESS(params.m_startOverlayRank, dp::OverlayRanksCount, ());
+          if (renderInfo.m_hasSymbolPriority)
+          {
+            if (renderInfo.m_symbolNames != nullptr)
+              params.m_startOverlayRank++;
+            if (renderInfo.m_coloredSymbols != nullptr)
+              params.m_startOverlayRank++;
+            ASSERT_LESS(params.m_startOverlayRank, dp::OverlayRanksCount, ());
+          }
         }
 
         if (renderInfo.m_symbolSizes != nullptr)
