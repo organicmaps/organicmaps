@@ -40210,6 +40210,10 @@ colors {
     color: 1308604747
   }
   value {
+    name: "TransitBackground"
+    color: 2566914048
+  }
+  value {
     name: "RoadShieldOrangeBackground"
     color: 1272880
   }
