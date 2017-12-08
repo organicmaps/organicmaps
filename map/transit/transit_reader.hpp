@@ -25,6 +25,7 @@ public:
 
   bool Init(MwmSet::MwmId const & mwmId);
   bool IsValid() const { return m_reader != nullptr; }
+  /// \note This method should be used only if IsValid() returns true.
   Reader & GetReader();
 
 private:

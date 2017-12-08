@@ -134,6 +134,16 @@ void UpdateItems(set<Id> const & ids, vector<Item> & items)
   SortVisitor{}(itemsToFill, nullptr /* name */);
   items.swap(itemsToFill);
 }
+
+template <class Item>
+void ReadItems(uint32_t start, uint32_t end, NonOwningReaderSource & src, vector<Item> & itmes)
+{
+  Deserializer<NonOwningReaderSource> deserializer(src);
+  CHECK_EQUAL(src.Pos(), start, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  deserializer(itmes);
+  CHECK_EQUAL(src.Pos(), end, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  CHECK(IsValidSortedUnique(itmes), ());
+}
 }  // namespace
 
 namespace routing
@@ -263,50 +273,46 @@ void GraphData::Serialize(Writer & writer)
 
 void GraphData::DeserializeAll(Reader & reader)
 {
-  NonOwningReaderSource src(reader);
-
-  ReadHeader(src);
-  ReadStops(src);
-  ReadGates(src);
-  ReadEdges(src);
-  ReadTransfers(src);
-  ReadLines(src);
-  ReadShapes(src);
-  ReadNetworks(src);
+  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+    ReadStops(src);
+    ReadGates(src);
+    ReadEdges(src);
+    ReadTransfers(src);
+    ReadLines(src);
+    ReadShapes(src);
+    ReadNetworks(src);
+  });
 }
 
 void GraphData::DeserializeForRouting(Reader & reader)
 {
-  NonOwningReaderSource src(reader);
-
-  ReadHeader(src);
-  ReadStops(src);
-  ReadGates(src);
-  ReadEdges(src);
-  src.Skip(m_header.m_linesOffset - src.Pos());
-  ReadLines(src);
+  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+    ReadStops(src);
+    ReadGates(src);
+    ReadEdges(src);
+    src.Skip(m_header.m_linesOffset - src.Pos());
+    ReadLines(src);
+  });
 }
 
 void GraphData::DeserializeForRendering(Reader & reader)
 {
-  NonOwningReaderSource src(reader);
-
-  ReadHeader(src);
-  ReadStops(src);
-  src.Skip(m_header.m_transfersOffset - src.Pos());
-  ReadTransfers(src);
-  ReadLines(src);
-  ReadShapes(src);
+  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+    ReadStops(src);
+    src.Skip(m_header.m_transfersOffset - src.Pos());
+    ReadTransfers(src);
+    ReadLines(src);
+    ReadShapes(src);
+  });
 }
 
 void GraphData::DeserializeForCrossMwm(Reader & reader)
 {
-  NonOwningReaderSource src(reader);
-
-  ReadHeader(src);
-  ReadStops(src);
-  src.Skip(m_header.m_edgesOffset - src.Pos());
-  ReadEdges(src);
+  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+    ReadStops(src);
+    src.Skip(m_header.m_edgesOffset - src.Pos());
+    ReadEdges(src);
+  });
 }
 
 void GraphData::AppendTo(GraphData const & rhs)
@@ -522,65 +528,37 @@ void GraphData::ReadHeader(NonOwningReaderSource & src)
 
 void GraphData::ReadStops(NonOwningReaderSource & src)
 {
-  Deserializer<NonOwningReaderSource> deserializer(src);
-  CHECK_EQUAL(src.Pos(), m_header.m_stopsOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_stops);
-  CHECK_EQUAL(src.Pos(), m_header.m_gatesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  CHECK(IsValidSortedUnique(m_stops), ());
+  ReadItems(m_header.m_stopsOffset, m_header.m_gatesOffset, src, m_stops);
 }
 
 void GraphData::ReadGates(NonOwningReaderSource & src)
 {
-  Deserializer<NonOwningReaderSource> deserializer(src);
-  CHECK_EQUAL(src.Pos(), m_header.m_gatesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_gates);
-  CHECK_EQUAL(src.Pos(), m_header.m_edgesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  CHECK(IsValidSortedUnique(m_gates), ());
+  ReadItems(m_header.m_gatesOffset, m_header.m_edgesOffset, src, m_gates);
 }
 
 void GraphData::ReadEdges(NonOwningReaderSource & src)
 {
-  Deserializer<NonOwningReaderSource> deserializer(src);
-  CHECK_EQUAL(src.Pos(), m_header.m_edgesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_edges);
-  CHECK_EQUAL(src.Pos(), m_header.m_transfersOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  CHECK(IsValidSortedUnique(m_edges), ());
+  ReadItems(m_header.m_edgesOffset, m_header.m_transfersOffset, src, m_edges);
 }
 
 void GraphData::ReadTransfers(NonOwningReaderSource & src)
 {
-  Deserializer<NonOwningReaderSource> deserializer(src);
-  CHECK_EQUAL(src.Pos(), m_header.m_transfersOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_transfers);
-  CHECK_EQUAL(src.Pos(), m_header.m_linesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  CHECK(IsValidSortedUnique(m_transfers), ());
+  ReadItems(m_header.m_transfersOffset, m_header.m_linesOffset, src, m_transfers);
 }
 
 void GraphData::ReadLines(NonOwningReaderSource & src)
 {
-  Deserializer<NonOwningReaderSource> deserializer(src);
-  CHECK_EQUAL(src.Pos(), m_header.m_linesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_lines);
-  CHECK_EQUAL(src.Pos(), m_header.m_shapesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  CHECK(IsValidSortedUnique(m_lines), ());
+  ReadItems(m_header.m_linesOffset, m_header.m_shapesOffset, src, m_lines);
 }
 
 void GraphData::ReadShapes(NonOwningReaderSource & src)
 {
-  Deserializer<NonOwningReaderSource> deserializer(src);
-  CHECK_EQUAL(src.Pos(), m_header.m_shapesOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_shapes);
-  CHECK_EQUAL(src.Pos(), m_header.m_networksOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  CHECK(IsValidSortedUnique(m_shapes), ());
+  ReadItems(m_header.m_shapesOffset, m_header.m_networksOffset, src, m_shapes);
 }
 
 void GraphData::ReadNetworks(NonOwningReaderSource & src)
 {
-  Deserializer<NonOwningReaderSource> deserializer(src);
-  CHECK_EQUAL(src.Pos(), m_header.m_networksOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  deserializer(m_networks);
-  CHECK_EQUAL(src.Pos(), m_header.m_endOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  CHECK(IsValidSortedUnique(m_networks), ());
+  ReadItems(m_header.m_networksOffset, m_header.m_endOffset, src, m_networks);
 }
 }  // namespace transit
 }  // namespace routing

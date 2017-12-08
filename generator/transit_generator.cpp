@@ -4,7 +4,6 @@
 #include "generator/borders_loader.hpp"
 #include "generator/utils.hpp"
 
-#include "routing/routing_exceptions.hpp"
 #include "routing/index_router.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/vehicle_mask.hpp"
@@ -65,8 +64,10 @@ string GetMwmPath(string const & mwmDir, TCountryId const & countryId)
   return my::JoinPath(mwmDir, countryId + DATA_FILE_EXTENSION);
 }
 
-/// \brief Calculates best pedestrian segment for every gate in |m_gates|.
-/// \note All gates in |m_gates| must have a valid |m_point| field before the call.
+/// \brief Calculates best pedestrian segment for every gate in |graphData.m_gates|.
+/// The result of the calculation is set to |Gate::m_bestPedestrianSegment| of every gate
+/// from |graphData.m_gates|.
+/// \note All gates in |graphData.m_gates| must have a valid |m_point| field before the call.
 void CalculateBestPedestrianSegments(string const & mwmPath, TCountryId const & countryId,
                                      GraphData & graphData)
 {

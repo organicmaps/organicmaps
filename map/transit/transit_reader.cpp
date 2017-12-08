@@ -8,6 +8,8 @@
 
 #include "drape_frontend/stylist.hpp"
 
+#include "base/stl_add.hpp"
+
 using namespace routing;
 using namespace std;
 
@@ -18,13 +20,13 @@ bool TransitReader::Init(MwmSet::MwmId const & mwmId)
   if (!handle.IsAlive())
   {
     LOG(LWARNING, ("Can't get mwm handle for", mwmId));
-    return {};
+    return false;
   }
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
   if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
-    return {};
+    return false;
 
-  m_reader = make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG));
+  m_reader = my::make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG));
   return IsValid();
 }
 
@@ -42,7 +44,7 @@ bool ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, unique_ptr<
   if (transitInfo == nullptr)
   {
     m_loadSubset = false;
-    m_transitInfo = make_unique<TransitDisplayInfo>();
+    m_transitInfo = my::make_unique<TransitDisplayInfo>();
   }
   else
   {
@@ -131,7 +133,7 @@ void TransitReadManager::Start()
     return;
 
   using namespace placeholders;
-  uint8_t constexpr kThreadsCount = 2;
+  uint8_t constexpr kThreadsCount = 1;
   m_threadsPool = my::make_unique<threads::ThreadPool>(
       kThreadsCount, bind(&TransitReadManager::OnTaskCompleted, this, _1));
 }

@@ -126,6 +126,7 @@ class GraphData
 {
 public:
   void DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping);
+  /// \note This method changes only |m_header| and fills it with correct offsets.
   void Serialize(Writer & writer);
   void DeserializeAll(Reader & reader);
   void DeserializeForRouting(Reader & reader);
@@ -196,6 +197,14 @@ private:
   void ReadLines(NonOwningReaderSource & src);
   void ReadShapes(NonOwningReaderSource & src);
   void ReadNetworks(NonOwningReaderSource & src);
+
+  template <typename Fn>
+  void DeserializeWith(Reader & reader, Fn && fn)
+  {
+    NonOwningReaderSource src(reader);
+    ReadHeader(src);
+    fn(src);
+  }
 
   TransitHeader m_header;
   std::vector<Stop> m_stops;
