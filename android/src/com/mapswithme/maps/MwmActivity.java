@@ -924,6 +924,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Intent i = new Intent(MwmActivity.this, DiscoveryActivity.class);
       startActivityForResult(i, REQ_CODE_DISCOVERY);
     }
+    Statistics.INSTANCE.trackDiscoveryOpen();
   }
 
   private void initOnmapDownloader()

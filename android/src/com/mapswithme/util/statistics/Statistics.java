@@ -49,6 +49,7 @@ import static com.mapswithme.util.BatteryState.CHARGING_STATUS_PLUGGED;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNKNOWN;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNPLUGGED;
 import static com.mapswithme.util.statistics.Statistics.EventName.APPLICATION_COLD_STARTUP_INFO;
+import static com.mapswithme.util.statistics.Statistics.EventName.DISCOVERY_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERROR;
@@ -58,16 +59,17 @@ import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_B
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_SHOWN;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSOR_ITEM_SELECTED;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_PLAN_TOOLTIP_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_EXTERNAL_REQUEST_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_SHOWN;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_REVIEW_START;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
-import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER_STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BATTERY;
 import static com.mapswithme.util.statistics.Statistics.EventParam.CATEGORY;
 import static com.mapswithme.util.statistics.Statistics.EventParam.CHARGING;
+import static com.mapswithme.util.statistics.Statistics.EventParam.DESTINATION;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
@@ -75,6 +77,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.FEATURE_ID;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LON;
+import static com.mapswithme.util.statistics.Statistics.EventParam.ITEM;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MAP_DATA_SIZE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.METHOD;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MODE;
@@ -83,19 +86,21 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_VERSION;
 import static com.mapswithme.util.statistics.Statistics.EventParam.NETWORK;
 import static com.mapswithme.util.statistics.Statistics.EventParam.OBJECT_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.OBJECT_LON;
+import static com.mapswithme.util.statistics.Statistics.EventParam.PLACEMENT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PROVIDER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LON;
+import static com.mapswithme.util.statistics.Statistics.EventParam.STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.CIAN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.GEOCHAT;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.THOR;
-import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 
 public enum Statistics
@@ -131,7 +136,6 @@ public enum Statistics
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 
     // bookmarks
-    public static final String BMK_DESCRIPTION_CHANGED = "Bookmark. Description changed";
     public static final String BMK_GROUP_CREATED = "Bookmark. Group created";
     public static final String BMK_GROUP_CHANGED = "Bookmark. Group changed";
     public static final String BMK_COLOR_CHANGED = "Bookmark. Color changed";
@@ -141,7 +145,6 @@ public enum Statistics
     public static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
     public static final String SEARCH_ITEM_CLICKED = "Search. Key clicked";
     public static final String SEARCH_ON_MAP_CLICKED = "Search. View on map clicked.";
-    public static final String SEARCH_CANCEL = "Search. Cancel.";
     public static final String SEARCH_TAB_SELECTED = "Search_Tab_selected";
     public static final String SEARCH_SPONSOR_CATEGORY_SHOWN = "Search_SponsoredCategory_shown";
     public static final String SEARCH_SPONSOR_CATEGORY_SELECTED = "Search_SponsoredCategory_selected";
@@ -200,7 +203,6 @@ public enum Statistics
     public static final String ZOOM_OUT = "Zoom. Out";
     public static final String PLACE_SHARED = "Place Shared";
     public static final String API_CALLED = "API called";
-    public static final String WIFI_CONNECTED = "Wifi connected";
     public static final String DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN = "Download country notification shown";
     public static final String DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED = "Download country notification clicked";
     public static final String ACTIVE_CONNECTION = "Connection";
@@ -219,10 +221,7 @@ public enum Statistics
     public static final String ROUTING_TAXI_SET = "Routing. Set taxi";
     public static final String ROUTING_TRANSIT_SET = "Routing. Set transit";
     public static final String ROUTING_SWAP_POINTS = "Routing. Swap points";
-    public static final String ROUTING_TOGGLE = "Routing. Toggle";
-    public static final String ROUTING_SEARCH_POINT = "Routing. Search point";
     public static final String ROUTING_SETTINGS = "Routing. Settings";
-    public static final String ROUTING_TTS_SWITCH = "Routing. Switch tts";
     public static final String ROUTING_TAXI_ORDER = "Routing_Taxi_order";
     public static final String ROUTING_TAXI_INSTALL = "Routing_Taxi_install";
     public static final String ROUTING_TAXI_SHOW_IN_PP = "Placepage_Taxi_show";
@@ -234,6 +233,8 @@ public enum Statistics
     public static final String ROUTING_SEARCH_CLICK = "Routing_Search_click";
     public static final String ROUTING_BOOKMARKS_CLICK = "Routing_Bookmarks_click";
     public static final String ROUTING_PLAN_TOOLTIP_CLICK = "Routing_PlanTooltip_click";
+
+    public static final String DISCOVERY_OPEN = "DiscoveryButton_Open";
 
     // editor
     public static final String EDITOR_START_CREATE = "Editor_Add_start";
@@ -250,7 +251,6 @@ public enum Statistics
     public static final String EDITOR_LOST_PASSWORD = "Editor_Lost_password";
     public static final String EDITOR_SHARE_SHOW = "Editor_SecondTimeShare_show";
     public static final String EDITOR_SHARE_CLICK = "Editor_SecondTimeShare_click";
-    public static final String EDITOR_REPORT = "Editor_Problem_report";
 
     // Cold start
     public static final String APPLICATION_COLD_STARTUP_INFO = "Application_ColdStartup_info";
@@ -279,9 +279,6 @@ public enum Statistics
       public static final String ABOUT = "Settings. About.";
       public static final String OSM_PROFILE = "Settings. Profile.";
       public static final String COPYRIGHT = "Settings. Copyright.";
-      public static final String GROUP_MAP = "Settings. Group: map.";
-      public static final String GROUP_ROUTE = "Settings. Group: route.";
-      public static final String GROUP_MISC = "Settings. Group: misc.";
       public static final String UNITS = "Settings. Change units.";
       public static final String ZOOM = "Settings. Switch zoom.";
       public static final String MAP_STYLE = "Settings. Map style.";
@@ -298,54 +295,44 @@ public enum Statistics
   {
     public static final String FROM = "from";
     public static final String TO = "to";
-    public static final String CATEGORY = "category";
+    static final String CATEGORY = "category";
     public static final String TAB = "tab";
-    public static final String COUNT = "Count";
-    public static final String CHANNEL = "Channel";
-    public static final String CALLER_ID = "Caller ID";
+    static final String COUNT = "Count";
+    static final String CHANNEL = "Channel";
+    static final String CALLER_ID = "Caller ID";
     public static final String ENABLED = "Enabled";
-    public static final String RATING = "Rating";
-    public static final String CONNECTION_TYPE = "Connection name";
-    public static final String CONNECTION_FAST = "Connection fast";
-    public static final String CONNECTION_METERED = "Connection limit";
-    public static final String MY_POSITION = "my position";
-    public static final String POINT = "point";
+    static final String RATING = "Rating";
+    static final String CONNECTION_TYPE = "Connection name";
+    static final String CONNECTION_FAST = "Connection fast";
+    static final String CONNECTION_METERED = "Connection limit";
+    static final String MY_POSITION = "my position";
+    static final String POINT = "point";
     public static final String LANGUAGE = "language";
     public static final String NAME = "Name";
     public static final String ACTION = "action";
     public static final String TYPE = "type";
-    public static final String IS_AUTHENTICATED = "is_authenticated";
-    public static final String IS_ONLINE = "is_online";
+    static final String IS_AUTHENTICATED = "is_authenticated";
+    static final String IS_ONLINE = "is_online";
     public static final String IS_SUCCESS = "is_success_message";
     static final String FEATURE_ID = "feature_id";
     static final String MWM_NAME = "mwm_name";
     static final String MWM_VERSION = "mwm_version";
-    public static final String ERR_TYPE = "error_type"; // (1 - No space left)
     public static final String ERR_MSG = "error_message";
-    public static final String ERR_DATA = "err_data";
-    public static final String EDITOR_ERR_MSG = "feature_number";
-    public static final String SERVER_URL = "server_url";
-    public static final String SERVER_PARAMS = "server_params_data";
-    public static final String SERVER_RESPONSE = "server_response_data";
     public static final String OSM = "OSM";
-    public static final String OSM_USERNAME = "osm_username";
     public static final String FACEBOOK = "Facebook";
-    public static final String GOOGLE = "Google";
-    public static final String UID = "uid";
-    public static final String SHOWN = "shown";
-    public static final String PROVIDER = "provider";
-    public static final String HOTEL = "hotel";
-    public static final String HOTEL_LAT = "hotel_lat";
-    public static final String HOTEL_LON = "hotel_lon";
-    public static final String RESTAURANT = "restaurant";
-    public static final String RESTAURANT_LAT = "restaurant_lat";
-    public static final String RESTAURANT_LON = "restaurant_lon";
-    public static final String FROM_LAT = "from_lat";
-    public static final String FROM_LON = "from_lon";
-    public static final String TO_LAT = "to_lat";
-    public static final String TO_LON = "to_lon";
+    static final String PROVIDER = "provider";
+    static final String HOTEL = "hotel";
+    static final String HOTEL_LAT = "hotel_lat";
+    static final String HOTEL_LON = "hotel_lon";
+    static final String RESTAURANT = "restaurant";
+    static final String RESTAURANT_LAT = "restaurant_lat";
+    static final String RESTAURANT_LON = "restaurant_lon";
+    static final String FROM_LAT = "from_lat";
+    static final String FROM_LON = "from_lon";
+    static final String TO_LAT = "to_lat";
+    static final String TO_LON = "to_lon";
     static final String BANNER = "banner";
-    static final String BANNER_STATE = "state";
+    static final String STATE = "state";
     static final String ERROR_CODE = "error_code";
     public static final String ERROR = "error";
     static final String ERROR_MESSAGE = "error_message";
@@ -358,25 +345,31 @@ public enum Statistics
     static final String MODE = "mode";
     static final String OBJECT_LAT = "object_lat";
     static final String OBJECT_LON = "object_lon";
+    static final String ITEM = "item";
+    static final String DESTINATION = "destination";
+    static final String PLACEMENT = "placement";
     private EventParam() {}
   }
 
   public static class ParamValue
   {
-    public static final String BOOKING_COM = "Booking.Com";
-    public static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
-    public static final String OPENTABLE = "OpenTable";
-    public static final String VIATOR = "Viator.Com";
-    public static final String GEOCHAT = "Geochat";
-    public static final String CIAN = "Cian.Ru";
-    public static final String THOR = "Thor";
-    public static final String HOLIDAY = "Holiday";
+    static final String BOOKING_COM = "Booking.Com";
+    static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
+    static final String OPENTABLE = "OpenTable";
+    static final String VIATOR = "Viator.Com";
+    static final String LOCALS_EXPERTS = "Locals.Maps.Me";
+    static final String SEARCH_RESTAURANTS = "Search.Restaurants";
+    static final String SEARCH_ATTRACTIONS = "Search.Attractions";
+    static final String GEOCHAT = "Geochat";
+    static final String CIAN = "Cian.Ru";
+    static final String THOR = "Thor";
+    static final String HOLIDAY = "Holiday";
     public static final String NO_PRODUCTS = "no_products";
-    public static final String ADD = "add";
+    static final String ADD = "add";
     public static final String EDIT = "edit";
-    public static final String AFTER_SAVE = "after_save";
-    public static final String PLACEPAGE_PREVIEW = "placepage_preview";
-    public static final String PLACEPAGE = "placepage";
+    static final String AFTER_SAVE = "after_save";
+    static final String PLACEPAGE_PREVIEW = "placepage_preview";
+    static final String PLACEPAGE = "placepage";
     public static final String FACEBOOK = "facebook";
   }
 
@@ -662,7 +655,7 @@ public enum Statistics
     trackEvent(eventName, Statistics.params()
                                     .add(BANNER, ad.getBannerId())
                                     .add(PROVIDER, ad.getProvider())
-                                    .add(BANNER_STATE, String.valueOf(state)));
+                                    .add(STATE, String.valueOf(state)));
 
     if (!eventName.equals(PP_BANNER_SHOW) || state == PP_BANNER_STATE_PREVIEW)
       MyTracker.trackEvent(eventName);
@@ -678,7 +671,7 @@ public enum Statistics
            .add(ERROR_CODE, error != null ? String.valueOf(error.getCode()) : "N/A")
            .add(ERROR_MESSAGE, error != null ? error.getMessage() : "N/A")
            .add(PROVIDER, provider)
-           .add(BANNER_STATE, String.valueOf(state));
+           .add(STATE, String.valueOf(state));
     trackEvent(eventName, builder.get());
     MyTracker.trackEvent(eventName);
   }
@@ -777,17 +770,45 @@ public enum Statistics
     trackEvent(PP_SPONSORED_OPEN, builder.get());
   }
 
-  public void trackSponsoredGalleryShown(@Sponsored.SponsoredType int type)
+  public void trackGalleryShown(@NonNull GalleryType type, @NonNull GalleryState state,
+                                @NonNull GalleryPlacement placement)
   {
-    String provider = convertToSponsor(type);
-    trackEvent(PP_SPONSORED_SHOWN, Statistics.params().add(PROVIDER, provider).get());
-    MyTracker.trackEvent(PP_SPONSORED_SHOWN + "_" + provider);
+    trackEvent(PP_SPONSORED_SHOWN, Statistics.params()
+                                             .add(PROVIDER, type.getProvider())
+                                             .add(PLACEMENT, placement.toString())
+                                             .add(STATE, state.toString()));
+
+    if (type == GalleryType.CIAN && state == GalleryState.ONLINE)
+      MyTracker.trackEvent(PP_SPONSORED_SHOWN + "_" + type.getProvider());
   }
 
-  public void trackSponsoredGalleryError(@Sponsored.SponsoredType int type, String errorCode)
+  public void trackGalleryError(@NonNull GalleryType type,
+                                @NonNull GalleryPlacement placement, @Nullable String code)
   {
-    trackEvent(PP_SPONSORED_ERROR, Statistics.params().add(PROVIDER, convertToSponsor(type))
-                                             .add(ERROR, errorCode).get());
+    trackEvent(PP_SPONSORED_ERROR, Statistics.params()
+                                             .add(PROVIDER, type.getProvider())
+                                             .add(PLACEMENT, placement.toString())
+                                             .add(ERROR, code).get());
+  }
+
+  public void trackGalleryProductItemSelected(@NonNull GalleryType type,
+                                              @NonNull GalleryPlacement placement, int position,
+                                              @NonNull Destination destination)
+  {
+    trackEvent(PP_SPONSOR_ITEM_SELECTED, Statistics.params()
+                                                   .add(PROVIDER, type.getProvider())
+                                                   .add(PLACEMENT, placement.toString())
+                                                   .add(ITEM, position)
+                                                   .add(DESTINATION, destination.toString()));
+  }
+
+  public void trackGalleryEvent(@NonNull String eventName, @NonNull GalleryType type,
+                                  @NonNull GalleryPlacement placement)
+  {
+    trackEvent(eventName, Statistics.params()
+                                    .add(PROVIDER, type.getProvider())
+                                    .add(PLACEMENT,placement.toString())
+                                    .get());
   }
 
   public void trackSponsoredEvent(@NonNull String eventName, @Sponsored.SponsoredType int type)
@@ -925,6 +946,12 @@ public enum Statistics
         .add(EventParam.ERROR, error)
         .get());
   }
+
+  public void trackDiscoveryOpen()
+  {
+    trackEvent(DISCOVERY_OPEN, params().add(NETWORK, getConnectionState()));
+  }
+
 
   public static ParameterBuilder params()
   {

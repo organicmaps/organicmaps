@@ -24,20 +24,15 @@ public class PlacePageTracker
   private final View mBottomButtons;
   @NonNull
   private final View mTaxi;
-  @NonNull
-  private final View mSponsoredGallery;
   @Nullable
   private MapObject mMapObject;
-
   private boolean mTaxiTracked;
-  private boolean mSponsoredTracked;
 
   public PlacePageTracker(@NonNull PlacePageView placePageView)
   {
     mPlacePageView = placePageView;
     mBottomButtons = mPlacePageView.findViewById(R.id.pp__buttons);
     mTaxi = mPlacePageView.findViewById(R.id.ll__place_page_taxi);
-    mSponsoredGallery = mPlacePageView.findViewById(R.id.ll__place_sponsored_gallery);
   }
 
   public void setMapObject(@Nullable MapObject mapObject)
@@ -48,13 +43,11 @@ public class PlacePageTracker
   public void onMove()
   {
     trackTaxiVisibility();
-    trackSponsoredGalleryVisibility();
   }
 
   public void onHidden()
   {
     mTaxiTracked = false;
-    mSponsoredTracked = false;
   }
 
   public void onOpened()
@@ -79,17 +72,6 @@ public class PlacePageTracker
         Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_REAL_SHOW_IN_PP, type);
         mTaxiTracked = true;
       }
-    }
-  }
-
-  private void trackSponsoredGalleryVisibility()
-  {
-    if (!mSponsoredTracked && isViewOnScreen(mSponsoredGallery, VISIBILITY_RATIO_SPONSORED_GALLERY)
-        && mPlacePageView.getSponsored() != null)
-    {
-      Sponsored sponsored = mPlacePageView.getSponsored();
-      Statistics.INSTANCE.trackSponsoredGalleryShown(sponsored.getType());
-      mSponsoredTracked = true;
     }
   }
 

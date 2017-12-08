@@ -28,6 +28,12 @@ public class ViatorOfflineAdapterStrategy extends OfflineAdapterStrategy
     return R.string.common_check_internet_connection_dialog;
   }
 
+  @Override
+  protected int getLabelForDetailsView()
+  {
+    return R.string.settings;
+  }
+
   @NonNull
   @Override
   protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent)

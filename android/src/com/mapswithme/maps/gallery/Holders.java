@@ -87,7 +87,7 @@ public class Holders
     }
 
     @Override
-    protected void onItemSelected(@NonNull Items.ViatorItem item)
+    protected void onItemSelected(@NonNull Items.ViatorItem item, int position)
     {
       ItemSelectedListener<ViatorItem> listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
@@ -131,7 +131,7 @@ public class Holders
     }
 
     @Override
-    protected void onItemSelected(@NonNull T item)
+    protected void onItemSelected(@NonNull T item, int position)
     {
       ItemSelectedListener<T> listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
@@ -212,7 +212,7 @@ public class Holders
     }
 
     @Override
-    protected void onItemSelected(@NonNull Items.LocalExpertItem item)
+    protected void onItemSelected(@NonNull Items.LocalExpertItem item, int position)
     {
       ItemSelectedListener<Items.LocalExpertItem> listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
@@ -268,10 +268,10 @@ public class Holders
       switch (v.getId())
       {
         case R.id.infoLayout:
-          listener.onItemSelected(item);
+          listener.onItemSelected(item, position);
           break;
         case R.id.button:
-          listener.onActionButtonSelected(item);
+          listener.onActionButtonSelected(item, position);
           break;
       }
     }
@@ -310,16 +310,16 @@ public class Holders
       if (position == RecyclerView.NO_POSITION || mItems.isEmpty())
         return;
 
-      onItemSelected(mItems.get(position));
+      onItemSelected(mItems.get(position), position);
     }
 
-    protected void onItemSelected(@NonNull I item)
+    protected void onItemSelected(@NonNull I item, int position)
     {
       ItemSelectedListener<I> listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
-      listener.onItemSelected(item);
+      listener.onItemSelected(item, position);
     }
   }
 
@@ -357,16 +357,16 @@ public class Holders
       if (position == RecyclerView.NO_POSITION)
         return;
 
-      onItemSelected(mItems.get(position));
+      onItemSelected(mItems.get(position), position);
     }
 
     @Override
-    protected void onItemSelected(@NonNull Items.Item item)
+    protected void onItemSelected(@NonNull Items.Item item, int position)
     {
       if (mAdapter.getListener() == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
-      mAdapter.getListener().onActionButtonSelected(item);
+      mAdapter.getListener().onActionButtonSelected(item, position);
     }
   }
 
@@ -409,12 +409,12 @@ public class Holders
     }
 
     @Override
-    protected void onItemSelected(@NonNull Items.Item item)
+    protected void onItemSelected(@NonNull Items.Item item, int position)
     {
       if (mAdapter.getListener() == null)
         return;
 
-      mAdapter.getListener().onActionButtonSelected(item);
+      mAdapter.getListener().onActionButtonSelected(item, position);
     }
   }
 }

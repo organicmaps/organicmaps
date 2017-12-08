@@ -3,6 +3,7 @@ package com.mapswithme.maps.discovery;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
@@ -33,6 +34,17 @@ import com.mapswithme.util.Language;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.GalleryType;
+import com.mapswithme.util.statistics.Statistics;
+
+import static com.mapswithme.util.statistics.Destination.EXTERNAL;
+import static com.mapswithme.util.statistics.Destination.PLACEPAGE;
+import static com.mapswithme.util.statistics.Destination.ROUTING;
+import static com.mapswithme.util.statistics.GalleryPlacement.DISCOVERY;
+import static com.mapswithme.util.statistics.GalleryType.LOCAL_EXPERTS;
+import static com.mapswithme.util.statistics.GalleryType.SEARCH_ATTRACTIONS;
+import static com.mapswithme.util.statistics.GalleryType.SEARCH_RESTAURANTS;
+import static com.mapswithme.util.statistics.GalleryType.VIATOR;
 
 public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallback
 {
@@ -146,6 +158,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
       public void onClick(View v)
       {
         Utils.openUrl(getActivity(), DiscoveryManager.nativeGetViatorUrl());
+        Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_LOGO_SELECTED,
+                                              VIATOR, DISCOVERY);
       }
     });
     initViatorGallery();
@@ -203,7 +217,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
       UiUtils.show(getView(), R.id.thingsToDoLayout, R.id.thingsToDo);
       RecyclerView thinsToDo = getGallery(R.id.thingsToDo);
       thinsToDo.setAdapter(Factory.createViatorOfflineAdapter(new ViatorOfflineSelectedListener
-                                                                  (getActivity())));
+                                                                  (getActivity()), DISCOVERY));
     }
   }
 
@@ -229,8 +243,11 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onAttractionsReceived(@NonNull SearchResult[] results)
   {
     updateViewsVisibility(results, R.id.attractionsTitle, R.id.attractions);
-    ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(this);
-    getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedAdapter(results, listener));
+    ItemSelectedListener<Items.SearchItem> listener
+        = createSearchProductItemListener(SEARCH_ATTRACTIONS);
+    getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedAdapter(results, listener,
+                                                                             SEARCH_ATTRACTIONS,
+                                                                             DISCOVERY));
   }
 
   @MainThread
@@ -238,8 +255,11 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onCafesReceived(@NonNull SearchResult[] results)
   {
     updateViewsVisibility(results, R.id.eatAndDrinkTitle, R.id.food);
-    ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(this);
-    getGallery(R.id.food).setAdapter(Factory.createSearchBasedAdapter(results, listener));
+    ItemSelectedListener<Items.SearchItem> listener =
+        createSearchProductItemListener(SEARCH_RESTAURANTS);
+    getGallery(R.id.food).setAdapter(Factory.createSearchBasedAdapter(results, listener,
+                                                                      SEARCH_RESTAURANTS,
+                                                                      DISCOVERY));
   }
 
   @MainThread
@@ -248,8 +268,10 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     updateViewsVisibility(products, R.id.thingsToDoLayout, R.id.thingsToDo);
     String url = DiscoveryManager.nativeGetViatorUrl();
-    ItemSelectedListener<Items.ViatorItem> listener = new BaseItemSelectedListener<>(getActivity());
-    getGallery(R.id.thingsToDo).setAdapter(Factory.createViatorAdapter(products, url, listener));
+    ItemSelectedListener<Items.ViatorItem> listener
+        = createOnlineProductItemListener(VIATOR);
+    getGallery(R.id.thingsToDo).setAdapter(Factory.createViatorAdapter(products, url, listener,
+                                                                       DISCOVERY));
   }
 
   @MainThread
@@ -258,8 +280,10 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     updateViewsVisibility(experts, R.id.localGuidesTitle, R.id.localGuides);
     String url = DiscoveryManager.nativeGetLocalExpertsUrl();
-    ItemSelectedListener<Items.LocalExpertItem> listener = new BaseItemSelectedListener<>(getActivity());
-    getGallery(R.id.localGuides).setAdapter(Factory.createLocalExpertsAdapter(experts, url, listener));
+    ItemSelectedListener<Items.LocalExpertItem> listener
+        = createOnlineProductItemListener(LOCAL_EXPERTS);
+    getGallery(R.id.localGuides).setAdapter(Factory.createLocalExpertsAdapter(experts, url, listener,
+                                                                              DISCOVERY));
   }
 
   @Override
@@ -270,15 +294,19 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
       case VIATOR:
         String url = DiscoveryManager.nativeGetViatorUrl();
         getGallery(R.id.thingsToDo).setAdapter(Factory.createViatorErrorAdapter(url, mDefaultListener));
+        Statistics.INSTANCE.trackGalleryError(VIATOR, DISCOVERY, null);
         break;
       case ATTRACTIONS:
         getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedErrorAdapter());
+        Statistics.INSTANCE.trackGalleryError(SEARCH_ATTRACTIONS, DISCOVERY, null);
         break;
       case CAFES:
         getGallery(R.id.food).setAdapter(Factory.createSearchBasedErrorAdapter());
+        Statistics.INSTANCE.trackGalleryError(SEARCH_RESTAURANTS, DISCOVERY, null);
         break;
       case LOCAL_EXPERTS:
         getGallery(R.id.localGuides).setAdapter(Factory.createLocalExpertsErrorAdapter());
+        Statistics.INSTANCE.trackGalleryError(LOCAL_EXPERTS, DISCOVERY, null);
         break;
       default:
         throw new AssertionError("Unknown item type: " + type);
@@ -352,6 +380,50 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     };
   }
 
+  private <Item extends Items.Item> ItemSelectedListener<Item> createOnlineProductItemListener
+      (final @NonNull GalleryType type)
+  {
+    return new BaseItemSelectedListener<Item>(getActivity())
+    {
+      @Override
+      public void onItemSelected(@NonNull Item item, int position)
+      {
+        super.onItemSelected(item, position);
+        Statistics.INSTANCE.trackGalleryProductItemSelected(type, DISCOVERY, position, EXTERNAL);
+      }
+
+      @Override
+      public void onMoreItemSelected(@NonNull Item item)
+      {
+        super.onMoreItemSelected(item);
+        Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED, type,
+                                              DISCOVERY);
+      }
+    };
+  }
+
+  private ItemSelectedListener<Items.SearchItem> createSearchProductItemListener
+      (final @NonNull GalleryType type)
+  {
+    return new SearchBasedListener(this)
+    {
+      @Override
+      public void onItemSelected(@NonNull Items.SearchItem item, int position)
+      {
+        super.onItemSelected(item, position);
+        Statistics.INSTANCE.trackGalleryProductItemSelected(type, DISCOVERY, position, PLACEPAGE);
+      }
+
+      @Override
+      public void onActionButtonSelected(@NonNull Items.SearchItem item, int position)
+      {
+        super.onActionButtonSelected(item, position);
+        Statistics.INSTANCE.trackGalleryProductItemSelected(type, DISCOVERY, position,
+                                                            ROUTING);
+      }
+    };
+  }
+
   private static class ViatorOfflineSelectedListener extends BaseItemSelectedListener<Items.Item>
   {
     private ViatorOfflineSelectedListener(@NonNull Activity context)
@@ -360,7 +432,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     }
 
     @Override
-    public void onActionButtonSelected(@NonNull Items.Item item)
+    public void onActionButtonSelected(@NonNull Items.Item item, int position)
     {
       Utils.showWirelessSettings(getContext());
     }
@@ -378,13 +450,15 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     }
 
     @Override
-    public void onItemSelected(@NonNull Items.SearchItem item)
+    @CallSuper
+    public void onItemSelected(@NonNull Items.SearchItem item, int position)
     {
       mFragment.showOnMap(item);
     }
 
     @Override
-    public void onActionButtonSelected(@NonNull Items.SearchItem item)
+    @CallSuper
+    public void onActionButtonSelected(@NonNull Items.SearchItem item, int position)
     {
       mFragment.routeTo(item);
     }

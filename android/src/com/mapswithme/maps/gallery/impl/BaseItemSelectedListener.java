@@ -25,7 +25,7 @@ public class BaseItemSelectedListener<I extends Items.Item>
   }
 
   @Override
-  public void onItemSelected(@NonNull I item)
+  public void onItemSelected(@NonNull I item, int position)
   {
     Utils.openUrl(mContext, item.getUrl());
   }
@@ -37,7 +37,7 @@ public class BaseItemSelectedListener<I extends Items.Item>
   }
 
   @Override
-  public void onActionButtonSelected(@NonNull I item)
+  public void onActionButtonSelected(@NonNull I item, int position)
   {
     Utils.openUrl(mContext, item.getUrl());
   }
