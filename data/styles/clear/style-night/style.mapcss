@@ -89,4 +89,6 @@ colors
   LocalAdsPrimaryTextOutline-color: #000000;
   LocalAdsSecondaryText-color: #FFFFFF;
   LocalAdsSecondaryTextOutline-color: #000000;
+  TransitBackground-color: #000000;
+  TransitBackground-opacity: 0.4;
 }
