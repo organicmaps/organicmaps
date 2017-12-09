@@ -383,15 +383,15 @@ public class Utils
     }
   }
 
-  public static void showWirelessSettings(@NonNull Context context)
+  public static void showSystemSettings(@NonNull Context context)
   {
     try
     {
-      context.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+      context.startActivity(new Intent(Settings.ACTION_SETTINGS));
     }
     catch (ActivityNotFoundException e)
     {
-      LOGGER.e(TAG, "Failed to open wireless settings", e);
+      LOGGER.e(TAG, "Failed to open system settings", e);
     }
   }
 

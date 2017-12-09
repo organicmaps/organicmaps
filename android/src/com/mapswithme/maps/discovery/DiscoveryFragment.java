@@ -1,7 +1,11 @@
 package com.mapswithme.maps.discovery;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
@@ -60,6 +64,19 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   private CustomNavigateUpListener mNavigateUpListener;
   @Nullable
   private DiscoveryListener mDiscoveryListener;
+  @NonNull
+  private final BroadcastReceiver mNetworkStateReceiver = new BroadcastReceiver()
+  {
+    @Override
+    public void onReceive(Context context, Intent intent)
+    {
+      if (mOnlineMode)
+        return;
+
+      if (ConnectionState.isConnected())
+        requestDiscoveryInfoAndInitAdapters();
+    }
+  };
 
   @Override
   public void onAttach(Context context)
@@ -136,12 +153,15 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onStart()
   {
     super.onStart();
+    IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+    getActivity().registerReceiver(mNetworkStateReceiver, filter);
     DiscoveryManager.INSTANCE.attach(this);
   }
 
   @Override
   public void onStop()
   {
+    getActivity().unregisterReceiver(mNetworkStateReceiver);
     DiscoveryManager.INSTANCE.detach();
     super.onStop();
   }
@@ -166,13 +186,12 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     initAttractionsGallery();
     initFoodGallery();
     initLocalExpertsGallery();
+    initSearchBasedAdapters();
     requestDiscoveryInfoAndInitAdapters();
   }
 
   private void requestDiscoveryInfoAndInitAdapters()
   {
-    initSearchBasedAdapters();
-
     NetworkPolicy.checkNetworkPolicy(getFragmentManager(), new NetworkPolicy.NetworkPolicyListener()
     {
       @Override
@@ -434,7 +453,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     @Override
     public void onActionButtonSelected(@NonNull Items.Item item, int position)
     {
-      Utils.showWirelessSettings(getContext());
+      Utils.showSystemSettings(getContext());
     }
   }
 
