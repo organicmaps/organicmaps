@@ -273,6 +273,8 @@ MainWindow::MainWindow(Framework & framework, std::string const & url, std::stri
 
   fileMenu->addSeparator();
 
+  m_goldifyMatchedPathAction = fileMenu->addAction(
+      "Goldify", [this] { m_trafficMode->GoldifyMatchedPath(); }, QKeySequence("Ctrl+G"));
   m_startEditingAction = fileMenu->addAction("Edit",
                                              [this] {
                                                m_trafficMode->StartBuildingPath();
@@ -300,6 +302,7 @@ MainWindow::MainWindow(Framework & framework, std::string const & url, std::stri
                                            },
                                            QKeySequence("Ctrl+I"));
 
+  m_goldifyMatchedPathAction->setEnabled(false /* enabled */);
   m_closeTrafficSampleAction->setEnabled(false /* enabled */);
   m_saveTrafficSampleAction->setEnabled(false /* enabled */);
   m_startEditingAction->setEnabled(false /* enabled */);
@@ -361,6 +364,7 @@ void MainWindow::OnOpenTrafficSample()
     return;
   }
 
+  m_goldifyMatchedPathAction->setEnabled(true /* enabled */);
   m_closeTrafficSampleAction->setEnabled(true /* enabled */);
   m_saveTrafficSampleAction->setEnabled(true /* enabled */);
   m_startEditingAction->setEnabled(true /* enabled */);
@@ -373,6 +377,7 @@ void MainWindow::OnCloseTrafficSample()
   // If not saved, ask a user if he/she wants to save.
   // OnSaveTrafficSample()
 
+  m_goldifyMatchedPathAction->setEnabled(false /* enabled */);
   m_saveTrafficSampleAction->setEnabled(false /* enabled */);
   m_closeTrafficSampleAction->setEnabled(false /* enabled */);
   m_startEditingAction->setEnabled(false /* enabled */);

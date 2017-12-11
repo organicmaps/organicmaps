@@ -268,29 +268,33 @@ Qt::ItemFlags TrafficMode::flags(QModelIndex const & index) const
   return QAbstractItemModel::flags(index);
 }
 
+void TrafficMode::GoldifyMatchedPath()
+{
+  if (!m_currentSegment->HasMatchedPath())
+  {
+    QMessageBox::information(nullptr /* parent */, "Error",
+                             "The selected segment does not have a matched path");
+    return;
+  }
+
+  if (!StartBuildingPathChecks())
+    return;
+
+  m_currentSegment->SetGoldenPath(m_currentSegment->GetMatchedPath());
+  m_goldenPath.clear();
+  m_drawerDelegate->DrawGoldenPath(GetPoints(m_currentSegment->GetGoldenPath()));
+}
+
 void TrafficMode::StartBuildingPath()
 {
-  CHECK(m_currentSegment, ("A segment should be selected before path building is started."));
-
-  if (m_buildingPath)
-    MYTHROW(TrafficModeError, ("Path building already in progress."));
-
-  if (m_currentSegment->HasGoldenPath())
-  {
-    auto const btn = QMessageBox::question(
-        nullptr,
-        "Override warning",
-        "The selected segment already has a golden path. Do you want to override?");
-    if (btn == QMessageBox::No)
-      return;
-  }
+  if (!StartBuildingPathChecks())
+    return;
 
   m_currentSegment->SetGoldenPath({});
 
   m_buildingPath = true;
   m_drawerDelegate->ClearGoldenPath();
-  m_drawerDelegate->VisualizePoints(
-      m_pointsDelegate->GetAllJunctionPointsInViewport());
+  m_drawerDelegate->VisualizePoints(m_pointsDelegate->GetAllJunctionPointsInViewport());
 }
 
 void TrafficMode::PushPoint(m2::PointD const & coord, std::vector<FeaturePoint> const & points)
@@ -382,10 +386,9 @@ void TrafficMode::IgnorePath()
 
   if (m_currentSegment->HasGoldenPath())
   {
-    auto const btn = QMessageBox::question(
-        nullptr,
-        "Override warning",
-        "The selected segment has a golden path. Do you want to discard it?");
+    auto const btn =
+        QMessageBox::question(nullptr /* parent */, "Override warning",
+                              "The selected segment has a golden path. Do you want to discard it?");
     if (btn == QMessageBox::No)
       return;
   }
@@ -501,5 +504,24 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
     // Not shure though if all cases are handled by that check.
     return;
   }
+}
+
+bool TrafficMode::StartBuildingPathChecks() const
+{
+  CHECK(m_currentSegment, ("A segment should be selected before path building is started."));
+
+  if (m_buildingPath)
+    MYTHROW(TrafficModeError, ("Path building already in progress."));
+
+  if (m_currentSegment->HasGoldenPath())
+  {
+    auto const btn = QMessageBox::question(
+        nullptr /* parent */, "Override warning",
+        "The selected segment already has a golden path. Do you want to override?");
+    if (btn == QMessageBox::No)
+      return false;
+  }
+
+  return true;
 }
 }  // namespace openlr

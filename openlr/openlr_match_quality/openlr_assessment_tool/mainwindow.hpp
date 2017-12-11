@@ -49,6 +49,7 @@ private:
   openlr::TrafficMode * m_trafficMode = nullptr;
   QDockWidget * m_docWidget = nullptr;
 
+  QAction * m_goldifyMatchedPathAction = nullptr;
   QAction * m_saveTrafficSampleAction = nullptr;
   QAction * m_closeTrafficSampleAction = nullptr;
   QAction * m_startEditingAction = nullptr;

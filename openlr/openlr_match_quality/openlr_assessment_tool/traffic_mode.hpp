@@ -84,6 +84,7 @@ public:
   Qt::ItemFlags flags(QModelIndex const & index) const Q_DECL_OVERRIDE;
 
   bool IsBuildingPath() const { return m_buildingPath; }
+  void GoldifyMatchedPath();
   void StartBuildingPath();
   void PushPoint(m2::PointD const & coord,
                  std::vector<FeaturePoint> const & points);
@@ -110,6 +111,7 @@ signals:
 
 private:
   void HandlePoint(m2::PointD clickPoint, Qt::MouseButton const button);
+  bool StartBuildingPathChecks() const;
 
   Index const & m_index;
   std::vector<SegmentCorrespondence> m_segments;
