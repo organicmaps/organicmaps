@@ -500,6 +500,9 @@ public class RoutingController implements TaxiManager.TaxiListener
   {
     mLogger.d(TAG, "start");
 
+    // This saving is needed just for situation when the user starts navigation
+    // and then app crashes. So, the previous route will be restored on the next app launch.
+    saveRoute();
 
     MapObject my = LocationHelper.INSTANCE.getMyPosition();
 
