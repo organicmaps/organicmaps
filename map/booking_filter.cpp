@@ -69,7 +69,6 @@ void FillResults(HotelToResults && hotelToResults, std::vector<std::string> cons
       {
         auto hotelStatus = cache.Get(hotelToResult.m_hotelId);
         CHECK_NOT_EQUAL(hotelStatus, Cache::HotelStatus::Absent, ());
-        CHECK_NOT_EQUAL(hotelStatus, Cache::HotelStatus::NotReady, ());
 
         if (hotelStatus == Cache::HotelStatus::Available)
           results.AddResult(std::move(hotelToResult.m_result));
@@ -202,7 +201,8 @@ void Filter::FilterAvailability(search::Results const & results,
 
 availability::Cache::HotelStatus Filter::GetHotelAvailabilityStatus(std::string const & hotelId)
 {
-  // Cache is thread-safe, no need to lock mutex.
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   return m_availabilityCache->Get(hotelId);
 }
 

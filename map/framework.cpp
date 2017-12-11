@@ -3471,8 +3471,7 @@ void Framework::SetPreparingStateForBookingHotel(FeatureID const & id, SearchMar
 
   auto const & hotelId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
 
-  if (m_bookingFilter.GetHotelAvailabilityStatus(hotelId) == Cache::HotelStatus::Available)
-    mark->SetPreparing(false /* isPreparing */);
-  else
-    mark->SetPreparing(true /* isPreparing */);
+  auto const isPreparing =
+    m_bookingFilter.GetHotelAvailabilityStatus(hotelId) != Cache::HotelStatus::Available;
+  mark->SetPreparing(isPreparing);
 }
