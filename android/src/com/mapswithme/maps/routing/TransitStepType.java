@@ -10,9 +10,9 @@ public enum TransitStepType
   INTERMEDIATE_POINT(R.drawable.ic_24px_route_point_a),
   PEDESTRIAN(R.drawable.ic_20px_route_planning_walk),
   SUBWAY(R.drawable.ic_20px_route_planning_metro),
-  TRAIN(R.drawable.ic_20px_route_planning_metro),
-  LIGHT_RAIL(R.drawable.ic_20px_route_planning_metro),
-  MONORAIL(R.drawable.ic_20px_route_planning_metro);
+  TRAIN(R.drawable.ic_20px_route_planning_train),
+  LIGHT_RAIL(R.drawable.ic_20px_route_planning_lightrail),
+  MONORAIL(R.drawable.ic_20px_route_planning_monorail);
 
   @DrawableRes
   private final int mDrawable;
