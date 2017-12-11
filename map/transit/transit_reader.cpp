@@ -6,6 +6,8 @@
 #include "indexer/drules_include.hpp"
 #include "indexer/feature_algo.hpp"
 
+#include "coding/reader.hpp"
+
 #include "drape_frontend/stylist.hpp"
 
 #include "base/stl_add.hpp"
@@ -13,31 +15,8 @@
 using namespace routing;
 using namespace std;
 
-// TransitReader ----------------------------------------------------------------------------------
-bool TransitReader::Init(MwmSet::MwmId const & mwmId)
-{
-  MwmSet::MwmHandle handle = m_index.GetMwmHandleById(mwmId);
-  if (!handle.IsAlive())
-  {
-    LOG(LWARNING, ("Can't get mwm handle for", mwmId));
-    return false;
-  }
-  MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
-  if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
-    return false;
-
-  m_reader = my::make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG));
-  return IsValid();
-}
-
-Reader & TransitReader::GetReader()
-{
-  CHECK(IsValid(), ());
-  return *m_reader->GetPtr();
-}
-
 // ReadTransitTask --------------------------------------------------------------------------------
-bool ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, unique_ptr<TransitDisplayInfo> && transitInfo)
+void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, unique_ptr<TransitDisplayInfo> && transitInfo)
 {
   m_id = id;
   m_mwmId = mwmId;
@@ -51,16 +30,26 @@ bool ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, unique_ptr<
     m_loadSubset = true;
     m_transitInfo = move(transitInfo);
   }
-  return m_transitReader.Init(mwmId);
 }
 
 void ReadTransitTask::Do()
 {
-  if (!m_transitReader.IsValid())
+  MwmSet::MwmHandle handle = m_index.GetMwmHandleById(m_mwmId);
+  if (!handle.IsAlive())
+  {
+    LOG(LWARNING, ("Can't get mwm handle for", m_mwmId));
+    return;
+  }
+  MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
+  if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
     return;
 
+  auto reader = my::make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG));
+  CHECK(reader, ());
+  CHECK(reader->GetPtr() != nullptr, ());
+
   transit::GraphData graphData;
-  graphData.DeserializeForRendering(m_transitReader.GetReader());
+  graphData.DeserializeForRendering(*reader->GetPtr());
 
   FillItemsByIdMap(graphData.GetStops(), m_transitInfo->m_stops);
   for (auto const & stop : m_transitInfo->m_stops)
@@ -145,7 +134,7 @@ void TransitReadManager::Stop()
   m_threadsPool.reset();
 }
 
-bool TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos)
+void TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos)
 {
   unique_lock<mutex> lock(m_mutex);
   auto const groupId = ++m_nextTasksGroupId;
@@ -156,11 +145,7 @@ bool TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisp
   {
     auto const & mwmId = mwmTransitPair.first;
     auto task = my::make_unique<ReadTransitTask>(m_index, m_readFeaturesFn);
-    if (!task->Init(groupId, mwmId, move(mwmTransitPair.second)))
-    {
-      LOG(LWARNING, ("Getting transit info failed for", mwmId));
-      return false;
-    }
+    task->Init(groupId, mwmId, move(mwmTransitPair.second));
     transitTasks[mwmId] = move(task);
   }
 
@@ -178,7 +163,6 @@ bool TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisp
 
   for (auto const & transitTask : transitTasks)
     transitDisplayInfos[transitTask.first] = transitTask.second->GetTransitInfo();
-  return true;
 }
 
 void TransitReadManager::OnTaskCompleted(threads::IRoutine * task)

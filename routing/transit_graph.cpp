@@ -3,8 +3,6 @@
 #include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph.hpp"
 
-#include "routing_common/transit_graph_data.hpp"
-
 #include "indexer/feature_altitude.hpp"
 
 namespace routing

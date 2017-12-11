@@ -5,8 +5,6 @@
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
 
-#include "coding/reader.hpp"
-
 #include "base/thread.hpp"
 #include "base/thread_pool.hpp"
 
@@ -17,21 +15,6 @@
 #include <mutex>
 #include <string>
 #include <vector>
-
-class TransitReader
-{
-public:
-  TransitReader(Index & index) : m_index(index) {}
-
-  bool Init(MwmSet::MwmId const & mwmId);
-  bool IsValid() const { return m_reader != nullptr; }
-  /// \note This method should be used only if IsValid() returns true.
-  Reader & GetReader();
-
-private:
-  Index & m_index;
-  std::unique_ptr<FilesContainerR::TReader> m_reader;
-};
 
 struct TransitFeatureInfo
 {
@@ -67,10 +50,10 @@ class ReadTransitTask: public threads::IRoutine
 public:
   ReadTransitTask(Index & index,
                   TReadFeaturesFn const & readFeaturesFn)
-    : m_transitReader(index), m_readFeaturesFn(readFeaturesFn)
+    : m_index(index), m_readFeaturesFn(readFeaturesFn)
   {}
 
-  bool Init(uint64_t id, MwmSet::MwmId const & mwmId, std::unique_ptr<TransitDisplayInfo> && transitInfo = nullptr);
+  void Init(uint64_t id, MwmSet::MwmId const & mwmId, std::unique_ptr<TransitDisplayInfo> && transitInfo = nullptr);
   uint64_t GetId() const { return m_id; }
 
   void Do() override;
@@ -97,7 +80,7 @@ private:
     }
   };
 
-  TransitReader m_transitReader;
+  Index & m_index;
   TReadFeaturesFn m_readFeaturesFn;
 
   uint64_t m_id = 0;
@@ -118,7 +101,7 @@ public:
   void Start();
   void Stop();
 
-  bool GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos);
+  void GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos);
 
   // TODO(@darina) Clear cache for deleted mwm.
   //void OnMwmDeregistered(MwmSet::MwmId const & mwmId);

@@ -199,8 +199,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
   CollectTransitDisplayInfo(segments, transitDisplayInfos);
 
   // Read transit display info.
-  if (!m_transitReadManager.GetTransitDisplayInfo(transitDisplayInfos))
-    return;
+  m_transitReadManager.GetTransitDisplayInfo(transitDisplayInfos);
 
   std::vector<TransitMarkInfo> transitMarks;
 

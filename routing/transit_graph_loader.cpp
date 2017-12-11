@@ -3,6 +3,7 @@
 #include "routing/fake_ending.hpp"
 #include "routing/routing_exceptions.hpp"
 
+#include "routing_common/transit_graph_data.hpp"
 #include "routing_common/transit_serdes.hpp"
 #include "routing_common/transit_types.hpp"
 
