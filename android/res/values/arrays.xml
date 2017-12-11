@@ -3,26 +3,32 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/img_whats_new_ugc</item>
+    <item>@drawable/img_whats_new_transport</item>
+    <item>@drawable/img_whats_new_discover</item>
   </integer-array>
 
   <string-array name="news_titles">
-    <item>@string/whats_new_ugc_title</item>
+    <item>@string/whats_new_transit_title</item>
+    <item>@string/whats_new_discovery_title</item>
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whats_new_ugc_message</item>
+    <item>@string/whats_new_transit_message</item>
+    <item>@string/whats_new_discovery_message</item>
   </string-array>
 
   <string-array name="news_messages_2">
+    <item/>
     <item/>
   </string-array>
 
   <string-array name="news_switch_titles">
     <item/>
+    <item/>
   </string-array>
 
   <string-array name="news_switch_subtitles">
+    <item/>
     <item/>
   </string-array>
 </resources>
