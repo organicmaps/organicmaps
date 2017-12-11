@@ -158,9 +158,12 @@ void Filter::FilterAvailability(search::Results const & results,
 {
   GetPlatform().RunTask(Platform::Thread::File, [this, results, params]()
   {
+    std::lock_guard<std::mutex> lock(m_mutex);
+
     auto const & cb = params.m_callback;
 
     ASSERT(params.m_params.m_hotelIds.empty(), ());
+    m_currentParams.m_hotelIds.clear();
 
     if (m_currentParams != params.m_params)
     {
@@ -185,20 +188,33 @@ void Filter::FilterAvailability(search::Results const & results,
     auto const apiCallback =
       [cb, hotelToResults, availabilityCache](std::vector<std::string> hotelIds) mutable
     {
-      GetPlatform().RunTask(Platform::Thread::File,
-                            [cb, hotelToResults, availabilityCache, hotelIds]() mutable
-      {
-        search::Results results;
-        std::sort(hotelIds.begin(), hotelIds.end());
-        UpdateCache(hotelToResults, hotelIds, *availabilityCache);
-        FillResults(std::move(hotelToResults), hotelIds, *availabilityCache, results);
-        cb(results);
-      });
+      search::Results results;
+      std::sort(hotelIds.begin(), hotelIds.end());
+      UpdateCache(hotelToResults, hotelIds, *availabilityCache);
+      FillResults(std::move(hotelToResults), hotelIds, *availabilityCache, results);
+      cb(results);
     };
 
     m_api.GetHotelAvailability(m_currentParams, apiCallback);
     m_availabilityCache->RemoveOutdated();
   });
+}
+
+availability::Cache::HotelStatus Filter::GetHotelAvailabilityStatus(std::string const & hotelId)
+{
+  // Cache is thread-safe, no need to lock mutex.
+  return m_availabilityCache->Get(hotelId);
+}
+
+void Filter::OnParamsUpdated(AvailabilityParams const & params)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+
+  if (m_currentParams != params)
+  {
+    m_currentParams = params;
+    m_availabilityCache = std::make_shared<availability::Cache>();
+  }
 }
 }  // namespace filter
 }  // namespace booking

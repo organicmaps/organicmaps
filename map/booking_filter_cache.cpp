@@ -15,6 +15,8 @@ Cache::Cache(size_t maxCount, size_t expiryPeriodSeconds)
 
 Cache::HotelStatus Cache::Get(std::string const & hotelId)
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   HotelStatus result = Get(m_notReadyHotels, hotelId);
 
   if (result == HotelStatus::Absent)
@@ -25,6 +27,8 @@ Cache::HotelStatus Cache::Get(std::string const & hotelId)
 
 void Cache::Reserve(std::string const & hotelId)
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   ASSERT(m_hotelToStatus.find(hotelId) == m_hotelToStatus.end(), ());
 
   m_notReadyHotels.emplace(hotelId, Item());
@@ -32,6 +36,8 @@ void Cache::Reserve(std::string const & hotelId)
 
 void Cache::Insert(std::string const & hotelId, HotelStatus const s)
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   ASSERT_NOT_EQUAL(s, HotelStatus::NotReady,
                    ("Please, use Cache::Reserve method for HotelStatus::NotReady"));
 
@@ -44,6 +50,8 @@ void Cache::Insert(std::string const & hotelId, HotelStatus const s)
 
 void Cache::RemoveOutdated()
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   if (m_expiryPeriodSeconds == 0)
     return;
 
@@ -53,6 +61,8 @@ void Cache::RemoveOutdated()
 
 void Cache::Clear()
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   m_hotelToStatus.clear();
   m_notReadyHotels.clear();
 }

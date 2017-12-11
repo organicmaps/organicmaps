@@ -142,6 +142,9 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
         }
       });
 
+  if (m_sponsoredMode == SponsoredMode::Booking)
+    m_delegate.OnBookingFilterParamsUpdate(params.m_bookingFilterParams.m_params);
+
   return Search(p, false /* forceSearch */);
 }
 

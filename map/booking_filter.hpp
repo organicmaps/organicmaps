@@ -3,7 +3,10 @@
 #include "map/booking_filter_availability_params.hpp"
 #include "map/booking_filter_cache.hpp"
 
+#include "base/macros.hpp"
+
 #include <memory>
+#include <mutex>
 
 class Index;
 
@@ -18,6 +21,7 @@ class Api;
 
 namespace filter
 {
+// NOTE: this class IS thread-safe.
 class Filter
 {
 public:
@@ -25,6 +29,10 @@ public:
 
   void FilterAvailability(search::Results const & results,
                           availability::internal::Params const & params);
+
+  void OnParamsUpdated(AvailabilityParams const & params);
+
+  availability::Cache::HotelStatus GetHotelAvailabilityStatus(std::string const & hotelId);
 
 private:
   Index const & m_index;
@@ -35,6 +43,9 @@ private:
   CachePtr m_availabilityCache = std::make_shared<availability::Cache>();
 
   AvailabilityParams m_currentParams;
+  std::mutex m_mutex;
+
+  DISALLOW_COPY_AND_MOVE(Filter);
 };
 }  // namespace filter
 }  // namespace booking

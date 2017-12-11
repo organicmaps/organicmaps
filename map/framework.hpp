@@ -850,8 +850,10 @@ private:
 public:
   void FilterSearchResultsOnBooking(booking::filter::availability::Params const & params,
                                     search::Results const & results, bool inViewport) override;
+  void OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params) override;
 
 private:
+  void SetPreparingStateForBookingHotel(FeatureID const & id, SearchMarkPoint * mark);
   // m_discoveryManager must be bellow m_searchApi, m_viatorApi, m_localsApi
   unique_ptr<discovery::Manager> m_discoveryManager;
 };

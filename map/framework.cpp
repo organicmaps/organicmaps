@@ -1639,7 +1639,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
       mark->SetMarkType(SearchMarkType::Booking);
 
     if (GetSearchAPI().GetSponsoredMode() == SearchAPI::SponsoredMode::Booking)
-      mark->SetPreparing(true /* isPreparing */);
+      SetPreparingStateForBookingHotel(r.GetFeatureID(), mark);
   }
 }
 
@@ -3450,4 +3450,29 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Para
   };
 
   m_bookingFilter.FilterAvailability(results, paramsInternal);
+}
+
+void Framework::OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params)
+{
+  m_bookingFilter.OnParamsUpdated(params);
+}
+
+void Framework::SetPreparingStateForBookingHotel(FeatureID const & id, SearchMarkPoint * mark)
+{
+  using booking::filter::availability::Cache;
+  Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwmId);
+
+  FeatureType ft;
+  if (!guard.GetFeatureByIndex(id.m_index, ft))
+  {
+    LOG(LERROR, ("Feature can't be loaded:", id));
+    return;
+  }
+
+  auto const & hotelId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+
+  if (m_bookingFilter.GetHotelAvailabilityStatus(hotelId) == Cache::HotelStatus::Available)
+    mark->SetPreparing(false /* isPreparing */);
+  else
+    mark->SetPreparing(true /* isPreparing */);
 }

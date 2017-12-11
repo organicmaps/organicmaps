@@ -33,6 +33,7 @@ struct DownloaderSearchParams;
 
 namespace booking
 {
+struct AvailabilityParams;
 namespace filter
 {
 namespace availability
@@ -83,6 +84,10 @@ public:
 
     virtual void FilterSearchResultsOnBooking(booking::filter::availability::Params const & params,
                                               search::Results const & results, bool inViewport)
+    {
+    }
+
+    virtual void OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params)
     {
     }
   };
