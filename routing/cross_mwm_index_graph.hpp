@@ -44,9 +44,20 @@ uint32_t constexpr GetFeaturesOffset() noexcept
 }
 
 template <>
-uint32_t constexpr GetFeaturesOffset<connector::TransitId>() noexcept
+uint32_t constexpr GetFeaturesOffset<TransitId>() noexcept
 {
   return FakeFeatureIds::kTransitGraphFeaturesStart;
+}
+
+template <typename CrossMwmId>
+void AssertConnectorIsFound(NumMwmId neighbor, bool isConnectorFound)
+{
+  CHECK(isConnectorFound, ("Connector for mwm with number mwm id", neighbor, "was not deserialized."));
+}
+
+template <>
+inline void AssertConnectorIsFound<TransitId>(NumMwmId /* neighbor */, bool /* isConnectorFound */)
+{
 }
 }  // namespace connector
 
@@ -79,7 +90,14 @@ public:
     for (NumMwmId const neighbor : neighbors)
     {
       auto const it = m_connectors.find(neighbor);
-      CHECK(it != m_connectors.cend(), ("Connector for", m_numMwmIds->GetFile(neighbor), "was not deserialized."));
+      // In case of TransitId, a connector for a mwm with number id |neighbor| may not be found
+      // if mwm with such id does not contain corresponding transit_cross_mwm section.
+      // It may happen in case of obsolete mwms.
+      // Note. Actually it is assumed that connectors always must be found for car routing case.
+      // That means mwm without cross_mwm section is not supported.
+      connector::AssertConnectorIsFound<CrossMwmId>(neighbor, it != m_connectors.cend());
+      if (it == m_connectors.cend())
+        continue;
 
       CrossMwmConnector<CrossMwmId> const & connector = it->second;
       // Note. Last parameter in the method below (isEnter) should be set to |isOutgoing|.
