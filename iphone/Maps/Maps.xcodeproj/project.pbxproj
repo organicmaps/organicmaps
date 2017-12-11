@@ -1218,6 +1218,12 @@
 		F5BD2CA4DBEFACBC48195F39 /* DiscoveryCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */; };
 		F5BD2CF683971DE125D1F21A /* DiscoverySearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2ED6E94925472A9901B4 /* DiscoverySearchCell.swift */; };
 		F5BD2E06C15E80313135E861 /* DiscoverySpinnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD246A7E6BE8CD8600EDD9 /* DiscoverySpinnerCell.swift */; };
+		F603E0591FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F603E0581FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib */; };
+		F603E05A1FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F603E0581FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib */; };
+		F603E05B1FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F603E0581FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib */; };
+		F603E05D1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F603E05C1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib */; };
+		F603E05E1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F603E05C1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib */; };
+		F603E05F1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F603E05C1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib */; };
 		F607C1871C032A8800B53A87 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = F607C1831C032A8800B53A87 /* resources-hdpi_clear */; };
 		F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = F607C1831C032A8800B53A87 /* resources-hdpi_clear */; };
 		F607C1891C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
@@ -1350,6 +1356,9 @@
 		F69CE8DF1E5C51AB002B5881 /* CarouselElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69CE8DC1E5C51AB002B5881 /* CarouselElement.xib */; };
 		F6A218491CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */; };
 		F6A2184A1CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */; };
+		F6A806521FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6A806511FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib */; };
+		F6A806531FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6A806511FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib */; };
+		F6A806541FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6A806511FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib */; };
 		F6B97B261CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B97B251CD0CA990009B612 /* MWMBookmarkNameCell.mm */; };
 		F6B97B271CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B97B251CD0CA990009B612 /* MWMBookmarkNameCell.mm */; };
 		F6B97B291CD0CB170009B612 /* MWMBookmarkNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6B97B281CD0CB170009B612 /* MWMBookmarkNameCell.xib */; };
@@ -2562,6 +2571,8 @@
 		F5BD246A7E6BE8CD8600EDD9 /* DiscoverySpinnerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverySpinnerCell.swift; sourceTree = "<group>"; };
 		F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryCollectionHolderCell.swift; sourceTree = "<group>"; };
 		F5BD2ED6E94925472A9901B4 /* DiscoverySearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverySearchCell.swift; sourceTree = "<group>"; };
+		F603E0581FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryLocalExpertCollectionHolderCell.xib; sourceTree = "<group>"; };
+		F603E05C1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoverySearchCollectionHolderCell.xib; sourceTree = "<group>"; };
 		F607C1831C032A8800B53A87 /* resources-hdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_clear"; path = "../../data/resources-hdpi_clear"; sourceTree = "<group>"; };
 		F607C1841C032A8800B53A87 /* resources-hdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_dark"; path = "../../data/resources-hdpi_dark"; sourceTree = "<group>"; };
 		F607C18C1C047FDC00B53A87 /* MWMSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSegue.h; sourceTree = "<group>"; };
@@ -2646,6 +2657,7 @@
 		F69CE8DC1E5C51AB002B5881 /* CarouselElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarouselElement.xib; sourceTree = "<group>"; };
 		F6A218471CA3F26800BE2CC6 /* MWMEditorViralActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralActivityItem.h; sourceTree = "<group>"; };
 		F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorViralActivityItem.mm; sourceTree = "<group>"; };
+		F6A806511FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryViatorCollectionHolderCell.xib; sourceTree = "<group>"; };
 		F6B97B241CD0CA990009B612 /* MWMBookmarkNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkNameCell.h; sourceTree = "<group>"; };
 		F6B97B251CD0CA990009B612 /* MWMBookmarkNameCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarkNameCell.mm; sourceTree = "<group>"; };
 		F6B97B281CD0CB170009B612 /* MWMBookmarkNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBookmarkNameCell.xib; sourceTree = "<group>"; };
@@ -5025,6 +5037,9 @@
 				F69739DE1FD6EE1D00FDA07D /* DiscoveryLocalExpertCell.xib */,
 				F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */,
 				F60C8BE91FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib */,
+				F6A806511FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib */,
+				F603E0581FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib */,
+				F603E05C1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib */,
 			);
 			path = Discovery;
 			sourceTree = "<group>";
@@ -5321,6 +5336,7 @@
 				34AB667F1FC5AA330078E451 /* MWMiPhoneRoutePreview.xib in Resources */,
 				F61757F01FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib in Resources */,
 				EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */,
+				F603E05D1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib in Resources */,
 				EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */,
 				EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */,
 				FAF30A95173AB23900818BF6 /* 07_roboto_medium.ttf in Resources */,
@@ -5411,6 +5427,7 @@
 				F6E2FD6D1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				F6E2FD731E097BA00083EBEC /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				349A13841DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */,
+				F603E0591FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib in Resources */,
 				34E50DE21F6FCBA1008EED49 /* UGCAddReviewCell.xib in Resources */,
 				34D3B04A1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
 				F6E2FDEE1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
@@ -5418,6 +5435,7 @@
 				34AB66341FC5AA330078E451 /* RouteManagerCell.xib in Resources */,
 				F6E2FDFA1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				F6E2FE751E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
+				F6A806521FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib in Resources */,
 				F6E2FE001E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				F6E2FE061E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
 				F6E2FE0C1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
@@ -5521,6 +5539,7 @@
 				34AB66801FC5AA330078E451 /* MWMiPhoneRoutePreview.xib in Resources */,
 				F61757F11FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib in Resources */,
 				6741A95B1BF340DE002C974C /* 06_code2000.ttf in Resources */,
+				F603E05E1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib in Resources */,
 				6741A99F1BF340DE002C974C /* 07_roboto_medium.ttf in Resources */,
 				F6E2FE6D1E097BA00083EBEC /* _MWMOHHeaderCell.xib in Resources */,
 				F6E2FE701E097BA00083EBEC /* _MWMOHSubCell.xib in Resources */,
@@ -5611,6 +5630,7 @@
 				F6E2FDEF1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
 				34E50DE31F6FCBA1008EED49 /* UGCAddReviewCell.xib in Resources */,
 				F6E2FDF51E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
+				F603E05A1FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib in Resources */,
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				342639361EA0E60A0025EB89 /* local_ads_symbols.txt in Resources */,
 				4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */,
@@ -5618,6 +5638,7 @@
 				34AB66351FC5AA330078E451 /* RouteManagerCell.xib in Resources */,
 				F6E2FE011E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				F6E2FE071E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
+				F6A806531FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib in Resources */,
 				F6E2FE0D1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
 				F6E2FE161E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.xib in Resources */,
 				F6E2FE1C1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.xib in Resources */,
@@ -5788,6 +5809,7 @@
 				34D3B02E1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */,
 				34D3B0341E389D05004100F9 /* MWMEditorCategoryCell.xib in Resources */,
 				F6E2FDCC1E097BA00083EBEC /* MWMEditorNotesFooter.xib in Resources */,
+				F6A806541FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib in Resources */,
 				34D3B03A1E389D05004100F9 /* MWMEditorSelectTableViewCell.xib in Resources */,
 				34D3B0401E389D05004100F9 /* MWMEditorSwitchTableViewCell.xib in Resources */,
 				34D3B0461E389D05004100F9 /* MWMEditorTextTableViewCell.xib in Resources */,
@@ -5805,6 +5827,7 @@
 				F6E2FD691E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.xib in Resources */,
 				345E8F561F839E6D00A826CC /* GoogleService-Info.plist in Resources */,
 				3477528C1F725002000D46A3 /* UGCAddReviewRatingCell.xib in Resources */,
+				F603E05F1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib in Resources */,
 				F6E2FD6F1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				F6E2FD751E097BA00083EBEC /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				34D3B04C1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
@@ -5852,6 +5875,7 @@
 				849CF5E71DE842290024A8A5 /* MWMSearchNoResultsAlert.xib in Resources */,
 				F6E2FF3A1E097BA00083EBEC /* MWMSearchSuggestionCell.xib in Resources */,
 				F6664C061E6459DA00E703C2 /* PPReviewHeaderCell.xib in Resources */,
+				F603E05B1FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib in Resources */,
 				F6E2FF1C1E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
 				F6E2FF221E097BA00083EBEC /* MWMSearchTabbedViewController.xib in Resources */,
 				F6E2FF2B1E097BA00083EBEC /* MWMSearchTabButtonsView.xib in Resources */,

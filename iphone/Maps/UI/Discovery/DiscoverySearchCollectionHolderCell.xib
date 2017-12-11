@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiscoverySearchCollectionHolderCell" rowHeight="175" id="69d-dp-KY2" customClass="MWMDiscoverySearchCollectionHolderCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="178"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="69d-dp-KY2" id="qeQ-5M-VVb">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="177.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLg-Ze-Eru">
+                        <rect key="frame" x="16" y="12" width="327" height="24.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="5kQ-Mc-ZYQ" customClass="MWMDiscoveryCollectionView">
+                        <rect key="frame" x="0.0" y="48.5" width="375" height="129"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="129" id="yin-jq-MTp"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="0.0" id="jRB-QZ-TJf">
+                            <size key="itemSize" width="160" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="zLg-Ze-Eru" firstAttribute="leading" secondItem="qeQ-5M-VVb" secondAttribute="leading" constant="16" id="2hQ-HG-sHj"/>
+                    <constraint firstItem="zLg-Ze-Eru" firstAttribute="top" secondItem="qeQ-5M-VVb" secondAttribute="top" constant="12" id="3Ut-Hs-zpi"/>
+                    <constraint firstItem="5kQ-Mc-ZYQ" firstAttribute="top" secondItem="zLg-Ze-Eru" secondAttribute="bottom" constant="12" id="4f5-Um-KLw"/>
+                    <constraint firstAttribute="bottom" secondItem="5kQ-Mc-ZYQ" secondAttribute="bottom" id="84B-tR-LtW"/>
+                    <constraint firstAttribute="trailing" secondItem="5kQ-Mc-ZYQ" secondAttribute="trailing" id="V7W-fw-utp"/>
+                    <constraint firstItem="5kQ-Mc-ZYQ" firstAttribute="leading" secondItem="qeQ-5M-VVb" secondAttribute="leading" id="btL-Ho-0fu"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="zLg-Ze-Eru" secondAttribute="trailing" constant="16" id="ybg-iI-Axr"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="collectionView" destination="5kQ-Mc-ZYQ" id="C7T-Ve-ayU"/>
+                <outlet property="header" destination="zLg-Ze-Eru" id="nYu-GN-ODe"/>
+            </connections>
+            <point key="canvasLocation" x="-179.5" y="23"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -11,6 +11,12 @@ final class DiscoveryLocalExpertCell: UICollectionViewCell {
   }
   @IBOutlet private weak var price: UIButton!
 
+  private lazy var formatter: NumberFormatter = {
+    let f = NumberFormatter()
+    f.numberStyle = .currency
+    return f
+  }()
+
   typealias Tap = () -> ()
   private var tap: Tap!
 
@@ -31,8 +37,8 @@ final class DiscoveryLocalExpertCell: UICollectionViewCell {
                     price: Double,
                     currency: String,
                     tap: @escaping Tap) {
-    if avatarURL.count > 0 {
-      avatar.af_setImage(withURL: URL(string: avatarURL)!, placeholderImage: #imageLiteral(resourceName: "img_localsdefault"), imageTransition: .crossDissolve(kDefaultAnimationDuration))
+    if avatarURL.count > 0, let url = URL(string: avatarURL) {
+      avatar.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "img_localsdefault"), imageTransition: .crossDissolve(kDefaultAnimationDuration))
     } else {
       avatar.image = #imageLiteral(resourceName: "img_localsdefault")
     }
@@ -41,10 +47,10 @@ final class DiscoveryLocalExpertCell: UICollectionViewCell {
     rating.value = ratingValue
     rating.type = ratingType
     let str: String
-    if currency.count == 0 {
-      str = L("free")
+    if currency.count > 0, let cur = stringFor(price: price, currencyCode: currency) {
+      str = String(coreFormat: L("price_per_hour"), arguments:[cur])
     } else {
-      str = String(coreFormat: L("price_per_hour"), arguments:[String(price) + currency])
+      str = L("free")
     }
 
     self.price.setTitle(str, for: .normal)
@@ -53,6 +59,11 @@ final class DiscoveryLocalExpertCell: UICollectionViewCell {
 
   @IBAction private func tapOnPrice() {
     tap?()
+  }
+
+  private func stringFor(price: Double, currencyCode: String) -> String? {
+    formatter.currencyCode = currencyCode
+    return formatter.string(for: price)
   }
 
   required init?(coder aDecoder: NSCoder) {

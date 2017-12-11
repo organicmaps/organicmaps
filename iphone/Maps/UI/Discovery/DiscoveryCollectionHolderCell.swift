@@ -1,54 +1,48 @@
-private class DiscoveryItemLayout: UICollectionViewFlowLayout {
-  override init() {
-    super.init()
-    scrollDirection = .horizontal
-    minimumInteritemSpacing = 8
-    var inset = UIEdgeInsets()
-    inset.left = 8
-    inset.right = 16
-    sectionInset = inset
-  }
+class DiscoveryCollectionHolder: UITableViewCell {
+  @IBOutlet private(set) weak var collectionView: UICollectionView!
+  @IBOutlet private weak var header: UILabel!
 
-  convenience init(size: CGSize) {
-    self.init()
-    itemSize = size
-    estimatedItemSize = size
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
+  fileprivate func config(header: String, cellClass: AnyClass) {
+    collectionView.register(cellClass: cellClass)
+    self.header.text = header
   }
 }
 
-@objc(MWMDiscoveryCollectionHolderCell)
-final class DiscoveryCollectionHolderCell: UITableViewCell {
-  private enum Size {
-    static let search = CGSize(width: 160.0, height: 128.0)
-    static let viator = CGSize(width: 160.0, height: 218.0)
-    static let localExpert = CGSize(width: 160.0, height: 196.0)
+@objc(MWMDiscoveryViatorCollectionHolderCell)
+final class DiscoveryViatorCollectionHolderCell: DiscoveryCollectionHolder {
+  typealias Tap = () -> ()
+  private var tap: Tap?
+
+  @objc func config(tap: @escaping Tap) {
+    self.tap = tap
+    super.config(header: L("discovery_button_subtitle_things_to_do").uppercased(),
+                 cellClass: ViatorElement.self)
   }
 
-  @IBOutlet private weak var cellHeight: NSLayoutConstraint!
-  @IBOutlet private(set) weak var collectionView: UICollectionView!
+  @IBAction private func onTap() {
+    tap?()
+  }
+}
 
-  @objc func configSearchLayout() {
-    config(size: Size.search)
-    collectionView.register(cellClass: DiscoverySearchCell.self)
+@objc(MWMDiscoveryLocalExpertCollectionHolderCell)
+final class DiscoveryLocalExpertCollectionHolderCell: DiscoveryCollectionHolder {
+  @objc func config() {
+    super.config(header: L("discovery_button_subtitle_local_guides").uppercased(),
+                 cellClass: DiscoveryLocalExpertCell.self)
+  }
+}
+
+@objc(MWMDiscoverySearchCollectionHolderCell)
+final class DiscoverySearchCollectionHolderCell: DiscoveryCollectionHolder {
+  @objc func configAttractionsCell() {
+    config(header: L("discovery_button_subtitle_attractions").uppercased())
   }
 
-  @objc func configViatorLayout() {
-    config(size: Size.viator)
-    collectionView.register(cellClass: ViatorElement.self)
+  @objc func configCafesCell() {
+    config(header: L("discovery_button_subtitle_eat_and_drink").uppercased())
   }
 
-  @objc func configLocalExpertsLayout() {
-    config(size: Size.localExpert)
-    collectionView.register(cellClass: DiscoveryLocalExpertCell.self)
-  }
-
-  private func config(size: CGSize) {
-    cellHeight.constant = size.height
-    setNeedsLayout()
-    collectionView.collectionViewLayout = DiscoveryItemLayout(size: size)
+  private func config(header: String) {
+    super.config(header: header, cellClass: DiscoverySearchCell.self)
   }
 }

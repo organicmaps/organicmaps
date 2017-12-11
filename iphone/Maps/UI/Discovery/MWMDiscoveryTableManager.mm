@@ -153,10 +153,11 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
                        m_loadingTypes.end());
 
   auto indexSet = [NSIndexSet indexSetWithIndex:position];
+  auto tv = self.tableView;
   if (m_types.empty())
-    [self.tableView reloadSections:indexSet withRowAnimation:kDefaultRowAnimation];
+    [tv reloadSections:indexSet withRowAnimation:kDefaultRowAnimation];
   else
-    [self.tableView deleteSections:indexSet withRowAnimation:kDefaultRowAnimation];
+    [tv deleteSections:indexSet withRowAnimation:kDefaultRowAnimation];
 }
 
 - (void)registerCells
@@ -164,7 +165,9 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   auto tv = self.tableView;
   [tv registerWithCellClass:[MWMDiscoverySpinnerCell class]];
   [tv registerWithCellClass:[MWMDiscoveryOnlineTemplateCell class]];
-  [tv registerWithCellClass:[MWMDiscoveryCollectionHolderCell class]];
+  [tv registerWithCellClass:[MWMDiscoverySearchCollectionHolderCell class]];
+  [tv registerWithCellClass:[MWMDiscoveryViatorCollectionHolderCell class]];
+  [tv registerWithCellClass:[MWMDiscoveryLocalExpertCollectionHolderCell class]];
   [tv registerWithCellClass:[MWMDiscoveryNoResultsCell class]];
 }
 
@@ -177,20 +180,18 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   return distance(m_types.begin(), it);
 }
 
-- (MWMDiscoveryCollectionHolderCell *)collectionHolderCell:(NSIndexPath *)indexPath
+- (MWMDiscoverySearchCollectionHolderCell *)searchCollectionHolderCell:(NSIndexPath *)indexPath
 {
-  Class cls = [MWMDiscoveryCollectionHolderCell class];
+  Class cls = [MWMDiscoverySearchCollectionHolderCell class];
   auto const type = m_types[indexPath.section];
-  auto cell = static_cast<MWMDiscoveryCollectionHolderCell *>(
+  auto cell = static_cast<MWMDiscoverySearchCollectionHolderCell *>(
       [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
   auto collection = static_cast<MWMDiscoveryCollectionView *>(cell.collectionView);
   switch (type)
   {
-  case ItemType::Viator: [cell configViatorLayout]; break;
-  case ItemType::LocalExperts: [cell configLocalExpertsLayout]; break;
-  case ItemType::Attractions:
-  case ItemType::Cafes: [cell configSearchLayout]; break;
-  case ItemType::Hotels: NSAssert(false, @""); return nil;
+  case ItemType::Attractions: [cell configAttractionsCell]; break;
+  case ItemType::Cafes: [cell configCafesCell]; break;
+  default: NSAssert(false, @""); return nil;
   }
   collection.delegate = self;
   collection.dataSource = self;
@@ -198,22 +199,37 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   return cell;
 }
 
-#pragma mark - UITableViewDataSource
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (MWMDiscoveryViatorCollectionHolderCell *)viatorCollectionHolderCell:(NSIndexPath *)indexPath
 {
-  if (m_types.empty())
-    return nil;
+  Class cls = [MWMDiscoveryViatorCollectionHolderCell class];
+  auto cell = static_cast<MWMDiscoveryViatorCollectionHolderCell *>(
+      [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+  auto collection = static_cast<MWMDiscoveryCollectionView *>(cell.collectionView);
+  [cell configWithTap:^{
+    [self.delegate openURLForItem:ItemType::Viator];
+  }];
 
-  switch (m_types[section])
-  {
-  case ItemType::Viator: return L(@"discovery_button_subtitle_things_to_do");
-  case ItemType::Attractions: return L(@"discovery_button_subtitle_attractions");
-  case ItemType::Cafes: return L(@"discovery_button_subtitle_eat_and_drink");
-  case ItemType::LocalExperts: return L(@"discovery_button_subtitle_local_guides");
-  case ItemType::Hotels: NSAssert(false, @""); return nil;
-  }
+  collection.delegate = self;
+  collection.dataSource = self;
+  collection.itemType = ItemType::Viator;
+  return cell;
 }
+
+- (MWMDiscoveryLocalExpertCollectionHolderCell *)localExpertsCollectionHolderCell:
+    (NSIndexPath *)indexPath
+{
+  Class cls = [MWMDiscoveryLocalExpertCollectionHolderCell class];
+  auto cell = static_cast<MWMDiscoveryLocalExpertCollectionHolderCell *>(
+      [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+  auto collection = static_cast<MWMDiscoveryCollectionView *>(cell.collectionView);
+  [cell config];
+  collection.delegate = self;
+  collection.dataSource = self;
+  collection.itemType = ItemType::LocalExperts;
+  return cell;
+}
+
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -254,7 +270,8 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
                        }];
       return cell;
     }
-    return [self collectionHolderCell:indexPath];
+    return type == ItemType::Viator ? [self viatorCollectionHolderCell:indexPath]
+                                    : [self localExpertsCollectionHolderCell:indexPath];
   }
   case ItemType::Attractions:
   case ItemType::Cafes:
@@ -266,7 +283,7 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       return cell;
     }
-    return [self collectionHolderCell:indexPath];
+    return [self searchCollectionHolderCell:indexPath];
   }
   case ItemType::Hotels:
   {
