@@ -161,10 +161,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void hideAltitudeChartAndRoutingDetails()
   {
-    if (UiUtils.isHidden(mAltitudeChartFrame))
-      return;
-
-    UiUtils.hide(mAltitudeChartFrame);
+    UiUtils.hide(mAltitudeChartFrame, mTransitFrame);
   }
 
   void showTaxiInfo(@NonNull TaxiInfo info)
