@@ -39,7 +39,7 @@ class UserMarkContainer : public df::UserMarksProvider
 {
 public:
   using TUserMarksList = std::deque<std::unique_ptr<UserMark>>;
-  using NotifyChangesFn = std::function<void (UserMarkContainer *, df::IDCollection const &)>;
+  using NotifyChangesFn = std::function<void (UserMarkContainer const &, df::IDCollection const &)>;
 
   struct Listeners
   {
@@ -62,7 +62,6 @@ public:
   ~UserMarkContainer() override;
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
-  void SetListeners(Listeners const & listeners);
   UserMark const * GetUserMarkById(df::MarkID id) const;
 
   // If not found mark on rect result is nullptr.

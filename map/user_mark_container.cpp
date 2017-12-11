@@ -73,11 +73,6 @@ void UserMarkContainer::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   m_drapeEngine.Set(engine);
 }
 
-void UserMarkContainer::SetListeners(Listeners const & listeners)
-{
-  m_listeners = listeners;
-}
-
 UserMark const * UserMarkContainer::GetUserMarkById(df::MarkID id) const
 {
   for (auto const & mark : m_userMarks)
@@ -111,7 +106,7 @@ void UserMarkContainer::NotifyListeners()
   if (m_listeners.m_createListener != nullptr && !m_createdMarks.empty())
   {
     df::IDCollection marks(m_createdMarks.begin(), m_createdMarks.end());
-    m_listeners.m_createListener(this, marks);
+    m_listeners.m_createListener(*this, marks);
   }
   if (m_listeners.m_updateListener != nullptr)
   {
@@ -122,12 +117,12 @@ void UserMarkContainer::NotifyListeners()
         marks.push_back(mark->GetId());
     }
     if (!marks.empty())
-      m_listeners.m_updateListener(this, marks);
+      m_listeners.m_updateListener(*this, marks);
   }
   if (m_listeners.m_deleteListener != nullptr && !m_removedMarks.empty())
   {
     df::IDCollection marks(m_removedMarks.begin(), m_removedMarks.end());
-    m_listeners.m_deleteListener(this, marks);
+    m_listeners.m_deleteListener(*this, marks);
   }
 }
 

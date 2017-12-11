@@ -13,8 +13,11 @@
 
 #include "coding/internal/file_data.hpp"
 
-#include "std/fstream.hpp"
-#include "std/unique_ptr.hpp"
+#include <fstream>
+#include <memory>
+#include <set>
+
+using namespace std;
 
 namespace
 {
@@ -651,4 +654,84 @@ UNIT_TEST(TrackParsingTest_2)
   TEST_EQUAL(track->GetName(), "XY", ());
   TEST_GREATER(track->GetLayerCount(), 0, ());
   TEST_EQUAL(track->GetColor(0), dp::Color(57, 255, 32, 255), ());
+}
+
+UNIT_TEST(Bookmarks_Listeners)
+{
+  set<df::MarkID> createdMarksResult;
+  set<df::MarkID> updatedMarksResult;
+  set<df::MarkID> deletedMarksResult;
+  set<df::MarkID> createdMarks;
+  set<df::MarkID> updatedMarks;
+  set<df::MarkID> deletedMarks;
+
+  auto const checkNotifications = [&](BookmarkCategory & cat)
+  {
+    cat.NotifyChanges();
+    TEST_EQUAL(createdMarks, createdMarksResult, ());
+    TEST_EQUAL(updatedMarks, updatedMarksResult, ());
+    TEST_EQUAL(deletedMarks, deletedMarksResult, ());
+  };
+
+  auto const refresh = [&](BookmarkCategory & cat)
+  {
+    df::MarkIDCollection createdIds;
+    df::MarkIDCollection deletedIds;
+    cat.AcceptChanges(createdIds, deletedIds);
+
+    createdMarksResult.clear();
+    updatedMarksResult.clear();
+    deletedMarksResult.clear();
+    createdMarks.clear();
+    updatedMarks.clear();
+    deletedMarks.clear();
+  };
+
+  auto const onCreate = [&createdMarksResult](UserMarkContainer const & container, df::IDCollection const & markIds)
+  {
+    createdMarksResult.insert(markIds.begin(), markIds.end());
+  };
+  auto const onUpdate = [&updatedMarksResult](UserMarkContainer const & container, df::IDCollection const & markIds)
+  {
+    updatedMarksResult.insert(markIds.begin(), markIds.end());
+  };
+  auto const onDelete = [&deletedMarksResult](UserMarkContainer const & container, df::IDCollection const & markIds)
+  {
+    deletedMarksResult.insert(markIds.begin(), markIds.end());
+  };
+
+  BookmarkCategory cat("Default", UserMarkContainer::Listeners(onCreate, onUpdate, onDelete));
+
+  auto bookmark0 = static_cast<Bookmark *>(cat.CreateUserMark(m2::PointD(0.0, 0.0)));
+  bookmark0->SetData(BookmarkData("name 0", "type 0"));
+  createdMarks.insert(bookmark0->GetId());
+
+  auto bookmark1 = static_cast<Bookmark *>(cat.CreateUserMark(m2::PointD(0.0, 0.0)));
+  bookmark1->SetData(BookmarkData("name 1", "type 1"));
+  createdMarks.insert(bookmark1->GetId());
+
+  createdMarks.erase(cat.GetUserMark(0)->GetId());
+  cat.DeleteUserMark(0);
+
+  checkNotifications(cat);
+  refresh(cat);
+
+  bookmark0 = static_cast<Bookmark *>(cat.GetUserMarkForEdit(0));
+  bookmark0->SetName("name 3");
+  updatedMarks.insert(cat.GetUserMark(0)->GetId());
+
+  checkNotifications(cat);
+  refresh(cat);
+
+  deletedMarks.insert(cat.GetUserMark(0)->GetId());
+  bookmark0 = static_cast<Bookmark *>(cat.GetUserMarkForEdit(0));
+  bookmark0->SetName("name 4");
+  cat.DeleteUserMark(0);
+
+  bookmark1 = static_cast<Bookmark *>(cat.CreateUserMark(m2::PointD(0.0, 0.0)));
+  createdMarks.insert(bookmark1->GetId());
+  bookmark1->SetData(BookmarkData("name 5", "type 5"));
+
+  checkNotifications(cat);
+  refresh(cat);
 }

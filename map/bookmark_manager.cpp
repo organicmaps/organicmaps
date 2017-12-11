@@ -27,6 +27,8 @@
 
 #include <algorithm>
 
+using namespace std::placeholders;
+
 namespace
 {
 char const * BOOKMARK_CATEGORY = "LastBookmarkCategory";
@@ -64,23 +66,14 @@ std::string const GenerateValidAndUniqueFilePathForKML(std::string const & fileN
 }
 }  // namespace
 
-BookmarkManager::BookmarkManager(GetStringsBundleFn && getStringsBundleFn,
-                                 CreatedBookmarksCallback && createdBookmarksCallback,
-                                 UpdatedBookmarksCallback && updatedBookmarksCallback,
-                                 DeletedBookmarksCallback && deletedBookmarksCallback)
-  : m_getStringsBundle(std::move(getStringsBundleFn))
-  , m_createdBookmarksCallback(std::move(createdBookmarksCallback))
-  , m_updatedBookmarksCallback(std::move(updatedBookmarksCallback))
-  , m_deletedBookmarksCallback(std::move(deletedBookmarksCallback))
-  , m_bookmarksListeners(std::bind(&BookmarkManager::OnCreateUserMarks, this,
-                                   std::placeholders::_1, std::placeholders::_2),
-                         std::bind(&BookmarkManager::OnUpdateUserMarks, this,
-                                   std::placeholders::_1, std::placeholders::_2),
-                         std::bind(&BookmarkManager::OnDeleteUserMarks, this,
-                                   std::placeholders::_1, std::placeholders::_2))
+BookmarkManager::BookmarkManager(Callbacks && callbacks)
+  : m_callbacks(std::move(callbacks))
+  , m_bookmarksListeners(std::bind(&BookmarkManager::OnCreateUserMarks, this, _1, _2),
+                         std::bind(&BookmarkManager::OnUpdateUserMarks, this, _1, _2),
+                         std::bind(&BookmarkManager::OnDeleteUserMarks, this, _1, _2))
   , m_needTeardown(false)
 {
-  ASSERT(m_getStringsBundle != nullptr, ());
+  ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
 
   m_userMarkLayers.emplace_back(my::make_unique<SearchUserMarkContainer>());
   m_userMarkLayers.emplace_back(my::make_unique<ApiUserMarkContainer>());
@@ -382,7 +375,7 @@ size_t BookmarkManager::LastEditedBMCategory()
   }
 
   if (m_categories.empty())
-    CreateBmCategory(m_getStringsBundle().GetString("my_places"));
+    CreateBmCategory(m_callbacks.m_getStringsBundle().GetString("my_places"));
 
   return 0;
 }
@@ -397,52 +390,53 @@ BookmarkCategory * BookmarkManager::GetBmCategory(size_t index) const
   return (index < m_categories.size() ? m_categories[index].get() : 0);
 }
 
-void BookmarkManager::OnCreateUserMarks(UserMarkContainer * container, df::IDCollection const & markIds)
+void BookmarkManager::OnCreateUserMarks(UserMarkContainer const & container, df::IDCollection const & markIds)
 {
-  if (container->GetType() != UserMark::Type::BOOKMARK)
+  if (container.GetType() != UserMark::Type::BOOKMARK)
     return;
 
-  if (m_createdBookmarksCallback == nullptr)
+  if (m_callbacks.m_createdBookmarksCallback == nullptr)
     return;
 
   std::vector<std::pair<df::MarkID, BookmarkData>> marksInfo;
   GetBookmarksData(container, markIds, marksInfo);
 
-  m_createdBookmarksCallback(marksInfo);
+  m_callbacks.m_createdBookmarksCallback(marksInfo);
 }
 
-void BookmarkManager::OnUpdateUserMarks(UserMarkContainer * container, df::IDCollection const & markIds)
+void BookmarkManager::OnUpdateUserMarks(UserMarkContainer const & container, df::IDCollection const & markIds)
 {
-  if (container->GetType() != UserMark::Type::BOOKMARK)
+  if (container.GetType() != UserMark::Type::BOOKMARK)
     return;
 
-  if (m_updatedBookmarksCallback == nullptr)
+  if (m_callbacks.m_updatedBookmarksCallback == nullptr)
     return;
 
   std::vector<std::pair<df::MarkID, BookmarkData>> marksInfo;
   GetBookmarksData(container, markIds, marksInfo);
 
-  m_updatedBookmarksCallback(marksInfo);
+  m_callbacks.m_updatedBookmarksCallback(marksInfo);
 }
 
-void BookmarkManager::OnDeleteUserMarks(UserMarkContainer * container, df::IDCollection const & markIds)
+void BookmarkManager::OnDeleteUserMarks(UserMarkContainer const & container, df::IDCollection const & markIds)
 {
-  if (container->GetType() != UserMark::Type::BOOKMARK)
+  if (container.GetType() != UserMark::Type::BOOKMARK)
     return;
 
-  if (m_deletedBookmarksCallback == nullptr)
+  if (m_callbacks.m_deletedBookmarksCallback == nullptr)
     return;
 
-  m_deletedBookmarksCallback(markIds);
+  m_callbacks.m_deletedBookmarksCallback(markIds);
 }
 
-void BookmarkManager::GetBookmarksData(UserMarkContainer * container, df::IDCollection const & markIds,
+void BookmarkManager::GetBookmarksData(UserMarkContainer const & container, df::IDCollection const & markIds,
                                        std::vector<std::pair<df::MarkID, BookmarkData>> & data) const
 {
+  data.clear();
   data.reserve(markIds.size());
   for (auto markId : markIds)
   {
-    auto const userMark = container->GetUserMarkById(markId);
+    auto const userMark = container.GetUserMarkById(markId);
     ASSERT(userMark != nullptr, ());
     ASSERT(dynamic_cast<Bookmark const *>(userMark) != nullptr, ());
 
