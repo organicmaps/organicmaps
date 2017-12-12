@@ -25,7 +25,7 @@ const int kSmallIconZoom = 1;
 const int kMediumIconZoom = 10;
 const int kLargeIconZoom = 15;
 
-const int kMinStopTitleZoom = 14;
+const int kMinStopTitleZoom = 13;
 
 const int kTransferTitleOffset = 1;
 const int kStopTitleOffset = 0;

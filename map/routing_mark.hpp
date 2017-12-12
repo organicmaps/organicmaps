@@ -55,6 +55,9 @@ public:
   void SetPassed(bool isPassed);
   bool IsPassed() const { return m_markData.m_isPassed; }
 
+  uint16_t GetPriority() const override;
+  uint32_t GetIndex() const override;
+
   RouteMarkData const & GetMarkData() const { return m_markData; }
   void SetMarkData(RouteMarkData && data);
 

@@ -21,6 +21,11 @@ public:
   enum class Priority: uint16_t
   {
     Default = 0,
+    RouteStart,
+    RouteFinish,
+    RouteIntermediateC,
+    RouteIntermediateB,
+    RouteIntermediateA,
     TransitStop,
     TransitGate,
     TransitTransfer,
