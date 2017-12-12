@@ -55,8 +55,8 @@ public:
   WorldGraph & GetGraph() const { return m_graph; }
   Junction const & GetStartJunction() const;
   Junction const & GetFinishJunction() const;
-  Segment GetStartSegment() const { return GetFakeSegment(m_startId); }
-  Segment GetFinishSegment() const { return GetFakeSegment(m_finishId); }
+  Segment GetStartSegment() const { return GetFakeSegment(m_start.m_id); }
+  Segment GetFinishSegment() const { return GetFakeSegment(m_finish.m_id); }
   // If segment is real returns true and does not modify segment.
   // If segment is part of real converts it to real and returns true.
   // Otherwise returns false and does not modify segment.
@@ -76,7 +76,7 @@ public:
 
   // Checks whether |weight| meets non-pass-through crossing restrictions according to placement of
   // start and finish in pass-through/non-pass-through area and number of non-pass-through crosses.
-  bool CheckLength(RouteWeight const & weight) const;
+  bool CheckLength(RouteWeight const & weight);
 
   void GetEdgesList(Segment const & segment, bool isOutgoing,
                     std::vector<SegmentEdge> & edges) const;
@@ -100,9 +100,26 @@ public:
   RouteWeight CalcSegmentWeight(Segment const & segment) const;
   RouteWeight CalcRouteSegmentWeight(std::vector<Segment> const & route, size_t segmentIndex) const;
 
-  bool IsLeap(NumMwmId mwmId) const;
+  bool IsLeap(Segment const & segment) const;
 
 private:
+  enum class SegmentLocation
+  {
+    StartFinishMwm,  // Segment is located in the same mwm with start and finish of the route.
+    StartMwm,        // Segment is located in the same mwm with start but not finish of the route.
+    FinishMwm,       // Segment is located in the same mwm with finish but not start of the route.
+    OtherMwm,        // Neither start nor finish are located in the segment's mwm.
+  };
+
+  // Start or finish ending information. 
+  struct Ending
+  {
+    // Fake segment id.
+    uint32_t m_id = 0;
+    // Real segments connected to the ending.
+    std::set<Segment> m_real;
+  };
+
   static Segment GetFakeSegment(uint32_t segmentIdx)
   {
     // We currently ignore |isForward| and use FakeGraph to get ingoing/outgoing.
@@ -134,18 +151,21 @@ private:
                     std::vector<SegmentEdge> & edges) const;
 
   // Checks whether ending belongs to pass-through or non-pass-through zone.
-  bool EndingPassThroughAllowed(FakeEnding const & ending);
+  bool EndingPassThroughAllowed(Ending const & ending);
+  // Start segment is located in a pass-through/non-pass-through area.
+  bool StartPassThroughAllowed();
+  // Finish segment is located in a pass-through/non-pass-through area.
+  bool FinishPassThroughAllowed();
+
+  std::set<NumMwmId> GetEndingMwms(Ending const & ending) const;
+  SegmentLocation GetSegmentLocation(Segment const & segment) const;
 
   static uint32_t constexpr kFakeFeatureId = FakeFeatureIds::kIndexGraphStarterId;
   WorldGraph & m_graph;
   // Start segment id
-  uint32_t m_startId;
+  Ending m_start;
   // Finish segment id
-  uint32_t m_finishId;
-  // Start segment is located in a pass-through/non-pass-through area.
-  bool m_startPassThroughAllowed;
-  // Finish segment is located in a pass-through/non-pass-through area.
-  bool m_finishPassThroughAllowed;
+  Ending m_finish;
   double m_startToFinishDistanceM;
   FakeGraph<Segment, FakeVertex, Segment> m_fake;
 };

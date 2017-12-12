@@ -93,17 +93,13 @@ public:
 
   void Clear();
 
-  // Applies |fn| to each nontransit transition. We never need to apply function to both transit
-  // and nontransit transitions.
-  // We may need to implement ForEachTransitTransition() or |isTransit| flag here when we'll have
-  // leaps for transit.
-  template <typename Fn>
-  void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
+  // \returns nontransit transitions for mwm with id |numMwmId|.
+  // Should be used with CrossMwmIndexGraph only.
+  // @todo(bykoianko): rewrite comment and check after CrossMwmOsrm removal.
+  std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter)
   {
-    if (CrossMwmSectionExists(numMwmId))
-      m_crossMwmIndexGraph.ForEachTransition(numMwmId, isEnter, std::forward<Fn>(fn));
-    else
-      m_crossMwmOsrmGraph.ForEachTransition(numMwmId, isEnter, std::forward<Fn>(fn));
+    CHECK(CrossMwmSectionExists(numMwmId), ("Should be used in LeapsOnly mode only. LeapsOnly mode requires CrossMwmIndexGraph."));
+    return m_crossMwmIndexGraph.GetTransitions(numMwmId, isEnter);
   }
 
 private:

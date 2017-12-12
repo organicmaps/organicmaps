@@ -32,14 +32,6 @@ public:
   void Clear();
   TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);
 
-  template <typename Fn>
-  void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
-  {
-    auto const & ts = GetSegmentMaps(numMwmId);
-    for (auto const & kv : isEnter ? ts.m_ingoing : ts.m_outgoing)
-      fn(kv.first);
-  }
-
 private:
   struct TransitionSegments
   {

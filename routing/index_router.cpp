@@ -159,7 +159,7 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
   // If |isOutgoing| == false it's the finish. So ingoing edges are looked for.
   auto const getOutgoingEdgesFn = [isOutgoing](WorldGraph & graph, Segment const & u,
                                                vector<SegmentEdge> & edges) {
-    graph.GetEdgeList(u, isOutgoing, false /* isLeap */, false /* isEnding */, edges);
+    graph.GetEdgeList(u, isOutgoing, false /* isLeap */, edges);
   };
 
   return !CheckGraphConnectivity(segment, kDeadEndTestLimit, worldGraph,
@@ -752,13 +752,11 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
   output.reserve(input.size());
 
   auto const isNotLeap = [&](Segment const & s) {
-    auto real = s;
-    return (prevMode == WorldGraph::Mode::LeapsOnly && !starter.ConvertToReal(real)) ||
-           (prevMode != WorldGraph::Mode::LeapsOnly && !starter.IsLeap(s.GetMwmId()));
+    return prevMode != WorldGraph::Mode::LeapsOnly && !starter.IsLeap(s);
   };
 
   auto const isEndingToExitLeap = [&](Segment const & s) {
-    return prevMode == WorldGraph::Mode::LeapsOnly && !starter.IsLeap(s.GetMwmId());
+    return prevMode == WorldGraph::Mode::LeapsOnly && !starter.IsLeap(s);
   };
 
   auto const sameMwm = [](NumMwmId prev, NumMwmId current) {
@@ -773,7 +771,7 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
   NumMwmId prevMwmId = kFakeNumMwmId;
   for (size_t i = 0; i < input.size(); ++i)
   {
-    Segment current = input[i];
+    auto const & current = input[i];
     auto const currentMwmId = current.GetMwmId();
 
     if (isNotLeap(current))
@@ -792,13 +790,7 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
 
     ++i;
     CHECK_LESS(i, input.size(), ());
-    Segment next = input[i];
-
-    CHECK(starter.ConvertToReal(current), ());
-    CHECK(starter.ConvertToReal(next), ());
-    CHECK_EQUAL(
-      current.GetMwmId(), next.GetMwmId(),
-      ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
+    auto const & next = input[i];
 
     IRouter::ResultCode result = IRouter::InternalError;
     RoutingResult<Segment, RouteWeight> routingResult;
@@ -807,31 +799,34 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
       // In case of leaps from the start to its mwm transition and from finish to mwm transition
       // route calculation should be made on the world graph (WorldGraph::Mode::NoLeaps).
       worldGraph.SetMode(WorldGraph::Mode::NoLeaps);
+      result =
+          FindPath(current, next, delegate, starter, {} /* onVisitedVertexCallback */,
+                   [&starter](RouteWeight const & weight) { return starter.CheckLength(weight); },
+                   routingResult);
     }
     else
     {
-      CHECK(starter.IsLeap(current.GetMwmId()), ());
+      CHECK(!IndexGraphStarter::IsFakeSegment(current), ());
+      CHECK(!IndexGraphStarter::IsFakeSegment(next), ());
+      CHECK_EQUAL(
+        current.GetMwmId(), next.GetMwmId(),
+        ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
+
+      CHECK(starter.IsLeap(current), ());
       // Single mwm route.
       worldGraph.SetMode(WorldGraph::Mode::SingleMwm);
       // It's not start-to-mwm-exit leap, we already have its first segment in previous mwm.
       dropFirstSegment = true;
+      result =
+          FindPath(current, next, delegate, worldGraph, {} /* onVisitedVertexCallback */,
+                   [&starter](RouteWeight const & weight) { return starter.CheckLength(weight); },
+                   routingResult);
     }
-
-    result =
-        FindPath(current, next, delegate, worldGraph, {} /* onVisitedVertexCallback */,
-                 [&starter](RouteWeight const & weight) { return starter.CheckLength(weight); },
-                 routingResult);
 
     if (result != IRouter::NoError)
       return result;
 
     CHECK(!routingResult.m_path.empty(), ());
-
-    // Start and finish segments may be changed by starter.ConvertToReal. It was necessary to use
-    // them in worldGraph but we need to reset them to original values.
-    routingResult.m_path.front() = input[i - 1];
-    routingResult.m_path.back() = input[i];
-
     output.insert(
         output.end(),
         dropFirstSegment ? routingResult.m_path.cbegin() + 1 : routingResult.m_path.cbegin(),

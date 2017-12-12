@@ -148,12 +148,10 @@ public:
     GetCrossMwmConnectorWithTransitions(numMwmId);
   }
 
-  template <typename Fn>
-  void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
+  std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter)
   {
-    auto const & connectors = GetCrossMwmConnectorWithTransitions(numMwmId);
-    for (Segment const & t : (isEnter ? connectors.GetEnters() : connectors.GetExits()))
-      fn(t);
+    auto const & connector = GetCrossMwmConnectorWithTransitions(numMwmId);
+    return isEnter ? connector.GetEnters() : connector.GetExits();
   }
 
 private:

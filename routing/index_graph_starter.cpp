@@ -4,6 +4,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include <algorithm>
 #include <map>
 
 namespace
@@ -41,12 +42,10 @@ IndexGraphStarter::IndexGraphStarter(FakeEnding const & startEnding,
                                      FakeEnding const & finishEnding, uint32_t fakeNumerationStart,
                                      bool strictForward, WorldGraph & graph)
   : m_graph(graph)
-  , m_startId(fakeNumerationStart)
-  , m_startPassThroughAllowed(EndingPassThroughAllowed(startEnding))
-  , m_finishPassThroughAllowed(EndingPassThroughAllowed(finishEnding))
 {
+  m_start.m_id = fakeNumerationStart;
   AddStart(startEnding, finishEnding, strictForward, fakeNumerationStart);
-  m_finishId = fakeNumerationStart;
+  m_finish.m_id = fakeNumerationStart;
   AddFinish(finishEnding, startEnding, fakeNumerationStart);
   auto const startPoint = GetPoint(GetStartSegment(), false /* front */);
   auto const finishPoint = GetPoint(GetFinishSegment(), true /* front */);
@@ -55,8 +54,7 @@ IndexGraphStarter::IndexGraphStarter(FakeEnding const & startEnding,
 
 void IndexGraphStarter::Append(FakeEdgesContainer const & container)
 {
-  m_finishId = container.m_finishId;
-  m_finishPassThroughAllowed = container.m_finishPassThroughAllowed;
+  m_finish = container.m_finish;
   m_fake.Append(container.m_fake);
 
   // It's important to calculate distance after m_fake.Append() because
@@ -115,18 +113,20 @@ m2::PointD const & IndexGraphStarter::GetPoint(Segment const & segment, bool fro
 set<NumMwmId> IndexGraphStarter::GetMwms() const
 {
   set<NumMwmId> mwms;
-  for (auto const & kv : m_fake.GetFakeToReal())
-    mwms.insert(kv.second.GetMwmId());
+  for (auto const & s : m_start.m_real)
+    mwms.insert(s.GetMwmId());
+  for (auto const & s : m_finish.m_real)
+    mwms.insert(s.GetMwmId());
 
   return mwms;
 }
 
-bool IndexGraphStarter::CheckLength(RouteWeight const & weight) const
+bool IndexGraphStarter::CheckLength(RouteWeight const & weight)
 {
   // We allow 1 pass-through/non-pass-through crossing per ending located in
   // non-pass-through zone to allow user to leave this zone.
   int const nonPassThroughCrossAllowed =
-      (m_startPassThroughAllowed ? 0 : 1) + (m_finishPassThroughAllowed ? 0 : 1);
+      (StartPassThroughAllowed() ? 0 : 1) + (FinishPassThroughAllowed() ? 0 : 1);
 
   return weight.GetNonPassThroughCross() <= nonPassThroughCrossAllowed &&
          m_graph.CheckLength(weight, m_startToFinishDistanceM);
@@ -136,6 +136,46 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
                                      vector<SegmentEdge> & edges) const
 {
   edges.clear();
+
+  // If mode is LeapsOnly we need to connect start/finish segment to transitions.
+  if (m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
+  {
+     m2::PointD const & segmentPoint = GetPoint(segment, true /* front */);
+     if ((segment == GetStartSegment() && isOutgoing) || (segment == GetFinishSegment() && !isOutgoing))
+     {
+       // Note. If |isOutgoing| == true it's necessary to add edges which connect the start with all
+       // exits of its mwm. So |isEnter| below should be set to false.
+       // If |isOutgoing| == false all enters of the finish mwm should be connected with the finish
+       // point. So |isEnter| below should be set to true.
+       auto const mwms = GetEndingMwms(isOutgoing ? m_start : m_finish);
+       for (auto const & mwm : mwms)
+       {
+         for (auto const & s : m_graph.GetTransitions(mwm, !isOutgoing /* isEnter */))
+         {
+           // @todo(t.yan) fix weight for ingoing edges https://jira.mail.ru/browse/MAPSME-5953
+           edges.emplace_back(s, m_graph.CalcLeapWeight(segmentPoint, GetPoint(s, isOutgoing)));
+         }
+       }
+       return;
+     }
+     // Edge from finish mwm enter to finish.
+     if (GetSegmentLocation(segment) == SegmentLocation::FinishMwm && isOutgoing)
+     {
+       edges.emplace_back(GetFinishSegment(), m_graph.CalcLeapWeight(
+                                              segmentPoint, GetPoint(GetFinishSegment(), true /* front */ )));
+       return;
+     }
+     // Ingoing edge from start mwm exit to start.
+     if (GetSegmentLocation(segment) == SegmentLocation::StartMwm && !isOutgoing)
+     {
+       // @todo(t.yan) fix weight for ingoing edges https://jira.mail.ru/browse/MAPSME-5953
+       edges.emplace_back(
+           GetStartSegment(),
+           m_graph.CalcLeapWeight(segmentPoint, GetPoint(GetStartSegment(), true /* front */)));
+       return;
+     }
+  }
+
   if (IsFakeSegment(segment))
   {
     Segment real;
@@ -188,18 +228,10 @@ RouteWeight IndexGraphStarter::CalcRouteSegmentWeight(vector<Segment> const & ro
   return CalcSegmentWeight(route[segmentIndex]);
 }
 
-bool IndexGraphStarter::IsLeap(NumMwmId mwmId) const
+bool IndexGraphStarter::IsLeap(Segment const & segment) const
 {
-  if (mwmId == kFakeNumMwmId)
-    return false;
-
-  for (auto const & kv : m_fake.GetFakeToReal())
-  {
-    if (kv.second.GetMwmId() == mwmId)
-      return false;
-  }
-
-  return m_graph.LeapIsAllowed(mwmId);
+  return !IsFakeSegment(segment) && GetSegmentLocation(segment) == SegmentLocation::OtherMwm &&
+         m_graph.LeapIsAllowed(segment.GetMwmId());
 }
 
 void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding const & otherEnding,
@@ -223,6 +255,11 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
   m_fake.AddStandaloneVertex(fakeSegment, fakeVertex);
   for (auto const & projection : thisEnding.m_projections)
   {
+    if (isStart)
+      m_start.m_real.insert(projection.m_segment);
+    else
+      m_finish.m_real.insert(projection.m_segment);
+
     // Add projection edges
     auto const projectionSegment = GetFakeSegmentAndIncr(fakeNumerationStart);
     FakeVertex projectionVertex(isStart ? thisEnding.m_originJunction : projection.m_junction,
@@ -308,16 +345,52 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, vector<SegmentEdge
 void IndexGraphStarter::AddRealEdges(Segment const & segment, bool isOutgoing,
                                      std::vector<SegmentEdge> & edges) const
 {
-  bool const isEnding = !m_fake.GetFake(segment).empty();
-  m_graph.GetEdgeList(segment, isOutgoing, IsLeap(segment.GetMwmId()), isEnding, edges);
+  m_graph.GetEdgeList(segment, isOutgoing, IsLeap(segment), edges);
 }
 
-bool IndexGraphStarter::EndingPassThroughAllowed(FakeEnding const & ending)
+bool IndexGraphStarter::EndingPassThroughAllowed(Ending const & ending)
 {
-  return any_of(ending.m_projections.cbegin(), ending.m_projections.cend(),
-                [this](Projection const & projection) {
-                  return m_graph.IsPassThroughAllowed(projection.m_segment.GetMwmId(),
-                                                      projection.m_segment.GetFeatureId());
+  return any_of(ending.m_real.cbegin(), ending.m_real.cend(),
+                [this](Segment const & s) {
+                  return m_graph.IsPassThroughAllowed(s.GetMwmId(),
+                                                      s.GetFeatureId());
                 });
+}
+
+bool IndexGraphStarter::StartPassThroughAllowed()
+{
+  return EndingPassThroughAllowed(m_start);
+}
+
+bool IndexGraphStarter::FinishPassThroughAllowed()
+{
+  return EndingPassThroughAllowed(m_finish);
+}
+
+set<NumMwmId> IndexGraphStarter::GetEndingMwms(Ending const & ending) const
+{
+  set<NumMwmId> res;
+  for (auto const & s : ending.m_real)
+    res.insert(s.GetMwmId());
+  return res;
+}
+
+IndexGraphStarter::SegmentLocation IndexGraphStarter::GetSegmentLocation(Segment const & segment) const
+{
+  CHECK(!IsFakeSegment(segment),());
+  auto const mwmId = segment.GetMwmId();
+  auto containsSegment = [mwmId](Segment const & s) { return s.GetMwmId() == mwmId; };
+
+  bool const sameMwmWithStart =
+      any_of(m_start.m_real.cbegin(), m_start.m_real.end(), containsSegment);
+  bool const sameMwmWithFinish =
+      any_of(m_finish.m_real.cbegin(), m_finish.m_real.end(), containsSegment);
+  if (sameMwmWithStart && sameMwmWithFinish)
+    return SegmentLocation::StartFinishMwm;
+  if (sameMwmWithStart)
+    return SegmentLocation::StartMwm;
+  if (sameMwmWithFinish)
+    return SegmentLocation::FinishMwm;
+  return SegmentLocation::OtherMwm;
 }
 }  // namespace routing

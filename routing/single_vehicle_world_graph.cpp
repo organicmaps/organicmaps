@@ -15,30 +15,10 @@ SingleVehicleWorldGraph::SingleVehicleWorldGraph(unique_ptr<CrossMwmGraph> cross
   CHECK(m_estimator, ());
 }
 
-void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
-                                          bool isEnding, vector<SegmentEdge> & edges)
+void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
+                                          bool isLeap, vector<SegmentEdge> & edges)
 {
-  // If mode is LeapsOnly and |isEnding| == true we need to connect segment to transitions.
-  // If |isOutgoing| == true connects |segment| with all exits of mwm.
-  // If |isOutgoing| == false connects all enters to mwm with |segment|.
-  if (m_mode == Mode::LeapsOnly && isEnding)
-  {
-    edges.clear();
-    m2::PointD const & segmentPoint = GetPoint(segment, true /* front */);
-
-    // Note. If |isOutgoing| == true it's necessary to add edges which connect the start with all
-    // exits of its mwm. So |isEnter| below should be set to false.
-    // If |isOutgoing| == false all enters of the finish mwm should be connected with the finish
-    // point. So |isEnter| below should be set to true.
-    m_crossMwmGraph->ForEachTransition(
-        segment.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
-          edges.emplace_back(transition, RouteWeight(m_estimator->CalcLeapWeight(
-                                             segmentPoint, GetPoint(transition, isOutgoing))));
-        });
-    return;
-  }
-
-  if (m_mode != Mode::NoLeaps && m_mode != Mode::SingleMwm && (isLeap || m_mode == Mode::LeapsOnly))
+  if ((m_mode == Mode::LeapsIfPossible && isLeap) || m_mode == Mode::LeapsOnly)
   {
     CHECK(m_crossMwmGraph, ());
     if (m_crossMwmGraph->IsTransition(segment, isOutgoing))
@@ -80,14 +60,14 @@ void SingleVehicleWorldGraph::GetOutgoingEdgesList(Segment const & segment,
                                                    vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, true /* isOutgoing */, false /* isLeap */, false /* isEnding */, edges);
+  GetEdgeList(segment, true /* isOutgoing */, false /* isLeap */, edges);
 }
 
 void SingleVehicleWorldGraph::GetIngoingEdgesList(Segment const & segment,
                                                   vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, false /* isOutgoing */, false /* isLeap */, false /* isEnding */, edges);
+  GetEdgeList(segment, false /* isOutgoing */, false /* isLeap */, edges);
 }
 
 RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
@@ -107,6 +87,12 @@ RouteWeight SingleVehicleWorldGraph::CalcSegmentWeight(Segment const & segment)
       segment, GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())));
 }
 
+RouteWeight SingleVehicleWorldGraph::CalcLeapWeight(m2::PointD const & from,
+                                                    m2::PointD const & to) const
+{
+  return RouteWeight(m_estimator->CalcLeapWeight(from, to));
+}
+
 RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(m2::PointD const & from,
                                                        m2::PointD const & to) const
 {
@@ -116,6 +102,11 @@ RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(m2::PointD const & from,
 bool SingleVehicleWorldGraph::LeapIsAllowed(NumMwmId mwmId) const
 {
   return m_estimator->LeapIsAllowed(mwmId);
+}
+
+vector<Segment> const & SingleVehicleWorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)
+{
+  return m_crossMwmGraph->GetTransitions(numMwmId, isEnter);
 }
 
 unique_ptr<TransitInfo> SingleVehicleWorldGraph::GetTransitInfo(Segment const &) { return {}; }
@@ -138,6 +129,7 @@ void SingleVehicleWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,
     // in different mwms. But if we have mwms with different versions and feature
     // was moved in one of them we can have nonzero weight here.
     double const weight = m_estimator->CalcHeuristic(from, to);
+    // @todo(t.yan) fix weight for ingoing edges https://jira.mail.ru/browse/MAPSME-5953
     edges.emplace_back(twin, RouteWeight(weight));
   }
 }

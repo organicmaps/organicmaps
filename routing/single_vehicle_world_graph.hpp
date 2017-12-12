@@ -27,7 +27,7 @@ public:
                           std::shared_ptr<EdgeEstimator> estimator);
 
   // WorldGraph overrides:
-  void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap, bool isEnding,
+  void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
                    std::vector<SegmentEdge> & edges) override;
   bool CheckLength(RouteWeight const &, double) const override { return true; }
   Junction const & GetJunction(Segment const & segment, bool front) override;
@@ -42,8 +42,10 @@ public:
   RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to) override;
   RouteWeight HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to) override;
   RouteWeight CalcSegmentWeight(Segment const & segment) override;
+  RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const override;
   RouteWeight CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const override;
   bool LeapIsAllowed(NumMwmId mwmId) const override;
+  std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter) override;
   std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override;
 
   // This method should be used for tests only

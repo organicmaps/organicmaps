@@ -25,8 +25,8 @@ TransitWorldGraph::TransitWorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph,
   CHECK(m_estimator, ());
 }
 
-void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool /* isLeap */,
-                                    bool /* isEnding */, vector<SegmentEdge> & edges)
+void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
+                                    bool /* isLeap */, vector<SegmentEdge> & edges)
 {
   auto & transitGraph = GetTransitGraph(segment.GetMwmId());
 
@@ -102,13 +102,13 @@ void TransitWorldGraph::ClearCachedGraphs()
 void TransitWorldGraph::GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, true /* isOutgoing */, false /* isLeap */, false /* isEnding */, edges);
+  GetEdgeList(segment, true /* isOutgoing */, false /* isLeap */, edges);
 }
 
 void TransitWorldGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, false /* isOutgoing */, false /* isLeap */, false /* isEnding */, edges);
+  GetEdgeList(segment, false /* isOutgoing */, false /* isLeap */, edges);
 }
 
 RouteWeight TransitWorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
@@ -133,6 +133,11 @@ RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment)
       segment, GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())));
 }
 
+RouteWeight TransitWorldGraph::CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const
+{
+  return RouteWeight(m_estimator->CalcLeapWeight(from, to));
+}
+
 RouteWeight TransitWorldGraph::CalcOffroadWeight(m2::PointD const & from,
                                                  m2::PointD const & to) const
 {
@@ -140,6 +145,11 @@ RouteWeight TransitWorldGraph::CalcOffroadWeight(m2::PointD const & from,
 }
 
 bool TransitWorldGraph::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }
+
+vector<Segment> const & TransitWorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)
+{
+  return kEmptyTransitions;
+}
 
 unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segment)
 {
@@ -176,6 +186,7 @@ void TransitWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,
     // in different mwms. But if we have mwms with different versions and feature
     // was moved in one of them we can have nonzero weight here.
     double const weight = m_estimator->CalcHeuristic(from, to);
+    // @todo(t.yan) fix weight for ingoing edges https://jira.mail.ru/browse/MAPSME-5953
     edges.emplace_back(twin, RouteWeight(weight));
   }
 }

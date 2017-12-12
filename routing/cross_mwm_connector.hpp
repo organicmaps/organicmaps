@@ -159,6 +159,7 @@ public:
       ASSERT_NOT_EQUAL(transition.m_exitIdx, connector::kFakeIndex, ());
       for (size_t enterIdx = 0; enterIdx < m_enters.size(); ++enterIdx)
       {
+        // @todo(t.yan) fix weight for ingoing edges https://jira.mail.ru/browse/MAPSME-5953
         auto const weight = GetWeight(enterIdx, base::asserted_cast<size_t>(transition.m_exitIdx));
         AddEdge(m_enters[enterIdx], weight, edges);
       }

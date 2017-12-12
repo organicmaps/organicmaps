@@ -132,8 +132,6 @@ public:
     return true;
   }
 
-  std::map<SegmentType, RealType> const & GetFakeToReal() const { return m_fakeToReal; }
-
 private:
   // Key is fake segment, value is set of outgoing fake segments.
   std::map<SegmentType, std::set<SegmentType>> m_outgoing;

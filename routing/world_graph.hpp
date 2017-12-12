@@ -39,9 +39,7 @@ public:
 
   virtual ~WorldGraph() = default;
 
-  // |isEnding| == true iff |segment| is first or last segment of the route. Needed because first and
-  // last segments may need special processing.
-  virtual void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap, bool isEnding,
+  virtual void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
                            std::vector<SegmentEdge> & edges) = 0;
 
   // Checks whether path length meets restrictions. Restrictions may depend on the distance from
@@ -67,10 +65,14 @@ public:
   virtual RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to) = 0;
   virtual RouteWeight HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to) = 0;
   virtual RouteWeight CalcSegmentWeight(Segment const & segment) = 0;
+  virtual RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const = 0;
   virtual RouteWeight CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const = 0;
   virtual bool LeapIsAllowed(NumMwmId mwmId) const = 0;
 
-  // Returns transit-specific information for segment. For nontransit segments returns nullptr.
+  /// \returns transitions for mwm with id |numMwmId|.
+  virtual std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter) = 0;
+
+  /// \returns transit-specific information for segment. For nontransit segments returns nullptr.
   virtual std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) = 0;
 };
 
