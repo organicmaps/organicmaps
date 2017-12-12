@@ -306,6 +306,12 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
                                                       origin:button];
   picker.tapDismissAction = TapActionCancel;
   picker.hideCancel = YES;
+  auto doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                  target:nil
+                                                                  action:nil];
+  [doneButton setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor linkBlue]}
+                            forState:UIControlStateNormal];
+  [picker setDoneButton:doneButton];
   [picker showActionSheetPicker];
 }
 
