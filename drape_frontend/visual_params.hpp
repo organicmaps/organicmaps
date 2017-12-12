@@ -47,6 +47,7 @@ public:
   };
 
   GlyphVisualParams const & GetGlyphVisualParams() const;
+  bool IsSdfPrefered() const;
   uint32_t GetGlyphSdfScale() const;
   uint32_t GetGlyphBaseSize() const;
   double GetFontScale() const;

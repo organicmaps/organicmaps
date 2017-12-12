@@ -179,8 +179,8 @@ void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl & p
 
   if (capRule->stroke_color() != 0)
     params.m_outlineColor = ToDrapeColor(capRule->stroke_color());
-  else if (vs < df::VisualParams::kHdpiScale)
-    params.m_isSdf = false;
+  else
+    params.m_isSdf = df::VisualParams::Instance().IsSdfPrefered();
 }
 
 void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl & params)
@@ -190,9 +190,8 @@ void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl 
   params.m_size = static_cast<float>(std::max(kMinVisibleFontSize, shieldRule->height() * vs));
   if (shieldRule->text_stroke_color() != 0)
     params.m_outlineColor = ToDrapeColor(shieldRule->text_stroke_color());
-
-  if (vs < df::VisualParams::kHdpiScale)
-    params.m_isSdf = false;
+  else
+    params.m_isSdf = df::VisualParams::Instance().IsSdfPrefered();
 }
 
 dp::Anchor GetAnchor(CaptionDefProto const * capRule)

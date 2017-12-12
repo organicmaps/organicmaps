@@ -234,6 +234,11 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_titleDecl.m_secondaryTextFont.m_size *= vs;
         params.m_titleDecl.m_primaryOffset *= vs;
         params.m_titleDecl.m_secondaryOffset *= vs;
+        bool const isSdf = df::VisualParams::Instance().IsSdfPrefered();
+        params.m_titleDecl.m_primaryTextFont.m_isSdf =
+            params.m_titleDecl.m_primaryTextFont.m_outlineColor != dp::Color::Transparent() ? true : isSdf;
+        params.m_titleDecl.m_secondaryTextFont.m_isSdf =
+            params.m_titleDecl.m_secondaryTextFont.m_outlineColor != dp::Color::Transparent() ? true : isSdf;
 
         params.m_depth = renderInfo.m_depth;
         params.m_depthLayer = renderInfo.m_depthLayer;

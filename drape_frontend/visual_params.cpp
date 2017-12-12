@@ -58,6 +58,11 @@ uint32_t VisualParams::GetGlyphSdfScale() const
   return (m_visualScale <= 1.0) ? 3 : 4;
 }
 
+bool VisualParams::IsSdfPrefered() const
+{
+  return m_visualScale >= kHdpiScale;
+}
+
 uint32_t VisualParams::GetGlyphBaseSize() const
 {
   return 22;

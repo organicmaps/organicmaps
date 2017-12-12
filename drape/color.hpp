@@ -25,6 +25,7 @@ struct Color
   float GetAlphaF() const;
 
   bool operator==(Color const & other) const { return m_rgba == other.m_rgba; }
+  bool operator!=(Color const & other) const { return m_rgba != other.m_rgba; }
   bool operator< (Color const & other) const { return m_rgba < other.m_rgba; }
   Color operator*(float s) const
   {
