@@ -194,7 +194,7 @@ void Processor::SetPreferredLocale(string const & locale)
   // Default initialization.
   // If you want to reset input language, call SetInputLocale before search.
   SetInputLocale(locale);
-  m_ranker.SetLocalityLanguage(code);
+  m_ranker.SetLocale(locale);
 }
 
 void Processor::SetInputLocale(string const & locale)
@@ -315,6 +315,8 @@ void Processor::LoadCitiesBoundaries()
   else
     LOG(LWARNING, ("Can't load cities boundaries"));
 }
+
+void Processor::LoadCountriesTree() { m_ranker.LoadCountriesTree(); }
 
 void Processor::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & /* marks */)
 {

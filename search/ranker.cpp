@@ -12,12 +12,15 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/search_string_utils.hpp"
 
+#include "platform/preferred_languages.hpp"
+
+#include "coding/multilang_utf8_string.hpp"
+
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <memory>
-#include <utility>
 
 #include <boost/optional.hpp>
 
@@ -42,7 +45,7 @@ void UpdateNameScores(string const & name, TSlice const & slice, NameScores & be
 
 template <typename TSlice>
 void UpdateNameScores(vector<strings::UniString> const & tokens, TSlice const & slice,
-                     NameScores & bestScores)
+                      NameScores & bestScores)
 {
   bestScores.m_nameScore = max(bestScores.m_nameScore, GetNameScore(tokens, slice));
   bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(tokens, slice));
@@ -368,6 +371,7 @@ Ranker::Ranker(Index const & index, CitiesBoundariesTable const & boundariesTabl
   , m_categories(categories)
   , m_suggests(suggests)
 {
+  SetLocale("default");
 }
 
 void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams)
@@ -387,7 +391,6 @@ void Ranker::Finish(bool cancelled)
 Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
                           bool needHighlighting) const
 {
-  uint32_t const type = rankerResult.GetBestType(&m_params.m_preferredTypes);
   string name = rankerResult.GetName();
 
   string address;
@@ -403,7 +406,8 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
         name = FormatStreetAndHouse(addr);
     }
 
-    address = rankerResult.GetRegionName(m_infoGetter, type);
+    address = GetLocalizedRegionInfoForResult(rankerResult);
+
     // Format full address only for suitable results.
     if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
       address = FormatFullAddress(addressGetter.GetAddress(), address);
@@ -415,11 +419,13 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
     {
     case RankerResult::Type::TYPE_FEATURE:
     case RankerResult::Type::TYPE_BUILDING:
+    {
+      auto const type = rankerResult.GetBestType(&m_params.m_preferredTypes);
       return Result(r.GetID(), r.GetCenter(), name, address,
                     m_categories.GetReadableFeatureType(type, m_params.m_currentLocaleCode), type,
                     r.GetMetadata());
-    case RankerResult::Type::TYPE_LATLON:
-      return Result(r.GetCenter(), name, address);
+    }
+    case RankerResult::Type::TYPE_LATLON: return Result(r.GetCenter(), name, address);
     }
     ASSERT(false, ("Bad RankerResult type:", static_cast<size_t>(r.GetResultType())));
   };
@@ -431,7 +437,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
   {
     m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
       string city;
-      if (item.GetSpecifiedOrDefaultName(m_localityLang, city))
+      if (item.GetSpecifiedOrDefaultName(m_localeCode, city))
         res.AppendCity(city);
     });
   }
@@ -523,6 +529,14 @@ void Ranker::UpdateResults(bool lastUpdate)
 
 void Ranker::ClearCaches() { m_localities.ClearCache(); }
 
+void Ranker::SetLocale(string const & locale)
+{
+  m_localeCode = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
+  m_regionInfoGetter.SetLocale(locale);
+}
+
+void Ranker::LoadCountriesTree() { m_regionInfoGetter.LoadCountriesTree(); }
+
 void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
                                vector<RankerResult> & results)
 {
@@ -564,8 +578,8 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
   for (auto const & suggest : m_suggests)
   {
     strings::UniString const & s = suggest.m_name;
-    if (suggest.m_prefixLength <= token.size()
-        && token != s                  // do not push suggestion if it already equals to token
+    if (suggest.m_prefixLength <= token.size() &&
+        token != s                     // do not push suggestion if it already equals to token
         && suggest.m_locale == locale  // push suggestions only for needed language
         && strings::StartsWith(s, token))
     {
@@ -607,5 +621,16 @@ void Ranker::ProcessSuggestions(vector<RankerResult> & vec) const
     }
     ++i;
   }
+}
+
+string Ranker::GetLocalizedRegionInfoForResult(RankerResult const & result) const
+{
+  auto const type = result.GetBestType(&m_params.m_preferredTypes);
+
+  storage::TCountryId id;
+  if (!result.GetCountryId(m_infoGetter, type, id))
+    return {};
+
+  return m_regionInfoGetter.GetLocalizedFullName(id);
 }
 }  // namespace search

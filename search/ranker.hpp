@@ -6,6 +6,7 @@
 #include "search/keyword_lang_matcher.hpp"
 #include "search/locality_finder.hpp"
 #include "search/mode.hpp"
+#include "search/region_info_getter.hpp"
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/search_params.hpp"
@@ -107,7 +108,9 @@ public:
 
   void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
-  void SetLocalityLanguage(int8_t code) { m_localityLang = code; }
+  void SetLocale(std::string const & locale);
+
+  void LoadCountriesTree();
 
 private:
   friend class RankerResultMaker;
@@ -119,6 +122,8 @@ private:
                            std::string const & prolog);
   void ProcessSuggestions(std::vector<RankerResult> & vec) const;
 
+  std::string GetLocalizedRegionInfoForResult(RankerResult const & result) const;
+
   Params m_params;
   Geocoder::Params m_geocoderParams;
   ReverseGeocoder const m_reverseGeocoder;
@@ -126,7 +131,8 @@ private:
   KeywordLangMatcher & m_keywordsScorer;
 
   mutable LocalityFinder m_localities;
-  int8_t m_localityLang = StringUtf8Multilang::kDefaultCode;
+  int8_t m_localeCode;
+  RegionInfoGetter m_regionInfoGetter;
 
   Index const & m_index;
   storage::CountryInfoGetter const & m_infoGetter;

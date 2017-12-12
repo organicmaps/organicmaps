@@ -93,6 +93,7 @@ public:
 
   void ClearCaches();
   void LoadCitiesBoundaries();
+  void LoadCountriesTree();
 
   void OnBookmarksCreated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);

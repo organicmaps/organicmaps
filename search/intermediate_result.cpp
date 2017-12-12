@@ -112,16 +112,13 @@ RankerResult::RankerResult(double lat, double lon)
   m_region.SetParams(string(), MercatorBounds::FromLatLon(lat, lon));
 }
 
-string RankerResult::GetRegionName(storage::CountryInfoGetter const & infoGetter,
-                                   uint32_t ftype) const
+bool RankerResult::GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
+                                storage::TCountryId & countryId) const
 {
   static SkipRegionInfo const checker;
   if (checker.IsSkip(ftype))
-    return string();
-
-  storage::CountryInfo info;
-  m_region.GetRegion(infoGetter, info);
-  return info.m_name;
+    return false;
+  return m_region.GetCountryId(infoGetter, countryId);
 }
 
 bool RankerResult::IsEqualCommon(RankerResult const & r) const
@@ -153,13 +150,23 @@ uint32_t RankerResult::GetBestType(set<uint32_t> const * pPrefferedTypes) const
 }
 
 // RankerResult::RegionInfo ------------------------------------------------------------------------
-void RankerResult::RegionInfo::GetRegion(storage::CountryInfoGetter const & infoGetter,
-                                         storage::CountryInfo & info) const
+bool RankerResult::RegionInfo::GetCountryId(storage::CountryInfoGetter const & infoGetter,
+                                            storage::TCountryId & countryId) const
 {
-  if (!m_file.empty())
-    infoGetter.GetRegionInfo(m_file, info);
-  else
-    infoGetter.GetRegionInfo(m_point, info);
+  if (!m_countryId.empty())
+  {
+    countryId = m_countryId;
+    return true;
+  }
+
+  auto const id = infoGetter.GetRegionCountryId(m_point);
+  if (id != storage::kInvalidCountryId)
+  {
+    countryId = id;
+    return true;
+  }
+
+  return false;
 }
 
 // Functions ---------------------------------------------------------------------------------------

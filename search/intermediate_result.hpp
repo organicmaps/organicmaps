@@ -5,6 +5,8 @@
 #include "search/ranking_utils.hpp"
 #include "search/result.hpp"
 
+#include "storage/index.hpp"
+
 #include "indexer/feature_data.hpp"
 
 #include "std/set.hpp"
@@ -86,7 +88,8 @@ public:
   double GetDistanceToPivot() const { return m_info.m_distanceToPivot; }
   double GetLinearModelRank() const { return m_info.GetLinearModelRank(); }
 
-  string GetRegionName(storage::CountryInfoGetter const & infoGetter, uint32_t ftype) const;
+  bool GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
+                    storage::TCountryId & countryId) const;
 
   bool IsEqualCommon(RankerResult const & r) const;
 
@@ -97,17 +100,17 @@ private:
 
   struct RegionInfo
   {
-    string m_file;
+    storage::TCountryId m_countryId;
     m2::PointD m_point;
 
-    inline void SetParams(string const & file, m2::PointD const & pt)
+    void SetParams(storage::TCountryId const & countryId, m2::PointD const & point)
     {
-      m_file = file;
-      m_point = pt;
+      m_countryId = countryId;
+      m_point = point;
     }
 
-    void GetRegion(storage::CountryInfoGetter const & infoGetter,
-                   storage::CountryInfo & info) const;
+    bool GetCountryId(storage::CountryInfoGetter const & infoGetter,
+                      storage::TCountryId & countryId) const;
   };
 
   RegionInfo m_region;

@@ -112,6 +112,7 @@ Engine::Engine(Index & index, CategoriesHolder const & categories,
     m_threads.emplace_back(&Engine::MainLoop, this, ref(m_contexts[i]));
 
   LoadCitiesBoundaries();
+  LoadCountriesTree();
 }
 
 Engine::~Engine()
@@ -138,42 +139,43 @@ weak_ptr<ProcessorHandle> Engine::Search(SearchParams const & params)
 
 void Engine::SetLocale(string const & locale)
 {
-  PostMessage(Message::TYPE_BROADCAST, [this, locale](Processor & processor)
-              {
-                processor.SetPreferredLocale(locale);
-              });
+  PostMessage(Message::TYPE_BROADCAST,
+              [locale](Processor & processor) { processor.SetPreferredLocale(locale); });
 }
 
 void Engine::ClearCaches()
 {
-  PostMessage(Message::TYPE_BROADCAST, [this](Processor & processor)
-              {
-                processor.ClearCaches();
-              });
+  PostMessage(Message::TYPE_BROADCAST, [](Processor & processor) { processor.ClearCaches(); });
 }
 
 void Engine::LoadCitiesBoundaries()
 {
   PostMessage(Message::TYPE_BROADCAST,
-              [this](Processor & processor) { processor.LoadCitiesBoundaries(); });
+              [](Processor & processor) { processor.LoadCitiesBoundaries(); });
+}
+
+void Engine::LoadCountriesTree()
+{
+  PostMessage(Message::TYPE_BROADCAST,
+              [](Processor & processor) { processor.LoadCountriesTree(); });
 }
 
 void Engine::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   PostMessage(Message::TYPE_BROADCAST,
-              [this, marks](Processor & processor) { processor.OnBookmarksCreated(marks); });
+              [marks](Processor & processor) { processor.OnBookmarksCreated(marks); });
 }
 
 void Engine::OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   PostMessage(Message::TYPE_BROADCAST,
-              [this, marks](Processor & processor) { processor.OnBookmarksUpdated(marks); });
+              [marks](Processor & processor) { processor.OnBookmarksUpdated(marks); });
 }
 
 void Engine::OnBookmarksDeleted(vector<bookmarks::Id> const & marks)
 {
   PostMessage(Message::TYPE_BROADCAST,
-              [this, marks](Processor & processor) { processor.OnBookmarksDeleted(marks); });
+              [marks](Processor & processor) { processor.OnBookmarksDeleted(marks); });
 }
 
 void Engine::MainLoop(Context & context)
