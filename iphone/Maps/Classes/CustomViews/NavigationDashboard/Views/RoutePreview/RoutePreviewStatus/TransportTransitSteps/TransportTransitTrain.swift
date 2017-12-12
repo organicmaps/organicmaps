@@ -39,9 +39,9 @@ final class TransportTransitTrain: TransportTransitCell {
     case .intermediatePoint: fallthrough
     case .pedestrian: fatalError()
     case .train: image.image = #imageLiteral(resourceName: "ic_20px_route_planning_train")
-    case .subway: fallthrough
-    case .lightRail: fallthrough
-    case .monorail: image.image = #imageLiteral(resourceName: "ic_20px_route_planning_metro")
+    case .subway: image.image = #imageLiteral(resourceName: "ic_20px_route_planning_metro")
+    case .lightRail: image.image = #imageLiteral(resourceName: "ic_20px_route_planning_lightrail")
+    case .monorail: image.image = #imageLiteral(resourceName: "ic_20px_route_planning_monorail")
     }
     background.backgroundColor = step.color
 
