@@ -185,7 +185,7 @@ protected:
 
   location::TMyPositionModeChanged m_myPositionListener;
 
-  BookmarkManager m_bmManager;
+  unique_ptr<BookmarkManager> m_bmManager;
   SearchMarks m_searchMarks;
 
   unique_ptr<booking::Api> m_bookingApi = make_unique<booking::Api>();
@@ -319,12 +319,12 @@ public:
   /// @return Created bookmark category index.
   size_t AddCategory(string const & categoryName);
 
-  inline size_t GetBmCategoriesCount() const { return m_bmManager.GetBmCategoriesCount(); }
+  inline size_t GetBmCategoriesCount() const { return GetBookmarkManager().GetBmCategoriesCount(); }
   /// @returns 0 if category is not found
   BookmarkCategory * GetBmCategory(size_t index) const;
 
-  size_t LastEditedBMCategory() { return m_bmManager.LastEditedBMCategory(); }
-  string LastEditedBMType() const { return m_bmManager.LastEditedBMType(); }
+  size_t LastEditedBMCategory() { return GetBookmarkManager().LastEditedBMCategory(); }
+  string LastEditedBMType() const { return GetBookmarkManager().LastEditedBMType(); }
 
   /// Delete bookmarks category with all bookmarks.
   /// @return true if category was deleted
@@ -338,7 +338,8 @@ public:
   void AddBookmarksFile(string const & filePath, bool isTemporaryFile);
 
   BookmarkAndCategory FindBookmark(UserMark const * mark) const;
-  BookmarkManager & GetBookmarkManager() { return m_bmManager; }
+  BookmarkManager & GetBookmarkManager();
+  BookmarkManager const & GetBookmarkManager() const;
 
   // Utilities
   void VisualizeRoadsInRect(m2::RectD const & rect);

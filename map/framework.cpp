@@ -263,7 +263,7 @@ LocalAdsManager & Framework::GetLocalAdsManager()
 
 void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosition)
 {
-  m_bmManager.MyPositionMark()->SetUserPosition(position, hasPosition);
+  GetBookmarkManager().MyPositionMark()->SetUserPosition(position, hasPosition);
   m_routingManager.SetUserCurrentPosition(position);
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
 }
@@ -274,7 +274,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
 
   GetSearchAPI().OnViewportChanged(GetCurrentViewport());
 
-  m_bmManager.UpdateViewport(m_currentModelView);
+  GetBookmarkManager().UpdateViewport(m_currentModelView);
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_localAdsManager.UpdateViewport(m_currentModelView);
 
@@ -359,19 +359,6 @@ Framework::Framework(FrameworkParams const & params)
   : m_startForegroundTime(0.0)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
-  , m_bmManager(BookmarkManager::Callbacks([this]() -> StringsBundle const & { return m_stringsBundle; },
-                                           [](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
-                                           {
-                                             // TODO: Add processing of the created marks.
-                                           },
-                                           [](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
-                                           {
-                                             // TODO: Add processing of the updated marks.
-                                           },
-                                           [](std::vector<df::MarkID> const & marks)
-                                           {
-                                             // TODO: Add processing of the deleted marks.
-                                           }))
   , m_isRenderingEnabled(true)
   , m_routingManager(RoutingManager::Callbacks([this]() -> Index & { return m_model.GetIndex(); },
                                                [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },
@@ -410,10 +397,6 @@ Framework::Framework(FrameworkParams const & params)
 
   m_connectToGpsTrack = GpsTracker::Instance().IsEnabled();
 
-  m_ParsedMapApi.SetBookmarkManager(&m_bmManager);
-  m_routingManager.SetBookmarkManager(&m_bmManager);
-  m_searchMarks.SetBookmarkManager(&m_bmManager);
-
   // Init strings bundle.
   // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
   // It's better to use strings form strings.txt intead of hardcoding them here.
@@ -448,6 +431,25 @@ Framework::Framework(FrameworkParams const & params)
   InitSearchAPI();
   LOG(LDEBUG, ("Search API initialized"));
 
+  m_bmManager = make_unique<BookmarkManager>(BookmarkManager::Callbacks(
+    [this]() -> StringsBundle const & { return m_stringsBundle; },
+    [](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
+    {
+      // TODO: Add processing of the created marks.
+    },
+    [](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
+    {
+      // TODO: Add processing of the updated marks.
+    },
+    [](std::vector<df::MarkID> const & marks)
+    {
+      // TODO: Add processing of the deleted marks.
+    }));
+
+  m_ParsedMapApi.SetBookmarkManager(m_bmManager.get());
+  m_routingManager.SetBookmarkManager(m_bmManager.get());
+  m_searchMarks.SetBookmarkManager(m_bmManager.get());
+
   InitCityFinder();
   InitDiscoveryManager();
   InitTaxiEngine();
@@ -471,7 +473,7 @@ Framework::Framework(FrameworkParams const & params)
   // Local ads manager should be initialized after storage initialization.
   if (params.m_enableLocalAds)
   {
-    m_localAdsManager.SetBookmarkManager(&m_bmManager);
+    m_localAdsManager.SetBookmarkManager(m_bmManager.get());
     m_localAdsManager.Startup();
   }
 
@@ -508,7 +510,7 @@ Framework::~Framework()
   editor.SetDelegate({});
   editor.SetInvalidateFn({});
 
-  m_bmManager.Teardown();
+  GetBookmarkManager().Teardown();
   m_trafficManager.Teardown();
   m_localAdsManager.Teardown();
   DestroyDrapeEngine();
@@ -726,29 +728,29 @@ void Framework::DeregisterAllMaps()
 
 void Framework::LoadBookmarks()
 {
-  m_bmManager.LoadBookmarks();
+  GetBookmarkManager().LoadBookmarks();
 }
 
 size_t Framework::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkData & bm)
 {
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
                                                          {{"action", "create"}});
-  return m_bmManager.AddBookmark(categoryIndex, ptOrg, bm);
+  return GetBookmarkManager().AddBookmark(categoryIndex, ptOrg, bm);
 }
 
 size_t Framework::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t newCatIndex)
 {
-  return m_bmManager.MoveBookmark(bmIndex, curCatIndex, newCatIndex);
+  return GetBookmarkManager().MoveBookmark(bmIndex, curCatIndex, newCatIndex);
 }
 
 void Framework::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm)
 {
-  m_bmManager.ReplaceBookmark(catIndex, bmIndex, bm);
+  GetBookmarkManager().ReplaceBookmark(catIndex, bmIndex, bm);
 }
 
 size_t Framework::AddCategory(string const & categoryName)
 {
-  return m_bmManager.CreateBmCategory(categoryName);
+  return GetBookmarkManager().CreateBmCategory(categoryName);
 }
 
 namespace
@@ -767,12 +769,12 @@ namespace
 
 BookmarkCategory * Framework::GetBmCategory(size_t index) const
 {
-  return m_bmManager.GetBmCategory(index);
+  return GetBookmarkManager().GetBmCategory(index);
 }
 
 bool Framework::DeleteBmCategory(size_t index)
 {
-  return m_bmManager.DeleteBmCategory(index);
+  return GetBookmarkManager().DeleteBmCategory(index);
 }
 
 void Framework::FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const
@@ -1035,12 +1037,12 @@ void Framework::ShowTrack(Track const & track)
 
 void Framework::ClearBookmarks()
 {
-  m_bmManager.ClearCategories();
+  GetBookmarkManager().ClearCategories();
 }
 
 void Framework::AddBookmarksFile(string const & filePath, bool isTemporaryFile)
 {
-  m_bmManager.LoadBookmark(filePath, isTemporaryFile);
+  GetBookmarkManager().LoadBookmark(filePath, isTemporaryFile);
 }
 
 void Framework::PrepareToShutdown()
@@ -1496,7 +1498,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
 
-  m_bmManager.SelectionMark()->SetPtOrg(center);
+  GetBookmarkManager().SelectionMark()->SetPtOrg(center);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
   m_lastTapEvent = MakeTapEvent(center, info.GetID(), TapEvent::Source::Search);
 }
@@ -1585,7 +1587,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results const & resul
 void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter begin,
                                        search::Results::ConstIter end)
 {
-  UserMarkNotificationGuard guard(m_bmManager, UserMark::Type::SEARCH);
+  UserMarkNotificationGuard guard(GetBookmarkManager(), UserMark::Type::SEARCH);
 
   auto & controller = guard.m_controller;
   if (clear)
@@ -1629,7 +1631,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
 
 void Framework::ClearSearchResultsMarks()
 {
-  UserMarkNotificationGuard(m_bmManager, UserMark::Type::SEARCH).m_controller.Clear();
+  UserMarkNotificationGuard(GetBookmarkManager(), UserMark::Type::SEARCH).m_controller.Clear();
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
@@ -1769,7 +1771,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
 
-  m_bmManager.SetDrapeEngine(make_ref(m_drapeEngine));
+  GetBookmarkManager().SetDrapeEngine(make_ref(m_drapeEngine));
   m_drapeApi.SetDrapeEngine(make_ref(m_drapeEngine));
   m_routingManager.SetDrapeEngine(make_ref(m_drapeEngine), allow3d);
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
@@ -1817,7 +1819,7 @@ void Framework::DestroyDrapeEngine()
     m_trafficManager.SetDrapeEngine(nullptr);
     m_localAdsManager.SetDrapeEngine(nullptr);
     m_searchMarks.SetDrapeEngine(nullptr);
-    m_bmManager.SetDrapeEngine(nullptr);
+    GetBookmarkManager().SetDrapeEngine(nullptr);
 
     m_trafficManager.Teardown();
     m_localAdsManager.Teardown();
@@ -2002,7 +2004,7 @@ bool Framework::ShowMapForURL(string const & url)
       }
       else
       {
-        m_bmManager.SelectionMark()->SetPtOrg(point);
+        GetBookmarkManager().SelectionMark()->SetPtOrg(point);
         FillPointInfo(point, name, info);
         ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
       }
@@ -2021,7 +2023,7 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
 
   // Clear every current API-mark.
   {
-    UserMarkNotificationGuard guard(m_bmManager, UserMark::Type::API);
+    UserMarkNotificationGuard guard(GetBookmarkManager(), UserMark::Type::API);
     guard.m_controller.Clear();
     guard.m_controller.SetIsVisible(true);
     guard.m_controller.SetIsDrawable(true);
@@ -2085,6 +2087,18 @@ bool Framework::GetFeatureByID(FeatureID const & fid, FeatureType & ft) const
 
   ft.ParseEverything();
   return true;
+}
+
+BookmarkManager & Framework::GetBookmarkManager()
+{
+  ASSERT(m_bmManager != nullptr, ("Bookmark manager is not initialized."));
+  return *m_bmManager.get();
+}
+
+BookmarkManager const & Framework::GetBookmarkManager() const
+{
+  ASSERT(m_bmManager != nullptr, ("Bookmark manager is not initialized."));
+  return *m_bmManager.get();
 }
 
 BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
@@ -2175,13 +2189,13 @@ void Framework::UpdatePlacePageInfoForCurrentSelection()
 
 void Framework::InvalidateUserMarks()
 {
-  m_bmManager.InitBookmarks();
+  GetBookmarkManager().InitBookmarks();
 
   std::vector<UserMark::Type> const types = {UserMark::Type::SEARCH, UserMark::Type::API,
                                              UserMark::Type::DEBUG_MARK, UserMark::Type::ROUTING,
                                              UserMark::Type::LOCAL_ADS, UserMark::Type::STATIC};
   for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
-    m_bmManager.GetUserMarksController(types[typeIndex]).NotifyChanges();
+    GetBookmarkManager().GetUserMarksController(types[typeIndex]).NotifyChanges();
 }
 
 void Framework::OnTapEvent(TapEvent const & tapEvent)
@@ -2345,7 +2359,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
 
   if (showMapSelection)
   {
-    m_bmManager.SelectionMark()->SetPtOrg(outInfo.GetMercator());
+    GetBookmarkManager().SelectionMark()->SetPtOrg(outInfo.GetMercator());
     return df::SelectionShape::OBJECT_POI;
   }
 
@@ -2354,7 +2368,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
 
 UserMark const * Framework::FindUserMarkInTapPosition(df::TapInfo const & tapInfo) const
 {
-  UserMark const * mark = m_bmManager.FindNearestUserMark([this, &tapInfo](UserMark::Type type)
+  UserMark const * mark = GetBookmarkManager().FindNearestUserMark([this, &tapInfo](UserMark::Type type)
   {
     if (type == UserMark::Type::BOOKMARK)
       return tapInfo.GetBookmarkSearchRect(m_currentModelView);
@@ -3167,7 +3181,7 @@ void Framework::ClearViewportSearchResults()
 
 boost::optional<m2::PointD> Framework::GetCurrentPosition() const
 {
-  auto const & myPosMark = m_bmManager.MyPositionMark();
+  auto const & myPosMark = GetBookmarkManager().MyPositionMark();
   if (!myPosMark->HasPosition())
     return {};
   return myPosMark->GetPivot();

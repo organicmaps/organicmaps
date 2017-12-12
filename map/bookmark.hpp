@@ -111,8 +111,7 @@ class BookmarkCategory : public UserMarkContainer
 {
   using Base = UserMarkContainer;
 public:
-  explicit BookmarkCategory(std::string const & name,
-                            Listeners const & listeners);
+  BookmarkCategory(std::string const & name, Listeners const & listeners);
   ~BookmarkCategory() override;
 
   size_t GetUserLineCount() const override;
