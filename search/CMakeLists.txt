@@ -20,6 +20,7 @@ set(
   common.hpp
   displayed_categories.cpp
   displayed_categories.hpp
+  doc_vec.hpp
   downloader_search_callback.cpp
   downloader_search_callback.hpp
   dummy_rank_table.cpp
@@ -64,6 +65,8 @@ set(
   house_numbers_matcher.hpp
   house_to_street_table.cpp
   house_to_street_table.hpp
+  idf_map.cpp
+  idf_map.hpp
   intermediate_result.cpp
   intermediate_result.hpp
   intersection_result.cpp

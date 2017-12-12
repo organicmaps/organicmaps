@@ -28,6 +28,8 @@ namespace
 class LocalityScorerTest : public LocalityScorer::Delegate
 {
 public:
+  using Ids = vector<uint32_t>;
+
   LocalityScorerTest() : m_scorer(m_params, static_cast<LocalityScorer::Delegate &>(*this)) {}
 
   void InitParams(string const & query, bool lastTokenIsPrefix)
@@ -61,7 +63,7 @@ public:
     m_names[featureId].push_back(name);
   }
 
-  void GetTopLocalities(size_t limit)
+  Ids GetTopLocalities(size_t limit)
   {
     BaseContext ctx;
     ctx.m_tokens.assign(m_params.GetNumTokens(), BaseContext::TOKEN_TYPE_COUNT);
@@ -94,8 +96,14 @@ public:
     CBV filter;
     filter.SetFull();
 
-    m_scorer.GetTopLocalities(MwmSet::MwmId(), ctx, filter, limit, m_localities);
-    sort(m_localities.begin(), m_localities.end(), my::LessBy(&Locality::m_featureId));
+    vector<Locality> localities;
+    m_scorer.GetTopLocalities(MwmSet::MwmId(), ctx, filter, limit, localities);
+    sort(localities.begin(), localities.end(), my::LessBy(&Locality::m_featureId));
+
+    Ids ids;
+    for (auto const & locality : localities)
+      ids.push_back(locality.m_featureId);
+    return ids;
   }
 
   // LocalityScorer::Delegate overrides:
@@ -110,7 +118,6 @@ public:
 
 protected:
   QueryParams m_params;
-  vector<Locality> m_localities;
   unordered_map<uint32_t, vector<string>> m_names;
   LocalityScorer m_scorer;
 
@@ -133,16 +140,9 @@ UNIT_CLASS_TEST(LocalityScorerTest, Smoke)
   AddLocality("York", ID_YORK);
   AddLocality("New York", ID_NEW_YORK);
 
-  GetTopLocalities(100 /* limit */);
-  TEST_EQUAL(3, m_localities.size(), ());
-  TEST_EQUAL(m_localities[0].m_featureId, ID_NEW_ORLEANS, ());
-  TEST_EQUAL(m_localities[1].m_featureId, ID_YORK, ());
-  TEST_EQUAL(m_localities[2].m_featureId, ID_NEW_YORK, ());
-
-  // New York is the best matching locality
-  GetTopLocalities(1 /* limit */);
-  TEST_EQUAL(1, m_localities.size(), ());
-  TEST_EQUAL(m_localities[0].m_featureId, ID_NEW_YORK, ());
+  TEST_EQUAL(GetTopLocalities(100 /* limit */), Ids({ID_NEW_ORLEANS, ID_YORK, ID_NEW_YORK}), ());
+  TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_YORK, ID_NEW_YORK}), ());
+  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_YORK}), ());
 }
 
 UNIT_CLASS_TEST(LocalityScorerTest, NumbersMatch)
@@ -164,13 +164,8 @@ UNIT_CLASS_TEST(LocalityScorerTest, NumbersMatch)
 
   // Tver is the only matched locality as other localities were
   // matched only by number.
-  GetTopLocalities(100 /* limit */);
-  TEST_EQUAL(1, m_localities.size(), ());
-  TEST_EQUAL(m_localities[0].m_featureId, ID_TVER, ());
-
-  GetTopLocalities(1 /* limit */);
-  TEST_EQUAL(1, m_localities.size(), ());
-  TEST_EQUAL(m_localities[0].m_featureId, ID_TVER, ());
+  TEST_EQUAL(GetTopLocalities(100 /* limit */), Ids({ID_TVER}), ());
+  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_TVER}), ());
 }
 
 UNIT_CLASS_TEST(LocalityScorerTest, NumbersComplexMatch)
@@ -186,12 +181,8 @@ UNIT_CLASS_TEST(LocalityScorerTest, NumbersComplexMatch)
   AddLocality("may 1", ID_MAY);
   AddLocality("saint petersburg", ID_SAINT_PETERSBURG);
 
-  // "May 1" contains a numeric token, but as it was matched by at
-  // least two tokens, there is no penalty for numeric token. And, as
-  // it has smaller featureId, it should be left.
-  GetTopLocalities(1 /* limit */);
-  TEST_EQUAL(1, m_localities.size(), ());
-  TEST_EQUAL(m_localities[0].m_featureId, ID_MAY, ());
+  TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_MAY, ID_SAINT_PETERSBURG}), ());
+  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_MAY}), ());
 }
 
 UNIT_CLASS_TEST(LocalityScorerTest, PrefixMatch)
@@ -212,24 +203,7 @@ UNIT_CLASS_TEST(LocalityScorerTest, PrefixMatch)
   AddLocality("Moscow", ID_MOSCOW);
 
   // All localities except Moscow match to the search query.
-  GetTopLocalities(100 /* limit */);
-  TEST_EQUAL(3, m_localities.size(), ());
-  TEST_EQUAL(m_localities[0].m_featureId, ID_SAN_ANTONIO, ());
-  TEST_EQUAL(m_localities[1].m_featureId, ID_NEW_YORK, ());
-  TEST_EQUAL(m_localities[2].m_featureId, ID_YORK, ());
-
-  // New York and San Antonio are better than York, because they match
-  // by two tokens (second token is prefix for San Antonio), whereas
-  // York matches by only one token.
-  GetTopLocalities(2 /* limit */);
-  TEST_EQUAL(2, m_localities.size(), ());
-  TEST_EQUAL(m_localities[0].m_featureId, ID_SAN_ANTONIO, ());
-  TEST_EQUAL(m_localities[1].m_featureId, ID_NEW_YORK, ());
-
-  // New York is a better than San Antonio because it matches by two
-  // full tokens whereas San Antonio matches by one full token and by
-  // one prefix token.
-  GetTopLocalities(1 /* limit */);
-  TEST_EQUAL(1, m_localities.size(), ());
-  TEST_EQUAL(m_localities[0].m_featureId, ID_NEW_YORK, ());
+  TEST_EQUAL(GetTopLocalities(100 /* limit */), Ids({ID_SAN_ANTONIO, ID_NEW_YORK, ID_YORK}), ());
+  TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_SAN_ANTONIO, ID_NEW_YORK}), ());
+  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_ANTONIO}), ());
 }

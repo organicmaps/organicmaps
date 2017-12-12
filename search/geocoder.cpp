@@ -689,7 +689,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 
 #if defined(DEBUG)
         ft.GetName(StringUtf8Multilang::kDefaultCode, city.m_defaultName);
-        LOG(LINFO, ("City =", city.m_defaultName, "radius =", radius, "prob =", city.m_prob));
+        LOG(LINFO, ("City =", city.m_defaultName, "radius =", radius));
 #endif
 
         m_cities[city.m_tokenRange].push_back(city);
@@ -738,7 +738,7 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
 
 #if defined(DEBUG)
     ft.GetName(StringUtf8Multilang::kDefaultCode, village.m_defaultName);
-    LOG(LDEBUG, ("Village =", village.m_defaultName, "radius =", radius, "prob =", village.m_prob));
+    LOG(LDEBUG, ("Village =", village.m_defaultName, "radius =", radius));
 #endif
 
     m_cities[village.m_tokenRange].push_back(village);

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/doc_vec.hpp"
 #include "search/model.hpp"
 #include "search/token_range.hpp"
 
@@ -17,22 +18,22 @@ namespace search
 {
 struct Locality
 {
+  using QueryVec = QueryVec<strings::UniString>;
+
   Locality() = default;
 
   Locality(MwmSet::MwmId const & countryId, uint32_t featureId, TokenRange const & tokenRange,
-           double prob)
-    : m_countryId(countryId), m_featureId(featureId), m_tokenRange(tokenRange), m_prob(prob)
+           QueryVec const & queryVec)
+    : m_countryId(countryId), m_featureId(featureId), m_tokenRange(tokenRange), m_queryVec(queryVec)
   {
   }
+
+  double QueryNorm() const { return m_queryVec.Norm(); }
 
   MwmSet::MwmId m_countryId;
   uint32_t m_featureId = 0;
   TokenRange m_tokenRange;
-
-  // Measures our belief in the fact that tokens in the range
-  // [m_startToken, m_endToken) indeed specify a locality. Currently
-  // it is set only for villages.
-  double m_prob = 0.0;
+  QueryVec m_queryVec;
 };
 
 // This struct represents a country or US- or Canadian- state.  It

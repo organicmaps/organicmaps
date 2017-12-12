@@ -2,37 +2,29 @@
 
 #include "search/cbv.hpp"
 #include "search/geocoder_context.hpp"
+#include "search/idf_map.hpp"
 #include "search/token_slice.hpp"
 
+#include "indexer/search_string_utils.hpp"
+
 #include "base/checked_cast.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <sstream>
 #include <unordered_set>
+#include <utility>
+
+using namespace std;
 
 namespace search
 {
 // static
 size_t const LocalityScorer::kDefaultReadLimit = 100;
 
-namespace
-{
-bool IsAlmostFullMatch(NameScore score)
-{
-  return score == NAME_SCORE_PREFIX || score == NAME_SCORE_FULL_MATCH;
-}
-}  // namespace
-
 // LocalityScorer::ExLocality ----------------------------------------------------------------------
-LocalityScorer::ExLocality::ExLocality() : m_numTokens(0), m_rank(0), m_nameScore(NAME_SCORE_ZERO)
-{
-}
-
-LocalityScorer::ExLocality::ExLocality(Locality const & locality)
-  : m_locality(locality)
-  , m_numTokens(locality.m_tokenRange.Size())
-  , m_rank(0)
-  , m_nameScore(NAME_SCORE_ZERO)
+LocalityScorer::ExLocality::ExLocality(Locality const & locality, double queryNorm, uint8_t rank)
+  : m_locality(locality), m_queryNorm(queryNorm), m_rank(rank)
 {
 }
 
@@ -44,152 +36,189 @@ LocalityScorer::LocalityScorer(QueryParams const & params, Delegate const & dele
 
 void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx,
                                       CBV const & filter, size_t limit,
-                                      std::vector<Locality> & localities)
+                                      vector<Locality> & localities)
 {
   CHECK_EQUAL(ctx.m_numTokens, m_params.GetNumTokens(), ());
 
   localities.clear();
 
+  vector<CBV> intersections(ctx.m_numTokens);
+  for (size_t i = 0; i < ctx.m_numTokens; ++i)
+    intersections[i] = filter.Intersect(ctx.m_features[i]);
+
+  IdfMap idfs(1.0 /* unknownIdf */);
+  for (size_t i = 0; i < ctx.m_numTokens; ++i)
+  {
+    auto const idf = 1.0 / static_cast<double>(intersections[i].PopCount());
+    // IDF should be the same for the token and its synonyms.
+    m_params.GetToken(i).ForEach([&idfs, &idf](strings::UniString const & s) { idfs.Set(s, idf); });
+  }
+
   for (size_t startToken = 0; startToken < ctx.m_numTokens; ++startToken)
   {
-    CBV intersection = filter.Intersect(ctx.m_features[startToken]);
-    if (intersection.IsEmpty())
-      continue;
+    auto intersection = intersections[startToken];
+    QueryVec::Builder builder;
 
-    CBV unfilteredIntersection = ctx.m_features[startToken];
-
-    for (size_t endToken = startToken + 1; endToken <= ctx.m_numTokens; ++endToken)
+    for (size_t endToken = startToken + 1; endToken <= ctx.m_numTokens && !intersection.IsEmpty();
+         ++endToken)
     {
+      auto const curToken = endToken - 1;
+      auto const & token = m_params.GetToken(curToken).m_original;
+      double const weight = idfs.Get(token);
+      if (m_params.IsPrefixToken(curToken))
+        builder.SetPrefix(token, weight);
+      else
+        builder.AddFull(token, weight);
+
       TokenRange const tokenRange(startToken, endToken);
       // Skip locality candidates that match only numbers.
       if (!m_params.IsNumberTokens(tokenRange))
       {
         intersection.ForEach([&](uint64_t bit) {
           auto const featureId = base::asserted_cast<uint32_t>(bit);
-          double const prob = static_cast<double>(intersection.PopCount()) /
-                              static_cast<double>(unfilteredIntersection.PopCount());
-          localities.emplace_back(countryId, featureId, tokenRange, prob);
+          localities.emplace_back(countryId, featureId, tokenRange, QueryVec(builder));
         });
       }
 
       if (endToken < ctx.m_numTokens)
-      {
-        intersection = intersection.Intersect(ctx.m_features[endToken]);
-        if (intersection.IsEmpty())
-          break;
-
-        unfilteredIntersection = unfilteredIntersection.Intersect(ctx.m_features[endToken]);
-      }
+        intersection = intersection.Intersect(intersections[endToken]);
     }
   }
 
-  LeaveTopLocalities(limit, localities);
+  LeaveTopLocalities(idfs, limit, localities);
 }
 
-void LocalityScorer::LeaveTopLocalities(size_t limit, std::vector<Locality> & localities) const
+void LocalityScorer::LeaveTopLocalities(IdfMap const & idfs, size_t limit,
+                                        vector<Locality> & localities) const
 {
-  std::vector<ExLocality> ls;
-  ls.reserve(localities.size());
+  vector<ExLocality> els;
+  els.reserve(localities.size());
   for (auto const & locality : localities)
-    ls.emplace_back(locality);
+  {
+    auto const queryNorm = locality.m_queryVec.Norm();
+    auto const rank = m_delegate.GetRank(locality.m_featureId);
+    els.emplace_back(locality, queryNorm, rank);
+  }
 
-  RemoveDuplicates(ls);
-  LeaveTopByRankAndProb(std::max(limit, kDefaultReadLimit), ls);
-  SortByNameAndProb(ls);
-  if (ls.size() > limit)
-    ls.resize(limit);
+  // We don't want to read too much names for localities, to this is
+  // the best effort - select best features by available params -
+  // query norm and rank.
+  LeaveTopByNormAndRank(max(limit, kDefaultReadLimit) /* limitUniqueIds */, els);
+
+  sort(els.begin(), els.end(),
+       [](ExLocality const & lhs, ExLocality const & rhs) { return lhs.GetId() < rhs.GetId(); });
+
+  size_t i = 0;
+  while (i < els.size())
+  {
+    size_t j = i + 1;
+    while (j < els.size() && els[j].GetId() == els[i].GetId())
+      ++j;
+
+    vector<DocVec> dvs;
+
+    // *NOTE* |idfs| is filled based on query tokens, not all
+    // localities tokens, because it's expensive to compute IDF map
+    // for all localities tokens.  Therefore, for tokens not in the
+    // query, some default IDF value will be used.
+    GetDocVecs(idfs, els[i].GetId(), dvs);
+    for (; i < j; ++i)
+      els[i].m_similarity = GetSimilarity(els[i].m_locality.m_queryVec, dvs);
+  }
+
+  LeaveTopBySimilarityAndRank(limit, els);
+  ASSERT_LESS_OR_EQUAL(els.size(), limit, ());
 
   localities.clear();
-  localities.reserve(ls.size());
-  for (auto const & l : ls)
-    localities.push_back(l.m_locality);
+  localities.reserve(els.size());
+  for (auto const & el : els)
+    localities.push_back(el.m_locality);
+  ASSERT_LESS_OR_EQUAL(localities.size(), limit, ());
 }
 
-void LocalityScorer::RemoveDuplicates(std::vector<ExLocality> & ls) const
+void LocalityScorer::LeaveTopByNormAndRank(size_t limitUniqueIds, vector<ExLocality> & els) const
 {
-  std::sort(ls.begin(), ls.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
-    if (lhs.GetId() != rhs.GetId())
-      return lhs.GetId() < rhs.GetId();
-    return lhs.m_numTokens > rhs.m_numTokens;
-  });
-  ls.erase(std::unique(ls.begin(), ls.end(),
-                       [](ExLocality const & lhs, ExLocality const & rhs) {
-                         return lhs.GetId() == rhs.GetId();
-                       }),
-           ls.end());
-}
-
-void LocalityScorer::LeaveTopByRankAndProb(size_t limit, std::vector<ExLocality> & ls) const
-{
-  if (ls.size() <= limit)
-    return;
-
-  for (auto & l : ls)
-    l.m_rank = m_delegate.GetRank(l.GetId());
-
-  std::sort(ls.begin(), ls.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
-    if (lhs.m_locality.m_prob != rhs.m_locality.m_prob)
-      return lhs.m_locality.m_prob > rhs.m_locality.m_prob;
-    if (lhs.m_rank != rhs.m_rank)
-      return lhs.m_rank > rhs.m_rank;
-    return lhs.m_numTokens > rhs.m_numTokens;
-  });
-  ls.resize(limit);
-}
-
-void LocalityScorer::SortByNameAndProb(std::vector<ExLocality> & ls) const
-{
-  std::vector<std::string> names;
-  for (auto & l : ls)
-  {
-    names.clear();
-    m_delegate.GetNames(l.GetId(), names);
-
-    auto score = NAME_SCORE_ZERO;
-    for (auto const & name : names)
-      score = max(score, GetNameScore(name, TokenSlice(m_params, l.m_locality.m_tokenRange)));
-    l.m_nameScore = score;
-  }
-
-  std::sort(ls.begin(), ls.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
-    // Probabilities form a stronger signal than name scores do.
-    if (lhs.m_locality.m_prob != rhs.m_locality.m_prob)
-      return lhs.m_locality.m_prob > rhs.m_locality.m_prob;
-    if (IsAlmostFullMatch(lhs.m_nameScore) && IsAlmostFullMatch(rhs.m_nameScore))
-    {
-      // When both localities match well, e.g. full or full prefix
-      // match, the one with larger number of tokens is selected. In
-      // case of tie, the one with better score is selected.
-      if (lhs.m_numTokens != rhs.m_numTokens)
-        return lhs.m_numTokens > rhs.m_numTokens;
-      if (lhs.m_nameScore != rhs.m_nameScore)
-        return lhs.m_nameScore > rhs.m_nameScore;
-    }
-    else
-    {
-      // When name scores differ, the one with better name score is
-      // selected.  In case of tie, the one with larger number of
-      // matched tokens is selected.
-      if (lhs.m_nameScore != rhs.m_nameScore)
-        return lhs.m_nameScore > rhs.m_nameScore;
-      if (lhs.m_numTokens != rhs.m_numTokens)
-        return lhs.m_numTokens > rhs.m_numTokens;
-    }
-
-    // Okay, in case of tie we select the one with better rank.  This
-    // is a quite arbitrary decision and definitely may be improved.
+  sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
+    auto const ln = lhs.m_queryNorm;
+    auto const rn = rhs.m_queryNorm;
+    if (ln != rn)
+      return ln > rn;
     return lhs.m_rank > rhs.m_rank;
   });
+
+  unordered_set<uint32_t> seen;
+  for (size_t i = 0; i < els.size() && seen.size() < limitUniqueIds; ++i)
+    seen.insert(els[i].GetId());
+  ASSERT_LESS_OR_EQUAL(seen.size(), limitUniqueIds, ());
+
+  my::EraseIf(els, [&](ExLocality const & el) { return seen.find(el.GetId()) == seen.cend(); });
 }
 
-string DebugPrint(LocalityScorer::ExLocality const & locality)
+void LocalityScorer::LeaveTopBySimilarityAndRank(size_t limit, vector<ExLocality> & els) const
+{
+  sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
+    if (lhs.m_similarity != rhs.m_similarity)
+      return lhs.m_similarity > rhs.m_similarity;
+    if (lhs.m_rank != rhs.m_rank)
+      return lhs.m_rank > rhs.m_rank;
+    return lhs.m_locality.m_featureId < rhs.m_locality.m_featureId;
+  });
+
+  unordered_set<uint32_t> seen;
+
+  size_t n = 0;
+  for (size_t i = 0; i < els.size() && n < limit; ++i)
+  {
+    auto const id = els[i].GetId();
+    if (seen.insert(id).second)
+    {
+      els[n] = els[i];
+      ++n;
+    }
+  }
+  els.resize(n);
+}
+
+void LocalityScorer::GetDocVecs(IdfMap const & idfs, uint32_t localityId,
+                                vector<DocVec> & dvs) const
+{
+  vector<string> names;
+  m_delegate.GetNames(localityId, names);
+
+  for (auto const & name : names)
+  {
+    vector<strings::UniString> tokens;
+    NormalizeAndTokenizeString(name, tokens);
+
+    DocVec::Builder builder;
+    for (auto const & token : tokens)
+      builder.Add(token, idfs.Get(token) /* weight */);
+    dvs.emplace_back(move(builder));
+  }
+}
+
+double LocalityScorer::GetSimilarity(QueryVec const & qv, vector<DocVec> const & dvc) const
+{
+  double const kScale = 1e6;
+
+  double similarity = 0;
+  for (auto const & dv : dvc)
+    similarity = max(similarity, qv.Similarity(dv));
+
+  // We need scale here to prevent double artifacts, and to make
+  // sorting by similarity more robust, as 1e-6 is good enough for our
+  // purposes.
+  return round(similarity * kScale);
+}
+
+string DebugPrint(LocalityScorer::ExLocality const & el)
 {
   ostringstream os;
   os << "LocalityScorer::ExLocality [ ";
-  os << "m_locality=" << DebugPrint(locality.m_locality) << ", ";
-  os << "m_numTokens=" << locality.m_numTokens << ", ";
-  os << "m_rank=" << static_cast<uint32_t>(locality.m_rank) << ", ";
-  os << "m_nameScore=" << DebugPrint(locality.m_nameScore);
+  os << "m_locality=" << DebugPrint(el.m_locality) << ", ";
+  os << "m_queryNorm=" << el.m_queryNorm << ", ";
+  os << "m_similarity=" << el.m_similarity << ", ";
+  os << "m_rank=" << static_cast<uint32_t>(el.m_rank);
   os << " ]";
   return os.str();
 }

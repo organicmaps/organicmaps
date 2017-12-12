@@ -21,6 +21,7 @@ HEADERS += \
     city_finder.hpp \
     common.hpp \
     displayed_categories.hpp \
+    doc_vec.hpp \
     downloader_search_callback.hpp \
     dummy_rank_table.hpp \
     editor_delegate.hpp \
@@ -44,6 +45,7 @@ HEADERS += \
     house_detector.hpp \
     house_numbers_matcher.hpp \
     house_to_street_table.hpp \
+    idf_map.hpp \
     intermediate_result.hpp \
     intersection_result.hpp \
     interval_set.hpp \
@@ -115,6 +117,7 @@ SOURCES += \
     house_detector.cpp \
     house_numbers_matcher.cpp \
     house_to_street_table.cpp \
+    idf_map.cpp \
     intermediate_result.cpp \
     intersection_result.cpp \
     keyword_lang_matcher.cpp \

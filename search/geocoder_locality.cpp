@@ -22,7 +22,6 @@ std::string DebugPrint(Locality const & locality)
   os << "m_countryId=" << DebugPrint(locality.m_countryId) << ", ";
   os << "m_featureId=" << locality.m_featureId << ", ";
   os << "m_tokenRange=" << DebugPrint(locality.m_tokenRange) << ", ";
-  os << "m_prob=" << locality.m_prob;
   os << " ]";
   return os.str();
 }
