@@ -185,6 +185,12 @@ public class SearchFilterController
     }
   }
 
+  public void resetFilter()
+  {
+    setFilter(null);
+    updateFilterButtonVisibility(false);
+  }
+
   @Nullable
   public BookingFilterParams getBookingFilterParams()
   {

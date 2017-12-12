@@ -191,10 +191,7 @@ public class SearchFragment extends BaseMwmFragment
     {
       super.clear();
       if (mFilterController != null)
-      {
-        mFilterController.setFilter(null);
-        mFilterController.updateFilterButtonVisibility(false);
-      }
+        mFilterController.resetFilter();
     }
   }
 
@@ -551,6 +548,9 @@ public class SearchFragment extends BaseMwmFragment
                                             result.lat, result.lon);
       RoutingController.get().onPoiSelected(point);
     }
+
+    if (mFilterController != null)
+      mFilterController.resetFilter();
 
     mToolbarController.deactivate();
 
