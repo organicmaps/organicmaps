@@ -1599,7 +1599,8 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results const & resul
 }
 
 void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter begin,
-                                       search::Results::ConstIter end)
+                                       search::Results::ConstIter end,
+                                       SearchMarkPostProcesing fn /* = nullptr */)
 {
   UserMarkNotificationGuard guard(GetBookmarkManager(), UserMark::Type::SEARCH);
 
@@ -1638,8 +1639,8 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
     if (r.m_metadata.m_isSponsoredHotel)
       mark->SetMarkType(SearchMarkType::Booking);
 
-    if (GetSearchAPI().GetSponsoredMode() == SearchAPI::SponsoredMode::Booking)
-      SetPreparingStateForBookingHotel(r.GetFeatureID(), mark);
+    if (fn)
+      fn(*mark);
   }
 }
 
@@ -3185,7 +3186,34 @@ void Framework::SetSearchDisplacementModeEnabled(bool enabled)
 void Framework::ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
                                           search::Results::ConstIter end)
 {
-  FillSearchResultsMarks(clear, begin, end);
+  if (GetSearchAPI().GetSponsoredMode() != SearchAPI::SponsoredMode::Booking)
+  {
+    FillSearchResultsMarks(clear, begin, end);
+    return;
+  }
+
+  search::Results results;
+  results.AddResultsNoChecks(begin, end);
+
+  auto const fillCallback = [this, clear, results] (std::vector<FeatureID> featuresSorted)
+  {
+    auto const postProcessing = [featuresSorted] (SearchMarkPoint & mark)
+    {
+      auto const & id = mark.GetFeatureID();
+
+      if (!id.IsValid())
+        return;
+
+      auto const isAvailable =
+        std::binary_search(featuresSorted.cbegin(), featuresSorted.cend(), id);
+
+      mark.SetPreparing(!isAvailable);
+    };
+
+    FillSearchResultsMarks(clear, results.begin(), results.end(), postProcessing);
+  };
+
+  m_bookingFilter.GetAvailableFeaturesFromCache(results, fillCallback);
 }
 
 void Framework::ClearViewportSearchResults()
@@ -3455,23 +3483,4 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Para
 void Framework::OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params)
 {
   m_bookingFilter.OnParamsUpdated(params);
-}
-
-void Framework::SetPreparingStateForBookingHotel(FeatureID const & id, SearchMarkPoint * mark)
-{
-  using booking::filter::availability::Cache;
-  Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwmId);
-
-  FeatureType ft;
-  if (!guard.GetFeatureByIndex(id.m_index, ft))
-  {
-    LOG(LERROR, ("Feature can't be loaded:", id));
-    return;
-  }
-
-  auto const & hotelId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-
-  auto const isPreparing =
-    m_bookingFilter.GetHotelAvailabilityStatus(hotelId) != Cache::HotelStatus::Available;
-  mark->SetPreparing(isPreparing);
 }

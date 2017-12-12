@@ -551,9 +551,11 @@ public:
 
   size_t ShowSearchResults(search::Results const & results);
 
+  using SearchMarkPostProcesing = function<void(SearchMarkPoint & mark)>;
+
   void FillSearchResultsMarks(bool clear, search::Results const & results);
   void FillSearchResultsMarks(bool clear, search::Results::ConstIter begin,
-                              search::Results::ConstIter end);
+                              search::Results::ConstIter end, SearchMarkPostProcesing fn = nullptr);
   void ClearSearchResultsMarks();
 
   list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
@@ -853,7 +855,6 @@ public:
   void OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params) override;
 
 private:
-  void SetPreparingStateForBookingHotel(FeatureID const & id, SearchMarkPoint * mark);
   // m_discoveryManager must be bellow m_searchApi, m_viatorApi, m_localsApi
   unique_ptr<discovery::Manager> m_discoveryManager;
 };

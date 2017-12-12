@@ -4,7 +4,6 @@
 
 #include <chrono>
 #include <map>
-#include <mutex>
 
 namespace booking
 {
@@ -12,7 +11,6 @@ namespace filter
 {
 namespace availability
 {
-// NOTE: this class IS thread-safe.
 class Cache
 {
 public:
@@ -66,10 +64,6 @@ private:
   size_t const m_maxCount = 1000;
   // Do not use aging when |m_expiryPeriodSeconds| is equal to zero.
   size_t const m_expiryPeriodSeconds = 60;
-
-  std::mutex m_mutex;
-
-  DISALLOW_COPY_AND_MOVE(Cache);
 };
 
 std::string DebugPrint(Cache::HotelStatus status);

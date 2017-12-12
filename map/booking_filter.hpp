@@ -5,8 +5,9 @@
 
 #include "base/macros.hpp"
 
+#include <functional>
 #include <memory>
-#include <mutex>
+#include <vector>
 
 class Index;
 
@@ -21,7 +22,9 @@ class Api;
 
 namespace filter
 {
-// NOTE: this class IS thread-safe.
+
+using FillSearchMarksCallback =  std::function<void(std::vector<FeatureID> availableHotelsSorted)>;
+
 class Filter
 {
 public:
@@ -32,9 +35,13 @@ public:
 
   void OnParamsUpdated(AvailabilityParams const & params);
 
-  availability::Cache::HotelStatus GetHotelAvailabilityStatus(std::string const & hotelId);
+  void GetAvailableFeaturesFromCache(search::Results const & results,
+                                     FillSearchMarksCallback const & callback);
 
 private:
+
+  void UpdateAvailabilityParams(AvailabilityParams params);
+
   Index const & m_index;
   Api const & m_api;
 
@@ -43,7 +50,6 @@ private:
   CachePtr m_availabilityCache = std::make_shared<availability::Cache>();
 
   AvailabilityParams m_currentParams;
-  std::mutex m_mutex;
 
   DISALLOW_COPY_AND_MOVE(Filter);
 };
