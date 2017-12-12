@@ -1,7 +1,6 @@
 package com.mapswithme.maps.search;
 
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,6 +40,7 @@ public class SearchFilterController
   private BookingFilterParams mBookingFilterParams;
 
   private final float mElevation;
+  private boolean mHotelMode;
 
   @NonNull
   private final View.OnClickListener mClearListener = new View.OnClickListener()
@@ -94,7 +94,7 @@ public class SearchFilterController
 
   public void show(boolean show, boolean showPopulateButton)
   {
-    UiUtils.showIf(show, mFrame);
+    UiUtils.showIf(show && (showPopulateButton || mHotelMode), mFrame);
     showPopulateButton(showPopulateButton);
   }
 
@@ -110,6 +110,7 @@ public class SearchFilterController
 
   public void updateFilterButtonVisibility(boolean isHotel)
   {
+    mHotelMode = isHotel;
     UiUtils.showIf(isHotel, mFilterButton);
   }
 
@@ -204,6 +205,7 @@ public class SearchFilterController
 
   public boolean onBackPressed()
   {
+    mHotelMode = false;
     return mFilterView.close();
   }
 
