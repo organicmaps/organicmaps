@@ -309,7 +309,7 @@ import UIKit
 
   private var viewSize = CGSize()
 
-  var scheduledUpdate: DispatchWorkItem?
+  private var scheduledUpdate: DispatchWorkItem?
 
   func updateImpl() {
     let layers = createLayers()

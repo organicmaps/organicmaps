@@ -183,7 +183,7 @@ import UIKit
     }
   }
 
-  var scheduledUpdate: DispatchWorkItem?
+  private var scheduledUpdate: DispatchWorkItem?
 
   var settings = RatingSummaryViewSettings() {
     didSet {

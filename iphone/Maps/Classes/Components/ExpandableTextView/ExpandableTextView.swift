@@ -75,17 +75,16 @@ import UIKit
     }
   }
 
-  private func createTextLayer() -> CALayer {
+  private func createTextLayer() {
+    self.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+
+    var truncate = false
     let size: CGSize
-
-    let container = CALayer()
-    container.anchorPoint = CGPoint()
-    container.contentsScale = UIScreen.main.scale
-
+    let fullSize = text.size(width: frame.width, font: textFont, maxNumberOfLines: 0)
     if isCompact {
       size = text.size(width: frame.width, font: textFont, maxNumberOfLines: numberOfCompactLines)
-      let fullSize = text.size(width: frame.width, font: textFont, maxNumberOfLines: 0)
-      if size.height < fullSize.height {
+      truncate = size.height < fullSize.height
+      if truncate {
         let expandSize = expandText.size(width: frame.width, font: textFont, maxNumberOfLines: 1)
         let layer = CATextLayer()
         layer.position = CGPoint(x: 0, y: size.height)
@@ -97,10 +96,10 @@ import UIKit
         layer.foregroundColor = expandTextColor?.cgColor
         layer.contentsScale = UIScreen.main.scale
 
-        container.addSublayer(layer)
+        self.layer.addSublayer(layer)
       }
     } else {
-      size = text.size(width: frame.width, font: textFont, maxNumberOfLines: 0)
+      size = fullSize
     }
 
     let layer = CATextLayer()
@@ -108,21 +107,13 @@ import UIKit
     layer.anchorPoint = CGPoint()
     layer.string = text
     layer.isWrapped = true
-    layer.truncationMode = kCATruncationEnd
+    layer.truncationMode = truncate ? kCATruncationEnd : kCATruncationNone
     layer.font = CGFont(textFont.fontName as CFString)
     layer.fontSize = textFont.pointSize
     layer.foregroundColor = textColor?.cgColor
     layer.contentsScale = UIScreen.main.scale
 
-    container.addSublayer(layer)
-
-    var containerSize = CGSize()
-    container.sublayers?.forEach { layer in
-      containerSize.width = max(containerSize.width, layer.frame.maxX)
-      containerSize.height = max(containerSize.height, layer.frame.maxY)
-    }
-    container.frame.size = containerSize
-    return container
+    self.layer.addSublayer(layer)
   }
 
   public override func awakeFromNib() {
@@ -152,30 +143,27 @@ import UIKit
     update()
   }
 
-  private var viewSize = CGSize()
-  private func updateImpl() {
-    let sublayer = createTextLayer()
-    layer.sublayers = [sublayer]
+  private var scheduledUpdate: DispatchWorkItem?
 
-    viewSize = sublayer.bounds.size
+  private func updateImpl() {
+    createTextLayer()
 
     invalidateIntrinsicContentSize()
     onUpdate?()
   }
 
-  @objc private func doUpdate() {
-    DispatchQueue.main.async {
-      self.updateImpl()
-    }
-  }
-
   func update() {
-    let sel = #selector(doUpdate)
-    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: sel, object: nil)
-    perform(sel, with: nil, afterDelay: 1 / 120)
+    scheduledUpdate?.cancel()
+    scheduledUpdate = DispatchWorkItem { [weak self] in self?.updateImpl() }
+    DispatchQueue.main.async(execute: scheduledUpdate!)
   }
 
   override var intrinsicContentSize: CGSize {
+    var viewSize = CGSize()
+    layer.sublayers?.forEach { layer in
+      viewSize.width = max(viewSize.width, layer.frame.maxX)
+      viewSize.height = max(viewSize.height, layer.frame.maxY)
+    }
     return viewSize
   }
 
