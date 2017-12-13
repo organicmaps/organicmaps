@@ -263,7 +263,8 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
       Class cls = [MWMDiscoveryOnlineTemplateCell class];
       auto cell = static_cast<MWMDiscoveryOnlineTemplateCell *>(
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [cell configWithType:MWMDiscoveryOnlineTemplateTypeViator
+      [cell configWithType:type == ItemType::Viator ? MWMDiscoveryOnlineTemplateTypeViator :
+                                                      MWMDiscoveryOnlineTemplateTypeLocals
                needSpinner:isLoading
                        tap:^{
                          [self.delegate openURLForItem:type];
