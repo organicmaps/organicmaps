@@ -911,20 +911,6 @@ public class PlacePageView extends RelativeLayout
     mIvSponsoredLogo.setImageDrawable(drawable);
   }
 
-  private void showLoadingViatorProducts(@NonNull String id, @NonNull String cityUrl)
-  {
-    if (!Viator.hasCache(id))
-      mRvSponsoredProducts.setAdapter(Factory.createViatorLoadingAdapter(cityUrl,
-                                                                         mDefaultGalleryItemListener));
-  }
-
-  private void showLoadingCianProducts(@NonNull FeatureId id, @NonNull String url)
-  {
-    if (!Cian.hasCache(id))
-      mRvSponsoredProducts.setAdapter(Factory.createCianLoadingAdapter(url,
-                                                                       mDefaultGalleryItemListener));
-  }
-
   private void updateGallerySponsoredTitle(@Sponsored.SponsoredType int type)
   {
     mTvSponsoredTitle.setText(type == Sponsored.TYPE_CIAN ? R.string.subtitle_rent
@@ -1279,12 +1265,13 @@ public class PlacePageView extends RelativeLayout
 
     if (isViator)
     {
-      showLoadingViatorProducts(mSponsored.getId(), url);
+      mRvSponsoredProducts.setAdapter(Factory.createViatorLoadingAdapter(url,
+                                                                         mDefaultGalleryItemListener));
       Viator.requestViatorProducts(policy, mSponsored.getId(), currencyCode);
       return;
     }
 
-    showLoadingCianProducts(mMapObject.getFeatureId(), url);
+    mRvSponsoredProducts.setAdapter(Factory.createCianLoadingAdapter(url, mDefaultGalleryItemListener));
     Cian.getRentNearby(policy, mMapObject.getLat(), mMapObject.getLon(), mMapObject.getFeatureId());
   }
 
