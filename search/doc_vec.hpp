@@ -118,7 +118,7 @@ public:
   private:
     friend class DocVec;
 
-    std::vector<TokenWeightPair> m_tws;
+    TokenWeightPairs m_tws;
   };
 
   DocVec() = default;
@@ -147,6 +147,7 @@ class QueryVec
 {
 public:
   using TokenWeightPair = TokenWeightPair<Token>;
+  using TokenWeightPairs = std::vector<TokenWeightPair>;
 
   class Builder
   {
@@ -166,7 +167,7 @@ public:
   private:
     friend class QueryVec;
 
-    std::vector<TokenWeightPair> m_tws;
+    TokenWeightPairs m_tws;
     boost::optional<TokenWeightPair> m_prefix;
   };
 
