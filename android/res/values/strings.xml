@@ -834,7 +834,7 @@
 	<string name="error_enter_correct_zip_code">Enter a valid ZIP code</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Unknown Place</string>
-	<string name="editor_other_info">Additional info</string>
+	<string name="editor_other_info">Send a note to OSM moderators</string>
 	<string name="editor_detailed_description_hint">Detailed comment</string>
 	<string name="editor_detailed_description">Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in MAPS.ME.</string>
 	<string name="editor_more_about_osm">More about OpenStreetMap</string>
@@ -1237,7 +1237,7 @@
 	<string name="whats_new_ugc_title">Ratings and reviews</string>
 	<string name="whats_new_ugc_message">You can now leave ratings and reviews even offline! Don\'t forget to update your maps so you can see the changes.</string>
 	<string name="dialog_error_storage_title">Storage access problem</string>
-	<string name="dialog_error_storage_message">External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support\@maps.me</string>
+	<string name="dialog_error_storage_message">External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support\@maps.me</string>
 	<string name="setting_emulate_bad_storage">Emulate bad storage</string>
 	<string name="discovery_button_title">Discover nearby</string>
 	<string name="discovery_button_subtitle_things_to_do">Things to do</string>
@@ -1252,7 +1252,7 @@
 	<string name="discovery_button_404_error_title">Not found</string>
 	<string name="discovery_button_404_error_message">Oops, we did not find anything interesting around.</string>
 	<string name="booking_filters_check_in">Check in</string>
-	<string name="booking_filters_check_out">Check Out</string>
+	<string name="booking_filters_check_out">Check out</string>
 	<string name="booking_filters_offline">Not available online.</string>
 	<string name="directions_finish">Destination</string>
 	<string name="directions_on_foot">Walk %s</string>

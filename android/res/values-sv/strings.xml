@@ -816,7 +816,7 @@
 	<string name="error_enter_correct_zip_code">Ange korrekt postnr</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Okänd plats</string>
-	<string name="editor_other_info">Mer info</string>
+	<string name="editor_other_info">Poznámka odoslaná regulátorovi OSM</string>
 	<string name="editor_detailed_description_hint">Detaljerad kommentar</string>
 	<string name="editor_detailed_description">Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i MAPS.ME.</string>
 	<string name="editor_more_about_osm">Mer om OpenStreetMap</string>
@@ -1193,4 +1193,35 @@
 	<string name="sponsored_thor_gather">Samla</string>
 	<string name="whats_new_ugc_title">Betyg och omdömen</string>
 	<string name="whats_new_ugc_message">Nu kan du betygsätta och lämna omdömen offline! Glöm inte att uppdatera dina kartor så att du kan se ändringarna.</string>
+	<string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
+	<string name="dialog_error_storage_message">Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Emulera dålig lagring</string>
+	<string name="discovery_button_title">Upptäck i närheten</string>
+	<string name="discovery_button_subtitle_things_to_do">Saker att göra</string>
+	<string name="discovery_button_subtitle_attractions">Attraktioner</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Äta och dricka</string>
+	<string name="discovery_button_subtitle_local_guides">Lokala guider</string>
+	<string name="discovery_button_viator_offline_title">Upptäck turer och ovanliga saker att göra</string>
+	<string name="discovery_button_viator_offline_message">Turer, saker att göra, sightseeing-turer med mera.</string>
+	<string name="discovery_button_viator_error_title">Det gick inte att ladda data</string>
+	<string name="discovery_button_other_error_message">Det gick inte att ladda data</string>
+	<string name="discovery_button_other_loading_message">Laddar data</string>
+	<string name="discovery_button_404_error_title">Hittades inte</string>
+	<string name="discovery_button_404_error_message">Hoppsan, vi hittade inget intressant i närheten.</string>
+	<string name="booking_filters_check_in">Checka in</string>
+	<string name="booking_filters_check_out">Checka ut</string>
+	<string name="booking_filters_offline">Inte tillgängligt online.</string>
+	<string name="directions_finish">Destination</string>
+	<string name="directions_on_foot">Gå %s</string>
+	<string name="entrance">Ingång</string>
+	<string name="coffee">Kaffe</string>
+	<string name="cleanliness">Rent</string>
+	<string name="crowdedness">Fullt</string>
+	<string name="error_enter_correct_name">Ange ett korrekt namn</string>
+	<string name="hotel_available">Tillgängligt</string>
+	<string name="whats_new_transit_title">Tunnelbanor tillgängliga</string>
+	<string name="whats_new_transit_message">Skapa rutter med tunnelbanor! Uppdatera kartor för att visa ändringar.</string>
+	<string name="whats_new_discovery_title">Knappen Upptäck</string>
+	<string name="whats_new_discovery_message">Upptäck saker i närheten med ett enda klick!</string>
+	<string name="price_per_hour">%s/timme</string>
 </resources>

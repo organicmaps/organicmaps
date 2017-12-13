@@ -815,7 +815,7 @@
 	<string name="error_enter_correct_zip_code">Zadajte správne PSČ</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Neznáme miesto</string>
-	<string name="editor_other_info">Dodatočné informácie</string>
+	<string name="editor_other_info">Poznámka odoslaná regulátorovi OSM</string>
 	<string name="editor_detailed_description_hint">Zmazaná poznámka</string>
 	<string name="editor_detailed_description">Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME.</string>
 	<string name="editor_more_about_osm">Viac o OpenStreetMap</string>
@@ -1192,4 +1192,35 @@
 	<string name="sponsored_thor_gather">Pozbierať</string>
 	<string name="whats_new_ugc_title">Hodnotenia a recenzie</string>
 	<string name="whats_new_ugc_message">Teraz môžete napísať hodnotenia a recenzie aj offline! Nezabudnite si aktualizovať mapy, aby ste videli zmeny.</string>
+	<string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
+	<string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Imitovať poškodené úložisko</string>
+	<string name="discovery_button_title">Poznávajte svoje okolie</string>
+	<string name="discovery_button_subtitle_things_to_do">Aktivity</string>
+	<string name="discovery_button_subtitle_attractions">Atrakcie</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Jedlo a pitie</string>
+	<string name="discovery_button_subtitle_local_guides">Miestni sprievodcovia</string>
+	<string name="discovery_button_viator_offline_title">Objavte výlety a nezvyčajné aktivity</string>
+	<string name="discovery_button_viator_offline_message">Zájazdy, voľnočasové aktivity, okružné jazdy a ďalšie.</string>
+	<string name="discovery_button_viator_error_title">Chyba pri načítaní dat</string>
+	<string name="discovery_button_other_error_message">Chyba pri načítaní dat</string>
+	<string name="discovery_button_other_loading_message">Prebieha načítanie dát</string>
+	<string name="discovery_button_404_error_title">Nič nebolo nájdené</string>
+	<string name="discovery_button_404_error_message">Ejha, nenašli sme v okolí nič zaujímavé.</string>
+	<string name="booking_filters_check_in">Prihlásiť sa</string>
+	<string name="booking_filters_check_out">Odhlásiť sa</string>
+	<string name="booking_filters_offline">Nie sú k dispozícii online.</string>
+	<string name="directions_finish">Ciel</string>
+	<string name="directions_on_foot">Chôdza %s</string>
+	<string name="entrance">Vchod  | vjazd</string>
+	<string name="coffee">Káva</string>
+	<string name="cleanliness">Čistota</string>
+	<string name="crowdedness">Preplnenosť</string>
+	<string name="error_enter_correct_name">Prosím, zadajte správne meno</string>
+	<string name="hotel_available">K dispozícii</string>
+	<string name="whats_new_transit_title">Metro k dispozícii</string>
+	<string name="whats_new_transit_message">Vyhľadávajte trasy aj s využitím metra! Pre zobrazenie zmien, prosím, zaktualizujte mapy.</string>
+	<string name="whats_new_discovery_title">Tlačidlo Priezkum</string>
+	<string name="whats_new_discovery_message">Preskúmajte veci okolo Vás pomocou jedného kliku!</string>
+	<string name="price_per_hour">%s/hodina</string>
 </resources>

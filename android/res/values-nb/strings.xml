@@ -810,7 +810,7 @@
 	<string name="error_enter_correct_zip_code">Angi riktig postnummer</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Ukjent sted</string>
-	<string name="editor_other_info">Tilleggsinfo</string>
+	<string name="editor_other_info">Send en beskjed til OSM-moderatoren</string>
 	<string name="editor_detailed_description_hint">Detaljert kommentar</string>
 	<string name="editor_detailed_description">De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i MAPS.ME.</string>
 	<string name="editor_more_about_osm">Mer om OpenStreetMap</string>
@@ -1187,4 +1187,5 @@
 	<string name="sponsored_thor_gather">Samle</string>
 	<string name="whats_new_ugc_title">Rangeringer og vurderinger</string>
 	<string name="whats_new_ugc_message">Nå kan du gi dine vurderinger selv i frakoblet modus! Ikke glem å oppdatere kartene dine for å se endringene.</string>
+	<string name="price_per_hour">%s/time</string>
 </resources>

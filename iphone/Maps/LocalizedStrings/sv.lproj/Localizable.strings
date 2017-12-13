@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "Okänd plats";
 
-"editor_other_info" = "Mer info";
+"editor_other_info" = "Poznámka odoslaná regulátorovi OSM";
 
 "editor_detailed_description_hint" = "Detaljerad kommentar";
 
@@ -2120,64 +2120,64 @@
 
 "whats_new_ugc_message" = "Nu kan du betygsätta och lämna omdömen offline! Glöm inte att uppdatera dina kartor så att du kan se ändringarna.";
 
-"dialog_error_storage_title" = "Storage access problem";
+"dialog_error_storage_title" = "Lagringsåtkomstproblem";
 
-"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+"dialog_error_storage_message" = "Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support@maps.me";
 
-"setting_emulate_bad_storage" = "Emulate bad storage";
+"setting_emulate_bad_storage" = "Emulera dålig lagring";
 
-"discovery_button_title" = "Discover nearby";
+"discovery_button_title" = "Upptäck i närheten";
 
-"discovery_button_subtitle_things_to_do" = "Things to do";
+"discovery_button_subtitle_things_to_do" = "Saker att göra";
 
-"discovery_button_subtitle_attractions" = "Attractions";
+"discovery_button_subtitle_attractions" = "Attraktioner";
 
-"discovery_button_subtitle_eat_and_drink" = "Eat and drink";
+"discovery_button_subtitle_eat_and_drink" = "Äta och dricka";
 
-"discovery_button_subtitle_local_guides" = "Local Guides";
+"discovery_button_subtitle_local_guides" = "Lokala guider";
 
-"discovery_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "Upptäck turer och ovanliga saker att göra";
 
-"discovery_button_viator_offline_message" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_viator_offline_message" = "Turer, saker att göra, sightseeing-turer med mera.";
 
-"discovery_button_viator_error_title" = "Error loading data";
+"discovery_button_viator_error_title" = "Det gick inte att ladda data";
 
-"discovery_button_other_error_message" = "Error loading data";
+"discovery_button_other_error_message" = "Det gick inte att ladda data";
 
-"discovery_button_other_loading_message" = "Data is loading";
+"discovery_button_other_loading_message" = "Laddar data";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "Hittades inte";
 
-"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+"discovery_button_404_error_message" = "Hoppsan, vi hittade inget intressant i närheten.";
 
-"booking_filters_check_in" = "Check in";
+"booking_filters_check_in" = "Checka in";
 
-"booking_filters_check_out" = "Check Out";
+"booking_filters_check_out" = "Checka ut";
 
-"booking_filters_offline" = "Not available online.";
+"booking_filters_offline" = "Inte tillgängligt online.";
 
 "directions_finish" = "Destination";
 
-"directions_on_foot" = "Walk %s";
+"directions_on_foot" = "Gå %s";
 
-"entrance" = "Entrance";
+"entrance" = "Ingång";
 
-"coffee" = "Coffee";
+"coffee" = "Kaffe";
 
-"cleanliness" = "Cleanliness";
+"cleanliness" = "Rent";
 
-"crowdedness" = "Crowdedness";
+"crowdedness" = "Fullt";
 
-"error_enter_correct_name" = "Please, enter a correct name";
+"error_enter_correct_name" = "Ange ett korrekt namn";
 
-"hotel_available" = "Available";
+"hotel_available" = "Tillgängligt";
 
-"whats_new_transit_title" = "Subways available";
+"whats_new_transit_title" = "Tunnelbanor tillgängliga";
 
-"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+"whats_new_transit_message" = "Skapa rutter med tunnelbanor! Uppdatera kartor för att visa ändringar.";
 
-"whats_new_discovery_title" = "Discovery button";
+"whats_new_discovery_title" = "Knappen Upptäck";
 
-"whats_new_discovery_message" = "Discover things around in one click!";
+"whats_new_discovery_message" = "Upptäck saker i närheten med ett enda klick!";
 
-"price_per_hour" = "%s/hour";
+"price_per_hour" = "%s/timme";

@@ -816,7 +816,7 @@
 	<string name="error_enter_correct_zip_code">Введіть коректний поштовий індекс</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Невідоме місце</string>
-	<string name="editor_other_info">Додаткові дані</string>
+	<string name="editor_other_info">Відправити повідомлення модератору OSM</string>
 	<string name="editor_detailed_description_hint">Докладний коментар</string>
 	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у MAPS.ME.</string>
 	<string name="editor_more_about_osm">Більше про OpenStreetMap</string>
@@ -1192,4 +1192,35 @@
 	<string name="quality">Якість</string>
 	<string name="whats_new_ugc_title">Оцінки й відгуки</string>
 	<string name="whats_new_ugc_message">Тепер ви можете ставити оцінки й залишати відгуки навіть в автономному режимі! Не забудьте оновити свої карти, щоб переглянути зміни.</string>
+	<string name="dialog_error_storage_title">Не вдалося отримати доступ до сховища</string>
+	<string name="dialog_error_storage_message">Зовнішнє сховище не доступно. Ймовірно, SD-картку пам\'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв\'яжіться з нами, написавши на адресу електронну пошту support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Емулювати проблемне сховище</string>
+	<string name="discovery_button_title">Поблизу</string>
+	<string name="discovery_button_subtitle_things_to_do">Чим зайнятися</string>
+	<string name="discovery_button_subtitle_attractions">Пам’ятки</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Їжа та напої</string>
+	<string name="discovery_button_subtitle_local_guides">Місцеві гіди</string>
+	<string name="discovery_button_viator_offline_title">Екскурсії та цікаві ідеї</string>
+	<string name="discovery_button_viator_offline_message">Тури, цікаві ідеї, екскурсії та багато іншого.</string>
+	<string name="discovery_button_viator_error_title">Помилка завантаження даних</string>
+	<string name="discovery_button_other_error_message">Помилка завантаження даних</string>
+	<string name="discovery_button_other_loading_message">Завантаження даних</string>
+	<string name="discovery_button_404_error_title">Не знайдено</string>
+	<string name="discovery_button_404_error_message">Ой! На жаль, ми не знайшли нічого цікавого поблизу.</string>
+	<string name="booking_filters_check_in">Заїзд</string>
+	<string name="booking_filters_check_out">Виїзд</string>
+	<string name="booking_filters_offline">Не доступно онлайн.</string>
+	<string name="directions_finish">Напрямок</string>
+	<string name="directions_on_foot">Піша прогулянка %s</string>
+	<string name="entrance">Вхід</string>
+	<string name="coffee">Кава</string>
+	<string name="cleanliness">Чистота</string>
+	<string name="crowdedness">Завантаженість</string>
+	<string name="error_enter_correct_name">Будь ласка, введіть коректне ім\'я</string>
+	<string name="hotel_available">Доступно</string>
+	<string name="whats_new_transit_title">Додано метрополітен</string>
+	<string name="whats_new_transit_message">Прокладайте маршрути з використанням метрополітену! Для перегляду змін оновіть карти.</string>
+	<string name="whats_new_discovery_title">Додано кнопку \"Поблизу\"</string>
+	<string name="whats_new_discovery_message">Дізнавайтеся, що знаходиться поруч, в один клік!</string>
+	<string name="price_per_hour">%s/година</string>
 </resources>

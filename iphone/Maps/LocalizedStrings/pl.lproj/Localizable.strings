@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "Nieznane miejsce";
 
-"editor_other_info" = "Dodatkowe informacje";
+"editor_other_info" = "Wyślij uwagę do moderatora OSM";
 
 "editor_detailed_description_hint" = "Szczegółowy komentarz";
 
@@ -2120,64 +2120,64 @@
 
 "whats_new_ugc_message" = "Możesz od teraz zamieszczać oceny i recenzje offline! Nie zapomnij zaktualizować map, aby zobaczyć wprowadzone zmiany.";
 
-"dialog_error_storage_title" = "Storage access problem";
+"dialog_error_storage_title" = "Problem z dostępem do pamięci masowej";
 
-"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+"dialog_error_storage_message" = "Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support@maps.me";
 
-"setting_emulate_bad_storage" = "Emulate bad storage";
+"setting_emulate_bad_storage" = "Emuluj wadliwą pamięć masową";
 
-"discovery_button_title" = "Discover nearby";
+"discovery_button_title" = "Odkryj okolicę";
 
-"discovery_button_subtitle_things_to_do" = "Things to do";
+"discovery_button_subtitle_things_to_do" = "Atrakcje";
 
-"discovery_button_subtitle_attractions" = "Attractions";
+"discovery_button_subtitle_attractions" = "Atrakcje";
 
-"discovery_button_subtitle_eat_and_drink" = "Eat and drink";
+"discovery_button_subtitle_eat_and_drink" = "Jedzenie i picie";
 
-"discovery_button_subtitle_local_guides" = "Local Guides";
+"discovery_button_subtitle_local_guides" = "Przewodniki po okolicy";
 
-"discovery_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "Odkrywaj wycieczki i nietypowe atrakcje";
 
-"discovery_button_viator_offline_message" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_viator_offline_message" = "Wycieczki, atrakcje, zwiedzanie i wiele innych.";
 
-"discovery_button_viator_error_title" = "Error loading data";
+"discovery_button_viator_error_title" = "Błąd wczytywania danych";
 
-"discovery_button_other_error_message" = "Error loading data";
+"discovery_button_other_error_message" = "Błąd wczytywania danych";
 
-"discovery_button_other_loading_message" = "Data is loading";
+"discovery_button_other_loading_message" = "Wczytywanie danych";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "Nie znaleziono";
 
-"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+"discovery_button_404_error_message" = "Ups, nie znaleźliśmy w okolicy niczego interesującego.";
 
-"booking_filters_check_in" = "Check in";
+"booking_filters_check_in" = "Zameldowanie";
 
-"booking_filters_check_out" = "Check Out";
+"booking_filters_check_out" = "Wymeldowanie";
 
-"booking_filters_offline" = "Not available online.";
+"booking_filters_offline" = "Niedostępne online.";
 
-"directions_finish" = "Destination";
+"directions_finish" = "Punkt docelowy";
 
-"directions_on_foot" = "Walk %s";
+"directions_on_foot" = "Przejdź %s";
 
-"entrance" = "Entrance";
+"entrance" = "Wejście";
 
-"coffee" = "Coffee";
+"coffee" = "Kawa";
 
-"cleanliness" = "Cleanliness";
+"cleanliness" = "Czystość";
 
-"crowdedness" = "Crowdedness";
+"crowdedness" = "Zatłoczenie";
 
-"error_enter_correct_name" = "Please, enter a correct name";
+"error_enter_correct_name" = "Wprowadź poprawną nazwę";
 
-"hotel_available" = "Available";
+"hotel_available" = "Dostępny";
 
-"whats_new_transit_title" = "Subways available";
+"whats_new_transit_title" = "Dostępne metro";
 
-"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+"whats_new_transit_message" = "Twórz trasy w oparciu o linie metra! Zaktualizuj mapy, aby zobaczyć wprowadzone zmiany.";
 
-"whats_new_discovery_title" = "Discovery button";
+"whats_new_discovery_title" = "Przycisk odkrywania";
 
-"whats_new_discovery_message" = "Discover things around in one click!";
+"whats_new_discovery_message" = "Odkrywaj rzeczy dookoła jednym kliknięciem!";
 
-"price_per_hour" = "%s/hour";
+"price_per_hour" = "%s/godzina";

@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "مكان غير معروف";
 
-"editor_other_info" = "معلومات إضافية";
+"editor_other_info" = "أُرْسِلْتِ ملحوظة إلى وَسِيط OSM";
 
 "editor_detailed_description_hint" = "تعليق مفصل";
 
@@ -2120,64 +2120,64 @@
 
 "whats_new_ugc_message" = "يمكنك الآن ترك تقييمات ومراجعات حتى عندما تكون بدون اتصال! لا تنس تحديث خرائطك لكي تتمكن من رؤية التغييرات.";
 
-"dialog_error_storage_title" = "Storage access problem";
+"dialog_error_storage_title" = "مشكلة الوصول للتخزين";
 
-"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+"dialog_error_storage_message" = "التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو ملف النظام للقراءة فقط. افحصه واتصل بنا على support@maps.me";
 
-"setting_emulate_bad_storage" = "Emulate bad storage";
+"setting_emulate_bad_storage" = "محاكاة التخزين السيء";
 
-"discovery_button_title" = "Discover nearby";
+"discovery_button_title" = "اكتشاف الجوار";
 
-"discovery_button_subtitle_things_to_do" = "Things to do";
+"discovery_button_subtitle_things_to_do" = "أشياء يمكن القيام بها";
 
-"discovery_button_subtitle_attractions" = "Attractions";
+"discovery_button_subtitle_attractions" = "معالم الجذب";
 
-"discovery_button_subtitle_eat_and_drink" = "Eat and drink";
+"discovery_button_subtitle_eat_and_drink" = "تناول المأكولات والمشروبات";
 
-"discovery_button_subtitle_local_guides" = "Local Guides";
+"discovery_button_subtitle_local_guides" = "أدلة محلية";
 
-"discovery_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "اكتشف الجولات والأشياء غير العادية التي يمكن القيام بها";
 
-"discovery_button_viator_offline_message" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_viator_offline_message" = "جولات وأشياء يمكن القيام بها وجولات مشاهدة المعالم وغيره.";
 
-"discovery_button_viator_error_title" = "Error loading data";
+"discovery_button_viator_error_title" = "خطأ في تحميل البيانات";
 
-"discovery_button_other_error_message" = "Error loading data";
+"discovery_button_other_error_message" = "خطأ في تحميل البيانات";
 
-"discovery_button_other_loading_message" = "Data is loading";
+"discovery_button_other_loading_message" = "يجري تحميل البيانات";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "غير موجود";
 
-"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+"discovery_button_404_error_message" = "معذرة، لم نعثر على أي شيء مثير في الجوار.";
 
-"booking_filters_check_in" = "Check in";
+"booking_filters_check_in" = "تسجيل دخول";
 
-"booking_filters_check_out" = "Check Out";
+"booking_filters_check_out" = "تسجيل مغادرة";
 
-"booking_filters_offline" = "Not available online.";
+"booking_filters_offline" = "غير متوفر على الإنترنت.";
 
-"directions_finish" = "Destination";
+"directions_finish" = "الوجهة";
 
-"directions_on_foot" = "Walk %s";
+"directions_on_foot" = "سيرًا %s";
 
-"entrance" = "Entrance";
+"entrance" = "المدخل";
 
-"coffee" = "Coffee";
+"coffee" = "قهوة";
 
-"cleanliness" = "Cleanliness";
+"cleanliness" = "نظافة";
 
-"crowdedness" = "Crowdedness";
+"crowdedness" = "اكتظاظ";
 
-"error_enter_correct_name" = "Please, enter a correct name";
+"error_enter_correct_name" = "الرجاء إدخال اسم صحيح";
 
-"hotel_available" = "Available";
+"hotel_available" = "متوفر";
 
-"whats_new_transit_title" = "Subways available";
+"whats_new_transit_title" = "مترو الأنفاق متوفر";
 
-"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+"whats_new_transit_message" = "أنشئ مساراتك باستخدام مترو الأنفاق! الرجاء تحديث الخرائط لعرض التغييرات.";
 
-"whats_new_discovery_title" = "Discovery button";
+"whats_new_discovery_title" = "زر اكتشاف";
 
-"whats_new_discovery_message" = "Discover things around in one click!";
+"whats_new_discovery_message" = "اكتشاف الأشياء في الجوار من نقرة واحدة!";
 
-"price_per_hour" = "%s/hour";
+"price_per_hour" = "%s/ساعة";

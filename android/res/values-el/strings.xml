@@ -623,7 +623,7 @@
 	<string name="error_enter_correct_zip_code">Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Άγνωστο μέρος</string>
-	<string name="editor_other_info">Πρόσθετες πληροφορίες</string>
+	<string name="editor_other_info">Στείλτε μια σημείωση στο συντονιστή του OSM</string>
 	<string name="editor_detailed_description_hint">Αναλυτικό σχόλιο</string>
 	<string name="editor_detailed_description">Οι προτεινόμενες αλλαγές χάρτη θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο MAPS.ME.</string>
 	<string name="editor_more_about_osm">Περισσότερα σχετικά με το OpenStreetMap</string>
@@ -953,4 +953,35 @@
 	<string name="sponsored_thor_gather">Συλλογή</string>
 	<string name="whats_new_ugc_title">Βαθμολογίες και κριτικές</string>
 	<string name="whats_new_ugc_message">Μπορείτε πλέον να αφήσετε βαθμολογίεςς και κριτικές ακόμα και όταν δεν είστε συνδεδεμένοι! Μην ξεχάσετε να ενημερώσετε τους χάρτες σας για να μπορείτε να δείτε τις αλλαγές.</string>
+	<string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
+	<string name="dialog_error_storage_message">Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Εξομείωση κακού αποθηκευτικού χώρου</string>
+	<string name="discovery_button_title">Ανακαλύψτε κοντά</string>
+	<string name="discovery_button_subtitle_things_to_do">Πράγματα που πρέπει να κάνω</string>
+	<string name="discovery_button_subtitle_attractions">Αξιοθέατα</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Φαγητό και ποτό</string>
+	<string name="discovery_button_subtitle_local_guides">Τοπικοί οδηγοί</string>
+	<string name="discovery_button_viator_offline_title">Ανακαλύψτε περιηγήσεις και ασυνήθιστες δραστηριότητες</string>
+	<string name="discovery_button_viator_offline_message">Εκδρομές, πράγματα να κάνετε, περιηγήσεις στα αξιοθέατα και πολλά άλλα.</string>
+	<string name="discovery_button_viator_error_title">Σφάλμα κατά τη φόρτωση δεδομένων</string>
+	<string name="discovery_button_other_error_message">Σφάλμα κατά τη φόρτωση δεδομένων</string>
+	<string name="discovery_button_other_loading_message">Φόρτωση δεδομένων</string>
+	<string name="discovery_button_404_error_title">Δεν βρέθηκε</string>
+	<string name="discovery_button_404_error_message">Ωχ, δεν βρήκαμε τίποτα ενδιαφέρον κοντά.</string>
+	<string name="booking_filters_check_in">Άφιξη</string>
+	<string name="booking_filters_check_out">Αναχώρηση</string>
+	<string name="booking_filters_offline">Δεν είναι διαθέσιμη online.</string>
+	<string name="directions_finish">Προορισμός</string>
+	<string name="directions_on_foot">Βάδισμα %s</string>
+	<string name="entrance">Είσοδος</string>
+	<string name="coffee">Καφές</string>
+	<string name="cleanliness">Καθαριότητα</string>
+	<string name="crowdedness">Συνωστισμός</string>
+	<string name="error_enter_correct_name">Εισάγετε ένα σωστό όνομα</string>
+	<string name="hotel_available">Διαθέσιμο</string>
+	<string name="whats_new_transit_title">Διαθέσιμες υπόγειες διαβάσεις</string>
+	<string name="whats_new_transit_message">Φτιάξτε τις διαδρομές σας χρησιμοποιώντας υπόγειες διαβάσεις! Ενημερώστε τους χάρτες για να δείτε τις αλλαγές.</string>
+	<string name="whats_new_discovery_title">Πλήκτρο εντοπισμού</string>
+	<string name="whats_new_discovery_message">Ανακαλύψτε πράγματα γύρω με ένα κλικ!</string>
+	<string name="price_per_hour">%s/ώρα</string>
 </resources>

@@ -812,7 +812,7 @@
 	<string name="error_enter_correct_zip_code">Nhập Mã ZIP chính xác</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Địa Điểm Chưa Biết</string>
-	<string name="editor_other_info">Thông Tin Bổ Sung</string>
+	<string name="editor_other_info">Gửi thanh đến người kiểm duyệt OSM</string>
 	<string name="editor_detailed_description_hint">Nhận xét chi tiết</string>
 	<string name="editor_detailed_description">Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong MAPS.ME.</string>
 	<string name="editor_more_about_osm">Thông tin bổ sung về OpenStreetMap</string>
@@ -1189,4 +1189,35 @@
 	<string name="sponsored_thor_gather">Tụ tập</string>
 	<string name="whats_new_ugc_title">Điểm và đánh giá</string>
 	<string name="whats_new_ugc_message">Giờ đây bạn có thể để lại điểm và đánh giá kể cả khi ngoại tuyến! Đừng quên cập nhật bản đồ của bạn để có thể thấy các thay đổi.</string>
+	<string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>
+	<string name="dialog_error_storage_message">Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Giả lập ổ lưu trữ hỏng</string>
+	<string name="discovery_button_title">Khám phá gần đây</string>
+	<string name="discovery_button_subtitle_things_to_do">Những việc có thể làm</string>
+	<string name="discovery_button_subtitle_attractions">Thắng cảnh</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Ăn uống</string>
+	<string name="discovery_button_subtitle_local_guides">Hướng dẫn Địa phương</string>
+	<string name="discovery_button_viator_offline_title">Khám phá các tour du lịch và những điều lạ bạn có thể làm</string>
+	<string name="discovery_button_viator_offline_message">Tour du lịch, việc có thể làm, tour ngắm cảnh và nhiều hơn thế nữa.</string>
+	<string name="discovery_button_viator_error_title">Lỗi tải dữ liệu</string>
+	<string name="discovery_button_other_error_message">Lỗi tải dữ liệu</string>
+	<string name="discovery_button_other_loading_message">Dữ liệu đang tải</string>
+	<string name="discovery_button_404_error_title">Không tìm thấy</string>
+	<string name="discovery_button_404_error_message">Oái, chúng tôi không tìm thấy bất cứ điều gì thú vị quanh đây.</string>
+	<string name="booking_filters_check_in">Làm thủ tục</string>
+	<string name="booking_filters_check_out">Trả phòng</string>
+	<string name="booking_filters_offline">Không khả dụng trực tuyến.</string>
+	<string name="directions_finish">Điểm đến</string>
+	<string name="directions_on_foot">Đi bộ %s</string>
+	<string name="entrance">Lối vào</string>
+	<string name="coffee">Cà phê</string>
+	<string name="cleanliness">Sạch sẽ</string>
+	<string name="crowdedness">Đông đúc</string>
+	<string name="error_enter_correct_name">Vui lòng nhập một tên chính xác</string>
+	<string name="hotel_available">Sẵn có</string>
+	<string name="whats_new_transit_title">Có tàu điện ngầm</string>
+	<string name="whats_new_transit_message">Xây dựng lộ trình của bạn sử dụng tàu điện ngầm! Vui lòng cập nhật bản đồ để xem các thay đổi.</string>
+	<string name="whats_new_discovery_title">Nút Khám phá</string>
+	<string name="whats_new_discovery_message">Khám phá những địa điểm quanh đây chỉ với một nhấp chuột!</string>
+	<string name="price_per_hour">%s/giờ</string>
 </resources>

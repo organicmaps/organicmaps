@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "Onbekende locatie";
 
-"editor_other_info" = "Aanvullende info";
+"editor_other_info" = "Een boodschap naar OSM-moderator sturen";
 
 "editor_detailed_description_hint" = "Gedetailleerde reactie";
 
@@ -2120,64 +2120,64 @@
 
 "whats_new_ugc_message" = "Nu kunt u zelfs offline ratings en beoordelingen nalaten! Vergeet uw kaarten niet bij te werken zodat u de wijzigingen kunt zien.";
 
-"dialog_error_storage_title" = "Storage access problem";
+"dialog_error_storage_title" = "Probleem met opslagtoegang";
 
-"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+"dialog_error_storage_message" = "Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve het te controleren en ons te contacteren via support@maps.me";
 
-"setting_emulate_bad_storage" = "Emulate bad storage";
+"setting_emulate_bad_storage" = "Slechte opslag emuleren";
 
-"discovery_button_title" = "Discover nearby";
+"discovery_button_title" = "Ontdek in de buurt";
 
-"discovery_button_subtitle_things_to_do" = "Things to do";
+"discovery_button_subtitle_things_to_do" = "Activiteiten";
 
-"discovery_button_subtitle_attractions" = "Attractions";
+"discovery_button_subtitle_attractions" = "Attracties";
 
-"discovery_button_subtitle_eat_and_drink" = "Eat and drink";
+"discovery_button_subtitle_eat_and_drink" = "Eten en drinken";
 
-"discovery_button_subtitle_local_guides" = "Local Guides";
+"discovery_button_subtitle_local_guides" = "Lokale Gidsen";
 
-"discovery_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "Ontdek tours en ongewone activiteiten";
 
-"discovery_button_viator_offline_message" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_viator_offline_message" = "Rondleidingen, activiteiten, excursies en meer.";
 
-"discovery_button_viator_error_title" = "Error loading data";
+"discovery_button_viator_error_title" = "Fout bij laden gegevens";
 
-"discovery_button_other_error_message" = "Error loading data";
+"discovery_button_other_error_message" = "Fout bij laden gegevens";
 
-"discovery_button_other_loading_message" = "Data is loading";
+"discovery_button_other_loading_message" = "Gegevens worden geladen";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "Niet gevonden";
 
-"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+"discovery_button_404_error_message" = "Oeps, we vonden niets interessants in de buurt.";
 
-"booking_filters_check_in" = "Check in";
+"booking_filters_check_in" = "Inchecken";
 
-"booking_filters_check_out" = "Check Out";
+"booking_filters_check_out" = "Uitchecken";
 
-"booking_filters_offline" = "Not available online.";
+"booking_filters_offline" = "Niet beschikbaar online.";
 
-"directions_finish" = "Destination";
+"directions_finish" = "Bestemming";
 
-"directions_on_foot" = "Walk %s";
+"directions_on_foot" = "Wandel %s";
 
-"entrance" = "Entrance";
+"entrance" = "Ingang";
 
-"coffee" = "Coffee";
+"coffee" = "Koffie";
 
-"cleanliness" = "Cleanliness";
+"cleanliness" = "Netheid";
 
-"crowdedness" = "Crowdedness";
+"crowdedness" = "Drukte";
 
-"error_enter_correct_name" = "Please, enter a correct name";
+"error_enter_correct_name" = "Voer een juiste naam in";
 
-"hotel_available" = "Available";
+"hotel_available" = "Beschikbaar";
 
-"whats_new_transit_title" = "Subways available";
+"whats_new_transit_title" = "Metro\\'s beschikbaar";
 
-"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+"whats_new_transit_message" = "Bouw uw routes met metro\\'s! Update de kaart om wijzigingen te zien.";
 
-"whats_new_discovery_title" = "Discovery button";
+"whats_new_discovery_title" = "Ontdekkingsknop";
 
-"whats_new_discovery_message" = "Discover things around in one click!";
+"whats_new_discovery_message" = "Ontdek dingen in de buurt met één klik!";
 
-"price_per_hour" = "%s/hour";
+"price_per_hour" = "%s/uur";

@@ -812,7 +812,7 @@
 	<string name="error_enter_correct_zip_code">Voer de juiste postcode in</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Onbekende locatie</string>
-	<string name="editor_other_info">Aanvullende info</string>
+	<string name="editor_other_info">Een boodschap naar OSM-moderator sturen</string>
 	<string name="editor_detailed_description_hint">Gedetailleerde reactie</string>
 	<string name="editor_detailed_description">Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-community. Beschrijf de details die niet kunnen worden bewerkt in MAPS.ME.</string>
 	<string name="editor_more_about_osm">Meer over OpenStreetMap</string>
@@ -1189,4 +1189,35 @@
 	<string name="sponsored_thor_gather">Verzamelen</string>
 	<string name="whats_new_ugc_title">Ratings en beoordelingen</string>
 	<string name="whats_new_ugc_message">Nu kunt u zelfs offline ratings en beoordelingen nalaten! Vergeet uw kaarten niet bij te werken zodat u de wijzigingen kunt zien.</string>
+	<string name="dialog_error_storage_title">Probleem met opslagtoegang</string>
+	<string name="dialog_error_storage_message">Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve het te controleren en ons te contacteren via support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Slechte opslag emuleren</string>
+	<string name="discovery_button_title">Ontdek in de buurt</string>
+	<string name="discovery_button_subtitle_things_to_do">Activiteiten</string>
+	<string name="discovery_button_subtitle_attractions">Attracties</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Eten en drinken</string>
+	<string name="discovery_button_subtitle_local_guides">Lokale Gidsen</string>
+	<string name="discovery_button_viator_offline_title">Ontdek tours en ongewone activiteiten</string>
+	<string name="discovery_button_viator_offline_message">Rondleidingen, activiteiten, excursies en meer.</string>
+	<string name="discovery_button_viator_error_title">Fout bij laden gegevens</string>
+	<string name="discovery_button_other_error_message">Fout bij laden gegevens</string>
+	<string name="discovery_button_other_loading_message">Gegevens worden geladen</string>
+	<string name="discovery_button_404_error_title">Niet gevonden</string>
+	<string name="discovery_button_404_error_message">Oeps, we vonden niets interessants in de buurt.</string>
+	<string name="booking_filters_check_in">Inchecken</string>
+	<string name="booking_filters_check_out">Uitchecken</string>
+	<string name="booking_filters_offline">Niet beschikbaar online.</string>
+	<string name="directions_finish">Bestemming</string>
+	<string name="directions_on_foot">Wandel %s</string>
+	<string name="entrance">Ingang</string>
+	<string name="coffee">Koffie</string>
+	<string name="cleanliness">Netheid</string>
+	<string name="crowdedness">Drukte</string>
+	<string name="error_enter_correct_name">Voer een juiste naam in</string>
+	<string name="hotel_available">Beschikbaar</string>
+	<string name="whats_new_transit_title">Metro\\\'s beschikbaar</string>
+	<string name="whats_new_transit_message">Bouw uw routes met metro\\\'s! Update de kaart om wijzigingen te zien.</string>
+	<string name="whats_new_discovery_title">Ontdekkingsknop</string>
+	<string name="whats_new_discovery_message">Ontdek dingen in de buurt met één klik!</string>
+	<string name="price_per_hour">%s/uur</string>
 </resources>

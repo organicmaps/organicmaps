@@ -818,7 +818,7 @@
 	<string name="error_enter_correct_zip_code">Doğru Posta Kodunu girin</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Bilinmeyen Yer</string>
-	<string name="editor_other_info">Ek bilgi</string>
+	<string name="editor_other_info">OSM moderatörüne bir not gönder</string>
 	<string name="editor_detailed_description_hint">Ayrıntılı yorum</string>
 	<string name="editor_detailed_description">Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. MAPS.ME’de düzenlenemeyen ayrıntıları açıklayın.</string>
 	<string name="editor_more_about_osm">OpenStreetMap hakkında ek bilgi</string>
@@ -1195,4 +1195,35 @@
 	<string name="sponsored_thor_gather">Toplam</string>
 	<string name="whats_new_ugc_title">Puanlamalar ve değerlendirmeler</string>
 	<string name="whats_new_ugc_message">Artık puanlamalarınızı ve değerlendirmelerinizi çevrimdışıyken bırakabilirsiniz! Değişiklikleri görebilmek için haritalarınızı güncellemeyi unutmayın.</string>
+	<string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
+	<string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support\@maps.me adresinden bizimle iletişime geçin</string>
+	<string name="setting_emulate_bad_storage">Bozuk depolama alanını taklit et</string>
+	<string name="discovery_button_title">Yakın çevreyi keşfedin</string>
+	<string name="discovery_button_subtitle_things_to_do">Yapılacaklar</string>
+	<string name="discovery_button_subtitle_attractions">Cazibe Merkezleri</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Yeme-içme</string>
+	<string name="discovery_button_subtitle_local_guides">Yerel Rehberler</string>
+	<string name="discovery_button_viator_offline_title">Turları ve sıra dışı şeyleri keşfedin</string>
+	<string name="discovery_button_viator_offline_message">Turlar, etkinlikler, şehir gezileri ve daha fazlası.</string>
+	<string name="discovery_button_viator_error_title">Veri yükleme hatası</string>
+	<string name="discovery_button_other_error_message">Veri yükleme hatası</string>
+	<string name="discovery_button_other_loading_message">Veriler yükleniyor</string>
+	<string name="discovery_button_404_error_title">Bulunamadı</string>
+	<string name="discovery_button_404_error_message">Maalesef, çevrede ilginç bir şey bulamadık.</string>
+	<string name="booking_filters_check_in">Giriş</string>
+	<string name="booking_filters_check_out">Çıkış</string>
+	<string name="booking_filters_offline">Çevrimiçi kullanılamaz.</string>
+	<string name="directions_finish">Varış konumu</string>
+	<string name="directions_on_foot">%s doğru yürüyün</string>
+	<string name="entrance">Giriş</string>
+	<string name="coffee">Kahve</string>
+	<string name="cleanliness">Temizlik</string>
+	<string name="crowdedness">Doluluk</string>
+	<string name="error_enter_correct_name">Lütfen, doğru bir isim girin</string>
+	<string name="hotel_available">Uygun</string>
+	<string name="whats_new_transit_title">Metro mevcut</string>
+	<string name="whats_new_transit_message">Metroyu kullanarak rotanızı oluşturun! Değişiklikleri görmek için lütfen haritayı güncelleyin.</string>
+	<string name="whats_new_discovery_title">Keşif düğmesi</string>
+	<string name="whats_new_discovery_message">Tek bir tıklamayla çevrenizdeki şeyleri keşfedin!</string>
+	<string name="price_per_hour">%s/saat</string>
 </resources>

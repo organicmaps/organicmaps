@@ -818,7 +818,7 @@
 	<string name="error_enter_correct_zip_code">أدخل الرمز البريدي الصحيح</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">مكان غير معروف</string>
-	<string name="editor_other_info">معلومات إضافية</string>
+	<string name="editor_other_info">أُرْسِلْتِ ملحوظة إلى وَسِيط OSM</string>
 	<string name="editor_detailed_description_hint">تعليق مفصل</string>
 	<string name="editor_detailed_description">سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في MAPS.ME</string>
 	<string name="editor_more_about_osm">المزيد عن OpenStreetMap</string>
@@ -1195,4 +1195,35 @@
 	<string name="sponsored_thor_gather">جمع</string>
 	<string name="whats_new_ugc_title">التقييمات والمراجعات</string>
 	<string name="whats_new_ugc_message">يمكنك الآن ترك تقييمات ومراجعات حتى عندما تكون بدون اتصال! لا تنس تحديث خرائطك لكي تتمكن من رؤية التغييرات.</string>
+	<string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>
+	<string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو ملف النظام للقراءة فقط. افحصه واتصل بنا على support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">محاكاة التخزين السيء</string>
+	<string name="discovery_button_title">اكتشاف الجوار</string>
+	<string name="discovery_button_subtitle_things_to_do">أشياء يمكن القيام بها</string>
+	<string name="discovery_button_subtitle_attractions">معالم الجذب</string>
+	<string name="discovery_button_subtitle_eat_and_drink">تناول المأكولات والمشروبات</string>
+	<string name="discovery_button_subtitle_local_guides">أدلة محلية</string>
+	<string name="discovery_button_viator_offline_title">اكتشف الجولات والأشياء غير العادية التي يمكن القيام بها</string>
+	<string name="discovery_button_viator_offline_message">جولات وأشياء يمكن القيام بها وجولات مشاهدة المعالم وغيره.</string>
+	<string name="discovery_button_viator_error_title">خطأ في تحميل البيانات</string>
+	<string name="discovery_button_other_error_message">خطأ في تحميل البيانات</string>
+	<string name="discovery_button_other_loading_message">يجري تحميل البيانات</string>
+	<string name="discovery_button_404_error_title">غير موجود</string>
+	<string name="discovery_button_404_error_message">معذرة، لم نعثر على أي شيء مثير في الجوار.</string>
+	<string name="booking_filters_check_in">تسجيل دخول</string>
+	<string name="booking_filters_check_out">تسجيل مغادرة</string>
+	<string name="booking_filters_offline">غير متوفر على الإنترنت.</string>
+	<string name="directions_finish">الوجهة</string>
+	<string name="directions_on_foot">سيرًا %s</string>
+	<string name="entrance">المدخل</string>
+	<string name="coffee">قهوة</string>
+	<string name="cleanliness">نظافة</string>
+	<string name="crowdedness">اكتظاظ</string>
+	<string name="error_enter_correct_name">الرجاء إدخال اسم صحيح</string>
+	<string name="hotel_available">متوفر</string>
+	<string name="whats_new_transit_title">مترو الأنفاق متوفر</string>
+	<string name="whats_new_transit_message">أنشئ مساراتك باستخدام مترو الأنفاق! الرجاء تحديث الخرائط لعرض التغييرات.</string>
+	<string name="whats_new_discovery_title">زر اكتشاف</string>
+	<string name="whats_new_discovery_message">اكتشاف الأشياء في الجوار من نقرة واحدة!</string>
+	<string name="price_per_hour">%s/ساعة</string>
 </resources>

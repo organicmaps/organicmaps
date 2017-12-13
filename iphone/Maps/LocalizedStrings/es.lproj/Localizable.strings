@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "Lugar desconocido";
 
-"editor_other_info" = "Información adicional";
+"editor_other_info" = "Enviar una nota al moderador de OSM";
 
 "editor_detailed_description_hint" = "Comentario detallado";
 
@@ -2120,64 +2120,64 @@
 
 "whats_new_ugc_message" = "Ahora puede dejar calificaciones y opiniones incluso sin conexión. No se olvide de actualizar los mapas para ver los cambios.";
 
-"dialog_error_storage_title" = "Storage access problem";
+"dialog_error_storage_title" = "Problema de acceso al almacenamiento";
 
-"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+"dialog_error_storage_message" = "El almacenamiento externo no está disponible; puede que se haya quitado o dañado la tarjeta SD, o el sistema de archivos solo permite lectura. Por favor, compruébelo y escríbanos a support@maps.me";
 
-"setting_emulate_bad_storage" = "Emulate bad storage";
+"setting_emulate_bad_storage" = "Emular almacenamiento dañado";
 
-"discovery_button_title" = "Discover nearby";
+"discovery_button_title" = "Descubrir los alrededores";
 
-"discovery_button_subtitle_things_to_do" = "Things to do";
+"discovery_button_subtitle_things_to_do" = "Cosas que hacer";
 
-"discovery_button_subtitle_attractions" = "Attractions";
+"discovery_button_subtitle_attractions" = "Atracciones";
 
-"discovery_button_subtitle_eat_and_drink" = "Eat and drink";
+"discovery_button_subtitle_eat_and_drink" = "Comida y bebida";
 
-"discovery_button_subtitle_local_guides" = "Local Guides";
+"discovery_button_subtitle_local_guides" = "Guías locales";
 
-"discovery_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "Descubrir visitas guiadas y actividades inusuales";
 
-"discovery_button_viator_offline_message" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_viator_offline_message" = "Visitas guiadas, cosas que hacer, atracciones turísticas y mucho más.";
 
-"discovery_button_viator_error_title" = "Error loading data";
+"discovery_button_viator_error_title" = "De produjo un error al cargar datos";
 
-"discovery_button_other_error_message" = "Error loading data";
+"discovery_button_other_error_message" = "De produjo un error al cargar datos";
 
-"discovery_button_other_loading_message" = "Data is loading";
+"discovery_button_other_loading_message" = "Cargando datos";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "No encontrado";
 
-"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+"discovery_button_404_error_message" = "Vaya, no se ha encontrado nada interesante por la zona.";
 
-"booking_filters_check_in" = "Check in";
+"booking_filters_check_in" = "Entrada";
 
-"booking_filters_check_out" = "Check Out";
+"booking_filters_check_out" = "Salida";
 
-"booking_filters_offline" = "Not available online.";
+"booking_filters_offline" = "No está disponible en línea.";
 
-"directions_finish" = "Destination";
+"directions_finish" = "Destino";
 
-"directions_on_foot" = "Walk %s";
+"directions_on_foot" = "%s a pie";
 
-"entrance" = "Entrance";
+"entrance" = "Entrada";
 
-"coffee" = "Coffee";
+"coffee" = "Café";
 
-"cleanliness" = "Cleanliness";
+"cleanliness" = "Limpieza";
 
-"crowdedness" = "Crowdedness";
+"crowdedness" = "Lugar concurrido";
 
-"error_enter_correct_name" = "Please, enter a correct name";
+"error_enter_correct_name" = "Por favor, introduzca el nombre correcto";
 
-"hotel_available" = "Available";
+"hotel_available" = "Disponible";
 
-"whats_new_transit_title" = "Subways available";
+"whats_new_transit_title" = "Metro disponible";
 
-"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+"whats_new_transit_message" = "¡Cree rutas con el metro! Actualice los mapas para ver los cambios.";
 
-"whats_new_discovery_title" = "Discovery button";
+"whats_new_discovery_title" = "Botón Descubrimiento";
 
-"whats_new_discovery_message" = "Discover things around in one click!";
+"whats_new_discovery_message" = "¡Descubra los alrededores en un clic!";
 
-"price_per_hour" = "%s/hour";
+"price_per_hour" = "%s/hora";

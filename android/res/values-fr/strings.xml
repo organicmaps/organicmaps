@@ -825,7 +825,7 @@
 	<string name="error_enter_correct_zip_code">Entrer le code postal correct</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Place inconnue</string>
-	<string name="editor_other_info">Informations supplémentaires</string>
+	<string name="editor_other_info">Envoyer un message au modérateur d\'OSM</string>
 	<string name="editor_detailed_description_hint">Commentaire détaillé</string>
 	<string name="editor_detailed_description">Vos modifications suggérées ont été envoyées à la communauté OpenStreetMap. Décrivez les détails qui ne peuvent pas être modifiés dans MAPS.ME.</string>
 	<string name="editor_more_about_osm">En savoir plus sur OpenStreetMap</string>
@@ -1201,4 +1201,35 @@
 	<string name="quality">Qualité</string>
 	<string name="whats_new_ugc_title">Notes et revues</string>
 	<string name="whats_new_ugc_message">Vous pouvez maintenant publier des évaluations et des avis même en étant hors ligne ! N\'oubliez pas de mettre vos cartes à jour pour voir les modifications.</string>
+	<string name="dialog_error_storage_title">Problème d\'accès au stockage</string>
+	<string name="dialog_error_storage_message">Le stockage externe n\'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier et nous contacter via support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Émuler le mauvais stockage</string>
+	<string name="discovery_button_title">Découvrir les alentours</string>
+	<string name="discovery_button_subtitle_things_to_do">Activités</string>
+	<string name="discovery_button_subtitle_attractions">Attractions</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Boire et manger</string>
+	<string name="discovery_button_subtitle_local_guides">Guides locaux</string>
+	<string name="discovery_button_viator_offline_title">Découvrez les visites et les activités insolites</string>
+	<string name="discovery_button_viator_offline_message">Visites, activités, excursions et bien plus encore.</string>
+	<string name="discovery_button_viator_error_title">Erreur de chargement des données</string>
+	<string name="discovery_button_other_error_message">Erreur de chargement des données</string>
+	<string name="discovery_button_other_loading_message">Données en cours de chargement</string>
+	<string name="discovery_button_404_error_title">Introuvable</string>
+	<string name="discovery_button_404_error_message">Oups, nous n\'avons rien trouvé d\'intéressant dans les alentours.</string>
+	<string name="booking_filters_check_in">Faire le check-in</string>
+	<string name="booking_filters_check_out">Faire le check-out</string>
+	<string name="booking_filters_offline">Pas disponible en ligne.</string>
+	<string name="directions_finish">Destination</string>
+	<string name="directions_on_foot">Marcher %s</string>
+	<string name="entrance">Entrée</string>
+	<string name="coffee">Café</string>
+	<string name="cleanliness">Propreté</string>
+	<string name="crowdedness">Affluence</string>
+	<string name="error_enter_correct_name">Veuillez entrer un nom correct</string>
+	<string name="hotel_available">Disponible</string>
+	<string name="whats_new_transit_title">Métros disponibles</string>
+	<string name="whats_new_transit_message">Utilisez le métro dans vos itinéraires ! Veuillez mettre vos cartes à jour pour voir les modifications.</string>
+	<string name="whats_new_discovery_title">Bouton découverte</string>
+	<string name="whats_new_discovery_message">Découvrez ce qu\'il y a aux alentours en un seul clic !</string>
+	<string name="price_per_hour">%s/heure</string>
 </resources>

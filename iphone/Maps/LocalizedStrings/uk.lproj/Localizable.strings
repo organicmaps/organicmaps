@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "Невідоме місце";
 
-"editor_other_info" = "Додаткові дані";
+"editor_other_info" = "Відправити повідомлення модератору OSM";
 
 "editor_detailed_description_hint" = "Докладний коментар";
 
@@ -2120,64 +2120,64 @@
 
 "whats_new_ugc_message" = "Тепер ви можете ставити оцінки й залишати відгуки навіть в автономному режимі! Не забудьте оновити свої карти, щоб переглянути зміни.";
 
-"dialog_error_storage_title" = "Storage access problem";
+"dialog_error_storage_title" = "Не вдалося отримати доступ до сховища";
 
-"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+"dialog_error_storage_message" = "Зовнішнє сховище не доступно. Ймовірно, SD-картку пам'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв'яжіться з нами, написавши на адресу електронну пошту support@maps.me";
 
-"setting_emulate_bad_storage" = "Emulate bad storage";
+"setting_emulate_bad_storage" = "Емулювати проблемне сховище";
 
-"discovery_button_title" = "Discover nearby";
+"discovery_button_title" = "Поблизу";
 
-"discovery_button_subtitle_things_to_do" = "Things to do";
+"discovery_button_subtitle_things_to_do" = "Чим зайнятися";
 
-"discovery_button_subtitle_attractions" = "Attractions";
+"discovery_button_subtitle_attractions" = "Пам’ятки";
 
-"discovery_button_subtitle_eat_and_drink" = "Eat and drink";
+"discovery_button_subtitle_eat_and_drink" = "Їжа та напої";
 
-"discovery_button_subtitle_local_guides" = "Local Guides";
+"discovery_button_subtitle_local_guides" = "Місцеві гіди";
 
-"discovery_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "Екскурсії та цікаві ідеї";
 
-"discovery_button_viator_offline_message" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_viator_offline_message" = "Тури, цікаві ідеї, екскурсії та багато іншого.";
 
-"discovery_button_viator_error_title" = "Error loading data";
+"discovery_button_viator_error_title" = "Помилка завантаження даних";
 
-"discovery_button_other_error_message" = "Error loading data";
+"discovery_button_other_error_message" = "Помилка завантаження даних";
 
-"discovery_button_other_loading_message" = "Data is loading";
+"discovery_button_other_loading_message" = "Завантаження даних";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "Не знайдено";
 
-"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+"discovery_button_404_error_message" = "Ой! На жаль, ми не знайшли нічого цікавого поблизу.";
 
-"booking_filters_check_in" = "Check in";
+"booking_filters_check_in" = "Заїзд";
 
-"booking_filters_check_out" = "Check Out";
+"booking_filters_check_out" = "Виїзд";
 
-"booking_filters_offline" = "Not available online.";
+"booking_filters_offline" = "Не доступно онлайн.";
 
-"directions_finish" = "Destination";
+"directions_finish" = "Напрямок";
 
-"directions_on_foot" = "Walk %s";
+"directions_on_foot" = "Піша прогулянка %s";
 
-"entrance" = "Entrance";
+"entrance" = "Вхід";
 
-"coffee" = "Coffee";
+"coffee" = "Кава";
 
-"cleanliness" = "Cleanliness";
+"cleanliness" = "Чистота";
 
-"crowdedness" = "Crowdedness";
+"crowdedness" = "Завантаженість";
 
-"error_enter_correct_name" = "Please, enter a correct name";
+"error_enter_correct_name" = "Будь ласка, введіть коректне ім'я";
 
-"hotel_available" = "Available";
+"hotel_available" = "Доступно";
 
-"whats_new_transit_title" = "Subways available";
+"whats_new_transit_title" = "Додано метрополітен";
 
-"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+"whats_new_transit_message" = "Прокладайте маршрути з використанням метрополітену! Для перегляду змін оновіть карти.";
 
-"whats_new_discovery_title" = "Discovery button";
+"whats_new_discovery_title" = "Додано кнопку \"Поблизу\"";
 
-"whats_new_discovery_message" = "Discover things around in one click!";
+"whats_new_discovery_message" = "Дізнавайтеся, що знаходиться поруч, в один клік!";
 
-"price_per_hour" = "%s/hour";
+"price_per_hour" = "%s/година";

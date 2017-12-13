@@ -826,7 +826,7 @@
 	<string name="error_enter_correct_zip_code">Geben Sie die korrekte Postleitzahl ein</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Unbekannter Ort</string>
-	<string name="editor_other_info">Zusätzliche Informationen</string>
+	<string name="editor_other_info">Senden Sie eine Notiz an den OSM-Moderator</string>
 	<string name="editor_detailed_description_hint">Ausführlicher Kommentar</string>
 	<string name="editor_detailed_description">Ihre Änderungsvorschläge für die Karte werden an OpenStreetMap gesendet: Beschreiben Sie die Details der Objekte, die Sie in MAPS.ME nicht bearbeiten können.</string>
 	<string name="editor_more_about_osm">Mehr Informationen über OpenStreetMap</string>
@@ -1203,4 +1203,35 @@
 	<string name="sponsored_thor_gather">Sammeln</string>
 	<string name="whats_new_ugc_title">Bewertungen und Kommentare</string>
 	<string name="whats_new_ugc_message">Sie können jetzt sogar offline Bewertungen und Kommentare abgeben! Vergessen Sie nicht, Ihre Karten zu aktualisieren, damit Sie die Änderungen sehen können.</string>
+	<string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>
+	<string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte und kontaktieren Sie uns unter support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Fehlerhaften Speicher emulieren</string>
+	<string name="discovery_button_title">In der Nähe entdecken</string>
+	<string name="discovery_button_subtitle_things_to_do">Aktivitäten</string>
+	<string name="discovery_button_subtitle_attractions">Sehenswürdigkeiten</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Essen und Trinken</string>
+	<string name="discovery_button_subtitle_local_guides">Örtliche Reiseführer</string>
+	<string name="discovery_button_viator_offline_title">Entdecken Sie Touren und ungewöhnliche Aktivitäten</string>
+	<string name="discovery_button_viator_offline_message">Touren, Aktivitäten, Besichtigungen und mehr.</string>
+	<string name="discovery_button_viator_error_title">Fehler beim Laden der Daten</string>
+	<string name="discovery_button_other_error_message">Fehler beim Laden der Daten</string>
+	<string name="discovery_button_other_loading_message">Daten werden geladen</string>
+	<string name="discovery_button_404_error_title">Nicht gefunden</string>
+	<string name="discovery_button_404_error_message">Hoppla, wir haben nichts Interessantes in Ihrer Nähe gefunden.</string>
+	<string name="booking_filters_check_in">Ankunft</string>
+	<string name="booking_filters_check_out">Abreise</string>
+	<string name="booking_filters_offline">Online nicht verfügbar.</string>
+	<string name="directions_finish">Ziel</string>
+	<string name="directions_on_foot">%s zu Fuß gehen</string>
+	<string name="entrance">Eingang</string>
+	<string name="coffee">Kaffee</string>
+	<string name="cleanliness">Sauberkeit</string>
+	<string name="crowdedness">Gedrängtheit</string>
+	<string name="error_enter_correct_name">Bitte geben Sie einen korrekten Namen ein</string>
+	<string name="hotel_available">Verfügbar</string>
+	<string name="whats_new_transit_title">U-Bahnen verfügbar</string>
+	<string name="whats_new_transit_message">Erstellen Sie Ihre Routen mit der Nutzung von U-Bahnen! Bitte aktualisieren Sie die Karten, um die Änderungen zu sehen.</string>
+	<string name="whats_new_discovery_title">Schaltfläche Entdecken</string>
+	<string name="whats_new_discovery_message">Entdecken Sie Dinge in der Umgebung mit nur einem Klick!</string>
+	<string name="price_per_hour">%s/Stunde</string>
 </resources>

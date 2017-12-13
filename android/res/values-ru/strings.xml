@@ -830,7 +830,7 @@
 	<string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Неизвестное место</string>
-	<string name="editor_other_info">Дополнительные сведения</string>
+	<string name="editor_other_info">Отправить сообщение модератору OSM</string>
 	<string name="editor_detailed_description_hint">Подробный комментарий</string>
 	<string name="editor_detailed_description">Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые MAPS.ME не позволяет отредактировать.</string>
 	<string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
@@ -1227,7 +1227,7 @@
 	<string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
 	<string name="dialog_error_storage_message">Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support\@maps.me</string>
 	<string name="setting_emulate_bad_storage">Эмуляция ошибки с внешней памятью</string>
-	<string name="discovery_button_title">Поблизости</string>
+	<string name="discovery_button_title">Чем заняться</string>
 	<string name="discovery_button_subtitle_things_to_do">Развлечения</string>
 	<string name="discovery_button_subtitle_attractions">Достопримечательности</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Перекусить</string>
@@ -1251,8 +1251,8 @@
 	<string name="error_enter_correct_name">Пожалуйста, введите название правильно</string>
 	<string name="hotel_available">Есть места</string>
 	<string name="whats_new_transit_title">Ура! Метро!</string>
-	<string name="whats_new_transit_message">Стройте маршруты с помощью метро! Чтобы увидеть изменения, пожалуйста, обновите карты.</string>
-	<string name="whats_new_discovery_title">Места “Поблизости”</string>
-	<string name="whats_new_discovery_message">Ищите места “Поблизости” в один клик!</string>
+	<string name="whats_new_transit_message">Теперь можно строить маршруты с помощью городского метро. Чтобы увидеть изменения, пожалуйста, обновите карты.</string>
+	<string name="whats_new_discovery_title">Кнопка «Чем заняться»</string>
+	<string name="whats_new_discovery_message">Ищите в один клик, чем заняться в городе!</string>
 	<string name="price_per_hour">%s/час</string>
 </resources>

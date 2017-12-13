@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "Неизвестное место";
 
-"editor_other_info" = "Дополнительные сведения";
+"editor_other_info" = "Отправить сообщение модератору OSM";
 
 "editor_detailed_description_hint" = "Подробный комментарий";
 
@@ -2126,7 +2126,7 @@
 
 "setting_emulate_bad_storage" = "Эмуляция ошибки с внешней памятью";
 
-"discovery_button_title" = "Поблизости";
+"discovery_button_title" = "Чем заняться";
 
 "discovery_button_subtitle_things_to_do" = "Развлечения";
 
@@ -2174,10 +2174,10 @@
 
 "whats_new_transit_title" = "Ура! Метро!";
 
-"whats_new_transit_message" = "Стройте маршруты с помощью метро! Чтобы увидеть изменения, пожалуйста, обновите карты.";
+"whats_new_transit_message" = "Теперь можно строить маршруты с помощью городского метро. Чтобы увидеть изменения, пожалуйста, обновите карты.";
 
-"whats_new_discovery_title" = "Места “Поблизости”";
+"whats_new_discovery_title" = "Кнопка «Чем заняться»";
 
-"whats_new_discovery_message" = "Ищите места “Поблизости” в один клик!";
+"whats_new_discovery_message" = "Ищите в один клик, чем заняться в городе!";
 
 "price_per_hour" = "%s/час";

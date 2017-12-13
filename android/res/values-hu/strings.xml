@@ -813,7 +813,7 @@
 	<string name="error_enter_correct_zip_code">Írja be a helyes irányítószámot</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Ismeretlen hely</string>
-	<string name="editor_other_info">További információk</string>
+	<string name="editor_other_info">Megjegyzést küldött az OSM-moderátornak</string>
 	<string name="editor_detailed_description_hint">Részletes megjegyzés</string>
 	<string name="editor_detailed_description">Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a MAPS.ME-ben.</string>
 	<string name="editor_more_about_osm">További részletek az OpenStreetMap-ról</string>
@@ -1189,4 +1189,35 @@
 	<string name="sponsored_thor_gather">Összegyűjtve</string>
 	<string name="whats_new_ugc_title">Minősítések és értékelések</string>
 	<string name="whats_new_ugc_message">Most már kapcsolat nélkül is hagyhat minősítéseket és értékeléseket! Ne felejtse el frissíteni a térképeket, hogy láthassa a módosításokat.</string>
+	<string name="dialog_error_storage_title">Tároló hozzáférési hiba</string>
+	<string name="dialog_error_storage_message">Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support\@maps.me címen</string>
+	<string name="setting_emulate_bad_storage">Sérült tároló emulálása</string>
+	<string name="discovery_button_title">A közelben felfedezi</string>
+	<string name="discovery_button_subtitle_things_to_do">Teendők</string>
+	<string name="discovery_button_subtitle_attractions">Látnivalók</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Enni és inni</string>
+	<string name="discovery_button_subtitle_local_guides">Helyi idegenvezetők</string>
+	<string name="discovery_button_viator_offline_title">Fedezze fel a túrákat és a szokatlan tevékenységeket</string>
+	<string name="discovery_button_viator_offline_message">Kirándulások, teendők, városnéző túrák és egyebek.</string>
+	<string name="discovery_button_viator_error_title">Hiba az adatok betöltésekor</string>
+	<string name="discovery_button_other_error_message">Hiba az adatok betöltésekor</string>
+	<string name="discovery_button_other_loading_message">Adatok betöltése</string>
+	<string name="discovery_button_404_error_title">Nem található</string>
+	<string name="discovery_button_404_error_message">Hoppá, nem találtunk semmit érdekeset ezen a környéken.</string>
+	<string name="booking_filters_check_in">Bejelentkezés</string>
+	<string name="booking_filters_check_out">Kijelentkezés</string>
+	<string name="booking_filters_offline">Nem érhető el online.</string>
+	<string name="directions_finish">Rendeltetési hely</string>
+	<string name="directions_on_foot">%s séta</string>
+	<string name="entrance">Bejárat</string>
+	<string name="coffee">Kávé</string>
+	<string name="cleanliness">Tisztaság</string>
+	<string name="crowdedness">Zsúfoltság</string>
+	<string name="error_enter_correct_name">Kérjük adja meg a helyes nevet</string>
+	<string name="hotel_available">Rendelkezésre áll</string>
+	<string name="whats_new_transit_title">Van metró</string>
+	<string name="whats_new_transit_message">Építse fel útvonalát metrójáratok segítségével! Kérjük, frissítse a térképeket a változások megjelenítéséhez.</string>
+	<string name="whats_new_discovery_title">Felfedezés gomb</string>
+	<string name="whats_new_discovery_message">Fedezze fel a dolgokat a környéken egy kattintással!</string>
+	<string name="price_per_hour">%s/óra</string>
 </resources>

@@ -816,7 +816,7 @@
 	<string name="error_enter_correct_zip_code">Indtast det korrekte postnummer</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Ukendt sted</string>
-	<string name="editor_other_info">Yderligere info</string>
+	<string name="editor_other_info">Send en besked til OSM-moderator</string>
 	<string name="editor_detailed_description_hint">Detaljerede bemærkninger</string>
 	<string name="editor_detailed_description">Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i MAPS.ME.</string>
 	<string name="editor_more_about_osm">Mere om OpenStreetMap</string>
@@ -1193,4 +1193,35 @@
 	<string name="sponsored_thor_gather">Indsamle</string>
 	<string name="whats_new_ugc_title">Vurderinger og anmeldelser</string>
 	<string name="whats_new_ugc_message">Du kan nu afgive vurderinger og anmeldelser, selv offline! Glem ikke at opdatere dit kort, så du kan se ændringerne.</string>
+	<string name="dialog_error_storage_title">Problem med lageradgang</string>
+	<string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Emulere beskadiget lager</string>
+	<string name="discovery_button_title">Find noget i nærheden</string>
+	<string name="discovery_button_subtitle_things_to_do">Aktiviteter</string>
+	<string name="discovery_button_subtitle_attractions">Seværdigheder</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Spise og drikke</string>
+	<string name="discovery_button_subtitle_local_guides">Lokale guider</string>
+	<string name="discovery_button_viator_offline_title">Find ture og nye oplevelser</string>
+	<string name="discovery_button_viator_offline_message">Ture, oplevelser, sightseeing med mere.</string>
+	<string name="discovery_button_viator_error_title">Fejl ved indlæsning af data</string>
+	<string name="discovery_button_other_error_message">Fejl ved indlæsning af data</string>
+	<string name="discovery_button_other_loading_message">Data indlæses</string>
+	<string name="discovery_button_404_error_title">Ikke fundet</string>
+	<string name="discovery_button_404_error_message">Ups, vi fandt ikke noget interessant i nærheden.</string>
+	<string name="booking_filters_check_in">Tjek ind</string>
+	<string name="booking_filters_check_out">Tjek ud</string>
+	<string name="booking_filters_offline">Ikke tilgængelig online.</string>
+	<string name="directions_finish">Destination</string>
+	<string name="directions_on_foot">Gå %s</string>
+	<string name="entrance">Indgang</string>
+	<string name="coffee">Kaffe</string>
+	<string name="cleanliness">Renlighed</string>
+	<string name="crowdedness">Trængsel</string>
+	<string name="error_enter_correct_name">Angiv et korrekt navn</string>
+	<string name="hotel_available">Tiilgængelig</string>
+	<string name="whats_new_transit_title">Undergrundsbaner tilgængelige</string>
+	<string name="whats_new_transit_message">Opret ruter med undergrundsbaner! Opdater kortene for at se ændringer.</string>
+	<string name="whats_new_discovery_title">Opdagelsesknap</string>
+	<string name="whats_new_discovery_message">Opdag nye ting med et enkelt klik!</string>
+	<string name="price_per_hour">%s/time</string>
 </resources>

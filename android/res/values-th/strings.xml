@@ -818,7 +818,7 @@
 	<string name="error_enter_correct_zip_code">กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">ไม่ทราบชื่อสถานที่</string>
-	<string name="editor_other_info">ข้อมูลเพิ่มเติม</string>
+	<string name="editor_other_info">ส่งหมายเหตุไปยังผู้ดำเนินการ OSM</string>
 	<string name="editor_detailed_description_hint">ข้อคิดเห็นอย่างละเอียด</string>
 	<string name="editor_detailed_description">คำแนะนำการเปลี่ยนแปลงของคุณจะถูกส่งไปยังกลุ่ม OpenStreetMap โปรดอธิบายรายละเอียดที่ MAPS.ME ไม่สามารถแก้ไขได้</string>
 	<string name="editor_more_about_osm">ข้อมูลเพิ่มเติมเกี่ยวกับ OpenStreetMap</string>
@@ -1195,4 +1195,35 @@
 	<string name="sponsored_thor_gather">รวบรวม</string>
 	<string name="whats_new_ugc_title">อันดับคะแนนและรีวิว</string>
 	<string name="whats_new_ugc_message">ขณะนี้คุณสามารถให้คะแนนและรีวิวได้แม้กระทั่งออฟไลน์อยู่! อย่าลืมอัปเดตแผนที่ของคุณเพื่อจะได้เห็นการเปลี่ยนแปลง</string>
+	<string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>
+	<string name="dialog_error_storage_message">ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">จำลองแบบที่เก็บข้อมูลที่ไม่ดี</string>
+	<string name="discovery_button_title">ค้นหาบริเวณใกล้เคียง</string>
+	<string name="discovery_button_subtitle_things_to_do">สิ่งที่จะทำ</string>
+	<string name="discovery_button_subtitle_attractions">สถานที่ท่องเที่ยว</string>
+	<string name="discovery_button_subtitle_eat_and_drink">กินและดื่ม</string>
+	<string name="discovery_button_subtitle_local_guides">มัคคุเทศก์ท้องถิ่น</string>
+	<string name="discovery_button_viator_offline_title">ค้นหาทัวร์และเรื่องแหวกแนวที่จะทำ</string>
+	<string name="discovery_button_viator_offline_message">ทัวร์ สิ่งที่จะทำ ทัวร์ชมทิวทัศน์ และอื่น ๆ</string>
+	<string name="discovery_button_viator_error_title">ข้อผิดพลาดในการโหลดข้อมูล</string>
+	<string name="discovery_button_other_error_message">ข้อผิดพลาดในการโหลดข้อมูล</string>
+	<string name="discovery_button_other_loading_message">กำลังโหลดข้อมูล</string>
+	<string name="discovery_button_404_error_title">ไม่พบ</string>
+	<string name="discovery_button_404_error_message">อุ๊ย เราไม่พบอะไรน่าสนใจแถวนี้เลย</string>
+	<string name="booking_filters_check_in">เช็คอิน</string>
+	<string name="booking_filters_check_out">เช็คเอาท์</string>
+	<string name="booking_filters_offline">ไม่มีให้ใช้ออนไลน์</string>
+	<string name="directions_finish">จุดหมายปลายทาง</string>
+	<string name="directions_on_foot">เดินเท้า %s</string>
+	<string name="entrance">ทางเข้า</string>
+	<string name="coffee">กาแฟ</string>
+	<string name="cleanliness">ความสะอาด</string>
+	<string name="crowdedness">ความแออัด</string>
+	<string name="error_enter_correct_name">กรุณาใส่ชื่อที่ถูกต้อง</string>
+	<string name="hotel_available">มีให้ใช้ได้</string>
+	<string name="whats_new_transit_title">มีรถไฟใต้ดิน</string>
+	<string name="whats_new_transit_message">สร้างเส้นทางของคุณเองโดยใช้รถไฟใต้ดิน! กรุณาอัปเดตแผนที่เพื่อดูความเปลี่ยนแปลง</string>
+	<string name="whats_new_discovery_title">ปุ่มการค้นพบ</string>
+	<string name="whats_new_discovery_message">ค้นพบสิ่งรอบ ๆ ตัวในคลิกเดียว!</string>
+	<string name="price_per_hour">%s/ชั่วโมง</string>
 </resources>

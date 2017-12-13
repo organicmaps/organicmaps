@@ -809,7 +809,7 @@
 	<string name="error_enter_correct_zip_code">Introduceți codul poștal corect</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Loc necunoscut</string>
-	<string name="editor_other_info">Informații suplimentare</string>
+	<string name="editor_other_info">Trimiteți un resturi moderatorului OSM</string>
 	<string name="editor_detailed_description_hint">Comentariu detaliat</string>
 	<string name="editor_detailed_description">Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in MAPS.ME.</string>
 	<string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>
@@ -1185,4 +1185,35 @@
 	<string name="sponsored_thor_gather">Adună</string>
 	<string name="whats_new_ugc_title">Calificative și recenzii</string>
 	<string name="whats_new_ugc_message">Acum puteți lăsa calificative și recenzii chiar și când sunteți offline! Nu uitați să vă actualizați hărțile pentru a vedea modificările.</string>
+	<string name="dialog_error_storage_title">Problemă de accesare spațiu de stocare</string>
+	<string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este read-only. Verifică și contactează-ne la support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Emulare stocare eronată</string>
+	<string name="discovery_button_title">Descoperire în apropiere</string>
+	<string name="discovery_button_subtitle_things_to_do">Activități</string>
+	<string name="discovery_button_subtitle_attractions">Atracții</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Restaurante și baruri</string>
+	<string name="discovery_button_subtitle_local_guides">Ghizi locali</string>
+	<string name="discovery_button_viator_offline_title">Descoperă tururi și activități neobișnuite</string>
+	<string name="discovery_button_viator_offline_message">Tururi, activități, panorame și multe altele.</string>
+	<string name="discovery_button_viator_error_title">Eroare la încărcarea datelor</string>
+	<string name="discovery_button_other_error_message">Eroare la încărcarea datelor</string>
+	<string name="discovery_button_other_loading_message">Datele se încarcă</string>
+	<string name="discovery_button_404_error_title">Nu a fost găsit</string>
+	<string name="discovery_button_404_error_message">Ne pare rău, dar nu am găsit nimic interesant în jur.</string>
+	<string name="booking_filters_check_in">Cazare</string>
+	<string name="booking_filters_check_out">Plecare</string>
+	<string name="booking_filters_offline">Nu este disponibil online.</string>
+	<string name="directions_finish">Destinație</string>
+	<string name="directions_on_foot">%s de mers</string>
+	<string name="entrance">Intrare</string>
+	<string name="coffee">Cafea</string>
+	<string name="cleanliness">Curățenie</string>
+	<string name="crowdedness">Aglomerație</string>
+	<string name="error_enter_correct_name">Introdu un nume corect</string>
+	<string name="hotel_available">Disponibil</string>
+	<string name="whats_new_transit_title">Metrou disponibil</string>
+	<string name="whats_new_transit_message">Creează-ți propriile trasee cu metroul! Actualizează hărțile pentru a vedea modificările.</string>
+	<string name="whats_new_discovery_title">Butonul Descoperă</string>
+	<string name="whats_new_discovery_message">Descoperă lucruri din apropiere cu un singur clic!</string>
+	<string name="price_per_hour">%s/oră</string>
 </resources>

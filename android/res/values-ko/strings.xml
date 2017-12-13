@@ -808,7 +808,7 @@
 	<string name="error_enter_correct_zip_code">올바른 우편번호를 입력하세요</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">장소 알 수 없음</string>
-	<string name="editor_other_info">추가 정보</string>
+	<string name="editor_other_info">OSM 중재자에게 쪽지 보내기</string>
 	<string name="editor_detailed_description_hint">상세 설명</string>
 	<string name="editor_detailed_description">귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. MAPS.ME에서 편집할 수 없는 세부정보를 작성해 주세요.</string>
 	<string name="editor_more_about_osm">OpenStreetMap 정보</string>
@@ -1185,4 +1185,35 @@
 	<string name="sponsored_thor_gather">수집</string>
 	<string name="whats_new_ugc_title">평점 및 리뷰</string>
 	<string name="whats_new_ugc_message">이제 평점과 리뷰를 오프라인에서도 남길 수 있습니다! 변경 사항을 볼 수 있도록 지도를 업데이트하는 것을 잊지 마세요.</string>
+	<string name="dialog_error_storage_title">저장소 액세스 문제</string>
+	<string name="dialog_error_storage_message">외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support\@maps.me로 문의하세요.</string>
+	<string name="setting_emulate_bad_storage">불량 저장소 에뮬레이션</string>
+	<string name="discovery_button_title">근처에 대해 알아보기</string>
+	<string name="discovery_button_subtitle_things_to_do">할 일</string>
+	<string name="discovery_button_subtitle_attractions">관광명소</string>
+	<string name="discovery_button_subtitle_eat_and_drink">음식과 음료</string>
+	<string name="discovery_button_subtitle_local_guides">지역 가이드</string>
+	<string name="discovery_button_viator_offline_title">투어 그리고 기억에 남을 일 알아보기</string>
+	<string name="discovery_button_viator_offline_message">투어, 할 일, 관광 투어 등.</string>
+	<string name="discovery_button_viator_error_title">데이터 로드 중에 오류 발생</string>
+	<string name="discovery_button_other_error_message">데이터 로드 중에 오류 발생</string>
+	<string name="discovery_button_other_loading_message">데이터를 로드하는 중입니다.</string>
+	<string name="discovery_button_404_error_title">찾을 수 없음</string>
+	<string name="discovery_button_404_error_message">죄송합니다, 주변에서 흥미로운 것을 찾지 못했습니다.</string>
+	<string name="booking_filters_check_in">체크인</string>
+	<string name="booking_filters_check_out">체크아웃</string>
+	<string name="booking_filters_offline">온라인으로 사용할 수 없습니다.</string>
+	<string name="directions_finish">목적지</string>
+	<string name="directions_on_foot">%s 걷기</string>
+	<string name="entrance">입구</string>
+	<string name="coffee">커피</string>
+	<string name="cleanliness">청결</string>
+	<string name="crowdedness">혼잡</string>
+	<string name="error_enter_correct_name">올바른 이름을 입력하세요.</string>
+	<string name="hotel_available">사용 가능</string>
+	<string name="whats_new_transit_title">지하철 이용 가능</string>
+	<string name="whats_new_transit_message">지하철을 이용하여 경로를 작성하세요! 지도를 업데이트하여 변경 내용을 보세요.</string>
+	<string name="whats_new_discovery_title">검색 버튼</string>
+	<string name="whats_new_discovery_message">클릭 한 번으로 주변에 무엇이 있는지 알아보세요!</string>
+	<string name="price_per_hour">%s/시간</string>
 </resources>

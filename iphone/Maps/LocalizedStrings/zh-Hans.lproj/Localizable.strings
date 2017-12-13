@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "未知位置";
 
-"editor_other_info" = "附加信息";
+"editor_other_info" = "发送笔记到OSM调节器";
 
 "editor_detailed_description_hint" = "详细备注";
 
@@ -2120,64 +2120,64 @@
 
 "whats_new_ugc_message" = "现在，即使离线您也可以留下评分和评价！记得更新您的地图，这样您可以看到更改。";
 
-"dialog_error_storage_title" = "Storage access problem";
+"dialog_error_storage_title" = "存储空间访问问题";
 
-"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+"dialog_error_storage_message" = "外部存储空间不可用，可能是 SD 卡已移除、损坏，或者文件系统为只读。请检查，然后通过以下方式联系我们：support@maps.me";
 
-"setting_emulate_bad_storage" = "Emulate bad storage";
+"setting_emulate_bad_storage" = "模拟不良存储空间";
 
-"discovery_button_title" = "Discover nearby";
+"discovery_button_title" = "探索周围";
 
-"discovery_button_subtitle_things_to_do" = "Things to do";
+"discovery_button_subtitle_things_to_do" = "活动";
 
-"discovery_button_subtitle_attractions" = "Attractions";
+"discovery_button_subtitle_attractions" = "景点";
 
-"discovery_button_subtitle_eat_and_drink" = "Eat and drink";
+"discovery_button_subtitle_eat_and_drink" = "餐饮";
 
-"discovery_button_subtitle_local_guides" = "Local Guides";
+"discovery_button_subtitle_local_guides" = "本地指南";
 
-"discovery_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "探索行程和特殊活动";
 
-"discovery_button_viator_offline_message" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_viator_offline_message" = "旅行、活动、观光，等等。";
 
-"discovery_button_viator_error_title" = "Error loading data";
+"discovery_button_viator_error_title" = "加载数据时出错";
 
-"discovery_button_other_error_message" = "Error loading data";
+"discovery_button_other_error_message" = "加载数据时出错";
 
-"discovery_button_other_loading_message" = "Data is loading";
+"discovery_button_other_loading_message" = "正在加载数据";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "未找到";
 
-"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+"discovery_button_404_error_message" = "糟糕，我们未在周围找到任何有趣的事情。";
 
-"booking_filters_check_in" = "Check in";
+"booking_filters_check_in" = "入住";
 
-"booking_filters_check_out" = "Check Out";
+"booking_filters_check_out" = "退房";
 
-"booking_filters_offline" = "Not available online.";
+"booking_filters_offline" = "无法在线提供。";
 
-"directions_finish" = "Destination";
+"directions_finish" = "目的地";
 
-"directions_on_foot" = "Walk %s";
+"directions_on_foot" = "步行 %s";
 
-"entrance" = "Entrance";
+"entrance" = "入口";
 
-"coffee" = "Coffee";
+"coffee" = "咖啡";
 
-"cleanliness" = "Cleanliness";
+"cleanliness" = "卫生程度";
 
-"crowdedness" = "Crowdedness";
+"crowdedness" = "拥挤程度";
 
-"error_enter_correct_name" = "Please, enter a correct name";
+"error_enter_correct_name" = "请输入正确的名称";
 
-"hotel_available" = "Available";
+"hotel_available" = "可用";
 
-"whats_new_transit_title" = "Subways available";
+"whats_new_transit_title" = "地铁可用";
 
-"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+"whats_new_transit_message" = "使用地铁构建您的路线！请更新地图以查看变更。";
 
-"whats_new_discovery_title" = "Discovery button";
+"whats_new_discovery_title" = "探索按钮";
 
-"whats_new_discovery_message" = "Discover things around in one click!";
+"whats_new_discovery_message" = "轻轻点击一下，探索周围一切！";
 
-"price_per_hour" = "%s/hour";
+"price_per_hour" = "%s/小时";

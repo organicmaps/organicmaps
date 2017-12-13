@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "Neznáme miesto";
 
-"editor_other_info" = "Dodatočné informácie";
+"editor_other_info" = "Poznámka odoslaná regulátorovi OSM";
 
 "editor_detailed_description_hint" = "Zmazaná poznámka";
 
@@ -2120,64 +2120,64 @@
 
 "whats_new_ugc_message" = "Teraz môžete napísať hodnotenia a recenzie aj offline! Nezabudnite si aktualizovať mapy, aby ste videli zmeny.";
 
-"dialog_error_storage_title" = "Storage access problem";
+"dialog_error_storage_title" = "Problém s prístupom k úložisku";
 
-"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+"dialog_error_storage_message" = "Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support@maps.me";
 
-"setting_emulate_bad_storage" = "Emulate bad storage";
+"setting_emulate_bad_storage" = "Imitovať poškodené úložisko";
 
-"discovery_button_title" = "Discover nearby";
+"discovery_button_title" = "Poznávajte svoje okolie";
 
-"discovery_button_subtitle_things_to_do" = "Things to do";
+"discovery_button_subtitle_things_to_do" = "Aktivity";
 
-"discovery_button_subtitle_attractions" = "Attractions";
+"discovery_button_subtitle_attractions" = "Atrakcie";
 
-"discovery_button_subtitle_eat_and_drink" = "Eat and drink";
+"discovery_button_subtitle_eat_and_drink" = "Jedlo a pitie";
 
-"discovery_button_subtitle_local_guides" = "Local Guides";
+"discovery_button_subtitle_local_guides" = "Miestni sprievodcovia";
 
-"discovery_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "Objavte výlety a nezvyčajné aktivity";
 
-"discovery_button_viator_offline_message" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_viator_offline_message" = "Zájazdy, voľnočasové aktivity, okružné jazdy a ďalšie.";
 
-"discovery_button_viator_error_title" = "Error loading data";
+"discovery_button_viator_error_title" = "Chyba pri načítaní dat";
 
-"discovery_button_other_error_message" = "Error loading data";
+"discovery_button_other_error_message" = "Chyba pri načítaní dat";
 
-"discovery_button_other_loading_message" = "Data is loading";
+"discovery_button_other_loading_message" = "Prebieha načítanie dát";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "Nič nebolo nájdené";
 
-"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+"discovery_button_404_error_message" = "Ejha, nenašli sme v okolí nič zaujímavé.";
 
-"booking_filters_check_in" = "Check in";
+"booking_filters_check_in" = "Prihlásiť sa";
 
-"booking_filters_check_out" = "Check Out";
+"booking_filters_check_out" = "Odhlásiť sa";
 
-"booking_filters_offline" = "Not available online.";
+"booking_filters_offline" = "Nie sú k dispozícii online.";
 
-"directions_finish" = "Destination";
+"directions_finish" = "Ciel";
 
-"directions_on_foot" = "Walk %s";
+"directions_on_foot" = "Chôdza %s";
 
-"entrance" = "Entrance";
+"entrance" = "Vchod  | vjazd";
 
-"coffee" = "Coffee";
+"coffee" = "Káva";
 
-"cleanliness" = "Cleanliness";
+"cleanliness" = "Čistota";
 
-"crowdedness" = "Crowdedness";
+"crowdedness" = "Preplnenosť";
 
-"error_enter_correct_name" = "Please, enter a correct name";
+"error_enter_correct_name" = "Prosím, zadajte správne meno";
 
-"hotel_available" = "Available";
+"hotel_available" = "K dispozícii";
 
-"whats_new_transit_title" = "Subways available";
+"whats_new_transit_title" = "Metro k dispozícii";
 
-"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+"whats_new_transit_message" = "Vyhľadávajte trasy aj s využitím metra! Pre zobrazenie zmien, prosím, zaktualizujte mapy.";
 
-"whats_new_discovery_title" = "Discovery button";
+"whats_new_discovery_title" = "Tlačidlo Priezkum";
 
-"whats_new_discovery_message" = "Discover things around in one click!";
+"whats_new_discovery_message" = "Preskúmajte veci okolo Vás pomocou jedného kliku!";
 
-"price_per_hour" = "%s/hour";
+"price_per_hour" = "%s/hodina";

@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "Ukendt sted";
 
-"editor_other_info" = "Yderligere info";
+"editor_other_info" = "Send en besked til OSM-moderator";
 
 "editor_detailed_description_hint" = "Detaljerede bemærkninger";
 
@@ -2120,64 +2120,64 @@
 
 "whats_new_ugc_message" = "Du kan nu afgive vurderinger og anmeldelser, selv offline! Glem ikke at opdatere dit kort, så du kan se ændringerne.";
 
-"dialog_error_storage_title" = "Storage access problem";
+"dialog_error_storage_title" = "Problem med lageradgang";
 
-"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+"dialog_error_storage_message" = "Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support@maps.me";
 
-"setting_emulate_bad_storage" = "Emulate bad storage";
+"setting_emulate_bad_storage" = "Emulere beskadiget lager";
 
-"discovery_button_title" = "Discover nearby";
+"discovery_button_title" = "Find noget i nærheden";
 
-"discovery_button_subtitle_things_to_do" = "Things to do";
+"discovery_button_subtitle_things_to_do" = "Aktiviteter";
 
-"discovery_button_subtitle_attractions" = "Attractions";
+"discovery_button_subtitle_attractions" = "Seværdigheder";
 
-"discovery_button_subtitle_eat_and_drink" = "Eat and drink";
+"discovery_button_subtitle_eat_and_drink" = "Spise og drikke";
 
-"discovery_button_subtitle_local_guides" = "Local Guides";
+"discovery_button_subtitle_local_guides" = "Lokale guider";
 
-"discovery_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "Find ture og nye oplevelser";
 
-"discovery_button_viator_offline_message" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_viator_offline_message" = "Ture, oplevelser, sightseeing med mere.";
 
-"discovery_button_viator_error_title" = "Error loading data";
+"discovery_button_viator_error_title" = "Fejl ved indlæsning af data";
 
-"discovery_button_other_error_message" = "Error loading data";
+"discovery_button_other_error_message" = "Fejl ved indlæsning af data";
 
-"discovery_button_other_loading_message" = "Data is loading";
+"discovery_button_other_loading_message" = "Data indlæses";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "Ikke fundet";
 
-"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+"discovery_button_404_error_message" = "Ups, vi fandt ikke noget interessant i nærheden.";
 
-"booking_filters_check_in" = "Check in";
+"booking_filters_check_in" = "Tjek ind";
 
-"booking_filters_check_out" = "Check Out";
+"booking_filters_check_out" = "Tjek ud";
 
-"booking_filters_offline" = "Not available online.";
+"booking_filters_offline" = "Ikke tilgængelig online.";
 
 "directions_finish" = "Destination";
 
-"directions_on_foot" = "Walk %s";
+"directions_on_foot" = "Gå %s";
 
-"entrance" = "Entrance";
+"entrance" = "Indgang";
 
-"coffee" = "Coffee";
+"coffee" = "Kaffe";
 
-"cleanliness" = "Cleanliness";
+"cleanliness" = "Renlighed";
 
-"crowdedness" = "Crowdedness";
+"crowdedness" = "Trængsel";
 
-"error_enter_correct_name" = "Please, enter a correct name";
+"error_enter_correct_name" = "Angiv et korrekt navn";
 
-"hotel_available" = "Available";
+"hotel_available" = "Tiilgængelig";
 
-"whats_new_transit_title" = "Subways available";
+"whats_new_transit_title" = "Undergrundsbaner tilgængelige";
 
-"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+"whats_new_transit_message" = "Opret ruter med undergrundsbaner! Opdater kortene for at se ændringer.";
 
-"whats_new_discovery_title" = "Discovery button";
+"whats_new_discovery_title" = "Opdagelsesknap";
 
-"whats_new_discovery_message" = "Discover things around in one click!";
+"whats_new_discovery_message" = "Opdag nye ting med et enkelt klik!";
 
-"price_per_hour" = "%s/hour";
+"price_per_hour" = "%s/time";

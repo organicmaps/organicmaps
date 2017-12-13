@@ -815,7 +815,7 @@
 	<string name="error_enter_correct_zip_code">Podaj prawidłowy kod pocztowy</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Nieznane miejsce</string>
-	<string name="editor_other_info">Dodatkowe informacje</string>
+	<string name="editor_other_info">Wyślij uwagę do moderatora OSM</string>
 	<string name="editor_detailed_description_hint">Szczegółowy komentarz</string>
 	<string name="editor_detailed_description">Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w MAPS.ME.</string>
 	<string name="editor_more_about_osm">Więcej o OpenStreetMap</string>
@@ -1192,4 +1192,35 @@
 	<string name="sponsored_thor_gather">Zbierz</string>
 	<string name="whats_new_ugc_title">Oceny i recenzje</string>
 	<string name="whats_new_ugc_message">Możesz od teraz zamieszczać oceny i recenzje offline! Nie zapomnij zaktualizować map, aby zobaczyć wprowadzone zmiany.</string>
+	<string name="dialog_error_storage_title">Problem z dostępem do pamięci masowej</string>
+	<string name="dialog_error_storage_message">Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Emuluj wadliwą pamięć masową</string>
+	<string name="discovery_button_title">Odkryj okolicę</string>
+	<string name="discovery_button_subtitle_things_to_do">Atrakcje</string>
+	<string name="discovery_button_subtitle_attractions">Atrakcje</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Jedzenie i picie</string>
+	<string name="discovery_button_subtitle_local_guides">Przewodniki po okolicy</string>
+	<string name="discovery_button_viator_offline_title">Odkrywaj wycieczki i nietypowe atrakcje</string>
+	<string name="discovery_button_viator_offline_message">Wycieczki, atrakcje, zwiedzanie i wiele innych.</string>
+	<string name="discovery_button_viator_error_title">Błąd wczytywania danych</string>
+	<string name="discovery_button_other_error_message">Błąd wczytywania danych</string>
+	<string name="discovery_button_other_loading_message">Wczytywanie danych</string>
+	<string name="discovery_button_404_error_title">Nie znaleziono</string>
+	<string name="discovery_button_404_error_message">Ups, nie znaleźliśmy w okolicy niczego interesującego.</string>
+	<string name="booking_filters_check_in">Zameldowanie</string>
+	<string name="booking_filters_check_out">Wymeldowanie</string>
+	<string name="booking_filters_offline">Niedostępne online.</string>
+	<string name="directions_finish">Punkt docelowy</string>
+	<string name="directions_on_foot">Przejdź %s</string>
+	<string name="entrance">Wejście</string>
+	<string name="coffee">Kawa</string>
+	<string name="cleanliness">Czystość</string>
+	<string name="crowdedness">Zatłoczenie</string>
+	<string name="error_enter_correct_name">Wprowadź poprawną nazwę</string>
+	<string name="hotel_available">Dostępny</string>
+	<string name="whats_new_transit_title">Dostępne metro</string>
+	<string name="whats_new_transit_message">Twórz trasy w oparciu o linie metra! Zaktualizuj mapy, aby zobaczyć wprowadzone zmiany.</string>
+	<string name="whats_new_discovery_title">Przycisk odkrywania</string>
+	<string name="whats_new_discovery_message">Odkrywaj rzeczy dookoła jednym kliknięciem!</string>
+	<string name="price_per_hour">%s/godzina</string>
 </resources>

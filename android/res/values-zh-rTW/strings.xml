@@ -822,7 +822,7 @@
 	<string name="error_enter_correct_zip_code">輸入正確的郵遞區號</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">未知的位置</string>
-	<string name="editor_other_info">額外資訊</string>
+	<string name="editor_other_info">發送筆記到OSM調節器</string>
 	<string name="editor_detailed_description_hint">詳細註釋</string>
 	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 MAPS.ME 中編輯的詳細資料。</string>
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
@@ -1199,4 +1199,35 @@
 	<string name="sponsored_thor_gather">收集</string>
 	<string name="whats_new_ugc_title">評分與評論</string>
 	<string name="whats_new_ugc_message">現在即使離線，您也能留下評分和評論！別忘了更新地圖，才能看到變更。</string>
+	<string name="dialog_error_storage_title">儲存空間存取問題</string>
+	<string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support\@maps.me 方式聯繫我們</string>
+	<string name="setting_emulate_bad_storage">模擬不良儲存空間</string>
+	<string name="discovery_button_title">探索鄰近區域</string>
+	<string name="discovery_button_subtitle_things_to_do">活動</string>
+	<string name="discovery_button_subtitle_attractions">景點</string>
+	<string name="discovery_button_subtitle_eat_and_drink">餐飲</string>
+	<string name="discovery_button_subtitle_local_guides">本地指南</string>
+	<string name="discovery_button_viator_offline_title">探索行程與特殊活動</string>
+	<string name="discovery_button_viator_offline_message">旅行、活動、觀光及其他。</string>
+	<string name="discovery_button_viator_error_title">載入數據時，發生錯誤</string>
+	<string name="discovery_button_other_error_message">載入數據時，發生錯誤</string>
+	<string name="discovery_button_other_loading_message">正在載入數據</string>
+	<string name="discovery_button_404_error_title">未找到</string>
+	<string name="discovery_button_404_error_message">哎呀，我們沒在周圍找到任何有趣的事情。</string>
+	<string name="booking_filters_check_in">入住登記</string>
+	<string name="booking_filters_check_out">退房登記</string>
+	<string name="booking_filters_offline">無法線上提供。</string>
+	<string name="directions_finish">目的地</string>
+	<string name="directions_on_foot">步行 %s</string>
+	<string name="entrance">入口</string>
+	<string name="coffee">咖啡</string>
+	<string name="cleanliness">清潔程度</string>
+	<string name="crowdedness">擁擠程度</string>
+	<string name="error_enter_correct_name">請輸入正確的名稱</string>
+	<string name="hotel_available">可用</string>
+	<string name="whats_new_transit_title">地鐵可用</string>
+	<string name="whats_new_transit_message">使用地鐵規劃您的路線！請更新地圖以查看變更。</string>
+	<string name="whats_new_discovery_title">探索按鈕</string>
+	<string name="whats_new_discovery_message">只要點按一下，就能探索周圍一切！</string>
+	<string name="price_per_hour">%s/小時</string>
 </resources>

@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "Unknown Place";
 
-"editor_other_info" = "Additional info";
+"editor_other_info" = "Send a note to OSM moderators";
 
 "editor_detailed_description_hint" = "Detailed comment";
 
@@ -2122,7 +2122,7 @@
 
 "dialog_error_storage_title" = "Storage access problem";
 
-"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+"dialog_error_storage_message" = "External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support@maps.me";
 
 "setting_emulate_bad_storage" = "Emulate bad storage";
 
@@ -2152,7 +2152,7 @@
 
 "booking_filters_check_in" = "Check in";
 
-"booking_filters_check_out" = "Check Out";
+"booking_filters_check_out" = "Check out";
 
 "booking_filters_offline" = "Not available online.";
 

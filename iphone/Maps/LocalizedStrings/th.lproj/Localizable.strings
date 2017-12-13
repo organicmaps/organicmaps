@@ -1380,7 +1380,7 @@
 /* Place Page title for long tap */
 "placepage_unknown_place" = "ไม่ทราบชื่อสถานที่";
 
-"editor_other_info" = "ข้อมูลเพิ่มเติม";
+"editor_other_info" = "ส่งหมายเหตุไปยังผู้ดำเนินการ OSM";
 
 "editor_detailed_description_hint" = "ข้อคิดเห็นอย่างละเอียด";
 
@@ -2120,64 +2120,64 @@
 
 "whats_new_ugc_message" = "ขณะนี้คุณสามารถให้คะแนนและรีวิวได้แม้กระทั่งออฟไลน์อยู่! อย่าลืมอัปเดตแผนที่ของคุณเพื่อจะได้เห็นการเปลี่ยนแปลง";
 
-"dialog_error_storage_title" = "Storage access problem";
+"dialog_error_storage_title" = "ปัญหาการเข้าถึงที่เก็บข้อมูล";
 
-"dialog_error_storage_message" = "External storage is not available, probably SD Card is removed, damaged or file system is read-only. Check it please and contact us at support@maps.me";
+"dialog_error_storage_message" = "ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support@maps.me";
 
-"setting_emulate_bad_storage" = "Emulate bad storage";
+"setting_emulate_bad_storage" = "จำลองแบบที่เก็บข้อมูลที่ไม่ดี";
 
-"discovery_button_title" = "Discover nearby";
+"discovery_button_title" = "ค้นหาบริเวณใกล้เคียง";
 
-"discovery_button_subtitle_things_to_do" = "Things to do";
+"discovery_button_subtitle_things_to_do" = "สิ่งที่จะทำ";
 
-"discovery_button_subtitle_attractions" = "Attractions";
+"discovery_button_subtitle_attractions" = "สถานที่ท่องเที่ยว";
 
-"discovery_button_subtitle_eat_and_drink" = "Eat and drink";
+"discovery_button_subtitle_eat_and_drink" = "กินและดื่ม";
 
-"discovery_button_subtitle_local_guides" = "Local Guides";
+"discovery_button_subtitle_local_guides" = "มัคคุเทศก์ท้องถิ่น";
 
-"discovery_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "ค้นหาทัวร์และเรื่องแหวกแนวที่จะทำ";
 
-"discovery_button_viator_offline_message" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_viator_offline_message" = "ทัวร์ สิ่งที่จะทำ ทัวร์ชมทิวทัศน์ และอื่น ๆ";
 
-"discovery_button_viator_error_title" = "Error loading data";
+"discovery_button_viator_error_title" = "ข้อผิดพลาดในการโหลดข้อมูล";
 
-"discovery_button_other_error_message" = "Error loading data";
+"discovery_button_other_error_message" = "ข้อผิดพลาดในการโหลดข้อมูล";
 
-"discovery_button_other_loading_message" = "Data is loading";
+"discovery_button_other_loading_message" = "กำลังโหลดข้อมูล";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "ไม่พบ";
 
-"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+"discovery_button_404_error_message" = "อุ๊ย เราไม่พบอะไรน่าสนใจแถวนี้เลย";
 
-"booking_filters_check_in" = "Check in";
+"booking_filters_check_in" = "เช็คอิน";
 
-"booking_filters_check_out" = "Check Out";
+"booking_filters_check_out" = "เช็คเอาท์";
 
-"booking_filters_offline" = "Not available online.";
+"booking_filters_offline" = "ไม่มีให้ใช้ออนไลน์";
 
-"directions_finish" = "Destination";
+"directions_finish" = "จุดหมายปลายทาง";
 
-"directions_on_foot" = "Walk %s";
+"directions_on_foot" = "เดินเท้า %s";
 
-"entrance" = "Entrance";
+"entrance" = "ทางเข้า";
 
-"coffee" = "Coffee";
+"coffee" = "กาแฟ";
 
-"cleanliness" = "Cleanliness";
+"cleanliness" = "ความสะอาด";
 
-"crowdedness" = "Crowdedness";
+"crowdedness" = "ความแออัด";
 
-"error_enter_correct_name" = "Please, enter a correct name";
+"error_enter_correct_name" = "กรุณาใส่ชื่อที่ถูกต้อง";
 
-"hotel_available" = "Available";
+"hotel_available" = "มีให้ใช้ได้";
 
-"whats_new_transit_title" = "Subways available";
+"whats_new_transit_title" = "มีรถไฟใต้ดิน";
 
-"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+"whats_new_transit_message" = "สร้างเส้นทางของคุณเองโดยใช้รถไฟใต้ดิน! กรุณาอัปเดตแผนที่เพื่อดูความเปลี่ยนแปลง";
 
-"whats_new_discovery_title" = "Discovery button";
+"whats_new_discovery_title" = "ปุ่มการค้นพบ";
 
-"whats_new_discovery_message" = "Discover things around in one click!";
+"whats_new_discovery_message" = "ค้นพบสิ่งรอบ ๆ ตัวในคลิกเดียว!";
 
-"price_per_hour" = "%s/hour";
+"price_per_hour" = "%s/ชั่วโมง";

@@ -811,7 +811,7 @@
 	<string name="error_enter_correct_zip_code">正しい郵便番号を入力してください</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">不明な場所</string>
-	<string name="editor_other_info">追加情報</string>
+	<string name="editor_other_info">OSM モデレーターにメモを送信</string>
 	<string name="editor_detailed_description_hint">詳細なコメント</string>
 	<string name="editor_detailed_description">あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。MAPS.MEで編集できない詳細を説明してください。</string>
 	<string name="editor_more_about_osm">OpenStreetMapについての詳細</string>
@@ -1188,4 +1188,35 @@
 	<string name="sponsored_thor_gather">収集</string>
 	<string name="whats_new_ugc_title">評価とレビュー</string>
 	<string name="whats_new_ugc_message">オフライン時にも評価とレビューを残せるようになりました！変更箇所を確認できるよう、忘れずに地図を更新してください。</string>
+	<string name="dialog_error_storage_title">ストレージアクセスの問題</string>
+	<string name="dialog_error_storage_message">外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損している、あるいはファイルシステムが読み取り専用になっています。確認後、support\@maps.me までご連絡ください。</string>
+	<string name="setting_emulate_bad_storage">壊れたストレージをエミュレート</string>
+	<string name="discovery_button_title">近隣を探す</string>
+	<string name="discovery_button_subtitle_things_to_do">活動</string>
+	<string name="discovery_button_subtitle_attractions">観光地</string>
+	<string name="discovery_button_subtitle_eat_and_drink">飲食</string>
+	<string name="discovery_button_subtitle_local_guides">地元のガイド</string>
+	<string name="discovery_button_viator_offline_title">旅行や変わった活動を探します</string>
+	<string name="discovery_button_viator_offline_message">ツアー、活動、観光ツアーなど。</string>
+	<string name="discovery_button_viator_error_title">データの読み込みエラー</string>
+	<string name="discovery_button_other_error_message">データの読み込みエラー</string>
+	<string name="discovery_button_other_loading_message">データを読み込み中です</string>
+	<string name="discovery_button_404_error_title">見つかりません</string>
+	<string name="discovery_button_404_error_message">周辺では面白そうなものが何も見つかりませんでした。</string>
+	<string name="booking_filters_check_in">チェックイン</string>
+	<string name="booking_filters_check_out">チェックアウト</string>
+	<string name="booking_filters_offline">オンラインでは利用できません。</string>
+	<string name="directions_finish">目的地</string>
+	<string name="directions_on_foot">徒歩 %s</string>
+	<string name="entrance">入口</string>
+	<string name="coffee">コーヒー</string>
+	<string name="cleanliness">清潔さ</string>
+	<string name="crowdedness">混雑度</string>
+	<string name="error_enter_correct_name">正しい名前を入力してください</string>
+	<string name="hotel_available">利用可能</string>
+	<string name="whats_new_transit_title">地下鉄を利用可能</string>
+	<string name="whats_new_transit_message">地下鉄を使用してルートを作りましょう！変更を確認するには、地図を更新してください。</string>
+	<string name="whats_new_discovery_title">探すボタン</string>
+	<string name="whats_new_discovery_message">ワンクリックで周囲のものを探します！</string>
+	<string name="price_per_hour">%s/時間</string>
 </resources>

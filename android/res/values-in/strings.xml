@@ -811,7 +811,7 @@
 	<string name="error_enter_correct_zip_code">Masukkan Kode Pos yang benar</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Tempat Tidak Dikenal</string>
-	<string name="editor_other_info">Info tambahan</string>
+	<string name="editor_other_info">Mengirim catatan ke moderator OSM</string>
 	<string name="editor_detailed_description_hint">Komentar mendetail</string>
 	<string name="editor_detailed_description">Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di MAPS.ME.</string>
 	<string name="editor_more_about_osm">Selengkapnya tentang OpenStreetMap</string>
@@ -1188,4 +1188,35 @@
 	<string name="sponsored_thor_gather">Kumpulkan</string>
 	<string name="whats_new_ugc_title">Peringkat dan ulasan</string>
 	<string name="whats_new_ugc_message">Kini Anda bisa memberikan peringkat dan ulasan, meskipun tanpa internet! Jangan lupa untuk memperbarui peta Anda agar dapat melihat perubahannya.</string>
+	<string name="dialog_error_storage_title">Masalah akses penyimpanan</string>
+	<string name="dialog_error_storage_message">Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support\@ maps.me</string>
+	<string name="setting_emulate_bad_storage">Emulasi penyimpanan yang buruk</string>
+	<string name="discovery_button_title">Temukan di sekitar</string>
+	<string name="discovery_button_subtitle_things_to_do">Hal yang akan dilakukan</string>
+	<string name="discovery_button_subtitle_attractions">Atraksi</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Makan dan minum</string>
+	<string name="discovery_button_subtitle_local_guides">Panduan Lokal</string>
+	<string name="discovery_button_viator_offline_title">Temukan wisata dan hal unik yang akan dilakukan</string>
+	<string name="discovery_button_viator_offline_message">Wisata, hal yang akan dilakukan, wisata pemandangan, dan lain sebagainya.</string>
+	<string name="discovery_button_viator_error_title">Ada kesalahan saat memuat data</string>
+	<string name="discovery_button_other_error_message">Ada kesalahan saat memuat data</string>
+	<string name="discovery_button_other_loading_message">Data sedang dimuat</string>
+	<string name="discovery_button_404_error_title">Tidak ditemukan</string>
+	<string name="discovery_button_404_error_message">Waduh, kami tidak menemukan hal-hal menarik di sekitar sini.</string>
+	<string name="booking_filters_check_in">Check in</string>
+	<string name="booking_filters_check_out">Check out</string>
+	<string name="booking_filters_offline">Tidak tersedia online.</string>
+	<string name="directions_finish">Destinasi</string>
+	<string name="directions_on_foot">Berjalan %s</string>
+	<string name="entrance">Tempat masuk</string>
+	<string name="coffee">Kopi</string>
+	<string name="cleanliness">Kebersihan</string>
+	<string name="crowdedness">Keramaian</string>
+	<string name="error_enter_correct_name">Harap masukkan nama yang benar</string>
+	<string name="hotel_available">Tersedia</string>
+	<string name="whats_new_transit_title">Tersedia kereta bawah tanah</string>
+	<string name="whats_new_transit_message">Buat rute Anda menggunakan kereta bawah tanah! Harap perbarui peta untuk melihat perubahannya.</string>
+	<string name="whats_new_discovery_title">Tombol penemuan</string>
+	<string name="whats_new_discovery_message">Temukan hal-hal di sekitar Anda dalam satu klik!</string>
+	<string name="price_per_hour">%s/jam</string>
 </resources>

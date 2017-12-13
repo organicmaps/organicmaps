@@ -812,7 +812,7 @@
 	<string name="error_enter_correct_zip_code">Anna kelvollinen postinumero</string>
 	<!-- Place Page title for long tap -->
 	<string name="placepage_unknown_place">Tuntematon paikka</string>
-	<string name="editor_other_info">Lisätiedot</string>
+	<string name="editor_other_info">Lähetä muistiinpano OSM-moderaattorille</string>
 	<string name="editor_detailed_description_hint">Yksityiskohtainen kommentti</string>
 	<string name="editor_detailed_description">Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata MAPS.ME:ssä.</string>
 	<string name="editor_more_about_osm">Lisätietoja OpenStreetMap:ista</string>
@@ -1189,4 +1189,35 @@
 	<string name="sponsored_thor_gather">Kerää</string>
 	<string name="whats_new_ugc_title">Arviot ja arvostelut</string>
 	<string name="whats_new_ugc_message">Nyt voit jättää arvioita ja arvosteluja myös offline-tilassa! Älä unohda päivittää karttojasi, jotta näet muutokset.</string>
+	<string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
+	<string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support\@maps.me</string>
+	<string name="setting_emulate_bad_storage">Jäljittele virheellistä tallennustilaa</string>
+	<string name="discovery_button_title">Löydä lähistöllä olevia kohteita</string>
+	<string name="discovery_button_subtitle_things_to_do">Tekemistä</string>
+	<string name="discovery_button_subtitle_attractions">Nähtävyydet</string>
+	<string name="discovery_button_subtitle_eat_and_drink">Syötävää ja juotavaa</string>
+	<string name="discovery_button_subtitle_local_guides">Paikalliset oppaat</string>
+	<string name="discovery_button_viator_offline_title">Tutustu kierroksiin ja epätavallisiin aktiviteetteihin</string>
+	<string name="discovery_button_viator_offline_message">Kierroksia, tekemistä, kiertoajeluita ja muuta.</string>
+	<string name="discovery_button_viator_error_title">Virhe ladattaessa tietoja</string>
+	<string name="discovery_button_other_error_message">Virhe ladattaessa tietoja</string>
+	<string name="discovery_button_other_loading_message">Tietoja ladataan</string>
+	<string name="discovery_button_404_error_title">Ei löytynyt</string>
+	<string name="discovery_button_404_error_message">Emme löytäneet mitään mielenkiintoista lähistöltä.</string>
+	<string name="booking_filters_check_in">Sisäänkirjautuminen</string>
+	<string name="booking_filters_check_out">Uloskirjautuminen</string>
+	<string name="booking_filters_offline">Ei saatavana verkossa.</string>
+	<string name="directions_finish">Kohde</string>
+	<string name="directions_on_foot">Kävele %s</string>
+	<string name="entrance">Sisäänkäynti</string>
+	<string name="coffee">Kahvi</string>
+	<string name="cleanliness">Puhtaus</string>
+	<string name="crowdedness">Ahtaus</string>
+	<string name="error_enter_correct_name">Anna oikea nimi</string>
+	<string name="hotel_available">Saatavilla</string>
+	<string name="whats_new_transit_title">Metrot käytettävissä</string>
+	<string name="whats_new_transit_message">Luo reittisi käyttämällä metroja! Päivitä kartat, jotta näet muutokset.</string>
+	<string name="whats_new_discovery_title">Löytöpainike</string>
+	<string name="whats_new_discovery_message">Löydä tekemistä lähistöltä yhdellä napsautuksella!</string>
+	<string name="price_per_hour">%s/tunti</string>
 </resources>
