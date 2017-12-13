@@ -223,7 +223,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   protected void setupPlaceholder(@NonNull PlaceholderView placeholder)
   {
     if (mAdapter != null && mAdapter.isSearchResultsMode())
-      placeholder.setContent(R.drawable.img_search_nothing_found_light,
+      placeholder.setContent(R.drawable.img_mappyny,
                              R.string.search_not_found, R.string.search_not_found_query);
     else
       placeholder.setContent(R.drawable.img_search_no_maps,
