@@ -113,7 +113,8 @@
 - (void)resetAction
 {
   [Statistics logEvent:kStatSearchFilterReset withParameters:@{kStatCategory: kStatHotel}];
-  [self clearFilter];
+  MWMSearchFilterViewController * filter = [MWMSearch getFilter];
+  [filter reset];
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate

@@ -137,6 +137,15 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   [self setNeedsStatusBarAppearanceUpdate];
 }
 
+- (void)reset
+{
+  self.check = nil;
+  self.rating = nil;
+  self.price = nil;
+  self.type = nil;
+  [self.tableView reloadData];
+}
+
 - (void)refreshStatusBarAppearance
 {
   self.navigationController.navigationBar.barStyle = UIBarStyleBlack;

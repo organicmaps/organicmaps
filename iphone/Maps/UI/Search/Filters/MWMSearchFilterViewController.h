@@ -18,5 +18,6 @@ struct Rule;
 
 - (shared_ptr<search::hotels_filter::Rule>)rules;
 - (booking::filter::availability::Params)availabilityParams;
+- (void)reset;
 
 @end
