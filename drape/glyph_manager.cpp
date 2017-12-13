@@ -256,48 +256,6 @@ public:
     return result;
   }
 
-  GlyphManager::Glyph GenerateGlyph(GlyphManager::Glyph const & glyph) const
-  {
-    if (glyph.m_image.m_data != nullptr)
-    {
-      GlyphManager::Glyph resultGlyph;
-      resultGlyph.m_metrics = glyph.m_metrics;
-      resultGlyph.m_fontIndex = glyph.m_fontIndex;
-      resultGlyph.m_code = glyph.m_code;
-      resultGlyph.m_fixedSize = glyph.m_fixedSize;
-
-      if (glyph.m_fixedSize < 0)
-      {
-        sdf_image::SdfImage img(glyph.m_image.m_bitmapRows, glyph.m_image.m_bitmapPitch,
-                                glyph.m_image.m_data->data(), m_sdfScale * kSdfBorder);
-
-        img.GenerateSDF(1.0f / (float)m_sdfScale);
-
-        ASSERT(img.GetWidth() == glyph.m_image.m_width, ());
-        ASSERT(img.GetHeight() == glyph.m_image.m_height, ());
-
-        size_t bufferSize = my::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
-        resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
-
-        img.GetData(*resultGlyph.m_image.m_data);
-      }
-      else
-      {
-        size_t bufferSize = my::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
-        resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
-        resultGlyph.m_image.m_data->assign(glyph.m_image.m_data->begin(), glyph.m_image.m_data->end());
-      }
-
-      resultGlyph.m_image.m_width = glyph.m_image.m_width;
-      resultGlyph.m_image.m_height = glyph.m_image.m_height;
-      resultGlyph.m_image.m_bitmapRows = 0;
-      resultGlyph.m_image.m_bitmapPitch = 0;
-
-      return resultGlyph;
-    }
-    return glyph;
-  }
-
   void GetCharcodes(vector<FT_ULong> & charcodes)
   {
     FT_UInt gindex;
@@ -340,7 +298,7 @@ private:
 
   std::set<pair<strings::UniChar, int>> m_readyGlyphs;
 };
-}
+}  // namespace
 
 // Information about single unicode block.
 struct UnicodeBlock
@@ -391,7 +349,7 @@ struct UnicodeBlock
 using TUniBlocks = std::vector<UnicodeBlock>;
 using TUniBlockIter = TUniBlocks::const_iterator;
 
-const int GlyphManager::kDynamicGlyphSize = -1;
+int const GlyphManager::kDynamicGlyphSize = -1;
 
 struct GlyphManager::Impl
 {
@@ -401,12 +359,14 @@ struct GlyphManager::Impl
   std::vector<std::unique_ptr<Font>> m_fonts;
 
   uint32_t m_baseGlyphHeight;
+  uint32_t m_sdfScale;
 };
 
 GlyphManager::GlyphManager(GlyphManager::Params const & params)
   : m_impl(new Impl())
 {
   m_impl->m_baseGlyphHeight = params.m_baseGlyphHeight;
+  m_impl->m_sdfScale = params.m_sdfScale;
 
   using TFontAndBlockName = pair<std::string, std::string>;
   using TFontLst = buffer_vector<TFontAndBlockName, 64>;
@@ -542,6 +502,11 @@ uint32_t GlyphManager::GetBaseGlyphHeight() const
   return m_impl->m_baseGlyphHeight;
 }
 
+uint32_t GlyphManager::GetSdfScale() const
+{
+  return m_impl->m_sdfScale;
+}
+
 int GlyphManager::GetFontIndex(strings::UniChar unicodePoint)
 {
   TUniBlockIter iter = m_impl->m_blocks.end();
@@ -611,12 +576,47 @@ GlyphManager::Glyph GlyphManager::GetGlyph(strings::UniChar unicodePoint, int fi
   return glyph;
 }
 
-GlyphManager::Glyph GlyphManager::GenerateGlyph(Glyph const & glyph) const
+// static
+GlyphManager::Glyph GlyphManager::GenerateGlyph(Glyph const & glyph, uint32_t sdfScale)
 {
-  ASSERT_NOT_EQUAL(glyph.m_fontIndex, -1, ());
-  ASSERT_LESS(glyph.m_fontIndex, static_cast<int>(m_impl->m_fonts.size()), ());
-  auto const & f = m_impl->m_fonts[glyph.m_fontIndex];
-  return f->GenerateGlyph(glyph);
+  if (glyph.m_image.m_data != nullptr)
+  {
+    GlyphManager::Glyph resultGlyph;
+    resultGlyph.m_metrics = glyph.m_metrics;
+    resultGlyph.m_fontIndex = glyph.m_fontIndex;
+    resultGlyph.m_code = glyph.m_code;
+    resultGlyph.m_fixedSize = glyph.m_fixedSize;
+
+    if (glyph.m_fixedSize < 0)
+    {
+      sdf_image::SdfImage img(glyph.m_image.m_bitmapRows, glyph.m_image.m_bitmapPitch,
+                              glyph.m_image.m_data->data(), sdfScale * kSdfBorder);
+
+      img.GenerateSDF(1.0f / static_cast<float>(sdfScale));
+
+      ASSERT(img.GetWidth() == glyph.m_image.m_width, ());
+      ASSERT(img.GetHeight() == glyph.m_image.m_height, ());
+
+      size_t bufferSize = my::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
+      resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
+
+      img.GetData(*resultGlyph.m_image.m_data);
+    }
+    else
+    {
+      size_t bufferSize = my::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
+      resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
+      resultGlyph.m_image.m_data->assign(glyph.m_image.m_data->begin(), glyph.m_image.m_data->end());
+    }
+
+    resultGlyph.m_image.m_width = glyph.m_image.m_width;
+    resultGlyph.m_image.m_height = glyph.m_image.m_height;
+    resultGlyph.m_image.m_bitmapRows = 0;
+    resultGlyph.m_image.m_bitmapPitch = 0;
+
+    return resultGlyph;
+  }
+  return glyph;
 }
 
 void GlyphManager::ForEachUnicodeBlock(GlyphManager::TUniBlockCallback const & fn) const

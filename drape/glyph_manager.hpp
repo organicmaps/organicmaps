@@ -73,11 +73,10 @@ public:
     int m_fixedSize;
   };
 
-  GlyphManager(Params const & params);
+  explicit GlyphManager(Params const & params);
   ~GlyphManager();
 
   Glyph GetGlyph(strings::UniChar unicodePoints, int fixedHeight);
-  Glyph GenerateGlyph(Glyph const & glyph) const;
 
   void MarkGlyphReady(Glyph const & glyph);
   bool AreGlyphsReady(strings::UniString const & str, int fixedSize) const;
@@ -88,6 +87,9 @@ public:
   Glyph GetInvalidGlyph(int fixedSize) const;
 
   uint32_t GetBaseGlyphHeight() const;
+  uint32_t GetSdfScale() const;
+
+  static Glyph GenerateGlyph(Glyph const & glyph, uint32_t sdfScale);
 
 private:
   int GetFontIndex(strings::UniChar unicodePoint);

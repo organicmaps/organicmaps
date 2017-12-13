@@ -1,24 +1,23 @@
 #pragma once
 
+#include "drape/drape_routine.hpp"
+#include "drape/dynamic_texture.hpp"
+#include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture.hpp"
-#include "drape/glyph_manager.hpp"
-#include "drape/dynamic_texture.hpp"
 
-#include "std/atomic.hpp"
-#include "std/condition_variable.hpp"
-#include "std/list.hpp"
-#include "std/map.hpp"
-#include "std/vector.hpp"
-#include "std/string.hpp"
-#include "std/thread.hpp"
+#include <list>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <vector>
 
 namespace dp
 {
 class GlyphPacker
 {
 public:
-  GlyphPacker(m2::PointU const & size);
+  explicit GlyphPacker(m2::PointU const & size);
 
   bool PackGlyph(uint32_t width, uint32_t height, m2::RectU & rect);
   bool CanBePacked(uint32_t glyphsCount, uint32_t width, uint32_t height) const;
@@ -59,14 +58,15 @@ private:
 
 class GlyphInfo : public Texture::ResourceInfo
 {
-  typedef Texture::ResourceInfo TBase;
+  using Base = Texture::ResourceInfo;
+
 public:
   GlyphInfo(m2::RectF const & texRect, GlyphManager::GlyphMetrics const & metrics)
-    : TBase(texRect)
+    : Base(texRect)
     , m_metrics(metrics)
   {}
 
-  virtual Texture::ResourceType GetType() const { return Texture::Glyph; }
+  Texture::ResourceType GetType() const override { return Texture::Glyph; }
   GlyphManager::GlyphMetrics const & GetMetrics() const { return m_metrics; }
 
 private:
@@ -76,8 +76,6 @@ private:
 class GlyphGenerator
 {
 public:
-  using TCompletionHandler = function<void(m2::RectU const &, GlyphManager::Glyph const &)>;
-
   struct GlyphGenerationData
   {
     m2::RectU m_rect;
@@ -88,27 +86,22 @@ public:
     {}
   };
 
-  GlyphGenerator(ref_ptr<GlyphManager> mng, TCompletionHandler const & completionHandler);
+  using CompletionHandler = std::function<void(std::vector<GlyphGenerator::GlyphGenerationData> &&)>;
+
+  GlyphGenerator(uint32_t sdfScale, CompletionHandler const & completionHandler);
   ~GlyphGenerator();
 
-  void GenerateGlyph(m2::RectU const & rect, GlyphManager::Glyph const & glyph);
-
+  void GenerateGlyph(m2::RectU const & rect, GlyphManager::Glyph & glyph);
   bool IsSuspended() const;
 
 private:
-  static void Routine(GlyphGenerator * generator);
-  void WaitForGlyph(list<GlyphGenerationData> & queue);
+  uint32_t m_sdfScale;
+  CompletionHandler m_completionHandler;
+  DrapeRoutine::ResultPtr m_routineResult;
 
-  ref_ptr<GlyphManager> m_mng;
-  TCompletionHandler m_completionHandler;
-
-  list<GlyphGenerationData> m_queue;
-  mutable mutex m_queueLock;
-
-  atomic<bool> m_isRunning;
-  condition_variable m_condition;
-  bool m_isSuspended;
-  thread m_thread;
+  std::list<GlyphGenerationData> m_queue;
+  size_t m_glyphsCounter = 0;
+  mutable std::mutex m_mutex;
 };
 
 class GlyphIndex
@@ -131,29 +124,31 @@ public:
   size_t GetPendingNodesCount();
 
 private:
-  void OnGlyphGenerationCompletion(m2::RectU const & rect, GlyphManager::Glyph const & glyph);
+  void OnGlyphGenerationCompletion(std::vector<GlyphGenerator::GlyphGenerationData> && glyphs);
 
   GlyphPacker m_packer;
   ref_ptr<GlyphManager> m_mng;
-  unique_ptr<GlyphGenerator> m_generator;
+  std::unique_ptr<GlyphGenerator> m_generator;
 
-  typedef map<GlyphKey, GlyphInfo> TResourceMapping;
-  typedef pair<m2::RectU, GlyphManager::Glyph> TPendingNode;
-  typedef vector<TPendingNode> TPendingNodes;
+  using ResourceMapping = std::map<GlyphKey, GlyphInfo>;
+  using PendingNode = std::pair<m2::RectU, GlyphManager::Glyph>;
+  using PendingNodes = std::vector<PendingNode>;
 
-  TResourceMapping m_index;
-  TPendingNodes m_pendingNodes;
-  threads::Mutex m_lock;
+  ResourceMapping m_index;
+  PendingNodes m_pendingNodes;
+  std::mutex m_mutex;
 };
 
 class FontTexture : public DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph>
 {
   using TBase = DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph>;
 public:
-  FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng, ref_ptr<HWTextureAllocator> allocator)
+  FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng,
+              ref_ptr<HWTextureAllocator> allocator)
     : m_index(size, glyphMng)
   {
-    TBase::TextureParams params{size, TextureFormat::ALPHA, gl_const::GLLinear, true /* m_usePixelBuffer */};
+    TBase::TextureParams params{size, TextureFormat::ALPHA,
+                                gl_const::GLLinear, true /* m_usePixelBuffer */};
     TBase::Init(allocator, make_ref(&m_index), params);
   }
 

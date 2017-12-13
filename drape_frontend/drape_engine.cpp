@@ -5,6 +5,7 @@
 #include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "drape/drape_routine.hpp"
 #include "drape/support_manager.hpp"
 
 #include "platform/settings.hpp"
@@ -17,6 +18,8 @@ DrapeEngine::DrapeEngine(Params && params)
   : m_myPositionModeChanged(std::move(params.m_myPositionModeChanged))
   , m_viewport(std::move(params.m_viewport))
 {
+  dp::DrapeRoutine::Init();
+
   VisualParams::Init(params.m_vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
   df::VisualParams::Instance().SetFontScale(params.m_fontsScaleFactor);
@@ -112,6 +115,8 @@ DrapeEngine::DrapeEngine(Params && params)
 
 DrapeEngine::~DrapeEngine()
 {
+  dp::DrapeRoutine::Shutdown();
+
   // Call Teardown explicitly! We must wait for threads completion.
   m_frontend->Teardown();
   m_backend->Teardown();

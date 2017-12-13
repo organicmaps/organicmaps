@@ -34,8 +34,9 @@
 #include "base/stl_add.hpp"
 
 #include <algorithm>
-#include <cmath>
 #include <chrono>
+#include <cmath>
+#include <thread>
 #include <utility>
 
 using namespace std::placeholders;
@@ -1955,7 +1956,7 @@ void FrontendRenderer::Routine::Do()
         m_renderer.m_myPositionController->IsRouteFollowingActive() && frameTime < kFrameTime)
     {
       uint32_t const ms = static_cast<uint32_t>((kFrameTime - frameTime) * 1000);
-      this_thread::sleep_for(std::chrono::milliseconds(ms));
+      std::this_thread::sleep_for(std::chrono::milliseconds(ms));
     }
 
     if (m_renderer.m_overlaysTracker->IsValid() &&
