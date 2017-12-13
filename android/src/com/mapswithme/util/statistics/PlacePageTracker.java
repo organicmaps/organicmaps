@@ -16,8 +16,7 @@ import java.util.List;
 
 public class PlacePageTracker
 {
-  private static final float VISIBILITY_RATIO_SPONSORED_GALLERY = 0.3f;
-  private static final float VISIBILITY_RATIO_TAXI = 1f;
+  private static final float VISIBILITY_RATIO_TAXI = 0.6f;
   @NonNull
   private final PlacePageView mPlacePageView;
   @NonNull
