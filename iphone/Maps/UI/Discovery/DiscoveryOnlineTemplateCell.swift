@@ -25,17 +25,14 @@ final class DiscoveryOnlineTemplateCell: MWMTableViewCell {
   typealias Tap = () -> ()
   private var tap: Tap?
 
-  private var type: DiscoveryOnlineTemplateType = .viator
-
   @objc func config(type: DiscoveryOnlineTemplateType, needSpinner: Bool, tap: @escaping Tap) {
-    self.type = type;
-
     switch type {
       case .viator:
         title.text = L("preloader_viator_title")
         subtitle.text = L("preloader_viator_message")
       case .locals:
-        title.text = L("discovery_button_other_error_message")
+        title.text = needSpinner ? L("discovery_button_other_loading_message") :
+                                   L("discovery_button_other_error_message")
         subtitle.text = ""
     }
 

@@ -608,7 +608,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     case taxi::Provider::Uber: provider = kStatUber; break;
     case taxi::Provider::Yandex: provider = kStatYandex; break;
     }
-    [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{ @"provider" : provider }];
+    [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{kStatProvider : provider}];
   });
 
   checkCell(self.viatorCell, ^{
@@ -626,7 +626,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   checkCell(self.cianCell, ^{
     self.cianCell = nil;
     [MRMyTracker trackEventWithName:@"Placepage_SponsoredGallery_shown_Cian.Ru"];
-    [Statistics logEvent:kStatPlacepageSponsoredShow withParameters:@{kStatProvider : kStatCian}];
+    [Statistics logEvent:kStatPlacepageSponsoredShow
+          withParameters:@{kStatProvider : kStatCian, kStatPlacement: kStatPlacePage}];
   });
 }
 

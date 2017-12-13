@@ -1229,9 +1229,6 @@
 		F607C1891C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
 		F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
 		F607C18E1C047FDC00B53A87 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
-		F60C8BEA1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BE91FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib */; };
-		F60C8BEB1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BE91FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib */; };
-		F60C8BEC1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BE91FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib */; };
 		F60C8BEE1FCED15900DCF5FB /* DiscoverySearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BED1FCED15900DCF5FB /* DiscoverySearchCell.xib */; };
 		F60C8BEF1FCED15A00DCF5FB /* DiscoverySearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BED1FCED15900DCF5FB /* DiscoverySearchCell.xib */; };
 		F60C8BF01FCED15A00DCF5FB /* DiscoverySearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F60C8BED1FCED15900DCF5FB /* DiscoverySearchCell.xib */; };
@@ -2577,7 +2574,6 @@
 		F607C1841C032A8800B53A87 /* resources-hdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_dark"; path = "../../data/resources-hdpi_dark"; sourceTree = "<group>"; };
 		F607C18C1C047FDC00B53A87 /* MWMSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSegue.h; sourceTree = "<group>"; };
 		F607C18D1C047FDC00B53A87 /* MWMSegue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSegue.mm; sourceTree = "<group>"; };
-		F60C8BE91FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryCollectionHolderCell.xib; sourceTree = "<group>"; };
 		F60C8BED1FCED15900DCF5FB /* DiscoverySearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoverySearchCell.xib; sourceTree = "<group>"; };
 		F61579321AC2CE9A0032D8E9 /* MWMRateAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRateAlert.h; sourceTree = "<group>"; };
 		F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMRateAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -5036,7 +5032,6 @@
 				F69739DA1FD6ECCE00FDA07D /* DiscoveryLocalExpertCell.swift */,
 				F69739DE1FD6EE1D00FDA07D /* DiscoveryLocalExpertCell.xib */,
 				F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */,
-				F60C8BE91FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib */,
 				F6A806511FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib */,
 				F603E0581FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib */,
 				F603E05C1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib */,
@@ -5455,7 +5450,6 @@
 				F6E2FE931E097BA00083EBEC /* PlacePageTaxiCell.xib in Resources */,
 				F6E2FEA51E097BA00083EBEC /* MWMPPView.xib in Resources */,
 				F69CE8D91E5C5088002B5881 /* PPHotelCarouselCell.xib in Resources */,
-				F60C8BEA1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */,
 				F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */,
 				F63774E71B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib in Resources */,
 				F6E2FEFF1E097BA00083EBEC /* MWMSearchCategoryCell.xib in Resources */,
@@ -5658,7 +5652,6 @@
 				F6E2FEA61E097BA00083EBEC /* MWMPPView.xib in Resources */,
 				6741A9811BF340DE002C974C /* MWMRateAlert.xib in Resources */,
 				6741A9601BF340DE002C974C /* MWMRoutingDisclaimerAlert.xib in Resources */,
-				F60C8BEB1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */,
 				F6E2FF001E097BA00083EBEC /* MWMSearchCategoryCell.xib in Resources */,
 				F6E2FF331E097BA00083EBEC /* MWMSearchCommonCell.xib in Resources */,
 				F6E2FF061E097BA00083EBEC /* MWMSearchHistoryClearCell.xib in Resources */,
@@ -5865,7 +5858,6 @@
 				849CF6191DE842290024A8A5 /* MWMRoutingDisclaimerAlert.xib in Resources */,
 				F6E2FF011E097BA00083EBEC /* MWMSearchCategoryCell.xib in Resources */,
 				F6E2FF341E097BA00083EBEC /* MWMSearchCommonCell.xib in Resources */,
-				F60C8BEC1FCD751F00DCF5FB /* DiscoveryCollectionHolderCell.xib in Resources */,
 				3488B0171E9D0AEC0068AFD8 /* AdBanner.xib in Resources */,
 				F6E2FF071E097BA00083EBEC /* MWMSearchHistoryClearCell.xib in Resources */,
 				BB7626B71E85599C0031D71C /* icudt57l.dat in Resources */,

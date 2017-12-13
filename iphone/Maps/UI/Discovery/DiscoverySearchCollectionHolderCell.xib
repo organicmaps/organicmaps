@@ -53,8 +53,14 @@
                     <constraint firstItem="5kQ-Mc-ZYQ" firstAttribute="leading" secondItem="qeQ-5M-VVb" secondAttribute="leading" id="btL-Ho-0fu"/>
                     <constraint firstAttribute="trailingMargin" secondItem="zLg-Ze-Eru" secondAttribute="trailing" constant="16" id="ybg-iI-Axr"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="collectionView" destination="5kQ-Mc-ZYQ" id="C7T-Ve-ayU"/>
                 <outlet property="header" destination="zLg-Ze-Eru" id="nYu-GN-ODe"/>

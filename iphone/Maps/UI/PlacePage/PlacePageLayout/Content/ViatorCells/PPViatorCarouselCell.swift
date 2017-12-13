@@ -21,7 +21,8 @@ final class PPViatorCarouselCell: MWMTableViewCell {
   fileprivate let kMaximumNumberOfElements = 5
   fileprivate var delegate: MWMPlacePageButtonsProtocol?
 
-  fileprivate var statisticsParameters: [AnyHashable: Any] { return [kStatProvider: kStatViator] }
+  fileprivate var statisticsParameters: [AnyHashable: Any] { return [kStatProvider: kStatViator,
+                                                                     kStatPlacement : kStatPlacePage] }
 
   @objc func config(with ds: [ViatorItemModel], delegate d: MWMPlacePageButtonsProtocol?) {
     if ds.isEmpty {

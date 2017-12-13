@@ -1,14 +1,13 @@
 #include "map/discovery/discovery_client_params.hpp"
 
 #include <functional>
-#include <utility>
 #include <vector>
 
 namespace discovery
 {
 class DiscoveryControllerViewModel;
 
-std::pair<NSString *, NSString *> StatCategoryAndProvider(ItemType const type);
+NSString * StatProvider(ItemType const type);
 }  // namespace discovery
 
 using GetModelCallback = std::function<discovery::DiscoveryControllerViewModel const &()>;

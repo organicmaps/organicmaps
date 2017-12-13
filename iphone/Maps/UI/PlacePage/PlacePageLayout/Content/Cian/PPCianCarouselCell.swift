@@ -30,7 +30,8 @@ final class PPCianCarouselCell: MWMTableViewCell {
   fileprivate let kMaximumNumberOfElements = 5
   fileprivate var delegate: MWMPlacePageButtonsProtocol?
 
-  fileprivate var statisticsParameters: [AnyHashable: Any] { return [kStatProvider: kStatCian] }
+  fileprivate var statisticsParameters: [AnyHashable: Any] { return [kStatProvider: kStatCian,
+                                                                     kStatPlacement : kStatPlacePage] }
 
   @objc func config(delegate d: MWMPlacePageButtonsProtocol?) {
     delegate = d
@@ -92,13 +93,16 @@ extension PPCianCarouselCell: UICollectionViewDelegate, UICollectionViewDataSour
         })
       } else {
         let model = isLastCell(indexPath) ? nil : data[indexPath.item]
+        var params = statisticsParameters
+        params[kStatItem] = indexPath.row + 1
+        params[kStatDestination] = kStatExternal
         cell.state = .offer(model: model,
                             onButtonAction: { [unowned self] model in
                               let isMore = model == nil
                               MRMyTracker.trackEvent(withName: isMore ? "Placepage_SponsoredGallery_MoreItem_selected_Cian.Ru" :
                                 "Placepage_SponsoredGallery_ProductItem_selected_Cian.Ru")
                               Statistics.logEvent(isMore ? kStatPlacepageSponsoredMoreSelected : kStatPlacepageSponsoredItemSelected,
-                                                  withParameters: self.statisticsParameters)
+                                                  withParameters: params)
                               self.delegate?.openSponsoredURL(model?.pageURL)
         })
       }

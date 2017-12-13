@@ -29,15 +29,15 @@ using namespace std;
 
 namespace discovery
 {
-pair<NSString *, NSString *> StatCategoryAndProvider(ItemType const type)
+NSString * StatProvider(ItemType const type)
 {
   switch (type)
   {
-  case ItemType::Viator: return {kStatThingsToDo, kStatViator};
-  case ItemType::LocalExperts: return {kStatLocals, kStatLocalsProvider};
-  case ItemType::Attractions: return {kStatAttractions, kStatSearch};
-  case ItemType::Cafes: return {kStatEatAndDrink, kStatSearch};
-  case ItemType::Hotels: ASSERT(false, ()); return {};
+  case ItemType::Viator: return kStatViator;
+  case ItemType::LocalExperts: return kStatLocalsProvider;
+  case ItemType::Attractions: return kStatSearchAttractions;
+  case ItemType::Cafes: return kStatSearchRestaurants;
+  case ItemType::Hotels: ASSERT(false, ()); return @"";
   }
 }
 }  // namespace discovery
@@ -115,6 +115,7 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
     [self removeItem:type];
     return;
   }
+
   m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), type),
                        m_loadingTypes.end());
   m_failedTypes.erase(remove(m_failedTypes.begin(), m_failedTypes.end(), type),
@@ -123,10 +124,12 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:position]]
                         withRowAnimation:kDefaultRowAnimation];
 
-  auto const categoryAndProvider = StatCategoryAndProvider(type);
-  [Statistics logEvent:kStatDiscoveryButtonItemShow
-        withParameters:@{kStatCategory : categoryAndProvider.first,
-                         kStatProvider : categoryAndProvider.second}];
+  [Statistics logEvent:kStatPlacepageSponsoredShow
+        withParameters:@{
+          kStatProvider: StatProvider(type),
+          kStatPlacement: kStatDiscovery,
+          kStatState: self.isOnline ? kStatOnline : kStatOffline
+        }];
 }
 
 - (void)errorAtItem:(ItemType const)type
@@ -137,11 +140,17 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
                        m_loadingTypes.end());
   m_failedTypes.push_back(type);
   auto const position = [self position:type];
+
+  [Statistics logEvent:kStatPlacepageSponsoredError
+        withParameters:@{kStatProvider: StatProvider(type), kStatPlacement: kStatDiscovery}];
+
   [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:position]
                 withRowAnimation:kDefaultRowAnimation];
 }
 
 #pragma mark - Private
+
+- (BOOL)isOnline { return find(m_types.begin(), m_types.end(), ItemType::Viator) != m_types.end(); }
 
 - (void)removeItem:(ItemType const)type
 {
@@ -206,7 +215,7 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
       [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
   auto collection = static_cast<MWMDiscoveryCollectionView *>(cell.collectionView);
   [cell configWithTap:^{
-    [self.delegate openURLForItem:ItemType::Viator];
+    [self.delegate tapOnLogo:ItemType::Viator];
   }];
 
   collection.delegate = self;

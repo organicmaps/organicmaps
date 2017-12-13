@@ -66,8 +66,14 @@
                     <constraint firstAttribute="bottom" secondItem="kj2-f7-U6l" secondAttribute="bottom" constant="-0.5" id="uvZ-hP-6am"/>
                     <constraint firstItem="03p-rn-MYs" firstAttribute="leading" secondItem="53P-tj-1hk" secondAttribute="trailing" constant="12" id="zmd-wA-rqz"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="collectionView" destination="kj2-f7-U6l" id="Dvo-0a-gN6"/>
                 <outlet property="header" destination="53P-tj-1hk" id="Lva-Q2-QtV"/>

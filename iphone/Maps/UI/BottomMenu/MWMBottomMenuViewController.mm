@@ -298,7 +298,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   auto const connectionType = GetPlatform().ConnectionStatus();
 
   [Statistics logEvent:kStatDiscoveryButtonOpen
-        withParameters:@{kStatConnection : [Statistics connectionTypeToString:connectionType]}];
+        withParameters:@{kStatNetwork: [Statistics connectionTypeToString:connectionType]}];
 
   auto discovery = [MWMDiscoveryController instance];
   using namespace network_policy;

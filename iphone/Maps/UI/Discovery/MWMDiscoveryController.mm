@@ -136,6 +136,7 @@ struct Callback
 
 - (void)tapOnItem:(ItemType const)type atIndex:(size_t const)index
 {
+  NSString * dest = @"";
   switch (type)
   {
   case ItemType::Viator:
@@ -144,6 +145,7 @@ struct Callback
     auto const & url = type == ItemType::Viator ? m_model.GetViatorAt(index).m_pageUrl
                                                 : m_model.GetExpertAt(index).m_pageUrl;
     [self openUrl:[NSURL URLWithString:@(url.c_str())]];
+    dest = kStatExternal;
     break;
   }
   case ItemType::Attractions:
@@ -153,6 +155,7 @@ struct Callback
         type == ItemType::Attractions ? m_model.GetAttractionAt(index) : m_model.GetCafeAt(index);
     GetFramework().ShowSearchResult(item);
     [self.navigationController popViewControllerAnimated:YES];
+    dest = kStatPlacePage;
     break;
   }
   case ItemType::Hotels:
@@ -162,12 +165,14 @@ struct Callback
   }
   }
 
-  auto const categoryAndProvider = StatCategoryAndProvider(type);
+  NSAssert(dest.length > 0, @"");
   [Statistics logEvent:kStatDiscoveryButtonItemClick
-        withParameters:@{kStatCategory : categoryAndProvider.first,
-                         kStatProvider : categoryAndProvider.second,
-                         kStatDestination : kStatPlacePage,
-                         kStatPosition : @(index + 1)}];
+        withParameters:@{
+          kStatProvider: StatProvider(type),
+          kStatPlacement: kStatDiscovery,
+          kStatItem: @(index + 1),
+          kStatDestination: dest
+        }];
 }
 
 - (void)routeToItem:(ItemType const)type atIndex:(size_t const)index
@@ -185,12 +190,13 @@ struct Callback
   [MWMRouter buildToPoint:pt bestRouter:NO];
   [self.navigationController popViewControllerAnimated:YES];
 
-  auto const categoryAndProvider = StatCategoryAndProvider(type);
   [Statistics logEvent:kStatDiscoveryButtonItemClick
-        withParameters:@{kStatCategory : categoryAndProvider.first,
-                         kStatProvider : categoryAndProvider.second,
-                         kStatDestination : kStatRouting,
-                         kStatPosition : @(index + 1)}];
+        withParameters:@{
+          kStatProvider: StatProvider(type),
+          kStatPlacement: kStatDiscovery,
+          kStatItem: @(index + 1),
+          kStatDestination: kStatRouting
+        }];
 }
 
 - (void)openURLForItem:(discovery::ItemType const)type
@@ -200,7 +206,17 @@ struct Callback
   auto & f = GetFramework();
   auto const url =
       type == ItemType::Viator ? f.GetDiscoveryViatorUrl() : f.GetDiscoveryLocalExpertsUrl();
+
   [self openUrl:[NSURL URLWithString:@(url.c_str())]];
+}
+
+- (void)tapOnLogo:(discovery::ItemType const)type
+{
+  CHECK(type == ItemType::Viator,
+        ("Attempt to open url for item with type:", static_cast<int>(type)));
+  [Statistics logEvent:kStatPlacepageSponsoredLogoSelected
+        withParameters:@{kStatProvider: StatProvider(type), kStatPlacement: kStatDiscovery}];
+  [self openURLForItem:type];
 }
 
 @end
