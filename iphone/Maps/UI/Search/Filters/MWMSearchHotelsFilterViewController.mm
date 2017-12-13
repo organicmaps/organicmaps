@@ -293,7 +293,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
     selectedDate = self.checkOutDate;
     minimumDate =
         [[[NSDate date] laterDate:self.checkInDate] dateByAddingTimeInterval:kDayInterval];
-    maximumDate = [minimumDate dateByAddingTimeInterval:k30DaysInterval];
+    maximumDate = [self.checkInDate dateByAddingTimeInterval:k30DaysInterval];
   }
 
   auto picker = [[ActionSheetDatePicker alloc] initWithTitle:title
