@@ -37,6 +37,8 @@ public:
                 // segment belongs to.
   };
 
+  virtual ~WorldGraph() = default;
+
   // |isEnding| == true iff |segment| is first or last segment of the route. Needed because first and
   // last segments may need special processing.
   virtual void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap, bool isEnding,
