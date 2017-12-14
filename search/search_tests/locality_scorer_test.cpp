@@ -15,12 +15,13 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/set.hpp"
-#include "std/unordered_map.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <set>
+#include <unordered_map>
+#include <vector>
 
 using namespace search;
+using namespace std;
 using namespace strings;
 
 namespace
@@ -51,7 +52,7 @@ public:
     }
   }
 
-  void AddLocality(string const & name, uint32_t featureId)
+  void AddLocality(string const & name, uint32_t featureId, uint8_t rank = 0)
   {
     set<UniString> tokens;
     Delimiters delims;
@@ -61,6 +62,7 @@ public:
       m_searchIndex.Add(token, featureId);
 
     m_names[featureId].push_back(name);
+    m_ranks[featureId] = rank;
   }
 
   Ids GetTopLocalities(size_t limit)
@@ -114,11 +116,24 @@ public:
       names.insert(names.end(), it->second.begin(), it->second.end());
   }
 
-  uint8_t GetRank(uint32_t /* featureId */) const override { return 0; }
+  uint8_t GetRank(uint32_t featureId) const override
+  {
+    auto it = m_ranks.find(featureId);
+    return it == m_ranks.end() ? 0 : it->second;
+  }
+
+  CBV GetMatchedFeatures(strings::UniString const & token) const override
+  {
+    vector<uint64_t> ids;
+    m_searchIndex.ForEachInNode(token, [&ids](uint32_t id) { ids.push_back(id); });
+    my::SortUnique(ids);
+    return CBV{coding::CompressedBitVectorBuilder::FromBitPositions(move(ids))};
+  }
 
 protected:
   QueryParams m_params;
   unordered_map<uint32_t, vector<string>> m_names;
+  unordered_map<uint32_t, uint8_t> m_ranks;
   LocalityScorer m_scorer;
 
   base::MemTrie<UniString, base::VectorValues<uint32_t>> m_searchIndex;
@@ -206,4 +221,24 @@ UNIT_CLASS_TEST(LocalityScorerTest, PrefixMatch)
   TEST_EQUAL(GetTopLocalities(100 /* limit */), Ids({ID_SAN_ANTONIO, ID_NEW_YORK, ID_YORK}), ());
   TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_SAN_ANTONIO, ID_NEW_YORK}), ());
   TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_ANTONIO}), ());
+}
+
+UNIT_CLASS_TEST(LocalityScorerTest, Ranks)
+{
+  enum
+  {
+    ID_SAN_MARINO,
+    ID_SAN_ANTONIO,
+    ID_SAN_FRANCISCO
+  };
+
+  AddLocality("San Marino", ID_SAN_MARINO, 10 /* rank */);
+  AddLocality("Citta di San Antonio", ID_SAN_ANTONIO, 20 /* rank */);
+  AddLocality("San Francisco", ID_SAN_FRANCISCO, 30 /* rank */);
+
+  InitParams("San", false /* lastTokenIsPrefix */);
+  TEST_EQUAL(GetTopLocalities(100 /* limit */),
+             Ids({ID_SAN_MARINO, ID_SAN_ANTONIO, ID_SAN_FRANCISCO}), ());
+  TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_SAN_MARINO, ID_SAN_FRANCISCO}), ());
+  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_FRANCISCO}), ());
 }

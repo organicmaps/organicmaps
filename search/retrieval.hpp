@@ -38,28 +38,28 @@ public:
   // Following functions retrieve from the search index corresponding to
   // |value| all features matching to |request|.
   unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
-      SearchTrieRequest<strings::UniStringDFA> const & request);
+      SearchTrieRequest<strings::UniStringDFA> const & request) const;
 
   unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
-      SearchTrieRequest<strings::PrefixDFAModifier<strings::UniStringDFA>> const & request);
+      SearchTrieRequest<strings::PrefixDFAModifier<strings::UniStringDFA>> const & request) const;
 
   unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
-      SearchTrieRequest<strings::LevenshteinDFA> const & request);
+      SearchTrieRequest<strings::LevenshteinDFA> const & request) const;
 
   unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
-      SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> const & request);
+      SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> const & request) const;
 
   // Retrieves from the search index corresponding to |value| all
   // postcodes matching to |slice|.
-  unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(TokenSlice const & slice);
+  unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeatures(TokenSlice const & slice) const;
 
   // Retrieves from the geometry index corresponding to |value| all features belonging to |rect|.
   unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(m2::RectD const & rect,
-                                                                   int scale);
+                                                                   int scale) const;
 
 private:
   template <template <typename> class R, typename... Args>
-  unique_ptr<coding::CompressedBitVector> Retrieve(Args &&... args);
+  unique_ptr<coding::CompressedBitVector> Retrieve(Args &&... args) const;
 
   MwmContext const & m_context;
   my::Cancellable const & m_cancellable;

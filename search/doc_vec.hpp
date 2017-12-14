@@ -38,7 +38,7 @@ struct TokenWeightPair
   }
 
   // Returns squared weight of the token-weight pair.
-  double Sqr() const { return m_weight * m_weight; }
+  double SqrWeight() const { return m_weight * m_weight; }
 
   Token m_token;
   double m_weight = 0;
@@ -54,23 +54,30 @@ std::string DebugPrint(TokenWeightPair<Token> const & tw)
 
 namespace impl
 {
-// Accumulates weights of equal tokens in |tws|. Result is sorted by tokens.
+// Accumulates weights of equal tokens in |tws|. Result is sorted by
+// tokens. Also, maximum weight from a group of equal tokens will be
+// stored in the corresponding |maxWeight| elem.
 template <typename Token>
-void SortAndMerge(std::vector<TokenWeightPair<Token>> & tws)
+void SortAndMerge(std::vector<TokenWeightPair<Token>> & tws, std::vector<double> & maxWeights)
 {
   std::sort(tws.begin(), tws.end());
   size_t n = 0;
+  maxWeights.clear();
   for (size_t i = 0; i < tws.size(); ++i)
   {
     ASSERT_LESS_OR_EQUAL(n, i, ());
+    ASSERT_EQUAL(n, maxWeights.size(), ());
+
     if (n == 0 || tws[n - 1].m_token != tws[i].m_token)
     {
       tws[n].Swap(tws[i]);
+      maxWeights.push_back(tws[n].m_weight);
       ++n;
     }
     else
     {
       tws[n - 1].m_weight += tws[i].m_weight;
+      maxWeights[n - 1] = std::max(maxWeights[n - 1], tws[i].m_weight);
     }
   }
 
@@ -84,7 +91,7 @@ double SqrL2(std::vector<TokenWeightPair<Token>> const & tws)
 {
   double sum = 0;
   for (auto const & tw : tws)
-    sum += tw.Sqr();
+    sum += tw.SqrWeight();
   return sum;
 }
 
@@ -94,7 +101,7 @@ double SqrL2(std::vector<TokenWeightPair<Token>> const & tws,
              boost::optional<TokenWeightPair<Token>> const & prefix)
 {
   double result = SqrL2(tws);
-  return result + (prefix ? prefix->Sqr() : 0);
+  return result + (prefix ? prefix->SqrWeight() : 0);
 }
 }  // namespace impl
 
@@ -126,6 +133,7 @@ public:
   explicit DocVec(Builder const & builder) : m_tws(builder.m_tws) { Init(); }
 
   TokenWeightPairs const & GetTokenWeightPairs() const { return m_tws; }
+  std::vector<double> const & GetMaxWeights() const { return m_maxWeights; }
 
   bool Empty() const { return m_tws.empty(); }
 
@@ -136,9 +144,10 @@ private:
     return "DocVec " + DebugPrint(dv.m_tws);
   }
 
-  void Init() { impl::SortAndMerge(m_tws); }
+  void Init() { impl::SortAndMerge(m_tws, m_maxWeights); }
 
   TokenWeightPairs m_tws;
+  std::vector<double> m_maxWeights;
 };
 
 // This class represents a search query in a vector space of tokens.
@@ -197,6 +206,7 @@ public:
 
     auto const & ls = m_tws;
     auto const & rs = rhs.GetTokenWeightPairs();
+    auto const & maxWeights = rhs.GetMaxWeights();
 
     ASSERT(std::is_sorted(ls.begin(), ls.end()), ());
     ASSERT(std::is_sorted(rs.begin(), rs.end()), ());
@@ -258,29 +268,22 @@ public:
         // query, we need to update it's weight in the cosine distance
         // - so we need to update correspondingly dot product and
         // vector norms of query and doc.
+        auto const w = maxWeights[j];
+        auto const l = std::max(0.0, ln - prefix.SqrWeight() + w * w);
 
-        // This is the hacky moment: weight of query prefix token may
-        // be greater than the weight of the corresponding document
-        // token, because the weight of the document token may be
-        // unknown at the moment, and be set to some default value.
-        // But this heuristic works nicely in practice.
-        double const w = std::max(prefix.m_weight, tw.m_weight);
-        auto const sqrW = w * w;
-        double const l = std::max(0.0, ln - prefix.Sqr() + sqrW);
-        double const r = std::max(0.0, rn - tw.Sqr() + sqrW);
-
-        nom = dot + sqrW;
-        denom = sqrt(l) * sqrt(r);
+        nom = dot + w * tw.m_weight;
+        denom = sqrt(l) * sqrt(rn);
       }
       else
       {
         // If this document token is already matched with |i|-th full
-        // token in a query - we here that completion of the prefix
-        // token is the |i|-th token. So we need to update
+        // token in a query - we know that completion of the prefix
+        // token is the |i|-th query token. So we need to update
         // correspondingly dot product and vector norm of the query.
-        double const l = ln + 2 * ls[i].m_weight * prefix.m_weight;
+        auto const w = ls[i].m_weight + m_maxWeights[i];
+        auto const l = ln - ls[i].SqrWeight() - prefix.SqrWeight() + w * w;
 
-        nom = dot + prefix.m_weight * tw.m_weight;
+        nom = dot + (w - ls[i].m_weight) * tw.m_weight;
         denom = sqrt(l) * sqrt(rn);
       }
 
@@ -310,9 +313,10 @@ private:
     return "QueryVec " + DebugPrint(qv.m_tws);
   }
 
-  void Init() { impl::SortAndMerge(m_tws); }
+  void Init() { impl::SortAndMerge(m_tws, m_maxWeights); }
 
   std::vector<TokenWeightPair> m_tws;
+  std::vector<double> m_maxWeights;
   boost::optional<TokenWeightPair> m_prefix;
 };
 }  // namespace search

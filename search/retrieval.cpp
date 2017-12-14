@@ -319,43 +319,43 @@ Retrieval::Retrieval(MwmContext const & context, my::Cancellable const & cancell
 }
 
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
-    SearchTrieRequest<UniStringDFA> const & request)
+    SearchTrieRequest<UniStringDFA> const & request) const
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
-    SearchTrieRequest<PrefixDFAModifier<UniStringDFA>> const & request)
+    SearchTrieRequest<PrefixDFAModifier<UniStringDFA>> const & request) const
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
-    SearchTrieRequest<LevenshteinDFA> const & request)
+    SearchTrieRequest<LevenshteinDFA> const & request) const
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
-    SearchTrieRequest<PrefixDFAModifier<LevenshteinDFA>> const & request)
+    SearchTrieRequest<PrefixDFAModifier<LevenshteinDFA>> const & request) const
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrievePostcodeFeatures(
-    TokenSlice const & slice)
+    TokenSlice const & slice) const
 {
   return Retrieve<RetrievePostcodeFeaturesAdaptor>(slice);
 }
 
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveGeometryFeatures(m2::RectD const & rect,
-                                                                            int scale)
+                                                                            int scale) const
 {
   return RetrieveGeometryFeaturesImpl(m_context, m_cancellable, rect, scale);
 }
 
 template <template <typename> class R, typename... Args>
-unique_ptr<coding::CompressedBitVector> Retrieval::Retrieve(Args &&... args)
+unique_ptr<coding::CompressedBitVector> Retrieval::Retrieve(Args &&... args) const
 {
   switch (m_format)
   {

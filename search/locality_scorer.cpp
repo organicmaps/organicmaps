@@ -19,6 +19,27 @@ using namespace std;
 
 namespace search
 {
+namespace
+{
+struct IdfMapDelegate : public IdfMap::Delegate
+{
+  IdfMapDelegate(LocalityScorer::Delegate const & delegate, CBV const & filter)
+    : m_delegate(delegate), m_filter(filter)
+  {
+  }
+
+  ~IdfMapDelegate() override = default;
+
+  uint64_t GetNumDocs(strings::UniString const & token) const override
+  {
+    return m_filter.Intersect(m_delegate.GetMatchedFeatures(token)).PopCount();
+  }
+
+  LocalityScorer::Delegate const & m_delegate;
+  CBV const & m_filter;
+};
+}  // namespace
+
 // static
 size_t const LocalityScorer::kDefaultReadLimit = 100;
 
@@ -46,12 +67,25 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
   for (size_t i = 0; i < ctx.m_numTokens; ++i)
     intersections[i] = filter.Intersect(ctx.m_features[i]);
 
-  IdfMap idfs(1.0 /* unknownIdf */);
+  IdfMapDelegate delegate(m_delegate, filter);
+  IdfMap idfs(delegate, 1.0 /* unknownIdf */);
+  double prefixIdf = 1.0;
   for (size_t i = 0; i < ctx.m_numTokens; ++i)
   {
-    auto const idf = 1.0 / static_cast<double>(intersections[i].PopCount());
-    // IDF should be the same for the token and its synonyms.
-    m_params.GetToken(i).ForEach([&idfs, &idf](strings::UniString const & s) { idfs.Set(s, idf); });
+    auto const numDocs = intersections[i].PopCount();
+    double idf = 1.0;
+    if (numDocs > 0)
+      idf = 1.0 / static_cast<double>(numDocs);
+
+    if (m_params.IsPrefixToken(i))
+    {
+      prefixIdf = idf;
+    }
+    else
+    {
+      m_params.GetToken(i).ForEach(
+          [&idfs, &idf](strings::UniString const & s) { idfs.Set(s, idf); });
+    }
   }
 
   for (size_t startToken = 0; startToken < ctx.m_numTokens; ++startToken)
@@ -64,11 +98,10 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
     {
       auto const curToken = endToken - 1;
       auto const & token = m_params.GetToken(curToken).m_original;
-      double const weight = idfs.Get(token);
       if (m_params.IsPrefixToken(curToken))
-        builder.SetPrefix(token, weight);
+        builder.SetPrefix(token, prefixIdf);
       else
-        builder.AddFull(token, weight);
+        builder.AddFull(token, idfs.Get(token));
 
       TokenRange const tokenRange(startToken, endToken);
       // Skip locality candidates that match only numbers.
@@ -88,7 +121,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
   LeaveTopLocalities(idfs, limit, localities);
 }
 
-void LocalityScorer::LeaveTopLocalities(IdfMap const & idfs, size_t limit,
+void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit,
                                         vector<Locality> & localities) const
 {
   vector<ExLocality> els;
@@ -179,8 +212,7 @@ void LocalityScorer::LeaveTopBySimilarityAndRank(size_t limit, vector<ExLocality
   els.resize(n);
 }
 
-void LocalityScorer::GetDocVecs(IdfMap const & idfs, uint32_t localityId,
-                                vector<DocVec> & dvs) const
+void LocalityScorer::GetDocVecs(IdfMap & idfs, uint32_t localityId, vector<DocVec> & dvs) const
 {
   vector<string> names;
   m_delegate.GetNames(localityId, names);

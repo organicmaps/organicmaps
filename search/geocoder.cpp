@@ -157,8 +157,13 @@ private:
 class LocalityScorerDelegate : public LocalityScorer::Delegate
 {
 public:
-  LocalityScorerDelegate(MwmContext const & context, Geocoder::Params const & params)
-    : m_context(context), m_params(params), m_ranks(m_context.m_value)
+  LocalityScorerDelegate(MwmContext const & context, Geocoder::Params const & params,
+                         my::Cancellable const & cancellable)
+    : m_context(context)
+    , m_params(params)
+    , m_cancellable(cancellable)
+    , m_retrieval(m_context, m_cancellable)
+    , m_ranks(m_context.m_value)
   {
   }
 
@@ -178,9 +183,22 @@ public:
 
   uint8_t GetRank(uint32_t featureId) const override { return m_ranks.Get(featureId); }
 
+  CBV GetMatchedFeatures(strings::UniString const & token) const override
+  {
+    SearchTrieRequest<strings::UniStringDFA> request;
+    request.m_names.emplace_back(token);
+    request.SetLangs(m_params.GetLangs());
+
+    return CBV{m_retrieval.RetrieveAddressFeatures(request)};
+  }
+
 private:
   MwmContext const & m_context;
   Geocoder::Params const & m_params;
+  my::Cancellable const & m_cancellable;
+
+  Retrieval m_retrieval;
+
   LazyRankTable m_ranks;
 };
 
@@ -624,7 +642,7 @@ void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filte
     return;
   }
 
-  LocalityScorerDelegate delegate(*m_context, m_params);
+  LocalityScorerDelegate delegate(*m_context, m_params, m_cancellable);
   LocalityScorer scorer(m_params, delegate);
   scorer.GetTopLocalities(m_context->GetId(), ctx, filter, maxNumLocalities, preLocalities);
 }

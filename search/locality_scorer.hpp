@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/cbv.hpp"
 #include "search/geocoder_locality.hpp"
 #include "search/ranking_utils.hpp"
 
@@ -29,6 +30,7 @@ public:
 
     virtual void GetNames(uint32_t featureId, std::vector<std::string> & names) const = 0;
     virtual uint8_t GetRank(uint32_t featureId) const = 0;
+    virtual CBV GetMatchedFeatures(strings::UniString const & token) const = 0;
   };
 
   LocalityScorer(QueryParams const & params, Delegate const & delegate);
@@ -59,8 +61,7 @@ private:
 
   // Leaves at most |limit| elements of |localities|, ordered by some
   // combination of ranks and number of matched tokens.
-  void LeaveTopLocalities(IdfMap const & idfs, size_t limit,
-                          std::vector<Locality> & localities) const;
+  void LeaveTopLocalities(IdfMap & idfs, size_t limit, std::vector<Locality> & localities) const;
 
   // Selects at most |limitUniqueIds| best features by query norm and
   // rank, and then leaves only localities corresponding to those
@@ -71,7 +72,7 @@ private:
   // and rank. Result doesn't contain duplicate features.
   void LeaveTopBySimilarityAndRank(size_t limit, std::vector<ExLocality> & els) const;
 
-  void GetDocVecs(IdfMap const & idfs, uint32_t localityId, vector<DocVec> & dvs) const;
+  void GetDocVecs(IdfMap & idfs, uint32_t localityId, std::vector<DocVec> & dvs) const;
   double GetSimilarity(QueryVec const & qv, std::vector<DocVec> const & dvs) const;
 
   QueryParams const & m_params;
