@@ -2,15 +2,15 @@
   "colors": {
     "default": {
       "clear": "231F20",
-      "night": "231F20",
+      "night": "474747",
       "text": "231F20",
-      "text_night": "464647"
+      "text_night": "474747"
     },
     "gray": {
       "clear": "A4A4A6",
-      "night": "464647",
+      "night": "656566",
       "text": "231F20",
-      "text_night": "464647"
+      "text_night": "656566"
     },
     "brown_dark": {
       "clear": "664433",
