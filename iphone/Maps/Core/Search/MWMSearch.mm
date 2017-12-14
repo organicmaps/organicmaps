@@ -225,7 +225,10 @@ using Observers = NSHashTable<Observer>;
 
 + (BOOL)isBookingAvailableWithContainerIndex:(NSUInteger)index
 {
-  auto const & resultFeatureID = [self resultWithContainerIndex:index].GetFeatureID();
+  auto const & result = [self resultWithContainerIndex:index];
+  if (result.GetResultType() != search::Result::ResultType::RESULT_FEATURE)
+    return NO;
+  auto const & resultFeatureID = result.GetFeatureID();
   auto const & bookingAvailableIDs = [MWMSearch manager]->m_bookingAvailableFeatureIDs;
   return std::binary_search(bookingAvailableIDs.begin(), bookingAvailableIDs.end(),
                             resultFeatureID);
