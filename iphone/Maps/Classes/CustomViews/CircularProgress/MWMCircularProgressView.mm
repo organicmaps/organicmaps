@@ -45,12 +45,6 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
   self.suspendRefreshProgress = NO;
 }
 
-- (void)layoutSubviews
-{
-  self.frame = self.superview.bounds;
-  [super layoutSubviews];
-}
-
 #pragma mark - Setup
 
 - (void)setupColors

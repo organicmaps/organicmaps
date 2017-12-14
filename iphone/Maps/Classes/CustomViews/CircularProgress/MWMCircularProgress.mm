@@ -51,6 +51,11 @@
     [[[UINib alloc] init:[self class] bundle:nil] instantiateWithOwner:self options:nil];
     [parentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [parentView addSubview:self.rootView];
+    self.rootView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.rootView.topAnchor constraintEqualToAnchor:parentView.topAnchor].active = YES;
+    [self.rootView.bottomAnchor constraintEqualToAnchor:parentView.bottomAnchor].active = YES;
+    [self.rootView.leadingAnchor constraintEqualToAnchor:parentView.leadingAnchor].active = YES;
+    [self.rootView.trailingAnchor constraintEqualToAnchor:parentView.trailingAnchor].active = YES;
     self.state = MWMCircularProgressStateNormal;
   }
   return self;
