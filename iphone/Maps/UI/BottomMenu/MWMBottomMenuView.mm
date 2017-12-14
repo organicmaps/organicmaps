@@ -19,6 +19,7 @@ CGFloat constexpr kDefaultMainButtonsHeight = 48;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * separatorHeight;
 @property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 @property(weak, nonatomic) IBOutlet UIView * downloadBadge;
+@property(weak, nonatomic) IBOutlet UIView * extraBottomView;
 
 @end
 
@@ -65,12 +66,12 @@ CGFloat constexpr kDefaultMainButtonsHeight = 48;
   {
   case MWMBottomMenuStateHidden: break;
   case MWMBottomMenuStateInactive:
-    self.backgroundColor = [UIColor menuBackground];
+    self.extraBottomView.backgroundColor = [UIColor menuBackground];
     self.downloadBadge.alpha = [self isCompact] ? 0.0 : 1.0;
     self.additionalButtons.alpha = 0.0;
     break;
   case MWMBottomMenuStateActive:
-    self.backgroundColor = [UIColor white];
+    self.extraBottomView.backgroundColor = [UIColor white];
     self.downloadBadge.alpha = 0.0;
     self.additionalButtons.alpha = 1.0;
     break;
@@ -106,9 +107,10 @@ CGFloat constexpr kDefaultMainButtonsHeight = 48;
   }
   break;
   }
+  auto const mainHeight = self.mainButtonsHeight.constant;
+  auto const separatorHeight = self.separatorHeight.constant;
   auto const additionalHeight = self.additionalButtonsHeight.constant;
-  auto const height =
-      self.mainButtonsHeight.constant + self.separatorHeight.constant + additionalHeight;
+  auto const height = mainHeight + separatorHeight + additionalHeight;
   self.frame = {{availableArea.origin.x, availableArea.size.height - height},
                 {availableArea.size.width, height}};
 }
