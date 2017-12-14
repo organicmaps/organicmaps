@@ -21,6 +21,12 @@ UGC Loader::GetUGC(FeatureID const & featureId)
   if (!value.m_cont.IsExist(UGC_FILE_TAG))
     return {};
 
+  if (m_currentMwmId != featureId.m_mwmId)
+  {
+    m_currentMwmId = featureId.m_mwmId;
+    m_d = binary::UGCDeserializer();
+  }
+
   auto readerPtr = value.m_cont.GetReader(UGC_FILE_TAG);
 
   UGC ugc;
