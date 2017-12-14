@@ -12,7 +12,7 @@ final class SideButtonsArea: AvailableArea {
   }
 
   override func notifyObserver() {
-    MWMSideButtons.updateAvailableArea(frame)
+    MWMSideButtons.updateAvailableArea(areaFrame)
   }
 }
 

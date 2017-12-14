@@ -10,7 +10,7 @@ final class VisibleArea: AvailableArea {
   }
 
   override func notifyObserver() {
-    MWMFrameworkHelper.setVisibleViewport(frame)
+    MWMFrameworkHelper.setVisibleViewport(areaFrame)
   }
 }
 

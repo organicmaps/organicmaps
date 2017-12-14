@@ -10,7 +10,7 @@ final class PlacePageArea: AvailableArea {
   }
 
   override func notifyObserver() {
-    MWMPlacePageManagerHelper.updateAvailableArea(frame)
+    MWMPlacePageManagerHelper.updateAvailableArea(areaFrame)
   }
 }
 

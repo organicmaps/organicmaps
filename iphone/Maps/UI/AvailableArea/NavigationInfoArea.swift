@@ -10,7 +10,7 @@ final class NavigationInfoArea: AvailableArea {
   }
 
   override func notifyObserver() {
-    MWMNavigationDashboardManager.updateNavigationInfoAvailableArea(frame)
+    MWMNavigationDashboardManager.updateNavigationInfoAvailableArea(areaFrame)
   }
 }
 

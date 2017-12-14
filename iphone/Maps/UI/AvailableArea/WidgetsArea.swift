@@ -10,7 +10,7 @@ final class WidgetsArea: AvailableArea {
   }
 
   override func notifyObserver() {
-    MWMMapWidgetsHelper.updateAvailableArea(frame)
+    MWMMapWidgetsHelper.updateAvailableArea(areaFrame)
   }
 }
 

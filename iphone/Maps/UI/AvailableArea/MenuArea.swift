@@ -1,4 +1,8 @@
 final class MenuArea: AvailableArea {
+  override var areaFrame: CGRect {
+    return frame
+  }
+
   override func isAreaAffectingView(_ other: UIView) -> Bool {
     return !other.menuAreaAffectDirections.isEmpty
   }
@@ -10,7 +14,7 @@ final class MenuArea: AvailableArea {
   }
 
   override func notifyObserver() {
-    MWMBottomMenuViewController.updateAvailableArea(frame)
+    MWMBottomMenuViewController.updateAvailableArea(areaFrame)
   }
 }
 
