@@ -1508,6 +1508,8 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   case Result::RESULT_SUGGEST_FROM_FEATURE: ASSERT(false, ("Suggests should not be here.")); return;
   }
 
+  info.SetAdsEngine(m_adsEngine.get());
+  SetPlacePageLocation(info);
   m2::PointD const center = info.GetMercator();
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
