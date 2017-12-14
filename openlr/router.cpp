@@ -168,8 +168,7 @@ Router::Edge Router::Edge::MakeNormal(Vertex const & u, Vertex const & v,
 // static
 Router::Edge Router::Edge::MakeSpecial(Vertex const & u, Vertex const & v)
 {
-  return Edge(u, v, routing::Edge::MakeFake(u.m_junction, v.m_junction, false /* partOfReal */),
-              true /* isSpecial */);
+  return Edge(u, v, routing::Edge::MakeFake(u.m_junction, v.m_junction), true /* isSpecial */);
 }
 
 pair<m2::PointD, m2::PointD> Router::Edge::ToPair() const
@@ -382,7 +381,7 @@ bool Router::FindPath(std::vector<routing::Edge> & path)
         sv.AddDistanceErrorPenalty(std::min(vd - v.m_stageStartDistance - distanceToNextPointM, w));
 
       if (edge.IsFake())
-        sv.AddFakePenalty(w, edge.IsPartOfReal());
+        sv.AddFakePenalty(w, edge.HasRealPart());
 
       pushVertex(u, v, sv, Edge::MakeNormal(u, v, edge));
     });

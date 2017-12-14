@@ -37,9 +37,8 @@ void SplitEdge(Edge const & ab, Junction const & p, vector<Edge> & edges)
   if (a.GetPoint() == p.GetPoint() || b.GetPoint() == p.GetPoint())
     return;
 
-  bool const partOfReal = ab.IsPartOfReal();
-  edges.push_back(Edge::MakeFake(a, p, partOfReal));
-  edges.push_back(Edge::MakeFake(p, b, partOfReal));
+  edges.push_back(Edge::MakeFake(a, p, ab));
+  edges.push_back(Edge::MakeFake(p, b, ab));
 }
 }  // namespace
 
@@ -59,39 +58,31 @@ string DebugPrint(Junction const & r)
 
 // Edge ------------------------------------------------------------------------
 // static
-Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction, bool partOfReal)
+Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction)
 {
-  return MakeFakeWithForward(startJunction, endJunction, partOfReal, true /* forward */);
+  return {FeatureID(), true /* forward */, 0 /* segId */, startJunction, endJunction};
 }
 
-// static
-Edge Edge::MakeFakeForTesting(Junction const & startJunction, Junction const & endJunction,
-                              bool partOfReal, bool forward)
+Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction,
+                    Edge const & prototype)
 {
-  return MakeFakeWithForward(startJunction, endJunction, partOfReal, forward);
+  auto e = prototype;
+  e.m_startJunction = startJunction;
+  e.m_endJunction = endJunction;
+  e.m_type = e.HasRealPart() ? Type::FakeWithRealPart : Type::FakeWithoutRealPart;
+  return e;
 }
-
-// static
-Edge Edge::MakeFakeWithForward(Junction const & startJunction, Junction const & endJunction,
-                               bool partOfReal, bool forward)
-{
-  Edge edge(FeatureID(), forward, 0 /* segId */, startJunction, endJunction);
-  edge.m_partOfReal = partOfReal;
-  return edge;
-}
-
-Edge::Edge() : m_forward(true), m_segId(0) { m_partOfReal = !IsFake(); }
 
 Edge::Edge(FeatureID const & featureId, bool forward, uint32_t segId,
            Junction const & startJunction, Junction const & endJunction)
-  : m_featureId(featureId)
+  : m_type(Type::Real)
+  , m_featureId(featureId)
   , m_forward(forward)
   , m_segId(segId)
   , m_startJunction(startJunction)
   , m_endJunction(endJunction)
 {
   ASSERT_LESS(segId, numeric_limits<uint32_t>::max(), ());
-  m_partOfReal = !IsFake();
 }
 
 Edge Edge::GetReverseEdge() const
@@ -111,19 +102,19 @@ bool Edge::SameRoadSegmentAndDirection(Edge const & r) const
 
 bool Edge::operator==(Edge const & r) const
 {
-  return m_featureId == r.m_featureId && m_forward == r.m_forward &&
-         m_partOfReal == r.m_partOfReal && m_segId == r.m_segId &&
-         m_startJunction == r.m_startJunction && m_endJunction == r.m_endJunction;
+  return m_type == r.m_type && m_featureId == r.m_featureId && m_forward == r.m_forward &&
+         m_segId == r.m_segId && m_startJunction == r.m_startJunction &&
+         m_endJunction == r.m_endJunction;
 }
 
 bool Edge::operator<(Edge const & r) const
 {
+  if (m_type != r.m_type)
+    return m_type < r.m_type;
   if (m_featureId != r.m_featureId)
     return m_featureId < r.m_featureId;
   if (m_forward != r.m_forward)
     return (m_forward == false);
-  if (m_partOfReal != r.m_partOfReal)
-    return (m_partOfReal == false);
   if (m_segId != r.m_segId)
     return m_segId < r.m_segId;
   if (!(m_startJunction == r.m_startJunction))
@@ -137,7 +128,7 @@ string DebugPrint(Edge const & r)
 {
   ostringstream ss;
   ss << "Edge{featureId: " << DebugPrint(r.GetFeatureId()) << ", isForward:" << r.IsForward()
-     << ", partOfReal:" << r.IsPartOfReal() << ", segId:" << r.m_segId
+     << ", partOfReal:" << r.HasRealPart() << ", segId:" << r.m_segId
      << ", startJunction:" << DebugPrint(r.m_startJunction)
      << ", endJunction:" << DebugPrint(r.m_endJunction) << "}";
   return ss.str();
@@ -246,8 +237,8 @@ void IRoadGraph::AddFakeEdges(Junction const & junction,
     vector<Edge> edges;
     SplitEdge(ab, p, edges);
 
-    edges.push_back(Edge::MakeFake(junction, p, false /* partOfReal */));
-    edges.push_back(Edge::MakeFake(p, junction, false /* partOfReal */));
+    edges.push_back(Edge::MakeFake(junction, p));
+    edges.push_back(Edge::MakeFake(p, junction));
 
     ForEachFakeEdge([&](Edge const & uv)
                     {

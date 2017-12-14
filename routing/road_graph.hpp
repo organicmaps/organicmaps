@@ -54,25 +54,37 @@ inline bool AlmostEqualAbs(Junction const & lhs, Junction const & rhs)
 /// The Edge class represents an edge description on a road network graph
 class Edge
 {
+  enum class Type
+  {
+    Real,               // An edge that corresponds to some real segment.
+    FakeWithRealPart,   // A fake edge that is a part of some real segment.
+    FakeWithoutRealPart  // A fake edge that is not part of any real segment.
+  };
+
 public:
-  Edge();
+  Edge() = default;
   Edge(FeatureID const & featureId, bool forward, uint32_t segId, Junction const & startJunction,
        Junction const & endJunction);
   Edge(Edge const &) = default;
   Edge & operator=(Edge const &) = default;
 
-  static Edge MakeFake(Junction const & startJunction, Junction const & endJunction, bool partOfReal);
-  static Edge MakeFakeForTesting(Junction const & startJunction, Junction const & endJunction,
-                                 bool partOfReal, bool forward);
+  static Edge MakeFake(Junction const & startJunction, Junction const & endJunction);
+  static Edge MakeFake(Junction const & startJunction, Junction const & endJunction,
+                       Edge const & prototype);
 
   inline FeatureID GetFeatureId() const { return m_featureId; }
   inline bool IsForward() const { return m_forward; }
   inline uint32_t GetSegId() const { return m_segId; }
   inline Junction const & GetStartJunction() const { return m_startJunction; }
   inline Junction const & GetEndJunction() const { return m_endJunction; }
-  inline bool IsFake() const { return !m_featureId.IsValid(); }
-  inline bool IsPartOfReal() const { return m_partOfReal; }
-  inline m2::PointD GetDirection() const { return GetEndJunction().GetPoint() - GetStartJunction().GetPoint(); }
+  inline m2::PointD const & GetStartPoint() const { return m_startJunction.GetPoint(); }
+  inline m2::PointD const & GetEndPoint() const { return m_endJunction.GetPoint(); }
+  inline bool IsFake() const { return  m_type != Type::Real; }
+  inline bool HasRealPart() const { return m_type != Type::FakeWithoutRealPart; }
+  inline m2::PointD GetDirection() const
+  {
+    return GetEndJunction().GetPoint() - GetStartJunction().GetPoint();
+  }
 
   Edge GetReverseEdge() const;
 
@@ -85,20 +97,16 @@ public:
 private:
   friend string DebugPrint(Edge const & r);
 
-  static Edge MakeFakeWithForward(Junction const & startJunction, Junction const & endJunction,
-                                  bool partOfReal, bool forward);
+  Type m_type = Type::FakeWithoutRealPart;
 
   // Feature for which edge is defined.
   FeatureID m_featureId;
 
   // Is the feature along the road.
-  bool m_forward;
-
-  // This flag is set for edges that are parts of some real edges.
-  bool m_partOfReal;
+  bool m_forward = true;
 
   // Ordinal number of the segment on the road.
-  uint32_t m_segId;
+  uint32_t m_segId = 0;
 
   // Start junction of the segment on the road.
   Junction m_startJunction;
