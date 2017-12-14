@@ -34,9 +34,8 @@
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-
+  self.translatesAutoresizingMaskIntoConstraints = NO;
   [self setupProgresses];
-
   [self.backButton matchInterfaceOrientation];
 }
 
@@ -140,32 +139,35 @@
   if ([superview.subviews containsObject:self])
     return;
   [superview addSubview:self];
-  self.frame = self.defaultFrame;
-  self.isVisible = YES;
+  [self setupConstraints];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    self.isVisible = YES;
+  });
 }
 
 - (void)remove { self.isVisible = NO; }
+
+- (void)setupConstraints {}
+
 - (void)layoutSubviews
 {
-  [UIView animateWithDuration:kDefaultAnimationDuration
-      animations:^{
-        if (!CGRectEqualToRect(self.frame, self.defaultFrame))
-          self.frame = self.defaultFrame;
-      }
-      completion:^(BOOL finished) {
-        if (!self.isVisible)
-          [self removeFromSuperview];
-      }];
   [super layoutSubviews];
+  [self.vehicle setNeedsLayout];
 }
 
 #pragma mark - Properties
 
-- (CGRect)defaultFrame { return CGRectNull; }
 - (void)setIsVisible:(BOOL)isVisible
 {
   _isVisible = isVisible;
-  [self setNeedsLayout];
+  auto sv = self.superview;
+  [sv setNeedsLayout];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{ [sv layoutIfNeeded]; }
+                   completion:^(BOOL finished) {
+                     if (!self.isVisible)
+                       [self removeFromSuperview];
+                   }];
 }
 
 @end

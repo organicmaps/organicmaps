@@ -8,12 +8,29 @@
 
 @end
 
+@interface MWMiPadRoutePreview()
+@property(nonatomic) NSLayoutConstraint * horizontalConstraint;
+@end
+
 @implementation MWMiPadRoutePreview
 
-- (CGRect)defaultFrame
+- (void)setupConstraints
 {
-  CGFloat const width = 320;
-  return {{self.isVisible ? 0 : -width, 0}, {width, self.superview.height}};
+  auto sv = self.superview;
+  [self.topAnchor constraintEqualToAnchor:sv.topAnchor].active = YES;
+  [self.bottomAnchor constraintEqualToAnchor:sv.bottomAnchor].active = YES;
+  self.horizontalConstraint = [self.trailingAnchor constraintEqualToAnchor:sv.leadingAnchor];
+  self.horizontalConstraint.active = YES;
+}
+
+- (void)setIsVisible:(BOOL)isVisible
+{
+  self.horizontalConstraint.active = NO;
+  auto sv = self.superview;
+  NSLayoutXAxisAnchor * selfAnchor = isVisible ? self.leadingAnchor : self.trailingAnchor;
+  self.horizontalConstraint = [selfAnchor constraintEqualToAnchor:sv.leadingAnchor];
+  self.horizontalConstraint.active = YES;
+  [super setIsVisible:isVisible];
 }
 
 #pragma mark - SolidTouchView
