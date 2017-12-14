@@ -65,6 +65,7 @@ public:
     : Base(texRect)
     , m_metrics(metrics)
   {}
+  ~GlyphInfo() override = default;
 
   Texture::ResourceType GetType() const override { return Texture::Glyph; }
   GlyphManager::GlyphMetrics const & GetMetrics() const { return m_metrics; }

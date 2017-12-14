@@ -3,7 +3,7 @@
 #include "base/macros.hpp"
 #include "base/worker_thread.hpp"
 
-#import <atomic>
+#include <atomic>
 #include <condition_variable>
 #include <memory>
 #include <mutex>
@@ -30,6 +30,7 @@ public:
     }
 
   private:
+    friend class DrapeRoutine;
     explicit Result(uint64_t id) : m_id(id), m_isFinished(false) {}
 
     uint64_t Finish()
@@ -40,7 +41,6 @@ public:
 
     uint64_t const m_id;
     std::atomic<bool> m_isFinished;
-    friend class DrapeRoutine;
   };
 
   using ResultPtr = std::shared_ptr<Result>;
@@ -58,7 +58,7 @@ public:
   template <typename Task>
   static ResultPtr Run(Task && t)
   {
-    ResultPtr result(new Result(Instance().GetId()));
+    ResultPtr result(new Result(Instance().GetNextId()));
     bool const success = Instance().m_workerThread.Push([result, t]() mutable
     {
       t();
@@ -66,7 +66,7 @@ public:
     });
 
     if (!success)
-      return nullptr;
+      return {};
 
     return result;
   }
@@ -78,7 +78,7 @@ private:
     return instance;
   }
 
-  uint64_t GetId()
+  uint64_t GetNextId()
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     return m_counter++;
@@ -96,7 +96,7 @@ private:
     std::unique_lock<std::mutex> lock(m_mutex);
     if (m_finished)
       return;
-    m_condition.wait(lock, [this, id](){ return m_finished || m_finishedId == id; });
+    m_condition.wait(lock, [this, id](){return m_finished || m_finishedId == id;});
   }
 
   void FinishAll()
