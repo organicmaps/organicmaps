@@ -88,6 +88,7 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+  [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   self.isRotating = YES;
   [coordinator
       animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {

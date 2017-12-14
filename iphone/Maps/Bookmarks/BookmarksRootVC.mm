@@ -168,6 +168,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+  [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [coordinator
       animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         NSArray<NSIndexPath *> * ips = self.tableView.indexPathsForVisibleRows;

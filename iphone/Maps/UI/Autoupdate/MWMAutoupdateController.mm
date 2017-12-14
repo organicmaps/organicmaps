@@ -209,6 +209,7 @@ enum class State
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+  [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
     [static_cast<MWMAutoupdateView *>(self.view) updateForSize:size];
   } completion:nil];

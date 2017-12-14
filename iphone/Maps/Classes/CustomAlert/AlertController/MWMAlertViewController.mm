@@ -40,6 +40,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+  [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   auto const orient = size.width > size.height ? UIInterfaceOrientationLandscapeLeft : UIInterfaceOrientationPortrait;
   [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
     for (MWMAlert * alert in self.view.subviews)

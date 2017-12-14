@@ -222,6 +222,7 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+  [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.alertController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.controlsManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.welcomePageController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
