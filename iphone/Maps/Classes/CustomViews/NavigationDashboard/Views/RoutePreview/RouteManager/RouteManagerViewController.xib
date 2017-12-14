@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,7 +26,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3y4-jh-JUF" customClass="RouteManagerDimView" customModule="cm_beta" customModuleProvider="target">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3y4-jh-JUF" customClass="RouteManagerDimView" customModule="cm_dbg" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <subviews>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TC7-xW-EwE">
@@ -79,6 +80,7 @@
                 <constraint firstAttribute="trailing" secondItem="TC7-xW-EwE" secondAttribute="trailing" id="kvp-My-OQZ"/>
                 <constraint firstItem="TC7-xW-EwE" firstAttribute="top" secondItem="3y4-jh-JUF" secondAttribute="top" id="lfE-MZ-Cvp"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="aNC-Xj-cAv"/>
             <connections>
                 <outlet property="image" destination="ZEN-kK-2CA" id="zkv-Ag-qOp"/>
                 <outlet property="label" destination="1ks-iR-Wia" id="jsa-mi-iZ2"/>
@@ -97,7 +99,7 @@
                 <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
                     <rect key="frame" x="0.0" y="571" width="375" height="96"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0L-ul-gog" customClass="RouteManagerHeaderView" customModule="cm_beta" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0L-ul-gog" customClass="RouteManagerHeaderView" customModule="cm_dbg" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQh-uc-65J">
@@ -142,7 +144,7 @@
                                 <outlet property="titleLabel" destination="dQh-uc-65J" id="xKP-bY-mQP"/>
                             </connections>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-M4-MPb" customClass="RouteManagerFooterView" customModule="cm_beta" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-M4-MPb" customClass="RouteManagerFooterView" customModule="cm_dbg" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="48" width="375" height="48"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pjx-6o-NWS">
@@ -186,7 +188,7 @@
                                 <outlet property="separator" destination="pjx-6o-NWS" id="EKT-Ba-Lcy"/>
                             </connections>
                         </view>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-YQ-ksD" customClass="RouteManagerTableView" customModule="cm_beta" customModuleProvider="target">
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-YQ-ksD" customClass="RouteManagerTableView" customModule="cm_dbg" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="48" width="375" height="0.0"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <gestureRecognizers/>
@@ -227,6 +229,7 @@
                 <constraint firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="qXL-Hf-8X6"/>
                 <constraint firstItem="i5M-Pr-FkT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="TKX-qe-h4F" secondAttribute="top" constant="72" id="sYB-lu-PhM"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="hNI-dt-MwJ"/>
             <point key="canvasLocation" x="-239.5" y="-48.5"/>
         </view>
         <tapGestureRecognizer id="deN-Z9-rbS" userLabel="Cancel Tap Gesture Recognizer">

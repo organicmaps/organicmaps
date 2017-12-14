@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -61,6 +62,7 @@
                 <constraint firstItem="2yW-tR-hvX" firstAttribute="leading" secondItem="fMe-7t-K8o" secondAttribute="trailing" constant="10" id="jN3-D6-ys1"/>
                 <constraint firstItem="2yW-tR-hvX" firstAttribute="centerY" secondItem="fMe-7t-K8o" secondAttribute="centerY" id="rLh-XX-3BM"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="7f1-jQ-gbO"/>
             <size key="customSize" width="251" height="44"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
@@ -76,9 +78,4 @@
     <resources>
         <image name="ic_logo_uber" width="24" height="24"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>

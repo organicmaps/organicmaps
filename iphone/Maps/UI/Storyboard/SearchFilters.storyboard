@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,10 +14,6 @@
         <scene sceneID="3Lw-zP-9hH">
             <objects>
                 <viewController storyboardIdentifier="MWMSearchHotelsFilterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LNn-Gp-Jtg" customClass="MWMSearchHotelsFilterViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="EOv-fJ-aYA"/>
-                        <viewControllerLayoutGuide type="bottom" id="NCN-l0-Vgh"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="a4S-IT-Fgz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,7 +32,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterCheckCell" rowHeight="71" id="kQ5-BZ-yUa" customClass="MWMFilterCheckCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterCheckCell" rowHeight="71" id="kQ5-BZ-yUa" customClass="MWMFilterCheckCell">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kQ5-BZ-yUa" id="vGr-Kk-qrA">
@@ -113,7 +110,7 @@
                                             <outletCollection property="checkLabels" destination="WZ7-6d-CsM" collectionClass="NSMutableArray" id="GLa-Hh-4wW"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterRatingCell" rowHeight="52" id="HvO-7t-FdB" customClass="MWMFilterRatingCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterRatingCell" rowHeight="52" id="HvO-7t-FdB" customClass="MWMFilterRatingCell">
                                         <rect key="frame" x="0.0" y="126.5" width="375" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HvO-7t-FdB" id="waN-Zz-Fjw">
@@ -194,7 +191,7 @@
                                             <outletCollection property="ratingButtons" destination="30K-lZ-hUy" collectionClass="NSMutableArray" id="Iys-NH-dNe"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterPriceCategoryCell" rowHeight="40" id="Awa-kZ-hF2" customClass="MWMFilterPriceCategoryCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterPriceCategoryCell" rowHeight="40" id="Awa-kZ-hF2" customClass="MWMFilterPriceCategoryCell">
                                         <rect key="frame" x="0.0" y="178.5" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Awa-kZ-hF2" id="m4Z-4y-BeU">
@@ -257,7 +254,7 @@
                                             <outletCollection property="priceButtons" destination="96b-HD-t1A" collectionClass="NSMutableArray" id="A2o-QC-xn7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MWMFilterCollectionHolderCell" id="MeX-wf-jsM" customClass="MWMFilterCollectionHolderCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MWMFilterCollectionHolderCell" id="MeX-wf-jsM" customClass="MWMFilterCollectionHolderCell">
                                         <rect key="frame" x="0.0" y="218.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MeX-wf-jsM" id="Kwo-Nv-Eyz">
@@ -353,14 +350,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="7db-bh-egf" firstAttribute="leading" secondItem="a4S-IT-Fgz" secondAttribute="leading" id="391-VR-alp"/>
-                            <constraint firstAttribute="trailing" secondItem="7db-bh-egf" secondAttribute="trailing" id="5VV-72-Y7v"/>
-                            <constraint firstItem="ZN9-tQ-vmX" firstAttribute="leading" secondItem="a4S-IT-Fgz" secondAttribute="leading" id="VQ6-h4-L6t"/>
+                            <constraint firstItem="7db-bh-egf" firstAttribute="leading" secondItem="WEm-4S-gb9" secondAttribute="leading" id="391-VR-alp"/>
+                            <constraint firstItem="WEm-4S-gb9" firstAttribute="trailing" secondItem="7db-bh-egf" secondAttribute="trailing" id="5VV-72-Y7v"/>
+                            <constraint firstItem="ZN9-tQ-vmX" firstAttribute="leading" secondItem="WEm-4S-gb9" secondAttribute="leading" id="VQ6-h4-L6t"/>
                             <constraint firstItem="7db-bh-egf" firstAttribute="top" secondItem="a4S-IT-Fgz" secondAttribute="top" id="f0d-a8-5Mp"/>
-                            <constraint firstItem="NCN-l0-Vgh" firstAttribute="top" secondItem="ZN9-tQ-vmX" secondAttribute="bottom" id="z2w-0r-wN3"/>
+                            <constraint firstItem="WEm-4S-gb9" firstAttribute="bottom" secondItem="ZN9-tQ-vmX" secondAttribute="bottom" id="z2w-0r-wN3"/>
                             <constraint firstItem="ZN9-tQ-vmX" firstAttribute="top" secondItem="7db-bh-egf" secondAttribute="bottom" id="zDx-DX-vJL"/>
-                            <constraint firstAttribute="trailing" secondItem="ZN9-tQ-vmX" secondAttribute="trailing" id="zVX-kB-p39"/>
+                            <constraint firstItem="WEm-4S-gb9" firstAttribute="trailing" secondItem="ZN9-tQ-vmX" secondAttribute="trailing" id="zVX-kB-p39"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="WEm-4S-gb9"/>
                     </view>
                     <connections>
                         <outlet property="doneButton" destination="ZN9-tQ-vmX" id="yjh-3u-Occ"/>

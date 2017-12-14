@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -72,7 +73,7 @@
                         <outlet property="separator" destination="pWX-NL-dy3" id="DC7-YE-KjK"/>
                     </connections>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYv-pG-Wkw" userLabel="Street name" customClass="NavigationStreetNameView" customModule="cm_beta" customModuleProvider="target">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYv-pG-Wkw" userLabel="Street name" customClass="NavigationStreetNameView" customModule="cm_dbg" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="1024" height="65.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="600" verticalCompressionResistancePriority="600" text="Ленинградский проспект" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShI-bz-5g8">
@@ -114,7 +115,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa6-N8-acP" userLabel="Turns" customClass="NavigationTurnsView" customModule="cm_beta" customModuleProvider="target">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa6-N8-acP" userLabel="Turns" customClass="NavigationTurnsView" customModule="cm_dbg" customModuleProvider="target">
                     <rect key="frame" x="8" y="28" width="96" height="153"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wt8-EO-MKz" userLabel="First turn" customClass="SolidTouchView">
@@ -388,6 +389,7 @@
                 <constraint firstAttribute="bottom" secondItem="Tzc-l6-Vvt" secondAttribute="bottom" priority="760" id="yP1-ip-l24"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="2Hp-l9-4oj"/>
             <connections>
                 <outlet property="bookmarksButton" destination="XMv-au-OYf" id="g3E-jo-X2E"/>
                 <outlet property="distanceToNextTurnLabel" destination="KuR-1J-VI2" id="n0i-t9-Vj2"/>

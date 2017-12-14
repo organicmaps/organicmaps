@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
             <string>HelveticaNeue-Medium</string>
         </array>
     </customFonts>
@@ -285,6 +287,7 @@
                 <constraint firstAttribute="centerX" secondItem="ecm-mK-5iV" secondAttribute="centerX" id="LYH-qW-kdN"/>
                 <constraint firstAttribute="centerY" secondItem="ecm-mK-5iV" secondAttribute="centerY" constant="0.5" id="un4-ij-LG6"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="22i-YS-iu3"/>
             <connections>
                 <outlet property="message" destination="aP7-fq-KaH" id="4wq-2c-cAB"/>
                 <outlet property="rateButton" destination="kfl-QR-Dkk" id="SPX-XQ-OlM"/>
@@ -304,9 +307,4 @@
         <image name="ic_rate_star_on" width="29" height="29"/>
         <image name="ic_rate_star_pressed" width="29" height="29"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
             <string>HelveticaNeue-Medium</string>
         </array>
     </customFonts>
@@ -178,6 +180,7 @@
                 <constraint firstItem="TM8-yS-nAN" firstAttribute="centerX" secondItem="J1a-qv-gDF" secondAttribute="centerX" id="rY8-Ie-aSn"/>
                 <constraint firstItem="TM8-yS-nAN" firstAttribute="centerY" secondItem="J1a-qv-gDF" secondAttribute="centerY" id="t5z-q7-9wM"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="Z2W-ia-IOB"/>
             <point key="canvasLocation" x="305" y="172"/>
         </view>
     </objects>

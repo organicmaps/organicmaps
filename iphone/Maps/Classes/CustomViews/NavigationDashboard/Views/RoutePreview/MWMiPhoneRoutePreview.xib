@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -147,6 +149,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="h9I-OO-tom"/>
             <connections>
                 <outlet property="backButton" destination="wpf-tw-Coz" id="49c-Xq-QOk"/>
                 <outlet property="bicycle" destination="FuO-c6-y9C" id="UR2-pF-Amb"/>
@@ -376,6 +379,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Mhb-kh-JDR"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
                     <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
@@ -434,6 +438,7 @@
                 <constraint firstAttribute="trailing" secondItem="RVh-LF-kSn" secondAttribute="trailing" constant="16" id="nhh-en-tgm"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="YJK-Xe-9oN"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
                     <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>

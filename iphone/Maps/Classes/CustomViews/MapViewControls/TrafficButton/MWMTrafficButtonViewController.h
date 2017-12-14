@@ -1,4 +1,6 @@
-@interface MWMTrafficButtonViewController : UIViewController
+#import "MWMViewController.h"
+
+@interface MWMTrafficButtonViewController : MWMViewController
 
 + (MWMTrafficButtonViewController *)controller;
 

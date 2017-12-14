@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -227,7 +228,7 @@
                     <rect key="frame" x="0.0" y="52" width="320" height="64"/>
                     <subviews>
                         <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfb-5v-iWA" customClass="MWMButton">
-                            <rect key="frame" x="8" y="0.0" width="57" height="64"/>
+                            <rect key="frame" x="8" y="0.0" width="57.5" height="64"/>
                             <state key="normal" image="ic_voice_on"/>
                             <state key="selected" image="ic_voice_off"/>
                             <userDefinedRuntimeAttributes>
@@ -238,7 +239,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eaa-f0-INU" userLabel="Traffic" customClass="MWMButton">
-                            <rect key="frame" x="73" y="0.0" width="58" height="64"/>
+                            <rect key="frame" x="73.5" y="0.0" width="57" height="64"/>
                             <state key="normal" image="ic_setting_traffic_on"/>
                             <state key="selected" image="ic_setting_traffic_off"/>
                             <userDefinedRuntimeAttributes>
@@ -249,7 +250,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skM-Xx-3En" userLabel="Settings" customClass="MWMButton">
-                            <rect key="frame" x="139" y="0.0" width="57" height="64"/>
+                            <rect key="frame" x="138.5" y="0.0" width="57.5" height="64"/>
                             <state key="normal" image="ic_menu_settings"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
@@ -320,6 +321,7 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="ghU-PK-XSf"/>
             <connections>
                 <outlet property="distanceLabel" destination="vbY-p5-3bX" id="uxW-PA-dra"/>
                 <outlet property="distanceLegendLabel" destination="7dx-1W-LWs" id="Kmh-8u-jgj"/>

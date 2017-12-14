@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
             <string>HelveticaNeue-Medium</string>
         </array>
     </customFonts>
@@ -27,11 +29,7 @@
         <!--First Launch Controller-->
         <scene sceneID="AgG-8B-fRd">
             <objects>
-                <viewController storyboardIdentifier="FirstLaunchController" id="Gh3-qE-FWN" customClass="FirstLaunchController" customModule="cm_beta" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hU9-q6-FZ7"/>
-                        <viewControllerLayoutGuide type="bottom" id="f75-9I-74y"/>
-                    </layoutGuides>
+                <viewController storyboardIdentifier="FirstLaunchController" id="Gh3-qE-FWN" customClass="FirstLaunchController" customModule="cm_dbg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RNH-dF-vbJ" customClass="SolidTouchView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -141,8 +139,9 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="x7d-CC-QbG" firstAttribute="centerY" secondItem="RNH-dF-vbJ" secondAttribute="centerY" id="1xq-TS-z3W"/>
-                            <constraint firstItem="x7d-CC-QbG" firstAttribute="centerX" secondItem="RNH-dF-vbJ" secondAttribute="centerX" id="4kX-L0-l19"/>
+                            <constraint firstItem="x7d-CC-QbG" firstAttribute="centerX" secondItem="bKf-I4-JU3" secondAttribute="centerX" id="4kX-L0-l19"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="bKf-I4-JU3"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                         </userDefinedRuntimeAttributes>
@@ -175,11 +174,7 @@
         <!--Whats New Controller-->
         <scene sceneID="tit-8N-P9M">
             <objects>
-                <viewController storyboardIdentifier="WhatsNewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BOY-Lz-6Ub" customClass="WhatsNewController" customModule="cm_beta" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Jil-y7-mgd"/>
-                        <viewControllerLayoutGuide type="bottom" id="XLE-0j-M1L"/>
-                    </layoutGuides>
+                <viewController storyboardIdentifier="WhatsNewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BOY-Lz-6Ub" customClass="WhatsNewController" customModule="cm_dbg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MhV-XF-2d3" customClass="SolidTouchView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -300,11 +295,12 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Om0-FH-gPs" firstAttribute="top" secondItem="Jil-y7-mgd" secondAttribute="bottom" constant="12" id="139-Vx-mrr"/>
-                            <constraint firstAttribute="trailing" secondItem="Om0-FH-gPs" secondAttribute="trailing" constant="16" id="PCJ-ow-efY"/>
+                            <constraint firstItem="Om0-FH-gPs" firstAttribute="top" secondItem="UYe-cI-bao" secondAttribute="top" constant="12" id="139-Vx-mrr"/>
+                            <constraint firstItem="UYe-cI-bao" firstAttribute="trailing" secondItem="Om0-FH-gPs" secondAttribute="trailing" constant="16" id="PCJ-ow-efY"/>
                             <constraint firstItem="tEi-xZ-vnH" firstAttribute="centerY" secondItem="MhV-XF-2d3" secondAttribute="centerY" id="RhW-6N-nal"/>
-                            <constraint firstItem="tEi-xZ-vnH" firstAttribute="centerX" secondItem="MhV-XF-2d3" secondAttribute="centerX" id="vHo-bz-GFM"/>
+                            <constraint firstItem="tEi-xZ-vnH" firstAttribute="centerX" secondItem="UYe-cI-bao" secondAttribute="centerX" id="vHo-bz-GFM"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="UYe-cI-bao"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                         </userDefinedRuntimeAttributes>
