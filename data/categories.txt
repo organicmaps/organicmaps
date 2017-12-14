@@ -4763,7 +4763,7 @@ zh-Hans:1^汽车旅馆|旅店
 zh-Hant:1^汽車旅館|3motel|旅館|飯店|住宿|
 el:^Μοτέλ|ξενοδοχείο|ξενώνας
 sk:3^Motel|penzión|hostel|ubytovňa
-fa=مُتل
+fa:مُتل
 
 tourism-alpine_hut
 en:^Mountains Lodging|hotel|hostel|alpine hut|U+1F3E8
@@ -9166,5 +9166,5 @@ en:^Collect all the items and win prizes!
 ru:^Соберите все и выиграйте призы!
 
 sponsored-holiday
-en:^Let's check your luck. Trick or treat?
-ru:^Проверим вашу удачу? Нажмите на «Trick» или «Treat»
+en:^Christmas or New Year Celebrations
+ru:^Празднование Рождества или Нового года
