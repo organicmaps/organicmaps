@@ -163,11 +163,13 @@
   auto sv = self.superview;
   [sv setNeedsLayout];
   [UIView animateWithDuration:kDefaultAnimationDuration
-                   animations:^{ [sv layoutIfNeeded]; }
-                   completion:^(BOOL finished) {
-                     if (!self.isVisible)
-                       [self removeFromSuperview];
-                   }];
+      animations:^{
+        [sv layoutIfNeeded];
+      }
+      completion:^(BOOL finished) {
+        if (!self.isVisible)
+          [self removeFromSuperview];
+      }];
 }
 
 @end

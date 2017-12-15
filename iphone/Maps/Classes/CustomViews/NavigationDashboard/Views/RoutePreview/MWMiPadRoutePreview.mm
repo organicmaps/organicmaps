@@ -8,7 +8,7 @@
 
 @end
 
-@interface MWMiPadRoutePreview()
+@interface MWMiPadRoutePreview ()
 @property(nonatomic) NSLayoutConstraint * horizontalConstraint;
 @end
 

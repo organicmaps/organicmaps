@@ -1,6 +1,6 @@
 #import "MWMiPhoneRoutePreview.h"
-#import "SwiftBridge.h"
 #import "MWMCommon.h"
+#import "SwiftBridge.h"
 
 @interface MWMRoutePreview ()
 
@@ -8,7 +8,7 @@
 
 @end
 
-@interface MWMiPhoneRoutePreview()
+@interface MWMiPhoneRoutePreview ()
 @property(weak, nonatomic) IBOutlet UIButton * backButton;
 @property(nonatomic) NSLayoutConstraint * verticalConstraint;
 @end
@@ -24,7 +24,8 @@
   self.verticalConstraint.active = YES;
 
   NSLayoutXAxisAnchor * backLeadingAnchor = sv.leadingAnchor;
-  if (@available(iOS 11.0, *)) {
+  if (@available(iOS 11.0, *))
+  {
     backLeadingAnchor = sv.safeAreaLayoutGuide.leadingAnchor;
   }
   [self.backButton.leadingAnchor constraintEqualToAnchor:backLeadingAnchor].active = YES;
@@ -39,9 +40,12 @@
   CGFloat constant = 0;
   if (isVisible)
   {
-    if (@available(iOS 11.0, *)) {
+    if (@available(iOS 11.0, *))
+    {
       topAnchor = sv.safeAreaLayoutGuide.topAnchor;
-    } else {
+    }
+    else
+    {
       constant = statusBarHeight();
     }
   }

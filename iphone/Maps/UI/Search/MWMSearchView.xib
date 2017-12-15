@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSearchManager">
             <connections>
@@ -32,15 +37,12 @@
                 <outletCollection property="topViews" destination="u9y-bx-NGd" id="mAw-CD-QQV"/>
             </connections>
         </placeholder>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcT-Cg-vp3" customClass="SearchBar" customModule="cm_beta" customModuleProvider="target">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcT-Cg-vp3" customClass="SearchBar" customModule="cm_dbg" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8lb-Vi-0oJ" userLabel="StatusBarBackground">
-                    <rect key="frame" x="0.0" y="-20" width="320" height="20"/>
+                    <rect key="frame" x="-100" y="-100" width="520" height="144"/>
                     <color key="backgroundColor" red="0.12549019610000001" green="0.59607843140000005" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="uq8-gE-5iC"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="primary"/>
                     </userDefinedRuntimeAttributes>
@@ -87,13 +89,14 @@
                 <constraint firstAttribute="bottom" secondItem="hna-zw-Zor" secondAttribute="bottom" constant="4" id="JRS-Wn-APP"/>
                 <constraint firstItem="hna-zw-Zor" firstAttribute="top" secondItem="HcT-Cg-vp3" secondAttribute="top" constant="4" id="OpQ-jn-TbX"/>
                 <constraint firstItem="5Hu-71-uqb" firstAttribute="leading" secondItem="hna-zw-Zor" secondAttribute="trailing" id="UnO-5R-Vaq"/>
-                <constraint firstAttribute="trailing" secondItem="8lb-Vi-0oJ" secondAttribute="trailing" id="cOI-Bb-dVh"/>
+                <constraint firstItem="8lb-Vi-0oJ" firstAttribute="top" secondItem="HcT-Cg-vp3" secondAttribute="top" constant="-100" id="YyR-vY-KLM"/>
+                <constraint firstAttribute="trailing" secondItem="8lb-Vi-0oJ" secondAttribute="trailing" constant="-100" id="cOI-Bb-dVh"/>
                 <constraint firstItem="5Hu-71-uqb" firstAttribute="top" secondItem="HcT-Cg-vp3" secondAttribute="top" id="jGx-GC-U0a"/>
                 <constraint firstAttribute="trailing" secondItem="5Hu-71-uqb" secondAttribute="trailing" id="lsP-Aa-SwK"/>
-                <constraint firstItem="8lb-Vi-0oJ" firstAttribute="top" secondItem="HcT-Cg-vp3" secondAttribute="top" constant="-20" id="noI-hv-7dz"/>
                 <constraint firstAttribute="bottom" secondItem="5Hu-71-uqb" secondAttribute="bottom" id="qqg-dK-O8g"/>
                 <constraint firstItem="hna-zw-Zor" firstAttribute="leading" secondItem="HcT-Cg-vp3" secondAttribute="leading" constant="8" id="tLC-W9-2XZ"/>
-                <constraint firstItem="8lb-Vi-0oJ" firstAttribute="leading" secondItem="HcT-Cg-vp3" secondAttribute="leading" id="wB0-LU-IyU"/>
+                <constraint firstItem="8lb-Vi-0oJ" firstAttribute="leading" secondItem="HcT-Cg-vp3" secondAttribute="leading" constant="-100" id="wB0-LU-IyU"/>
+                <constraint firstAttribute="bottom" secondItem="8lb-Vi-0oJ" secondAttribute="bottom" id="wkh-Pc-qKF"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -118,6 +121,13 @@
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3Y-13-kVB" userLabel="ActionBar" customClass="SolidTouchView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gPn-bf-cPr" customClass="SolidTouchView">
+                    <rect key="frame" x="-100" y="0.0" width="520" height="148"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Smx-UL-Mcd" userLabel="TabBar">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                     <subviews>
@@ -269,17 +279,20 @@
                 <constraint firstAttribute="bottom" secondItem="Smx-UL-Mcd" secondAttribute="bottom" priority="400" id="45d-2I-giP"/>
                 <constraint firstAttribute="trailing" secondItem="Smx-UL-Mcd" secondAttribute="trailing" id="8o3-5l-8dh"/>
                 <constraint firstItem="Smx-UL-Mcd" firstAttribute="top" secondItem="j3Y-13-kVB" secondAttribute="top" id="MUE-ck-4aX"/>
+                <constraint firstAttribute="trailing" secondItem="gPn-bf-cPr" secondAttribute="trailing" constant="-100" id="Nzq-vh-MCG"/>
                 <constraint firstAttribute="bottom" secondItem="Ysx-Oh-UYF" secondAttribute="bottom" priority="400" id="aBS-8P-zF4"/>
                 <constraint firstAttribute="height" priority="250" id="d2f-Ky-6ce"/>
                 <constraint firstAttribute="trailing" secondItem="Ysx-Oh-UYF" secondAttribute="trailing" id="dJU-g3-WqH"/>
+                <constraint firstItem="gPn-bf-cPr" firstAttribute="top" secondItem="j3Y-13-kVB" secondAttribute="top" id="ddJ-8D-A75"/>
+                <constraint firstAttribute="bottom" secondItem="gPn-bf-cPr" secondAttribute="bottom" constant="-100" id="jIj-21-Icv"/>
                 <constraint firstItem="Ysx-Oh-UYF" firstAttribute="leading" secondItem="j3Y-13-kVB" secondAttribute="leading" id="rHd-Vw-BK1"/>
+                <constraint firstItem="gPn-bf-cPr" firstAttribute="leading" secondItem="j3Y-13-kVB" secondAttribute="leading" constant="-100" id="skC-Oj-Dfh"/>
                 <constraint firstItem="Ysx-Oh-UYF" firstAttribute="top" secondItem="j3Y-13-kVB" secondAttribute="top" id="vZg-em-Rn2"/>
                 <constraint firstItem="Smx-UL-Mcd" firstAttribute="leading" secondItem="j3Y-13-kVB" secondAttribute="leading" id="xn7-7r-8VD"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                 <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
                     <integer key="value" value="2"/>
                 </userDefinedRuntimeAttribute>
@@ -295,10 +308,25 @@
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="236" y="-58"/>
         </view>
-        <view clipsSubviews="YES" contentMode="scaleToFill" id="u9y-bx-NGd" userLabel="Content" customClass="MWMSearchContentView">
+        <view contentMode="scaleToFill" id="u9y-bx-NGd" userLabel="Content" customClass="MWMSearchContentView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="402"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jHn-5d-yXG" customClass="SolidTouchView">
+                    <rect key="frame" x="-100" y="0.0" width="520" height="502"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="jHn-5d-yXG" firstAttribute="leading" secondItem="u9y-bx-NGd" secondAttribute="leading" constant="-100" id="1Qk-kN-iT5"/>
+                <constraint firstItem="jHn-5d-yXG" firstAttribute="top" secondItem="u9y-bx-NGd" secondAttribute="top" id="Bgm-2G-pSD"/>
+                <constraint firstAttribute="trailing" secondItem="jHn-5d-yXG" secondAttribute="trailing" constant="-100" id="aKt-MM-Csi"/>
+                <constraint firstAttribute="bottom" secondItem="jHn-5d-yXG" secondAttribute="bottom" constant="-100" id="hm3-xK-oys"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>

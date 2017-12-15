@@ -63,7 +63,8 @@ CGFloat const kButtonsBottomOffset = 6;
     if (hidden)
       self.minX = self.superview.width;
     else
-      self.maxX = self.availableArea.origin.x + self.availableArea.size.width - kViewControlsOffsetToBounds;
+      self.maxX =
+          self.availableArea.origin.x + self.availableArea.size.width - kViewControlsOffsetToBounds;
   }
 }
 

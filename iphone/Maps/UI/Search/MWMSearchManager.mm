@@ -497,17 +497,15 @@ using Observers = NSHashTable<Observer>;
   {
     if (searchBarView.superview)
     {
-      [parentView bringSubviewToFront:contentView];
-      [parentView bringSubviewToFront:actionBarView];
       [parentView bringSubviewToFront:searchBarView];
+      [parentView bringSubviewToFront:actionBarView];
+      [parentView bringSubviewToFront:contentView];
       return;
     }
-    [parentView addSubview:contentView];
-    [parentView addSubview:actionBarView];
     [parentView addSubview:searchBarView];
+    [parentView addSubview:actionBarView];
+    [parentView addSubview:contentView];
     [self layoutTopViews];
-    CGRect searchAndStatusBarFrame = self.searchBarView.frame;
-    searchAndStatusBarFrame.size.height += statusBarHeight();
   }
   [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
