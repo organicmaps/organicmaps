@@ -20,13 +20,18 @@ final class NavigationAddPointToastView: UIView {
     }
   }
 
+  @IBOutlet private weak var extraBottomBackground: UIView! {
+    didSet {
+      extraBottomBackground.backgroundColor = UIColor.white()
+    }
+  }
+
   @objc private(set) var isStart = true
 
   @objc func config(isStart: Bool, withLocationButton: Bool) {
     self.isStart = isStart
     let text = isStart ? L("routing_add_start_point") : L("routing_add_finish_point")
     actionButton.setTitle(text, for: .normal)
-    backgroundColor = UIColor.white()
 
     if withLocationButton {
       locationButton.isHidden = false

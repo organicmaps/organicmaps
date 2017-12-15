@@ -21,11 +21,21 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="Tzc-l6-Vvt" customClass="MWMNavigationAddPointToastView">
+                <view opaque="NO" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="Tzc-l6-Vvt" customClass="MWMNavigationAddPointToastView">
                     <rect key="frame" x="0.0" y="1366" width="1024" height="48"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmn-hv-OlG">
+                            <rect key="frame" x="-100" y="0.0" width="1224" height="100"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="100" id="6em-0e-zym"/>
+                            </constraints>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" verticalHuggingPriority="240" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="OJ3-VB-hqA">
                             <rect key="frame" x="0.0" y="0.0" width="971" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="oPW-KZ-iX3"/>
+                            </constraints>
                             <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Button" image="ic_search_toast"/>
@@ -44,6 +54,7 @@
                             <rect key="frame" x="972" y="0.0" width="52" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="routePlaningButtomPanelUseLocation"/>
                             <constraints>
+                                <constraint firstAttribute="height" constant="48" id="1d3-V3-ab6"/>
                                 <constraint firstAttribute="width" secondItem="fh6-Nu-aYU" secondAttribute="height" multiplier="1:1" priority="750" id="Y41-YU-X4s"/>
                             </constraints>
                             <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
@@ -53,22 +64,25 @@
                             </connections>
                         </button>
                     </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <accessibility key="accessibilityConfiguration" identifier="routePlaningButtomPanel"/>
                     <constraints>
                         <constraint firstItem="OJ3-VB-hqA" firstAttribute="leading" secondItem="Tzc-l6-Vvt" secondAttribute="leading" id="Dhd-ED-QZD"/>
                         <constraint firstAttribute="height" constant="48" id="E4J-Rq-3CZ"/>
                         <constraint firstItem="fh6-Nu-aYU" firstAttribute="leading" secondItem="pWX-NL-dy3" secondAttribute="trailing" id="GWY-Hv-xMd"/>
-                        <constraint firstAttribute="bottom" secondItem="fh6-Nu-aYU" secondAttribute="bottom" id="LUb-gc-AdF"/>
+                        <constraint firstAttribute="trailing" secondItem="jmn-hv-OlG" secondAttribute="trailing" constant="-100" id="IwI-ua-fZg"/>
                         <constraint firstItem="pWX-NL-dy3" firstAttribute="top" secondItem="fh6-Nu-aYU" secondAttribute="top" constant="8" id="QuG-5X-6WM"/>
+                        <constraint firstItem="jmn-hv-OlG" firstAttribute="leading" secondItem="Tzc-l6-Vvt" secondAttribute="leading" constant="-100" id="Vc5-xh-8nV"/>
                         <constraint firstItem="OJ3-VB-hqA" firstAttribute="top" secondItem="Tzc-l6-Vvt" secondAttribute="top" id="dYq-JZ-UgV"/>
                         <constraint firstItem="fh6-Nu-aYU" firstAttribute="top" secondItem="Tzc-l6-Vvt" secondAttribute="top" id="kaA-3q-cFB"/>
                         <constraint firstItem="pWX-NL-dy3" firstAttribute="leading" secondItem="OJ3-VB-hqA" secondAttribute="trailing" priority="999" id="ngH-HH-FLo"/>
                         <constraint firstAttribute="trailing" secondItem="fh6-Nu-aYU" secondAttribute="trailing" id="o3O-CY-AKb"/>
-                        <constraint firstAttribute="bottom" secondItem="OJ3-VB-hqA" secondAttribute="bottom" priority="500" id="uNX-H8-11S"/>
+                        <constraint firstItem="jmn-hv-OlG" firstAttribute="top" secondItem="Tzc-l6-Vvt" secondAttribute="top" id="oKf-hI-i5g"/>
                         <constraint firstItem="pWX-NL-dy3" firstAttribute="bottom" secondItem="fh6-Nu-aYU" secondAttribute="bottom" constant="-8" id="whl-Po-qqC"/>
                     </constraints>
                     <connections>
                         <outlet property="actionButton" destination="OJ3-VB-hqA" id="MW0-KG-h24"/>
+                        <outlet property="extraBottomBackground" destination="jmn-hv-OlG" id="D8x-Ph-Pm5"/>
                         <outlet property="locationButton" destination="fh6-Nu-aYU" id="2dI-Ab-cCH"/>
                         <outlet property="separator" destination="pWX-NL-dy3" id="DC7-YE-KjK"/>
                     </connections>
