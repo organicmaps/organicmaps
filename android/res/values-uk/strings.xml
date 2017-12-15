@@ -1209,7 +1209,7 @@
 	<string name="discovery_button_404_error_message">Ой! На жаль, ми не знайшли нічого цікавого поблизу.</string>
 	<string name="booking_filters_check_in">Заїзд</string>
 	<string name="booking_filters_check_out">Виїзд</string>
-	<string name="booking_filters_offline">Не доступно онлайн.</string>
+	<string name="booking_filters_offline">Не доступно офлайн.</string>
 	<string name="directions_finish">Напрямок</string>
 	<string name="directions_on_foot">Піша прогулянка %s</string>
 	<string name="entrance">Вхід</string>

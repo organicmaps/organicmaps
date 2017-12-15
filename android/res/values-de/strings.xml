@@ -1220,7 +1220,7 @@
 	<string name="discovery_button_404_error_message">Hoppla, wir haben nichts Interessantes in Ihrer Nähe gefunden.</string>
 	<string name="booking_filters_check_in">Ankunft</string>
 	<string name="booking_filters_check_out">Abreise</string>
-	<string name="booking_filters_offline">Online nicht verfügbar.</string>
+	<string name="booking_filters_offline">Offline nicht verfügbar.</string>
 	<string name="directions_finish">Ziel</string>
 	<string name="directions_on_foot">%s zu Fuß gehen</string>
 	<string name="entrance">Eingang</string>

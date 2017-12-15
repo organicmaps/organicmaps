@@ -1205,7 +1205,7 @@
 	<string name="discovery_button_404_error_message">周辺では面白そうなものが何も見つかりませんでした。</string>
 	<string name="booking_filters_check_in">チェックイン</string>
 	<string name="booking_filters_check_out">チェックアウト</string>
-	<string name="booking_filters_offline">オンラインでは利用できません。</string>
+	<string name="booking_filters_offline">利用不可.</string>
 	<string name="directions_finish">目的地</string>
 	<string name="directions_on_foot">徒歩 %s</string>
 	<string name="entrance">入口</string>

@@ -1206,7 +1206,7 @@
 	<string name="discovery_button_404_error_message">Oái, chúng tôi không tìm thấy bất cứ điều gì thú vị quanh đây.</string>
 	<string name="booking_filters_check_in">Làm thủ tục</string>
 	<string name="booking_filters_check_out">Trả phòng</string>
-	<string name="booking_filters_offline">Không khả dụng trực tuyến.</string>
+	<string name="booking_filters_offline">Không khả dụng ngoại tuyến.</string>
 	<string name="directions_finish">Điểm đến</string>
 	<string name="directions_on_foot">Đi bộ %s</string>
 	<string name="entrance">Lối vào</string>

@@ -1210,7 +1210,7 @@
 	<string name="discovery_button_404_error_message">Ups, vi fandt ikke noget interessant i nærheden.</string>
 	<string name="booking_filters_check_in">Tjek ind</string>
 	<string name="booking_filters_check_out">Tjek ud</string>
-	<string name="booking_filters_offline">Ikke tilgængelig online.</string>
+	<string name="booking_filters_offline">Ikke tilgængelig offline.</string>
 	<string name="directions_finish">Destination</string>
 	<string name="directions_on_foot">Gå %s</string>
 	<string name="entrance">Indgang</string>

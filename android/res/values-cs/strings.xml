@@ -1213,7 +1213,7 @@
 	<string name="discovery_button_404_error_message">Jejda, nenašli jsme v okolí nic zajímavého.</string>
 	<string name="booking_filters_check_in">Přihlásit se</string>
 	<string name="booking_filters_check_out">Odhlásit se</string>
-	<string name="booking_filters_offline">Není k dispozici online.</string>
+	<string name="booking_filters_offline">Není k dispozici offline.</string>
 	<string name="directions_finish">Cíl</string>
 	<string name="directions_on_foot">Chůze %s</string>
 	<string name="entrance">Vstup</string>

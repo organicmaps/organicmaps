@@ -1205,7 +1205,7 @@
 	<string name="discovery_button_404_error_message">Ops, non abbiamo trovato nulla di interessante nei dintorni.</string>
 	<string name="booking_filters_check_in">Check-in</string>
 	<string name="booking_filters_check_out">Check-out</string>
-	<string name="booking_filters_offline">Non disponibile online.</string>
+	<string name="booking_filters_offline">Non disponibile offline.</string>
 	<string name="directions_finish">Destinazione</string>
 	<string name="directions_on_foot">Percorri %s</string>
 	<string name="entrance">Ingresso</string>

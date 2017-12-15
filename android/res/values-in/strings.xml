@@ -1205,7 +1205,7 @@
 	<string name="discovery_button_404_error_message">Waduh, kami tidak menemukan hal-hal menarik di sekitar sini.</string>
 	<string name="booking_filters_check_in">Check in</string>
 	<string name="booking_filters_check_out">Check out</string>
-	<string name="booking_filters_offline">Tidak tersedia online.</string>
+	<string name="booking_filters_offline">Tidak tersedia offline.</string>
 	<string name="directions_finish">Destinasi</string>
 	<string name="directions_on_foot">Berjalan %s</string>
 	<string name="entrance">Tempat masuk</string>

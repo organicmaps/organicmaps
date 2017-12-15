@@ -1206,7 +1206,7 @@
 	<string name="discovery_button_404_error_message">Emme löytäneet mitään mielenkiintoista lähistöltä.</string>
 	<string name="booking_filters_check_in">Sisäänkirjautuminen</string>
 	<string name="booking_filters_check_out">Uloskirjautuminen</string>
-	<string name="booking_filters_offline">Ei saatavana verkossa.</string>
+	<string name="booking_filters_offline">Ei saatavilla offline.</string>
 	<string name="directions_finish">Kohde</string>
 	<string name="directions_on_foot">Kävele %s</string>
 	<string name="entrance">Sisäänkäynti</string>

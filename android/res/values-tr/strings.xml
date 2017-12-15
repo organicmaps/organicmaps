@@ -1212,7 +1212,7 @@
 	<string name="discovery_button_404_error_message">Maalesef, çevrede ilginç bir şey bulamadık.</string>
 	<string name="booking_filters_check_in">Giriş</string>
 	<string name="booking_filters_check_out">Çıkış</string>
-	<string name="booking_filters_offline">Çevrimiçi kullanılamaz.</string>
+	<string name="booking_filters_offline">Çevrimdışı kullanılamıyor.</string>
 	<string name="directions_finish">Varış konumu</string>
 	<string name="directions_on_foot">%s doğru yürüyün</string>
 	<string name="entrance">Giriş</string>

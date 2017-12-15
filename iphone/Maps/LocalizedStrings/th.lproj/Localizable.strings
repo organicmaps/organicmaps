@@ -2154,7 +2154,7 @@
 
 "booking_filters_check_out" = "เช็คเอาท์";
 
-"booking_filters_offline" = "ไม่มีให้ใช้ออนไลน์";
+"booking_filters_offline" = "ไม่สามารถใช้ได.";
 
 "directions_finish" = "จุดหมายปลายทาง";
 

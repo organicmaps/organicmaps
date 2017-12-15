@@ -1216,7 +1216,7 @@
 	<string name="discovery_button_404_error_message">哎呀，我們沒在周圍找到任何有趣的事情。</string>
 	<string name="booking_filters_check_in">入住登記</string>
 	<string name="booking_filters_check_out">退房登記</string>
-	<string name="booking_filters_offline">無法線上提供。</string>
+	<string name="booking_filters_offline">無法使用。</string>
 	<string name="directions_finish">目的地</string>
 	<string name="directions_on_foot">步行 %s</string>
 	<string name="entrance">入口</string>

@@ -1199,7 +1199,7 @@
 	<string name="discovery_button_404_error_message">Vaya, no se ha encontrado nada interesante por la zona.</string>
 	<string name="booking_filters_check_in">Entrada</string>
 	<string name="booking_filters_check_out">Salida</string>
-	<string name="booking_filters_offline">No está disponible en línea.</string>
+	<string name="booking_filters_offline">No disponible fuera de línea.</string>
 	<string name="directions_finish">Destino</string>
 	<string name="directions_on_foot">%s a pie</string>
 	<string name="entrance">Entrada</string>

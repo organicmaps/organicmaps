@@ -1209,7 +1209,7 @@
 	<string name="discovery_button_404_error_message">Ejha, nenašli sme v okolí nič zaujímavé.</string>
 	<string name="booking_filters_check_in">Prihlásiť sa</string>
 	<string name="booking_filters_check_out">Odhlásiť sa</string>
-	<string name="booking_filters_offline">Nie sú k dispozícii online.</string>
+	<string name="booking_filters_offline">Nie sú k dispozícii offline.</string>
 	<string name="directions_finish">Ciel</string>
 	<string name="directions_on_foot">Chôdza %s</string>
 	<string name="entrance">Vchod  | vjazd</string>

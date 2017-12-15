@@ -1212,7 +1212,7 @@
 	<string name="discovery_button_404_error_message">معذرة، لم نعثر على أي شيء مثير في الجوار.</string>
 	<string name="booking_filters_check_in">تسجيل دخول</string>
 	<string name="booking_filters_check_out">تسجيل مغادرة</string>
-	<string name="booking_filters_offline">غير متوفر على الإنترنت.</string>
+	<string name="booking_filters_offline">غير متاح.</string>
 	<string name="directions_finish">الوجهة</string>
 	<string name="directions_on_foot">سيرًا %s</string>
 	<string name="entrance">المدخل</string>

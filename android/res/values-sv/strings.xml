@@ -1210,7 +1210,7 @@
 	<string name="discovery_button_404_error_message">Hoppsan, vi hittade inget intressant i närheten.</string>
 	<string name="booking_filters_check_in">Checka in</string>
 	<string name="booking_filters_check_out">Checka ut</string>
-	<string name="booking_filters_offline">Inte tillgängligt online.</string>
+	<string name="booking_filters_offline">Inte tillgängligt offline.</string>
 	<string name="directions_finish">Destination</string>
 	<string name="directions_on_foot">Gå %s</string>
 	<string name="entrance">Ingång</string>

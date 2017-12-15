@@ -1202,7 +1202,7 @@
 	<string name="discovery_button_404_error_message">죄송합니다, 주변에서 흥미로운 것을 찾지 못했습니다.</string>
 	<string name="booking_filters_check_in">체크인</string>
 	<string name="booking_filters_check_out">체크아웃</string>
-	<string name="booking_filters_offline">온라인으로 사용할 수 없습니다.</string>
+	<string name="booking_filters_offline">사용할 수 없음.</string>
 	<string name="directions_finish">목적지</string>
 	<string name="directions_on_foot">%s 걷기</string>
 	<string name="entrance">입구</string>

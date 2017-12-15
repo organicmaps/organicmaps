@@ -970,7 +970,7 @@
 	<string name="discovery_button_404_error_message">Ωχ, δεν βρήκαμε τίποτα ενδιαφέρον κοντά.</string>
 	<string name="booking_filters_check_in">Άφιξη</string>
 	<string name="booking_filters_check_out">Αναχώρηση</string>
-	<string name="booking_filters_offline">Δεν είναι διαθέσιμη online.</string>
+	<string name="booking_filters_offline">Δεν είναι διαθέσιμη offline.</string>
 	<string name="directions_finish">Προορισμός</string>
 	<string name="directions_on_foot">Βάδισμα %s</string>
 	<string name="entrance">Είσοδος</string>

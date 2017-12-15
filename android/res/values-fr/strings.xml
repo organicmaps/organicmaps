@@ -1218,7 +1218,7 @@
 	<string name="discovery_button_404_error_message">Oups, nous n\'avons rien trouvé d\'intéressant dans les alentours.</string>
 	<string name="booking_filters_check_in">Faire le check-in</string>
 	<string name="booking_filters_check_out">Faire le check-out</string>
-	<string name="booking_filters_offline">Pas disponible en ligne.</string>
+	<string name="booking_filters_offline">Non disponible hors-ligne.</string>
 	<string name="directions_finish">Destination</string>
 	<string name="directions_on_foot">Marcher %s</string>
 	<string name="entrance">Entrée</string>

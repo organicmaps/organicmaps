@@ -2120,64 +2120,64 @@
 
 "whats_new_ugc_message" = "Nå kan du gi dine vurderinger selv i frakoblet modus! Ikke glem å oppdatere kartene dine for å se endringene.";
 
-"dialog_error_storage_title" = "Storage access problem";
+"dialog_error_storage_title" = "Problemer med tilgang til lagring";
 
-"dialog_error_storage_message" = "External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support@maps.me";
+"dialog_error_storage_message" = "Ekstern lagring er ikke tilgjengelig. Sannsynligvis er SD-kortet fjernet eller skadet eller så er filsystemet skrivebeskyttet. Undersøk og kontakt oss på support@maps.me";
 
-"setting_emulate_bad_storage" = "Emulate bad storage";
+"setting_emulate_bad_storage" = "Emulere skadet lagring";
 
-"discovery_button_title" = "Discover nearby";
+"discovery_button_title" = "Oppdag i nærheten";
 
-"discovery_button_subtitle_things_to_do" = "Things to do";
+"discovery_button_subtitle_things_to_do" = "Ting å gjøre";
 
-"discovery_button_subtitle_attractions" = "Attractions";
+"discovery_button_subtitle_attractions" = "Attraksjoner";
 
-"discovery_button_subtitle_eat_and_drink" = "Eat and drink";
+"discovery_button_subtitle_eat_and_drink" = "Spise og drikke";
 
-"discovery_button_subtitle_local_guides" = "Local Guides";
+"discovery_button_subtitle_local_guides" = "Lokale guider";
 
-"discovery_button_viator_offline_title" = "Discover tours and unusual things to do";
+"discovery_button_viator_offline_title" = "Finn omvisninger og ting å gjøre utenom det vanlige";
 
-"discovery_button_viator_offline_message" = "Tours, things to do, sightseeing tours and more.";
+"discovery_button_viator_offline_message" = "Omvisninger, ting å gjøre, sightseeingturer og mer.";
 
-"discovery_button_viator_error_title" = "Error loading data";
+"discovery_button_viator_error_title" = "En feil oppstod under datalasting";
 
-"discovery_button_other_error_message" = "Error loading data";
+"discovery_button_other_error_message" = "En feil oppstod under datalasting";
 
-"discovery_button_other_loading_message" = "Data is loading";
+"discovery_button_other_loading_message" = "Data lastes";
 
-"discovery_button_404_error_title" = "Not found";
+"discovery_button_404_error_title" = "Ikke funnet";
 
-"discovery_button_404_error_message" = "Oops, we did not find anything interesting around.";
+"discovery_button_404_error_message" = "Oops, vi kunne ikke finne noe interessant i nærheten.";
 
-"booking_filters_check_in" = "Check in";
+"booking_filters_check_in" = "Sjekk inn";
 
-"booking_filters_check_out" = "Check out";
+"booking_filters_check_out" = "Sjekk ut";
 
-"booking_filters_offline" = "Not available online.";
+"booking_filters_offline" = "Ikke tilgjengelig offline.";
 
-"directions_finish" = "Destination";
+"directions_finish" = "Destinasjon";
 
-"directions_on_foot" = "Walk %s";
+"directions_on_foot" = "Gå %s";
 
-"entrance" = "Entrance";
+"entrance" = "Inngang";
 
-"coffee" = "Coffee";
+"coffee" = "Kaffe";
 
-"cleanliness" = "Cleanliness";
+"cleanliness" = "Renslighet";
 
-"crowdedness" = "Crowdedness";
+"crowdedness" = "Mye folk";
 
-"error_enter_correct_name" = "Please, enter a correct name";
+"error_enter_correct_name" = "Skriv inn korrekt navn";
 
-"hotel_available" = "Available";
+"hotel_available" = "Tilgjengelig";
 
-"whats_new_transit_title" = "Subways available";
+"whats_new_transit_title" = "Undergrunnsbaner er tilgjengelig";
 
-"whats_new_transit_message" = "Build your routes using subways! Please update maps to see changes.";
+"whats_new_transit_message" = "Lag ruter med undergrunnsbaner! Oppdater kartene for å se endringene.";
 
-"whats_new_discovery_title" = "Discovery button";
+"whats_new_discovery_title" = "Oppdagelsesknapp";
 
-"whats_new_discovery_message" = "Discover things around in one click!";
+"whats_new_discovery_message" = "Oppdag ting i nærheten med ett klikk!";
 
 "price_per_hour" = "%s/time";

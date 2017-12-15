@@ -1202,7 +1202,7 @@
 	<string name="discovery_button_404_error_message">Ne pare rău, dar nu am găsit nimic interesant în jur.</string>
 	<string name="booking_filters_check_in">Cazare</string>
 	<string name="booking_filters_check_out">Plecare</string>
-	<string name="booking_filters_offline">Nu este disponibil online.</string>
+	<string name="booking_filters_offline">Nu este disponibil offline.</string>
 	<string name="directions_finish">Destinație</string>
 	<string name="directions_on_foot">%s de mers</string>
 	<string name="entrance">Intrare</string>

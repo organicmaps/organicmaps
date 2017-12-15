@@ -1212,7 +1212,7 @@
 	<string name="discovery_button_404_error_message">อุ๊ย เราไม่พบอะไรน่าสนใจแถวนี้เลย</string>
 	<string name="booking_filters_check_in">เช็คอิน</string>
 	<string name="booking_filters_check_out">เช็คเอาท์</string>
-	<string name="booking_filters_offline">ไม่มีให้ใช้ออนไลน์</string>
+	<string name="booking_filters_offline">ไม่สามารถใช้ได.</string>
 	<string name="directions_finish">จุดหมายปลายทาง</string>
 	<string name="directions_on_foot">เดินเท้า %s</string>
 	<string name="entrance">ทางเข้า</string>

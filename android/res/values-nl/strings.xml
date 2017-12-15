@@ -1206,7 +1206,7 @@
 	<string name="discovery_button_404_error_message">Oeps, we vonden niets interessants in de buurt.</string>
 	<string name="booking_filters_check_in">Inchecken</string>
 	<string name="booking_filters_check_out">Uitchecken</string>
-	<string name="booking_filters_offline">Niet beschikbaar online.</string>
+	<string name="booking_filters_offline">Niet beschikbaar offline.</string>
 	<string name="directions_finish">Bestemming</string>
 	<string name="directions_on_foot">Wandel %s</string>
 	<string name="entrance">Ingang</string>

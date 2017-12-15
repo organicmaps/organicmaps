@@ -1209,7 +1209,7 @@
 	<string name="discovery_button_404_error_message">Ups, nie znaleźliśmy w okolicy niczego interesującego.</string>
 	<string name="booking_filters_check_in">Zameldowanie</string>
 	<string name="booking_filters_check_out">Wymeldowanie</string>
-	<string name="booking_filters_offline">Niedostępne online.</string>
+	<string name="booking_filters_offline">Niedostępne offline.</string>
 	<string name="directions_finish">Punkt docelowy</string>
 	<string name="directions_on_foot">Przejdź %s</string>
 	<string name="entrance">Wejście</string>

@@ -1206,7 +1206,7 @@
 	<string name="discovery_button_404_error_message">Hoppá, nem találtunk semmit érdekeset ezen a környéken.</string>
 	<string name="booking_filters_check_in">Bejelentkezés</string>
 	<string name="booking_filters_check_out">Kijelentkezés</string>
-	<string name="booking_filters_offline">Nem érhető el online.</string>
+	<string name="booking_filters_offline">Nem érhető el offline.</string>
 	<string name="directions_finish">Rendeltetési hely</string>
 	<string name="directions_on_foot">%s séta</string>
 	<string name="entrance">Bejárat</string>

@@ -1253,7 +1253,7 @@
 	<string name="discovery_button_404_error_message">Oops, we did not find anything interesting around.</string>
 	<string name="booking_filters_check_in">Check in</string>
 	<string name="booking_filters_check_out">Check out</string>
-	<string name="booking_filters_offline">Not available online.</string>
+	<string name="booking_filters_offline">Not available offline.</string>
 	<string name="directions_finish">Destination</string>
 	<string name="directions_on_foot">Walk %s</string>
 	<string name="entrance">Entrance</string>
