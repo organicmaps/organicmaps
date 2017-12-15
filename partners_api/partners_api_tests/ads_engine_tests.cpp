@@ -138,11 +138,9 @@ UNIT_TEST(AdsEngine_Smoke)
   }
   ads::Google google;
   {
-    TEST(engine.HasSearchBanner(), ());
+    TEST_EQUAL(engine.HasSearchBanner(), false, ());
     auto result = engine.GetSearchBanners();
-    TEST_EQUAL(result.size(), 1, ());
-    TEST_EQUAL(result[0].m_type, ads::Banner::Type::Google, ());
-    TEST_EQUAL(result[0].m_bannerId, google.GetSearchBannerId(), ());
+    TEST_EQUAL(result.size(), 0, ());
   }
   {
     feature::TypesHolder holder;
