@@ -224,11 +224,15 @@ void Filter::FilterAvailability(search::Results const & results,
     auto const apiCallback =
       [cb, hotelToResults, availabilityCache](std::vector<std::string> hotelIds) mutable
     {
-      search::Results results;
-      std::sort(hotelIds.begin(), hotelIds.end());
-      UpdateCache(hotelToResults, hotelIds, *availabilityCache);
-      FillResults(std::move(hotelToResults), hotelIds, *availabilityCache, results);
-      cb(results);
+      GetPlatform().RunTask(Platform::Thread::File,
+                            [cb, hotelToResults, availabilityCache, hotelIds]() mutable
+      {
+        search::Results results;
+        std::sort(hotelIds.begin(), hotelIds.end());
+        UpdateCache(hotelToResults, hotelIds, *availabilityCache);
+        FillResults(std::move(hotelToResults), hotelIds, *availabilityCache, results);
+        cb(results);
+      });
     };
 
     m_api.GetHotelAvailability(m_currentParams, apiCallback);
