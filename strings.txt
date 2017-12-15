@@ -27518,8 +27518,8 @@
     zh-Hant = 儲存空間存取問題
     el = Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο
     es_MX = Problema de acceso al almacenamiento
-    no = Problemer med tilgang til lagring
-    pt_BR = Problema de acesso ao armazenamento
+    nb = Problemer med tilgang til lagring
+    pt-BR = Problema de acesso ao armazenamento
     sk = Problém s prístupom k úložisku
     sw = Tatizo la kufikia hifadhi
 
@@ -27551,8 +27551,8 @@
     zh-Hant = 外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support@maps.me 方式聯繫我們
     el = Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support@maps.me
     es_MX = El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support@maps.me
-    no = Ekstern lagring er ikke tilgjengelig. Sannsynligvis er SD-kortet fjernet eller skadet eller så er filsystemet skrivebeskyttet. Undersøk og kontakt oss på support@maps.me
-    pt_BR = O armazenamento externo não está disponível, é provável que o Cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support@maps.me
+    nb = Ekstern lagring er ikke tilgjengelig. Sannsynligvis er SD-kortet fjernet eller skadet eller så er filsystemet skrivebeskyttet. Undersøk og kontakt oss på support@maps.me
+    pt-BR = O armazenamento externo não está disponível, é provável que o Cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support@maps.me
     sk = Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support@maps.me
     sw = Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support@maps.me
 
@@ -27584,8 +27584,8 @@
     zh-Hant = 模擬不良儲存空間
     el = Εξομείωση κακού αποθηκευτικού χώρου
     es_MX = Emular el almacenamiento dañado
-    no = Emulere skadet lagring
-    pt_BR = Emular memória ruim
+    nb = Emulere skadet lagring
+    pt-BR = Emular memória ruim
     sk = Imitovať poškodené úložisko
     sw = Onyeshana hifadhi mbaya
 
@@ -27617,8 +27617,8 @@
     zh-Hant = 探索鄰近區域
     el = Ανακαλύψτε κοντά
     es_MX = Descubrir los alrededores
-    no = Oppdag i nærheten
-    pt_BR = Descobrir nas proximidades
+    nb = Oppdag i nærheten
+    pt-BR = Descobrir nas proximidades
     sk = Poznávajte svoje okolie
     sw = Gundua yaliyo karibu
 
@@ -27650,8 +27650,8 @@
     zh-Hant = 活動
     el = Πράγματα που πρέπει να κάνω
     es_MX = Cosas que hacer
-    no = Ting å gjøre
-    pt_BR = Coisas a fazer
+    nb = Ting å gjøre
+    pt-BR = Coisas a fazer
     sk = Aktivity
     sw = Mambo ya kufanya
 
@@ -27686,8 +27686,8 @@
     he = אטרקציות
     hi = आकर्षण
     ms = Tempat-tempat menarik
-    no = Attraksjoner
-    pt_BR = Atrações
+    nb = Attraksjoner
+    pt-BR = Atrações
     sk = Atrakcie
     sw = Vivutio
 
@@ -27719,8 +27719,8 @@
     zh-Hant = 餐飲
     el = Φαγητό και ποτό
     es_MX = Comida y bebida
-    no = Spise og drikke
-    pt_BR = Comer e beber
+    nb = Spise og drikke
+    pt-BR = Comer e beber
     sk = Jedlo a pitie
     sw = Kula na kunywa
 
@@ -27752,8 +27752,8 @@
     zh-Hant = 本地指南
     el = Τοπικοί οδηγοί
     es_MX = Guías locales
-    no = Lokale guider
-    pt_BR = Guias locais
+    nb = Lokale guider
+    pt-BR = Guias locais
     sk = Miestni sprievodcovia
     sw = Miongozo ya ndani
 
@@ -27785,8 +27785,8 @@
     zh-Hant = 探索行程與特殊活動
     el = Ανακαλύψτε περιηγήσεις και ασυνήθιστες δραστηριότητες
     es_MX = Descubrir visitas guiadas y actividades diferentes
-    no = Finn omvisninger og ting å gjøre utenom det vanlige
-    pt_BR = Descobrir excursões e atividades incomuns
+    nb = Finn omvisninger og ting å gjøre utenom det vanlige
+    pt-BR = Descobrir excursões e atividades incomuns
     sk = Objavte výlety a nezvyčajné aktivity
     sw = Gundua safari za utalii na mambo ya kufanya yasiyo ya kawaida
 
@@ -27818,8 +27818,8 @@
     zh-Hant = 旅行、活動、觀光及其他。
     el = Εκδρομές, πράγματα να κάνετε, περιηγήσεις στα αξιοθέατα και πολλά άλλα.
     es_MX = Visitas guiadas, cosas que hacer, atracciones turísticas y mucho más.
-    no = Omvisninger, ting å gjøre, sightseeingturer og mer.
-    pt_BR = Excursões, atividades, passeios turísticos e muito mais.
+    nb = Omvisninger, ting å gjøre, sightseeingturer og mer.
+    pt-BR = Excursões, atividades, passeios turísticos e muito mais.
     sk = Zájazdy, voľnočasové aktivity, okružné jazdy a ďalšie.
     sw = Utalii, mambo ya kufanya, utalii wa kutazama maeneo ya kuvutia na mengi zaidi.
 
@@ -27851,8 +27851,8 @@
     zh-Hant = 載入數據時，發生錯誤
     el = Σφάλμα κατά τη φόρτωση δεδομένων
     es_MX = Se produjo un error al cargar los datos
-    no = En feil oppstod under datalasting
-    pt_BR = Erro no carregamento de dados
+    nb = En feil oppstod under datalasting
+    pt-BR = Erro no carregamento de dados
     sk = Chyba pri načítaní dat
     sw = Hitilafu katika kuleta data
 
@@ -27884,8 +27884,8 @@
     zh-Hant = 載入數據時，發生錯誤
     el = Σφάλμα κατά τη φόρτωση δεδομένων
     es_MX = Se produjo un error al cargar los datos
-    no = En feil oppstod under datalasting
-    pt_BR = Erro no carregamento de dados
+    nb = En feil oppstod under datalasting
+    pt-BR = Erro no carregamento de dados
     sk = Chyba pri načítaní dat
     sw = Hitilafu katika kuleta data
 
@@ -27917,8 +27917,8 @@
     zh-Hant = 正在載入數據
     el = Φόρτωση δεδομένων
     es_MX = Cargando los datos
-    no = Data lastes
-    pt_BR = Dados sendo carregados
+    nb = Data lastes
+    pt-BR = Dados sendo carregados
     sk = Prebieha načítanie dát
     sw = Data inaletwa
 
@@ -27950,8 +27950,8 @@
     zh-Hant = 未找到
     el = Δεν βρέθηκε
     es_MX = No se encontró
-    no = Ikke funnet
-    pt_BR = Não encontrado
+    nb = Ikke funnet
+    pt-BR = Não encontrado
     sk = Nič nebolo nájdené
     sw = Haipatikani
 
@@ -27983,8 +27983,8 @@
     zh-Hant = 哎呀，我們沒在周圍找到任何有趣的事情。
     el = Ωχ, δεν βρήκαμε τίποτα ενδιαφέρον κοντά.
     es_MX = Huy, no se encontró nada interesante por la zona.
-    no = Oops, vi kunne ikke finne noe interessant i nærheten.
-    pt_BR = Opa, não encontramos nada de interessante por aí.
+    nb = Oops, vi kunne ikke finne noe interessant i nærheten.
+    pt-BR = Opa, não encontramos nada de interessante por aí.
     sk = Ejha, nenašli sme v okolí nič zaujímavé.
     sw = Lo, hatukupata chochote cha kuvutia hapa.
 
@@ -28016,8 +28016,8 @@
     zh-Hant = 入住登記
     el = Άφιξη
     es_MX = Entrada
-    no = Sjekk inn
-    pt_BR = Check-in
+    nb = Sjekk inn
+    pt-BR = Check-in
     sk = Prihlásiť sa
     sw = Ingia
 
@@ -28049,43 +28049,43 @@
     zh-Hant = 退房登記
     el = Αναχώρηση
     es_MX = Salida
-    no = Sjekk ut
-    pt_BR = Check-out
+    nb = Sjekk ut
+    pt-BR = Check-out
     sk = Odhlásiť sa
     sw = Ondoka
 
   [booking_filters_offline]
-    en = Not available online.
+    en = Not available offline.
     ru = Недоступно без интернета.
-    ar = غير متوفر على الإنترنت.
-    cs = Není k dispozici online.
-    da = Ikke tilgængelig online.
-    nl = Niet beschikbaar online.
-    fi = Ei saatavana verkossa.
-    fr = Pas disponible en ligne.
-    de = Online nicht verfügbar.
-    hu = Nem érhető el online.
-    id = Tidak tersedia online.
-    it = Non disponibile online.
-    ja = オンラインでは利用できません。
-    ko = 온라인으로 사용할 수 없습니다.
-    pl = Niedostępne online.
-    pt = Não está disponível online.
-    ro = Nu este disponibil online.
-    es = No está disponible en línea.
-    sv = Inte tillgängligt online.
-    th = ไม่มีให้ใช้ออนไลน์
-    tr = Çevrimiçi kullanılamaz.
-    uk = Не доступно онлайн.
-    vi = Không khả dụng trực tuyến.
-    zh-Hans = 无法在线提供。
-    zh-Hant = 無法線上提供。
-    el = Δεν είναι διαθέσιμη online.
-    es_MX = No está disponible en línea.
-    no = Ikke tilgjengelig online.
-    pt_BR = Indisponível on-line.
-    sk = Nie sú k dispozícii online.
-    sw = Haipatikani mtandaoni.
+    ar = غير متاح.
+    cs = Není k dispozici offline.
+    da = Ikke tilgængelig offline.
+    nl = Niet beschikbaar offline.
+    fi = Ei saatavilla offline.
+    fr = Non disponible hors-ligne.
+    de = Offline nicht verfügbar.
+    hu = Nem érhető el offline.
+    id = Tidak tersedia offline.
+    it = Non disponibile offline.
+    ja = 利用不可.
+    ko = 사용할 수 없음.
+    pl = Niedostępne offline.
+    pt = Não está disponível offline.
+    pt-BR = Indisponível off-line.
+    ro = Nu este disponibil offline.
+    es = No disponible fuera de línea.
+    sv = Inte tillgängligt offline.
+    th = ไม่สามารถใช้ได.
+    tr = Çevrimdışı kullanılamıyor.
+    uk = Не доступно офлайн.
+    vi = Không khả dụng ngoại tuyến.
+    zh-Hans = 无法使用。
+    zh-Hant = 無法使用。
+    el = Δεν είναι διαθέσιμη offline.
+    es_MX = No está disponible fuera de línea.
+    nb = Ikke tilgjengelig offline.
+    sk = Nie sú k dispozícii offline.
+    sw = Haipatikani nje ya mtandao.
 
   [directions_finish]
     en = Destination
@@ -28115,8 +28115,8 @@
     zh-Hant = 目的地
     el = Προορισμός
     es_MX = Destino
-    no = Destinasjon
-    pt_BR = Destino
+    nb = Destinasjon
+    pt-BR = Destino
     sk = Ciel
     sw = Eneo unakoelekea
 
@@ -28148,8 +28148,8 @@
     zh-Hant = 步行 %s
     el = Βάδισμα %s
     es_MX = %s a pie
-    no = Gå %s
-    pt_BR = Caminhar %s
+    nb = Gå %s
+    pt-BR = Caminhar %s
     sk = Chôdza %s
     sw = Tembea %s
 
@@ -28181,8 +28181,8 @@
     zh-Hant = 入口
     el = Είσοδος
     es_MX = Entrada
-    no = Inngang
-    pt_BR = Entrada
+    nb = Inngang
+    pt-BR = Entrada
     sk = Vchod  | vjazd
     sw = Kiingilio
 
@@ -28217,8 +28217,8 @@
     he = קפה
     hi = कॉफी
     ms = Kopi
-    no = Kaffe
-    pt_BR = Café
+    nb = Kaffe
+    pt-BR = Café
     sk = Káva
     sw = Kahawa
 
@@ -28250,8 +28250,8 @@
     zh-Hant = 清潔程度
     el = Καθαριότητα
     es_MX = Limpieza
-    no = Renslighet
-    pt_BR = Limpeza
+    nb = Renslighet
+    pt-BR = Limpeza
     sk = Čistota
     sw = Usafi
 
@@ -28283,8 +28283,8 @@
     zh-Hant = 擁擠程度
     el = Συνωστισμός
     es_MX = Lugar muy concurrido
-    no = Mye folk
-    pt_BR = Lotação
+    nb = Mye folk
+    pt-BR = Lotação
     sk = Preplnenosť
     sw = Watu kusongamana
 
@@ -28316,8 +28316,8 @@
     zh-Hant = 請輸入正確的名稱
     el = Εισάγετε ένα σωστό όνομα
     es_MX = Introduzca el nombre correcto
-    no = Skriv inn korrekt navn
-    pt_BR = Por favor, digite um nome correto
+    nb = Skriv inn korrekt navn
+    pt-BR = Por favor, digite um nome correto
     sk = Prosím, zadajte správne meno
     sw = Tafadhali, weka jina sahihi
 
@@ -28349,8 +28349,8 @@
     zh-Hant = 可用
     el = Διαθέσιμο
     es_MX = Disponible
-    no = Tilgjengelig
-    pt_BR = Disponível
+    nb = Tilgjengelig
+    pt-BR = Disponível
     sk = K dispozícii
     sw = Inapatikana
 
@@ -28388,8 +28388,8 @@
     he = רכבות תחתיות זמינות
     hi = सबवे/मेट्रो उपलब्ध है
     ms = Kereta api bawah tanah tersedia
-    no = Undergrunnsbaner er tilgjengelig
-    pt_BR = Metrôs disponíveis
+    nb = Undergrunnsbaner er tilgjengelig
+    pt-BR = Metrôs disponíveis
     sk = Metro k dispozícii
     sw = Reli za chini ya ardhi zinapatikana
 
@@ -28427,8 +28427,8 @@
     he = בנו את המסלולים שלכם באמצעות רכבות תחתיות! אנא עדכנו את המפות כדי לראות שינויים.
     hi = सबवे/मेट्रो शामिल करते हुए अपने रूट बनाएँ! बदलाव देखने के लिए कृपया नक्शे अपडेट करें।
     ms = Bina laluan anda menggunakan Kereta api bawah tanah! Sila kemas kini Peta untuk melihat perubahan.
-    no = Lag ruter med undergrunnsbaner! Oppdater kartene for å se endringene.
-    pt_BR = Monte suas rotas utilizando os metrôs! Atualize os mapas para visualizar as alterações.
+    nb = Lag ruter med undergrunnsbaner! Oppdater kartene for å se endringene.
+    pt-BR = Monte suas rotas utilizando os metrôs! Atualize os mapas para visualizar as alterações.
     sk = Vyhľadávajte trasy aj s využitím metra! Pre zobrazenie zmien, prosím, zaktualizujte mapy.
     sw = Tengeneza njia ukitumia reli za chini ya ardhi! Tafadhali sasisha ramani ili kuona mabadiliko.
 
@@ -28466,8 +28466,8 @@
     he = לחצן גילוי
     hi = खोज बटन
     ms = Butang penemuan
-    no = Oppdagelsesknapp
-    pt_BR = Botão descoberta
+    nb = Oppdagelsesknapp
+    pt-BR = Botão descoberta
     sk = Tlačidlo Priezkum
     sw = Kitufe cha ugunduaji
 
@@ -28505,8 +28505,8 @@
     he = גלו דברים בסביבה בלחיצה אחת!
     hi = बस एक क्लिक में आसपास की चीज़ें खोजें!
     ms = Temui perkara di sekitar dalam satu klik!
-    no = Oppdag ting i nærheten med ett klikk!
-    pt_BR = Descubra as coisas ao seu redor com apenas um clique!
+    nb = Oppdag ting i nærheten med ett klikk!
+    pt-BR = Descubra as coisas ao seu redor com apenas um clique!
     sk = Preskúmajte veci okolo Vás pomocou jedného kliku!
     sw = Gundua mambo yaliyo karibu kwa kubonyeza mara moja!
 
