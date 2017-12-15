@@ -17,8 +17,8 @@ class AvailableArea: UIView {
         if insets.top > 0 || insets.left > 0 || insets.bottom > 0 || insets.right > 0 {
           switch self.orientation {
           case .landscapeLeft:
-            frame.origin.x -= 20
-            frame.size.width += 64
+            frame.origin.x -= 16
+            frame.size.width += 68
           case .landscapeRight:
             frame.origin.x -= 44
             frame.size.width += 60

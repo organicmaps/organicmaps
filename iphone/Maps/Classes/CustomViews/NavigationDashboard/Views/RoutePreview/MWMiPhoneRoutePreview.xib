@@ -176,9 +176,22 @@
             </connections>
             <point key="canvasLocation" x="448" y="341"/>
         </view>
-        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIE-BJ-nFm" customClass="MWMBaseRoutePreviewStatus">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIE-BJ-nFm" customClass="MWMBaseRoutePreviewStatus">
             <rect key="frame" x="0.0" y="0.0" width="320" height="152"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7e-Ce-Flg">
+                    <rect key="frame" x="-100" y="0.0" width="520" height="252"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
+                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fD2-1N-x27" userLabel="Error Box">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                     <subviews>
@@ -366,21 +379,25 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FBs-iT-nWY" secondAttribute="bottom" id="0pP-L9-PjJ"/>
                 <constraint firstItem="5a5-vb-p6T" firstAttribute="leading" secondItem="hIE-BJ-nFm" secondAttribute="leading" id="378-vg-65G"/>
                 <constraint firstItem="fzb-1W-zFB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FBs-iT-nWY" secondAttribute="bottom" id="939-g8-UFV"/>
+                <constraint firstItem="Mhb-kh-JDR" firstAttribute="trailing" secondItem="o7e-Ce-Flg" secondAttribute="trailing" constant="-100" id="AkP-e9-DhZ"/>
                 <constraint firstAttribute="trailing" secondItem="fD2-1N-x27" secondAttribute="trailing" id="Alb-Vc-3pV"/>
                 <constraint firstItem="5a5-vb-p6T" firstAttribute="top" secondItem="hIE-BJ-nFm" secondAttribute="top" id="C3e-aL-kQq"/>
                 <constraint firstItem="Tai-sE-6DC" firstAttribute="top" secondItem="hIE-BJ-nFm" secondAttribute="top" id="D1o-4y-GV6"/>
+                <constraint firstItem="o7e-Ce-Flg" firstAttribute="leading" secondItem="Mhb-kh-JDR" secondAttribute="leading" constant="-100" id="H9m-LI-nmf"/>
                 <constraint firstAttribute="height" priority="100" constant="48" id="HTC-IH-1gA"/>
                 <constraint firstAttribute="trailing" secondItem="5a5-vb-p6T" secondAttribute="trailing" id="I7D-Xr-4Bd"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5a5-vb-p6T" secondAttribute="bottom" id="LNP-ys-o3e"/>
                 <constraint firstItem="fD2-1N-x27" firstAttribute="leading" secondItem="hIE-BJ-nFm" secondAttribute="leading" id="OkZ-n1-6M1"/>
                 <constraint firstItem="fzb-1W-zFB" firstAttribute="top" secondItem="hIE-BJ-nFm" secondAttribute="top" priority="100" id="PEO-jz-737"/>
+                <constraint firstItem="Mhb-kh-JDR" firstAttribute="bottom" secondItem="o7e-Ce-Flg" secondAttribute="bottom" constant="-100" id="Qif-Nu-kov"/>
                 <constraint firstItem="fzb-1W-zFB" firstAttribute="leading" secondItem="hIE-BJ-nFm" secondAttribute="leading" id="Tfi-eh-yc6"/>
                 <constraint firstItem="FBs-iT-nWY" firstAttribute="top" secondItem="Tai-sE-6DC" secondAttribute="bottom" id="UK2-a3-v7h"/>
+                <constraint firstItem="o7e-Ce-Flg" firstAttribute="top" secondItem="Mhb-kh-JDR" secondAttribute="top" id="WUb-NN-KSO"/>
                 <constraint firstAttribute="trailing" secondItem="Tai-sE-6DC" secondAttribute="trailing" id="a1W-Je-BvX"/>
                 <constraint firstAttribute="trailing" secondItem="FBs-iT-nWY" secondAttribute="trailing" id="aFh-Oh-dMW"/>
                 <constraint firstItem="Tai-sE-6DC" firstAttribute="leading" secondItem="hIE-BJ-nFm" secondAttribute="leading" id="k8m-8C-aK9"/>
@@ -395,15 +412,6 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="Mhb-kh-JDR"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
-                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                    <integer key="value" value="1"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="errorBox" destination="fD2-1N-x27" id="IV5-eS-JLl"/>
                 <outlet property="errorBoxBottom" destination="x7F-TL-lJx" id="W6w-05-Dll"/>
@@ -427,6 +435,19 @@
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iWi-pM-AJF" customClass="MWMTransportRoutePreviewStatus">
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uA3-5h-DWb">
+                    <rect key="frame" x="-100" y="0.0" width="520" height="180"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
+                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iu4-M8-t6g">
                     <rect key="frame" x="16" y="12" width="42" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -450,19 +471,14 @@
                 <constraint firstItem="RVh-LF-kSn" firstAttribute="leading" secondItem="Iu4-M8-t6g" secondAttribute="leading" id="Jo0-dN-03y"/>
                 <constraint firstItem="Iu4-M8-t6g" firstAttribute="top" secondItem="iWi-pM-AJF" secondAttribute="top" constant="12" id="Zyw-PT-55a"/>
                 <constraint firstAttribute="bottom" secondItem="RVh-LF-kSn" secondAttribute="bottom" constant="16" id="b0R-Xj-EVN"/>
+                <constraint firstAttribute="bottom" secondItem="uA3-5h-DWb" secondAttribute="bottom" constant="-100" id="jN1-5h-bPC"/>
+                <constraint firstItem="uA3-5h-DWb" firstAttribute="top" secondItem="iWi-pM-AJF" secondAttribute="top" id="nhC-d5-VpO"/>
                 <constraint firstAttribute="trailing" secondItem="RVh-LF-kSn" secondAttribute="trailing" constant="16" id="nhh-en-tgm"/>
+                <constraint firstAttribute="trailing" secondItem="uA3-5h-DWb" secondAttribute="trailing" constant="-100" id="wP2-ul-QVl"/>
+                <constraint firstItem="uA3-5h-DWb" firstAttribute="leading" secondItem="iWi-pM-AJF" secondAttribute="leading" constant="-100" id="zCP-aF-HvA"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="YJK-Xe-9oN"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
-                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                    <integer key="value" value="1"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="etaLabel" destination="Iu4-M8-t6g" id="hJe-KS-ctT"/>
                 <outlet property="stepsCollectionView" destination="RVh-LF-kSn" id="3uG-nE-mt3"/>

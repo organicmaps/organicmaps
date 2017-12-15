@@ -37,14 +37,27 @@ final class TransportRoutePreviewStatus: SolidTouchView {
     guard superview != ownerView else { return }
     ownerView.addSubview(self)
 
-    NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: ownerView, attribute: .left, multiplier: 1, constant: 0).isActive = true
-    NSLayoutConstraint(item: self, attribute: .right, relatedBy: .equal, toItem: ownerView, attribute: .right, multiplier: 1, constant: 0).isActive = true
+    addConstraints()
+  }
 
-    hiddenConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: ownerView, attribute: .bottom, multiplier: 1, constant: 0)
+  private func addConstraints() {
+    var lAnchor = ownerView.leadingAnchor
+    var tAnchor = ownerView.trailingAnchor
+    var bAnchor = ownerView.bottomAnchor
+    if #available(iOS 11.0, *) {
+      let layoutGuide = ownerView.safeAreaLayoutGuide
+      lAnchor = layoutGuide.leadingAnchor
+      tAnchor = layoutGuide.trailingAnchor
+      bAnchor = layoutGuide.bottomAnchor
+    }
+
+    leadingAnchor.constraint(equalTo: lAnchor).isActive = true
+    trailingAnchor.constraint(equalTo: tAnchor).isActive = true
+    hiddenConstraint = topAnchor.constraint(equalTo: bAnchor)
     hiddenConstraint.priority = UILayoutPriority.defaultHigh
     hiddenConstraint.isActive = true
 
-    let visibleConstraint = NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: ownerView, attribute: .bottom, multiplier: 1, constant: 0)
+    let visibleConstraint = bottomAnchor.constraint(equalTo: bAnchor)
     visibleConstraint.priority = UILayoutPriority.defaultLow
     visibleConstraint.isActive = true
   }
