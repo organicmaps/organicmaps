@@ -480,19 +480,17 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 {
   [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
   [self doStop:removeRoutePoints];
+  // Don't save taxi routing type as default.
+  if ([MWMRouter isTaxi])
+    GetFramework().GetRoutingManager().SetRouter(routing::RouterType::Vehicle);
   [[MWMMapViewControlsManager manager] onRouteStop];
   [MWMRouter router].canAutoAddLastLocation = YES;
 }
 
 + (void)doStop:(BOOL)removeRoutePoints
 {
-  auto & rm = GetFramework().GetRoutingManager();
-  // Don't save taxi routing type as default.
-  if ([MWMRouter isTaxi])
-    rm.SetRouter(routing::RouterType::Vehicle);
-
   [self clearAltitudeImagesData];
-  rm.CloseRouting(removeRoutePoints);
+  GetFramework().GetRoutingManager().CloseRouting(removeRoutePoints);
   [MWMThemeManager setAutoUpdates:NO];
   [[MapsAppDelegate theApp] showAlertIfRequired];
 }
