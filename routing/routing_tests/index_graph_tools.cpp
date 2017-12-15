@@ -14,6 +14,8 @@ using namespace routing;
 
 namespace
 {
+double constexpr kEpsilon = 1e-6;
+
 template <typename Graph>
 Graph & GetGraph(unordered_map<NumMwmId, unique_ptr<Graph>> const & graphs, NumMwmId mwmId)
 {
@@ -169,11 +171,24 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
   CHECK(worldGraph != nullptr, ());
 
   AStarAlgorithm<WorldGraph> algorithm;
-  RoutingResult<Segment, RouteWeight> routingResult;
 
+  RoutingResult<Segment, RouteWeight> routingResult;
   auto const resultCode = algorithm.FindPathBidirectional(
       *worldGraph, startSegment, finishSegment, routingResult, {} /* cancellable */,
       {} /* onVisitedVertexCallback */, {} /* checkLengthCallback */);
+
+  // Check unidirectional AStar returns same result.
+  {
+    RoutingResult<Segment, RouteWeight> unidirectionalRoutingResult;
+    auto const unidirectionalResultCode = algorithm.FindPath(
+        *worldGraph, startSegment, finishSegment, unidirectionalRoutingResult, {} /* cancellable */,
+        {} /* onVisitedVertexCallback */, {} /* checkLengthCallback */);
+
+    CHECK_EQUAL(resultCode, unidirectionalResultCode, ());
+    CHECK(routingResult.m_distance.IsAlmostEqualForTests(unidirectionalRoutingResult.m_distance,
+                                                         kEpsilon),
+          ("Distances differ:", routingResult.m_distance, unidirectionalRoutingResult.m_distance));
+  }
 
   if (resultCode == AStarAlgorithm<WorldGraph>::Result::NoPath)
     return false;
@@ -417,8 +432,6 @@ void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopol
                        double const expectedWeight,
                        vector<TestIndexGraphTopology::Edge> const & expectedEdges)
 {
-  double const kEpsilon = 1e-6;
-
   double pathWeight = 0.0;
   vector<TestIndexGraphTopology::Edge> pathEdges;
   bool const pathFound = graph.FindPath(from, to, pathWeight, pathEdges);

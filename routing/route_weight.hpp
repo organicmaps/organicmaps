@@ -2,6 +2,8 @@
 
 #include "routing/base/astar_weight.hpp"
 
+#include "base/math.hpp"
+
 #include <iostream>
 #include <limits>
 
@@ -69,6 +71,13 @@ public:
   RouteWeight operator-() const
   {
     return RouteWeight(-m_weight, -m_nonPassThroughCross, -m_transitTime);
+  }
+
+  bool IsAlmostEqualForTests(RouteWeight const & rhs, double epsilon)
+  {
+    return m_nonPassThroughCross == rhs.m_nonPassThroughCross &&
+           my::AlmostEqualAbs(m_weight, rhs.m_weight, epsilon) &&
+           my::AlmostEqualAbs(m_transitTime, rhs.m_transitTime, epsilon);
   }
 
 private:
