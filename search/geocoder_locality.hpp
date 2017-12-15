@@ -16,19 +16,17 @@
 
 namespace search
 {
+class IdfMap;
+
 struct Locality
 {
-  using QueryVec = QueryVec<strings::UniString>;
-
-  Locality() = default;
-
   Locality(MwmSet::MwmId const & countryId, uint32_t featureId, TokenRange const & tokenRange,
            QueryVec const & queryVec)
     : m_countryId(countryId), m_featureId(featureId), m_tokenRange(tokenRange), m_queryVec(queryVec)
   {
   }
 
-  double QueryNorm() const { return m_queryVec.Norm(); }
+  double QueryNorm() { return m_queryVec.Norm(); }
 
   MwmSet::MwmId m_countryId;
   uint32_t m_featureId = 0;

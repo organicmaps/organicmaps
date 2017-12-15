@@ -14,16 +14,29 @@ public:
   {
     virtual ~Delegate() = default;
 
-    virtual uint64_t GetNumDocs(strings::UniString const & token) const = 0;
+    virtual uint64_t GetNumDocs(strings::UniString const & token, bool isPrefix) const = 0;
   };
 
   IdfMap(Delegate & delegate, double unknownIdf);
 
-  void Set(strings::UniString const & s, double idf) { m_idfs[s] = idf; }
-  double Get(strings::UniString const & s);
+  void Set(strings::UniString const & s, bool isPrefix, double idf)
+  {
+    SetImpl(isPrefix ? m_prefixIdfs : m_fullIdfs, s, idf);
+  }
+
+  double Get(strings::UniString const & s, bool isPrefix)
+  {
+    return GetImpl(isPrefix ? m_prefixIdfs : m_fullIdfs, s, isPrefix);
+  }
 
 private:
-  std::map<strings::UniString, double> m_idfs;
+  using Map = std::map<strings::UniString, double>;
+
+  void SetImpl(Map & idfs, strings::UniString const & s, double idf) { idfs[s] = idf; }
+  double GetImpl(Map & idfs, strings::UniString const & s, bool isPrefix);
+
+  Map m_fullIdfs;
+  Map m_prefixIdfs;
 
   Delegate & m_delegate;
   double m_unknownIdf;

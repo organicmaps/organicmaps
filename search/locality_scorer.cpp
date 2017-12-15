@@ -30,9 +30,9 @@ struct IdfMapDelegate : public IdfMap::Delegate
 
   ~IdfMapDelegate() override = default;
 
-  uint64_t GetNumDocs(strings::UniString const & token) const override
+  uint64_t GetNumDocs(strings::UniString const & token, bool isPrefix) const override
   {
-    return m_filter.Intersect(m_delegate.GetMatchedFeatures(token)).PopCount();
+    return m_filter.Intersect(m_delegate.GetMatchedFeatures(token, isPrefix)).PopCount();
   }
 
   LocalityScorer::Delegate const & m_delegate;
@@ -59,6 +59,8 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
                                       CBV const & filter, size_t limit,
                                       vector<Locality> & localities)
 {
+  double const kUnknownIdf = 1.0;
+
   CHECK_EQUAL(ctx.m_numTokens, m_params.GetNumTokens(), ());
 
   localities.clear();
@@ -68,24 +70,16 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
     intersections[i] = filter.Intersect(ctx.m_features[i]);
 
   IdfMapDelegate delegate(m_delegate, filter);
-  IdfMap idfs(delegate, 1.0 /* unknownIdf */);
-  double prefixIdf = 1.0;
-  for (size_t i = 0; i < ctx.m_numTokens; ++i)
+  IdfMap idfs(delegate, kUnknownIdf);
+  if (ctx.m_numTokens > 0 && m_params.LastTokenIsPrefix())
   {
-    auto const numDocs = intersections[i].PopCount();
-    double idf = 1.0;
+    auto const numDocs = intersections.back().PopCount();
+    double idf = kUnknownIdf;
     if (numDocs > 0)
       idf = 1.0 / static_cast<double>(numDocs);
-
-    if (m_params.IsPrefixToken(i))
-    {
-      prefixIdf = idf;
-    }
-    else
-    {
-      m_params.GetToken(i).ForEach(
-          [&idfs, &idf](strings::UniString const & s) { idfs.Set(s, idf); });
-    }
+    m_params.GetToken(ctx.m_numTokens - 1).ForEach([&idfs, &idf](strings::UniString const & s) {
+      idfs.Set(s, true /* isPrefix */, idf);
+    });
   }
 
   for (size_t startToken = 0; startToken < ctx.m_numTokens; ++startToken)
@@ -99,9 +93,9 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
       auto const curToken = endToken - 1;
       auto const & token = m_params.GetToken(curToken).m_original;
       if (m_params.IsPrefixToken(curToken))
-        builder.SetPrefix(token, prefixIdf);
+        builder.SetPrefix(token);
       else
-        builder.AddFull(token, idfs.Get(token));
+        builder.AddFull(token);
 
       TokenRange const tokenRange(startToken, endToken);
       // Skip locality candidates that match only numbers.
@@ -109,7 +103,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
       {
         intersection.ForEach([&](uint64_t bit) {
           auto const featureId = base::asserted_cast<uint32_t>(bit);
-          localities.emplace_back(countryId, featureId, tokenRange, QueryVec(builder));
+          localities.emplace_back(countryId, featureId, tokenRange, QueryVec(idfs, builder));
         });
       }
 
@@ -126,15 +120,15 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit,
 {
   vector<ExLocality> els;
   els.reserve(localities.size());
-  for (auto const & locality : localities)
+  for (auto & locality : localities)
   {
     auto const queryNorm = locality.m_queryVec.Norm();
     auto const rank = m_delegate.GetRank(locality.m_featureId);
     els.emplace_back(locality, queryNorm, rank);
   }
 
-  // We don't want to read too much names for localities, to this is
-  // the best effort - select best features by available params -
+  // We don't want to read too many names for localities, so this is
+  // the best effort - select the best features by available params -
   // query norm and rank.
   LeaveTopByNormAndRank(max(limit, kDefaultReadLimit) /* limitUniqueIds */, els);
 
@@ -209,7 +203,7 @@ void LocalityScorer::LeaveTopBySimilarityAndRank(size_t limit, vector<ExLocality
       ++n;
     }
   }
-  els.resize(n);
+  els.erase(els.begin() + n, els.end());
 }
 
 void LocalityScorer::GetDocVecs(IdfMap & idfs, uint32_t localityId, vector<DocVec> & dvs) const
@@ -224,22 +218,22 @@ void LocalityScorer::GetDocVecs(IdfMap & idfs, uint32_t localityId, vector<DocVe
 
     DocVec::Builder builder;
     for (auto const & token : tokens)
-      builder.Add(token, idfs.Get(token) /* weight */);
-    dvs.emplace_back(move(builder));
+      builder.Add(token);
+    dvs.emplace_back(idfs, builder);
   }
 }
 
-double LocalityScorer::GetSimilarity(QueryVec const & qv, vector<DocVec> const & dvc) const
+double LocalityScorer::GetSimilarity(QueryVec & qv, vector<DocVec> & dvc) const
 {
   double const kScale = 1e6;
 
   double similarity = 0;
-  for (auto const & dv : dvc)
+  for (auto & dv : dvc)
     similarity = max(similarity, qv.Similarity(dv));
 
-  // We need scale here to prevent double artifacts, and to make
-  // sorting by similarity more robust, as 1e-6 is good enough for our
-  // purposes.
+  // We need to scale similarity here to prevent floating-point
+  // artifacts, and to make sorting by similarity more robust, as 1e-6
+  // is good enough for our purposes.
   return round(similarity * kScale);
 }
 

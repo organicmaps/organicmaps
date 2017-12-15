@@ -20,6 +20,7 @@ set(
   common.hpp
   displayed_categories.cpp
   displayed_categories.hpp
+  doc_vec.cpp
   doc_vec.hpp
   downloader_search_callback.cpp
   downloader_search_callback.hpp

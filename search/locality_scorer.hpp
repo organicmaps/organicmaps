@@ -30,7 +30,7 @@ public:
 
     virtual void GetNames(uint32_t featureId, std::vector<std::string> & names) const = 0;
     virtual uint8_t GetRank(uint32_t featureId) const = 0;
-    virtual CBV GetMatchedFeatures(strings::UniString const & token) const = 0;
+    virtual CBV GetMatchedFeatures(strings::UniString const & token, bool isPrefix) const = 0;
   };
 
   LocalityScorer(QueryParams const & params, Delegate const & delegate);
@@ -41,9 +41,6 @@ public:
                         CBV const & filter, size_t limit, std::vector<Locality> & localities);
 
 private:
-  using DocVec = DocVec<strings::UniString>;
-  using QueryVec = Locality::QueryVec;
-
   struct ExLocality
   {
     ExLocality() = default;
@@ -68,12 +65,12 @@ private:
   // features in |els|.
   void LeaveTopByNormAndRank(size_t limitUniqueIds, std::vector<ExLocality> & els) const;
 
-  // Leaves at most |limit| best localities by similarity to the query
-  // and rank. Result doesn't contain duplicate features.
+  // Leaves at most |limit| unique best localities by similarity to
+  // the query and rank.
   void LeaveTopBySimilarityAndRank(size_t limit, std::vector<ExLocality> & els) const;
 
   void GetDocVecs(IdfMap & idfs, uint32_t localityId, std::vector<DocVec> & dvs) const;
-  double GetSimilarity(QueryVec const & qv, std::vector<DocVec> const & dvs) const;
+  double GetSimilarity(QueryVec & qv, std::vector<DocVec> & dvs) const;
 
   QueryParams const & m_params;
   Delegate const & m_delegate;
