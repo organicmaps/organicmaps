@@ -169,8 +169,6 @@ bool CandidatePathsGetter::GetLineCandidatesForPoints(
 void CandidatePathsGetter::GetStartLines(vector<m2::PointD> const & points, bool const isLastPoint,
                                          Graph::EdgeVector & edges)
 {
-  ScopedTimer t(m_stats.m_startLinesTime);
-
   for (auto const & pc : points)
   {
     if (!isLastPoint)
@@ -188,8 +186,6 @@ void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLi
                                                FunctionalRoadClass const frc,
                                                vector<LinkPtr> & allPaths)
 {
-  ScopedTimer t(m_stats.m_allStatPathsTime);
-
   queue<LinkPtr> q;
 
   for (auto const & e : startLines)
@@ -246,8 +242,6 @@ void CandidatePathsGetter::GetBestCandidatePaths(
     vector<LinkPtr> const & allPaths, bool const isLastPoint, uint32_t const requiredBearing,
     uint32_t const bearDistM, m2::PointD const & startPoint, vector<Graph::EdgeVector> & candidates)
 {
-  ScopedTimer t(m_stats.m_bestCandidatePathsTime);
-
   set<CandidatePath> candidatePaths;
   set<CandidatePath> fakeEndingsCandidatePaths;
 
@@ -330,8 +324,6 @@ void CandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint cons
                                              vector<m2::PointD> const & pointCandidates,
                                              vector<Graph::EdgeVector> & candidates)
 {
-  ScopedTimer t(m_stats.m_lineCandidatesTime);
-
   uint32_t const kDefaultBearDistM = 25;
   uint32_t const bearDistM = min(kDefaultBearDistM, distanceToNextPoint);
 

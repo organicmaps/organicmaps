@@ -13,8 +13,6 @@ namespace openlr
 void CandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p,
                                                        vector<m2::PointD> & candidates)
 {
-  ScopedTimer t(m_stat.m_pointCadtidatesTime);
-
   // TODO(mgsergio): Get optimal value using experiments on a sample.
   // Or start with small radius and scale it up when there are too few points.
   size_t const kRectSideMeters = 110;

@@ -18,6 +18,8 @@ set(
   openlr_model.hpp
   openlr_model_xml.cpp
   openlr_model_xml.hpp
+  paths_connector.cpp
+  paths_connector.hpp
   road_info_getter.cpp
   road_info_getter.hpp
   road_type_checkers.cpp

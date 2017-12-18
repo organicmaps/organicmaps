@@ -5,8 +5,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include "base/timer.hpp"
-
 #include <type_traits>
 
 namespace openlr
@@ -32,18 +30,6 @@ typename std::common_type<T, U>::type AbsDifference(T const a, U const b)
   return a >= b ? a - b : b - a;
 }
 
-// TODO(mgsergio): Remove when/if unused.
-class ScopedTimer : private my::Timer
-{
-public:
-  ScopedTimer(std::chrono::milliseconds & ms) : m_ms(ms) {}
-  ~ScopedTimer() { m_ms += TimeElapsedAs<std::chrono::milliseconds>(); }
-
-private:
-  std::chrono::milliseconds & m_ms;
-};
-
 bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass const restriction,
                        int const frcThreshold, RoadInfoGetter & infoGetter);
-
 }  // namespace openlr

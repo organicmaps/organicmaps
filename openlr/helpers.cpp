@@ -6,8 +6,6 @@
 
 #include "geometry/mercator.hpp"
 
-#include "base/timer.hpp"
-
 #include <sstream>
 #include <string>
 #include <type_traits>
