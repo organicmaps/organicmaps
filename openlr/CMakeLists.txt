@@ -2,8 +2,13 @@ project(openlr)
 
 set(
   SRC
+  candidate_points_getter.cpp
+  candidate_points_getter.hpp
   decoded_path.cpp
   decoded_path.hpp
+  graph.cpp
+  graph.hpp
+  helpers.hpp
   openlr_decoder.cpp
   openlr_decoder.hpp
   openlr_model.cpp
@@ -16,6 +21,7 @@ set(
   road_type_checkers.hpp
   router.cpp
   router.hpp
+  stats.hpp
   way_point.hpp
 )
 

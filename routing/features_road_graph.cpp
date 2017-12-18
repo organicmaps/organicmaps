@@ -27,6 +27,8 @@ double constexpr kMwmCrossingNodeEqualityRadiusMeters = 100.0;
 
 }  // namespace
 
+double GetRoadCrossingRadiusMeters() { return kMwmRoadCrossingRadiusMeters; }
+
 FeaturesRoadGraph::Value::Value(Index const & index, MwmSet::MwmHandle handle)
   : m_mwmHandle(move(handle))
 {

@@ -18,7 +18,7 @@ namespace math
   double constexpr twicePi = 2. * pi;
 
   template <class T> T sqr(T t) { return (t*t); }
-}
+}  // namespace math
 
 namespace my
 {
@@ -215,4 +215,4 @@ int constexpr Sign(Number const number) noexcept
 {
   return number == 0 ? 0 : number > 0 ? 1 : -1;
 }
-}
+}  // namespace my

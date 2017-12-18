@@ -120,4 +120,9 @@ private:
   mutable map<MwmSet::MwmId, Value> m_mwmLocks;
 };
 
+// @returns a distance d such as that for a given point p any edge
+// with start point s such as that |s - p| < d, and edge is considered outgouing from p.
+// Symmetrically for ingoing edges.
+double GetRoadCrossingRadiusMeters();
+
 }  // namespace routing

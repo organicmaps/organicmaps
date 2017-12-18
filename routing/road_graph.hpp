@@ -272,6 +272,8 @@ public:
   /// Adds fake edges from fake position rp to real vicinity
   /// positions.
   void AddFakeEdges(Junction const & junction, vector<pair<Edge, Junction>> const & vicinities);
+  void AddOutgoingFakeEdge(Edge const & e);
+  void AddIngoingFakeEdge(Edge const & e);
 
   /// Returns RoadInfo for a road corresponding to featureId.
   virtual RoadInfo GetRoadInfo(FeatureID const & featureId) const = 0;

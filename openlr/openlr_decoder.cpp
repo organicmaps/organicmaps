@@ -19,10 +19,11 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 
-#include "std/fstream.hpp"
-#include "std/thread.hpp"
+#include <fstream>
+#include <thread>
 
 using namespace routing;
+using namespace std;
 
 namespace openlr
 {
@@ -83,8 +84,8 @@ OpenLRDecoder::OpenLRDecoder(
 {
 }
 
-void OpenLRDecoder::Decode(std::vector<LinearSegment> const & segments,
-                           uint32_t const numThreads, std::vector<DecodedPath> & paths)
+void OpenLRDecoder::Decode(vector<LinearSegment> const & segments, uint32_t const numThreads,
+                           vector<DecodedPath> & paths)
 {
   double const kOffsetToleranceM = 10;
 

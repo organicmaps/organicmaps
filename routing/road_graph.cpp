@@ -266,12 +266,20 @@ void IRoadGraph::AddFakeEdges(Junction const & junction,
 
     for (auto const & uv : edges)
     {
-      auto const & u = uv.GetStartJunction();
-      auto const & v = uv.GetEndJunction();
-      AddEdge(u, uv, m_fakeOutgoingEdges);
-      AddEdge(v, uv, m_fakeIngoingEdges);
+      AddOutgoingFakeEdge(uv);
+      AddIngoingFakeEdge(uv);
     }
   }
+}
+
+void IRoadGraph::AddOutgoingFakeEdge(Edge const & e)
+{
+  AddEdge(e.GetStartJunction(), e, m_fakeOutgoingEdges);
+}
+
+void IRoadGraph::AddIngoingFakeEdge(Edge const & e)
+{
+  AddEdge(e.GetEndJunction(), e, m_fakeIngoingEdges);
 }
 
 double IRoadGraph::GetSpeedKMPH(Edge const & edge) const
