@@ -216,11 +216,18 @@ public class Utils
     if (TextUtils.isEmpty(url))
       return;
 
-    final Intent intent = new Intent(Intent.ACTION_VIEW);
-    if (!url.startsWith("http://") && !url.startsWith("https://"))
-      url = "http://" + url;
-    intent.setData(Uri.parse(url));
-    activity.startActivity(intent);
+    try
+    {
+      final Intent intent = new Intent(Intent.ACTION_VIEW);
+      if (!url.startsWith("http://") && !url.startsWith("https://"))
+        url = "http://" + url;
+      intent.setData(Uri.parse(url));
+      activity.startActivity(intent);
+    }
+    catch (ActivityNotFoundException e)
+    {
+      CrashlyticsUtils.logException(e);
+    }
   }
 
   public static void sendSupportMail(@NonNull Activity activity, @NonNull String subject)
