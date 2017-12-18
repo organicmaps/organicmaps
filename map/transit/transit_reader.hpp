@@ -55,6 +55,7 @@ public:
 
   void Init(uint64_t id, MwmSet::MwmId const & mwmId, std::unique_ptr<TransitDisplayInfo> && transitInfo = nullptr);
   uint64_t GetId() const { return m_id; }
+  bool GetSuccess() const { return m_success; }
 
   void Do() override;
   void Reset() override;
@@ -88,6 +89,8 @@ private:
   std::unique_ptr<TransitDisplayInfo> m_transitInfo;
 
   bool m_loadSubset = false;
+  // Sets to true if Do() method was executed successfully.
+  bool m_success = false;
 };
 
 using TransitDisplayInfos = std::map<MwmSet::MwmId, unique_ptr<TransitDisplayInfo>>;
@@ -101,7 +104,7 @@ public:
   void Start();
   void Stop();
 
-  void GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos);
+  bool GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos);
 
   // TODO(@darina) Clear cache for deleted mwm.
   //void OnMwmDeregistered(MwmSet::MwmId const & mwmId);

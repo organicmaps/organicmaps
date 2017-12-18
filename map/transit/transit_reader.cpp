@@ -37,19 +37,21 @@ void ReadTransitTask::Do()
   MwmSet::MwmHandle handle = m_index.GetMwmHandleById(m_mwmId);
   if (!handle.IsAlive())
   {
+    // It's possible that mwm handle is not alive because mwm may be removed after
+    // transit route is built but before this task is executed.
     LOG(LWARNING, ("Can't get mwm handle for", m_mwmId));
+    m_success = false;
     return;
   }
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
-  if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
-    return;
+  CHECK(mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG),
+        ("No transit section in mwm, but transit route was built with it. mwmId:", m_mwmId));
 
-  auto reader = my::make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG));
-  CHECK(reader, ());
-  CHECK(reader->GetPtr() != nullptr, ());
+  auto reader = mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG);
+  CHECK(reader.GetPtr() != nullptr, ());
 
   transit::GraphData graphData;
-  graphData.DeserializeForRendering(*reader->GetPtr());
+  graphData.DeserializeForRendering(*reader.GetPtr());
 
   FillItemsByIdMap(graphData.GetStops(), m_transitInfo->m_stops);
   for (auto const & stop : m_transitInfo->m_stops)
@@ -90,6 +92,7 @@ void ReadTransitTask::Do()
     }
     featureInfo.m_point = feature::GetCenter(ft);
   }, features);
+  m_success = true;
 }
 
 void ReadTransitTask::Reset()
@@ -134,7 +137,7 @@ void TransitReadManager::Stop()
   m_threadsPool.reset();
 }
 
-void TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos)
+bool TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos)
 {
   unique_lock<mutex> lock(m_mutex);
   auto const groupId = ++m_nextTasksGroupId;
@@ -162,7 +165,15 @@ void TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisp
   lock.unlock();
 
   for (auto const & transitTask : transitTasks)
+  {
+    if (!transitTask.second->GetSuccess())
+      return false;
+  }
+
+  for (auto const & transitTask : transitTasks)
     transitDisplayInfos[transitTask.first] = transitTask.second->GetTransitInfo();
+
+  return true;
 }
 
 void TransitReadManager::OnTaskCompleted(threads::IRoutine * task)

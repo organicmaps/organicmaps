@@ -238,27 +238,28 @@ void GraphData::Serialize(Writer & writer)
   FixedSizeSerializer<Writer> numberSerializer(writer);
   m_header.Reset();
   numberSerializer(m_header);
+
   m_header.m_stopsOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
-
   serializer(m_stops);
+
   m_header.m_gatesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
-
   serializer(m_gates);
+
   m_header.m_edgesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
-
   serializer(m_edges);
+
   m_header.m_transfersOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
-
   serializer(m_transfers);
+
   m_header.m_linesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
-
   serializer(m_lines);
+
   m_header.m_shapesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
-
   serializer(m_shapes);
-  m_header.m_networksOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
+  m_header.m_networksOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
   serializer(m_networks);
+
   m_header.m_endOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
 
   // Rewriting header info.
