@@ -16,9 +16,10 @@
 #include "routing/base/astar_algorithm.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
-#include "routing_common/transit_types.hpp"
 
 #include "traffic/traffic_info.hpp"
+
+#include "transit/transit_types.hpp"
 
 #include "indexer/classificator_loader.hpp"
 

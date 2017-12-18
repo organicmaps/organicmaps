@@ -13,12 +13,6 @@ set(
   num_mwm_id.hpp
   pedestrian_model.cpp
   pedestrian_model.hpp
-  transit_graph_data.cpp
-  transit_graph_data.hpp
-  transit_serdes.hpp
-  transit_speed_limits.hpp
-  transit_types.cpp
-  transit_types.hpp
   vehicle_model.cpp
   vehicle_model.hpp
 )

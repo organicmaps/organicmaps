@@ -6,7 +6,7 @@
 #include "routing/routing_exceptions.hpp"
 #include "routing/vehicle_mask.hpp"
 
-#include "routing_common/transit_types.hpp"
+#include "transit/transit_types.hpp"
 
 #include "indexer/coding_params.hpp"
 #include "indexer/geometry_serialization.hpp"

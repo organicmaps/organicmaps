@@ -20,6 +20,7 @@ omim_link_libraries(
   routing
   traffic
   routing_common
+  transit
   search
   storage
   mwm_diff

@@ -3,9 +3,9 @@
 #include "routing/fake_ending.hpp"
 #include "routing/routing_exceptions.hpp"
 
-#include "routing_common/transit_graph_data.hpp"
-#include "routing_common/transit_serdes.hpp"
-#include "routing_common/transit_types.hpp"
+#include "transit/transit_graph_data.hpp"
+#include "transit/transit_serdes.hpp"
+#include "transit/transit_types.hpp"
 
 #include "indexer/mwm_set.hpp"
 

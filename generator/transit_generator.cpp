@@ -8,10 +8,10 @@
 #include "routing/routing_exceptions.hpp"
 #include "routing/vehicle_mask.hpp"
 
-#include "routing_common/transit_types.hpp"
-
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
+
+#include "transit/transit_types.hpp"
 
 #include "indexer/mwm_set.hpp"
 

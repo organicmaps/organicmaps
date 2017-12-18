@@ -27,7 +27,7 @@ CONFIG(map_designer_standalone) {
   CONFIG += map_designer
 }
 
-SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common search openlr
+SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common transit search openlr
 
 !CONFIG(osrm) {
   SUBDIRS *= platform stats storage map
@@ -123,7 +123,7 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
     # Designer Tool package includes style tests
     style_tests.subdir = map/style_tests
     style_tests.depends = 3party base coding geometry editor platform storage indexer search map \
-                          routing_common drape drape_frontend
+                          routing_common transit drape drape_frontend
     SUBDIRS *= style_tests
   }
 
@@ -237,6 +237,10 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
     search_quality_tests.subdir = search/search_quality/search_quality_tests
     search_quality_tests.depends = $$MapDepLibs search_quality search_tests_support
     SUBDIRS *= search_quality_tests
+
+    transit_tests.subdir = transit/transit_tests
+    transit_tests.depends = $$MapDepLibs
+    SUBDIRS *= transit_tests
 
     generator_tests.subdir = generator/generator_tests
     generator_tests.depends = $$MapDepLibs routing generator

@@ -25,7 +25,8 @@
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
-#include "routing_common/transit_speed_limits.hpp"
+
+#include "transit/transit_speed_limits.hpp"
 
 #include "indexer/feature_altitude.hpp"
 

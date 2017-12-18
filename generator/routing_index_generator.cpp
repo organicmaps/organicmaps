@@ -16,8 +16,9 @@
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
-#include "routing_common/transit_graph_data.hpp"
-#include "routing_common/transit_serdes.hpp"
+
+#include "transit/transit_graph_data.hpp"
+#include "transit/transit_serdes.hpp"
 
 #include "indexer/coding_params.hpp"
 #include "indexer/data_header.hpp"

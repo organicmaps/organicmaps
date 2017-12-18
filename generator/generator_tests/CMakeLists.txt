@@ -42,6 +42,7 @@ omim_link_libraries(
   drape
   traffic
   routing_common
+  transit
   editor
   platform
   geometry

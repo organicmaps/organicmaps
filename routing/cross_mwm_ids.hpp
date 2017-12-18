@@ -1,6 +1,6 @@
 #pragma once
 
-#include "routing_common/transit_types.hpp"
+#include "transit/transit_types.hpp"
 
 #include "base/newtype.hpp"
 #include "base/osm_id.hpp"

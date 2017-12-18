@@ -1,6 +1,6 @@
-#include "routing_common/transit_types.hpp"
+#include "transit/transit_types.hpp"
 
-#include "routing_common/transit_serdes.hpp"
+#include "transit/transit_serdes.hpp"
 
 #include "base/string_utils.hpp"
 

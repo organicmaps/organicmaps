@@ -1,6 +1,6 @@
 #include "map/transit/transit_reader.hpp"
 
-#include "routing_common/transit_graph_data.hpp"
+#include "transit/transit_graph_data.hpp"
 
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"

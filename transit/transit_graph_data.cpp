@@ -1,6 +1,6 @@
-#include "routing_common/transit_graph_data.hpp"
+#include "transit/transit_graph_data.hpp"
 
-#include "routing_common/transit_serdes.hpp"
+#include "transit/transit_serdes.hpp"
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"

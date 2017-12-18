@@ -23,6 +23,7 @@ omim_link_libraries(
   drape_frontend
   routing
   routing_common
+  transit
   search
   storage
   tracking

@@ -46,6 +46,7 @@ omim_link_libraries(
   editor
   traffic
   routing_common
+  transit
   platform
   oauthcpp
   geometry

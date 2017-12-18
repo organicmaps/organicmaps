@@ -44,6 +44,7 @@ omim_link_libraries(
   tracking
   traffic
   routing_common
+  transit
   ugc
   indexer
   drape

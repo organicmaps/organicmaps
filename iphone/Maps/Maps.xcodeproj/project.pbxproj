@@ -923,6 +923,7 @@
 		4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */; };
 		5605022F1B6211E100169CAD /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */; };
+		56EE14D11FE804550036F20C /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14D21FE804550036F20C /* libtransit.a */; };
 		671182E11C7F0DD400CB8177 /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182DE1C7F0DD400CB8177 /* countries_obsolete.txt */; };
 		671182E21C7F0DD400CB8177 /* packed_polygons_obsolete.bin in Resources */ = {isa = PBXBuildFile; fileRef = 671182DF1C7F0DD400CB8177 /* packed_polygons_obsolete.bin */; };
 		671182E31C7F0DD400CB8177 /* WorldCoasts_obsolete.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 671182E01C7F0DD400CB8177 /* WorldCoasts_obsolete.mwm */; };
@@ -2505,6 +2506,7 @@
 		4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi_dark"; path = "../../data/resources-xhdpi_dark"; sourceTree = "<group>"; };
 		4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi_dark"; path = "../../data/resources-xxhdpi_dark"; sourceTree = "<group>"; };
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
+		56EE14D21FE804550036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		671182DE1C7F0DD400CB8177 /* countries_obsolete.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries_obsolete.txt; path = ../../data/countries_obsolete.txt; sourceTree = "<group>"; };
 		671182DF1C7F0DD400CB8177 /* packed_polygons_obsolete.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons_obsolete.bin; path = ../../data/packed_polygons_obsolete.bin; sourceTree = "<group>"; };
 		671182E01C7F0DD400CB8177 /* WorldCoasts_obsolete.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts_obsolete.mwm; path = ../../data/WorldCoasts_obsolete.mwm; sourceTree = "<group>"; };
@@ -2997,6 +2999,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56EE14D11FE804550036F20C /* libtransit.a in Frameworks */,
 				345E8F4E1F83984500A826CC /* GoogleSignIn.framework in Frameworks */,
 				345E8F4F1F83984500A826CC /* GoogleSignInDependencies.framework in Frameworks */,
 				4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */,
@@ -3201,6 +3204,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56EE14D21FE804550036F20C /* libtransit.a */,
 				4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */,
 				4586D0C31F48121A00DF9CE5 /* libbsdiff.a */,
 				F6F8E3C41EF8469700F2DE8F /* libugc.a */,
@@ -8056,7 +8060,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = com.mapswithme.full;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = N9X2A789QT;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

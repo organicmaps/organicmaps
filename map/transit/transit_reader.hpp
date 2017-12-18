@@ -1,6 +1,6 @@
 #pragma once
 
-#include "routing_common/transit_types.hpp"
+#include "transit/transit_types.hpp"
 
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"

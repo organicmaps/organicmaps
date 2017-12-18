@@ -105,6 +105,7 @@ target_link_libraries(
   routing
   traffic
   routing_common
+  transit
   drape_frontend
   search
   storage

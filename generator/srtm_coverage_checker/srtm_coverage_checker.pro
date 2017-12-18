@@ -12,7 +12,8 @@ DEPENDENCIES = generator map routing routing_common search storage ugc indexer p
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
+INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src \
+               $$ROOT_DIR/3party/jansson/src \
 
 QT *= core
 

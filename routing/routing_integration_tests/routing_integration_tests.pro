@@ -11,8 +11,9 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map routing traffic routing_common search storage mwm_diff ugc indexer platform editor geometry \
-               coding base osrm jansson protobuf bsdiff succinct stats_client pugixml icu agg
+DEPENDENCIES = map routing traffic routing_common transit search storage mwm_diff ugc indexer \
+               platform editor geometry coding base osrm jansson protobuf bsdiff succinct \
+               stats_client pugixml icu agg
 
 DEPENDENCIES += opening_hours
 
@@ -23,6 +24,8 @@ DEPENDENCIES += opening_hours
 macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 
 include($$ROOT_DIR/common.pri)
+
+INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
 QT *= core
 

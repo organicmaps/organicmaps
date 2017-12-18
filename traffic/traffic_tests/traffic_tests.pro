@@ -5,13 +5,12 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 
-INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
-
 DEPENDENCIES = traffic routing_common indexer platform_tests_support platform coding geometry base stats_client protobuf icu
 
 include($$ROOT_DIR/common.pri)
 
 DEFINES *= OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
+INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
 
 QT *= core
 

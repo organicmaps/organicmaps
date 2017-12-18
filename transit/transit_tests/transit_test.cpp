@@ -1,10 +1,10 @@
 #include "testing/testing.hpp"
 
+#include "transit/transit_serdes.hpp"
+#include "transit/transit_types.hpp"
+
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
-
-#include "routing_common/transit_serdes.hpp"
-#include "routing_common/transit_types.hpp"
 
 #include <algorithm>
 #include <cstdint>

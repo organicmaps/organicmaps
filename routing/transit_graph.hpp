@@ -8,8 +8,8 @@
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
 
-#include "routing_common/transit_graph_data.hpp"
-#include "routing_common/transit_types.hpp"
+#include "transit/transit_graph_data.hpp"
+#include "transit/transit_types.hpp"
 
 #include <cstdint>
 #include <map>

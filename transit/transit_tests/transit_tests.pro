@@ -1,19 +1,18 @@
 # Routing common lib unit tests
 
-TARGET = routing_common_tests
+TARGET = transit_tests
 CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = routing_common indexer platform editor geometry coding base \
-               protobuf succinct jansson stats_client pugixml stats_client icu
+DEPENDENCIES = transit indexer platform geometry coding base \
+               jansson stats_client
 
 macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 
 include($$ROOT_DIR/common.pri)
-
-INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
+INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
 
 QT *= core
 
@@ -22,5 +21,6 @@ HEADERS += \
 
 SOURCES += \
   ../../testing/testingmain.cpp \
-  vehicle_model_for_country_test.cpp \
-  vehicle_model_test.cpp \
+  transit_graph_test.cpp \
+  transit_json_parsing_test.cpp \
+  transit_test.cpp \

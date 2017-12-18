@@ -1,6 +1,6 @@
 #pragma once
 
-#include "routing_common/transit_types.hpp"
+#include "transit/transit_types.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/region2d.hpp"

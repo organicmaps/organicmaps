@@ -122,6 +122,7 @@
 		56CC5A371E3884960016AC46 /* cross_mwm_index_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56CC5A361E3884960016AC46 /* cross_mwm_index_graph.hpp */; };
 		56EA2FD51D8FD8590083F01A /* routing_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EA2FD41D8FD8590083F01A /* routing_helpers.hpp */; };
 		56ED7DBD1F69425700B67156 /* turn_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567E9F741F5850460064CB96 /* turn_test.cpp */; };
+		56EE14DB1FE812FC0036F20C /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14DC1FE812FC0036F20C /* libtransit.a */; };
 		56F0D7341D896A5300045886 /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DE1C69F198003AA26F /* libmap.a */; };
 		56F0D7391D896A5300045886 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35D41C69F155003AA26F /* libstorage.a */; };
 		56F0D73A1D896A5300045886 /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343F81A3F640D00A0A8C3 /* librouting.a */; };
@@ -419,6 +420,7 @@
 		56CA63061F61206700E6681B /* road_graph_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_graph_tests.cpp; sourceTree = "<group>"; };
 		56CC5A361E3884960016AC46 /* cross_mwm_index_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_index_graph.hpp; sourceTree = "<group>"; };
 		56EA2FD41D8FD8590083F01A /* routing_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_helpers.hpp; sourceTree = "<group>"; };
+		56EE14DC1FE812FC0036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F0D75F1D896A5300045886 /* routing_benchmarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = routing_benchmarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56FA20461FBF23A90045DE78 /* cross_mwm_ids.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_ids.hpp; sourceTree = "<group>"; };
 		670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_routing_context.cpp; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56EE14DB1FE812FC0036F20C /* libtransit.a in Frameworks */,
 				567E9F811F5853370064CB96 /* libtraffic.a in Frameworks */,
 				567E9F7F1F58530D0064CB96 /* librouting_common.a in Frameworks */,
 				567E9F7D1F5852C00064CB96 /* libicu.a in Frameworks */,
@@ -659,6 +662,7 @@
 		56F0D7611D896DAF00045886 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56EE14DC1FE812FC0036F20C /* libtransit.a */,
 				567E9F801F5853370064CB96 /* libtraffic.a */,
 				408B55BF1FD953F100F4E78B /* libbsdiff.a */,
 				408B55C01FD9540F00F4E78B /* libmwm_diff.a */,

@@ -11,7 +11,8 @@
 #include "routing/world_graph.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
-#include "routing_common/transit_types.hpp"
+
+#include "transit/transit_types.hpp"
 
 #include "geometry/point2d.hpp"
 

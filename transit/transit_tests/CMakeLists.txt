@@ -1,9 +1,11 @@
-project(routing_common_tests)
+project(transit_tests)
 
 set(
   SRC
-  vehicle_model_for_country_test.cpp
-  vehicle_model_test.cpp
+  transit_graph_test.cpp
+  transit_json_parsing_test.cpp
+  transit_test.cpp
+  transit_tools.hpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
@@ -11,21 +13,13 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   indexer
-  editor
-  routing_common
+  transit
   platform
-  oauthcpp
   geometry
   coding
   base
-  protobuf
-  succinct
-  opening_hours
   jansson
   stats_client
-  pugixml
-  stats_client
-  icu
   ${LIBZ}
 )
 

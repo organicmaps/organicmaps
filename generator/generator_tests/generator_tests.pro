@@ -5,9 +5,9 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = generator_tests_support platform_tests_support generator drape_frontend routing \
-               search storage ugc indexer drape map traffic routing_common platform editor geometry \
+               search storage ugc indexer drape map traffic routing_common transit platform editor \
                coding base freetype expat jansson protobuf osrm stats_client \
-               minizip succinct pugixml tess2 gflags oauthcpp stb_image sdf_image icu
+               geometry minizip succinct pugixml tess2 gflags oauthcpp stb_image sdf_image icu
 
 include($$ROOT_DIR/common.pri)
 
@@ -51,6 +51,5 @@ SOURCES += \
     srtm_parser_test.cpp \
     tag_admixer_test.cpp \
     tesselator_test.cpp \
-    transit_tools.hpp \
     triangles_tree_coding_test.cpp \
     ugc_test.cpp \
