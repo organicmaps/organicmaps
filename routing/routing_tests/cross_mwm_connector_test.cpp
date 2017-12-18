@@ -38,11 +38,11 @@ void TestConnectorConsistency(CrossMwmConnector<CrossMwmId> const & connector)
 }
 
 template <typename CrossMwmId>
-void TestEdges(CrossMwmConnector<CrossMwmId> const & connector, Segment const & from, bool isOutgoing,
-               vector<SegmentEdge> const & expectedEdges)
+void TestOutgoingEdges(CrossMwmConnector<CrossMwmId> const & connector, Segment const & from,
+                       vector<SegmentEdge> const & expectedEdges)
 {
   vector<SegmentEdge> edges;
-  connector.GetEdgeList(from, isOutgoing, edges);
+  connector.GetOutgoingEdgeList(from, edges);
   TEST_EQUAL(edges, expectedEdges, ());
 }
 
@@ -233,18 +233,13 @@ void TestSerialization(vector<CrossMwmConnectorSerializer::Transition<CrossMwmId
       m2::PointD(2.3, 2.4), eps),
        ());
 
-  TestEdges(connector, Segment(mwmId, 10, 1, true /* forward */), true /* isOutgoing */,
-            {{Segment(mwmId, 20, 2, false /* forward */),
-              RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
+  TestOutgoingEdges(connector, Segment(mwmId, 10, 1, true /* forward */),
+                    {{Segment(mwmId, 20, 2, false /* forward */),
+                      RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
 
-  TestEdges(connector, Segment(mwmId, 20, 2, true /* forward */), true /* isOutgoing */,
-            {{Segment(mwmId, 20, 2, false /* forward */),
-              RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
-
-  TestEdges(
-      connector, Segment(mwmId, 20, 2, false /* forward */), false /* isOutgoing */,
-      {{Segment(mwmId, 10, 1, true /* forward */), RouteWeight::FromCrossMwmWeight(kEdgesWeight)},
-       {Segment(mwmId, 20, 2, true /* forward */), RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
+  TestOutgoingEdges(connector, Segment(mwmId, 20, 2, true /* forward */),
+                    {{Segment(mwmId, 20, 2, false /* forward */),
+                      RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
 }
 
 void GetCrossMwmId(uint32_t i, osm::Id & id) { id = osm::Id(10 * i); }
@@ -327,7 +322,7 @@ void TestWeightsSerialization()
       ++weightIdx;
     }
 
-    TestEdges(connector, enter, true /* isOutgoing */, expectedEdges);
+    TestOutgoingEdges(connector, enter, expectedEdges);
   }
 }
 }  // namespace

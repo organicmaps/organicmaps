@@ -31,7 +31,9 @@ public:
                     std::shared_ptr<EdgeEstimator> estimator);
 
   // WorldGraph overrides:
-  void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
+  ~TransitWorldGraph() override = default;
+
+  void GetEdgeList(Segment const & segment, bool isOutgoing,
                    std::vector<SegmentEdge> & edges) override;
   bool CheckLength(RouteWeight const & weight, double startToFinishDistanceM) const override
   {
@@ -59,6 +61,9 @@ public:
   std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override;
 
 private:
+  // WorldGraph overrides:
+  void GetTwinsInner(Segment const & s, bool isOutgoing, std::vector<Segment> & twins) override;
+
   static double MaxPedestrianTimeSec(double startToFinishDistanceM)
   {
     // @todo(tatiana-kondakova) test and adjust constants.
@@ -68,7 +73,6 @@ private:
 
   RoadGeometry const & GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId);
   void AddRealEdges(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
-  void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
   IndexGraph & GetIndexGraph(NumMwmId mwmId);
   TransitGraph & GetTransitGraph(NumMwmId mwmId);
 
@@ -76,7 +80,6 @@ private:
   std::unique_ptr<IndexGraphLoader> m_indexLoader;
   std::unique_ptr<TransitGraphLoader> m_transitLoader;
   std::shared_ptr<EdgeEstimator> m_estimator;
-  std::vector<Segment> m_twins;
   Mode m_mode = Mode::NoLeaps;
   std::vector<Segment> const kEmptyTransitions = {};
 };

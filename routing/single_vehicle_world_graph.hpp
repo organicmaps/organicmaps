@@ -27,7 +27,9 @@ public:
                           std::shared_ptr<EdgeEstimator> estimator);
 
   // WorldGraph overrides:
-  void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
+  ~SingleVehicleWorldGraph() override = default;
+
+  void GetEdgeList(Segment const & segment, bool isOutgoing,
                    std::vector<SegmentEdge> & edges) override;
   bool CheckLength(RouteWeight const &, double) const override { return true; }
   Junction const & GetJunction(Segment const & segment, bool front) override;
@@ -55,13 +57,14 @@ public:
   }
 
 private:
+  // WorldGraph overrides:
+  void GetTwinsInner(Segment const & s, bool isOutgoing, std::vector<Segment> & twins) override;
+
   RoadGeometry const & GetRoadGeometry(NumMwmId mwmId, uint32_t featureId);
-  void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
 
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;
   std::unique_ptr<IndexGraphLoader> m_loader;
   std::shared_ptr<EdgeEstimator> m_estimator;
-  std::vector<Segment> m_twins;
   Mode m_mode = Mode::NoLeaps;
 };
 }  // namespace routing

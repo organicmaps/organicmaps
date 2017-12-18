@@ -26,7 +26,7 @@ TransitWorldGraph::TransitWorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph,
 }
 
 void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
-                                    bool /* isLeap */, vector<SegmentEdge> & edges)
+                                    vector<SegmentEdge> & edges)
 {
   auto & transitGraph = GetTransitGraph(segment.GetMwmId());
 
@@ -102,13 +102,13 @@ void TransitWorldGraph::ClearCachedGraphs()
 void TransitWorldGraph::GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, true /* isOutgoing */, false /* isLeap */, edges);
+  GetEdgeList(segment, true /* isOutgoing */, edges);
 }
 
 void TransitWorldGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, false /* isOutgoing */, false /* isLeap */, edges);
+  GetEdgeList(segment, false /* isOutgoing */, edges);
 }
 
 RouteWeight TransitWorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
@@ -167,28 +167,15 @@ unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segmen
   return {};
 }
 
-void TransitWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,
-                                 vector<SegmentEdge> & edges)
+void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing,
+                                      vector<Segment> & twins)
 {
   if (m_mode == Mode::SingleMwm || !m_crossMwmGraph ||
       !m_crossMwmGraph->IsTransition(segment, isOutgoing))
   {
     return;
   }
-
-  m_twins.clear();
-  m_crossMwmGraph->GetTwins(segment, isOutgoing, m_twins);
-  for (Segment const & twin : m_twins)
-  {
-    m2::PointD const & from = GetPoint(segment, true /* front */);
-    m2::PointD const & to = GetPoint(twin, true /* front */);
-    // Weight is usually zero because twins correspond the same feature
-    // in different mwms. But if we have mwms with different versions and feature
-    // was moved in one of them we can have nonzero weight here.
-    double const weight = m_estimator->CalcHeuristic(from, to);
-    // @todo(t.yan) fix weight for ingoing edges https://jira.mail.ru/browse/MAPSME-5953
-    edges.emplace_back(twin, RouteWeight(weight));
-  }
+  m_crossMwmGraph->GetTwins(segment, isOutgoing, twins);
 }
 
 RoadGeometry const & TransitWorldGraph::GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId)

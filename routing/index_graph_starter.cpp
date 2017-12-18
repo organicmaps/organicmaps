@@ -21,6 +21,14 @@ Segment GetReverseSegment(Segment const & segment)
 
 namespace routing
 {
+// IndexGraphStarter::Ending -----------------------------------------------------------------------
+bool IndexGraphStarter::Ending::OverlapsWithMwm(NumMwmId mwmId) const
+{
+  auto containsSegment = [mwmId](Segment const & s) { return s.GetMwmId() == mwmId; };
+  return any_of(m_real.cbegin(), m_real.end(), containsSegment);
+}
+
+// IndexGraphStarter -------------------------------------------------------------------------------
 // static
 void IndexGraphStarter::CheckValidRoute(vector<Segment> const & segments)
 {
@@ -140,40 +148,36 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
   // If mode is LeapsOnly we need to connect start/finish segment to transitions.
   if (m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
   {
-     m2::PointD const & segmentPoint = GetPoint(segment, true /* front */);
-     if ((segment == GetStartSegment() && isOutgoing) || (segment == GetFinishSegment() && !isOutgoing))
-     {
-       // Note. If |isOutgoing| == true it's necessary to add edges which connect the start with all
-       // exits of its mwm. So |isEnter| below should be set to false.
-       // If |isOutgoing| == false all enters of the finish mwm should be connected with the finish
-       // point. So |isEnter| below should be set to true.
-       auto const mwms = GetEndingMwms(isOutgoing ? m_start : m_finish);
-       for (auto const & mwm : mwms)
-       {
-         for (auto const & s : m_graph.GetTransitions(mwm, !isOutgoing /* isEnter */))
-         {
-           // @todo(t.yan) fix weight for ingoing edges https://jira.mail.ru/browse/MAPSME-5953
-           edges.emplace_back(s, m_graph.CalcLeapWeight(segmentPoint, GetPoint(s, isOutgoing)));
-         }
-       }
-       return;
-     }
-     // Edge from finish mwm enter to finish.
-     if (GetSegmentLocation(segment) == SegmentLocation::FinishMwm && isOutgoing)
-     {
-       edges.emplace_back(GetFinishSegment(), m_graph.CalcLeapWeight(
-                                              segmentPoint, GetPoint(GetFinishSegment(), true /* front */ )));
-       return;
-     }
-     // Ingoing edge from start mwm exit to start.
-     if (GetSegmentLocation(segment) == SegmentLocation::StartMwm && !isOutgoing)
-     {
-       // @todo(t.yan) fix weight for ingoing edges https://jira.mail.ru/browse/MAPSME-5953
-       edges.emplace_back(
-           GetStartSegment(),
-           m_graph.CalcLeapWeight(segmentPoint, GetPoint(GetStartSegment(), true /* front */)));
-       return;
-     }
+    // Ingoing edges listing is not supported in LeapsOnly mode because we do not have enough
+    // information to calculate |segment| weight. See https://jira.mail.ru/browse/MAPSME-5743 for details.
+    CHECK(isOutgoing, ("Ingoing edges listing is not supported in LeapsOnly mode."));
+    m2::PointD const & segmentPoint = GetPoint(segment, true /* front */);
+    if (segment == GetStartSegment())
+    {
+      set<NumMwmId> seen;
+      for (auto const & real : m_start.m_real)
+      {
+        auto const mwmId = real.GetMwmId();
+        if (seen.insert(mwmId).second)
+        {
+          // Connect start to all exits (|isEnter| == false).
+          for (auto const & s : m_graph.GetTransitions(mwmId, false /* isEnter */))
+            edges.emplace_back(s, m_graph.CalcLeapWeight(segmentPoint, GetPoint(s, true /* front */)));
+        }
+      }
+      return;
+    }
+
+    // Edge from finish mwm enter to finish.
+    if (m_finish.OverlapsWithMwm(segment.GetMwmId()))
+    {
+      edges.emplace_back(GetFinishSegment(), m_graph.CalcLeapWeight(
+                                             segmentPoint, GetPoint(GetFinishSegment(), true /* front */ )));
+      return;
+    }
+
+    m_graph.GetEdgeList(segment, isOutgoing, edges);
+    return;
   }
 
   if (IsFakeSegment(segment))
@@ -184,7 +188,7 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
       bool const haveSameFront = GetJunction(segment, true /* front */) == GetJunction(real, true);
       bool const haveSameBack = GetJunction(segment, false /* front */) == GetJunction(real, false);
       if ((isOutgoing && haveSameFront) || (!isOutgoing && haveSameBack))
-        AddRealEdges(real, isOutgoing, edges);
+        m_graph.GetEdgeList(real, isOutgoing, edges);
     }
 
     for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
@@ -192,7 +196,7 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
   }
   else
   {
-    AddRealEdges(segment, isOutgoing, edges);
+    m_graph.GetEdgeList(segment, isOutgoing, edges);
   }
 
   AddFakeEdges(segment, edges);
@@ -226,12 +230,6 @@ RouteWeight IndexGraphStarter::CalcRouteSegmentWeight(vector<Segment> const & ro
       segmentIndex, route.size(),
       ("Segment with index", segmentIndex, "does not exist in route with size", route.size()));
   return CalcSegmentWeight(route[segmentIndex]);
-}
-
-bool IndexGraphStarter::IsLeap(Segment const & segment) const
-{
-  return !IsFakeSegment(segment) && GetSegmentLocation(segment) == SegmentLocation::OtherMwm &&
-         m_graph.LeapIsAllowed(segment.GetMwmId());
 }
 
 void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding const & otherEnding,
@@ -342,12 +340,6 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, vector<SegmentEdge
   edges.insert(edges.end(), fakeEdges.begin(), fakeEdges.end());
 }
 
-void IndexGraphStarter::AddRealEdges(Segment const & segment, bool isOutgoing,
-                                     std::vector<SegmentEdge> & edges) const
-{
-  m_graph.GetEdgeList(segment, isOutgoing, IsLeap(segment), edges);
-}
-
 bool IndexGraphStarter::EndingPassThroughAllowed(Ending const & ending)
 {
   return any_of(ending.m_real.cbegin(), ending.m_real.cend(),
@@ -365,32 +357,5 @@ bool IndexGraphStarter::StartPassThroughAllowed()
 bool IndexGraphStarter::FinishPassThroughAllowed()
 {
   return EndingPassThroughAllowed(m_finish);
-}
-
-set<NumMwmId> IndexGraphStarter::GetEndingMwms(Ending const & ending) const
-{
-  set<NumMwmId> res;
-  for (auto const & s : ending.m_real)
-    res.insert(s.GetMwmId());
-  return res;
-}
-
-IndexGraphStarter::SegmentLocation IndexGraphStarter::GetSegmentLocation(Segment const & segment) const
-{
-  CHECK(!IsFakeSegment(segment),());
-  auto const mwmId = segment.GetMwmId();
-  auto containsSegment = [mwmId](Segment const & s) { return s.GetMwmId() == mwmId; };
-
-  bool const sameMwmWithStart =
-      any_of(m_start.m_real.cbegin(), m_start.m_real.end(), containsSegment);
-  bool const sameMwmWithFinish =
-      any_of(m_finish.m_real.cbegin(), m_finish.m_real.end(), containsSegment);
-  if (sameMwmWithStart && sameMwmWithFinish)
-    return SegmentLocation::StartFinishMwm;
-  if (sameMwmWithStart)
-    return SegmentLocation::StartMwm;
-  if (sameMwmWithFinish)
-    return SegmentLocation::FinishMwm;
-  return SegmentLocation::OtherMwm;
 }
 }  // namespace routing

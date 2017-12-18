@@ -80,16 +80,13 @@ public:
   /// If not, |twins| could be emply after a GetTwins(...) call.
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<Segment> & twins);
 
-  /// \brief Fills |edges| with edges outgoing from |s| (ingoing to |s|).
-  /// If |isOutgoing| == true then |s| should be an enter transition segment.
-  /// In that case |edges| is filled with all edges starting from |s| and ending at all reachable
-  /// exit transition segments of the mwm of |s|.
-  /// If |isOutgoing| == false then |s| should be an exit transition segment.
-  /// In that case |edges| is filled with all edges starting from all reachable
-  /// enter transition segments of the mwm of |s| and ending at |s|.
-  /// Weight of each edge is equal to weight of the route form |s| to |SegmentEdge::m_target|
-  /// if |isOutgoing| == true and from |SegmentEdge::m_target| to |s| otherwise.
-  void GetEdgeList(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
+  /// \brief Fills |edges| with edges outgoing from |s|.
+  /// |s| should be an enter transition segment, |edges| is filled with all edges starting from |s|
+  /// and ending at all reachable exit transition segments of the mwm of |s|.
+  /// Weight of each edge is equal to weight of the route form |s| to |SegmentEdge::m_target|.
+  /// Getting ingoing edges is not supported because we do not have enough information
+  /// to calculate |segment| weight.
+  void GetOutgoingEdgeList(Segment const & s, std::vector<SegmentEdge> & edges);
 
   void Clear();
 

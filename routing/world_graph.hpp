@@ -29,9 +29,6 @@ public:
     LeapsOnly,  // Mode for building a cross mwm route containing only leaps. In case of start and
                 // finish they (start and finish) will be connected with all transition segments of
                 // their mwm with leap (fake) edges.
-    LeapsIfPossible,  // Mode for building cross mwm and single mwm routes. In case of cross mwm route
-                      // if they are neighboring mwms the route will be made without leaps.
-                      // If not the route is made with leaps for intermediate mwms.
     NoLeaps,    // Mode for building route and getting outgoing/ingoing edges without leaps at all.
     SingleMwm,  // Mode for building route and getting outgoing/ingoing edges within mwm source
                 // segment belongs to.
@@ -39,7 +36,7 @@ public:
 
   virtual ~WorldGraph() = default;
 
-  virtual void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
+  virtual void GetEdgeList(Segment const & segment, bool isOutgoing,
                            std::vector<SegmentEdge> & edges) = 0;
 
   // Checks whether path length meets restrictions. Restrictions may depend on the distance from
@@ -74,6 +71,11 @@ public:
 
   /// \returns transit-specific information for segment. For nontransit segments returns nullptr.
   virtual std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) = 0;
+
+protected:
+  void GetTwins(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges);
+  virtual void GetTwinsInner(Segment const & segment, bool isOutgoing,
+                             std::vector<Segment> & twins) = 0;
 };
 
 std::string DebugPrint(WorldGraph::Mode mode);

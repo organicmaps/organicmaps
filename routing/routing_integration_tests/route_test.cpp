@@ -206,6 +206,22 @@ namespace
         MercatorBounds::FromLatLon(55.7718, 37.5178), 147.4);
   }
 
+  UNIT_TEST(RussiaMoscowRegionToBelarusBorder)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents<VehicleType::Car>(),
+        MercatorBounds::FromLatLon(55.464182, 35.943947), {0.0, 0.0},
+        MercatorBounds::FromLatLon(52.442467, 31.609642), 554000.);
+  }
+
+  UNIT_TEST(GermanyToTallinCrossMwmRoute)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents<VehicleType::Car>(),
+        MercatorBounds::FromLatLon(48.397416, 16.515289), {0.0, 0.0},
+        MercatorBounds::FromLatLon(59.437214, 24.745355), 1650000.);
+  }
+  
   // Strange map edits in Africa borders. Routing not linked now.
   /*
   UNIT_TEST(RussiaMoscowLenigradskiy39RepublicOfSouthAfricaCapeTownCenterRouteTest)

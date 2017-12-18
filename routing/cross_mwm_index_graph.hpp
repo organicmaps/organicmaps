@@ -114,10 +114,10 @@ public:
     }
   }
 
-  void GetEdgeList(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges)
+  void GetOutgoingEdgeList(Segment const & s, std::vector<SegmentEdge> & edges)
   {
     CrossMwmConnector<CrossMwmId> const & c = GetCrossMwmConnectorWithWeights(s.GetMwmId());
-    c.GetEdgeList(s, isOutgoing, edges);
+    c.GetOutgoingEdgeList(s, edges);
   }
 
   void Clear() { m_connectors.clear(); }

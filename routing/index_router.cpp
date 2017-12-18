@@ -144,8 +144,11 @@ IRouter::ResultCode FindPath(
     RoutingResult<typename Graph::Vertex, typename Graph::Weight> & routingResult)
 {
   AStarAlgorithm<Graph> algorithm;
-  return ConvertResult<Graph>(algorithm.FindPathBidirectional(
-      graph, start, finish, routingResult, delegate, onVisitedVertexCallback, checkLengthCallback));
+  auto findPath = mem_fn(graph.GetMode() == WorldGraph::Mode::LeapsOnly
+                             ? &AStarAlgorithm<Graph>::FindPath
+                             : &AStarAlgorithm<Graph>::FindPathBidirectional);
+  return ConvertResult<Graph>(findPath(algorithm, graph, start, finish, routingResult, delegate,
+                                       onVisitedVertexCallback, checkLengthCallback));
 }
 
 bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph)
@@ -160,7 +163,7 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
   // If |isOutgoing| == false it's the finish. So ingoing edges are looked for.
   auto const getOutgoingEdgesFn = [isOutgoing](WorldGraph & graph, Segment const & u,
                                                vector<SegmentEdge> & edges) {
-    graph.GetEdgeList(u, isOutgoing, false /* isLeap */, edges);
+    graph.GetEdgeList(u, isOutgoing, edges);
   };
 
   return !CheckGraphConnectivity(segment, kDeadEndTestLimit, worldGraph,
@@ -528,7 +531,7 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
       starter.GetGraph().SetMode(WorldGraph::Mode::NoLeaps);
       break;
     case VehicleType::Car:
-      starter.GetGraph().SetMode(AreMwmsNear(starter.GetMwms()) ? WorldGraph::Mode::LeapsIfPossible
+      starter.GetGraph().SetMode(AreMwmsNear(starter.GetMwms()) ? WorldGraph::Mode::NoLeaps
                                                                 : WorldGraph::Mode::LeapsOnly);
       break;
     case VehicleType::Count:
@@ -753,15 +756,7 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
   output.reserve(input.size());
 
   auto const isNotLeap = [&](Segment const & s) {
-    return prevMode != WorldGraph::Mode::LeapsOnly && !starter.IsLeap(s);
-  };
-
-  auto const isEndingToExitLeap = [&](Segment const & s) {
-    return prevMode == WorldGraph::Mode::LeapsOnly && !starter.IsLeap(s);
-  };
-
-  auto const sameMwm = [](NumMwmId prev, NumMwmId current) {
-    return prev == current || prev == kFakeNumMwmId || current == kFakeNumMwmId;
+    return prevMode != WorldGraph::Mode::LeapsOnly;
   };
 
   WorldGraph & worldGraph = starter.GetGraph();
@@ -769,22 +764,14 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
   // For all leaps except the first leap which connects start to mwm exit in LeapsOnly mode we need
   // to drop first segment of the leap because we already have its twin from the previous mwm.
   bool dropFirstSegment = false;
-  NumMwmId prevMwmId = kFakeNumMwmId;
   for (size_t i = 0; i < input.size(); ++i)
   {
     auto const & current = input[i];
-    auto const currentMwmId = current.GetMwmId();
-
     if (isNotLeap(current))
     {
-      // Otherwise current is a twin of the previous segment and should be skipped.
-      if (sameMwm(prevMwmId, currentMwmId))
-        output.push_back(current);
-      prevMwmId = currentMwmId;
+      output.push_back(current);
       continue;
     }
-
-    prevMwmId = currentMwmId;
 
     // Clear previous loaded graphs to not spend too much memory at one time.
     worldGraph.ClearCachedGraphs();
@@ -795,8 +782,9 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
 
     IRouter::ResultCode result = IRouter::InternalError;
     RoutingResult<Segment, RouteWeight> routingResult;
-    if (isEndingToExitLeap(current))
+    if (i == 1 || i + 1 == input.size())
     {
+      // First start-to-mwm-exit and last mwm-enter-to-finish leaps need special processing.
       // In case of leaps from the start to its mwm transition and from finish to mwm transition
       // route calculation should be made on the world graph (WorldGraph::Mode::NoLeaps).
       worldGraph.SetMode(WorldGraph::Mode::NoLeaps);
@@ -813,7 +801,6 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
         current.GetMwmId(), next.GetMwmId(),
         ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
 
-      CHECK(starter.IsLeap(current), ());
       // Single mwm route.
       worldGraph.SetMode(WorldGraph::Mode::SingleMwm);
       // It's not start-to-mwm-exit leap, we already have its first segment in previous mwm.

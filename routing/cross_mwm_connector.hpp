@@ -142,27 +142,14 @@ public:
     return segment.IsForward() == front ? transition.m_frontPoint : transition.m_backPoint;
   }
 
-  void GetEdgeList(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges) const
+  void GetOutgoingEdgeList(Segment const & segment, std::vector<SegmentEdge> & edges) const
   {
     auto const & transition = GetTransition(segment);
-    if (isOutgoing)
+    CHECK_NOT_EQUAL(transition.m_enterIdx, connector::kFakeIndex, ());
+    for (size_t exitIdx = 0; exitIdx < m_exits.size(); ++exitIdx)
     {
-      ASSERT_NOT_EQUAL(transition.m_enterIdx, connector::kFakeIndex, ());
-      for (size_t exitIdx = 0; exitIdx < m_exits.size(); ++exitIdx)
-      {
-        auto const weight = GetWeight(base::asserted_cast<size_t>(transition.m_enterIdx), exitIdx);
-        AddEdge(m_exits[exitIdx], weight, edges);
-      }
-    }
-    else
-    {
-      ASSERT_NOT_EQUAL(transition.m_exitIdx, connector::kFakeIndex, ());
-      for (size_t enterIdx = 0; enterIdx < m_enters.size(); ++enterIdx)
-      {
-        // @todo(t.yan) fix weight for ingoing edges https://jira.mail.ru/browse/MAPSME-5953
-        auto const weight = GetWeight(enterIdx, base::asserted_cast<size_t>(transition.m_exitIdx));
-        AddEdge(m_enters[enterIdx], weight, edges);
-      }
+      auto const weight = GetWeight(base::asserted_cast<size_t>(transition.m_enterIdx), exitIdx);
+      AddEdge(m_exits[exitIdx], weight, edges);
     }
   }
 

@@ -158,7 +158,7 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
         ("The segment", s, "is not a transition segment for isOutgoing ==", isOutgoing));
   // Note. There's an extremely rare case when a segment is ingoing and outgoing at the same time.
   // |twins| is not filled for such cases. For details please see a note in
-  // CrossMwmGraph::GetEdgeList().
+  // CrossMwmGraph::GetOutgoingEdgeList().
   if (IsTransition(s, !isOutgoing))
     return;
 
@@ -221,21 +221,22 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
     CHECK_NOT_EQUAL(s.GetMwmId(), t.GetMwmId(), ());
 }
 
-void CrossMwmGraph::GetEdgeList(Segment const & s, bool isOutgoing, vector<SegmentEdge> & edges)
+void CrossMwmGraph::GetOutgoingEdgeList(Segment const & s, vector<SegmentEdge> & edges)
 {
-  CHECK(IsTransition(s, !isOutgoing), ("The segment is not a transition segment. IsTransition(", s,
-                                       ",", !isOutgoing, ") returns false."));
+  CHECK(IsTransition(s, false /* isEnter */),
+        ("The segment is not a transition segment. IsTransition(", s, ", false) returns false."));
   edges.clear();
 
   if (TransitGraph::IsTransitSegment(s))
   {
     if (TransitCrossMwmSectionExists(s.GetMwmId()))
-      m_crossMwmTransitGraph.GetEdgeList(s, isOutgoing, edges);
+      m_crossMwmTransitGraph.GetOutgoingEdgeList(s, edges);
     return;
   }
 
-  return CrossMwmSectionExists(s.GetMwmId()) ? m_crossMwmIndexGraph.GetEdgeList(s, isOutgoing, edges)
-                                             : m_crossMwmOsrmGraph.GetEdgeList(s, isOutgoing, edges);
+  return CrossMwmSectionExists(s.GetMwmId())
+             ? m_crossMwmIndexGraph.GetOutgoingEdgeList(s, edges)
+             : m_crossMwmOsrmGraph.GetEdgeList(s, true /* isOutgoing */, edges);
 }
 
 void CrossMwmGraph::Clear()

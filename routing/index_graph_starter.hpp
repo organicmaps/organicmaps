@@ -53,6 +53,7 @@ public:
   void Append(FakeEdgesContainer const & container);
 
   WorldGraph & GetGraph() const { return m_graph; }
+  WorldGraph::Mode GetMode() const { return m_graph.GetMode(); }
   Junction const & GetStartJunction() const;
   Junction const & GetFinishJunction() const;
   Segment GetStartSegment() const { return GetFakeSegment(m_start.m_id); }
@@ -100,20 +101,12 @@ public:
   RouteWeight CalcSegmentWeight(Segment const & segment) const;
   RouteWeight CalcRouteSegmentWeight(std::vector<Segment> const & route, size_t segmentIndex) const;
 
-  bool IsLeap(Segment const & segment) const;
-
 private:
-  enum class SegmentLocation
-  {
-    StartFinishMwm,  // Segment is located in the same mwm with start and finish of the route.
-    StartMwm,        // Segment is located in the same mwm with start but not finish of the route.
-    FinishMwm,       // Segment is located in the same mwm with finish but not start of the route.
-    OtherMwm,        // Neither start nor finish are located in the segment's mwm.
-  };
-
   // Start or finish ending information. 
   struct Ending
   {
+    bool OverlapsWithMwm(NumMwmId mwmId) const;
+
     // Fake segment id.
     uint32_t m_id = 0;
     // Real segments connected to the ending.
@@ -146,9 +139,6 @@ private:
   // Adds fake edges of type PartOfReal which correspond real edges from |edges| and are connected
   // to |segment|
   void AddFakeEdges(Segment const & segment, vector<SegmentEdge> & edges) const;
-  // Adds real edges from m_graph
-  void AddRealEdges(Segment const & segment, bool isOutgoing,
-                    std::vector<SegmentEdge> & edges) const;
 
   // Checks whether ending belongs to pass-through or non-pass-through zone.
   bool EndingPassThroughAllowed(Ending const & ending);
@@ -156,9 +146,6 @@ private:
   bool StartPassThroughAllowed();
   // Finish segment is located in a pass-through/non-pass-through area.
   bool FinishPassThroughAllowed();
-
-  std::set<NumMwmId> GetEndingMwms(Ending const & ending) const;
-  SegmentLocation GetSegmentLocation(Segment const & segment) const;
 
   static uint32_t constexpr kFakeFeatureId = FakeFeatureIds::kIndexGraphStarterId;
   WorldGraph & m_graph;

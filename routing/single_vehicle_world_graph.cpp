@@ -16,15 +16,18 @@ SingleVehicleWorldGraph::SingleVehicleWorldGraph(unique_ptr<CrossMwmGraph> cross
 }
 
 void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
-                                          bool isLeap, vector<SegmentEdge> & edges)
+                                          vector<SegmentEdge> & edges)
 {
-  if ((m_mode == Mode::LeapsIfPossible && isLeap) || m_mode == Mode::LeapsOnly)
+  if (m_mode == Mode::LeapsOnly)
   {
     CHECK(m_crossMwmGraph, ());
+    // Ingoing edges listing is not supported for leaps because we do not have enough information
+    // to calculate |segment| weight. See https://jira.mail.ru/browse/MAPSME-5743 for details.
+    CHECK(isOutgoing, ("Ingoing edges listing is not supported for LeapsOnly mode."));
     if (m_crossMwmGraph->IsTransition(segment, isOutgoing))
       GetTwins(segment, isOutgoing, edges);
     else
-      m_crossMwmGraph->GetEdgeList(segment, isOutgoing, edges);
+      m_crossMwmGraph->GetOutgoingEdgeList(segment, edges);
     return;
   }
 
@@ -60,14 +63,14 @@ void SingleVehicleWorldGraph::GetOutgoingEdgesList(Segment const & segment,
                                                    vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, true /* isOutgoing */, false /* isLeap */, edges);
+  GetEdgeList(segment, true /* isOutgoing */, edges);
 }
 
 void SingleVehicleWorldGraph::GetIngoingEdgesList(Segment const & segment,
                                                   vector<SegmentEdge> & edges)
 {
   edges.clear();
-  GetEdgeList(segment, false /* isOutgoing */, false /* isLeap */, edges);
+  GetEdgeList(segment, false /* isOutgoing */, edges);
 }
 
 RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
@@ -116,21 +119,9 @@ RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, ui
   return m_loader->GetIndexGraph(mwmId).GetGeometry().GetRoad(featureId);
 }
 
-void SingleVehicleWorldGraph::GetTwins(Segment const & segment, bool isOutgoing,
-                                       vector<SegmentEdge> & edges)
+void SingleVehicleWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing,
+                                            vector<Segment> & twins)
 {
-  m_twins.clear();
-  m_crossMwmGraph->GetTwins(segment, isOutgoing, m_twins);
-  for (Segment const & twin : m_twins)
-  {
-    m2::PointD const & from = GetPoint(segment, true /* front */);
-    m2::PointD const & to = GetPoint(twin, true /* front */);
-    // Weight is usually zero because twins correspond the same feature
-    // in different mwms. But if we have mwms with different versions and feature
-    // was moved in one of them we can have nonzero weight here.
-    double const weight = m_estimator->CalcHeuristic(from, to);
-    // @todo(t.yan) fix weight for ingoing edges https://jira.mail.ru/browse/MAPSME-5953
-    edges.emplace_back(twin, RouteWeight(weight));
-  }
+  m_crossMwmGraph->GetTwins(segment, isOutgoing, twins);
 }
 }  // namespace routing
