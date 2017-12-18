@@ -15,18 +15,13 @@ namespace openlr
 {
 class CandidatePointsGetter
 {
-  using MwmIdByPointFn = std::function<MwmSet::MwmId(m2::PointD const &)>;
-
 public:
   CandidatePointsGetter(size_t const maxJunctionCandidates, size_t const maxProjectionCandidates,
-                        Index const & index, MwmIdByPointFn const & mwmIdByPointFn, Graph & graph,
-                        v2::Stats & stat)
+                        Index const & index, Graph & graph)
     : m_maxJunctionCandidates(maxJunctionCandidates)
     , m_maxProjectionCandidates(maxProjectionCandidates)
     , m_index(index)
-    , m_mwmIdByPointFn(mwmIdByPointFn)
     , m_graph(graph)
-    , m_stat(stat)
   {
   }
 
@@ -45,7 +40,5 @@ private:
 
   Index const & m_index;
   Graph & m_graph;
-  v2::Stats & m_stat;
-  MwmIdByPointFn m_mwmIdByPointFn;
 };
 }  // namespace openlr

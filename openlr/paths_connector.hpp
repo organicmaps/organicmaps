@@ -13,7 +13,7 @@ namespace openlr
 class PathsConnector
 {
 public:
-  PathsConnector(double const pathLengthTolerance, Graph const & graph, v2::Stats & stat);
+  PathsConnector(double const pathLengthTolerance, Graph & graph, v2::Stats & stat);
 
   bool ConnectCandidates(std::vector<LocationReferencePoint> const & points,
                          std::vector<std::vector<Graph::EdgeVector>> const & lineCandidates,
@@ -29,8 +29,8 @@ private:
                                      uint32_t const distanceToNextPoint,
                                      Graph::EdgeVector & resultPath);
 
-  double const m_pathLengthTolerance;
-  Graph const & m_graph;
+  double m_pathLengthTolerance;
+  Graph & m_graph;
   v2::Stats & m_stat;
 };
 }  // namespace openlr

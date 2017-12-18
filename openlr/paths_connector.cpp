@@ -66,7 +66,7 @@ bool ValidatePath(Graph::EdgeVector const & path,
 }
 }  // namespace
 
-PathsConnector::PathsConnector(double const pathLengthTolerance, Graph const & graph,
+PathsConnector::PathsConnector(double const pathLengthTolerance, Graph & graph,
                               v2::Stats & stat)
   : m_pathLengthTolerance(pathLengthTolerance), m_graph(graph), m_stat(stat)
 {

@@ -48,6 +48,7 @@ DEFINE_string(ids_path, "", "Path to a file with segment ids to process.");
 DEFINE_string(countries_filename, "",
               "Name of countries file which describes mwm tree. Used to get country specific "
               "routing restrictions.");
+DEFINE_int32(algo_version, 0, "Use new decoding algorithm");
 
 using namespace openlr;
 
@@ -129,7 +130,7 @@ bool ValidateNumThreads(char const * flagname, int32_t value)
   return true;
 }
 
-bool ValidataMwmPath(char const * flagname, std::string const & value)
+bool ValidateMwmPath(char const * flagname, std::string const & value)
 {
   if (value.empty())
   {
@@ -140,10 +141,28 @@ bool ValidataMwmPath(char const * flagname, std::string const & value)
   return true;
 }
 
+bool ValidateVersion(char const * flagname, int32_t value)
+{
+  if (value == 0)
+  {
+    printf("--%s should be specified\n", flagname);
+    return false;
+  }
+
+  if (value != 1 && value != 2)
+  {
+    printf("--%s should be one of 1 or 2\n", flagname);
+    return false;
+  }
+
+  return true;
+}
+
 bool const g_limitDummy = google::RegisterFlagValidator(&FLAGS_limit, &ValidateLimit);
 bool const g_numThreadsDummy =
     google::RegisterFlagValidator(&FLAGS_num_threads, &ValidateNumThreads);
-bool const g_mwmsPathDummy = google::RegisterFlagValidator(&FLAGS_mwms_path, &ValidataMwmPath);
+bool const g_mwmsPathDummy = google::RegisterFlagValidator(&FLAGS_mwms_path, &ValidateMwmPath);
+bool const g_algoVersion = google::RegisterFlagValidator(&FLAGS_algo_version, &ValidateVersion);
 
 void SaveNonMatchedIds(std::string const & filename, std::vector<DecodedPath> const & paths)
 {
@@ -257,7 +276,12 @@ int main(int argc, char * argv[])
   auto const segments = LoadSegments(document);
 
   std::vector<DecodedPath> paths(segments.size());
-  decoder.Decode(segments, numThreads, paths);
+  switch (FLAGS_algo_version)
+  {
+  case 1: decoder.DecodeV1(segments, numThreads, paths); break;
+  case 2: decoder.DecodeV2(segments, numThreads, paths); break;
+  default: ASSERT(false, ("There should be no way to fall here"));
+  }
 
   SaveNonMatchedIds(FLAGS_non_matched_ids, paths);
   if (!FLAGS_assessment_output.empty())

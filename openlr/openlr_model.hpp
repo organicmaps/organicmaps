@@ -97,6 +97,8 @@ struct LinearSegment
   static auto constexpr kInvalidSegmentId = std::numeric_limits<uint32_t>::max();
 
   std::vector<m2::PointD> GetMercatorPoints() const;
+  std::vector<LocationReferencePoint> const & GetLRPs() const;
+  std::vector<LocationReferencePoint> & GetLRPs();
 
   // TODO(mgsergio): Think of using openlr::PartnerSegmentId
   uint32_t m_segmentId = kInvalidSegmentId;

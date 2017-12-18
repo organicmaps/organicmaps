@@ -1,8 +1,8 @@
 #pragma once
 
-#include "base/exception.hpp"
+#include "openlr/stats.hpp"
 
-#include <routing/road_graph.hpp>
+#include "base/exception.hpp"
 
 #include <cstdint>
 #include <functional>
@@ -19,10 +19,13 @@ struct DecodedPath;
 
 DECLARE_EXCEPTION(DecoderError, RootException);
 
+class Graph;
+class RoadInfoGetter;
+
 class OpenLRDecoder
 {
 public:
-  using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
+  using CountryParentNameGetter = std::function<std::string(std::string const &)>;
 
   class SegmentsFilter
   {
@@ -38,14 +41,20 @@ public:
   };
 
   OpenLRDecoder(std::vector<Index> const & indexes,
-                CountryParentNameGetterFn const & countryParentNameGetterFn);
+                CountryParentNameGetter const & countryParentNameGetter);
 
   // Maps partner segments to mwm paths. |segments| should be sorted by partner id.
-  void Decode(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
-              std::vector<DecodedPath> & paths);
+  void DecodeV1(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
+                std::vector<DecodedPath> & paths);
+
+  void DecodeV2(std::vector<LinearSegment> const & segments, uint32_t const /* numThreads */,
+                std::vector<DecodedPath> & paths);
 
 private:
+  bool DecodeSingleSegment(LinearSegment const & segment, Index const & index, Graph & g,
+                           RoadInfoGetter & inforGetter, DecodedPath & path, v2::Stats & stat);
+
   std::vector<Index> const & m_indexes;
-  CountryParentNameGetterFn m_countryParentNameGetterFn;
+  CountryParentNameGetter m_countryParentNameGetter;
 };
 }  // namespace openlr
