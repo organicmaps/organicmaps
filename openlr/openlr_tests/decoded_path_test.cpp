@@ -52,8 +52,9 @@ routing::Junction RoughJunction(routing::Junction const & j)
 
 routing::Edge RoughEdgeJunctions(routing::Edge const & e)
 {
-  return routing::Edge(e.GetFeatureId(), e.IsForward(), e.GetSegId(),
-                       RoughJunction(e.GetStartJunction()), RoughJunction(e.GetEndJunction()));
+  return routing::Edge::MakeReal(e.GetFeatureId(), e.IsForward(), e.GetSegId(),
+                                 RoughJunction(e.GetStartJunction()),
+                                 RoughJunction(e.GetEndJunction()));
 }
 
 void RoughJunctionsInPath(openlr::Path & p)
@@ -101,9 +102,9 @@ openlr::Path MakePath(FeatureType const & road, bool const forward)
 
     auto const from = road.GetPoint(current);
     auto const to = road.GetPoint(next);
-    path.emplace_back(road.GetID(), forward, current - static_cast<size_t>(!forward) /* segId */,
-                      routing::Junction(from, 0 /* altitude */),
-                      routing::Junction(to, 0 /* altitude */));
+    path.push_back(routing::Edge::MakeReal(
+        road.GetID(), forward, current - static_cast<size_t>(!forward) /* segId */,
+        routing::Junction(from, 0 /* altitude */), routing::Junction(to, 0 /* altitude */)));
   }
 
   RoughJunctionsInPath(path);
@@ -150,40 +151,24 @@ UNIT_TEST(MakePath_Test)
   WithRoad(points, [&points](Index const & index, FeatureType & road) {
     auto const & id = road.GetID();
     {
-      openlr::Path const expected{{id,
-                                   true /* forward */,
-                                   0 /* segId*/,
-                                   {points[0], 0 /* altitude */},
-                                   {points[1], 0 /* altitude */}},
-                                  {id,
-                                   true /* forward */,
-                                   1 /* segId*/,
-                                   {points[1], 0 /* altitude */},
-                                   {points[2], 0 /* altitude */}},
-                                  {id,
-                                   true /* forward */,
-                                   2 /* segId*/,
-                                   {points[2], 0 /* altitude */},
-                                   {points[3], 0 /* altitude */}}};
+      openlr::Path const expected{
+          routing::Edge::MakeReal(id, true /* forward */, 0 /* segId*/,
+                                  {points[0], 0 /* altitude */}, {points[1], 0 /* altitude */}),
+          routing::Edge::MakeReal(id, true /* forward */, 1 /* segId*/,
+                                  {points[1], 0 /* altitude */}, {points[2], 0 /* altitude */}),
+          routing::Edge::MakeReal(id, true /* forward */, 2 /* segId*/,
+                                  {points[2], 0 /* altitude */}, {points[3], 0 /* altitude */})};
       auto const path = MakePath(road, true /* forward */);
       TEST_EQUAL(path, expected, ());
     }
     {
-      openlr::Path const expected{{id,
-                                   false /* forward */,
-                                   2 /* segId*/,
-                                   {points[3], 0 /* altitude */},
-                                   {points[2], 0 /* altitude */}},
-                                  {id,
-                                   false /* forward */,
-                                   1 /* segId*/,
-                                   {points[2], 0 /* altitude */},
-                                   {points[1], 0 /* altitude */}},
-                                  {id,
-                                   false /* forward */,
-                                   0 /* segId*/,
-                                   {points[1], 0 /* altitude */},
-                                   {points[0], 0 /* altitude */}}};
+      openlr::Path const expected{
+          routing::Edge::MakeReal(id, false /* forward */, 2 /* segId*/,
+                                  {points[3], 0 /* altitude */}, {points[2], 0 /* altitude */}),
+          routing::Edge::MakeReal(id, false /* forward */, 1 /* segId*/,
+                                  {points[2], 0 /* altitude */}, {points[1], 0 /* altitude */}),
+          routing::Edge::MakeReal(id, false /* forward */, 0 /* segId*/,
+                                  {points[1], 0 /* altitude */}, {points[0], 0 /* altitude */})};
       {
         auto const path = MakePath(road, false /* forward */);
         TEST_EQUAL(path, expected, ());

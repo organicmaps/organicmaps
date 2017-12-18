@@ -89,17 +89,19 @@ void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
 
   for (Segment const & segment : m_segments)
   {
-    auto featureId = FeatureID();
-
-    if (!IndexGraphStarter::IsFakeSegment(segment) && !TransitGraph::IsTransitSegment(segment))
+    auto const & junctionFrom = m_starter.GetJunction(segment, false /* front */);
+    auto const & junctionTo = m_starter.GetJunction(segment, true /* front */);
+    if (IndexGraphStarter::IsFakeSegment(segment) || TransitGraph::IsTransitSegment(segment))
+    {
+      edges.push_back(Edge::MakeFake(junctionFrom, junctionTo));
+    }
+    else
     {
       platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
       MwmSet::MwmId const mwmId = m_index.GetMwmIdByCountryFile(file);
-      featureId = FeatureID(mwmId, segment.GetFeatureId());
+      edges.push_back(Edge::MakeReal(FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(),
+                                     segment.GetSegmentIdx(), junctionFrom, junctionTo));
     }
-    edges.emplace_back(featureId, segment.IsForward(), segment.GetSegmentIdx(),
-                       m_starter.GetJunction(segment, false /* front */),
-                       m_starter.GetJunction(segment, true /* front */));
   }
 }
 
@@ -130,9 +132,10 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeV
     platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
     MwmSet::MwmId const mwmId = m_index.GetMwmIdByCountryFile(file);
 
-    edges.emplace_back(FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(),
-                       segment.GetSegmentIdx(), m_starter.GetJunction(segment, false /* front */),
-                       m_starter.GetJunction(segment, true /* front */));
+    edges.push_back(Edge::MakeReal(FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(),
+                                   segment.GetSegmentIdx(),
+                                   m_starter.GetJunction(segment, false /* front */),
+                                   m_starter.GetJunction(segment, true /* front */)));
   }
 }
 

@@ -79,15 +79,17 @@ void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res, size_t co
   
   for (Candidate const & candidate : m_candidates)
   {
-    res.emplace_back(Edge(candidate.m_fid, true /* forward */, candidate.m_segId,
-                          candidate.m_segStart, candidate.m_segEnd), candidate.m_projPoint);
+    res.emplace_back(Edge::MakeReal(candidate.m_fid, true /* forward */, candidate.m_segId,
+                                    candidate.m_segStart, candidate.m_segEnd),
+                     candidate.m_projPoint);
     if (res.size() >= maxCountFeatures)
       return;
 
     if (candidate.m_bidirectional)
     {
-      res.emplace_back(Edge(candidate.m_fid, false /* forward */, candidate.m_segId,
-                            candidate.m_segEnd, candidate.m_segStart), candidate.m_projPoint);
+      res.emplace_back(Edge::MakeReal(candidate.m_fid, false /* forward */, candidate.m_segId,
+                                      candidate.m_segEnd, candidate.m_segStart),
+                       candidate.m_projPoint);
       if (res.size() >= maxCountFeatures)
         return;
     }

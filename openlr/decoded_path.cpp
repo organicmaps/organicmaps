@@ -126,10 +126,10 @@ void PathFromXML(pugi::xml_node const & node, Index const & index, Path & p)
     LatLonFromXML(e.child("StartJunction"), start);
     LatLonFromXML(e.child("EndJunction"), end);
 
-    p.emplace_back(
+    p.push_back(Edge::MakeReal(
         fid, isForward, segmentId,
         routing::Junction(MercatorBounds::FromLatLon(start), feature::kDefaultAltitudeMeters),
-        routing::Junction(MercatorBounds::FromLatLon(end), feature::kDefaultAltitudeMeters));
+        routing::Junction(MercatorBounds::FromLatLon(end), feature::kDefaultAltitudeMeters)));
   }
 }
 

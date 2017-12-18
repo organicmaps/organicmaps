@@ -58,11 +58,20 @@ string DebugPrint(Junction const & r)
 
 // Edge ------------------------------------------------------------------------
 // static
-Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction)
+Edge Edge::MakeReal(FeatureID const & featureId, bool forward, uint32_t segId,
+                    Junction const & startJunction, Junction const & endJunction)
 {
-  return {FeatureID(), true /* forward */, 0 /* segId */, startJunction, endJunction};
+  return {Type::Real, featureId, forward, segId, startJunction, endJunction};
 }
 
+// static
+Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction)
+{
+  return {Type::FakeWithoutRealPart, FeatureID(), true /* forward */, 0 /* segmentId */,
+          startJunction, endJunction};
+}
+
+// static
 Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction,
                     Edge const & prototype)
 {
@@ -73,9 +82,9 @@ Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction
   return e;
 }
 
-Edge::Edge(FeatureID const & featureId, bool forward, uint32_t segId,
+Edge::Edge(Type type, FeatureID const & featureId, bool forward, uint32_t segId,
            Junction const & startJunction, Junction const & endJunction)
-  : m_type(Type::Real)
+  : m_type(type)
   , m_featureId(featureId)
   , m_forward(forward)
   , m_segId(segId)
@@ -83,6 +92,8 @@ Edge::Edge(FeatureID const & featureId, bool forward, uint32_t segId,
   , m_endJunction(endJunction)
 {
   ASSERT_LESS(segId, numeric_limits<uint32_t>::max(), ());
+  ASSERT((m_featureId.IsValid() && HasRealPart()) || (!m_featureId.IsValid() && !HasRealPart()),
+         ());
 }
 
 Edge Edge::GetReverseEdge() const
@@ -156,7 +167,7 @@ void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId, Roa
   ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
                                                       bool forward) {
     if (forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
-      m_edges.emplace_back(featureId, forward, segId, m_cross, endJunction);
+      m_edges.push_back(Edge::MakeReal(featureId, forward, segId, m_cross, endJunction));
   });
 }
 
@@ -166,7 +177,7 @@ void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId, Road
   ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
                                                       bool forward) {
     if (!forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
-      m_edges.emplace_back(featureId, !forward, segId, endJunction, m_cross);
+      m_edges.push_back(Edge::MakeReal(featureId, !forward, segId, endJunction, m_cross));
   });
 }
 

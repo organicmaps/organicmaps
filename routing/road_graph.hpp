@@ -63,11 +63,11 @@ class Edge
 
 public:
   Edge() = default;
-  Edge(FeatureID const & featureId, bool forward, uint32_t segId, Junction const & startJunction,
-       Junction const & endJunction);
   Edge(Edge const &) = default;
   Edge & operator=(Edge const &) = default;
 
+  static Edge MakeReal(FeatureID const & featureId, bool forward, uint32_t segId,
+                       Junction const & startJunction, Junction const & endJunction);
   static Edge MakeFake(Junction const & startJunction, Junction const & endJunction);
   static Edge MakeFake(Junction const & startJunction, Junction const & endJunction,
                        Edge const & prototype);
@@ -95,6 +95,9 @@ public:
   bool operator<(Edge const & r) const;
 
 private:
+  Edge(Type type, FeatureID const & featureId, bool forward, uint32_t segId,
+       Junction const & startJunction, Junction const & endJunction);
+
   friend string DebugPrint(Edge const & r);
 
   Type m_type = Type::FakeWithoutRealPart;
