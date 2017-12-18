@@ -1,6 +1,7 @@
 package com.mapswithme.maps.base;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -23,7 +24,7 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
-public class BaseMwmFragmentActivity extends AppCompatActivity
+public abstract class BaseMwmFragmentActivity extends AppCompatActivity
                                   implements BaseActivity
 {
   private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
@@ -119,6 +120,15 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     return true;
   }
 
+  @CallSuper
+  @Override
+  protected void onNewIntent(Intent intent)
+  {
+    super.onNewIntent(intent);
+    mBaseDelegate.onNewIntent(intent);
+  }
+
+  @CallSuper
   @Override
   protected void onPostCreate(@Nullable Bundle savedInstanceState)
   {
@@ -126,6 +136,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     mBaseDelegate.onPostCreate();
   }
 
+  @CallSuper
   @Override
   protected void onDestroy()
   {
@@ -133,6 +144,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     mBaseDelegate.onDestroy();
   }
 
+  @CallSuper
   @Override
   protected void onStart()
   {
@@ -140,6 +152,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     mBaseDelegate.onStart();
   }
 
+  @CallSuper
   @Override
   protected void onStop()
   {
@@ -172,6 +185,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     mBaseDelegate.onResume();
   }
 
+  @CallSuper
   @Override
   protected void onPostResume()
   {
@@ -179,6 +193,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     mBaseDelegate.onPostResume();
   }
 
+  @CallSuper
   @Override
   protected void onPause()
   {

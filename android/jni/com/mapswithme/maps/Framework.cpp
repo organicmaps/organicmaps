@@ -769,6 +769,7 @@ Java_com_mapswithme_maps_Framework_nativeRemoveMapObjectListener(JNIEnv * env, j
   frm()->SetMapSelectionListeners({}, {});
   LOG(LINFO, ("Remove global map object listener"));
   env->DeleteGlobalRef(g_mapObjectListener);
+  g_mapObjectListener = nullptr;
 }
 
 JNIEXPORT jstring JNICALL
