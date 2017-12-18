@@ -126,8 +126,6 @@ private:
 
   double GetWeight(Edge const & e) const { return GetWeight(e.m_raw); }
 
-  bool PassesRestriction(routing::Edge const & edge, FunctionalRoadClass const restriction) const;
-
   uint32_t GetReverseBearing(Vertex const & u, Links const & links) const;
 
   template <typename Fn>

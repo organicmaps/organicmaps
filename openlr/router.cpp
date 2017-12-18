@@ -1,5 +1,6 @@
 #include "openlr/router.hpp"
 
+#include "openlr/helpers.hpp"
 #include "openlr/road_info_getter.hpp"
 
 #include "routing/features_road_graph.hpp"
@@ -425,16 +426,6 @@ bool Router::MayMoveToNextStage(Vertex const & u, double pi) const
   return NearNextStage(u, pi) && u.m_bearingChecked;
 }
 
-bool Router::PassesRestriction(routing::Edge const & edge,
-                               FunctionalRoadClass const restriction) const
-{
-  if (edge.IsFake())
-    return true;
-
-  auto const frc = m_roadInfoGetter.Get(edge.GetFeatureId()).m_frc;
-  return static_cast<int>(frc) <= static_cast<int>(restriction) + kFRCThreshold;
-}
-
 uint32_t Router::GetReverseBearing(Vertex const & u, Links const & links) const
 {
   m2::PointD const a = u.m_junction.GetPoint();
@@ -485,7 +476,7 @@ void Router::ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass re
     GetIngoingEdges(u.m_junction, edges);
   for (auto const & edge : edges)
   {
-    if (!PassesRestriction(edge, restriction))
+    if (!PassesRestriction(edge, restriction, kFRCThreshold, m_roadInfoGetter))
       continue;
     fn(edge);
   }
@@ -545,7 +536,7 @@ void Router::ForEachNonFakeClosestEdge(Vertex const & u, FunctionalRoadClass con
     auto const & edge = p.first;
     if (edge.IsFake())
       continue;
-    if (!PassesRestriction(edge, restriction))
+    if (!PassesRestriction(edge, restriction, kFRCThreshold, m_roadInfoGetter))
       continue;
     fn(edge);
   }

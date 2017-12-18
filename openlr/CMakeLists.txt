@@ -2,12 +2,15 @@ project(openlr)
 
 set(
   SRC
+  candidate_paths_getter.cpp
+  candidate_paths_getter.hpp
   candidate_points_getter.cpp
   candidate_points_getter.hpp
   decoded_path.cpp
   decoded_path.hpp
   graph.cpp
   graph.hpp
+  helpers.cpp
   helpers.hpp
   openlr_decoder.cpp
   openlr_decoder.hpp
