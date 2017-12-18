@@ -275,18 +275,18 @@ public:
   }
 
   template <typename Task>
-  void RunTask(Thread thread, Task const & task)
+  void RunDelayedTask(Thread thread, base::WorkerThread::Duration const & delay, Task && task)
   {
     switch (thread)
     {
       case Thread::File:
-        m_fileThread.Push(task);
+        m_fileThread.PushDelayed(delay, forward<Task>(task));
         break;
       case Thread::Network:
-        m_networkThread.Push(task);
+        m_networkThread.PushDelayed(delay, forward<Task>(task));
         break;
       case Thread::Gui:
-        RunOnGuiThread(task);
+        ASSERT(false, ("Delayed tasks for gui thread are not supported yet"));
         break;
     }
   }

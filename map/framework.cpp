@@ -473,8 +473,7 @@ Framework::Framework(FrameworkParams const & params)
   // Local ads manager should be initialized after storage initialization.
   if (params.m_enableLocalAds)
   {
-    m_localAdsManager.SetBookmarkManager(m_bmManager.get());
-    m_localAdsManager.Startup();
+    m_localAdsManager.Startup(m_bmManager.get());
   }
 
   m_routingManager.SetRouterImpl(RouterType::Vehicle);
@@ -505,6 +504,8 @@ Framework::Framework(FrameworkParams const & params)
 
 Framework::~Framework()
 {
+  GetPlatform().ShutdownThreads();
+
   osm::Editor & editor = osm::Editor::Instance();
 
   editor.SetDelegate({});
@@ -512,11 +513,8 @@ Framework::~Framework()
 
   GetBookmarkManager().Teardown();
   m_trafficManager.Teardown();
-  m_localAdsManager.Teardown();
   DestroyDrapeEngine();
   m_model.SetOnMapDeregisteredCallback(nullptr);
-
-  GetPlatform().ShutdownThreads();
 }
 
 booking::Api * Framework::GetBookingApi(platform::NetworkPolicy const & policy)
@@ -1836,10 +1834,10 @@ void Framework::DestroyDrapeEngine()
     m_trafficManager.SetDrapeEngine(nullptr);
     m_localAdsManager.SetDrapeEngine(nullptr);
     m_searchMarks.SetDrapeEngine(nullptr);
-    GetBookmarkManager().SetDrapeEngine(nullptr);
+    m_bmManager.SetDrapeEngine(nullptr);
+    m_localAdsManager.SetDrapeEngine(nullptr);
 
     m_trafficManager.Teardown();
-    m_localAdsManager.Teardown();
     GpsTracker::Instance().Disconnect();
     m_drapeEngine.reset();
   }

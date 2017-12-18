@@ -144,10 +144,11 @@ void UserStatsLoader::Update(string const & userName, UpdatePolicy const policy,
     return;
   }
 
-  threads::SimpleThread([this, userName, fn] {
+  GetPlatform().RunTask(Platform::Thread::Network, [this, userName, fn]
+  {
     if (Update(userName))
       GetPlatform().RunTask(Platform::Thread::Gui, fn);
-  }).detach();
+  });
 }
 
 void UserStatsLoader::Update(string const & userName, TOnUpdateCallback fn)

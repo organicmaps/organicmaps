@@ -44,12 +44,8 @@ public:
   LocalAdsManager(GetMwmsByRectFn && getMwmsByRectFn, GetMwmIdByNameFn && getMwmIdByName,
                   ReadFeaturesFn && readFeaturesFn);
   LocalAdsManager(LocalAdsManager && /* localAdsManager */) = default;
-  ~LocalAdsManager();
 
-  void SetBookmarkManager(BookmarkManager * bmManager);
-
-  void Startup();
-  void Teardown();
+  void Startup(BookmarkManager * bmManager);
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
   void UpdateViewport(ScreenBase const & screen);
 
@@ -74,8 +70,7 @@ private:
   };
   using Request = std::pair<MwmSet::MwmId, RequestType>;
 
-  void ThreadRoutine();
-  bool WaitForRequest(std::set<Request> & campaignMwms);
+  void ProcessRequests(std::set<Request> const & campaignMwms);
 
   void ReadCampaignFile(std::string const & campaignFile);
   void WriteCampaignFile(std::string const & campaignFile);
@@ -89,9 +84,9 @@ private:
   // by some reason.
   bool DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<uint8_t> & bytes);
 
-  GetMwmsByRectFn m_getMwmsByRectFn;
-  GetMwmIdByNameFn m_getMwmIdByNameFn;
-  ReadFeaturesFn m_readFeaturesFn;
+  GetMwmsByRectFn const m_getMwmsByRectFn;
+  GetMwmIdByNameFn const m_getMwmIdByNameFn;
+  ReadFeaturesFn const m_readFeaturesFn;
 
   std::atomic<BookmarkManager *> m_bmManager;
 
@@ -128,10 +123,4 @@ private:
   std::map<MwmSet::MwmId, BackoffStats> m_failedDownloads;
 
   local_ads::Statistics m_statistics;
-
-  bool m_isRunning = false;
-  std::condition_variable m_condition;
-  std::set<Request> m_requestedCampaigns;
-  std::mutex m_mutex;
-  threads::SimpleThread m_thread;
 };
