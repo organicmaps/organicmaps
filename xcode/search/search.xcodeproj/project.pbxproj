@@ -152,6 +152,10 @@
 		456E1B3F1F9A3C8E009C32E1 /* cities_boundaries_table.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456E1B3D1F9A3C8E009C32E1 /* cities_boundaries_table.hpp */; };
 		456E1B421F9A3CF6009C32E1 /* localities_source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456E1B401F9A3CF5009C32E1 /* localities_source.hpp */; };
 		456E1B431F9A3CF6009C32E1 /* localities_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 456E1B411F9A3CF5009C32E1 /* localities_source.cpp */; };
+		45A008511FE9088400D77690 /* doc_vec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45A0084D1FE9088200D77690 /* doc_vec.hpp */; };
+		45A008521FE9088400D77690 /* doc_vec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A0084E1FE9088300D77690 /* doc_vec.cpp */; };
+		45A008531FE9088400D77690 /* idf_map.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45A0084F1FE9088300D77690 /* idf_map.hpp */; };
+		45A008541FE9088400D77690 /* idf_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A008501FE9088300D77690 /* idf_map.cpp */; };
 		56D5456E1C74A48C00E3719C /* mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D5456C1C74A48C00E3719C /* mode.cpp */; };
 		56D5456F1C74A48C00E3719C /* mode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D5456D1C74A48C00E3719C /* mode.hpp */; };
 		670F88741CE4C032003F68BA /* types_skipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F88721CE4C032003F68BA /* types_skipper.cpp */; };
@@ -382,6 +386,10 @@
 		456E1B3D1F9A3C8E009C32E1 /* cities_boundaries_table.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cities_boundaries_table.hpp; sourceTree = "<group>"; };
 		456E1B401F9A3CF5009C32E1 /* localities_source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = localities_source.hpp; sourceTree = "<group>"; };
 		456E1B411F9A3CF5009C32E1 /* localities_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = localities_source.cpp; sourceTree = "<group>"; };
+		45A0084D1FE9088200D77690 /* doc_vec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = doc_vec.hpp; sourceTree = "<group>"; };
+		45A0084E1FE9088300D77690 /* doc_vec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = doc_vec.cpp; sourceTree = "<group>"; };
+		45A0084F1FE9088300D77690 /* idf_map.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = idf_map.hpp; sourceTree = "<group>"; };
+		45A008501FE9088300D77690 /* idf_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = idf_map.cpp; sourceTree = "<group>"; };
 		56D5456C1C74A48C00E3719C /* mode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mode.cpp; sourceTree = "<group>"; };
 		56D5456D1C74A48C00E3719C /* mode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mode.hpp; sourceTree = "<group>"; };
 		670F88721CE4C032003F68BA /* types_skipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = types_skipper.cpp; sourceTree = "<group>"; };
@@ -684,6 +692,10 @@
 		675346B21A4055CF00A0A8C3 /* search */ = {
 			isa = PBXGroup;
 			children = (
+				45A0084E1FE9088300D77690 /* doc_vec.cpp */,
+				45A0084D1FE9088200D77690 /* doc_vec.hpp */,
+				45A008501FE9088300D77690 /* idf_map.cpp */,
+				45A0084F1FE9088300D77690 /* idf_map.hpp */,
 				39AEF84A1FB45D7700943FC9 /* feature_loader.cpp */,
 				39AEF84B1FB45D7800943FC9 /* feature_loader.hpp */,
 				39AEF8391FB4598900943FC9 /* tracer.hpp */,
@@ -870,6 +882,7 @@
 				679624981D10137D00AE4E3C /* test_search_engine.hpp in Headers */,
 				F652D8BE1CFDE1E800FC29A0 /* common.hpp in Headers */,
 				F652D8E91CFDE21900FC29A0 /* features_filter.hpp in Headers */,
+				45A008511FE9088400D77690 /* doc_vec.hpp in Headers */,
 				F652D90F1CFDE21900FC29A0 /* token_slice.hpp in Headers */,
 				F652D9031CFDE21900FC29A0 /* pre_ranking_info.hpp in Headers */,
 				675346E61A40560D00A0A8C3 /* intermediate_result.hpp in Headers */,
@@ -921,6 +934,7 @@
 				3DFEBF761EF2D55800317D5C /* city_finder.hpp in Headers */,
 				F6E2B0001D9E794800793C36 /* categories_cache.hpp in Headers */,
 				679624961D10137D00AE4E3C /* test_results_matching.hpp in Headers */,
+				45A008531FE9088400D77690 /* idf_map.hpp in Headers */,
 				675346DC1A40560D00A0A8C3 /* algos.hpp in Headers */,
 				F652D8FD1CFDE21900FC29A0 /* model.hpp in Headers */,
 				F652D8FF1CFDE21900FC29A0 /* mwm_context.hpp in Headers */,
@@ -1118,6 +1132,7 @@
 				0810EC361D6D9D2E00ABFEE7 /* displayed_categories.cpp in Sources */,
 				675346E51A40560D00A0A8C3 /* intermediate_result.cpp in Sources */,
 				F652D9021CFDE21900FC29A0 /* pre_ranking_info.cpp in Sources */,
+				45A008541FE9088400D77690 /* idf_map.cpp in Sources */,
 				347F33261C4540A8009758CC /* reverse_geocoder.cpp in Sources */,
 				A1347D511B8758C3009050FF /* query_saver.cpp in Sources */,
 				675346E01A40560D00A0A8C3 /* geometry_utils.cpp in Sources */,
@@ -1173,6 +1188,7 @@
 				3441CE521CFC1D7000CF30D4 /* query_params.cpp in Sources */,
 				39B2B9431FB461F800AB85A1 /* helpers.cpp in Sources */,
 				670F88741CE4C032003F68BA /* types_skipper.cpp in Sources */,
+				45A008521FE9088400D77690 /* doc_vec.cpp in Sources */,
 				675346EB1A40560D00A0A8C3 /* latlon_match.cpp in Sources */,
 				F652D8EA1CFDE21900FC29A0 /* features_layer_matcher.cpp in Sources */,
 				675346E91A40560D00A0A8C3 /* keyword_matcher.cpp in Sources */,
@@ -1221,13 +1237,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
-		};
-		3D0AEB061FBB102C00AD042B /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = search_tests;
-			};
-			name = "Production Full";
 		};
 		671C62111AE9225100076BD0 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1322,13 +1331,6 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "Production Full";
-		};
-		F63CE2B91FB9AFCB00716AD3 /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = search_tests;
 			};
 			name = "Production Full";
 		};
