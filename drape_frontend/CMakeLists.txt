@@ -208,6 +208,10 @@ set(
   traffic_generator.hpp
   traffic_renderer.cpp
   traffic_renderer.hpp
+  transit_scheme_builder.cpp
+  transit_scheme_builder.hpp
+  transit_scheme_renderer.cpp
+  transit_scheme_renderer.hpp
   user_event_stream.cpp
   user_event_stream.hpp
   user_mark_generator.cpp
@@ -287,6 +291,10 @@ set(
   shaders/traffic.vsh.glsl
   shaders/traffic_line.fsh.glsl
   shaders/traffic_line.vsh.glsl
+  shaders/transit_marker.fsh.glsl
+  shaders/transit_marker.vsh.glsl
+  shaders/transit.fsh.glsl
+  shaders/transit.vsh.glsl
   shaders/user_mark.fsh.glsl
   shaders/user_mark.vsh.glsl
   shaders/user_mark_billboard.vsh.glsl

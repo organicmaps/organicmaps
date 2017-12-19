@@ -121,6 +121,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_trafficRenderer(new TrafficRenderer())
+  , m_transitSchemeRenderer(new TransitSchemeRenderer())
   , m_drapeApiRenderer(new DrapeApiRenderer())
   , m_overlayTree(new dp::OverlayTree(VisualParams::Instance().GetVisualScale()))
   , m_enablePerspectiveInNavigation(false)
@@ -461,6 +462,38 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::FlushTransitScheme:
+    {
+      ref_ptr<FlushTransitSchemeMessage > msg = message;
+      auto renderData = msg->AcceptRenderData();
+      m_transitSchemeRenderer->AddRenderData(make_ref(m_gpuProgramManager), std::move(renderData));
+      break;
+    }
+
+  case Message::FlushTransitMarkers:
+    {
+      ref_ptr<FlushTransitMarkersMessage > msg = message;
+      auto renderData = msg->AcceptRenderData();
+      m_transitSchemeRenderer->AddMarkersRenderData(make_ref(m_gpuProgramManager), std::move(renderData));
+      break;
+    }
+
+  case Message::FlushTransitText:
+    {
+      ref_ptr<FlushTransitTextMessage > msg = message;
+      auto renderData = msg->AcceptRenderData();
+      m_transitSchemeRenderer->AddTextRenderData(make_ref(m_gpuProgramManager), std::move(renderData));
+      break;
+    }
+
+  case Message::FlushTransitStubs:
+    {
+      ref_ptr<FlushTransitTextMessage > msg = message;
+      auto renderData = msg->AcceptRenderData();
+      m_transitSchemeRenderer->AddStubsRenderData(make_ref(m_gpuProgramManager), std::move(renderData));
+      break;
+    }
+
   case Message::FlushSubrouteArrows:
     {
       ref_ptr<FlushSubrouteArrowsMessage> msg = message;
@@ -740,6 +773,21 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::EnableTransitScheme:
+    {
+      ref_ptr<EnableTransitSchemeMessage > msg = message;
+      if (!msg->Enable())
+        m_transitSchemeRenderer->ClearGLDependentResources();
+      break;
+    }
+
+  case Message::ClearTransitSchemeData:
+    {
+      ref_ptr<ClearTransitSchemeDataMessage> msg = message;
+      m_transitSchemeRenderer->Clear(msg->GetMwmId());
+      break;
+    }
+
   case Message::EnableTraffic:
     {
       ref_ptr<EnableTrafficMessage> msg = message;
@@ -885,6 +933,9 @@ void FrontendRenderer::UpdateGLResources()
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<UpdateReadManagerMessage>(),
                               MessagePriority::UberHighSingleton);
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<RegenerateTransitMessage>(),
+                              MessagePriority::Normal);
   }
 
   m_gpsTrackRenderer->Update();
@@ -1173,7 +1224,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   if (m_buildingsFramebuffer->IsSupported())
   {
     RenderTrafficLayer(modelView);
-    if (!HasTransitData())
+    if (!HasTransitRouteData())
       RenderRouteLayer(modelView);
     Render3dLayer(modelView, true /* useFramebuffer */);
   }
@@ -1181,7 +1232,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   {
     Render3dLayer(modelView, false /* useFramebuffer */);
     RenderTrafficLayer(modelView);
-    if (!HasTransitData())
+    if (!HasTransitRouteData())
       RenderRouteLayer(modelView);
   }
 
@@ -1221,7 +1272,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
                              m_generalUniforms);
   }
 
-  if (HasTransitData())
+  if (HasTransitRouteData())
     RenderRouteLayer(modelView);
 
   {
@@ -1231,6 +1282,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     RenderUserMarksLayer(modelView, RenderState::RoutingMarkLayer);
     RenderSearchMarksLayer(modelView);
   }
+
+  if (!HasTransitRouteData())
+    RenderTransitSchemeLayer(modelView);
 
   m_myPositionController->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
                                  m_generalUniforms);
@@ -1320,9 +1374,23 @@ void FrontendRenderer::RenderNavigationOverlayLayer(ScreenBase const & modelView
   }
 }
 
-bool FrontendRenderer::HasTransitData()
+bool FrontendRenderer::HasTransitRouteData()
 {
   return m_routeRenderer->HasTransitData();
+}
+
+void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
+{
+  GLFunctions::glClear(gl_const::GLDepthBit);
+  GLFunctions::glEnable(gl_const::GLDepthTest);
+  if (m_transitSchemeRenderer->HasRenderData(m_currentZoomLevel))
+  {
+    RenderTransitBackground();
+    GLFunctions::glEnable(gl_const::GLDepthTest);
+    m_transitSchemeRenderer->RenderTransit(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
+                                           make_ref(m_postprocessRenderer), m_generalUniforms);
+  }
+  GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
 void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
@@ -1337,22 +1405,28 @@ void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
   GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
+void FrontendRenderer::RenderTransitBackground()
+{
+  if (!m_finishTexturesInitialization)
+    return;
+
+  GLFunctions::glDisable(gl_const::GLDepthTest);
+
+  dp::TextureManager::ColorRegion region;
+  m_texMng->GetColorRegion(df::GetColorConstant(kTransitBackgroundColor), region);
+  if (!m_transitBackground->IsInitialized())
+  {
+    auto prg = m_gpuProgramManager->GetProgram(gpu::SCREEN_QUAD_PROGRAM);
+    m_transitBackground->SetTextureRect(region.GetTexRect(), prg);
+  }
+  m_transitBackground->RenderTexture(make_ref(m_gpuProgramManager),
+                                     static_cast<uint32_t>(region.GetTexture()->GetID()), 1.0f);
+}
+
 void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
 {
-  if (m_finishTexturesInitialization && HasTransitData())
-  {
-    GLFunctions::glDisable(gl_const::GLDepthTest);
-
-    dp::TextureManager::ColorRegion region;
-    m_texMng->GetColorRegion(df::GetColorConstant(kTransitBackgroundColor), region);
-    if (!m_transitBackground->IsInitialized())
-    {
-      auto prg = m_gpuProgramManager->GetProgram(gpu::SCREEN_QUAD_PROGRAM);
-      m_transitBackground->SetTextureRect(region.GetTexRect(), prg);
-    }
-    m_transitBackground->RenderTexture(make_ref(m_gpuProgramManager),
-                                       static_cast<uint32_t>(region.GetTexture()->GetID()), 1.0f);
-  }
+  if (HasTransitRouteData())
+    RenderTransitBackground();
 
   GLFunctions::glClear(gl_const::GLDepthBit);
   GLFunctions::glEnable(gl_const::GLDepthTest);
@@ -1412,6 +1486,8 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
     for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
       UpdateOverlayTree(modelView, group);
   }
+  if (m_transitSchemeRenderer->HasRenderData(m_currentZoomLevel) && !HasTransitRouteData())
+    m_transitSchemeRenderer->CollectOverlays(make_ref(m_overlayTree), modelView);
   EndUpdateOverlayTree();
 }
 
@@ -1831,6 +1907,7 @@ void FrontendRenderer::OnContextDestroy()
   m_trafficRenderer->ClearGLDependentResources();
   m_drapeApiRenderer->Clear();
   m_postprocessRenderer->ClearGLDependentResources();
+  m_transitSchemeRenderer->ClearGLDependentResources();
 
   m_transitBackground.reset();
 
@@ -2030,6 +2107,7 @@ void FrontendRenderer::ReleaseResources()
   m_buildingsFramebuffer.reset();
   m_screenQuadRenderer.reset();
   m_trafficRenderer.reset();
+  m_transitSchemeRenderer.reset();
   m_postprocessRenderer.reset();
   m_transitBackground.reset();
 

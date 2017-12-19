@@ -735,6 +735,29 @@ void DrapeEngine::SetSimplifiedTrafficColors(bool simplified)
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::EnableTransitScheme(bool enable)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<EnableTransitSchemeMessage>(enable),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::ClearTransitSchemeCache(MwmSet::MwmId const & mwmId)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<ClearTransitSchemeDataMessage>(mwmId),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos,
+                                      std::vector<MwmSet::MwmId> const & visibleMwms)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<UpdateTransitSchemeMessage>(std::move(transitDisplayInfos),
+                                                                             visibleMwms),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::SetFontScaleFactor(double scaleFactor)
 {
   double const kMinScaleFactor = 0.5;

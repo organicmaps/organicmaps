@@ -36,7 +36,7 @@ public:
   void OnGeometryReady(int currentZoomLevel);
 
   static float GetTwoWayOffset(RoadClass const & roadClass, int zoomLevel);
-  static bool CanBeRendereredAsLine(RoadClass const & roadClass, int zoomLevel, int & width);
+  static bool CanBeRenderedAsLine(RoadClass const & roadClass, int zoomLevel, int & width);
 
 private:
   static float GetPixelWidth(RoadClass const & roadClass, int zoomLevel);

@@ -70,26 +70,21 @@ public:
     using IndexGetterFn = std::function<Index &()>;
     using CountryInfoGetterFn = std::function<storage::CountryInfoGetter &()>;
     using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
-    using FeatureCallback = std::function<void (FeatureType const &)>;
-    using ReadFeaturesFn = std::function<void (FeatureCallback const &, std::vector<FeatureID> const &)>;
     using GetStringsBundleFn = std::function<StringsBundle const &()>;
 
     template <typename IndexGetter, typename CountryInfoGetter, typename CountryParentNameGetter,
-        typename FeatureReader, typename StringsBundleGetter>
+        typename StringsBundleGetter>
     Callbacks(IndexGetter && featureIndexGetter, CountryInfoGetter && countryInfoGetter,
-              CountryParentNameGetter && countryParentNameGetter,
-              FeatureReader && readFeatures, StringsBundleGetter && stringsBundleGetter)
+              CountryParentNameGetter && countryParentNameGetter, StringsBundleGetter && stringsBundleGetter)
       : m_indexGetter(std::forward<IndexGetter>(featureIndexGetter))
       , m_countryInfoGetter(std::forward<CountryInfoGetter>(countryInfoGetter))
       , m_countryParentNameGetterFn(std::forward<CountryParentNameGetter>(countryParentNameGetter))
-      , m_readFeaturesFn(std::forward<FeatureReader>(readFeatures))
       , m_stringsBundleGetter(std::forward<StringsBundleGetter>(stringsBundleGetter))
     {}
 
     IndexGetterFn m_indexGetter;
     CountryInfoGetterFn m_countryInfoGetter;
     CountryParentNameGetterFn m_countryParentNameGetterFn;
-    TReadFeaturesFn m_readFeaturesFn;
     GetStringsBundleFn m_stringsBundleGetter;
   };
 
@@ -108,6 +103,7 @@ public:
   RoutingManager(Callbacks && callbacks, Delegate & delegate);
 
   void SetBookmarkManager(BookmarkManager * bmManager);
+  void SetTransitManager(TransitReadManager * transitManager);
 
   routing::RoutingSession const & RoutingSession() const { return m_routingSession; }
   routing::RoutingSession & RoutingSession() { return m_routingSession; }
@@ -311,7 +307,7 @@ private:
   std::chrono::steady_clock::time_point m_loadRoutePointsTimestamp;
   std::map<std::string, m2::PointF> m_transitSymbolSizes;
 
-  TransitReadManager m_transitReadManager;
+  TransitReadManager * m_transitReadManager = nullptr;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };

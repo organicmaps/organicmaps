@@ -19,6 +19,8 @@
 
 #include "traffic/traffic_info.hpp"
 
+#include "transit/transit_display_info.hpp"
+
 #include "platform/location.hpp"
 
 #include "geometry/polyline2d.hpp"
@@ -199,6 +201,11 @@ public:
   void UpdateTraffic(traffic::TrafficInfo const & info);
   void ClearTrafficCache(MwmSet::MwmId const & mwmId);
   void SetSimplifiedTrafficColors(bool simplified);
+
+  void EnableTransitScheme(bool enable);
+  void UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos,
+                           std::vector<MwmSet::MwmId> const & visibleMwms);
+  void ClearTransitSchemeCache(MwmSet::MwmId const & mwmId);
 
   void SetFontScaleFactor(double scaleFactor);
 

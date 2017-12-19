@@ -126,6 +126,7 @@ char const kAllow3dKey[] = "Allow3d";
 char const kAllow3dBuildingsKey[] = "Buildings3d";
 char const kAllowAutoZoom[] = "AutoZoom";
 char const kTrafficEnabledKey[] = "TrafficEnabled";
+char const kTransitSchemeEnabledKey[] = "TransitSchemeEnabled";
 char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
@@ -269,6 +270,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
   GetBookmarkManager().UpdateViewport(m_currentModelView);
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_localAdsManager.UpdateViewport(m_currentModelView);
+  m_transitManager.UpdateViewport(m_currentModelView);
 
   if (m_viewportChanged != nullptr)
     m_viewportChanged(screen);
@@ -356,15 +358,17 @@ Framework::Framework(FrameworkParams const & params)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
   , m_isRenderingEnabled(true)
+  , m_transitManager(m_model.GetIndex(),
+                     [this](FeatureCallback const & fn, vector<FeatureID> const & features)
+                     {
+                       return m_model.ReadFeatures(fn, features);
+                     },
+                     bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
   , m_routingManager(
         RoutingManager::Callbacks(
             [this]() -> Index & { return m_model.GetIndex(); },
             [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },
             [this](string const & id) -> string { return m_storage.GetParentIdFor(id); },
-            [this](RoutingManager::Callbacks::FeatureCallback const & fn,
-                   vector<FeatureID> const & features) {
-              return m_model.ReadFeatures(fn, features);
-            },
             [this]() -> StringsBundle const & { return m_stringsBundle; }),
         static_cast<RoutingManager::Delegate &>(*this))
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
@@ -432,6 +436,8 @@ Framework::Framework(FrameworkParams const & params)
 
   m_bmManager->SetInvalidTokenHandler([this] { m_user.ResetAccessToken(); });
   m_user.AddSubscriber(m_bmManager->GetUserSubscriber());
+
+  m_routingManager.SetTransitManager(&m_transitManager);
 
   InitCityFinder();
   InitDiscoveryManager();
@@ -570,6 +576,7 @@ void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, s
       rect = id.GetInfo()->m_limitRect;
   }
   m_trafficManager.Invalidate();
+  m_transitManager.Invalidate();
   m_localAdsManager.OnDownloadCountry(countryId);
   InvalidateRect(rect);
   GetSearchAPI().ClearCaches();
@@ -617,6 +624,7 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 
   auto const mwmId = m_model.GetIndex().GetMwmIdByCountryFile(localFile.GetCountryFile());
   m_trafficManager.OnMwmDeregistered(mwmId);
+  m_transitManager.OnMwmDeregistered(mwmId);
 }
 
 bool Framework::HasUnsavedEdits(storage::TCountryId const & countryId)
@@ -1761,6 +1769,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   m_drapeApi.SetDrapeEngine(make_ref(m_drapeEngine));
   m_routingManager.SetDrapeEngine(make_ref(m_drapeEngine), allow3d);
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
+  m_transitManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_localAdsManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_searchMarks.SetDrapeEngine(make_ref(m_drapeEngine));
 
@@ -1783,6 +1792,7 @@ void Framework::OnRecoverGLContext(int width, int height)
   }
 
   m_trafficManager.OnRecoverGLContext();
+  m_transitManager.Invalidate();
   m_localAdsManager.Invalidate();
 }
 
@@ -1803,6 +1813,7 @@ void Framework::DestroyDrapeEngine()
     m_drapeApi.SetDrapeEngine(nullptr);
     m_routingManager.SetDrapeEngine(nullptr, false);
     m_trafficManager.SetDrapeEngine(nullptr);
+    m_transitManager.SetDrapeEngine(nullptr);
     m_localAdsManager.SetDrapeEngine(nullptr);
     m_searchMarks.SetDrapeEngine(nullptr);
     GetBookmarkManager().SetDrapeEngine(nullptr);
@@ -2524,6 +2535,26 @@ void Framework::SaveAutoZoom(bool allowAutoZoom)
   settings::Set(kAllowAutoZoom, allowAutoZoom);
 }
 
+void Framework::EnableTransitScheme(bool enable)
+{
+  m_transitManager.EnableTransitSchemeMode(enable);
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->EnableTransitScheme(enable);
+}
+
+bool Framework::LoadTransitSchemeEnabled()
+{
+  bool enabled;
+  if (!settings::Get(kTransitSchemeEnabledKey, enabled))
+    enabled = true;
+  return enabled;
+}
+
+void Framework::SaveTransitSchemeEnabled(bool enabled)
+{
+  settings::Set(kTransitSchemeEnabledKey, enabled);
+}
+
 void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position)
 {
   if (m_drapeEngine != nullptr)
@@ -2647,7 +2678,16 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
     m_drapeEngine->EnableUGCRendering(false /* enabled */);
     return true;
   }
-
+  if (query == "?scheme")
+  {
+    EnableTransitScheme(true /* enable */);
+    return true;
+  }
+  if (query == "?no-scheme")
+  {
+    EnableTransitScheme(false /* enable */);
+    return true;
+  }
   return false;
 }
 

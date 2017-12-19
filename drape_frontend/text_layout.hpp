@@ -68,6 +68,7 @@ public:
   void CacheDynamicGeometry(glsl::vec2 const & pixelOffset, gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
 
   m2::PointF const & GetPixelSize() const { return m_pixelSize; }
+  size_t GetRowsCount() const { return m_rowsCount; }
 
   void AdjustTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor, dp::Anchor symbolAnchor,
                         glsl::vec2 & offset) const;
@@ -90,6 +91,7 @@ private:
   glm::vec4 m_pivot;
   buffer_vector<pair<size_t, glsl::vec2>, 2> m_offsets;
   m2::PointF m_pixelSize;
+  size_t m_rowsCount = 0;
 };
 
 class PathTextLayout : public TextLayout

@@ -6,6 +6,7 @@ include_directories(
 
 set(
   SRC
+  transit_display_info.hpp
   transit_graph_data.cpp
   transit_graph_data.hpp
   transit_serdes.hpp

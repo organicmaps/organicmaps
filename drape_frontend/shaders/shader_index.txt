@@ -20,6 +20,8 @@ TEXTURING_GUI_PROGRAM texturing_gui.vsh.glsl texturing.fsh.glsl
 RULER_PROGRAM ruler.vsh.glsl texturing.fsh.glsl
 ACCURACY_PROGRAM position_accuracy3d.vsh.glsl texturing.fsh.glsl
 MY_POSITION_PROGRAM my_position.vsh.glsl texturing.fsh.glsl
+TRANSIT_PROGRAM transit.vsh.glsl transit.fsh.glsl
+TRANSIT_MARKER_PROGRAM transit_marker.vsh.glsl transit_marker.fsh.glsl
 ROUTE_PROGRAM route.vsh.glsl route.fsh.glsl
 ROUTE_DASH_PROGRAM route.vsh.glsl route_dash.fsh.glsl
 ROUTE_ARROW_PROGRAM route_arrow.vsh.glsl route_arrow.fsh.glsl

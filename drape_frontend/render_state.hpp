@@ -16,6 +16,7 @@ public:
     UserLineLayer,
     OverlayLayer,
     LocalAdsMarkLayer,
+    TransitSchemeLayer,
     UserMarkLayer,
     NavigationLayer,
     TransitMarkLayer,

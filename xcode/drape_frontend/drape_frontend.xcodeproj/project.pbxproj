@@ -190,6 +190,10 @@
 		67E91C7E1BDFC85E005CEE88 /* visual_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709478F1BDF9BE1005014C0 /* visual_params.cpp */; };
 		BB035F6F1E3A2AAE00519962 /* drape_measurer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */; };
 		BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */; };
+		BB59CED520BF6E46008A9ADF /* transit_scheme_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB59CED120BF6E46008A9ADF /* transit_scheme_builder.cpp */; };
+		BB59CED620BF6E46008A9ADF /* transit_scheme_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB59CED220BF6E46008A9ADF /* transit_scheme_renderer.cpp */; };
+		BB59CED720BF6E46008A9ADF /* transit_scheme_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB59CED320BF6E46008A9ADF /* transit_scheme_renderer.hpp */; };
+		BB59CED820BF6E46008A9ADF /* transit_scheme_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB59CED420BF6E46008A9ADF /* transit_scheme_builder.hpp */; };
 		BB7D67D21F34A62C002FD122 /* custom_features_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB7D67CF1F34A62C002FD122 /* custom_features_context.hpp */; };
 		BB7D67D31F34A62C002FD122 /* path_text_handle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7D67D01F34A62C002FD122 /* path_text_handle.cpp */; };
 		BB7D67D41F34A62C002FD122 /* path_text_handle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB7D67D11F34A62C002FD122 /* path_text_handle.hpp */; };
@@ -459,6 +463,10 @@
 		677A2DE41C0DD55D00635A00 /* requested_tiles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = requested_tiles.hpp; sourceTree = "<group>"; };
 		BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_measurer.cpp; sourceTree = "<group>"; };
 		BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_measurer.hpp; sourceTree = "<group>"; };
+		BB59CED120BF6E46008A9ADF /* transit_scheme_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_scheme_builder.cpp; sourceTree = "<group>"; };
+		BB59CED220BF6E46008A9ADF /* transit_scheme_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_scheme_renderer.cpp; sourceTree = "<group>"; };
+		BB59CED320BF6E46008A9ADF /* transit_scheme_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_scheme_renderer.hpp; sourceTree = "<group>"; };
+		BB59CED420BF6E46008A9ADF /* transit_scheme_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_scheme_builder.hpp; sourceTree = "<group>"; };
 		BB7D67CF1F34A62C002FD122 /* custom_features_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = custom_features_context.hpp; sourceTree = "<group>"; };
 		BB7D67D01F34A62C002FD122 /* path_text_handle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = path_text_handle.cpp; sourceTree = "<group>"; };
 		BB7D67D11F34A62C002FD122 /* path_text_handle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = path_text_handle.hpp; sourceTree = "<group>"; };
@@ -579,6 +587,10 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				BB59CED120BF6E46008A9ADF /* transit_scheme_builder.cpp */,
+				BB59CED420BF6E46008A9ADF /* transit_scheme_builder.hpp */,
+				BB59CED220BF6E46008A9ADF /* transit_scheme_renderer.cpp */,
+				BB59CED320BF6E46008A9ADF /* transit_scheme_renderer.hpp */,
 				454B9A391F4591AC003FAE7A /* drape_engine_safe_ptr.hpp */,
 				453FEDAA1F34C257005C1BB4 /* render_state.cpp */,
 				453FEDAB1F34C257005C1BB4 /* render_state.hpp */,
@@ -868,6 +880,7 @@
 				670948171BDF9C39005014C0 /* interpolation_holder.hpp in Headers */,
 				45BB025E1EB8BE5200FE5C0C /* shader_def.hpp in Headers */,
 				670947FD1BDF9BF5005014C0 /* base_renderer.hpp in Headers */,
+				BB59CED820BF6E46008A9ADF /* transit_scheme_builder.hpp in Headers */,
 				670947D51BDF9BE1005014C0 /* tile_utils.hpp in Headers */,
 				670947D91BDF9BE1005014C0 /* user_mark_shapes.hpp in Headers */,
 				452C9EDD1CEDCF3200A55E57 /* linear_animation.hpp in Headers */,
@@ -877,6 +890,7 @@
 				670947931BDF9BE1005014C0 /* kinetic_scroller.hpp in Headers */,
 				670947E71BDF9BEC005014C0 /* frontend_renderer.hpp in Headers */,
 				670947F71BDF9BF5005014C0 /* apply_feature_functors.hpp in Headers */,
+				BB59CED720BF6E46008A9ADF /* transit_scheme_renderer.hpp in Headers */,
 				670947CD1BDF9BE1005014C0 /* tile_info.hpp in Headers */,
 				670947C31BDF9BE1005014C0 /* stylist.hpp in Headers */,
 				670948481BDF9C48005014C0 /* layer_render.hpp in Headers */,
@@ -1045,6 +1059,7 @@
 				670947941BDF9BE1005014C0 /* line_shape_helper.cpp in Sources */,
 				670947C21BDF9BE1005014C0 /* stylist.cpp in Sources */,
 				670947AD1BDF9BE1005014C0 /* poi_symbol_shape.cpp in Sources */,
+				BB59CED620BF6E46008A9ADF /* transit_scheme_renderer.cpp in Sources */,
 				6709479F1BDF9BE1005014C0 /* message_queue.cpp in Sources */,
 				452C9EE41CEDCF3200A55E57 /* sequence_animation.cpp in Sources */,
 				BB7D67D31F34A62C002FD122 /* path_text_handle.cpp in Sources */,
@@ -1068,6 +1083,7 @@
 				670948021BDF9BF5005014C0 /* drape_engine.cpp in Sources */,
 				56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */,
 				672D249A1E892768004BB7B1 /* overlays_tracker.cpp in Sources */,
+				BB59CED520BF6E46008A9ADF /* transit_scheme_builder.cpp in Sources */,
 				452C9ED81CEDCF3200A55E57 /* follow_animation.cpp in Sources */,
 				6709481C1BDF9C39005014C0 /* opacity_animation.cpp in Sources */,
 				452FE5C31EB2004F00EE470C /* screen_quad_renderer.cpp in Sources */,

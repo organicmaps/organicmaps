@@ -19,6 +19,7 @@
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/tile_info.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
+#include "drape_frontend/transit_scheme_renderer.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
 #include "drape/gpu_program_manager.hpp"
@@ -162,11 +163,13 @@ private:
   void RenderNavigationOverlayLayer(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId,
                             bool enableDepthTest = true);
+  void RenderTransitSchemeLayer(ScreenBase const & modelView);
   void RenderTrafficLayer(ScreenBase const & modelView);
   void RenderRouteLayer(ScreenBase const & modelView);
   void RenderSearchMarksLayer(ScreenBase const & modelView);
+  void RenderTransitBackground();
 
-  bool HasTransitData();
+  bool HasTransitRouteData();
 
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   void PrepareScene(ScreenBase const & modelView);
@@ -256,6 +259,7 @@ private:
   drape_ptr<SelectionShape> m_selectionShape;
   drape_ptr<RouteRenderer> m_routeRenderer;
   drape_ptr<TrafficRenderer> m_trafficRenderer;
+  drape_ptr<TransitSchemeRenderer> m_transitSchemeRenderer;
   drape_ptr<dp::Framebuffer> m_buildingsFramebuffer;
   drape_ptr<ScreenQuadRenderer> m_screenQuadRenderer;
   drape_ptr<GpsTrackRenderer> m_gpsTrackRenderer;

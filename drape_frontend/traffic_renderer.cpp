@@ -250,7 +250,7 @@ float TrafficRenderer::GetTwoWayOffset(RoadClass const & roadClass, int zoomLeve
 float TrafficRenderer::GetPixelWidth(RoadClass const & roadClass, int zoomLevel)
 {
   int width = 0;
-  if (CanBeRendereredAsLine(roadClass, zoomLevel, width))
+  if (CanBeRenderedAsLine(roadClass, zoomLevel, width))
     return static_cast<float>(width);
 
   return GetPixelWidthInternal(roadClass, zoomLevel);
@@ -274,7 +274,7 @@ float TrafficRenderer::GetPixelWidthInternal(RoadClass const & roadClass, int zo
 }
 
 // static
-bool TrafficRenderer::CanBeRendereredAsLine(RoadClass const & roadClass, int zoomLevel, int & width)
+bool TrafficRenderer::CanBeRenderedAsLine(RoadClass const & roadClass, int zoomLevel, int & width)
 {
   if (roadClass == RoadClass::Class0)
     return false;

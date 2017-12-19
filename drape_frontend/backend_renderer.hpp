@@ -9,6 +9,7 @@
 #include "drape_frontend/overlay_batcher.hpp"
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/traffic_generator.hpp"
+#include "drape_frontend/transit_scheme_builder.hpp"
 #include "drape_frontend/user_mark_generator.hpp"
 
 #include "drape/pointers.hpp"
@@ -99,6 +100,11 @@ private:
   void InitGLDependentResource();
   void FlushGeometry(TileKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer);
 
+  void FlushTransitRenderData(TransitRenderData && renderData);
+  void FlushTransitMarkersRenderData(TransitRenderData && renderData);
+  void FlushTransitTextRenderData(TransitRenderData && renderData);
+  void FlushTransitStubsRenderData(TransitRenderData && renderData);
+
   void FlushTrafficRenderData(TrafficRenderData && renderData);
   void FlushUserMarksRenderData(TUserMarksRenderData && renderData);
 
@@ -108,6 +114,7 @@ private:
   drape_ptr<BatchersPool<TileKey, TileKeyStrictComparator>> m_batchersPool;
   drape_ptr<ReadManager> m_readManager;
   drape_ptr<RouteBuilder> m_routeBuilder;
+  drape_ptr<TransitSchemeBuilder> m_transitBuilder;
   drape_ptr<TrafficGenerator> m_trafficGenerator;
   drape_ptr<UserMarkGenerator> m_userMarkGenerator;
   drape_ptr<DrapeApiBuilder> m_drapeApiBuilder;

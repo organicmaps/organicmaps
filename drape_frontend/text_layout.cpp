@@ -234,12 +234,13 @@ void CalculateOffsets(dp::Anchor anchor, float textRatio,
                       dp::TextureManager::TGlyphsBuffer const & glyphs,
                       buffer_vector<size_t, 2> const & delimIndexes,
                       buffer_vector<pair<size_t, glsl::vec2>, 2> & result,
-                      m2::PointF & pixelSize)
+                      m2::PointF & pixelSize, size_t & rowsCount)
 {
   typedef pair<float, float> TLengthAndHeight;
   buffer_vector<TLengthAndHeight, 2> lengthAndHeight;
   float maxLength = 0;
   float summaryHeight = 0;
+  rowsCount = 0;
 
   size_t start = 0;
   for (size_t index = 0; index < delimIndexes.size(); ++index)
@@ -267,6 +268,8 @@ void CalculateOffsets(dp::Anchor anchor, float textRatio,
     }
     maxLength = max(maxLength, node.first);
     summaryHeight += node.second;
+    if (node.second > 0.0f)
+      ++rowsCount;
     start = end;
   }
 
@@ -354,7 +357,7 @@ StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fo
     delimIndexes.push_back(visibleText.size());
 
   TBase::Init(visibleText, fontSize, isSdf, textures);
-  CalculateOffsets(anchor, m_textSizeRatio, m_metrics, delimIndexes, m_offsets, m_pixelSize);
+  CalculateOffsets(anchor, m_textSizeRatio, m_metrics, delimIndexes, m_offsets, m_pixelSize, m_rowsCount);
 }
 
 void StraightTextLayout::AdjustTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor, dp::Anchor symbolAnchor,

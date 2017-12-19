@@ -177,7 +177,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
           float const minU = kMinCoordU[static_cast<size_t>(segmentColoringIt->second)];
 
           int width = 0;
-          if (TrafficRenderer::CanBeRendereredAsLine(g.m_roadClass, tileKey.m_zoomLevel, width))
+          if (TrafficRenderer::CanBeRenderedAsLine(g.m_roadClass, tileKey.m_zoomLevel, width))
           {
             vector<TrafficLineStaticVertex> staticGeometry;
             GenerateLineSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), depth,
