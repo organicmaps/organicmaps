@@ -16,7 +16,8 @@ using namespace routing;
 using namespace std;
 
 // ReadTransitTask --------------------------------------------------------------------------------
-void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, unique_ptr<TransitDisplayInfo> && transitInfo)
+void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId,
+                           unique_ptr<TransitDisplayInfo> transitInfo)
 {
   m_id = id;
   m_mwmId = mwmId;
@@ -30,6 +31,7 @@ void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, unique_ptr<
     m_loadSubset = true;
     m_transitInfo = move(transitInfo);
   }
+  m_success = false;
 }
 
 void ReadTransitTask::Do()

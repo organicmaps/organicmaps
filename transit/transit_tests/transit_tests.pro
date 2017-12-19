@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = transit indexer platform geometry coding base \
+DEPENDENCIES = transit indexer platform coding geometry base \
                jansson stats_client
 
 macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"

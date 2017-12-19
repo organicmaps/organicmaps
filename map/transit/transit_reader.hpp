@@ -9,6 +9,7 @@
 #include "base/thread_pool.hpp"
 
 #include <condition_variable>
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <memory>
@@ -53,7 +54,8 @@ public:
     : m_index(index), m_readFeaturesFn(readFeaturesFn)
   {}
 
-  void Init(uint64_t id, MwmSet::MwmId const & mwmId, std::unique_ptr<TransitDisplayInfo> && transitInfo = nullptr);
+  void Init(uint64_t id, MwmSet::MwmId const & mwmId,
+            std::unique_ptr<TransitDisplayInfo> transitInfo = nullptr);
   uint64_t GetId() const { return m_id; }
   bool GetSuccess() const { return m_success; }
 

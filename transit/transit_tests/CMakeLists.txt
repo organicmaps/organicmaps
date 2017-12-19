@@ -15,8 +15,8 @@ omim_link_libraries(
   indexer
   transit
   platform
-  geometry
   coding
+  geometry
   base
   jansson
   stats_client
