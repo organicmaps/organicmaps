@@ -472,9 +472,7 @@ Framework::Framework(FrameworkParams const & params)
 
   // Local ads manager should be initialized after storage initialization.
   if (params.m_enableLocalAds)
-  {
     m_localAdsManager.Startup(m_bmManager.get());
-  }
 
   m_routingManager.SetRouterImpl(RouterType::Vehicle);
 
@@ -1834,8 +1832,7 @@ void Framework::DestroyDrapeEngine()
     m_trafficManager.SetDrapeEngine(nullptr);
     m_localAdsManager.SetDrapeEngine(nullptr);
     m_searchMarks.SetDrapeEngine(nullptr);
-    m_bmManager.SetDrapeEngine(nullptr);
-    m_localAdsManager.SetDrapeEngine(nullptr);
+    GetBookmarkManager().SetDrapeEngine(nullptr);
 
     m_trafficManager.Teardown();
     GpsTracker::Instance().Disconnect();

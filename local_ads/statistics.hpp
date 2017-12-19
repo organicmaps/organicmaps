@@ -9,7 +9,6 @@
 #include <functional>
 #include <list>
 #include <map>
-#include <mutex>
 #include <string>
 #include <vector>
 
@@ -38,7 +37,7 @@ public:
 
   void SetUserId(std::string const & userId);
 
-  void SetCustomServerSerializer(ServerSerializer && serializer);
+  void SetCustomServerSerializer(ServerSerializer const & serializer);
 
   void RegisterEvent(Event && event);
   void RegisterEvents(std::list<Event> && events);

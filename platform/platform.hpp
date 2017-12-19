@@ -286,7 +286,7 @@ public:
         m_networkThread.PushDelayed(delay, forward<Task>(task));
         break;
       case Thread::Gui:
-        ASSERT(false, ("Delayed tasks for gui thread are not supported yet"));
+        CHECK(false, ("Delayed tasks for gui thread are not supported yet"));
         break;
     }
   }

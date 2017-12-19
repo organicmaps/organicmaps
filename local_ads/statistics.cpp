@@ -167,8 +167,9 @@ void Statistics::Startup()
       SendToServer();
   };
 
-  auto const recursiveAsyncTask = [asyncTask]
+  auto const recursiveAsyncTask = [this, asyncTask]
   {
+    IndexMetadata();
     asyncTask();
     GetPlatform().RunDelayedTask(Platform::Thread::File, kSendingTimeout, asyncTask);
   };
@@ -494,7 +495,7 @@ void Statistics::CleanupAfterTesting()
     GetPlatform().RmDirRecursively(statsFolder);
 }
 
-void Statistics::SetCustomServerSerializer(ServerSerializer && serializer)
+void Statistics::SetCustomServerSerializer(ServerSerializer const & serializer)
 {
   GetPlatform().RunTask(Platform::Thread::File,
                         [this, serializer] { m_serverSerializer = serializer; });

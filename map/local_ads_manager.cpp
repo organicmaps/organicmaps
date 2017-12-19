@@ -403,29 +403,32 @@ bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<
   return true;
 }
 
-void LocalAdsManager::ProcessRequests(std::set<Request> const & campaignMwms)
+void LocalAdsManager::ProcessRequests(std::set<Request> const & requests)
 {
   std::string const campaignFile = GetPath(kCampaignFile);
 
-  for (auto const & mwm : campaignMwms)
+  for (auto const & request : requests)
   {
-    if (!mwm.first.IsAlive())
+    auto const & mwm = request.first;
+    auto const & type =  request.second;
+
+    if (!mwm.IsAlive())
       continue;
 
-    std::string const countryName = mwm.first.GetInfo()->GetCountryName();
-    if (mwm.second == RequestType::Download)
+    std::string const countryName = mwm.GetInfo()->GetCountryName();
+    if (type == RequestType::Download)
     {
       // Download campaign data from server.
       CampaignInfo info;
       info.m_created = local_ads::Clock::now();
-      if (!DownloadCampaign(mwm.first, info.m_data))
+      if (!DownloadCampaign(mwm, info.m_data))
         continue;
 
       // Parse data and recreate marks.
-      ClearLocalAdsForMwm(mwm.first);
+      ClearLocalAdsForMwm(mwm);
       if (!info.m_data.empty())
       {
-        auto campaignData = ParseCampaign(std::move(info.m_data), mwm.first, info.m_created);
+        auto campaignData = ParseCampaign(std::move(info.m_data), mwm, info.m_created);
         if (!campaignData.empty())
         {
           UpdateFeaturesCache(ReadCampaignFeatures(m_readFeaturesFn, campaignData));
@@ -436,11 +439,11 @@ void LocalAdsManager::ProcessRequests(std::set<Request> const & campaignMwms)
       m_campaigns[countryName] = true;
       m_info[countryName] = info;
     }
-    else if (mwm.second == RequestType::Delete)
+    else if (type == RequestType::Delete)
     {
       m_campaigns.erase(countryName);
       m_info.erase(countryName);
-      ClearLocalAdsForMwm(mwm.first);
+      ClearLocalAdsForMwm(mwm);
     }
   }
 
