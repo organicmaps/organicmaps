@@ -6787,7 +6787,7 @@ da:^Turistkontor
 nl:^Toeristische informatie
 fi:^Turistitoimisto
 fr:^Office de tourisme
-de:^Reisebüro
+de:^Fremdenverkehrsamt
 hu:^Idegenforgalmi iroda
 id:^Kantor wisata
 it:^Ufficio turistico
