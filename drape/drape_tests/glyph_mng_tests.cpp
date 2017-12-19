@@ -1,16 +1,19 @@
 #include "testing/testing.hpp"
 
 #include "drape/drape_tests/img.hpp"
+#include "drape/glyph_manager.hpp"
+
+#include "platform/platform.hpp"
+
+#include "base/stl_add.hpp"
 
 #include <QtGui/QPainter>
 
 #include "qt_tstfrm/test_main_loop.hpp"
 
-#include "drape/glyph_manager.hpp"
-#include "platform/platform.hpp"
-
 #include <cstring>
 #include <functional>
+#include <memory>
 #include <vector>
 
 using namespace std::placeholders;
@@ -28,12 +31,7 @@ public:
     args.m_blacklist = "fonts_blacklist.txt";
     GetPlatform().GetFontNames(args.m_fonts);
 
-    m_mng = new dp::GlyphManager(args);
-  }
-
-  ~GlyphRenderer()
-  {
-    delete m_mng;
+    m_mng = my::make_unique<dp::GlyphManager>(args);
   }
 
   void RenderGlyphs(QPaintDevice * device)
@@ -46,6 +44,7 @@ public:
       g.m_image.Destroy();
     };
 
+    // Generate some glyphs by its unicode representations.
     generateGlyph(0xC0);
     generateGlyph(0x79);
     generateGlyph(0x122);
@@ -54,7 +53,7 @@ public:
     painter.fillRect(QRectF(0.0, 0.0, device->width(), device->height()), Qt::white);
 
     QPoint pen(100, 100);
-    for (dp::GlyphManager::Glyph & g : glyphs)
+    for (auto & g : glyphs)
     {
       if (!g.m_image.m_data)
         continue;
@@ -74,7 +73,7 @@ public:
   }
 
 private:
-  dp::GlyphManager * m_mng;
+  std::unique_ptr<dp::GlyphManager> m_mng;
 };
 }  // namespace
 

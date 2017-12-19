@@ -1,5 +1,6 @@
 #pragma once
 
+#include "base/assert.hpp"
 #include "base/macros.hpp"
 #include "base/worker_thread.hpp"
 
@@ -7,7 +8,9 @@
 #include <condition_variable>
 #include <memory>
 #include <mutex>
+#include <unordered_set>
 #include <utility>
+#include <vector>
 
 namespace dp
 {
@@ -31,6 +34,7 @@ public:
 
   private:
     friend class DrapeRoutine;
+
     explicit Result(uint64_t id) : m_id(id), m_isFinished(false) {}
 
     uint64_t Finish()
@@ -78,6 +82,8 @@ private:
     return instance;
   }
 
+  DrapeRoutine() : m_workerThread(4 /* threads count */) {}
+
   uint64_t GetNextId()
   {
     std::lock_guard<std::mutex> lock(m_mutex);
@@ -87,7 +93,7 @@ private:
   void Notify(uint64_t id)
   {
     std::lock_guard<std::mutex> lock(m_mutex);
-    m_finishedId = id;
+    m_finishedIds.insert(id);
     m_condition.notify_all();
   }
 
@@ -96,7 +102,11 @@ private:
     std::unique_lock<std::mutex> lock(m_mutex);
     if (m_finished)
       return;
-    m_condition.wait(lock, [this, id](){return m_finished || m_finishedId == id;});
+    m_condition.wait(lock, [this, id]()
+    {
+      return m_finished || m_finishedIds.find(id) != m_finishedIds.end();
+    });
+    m_finishedIds.erase(id);
   }
 
   void FinishAll()
@@ -108,11 +118,77 @@ private:
     m_condition.notify_all();
   }
 
-  uint64_t m_finishedId = 0;
+  std::unordered_set<uint64_t> m_finishedIds;
   uint64_t m_counter = 0;
   bool m_finished = false;
   std::condition_variable m_condition;
   std::mutex m_mutex;
   base::WorkerThread m_workerThread;
+};
+
+// This is a helper class, which aggregates logic of waiting for active
+// tasks completion. It must be used when we provide tasks completion
+// before subsystem shutting down.
+template <typename TaskType>
+class ActiveTasks
+{
+  struct ActiveTask
+  {
+    std::shared_ptr<TaskType> m_task;
+    DrapeRoutine::ResultPtr m_result;
+
+    ActiveTask(std::shared_ptr<TaskType> const & task,
+               DrapeRoutine::ResultPtr const & result)
+      : m_task(task)
+      , m_result(result)
+    {}
+  };
+
+public:
+  ~ActiveTasks()
+  {
+    FinishAll();
+  }
+
+  void Add(std::shared_ptr<TaskType> const & task,
+           DrapeRoutine::ResultPtr const & result)
+  {
+    ASSERT(task != nullptr, ());
+    ASSERT(result != nullptr, ());
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_tasks.emplace_back(task, result);
+  }
+
+  void Remove(std::shared_ptr<TaskType> const & task)
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_tasks.erase(
+        std::remove_if(m_tasks.begin(), m_tasks.end(),
+                       [task](ActiveTask const & t) { return t.m_task == task; }),
+        m_tasks.end());
+  }
+
+  void FinishAll()
+  {
+    // Move tasks to a temporary vector, because m_tasks
+    // can be modified during 'Cancel' calls.
+    std::vector<ActiveTask> tasks;
+    {
+      std::lock_guard<std::mutex> lock(m_mutex);
+      tasks.swap(m_tasks);
+    }
+
+    // Cancel all tasks.
+    for (auto & t : tasks)
+      t.m_task->Cancel();
+
+    // Wait for completion of unfinished tasks.
+    for (auto & t : tasks)
+      t.m_result->Wait();
+  }
+
+private:
+  std::vector<ActiveTask> m_tasks;
+  std::mutex m_mutex;
 };
 }  // namespace dp

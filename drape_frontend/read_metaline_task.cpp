@@ -36,16 +36,16 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
     ModelReaderPtr reader = FilesContainerR(mwmId.GetInfo()->GetLocalFile().GetPath(MapOptions::Map))
                                             .GetReader(METALINES_FILE_TAG);
     ReaderSrc src(reader.GetPtr());
-    uint8_t const version = ReadPrimitiveFromSource<uint8_t>(src);
+    auto const version = ReadPrimitiveFromSource<uint8_t>(src);
     if (version == 1)
     {
       for (auto metalineIndex = ReadVarUint<uint32_t>(src); metalineIndex > 0; --metalineIndex)
       {
-        MetalineData data;
+        MetalineData data {};
         for (auto i = ReadVarUint<uint32_t>(src); i > 0; --i)
         {
-          int32_t const fid = ReadVarInt<int32_t>(src);
-          data.m_features.push_back(FeatureID(mwmId, static_cast<uint32_t>(std::abs(fid))));
+          auto const fid = ReadVarInt<int32_t>(src);
+          data.m_features.emplace_back(mwmId, static_cast<uint32_t>(std::abs(fid)));
           data.m_directions.push_back(fid > 0);
         }
         model.push_back(std::move(data));
@@ -81,37 +81,37 @@ std::vector<m2::PointD> MergePoints(std::vector<std::vector<m2::PointD>> const &
 
 namespace df
 {
-ReadMetalineTask::ReadMetalineTask(MapDataProvider & model)
+ReadMetalineTask::ReadMetalineTask(MapDataProvider & model, MwmSet::MwmId const & mwmId)
   : m_model(model)
+  , m_mwmId(mwmId)
+  , m_isCancelled(false)
 {}
 
-void ReadMetalineTask::Init(MwmSet::MwmId const & mwmId)
+void ReadMetalineTask::Cancel()
 {
-  m_mwmId = mwmId;
-}
-
-void ReadMetalineTask::Reset()
-{
-  m_mwmId.Reset();
-  IRoutine::Reset();
+  m_isCancelled = true;
 }
 
 bool ReadMetalineTask::IsCancelled() const
 {
-  return IRoutine::IsCancelled();
+  return m_isCancelled;
 }
 
-void ReadMetalineTask::Do()
+void ReadMetalineTask::Run()
 {
+  if (m_isCancelled)
+    return;
+
   if (!m_mwmId.IsAlive())
     return;
+
   if (m_mwmId.GetInfo()->GetType() != MwmInfo::MwmTypeT::COUNTRY)
     return;
 
   auto metalines = ReadMetalinesFromFile(m_mwmId);
   for (auto const & metaline : metalines)
   {
-    if (IsCancelled())
+    if (m_isCancelled)
       return;
 
     bool failed = false;
@@ -168,10 +168,5 @@ void ReadMetalineTask::Do()
     for (auto const & fid : metaline.m_features)
       m_metalines[fid] = spline;
   }
-}
-
-ReadMetalineTask * ReadMetalineTaskFactory::GetNew() const
-{
-  return new ReadMetalineTask(m_model);
 }
 }  // namespace df

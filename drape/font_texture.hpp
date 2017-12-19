@@ -6,6 +6,7 @@
 #include "drape/pointers.hpp"
 #include "drape/texture.hpp"
 
+#include <atomic>
 #include <list>
 #include <map>
 #include <memory>
@@ -87,6 +88,26 @@ public:
     {}
   };
 
+  class GenerateGlyphTask
+  {
+  public:
+    explicit GenerateGlyphTask(std::list<GlyphGenerationData> && glyphs)
+      : m_glyphs(std::move(glyphs))
+      , m_isCancelled(false)
+    {}
+    void Run(uint32_t sdfScale);
+    void Cancel() { m_isCancelled = true; }
+
+    std::vector<GlyphGenerationData> && StealGeneratedGlyphs() { return std::move(m_generatedGlyphs); }
+    bool IsCancelled() const { return m_isCancelled; }
+    void DestroyAllGlyphs();
+
+  private:
+    std::list<GlyphGenerationData> m_glyphs;
+    std::vector<GlyphGenerationData> m_generatedGlyphs;
+    std::atomic<bool> m_isCancelled;
+  };
+
   using CompletionHandler = std::function<void(std::vector<GlyphGenerator::GlyphGenerationData> &&)>;
 
   GlyphGenerator(uint32_t sdfScale, CompletionHandler const & completionHandler);
@@ -96,9 +117,11 @@ public:
   bool IsSuspended() const;
 
 private:
+  void OnTaskFinished(std::shared_ptr<GenerateGlyphTask> const & task);
+
   uint32_t m_sdfScale;
   CompletionHandler m_completionHandler;
-  DrapeRoutine::ResultPtr m_routineResult;
+  ActiveTasks<GenerateGlyphTask> m_activeTasks;
 
   std::list<GlyphGenerationData> m_queue;
   size_t m_glyphsCounter = 0;

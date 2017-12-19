@@ -10,6 +10,7 @@
 #include <mutex>
 #include <queue>
 #include <utility>
+#include <vector>
 
 namespace base
 {
@@ -30,7 +31,7 @@ public:
     SkipPending
   };
 
-  WorkerThread();
+  explicit WorkerThread(size_t threadsCount = 1);
   ~WorkerThread() override;
 
   // Pushes task to the end of the thread's queue of immediate tasks.
@@ -106,7 +107,7 @@ private:
 
   void ProcessTasks();
 
-  threads::SimpleThread m_thread;
+  std::vector<threads::SimpleThread> m_threads;
   std::mutex m_mu;
   std::condition_variable m_cv;
 

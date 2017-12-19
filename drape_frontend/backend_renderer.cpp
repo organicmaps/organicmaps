@@ -527,7 +527,6 @@ void BackendRenderer::OnContextCreate()
   GLFunctions::Init(m_apiVersion);
 
   m_readManager->Start();
-  m_metalineManager->Start();
   InitGLDependentResource();
 }
 

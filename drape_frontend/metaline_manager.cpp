@@ -10,35 +10,20 @@
 
 namespace df
 {
-MetalineManager::MetalineManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model)
+MetalineManager::MetalineManager(ref_ptr<ThreadsCommutator> commutator,
+                                 MapDataProvider & model)
   : m_model(model)
-  , m_tasksPool(4, ReadMetalineTaskFactory(m_model))
   , m_commutator(commutator)
-{
-  Start();
-}
+{}
 
 MetalineManager::~MetalineManager()
 {
   Stop();
 }
 
-void MetalineManager::Start()
-{
-  if (m_threadsPool != nullptr)
-    return;
-
-  using namespace std::placeholders;
-  uint8_t constexpr kThreadsCount = 2;
-  m_threadsPool = make_unique_dp<threads::ThreadPool>(
-      kThreadsCount, std::bind(&MetalineManager::OnTaskFinished, this, _1));
-}
-
 void MetalineManager::Stop()
 {
-  if (m_threadsPool != nullptr)
-    m_threadsPool->Stop();
-  m_threadsPool.reset();
+  m_activeTasks.FinishAll();
 }
 
 void MetalineManager::Update(std::set<MwmSet::MwmId> const & mwms)
@@ -47,12 +32,18 @@ void MetalineManager::Update(std::set<MwmSet::MwmId> const & mwms)
   for (auto const & mwm : mwms)
   {
     auto const result = m_mwms.insert(mwm);
-    if (result.second)
+    if (!result.second)
+      return;
+
+    auto readingTask = std::make_shared<ReadMetalineTask>(m_model, mwm);
+    auto routineResult = dp::DrapeRoutine::Run([this, readingTask]()
     {
-      ReadMetalineTask * task = m_tasksPool.Get();
-      task->Init(mwm);
-      m_threadsPool->PushBack(task);
-    }
+      readingTask->Run();
+      OnTaskFinished(readingTask);
+    });
+
+    if (routineResult)
+      m_activeTasks.Add(readingTask, routineResult);
   }
 }
 
@@ -65,29 +56,28 @@ m2::SharedSpline MetalineManager::GetMetaline(FeatureID const & fid) const
   return metalineIt->second;
 }
 
-void MetalineManager::OnTaskFinished(threads::IRoutine * task)
+void MetalineManager::OnTaskFinished(std::shared_ptr<ReadMetalineTask> const & task)
 {
-  ASSERT(dynamic_cast<ReadMetalineTask *>(task) != nullptr, ());
-  ReadMetalineTask * t = static_cast<ReadMetalineTask *>(task);
+  if (task->IsCancelled())
+    return;
 
-  // Update metaline cache.
-  if (!task->IsCancelled())
+  std::lock_guard<std::mutex> lock(m_metalineCacheMutex);
+
+  // Update metalines cache.
+  auto const & metalines = task->GetMetalines();
+  for (auto const & metaline : metalines)
+    m_metalineCache[metaline.first] = metaline.second;
+
+  // Notify FR.
+  if (!metalines.empty())
   {
-    std::lock_guard<std::mutex> lock(m_metalineCacheMutex);
-    auto const & metalines = t->GetMetalines();
-    for (auto const & metaline : metalines)
-      m_metalineCache[metaline.first] = metaline.second;
-
-    if (!metalines.empty())
-    {
-      LOG(LDEBUG, ("Metalines prepared:", t->GetMwmId()));
-      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<UpdateMetalinesMessage>(),
-                                MessagePriority::Normal);
-    }
+    LOG(LDEBUG, ("Metalines prepared:", task->GetMwmId()));
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                              make_unique_dp<UpdateMetalinesMessage>(),
+                              MessagePriority::Normal);
   }
 
-  t->Reset();
-  m_tasksPool.Return(t);
+  // Remove task from active ones.
+  m_activeTasks.Remove(task);
 }
 }  // namespace df
