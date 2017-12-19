@@ -40,7 +40,6 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadG
       feature::TAltitude projPointAlt = feature::kDefaultAltitudeMeters;
       if (segLenM == 0.0)
       {
-        LOG(LWARNING, ("Length of segment", i, " of feature", featureId, "is zero."));
         projPointAlt = startAlt;
       }
       else
