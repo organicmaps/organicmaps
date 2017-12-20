@@ -25,6 +25,7 @@ public:
 class Model
 {
 public:
+  // WARNING: after modifications to the enum below, re-check all methods in the class.
   enum Type
   {
     // Low-level features such as amenities, offices, shops, buildings
