@@ -10,6 +10,8 @@
 
 #include "search/result.hpp"
 
+#include "platform/preferred_languages.hpp"
+
 #include <memory>
 #include <utility>
 #include <vector>
@@ -149,7 +151,7 @@ Java_com_mapswithme_maps_discovery_DiscoveryManager_nativeDiscover(JNIEnv * env,
   static auto const langField = env->GetFieldID(paramsClass, "mLang", "Ljava/lang/String;");
   {
     auto const lang = static_cast<jstring>(env->GetObjectField(params, langField));
-    string const res = jni::ToNativeString(env, lang);
+    string const res = languages::Normalize(jni::ToNativeString(env, lang));
     if (!res.empty())
       p.m_lang = res;
   }
