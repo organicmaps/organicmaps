@@ -172,18 +172,16 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
 
   AStarAlgorithm<WorldGraph> algorithm;
 
-  RoutingResult<Segment, RouteWeight> routingResult;
-  auto const resultCode = algorithm.FindPathBidirectional(
-      *worldGraph, startSegment, finishSegment, routingResult, {} /* cancellable */,
+  AStarAlgorithm<WorldGraph>::Params params(
+      *worldGraph, startSegment, finishSegment, {} /* prevRoute */, {} /* cancellable */,
       {} /* onVisitedVertexCallback */, {} /* checkLengthCallback */);
+  RoutingResult<Segment, RouteWeight> routingResult;
+  auto const resultCode = algorithm.FindPathBidirectional(params, routingResult);
 
   // Check unidirectional AStar returns same result.
   {
     RoutingResult<Segment, RouteWeight> unidirectionalRoutingResult;
-    auto const unidirectionalResultCode = algorithm.FindPath(
-        *worldGraph, startSegment, finishSegment, unidirectionalRoutingResult, {} /* cancellable */,
-        {} /* onVisitedVertexCallback */, {} /* checkLengthCallback */);
-
+    auto const unidirectionalResultCode = algorithm.FindPath(params, unidirectionalRoutingResult);
     CHECK_EQUAL(resultCode, unidirectionalResultCode, ());
     CHECK(routingResult.m_distance.IsAlmostEqualForTests(unidirectionalRoutingResult.m_distance,
                                                          kEpsilon),
@@ -366,10 +364,12 @@ AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & sta
   AStarAlgorithm<IndexGraphStarter> algorithm;
   RoutingResult<Segment, RouteWeight> routingResult;
 
-  auto resultCode = algorithm.FindPathBidirectional(
-      starter, starter.GetStartSegment(), starter.GetFinishSegment(), routingResult,
+  AStarAlgorithm<IndexGraphStarter>::Params params(
+      starter, starter.GetStartSegment(), starter.GetFinishSegment(), {} /* prevRoute */,
       {} /* cancellable */, {} /* onVisitedVertexCallback */,
       [&](RouteWeight const & weight) { return starter.CheckLength(weight); });
+
+  auto const resultCode = algorithm.FindPathBidirectional(params, routingResult);
 
   timeSec = routingResult.m_distance.GetWeight();
   roadPoints = routingResult.m_path;

@@ -16,28 +16,27 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
                                    CrossMwmRoadGraph & roadGraph, RouterDelegate const & delegate,
                                    RoutingResult<BorderCross, double /* Weight */> & route)
 {
-  using TAlgorithm = AStarAlgorithm<CrossMwmRoadGraph>;
+  using Algorithm = AStarAlgorithm<CrossMwmRoadGraph>;
 
-  TAlgorithm::OnVisitedVertexCallback onVisitedVertex =
-      [&delegate](BorderCross const & cross, BorderCross const & /* target */)
-  {
-    delegate.OnPointCheck(MercatorBounds::FromLatLon(cross.fromNode.point));
-  };
+  Algorithm::OnVisitedVertexCallback onVisitedVertex =
+      [&delegate](BorderCross const & cross, BorderCross const & /* target */) {
+        delegate.OnPointCheck(MercatorBounds::FromLatLon(cross.fromNode.point));
+      };
+
+  Algorithm::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */, delegate,
+                           onVisitedVertex, {} /* checkLengthCallback */);
 
   my::HighResTimer timer(true);
-  TAlgorithm::Result const result =
-      TAlgorithm().FindPath(roadGraph, startPos, finalPos, route, delegate, onVisitedVertex);
+  Algorithm::Result const result = Algorithm().FindPath(params, route);
   LOG(LINFO, ("Duration of the cross MWM path finding", timer.ElapsedNano()));
   switch (result)
   {
-    case TAlgorithm::Result::OK:
-      ASSERT_EQUAL(route.m_path.front(), startPos, ());
-      ASSERT_EQUAL(route.m_path.back(), finalPos, ());
-      return IRouter::NoError;
-    case TAlgorithm::Result::NoPath:
-      return IRouter::RouteNotFound;
-    case TAlgorithm::Result::Cancelled:
-      return IRouter::Cancelled;
+  case Algorithm::Result::OK:
+    ASSERT_EQUAL(route.m_path.front(), startPos, ());
+    ASSERT_EQUAL(route.m_path.back(), finalPos, ());
+    return IRouter::NoError;
+  case Algorithm::Result::NoPath: return IRouter::RouteNotFound;
+  case Algorithm::Result::Cancelled: return IRouter::Cancelled;
   }
   return IRouter::RouteNotFound;
 }

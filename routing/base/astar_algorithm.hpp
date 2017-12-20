@@ -53,6 +53,36 @@ public:
   // Can be used to clip some path which does not meet restrictions.
   using CheckLengthCallback = std::function<bool(Weight const &)>;
 
+  struct Params
+  {
+    Params(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
+           std::vector<Edge> const & prevRoute, my::Cancellable const & cancellable,
+           OnVisitedVertexCallback const & onVisitedVertexCallback,
+           CheckLengthCallback const & checkLengthCallback)
+      : m_graph(graph)
+      , m_startVertex(startVertex)
+      , m_finalVertex(finalVertex)
+      , m_prevRoute(prevRoute)
+      , m_cancellable(cancellable)
+      , m_onVisitedVertexCallback(onVisitedVertexCallback ? onVisitedVertexCallback
+                                                          : [](Vertex const &, Vertex const &) {})
+      , m_checkLengthCallback(checkLengthCallback
+                                  ? checkLengthCallback
+                                  : [](Weight const & /* weight */) { return true; })
+    {
+    }
+
+    Graph & m_graph;
+    Vertex const & m_startVertex;
+    // Used for FindPath, FindPathBidirectional.
+    Vertex const & m_finalVertex;
+    // Used for AdjustRoute.
+    std::vector<Edge> const & m_prevRoute;
+    my::Cancellable const & m_cancellable;
+    OnVisitedVertexCallback m_onVisitedVertexCallback;
+    CheckLengthCallback m_checkLengthCallback;
+  };
+
   class Context final
   {
   public:
@@ -101,25 +131,14 @@ public:
   void PropagateWave(Graph & graph, Vertex const & startVertex, VisitVertex && visitVertex,
                      Context & context) const;
 
-  Result FindPath(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-                  RoutingResult<Vertex, Weight> & result,
-                  my::Cancellable const & cancellable = my::Cancellable(),
-                  OnVisitedVertexCallback onVisitedVertexCallback = {},
-                  CheckLengthCallback checkLengthCallback = {}) const;
+  Result FindPath(Params & params, RoutingResult<Vertex, Weight> & result) const;
 
-  Result FindPathBidirectional(Graph & graph, Vertex const & startVertex,
-                               Vertex const & finalVertex, RoutingResult<Vertex, Weight> & result,
-                               my::Cancellable const & cancellable = my::Cancellable(),
-                               OnVisitedVertexCallback onVisitedVertexCallback = {},
-                               CheckLengthCallback checkLengthCallback = {}) const;
+  Result FindPathBidirectional(Params & params, RoutingResult<Vertex, Weight> & result) const;
 
   // Adjust route to the previous one.
-  // Expects |checkLengthCallback| to check wave propagation limit.
-  typename AStarAlgorithm<Graph>::Result AdjustRoute(
-      Graph & graph, Vertex const & startVertex, std::vector<Edge> const & prevRoute,
-      RoutingResult<Vertex, Weight> & result, my::Cancellable const & cancellable,
-      OnVisitedVertexCallback onVisitedVertexCallback,
-      CheckLengthCallback checkLengthCallback) const;
+  // Expects |params.m_checkLengthCallback| to check wave propagation limit.
+  typename AStarAlgorithm<Graph>::Result AdjustRoute(Params & params,
+                                                     RoutingResult<Vertex, Weight> & result) const;
 
 private:
   // Periodicity of switching a wave of bidirectional algorithm.
@@ -321,19 +340,16 @@ void AStarAlgorithm<Graph>::PropagateWave(Graph & graph, Vertex const & startVer
 
 template <typename Graph>
 typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPath(
-    Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-    RoutingResult<Vertex, Weight> & result, my::Cancellable const & cancellable,
-    OnVisitedVertexCallback onVisitedVertexCallback, CheckLengthCallback checkLengthCallback) const
+    Params & params, RoutingResult<Vertex, Weight> & result) const
 {
   result.Clear();
-  if (onVisitedVertexCallback == nullptr)
-    onVisitedVertexCallback = [](Vertex const &, Vertex const &) {};
 
-  if (checkLengthCallback == nullptr)
-    checkLengthCallback = [](Weight const & /* weight */) { return true; };
+  auto & graph = params.m_graph;
+  auto const & finalVertex = params.m_finalVertex;
+  auto const & startVertex = params.m_startVertex;
 
   Context context;
-  PeriodicPollCancellable periodicCancellable(cancellable);
+  PeriodicPollCancellable periodicCancellable(params.m_cancellable);
   Result resultCode = Result::NoPath;
 
   auto const heuristicDiff = [&](Vertex const & vertexFrom, Vertex const & vertexTo) {
@@ -358,7 +374,7 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPath(
       return false;
     }
 
-    onVisitedVertexCallback(vertex, finalVertex);
+    params.m_onVisitedVertexCallback(vertex, finalVertex);
 
     if (vertex == finalVertex)
     {
@@ -378,7 +394,8 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPath(
   };
 
   auto const filterStates = [&](State const & state) {
-    return checkLengthCallback(reducedToFullLength(startVertex, state.vertex, state.distance));
+    return params.m_checkLengthCallback(
+        reducedToFullLength(startVertex, state.vertex, state.distance));
   };
 
   PropagateWave(graph, startVertex, visitVertex, adjustEdgeWeight, filterStates, context);
@@ -389,7 +406,7 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPath(
     result.m_distance =
         reducedToFullLength(startVertex, finalVertex, context.GetDistance(finalVertex));
 
-    if (!checkLengthCallback(result.m_distance))
+    if (!params.m_checkLengthCallback(result.m_distance))
       resultCode = Result::NoPath;
   }
 
@@ -398,15 +415,11 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPath(
 
 template <typename Graph>
 typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectional(
-    Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-    RoutingResult<Vertex, Weight> & result, my::Cancellable const & cancellable,
-    OnVisitedVertexCallback onVisitedVertexCallback, CheckLengthCallback checkLengthCallback) const
+    Params & params, RoutingResult<Vertex, Weight> & result) const
 {
-  if (onVisitedVertexCallback == nullptr)
-    onVisitedVertexCallback = [](Vertex const &, Vertex const &) {};
-
-  if (checkLengthCallback == nullptr)
-    checkLengthCallback = [](Weight const & /* weight */) { return true; };
+  auto & graph = params.m_graph;
+  auto const & finalVertex = params.m_finalVertex;
+  auto const & startVertex = params.m_startVertex;
 
   BidirectionalStepContext forward(true /* forward */, startVertex, finalVertex, graph);
   BidirectionalStepContext backward(false /* forward */, startVertex, finalVertex, graph);
@@ -434,7 +447,7 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectio
   // because if we have not found a path by the time one of the
   // queues is exhausted, we never will.
   uint32_t steps = 0;
-  PeriodicPollCancellable periodicCancellable(cancellable);
+  PeriodicPollCancellable periodicCancellable(params.m_cancellable);
 
   while (!cur->queue.empty() && !nxt->queue.empty())
   {
@@ -464,7 +477,7 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectio
 
       if (curTop + nxtTop >= bestPathReducedLength - kEpsilon)
       {
-        if (!checkLengthCallback(bestPathRealLength))
+        if (!params.m_checkLengthCallback(bestPathRealLength))
           return Result::NoPath;
 
         ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent,
@@ -483,7 +496,8 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectio
     if (stateV.distance > cur->bestDistance[stateV.vertex])
       continue;
 
-    onVisitedVertexCallback(stateV.vertex, cur->forward ? cur->finalVertex : cur->startVertex);
+    params.m_onVisitedVertexCallback(stateV.vertex,
+                                     cur->forward ? cur->finalVertex : cur->startVertex);
 
     cur->GetAdjacencyList(stateV.vertex, adj);
     for (auto const & edge : adj)
@@ -501,7 +515,7 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectio
       auto const newReducedDist = stateV.distance + std::max(reducedWeight, kZeroDistance);
 
       auto const fullLength = weight + stateV.distance + cur->pS - pV;
-      if (!checkLengthCallback(fullLength))
+      if (!params.m_checkLengthCallback(fullLength))
         continue;
 
       auto const itCur = cur->bestDistance.find(stateW.vertex);
@@ -542,18 +556,18 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectio
 
 template <typename Graph>
 typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::AdjustRoute(
-    Graph & graph, Vertex const & startVertex, std::vector<Edge> const & prevRoute,
-    RoutingResult<Vertex, Weight> & result, my::Cancellable const & cancellable,
-    OnVisitedVertexCallback onVisitedVertexCallback, CheckLengthCallback checkLengthCallback) const
+    Params & params, RoutingResult<Vertex, Weight> & result) const
 {
+  auto & graph = params.m_graph;
+  auto const & startVertex = params.m_startVertex;
+  auto const & prevRoute = params.m_prevRoute;
+
   CHECK(!prevRoute.empty(), ());
 
-  CHECK(checkLengthCallback != nullptr,
+  CHECK(params.m_checkLengthCallback != nullptr,
         ("CheckLengthCallback expected to be set to limit wave propagation."));
 
   result.Clear();
-  if (onVisitedVertexCallback == nullptr)
-    onVisitedVertexCallback = [](Vertex const &, Vertex const &) {};
 
   bool wasCancelled = false;
   auto minDistance = kInfiniteDistance;
@@ -569,7 +583,7 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::AdjustRoute(
   }
 
   Context context;
-  PeriodicPollCancellable periodicCancellable(cancellable);
+  PeriodicPollCancellable periodicCancellable(params.m_cancellable);
 
   auto visitVertex = [&](Vertex const & vertex) {
 
@@ -579,7 +593,7 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::AdjustRoute(
       return false;
     }
 
-    onVisitedVertexCallback(startVertex, vertex);
+    params.m_onVisitedVertexCallback(startVertex, vertex);
 
     auto it = remainingDistances.find(vertex);
     if (it != remainingDistances.cend())
@@ -600,7 +614,7 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::AdjustRoute(
   };
 
   auto const filterStates = [&](State const & state) {
-    return checkLengthCallback(state.distance);
+    return params.m_checkLengthCallback(state.distance);
   };
 
   PropagateWave(graph, startVertex, visitVertex, adjustEdgeWeight, filterStates, context);

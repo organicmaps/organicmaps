@@ -157,8 +157,9 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
   my::Cancellable const & cancellable = delegate;
   progress.Initialize(startPos.GetPoint(), finalPos.GetPoint());
   RoadGraph roadGraph(graph);
-  TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPath(
-      roadGraph, startPos, finalPos, path, cancellable, onVisitJunctionFn);
+  TAlgorithmImpl::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */, cancellable,
+                                onVisitJunctionFn, {} /* checkLength */);
+  TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPath(params, path);
   return Convert(res);
 }
 
@@ -186,8 +187,9 @@ IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(
   my::Cancellable const & cancellable = delegate;
   progress.Initialize(startPos.GetPoint(), finalPos.GetPoint());
   RoadGraph roadGraph(graph);
-  TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPathBidirectional(
-      roadGraph, startPos, finalPos, path, cancellable, onVisitJunctionFn);
+  TAlgorithmImpl::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */, cancellable,
+                                onVisitJunctionFn, {} /* checkLength */);
+  TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPathBidirectional(params, path);
   return Convert(res);
 }
 
