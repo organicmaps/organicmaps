@@ -254,6 +254,7 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;
 - (BOOL)isRoutePoint;
+- (BOOL)isPreviewExtended;
 
 + (MWMRatingSummaryViewValueType)ratingValueType:(place_page::rating::Impress)impress;
 

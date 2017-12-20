@@ -314,7 +314,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
           {
             auto imageURL = [NSURL URLWithString:@(p.m_photoUrl.c_str())];
             auto pageURL = [NSURL URLWithString:@(p.m_pageUrl.c_str())];
-            if (!imageURL || !pageURL)
+            if (!pageURL)
               continue;
             std::string const ratingFormatted = rating::GetRatingFormatted(p.m_rating);
             auto const ratingValue = rating::GetImpress(p.m_rating);
@@ -836,6 +836,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isHTMLDescription { return strings::IsHTML(m_info.GetBookmarkData().GetDescription()); }
 - (BOOL)isRoutePoint { return m_info.IsRoutePoint(); }
+- (BOOL)isPreviewExtended { return m_info.IsPreviewExtended(); }
 
 + (MWMRatingSummaryViewValueType)ratingValueType:(rating::Impress)impress
 {

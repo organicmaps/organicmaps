@@ -1,6 +1,6 @@
 @objc(MWMViatorItemModel)
 final class ViatorItemModel: NSObject {
-  let imageURL: URL
+  let imageURL: URL?
   let pageURL: URL
   let title: String
   let ratingFormatted: String
@@ -8,7 +8,7 @@ final class ViatorItemModel: NSObject {
   let duration: String
   let price: String
 
-  @objc init(imageURL: URL, pageURL: URL, title: String, ratingFormatted: String, ratingType: MWMRatingSummaryViewValueType, duration: String, price: String) {
+  @objc init(imageURL: URL?, pageURL: URL, title: String, ratingFormatted: String, ratingType: MWMRatingSummaryViewValueType, duration: String, price: String) {
     self.imageURL = imageURL
     self.pageURL = pageURL
     self.title = title

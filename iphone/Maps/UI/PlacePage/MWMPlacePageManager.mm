@@ -239,12 +239,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)destroyLayout { self.layout = nil; }
 - (void)closePlacePage { GetFramework().DeactivateMapSelection(true); }
-- (BOOL)isExpandedOnShow
-{
-  auto data = self.data;
-  return data.isViator || data.isCian;
-}
-
+- (BOOL)isExpandedOnShow { return self.data.isPreviewExtended; }
 - (void)onExpanded
 {
   if (self.isSponsoredOpenLogged)

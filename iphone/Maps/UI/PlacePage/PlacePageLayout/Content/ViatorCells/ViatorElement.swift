@@ -65,7 +65,11 @@ final class ViatorElement: UICollectionViewCell {
   var model: ViatorItemModel? {
     didSet {
       if let model = model {
-        image.af_setImage(withURL: model.imageURL, imageTransition: .crossDissolve(kDefaultAnimationDuration))
+        if let url = model.imageURL {
+          image.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "img_viator_placeholder"), imageTransition: .crossDissolve(kDefaultAnimationDuration))
+        } else {
+          image.image = #imageLiteral(resourceName: "img_viator_placeholder")
+        }
         title.text = model.title
         duration.text = model.duration
         price.text = String(coreFormat: L("place_page_starting_from"), arguments: [model.price])
