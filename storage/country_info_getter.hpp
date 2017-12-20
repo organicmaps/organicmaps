@@ -130,21 +130,14 @@ protected:
 class CountryInfoReader : public CountryInfoGetter
 {
 public:
-  // This is the proper way to obtain a CountryInfoReader because
-  // it accounts for migration and such.
+  /// \brief The newer version. Use this one after the migration to single-component
+  /// mwm files has been carried out.
   static unique_ptr<CountryInfoGetter> CreateCountryInfoReader(Platform const & platform);
 
-  // The older version. The polygons are read from a file that was
-  // used at the time when routing and map data were in different files.
-  // This is a legacy method and it is extremely unlikely that you need it in your code.
-  static unique_ptr<CountryInfoGetter> CreateCountryInfoReaderTwoComponentMwms(
-      Platform const & platform);
-
-  // The newer version. Use this one after the migration to single-component
-  // mwm files has been carried out.
-  // This is a legacy method and it is extremely unlikely that you need it in your code.
-  static unique_ptr<CountryInfoGetter> CreateCountryInfoReaderOneComponentMwms(
-      Platform const & platform);
+  /// \brief The older version. The polygons are read from a file that was
+  /// used at the time when routing and map data were in different files.
+  /// \note This method should be used for test on migration.
+  static unique_ptr<CountryInfoGetter> CreateCountryInfoReaderObsolete(Platform const & platform);
 
 protected:
   CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR);

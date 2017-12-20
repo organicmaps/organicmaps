@@ -301,7 +301,7 @@ TCountryId Framework::PreMigrate(ms::LatLon const & position,
   GetStorage().PrefetchMigrateData();
 
   auto const infoGetter =
-      CountryInfoReader::CreateCountryInfoReaderOneComponentMwms(GetPlatform());
+      CountryInfoReader::CreateCountryInfoReader(GetPlatform());
 
   TCountryId currentCountryId =
       infoGetter->GetRegionCountryId(MercatorBounds::FromLatLon(position));
@@ -1354,7 +1354,11 @@ void Framework::InitCountryInfoGetter()
 {
   ASSERT(!m_infoGetter.get(), ("InitCountryInfoGetter() must be called only once."));
 
-  m_infoGetter = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  auto const & platform = GetPlatform();
+  if (platform::migrate::NeedMigrate())
+    m_infoGetter = CountryInfoReader::CreateCountryInfoReaderObsolete(platform);
+  else
+    m_infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
   m_infoGetter->InitAffiliationsInfo(&m_storage.GetAffiliations());
 }
 
