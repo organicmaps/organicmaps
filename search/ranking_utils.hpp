@@ -72,6 +72,11 @@ struct ErrorsMade
     return Combine(lhs, rhs, [](size_t u, size_t v) { return std::min(u, v); });
   }
 
+  static ErrorsMade Max(ErrorsMade const & lhs, ErrorsMade const & rhs)
+  {
+    return Combine(lhs, rhs, [](size_t u, size_t v) { return std::max(u, v); });
+  }
+
   friend ErrorsMade operator+(ErrorsMade const & lhs, ErrorsMade const & rhs)
   {
     return Combine(lhs, rhs, [](size_t u, size_t v) { return u + v; });

@@ -1361,7 +1361,11 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
   }
 
   if (ctx.m_city)
-    info.m_tokenRange[Model::TYPE_CITY] = ctx.m_city->m_tokenRange;
+  {
+    auto const & city = *ctx.m_city;
+    info.m_tokenRange[Model::TYPE_CITY] = city.m_tokenRange;
+    info.m_cityId = FeatureID(city.m_countryId, city.m_featureId);
+  }
 
   if (geoParts)
     info.m_geoParts = *geoParts;

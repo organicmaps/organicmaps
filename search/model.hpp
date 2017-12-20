@@ -47,6 +47,11 @@ public:
     TYPE_COUNT
   };
 
+  static bool IsLocalityType(Type const type)
+  {
+    return type >= TYPE_VILLAGE && type <= TYPE_COUNTRY;
+  }
+
   Type GetType(FeatureType const & feature) const;
 
   void SetCianEnabled(bool enabled) { m_cianEnabled = enabled; }

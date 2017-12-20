@@ -4,6 +4,8 @@
 #include "search/model.hpp"
 #include "search/token_range.hpp"
 
+#include "indexer/feature_decl.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
@@ -43,6 +45,9 @@ struct PreRankingInfo
   // Different geo-parts extracted from query.  Currently only poi,
   // building and street ids are in |m_geoParts|.
   IntersectionResult m_geoParts;
+
+  // Id of the matched city, if any.
+  FeatureID m_cityId;
 
   // True iff all tokens that are not stop-words
   // were used when retrieving the feature.

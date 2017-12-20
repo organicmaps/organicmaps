@@ -5,6 +5,7 @@
 #include "search/highlighting.hpp"
 #include "search/model.hpp"
 #include "search/pre_ranking_info.hpp"
+#include "search/ranking_utils.hpp"
 #include "search/token_slice.hpp"
 #include "search/utils.hpp"
 
@@ -71,6 +72,25 @@ NameScores GetNameScores(FeatureType const & ft, Geocoder::Params const & params
     UpdateNameScores(ft.GetHouseNumber(), sliceNoCategories, bestScores);
 
   return bestScores;
+}
+
+ErrorsMade GetErrorsMade(FeatureType const & ft, Geocoder::Params const & params,
+                         TokenRange const & range, Model::Type type)
+{
+  auto errorsMade = GetNameScores(ft, params, range, type).m_errorsMade;
+  if (errorsMade.IsValid())
+    return errorsMade;
+
+  for (auto const token : range)
+  {
+    ErrorsMade tokenErrors;
+    params.GetToken(token).ForEach([&](strings::UniString const & s) {
+      tokenErrors = ErrorsMade::Max(tokenErrors, ErrorsMade{GetMaxErrorsForToken(s)});
+    });
+    errorsMade += tokenErrors;
+  }
+
+  return errorsMade;
 }
 
 void RemoveDuplicatingLinear(vector<RankerResult> & results)
@@ -247,10 +267,23 @@ class RankerResultMaker
       FeatureType street;
       if (LoadFeature(FeatureID(mwmId, preInfo.m_geoParts.m_street), street))
       {
-        auto const nameScores = GetNameScores(
-            street, m_params, preInfo.m_tokenRange[Model::TYPE_STREET], Model::TYPE_STREET);
+        auto const type = Model::TYPE_STREET;
+        auto const & range = preInfo.m_tokenRange[type];
+        auto const nameScores = GetNameScores(street, m_params, range, type);
+
         nameScore = min(nameScore, nameScores.m_nameScore);
         errorsMade += nameScores.m_errorsMade;
+      }
+    }
+
+    if (!Model::IsLocalityType(info.m_type) && preInfo.m_cityId.IsValid())
+    {
+      FeatureType city;
+      if (LoadFeature(preInfo.m_cityId, city))
+      {
+        auto const type = Model::TYPE_CITY;
+        auto const & range = preInfo.m_tokenRange[type];
+        errorsMade += GetErrorsMade(city, m_params, range, type);
       }
     }
 

@@ -428,7 +428,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
 {
   string const countryName = "Wonderland";
 
-  TestCity chekhov(m2::PointD(0, 0), "Чехов", "ru", 100 /* rank */);
+  TestCity chekhov(m2::PointD(0, 0), "Чеховъ Антонъ Павловичъ", "ru", 100 /* rank */);
+
   TestStreet pushkinskaya(
       vector<m2::PointD>{m2::PointD(-0.5, -0.5), m2::PointD(0, 0), m2::PointD(0.5, 0.5)},
       "Улица Пушкинская", "ru");
@@ -442,17 +443,16 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
     builder.Add(lermontov);
   });
 
-  SetViewport(m2::RectD(m2::PointD(-1, -1), m2::PointD(1, 1)));
+  SetViewport(m2::RectD(-1, -1, 1, 1));
 
   auto checkErrors = [&](string const & query, ErrorsMade const & errorsMade) {
     auto request = MakeRequest(query, "ru");
     auto const & results = request->Results();
 
     TRules rules{ExactMatch(wonderlandId, lermontov)};
-    TEST(ResultsMatch(results, rules), ());
-    TEST_EQUAL(results.size(), 1, ());
-
-    TEST_EQUAL(results[0].GetRankingInfo().m_errorsMade, errorsMade, ());
+    TEST(ResultsMatch(results, rules), (query));
+    TEST_EQUAL(results.size(), 1, (query));
+    TEST_EQUAL(results[0].GetRankingInfo().m_errorsMade, errorsMade, (query));
   };
 
   checkErrors("кафе лермонтов", ErrorsMade(1));
@@ -461,6 +461,13 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
   checkErrors("пушкенская трактир лермонтов", ErrorsMade(3));
   checkErrors("пушкенская кафе", ErrorsMade(1));
   checkErrors("пушкинская трактиръ лермонтовъ", ErrorsMade(0));
+
+  checkErrors("лермонтовъ чехов", ErrorsMade(1));
+  checkErrors("лермонтовъ чеховъ", ErrorsMade(0));
+  checkErrors("лермонтов чехов", ErrorsMade(2));
+  checkErrors("лермонтов чеховъ", ErrorsMade(1));
+
+  checkErrors("лермонтов чеховъ антон павлович", ErrorsMade(3));
 }
 
 UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
