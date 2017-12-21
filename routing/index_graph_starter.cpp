@@ -133,7 +133,7 @@ bool IndexGraphStarter::CheckLength(RouteWeight const & weight)
 {
   // We allow 1 pass-through/non-pass-through crossing per ending located in
   // non-pass-through zone to allow user to leave this zone.
-  int const nonPassThroughCrossAllowed =
+  int32_t const nonPassThroughCrossAllowed =
       (StartPassThroughAllowed() ? 0 : 1) + (FinishPassThroughAllowed() ? 0 : 1);
 
   return weight.GetNonPassThroughCross() <= nonPassThroughCrossAllowed &&

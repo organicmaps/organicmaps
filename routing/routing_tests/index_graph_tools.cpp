@@ -122,17 +122,17 @@ void TestIndexGraphTopology::AddDirectedEdge(Vertex from, Vertex to, double weig
   AddDirectedEdge(m_edgeRequests, from, to, weight);
 }
 
-void TestIndexGraphTopology::BlockEdge(Vertex from, Vertex to)
+void TestIndexGraphTopology::SetEdgeAccess(Vertex from, Vertex to, RoadAccess::Type type)
 {
   for (auto & r : m_edgeRequests)
   {
     if (r.m_from == from && r.m_to == to)
     {
-      r.m_isBlocked = true;
+      r.m_accessType = type;
       return;
     }
   }
-  CHECK(false, ("Cannot block edge that is not in the graph", from, to));
+  CHECK(false, ("Cannot set access for edge that is not in the graph", from, to));
 }
 
 bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & pathWeight,
@@ -254,19 +254,15 @@ void TestIndexGraphTopology::Builder::BuildJoints()
 
 void TestIndexGraphTopology::Builder::BuildGraphFromRequests(vector<EdgeRequest> const & requests)
 {
-  vector<uint32_t> blockedFeatureIds;
+  map<Segment, RoadAccess::Type> segmentTypes;
   for (auto const & request : requests)
   {
     BuildSegmentFromEdge(request);
-    if (request.m_isBlocked)
-      blockedFeatureIds.push_back(request.m_id);
-  }
-
-  map<Segment, RoadAccess::Type> segmentTypes;
-  for (auto const fid : blockedFeatureIds)
-  {
-    segmentTypes[Segment(kFakeNumMwmId, fid, 0 /* wildcard segmentIdx */, true)] =
-        RoadAccess::Type::No;
+    if (request.m_accessType != RoadAccess::Type::Yes)
+    {
+      segmentTypes[Segment(kFakeNumMwmId, request.m_id, 0 /* wildcard segmentIdx */, true)] =
+          request.m_accessType;
+    }
   }
 
   m_roadAccess.SetSegmentTypes(move(segmentTypes));

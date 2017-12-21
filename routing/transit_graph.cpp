@@ -56,13 +56,15 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment) const
   if (IsGate(segment))
   {
     auto const weight = GetGate(segment).GetWeight();
-    return RouteWeight(weight /* weight */, 0 /* nonPassThrougCross */, weight /* transitTime */);
+    return RouteWeight(weight /* weight */, 0 /* nonPassThroughCross */, 0 /* numAccessChanges */,
+                       weight /* transitTime */);
   }
 
   if (IsEdge(segment))
   {
     auto const weight = GetEdge(segment).GetWeight();
-    return RouteWeight(weight /* weight */, 0 /* nonPassThrougCross */, weight /* transitTime */);
+    return RouteWeight(weight /* weight */, 0 /* nonPassThrougCross */, 0 /* numAccessChanges */,
+                       weight /* transitTime */);
   }
 
   return RouteWeight(
@@ -94,7 +96,7 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
   // 3. |from| is edge, |to| is edge from another line directly connected to |from|.
   auto const it = m_transferPenalties.find(lineIdTo);
   CHECK(it != m_transferPenalties.cend(), ("Segment", to, "belongs to unknown line:", lineIdTo));
-  return RouteWeight(it->second /* weight */, 0 /* nonPassThrougCross */,
+  return RouteWeight(it->second /* weight */, 0 /* nonPassThrougCross */, 0 /* numAccessChanges */,
                      it->second /* transitTime */);
 }
 

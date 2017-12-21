@@ -155,8 +155,8 @@ public:
   // and the graph itself is built only after a call to FindPath.
   void AddDirectedEdge(Vertex from, Vertex to, double weight);
 
-  // Blocks a previously added edge without removing it from the graph.
-  void BlockEdge(Vertex from, Vertex to);
+  // Sets access for previously added edge.
+  void SetEdgeAccess(Vertex from, Vertex to, RoadAccess::Type type);
 
   // Finds a path between the start and finish vertices. Returns true iff a path exists.
   bool FindPath(Vertex start, Vertex finish, double & pathWeight, vector<Edge> & pathEdges) const;
@@ -168,7 +168,7 @@ private:
     Vertex m_from = 0;
     Vertex m_to = 0;
     double m_weight = 0.0;
-    bool m_isBlocked = false;
+    RoadAccess::Type m_accessType = RoadAccess::Type::Yes;
 
     EdgeRequest(uint32_t id, Vertex from, Vertex to, double weight)
       : m_id(id), m_from(from), m_to(to), m_weight(weight)

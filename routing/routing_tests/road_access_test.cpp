@@ -87,7 +87,7 @@ UNIT_TEST(RoadAccess_WayBlocked)
   double const expectedWeight = 0.0;
   vector<TestEdge> const expectedEdges = {};
 
-  graph.BlockEdge(1, 2);
+  graph.SetEdgeAccess(1, 2, RoadAccess::Type::No);
 
   TestTopologyGraph(graph, 0, 3, false /* pathFound */, expectedWeight, expectedEdges);
 }
@@ -111,12 +111,32 @@ UNIT_TEST(RoadAccess_BarrierBypassing)
   expectedEdges = {{0, 1}, {1, 2}, {2, 5}};
   TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
 
-  graph.BlockEdge(1, 2);
+  // Test avoid access=private while we have route with RoadAccess::Type::Yes.
+  graph.SetEdgeAccess(1, 2, RoadAccess::Type::Private);
   expectedWeight = 4.0;
   expectedEdges = {{0, 3}, {3, 4}, {4, 5}};
   TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
 
-  graph.BlockEdge(3, 4);
+  // Test avoid access=destination while we have route with RoadAccess::Type::Yes.
+  graph.SetEdgeAccess(1, 2, RoadAccess::Type::Destination);
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  // Test avoid access=no while we have route with RoadAccess::Type::Yes.
+  graph.SetEdgeAccess(1, 2, RoadAccess::Type::No);
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  // Test it's possible to build the route because private usage restriction is not strict:
+  // we use minimal possible number of access=yes/access={private, destination} crossing
+  // but allow to use private/destination if there is no other way.
+  graph.SetEdgeAccess(3, 4, RoadAccess::Type::Private);
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  // Test we have the same behaviour for access=destination.
+  graph.SetEdgeAccess(3, 4, RoadAccess::Type::Destination);
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  // Test we have strict restriction for access=no and can not build route.
+  graph.SetEdgeAccess(3, 4, RoadAccess::Type::No);
   TestTopologyGraph(graph, 0, 5, false /* pathFound */, expectedWeight, expectedEdges);
 }
 }  // namespace
