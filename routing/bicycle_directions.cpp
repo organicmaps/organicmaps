@@ -335,12 +335,12 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     prevJunctions.push_back(currJunction);
 
     AdjacentEdges adjacentEdges(ingoingEdges.size());
-    UniNodeId uniNodeId(UniNodeId::Type::Mwm);
+    UniNodeId uniNodeId;
     GetUniNodeIdAndAdjacentEdges(outgoingEdges, inEdge, startSegId, inSegId, uniNodeId,
                                  adjacentEdges.m_outgoingTurns);
 
     size_t const prevJunctionSize = prevJunctions.size();
-    LoadedPathSegment pathSegment(UniNodeId::Type::Mwm);
+    LoadedPathSegment pathSegment;
     LoadPathAttributes(uniNodeId.GetFeature(), pathSegment);
     pathSegment.m_nodeId = uniNodeId;
     pathSegment.m_path = move(prevJunctions);
