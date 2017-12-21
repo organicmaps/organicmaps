@@ -12,7 +12,6 @@
 #include "generator/osm_source.hpp"
 #include "generator/restriction_generator.hpp"
 #include "generator/road_access_generator.hpp"
-#include "generator/routing_generator.hpp"
 #include "generator/routing_index_generator.hpp"
 #include "generator/search_index_builder.hpp"
 #include "generator/statistics.hpp"
@@ -99,9 +98,6 @@ DEFINE_bool(split_by_polygons, false,
             "Use countries borders to split planet by regions and countries.");
 
 // Routing.
-DEFINE_string(osrm_file_name, "", "Input osrm file to generate routing info.");
-DEFINE_bool(make_routing, false, "Make routing info based on osrm file.");
-DEFINE_bool(make_cross_section, false, "Make cross section in routing file for cross mwm routing (for OSRM routing).");
 DEFINE_bool(make_routing_index, false, "Make sections with the routing information.");
 DEFINE_bool(make_cross_mwm, false,
             "Make section for cross mwm routing (for dynamic indexed routing).");
@@ -443,12 +439,6 @@ int main(int argc, char ** argv)
 
   if (FLAGS_check_mwm)
     check_model::ReadFeatures(datFile);
-
-  if (!FLAGS_osrm_file_name.empty() && FLAGS_make_routing)
-    routing::BuildRoutingIndex(path, FLAGS_output, FLAGS_osrm_file_name);
-
-  if (!FLAGS_osrm_file_name.empty() && FLAGS_make_cross_section)
-    routing::BuildCrossRoutingIndex(path, FLAGS_output, FLAGS_osrm_file_name);
 
   return 0;
 }

@@ -2,7 +2,6 @@ project(generator)
 
 include_directories(
   ${OMIM_ROOT}/3party/gflags/src
-  ${OMIM_ROOT}/3party/osrm/osrm-backend/include
   ${OMIM_ROOT}/3party/jansson/src
 )
 
@@ -65,8 +64,6 @@ set(SRC
   restriction_writer.hpp
   road_access_generator.cpp
   road_access_generator.hpp
-  routing_generator.cpp
-  routing_generator.hpp
   routing_helpers.cpp
   routing_helpers.hpp
   routing_index_generator.cpp

@@ -9,7 +9,6 @@ ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src \
-               $$ROOT_DIR/3party/osrm/osrm-backend/include \
                $$ROOT_DIR/3party/jansson/src
 
 QT *= core
@@ -41,7 +40,6 @@ SOURCES += \
     restriction_generator.cpp \
     restriction_writer.cpp \
     road_access_generator.cpp \
-    routing_generator.cpp \
     routing_helpers.cpp \
     routing_index_generator.cpp \
     search_index_builder.cpp \
@@ -92,7 +90,6 @@ HEADERS += \
     restriction_generator.hpp \
     restriction_writer.hpp \
     road_access_generator.hpp \
-    routing_generator.hpp \
     routing_helpers.hpp \
     routing_index_generator.hpp \
     search_index_builder.hpp \

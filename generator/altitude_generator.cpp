@@ -1,5 +1,4 @@
 #include "generator/altitude_generator.hpp"
-#include "generator/routing_generator.hpp"
 #include "generator/srtm_parser.hpp"
 
 #include "routing/routing_helpers.hpp"
