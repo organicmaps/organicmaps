@@ -614,14 +614,28 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
 {
   TCountryId const & countryId = country.GetCountryId();
   CountryFile const & countryFile = GetCountryFile(countryId);
+  auto const opt = country.GetCurrentFileOptions();
 
-  string const filePath = GetFileDownloadPath(countryId, country.GetCurrentFileOptions());
+  string const readyFilePath = GetFileDownloadPath(countryId, opt);
   uint64_t size;
+  auto & p = GetPlatform();
+
+  // Since a downloaded valid diff file may be either with .diff or .diff.ready extension,
+  // we have to check these both cases in order to find
+  // the diff file which is ready to apply.
+  // If there is a such file we have to cause the success download scenario.
+  bool isDownloadedDiff = false;
+  if (opt == MapOptions::Diff)
+  {
+    string filePath = readyFilePath;
+    my::GetNameWithoutExt(filePath);
+    isDownloadedDiff = p.GetFileSizeByFullPath(filePath, size);
+  }
 
   // It may happen that the file already was downloaded, so there're
   // no need to request servers list and download file.  Let's
   // switch to next file.
-  if (GetPlatform().GetFileSizeByFullPath(filePath, size))
+  if (isDownloadedDiff || p.GetFileSizeByFullPath(readyFilePath, size))
   {
     OnMapFileDownloadFinished(true /* success */, MapFilesDownloader::TProgress(size, size));
     return;
@@ -939,9 +953,15 @@ string Storage::GetFileDownloadUrl(string const & baseUrl,
   url << baseUrl;
   string const currentVersion = strings::to_string(GetCurrentDataVersion());
   if (options == MapOptions::Diff)
-    url << "diffs/" << currentVersion << "/"  << strings::to_string(m_diffManager.InfoFor(countryId).m_version);
+  {
+    uint64_t version;
+    CHECK(m_diffManager.VersionFor(countryId, version), ());
+    url << "diffs/" << currentVersion << "/" << strings::to_string(version);
+  }
   else
+  {
     url << OMIM_OS_NAME "/" << currentVersion;
+  }
 
   url << "/" << UrlEncode(fileName);
   return url.str();
@@ -1194,8 +1214,12 @@ bool Storage::DeleteCountryFilesFromDownloader(TCountryId const & countryId)
 uint64_t Storage::GetDownloadSize(QueuedCountry const & queuedCountry) const
 {
   TCountryId const & countryId = queuedCountry.GetCountryId();
+  uint64_t size;
   if (queuedCountry.GetInitOptions() == MapOptions::Diff)
-    return m_diffManager.InfoFor(countryId).m_size;
+  {
+    CHECK(m_diffManager.SizeFor(countryId, size), ());
+    return size;
+  }
 
   CountryFile const & file = GetCountryFile(countryId);
   return GetRemoteSize(file, queuedCountry.GetCurrentFileOptions(), GetCurrentDataVersion());
@@ -1422,7 +1446,16 @@ void Storage::ApplyDiff(TCountryId const & countryId, function<void(bool isSucce
   params.m_diffFile =
       PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId));
   params.m_diffReadyPath = GetFileDownloadPath(countryId, MapOptions::Diff);
-  params.m_oldMwmFile = GetLocalFile(countryId, m_diffManager.InfoFor(countryId).m_version);
+
+  uint64_t version;
+  if (!m_diffManager.VersionFor(countryId, version))
+  {
+    ASSERT(false, ("Invalid attempt to get version of diff with country id:", countryId));
+    fn(false);
+    return;
+  }
+
+  params.m_oldMwmFile = GetLocalFile(countryId, version);
 
   TLocalFilePtr & diffFile = params.m_diffFile;
 
@@ -1461,25 +1494,8 @@ void Storage::OnDiffStatusReceived(diffs::Status const status)
     {
       auto const countryId = FindCountryIdByFile(localDiff.GetCountryName());
 
-      auto const registerDiffFn = [this, countryId](bool isSuccess)
-      {
-        ASSERT_THREAD_CHECKER(m_threadChecker, ());
-        if (!isSuccess)
-        {
-          m_failedCountries.insert(countryId);
-          NotifyStatusChangedForHierarchy(countryId);
-          return;
-        }
-
-        TLocalFilePtr localFile = GetLocalFile(countryId, GetCurrentDataVersion());
-        ASSERT(localFile, ());
-        DeleteCountryIndexes(*localFile);
-        m_didDownload(countryId, localFile);
-        NotifyStatusChangedForHierarchy(countryId);
-      };
-
       if (m_diffManager.HasDiffFor(countryId))
-        ApplyDiff(countryId, registerDiffFn);
+        UpdateNode(countryId);
       else
         localDiff.DeleteFromDisk(MapOptions::Diff);
     }
@@ -1751,10 +1767,10 @@ bool Storage::GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInf
         GetNodeStatus(descendantNode).status != NodeStatus::OnDiskOutOfDate)
       return;
     updateInfo.m_numberOfMwmFilesToUpdate += 1;  // It's not a group mwm.
-    if (m_diffManager.HasDiffFor(descendantNode.Value().Name()))
+    uint64_t size;
+    if (m_diffManager.SizeFor(descendantNode.Value().Name(), size))
     {
-      updateInfo.m_totalUpdateSizeInBytes +=
-        m_diffManager.InfoFor(descendantNode.Value().Name()).m_size;
+      updateInfo.m_totalUpdateSizeInBytes += size;
     }
     else
     {
@@ -1890,8 +1906,9 @@ TMwmSize Storage::GetRemoteSize(CountryFile const & file, MapOptions opt, int64_
   {
     if (opt == MapOptions::Nothing)
       return 0;
-    if (m_diffManager.HasDiffFor(file.GetName()))
-      return m_diffManager.InfoFor(file.GetName()).m_size;
+    uint64_t size;
+    if (m_diffManager.SizeFor(file.GetName(), size))
+      return size;
     return file.GetRemoteSize(MapOptions::Map);
   }
 

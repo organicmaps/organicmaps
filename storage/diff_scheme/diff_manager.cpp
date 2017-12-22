@@ -107,30 +107,19 @@ Status Manager::GetStatus() const
   return m_status;
 }
 
-void Manager::SetStatus(Status status)
+bool Manager::SizeFor(storage::TCountryId const & countryId, uint64_t & size) const
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-  m_status = status;
+  return WithDiff(countryId, [&size](FileInfo const & info) { size = info.m_size; });
 }
 
-FileInfo const & Manager::InfoFor(storage::TCountryId const & countryId) const
+bool Manager::VersionFor(storage::TCountryId const & countryId, uint64_t & version) const
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-  ASSERT(HasDiffForUnsafe(countryId), ());
-  return m_diffs.at(countryId);
+  return WithDiff(countryId, [&version](FileInfo const & info) { version = info.m_version; });
 }
 
 bool Manager::HasDiffFor(storage::TCountryId const & countryId) const
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-  return HasDiffForUnsafe(countryId);
-}
-
-bool Manager::HasDiffForUnsafe(storage::TCountryId const & countryId) const
-{
-  if (m_status != diffs::Status::Available)
-    return false;
-  return m_diffs.find(countryId) != m_diffs.end();
+  return WithDiff(countryId, [](FileInfo const &){});
 }
 
 bool Manager::IsPossibleToAutoupdate() const

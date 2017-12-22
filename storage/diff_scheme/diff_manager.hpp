@@ -33,12 +33,12 @@ public:
     virtual void OnDiffStatusReceived(Status const status) = 0;
   };
 
-  FileInfo const & InfoFor(storage::TCountryId const & countryId) const;
+  bool SizeFor(storage::TCountryId const & countryId, uint64_t & size) const;
+  bool VersionFor(storage::TCountryId const & countryId, uint64_t & version) const;
   bool IsPossibleToAutoupdate() const;
   bool HasDiffFor(storage::TCountryId const & countryId) const;
 
   Status GetStatus() const;
-  void SetStatus(Status status);
 
   void Load(LocalMapsInfo && info);
   void ApplyDiff(ApplyDiffParams && p, std::function<void(bool const result)> const & task);
@@ -47,7 +47,20 @@ public:
   bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
 
 private:
-  bool HasDiffForUnsafe(storage::TCountryId const & countryId) const;
+  template <typename Fn>
+  bool WithDiff(storage::TCountryId const & countryId, Fn && fn) const
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    if (m_status != Status::Available)
+      return false;
+
+    auto const it = m_diffs.find(countryId);
+    if (it == m_diffs.cend())
+      return false;
+
+    fn(it->second);
+    return true;
+  }
 
   mutable std::mutex m_mutex;
   Status m_status = Status::Undefined;
