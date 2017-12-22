@@ -28,26 +28,12 @@ struct LoadedPathSegment
   vector<Junction> m_path;
   vector<turns::SingleLaneInfo> m_lanes;
   string m_name;
-  TEdgeWeight m_weight; /*!< Time in seconds to pass the segment. */
-  UniNodeId m_nodeId;   /*!< Node id for A*. */
+  double m_weight = 0.0; /*!< Time in seconds to pass the segment. */
+  SegmentRange m_segmentRange;
   vector<Segment> m_segments; /*!< Traffic segments for |m_path|. */
-  ftypes::HighwayClass m_highwayClass;
-  bool m_onRoundabout;
-  bool m_isLink;
-
-  LoadedPathSegment() { Clear(); }
-  void Clear()
-  {
-    m_path.clear();
-    m_lanes.clear();
-    m_name.clear();
-    m_weight = 0;
-    m_nodeId.Clear();
-    m_segments.clear();
-    m_highwayClass = ftypes::HighwayClass::Undefined;
-    m_onRoundabout = false;
-    m_isLink = false;
-  }
+  ftypes::HighwayClass m_highwayClass = ftypes::HighwayClass::Undefined;
+  bool m_onRoundabout = false;
+  bool m_isLink = false;
 
   bool IsValid() const { return !m_path.empty(); }
 };

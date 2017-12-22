@@ -8,6 +8,7 @@
 #include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -167,7 +168,10 @@ void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId, Roa
   ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
                                                       bool forward) {
     if (forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
-      m_edges.push_back(Edge::MakeReal(featureId, forward, static_cast<uint32_t>(segId), m_cross, endJunction));
+    {
+      m_edges.push_back(Edge::MakeReal(featureId, forward, base::asserted_cast<uint32_t>(segId),
+                                       m_cross, endJunction));
+    }
   });
 }
 
@@ -177,7 +181,10 @@ void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId, Road
   ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
                                                       bool forward) {
     if (!forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
-      m_edges.push_back(Edge::MakeReal(featureId, !forward, static_cast<uint32_t>(segId), endJunction, m_cross));
+    {
+      m_edges.push_back(Edge::MakeReal(featureId, !forward, base::asserted_cast<uint32_t>(segId),
+                                       endJunction, m_cross));
+    }
   });
 }
 

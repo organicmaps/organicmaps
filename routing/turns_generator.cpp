@@ -45,7 +45,7 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
   ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::Error;
   for (auto const & t : possibleTurns.candidates)
   {
-    if (t.m_nodeId == turnInfo.m_outgoing.m_nodeId)
+    if (t.m_segmentRange == turnInfo.m_outgoing.m_segmentRange)
       continue;
     ftypes::HighwayClass const highwayClass = t.highwayClass;
     if (static_cast<int>(highwayClass) > static_cast<int>(maxClassForPossibleTurns))
@@ -84,7 +84,7 @@ bool KeepRoundaboutTurnByHighwayClass(CarDirection turn, TurnCandidates const & 
 {
   for (auto const & t : possibleTurns.candidates)
   {
-    if (t.m_nodeId == turnInfo.m_outgoing.m_nodeId)
+    if (t.m_segmentRange == turnInfo.m_outgoing.m_segmentRange)
       continue;
     if (static_cast<int>(t.highwayClass) != static_cast<int>(ftypes::HighwayClass::Service))
       return true;
@@ -572,7 +572,7 @@ void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnIt
   m2::PointD const ingoingPointOneSegment = turnInfo.m_ingoing.m_path[turnInfo.m_ingoing.m_path.size() - 2].GetPoint();
   TurnCandidates nodes;
   size_t ingoingCount;
-  result.GetPossibleTurns(turnInfo.m_ingoing.m_nodeId, ingoingPointOneSegment, junctionPoint,
+  result.GetPossibleTurns(turnInfo.m_ingoing.m_segmentRange, ingoingPointOneSegment, junctionPoint,
                           ingoingCount, nodes);
 
   size_t const numNodes = nodes.candidates.size();
@@ -587,9 +587,9 @@ void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnIt
   }
   else
   {
-    if (nodes.candidates.front().m_nodeId == turnInfo.m_outgoing.m_nodeId)
+    if (nodes.candidates.front().m_segmentRange == turnInfo.m_outgoing.m_segmentRange)
       turn.m_turn = LeftmostDirection(turnAngle);
-    else if (nodes.candidates.back().m_nodeId == turnInfo.m_outgoing.m_nodeId)
+    else if (nodes.candidates.back().m_segmentRange == turnInfo.m_outgoing.m_segmentRange)
       turn.m_turn = RightmostDirection(turnAngle);
     else
       turn.m_turn = intermediateDirection;

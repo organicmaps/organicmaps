@@ -50,14 +50,14 @@ public:
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_pathSegments; }
 
-  void GetPossibleTurns(UniNodeId const & node, m2::PointD const & /* ingoingPoint */,
+  void GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & /* ingoingPoint */,
                         m2::PointD const & /* junctionPoint */, size_t & ingoingCount,
                         TurnCandidates & outgoingTurns) const override
   {
     ingoingCount = 0;
     outgoingTurns.candidates.clear();
 
-    auto const adjacentEdges = m_adjacentEdges.find(node);
+    auto const adjacentEdges = m_adjacentEdges.find(segmentRange);
     if (adjacentEdges == m_adjacentEdges.cend())
     {
       ASSERT(false, ());
@@ -225,17 +225,14 @@ void BicycleDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, Lo
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(ft);
 }
 
-void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(IRoadGraph::TEdgeVector const & outgoingEdges,
-                                                           Edge const & inEdge,
-                                                           uint32_t startSegId,
-                                                           uint32_t endSegId,
-                                                           UniNodeId & uniNodeId,
-                                                           TurnCandidates & outgoingTurns)
+void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
+    IRoadGraph::TEdgeVector const & outgoingEdges, Edge const & inEdge, uint32_t startSegId,
+    uint32_t endSegId, SegmentRange & segmentRange, TurnCandidates & outgoingTurns)
 {
   outgoingTurns.isCandidatesAngleValid = true;
   outgoingTurns.candidates.reserve(outgoingEdges.size());
-  uniNodeId = UniNodeId(inEdge.GetFeatureId(), startSegId, endSegId, inEdge.IsForward());
-  CHECK(uniNodeId.IsCorrect(), ());
+  segmentRange = SegmentRange(inEdge.GetFeatureId(), startSegId, endSegId, inEdge.IsForward());
+  CHECK(segmentRange.IsCorrect(), ());
   m2::PointD const & ingoingPoint = inEdge.GetStartJunction().GetPoint();
   m2::PointD const & junctionPoint = inEdge.GetEndJunction().GetPoint();
 
@@ -271,7 +268,7 @@ void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(IRoadGraph::TEdgeVect
       // should not be used for turn generation.
       outgoingTurns.isCandidatesAngleValid = false;
     }
-    outgoingTurns.candidates.emplace_back(angle, uniNodeId, highwayClass);
+    outgoingTurns.candidates.emplace_back(angle, segmentRange, highwayClass);
   }
 }
 
@@ -335,14 +332,14 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     prevJunctions.push_back(currJunction);
 
     AdjacentEdges adjacentEdges(ingoingEdges.size());
-    UniNodeId uniNodeId;
-    GetUniNodeIdAndAdjacentEdges(outgoingEdges, inEdge, startSegId, inSegId, uniNodeId,
-                                 adjacentEdges.m_outgoingTurns);
+    SegmentRange segmentRange;
+    GetSegmentRangeAndAdjacentEdges(outgoingEdges, inEdge, startSegId, inSegId, segmentRange,
+                                    adjacentEdges.m_outgoingTurns);
 
     size_t const prevJunctionSize = prevJunctions.size();
     LoadedPathSegment pathSegment;
-    LoadPathAttributes(uniNodeId.GetFeature(), pathSegment);
-    pathSegment.m_nodeId = uniNodeId;
+    LoadPathAttributes(segmentRange.GetFeature(), pathSegment);
+    pathSegment.m_segmentRange = segmentRange;
     pathSegment.m_path = move(prevJunctions);
     // @TODO(bykoianko) |pathSegment.m_weight| should be filled here.
 
@@ -351,7 +348,7 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     CHECK_EQUAL(prevSegments.size() + 1, prevJunctionSize, ());
     pathSegment.m_segments = move(prevSegments);
 
-    auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, move(adjacentEdges)));
+    auto const it = m_adjacentEdges.insert(make_pair(segmentRange, move(adjacentEdges)));
     ASSERT(it.second, ());
     UNUSED_VALUE(it);
     m_pathSegments.push_back(move(pathSegment));

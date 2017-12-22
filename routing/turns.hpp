@@ -11,29 +11,27 @@
 
 namespace routing
 {
-using TNodeId = uint32_t;
-using TEdgeWeight = double;
-
-/// \brief Unique identification for a road edge between two junctions (joints).
-/// It's mwm id, feature id, range of segment ids [|m_startSegId|, |m_endSegId|) and direction.
-struct UniNodeId
+/// \brief Unique identification for a road edge between two junctions (joints). The identifier
+/// is represented by an mwm id, a feature id, a range of segment ids [|m_startSegId|, |m_endSegId|)
+/// and a direction.
+struct SegmentRange
 {
-  UniNodeId() = default;
-  UniNodeId(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId, bool forward);
-  bool operator==(UniNodeId const & rh) const;
-  bool operator<(UniNodeId const & rh) const;
+  SegmentRange() = default;
+  SegmentRange(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId, bool forward);
+  bool operator==(SegmentRange const & rh) const;
+  bool operator<(SegmentRange const & rh) const;
   void Clear();
   FeatureID const & GetFeature() const;
-  /// \returns true if the instance of UniNodeId is correct.
+  /// \returns true if the instance of SegmentRange is correct.
   bool IsCorrect() const;
 
 private:
 
   FeatureID m_featureId;
-  // Note. In mwm case if UniNodeId represents two directional feature |m_endSegId| is greater
+  // Note. If SegmentRange represents two directional feature |m_endSegId| is greater
   // than |m_startSegId| if |m_forward| == true.
-  uint32_t m_startSegId = 0; // The first segment index of UniNodeId.
-  uint32_t m_endSegId = 0;   // The last segment index UniNodeId.
+  uint32_t m_startSegId = 0; // The first segment index of SegmentRange.
+  uint32_t m_endSegId = 0;   // The last segment index of SegmentRange.
   bool m_forward = true;     // Segment direction in |m_featureId|.
 };
 

@@ -51,8 +51,8 @@ static_assert(g_turnNames.size() == static_cast<size_t>(CarDirection::Count),
 
 namespace routing
 {
-// UniNodeId -------------------------------------------------------------------
-UniNodeId::UniNodeId(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId,
+// SegmentRange -----------------------------------------------------------------------------------
+SegmentRange::SegmentRange(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId,
                      bool forward)
   : m_featureId(featureId)
   , m_startSegId(startSegId)
@@ -61,13 +61,13 @@ UniNodeId::UniNodeId(FeatureID const & featureId, uint32_t startSegId, uint32_t 
 {
 }
 
-bool UniNodeId::operator==(UniNodeId const & rhs) const
+bool SegmentRange::operator==(SegmentRange const & rhs) const
 {
   return m_featureId == rhs.m_featureId && m_startSegId == rhs.m_startSegId &&
          m_endSegId == rhs.m_endSegId && m_forward == rhs.m_forward;
 }
 
-bool UniNodeId::operator<(UniNodeId const & rhs) const
+bool SegmentRange::operator<(SegmentRange const & rhs) const
 {
   if (m_featureId != rhs.m_featureId)
     return m_featureId < rhs.m_featureId;
@@ -81,7 +81,7 @@ bool UniNodeId::operator<(UniNodeId const & rhs) const
   return m_forward < rhs.m_forward;
 }
 
-void UniNodeId::Clear()
+void SegmentRange::Clear()
 {
   m_featureId = FeatureID();
   m_startSegId = 0;
@@ -89,19 +89,19 @@ void UniNodeId::Clear()
   m_forward = true;
 }
 
-FeatureID const & UniNodeId::GetFeature() const
+FeatureID const & SegmentRange::GetFeature() const
 {
   return m_featureId;
 }
 
-bool UniNodeId::IsCorrect() const
+bool SegmentRange::IsCorrect() const
 {
   return (m_forward && m_startSegId <= m_endSegId) || (!m_forward && m_endSegId <= m_startSegId);
 }
 
 namespace turns
 {
-// SingleLaneInfo --------------------------------------------------------------
+// SingleLaneInfo ---------------------------------------------------------------------------------
 bool SingleLaneInfo::operator==(SingleLaneInfo const & other) const
 {
   return m_lane == other.m_lane && m_isRecommended == other.m_isRecommended;

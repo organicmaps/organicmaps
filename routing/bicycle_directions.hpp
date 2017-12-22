@@ -24,7 +24,7 @@ public:
     size_t m_ingoingTurnsCount;
   };
 
-  using AdjacentEdgesMap = std::map<UniNodeId, AdjacentEdges>;
+  using AdjacentEdgesMap = std::map<SegmentRange, AdjacentEdges>;
 
   BicycleDirectionsEngine(Index const & index, std::shared_ptr<NumMwmIds> numMwmIds);
 
@@ -37,12 +37,10 @@ public:
 private:
   Index::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
   void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment);
-  void GetUniNodeIdAndAdjacentEdges(IRoadGraph::TEdgeVector const & outgoingEdges,
-                                    Edge const & inEdge,
-                                    uint32_t startSegId,
-                                    uint32_t endSegId,
-                                    UniNodeId & uniNodeId,
-                                    turns::TurnCandidates & outgoingTurns);
+  void GetSegmentRangeAndAdjacentEdges(IRoadGraph::TEdgeVector const & outgoingEdges,
+                                       Edge const & inEdge, uint32_t startSegId, uint32_t endSegId,
+                                       SegmentRange & segmentRange,
+                                       turns::TurnCandidates & outgoingTurns);
   /// \brief The method gathers sequence of segments according to IsJoint() method
   /// and fills |m_adjacentEdges| and |m_pathSegments|.
   void FillPathSegmentsAndAdjacentEdgesMap(RoadGraphBase const & graph,

@@ -330,7 +330,7 @@ UNIT_TEST(TestCheckUTurnOnRoute)
   TUnpackedPathSegments pathSegments(4, LoadedPathSegment());
   pathSegments[0].m_name = "A road";
   pathSegments[0].m_weight = 1;
-  pathSegments[0].m_nodeId = UniNodeId(FeatureID(), 0 /* start seg id */, 1 /* end seg id */,
+  pathSegments[0].m_segmentRange = SegmentRange(FeatureID(), 0 /* start seg id */, 1 /* end seg id */,
                                        true /* forward */);
   pathSegments[0].m_highwayClass = ftypes::HighwayClass::Trunk;
   pathSegments[0].m_onRoundabout = false;
@@ -338,17 +338,17 @@ UNIT_TEST(TestCheckUTurnOnRoute)
   pathSegments[0].m_path = {{{0, 0}, 0}, {{0, 1}, 0}};
 
   pathSegments[1] = pathSegments[0];
-  pathSegments[1].m_nodeId = UniNodeId(FeatureID(), 1 /* start seg id */, 2 /* end seg id */,
+  pathSegments[1].m_segmentRange = SegmentRange(FeatureID(), 1 /* start seg id */, 2 /* end seg id */,
                                        true /* forward */);
   pathSegments[1].m_path = {{{0, 1}, 0}, {{0, 0}, 0}};
 
   pathSegments[2] = pathSegments[0];
-  pathSegments[2].m_nodeId = UniNodeId(FeatureID(), 2 /* start seg id */, 3 /* end seg id */,
+  pathSegments[2].m_segmentRange = SegmentRange(FeatureID(), 2 /* start seg id */, 3 /* end seg id */,
                                        true /* forward */);
   pathSegments[2].m_path = {{{0, 0}, 0}, {{0, 1}, 0}};
 
   pathSegments[3] = pathSegments[0];
-  pathSegments[3].m_nodeId = UniNodeId(FeatureID(), 3 /* start seg id */, 4 /* end seg id */,
+  pathSegments[3].m_segmentRange = SegmentRange(FeatureID(), 3 /* start seg id */, 4 /* end seg id */,
                                        true /* forward */);
   pathSegments[3].m_path.clear();
 
