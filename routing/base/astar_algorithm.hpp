@@ -56,7 +56,7 @@ public:
   struct Params
   {
     Params(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-           std::vector<Edge> const & prevRoute, my::Cancellable const & cancellable,
+           std::vector<Edge> const * prevRoute, my::Cancellable const & cancellable,
            OnVisitedVertexCallback const & onVisitedVertexCallback,
            CheckLengthCallback const & checkLengthCallback)
       : m_graph(graph)
@@ -73,14 +73,14 @@ public:
     }
 
     Graph & m_graph;
-    Vertex const & m_startVertex;
+    Vertex const m_startVertex;
     // Used for FindPath, FindPathBidirectional.
-    Vertex const & m_finalVertex;
+    Vertex const m_finalVertex;
     // Used for AdjustRoute.
-    std::vector<Edge> const & m_prevRoute;
+    std::vector<Edge> const * m_prevRoute;
     my::Cancellable const & m_cancellable;
-    OnVisitedVertexCallback m_onVisitedVertexCallback;
-    CheckLengthCallback m_checkLengthCallback;
+    OnVisitedVertexCallback const m_onVisitedVertexCallback;
+    CheckLengthCallback const m_checkLengthCallback;
   };
 
   class Context final
@@ -558,9 +558,10 @@ template <typename Graph>
 typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::AdjustRoute(
     Params & params, RoutingResult<Vertex, Weight> & result) const
 {
+  CHECK(params.m_prevRoute, ());
   auto & graph = params.m_graph;
   auto const & startVertex = params.m_startVertex;
-  auto const & prevRoute = params.m_prevRoute;
+  auto const & prevRoute = *params.m_prevRoute;
 
   CHECK(!prevRoute.empty(), ());
 

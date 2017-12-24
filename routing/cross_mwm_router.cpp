@@ -23,7 +23,7 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
         delegate.OnPointCheck(MercatorBounds::FromLatLon(cross.fromNode.point));
       };
 
-  Algorithm::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */, delegate,
+  Algorithm::Params params(roadGraph, startPos, finalPos, nullptr /* prevRoute */, delegate,
                            onVisitedVertex, {} /* checkLengthCallback */);
 
   my::HighResTimer timer(true);
