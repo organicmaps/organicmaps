@@ -27,6 +27,7 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 
+#include "base/math.hpp"
 #include "base/stl_add.hpp"
 
 #include "std/functional.hpp"
@@ -47,6 +48,7 @@ namespace
 {
 double constexpr kErrorMeters = 1.0;
 double constexpr kErrorSeconds = 1.0;
+
 void ChangeMaxNumberOfOpenFiles(size_t n)
 {
   struct rlimit rlp;
@@ -214,6 +216,16 @@ namespace integration
     double const routeSeconds = route.GetTotalTimeSec();
     TEST(my::AlmostEqualAbs(routeSeconds, expectedRouteSeconds, delta),
         ("Route time test failed. Expected:", expectedRouteSeconds, "have:", routeSeconds, "delta:", delta));
+  }
+
+  void TestRoutePointsNumber(Route const & route, size_t expectedPointsNumber, double relativeError)
+  {
+    CHECK_GREATER_OR_EQUAL(relativeError, 0.0, ());
+    size_t const routePoints = route.GetPoly().GetSize();
+    TEST(my::AlmostEqualRel(static_cast<double>(routePoints),
+                            static_cast<double>(expectedPointsNumber), relativeError),
+         ("Route points test failed. Expected:", expectedPointsNumber, "have:", routePoints,
+          "relative error:", relativeError));
   }
 
   void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents,

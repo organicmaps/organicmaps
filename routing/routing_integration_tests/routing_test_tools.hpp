@@ -121,6 +121,8 @@ void TestTurnCount(Route const & route, uint32_t expectedTurnCount);
 /// && expectedRouteMeters + expectedRouteMeters * relativeError >= route->GetDistance()
 void TestRouteLength(Route const & route, double expectedRouteMeters, double relativeError = 0.01);
 void TestRouteTime(Route const & route, double expectedRouteSeconds, double relativeError = 0.01);
+void TestRoutePointsNumber(Route const & route, size_t expectedPointsNumber,
+                           double relativeError = 0.1);
 
 void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents,
                                       m2::PointD const & startPoint,

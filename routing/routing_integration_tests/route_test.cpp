@@ -93,36 +93,42 @@ namespace
   // Geometry unpacking test.
   UNIT_TEST(RussiaFerryToCrimeaLoadCrossGeometryTest)
   {
+    size_t constexpr kExpectedPointsNumber = 50;
     // Forward
     TRouteResult route =
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(45.34123, 36.67679), {0., 0.},
                                     MercatorBounds::FromLatLon(45.36479, 36.62194));
     TEST_EQUAL(route.second, IRouter::NoError, ());
-    TEST_GREATER(route.first->GetPoly().GetSize(), 50, ());
+    CHECK(route.first, ());
+    integration::TestRoutePointsNumber(*route.first, kExpectedPointsNumber);
     // And backward case
     route = integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                         MercatorBounds::FromLatLon(45.36479, 36.62194), {0., 0.},
                                         MercatorBounds::FromLatLon(45.34123, 36.67679));
     TEST_EQUAL(route.second, IRouter::NoError, ());
-    TEST_GREATER(route.first->GetPoly().GetSize(), 50, ());
+    CHECK(route.first, ());
+    integration::TestRoutePointsNumber(*route.first, kExpectedPointsNumber);
   }
 
   UNIT_TEST(PriceIslandLoadCrossGeometryTest)
   {
+    size_t constexpr kExpectedPointsNumber = 56;
     // Forward
     TRouteResult route =
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(46.16255, -63.81643), {0., 0.},
                                     MercatorBounds::FromLatLon(46.25401, -63.70213));
     TEST_EQUAL(route.second, IRouter::NoError, ());
-    TEST_GREATER(route.first->GetPoly().GetSize(), 29, ());
+    CHECK(route.first, ());
+    integration::TestRoutePointsNumber(*route.first, kExpectedPointsNumber);
     // And backward case
     route = integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                         MercatorBounds::FromLatLon(46.25401, -63.70213), {0., 0.},
                                         MercatorBounds::FromLatLon(46.16255, -63.81643));
     TEST_EQUAL(route.second, IRouter::NoError, ());
-    TEST_GREATER(route.first->GetPoly().GetSize(), 29, ());
+    CHECK(route.first, ());
+    integration::TestRoutePointsNumber(*route.first, kExpectedPointsNumber);
   }
 
   // Cross mwm tests.
@@ -310,10 +316,11 @@ namespace
                                     MercatorBounds::FromLatLon(54.7998, 32.05489), {0., 0.},
                                     MercatorBounds::FromLatLon(55.753, 37.60169));
 
-    Route const & route = *routeResult.first;
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
 
+    CHECK(routeResult.first, ());
+    Route const & route = *routeResult.first;
     integration::TestRouteTime(route, 17850.);
   }
 
@@ -323,10 +330,11 @@ namespace
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(55.7971, 37.53804), {0., 0.},
                                     MercatorBounds::FromLatLon(55.8579, 37.40990));
-    Route const & route = *routeResult.first;
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
 
+    CHECK(routeResult.first, ());
+    Route const & route = *routeResult.first;
     integration::TestRouteTime(route, 730.);
   }
 
@@ -340,11 +348,14 @@ namespace
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
 
+    CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
     TEST_EQUAL(route.GetSubrouteCount(), 1, ());
     vector<RouteSegment> info;
     route.GetSubrouteInfo(0, info);
-    TEST_EQUAL(info.size(), 330, ());
+    TEST_EQUAL(route.GetPoly().GetSize(), info.size() + 1, ());
+    size_t constexpr kExpectedPointsNumber = 335;
+    integration::TestRoutePointsNumber(route, kExpectedPointsNumber);
   }
 
   UNIT_TEST(USALosAnglesAriaTwentyninePalmsHighwayTimeTest)
@@ -353,9 +364,10 @@ namespace
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(34.0739, -115.3212), {0.0, 0.0},
                                     MercatorBounds::FromLatLon(34.0928, -115.5930));
-    Route const & route = *routeResult.first;
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
+    CHECK(routeResult.first, ());
+    Route const & route = *routeResult.first;
     TEST_LESS(route.GetTotalTimeSec(), numeric_limits<double >::max() / 2.0, ());
   }
 }  // namespace
