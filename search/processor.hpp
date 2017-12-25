@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/bookmarks/processor.hpp"
 #include "search/categories_cache.hpp"
 #include "search/categories_set.hpp"
 #include "search/cities_boundaries_table.hpp"
@@ -27,6 +28,7 @@
 
 #include "std/cstdint.hpp"
 #include "std/string.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 class FeatureType;
@@ -89,6 +91,10 @@ public:
 
   void ClearCaches();
   void LoadCitiesBoundaries();
+
+  void OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks);
+  void OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks);
+  void OnBookmarksDeleted(vector<bookmarks::Id> const & marks);
 
 protected:
   Locales GetCategoryLocales() const;

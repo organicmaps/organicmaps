@@ -1,5 +1,7 @@
 #pragma once
 
+#include "map/bookmark.hpp"
+
 #include "search/downloader_search_callback.hpp"
 #include "search/engine.hpp"
 #include "search/everywhere_search_callback.hpp"
@@ -8,6 +10,8 @@
 #include "search/search_params.hpp"
 #include "search/viewport_search_callback.hpp"
 
+#include "drape_frontend/user_marks_provider.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -15,6 +19,8 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <utility>
+#include <vector>
 
 #include <boost/optional.hpp>
 
@@ -131,6 +137,10 @@ public:
   void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
                                  search::Results::ConstIter end) override;
   bool IsLocalAdsCustomer(search::Result const & result) const override;
+
+  void OnBookmarksCreated(std::vector<std::pair<df::MarkID, BookmarkData>> const & marks);
+  void OnBookmarksUpdated(std::vector<std::pair<df::MarkID, BookmarkData>> const & marks);
+  void OnBookmarksDeleted(std::vector<df::MarkID> const & marks);
 
 private:
   struct SearchIntent

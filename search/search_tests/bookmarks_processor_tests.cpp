@@ -18,9 +18,6 @@ namespace
 class BookmarksProcessorTest
 {
 public:
-  using Id = Processor::Id;
-  using Doc = Processor::Doc;
-
   void Add(Id const & id, Doc const & doc) { m_processor.Add(id, doc); }
   void Erase(Id const & id, Doc const & doc) { m_processor.Erase(id, doc); }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/bookmarks/processor.hpp"
 #include "search/result.hpp"
 #include "search/search_params.hpp"
 #include "search/suggest.hpp"
@@ -19,6 +20,7 @@
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 #include "std/weak_ptr.hpp"
 
@@ -105,10 +107,14 @@ public:
   // Posts request to reload cities boundaries tables.
   void LoadCitiesBoundaries();
 
+  void OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks);
+  void OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks);
+  void OnBookmarksDeleted(vector<bookmarks::Id> const & marks);
+
 private:
   struct Message
   {
-    using TFn = function<void(Processor & processor)>;
+    using Fn = function<void(Processor & processor)>;
 
     enum Type
     {
@@ -116,12 +122,13 @@ private:
       TYPE_BROADCAST
     };
 
-    Message(Type type, TFn && fn) : m_type(type), m_fn(move(fn)) {}
+    template <typename Gn>
+    Message(Type type, Gn && gn) : m_type(type), m_fn(forward<Gn>(gn)) {}
 
     void operator()(Processor & processor) { m_fn(processor); }
 
     Type m_type;
-    TFn m_fn;
+    Fn m_fn;
   };
 
   // alignas() is used here to prevent false-sharing between different

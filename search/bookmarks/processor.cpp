@@ -37,7 +37,7 @@ struct RankingInfo
 
 struct IdInfoPair
 {
-  IdInfoPair(Processor::Id const & id, RankingInfo const & info) : m_id(id), m_info(info) {}
+  IdInfoPair(Id const & id, RankingInfo const & info) : m_id(id), m_info(info) {}
 
   bool operator<(IdInfoPair const & rhs) const
   {
@@ -46,7 +46,7 @@ struct IdInfoPair
     return m_id < rhs.m_id;
   }
 
-  Processor::Id m_id;
+  Id m_id;
   RankingInfo m_info;
 };
 
@@ -76,7 +76,7 @@ void Processor::Erase(Id const & id, Doc const & doc)
   m_docs.erase(id);
 }
 
-vector<Processor::Id> Processor::Search(QueryParams const & params) const
+vector<Id> Processor::Search(QueryParams const & params) const
 {
   set<Id> ids;
   auto insertId = MakeInsertFunctor(ids);

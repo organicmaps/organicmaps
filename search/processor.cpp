@@ -317,6 +317,21 @@ void Processor::LoadCitiesBoundaries()
     LOG(LWARNING, ("Can't load cities boundaries"));
 }
 
+void Processor::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & /* marks */)
+{
+  // TODO(@y): do something useful with marks.
+}
+
+void Processor::OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & /* marks */)
+{
+  // TODO(@y): do something useful with marks.
+}
+
+void Processor::OnBookmarksDeleted(vector<bookmarks::Id> const & /* marks */)
+{
+  // TODO(@y): do something useful with marks.
+}
+
 Locales Processor::GetCategoryLocales() const
 {
   static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");

@@ -157,6 +157,24 @@ void Engine::LoadCitiesBoundaries()
               [this](Processor & processor) { processor.LoadCitiesBoundaries(); });
 }
 
+void Engine::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
+{
+  PostMessage(Message::TYPE_BROADCAST,
+              [this, marks](Processor & processor) { processor.OnBookmarksCreated(marks); });
+}
+
+void Engine::OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
+{
+  PostMessage(Message::TYPE_BROADCAST,
+              [this, marks](Processor & processor) { processor.OnBookmarksUpdated(marks); });
+}
+
+void Engine::OnBookmarksDeleted(vector<bookmarks::Id> const & marks)
+{
+  PostMessage(Message::TYPE_BROADCAST,
+              [this, marks](Processor & processor) { processor.OnBookmarksDeleted(marks); });
+}
+
 void Engine::MainLoop(Context & context)
 {
   while (true)

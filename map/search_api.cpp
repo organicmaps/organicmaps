@@ -5,6 +5,7 @@
 
 #include "search/geometry_utils.hpp"
 #include "search/hotels_filter.hpp"
+#include "search/bookmarks/processor.hpp"
 
 #include "storage/downloader_search_params.hpp"
 
@@ -14,14 +15,18 @@
 
 #include "base/string_utils.hpp"
 
+#include <algorithm>
+#include <iterator>
 #include <string>
-#include <vector>
+#include <type_traits>
 
 using namespace search;
 using namespace std;
 
 namespace
 {
+using BookmarkIdDoc = pair<bookmarks::Id, bookmarks::Doc>;
+
 double const kDistEqualQueryMeters = 100.0;
 
 // Cancels search query by |handle|.
@@ -37,6 +42,39 @@ bool IsCianMode(string query)
   strings::Trim(query);
   strings::AsciiToLower(query);
   return query == "cian";
+}
+
+bookmarks::Id MarkIDToBookmarkId(df::MarkID id)
+{
+  static_assert(is_integral<df::MarkID>::value, "");
+  static_assert(is_integral<bookmarks::Id>::value, "");
+
+  static_assert(is_unsigned<df::MarkID>::value, "");
+  static_assert(is_unsigned<bookmarks::Id>::value, "");
+
+  static_assert(sizeof(bookmarks::Id) >= sizeof(df::MarkID), "");
+
+  return static_cast<bookmarks::Id>(id);
+}
+
+void AppendBookmarkIdDocs(vector<pair<df::MarkID, BookmarkData>> const & marks,
+                          vector<BookmarkIdDoc> & result)
+{
+  result.reserve(result.size() + marks.size());
+
+  for (auto const & mark : marks)
+  {
+    auto const & id = mark.first;
+    auto const & data = mark.second;
+    result.emplace_back(MarkIDToBookmarkId(id),
+                        bookmarks::Doc(data.GetName(), data.GetDescription(), data.GetType()));
+  }
+}
+
+void AppendBookmarkIds(vector<df::MarkID> const & marks, vector<bookmarks::Id> & result)
+{
+  result.reserve(result.size() + marks.size());
+  transform(marks.begin(), marks.end(), back_inserter(result), MarkIDToBookmarkId);
 }
 }  // namespace
 
@@ -204,7 +242,7 @@ void SearchAPI::CancelAllSearches()
     CancelSearch(static_cast<Mode>(i));
 }
 
-void SearchAPI::RunUITask(std::function<void()> fn) { return m_delegate.RunUITask(fn); }
+void SearchAPI::RunUITask(function<void()> fn) { return m_delegate.RunUITask(fn); }
 
 void SearchAPI::SetHotelDisplacementMode()
 {
@@ -225,6 +263,27 @@ void SearchAPI::ShowViewportSearchResults(bool clear, search::Results::ConstIter
 bool SearchAPI::IsLocalAdsCustomer(Result const & result) const
 {
   return m_delegate.IsLocalAdsCustomer(result);
+}
+
+void SearchAPI::OnBookmarksCreated(vector<pair<df::MarkID, BookmarkData>> const & marks)
+{
+  vector<BookmarkIdDoc> data;
+  AppendBookmarkIdDocs(marks, data);
+  m_engine.OnBookmarksCreated(data);
+}
+
+void SearchAPI::OnBookmarksUpdated(vector<std::pair<df::MarkID, BookmarkData>> const & marks)
+{
+  vector<BookmarkIdDoc> data;
+  AppendBookmarkIdDocs(marks, data);
+  m_engine.OnBookmarksUpdated(data);
+}
+
+void SearchAPI::OnBookmarksDeleted(vector<df::MarkID> const & marks)
+{
+  vector<bookmarks::Id> data;
+  AppendBookmarkIds(marks, data);
+  m_engine.OnBookmarksDeleted(data);
 }
 
 bool SearchAPI::Search(SearchParams const & params, bool forceSearch)
@@ -300,7 +359,7 @@ bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams,
   return true;
 }
 
-void SearchAPI::UpdateSponsoredMode(std::string const & query,
+void SearchAPI::UpdateSponsoredMode(string const & query,
                                     booking::filter::availability::Params const & params)
 {
   m_sponsoredMode = SponsoredMode::None;

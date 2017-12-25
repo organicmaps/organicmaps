@@ -17,11 +17,12 @@ namespace search
 {
 namespace bookmarks
 {
+using Id = uint64_t;
+using Doc = Data;
+
 class Processor : public IdfMap::Delegate
 {
 public:
-  using Id = uint64_t;
-  using Doc = Data;
   using Index = base::MemSearchIndex<Id, Doc>;
 
   ~Processor() override = default;

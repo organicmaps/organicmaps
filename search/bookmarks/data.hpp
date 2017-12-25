@@ -38,5 +38,7 @@ struct Data
   std::string m_description;
   std::string m_type;
 };
+
+std::string DebugPrint(Data const & data);
 }  // namespace bookmarks
 }  // namespace search

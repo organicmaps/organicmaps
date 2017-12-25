@@ -433,17 +433,17 @@ Framework::Framework(FrameworkParams const & params)
 
   m_bmManager = make_unique<BookmarkManager>(BookmarkManager::Callbacks(
     [this]() -> StringsBundle const & { return m_stringsBundle; },
-    [](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
+    [this](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
     {
-      // TODO: Add processing of the created marks.
+      GetSearchAPI().OnBookmarksCreated(marks);
     },
-    [](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
+    [this](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
     {
-      // TODO: Add processing of the updated marks.
+      GetSearchAPI().OnBookmarksUpdated(marks);
     },
-    [](std::vector<df::MarkID> const & marks)
+    [this](std::vector<df::MarkID> const & marks)
     {
-      // TODO: Add processing of the deleted marks.
+      GetSearchAPI().OnBookmarksDeleted(marks);
     }));
 
   m_ParsedMapApi.SetBookmarkManager(m_bmManager.get());

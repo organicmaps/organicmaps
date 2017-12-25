@@ -585,7 +585,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 
     Index::FeaturesLoaderGuard loader(m_index, countryId);
     FeatureType ft;
-    TEST(loader.GetFeatureByIndex(base::checked_cast<uint32_t>(index), ft), ());
+    TEST(loader.GetFeatureByIndex(::base::checked_cast<uint32_t>(index), ft), ());
 
     auto rule = ExactMatch(countryId, building31);
     TEST(rule->Matches(ft), ());
