@@ -172,11 +172,9 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
 
   AStarAlgorithm<WorldGraph> algorithm;
 
-  my::Cancellable cancellable;
-  AStarAlgorithm<WorldGraph>::Params params(*worldGraph, startSegment, finishSegment,
-                                            nullptr /* prevRoute */, cancellable /* cancellable */,
-                                            {} /* onVisitedVertexCallback */,
-                                            {} /* checkLengthCallback */);
+  AStarAlgorithm<WorldGraph>::ParamsForTests params(*worldGraph, startSegment, finishSegment,
+                                                    nullptr /* prevRoute */,
+                                                    {} /* checkLengthCallback */);
   RoutingResult<Segment, RouteWeight> routingResult;
   auto const resultCode = algorithm.FindPathBidirectional(params, routingResult);
 
@@ -366,10 +364,8 @@ AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & sta
   AStarAlgorithm<IndexGraphStarter> algorithm;
   RoutingResult<Segment, RouteWeight> routingResult;
 
-  my::Cancellable cancellable;
-  AStarAlgorithm<IndexGraphStarter>::Params params(
+  AStarAlgorithm<IndexGraphStarter>::ParamsForTests params(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
-      cancellable /* cancellable */, {} /* onVisitedVertexCallback */,
       [&](RouteWeight const & weight) { return starter.CheckLength(weight); });
 
   auto const resultCode = algorithm.FindPathBidirectional(params, routingResult);

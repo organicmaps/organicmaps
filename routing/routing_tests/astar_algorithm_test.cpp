@@ -66,10 +66,8 @@ void TestAStar(UndirectedGraph & graph, vector<unsigned> const & expectedRoute, 
 {
   TAlgorithm algo;
 
-  my::Cancellable cancellable;
-  TAlgorithm::Params params(graph, 0u /* startVertex */, 4u /* finishVertex */,
-                            nullptr /* prevRoute */, cancellable /* cancellable */,
-                            {} /* onVisitedVerteCallback */, {} /* checkLengthCallback */);
+  TAlgorithm::ParamsForTests params(graph, 0u /* startVertex */, 4u /* finishVertex */,
+                                    nullptr /* prevRoute */, {} /* checkLengthCallback */);
 
   RoutingResult<unsigned /* Vertex */, double /* Weight */> actualRoute;
   TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPath(params, actualRoute), ());
@@ -110,11 +108,9 @@ UNIT_TEST(AStarAlgorithm_CheckLength)
   graph.AddEdge(3, 4, 3);
 
   TAlgorithm algo;
-  my::Cancellable cancellable;
-  TAlgorithm::Params params(graph, 0u /* startVertex */, 4u /* finishVertex */,
-                            nullptr /* prevRoute */, cancellable /* cancellable */,
-                            {} /* onVisitedVerteCallback */,
-                            [](double weight) { return weight < 23; });
+  TAlgorithm::ParamsForTests params(graph, 0u /* startVertex */, 4u /* finishVertex */,
+                                    nullptr /* prevRoute */,
+                                    [](double weight) { return weight < 23; });
   RoutingResult<unsigned /* Vertex */, double /* Weight */> routingResult;
   TAlgorithm::Result result = algo.FindPath(params, routingResult);
   // Best route weight is 23 so we expect to find no route with restriction |weight < 23|.
@@ -141,10 +137,8 @@ UNIT_TEST(AdjustRoute)
   vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
   TAlgorithm algo;
-  my::Cancellable cancellable;
-  TAlgorithm::Params params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
-                            cancellable /* cancellable */, {} /* onVisitedVerteCallback */,
-                            [](double weight) { return weight <= 1.0; });
+  TAlgorithm::ParamsForTests params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
+                                    [](double weight) { return weight <= 1.0; });
   RoutingResult<unsigned /* Vertex */, double /* Weight */> result;
   auto const code = algo.AdjustRoute(params, result);
 
@@ -165,10 +159,8 @@ UNIT_TEST(AdjustRouteNoPath)
   vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
   TAlgorithm algo;
-  my::Cancellable cancellable;
-  TAlgorithm::Params params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
-                            cancellable /* cancellable */, {} /* onVisitedVerteCallback */,
-                            [](double weight) { return weight <= 1.0; });
+  TAlgorithm::ParamsForTests params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
+                                    [](double weight) { return weight <= 1.0; });
   RoutingResult<unsigned /* Vertex */, double /* Weight */> result;
   auto const code = algo.AdjustRoute(params, result);
 
@@ -189,10 +181,8 @@ UNIT_TEST(AdjustRouteOutOfLimit)
   vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
   TAlgorithm algo;
-  my::Cancellable cancellable;
-  TAlgorithm::Params params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
-                            cancellable /* cancellable */, {} /* onVisitedVerteCallback */,
-                            [](double weight) { return weight <= 1.0; });
+  TAlgorithm::ParamsForTests params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
+                                    [](double weight) { return weight <= 1.0; });
   RoutingResult<unsigned /* Vertex */, double /* Weight */> result;
   auto const code = algo.AdjustRoute(params, result);
 

@@ -77,12 +77,38 @@ public:
     // Used for FindPath, FindPathBidirectional.
     Vertex const m_finalVertex;
     // Used for AdjustRoute.
-    std::vector<Edge> const * m_prevRoute;
+    std::vector<Edge> const * const m_prevRoute;
     my::Cancellable const & m_cancellable;
     OnVisitedVertexCallback const m_onVisitedVertexCallback;
     CheckLengthCallback const m_checkLengthCallback;
   };
 
+  struct ParamsForTests
+  {
+    ParamsForTests(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
+                   std::vector<Edge> const * prevRoute,
+                   CheckLengthCallback const & checkLengthCallback)
+      : m_graph(graph)
+      , m_startVertex(startVertex)
+      , m_finalVertex(finalVertex)
+      , m_prevRoute(prevRoute)
+      , m_onVisitedVertexCallback([](Vertex const &, Vertex const &) {})
+      , m_checkLengthCallback(checkLengthCallback
+                                  ? checkLengthCallback
+                                  : [](Weight const & /* weight */) { return true; })
+    {
+    }
+
+    Graph & m_graph;
+    Vertex const m_startVertex;
+    // Used for FindPath, FindPathBidirectional.
+    Vertex const m_finalVertex;
+    // Used for AdjustRoute.
+    std::vector<Edge> const * const m_prevRoute;
+    my::Cancellable const m_cancellable;
+    OnVisitedVertexCallback const m_onVisitedVertexCallback;
+    CheckLengthCallback const m_checkLengthCallback;
+  };
   class Context final
   {
   public:
@@ -131,13 +157,16 @@ public:
   void PropagateWave(Graph & graph, Vertex const & startVertex, VisitVertex && visitVertex,
                      Context & context) const;
 
-  Result FindPath(Params & params, RoutingResult<Vertex, Weight> & result) const;
+  template <typename P>
+  Result FindPath(P & params, RoutingResult<Vertex, Weight> & result) const;
 
-  Result FindPathBidirectional(Params & params, RoutingResult<Vertex, Weight> & result) const;
+  template <typename P>
+  Result FindPathBidirectional(P & params, RoutingResult<Vertex, Weight> & result) const;
 
   // Adjust route to the previous one.
   // Expects |params.m_checkLengthCallback| to check wave propagation limit.
-  typename AStarAlgorithm<Graph>::Result AdjustRoute(Params & params,
+  template <typename P>
+  typename AStarAlgorithm<Graph>::Result AdjustRoute(P & params,
                                                      RoutingResult<Vertex, Weight> & result) const;
 
 private:
@@ -339,8 +368,9 @@ void AStarAlgorithm<Graph>::PropagateWave(Graph & graph, Vertex const & startVer
 // http://www.cs.princeton.edu/courses/archive/spr06/cos423/Handouts/EPP%20shortest%20path%20algorithms.pdf
 
 template <typename Graph>
+template <typename P>
 typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPath(
-    Params & params, RoutingResult<Vertex, Weight> & result) const
+    P & params, RoutingResult<Vertex, Weight> & result) const
 {
   result.Clear();
 
@@ -414,8 +444,9 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPath(
 }
 
 template <typename Graph>
+template <typename P>
 typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectional(
-    Params & params, RoutingResult<Vertex, Weight> & result) const
+    P & params, RoutingResult<Vertex, Weight> & result) const
 {
   auto & graph = params.m_graph;
   auto const & finalVertex = params.m_finalVertex;
@@ -555,8 +586,9 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectio
 }
 
 template <typename Graph>
+template <typename P>
 typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::AdjustRoute(
-    Params & params, RoutingResult<Vertex, Weight> & result) const
+    P & params, RoutingResult<Vertex, Weight> & result) const
 {
   CHECK(params.m_prevRoute, ());
   auto & graph = params.m_graph;
