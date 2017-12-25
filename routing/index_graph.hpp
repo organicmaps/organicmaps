@@ -42,7 +42,7 @@ public:
 
   RoadAccess::Type GetAccessType(Segment const & segment) const
   {
-    return m_roadAccess.GetSegmentType(segment);
+    return m_roadAccess.GetFeatureType(segment.GetFeatureId());
   }
 
   uint32_t GetNumRoads() const { return m_roadIndex.GetSize(); }

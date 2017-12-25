@@ -160,7 +160,7 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
   if (IsRestricted(m_restrictions, from, to, isOutgoing))
     return;
 
-  if (m_roadAccess.GetSegmentType(to) == RoadAccess::Type::No)
+  if (m_roadAccess.GetFeatureType(to.GetFeatureId()) == RoadAccess::Type::No)
     return;
 
   RouteWeight const weight = CalcSegmentWeight(isOutgoing ? to : from) +
@@ -177,8 +177,8 @@ RouteWeight IndexGraph::GetPenalties(Segment const & u, Segment const & v)
   int32_t const passThroughPenalty = fromPassThroughAllowed == toPassThroughAllowed ? 0 : 1;
 
   // We do not distinguish between RoadAccess::Type::Private and RoadAccess::Type::Destination for now.
-  bool const fromAccessAllowed = m_roadAccess.GetSegmentType(u) == RoadAccess::Type::Yes;
-  bool const toAccessAllowed = m_roadAccess.GetSegmentType(v) == RoadAccess::Type::Yes;
+  bool const fromAccessAllowed = m_roadAccess.GetFeatureType(u.GetFeatureId()) == RoadAccess::Type::Yes;
+  bool const toAccessAllowed = m_roadAccess.GetFeatureType(v.GetFeatureId()) == RoadAccess::Type::Yes;
   // Route crosses border of access=yes/access={private, destination} area if |u| and |v| have different
   // access restrictions.
   int32_t const accessPenalty = fromAccessAllowed == toAccessAllowed ? 0 : 1;

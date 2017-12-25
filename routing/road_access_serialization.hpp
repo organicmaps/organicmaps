@@ -2,6 +2,7 @@
 
 #include "routing/coding.hpp"
 #include "routing/road_access.hpp"
+#include "routing/road_point.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -19,6 +20,7 @@
 #include <array>
 #include <cstdint>
 #include <map>
+#include <utility>
 #include <vector>
 
 namespace routing
@@ -26,7 +28,8 @@ namespace routing
 class RoadAccessSerializer final
 {
 public:
-  using RoadAccessTypesMap = std::map<Segment, RoadAccess::Type>;
+  using RoadAccessTypesFeatureMap = std::map<uint32_t, RoadAccess::Type>;
+  using RoadAccessTypesPointMap = std::map<RoadPoint, RoadAccess::Type>;
   using RoadAccessByVehicleType = std::array<RoadAccess, static_cast<size_t>(VehicleType::Count)>;
 
   RoadAccessSerializer() = delete;
@@ -48,7 +51,8 @@ public:
     for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
     {
       auto const pos = sink.Pos();
-      SerializeOneVehicleType(sink, roadAccessByType[i].GetSegmentTypes());
+      SerializeOneVehicleType(sink, roadAccessByType[i].GetFeatureTypes(),
+                              roadAccessByType[i].GetPointTypes());
       sectionSizes[i] = base::checked_cast<uint32_t>(sink.Pos() - pos);
     }
 
@@ -91,21 +95,32 @@ public:
         continue;
       }
 
-      RoadAccessTypesMap m;
-      DeserializeOneVehicleType(src, m);
+      RoadAccessTypesFeatureMap mf;
+      RoadAccessTypesPointMap mp;
+      DeserializeOneVehicleType(src, mf, mp);
 
-      roadAccess.SetSegmentTypes(std::move(m));
+      roadAccess.SetAccessTypes(std::move(mf), std::move(mp));
     }
   }
 
 private:
   template <typename Sink>
-  static void SerializeOneVehicleType(Sink & sink, RoadAccessTypesMap const & m)
+  static void SerializeOneVehicleType(Sink & sink, RoadAccessTypesFeatureMap const & mf,
+                                      RoadAccessTypesPointMap const & mp)
   {
     std::array<std::vector<Segment>, static_cast<size_t>(RoadAccess::Type::Count)>
         segmentsByRoadAccessType;
-    for (auto const & kv : m)
-      segmentsByRoadAccessType[static_cast<size_t>(kv.second)].push_back(kv.first);
+    for (auto const & kv : mf)
+    {
+      segmentsByRoadAccessType[static_cast<size_t>(kv.second)].push_back(
+          Segment(kFakeNumMwmId, kv.first, 0 /* wildcard segmentIdx */, true /* widcard forward */));
+    }
+    // For nodes we store |pointId + 1| because 0 is reserved for wildcard segmentIdx.
+    for (auto const & kv : mp)
+    {
+      segmentsByRoadAccessType[static_cast<size_t>(kv.second)].push_back(
+          Segment(kFakeNumMwmId, kv.first.GetFeatureId(), kv.first.GetPointId() + 1, true));
+    }
 
     for (auto & segs : segmentsByRoadAccessType)
     {
@@ -115,15 +130,34 @@ private:
   }
 
   template <typename Source>
-  static void DeserializeOneVehicleType(Source & src, RoadAccessTypesMap & m)
+  static void DeserializeOneVehicleType(Source & src, RoadAccessTypesFeatureMap & mf,
+                                        RoadAccessTypesPointMap & mp)
   {
-    m.clear();
+    mf.clear();
+    mp.clear();
     for (size_t i = 0; i < static_cast<size_t>(RoadAccess::Type::Count); ++i)
     {
+      // An earlier version allowed blocking any segment of a feature (or the entire feature
+      // by providing a wildcard segment index).
+      // At present, we either block the feature entirely or block any of its road points. The
+      // the serialization code remains the same, although its semantics changes as we now
+      // work with point indices instead of segment indices.
       std::vector<Segment> segs;
       DeserializeSegments(src, segs);
       for (auto const & seg : segs)
-        m[seg] = static_cast<RoadAccess::Type>(i);
+      {
+        if (seg.GetSegmentIdx() == 0)
+        {
+          // Wildcard segmentIdx.
+          mf[seg.GetFeatureId()] = static_cast<RoadAccess::Type>(i);
+        }
+        else
+        {
+          // For nodes we store |pointId + 1| because 0 is reserved for wildcard segmentIdx.
+          mp[RoadPoint(seg.GetFeatureId(), seg.GetSegmentIdx() - 1)] =
+              static_cast<RoadAccess::Type>(i);
+        }
+      }
     }
   }
 

@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <map>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace routing
@@ -40,14 +41,17 @@ public:
     Count
   };
 
-  std::map<Segment, RoadAccess::Type> const & GetSegmentTypes() const { return m_segmentTypes; }
+  std::map<uint32_t, RoadAccess::Type> const & GetFeatureTypes() const { return m_featureTypes; }
+  std::map<RoadPoint, RoadAccess::Type> const & GetPointTypes() const { return m_pointTypes; }
 
-  Type GetSegmentType(Segment const & segment) const;
+  Type GetFeatureType(uint32_t featureId) const;
+  Type GetPointType(RoadPoint const & point) const;
 
-  template <typename V>
-  void SetSegmentTypes(V && v)
+  template <typename MF, typename MP>
+  void SetAccessTypes(MF && mf, MP && mp)
   {
-    m_segmentTypes = std::forward<V>(v);
+    m_featureTypes = std::forward<MF>(mf);
+    m_pointTypes = std::forward<MP>(mp);
   }
 
   void Clear();
@@ -56,14 +60,18 @@ public:
 
   bool operator==(RoadAccess const & rhs) const;
 
+  template <typename MF>
+  void SetFeatureTypesForTests(MF && mf)
+  {
+    m_featureTypes = std::forward<MF>(mf);
+  }
+
 private:
-  // todo(@m) Segment's NumMwmId is not used here. Decouple it from
-  // segment and use only (fid, idx, forward) in the map.
-  //
   // If segmentIdx of a key in this map is 0, it means the
   // entire feature has the corresponding access type.
   // Otherwise, the information is about the segment with number (segmentIdx-1).
-  std::map<Segment, RoadAccess::Type> m_segmentTypes;
+  std::map<uint32_t, RoadAccess::Type> m_featureTypes;
+  std::map<RoadPoint, RoadAccess::Type> m_pointTypes;
 };
 
 std::string ToString(RoadAccess::Type type);

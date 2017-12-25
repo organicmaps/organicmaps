@@ -23,21 +23,21 @@ namespace
 UNIT_TEST(RoadAccess_Serialization)
 {
   // Segment is (numMwmId, featureId, segmentIdx, isForward).
-  map<Segment, RoadAccess::Type> const m0 = {
-      {Segment(kFakeNumMwmId, 1, 0, false), RoadAccess::Type::No},
-      {Segment(kFakeNumMwmId, 2, 2, false), RoadAccess::Type::Private},
+  map<uint32_t, RoadAccess::Type> const m0 = {
+      {1, RoadAccess::Type::No},
+      {2, RoadAccess::Type::Private},
   };
 
-  map<Segment, RoadAccess::Type> const m1 = {
-      {Segment(kFakeNumMwmId, 1, 1, false), RoadAccess::Type::Private},
-      {Segment(kFakeNumMwmId, 2, 0, true), RoadAccess::Type::Destination},
+  map<uint32_t, RoadAccess::Type> const m1 = {
+      {1, RoadAccess::Type::Private},
+      {2, RoadAccess::Type::Destination},
   };
 
   RoadAccess roadAccessCar;
-  roadAccessCar.SetSegmentTypes(m0);
+  roadAccessCar.SetFeatureTypesForTests(m0);
 
   RoadAccess roadAccessPedestrian;
-  roadAccessPedestrian.SetSegmentTypes(m1);
+  roadAccessPedestrian.SetFeatureTypesForTests(m1);
 
   RoadAccessSerializer::RoadAccessByVehicleType roadAccessAllTypes;
   roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)] = roadAccessCar;

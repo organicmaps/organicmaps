@@ -133,20 +133,20 @@ UNIT_TEST(RoadAccess_Smoke)
 
 UNIT_TEST(RoadAccess_AccessPrivate)
 {
-  string const roadAccessContent = R"(Car Private 0)";
+  string const roadAccessContent = R"(Car Private 0 0)";
   string const osmIdsToFeatureIdsContent = R"(0, 0,)";
   auto const roadAccessAllTypes =
       SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
   auto const carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
-  TEST_EQUAL(carRoadAccess.GetSegmentType(Segment(0, 0, 0, false)), RoadAccess::Type::Private, ());
+  TEST_EQUAL(carRoadAccess.GetFeatureType(0 /* featureId */), RoadAccess::Type::Private, ());
 }
 
 UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
 {
-  string const roadAccessContent = R"(Car Private 10
-                                     Car Private 20
-                                     Bicycle No 30
-                                     Car Destination 40)";
+  string const roadAccessContent = R"(Car Private 10 0
+                                     Car Private 20 0
+                                     Bicycle No 30 0
+                                     Car Destination 40 0)";
   string const osmIdsToFeatureIdsContent = R"(10, 1,
                                              20, 2,
                                              30, 3,
@@ -155,11 +155,11 @@ UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
       SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
   auto const carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
   auto const bicycleRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Bicycle)];
-  TEST_EQUAL(carRoadAccess.GetSegmentType(Segment(0, 1, 0, false)), RoadAccess::Type::Private, ());
-  TEST_EQUAL(carRoadAccess.GetSegmentType(Segment(0, 2, 2, true)), RoadAccess::Type::Private, ());
-  TEST_EQUAL(carRoadAccess.GetSegmentType(Segment(0, 3, 1, true)), RoadAccess::Type::Yes, ());
-  TEST_EQUAL(carRoadAccess.GetSegmentType(Segment(0, 4, 3, false)), RoadAccess::Type::Destination,
+  TEST_EQUAL(carRoadAccess.GetFeatureType(1 /* featureId */), RoadAccess::Type::Private, ());
+  TEST_EQUAL(carRoadAccess.GetFeatureType(2 /* featureId */), RoadAccess::Type::Private, ());
+  TEST_EQUAL(carRoadAccess.GetFeatureType(3 /* featureId */), RoadAccess::Type::Yes, ());
+  TEST_EQUAL(carRoadAccess.GetFeatureType(4 /* featureId */), RoadAccess::Type::Destination,
              ());
-  TEST_EQUAL(bicycleRoadAccess.GetSegmentType(Segment(0, 3, 0, false)), RoadAccess::Type::No, ());
+  TEST_EQUAL(bicycleRoadAccess.GetFeatureType(3 /* featureId */), RoadAccess::Type::No, ());
 }
 }  // namespace

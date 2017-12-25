@@ -29,13 +29,17 @@ public:
 
   explicit RoadAccessTagProcessor(VehicleType vehicleType);
 
-  void Process(OsmElement const & elem, std::ofstream & oss) const;
+  void Process(OsmElement const & elem, std::ofstream & oss);
 
 private:
+  RoadAccess::Type GetAccessType(OsmElement const & elem) const;
+
   VehicleType m_vehicleType;
   // Order of tag mappings in m_tagMappings is from more to less specific.
   // e.g. for car: motorcar, motorvehicle, vehicle, general access tags.
   std::vector<TagMapping const *> m_tagMappings;
+  // Tag mapping for barriers. Key is barrier node osm id.
+  std::map<uint64_t, RoadAccess::Type> m_barriers;
 };
 
 class RoadAccessWriter

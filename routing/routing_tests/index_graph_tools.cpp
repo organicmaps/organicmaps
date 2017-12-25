@@ -254,18 +254,17 @@ void TestIndexGraphTopology::Builder::BuildJoints()
 
 void TestIndexGraphTopology::Builder::BuildGraphFromRequests(vector<EdgeRequest> const & requests)
 {
-  map<Segment, RoadAccess::Type> segmentTypes;
+  map<uint32_t, RoadAccess::Type> featureTypes;
   for (auto const & request : requests)
   {
     BuildSegmentFromEdge(request);
     if (request.m_accessType != RoadAccess::Type::Yes)
     {
-      segmentTypes[Segment(kFakeNumMwmId, request.m_id, 0 /* wildcard segmentIdx */, true)] =
-          request.m_accessType;
+      featureTypes[request.m_id] = request.m_accessType;
     }
   }
 
-  m_roadAccess.SetSegmentTypes(move(segmentTypes));
+  m_roadAccess.SetFeatureTypesForTests(move(featureTypes));
 }
 
 void TestIndexGraphTopology::Builder::BuildSegmentFromEdge(EdgeRequest const & request)

@@ -21,6 +21,13 @@ public:
 
   uint32_t GetPointId() const { return m_pointId; }
 
+  bool operator<(RoadPoint const & rp) const
+  {
+    if (m_featureId != rp.m_featureId)
+      return m_featureId < rp.m_featureId;
+    return m_pointId < rp.m_pointId;
+  }
+
   bool operator==(RoadPoint const & rp) const
   {
     return m_featureId == rp.m_featureId && m_pointId == rp.m_pointId;
