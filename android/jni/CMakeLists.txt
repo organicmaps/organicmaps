@@ -7,7 +7,6 @@ include_directories(
   ${OMIM_ROOT}/3party/boost
   ${OMIM_ROOT}/3party/protobuf/protobuf/src
   ${OMIM_ROOT}/3party/glm
-  ${OMIM_ROOT}/3party/osrm/osrm-backend/include
   ${OMIM_ROOT}/3party/succinct
   ${OMIM_ROOT}/3party/agg
   ${OMIM_ROOT}/3party/icu/common
@@ -129,7 +128,6 @@ target_link_libraries(
   minizip
   jansson
   protobuf
-  osrm
   stats_client
   succinct
   stb_image
