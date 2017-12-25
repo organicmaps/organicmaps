@@ -6,6 +6,8 @@
 #include "routing/turns.hpp"
 #include "routing/turns_notification_manager.hpp"
 
+#include "indexer/index.hpp"
+
 #include "traffic/speed_groups.hpp"
 #include "traffic/traffic_cache.hpp"
 #include "traffic/traffic_info.hpp"

@@ -45,15 +45,6 @@
 #define TRANSIT_FILE_TAG "transit"
 #define UGC_FILE_TAG "ugc"
 
-#define ROUTING_MATRIX_FILE_TAG "mercedes"
-#define ROUTING_EDGEDATA_FILE_TAG "daewoo"
-#define ROUTING_EDGEID_FILE_TAG "infinity"
-#define ROUTING_SHORTCUTS_FILE_TAG  "skoda"
-#define ROUTING_CROSS_CONTEXT_TAG "chrysler"
-
-#define ROUTING_FTSEG_FILE_TAG  "ftseg"
-#define ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG  "node2ftseg"
-
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume"
 #define DOWNLOADING_FILE_EXTENSION ".downloading"

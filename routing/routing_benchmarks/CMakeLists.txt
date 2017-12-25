@@ -26,7 +26,6 @@ omim_link_libraries(
   geometry
   coding
   base
-  osrm
   jansson
   protobuf
   stats_client

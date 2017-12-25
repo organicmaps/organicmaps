@@ -18,7 +18,6 @@ omim_link_libraries(
   map
   traffic
   indexer
-  osrm
   pugixml
   opening_hours
   editor

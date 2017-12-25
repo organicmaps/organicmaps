@@ -70,7 +70,6 @@ omim_link_libraries(
   oauthcpp
   opening_hours
   openlr
-  osrm
   protobuf
   pugixml
   sdf_image

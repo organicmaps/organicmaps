@@ -36,7 +36,6 @@ omim_link_libraries(
   ugc
   indexer
   platform_tests_support
-  osrm
   editor
   oauthcpp
   platform

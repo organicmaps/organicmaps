@@ -2,7 +2,7 @@
 
 #include "routing/cross_mwm_ids.hpp"
 #include "routing/cross_mwm_index_graph.hpp"
-#include "routing/cross_mwm_osrm_graph.hpp"
+#include "routing/router.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -37,8 +37,7 @@ public:
 
   CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                 std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory, VehicleType vehicleType,
-                CourntryRectFn const & countryRectFn, Index & index,
-                RoutingIndexManager & indexManager);
+                CourntryRectFn const & countryRectFn, Index & index);
 
   /// \brief Transition segment is a segment which is crossed by mwm border. That means
   /// start and finish of such segment have to lie in different mwms. If a segment is
@@ -90,9 +89,7 @@ public:
 
   void Clear();
 
-  // \returns nontransit transitions for mwm with id |numMwmId|.
-  // Should be used with CrossMwmIndexGraph only.
-  // @todo(bykoianko): rewrite comment and check after CrossMwmOsrm removal.
+  // \returns transitions for mwm with id |numMwmId| for CrossMwmIndexGraph.
   std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter)
   {
     CHECK(CrossMwmSectionExists(numMwmId), ("Should be used in LeapsOnly mode only. LeapsOnly mode requires CrossMwmIndexGraph."));
@@ -111,11 +108,10 @@ private:
     bool m_exactMatchFound;
   };
 
-  /// \returns points of |s|. |s| should be a transition segment of mwm with an OSRM cross-mwm sections or
-  /// with an index graph cross-mwm section.
+  /// \returns points of |s|. |s| should be a transition segment of mwm with an index graph cross-mwm section.
   /// \param s is a transition segment of type |isOutgoing|.
   /// \note the result of the method is returned by value because the size of the vector is usually
-  /// one or very small in rare cases in OSRM.
+  /// one or very small.
   TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);
 
   MwmStatus GetMwmStatus(NumMwmId numMwmId, std::string const & sectionName) const;
@@ -159,7 +155,6 @@ private:
   CourntryRectFn const & m_countryRectFn;
   CrossMwmIndexGraph<osm::Id> m_crossMwmIndexGraph;
   CrossMwmIndexGraph<connector::TransitId> m_crossMwmTransitGraph;
-  CrossMwmOsrmGraph m_crossMwmOsrmGraph;
 };
 
 string DebugPrint(CrossMwmGraph::MwmStatus status);

@@ -57,7 +57,6 @@ omim_link_libraries(
   expat
   protobuf
   jansson
-  osrm
   stats_client
   minizip
   succinct

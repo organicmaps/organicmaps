@@ -7,7 +7,6 @@
 #include "routing/features_road_graph.hpp"
 #include "routing/joint.hpp"
 #include "routing/router.hpp"
-#include "routing/routing_mapping.hpp"
 #include "routing/segmented_route.hpp"
 #include "routing/world_graph.hpp"
 
@@ -123,7 +122,6 @@ private:
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   std::shared_ptr<TrafficStash> m_trafficStash;
-  RoutingIndexManager m_indexManager;
   FeaturesRoadGraph m_roadGraph;
 
   std::shared_ptr<EdgeEstimator> m_estimator;

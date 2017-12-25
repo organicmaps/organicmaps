@@ -14,6 +14,7 @@
 #include "std/vector.hpp"
 
 using namespace routing;
+using namespace std::placeholders;
 
 using ResultCode = routing::IRouter::ResultCode;
 

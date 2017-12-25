@@ -2,14 +2,17 @@
 
 #include "platform/platform.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "geometry/mercator.hpp"
+#include "std/functional.hpp"
 
 using namespace std;
+using namespace std::placeholders;
 
 namespace routing
 {

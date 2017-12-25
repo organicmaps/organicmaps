@@ -1,5 +1,6 @@
-#include "routing/routing_mapping.hpp"
 #include "routing/turns_generator.hpp"
+
+#include "routing/router.hpp"
 
 #include "routing_common/car_model.hpp"
 
@@ -13,8 +14,6 @@
 #include "std/cmath.hpp"
 #include "std/numeric.hpp"
 #include "std/string.hpp"
-
-#include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
 
 using namespace routing;
 using namespace routing::turns;

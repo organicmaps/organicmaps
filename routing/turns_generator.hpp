@@ -1,8 +1,6 @@
 #pragma once
 
 #include "routing/loaded_path_segment.hpp"
-#include "routing/osrm2feature_map.hpp"
-#include "routing/osrm_engine.hpp"
 #include "routing/routing_result_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"

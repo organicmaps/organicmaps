@@ -84,7 +84,6 @@ omim_link_libraries(
   agg
   jansson
   protobuf
-  osrm
   stats_client
   minizip
   succinct

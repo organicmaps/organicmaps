@@ -11,7 +11,6 @@ set(
   SRC
   bicycle_route_test.cpp
   bicycle_turn_test.cpp
-  cross_section_tests.cpp
   get_altitude_test.cpp
   online_cross_tests.cpp
   pedestrian_route_test.cpp
@@ -42,7 +41,6 @@ omim_link_libraries(
   geometry
   coding
   base
-  osrm
   jansson
   protobuf
   bsdiff

@@ -3,8 +3,6 @@ project(routing)
 include_directories(
   .
   ${OMIM_ROOT}/3party/jansson/src
-  ${OMIM_ROOT}/3party/osrm/osrm-backend/include
-  ${OMIM_ROOT}/3party/osrm/osrm-backend/third_party
 )
 
 set(
@@ -31,14 +29,6 @@ set(
   cross_mwm_graph.hpp
   cross_mwm_ids.hpp
   cross_mwm_index_graph.hpp
-  cross_mwm_osrm_graph.cpp
-  cross_mwm_osrm_graph.hpp
-  cross_mwm_road_graph.cpp
-  cross_mwm_road_graph.hpp
-  cross_mwm_router.cpp
-  cross_mwm_router.hpp
-  cross_routing_context.cpp
-  cross_routing_context.hpp
   directions_engine.cpp
   directions_engine.hpp
   edge_estimator.cpp
@@ -77,11 +67,6 @@ set(
   online_absent_fetcher.hpp
   online_cross_fetcher.cpp
   online_cross_fetcher.hpp
-  osrm2feature_map.cpp
-  osrm2feature_map.hpp
-  osrm_data_facade.hpp
-  osrm_engine.cpp
-  osrm_engine.hpp
   pedestrian_directions.cpp
   pedestrian_directions.hpp
   restriction_loader.cpp
@@ -113,8 +98,6 @@ set(
   routing_exceptions.hpp
   routing_helpers.cpp
   routing_helpers.hpp
-  routing_mapping.cpp
-  routing_mapping.hpp
   routing_result_graph.hpp
   routing_session.cpp
   routing_session.hpp

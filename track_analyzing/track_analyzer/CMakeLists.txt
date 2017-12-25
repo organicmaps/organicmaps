@@ -35,7 +35,6 @@ omim_link_libraries(
   icu
   jansson
   protobuf
-  osrm
   stats_client
   succinct
   pugixml

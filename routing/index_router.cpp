@@ -305,7 +305,6 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   , m_numMwmIds(move(numMwmIds))
   , m_numMwmTree(move(numMwmTree))
   , m_trafficStash(CreateTrafficStash(m_vehicleType, m_numMwmIds, trafficCache))
-  , m_indexManager(countryFileFn, m_index)
   , m_roadGraph(m_index,
                 vehicleType == VehicleType::Pedestrian || vehicleType == VehicleType::Transit
                     ? IRoadGraph::Mode::IgnoreOnewayTag
@@ -693,13 +692,15 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
   auto crossMwmGraph = make_unique<CrossMwmGraph>(
       m_numMwmIds, m_numMwmTree, m_vehicleModelFactory,
       m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
-      m_countryRectFn, m_index, m_indexManager);
+      m_countryRectFn, m_index);
   auto indexGraphLoader = IndexGraphLoader::Create(
       m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
       m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index);
   if (m_vehicleType != VehicleType::Transit)
+  {
     return make_unique<SingleVehicleWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
                                                 m_estimator);
+  }
   auto transitGraphLoader = TransitGraphLoader::Create(m_index, m_numMwmIds, m_estimator);
   return make_unique<TransitWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
                                         move(transitGraphLoader), m_estimator);

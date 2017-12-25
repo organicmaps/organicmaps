@@ -2,7 +2,6 @@
 
 #include "routing/cross_mwm_connector.hpp"
 #include "routing/cross_mwm_connector_serialization.hpp"
-#include "routing/cross_mwm_road_graph.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/segment.hpp"

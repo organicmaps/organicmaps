@@ -1,7 +1,7 @@
 #pragma once
 
 #include "routing/checkpoints.hpp"
-#include "routing/routing_mapping.hpp"
+#include "routing/router.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -9,7 +9,7 @@
 
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
-
+#include "std/vector.hpp"
 
 namespace routing
 {

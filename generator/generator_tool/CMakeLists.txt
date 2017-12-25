@@ -30,7 +30,6 @@ omim_link_libraries(
   protobuf
   mwm_diff
   bsdiff
-  osrm
   stats_client
   minizip
   succinct

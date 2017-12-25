@@ -32,7 +32,6 @@ omim_link_libraries(
   opening_hours
   coding
   base
-  osrm
   jansson
   protobuf
   bsdiff

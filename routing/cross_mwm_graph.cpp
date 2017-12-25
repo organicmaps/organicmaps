@@ -49,7 +49,7 @@ CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds,
                              shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                              shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                              VehicleType vehicleType, CourntryRectFn const & countryRectFn,
-                             Index & index, RoutingIndexManager & indexManager)
+                             Index & index)
   : m_index(index)
   , m_numMwmIds(numMwmIds)
   , m_numMwmTree(numMwmTree)
@@ -57,7 +57,6 @@ CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds,
   , m_countryRectFn(countryRectFn)
   , m_crossMwmIndexGraph(index, numMwmIds, vehicleType)
   , m_crossMwmTransitGraph(index, numMwmIds, VehicleType::Transit)
-  , m_crossMwmOsrmGraph(numMwmIds, indexManager)
 {
   CHECK(m_numMwmIds, ());
   CHECK(m_vehicleModelFactory, ());
@@ -74,7 +73,7 @@ bool CrossMwmGraph::IsTransition(Segment const & s, bool isOutgoing)
   }
 
   return CrossMwmSectionExists(s.GetMwmId()) ? m_crossMwmIndexGraph.IsTransition(s, isOutgoing)
-                                             : m_crossMwmOsrmGraph.IsTransition(s, isOutgoing);
+                                             : false;
 }
 
 void CrossMwmGraph::FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType const & ft, m2::PointD const & point,
@@ -234,14 +233,12 @@ void CrossMwmGraph::GetOutgoingEdgeList(Segment const & s, vector<SegmentEdge> &
     return;
   }
 
-  return CrossMwmSectionExists(s.GetMwmId())
-             ? m_crossMwmIndexGraph.GetOutgoingEdgeList(s, edges)
-             : m_crossMwmOsrmGraph.GetEdgeList(s, true /* isOutgoing */, edges);
+  if (CrossMwmSectionExists(s.GetMwmId()))
+    m_crossMwmIndexGraph.GetOutgoingEdgeList(s, edges);
 }
 
 void CrossMwmGraph::Clear()
 {
-  m_crossMwmOsrmGraph.Clear();
   m_crossMwmIndexGraph.Clear();
   m_crossMwmTransitGraph.Clear();
 }
@@ -251,8 +248,10 @@ TransitionPoints CrossMwmGraph::GetTransitionPoints(Segment const & s, bool isOu
   CHECK(!TransitGraph::IsTransitSegment(s),
         ("Geometry index based twins search is not supported for transit."));
 
-  return CrossMwmSectionExists(s.GetMwmId()) ? m_crossMwmIndexGraph.GetTransitionPoints(s, isOutgoing)
-                                             : m_crossMwmOsrmGraph.GetTransitionPoints(s, isOutgoing);
+  if (CrossMwmSectionExists(s.GetMwmId()))
+    m_crossMwmIndexGraph.GetTransitionPoints(s, isOutgoing);
+
+  return TransitionPoints(); // No transition points.
 }
 
 CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId,
