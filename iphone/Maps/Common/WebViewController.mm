@@ -30,12 +30,35 @@
   return self;
 }
 
-- (void)loadView
+- (void)viewDidLoad
 {
-  CGRect frame = [UIScreen mainScreen].applicationFrame;
-  UIWebView * webView = [[UIWebView alloc] initWithFrame:frame];
+  [super viewDidLoad];
+  UIView * view = self.view;
+  view.backgroundColor = UIColor.whiteColor;
+
+  UIWebView * webView = [[UIWebView alloc] initWithFrame:{}];
+  [view addSubview:webView];
+
+  webView.translatesAutoresizingMaskIntoConstraints = NO;
   webView.autoresizesSubviews = YES;
-  webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+  NSLayoutYAxisAnchor * topAnchor = view.topAnchor;
+  NSLayoutYAxisAnchor * bottomAnchor = view.bottomAnchor;
+  NSLayoutXAxisAnchor * leadingAnchor = view.leadingAnchor;
+  NSLayoutXAxisAnchor * trailingAnchor = view.trailingAnchor;
+  if (@available(iOS 11.0, *))
+  {
+    UILayoutGuide * safeAreaLayoutGuide = view.safeAreaLayoutGuide;
+    topAnchor = safeAreaLayoutGuide.topAnchor;
+    bottomAnchor = safeAreaLayoutGuide.bottomAnchor;
+    leadingAnchor = safeAreaLayoutGuide.leadingAnchor;
+    trailingAnchor = safeAreaLayoutGuide.trailingAnchor;
+  }
+
+  [webView.topAnchor constraintEqualToAnchor:topAnchor].active = YES;
+  [webView.bottomAnchor constraintEqualToAnchor:bottomAnchor].active = YES;
+  [webView.leadingAnchor constraintEqualToAnchor:leadingAnchor].active = YES;
+  [webView.trailingAnchor constraintEqualToAnchor:trailingAnchor].active = YES;
+
   webView.backgroundColor = UIColor.whiteColor;
   webView.delegate = self;
 
@@ -43,8 +66,6 @@
     [webView loadHTMLString:self.m_htmlText baseURL:self.m_url];
   else
     [webView loadRequest:[NSURLRequest requestWithURL:self.m_url]];
-
-  self.view = webView;
 }
 
 - (BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
