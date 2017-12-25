@@ -21,6 +21,10 @@
 		401ECED51F56C50900DFDF76 /* country_parent_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */; };
 		4586D0C71F48126A00DF9CE5 /* diff_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4586D0C51F48126A00DF9CE5 /* diff_manager.cpp */; };
 		4586D0C81F48126A00DF9CE5 /* diff_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4586D0C61F48126A00DF9CE5 /* diff_manager.hpp */; };
+		5670EAFA1FF1150C002495D8 /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670EAFB1FF1150C002495D8 /* libtransit.a */; };
+		5670EAFC1FF11535002495D8 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670EAFD1FF11535002495D8 /* libmwm_diff.a */; };
+		5670EAFE1FF11558002495D8 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670EAFF1FF11558002495D8 /* libbsdiff.a */; };
+		5670EB001FF11574002495D8 /* libugc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670EB011FF11574002495D8 /* libugc.a */; };
 		56D0E4801F8E40340084B18C /* routing_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D0E47E1F8E40340084B18C /* routing_helpers.hpp */; };
 		56D0E4811F8E40340084B18C /* routing_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D0E47F1F8E40340084B18C /* routing_helpers.cpp */; };
 		56D8CB991CAC17A80003F420 /* test_defines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D8CB971CAC17A80003F420 /* test_defines.cpp */; };
@@ -91,7 +95,6 @@
 		67F90B7D1C6A278800CD458E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B51C6215690093DD1B /* libminizip.a */; };
 		67F90B7E1C6A278800CD458E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B61C6215690093DD1B /* liboauthcpp.a */; };
 		67F90B7F1C6A278800CD458E /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B71C6215690093DD1B /* libopening_hours.a */; };
-		67F90B801C6A278800CD458E /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B81C6215690093DD1B /* libosrm.a */; };
 		67F90B811C6A278800CD458E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B91C6215690093DD1B /* libprotobuf.a */; };
 		67F90B821C6A278800CD458E /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709BA1C6215690093DD1B /* librouting.a */; };
 		67F90B831C6A278800CD458E /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709BB1C6215690093DD1B /* libsdf_image.a */; };
@@ -126,7 +129,6 @@
 		67F90BD91C6A2A3000CD458E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B51C6215690093DD1B /* libminizip.a */; };
 		67F90BDA1C6A2A3000CD458E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B61C6215690093DD1B /* liboauthcpp.a */; };
 		67F90BDB1C6A2A3000CD458E /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B71C6215690093DD1B /* libopening_hours.a */; };
-		67F90BDC1C6A2A3000CD458E /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B81C6215690093DD1B /* libosrm.a */; };
 		67F90BDD1C6A2A3000CD458E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B91C6215690093DD1B /* libprotobuf.a */; };
 		67F90BDE1C6A2A3000CD458E /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709BA1C6215690093DD1B /* librouting.a */; };
 		67F90BDF1C6A2A3000CD458E /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709BB1C6215690093DD1B /* libsdf_image.a */; };
@@ -198,6 +200,10 @@
 		401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_parent_getter.hpp; sourceTree = "<group>"; };
 		4586D0C51F48126A00DF9CE5 /* diff_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = diff_manager.cpp; path = diff_scheme/diff_manager.cpp; sourceTree = "<group>"; };
 		4586D0C61F48126A00DF9CE5 /* diff_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = diff_manager.hpp; path = diff_scheme/diff_manager.hpp; sourceTree = "<group>"; };
+		5670EAFB1FF1150C002495D8 /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5670EAFD1FF11535002495D8 /* libmwm_diff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmwm_diff.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5670EAFF1FF11558002495D8 /* libbsdiff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbsdiff.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5670EB011FF11574002495D8 /* libugc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libugc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56D0E47E1F8E40340084B18C /* routing_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_helpers.hpp; sourceTree = "<group>"; };
 		56D0E47F1F8E40340084B18C /* routing_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_helpers.cpp; sourceTree = "<group>"; };
 		56D8CB971CAC17A80003F420 /* test_defines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_defines.cpp; sourceTree = "<group>"; };
@@ -351,7 +357,6 @@
 				67F90B8A1C6A278800CD458E /* libpugixml.a in Frameworks */,
 				67F90B921C6A278800CD458E /* libgeometry.a in Frameworks */,
 				67F90B821C6A278800CD458E /* librouting.a in Frameworks */,
-				67F90B801C6A278800CD458E /* libosrm.a in Frameworks */,
 				67F90B941C6A278800CD458E /* libplatform.a in Frameworks */,
 				67F90B771C6A278800CD458E /* libagg.a in Frameworks */,
 				67F90B811C6A278800CD458E /* libprotobuf.a in Frameworks */,
@@ -367,6 +372,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5670EB001FF11574002495D8 /* libugc.a in Frameworks */,
+				5670EAFE1FF11558002495D8 /* libbsdiff.a in Frameworks */,
+				5670EAFC1FF11535002495D8 /* libmwm_diff.a in Frameworks */,
+				5670EAFA1FF1150C002495D8 /* libtransit.a in Frameworks */,
 				F66D56AC1EAE38150081E883 /* liblocal_ads.a in Frameworks */,
 				F66D56AA1EAE38030081E883 /* libtraffic.a in Frameworks */,
 				F66D56A81EAE37F90081E883 /* librouting_common.a in Frameworks */,
@@ -392,7 +401,6 @@
 				67F90BE61C6A2A3000CD458E /* libpugixml.a in Frameworks */,
 				67F90BEE1C6A2A3000CD458E /* libgeometry.a in Frameworks */,
 				67F90BDE1C6A2A3000CD458E /* librouting.a in Frameworks */,
-				67F90BDC1C6A2A3000CD458E /* libosrm.a in Frameworks */,
 				67F90BF01C6A2A3100CD458E /* libplatform.a in Frameworks */,
 				67F90BD31C6A2A3000CD458E /* libagg.a in Frameworks */,
 				67F90BDD1C6A2A3000CD458E /* libprotobuf.a in Frameworks */,
@@ -411,6 +419,10 @@
 		34F5584C1DBF327C00A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5670EB011FF11574002495D8 /* libugc.a */,
+				5670EAFF1FF11558002495D8 /* libbsdiff.a */,
+				5670EAFD1FF11535002495D8 /* libmwm_diff.a */,
+				5670EAFB1FF1150C002495D8 /* libtransit.a */,
 				56EE14E21FE813FC0036F20C /* libbsdiff.a */,
 				56EE14E01FE813D00036F20C /* libmwm_diff.a */,
 				56EE14DE1FE813BC0036F20C /* libtransit.a */,

@@ -6,6 +6,8 @@
 
 #include "storage/storage_helpers.hpp"
 
+#include <numeric>
+
 using namespace storage;
 
 @implementation MWMStorage
@@ -81,7 +83,7 @@ using namespace storage;
 + (void)downloadNodes:(TCountriesVec const &)countryIds onSuccess:(MWMVoidBlock)onSuccess
 {
   auto & s = GetFramework().GetStorage();
-  TMwmSize requiredSize = accumulate(countryIds.begin(), countryIds.end(), s.GetMaxMwmSizeBytes(),
+  TMwmSize requiredSize = std::accumulate(countryIds.begin(), countryIds.end(), s.GetMaxMwmSizeBytes(),
                                      [](size_t const & size, TCountryId const & countryId)
                                      {
                                        NodeAttrs nodeAttrs;

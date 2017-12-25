@@ -1018,7 +1018,6 @@
 		6741AACC1BF356BA002C974C /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB11BF356B9002C974C /* libmap.a */; };
 		6741AACD1BF356BA002C974C /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB21BF356B9002C974C /* libminizip.a */; };
 		6741AACE1BF356BA002C974C /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB31BF356B9002C974C /* libopening_hours.a */; };
-		6741AACF1BF356BA002C974C /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB41BF356B9002C974C /* libosrm.a */; };
 		6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB51BF356B9002C974C /* libplatform.a */; };
 		6741AAD11BF356BA002C974C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB61BF356BA002C974C /* libprotobuf.a */; };
 		6741AAD31BF356BA002C974C /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB81BF356BA002C974C /* librouting.a */; };
@@ -3051,7 +3050,6 @@
 				6741AACD1BF356BA002C974C /* libminizip.a in Frameworks */,
 				6741AACE1BF356BA002C974C /* libopening_hours.a in Frameworks */,
 				347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */,
-				6741AACF1BF356BA002C974C /* libosrm.a in Frameworks */,
 				6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */,
 				3404750F1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
 				6741AAD11BF356BA002C974C /* libprotobuf.a in Frameworks */,

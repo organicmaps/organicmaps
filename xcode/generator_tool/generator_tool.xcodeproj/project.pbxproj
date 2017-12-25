@@ -88,7 +88,6 @@
 		674A28EE1B1C80FB001A525C /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28ED1B1C80FB001A525C /* libjansson.a */; };
 		674A28F01B1C8104001A525C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28EF1B1C8104001A525C /* libsearch.a */; };
 		674A28F21B1C8119001A525C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28F11B1C8119001A525C /* libsuccinct.a */; };
-		674A28F41B1C8125001A525C /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28F31B1C8125001A525C /* libosrm.a */; };
 		675341631A3F54F600A0A8C3 /* generator_tool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341621A3F54F600A0A8C3 /* generator_tool.cpp */; };
 		675343E31A3F607600A0A8C3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343E21A3F607600A0A8C3 /* Cocoa.framework */; };
 		675344431A3F65E800A0A8C3 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343E01A3F600D00A0A8C3 /* IOKit.framework */; };
@@ -126,7 +125,6 @@
 		679624C71D11775300AE4E3C /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BD1D11775300AE4E3C /* libplatform_tests_support.a */; };
 		679624C81D11775300AE4E3C /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BE1D11775300AE4E3C /* libsdf_image.a */; };
 		679624C91D11775300AE4E3C /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BF1D11775300AE4E3C /* libstb_image.a */; };
-		679624CA1D11775F00AE4E3C /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28F31B1C8125001A525C /* libosrm.a */; };
 		679624CB1D11775F00AE4E3C /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D41B1C8001001A525C /* librouting.a */; };
 		679624CD1D11775F00AE4E3C /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624CC1D11775F00AE4E3C /* libagg.a */; };
 		679624CF1D11779700AE4E3C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624CE1D11779700AE4E3C /* OpenGL.framework */; };
@@ -373,7 +371,6 @@
 				67BC92C51D17FD5800A4A378 /* libstb_image.a in Frameworks */,
 				677E2A191CAACCB3001DC42A /* libz.tbd in Frameworks */,
 				6719DD5F1B95AB570018166F /* libtess2.a in Frameworks */,
-				674A28F41B1C8125001A525C /* libosrm.a in Frameworks */,
 				670F887A1CE4CA9C003F68BA /* libopening_hours.a in Frameworks */,
 				674A28F21B1C8119001A525C /* libsuccinct.a in Frameworks */,
 				674A28F01B1C8104001A525C /* libsearch.a in Frameworks */,
@@ -400,7 +397,6 @@
 			files = (
 				679624CF1D11779700AE4E3C /* OpenGL.framework in Frameworks */,
 				679624CD1D11775F00AE4E3C /* libagg.a in Frameworks */,
-				679624CA1D11775F00AE4E3C /* libosrm.a in Frameworks */,
 				679624CB1D11775F00AE4E3C /* librouting.a in Frameworks */,
 				679624C01D11775300AE4E3C /* libapi.a in Frameworks */,
 				679624C11D11775300AE4E3C /* libdrape_frontend.a in Frameworks */,

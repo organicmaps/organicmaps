@@ -109,8 +109,6 @@
 		56BC22D01F6A502800B6426B /* bicycle_turn_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567E9F731F5850460064CB96 /* bicycle_turn_test.cpp */; };
 		56C439281E93BF8C00998E29 /* cross_mwm_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C439241E93BF8C00998E29 /* cross_mwm_graph.cpp */; };
 		56C439291E93BF8C00998E29 /* cross_mwm_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56C439251E93BF8C00998E29 /* cross_mwm_graph.hpp */; };
-		56C4392A1E93BF8C00998E29 /* cross_mwm_osrm_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C439261E93BF8C00998E29 /* cross_mwm_osrm_graph.cpp */; };
-		56C4392B1E93BF8C00998E29 /* cross_mwm_osrm_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56C439271E93BF8C00998E29 /* cross_mwm_osrm_graph.hpp */; };
 		56C4392D1E93E5DF00998E29 /* transition_points.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56C4392C1E93E5DF00998E29 /* transition_points.hpp */; };
 		56CA09E31E30E73B00D05C9A /* applying_traffic_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA09DE1E30E73B00D05C9A /* applying_traffic_test.cpp */; };
 		56CA09E41E30E73B00D05C9A /* cumulative_restriction_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA09DF1E30E73B00D05C9A /* cumulative_restriction_test.cpp */; };
@@ -126,7 +124,6 @@
 		56F0D7341D896A5300045886 /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DE1C69F198003AA26F /* libmap.a */; };
 		56F0D7391D896A5300045886 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35D41C69F155003AA26F /* libstorage.a */; };
 		56F0D73A1D896A5300045886 /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343F81A3F640D00A0A8C3 /* librouting.a */; };
-		56F0D73B1D896A5300045886 /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEC1C68A27C009CB89E /* libosrm.a */; };
 		56F0D73C1D896A5300045886 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFE1C68A2F4009CB89E /* libjansson.a */; };
 		56F0D73D1D896A5300045886 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE71C68A23B009CB89E /* libgeometry.a */; };
 		56F0D73E1D896A5300045886 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEE1C68A27C009CB89E /* libpugixml.a */; };
@@ -155,9 +152,6 @@
 		56F0D75A1D896A5300045886 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD531C68BB14009CB89E /* classificator.txt */; };
 		56F0D75B1D896A5300045886 /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD611C68F747009CB89E /* sound-strings */; };
 		56FA20471FBF23A90045DE78 /* cross_mwm_ids.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56FA20461FBF23A90045DE78 /* cross_mwm_ids.hpp */; };
-		670B84C01A9381D900CE4492 /* cross_routing_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */; };
-		670B84C11A9381D900CE4492 /* cross_routing_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */; };
-		670C62131AC5A15700C38A8C /* routing_mapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670C62111AC5A15700C38A8C /* routing_mapping.cpp */; };
 		670D049E1B0B4A970013A7AC /* nearest_edge_finder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670D049C1B0B4A970013A7AC /* nearest_edge_finder.cpp */; };
 		670D049F1B0B4A970013A7AC /* nearest_edge_finder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670D049D1B0B4A970013A7AC /* nearest_edge_finder.hpp */; };
 		670EE55D1B6001E7001E8064 /* routing_session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670EE55A1B6001E7001E8064 /* routing_session.cpp */; };
@@ -179,15 +173,12 @@
 		6742AD281C68A9DF009CB89E /* astar_progress_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACA71C68A0B1009CB89E /* astar_progress_test.cpp */; };
 		6742AD291C68A9DF009CB89E /* astar_router_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACA81C68A0B1009CB89E /* astar_router_test.cpp */; };
 		6742AD2A1C68A9DF009CB89E /* async_router_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACA91C68A0B1009CB89E /* async_router_test.cpp */; };
-		6742AD2B1C68A9DF009CB89E /* cross_routing_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAA1C68A0B1009CB89E /* cross_routing_tests.cpp */; };
 		6742AD2C1C68A9DF009CB89E /* followed_polyline_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAB1C68A0B1009CB89E /* followed_polyline_test.cpp */; };
 		6742AD2D1C68A9DF009CB89E /* nearest_edge_finder_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAC1C68A0B1009CB89E /* nearest_edge_finder_tests.cpp */; };
 		6742AD2E1C68A9DF009CB89E /* online_cross_fetcher_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAD1C68A0B1009CB89E /* online_cross_fetcher_test.cpp */; };
-		6742AD2F1C68A9DF009CB89E /* osrm_router_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAE1C68A0B1009CB89E /* osrm_router_test.cpp */; };
 		6742AD301C68A9DF009CB89E /* road_graph_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAF1C68A0B1009CB89E /* road_graph_builder.cpp */; };
 		6742AD311C68A9DF009CB89E /* road_graph_nearest_edges_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB11C68A0B1009CB89E /* road_graph_nearest_edges_test.cpp */; };
 		6742AD321C68A9DF009CB89E /* route_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB21C68A0B1009CB89E /* route_tests.cpp */; };
-		6742AD331C68A9DF009CB89E /* routing_mapping_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB31C68A0B1009CB89E /* routing_mapping_test.cpp */; };
 		6742AD341C68A9DF009CB89E /* routing_session_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB41C68A0B1009CB89E /* routing_session_test.cpp */; };
 		6742AD351C68A9DF009CB89E /* turns_generator_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB51C68A0B1009CB89E /* turns_generator_test.cpp */; };
 		6742AD361C68A9DF009CB89E /* turns_sound_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB61C68A0B1009CB89E /* turns_sound_test.cpp */; };
@@ -198,7 +189,6 @@
 		6742AD3D1C68AA04009CB89E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */; };
 		6742AD3E1C68AA04009CB89E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFB1C68A2D7009CB89E /* libprotobuf.a */; };
 		6742AD3F1C68AA04009CB89E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACF81C68A2C8009CB89E /* libeditor.a */; };
-		6742AD401C68AA04009CB89E /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEC1C68A27C009CB89E /* libosrm.a */; };
 		6742AD411C68AA04009CB89E /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACED1C68A27C009CB89E /* libplatform.a */; };
 		6742AD421C68AA04009CB89E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEE1C68A27C009CB89E /* libpugixml.a */; };
 		6742AD431C68AA04009CB89E /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEF1C68A27C009CB89E /* libsearch.a */; };
@@ -216,8 +206,6 @@
 		6742AD5F1C68C7FA009CB89E /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */; };
 		6742AD601C68C7FA009CB89E /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5B1C68C7F6009CB89E /* drules_proto.bin */; };
 		6742AD621C68F747009CB89E /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD611C68F747009CB89E /* sound-strings */; };
-		674A28B11B1605D2001A525C /* osrm_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A28AF1B1605D2001A525C /* osrm_engine.cpp */; };
-		674A28B21B1605D2001A525C /* osrm_engine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A28B01B1605D2001A525C /* osrm_engine.hpp */; };
 		674F9BCA1B0A580E00704FFA /* async_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BBA1B0A580E00704FFA /* async_router.cpp */; };
 		674F9BCB1B0A580E00704FFA /* async_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674F9BBB1B0A580E00704FFA /* async_router.hpp */; };
 		674F9BCC1B0A580E00704FFA /* features_road_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BBC1B0A580E00704FFA /* features_road_graph.cpp */; };
@@ -230,19 +218,14 @@
 		674F9BD51B0A580E00704FFA /* road_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674F9BC51B0A580E00704FFA /* road_graph.hpp */; };
 		674F9BD61B0A580E00704FFA /* turns_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BC61B0A580E00704FFA /* turns_generator.cpp */; };
 		674F9BD71B0A580E00704FFA /* turns_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674F9BC71B0A580E00704FFA /* turns_generator.hpp */; };
-		675344141A3F644F00A0A8C3 /* osrm_data_facade.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344061A3F644F00A0A8C3 /* osrm_data_facade.hpp */; };
-		675344191A3F644F00A0A8C3 /* osrm2feature_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753440B1A3F644F00A0A8C3 /* osrm2feature_map.cpp */; };
-		6753441A1A3F644F00A0A8C3 /* osrm2feature_map.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753440C1A3F644F00A0A8C3 /* osrm2feature_map.hpp */; };
 		6753441B1A3F644F00A0A8C3 /* route.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753440D1A3F644F00A0A8C3 /* route.cpp */; };
 		6753441C1A3F644F00A0A8C3 /* route.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753440E1A3F644F00A0A8C3 /* route.hpp */; };
 		6753441D1A3F644F00A0A8C3 /* router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753440F1A3F644F00A0A8C3 /* router.hpp */; };
 		6753441E1A3F644F00A0A8C3 /* turns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675344101A3F644F00A0A8C3 /* turns.cpp */; };
 		6753441F1A3F644F00A0A8C3 /* turns.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344111A3F644F00A0A8C3 /* turns.hpp */; };
-		67AB92E51B7B3E6E00AB5194 /* routing_mapping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AB92E01B7B3E6E00AB5194 /* routing_mapping.hpp */; };
 		67AB92E61B7B3E6E00AB5194 /* turns_tts_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB92E11B7B3E6E00AB5194 /* turns_tts_text.cpp */; };
 		67AB92E71B7B3E6E00AB5194 /* turns_tts_text.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AB92E21B7B3E6E00AB5194 /* turns_tts_text.hpp */; };
 		67BD35BA1C69F08E003AA26F /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACDE1C68A13F009CB89E /* testingmain.cpp */; };
-		67BD35BB1C69F094003AA26F /* cross_section_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BD35AC1C69F086003AA26F /* cross_section_tests.cpp */; };
 		67BD35BC1C69F094003AA26F /* online_cross_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BD35AD1C69F086003AA26F /* online_cross_tests.cpp */; };
 		67BD35BF1C69F094003AA26F /* pedestrian_route_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BD35B01C69F086003AA26F /* pedestrian_route_test.cpp */; };
 		67BD35C01C69F094003AA26F /* routing_test_tools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BD35B11C69F086003AA26F /* routing_test_tools.cpp */; };
@@ -252,7 +235,6 @@
 		67BD35C61C69F121003AA26F /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */; };
 		67BD35C71C69F121003AA26F /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFB1C68A2D7009CB89E /* libprotobuf.a */; };
 		67BD35C81C69F121003AA26F /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACF81C68A2C8009CB89E /* libeditor.a */; };
-		67BD35C91C69F121003AA26F /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEC1C68A27C009CB89E /* libosrm.a */; };
 		67BD35CA1C69F121003AA26F /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACED1C68A27C009CB89E /* libplatform.a */; };
 		67BD35CB1C69F121003AA26F /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEE1C68A27C009CB89E /* libpugixml.a */; };
 		67BD35CC1C69F121003AA26F /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEF1C68A27C009CB89E /* libsearch.a */; };
@@ -289,10 +271,6 @@
 		67C79BA21E2CEE1400C40034 /* restriction_loader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67C79BA01E2CEE1400C40034 /* restriction_loader.hpp */; };
 		67C7D42D1B4EB48F00FE41AA /* turns_sound_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67C7D4251B4EB48F00FE41AA /* turns_sound_settings.cpp */; };
 		67C7D42E1B4EB48F00FE41AA /* turns_sound_settings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67C7D4261B4EB48F00FE41AA /* turns_sound_settings.hpp */; };
-		A120B3451B4A7BE5002F3808 /* cross_mwm_road_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A120B3411B4A7BE5002F3808 /* cross_mwm_road_graph.cpp */; };
-		A120B3461B4A7BE5002F3808 /* cross_mwm_road_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A120B3421B4A7BE5002F3808 /* cross_mwm_road_graph.hpp */; };
-		A120B3471B4A7BE5002F3808 /* cross_mwm_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A120B3431B4A7BE5002F3808 /* cross_mwm_router.cpp */; };
-		A120B3481B4A7BE5002F3808 /* cross_mwm_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A120B3441B4A7BE5002F3808 /* cross_mwm_router.hpp */; };
 		A120B34E1B4A7C0A002F3808 /* online_absent_fetcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A120B34A1B4A7C0A002F3808 /* online_absent_fetcher.cpp */; };
 		A120B34F1B4A7C0A002F3808 /* online_absent_fetcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A120B34B1B4A7C0A002F3808 /* online_absent_fetcher.hpp */; };
 		A120B3501B4A7C0A002F3808 /* routing_algorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A120B34C1B4A7C0A002F3808 /* routing_algorithm.cpp */; };
@@ -408,8 +386,6 @@
 		5694CEC91EBA25F7004576D3 /* vehicle_mask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vehicle_mask.cpp; sourceTree = "<group>"; };
 		56C439241E93BF8C00998E29 /* cross_mwm_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_mwm_graph.cpp; sourceTree = "<group>"; };
 		56C439251E93BF8C00998E29 /* cross_mwm_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_graph.hpp; sourceTree = "<group>"; };
-		56C439261E93BF8C00998E29 /* cross_mwm_osrm_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_mwm_osrm_graph.cpp; sourceTree = "<group>"; };
-		56C439271E93BF8C00998E29 /* cross_mwm_osrm_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_osrm_graph.hpp; sourceTree = "<group>"; };
 		56C4392C1E93E5DF00998E29 /* transition_points.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transition_points.hpp; sourceTree = "<group>"; };
 		56CA09DE1E30E73B00D05C9A /* applying_traffic_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = applying_traffic_test.cpp; sourceTree = "<group>"; };
 		56CA09DF1E30E73B00D05C9A /* cumulative_restriction_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cumulative_restriction_test.cpp; sourceTree = "<group>"; };
@@ -423,9 +399,6 @@
 		56EE14DC1FE812FC0036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F0D75F1D896A5300045886 /* routing_benchmarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = routing_benchmarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56FA20461FBF23A90045DE78 /* cross_mwm_ids.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_ids.hpp; sourceTree = "<group>"; };
-		670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_routing_context.cpp; sourceTree = "<group>"; };
-		670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_routing_context.hpp; sourceTree = "<group>"; };
-		670C62111AC5A15700C38A8C /* routing_mapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_mapping.cpp; sourceTree = "<group>"; };
 		670D049C1B0B4A970013A7AC /* nearest_edge_finder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nearest_edge_finder.cpp; sourceTree = "<group>"; };
 		670D049D1B0B4A970013A7AC /* nearest_edge_finder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nearest_edge_finder.hpp; sourceTree = "<group>"; };
 		670EE55A1B6001E7001E8064 /* routing_session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_session.cpp; sourceTree = "<group>"; };
@@ -446,16 +419,13 @@
 		6742ACA71C68A0B1009CB89E /* astar_progress_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = astar_progress_test.cpp; sourceTree = "<group>"; };
 		6742ACA81C68A0B1009CB89E /* astar_router_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = astar_router_test.cpp; sourceTree = "<group>"; };
 		6742ACA91C68A0B1009CB89E /* async_router_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = async_router_test.cpp; sourceTree = "<group>"; };
-		6742ACAA1C68A0B1009CB89E /* cross_routing_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_routing_tests.cpp; sourceTree = "<group>"; };
 		6742ACAB1C68A0B1009CB89E /* followed_polyline_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = followed_polyline_test.cpp; sourceTree = "<group>"; };
 		6742ACAC1C68A0B1009CB89E /* nearest_edge_finder_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nearest_edge_finder_tests.cpp; sourceTree = "<group>"; };
 		6742ACAD1C68A0B1009CB89E /* online_cross_fetcher_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = online_cross_fetcher_test.cpp; sourceTree = "<group>"; };
-		6742ACAE1C68A0B1009CB89E /* osrm_router_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm_router_test.cpp; sourceTree = "<group>"; };
 		6742ACAF1C68A0B1009CB89E /* road_graph_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_graph_builder.cpp; sourceTree = "<group>"; };
 		6742ACB01C68A0B1009CB89E /* road_graph_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = road_graph_builder.hpp; sourceTree = "<group>"; };
 		6742ACB11C68A0B1009CB89E /* road_graph_nearest_edges_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_graph_nearest_edges_test.cpp; sourceTree = "<group>"; };
 		6742ACB21C68A0B1009CB89E /* route_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_tests.cpp; sourceTree = "<group>"; };
-		6742ACB31C68A0B1009CB89E /* routing_mapping_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_mapping_test.cpp; sourceTree = "<group>"; };
 		6742ACB41C68A0B1009CB89E /* routing_session_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_session_test.cpp; sourceTree = "<group>"; };
 		6742ACB51C68A0B1009CB89E /* turns_generator_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_generator_test.cpp; sourceTree = "<group>"; };
 		6742ACB61C68A0B1009CB89E /* turns_sound_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = turns_sound_test.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -486,8 +456,6 @@
 		6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "drules_proto-bw.bin"; sourceTree = "<group>"; };
 		6742AD5B1C68C7F6009CB89E /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto.bin; sourceTree = "<group>"; };
 		6742AD611C68F747009CB89E /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "sound-strings"; sourceTree = "<group>"; };
-		674A28AF1B1605D2001A525C /* osrm_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm_engine.cpp; sourceTree = "<group>"; };
-		674A28B01B1605D2001A525C /* osrm_engine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osrm_engine.hpp; sourceTree = "<group>"; };
 		674F9BBA1B0A580E00704FFA /* async_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = async_router.cpp; sourceTree = "<group>"; };
 		674F9BBB1B0A580E00704FFA /* async_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_router.hpp; sourceTree = "<group>"; };
 		674F9BBC1B0A580E00704FFA /* features_road_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = features_road_graph.cpp; sourceTree = "<group>"; };
@@ -501,19 +469,14 @@
 		674F9BC61B0A580E00704FFA /* turns_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_generator.cpp; sourceTree = "<group>"; };
 		674F9BC71B0A580E00704FFA /* turns_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns_generator.hpp; sourceTree = "<group>"; };
 		675343F81A3F640D00A0A8C3 /* librouting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = librouting.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		675344061A3F644F00A0A8C3 /* osrm_data_facade.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osrm_data_facade.hpp; sourceTree = "<group>"; };
-		6753440B1A3F644F00A0A8C3 /* osrm2feature_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm2feature_map.cpp; sourceTree = "<group>"; };
-		6753440C1A3F644F00A0A8C3 /* osrm2feature_map.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osrm2feature_map.hpp; sourceTree = "<group>"; };
 		6753440D1A3F644F00A0A8C3 /* route.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route.cpp; sourceTree = "<group>"; };
 		6753440E1A3F644F00A0A8C3 /* route.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route.hpp; sourceTree = "<group>"; };
 		6753440F1A3F644F00A0A8C3 /* router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = router.hpp; sourceTree = "<group>"; };
 		675344101A3F644F00A0A8C3 /* turns.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns.cpp; sourceTree = "<group>"; };
 		675344111A3F644F00A0A8C3 /* turns.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns.hpp; sourceTree = "<group>"; };
-		67AB92E01B7B3E6E00AB5194 /* routing_mapping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_mapping.hpp; sourceTree = "<group>"; };
 		67AB92E11B7B3E6E00AB5194 /* turns_tts_text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_tts_text.cpp; sourceTree = "<group>"; };
 		67AB92E21B7B3E6E00AB5194 /* turns_tts_text.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns_tts_text.hpp; sourceTree = "<group>"; };
 		67BD35951C69F03E003AA26F /* routing_integration_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = routing_integration_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		67BD35AC1C69F086003AA26F /* cross_section_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_section_tests.cpp; sourceTree = "<group>"; };
 		67BD35AD1C69F086003AA26F /* online_cross_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = online_cross_tests.cpp; sourceTree = "<group>"; };
 		67BD35B01C69F086003AA26F /* pedestrian_route_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pedestrian_route_test.cpp; sourceTree = "<group>"; };
 		67BD35B11C69F086003AA26F /* routing_test_tools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_test_tools.cpp; sourceTree = "<group>"; };
@@ -538,10 +501,6 @@
 		67C79BA01E2CEE1400C40034 /* restriction_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = restriction_loader.hpp; sourceTree = "<group>"; };
 		67C7D4251B4EB48F00FE41AA /* turns_sound_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = turns_sound_settings.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		67C7D4261B4EB48F00FE41AA /* turns_sound_settings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns_sound_settings.hpp; sourceTree = "<group>"; };
-		A120B3411B4A7BE5002F3808 /* cross_mwm_road_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_mwm_road_graph.cpp; sourceTree = "<group>"; };
-		A120B3421B4A7BE5002F3808 /* cross_mwm_road_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_road_graph.hpp; sourceTree = "<group>"; };
-		A120B3431B4A7BE5002F3808 /* cross_mwm_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_mwm_router.cpp; sourceTree = "<group>"; };
-		A120B3441B4A7BE5002F3808 /* cross_mwm_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_mwm_router.hpp; sourceTree = "<group>"; };
 		A120B34A1B4A7C0A002F3808 /* online_absent_fetcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = online_absent_fetcher.cpp; sourceTree = "<group>"; };
 		A120B34B1B4A7C0A002F3808 /* online_absent_fetcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = online_absent_fetcher.hpp; sourceTree = "<group>"; };
 		A120B34C1B4A7C0A002F3808 /* routing_algorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_algorithm.cpp; sourceTree = "<group>"; };
@@ -564,7 +523,6 @@
 				56F0D7341D896A5300045886 /* libmap.a in Frameworks */,
 				56F0D7391D896A5300045886 /* libstorage.a in Frameworks */,
 				56F0D73A1D896A5300045886 /* librouting.a in Frameworks */,
-				56F0D73B1D896A5300045886 /* libosrm.a in Frameworks */,
 				56F0D73C1D896A5300045886 /* libjansson.a in Frameworks */,
 				56F0D73D1D896A5300045886 /* libgeometry.a in Frameworks */,
 				56F0D73E1D896A5300045886 /* libpugixml.a in Frameworks */,
@@ -589,7 +547,6 @@
 				56CA09E91E30F19800D05C9A /* libtraffic.a in Frameworks */,
 				3462FDAD1DC1E5BF00906FD7 /* libopening_hours.a in Frameworks */,
 				6742AD4D1C68AA59009CB89E /* librouting.a in Frameworks */,
-				6742AD401C68AA04009CB89E /* libosrm.a in Frameworks */,
 				6742AD3B1C68AA04009CB89E /* libjansson.a in Frameworks */,
 				6742AD451C68AA04009CB89E /* libgeometry.a in Frameworks */,
 				6742AD421C68AA04009CB89E /* libpugixml.a in Frameworks */,
@@ -636,7 +593,6 @@
 				67BD35D51C69F155003AA26F /* libstorage.a in Frameworks */,
 				408B55C21FD9541800F4E78B /* libmwm_diff.a in Frameworks */,
 				67BD35D31C69F139003AA26F /* librouting.a in Frameworks */,
-				67BD35C91C69F121003AA26F /* libosrm.a in Frameworks */,
 				67BD35C41C69F121003AA26F /* libjansson.a in Frameworks */,
 				67BD35CE1C69F121003AA26F /* libgeometry.a in Frameworks */,
 				67BD35CB1C69F121003AA26F /* libpugixml.a in Frameworks */,
@@ -707,18 +663,15 @@
 				6742ACA91C68A0B1009CB89E /* async_router_test.cpp */,
 				0CF5E8A91E8EA7A1001ED497 /* coding_test.cpp */,
 				0C5F5D241E798B3800307B98 /* cross_mwm_connector_test.cpp */,
-				6742ACAA1C68A0B1009CB89E /* cross_routing_tests.cpp */,
 				40576F751F791360000B593B /* fake_graph_test.cpp */,
 				6742ACAB1C68A0B1009CB89E /* followed_polyline_test.cpp */,
 				0C5FEC6C1DDE19A40017688C /* index_graph_test.cpp */,
 				6742ACAC1C68A0B1009CB89E /* nearest_edge_finder_tests.cpp */,
 				6742ACAD1C68A0B1009CB89E /* online_cross_fetcher_test.cpp */,
-				6742ACAE1C68A0B1009CB89E /* osrm_router_test.cpp */,
 				6742ACAF1C68A0B1009CB89E /* road_graph_builder.cpp */,
 				6742ACB01C68A0B1009CB89E /* road_graph_builder.hpp */,
 				6742ACB11C68A0B1009CB89E /* road_graph_nearest_edges_test.cpp */,
 				6742ACB21C68A0B1009CB89E /* route_tests.cpp */,
-				6742ACB31C68A0B1009CB89E /* routing_mapping_test.cpp */,
 				6742ACB41C68A0B1009CB89E /* routing_session_test.cpp */,
 				6742ACB51C68A0B1009CB89E /* turns_generator_test.cpp */,
 				6742ACB61C68A0B1009CB89E /* turns_sound_test.cpp */,
@@ -837,8 +790,6 @@
 				56C4392C1E93E5DF00998E29 /* transition_points.hpp */,
 				56C439241E93BF8C00998E29 /* cross_mwm_graph.cpp */,
 				56C439251E93BF8C00998E29 /* cross_mwm_graph.hpp */,
-				56C439261E93BF8C00998E29 /* cross_mwm_osrm_graph.cpp */,
-				56C439271E93BF8C00998E29 /* cross_mwm_osrm_graph.hpp */,
 				674F9BBA1B0A580E00704FFA /* async_router.cpp */,
 				674F9BBB1B0A580E00704FFA /* async_router.hpp */,
 				671F58BA1B874EA20032311E /* base */,
@@ -851,12 +802,6 @@
 				0C5F5D1F1E798B0400307B98 /* cross_mwm_connector.hpp */,
 				0C5F5D1C1E798B0400307B98 /* cross_mwm_connector_serialization.cpp */,
 				0C5F5D1D1E798B0400307B98 /* cross_mwm_connector_serialization.hpp */,
-				A120B3411B4A7BE5002F3808 /* cross_mwm_road_graph.cpp */,
-				A120B3421B4A7BE5002F3808 /* cross_mwm_road_graph.hpp */,
-				A120B3431B4A7BE5002F3808 /* cross_mwm_router.cpp */,
-				A120B3441B4A7BE5002F3808 /* cross_mwm_router.hpp */,
-				670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */,
-				670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */,
 				56099E321CC9247E00A7772A /* directions_engine.cpp */,
 				670EE56E1B664796001E8064 /* directions_engine.hpp */,
 				56CC5A361E3884960016AC46 /* cross_mwm_index_graph.hpp */,
@@ -896,11 +841,6 @@
 				A120B34B1B4A7C0A002F3808 /* online_absent_fetcher.hpp */,
 				674F9BC01B0A580E00704FFA /* online_cross_fetcher.cpp */,
 				674F9BC11B0A580E00704FFA /* online_cross_fetcher.hpp */,
-				675344061A3F644F00A0A8C3 /* osrm_data_facade.hpp */,
-				674A28AF1B1605D2001A525C /* osrm_engine.cpp */,
-				674A28B01B1605D2001A525C /* osrm_engine.hpp */,
-				6753440B1A3F644F00A0A8C3 /* osrm2feature_map.cpp */,
-				6753440C1A3F644F00A0A8C3 /* osrm2feature_map.hpp */,
 				670EE56F1B664796001E8064 /* pedestrian_directions.cpp */,
 				670EE5701B664796001E8064 /* pedestrian_directions.hpp */,
 				67C79B9F1E2CEE1400C40034 /* restriction_loader.cpp */,
@@ -926,8 +866,6 @@
 				0C08AA381DF8329B004195DD /* routing_exceptions.hpp */,
 				0C0DF9281DE898FF0055A22F /* routing_helpers.cpp */,
 				56EA2FD41D8FD8590083F01A /* routing_helpers.hpp */,
-				670C62111AC5A15700C38A8C /* routing_mapping.cpp */,
-				67AB92E01B7B3E6E00AB5194 /* routing_mapping.hpp */,
 				56099E261CC7C97D00A7772A /* routing_result_graph.hpp */,
 				670EE55A1B6001E7001E8064 /* routing_session.cpp */,
 				670EE55B1B6001E7001E8064 /* routing_session.hpp */,
@@ -977,7 +915,6 @@
 				567E9F731F5850460064CB96 /* bicycle_turn_test.cpp */,
 				567E9F741F5850460064CB96 /* turn_test.cpp */,
 				56CA63061F61206700E6681B /* road_graph_tests.cpp */,
-				67BD35AC1C69F086003AA26F /* cross_section_tests.cpp */,
 				67BD35AD1C69F086003AA26F /* online_cross_tests.cpp */,
 				67BD35B01C69F086003AA26F /* pedestrian_route_test.cpp */,
 				67BD35B11C69F086003AA26F /* routing_test_tools.cpp */,
@@ -995,7 +932,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C5FEC631DDE192A0017688C /* joint_index.hpp in Headers */,
-				67AB92E51B7B3E6E00AB5194 /* routing_mapping.hpp in Headers */,
 				67C79BA21E2CEE1400C40034 /* restriction_loader.hpp in Headers */,
 				674F9BCB1B0A580E00704FFA /* async_router.hpp in Headers */,
 				0C08AA391DF8329B004195DD /* routing_exceptions.hpp in Headers */,
@@ -1004,28 +940,22 @@
 				0C470E701E0D4EB1005B824D /* segment.hpp in Headers */,
 				A120B3531B4A7C1C002F3808 /* astar_algorithm.hpp in Headers */,
 				0C5FEC5F1DDE192A0017688C /* geometry.hpp in Headers */,
-				674A28B21B1605D2001A525C /* osrm_engine.hpp in Headers */,
 				67AB92E71B7B3E6E00AB5194 /* turns_tts_text.hpp in Headers */,
 				56099E2A1CC7C97D00A7772A /* routing_result_graph.hpp in Headers */,
-				A120B3481B4A7BE5002F3808 /* cross_mwm_router.hpp in Headers */,
 				674F9BD31B0A580E00704FFA /* road_graph_router.hpp in Headers */,
 				0C5F5D231E798B0400307B98 /* cross_mwm_connector.hpp in Headers */,
 				40F7F3E41F7D246D0082D564 /* single_vehicle_world_graph.hpp in Headers */,
 				5670595E1F3AF97F0062672D /* checkpoint_predictor.hpp in Headers */,
-				675344141A3F644F00A0A8C3 /* osrm_data_facade.hpp in Headers */,
 				6753441F1A3F644F00A0A8C3 /* turns.hpp in Headers */,
 				0C5FEC611DDE192A0017688C /* index_graph.hpp in Headers */,
-				6753441A1A3F644F00A0A8C3 /* osrm2feature_map.hpp in Headers */,
 				40BEC0811F99FFD700E06CA4 /* transit_info.hpp in Headers */,
 				4065EA861F8260010094DEF3 /* transit_graph_loader.hpp in Headers */,
 				6741AA9D1BF35331002C974C /* turns_notification_manager.hpp in Headers */,
 				674F9BD71B0A580E00704FFA /* turns_generator.hpp in Headers */,
 				40655E741F8BA46B0065305E /* fake_feature_ids.hpp in Headers */,
-				A120B3461B4A7BE5002F3808 /* cross_mwm_road_graph.hpp in Headers */,
 				6753441C1A3F644F00A0A8C3 /* route.hpp in Headers */,
 				A1616E2C1B6B60AB003F078E /* router_delegate.hpp in Headers */,
 				349D1CE11E3F589900A878FD /* restrictions_serialization.hpp in Headers */,
-				56C4392B1E93BF8C00998E29 /* cross_mwm_osrm_graph.hpp in Headers */,
 				56CC5A371E3884960016AC46 /* cross_mwm_index_graph.hpp in Headers */,
 				67C7D42E1B4EB48F00FE41AA /* turns_sound_settings.hpp in Headers */,
 				56099E341CC9247E00A7772A /* bicycle_directions.hpp in Headers */,
@@ -1073,7 +1003,6 @@
 				4065EA801F824A6C0094DEF3 /* transit_world_graph.hpp in Headers */,
 				56C4392D1E93E5DF00998E29 /* transition_points.hpp in Headers */,
 				0C5FEC551DDE191E0017688C /* edge_estimator.hpp in Headers */,
-				670B84C11A9381D900CE4492 /* cross_routing_context.hpp in Headers */,
 				0C12ED241E5C822A0080D0F4 /* index_router.hpp in Headers */,
 				40C645171F8D167F002E05A0 /* fake_ending.hpp in Headers */,
 				0C5FEC651DDE192A0017688C /* joint.hpp in Headers */,
@@ -1269,13 +1198,10 @@
 				6742AD2E1C68A9DF009CB89E /* online_cross_fetcher_test.cpp in Sources */,
 				6742AD291C68A9DF009CB89E /* astar_router_test.cpp in Sources */,
 				6742AD371C68A9DF009CB89E /* turns_tts_text_tests.cpp in Sources */,
-				6742AD2B1C68A9DF009CB89E /* cross_routing_tests.cpp in Sources */,
 				6742AD2C1C68A9DF009CB89E /* followed_polyline_test.cpp in Sources */,
-				6742AD331C68A9DF009CB89E /* routing_mapping_test.cpp in Sources */,
 				6742AD341C68A9DF009CB89E /* routing_session_test.cpp in Sources */,
 				6742AD261C68A9DF009CB89E /* testingmain.cpp in Sources */,
 				6742AD361C68A9DF009CB89E /* turns_sound_test.cpp in Sources */,
-				6742AD2F1C68A9DF009CB89E /* osrm_router_test.cpp in Sources */,
 				6742AD271C68A9DF009CB89E /* astar_algorithm_test.cpp in Sources */,
 				6742AD351C68A9DF009CB89E /* turns_generator_test.cpp in Sources */,
 				6742AD301C68A9DF009CB89E /* road_graph_builder.cpp in Sources */,
@@ -1291,7 +1217,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C5FEC641DDE192A0017688C /* joint.cpp in Sources */,
-				56C4392A1E93BF8C00998E29 /* cross_mwm_osrm_graph.cpp in Sources */,
 				0C090C871E4E276700D52AFD /* world_graph.cpp in Sources */,
 				0C5F5D201E798B0400307B98 /* cross_mwm_connector_serialization.cpp in Sources */,
 				56CA09E71E30E73B00D05C9A /* restriction_test.cpp in Sources */,
@@ -1303,7 +1228,6 @@
 				A1616E2B1B6B60AB003F078E /* router_delegate.cpp in Sources */,
 				6741AA9C1BF35331002C974C /* turns_notification_manager.cpp in Sources */,
 				0C0DF9211DE898B70055A22F /* index_graph_starter.cpp in Sources */,
-				A120B3471B4A7BE5002F3808 /* cross_mwm_router.cpp in Sources */,
 				56C439281E93BF8C00998E29 /* cross_mwm_graph.cpp in Sources */,
 				670EE5731B664796001E8064 /* pedestrian_directions.cpp in Sources */,
 				6753441B1A3F644F00A0A8C3 /* route.cpp in Sources */,
@@ -1312,7 +1236,6 @@
 				0C81E1531F02589800DC66DF /* traffic_stash.cpp in Sources */,
 				0CF5E8AA1E8EA7A1001ED497 /* coding_test.cpp in Sources */,
 				40858A871F8CEAE60065CFF7 /* fake_feature_ids.cpp in Sources */,
-				675344191A3F644F00A0A8C3 /* osrm2feature_map.cpp in Sources */,
 				40A111CD1F2F6776005E6AD5 /* route_weight.cpp in Sources */,
 				670D049E1B0B4A970013A7AC /* nearest_edge_finder.cpp in Sources */,
 				0C5F5D251E798B3800307B98 /* cross_mwm_connector_test.cpp in Sources */,
@@ -1326,9 +1249,7 @@
 				671F58BD1B874EC80032311E /* followed_polyline.cpp in Sources */,
 				670EE55D1B6001E7001E8064 /* routing_session.cpp in Sources */,
 				40C645161F8D167F002E05A0 /* fake_ending.cpp in Sources */,
-				A120B3451B4A7BE5002F3808 /* cross_mwm_road_graph.cpp in Sources */,
 				56099E331CC9247E00A7772A /* bicycle_directions.cpp in Sources */,
-				674A28B11B1605D2001A525C /* osrm_engine.cpp in Sources */,
 				0C08AA341DF83223004195DD /* index_graph_serialization.cpp in Sources */,
 				5694CECA1EBA25F7004576D3 /* road_access_serialization.cpp in Sources */,
 				674F9BD41B0A580E00704FFA /* road_graph.cpp in Sources */,
@@ -1346,7 +1267,6 @@
 				4081AD4E1F8E4C1D006CE8A5 /* transit_graph.cpp in Sources */,
 				6753441E1A3F644F00A0A8C3 /* turns.cpp in Sources */,
 				4065EA851F8260010094DEF3 /* transit_graph_loader.cpp in Sources */,
-				670B84C01A9381D900CE4492 /* cross_routing_context.cpp in Sources */,
 				A120B3501B4A7C0A002F3808 /* routing_algorithm.cpp in Sources */,
 				674F9BCC1B0A580E00704FFA /* features_road_graph.cpp in Sources */,
 				0C5FEC5E1DDE192A0017688C /* geometry.cpp in Sources */,
@@ -1355,7 +1275,6 @@
 				5670595D1F3AF97F0062672D /* checkpoint_predictor.cpp in Sources */,
 				56CA09E31E30E73B00D05C9A /* applying_traffic_test.cpp in Sources */,
 				0C5FEC621DDE192A0017688C /* joint_index.cpp in Sources */,
-				670C62131AC5A15700C38A8C /* routing_mapping.cpp in Sources */,
 				67C79BA11E2CEE1400C40034 /* restriction_loader.cpp in Sources */,
 				40576F761F791360000B593B /* fake_graph_test.cpp in Sources */,
 				67C7D42D1B4EB48F00FE41AA /* turns_sound_settings.cpp in Sources */,
@@ -1370,7 +1289,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67BD35BB1C69F094003AA26F /* cross_section_tests.cpp in Sources */,
 				67BD35C01C69F094003AA26F /* routing_test_tools.cpp in Sources */,
 				56BC22CE1F6A501D00B6426B /* get_altitude_test.cpp in Sources */,
 				56ED7DBD1F69425700B67156 /* turn_test.cpp in Sources */,
