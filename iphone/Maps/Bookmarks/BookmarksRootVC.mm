@@ -36,8 +36,6 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
 // Used to display add bookmarks hint
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-  CGFloat const offset = 10;
-
   CGRect const rect = tableView.bounds;
   // Use UILabel inside custom view to add padding on the left and right (there is no other way to do it)
   if (!m_hint)
@@ -65,6 +63,13 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     [m_hint addSubview:label];
   }
   UILabel * label = m_hint.subviews.firstObject;
+
+  CGFloat offset = 10;
+  if (@available(iOS 11.0, *))
+  {
+    UIEdgeInsets const safeAreaInsets = tableView.safeAreaInsets;
+    offset = max(max(safeAreaInsets.top, safeAreaInsets.bottom), max(safeAreaInsets.left, safeAreaInsets.right));
+  }
   label.bounds = CGRectInset(rect, offset, offset);
   [label sizeToIntegralFit];
   m_hint.bounds = CGRectMake(0, 0, rect.size.width, label.bounds.size.height + 2 * offset);
