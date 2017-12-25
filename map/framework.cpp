@@ -432,19 +432,14 @@ Framework::Framework(FrameworkParams const & params)
   LOG(LDEBUG, ("Search API initialized"));
 
   m_bmManager = make_unique<BookmarkManager>(BookmarkManager::Callbacks(
-    [this]() -> StringsBundle const & { return m_stringsBundle; },
-    [this](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
-    {
-      GetSearchAPI().OnBookmarksCreated(marks);
-    },
-    [this](std::vector<std::pair<df::MarkID, BookmarkData>> const & marks)
-    {
-      GetSearchAPI().OnBookmarksUpdated(marks);
-    },
-    [this](std::vector<df::MarkID> const & marks)
-    {
-      GetSearchAPI().OnBookmarksDeleted(marks);
-    }));
+      [this]() -> StringsBundle const & { return m_stringsBundle; },
+      [this](vector<pair<df::MarkID, BookmarkData>> const & marks) {
+        GetSearchAPI().OnBookmarksCreated(marks);
+      },
+      [this](vector<pair<df::MarkID, BookmarkData>> const & marks) {
+        GetSearchAPI().OnBookmarksUpdated(marks);
+      },
+      [this](vector<df::MarkID> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); }));
 
   m_ParsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());

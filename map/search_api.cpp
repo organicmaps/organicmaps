@@ -3,9 +3,9 @@
 #include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_params.hpp"
 
+#include "search/bookmarks/processor.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/hotels_filter.hpp"
-#include "search/bookmarks/processor.hpp"
 
 #include "storage/downloader_search_params.hpp"
 
@@ -272,7 +272,7 @@ void SearchAPI::OnBookmarksCreated(vector<pair<df::MarkID, BookmarkData>> const 
   m_engine.OnBookmarksCreated(data);
 }
 
-void SearchAPI::OnBookmarksUpdated(vector<std::pair<df::MarkID, BookmarkData>> const & marks)
+void SearchAPI::OnBookmarksUpdated(vector<pair<df::MarkID, BookmarkData>> const & marks)
 {
   vector<BookmarkIdDoc> data;
   AppendBookmarkIdDocs(marks, data);

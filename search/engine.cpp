@@ -20,10 +20,12 @@
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/map.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <map>
+#include <vector>
+
+using namespace std;
 
 namespace search
 {
@@ -31,8 +33,7 @@ namespace
 {
 class InitSuggestions
 {
-  using TSuggestMap = map<pair<strings::UniString, int8_t>, uint8_t>;
-  TSuggestMap m_suggests;
+  map<pair<strings::UniString, int8_t>, uint8_t> m_suggests;
 
 public:
   void operator()(CategoriesHolder::Category::Name const & name)
@@ -233,11 +234,11 @@ void Engine::MainLoop(Context & context)
   }
 }
 
-template <typename... TArgs>
-void Engine::PostMessage(TArgs &&... args)
+template <typename... Args>
+void Engine::PostMessage(Args &&... args)
 {
   lock_guard<mutex> lock(m_mu);
-  m_messages.emplace(forward<TArgs>(args)...);
+  m_messages.emplace(forward<Args>(args)...);
   m_cv.notify_one();
 }
 

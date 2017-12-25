@@ -13,16 +13,15 @@
 #include "base/mutex.hpp"
 #include "base/thread.hpp"
 
-#include "std/condition_variable.hpp"
-#include "std/function.hpp"
-#include "std/mutex.hpp"
-#include "std/queue.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
-#include "std/weak_ptr.hpp"
+#include <condition_variable>
+#include <cstddef>
+#include <functional>
+#include <memory>
+#include <mutex>
+#include <queue>
+#include <string>
+#include <utility>
+#include <vector>
 
 class Index;
 
@@ -65,7 +64,7 @@ private:
 
   Processor * m_processor;
   bool m_cancelled;
-  mutex m_mu;
+  std::mutex m_mu;
 
   DISALLOW_COPY_AND_MOVE(ProcessorHandle);
 };
@@ -80,9 +79,9 @@ public:
   struct Params
   {
     Params();
-    Params(string const & locale, size_t numThreads);
+    Params(std::string const & locale, size_t numThreads);
 
-    string m_locale;
+    std::string m_locale;
 
     // This field controls number of threads SearchEngine will create
     // to process queries. Use this field wisely as large values may
@@ -96,10 +95,10 @@ public:
   ~Engine();
 
   // Posts search request to the queue and returns its handle.
-  weak_ptr<ProcessorHandle> Search(SearchParams const & params);
+  std::weak_ptr<ProcessorHandle> Search(SearchParams const & params);
 
   // Sets default locale on all query processors.
-  void SetLocale(string const & locale);
+  void SetLocale(std::string const & locale);
 
   // Posts request to clear caches to the queue.
   void ClearCaches();
@@ -107,14 +106,14 @@ public:
   // Posts request to reload cities boundaries tables.
   void LoadCitiesBoundaries();
 
-  void OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks);
-  void OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks);
-  void OnBookmarksDeleted(vector<bookmarks::Id> const & marks);
+  void OnBookmarksCreated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
+  void OnBookmarksUpdated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
+  void OnBookmarksDeleted(std::vector<bookmarks::Id> const & marks);
 
 private:
   struct Message
   {
-    using Fn = function<void(Processor & processor)>;
+    using Fn = std::function<void(Processor & processor)>;
 
     enum Type
     {
@@ -123,7 +122,7 @@ private:
     };
 
     template <typename Gn>
-    Message(Type type, Gn && gn) : m_type(type), m_fn(forward<Gn>(gn)) {}
+    Message(Type type, Gn && gn) : m_type(type), m_fn(std::forward<Gn>(gn)) {}
 
     void operator()(Processor & processor) { m_fn(processor); }
 
@@ -133,17 +132,17 @@ private:
 
   // alignas() is used here to prevent false-sharing between different
   // threads.
-  struct alignas(64 /* the most common cache-line size */) Context
+  struct Context
   {
     // This field *CAN* be accessed by other threads, so |m_mu| must
     // be taken before access this queue.  Messages are ordered here
     // by a timestamp and all timestamps are less than timestamps in
     // the global |m_messages| queue.
-    queue<Message> m_messages;
+    std::queue<Message> m_messages;
 
     // This field is thread-specific and *CAN NOT* be accessed by
     // other threads.
-    unique_ptr<Processor> m_processor;
+    std::unique_ptr<Processor> m_processor;
   };
 
   // *ALL* following methods are executed on the m_threads threads.
@@ -154,20 +153,20 @@ private:
   // |tasks| and |broadcast|.
   void MainLoop(Context & context);
 
-  template <typename... TArgs>
-  void PostMessage(TArgs &&... args);
+  template <typename... Args>
+  void PostMessage(Args &&... args);
 
-  void DoSearch(SearchParams const & params, shared_ptr<ProcessorHandle> handle,
+  void DoSearch(SearchParams const & params, std::shared_ptr<ProcessorHandle> handle,
                 Processor & processor);
 
-  vector<Suggest> m_suggests;
+  std::vector<Suggest> m_suggests;
 
   bool m_shutdown;
-  mutex m_mu;
-  condition_variable m_cv;
+  std::mutex m_mu;
+  std::condition_variable m_cv;
 
-  queue<Message> m_messages;
-  vector<Context> m_contexts;
-  vector<threads::SimpleThread> m_threads;
+  std::queue<Message> m_messages;
+  std::vector<Context> m_contexts;
+  std::vector<threads::SimpleThread> m_threads;
 };
 }  // namespace search

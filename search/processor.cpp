@@ -48,12 +48,11 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/function.hpp"
-#include "std/iterator.hpp"
-#include "std/limits.hpp"
+#include <algorithm>
 
 #include "3party/Alohalytics/src/alohalytics.h"
+
+using namespace std;
 
 namespace search
 {

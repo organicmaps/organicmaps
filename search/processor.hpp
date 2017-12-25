@@ -26,10 +26,12 @@
 #include "base/cancellable.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
 
 class FeatureType;
 class CategoriesHolder;
@@ -63,14 +65,14 @@ public:
   static double const kMinDistanceOnMapBetweenResultsM;
 
   Processor(Index const & index, CategoriesHolder const & categories,
-            vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter);
+            std::vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter);
 
   void SetViewport(m2::RectD const & viewport);
-  void SetPreferredLocale(string const & locale);
-  void SetInputLocale(string const & locale);
-  void SetQuery(string const & query);
+  void SetPreferredLocale(std::string const & locale);
+  void SetInputLocale(std::string const & locale);
+  void SetQuery(std::string const & query);
   inline void SetPosition(m2::PointD const & position) { m_position = position; }
-  inline string const & GetPivotRegion() const { return m_region; }
+  inline std::string const & GetPivotRegion() const { return m_region; }
   inline m2::PointD const & GetPosition() const { return m_position; }
 
   inline bool IsEmptyQuery() const { return m_prefix.empty() && m_tokens.empty(); }
@@ -92,9 +94,9 @@ public:
   void ClearCaches();
   void LoadCitiesBoundaries();
 
-  void OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks);
-  void OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks);
-  void OnBookmarksDeleted(vector<bookmarks::Id> const & marks);
+  void OnBookmarksCreated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
+  void OnBookmarksUpdated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
+  void OnBookmarksDeleted(std::vector<bookmarks::Id> const & marks);
 
 protected:
   Locales GetCategoryLocales() const;
@@ -113,11 +115,11 @@ protected:
   CategoriesHolder const & m_categories;
   storage::CountryInfoGetter const & m_infoGetter;
 
-  string m_region;
-  string m_query;
+  std::string m_region;
+  std::string m_query;
   QueryTokens m_tokens;
   strings::UniString m_prefix;
-  set<uint32_t> m_preferredTypes;
+  std::set<uint32_t> m_preferredTypes;
 
   m2::RectD m_viewport;
   m2::PointD m_position;
