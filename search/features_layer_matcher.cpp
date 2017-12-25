@@ -139,5 +139,4 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
 
   return result;
 }
-
 }  // namespace search

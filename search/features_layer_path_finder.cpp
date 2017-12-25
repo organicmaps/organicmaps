@@ -62,6 +62,12 @@ bool GetPath(uint32_t id, vector<FeaturesLayer const *> const & layers, TParentG
   } while (level < layers.size() && it != parent.cend());
   return level == layers.size();
 }
+
+bool MayHaveDelayedFeatures(FeaturesLayer const & layer)
+{
+  return layer.m_type == Model::TYPE_BUILDING &&
+         house_numbers::LooksLikeHouseNumber(layer.m_subQuery, layer.m_lastTokenIsPrefix);
+}
 }  // namespace
 
 FeaturesLayerPathFinder::FeaturesLayerPathFinder(my::Cancellable const & cancellable)
@@ -117,16 +123,14 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
     parent.m_hasDelayedFeatures = false;
 
     FeaturesLayer child(*layers[i - 1]);
-    child.m_hasDelayedFeatures =
-        child.m_type == Model::TYPE_BUILDING &&
-        house_numbers::LooksLikeHouseNumber(child.m_subQuery, child.m_lastTokenIsPrefix);
+    child.m_hasDelayedFeatures = MayHaveDelayedFeatures(child);
 
     buffer.clear();
     matcher.Match(child, parent, addEdge);
     reachable.swap(buffer);
   }
 
-  vector<uint32_t> const & lowestLevel = reachable;
+  auto const & lowestLevel = reachable;
 
   IntersectionResult result;
   for (auto const & id : lowestLevel)
@@ -147,6 +151,12 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
 
   TParentGraph parent;
 
+  // It is possible that there are delayed features on the lowest level.
+  // We do not know about them until the matcher has been called, so
+  // they will be added in |addEdge|. On the other hand, if there is
+  // only one level, we must make sure that it is nonempty.
+  // This problem does not arise in the top-down pass because there
+  // the last reached level is exactly the lowest one.
   vector<uint32_t> lowestLevel = reachable;
   // True iff |addEdge| works with the lowest level.
   bool first = true;
@@ -172,14 +182,10 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
     if (i != 0)
       my::SortUnique(reachable);
     child.m_sortedFeatures = &reachable;
-    child.m_hasDelayedFeatures =
-        i == 0 && child.m_type == Model::TYPE_BUILDING &&
-        house_numbers::LooksLikeHouseNumber(child.m_subQuery, child.m_lastTokenIsPrefix);
+    child.m_hasDelayedFeatures = (i == 0 && MayHaveDelayedFeatures(child));
 
     FeaturesLayer parent(*layers[i + 1]);
-    parent.m_hasDelayedFeatures =
-        parent.m_type == Model::TYPE_BUILDING &&
-        house_numbers::LooksLikeHouseNumber(parent.m_subQuery, parent.m_lastTokenIsPrefix);
+    parent.m_hasDelayedFeatures = MayHaveDelayedFeatures(parent);
 
     buffer.clear();
     matcher.Match(child, parent, addEdge);

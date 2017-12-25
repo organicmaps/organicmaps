@@ -29,5 +29,4 @@ string DebugPrint(FeaturesLayer const & layer)
      << ", m_lastTokenIsPrefix: " << layer.m_lastTokenIsPrefix << " ]";
   return os.str();
 }
-
 }  // namespace search

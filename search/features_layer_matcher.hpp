@@ -398,5 +398,4 @@ private:
   StreetVicinityLoader m_loader;
   my::Cancellable const & m_cancellable;
 };
-
 }  // namespace search

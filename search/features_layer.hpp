@@ -39,5 +39,4 @@ struct FeaturesLayer
 };
 
 string DebugPrint(FeaturesLayer const & layer);
-
 }  // namespace search
