@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -100,11 +101,11 @@
                     </subviews>
                     <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="R6E-kO-6Lb" firstAttribute="leading" secondItem="UsM-Al-MCC" secondAttribute="leading" constant="14" id="G0E-g6-nZj"/>
+                        <constraint firstItem="R6E-kO-6Lb" firstAttribute="leading" secondItem="UsM-Al-MCC" secondAttribute="leadingMargin" constant="6" id="F0k-Ua-uzh"/>
+                        <constraint firstItem="R6E-kO-6Lb" firstAttribute="top" secondItem="UsM-Al-MCC" secondAttribute="topMargin" constant="8" id="G1O-ji-PsY"/>
                         <constraint firstAttribute="height" constant="56" id="RVj-Yg-4Hc"/>
-                        <constraint firstAttribute="bottom" secondItem="R6E-kO-6Lb" secondAttribute="bottom" constant="10" id="Uda-AW-Xkl"/>
-                        <constraint firstItem="R6E-kO-6Lb" firstAttribute="top" secondItem="UsM-Al-MCC" secondAttribute="top" constant="16" id="ZcQ-Ol-yOK"/>
-                        <constraint firstAttribute="trailing" secondItem="R6E-kO-6Lb" secondAttribute="trailing" constant="14" id="z2B-cN-g56"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="R6E-kO-6Lb" secondAttribute="trailing" constant="6" id="cRp-da-FUC"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="R6E-kO-6Lb" secondAttribute="bottom" constant="2" id="e1g-Jr-sY9"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="menuBackground"/>
