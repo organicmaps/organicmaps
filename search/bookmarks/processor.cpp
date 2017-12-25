@@ -27,6 +27,11 @@ struct RankingInfo
     return m_cosineSimilarity > rhs.m_cosineSimilarity;
   }
 
+  bool operator>(RankingInfo const & rhs) const { return rhs < *this; }
+
+  bool operator==(RankingInfo const & rhs) const { return !(*this < rhs) && !(*this > rhs); }
+  bool operator!=(RankingInfo const & rhs) const { return !(*this == rhs); }
+
   double m_cosineSimilarity = 0.0;
 };
 
@@ -34,7 +39,12 @@ struct IdInfoPair
 {
   IdInfoPair(Processor::Id const & id, RankingInfo const & info) : m_id(id), m_info(info) {}
 
-  bool operator<(IdInfoPair const & rhs) const { return m_info < rhs.m_info; }
+  bool operator<(IdInfoPair const & rhs) const
+  {
+    if (m_info != rhs.m_info)
+      return m_info < rhs.m_info;
+    return m_id < rhs.m_id;
+  }
 
   Processor::Id m_id;
   RankingInfo m_info;

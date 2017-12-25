@@ -23,6 +23,7 @@ public:
 
   void Add(Id const & id, Doc const & doc) { m_processor.Add(id, doc); }
   void Erase(Id const & id, Doc const & doc) { m_processor.Erase(id, doc); }
+
   vector<Id> Search(string const & query) const
   {
     vector<strings::UniString> tokens;
@@ -53,8 +54,8 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
 
   Add(18, {"Silver Mustang Casino" /* name */,
            "Joyful place, owners Bradley and Rodney are very friendly!", "Entertainment"});
-  Add(20, {"Great Nothern Hotel" /* name */, "Clean place with a reasonably price" /* description */,
-          "Hotel" /* type */});
+  Add(20, {"Great Northern Hotel" /* name */,
+           "Clean place with a reasonable price" /* description */, "Hotel" /* type */});
 
   TEST_EQUAL(Search("R&R food"), vector<Id>({10}), ());
   TEST_EQUAL(Search("cherry pie"), vector<Id>({10}), ());

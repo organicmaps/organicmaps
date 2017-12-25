@@ -9,8 +9,8 @@
 #include "search/utils.hpp"
 
 #include <cstdint>
-#include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 namespace search
@@ -53,7 +53,7 @@ private:
   QueryVec GetQueryVec(IdfMap & idfs, QueryParams const & params) const;
 
   Index m_index;
-  unordered_map<Id, DocVec> m_docs;
+  std::unordered_map<Id, DocVec> m_docs;
 };
 }  // namespace bookmarks
 }  // namespace search
