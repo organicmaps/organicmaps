@@ -977,9 +977,9 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
     symbols.push_back(typePair.second + "-l");
   }
   m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
-                         [this](std::vector<m2::PointF> const & sizes)
+                         [this, is3dAllowed](std::vector<m2::PointF> const & sizes)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, sizes]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, is3dAllowed, sizes]()
     {
       auto it = kTransitSymbols.begin();
       for (size_t i = 0; i < sizes.size(); i += 3)
@@ -989,16 +989,16 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
         m_transitSymbolSizes[it->second + "-l"] = sizes[i + 2];
         ++it;
       }
+
+      // In case of the engine reinitialization recover route.
+      if (IsRoutingActive())
+      {
+        InsertRoute(*m_routingSession.GetRoute());
+        if (is3dAllowed && m_routingSession.IsFollowing())
+          m_drapeEngine.SafeCall(&df::DrapeEngine::EnablePerspective);
+      }
     });
   });
-
-  // In case of the engine reinitialization recover route.
-  if (IsRoutingActive())
-  {
-    InsertRoute(*m_routingSession.GetRoute());
-    if (is3dAllowed && m_routingSession.IsFollowing())
-      m_drapeEngine.SafeCall(&df::DrapeEngine::EnablePerspective);
-  }
 }
 
 bool RoutingManager::HasRouteAltitude() const
