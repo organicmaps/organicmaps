@@ -10,6 +10,6 @@ include ../../android/UnitTests/jni/AndroidBeginning.mk
 
 LOCAL_MODULE    := routing_integration_tests
 
-LOCAL_STATIC_LIBRARIES := android_native_app_glue base map routing search storage geometry osrm jansson indexer protobuf succinct stats_client platform coding opening_hours minizip zlib
+LOCAL_STATIC_LIBRARIES := android_native_app_glue base map routing search storage geometry jansson indexer protobuf succinct stats_client platform coding opening_hours minizip zlib
 
 include ../../android/UnitTests/jni/AndroidEnding.mk

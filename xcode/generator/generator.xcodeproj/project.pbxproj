@@ -79,8 +79,6 @@
 		6753407E1A3F2A7400A0A8C3 /* osm2type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753404B1A3F2A7400A0A8C3 /* osm2type.cpp */; };
 		6753407F1A3F2A7400A0A8C3 /* osm2type.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753404C1A3F2A7400A0A8C3 /* osm2type.hpp */; };
 		675340801A3F2A7400A0A8C3 /* polygonizer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753404D1A3F2A7400A0A8C3 /* polygonizer.hpp */; };
-		675340811A3F2A7400A0A8C3 /* routing_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753404E1A3F2A7400A0A8C3 /* routing_generator.cpp */; };
-		675340821A3F2A7400A0A8C3 /* routing_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753404F1A3F2A7400A0A8C3 /* routing_generator.hpp */; };
 		675340831A3F2A7400A0A8C3 /* statistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340501A3F2A7400A0A8C3 /* statistics.cpp */; };
 		675340841A3F2A7400A0A8C3 /* statistics.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340511A3F2A7400A0A8C3 /* statistics.hpp */; };
 		675340851A3F2A7400A0A8C3 /* tesselator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340521A3F2A7400A0A8C3 /* tesselator.cpp */; };
@@ -191,8 +189,6 @@
 		6753404B1A3F2A7400A0A8C3 /* osm2type.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm2type.cpp; sourceTree = "<group>"; };
 		6753404C1A3F2A7400A0A8C3 /* osm2type.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm2type.hpp; sourceTree = "<group>"; };
 		6753404D1A3F2A7400A0A8C3 /* polygonizer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = polygonizer.hpp; sourceTree = "<group>"; };
-		6753404E1A3F2A7400A0A8C3 /* routing_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_generator.cpp; sourceTree = "<group>"; };
-		6753404F1A3F2A7400A0A8C3 /* routing_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_generator.hpp; sourceTree = "<group>"; };
 		675340501A3F2A7400A0A8C3 /* statistics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = statistics.cpp; sourceTree = "<group>"; };
 		675340511A3F2A7400A0A8C3 /* statistics.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = statistics.hpp; sourceTree = "<group>"; };
 		675340521A3F2A7400A0A8C3 /* tesselator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tesselator.cpp; sourceTree = "<group>"; };
@@ -342,8 +338,6 @@
 				67C79BAC1E2CEEAB00C40034 /* restriction_writer.hpp */,
 				670E7BAB1EF9812B00A8E9ED /* road_access_generator.cpp */,
 				670E7BAC1EF9812B00A8E9ED /* road_access_generator.hpp */,
-				6753404E1A3F2A7400A0A8C3 /* routing_generator.cpp */,
-				6753404F1A3F2A7400A0A8C3 /* routing_generator.hpp */,
 				670E7BAD1EF9812B00A8E9ED /* routing_helpers.cpp */,
 				670E7BAE1EF9812B00A8E9ED /* routing_helpers.hpp */,
 				0C5FEC6E1DDE19E50017688C /* routing_index_generator.cpp */,
@@ -433,7 +427,6 @@
 				675340941C5231BA002CF0D9 /* search_index_builder.hpp in Headers */,
 				3D51BC591D5E512500F1FA8D /* srtm_parser.hpp in Headers */,
 				677E2A181CAACC5F001DC42A /* towns_dumper.hpp in Headers */,
-				675340821A3F2A7400A0A8C3 /* routing_generator.hpp in Headers */,
 				675340841A3F2A7400A0A8C3 /* statistics.hpp in Headers */,
 				3DFEBF821EF423FB00317D5C /* sponsored_object_storage.hpp in Headers */,
 				6753406D1A3F2A7400A0A8C3 /* feature_generator.hpp in Headers */,
@@ -555,7 +548,6 @@
 				675340701A3F2A7400A0A8C3 /* feature_sorter.cpp in Sources */,
 				675340621A3F2A7400A0A8C3 /* coastlines_generator.cpp in Sources */,
 				670E7BC11EF983E600A8E9ED /* region_meta.cpp in Sources */,
-				675340811A3F2A7400A0A8C3 /* routing_generator.cpp in Sources */,
 				3DFEBF7F1EF2D58900317D5C /* viator_dataset.cpp in Sources */,
 				675340931C5231BA002CF0D9 /* search_index_builder.cpp in Sources */,
 				6753406E1A3F2A7400A0A8C3 /* feature_merger.cpp in Sources */,
@@ -608,7 +600,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/gflags/src",
-					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",
@@ -623,7 +614,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/gflags/src",
-					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",
@@ -670,7 +660,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/gflags/src",
-					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",

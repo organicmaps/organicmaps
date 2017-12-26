@@ -436,7 +436,6 @@
 		6742ACE61C68A23B009CB89E /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		6742ACE71C68A23B009CB89E /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-xcode-build/Debug/libgeometry.a"; sourceTree = "<group>"; };
 		6742ACE81C68A23B009CB89E /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
-		6742ACEC1C68A27C009CB89E /* libosrm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosrm.a; path = "../../../omim-xcode-build/Debug/libosrm.a"; sourceTree = "<group>"; };
 		6742ACED1C68A27C009CB89E /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
 		6742ACEE1C68A27C009CB89E /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-xcode-build/Debug/libpugixml.a"; sourceTree = "<group>"; };
 		6742ACEF1C68A27C009CB89E /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = "<group>"; };
@@ -702,7 +701,6 @@
 				6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */,
 				6742ACFB1C68A2D7009CB89E /* libprotobuf.a */,
 				6742ACF81C68A2C8009CB89E /* libeditor.a */,
-				6742ACEC1C68A27C009CB89E /* libosrm.a */,
 				6742ACED1C68A27C009CB89E /* libplatform.a */,
 				6742ACEE1C68A27C009CB89E /* libpugixml.a */,
 				6742ACEF1C68A27C009CB89E /* libsearch.a */,
@@ -1361,8 +1359,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/jansson/src",
-					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
-					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
 				);
 			};
 			name = Debug;
@@ -1374,8 +1370,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/jansson/src",
-					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
-					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
 				);
 			};
 			name = Release;
@@ -1431,8 +1425,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/jansson/src",
-					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
-					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
 				);
 			};
 			name = "Production Full";
