@@ -68,7 +68,8 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
   if (@available(iOS 11.0, *))
   {
     UIEdgeInsets const safeAreaInsets = tableView.safeAreaInsets;
-    offset = max(max(safeAreaInsets.top, safeAreaInsets.bottom), max(safeAreaInsets.left, safeAreaInsets.right));
+    offset = max(max(safeAreaInsets.top, safeAreaInsets.bottom),
+                 max(safeAreaInsets.left, safeAreaInsets.right));
   }
   label.bounds = CGRectInset(rect, offset, offset);
   [label sizeToIntegralFit];

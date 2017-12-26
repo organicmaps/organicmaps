@@ -361,7 +361,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (@available(iOS 11.0, *))
     bottomAnchor = self.superview.safeAreaLayoutGuide.bottomAnchor;
   self.alpha = visible ? 1 : 0;
-  self.visibleConstraint = [bottomAnchor constraintEqualToAnchor:visible ? self.bottomAnchor : self.topAnchor];
+  self.visibleConstraint =
+      [bottomAnchor constraintEqualToAnchor:visible ? self.bottomAnchor : self.topAnchor];
   self.visibleConstraint.active = YES;
 }
 
