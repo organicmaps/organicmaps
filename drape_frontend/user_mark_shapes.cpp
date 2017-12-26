@@ -109,7 +109,8 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   for (auto const id : marksId)
   {
     auto const it = renderParams.find(id);
-    ASSERT(it != renderParams.end(), ());
+    if (it == renderParams.end())
+      continue;
 
     UserMarkRenderParams & renderInfo = *it->second.get();
     if (!renderInfo.m_isVisible)
@@ -339,7 +340,9 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   for (auto id : linesId)
   {
     auto const it = renderParams.find(id);
-    ASSERT(it != renderParams.end(), ());
+    if (it == renderParams.end())
+      continue;
+
     UserLineRenderParams const & renderInfo = *it->second.get();
 
     m2::RectD const tileRect = tileKey.GetGlobalRect();
