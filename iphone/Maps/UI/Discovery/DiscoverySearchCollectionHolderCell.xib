@@ -29,7 +29,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="5kQ-Mc-ZYQ" customClass="MWMDiscoveryCollectionView">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="5kQ-Mc-ZYQ" customClass="MWMDiscoveryCollectionView">
                         <rect key="frame" x="0.0" y="48.5" width="375" height="129"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -45,7 +45,7 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="zLg-Ze-Eru" firstAttribute="leading" secondItem="qeQ-5M-VVb" secondAttribute="leading" constant="16" id="2hQ-HG-sHj"/>
+                    <constraint firstItem="zLg-Ze-Eru" firstAttribute="leading" secondItem="qeQ-5M-VVb" secondAttribute="leadingMargin" id="2hQ-HG-sHj"/>
                     <constraint firstItem="zLg-Ze-Eru" firstAttribute="top" secondItem="qeQ-5M-VVb" secondAttribute="top" constant="12" id="3Ut-Hs-zpi"/>
                     <constraint firstItem="5kQ-Mc-ZYQ" firstAttribute="top" secondItem="zLg-Ze-Eru" secondAttribute="bottom" constant="12" id="4f5-Um-KLw"/>
                     <constraint firstAttribute="bottom" secondItem="5kQ-Mc-ZYQ" secondAttribute="bottom" id="84B-tR-LtW"/>

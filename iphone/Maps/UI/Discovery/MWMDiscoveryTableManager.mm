@@ -96,6 +96,8 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
     tableView.dataSource = self;
     tableView.rowHeight = UITableViewAutomaticDimension;
     tableView.estimatedRowHeight = 218;
+    if (@available(iOS 11.0, *))
+      tableView.insetsContentViewsToSafeArea = NO;
     [self registerCells];
   }
   return self;
