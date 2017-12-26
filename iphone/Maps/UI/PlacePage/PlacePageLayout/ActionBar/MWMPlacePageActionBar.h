@@ -28,6 +28,7 @@
 @property(nonatomic) BOOL isBookmark;
 @property(nonatomic) BOOL isAreaNotDownloaded;
 
+- (void)setVisible:(BOOL)visible;
 - (void)setDownloadingProgress:(CGFloat)progress;
 - (void)setDownloadingState:(MWMCircularProgressState)state;
 

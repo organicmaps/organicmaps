@@ -82,21 +82,6 @@ CGFloat const kTableViewTopInset = -36;
   [self.tableView removeObserver:self forKeyPath:kTableViewContentSizeKeyPath context:kContext];
 }
 
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (!IPAD)
-    return;
-
-  for (UIView * sv in self.subviews)
-  {
-    if (![sv isKindOfClass:[MWMPlacePageActionBar class]])
-      continue;
-    sv.maxY = self.height;
-    break;
-  }
-}
-
 #pragma mark - VisibleArea
 
 - (MWMAvailableAreaAffectDirections)visibleAreaAffectDirections

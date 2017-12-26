@@ -16,10 +16,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 }
 
 @property(copy, nonatomic) IBOutletCollection(UIView) NSArray<UIView *> * buttons;
-@property(weak, nonatomic) IBOutlet UIImageView * separator;
 
 @property(weak, nonatomic) id<MWMActionBarSharedData> data;
 @property(weak, nonatomic) id<MWMActionBarProtocol> delegate;
+
+@property(nonatomic) NSLayoutConstraint * visibleConstraint;
 
 @end
 
@@ -30,6 +31,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   MWMPlacePageActionBar * bar =
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   bar.delegate = delegate;
+  bar.translatesAutoresizingMaskIntoConstraints = NO;
   return bar;
 }
 
@@ -352,16 +354,22 @@ extern NSString * const kAlohalyticsTapEventKey;
   [vc presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void)setVisible:(BOOL)visible
+{
+  self.visibleConstraint.active = NO;
+  NSLayoutYAxisAnchor * bottomAnchor = self.superview.bottomAnchor;
+  if (@available(iOS 11.0, *))
+    bottomAnchor = self.superview.safeAreaLayoutGuide.bottomAnchor;
+  self.alpha = visible ? 1 : 0;
+  self.visibleConstraint = [bottomAnchor constraintEqualToAnchor:visible ? self.bottomAnchor : self.topAnchor];
+  self.visibleConstraint.active = YES;
+}
+
 #pragma mark - Layout
 
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  self.width = self.superview.width;
-  if (IPAD)
-    self.maxY = self.superview.height;
-
-  self.separator.width = self.width;
   CGFloat const buttonWidth = self.width / m_visibleButtons.size();
   for (UIView * button in self.buttons)
   {

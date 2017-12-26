@@ -55,16 +55,14 @@ CGFloat const kBottomOffset = 36;
 - (void)onShow
 {
   auto ppView = self.placePageView;
-  auto actionBar = self.actionBar;
   ppView.tableView.scrollEnabled = NO;
-  actionBar.alpha = 0;
   ppView.alpha = 0;
   ppView.origin = {- kPlacePageWidth, self.topBound};
   [self.ownerView addSubview:ppView];
 
   place_page_layout::animate(^{
+    [self.actionBar setVisible:YES];
     ppView.alpha = 1;
-    actionBar.alpha = 1;
     ppView.minX = self.leftBound;
   });
 
@@ -196,8 +194,18 @@ CGFloat const kBottomOffset = 36;
   if (actionBar)
   {
     auto superview = self.placePageView;
-    actionBar.origin = {0., superview.height - actionBar.height};
     [superview addSubview:actionBar];
+    NSLayoutXAxisAnchor * leadingAnchor = superview.leadingAnchor;
+    NSLayoutXAxisAnchor * trailingAnchor = superview.trailingAnchor;
+    if (@available(iOS 11.0, *))
+    {
+      UILayoutGuide * safeAreaLayoutGuide = superview.safeAreaLayoutGuide;
+      leadingAnchor = safeAreaLayoutGuide.leadingAnchor;
+      trailingAnchor = safeAreaLayoutGuide.trailingAnchor;
+    }
+    [actionBar.leadingAnchor constraintEqualToAnchor:leadingAnchor].active = YES;
+    [actionBar.trailingAnchor constraintEqualToAnchor:trailingAnchor].active = YES;
+    [actionBar setVisible:NO];
   }
   else
   {

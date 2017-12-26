@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,37 +15,67 @@
             <rect key="frame" x="0.0" y="0.0" width="360" height="48"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-f0-gXc">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EPN-YR-G6Y">
+                    <rect key="frame" x="-100" y="0.0" width="560" height="148"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-f0-gXc">
                     <rect key="frame" x="0.0" y="0.0" width="360" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="7JI-Ia-wWj"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <view tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctK-eb-hsj" userLabel="First">
                     <rect key="frame" x="0.0" y="0.0" width="90" height="48"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <accessibility key="accessibilityConfiguration" identifier="First"/>
                 </view>
                 <view tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j7d-3d-R7Z" userLabel="Second">
                     <rect key="frame" x="90" y="0.0" width="90" height="48"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <accessibility key="accessibilityConfiguration" identifier="Second"/>
                 </view>
                 <view tag="3" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xtb-qr-MYt" userLabel="Third">
                     <rect key="frame" x="180" y="0.0" width="90" height="48"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <accessibility key="accessibilityConfiguration" identifier="Third"/>
                 </view>
                 <view tag="4" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A9L-Jr-3Qt" userLabel="Fourth">
                     <rect key="frame" x="270" y="0.0" width="90" height="48"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <accessibility key="accessibilityConfiguration" identifier="Fourth"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.95075207948684692" green="0.95072358846664429" blue="0.95073974132537842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="EPN-YR-G6Y" secondAttribute="trailing" constant="-100" id="1Yz-8I-5ir">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstItem="EPN-YR-G6Y" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-100" id="4Gq-tX-248">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="WPU-f0-gXc" secondAttribute="trailing" id="OoZ-zr-1rp"/>
+                <constraint firstItem="WPU-f0-gXc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Q43-U2-YPD"/>
+                <constraint firstAttribute="bottom" secondItem="WPU-f0-gXc" secondAttribute="bottom" priority="999" constant="47" id="eX4-Qs-lAP"/>
+                <constraint firstItem="EPN-YR-G6Y" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lZI-8f-kct"/>
+                <constraint firstItem="WPU-f0-gXc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="q6T-8P-VNl"/>
+                <constraint firstAttribute="bottom" secondItem="EPN-YR-G6Y" secondAttribute="bottom" constant="-100" id="tXE-mh-UBf">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
-            </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="separator" destination="WPU-f0-gXc" id="jB7-uz-676"/>
                 <outletCollection property="buttons" destination="j7d-3d-R7Z" id="zQ7-1E-mim"/>
                 <outletCollection property="buttons" destination="Xtb-qr-MYt" id="ODg-IK-Yj1"/>
                 <outletCollection property="buttons" destination="A9L-Jr-3Qt" id="Sdq-bh-P1v"/>
