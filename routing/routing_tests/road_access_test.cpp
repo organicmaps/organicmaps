@@ -92,7 +92,7 @@ UNIT_TEST(RoadAccess_WayBlocked)
   TestTopologyGraph(graph, 0, 3, false /* pathFound */, expectedWeight, expectedEdges);
 }
 
-UNIT_TEST(RoadAccess_BarrierBypassing)
+UNIT_TEST(RoadAccess_WayBlocking)
 {
   uint32_t const numVertices = 6;
   TestIndexGraphTopology graph(numVertices);
@@ -137,6 +137,54 @@ UNIT_TEST(RoadAccess_BarrierBypassing)
 
   // Test we have strict restriction for access=no and can not build route.
   graph.SetEdgeAccess(3, 4, RoadAccess::Type::No);
+  TestTopologyGraph(graph, 0, 5, false /* pathFound */, expectedWeight, expectedEdges);
+}
+
+UNIT_TEST(RoadAccess_BarrierBypassing)
+{
+  uint32_t const numVertices = 6;
+  TestIndexGraphTopology graph(numVertices);
+
+  graph.AddDirectedEdge(0, 1, 1.0);
+  graph.AddDirectedEdge(1, 2, 1.0);
+  graph.AddDirectedEdge(2, 5, 1.0);
+  graph.AddDirectedEdge(0, 3, 1.0);
+  graph.AddDirectedEdge(3, 4, 2.0);
+  graph.AddDirectedEdge(4, 5, 1.0);
+
+  double expectedWeight;
+  vector<TestEdge> expectedEdges;
+
+  expectedWeight = 3.0;
+  expectedEdges = {{0, 1}, {1, 2}, {2, 5}};
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  // Test avoid access=private while we have route with RoadAccess::Type::Yes.
+  graph.SetVertexAccess(1, RoadAccess::Type::Private);
+  expectedWeight = 4.0;
+  expectedEdges = {{0, 3}, {3, 4}, {4, 5}};
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  // Test avoid access=destination while we have route with RoadAccess::Type::Yes.
+  graph.SetVertexAccess(1, RoadAccess::Type::Destination);
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  // Test avoid access=no while we have route with RoadAccess::Type::Yes.
+  graph.SetVertexAccess(1, RoadAccess::Type::No);
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  // Test it's possible to build the route because private usage restriction is not strict:
+  // we use minimal possible number of access=yes/access={private, destination} crossing
+  // but allow to use private/destination if there is no other way.
+  graph.SetVertexAccess(3, RoadAccess::Type::Private);
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  // Test we have the same behaviour for access=destination.
+  graph.SetVertexAccess(3, RoadAccess::Type::Destination);
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  // Test we have strict restriction for access=no and can not build route.
+  graph.SetVertexAccess(3, RoadAccess::Type::No);
   TestTopologyGraph(graph, 0, 5, false /* pathFound */, expectedWeight, expectedEdges);
 }
 }  // namespace

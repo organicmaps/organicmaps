@@ -158,6 +158,9 @@ public:
   // Sets access for previously added edge.
   void SetEdgeAccess(Vertex from, Vertex to, RoadAccess::Type type);
 
+  // Sets access type for previously added point.
+  void SetVertexAccess(Vertex v, RoadAccess::Type type);
+
   // Finds a path between the start and finish vertices. Returns true iff a path exists.
   bool FindPath(Vertex start, Vertex finish, double & pathWeight, vector<Edge> & pathEdges) const;
 
@@ -168,7 +171,12 @@ private:
     Vertex m_from = 0;
     Vertex m_to = 0;
     double m_weight = 0.0;
+    // Access type for edge.
     RoadAccess::Type m_accessType = RoadAccess::Type::Yes;
+    // Access type for vertex from.
+    RoadAccess::Type m_fromAccessType = RoadAccess::Type::Yes;
+    // Access type for vertex to.
+    RoadAccess::Type m_toAccessType = RoadAccess::Type::Yes;
 
     EdgeRequest(uint32_t id, Vertex from, Vertex to, double weight)
       : m_id(id), m_from(from), m_to(to), m_weight(weight)

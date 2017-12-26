@@ -135,6 +135,25 @@ void TestIndexGraphTopology::SetEdgeAccess(Vertex from, Vertex to, RoadAccess::T
   CHECK(false, ("Cannot set access for edge that is not in the graph", from, to));
 }
 
+void TestIndexGraphTopology::SetVertexAccess(Vertex v, RoadAccess::Type type)
+{
+  bool found = false;
+  for (auto & r : m_edgeRequests)
+  {
+    if (r.m_from == v)
+    {
+      r.m_fromAccessType = type;
+      found = true;
+    }
+    if (r.m_to == v)
+    {
+      r.m_toAccessType = type;
+      found = true;
+    }
+  }
+  CHECK(found, ("Cannot set access for vertex that is not in the graph", v));
+}
+
 bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & pathWeight,
                                       vector<Edge> & pathEdges) const
 {
@@ -255,16 +274,21 @@ void TestIndexGraphTopology::Builder::BuildJoints()
 void TestIndexGraphTopology::Builder::BuildGraphFromRequests(vector<EdgeRequest> const & requests)
 {
   map<uint32_t, RoadAccess::Type> featureTypes;
+  map<RoadPoint, RoadAccess::Type> pointTypes;
   for (auto const & request : requests)
   {
     BuildSegmentFromEdge(request);
     if (request.m_accessType != RoadAccess::Type::Yes)
-    {
       featureTypes[request.m_id] = request.m_accessType;
-    }
+
+    // All features have 1 segment. |from| has point index 0, |to| has point index 1. 
+    if (request.m_fromAccessType != RoadAccess::Type::Yes)
+      pointTypes[RoadPoint(request.m_id, 0 /* pointId */)] = request.m_fromAccessType;
+    if (request.m_toAccessType != RoadAccess::Type::Yes)
+      pointTypes[RoadPoint(request.m_id, 1 /* pointId */)] = request.m_toAccessType;
   }
 
-  m_roadAccess.SetFeatureTypesForTests(move(featureTypes));
+  m_roadAccess.SetAccessTypes(move(featureTypes), move(pointTypes));
 }
 
 void TestIndexGraphTopology::Builder::BuildSegmentFromEdge(EdgeRequest const & request)

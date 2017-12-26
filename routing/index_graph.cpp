@@ -163,6 +163,9 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
   if (m_roadAccess.GetFeatureType(to.GetFeatureId()) == RoadAccess::Type::No)
     return;
 
+  if (m_roadAccess.GetPointType(rp) == RoadAccess::Type::No)
+    return;
+
   RouteWeight const weight = CalcSegmentWeight(isOutgoing ? to : from) +
                              GetPenalties(isOutgoing ? from : to, isOutgoing ? to : from);
   edges.emplace_back(to, weight);
@@ -181,7 +184,13 @@ RouteWeight IndexGraph::GetPenalties(Segment const & u, Segment const & v)
   bool const toAccessAllowed = m_roadAccess.GetFeatureType(v.GetFeatureId()) == RoadAccess::Type::Yes;
   // Route crosses border of access=yes/access={private, destination} area if |u| and |v| have different
   // access restrictions.
-  int32_t const accessPenalty = fromAccessAllowed == toAccessAllowed ? 0 : 1;
+  int32_t accessPenalty = fromAccessAllowed == toAccessAllowed ? 0 : 1;
+
+  // RoadPoint between u and v is front of u.
+  auto const rp = u.GetRoadPoint(true /* front */);
+  // No double penalty for barriers on the border of access=yes/access={private, destination} area.
+  if (m_roadAccess.GetPointType(rp) != RoadAccess::Type::Yes)
+    accessPenalty = 1;
 
   auto const uTurnPenalty = IsUTurn(u, v) ? m_estimator->GetUTurnPenalty() : 0.0;
 
