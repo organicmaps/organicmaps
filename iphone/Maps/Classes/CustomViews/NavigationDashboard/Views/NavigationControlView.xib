@@ -20,6 +20,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jBZ-WO-Nz7">
+                    <rect key="frame" x="-100" y="0.0" width="520" height="216"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u7O-n6-ZXy">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
                     <subviews>
@@ -183,7 +190,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="QLk-JN-wfO" secondAttribute="bottom" id="0AT-pb-GFy"/>
                         <constraint firstItem="QLk-JN-wfO" firstAttribute="leading" secondItem="u7O-n6-ZXy" secondAttribute="leading" id="0hr-A3-h7F">
@@ -220,11 +227,8 @@
                         <constraint firstItem="UPO-sh-VhS" firstAttribute="leading" secondItem="u7O-n6-ZXy" secondAttribute="leading" id="tlC-se-vPa"/>
                         <constraint firstItem="XwA-oz-M3Q" firstAttribute="leading" secondItem="UPO-sh-VhS" secondAttribute="trailing" id="viH-dq-rwd"/>
                     </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                    </userDefinedRuntimeAttributes>
                 </view>
-                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMT-MI-d8X">
+                <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMT-MI-d8X">
                     <rect key="frame" x="0.0" y="52" width="320" height="64"/>
                     <subviews>
                         <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfb-5v-iWA" customClass="MWMButton">
@@ -284,7 +288,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="eaa-f0-INU" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" id="2ZI-jO-Rzb"/>
                         <constraint firstAttribute="bottom" secondItem="skM-Xx-3En" secondAttribute="bottom" id="3mJ-M7-QYs"/>
@@ -302,20 +306,21 @@
                         <constraint firstItem="skM-Xx-3En" firstAttribute="leading" secondItem="eaa-f0-INU" secondAttribute="trailing" constant="8" id="nCN-ow-4GR"/>
                         <constraint firstItem="mtt-q0-SUx" firstAttribute="leading" secondItem="skM-Xx-3En" secondAttribute="trailing" constant="8" id="rTu-89-tgS"/>
                     </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                    </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="u7O-n6-ZXy" secondAttribute="trailing" id="2zR-Xc-sbx"/>
+                <constraint firstItem="ghU-PK-XSf" firstAttribute="trailing" secondItem="jBZ-WO-Nz7" secondAttribute="trailing" constant="-100" id="5Dl-67-eRO"/>
+                <constraint firstItem="jBZ-WO-Nz7" firstAttribute="leading" secondItem="ghU-PK-XSf" secondAttribute="leading" constant="-100" id="6OQ-UN-0gr"/>
+                <constraint firstItem="ghU-PK-XSf" firstAttribute="top" secondItem="jBZ-WO-Nz7" secondAttribute="top" id="CxJ-e3-177"/>
                 <constraint firstItem="u7O-n6-ZXy" firstAttribute="top" secondItem="9fq-65-qd9" secondAttribute="top" id="Qaw-S4-hJf"/>
                 <constraint firstAttribute="bottom" secondItem="CMT-MI-d8X" secondAttribute="bottom" id="QmH-op-EWM"/>
                 <constraint firstItem="CMT-MI-d8X" firstAttribute="top" secondItem="u7O-n6-ZXy" secondAttribute="bottom" id="SaY-tH-rNS"/>
                 <constraint firstAttribute="trailing" secondItem="CMT-MI-d8X" secondAttribute="trailing" id="Y3v-mx-s41"/>
                 <constraint firstItem="u7O-n6-ZXy" firstAttribute="leading" secondItem="9fq-65-qd9" secondAttribute="leading" id="myS-vi-80i"/>
                 <constraint firstItem="CMT-MI-d8X" firstAttribute="leading" secondItem="9fq-65-qd9" secondAttribute="leading" id="rEB-5o-z8o"/>
+                <constraint firstItem="jBZ-WO-Nz7" firstAttribute="bottom" secondItem="ghU-PK-XSf" secondAttribute="bottom" constant="100" id="wrU-Qn-62D"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -327,6 +332,7 @@
                 <outlet property="distanceLegendLabel" destination="7dx-1W-LWs" id="Kmh-8u-jgj"/>
                 <outlet property="distanceWithLegendLabel" destination="fxK-Ae-ebd" id="qhH-AB-nFm"/>
                 <outlet property="extendButton" destination="XwA-oz-M3Q" id="76Y-Qw-uPC"/>
+                <outlet property="extendedView" destination="CMT-MI-d8X" id="1OK-Ps-fL4"/>
                 <outlet property="progressView" destination="Q0w-Me-x4p" id="efq-ve-QAZ"/>
                 <outlet property="routingProgress" destination="vxl-iA-p8N" id="gw7-Pn-5m7"/>
                 <outlet property="speedLabel" destination="b3M-75-5HW" id="bLg-uX-05a"/>

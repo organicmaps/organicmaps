@@ -40,6 +40,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
   }()
 
   @objc weak var ownerView: UIView!
+  @IBOutlet private weak var extendedView: UIView!
 
   private weak var navigationInfo: MWMNavigationDashboardEntity?
 
@@ -52,18 +53,18 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
         addView()
       } else {
         dimBackground.setVisible(false) {}
+        DispatchQueue.main.async {
+          self.superview?.setNeedsLayout()
+          UIView.animate(withDuration: kDefaultAnimationDuration,
+                         animations: { self.superview?.layoutIfNeeded() },
+                         completion: { _ in
+                           if !self.isVisible {
+                             self.removeFromSuperview()
+                           }
+          })
+        }
       }
-      DispatchQueue.main.async {
-        self.superview?.setNeedsLayout()
-        self.hiddenConstraint.isActive = !self.isVisible
-        UIView.animate(withDuration: kDefaultAnimationDuration,
-                       animations: { self.superview?.layoutIfNeeded() },
-                       completion: { _ in
-                         if !self.isVisible {
-                           self.removeFromSuperview()
-                         }
-        })
-      }
+      hiddenConstraint.isActive = !isVisible
     }
   }
 
@@ -77,6 +78,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
       guard isExtended != oldValue else { return }
 
       superview?.setNeedsLayout()
+      extendedView.isHidden = !isExtended
       extendedConstraint.isActive = isExtended
       UIView.animate(withDuration: kDefaultAnimationDuration) { self.superview?.layoutIfNeeded() }
 
@@ -90,18 +92,28 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     guard superview != ownerView else { return }
     ownerView.addSubview(self)
 
-    NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: ownerView, attribute: .left, multiplier: 1, constant: 0).isActive = true
-    NSLayoutConstraint(item: self, attribute: .right, relatedBy: .equal, toItem: ownerView, attribute: .right, multiplier: 1, constant: 0).isActive = true
+    var lAnchor = ownerView.leadingAnchor
+    var tAnchor = ownerView.trailingAnchor
+    var bAnchor = ownerView.bottomAnchor
+    if #available(iOS 11.0, *) {
+      let layoutGuide = ownerView.safeAreaLayoutGuide
+      lAnchor = layoutGuide.leadingAnchor
+      tAnchor = layoutGuide.trailingAnchor
+      bAnchor = layoutGuide.bottomAnchor
+    }
 
-    hiddenConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: ownerView, attribute: .bottom, multiplier: 1, constant: 0)
+    leadingAnchor.constraint(equalTo: lAnchor).isActive = true
+    trailingAnchor.constraint(equalTo: tAnchor).isActive = true
+
+    hiddenConstraint = topAnchor.constraint(equalTo: ownerView.bottomAnchor)
     hiddenConstraint.priority = UILayoutPriority.defaultHigh
     hiddenConstraint.isActive = true
 
-    let visibleConstraint = NSLayoutConstraint(item: progressView, attribute: .bottom, relatedBy: .equal, toItem: ownerView, attribute: .bottom, multiplier: 1, constant: 0)
+    let visibleConstraint = progressView.bottomAnchor.constraint(equalTo: bAnchor)
     visibleConstraint.priority = UILayoutPriority.defaultLow
     visibleConstraint.isActive = true
 
-    extendedConstraint = NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: ownerView, attribute: .bottom, multiplier: 1, constant: 0)
+    extendedConstraint = bottomAnchor.constraint(equalTo: bAnchor)
     extendedConstraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(Int(UILayoutPriority.defaultHigh.rawValue) - 1))
   }
 
