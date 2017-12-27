@@ -1,0 +1,7 @@
+<svg width="28" height="28" viewBox="0 0 28 28">
+  <g fill="none">
+    <rect width="28" height="28" fill="#FFF" opacity=".6"/>
+    <rect width="26" height="26" x="1" y="1" fill="#0D47A1"/>
+    <path fill="#FFF" d="M16,18 L19.5,14.5 L21.5,16.5 L14,24 L6.5,16.5 L8.5,14.5 L12,18 L12,9.5 L8.5,13 L6.5,11 L14,3.5 L21.5,11 L19.5,13 L16,9.5 L16,18 Z"/>
+  </g>
+</svg>

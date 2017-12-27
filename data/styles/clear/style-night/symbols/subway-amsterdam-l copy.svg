@@ -1,0 +1,9 @@
+<svg width="24" height="28" viewBox="0 0 24 28">
+  <g fill="none">
+    <rect width="24" height="28" fill="#FFF" opacity=".4"/>
+    <rect width="22" height="26" x="1" y="1" fill="#06224D"/>
+    <polygon fill="#FFF" points="16.8 4 11.9 13.5 7.2 4 4 4 4 19 7 19 7 10 11.5 19 12.3 19 17 9.9 17 19 20 19 20 4" opacity=".6"/>
+    <rect width="22" height="6" x="1" y="21" fill="#990C13"/>
+    <rect width="16" height="2" x="4" y="23" fill="#FFF" opacity=".6"/>
+  </g>
+</svg>

@@ -1,7 +1,7 @@
-<svg width="21" height="17" viewBox="0 0 21 17">
-  <g fill="none" fill-rule="evenodd">
-    <polygon fill="#FFF" points="0 8.5 10.5 1 21 8.5 10.5 16" opacity=".6"/>
-    <polygon fill="#ED1B2D" points="1 8.5 10.5 2 20 8.5 10.5 15"/>
-    <polygon fill="#FFF" points="13 11 13 9.571 9.882 8.499 13 7.429 13 6 8 6 8 7.111 10.868 7.089 8 8.143 8 8.857 10.868 9.889 9.694 9.889 8 9.889 8 11" transform="rotate(-90 10.5 8.5)"/>
+<svg width="21" height="15" viewBox="0 0 21 15">
+  <g fill="none">
+    <polygon fill="#FFF" points="0 7.5 10.5 0 21 7.5 10.5 15" opacity=".6"/>
+    <polygon fill="#ED1B2D" points="1 7.5 10.5 1 20 7.5 10.5 14"/>
+    <polygon fill="#FFF" points="13 10 13 8.571 9.882 7.499 13 6.429 13 5 8 5 8 6.111 10.868 6.089 8 7.143 8 7.857 10.868 8.889 9.694 8.889 8 8.889 8 10" transform="rotate(-90 10.5 7.5)"/>
   </g>
 </svg>

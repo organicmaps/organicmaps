@@ -1,0 +1,15 @@
+<svg width="28" height="28" viewBox="0 0 28 28">
+  <g fill="none">
+    <polygon fill="#FFF" points="28 0 0 0 0 28 28 28" opacity=".6"/>
+    <rect width="26" height="26" x="1" y="1" fill="#20287D"/>
+    <path fill="#FF8E03" d="M5,16 L11,16 L11,27 L5,27 L5,16 Z M16,16 L22,16 L22,27 L16,27 L16,16 Z"/>
+    <rect width="1" height="7" x="15" y="20" fill="#FFF"/>
+    <rect width="1" height="7" x="14" y="19" fill="#FFF"/>
+    <rect width="1" height="7" x="13" y="18" fill="#FFF"/>
+    <rect width="1" height="7" x="12" y="17" fill="#FFF"/>
+    <rect width="1" height="7" x="11" y="16" fill="#FFF"/>
+    <rect width="1" height="6" x="10" y="16" fill="#FFF"/>
+    <rect width="1" height="5" x="9" y="16" fill="#FFF"/>
+    <path fill="#FFF" d="M15,20 L16,20 L16,27 L15,27 L15,26 L14,26 L14,25 L13,25 L13,24 L12,24 L12,23 L11,23 L11,22 L10,22 L10,21 L9,21 L9,20 L8,20 L8,19 L7,19 L7,18 L6,18 L6,17 L5,17 L5,16 L8,16 L9,16 L10,16 L11,16 L12,16 L12,17 L13,17 L13,18 L14,18 L14,19 L15,19 L15,20 Z M26,20 L27,20 L27,27 L26,27 L26,26 L25,26 L25,25 L24,25 L24,24 L23,24 L23,23 L22,23 L22,22 L21,22 L21,21 L20,21 L20,20 L19,20 L19,19 L18,19 L18,18 L17,18 L17,17 L16,17 L16,16 L19,16 L20,16 L21,16 L22,16 L23,16 L23,17 L24,17 L24,18 L25,18 L25,19 L26,19 L26,20 Z"/>
+  </g>
+</svg>
