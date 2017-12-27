@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -15,10 +15,17 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="MWMPPView">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MWMPPView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNM-4C-tJE">
+                    <rect key="frame" x="-100" y="0.0" width="575" height="767"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcQ-R1-NdK">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="22"/>
                     <subviews>
@@ -63,13 +70,20 @@
                 <constraint firstItem="Taj-ne-CBp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="FBa-eg-ae8"/>
                 <constraint firstItem="bcQ-R1-NdK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JJA-g8-U9d"/>
                 <constraint firstItem="bcQ-R1-NdK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Kcc-bP-Mbu"/>
+                <constraint firstItem="QNM-4C-tJE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-100" id="NWP-bz-eRq">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="QNM-4C-tJE" secondAttribute="trailing" constant="-100" id="YnS-K2-eNZ">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstItem="QNM-4C-tJE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cab-N1-rKd"/>
+                <constraint firstAttribute="bottom" secondItem="QNM-4C-tJE" secondAttribute="bottom" constant="-100" id="kFp-6E-9zd">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
                 <constraint firstAttribute="bottom" secondItem="Taj-ne-CBp" secondAttribute="bottom" id="pAf-8q-58V"/>
                 <constraint firstAttribute="trailing" secondItem="bcQ-R1-NdK" secondAttribute="trailing" id="zrS-z7-cab"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="anchorImage" destination="V1F-KA-EKn" id="fNo-v2-XOU"/>
                 <outlet property="tableView" destination="Taj-ne-CBp" id="rdn-7z-2dz"/>
