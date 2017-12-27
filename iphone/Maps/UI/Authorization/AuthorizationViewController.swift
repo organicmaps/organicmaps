@@ -23,12 +23,16 @@ final class AuthorizationViewController: MWMViewController {
   @IBOutlet private weak var tapView: UIView! {
     didSet {
       iPadSpecific {
-        tapView?.removeFromSuperview()
+        tapView.removeFromSuperview()
       }
     }
   }
 
-  @IBOutlet private weak var contentView: UIView!
+  @IBOutlet private weak var contentView: UIView! {
+    didSet {
+      contentView.backgroundColor = UIColor.white()
+    }
+  }
 
   @IBOutlet private weak var titleLabel: UILabel! {
     didSet {

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -44,7 +45,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hWD-aE-jYh">
-                            <rect key="frame" x="16" y="44" width="359" height="1"/>
+                            <rect key="frame" x="16" y="44" width="343" height="1"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="KJA-Gs-fVA"/>
@@ -81,25 +82,25 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="0EA-1u-hvB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mb9-vK-FLE" secondAttribute="leading" constant="32" id="041-Xr-8XE"/>
+                        <constraint firstItem="0EA-1u-hvB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mb9-vK-FLE" secondAttribute="leadingMargin" constant="24" id="041-Xr-8XE"/>
                         <constraint firstItem="iK0-TH-4mm" firstAttribute="top" secondItem="8iU-Se-s8N" secondAttribute="bottom" constant="16" id="3s6-6d-mEf"/>
                         <constraint firstItem="iK0-TH-4mm" firstAttribute="height" secondItem="8iU-Se-s8N" secondAttribute="height" id="5NR-xJ-wsl"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0EA-1u-hvB" secondAttribute="trailing" constant="32" id="63q-CV-FXu"/>
+                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="0EA-1u-hvB" secondAttribute="trailing" constant="24" id="63q-CV-FXu"/>
                         <constraint firstItem="0EA-1u-hvB" firstAttribute="centerX" secondItem="mb9-vK-FLE" secondAttribute="centerX" id="9Lv-5S-Ecz"/>
                         <constraint firstItem="hia-tk-X0k" firstAttribute="centerY" secondItem="8iU-Se-s8N" secondAttribute="centerY" id="BdE-GF-TQn"/>
                         <constraint firstItem="hia-tk-X0k" firstAttribute="leading" secondItem="8iU-Se-s8N" secondAttribute="leading" constant="6" id="Csz-GA-6ot"/>
                         <constraint firstItem="LFT-Lb-6jj" firstAttribute="top" secondItem="mb9-vK-FLE" secondAttribute="top" constant="10" id="Ftb-Fz-E92"/>
                         <constraint firstItem="hWD-aE-jYh" firstAttribute="top" secondItem="LFT-Lb-6jj" secondAttribute="bottom" constant="10" id="Li4-2S-2G3"/>
-                        <constraint firstItem="LFT-Lb-6jj" firstAttribute="leading" secondItem="mb9-vK-FLE" secondAttribute="leading" constant="16" id="cty-RM-oeS"/>
+                        <constraint firstItem="LFT-Lb-6jj" firstAttribute="leading" secondItem="mb9-vK-FLE" secondAttribute="leadingMargin" constant="8" id="cty-RM-oeS"/>
                         <constraint firstItem="8iU-Se-s8N" firstAttribute="trailing" secondItem="iK0-TH-4mm" secondAttribute="trailing" id="eey-Yo-SyU"/>
                         <constraint firstItem="LFT-Lb-6jj" firstAttribute="leading" secondItem="hWD-aE-jYh" secondAttribute="leading" id="fUK-k0-dou"/>
                         <constraint firstItem="0EA-1u-hvB" firstAttribute="top" secondItem="hWD-aE-jYh" secondAttribute="bottom" constant="20" id="gCf-Vo-Dnw"/>
-                        <constraint firstItem="8iU-Se-s8N" firstAttribute="leading" secondItem="mb9-vK-FLE" secondAttribute="leading" constant="32" id="gbL-30-m0O"/>
+                        <constraint firstItem="8iU-Se-s8N" firstAttribute="leading" secondItem="mb9-vK-FLE" secondAttribute="leadingMargin" constant="24" id="gbL-30-m0O"/>
                         <constraint firstItem="8iU-Se-s8N" firstAttribute="top" secondItem="0EA-1u-hvB" secondAttribute="bottom" constant="20" id="gdh-8k-RCc"/>
-                        <constraint firstAttribute="trailing" secondItem="8iU-Se-s8N" secondAttribute="trailing" constant="32" id="ibi-5C-1cc"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="8iU-Se-s8N" secondAttribute="trailing" constant="24" id="ibi-5C-1cc"/>
                         <constraint firstItem="8iU-Se-s8N" firstAttribute="leading" secondItem="iK0-TH-4mm" secondAttribute="leading" id="jNy-RB-OlB"/>
-                        <constraint firstAttribute="trailing" secondItem="hWD-aE-jYh" secondAttribute="trailing" id="pvh-8S-jYH"/>
-                        <constraint firstAttribute="bottom" secondItem="iK0-TH-4mm" secondAttribute="bottom" constant="20" id="xTQ-Ma-uWe"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="hWD-aE-jYh" secondAttribute="trailing" constant="8" id="pvh-8S-jYH"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="iK0-TH-4mm" secondAttribute="bottom" constant="12" id="xTQ-Ma-uWe"/>
                     </constraints>
                 </view>
             </subviews>
