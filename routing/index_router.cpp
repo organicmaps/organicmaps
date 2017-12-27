@@ -165,8 +165,8 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
                                  getVertexByEdgeFn, getOutgoingEdgesFn);
 }
 
-/// \returns true if the mwm is ready for index graph routing and cross mwm index grapsh routing.
-/// It means the mwm contains routing and cross_mwm sections. In term of production mwms
+/// \returns true if the mwm is ready for index graph routing and cross mwm index graph routing.
+/// It means the mwm contains routing and cross_mwm sections. In terms of production mwms
 /// the method returns false for mwms 170328 and earlier, and returns true for mwms 170428 and
 /// later.
 bool MwmHasRoutingData(version::MwmTraits const & traits)
