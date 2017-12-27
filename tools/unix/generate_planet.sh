@@ -359,7 +359,7 @@ if [ "$MODE" == "coast" ]; then
     if [ -n "$OPT_UPDATE" ]; then
       log "STATUS" "Step 1: Updating the planet file $PLANET"
       PLANET_ABS="$(cd "$(dirname "$PLANET")"; pwd)/$(basename "$PLANET")"
-      OSC_ABS="$(cd "$(dirname "$OSC")"; pwd)/$(basename "$OSC")"
+      [ -n "${OSC-}" ] && OSC_ABS="$(cd "$(dirname "${OSC-}")"; pwd)/$(basename "${OSC-}")"
       (
         cd "$OSMCTOOLS" # osmupdate requires osmconvert in a current directory
         ./osmupdate --drop-author --drop-version --out-o5m -v "$PLANET_ABS" "$PLANET_ABS.new.o5m"
