@@ -165,15 +165,16 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
                                  getVertexByEdgeFn, getOutgoingEdgesFn);
 }
 
-bool MwmHasRoutingData(version::MwmTraits const & traits, VehicleType vehicleType)
+/// \returns true if the mwm is ready for index graph routing and cross mwm index grapsh routing.
+/// It means the mwm contains routing and cross_mwm sections. In term of production mwms
+/// the method returns false for mwms 170328 and earlier, and returns true for mwms 170428 and
+/// later.
+bool MwmHasRoutingData(version::MwmTraits const & traits)
 {
-  if (!traits.HasRoutingIndex())
-    return false;
-
-  return vehicleType == VehicleType::Car || traits.HasCrossMwmSection();
+  return traits.HasRoutingIndex() && traits.HasCrossMwmSection();
 }
 
-void GetOutdatedMwms(VehicleType vehicleType, Index & index, vector<string> & outdatedMwms)
+void GetOutdatedMwms(Index & index, vector<string> & outdatedMwms)
 {
   outdatedMwms.clear();
   vector<shared_ptr<MwmInfo>> infos;
@@ -184,7 +185,7 @@ void GetOutdatedMwms(VehicleType vehicleType, Index & index, vector<string> & ou
     if (info->GetType() != MwmInfo::COUNTRY)
       continue;
 
-    if (!MwmHasRoutingData(version::MwmTraits(info->m_version), vehicleType))
+    if (!MwmHasRoutingData(version::MwmTraits(info->m_version)))
       outdatedMwms.push_back(info->GetCountryName());
   }
 }
@@ -345,7 +346,8 @@ IRouter::ResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
                                                 RouterDelegate const & delegate, Route & route)
 {
   vector<string> outdatedMwms;
-  GetOutdatedMwms(m_vehicleType, m_index, outdatedMwms);
+  GetOutdatedMwms(m_index, outdatedMwms);
+
   if (!outdatedMwms.empty())
   {
     // Backward compatibility with outdated mwm versions.
