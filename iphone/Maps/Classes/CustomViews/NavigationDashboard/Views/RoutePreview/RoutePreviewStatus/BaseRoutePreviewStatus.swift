@@ -3,10 +3,11 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   @IBOutlet private weak var errorBox: UIView!
   @IBOutlet private weak var resultsBox: UIView!
   @IBOutlet private weak var heightBox: UIView!
-  @IBOutlet private weak var manageRouteBox: UIView! {
+  @IBOutlet private weak var manageRouteBox: UIView!
+  @IBOutlet weak var manageRouteBoxBackground: UIView! {
     didSet {
       iPhoneSpecific {
-        manageRouteBox.backgroundColor = UIColor.blackOpaque()
+        manageRouteBoxBackground.backgroundColor = UIColor.blackOpaque()
       }
     }
   }

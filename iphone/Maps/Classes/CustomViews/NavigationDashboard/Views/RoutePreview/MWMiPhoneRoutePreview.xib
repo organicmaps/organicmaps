@@ -307,6 +307,10 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fzb-1W-zFB">
                     <rect key="frame" x="0.0" y="108" width="320" height="44"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yia-YS-2aZ">
+                            <rect key="frame" x="-100" y="0.0" width="520" height="144"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K37-2W-GE8">
                             <rect key="frame" x="20" y="10" width="127" height="24"/>
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -317,11 +321,15 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="K37-2W-GE8" firstAttribute="centerY" secondItem="fzb-1W-zFB" secondAttribute="centerY" id="2ok-5H-yIR"/>
+                        <constraint firstAttribute="trailing" secondItem="Yia-YS-2aZ" secondAttribute="trailing" constant="-100" id="Bzr-Sg-XK6"/>
                         <constraint firstAttribute="height" constant="44" id="P98-xe-1Mu"/>
+                        <constraint firstItem="Yia-YS-2aZ" firstAttribute="leading" secondItem="fzb-1W-zFB" secondAttribute="leading" constant="-100" id="PVG-Ef-KEF"/>
                         <constraint firstItem="K37-2W-GE8" firstAttribute="leading" secondItem="fzb-1W-zFB" secondAttribute="leading" constant="20" id="UJ8-Kj-MhJ"/>
+                        <constraint firstAttribute="bottom" secondItem="Yia-YS-2aZ" secondAttribute="bottom" constant="-100" id="YkC-k1-TjV"/>
+                        <constraint firstItem="Yia-YS-2aZ" firstAttribute="top" secondItem="fzb-1W-zFB" secondAttribute="top" id="ejL-T8-2eh"/>
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5a5-vb-p6T" userLabel="Taxi Box">
@@ -421,6 +429,7 @@
                 <outlet property="heightBoxBottomManageRouteBoxTop" destination="939-g8-UFV" id="gmW-wu-meb"/>
                 <outlet property="heightProfileImage" destination="OqA-sS-wmI" id="NdN-LR-j7e"/>
                 <outlet property="manageRouteBox" destination="fzb-1W-zFB" id="yqc-27-U2m"/>
+                <outlet property="manageRouteBoxBackground" destination="Yia-YS-2aZ" id="omu-vJ-Nub"/>
                 <outlet property="manageRouteBoxBottom" destination="kPq-9v-D4c" id="FPP-Hc-DGv"/>
                 <outlet property="manageRouteButtonCompact" destination="Zzm-Yo-BvL" id="MAs-VL-pR0"/>
                 <outlet property="manageRouteButtonRegular" destination="K37-2W-GE8" id="I40-pl-MM4"/>
