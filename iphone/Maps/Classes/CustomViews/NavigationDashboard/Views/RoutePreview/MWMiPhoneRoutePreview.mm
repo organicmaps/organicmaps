@@ -33,8 +33,10 @@
 
 - (void)setIsVisible:(BOOL)isVisible
 {
-  self.verticalConstraint.active = NO;
   auto sv = self.superview;
+  if (!sv)
+    return;
+  self.verticalConstraint.active = NO;
   NSLayoutYAxisAnchor * topAnchor = sv.topAnchor;
   NSLayoutYAxisAnchor * selfAnchor = isVisible ? self.topAnchor : self.bottomAnchor;
   CGFloat constant = 0;
