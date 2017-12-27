@@ -4,14 +4,13 @@
 
 #include "routing/routing_helpers.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_processor.hpp"
 
-#include "coding/file_name_utils.hpp"
+#include "geometry/mercator.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
@@ -20,10 +19,10 @@
 
 #include "base/logging.hpp"
 
-#include <algorithm>
+#include <cstddef>
 #include <cstdint>
 #include <limits>
-#include <string>
+#include <vector>
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -53,13 +52,11 @@ int main(int argc, char * argv[])
   LOG(LINFO, ("writable dir =", platform.WritableDir()));
   LOG(LINFO, ("srtm dir =", FLAGS_srtm_path));
 
-  vector<platform::LocalCountryFile> localFiles;
-  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
-                                       localFiles);
+  vector<LocalCountryFile> localFiles;
+  FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */, localFiles);
 
   generator::SrtmTileManager manager(FLAGS_srtm_path);
   classificator::Load();
-  classif().SortClassificator();
 
   for (auto & file : localFiles)
   {
