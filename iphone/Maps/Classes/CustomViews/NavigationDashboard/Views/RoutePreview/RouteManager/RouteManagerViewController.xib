@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -97,7 +98,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
-                    <rect key="frame" x="0.0" y="571" width="375" height="96"/>
+                    <rect key="frame" x="0.0" y="563" width="375" height="104"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0L-ul-gog" customClass="RouteManagerHeaderView" customModule="cm_dbg" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
@@ -147,6 +148,10 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-M4-MPb" customClass="RouteManagerFooterView" customModule="cm_dbg" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="48" width="375" height="48"/>
                             <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="or0-Gy-0su">
+                                    <rect key="frame" x="-100" y="0.0" width="575" height="148"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pjx-6o-NWS">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -169,20 +174,25 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="1qG-Md-L9w"/>
                                 <constraint firstAttribute="trailing" secondItem="pjx-6o-NWS" secondAttribute="trailing" id="2pz-i3-nqy"/>
                                 <constraint firstItem="2WE-hS-hzl" firstAttribute="leading" secondItem="mqc-M4-MPb" secondAttribute="leading" constant="16" id="5pP-TA-d4M"/>
                                 <constraint firstItem="2WE-hS-hzl" firstAttribute="top" secondItem="mqc-M4-MPb" secondAttribute="top" id="CmY-Dg-Oyj"/>
+                                <constraint firstAttribute="bottom" secondItem="or0-Gy-0su" secondAttribute="bottom" constant="-100" id="Df9-Xs-6pB"/>
                                 <constraint firstAttribute="bottom" secondItem="u3h-0s-UBo" secondAttribute="bottom" id="GPn-YG-Q3q"/>
                                 <constraint firstItem="pjx-6o-NWS" firstAttribute="top" secondItem="mqc-M4-MPb" secondAttribute="top" id="JBh-gl-9Zv"/>
+                                <constraint firstItem="or0-Gy-0su" firstAttribute="leading" secondItem="mqc-M4-MPb" secondAttribute="leading" constant="-100" id="Nrk-kP-4Bh"/>
                                 <constraint firstAttribute="trailing" secondItem="u3h-0s-UBo" secondAttribute="trailing" constant="16" id="QGG-zB-H6Q"/>
                                 <constraint firstAttribute="bottom" secondItem="2WE-hS-hzl" secondAttribute="bottom" id="TJH-n6-XZn"/>
                                 <constraint firstItem="pjx-6o-NWS" firstAttribute="leading" secondItem="mqc-M4-MPb" secondAttribute="leading" id="isd-2j-Shn"/>
                                 <constraint firstItem="u3h-0s-UBo" firstAttribute="top" secondItem="mqc-M4-MPb" secondAttribute="top" id="jC7-jG-YeX"/>
+                                <constraint firstAttribute="trailing" secondItem="or0-Gy-0su" secondAttribute="trailing" constant="-100" id="zfL-pn-451"/>
+                                <constraint firstItem="or0-Gy-0su" firstAttribute="top" secondItem="mqc-M4-MPb" secondAttribute="top" id="ztB-hC-yRP"/>
                             </constraints>
                             <connections>
+                                <outlet property="background" destination="or0-Gy-0su" id="aFx-YJ-deT"/>
                                 <outlet property="cancelButton" destination="2WE-hS-hzl" id="8op-cA-N4M"/>
                                 <outlet property="planButton" destination="u3h-0s-UBo" id="Fb9-pg-kh9"/>
                                 <outlet property="separator" destination="pjx-6o-NWS" id="EKT-Ba-Lcy"/>
@@ -209,13 +219,13 @@
                         <constraint firstAttribute="width" priority="750" constant="375" id="6Nm-Md-fZo"/>
                         <constraint firstItem="Zqd-YQ-ksD" firstAttribute="top" secondItem="s0L-ul-gog" secondAttribute="bottom" id="9N3-Ti-W95"/>
                         <constraint firstItem="mqc-M4-MPb" firstAttribute="top" secondItem="Zqd-YQ-ksD" secondAttribute="bottom" id="A2s-eg-1CW"/>
-                        <constraint firstAttribute="bottom" secondItem="mqc-M4-MPb" secondAttribute="bottom" id="JoD-oZ-xgY"/>
-                        <constraint firstAttribute="trailing" secondItem="s0L-ul-gog" secondAttribute="trailing" id="Ndx-K2-qQ5"/>
-                        <constraint firstAttribute="trailing" secondItem="mqc-M4-MPb" secondAttribute="trailing" id="WgX-mu-BCG"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="mqc-M4-MPb" secondAttribute="bottom" id="JoD-oZ-xgY"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="s0L-ul-gog" secondAttribute="trailing" constant="-8" id="Ndx-K2-qQ5"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="mqc-M4-MPb" secondAttribute="trailing" constant="-8" id="WgX-mu-BCG"/>
                         <constraint firstAttribute="trailing" secondItem="Zqd-YQ-ksD" secondAttribute="trailing" id="XkJ-fe-lyj"/>
-                        <constraint firstItem="s0L-ul-gog" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aDI-kT-6Ao"/>
+                        <constraint firstItem="s0L-ul-gog" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" constant="-8" id="aDI-kT-6Ao"/>
                         <constraint firstItem="Zqd-YQ-ksD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cgy-zG-Qpu"/>
-                        <constraint firstItem="mqc-M4-MPb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gvJ-kF-Ylk"/>
+                        <constraint firstItem="mqc-M4-MPb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" constant="-8" id="gvJ-kF-Ylk"/>
                         <constraint firstItem="s0L-ul-gog" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ub9-gl-pdn"/>
                     </constraints>
                 </view>
