@@ -1,10 +1,11 @@
 @objc(MWMDimBackground)
 final class DimBackground: SolidTouchView {
   private let mainView: UIView
-  private var tapAction: (() -> Void)!
+  private var tapAction: () -> Void
 
-  @objc init(mainView: UIView) {
+  @objc init(mainView: UIView, tapAction: @escaping () -> Void) {
     self.mainView = mainView
+    self.tapAction = tapAction
     super.init(frame: mainView.superview!.bounds)
     backgroundColor = UIColor.fadeBackground()
     autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -15,9 +16,7 @@ final class DimBackground: SolidTouchView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  @objc func setVisible(_ visible: Bool, tapAction: @escaping () -> Void) {
-    self.tapAction = tapAction
-
+  @objc func setVisible(_ visible: Bool, completion: (() -> Void)?) {
     if visible {
       let sv = mainView.superview!
       frame = sv.bounds
@@ -32,6 +31,7 @@ final class DimBackground: SolidTouchView {
                      if !visible {
                        self.removeFromSuperview()
                      }
+                     completion?()
     })
   }
 

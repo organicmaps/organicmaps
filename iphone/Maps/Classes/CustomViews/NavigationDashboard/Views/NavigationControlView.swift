@@ -36,7 +36,9 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
   }
 
   private lazy var dimBackground: DimBackground = {
-    DimBackground(mainView: self)
+    DimBackground(mainView: self, tapAction: { [weak self] in
+      self?.diminish()
+    })
   }()
 
   @objc weak var ownerView: UIView!
@@ -52,17 +54,9 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
       if isVisible {
         addView()
       } else {
-        dimBackground.setVisible(false) {}
-        DispatchQueue.main.async {
-          self.superview?.setNeedsLayout()
-          UIView.animate(withDuration: kDefaultAnimationDuration,
-                         animations: { self.superview?.layoutIfNeeded() },
-                         completion: { _ in
-                           if !self.isVisible {
-                             self.removeFromSuperview()
-                           }
-          })
-        }
+        dimBackground.setVisible(false, completion: {
+          self.removeFromSuperview()
+        })
       }
       hiddenConstraint.isActive = !isVisible
     }
@@ -77,14 +71,11 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
       guard isVisible && superview != nil else { return }
       guard isExtended != oldValue else { return }
 
-      superview?.setNeedsLayout()
+      dimBackground.setVisible(isExtended, completion: nil)
       extendedView.isHidden = !isExtended
-      extendedConstraint.isActive = isExtended
-      UIView.animate(withDuration: kDefaultAnimationDuration) { self.superview?.layoutIfNeeded() }
-
-      dimBackground.setVisible(isExtended) { [weak self] in
-        self?.diminish()
-      }
+      superview?.animateConstraints(animations: {
+        extendedConstraint.isActive = isExtended
+      })
     }
   }
 
@@ -187,11 +178,9 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     speedWithLegend.append(NSAttributedString(string: info.speedUnits, attributes: routingLegendAttributes))
     speedWithLegendLabel.attributedText = speedWithLegend
 
-    progressView.setNeedsLayout()
-    routingProgress.constant = progressView.width * info.progress / 100
-    UIView.animate(withDuration: kDefaultAnimationDuration) { [progressView] in
-      progressView?.layoutIfNeeded()
-    }
+    progressView.animateConstraints(animations: {
+      routingProgress.constant = progressView.width * info.progress / 100
+    })
   }
 
   @IBAction

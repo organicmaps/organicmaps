@@ -360,7 +360,22 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (MWMDimBackground *)dimBackground
 {
   if (!_dimBackground)
-    _dimBackground = [[MWMDimBackground alloc] initWithMainView:self.view];
+  {
+    __weak auto wSelf = self;
+    auto tapAction = ^{
+      // In case when there are 2 touch events (dimBackgroundTap &
+      // menuButtonTouchUpInside)
+      // if dimBackgroundTap is processed first then menuButtonTouchUpInside
+      // behaves as if menu is
+      // inactive this is wrong case, so we postpone dimBackgroundTap to make
+      // sure
+      // menuButtonTouchUpInside processed first
+      dispatch_async(dispatch_get_main_queue(), ^{
+        wSelf.state = MWMBottomMenuStateInactive;
+      });
+    };
+    _dimBackground = [[MWMDimBackground alloc] initWithMainView:self.view tapAction:tapAction];
+  }
   return _dimBackground;
 }
 
@@ -374,20 +389,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   if (menuActive)
     [self.controller.view bringSubviewToFront:view];
 
-  __weak auto wSelf = self;
-  [self.dimBackground setVisible:menuActive
-                       tapAction:^{
-                         // In case when there are 2 touch events (dimBackgroundTap &
-                         // menuButtonTouchUpInside)
-                         // if dimBackgroundTap is processed first then menuButtonTouchUpInside
-                         // behaves as if menu is
-                         // inactive this is wrong case, so we postpone dimBackgroundTap to make
-                         // sure
-                         // menuButtonTouchUpInside processed first
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                           wSelf.state = MWMBottomMenuStateInactive;
-                         });
-                       }];
+  [self.dimBackground setVisible:menuActive completion:nil];
   view.state = state;
   [self updateBadgeVisible:[[MapsAppDelegate theApp] badgeNumber] != 0];
 }
