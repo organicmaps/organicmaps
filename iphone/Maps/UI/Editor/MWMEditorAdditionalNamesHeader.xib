@@ -1,20 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="fMr-en-6Lb" customClass="MWMEditorAdditionalNamesHeader">
+        <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="fMr-en-6Lb" customClass="MWMEditorAdditionalNamesHeader">
             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZVV-q9-714">
-                    <rect key="frame" x="16" y="16" width="210" height="16"/>
+                    <rect key="frame" x="16" y="16" width="194" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular13"/>
@@ -22,14 +27,14 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgf-k2-uT4" customClass="MWMButton">
-                    <rect key="frame" x="230" y="0.0" width="90" height="40"/>
+                    <rect key="frame" x="214" y="0.0" width="90" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" priority="750" constant="90" id="WzJ-y1-Q2m"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="4"/>
                     <state key="normal" title="Скрыть">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular13"/>
@@ -42,13 +47,13 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fgf-k2-uT4" firstAttribute="top" secondItem="fMr-en-6Lb" secondAttribute="top" id="aa6-A6-gYY"/>
                 <constraint firstAttribute="bottom" secondItem="ZVV-q9-714" secondAttribute="bottom" constant="8" id="acW-Jb-4Rd"/>
-                <constraint firstItem="ZVV-q9-714" firstAttribute="leading" secondItem="fMr-en-6Lb" secondAttribute="leading" constant="16" id="bfa-to-CBn"/>
+                <constraint firstItem="ZVV-q9-714" firstAttribute="leading" secondItem="fMr-en-6Lb" secondAttribute="leadingMargin" id="bfa-to-CBn"/>
                 <constraint firstAttribute="bottom" secondItem="fgf-k2-uT4" secondAttribute="bottom" id="i6A-IT-Uyi"/>
-                <constraint firstAttribute="trailing" secondItem="fgf-k2-uT4" secondAttribute="trailing" priority="750" id="oMs-yA-J0S"/>
+                <constraint firstAttribute="trailingMargin" secondItem="fgf-k2-uT4" secondAttribute="trailing" priority="750" id="oMs-yA-J0S"/>
                 <constraint firstItem="fgf-k2-uT4" firstAttribute="leading" secondItem="ZVV-q9-714" secondAttribute="trailing" priority="700" constant="4" id="yNz-90-zJf"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
