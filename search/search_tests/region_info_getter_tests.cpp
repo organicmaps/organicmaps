@@ -2,6 +2,8 @@
 
 #include "search/region_info_getter.hpp"
 
+#include <string>
+
 using namespace search;
 
 namespace

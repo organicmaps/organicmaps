@@ -578,8 +578,8 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
   for (auto const & suggest : m_suggests)
   {
     strings::UniString const & s = suggest.m_name;
-    if (suggest.m_prefixLength <= token.size() &&
-        token != s                     // do not push suggestion if it already equals to token
+    if (suggest.m_prefixLength <= token.size()
+        && token != s                  // do not push suggestion if it already equals to token
         && suggest.m_locale == locale  // push suggestions only for needed language
         && strings::StartsWith(s, token))
     {

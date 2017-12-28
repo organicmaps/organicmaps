@@ -2,6 +2,7 @@
 
 #include "storage/country_decl.hpp"
 
+#include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -24,6 +25,9 @@ void GetPathToRoot(storage::TCountryId const & id, storage::TCountryTree const &
 {
   vector<storage::TCountryTree::Node const *> nodes;
   countries.Find(id, nodes);
+
+  if (nodes.empty())
+    LOG(LERROR, ("Can't find node in the countries tree for:", id));
 
   if (nodes.size() != 1 || nodes[0]->IsRoot())
     return;
@@ -66,7 +70,7 @@ string RegionInfoGetter::GetLocalizedFullName(storage::TCountryId const & id) co
     return strings::JoinStrings(parts, ", ");
 
   // Tries to get at least localized name for |id|, if |id| is a
-  // discussed territory.
+  // disputed territory.
   auto name = GetLocalizedCountryName(id);
   if (!name.empty())
     return name;

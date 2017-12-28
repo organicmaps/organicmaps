@@ -85,7 +85,7 @@ SearchAPI::SearchAPI(Index & index, storage::Storage const & storage,
   , m_infoGetter(infoGetter)
   , m_delegate(delegate)
   , m_engine(m_index, GetDefaultCategories(), m_infoGetter,
-             Engine::Params(languages::GetCurrentOrig() /* locale */, 1 /* params.m_numThreads */))
+             Engine::Params(languages::GetCurrentTwine() /* locale */, 1 /* params.m_numThreads */))
 {
 }
 
