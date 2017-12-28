@@ -158,9 +158,6 @@ XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, FeatureType con
   // have BEST_GEOMETRY geometry.
   auto geometry = ft.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
 
-  // Filters out duplicate points for closed ways or triangles' vertices.
-  my::SortUnique(geometry);
-
   ASSERT_GREATER_OR_EQUAL(geometry.size(), 3, ("Is it an area feature?"));
 
   return cw.GetMatchingAreaFeatureFromOSM(geometry);
