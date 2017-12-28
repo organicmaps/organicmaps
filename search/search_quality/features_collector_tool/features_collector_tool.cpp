@@ -95,7 +95,7 @@ void DisplayStats(ostream & os, vector<Sample> const & samples, vector<Stats> co
   {
     if (stats[i].m_notFound.empty())
       continue;
-    os << "Query #" << i << " \"" << strings::ToUtf8(samples[i].m_query) << "\":" << endl;
+    os << "Query #" << i + 1 << " \"" << strings::ToUtf8(samples[i].m_query) << "\":" << endl;
     for (auto const & j : stats[i].m_notFound)
       os << "Not found: " << DebugPrint(samples[i].m_results[j]) << endl;
   }
