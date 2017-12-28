@@ -437,6 +437,9 @@
 		348A8DFA1F66775A00D83026 /* RatingViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348A8DF31F66775A00D83026 /* RatingViewSettings.swift */; };
 		348A8DFB1F66775A00D83026 /* RatingViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348A8DF31F66775A00D83026 /* RatingViewSettings.swift */; };
 		348A8DFC1F66775A00D83026 /* RatingViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348A8DF31F66775A00D83026 /* RatingViewSettings.swift */; };
+		348B926C1FF3B5E100379009 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348B926B1FF3B5E100379009 /* UIView+Animation.swift */; };
+		348B926D1FF3B5E100379009 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348B926B1FF3B5E100379009 /* UIView+Animation.swift */; };
+		348B926E1FF3B5E100379009 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348B926B1FF3B5E100379009 /* UIView+Animation.swift */; };
 		348F8A4E1F863A8500060C2A /* UGCYourReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348F8A4D1F863A8500060C2A /* UGCYourReview.swift */; };
 		348F8A4F1F863A8500060C2A /* UGCYourReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348F8A4D1F863A8500060C2A /* UGCYourReview.swift */; };
 		348F8A501F863A8500060C2A /* UGCYourReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348F8A4D1F863A8500060C2A /* UGCYourReview.swift */; };
@@ -2195,6 +2198,7 @@
 		348A8DF11F66775A00D83026 /* RatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		348A8DF21F66775A00D83026 /* RatingViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewDelegate.swift; sourceTree = "<group>"; };
 		348A8DF31F66775A00D83026 /* RatingViewSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewSettings.swift; sourceTree = "<group>"; };
+		348B926B1FF3B5E100379009 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		348E57981B0F49D8000FA02A /* qt dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "qt dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		348F8A4D1F863A8500060C2A /* UGCYourReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UGCYourReview.swift; sourceTree = "<group>"; };
 		348F8A511F863B6100060C2A /* UGCReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UGCReview.swift; sourceTree = "<group>"; };
@@ -3599,6 +3603,7 @@
 				34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */,
 				347E03981FAC5F1D00426032 /* UIWindow+InputLanguage.swift */,
 				F6550C1D1FD81B3800352D88 /* RatingSummaryView+DefaultConfig.swift */,
+				348B926B1FF3B5E100379009 /* UIView+Animation.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -6094,6 +6099,7 @@
 				34AB66641FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				F6E2FF5C1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
 				343064401E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
+				348B926C1FF3B5E100379009 /* UIView+Animation.swift in Sources */,
 				F6664BF91E6459CB00E703C2 /* PPFacilityCell.swift in Sources */,
 				347E1A8D1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
 				F6E2FDE81E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
@@ -6477,6 +6483,7 @@
 				34AB66651FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
 				F6664BFA1E6459CB00E703C2 /* PPFacilityCell.swift in Sources */,
+				348B926D1FF3B5E100379009 /* UIView+Animation.swift in Sources */,
 				347E1A8E1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
 				F6E2FDE91E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				6741A9A81BF340DE002C974C /* MWMFacebookAlert.mm in Sources */,
@@ -6860,6 +6867,7 @@
 				34AB66661FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				F6E2FF5E1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
 				343064421E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
+				348B926E1FF3B5E100379009 /* UIView+Animation.swift in Sources */,
 				F6664BFB1E6459CB00E703C2 /* PPFacilityCell.swift in Sources */,
 				347E1A8F1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
 				F6E2FDEA1E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
