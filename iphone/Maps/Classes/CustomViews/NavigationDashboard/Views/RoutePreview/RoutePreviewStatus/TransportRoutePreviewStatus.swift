@@ -18,14 +18,12 @@ final class TransportRoutePreviewStatus: SolidTouchView {
         }
         DispatchQueue.main.async {
           guard let sv = self.superview else { return }
-          sv.setNeedsLayout()
-          self.hiddenConstraint.isActive = !self.isVisible
-          UIView.animate(withDuration: kDefaultAnimationDuration,
-                         animations: { sv.layoutIfNeeded() },
-                         completion: { _ in
-                           if !self.isVisible {
-                             self.removeFromSuperview()
-                           }
+          sv.animateConstraints(animations: {
+            self.hiddenConstraint.isActive = !self.isVisible
+          }, completion: {
+            if !self.isVisible {
+              self.removeFromSuperview()
+            }
           })
         }
       },
@@ -80,9 +78,9 @@ final class TransportRoutePreviewStatus: SolidTouchView {
   private func updateHeight() {
     guard stepsCollectionViewHeight.constant != stepsCollectionView.contentSize.height else { return }
     DispatchQueue.main.async {
-      self.setNeedsLayout()
-      self.stepsCollectionViewHeight.constant = self.stepsCollectionView.contentSize.height
-      UIView.animate(withDuration: kDefaultAnimationDuration) { self.layoutIfNeeded() }
+      self.animateConstraints(animations: {
+        self.stepsCollectionViewHeight.constant = self.stepsCollectionView.contentSize.height
+      })
     }
   }
 

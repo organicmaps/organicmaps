@@ -76,12 +76,12 @@ final class AdBanner: UITableViewCell {
       }
       guard state != oldValue else { return }
       let config = state.config()
-      adTitleLabel.numberOfLines = config.numberOfTitleLines
-      adBodyLabel.numberOfLines = config.numberOfBodyLines
-      detailedModeConstraints.forEach { $0.priority = config.priority }
-      setNeedsLayout()
-      UIView.animate(withDuration: kDefaultAnimationDuration) { self.layoutIfNeeded() }
-      refreshBannerIfNeeded()
+      animateConstraints(animations: {
+        self.adTitleLabel.numberOfLines = config.numberOfTitleLines
+        self.adBodyLabel.numberOfLines = config.numberOfBodyLines
+        self.detailedModeConstraints.forEach { $0.priority = config.priority }
+        self.refreshBannerIfNeeded()
+      })
     }
   }
 

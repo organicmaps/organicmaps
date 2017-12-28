@@ -36,14 +36,11 @@ final class PPHotelDescriptionCell: MWMTableViewCell {
   }
 
   @IBAction private func tap() {
-    compactModeConstraints.forEach { $0.priority = UILayoutPriority.defaultLow }
-    hideButton()
-    setNeedsLayout()
-    UIView.animate(withDuration: kDefaultAnimationDuration, animations: { [weak self] in
-      guard let s = self else { return }
-
-      s.layoutIfNeeded()
-      s.updateDelegate?.cellUpdated()
+    animateConstraints(animations: {
+      self.compactModeConstraints.forEach { $0.priority = UILayoutPriority.defaultLow }
+      self.hideButton()
+    }, completion: {
+      self.updateDelegate?.cellUpdated()
     })
   }
 }

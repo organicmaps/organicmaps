@@ -82,32 +82,33 @@ final class CianElement: UICollectionViewCell {
   var state: State! {
     didSet {
       setupAppearance()
-      setNeedsLayout()
-      contentViews.forEach { $0.isHidden = false }
       let visibleView: UIView
-      var pendingSpinnerViewAlpha: CGFloat = 1
+      let pendingSpinnerViewAlpha: CGFloat
       switch state! {
       case .pending:
-        visibleView = pendingView
-        configPending()
-      case let .offer(model, _):
-        visibleView = offerView
-        configOffer(model: model)
+        pendingSpinnerViewAlpha = 1
+        visibleView = self.pendingView
+      case .offer:
+        pendingSpinnerViewAlpha = 1
+        visibleView = self.offerView
       case .error:
         pendingSpinnerViewAlpha = 0
-        visibleView = pendingView
-        configError()
+        visibleView = self.pendingView
       }
-      UIView.animate(withDuration: kDefaultAnimationDuration,
-                     animations: {
-                       self.pendingSpinnerView.alpha = pendingSpinnerViewAlpha
-                       self.contentViews.forEach { $0.alpha = 0 }
-                       visibleView.alpha = 1
-                       self.layoutIfNeeded()
-                     },
-                     completion: { _ in
-                       self.contentViews.forEach { $0.isHidden = true }
-                       visibleView.isHidden = false
+
+      animateConstraints(animations: {
+        self.contentViews.forEach { $0.isHidden = false }
+        switch self.state! {
+        case .pending: self.configPending()
+        case let .offer(model, _): self.configOffer(model: model)
+        case .error: self.configError()
+        }
+        self.pendingSpinnerView.alpha = pendingSpinnerViewAlpha
+        self.contentViews.forEach { $0.alpha = 0 }
+        visibleView.alpha = 1
+      }, completion: {
+        self.contentViews.forEach { $0.isHidden = true }
+        visibleView.isHidden = false
       })
     }
   }

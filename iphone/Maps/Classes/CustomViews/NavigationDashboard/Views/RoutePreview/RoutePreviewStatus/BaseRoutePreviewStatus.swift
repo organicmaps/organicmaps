@@ -59,14 +59,12 @@ final class BaseRoutePreviewStatus: SolidTouchView {
         }
         DispatchQueue.main.async {
           guard let sv = self.superview else { return }
-          sv.setNeedsLayout()
-          self.hiddenConstraint.isActive = !self.isVisible
-          UIView.animate(withDuration: kDefaultAnimationDuration,
-                         animations: { sv.layoutIfNeeded() },
-                         completion: { _ in
-                           if !self.isVisible {
-                             self.removeFromSuperview()
-                           }
+          sv.animateConstraints(animations: {
+            self.hiddenConstraint.isActive = !self.isVisible
+          }, completion: {
+            if !self.isVisible {
+              self.removeFromSuperview()
+            }
           })
         }
       },
@@ -101,18 +99,20 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     let visibleConstraint = bottomAnchor.constraint(equalTo: bAnchor)
     visibleConstraint.priority = UILayoutPriority.defaultLow
     visibleConstraint.isActive = true
+
+    ownerView.layoutIfNeeded()
   }
 
   private func updateHeight() {
     DispatchQueue.main.async {
-      self.setNeedsLayout()
-      self.errorBoxBottom.isActive = !self.errorBox.isHidden
-      self.resultsBoxBottom.isActive = !self.resultsBox.isHidden
-      self.heightBoxBottom.isActive = !self.heightBox.isHidden
-      self.heightBoxBottomManageRouteBoxTop.isActive = !self.heightBox.isHidden
-      self.taxiBoxBottom.isActive = !self.taxiBox.isHidden
-      self.manageRouteBoxBottom.isActive = !self.manageRouteBox.isHidden
-      UIView.animate(withDuration: kDefaultAnimationDuration) { self.layoutIfNeeded() }
+      self.animateConstraints(animations: {
+        self.errorBoxBottom.isActive = !self.errorBox.isHidden
+        self.resultsBoxBottom.isActive = !self.resultsBox.isHidden
+        self.heightBoxBottom.isActive = !self.heightBox.isHidden
+        self.heightBoxBottomManageRouteBoxTop.isActive = !self.heightBox.isHidden
+        self.taxiBoxBottom.isActive = !self.taxiBox.isHidden
+        self.manageRouteBoxBottom.isActive = !self.manageRouteBox.isHidden
+      })
     }
   }
 
