@@ -78,6 +78,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     _delegate = delegate;
     [controller addChildViewController:self];
     [controller.view addSubview:self.view];
+    [controller.view layoutIfNeeded];
   }
   return self;
 }
