@@ -1494,8 +1494,10 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
 
 void FrontendRenderer::RefreshBgColor()
 {
-  uint32_t color = drule::rules().GetBgColor(df::GetDrawTileScale(m_userEventStream.GetCurrentScreen()));
-  dp::Color c = dp::Extract(color, 0 /*255 - (color >> 24)*/);
+  auto const scale = std::min(df::GetDrawTileScale(m_userEventStream.GetCurrentScreen()),
+                              scales::GetUpperStyleScale());
+  auto const color = drule::rules().GetBgColor(scale);
+  auto const c = dp::Extract(color, 0 /*255 - (color >> 24)*/);
   GLFunctions::glClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
 }
 
