@@ -88,10 +88,29 @@
                     </connections>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYv-pG-Wkw" userLabel="Street name" customClass="NavigationStreetNameView" customModule="cm_dbg" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="1024" height="65.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="1024" height="57.5"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WID-Um-Va6" userLabel="BackgroundView">
+                            <rect key="frame" x="-100" y="-100" width="1224" height="157.5"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
+                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.23999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                    <size key="value" width="0.0" height="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="600" verticalCompressionResistancePriority="600" text="Ленинградский проспект" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShI-bz-5g8">
-                            <rect key="frame" x="112" y="32" width="904" height="21.5"/>
+                            <rect key="frame" x="112" y="24" width="904" height="21.5"/>
                             <accessibility key="accessibilityConfiguration">
                                 <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                             </accessibility>
@@ -103,31 +122,20 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <accessibility key="accessibilityConfiguration">
                         <accessibilityTraits key="traits" notEnabled="YES"/>
                     </accessibility>
                     <constraints>
-                        <constraint firstItem="ShI-bz-5g8" firstAttribute="top" secondItem="YYv-pG-Wkw" secondAttribute="top" constant="32" id="KK1-dA-hII"/>
+                        <constraint firstAttribute="bottom" secondItem="WID-Um-Va6" secondAttribute="bottom" id="5ox-Cb-hJc"/>
+                        <constraint firstItem="ShI-bz-5g8" firstAttribute="top" secondItem="YYv-pG-Wkw" secondAttribute="top" constant="24" id="KK1-dA-hII"/>
                         <constraint firstAttribute="trailing" secondItem="ShI-bz-5g8" secondAttribute="trailing" priority="999" constant="8" id="ZPY-xp-9Ew"/>
+                        <constraint firstAttribute="trailing" secondItem="WID-Um-Va6" secondAttribute="trailing" constant="-100" id="f4N-aC-XO3"/>
                         <constraint firstItem="ShI-bz-5g8" firstAttribute="leading" secondItem="YYv-pG-Wkw" secondAttribute="leading" priority="300" constant="112" id="nVP-3U-KG2"/>
+                        <constraint firstItem="WID-Um-Va6" firstAttribute="leading" secondItem="YYv-pG-Wkw" secondAttribute="leading" constant="-100" id="s8Q-4n-55U"/>
+                        <constraint firstItem="WID-Um-Va6" firstAttribute="top" secondItem="YYv-pG-Wkw" secondAttribute="top" constant="-100" id="spZ-F3-yP2"/>
                         <constraint firstAttribute="bottom" secondItem="ShI-bz-5g8" secondAttribute="bottom" constant="12" id="w0r-Ip-f9E"/>
                     </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                            <integer key="value" value="2"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
-                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.23999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                            <integer key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                            <size key="value" width="0.0" height="1"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa6-N8-acP" userLabel="Turns" customClass="NavigationTurnsView" customModule="cm_dbg" customModuleProvider="target">
                     <rect key="frame" x="8" y="28" width="96" height="153"/>

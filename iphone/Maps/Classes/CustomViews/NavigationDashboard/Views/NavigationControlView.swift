@@ -54,11 +54,15 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
       if isVisible {
         addView()
       } else {
-        dimBackground.setVisible(false, completion: {
-          self.removeFromSuperview()
-        })
+        removeView()
       }
-      hiddenConstraint.isActive = !isVisible
+      alpha = isVisible ? 0 : 1
+      DispatchQueue.main.async {
+        self.superview?.animateConstraints {
+          self.alpha = self.isVisible ? 1 : 0
+          self.hiddenConstraint.isActive = !self.isVisible
+        }
+      }
     }
   }
 
@@ -73,8 +77,8 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
 
       dimBackground.setVisible(isExtended, completion: nil)
       extendedView.isHidden = !isExtended
-      superview?.animateConstraints(animations: {
-        extendedConstraint.isActive = isExtended
+      superview!.animateConstraints(animations: {
+        self.extendedConstraint.isActive = self.isExtended
       })
     }
   }
@@ -97,7 +101,6 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     trailingAnchor.constraint(equalTo: tAnchor).isActive = true
 
     hiddenConstraint = topAnchor.constraint(equalTo: ownerView.bottomAnchor)
-    hiddenConstraint.priority = UILayoutPriority.defaultHigh
     hiddenConstraint.isActive = true
 
     let visibleConstraint = progressView.bottomAnchor.constraint(equalTo: bAnchor)
@@ -106,6 +109,14 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
 
     extendedConstraint = bottomAnchor.constraint(equalTo: bAnchor)
     extendedConstraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(Int(UILayoutPriority.defaultHigh.rawValue) - 1))
+
+    ownerView.layoutIfNeeded()
+  }
+
+  private func removeView() {
+    dimBackground.setVisible(false, completion: {
+      self.removeFromSuperview()
+    })
   }
 
   override func mwm_refreshUI() {
@@ -178,9 +189,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     speedWithLegend.append(NSAttributedString(string: info.speedUnits, attributes: routingLegendAttributes))
     speedWithLegendLabel.attributedText = speedWithLegend
 
-    progressView.animateConstraints(animations: {
-      routingProgress.constant = progressView.width * info.progress / 100
-    })
+    self.routingProgress.constant = self.progressView.width * info.progress / 100
   }
 
   @IBAction
