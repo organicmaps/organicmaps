@@ -9,25 +9,23 @@ final class RouteManagerTableView: UITableView {
 
   var heightUpdateStyle = HeightUpdateStyle.deferred
 
+  private var scheduledUpdate: DispatchWorkItem?
+
   override var contentSize: CGSize {
     didSet {
       guard contentSize != oldValue else { return }
-      let sel = #selector(updateHeight)
-      NSObject.cancelPreviousPerformRequests(withTarget: self, selector: sel, object: nil)
+      scheduledUpdate?.cancel()
+      let update = { [weak self] in
+        guard let s = self else { return }
+        s.tableViewHeight.constant = s.contentSize.height
+      }
       switch heightUpdateStyle {
-      case .animated:
-        guard let sv = superview else { return }
-        sv.setNeedsLayout()
-        updateHeight()
-        UIView.animate(withDuration: kDefaultAnimationDuration) { sv.layoutIfNeeded() }
-      case .deferred: perform(sel, with: nil, afterDelay: 0)
+      case .animated: superview?.animateConstraints(animations: update)
+      case .deferred:
+        scheduledUpdate = DispatchWorkItem(block: update)
+        DispatchQueue.main.async(execute: scheduledUpdate!)
       case .off: break
       }
     }
-  }
-
-  @objc
-  private func updateHeight() {
-    tableViewHeight.constant = contentSize.height
   }
 }
