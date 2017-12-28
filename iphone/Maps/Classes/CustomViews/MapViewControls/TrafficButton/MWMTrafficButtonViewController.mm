@@ -1,12 +1,13 @@
 #import "MWMTrafficButtonViewController.h"
-#import "MWMCommon.h"
 #import "MWMAlertViewController.h"
 #import "MWMButton.h"
+#import "MWMCommon.h"
 #import "MWMMapViewControlsCommon.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMToast.h"
 #import "MWMTrafficManager.h"
 #import "MapViewController.h"
+#import "SwiftBridge.h"
 
 namespace
 {
@@ -67,22 +68,11 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   UIView * sv = self.view;
   UIView * ov = sv.superview;
 
-  self.topOffset = [NSLayoutConstraint constraintWithItem:sv
-                                                attribute:NSLayoutAttributeTop
-                                                relatedBy:NSLayoutRelationEqual
-                                                   toItem:ov
-                                                attribute:NSLayoutAttributeTop
-                                               multiplier:1
-                                                 constant:kTopOffset];
-  self.leftOffset = [NSLayoutConstraint constraintWithItem:sv
-                                                 attribute:NSLayoutAttributeLeading
-                                                 relatedBy:NSLayoutRelationEqual
-                                                    toItem:ov
-                                                 attribute:NSLayoutAttributeLeading
-                                                multiplier:1
-                                                  constant:kViewControlsOffsetToBounds];
-
-  [ov addConstraints:@[ self.topOffset, self.leftOffset ]];
+  self.topOffset = [sv.topAnchor constraintEqualToAnchor:ov.topAnchor constant:kTopOffset];
+  self.topOffset.active = YES;
+  self.leftOffset = [sv.leadingAnchor constraintEqualToAnchor:ov.leadingAnchor
+                                                     constant:kViewControlsOffsetToBounds];
+  self.leftOffset.active = YES;
 }
 
 - (void)mwm_refreshUI
@@ -103,14 +93,10 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     auto const availableArea = self.availableArea;
     auto const leftOffset =
         self.hidden ? -self.view.width : availableArea.origin.x + kViewControlsOffsetToBounds;
-    UIView * ov = self.view.superview;
-    [ov setNeedsLayout];
-    self.topOffset.constant = availableArea.origin.y + kTopOffset;
-    self.leftOffset.constant = leftOffset;
-    [UIView animateWithDuration:kDefaultAnimationDuration
-                     animations:^{
-                       [ov layoutIfNeeded];
-                     }];
+    [self.view.superview animateConstraintsWithAnimations:^{
+      self.topOffset.constant = availableArea.origin.y + kTopOffset;
+      self.leftOffset.constant = leftOffset;
+    }];
   });
 }
 
