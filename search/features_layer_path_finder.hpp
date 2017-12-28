@@ -34,6 +34,17 @@ class FeaturesLayerMatcher;
 class FeaturesLayerPathFinder
 {
 public:
+  // An internal mode. The modes should produce similar results
+  // and differ only in efficiency: a mode that is faster
+  // for a search query may be slower for another.
+  // Modes other than MODE_AUTO should be used only by the testing code.
+  enum Mode
+  {
+    MODE_AUTO,
+    MODE_TOP_DOWN,
+    MODE_BOTTOM_UP
+  };
+
   FeaturesLayerPathFinder(my::Cancellable const & cancellable);
 
   template <typename TFn>
@@ -62,6 +73,8 @@ public:
     for_each(results.begin(), results.end(), forward<TFn>(fn));
   }
 
+  static void SetModeForTesting(Mode mode) { m_mode = mode; }
+
 private:
   void FindReachableVertices(FeaturesLayerMatcher & matcher,
                              vector<FeaturesLayer const *> const & layers,
@@ -80,5 +93,7 @@ private:
                                      vector<IntersectionResult> & results);
 
   my::Cancellable const & m_cancellable;
+
+  static Mode m_mode;
 };
 }  // namespace search

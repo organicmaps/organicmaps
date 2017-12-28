@@ -27,7 +27,7 @@ void GetPathToRoot(storage::TCountryId const & id, storage::TCountryTree const &
   countries.Find(id, nodes);
 
   if (nodes.empty())
-    LOG(LERROR, ("Can't find node in the countries tree for:", id));
+    LOG(LWARNING, ("Can't find node in the countries tree for:", id));
 
   if (nodes.size() != 1 || nodes[0]->IsRoot())
     return;

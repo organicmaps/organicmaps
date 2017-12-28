@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "search/cities_boundaries_table.hpp"
+#include "search/features_layer_path_finder.hpp"
 #include "search/retrieval.hpp"
 #include "search/search_integration_tests/helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
@@ -24,6 +25,7 @@
 #include "base/checked_cast.hpp"
 #include "base/macros.hpp"
 #include "base/math.hpp"
+#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/shared_ptr.hpp"
@@ -1223,7 +1225,7 @@ UNIT_CLASS_TEST(ProcessorTest, CityBoundarySmoke)
   }
 }
 
-/// / Tests for the non-strict aspects of retrieval.
+// // Tests for the non-strict aspects of retrieval.
 // // Currently, the only possible non-strictness is that
 // // some tokens in the query may be ignored,
 // // which results in a pruned parse tree for the query.
@@ -1311,5 +1313,80 @@ UNIT_CLASS_TEST(ProcessorTest, CityBoundarySmoke)
 //     TEST(ResultsMatch("sick city library ", rulesRelaxed), ());
 //   }
 // }
+
+UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
+{
+  string const countryName = "Science Country";
+
+  TestCountry scienceCountry(m2::PointD(0.0, 0.0), countryName, "en");
+
+  TestCity mathTown(vector<m2::PointD>({m2::PointD(-100.0, -100.0), m2::PointD(100.0, -100.0),
+                                        m2::PointD(100.0, 100.0), m2::PointD(-100.0, 100.0)}),
+                    "Math Town", "en", 100 /* rank */);
+
+  TestStreet computingStreet(
+      vector<m2::PointD>{m2::PointD{-16.0, -16.0}, m2::PointD(0.0, 0.0), m2::PointD(16.0, 16.0)},
+      "Computing street", "en");
+
+  TestBuilding machineLearningBuilding(m2::PointD(8.0, 8.0), "Machine Learning, Inc.", "0",
+                                       computingStreet, "en");
+
+  TestPOI reinforcementCafe(m2::PointD(8.0, 8.0), "Trattoria Reinforcemento", "en");
+  reinforcementCafe.SetTypes({{"amenity", "cafe"}});
+
+  BuildWorld([&](TestMwmBuilder & builder) {
+    builder.Add(scienceCountry);
+    builder.Add(mathTown);
+  });
+  RegisterCountry(countryName, m2::RectD(m2::PointD(-100.0, -100.0), m2::PointD(100.0, 100.0)));
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(computingStreet);
+    builder.Add(machineLearningBuilding);
+    builder.Add(reinforcementCafe);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(-100.0, -100.0), m2::PointD(100.0, 100.0)));
+
+  for (auto const mode :
+       {FeaturesLayerPathFinder::MODE_AUTO, FeaturesLayerPathFinder::MODE_TOP_DOWN,
+        FeaturesLayerPathFinder::MODE_BOTTOM_UP})
+  {
+    FeaturesLayerPathFinder::SetModeForTesting(mode);
+    MY_SCOPE_GUARD(rollbackMode, [&] {
+      FeaturesLayerPathFinder::SetModeForTesting(FeaturesLayerPathFinder::MODE_AUTO);
+    });
+
+    auto const ruleStreet = {ExactMatch(countryId, computingStreet)};
+    auto const ruleBuilding = {ExactMatch(countryId, machineLearningBuilding)};
+    auto const rulePoi = {ExactMatch(countryId, reinforcementCafe)};
+
+    // POI-BUILDING-STREET
+    TEST(ResultsMatch("computing street machine learning cafe ", {rulePoi}), ());
+    TEST(ResultsMatch("computing street 0 cafe ", {rulePoi}), ());
+
+    // POI-BUILDING
+    TEST(ResultsMatch("machine learning cafe ", {rulePoi}), ());
+    TEST(ResultsMatch("0 cafe ", {rulePoi}), ());
+
+    // POI-STREET
+    TEST(ResultsMatch("computing street cafe ", {rulePoi}), ());
+
+    // BUILDING-STREET
+    TEST(ResultsMatch("computing street machine learning ", {ruleBuilding}), ());
+    TEST(ResultsMatch("computing street 0 ", {ruleBuilding}), ());
+
+    // POI
+    TEST(ResultsMatch("cafe ", {rulePoi}), ());
+
+    // BUILDING
+    TEST(ResultsMatch("machine learning ", {ruleBuilding}), ());
+    // Cannot find anything only by a house number.
+    TEST(ResultsMatch("0 ", TRules{}), ());
+
+    // STREET
+    TEST(ResultsMatch("computing street ", {ruleStreet}), ());
+  }
+}
 }  // namespace
 }  // namespace search

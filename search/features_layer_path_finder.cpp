@@ -11,6 +11,9 @@
 
 namespace search
 {
+// static
+FeaturesLayerPathFinder::Mode FeaturesLayerPathFinder::m_mode = MODE_AUTO;
+
 namespace
 {
 using TParentGraph = unordered_map<uint32_t, uint32_t>;
@@ -82,13 +85,22 @@ void FeaturesLayerPathFinder::FindReachableVertices(FeaturesLayerMatcher & match
   if (layers.empty())
     return;
 
-  uint64_t const topDownCost = CalcTopDownPassCost(layers);
-  uint64_t const bottomUpCost = CalcBottomUpPassCost(layers);
+  switch (m_mode)
+  {
+  case MODE_AUTO:
+  {
+    uint64_t const topDownCost = CalcTopDownPassCost(layers);
+    uint64_t const bottomUpCost = CalcBottomUpPassCost(layers);
 
-  if (bottomUpCost < topDownCost)
-    FindReachableVerticesBottomUp(matcher, layers, results);
-  else
-    FindReachableVerticesTopDown(matcher, layers, results);
+    if (bottomUpCost < topDownCost)
+      FindReachableVerticesBottomUp(matcher, layers, results);
+    else
+      FindReachableVerticesTopDown(matcher, layers, results);
+  }
+  break;
+  case MODE_BOTTOM_UP: FindReachableVerticesBottomUp(matcher, layers, results); break;
+  case MODE_TOP_DOWN: FindReachableVerticesTopDown(matcher, layers, results); break;
+  }
 }
 
 void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
@@ -113,14 +125,14 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
   {
     BailIfCancelled(m_cancellable);
 
-    if (reachable.empty())
-      return;
-
     FeaturesLayer parent(*layers[i]);
     if (i != layers.size() - 1)
       my::SortUnique(reachable);
     parent.m_sortedFeatures = &reachable;
-    parent.m_hasDelayedFeatures = false;
+
+    // The first condition is an optimization: it is enough to extract
+    // the delayed features only once.
+    parent.m_hasDelayedFeatures = (i == layers.size() - 1 && MayHaveDelayedFeatures(parent));
 
     FeaturesLayer child(*layers[i - 1]);
     child.m_hasDelayedFeatures = MayHaveDelayedFeatures(child);
@@ -174,9 +186,6 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
   for (size_t i = 0; i + 1 != layers.size(); ++i)
   {
     BailIfCancelled(m_cancellable);
-
-    // Note that unlike the top-down path we cannot return
-    // here even if |reachable| is empty because of the delayed features.
 
     FeaturesLayer child(*layers[i]);
     if (i != 0)
