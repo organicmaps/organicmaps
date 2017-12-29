@@ -1328,8 +1328,8 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
       vector<m2::PointD>{m2::PointD{-16.0, -16.0}, m2::PointD(0.0, 0.0), m2::PointD(16.0, 16.0)},
       "Computing street", "en");
 
-  TestBuilding machineLearningBuilding(m2::PointD(8.0, 8.0), "Machine Learning, Inc.", "0",
-                                       computingStreet, "en");
+  TestBuilding statisticalLearningBuilding(m2::PointD(8.0, 8.0), "Statistical Learning, Inc.", "0",
+                                           computingStreet, "en");
 
   TestPOI reinforcementCafe(m2::PointD(8.0, 8.0), "Trattoria Reinforcemento", "en");
   reinforcementCafe.SetTypes({{"amenity", "cafe"}});
@@ -1342,7 +1342,7 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
 
   auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.Add(computingStreet);
-    builder.Add(machineLearningBuilding);
+    builder.Add(statisticalLearningBuilding);
     builder.Add(reinforcementCafe);
   });
 
@@ -1358,29 +1358,29 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
     });
 
     auto const ruleStreet = {ExactMatch(countryId, computingStreet)};
-    auto const ruleBuilding = {ExactMatch(countryId, machineLearningBuilding)};
+    auto const ruleBuilding = {ExactMatch(countryId, statisticalLearningBuilding)};
     auto const rulePoi = {ExactMatch(countryId, reinforcementCafe)};
 
     // POI-BUILDING-STREET
-    TEST(ResultsMatch("computing street machine learning cafe ", {rulePoi}), ());
+    TEST(ResultsMatch("computing street statistical learning cafe ", {rulePoi}), ());
     TEST(ResultsMatch("computing street 0 cafe ", {rulePoi}), ());
 
     // POI-BUILDING
-    TEST(ResultsMatch("machine learning cafe ", {rulePoi}), ());
+    TEST(ResultsMatch("statistical learning cafe ", {rulePoi}), ());
     TEST(ResultsMatch("0 cafe ", {rulePoi}), ());
 
     // POI-STREET
     TEST(ResultsMatch("computing street cafe ", {rulePoi}), ());
 
     // BUILDING-STREET
-    TEST(ResultsMatch("computing street machine learning ", {ruleBuilding}), ());
+    TEST(ResultsMatch("computing street statistical learning ", {ruleBuilding}), ());
     TEST(ResultsMatch("computing street 0 ", {ruleBuilding}), ());
 
     // POI
     TEST(ResultsMatch("cafe ", {rulePoi}), ());
 
     // BUILDING
-    TEST(ResultsMatch("machine learning ", {ruleBuilding}), ());
+    TEST(ResultsMatch("statistical learning ", {ruleBuilding}), ());
     // Cannot find anything only by a house number.
     TEST(ResultsMatch("0 ", TRules{}), ());
 
