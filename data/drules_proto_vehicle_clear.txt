@@ -32072,10 +32072,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -32097,10 +32096,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -32110,7 +32108,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -32122,7 +32120,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -32146,21 +32144,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -32170,21 +32168,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32194,21 +32192,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32218,21 +32216,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32245,7 +32243,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-barcelona-m"
+      name: "subway-barcelona-s"
       apply_for_type: 1
       priority: 16894
       min_distance: 1
@@ -32270,10 +32268,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-barcelona-m"
+      name: "subway-barcelona-s"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -32283,7 +32280,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -32325,15 +32322,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -32343,21 +32340,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-barcelona-l"
+      name: "subway-barcelona-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32367,21 +32364,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-barcelona-l"
+      name: "subway-barcelona-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32391,21 +32388,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-barcelona-l"
+      name: "subway-barcelona-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32418,7 +32415,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-berlin-m"
+      name: "subway-berlin-s"
       apply_for_type: 1
       priority: 16894
       min_distance: 1
@@ -32443,10 +32440,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-berlin-m"
+      name: "subway-berlin-s"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -32456,7 +32452,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -32498,15 +32494,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -32516,21 +32512,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-berlin-l"
+      name: "subway-berlin-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32540,21 +32536,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-berlin-l"
+      name: "subway-berlin-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32564,21 +32560,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-berlin-l"
+      name: "subway-berlin-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32591,10 +32587,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -32616,10 +32611,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -32629,7 +32623,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -32641,7 +32635,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -32665,21 +32659,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -32689,21 +32683,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32713,21 +32707,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32737,21 +32731,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32764,10 +32758,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -32789,10 +32782,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -32802,7 +32794,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -32814,7 +32806,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -32838,21 +32830,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -32862,21 +32854,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32886,21 +32878,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32910,21 +32902,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -32937,10 +32929,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -32962,10 +32953,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -32975,7 +32965,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -32987,7 +32977,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -33011,21 +33001,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -33035,21 +33025,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33059,21 +33049,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33083,21 +33073,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33110,10 +33100,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -33135,10 +33124,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -33148,7 +33136,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -33160,7 +33148,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -33184,21 +33172,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -33208,21 +33196,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33232,21 +33220,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33256,21 +33244,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33283,10 +33271,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -33308,10 +33295,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -33321,7 +33307,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -33333,7 +33319,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -33357,21 +33343,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -33381,21 +33367,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33405,21 +33391,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33429,21 +33415,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33456,10 +33442,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -33481,10 +33466,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -33494,7 +33478,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -33506,7 +33490,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -33530,21 +33514,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -33554,21 +33538,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33578,21 +33562,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33602,21 +33586,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33629,7 +33613,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-kiev-m"
+      name: "subway-kiev-s"
       apply_for_type: 1
       priority: 16894
       min_distance: 1
@@ -33654,10 +33638,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-kiev-m"
+      name: "subway-kiev-s"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -33667,7 +33650,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -33709,15 +33692,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -33733,13 +33716,13 @@ cont {
     }
     caption {
       primary {
-        height: 11
-        color: 4286545791
+        height: 10
+        color: 8355711
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
+        height: 12
+        color: 3355443
         offset_y: 1
         text: "int_name"
       }
@@ -33755,13 +33738,13 @@ cont {
     }
     caption {
       primary {
-        height: 11
-        color: 4286545791
+        height: 10
+        color: 8355711
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
+        height: 12
+        color: 3355443
         offset_y: 1
         text: "int_name"
       }
@@ -33777,13 +33760,13 @@ cont {
     }
     caption {
       primary {
-        height: 11
-        color: 4286545791
+        height: 10
+        color: 8355711
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
+        height: 12
+        color: 3355443
         offset_y: 1
         text: "int_name"
       }
@@ -33796,10 +33779,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -33821,10 +33803,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -33834,7 +33815,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -33846,7 +33827,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -33870,21 +33851,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -33894,21 +33875,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33918,21 +33899,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33942,21 +33923,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -33969,10 +33950,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -33994,10 +33974,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -34007,7 +33986,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -34019,7 +33998,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -34043,21 +34022,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -34067,21 +34046,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34091,21 +34070,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34115,21 +34094,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34142,7 +34121,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-london-m"
+      name: "subway-london-s"
       apply_for_type: 1
       priority: 16894
       min_distance: 1
@@ -34167,10 +34146,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-london-m"
+      name: "subway-london-s"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -34180,7 +34158,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -34222,15 +34200,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -34246,15 +34224,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34270,15 +34248,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34294,15 +34272,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34315,7 +34293,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-madrid-m"
+      name: "subway-madrid-s"
       apply_for_type: 1
       priority: 16894
       min_distance: 1
@@ -34340,10 +34318,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-madrid-m"
+      name: "subway-madrid-s"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -34353,7 +34330,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -34395,15 +34372,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -34413,21 +34390,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-madrid-l"
+      name: "subway-madrid-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34437,21 +34414,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-madrid-l"
+      name: "subway-madrid-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34461,21 +34438,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-madrid-l"
+      name: "subway-madrid-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34488,7 +34465,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-minsk-m"
+      name: "subway-minsk-s"
       apply_for_type: 1
       priority: 16894
       min_distance: 1
@@ -34513,10 +34490,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-minsk-m"
+      name: "subway-minsk-s"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -34526,7 +34502,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -34569,12 +34545,12 @@ cont {
     caption {
       primary {
         height: 10
-        color: 4286545791
+        color: 8355711
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
+        height: 11
+        color: 3355443
         offset_y: 1
         text: "int_name"
       }
@@ -34590,13 +34566,13 @@ cont {
     }
     caption {
       primary {
-        height: 11
-        color: 4286545791
+        height: 10
+        color: 8355711
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
+        height: 12
+        color: 3355443
         offset_y: 1
         text: "int_name"
       }
@@ -34612,13 +34588,13 @@ cont {
     }
     caption {
       primary {
-        height: 11
-        color: 4286545791
+        height: 10
+        color: 8355711
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
+        height: 12
+        color: 3355443
         offset_y: 1
         text: "int_name"
       }
@@ -34634,13 +34610,13 @@ cont {
     }
     caption {
       primary {
-        height: 11
-        color: 4286545791
+        height: 10
+        color: 8355711
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
+        height: 12
+        color: 3355443
         offset_y: 1
         text: "int_name"
       }
@@ -34651,6 +34627,15 @@ cont {
 cont {
   name: "railway-station-subway-moscow"
   element {
+    scale: 11
+    symbol {
+      name: "subway-moscow-s"
+      apply_for_type: 1
+      priority: 16894
+      min_distance: 1
+    }
+  }
+  element {
     scale: 12
     symbol {
       name: "subway-moscow-s"
@@ -34660,7 +34645,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -34678,14 +34663,14 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-moscow-m"
+      name: "subway-moscow-s"
       apply_for_type: 1
       priority: 16894
       min_distance: 1
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -34703,14 +34688,13 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-moscow-m"
+      name: "subway-moscow-s"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -34752,21 +34736,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -34776,21 +34760,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34800,21 +34784,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34824,21 +34808,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34851,7 +34835,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-newyork-m"
+      name: "subway-newyork-s"
       apply_for_type: 1
       priority: 16894
       min_distance: 1
@@ -34876,10 +34860,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-newyork-m"
+      name: "subway-newyork-s"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -34889,7 +34872,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -34925,21 +34908,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -34955,15 +34938,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -34979,15 +34962,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35003,15 +34986,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35024,10 +35007,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -35049,10 +35031,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -35062,7 +35043,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -35074,7 +35055,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -35098,21 +35079,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -35122,21 +35103,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35146,21 +35127,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35170,21 +35151,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35197,7 +35178,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-paris-m"
+      name: "subway-paris-s"
       apply_for_type: 1
       priority: 16894
       min_distance: 1
@@ -35222,10 +35203,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-paris-m"
+      name: "subway-paris-s"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -35235,7 +35215,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -35277,15 +35257,15 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -35295,21 +35275,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-paris-l"
+      name: "subway-paris-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35319,21 +35299,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-paris-l"
+      name: "subway-paris-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35343,21 +35323,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-paris-l"
+      name: "subway-paris-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35370,10 +35350,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -35395,10 +35374,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -35408,7 +35386,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -35420,7 +35398,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -35444,21 +35422,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -35468,21 +35446,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35492,21 +35470,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35516,21 +35494,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35543,10 +35521,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -35568,10 +35545,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -35581,7 +35557,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -35593,7 +35569,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -35617,21 +35593,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -35641,21 +35617,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35665,21 +35641,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35689,21 +35665,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -35716,7 +35692,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-rome-m"
+      name: "subway-rome-s"
       apply_for_type: 1
       priority: 16894
       min_distance: 1
@@ -35741,10 +35717,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-rome-m"
+      name: "subway-rome-s"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -35754,7 +35729,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -35790,21 +35765,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "subway-rome-l"
+      name: "subway-rome-m"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -35820,13 +35795,13 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4286545791
+        height: 14
+        color: 8355711
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
+        height: 12
+        color: 3355443
         offset_y: 1
         text: "int_name"
       }
@@ -35842,13 +35817,13 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4286545791
+        height: 14
+        color: 8355711
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
+        height: 12
+        color: 3355443
         offset_y: 1
         text: "int_name"
       }
@@ -35864,13 +35839,13 @@ cont {
     }
     caption {
       primary {
-        height: 12
-        color: 4286545791
+        height: 14
+        color: 8355711
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
+        height: 12
+        color: 3355443
         offset_y: 1
         text: "int_name"
       }
@@ -35881,7 +35856,40 @@ cont {
 cont {
   name: "railway-station-subway-spb"
   element {
+    scale: 11
+    symbol {
+      name: "subway-spb-s"
+      apply_for_type: 1
+      priority: 16894
+      min_distance: 1
+    }
+  }
+  element {
     scale: 12
+    symbol {
+      name: "subway-spb-s"
+      apply_for_type: 1
+      priority: 16894
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 1728053247
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        color: 3355443
+        stroke_color: 1728053247
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15894
+    }
+  }
+  element {
+    scale: 13
     symbol {
       name: "subway-spb-s"
       apply_for_type: 1
@@ -35895,31 +35903,6 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 3355443
-        stroke_color: 1728053247
-        offset_y: 1
-        text: "int_name"
-      }
-      priority: 15894
-    }
-  }
-  element {
-    scale: 13
-    symbol {
-      name: "subway-spb-m"
-      apply_for_type: 1
-      priority: 16894
-      min_distance: 1
-    }
-    caption {
-      primary {
-        height: 11
-        color: 3355443
-        stroke_color: 1728053247
-        offset_y: 1
-      }
-      secondary {
         height: 10
         color: 3355443
         stroke_color: 1728053247
@@ -35932,14 +35915,13 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-spb-m"
+      name: "subway-spb-s"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -35963,7 +35945,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 3355443
         stroke_color: 872415231
         offset_y: 1
@@ -35981,21 +35963,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -36005,21 +35987,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -36029,21 +36011,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -36053,21 +36035,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -36080,10 +36062,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -36105,10 +36086,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -36118,7 +36098,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -36130,7 +36110,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -36154,21 +36134,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -36178,21 +36158,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -36202,21 +36182,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -36226,21 +36206,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -36253,10 +36233,9 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -36278,10 +36257,9 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
-      min_distance: 1
     }
     caption {
       primary {
@@ -36291,7 +36269,7 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 9
+        height: 10
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
@@ -36303,7 +36281,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "subway-m"
+      name: "train-m"
       apply_for_type: 1
       priority: 16894
     }
@@ -36327,21 +36305,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
         offset_y: 1
         text: "int_name"
       }
@@ -36351,21 +36329,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -36375,21 +36353,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -36399,21 +36377,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zero-icon"
+      name: "train-l"
       apply_for_type: 1
       priority: 16894
     }
     caption {
       primary {
-        height: 12
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 14
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
       }
       secondary {
-        height: 9
-        color: 4281545523
-        stroke_color: 4294967295
+        height: 12
+        color: 3355443
+        stroke_color: 452984831
         offset_y: 1
         text: "int_name"
       }
@@ -36443,22 +36421,16 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "subway-entrance-l"
-      apply_for_type: 1
-      priority: 16000
-    }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36467,22 +36439,16 @@ cont {
   }
   element {
     scale: 18
-    symbol {
-      name: "subway-entrance-l"
-      apply_for_type: 1
-      priority: 16000
-    }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36491,22 +36457,16 @@ cont {
   }
   element {
     scale: 19
-    symbol {
-      name: "subway-entrance-l"
-      apply_for_type: 1
-      priority: 16000
-    }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36537,21 +36497,20 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-barcelona-l"
+      name: "subway-barcelona-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36561,21 +36520,20 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-barcelona-l"
+      name: "subway-barcelona-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36585,21 +36543,20 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-barcelona-l"
+      name: "subway-barcelona-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36630,21 +36587,20 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-berlin-l"
+      name: "subway-berlin-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36654,21 +36610,20 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-berlin-l"
+      name: "subway-berlin-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36678,21 +36633,20 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-berlin-l"
+      name: "subway-berlin-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36723,21 +36677,20 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-kiev-l"
+      name: "subway-kiev-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 13
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36747,21 +36700,20 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-kiev-l"
+      name: "subway-kiev-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 13
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36771,21 +36723,20 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-kiev-l"
+      name: "subway-kiev-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 13
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36816,21 +36767,20 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-london-l"
+      name: "subway-london-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36840,21 +36790,20 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-london-l"
+      name: "subway-london-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36864,21 +36813,20 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-london-l"
+      name: "subway-london-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36909,21 +36857,20 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-madrid-l"
+      name: "subway-madrid-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36933,21 +36880,20 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-madrid-l"
+      name: "subway-madrid-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -36957,21 +36903,20 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-madrid-l"
+      name: "subway-madrid-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37002,21 +36947,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-minsk-l"
+      name: "subway-minsk-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 13
         color: 3355443
         stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37026,21 +36971,21 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-minsk-l"
+      name: "subway-minsk-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 13
         color: 3355443
         stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37050,21 +36995,21 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-minsk-l"
+      name: "subway-minsk-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 13
         color: 3355443
         stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37077,7 +37022,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "subway-moscow-l"
+      name: "subway-moscow-m"
       apply_for_type: 1
       priority: 16000
     }
@@ -37092,7 +37037,7 @@ cont {
         height: 10
         color: 3355443
         stroke_color: 16777215
-        offset_y: 1
+        offset_y: 25
         text: "int_name"
       }
       priority: 15000
@@ -37101,22 +37046,22 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-moscow-l"
+      name: "subway-moscow-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 16777215
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 11
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 16777215
+        offset_y: 25
         text: "int_name"
       }
       priority: 15000
@@ -37125,22 +37070,22 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-moscow-l"
+      name: "subway-moscow-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 13
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 16777215
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 11
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 16777215
+        offset_y: 25
         text: "int_name"
       }
       priority: 15000
@@ -37149,22 +37094,22 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-moscow-l"
+      name: "subway-moscow-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 13
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 16777215
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 11
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 16777215
+        offset_y: 25
         text: "int_name"
       }
       priority: 15000
@@ -37194,21 +37139,20 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-newyork-l"
+      name: "subway-newyork-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37218,21 +37162,20 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-newyork-l"
+      name: "subway-newyork-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37242,21 +37185,20 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-newyork-l"
+      name: "subway-newyork-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37287,21 +37229,20 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-paris-l"
+      name: "subway-paris-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37311,21 +37252,20 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-paris-l"
+      name: "subway-paris-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37335,21 +37275,20 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-paris-l"
+      name: "subway-paris-s"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37380,21 +37319,20 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-rome-l"
+      name: "subway-rome-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37404,21 +37342,20 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-rome-l"
+      name: "subway-rome-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37428,21 +37365,20 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-rome-l"
+      name: "subway-rome-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 14
+        height: 10
         color: 3355443
-        stroke_color: 452984831
-        offset_y: 1
+        stroke_color: 1728053247
       }
       secondary {
-        height: 12
+        height: 10
         color: 3355443
-        stroke_color: 452984831
+        stroke_color: 1728053247
         offset_y: 1
         text: "int_name"
       }
@@ -37455,13 +37391,13 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "subway-spb-l"
+      name: "subway-spb-m"
       apply_for_type: 1
       priority: 16000
     }
     caption {
       primary {
-        height: 12
+        height: 13
         color: 3355443
         stroke_color: 872415231
         offset_y: 1
@@ -37470,7 +37406,7 @@ cont {
         height: 11
         color: 3355443
         stroke_color: 872415231
-        offset_y: 1
+        offset_y: 25
         text: "int_name"
       }
       priority: 15000
@@ -37491,10 +37427,10 @@ cont {
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 11
         color: 3355443
         stroke_color: 872415231
-        offset_y: 1
+        offset_y: 25
         text: "int_name"
       }
       priority: 15000
@@ -37509,16 +37445,16 @@ cont {
     }
     caption {
       primary {
-        height: 14
+        height: 13
         color: 3355443
         stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 13
+        height: 12
         color: 3355443
         stroke_color: 872415231
-        offset_y: 1
+        offset_y: 25
         text: "int_name"
       }
       priority: 15000
@@ -37533,16 +37469,16 @@ cont {
     }
     caption {
       primary {
-        height: 14
+        height: 13
         color: 3355443
         stroke_color: 872415231
         offset_y: 1
       }
       secondary {
-        height: 13
+        height: 12
         color: 3355443
         stroke_color: 872415231
-        offset_y: 1
+        offset_y: 25
         text: "int_name"
       }
       priority: 15000
