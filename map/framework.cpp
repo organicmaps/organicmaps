@@ -356,7 +356,10 @@ void Framework::Migrate(bool keepDownloaded)
 }
 
 Framework::Framework(FrameworkParams const & params)
-  : m_startForegroundTime(0.0)
+  : m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
+                      bind(&Framework::GetMwmIdByName, this, _1),
+                      bind(&Framework::ReadFeatures, this, _1, _2))
+  , m_startForegroundTime(0.0)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
   , m_isRenderingEnabled(true)
@@ -374,9 +377,6 @@ Framework::Framework(FrameworkParams const & params)
                      static_cast<RoutingManager::Delegate &>(*this))
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
-  , m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
-                      bind(&Framework::GetMwmIdByName, this, _1),
-                      bind(&Framework::ReadFeatures, this, _1, _2))
   , m_bookingFilter(m_model.GetIndex(), *m_bookingApi)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;

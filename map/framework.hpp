@@ -164,6 +164,8 @@ protected:
 
   unique_ptr<ugc::Api> m_ugcApi;
 
+  LocalAdsManager m_localAdsManager;
+
   unique_ptr<SearchAPI> m_searchAPI;
 
   search::QuerySaver m_searchQuerySaver;
@@ -201,8 +203,6 @@ protected:
   RoutingManager m_routingManager;
 
   TrafficManager m_trafficManager;
-
-  LocalAdsManager m_localAdsManager;
 
   User m_user;
 
