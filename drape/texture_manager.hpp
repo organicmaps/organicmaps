@@ -143,6 +143,9 @@ private:
   ref_ptr<Texture> AllocateGlyphTexture();
   void GetRegionBase(ref_ptr<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key);
 
+  void GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniString const & text,
+                        int fixedHeight, TGlyphsBuffer & regions);
+
   size_t FindGlyphsGroup(strings::UniChar const & c) const;
   size_t FindGlyphsGroup(strings::UniString const & text) const;
   size_t FindGlyphsGroup(TMultilineText const & text) const;
@@ -164,13 +167,7 @@ private:
     if (group.m_texture == nullptr)
       group.m_texture = AllocateGlyphTexture();
 
-    regions.reserve(text.size());
-    for (strings::UniChar const & c : text)
-    {
-      GlyphRegion reg;
-      GetRegionBase(group.m_texture, reg, GlyphKey(c, fixedHeight));
-      regions.push_back(reg);
-    }
+    GetGlyphsRegions(group.m_texture, text, fixedHeight, regions);
   }
 
   template<typename TGlyphGroup>

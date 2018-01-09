@@ -7,7 +7,6 @@
 #include "drape/texture.hpp"
 
 #include <atomic>
-#include <list>
 #include <map>
 #include <memory>
 #include <mutex>
@@ -83,37 +82,47 @@ public:
     m2::RectU m_rect;
     GlyphManager::Glyph m_glyph;
 
+    GlyphGenerationData() = default;
     GlyphGenerationData(m2::RectU const & rect, GlyphManager::Glyph const & glyph)
       : m_rect(rect), m_glyph(glyph)
     {}
+
+    void DestroyGlyph()
+    {
+      m_glyph.m_image.Destroy();
+    }
   };
+
+  using GlyphGenerationDataArray = std::vector<GlyphGenerationData>;
 
   class GenerateGlyphTask
   {
   public:
-    explicit GenerateGlyphTask(std::list<GlyphGenerationData> && glyphs)
+    explicit GenerateGlyphTask(GlyphGenerationDataArray && glyphs)
       : m_glyphs(std::move(glyphs))
       , m_isCancelled(false)
     {}
     void Run(uint32_t sdfScale);
     void Cancel() { m_isCancelled = true; }
 
-    std::vector<GlyphGenerationData> && StealGeneratedGlyphs() { return std::move(m_generatedGlyphs); }
+    GlyphGenerationDataArray && StealGeneratedGlyphs() { return std::move(m_generatedGlyphs); }
     bool IsCancelled() const { return m_isCancelled; }
     void DestroyAllGlyphs();
 
   private:
-    std::list<GlyphGenerationData> m_glyphs;
-    std::vector<GlyphGenerationData> m_generatedGlyphs;
+    GlyphGenerationDataArray m_glyphs;
+    GlyphGenerationDataArray m_generatedGlyphs;
     std::atomic<bool> m_isCancelled;
   };
 
-  using CompletionHandler = std::function<void(std::vector<GlyphGenerator::GlyphGenerationData> &&)>;
+  using CompletionHandler = std::function<void(GlyphGenerationDataArray &&)>;
 
   GlyphGenerator(uint32_t sdfScale, CompletionHandler const & completionHandler);
   ~GlyphGenerator();
 
   void GenerateGlyph(m2::RectU const & rect, GlyphManager::Glyph & glyph);
+  void GenerateGlyph(GlyphGenerationData && data);
+  void GenerateGlyphs(GlyphGenerationDataArray && generationData);
   bool IsSuspended() const;
 
 private:
@@ -123,7 +132,7 @@ private:
   CompletionHandler m_completionHandler;
   ActiveTasks<GenerateGlyphTask> m_activeTasks;
 
-  std::list<GlyphGenerationData> m_queue;
+  GlyphGenerationDataArray m_queue;
   size_t m_glyphsCounter = 0;
   mutable std::mutex m_mutex;
 };
@@ -136,6 +145,8 @@ public:
 
   // This function can return nullptr.
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource);
+  std::vector<ref_ptr<Texture::ResourceInfo>> MapResources(std::vector<GlyphKey> const & keys,
+                                                           bool & hasNewResources);
   void UploadResources(ref_ptr<Texture> texture);
 
   bool CanBeGlyphPacked(uint32_t glyphsCount) const;
@@ -148,6 +159,8 @@ public:
   size_t GetPendingNodesCount();
 
 private:
+  ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource,
+                                             GlyphGenerator::GlyphGenerationData & generationData);
   void OnGlyphGenerationCompletion(std::vector<GlyphGenerator::GlyphGenerationData> && glyphs);
 
   GlyphPacker m_packer;
@@ -177,6 +190,13 @@ public:
   }
 
   ~FontTexture() override { TBase::Reset(); }
+
+  std::vector<ref_ptr<ResourceInfo>> FindResources(std::vector<GlyphKey> const & keys,
+                                                   bool & hasNewResources)
+  {
+    ASSERT(m_indexer != nullptr, ());
+    return m_indexer->MapResources(keys, hasNewResources);
+  }
 
   bool HasEnoughSpace(uint32_t newKeysCount) const override
   {

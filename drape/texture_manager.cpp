@@ -304,6 +304,35 @@ void TextureManager::GetRegionBase(ref_ptr<Texture> tex, TextureManager::BaseReg
     m_nothingToUpload.clear();
 }
 
+void TextureManager::GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniString const & text,
+                                      int fixedHeight, TGlyphsBuffer & regions)
+{
+  ASSERT(tex != nullptr, ());
+
+  std::vector<GlyphKey> keys;
+  keys.reserve(text.size());
+  for (auto const & c : text)
+    keys.emplace_back(GlyphKey(c, fixedHeight));
+
+  bool hasNew = false;
+  auto resourcesInfo = tex->FindResources(keys, hasNew);
+  ASSERT_EQUAL(text.size(), resourcesInfo.size(), ());
+
+  regions.reserve(resourcesInfo.size());
+  for (auto const & info : resourcesInfo)
+  {
+    GlyphRegion reg;
+    reg.SetResourceInfo(info);
+    reg.SetTexture(tex);
+    ASSERT(reg.IsValid(), ());
+
+    regions.push_back(std::move(reg));
+  }
+
+  if (hasNew)
+    m_nothingToUpload.clear();
+}
+
 size_t TextureManager::FindGlyphsGroup(strings::UniChar const & c) const
 {
   auto const iter = std::lower_bound(m_glyphGroups.begin(), m_glyphGroups.end(), c,
