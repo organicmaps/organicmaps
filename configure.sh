@@ -12,7 +12,7 @@ PRIVATE_PUSHWOOSH_PROPERTIES="$BASE_PATH/android/pushwoosh.properties"
 SAVED_PRIVATE_REPO_FILE="$BASE_PATH/.private_repository_url"
 TMP_REPO_DIR="$BASE_PATH/.tmp.private.repo"
 
-if [ ! -f "$BASE_PATH/omim.pro" ]; then
+if [ "$(git rev-parse --show-toplevel)" != "$PWD" ]; then
   echo "Please run this script from the root repository folder."
   exit -1
 fi
