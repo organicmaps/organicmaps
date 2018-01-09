@@ -1,11 +1,12 @@
 buildscript {
   repositories {
+    google()
     jcenter()
     mavenCentral()
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.3.3'
+    classpath 'com.android.tools.build:gradle:3.0.1'
   }
 }
 
@@ -14,13 +15,12 @@ apply plugin: 'com.android.library'
 
 
 dependencies {
-  compile 'com.android.support:support-v4:22.2.0'
+  implementation 'com.android.support:support-v4:22.2.0'
 }
 
 
 android {
   compileSdkVersion propTargetSdkVersion.toInteger()
-  buildToolsVersion propBuildToolsVersion
 
   defaultConfig {
     minSdkVersion propMinSdkVersion.toInteger()

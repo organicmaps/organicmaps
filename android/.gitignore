@@ -12,6 +12,7 @@ build
 RELEASE
 .idea
 .externalNativeBuild
+nativeOutputs
 
 # For now, ignore Android Studio projects
 *.iml

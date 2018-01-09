@@ -1,5 +1,6 @@
 buildscript {
   repositories {
+    google()
     jcenter()
     maven {
       url 'https://maven.fabric.io/public'
@@ -7,19 +8,16 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.3.3'
+    classpath 'com.android.tools.build:gradle:3.0.1'
     classpath 'io.fabric.tools:gradle:1.+'
   }
 }
 
 allprojects {
   repositories {
+    google()
     mavenCentral()
     jcenter()
-    // TODO replace with google() for gradle 3.0.0+
-    maven {
-      url 'https://maven.google.com'
-    }
   }
 }
 
@@ -38,59 +36,59 @@ apply plugin: 'io.fabric'
 
 dependencies {
   // android support libs
-  compile ('com.android.support:support-v4:25.0.0') {
+  implementation ('com.android.support:support-v4:25.0.0') {
     force = true;
   }
-  compile 'com.android.support:appcompat-v7:25.0.0'
-  compile 'com.android.support:recyclerview-v7:25.0.0'
-  compile 'com.android.support:design:25.0.0'
-  compile 'com.android.support:cardview-v7:25.0.0'
-  compile 'com.android.support:preference-v7:25.0.0'
-  compile 'com.android.support:preference-v14:25.0.0'
-  compile 'com.android.support:customtabs:25.0.0'
+  implementation 'com.android.support:appcompat-v7:25.0.0'
+  implementation 'com.android.support:recyclerview-v7:25.0.0'
+  implementation 'com.android.support:design:25.0.0'
+  implementation 'com.android.support:cardview-v7:25.0.0'
+  implementation 'com.android.support:preference-v7:25.0.0'
+  implementation 'com.android.support:preference-v14:25.0.0'
+  implementation 'com.android.support:customtabs:25.0.0'
 
   // google play services
-  compile 'com.google.android.gms:play-services-location:10.0.1'
-  compile 'com.google.android.gms:play-services-analytics:10.0.1'
-  compile 'com.google.android.gms:play-services-plus:10.0.1'
-  compile 'com.google.android.gms:play-services-gcm:10.0.1'
-  compile 'com.google.android.gms:play-services-ads:10.0.1'
+  implementation 'com.google.android.gms:play-services-location:10.0.1'
+  implementation 'com.google.android.gms:play-services-analytics:10.0.1'
+  implementation 'com.google.android.gms:play-services-plus:10.0.1'
+  implementation 'com.google.android.gms:play-services-gcm:10.0.1'
+  implementation 'com.google.android.gms:play-services-ads:10.0.1'
   // statistics
-  compile 'com.flurry.android:analytics:6.7.0'
+  implementation 'com.flurry.android:analytics:6.7.0'
   // crash reporting
-  compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true }
-  compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') { transitive = true }
+  implementation('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true }
+  implementation('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') { transitive = true }
   // 3-party
-  compile ('com.facebook.android:facebook-android-sdk:4.26.0') {
+  implementation ('com.facebook.android:facebook-android-sdk:4.26.0') {
     exclude group: 'com.google.android.gms'
     exclude group: 'com.android.support'
   }
-  compile('com.facebook.android:audience-network-sdk:4.26.0') {
+  implementation('com.facebook.android:audience-network-sdk:4.26.0') {
     exclude group: 'com.google.android.gms'
     exclude group: 'com.android.support'
   }
-  compile 'com.google.code.gson:gson:2.6.1'
-  compile 'com.pushwoosh:pushwoosh:4.12.2'
-  compile 'com.my.tracker:mytracker-sdk:1.3.5'
-  compile ('com.my.target:mytarget-sdk:4.6.14') {
+  implementation 'com.google.code.gson:gson:2.6.1'
+  implementation 'com.pushwoosh:pushwoosh:4.12.2'
+  implementation 'com.my.tracker:mytracker-sdk:1.3.5'
+  implementation ('com.my.target:mytarget-sdk:4.6.14') {
     exclude group: 'com.android.support'
   }
-  compile('com.mopub:mopub-sdk-native-static:4.17.0@aar') {
+  implementation('com.mopub:mopub-sdk-native-static:4.17.0@aar') {
     transitive = true
   }
-  compile fileTree(dir: '3rd_party', include: '*.jar')
+  implementation fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
-  compile project(":3rd_party:BottomSheet")
+  implementation project(":3rd_party:BottomSheet")
   // LinearLayoutManager allowing wrap_content of RecyclerView-s
   // TODO remove this library when default LinearLayoutManager will be fixed.
-  compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
-  compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+  implementation 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
+  implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
   // Glide
-  compile 'com.github.bumptech.glide:glide:3.7.0'
+  implementation 'com.github.bumptech.glide:glide:3.7.0'
   // Java concurrency annotations
-  compile 'net.jcip:jcip-annotations:1.0'
-  compile 'com.android.support:multidex:1.0.1'
-  compile 'com.appsflyer:af-android-sdk:4.8.3'
+  implementation 'net.jcip:jcip-annotations:1.0'
+  implementation 'com.android.support:multidex:1.0.2'
+  implementation 'com.appsflyer:af-android-sdk:4.8.3'
 }
 
 def getDate() {
@@ -111,7 +109,6 @@ crashlytics {
 android {
   // All properties are read from gradle.properties file
   compileSdkVersion propCompileSdkVersion.toInteger()
-  buildToolsVersion propBuildToolsVersion
 
   defaultConfig {
     // Default package name is taken from the manifest and should be com.mapswithme.maps
@@ -143,7 +140,7 @@ android {
       cmake {
         cppFlags '-fexceptions', '-frtti', '-m32'
         cFlags '-ffunction-sections', '-fdata-sections', '-Wno-extern-c-compat', '-m32'
-        arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static', "-DOS=$osName"
+        arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static', "-DOS=$osName", "-DSKIP_TESTS=ON"
       }
     }
 
@@ -171,13 +168,17 @@ android {
     assets.srcDirs = ['assets']
   }
 
+  flavorDimensions "default"
+
   productFlavors {
     google {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
     }
 
     samsung {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Samsung'
       buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@maps.me"'
@@ -185,6 +186,7 @@ android {
     }
 
     amazon {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Amazon'
       buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@maps.me"'
@@ -193,69 +195,81 @@ android {
     }
 
     yandex {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Yandex'
       buildConfigField 'String', 'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
       android.sourceSets.yandex.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     preinstall {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Preinstall'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
     }
 
     cipherlab {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-CipherLab'
       android.sourceSets.cipherlab.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     xiaomi {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Xiaomi'
       buildConfigField 'String', 'REVIEW_URL', '"http://app.mi.com/detail/85835?ref=search"'
       android.sourceSets.xiaomi.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     lenovo {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Lenovo'
       android.sourceSets.lenovo.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     web {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Web'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     nineApp {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-9app'
       buildConfigField 'String', 'REVIEW_URL', '"http://www.9apps.com/android-apps/mapswithme-maps-pro/"'
       android.sourceSets.nineApp.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     mobogenie {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Mobogenie'
       android.sourceSets.mobogenie.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"http://www.mobogenie.com/download-maps-me-4240212.html"'
     }
 
     tencent {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Tencent'
       android.sourceSets.tencent.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"http://android.myapp.com/myapp/detail.htm?apkName=com.mapswithme.maps.pro"'
     }
 
     baidu {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Baidu'
       android.sourceSets.baidu.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"http://shouji.baidu.com/software/item?docid=7999892&f=sug@software"'
     }
 
     appChina {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-AppChina'
       android.sourceSets.appChina.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"http://www.appchina.com/app/com.mapswithme.maps.pro"'
     }
 
     moboMarket {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-MoboMarket'
       android.sourceSets.moboMarket.assets.srcDirs = ['flavors/mwm-ttf-assets']
       // TODO While store url is unknown, force all rating reviews to be sent to our email.
@@ -264,6 +278,7 @@ android {
     }
 
     blackberry {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Blackberry'
       android.sourceSets.blackberry.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"https://appworld.blackberry.com/webstore/content/51013892"'
@@ -291,11 +306,11 @@ android {
         commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/com.mapswithme.maps.SplashActivity"
       }
 
-      variant.outputs.each { output ->
+      variant.outputs.all { output ->
         if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
           def file = output.outputFile
           // version at the end of each built apk
-          output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk"))
+          outputFileName = file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk")
           // set different versionCodes for different ABIs
           int abiVersionCode = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI)) ?: 0
           output.versionCodeOverride = (abiVersionCode * 1000) + android.defaultConfig.versionCode
@@ -342,11 +357,13 @@ android {
       versionNameSuffix '-beta'
       signingConfig signingConfigs.mapswithme
       android.sourceSets.beta.setRoot('flavors/beta')
+      matchingFallbacks = ['debug', 'release']
     }
   }
 
   externalNativeBuild {
     cmake {
+      buildStagingDirectory "./nativeOutputs"
       path "../CMakeLists.txt"
     }
   }
@@ -393,9 +410,11 @@ def buildTypes = [[ndkType: 'release', cppType: "production", flags: propRelease
 def unalignedFonts = "${propObbFontsOutput}.unaligned"
 def unalignedWorlds = "${propObbWorldsOutput}.unaligned"
 
-task obbClean(type: Delete) << {
-  [propObbFontsOutput, propObbWorldsOutput, unalignedFonts, unalignedWorlds].each { file ->
-    delete file
+task obbClean(type: Delete) {
+  doLast {
+    [propObbFontsOutput, propObbWorldsOutput, unalignedFonts, unalignedWorlds].each { file ->
+      delete file
+    }
   }
 }
 
