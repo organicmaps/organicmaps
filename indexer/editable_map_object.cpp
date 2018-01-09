@@ -763,7 +763,7 @@ bool EditableMapObject::ValidateName(string const & name)
     return true;
 
   if (strings::IsASCIIString(name))
-    return regex_match(name, regex(R"(^[ A-Za-z0-9.,?!@#$%()\-:;"'`]+$)"));
+    return regex_match(name, regex(R"(^[ A-Za-z0-9.,?!@#$%&()\-:;"'`]+$)"));
 
   std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;
 
