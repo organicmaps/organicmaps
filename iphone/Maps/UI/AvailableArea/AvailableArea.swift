@@ -17,7 +17,7 @@ class AvailableArea: UIView {
         if insets.top > 0 || insets.left > 0 || insets.bottom > 0 || insets.right > 0 {
           switch self.orientation {
           case .landscapeLeft:
-            frame.origin.x -= 16
+            frame.origin.x -= 24
             frame.size.width += 68
           case .landscapeRight:
             frame.origin.x -= 44
@@ -48,9 +48,9 @@ class AvailableArea: UIView {
     UIDevice.current.beginGeneratingDeviceOrientationNotifications()
 
     let nc = NotificationCenter.default
-    nc.addObserver(forName: .UIDeviceOrientationDidChange, object: nil, queue: OperationQueue.main) { _ in
+    nc.addObserver(forName: .UIDeviceOrientationDidChange, object: nil, queue: .main) { _ in
       let orientation = UIDevice.current.orientation
-      guard !orientation.isFlat else { return }
+      guard !orientation.isFlat && orientation != .portraitUpsideDown else { return }
       self.orientation = orientation
     }
   }
