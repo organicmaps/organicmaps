@@ -377,8 +377,8 @@ android {
 
   // Enables new Java features in KitKat+ but needs Java 1.7 installed
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_7
-    targetCompatibility JavaVersion.VERSION_1_7
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 
   packagingOptions {
