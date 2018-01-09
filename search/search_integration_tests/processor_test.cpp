@@ -834,7 +834,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCoords)
   TEST_EQUAL(results.size(), 1, ());
 
   auto const & result = results[0];
-  TEST_EQUAL(result.GetResultType(), Result::RESULT_LATLON, ());
+  TEST_EQUAL(result.GetResultType(), Result::Type::LatLon, ());
   TEST(result.HasPoint(), ());
 
   m2::PointD const expected = MercatorBounds::FromLatLon(51.681644, 39.183481);

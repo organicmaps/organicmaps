@@ -393,7 +393,7 @@ void MainModel::ForAnyMatchingEntry(Context & context, FeatureID const & id, Fn 
   for (size_t i = 0; i < foundResults.GetCount(); ++i)
   {
     auto const & result = foundResults[i];
-    if (result.GetResultType() != search::Result::RESULT_FEATURE)
+    if (result.GetResultType() != search::Result::Type::Feature)
       continue;
     if (result.GetFeatureID() == id)
       return fn(context.m_foundResultsEdits, i);

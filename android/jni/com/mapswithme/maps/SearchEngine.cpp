@@ -371,7 +371,7 @@ jobject ToJavaResult(Result & result, bool isLocalAdsCustomer, bool hasPosition,
   }
 
   jni::TScopedLocalRef featureId(env, usermark_helper::CreateFeatureId(env, result.GetFeatureID()));
-  jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetFeatureType()));
+  jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetFeatureTypeName()));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, jni::ToJavaString(env, distance));
   jni::TScopedLocalRef cuisine(env, jni::ToJavaString(env, result.GetCuisine()));

@@ -53,7 +53,7 @@ ResultView::ResultView(string const & name, string const & type, string const & 
 }
 
 ResultView::ResultView(search::Result const & result, QWidget & parent)
-  : ResultView(result.GetString(), result.GetFeatureType(), result.GetAddress(), parent)
+  : ResultView(result.GetString(), result.GetFeatureTypeName(), result.GetAddress(), parent)
 {
 }
 

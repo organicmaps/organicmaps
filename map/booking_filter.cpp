@@ -94,11 +94,8 @@ void PrepareData(Index const & index, search::Results const & results,
 
   for (auto const & r : results)
   {
-    if (!r.m_metadata.m_isSponsoredHotel ||
-        r.GetResultType() != search::Result::ResultType::RESULT_FEATURE)
-    {
+    if (!r.m_metadata.m_isSponsoredHotel || r.GetResultType() != search::Result::Type::Feature)
       continue;
-    }
 
     features.push_back(r.GetFeatureID());
     hotelToResults.emplace_back(r);
@@ -153,11 +150,8 @@ void GetAvailableFeaturesFromCacheImpl(Index const & index, search::Results cons
 
   for (auto const & r : results)
   {
-    if (!r.m_metadata.m_isSponsoredHotel ||
-        r.GetResultType() != search::Result::ResultType::RESULT_FEATURE)
-    {
+    if (!r.m_metadata.m_isSponsoredHotel || r.GetResultType() != search::Result::Type::Feature)
       continue;
-    }
 
     features.push_back(r.GetFeatureID());
   }

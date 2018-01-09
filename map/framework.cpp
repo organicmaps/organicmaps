@@ -1489,18 +1489,18 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   int scale;
   switch (result.GetResultType())
   {
-  case Result::RESULT_FEATURE:
+  case Result::Type::Feature:
     FillFeatureInfo(result.GetFeatureID(), info);
     scale = GetFeatureViewportScale(info.GetTypes());
     break;
 
-  case Result::RESULT_LATLON:
+  case Result::Type::LatLon:
     FillPointInfo(result.GetFeatureCenter(), result.GetString(), info);
     scale = scales::GetUpperComfortScale();
     break;
 
-  case Result::RESULT_SUGGEST_PURE:
-  case Result::RESULT_SUGGEST_FROM_FEATURE: ASSERT(false, ("Suggests should not be here.")); return;
+  case Result::Type::SuggestFromFeature:
+  case Result::Type::PureSuggest: ASSERT(false, ("Suggests should not be here.")); return;
   }
 
   info.SetAdsEngine(m_adsEngine.get());
@@ -1615,7 +1615,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
 
     auto mark = static_cast<SearchMarkPoint *>(controller.CreateUserMark(r.GetFeatureCenter()));
     ASSERT_EQUAL(mark->GetMarkType(), UserMark::Type::SEARCH, ());
-    auto const isFeature = r.GetResultType() == search::Result::RESULT_FEATURE;
+    auto const isFeature = r.GetResultType() == search::Result::Type::Feature;
     if (isFeature)
       mark->SetFoundFeature(r.GetFeatureID());
     mark->SetMatchedName(r.GetString());
@@ -3238,9 +3238,7 @@ bool Framework::ParseSearchQueryCommand(search::SearchParams const & params)
 
 bool Framework::IsLocalAdsCustomer(search::Result const & result) const
 {
-  if (result.IsSuggest())
-    return false;
-  if (result.GetResultType() != search::Result::ResultType::RESULT_FEATURE)
+  if (result.GetResultType() != search::Result::Type::Feature)
     return false;
   return m_localAdsManager.Contains(result.GetFeatureID());
 }

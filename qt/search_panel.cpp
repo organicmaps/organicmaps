@@ -113,7 +113,7 @@ void SearchPanel::OnSearchResults(uint64_t timestamp, search::Results const & re
     m_pTable->setCellWidget(rowCount, 1, new QLabel(strHigh));
     m_pTable->setItem(rowCount, 2, CreateItem(QString::fromStdString(res.GetAddress())));
 
-    if (res.GetResultType() == search::Result::RESULT_FEATURE)
+    if (res.GetResultType() == search::Result::Type::Feature)
     {
       m_pTable->setItem(rowCount, 0, CreateItem(QString::fromStdString(res.GetFeatureType())));
       m_pTable->setItem(rowCount, 3, CreateItem(m_pDrawWidget->GetDistance(res).c_str()));

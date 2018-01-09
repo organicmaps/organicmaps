@@ -86,7 +86,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
 
     auto const & result = m_foundResults[i];
     // No need in non-feature results.
-    if (result.GetResultType() != search::Result::RESULT_FEATURE)
+    if (result.GetResultType() != search::Result::Type::Feature)
       continue;
 
     FeatureType ft;

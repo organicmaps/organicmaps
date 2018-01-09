@@ -226,7 +226,7 @@ using Observers = NSHashTable<Observer>;
 + (BOOL)isBookingAvailableWithContainerIndex:(NSUInteger)index
 {
   auto const & result = [self resultWithContainerIndex:index];
-  if (result.GetResultType() != search::Result::ResultType::RESULT_FEATURE)
+  if (result.GetResultType() != search::Result::Type::Feature)
     return NO;
   auto const & resultFeatureID = result.GetFeatureID();
   auto const & bookingAvailableIDs = [MWMSearch manager]->m_bookingAvailableFeatureIDs;
