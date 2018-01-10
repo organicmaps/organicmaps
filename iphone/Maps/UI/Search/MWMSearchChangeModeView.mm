@@ -12,6 +12,7 @@ extern NSString * const kSearchStateKey;
 @property(weak, nonatomic) IBOutlet UIButton * filterButton;
 @property(weak, nonatomic) IBOutlet MWMButton * cancelFilterButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * filterButtoniPadX;
+@property(weak, nonatomic) IBOutlet UIView * changeModeBackground;
 
 @end
 
@@ -76,6 +77,7 @@ extern NSString * const kSearchStateKey;
     self.cancelFilterButton.coloring = MWMButtonColoringBlue;
     [self sendSubviewToBack:self.cancelFilterButton];
   }
+  [self sendSubviewToBack:self.changeModeBackground];
 }
 
 #pragma mark - MWMSearchObserver

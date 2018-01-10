@@ -121,16 +121,26 @@
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3Y-13-kVB" userLabel="ActionBar" customClass="SolidTouchView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gPn-bf-cPr" customClass="SolidTouchView">
-                    <rect key="frame" x="-100" y="0.0" width="520" height="148"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
-                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Smx-UL-Mcd" userLabel="TabBar">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Smx-UL-Mcd" userLabel="TabBar">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gPn-bf-cPr" customClass="SolidTouchView">
+                            <rect key="frame" x="-100" y="0.0" width="520" height="164"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yu-ua-eqD">
+                            <rect key="frame" x="0.0" y="60" width="320" height="1"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="GFH-AC-bsP"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yHM-kd-o0T" userLabel="History" customClass="MWMSearchTabButtonsView">
                             <rect key="frame" x="0.0" y="0.0" width="160" height="60"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -171,35 +181,49 @@
                         <constraint firstItem="yHM-kd-o0T" firstAttribute="leading" secondItem="Smx-UL-Mcd" secondAttribute="leading" id="CiG-5j-NML"/>
                         <constraint firstItem="G6M-wl-tUg" firstAttribute="top" secondItem="yHM-kd-o0T" secondAttribute="bottom" id="F8A-7M-DZD"/>
                         <constraint firstAttribute="trailing" secondItem="YT7-kp-bFI" secondAttribute="trailing" id="FaM-kd-VGc"/>
+                        <constraint firstItem="7yu-ua-eqD" firstAttribute="leading" secondItem="yHM-kd-o0T" secondAttribute="leading" id="GE0-Wi-8y1"/>
                         <constraint firstAttribute="height" priority="750" constant="64" id="JxX-35-uQe">
                             <variation key="heightClass=compact" constant="44"/>
                         </constraint>
                         <constraint firstItem="G6M-wl-tUg" firstAttribute="top" secondItem="YT7-kp-bFI" secondAttribute="bottom" id="PJH-Uk-AKu"/>
                         <constraint firstItem="yHM-kd-o0T" firstAttribute="width" secondItem="G6M-wl-tUg" secondAttribute="width" id="Sh9-x5-DW0"/>
+                        <constraint firstItem="gPn-bf-cPr" firstAttribute="top" secondItem="Smx-UL-Mcd" secondAttribute="top" id="UER-Ty-xhx"/>
                         <constraint firstItem="YT7-kp-bFI" firstAttribute="width" secondItem="yHM-kd-o0T" secondAttribute="width" id="UIr-Jy-xTu"/>
+                        <constraint firstItem="7yu-ua-eqD" firstAttribute="trailing" secondItem="YT7-kp-bFI" secondAttribute="trailing" id="YyU-3Q-pip"/>
+                        <constraint firstItem="gPn-bf-cPr" firstAttribute="leading" secondItem="Smx-UL-Mcd" secondAttribute="leading" constant="-100" id="b86-tJ-SqB"/>
                         <constraint firstItem="YT7-kp-bFI" firstAttribute="top" secondItem="Smx-UL-Mcd" secondAttribute="top" id="fBe-s6-zJz"/>
+                        <constraint firstItem="7yu-ua-eqD" firstAttribute="top" secondItem="yHM-kd-o0T" secondAttribute="bottom" id="jhl-6C-8xD"/>
                         <constraint firstItem="G6M-wl-tUg" firstAttribute="leading" secondItem="Smx-UL-Mcd" secondAttribute="leading" id="pXP-hL-DL3"/>
+                        <constraint firstAttribute="trailing" secondItem="gPn-bf-cPr" secondAttribute="trailing" constant="-100" id="pkz-a1-2QA"/>
                         <constraint firstAttribute="bottom" secondItem="G6M-wl-tUg" secondAttribute="bottom" id="v8p-Lf-3HF"/>
+                        <constraint firstAttribute="bottom" secondItem="gPn-bf-cPr" secondAttribute="bottom" constant="-100" id="y3i-4D-GKo"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                            <integer key="value" value="2"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
-                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.23999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                            <integer key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                            <size key="value" width="0.0" height="0.0"/>
-                        </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="Ysx-Oh-UYF" customClass="MWMSearchChangeModeView">
+                <view hidden="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="Ysx-Oh-UYF" customClass="MWMSearchChangeModeView">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRD-Q7-fQP" customClass="SolidTouchView">
+                            <rect key="frame" x="-100" y="0.0" width="520" height="148"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
+                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.23999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                    <size key="value" width="0.0" height="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" verticalCompressionResistancePriority="400" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JhV-gM-MgM">
                             <rect key="frame" x="0.0" y="0.0" width="207" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="viewOnMapButton"/>
@@ -256,18 +280,35 @@
                         <constraint firstItem="JhV-gM-MgM" firstAttribute="height" secondItem="Ysx-Oh-UYF" secondAttribute="height" id="Bfm-GU-HJ9"/>
                         <constraint firstAttribute="height" priority="250" constant="48" id="RoV-rx-XeQ"/>
                         <constraint firstAttribute="trailing" secondItem="hzG-6h-WLq" secondAttribute="trailing" priority="500" constant="6" id="VY6-c5-vkY"/>
+                        <constraint firstItem="KRD-Q7-fQP" firstAttribute="top" secondItem="Ysx-Oh-UYF" secondAttribute="top" id="eAA-LM-Mrl"/>
                         <constraint firstItem="vUE-KN-mbf" firstAttribute="top" secondItem="hzG-6h-WLq" secondAttribute="top" id="fK9-QU-t1N"/>
                         <constraint firstItem="hzG-6h-WLq" firstAttribute="centerX" secondItem="Ysx-Oh-UYF" secondAttribute="centerX" priority="250" id="ff5-qG-Ys6"/>
                         <constraint firstItem="vUE-KN-mbf" firstAttribute="bottom" secondItem="hzG-6h-WLq" secondAttribute="bottom" id="hsI-F8-c35"/>
                         <constraint firstItem="hzG-6h-WLq" firstAttribute="leading" secondItem="JhV-gM-MgM" secondAttribute="trailing" priority="500" constant="8" id="iMA-u6-5S9"/>
                         <constraint firstItem="JhV-gM-MgM" firstAttribute="leading" secondItem="Ysx-Oh-UYF" secondAttribute="leading" id="iwa-86-Rhh"/>
+                        <constraint firstAttribute="trailing" secondItem="KRD-Q7-fQP" secondAttribute="trailing" constant="-100" id="oJj-4y-uvN"/>
+                        <constraint firstAttribute="bottom" secondItem="KRD-Q7-fQP" secondAttribute="bottom" constant="-100" id="pJU-Qh-4tn"/>
+                        <constraint firstItem="KRD-Q7-fQP" firstAttribute="leading" secondItem="Ysx-Oh-UYF" secondAttribute="leading" constant="-100" id="sMT-St-iws"/>
                         <constraint firstItem="JhV-gM-MgM" firstAttribute="top" secondItem="Ysx-Oh-UYF" secondAttribute="top" id="y3t-5r-CMa"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
+                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.23999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                            <size key="value" width="0.0" height="0.0"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="cancelFilterButton" destination="vUE-KN-mbf" id="dwF-9p-lgq"/>
+                        <outlet property="changeModeBackground" destination="KRD-Q7-fQP" id="Z1C-MK-IWT"/>
                         <outlet property="changeModeButton" destination="JhV-gM-MgM" id="LFr-bo-q9U"/>
                         <outlet property="filterButton" destination="hzG-6h-WLq" id="sHx-Ku-nSw"/>
                         <outlet property="filterButtoniPadX" destination="ff5-qG-Ys6" id="Qan-eT-VF9"/>
@@ -279,33 +320,15 @@
                 <constraint firstAttribute="bottom" secondItem="Smx-UL-Mcd" secondAttribute="bottom" priority="400" id="45d-2I-giP"/>
                 <constraint firstAttribute="trailing" secondItem="Smx-UL-Mcd" secondAttribute="trailing" id="8o3-5l-8dh"/>
                 <constraint firstItem="Smx-UL-Mcd" firstAttribute="top" secondItem="j3Y-13-kVB" secondAttribute="top" id="MUE-ck-4aX"/>
-                <constraint firstAttribute="trailing" secondItem="gPn-bf-cPr" secondAttribute="trailing" constant="-100" id="Nzq-vh-MCG"/>
                 <constraint firstAttribute="bottom" secondItem="Ysx-Oh-UYF" secondAttribute="bottom" priority="400" id="aBS-8P-zF4"/>
                 <constraint firstAttribute="height" priority="250" id="d2f-Ky-6ce"/>
                 <constraint firstAttribute="trailing" secondItem="Ysx-Oh-UYF" secondAttribute="trailing" id="dJU-g3-WqH"/>
-                <constraint firstItem="gPn-bf-cPr" firstAttribute="top" secondItem="j3Y-13-kVB" secondAttribute="top" id="ddJ-8D-A75"/>
-                <constraint firstAttribute="bottom" secondItem="gPn-bf-cPr" secondAttribute="bottom" constant="-100" id="jIj-21-Icv"/>
                 <constraint firstItem="Ysx-Oh-UYF" firstAttribute="leading" secondItem="j3Y-13-kVB" secondAttribute="leading" id="rHd-Vw-BK1"/>
-                <constraint firstItem="gPn-bf-cPr" firstAttribute="leading" secondItem="j3Y-13-kVB" secondAttribute="leading" constant="-100" id="skC-Oj-Dfh"/>
                 <constraint firstItem="Ysx-Oh-UYF" firstAttribute="top" secondItem="j3Y-13-kVB" secondAttribute="top" id="vZg-em-Rn2"/>
                 <constraint firstItem="Smx-UL-Mcd" firstAttribute="leading" secondItem="j3Y-13-kVB" secondAttribute="leading" id="xn7-7r-8VD"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                    <integer key="value" value="2"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
-                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.23999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                    <integer key="value" value="1"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                    <size key="value" width="0.0" height="0.0"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="236" y="-58"/>
         </view>
         <view contentMode="scaleToFill" id="u9y-bx-NGd" userLabel="Content" customClass="MWMSearchContentView">

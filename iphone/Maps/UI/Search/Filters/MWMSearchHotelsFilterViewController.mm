@@ -151,7 +151,11 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 }
 
-- (void)refreshTableViewAppearance { self.tableView.backgroundColor = [UIColor pressBackground]; }
+- (void)refreshViewAppearance
+{
+  self.view.backgroundColor = [UIColor pressBackground];
+  self.tableView.backgroundColor = [UIColor clearColor];
+}
 
 - (void)refreshDoneButtonAppearance
 {
@@ -165,7 +169,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 - (void)refreshAppearance
 {
   [self refreshStatusBarAppearance];
-  [self refreshTableViewAppearance];
+  [self refreshViewAppearance];
   [self refreshDoneButtonAppearance];
 }
 
