@@ -310,7 +310,7 @@ android {
         if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
           def file = output.outputFile
           // version at the end of each built apk
-          outputFileName = file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk")
+          outputFileName = "../../" + file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk")
           // set different versionCodes for different ABIs
           int abiVersionCode = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI)) ?: 0
           output.versionCodeOverride = (abiVersionCode * 1000) + android.defaultConfig.versionCode
