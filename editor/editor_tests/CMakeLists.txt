@@ -5,6 +5,7 @@ set(
   config_loader_test.cpp
   editor_config_test.cpp
   editor_notes_test.cpp
+  match_by_geometry_test.cpp
   opening_hours_ui_test.cpp
   osm_feature_matcher_test.cpp
   ui2oh_test.cpp

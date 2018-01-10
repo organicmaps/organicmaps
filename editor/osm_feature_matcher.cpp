@@ -20,59 +20,27 @@ namespace
 namespace bg = boost::geometry;
 
 // Use simple xy coordinates because spherical are not supported by boost::geometry algorithms.
-using SimplePoint = bg::model::d2::point_xy<double>;
-using Polygon = bg::model::polygon<SimplePoint>;
+using PointXY = bg::model::d2::point_xy<double>;
+using Polygon = bg::model::polygon<PointXY>;
 using MultiPolygon = bg::model::multi_polygon<Polygon>;
-using Linestring = bg::model::linestring<SimplePoint>;
+using Linestring = bg::model::linestring<PointXY>;
 using MultiLinestring = bg::model::multi_linestring<Linestring>;
 using AreaType = bg::default_area_result<Polygon>::type;
 
 using ForEachRefFn = function<void(XMLFeature const & xmlFt)>;
 using ForEachWayFn = function<void(pugi::xml_node const & way, string const & role)>;
 
-const double kPointDiffEps = 1e-5;
-const double kPenaltyScore = -1;
-
-AreaType Area(Polygon const & polygon)
-{
-  AreaType innerArea = 0.0;
-  for (auto const & inn : polygon.inners())
-  {
-    innerArea += bg::area(inn);
-  }
-
-  return bg::area(polygon.outer()) - innerArea;
-}
-
-AreaType Area(MultiPolygon const & multipolygon)
-{
-  AreaType result = 0.0;
-  for (auto const & polygon : multipolygon)
-  {
-    result += Area(polygon);
-  }
-
-  return result;
-}
+double const kPointDiffEps = 1e-5;
+double const kPenaltyScore = -1;
 
 AreaType IntersectionArea(MultiPolygon const & our, Polygon const & their)
 {
-  AreaType intersectionArea = 0.0;
-  MultiPolygon tmp;
-  for (auto const & triangle : our)
-  {
-    bg::intersection(triangle, their.outer(), tmp);
-    intersectionArea += bg::area(tmp);
-    tmp.clear();
-    for (auto const & inn : their.inners())
-    {
-      bg::intersection(triangle, inn, tmp);
-      intersectionArea -= bg::area(tmp);
-      tmp.clear();
-    }
-  }
+  ASSERT(bg::is_valid(our), ());
+  ASSERT(bg::is_valid(their), ());
 
-  return intersectionArea;
+  MultiPolygon result;
+  bg::intersection(our, their, result);
+  return bg::area(result);
 }
 
 void AddInnerIfNeeded(pugi::xml_document const & osmResponse, pugi::xml_node const & way,
@@ -101,7 +69,7 @@ void AddInnerIfNeeded(pugi::xml_document const & osmResponse, pugi::xml_node con
 
 void MakeOuterRing(MultiLinestring & outerLines, Polygon & dest)
 {
-  bool needReverse =
+  bool const needReverse =
     outerLines.size() > 1 && bg::equals(outerLines[0].front(), outerLines[1].back());
 
   for (size_t i = 0; i < outerLines.size(); ++i)
@@ -113,44 +81,21 @@ void MakeOuterRing(MultiLinestring & outerLines, Polygon & dest)
   }
 }
 
-void CorrectPolygon(Polygon & dest)
+double MatchByGeometry(MultiPolygon const & our, Polygon const & their)
 {
-  bg::correct(dest.outer());
-
-  for (auto & inn : dest.inners())
-  {
-    bg::correct(inn);
-  }
-}
-
-double
-MatchByGeometry(MultiPolygon const & our, Polygon const & their)
-{
-  if (!bg::is_valid(their.outer()))
+  if (!bg::is_valid(our) || !bg::is_valid(their))
     return kPenaltyScore;
 
-  for (auto const & inn : their.inners())
-  {
-    if (!bg::is_valid(inn))
-      return kPenaltyScore;
-  }
-
-  for (auto const & t : our)
-  {
-    if (!bg::is_valid(t))
-      return kPenaltyScore;
-  }
-
-  auto const ourArea = Area(our);
-  auto const theirArea = Area(their);
+  auto const ourArea = bg::area(our);
+  auto const theirArea = bg::area(their);
   auto const intersectionArea = IntersectionArea(our, their);
-  auto const overlayArea = ourArea + theirArea - intersectionArea;
+  auto const unionArea = ourArea + theirArea - intersectionArea;
 
   // Avoid infinity.
-  if(overlayArea == 0.0)
+  if (my::AlmostEqualAbs(unionArea, 0.0, 1e-18))
     return kPenaltyScore;
 
-  auto const score = intersectionArea / overlayArea;
+  auto const score = intersectionArea / unionArea;
 
   // If area of the intersection is a half of the object area, penalty score will be returned.
   if (score <= 0.5)
@@ -159,24 +104,33 @@ MatchByGeometry(MultiPolygon const & our, Polygon const & their)
   return score;
 }
 
-MultiPolygon TriangelsToPolygons(vector<m2::PointD> const & triangels)
+MultiPolygon TriangelsToPolygon(vector <m2::PointD> const & points)
 {
   size_t const kTriangleSize = 3;
-  CHECK_GREATER_OR_EQUAL(triangels.size(), kTriangleSize, ());
-
-  MultiPolygon result;
-  Polygon triangle;
-  for (size_t i = 0; i < triangels.size(); ++i)
+  CHECK_EQUAL(points.size() % kTriangleSize, 0, ());
+  CHECK(!points.empty(), ());
+  vector<MultiPolygon> polygons;
+  for (size_t i = 0; i < points.size(); i += kTriangleSize)
   {
-    if (i % kTriangleSize == 0)
-      result.emplace_back();
-
-    bg::append(result.back(), boost::make_tuple(triangels[i].x, triangels[i].y));
-
-    if ((i + 1) % kTriangleSize == 0)
-      bg::correct(result.back());
+    MultiPolygon polygon;
+    polygon.resize(1);
+    auto & p = polygon[0];
+    auto & outer = p.outer();
+    for (size_t j = i; j < i + kTriangleSize; ++j)
+      outer.push_back(PointXY(points[j].x, points[j].y));
+    bg::correct(p);
+    ASSERT(bg::is_valid(polygon), ());
+    polygons.push_back(polygon);
   }
 
+  CHECK(!polygons.empty(), ());
+  auto & result = polygons[0];
+  for (size_t i = 1; i < polygons.size(); ++i)
+  {
+    MultiPolygon u;
+    bg::union_(result, polygons[i], u);
+    u.swap(result);
+  }
   return result;
 }
 
@@ -213,25 +167,40 @@ void ForEachWayInRelation(pugi::xml_document const & osmResponse, pugi::xml_node
     auto const way = osmResponse.select_node(xpath.c_str()).node();
 
     auto const rolePath = "member[@ref='" + wayRef + "']/@role";
-    pugi::xpath_node role = relation.select_node(rolePath.c_str());
+    pugi::xpath_node roleNode = relation.select_node(rolePath.c_str());
 
-    // Some ways can be missed from relation and
-    // we need to understand role of the way (inner/outer).
-    if (!way || (!role && nodesSet.size() != 1))
+    // It is possible to have a wayRef that refers to a way not included in a given relation.
+    // We can skip such ways.
+    if (!way)
       continue;
 
-    fn(way, role.attribute().value());
+    // If more than one way is given and there is one with no role specified,
+    // it's an error. We skip this particular way but try to use others anyway.
+    if (!roleNode && nodesSet.size() != 1)
+      continue;
+
+    string role = "outer";
+    if (roleNode)
+      role = roleNode.attribute().value();
+
+    fn(way, role);
   }
+}
+
+template <typename Geometry>
+void AppendWay(pugi::xml_document const & osmResponse, pugi::xml_node const & way, Geometry & dest)
+{
+  ForEachRefInWay(osmResponse, way, [&dest](XMLFeature const & xmlFt)
+  {
+    auto const & p = xmlFt.GetMercatorCenter();
+    bg::append(dest, boost::make_tuple(p.x, p.y));
+  });
 }
 
 Polygon GetWaysGeometry(pugi::xml_document const & osmResponse, pugi::xml_node const & way)
 {
   Polygon result;
-  ForEachRefInWay(osmResponse, way, [&result](XMLFeature const & xmlFt)
-  {
-    auto const & p = xmlFt.GetMercatorCenter();
-    bg::append(result, boost::make_tuple(p.x, p.y));
-  });
+  AppendWay(osmResponse, way, result);
 
   bg::correct(result);
 
@@ -250,11 +219,7 @@ Polygon GetRelationsGeometry(pugi::xml_document const & osmResponse,
     if (role == "outer")
     {
       outerLines.emplace_back();
-      ForEachRefInWay(osmResponse, way, [&outerLines](XMLFeature const & xmlFt)
-      {
-        auto const & p = xmlFt.GetMercatorCenter();
-        bg::append(outerLines.back(), boost::make_tuple(p.x, p.y));
-      });
+      AppendWay(osmResponse, way, outerLines.back());
     }
     else if (role == "inner")
     {
@@ -263,19 +228,14 @@ Polygon GetRelationsGeometry(pugi::xml_document const & osmResponse,
 
       // Support several inner rings.
       AddInnerIfNeeded(osmResponse, way, result);
-
-      ForEachRefInWay(osmResponse, way, [&result](XMLFeature const & xmlFt)
-      {
-        auto const & p = xmlFt.GetMercatorCenter();
-        bg::append(result.inners().back(), boost::make_tuple(p.x, p.y));
-      });
+      AppendWay(osmResponse, way, result.inners().back());
     }
   };
 
   ForEachWayInRelation(osmResponse, relation, fn);
 
   MakeOuterRing(outerLines, result);
-  CorrectPolygon(result);
+  bg::correct(result);
 
   return result;
 }
@@ -302,7 +262,7 @@ double ScoreGeometry(pugi::xml_document const & osmResponse,
   if (bg::is_empty(their))
     return kPenaltyScore;
 
-  auto const our = TriangelsToPolygons(ourGeometry);
+  auto const our = TriangelsToPolygon(ourGeometry);
 
   if (bg::is_empty(our))
     return kPenaltyScore;
