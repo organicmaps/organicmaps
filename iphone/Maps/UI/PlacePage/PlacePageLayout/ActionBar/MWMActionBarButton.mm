@@ -48,6 +48,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
 @property (nonatomic) EButton type;
 @property(nonatomic) MWMCircularProgress * mapDownloadProgress;
 @property(nonatomic) UIView * progressWrapper;
+@property(weak, nonatomic) IBOutlet UIView * extraBackground;
 
 @end
 
@@ -63,6 +64,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
 - (void)configButton:(BOOL)isSelected
 {
   self.label.text = titleForButton(self.type, isSelected);
+  self.extraBackground.hidden = YES;
   switch (self.type)
   {
   case EButton::Api:
@@ -90,16 +92,31 @@ NSString * titleForButton(EButton type, BOOL isSelected)
     [self.button setImage:[UIImage imageNamed:@"ic_booking_logo"] forState:UIControlStateNormal];
     self.label.textColor = UIColor.whiteColor;
     self.backgroundColor = [UIColor bookingBackground];
+    if (!IPAD)
+    {
+      self.extraBackground.backgroundColor = [UIColor bookingBackground];
+      self.extraBackground.hidden = NO;
+    }
     break;
   case EButton::BookingSearch:
     [self.button setImage:[UIImage imageNamed:@"ic_booking_search"] forState:UIControlStateNormal];
     self.label.textColor = UIColor.whiteColor;
     self.backgroundColor = [UIColor bookingBackground];
+    if (!IPAD)
+    {
+      self.extraBackground.backgroundColor = [UIColor bookingBackground];
+      self.extraBackground.hidden = NO;
+    }
     break;
   case EButton::Opentable:
     [self.button setImage:[UIImage imageNamed:@"ic_opentable"] forState:UIControlStateNormal];
     self.label.textColor = UIColor.whiteColor;
     self.backgroundColor = [UIColor opentableBackground];
+    if (!IPAD)
+    {
+      self.extraBackground.backgroundColor = [UIColor opentableBackground];
+      self.extraBackground.hidden = NO;
+    }
     break;
   case EButton::Call:
     [self.button setImage:[UIImage imageNamed:@"ic_placepage_phone_number"] forState:UIControlStateNormal];
