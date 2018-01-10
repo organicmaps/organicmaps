@@ -102,7 +102,7 @@
     [titleButton setBorderHighlightedColor:[UIColor linkBlueHighlighted]];
     btnLayer.borderWidth = 1;
     btnLayer.borderColor = [UIColor linkBlue].CGColor;
-    btnLayer.cornerRadius = 4;
+    btnLayer.cornerRadius = 8;
 
     self.isSeparatorHidden = YES;
   }

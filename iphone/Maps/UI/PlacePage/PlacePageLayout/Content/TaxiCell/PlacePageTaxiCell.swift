@@ -11,7 +11,7 @@ final class PlacePageTaxiCell: MWMTableViewCell {
   @IBOutlet private weak var orderButton: UIButton! {
     didSet {
       let l = orderButton.layer
-      l.cornerRadius = 6
+      l.cornerRadius = 8
       l.borderColor = UIColor.linkBlue().cgColor
       l.borderWidth = 1
       orderButton.setTitle(L("taxi_order"), for: .normal)
