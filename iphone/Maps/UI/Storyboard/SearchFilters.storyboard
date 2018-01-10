@@ -19,11 +19,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZN9-tQ-vmX">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <rect key="frame" x="16" y="623" width="343" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="5sg-ZZ-930"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="applyAction" destination="LNn-Gp-Jtg" eventType="touchUpInside" id="q2Q-O2-QLa"/>
                                 </connections>
@@ -32,7 +37,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterCheckCell" rowHeight="71" id="kQ5-BZ-yUa" customClass="MWMFilterCheckCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterCheckCell" rowHeight="71" id="kQ5-BZ-yUa" customClass="MWMFilterCheckCell">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kQ5-BZ-yUa" id="vGr-Kk-qrA">
@@ -110,7 +115,7 @@
                                             <outletCollection property="checkLabels" destination="WZ7-6d-CsM" collectionClass="NSMutableArray" id="GLa-Hh-4wW"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterRatingCell" rowHeight="52" id="HvO-7t-FdB" customClass="MWMFilterRatingCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterRatingCell" rowHeight="52" id="HvO-7t-FdB" customClass="MWMFilterRatingCell">
                                         <rect key="frame" x="0.0" y="126.5" width="375" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HvO-7t-FdB" id="waN-Zz-Fjw">
@@ -118,9 +123,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="JOt-Yh-HTx">
-                                                    <rect key="frame" x="16" y="0.0" width="80" height="52.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="80" height="51.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="52" id="ruI-U2-WeD"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="52" id="ruI-U2-WeD"/>
                                                     </constraints>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <state key="normal" title="ANY"/>
@@ -129,7 +134,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="tIg-d6-2V9">
-                                                    <rect key="frame" x="104" y="0.0" width="79.5" height="52.5"/>
+                                                    <rect key="frame" x="104" y="0.0" width="79.5" height="51.5"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <state key="normal" title="7.0+"/>
                                                     <state key="disabled">
@@ -140,7 +145,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="LLw-eV-IqX">
-                                                    <rect key="frame" x="191.5" y="0.0" width="80" height="52.5"/>
+                                                    <rect key="frame" x="191.5" y="0.0" width="80" height="51.5"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <state key="normal" title="8.0+"/>
                                                     <connections>
@@ -148,7 +153,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="30K-lZ-hUy">
-                                                    <rect key="frame" x="279.5" y="0.0" width="79.5" height="52.5"/>
+                                                    <rect key="frame" x="279.5" y="0.0" width="79.5" height="51.5"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <state key="normal" title="9.0+"/>
                                                     <connections>
@@ -191,7 +196,7 @@
                                             <outletCollection property="ratingButtons" destination="30K-lZ-hUy" collectionClass="NSMutableArray" id="Iys-NH-dNe"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterPriceCategoryCell" rowHeight="40" id="Awa-kZ-hF2" customClass="MWMFilterPriceCategoryCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterPriceCategoryCell" rowHeight="40" id="Awa-kZ-hF2" customClass="MWMFilterPriceCategoryCell">
                                         <rect key="frame" x="0.0" y="178.5" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Awa-kZ-hF2" id="m4Z-4y-BeU">
@@ -201,7 +206,7 @@
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="cm9-a2-KtE">
                                                     <rect key="frame" x="16" y="0.0" width="108.5" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="ntq-iz-6Ov"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="40" id="ntq-iz-6Ov"/>
                                                     </constraints>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <state key="normal" title="$"/>
@@ -254,7 +259,7 @@
                                             <outletCollection property="priceButtons" destination="96b-HD-t1A" collectionClass="NSMutableArray" id="A2o-QC-xn7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MWMFilterCollectionHolderCell" id="MeX-wf-jsM" customClass="MWMFilterCollectionHolderCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MWMFilterCollectionHolderCell" id="MeX-wf-jsM" customClass="MWMFilterCollectionHolderCell">
                                         <rect key="frame" x="0.0" y="218.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MeX-wf-jsM" id="Kwo-Nv-Eyz">
@@ -350,13 +355,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="7db-bh-egf" firstAttribute="leading" secondItem="WEm-4S-gb9" secondAttribute="leading" id="391-VR-alp"/>
-                            <constraint firstItem="WEm-4S-gb9" firstAttribute="trailing" secondItem="7db-bh-egf" secondAttribute="trailing" id="5VV-72-Y7v"/>
-                            <constraint firstItem="ZN9-tQ-vmX" firstAttribute="leading" secondItem="WEm-4S-gb9" secondAttribute="leading" id="VQ6-h4-L6t"/>
+                            <constraint firstItem="7db-bh-egf" firstAttribute="leading" secondItem="a4S-IT-Fgz" secondAttribute="leading" id="391-VR-alp"/>
+                            <constraint firstAttribute="trailing" secondItem="7db-bh-egf" secondAttribute="trailing" id="5VV-72-Y7v"/>
+                            <constraint firstItem="ZN9-tQ-vmX" firstAttribute="leading" secondItem="WEm-4S-gb9" secondAttribute="leading" constant="16" id="VQ6-h4-L6t"/>
                             <constraint firstItem="7db-bh-egf" firstAttribute="top" secondItem="a4S-IT-Fgz" secondAttribute="top" id="f0d-a8-5Mp"/>
                             <constraint firstItem="WEm-4S-gb9" firstAttribute="bottom" secondItem="ZN9-tQ-vmX" secondAttribute="bottom" id="z2w-0r-wN3"/>
                             <constraint firstItem="ZN9-tQ-vmX" firstAttribute="top" secondItem="7db-bh-egf" secondAttribute="bottom" id="zDx-DX-vJL"/>
-                            <constraint firstItem="WEm-4S-gb9" firstAttribute="trailing" secondItem="ZN9-tQ-vmX" secondAttribute="trailing" id="zVX-kB-p39"/>
+                            <constraint firstItem="WEm-4S-gb9" firstAttribute="trailing" secondItem="ZN9-tQ-vmX" secondAttribute="trailing" constant="16" id="zVX-kB-p39"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WEm-4S-gb9"/>
                     </view>
