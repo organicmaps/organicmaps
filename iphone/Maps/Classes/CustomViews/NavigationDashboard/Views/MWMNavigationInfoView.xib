@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -88,10 +89,10 @@
                     </connections>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYv-pG-Wkw" userLabel="Street name" customClass="NavigationStreetNameView" customModule="cm_dbg" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="1024" height="57.5"/>
+                    <rect key="frame" x="-100" y="0.0" width="1224" height="57.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WID-Um-Va6" userLabel="BackgroundView">
-                            <rect key="frame" x="-100" y="-100" width="1224" height="157.5"/>
+                            <rect key="frame" x="-100" y="-100" width="1424" height="157.5"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
@@ -110,7 +111,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="600" verticalCompressionResistancePriority="600" text="Ленинградский проспект" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShI-bz-5g8">
-                            <rect key="frame" x="112" y="24" width="904" height="21.5"/>
+                            <rect key="frame" x="204" y="24" width="900" height="21.5"/>
                             <accessibility key="accessibilityConfiguration">
                                 <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                             </accessibility>
@@ -129,7 +130,6 @@
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="WID-Um-Va6" secondAttribute="bottom" id="5ox-Cb-hJc"/>
                         <constraint firstItem="ShI-bz-5g8" firstAttribute="top" secondItem="YYv-pG-Wkw" secondAttribute="top" constant="24" id="KK1-dA-hII"/>
-                        <constraint firstAttribute="trailing" secondItem="ShI-bz-5g8" secondAttribute="trailing" priority="999" constant="8" id="ZPY-xp-9Ew"/>
                         <constraint firstAttribute="trailing" secondItem="WID-Um-Va6" secondAttribute="trailing" constant="-100" id="f4N-aC-XO3"/>
                         <constraint firstItem="ShI-bz-5g8" firstAttribute="leading" secondItem="YYv-pG-Wkw" secondAttribute="leading" priority="300" constant="112" id="nVP-3U-KG2"/>
                         <constraint firstItem="WID-Um-Va6" firstAttribute="leading" secondItem="YYv-pG-Wkw" secondAttribute="leading" constant="-100" id="s8Q-4n-55U"/>
@@ -138,7 +138,7 @@
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa6-N8-acP" userLabel="Turns" customClass="NavigationTurnsView" customModule="cm_dbg" customModuleProvider="target">
-                    <rect key="frame" x="8" y="28" width="96" height="153"/>
+                    <rect key="frame" x="0.0" y="28" width="96" height="153"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wt8-EO-MKz" userLabel="First turn" customClass="SolidTouchView">
                             <rect key="frame" x="0.0" y="0.0" width="96" height="117"/>
@@ -263,7 +263,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XMv-au-OYf" customClass="MWMButton">
-                    <rect key="frame" x="6" y="623" width="56" height="56"/>
+                    <rect key="frame" x="0.0" y="623" width="56" height="56"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="56" id="ehZ-Oc-96g"/>
@@ -275,7 +275,7 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TMW-aw-1RT">
-                    <rect key="frame" x="-66" y="615" width="200" height="200"/>
+                    <rect key="frame" x="-72" y="615" width="200" height="200"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bv-7H-IZt" userLabel="Gas" customClass="MWMButton">
                             <rect key="frame" x="78" y="14" width="44" height="44"/>
@@ -370,7 +370,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xna-Q1-7zW" customClass="MWMButton">
-                    <rect key="frame" x="6" y="687" width="56" height="56"/>
+                    <rect key="frame" x="0.0" y="687" width="56" height="56"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
                     <constraints>
@@ -383,16 +383,17 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="YYv-pG-Wkw" secondAttribute="trailing" id="15D-kN-gda"/>
+                <constraint firstAttribute="trailing" secondItem="YYv-pG-Wkw" secondAttribute="trailing" constant="-100" id="15D-kN-gda"/>
                 <constraint firstAttribute="trailing" secondItem="Tzc-l6-Vvt" secondAttribute="trailing" id="26j-tD-P9y"/>
                 <constraint firstItem="TMW-aw-1RT" firstAttribute="centerY" secondItem="Xna-Q1-7zW" secondAttribute="centerY" id="652-PO-iav"/>
-                <constraint firstItem="YYv-pG-Wkw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IBQ-gK-Cpe"/>
-                <constraint firstItem="Xna-Q1-7zW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="6" id="J7x-54-WT5"/>
+                <constraint firstItem="YYv-pG-Wkw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-100" id="IBQ-gK-Cpe"/>
+                <constraint firstItem="Xna-Q1-7zW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="J7x-54-WT5"/>
                 <constraint firstItem="Tzc-l6-Vvt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="bottom" priority="770" id="JqF-da-c1k"/>
                 <constraint firstItem="Xna-Q1-7zW" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" priority="500" constant="32" id="KQb-ju-1bf"/>
                 <constraint firstItem="YYv-pG-Wkw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="500" id="Rd5-Hl-fSF"/>
+                <constraint firstAttribute="trailingMargin" secondItem="ShI-bz-5g8" secondAttribute="trailing" id="RsT-Ct-FiQ"/>
                 <constraint firstItem="Tzc-l6-Vvt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="TvX-b3-3Sa"/>
                 <constraint firstItem="XMv-au-OYf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wt8-EO-MKz" secondAttribute="bottom" priority="800" constant="8" id="Vtn-PC-puN"/>
                 <constraint firstItem="XMv-au-OYf" firstAttribute="centerX" secondItem="Xna-Q1-7zW" secondAttribute="centerX" id="XwW-6c-UzJ"/>
@@ -404,7 +405,7 @@
                 <constraint firstItem="XMv-au-OYf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Aa6-N8-acP" secondAttribute="bottom" priority="800" id="hiU-Sn-hG1"/>
                 <constraint firstItem="ShI-bz-5g8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Aa6-N8-acP" secondAttribute="trailing" priority="999" constant="8" id="mdA-B9-tvQ"/>
                 <constraint firstItem="Tzc-l6-Vvt" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Xna-Q1-7zW" secondAttribute="bottom" priority="740" constant="12" id="pFP-r6-dGK"/>
-                <constraint firstItem="Aa6-N8-acP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" priority="610" constant="8" id="pXD-dk-ku2"/>
+                <constraint firstItem="Aa6-N8-acP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" priority="610" id="pXD-dk-ku2"/>
                 <constraint firstItem="Xna-Q1-7zW" firstAttribute="top" secondItem="XMv-au-OYf" secondAttribute="bottom" constant="8" id="tEP-Qf-uBZ"/>
                 <constraint firstAttribute="top" secondItem="YYv-pG-Wkw" secondAttribute="bottom" priority="250" id="xMz-Tm-KEn"/>
                 <constraint firstAttribute="leading" secondItem="Aa6-N8-acP" secondAttribute="trailing" priority="250" id="xO2-jM-2bk"/>

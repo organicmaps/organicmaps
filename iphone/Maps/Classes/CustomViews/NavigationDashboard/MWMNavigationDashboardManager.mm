@@ -330,7 +330,10 @@ using Observers = NSHashTable<Observer>;
   [[self manager] updateNavigationInfoAvailableArea:frame];
 }
 
-- (void)updateNavigationInfoAvailableArea:(CGRect)frame { _navigationInfoView.frame = frame; }
+- (void)updateNavigationInfoAvailableArea:(CGRect)frame
+{
+  _navigationInfoView.availableArea = frame;
+}
 #pragma mark - Properties
 
 - (NSDictionary *)etaAttributes

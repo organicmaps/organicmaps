@@ -4,6 +4,7 @@
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"
 #import "MWMLocationObserver.h"
+#import "MWMMapViewControlsCommon.h"
 #import "MWMSearch.h"
 #import "MWMSearchManager.h"
 #import "MapViewController.h"
@@ -91,7 +92,10 @@ BOOL defaultOrientation(CGSize const & size)
 
 @property(nonatomic) BOOL hasLocation;
 
-@property(nonatomic) CGRect availableArea;
+@property(nonatomic) NSLayoutConstraint * topConstraint;
+@property(nonatomic) NSLayoutConstraint * leftConstraint;
+@property(nonatomic) NSLayoutConstraint * widthConstraint;
+@property(nonatomic) NSLayoutConstraint * heightConstraint;
 
 @end
 
@@ -241,7 +245,7 @@ BOOL defaultOrientation(CGSize const & size)
 
 - (void)layoutSearch
 {
-  BOOL const defaultView = defaultOrientation(self.frame.size);
+  BOOL const defaultView = defaultOrientation(self.availableArea.size);
   CGFloat alpha = 0;
   CGFloat searchButtonsSideSize = 0;
   self.searchButtonsViewWidth.constant = 0;
@@ -388,22 +392,50 @@ BOOL defaultOrientation(CGSize const & size)
     [super touchesCancelled:touches withEvent:event];
 }
 
+- (void)configLayout
+{
+  UIView * ov = self.superview;
+  self.translatesAutoresizingMaskIntoConstraints = NO;
+
+  self.topConstraint = [self.topAnchor constraintEqualToAnchor:ov.topAnchor];
+  self.topConstraint.active = YES;
+  self.leftConstraint = [self.leadingAnchor constraintEqualToAnchor:ov.leadingAnchor];
+  self.leftConstraint.active = YES;
+  self.widthConstraint = [self.widthAnchor constraintEqualToConstant:ov.frame.size.width];
+  self.widthConstraint.active = YES;
+  self.heightConstraint = [self.heightAnchor constraintEqualToConstant:ov.frame.size.height];
+  self.heightConstraint.active = YES;
+}
+
+- (void)refreshLayout
+{
+  dispatch_async(dispatch_get_main_queue(), ^{
+    auto const availableArea = self.availableArea;
+    [self animateConstraintsWithAnimations:^{
+      self.topConstraint.constant = availableArea.origin.y;
+      self.leftConstraint.constant = availableArea.origin.x + kViewControlsOffsetToBounds;
+      self.widthConstraint.constant = availableArea.size.width - kViewControlsOffsetToBounds;
+      self.heightConstraint.constant = availableArea.size.height;
+
+      [self layoutSearch];
+      self.turnsTopOffset.constant =
+          availableArea.origin.y > 0 ? kShiftedTurnsTopOffset : kBaseTurnsTopOffset;
+      self.searchButtonsView.layer.cornerRadius =
+          (defaultOrientation(availableArea.size) ? kSearchButtonsViewHeightPortrait
+                                                  : kSearchButtonsViewHeightLandscape) /
+          2;
+    }];
+  });
+}
+
 #pragma mark - Properties
 
-- (void)setFrame:(CGRect)frame
+- (void)setAvailableArea:(CGRect)availableArea
 {
-  super.frame = frame;
-  [self setNeedsLayout];
-  [self layoutSearch];
-  self.turnsTopOffset.constant = self.minY > 0 ? kShiftedTurnsTopOffset : kBaseTurnsTopOffset;
-  [UIView animateWithDuration:kDefaultAnimationDuration
-      animations:^{
-        self.searchButtonsView.layer.cornerRadius =
-            (defaultOrientation(self.frame.size) ? kSearchButtonsViewHeightPortrait
-                                                 : kSearchButtonsViewHeightLandscape) /
-            2;
-        [self layoutIfNeeded];
-      }];
+  if (CGRectEqualToRect(_availableArea, availableArea))
+    return;
+  _availableArea = availableArea;
+  [self refreshLayout];
 }
 
 - (void)setSearchState:(NavigationSearchState)searchState animated:(BOOL)animated
@@ -499,6 +531,7 @@ BOOL defaultOrientation(CGSize const & size)
     if ([sv.subviews containsObject:self])
       return;
     [sv insertSubview:self atIndex:0];
+    [self configLayout];
   }
   [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
