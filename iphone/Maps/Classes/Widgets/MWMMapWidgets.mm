@@ -49,15 +49,18 @@
   gui::TWidgetsLayoutInfo layout;
   auto const vs = self.visualScale;
   auto const viewHeight = [MapViewController controller].view.height;
+  auto const viewWidth = [MapViewController controller].view.width;
   auto const rulerOffset =
       m2::PointF(frame.origin.x * vs, (frame.origin.y + frame.size.height - viewHeight) * vs);
-  m_skin->ForEach([&layout, &rulerOffset](gui::EWidget w, gui::Position const & pos) {
+  auto const compassOffset =
+      m2::PointF((frame.origin.x + frame.size.width - viewWidth) * vs, frame.origin.y * vs);
+  m_skin->ForEach([&](gui::EWidget w, gui::Position const & pos) {
     m2::PointF pivot = pos.m_pixelPivot;
     switch (w)
     {
     case gui::WIDGET_RULER:
     case gui::WIDGET_COPYRIGHT: pivot += rulerOffset; break;
-    case gui::WIDGET_COMPASS:
+    case gui::WIDGET_COMPASS: pivot += compassOffset; break;
     case gui::WIDGET_SCALE_LABEL:
     case gui::WIDGET_CHOOSE_POSITION_MARK: break;
     }

@@ -1,4 +1,13 @@
 final class WidgetsArea: AvailableArea {
+  override var areaFrame: CGRect {
+    return alternative(iPhone: {
+      var frame = super.areaFrame
+      frame.origin.y -= 16
+      frame.size.height += 16
+      return frame
+    }, iPad: { super.areaFrame })()
+  }
+
   override func isAreaAffectingView(_ other: UIView) -> Bool {
     return !other.widgetsAreaAffectDirections.isEmpty
   }
