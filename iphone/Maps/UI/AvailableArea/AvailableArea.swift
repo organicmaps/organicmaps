@@ -5,25 +5,32 @@ class AvailableArea: UIView {
 
   var deferNotification: Bool { return true }
 
-  private var orientation = UIDeviceOrientation.unknown {
+  private(set) var orientation = UIDeviceOrientation.unknown {
     didSet {
       scheduleNotification()
     }
   }
+
+  var shouldUpdateAreaFrame: Bool {
+    if #available(iOS 11.0, *), let insets = UIApplication.shared.delegate?.window??.safeAreaInsets {
+      return insets.top > 0 || insets.left > 0 || insets.bottom > 0 || insets.right > 0
+    } else {
+      return false
+    }
+  }
+
   var areaFrame: CGRect {
     return alternative(iPhone: {
       var frame = self.frame
-      if #available(iOS 11.0, *), let insets = UIApplication.shared.delegate?.window??.safeAreaInsets {
-        if insets.top > 0 || insets.left > 0 || insets.bottom > 0 || insets.right > 0 {
-          switch self.orientation {
-          case .landscapeLeft:
-            frame.origin.x -= 24
-            frame.size.width += 68
-          case .landscapeRight:
-            frame.origin.x -= 44
-            frame.size.width += 60
-          default: break
-          }
+      if self.shouldUpdateAreaFrame {
+        switch self.orientation {
+        case .landscapeLeft:
+          frame.origin.x -= 16
+          frame.size.width += 60
+        case .landscapeRight:
+          frame.origin.x -= 44
+          frame.size.width += 60
+        default: break
         }
       }
       return frame
