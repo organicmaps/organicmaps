@@ -183,7 +183,7 @@ struct Callback
       type == ItemType::Attractions ? m_model.GetAttractionAt(index) : m_model.GetCafeAt(index);
   MWMRoutePoint * pt = [[MWMRoutePoint alloc] initWithPoint:item.GetFeatureCenter()
                                                       title:@(item.GetString().c_str())
-                                                   subtitle:@(item.GetFeatureType().c_str())
+                                                   subtitle:@(item.GetFeatureTypeName().c_str())
                                                        type:MWMRoutePointTypeFinish
                                           intermediateIndex:0];
   [MWMRouter setType:MWMRouterTypePedestrian];

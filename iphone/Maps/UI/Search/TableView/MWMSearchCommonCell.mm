@@ -30,7 +30,7 @@
     isAvailable:(BOOL)isAvailable
 {
   [super config:result];
-  self.typeLabel.text = @(result.GetFeatureType().c_str()).capitalizedString;
+  self.typeLabel.text = @(result.GetFeatureTypeName().c_str()).capitalizedString;
   auto const & ratingStr = result.GetHotelRating();
   self.ratingLabel.text =
       ratingStr.empty() ? @"" : [NSString stringWithFormat:L(@"place_page_booking_rating"),

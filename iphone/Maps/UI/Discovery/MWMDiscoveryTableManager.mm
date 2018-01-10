@@ -344,7 +344,7 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
     auto const & pt = type == ItemType::Attractions ? model.GetAttractionReferencePoint()
                                                     : model.GetCafeReferencePoint();
     [cell configWithTitle:@(sr.GetString().c_str())
-                 subtitle:@(sr.GetFeatureType().c_str())
+                 subtitle:@(sr.GetFeatureTypeName().c_str())
                  distance:@(GetDistance(pt, sr.GetFeatureCenter()).c_str())
                       tap:^{
                         [self.delegate routeToItem:type atIndex:indexPath.row];

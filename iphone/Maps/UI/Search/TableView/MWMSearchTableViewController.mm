@@ -150,7 +150,7 @@
   case MWMSearchItemTypeSuggestion:
   {
     auto const & suggestion = [MWMSearch resultWithContainerIndex:containerIndex];
-    NSString * suggestionString = @(suggestion.GetSuggestionString());
+    NSString * suggestionString = @(suggestion.GetSuggestionString().c_str());
     [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
           withParameters:@{kStatValue : suggestionString, kStatScreen : kStatSearch}];
     [delegate searchText:suggestionString forInputLocale:nil];
