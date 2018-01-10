@@ -174,34 +174,41 @@ string SerializeRoutePoints(BookmarkManager * bmManager, vector<RouteMarkData> c
 
 vector<RouteMarkData> DeserializeRoutePoints(string const & data)
 {
-  my::Json root(data.c_str());
-
-  if (root.get() == nullptr || !json_is_array(root.get()))
-    return {};
-
-  size_t const sz = json_array_size(root.get());
-  if (sz == 0)
-    return {};
-
-  vector<RouteMarkData> result;
-  result.reserve(sz);
-  for (size_t i = 0; i < sz; ++i)
+  try
   {
-    auto pointNode = json_array_get(root.get(), i);
-    if (pointNode == nullptr)
-      continue;
+    my::Json root(data.c_str());
 
-    auto point = DeserializeRoutePoint(pointNode);
-    if (point.m_position.EqualDxDy(m2::PointD::Zero(), 1e-7))
-      continue;
+    if (root.get() == nullptr || !json_is_array(root.get()))
+      return {};
 
-    result.push_back(move(point));
+    size_t const sz = json_array_size(root.get());
+    if (sz == 0)
+      return {};
+
+    vector<RouteMarkData> result;
+    result.reserve(sz);
+    for (size_t i = 0; i < sz; ++i)
+    {
+      auto pointNode = json_array_get(root.get(), i);
+      if (pointNode == nullptr)
+        continue;
+
+      auto point = DeserializeRoutePoint(pointNode);
+      if (point.m_position.EqualDxDy(m2::PointD::Zero(), 1e-7))
+        continue;
+
+      result.push_back(move(point));
+    }
+
+    if (result.size() < 2)
+      return {};
+
+    return result;
   }
-
-  if (result.size() < 2)
+  catch (my::Json::Exception const &)
+  {
     return {};
-
-  return result;
+  }
 }
 
 VehicleType GetVehicleType(RouterType routerType)
