@@ -4,6 +4,7 @@
 #include "search/geometry_utils.hpp"
 
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -11,8 +12,8 @@ namespace search
 {
 namespace
 {
-// Following methods joins only non-empty arguments in order with
-// comma.
+// Following methods join only non-empty arguments in order with
+// commas.
 string Join(string const & s)
 {
   return s;
@@ -164,8 +165,13 @@ string DebugPrint(Result::Type type)
 
 string DebugPrint(Result const & result)
 {
-  return "Result { Name: " + result.GetString() + "; Type: " + result.GetFeatureTypeName() +
-         "; Info: " + DebugPrint(result.GetRankingInfo()) + " }";
+  ostringstream os;
+  os << "Result [";
+  os << "name: " << result.GetString() << ", ";
+  os << "type: " << result.GetFeatureTypeName() << ", ";
+  os << "info: " << DebugPrint(result.GetRankingInfo());
+  os << "]";
+  return os.str();
 }
 
 // Results -----------------------------------------------------------------------------------------

@@ -33,7 +33,7 @@ public:
   // Metadata for search results. Considered valid if GetResultType() == Type::Feature.
   struct Metadata
   {
-    // Valid only if not empty, Used for restaurants.
+    // Valid only if not empty, used for restaurants.
     std::string m_cuisine;
 
     // Following fields are used for hotels only.
@@ -163,8 +163,8 @@ public:
 
   bool AddResult(Result && result);
 
-  // Fast version of AddResult() that doesn't do any duplicates
-  // checks.
+  // Fast version of AddResult() that doesn't do any checks for
+  // duplicates.
   void AddResultNoChecks(Result && result);
   void AddResultsNoChecks(ConstIter first, ConstIter last);
 
