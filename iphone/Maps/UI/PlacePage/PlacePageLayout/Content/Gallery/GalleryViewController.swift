@@ -41,6 +41,9 @@ final class GalleryViewController: MWMCollectionViewController {
     layout.minimumLineSpacing = spacing
     layout.minimumInteritemSpacing = spacing
     layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+    if #available(iOS 11.0, *) {
+      layout.sectionInsetReference = .fromSafeArea
+    }
   }
 
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
