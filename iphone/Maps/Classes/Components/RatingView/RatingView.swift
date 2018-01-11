@@ -330,6 +330,18 @@ import UIKit
     return viewSize
   }
 
+  override func mwm_refreshUI() {
+    super.mwm_refreshUI()
+    leftTextColor = leftTextColor.opposite()
+    rightTextColor = rightTextColor.opposite()
+    topTextColor = topTextColor.opposite()
+    bottomTextColor = bottomTextColor.opposite()
+    filledColor = filledColor.opposite()
+    emptyColor = emptyColor.opposite()
+    emptyBorderColor = emptyBorderColor.opposite()
+    filledBorderColor = filledBorderColor.opposite()
+  }
+
   private func createLayers() -> [CALayer] {
     return combineLayers(starLayers: createStarLayers(), textLayers: createTextLayers())
   }

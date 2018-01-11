@@ -143,7 +143,8 @@ UIColor * color(SEL cmd)
 - (UIColor *)opposite
 {
   NSString * key = [(isNightMode ? day : night) allKeysForObject:self].firstObject;
-  return key == nil ? nil : (isNightMode ? night : day)[key];
+  UIColor * color = (key == nil ? nil : (isNightMode ? night : day)[key]);
+  return color ?: self;
 }
 
 // Dark green color

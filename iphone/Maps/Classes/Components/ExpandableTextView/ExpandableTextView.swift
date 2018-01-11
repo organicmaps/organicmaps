@@ -135,6 +135,12 @@ import UIKit
     setup()
   }
 
+  override func mwm_refreshUI() {
+    super.mwm_refreshUI()
+    textColor = textColor?.opposite()
+    expandTextColor = expandTextColor?.opposite()
+  }
+
   private func setup() {
     layer.backgroundColor = UIColor.clear.cgColor
     isOpaque = true
