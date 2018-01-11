@@ -96,7 +96,7 @@ NSString * getVerifier(NSString * urlString)
     {
       dispatch_async(dispatch_get_main_queue(), ^{
         [self stopSpinner];
-        [self.alertController presentInternalErrorAlert];
+        [[MWMAlertViewController activeAlertController] presentInternalErrorAlert];
       });
       LOG(LWARNING, ("Can't loadAuthorizationPage", ex.what()));
     }
@@ -205,7 +205,7 @@ NSString * getVerifier(NSString * urlString)
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-  [self.alertController presentInternalErrorAlert];
+  [[MWMAlertViewController activeAlertController] presentInternalErrorAlert];
 }
 
 @end
