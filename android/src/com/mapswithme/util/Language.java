@@ -37,16 +37,20 @@ public class Language
   @NonNull
   public static String getKeyboardLocale()
   {
-    final InputMethodManager imm = (InputMethodManager) MwmApplication.get().getSystemService(Context.INPUT_METHOD_SERVICE);
-    if (imm != null)
-    {
-      final InputMethodSubtype ims = imm.getCurrentInputMethodSubtype();
-      if (ims != null && !TextUtils.isEmpty(ims.getLocale()))
-      {
-        return ims.getLocale();
-      }
-    }
+    Context context = MwmApplication.get();
+    InputMethodManager imm = (InputMethodManager) context
+        .getSystemService(Context.INPUT_METHOD_SERVICE);
+    if (imm == null)
+      return getDefaultLocale();
 
-    return getDefaultLocale();
+    final InputMethodSubtype ims = imm.getCurrentInputMethodSubtype();
+    if (ims == null)
+      return getDefaultLocale();
+
+    String locale = ims.getLocale();
+    if (TextUtils.isEmpty(locale.trim()))
+      return getDefaultLocale();
+
+    return locale;
   }
 }
