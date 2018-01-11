@@ -78,7 +78,6 @@ static NSString * const kStatDestination = @"Destination";
 static NSString * const kStatDeviceInfo = @"Device info";
 static NSString * const kStatDeviceType = @"Device type";
 static NSString * const kStatDiscovery = @"discovery";
-static NSString * const kStatDiscoveryButtonItemClick = @"DiscoveryButton_Item_Click";
 static NSString * const kStatDiscoveryButtonItemShow = @"DiscoveryButton_Item_Show";
 static NSString * const kStatDiscoveryButtonOpen = @"DiscoveryButton_Open";
 static NSString * const kStatDownload = @"download";

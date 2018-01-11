@@ -166,7 +166,7 @@ struct Callback
   }
 
   NSAssert(dest.length > 0, @"");
-  [Statistics logEvent:kStatDiscoveryButtonItemClick
+  [Statistics logEvent:kStatPlacepageSponsoredItemSelected
         withParameters:@{
           kStatProvider: StatProvider(type),
           kStatPlacement: kStatDiscovery,
@@ -190,7 +190,7 @@ struct Callback
   [MWMRouter buildToPoint:pt bestRouter:NO];
   [self.navigationController popViewControllerAnimated:YES];
 
-  [Statistics logEvent:kStatDiscoveryButtonItemClick
+  [Statistics logEvent:kStatPlacepageSponsoredItemSelected
         withParameters:@{
           kStatProvider: StatProvider(type),
           kStatPlacement: kStatDiscovery,

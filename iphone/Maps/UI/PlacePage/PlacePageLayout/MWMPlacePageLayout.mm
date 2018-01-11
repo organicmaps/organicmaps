@@ -608,7 +608,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     case taxi::Provider::Uber: provider = kStatUber; break;
     case taxi::Provider::Yandex: provider = kStatYandex; break;
     }
-    [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{kStatProvider : provider}];
+    [Statistics logEvent:kStatPlacepageTaxiShow
+          withParameters:@{kStatProvider: provider, kStatPlacement: kStatPlacePage}];
   });
 
   checkCell(self.viatorCell, ^{
@@ -620,7 +621,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
       NSAssert(NO, @"Viator is shown but items are empty.");
       return;
     }
-    [Statistics logEvent:kStatPlacepageSponsoredShow withParameters:@{kStatProvider : kStatViator}];
+    [Statistics logEvent:kStatPlacepageSponsoredShow
+          withParameters:@{kStatProvider: kStatViator, kStatPlacement: kStatPlacePage}];
   });
 
   checkCell(self.cianCell, ^{
