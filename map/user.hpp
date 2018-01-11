@@ -1,10 +1,6 @@
 #pragma once
 
-#include "base/worker_thread.hpp"
-
-#include <condition_variable>
 #include <functional>
-#include <map>
 #include <mutex>
 #include <string>
 #include <vector>
@@ -36,7 +32,6 @@ public:
   using CompleteUploadingHandler = std::function<void(bool)>;
 
   User();
-  ~User();
   void Authenticate(std::string const & socialToken, SocialTokenType socialTokenType);
   bool IsAuthenticated() const;
   void ResetAccessToken();
@@ -55,11 +50,12 @@ private:
   void Request(std::string const & url, BuildRequestHandler const & onBuildRequest,
                SuccessHandler const & onSuccess, ErrorHandler const & onError = nullptr);
 
+  void RequestImpl(std::string const & url, BuildRequestHandler const & onBuildRequest,
+                   SuccessHandler const & onSuccess, ErrorHandler const & onError,
+                   uint8_t attemptIndex, uint32_t waitingTimeInSeconds);
+
   std::string m_accessToken;
   mutable std::mutex m_mutex;
-  std::condition_variable m_condition;
-  bool m_needTerminate = false;
   bool m_authenticationInProgress = false;
   Details m_details;
-  base::WorkerThread m_workerThread;
 };
