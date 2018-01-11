@@ -53,6 +53,9 @@ bool BuildUgcMwmSection(std::string const & srcDbFilename, std::string const & m
     if (!translator.TranslateUGC(it->second, result))
       return;
 
+    if (result.IsEmpty())
+      return;
+
     content.emplace_back(featureId, result);
   });
 
