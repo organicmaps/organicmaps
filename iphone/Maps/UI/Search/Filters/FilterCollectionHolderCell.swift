@@ -22,6 +22,7 @@ final class FilterCollectionHolderCell: MWMTableViewCell {
     self.tableView = tableView
     layout()
     collectionView.allowsMultipleSelection = true
+    collectionView.reloadData()
   }
 
   override func awakeFromNib() {

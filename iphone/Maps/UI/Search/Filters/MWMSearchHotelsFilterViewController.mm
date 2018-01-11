@@ -237,7 +237,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 - (void)resetTypes
 {
   m_selectedTypes.clear();
-  [self.type.collectionView reloadData];
 }
 
 - (shared_ptr<search::hotels_filter::Rule>)rules
@@ -365,7 +364,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
     break;
   case Section::Rating:
     cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterRatingCell className] forIndexPath:indexPath];
-    if (!self.rating)
+    if (self.rating != cell)
     {
       self.rating = static_cast<MWMFilterRatingCell *>(cell);
       [self resetRating];
@@ -374,7 +373,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
     break;
   case Section::PriceCategory:
     cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterPriceCategoryCell className] forIndexPath:indexPath];
-    if (!self.price)
+    if (self.price != cell)
     {
       self.price = static_cast<MWMFilterPriceCategoryCell *>(cell);
       [self resetPriceCategory];
@@ -383,7 +382,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
     break;
   case Section::Type:
     cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterCollectionHolderCell className] forIndexPath:indexPath];
-    if (!self.type)
+    if (self.type != cell)
     {
       self.type = static_cast<MWMFilterCollectionHolderCell *>(cell);
       [self resetTypes];
