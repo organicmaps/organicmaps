@@ -26,6 +26,7 @@
 
 namespace search
 {
+struct BookmarksSearchParams;
 struct EverywhereSearchParams;
 struct ViewportSearchParams;
 }
@@ -116,6 +117,9 @@ public:
 
   // Search for maps by countries or cities.
   bool SearchInDownloader(storage::DownloaderSearchParams const & params);
+
+  // Search for bookmarks.
+  bool SearchInBookmarks(search::BookmarksSearchParams const & params);
 
   search::Engine & GetEngine() { return m_engine; }
   search::Engine const & GetEngine() const { return m_engine; }

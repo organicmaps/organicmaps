@@ -20,6 +20,7 @@ class Tracer;
 
 struct SearchParams
 {
+  static size_t const kDefaultNumBookmarksResults = 1000;
   static size_t const kDefaultNumResultsEverywhere = 30;
   static size_t const kDefaultNumResultsInViewport = 200;
 

@@ -50,7 +50,7 @@ private:
 class MemSearchIndexTest
 {
 public:
-  using Index = MemSearchIndex<Id, Doc>;
+  using Index = MemSearchIndex<Id>;
 
   void Add(Id const & id, Doc const & doc) { m_index.Add(id, doc); }
 

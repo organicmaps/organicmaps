@@ -11,6 +11,8 @@ set(
   bookmarks/data.hpp
   bookmarks/processor.cpp
   bookmarks/processor.hpp
+  bookmarks/results.hpp
+  bookmarks/types.hpp
   cancel_exception.hpp
   categories_cache.cpp
   categories_cache.hpp

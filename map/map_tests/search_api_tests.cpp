@@ -10,6 +10,7 @@
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_with_custom_mwms.hpp"
 
+#include "map/bookmarks_search_params.hpp"
 #include "map/search_api.hpp"
 #include "map/viewport_search_params.hpp"
 
@@ -128,5 +129,37 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
   ++stage;
   m_api.OnViewportChanged(m2::RectD(9, 9, 11, 11));
   future1.wait();
+}
+
+UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
+{
+  vector<pair<df::MarkID, BookmarkData>> marks;
+
+  marks.emplace_back(
+      0, BookmarkData("R&R dinner" /* name */, "cafe" /* type */,
+                      "They've got a cherry pie there that'll kill ya!" /* description */));
+  marks.emplace_back(1, BookmarkData("Silver Mustang Casino" /* name */, "casino" /* type */,
+                                     "Joyful place, owners Bradley and Rodney are very friendly!"));
+  marks.emplace_back(2, BookmarkData("Great Northern Hotel" /* name */, "hotel" /* type */,
+                                     "Clean place with a reasonable price" /* description */));
+  m_api.OnBookmarksCreated(marks);
+
+  promise<vector<df::MarkID>> promise;
+  auto future = promise.get_future();
+
+  BookmarksSearchParams params;
+  params.m_query = "gread silver hotel";
+  params.m_onResults = [&](vector<df::MarkID> const & results,
+                           BookmarksSearchParams::Status status) {
+    if (status != BookmarksSearchParams::Status::Completed)
+      return;
+    promise.set_value(results);
+  };
+
+  m_api.OnViewportChanged(m2::RectD(-1, -1, 1, 1));
+  m_api.SearchInBookmarks(params);
+
+  auto const ids = future.get();
+  TEST_EQUAL(ids, vector<df::MarkID>({2, 1}), ());
 }
 }  // namespace

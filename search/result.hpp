@@ -1,4 +1,5 @@
 #pragma once
+#include "search/bookmarks/results.hpp"
 #include "search/ranking_info.hpp"
 
 #include "indexer/feature_decl.hpp"
@@ -19,6 +20,9 @@
 namespace search
 {
 // Search result. Search returns a list of them, ordered by score.
+//
+// TODO (@y, @m): split this class to small classes by type, replace
+// Results::m_results by vectors corresponding to types.
 class Result
 {
 public:
@@ -168,6 +172,8 @@ public:
   void AddResultNoChecks(Result && result);
   void AddResultsNoChecks(ConstIter first, ConstIter last);
 
+  void AddBookmarkResult(bookmarks::Result const & result);
+
   void Clear();
 
   Iter begin() { return m_results.begin(); }
@@ -190,7 +196,9 @@ public:
     return m_results[i];
   }
 
-  void Swap(Results & rhs) { m_results.swap(rhs.m_results); }
+  bookmarks::Results const & GetBookmarksResults() const;
+
+  void Swap(Results & rhs);
 
 private:
   enum class Status
@@ -207,6 +215,7 @@ private:
   void InsertResult(std::vector<Result>::iterator where, Result && result);
 
   std::vector<Result> m_results;
+  bookmarks::Results m_bookmarksResults;
   Status m_status;
 };
 

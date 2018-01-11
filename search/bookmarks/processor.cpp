@@ -1,5 +1,7 @@
 #include "search/bookmarks/processor.hpp"
 
+#include "search/emitter.hpp"
+
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
@@ -20,6 +22,20 @@ namespace bookmarks
 {
 namespace
 {
+struct DocVecWrapper
+{
+  explicit DocVecWrapper(DocVec const & dv) : m_dv(dv) {}
+
+  template <typename Fn>
+  void ForEachToken(Fn && fn) const
+  {
+    for (size_t i = 0; i < m_dv.GetNumTokens(); ++i)
+      fn(StringUtf8Multilang::kDefaultCode, m_dv.GetToken(i));
+  }
+
+  DocVec const & m_dv;
+};
+
 struct RankingInfo
 {
   bool operator<(RankingInfo const & rhs) const
@@ -56,33 +72,43 @@ void FillRankingInfo(QueryVec & qv, IdfMap & idfs, DocVec const & dv, RankingInf
 }
 }  // namespace
 
+Processor::Processor(Emitter & emitter, my::Cancellable const & cancellable)
+  : m_emitter(emitter), m_cancellable(cancellable)
+{
+}
+
 void Processor::Add(Id const & id, Doc const & doc)
 {
   ASSERT_EQUAL(m_docs.count(id), 0, ());
 
-  m_index.Add(id, doc);
-
   DocVec::Builder builder;
   doc.ForEachToken(
       [&](int8_t /* lang */, strings::UniString const & token) { builder.Add(token); });
-  m_docs[id] = DocVec(builder);
+
+  DocVec const docVec(builder);
+
+  m_index.Add(id, DocVecWrapper(docVec));
+  m_docs[id] = docVec;
 }
 
-void Processor::Erase(Id const & id, Doc const & doc)
+void Processor::Erase(Id const & id)
 {
   ASSERT_EQUAL(m_docs.count(id), 1, ());
 
-  m_index.Erase(id, doc);
+  auto const & docVec = m_docs[id];
+  m_index.Erase(id, DocVecWrapper(docVec));
   m_docs.erase(id);
 }
 
-vector<Id> Processor::Search(QueryParams const & params) const
+void Processor::Search(QueryParams const & params) const
 {
   set<Id> ids;
   auto insertId = MakeInsertFunctor(ids);
 
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
   {
+    BailIfCancelled();
+
     auto const & token = params.GetToken(i);
     if (params.IsPrefixToken(i))
       Retrieve<strings::PrefixDFAModifier<strings::LevenshteinDFA>>(token, insertId);
@@ -96,6 +122,8 @@ vector<Id> Processor::Search(QueryParams const & params) const
   vector<IdInfoPair> idInfos;
   for (auto const & id : ids)
   {
+    BailIfCancelled();
+
     auto it = m_docs.find(id);
     ASSERT(it != m_docs.end(), ("Can't find retrieved doc:", id));
     auto const & doc = it->second;
@@ -106,12 +134,11 @@ vector<Id> Processor::Search(QueryParams const & params) const
     idInfos.emplace_back(id, info);
   }
 
+  BailIfCancelled();
   sort(idInfos.begin(), idInfos.end());
 
-  vector<Id> result;
   for (auto const & idInfo : idInfos)
-    result.emplace_back(idInfo.m_id);
-  return result;
+    m_emitter.AddBookmarkResult(bookmarks::Result(idInfo.m_id));
 }
 
 uint64_t Processor::GetNumDocs(strings::UniString const & token, bool isPrefix) const

@@ -91,14 +91,11 @@ public:
     m_typeIndices.resize(GetNumTokens());
   }
 
-  inline size_t GetNumTokens() const
-  {
-    return m_hasPrefix ? m_tokens.size() + 1: m_tokens.size();
-  }
+  size_t GetNumTokens() const { return m_hasPrefix ? m_tokens.size() + 1 : m_tokens.size(); }
 
-  inline bool LastTokenIsPrefix() const { return m_hasPrefix; }
+  bool LastTokenIsPrefix() const { return m_hasPrefix; }
 
-  inline bool IsEmpty() const { return GetNumTokens() == 0; }
+  bool IsEmpty() const { return GetNumTokens() == 0; }
   void Clear();
 
   bool IsCategorySynonym(size_t i) const;
@@ -114,14 +111,14 @@ public:
 
   void RemoveToken(size_t i);
 
-  inline Langs & GetLangs() { return m_langs; }
-  inline Langs const & GetLangs() const { return m_langs; }
-  inline bool LangExists(int8_t lang) const { return m_langs.Contains(lang); }
+  Langs & GetLangs() { return m_langs; }
+  Langs const & GetLangs() const { return m_langs; }
+  bool LangExists(int8_t lang) const { return m_langs.Contains(lang); }
 
-  inline void SetCategorialRequest(bool isCategorial) { m_isCategorialRequest = isCategorial; }
-  inline bool IsCategorialRequest() const { return m_isCategorialRequest; }
+  void SetCategorialRequest(bool isCategorial) { m_isCategorialRequest = isCategorial; }
+  bool IsCategorialRequest() const { return m_isCategorialRequest; }
 
-  inline int GetScale() const { return m_scale; }
+  int GetScale() const { return m_scale; }
 
 private:
   friend std::string DebugPrint(QueryParams const & params);

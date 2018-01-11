@@ -20,10 +20,11 @@ set(
   booking_filter_availability_params.hpp
   booking_filter_cache.cpp
   booking_filter_cache.hpp
-  bookmark_manager.cpp
-  bookmark_manager.hpp
   bookmark.cpp
   bookmark.hpp
+  bookmark_manager.cpp
+  bookmark_manager.hpp
+  bookmarks_search_params.hpp
   chart_generator.cpp
   chart_generator.hpp
   discovery/discovery_client_params.hpp

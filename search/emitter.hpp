@@ -7,19 +7,26 @@
 
 namespace search
 {
+namespace bookmarks
+{
+struct Result;
+}
+
 class Emitter
 {
 public:
-  inline void Init(SearchParams::OnResults onResults)
+  void Init(SearchParams::OnResults onResults)
   {
     m_onResults = onResults;
     m_results.Clear();
   }
 
-  inline bool AddResult(Result && res) { return m_results.AddResult(move(res)); }
-  inline void AddResultNoChecks(Result && res) { m_results.AddResultNoChecks(move(res)); }
+  bool AddResult(Result && res) { return m_results.AddResult(move(res)); }
+  void AddResultNoChecks(Result && res) { m_results.AddResultNoChecks(move(res)); }
 
-  inline void Emit()
+  void AddBookmarkResult(bookmarks::Result const & result) { m_results.AddBookmarkResult(result); }
+
+  void Emit()
   {
     if (m_onResults)
       m_onResults(m_results);
@@ -27,9 +34,9 @@ public:
       LOG(LERROR, ("OnResults is not set."));
   }
 
-  inline Results const & GetResults() const { return m_results; }
+  Results const & GetResults() const { return m_results; }
 
-  inline void Finish(bool cancelled)
+  void Finish(bool cancelled)
   {
     m_results.SetEndMarker(cancelled);
     if (m_onResults)

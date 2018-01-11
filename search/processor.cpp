@@ -155,6 +155,7 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   , m_preRanker(index, m_ranker)
   , m_geocoder(index, infoGetter, categories, m_preRanker, m_villagesCache,
                static_cast<my::Cancellable const &>(*this))
+  , m_bookmarksProcessor(m_emitter, static_cast<my::Cancellable const &>(*this))
 {
   // Current and input langs are to be set later.
   m_keywordsScorer.SetLanguages(
@@ -318,19 +319,25 @@ void Processor::LoadCitiesBoundaries()
 
 void Processor::LoadCountriesTree() { m_ranker.LoadCountriesTree(); }
 
-void Processor::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & /* marks */)
+void Processor::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
-  // TODO(@y): do something useful with marks.
+  for (auto const & idDoc : marks)
+    m_bookmarksProcessor.Add(idDoc.first /* id */, idDoc.second /* doc */);
 }
 
-void Processor::OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & /* marks */)
+void Processor::OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
-  // TODO(@y): do something useful with marks.
+  for (auto const & idDoc : marks)
+  {
+    m_bookmarksProcessor.Erase(idDoc.first /* id */);
+    m_bookmarksProcessor.Add(idDoc.first /* id */, idDoc.second /* doc */);
+  }
 }
 
-void Processor::OnBookmarksDeleted(vector<bookmarks::Id> const & /* marks */)
+void Processor::OnBookmarksDeleted(vector<bookmarks::Id> const & marks)
 {
-  // TODO(@y): do something useful with marks.
+  for (auto const & id : marks)
+    m_bookmarksProcessor.Erase(id);
 }
 
 Locales Processor::GetCategoryLocales() const
@@ -401,18 +408,25 @@ void Processor::Search(SearchParams const & params)
 
   try
   {
-    SearchCoordinates();
-
-    if (viewportSearch)
+    switch (params.m_mode)
     {
-      m_geocoder.GoInViewport();
-    }
-    else
-    {
-      if (m_tokens.empty())
-        m_ranker.SuggestStrings();
-
-      m_geocoder.GoEverywhere();
+    case Mode::Everywhere:  // fallthrough
+    case Mode::Viewport:    // fallthrough
+    case Mode::Downloader:
+      SearchCoordinates();
+      if (viewportSearch)
+      {
+        m_geocoder.GoInViewport();
+      }
+      else
+      {
+        if (m_tokens.empty())
+          m_ranker.SuggestStrings();
+        m_geocoder.GoEverywhere();
+      }
+      break;
+    case Mode::Bookmarks: SearchBookmarks(); break;
+    case Mode::Count: ASSERT(false, ("Invalid mode")); break;
     }
   }
   catch (CancelException const &)
@@ -437,7 +451,14 @@ void Processor::SearchCoordinates()
   m_emitter.Emit();
 }
 
-void Processor::InitParams(QueryParams & params)
+void Processor::SearchBookmarks() const
+{
+  QueryParams params;
+  InitParams(params);
+  m_bookmarksProcessor.Search(params);
+}
+
+void Processor::InitParams(QueryParams & params) const
 {
   if (m_prefix.empty())
     params.InitNoPrefix(m_tokens.begin(), m_tokens.end());

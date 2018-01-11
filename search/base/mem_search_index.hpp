@@ -20,7 +20,7 @@ namespace search
 {
 namespace base
 {
-template <typename Id, typename Doc>
+template <typename Id>
 class MemSearchIndex
 {
 public:
@@ -30,11 +30,13 @@ public:
   using Trie = ::base::MemTrie<Token, List>;
   using Iterator = trie::MemTrieIterator<Token, List>;
 
+  template <typename Doc>
   void Add(Id const & id, Doc const & doc)
   {
     ForEachToken(id, doc, [&](Token const & token) { m_trie.Add(token, id); });
   }
 
+  template <typename Doc>
   void Erase(Id const & id, Doc const & doc)
   {
     ForEachToken(id, doc, [&](Token const & token) { m_trie.Erase(token, id); });
@@ -76,7 +78,7 @@ private:
     return r;
   }
 
-  template <typename Fn>
+  template <typename Doc, typename Fn>
   void ForEachToken(Id const & id, Doc const & doc, Fn && fn)
   {
     doc.ForEachToken([&](int8_t lang, Token const & token) {

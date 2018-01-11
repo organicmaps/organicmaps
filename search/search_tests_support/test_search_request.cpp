@@ -90,8 +90,9 @@ void TestSearchRequest::SetUpResultParams()
     m_params.m_suggestsEnabled = false;
     m_params.m_needHighlighting = true;
     break;
-  case Mode::Viewport:  // fallthrough
-  case Mode::Downloader:
+  case Mode::Viewport:    // fallthrough
+  case Mode::Downloader:  // fallthrough
+  case Mode::Bookmarks:
     m_params.m_needAddress = false;
     m_params.m_suggestsEnabled = false;
     m_params.m_needHighlighting = false;

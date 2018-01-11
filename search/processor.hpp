@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/bookmarks/processor.hpp"
+#include "search/bookmarks/types.hpp"
 #include "search/categories_cache.hpp"
 #include "search/categories_set.hpp"
 #include "search/cities_boundaries_table.hpp"
@@ -82,7 +83,9 @@ public:
   // Tries to generate a (lat, lon) result from |m_query|.
   void SearchCoordinates();
 
-  void InitParams(QueryParams & params);
+  void SearchBookmarks() const;
+
+  void InitParams(QueryParams & params) const;
 
   void InitGeocoder(Geocoder::Params &geocoderParams,
                     SearchParams const &searchParams);
@@ -137,5 +140,7 @@ protected:
   Ranker m_ranker;
   PreRanker m_preRanker;
   Geocoder m_geocoder;
+
+  bookmarks::Processor m_bookmarksProcessor;
 };
 }  // namespace search

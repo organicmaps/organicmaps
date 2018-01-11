@@ -9,6 +9,7 @@ enum class Mode
   Everywhere,
   Viewport,
   Downloader,
+  Bookmarks,
   Count
 };
 

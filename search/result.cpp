@@ -223,9 +223,15 @@ void Results::AddResultsNoChecks(ConstIter first, ConstIter last)
   }
 }
 
+void Results::AddBookmarkResult(bookmarks::Result const & result)
+{
+  m_bookmarksResults.push_back(result);
+}
+
 void Results::Clear()
 {
   m_results.clear();
+  m_bookmarksResults.clear();
   m_status = Status::None;
 }
 
@@ -238,6 +244,17 @@ size_t Results::GetSuggestsCount() const
   while (i < m_results.size() && m_results[i].IsSuggest())
     ++i;
   return i;
+}
+
+bookmarks::Results const & Results::GetBookmarksResults() const
+{
+  return m_bookmarksResults;
+}
+
+void Results::Swap(Results & rhs)
+{
+  m_results.swap(rhs.m_results);
+  m_bookmarksResults.swap(rhs.m_bookmarksResults);
 }
 
 void Results::InsertResult(vector<Result>::iterator where, Result && result)

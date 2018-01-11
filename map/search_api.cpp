@@ -1,5 +1,6 @@
 #include "map/search_api.hpp"
 
+#include "map/bookmarks_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_params.hpp"
 
@@ -10,6 +11,7 @@
 #include "storage/downloader_search_params.hpp"
 
 #include "platform/preferred_languages.hpp"
+#include "platform/safe_callback.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -57,6 +59,8 @@ bookmarks::Id MarkIDToBookmarkId(df::MarkID id)
   return static_cast<bookmarks::Id>(id);
 }
 
+df::MarkID BookmarkIdToMarkID(bookmarks::Id id) { return static_cast<df::MarkID>(id); }
+
 void AppendBookmarkIdDocs(vector<pair<df::MarkID, BookmarkData>> const & marks,
                           vector<BookmarkIdDoc> & result)
 {
@@ -76,6 +80,52 @@ void AppendBookmarkIds(vector<df::MarkID> const & marks, vector<bookmarks::Id> &
   result.reserve(result.size() + marks.size());
   transform(marks.begin(), marks.end(), back_inserter(result), MarkIDToBookmarkId);
 }
+
+
+class BookmarksSearchCallback
+{
+public:
+  using OnResults = BookmarksSearchParams::OnResults;
+
+  template <typename Callback>
+  explicit BookmarksSearchCallback(Callback && onResults)
+    : m_onResults(std::forward<Callback>(onResults))
+  {
+  }
+
+  void operator()(Results const & results)
+  {
+    if (results.IsEndMarker())
+    {
+      if (results.IsEndedNormal())
+      {
+        m_status = BookmarksSearchParams::Status::Completed;
+      }
+      else
+      {
+        ASSERT(results.IsEndedCancelled(), ());
+        m_status = BookmarksSearchParams::Status::Cancelled;
+      }
+    }
+    else
+    {
+      ASSERT_EQUAL(m_status, BookmarksSearchParams::Status::InProgress, ());
+    }
+
+    auto const & rs = results.GetBookmarksResults();
+    ASSERT_LESS_OR_EQUAL(m_lastResultsSize, rs.size(), ());
+    for (; m_lastResultsSize < rs.size(); ++m_lastResultsSize)
+      m_results.push_back(BookmarkIdToMarkID(rs[m_lastResultsSize].m_id));
+    if (m_onResults)
+      m_onResults(m_results, m_status);
+  }
+
+private:
+  BookmarksSearchParams::Results m_results;
+  BookmarksSearchParams::Status m_status = BookmarksSearchParams::Status::InProgress;
+  size_t m_lastResultsSize = 0;
+  OnResults m_onResults;
+};
 }  // namespace
 
 SearchAPI::SearchAPI(Index & index, storage::Storage const & storage,
@@ -203,6 +253,35 @@ bool SearchAPI::SearchInDownloader(storage::DownloaderSearchParams const & param
 
   p.m_onResults = DownloaderSearchCallback(static_cast<DownloaderSearchCallback::Delegate &>(*this),
                                            m_index, m_infoGetter, m_storage, params);
+
+  return Search(p, true /* forceSearch */);
+}
+
+bool SearchAPI::SearchInBookmarks(search::BookmarksSearchParams const & params)
+{
+  m_sponsoredMode = SponsoredMode::None;
+
+  SearchParams p;
+  p.m_query = params.m_query;
+  p.m_position = m_delegate.GetCurrentPosition();
+  SetViewportIfPossible(p);  // Search request will be delayed if viewport is not available.
+  p.m_maxNumResults = SearchParams::kDefaultNumBookmarksResults;
+  p.m_mode = Mode::Bookmarks;
+  p.m_suggestsEnabled = false;
+  p.m_needAddress = false;
+
+  auto const onStarted = params.m_onStarted;
+  p.m_onStarted = [this, onStarted]() {
+    if (onStarted)
+      RunUITask([onStarted]() { onStarted(); });
+  };
+
+  auto const onResults = params.m_onResults;
+  p.m_onResults = BookmarksSearchCallback([this, onResults](
+      BookmarksSearchParams::Results const & results, BookmarksSearchParams::Status status) {
+    if (onResults)
+      RunUITask([onResults, results, status]() { onResults(results, status); });
+  });
 
   return Search(p, true /* forceSearch */);
 }
