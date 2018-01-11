@@ -4,6 +4,7 @@
 #include "base/macros.hpp"
 #include "base/worker_thread.hpp"
 
+#include <algorithm>
 #include <atomic>
 #include <condition_variable>
 #include <memory>
