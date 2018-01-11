@@ -233,7 +233,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (void)menuActionDownloadMaps
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatDownloadMaps}];
-  self.state = MWMBottomMenuStateInactive;
+  self.state = self.restoreState;
   [self.delegate actionDownloadMaps:MWMMapDownloaderModeDownloaded];
 }
 
@@ -301,6 +301,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
   [Statistics logEvent:kStatDiscoveryButtonOpen
         withParameters:@{kStatNetwork: [Statistics connectionTypeToString:connectionType]}];
+
+  self.state = self.restoreState;
 
   auto discovery = [MWMDiscoveryController instance];
   using namespace network_policy;
