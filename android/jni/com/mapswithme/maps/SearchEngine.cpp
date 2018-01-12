@@ -305,10 +305,8 @@ private:
   bool m_initialized = false;
 } g_bookingAvailabilityParamsBuilder;
 
-// TODO yunitsky
-// Do not cache search results here, after new search will be implemented.
-// Currently we cannot serialize FeatureID of search result properly.
-// Cache is needed to show results on the map after click in the list of results.
+// This cache is needed only for showing a specific result on the map after click on the list item.
+// Don't use it with another intentions!
 Results g_results;
 
 // Timestamp of last search query. Results with older stamps are ignored.
@@ -579,12 +577,6 @@ extern "C"
   Java_com_mapswithme_maps_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)
   {
     g_framework->NativeFramework()->ShowSearchResult(g_results[index]);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_search_SearchEngine_nativeShowAllResults(JNIEnv * env, jclass clazz)
-  {
-    g_framework->NativeFramework()->ShowSearchResults(g_results);
   }
 
   JNIEXPORT void JNICALL

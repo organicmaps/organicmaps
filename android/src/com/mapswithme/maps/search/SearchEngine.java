@@ -1,6 +1,7 @@
 package com.mapswithme.maps.search;
 
-import java.io.UnsupportedEncodingException;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.api.ParsedMwmRequest;
@@ -9,8 +10,7 @@ import com.mapswithme.util.Language;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.concurrency.UiThread;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import java.io.UnsupportedEncodingException;
 
 public enum SearchEngine implements NativeSearchListener,
                                     NativeMapSearchListener,
@@ -19,6 +19,7 @@ public enum SearchEngine implements NativeSearchListener,
   INSTANCE;
 
   // Query, which results are shown on the map.
+  @Nullable
   private static String sSavedQuery;
 
   @Override
@@ -145,6 +146,12 @@ public enum SearchEngine implements NativeSearchListener,
     } catch (UnsupportedEncodingException ignored) { }
   }
 
+  public static void setQuery(@Nullable String query)
+  {
+    sSavedQuery = query;
+  }
+
+  @Nullable
   public static String getQuery()
   {
     return sSavedQuery;
@@ -181,12 +188,6 @@ public enum SearchEngine implements NativeSearchListener,
     nativeShowResult(index);
   }
 
-  public static void showAllResults(String query)
-  {
-    sSavedQuery = query;
-    nativeShowAllResults();
-  }
-
   /**
    * @param bytes utf-8 formatted bytes of query.
    */
@@ -208,8 +209,6 @@ public enum SearchEngine implements NativeSearchListener,
   private static native void nativeRunSearchMaps(byte[] bytes, String language, long timestamp);
 
   private static native void nativeShowResult(int index);
-
-  private static native void nativeShowAllResults();
 
   public static native void nativeCancelInteractiveSearch();
 

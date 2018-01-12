@@ -591,7 +591,7 @@ public class SearchFragment extends BaseMwmFragment
                ? mInitialLocale : com.mapswithme.util.Language.getKeyboardLocale(),
         mLastQueryTimestamp, false /* isMapAndTable */,
         hotelsFilter, bookingFilterParams);
-    SearchEngine.showAllResults(query);
+    SearchEngine.setQuery(query);
     Utils.navigateToParent(getActivity());
 
     Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);

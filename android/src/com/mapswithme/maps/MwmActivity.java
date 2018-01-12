@@ -593,7 +593,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                    false /* isMapAndTable */,
                                    mFilterController != null ? mFilterController.getFilter() : null,
                                    mFilterController != null ? mFilterController.getBookingFilterParams() : null);
-    SearchEngine.showAllResults(mSearchController.getQuery());
+    SearchEngine.setQuery(mSearchController.getQuery());
   }
 
   private void initPositionChooser()
