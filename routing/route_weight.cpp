@@ -24,43 +24,43 @@ namespace routing
 {
 double RouteWeight::ToCrossMwmWeight() const
 {
-  if (m_nonPassThroughCross > 0 || m_numAccessChanges > 0)
+  if (m_numPassThroughChanges > 0 || m_numAccessChanges > 0)
     return connector::kNoRoute;
   return GetWeight();
 }
 
 RouteWeight RouteWeight::operator+(RouteWeight const & rhs) const
 {
-  ASSERT(!SumWillOverflow(m_nonPassThroughCross, rhs.m_nonPassThroughCross),
-         (m_nonPassThroughCross, rhs.m_nonPassThroughCross));
+  ASSERT(!SumWillOverflow(m_numPassThroughChanges, rhs.m_numPassThroughChanges),
+         (m_numPassThroughChanges, rhs.m_numPassThroughChanges));
   ASSERT(!SumWillOverflow(m_numAccessChanges, rhs.m_numAccessChanges),
          (m_numAccessChanges, rhs.m_numAccessChanges));
-  return RouteWeight(m_weight + rhs.m_weight, m_nonPassThroughCross + rhs.m_nonPassThroughCross,
+  return RouteWeight(m_weight + rhs.m_weight, m_numPassThroughChanges + rhs.m_numPassThroughChanges,
                      m_numAccessChanges + rhs.m_numAccessChanges,
                      m_transitTime + rhs.m_transitTime);
 }
 
 RouteWeight RouteWeight::operator-(RouteWeight const & rhs) const
 {
-  ASSERT_NOT_EQUAL(m_nonPassThroughCross, std::numeric_limits<int32_t>::min(), ());
+  ASSERT_NOT_EQUAL(m_numPassThroughChanges, std::numeric_limits<int32_t>::min(), ());
   ASSERT_NOT_EQUAL(m_numAccessChanges, std::numeric_limits<int32_t>::min(), ());
-  ASSERT(!SumWillOverflow(m_nonPassThroughCross, -rhs.m_nonPassThroughCross),
-         (m_nonPassThroughCross, -rhs.m_nonPassThroughCross));
+  ASSERT(!SumWillOverflow(m_numPassThroughChanges, -rhs.m_numPassThroughChanges),
+         (m_numPassThroughChanges, -rhs.m_numPassThroughChanges));
   ASSERT(!SumWillOverflow(m_numAccessChanges, -rhs.m_numAccessChanges),
          (m_numAccessChanges, -rhs.m_numAccessChanges));
-  return RouteWeight(m_weight - rhs.m_weight, m_nonPassThroughCross - rhs.m_nonPassThroughCross,
+  return RouteWeight(m_weight - rhs.m_weight, m_numPassThroughChanges - rhs.m_numPassThroughChanges,
                      m_numAccessChanges - rhs.m_numAccessChanges,
                      m_transitTime - rhs.m_transitTime);
 }
 
 RouteWeight & RouteWeight::operator+=(RouteWeight const & rhs)
 {
-  ASSERT(!SumWillOverflow(m_nonPassThroughCross, rhs.m_nonPassThroughCross),
-         (m_nonPassThroughCross, rhs.m_nonPassThroughCross));
+  ASSERT(!SumWillOverflow(m_numPassThroughChanges, rhs.m_numPassThroughChanges),
+         (m_numPassThroughChanges, rhs.m_numPassThroughChanges));
   ASSERT(!SumWillOverflow(m_numAccessChanges, rhs.m_numAccessChanges),
          (m_numAccessChanges, rhs.m_numAccessChanges));
   m_weight += rhs.m_weight;
-  m_nonPassThroughCross += rhs.m_nonPassThroughCross;
+  m_numPassThroughChanges += rhs.m_numPassThroughChanges;
   m_numAccessChanges += rhs.m_numAccessChanges;
   m_transitTime += rhs.m_transitTime;
   return *this;
@@ -68,14 +68,14 @@ RouteWeight & RouteWeight::operator+=(RouteWeight const & rhs)
 
 ostream & operator<<(ostream & os, RouteWeight const & routeWeight)
 {
-  os << "(" << routeWeight.GetNonPassThroughCross() << ", " << routeWeight.GetNumAccessChanges()
+  os << "(" << routeWeight.GetNumPassThroughChanges() << ", " << routeWeight.GetNumAccessChanges()
      << ", " << routeWeight.GetWeight() << ", " << routeWeight.GetTransitTime() << ")";
   return os;
 }
 
 RouteWeight operator*(double lhs, RouteWeight const & rhs)
 {
-  return RouteWeight(lhs * rhs.GetWeight(), rhs.GetNonPassThroughCross(), rhs.GetNumAccessChanges(),
-                     lhs * rhs.GetTransitTime());
+  return RouteWeight(lhs * rhs.GetWeight(), rhs.GetNumPassThroughChanges(),
+                     rhs.GetNumAccessChanges(), lhs * rhs.GetTransitTime());
 }
 }  // namespace routing

@@ -56,14 +56,14 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment) const
   if (IsGate(segment))
   {
     auto const weight = GetGate(segment).GetWeight();
-    return RouteWeight(weight /* weight */, 0 /* nonPassThroughCross */, 0 /* numAccessChanges */,
+    return RouteWeight(weight /* weight */, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
                        weight /* transitTime */);
   }
 
   if (IsEdge(segment))
   {
     auto const weight = GetEdge(segment).GetWeight();
-    return RouteWeight(weight /* weight */, 0 /* nonPassThrougCross */, 0 /* numAccessChanges */,
+    return RouteWeight(weight /* weight */, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
                        weight /* transitTime */);
   }
 
