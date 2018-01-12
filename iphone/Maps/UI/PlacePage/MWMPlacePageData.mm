@@ -517,12 +517,15 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   {
     auto const bac = m_info.GetBookmarkAndCategory();
     auto category = bmManager.GetBmCategory(bac.m_categoryIndex);
-    f.ResetBookmarkInfo(*static_cast<Bookmark const *>(category->GetUserMark(bac.m_bookmarkIndex)),
-                        m_info);
-    NSAssert(category, @"Category can't be nullptr!");
-    category->DeleteUserMark(bac.m_bookmarkIndex);
-    category->NotifyChanges();
-    category->SaveToKMLFile();
+    if (category)
+    {
+      f.ResetBookmarkInfo(*static_cast<Bookmark const *>(category->GetUserMark(bac.m_bookmarkIndex)),
+                          m_info);
+
+      category->DeleteUserMark(bac.m_bookmarkIndex);
+      category->NotifyChanges();
+      category->SaveToKMLFile();
+    }
 
     m_sections.erase(remove(m_sections.begin(), m_sections.end(), Sections::Bookmark));
   }
