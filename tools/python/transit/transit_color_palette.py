@@ -96,7 +96,7 @@ def cie94(ref_color, src_color):
 class Palette:
     def __init__(self, colors):
         self.colors = {}
-        for name, color_info in colors['colors'].iteritems():
+        for name, color_info in colors['colors'].items():
             self.colors[name] = to_rgb(color_info['clear'])
 
     def get_default_color(self):
@@ -111,7 +111,7 @@ class Palette:
         min_diff = None
 
         bluish = is_bluish(color)
-        for name, palette_color in self.colors.iteritems():
+        for name, palette_color in self.colors.items():
             # Uncomment if you want to exclude duplicates.
             #if name in excluded_names:
             #    continue

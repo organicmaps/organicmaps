@@ -1,16 +1,12 @@
-#!/usr/bin/env python2.7
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 # Generates transit graph for MWM transit section generator.
 # Also shows preview of transit scheme lines.
 import argparse
 import copy
 import json
 import math
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
 import numpy as np
 import os.path
-import sys, io
 
 import bezier_curves
 import transit_color_palette
@@ -227,7 +223,7 @@ class TransitGraphBuilder:
         if c != self.palette.get_default_color():
             self.matched_colors[matched_colors_key] = c
         return c
-            
+
     def __generate_transfer_nodes(self):
         """Merges stops into transfer nodes."""
         for edge in self.edges:
@@ -331,14 +327,15 @@ class TransitGraphBuilder:
 
         self.transit_graph = {'networks': self.networks,
                               'lines': self.lines,
-                              'gates': self.gates.values(),
-                              'stops': self.stops.values(),
-                              'transfers': self.transfers.values(),
+                              'gates': list(self.gates.values()),
+                              'stops': list(self.stops.values()),
+                              'transfers': list(self.transfers.values()),
                               'shapes': self.shapes,
                               'edges': self.edges}
         return self.transit_graph
 
     def show_preview(self):
+        import matplotlib.pyplot as plt
         for (s1, s2), info in self.segments.items():
             plt.plot(info['curve'][:, 0], info['curve'][:, 1], 'g')
         for stop in self.stops.values():
@@ -358,6 +355,8 @@ class TransitGraphBuilder:
         plt.show()
 
     def show_color_maching_table(self, title, colors_ref_table):
+        import matplotlib.pyplot as plt
+        import matplotlib.patches as patches
         fig = plt.figure()
         ax = fig.add_subplot(111, aspect='equal')
         plt.title(title)
@@ -413,16 +412,16 @@ if __name__ == '__main__':
     name, extension = os.path.splitext(tail)
     if output_file is None:
         output_file = os.path.join(head, name + '.transit' + extension)
-    with io.open(output_file, 'w', encoding='utf8') as json_file:
+    with open(output_file, 'w') as json_file:
         result_data = json.dumps(result, ensure_ascii=False, indent=4, sort_keys=True)
-        json_file.write(unicode(result_data))
-    print 'Transit graph generated:', output_file
+        json_file.write(result_data)
+    print('Transit graph generated:', output_file)
 
     if args.preview:
         transit.show_preview()
 
     if args.matched_colors:
         colors_ref_table = {}
-        for color_name, color_info in colors['colors'].iteritems():
+        for color_name, color_info in colors['colors'].items():
             colors_ref_table[color_name] = color_info['clear']
         transit.show_color_maching_table(name, colors_ref_table)
