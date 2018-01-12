@@ -77,9 +77,6 @@ source "$OMIM_PATH/tools/autobuild/detect_cmake.sh"
 
 # OS-specific parameters
 if [ "$(uname -s)" == "Darwin" ]; then
-  [ -n "$OPT_DESIGNER" -a "$(id -u)" != "0" ] \
-  && echo "To build designer tool you have to run this script with sudo" \
-  && exit 2
   PROCESSES=$(sysctl -n hw.ncpu)
 else
   [ -n "$OPT_DESIGNER" ] \

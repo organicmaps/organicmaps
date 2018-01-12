@@ -10,6 +10,11 @@ set(
   style_symbols_consistency_test.cpp
 )
 
+
+if (BUILD_DESIGNER)
+  set(SRC MACOSX_BUNDLE ${SRC})
+endif()
+
 omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(

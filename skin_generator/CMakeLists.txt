@@ -18,6 +18,10 @@ set(
   main.cpp
 )
 
+if (BUILD_DESIGNER)
+  set(SRC MACOSX_BUNDLE ${SRC})
+endif()
+
 omim_add_executable(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
@@ -34,4 +38,3 @@ omim_link_libraries(
   ${Qt5Svg_LIBRARIES}
   ${LIBZ}
 )
-

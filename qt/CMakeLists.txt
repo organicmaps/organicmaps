@@ -213,17 +213,6 @@ if (PLATFORM_MAC)
   )
 endif()
 
-function(omim_append_built_tools)
-  foreach(tool ${ARGN})
-    add_custom_command(
-      TARGET ${PROJECT_NAME}
-      POST_BUILD
-      DEPENDS ${tool}
-      COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/${tool} ${RESOURCES_FOLDER}
-    )
-  endforeach()
-endfunction()
-
 if (BUILD_DESIGNER)
   execute_process(
     COMMAND cp -rf ${OMIM_ROOT}/data/resources-mdpi_clear/ ${OMIM_ROOT}/data/resources-mdpi_design/
@@ -249,15 +238,6 @@ if (BUILD_DESIGNER)
     resources-6plus_design
   )
 
-  omim_append_built_tools(
-    generator_tool
-    skin_generator_tool
-  )
-
-  if (NOT SKIP_TESTS)
-    omim_append_built_tools(style_tests)
-  endif()
-
   execute_process(
     COMMAND cp ${OMIM_ROOT}/tools/python/recalculate_geom_index.py ${RESOURCES_FOLDER}
     COMMAND cp ${OMIM_ROOT}/tools/python/generate_styles_override.py ${RESOURCES_FOLDER}
@@ -269,17 +249,25 @@ if (BUILD_DESIGNER)
 
   # Generate DMG
   install(DIRECTORY ${DATA_DIR}/styles DESTINATION .)
+  set(
+    BUNDLES
+    ${CMAKE_BINARY_DIR}/generator_tool.app
+    ${CMAKE_BINARY_DIR}/skin_generator_tool.app
+    ${CMAKE_BINARY_DIR}/style_tests.app
+  )
   install(CODE "
-    execute_process(
-      COMMAND macdeployqt \"${BUNDLE_FOLDER}\"
-    )
-    file(WRITE \"${RESOURCES_FOLDER}/qt.conf\" \"\")
-    file(GLOB_RECURSE QTPLUGINS
-    \"${BUNDLE_FOLDER}/Contents/PlugIns/*/*${CMAKE_SHARED_LIBRARY_SUFFIX}\"
-     )
-    include(BundleUtilities)
-    fixup_bundle(\"${BUNDLE_FOLDER}\" \"\${QTPLUGINS}\" \"${Qt5_DIR}/lib\")
-    ")
+    foreach(BUNDLE ${BUNDLE_FOLDER} ${BUNDLES})
+      execute_process(
+        COMMAND \"${QT_PATH}/bin/macdeployqt\" \"\${BUNDLE}\"
+        COMMAND python \"${OMIM_ROOT}/tools/macdeployqtfix/macdeployqtfix.py\" -q -nl \"\${BUNDLE}\" \"${QT_PATH}\"
+      )
+    endforeach()
+    foreach(BUNDLE ${BUNDLES})
+      execute_process(
+        COMMAND cp -rf \"\${BUNDLE}\" \"${RESOURCES_FOLDER}\"
+      )
+    endforeach()
+  ")
   install(TARGETS ${PROJECT_NAME} DESTINATION .)
 
   set(CPACK_GENERATOR DragNDrop)
