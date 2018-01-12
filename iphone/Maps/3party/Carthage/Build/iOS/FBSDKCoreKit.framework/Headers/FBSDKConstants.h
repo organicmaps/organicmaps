@@ -148,7 +148,7 @@ FBSDK_EXTERN NSString *const FBSDKErrorArgumentCollectionKey;
 FBSDK_EXTERN NSString *const FBSDKErrorArgumentNameKey;
 
 /**
-  The userInfo key for the invalid argument value for errors with FBSDKInvalidArgumentErrorCode.
+ The userInfo key for the invalid argument value for errors with FBSDKInvalidArgumentErrorCode.
  */
 FBSDK_EXTERN NSString *const FBSDKErrorArgumentValueKey;
 

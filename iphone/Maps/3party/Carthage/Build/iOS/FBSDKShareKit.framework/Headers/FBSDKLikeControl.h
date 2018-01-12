@@ -88,16 +88,16 @@ FBSDK_EXTERN NSString *NSStringFromFBSDKLikeControlStyle(FBSDKLikeControlStyle s
 
 
  Taps on the like button within this control will invoke an API call to the Facebook app through a
- fast-app-switch that allows the user to like the object.  Upon return to the calling app, the view
- will update with the new state and send actions for the UIControlEventValueChanged event.
+ fast-app-switch that allows the user to like the object.  Upon return to the calling app, the view will update
+ with the new state and send actions for the UIControlEventValueChanged event.
  */
-__attribute__((deprecated)) @interface FBSDKLikeControl
-  : UIControl<FBSDKLiking>
+__attribute__ ((deprecated))
+@interface FBSDKLikeControl : UIControl <FBSDKLiking>
 
-    /**
-      The foreground color to use for the content of the receiver.
-     */
-    @property(nonatomic, strong) UIColor * foregroundColor;
+/**
+  The foreground color to use for the content of the receiver.
+ */
+@property (nonatomic, strong) UIColor *foregroundColor;
 
 /**
   The position for the auxiliary view for the receiver.

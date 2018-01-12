@@ -48,6 +48,7 @@ typedef NS_ENUM(NSUInteger, BFIncludeStatusBarInSize) {
  rather than navigating away. If the view is provided an App Link that does not contain
  referer data, it will have zero size and no UI will be displayed.
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Not available in app extension")
 @interface BFAppLinkReturnToRefererView : UIView
 
 /*!

@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, BFAppLinkNavigationType) {
  custom requests with additional navigation and app data attached to them by
  creating BFAppLinkNavigations themselves.
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Not available in app extension")
 @interface BFAppLinkNavigation : NSObject
 
 /*!

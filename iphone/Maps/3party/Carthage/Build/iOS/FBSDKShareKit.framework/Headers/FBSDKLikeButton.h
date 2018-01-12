@@ -27,19 +27,19 @@
   Warning: This class is deprecated.
   A button to like an object.
 
- Tapping the receiver will invoke an API call to the Facebook app through a fast-app-switch that
- allows the object to be liked.  Upon return to the calling app, the view will update with the new
- state.  If the currentAccessToken has "publish_actions" permission and the object is an Open Graph
- object, then the like can happen seamlessly without the fast-app-switch.
+ Tapping the receiver will invoke an API call to the Facebook app through a fast-app-switch that allows
+ the object to be liked.  Upon return to the calling app, the view will update with the new state.  If the
+ currentAccessToken has "publish_actions" permission and the object is an Open Graph object, then the like can happen
+ seamlessly without the fast-app-switch.
  */
-__attribute__((deprecated)) @interface FBSDKLikeButton
-  : FBSDKButton<FBSDKLiking>
+__attribute__ ((deprecated))
+@interface FBSDKLikeButton : FBSDKButton <FBSDKLiking>
 
-    /**
-      If YES, a sound is played when the receiver is toggled.
+/**
+  If YES, a sound is played when the receiver is toggled.
 
-     @default YES
-     */
-    @property(nonatomic, assign, getter = isSoundEnabled) BOOL soundEnabled;
+ @default YES
+ */
+@property (nonatomic, assign, getter = isSoundEnabled) BOOL soundEnabled;
 
 @end

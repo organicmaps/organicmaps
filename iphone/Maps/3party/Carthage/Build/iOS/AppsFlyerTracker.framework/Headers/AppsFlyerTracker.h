@@ -2,7 +2,7 @@
 //  AppsFlyerTracker.h
 //  AppsFlyerLib
 //
-//  AppsFlyer iOS SDK 4.8.1 (602)
+//  AppsFlyer iOS SDK 4.8.2 (617)
 //  Copyright (c) 2013 AppsFlyer Ltd. All rights reserved.
 //
 
@@ -36,7 +36,7 @@
 #define AFEventOpenedFromPushNotification @"af_opened_from_push_notification"
 #define AFEventLocation                 @"af_location_coordinates"
 #define AFEventCustomerSegment          @"af_customer_segment"
-
+#define AFEventContent                  @"af_content"
 
 
 // In app event parameter names
@@ -150,13 +150,7 @@ typedef enum  {
 @end
 
 @interface AppsFlyerTracker : NSObject {
-
-    BOOL _isDebug;
     BOOL permitAggregateiAdData;
-    BOOL _useReceiptValidationSandbox;
-    BOOL _useUninstallSandbox;
-    EmailCryptType emailCryptType;
-    NSArray *userEmails;
 }
 
 +(AppsFlyerTracker*) sharedTracker;
@@ -179,10 +173,6 @@ typedef enum  {
  * The currency code is a 3 letter code according to ISO standards. Example: "USD"
  */
 @property (nonatomic, strong) NSString *currencyCode;
-
-
-/* AppsFlyer's SDK send the data to AppsFlyer's servers over HTTPS. You can set the isHTTPS property to NO in order to use regular HTTP. */
-//@property BOOL isHTTPS;
 
 /* 
  * AppsFLyer SDK collect Apple's advertisingIdentifier if the AdSupport framework included in the SDK.
@@ -293,12 +283,12 @@ typedef enum  {
 /*
  * In case you want to track deep linking, call this method from your delegate's openURL method.
  */
-- (void) handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication __attribute__((deprecated));
+- (void) handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication;
 
 /*
  * In case you want to track deep linking, call this method from your delegate's openURL method with refferer.
  */
-- (void) handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication withAnnotation:(id) annotation __attribute__((deprecated));
+- (void) handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication withAnnotation:(id) annotation;
 
 
 - (void) handleOpenUrl:(NSURL *) url options:(NSDictionary *)options;
@@ -324,11 +314,6 @@ typedef enum  {
 
 
 - (void) remoteDebuggingCallWithData:(NSString *) data;
-
-//- (void) crossPromotionViewed:(NSString*) appID campaign:(NSString*) campaign;
-//- (void) openAppStoreForAppID:(NSString*) appID campaign:(NSString*)
-//campaign paramters:(NSDictionary*) parameters
-//               viewController: (UIViewController*) viewController;
 
 /*!
  *  @brief This property accepts a string value representing the host name for all enpoints.

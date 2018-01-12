@@ -16,34 +16,22 @@
 /////////////////////////////////////////////////////////////////////////
 #pragma mark - Properties
 /////////////////////////////////////////////////////////////////////////
-@property(nonatomic, strong) id<ActionSheetCustomPickerDelegate> delegate;
+@property(nonatomic, strong) id <ActionSheetCustomPickerDelegate> delegate;
+
 
 /////////////////////////////////////////////////////////////////////////
 #pragma mark - Init Methods
 /////////////////////////////////////////////////////////////////////////
 
 /** Designated init */
-- (instancetype)initWithTitle:(NSString *)title
-                     delegate:(id<ActionSheetCustomPickerDelegate>)delegate
-             showCancelButton:(BOOL)showCancelButton
-                       origin:(id)origin;
+- (instancetype)initWithTitle:(NSString *)title delegate:(id <ActionSheetCustomPickerDelegate>)delegate showCancelButton:(BOOL)showCancelButton origin:(id)origin;
 
-- (instancetype)initWithTitle:(NSString *)title
-                     delegate:(id<ActionSheetCustomPickerDelegate>)delegate
-             showCancelButton:(BOOL)showCancelButton
-                       origin:(id)origin
-            initialSelections:(NSArray *)initialSelections;
+- (instancetype)initWithTitle:(NSString *)title delegate:(id <ActionSheetCustomPickerDelegate>)delegate showCancelButton:(BOOL)showCancelButton origin:(id)origin initialSelections:(NSArray *)initialSelections;
 
 /** Convenience class method for creating an launched */
-+ (instancetype)showPickerWithTitle:(NSString *)title
-                           delegate:(id<ActionSheetCustomPickerDelegate>)delegate
-                   showCancelButton:(BOOL)showCancelButton
-                             origin:(id)origin;
++ (instancetype)showPickerWithTitle:(NSString *)title delegate:(id <ActionSheetCustomPickerDelegate>)delegate showCancelButton:(BOOL)showCancelButton origin:(id)origin;
 
-+ (instancetype)showPickerWithTitle:(NSString *)title
-                           delegate:(id<ActionSheetCustomPickerDelegate>)delegate
-                   showCancelButton:(BOOL)showCancelButton
-                             origin:(id)origin
-                  initialSelections:(NSArray *)initialSelections;
++ (instancetype)showPickerWithTitle:(NSString *)title delegate:(id <ActionSheetCustomPickerDelegate>)delegate showCancelButton:(BOOL)showCancelButton origin:(id)origin initialSelections:(NSArray *)initialSelections;
+
 
 @end

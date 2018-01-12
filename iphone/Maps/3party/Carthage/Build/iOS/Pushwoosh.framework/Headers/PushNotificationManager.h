@@ -12,7 +12,8 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
-#define PUSHWOOSH_VERSION @"5.5.1"
+#define PUSHWOOSH_VERSION @"5.5.3"
+
 
 @class PushNotificationManager;
 
@@ -364,10 +365,9 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 - (void)handlePushRegistration:(NSData *)devToken;
 - (void)handlePushRegistrationString:(NSString *)deviceID;
 
-//internal
 - (void)handlePushRegistrationFailure:(NSError *)error;
 
-//if the push is received while the app is running. internal
+//if the push is received while the app is running.
 - (BOOL)handlePushReceived:(NSDictionary *)userInfo;
 
 /**

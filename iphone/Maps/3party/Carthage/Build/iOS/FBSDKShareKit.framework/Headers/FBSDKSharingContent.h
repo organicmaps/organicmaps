@@ -62,4 +62,16 @@
  */
 @property (nonatomic, copy) NSString *ref;
 
+/**
+ For shares into Messenger, this pageID will be used to map the app to page and attach attribution to the share.
+ - Returns: The ID of the Facebok page this share is associated with.
+ */
+@property (nonatomic, copy) NSString *pageID;
+
+/**
+ A unique identifier for a share involving this content, useful for tracking purposes.
+ - Returns: A unique string identifying this share data.
+ */
+@property (nonatomic, copy, readonly) NSString *shareUUID;
+
 @end
