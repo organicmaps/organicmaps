@@ -177,13 +177,6 @@ string MakeSearchBookingUrl(booking::Api const & bookingApi, search::CityFinder 
 
   return bookingApi.GetSearchUrl(city, name);
 }
-
-bool IsCianMode(string query)
-{
-  strings::Trim(query);
-  strings::AsciiToLower(query);
-  return query == "cian";
-}
 }  // namespace
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
