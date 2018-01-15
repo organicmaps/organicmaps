@@ -477,6 +477,10 @@ bool UserEventStream::SetScreen(ScreenBase const & endScreen, bool isAnim, TAnim
       if (moveDuration > kMaxAnimationTimeSec)
         anim = GetPrettyMoveAnimation(screen, endScreen);
     }
+    else
+    {
+      anim->SetMaxDuration(kMaxAnimationTimeSec);
+    }
 
     if (anim != nullptr)
     {
