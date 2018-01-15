@@ -143,6 +143,7 @@ final class MopubBanner: NSObject, Banner {
     let config = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)!
     request = MPNativeAdRequest(adUnitIdentifier: placementID, rendererConfigurations: [config])
     let targeting = MPNativeAdRequestTargeting()
+    targeting.keywords = "user_lang:\(AppInfo.shared().twoLetterLanguageId)"
     targeting.desiredAssets = [kAdTitleKey, kAdTextKey, kAdIconImageKey, kAdCTATextKey]
     if let location = MWMLocationManager.lastLocation() {
       targeting.location = location
