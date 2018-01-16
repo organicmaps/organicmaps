@@ -81,6 +81,7 @@ set(
   com/mapswithme/platform/SocketImpl.cpp
   com/mapswithme/util/Config.cpp
   com/mapswithme/util/HttpClient.cpp
+  com/mapswithme/util/Language.cpp
   com/mapswithme/util/LoggerFactory.cpp
   com/mapswithme/util/NetworkPolicy.cpp
   com/mapswithme/util/StringUtils.cpp

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.util.Language;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mopub.nativeads.BaseNativeAd;
@@ -57,11 +58,14 @@ class MopubNativeDownloader extends CachingNativeAdLoader
                    RequestParameters.NativeAdAsset.TEXT,
                    RequestParameters.NativeAdAsset.CALL_TO_ACTION_TEXT,
                    RequestParameters.NativeAdAsset.ICON_IMAGE);
+    requestParameters.desiredAssets(assetsSet);
 
     Location l = LocationHelper.INSTANCE.getSavedLocation();
     if (l != null)
       requestParameters.location(l);
-    requestParameters.desiredAssets(assetsSet);
+
+    String locale = Language.nativeNormalize(Language.getDefaultLocale());
+    requestParameters.keywords("user_lang:" + locale);
 
     nativeAd.makeRequest(requestParameters.build());
   }
