@@ -1199,3 +1199,4 @@ tourism|theme_park
 tourism|wilderness_hut
 sponsored|cian
 sponsored|holiday
+tourism|resort
