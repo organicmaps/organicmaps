@@ -81,17 +81,12 @@ void AppendBookmarkIds(vector<df::MarkID> const & marks, vector<bookmarks::Id> &
   transform(marks.begin(), marks.end(), back_inserter(result), MarkIDToBookmarkId);
 }
 
-
 class BookmarksSearchCallback
 {
 public:
   using OnResults = BookmarksSearchParams::OnResults;
 
-  template <typename Callback>
-  explicit BookmarksSearchCallback(Callback && onResults)
-    : m_onResults(std::forward<Callback>(onResults))
-  {
-  }
+  explicit BookmarksSearchCallback(OnResults const & onResults) : m_onResults(onResults) {}
 
   void operator()(Results const & results)
   {
@@ -113,9 +108,10 @@ public:
     }
 
     auto const & rs = results.GetBookmarksResults();
-    ASSERT_LESS_OR_EQUAL(m_lastResultsSize, rs.size(), ());
-    for (; m_lastResultsSize < rs.size(); ++m_lastResultsSize)
-      m_results.push_back(BookmarkIdToMarkID(rs[m_lastResultsSize].m_id));
+    ASSERT_LESS_OR_EQUAL(m_results.size(), rs.size(), ());
+
+    for (size_t i = m_results.size(); i < rs.size(); ++i)
+      m_results.emplace_back(BookmarkIdToMarkID(rs[i].m_id));
     if (m_onResults)
       m_onResults(m_results, m_status);
   }
@@ -123,7 +119,6 @@ public:
 private:
   BookmarksSearchParams::Results m_results;
   BookmarksSearchParams::Status m_status = BookmarksSearchParams::Status::InProgress;
-  size_t m_lastResultsSize = 0;
   OnResults m_onResults;
 };
 }  // namespace
