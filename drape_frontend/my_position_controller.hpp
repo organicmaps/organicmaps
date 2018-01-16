@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/animation/animation.hpp"
 #include "drape_frontend/drape_hints.hpp"
 #include "drape_frontend/my_position.hpp"
 
@@ -17,7 +18,6 @@
 namespace df
 {
 
-class Animation;
 using TAnimationCreator = function<drape_ptr<Animation>(ref_ptr<Animation>)>;
 
 class MyPositionController
@@ -36,7 +36,8 @@ public:
     virtual void ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator) = 0;
     /// Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos"
     virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
-                                 int zoomLevel, TAnimationCreator const & parallelAnimCreator) = 0;
+                                 int zoomLevel, Animation::TAction const & onFinishAction,
+                                 TAnimationCreator const & parallelAnimCreator) = 0;
     virtual void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
                                  TAnimationCreator const & parallelAnimCreator) = 0;
   };
@@ -139,7 +140,8 @@ private:
   void ChangeModelView(m2::PointD const & center, int zoomLevel);
   void ChangeModelView(double azimuth);
   void ChangeModelView(m2::RectD const & rect);
-  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel);
+  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel,
+                       Animation::TAction const & onFinishAction = nullptr);
   void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero);
 
   void UpdateViewport(int zoomLevel);

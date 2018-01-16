@@ -124,11 +124,10 @@ public:
   void ChangeModelView(m2::RectD const & rect,
                        TAnimationCreator const & parallelAnimCreator) override;
   void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
-                       int preferredZoomLevel,
+                       int preferredZoomLevel, Animation::TAction const & onFinishAction,
                        TAnimationCreator const & parallelAnimCreator) override;
   void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
-                       m2::PointD const & pxZero,
-                       TAnimationCreator const & parallelAnimCreator) override;
+                       m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator) override;
 
   drape_ptr<ScenarioManager> const & GetScenarioManager() const;
 

@@ -689,14 +689,16 @@ void MyPositionController::ChangeModelView(m2::RectD const & rect)
 }
 
 void MyPositionController::ChangeModelView(m2::PointD const & userPos, double azimuth,
-                                           m2::PointD const & pxZero, int zoomLevel)
+                                           m2::PointD const & pxZero, int zoomLevel,
+                                           Animation::TAction const & onFinishAction)
 {
   if (m_listener)
-    m_listener->ChangeModelView(userPos, azimuth, pxZero, zoomLevel, m_animCreator);
+    m_listener->ChangeModelView(userPos, azimuth, pxZero, zoomLevel, onFinishAction, m_animCreator);
   m_animCreator = nullptr;
 }
 
-void MyPositionController::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero)
+void MyPositionController::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
+                                           m2::PointD const & pxZero)
 {
   if (m_listener)
     m_listener->ChangeModelView(autoScale, userPos, azimuth, pxZero, m_animCreator);
@@ -818,7 +820,11 @@ void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom)
 
     ChangeMode(location::FollowAndRotate);
     ChangeModelView(m_position, m_isDirectionAssigned ? m_drawDirection : 0.0,
-                    GetRoutingRotationPixelCenter(), zoomLevel);
+                    GetRoutingRotationPixelCenter(), zoomLevel,
+                    [this](ref_ptr<Animation> anim)
+                    {
+                      UpdateViewport(kDoNotChangeZoom);
+                    });
 
   }
 }

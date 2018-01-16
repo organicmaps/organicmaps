@@ -2030,18 +2030,18 @@ void FrontendRenderer::ChangeModelView(m2::RectD const & rect,
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,
                                        m2::PointD const & pxZero, int preferredZoomLevel,
+                                       Animation::TAction const & onFinishAction,
                                        TAnimationCreator const & parallelAnimCreator)
 {
   AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, preferredZoomLevel,
-                                                    true, parallelAnimCreator));
+                                                    true, onFinishAction, parallelAnimCreator));
 }
 
 void FrontendRenderer::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
-                                       m2::PointD const & pxZero,
-                                       TAnimationCreator const & parallelAnimCreator)
+                                       m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator)
 {
   AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, autoScale,
-                                                    parallelAnimCreator));
+                                                    nullptr, parallelAnimCreator));
 }
 
 ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)

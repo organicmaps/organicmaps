@@ -234,7 +234,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
         breakAnim = SetFollowAndRotate(followEvent->GetUserPos(), followEvent->GetPixelZero(),
                                        followEvent->GetAzimuth(), followEvent->GetPreferredZoomLelel(),
                                        followEvent->GetAutoScale(), followEvent->IsAnim(), followEvent->IsAutoScale(),
-                                       followEvent->GetParallelAnimCreator());
+                                       followEvent->GetOnFinishAction(), followEvent->GetParallelAnimCreator());
       }
       break;
     case UserEvent::EventType::AutoPerspective:
@@ -437,6 +437,7 @@ bool UserEventStream::SetAngle(double azimuth, TAnimationCreator const & paralle
     return SetFollowAndRotate(gPt, pt,
                               azimuth, kDoNotChangeZoom, kDoNotAutoZoom,
                               true /* isAnim */, false /* isAutoScale */,
+                              nullptr /* onFinishAction */,
                               parallelAnimCreator);
   }
 
@@ -530,7 +531,8 @@ bool UserEventStream::InterruptFollowAnimations(bool force)
 
 bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                                          double azimuth, int preferredZoomLevel, double autoScale,
-                                         bool isAnim, bool isAutoScale, TAnimationCreator const & parallelAnimCreator)
+                                         bool isAnim, bool isAutoScale, Animation::TAction const & onFinishAction,
+                                         TAnimationCreator const & parallelAnimCreator)
 {
   // Reset current follow-and-rotate animation if possible.
   if (isAnim && !InterruptFollowAnimations(false /* force */))
@@ -574,6 +576,8 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
       anim->SetCouldBeInterrupted(false);
       anim->SetCouldBeBlended(false);
     }
+
+    anim->SetOnFinishAction(onFinishAction);
 
     if (parallelAnimCreator != nullptr)
     {

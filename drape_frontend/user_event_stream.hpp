@@ -216,7 +216,8 @@ class FollowAndRotateEvent : public UserEvent
 {
 public:
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
-                       double azimuth, double autoScale, TAnimationCreator const & parallelAnimCreator = nullptr)
+                       double azimuth, double autoScale,
+                       TAnimationCreator const & parallelAnimCreator = nullptr)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
@@ -224,13 +225,15 @@ public:
     , m_autoScale(autoScale)
     , m_isAutoScale(true)
     , m_isAnim(true)
+    , m_onFinishAction(nullptr)
     , m_parallelAnimCreator(parallelAnimCreator)
   {
   }
 
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
                        double azimuth, int preferredZoomLevel,
-                       bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr)
+                       bool isAnim, Animation::TAction const & onFinishAction = nullptr,
+                       TAnimationCreator const & parallelAnimCreator = nullptr)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
@@ -238,6 +241,7 @@ public:
     , m_autoScale(kDoNotAutoZoom)
     , m_isAutoScale(false)
     , m_isAnim(isAnim)
+    , m_onFinishAction(onFinishAction)
     , m_parallelAnimCreator(parallelAnimCreator)
   {}
 
@@ -251,6 +255,7 @@ public:
   bool IsAutoScale() const { return m_isAutoScale; }
   bool IsAnim() const { return m_isAnim; }
   TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
+  Animation::TAction const & GetOnFinishAction() const { return m_onFinishAction; }
 
 private:
   m2::PointD m_userPos;
@@ -260,6 +265,7 @@ private:
   double m_autoScale;
   bool m_isAutoScale;
   bool m_isAnim;
+  Animation::TAction m_onFinishAction;
   TAnimationCreator m_parallelAnimCreator;
 };
 
@@ -412,7 +418,7 @@ private:
                  TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
                           double azimuth, int preferredZoomLevel, double autoScale,
-                          bool isAnim, bool isAutoScale,
+                          bool isAnim, bool isAutoScale, Animation::TAction const & onFinishAction = nullptr,
                           TAnimationCreator const & parallelAnimCreator = nullptr);
   void SetAutoPerspective(bool isAutoPerspective);
   void CheckAutoRotate();
