@@ -152,7 +152,6 @@ using Observers = NSHashTable<Observer>;
 - (void)stateHidden
 {
   self.taxiDataSource = nil;
-  [self.routePreview remove];
   self.routePreview = nil;
   self.navigationInfoView.state = MWMNavigationInfoViewStateHidden;
   self.navigationInfoView = nil;
@@ -237,7 +236,6 @@ using Observers = NSHashTable<Observer>;
 - (void)onRouteStop { self.state = MWMNavigationDashboardStateHidden; }
 - (void)stateNavigation
 {
-  [self.routePreview remove];
   self.routePreview = nil;
   self.navigationInfoView.state = MWMNavigationInfoViewStateNavigation;
   self.navigationControlView.isVisible = YES;
@@ -390,11 +388,20 @@ using Observers = NSHashTable<Observer>;
   return _taxiDataSource;
 }
 
+@synthesize routePreview = _routePreview;
 - (MWMRoutePreview *)routePreview
 {
   if (!_routePreview)
     [self loadPreviewWithStatusBoxes];
   return _routePreview;
+}
+
+- (void)setRoutePreview:(MWMRoutePreview *)routePreview
+{
+  if (routePreview == _routePreview)
+    return;
+  [_routePreview remove];
+  _routePreview = routePreview;
 }
 
 - (MWMBaseRoutePreviewStatus *)baseRoutePreviewStatus
