@@ -106,48 +106,33 @@ public class HotelsFilterView extends FrameLayout
     mFrame = findViewById(R.id.frame);
     mFrame.setTranslationY(mFrame.getResources().getDisplayMetrics().heightPixels);
     mFade = findViewById(R.id.fade);
-    mRating = (RatingFilterView) findViewById(R.id.rating);
-    mPrice = (PriceFilterView) findViewById(R.id.price);
+    mRating = findViewById(R.id.rating);
+    mPrice = findViewById(R.id.price);
     mContent = mFrame.findViewById(R.id.content);
     mElevation = mFrame.findViewById(R.id.elevation);
-    RecyclerView type = (RecyclerView) mContent.findViewById(R.id.type);
+    RecyclerView type = mContent.findViewById(R.id.type);
     type.setLayoutManager(new TagLayoutManager());
     type.setNestedScrollingEnabled(false);
     type.addItemDecoration(new TagItemDecoration(mTagsDecorator));
     mTypeAdapter = new HotelsTypeAdapter(this);
     type.setAdapter(mTypeAdapter);
-    findViewById(R.id.cancel).setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        cancel();
-      }
-    });
+    findViewById(R.id.cancel).setOnClickListener(v -> cancel());
 
-    findViewById(R.id.done).setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        populateFilter();
-        if (mListener != null)
-          mListener.onDone(mFilter);
-        close();
-      }
-    });
-    findViewById(R.id.reset).setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        mFilter = null;
-        mHotelTypes.clear();
-        if (mListener != null)
-          mListener.onDone(null);
-        updateViews();
-      }
-    });
+    findViewById(R.id.done).setOnClickListener(v ->
+                                               {
+                                                 populateFilter();
+                                                 if (mListener != null)
+                                                   mListener.onDone(mFilter);
+                                                 close();
+                                               });
+    findViewById(R.id.reset).setOnClickListener(v ->
+                                                {
+                                                  mFilter = null;
+                                                  mHotelTypes.clear();
+                                                  if (mListener != null)
+                                                    mListener.onDone(null);
+                                                  updateViews();
+                                                });
   }
 
   @Override
