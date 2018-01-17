@@ -106,7 +106,7 @@ double MatchByGeometry(LGeometry const & lhs, RGeometry const & rhs)
   return score;
 }
 
-MultiPolygon TriangelsToPolygon(vector<m2::PointD> const & points)
+MultiPolygon TrianglesToPolygon(vector<m2::PointD> const & points)
 {
   size_t const kTriangleSize = 3;
   CHECK_EQUAL(points.size() % kTriangleSize, 0, ());
@@ -263,7 +263,7 @@ double ScoreGeometry(pugi::xml_document const & osmResponse, pugi::xml_node cons
   if (bg::is_empty(their))
     return kPenaltyScore;
 
-  auto const our = TriangelsToPolygon(ourGeometry);
+  auto const our = TrianglesToPolygon(ourGeometry);
 
   if (bg::is_empty(our))
     return kPenaltyScore;
@@ -335,11 +335,11 @@ pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse,
 
 double ScoreTriangulatedGeometries(vector<m2::PointD> const & lhs, vector<m2::PointD> const & rhs)
 {
-  auto const lhsPolygon = TriangelsToPolygon(lhs);
+  auto const lhsPolygon = TrianglesToPolygon(lhs);
   if (bg::is_empty(lhsPolygon))
     return kPenaltyScore;
 
-  auto const rhsPolygon = TriangelsToPolygon(rhs);
+  auto const rhsPolygon = TrianglesToPolygon(rhs);
   if (bg::is_empty(rhsPolygon))
     return kPenaltyScore;
 
