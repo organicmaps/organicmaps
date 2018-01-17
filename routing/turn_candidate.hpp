@@ -4,7 +4,7 @@
 
 #include "base/math.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
 namespace ftypes
 {
@@ -51,7 +51,7 @@ struct TurnCandidate
   }
 };
 
-inline bool IsAlmostEqual(vector<TurnCandidate> const & lhs, vector<TurnCandidate> const & rhs)
+inline bool IsAlmostEqual(std::vector<TurnCandidate> const & lhs, std::vector<TurnCandidate> const & rhs)
 {
   if (lhs.size() != rhs.size())
     return false;
@@ -66,7 +66,7 @@ inline bool IsAlmostEqual(vector<TurnCandidate> const & lhs, vector<TurnCandidat
 
 struct TurnCandidates
 {
-  vector<TurnCandidate> candidates;
+  std::vector<TurnCandidate> candidates;
   bool isCandidatesAngleValid;
 
   explicit TurnCandidates(bool angleValid = true) : isCandidatesAngleValid(angleValid) {}

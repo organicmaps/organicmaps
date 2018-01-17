@@ -3,6 +3,8 @@
 #include "geometry/angles.hpp"
 
 #include "base/internal/message.hpp"
+#include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <array>
@@ -93,9 +95,9 @@ void SegmentRange::Clear()
   m_forward = true;
 }
 
-bool SegmentRange::IsClear() const
+bool SegmentRange::IsEmpty() const
 {
-  return m_featureId == FeatureID() && m_startSegId == 0 && m_endSegId == 0 && m_forward;
+  return !m_featureId.IsValid() && m_startSegId == 0 && m_endSegId == 0 && m_forward;
 }
 
 FeatureID const & SegmentRange::GetFeature() const
@@ -115,7 +117,7 @@ string DebugPrint(SegmentRange const & segmentRange)
       << ", m_startSegId = " << segmentRange.m_startSegId
       << ", m_endSegId = " << segmentRange.m_endSegId
       << ", m_forward = " << segmentRange.m_forward
-      << ",  ]" << endl;
+      << "]" << endl;
   return out.str();
 }
 
@@ -276,11 +278,8 @@ bool ParseLanes(string lanesString, vector<SingleLaneInfo> & lanes)
   if (lanesString.empty())
     return false;
   lanes.clear();
-  transform(lanesString.begin(), lanesString.end(), lanesString.begin(),
-            [](string::value_type c) { return tolower(c); });
-  lanesString.erase(
-      remove_if(lanesString.begin(), lanesString.end(), [](char c) { return isspace(c); }),
-      lanesString.end());
+  strings::AsciiToLower(lanesString);
+  my::EraseIf(lanesString, [](char c) { return isspace(c); });
 
   vector<string> SplitLanesStrings;
   SingleLaneInfo lane;

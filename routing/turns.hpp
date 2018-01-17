@@ -23,7 +23,7 @@ struct SegmentRange
   bool operator==(SegmentRange const & rh) const;
   bool operator<(SegmentRange const & rh) const;
   void Clear();
-  bool IsClear() const;
+  bool IsEmpty() const;
   FeatureID const & GetFeature() const;
   /// \returns true if the instance of SegmentRange is correct.
   bool IsCorrect() const;
@@ -36,8 +36,6 @@ private:
   uint32_t m_endSegId = 0;   // The last segment index of SegmentRange.
   bool m_forward = true;     // Segment direction in |m_featureId|.
 };
-
-std::string DebugPrint(SegmentRange const & segmentRange);
 
 namespace turns
 {
@@ -136,7 +134,7 @@ std::string DebugPrint(SingleLaneInfo const & singleLaneInfo);
 struct TurnItem
 {
   TurnItem()
-      : m_index(numeric_limits<uint32_t>::max()),
+      : m_index(std::numeric_limits<uint32_t>::max()),
         m_turn(CarDirection::None),
         m_exitNum(0),
         m_keepAnyway(false),
@@ -164,12 +162,12 @@ struct TurnItem
            m_pedestrianTurn == rhs.m_pedestrianTurn;
   }
 
-  uint32_t m_index;               /*!< Index of point on route polyline (number of segment + 1). */
-  CarDirection m_turn;            /*!< The turn instruction of the TurnItem */
-  vector<SingleLaneInfo> m_lanes; /*!< Lane information on the edge before the turn. */
-  uint32_t m_exitNum;             /*!< Number of exit on roundabout. */
-  std::string m_sourceName;       /*!< Name of the street which the ingoing edge belongs to */
-  std::string m_targetName;       /*!< Name of the street which the outgoing edge belongs to */
+  uint32_t m_index;                    /*!< Index of point on route polyline (number of segment + 1). */
+  CarDirection m_turn;                 /*!< The turn instruction of the TurnItem */
+  std::vector<SingleLaneInfo> m_lanes; /*!< Lane information on the edge before the turn. */
+  uint32_t m_exitNum;                  /*!< Number of exit on roundabout. */
+  std::string m_sourceName;            /*!< Name of the street which the ingoing edge belongs to */
+  std::string m_targetName;            /*!< Name of the street which the outgoing edge belongs to */
   /*!
    * \brief m_keepAnyway is true if the turn shall not be deleted
    * and shall be demonstrated to an end user.
@@ -232,7 +230,7 @@ bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, CarDirection t);
  * Note 1: if @lanesString is empty returns false.
  * Note 2: @laneString is passed by value on purpose. It'll be used(changed) in the method.
  */
-bool ParseLanes(std::string lanesString, vector<SingleLaneInfo> & lanes);
+bool ParseLanes(std::string lanesString, std::vector<SingleLaneInfo> & lanes);
 void SplitLanes(std::string const & lanesString, char delimiter, std::vector<std::string> & lanes);
 bool ParseSingleLane(std::string const & laneString, char delimiter, TSingleLane & lane);
 

@@ -55,7 +55,7 @@ public:
                         m2::PointD const & junctionPoint, size_t & ingoingCount,
                         TurnCandidates & outgoingTurns) const override
   {
-    CHECK(!segmentRange.IsClear(), ("SegmentRange presents a fake feature. ingoingPoint:",
+    CHECK(!segmentRange.IsEmpty(), ("SegmentRange presents a fake feature. ingoingPoint:",
                                     MercatorBounds::ToLatLon(ingoingPoint),
                                     "junctionPoint:", MercatorBounds::ToLatLon(junctionPoint)));
 
@@ -361,7 +361,7 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     CHECK_EQUAL(prevSegments.size() + 1, prevJunctionSize, ());
     pathSegment.m_segments = move(prevSegments);
 
-    if (!segmentRange.IsClear())
+    if (!segmentRange.IsEmpty())
     {
       auto const it = m_adjacentEdges.find(segmentRange);
       // A route may be build through intermediate points. So it may contain the same |segmentRange|
