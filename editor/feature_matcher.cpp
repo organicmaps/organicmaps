@@ -1,4 +1,4 @@
-#include "editor/osm_feature_matcher.hpp"
+#include "editor/feature_matcher.hpp"
 
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
@@ -9,9 +9,9 @@
 #include "std/utility.hpp"
 
 #include <boost/geometry.hpp>
+#include <boost/geometry/geometries/adapted/boost_tuple.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
-#include <boost/geometry/geometries/adapted/boost_tuple.hpp>
 
 using editor::XMLFeature;
 
@@ -33,7 +33,8 @@ using ForEachWayFn = function<void(pugi::xml_node const & way, string const & ro
 double const kPointDiffEps = 1e-5;
 double const kPenaltyScore = -1;
 
-AreaType IntersectionArea(MultiPolygon const & our, Polygon const & their)
+template <typename LGeometry, typename RGeometry>
+AreaType IntersectionArea(LGeometry const & our, RGeometry const & their)
 {
   ASSERT(bg::is_valid(our), ());
   ASSERT(bg::is_valid(their), ());
@@ -70,7 +71,7 @@ void AddInnerIfNeeded(pugi::xml_document const & osmResponse, pugi::xml_node con
 void MakeOuterRing(MultiLinestring & outerLines, Polygon & dest)
 {
   bool const needReverse =
-    outerLines.size() > 1 && bg::equals(outerLines[0].front(), outerLines[1].back());
+      outerLines.size() > 1 && bg::equals(outerLines[0].front(), outerLines[1].back());
 
   for (size_t i = 0; i < outerLines.size(); ++i)
   {
@@ -81,15 +82,16 @@ void MakeOuterRing(MultiLinestring & outerLines, Polygon & dest)
   }
 }
 
-double MatchByGeometry(MultiPolygon const & our, Polygon const & their)
+template <typename LGeometry, typename RGeometry>
+double MatchByGeometry(LGeometry const & lhs, RGeometry const & rhs)
 {
-  if (!bg::is_valid(our) || !bg::is_valid(their))
+  if (!bg::is_valid(lhs) || !bg::is_valid(rhs))
     return kPenaltyScore;
 
-  auto const ourArea = bg::area(our);
-  auto const theirArea = bg::area(their);
-  auto const intersectionArea = IntersectionArea(our, their);
-  auto const unionArea = ourArea + theirArea - intersectionArea;
+  auto const lhsArea = bg::area(lhs);
+  auto const rhsArea = bg::area(rhs);
+  auto const intersectionArea = IntersectionArea(lhs, rhs);
+  auto const unionArea = lhsArea + rhsArea - intersectionArea;
 
   // Avoid infinity.
   if (my::AlmostEqualAbs(unionArea, 0.0, 1e-18))
@@ -104,7 +106,7 @@ double MatchByGeometry(MultiPolygon const & our, Polygon const & their)
   return score;
 }
 
-MultiPolygon TriangelsToPolygon(vector <m2::PointD> const & points)
+MultiPolygon TriangelsToPolygon(vector<m2::PointD> const & points)
 {
   size_t const kTriangleSize = 3;
   CHECK_EQUAL(points.size() % kTriangleSize, 0, ());
@@ -134,8 +136,7 @@ MultiPolygon TriangelsToPolygon(vector <m2::PointD> const & points)
   return result;
 }
 
-/// @returns value form (-Inf, 1]. Negative values are used as penalty,
-/// positive as score.
+/// Returns value form (-Inf, 1]. Negative values are used as penalty, positive as score.
 double ScoreLatLon(XMLFeature const & xmlFt, ms::LatLon const & latLon)
 {
   auto const a = MercatorBounds::FromLatLon(xmlFt.GetCenter());
@@ -241,19 +242,19 @@ Polygon GetRelationsGeometry(pugi::xml_document const & osmResponse,
 }
 
 Polygon GetWaysOrRelationsGeometry(pugi::xml_document const & osmResponse,
-                                              pugi::xml_node const & wayOrRelation)
+                                   pugi::xml_node const & wayOrRelation)
 {
   if (strcmp(wayOrRelation.name(), "way") == 0)
     return GetWaysGeometry(osmResponse, wayOrRelation);
   return GetRelationsGeometry(osmResponse, wayOrRelation);
 }
 
-/// @returns value form [-1, 1]. Negative values are used as penalty, positive as score.
-/// @param osmResponse - nodes, ways and relations from osm;
-/// @param wayOrRelation - either way or relation to be compared agains ourGeometry;
-/// @param outGeometry - geometry of a FeatureType (ourGeometry must be sort-uniqued);
-double ScoreGeometry(pugi::xml_document const & osmResponse,
-                     pugi::xml_node const & wayOrRelation, vector<m2::PointD> const & ourGeometry)
+/// Returns value form [-1, 1]. Negative values are used as penalty, positive as score.
+/// |osmResponse| - nodes, ways and relations from osm;
+/// |wayOrRelation| - either way or relation to be compared agains ourGeometry;
+/// |ourGeometry| - geometry of a FeatureType;
+double ScoreGeometry(pugi::xml_document const & osmResponse, pugi::xml_node const & wayOrRelation,
+                     vector<m2::PointD> const & ourGeometry)
 {
   ASSERT(!ourGeometry.empty(), ("Our geometry cannot be empty"));
 
@@ -269,9 +270,9 @@ double ScoreGeometry(pugi::xml_document const & osmResponse,
 
   return MatchByGeometry(our, their);
 }
-} // namespace
+}  // namespace
 
-namespace osm
+namespace matcher
 {
 pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon const & latLon)
 {
@@ -331,4 +332,17 @@ pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse,
 
   return bestMatchWay;
 }
-}  // namespace osm
+
+double ScoreTriangulatedGeometries(vector<m2::PointD> const & lhs, vector<m2::PointD> const & rhs)
+{
+  auto const lhsPolygon = TriangelsToPolygon(lhs);
+  if (bg::is_empty(lhsPolygon))
+    return kPenaltyScore;
+
+  auto const rhsPolygon = TriangelsToPolygon(rhs);
+  if (bg::is_empty(rhsPolygon))
+    return kPenaltyScore;
+
+  return MatchByGeometry(lhsPolygon, rhsPolygon);
+}
+}  // namespace matcher

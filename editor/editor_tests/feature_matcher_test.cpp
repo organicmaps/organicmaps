@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "editor/osm_feature_matcher.hpp"
+#include "editor/feature_matcher.hpp"
 #include "editor/xml_feature.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
@@ -270,7 +270,7 @@ UNIT_TEST(GetBestOsmNode_Test)
     pugi::xml_document osmResponse;
     TEST(osmResponse.load_buffer(osmRawResponseNode, ::strlen(osmRawResponseNode)), ());
 
-    auto const bestNode = osm::GetBestOsmNode(osmResponse, ms::LatLon(53.8977398, 27.5579251));
+    auto const bestNode = matcher::GetBestOsmNode(osmResponse, ms::LatLon(53.8977398, 27.5579251));
     TEST_EQUAL(editor::XMLFeature(bestNode).GetName(),
                "Главное управление капитального строительства", ());
   }
@@ -278,7 +278,7 @@ UNIT_TEST(GetBestOsmNode_Test)
     pugi::xml_document osmResponse;
     TEST(osmResponse.load_buffer(osmRawResponseNode, ::strlen(osmRawResponseNode)), ());
 
-    auto const bestNode = osm::GetBestOsmNode(osmResponse, ms::LatLon(53.8977254, 27.5578377));
+    auto const bestNode = matcher::GetBestOsmNode(osmResponse, ms::LatLon(53.8977254, 27.5578377));
     TEST_EQUAL(bestNode.attribute("id").value(), string("277172019"), ());
   }
 }
@@ -300,7 +300,7 @@ UNIT_TEST(GetBestOsmWay_Test)
       {27.55768215326728,  64.237078459837136}
     };
 
-    auto const bestWay = osm::GetBestOsmWayOrRelation(osmResponse, geometry);
+    auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
     TEST(bestWay, ());
     TEST_EQUAL(editor::XMLFeature(bestWay).GetName(), "Беллесбумпром", ());
   }
@@ -320,7 +320,7 @@ UNIT_TEST(GetBestOsmWay_Test)
       {27.55778215326728,  64.237178459837136}
     };
 
-    auto const bestWay = osm::GetBestOsmWayOrRelation(osmResponse, geometry);
+    auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
     TEST(!bestWay, ());
   }
 }
@@ -401,7 +401,7 @@ UNIT_TEST(GetBestOsmRealtion_Test)
     {37.640749645536772, 67.455726619480004}
   };
 
-  auto const bestWay = osm::GetBestOsmWayOrRelation(osmResponse, geometry);
+  auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
   TEST_EQUAL(bestWay.attribute("id").value(), string("365808"), ());
 }
 
@@ -461,7 +461,7 @@ UNIT_TEST(HouseBuildingMiss_test)
     {-0.20463511500236109,  60.333954694375052}
   };
 
-  auto const bestWay = osm::GetBestOsmWayOrRelation(osmResponse, geometry);
+  auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
   TEST_EQUAL(bestWay.attribute("id").value(), string("345630019"), ());
 }
 
@@ -521,7 +521,7 @@ UNIT_TEST(HouseWithSeveralEntrances)
     {37.56998492456961, 67.57561599892091}
   };
 
-  auto const bestWay = osm::GetBestOsmWayOrRelation(osmResponse, geometry);
+  auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
   TEST_EQUAL(bestWay.attribute("id").value(), string("30680719"), ());
 }
 
@@ -570,7 +570,31 @@ UNIT_TEST(RelationWithSingleWay)
     {37.54076493934366, 67.532212492318536}
   };
 
-  auto const bestWay = osm::GetBestOsmWayOrRelation(osmResponse, geometry);
+  auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
   TEST_EQUAL(bestWay.attribute("id").value(), string("26232961"), ());
+}
+
+UNIT_TEST(ScoreTriangulatedGeometries)
+{
+  vector<m2::PointD> lhs = {
+    {0, 0},
+    {10, 10},
+    {10, 0},
+    {0, 0},
+    {10, 10},
+    {0, 10}
+  };
+
+  vector<m2::PointD> rhs = {
+    {-1, -1},
+    {9, 9},
+    {9, -1},
+    {-1, -1},
+    {9, 9},
+    {-1, 9}
+  };
+
+  auto const score = matcher::ScoreTriangulatedGeometries(lhs, rhs);
+  TEST_GREATER(score, 0.6, ());
 }
 }  // namespace

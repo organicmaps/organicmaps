@@ -30,8 +30,6 @@ public:
   DECLARE_EXCEPTION(CreateChangeSetFailedException, ChangesetWrapperException);
   DECLARE_EXCEPTION(ModifyNodeFailedException, ChangesetWrapperException);
   DECLARE_EXCEPTION(LinearFeaturesAreNotSupportedException, ChangesetWrapperException);
-  // TODO: Remove this when relations are handled properly.
-  DECLARE_EXCEPTION(RelationFeatureAreNotSupportedException, ChangesetWrapperException);
   DECLARE_EXCEPTION(EmptyFeatureException, ChangesetWrapperException);
 
   ChangesetWrapper(TKeySecret const & keySecret,

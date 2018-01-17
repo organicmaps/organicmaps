@@ -12,12 +12,12 @@ set(
   editor_notes.hpp
   editor_storage.cpp
   editor_storage.hpp
+  feature_matcher.cpp
+  feature_matcher.hpp
   opening_hours_ui.cpp
   opening_hours_ui.hpp
   osm_auth.cpp
   osm_auth.hpp
-  osm_feature_matcher.cpp
-  osm_feature_matcher.hpp
   server_api.cpp
   server_api.hpp
   ui2oh.cpp

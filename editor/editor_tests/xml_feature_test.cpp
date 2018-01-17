@@ -155,48 +155,6 @@ UNIT_TEST(XMLFeature_HasTags)
   TEST(emptyFeature.HasAttribute("timestamp"), ());
 }
 
-UNIT_TEST(XMLFeature_IsArea)
-{
-  constexpr char const * validAreaXml = R"(
-<way timestamp="2015-11-27T21:13:32Z">
-  <nd ref="822403"/>
-  <nd ref="21533912"/>
-  <nd ref="821601"/>
-  <nd ref="822403"/>
-</way>
-)";
-  TEST(XMLFeature(validAreaXml).IsArea(), ());
-
-  constexpr char const * notClosedWayXml = R"(
-<way timestamp="2015-11-27T21:13:32Z">
-  <nd ref="822403"/>
-  <nd ref="21533912"/>
-  <nd ref="821601"/>
-  <nd ref="123321"/>
-</way>
-)";
-  TEST(!XMLFeature(notClosedWayXml).IsArea(), ());
-
-  constexpr char const * invalidWayXml = R"(
-<way timestamp="2015-11-27T21:13:32Z">
-  <nd ref="822403"/>
-  <nd ref="21533912"/>
-  <nd ref="822403"/>
-</way>
-)";
-  TEST(!XMLFeature(invalidWayXml).IsArea(), ());
-
-  constexpr char const * emptyWay = R"(
-<way timestamp="2015-11-27T21:13:32Z"/>
-)";
-  TEST(!XMLFeature(emptyWay).IsArea(), ());
-
-  constexpr char const * node = R"(
-<node lat="0.0" lon="0.0" timestamp="2015-11-27T21:13:32Z"/>
-)";
-  TEST(!XMLFeature(node).IsArea(), ());
-}
-
 auto const kTestNode = R"(<?xml version="1.0"?>
 <node lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z">
   <tag k="name" v="Gorki Park" />
@@ -303,7 +261,7 @@ UNIT_TEST(XMLFeature_FromXmlNode)
 
 UNIT_TEST(XMLFeature_Geometry)
 {
-  XMLFeature::TMercatorGeometry const geometry = {
+  vector<m2::PointD> const geometry = {
     {28.7206411, 3.7182409},
     {46.7569003, 47.0774689},
     {22.5909217, 41.6994874},

@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "editor/osm_feature_matcher.hpp"
+#include "editor/feature_matcher.hpp"
 #include "editor/xml_feature.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
@@ -249,7 +249,7 @@ UNIT_TEST(MatchByGeometry)
     {37.622065377399821, 67.468244489045759}
   };
 
-  auto const matched = osm::GetBestOsmWayOrRelation(osmResponse, geometry);
+  auto const matched = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
   TEST_EQUAL(matched.attribute("id").value(), string("85761"), ());
 }
 }  // namespace

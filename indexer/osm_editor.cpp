@@ -62,9 +62,8 @@ constexpr char const * kAddrStreetTag = "addr:street";
 
 constexpr char const * kUploaded = "Uploaded";
 constexpr char const * kDeletedFromOSMServer = "Deleted from OSM by someone";
-constexpr char const * kRelationsAreNotSupported = "Relations are not supported yet";
 constexpr char const * kNeedsRetry = "Needs Retry";
-constexpr char const * kWrongMatch = "Matched feature has no tags";
+constexpr char const * kMatchedFeatureIsEmpty = "Matched feature has no tags";
 
 struct XmlSection
 {
@@ -119,10 +118,7 @@ bool NeedsUpload(string const & uploadStatus)
 {
   return uploadStatus != kUploaded &&
       uploadStatus != kDeletedFromOSMServer &&
-      // TODO: Remove this line when relations are supported.
-      uploadStatus != kRelationsAreNotSupported &&
-      // TODO: Remove this when we have better matching algorithm.
-      uploadStatus != kWrongMatch;
+      uploadStatus != kMatchedFeatureIsEmpty;
 }
 
 /// Compares editable fields connected with feature ignoring street.
@@ -772,8 +768,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
                 continue;
               }
 
-              XMLFeature osmFeature = GetMatchingFeatureFromOSM(
-                  changeset, *originalFeaturePtr);
+              XMLFeature osmFeature = GetMatchingFeatureFromOSM(changeset, *originalFeaturePtr);
               XMLFeature const osmFeatureCopy = osmFeature;
               osmFeature.ApplyPatch(feature);
               // Check to avoid uploading duplicates into OSM.
@@ -815,16 +810,9 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
         }
-        catch (ChangesetWrapper::RelationFeatureAreNotSupportedException const & ex)
-        {
-          fti.m_uploadStatus = kRelationsAreNotSupported;
-          fti.m_uploadError = ex.Msg();
-          ++errorsCount;
-          LOG(LWARNING, (ex.what()));
-        }
         catch (ChangesetWrapper::EmptyFeatureException const & ex)
         {
-          fti.m_uploadStatus = kWrongMatch;
+          fti.m_uploadStatus = kMatchedFeatureIsEmpty;
           fti.m_uploadError = ex.Msg();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));

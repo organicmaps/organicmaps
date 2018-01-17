@@ -118,10 +118,7 @@ editor::XMLFeature FeatureType::ToXML(bool serializeType) const
   else
   {
     ParseTriangles(BEST_GEOMETRY);
-    vector<m2::PointD> geometry(begin(m_triangles), end(m_triangles));
-    // Remove duplicates.
-    my::SortUnique(geometry);
-    feature.SetGeometry(geometry);
+    feature.SetGeometry(begin(m_triangles), end(m_triangles));
   }
 
   ForEachName([&feature](uint8_t const & lang, string const & name)
