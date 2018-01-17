@@ -3379,11 +3379,14 @@ void Framework::FillLocalExperts(FeatureType const & ft, place_page::Info & info
 
 void Framework::UploadUGC(User::CompleteUploadingHandler const & onCompleteUploading)
 {
-  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
-    return;
+  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE ||
+      !m_user.IsAuthenticated())
+  {
+    if (onCompleteUploading != nullptr)
+      onCompleteUploading(false);
 
-  if (!m_user.IsAuthenticated())
     return;
+  }
 
   m_ugcApi->GetUGCToSend([this, onCompleteUploading](string && json)
   {
@@ -3397,6 +3400,11 @@ void Framework::UploadUGC(User::CompleteUploadingHandler const & onCompleteUploa
         if (isSuccessful)
           m_ugcApi->SendingCompleted();
       });
+    }
+    else
+    {
+      if (onCompleteUploading != nullptr)
+        onCompleteUploading(true);
     }
   });
 }
