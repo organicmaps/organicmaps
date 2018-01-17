@@ -16,17 +16,19 @@ namespace routing
 /// and a direction.
 struct SegmentRange
 {
+  friend string DebugPrint(SegmentRange const & segmentRange);
+
   SegmentRange() = default;
   SegmentRange(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId, bool forward);
   bool operator==(SegmentRange const & rh) const;
   bool operator<(SegmentRange const & rh) const;
   void Clear();
+  bool IsClear() const;
   FeatureID const & GetFeature() const;
   /// \returns true if the instance of SegmentRange is correct.
   bool IsCorrect() const;
 
 private:
-
   FeatureID m_featureId;
   // Note. If SegmentRange represents two directional feature |m_endSegId| is greater
   // than |m_startSegId| if |m_forward| == true.
@@ -34,6 +36,8 @@ private:
   uint32_t m_endSegId = 0;   // The last segment index of SegmentRange.
   bool m_forward = true;     // Segment direction in |m_featureId|.
 };
+
+string DebugPrint(SegmentRange const & segmentRange);
 
 namespace turns
 {

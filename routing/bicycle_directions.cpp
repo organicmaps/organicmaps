@@ -16,6 +16,7 @@
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include <cstdlib>
@@ -50,10 +51,14 @@ public:
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_pathSegments; }
 
-  void GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & /* ingoingPoint */,
-                        m2::PointD const & /* junctionPoint */, size_t & ingoingCount,
+  void GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & ingoingPoint,
+                        m2::PointD const & junctionPoint, size_t & ingoingCount,
                         TurnCandidates & outgoingTurns) const override
   {
+    CHECK(!segmentRange.IsClear(), ("SegmentRange presents a fake feature. ingoingPoint:",
+                                    MercatorBounds::ToLatLon(ingoingPoint),
+                                    "junctionPoint:", MercatorBounds::ToLatLon(junctionPoint)));
+
     ingoingCount = 0;
     outgoingTurns.candidates.clear();
 
@@ -145,6 +150,13 @@ bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
 
 namespace routing
 {
+// BicycleDirectionsEngine::AdjacentEdges ---------------------------------------------------------
+bool BicycleDirectionsEngine::AdjacentEdges::operator==(AdjacentEdges const & rhs) const
+{
+  return m_outgoingTurns == rhs.m_outgoingTurns && m_ingoingTurnsCount == rhs.m_ingoingTurnsCount;
+}
+
+// BicycleDirectionsEngine ------------------------------------------------------------------------
 BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index, shared_ptr<NumMwmIds> numMwmIds)
   : m_index(index), m_numMwmIds(numMwmIds)
 {
@@ -348,9 +360,18 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     CHECK_EQUAL(prevSegments.size() + 1, prevJunctionSize, ());
     pathSegment.m_segments = move(prevSegments);
 
-    auto const it = m_adjacentEdges.insert(make_pair(segmentRange, move(adjacentEdges)));
-    ASSERT(it.second, ());
-    UNUSED_VALUE(it);
+    if (!segmentRange.IsClear())
+    {
+      auto const it = m_adjacentEdges.find(segmentRange);
+      // A route may be build through intermediate points. So it may contain the same |segmentRange|
+      // several times. But in that case |adjacentEdges| corresponds to |segmentRange|
+      // should be the same as well.
+      ASSERT(it == m_adjacentEdges.cend() || it->second == adjacentEdges,
+             ("segmentRange:", segmentRange, "corresponds to adjacent edges which aren't equal."));
+
+      m_adjacentEdges.insert(it, make_pair(segmentRange, move(adjacentEdges)));
+    }
+
     m_pathSegments.push_back(move(pathSegment));
 
     prevJunctions.clear();

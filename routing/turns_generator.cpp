@@ -539,7 +539,7 @@ CarDirection IntermediateDirection(const double angle)
 
 void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnItem & turn)
 {
-  if (!turnInfo.IsSegmentsValid())
+  if (!turnInfo.IsSegmentsValid() || turnInfo.m_ingoing.m_segmentRange.IsClear())
     return;
 
   ASSERT(!turnInfo.m_ingoing.m_path.empty(), ());

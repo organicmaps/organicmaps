@@ -40,6 +40,12 @@ struct TurnCandidate
     : angle(a), m_segmentRange(segmentRange), highwayClass(c)
   {
   }
+
+  bool operator==(TurnCandidate const & rhs) const
+  {
+    return angle == rhs.angle && m_segmentRange == rhs.m_segmentRange &&
+           highwayClass == rhs.highwayClass;
+  }
 };
 
 struct TurnCandidates
@@ -48,6 +54,11 @@ struct TurnCandidates
   bool isCandidatesAngleValid;
 
   explicit TurnCandidates(bool angleValid = true) : isCandidatesAngleValid(angleValid) {}
+
+  bool operator==(TurnCandidates const & rhs) const
+  {
+    return candidates == rhs.candidates && isCandidatesAngleValid == rhs.isCandidatesAngleValid;
+  }
 };
 
 }  // namespace routing

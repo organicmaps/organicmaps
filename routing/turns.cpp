@@ -89,6 +89,11 @@ void SegmentRange::Clear()
   m_forward = true;
 }
 
+bool SegmentRange::IsClear() const
+{
+  return m_featureId == FeatureID() && m_startSegId == 0 && m_endSegId == 0 && m_forward;
+}
+
 FeatureID const & SegmentRange::GetFeature() const
 {
   return m_featureId;
@@ -97,6 +102,17 @@ FeatureID const & SegmentRange::GetFeature() const
 bool SegmentRange::IsCorrect() const
 {
   return (m_forward && m_startSegId <= m_endSegId) || (!m_forward && m_endSegId <= m_startSegId);
+}
+
+string DebugPrint(SegmentRange const & segmentRange)
+{
+  stringstream out;
+  out << "SegmentRange [ m_featureId = " << DebugPrint(segmentRange.m_featureId)
+      << ", m_startSegId = " << segmentRange.m_startSegId
+      << ", m_endSegId = " << segmentRange.m_endSegId
+      << ", m_forward = " << segmentRange.m_forward
+      << ",  ]" << endl;
+  return out.str();
 }
 
 namespace turns
