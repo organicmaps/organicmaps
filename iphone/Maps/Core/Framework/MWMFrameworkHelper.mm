@@ -65,4 +65,5 @@
   }
 }
 
++ (void)createFramework { UNUSED_VALUE(GetFramework()); }
 @end

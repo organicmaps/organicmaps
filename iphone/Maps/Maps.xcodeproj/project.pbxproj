@@ -348,6 +348,33 @@
 		3470402F1EA6470700038379 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470402E1EA6470700038379 /* BorderedButton.swift */; };
 		347040301EA6470700038379 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470402E1EA6470700038379 /* BorderedButton.swift */; };
 		347040311EA6470700038379 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470402E1EA6470700038379 /* BorderedButton.swift */; };
+		3472B5CA200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */; };
+		3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */; };
+		3472B5CC200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */; };
+		3472B5CE200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */; };
+		3472B5CF200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */; };
+		3472B5D0200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */; };
+		3472B5D2200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5D1200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift */; };
+		3472B5D3200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5D1200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift */; };
+		3472B5D4200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5D1200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift */; };
+		3472B5D6200F61E900DC6CD5 /* BackgroundStatisticsUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5D5200F61E900DC6CD5 /* BackgroundStatisticsUpload.swift */; };
+		3472B5D7200F61E900DC6CD5 /* BackgroundStatisticsUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5D5200F61E900DC6CD5 /* BackgroundStatisticsUpload.swift */; };
+		3472B5D8200F61E900DC6CD5 /* BackgroundStatisticsUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5D5200F61E900DC6CD5 /* BackgroundStatisticsUpload.swift */; };
+		3472B5DA200F7C1000DC6CD5 /* BackgroundEditsUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5D9200F7C1000DC6CD5 /* BackgroundEditsUpload.swift */; };
+		3472B5DB200F7C1000DC6CD5 /* BackgroundEditsUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5D9200F7C1000DC6CD5 /* BackgroundEditsUpload.swift */; };
+		3472B5DC200F7C1000DC6CD5 /* BackgroundEditsUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5D9200F7C1000DC6CD5 /* BackgroundEditsUpload.swift */; };
+		3472B5E0200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5DF200F86C800DC6CD5 /* MWMEditorHelper.mm */; };
+		3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5DF200F86C800DC6CD5 /* MWMEditorHelper.mm */; };
+		3472B5E2200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5DF200F86C800DC6CD5 /* MWMEditorHelper.mm */; };
+		3472B5EA200F8CFF00DC6CD5 /* MWMUGCHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5E9200F8CFF00DC6CD5 /* MWMUGCHelper.mm */; };
+		3472B5EB200F8CFF00DC6CD5 /* MWMUGCHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5E9200F8CFF00DC6CD5 /* MWMUGCHelper.mm */; };
+		3472B5EC200F8CFF00DC6CD5 /* MWMUGCHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5E9200F8CFF00DC6CD5 /* MWMUGCHelper.mm */; };
+		3472B5EE200F8F7600DC6CD5 /* BackgroundUGCUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5ED200F8F7600DC6CD5 /* BackgroundUGCUpload.swift */; };
+		3472B5EF200F8F7600DC6CD5 /* BackgroundUGCUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5ED200F8F7600DC6CD5 /* BackgroundUGCUpload.swift */; };
+		3472B5F0200F8F7600DC6CD5 /* BackgroundUGCUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5ED200F8F7600DC6CD5 /* BackgroundUGCUpload.swift */; };
+		3472B5F2200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5F1200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift */; };
+		3472B5F3200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5F1200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift */; };
+		3472B5F4200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5F1200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift */; };
 		34763EE61F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34763EE51F2F392300F4D2D3 /* MWMTextToSpeech.mm */; };
 		34763EE71F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34763EE51F2F392300F4D2D3 /* MWMTextToSpeech.mm */; };
 		34763EE81F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34763EE51F2F392300F4D2D3 /* MWMTextToSpeech.mm */; };
@@ -2150,6 +2177,17 @@
 		347039A71FB9A5CF00E47496 /* MWMBookmarksManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarksManager.mm; sourceTree = "<group>"; };
 		347039AB1FB9A97E00E47496 /* MWMBookmarksObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarksObserver.h; sourceTree = "<group>"; };
 		3470402E1EA6470700038379 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
+		3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchScheduler.swift; sourceTree = "<group>"; };
+		3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchTask.swift; sourceTree = "<group>"; };
+		3472B5D1200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchTaskFrameworkType.swift; sourceTree = "<group>"; };
+		3472B5D5200F61E900DC6CD5 /* BackgroundStatisticsUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundStatisticsUpload.swift; sourceTree = "<group>"; };
+		3472B5D9200F7C1000DC6CD5 /* BackgroundEditsUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundEditsUpload.swift; sourceTree = "<group>"; };
+		3472B5DE200F86C800DC6CD5 /* MWMEditorHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorHelper.h; sourceTree = "<group>"; };
+		3472B5DF200F86C800DC6CD5 /* MWMEditorHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorHelper.mm; sourceTree = "<group>"; };
+		3472B5E8200F8CFF00DC6CD5 /* MWMUGCHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMUGCHelper.h; sourceTree = "<group>"; };
+		3472B5E9200F8CFF00DC6CD5 /* MWMUGCHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMUGCHelper.mm; sourceTree = "<group>"; };
+		3472B5ED200F8F7600DC6CD5 /* BackgroundUGCUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundUGCUpload.swift; sourceTree = "<group>"; };
+		3472B5F1200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundDownloadMapNotification.swift; sourceTree = "<group>"; };
 		347526FA1DC0B00F00918CF5 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../../xcode/common-debug.xcconfig"; sourceTree = "<group>"; };
 		347526FB1DC0B00F00918CF5 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../../xcode/common-release.xcconfig"; sourceTree = "<group>"; };
 		34763EE41F2F392300F4D2D3 /* MWMTextToSpeech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTextToSpeech.h; sourceTree = "<group>"; };
@@ -3358,6 +3396,9 @@
 		340475281E081A4600C92850 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3472B5E7200F8CEB00DC6CD5 /* UGC */,
+				3472B5DD200F868E00DC6CD5 /* Editor */,
+				3472B5C8200F436700DC6CD5 /* BackgroundFetchScheduler */,
 				34F4071C1E9E1AFF00E57AC0 /* Ads */,
 				347039A51FB9A5B400E47496 /* Bookmarks */,
 				3486B50F1E27AD3B0069C126 /* Framework */,
@@ -3760,6 +3801,46 @@
 				347039AB1FB9A97E00E47496 /* MWMBookmarksObserver.h */,
 			);
 			path = Bookmarks;
+			sourceTree = "<group>";
+		};
+		3472B5C8200F436700DC6CD5 /* BackgroundFetchScheduler */ = {
+			isa = PBXGroup;
+			children = (
+				3472B5E6200F8CAB00DC6CD5 /* BackgroundFetchTask */,
+				3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */,
+				3472B5D1200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift */,
+			);
+			path = BackgroundFetchScheduler;
+			sourceTree = "<group>";
+		};
+		3472B5DD200F868E00DC6CD5 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				3472B5DE200F86C800DC6CD5 /* MWMEditorHelper.h */,
+				3472B5DF200F86C800DC6CD5 /* MWMEditorHelper.mm */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		3472B5E6200F8CAB00DC6CD5 /* BackgroundFetchTask */ = {
+			isa = PBXGroup;
+			children = (
+				3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */,
+				3472B5D5200F61E900DC6CD5 /* BackgroundStatisticsUpload.swift */,
+				3472B5D9200F7C1000DC6CD5 /* BackgroundEditsUpload.swift */,
+				3472B5ED200F8F7600DC6CD5 /* BackgroundUGCUpload.swift */,
+				3472B5F1200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift */,
+			);
+			path = BackgroundFetchTask;
+			sourceTree = "<group>";
+		};
+		3472B5E7200F8CEB00DC6CD5 /* UGC */ = {
+			isa = PBXGroup;
+			children = (
+				3472B5E8200F8CFF00DC6CD5 /* MWMUGCHelper.h */,
+				3472B5E9200F8CFF00DC6CD5 /* MWMUGCHelper.mm */,
+			);
+			path = UGC;
 			sourceTree = "<group>";
 		};
 		34763EE31F2F392300F4D2D3 /* TextToSpeech */ = {
@@ -6095,6 +6176,7 @@
 				3454D7B81E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */,
 				3408963E1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */,
 				F6E2FE1E1E097BA00083EBEC /* MWMOpeningHoursCommon.mm in Sources */,
+				3472B5DA200F7C1000DC6CD5 /* BackgroundEditsUpload.swift in Sources */,
 				F6BC1E521ACBF98600EF0360 /* MWMFacebookAlert.mm in Sources */,
 				34AB66641FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				F6E2FF5C1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
@@ -6102,6 +6184,7 @@
 				348B926C1FF3B5E100379009 /* UIView+Animation.swift in Sources */,
 				F6664BF91E6459CB00E703C2 /* PPFacilityCell.swift in Sources */,
 				347E1A8D1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
+				3472B5EE200F8F7600DC6CD5 /* BackgroundUGCUpload.swift in Sources */,
 				F6E2FDE81E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				34AB665E1FC5AA330078E451 /* TransportTransitIntermediatePoint.swift in Sources */,
 				F64F199D1AB81A00006EAF7E /* MWMDefaultAlert.mm in Sources */,
@@ -6216,6 +6299,7 @@
 				F6558DA11E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
 				347E1A881F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */,
 				F6E2FF471E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
+				3472B5F2200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift in Sources */,
 				F6550C1E1FD81B3800352D88 /* RatingSummaryView+DefaultConfig.swift in Sources */,
 				349D1ACE1E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				F6E2FF261E097BA00083EBEC /* MWMSearchTabButtonsView.mm in Sources */,
@@ -6265,6 +6349,7 @@
 				F6FEA82D1C58E89B007223CC /* MWMButton.mm in Sources */,
 				348A8DFA1F66775A00D83026 /* RatingViewSettings.swift in Sources */,
 				34F407401E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,
+				3472B5E0200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */,
 				3444DFD11F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				F6E2FE3C1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6E2FD4F1E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
@@ -6295,8 +6380,10 @@
 				F6E2FE7B1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
 				34E776321F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
 				F6E2FF351E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
+				3472B5CE200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */,
 				F6E2FE391E097BA00083EBEC /* MWMMigrationView.mm in Sources */,
 				F6E2FF3B1E097BA00083EBEC /* MWMSearchTableView.mm in Sources */,
+				3472B5EA200F8CFF00DC6CD5 /* MWMUGCHelper.mm in Sources */,
 				F6E2FF651E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				F6381BF51CD12045004CA943 /* LocaleTranslator.mm in Sources */,
 				346DB82D1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */,
@@ -6317,6 +6404,8 @@
 				340416571E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */,
 				F6E2FD6A1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				3409D50A1FC6D8D2000F9B3E /* FilterCheckCell.swift in Sources */,
+				3472B5CA200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */,
+				3472B5D6200F61E900DC6CD5 /* BackgroundStatisticsUpload.swift in Sources */,
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
 				F6E2FF681E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				34FE5A6E1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
@@ -6359,6 +6448,7 @@
 				3477528F1F7251C7000D46A3 /* UGCAddReviewTextCell.swift in Sources */,
 				34E50DEF1F6FCC41008EED49 /* UGCYourReviewCell.swift in Sources */,
 				34AB66371FC5AA330078E451 /* RouteManagerCell.swift in Sources */,
+				3472B5D2200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */,
 				F6E2FF231E097BA00083EBEC /* MWMSearchTabbedViewLayout.mm in Sources */,
 				F6E2FF1D1E097BA00083EBEC /* MWMSearchTabbedViewController.mm in Sources */,
 				F6E2FF2F1E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
@@ -6479,6 +6569,7 @@
 				3408963F1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */,
 				F6E2FE1F1E097BA00083EBEC /* MWMOpeningHoursCommon.mm in Sources */,
 				3454D7B91E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */,
+				3472B5DB200F7C1000DC6CD5 /* BackgroundEditsUpload.swift in Sources */,
 				F6E2FF5D1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
 				34AB66651FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
@@ -6486,6 +6577,7 @@
 				348B926D1FF3B5E100379009 /* UIView+Animation.swift in Sources */,
 				347E1A8E1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
 				F6E2FDE91E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
+				3472B5EF200F8F7600DC6CD5 /* BackgroundUGCUpload.swift in Sources */,
 				6741A9A81BF340DE002C974C /* MWMFacebookAlert.mm in Sources */,
 				34AB665F1FC5AA330078E451 /* TransportTransitIntermediatePoint.swift in Sources */,
 				348A8DF51F66775A00D83026 /* RatingView.swift in Sources */,
@@ -6600,6 +6692,7 @@
 				347E1A891F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */,
 				F6E2FF451E097BA00083EBEC /* SettingsTableViewLinkCell.swift in Sources */,
 				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */,
+				3472B5F3200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift in Sources */,
 				F6550C1F1FD81B3800352D88 /* RatingSummaryView+DefaultConfig.swift in Sources */,
 				F6E2FE311E097BA00083EBEC /* MWMStreetEditorViewController.mm in Sources */,
 				F6E2FE281E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
@@ -6649,6 +6742,7 @@
 				34F407411E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,
 				3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				348A8DFB1F66775A00D83026 /* RatingViewSettings.swift in Sources */,
+				3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */,
 				F6E2FE3D1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
 				F6E2FE881E097BA00083EBEC /* MWMPlacePageRegularCell.mm in Sources */,
@@ -6679,8 +6773,10 @@
 				34E776331F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
 				F6E2FF361E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
 				F6E2FE3A1E097BA00083EBEC /* MWMMigrationView.mm in Sources */,
+				3472B5CF200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */,
 				F6E2FF3C1E097BA00083EBEC /* MWMSearchTableView.mm in Sources */,
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
+				3472B5EB200F8CFF00DC6CD5 /* MWMUGCHelper.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.mm in Sources */,
 				6741A9FE1BF340DE002C974C /* SelectSetVC.mm in Sources */,
 				34E7761F1F14DB48003040B3 /* PlacePageArea.swift in Sources */,
@@ -6701,6 +6797,8 @@
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.mm in Sources */,
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				3409D50B1FC6D8D2000F9B3E /* FilterCheckCell.swift in Sources */,
+				3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */,
+				3472B5D7200F61E900DC6CD5 /* BackgroundStatisticsUpload.swift in Sources */,
 				6741AA021BF340DE002C974C /* BookmarksRootVC.mm in Sources */,
 				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
@@ -6743,6 +6841,7 @@
 				347752901F7251C7000D46A3 /* UGCAddReviewTextCell.swift in Sources */,
 				34E50DF01F6FCC41008EED49 /* UGCYourReviewCell.swift in Sources */,
 				34AB66381FC5AA330078E451 /* RouteManagerCell.swift in Sources */,
+				3472B5D3200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */,
 				F6E2FF241E097BA00083EBEC /* MWMSearchTabbedViewLayout.mm in Sources */,
 				F6E2FF1E1E097BA00083EBEC /* MWMSearchTabbedViewController.mm in Sources */,
 				F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
@@ -6863,6 +6962,7 @@
 				340896401F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */,
 				849CF6841DE842290024A8A5 /* MWMShareActivityItem.mm in Sources */,
 				F6E2FE201E097BA00083EBEC /* MWMOpeningHoursCommon.mm in Sources */,
+				3472B5DC200F7C1000DC6CD5 /* BackgroundEditsUpload.swift in Sources */,
 				849CF6891DE842290024A8A5 /* MWMFacebookAlert.mm in Sources */,
 				34AB66661FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				F6E2FF5E1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
@@ -6870,6 +6970,7 @@
 				348B926E1FF3B5E100379009 /* UIView+Animation.swift in Sources */,
 				F6664BFB1E6459CB00E703C2 /* PPFacilityCell.swift in Sources */,
 				347E1A8F1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
+				3472B5F0200F8F7600DC6CD5 /* BackgroundUGCUpload.swift in Sources */,
 				F6E2FDEA1E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				34AB66601FC5AA330078E451 /* TransportTransitIntermediatePoint.swift in Sources */,
 				849CF68A1DE842290024A8A5 /* MWMDefaultAlert.mm in Sources */,
@@ -6984,6 +7085,7 @@
 				F6558DA31E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
 				347E1A8A1F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */,
 				F6E2FF491E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
+				3472B5F4200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift in Sources */,
 				F6550C201FD81B3800352D88 /* RatingSummaryView+DefaultConfig.swift in Sources */,
 				349D1AD01E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				F6E2FF281E097BA00083EBEC /* MWMSearchTabButtonsView.mm in Sources */,
@@ -7033,6 +7135,7 @@
 				849CF6E91DE842290024A8A5 /* MWMCircularProgressView.mm in Sources */,
 				34F407421E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,
 				348A8DFC1F66775A00D83026 /* RatingViewSettings.swift in Sources */,
+				3472B5E2200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */,
 				3444DFD31F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				F6E2FE3E1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6E2FD511E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
@@ -7063,8 +7166,10 @@
 				F6E2FE7D1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
 				34E776341F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
 				F6E2FF371E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
+				3472B5D0200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */,
 				F6E2FE3B1E097BA00083EBEC /* MWMMigrationView.mm in Sources */,
 				F6E2FF3D1E097BA00083EBEC /* MWMSearchTableView.mm in Sources */,
+				3472B5EC200F8CFF00DC6CD5 /* MWMUGCHelper.mm in Sources */,
 				F6E2FF671E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7D81E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				346DB82F1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */,
@@ -7085,6 +7190,8 @@
 				F6E2FE831E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.mm in Sources */,
 				340416591E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */,
 				3409D50C1FC6D8D2000F9B3E /* FilterCheckCell.swift in Sources */,
+				3472B5CC200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */,
+				3472B5D8200F61E900DC6CD5 /* BackgroundStatisticsUpload.swift in Sources */,
 				F6E2FD6C1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				F6E2FF6A1E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				34FE5A701F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
@@ -7127,6 +7234,7 @@
 				347752911F7251C7000D46A3 /* UGCAddReviewTextCell.swift in Sources */,
 				34E50DF11F6FCC41008EED49 /* UGCYourReviewCell.swift in Sources */,
 				34AB66391FC5AA330078E451 /* RouteManagerCell.swift in Sources */,
+				3472B5D4200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */,
 				F6E2FF251E097BA00083EBEC /* MWMSearchTabbedViewLayout.mm in Sources */,
 				F6E2FF1F1E097BA00083EBEC /* MWMSearchTabbedViewController.mm in Sources */,
 				F6E2FF311E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,

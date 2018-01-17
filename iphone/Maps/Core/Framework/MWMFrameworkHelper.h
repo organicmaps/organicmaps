@@ -8,4 +8,6 @@
 
 + (MWMDayTime)daytime;
 
++ (void)createFramework;
+
 @end

@@ -20,6 +20,7 @@
 #import "private.h"
 
 #import "AppInfo.h"
+#import "LocalNotificationManager.h"
 #import "MWMAuthorizationViewModel.h"
 #import "MWMAvailableAreaAffectDirection.h"
 #import "MWMBanner.h"
@@ -27,6 +28,7 @@
 #import "MWMCollectionViewController.h"
 #import "MWMConsts.h"
 #import "MWMController.h"
+#import "MWMEditorHelper.h"
 #import "MWMFrameworkHelper.h"
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
@@ -57,6 +59,7 @@
 #import "MWMTextView.h"
 #import "MWMTrafficButtonViewController.h"
 #import "MWMTrafficManager.h"
+#import "MWMUGCHelper.h"
 #import "MWMViewController.h"
 #import "Statistics.h"
 #import "UIButton+RuntimeAttributes.h"

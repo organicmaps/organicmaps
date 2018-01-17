@@ -153,6 +153,7 @@ using namespace osm_auth_ios;
 @interface MapsAppDelegate ()<MWMFrameworkStorageObserver>
 
 @property(nonatomic) NSInteger standbyCounter;
+@property(nonatomic) MWMBackgroundFetchScheduler * backgroundFetchScheduler;
 
 @end
 
@@ -409,111 +410,28 @@ using namespace osm_auth_ios;
   completionHandler(YES);
 }
 
-// Starts async edits uploading process.
-+ (void)uploadLocalMapEdits:(void (^)(osm::Editor::UploadResult))finishCallback
-                       with:(osm::TKeySecret const &)keySecret
+- (void)runBackgroundTasks:(NSArray<BackgroundFetchTask *> * _Nonnull)tasks
+         completionHandler:(void (^_Nullable)(UIBackgroundFetchResult))completionHandler
 {
-  auto const lambda = [finishCallback](osm::Editor::UploadResult result) {
-    finishCallback(result);
+  __weak auto wSelf = self;
+  auto completion = ^(UIBackgroundFetchResult result) {
+    wSelf.backgroundFetchScheduler = nil;
+    if (completionHandler)
+      completionHandler(result);
   };
-  osm::Editor::Instance().UploadChanges(
-      keySecret.first, keySecret.second,
-      {{"created_by",
-        string("MAPS.ME " OMIM_OS_NAME " ") + AppInfo.sharedInfo.bundleVersion.UTF8String},
-       {"bundle_id", NSBundle.mainBundle.bundleIdentifier.UTF8String}},
-      lambda);
-}
-
-// Starts async UGC uploading process.
-+ (void)uploadUGC:(MWMVoidBlock)finishCallback
-{
-  GetFramework().UploadUGC([finishCallback](bool /* isSuccessful */) {
-    finishCallback();
-  });
+  self.backgroundFetchScheduler =
+      [[MWMBackgroundFetchScheduler alloc] initWithTasks:tasks completionHandler:completion];
+  [self.backgroundFetchScheduler run];
 }
 
 - (void)application:(UIApplication *)application
     performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  // At the moment, we need to perform 3 asynchronous background tasks simultaneously.
-  // We will force complete fetch before backgroundTimeRemaining.
-  // However if all scheduled tasks complete before backgroundTimeRemaining, fetch completes as soon
-  // as last task finishes.
-  // fetchResultPriority is used to determine result we must send to fetch completion block.
-  // Threads synchronization is made through dispatch_async on the main queue.
-  static NSUInteger fetchRunningTasks;
-  static UIBackgroundFetchResult fetchResult;
-  static NSUInteger fetchStamp = 0;
-  NSUInteger const taskFetchStamp = fetchStamp;
-
-  fetchRunningTasks = 0;
-  fetchResult = UIBackgroundFetchResultNewData;
-
-  auto const fetchResultPriority = ^NSUInteger(UIBackgroundFetchResult result) {
-    switch (result)
-    {
-    case UIBackgroundFetchResultNewData: return 2;
-    case UIBackgroundFetchResultNoData: return 1;
-    case UIBackgroundFetchResultFailed: return 3;
-    }
-  };
-  auto const callback = ^(UIBackgroundFetchResult result) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      if (taskFetchStamp != fetchStamp)
-        return;
-      if (fetchResultPriority(fetchResult) < fetchResultPriority(result))
-        fetchResult = result;
-      if (--fetchRunningTasks == 0)
-      {
-        fetchStamp++;
-        completionHandler(fetchResult);
-      }
-    });
-  };
-  auto const runFetchTask = ^(MWMVoidBlock task) {
-    ++fetchRunningTasks;
-    task();
-  };
-
-  dispatch_time_t const forceCompleteTime = dispatch_time(
-      DISPATCH_TIME_NOW, static_cast<int64_t>(application.backgroundTimeRemaining) * NSEC_PER_SEC);
-  dispatch_after(forceCompleteTime, dispatch_get_main_queue(), ^{
-    if (taskFetchStamp != fetchStamp)
-      return;
-    fetchRunningTasks = 1;
-    callback(fetchResult);
-  });
-
-  // 1. Try to send collected statistics (if any) to our server.
-  runFetchTask(^{
-    [Alohalytics forceUpload:callback];
-  });
-  // 2. Upload map edits (if any).
-  if (osm::Editor::Instance().HaveMapEditsOrNotesToUpload() && AuthorizationHaveCredentials())
-  {
-    runFetchTask(^{
-      [MapsAppDelegate uploadLocalMapEdits:^(osm::Editor::UploadResult result) {
-        using UploadResult = osm::Editor::UploadResult;
-        switch (result)
-        {
-        case UploadResult::Success: callback(UIBackgroundFetchResultNewData); break;
-        case UploadResult::Error: callback(UIBackgroundFetchResultFailed); break;
-        case UploadResult::NothingToUpload: callback(UIBackgroundFetchResultNoData); break;
-        }
-      }
-                                      with:AuthorizationGetCredentials()];
-    });
-  }
-  // 3. Upload UGC.
-  runFetchTask(^{
-    // Ignore completion callback for now.
-    [MapsAppDelegate uploadUGC:^{}];
-  });
-  // 4. Check if map for current location is already downloaded, and if not - notify user to
-  // download it.
-  runFetchTask(^{
-    [[LocalNotificationManager sharedManager] showDownloadMapNotificationIfNeeded:callback];
-  });
+  auto tasks = @[
+    [[MWMBackgroundStatisticsUpload alloc] init], [[MWMBackgroundEditsUpload alloc] init],
+    [[MWMBackgroundUGCUpload alloc] init], [[MWMBackgroundDownloadMapNotification alloc] init]
+  ];
+  [self runBackgroundTasks:tasks completionHandler:completionHandler];
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
@@ -555,48 +473,10 @@ using namespace osm_auth_ios;
       self->m_backgroundTask = UIBackgroundTaskInvalid;
     }];
   }
-  // Upload map edits if any, but only if we have Internet connection and user has already been
-  // authorized.
-  if (osm::Editor::Instance().HaveMapEditsOrNotesToUpload() && AuthorizationHaveCredentials() &&
-      Platform::EConnectionType::CONNECTION_NONE != Platform::ConnectionStatus())
-  {
-    void (^finishEditorUploadTaskBlock)() = ^{
-      if (self->m_editorUploadBackgroundTask != UIBackgroundTaskInvalid)
-      {
-        [application endBackgroundTask:self->m_editorUploadBackgroundTask];
-        self->m_editorUploadBackgroundTask = UIBackgroundTaskInvalid;
-      }
-    };
-    ::dispatch_after(::dispatch_time(DISPATCH_TIME_NOW,
-                                     static_cast<int64_t>(application.backgroundTimeRemaining)),
-                     ::dispatch_get_main_queue(), finishEditorUploadTaskBlock);
-    m_editorUploadBackgroundTask =
-        [application beginBackgroundTaskWithExpirationHandler:finishEditorUploadTaskBlock];
-    [MapsAppDelegate uploadLocalMapEdits:^(osm::Editor::UploadResult /*ignore it here*/) {
-      finishEditorUploadTaskBlock();
-    }
-                                    with:AuthorizationGetCredentials()];
-  }
-  
-  // Upload UGC. All checks are inside the core part.
-  {
-    auto finishUGCUploadTaskBlock = ^{
-      if (self->m_ugcUploadBackgroundTask != UIBackgroundTaskInvalid)
-      {
-        [application endBackgroundTask:self->m_ugcUploadBackgroundTask];
-        self->m_ugcUploadBackgroundTask = UIBackgroundTaskInvalid;
-      }
-    };
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                 static_cast<int64_t>(application.backgroundTimeRemaining)),
-                   dispatch_get_main_queue(), finishUGCUploadTaskBlock);
-    m_ugcUploadBackgroundTask =
-      [application beginBackgroundTaskWithExpirationHandler:finishUGCUploadTaskBlock];
-    [MapsAppDelegate uploadUGC:^{
-      finishUGCUploadTaskBlock();
-    }];
-  }
-  
+
+  auto tasks = @[[[MWMBackgroundEditsUpload alloc] init], [[MWMBackgroundUGCUpload alloc] init]];
+  [self runBackgroundTasks:tasks completionHandler:nil];
+
   [MWMRouter saveRouteIfNeeded];
   LOG(LINFO, ("applicationDidEnterBackground - end"));
 }
