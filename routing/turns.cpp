@@ -4,10 +4,12 @@
 
 #include "base/internal/message.hpp"
 
-#include "std/array.hpp"
-#include "std/utility.hpp"
-
+#include <algorithm>
+#include <array>
 #include <sstream>
+#include <utility>
+
+using namespace std;
 
 namespace
 {
@@ -53,8 +55,6 @@ static_assert(g_turnNames.size() == static_cast<size_t>(CarDirection::Count),
 
 namespace routing
 {
-using namespace std;
-
 // SegmentRange -----------------------------------------------------------------------------------
 SegmentRange::SegmentRange(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId,
                      bool forward)
@@ -276,9 +276,11 @@ bool ParseLanes(string lanesString, vector<SingleLaneInfo> & lanes)
   if (lanesString.empty())
     return false;
   lanes.clear();
-  transform(lanesString.begin(), lanesString.end(), lanesString.begin(), tolower);
-  lanesString.erase(remove_if(lanesString.begin(), lanesString.end(), isspace),
-                         lanesString.end());
+  transform(lanesString.begin(), lanesString.end(), lanesString.begin(),
+            [](string::value_type c) { return tolower(c); });
+  lanesString.erase(
+      remove_if(lanesString.begin(), lanesString.end(), [](char c) { return isspace(c); }),
+      lanesString.end());
 
   vector<string> SplitLanesStrings;
   SingleLaneInfo lane;

@@ -2,6 +2,8 @@
 
 #include "routing/turns.hpp"
 
+#include "base/math.hpp"
+
 #include "std/vector.hpp"
 
 namespace ftypes
@@ -41,12 +43,26 @@ struct TurnCandidate
   {
   }
 
-  bool operator==(TurnCandidate const & rhs) const
+  bool IsAlmostEqual(TurnCandidate const & rhs) const
   {
-    return angle == rhs.angle && m_segmentRange == rhs.m_segmentRange &&
+    double constexpr kEpsilon = 0.01;
+    return my::AlmostEqualAbs(angle, rhs.angle, kEpsilon) && m_segmentRange == rhs.m_segmentRange &&
            highwayClass == rhs.highwayClass;
   }
 };
+
+inline bool IsAlmostEqual(vector<TurnCandidate> const & lhs, vector<TurnCandidate> const & rhs)
+{
+  if (lhs.size() != rhs.size())
+    return false;
+
+  for (size_t i = 0; i < lhs.size(); ++i)
+  {
+    if (!lhs[i].IsAlmostEqual(rhs[i]))
+      return false;
+  }
+  return true;
+}
 
 struct TurnCandidates
 {
@@ -55,11 +71,11 @@ struct TurnCandidates
 
   explicit TurnCandidates(bool angleValid = true) : isCandidatesAngleValid(angleValid) {}
 
-  bool operator==(TurnCandidates const & rhs) const
+  bool IsAlmostEqual(TurnCandidates const & rhs) const
   {
-    return candidates == rhs.candidates && isCandidatesAngleValid == rhs.isCandidatesAngleValid;
+    return turns::IsAlmostEqual(candidates, rhs.candidates) &&
+           isCandidatesAngleValid == rhs.isCandidatesAngleValid;
   }
 };
-
 }  // namespace routing
 }  // namespace turns

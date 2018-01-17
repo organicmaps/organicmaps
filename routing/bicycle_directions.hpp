@@ -19,8 +19,7 @@ public:
   struct AdjacentEdges
   {
     explicit AdjacentEdges(size_t ingoingTurnsCount = 0) : m_ingoingTurnsCount(ingoingTurnsCount) {}
-    bool operator==(AdjacentEdges const & rhs) const;
-    bool operator!=(AdjacentEdges const & rhs) const { return !(*this == rhs); }
+    bool IsAlmostEqual(AdjacentEdges const & rhs) const;
 
     turns::TurnCandidates m_outgoingTurns;
     size_t m_ingoingTurnsCount;

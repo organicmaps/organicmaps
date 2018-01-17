@@ -151,9 +151,10 @@ bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
 namespace routing
 {
 // BicycleDirectionsEngine::AdjacentEdges ---------------------------------------------------------
-bool BicycleDirectionsEngine::AdjacentEdges::operator==(AdjacentEdges const & rhs) const
+bool BicycleDirectionsEngine::AdjacentEdges::IsAlmostEqual(AdjacentEdges const & rhs) const
 {
-  return m_outgoingTurns == rhs.m_outgoingTurns && m_ingoingTurnsCount == rhs.m_ingoingTurnsCount;
+  return m_outgoingTurns.IsAlmostEqual(rhs.m_outgoingTurns) &&
+         m_ingoingTurnsCount == rhs.m_ingoingTurnsCount;
 }
 
 // BicycleDirectionsEngine ------------------------------------------------------------------------
@@ -366,7 +367,7 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
       // A route may be build through intermediate points. So it may contain the same |segmentRange|
       // several times. But in that case |adjacentEdges| corresponds to |segmentRange|
       // should be the same as well.
-      ASSERT(it == m_adjacentEdges.cend() || it->second == adjacentEdges,
+      ASSERT(it == m_adjacentEdges.cend() || it->second.IsAlmostEqual(adjacentEdges),
              ("segmentRange:", segmentRange, "corresponds to adjacent edges which aren't equal."));
 
       m_adjacentEdges.insert(it, make_pair(segmentRange, move(adjacentEdges)));
