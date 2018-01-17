@@ -7,6 +7,8 @@
 #include "std/array.hpp"
 #include "std/utility.hpp"
 
+#include <sstream>
+
 namespace
 {
 using namespace routing::turns;
@@ -51,6 +53,8 @@ static_assert(g_turnNames.size() == static_cast<size_t>(CarDirection::Count),
 
 namespace routing
 {
+using namespace std;
+
 // SegmentRange -----------------------------------------------------------------------------------
 SegmentRange::SegmentRange(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId,
                      bool forward)
