@@ -337,12 +337,6 @@ endfunction()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-add_compile_options(
-  "-Wall"
-)
-
-add_clang_compile_options("-Wshorten-64-to-32")
-
 if (USE_ASAN)
   add_compile_options(
     "-fsanitize=address"
@@ -374,6 +368,16 @@ add_subdirectory(3party/sdf_image)
 add_subdirectory(3party/stb_image)
 add_subdirectory(3party/succinct)
 
+if (PLATFORM_DESKTOP)
+  add_subdirectory(3party/libtess2)
+endif()
+
+add_compile_options(
+  "-Wall"
+)
+
+add_clang_compile_options("-Wshorten-64-to-32")
+
 add_subdirectory(base)
 add_subdirectory(coding)
 add_subdirectory(drape)
@@ -397,8 +401,6 @@ add_subdirectory(transit)
 add_subdirectory(ugc)
 
 if (PLATFORM_DESKTOP)
-  add_subdirectory(3party/libtess2)
-
   if (BUILD_MAPSHOT)
     add_subdirectory(mapshot)
     add_subdirectory(software_renderer)
