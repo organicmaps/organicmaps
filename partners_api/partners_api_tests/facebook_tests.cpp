@@ -8,6 +8,14 @@
 
 namespace
 {
+UNIT_TEST(Facebook_BannerInSearch)
+{
+  ads::Facebook facebook;
+  TEST(facebook.HasSearchBanner(), ());
+  auto result = facebook.GetSearchBannerId();
+  TEST_EQUAL(result, "dummy", ());
+}
+
 UNIT_TEST(Facebook_GetBanner)
 {
   classificator::Load();

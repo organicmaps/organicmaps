@@ -11,6 +11,8 @@ public:
   Facebook() = default;
 
   // ContainerBase overrides:
+  bool HasSearchBanner() const override;
   std::string GetBannerIdForOtherTypes() const override;
+  std::string GetSearchBannerId() const override;
 };
 }  // namespace ads
