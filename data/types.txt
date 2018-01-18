@@ -1153,7 +1153,7 @@ tourism|gallery
 historic|fort
 shop|coffee
 shop|tea
-sponsored|thor
+mapswithme
 sponsored|viator
 hwtag|toll
 amenity|arts_centre
@@ -1200,3 +1200,8 @@ tourism|wilderness_hut
 sponsored|cian
 sponsored|holiday
 tourism|resort
+sponsored|partner1
+sponsored|partner2
+sponsored|partner3
+sponsored|partner4
+sponsored|partner5

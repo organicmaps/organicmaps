@@ -1153,7 +1153,7 @@ tourism|gallery;1152;
 historic|fort;1153;
 shop|coffee;1154;
 shop|tea;1155;
-sponsored|thor;1156;
+sponsored|thor;1156;x
 sponsored|viator;1157;
 hwtag|toll;1158;
 amenity|arts_centre;1159;
@@ -1200,3 +1200,8 @@ tourism|wilderness_hut;1199;
 sponsored|cian;1200;
 sponsored|holiday;1201;
 leisure|resort;1202;tourism|resort
+sponsored|partner1;1203;
+sponsored|partner2;1204;
+sponsored|partner3;1205;
+sponsored|partner4;1206;
+sponsored|partner5;1207;

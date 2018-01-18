@@ -865,7 +865,11 @@ world  +
         cian  -
         holiday  -
         opentable  -
-        thor  -
+        partner1  -
+        partner2  -
+        partner3  -
+        partner4  -
+        partner5  -
         viator  -
         {}
     sport  +
