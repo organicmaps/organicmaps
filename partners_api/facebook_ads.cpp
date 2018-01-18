@@ -9,6 +9,7 @@ namespace
   auto const kSingleBannerIdForAllTypes = "185237551520383_1450325641678228";
   auto const kSearchbannerId = "185237551520383_1384653791578747";
 #else
+  auto const kSingleBannerIdForAllTypes = "dummy";
   auto const kSearchbannerId = "dummy";
 #endif
 }  // namespace

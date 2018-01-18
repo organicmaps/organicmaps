@@ -19,6 +19,13 @@
 		3488B0371E9D11860068AFD8 /* ads_engine_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346E889D1E9D088200D4CE9B /* ads_engine_tests.cpp */; };
 		3488B0381E9D11890068AFD8 /* rb_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346E889E1E9D088200D4CE9B /* rb_tests.cpp */; };
 		3488B0391E9D118D0068AFD8 /* facebook_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC1C501E4B14810016897F /* facebook_tests.cpp */; };
+		349FEC522010D47E00FE5CA3 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC532010D47E00FE5CA3 /* libeditor.a */; };
+		349FEC542010D4EA00FE5CA3 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC552010D4EA00FE5CA3 /* libgeometry.a */; };
+		349FEC562010D50200FE5CA3 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC572010D50200FE5CA3 /* libicu.a */; };
+		349FEC582010D53700FE5CA3 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC592010D53700FE5CA3 /* libpugixml.a */; };
+		349FEC5A2010D54D00FE5CA3 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC5B2010D54D00FE5CA3 /* liboauthcpp.a */; };
+		349FEC5C2010D56400FE5CA3 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC5D2010D56400FE5CA3 /* libprotobuf.a */; };
+		349FEC5E2010D67B00FE5CA3 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC5F2010D67B00FE5CA3 /* libopening_hours.a */; };
 		3D452AEF1EE6D202009EAB9B /* google_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D452AED1EE6D202009EAB9B /* google_tests.cpp */; };
 		3D452AF01EE6D202009EAB9B /* mopub_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D452AEE1EE6D202009EAB9B /* mopub_tests.cpp */; };
 		3D452AF31EE6D20D009EAB9B /* google_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D452AF11EE6D20D009EAB9B /* google_ads.cpp */; };
@@ -83,6 +90,13 @@
 		346E889E1E9D088200D4CE9B /* rb_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rb_tests.cpp; sourceTree = "<group>"; };
 		3475E0E11DBF581B004C7E69 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		3475E0E21DBF581B004C7E69 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		349FEC532010D47E00FE5CA3 /* libeditor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libeditor.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		349FEC552010D4EA00FE5CA3 /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		349FEC572010D50200FE5CA3 /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		349FEC592010D53700FE5CA3 /* libpugixml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpugixml.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		349FEC5B2010D54D00FE5CA3 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		349FEC5D2010D56400FE5CA3 /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		349FEC5F2010D67B00FE5CA3 /* libopening_hours.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopening_hours.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D452AED1EE6D202009EAB9B /* google_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = google_tests.cpp; sourceTree = "<group>"; };
 		3D452AEE1EE6D202009EAB9B /* mopub_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mopub_tests.cpp; sourceTree = "<group>"; };
 		3D452AF11EE6D20D009EAB9B /* google_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = google_ads.cpp; sourceTree = "<group>"; };
@@ -148,6 +162,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				349FEC5E2010D67B00FE5CA3 /* libopening_hours.a in Frameworks */,
+				349FEC5C2010D56400FE5CA3 /* libprotobuf.a in Frameworks */,
+				349FEC5A2010D54D00FE5CA3 /* liboauthcpp.a in Frameworks */,
+				349FEC582010D53700FE5CA3 /* libpugixml.a in Frameworks */,
+				349FEC562010D50200FE5CA3 /* libicu.a in Frameworks */,
+				349FEC542010D4EA00FE5CA3 /* libgeometry.a in Frameworks */,
+				349FEC522010D47E00FE5CA3 /* libeditor.a in Frameworks */,
 				F6B536801DA5243B0067EEA5 /* libz.tbd in Frameworks */,
 				F6B5367E1DA5242A0067EEA5 /* libcoding.a in Frameworks */,
 				F6B5367B1DA524030067EEA5 /* libalohalitics.a in Frameworks */,
@@ -264,6 +285,13 @@
 		F6B536701DA523D60067EEA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				349FEC5F2010D67B00FE5CA3 /* libopening_hours.a */,
+				349FEC5D2010D56400FE5CA3 /* libprotobuf.a */,
+				349FEC5B2010D54D00FE5CA3 /* liboauthcpp.a */,
+				349FEC592010D53700FE5CA3 /* libpugixml.a */,
+				349FEC572010D50200FE5CA3 /* libicu.a */,
+				349FEC552010D4EA00FE5CA3 /* libgeometry.a */,
+				349FEC532010D47E00FE5CA3 /* libeditor.a */,
 				F6B5367F1DA5243B0067EEA5 /* libz.tbd */,
 				F6B5367D1DA5242A0067EEA5 /* libcoding.a */,
 				F6B536791DA524030067EEA5 /* libalohalitics.a */,

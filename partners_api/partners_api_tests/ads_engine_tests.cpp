@@ -138,11 +138,6 @@ UNIT_TEST(AdsEngine_Smoke)
   }
   ads::Google google;
   {
-    TEST_EQUAL(engine.HasSearchBanner(), false, ());
-    auto result = engine.GetSearchBanners();
-    TEST_EQUAL(result.size(), 0, ());
-  }
-  {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "banner"}));
     TEST(engine.HasBanner(holder, {"Russian Federation"}, "ru"), ());
@@ -157,6 +152,14 @@ UNIT_TEST(AdsEngine_Smoke)
     auto result = engine.GetBanners(holder, {"United States"}, "en");
     TEST(!result.empty(), ());
     CheckIds(result, {"2bab47102d38485996788ab9b602ce2c"});
+  }
+  ads::Facebook facebook;
+  {
+    TEST(engine.HasSearchBanner(), ());
+    auto result = engine.GetSearchBanners();
+    TEST_EQUAL(result.size(), 1, ());
+    TEST_EQUAL(result[0].m_type, ads::Banner::Type::Facebook, ());
+    TEST_EQUAL(result[0].m_bannerId, facebook.GetSearchBannerId(), ());
   }
 }
 }
