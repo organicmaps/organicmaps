@@ -27383,34 +27383,9 @@
     sk = Kvalita
     sw = Ubora
 
-  [sponsored_thor_gather]
-    en = Gather
-    ru = Собрать
-    ar = جمع
-    cs = Posbírat
-    da = Indsamle
-    nl = Verzamelen
-    fi = Kerää
-    de = Sammeln
-    hu = Összegyűjtve
-    id = Kumpulkan
-    it = Raccogli
-    ja = 収集
-    ko = 수집
-    nb = Samle
-    pl = Zbierz
-    pt = Reunir
-    ro = Adună
-    es = Reunir
-    sv = Samla
-    th = รวบรวม
-    tr = Toplam
-    vi = Tụ tập
-    zh-Hans = 收集
-    zh-Hant = 收集
-    el = Συλλογή
-    sk = Pozbierať
-    sw = Kusanya
+  [sponsored_partner1_action]
+    en = Cash back
+    ru = Кешбэк
 
   [whats_new_ugc_title]
     en = Ratings and reviews
