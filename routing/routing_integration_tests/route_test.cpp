@@ -26,20 +26,17 @@ namespace
         MercatorBounds::FromLatLon(55.66237, 37.63560), 1700.);
   }
 
-// Fails because checkpoints are far from roads (inside Kremlin and inside the airport).
-// This test is commented because the feature, the test is on, will not implement
-// in short time perspective. When it does the test should be uncommented.
-//  UNIT_TEST(MoscowToSVOAirport)
-//  {
-//    integration::CalculateRouteAndTestRouteLength(
-//        integration::GetVehicleComponents<VehicleType::Car>(),
-//        MercatorBounds::FromLatLon(55.75100, 37.61790), {0., 0.},
-//        MercatorBounds::FromLatLon(55.97310, 37.41460), 30470.);
-//    integration::CalculateRouteAndTestRouteLength(
-//        integration::GetVehicleComponents<VehicleType::Car>(),
-//        MercatorBounds::FromLatLon(55.97310, 37.41460), {0., 0.},
-//        MercatorBounds::FromLatLon(55.75100, 37.61790), 30470.);
-//  }
+  UNIT_TEST(MoscowToSVOAirport)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents<VehicleType::Car>(),
+        MercatorBounds::FromLatLon(55.75100, 37.61790), {0., 0.},
+        MercatorBounds::FromLatLon(55.97310, 37.41460), 37284.);
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents<VehicleType::Car>(),
+        MercatorBounds::FromLatLon(55.97310, 37.41460), {0., 0.},
+        MercatorBounds::FromLatLon(55.75100, 37.61790), 39449.);
+  }
 
   // Restrictions tests. Check restrictions generation, if there are any errors.
   UNIT_TEST(RestrictionTestNeatBaumanAndTTK)

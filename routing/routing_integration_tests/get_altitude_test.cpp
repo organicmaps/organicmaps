@@ -25,18 +25,19 @@
 namespace
 {
 using namespace feature;
+using namespace platform;
 
-LocalCountryFile GetLocalCountryFileByCountryId(string const & countryId)
+LocalCountryFile GetLocalCountryFileByCountryId(CountryFile const & country)
 {
   vector<LocalCountryFile> localFiles;
   integration::GetAllLocalFiles(localFiles);
 
   for (auto const & lf : localFiles)
   {
-    if (lf.GetCountryName() == countryId)
+    if (lf.GetCountryFile() == country)
       return lf;
   }
-  return LocalCountryFile();
+  return {};
 }
 
 void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const altitudeLowerBoundMeters,
@@ -44,8 +45,8 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const alti
 {
   Index index;
 
-  platform::LocalCountryFile const country = GetLocalCountryFileByCountryId(countryId);
-  TEST_NOT_EQUAL(country, platform::LocalCountryFile(), ());
+  LocalCountryFile const country = GetLocalCountryFileByCountryId(CountryFile(countryId));
+  TEST_NOT_EQUAL(country, LocalCountryFile(), ());
   TEST_NOT_EQUAL(country.GetFiles(), MapOptions::Nothing, (country));
 
   pair<MwmSet::MwmId, MwmSet::RegResult> const regResult = index.RegisterMap(country);
