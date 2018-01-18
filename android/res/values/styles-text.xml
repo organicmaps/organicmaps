@@ -210,4 +210,8 @@
   <style name="MwmTextAppearance.Discovery.Item.Distance" parent="MwmTextAppearance.Body3.Primary">
     <item name="android:textColor">?colorAccent</item>
   </style>
+
+  <style name="MwmTextAppearance.BookingFilter.Title" parent="MwmTextAppearance.Body3">
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
+  </style>
 </resources>

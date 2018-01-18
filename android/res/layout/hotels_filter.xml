@@ -77,11 +77,17 @@
           android:layout_marginRight="@dimen/margin_base"
           android:layout_marginTop="@dimen/margin_base"
           android:layout_marginBottom="@dimen/margin_half"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
-          android:textColor="?android:textColorSecondary"
-          android:fontFamily="@string/robotoMedium"
-          android:text="@string/booking_filters_rating"
-          tools:targetApi="jelly_bean"/>
+          android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
+          android:text="@string/booking_filters_check_in"/>
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_base"
+          android:layout_marginTop="@dimen/margin_base"
+          android:layout_marginBottom="@dimen/margin_half"
+          android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
+          android:text="@string/booking_filters_rating"/>
         <include layout="@layout/divider_horizontal"/>
         <com.mapswithme.maps.search.RatingFilterView
           android:id="@+id/rating"
@@ -95,11 +101,8 @@
           android:layout_marginRight="@dimen/margin_base"
           android:layout_marginTop="@dimen/margin_base"
           android:layout_marginBottom="@dimen/margin_half"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
-          android:textColor="?android:textColorSecondary"
-          android:fontFamily="@string/robotoMedium"
-          android:text="@string/booking_filters_price_category"
-          tools:targetApi="jelly_bean"/>
+          android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
+          android:text="@string/booking_filters_price_category"/>
         <include layout="@layout/divider_horizontal"/>
         <com.mapswithme.maps.search.PriceFilterView
           android:id="@+id/price"
@@ -113,11 +116,8 @@
           android:layout_marginRight="@dimen/margin_base"
           android:layout_marginTop="@dimen/margin_base"
           android:layout_marginBottom="@dimen/margin_half"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
-          android:textColor="?android:textColorSecondary"
-          android:fontFamily="@string/robotoMedium"
-          android:text="@string/search_hotel_filters_type"
-          tools:targetApi="jelly_bean"/>
+          android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
+          android:text="@string/search_hotel_filters_type"/>
         <android.support.v7.widget.RecyclerView
           android:id="@+id/type"
           android:layout_width="match_parent"
