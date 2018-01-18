@@ -1184,7 +1184,6 @@
 	<string name="expertise">Kompetanse</string>
 	<string name="equipment">Utstyr</string>
 	<string name="quality">Kvalitet</string>
-	<string name="sponsored_thor_gather">Samle</string>
 	<string name="whats_new_ugc_title">Rangeringer og vurderinger</string>
 	<string name="whats_new_ugc_message">Nå kan du gi dine vurderinger selv i frakoblet modus! Ikke glem å oppdatere kartene dine for å se endringene.</string>
 	<string name="dialog_error_storage_title">Problemer med tilgang til lagring</string>

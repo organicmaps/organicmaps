@@ -1182,7 +1182,6 @@
 	<string name="expertise">전문성</string>
 	<string name="equipment">장비</string>
 	<string name="quality">품질</string>
-	<string name="sponsored_thor_gather">수집</string>
 	<string name="whats_new_ugc_title">평점 및 리뷰</string>
 	<string name="whats_new_ugc_message">이제 평점과 리뷰를 오프라인에서도 남길 수 있습니다! 변경 사항을 볼 수 있도록 지도를 업데이트하는 것을 잊지 마세요.</string>
 	<string name="dialog_error_storage_title">저장소 액세스 문제</string>

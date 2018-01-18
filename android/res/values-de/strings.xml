@@ -1200,7 +1200,6 @@
 	<string name="expertise">Kompetenz</string>
 	<string name="equipment">Ausstattung</string>
 	<string name="quality">Qualität</string>
-	<string name="sponsored_thor_gather">Sammeln</string>
 	<string name="whats_new_ugc_title">Bewertungen und Kommentare</string>
 	<string name="whats_new_ugc_message">Sie können jetzt sogar offline Bewertungen und Kommentare abgeben! Vergessen Sie nicht, Ihre Karten zu aktualisieren, damit Sie die Änderungen sehen können.</string>
 	<string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>

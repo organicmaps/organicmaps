@@ -1179,7 +1179,6 @@
 	<string name="expertise">Conocimiento</string>
 	<string name="equipment">Equipamiento</string>
 	<string name="quality">Calidad</string>
-	<string name="sponsored_thor_gather">Reunir</string>
 	<string name="whats_new_ugc_title">Calificaciones y opiniones</string>
 	<string name="whats_new_ugc_message">Ahora puede dejar calificaciones y opiniones incluso sin conexión. No se olvide de actualizar los mapas para ver los cambios.</string>
 	<string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>

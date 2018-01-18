@@ -1190,7 +1190,6 @@
 	<string name="expertise">Ekspertise</string>
 	<string name="equipment">Udstyr</string>
 	<string name="quality">Kvalitet</string>
-	<string name="sponsored_thor_gather">Indsamle</string>
 	<string name="whats_new_ugc_title">Vurderinger og anmeldelser</string>
 	<string name="whats_new_ugc_message">Du kan nu afgive vurderinger og anmeldelser, selv offline! Glem ikke at opdatere dit kort, så du kan se ændringerne.</string>
 	<string name="dialog_error_storage_title">Problem med lageradgang</string>

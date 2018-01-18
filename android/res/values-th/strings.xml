@@ -1192,7 +1192,6 @@
 	<string name="expertise">ความเชี่ยวชาญ</string>
 	<string name="equipment">อุปกรณ์</string>
 	<string name="quality">คุณภาพ</string>
-	<string name="sponsored_thor_gather">รวบรวม</string>
 	<string name="whats_new_ugc_title">อันดับคะแนนและรีวิว</string>
 	<string name="whats_new_ugc_message">ขณะนี้คุณสามารถให้คะแนนและรีวิวได้แม้กระทั่งออฟไลน์อยู่! อย่าลืมอัปเดตแผนที่ของคุณเพื่อจะได้เห็นการเปลี่ยนแปลง</string>
 	<string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>

@@ -1196,7 +1196,6 @@
 	<string name="expertise">專業</string>
 	<string name="equipment">設備</string>
 	<string name="quality">品質</string>
-	<string name="sponsored_thor_gather">收集</string>
 	<string name="whats_new_ugc_title">評分與評論</string>
 	<string name="whats_new_ugc_message">現在即使離線，您也能留下評分和評論！別忘了更新地圖，才能看到變更。</string>
 	<string name="dialog_error_storage_title">儲存空間存取問題</string>

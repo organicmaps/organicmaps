@@ -1189,7 +1189,6 @@
 	<string name="expertise">Fachowość</string>
 	<string name="equipment">Wyposażenie</string>
 	<string name="quality">Jakość</string>
-	<string name="sponsored_thor_gather">Zbierz</string>
 	<string name="whats_new_ugc_title">Oceny i recenzje</string>
 	<string name="whats_new_ugc_message">Możesz od teraz zamieszczać oceny i recenzje offline! Nie zapomnij zaktualizować map, aby zobaczyć wprowadzone zmiany.</string>
 	<string name="dialog_error_storage_title">Problem z dostępem do pamięci masowej</string>

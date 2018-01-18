@@ -1190,7 +1190,6 @@
 	<string name="expertise">Expertis</string>
 	<string name="equipment">Utrustning</string>
 	<string name="quality">Kvalitet</string>
-	<string name="sponsored_thor_gather">Samla</string>
 	<string name="whats_new_ugc_title">Betyg och omdömen</string>
 	<string name="whats_new_ugc_message">Nu kan du betygsätta och lämna omdömen offline! Glöm inte att uppdatera dina kartor så att du kan se ändringarna.</string>
 	<string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>

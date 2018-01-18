@@ -1192,7 +1192,6 @@
 	<string name="expertise">专业</string>
 	<string name="equipment">设备</string>
 	<string name="quality">质量</string>
-	<string name="sponsored_thor_gather">收集</string>
 	<string name="whats_new_ugc_title">评分和评价</string>
 	<string name="whats_new_ugc_message">现在，即使离线您也可以留下评分和评价！记得更新您的地图，这样您可以看到更改。</string>
 	<string name="dialog_error_storage_title">存储空间访问问题</string>

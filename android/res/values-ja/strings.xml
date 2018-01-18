@@ -1185,7 +1185,6 @@
 	<string name="expertise">専門知識</string>
 	<string name="equipment">設備</string>
 	<string name="quality">品質</string>
-	<string name="sponsored_thor_gather">収集</string>
 	<string name="whats_new_ugc_title">評価とレビュー</string>
 	<string name="whats_new_ugc_message">オフライン時にも評価とレビューを残せるようになりました！変更箇所を確認できるよう、忘れずに地図を更新してください。</string>
 	<string name="dialog_error_storage_title">ストレージアクセスの問題</string>

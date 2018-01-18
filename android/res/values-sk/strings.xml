@@ -1189,7 +1189,6 @@
 	<string name="expertise">Odbornosť</string>
 	<string name="equipment">Vybavenie</string>
 	<string name="quality">Kvalita</string>
-	<string name="sponsored_thor_gather">Pozbierať</string>
 	<string name="whats_new_ugc_title">Hodnotenia a recenzie</string>
 	<string name="whats_new_ugc_message">Teraz môžete napísať hodnotenia a recenzie aj offline! Nezabudnite si aktualizovať mapy, aby ste videli zmeny.</string>
 	<string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>

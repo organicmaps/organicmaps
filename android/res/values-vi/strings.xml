@@ -1186,7 +1186,6 @@
 	<string name="expertise">Chuyên môn</string>
 	<string name="equipment">Thiết bị</string>
 	<string name="quality">Chất lượng</string>
-	<string name="sponsored_thor_gather">Tụ tập</string>
 	<string name="whats_new_ugc_title">Điểm và đánh giá</string>
 	<string name="whats_new_ugc_message">Giờ đây bạn có thể để lại điểm và đánh giá kể cả khi ngoại tuyến! Đừng quên cập nhật bản đồ của bạn để có thể thấy các thay đổi.</string>
 	<string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>

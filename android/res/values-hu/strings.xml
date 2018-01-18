@@ -1186,7 +1186,6 @@
 	<string name="expertise">Szakértelem</string>
 	<string name="equipment">Berendezések</string>
 	<string name="quality">Minőség</string>
-	<string name="sponsored_thor_gather">Összegyűjtve</string>
 	<string name="whats_new_ugc_title">Minősítések és értékelések</string>
 	<string name="whats_new_ugc_message">Most már kapcsolat nélkül is hagyhat minősítéseket és értékeléseket! Ne felejtse el frissíteni a térképeket, hogy láthassa a módosításokat.</string>
 	<string name="dialog_error_storage_title">Tároló hozzáférési hiba</string>

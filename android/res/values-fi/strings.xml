@@ -1186,7 +1186,6 @@
 	<string name="expertise">Asiantuntemus</string>
 	<string name="equipment">Laitteet</string>
 	<string name="quality">Laatu</string>
-	<string name="sponsored_thor_gather">Kerää</string>
 	<string name="whats_new_ugc_title">Arviot ja arvostelut</string>
 	<string name="whats_new_ugc_message">Nyt voit jättää arvioita ja arvosteluja myös offline-tilassa! Älä unohda päivittää karttojasi, jotta näet muutokset.</string>
 	<string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>

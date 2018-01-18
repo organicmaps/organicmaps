@@ -1221,7 +1221,7 @@
 	<string name="expertise">Профессионализм</string>
 	<string name="equipment">Оборудование</string>
 	<string name="quality">Качество</string>
-	<string name="sponsored_thor_gather">Собрать</string>
+	<string name="sponsored_partner1_action">Кешбэк</string>
 	<string name="whats_new_ugc_title">Оценки и отзывы</string>
 	<string name="whats_new_ugc_message">Теперь вы можете оставлять оценки и отзывы даже офлайн! Не забудьте обновить карты, чтобы увидеть изменения.</string>
 	<string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>

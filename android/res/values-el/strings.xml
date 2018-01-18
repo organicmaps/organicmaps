@@ -950,7 +950,6 @@
 	<string name="expertise">Τεχνογνωσία</string>
 	<string name="equipment">Εξοπλισμός</string>
 	<string name="quality">Ποιότητα</string>
-	<string name="sponsored_thor_gather">Συλλογή</string>
 	<string name="whats_new_ugc_title">Βαθμολογίες και κριτικές</string>
 	<string name="whats_new_ugc_message">Μπορείτε πλέον να αφήσετε βαθμολογίεςς και κριτικές ακόμα και όταν δεν είστε συνδεδεμένοι! Μην ξεχάσετε να ενημερώσετε τους χάρτες σας για να μπορείτε να δείτε τις αλλαγές.</string>
 	<string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>

@@ -1192,7 +1192,6 @@
 	<string name="expertise">Uzmanlık</string>
 	<string name="equipment">Ekipman</string>
 	<string name="quality">Kalite</string>
-	<string name="sponsored_thor_gather">Toplam</string>
 	<string name="whats_new_ugc_title">Puanlamalar ve değerlendirmeler</string>
 	<string name="whats_new_ugc_message">Artık puanlamalarınızı ve değerlendirmelerinizi çevrimdışıyken bırakabilirsiniz! Değişiklikleri görebilmek için haritalarınızı güncellemeyi unutmayın.</string>
 	<string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
