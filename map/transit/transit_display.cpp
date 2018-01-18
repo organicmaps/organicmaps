@@ -27,7 +27,7 @@ const int kLargeIconZoom = 15;
 
 const int kMinStopTitleZoom = 13;
 
-const int kTransferTitleOffset = 1;
+const int kTransferTitleOffset = 2;
 const int kStopTitleOffset = 0;
 const int kGateTitleOffset = 0;
 
@@ -457,25 +457,37 @@ void TransitRouteDisplay::CollectTransitDisplayInfo(vector<RouteSegment> const &
   }
 }
 
+TransitMark * TransitRouteDisplay::CreateMark(m2::PointD const & pt, FeatureID const & fid)
+{
+  auto & marksController = m_bmManager->GetUserMarksController(UserMark::Type::TRANSIT);
+  uint32_t const nextIndex = static_cast<uint32_t>(marksController.GetUserMarkCount());
+
+  auto userMark = marksController.CreateUserMark(pt);
+  ASSERT(dynamic_cast<TransitMark *>(userMark) != nullptr, ());
+  auto transitMark = static_cast<TransitMark *>(userMark);
+
+  transitMark->SetFeatureId(fid);
+  transitMark->SetIndex(nextIndex);
+  return transitMark;
+}
+
 void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const & transitMarks)
 {
   std::vector<m2::PointF> const transferMarkerSizes = GetTransitMarkerSizes(kTransferMarkerScale, m_maxSubrouteWidth);
   std::vector<m2::PointF> const stopMarkerSizes = GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
 
-  auto & marksController = m_bmManager->GetUserMarksController(UserMark::Type::TRANSIT);
-  uint32_t nextIndex = static_cast<uint32_t>(marksController.GetUserMarkCount());
+  std::vector<m2::PointF> transferArrowOffsets;
+  for (auto const & size : transferMarkerSizes)
+    transferArrowOffsets.emplace_back(0.0f, size.y * 0.5f);
+
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
 
   for (size_t i = 0; i < transitMarks.size(); ++i)
   {
     auto const & mark = transitMarks[i];
+    auto transitMark = CreateMark(mark.m_point, mark.m_featureId);
 
-    auto userMark = marksController.CreateUserMark(mark.m_point);
-    ASSERT(dynamic_cast<TransitMark *>(userMark) != nullptr, ());
-    auto transitMark = static_cast<TransitMark *>(userMark);
     dp::TitleDecl titleDecl;
-
-    transitMark->SetFeatureId(mark.m_featureId);
-    transitMark->SetIndex(nextIndex++);
     if (mark.m_type == TransitMarkInfo::Type::Gate)
     {
       if (!mark.m_titles.empty())
@@ -498,20 +510,27 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
     {
       if (mark.m_titles.size() > 1)
       {
+        auto titleTransitMark = CreateMark(mark.m_point, mark.m_featureId);
+
         TransitMark::GetDefaultTransitTitle(titleDecl);
         titleDecl.m_primaryText = mark.m_titles.front().m_text;
         titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(mark.m_titles.front().m_color);
-        titleDecl.m_primaryOffset.y = -kTransferTitleOffset;
-        titleDecl.m_anchor = dp::Anchor::Bottom;
-        titleDecl.m_primaryOptional = true;
-        transitMark->AddTitle(titleDecl);
+        titleDecl.m_primaryOffset.x = -kTransferTitleOffset * vs;
+        titleDecl.m_anchor = dp::Anchor::Right;
+        titleDecl.m_primaryOptional = false;
+        titleTransitMark->AddTitle(titleDecl);
 
         titleDecl.m_primaryText = mark.m_titles.back().m_text;
         titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(mark.m_titles.back().m_color);
-        titleDecl.m_primaryOffset.y = kTransferTitleOffset;
-        titleDecl.m_anchor = dp::Anchor::Top;
-        titleDecl.m_primaryOptional = true;
-        transitMark->AddTitle(titleDecl);
+        titleDecl.m_primaryOffset.x = kTransferTitleOffset * vs;
+        titleDecl.m_anchor = dp::Anchor::Left;
+        titleDecl.m_primaryOptional = false;
+        titleTransitMark->AddTitle(titleDecl);
+
+        titleTransitMark->SetAnchor(dp::Top);
+        titleTransitMark->SetSymbolNames({{1 /* minZoom */, "transfer_arrow"}});
+        titleTransitMark->SetSymbolOffsets(transferArrowOffsets);
+        titleTransitMark->SetPriority(UserMark::Priority::TransitTransfer);
       }
       df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
       for (size_t sizeIndex = 0; sizeIndex < transferMarkerSizes.size(); ++sizeIndex)
@@ -524,7 +543,6 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
         if (coloredSymbol.empty() || coloredSymbol.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
           coloredSymbol.insert(make_pair(zoomLevel, params));
       }
-      transitMark->SetSymbolSizes(transferMarkerSizes);
       transitMark->SetColoredSymbols(coloredSymbol);
       transitMark->SetPriority(UserMark::Priority::TransitTransfer);
     }
@@ -588,5 +606,6 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
     }
   }
 
+  auto & marksController = m_bmManager->GetUserMarksController(UserMark::Type::TRANSIT);
   marksController.NotifyChanges();
 }

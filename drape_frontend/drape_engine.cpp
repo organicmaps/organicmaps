@@ -249,6 +249,7 @@ void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * 
       renderInfo->m_symbolNames = mark->GetSymbolNames();
       renderInfo->m_coloredSymbols = mark->GetColoredSymbols();
       renderInfo->m_symbolSizes = mark->GetSymbolSizes();
+      renderInfo->m_symbolOffsets = mark->GetSymbolOffsets();
       renderInfo->m_hasSymbolPriority = mark->HasSymbolPriority();
       renderInfo->m_hasTitlePriority = mark->HasTitlePriority();
       renderInfo->m_priority = mark->GetPriority();

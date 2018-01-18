@@ -110,12 +110,14 @@ public:
   TransitMark(m2::PointD const & ptOrg, UserMarkContainer * container);
   virtual ~TransitMark() {}
 
-  dp::Anchor GetAnchor() const override { return dp::Center; }
   df::RenderState::DepthLayer GetDepthLayer() const override { return df::RenderState::TransitMarkLayer; }
   UserMark::Type GetMarkType() const override { return Type::TRANSIT; }
 
   bool HasSymbolPriority() const override { return !m_symbolNames.empty() || !m_coloredSymbols.empty(); }
   bool HasTitlePriority() const override { return true; }
+
+  void SetAnchor(dp::Anchor anchor);
+  dp::Anchor GetAnchor() const override;
 
   void SetFeatureId(FeatureID featureId);
   FeatureID GetFeatureID() const override { return m_featureId; }
@@ -141,6 +143,9 @@ public:
   void SetSymbolSizes(SymbolSizes const & symbolSizes);
   drape_ptr<SymbolSizes> GetSymbolSizes() const override;
 
+  void SetSymbolOffsets(SymbolOffsets const & symbolSizes);
+  drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
+
   void AddTitle(dp::TitleDecl const & titleDecl);
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
 
@@ -156,4 +161,6 @@ private:
   SymbolNameZoomInfo m_symbolNames;
   ColoredSymbolZoomInfo m_coloredSymbols;
   SymbolSizes m_symbolSizes;
+  SymbolOffsets m_symbolOffsets;
+  dp::Anchor m_anchor = dp::Center;
 };

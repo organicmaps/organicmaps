@@ -151,12 +151,13 @@ private:
 
 TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params,
                      TileKey const & tileKey,
-                     m2::PointF const & symbolSize, dp::Anchor symbolAnchor,
+                     m2::PointF const & symbolSize, m2::PointF const & symbolOffset, dp::Anchor symbolAnchor,
                      uint32_t textIndex)
   : m_basePoint(basePoint)
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_symbolAnchor(symbolAnchor)
+  , m_symbolOffset(symbolOffset)
   , m_textIndex(textIndex)
 {
   m_symbolSizes.push_back(symbolSize);
@@ -164,12 +165,13 @@ TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params
 
 TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params,
                      TileKey const & tileKey, std::vector<m2::PointF> const & symbolSizes,
-                     dp::Anchor symbolAnchor, uint32_t textIndex)
+                     m2::PointF const & symbolOffset, dp::Anchor symbolAnchor, uint32_t textIndex)
   : m_basePoint(basePoint)
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_symbolSizes(symbolSizes)
   , m_symbolAnchor(symbolAnchor)
+  , m_symbolOffset(symbolOffset)
   , m_textIndex(textIndex)
 {
   ASSERT_GREATER(m_symbolSizes.size(), 0, ());
@@ -260,6 +262,8 @@ void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   CalculateTextOffsets(titleDecl, primaryLayout.GetPixelSize(),
                        secondaryLayout != nullptr ? secondaryLayout->GetPixelSize() : m2::PointF(0.0f, 0.0f),
                        primaryOffset, secondaryOffset);
+  primaryOffset += glsl::vec2(m_symbolOffset.x, m_symbolOffset.y);
+  secondaryOffset += glsl::vec2(m_symbolOffset.x, m_symbolOffset.y);
 
   if (primaryLayout.GetGlyphCount() > 0)
   {

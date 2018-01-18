@@ -18,12 +18,12 @@ class TextShape : public MapShape
 {
 public:
   TextShape(m2::PointD const & basePoint, TextViewParams const & params,
-            TileKey const & tileKey, m2::PointF const & symbolSize,
+            TileKey const & tileKey, m2::PointF const & symbolSize, m2::PointF const & symbolOffset,
             dp::Anchor symbolAnchor, uint32_t textIndex);
 
   TextShape(m2::PointD const & basePoint, TextViewParams const & params,
             TileKey const & tileKey, std::vector<m2::PointF> const & symbolSizes,
-            dp::Anchor symbolAnchor, uint32_t textIndex);
+            m2::PointF const & symbolOffset, dp::Anchor symbolAnchor, uint32_t textIndex);
 
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
   MapShapeType GetType() const override { return MapShapeType::OverlayType; }
@@ -50,6 +50,7 @@ private:
   m2::PointI m_tileCoords;
   std::vector<m2::PointF> m_symbolSizes;
   dp::Anchor m_symbolAnchor;
+  m2::PointF m_symbolOffset;
   uint32_t m_textIndex;
 
   bool m_disableDisplacing = false;

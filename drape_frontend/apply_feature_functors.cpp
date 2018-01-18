@@ -604,6 +604,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     textParams.m_specialPriority = specialModePriority;
     textParams.m_startOverlayRank = hasPOI ? dp::OverlayRank1 : dp::OverlayRank0;
     m_insertShape(make_unique_dp<TextShape>(m_centerPoint, textParams, m_tileKey, symbolSize,
+                                            m2::PointF(0.0f, 0.0f) /* symbolOffset */,
                                             dp::Center /* symbolAnchor */, 0 /* textIndex */));
   }
 }
@@ -1190,6 +1191,7 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
 
       m_insertShape(make_unique_dp<TextShape>(shieldPos, textParams, m_tileKey,
                                               m2::PointF(0.0f, 0.0f) /* symbolSize */,
+                                              m2::PointF(0.0f, 0.0f) /* symbolOffset */,
                                               dp::Center /* symbolAnchor */, textIndex));
       if (IsColoredRoadShield(shield))
         m_insertShape(make_unique_dp<ColoredSymbolShape>(shieldPos, symbolParams, m_tileKey, textIndex));

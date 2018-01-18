@@ -15,6 +15,7 @@
 #include "drape/batcher.hpp"
 
 #include "indexer/feature_decl.hpp"
+#include "indexer/scales.hpp"
 
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
@@ -119,7 +120,8 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     m2::PointD const tileCenter = tileKey.GetGlobalRect().Center();
     depthLayer = renderInfo.m_depthLayer;
 
-    m2::PointF symbolSize;
+    m2::PointF symbolSize(0.0f, 0.0f);
+    m2::PointF symbolOffset(0.0f, 0.0f);
     std::string symbolName;
     if (renderInfo.m_symbolNames != nullptr)
     {
@@ -178,7 +180,18 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_specialDisplacement = SpecialDisplacement::UserMark;
         params.m_specialPriority = renderInfo.m_priority;
         params.m_symbolName = symbolName;
+        params.m_anchor = renderInfo.m_anchor;
         params.m_startOverlayRank = renderInfo.m_coloredSymbols != nullptr ? dp::OverlayRank1 : dp::OverlayRank0;
+        if (renderInfo.m_symbolOffsets != nullptr)
+        {
+          ASSERT_GREATER(tileKey.m_zoomLevel, 0, ());
+          ASSERT_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::UPPER_STYLE_SCALE, ());
+          size_t offsetIndex = 0;
+          if (tileKey.m_zoomLevel > 0)
+            offsetIndex = static_cast<size_t>(min(tileKey.m_zoomLevel - 1, scales::UPPER_STYLE_SCALE));
+          symbolOffset = renderInfo.m_symbolOffsets->at(offsetIndex);
+          params.m_offset = symbolOffset;
+        }
         PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
                        kStartUserMarkOverlayIndex + renderInfo.m_index).Draw(&batcher, textures);
       }
@@ -263,13 +276,14 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
         if (renderInfo.m_symbolSizes != nullptr)
         {
-          TextShape(renderInfo.m_pivot, params, tileKey,
-                    *renderInfo.m_symbolSizes.get(), renderInfo.m_anchor, overlayIndex).Draw(&batcher, textures);
+          TextShape(renderInfo.m_pivot, params, tileKey, *renderInfo.m_symbolSizes.get(),
+                    m2::PointF(0.0f, 0.0f) /* symbolOffset */, renderInfo.m_anchor,
+                    overlayIndex).Draw(&batcher, textures);
         }
         else
         {
           TextShape(renderInfo.m_pivot, params, tileKey,
-                    symbolSize, renderInfo.m_anchor, overlayIndex).Draw(&batcher, textures);
+                    symbolSize, symbolOffset, renderInfo.m_anchor, overlayIndex).Draw(&batcher, textures);
         }
       }
     }

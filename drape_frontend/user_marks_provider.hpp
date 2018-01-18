@@ -43,6 +43,7 @@ public:
   using SymbolNameZoomInfo = std::map<int, std::string>;
   using TitlesInfo = std::vector<dp::TitleDecl>;
   using SymbolSizes = std::vector<m2::PointF>;
+  using SymbolOffsets = std::vector<m2::PointF>;
 
   UserPointMark();
   virtual ~UserPointMark() {}
@@ -62,6 +63,7 @@ public:
   virtual drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const = 0;
   virtual drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const = 0;
   virtual drape_ptr<SymbolSizes> GetSymbolSizes() const = 0;
+  virtual drape_ptr<SymbolOffsets> GetSymbolOffsets() const = 0;
   virtual uint16_t GetPriority() const = 0;
   virtual uint32_t GetIndex() const = 0;
   virtual bool HasSymbolPriority() const = 0;

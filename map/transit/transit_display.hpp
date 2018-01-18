@@ -116,6 +116,7 @@ private:
   void CollectTransitDisplayInfo(std::vector<routing::RouteSegment> const & segments,
                                  TransitDisplayInfos & transitDisplayInfos);
   void CreateTransitMarks(std::vector<TransitMarkInfo> const & transitMarks);
+  TransitMark * CreateMark(m2::PointD const & pt, FeatureID const & fid);
 
   TransitReadManager & m_transitReadManager;
   GetMwmIdFn m_getMwmIdFn;

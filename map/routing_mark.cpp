@@ -488,6 +488,28 @@ drape_ptr<df::UserPointMark::SymbolSizes> TransitMark::GetSymbolSizes() const
   return make_unique_dp<SymbolSizes>(m_symbolSizes);
 }
 
+void TransitMark::SetSymbolOffsets(SymbolOffsets const & symbolOffsets)
+{
+  m_symbolOffsets = symbolOffsets;
+}
+
+drape_ptr<df::UserPointMark::SymbolOffsets> TransitMark::GetSymbolOffsets() const
+{
+  if (m_symbolOffsets.empty())
+    return nullptr;
+  return make_unique_dp<SymbolOffsets>(m_symbolOffsets);
+}
+
+void TransitMark::SetAnchor(dp::Anchor anchor)
+{
+  m_anchor = anchor;
+}
+
+dp::Anchor TransitMark::GetAnchor() const
+{
+  return m_anchor;
+}
+
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TransitMark::GetSymbolNames() const
 {
   if (m_symbolNames.empty())

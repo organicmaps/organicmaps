@@ -555,9 +555,10 @@ void RuleDrawer::DrawTileNet(TInsertShapeFn const & insertShape)
                                  strings::to_string(key.m_zoomLevel);
 
   tp.m_titleDecl.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
-  tp.m_titleDecl.m_primaryOffset = {0.f, 0.f};
+  tp.m_titleDecl.m_primaryOffset = {0.0f, 0.0f};
   drape_ptr<TextShape> textShape = make_unique_dp<TextShape>(r.Center(), tp, key,
-                                                             m2::PointF(0.0, 0.0) /* symbolSize */,
+                                                             m2::PointF(0.0f, 0.0f) /* symbolSize */,
+                                                             m2::PointF(0.0f, 0.0f) /* symbolOffset */,
                                                              dp::Anchor::Center,
                                                              0 /* textIndex */);
   textShape->DisableDisplacing();
