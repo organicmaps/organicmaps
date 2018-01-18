@@ -74,6 +74,7 @@ public:
 
   bool operator<(LocalCountryFile const & rhs) const;
   bool operator==(LocalCountryFile const & rhs) const;
+  bool operator!=(LocalCountryFile const & rhs) const { return !(*this == rhs); }
 
   // Creates LocalCountryFile for test purposes, for a country region
   // with countryFileName (without any extensions). Automatically

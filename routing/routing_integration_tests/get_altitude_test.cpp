@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "routing/routing_integration_tests/routing_test_tools.hpp"
+
 #include "indexer/altitude_loader.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -24,14 +26,29 @@ namespace
 {
 using namespace feature;
 
+LocalCountryFile GetLocalCountryFileByCountryId(string const & countryId)
+{
+  vector<LocalCountryFile> localFiles;
+  integration::GetAllLocalFiles(localFiles);
+
+  for (auto const & lf : localFiles)
+  {
+    if (lf.GetCountryName() == countryId)
+      return lf;
+  }
+  return LocalCountryFile();
+}
+
 void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const altitudeLowerBoundMeters,
                                   TAltitude const altitudeUpperBoundMeters)
 {
   Index index;
-  platform::LocalCountryFile const country = platform::LocalCountryFile::MakeForTesting(countryId);
-  TEST_NOT_EQUAL(country.GetFiles(), MapOptions::Nothing, (country));
-  pair<MwmSet::MwmId, MwmSet::RegResult> const regResult = index.RegisterMap(country);
 
+  platform::LocalCountryFile const country = GetLocalCountryFileByCountryId(countryId);
+  TEST_NOT_EQUAL(country, platform::LocalCountryFile(), ());
+  TEST_NOT_EQUAL(country.GetFiles(), MapOptions::Nothing, (country));
+
+  pair<MwmSet::MwmId, MwmSet::RegResult> const regResult = index.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
   TEST(regResult.first.IsAlive(), ());
 

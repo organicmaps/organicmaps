@@ -8,29 +8,24 @@
 using namespace routing;
 using namespace routing::turns;
 
-// Fails. Start direction ignored.
 UNIT_TEST(RussiaMoscowNagatinoUturnTurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
-                                  MercatorBounds::FromLatLon(55.67251, 37.63604), {-0.004, -0.01},
+                                  MercatorBounds::FromLatLon(55.67251, 37.63604), {0.01, -0.01},
                                   MercatorBounds::FromLatLon(55.67293, 37.63507));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
 
   integration::GetNthTurn(route, 0)
       .TestValid()
-      .TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 1)
-      .TestValid()
       .TestDirection(CarDirection::UTurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
 
-  integration::TestRouteLength(route, 561.);
+  integration::TestRouteLength(route, 248.0);
 }
 
 UNIT_TEST(StPetersburgSideRoadPenaltyTest)

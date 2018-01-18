@@ -29,6 +29,8 @@ public:
     m_map[c.GetTypeByPath({"highway", "trunk"})] = ftypes::HighwayClass::Trunk;
     m_map[c.GetTypeByPath({"highway", "trunk_link"})] = ftypes::HighwayClass::Trunk;
     m_map[c.GetTypeByPath({"route", "ferry"})] = ftypes::HighwayClass::Trunk;
+    m_map[c.GetTypeByPath({"route", "shuttle_train"})] = ftypes::HighwayClass::Trunk;
+    m_map[c.GetTypeByPath({"railway", "rail"})] = ftypes::HighwayClass::Trunk;
 
     m_map[c.GetTypeByPath({"highway", "primary"})] = ftypes::HighwayClass::Primary;
     m_map[c.GetTypeByPath({"highway", "primary_link"})] = ftypes::HighwayClass::Primary;
