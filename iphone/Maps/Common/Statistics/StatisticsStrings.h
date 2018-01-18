@@ -314,7 +314,6 @@ static NSString * const kStatTTSSettings = @"TTS settings";
 static NSString * const kStatTable = @"Table";
 static NSString * const kStatTags = @"tags";
 static NSString * const kStatTaxi = @"Taxi";
-static NSString * const kStatThor = @"Thor";
 static NSString * const kStatThingsToDo = @"Things to do";
 static NSString * const kStatToLocation = @"to_location";
 static NSString * const kStatToMyPosition = @"To my position";

@@ -6,7 +6,7 @@
 
 - (BOOL)isBookmark;
 - (BOOL)isOpentable;
-- (BOOL)isThor;
+- (BOOL)isPartner;
 - (BOOL)isBooking;
 - (BOOL)isBookingSearch;
 - (BOOL)isApi;
@@ -15,6 +15,8 @@
 - (NSString *)title;
 - (NSString *)subtitle;
 - (NSString *)phoneNumber;
+- (int)partnerIndex;
+- (NSURL *)sponsoredURL;
 
 @end
 

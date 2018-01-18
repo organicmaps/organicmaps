@@ -3,6 +3,7 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -78,20 +79,28 @@ final class PlacePageButtons
       }
     },
 
-    THOR
+    PARTNER1
     {
       @Override
       int getTitle()
       {
-        return R.string.sponsored_thor_gather;
+        return R.string.sponsored_partner1_action;
       }
 
       @Override
       int getIcon()
       {
-        return R.drawable.ic_24px_logo_thor;
+        return R.drawable.ic_24px_logo_partner1;
       }
     },
+
+    PARTNER2,
+
+    PARTNER3,
+
+    PARTNER4,
+
+    PARTNER5,
 
     BACK
     {
@@ -228,9 +237,20 @@ final class PlacePageButtons
       }
     };
 
-    abstract @StringRes int getTitle();
-    abstract @DrawableRes int getIcon();
+    @StringRes int getTitle()
+    {
+      throw new UnsupportedOperationException("Not supported!");
+    }
+
+    @DrawableRes int getIcon()
+    {
+      throw new UnsupportedOperationException("Not supported!");
+    }
   }
+
+  private static final Item[] PARTNERS_ITEMS = new Item[] { Item.PARTNER1, Item.PARTNER2,
+                                                            Item.PARTNER3, Item.PARTNER4,
+                                                            Item.PARTNER5 };
 
   interface ItemListener
   {
@@ -245,6 +265,14 @@ final class PlacePageButtons
     mItemListener = itemListener;
 
     MAX_BUTTONS = mPlacePage.getContext().getResources().getInteger(R.integer.pp_buttons_max);
+  }
+
+  @NonNull
+  static Item getPartnerItem(int partnerIndex)
+  {
+    if (partnerIndex < 0 || partnerIndex >= PARTNERS_ITEMS.length)
+      throw new AssertionError("Wrong partner index: " + partnerIndex);
+    return PARTNERS_ITEMS[partnerIndex];
   }
 
   private @NonNull List<Item> collectButtons(List<Item> items)

@@ -53,8 +53,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   BOOL const isBooking = [data isBooking];
   BOOL const isOpentable = [data isOpentable];
   BOOL const isBookingSearch = [data isBookingSearch];
-  BOOL const isThor = [data isThor];
-  BOOL const isSponsored = isBooking || isOpentable || isBookingSearch || isThor;
+  BOOL const isPartner = [data isPartner] && [data sponsoredURL] != nil;
+  int const partnerIndex = isPartner ? [data partnerIndex] : -1;
+  BOOL const isSponsored = isBooking || isOpentable || isBookingSearch || isPartner;
   BOOL const isPhoneCallAvailable =
       [AppInfo sharedInfo].canMakeCalls && [data phoneNumber].length > 0;
   BOOL const isApi = [data isApi];
@@ -70,8 +71,8 @@ extern NSString * const kAlohalyticsTapEventKey;
     sponsoredButton = EButton::Booking;
   else if (isOpentable)
     sponsoredButton = EButton::Opentable;
-  else if (isThor)
-    sponsoredButton = EButton::Thor;
+  else if (isPartner)
+    sponsoredButton = EButton::Partner;
   BOOL thereAreExtraButtons = true;
 
   if (isRoutePoint)
@@ -219,6 +220,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     [MWMActionBarButton addButtonToSuperview:v
                                     delegate:self
                                   buttonType:type
+                                partnerIndex:partnerIndex
                                   isSelected:type == EButton::Bookmark ? self.isBookmark : NO];
   }
 }
@@ -299,7 +301,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   case EButton::More: [self showActionSheet]; break;
   case EButton::AddStop: [delegate addStop]; break;
   case EButton::RemoveStop: [delegate removeStop]; break;
-  case EButton::Thor: [delegate openThor]; break;
+  case EButton::Partner: [delegate openPartner]; break;
   case EButton::Spacer: break;
   }
 }
@@ -319,7 +321,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   for (auto const buttonType : m_additionalButtons)
   {
     BOOL const isSelected = buttonType == EButton::Bookmark ? [data isBookmark] : NO;
-    if (NSString * title = titleForButton(buttonType, isSelected))
+    if (NSString * title = titleForButton(buttonType, [data partnerIndex], isSelected))
       [titles addObject:title];
     else
       NSAssert(false, @"Title can't be nil!");

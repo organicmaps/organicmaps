@@ -46,9 +46,9 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     stat[kStatRestaurant] = data.sponsoredId;
     stat[kStatRestaurantLocation] = makeLocationEventValue(latLon.lat, latLon.lon);
   }
-  else if (data.isThor)
+  else if (data.isPartner)
   {
-    stat[kStatProvider] = kStatThor;
+    stat[kStatProvider] = data.partnerName;
     stat[kStatCategory] = @(data.ratingRawValue);
     stat[kStatObjectLat] = @(latLon.lat);
     stat[kStatObjectLon] = @(latLon.lon);
@@ -255,8 +255,8 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     parameters[kStatProvider] = kStatBooking;
   else if (data.isCian)
     parameters[kStatProvider] = kStatCian;
-  else if (data.isThor)
-    parameters[kStatProvider] = kStatThor;
+  else if (data.isPartner)
+    parameters[kStatProvider] = data.partnerName;
   else if (data.isHolidayObject)
     parameters[kStatProvider] = kStatHoliday;
   
@@ -500,14 +500,14 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self.ownerViewController openUrl:url];
 }
 
-- (void)openThor
+- (void)openPartner
 {
   auto data = self.data;
   if (!data)
     return;
   logSponsoredEvent(data, kStatPlacePageSponsoredActionButtonClick);
   NSURL * url = data.sponsoredURL;
-  NSAssert(url, @"Thor url can't be nil!");
+  NSAssert(url, @"Partner url can't be nil!");
   [self.ownerViewController openUrl:url];
 }
 

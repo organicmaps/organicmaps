@@ -13,11 +13,11 @@ enum class EButton  // Required button's order
   More,
   AddStop,
   RemoveStop,
-  Thor,
+  Partner,
   Spacer
 };
 
-NSString * titleForButton(EButton type, BOOL isSelected);
+NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected);
 
 @class MWMActionBarButton;
 @class MWMCircularProgress;
@@ -35,10 +35,11 @@ NSString * titleForButton(EButton type, BOOL isSelected);
 + (void)addButtonToSuperview:(UIView *)view
                     delegate:(id<MWMActionBarButtonDelegate>)delegate
                   buttonType:(EButton)type
+                partnerIndex:(int)partnerIndex
                   isSelected:(BOOL)isSelected;
 
 - (EButton)type;
 - (MWMCircularProgress *)mapDownloadProgress;
-
+- (int)partnerIndex;
 
 @end

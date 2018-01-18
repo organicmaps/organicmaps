@@ -698,8 +698,8 @@ public class SearchFragment extends BaseMwmFragment
       mCianCategorySelected = true;
       mToolbarController.setQuery(category);
 
-      Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SELECTED,
-                                              Sponsored.TYPE_CIAN);
+      Statistics.INSTANCE.trackSponsoredEventByType(
+          Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SELECTED, Sponsored.TYPE_CIAN);
       showAllResultsOnMap();
       mCianCategorySelected = false;
     }

@@ -899,14 +899,13 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.SetSponsoredType(SponsoredType::Cian);
     info.SetSponsoredUrl(cian::Api::GetMainPageUrl());
   }
-  else if (ftypes::IsThorChecker::Instance()(ft) &&
-           !info.GetMetadata().Get(feature::Metadata::FMD_RATING).empty())
+  else if (ftypes::SponsoredPartnerChecker::Instance()(ft))
   {
-    info.SetSponsoredType(place_page::SponsoredType::Thor);
-    auto const & url = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+    info.SetSponsoredType(place_page::SponsoredType::Partner);
+    auto const & url = info.GetMetadata().Get(feature::Metadata::FMD_BANNER_URL);
     info.SetSponsoredUrl(url);
     info.SetSponsoredDescriptionUrl(url);
-    GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kSponsoredThorDiscovered);
+    info.SetPartnerIndex(ftypes::SponsoredPartnerChecker::Instance().GetPartnerIndex(ft));
   }
   else if (ftypes::IsHolidayChecker::Instance()(ft) &&
            !info.GetMetadata().Get(feature::Metadata::FMD_RATING).empty())
@@ -2242,6 +2241,11 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
         auto const & mwmInfo = info.GetID().m_mwmId.GetInfo();
         if (mwmInfo)
           kv["mwmVersion"] = strings::to_string(mwmInfo->GetVersion());
+      }
+      else if (info.GetSponsoredType() == SponsoredType::Partner)
+      {
+        if (!info.GetPartnerName().empty())
+          kv["partner"] = info.GetPartnerName();
       }
 
       // Older version of statistics used "$GetUserMark" event.

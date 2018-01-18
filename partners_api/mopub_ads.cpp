@@ -1,5 +1,9 @@
 #include "partners_api/mopub_ads.hpp"
 
+#include "base/string_utils.hpp"
+
+#include "private.h"
+
 namespace
 {
 #if defined(OMIM_OS_IPHONE)
@@ -13,6 +17,14 @@ namespace
   auto const kNonTourismPlacementId = "94b8d70370a643929aa4c8c764d25e5b";
   auto const kSponsoredBannerPlacementId = "2bab47102d38485996788ab9b602ce2c";
 #endif
+
+bool IsValidPlacementId(std::string const & placementId)
+{
+  return !placementId.empty();
+}
+
+#define APPEND_PARTNER(type, placementId) \
+  if (IsValidPlacementId(placementId)) AppendEntry({{"sponsored", type}}, placementId);
 }  // namespace
 
 namespace ads
@@ -73,6 +85,13 @@ Mopub::Mopub()
               kNonTourismPlacementId);
 
   AppendEntry({{"sponsored", "banner"}}, kSponsoredBannerPlacementId);
+
+  // Partners.
+  APPEND_PARTNER("partner1", PARTNER1_BANNER_PLACEMENT_ID);
+  APPEND_PARTNER("partner2", PARTNER2_BANNER_PLACEMENT_ID);
+  APPEND_PARTNER("partner3", PARTNER3_BANNER_PLACEMENT_ID);
+  APPEND_PARTNER("partner4", PARTNER4_BANNER_PLACEMENT_ID);
+  APPEND_PARTNER("partner5", PARTNER5_BANNER_PLACEMENT_ID);
 }
 
 std::string Mopub::GetBannerIdForOtherTypes() const

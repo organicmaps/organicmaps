@@ -3,7 +3,13 @@
 #import "MWMButton.h"
 #import "MWMCircularProgress.h"
 
-NSString * titleForButton(EButton type, BOOL isSelected)
+NSString * titleForPartner(int partnerIndex)
+{
+  NSString * str = [NSString stringWithFormat:@"sponsored_partner%d_action", partnerIndex + 1];
+  return L(str);
+}
+
+NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected)
 {
   switch (type)
   {
@@ -32,11 +38,26 @@ NSString * titleForButton(EButton type, BOOL isSelected)
     return L(@"placepage_add_stop");
   case EButton::RemoveStop:
     return L(@"placepage_remove_stop");
-  case EButton::Thor:
-    return L(@"sponsored_thor_gather");
+  case EButton::Partner:
+    return titleForPartner(partnerIndex);
   case EButton::Spacer:
     return nil;
   }
+}
+
+NSString * imageNameForPartner(int partnerIndex)
+{
+  return [NSString stringWithFormat:@"ic_28px_logo_partner%d", partnerIndex + 1];
+}
+
+UIColor * textColorForPartner(int partnerIndex)
+{
+  return UIColor.blackColor;
+}
+
+UIColor * backgroundColorForPartner(int partnerIndex)
+{
+  return UIColor.partner1Background;
 }
 
 @interface MWMActionBarButton () <MWMCircularProgressProtocol>
@@ -47,6 +68,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
 @property (weak, nonatomic) id<MWMActionBarButtonDelegate> delegate;
 @property (nonatomic) EButton type;
 @property(nonatomic) MWMCircularProgress * mapDownloadProgress;
+@property (nonatomic) int partnerIndex;
 @property(nonatomic) UIView * progressWrapper;
 @property(weak, nonatomic) IBOutlet UIView * extraBackground;
 
@@ -63,7 +85,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
 
 - (void)configButton:(BOOL)isSelected
 {
-  self.label.text = titleForButton(self.type, isSelected);
+  self.label.text = titleForButton(self.type, self.partnerIndex, isSelected);
   self.extraBackground.hidden = YES;
   switch (self.type)
   {
@@ -146,18 +168,19 @@ NSString * titleForButton(EButton type, BOOL isSelected)
     [self.button removeFromSuperview];
     [self.label removeFromSuperview];
     break;
-  case EButton::Thor:
-    [self.button setImage:[UIImage imageNamed:@"ic_28px_logo_thor"] forState:UIControlStateNormal];
-    self.label.textColor = UIColor.whiteColor;
-    self.backgroundColor = UIColor.thorBackground;
+  case EButton::Partner:
+    [self.button setImage:[UIImage imageNamed:imageNameForPartner(self.partnerIndex)]
+                 forState:UIControlStateNormal];
+    self.label.textColor = textColorForPartner(self.partnerIndex);
+    self.backgroundColor = backgroundColorForPartner(self.partnerIndex);
     break;
-
   }
 }
 
 + (void)addButtonToSuperview:(UIView *)view
                     delegate:(id<MWMActionBarButtonDelegate>)delegate
                   buttonType:(EButton)type
+                partnerIndex:(int)partnerIndex
                   isSelected:(BOOL)isSelected
 {
   if (view.subviews.count)
@@ -166,6 +189,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   button.delegate = delegate;
   button.type = type;
+  button.partnerIndex = partnerIndex;
   [view addSubview:button];
   [button configButton:isSelected];
 }

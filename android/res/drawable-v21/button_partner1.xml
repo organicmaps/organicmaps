@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-        android:color="@color/bg_brand_thor_pressed">
+        android:color="@color/bg_brand_partner1_pressed">
   <item>
     <shape android:shape="rectangle">
-      <solid android:color="@color/bg_brand_thor"/>
+      <solid android:color="@color/bg_brand_partner1"/>
     </shape>
   </item>
 </ripple>

@@ -96,11 +96,9 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.CIAN;
-import static com.mapswithme.util.statistics.Statistics.ParamValue.GEOCHAT;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
-import static com.mapswithme.util.statistics.Statistics.ParamValue.THOR;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 
 public enum Statistics
@@ -360,9 +358,7 @@ public enum Statistics
     static final String LOCALS_EXPERTS = "Locals.Maps.Me";
     static final String SEARCH_RESTAURANTS = "Search.Restaurants";
     static final String SEARCH_ATTRACTIONS = "Search.Attractions";
-    static final String GEOCHAT = "Geochat";
     static final String CIAN = "Cian.Ru";
-    static final String THOR = "Thor";
     static final String HOLIDAY = "Holiday";
     public static final String NO_PRODUCTS = "no_products";
     static final String ADD = "add";
@@ -762,11 +758,11 @@ public enum Statistics
     return network;
   }
 
-  public void trackSponsoredOpenEvent(@Sponsored.SponsoredType int type)
+  public void trackSponsoredOpenEvent(@NonNull Sponsored sponsored)
   {
     Statistics.ParameterBuilder builder = Statistics.params();
     builder.add(NETWORK, getConnectionState())
-           .add(PROVIDER, convertToSponsor(type));
+           .add(PROVIDER, convertToSponsor(sponsored));
     trackEvent(PP_SPONSORED_OPEN, builder.get());
   }
 
@@ -811,11 +807,20 @@ public enum Statistics
                                     .get());
   }
 
-  public void trackSponsoredEvent(@NonNull String eventName, @Sponsored.SponsoredType int type)
+  public void trackSponsoredEventByType(@NonNull String eventName, @Sponsored.SponsoredType int type)
   {
     String provider = convertToSponsor(type);
     trackEvent(eventName, Statistics.params().add(PROVIDER, provider).get());
     MyTracker.trackEvent(eventName + "_" + provider);
+  }
+
+  @NonNull
+  private static String convertToSponsor(@NonNull Sponsored sponsored)
+  {
+    if (sponsored.getType() == Sponsored.TYPE_PARTNER)
+      return sponsored.getPartnerName();
+
+    return convertToSponsor(sponsored.getType());
   }
 
   @NonNull
@@ -827,14 +832,10 @@ public enum Statistics
         return BOOKING_COM;
       case Sponsored.TYPE_VIATOR:
         return VIATOR;
-      case Sponsored.TYPE_GEOCHAT:
-        return GEOCHAT;
       case Sponsored.TYPE_OPENTABLE:
         return OPENTABLE;
       case Sponsored.TYPE_CIAN:
         return CIAN;
-      case Sponsored.TYPE_THOR:
-        return THOR;
       case Sponsored.TYPE_HOLIDAY:
         return HOLIDAY;
       case Sponsored.TYPE_NONE:
@@ -896,7 +897,7 @@ public enum Statistics
   {
     // Here we code category by means of rating.
     Statistics.INSTANCE.trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
-        Statistics.params().add(PROVIDER, convertToSponsor(sponsoredObj.getType()))
+        Statistics.params().add(PROVIDER, convertToSponsor(sponsoredObj))
             .add(CATEGORY, sponsoredObj.getRating())
             .add(OBJECT_LAT, mapObject.getLat())
             .add(OBJECT_LON, mapObject.getLon()).get());

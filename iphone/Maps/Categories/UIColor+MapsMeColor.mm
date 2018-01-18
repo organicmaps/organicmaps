@@ -344,9 +344,9 @@ UIColor * color(SEL cmd)
   return [UIColor colorWithRed:scaled(67) green:scaled(160) blue:scaled(71) alpha:alpha100];
 }
 
-+ (UIColor *)thorBackground
++ (UIColor *)partner1Background
 {
-  return [UIColor colorWithRed:scaled(215) green:scaled(67) blue:scaled(19) alpha:alpha100];
+  return [UIColor colorWithRed:scaled(255) green:scaled(218) blue:scaled(0) alpha:alpha100];
 }
 
 + (UIColor *)bannerBackground

@@ -52,8 +52,8 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
         // TODO: remove this code after "cian" feature is obsoleted.
         if (key.equals("cian"))
         {
-          Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN,
-                                                  Sponsored.TYPE_CIAN);
+          Statistics.INSTANCE.trackSponsoredEventByType(
+              Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN, Sponsored.TYPE_CIAN);
           mCategoryResIds[i] = R.string.real_estate;
         }
         else

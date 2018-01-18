@@ -44,7 +44,7 @@
 + (UIColor *)ratingYellow;
 + (UIColor *)ratingLightGreen;
 + (UIColor *)ratingGreen;
-+ (UIColor *)thorBackground;
++ (UIColor *)partner1Background;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 

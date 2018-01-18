@@ -37,10 +37,9 @@ enum class SponsoredType
   None,
   Booking,
   Opentable,
-  Geochat,
   Viator,
   Cian,
-  Thor,
+  Partner,
   Holiday
 };
 
@@ -142,6 +141,11 @@ public:
   void SetSponsoredType(SponsoredType type) { m_sponsoredType = type; }
   SponsoredType GetSponsoredType() const { return m_sponsoredType; }
   bool IsPreviewExtended() const { return m_sponsoredType == SponsoredType::Viator; }
+
+  /// Partners
+  int GetPartnerIndex() const { return m_partnerIndex; }
+  std::string const & GetPartnerName() const { return m_partnerName; }
+  void SetPartnerIndex(int index);
 
   /// Feature status
   void SetFeatureStatus(osm::Editor::FeatureStatus const status) { m_featureStatus = status; }
@@ -275,6 +279,10 @@ private:
   /// Local experts
   std::string m_localsUrl;
   LocalsStatus m_localsStatus = LocalsStatus::NotAvailable;
+
+  /// Partners
+  int m_partnerIndex = -1;
+  std::string m_partnerName;
 
   feature::TypesHolder m_sortedTypes;
 };

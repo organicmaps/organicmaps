@@ -55,7 +55,7 @@ public class PlacePageTracker
     {
       Sponsored sponsored = mPlacePageView.getSponsored();
       if (sponsored != null)
-        Statistics.INSTANCE.trackSponsoredOpenEvent(sponsored.getType());
+        Statistics.INSTANCE.trackSponsoredOpenEvent(sponsored);
     }
   }
 

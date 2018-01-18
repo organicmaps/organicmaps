@@ -583,7 +583,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (NSString *)bookingApproximatePricing { return self.isBooking ? @(m_info.GetApproximatePricing().c_str()) : nil; }
 - (NSURL *)sponsoredURL
 {
-  if (m_info.IsSponsored())
+  if (m_info.IsSponsored() && !m_info.GetSponsoredUrl().empty())
   {
     auto urlString = [@(m_info.GetSponsoredUrl().c_str())
         stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet
@@ -700,6 +700,18 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
   self.photos = res;
   return _photos;
+}
+
+#pragma mark - Partners
+
+- (NSString *)partnerName
+{
+  return m_info.IsSponsored() ? @(m_info.GetPartnerName().c_str()) : nil;
+}
+
+- (int)partnerIndex
+{
+  return m_info.IsSponsored() ? m_info.GetPartnerIndex() : -1;
 }
 
 #pragma mark - UGC
@@ -824,7 +836,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   }
 }
 
-#pragma mark - Helpres
+#pragma mark - Helpers
 
 - (NSString *)phoneNumber { return @(m_info.GetPhone().c_str()); }
 - (BOOL)isBookmark { return m_info.IsBookmark(); }
@@ -833,7 +845,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (BOOL)isOpentable { return m_info.GetSponsoredType() == SponsoredType::Opentable; }
 - (BOOL)isViator { return m_info.GetSponsoredType() == SponsoredType::Viator; }
 - (BOOL)isCian { return m_info.GetSponsoredType() == SponsoredType::Cian; }
-- (BOOL)isThor { return m_info.GetSponsoredType() == SponsoredType::Thor; }
+- (BOOL)isPartner { return m_info.GetSponsoredType() == SponsoredType::Partner; }
 - (BOOL)isHolidayObject { return m_info.GetSponsoredType() == SponsoredType::Holiday; }
 - (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }

@@ -190,6 +190,10 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 - (NSURL *)URLToAllReviews;
 - (NSArray<MWMGalleryItemModel *> *)photos;
 
+// Partners
+- (NSString *)partnerName;
+- (int)partnerIndex;
+
 // UGC
 - (ftraits::UGCRatingCategories)ugcRatingCategories;
 - (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel;
@@ -248,7 +252,7 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 - (BOOL)isOpentable;
 - (BOOL)isViator;
 - (BOOL)isCian;
-- (BOOL)isThor;
+- (BOOL)isPartner;
 - (BOOL)isHolidayObject;
 - (BOOL)isBookingSearch;
 - (BOOL)isHTMLDescription;

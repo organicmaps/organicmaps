@@ -469,9 +469,9 @@ public class PlacePageView extends RelativeLayout
             color = Color.WHITE;
             break;
 
-          case THOR:
-            frame.setBackgroundResource(R.drawable.button_thor);
-            color = Color.WHITE;
+          case PARTNER1:
+            frame.setBackgroundResource(R.drawable.button_partner1);
+            color = Color.BLACK;
             break;
 
           case BOOKMARK:
@@ -575,7 +575,11 @@ public class PlacePageView extends RelativeLayout
 
         case BOOKING:
         case OPENTABLE:
-        case THOR:
+        case PARTNER1:
+        case PARTNER2:
+        case PARTNER3:
+        case PARTNER4:
+        case PARTNER5:
           onSponsoredClick(true /* book */, false);
           break;
 
@@ -992,14 +996,12 @@ public class PlacePageView extends RelativeLayout
                   Statistics.INSTANCE.trackHotelEvent(event, info, mMapObject);
                 }
                 break;
-              case Sponsored.TYPE_GEOCHAT:
-                break;
               case Sponsored.TYPE_OPENTABLE:
                 if (mMapObject != null)
                   Statistics.INSTANCE.trackRestaurantEvent(PP_SPONSORED_OPENTABLE, info, mMapObject);
                 break;
-              case Sponsored.TYPE_THOR:
-                if (mMapObject != null)
+              case Sponsored.TYPE_PARTNER:
+                if (mMapObject != null && !info.getPartnerName().isEmpty())
                   Statistics.INSTANCE.trackSponsoredObjectEvent(PP_SPONSORED_ACTION, info, mMapObject);
                 break;
               case Sponsored.TYPE_NONE:
@@ -1637,13 +1639,13 @@ public class PlacePageView extends RelativeLayout
         case Sponsored.TYPE_BOOKING:
           buttons.add(PlacePageButtons.Item.BOOKING);
           break;
-        case Sponsored.TYPE_GEOCHAT:
-          break;
         case Sponsored.TYPE_OPENTABLE:
           buttons.add(PlacePageButtons.Item.OPENTABLE);
           break;
-        case Sponsored.TYPE_THOR:
-          buttons.add(PlacePageButtons.Item.THOR);
+        case Sponsored.TYPE_PARTNER:
+          int partnerIndex = mSponsored.getPartnerIndex();
+          if (partnerIndex >= 0 && !mSponsored.getUrl().isEmpty())
+            buttons.add(PlacePageButtons.getPartnerItem(partnerIndex));
           break;
         case Sponsored.TYPE_NONE:
           break;

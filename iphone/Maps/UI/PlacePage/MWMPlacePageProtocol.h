@@ -19,7 +19,7 @@
 - (void)book:(BOOL)isDecription;
 - (void)searchBookingHotels;
 
-- (void)openThor;
+- (void)openPartner;
 
 - (void)apiBack;
 - (void)downloadSelectedArea;

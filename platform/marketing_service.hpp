@@ -27,7 +27,6 @@ extern char const * const kRoutingTransitDiscovered;
 extern char const * const kEditorAddDiscovered;
 extern char const * const kEditorEditDiscovered;
 extern char const * const kTrafficDiscovered;
-extern char const * const kSponsoredThorDiscovered;
 
 // Events.
 extern char const * const kDownloaderMapActionFinished;
