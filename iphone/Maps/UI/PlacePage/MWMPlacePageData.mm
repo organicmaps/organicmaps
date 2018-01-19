@@ -583,6 +583,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (NSString *)bookingApproximatePricing { return self.isBooking ? @(m_info.GetApproximatePricing().c_str()) : nil; }
 - (NSURL *)sponsoredURL
 {
+  // There are sponsors without URL. For such psrtners we do not show special button.
   if (m_info.IsSponsored() && !m_info.GetSponsoredUrl().empty())
   {
     auto urlString = [@(m_info.GetSponsoredUrl().c_str())
@@ -706,12 +707,12 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 - (NSString *)partnerName
 {
-  return m_info.IsSponsored() ? @(m_info.GetPartnerName().c_str()) : nil;
+  return self.isPartner ? @(m_info.GetPartnerName().c_str()) : nil;
 }
 
 - (int)partnerIndex
 {
-  return m_info.IsSponsored() ? m_info.GetPartnerIndex() : -1;
+  return self.isPartner ? m_info.GetPartnerIndex() : -1;
 }
 
 #pragma mark - UGC

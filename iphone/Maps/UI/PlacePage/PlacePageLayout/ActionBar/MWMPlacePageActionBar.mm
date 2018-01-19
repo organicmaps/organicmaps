@@ -217,11 +217,12 @@ extern NSString * const kAlohalyticsTapEventKey;
     if (buttonIndex < 0 || buttonIndex >= m_visibleButtons.size())
       continue;
     auto const type = m_visibleButtons[buttonIndex];
+    auto const isSelected = (type == EButton::Bookmark ? self.isBookmark : NO);
     [MWMActionBarButton addButtonToSuperview:v
                                     delegate:self
                                   buttonType:type
                                 partnerIndex:partnerIndex
-                                  isSelected:type == EButton::Bookmark ? self.isBookmark : NO];
+                                  isSelected:isSelected];
   }
 }
 

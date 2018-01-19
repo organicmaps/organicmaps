@@ -349,6 +349,11 @@ UIColor * color(SEL cmd)
   return [UIColor colorWithRed:scaled(255) green:scaled(218) blue:scaled(0) alpha:alpha100];
 }
 
++ (UIColor *)partner1TextColor
+{
+  return UIColor.blackColor;
+}
+
 + (UIColor *)bannerBackground
 {
   return color(_cmd);

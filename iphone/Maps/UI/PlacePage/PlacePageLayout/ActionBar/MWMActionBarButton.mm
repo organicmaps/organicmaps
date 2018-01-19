@@ -6,7 +6,9 @@
 NSString * titleForPartner(int partnerIndex)
 {
   NSString * str = [NSString stringWithFormat:@"sponsored_partner%d_action", partnerIndex + 1];
-  return L(str);
+  NSString * localizedStr = L(str);
+  NSCAssert(![str isEqualToString:localizedStr], @"Localization is absent.");
+  return localizedStr;
 }
 
 NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected)
@@ -50,25 +52,38 @@ NSString * imageNameForPartner(int partnerIndex)
   return [NSString stringWithFormat:@"ic_28px_logo_partner%d", partnerIndex + 1];
 }
 
+UIImage * imageForPartner(int partnerIndex)
+{
+  UIImage * img = [UIImage imageNamed:imageNameForPartner(partnerIndex)];
+  NSCAssert(img != nil, @"Partner image is absent.");
+  return img;
+}
+
 UIColor * textColorForPartner(int partnerIndex)
 {
-  return UIColor.blackColor;
+  NSString * textColor = [NSString stringWithFormat:@"partner%dTextColor", partnerIndex + 1];
+  UIColor * color = [UIColor colorWithName:textColor];
+  NSCAssert(color != nil, @"Partner text color is absent.");
+  return color;
 }
 
 UIColor * backgroundColorForPartner(int partnerIndex)
 {
-  return UIColor.partner1Background;
+  NSString * colorName = [NSString stringWithFormat:@"partner%dBackground", partnerIndex + 1];
+  UIColor * color = [UIColor colorWithName:colorName];
+  NSCAssert(color != nil, @"Partner background color is absent.");
+  return color;
 }
 
 @interface MWMActionBarButton () <MWMCircularProgressProtocol>
 
-@property (weak, nonatomic) IBOutlet MWMButton * button;
-@property (weak, nonatomic) IBOutlet UILabel * label;
+@property(weak, nonatomic) IBOutlet MWMButton * button;
+@property(weak, nonatomic) IBOutlet UILabel * label;
 
-@property (weak, nonatomic) id<MWMActionBarButtonDelegate> delegate;
-@property (nonatomic) EButton type;
+@property(weak, nonatomic) id<MWMActionBarButtonDelegate> delegate;
+@property(nonatomic) EButton type;
 @property(nonatomic) MWMCircularProgress * mapDownloadProgress;
-@property (nonatomic) int partnerIndex;
+@property(nonatomic) int partnerIndex;
 @property(nonatomic) UIView * progressWrapper;
 @property(weak, nonatomic) IBOutlet UIView * extraBackground;
 
@@ -169,7 +184,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
     [self.label removeFromSuperview];
     break;
   case EButton::Partner:
-    [self.button setImage:[UIImage imageNamed:imageNameForPartner(self.partnerIndex)]
+    [self.button setImage:imageForPartner(self.partnerIndex)
                  forState:UIControlStateNormal];
     self.label.textColor = textColorForPartner(self.partnerIndex);
     self.backgroundColor = backgroundColorForPartner(self.partnerIndex);
