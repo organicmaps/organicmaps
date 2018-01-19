@@ -106,8 +106,9 @@ public:
       }
       case ItemType::Attractions: // fallthrough
       case ItemType::Cafes:
+      case ItemType::Hotels:
       {
-        auto p = GetSearchParams(params, type);
+        auto p = type == ItemType::Hotels ? GetBookingSearchParamsForTesting() : GetSearchParams(params, type);
         auto const viewportCenter = params.m_viewportCenter;
         p.m_onResults = [requestId, onResult, type, viewportCenter](search::Results const & results) {
           if (!results.IsEndMarker())
@@ -118,11 +119,6 @@ public:
           });
         };
         m_searchApi.GetEngine().Search(p);
-        break;
-      }
-      case ItemType::Hotels:
-      {
-        ASSERT(false, ("Discovering hotels isn't supported yet."));
         break;
       }
       case ItemType::LocalExperts:
@@ -153,6 +149,8 @@ public:
 
 private:
   static search::SearchParams GetSearchParams(Params const & params, ItemType const type);
+  // TODO: Remove this method when real implementation will be ready.
+  static search::SearchParams GetBookingSearchParamsForTesting();
   std::string GetCityViatorId(m2::PointD const & point) const;
 
   Index const & m_index;

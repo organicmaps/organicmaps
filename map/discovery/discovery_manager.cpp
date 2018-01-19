@@ -39,6 +39,19 @@ search::SearchParams Manager::GetSearchParams(Manager::Params const & params, It
   return p;
 }
 
+// static
+search::SearchParams Manager::GetBookingSearchParamsForTesting()
+{
+  search::SearchParams p;
+  p.m_query = GetQuery(ItemType::Hotels);
+  p.m_inputLocale = "en";
+  p.m_viewport = {37.568808916849733, 67.451852658402345, 37.632819283150269, 67.515833479171874};
+  p.m_position = {{37.6008141, 67.4838356}};
+  p.m_maxNumResults = 6;
+  p.m_mode = search::Mode::Viewport;
+  return p;
+}
+
 std::string Manager::GetViatorUrl(m2::PointD const & point) const
 {
   auto const viatorId = GetCityViatorId(point);
