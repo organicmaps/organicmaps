@@ -186,6 +186,7 @@
 		67E91C7E1BDFC85E005CEE88 /* visual_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709478F1BDF9BE1005014C0 /* visual_params.cpp */; };
 		BB035F6F1E3A2AAE00519962 /* drape_measurer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */; };
 		BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */; };
+		BB68AD42201248AF009DE501 /* user_marks_global.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB68AD41201248AE009DE501 /* user_marks_global.hpp */; };
 		BB7D67D21F34A62C002FD122 /* custom_features_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB7D67CF1F34A62C002FD122 /* custom_features_context.hpp */; };
 		BB7D67D31F34A62C002FD122 /* path_text_handle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7D67D01F34A62C002FD122 /* path_text_handle.cpp */; };
 		BB7D67D41F34A62C002FD122 /* path_text_handle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB7D67D11F34A62C002FD122 /* path_text_handle.hpp */; };
@@ -449,6 +450,7 @@
 		677A2DE41C0DD55D00635A00 /* requested_tiles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = requested_tiles.hpp; sourceTree = "<group>"; };
 		BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_measurer.cpp; sourceTree = "<group>"; };
 		BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_measurer.hpp; sourceTree = "<group>"; };
+		BB68AD41201248AE009DE501 /* user_marks_global.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = user_marks_global.hpp; sourceTree = "<group>"; };
 		BB7D67CF1F34A62C002FD122 /* custom_features_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = custom_features_context.hpp; sourceTree = "<group>"; };
 		BB7D67D01F34A62C002FD122 /* path_text_handle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = path_text_handle.cpp; sourceTree = "<group>"; };
 		BB7D67D11F34A62C002FD122 /* path_text_handle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = path_text_handle.hpp; sourceTree = "<group>"; };
@@ -567,6 +569,7 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				BB68AD41201248AE009DE501 /* user_marks_global.hpp */,
 				454B9A391F4591AC003FAE7A /* drape_engine_safe_ptr.hpp */,
 				453FEDAA1F34C257005C1BB4 /* render_state.cpp */,
 				453FEDAB1F34C257005C1BB4 /* render_state.hpp */,
@@ -876,6 +879,7 @@
 				452C9EE51CEDCF3200A55E57 /* sequence_animation.hpp in Headers */,
 				670947A11BDF9BE1005014C0 /* message_subclasses.hpp in Headers */,
 				BBD9E2D41F009D9E00DF189A /* user_mark_generator.hpp in Headers */,
+				BB68AD42201248AF009DE501 /* user_marks_global.hpp in Headers */,
 				670947C51BDF9BE1005014C0 /* text_handle.hpp in Headers */,
 				670947D71BDF9BE1005014C0 /* user_event_stream.hpp in Headers */,
 				6709479E1BDF9BE1005014C0 /* message_acceptor.hpp in Headers */,

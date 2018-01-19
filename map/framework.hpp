@@ -22,6 +22,7 @@
 #include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/user_event_stream.hpp"
+#include "drape_frontend/user_marks_global.hpp"
 
 #include "drape/oglcontextfactory.hpp"
 
@@ -330,6 +331,7 @@ public:
   /// @return true if category was deleted
   bool DeleteBmCategory(size_t index);
 
+  void ShowBookmark(df::MarkID id);
   void ShowBookmark(BookmarkAndCategory const & bnc);
   void ShowTrack(Track const & track);
   void ShowFeatureByMercator(m2::PointD const & pt);
@@ -364,6 +366,8 @@ private:
                             df::SelectionShape::ESelectedObject selectionType,
                             place_page::Info const & info);
   void InvalidateUserMarks();
+  void ShowBookmark(Bookmark const * bookmark, BookmarkAndCategory const & bnc);
+
 public:
   void DeactivateMapSelection(bool notifyUI);
   /// Used to "refresh" UI in some cases (e.g. feature editing).

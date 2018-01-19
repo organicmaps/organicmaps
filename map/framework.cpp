@@ -983,11 +983,27 @@ void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info &
   info.SetIntermediateIndex(rmp.GetIntermediateIndex());
 }
 
+void Framework::ShowBookmark(df::MarkID id)
+{
+  BookmarkAndCategory bnc;
+  auto const mark = m_bmManager->GetBookmark(id, bnc.m_categoryIndex, bnc.m_bookmarkIndex);
+  ShowBookmark(mark, bnc);
+}
+
 void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
 {
-  StopLocationFollow();
+  auto const usermark = GetBmCategory(bnc.m_categoryIndex)->GetUserMark(bnc.m_bookmarkIndex);
+  ASSERT(dynamic_cast<Bookmark const *>(usermark) != nullptr, ());
+  auto const bookmark = static_cast<Bookmark const *>(usermark);
+  ShowBookmark(bookmark, bnc);
+}
 
-  auto mark = static_cast<Bookmark const *>(GetBmCategory(bnc.m_categoryIndex)->GetUserMark(bnc.m_bookmarkIndex));
+void Framework::ShowBookmark(Bookmark const * mark, BookmarkAndCategory const & bnc)
+{
+  if (mark == nullptr)
+    return;
+
+  StopLocationFollow();
 
   double scale = mark->GetScale();
   if (scale == -1.0)

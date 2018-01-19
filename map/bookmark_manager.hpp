@@ -100,6 +100,9 @@ public:
 
   using TTouchRectHolder = function<m2::AnyRectD(UserMark::Type)>;
 
+  Bookmark const * GetBookmark(df::MarkID id) const;
+  Bookmark const * GetBookmark(df::MarkID id, size_t & catIndex, size_t & bmIndex) const;
+
   UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
   UserMark const * FindNearestUserMark(TTouchRectHolder const & holder) const;
 

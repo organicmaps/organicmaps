@@ -2,6 +2,7 @@
 
 #include "drape_frontend/render_state.hpp"
 #include "drape_frontend/shape_view_params.hpp"
+#include "drape_frontend/user_marks_global.hpp"
 
 #include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
@@ -14,9 +15,6 @@
 
 namespace df
 {
-using MarkID = uint32_t;
-using IDCollection = std::vector<MarkID>;
-
 using MarkGroupID = size_t;
 
 struct MarkIDCollection

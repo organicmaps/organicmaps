@@ -212,6 +212,7 @@ set(
   user_mark_generator.hpp
   user_mark_shapes.cpp
   user_mark_shapes.hpp
+  user_marks_global.hpp
   user_marks_provider.cpp
   user_marks_provider.hpp
   visual_params.cpp

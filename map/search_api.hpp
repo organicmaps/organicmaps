@@ -10,7 +10,7 @@
 #include "search/search_params.hpp"
 #include "search/viewport_search_callback.hpp"
 
-#include "drape_frontend/user_marks_provider.hpp"
+#include "drape_frontend/user_marks_global.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"

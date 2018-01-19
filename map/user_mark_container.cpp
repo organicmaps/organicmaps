@@ -75,10 +75,25 @@ void UserMarkContainer::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 
 UserMark const * UserMarkContainer::GetUserMarkById(df::MarkID id) const
 {
-  for (auto const & mark : m_userMarks)
+  auto const it = m_userMarksDict.find(id);
+  if (it != m_userMarksDict.end())
+    return it->second;
+  return nullptr;
+}
+
+UserMark const * UserMarkContainer::GetUserMarkById(df::MarkID id, size_t & index) const
+{
+  auto const it = m_userMarksDict.find(id);
+  if (it != m_userMarksDict.end())
   {
-    if (mark->GetId() == id)
-      return mark.get();
+    for (size_t i = 0; i < m_userMarks.size(); ++i)
+    {
+      if (m_userMarks[i]->GetId() == id)
+      {
+        index = i;
+        return m_userMarks[i].get();
+      }
+    }
   }
   return nullptr;
 }
@@ -197,6 +212,7 @@ UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
   // Push front an user mark.
   SetDirty();
   m_userMarks.push_front(unique_ptr<UserMark>(AllocateUserMark(ptOrg)));
+  m_userMarksDict.insert(make_pair(m_userMarks.front()->GetId(), m_userMarks.front().get()));
   m_createdMarks.insert(m_userMarks.front()->GetId());
   return m_userMarks.front().get();
 }
@@ -283,6 +299,7 @@ void UserMarkContainer::DeleteUserMark(size_t index)
     else
       m_removedMarks.insert(markId);
     m_userMarks.erase(m_userMarks.begin() + index);
+    m_userMarksDict.erase(markId);
   }
   else
   {

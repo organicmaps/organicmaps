@@ -63,6 +63,7 @@ public:
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
   UserMark const * GetUserMarkById(df::MarkID id) const;
+  UserMark const * GetUserMarkById(df::MarkID id, size_t & index) const;
 
   // If not found mark on rect result is nullptr.
   // If mark is found in "d" return distance from rect center.
@@ -115,6 +116,7 @@ private:
   UserMark::Type m_type;
   std::set<df::MarkID> m_createdMarks;
   std::set<df::MarkID> m_removedMarks;
+  std::map<df::MarkID, UserMark*> m_userMarksDict;
   bool m_isDirty = false;
 
   Listeners m_listeners;

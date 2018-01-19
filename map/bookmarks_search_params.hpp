@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/user_marks_provider.hpp"
+#include "drape_frontend/user_marks_global.hpp"
 
 #include "base/assert.hpp"
 

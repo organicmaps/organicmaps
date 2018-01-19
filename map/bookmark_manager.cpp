@@ -505,6 +505,37 @@ private:
 };
 }  // namespace
 
+Bookmark const * BookmarkManager::GetBookmark(df::MarkID id) const
+{
+  for (auto const & category : m_categories)
+  {
+    auto const mark = category->GetUserMarkById(id);
+    if (mark != nullptr)
+    {
+      ASSERT(dynamic_cast<Bookmark const *>(mark) != nullptr, ());
+      return static_cast<Bookmark const *>(mark);
+    }
+  }
+  return nullptr;
+}
+
+Bookmark const * BookmarkManager::GetBookmark(df::MarkID id, size_t & catIndex, size_t & bmIndex) const
+{
+  size_t index = 0;
+  UserMark const * mark = nullptr;
+  for (size_t i = 0; i < m_categories.size(); ++i)
+  {
+    mark = m_categories[i]->GetUserMarkById(id, index);
+    if (mark != nullptr)
+    {
+      catIndex = i;
+      bmIndex = index;
+      ASSERT(dynamic_cast<Bookmark const *>(mark) != nullptr, ());
+      return static_cast<Bookmark const *>(mark);
+    }
+  }
+}
+
 UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
 {
   return FindNearestUserMark([&rect](UserMark::Type) { return rect; });
