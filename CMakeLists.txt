@@ -372,6 +372,8 @@ if (PLATFORM_DESKTOP)
   add_subdirectory(3party/libtess2)
 endif()
 
+# Only options related to warnings should be placed here.
+# Other options should be set before all add_subdirectory calls.
 add_compile_options(
   "-Wall"
 )
