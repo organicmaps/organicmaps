@@ -22,6 +22,7 @@ class Result;
 + (NSUInteger)containerIndexWithRow:(NSUInteger)row;
 + (search::Result const &)resultWithContainerIndex:(NSUInteger)index;
 + (BOOL)isLocalAdsWithContainerIndex:(NSUInteger)index;
++ (CGFloat)ugcRatingWithContainerIndex:(NSUInteger)index;
 + (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index;
 + (BOOL)isBookingAvailableWithContainerIndex:(NSUInteger)index;
 

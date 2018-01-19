@@ -359,6 +359,7 @@ public:
   boost::optional<m2::PointD> GetCurrentPosition() const override;
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
   bool IsLocalAdsCustomer(search::Result const & result) const override;
+  float GetUgcRating(search::Result const & result) const override;
   double GetMinDistanceBetweenResults() const override;
 
 private:

@@ -6,6 +6,7 @@
 
 - (void)config:(search::Result const &)result
      isLocalAds:(BOOL)isLocalAds
-    isAvailable:(BOOL)isAvailable;
+     isAvailable:(BOOL)isAvailable
+     ugcRating:(CGFloat)ugcRating;
 
 @end

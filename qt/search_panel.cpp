@@ -261,7 +261,8 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
     m_params.m_query = normalized.toUtf8().constData();
     auto const timestamp = ++m_timestamp;
     m_params.m_onResults = [this, timestamp](search::Results const & results,
-                                             vector<bool> const & /* isLocalAdsCustomer */) {
+                                             vector<bool> const & /* isLocalAdsCustomer */,
+                                             vector<float> const & /* ugcRatings */) {
       GetPlatform().RunTask(Platform::Thread::Gui, bind(&SearchPanel::OnSearchResults, this,
                                                         timestamp, results));
     };

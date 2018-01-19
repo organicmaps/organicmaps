@@ -3,7 +3,10 @@
 #import "MWMLocationManager.h"
 
 #include "geometry/mercator.hpp"
+
 #include "platform/measurement_utils.hpp"
+
+#include "map/place_page_info.hpp"
 
 @interface MWMSearchCommonCell ()
 
@@ -27,11 +30,14 @@
 
 - (void)config:(search::Result const &)result
      isLocalAds:(BOOL)isLocalAds
-    isAvailable:(BOOL)isAvailable
+     isAvailable:(BOOL)isAvailable
+     ugcRating:(CGFloat)ugcRating
 {
   [super config:result];
   self.typeLabel.text = @(result.GetFeatureTypeName().c_str()).capitalizedString;
-  auto const & ratingStr = result.GetHotelRating();
+  auto ratingStr = result.GetHotelRating();
+  if (ratingStr.empty() && ugcRating > 0.f)
+    ratingStr = place_page::rating::GetRatingFormatted(ugcRating);
   self.ratingLabel.text =
       ratingStr.empty() ? @"" : [NSString stringWithFormat:L(@"place_page_booking_rating"),
                                                             ratingStr.c_str()];

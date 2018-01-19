@@ -1,6 +1,6 @@
-#include "intermediate_result.hpp"
-#include "geometry_utils.hpp"
-#include "reverse_geocoder.hpp"
+#include "search/intermediate_result.hpp"
+#include "search/geometry_utils.hpp"
+#include "search/reverse_geocoder.hpp"
 
 #include "storage/country_info_getter.hpp"
 

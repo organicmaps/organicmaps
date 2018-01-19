@@ -8,4 +8,5 @@
 
 jobjectArray BuildSearchResults(search::Results const & results,
                                 std::vector<bool> const & isLocalAdsCustomer,
-                                bool hasPosition, double lat, double lon);
+                                std::vector<float> const & ugcRatings, bool hasPosition, double lat,
+                                double lon);

@@ -21,17 +21,15 @@ UGC Loader::GetUGC(FeatureID const & featureId)
   if (!value.m_cont.IsExist(UGC_FILE_TAG))
     return {};
 
-  if (m_currentMwmId != featureId.m_mwmId)
-  {
-    m_currentMwmId = featureId.m_mwmId;
-    m_d = binary::UGCDeserializer();
-  }
-
-  auto readerPtr = value.m_cont.GetReader(UGC_FILE_TAG);
-
   UGC ugc;
-  if (!m_d.Deserialize(*readerPtr.GetPtr(), featureId.m_index, ugc))
-    return {};
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+
+    auto deserializer = m_deserializers[featureId.m_mwmId];
+    auto readerPtr = value.m_cont.GetReader(UGC_FILE_TAG);
+
+    deserializer.Deserialize(*readerPtr.GetPtr(), featureId.m_index, ugc);
+  }
 
   return ugc;
 }

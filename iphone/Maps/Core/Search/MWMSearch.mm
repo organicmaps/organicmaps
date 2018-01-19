@@ -51,6 +51,7 @@ using Observers = NSHashTable<Observer>;
   search::Results m_viewportResults;
   std::vector<bool> m_isLocalAdsCustomer;
   std::vector<FeatureID> m_bookingAvailableFeatureIDs;
+  std::vector<float> m_ugcRatings;
 }
 
 #pragma mark - Instance
@@ -81,12 +82,14 @@ using Observers = NSHashTable<Observer>;
   self.lastSearchTimestamp += 1;
   NSUInteger const timestamp = self.lastSearchTimestamp;
   m_everywhereParams.m_onResults = [self, timestamp](search::Results const & results,
-                                                     vector<bool> const & isLocalAdsCustomer) {
+                                                     vector<bool> const & isLocalAdsCustomer,
+                                                     vector<float> const & ugcRatings) {
 
     if (timestamp == self.lastSearchTimestamp)
     {
       self->m_everywhereResults = results;
       self->m_isLocalAdsCustomer = isLocalAdsCustomer;
+      self->m_ugcRatings = ugcRatings;
       self.suggestionsCount = results.GetSuggestsCount();
 
       [self onSearchResultsUpdated];
@@ -216,6 +219,11 @@ using Observers = NSHashTable<Observer>;
 + (BOOL)isLocalAdsWithContainerIndex:(NSUInteger)index
 {
   return [MWMSearch manager]->m_isLocalAdsCustomer[index];
+}
+
++ (CGFloat)ugcRatingWithContainerIndex:(NSUInteger)index
+{
+  return [MWMSearch manager]->m_ugcRatings[index];
 }
 
 + (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index

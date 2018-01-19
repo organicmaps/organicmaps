@@ -94,9 +94,9 @@ public:
     {
     }
 
-    virtual void OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params)
-    {
-    }
+    virtual void OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params) {}
+
+    virtual float GetUgcRating(search::Result const & /* result */) const { return -1.f; }
   };
 
   SearchAPI(Index & index, storage::Storage const & storage,
@@ -141,6 +141,7 @@ public:
   void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
                                  search::Results::ConstIter end) override;
   bool IsLocalAdsCustomer(search::Result const & result) const override;
+  float GetUgcRating(search::Result const & result) const override;
 
   void OnBookmarksCreated(std::vector<std::pair<df::MarkID, BookmarkData>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<df::MarkID, BookmarkData>> const & marks);

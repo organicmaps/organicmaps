@@ -12,13 +12,18 @@ EverywhereSearchCallback::EverywhereSearchCallback(Delegate & delegate, OnResult
 
 void EverywhereSearchCallback::operator()(Results const & results)
 {
+  ASSERT_EQUAL(m_isLocalAdsCustomer.size(), m_ugcRatings.size(), ());
+
   auto const prevSize = m_isLocalAdsCustomer.size();
   ASSERT_LESS_OR_EQUAL(prevSize, results.GetCount(), ());
 
   for (size_t i = prevSize; i < results.GetCount(); ++i)
+  {
     m_isLocalAdsCustomer.push_back(m_delegate.IsLocalAdsCustomer(results[i]));
+    m_ugcRatings.push_back(m_delegate.GetUgcRating(results[i]));
+  }
 
   ASSERT_EQUAL(m_isLocalAdsCustomer.size(), results.GetCount(), ());
-  m_onResults(results, m_isLocalAdsCustomer);
+  m_onResults(results, m_isLocalAdsCustomer, m_ugcRatings);
 }
 }  // namespace search

@@ -176,10 +176,11 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
 
   p.m_onResults = EverywhereSearchCallback(
       static_cast<EverywhereSearchCallback::Delegate &>(*this),
-      [this, params](Results const & results, vector<bool> const & isLocalAdsCustomer) {
+      [this, params](Results const & results, vector<bool> const & isLocalAdsCustomer,
+                     vector<float> const & ugcRatings) {
         if (params.m_onResults)
-          RunUITask([params, results, isLocalAdsCustomer] {
-            params.m_onResults(results, isLocalAdsCustomer);
+          RunUITask([params, results, isLocalAdsCustomer, ugcRatings] {
+            params.m_onResults(results, isLocalAdsCustomer, ugcRatings);
           });
         if (results.IsEndedNormal() && !params.m_bookingFilterParams.IsEmpty())
         {
@@ -337,6 +338,11 @@ void SearchAPI::ShowViewportSearchResults(bool clear, search::Results::ConstIter
 bool SearchAPI::IsLocalAdsCustomer(Result const & result) const
 {
   return m_delegate.IsLocalAdsCustomer(result);
+}
+
+float SearchAPI::GetUgcRating(search::Result const & result) const
+{
+  return m_delegate.GetUgcRating(result);
 }
 
 void SearchAPI::OnBookmarksCreated(vector<pair<df::MarkID, BookmarkData>> const & marks)

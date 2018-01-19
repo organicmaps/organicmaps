@@ -3256,6 +3256,18 @@ bool Framework::IsLocalAdsCustomer(search::Result const & result) const
   return m_localAdsManager.Contains(result.GetFeatureID());
 }
 
+float Framework::GetUgcRating(search::Result const & result) const
+{
+  ASSERT(m_ugcApi, ());
+
+  if (result.GetResultType() != search::Result::Type::Feature)
+    return -1.f;
+
+  auto const ugc = m_ugcApi->GetLoader().GetUGC(result.GetFeatureID());
+
+  return ugc.m_totalRating;
+}
+
 double Framework::GetMinDistanceBetweenResults() const
 {
   return m_searchMarks.GetMaxDimension(m_currentModelView);

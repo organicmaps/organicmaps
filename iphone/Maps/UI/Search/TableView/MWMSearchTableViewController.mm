@@ -89,7 +89,8 @@
     auto const & result = [MWMSearch resultWithContainerIndex:containerIndex];
     auto const isLocalAds = [MWMSearch isLocalAdsWithContainerIndex:containerIndex];
     auto const isBookingAvailable = [MWMSearch isBookingAvailableWithContainerIndex:containerIndex];
-    [cell config:result isLocalAds:isLocalAds isAvailable:isBookingAvailable];
+    auto const ugcRating = [MWMSearch ugcRatingWithContainerIndex:containerIndex];
+    [cell config:result isLocalAds:isLocalAds isAvailable:isBookingAvailable ugcRating:ugcRating];
     return cell;
   }
   case MWMSearchItemTypeMopub:
