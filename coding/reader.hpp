@@ -122,6 +122,11 @@ public:
     m_p->ReadAsString(s);
   }
 
+  ReaderPtr<Reader> SubReader(uint64_t pos, uint64_t size) const
+  {
+    return {m_p->CreateSubReader(pos, size)};
+  }
+
   TReader * GetPtr() const { return m_p.get(); }
 };
 

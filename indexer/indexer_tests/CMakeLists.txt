@@ -26,6 +26,7 @@ set(
   polyline_point_to_int64_test.cpp
   postcodes_matcher_tests.cpp
   rank_table_test.cpp
+  scale_index_reading_tests.cpp
   scales_test.cpp
   search_string_utils_test.cpp
   sort_and_merge_intervals_test.cpp

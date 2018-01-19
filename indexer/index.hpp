@@ -210,7 +210,6 @@ private:
   };
 
 public:
-
   template <typename F>
   void ForEachInRect(F && f, m2::RectD const & rect, int scale) const
   {
