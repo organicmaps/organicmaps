@@ -32,6 +32,7 @@
     zh-Hant = 關於
     he = אודות
     sk = O aplikácii
+    fa = درباره‌ی
 
   [back]
     comment = Button text (should be short)
@@ -65,6 +66,7 @@
     el = Πίσω
     he = חזור
     sk = Späť
+    fa = بازگشت
 
   [cancel]
     comment = Button text (should be short)
@@ -99,6 +101,7 @@
     el = Άκυρο
     he = בטל
     sk = Zrušiť
+    fa = لغو
 
   [cancel_download]
     comment = Button which interrupts country download
@@ -133,6 +136,7 @@
     el = Ακύρωση λήψης
     he = בטל  הורדת הקובץ
     sk = Zrušiť sťahovanie
+    fa = لغو دانلود
 
   [delete]
     comment = Button which deletes downloaded country
@@ -167,6 +171,7 @@
     el = Διαγραφή
     he = מחק
     sk = Zmazať
+    fa = حذف
 
   [do_not_ask_me_again]
     comment = Button to dismiss dialog forever
@@ -199,6 +204,7 @@
     zh-Hant = 不再詢問
     he = אל תשאל פעם נוספת
     sk = Už sa nepýtať
+fa = دوباره نپرس
 
   [do_nothing]
     comment = Button "do not interrupt download" if user touched actively downloading country
@@ -231,6 +237,7 @@
     zh-Hant = 繼續
     he = המשך
     sk = Pokračovať
+    fa = ادامه
 
   [download_maps]
     tags = tizen
@@ -264,6 +271,7 @@
     el = Λήψη χαρτών
     he = הורד קבצי מפות
     sk = Stiahnuť mapy
+    fa = دانلود نقشه ها
 
   [download_x_kb]
     comment = Settings/Downloader - Download confirmation button
@@ -296,6 +304,7 @@
     zh-Hant = 下載 %qu kB
     he = kB הורד %qu
     sk = Stiahnuť %qu kB
+    fa = دانلود شد  %qu کیلوبایت
 
   [download_x_mb]
     comment = Settings/Downloader - Download confirmation button
@@ -328,6 +337,7 @@
     zh-Hant = 下載 %qu MB
     he = MB הורד %qu
     sk = Stiahnuť %qu MB
+    fa = دانلود شد %qu مگابایت
 
   [download_has_failed]
     comment = Settings/Downloader - info for country when download fails
@@ -361,6 +371,7 @@
     el = Η λήψη απέτυχε. Αγγίξτε για να προσπαθήσετε ξανά.
     he = הורדת הקובץ נכשלה. לחץ שוב לניסיון נוסף
     sk = Sťahovanie zlyhalo, skúste to znova.
+    fa = دانلود ناموفق بود . برای تلاش مجدد لمس کنید
 
   [downloaded_x_y_touch_to_delete]
     comment = Settings/Downloader - info for downloaded country
@@ -393,6 +404,7 @@
     zh-Hant = 已下載的 (%1$qu %2$@), 輕觸以刪除
     he = הורדו (%1$qu %2$@), לחץ למחיקה
     sk = Stiahnuté (%1$qu %2$@), stlačte pre vymazanie.
+    fa = دانلودشده (%1$qu %2$@), برای حذف لمس کنید
 
   [downloading_x_touch_to_cancel]
     comment = Settings/Downloader - country info current download progress
@@ -425,6 +437,7 @@
     zh-Hant = 正在下載 %qu%%, 輕觸以取消
     he = הורדו %qu%%, לחץ לביטול
     sk = Sťahovanie %qu%%, stlačte pre zrušenie.
+    fa = درحال دانلود %qu%%, برای لغو لمس کنید
 
   [downloading]
     comment = Settings/Downloader - info for country which started downloading
@@ -458,6 +471,7 @@
     el = Λήψη…
     he = מוריד….
     sk = Sťahovanie…
+    fa = درحال دانلود
 
   [get_it_now]
     en = Get it now
@@ -489,6 +503,7 @@
     zh-Hant = 馬上取得
     he = הורד אותו עכשיו
     sk = Získať teraz
+    fa = هم اکنون دریافت کنید
 
   [share_on_facebook_text]
     comment = Text to show occasionaly with a proposal to Like our program on Facebook
@@ -521,6 +536,7 @@
     zh-Hant = 感謝您使用 MAPS.ME！您喜歡此應用程式嗎？告訴好友們吧！這會是對我們最好的感謝。
     el = Σας ευχαριστούμε που χρησιμοποιείτε το MAPS.ME! Σας αρέσει η εφαρμογή; Πείτε το στους φίλους σας! Είναι ότι καλύτερο μπορείτε να κάνετε για εμάς.
     sk = Ďakujeme, že používate MAPS.ME! Páči sa vám táto aplikácia? Povedzte o nej svojim priateľom! Bude to pre nás najlepšia odmena.
+    fa = ایا از کارکرد این اپلیکیشن رضایت دارید؟ درمورد این اپلیکیشن به دوستانتان بگویید! این بهترین تشکر از ماست.!MAPS.MEباتشکر از شما برای استفاده از
 
   [kb]
     comment = Settings/Downloader - size string, only strings different from English should be translated
@@ -539,6 +555,7 @@
     tr = kB
     uk = кБ
     vi = kB
+    fa = کیلوبایت
 
   [kilometres]
     comment = Choose measurement on first launch alert - choose metric system button
@@ -574,6 +591,7 @@
     el = Χιλιόμετρα
     he = ק"מ
     sk = Kilometre
+    fa = کیلومتر
 
   [leave_a_review]
     comment = Leave Review dialog - Review button
@@ -607,6 +625,7 @@
     el = Αφήστε μια κριτική
     he = הבע דעתך
     sk = Spätná väzba
+    fa = نظر خود را بیان کنید
 
   [maps]
     comment = View and button titles for accessibility
@@ -640,6 +659,7 @@
     el = Χάρτες
     he = מפות
     sk = Mapy
+    fa = نقشه ها
 
   [downloader_maps]
     comment = View and button titles for accessibility
@@ -673,6 +693,7 @@
     el = Χάρτες:
     he = מפות:
     sk = Mapy:
+    fa = :نقشه ها
 
   [marked_for_downloading]
     comment = Settings/Downloader - info for country in the download queue
@@ -724,6 +745,7 @@
     uk = МБ
     vi = MB
     el = MB
+    fa = مگابایت
 
   [gb]
     tags = ios, android
@@ -731,6 +753,7 @@
     ru = ГБ
     uk = ГБ
     el = GB
+    fa = گیگابایت
 
   [miles]
     comment = Choose measurement on first launch alert - choose imperial system button
@@ -765,6 +788,7 @@
     el = Μίλια
     he = מ"ב
     sk = Míle
+    fa = مایل
 
   [core_my_position]
     comment = View and button titles for accessibility
@@ -798,6 +822,7 @@
     el = Η θέση μου
     he = מיקומי
     sk = Moja poloha
+    fa = مکان من
 
   [ok]
     en = OK
@@ -817,6 +842,7 @@
     zh-Hant = 確定
     el = OK
     he = אשר
+    fa = موافقم
 
   [free_disk_space_for_country_x]
     comment = Settings/Downloader - No free space dialog message
@@ -849,6 +875,7 @@
     zh-Hant = 如要下載%@ ，請先釋放一些空間！
     he = אנא פנה מקום אחסון במכשירך כדי לאפר הורדת %@
     sk = Prosím, uvoľnite nejaké miesto vo svojom zariadení, kým začnete sťahovať %@
+    fa = لطفا مقداری از فضای ذخیره سازی تلفن همراهتان را جهت دانلود خالی نمایید %@
 
   [remind_me_later]
     comment = Leave Review dialog - Not now button (remind me later)
@@ -883,6 +910,7 @@
     el = Υπενθύμιση αργότερα
     he = הזכר לי מאוחר יותר
     sk = Upozorniť ma neskôr
+    fa = بعدا یاداوری کن
 
   [later]
     comment = Update maps later/Buy pro version later button text
@@ -915,6 +943,7 @@
     el = Αργότερα
     he = מאוחר יותר
     sk = Neskôr
+    fa = بعداً
 
   [never]
     comment = Don't show some dialog any more
@@ -946,6 +975,7 @@
     zh-Hant = 不再提醒
     he = אף פעם
     sk = Nikdy
+    fa = هرگز
 
   [report_an_issue]
     comment = Leave Review dialog - Complain button (goes to support site)
@@ -978,6 +1008,7 @@
     zh-Hant = 回報問題
     he = דווח על בעיה
     sk = Nahlásiť chybu
+    fa = گزارش مشکل
 
   [search]
     comment = View and button titles for accessibility
@@ -1010,6 +1041,7 @@
     zh-Hant = 搜尋
     el = Αναζήτηση
     sk = Hľadať
+    fa = جست‌وجو
 
   [search_map]
     comment = Search box placeholder text
@@ -1043,6 +1075,7 @@
     el = Αναζήτηση χάρτη
     he = חפש במפה
     sk = Prehľadať mapu
+    fa = جست‌وجوی نقشه
 
   [touch_to_download]
     comment = Settings/Downloader - info for not downloaded country
@@ -1075,6 +1108,7 @@
     zh-Hant = 輕觸以下載
     he = לחץ להוריד
     sk = Stlačte pre stiahnutie
+    fa = برای دانلود لمس کنید
 
   [use_cellular_data]
     comment = Settings/Downloader - 3G download warning dialog confirm button
@@ -1108,6 +1142,7 @@
     el = Ναι
     he = כן
     sk = Áno
+    fa = بله
 
   [use_wifi_recommendation_text]
     comment = Settings/Downloader - No internet connection dialog message
@@ -1141,6 +1176,7 @@
     zh-Hant = 我們建議透過 WiFi 連線來下載較大的地圖
     he = אנו ממליצים להשתמש ב WiFi להורדת מפות גדולות
     sk = Doporučujeme použiť WiFi pre sťahovanie väčších máp
+    fa = اکیداً توصیه می کنیم برای دانلود نقشه های حجیم از اینترنت وای فای استفاده نمایید
 
   [which_measurement_system]
     comment = Choose measurement on first launch alert - title
@@ -1173,6 +1209,7 @@
     zh-Hant = 您偏好哪種度量單位系統？
     he = איזה מערכת יחידות אתם מעדיפים?
     sk = Aký systém pre meranie preferujete?
+    fa = کدام واحد اندازه گیری را ترجیح می دهید؟
 
   [location_is_disabled_long_text]
     comment = Location services are disabled by user alert - message
@@ -1206,6 +1243,7 @@
     el = Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τις από τις Ρυθμίσεις.
     he = שרותי המיקום של מכשיר או ישום זה זה כבויים. הכנס ל "הגדרות" Settings)) כדי להדליקם.
     sk = Aktuálne máte všetky možnosti pre určovanie polohy vypnuté. Prosím, povoľte ich v Nastaveniach.
+    fa = سرویس موقعیت مکانی شما غیر فعال است .لطفا جهت کارکرد صحیح نرم افزار ان را فعال کنید.
 
   [device_doesnot_support_location_services]
     comment = Location Services are not available on the device alert - message
@@ -1238,6 +1276,7 @@
     zh-Hant = 您的裝置不支援定位服務
     he = ב” שרותי מיקום” מכשירך אינו תומך ב
     sk = Vaše zariadenie nepodporuje služby pre určovanie polohy
+    fa =  دستگاه شماازسرویس موقعیت مکانی پشتیبانی نمی کند
 
   [zoom_to_country]
     comment = View and button titles for accessibility
@@ -1270,6 +1309,7 @@
     zh-Hant = 在地圖上顯示
     el = Εμφάνιση στο χάρτη
     sk = Ukázať na mape
+    fa = بر روی نقشه نمایش بده
 
   [country_status_added_to_queue]
     comment = Message to display at the center of the screen when the country is added to the downloading queue
@@ -1303,6 +1343,7 @@
     el = ^\nis προστέθηκε στην ουρά λήψης.
     he = ^\nנוסף לתור ההורדה
     sk = ^\npridané do zoznamu sťahovania
+    fa = ^\nis اضافه کردن به صف دانلود
 
   [country_status_downloading]
     comment = Message to display at the center of the screen when the country is downloading
@@ -1336,6 +1377,7 @@
     el = Λήψη\n^\n^
     he = מוריד\n^\n^
     sk = Sťahovanie\n^\n^
+    fa = درحال دانلود\n^\n^
 
   [country_status_download]
     comment = Button text for the button at the center of the screen when the country is not downloaded
@@ -1369,6 +1411,7 @@
     el = Λήψη Χάρτη\n(^ ^)
     he = (^ ^)\nהורידו מפה
     sk = Stiahnite si Mapu\n(^ ^)
+    fa = دانلود نقشه\n(^ ^)
 
   [country_status_download_without_size]
     comment = Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown
@@ -1402,6 +1445,7 @@
     el = Λήψη χάρτη
     he = הורידו מפה
     sk = Stiahnite si Mapu
+    fa = دانلود نقشه
 
   [country_status_download_without_routing]
     comment = Button text for the button at the center of the screen when the country is not downloaded
@@ -1468,6 +1512,7 @@
     el = Η λήψη απέτυχε
     he = הורדנכשלה
     sk = Sťahovanie zlyhalo
+    fa = دانلود با شکست مواجه شد
 
   [try_again]
     comment = Button text for the button under the country_status_download_failed message
@@ -1501,10 +1546,12 @@
     el = Δοκιμάστε ξανά
     he = נסה שוב
     sk = Skúsiť znova
+    fa = تلاش مجدد
 
   [app_name]
     en = MAPS.ME
     el = MAPS.ME
+    fa = MAPS.ME
 
   [about_menu_title]
     en = About MAPS.ME
@@ -1537,6 +1584,7 @@
     el = Σχετικά με το MAPS.ME
     he = MAPS.ME אודות
     sk = O aplikácii MAPS.ME
+    fa = MAPS.ME درباره‌ی
 
   [downloading_touch_to_cancel]
     en = Downloading %d%%, touch to cancel
@@ -1568,6 +1616,7 @@
     zh-Hant = 正在下載 %d%%, 輕觸以取消
     he = , לחץ לביטול %d%% מוריד
     sk = Sťahovanie %d%%,stlačte pre zrušenie
+    fa = درحال دانلود %d%%, برای لغو لمس کنید
 
   [downloaded_touch_to_delete]
     en = Downloaded (%@), touch to delete
@@ -1599,6 +1648,7 @@
     zh-Hant = 已下載的 (%@)，輕觸以刪除
     he = הורדת (%@) בוצעה, לחץ למחיקה
     sk = Stiahnuté (%@), stlačte pre zmazanie
+    fa = دانلود شده (%@),  برای حذف لمس کنید
 
   [connection_settings]
     en = Connection Settings
@@ -1631,6 +1681,7 @@
     el = Ρυθμίσεις σύνδεσης
     he = הגדרות תקשורת
     sk = Nastavenie pripojenia
+    fa = تنظیمات اتصال
 
   [download_mb_or_kb]
     en = Download %@
@@ -1662,6 +1713,7 @@
     zh-Hant = 下載 %@
     he = הורד %@
     sk = Stiahnuť %@
+    fa = دانلود %@
 
   [close]
     en = Close
@@ -1694,6 +1746,7 @@
     el = Κλείσιμο
     he = סגור
     sk = Zavrieť
+    fa = بستن
 
   [unsupported_phone]
     en = The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.
@@ -1726,6 +1779,7 @@
     el = Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.
     he = נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.
     sk = Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.
+    fa = نیازمند است. متاسفانه دستگاه شما از ان پشتیبانی نمی کندOpenGLبرنامه برای اجرا به
 
   [download]
     tags = tizen
@@ -1758,6 +1812,7 @@
     el = Λήψη
     he = הורד
     sk = Stiahnuť
+    fa = دانلود
 
   [external_storage_is_not_available]
     en = SD card/USB storage with downloaded maps is not available
@@ -1789,6 +1844,7 @@
     zh-Hant = SD 卡/USB 無法有效儲存下載的地圖
     he = המפות המאוחסנות על SD card/USB אינן זמינות.
     sk = SD karta/USB úložisko s uloženými mapami nie je k dispozícii
+    fa = حافظه خارجی که نقشه ها در ان دانلود شده موجود نیست
 
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use MAPS.ME
@@ -1853,6 +1909,7 @@
     el = Ελευθερώσετε  χώρο αποθήκευσης στην SD κάρτα/USB πρώτα προκειμένου να χρησιμοποιήσετε την εφαρμογή
     he = אנא פנה שטח אחסון על ה SD card/USB כדי להשתמש בישום
     sk = Prosím, uvoľnite najprv miesto na SD karte/USB úložisku
+    fa = لطفا مقداری از فضای ذخیره سازی را آزاد نمایید
 
   [not_enough_memory]
     en = Not enough memory to launch app
@@ -1885,6 +1942,7 @@
     el = Δεν υπάρχει αρκετή μνήμη για την έναρξη εφαρμογής
     he = אין מספיק זכרון כדי להפעיל הישום
     sk = Nedostatok pamäti k spusteniu aplikácie
+    fa = حافظه کافی برای اجرای برنامه وجود ندارد
 
   [free_space_for_country]
     en = Please free %1$@ on your device first in order to download %2$@
@@ -1948,6 +2006,7 @@
     el = Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας. \nIt θα χρησιμοποιήσει %@ αποθηκευτικού χώρου.
     he = תחילה, נוריד למכשירך מפה כללית של העולם.\nדורש %@ של נתונים.
     sk = Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %@.
+    fa = قبل از استفاده از اپلیکیشن, اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم.\nمقدار %@ از حافظه شما اشغال می شود.
 
   [getting_position]
     en = Getting current position
@@ -1980,6 +2039,7 @@
     el = Λήψη τρέχουσας τοποθεσίας
     he = מאתר  מיקום נוכחי
     sk = Získavanie aktuálnej polohy
+    fa = درحال دریافت موقعیت مکانی شما
 
   [download_resources_continue]
     en = Go to Map
@@ -2012,6 +2072,7 @@
     el = Μετάβαση στο χάρτη
     he = עבור למפה
     sk = Prejsť na mapu
+    fa = برو به نقشه
 
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
@@ -2044,6 +2105,7 @@
     el = Λήψη %@. Μπορείτε τώρα να\nμεταβείτε στο χάρτη.
     he = מוריד %@. תוכל עתה\nלהמשיך למפה.
     sk = Sťahovanie %@. Teraz môžete\nprejsť na mapu.
+    fa = درحال دانلود %@. شما اکنون می توانید\nبه نقشه بروید.
 
   [download_country_ask]
     en = Download %@?
@@ -2076,6 +2138,7 @@
     el = Να γίνει λήψη %@;
     he = להוריד %@?
     sk = Stiahnuť %@?
+    fa = دانلود  %@?
 
   [update_country_ask]
     en = Update %@?
@@ -2108,6 +2171,7 @@
     el = Να γίνει ενημέρωση %@;
     he = לעדכן %@?
     sk = Aktualizovať %@?
+    fa = اپدیت %@?
 
   [download_location_map_proposal]
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -2141,6 +2205,7 @@
     el = Μπορείτε να κατεβάσετε το χάρτη\nτης τρέχουσας τοποθεσίας σας.
     he = אתה יכול להוריד המפה\nשל מקומך הנוכחי.
     sk = Môžete stiahnuť mapu\npre svoju aktuálnu polohu.
+    fa = شما می توانید نقشه\nموقعیت فعلیتان را دانلود کنید.
 
   [download_location_update_map_proposal]
     comment = REMOVE THIS_STRING AFTER REFACTORING
@@ -2174,6 +2239,7 @@
     el = Μπορείτε να ενημερώσετε το χάρτη\nτης τρέχουσας τοποθεσίας σας.
     he = אתה יכול לעדכן את מיקומך הנוכחי במפה.
     sk = Môžete aktualizovať mapu\nsvojej aktuálnej polohy.
+    fa = شما می توانید نقشه\nموقعیت فعلیتان را اپدیت نمایید.
 
   [download_location_map_up_to_date]
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -2240,6 +2306,7 @@
     el = Παύση
     he = הפסק
     sk = Pauza
+    fa = مکث
 
   [continue_download]
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -2273,6 +2340,7 @@
     el = Συνέχεια
     he = המשך
     sk = Pokračovať
+    fa = ادامه
 
   [downloaded_touch_to_update]
     en = Downloaded (%@), touch to update or delete
@@ -2304,6 +2372,7 @@
     zh-Hant = 下載 (%@), 輕觸以更新或刪除
     he = הורדו (%@), הקש לעדכון או מחק
     sk = Stiahnuté (%@), stlačte pre zmazanie/aktualizáciu
+    fa = دانلود شده (%@), برای اپدیت یا حذف لمس کنید
 
   [update_mb_or_kb]
     en = Update %@
@@ -2335,6 +2404,7 @@
     zh-Hant = 更新 %@
     he = עדכן %@
     sk = Aktualizácia %@
+    fa = بروزرسانی %@
 
   [search_update_maps]
     comment = Show popup notification when we have downloaded countries without search (from Lite version)
@@ -2368,6 +2438,7 @@
     zh-Hant = 您需要更新地圖以使用搜尋功能：
     he = דרושות מפות מעודכנות כדי לבצע חיפוש:
     sk = Pre funkciu vyhladávania musíte aktualizovať mapy:
+    fa = شما برای استفاده از قابلیت جست‌وجو نیاز به اپدیت نقشه دارید:
 
   [advise_update_maps]
     comment = Show popup notification on app start when we have out-of-date maps
@@ -2402,6 +2473,7 @@
     el = Υπάρχει διαθέσιμη ενημέρωση για τους παρακάτω χάρτες:
     he = קיים עידכון למפות הבאות:
     sk = K dispozícii je aktualizácia pre tieto mapy:
+    fa = اپدیتی برای نقشه مورد نظر موجود است:
 
   [suggest_uninstall_lite]
     comment = Show popup notification in Pro version that Lite can be deleted
@@ -2436,6 +2508,7 @@
     el = Δε χρειάζεστε το MAPS.ME Lite πλέον, μπορείτε να το απεγκαταστήσετε.
     he = אינך צריך עוד את  MAPS.ME Lite. תוכל להסיר את ההתקנה.
     sk = Aplikáciu MAPS.ME Lite uz teraz nepotrebujete, takže si ju môžete kľudne odinštalovať.
+    fa = شما دیگر نیازی به نسخه رایگان MAPS.ME ندارید, پس ان را از روی دیوایستان حذف نمایید.
 
   [download_country_success]
     comment = Show popup notification on top of the map when country was downloaded.
@@ -2469,6 +2542,7 @@
     zh-Hant = %@ 已成功下載
     he = %@ הורד בהצלחה
     sk = Úspešne stiahnuté: %@
+    fa = %@ دانلود با موفقیت انجام شد
 
   [download_country_failed]
     comment = Show popup notification on top of the map when country download has failed.
@@ -2503,6 +2577,7 @@
     el = η λήψη %@ απέτυχε
     he = %@ ההורדה  נכשלה
     sk = Sťahovanie zlyhalo: %@
+    fa = %@ دانلود با شکست مواجه شد
 
   [add_new_set]
     comment = Add New Bookmark Set dialog title
@@ -2537,6 +2612,7 @@
     el = Προσθέστε νέο σύνολο
     he = הוסף קבוצה חדשה
     sk = Pridať novú skupinu záložiek
+    fa = اضافه کردن مجموعه جدید
 
   [add_to_bookmarks]
     comment = Place Page - Add To Bookmarks button
@@ -2570,6 +2646,7 @@
     zh-Hant = 新增到書籤
     he = הוסף ל רשימת האתרים
     sk = Pridať k záložkám
+    fa = اضافه کردن به نشانه ها
 
   [bookmark_color]
     comment = Bookmark Color dialog title
@@ -2605,6 +2682,7 @@
     el = Χρώμα αγαπημένου
     he = צבע רשימת האתרים
     sk = Farba záložky
+    fa = رنگ نشانه
 
   [bookmark_set_name]
     comment = Add Bookmark Set dialog - hint when set name is empty
@@ -2707,6 +2785,7 @@
     el = Αγαπημένα
     he = רשימות אתרים
     sk = Záložky
+    fa = نشانه ها
 
   [color]
     comment = Add bookmark dialog - bookmark color
@@ -2740,6 +2819,7 @@
     zh-Hant = 顏色
     he = צבע
     sk = Farba
+    fa = رنگ
 
   [core_my_places]
     comment = Default bookmarks set name
@@ -2774,6 +2854,7 @@
     el = Οι τοποθεσίες μου
     he = המקומות שלי
     sk = Moje miesta
+    fa = مکان من
 
   [name]
     comment = Add bookmark dialog - bookmark name
@@ -2808,6 +2889,7 @@
     he = שם
     if = Nome
     sk = Názov
+    fa = نام
 
   [address]
     comment = Editor title above street and house number
@@ -2842,6 +2924,7 @@
     el = Διεύθυνση
     he = כתובת
     sk = Adresa
+    fa = ادرس
 
   [remove_pin]
     comment = Place Page - Remove Pin button
@@ -2875,6 +2958,7 @@
     zh-Hant = 移除圖釘
     he = הסר סיכה
     sk = Odstrániť špendlík
+    fa = برچیدن سنجاق
 
   [set]
     comment = Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell
@@ -2909,6 +2993,7 @@
     el = Σύνολο
     he = קבוצה
     sk = Skupina
+    fa = مجموعه
 
   [bookmarks_usage_hint]
     comment = Text hint in Bookmarks dialog when no any bookmarks are added
@@ -2943,6 +3028,7 @@
     el = Δεν έχετε αγαπημένα ακόμα.\nΠατήστε σε οποιοδήποτε σημείο στο χάρτη για να προσθέσετε αγαπημένο.\nΜπορείτε επίσης να εισάγετε αγαπημένα από άλλες πηγές και να τα εμφανίσετε στο MAPS.ME. Ανοίξτε το αρχείο KML/KMZ με τα αποθηκευμένα αγαπημένα από το email, το Dropbox ή τους υπερσυνδέσμους.
     he = לא יצרת רשימת אתרים עדיין. \n הקש במקום כלשהו על המפה כדי להוסיפה לרשימת האתרים.ניתן ליבא ולהציג ב MAPS.ME רשימות אתרים ממקורות אחרים. פתח קובץ  KML/KMZ באמצעות סיכות שמורות ממייל, Dropbox, או קישור לרשת.
     sk = Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.
+    fa = شما تا کنون نشانه ای نداشته اید.\nبر روی مکانی از نقشه لمس کنید تا نشانه ای افزوده شود.\nنشانه ها را می توانید از جایی دیگر وارد کرده و در MAPS.ME نمایش دهید.Open KML/KMZ file with saved bookmarks from email, Dropbox or weblink.
 
   [bookmarks_usage_hint_import_only]
     comment = Text hint in Bookmarks dialog when at least one bookmark is added
@@ -3011,6 +3097,7 @@
     el = Ρυθμίσεις
     he = הגדרות
     sk = Nastavenia
+    fa = تنظیمات
 
   [maps_storage]
     comment = Header of settings activity where user defines storage path
@@ -3044,6 +3131,7 @@
     el = Αποθήκευση χαρτών στο
     sk = Uložiť mapy do
     sw = Hifadhi ramani kwenye
+    fa = ذخیره نقشه ها در
 
   [maps_storage_summary]
     comment = Detailed description of Maps Storage settings button
@@ -3078,6 +3166,7 @@
     el = Επιλέξτε από που θα γίνει λήψη χαρτών
     he = בחר הכתובת במחשבך לשמירת המפות שתוריד
     sk = Vyberte miesto, kam by mali byť mapy sťahované
+    fa = مسیری را که نقشه ها باید در ان دانلود شود را انتخاب کنید
 
   [move_maps]
     comment = Question dialog for transferring maps from one storage to another
@@ -3112,6 +3201,7 @@
     el = Να γίνει μετακίνηση χαρτών;
     he = להעביר המפות?
     sk = Presunúť mapy?
+    fa = ایا نقشه ها جابه جا شود؟
 
   [wait_several_minutes]
     comment = Ask to wait user several minutes (some long process in modal dialog).
@@ -3146,6 +3236,7 @@
     el = Αυτό μπορεί να διαρκέσει αρκετά λεπτά. \nΠαρακαλώ περιμένετε…
     he = פעולה זו יכולה להמשך מספר דקות.\nהמתן בבקשה…
     sk = Táto akcia môže trvať niekoľko minút.\nProsím čakajte…
+    fa = ممکن است چند دقیقه طول بکشد.\nلطفا صبر کنید...
 
   [visible]
     comment = Show bookmarks from this category on a map or not
@@ -3179,6 +3270,7 @@
     el = Ορατό
     he = נראה
     sk = Viditeľné
+    fa = قابل مشاهده
 
   [gps_is_disabled_long_text]
     comment = Toast which is displayed when GPS has been deactivated
@@ -3212,6 +3304,7 @@
     zh-Hant = GPS 目前是關閉的，請在系統中設定為啟用
     he = כבוי. אפשר שימוש בו ב – "הגדרות". GPS ה
     sk = Navigácia GPS deaktivovaná. Prosím, povoľte ju v Nastaveniach.
+    fa = سرویس موقعیت مکانی شما غیر فعال است.لطفا ان را در تنظیمات فعال کنید
 
   [measurement_units]
     comment = Measurement units title in settings activity
@@ -3246,6 +3339,7 @@
     el = Μονάδες μέτρησης
     he = יחידות  מדידה
     sk = Meracie jednotky
+    fa = واحد اندازه گیری
 
   [measurement_units_summary]
     comment = Detailed description of Measurement Units settings button
@@ -3281,6 +3375,7 @@
     el = Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα
     he = בחר בין מיילים לקילומטרים
     sk = Vyberte si míle alebo kilometre
+    fa = بین مایل و کیلومتر انتخاب کنید
 
   [search_mode_all]
     comment = Do search in all sources
@@ -3309,6 +3404,7 @@
     zh-Hant = 任何地方
     he = בכל מקום
     sk = Všade
+    fa = همه جا
 
   [search_mode_nearme]
     comment = Do search near my position only
@@ -3337,6 +3433,7 @@
     zh-Hant = 我的附近
     he = בסביבתי
     sk = V mojom okolí
+    fa = اطراف من
 
   [search_mode_viewport]
     comment = Do search in current viewport only
@@ -3365,6 +3462,7 @@
     zh-Hant = 畫面中
     he = על המסך
     sk = Na obrazovke
+    fa = روی صفحه نمایش بده
 
   [food]
     comment = Search Suggestion
@@ -3399,6 +3497,7 @@
     el = Φαγητό
     he = אוכל
     sk = Jedlo
+    fa = غذا
 
   [transport]
     comment = Search Suggestion
@@ -3433,6 +3532,7 @@
     el = Συγκοινωνία
     he = תחבורה
     sk = Doprava
+    fa = حمل و نقل
 
   [fuel]
     comment = Search Suggestion
@@ -3468,6 +3568,7 @@
     el = Βενζίνη
     he = גז
     sk = Čerpacia stanica
+    fa = سوخت
 
   [parking]
     comment = Search Suggestion
@@ -3502,6 +3603,7 @@
     el = Χώρος στάθμευσης
     he = חניה
     sk = Parkovisko
+    fa = پارکینگ
 
   [shop]
     comment = Search Suggestion
@@ -3537,6 +3639,7 @@
     he = חנות
     sk = Obchod
     sw = Duka
+    fa = فروشگاه
 
   [hotel]
     comment = Search Suggestion
@@ -3571,6 +3674,7 @@
     el = Ξενοδοχείο
     he = מלון
     sk = Hotel
+    fa = هتل
 
   [tourism]
     comment = Search Suggestion
@@ -3605,6 +3709,7 @@
     el = Αξιοθέατα
     he = נקודות עיניין
     sk = Pamätihodnosť
+    fa = منظره
 
   [entertainment]
     comment = Search Suggestion
@@ -3639,6 +3744,7 @@
     el = Ψυχαγωγία
     he = בידור
     sk = Zábava
+    fa = سرگرمی
 
   [atm]
     comment = Search Suggestion
@@ -3673,6 +3779,7 @@
     el = ATM
     he = כספומט
     sk = Bankomat
+    fa = خود پرداز
 
   [bank]
     comment = Search Suggestion
@@ -3707,6 +3814,7 @@
     el = Τράπεζα
     he = בנק
     sk = Banka
+    fa = بانک
 
   [pharmacy]
     comment = Search Suggestion
@@ -3741,6 +3849,7 @@
     el = Φαρμακείο
     he = בית מרקחת
     sk = Lekáreň
+    fa = داروخانه
 
   [hospital]
     comment = Search Suggestion
@@ -3776,6 +3885,7 @@
     he = בית חולים
     sk = Nemocnica
     sw = Hospitali
+    fa = بیمارستان
 
   [toilet]
     comment = Search Suggestion
@@ -3810,6 +3920,7 @@
     el = Τουαλέτα
     he = שירותים
     sk = Záchody
+    fa = توالت
 
   [post]
     comment = Search Suggestion
@@ -3844,6 +3955,7 @@
     el = Ταχυδρομείο
     he = דואר
     sk = Pošta
+    fa = صندوق پست
 
   [police]
     comment = Search Suggestion
@@ -3878,6 +3990,7 @@
     el = Αστυνομία
     he = משטרה
     sk = Polícia
+    fa = پلیس
 
   [no_search_results_found]
     comment = String in search result list, when nothing found
@@ -3911,6 +4024,7 @@
     zh-Hant = 找不到搜尋結果
     he = לא נמצאו תוצאות
     sk = Žiadne výsledky
+    fa = نتیجه ای یافت نشد
 
   [description]
     comment = Notes field in Bookmarks view
@@ -3945,6 +4059,7 @@
     el = Σημειώσεις
     he = הערות
     sk = Poznámky
+    fa = یادداشت ها
 
   [share_by_email]
     comment = Button text
@@ -3978,6 +4093,7 @@
     zh-Hant = 以電子郵件分享
     el = Κοινοποίηση μέσω ηλεκτρονικού ταχυδρομείου
     he = שתף  במייל
+    fa = اشتراک گذاری به وسیله ایمیل
 
   [share_bookmarks_email_subject]
     comment = Email Subject when sharing bookmarks category
@@ -4080,6 +4196,7 @@
     el = Φόρτωση αγαπημένων
     he = טוען רשימות אתרים
     sk = Načítavanie záložiek
+    fa = در حال بارگیری نشانه ها
 
   [load_kmz_successful]
     comment = Kmz file successful loading
@@ -4114,6 +4231,7 @@
     el = Τα αγαπημένα φορτώθηκαν με επιτυχία! Μπορείτε να τα βρείτε στο χάρτη ή στην οθόνη Διαχείριση αγαπημένων.
     he = רשימת האתרים הועלתה בהצלחה! תוכל למצוא אותה על המפה או במסך נהול רשימות האתרים.
     sk = Záložky boli úspešne načítané! Môžete ich nájst na mape alebo na obrazovke Správca záložiek.
+    fa = نشانه ها با موفقیت بارگذاری شد!شما می توانید ان ها را در نقشه یا بخش مدیریت نشانه ها بیابید
 
   [load_kmz_failed]
     comment = Kml file loading failed
@@ -4148,6 +4266,7 @@
     el = Η μεταφόρτωση των αγαπημένων απέτυχε. Το αρχείο μπορεί να είναι κατεστραμμένο ή ελαττωματικό.
     he = טעינת רשימת האתרים נכשלה. יתכן שהקובץ פגום.
     sk = Načítavanie záložiek sa nepodarilo. Súbor môže byť poškodený alebo chybný.
+    fa = بارگذاری نشانه ها با شکست مواجح شد.ممکن است فایل اسیب دیده یا معیوب باشد
 
   [edit]
     comment = resource for context menu
@@ -4180,6 +4299,7 @@
     el = Επεξεργασία
     he = ערוך
     sk = Upraviť
+    fa = ویرایش
 
   [unknown_current_position]
     comment = Warning message when doing search around current position
@@ -4214,6 +4334,7 @@
     el = Η τοποθεσία σας δεν έχει καθοριστεί ακόμη
     he = מיקומך לא אותר עדיין
     sk = Vaša poloha zatiaľ nebola určená
+    fa = مکان شما هنوز مشخص نشده است
 
   [download_location_country]
     comment = Warning message when location country isn't downloaded during search (see also download_location_map_proposal).
@@ -4248,6 +4369,7 @@
     el = Κατεβάστε τον χάρτη για την τρέχουσα τοποθεσία σας (%@)
     he = הורד המדינה (%@) בה אתה נמצא כעת
     sk = Sťahovanie krajiny vašej aktuálnej polohy (%@)
+    fa = دانلود نقشه مکان فعلی شما (%@)
 
   [download_viewport_country_to_search]
     comment = Warning message when viewport country isn't downloaded during search
@@ -4315,6 +4437,7 @@
     el = Λυπούμαστε, η αποθήκευση του χάρτη είναι προς το παρόν απενεργοποιημένη.
     he = . פעילה כרגע מצטערים, הגדרת "שמירת מפה" אינה
     sk = Prepáčte, nastavenie uloženia máp je dočasne nedostupné.
+    fa = متاسفانه,تنظیمات ذخیره سازی نقشه در حال حاظر غیر فعال است
 
   [downloading_is_active]
     comment = Alert message that downloading is in progress.
@@ -4349,6 +4472,7 @@
     el = Λήψη χάρτη σε εξέλιξη.
     he = הודת מפת המדינה מתבצעת כרגע.
     sk = Práve prebieha sťahovanie krajiny.
+    fa = دانلود نقشه اکنون در حال انجام است
 
   [appStore_message]
     comment = Message that will be shown in alert view, when we ask user to leave review on App Store
@@ -4381,6 +4505,7 @@
     zh-Hans = 希望您喜欢使用 MAPS.ME! 若确实喜欢, 请在应用商店对此应用进行打分和点评。这 花不了一分钟但却可以实在地帮助我们。感 谢您的支持!
     zh-Hant = 祝您使用 MAPS.ME 愉快！ 方便的話，請到 App Store 幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持！
     sk = Dúfame, že sa vám používánie MAPS.ME páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!
+    fa = امیدواریم از استفاده از این اپ لذت برده باشد!اگر اینطور است به این اپ در استور ستاره بدهید و نظر خود را بنویسید.این کار کمتر از یک دقیقه زمان می برد اما حقیقتا می تواند به ما کمک کند.از حمایت صمیمانه تان متشکریم.
 
   [no_thanks]
     comment = No, thanks
@@ -4413,6 +4538,7 @@
     zh-Hant = 不，謝了
     he = לא, תודה
     sk = Nie, ďakujem
+    fa = نه ,متشکرم
 
   [bookmark_share_sms]
     comment = Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
@@ -4649,6 +4775,7 @@
     el = Κοινοποίηση μέσω μηνύματος
     he = שתף באמצעות הודעה
     sk = Zdielať pomocou správy
+    fa = اشتراک گذاری از طریق پیامک
 
   [share]
     comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
@@ -4683,6 +4810,7 @@
     el = Κοινοποίηση
     he = הפץ
     sk = Zdielať
+    fa = اشتراک گذاری
 
   [message]
     comment = iOS share by Message button text (including SMS)
@@ -4716,6 +4844,7 @@
     zh-Hant = 訊息
     he = הודעה
     sk = Správa
+    fa = پیامک
 
   [email]
     comment = Share by email button text, also used in editor.
@@ -4749,6 +4878,7 @@
     zh-Hant = 電子郵件
     el = Email
     sk = Email
+    fa = ایمیل
 
   [copy_link]
     comment = Copy Link
@@ -4782,6 +4912,7 @@
     zh-Hant = 複製連結
     he = העתק קישור
     sk = Skopírovať odkaz
+    fa = کپی لینک
 
   [more_info]
     comment = Text for the button that returns to caller application
@@ -4815,6 +4946,7 @@
     zh-Hant = 顯示更多資訊
     he = הראה עוד מידע
     sk = Zobraziť ďaľšie informácie
+    fa = نمایش اطلاعات بیشتر
 
   [copied_to_clipboard]
     comment = Text for message when used successfully copied something
@@ -4849,6 +4981,7 @@
     el = Αντιγράφηκε στο Πρόχειρο: %1$@
     he = הועתקו לזכרון זמני %1$@
     sk = Skopírované do schránky: %1$@
+    fa = کپی در کلیپ برد :%1$@
 
   [allow_statistics]
     comment = Setting label for statistics turn on/off
@@ -4883,6 +5016,7 @@
     el = Αποστολή στατιστικών
     he = שלח סטטיסטיקה
     sk = Odosielať štatistiky
+    fa = ارسال مختصات
 
   [info]
     comment = place preview title
@@ -4917,6 +5051,7 @@
     el = Πληροφορίες
     he = מידע
     sk = Viacej informácií
+    fa = اطلاعات
 
   [done]
     comment = Used for bookmark editing
@@ -4951,6 +5086,7 @@
     el = Ολοκληρώθηκε
     he = בוצע
     sk = Hotovo
+    fa = انجام شد
 
   [yopme_pref_summary]
     comment = Summary for preferences in MWM
@@ -4982,6 +5118,7 @@
     zh-Hant = 選擇第二螢幕設定
     he = בחר "הגדרות מסך קודם"
     sk = Zvoliť nastavenie Zadnej obrazovky
+    fa = انتخاب تنظیمات پس ضمینه
 
   [yopme_pref_title]
     comment = Title for yopme preferences in MWM
@@ -5013,6 +5150,7 @@
     zh-Hant = 第二螢幕設定
     he = הגדרות מסך קודם
     sk = Nastavenie Zadnej obrazovky
+    fa = تنظیمات پس ضمینه
 
   [show_on_backscreen]
     comment = Hint for upper-right icon p2b
@@ -5044,6 +5182,7 @@
     zh-Hant = 在第二螢幕上顯示
     he = הצג על המסך הקודם
     sk = Zobraziť na Zadnej obrazovke
+    fa = نمایش در پس زمینه
 
   [version]
     comment = Prints version number in About dialog
@@ -5078,6 +5217,7 @@
     el = Έκδοση: %@
     he = %@ וורסיה
     sk = Verzia: %@
+    fa = ورژن: %@
 
   [data_version]
     comment = Data version in «About» screen
@@ -5088,6 +5228,7 @@
     pt-BR = Versão dos dados: %d
     zh-Hant = 資料版本： %d
     el = Ημερομηνία έκδοσης: %d
+    fa = ورژن داده: %d
 
   [are_you_sure]
     comment = Confirmation in downloading countries dialog
@@ -5122,6 +5263,7 @@
     el = Θέλετε σίγουρα να συνεχίσετε?
     he = האם הנך בטוח שרצונך להמשיך?
     sk = Naozaj chcete pokračovať?
+    fa = برای ادامه کار مطمئن اید؟
 
   [tracks]
     comment = Title for tracks category in bookmarks manager
@@ -5156,6 +5298,7 @@
     el = Διαδρομές
     he = נתיבים
     sk = Stopy
+    fa = مسیر
 
   [length]
     comment = Length of track in cell that describes route
@@ -5190,6 +5333,7 @@
     el = Μήκος
     he = אורך
     sk = Diaľka
+    fa = طول
 
   [share_my_location]
     tags = ios,android,tizen
@@ -5223,6 +5367,7 @@
     el = Κοινοποίηση της τοποθεσίας μου
     he = שתף את מקומי
     sk = Zdielať moje umiestnenie
+    fa = به اشتراک گذاری موقعیت مکانی من
 
   [menu_search]
     en = Search
@@ -5254,18 +5399,21 @@
     zh-Hant = 搜尋
     he = חפוש
     sk = Vyhľadávanie
+    fa = جست‌وجو
 
   [prefs_group_general]
     comment = Settings general group in settings screen
     tags = android
     en = General settings
     ru = Общие настройки
+    fa = تنظیمات عمومی
 
   [prefs_group_information]
     comment = Settings information group in settings screen
     tags = android
     en = Information
     ru = Информация
+    fa = اطلاعات
 
   [prefs_group_map]
     comment = Settings screen: "Map" category title
@@ -5299,6 +5447,7 @@
     zh-Hant = 地圖
     el = Χάρτης
     sk = Mapa
+    fa = نقشه
 
   [prefs_group_misc]
     comment = Settings screen: "Miscellaneous" category title
@@ -5332,6 +5481,7 @@
     zh-Hant = 其他
     el = Διάφορα
     sk = Iné
+    fa = متفرقه
 
   [prefs_group_route]
     en = Navigation
@@ -5363,6 +5513,7 @@
     zh-Hant = 導航
     el = Πλοήγηση
     sk = Navigácia
+    fa = مسیریابی
 
   [pref_zoom_title]
     tags = android,tizen
@@ -5396,6 +5547,7 @@
     el = Πλήκτρα μεγέθυνσης
     he = כפתורי זום
     sk = Tlačítka priblíženia/oddialenia
+    fa = دکمه های درشت نمایی
 
   [pref_zoom_summary]
     tags = android,tizen
@@ -5429,6 +5581,7 @@
     el = Εμφάνιση στο χάρτη
     he = הצג על המסך
     sk = Zobraziť na obrazovke
+    fa = نمایش بر روی نقشه
 
   [pref_map_style_title]
     comment = Settings «Map» category: «Night style» title
@@ -5462,6 +5615,7 @@
     zh-Hant = 夜間模式
     el = Νυχτερινή λειτουργία
     sk = Nočný režim
+    fa = حالت شب
 
   [pref_map_style_default]
     comment = «Map style» entry value
@@ -5495,6 +5649,7 @@
     zh-Hant = 關閉
     el = Απενεργ.
     sk = Vypnúť
+    fa = خاموش
 
   [pref_map_style_night]
     comment = «Map style» entry value
@@ -5528,6 +5683,7 @@
     zh-Hant = 開啟
     el = Ενεργ.
     sk = Zapnúť
+    fa = روشن
 
   [pref_map_style_auto]
     comment = «Map style» entry value
@@ -5561,6 +5717,7 @@
     zh-Hant = 自動
     el = Αυτόματα
     sk = Automaticky
+    fa = خودکار
 
   [pref_map_3d_title]
     comment = Settings «Map» category: «Perspective view» title
@@ -5594,6 +5751,7 @@
     zh-Hant = 透視圖
     el = Προβολή προοπτικής
     sk = Perspektívne zobrazenie
+    fa = نمای چشم انداز
 
   [pref_map_3d_buildings_title]
     comment = Settings «Map» category: «3D buildings» title
@@ -5627,6 +5785,7 @@
     zh-Hant = 3D 建築
     el = Τρισδιάστατα κτίρια
     sk = 3D budovy
+    fa = ساختمان های سه بعدی
 
   [pref_map_3d_buildings_subtitle]
     comment = Settings «Map» category: «3D buildings» summary
@@ -5659,6 +5818,7 @@
     zh-Hans = 增加电池消耗
     zh-Hant = 增加電池消耗
     sk = Ovplyvňuje životnosť batérie
+    fa = تاثیر بر روی عمر باطری
 
   [pref_tts_enable_title]
     comment = Settings «Route» category: «Tts enabled» title
@@ -5692,6 +5852,7 @@
     zh-Hant = 語音指示
     el = Φωνητικές οδηγίες
     sk = Hlasové povely
+    fa = دستور العمل صوتی
 
   [pref_tts_language_title]
     comment = Settings «Route» category: «Tts language» title
@@ -5725,6 +5886,7 @@
     zh-Hant = 語音語言
     el = Γλώσσα φωνής
     sk = Nastavenia jazyka povelov
+    fa = زبان صوت
 
   [pref_tts_unavailable]
     comment = Settings «Route» category: «Tts unavailable» subtitle
@@ -5758,6 +5920,7 @@
     zh-Hant = 無法使用
     el = Δεν είναι διαθέσιμη
     sk = Nie je k dispozícii
+    fa = موجود نیست
 
   [pref_tts_other_section_title]
     comment = Title for "Other" section in TTS settings.
@@ -5791,6 +5954,7 @@
     zh-Hant = 其他
     el = Άλλα
     sk = Iný
+    fa = بیشتر
 
   [pref_tts_how_to_set_up_voice]
     tags = ios
@@ -5823,6 +5987,7 @@
     zh-Hant = 如何設定語音
     el = Ρύθμιση φωνής
     sk = Ako nastaviť hlas
+    fa = نحو راه اندازی صدا
 
   [pref_track_record_title]
     comment = Settings «Map» category: «Record track» title
@@ -5856,6 +6021,7 @@
     zh-Hant = 最近的軌跡
     el = Πρόσφατη διαδρομή
     sk = Posledná trasa
+    fa = مسیر اخیر
 
   [pref_map_auto_zoom]
     en = Auto zoom
@@ -5886,6 +6052,7 @@
     zh-Hant = 自動縮放
     el = Αυτόματη μεγέθυνση
     sk = Automatický zoom
+    fa = بزرگ نمایی خودکار
 
   [duration_disabled]
     tags = ios,android
@@ -5918,6 +6085,7 @@
     zh-Hant = 關閉
     el = Απενεργ.
     sk = Vypnúť
+    fa = خاموش
 
   [duration_1_hour]
     tags = ios,android
@@ -5950,6 +6118,7 @@
     zh-Hant = 1小時
     el = 1 ώρα
     sk = 1 hodina
+    fa = 1 ساعت
 
   [duration_2_hours]
     tags = ios,android
@@ -5982,6 +6151,7 @@
     zh-Hant = 2小時
     el = 2 ώρες
     sk = 2 hodiny
+    fa = 2 ساعت
 
   [duration_6_hours]
     tags = ios,android
@@ -6014,6 +6184,7 @@
     zh-Hant = 6小時
     el = 6 ώρες
     sk = 6 hodín
+    fa = 6 ساعت
 
   [duration_12_hours]
     tags = ios,android
@@ -6046,6 +6217,7 @@
     zh-Hant = 12小時
     el = 12 ώρες
     sk = 12 hodín
+    fa = 12 ساعت
 
   [duration_1_day]
     tags = ios,android
@@ -6078,6 +6250,7 @@
     zh-Hant = 1天
     el = 1 ημέρα
     sk = 1 deň
+    fa = 1 روز
 
   [recent_track_help_text]
     en = This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.
@@ -6109,6 +6282,7 @@
     el = Σας επιτρέπει να καταγράψετε τη διαδρομή που έχει διανυθεί για συγκεκριμένο χρονικό διάστημα και να την δείτε στο χάρτη. Λάβετε υπόψη: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας. Το τμήμα θα αφαιρεθεί αυτόματα από το χάρτη μετά τη λήξη του μεσοδιαστήματος.
     sk = Umožňuje zaznamenať precestovanú trasu za určité obdobie a zobraziť ju na mape. Upozornenie: zapnutie tejto funkcie spôsobí vyššiu spotrebu batérie. Trasa sa z mapy automaticky odstráni po uplynutí časového intervalu.
     sw = Inakuwezesha kurekodi njia uliyosafiria kwa kipindi fulani na uione kwenye ramani. Tafadhali kumbuka: ukiwezesha utendaji huu betri itatumika zaidi. Njia hiyo itaondolewa kiotomatiki kwenye ramani baada ya mpishano wa muda kuisha.
+    fa = با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و ان را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد
 
   [pref_track_ios_caption]
     tags = ios
@@ -6171,6 +6345,7 @@
     zh-Hans = 请选择保存轨迹的时间范围。
     zh-Hant = 請選擇儲存軌跡的時間範圍。
     sk = Prosím, vyberte si, po akú dobu má aplikácia zaznamenávať vašu trasu.
+    fa = لطفا محدوده زمانی برای ذخیره مسیر را انتخاب کنید
 
   [placepage_distance]
     en = Distance
@@ -6202,6 +6377,7 @@
     zh-Hant = 距离
     he = מרחק
     sk = Vzdialenosť
+    fa = مسافت
 
   [placepage_coordinates]
     en = Coordinates
@@ -6233,6 +6409,7 @@
     zh-Hant = 座標
     he = קואורדינטות
     sk = Súradnice
+    fa = مختصات
 
   [placepage_unsorted]
     en = Unsorted
@@ -6264,6 +6441,7 @@
     zh-Hant = 未分類
     he = לא ממוין
     sk = Nezaradené
+    fa = نا منظم
 
   [search_show_on_map]
     en = View on map
@@ -6296,6 +6474,7 @@
     el = Προβολή στο χάρτη
     he = ראה במפה
     sk = Zobraziť na mape
+    fa = مشاهده بر روی نقشه
 
   [kitkat_migrate_ok]
     comment = Used to warn user when fixing KitKat issue
@@ -6456,6 +6635,7 @@
     zh-Hant = 免費
     he = חופשי
     sk = Zadarmo
+    fa = رایگان
 
   [buy]
     comment = Used in More Apps menu
@@ -6484,6 +6664,7 @@
     zh-Hant = 購買
     he = קנה
     sk = Kúpiť
+    fa = خرید
 
   [search_on_map]
     comment = 1st search button-like result
@@ -6518,6 +6699,7 @@
     el = Αναζήτηση στο χάρτη
     he = חפש במפה
     sk = Hľadať na mape
+    fa = جست‌وجو بر روی نقشه
 
   [no_route_found]
     comment = toast with an error
@@ -6562,6 +6744,7 @@
     sk = Nebola nájdená žiadna trasa
     sr = Путања није пронађена
     tl = Walang ruta na natagpuan
+    fa = مسیری یافت نشد
 
   [route]
     comment = route title
@@ -6606,6 +6789,7 @@
     sk = Trasa
     sr = Путања
     tl = Ruta
+    fa = مسیر
 
   [routes]
     comment = category title
@@ -6650,6 +6834,7 @@
     sk = Trasy
     sr = Путање
     tl = Mga Ruta
+    fa = مسیر ها
 
   [maps_licence_info]
     comment = Show on first launch.
@@ -6690,6 +6875,7 @@
     zh-Hant = 我同意
     he = אני מסכים
     sk = Súhlasím
+    fa = موافقم
 
   [disagree]
     comment = Show on first launch
@@ -6711,6 +6897,7 @@
     zh-Hant = 我不同意
     he = אינני מסכים
     sk = Nesúhlasím
+    fa = مخالفم
 
   [download_map_notification]
     comment = text of notification
@@ -6745,6 +6932,7 @@
     el = Κατεβάστε τον χάρτη της τοποθεσίας που βρίσκεστε
     he = הורד המפה של המקום בו אתה נמצא
     sk = Stiahnite si mapu miesta, kde sa práve nachádzate
+    fa = دانلود نقشه جایی که هستید
 
   [pro_version_is_free_today]
     comment = text of notification
@@ -6773,6 +6961,7 @@
     zh-Hant = 現在完整版 MAPS.ME 是免費的！馬上下載並告訴您的朋友。
     he = גרסה מלאה של MAPS.ME היא בחינם היום! הורידו עכשיו וספרו לחבריכם.
     sk = Plná verzia MAPS.ME dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.
+    fa = نسخه کامل MAPS.ME امروز رایگان است!دانلود کنید و به دوستان خود نیز بگویید
 
   [move_lite_maps_to_pro]
     comment = Dialog for transferring maps from lite to pro.
@@ -6806,6 +6995,7 @@
     zh-Hant = 我們正在將您從 MAPS.ME Lite 下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。
     he = אנו מעבירים את המפות שהורדתם מ- MAPS.ME Liteל-MAPS.ME. פעולה זו עשויה להימשך מספר דקות.
     sk = Práve prenášame Vaše stiahnuté mapy z MAPS.ME lite na MAPS.ME. Môže to trvať niekoľko minút.
+    fa = ما در حال انتقال نقشه های دانلود شده شما از MAPS.ME Lite به MAPS.ME هستیم. ممکن است چند دقیقه طول بکشد.
 
   [move_lite_maps_to_pro_ok]
     comment = Message to display when maps moved.
@@ -6839,6 +7029,7 @@
     zh-Hant = 您下載的地圖已成功傳輸至 MAPS.ME。
     he = המפות שהורדתם הועברו בהצלחה ל-MAPS.ME.
     sk = Vaše stiahnuté mapy sú úspešne prenesené na MAPS.ME.
+    fa = نقشه های دانلود شده شما با موفقیت به MAPS.ME منتقل شد.
 
   [move_lite_maps_to_pro_failed]
     comment = Message to display when maps move failed.
@@ -6871,6 +7062,7 @@
     zh-Hant = 您的地圖傳輸失敗。請刪除 MAPS.ME Lite，然後再次下載地圖。
     he = העברת המפות שלכם נכשלה. אנא מחקו את MAPS.ME Lite והורידו שוב את המפות.
     sk = Vaše mapy sa nepodarilo preniesť. Vymažte prosím MAPS.ME Lite a stiahnite si mapy znova.
+    fa = انتقال نقشه با شکست مواجه شد.لطفا MAPS.ME Lite حذف کرده و نقشه ها را دوباره دانلود نماید
 
   [settings_and_more]
     comment = Text in menu
@@ -6904,6 +7096,7 @@
     zh-Hant = 設定及更多
     he = הגדרות ועוד
     sk = Nastavenia a viac
+    fa = تنظیمات و بیشتر
 
   [website]
     comment = Text in menu
@@ -6937,6 +7130,7 @@
     zh-Hant = 網站
     el = Ιστότοπος
     sk = Webové stránky
+    fa = وب سایت
 
   [maps_me_community]
     comment = Text in menu
@@ -6971,6 +7165,7 @@
     el = `Κοινότητα MAPS.ME `
     he = קהילת MAPS.ME
     sk = Komunita MAPS.ME
+    fa = انجمن MAPS.ME
 
   [like_on_facebook]
     comment = Text in menu
@@ -7005,6 +7200,7 @@
     el = Κάντε Like στο Facebook
     he = עשו 'לייק' בפייסבוק
     sk = Označiť pomocou Páči sa mi to na Facebooku
+    fa = ما را در فیسبوک لایک کنید
 
   [follow_on_twitter]
     comment = Text in menu
@@ -7039,6 +7235,7 @@
     el = Ακολουθήστε στο Twitter
     he = עקבו בטוויטר
     sk = Sledovať na Twitteri
+    fa = ما را در توییتر دنبال کنید
 
   [contact_us]
     comment = Text in menu
@@ -7073,6 +7270,7 @@
     el = Επικοινωνήστε μαζί μας
     he = יצירת קשר
     sk = Kontaktovať nás
+    fa = تماس با ما
 
   [feedback]
     comment = Settings: Send feedback button and dialog title
@@ -7106,6 +7304,7 @@
     zh-Hant = 意見反應
     el = Σχόλια
     sk = Spätná väzba
+    fa = بازخورد
 
   [subscribe_to_news]
     comment = Text in menu
@@ -7140,6 +7339,7 @@
     el = Εγγραφή στο ενημερωτικό μας δελτίο
     he = הירשמו לקבלת חדשות מאיתנו
     sk = Prihlásiť sa k našim novinkám
+    fa = اشتراک در خبرنامه ما
 
   [rate_the_app]
     comment = Text in menu
@@ -7174,6 +7374,7 @@
     el = Βαθμολογήστε την εφαρμογή
     he = דרגו את האפליקציה
     sk = Ohodnotiť aplikáciu
+    fa = امتیاز به این اپلیکیشن
 
   [help]
     comment = Text in menu
@@ -7208,6 +7409,7 @@
     el = Βοήθεια
     he = עזרה
     sk = Nápoveda
+    fa = کمک
 
   [copyright]
     comment = Text in menu
@@ -7242,6 +7444,7 @@
     el = Πνευματικά δικαιώματα
     he = זכויות יוצרים
     sk = Autorské práva
+    fa = حق نشر و کپی رایت
 
   [report_a_bug]
     comment = Text in menu
@@ -7276,6 +7479,7 @@
     el = Αναφορά σφάλματος
     he = דווחו על באג
     sk = Nahlásiť chybu
+    fa = گزارش خطا
 
   [subscribe_me_subject]
     comment = Email subject
@@ -7310,6 +7514,7 @@
     el = Εγγράψτε με στο ενημερωτικό δελτίο MAPS.ME
     he = אנא רשמו אותי לניוזלטר של MAPS.ME
     sk = Prihláste ma prosím k odberu spravodaja MAPS.ME
+    fa = لطفا من را در خبرنامه MAPS.ME مشترک کنید
 
   [subscribe_me_body]
     comment = Email body
@@ -7344,6 +7549,7 @@
     el = Θέλω να μαθαίνω πρώτος(η) τις τελευταίες ειδήσεις, ενημερώσεις εφαρμογών και προωθητικές ενέργειεςς. Καταλαβαίνω ότι μπορώ να ακυρώσω τη συνδρομή μου ανά πάσα στιγμή.
     he = אני מעוניין להיות הראשון שיקבל עדכונים על חדשות ומבצעים. אני יכול לבטל את המינוי שלי בכל עת.
     sk = Chcem sa vždy ako prvý dozvedať o najnovších správach, aktualizáciách a akčných ponukách. Svoje prihlásenie k odberu môžem kedykoľvek zrušiť.
+    fa = من می خواهم اولین نفری باشم که در جریان اخرین اخبار واپدیت های نرم افزار قرار می گیرم.می دانم در هر زمان میتوان این اشتراک را لغو کرد.
 
   [about_text]
     comment = About text
@@ -7378,6 +7584,7 @@
     zh-Hant = MAPS.ME 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 MAPS.ME 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support@maps.me。我們會回覆每一條請求！\n\n您喜歡 MAPS.ME 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/mapswithme 上按讚\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 http://openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 MAPS.ME 應用程式中。
     he = MAPS.ME מציעה את המפות הלא-מקוונות המהירות ביותר של כל הערים וכל מדינות העולם. טיילו בביטחון מלא: בכל מקום בו תהיו, MAPS.ME תסייע לכם למצוא את מיקומכם במפה, לגלות את המסעדה, בית המלון, הבנק ותחנת הדלק הקרובים ביותר ועוד. לא נדרש חיבור לאינטרנט.אנו עובדים כל הזמן על פיתוח תכונות חדשות, ונשמח לשמוע מכם כיצד לדעתכם אנו יכולים לשפר את MAPS.ME. אם יש לכם בעיה כלשהי עם האפליקציה, אל תהססו ליצור עמנו קשר בכתובת support@maps.me. אנו מגיבים לכל בקשה!האם אתם אוהבים את MAPS.ME ומעוניינים לתמוך בנו? יש מספר דרכים פשוטות וחינמיות לגמרי לעשות זאת:לפרסם ביקורת בחנות האפליקציות שלכםלעשות לייק לדף הפייסבוק שלנו http://www.facebook.com/mapswithmeאו פשוט לספר לאמכם, לחבריכם ולעמיתיכם על MAPS.ME ☺תודה על בחירתכם בנו. אנו מעריכים מאוד את תמיכתכם!נ.ב. אנו מקבלים נתוני מפות מ-OpenStreetMap, שהינו פרויקט מיפוי הדומה לוויקיפדיה, ומאפשר למשתמשים ליצור ולערוך מפות. אם תגלו שמשהו במפה חסר או שגוי, תוכלו לתקן את המפות באופן ישיר ב-http://openstreetmap.org, והשינויים שלכם יופיעו באפליקציית MAPS.ME עם שחרור הגרסה הבאה שלה.
     sk = MAPS.ME ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, MAPS.ME vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť MAPS.ME. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support@maps.me. Odpovedáme na každú požiadavku!\n\nPáči sa vám MAPS.ME a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o MAPS.ME svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMaps, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na http://openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii MAPS.ME.
+    fa = MAPS.ME  به شما سریع ترین نقشه های تمامی شهر ها و کشور های جهان را پیشنهاد می دهد. در هرجایی که هستید با اطمینان کامل سفر کنید. MAPS.ME کمک می مند تا موقعیت خود و نزدیک ترین هتل ها,بانک ها,جایگاه های سوخت و چیز های دیگر را بر روی نقشه بیابید.وای کارهیچ نیازی به اتصال اینترنتی ندارد. \n\nما همیشه بر روی قابلیت های جدید کار می کنیم و دوست داریم که از طرف شما بشنویم که چطور می توانیم این نرم افزار مسیر یابی را بهتر از قبل نماییم. اگر هر مشکلی با برنامه داشتید تردید نکنید و در support@maps.me با ما تماس بگیرید.ما به تمامی درخواست ها پاسخ می دهیم! \n\n از MAPS.ME راضی هستید و می خواهید از ما حمایت کنید؟ چند راه کاملا رایگان وجود دارد\n- برای ما یک نظر در فروشگاه نرم افزاری بنویسید \n- صفحه فیسبوک ما را http://www.facebook.com/mapswithme لایک کنید \n- یا از MAPS.ME به مادرتان دوستانتان وهم دانشگاهیانتان بگویید:))\n\n متشکروسپاس گذاریم که با ما همکاری می کنید\n\nP.S. مانقشه های خود را از OpenStreetMap دریافت می کنیم این سایت همانند ویکیپدیا برای نقشه برداری است و به تمام کاربران خود اجازه می دهد تا در تکمیل نقشه ها کمک کنند اگر در نقشه مشاهده نمودید چیزی اشتباه بود یا وجود نداشت شما می توانید ان را مستقیما در سایت http://openstreetmap.org تصحیح یا اضافه کنید  و تغییرات ای را که ایجاد کرده اید را در اپدیت بعدی MAPS.ME ببینید
 
   [email_error_body]
     comment = Alert text
@@ -7412,6 +7619,7 @@
     el = Το πρόγραμμα-client ηλεκτρονικού ταχυδρομείου έχει δεν έχει ρυθμιστεί. Ρυθμίστε το ή χρησιμοποιήστε άλλο τρόπο να επικοινωνήσετε μαζί μας στη διεύθυνση %@
     he = יישום הדוא"ל לא הוגדר. אנא קבעו את תצורתו או השתמשו בכל דרך אחרת על מנת ליצור עמנו קשר בכתובת %@
     sk = Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %@
+    fa = کلاینت ایمیل شما پیکربندی نشده است.لطفا ان را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %@
 
   [email_error_title]
     comment = Alert title
@@ -7446,6 +7654,7 @@
     el = Αποστολή σφάλματος αλληλογραφίας
     he = שגיאה בשליחת דוא"ל
     sk = Chyba pri odosielaní emailu
+    fa = خطا در ارسال ایمیل
 
   [pref_calibration_title]
     comment = Settings item title
@@ -7480,6 +7689,7 @@
     el = Βαθμονόμηση πυξίδας
     he = כיול המצפן
     sk = Compass kalibrácia
+    fa = تنظیم کردن قظب نما
 
   [wifi]
     comment = Search Suggestion
@@ -7512,6 +7722,7 @@
     zh-Hant = 無線網路
     el = WiFi
     sk = WiFi
+    fa = وای فای
 
   [routing_map_outdated]
     comment = Update map suggestion
@@ -7545,6 +7756,7 @@
     zh-Hant = 請更新地圖以建立一條路線。
     he = נא לעדכן את המפה כדי ליצור מסלול.
     sk = Pre vytvorenie trasy si, prosím, aktualizujte mapu.
+    fa = لطفا نقشه خود را برای ایجاد مسیر اپدیت نمایید
 
   [routing_update_maps]
     comment = Update maps suggestion
@@ -7578,6 +7790,7 @@
     zh-Hant = 使用新版本的 MAPS.ME 可以建立從您的目前位置至一個目的地的路線。請更新地圖以使用該功能。
     he = הגרסה החדשה של MAPS.ME מאפשרת יצירת מסלולים מהמיקום הנוכחי שלך לנקודת יעד מסוימת. נא לעדכן את המפות כדי להשתמש בפונקציה זו.
     sk = Nová verzia aplikácie MAPS.ME umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.
+    fa = نسخه جدید MAPS.ME به شما اجازه ایجاد یک مسیر از موقعیت فعلیتان به مقصدتان را می دهد.لطفابرای استفاده از این ویژگی نقشه خود را اپدیت نمایید.
 
   [downloader_update_all_button]
     comment = Update all button text
@@ -7611,6 +7824,7 @@
     zh-Hant = 更新全部
     el = Ενημέρωση όλων
     sk = Aktualizovať všetko
+    fa = اپدیت همه
 
   [downloader_cancel_all]
     comment = Cancel all button text
@@ -7645,6 +7859,7 @@
     el = Ακύρωση όλων
     he = בטל הכול
     sk = Zrušiť všetko
+    fa = لغو همه
 
   [downloader_downloaded_subtitle]
     comment = Downloaded maps category
@@ -7678,6 +7893,7 @@
     zh-Hant = 已下載
     el = Έγινε λήψη
     sk = Stiahnuté
+    fa = دانلود شده
 
   [downloader_available_maps]
     comment = Downloaded maps category
@@ -7710,6 +7926,7 @@
     zh-Hant = 可用
     el = Διαθέσιμη
     sk = Dostupné
+    fa = موجود
 
   [downloader_queued]
     comment = Country queued for download
@@ -7744,6 +7961,7 @@
     el = στην ουρά
     he = נוסף/ו לתור
     sk = V rade
+    fa = صف
 
   [downloader_near_me_subtitle]
     tags = ios,android
@@ -7776,6 +7994,7 @@
     zh-Hant = 在我附近
     el = Κοντά μου
     sk = Neďaleko mňa
+    fa = نزدیک من
 
   [downloader_status_maps]
     tags = ios,android
@@ -7808,6 +8027,7 @@
     zh-Hant = 地圖
     el = Χάρτες
     sk = Mapy
+    fa = نقشه ها
 
   [downloader_download_all_button]
     tags = ios,android
@@ -7840,6 +8060,7 @@
     zh-Hant = 下載全部
     el = Λήψη όλων
     sk = Stiahnuť všetko
+    fa = دانلود همه
 
   [downloader_downloading]
     tags = ios,android,tizen
@@ -7872,6 +8093,7 @@
     zh-Hant = 正在下載：
     el = Λήψη:
     sk = Sťahovanie:
+    fa = درحال دانلود:
 
   [downloader_search_results]
     en = Found
@@ -7903,6 +8125,7 @@
     zh-Hant = 已找到
     el = Βρέθηκαν
     sk = Nájdených
+    fa = یافت شد
 
   [routing_disclaimer]
     comment = Disclaimer message
@@ -7969,6 +8192,7 @@
     zh-Hant = 過時的
     he = מיושן
     sk = Zastarané
+    fa = منسوخ شده
 
   [downloader_uptodate_maps]
     comment = Up to date maps category
@@ -8002,6 +8226,7 @@
     zh-Hant = 最新的
     he = עדכני
     sk = Aktualizované
+    fa = به روز
 
   [downloader_status_outdated]
     comment = Status of outdated country in the list
@@ -8036,6 +8261,7 @@
     el = Ενημέρωση
     he = לְעַדְכֵּן
     sk = Aktualizácia
+    fa = به روز رسانی
 
   [downloader_status_failed]
     comment = Status of failed country in the list
@@ -8070,6 +8296,7 @@
     el = Απέτυχε
     he = נכשלה
     sk = Zlyhalo
+    fa = ناموفق
 
   [downloader_delete_map_while_routing_dialog]
     comment = Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode
@@ -8103,6 +8330,7 @@
     zh-Hant = 如欲刪除地圖，請停止導航。
     el = Για να διαγράψετε το χάρτη, σταματήστε την πλοήγηση.
     sk = Ak chcete odstrániť mapy, prosím, zastavte navigáciu.
+    fa = برای حذف نقشه لطفا مسیر یابی را متوقف کنید
 
   [routing_failed_unknown_my_position]
     comment = Show when user try build route, but we don't know where he
@@ -8137,6 +8365,7 @@
     el = Η τρέχουσα τοποθεσία δεν έχει οριστεί. Προσδιορίστε τοποθεσίας για να δημιουργήσετε διαδρομή.
     he = לא הוגדר המיקום הנוכחי. נא לציין מיקום כדי ליצור מסלול.
     sk = Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.
+    fa = مکان شما نا مشخص است,لطفا قبل از ایجاد مسیر مکان خود را مشخص کنید.
 
   [routing_failed_has_no_routing_file]
     comment = Show if use has not routing file, or InconsistentMWMandRoute
@@ -8171,6 +8400,7 @@
     el = Απαιτούνται πρόσθετα δεδομένα για να δημιουργήσετε τη διαδρομή. Λήψη δεδομένων τώρα;
     he = נתונים נוספים נחוצים ליצירת נתיב. להתחיל בהורדה?
     sk = Na vytvorenie trasy sú potrebné ďalšie dáta. Začať sťahovanie?
+    fa = برای ایجاد مسیر به دیتای اضافی نیاز است.اکنون ان را دانلود می کنید؟
 
   [routing_failed_start_point_not_found]
     comment = StartPointNotFound
@@ -8205,6 +8435,7 @@
     el = Δεν μπορεί να υπολογιστεί η διαδρομή. Δεν υπάρχουν δρόμοι κοντά στο σημείο εκκίνησης.
     he = לא ניתן לחשב את המסלול. אין כבישים ליד נקודת ההתחלה שלך.
     sk = Nedá sa vypočítať trasa. Žiadne cesty v blízkosti východiskového bodu.
+    fa = نمی توان مسیر را محاسبه کرد.در نزدیکی نقطه شروع شما جاده ای نیست.
 
   [routing_failed_dst_point_not_found]
     comment = EndPointNotFound
@@ -8239,6 +8470,7 @@
     el = Δεν μπορεί να υπολογιστεί η διαδρομή. Δεν υπάρχουν δρόμοι κοντά στον προορισμό σας.
     he = לא ניתן לחשב את המסלול. אין כבישים ליד היעד שלך.
     sk = Nedá sa vypočítať trasa. Žiadne cesty v blízkosti cieľa.
+    fa = نمی توان مسیر را محاسبه کرد.در نزدیکی مقصد مورد نظر شما جاده ای نیست.
 
   [routing_failed_cross_mwm_building]
     comment = PointsInDifferentMWM
@@ -8273,6 +8505,7 @@
     el = Μπορούν να δημιουργηθούν μόνο διαδρομές που περιέχονται πλήρως μέσα σε ένα χάρτη σε μια ενιαία περιοχή.
     he = ניתן ליצור רק מסלולים שמוכלים במלואם בתוך מפה אחת.
     sk = Cesty môžu byť vytvorené len tak, že sú plne obsiahnuté v jednej mape.
+    fa = تنها مسیر هایی می توانند ایجاد شوند که به طور کامل در یک نقشه از یک منطقه واحد قرار داشته باشند.
 
   [routing_failed_route_not_found]
     comment = RouteNotFound
@@ -8307,6 +8540,7 @@
     el = Δεν βρέθηκε καμία διαδρομή μεταξύ της επιλεγμένης προέλευσης και προορισμού. Επιλέξτε ένα διαφορετικό σημείο έναρξης ή λήξης.
     he = אין מסלול בין המוצא והיעד שנבחרו. נא לבחור נקודת התחלה או יעד שונה.
     sk = Nebol nájdená trasa medzi vybraným východiskom a cieľom. Prosím vyberte iný počiatočný a koncový bod.
+    fa = مسیری بین مبدا و مقصد انتخابی یافت نشد.لطفا مبدا یا مقصد دیگری را انتخاب کنید
 
   [routing_failed_internal_error]
     comment = InternalError
@@ -8341,6 +8575,7 @@
     el = Παρουσιάστηκε εσωτερικό σφάλμα. Δοκιμάστε να διαγράψετε και να κατεβάσετε το χάρτη ξανά. Εάν το πρόβλημα παραμένει, επικοινωνήστε μαζί μας στη διεύθυνση support@maps.me.
     he = אירעה שגיאה פנימית. נא לנסות למחוק את המפה להוריד אותה מחדש. אם הבעיה נמשכת, נא לפנות אלינו בכתובת support@maps.me.
     sk = Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support@maps.me.
+    fa = خطای داخلی اتفاق افتاد.لطفا تلاش کنید نقشه را حذف و مجددا دانلود کنید.اگر همچنان مشکل پابرجاست لطفا با ما تماس بگیرید support@maps.me.
 
   [downloader_download_map_and_routing]
     comment = Context menu item for downloader.
@@ -8374,6 +8609,7 @@
     zh-Hant = 下載地圖 + 路線
     he = הורד מפה + מסלול
     sk = Na stiahnutie Mapa + Trasa
+    fa = دانلود نقشه + مسیریابی
 
   [downloader_download_routing]
     comment = Context menu item for downloader.
@@ -8407,6 +8643,7 @@
     zh-Hant = 下載路線
     he = הורד מסלול
     sk = Trasa na stiahnutie
+    fa = دانلود  مسیریابی
 
   [downloader_delete_routing]
     comment = Context menu item for downloader.
@@ -8440,6 +8677,7 @@
     zh-Hant = 刪除路線
     he = מחק מסלול
     sk = Zmazať Trasu
+    fa = حذف مسیریابی
 
   [downloader_download_map]
     comment = Context menu item for downloader.
@@ -8474,6 +8712,7 @@
     el = Λήψη χάρτη
     he = הורידו את המפה
     sk = Stiahnuť mapu
+    fa = دانلود نقشه
 
   [downloader_download_map_no_routing]
     tags = ios,android
@@ -8506,6 +8745,7 @@
     zh-Hant = 下載不帶路線的地圖
     he = הורד מפה בלי לקבוע מסלול
     sk = Stiahnite si mapu bez smerovania
+    fa = دانلود نقشه بدون مسیریابی
 
   [routing_go]
     comment = Button for routing.
@@ -8539,6 +8779,7 @@
     zh-Hant = 開始！
     he = נווטו!
     sk = Štart!
+    fa = برو!
 
   [downloader_retry]
     comment = Item status in downloader.
@@ -8572,6 +8813,7 @@
     zh-Hant = 重試
     el = Επανάληψη
     sk = Zopakovať
+    fa = تلاش مجدد
 
   [downloader_map_and_routing]
     comment = Item in context menu.
@@ -8605,6 +8847,7 @@
     zh-Hant = 地圖 + 路線
     he = מפה + מסלול
     sk = Mapa + Smerovanie
+    fa = نقشه + مسیریابی
 
   [downloader_delete_map]
     comment = Item in context menu.
@@ -8639,6 +8882,7 @@
     el = Διαγραφή χάρτη
     he = מחק מפה
     sk = Zmazať mapu
+    fa = حذف نقشه
 
   [downloader_update_map]
     comment = Item in context menu.
@@ -8673,6 +8917,7 @@
     el = Ενημέρωση χάρτη
     he = עדכן מפה
     sk = Aktualizovať mapu
+    fa = به روز رسانی نقشه
 
   [downloader_update_map_and_routing]
     comment = Item in context menu.
@@ -8706,6 +8951,7 @@
     zh-Hant = 更新地圖 + 路線
     he = עדכן מפה + מסלול
     sk = Aktualizovať mapu + Smerovanie
+    fa = به روز رسانی نقشه + مسیریابی
 
   [downloader_map_only]
     comment = Item in context menu.
@@ -8739,6 +8985,7 @@
     zh-Hant = 只有地圖
     he = מפה בלבד
     sk = Iba mapa
+    fa = فقط نقشه
 
   [toolbar_application_menu]
     comment = Toolbar title
@@ -8770,6 +9017,7 @@
     vi = Menu ứng dụng
     he = תפריט האפליקציה
     sk = Ponuka aplikácie
+    fa = منوی برنامه
 
   [pref_use_google_play]
     comment = Preference text
@@ -8803,6 +9051,7 @@
     zh-Hant = 使用 Google Play 服務來獲得您的目前位置
     el = Χρησιμοποιήστε υπηρεσίες Google Play για να προσδιορίσετε την τρέχουσα τοποθεσία σας
     sk = Pomocou Google Play služieb získajte svoju aktuálnu polohu
+    fa = استفاده از Google Play Services برای تعیین موقعیت کنونی شما
 
   [rating_just_rated]
     comment = Text for rating dialog
@@ -8902,6 +9151,7 @@
     zh-Hant = 您喜歡 MAPS.ME 嗎？
     el = Σας αρέσει το MAPS.ME;
     sk = Páči sa vám MAPS.ME?
+    fa = MAPS.ME را می پسندید؟
 
   [rating_tap_star]
     comment = Text for rating dialog
@@ -8935,6 +9185,7 @@
     zh-Hant = 點擊星星給我們應用程式評分。
     el = Πατήστε ένα αστέρι να βαθμολογήσετε την εφαρμογή μας.
     sk = Kliknutím na hviezdu ohodnotíte našu aplikáciu.
+    fa = بر روی ستاره ها لمس کنید تا به این اپ رای بدهید
 
   [rating_thanks]
     comment = Text for rating dialog
@@ -8968,6 +9219,7 @@
     zh-Hant = 謝謝您！
     el = Σας ευχαριστούμε!
     sk = Ďakujeme vám!
+    fa = متشکریم!
 
   [rating_share_ideas]
     comment = Text for rating dialog
@@ -9001,6 +9253,7 @@
     zh-Hant = 分享任何主意或問題，這樣我們可以為您改善應用程式。
     el = Μοιραστείτε ιδέες ή προβλήματα για να βελτιώσουμε την εφαρμογή.
     sk = Podeľte sa o svoje nápady alebo problémy, aby sme pre vás mohli vylepšiť aplikáciu.
+    fa = ایده ها و نقطه نظرات تان را با ما در میان بگذارید ما برنامه را مطابق میلتان توسعه می دهیم
 
   [rating_send_feedback]
     comment = Text for rating dialog
@@ -9034,6 +9287,7 @@
     zh-Hant = 發送回饋
     el = Αποστολή σχολίου
     sk = Odoslať spätnú väzbu
+    fa = ارسال بازخورد
 
   [rating_google_plus]
     comment = Text for g+ dialog
@@ -9067,6 +9321,7 @@
     zh-Hant = 點擊g+向您的朋友們告知這款應用程式。
     el = Κάντε κλικ στο g+ να ενημερώσετε τους φίλους σας σχετικά με την εφαρμογή.
     sk = Kliknutím na tlačidlo g + povedzte o aplikácii svojim priateľom.
+    fa = بر روی g+ کلیک کنید و از این برنامه برایشان بگویید.
 
   [routing_download_maps_along]
     comment = Text for routing error dialog
@@ -9100,6 +9355,7 @@
     zh-Hant = 下載沿線地圖
     el = Κατεβάστε όλους τους χάρτες για ολόκληρο το μήκος της διαδρομής σας
     sk = Stiahnite si mapy pozdĺž trasy
+    fa = دانلود تمامی نقشه ها در طول مسیر تان
 
   [routing_download_map]
     comment = Text for routing error dialog
@@ -9133,6 +9389,7 @@
     zh-Hant = 獲取地圖
     el = Λήψη χάρτη
     sk = Stiahnuť mapu
+    fa = دریافت نقشه
 
   [routing_download_map_and_routing]
     comment = Text for routing error dialog
@@ -9166,6 +9423,7 @@
     zh-Hant = 下載更新的地圖和路線數據，獲取所有 MAPS.ME 的特色功能。
     el = Κάντε λήψη ενημερωμένου χάρτη και δεδομένων πλοήγησης για να έχετε όλα τα χαρακτηριστικά του MAPS.ME.
     sk = Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie MAPS.ME.
+    fa = برای داشتن تمامی ویژگی های MAPS.ME نقشه ها و داده های مسیریابی را اپدیت نمایید.
 
   [routing_get_routing_data]
     comment = Text for routing error dialog
@@ -9199,6 +9457,7 @@
     zh-Hant = 獲取所需的路線數據
     el = Λήψη δεδομένων πλοήγησης
     sk = Získať trasové dáta
+    fa = دریافت داده های مسیریابی
 
   [routing_get_additional_data]
     comment = Text for routing error dialog
@@ -9232,6 +9491,7 @@
     zh-Hant = 需要更多數據以從您的位置建立路線。
     el = Απαιτούνται επιπλέον δεδομένα για τη δημιουργία διαδρομών από την τοποθεσία σας.
     sk = Dodatočné údaje potrebné na vytvorenie trasy zo vašej polohy.
+    fa = مقداری دیتای اضافی برای ایجاد مسیر در موقعیت شما نیاز است.
 
   [routing_requires_all_map]
     comment = Text for routing error dialog
@@ -9264,6 +9524,7 @@
     zh-Hans = 创建路线需要下载并更新好所有从您的位置到目的地的地图。
     zh-Hant = 建立路線需要下載並更新好所有從您的位置到目的地的地圖。
     el = Για να δημιουργήσετε μια διαδρομή, πρέπει να κατεβάσετε και να ενημερώσετε όλους τους χάρτες από τη θέση σας στον προορισμό σας.
+    fa = به منظور ایجاد مسیر ما نیاز داریم تا تمامی نقشه های شما از مبدا تا مقصد را به روز رسانی کنیم.
 
   [routing_not_enough_space]
     comment = Text for routing error dialog
@@ -9297,6 +9558,7 @@
     zh-Hant = 空間不足
     el = Δεν υπάρχει αρκετός χώρος
     sk = Nedostatok miesta
+    fa = فضای کافی موجود نیست
 
   [routing_download_more_than_avail]
     comment = Text for routing error dialog
@@ -9330,6 +9592,7 @@
     zh-Hant = 您需要下載%@ MB，但只有%@ MB空間。
     el = Πρέπει να κάνετε λήψη %@ MB, αλλά μόνο %@ MB είναι διαθέσιμα.
     sk = Musíte stiahnuť %@ MB, ale k dispozícií máte len %@ MB.
+    fa = شما نیاز به دانلود %@ مگابایت دارید, اما تنها %@ مگابایت موجود است.
 
   [routing_download_roaming]
     comment = Text for routing error dialog
@@ -9363,6 +9626,7 @@
     zh-Hant = 您將使用行動數據下載%@ MB（漫遊）。這取決於您的行動數據方案服務業者，可能會產生額外的費用。
     el = Πρόκειται να κάνετε λήψη %@ MB χρησιμοποιώντας Δεδομένα Δικτύου Κινητής Τηλεφωνίας (σε Περιαγωγή). Αυτό μπορεί να προκαλέσει επιπρόσθετες χρεώσεις, που εξαρτώνται από το πρόγραμμα δεδομένων δικτύου κινητής τηλεφωνίας του παρόχου σας.
     sk = Veľkosť súboru je %@ MB, ktoré stiahnete prostredníctvom Mobilných Dát (v Roamingu). Toto môže mať za následok dodatočné poplatky, v závislosti od dátových taríf vášho mobilného operátora.
+    fa = شما قصد دانلود %@ MB و استفاده از دیتای موبایل را دارید.این کار ممکن است بر حسب اپراتور موبایلتان هزینه های اضافی برای شما در بر داشته باشد
 
   [bookmark]
     comment = bookmark button text
@@ -9398,6 +9662,7 @@
     he = סימניה
     in = bookmark
     sk = záložka
+    fa = نشانه ها
 
   [not_found_map]
     comment = map is not downloaded
@@ -9430,6 +9695,7 @@
     zh-Hans = 您地点的地图没有被下载
     zh-Hant = 您地點的地圖尚未下載
     sk = Mapa vašej polohy nebola nájdená
+    fa = نقشه ای برای موقعیت مکانی شما دانلود نشده است
 
   [enable_location_services]
     comment = location service disabled
@@ -9463,6 +9729,7 @@
     zh-Hant = 請啟用定位服務
     el = Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας
     sk = Prosím, povoľte Služby určovania polohy
+    fa = لطفا موقعیت مکانی(GPS)خود را فعال کنید.
 
   [download_map]
     comment = download map
@@ -9495,6 +9762,7 @@
     zh-Hans = 为您的地点下载地图
     zh-Hant = 為您的地點下載地圖
     sk = Stiahnite si mapu miesta, kde sa práve nachádzate
+    fa = دانلود نقشه برای موقعیت مکانی شما
 
   [download_map_iphone]
     comment = download map on iPhone
@@ -9527,6 +9795,7 @@
     zh-Hans = 在您的iPhone上下载当前位置的地图
     zh-Hant = 在您的 iPhone 上下載目前位置的地圖
     sk = Stiahnite si mapu pre aktuálnu polohu na vašom iPhone
+    fa = دانلود نقشه برای موقعیت مکانی شما بر روی ایفون تان
 
   [nearby]
     comment = clear pin
@@ -9559,6 +9828,7 @@
     zh-Hans = 附近的
     zh-Hant = 附近的
     sk = V blízkosti
+    fa = در این نزدیکی
 
   [clear_pin]
     comment = clear pin
@@ -9591,6 +9861,7 @@
     zh-Hans = 清除针
     zh-Hant = 清除圖釘
     sk = Vymazať špendlík
+    fa = پاک کردن نشانه
 
   [undefined_location]
     comment = location is undefined
@@ -9624,6 +9895,7 @@
     zh-Hant = 目前地點未定。
     he = לא הוגדר המיקום הנוכחי
     sk = Aktuálna lokácia nie je definovaná.
+    fa = موقعیت مکانی شما یافت نشد.
 
   [download_country]
     comment = download country of your location
@@ -9656,6 +9928,7 @@
     zh-Hans = 下载您所在位置的国家
     zh-Hant = 下載您目前所在位置的國家 地圖
     sk = Sťahovanie krajiny vašej aktuálnej polohy
+    fa = دانلود نقشه کشور مقعیت کنونی شما
 
   [download_failed]
     comment = download failed
@@ -9688,6 +9961,7 @@
     zh-Hans = 下载失败
     zh-Hant = 下載失敗
     sk = Sťahovanie zlyhalo
+    fa = دانلود ناموفق
 
   [get_the_map]
     comment = get the map
@@ -9720,6 +9994,7 @@
     zh-Hans = 获取地图
     zh-Hant = 獲取地圖
     sk = Stiahnuť mapu
+    fa = دریافت نقشه
 
   [save]
     tags = android, ios
@@ -9752,6 +10027,7 @@
     zh-Hant = 儲存
     el = Αποθήκευση
     sk = Uložiť
+    fa = ذخیره
 
   [edit_description_hint]
     tags = android, ios
@@ -9783,6 +10059,7 @@
     el = Οι περιγραφές σας (κείμενο ή html)
     in = Deskripsi Anda (teks atau html)
     sk = Váš popis (text alebo html)
+    fa = توضیحات شما (متن یا  (html
 
   [new_group]
     tags = android, ios
@@ -9815,6 +10092,7 @@
     zh-Hant = 新組
     el = νέα ομάδα
     sk = nová skupina
+    fa = مجموعه جدید
 
   [create]
     tags = android, ios
@@ -9847,6 +10125,7 @@
     zh-Hant = 建立
     el = δημιουργήστε
     sk = vytvoriť
+    fa = ایجاد
 
   [red]
     comment = red color
@@ -9880,6 +10159,7 @@
     zh-Hant = 紅色
     el = Κόκκινο
     sk = červená
+    fa = قرمز
 
   [yellow]
     comment = yellow color
@@ -9913,6 +10193,7 @@
     zh-Hant = 黃色
     el = Κίτρινο
     sk = žltá
+    fa = زرد
 
   [blue]
     comment = blue color
@@ -9946,6 +10227,7 @@
     zh-Hant = 藍色
     el = Μπλε
     sk = modrá
+    fa = ابی
 
   [green]
     comment = green color
@@ -9979,6 +10261,7 @@
     zh-Hant = 綠色
     el = Πράσινο
     sk = zelená
+    fa = سبز
 
   [purple]
     comment = purple color
@@ -10012,6 +10295,7 @@
     zh-Hant = 紫色
     el = Μωβ
     sk = purpurová
+    fa = بنفش
 
   [orange]
     comment = orange color
@@ -10045,6 +10329,7 @@
     zh-Hant = 橘色
     el = Πορτοκαλί
     sk = oranžová
+    fa = نارنجی
 
   [brown]
     comment = brown color
@@ -10078,6 +10363,7 @@
     zh-Hant = 棕色
     el = Καφέ
     sk = hnedá
+    fa = قهوای
 
   [pink]
     comment = pink color
@@ -10111,6 +10397,7 @@
     zh-Hant = 粉色
     el = Ροζ
     sk = ružová
+    fa = صورتی
 
   [WiFi_available]
     comment = Wi-Fi available
@@ -10145,6 +10432,7 @@
     el = Ναι
     he = כן
     sk = Áno
+    fa = بلی
 
 [[Routing dialogs strings]]
 
@@ -10180,6 +10468,7 @@
     el = Όταν ακολουθείτε την διαδρομή, να θυμάστε:
     he = בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:
     sk = Pri sledovaní trasy majte na pamäti nasledujúce:
+    fa = زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:
 
   [dialog_routing_disclaimer_priority]
     tags = ios,android
@@ -10213,6 +10502,7 @@
     el = — Οι οδικές συνθήκες, ο κώδικας οδικής κυκλοφορίας και οι σημάνσεις στο δρόμο έχουν πάντα μεγαλύτερη προτεραιότητα από τις συμβουλές πλοήγησης,
     he = — תנאי הכביש, חוקי התנועה והתמרורים תמיד מקבלים עדיפות על פני הנחיות הניווט;
     sk = — Podmienky na ceste, dopravné predpisy a značenie majú vždy prednosť pred pokynmi z navigácie;
+    fa = —شرایط جاده قوانین راهنمایی و رانندگی و علائم جاده همیشه بر نکات مسیریابی اولویت دارند;
 
   [dialog_routing_disclaimer_precision]
     tags = ios,android
@@ -10246,6 +10536,7 @@
     el = — Ο Χάρτης μπορεί να είναι ανακριβής, και η προτεινόμενη διαδρομή μπορεί να μην είναι πάντα ο βέλτιστος τρόπος να φτάσετε στον προορισμό,
     he = — ייתכנו אי-דיוקים במפה, וייתכן כי המסלול המוצע אינו תמיד הדרך המיטבית להגעה אל היעד;
     sk = — Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;
+    fa = —نقشه ممکن است اشتباه باشد و مسیر پیشنهادی همیشه بهترین مسیر برای رسید به مقصد شما نباشد;
 
   [dialog_routing_disclaimer_recommendations]
     tags = ios,android
@@ -10279,6 +10570,7 @@
     el = — Οι προτεινόμενες διαδρομές πρέπει να ερμηνεύονται μόνο ως συστάσεις·
     he = — יש לראות במסלולים המוצעים המלצה בלבד;
     sk = — Navrhované trasy by sa mali brať len ako odporúčania;
+    fa = —مسیر پیشنهادی باید فقط به عنوان یک توصیه دانست
 
   [dialog_routing_disclaimer_borders]
     tags = ios,android
@@ -10311,6 +10603,7 @@
     zh-Hant = — 小心對待國界區的路線：我們應用程式建立的路線有時會在未經授權的地方跨越國界；
     el = — Προσέχετε τις διαδρομές στις παραμεθόριες ζώνες: οι διαδρομές που δημιουργούνται από την εφαρμογή μας μπορεί μερικές φορές να διαπερνούν τα εθνικά σύνορα σε απαγορευμένες περιοχές.
     sk = — Buďte opatrní na cestách v pohraničných oblastiach: trasy vytvorené aplikáciou môžu prekročiť hranice štátov na nepovolených miestach;
+    fa = —در مسیرهایی که از مناطق مرزی میگذرد احتیاط کنید:مسیر هایی که بوسیله اپلیکیشن ما ایجاد می شود گاهی اوقات ممکن است مرز های کشور ها را رد کند که این در بعضی مناطق غیر مجاز است.
 
   [dialog_routing_disclaimer_beware]
     tags = ios,android
@@ -10344,6 +10637,7 @@
     el = Να είστε πάντα σε εγρήγορση και να οδηγείτε με ασφάλεια στους δρόμους!
     he = שמור על ערנות ועל הבטיחות בכביש!
     sk = Na cestách buďte vždy ostražitý a dbajte na bezpečnosť!
+    fa = لطفا هوشیار و ایمن در جاده بمانید!
 
   [dialog_routing_check_gps]
     tags = ios,android
@@ -10377,6 +10671,7 @@
     el = Ελέγξτε το σήμα GPS
     he = בדוק אות GPS
     sk = Skontrolujte signál GPS
+    fa = سیگنال GPS را چک کنید
 
   [dialog_routing_error_location_not_found]
     tags = ios,android
@@ -10410,6 +10705,7 @@
     el = Δεν είναι δυνατή η δημιουργία διαδρομής. Οι τρέχουσες συντεταγμένες GPS δεν μπορούν να προσδιοριστούν.
     he = לא ניתן ליצור מסלול. לא ניתן לזהות את קואורדינטות ה-GPS הנוכחיות.
     sk = Nedá sa vytvoriť trasa. Aktuálne súradnice GPS sa nedajú identifikovať.
+    fa = ناتوان از ایجاد مسیر.موقعیت مکانی شما شناسایی نشد
 
   [dialog_routing_location_turn_wifi]
     tags = ios,android
@@ -10443,6 +10739,7 @@
     el = Ελέγξτε το σήμα GPS. Η ενεργοποίηση του Wi-Fi θα βελτιώσει την ακρίβεια της τοποθεσίας σας.
     he = בדוק את אות ה-GPS שלך. הפעלת ה-Wi-Fi תשפר את הדיוק בזיהוי המיקום שלך.
     sk = Skontrolujte signál GPS. Zapnutie Wi-Fi zlepší presnosť vašej lokalizácie.
+    fa = لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت یابی فعال کنید.
 
   [dialog_routing_location_turn_on]
     tags = ios,android
@@ -10476,6 +10773,7 @@
     el = Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας
     he = הפעל שירותי מיקום
     sk = Zapnite lokalizačné služby
+    fa = فعال کردن سرویس موقعیت مکانی  (GPS)
 
   [dialog_routing_location_unknown_turn_on]
     tags = ios,android
@@ -10509,6 +10807,7 @@
     el = Δεν είναι δυνατός ο εντοπισμός των τρεχουσών συντεταγμένων GPS. Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας για τον υπολογισμό της διαδρομής.
     he = לא ניתן לאתר קואורדינטות GPS נוכחיות. הפעל שירותי מיקום כדי לחשב מסלול.
     sk = Aktuálne súradnice GPS sa nedajú lokalizovať. Aktivujte lokalizačné služby na výpočet trasy.
+    fa = ناتوان از مشخص کردن موقعیت مکانی شما.لطفا سرویس موقعیت مکانی خود را فعال کنید.
 
   [dialog_routing_location_unknown]
     tags = ios,android
@@ -10541,6 +10840,7 @@
     zh-Hant = 無法定位目前 GPS 座標。
     he = לא ניתן לאתר קואורדינטות GPS נוכחיות.
     sk = Nedajú sa lokalizovať aktuálne súradnice GPS.
+    fa = ناتوان از مشخص کردن موقعیت مکانی شما.
 
   [dialog_routing_download_files]
     tags = ios,android
@@ -10574,6 +10874,7 @@
     el = Κατεβάστε τα απαιτούμενα αρχεία
     he = הורד את הקבצים הדרושים
     sk = Prevezmite si požadované súbory
+    fa = دانلود فایل های مورد نیاز
 
   [dialog_routing_download_and_update_all]
     tags = ios,android
@@ -10639,6 +10940,7 @@
     zh-Hant = 路線資訊檔案
     he = קובצי מידע מסלולים
     sk = Súbory s informáciami o trase
+    fa = فایل های اطلاعات مسیر یابی
 
   [dialog_routing_unable_locate_route]
     tags = ios,android
@@ -10672,6 +10974,7 @@
     el = Δε μπορεί να εντοπιστεί η διαδρομή
     he = לא ניתן לאתר מסלול
     sk = Trasa sa nedá lokalizovať
+    fa = ناتوان در تعیین مسیر
 
   [dialog_routing_cant_build_route]
     tags = ios,android
@@ -10705,6 +11008,7 @@
     el = Δε μπορεί να δημιουργηθεί η διαδρομή.
     he = לא ניתן ליצור מסלול.
     sk = Trasa sa nedá vytvoriť.
+    fa = ناتوان در ایجاد مسیر
 
   [dialog_routing_change_start_or_end]
     tags = ios,android
@@ -10738,6 +11042,7 @@
     el = Ρυθμίστε το σημείο εκκίνησης ή τον προορισμό σας.
     he = כוונן את נקודת ההתחלה או היעד שלך.
     sk = Prosím, upravte váš východiskový bod alebo cieľové miesto.
+    fa = لطفا مبدا یا مقصد خود را تنظیم کنید.
 
   [dialog_routing_change_start]
     tags = ios,android
@@ -10771,6 +11076,7 @@
     el = Ρυθμίστε το σημείο εκκίνησης
     he = כוונן נקודת התחלה
     sk = Nastavte východiskový bod
+    fa = مبدا خود را تنظیم کنید
 
   [dialog_routing_start_not_determined]
     tags = ios,android
@@ -10804,6 +11110,7 @@
     el = Δεν δημιουργήθηκε διαδρομή. Δεν είναι δυνατός ο εντοπισμός του σημείου εκκίνησης.
     he = לא נוצר מסלול. לא ניתן לאתר את נקודת ההתחלה.
     sk = Trasa nebola vytvorená. Nedá sa lokalizovať východiskový bod.
+    fa = مسیر ایجاد نشد.ناتوان در تعیین نقطه شروع
 
   [dialog_routing_select_closer_start]
     tags = ios,android
@@ -10837,6 +11144,7 @@
     el = Επιλέξτε σημείο εκκίνησης πιο κοντά σε ένα δρόμο.
     he = בחר נקודת התחלה הקרובה יותר לכביש כלשהו.
     sk = Vyberte východiskový bod bližšie k ceste.
+    fa = لطفا نقطه شروع رانزدیک تر به جاده انتخاب کنید.
 
   [dialog_routing_change_end]
     tags = ios,android
@@ -10870,6 +11178,7 @@
     el = Ρύθμιση προορισμού
     he = כוונן יעד
     sk = Nastavte cieľové miesto
+    fa = تنظیم مقصد
 
   [dialog_routing_end_not_determined]
     tags = ios,android
@@ -10903,6 +11212,7 @@
     el = Δεν δημιουργήθηκε διαδρομή. Δεν είναι δυνατός ο εντοπισμός του προορισμού.
     he = לא נוצר מסלול. לא ניתן לאתר את היעד.
     sk = Trasa nebola vytvorená. Nedá sa lokalizovať cieľové miesto.
+    fa = مسیر ایجاد نشد.ناتوان در تعیین مقصد.
 
   [dialog_routing_select_closer_end]
     tags = ios,android
@@ -10936,6 +11246,7 @@
     el = Επιλέξτε ένα σημείο προορισμού πιο κοντά σε ένα δρόμο.
     he = בחר נקודת יעד הקרובה יותר לכביש כלשהו.
     sk = Vyberte cieľové miesto nachádzajúce sa bližšie k ceste.
+    fa = لطفا مقصد تعیین شده را نزدیک تر به جاده انتخاب نمایید.
 
   [dialog_routing_change_intermediate]
     tags = ios,android
@@ -10968,6 +11279,7 @@
     el = Δεν είναι δυνατός ο εντοπισμός ενδιάμεσου σημείου.
     sk = Zastávku sa nepodarilo nájsť.
     sw = Imeshindwa kupata eneo la kati.
+    fa = ناتوان در تعیین نقطه میانی.
 
   [dialog_routing_intermediate_not_determined]
     tags = ios,android
@@ -11000,6 +11312,7 @@
     el = Ρυθμίστε το ενδιάμεσο σημείο.
     sk = Upravte zastávku.
     sw = Tafadhali badilisha eneo lako la kati.
+    fa = لطفا نقطه میانی را تنظیم کنید.
 
   [dialog_routing_system_error]
     tags = ios,android
@@ -11033,6 +11346,7 @@
     el = Σφάλμα συστήματος
     he = שגיאת מערכת
     sk = Systémová chyba
+    fa = خطای سیستم
 
   [dialog_routing_application_error]
     tags = ios,android
@@ -11066,6 +11380,7 @@
     el = Δεν είναι δυνατή η δημιουργία διαδρομής εξαιτίας σφάλματος εφαρμογής.
     he = לא ניתן ליצור מסלול עקב שגיאת אפליקציה.
     sk = Nedá sa vytvoriť trasa z dôvodu aplikačnej chyby.
+    fa = ناتوان در ایجاد مسیر به علت خطای برنامه.
 
   [dialog_routing_try_again]
     tags = ios,android
@@ -11099,6 +11414,7 @@
     el = Προσπαθήστε ξανά
     he = נסה שוב
     sk = Skúste znova, prosím
+    fa = لطفا دوباره تلاش کنید
 
   [dialog_routing_send_error]
     tags = ios,android
@@ -11131,6 +11447,7 @@
     zh-Hant = 回報問題
     he = דווח על הבעיה
     sk = Nahláste problém
+    fa = گزارش مشکل
 
   [dialog_routing_if_get_cross_route]
     tags = ios,android
@@ -11163,6 +11480,7 @@
     zh-Hant = 您想產生跨越邊界的更好路線嗎？
     he = האם ברצונך ליצור מסלול ישיר יותר, הכולל יותר מאשר מפה אחת?
     sk = Chceli by ste vytvoriť priamejšiu trasu, ktorá zahŕňa viac ako jednu mapu?
+    fa = ایا می خواهید یک مسیر مستقیم تر که بیش از یک نقشه را شامل می شود ایجاد کنید؟
 
   [dialog_routing_cross_route_is_optimal]
     tags = ios,android
@@ -11195,6 +11513,7 @@
     zh-Hant = 有更理想的跨越邊界的路線可用。
     he = זמין מסלול מיטבי יותר החוצה את הגבול של מפה זו.
     sk = K dispozícii je optimálnejšia trasa, ktorá presahuje hranice tejto mapy.
+    fa = مسیر های بهینه بیشتری موجود است که حاشیه این نقشه را رد می کند .
 
   [not_now]
     tags = ios,android
@@ -11228,6 +11547,7 @@
     el = Όχι τώρα
     he = לא עכשיו
     sk = Nie teraz
+    fa = اکنون خیر
 
   [dialog_routing_build_route]
     tags = ios,android
@@ -11260,6 +11580,7 @@
     zh-Hant = 產生
     he = צור
     sk = Vytvoriť
+    fa = ایجاد کردن
 
   [dialog_routing_download_and_build_cross_route]
     tags = ios,android
@@ -11293,6 +11614,7 @@
     el = Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνονται σε περισσότερους από έναν χάρτη;
     he = האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?
     sk = Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?
+    fa = ایا مایل به دانلود نقشه و ایجاد مسیر های بهینه بیشتری که نقشه های بیشتری را پوشش میدهد هستید؟
 
   [dialog_routing_download_cross_route]
     tags = ios,android
@@ -11326,6 +11648,7 @@
     el = Κατεβάσετε επιπλέον χάρτες για να δημιουργήσετε μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.
     he = הורד את המפה כדי ליצור מסלול מיטבי יותר, החוצה את הגבול של מפה זו.
     sk = Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.
+    fa = دانلود نقشه های اضافی برای ایجاد مسیری بهتر که حاشیه های این نقشه را رد می کند.
 
   [dialog_routing_cross_route_always]
     tags = ios,android
@@ -11358,6 +11681,7 @@
     zh-Hant = 一律跨越此邊界
     he = תמיד חצה גבול זה
     sk = Vždy prekročiť túto hranicu
+    fa = همیشه این مرز را رد کن
 
 [[Strings for downloading map from search]]
 
@@ -11393,6 +11717,7 @@
     el = Για να ξεκινήσετε την αναζήτηση και τη δημιουργία διαδρομών, κατεβάστε το χάρτη. Μετά από αυτό δεν θα χρειάζεστε πλέον σύνδεση στο Internet.
     he = על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה ולא תזדקקו יותר לחיבור לאינטרנט.
     sk = Stiahnutím mapy už nebudete potrebovať pripojenie k internetu a môžete si začať vyhľadávať a vytvárať trasy.
+    fa = برای شروع جستوجو و مسیر یابی لطفا نقشه رادانلود کنید بعد از ان دیگر نیازی به اتصال به اینترنت ندارید و برنامه کاملا افلاین اجرا می شود.
 
   [search_select_map]
     tags = ios,android
@@ -11426,6 +11751,7 @@
     el = Επιλέξτε χάρτη
     he = בחרו את המפה
     sk = Vybrať mapu
+    fa = انتخاب نقشه
 
   [search_select_other_map]
     tags = ios,android
@@ -11458,6 +11784,7 @@
     zh-Hant = 選擇另一個地圖
     he = בחרו מפה אחרת
     sk = Vybrať inú mapu
+    fa = انتخاب نقشه ی دیگر
 
   [show]
     comment = «Show» context menu
@@ -11491,6 +11818,7 @@
     zh-Hant = 顯示
     el = Εμφάνιση
     sk = Ukázať
+    fa = نمایش
 
   [hide]
     comment = «Hide» context menu
@@ -11524,6 +11852,7 @@
     zh-Hant = 隱藏
     el = Απόκρυψη
     sk = Skryť
+    fa = مخفی کردن
 
   [rename]
     comment = «Rename» context menu
@@ -11557,6 +11886,7 @@
     zh-Hant = 重新命名
     el = Μετονομασία
     sk = Premenovať
+    fa = تغیر نام
 
   [bottom_sheet_more]
     comment = Bottom sheet: expand button (should be short)
@@ -11589,6 +11919,7 @@
     zh-Hans = 更多…
     zh-Hant = 更多…
     sk = Viac…
+    fa = بیشتر
 
   [routing_planning_error]
     comment = Failed planning route message in navigation view
@@ -11622,6 +11953,7 @@
     zh-Hant = 路線計劃失敗
     el = Ο σχεδιασμός διαδρομής απέτυχε
     sk = Plánovanie trasy zlyhalo
+    fa = برنامه ریزی مسیر ناموفق
 
   [routing_arrive]
     comment = Arrive routing message in navigation view
@@ -11655,6 +11987,7 @@
     zh-Hant = 抵達:%s
     el = Άφιξη στις %s
     sk = Pricestovať: %s
+    fa = ورود به: %s
 
   [dialog_routing_download_and_update_maps]
     comment = Text for routing::IRouter::FileTooOld dialog.
@@ -11719,6 +12052,7 @@
     zh-Hant = 喜歡這個應用程式嗎？
     el = Σας αρέσει η εφαρμογή;
     sk = Páči sa vám aplikácia?
+    fa = این اپ را دوست دارید؟
 
   [rate_alert_default_message]
     tags = ios, android
@@ -11751,6 +12085,7 @@
     zh-Hant = 感謝您使用 MAPS.ME。請評價此應用程式。您的回饋幫助我們改善我們的產品。
     el = Σας ευχαριστούμε που χρησιμοποιείτε το MAPS.ME. Βαθμολογήστε την εφαρμογή. Τα σχόλιά σας μας βοηθάνε να βελτιώσουμε το προϊόν μας.
     sk = Ďakujeme, že používate MAPS.ME. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.
+    fa = باتشکر از شما بابت استفاده ازMAPS.ME.لطفا به این اپلیکیشن رای بدهید. بازخورد شما باعث پیشرفت اپلیکیشن ما می شود.
 
   [rate_alert_five_star_message]
     tags = ios, android
@@ -11783,6 +12118,7 @@
     zh-Hant = 太棒了！我們也愛您！
     el = Ζήτω! Σας ευχαριστούμε πάρα πολύ!
     sk = Hurá! Aj my vás taky páči!
+    fa = هورا ! ما هم شما را دوست داریم!
 
   [rate_alert_four_star_message]
     tags = ios, android
@@ -11815,6 +12151,7 @@
     zh-Hant = 謝謝您，我們會盡可能做好!
     el = Σας ευχαριστούμε, θα κάνουμε το καλύτερο δυνατό!
     sk = Ďakujeme vám, urobíme, čo bude v našich silách!
+    fa = متشکریم تلاش خود را می کنیم
 
   [rate_alert_less_than_four_star_message]
     tags = ios, android
@@ -11847,6 +12184,7 @@
     zh-Hant = 有沒有想法我們能怎麽把它變得更好？
     el = Έχετε κάποια ιδέα για το πώς μπορούμε να το κάνουμε καλύτερο;
     sk = Nejaký nápad, ako ju môžeme vylepšiť?
+    fa = ایا پیشنهاد یا ایده ای دارید که ما بتوانیم بهتر از این باشیم؟
 
   [categories]
     tags = ios, android
@@ -11879,6 +12217,7 @@
     zh-Hant = 類別
     el = Κατηγορίες
     sk = Kategórie
+    fa = دسته بندی ها
 
   [history]
     tags = ios, android
@@ -11911,6 +12250,7 @@
     zh-Hant = 記錄
     el = Ιστορικό
     sk = Archív
+    fa = تاریخچه
 
   [next_turn_then]
     tags = ios, android
@@ -11942,6 +12282,7 @@
     zh-Hans = 然后
     zh-Hant = 然後
     sk = Potom
+    fa = سپس
 
   [closed]
     tags = ios, android
@@ -11974,6 +12315,7 @@
     zh-Hant = 已關閉
     el = Κλειστό
     sk = Zatvorené
+    fa = تعطیل
 
   [back_to]
     tags = ios, android
@@ -12006,6 +12348,7 @@
     zh-Hant = 返回 %@
     el = Επιστροφή στο %@
     sk = Späť do %@
+    fa = بازگشت به %@
 
   [search_not_found]
     tags = ios, android
@@ -12038,6 +12381,7 @@
     zh-Hant = 很抱歉，找不到任何東西。
     el = Ωχ, δεν βρέθηκαν αποτελέσματα.
     sk = Ľutujeme, ale nič sme nenašli.
+    fa = متاسفانه چیزی پیدا نشد
 
   [search_not_found_query]
     tags = ios, android
@@ -12070,6 +12414,7 @@
     zh-Hant = 請嘗試其他搜尋字詞。
     el = Δοκιμάστε να αλλάξετε τα κριτήρια αναζήτησής σας.
     sk = Vyskúšajte, prosím, iný hľadaný výraz.
+    fa = با تغییر در معیار های جست و جو دوباره امتحان کنید
 
   [search_not_found_map]
     tags = ios, android
@@ -12101,6 +12446,7 @@
     zh-Hans = 请下载您搜索的地图。
     zh-Hant = 請下載你搜尋的地圖。
     sk = Prosím, stiahnite si mapu, na ktorej vyhľadávate.
+    fa = لطفا نقشه ای را که در ان جست و جو می کنید را دانلود کنید
 
   [search_not_found_location]
     tags = ios, android
@@ -12132,6 +12478,7 @@
     zh-Hans = 下载您当前位置的地图。
     zh-Hant = 下載您目前位置的地圖。
     sk = Stiahnite si mapu svojej súčasnej polohy.
+    fa = نقشه موقعیت مکانی تان را دانلود کنید
 
   [search_history_title]
     tags = ios, android
@@ -12164,6 +12511,7 @@
     zh-Hant = 搜尋歷史紀錄
     el = Ιστορικό αναζήτησης
     sk = História vyhľadávania
+    fa = سوابق جست وجو
 
   [search_history_text]
     tags = ios, android
@@ -12196,6 +12544,7 @@
     zh-Hant = 檢視最近的搜尋。
     el = Προβολή πρόσφατων αναζητήσεων.
     sk = Rýchlo pristupujte k nedávnym hľadaným výrazom.
+    fa = مشاهده جست وجو های اخیر
 
   [clear_search]
     tags = ios, android
@@ -12228,6 +12577,7 @@
     zh-Hant = 清除搜尋記錄
     el = Εκκαθάριση ιστορικού αναζήτησης
     sk = Vymazať históriu vyhľadávania
+    fa = پاک کردن سابقه جست وجو ها
 
   [showcase_settings_title]
     comment = Title for settings to enable/disable showcase menu button
@@ -12261,6 +12611,7 @@
     zh-Hant = 顯示優惠
     el = Εμφάνιση προσφορών
     sk = Zobraziť akcie
+    fa = نمایش پیشنهاد ها
 
   [read_in_wikipedia]
     comment = Place Page link to Wikipedia article (if map object has it).
@@ -12271,6 +12622,7 @@
     pt-BR = Wikipédia
     zh-Hant = 維基百科
     el = Wikipedia
+    fa = ویکی پدیا
 
   [p2p_route_planning]
     tags = ios, android
@@ -12302,6 +12654,7 @@
     zh-Hans = 路线计划
     zh-Hant = 路線計劃
     sk = Plánovanie trasy
+    fa = برنامه ریزی مسیر
 
   [p2p_your_location]
     tags = ios, android
@@ -12334,6 +12687,7 @@
     zh-Hant = 您的位置
     el = Η τοποθεσία σας
     sk = Vaša poloha
+    fa = موقعیت شما
 
   [p2p_from]
     tags = ios, android
@@ -12366,6 +12720,7 @@
     zh-Hant = 出發地點
     el = Από
     sk = Východiskový bod
+    fa = از
 
   [p2p_to]
     tags = ios, android
@@ -12398,6 +12753,7 @@
     zh-Hant = 目的地點
     el = Έως
     sk = Cieľový bod
+    fa = به
 
   [p2p_start]
     tags = ios, android
@@ -12430,6 +12786,7 @@
     zh-Hant = 開始
     el = Έναρξη
     sk = Štart
+    fa = شروع
 
   [p2p_planning]
     tags = ios, android
@@ -12462,6 +12819,7 @@
     zh-Hant = 計劃中…
     el = Σχεδιασμός…
     sk = Plánovanie…
+    fa = درحال برنامه ریزی
 
   [p2p_from_here]
     tags = ios, android
@@ -12494,6 +12852,7 @@
     zh-Hant = 從
     el = Διαδρομή από
     sk = Cesta z
+    fa = مسیر از
 
   [p2p_to_here]
     tags = ios, android
@@ -12526,6 +12885,7 @@
     zh-Hant = 路線終點
     el = Διαδρομή στο
     sk = Cesta do
+    fa = مسیر به
 
   [p2p_only_from_current]
     tags = ios, android
@@ -12558,6 +12918,7 @@
     zh-Hant = 導航只能從您目前的位置開始。
     el = Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.
     sk = Navigácia je dostupná iba z vašej aktuálnej polohy.
+    fa = مسیر یابی فقط از موقعیت کنونی شما قابل انجام است.
 
   [p2p_reroute_from_current]
     tags = ios, android
@@ -12590,6 +12951,7 @@
     zh-Hant = 你是否想要規劃目前位置的路線？
     el = Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;
     sk = Doriți să vă planificăm o rută având ca punct de pornire locația actuală?
+    fa = ایا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟
 
   [whats_new_next_button]
     tags = ios
@@ -12622,6 +12984,7 @@
     zh-Hant = 下一頁
     el = Επόμενη
     sk = Nasledujúca
+    fa = بعدی
 
   [editor_time_add]
     tags = ios, android
@@ -12654,6 +13017,7 @@
     zh-Hant = 新增排程
     el = Προσθέσετε χρονοδιάγραμμα
     sk = Pridať rozvrh
+    fa = اضافه کردن برنامه ریزی
 
   [editor_time_delete]
     tags = ios, android
@@ -12686,6 +13050,7 @@
     zh-Hant = 刪除排程
     el = Διαγραφή χρονοδιαγράμματος
     sk = Zmazať rozvrh
+    fa = حذف کردن برنامه ریزی
 
   [editor_time_allday]
     comment = Text for allday switch.
@@ -12719,6 +13084,7 @@
     zh-Hant = 全天 (24 小時)
     el = Όλη την ημέρα (24 ώρες)
     sk = Nepretržite (24 hodín)
+    fa = شبانه روزی (24 ساعته)
 
   [editor_time_open]
     tags = ios, android
@@ -12751,6 +13117,7 @@
     zh-Hant = 營業中
     el = Άνοιγμα
     sk = Otvorené
+    fa = باز
 
   [editor_time_close]
     tags = ios, android
@@ -12783,6 +13150,7 @@
     zh-Hant = 休息時間
     el = Κλειστό
     sk = Zatvorené
+    fa = بسته
 
   [editor_time_add_closed]
     tags = ios, android
@@ -12815,6 +13183,7 @@
     zh-Hant = 新增休息時間
     el = Προσθήκη μη-εργάσιμων ωρών
     sk = Pridať hodiny zatvorenia
+    fa = اضافه کردن ساعات غیر کاری
 
   [editor_time_title]
     tags = ios, android
@@ -12847,6 +13216,7 @@
     zh-Hant = 營業時間
     el = Εργάσιμες ώρες
     sk = Otváracie hodiny
+    fa = ساعات کاری
 
   [editor_time_advanced]
     tags = ios, android
@@ -12879,6 +13249,7 @@
     zh-Hant = 進階模式
     el = Προηγμένη λειτουργία
     sk = Rozšírený režim
+    fa = حالت پیشرفته
 
   [editor_time_simple]
     tags = ios, android
@@ -12911,6 +13282,7 @@
     zh-Hant = 簡易模式
     el = Απλή λειτουργία
     sk = Jednoduchý režim
+    fa = حالت ساده
 
   [editor_hours_closed]
     tags = ios, android
@@ -12943,6 +13315,7 @@
     zh-Hant = 休息時間
     el = Μη-εργάσιμες ώρες
     sk = Hodiny zatvorenia
+    fa = ساعات غیر کاری
 
   [editor_example_values]
     tags = ios, android
@@ -12975,6 +13348,7 @@
     zh-Hant = 範例值
     el = Παράδειγμα τιμών
     sk = Príklady hodnôt
+    fa = مقادیر پیش فرض
 
   [editor_correct_mistake]
     tags = ios, android
@@ -13007,6 +13381,7 @@
     zh-Hant = 修正錯誤
     el = Διόρθωση λάθους
     sk = Opraviť chybu
+    fa = تصحیح خطا
 
   [editor_correct_mistake_message]
     tags = ios, android
@@ -13038,6 +13413,7 @@
     zh-Hans = 出现编辑错误，请纠正或切换至简单模式。
     zh-Hant = 編輯時出錯。請修正或切換到簡易模式。
     sk = Chyba pri úprave. Opravte chybu, alebo sa prepnite do jednoduchého režimu.
+    fa = شما یک ویرایش اشتباه انجام دادید.لطفا ان را اصلاح کنید یا به حالت ساده بروید
 
   [editor_add_select_location]
     en = Location
@@ -13069,6 +13445,7 @@
     zh-Hant = 位置
     el = Τοποθεσία
     sk = Poloha
+    fa = موقعیت
 
   [editor_done_dialog_1]
     en = You’ve changed the world map. Do not keep it to yourself! Tell your friends, and edit it together.
@@ -13100,6 +13477,7 @@
     zh-Hant = 您已經改變了世界地圖。別藏私！告訴您的朋友們一起來編輯。
     el = Έχετε αλλάξει τον παγκόμιο χάρτη. Μην το κρατάτε για τον εαυτό σας! Πείτε το στους φίλους σας και κάντε τις αλλαγές μαζί.
     sk = Zmenili ste mapu sveta. Nemusíte to skrývať! Povedzte o tom svojim priateľom a začnite ju spolu upravovať.
+    fa = شما نقشه جهان را تغییر دادید.این افتخار را پیش خود نگه ندارید!به دوستانتان درموردش بگویید و با یکدیگر ویرایش کنید.
 
   [editor_done_dialog_2]
     en = This is the second time you edited the map. Now you are number %d in the map editors ranking. Tell your friends about it.
@@ -13131,6 +13509,7 @@
     zh-Hant = 這是您的第二次地圖改進。現在您在地圖編輯者排行榜中排在第%d名。把它告訴您的朋友們。
     el = Αυτή είναι η δεύτερη φορά που επεξεργαστήκατε το χάρτη. Είστε πλέον %d στην κατάταξη των επεξεργαστών του χάρτη. Πείτε το στους φίλους σας.
     sk = Toto je vaša druhá vylepšená mapa. Momentálne ste na %d. mieste zoznamu editorov máp. Povedzte o tom svojim priateľom.
+    fa = این دومین بار است که نقشه را ویرایش می کنید.اکنون شما شماره %d در رنکینگ ویرایشگران هستید.در موردش به دوستانتان بگویید.
 
   [editor_done_dialog_3]
     en = You’ve improved the map, tell your friends about it, and edit the map together.
@@ -13161,6 +13540,7 @@
     zh-Hans = 您已改进此地图，请把它告诉您的朋友们，并一起编辑此地图。
     zh-Hant = 您已改進此地圖，請把它告訴您的朋友們，並一起編輯此地圖。
     sk = Práve ste vylepšili mapu. Povedzte o tom svojim priateľom a môžete mapu upraviť aj spolu.
+    fa = شما باعث بهتر شدن نقشه شدید در موردش به دوستانتان بگویید و با یکدیگر بر روی نقشه کار کنید.
 
   [share_with_friends]
     en = Share with friends
@@ -13192,6 +13572,7 @@
     zh-Hant = 和朋友分享
     el = Μοιραστείτε με φίλους
     sk = Zdieľaj s priateľmi
+    fa = اشتراک گذاری با دوستان
 
   [editor_report_problem_desription_1]
     en = Please describe the problem in detail so that the OpenStreeMap community can fix the error.
@@ -13223,6 +13604,7 @@
     zh-Hant = 請詳細描述此問題以便 OpenStreeMap 社群修復此錯誤。
     el = Περιγράψτε το πρόβλημα αναλυτικά ώστε η Κοινότητα OpenStreeMap να διορθώσει το σφάλμα.
     sk = Prosím, pridajte detailný popis problému, aby mohla komunita OpenStreetMap opraviť danú chybu.
+    fa = لطفا مشکلتان را با جزئیات توضیح دهید بطوری که انجمن OSM بتوانند ان را برطرف کنند.
 
   [editor_report_problem_desription_2]
     en = Or do it yourself at http://www.openstreetmap.org/
@@ -13254,6 +13636,7 @@
     zh-Hant = 或者在http://www.openstreetmap.org/上親自修復此錯誤
     el = Ή κάντε το μόνοι σας στη διεύθυνση http://www.openstreetmap.org/
     sk = K oprave môžete prispieť aj vy na stránke http://www.openstreetmap.org/
+    fa = یا خودتان ان را انجام دهید در وبسایت http://www.openstreetmap.org/
 
   [editor_report_problem_send_button]
     en = Send
@@ -13285,6 +13668,7 @@
     zh-Hant = 發送
     el = Αποστολή
     sk = Odoslať
+    fa = ارسال
 
   [editor_report_problem_title]
     en = Issue
@@ -13316,6 +13700,7 @@
     zh-Hant = 問題
     el = Πρόβλημα
     sk = Problém
+    fa = مشکل
 
   [editor_report_problem_no_place_title]
     en = The place does not exist
@@ -13347,6 +13732,7 @@
     zh-Hant = 該地點不存在
     el = Η τοποθεσία δεν υπάρχει
     sk = Dané miesto neexistuje
+    fa = مکان وجود ندارد
 
   [editor_report_problem_under_construction_title]
     en = Сlosed for maintenance
@@ -13378,6 +13764,7 @@
     zh-Hant = 因維護而關閉
     el = Εκτός λειτουργίας για συντήρηση
     sk = Zatvorené kvôli prebiehajúcej údržbe
+    fa = به علت تعمییرات بسته است
 
   [editor_report_problem_duplicate_place_title]
     en = Duplicated place
@@ -13409,6 +13796,7 @@
     zh-Hant = 重複的地點
     el = Διπλότυπη τοποθεσία
     sk = Duplicitné miesto
+    fa = مکان تکراری
 
   [first_launch_congrats_title]
     en = MAPS.ME is ready to use
@@ -13440,6 +13828,7 @@
     zh-Hant = MAPS.ME 已做好使用準備
     el = Το MAPS.ME είναι έτοιμο για χρήση
     sk = Aplikácia MAPS.ME je pripravená na použitie
+    fa = MAPS.ME اماده استفاده است
 
   [first_launch_congrats_text]
     en = Search and navigate everywhere in the world offline, free of charge.
@@ -13471,6 +13860,7 @@
     zh-Hant = 在世界各地離線搜尋和導航，免費。
     el = Κάντε αναζήτηση και πλοηγηθείτε παντού στον κόσμο χωρίς σύνδεση και χωρίς χρέωση.
     sk = Vyhľadávajte a určujte trasu bez pripojenia všade na svete bez poplatkov.
+    fa = در سرتاسر دنیا جست وجو و مسیریابی کنید بدون نیاز به اینترنت و کاملا رایگان.
 
   [migrate_title]
     tags = ios, android
@@ -13503,6 +13893,7 @@
     zh-Hant = 重要！
     el = Σημαντικό!
     sk = Dôležité!
+    fa = مهم!
 
   [download_all]
     comment = Android uses image instead of text.
@@ -13535,6 +13926,7 @@
     zh-Hans = 下载所有
     zh-Hant = 全部下載
     sk = Stiahnuť všetko
+    fa = دانلود همه
 
   [delete_all]
     tags = ios, android
@@ -13566,6 +13958,7 @@
     zh-Hans = 删除全部
     zh-Hant = 刪除全部
     sk = Vymazať všetky
+    fa = حذف همه
 
   [autodownload]
     tags = ios, android
@@ -13598,6 +13991,7 @@
     zh-Hant = 自動下載
     el = Αυτόματη λήψη
     sk = Automaticky stiahnuť
+    fa = دانلود خودکار
 
   [disable_autodownload]
     tags = ios, android
@@ -13629,6 +14023,7 @@
     zh-Hans = 禁用自动下载
     zh-Hant = 停用自動下載
     sk = Zrušiť automatické preberanie
+    fa = لغو دانلود خودکار
 
   [closed_now]
     comment = Place Page opening hours text
@@ -13662,6 +14057,7 @@
     zh-Hant = 現在關門
     el = Τώρα είναι κλειστό
     sk = Teraz zatvorené
+    fa = اکنون تعطیل است
 
   [daily]
     comment = Place Page opening hours text
@@ -13695,6 +14091,7 @@
     zh-Hant = 每天
     el = Καθημερινά
     sk = Denne
+    fa = روزانه
 
   [twentyfour_seven]
     tags = ios, android
@@ -13728,6 +14125,7 @@
     el = 24/7
     he = יום ולילה
     sk = Deň a noc
+    fa = شبانه روزی
 
   [day_off_today]
     tags = ios, android
@@ -13760,6 +14158,7 @@
     zh-Hant = 今天沒有營業
     el = Κλειστό σήμερα
     sk = Dnes deň voľna
+    fa = امروز تعطیل است
 
   [day_off]
     tags = ios, android
@@ -13792,6 +14191,7 @@
     zh-Hant = 沒有營業
     el = Κλειστό
     sk = Deň voľna
+    fa = تعطیل است
 
   [today]
     tags = ios, android
@@ -13824,6 +14224,7 @@
     zh-Hant = 今天
     el = Σήμερα
     sk = Dnes
+    fa = امروز
 
   [sunrise_to_sunset]
     tags = ios, android
@@ -13855,6 +14256,7 @@
     zh-Hans = 从日出到日落
     zh-Hant = 從日出到日落
     sk = Od východu do západu slnka
+    fa = از طلوع خورشید تا غروب افتاب
 
   [sunset_to_sunrise]
     tags = ios, android
@@ -13886,6 +14288,7 @@
     zh-Hans = 从日落到日出
     zh-Hant = 從日落到日出
     sk = Od západu do východu slnka
+    fa = از غروب خورشید تا طلوع خورشید
 
   [add_opening_hours]
     tags = ios, android
@@ -13918,6 +14321,7 @@
     zh-Hant = 新增營業時間
     el = Προσθέστε ώρες λειτουργίας
     sk = Pridať otváracie hodiny
+    fa = اضافه کردن ساعت بازگشایی
 
   [edit_opening_hours]
     tags = ios, android
@@ -13950,6 +14354,7 @@
     zh-Hant = 編輯營業時間
     el = Επεξεργαστείτε τις ώρες λειτουργίας
     sk = Upraviť otváracie hodiny
+    fa = ویرایش ساعت کاری
 
   [profile]
     tags = ios, android
@@ -13982,6 +14387,7 @@
     zh-Hant = 資料
     el = Προφίλ
     sk = Profil
+    fa = نمایه
 
   [no_osm_account]
     tags = ios, android
@@ -14014,6 +14420,7 @@
     zh-Hant = 沒有 OpenStreeMap 帳號嗎？
     el = Δεν έχετε λογαριασμό OpenStreetMap;
     sk = Nemáte účet v OpenStreetMap?
+    fa = ایا حساب OpenStreetMap ندارید؟
 
   [register_at_openstreetmap]
     tags = ios, android
@@ -14046,6 +14453,7 @@
     zh-Hant = 註冊
     el = Εγγραφείτε στο OpenStreetMap
     sk = Zaregistrovať sa
+    fa = ثبت نام در OpenStreetMap
 
   [password_8_chars_min]
     tags = ios, android
@@ -14078,6 +14486,7 @@
     zh-Hant = 密碼（最少8個字母）
     el = Κωδικός πρόσβασης (8 χαρακτήρες ελάχιστο)
     sk = Heslo (8 minimálne znakov)
+    fa = رمز عبور (حداقل 8 عدد یا حرف)
 
   [invalid_username_or_password]
     tags = ios, android
@@ -14110,6 +14519,7 @@
     zh-Hant = 無效的使用者名稱或密碼。
     el = Μη έγκυρο όνομα χρήστη ή κωδικός πρόσβασης.
     sk = Nesprávne používateľské meno alebo heslo.
+    fa = نام کاربری یا رمز عبور نامعتبر است.
 
   [login]
     tags = ios, android
@@ -14142,6 +14552,7 @@
     zh-Hant = 登入
     el = Σύνδεση
     sk = Prihlásiť sa
+    fa = ورود
 
   [password]
     tags = ios, android
@@ -14174,6 +14585,7 @@
     zh-Hant = 密碼
     el = Κωδικός πρόσβασης
     sk = Heslo
+    fa = رمز عبور
 
   [forgot_password]
     tags = ios, android
@@ -14206,6 +14618,7 @@
     zh-Hant = 忘記密碼
     el = Ξαχάσατε τον κωδικό πρόσβασης;
     sk = Zabudli ste heslo?
+    fa = رمز عبور خود را فراموش کردید؟
 
   [restore_password]
     comment = Forgot Password dialog title
@@ -14238,6 +14651,7 @@
     zh-Hans = 恢复密码
     zh-Hant = 恢復密碼
     sk = Obnovenie hesla
+    fa = بازیابی رمز عبور
 
   [enter_email_address_to_reset_password]
     tags = ios, android
@@ -14269,6 +14683,7 @@
     zh-Hans = 输入您在注册时所用的邮箱地址，我们会给您发送链接更新密码
     zh-Hant = 輸入您在註冊時所用的電子郵件地址，我們會發送連結給您更新密碼
     sk = Zadajte emailovú adresu, ktorú ste použili pri registrácii, a my Vám zašleme odkaz na obnovenie hesla.
+    fa = ادرس ایمیلی را که در هنگام ثبت نام استفاده کردید را وارد کنید و ما برای شما لینک بازیابی رمز عبور را خواهیم فرستاد.
 
   [reset_password]
     tags = ios, android
@@ -14300,6 +14715,7 @@
     zh-Hans = 重置密码
     zh-Hant = 重置密碼
     sk = Obnoviť heslo
+    fa = بازیابی رمز عبور
 
   [username]
     tags = ios, android
@@ -14331,6 +14747,7 @@
     zh-Hans = 用户名
     zh-Hant = 使用者名稱
     sk = Používateľské meno
+    fa = نام کاربری
 
   [osm_account]
     tags = ios, android
@@ -14363,6 +14780,7 @@
     zh-Hant = OSM 帳號
     el = `Λογαριασμός OSM  `
     sk = OSM účet
+    fa = حساب OSM
 
   [logout]
     tags = ios, android
@@ -14395,6 +14813,7 @@
     zh-Hant = 登出
     el = Αποσύνδεση
     sk = Odhlásiť sa
+    fa = خروج از حساب
 
   [login_and_edit_map_motivation_message]
     tags = ios, android
@@ -14426,6 +14845,7 @@
     zh-Hans = 登录并编辑地图上的物品信息，我们就会让数百万其他用户看到。
     zh-Hant = 登錄並編輯地圖上的物件資訊，我們就會讓其他數百萬用戶看到。
     sk = Prihláste sa a upravte informácie o objektoch na mape, a my ich sprístupníme miliónom ďalších používateľov. Urobme svet spoločne lepším.
+    fa = وارد شوید و اشیا درون نقشه را ویرایش کنید و ما ان را برای میلیون ها کاربر مهیا می کنیم.بزن بریم و یه دنیای بهتر با هم بسازیم.
 
   [last_upload]
     comment = Information text: "Last upload 11.01.2016"
@@ -14459,6 +14879,7 @@
     zh-Hant = 上次上傳
     el = Τελευταία μεταφόρτωση
     sk = Posledné nahrávanie
+    fa = اخرین بروزرسانی
 
   [you_have_edited_your_first_object]
     comment = Motivates user to login/register, title above login buttons.
@@ -14491,6 +14912,7 @@
     zh-Hans = 您已编辑您的第一件物品！
     zh-Hant = 您已編輯您的第一個物件！
     sk = Upravili ste svoj prvý objekt!
+    fa = شما اولین ویرایشتان را انجام دادید!
 
   [thank_you]
     tags = ios, android
@@ -14523,6 +14945,7 @@
     zh-Hant = 謝謝您
     el = Σας ευχαριστούμε
     sk = Ďakujeme Vám
+    fa = متشکریم
 
   [login_with_google]
     tags = ios, android
@@ -14554,6 +14977,7 @@
     zh-Hans = 用谷歌登陆
     zh-Hant = 用 Google 登入
     sk = Prihlásiť sa cez Google
+    fa = ورود با حساب گوگل
 
   [login_with_facebook]
     tags = ios, android
@@ -14585,6 +15009,7 @@
     zh-Hans = 用脸书登陆
     zh-Hant = 用 Facebook 登入
     sk = Prihlásiť sa cez Facebook
+    fa = ورود با حساب فیسبوک
 
   [login_with_openstreetmap]
     tags = ios, android
@@ -14616,6 +15041,7 @@
     zh-Hans = 登录到www.openstreetmap.org
     zh-Hant = 登入到 www.openstreetmap.org
     sk = Prihlásiť sa cez www.openstreetmap.org
+    fa = ورود با حساب www.openstreetmap.org
 
   [edit_place]
     tags = ios, android
@@ -14648,6 +15074,7 @@
     zh-Hant = 編輯地點
     el = Επεξεργασία μέρους
     sk = Upraviť miesto
+    fa = ویرایش مکان
 
   [place_name]
     tags = ios, android
@@ -14680,6 +15107,7 @@
     zh-Hant = 地點名稱
     el = Όνομα μέρους
     sk = Názov miesta
+    fa = نام مکان
 
   [other_languages]
     comment = title above languages list cells in the editor, below editable name text field.
@@ -14712,6 +15140,7 @@
     zh-Hans = 其他语言
     zh-Hant = 其他語言
     sk = Iné jazyky
+    fa = زبان های دیگر
 
   [show_more]
     comment = small button to open list with names in different languages
@@ -14745,6 +15174,7 @@
     zh-Hant = 顯示更多
     el = Περισσότερα
     sk = Zobraziť viac
+    fa = نمایش بیشتر
 
   [show_less]
     comment = small button to close list with names in different languages
@@ -14778,6 +15208,7 @@
     zh-Hant = 顯示較少
     el = Λιγότερα
     sk = Zobraziť menej
+    fa = نمایش کمتر
 
   [add_language]
     tags = ios, android
@@ -14810,6 +15241,7 @@
     zh-Hant = 新增語言
     el = Προσθήκη γλώσσας
     sk = Pridať jazyk
+    fa = افزودن یک زبان
 
   [street]
     tags = ios, android
@@ -14842,6 +15274,7 @@
     zh-Hant = 街道
     el = Οδός
     sk = Ulica
+    fa = خیابان
 
   [house_number]
     comment = Editable House Number text field (in address block).
@@ -14875,6 +15308,7 @@
     zh-Hant = 門牌號碼
     el = Αριθμός κτιρίου
     sk = Číslo domu
+    fa = شماره ساختمان
 
   [details]
     tags = ios, android
@@ -14907,6 +15341,7 @@
     zh-Hant = 詳細資訊
     el = Λεπτομέρειες
     sk = Podrobnosti
+    fa = جزئیات
 
   [add_street]
     comment = Text field to enter non-existing street name, below list of known streets around
@@ -14940,6 +15375,7 @@
     zh-Hant = 新增街道
     el = Προσθέστε ένα δρόμο
     sk = Pridať ulicu
+    fa = اضافه کردن خیابان
 
   [choose_language]
     tags = ios, android
@@ -14972,6 +15408,7 @@
     zh-Hant = 選擇語言
     el = Επιλέξτε μια γλώσσα
     sk = Vybrať jazyk
+    fa = انتخاب یک زبان
 
   [choose_street]
     tags = ios, android
@@ -15004,6 +15441,7 @@
     zh-Hant = 選擇街道
     el = Επιλέξτε μια οδό
     sk = Vybrať ulicu
+    fa = انتخاب یک خیابان
 
   [postal_code]
     tags = ios, android
@@ -15035,6 +15473,7 @@
     zh-Hans = 邮政编码
     zh-Hant = 郵遞區號
     sk = PSČ
+    fa = کد پستی
 
   [cuisine]
     tags = ios, android
@@ -15067,6 +15506,7 @@
     zh-Hant = 料理
     el = Κουζίνα
     sk = Kuchyňa
+    fa = غذا خوری
 
   [select_cuisine]
     tags = ios, android
@@ -15099,6 +15539,7 @@
     zh-Hant = 選擇料理
     el = Επιλέξτε κουζίνα
     sk = Vyberte si kuchyňu
+    fa = انتخاب غذاخوری
 
   [email_or_username]
     comment = login text field
@@ -15132,6 +15573,7 @@
     zh-Hant = 電子郵件或使用者名稱
     el = Email ή όνομα χρήστη
     sk = Email alebo používateľské meno
+    fa = ایمیل یا نام کاربری
 
   [phone]
     tags = ios, android
@@ -15164,6 +15606,7 @@
     zh-Hant = 電話
     el = Τηλέφωνο
     sk = Telefón
+    fa = تلفن
 
   [please_note]
     tags = ios, android
@@ -15196,6 +15639,7 @@
     zh-Hant = 請註意
     el = Λάβετε υπόψη
     sk = Upozorňujeme vás, že
+    fa = لطفا توجه داشته باشد
 
   [common_no_wifi_dialog]
     tags = ios, android
@@ -15227,6 +15671,7 @@
     zh-Hans = 无 WiFi 连接。您想继续使用移动数据进行连接吗？
     zh-Hant = 無 WiFi 連接。您想繼續使用行動數據進行連接嗎？
     sk = Pripojenie k WiFi nie je k dispozícii. Chcete pokračovať s využitím mobilných dát?
+    fa = اتصال وایفای یافت نشد.ایا می خواهید با اینترنت دیتای موبایل ادامه دهید؟
 
   [downloader_delete_map_dialog]
     tags = ios, android
@@ -15259,6 +15704,7 @@
     zh-Hant = 所有對地圖的修改都將與地圖一起被刪除。
     el = Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.
     sk = Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.
+    fa = تمام ویرایش های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.
 
   [downloader_update_maps]
     tags = ios, android
@@ -15291,6 +15737,7 @@
     zh-Hant = 更新地圖
     el = Ενημέρωση χαρτών
     sk = Aktualizovať mapy
+    fa = بروزرسانی نقشه ها
 
   [downloader_mwm_migration_dialog]
     tags = ios, android
@@ -15323,6 +15770,7 @@
     zh-Hant = 為了建立路線，您需要更新全部地圖並重新規劃路線。
     el = Για να δημιουργήσετε μια διαδρομή, πρέπει να ενημερώσετε όλους τους χάρτες και στη συνέχεια να σχεδιάσετε τη διαδρομή ξανά.
     sk = Ak chcete vytvoriť cestu, musíte najskôr aktualizovať všetky mapy a potom odznova naplánovať trasu.
+    fa = برای ایجاد مسیر شما نیازمند بروزرسانی تمامی  نقشه ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید
 
   [downloader_search_field_hint]
     tags = ios, android
@@ -15355,6 +15803,7 @@
     zh-Hant = 找到地圖
     el = Ανεύρεση χάρτη
     sk = Nájsť mapu
+    fa = یافتن نقشه
 
   [migration_update_all_button]
     tags = ios, android
@@ -15387,6 +15836,7 @@
     zh-Hant = 更新全部地圖
     el = Ενημέρωση όλων των χαρτών
     sk = Aktualizovať všetky mapy
+    fa = بروزرسانی تمامی نقشه ها
 
   [migration_delete_all_download_current_button]
     tags = ios, android
@@ -15419,6 +15869,7 @@
     zh-Hant = 下載目前地圖並刪除舊地圖
     el = Κατεβάστε τον τρέχον χάρτη και διαγράψτε όλους τους παλιούς
     sk = Stiahnite si aktuálnu mapu a odstráňte neaktuálne mapy
+    fa = دانلود نقشه کنونی و حذف قدیمی ها
 
   [migration_download_error_dialog]
     tags = ios, android
@@ -15451,6 +15902,7 @@
     zh-Hant = 下載錯誤
     el = Σφάλμα λήψης
     sk = Chyba pri sťahovaní
+    fa = خطا در دانلود
 
   [common_check_internet_connection_dialog]
     tags = ios, android
@@ -15483,6 +15935,7 @@
     zh-Hant = 請檢查您的設定並確保您的設備已連接至網路。
     el = Ελέγξτε τις ρυθμίσεις σας και βεβαιωθείτε ότι η συσκευή σας είναι συνδεδεμένη στο Internet.
     sk = Prosím, skontrolujte svoje nastavenia a uistite sa, že váš počítač je pripojený k internetu.
+    fa = لطفا تنظیمات خود را بازبینی کنید و مطمئن شوید که ابزار شما به اینترنت متصل است.
 
   [downloader_no_space_title]
     tags = ios, android
@@ -15515,6 +15968,7 @@
     zh-Hant = 無足夠的空間
     el = Δεν υπάρχει αρκετός χώρος
     sk = Nemáte dostatok miesta
+    fa = فظای کافی موجود نیست
 
   [downloader_no_space_message]
     tags = ios, android
@@ -15547,6 +16001,7 @@
     zh-Hant = 請刪除不必要的資料
     el = Διαγράψτε τυχόν μη απαραίτητα δεδομένα
     sk = Prosím, odstráňte prebytočné dáta
+    fa = لطفا داده های غیر ضروری را از دستگاه خود حذف کنید
 
   [editor_general_auth_error_dialog]
     tags = ios, android
@@ -15610,6 +16065,7 @@
     zh-Hant = 登入錯誤。
     el = Σφάλμα σύνδεσης.
     sk = Pri prihlasovaní sa vyskytla chyba.
+    fa = خطای ورود
 
   [editor_login_failed_dialog]
     tags = ios, android
@@ -15641,6 +16097,7 @@
     zh-Hans = 登录失败
     zh-Hant = 登入失敗
     sk = Prihlasovanie bolo neúspešné
+    fa = ورود ناموفق
 
   [editor_username_error_dialog]
     tags = ios, android
@@ -15672,6 +16129,7 @@
     zh-Hans = 用户名不存在
     zh-Hant = 使用者名稱不存在
     sk = Používateľské meno je neplatné
+    fa = نام کاربری نامعتبر است
 
   [editor_place_edited_dialog]
     tags = ios, android
@@ -15703,6 +16161,7 @@
     zh-Hans = 您已编辑了一个对象！
     zh-Hant = 您已編輯了一個物件！
     sk = Práve ste upravili objekt!
+    fa = شما یک شئی را ویرایش کردید
 
   [editor_login_with_osm]
     tags = ios, android
@@ -15734,6 +16193,7 @@
     zh-Hans = 使用OpenStreetMap进行登录
     zh-Hant = 使用 OpenStreetMap 進行登入
     sk = Prihlásiť sa prostredníctvom OpenStreetMap
+    fa = ورود با استفاده از OpenStreetMap
 
   [editor_profile_changes]
     tags = ios, android
@@ -15766,6 +16226,7 @@
     zh-Hant = 已驗證的變更
     el = Επαληθευμένες αλλαγές
     sk = Overené zmeny
+    fa = تغییرات تایید شد
 
   [editor_profile_unsent_changes]
     tags = ios, android
@@ -15797,6 +16258,7 @@
     zh-Hans = 未发送：
     zh-Hant = 未發送：
     sk = Neodoslané:
+    fa = ارسال نشد:
 
   [editor_focus_map_on_location]
     tags = ios, android
@@ -15829,6 +16291,7 @@
     zh-Hant = 拖動地圖以選擇此物件的正確位置。
     el = Σύρετε τον χάρτη για να επιλέξετε τη σωστή θέση του αντικειμένου.
     sk = Ak chcete nastaviť správnu polohu objektu, posuňte mapu.
+    fa = برای انتخاب مکان صحیح شئی نقشه را بکشید.
 
   [editor_add_select_category]
     tags = ios, android
@@ -15861,6 +16324,7 @@
     zh-Hant = 選擇類別
     el = Επιλέξτε κατηγορία
     sk = Vybrať kategóriu
+    fa = انتخاب دسته بندی
 
   [editor_add_select_category_popular_subtitle]
     tags = ios, android
@@ -15893,6 +16357,7 @@
     zh-Hant = 受歡迎的
     el = Δημοφιλή
     sk = Obľúbené
+    fa = پرطرفدار
 
   [editor_add_select_category_all_subtitle]
     tags = ios, android
@@ -15925,6 +16390,7 @@
     zh-Hant = 所有類別
     el = Όλες οι κατηγορίες
     sk = Všetky kategórie
+    fa = همه دسته بندی ها
 
   [editor_edit_place_title]
     tags = ios, android
@@ -15957,6 +16423,7 @@
     zh-Hant = 編輯中
     el = Επεξεργασία
     sk = Úprava
+    fa = درحال ویرایش
 
   [editor_add_place_title]
     tags = ios, android
@@ -15989,6 +16456,7 @@
     zh-Hant = 新增中
     el = Προσθήκη
     sk = Nové
+    fa = درحال افزودن
 
   [editor_edit_place_name_hint]
     tags = ios, android
@@ -16021,6 +16489,7 @@
     zh-Hant = 該地點的名稱
     el = Το όνομα του τόπου
     sk = Názov miesta
+    fa = نام مکان
 
   [editor_edit_place_category_title]
     tags = ios, android
@@ -16053,6 +16522,7 @@
     zh-Hant = 類別
     el = Κατηγορία
     sk = Kategória
+    fa = دسته بندی
 
   [detailed_problem_description]
     en = Detailed description of the issue
@@ -16084,6 +16554,7 @@
     zh-Hant = 問題的詳細描述
     el = Λεπτομερή περιγραφή του θέματος
     sk = Podrobný popis problému
+    fa = توضیح مفصل در مورد مشکل
 
   [editor_report_problem_other_title]
     en = Different problem
@@ -16115,6 +16586,7 @@
     zh-Hant = 一個不同的問題
     el = Διαφορετικό πρόβλημα
     sk = Iný problém
+    fa = مشکلی دیگر
 
   [placepage_report_problem_button]
     tags = ios, android
@@ -16146,6 +16618,7 @@
     zh-Hans = 报告一个问题
     zh-Hant = 回報問題
     sk = Nahlásiť problém
+    fa = گزارش یک مشکل
 
   [placepage_add_business_button]
     tags = ios, android
@@ -16178,6 +16651,7 @@
     zh-Hant = 添加組織
     el = Προσθήκη επιχείρησης
     sk = Pridať organizáciu
+    fa = اضافه کردن یک تجارت
 
   [whatsnew_smallmwm_header]
     tags = ios, android
@@ -16210,6 +16684,7 @@
     zh-Hant = 您一直在要求，而我們已經完成
     el = Το έχετε ζητήσει εδώ και καιρό, το προσθέσαμε τελικά
     sk = Dožadovali ste sa toho a my sme vám vyhoveli
+    fa = شما درخواست زیادی داشتید و ما ان ها را نهایتا افزودیم
 
   [whatsnew_smallmwm_message]
     tags = ios, android
@@ -16242,6 +16717,7 @@
     zh-Hant = 我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。
     el = Χωρίσαμε μεγάλους χάρτες σε τμήματα. Μπορείτε πλέον να κατεβάσετε μόνο τις περιοχές που χρειάζεστε σε αντίθεση με τους χάρτες για ολόκληρες χώρες.
     sk = Mapy sme rozdelili na časti. Teraz si môžete stiahnuť jednotlivé regióny, nie celú krajinu.
+    fa = ما نقشه های بزرگ را به چند بخش تقسیم کردیم.اکنون شما می توانید فقط منطقه مورد نیازتان را به جای تمام کشور دانلود کنید.
 
   [whatsnew_search_header]
     tags = ios, android
@@ -16274,6 +16750,7 @@
     zh-Hant = 新搜尋
     el = Νέα αναζήτηση
     sk = Nové vyhľadávanie
+    fa = جست وجوی جدید
 
   [whatsnew_search_message]
     tags = ios, android
@@ -16306,6 +16783,7 @@
     zh-Hant = 我們已明顯改進了按地址的搜尋。親自看看。
     el = Έχουμε βελτιώσει σημαντικά την αναζήτηση μέσω διεύθυνσης. Δοκιμάστε το.
     sk = Významne sme zlepšili vyhľadávanie pomocou adresy. Pozrite sa sami.
+    fa = ما بطور قابل توجه ای در جست وجو از طریق ادرس پیشرفت کردیم.خودتان ببینید.
 
   [whatsnew_editor_title]
     tags = ios, android
@@ -16338,6 +16816,7 @@
     zh-Hant = 編輯此地圖*
     el = Επεξεργαστείτε το χάρτη*
     sk = Upraviť mapu*
+    fa = ویرایش نقشه*
 
   [whatsnew_editor_message_1]
     tags = ios, android
@@ -16370,6 +16849,7 @@
     zh-Hant = 新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。
     el = Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.
     sk = Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.
+    fa = اضافه کردن مکان به نقشه و ویرایش ان مستقیما از طریق این اپلیکیشن.
 
   [whatsnew_editor_message_2]
     tags = ios, android
@@ -16402,6 +16882,7 @@
     zh-Hant = * MAPS.ME 使用 OpenStreetMap 社群的數據。
     el = * Το MAPS.ME χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.
     sk = * MAPS.ME využíva dáta komunity OpenStreetMap.
+    fa = * MAPS.ME از دیتای انجمن  OpenStreetMap.
 
   [onboarding_offline_navigation_title]
     tags = ios, android
@@ -16434,6 +16915,7 @@
     zh-Hant = 您將不再迷路
     el = Δεν θα χαθείτε ποτέ ξανά
     sk = Už sa nikdy nestratíte
+    fa = شما دیگر هیچ چیز را از دست نمی دهید
 
   [onboarding_offline_navigation_message]
     tags = ios, android
@@ -16466,6 +16948,7 @@
     zh-Hant = 規劃最佳的行車和步行路線，即使在沒有網絡連接的情況下！
     el = Σχεδιασμός βέλτισης διαδρομής αυτοκινήτων και πεζών, ακόμα και χωρίς σύνδεση στο Internet!
     sk = Naplánujte si vhodné trasy na cestu autom alebo peši. Internetové pripojenie sa nevyžaduje!
+    fa = برنامه ریزی بهینه ترین مسیر برای ماشین و پیاده حتی زمانی که شما دسترسی به اینترنتی ندارید!
 
   [onboarding_offline_navigation_title_2]
     tags = ios, android
@@ -16497,6 +16980,7 @@
     zh-Hans = 离线导航
     zh-Hant = 離線導航
     sk = Offline navigácia
+    fa = ناوبری افلاین
 
   [onboarding_offline_navigation_message_2]
     tags = ios, android
@@ -16528,6 +17012,7 @@
     zh-Hans = 规划最佳的驾车和步行路线。
     zh-Hant = 規劃最佳的行車和步行路線。
     sk = Naplánujte si vhodné trasy na cestu autom alebo peši.
+    fa = برنامه ریزی بهینه مسیر برای ماشین و پیاده.
 
   [onboarding_offline_maps_title]
     tags = ios, android
@@ -16560,6 +17045,7 @@
     zh-Hant = MAPS.ME — 無需網際網路獲取全球地圖
     el = MAPS.ME — χρησιμοποιήστε χάρτες από όλο τον κόσμο χωρίς σύνδεση στο Internet
     sk = MAPS.ME — globálny prístup k mapám bez internetu
+    fa = استفاده از نقشه تمام دنیا بدون اتصال به اینترنت
 
   [onboarding_offline_maps_message]
     tags = ios, android
@@ -16592,6 +17078,7 @@
     zh-Hant = 一次下載所需地區的地圖，無需網絡連接就能使用導航和搜索功能。
     el = Κατεβάστε τους χάρτες της περιοχής που επιθυμείτε μια φορά και χρησιμοποιήστε τις λειτουργίες πλοήγησης και αναζήτησης χωρίς σύνδεση στο Internet.
     sk = Stiahnite si jednorázovo potrebné mapy - navigáciu a funkcie vyhľadávania môžete využívať aj bez internetového pripojenia.
+    fa = دانلود نقشه های مناطق دلخواه و استفاده از ویژگی های ناوبری و جست وجو بدون نیاز به اینترنت.
 
   [onboarding_notifications_message]
     tags = ios, android
@@ -16624,6 +17111,7 @@
     zh-Hant = 為了接收最新的地圖，請接收更新通知
     el = Για να λάβετε τους πιο πρόσφατους χάρτες, επιλέξτε να λαμβάνετε ειδοποιήσεις ενημερώσεων
     sk = Ak chcete získavať najnovšie mapy, zapnite si notifikácie aktualizácií
+    fa = برای دریافت اخرین بروزرسانی ها اطلاعیه های بروزرسانی را دریافت کنید
 
   [onboarding_notifications_title]
     tags = ios, android
@@ -16656,6 +17144,7 @@
     zh-Hant = 啟用更新通知
     el = Ενεργοποιήσετε τις ειδοποιήσεις για ενημερώσεις
     sk = Povoliť notifikácie aktualizácií
+    fa = فعال سازی اطلاعیه های بروزرسانی
 
   [onboarding_location_title]
     tags = ios, android
@@ -16688,6 +17177,7 @@
     zh-Hant = 幫我們找到您
     el = Βοηθήστε μας να σας βρούμε
     sk = Pomôžte nám a my vás nájdeme
+    fa = کمک کنید تا شما را بیابیم
 
   [onboarding_location_message]
     tags = ios, android
@@ -16720,6 +17210,7 @@
     zh-Hant = 如要使用導航和其他功能，我們需要能獲取您的地理位置.
     el = Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του MAPS.ME χρειάζεται πρόσβαση στη γεωγραφική σας θέση.
     sk = Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.
+    fa = به منظور استفاده شما از ناوبری و دیگر ویژگی های این اپلیکیشن MAPS.ME نیازمند دسترسی به موقعیت مکانی تان است.
 
   [onboarding_permissions_title]
     en = Allow MAPS.ME access to storage and location
@@ -16751,6 +17242,7 @@
     el = Να επιτραπεί στο MAPS.ME πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία
     sk = Povoliť aplikácii MAPS.ME prístup do ukladacieho priestoru a k polohe
     sw = Ruhusu MAPS.ME kufikia hifadhi na maeneo
+    fa = به MAPS.ME اجازه دسترسی به محل ذخیره سازی و موقعیت مکانی خود را بدهید.
 
   [onboarding_permissions_message]
     en = So you can download maps, see places and traffic near you and use navigation.
@@ -16782,6 +17274,7 @@
     el = Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.
     sk = Tak si budete môcť sťahovať mapy, prezerať miesta a dopravnú situáciu vo svojom okolí a používať navigáciu.
     sw = Ili uweze kupakua ramani, kuona maeneo na trafiki karibu nawe na utumie urambazaji.
+    fa = خب شما می تونید نقشه رو دانلود کنید و مکان های دور اطراف را به همراه حجم ترافیک دوروبرتان ببینید و از مسیر یابی استفاده کنید.
 
   [onboarding_welcome_title]
     en = Welcome to MAPS.ME
@@ -16813,6 +17306,7 @@
     el = Καλωσήρθατε στο MAPS.ME
     sk = Vitajte v aplikácii MAPS.ME
     sw = Karibu kwenye MAPS.ME
+    fa = به MAPS.ME خوش امدید
 
   [onboarding_welcome_first_subtitle]
     en = Free, fast, detailed and entirely offline maps with turn-by-turn navigation.
@@ -16844,6 +17338,7 @@
     el = Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.
     sk = Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.
     sw = Ramani za bila malipo, za haraka, za kina na za nje ya mtandao kikamilifu zenye urambazaji wa kona baada ya kona.
+    fa = رایگان,سریع,با جزئیات و با نقشه هایی کامل افلاین به همراه مسیر یابی پیچ به پیچ.
 
   [onboarding_welcome_second_subtitle]
     en = By launching the application, you agree to <a href="http://legal.my.com/us/maps/tou/">Terms of Use</a> and <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>.
@@ -16875,6 +17370,7 @@
     el = Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href="http://legal.my.com/us/maps/tou/">τους Όρους χρήσης</a> και <a href="https://legal.my.com/us/maps/privacy/">την Πολιτική απορρήτου</a>.
     sk = Spustením aplikácie súhlasíte s <a href="http://legal.my.com/us/maps/tou/"> Podmienkami používania</a> a <a href="https://legal.my.com/us/maps/privacy/"> Zásadami ochrany osobných údajov</a>.
     sw = Kwa kuanzisha programu-tumizi hii, unakubaliana na <a href="http://legal.my.com/us/maps/tou/">Sheria za Utumizi</a> na <a href="https://legal.my.com/us/maps/privacy/">Sera ya Faragha</a>.
+    fa = با اجرای این اپلیکیشن, شما موافقت خود را با  <a href="http://legal.my.com/us/maps/tou/">Terms of Use</a> و <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>اعلام می کنید.
 
   [dialog_incorrect_feature_position]
     en = Change location
@@ -16906,6 +17402,7 @@
     zh-Hant = 改變位置
     el = Αλλαγή τοποθεσίας
     sk = Zmeniť polohu
+    fa = تغییر موقعیت
 
   [message_invalid_feature_position]
     en = No object can be located here
@@ -16937,6 +17434,7 @@
     zh-Hant = 物件無法設置在這裡
     el = Δε μπορεί να εντοπιστεί αντικείμενο εδώ
     sk = Objekt sa tu nedá umiestniť
+    fa = نمی توان شی ای در این مکان باشد
 
   [login_to_make_edits_visible]
     en = Log in so other users can see the changes that you have made
@@ -16968,6 +17466,7 @@
     zh-Hant = 登入來讓其他使用者能看到您所作出的修改。
     el = Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει
     sk = Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.
+    fa = وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند
 
   [no_migration_during_navigation]
     en = Updating is not allowed during navigation.
@@ -16999,6 +17498,7 @@
     zh-Hant = 導航中禁止更新。
     el = Δεν επιτρέπεται η ενημέρωση κατά τη διάρκεια της πλοήγησης.
     sk = Počas hľadania trasy nie je možné vykonať aktualizáciu.
+    fa = بروزرسانی در حین مسیریابی مجاز نیست.
 
   [migration_no_space_message]
     comment = Error dialog no space
@@ -17031,6 +17531,7 @@
     zh-Hant = 為了下載，您需要更多的空間。請刪除不必要的數據。
     el = Για να το κατεβάσετε, χρειάζεστε περισσότερο χώρο. Διαγράψτε τυχόν μη απαραίτητα δεδομένα.
     sk = Ak chcete pokračovať v sťahovaní, musíte uvoľniť viac miesta na ukladacom priestore. Prosím, odstráňte prebytočné dáta.
+    fa = برای دانلود,شما نیازمند فضای ذخیره سازی بیشتری هستید.لطفا داده های غیر ضروری خود را حذف کنید.
 
   [editor_sharing_title]
     en = I improved the MAPS.ME maps
@@ -17062,6 +17563,7 @@
     zh-Hant = 我改進了 MAPS.ME 地圖
     el = Βελτίωσα τους χάρτες MAPS.ME
     sk = Vďaka mne sú mapy na MAPS.ME lepšie
+    fa = من نقشه های MAPS.ME را بهبود بخشیدم
 
   [editor_comment_will_be_sent]
     en = We will make sure to send your comments to the map editors.
@@ -17092,6 +17594,7 @@
     zh-Hans = 我们将把您的评论发送给地图制作者。
     zh-Hant = 我們將把您的評論發送給地圖編輯者。
     sk = Pošleme Váš príspevok kartografom.
+    fa = ما مطمئن خواهیم شد که پیام خود را به ویرایشگران نقشه ارسال خواهید کرد.
 
   [editor_unsupported_category_message]
     en = You have added an object whose category we do not support yet. It will appear on the map in the future.
@@ -17122,6 +17625,7 @@
     zh-Hans = 您已添加了一个我们尚未支持类别的地点。它将在一段时间之后显示在地图上。
     zh-Hant = 您已新增了一個我們尚未支援的類別的地點。它未來會顯示在地圖上。
     sk = Pridali ste miesto z kategórie, ktorú zatiaľ nepodporujeme. Na mape sa zobrazí až za istú dobu.
+    fa = شما شی ای را دسته بندی کرده اید که ما تاکنون از ان پشتیبانی نمی کرده ایم.ما ان را در اینده در نقشه نشان خواهیم داد.
 
   [downloader_of]
     comment = Downloaded 10 **of** 20 <- it is that "of"
@@ -17154,6 +17658,7 @@
     zh-Hant = %1$d個/共%2$d個
     el = %1$d από %2$d
     sk = %1$d z %2$d
+    fa = %1$d  از  %2$d
 
   [download_over_mobile_header]
     en = Download over a cellular network connection?
@@ -17184,6 +17689,7 @@
     zh-Hant = 用手機網絡連接下載嗎？
     el = Να γίνει λήψη μέσω δικτύου κινητής τηλεφωνίας;
     sk = Sťahovať prostredníctvom pripojenia na mobilnú sieť?
+    fa = دانلود بر روی یک شبکه دیتای موبایل؟
 
   [download_over_mobile_message]
     en = This could be considerably expensive with some plans or if roaming.
@@ -17214,6 +17720,7 @@
     zh-Hant = 用某些方案或漫遊的話這可能相當昂貴。
     el = Αυτό μπορεί να είναι σημαντικά πιο ακριβό για μερικά πακέτα ή στην περίπτωση περιαγωγής
     sk = V prípade niektorých plánov alebo použitím roamingu by to mohlo byť značne nákladné.
+    fa = این کار می تواند برای شما در بعضی طرح ها و یا حالت رومینگ هزینه اضافی در بر داشته باشد.
 
   [error_enter_correct_house_number]
     en = Enter a valid building number
@@ -17245,6 +17752,7 @@
     zh-Hant = 輸入正確的門牌號碼
     el = Εισαγάγετε έναν έγκυρο αριθμό κτιρίου
     sk = Zadajte správne číslo domu
+    fa = وارد کردن شماره ساختمان معتبر
 
   [editor_storey_number]
     tags = ios, android
@@ -17277,6 +17785,7 @@
     zh-Hant = 樓號（最大 %d）
     el = Αριθμός ορόφων (μέγιστο %d)
     sk = Počet poschodí (max %d)
+    fa = تعداد طبقات ( حداکثر %d )
 
   [error_enter_correct_storey_number]
     comment = Error message in Editor when a user tries to set the number of floors for a building higher than 25
@@ -17310,6 +17819,7 @@
     zh-Hant = 編輯最多 25 層的建築
     el = Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους 25
     sk = Upraviť s maximálne 25 poschodiami
+    fa = تعداد طبقات نباید بیش از 25 باشد
 
   [editor_zip_code]
     tags = ios, android
@@ -17342,6 +17852,7 @@
     zh-Hant = 郵遞區號
     el = Ταχυδρομικός κώδικας
     sk = PSČ
+    fa = کدپستی
 
   [error_enter_correct_zip_code]
     tags = ios, android
@@ -17374,6 +17885,7 @@
     zh-Hant = 輸入正確的郵遞區號
     el = Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα
     sk = Zadajte správne PSČ
+    fa = یک کد پستی معتبر وارد کنید
 
   [core_placepage_unknown_place]
     comment = Place Page title for long tap
@@ -17407,6 +17919,7 @@
     zh-Hant = 未知的位置
     el = Άγνωστο μέρος
     sk = Neznáme miesto
+    fa = مکان ناشناس
 
   [editor_other_info]
     tags = ios, android
@@ -17471,6 +17984,7 @@
     zh-Hant = 詳細註釋
     el = Αναλυτικό σχόλιο
     sk = Zmazaná poznámka
+    fa = اظهارنظر بیشتر
 
   [editor_detailed_description]
     tags = ios, android
@@ -17503,6 +18017,7 @@
     zh-Hant = 您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 MAPS.ME 中編輯的詳細資料。
     el = Οι προτεινόμενες αλλαγές χάρτη θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο MAPS.ME.
     sk = Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME.
+    fa = شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در MAPS.ME ویرایش کنید را برایشان بنویسید.
 
   [editor_more_about_osm]
     tags = ios, android
@@ -17535,6 +18050,7 @@
     zh-Hant = 關於 OpenStreetMap 的更多資訊
     el = Περισσότερα σχετικά με το OpenStreetMap
     sk = Viac o OpenStreetMap
+    fa = در مورد OpenStreetMap بیشتر بدانید
 
   [editor_operator]
     en = Owner
@@ -17566,6 +18082,7 @@
     zh-Hant = 營運者
     el = Ιδιοκτήτης
     sk = Prevádzkovateľ
+    fa = مالک
 
   [editor_tag_description]
     en = Enter company, organization or individual responsible for the facilities.
@@ -17596,6 +18113,7 @@
     zh-Hans = 输入公司、组织或设施负责人。
     zh-Hant = 輸入公司、組織或設施負責人。
     sk = Zadajte spoločnosť, organizáciu alebo osobu zodpovednú za prevádzku.
+    fa = نام شرکت,سازمان یا اطلاعات قابل قبول برای این ساختمان را وارد کنید.
 
   [editor_no_local_edits_title]
     en = You don't have local edits
@@ -17626,6 +18144,7 @@
     zh-Hans = 您没有本地编辑
     zh-Hant = 您沒有本機編輯
     sk = Nemáte miestne poznámky
+    fa = شما ویرایش محلی ندارید
 
   [editor_no_local_edits_description]
     en = This shows the number of your suggested changes on the map that are currently accessible only on your device.
@@ -17686,6 +18205,7 @@
     zh-Hans = 发送至 OSM
     zh-Hant = 傳送至 OSM
     sk = Odoslať do OSM
+    fa = ارسال به OSM
 
   [editor_remove]
     en = Remove
@@ -17716,6 +18236,7 @@
     zh-Hans = 删除
     zh-Hant = 移除
     sk = Odstrániť
+    fa = پاک کردن
 
   [downloader_my_maps_title]
     en = My maps
@@ -17747,6 +18268,7 @@
     zh-Hant = 我的地圖
     el = Οι χάρτες μου
     sk = Moje mapy
+    fa = نقشه های من
 
   [downloader_no_downloaded_maps_title]
     en = You haven't downloaded any maps
@@ -17778,6 +18300,7 @@
     zh-Hant = 您尚未下載任何地圖
     el = Δεν έχετε κατεβάσει χάρτες
     sk = Neprevzali ste žiadne mapy
+    fa = شما هیچ نقشه دانلود شده ای ندارید
 
   [downloader_no_downloaded_maps_message]
     en = Download maps to search for a location and use navigation offline.
@@ -17809,6 +18332,7 @@
     zh-Hant = 下載地圖來尋找位置和離線瀏覽。
     el = Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.
     sk = Prevziať mapy na nájdenie pozície a navigovanie off-line.
+    fa = برای جست وجو یک مکان و استفاده از قابلیت ناوبری, نقشه ها را دانلود کنید.
 
   [downloader_find_place_hint]
     en = Search city or country
@@ -17839,6 +18363,7 @@
     zh-Hans = 搜索城市或国家
     zh-Hant = 搜尋城市或國家
     sk = Hľadať mesto alebo krajinu
+    fa = جست وجوی شهر یا کشور
 
   [current_location_unknown_title]
     comment = Error title that appears after certain time without location.
@@ -17871,6 +18396,7 @@
     zh-Hant = 繼續偵測您的目前位置？
     el = Να συνεχίσει να ανιχνεύεται η τρέχουσα θέση σας;
     sk = Pokračovať v mazaní vašej súčasnej pozície?
+    fa = ایا یافتن مکان تان را ادامه می دهید؟
 
   [current_location_unknown_message]
     comment = Error that appears after certain time without location.
@@ -17903,6 +18429,7 @@
     zh-Hant = 目前位置未知，可能您在建築物內或隧道內。
     el = Η τρέχουσα τοποθεσία είναι άγνωστη. Ίσως είστε σε ένα κτίριο ή σε μια σήραγγα.
     sk = Súčasná pozícia je neznáma. Možno sa nachádzate v budove alebo v tuneli.
+    fa = مکان شما ناشناس مانده است.ممکن است شما داخل یک ساختمان یا تونل باشید.
 
   [current_location_unknown_continue_button]
     en = Continue
@@ -17934,6 +18461,7 @@
     zh-Hant = 繼續
     el = Συνέχεια
     sk = Pokračovať
+    fa = ادامه
 
   [current_location_unknown_stop_button]
     en = Stop
@@ -17965,6 +18493,7 @@
     zh-Hant = 停止
     el = Στοπ
     sk = Zastaviť
+    fa = توقف
 
   [current_location_unknown_error_title]
     en = Current location is unknown.
@@ -17995,6 +18524,7 @@
     zh-Hant = 目前位置未知。
     el = Η τρέχουσα τοποθεσία είναι άγνωστη.
     sk = Súčasná pozícia je neznáma.
+    fa = مکان فعلیتان ناشناس است.
 
   [current_location_unknown_error_message]
     en = An error occurred while searching for your location. Check that your device is working properly and try again later.
@@ -18026,6 +18556,7 @@
     zh-Hant = 搜尋您的位置時發生錯誤。請檢查您的裝置是否正常運作，然後重試。
     el = Παρουσιάστηκε σφάλμα κατά την αναζήτηση της τοποθεσίας σας. Ελέγξτε αν η συσκευή σας λειτουργεί κανονικά και δοκιμάστε ξανά αργότερα.
     sk = Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.
+    fa = خطایی در هنگام جست وجوی مکان شمارخ داده است.بررسی کنیید دستگاهتان به درستی کار می کند و دوباره تلاش کنید.
 
   [whatsnew_update_editor_title]
     en = We've updated the map editor
@@ -18057,6 +18588,7 @@
     zh-Hant = 我們已更新地圖編輯器
     el = Έχουμε ενημερωθεί το πρόγραμμα επεξεργασίας του χάρτη
     sk = Aktualizovali sme program na úpravu máp
+    fa = ما ویرایشگر نقشه را بروزرسانی کرده ایم
 
   [whatsnew_update_editor_message]
     en = MAPS.ME users have already made 200,000 map changes. Together we are making the most detailed maps in the world. Join us!
@@ -18088,6 +18620,7 @@
     zh-Hant = MAPS.ME 使用者已經進行了 200,000 處地圖變更。我們正在齊心協力打造世界上最詳細的地圖，加入我們吧！
     el = Οι χρήστες MAPS.ME έχουν ήδη κάνει 200.000 αλλαγές χάρτη. Μαζί δημιουργούμε τους πιο λεπτομερείς χάρτες του κόσμου. Ελάτε μαζί μας!
     sk = Používatelia MAPS.ME urobili 200 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!
+    fa = کاربران MAPS.ME تا کنون 200,000 تغییر در نقشه انجام داده اند.با یکدیگر می توانیم جزئیات بیشتری را به نقشه جهان اضافه کنیم.به ما بپیوندید!
 
   [whatsnew_update_editor_message_update]
     comment = Additional text in whats new
@@ -18120,6 +18653,7 @@
     zh-Hant = 如要使用地圖編輯器，請更新所有地圖。
     el = Ενημερώστε όλους τους χάρτες για να χρησιμοποιήσετε το πρόγραμμα επεξεργασίας του χάρτη.
     sk = Ak chcete použiť editor máp, prosím, aktualizujte všetky mapy.
+    fa = برای استفاده از ویرایشگر نقشه ابتدا تمامی نقشه های خود را بروزرسانی کنید.
 
   [location_services_disabled_header]
     en = Location services are disabled
@@ -18152,6 +18686,7 @@
     el = Οι υπηρεσίες εντοπισμού τοποθεσίας είναι απενεργοποιημένες
     he = זיהוי המיקום אינו מופעל
     sk = Identifikácia lokality je zablokovaná
+    fa = سرویس موقعیت مکانی شما غیرفعال است
 
   [location_services_disabled_message]
     en = Enable access to geolocation in the device settings
@@ -18184,6 +18719,7 @@
     el = Ενεργοποίηση πρόσβασης γεωγραφικού εντοπισμού τοποθεσίας στις ρυθμίσεις της συσκευής
     he = אפשרו גישה לגאולוקיישן בהגדרות המכשיר
     sk = Povoliť prístup ku geolokalizácii v nastaveniach prístroja
+    fa = سرویس موقعیت مکانی خود را در بخش تنظیمات فعال کنید.
 
   [location_services_disabled_1]
     tags = ios
@@ -18217,6 +18753,7 @@
     el = 1. Ανοίξτε τις ρυθμίσεις
     he = 1. פתחו את "הגדרות" (Settings)
     sk = 1. Otvorte Nastavenia
+    fa = 1. بازکردن تنظیمات
 
   [location_services_disabled_2]
     tags = ios
@@ -18312,6 +18849,7 @@
     zh-Hans = 表面
     zh-Hant = 表面
     sk = Typ parkoviska
+    fa = سطح
 
   [placepage_parking_multistorey]
     en = Multi-storey
@@ -18342,6 +18880,7 @@
     zh-Hans = 多层
     zh-Hant = 多樓層
     sk = Viacpodlažné
+    fa = چند طبقه
 
   [placepage_parking_underground]
     en = Underground
@@ -18372,6 +18911,7 @@
     zh-Hans = 地下
     zh-Hant = 未知的位置
     sk = Podzemné
+    fa = زیرزمین
 
   [placepage_parking_rooftop]
     en = Rooftop
@@ -18402,6 +18942,7 @@
     zh-Hans = 楼顶
     zh-Hant = 樓頂
     sk = Na streche
+    fa = پشت بام
 
   [placepage_parking_sheds]
     en = Sheds
@@ -18432,6 +18973,7 @@
     zh-Hans = 小屋
     zh-Hant = 小屋
     sk = Garáž
+    fa = سایبان
 
   [placepage_parking_carports]
     en = Carports
@@ -18462,6 +19004,7 @@
     zh-Hans = 屋侧车库
     zh-Hant = 屋側車庫
     sk = Otvorené garáže
+    fa = گاراژ بدون سقف
 
   [placepage_parking_boxes]
     en = Garage boxes
@@ -18491,6 +19034,7 @@
     zh-Hans = 停车房
     zh-Hant = 停車房
     sk = Hromadné garáže
+    fa = گاراژ
 
   [placepage_parking_pay]
     en = Pay
@@ -18521,6 +19065,7 @@
     zh-Hans = 付款
     zh-Hant = 付款
     sk = Platené
+    fa = پرداخت
 
   [placepage_parking_free]
     en = Free
@@ -18551,6 +19096,7 @@
     zh-Hans = 免费
     zh-Hant = 免費
     sk = Zdarma
+    fa = مجانی
 
   [placepage_parking_interval]
     en = Interval Pay
@@ -18611,6 +19157,7 @@
     zh-Hans = 编号
     zh-Hant = 編號
     sk = Číslo
+    fa = شماره.
 
   [placepage_entrance_type]
     en = Entrance
@@ -18641,6 +19188,7 @@
     zh-Hans = 入口
     zh-Hant = 入口
     sk = Vstup
+    fa = ورودی
 
   [placepage_flat]
     en = app.
@@ -18701,6 +19249,7 @@
     zh-Hans = 24 / 7
     zh-Hant = 全天候
     sk = 24 / 7
+    fa = شبانه روزی و هفت روز هفته (24 / 7)
 
   [place_page_booking_rating]
     en = Rating: %s
@@ -18732,6 +19281,7 @@
     zh-Hant = 評分： %s
     el = Βαθμολογία: %s
     sk = Hodnotenie: %s
+    fa = رتبه بندی: %s
 
   [place_page_starting_from]
     en = from %s
@@ -18763,6 +19313,7 @@
     zh-Hant = 從%s
     el = από %s
     sk = od %s
+    fa = از %s
 
   [meter]
     en = m
@@ -18793,6 +19344,7 @@
     zh-Hans = 米
     zh-Hant = 米
     sk = m
+    fa = متر
 
   [kilometer]
     en = km
@@ -18823,6 +19375,7 @@
     zh-Hans = 公里
     zh-Hant = 公里
     sk = km
+    fa = کیلومتر
 
   [kilometers_per_hour]
     en = km/h
@@ -18852,6 +19405,7 @@
     zh-Hans = 公里每小时
     zh-Hant = 公里每小時
     sk = km/h
+    fa = کیلومتربرساعت (km/h)
 
   [mile]
     en = mi
@@ -18881,6 +19435,7 @@
     zh-Hans = 英里
     zh-Hant = 英里
     sk = mi
+    fa = مایل
 
   [foot]
     en = ft
@@ -18910,6 +19465,7 @@
     zh-Hans = 英尺
     zh-Hant = 英尺
     sk = ft
+    fa = فوت
 
   [miles_per_hour]
     en = mph
@@ -18939,6 +19495,7 @@
     zh-Hans = 英里每小时
     zh-Hant = 英里每小時
     sk = mph
+    fa = مایل بر ساعت (mph)
 
   [day]
     en = d
@@ -18968,6 +19525,7 @@
     zh-Hans = 天
     zh-Hant = 天
     sk = d
+    fa = روز
 
   [hour]
     en = h
@@ -18997,6 +19555,7 @@
     zh-Hans = 小時
     zh-Hant = 小時
     sk = hod
+    fa = ساعت
 
   [minute]
     en = min
@@ -19026,6 +19585,7 @@
     zh-Hans = 分鐘
     zh-Hant = 分鐘
     sk = min
+    fa = دقیقه
 
   [placepage_place_description]
     en = Description
@@ -19056,6 +19616,7 @@
     zh-Hans = 说明
     zh-Hant = 說明
     sk = Popis
+    fa = توضیحات
 
   [placepage_more_button]
     en = More
@@ -19087,11 +19648,13 @@
     zh-Hant = 更多
     el = Περισσότερα
     sk = Viac
+    fa = بیشتر
 
   [placepage_more_reviews_button]
     en = More Reviews
     ru = Ещё отзывы
     el = Περισσότερες κριτικές
+    fa = بازخورد های بیشتر
 
   [book_button]
     en = Book
@@ -19122,6 +19685,7 @@
     zh-Hans = 预約
     zh-Hant = 預約
     sk = Rezervovať
+    fa = رزرو
 
   [placepage_call_button]
     en = Call
@@ -19153,6 +19717,7 @@
     zh-Hant = 呼叫
     el = Κλήση
     sk = Zavolať
+    fa = تماس
 
   [placepage_edit_bookmark_button]
     en = Edit Bookmark
@@ -19184,6 +19749,7 @@
     zh-Hant = 編輯書籤
     el = Επεξεργασία αγαπημένου
     sk = Upraviť záložku
+    fa = ویرایش نشانه ها
 
   [placepage_bookmark_name_hint]
     en = Bookmark Name
@@ -19215,6 +19781,7 @@
     zh-Hant = 書籤名稱
     el = Όνομα αγαπημένου
     sk = Názov záložky
+    fa = نام نشانه ها
 
   [placepage_personal_notes_hint]
     en = Personal notes
@@ -19246,6 +19813,7 @@
     zh-Hant = 個人備註
     el = Προσωπικές σημειώσεις
     sk = Osobné poznámky
+    fa = یاداشت های شخصی
 
   [placepage_delete_bookmark_button]
     en = Delete Bookmark
@@ -19277,6 +19845,7 @@
     zh-Hant = 刪除書籤
     el = Διαγραφή αγαπημένου
     sk = Zmazať záložku
+    fa = حذف نشانه
 
   [editor_edits_sent_message]
     en = Your suggested changes have been sent
@@ -19308,6 +19877,7 @@
     zh-Hant = 您的建議已傳送
     el = Οι προτεινόμενες αλλαγές σας έχουν σταλεί
     sk = Vykonali sa vami odporúčané zmeny
+    fa = تغییر پیشنهادی شما ارسال شد
 
   [editor_comment_hint]
     en = Comment…
@@ -19339,6 +19909,7 @@
     zh-Hant = 註解…
     el = Σχόλιο…
     sk = Poznámka…
+    fa = اظهار نظر
 
   [editor_reset_edits_message]
     en = Discard all local changes?
@@ -19370,6 +19941,7 @@
     zh-Hant = 重設所有本機變更？
     el = Απόρριψη όλων των τοπικών αλλαγών;
     sk = Resetovať všetky miestne časy?
+    fa = ایا تغییرات محلی را نادیده می گیرید؟
 
   [editor_reset_edits_button]
     en = Discard
@@ -19401,6 +19973,7 @@
     zh-Hant = 重設
     el = Απόρριψη
     sk = Resetovať
+    fa = نادیده گرفتن
 
   [editor_remove_place_message]
     en = Delete added place?
@@ -19432,6 +20005,7 @@
     zh-Hant = 移除已新增的位置？
     el = Διαγραφή της τοποθεσίας που προστέθηκε;
     sk = Odstrániť pridané miesto?
+    fa = ایا مکان ثبت شده حذف شود؟
 
   [editor_remove_place_button]
     en = Delete
@@ -19463,6 +20037,7 @@
     zh-Hant = 移除
     el = Διαγραφή
     sk = Odstrániť
+    fa = حذف
 
   [editor_status_sending]
     en = Sending…
@@ -19493,6 +20068,7 @@
     zh-Hans = 正在发送…
     zh-Hant = 正在傳送…
     sk = Odosiela sa…
+    fa = درحال ارسال
 
   [editor_place_doesnt_exist]
     en = Place does not exist
@@ -19524,6 +20100,7 @@
     zh-Hant = 位置不存在
     el = Η τοποθεσία δεν υπάρχει
     sk = Miesto neexistuje
+    fa = مکان وجود ندارد
 
   [text_more_button]
     en = …more
@@ -19555,6 +20132,7 @@
     zh-Hant = …更多
     el = …περισσότερα
     sk = …viac
+    fa = بیشتر....
 
   [error_enter_correct_phone]
     comment = Phone number error message
@@ -19586,6 +20164,7 @@
     zh-Hant = 輸入正確的電話號碼
     el = Εισάγετε έναν έγκυρο αριθμό τηλεφώνου
     sk = Zadajte správne telefónne číslo
+    fa = شماره تلفن معتبری وارد نمایید
 
   [error_enter_correct_web]
     en = Enter a valid web address
@@ -19616,6 +20195,7 @@
     zh-Hant = 輸入有效網址
     el = Εισάγετε μια έγκυρη διεύθυνση ιστοτόπου
     sk = Zadajte platnú webovú adresu
+    fa = ادرس وب معتبری وارد نمایید
 
   [error_enter_correct_email]
     en = Enter a valid email
@@ -19646,6 +20226,7 @@
     zh-Hant = 輸入有效電子郵箱
     el = Εισάγετε ένα έγκυρο email
     sk = Zadajte platný email
+    fa = ایمیل معتبری وارد نمایید
 
   [error_enter_correct]
     en = Enter a valid value
@@ -19675,6 +20256,7 @@
     zh-Hans = 输入有效值
     zh-Hant = 輸入有效值
     sk = Zadajte platnú hodnotu
+    fa = مقادیر معتبری وارد نمایید
 
   [editor_profile_changes_for_next_place]
     en = Changes to the next place: %d
@@ -19735,6 +20317,7 @@
     zh-Hant = 排名位置
     el = Θέση στην κατάταξη
     sk = Hodnotiaca pozícia
+    fa = موقعیت در رتبه بندی
 
   [booking_dialog_not_connect_header]
     en = To book the hotel, please enable your Internet connection
@@ -19764,6 +20347,7 @@
     zh-Hans = 要预订酒店，请启用互联网连接
     zh-Hant = 要預訂酒店，請啟用您的網際網路連線
     sk = Rezervácia hotela vyžaduje aktiváciu pripojenia k Internetu
+    fa = برای رزرو هتل, لطفا اینترنت خود را فعال نماییید
 
   [button_try]
     en = Try it
@@ -19793,6 +20377,7 @@
     zh-Hans = 试一试
     zh-Hant = 試用
     sk = Vyskúšajte to
+    fa = امتحانش کنید
 
   [refresh]
     en = Update
@@ -19824,6 +20409,7 @@
     zh-Hant = 更新
     el = Ενημέρωση
     sk = Aktualizovať
+    fa = بروزرسانی
 
   [last_update]
     en = Last update: %s
@@ -19855,6 +20441,7 @@
     zh-Hant = 上次更新於：%s
     el = Τελευταία ενημέρωση: %s
     sk = Naposledy aktualizované: %s
+    fa = اخرین بروزرسانی: %s
 
   [booking_checkin]
     en = check in: %s
@@ -19884,6 +20471,7 @@
     zh-Hans = 入住： %s
     zh-Hant = 入住： %s
     sk = príchod: %s
+    fa = چک کنید: %s
 
   [booking_checkout]
     en = check out: %s
@@ -19913,6 +20501,7 @@
     zh-Hans = 退房： %s
     zh-Hant = 退房： %s
     sk = odchod: %s
+    fa = وارسی: %s
 
   [placepage_add_place_button]
     en = Add a place to the map
@@ -19943,6 +20532,7 @@
     zh-Hant = 添加地點到地圖上
     el = Να προστεθεί η τοποθεσία στο χάρτη
     sk = Pridať miesto na mape
+    fa = اضافه کردن یک مکان به نقشه
 
   [editor_share_to_all_dialog_title]
     comment = Displayed when saving some edits to the map to warn against publishing personal data
@@ -19974,6 +20564,7 @@
     zh-Hant = 您想要發給所有用戶嗎？
     el = Θέλετε να το στείλετε σε όλους τους χρήστες;
     sk = Odoslať všetkým používateľom?
+    fa = ایا می خواهید ان را برای دیگر کاربران ارسال کنید؟
 
   [editor_share_to_all_dialog_message_1]
     comment = iOS Dialog before publishing the modifications to the public map.
@@ -20005,6 +20596,7 @@
     zh-Hant = 確保您沒有輸入任何個人數據。
     el = Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.
     sk = Nezadávajte žiadne osobné udaje.
+    fa = مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.
 
   [editor_share_to_all_dialog_message_2]
     en = We will check the changes. If we have any questions we will contact you via email.
@@ -20035,6 +20627,7 @@
     zh-Hant = 我們會檢查更改。如果我們有任何問題，我們會郵件與您聯系。
     el = Θα ελέγξουμε τις αλλαγές. Εάν έχουμε οποιαδήποτε απορία θα επικοινωνήσουμε μαζί σας μέσω email.
     sk = Skontrolujeme zmeny. V prípade otázok vás budeme kontaktovať emailom.
+    fa = ما تغییرات را بررسی می کنیم.اگر سوالی بود با ایمیل با شما تماس می گیریم.
 
   [navigation_overview_button]
     en = overview
@@ -20064,6 +20657,7 @@
     zh-Hans = 概览
     zh-Hant = 概覽
     sk = zhrnutie
+    fa = بررسی اجمالی
 
   [navigation_stop_button]
     en = stop
@@ -20093,6 +20687,7 @@
     zh-Hans = 停止
     zh-Hant = 停止
     sk = stop
+    fa = توقف
 
   [bookmarks_empty_title]
     comment = Text on an empty bookmark page
@@ -20123,6 +20718,7 @@
     zh-Hans = 保存书签
     zh-Hant = 儲存書籤
     sk = Uložiť záložky
+    fa = ذخیره نشانه ها
 
   [bookmarks_empty_message_1]
     en = Tap on ★ to save favorite places for quick access.
@@ -20152,6 +20748,7 @@
     zh-Hans = 点击★保存收藏地点以便快速访问。
     zh-Hant = 按★ 儲存至愛地點以方便存取。
     sk = Ak si chcete uložiť obľúbené miesta pre rýchly prístup, klepnite na ★.
+    fa = برروی ★ کلیک کنید تا در علاقه مندی ها برای دسترسی سریع ذخیره شود.
 
   [bookmarks_empty_message_2]
     en = Import Bookmarks from email and web.
@@ -20181,6 +20778,7 @@
     zh-Hans = 从邮箱和网页导入书签。
     zh-Hant = 從 Mail及網上匯入書籤。
     sk = Importujte si záložky z emailu a webu.
+    fa = وارد کردن نشانه ها از ایمیل یا وب.
 
   [bookmarks_empty_message_3]
     en = check out: %s
@@ -20210,6 +20808,7 @@
     zh-Hans = 退房： %s
     zh-Hant = 退房： %s
     sk = odchod: %s
+    fa = وارسی کنید: %s
 
   [bookmarks_group_name]
     comment = Name of the group for booked hotels
@@ -20240,6 +20839,7 @@
     zh-Hans = 预订的酒店
     zh-Hant = 預訂的酒店
     sk = Rezervované hotely
+    fa = رزرو هتل ها
 
   [place_page_button_read_descriprion]
     en = Read
@@ -20269,6 +20869,7 @@
     zh-Hans = 阅读
     zh-Hant = 閱讀
     sk = Prečítajte si
+    fa = خواندن
 
   [recent_track_background_dialog_title]
     comment = iOS dialog for the case when recent track recording is on and the app comes back from background
@@ -20300,6 +20901,7 @@
     zh-Hant = 禁止記錄您最近去過的路徑？
     el = Θέλετε να απενεργοποιήσετε την καταγραφή της πρόσφατης διαδρομής σας;
     sk = Znemožniť nahrávanie vami nedávno precestovanej trasy?
+    fa = غیرفعال سازی ذخیره مسیر اخیرا طی شده
 
   [sharing_booking]
     comment = If a hotel is being shared
@@ -20331,6 +20933,7 @@
     zh-Hant = 或在booking.com上預訂
     el = ή κάντε κράτηση στο booking.com
     sk = alebo si rezervujte na booking.com
+    fa = یا در booking.com رزرو نمایید.
 
   [off_recent_track_background_button]
     en = Disable
@@ -20361,6 +20964,7 @@
     zh-Hant = 禁用
     el = Απενεργοποίηση
     sk = Znemožniť
+    fa = غیرفعال
 
   [sharing_call_action_look]
     comment = For sharing via SMS and so on
@@ -20392,6 +20996,7 @@
     zh-Hant = 看一看
     el = Αναχώρηση
     sk = Pozrite si
+    fa = بررسی کنید
 
   [continue_recent_track_background_button]
     en = Continue
@@ -20421,6 +21026,7 @@
     zh-Hans = 继续
     zh-Hant = 繼續
     sk = Pokračovať
+    fa = ادامه
 
   [recent_track_background_dialog_message]
     en = MAPS.ME uses your geoposition in the background for recording your recently traveled route.
@@ -20451,6 +21057,7 @@
     zh-Hant = MAPS.ME使用背景中的地理位置記錄您最近去過的路徑。
     el = Το MAPS.ME χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.
     sk = MAPS.ME používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.
+    fa = MAPS.ME  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر هایی که اخیرا سفر کرده اید استفاده می کند.
 
   [whatsnew_car_navigation_header]
     en = User-friendly vehicle navigation
@@ -20601,6 +21208,7 @@
     zh-Hant = 便捷的酒店搜索
     el = Εύκολη αναζήτηση ξενοδοχείου
     sk = Jednoduché vyhľadávanie hotelov
+    fa = جست وجوی اسان هتل ها
 
   [whatsnew_booking_2_message]
     en = The search results show the hotel rating and price category.
@@ -20631,6 +21239,7 @@
     zh-Hant = 該搜索結果顯示酒店星級和價格分類。
     el = Τα αποτελέσματα αναζήτησης δείχνουν τη βαθμολογία του ξενοδοχείου και την κατηγορία τιμής.
     sk = Výsledky vyhľadávania ukazujú hodnotenie hotelov a cenové kategórie.
+    fa = نتایج جست وجوی شما شامل رده بندی و قیمت هتل ها می شود.
 
   [whatsnew_cycle_navigation_header]
     en = Bike navigation (beta version)
@@ -20723,6 +21332,7 @@
     zh-Hant = 在 Google Play 評分
     el = Βαθμολογήστε το στο Google Play
     sk = Ohodnotiť v službe Google Play
+    fa = امتیاز دادن در گوگل پلی
 
   [tell_friends]
     comment = Share with friends: menu item title
@@ -20755,6 +21365,7 @@
     zh-Hant = 告訴朋友
     el = Πείτε το σε ένα φίλο
     sk = Povedať priateľovi
+    fa = به یک دوست بگویید
 
   [tell_friends_text]
     comment = Share with friends: sharing text
@@ -20787,6 +21398,7 @@
     zh-Hant = 嗨！安裝 MAPS.ME！
     el = Γεια σας! Εγκαταστήστε το MAPS.ME!
     sk = Ahoj! Nainštaluj si aplikáciu MAPS.ME
+    fa = سلام!  MAPS.ME را نصب کنید.
 
   [about_description]
     comment = About short text (below logo)
@@ -20819,6 +21431,7 @@
     zh-Hant = MAPS.ME 是一款基本離線旅遊應用程式。MAPS.ME 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。
     el = Το MAPS.ME είναι η απαραίτητη εφαρμογή γα ταξίδια που λειτουργεί εκτός σύνδεσης. Το MAPS.ME βασίζεται σε δεδομένα OpenStreetMap και σας επιτρέπει να τα επεξεργαστείτε.
     sk = MAPS.ME je offine aplikácia na cestovanie. Základom aplikácie MAPS.ME sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.
+    fa = MAPS.ME یک نرم افزار افلاین مخصوص سفر است. MAPS.ME بر پایه دیتای OpenStreetMap است و به شما اجازه ویرایش در ان را می دهد.
 
   [blog]
     comment = Text in menu
@@ -20851,6 +21464,7 @@
     zh-Hant = 部落格
     el = Ιστολόγιο
     sk = Blog
+    fa = وبلاگ
 
   [allow_statistics_hint]
     comment = Hint near allow statictics checkbox
@@ -20884,6 +21498,7 @@
     el = Η συλλογή ανώνυμων στατιστικών στοιχείων μας βοηθά να βελτιώσουμε την εφαρμογή.
     sk = Zhromažďovanie anonymných štatistických údajov o používaní nám umožňuje vylepšovať aplikáciu.
     sw = Kukusanya takwimu za utumizi bila utambulisho wako kunatusaidia kuiboresha programu-tumizi hii.
+    fa = جمع اوری داده های ناشناس به ما در بهتر کردن این اپلیکیشن کمک می کند.
 
   [general_settings]
     en = General settings
@@ -20914,6 +21529,7 @@
     zh-Hant = 一般設定
     el = Γενικές ρυθμίσεις
     sk = Všeobecné nastavenia
+    fa = تنظیمات عمومی
 
   [date]
     en = Date %d
@@ -20944,6 +21560,7 @@
     zh-Hant = 日期 %d
     el = Ημερομηνία %d
     sk = Dátum %d
+    fa = تاریخ %d
 
   [something_is_not_working]
     comment = "Report a bug" -> "Generaal Feedback" -> "Something is not working"
@@ -20975,6 +21592,7 @@
     zh-Hant = 某些地方出錯了
     el = Κάτι δεν λειτουργεί
     sk = Niečo nefunguje
+    fa = یه چیزی درست کار نمی کنه
 
   [accept]
     comment = For the first routing
@@ -21006,10 +21624,12 @@
     zh-Hant = 接受
     el = Συμφωνώ
     sk = Prijať
+    fa = موافقم
 
   [accept_and_continue]
     en = Accept and continue
     ru = Принять и продолжить
+    fa = قبول و ادامه
 
   [decline]
     comment = For the first routing
@@ -21041,6 +21661,7 @@
     zh-Hant = 拒絕
     el = Διαφωνώ
     sk = Odmietnuť
+    fa = کاهش
 
   [whats_new_route_profile_title]
     en = Better go about than fall into the ditch
@@ -21255,6 +21876,7 @@
     zh-Hant = 訂一部計程車
     el = Παραγγελία ταξί
     sk = Objednať taxík
+    fa = سفارش تاکسی
 
   [taxi_wait]
     comment = How long it is until the taxi arrives
@@ -21286,6 +21908,7 @@
     zh-Hant = 預計 %s 內到達
     el = Χρόνος αναμονής %s
     sk = Očakávaný príjazd o %s
+    fa = انتظار می رود در %s
 
   [taxi_not_found]
     comment = When there are no available taxis nearby
@@ -21317,6 +21940,7 @@
     zh-Hant = 無法在附近找到計程車
     el = Δε βρέθηκε ταξί σε κοντινή απόσταση
     sk = V okolí sa nepodarilo nájsť žiaden taxík
+    fa = تاکسی در نزدیکی شما یافت نشد
 
   [taxi_no_providers]
     comment = When there are no available taxi providers nearby
@@ -21350,6 +21974,7 @@
     el = Δεν υπάρχει διαθέσιμο ταξί εδώ
     sk = Taxík to nie je k dispozícii
     sw = Teksi haipatikani hapa
+    fa = سرویس دهنده ای در نزدیکی شما موجود نیست
 
   [install_app]
     en = Install
@@ -21380,6 +22005,7 @@
     zh-Hant = 安裝
     el = Εγκατάσταση
     sk = Nainštalovať
+    fa = نصب
 
   [booking_filters]
     comment = `Filter` is a noun here
@@ -21411,6 +22037,7 @@
     zh-Hant = 篩選條件
     el = Φίλτρο
     sk = Filter
+    fa = فیلتر
 
   [booking_filters_reset]
     en = Reset
@@ -21441,6 +22068,7 @@
     zh-Hant = 重設
     el = Μηδενισμός
     sk = Obnoviť
+    fa = بازنشانی
 
   [booking_filters_rating]
     comment = Beginning from a particular value and
@@ -21473,6 +22101,7 @@
     el = Βαθμολογία από
     sk = Hodnotenie nad
     sw = Kadirio kuanzia
+    fa = رده بندی از
 
   [booking_filters_rating_any]
     en = Any
@@ -21533,6 +22162,7 @@
     zh-Hant = 好
     el = Καλή
     sk = Dobré
+    fa = خوب
 
   [booking_filters_rating_very_good]
     en = Very Good
@@ -21563,6 +22193,7 @@
     zh-Hant = 很好
     el = Πολύ καλή
     sk = Veľmi dobré
+    fa = بسیار خوب
 
   [booking_filters_rating_excellent]
     en = Excellent
@@ -21593,6 +22224,7 @@
     zh-Hant = 極好
     el = Τέλεια
     sk = Výborné
+    fa = عالی
 
   [booking_filters_price_category]
     en = Price Category
@@ -21623,6 +22255,7 @@
     zh-Hant = 價格類別
     el = Κατηγορία τιμής
     sk = Cenová kategória
+    fa = دسته بندی قیمت
 
   [search_no_results_title]
     en = No Results Found
@@ -21653,6 +22286,7 @@
     zh-Hant = 找不到任何結果
     el = Δεν βρέθηκαν αποτελέσματα
     sk = Nenašli sa žiadne výsledky
+    fa = چیزی یافت نشد
 
   [search_no_results_message]
     en = Try a more general search term, zoom out or reset the filter.
@@ -21683,6 +22317,7 @@
     zh-Hant = 嘗試一個更普通的搜尋字詞、縮小顯示或重設篩選條件。
     el = Δοκιμάστε ένα γενικότερο όρο αναζήτησης, κάντε σμίκρυνση ή μηδενίστε το φίλτρο.
     sk = Skúste vyhľadávať všeobecnejší výraz, vzdialiť alebo obnoviť nastavenie filtra.
+    fa = چیز های عمومی تری را جست وجو کنید,کوچک نمایی کنید یا این فیلتر را پاک کنید.
 
   [search_no_results_expand_area_button]
     en = Zoom out
@@ -21713,6 +22348,7 @@
     zh-Hant = 縮小
     el = Σμίκρυνση
     sk = Vzdialiť
+    fa = کوچک نمایی
 
   [search_no_results_reset_button]
     en = Reset Filter
@@ -21743,6 +22379,7 @@
     zh-Hant = 重設篩選條件
     el = Μηδενισμός φίλτρου
     sk = Obnoviť filter
+    fa = پاک کردن فیلتر
 
   [search_in_table]
     comment = noun
@@ -21774,6 +22411,7 @@
     zh-Hant = 清單
     el = Λίστα
     sk = Zoznam
+    fa = لیست
 
   [booking_based_on_reviews]
     en = Based on %d hotel reviews
@@ -21834,6 +22472,7 @@
     zh-Hant = 顯示更多
     el = Εμφάνιση περισσοτέρων
     sk = Zobraziť viac
+    fa = نمایش بیشتر
 
   [booking_reviews]
     en = Reviews
@@ -21864,6 +22503,7 @@
     zh-Hant = 評論
     el = Κριτικές
     sk = Recenzie
+    fa = بازخورد
 
   [booking_hotel]
     en = Hotel
@@ -21894,6 +22534,7 @@
     zh-Hant = 飯店
     el = Ξενοδοχείο
     sk = Hotel
+    fa = هتل
 
   [booking_hotel_room]
     comment = hotel room
@@ -21925,6 +22566,7 @@
     zh-Hant = 客房
     el = Δωμάτιο
     sk = Izba
+    fa = اتاق
 
   [chat]
     comment = A neologism for a chat based on geographical proximity
@@ -21956,6 +22598,7 @@
     zh-Hant = Geochat
     el = Geochat
     sk = GeoChat
+    fa = چت مکانی
 
   [chat_open]
     comment = Verb. Text on a button that opens the chat.
@@ -21987,6 +22630,7 @@
     zh-Hant = 開放
     el = Άνοιγμα
     sk = Otvoriť
+    fa = باز
 
   [whatsnew_uber_header]
     en = MAPS.ME & Uber
@@ -22017,6 +22661,7 @@
     zh-Hant = 優步 & MAPS.ME離綫地圖
     el = MAPS.ME & Uber
     sk = MAPS.ME & Uber
+    fa = MAPS.ME & اوبر
 
   [whatsnew_uber_message]
     en = Order a taxi directly from the app!
@@ -22048,6 +22693,7 @@
     zh-Hant = 直接從應用程序預訂計程車！
     el = Καλέστε ταξί Uber απευθείας μέσα από την εφαρμογή!
     sk = Objednajte si Uber priamo z aplikácie!
+    fa = سفارش تاکسی, مستقیم از طریق اپلیکیشن!
 
   [dialog_taxi_offline]
     en = Taxi ordering is unavailable in offline mode.
@@ -22079,6 +22725,7 @@
     zh-Hant = 叫計程車服務在離線模式下無法使用。
     el = Η παραγγελία ταξί δεν είναι διαθέσιμη σε offline ρύθμιση.
     sk = Objednanie taxíka nie je k dispozícii v režime offline.
+    fa = سفارش تاکسی در حالت افلاین موجود نیست!
 
   [dialog_taxi_error]
     en = Taxi ordering is temporarily unavailable.
@@ -22110,6 +22757,7 @@
     zh-Hant = 叫計程車服務暫時無法使用。
     el = Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.
     sk = Objednanie taxíka je dočasne nedostupné.
+    fa = سفارش تاکسی موقتا موجود نیست.
 
   [advertisement]
     comment = Abbreviated for all languages.
@@ -22144,6 +22792,7 @@
     zh-Hant = 使用手機網路顯示詳細資訊？
     el = Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;
     sk = Použiť mobilný internet na zobrazenie podrobnejších informácií?
+    fa = از دیتای موبایل برای نمایش اطلاعات بیشتر استفاده شود؟
 
   [mobile_data_option_always]
     en = Use Always
@@ -22174,6 +22823,7 @@
     zh-Hant = 一律使用
     el = Να χρησιμοποιείται πάντα
     sk = Vždy použiť
+    fa = همیشه استفاده کن
 
   [mobile_data_option_today]
     en = Only Today
@@ -22204,6 +22854,7 @@
     zh-Hant = 僅限今天
     el = Μόνο σήμερα
     sk = Iba dnes
+    fa = فقط امروز
 
   [mobile_data_option_not_today]
     en = Do not Use Today
@@ -22234,6 +22885,7 @@
     zh-Hant = 今天不使用
     el = Να μην χρησιμοποιηθεί σήμερα
     sk = Dnes nepoužiť
+    fa = امروز نه
 
   [mobile_data]
     en = Mobile Internet
@@ -22264,6 +22916,7 @@
     zh-Hant = 手機網路
     el = Ίντερνετ μέσω δικτύου κινητής
     sk = Mobilný internet
+    fa = دیتای موبایل
 
   [mobile_data_description]
     en = Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.
@@ -22294,6 +22947,7 @@
     zh-Hant = 需有手機網路才能顯示相片、價格與評論等詳細資訊和地點。
     el = Απαιτείται πρόσβαση στο Ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.
     sk = Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.
+    fa = برای نمایش جزئیات مکان مانند تصاویر قیمت ها و بازخورد ها به اینترنت همراه نیاز است
 
   [mobile_data_option_never]
     en = Never Use
@@ -22324,6 +22978,7 @@
     zh-Hant = 絕不使用
     el = Να μην χρησιμοποιείται ποτέ
     sk = Nikdy nepoužiť
+    fa = هرگز
 
   [mobile_data_option_ask]
     en = Always Ask
@@ -22354,6 +23009,7 @@
     zh-Hant = 一律詢問
     el = Να γίνεται ερώτηση πάντα
     sk = Vždy sa opýtať
+    fa = همیشه بپرس
 
   [traffic_update_maps_text]
     en = To display traffic data, maps must be updated.
@@ -22384,6 +23040,7 @@
     zh-Hant = 若要顯示交通資料，必須更新地圖。
     el = Για να εμφανίσετε πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.
     sk = Na zobrazenie dopravných informácií je potrebné aktualizovať mapy.
+    fa = برای نمایش ترافیک,نقشه می بایستی بروزرسانی شود.
 
   [traffic_outdated]
     en = Traffic data is outdated.
@@ -22414,6 +23071,7 @@
     zh-Hant = 交通資料已過時。
     el = Οι πληροφορίες για την κίνηση είναι παλιές.
     sk = Dopravné informácie sú neaktuálne.
+    fa = دیتای ترافیک منقضی شده است.
 
   [big_font]
     en = Increase font size on the map
@@ -22444,6 +23102,7 @@
     zh-Hant = 增加地圖上的字體大小
     el = Αύξηση μεγέθους γραμματοσειράς στο χάρτη
     sk = Zväčšiť veľkosť písma na mape
+    fa = افزایش اندازه متن بر روی نقشه
 
   [traffic_update_app]
     en = Please update MAPS.ME
@@ -22474,6 +23133,7 @@
     zh-Hant = 請更新 MAPS.ME
     el = Κάντε ενημέρωση του MAPS.ME
     sk = Aktualizujte si aplikáciu MAPS.ME
+    fa = لطفا MAPS.ME را بروزرسانی کنید
 
   [traffic_update_app_message]
     comment = "traffic" as in road congestion
@@ -22505,6 +23165,7 @@
     zh-Hant = 若要顯示交通資訊，必須更新應用程式。
     el = Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.
     sk = Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.
+    fa = برای نمایش ترافیک باید اپلیکیشن را بروزرسانی کنید.
 
   [traffic_data_unavailable]
     comment = "traffic" as in "road congestion"
@@ -22536,6 +23197,7 @@
     zh-Hant = 無法使用交通資訊
     el = Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες
     sk = Dopravné informácie nie sú k dispozícii
+    fa = اطلاعات ترافیکی موجود نیست
 
   [banner_deliveryclub_title]
     en = Food delivery
@@ -22566,6 +23228,7 @@
     zh-Hant = 送餐
     el = Παράδοση φαγητού
     sk = Donáška jedla
+    fa = ارسال غذا
 
   [banner_deliveryclub_message]
     en = Fast delivery from 4,000 restaurants. Order from Delivery Club.
@@ -22934,6 +23597,7 @@
     he = נתוני תנועה ב-36 מדינות
     hi = 36 देशों में ट्रैफिक डेटा
     sk = Dopravné informácie v 36 krajinách
+    fa = اطلاعات ترافیکی در 36 کشور
 
   [whatsnew_traffic_text]
     comment = december
@@ -23387,6 +24051,7 @@
     zh-Hant = 7.0+
     el = 7,0+
     sk = 7,0 a viac
+    fa = 7.0+
 
   [booking_filter_rating_num_very_good]
     comment = Eight points and higher
@@ -23418,6 +24083,7 @@
     zh-Hant = 8.0+
     el = 8,0+
     sk = 8,0 a viac
+    fa = 8.0+
 
   [booking_filter_rating_num_excellent]
     comment = Nine points and higher
@@ -23449,6 +24115,7 @@
     zh-Hant = 9.0+
     el = 9,0+
     sk = 9,0 a viac
+    fa = 9.0+
 
   [booking_filter_price_low]
     en = $
@@ -23490,6 +24157,7 @@
     el = Εύκολα χρώματα για την κίνηση
     en_GB = Simplified traffic colours
     sk = Zjednodušené farby dopravy
+    fa = رنگ های ترافیکی ساده شده
 
   [enable_logging]
     en = Enable logging
