@@ -1357,9 +1357,9 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
       FeaturesLayerPathFinder::SetModeForTesting(FeaturesLayerPathFinder::MODE_AUTO);
     });
 
-    auto const ruleStreet = {ExactMatch(countryId, computingStreet)};
-    auto const ruleBuilding = {ExactMatch(countryId, statisticalLearningBuilding)};
-    auto const rulePoi = {ExactMatch(countryId, reinforcementCafe)};
+    auto const ruleStreet = ExactMatch(countryId, computingStreet);
+    auto const ruleBuilding = ExactMatch(countryId, statisticalLearningBuilding);
+    auto const rulePoi = ExactMatch(countryId, reinforcementCafe);
 
     // POI-BUILDING-STREET
     TEST(ResultsMatch("computing street statistical learning cafe ", {rulePoi}), ());
