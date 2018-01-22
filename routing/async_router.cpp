@@ -37,6 +37,9 @@ string ToString(IRouter::ResultCode code)
   case IRouter::NeedMoreMaps: return "NeedMoreMaps";
   case IRouter::FileTooOld: return "FileTooOld";
   case IRouter::IntermediatePointNotFound: return "IntermediatePointNotFound";
+  case IRouter::TransitRouteNotFoundNoNetwork: return "RouteNotFoundNoTransitNetwork";
+  case IRouter::TransitRouteNotFoundTooLongPedestrian: return "TransitRouteNotFoundTooLongPedestrian";
+  case IRouter::RouteNotFoundRedressRouteError: return "RouteNotFoundRedressRouteError";
   }
 
   string const result = "Unknown IRouter::ResultCode:" + to_string(static_cast<int>(code));
@@ -226,6 +229,15 @@ void AsyncRouter::LogCode(IRouter::ResultCode code, double const elapsedSec)
       break;
     case IRouter::IntermediatePointNotFound:
       LOG(LWARNING, ("Can't find intermediate point node"));
+      break;
+    case IRouter::TransitRouteNotFoundNoNetwork:
+      LOG(LWARNING, ("Transit route not found because no transit network in route point mwm"));
+      break;
+    case IRouter::TransitRouteNotFoundTooLongPedestrian:
+      LOG(LWARNING, ("Transit route not found because pedestrian way is too long"));
+      break;
+    case IRouter::RouteNotFoundRedressRouteError:
+      LOG(LWARNING, ("Route not found because a redress route error"));
       break;
   }
 }

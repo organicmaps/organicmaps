@@ -27,6 +27,9 @@ class ResultCodesHelper
   private static final int INTERNAL_ERROR = 10;
   private static final int FILE_TOO_OLD = 11;
   private static final int INTERMEDIATE_POINT_NOT_FOUND = 12;
+  private static final int TRANSIT_ROUTE_NOT_FOUND_NO_NETWORK = 13;
+  private static final int TRANSIT_ROUTE_NOT_FOUND_TOO_LONG_PEDESTRIAN = 14;
+  private static final int ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR = 15;
 
   static Pair<String, String> getDialogTitleSubtitle(int errorCode, int missingCount)
   {
@@ -75,6 +78,9 @@ class ResultCodesHelper
       messages.add(resources.getString(R.string.downloader_mwm_migration_dialog));
       break;
     case ROUTE_NOT_FOUND:
+    case TRANSIT_ROUTE_NOT_FOUND_NO_NETWORK:
+    case TRANSIT_ROUTE_NOT_FOUND_TOO_LONG_PEDESTRIAN:
+    case ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR:
       if (missingCount == 0)
       {
         titleRes = R.string.dialog_routing_unable_locate_route;

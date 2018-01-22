@@ -1,5 +1,8 @@
 #pragma once
 
+#include "routing/base/astar_algorithm.hpp"
+#include "routing/base/routing_result.hpp"
+
 #include "routing/cross_mwm_graph.hpp"
 #include "routing/directions_engine.hpp"
 #include "routing/edge_estimator.hpp"
@@ -77,7 +80,7 @@ private:
                                        m2::PointD const & startDirection,
                                        RouterDelegate const & delegate, Route & route);
   IRouter::ResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
-                                        Segment const & startSegment,
+                                        Segment const & startSegment, Segment const & finishSegment,
                                         RouterDelegate const & delegate, IndexGraphStarter & graph,
                                         std::vector<Segment> & subroute);
 
@@ -110,6 +113,36 @@ private:
                                    Route & route) const;
 
   bool AreMwmsNear(std::set<NumMwmId> const & mwmIds) const;
+  bool DoesTransitSectionExist(NumMwmId numMwmId) const;
+  IRouter::ResultCode ConvertTransitResult(NumMwmId startMwmId, NumMwmId finalMwmId,
+                                           IRouter::ResultCode resultCode) const;
+
+  template <typename Graph>
+  IRouter::ResultCode ConvertResult(typename AStarAlgorithm<Graph>::Result result) const
+  {
+    switch (result)
+    {
+    case AStarAlgorithm<Graph>::Result::NoPath: return IRouter::RouteNotFound;
+    case AStarAlgorithm<Graph>::Result::Cancelled: return IRouter::Cancelled;
+    case AStarAlgorithm<Graph>::Result::OK: return IRouter::NoError;
+    }
+  }
+
+  template <typename Graph>
+  IRouter::ResultCode FindPath(
+      typename AStarAlgorithm<Graph>::Params & params, NumMwmId startMwmId, NumMwmId finalMwmId,
+      RoutingResult<typename Graph::Vertex, typename Graph::Weight> & routingResult) const
+  {
+    AStarAlgorithm<Graph> algorithm;
+    if (params.m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
+    {
+      return ConvertTransitResult(startMwmId, finalMwmId,
+                                  ConvertResult<Graph>(algorithm.FindPath(params, routingResult)));
+    }
+    return ConvertTransitResult(
+        startMwmId, finalMwmId,
+        ConvertResult<Graph>(algorithm.FindPathBidirectional(params, routingResult)));
+  }
 
   VehicleType m_vehicleType;
   bool m_loadAltitudes;

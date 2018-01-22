@@ -59,6 +59,9 @@ public:
     InternalError = 10,
     FileTooOld = 11,
     IntermediatePointNotFound = 12,
+    TransitRouteNotFoundNoNetwork = 13,
+    TransitRouteNotFoundTooLongPedestrian = 14,
+    RouteNotFoundRedressRouteError = 15,
   };
 
   virtual ~IRouter() {}
