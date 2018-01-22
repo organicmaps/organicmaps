@@ -79,11 +79,4 @@
     placePage:animationType="left"
     placePage:docked="true"
     tools:ignore="UnknownIdInLayout"/>
-
-  <com.mapswithme.maps.search.HotelsFilterView
-    android:id="@+id/hotels_filter"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@id/toolbar"
-    tools:visibility="gone"/>
 </RelativeLayout>

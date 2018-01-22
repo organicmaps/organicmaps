@@ -92,10 +92,4 @@
     android:elevation="@dimen/panel_elevation"
     android:visibility="gone"
     tools:visibility="visible"/>
-
-  <com.mapswithme.maps.search.HotelsFilterView
-    android:id="@+id/hotels_filter"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:visibility="gone"/>
 </RelativeLayout>

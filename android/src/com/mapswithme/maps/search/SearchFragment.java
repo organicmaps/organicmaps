@@ -1,5 +1,6 @@
 package com.mapswithme.maps.search;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
@@ -70,23 +71,9 @@ public class SearchFragment extends BaseMwmFragment
   @Nullable
   private SearchAdView mGoogleAdView;
   @NonNull
-  private final Runnable mResultsShowingTask = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      refreshSearchResults();
-    }
-  };
+  private final Runnable mResultsShowingTask = this::refreshSearchResults;
   @NonNull
-  private final Runnable mSearchEndTask = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      onSearchEnd();
-    }
-  };
+  private final Runnable mSearchEndTask = this::onSearchEnd;
 
   private static class LastPosition
   {
@@ -348,55 +335,52 @@ public class SearchFragment extends BaseMwmFragment
     if (ConnectionState.isWifiConnected() && SharedPropertiesUtils.isShowcaseSwitchedOnLocal())
     {
       mAdsLoader = new GoogleAdsLoader(getContext(), ADS_DELAY_MS);
-      mAdsLoader.attach(new GoogleAdsLoader.AdvertLoadingListener()
-      {
-        @Override
-        public void onLoadingFinished(@NonNull SearchAdView searchAdView)
-        {
-          mGoogleAdView = searchAdView;
-          mAdsRequested = false;
-        }
-      });
+      mAdsLoader.attach(searchAdView ->
+                        {
+                          mGoogleAdView = searchAdView;
+                          mAdsRequested = false;
+                        });
     }
 
     ViewGroup root = (ViewGroup) view;
-    mAppBarLayout = (AppBarLayout) root.findViewById(R.id.app_bar);
-    mToolbarLayout = (CollapsingToolbarLayout) mAppBarLayout.findViewById(R.id.collapsing_toolbar);
+    mAppBarLayout = root.findViewById(R.id.app_bar);
+    mToolbarLayout = mAppBarLayout.findViewById(R.id.collapsing_toolbar);
     mTabFrame = root.findViewById(R.id.tab_frame);
-    ViewPager pager = (ViewPager) mTabFrame.findViewById(R.id.pages);
+    ViewPager pager = mTabFrame.findViewById(R.id.pages);
 
     mToolbarController = new ToolbarController(view);
 
-    TabLayout tabLayout = (TabLayout) root.findViewById(R.id.tabs);
+    TabLayout tabLayout = root.findViewById(R.id.tabs);
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
 
     mResultsFrame = root.findViewById(R.id.results_frame);
-    mResults = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
+    mResults = mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(mResults);
-    mResultsPlaceholder = (PlaceholderView) mResultsFrame.findViewById(R.id.placeholder);
+    mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
     mResultsPlaceholder.setContent(R.drawable.img_mappyny,
                                    R.string.search_not_found, R.string.search_not_found_query);
 
     mFilterElevation = view.findViewById(R.id.filter_elevation);
 
     mFilterController = new SearchFilterController(root.findViewById(R.id.filter_frame),
-                                                   (HotelsFilterView) view.findViewById(R.id.filter),
                                                    new SearchFilterController.DefaultFilterListener()
     {
       @Override
-      public void onViewClick()
+      public void onShowOnMapClick()
       {
         showAllResultsOnMap();
       }
 
       @Override
-      public void onFilterClear()
+      public void onFilterClick()
       {
-        runSearch();
+        HotelsFilter filter = mFilterController != null ? mFilterController.getFilter() : null;
+        FilterActivity.startForResult(SearchFragment.this, filter,
+                                      FilterActivity.REQ_CODE_FILTER);
       }
 
       @Override
-      public void onFilterDone()
+      public void onFilterClear()
       {
         runSearch();
       }
@@ -437,15 +421,11 @@ public class SearchFragment extends BaseMwmFragment
     if (SearchRecents.getSize() == 0)
       pager.setCurrentItem(TabAdapter.Tab.CATEGORIES.ordinal());
 
-    tabAdapter.setTabSelectedListener(new TabAdapter.OnTabSelectedListener()
-    {
-      @Override
-      public void onTabSelected(@NonNull TabAdapter.Tab tab)
-      {
-        Statistics.INSTANCE.trackSearchTabSelected(tab.name());
-        mToolbarController.deactivate();
-      }
-    });
+    tabAdapter.setTabSelectedListener(tab ->
+                                      {
+                                        Statistics.INSTANCE.trackSearchTabSelected(tab.name());
+                                        mToolbarController.deactivate();
+                                      });
 
     if (mInitialSearchOnMap)
       showAllResultsOnMap();
@@ -756,13 +736,28 @@ public class SearchFragment extends BaseMwmFragment
   {
     super.onActivityResult(requestCode, resultCode, data);
     mToolbarController.onActivityResult(requestCode, resultCode, data);
+
+    if (resultCode != Activity.RESULT_OK)
+      return;
+
+    switch (requestCode)
+    {
+      case FilterActivity.REQ_CODE_FILTER:
+        if (data == null)
+          break;
+
+        if (mFilterController == null)
+          return;
+
+        mFilterController.setFilter(data.getParcelableExtra(FilterActivity.EXTRA_FILTER));
+        runSearch();
+        break;
+    }
   }
 
   @Override
   public boolean onBackPressed()
   {
-    if (mFilterController != null && mFilterController.onBackPressed())
-      return true;
     if (mToolbarController.hasQuery())
     {
       mToolbarController.clear();

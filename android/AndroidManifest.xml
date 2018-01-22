@@ -398,8 +398,11 @@
         <data android:scheme="@string/fb_login_protocol_scheme"/>
       </intent-filter>
     </activity>
-
     <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/>
+    <activity
+      android:name=".search.FilterActivity"
+      android:configChanges="orientation|screenLayout|screenSize"
+      android:label="@string/booking_filters"/>
 
     <receiver
         android:name="com.mapswithme.maps.background.ConnectivityChangedReceiver"

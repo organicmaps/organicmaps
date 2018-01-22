@@ -1,6 +1,5 @@
 package com.mapswithme.maps.search;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,16 +29,11 @@ public class SearchFilterController
   private final TextView mFilterText;
   @NonNull
   private final View mDivider;
-  @NonNull
-  private final HotelsFilterView mFilterView;
 
   @Nullable
   private HotelsFilter mFilter;
-
   @Nullable
   private BookingFilterParams mBookingFilterParams;
-
-  private final float mElevation;
   private boolean mHotelMode;
 
   @NonNull
@@ -59,35 +53,27 @@ public class SearchFilterController
 
   interface FilterListener
   {
-    void onViewClick();
+    void onShowOnMapClick();
     void onFilterClick();
     void onFilterClear();
-    void onFilterCancel();
-    void onFilterDone();
   }
 
-  SearchFilterController(@NonNull View frame, @NonNull HotelsFilterView filter,
-                         @Nullable FilterListener listener)
+  SearchFilterController(@NonNull View frame, @Nullable FilterListener listener)
   {
-    this(frame, filter, listener, R.string.search_show_on_map);
+    this(frame, listener, R.string.search_show_on_map);
   }
 
-  public SearchFilterController(@NonNull View frame, @NonNull HotelsFilterView filter,
-                                @Nullable FilterListener listener,
-                                @StringRes int populateButtonText)
+  public SearchFilterController(@NonNull View frame,
+                                @Nullable FilterListener listener, @StringRes int populateButtonText)
   {
     mFrame = frame;
-    mFilterView = filter;
     mFilterListener = listener;
-    mShowOnMap = (TextView) mFrame.findViewById(R.id.show_on_map);
+    mShowOnMap = mFrame.findViewById(R.id.show_on_map);
     mShowOnMap.setText(populateButtonText);
     mFilterButton = mFrame.findViewById(R.id.filter_button);
-    mFilterIcon = (ImageView) mFilterButton.findViewById(R.id.filter_icon);
-    mFilterText = (TextView) mFilterButton.findViewById(R.id.filter_text);
+    mFilterIcon = mFilterButton.findViewById(R.id.filter_icon);
+    mFilterText = mFilterButton.findViewById(R.id.filter_text);
     mDivider = mFrame.findViewById(R.id.divider);
-
-    Resources res = mFrame.getResources();
-    mElevation = res.getDimension(R.dimen.margin_quarter);
 
     initListeners();
   }
@@ -116,43 +102,16 @@ public class SearchFilterController
 
   private void initListeners()
   {
-    mShowOnMap.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        if (mFilterListener != null)
-          mFilterListener.onViewClick();
-      }
-    });
-    mFilterButton.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        mFilterView.open(getFilter());
-        if (mFilterListener != null)
-          mFilterListener.onFilterClick();
-      }
-    });
-    mFilterView.setListener(new HotelsFilterView.HotelsFilterListener()
-    {
-      @Override
-      public void onCancel()
-      {
-        if (mFilterListener != null)
-          mFilterListener.onFilterCancel();
-      }
-
-      @Override
-      public void onDone(@Nullable HotelsFilter filter)
-      {
-        setFilter(filter);
-
-        if (mFilterListener != null)
-          mFilterListener.onFilterDone();
-      }
-    });
+    mShowOnMap.setOnClickListener(v ->
+                                  {
+                                    if (mFilterListener != null)
+                                      mFilterListener.onShowOnMapClick();
+                                  });
+    mFilterButton.setOnClickListener(v ->
+                                     {
+                                       if (mFilterListener != null)
+                                         mFilterListener.onFilterClick();
+                                     });
   }
 
   @Nullable
@@ -186,7 +145,7 @@ public class SearchFilterController
     }
   }
 
-  public void resetFilter()
+  void resetFilter()
   {
     setFilter(null);
     updateFilterButtonVisibility(false);
@@ -203,31 +162,23 @@ public class SearchFilterController
     mBookingFilterParams = params;
   }
 
-  public boolean onBackPressed()
-  {
-    mHotelMode = false;
-    return mFilterView.close();
-  }
-
   public void onSaveState(@NonNull Bundle outState)
   {
     outState.putParcelable(STATE_HOTEL_FILTER, mFilter);
     outState.putBoolean(STATE_HOTEL_FILTER_VISIBILITY,
                         mFilterButton.getVisibility() == View.VISIBLE);
-    mFilterView.onSaveState(outState);
   }
 
   public void onRestoreState(@NonNull Bundle state)
   {
-    setFilter((HotelsFilter) state.getParcelable(STATE_HOTEL_FILTER));
+    setFilter(state.getParcelable(STATE_HOTEL_FILTER));
     updateFilterButtonVisibility(state.getBoolean(STATE_HOTEL_FILTER_VISIBILITY, false));
-    mFilterView.onRestoreState(state, mFilter);
   }
 
   public static class DefaultFilterListener implements FilterListener
   {
     @Override
-    public void onViewClick()
+    public void onShowOnMapClick()
     {
     }
 
@@ -239,16 +190,7 @@ public class SearchFilterController
     @Override
     public void onFilterClear()
     {
-    }
 
-    @Override
-    public void onFilterCancel()
-    {
-    }
-
-    @Override
-    public void onFilterDone()
-    {
     }
   }
 }
