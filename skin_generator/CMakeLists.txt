@@ -1,10 +1,5 @@
 project(skin_generator_tool)
 
-add_compile_options(
-  "-std=c++11"
-  "-Wno-c++11-narrowing"
-)
-
 include_directories(
   ${OMIM_ROOT}/3party/gflags/src
   ${OMIM_ROOT}/3party/freetype/include

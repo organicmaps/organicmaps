@@ -1,10 +1,5 @@
 project(mwm_tests)
 
-add_compile_options(
-  "-Wall"
-  "-std=c++11"
-)
-
 set(
   SRC
   multithread_mwm_test.cpp

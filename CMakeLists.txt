@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 
 project(omim C CXX)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 get_filename_component(OMIM_ROOT . ABSOLUTE)
 
