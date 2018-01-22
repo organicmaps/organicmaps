@@ -534,6 +534,7 @@ Bookmark const * BookmarkManager::GetBookmark(df::MarkID id, size_t & catIndex, 
       return static_cast<Bookmark const *>(mark);
     }
   }
+  return nullptr;
 }
 
 UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
