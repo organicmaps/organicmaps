@@ -526,8 +526,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     //getWindow().getDecorView().addOnLayoutChangeListener(mVisibleRectMeasurer);
     boolean isConsumed = processIntent(getIntent());
     // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
-    // we haven't to try restoring the route.
-    if (!isConsumed)
+    // we haven't to try restoring the route. Also, if savedInstanceState != null it means that
+    // the app is being restored by the system at the moment, so we don't need to restore the route.
+    if (!isConsumed && savedInstanceState == null)
       addTask(new RestoreRouteTask());
   }
 
