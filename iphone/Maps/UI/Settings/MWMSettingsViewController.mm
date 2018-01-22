@@ -32,7 +32,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * perspectiveViewCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * autoZoomCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * voiceInstructionsCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * simplifiedColorsCell;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * helpCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * aboutCell;
@@ -176,10 +175,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     voiceInstructions = L(@"duration_disabled");
   }
   [self.voiceInstructionsCell configWithTitle:L(@"pref_tts_language_title") info:voiceInstructions];
-
-  [self.simplifiedColorsCell configWithDelegate:self
-                                          title:L(@"pref_traffic_simplified_colors_title")
-                                           isOn:GetFramework().LoadTrafficSimplifiedColors()];
 }
 
 - (void)configInfoSection
@@ -266,14 +261,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     auto & f = GetFramework();
     f.AllowAutoZoom(value);
     f.SaveAutoZoom(value);
-  }
-  else if (cell == self.simplifiedColorsCell)
-  {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatSimplifiedColors)
-          withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
-    auto & f = GetFramework();
-    f.GetTrafficManager().SetSimplifiedColorScheme(value);
-    f.SaveTrafficSimplifiedColors(value);
   }
 }
 
