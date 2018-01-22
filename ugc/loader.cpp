@@ -22,13 +22,25 @@ UGC Loader::GetUGC(FeatureID const & featureId)
     return {};
 
   UGC ugc;
+  EntryPtr entry;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
+    auto it = m_deserializers.find(featureId.m_mwmId);
 
-    auto deserializer = m_deserializers[featureId.m_mwmId];
+    if (it == m_deserializers.end())
+    {
+      auto const result = m_deserializers.emplace(featureId.m_mwmId, make_shared<Entry>());
+      it = result.first;
+    }
+    entry = it->second;
+  }
+
+  ASSERT(entry, ());
+
+  {
+    std::lock_guard<std::mutex> lock(entry->m_mutex);
     auto readerPtr = value.m_cont.GetReader(UGC_FILE_TAG);
-
-    deserializer.Deserialize(*readerPtr.GetPtr(), featureId.m_index, ugc);
+    entry->m_deserializer.Deserialize(*readerPtr.GetPtr(), featureId.m_index, ugc);
   }
 
   return ugc;

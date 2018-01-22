@@ -6,6 +6,7 @@
 namespace search
 {
 class Result;
+struct ProductInfo;
 }  // namespace search
 
 @interface MWMSearch : NSObject
@@ -21,8 +22,7 @@ class Result;
 + (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row;
 + (NSUInteger)containerIndexWithRow:(NSUInteger)row;
 + (search::Result const &)resultWithContainerIndex:(NSUInteger)index;
-+ (BOOL)isLocalAdsWithContainerIndex:(NSUInteger)index;
-+ (CGFloat)ugcRatingWithContainerIndex:(NSUInteger)index;
++ (search::ProductInfo const &)productInfoWithContainerIndex:(NSUInteger)index;
 + (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index;
 + (BOOL)isBookingAvailableWithContainerIndex:(NSUInteger)index;
 

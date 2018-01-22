@@ -176,11 +176,10 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
 
   p.m_onResults = EverywhereSearchCallback(
       static_cast<EverywhereSearchCallback::Delegate &>(*this),
-      [this, params](Results const & results, vector<bool> const & isLocalAdsCustomer,
-                     vector<float> const & ugcRatings) {
+      [this, params](Results const & results, std::vector<ProductInfo> const & productInfo) {
         if (params.m_onResults)
-          RunUITask([params, results, isLocalAdsCustomer, ugcRatings] {
-            params.m_onResults(results, isLocalAdsCustomer, ugcRatings);
+          RunUITask([params, results, productInfo] {
+            params.m_onResults(results, productInfo);
           });
         if (results.IsEndedNormal() && !params.m_bookingFilterParams.IsEmpty())
         {
@@ -329,20 +328,15 @@ bool SearchAPI::IsViewportSearchActive() const
   return !m_searchIntents[static_cast<size_t>(Mode::Viewport)].m_params.m_query.empty();
 }
 
-void SearchAPI::ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
-                                          search::Results::ConstIter end)
+void SearchAPI::ShowViewportSearchResults(bool clear, Results::ConstIter begin,
+                                          Results::ConstIter end)
 {
   return m_delegate.ShowViewportSearchResults(clear, begin, end);
 }
 
-bool SearchAPI::IsLocalAdsCustomer(Result const & result) const
+ProductInfo SearchAPI::GetProductInfo(Result const & result) const
 {
-  return m_delegate.IsLocalAdsCustomer(result);
-}
-
-float SearchAPI::GetUgcRating(search::Result const & result) const
-{
-  return m_delegate.GetUgcRating(result);
+  return m_delegate.GetProductInfo(result);
 }
 
 void SearchAPI::OnBookmarksCreated(vector<pair<df::MarkID, BookmarkData>> const & marks)

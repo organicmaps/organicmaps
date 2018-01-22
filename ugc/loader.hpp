@@ -6,6 +6,7 @@
 #include "indexer/mwm_set.hpp"
 
 #include <map>
+#include <memory>
 #include <mutex>
 
 class Index;
@@ -21,8 +22,16 @@ public:
   UGC GetUGC(FeatureID const & featureId);
 
 private:
+  struct Entry
+  {
+    std::mutex m_mutex;
+    binary::UGCDeserializer m_deserializer;
+  };
+
+  using EntryPtr = std::shared_ptr<Entry>;
+
   Index const & m_index;
-  std::map<MwmSet::MwmId, binary::UGCDeserializer> m_deserializers;
+  std::map<MwmSet::MwmId, EntryPtr> m_deserializers;
   std::mutex m_mutex;
 };
 }  // namespace ugc

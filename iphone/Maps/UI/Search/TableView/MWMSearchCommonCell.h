@@ -1,12 +1,12 @@
 #import "MWMSearchCell.h"
 
+#include "search/everywhere_search_callback.hpp"
 #include "search/result.hpp"
 
 @interface MWMSearchCommonCell : MWMSearchCell
 
 - (void)config:(search::Result const &)result
-     isLocalAds:(BOOL)isLocalAds
-     isAvailable:(BOOL)isAvailable
-     ugcRating:(CGFloat)ugcRating;
+    isAvailable:(BOOL)isAvailable
+    productInfo:(search::ProductInfo const &)productInfo;
 
 @end

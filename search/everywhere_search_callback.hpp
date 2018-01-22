@@ -7,6 +7,13 @@
 
 namespace search
 {
+struct ProductInfo
+{
+  static float constexpr kInvalidRating = -1;
+
+  bool m_isLocalAdsCustomer = false;
+  float m_ugcRating = kInvalidRating;
+};
 // An on-results-callback that should be used for search over all
 // maps.
 //
@@ -19,15 +26,13 @@ public:
   public:
     virtual ~Delegate() = default;
 
-    virtual bool IsLocalAdsCustomer(Result const & result) const = 0;
-    virtual float GetUgcRating(Result const & result) const = 0;
+    virtual ProductInfo GetProductInfo(Result const & result) const = 0;
   };
 
   // The signature of the callback should be the same as EverywhereSaerchParams::OnResults, but
   // EverywhereSaerchParams is located in map project and we do not need dependency.
   using OnResults =
-      std::function<void(Results const & results, std::vector<bool> const & isLocalAdsCustomer,
-                         std::vector<float> const & ugcRatings)>;
+      std::function<void(Results const & results, std::vector<ProductInfo> const & productInfo)>;
 
   EverywhereSearchCallback(Delegate & delegate, OnResults onResults);
 
@@ -36,7 +41,6 @@ public:
 private:
   Delegate & m_delegate;
   OnResults m_onResults;
-  std::vector<bool> m_isLocalAdsCustomer;
-  std::vector<float> m_ugcRatings;
+  std::vector<ProductInfo> m_productInfo;
 };
 }  // namespace search

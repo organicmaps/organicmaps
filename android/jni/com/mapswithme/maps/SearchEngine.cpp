@@ -288,7 +288,7 @@ public:
       booking::AvailabilityParams::Room room;
       room.SetAdultsCount(static_cast<uint8_t>(env->GetIntField(jroom, m_roomAdultsCountId)));
       room.SetAgeOfChild(static_cast<int8_t>(env->GetIntField(jroom, m_roomAgeOfChildId)));
-      result.m_rooms[i] = std::move(room);
+      result.m_rooms[i] = move(room);
     }
 
     return result;
@@ -332,7 +332,7 @@ jmethodID g_mapResultCtor;
 
 booking::AvailabilityParams g_lastBookingFilterParams;
 
-jobject ToJavaResult(Result & result, bool isLocalAdsCustomer, float ugcRating, bool hasPosition,
+jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, bool hasPosition,
                      double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
@@ -376,10 +376,10 @@ jobject ToJavaResult(Result & result, bool isLocalAdsCustomer, float ugcRating, 
   jni::TScopedLocalRef cuisine(env, jni::ToJavaString(env, result.GetCuisine()));
   jni::TScopedLocalRef pricing(env, jni::ToJavaString(env, result.GetHotelApproximatePricing()));
 
-  string ratingTmp = result.GetHotelRating();
-  if (ratingTmp.empty() && ugcRating > 0.f)
-    ratingTmp = place_page::rating::GetRatingFormatted(ugcRating);
-  jni::TScopedLocalRef rating(env, jni::ToJavaString(env, ratingTmp));
+  string ratingStr = result.GetHotelRating();
+  if (ratingStr.empty() && productInfo.m_ugcRating != search::ProductInfo::kInvalidRating)
+    ratingStr = place_page::rating::GetRatingFormatted(productInfo.m_ugcRating);
+  jni::TScopedLocalRef rating(env, jni::ToJavaString(env, ratingStr));
 
   jni::TScopedLocalRef desc(env, env->NewObject(g_descriptionClass, g_descriptionConstructor,
                                                 featureId.get(), featureType.get(), address.get(),
@@ -389,16 +389,16 @@ jobject ToJavaResult(Result & result, bool isLocalAdsCustomer, float ugcRating, 
                                                 static_cast<jint>(result.IsOpenNow())));
 
   jni::TScopedLocalRef name(env, jni::ToJavaString(env, result.GetString()));
-  jobject ret = env->NewObject(g_resultClass, g_resultConstructor, name.get(), desc.get(), ll.lat,
-                               ll.lon, ranges.get(), result.IsHotel(), isLocalAdsCustomer);
+  jobject ret =
+      env->NewObject(g_resultClass, g_resultConstructor, name.get(), desc.get(), ll.lat, ll.lon,
+                     ranges.get(), result.IsHotel(), productInfo.m_isLocalAdsCustomer);
   ASSERT(ret, ());
 
   return ret;
 }
 
-void OnResults(Results const & results, vector<bool> const & isLocalAdsCustomer,
-               vector<float> const & ugcRatings, long long timestamp, bool isMapAndTable,
-               bool hasPosition, double lat, double lon)
+void OnResults(Results const & results, vector<search::ProductInfo> const & productInfo,
+               long long timestamp, bool isMapAndTable, bool hasPosition, double lat, double lon)
 {
   // Ignore results from obsolete searches.
   if (g_queryTimestamp > timestamp)
@@ -409,7 +409,7 @@ void OnResults(Results const & results, vector<bool> const & isLocalAdsCustomer,
   if (!results.IsEndMarker() || results.IsEndedNormal())
   {
     jni::TScopedLocalObjectArrayRef jResults(
-        env, BuildSearchResults(results, isLocalAdsCustomer, ugcRatings, hasPosition, lat, lon));
+        env, BuildSearchResults(results, productInfo, hasPosition, lat, lon));
     env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(),
                         static_cast<jlong>(timestamp),
                         search::HotelsClassifier::IsHotelResults(results));
@@ -453,7 +453,7 @@ void OnMapSearchResults(storage::DownloaderSearchResults const & results, long l
 }
 
 void OnBookingFilterResults(booking::AvailabilityParams const & params,
-                            std::vector<FeatureID> const & featuresSorted)
+                            vector<FeatureID> const & featuresSorted)
 {
   // Ignore obsolete booking filter results.
   if (params != g_lastBookingFilterParams)
@@ -466,9 +466,9 @@ void OnBookingFilterResults(booking::AvailabilityParams const & params,
 }
 }  // namespace
 
-jobjectArray BuildSearchResults(Results const & results, vector<bool> const & isLocalAdsCustomer,
-                                vector<float> const & ugcRatings, bool hasPosition, double lat,
-                                double lon)
+jobjectArray BuildSearchResults(Results const & results,
+                                vector<search::ProductInfo> const & productInfo, bool hasPosition,
+                                double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
 
@@ -477,13 +477,10 @@ jobjectArray BuildSearchResults(Results const & results, vector<bool> const & is
   int const count = g_results.GetCount();
   jobjectArray const jResults = env->NewObjectArray(count, g_resultClass, nullptr);
 
-  ASSERT_EQUAL(results.GetCount(), isLocalAdsCustomer.size(), ());
-  ASSERT_EQUAL(results.GetCount(), ugcRatings.size(), ());
-
   for (int i = 0; i < count; i++)
   {
-    jni::TScopedLocalRef jRes(env, ToJavaResult(g_results[i], isLocalAdsCustomer[i], ugcRatings[i],
-                                                hasPosition, lat, lon));
+    jni::TScopedLocalRef jRes(env,
+                              ToJavaResult(g_results[i], productInfo[i], hasPosition, lat, lon));
     env->SetObjectArrayElement(jResults, i, jRes.get());
   }
   return jResults;
@@ -529,12 +526,12 @@ extern "C"
     search::EverywhereSearchParams params;
     params.m_query = jni::ToNativeString(env, bytes);
     params.m_inputLocale = jni::ToNativeString(env, lang);
-    params.m_onResults = bind(&OnResults, _1, _2, _3, timestamp, false, hasPosition, lat, lon);
+    params.m_onResults = bind(&OnResults, _1, _2, timestamp, false, hasPosition, lat, lon);
     params.m_hotelsFilter = g_hotelsFilterBuilder.Build(env, hotelsFilter);
     g_lastBookingFilterParams = g_bookingAvailabilityParamsBuilder.Build(env, bookingFilterParams);
     params.m_bookingFilterParams.m_params = g_lastBookingFilterParams;
 
-    params.m_bookingFilterParams.m_callback = std::bind(&OnBookingFilterResults, _1, _2);
+    params.m_bookingFilterParams.m_callback = bind(&OnBookingFilterResults, _1, _2);
 
     bool const searchStarted = g_framework->NativeFramework()->SearchEverywhere(params);
     if (searchStarted)
@@ -552,7 +549,7 @@ extern "C"
     vparams.m_hotelsFilter = g_hotelsFilterBuilder.Build(env, hotelsFilter);
     g_lastBookingFilterParams = g_bookingAvailabilityParamsBuilder.Build(env, bookingFilterParams);
     vparams.m_bookingFilterParams.m_params = g_lastBookingFilterParams;
-    vparams.m_bookingFilterParams.m_callback = std::bind(&OnBookingFilterResults, _1, _2);
+    vparams.m_bookingFilterParams.m_callback = bind(&OnBookingFilterResults, _1, _2);
 
     // TODO (@alexzatsepin): set up vparams.m_onCompleted here and use
     // HotelsClassifier for hotel queries detection.
@@ -563,7 +560,7 @@ extern "C"
       search::EverywhereSearchParams eparams;
       eparams.m_query = vparams.m_query;
       eparams.m_inputLocale = vparams.m_inputLocale;
-      eparams.m_onResults = bind(&OnResults, _1, _2, _3, timestamp, isMapAndTable,
+      eparams.m_onResults = bind(&OnResults, _1, _2, timestamp, isMapAndTable,
                                  false /* hasPosition */, 0.0 /* lat */, 0.0 /* lon */);
       eparams.m_hotelsFilter = vparams.m_hotelsFilter;
       if (g_framework->NativeFramework()->SearchEverywhere(eparams))

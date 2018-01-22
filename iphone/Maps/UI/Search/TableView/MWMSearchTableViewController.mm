@@ -87,10 +87,9 @@
         dequeueReusableCellWithCellClass:[MWMSearchCommonCell class]
                                indexPath:indexPath]);
     auto const & result = [MWMSearch resultWithContainerIndex:containerIndex];
-    auto const isLocalAds = [MWMSearch isLocalAdsWithContainerIndex:containerIndex];
     auto const isBookingAvailable = [MWMSearch isBookingAvailableWithContainerIndex:containerIndex];
-    auto const ugcRating = [MWMSearch ugcRatingWithContainerIndex:containerIndex];
-    [cell config:result isLocalAds:isLocalAds isAvailable:isBookingAvailable ugcRating:ugcRating];
+    auto const & productInfo = [MWMSearch productInfoWithContainerIndex:containerIndex];
+    [cell config:result isAvailable:isBookingAvailable productInfo:productInfo];
     return cell;
   }
   case MWMSearchItemTypeMopub:

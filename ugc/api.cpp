@@ -46,7 +46,7 @@ void Api::SaveUGCOnDisk()
 
 Loader & Api::GetLoader()
 {
- return m_loader;
+  return m_loader;
 }
 
 void Api::GetUGCImpl(FeatureID const & id, UGCCallbackUnsafe const & callback)

@@ -68,10 +68,9 @@ struct DiscoveryCallback
 
     auto const lat = MercatorBounds::YToLat(viewportCenter.y);
     auto const lon = MercatorBounds::XToLon(viewportCenter.x);
-    std::vector<bool> customers(results.GetCount(), false);
-    std::vector<float> ugcRatings(results.GetCount(), -1.f);
+    std::vector<search::ProductInfo> productInfo(results.GetCount());
     jni::TScopedLocalObjectArrayRef jResults(
-        env, BuildSearchResults(results, customers, ugcRatings, true /* hasPosition */, lat, lon));
+        env, BuildSearchResults(results, productInfo, true /* hasPosition */, lat, lon));
     jobject discoveryManagerInstance = env->GetStaticObjectField(g_discoveryManagerClass,
                                                                  g_discoveryManagerInstanceField);
     env->CallVoidMethod(discoveryManagerInstance, g_onResultReceivedMethod,

@@ -87,8 +87,6 @@ public:
 
     virtual double GetMinDistanceBetweenResults() const { return 0.0; };
 
-    virtual bool IsLocalAdsCustomer(search::Result const & /* result */) const { return false; }
-
     virtual void FilterSearchResultsOnBooking(booking::filter::availability::Params const & params,
                                               search::Results const & results, bool inViewport)
     {
@@ -96,7 +94,7 @@ public:
 
     virtual void OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params) {}
 
-    virtual float GetUgcRating(search::Result const & /* result */) const { return -1.f; }
+    virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; };
   };
 
   SearchAPI(Index & index, storage::Storage const & storage,
@@ -140,8 +138,7 @@ public:
   bool IsViewportSearchActive() const override;
   void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
                                  search::Results::ConstIter end) override;
-  bool IsLocalAdsCustomer(search::Result const & result) const override;
-  float GetUgcRating(search::Result const & result) const override;
+  search::ProductInfo GetProductInfo(search::Result const & result) const override;
 
   void OnBookmarksCreated(std::vector<std::pair<df::MarkID, BookmarkData>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<df::MarkID, BookmarkData>> const & marks);

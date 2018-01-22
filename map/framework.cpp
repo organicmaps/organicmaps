@@ -3249,23 +3249,20 @@ bool Framework::ParseSearchQueryCommand(search::SearchParams const & params)
   return false;
 }
 
-bool Framework::IsLocalAdsCustomer(search::Result const & result) const
-{
-  if (result.GetResultType() != search::Result::Type::Feature)
-    return false;
-  return m_localAdsManager.Contains(result.GetFeatureID());
-}
-
-float Framework::GetUgcRating(search::Result const & result) const
+search::ProductInfo Framework::GetProductInfo(search::Result const & result) const
 {
   ASSERT(m_ugcApi, ());
-
   if (result.GetResultType() != search::Result::Type::Feature)
-    return -1.f;
+    return {};
+
+  search::ProductInfo productInfo;
+
+  productInfo.m_isLocalAdsCustomer = m_localAdsManager.Contains(result.GetFeatureID());
 
   auto const ugc = m_ugcApi->GetLoader().GetUGC(result.GetFeatureID());
+  productInfo.m_ugcRating = ugc.m_totalRating;
 
-  return ugc.m_totalRating;
+  return productInfo;
 }
 
 double Framework::GetMinDistanceBetweenResults() const

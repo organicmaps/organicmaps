@@ -2,6 +2,7 @@
 
 #include "map/booking_filter_availability_params.hpp"
 
+#include "search/everywhere_search_callback.hpp"
 #include "search/hotels_filter.hpp"
 #include "search/result.hpp"
 
@@ -14,15 +15,11 @@ namespace search
 {
 struct EverywhereSearchParams
 {
-  using OnResults =
-      std::function<void(Results const & results, std::vector<bool> const & isLocalAdsCustomer,
-                         std::vector<float> const & ugcRatings)>;
-
   std::string m_query;
   std::string m_inputLocale;
   std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
   booking::filter::availability::Params m_bookingFilterParams;
 
-  OnResults m_onResults;
+  EverywhereSearchCallback::OnResults m_onResults;
 };
 }  // namespace search

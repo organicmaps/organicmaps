@@ -2,11 +2,11 @@
 #import "CLLocation+Mercator.h"
 #import "MWMLocationManager.h"
 
+#include "map/place_page_info.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "platform/measurement_utils.hpp"
-
-#include "map/place_page_info.hpp"
 
 @interface MWMSearchCommonCell ()
 
@@ -29,15 +29,14 @@
 @implementation MWMSearchCommonCell
 
 - (void)config:(search::Result const &)result
-     isLocalAds:(BOOL)isLocalAds
-     isAvailable:(BOOL)isAvailable
-     ugcRating:(CGFloat)ugcRating
+    isAvailable:(BOOL)isAvailable
+    productInfo:(search::ProductInfo const &)productInfo
 {
   [super config:result];
   self.typeLabel.text = @(result.GetFeatureTypeName().c_str()).capitalizedString;
   auto ratingStr = result.GetHotelRating();
-  if (ratingStr.empty() && ugcRating > 0.f)
-    ratingStr = place_page::rating::GetRatingFormatted(ugcRating);
+  if (ratingStr.empty() && productInfo.m_ugcRating != search::ProductInfo::kInvalidRating)
+    ratingStr = place_page::rating::GetRatingFormatted(productInfo.m_ugcRating);
   self.ratingLabel.text =
       ratingStr.empty() ? @"" : [NSString stringWithFormat:L(@"place_page_booking_rating"),
                                                             ratingStr.c_str()];
@@ -72,7 +71,7 @@
     self.distanceLabel.text = @(distanceStr.c_str());
   }
 
-  if (isLocalAds)
+  if (productInfo.m_isLocalAdsCustomer)
     self.backgroundColor = [UIColor bannerBackground];
   else if (isAvailable)
     self.backgroundColor = [UIColor transparentGreen];
