@@ -25880,21 +25880,6 @@
     en = Real estate
     ru = Недвижимость
 
-  [preloader_cian_title]
-    comment = Only ru/en are needed
-    en = Verified real estate
-    ru = Проверенное жильё
-
-  [preloader_cian_message]
-    comment = Only ru/en are needed
-    en = Find out rental prices in this area
-    ru = Узнай стоимость аренды квартир в этом районе
-
-  [preloader_cian_button]
-    comment = Only ru/en are needed
-    en = Learn more
-    ru = Посмотреть цены
-
   [add_my_position]
     en = Add my position
     ru = Добавить мое местоположение
@@ -28515,3 +28500,7 @@
     zh-Hant = %s/小時
     el = %s/ώρα
     sk = %s/hodina
+
+  [luggage_storage]
+    en = Luggage storage
+    ru = Хранение багажа
