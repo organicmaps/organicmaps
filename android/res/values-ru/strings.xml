@@ -1167,12 +1167,6 @@
 	<string name="room">%s-комн. кв.</string>
 	<!-- Only ru/en are needed -->
 	<string name="real_estate">Недвижимость</string>
-	<!-- Only ru/en are needed -->
-	<string name="preloader_cian_title">Проверенное жильё</string>
-	<!-- Only ru/en are needed -->
-	<string name="preloader_cian_message">Узнай стоимость аренды квартир в этом районе</string>
-	<!-- Only ru/en are needed -->
-	<string name="preloader_cian_button">Посмотреть цены</string>
 	<string name="add_my_position">Добавить мое местоположение</string>
 	<string name="choose_start_point">Выберите начало маршрута</string>
 	<string name="choose_destination">Выберите конец маршрута</string>
@@ -1255,4 +1249,5 @@
 	<string name="whats_new_discovery_title">Кнопка «Чем заняться»</string>
 	<string name="whats_new_discovery_message">Ищите в один клик, чем заняться в городе!</string>
 	<string name="price_per_hour">%s/час</string>
+	<string name="luggage_storage">Хранение багажа</string>
 </resources>

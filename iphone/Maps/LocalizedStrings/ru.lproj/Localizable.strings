@@ -2009,15 +2009,6 @@
 /* Only ru/en are needed */
 "real_estate" = "Недвижимость";
 
-/* Only ru/en are needed */
-"preloader_cian_title" = "Проверенное жильё";
-
-/* Only ru/en are needed */
-"preloader_cian_message" = "Узнай стоимость аренды квартир в этом районе";
-
-/* Only ru/en are needed */
-"preloader_cian_button" = "Посмотреть цены";
-
 "add_my_position" = "Добавить мое местоположение";
 
 "choose_start_point" = "Выберите начало маршрута";
@@ -2181,3 +2172,5 @@
 "whats_new_discovery_message" = "Ищите в один клик, чем заняться в городе!";
 
 "price_per_hour" = "%s/час";
+
+"luggage_storage" = "Хранение багажа";

@@ -2009,15 +2009,6 @@
 /* Only ru/en are needed */
 "real_estate" = "Real estate";
 
-/* Only ru/en are needed */
-"preloader_cian_title" = "Verified real estate";
-
-/* Only ru/en are needed */
-"preloader_cian_message" = "Find out rental prices in this area";
-
-/* Only ru/en are needed */
-"preloader_cian_button" = "Learn more";
-
 "add_my_position" = "Meinen Standort hinzufügen";
 
 "choose_start_point" = "Startpunkt auswählen";
@@ -2181,3 +2172,5 @@
 "whats_new_discovery_message" = "Entdecken Sie Dinge in der Umgebung mit nur einem Klick!";
 
 "price_per_hour" = "%s/Stunde";
+
+"luggage_storage" = "Luggage storage";

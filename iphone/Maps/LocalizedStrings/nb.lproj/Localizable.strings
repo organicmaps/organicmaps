@@ -2009,15 +2009,6 @@
 /* Only ru/en are needed */
 "real_estate" = "Real estate";
 
-/* Only ru/en are needed */
-"preloader_cian_title" = "Verified real estate";
-
-/* Only ru/en are needed */
-"preloader_cian_message" = "Find out rental prices in this area";
-
-/* Only ru/en are needed */
-"preloader_cian_button" = "Learn more";
-
 "add_my_position" = "Legg til min posisjon";
 
 "choose_start_point" = "Velg startpunkt";
@@ -2181,3 +2172,5 @@
 "whats_new_discovery_message" = "Oppdag ting i nærheten med ett klikk!";
 
 "price_per_hour" = "%s/time";
+
+"luggage_storage" = "Luggage storage";

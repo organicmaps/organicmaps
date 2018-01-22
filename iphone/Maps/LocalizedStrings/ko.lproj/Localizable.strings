@@ -2009,15 +2009,6 @@
 /* Only ru/en are needed */
 "real_estate" = "Real estate";
 
-/* Only ru/en are needed */
-"preloader_cian_title" = "Verified real estate";
-
-/* Only ru/en are needed */
-"preloader_cian_message" = "Find out rental prices in this area";
-
-/* Only ru/en are needed */
-"preloader_cian_button" = "Learn more";
-
 "add_my_position" = "내 위치 추가";
 
 "choose_start_point" = "시작 지점 선택";
@@ -2181,3 +2172,5 @@
 "whats_new_discovery_message" = "클릭 한 번으로 주변에 무엇이 있는지 알아보세요!";
 
 "price_per_hour" = "%s/시간";
+
+"luggage_storage" = "Luggage storage";

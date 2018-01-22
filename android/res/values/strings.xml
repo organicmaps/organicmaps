@@ -1179,12 +1179,6 @@
 	<string name="room">%s-room apt.</string>
 	<!-- Only ru/en are needed -->
 	<string name="real_estate">Real estate</string>
-	<!-- Only ru/en are needed -->
-	<string name="preloader_cian_title">Verified real estate</string>
-	<!-- Only ru/en are needed -->
-	<string name="preloader_cian_message">Find out rental prices in this area</string>
-	<!-- Only ru/en are needed -->
-	<string name="preloader_cian_button">Learn more</string>
 	<string name="add_my_position">Add my position</string>
 	<string name="choose_start_point">Choose a starting point</string>
 	<string name="choose_destination">Choose a destination</string>
@@ -1267,4 +1261,5 @@
 	<string name="whats_new_discovery_title">Discovery button</string>
 	<string name="whats_new_discovery_message">Discover things around in one click!</string>
 	<string name="price_per_hour">%s/hour</string>
+	<string name="luggage_storage">Luggage storage</string>
 </resources>

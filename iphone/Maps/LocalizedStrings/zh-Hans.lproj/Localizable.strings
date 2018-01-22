@@ -2009,15 +2009,6 @@
 /* Only ru/en are needed */
 "real_estate" = "Real estate";
 
-/* Only ru/en are needed */
-"preloader_cian_title" = "Verified real estate";
-
-/* Only ru/en are needed */
-"preloader_cian_message" = "Find out rental prices in this area";
-
-/* Only ru/en are needed */
-"preloader_cian_button" = "Learn more";
-
 "add_my_position" = "添加我的位置";
 
 "choose_start_point" = "选择起点";
@@ -2181,3 +2172,5 @@
 "whats_new_discovery_message" = "轻轻点击一下，探索周围一切！";
 
 "price_per_hour" = "%s/小时";
+
+"luggage_storage" = "Luggage storage";

@@ -2009,15 +2009,6 @@
 /* Only ru/en are needed */
 "real_estate" = "Real estate";
 
-/* Only ru/en are needed */
-"preloader_cian_title" = "Verified real estate";
-
-/* Only ru/en are needed */
-"preloader_cian_message" = "Find out rental prices in this area";
-
-/* Only ru/en are needed */
-"preloader_cian_button" = "Learn more";
-
 "add_my_position" = "自分の場所を追加";
 
 "choose_start_point" = "出発地点を選択";
@@ -2181,3 +2172,5 @@
 "whats_new_discovery_message" = "ワンクリックで周囲のものを探します！";
 
 "price_per_hour" = "%s/時間";
+
+"luggage_storage" = "Luggage storage";

@@ -2009,15 +2009,6 @@
 /* Only ru/en are needed */
 "real_estate" = "Real estate";
 
-/* Only ru/en are needed */
-"preloader_cian_title" = "Verified real estate";
-
-/* Only ru/en are needed */
-"preloader_cian_message" = "Find out rental prices in this area";
-
-/* Only ru/en are needed */
-"preloader_cian_button" = "Learn more";
-
 "add_my_position" = "Πρόσθεσε τη θέση μου";
 
 "choose_start_point" = "Επιλέξτε αφετηρία";
@@ -2181,3 +2172,5 @@
 "whats_new_discovery_message" = "Ανακαλύψτε πράγματα γύρω με ένα κλικ!";
 
 "price_per_hour" = "%s/ώρα";
+
+"luggage_storage" = "Luggage storage";
