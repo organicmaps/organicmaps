@@ -7,7 +7,6 @@
 #include "editor/feature_matcher.hpp"
 
 #include "base/logging.hpp"
-#include "base/stl_iterator.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/unique_ptr.hpp"
@@ -45,7 +44,7 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach
   return feature->GetID();
 }
 
-FeatureID MigrateWayorRelatonFeatureIndex(
+FeatureID MigrateWayOrRelatonFeatureIndex(
     osm::Editor::ForEachFeaturesNearByFn & forEach, XMLFeature const & xml,
     osm::Editor::FeatureStatus const /* Unused for now (we don't create/delete area features)*/,
     TGenerateIDFn const & /*Unused for the same reason*/)
@@ -69,7 +68,19 @@ FeatureID MigrateWayorRelatonFeatureIndex(
         ++count;
         auto ftGeometry = ft.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
 
-        auto const score = matcher::ScoreTriangulatedGeometries(geometry, ftGeometry);
+        double score = 0.0;
+        try
+        {
+          score = matcher::ScoreTriangulatedGeometries(geometry, ftGeometry);
+        }
+        catch (matcher::NotAPolygonException & ex)
+        {
+          // Support migration for old application versions.
+          // TODO(a): To remove it after some time.
+          my::SortUnique(geometry);
+          my::SortUnique(ftGeometry);
+          score = matcher::ScoreTriangulatedGeometriesByPoints(geometry, ftGeometry);
+        }
 
         if (score > bestScore)
         {
@@ -103,7 +114,7 @@ FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
     return MigrateNodeFeatureIndex(forEach, xml, featureStatus, generateID);
   case XMLFeature::Type::Way:
   case XMLFeature::Type::Relation:
-    return MigrateWayorRelatonFeatureIndex(forEach, xml, featureStatus, generateID);
+    return MigrateWayOrRelatonFeatureIndex(forEach, xml, featureStatus, generateID);
   }
 }
 }  // namespace editor

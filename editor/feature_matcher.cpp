@@ -2,6 +2,7 @@
 
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/stl_iterator.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/function.hpp"
@@ -109,8 +110,9 @@ double MatchByGeometry(LGeometry const & lhs, RGeometry const & rhs)
 MultiPolygon TrianglesToPolygon(vector<m2::PointD> const & points)
 {
   size_t const kTriangleSize = 3;
-  CHECK_EQUAL(points.size() % kTriangleSize, 0, ());
-  CHECK(!points.empty(), ());
+  if (points.size() % kTriangleSize != 0 || points.empty())
+    MYTHROW(matcher::NotAPolygonException, ("Count of points must be multiple of", kTriangleSize));
+
   vector<MultiPolygon> polygons;
   for (size_t i = 0; i < points.size(); i += kTriangleSize)
   {
@@ -121,11 +123,14 @@ MultiPolygon TrianglesToPolygon(vector<m2::PointD> const & points)
     for (size_t j = i; j < i + kTriangleSize; ++j)
       outer.push_back(PointXY(points[j].x, points[j].y));
     bg::correct(p);
-    ASSERT(bg::is_valid(polygon), ());
+    if (!bg::is_valid(polygon))
+      MYTHROW(matcher::NotAPolygonException, ("The triangle is not valid"));
     polygons.push_back(polygon);
   }
 
-  CHECK(!polygons.empty(), ());
+  if (polygons.empty())
+    return {};
+
   auto & result = polygons[0];
   for (size_t i = 1; i < polygons.size(); ++i)
   {
@@ -344,5 +349,29 @@ double ScoreTriangulatedGeometries(vector<m2::PointD> const & lhs, vector<m2::Po
     return kPenaltyScore;
 
   return MatchByGeometry(lhsPolygon, rhsPolygon);
+}
+
+double ScoreTriangulatedGeometriesByPoints(vector<m2::PointD> const & lhs,
+                                           vector<m2::PointD> const & rhs)
+{
+  // The default comparison operator used in sort above (cmp1) and one that is
+  // used in set_itersection (cmp2) are compatible in that sence that
+  // cmp2(a, b) :- cmp1(a, b) and
+  // cmp1(a, b) :- cmp2(a, b) || a almost equal b.
+  // You can think of cmp2 as !(a >= b).
+  // But cmp2 is not transitive:
+  // i.e. !cmp(a, b) && !cmp(b, c) does NOT implies !cmp(a, c),
+  // |a, b| < eps, |b, c| < eps.
+  // This could lead to unexpected results in set_itersection (with greedy implementation),
+  // but we assume such situation is very unlikely.
+  auto const matched = set_intersection(begin(lhs), end(lhs),
+                                        begin(rhs), end(rhs),
+                                        CounterIterator(),
+                                        [](m2::PointD const & p1, m2::PointD const & p2)
+                                        {
+                                          return p1 < p2 && !p1.EqualDxDy(p2, 1e-7);
+                                        }).GetCount();
+
+  return static_cast<double>(matched) / lhs.size();
 }
 }  // namespace matcher
