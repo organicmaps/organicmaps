@@ -8900,8 +8900,8 @@ zh-Hans:^殡仪馆
 zh-Hant:^葬儀社
 
 shop-massage
-en:^Massage Parlour
-ru:^Массажный салон
+en:^Massage Parlour|spa
+ru:^Массажный салон|массаж|спа|спа-салон
 ar:^قاعة تدليك
 cs:^Masážní salon
 da:^Massageklinik
