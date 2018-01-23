@@ -1045,7 +1045,48 @@ typedef enum {
  *  @param verticalAccuracy The accuracy of the altitude value in meters.
  *
  */
-+ (void)setLatitude:(double)latitude longitude:(double)longitude horizontalAccuracy:(float)horizontalAccuracy verticalAccuracy:(float)verticalAccuracy;
++ (void)setLatitude:(double)latitude
+             longitude:(double)longitude
+    horizontalAccuracy:(float)horizontalAccuracy
+      verticalAccuracy:(float)verticalAccuracy __attribute__((deprecated));
+;
+
+//@}
+
+/** @name Location Reporting
+ *  Opt-out Methods for setting location information.
+ */
+//@{
+/*!
+ *  @brief Turn on/off location information of the session (default is on).
+ *  @since 8.4.0
+ *
+ *  Use CLLocationManager to start the location tracking of the session. Flurry does not
+ *  prompt users for location permission, we fetch the available location in device daemon.
+ *
+ *  @note Only the last location in cache is captured per session. \n
+ *  Regardless of accuracy specified, the Flurry SDK will only report location at city level or
+ higher. \n
+ *  Location is aggregated across all users of your app and not available on a per user basis. \n
+ *  This information should only be captured if it is germaine to the use of your app.
+ *
+ *  @code
+ CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+ [locationManager startUpdatingLocation];
+ *  @endcode
+ *
+ *  It is on by default. After starting the location manager, you can turn off
+ *  opt-out location tracking by calling this method.
+ *
+ *  @code
+ [Flurry  trackPreciseLocation:NO];
+ *  @endcode
+ *  @param state The boolean to switch on/off for location tracking
+ *  @return a boolean, if the state is YES, it tests device/app permission. If permission
+ *   is granted, it returns NO. If permission is valid, it returns YES. If the
+ *   state is NO, it always returns NO.
+ */
++ (BOOL)trackPreciseLocation:(BOOL)state;
 
 //@}
 
@@ -1101,13 +1142,16 @@ typedef enum {
 /*!
  *  @brief Enable custom event logging.
  *  @since 2.7
- * 
+ *
+ *  @deprecated since 7.9.0.
+ *  This method will be removed in a future version of the SDK.
+ *
  *  Use this method to allow the capture of custom events. The default value is @c YES.
  *
  *  @param value YES to enable event logging, NO to stop custom logging.
  *
  */
-+ (void)setEventLoggingEnabled:(BOOL)value;
++ (void)setEventLoggingEnabled:(BOOL)value __attribute__((deprecated));
 
 #if !TARGET_OS_TV
 /*!
@@ -1152,15 +1196,29 @@ typedef enum {
  *  @since 7.8.0
  *
  *  This method needs to be called before a transaction is finished and finalized.
- *
+ *  @note: Needs a 'required' dependency on StoreKit for this API to function correctly.
  *
  *  @param transaction an SKPaymentTransaction.
- *  @param statusCallback a callback gettign called when the status of  ID that is associated with the event
+ *  @param statusCallback a callback gettign called when the status of  ID that is associated with
+ * the event
  *
  */
 + (void) logPaymentTransaction:(SKPaymentTransaction*)transaction statusCallback:(void(^)(FlurryTransactionRecordStatus))statusCallback;
 #endif
 
+#if !TARGET_OS_WATCH
+/*!
+ *  @brief Enables implicit recording of Apple Store transactions.
+ *  @since 7.9.0
+ *
+ *  This method needs to be called before any transaction is finialized.
+ *  @note: Needs a 'required' dependency on StoreKit for this API to function correctly.
+ *
+ *  @param value YES to enable transaction logging, NO to stop transaction logging.
+ *
+ */
++ (void)setIAPReportingEnabled:(BOOL)value;
+#endif
 
 #if TARGET_OS_TV
 /*!

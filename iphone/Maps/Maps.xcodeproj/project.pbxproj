@@ -17,7 +17,6 @@
 		3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */; };
 		340474F11E08199D00C92850 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DC1E08199D00C92850 /* Crashlytics.framework */; };
 		340474F41E08199D00C92850 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DD1E08199D00C92850 /* Fabric.framework */; };
-		340475001E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474E41E08199D00C92850 /* libFlurry_7.8.2.a */; };
 		340475091E08199E00C92850 /* MWMMyTarget.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340474EB1E08199D00C92850 /* MWMMyTarget.mm */; };
 		3404750F1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474EE1E08199D00C92850 /* MyTrackerSDK.framework */; };
 		3404754A1E081A4600C92850 /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475161E081A4600C92850 /* AppInfo.mm */; };
@@ -156,6 +155,7 @@
 		3486B5161E27AD3B0069C126 /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3486B5101E27AD3B0069C126 /* Framework.cpp */; };
 		3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3486B5131E27AD3B0069C126 /* MWMFrameworkListener.mm */; };
 		3486B51E1E27AD590069C126 /* MWMFrameworkHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3486B51C1E27AD590069C126 /* MWMFrameworkHelper.mm */; };
+		34870B78201732E30085A7F6 /* libFlurry_8.3.4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34870B77201732E30085A7F6 /* libFlurry_8.3.4.a */; };
 		3488B0131E9D0AEC0068AFD8 /* AdBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488B0101E9D0AEC0068AFD8 /* AdBanner.swift */; };
 		3488B0161E9D0AEC0068AFD8 /* AdBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3488B0111E9D0AEC0068AFD8 /* AdBanner.xib */; };
 		3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488B0181E9D0B230068AFD8 /* UIColor+Modifications.swift */; };
@@ -716,7 +716,6 @@
 		340474DD1E08199D00C92850 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		340474E21E08199D00C92850 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		340474E31E08199D00C92850 /* FlurrySessionBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurrySessionBuilder.h; sourceTree = "<group>"; };
-		340474E41E08199D00C92850 /* libFlurry_7.8.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.8.2.a; sourceTree = "<group>"; };
 		340474EA1E08199D00C92850 /* MWMMyTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMyTarget.h; sourceTree = "<group>"; };
 		340474EB1E08199D00C92850 /* MWMMyTarget.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMyTarget.mm; sourceTree = "<group>"; };
 		340474EC1E08199D00C92850 /* MWMMyTargetDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMyTargetDelegate.h; sourceTree = "<group>"; };
@@ -948,6 +947,7 @@
 		3486B5141E27AD3B0069C126 /* MWMFrameworkObservers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkObservers.h; sourceTree = "<group>"; };
 		3486B51B1E27AD590069C126 /* MWMFrameworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkHelper.h; sourceTree = "<group>"; };
 		3486B51C1E27AD590069C126 /* MWMFrameworkHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkHelper.mm; sourceTree = "<group>"; };
+		34870B77201732E30085A7F6 /* libFlurry_8.3.4.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_8.3.4.a; sourceTree = "<group>"; };
 		3488B0101E9D0AEC0068AFD8 /* AdBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBanner.swift; sourceTree = "<group>"; };
 		3488B0111E9D0AEC0068AFD8 /* AdBanner.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdBanner.xib; sourceTree = "<group>"; };
 		3488B0181E9D0B230068AFD8 /* UIColor+Modifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Modifications.swift"; sourceTree = "<group>"; };
@@ -1750,7 +1750,6 @@
 				3411387D1C15AE73002E3B3E /* libeditor.a in Frameworks */,
 				6741AABD1BF356BA002C974C /* libagg.a in Frameworks */,
 				6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */,
-				340475001E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */,
 				6741AAC01BF356BA002C974C /* libapi.a in Frameworks */,
 				6741AAC11BF356BA002C974C /* libbase.a in Frameworks */,
 				F68BDF061EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
@@ -1776,6 +1775,7 @@
 				6741AAD31BF356BA002C974C /* librouting.a in Frameworks */,
 				674A7E281C0DA573003D48E1 /* libstb_image.a in Frameworks */,
 				6741AAD41BF356BA002C974C /* libsearch.a in Frameworks */,
+				34870B78201732E30085A7F6 /* libFlurry_8.3.4.a in Frameworks */,
 				6741AAD51BF356BA002C974C /* libstorage.a in Frameworks */,
 				6741AAD61BF356BA002C974C /* libsuccinct.a in Frameworks */,
 				3466A2D41FB1C83C005494D3 /* FacebookShare.framework in Frameworks */,
@@ -1969,7 +1969,7 @@
 			children = (
 				340474E21E08199D00C92850 /* Flurry.h */,
 				340474E31E08199D00C92850 /* FlurrySessionBuilder.h */,
-				340474E41E08199D00C92850 /* libFlurry_7.8.2.a */,
+				34870B77201732E30085A7F6 /* libFlurry_8.3.4.a */,
 			);
 			path = Flurry;
 			sourceTree = "<group>";

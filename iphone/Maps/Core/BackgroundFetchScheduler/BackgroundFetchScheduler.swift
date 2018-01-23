@@ -20,7 +20,8 @@ final class BackgroundFetchScheduler: NSObject {
   @objc func run() {
     DispatchQueue.main.async {
       self.fullfillFrameworkRequirements()
-      self.performTasks()
+      let timeout = DispatchTime.now() + UIApplication.shared.backgroundTimeRemaining - Const.timeoutSafetyIndent
+      self.performTasks(timeout: timeout)
     }
   }
 
@@ -32,11 +33,11 @@ final class BackgroundFetchScheduler: NSObject {
     return tasks.reduce(.none) { max($0, $1.frameworkType) }
   }
 
-  private func performTasks() {
+  private func performTasks(timeout: DispatchTime) {
     DispatchQueue.global().async {
       self.setCompletionHandlers()
       self.startTasks()
-      self.waitTasks()
+      self.waitTasks(timeout: timeout)
     }
   }
 
@@ -59,8 +60,7 @@ final class BackgroundFetchScheduler: NSObject {
     tasksGroup.leave()
   }
 
-  private func waitTasks() {
-    let timeout = DispatchTime.now() + UIApplication.shared.backgroundTimeRemaining - Const.timeoutSafetyIndent
+  private func waitTasks(timeout: DispatchTime) {
     let groupCompletion = tasksGroup.wait(timeout: timeout)
     DispatchQueue.main.async {
       switch groupCompletion {
