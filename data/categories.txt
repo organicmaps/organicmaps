@@ -5097,7 +5097,7 @@ nl:^Atletiek
 pt-BR:^Atletismo
 
 building|building-address
-en:^Building|U+1F3E0|U+1F3E1|U+1F3E2|cian
+en:^Building|U+1F3E0|U+1F3E1|U+1F3E2
 ru:^Здание
 ar:^مبنى
 cs:^Stavba
@@ -9164,3 +9164,6 @@ zh-Hant:^山屋
 sponsored-holiday
 en:^Christmas or New Year Celebrations
 ru:^Празднование Рождества или Нового года
+
+sponsored-partner2
+en:^Luggage Hero

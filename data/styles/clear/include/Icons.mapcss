@@ -301,8 +301,8 @@ node[amenity=biergarten],
 area[amenity=biergarten]
 {z-index: 2782;}
 
-node[sponsored=cian],
-area[sponsored=cian]
+node[sponsored=partner2],
+area[sponsored=partner2]
 {z-index: 2790;}
 
 node[railway=halt],
@@ -2992,12 +2992,12 @@ area|z17-[amenity=motorcycle_parking]
 
 /* 8 Sponsored */
 
-node|z14-[sponsored=cian],
-area|z14-[sponsored=cian]
-{icon-image: cian-l.svg;font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
+node|z14-[sponsored=partner2],
+area|z14-[sponsored=partner2]
+{icon-image: partner2-l.svg;font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
 
-node|z18-[sponsored=cian],
-area|z18-[sponsored=cian]
+node|z18-[sponsored=partner2],
+area|z18-[sponsored=partner2]
 {font-size: 11;}
 
 node|z16-[sponsored=holiday],
