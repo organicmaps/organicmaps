@@ -158,6 +158,9 @@ int main(int argc, char ** argv)
   std::string const path =
       FLAGS_data_path.empty() ? pl.WritableDir() : my::AddSlashIfNeeded(FLAGS_data_path);
 
+  // So that stray GetWritablePathForFile calls do not crash the generator.
+  pl.SetWritableDirForTests(path);
+
   feature::GenerateInfo genInfo;
   genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty() ? path
                             : my::AddSlashIfNeeded(FLAGS_intermediate_data_path);
