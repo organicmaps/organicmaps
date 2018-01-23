@@ -504,7 +504,7 @@ BOOL gIsFirstMyPositionMode = YES;
       searchState = MWMSearchManagerStateDefault;
     else if ([action isEqualToString:@"me.maps.3daction.route"])
       [self.controlsManager onRoutePrepare];
-    [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
+    [MWMSearchManager manager].state = searchState;
   }
   else
   {
