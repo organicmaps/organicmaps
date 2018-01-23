@@ -1197,7 +1197,7 @@ shop|variety_store
 shop|video
 tourism|theme_park
 tourism|wilderness_hut
-sponsored|cian
+mapswithme
 sponsored|holiday
 tourism|resort
 sponsored|partner1

@@ -63106,99 +63106,6 @@ cont {
   }
 }
 cont {
-  name: "sponsored-cian"
-  element {
-    scale: 14
-    symbol {
-      name: "cian-l"
-      priority: 16533
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15533
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "cian-l"
-      priority: 16533
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15533
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "cian-l"
-      priority: 16533
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15533
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "cian-l"
-      priority: 16533
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15533
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "cian-l"
-      priority: 16533
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15533
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "cian-l"
-      priority: 16533
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15533
-    }
-  }
-}
-cont {
   name: "sponsored-holiday"
   element {
     scale: 16
@@ -63226,6 +63133,99 @@ cont {
     symbol {
       name: "christmastree"
       priority: 16000
+    }
+  }
+}
+cont {
+  name: "sponsored-partner2"
+  element {
+    scale: 14
+    symbol {
+      name: "partner2-l"
+      priority: 16533
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15533
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "partner2-l"
+      priority: 16533
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15533
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner2-l"
+      priority: 16533
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15533
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner2-l"
+      priority: 16533
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15533
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner2-l"
+      priority: 16533
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15533
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner2-l"
+      priority: 16533
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15533
     }
   }
 }

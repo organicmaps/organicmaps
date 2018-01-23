@@ -862,7 +862,6 @@ world  +
             viator  -
             {}
         booking  -
-        cian  -
         holiday  -
         opentable  -
         partner1  -
