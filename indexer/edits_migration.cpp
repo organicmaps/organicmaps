@@ -76,7 +76,7 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
         catch (matcher::NotAPolygonException & ex)
         {
           // Support migration for old application versions.
-          // TODO(a): To remove it after some time.
+          // TODO(a): To remove it when version 8.0.x will no longer be supported.
           my::SortUnique(geometry);
           my::SortUnique(ftGeometry);
           score = matcher::ScoreTriangulatedGeometriesByPoints(geometry, ftGeometry);

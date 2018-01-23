@@ -14,6 +14,8 @@
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
 
+using namespace std;
+
 using editor::XMLFeature;
 
 namespace
@@ -110,7 +112,7 @@ double MatchByGeometry(LGeometry const & lhs, RGeometry const & rhs)
 MultiPolygon TrianglesToPolygon(vector<m2::PointD> const & points)
 {
   size_t const kTriangleSize = 3;
-  if (points.size() % kTriangleSize != 0 || points.empty())
+  if (points.size() % kTriangleSize != 0)
     MYTHROW(matcher::NotAPolygonException, ("Count of points must be multiple of", kTriangleSize));
 
   vector<MultiPolygon> polygons;
