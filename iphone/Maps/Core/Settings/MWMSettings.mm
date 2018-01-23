@@ -3,6 +3,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "SwiftBridge.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
+#import "Flurry.h"
 
 #include "Framework.h"
 
@@ -112,11 +113,13 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
   if (statisticsEnabled)
   {
     [Alohalytics enable];
+    [Flurry trackPreciseLocation:YES];
   }
   else
   {
     [Alohalytics logEvent:@"statisticsDisabled"];
     [Alohalytics disable];
+    [Flurry trackPreciseLocation:NO];
   }
   settings::Set(kStatisticsEnabledSettingsKey, static_cast<bool>(statisticsEnabled));
 }

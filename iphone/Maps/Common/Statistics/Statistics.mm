@@ -57,18 +57,6 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
   return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
-- (void)logLocation:(CLLocation *)location
-{
-  if (![MWMSettings statisticsEnabled])
-    return;
-  if (!_lastLocationLogTimestamp || [[NSDate date] timeIntervalSinceDate:_lastLocationLogTimestamp] > (60 * 60 * 3))
-  {
-    _lastLocationLogTimestamp = [NSDate date];
-    CLLocationCoordinate2D const coord = location.coordinate;
-    [Flurry setLatitude:coord.latitude longitude:coord.longitude horizontalAccuracy:location.horizontalAccuracy verticalAccuracy:location.verticalAccuracy];
-  }
-}
-
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
 {
   if (![MWMSettings statisticsEnabled])

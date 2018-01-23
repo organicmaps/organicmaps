@@ -447,7 +447,6 @@ void setPermissionRequested()
   self.lastLocationStatus = location::TLocationError::ENoError;
   self.locationSource = location::EAppleNative;
   [self processLocationUpdate:location];
-  [[Statistics instance] logLocation:location];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
