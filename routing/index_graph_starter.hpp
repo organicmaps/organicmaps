@@ -74,6 +74,8 @@ public:
   }
 
   std::set<NumMwmId> GetMwms() const;
+  std::set<NumMwmId> GetStartMwms() const;
+  std::set<NumMwmId> GetFinishMwms() const;
 
   // Checks whether |weight| meets non-pass-through crossing restrictions according to placement of
   // start and finish in pass-through/non-pass-through area and number of non-pass-through crosses.

@@ -449,8 +449,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
                                       isStartSegmentStrictForward, *graph);
 
     vector<Segment> subroute;
-    auto const result =
-        CalculateSubroute(checkpoints, i, startSegment, finishSegment, delegate, subrouteStarter, subroute);
+    auto const result = CalculateSubroute(checkpoints, i, delegate, subrouteStarter, subroute);
 
     if (result != IRouter::NoError)
       return result;
@@ -491,8 +490,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
 }
 
 IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
-                                                   size_t subrouteIdx, Segment const & startSegment,
-                                                   Segment const & finishSegment,
+                                                   size_t subrouteIdx,
                                                    RouterDelegate const & delegate,
                                                    IndexGraphStarter & starter,
                                                    vector<Segment> & subroute)
@@ -549,8 +547,9 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   AStarAlgorithm<IndexGraphStarter>::Params params(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
       delegate, onVisitJunction, checkLength);
-  IRouter::ResultCode const result = FindPath<IndexGraphStarter>(params, startSegment.GetMwmId(),
-                                                                 finishSegment.GetMwmId(), routingResult);
+
+  set<NumMwmId> const mwmIds = starter.GetMwms();
+  IRouter::ResultCode const result = FindPath<IndexGraphStarter>(params, mwmIds, routingResult);
   if (result != IRouter::NoError)
     return result;
 
@@ -782,7 +781,19 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
       AStarAlgorithm<IndexGraphStarter>::Params params(
           starter, current, next, nullptr /* prevRoute */, delegate,
           {} /* onVisitedVertexCallback */, checkLength);
-      result = FindPath<IndexGraphStarter>(params, current.GetMwmId(), next.GetMwmId(), routingResult);
+      set<NumMwmId> mwmIds;
+      if (i == 1)
+      {
+        mwmIds = starter.GetStartMwms();
+        mwmIds.insert(next.GetMwmId());
+      }
+      if (i + 1 == input.size())
+      {
+        mwmIds = starter.GetFinishMwms();
+        mwmIds.insert(current.GetMwmId());
+      }
+
+      result = FindPath<IndexGraphStarter>(params, mwmIds, routingResult);
     }
     else
     {
@@ -799,7 +810,8 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
       AStarAlgorithm<WorldGraph>::Params params(worldGraph, current, next, nullptr /* prevRoute */,
                                                 delegate, {} /* onVisitedVertexCallback */,
                                                 checkLength);
-      result = FindPath<WorldGraph>(params, current.GetMwmId(), next.GetMwmId(), routingResult);
+      set<NumMwmId> const mwmIds = {current.GetMwmId(), next.GetMwmId()};
+      result = FindPath<WorldGraph>(params, mwmIds, routingResult);
     }
 
     if (result != IRouter::NoError)
@@ -888,17 +900,19 @@ bool IndexRouter::DoesTransitSectionExist(NumMwmId numMwmId) const
   return mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG);
 }
 
-IRouter::ResultCode IndexRouter::ConvertTransitResult(NumMwmId startMwmId, NumMwmId finalMwmId,
+IRouter::ResultCode IndexRouter::ConvertTransitResult(set<NumMwmId> const & mwmIds,
                                                       IRouter::ResultCode resultCode) const
 {
   if (m_vehicleType != VehicleType::Transit || resultCode != IRouter::ResultCode::RouteNotFound)
     return resultCode;
 
-  CHECK_NOT_EQUAL(startMwmId, kFakeNumMwmId, ());
-  CHECK_NOT_EQUAL(finalMwmId, kFakeNumMwmId, ());
+  for (auto const mwmId : mwmIds)
+  {
+    CHECK_NOT_EQUAL(mwmId, kFakeNumMwmId, ());
+    if (!DoesTransitSectionExist(mwmId))
+      return IRouter::TransitRouteNotFoundNoNetwork;
+  }
 
-  return (DoesTransitSectionExist(startMwmId) && DoesTransitSectionExist(finalMwmId))
-         ? IRouter::TransitRouteNotFoundTooLongPedestrian
-         : IRouter::TransitRouteNotFoundNoNetwork;
+  return IRouter::TransitRouteNotFoundTooLongPedestrian;
 }
 }  // namespace routing

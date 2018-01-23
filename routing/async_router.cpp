@@ -37,7 +37,7 @@ string ToString(IRouter::ResultCode code)
   case IRouter::NeedMoreMaps: return "NeedMoreMaps";
   case IRouter::FileTooOld: return "FileTooOld";
   case IRouter::IntermediatePointNotFound: return "IntermediatePointNotFound";
-  case IRouter::TransitRouteNotFoundNoNetwork: return "RouteNotFoundNoTransitNetwork";
+  case IRouter::TransitRouteNotFoundNoNetwork: return "TransitRouteNotFoundNoNetwork";
   case IRouter::TransitRouteNotFoundTooLongPedestrian: return "TransitRouteNotFoundTooLongPedestrian";
   case IRouter::RouteNotFoundRedressRouteError: return "RouteNotFoundRedressRouteError";
   }

@@ -80,7 +80,6 @@ private:
                                        m2::PointD const & startDirection,
                                        RouterDelegate const & delegate, Route & route);
   IRouter::ResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
-                                        Segment const & startSegment, Segment const & finishSegment,
                                         RouterDelegate const & delegate, IndexGraphStarter & graph,
                                         std::vector<Segment> & subroute);
 
@@ -114,7 +113,7 @@ private:
 
   bool AreMwmsNear(std::set<NumMwmId> const & mwmIds) const;
   bool DoesTransitSectionExist(NumMwmId numMwmId) const;
-  IRouter::ResultCode ConvertTransitResult(NumMwmId startMwmId, NumMwmId finalMwmId,
+  IRouter::ResultCode ConvertTransitResult(std::set<NumMwmId> const & mwmIds,
                                            IRouter::ResultCode resultCode) const;
 
   template <typename Graph>
@@ -130,18 +129,17 @@ private:
 
   template <typename Graph>
   IRouter::ResultCode FindPath(
-      typename AStarAlgorithm<Graph>::Params & params, NumMwmId startMwmId, NumMwmId finalMwmId,
+      typename AStarAlgorithm<Graph>::Params & params, std::set<NumMwmId> const & mwmIds,
       RoutingResult<typename Graph::Vertex, typename Graph::Weight> & routingResult) const
   {
     AStarAlgorithm<Graph> algorithm;
     if (params.m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
     {
-      return ConvertTransitResult(startMwmId, finalMwmId,
+      return ConvertTransitResult(mwmIds,
                                   ConvertResult<Graph>(algorithm.FindPath(params, routingResult)));
     }
     return ConvertTransitResult(
-        startMwmId, finalMwmId,
-        ConvertResult<Graph>(algorithm.FindPathBidirectional(params, routingResult)));
+        mwmIds, ConvertResult<Graph>(algorithm.FindPathBidirectional(params, routingResult)));
   }
 
   VehicleType m_vehicleType;
