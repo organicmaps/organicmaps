@@ -112,8 +112,7 @@ NSString * const kiOSEmail = @"ios@maps.me";
   UIAlertAction * cancel =
       [UIAlertAction actionWithTitle:kCancelActionTitle style:UIAlertActionStyleCancel handler:nil];
   [alert addAction:cancel];
-  if (!isIOS8)
-    alert.preferredAction = cancel;
+  alert.preferredAction = cancel;
 
   [self presentViewController:alert animated:YES completion:nil];
 }

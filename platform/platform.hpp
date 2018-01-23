@@ -119,8 +119,6 @@ public:
   static bool IsFileExistsByFullPath(string const & filePath);
   static void DisableBackupForFile(string const & filePath);
 
-  /// @return true if we can create custom texture allocator in drape
-  static bool IsCustomTextureAllocatorSupported();
   /// @returns path to current working directory.
   /// @note In case of an error returns an empty string.
   static string GetCurrentWorkingDirectory() noexcept;

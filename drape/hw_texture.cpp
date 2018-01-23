@@ -210,8 +210,7 @@ drape_ptr<HWTexture> OpenGLHWTextureAllocator::CreateTexture()
 
 drape_ptr<HWTextureAllocator> CreateAllocator()
 {
-  if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3 ||
-      !Platform::IsCustomTextureAllocatorSupported())
+  if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3)
   {
     return make_unique_dp<OpenGLHWTextureAllocator>();
   }

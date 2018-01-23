@@ -191,8 +191,6 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (BOOL)hasForceTouch
 {
-  if (isIOS8)
-    return NO;
   return self.view.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
 }
 
@@ -324,7 +322,7 @@ BOOL gIsFirstMyPositionMode = YES;
   self.controlsManager.menuRestoreState = self.controlsManager.menuState;
 }
 
-- (BOOL)prefersStatusBarHidden { return self.apiBar.isVisible; }
+- (BOOL)prefersStatusBarHidden { return NO; }
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
   return [self.controlsManager preferredStatusBarStyle];
@@ -525,7 +523,6 @@ BOOL gIsFirstMyPositionMode = YES;
   return _apiBar;
 }
 
-- (void)showAPIBar { self.apiBar.isVisible = YES; }
 #pragma mark - ShowDialog callback
 
 - (void)presentDisabledLocationAlert { [self.alertController presentDisabledLocationAlert]; }

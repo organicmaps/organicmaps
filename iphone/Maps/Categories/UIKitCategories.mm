@@ -329,14 +329,6 @@
     return;
   }
 
-  if (isIOS8)
-  {
-    auto app = UIApplication.sharedApplication;
-    if ([app canOpenURL:url])
-      [app openURL:url];
-    return;
-  }
-
   SFSafariViewController * svc = [[SFSafariViewController alloc] initWithURL:url];
   svc.delegate = self;
   [self.navigationController presentViewController:svc animated:YES completion:nil];

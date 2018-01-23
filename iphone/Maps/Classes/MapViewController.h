@@ -16,8 +16,6 @@
 
 - (void)updateStatusBarStyle;
 
-- (void)showAPIBar;
-
 - (void)performAction:(NSString *)action;
 
 - (void)openMigration;

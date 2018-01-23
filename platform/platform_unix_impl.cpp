@@ -156,9 +156,6 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
 void Platform::DisableBackupForFile(string const & filePath) {}
 
 // static
-bool Platform::IsCustomTextureAllocatorSupported() { return true; }
-
-// static
 string Platform::GetCurrentWorkingDirectory() noexcept
 {
   char path[PATH_MAX];

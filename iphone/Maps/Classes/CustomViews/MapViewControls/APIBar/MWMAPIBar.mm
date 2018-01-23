@@ -38,11 +38,6 @@ static NSString * const kKeyPath = @"subviews";
   return self;
 }
 
-- (void)dealloc
-{
-  self.isVisible = NO;
-}
-
 - (void)timerUpdate
 {
   self.timeLabel.text = [self.timeFormatter stringFromDate:[NSDate date]];
@@ -57,55 +52,8 @@ static NSString * const kKeyPath = @"subviews";
   f.DeactivateMapSelection(true);
   UserMarkNotificationGuard guard(f.GetBookmarkManager(), UserMark::Type::API);
   guard.m_controller.Clear();
-  self.isVisible = NO;
   NSURL * url = [NSURL URLWithString:@(f.GetApiDataHolder().GetGlobalBackUrl().c_str())];
   [UIApplication.sharedApplication openURL:url];
-}
-
-#pragma mark - Properties
-
-@synthesize isVisible = _isVisible;
-
-- (BOOL)isVisible
-{
-  if (isIOS8)
-    return _isVisible;
-  return NO;
-}
-
-- (void)setIsVisible:(BOOL)isVisible
-{
-  // Status bar in iOS 9 already provides back button if the app has been launched from another app.
-  // For iOS version less than 9 we just try to mimic the default iOS 9 status bar.
-  if (!isIOS8)
-    return;
-  if (_isVisible == isVisible)
-    return;
-  _isVisible = isVisible;
-  UIViewController * controller = self.controller;
-  if (isVisible)
-  {
-    self.backLabel.text = [NSString
-        stringWithFormat:L(@"back_to"), @(GetFramework().GetApiDataHolder().GetAppTitle().c_str())];
-    [controller.view addSubview:self.rootView];
-    [controller.view addObserver:self
-                      forKeyPath:kKeyPath
-                         options:NSKeyValueObservingOptionNew
-                         context:nullptr];
-    [self timerUpdate];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                  target:self
-                                                selector:@selector(timerUpdate)
-                                                userInfo:nil
-                                                 repeats:YES];
-  }
-  else
-  {
-    [controller.view removeObserver:self forKeyPath:kKeyPath];
-    [self.rootView removeFromSuperview];
-    [self.timer invalidate];
-  }
-  [controller setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

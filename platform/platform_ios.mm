@@ -62,9 +62,6 @@ Platform::Platform()
         device.systemVersion);
 }
 
-// static
-bool Platform::IsCustomTextureAllocatorSupported() { return !isIOS8; }
-
 //static
 void Platform::DisableBackupForFile(string const & filePath)
 {

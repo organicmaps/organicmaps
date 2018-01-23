@@ -270,15 +270,11 @@ using namespace osm_auth_ios;
       }
 
       [self showMap];
-      [self.mapViewController showAPIBar];
       break;
     }
     case ParsedMapApi::ParsingResult::Map:
       if (f.ShowMapForURL(url))
-      {
         [self showMap];
-        [self.mapViewController showAPIBar];
-      }
       break;
     case ParsedMapApi::ParsingResult::Search:
     {
@@ -695,12 +691,8 @@ using namespace osm_auth_ios;
 
   UISearchBar * searchBar = [UISearchBar appearance];
   searchBar.barTintColor = [UIColor primary];
-  UITextField * textFieldInSearchBar = nil;
-  if (isIOS8)
-    textFieldInSearchBar = [UITextField appearanceWhenContainedIn:[UISearchBar class], nil];
-  else
-    textFieldInSearchBar =
-        [UITextField appearanceWhenContainedInInstancesOfClasses:@[ [UISearchBar class] ]];
+  UITextField * textFieldInSearchBar =
+      [UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]];
 
   textField.backgroundColor = [UIColor white];
   textFieldInSearchBar.defaultTextAttributes = @{

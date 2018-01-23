@@ -28,8 +28,6 @@ static inline BOOL isIOSVersionLessThan(NSUInteger version)
   return isIOSVersionLessThan([NSString stringWithFormat:@"%@", @(version)]);
 }
 
-static BOOL const isIOS8 = isIOSVersionLessThan(9);
-
 static inline BOOL isInterfaceRightToLeft()
 {
   return UIApplication.sharedApplication.userInterfaceLayoutDirection ==
