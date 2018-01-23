@@ -14,7 +14,6 @@ std::vector<std::string> const kSymbols =
   "search-result",  // Default.
   "search-booking", // Booking.
   "search-adv",     // LocalAds.
-  "search-cian",    // TODO: delete me after Cian project is finished.
 
   "non-found-search-result", // NotFound.
 };
@@ -24,7 +23,6 @@ std::vector<std::string> const kPreparingSymbols =
   "search-result",           // Default.
   "search-booking-inactive", // Booking.
   "search-adv",              // LocalAds.
-  "search-cian",             // TODO: delete me after Cian project is finished.
 
   "non-found-search-result", // NotFound.
 };

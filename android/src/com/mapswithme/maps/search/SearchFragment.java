@@ -128,7 +128,7 @@ public class SearchFragment extends BaseMwmFragment
         return;
       }
 
-      if (mCianCategorySelected)
+      if (mLuggageCategorySelected)
         return;
 
       if (mAdsLoader != null && !isInteractiveSearch() && query.length() >= MIN_QUERY_LENGTH_FOR_AD)
@@ -209,7 +209,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
-  private boolean mCianCategorySelected;
+  private boolean mLuggageCategorySelected;
   private String mInitialQuery;
   @Nullable
   private String mInitialLocale;
@@ -673,15 +673,17 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public void onCategorySelected(String category)
   {
-    if (!TextUtils.isEmpty(category) && category.equals("cian "))
+    if (!TextUtils.isEmpty(category) &&
+        category.equals(CategoriesAdapter.LUGGAGE_CATEGORY + ' '))
     {
-      mCianCategorySelected = true;
+      mLuggageCategorySelected = true;
       mToolbarController.setQuery(category);
 
-      Statistics.INSTANCE.trackSponsoredEventByType(
-          Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SELECTED, Sponsored.TYPE_CIAN);
+      Statistics.INSTANCE.trackSponsoredEventForCustomProvider(
+          Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SELECTED,
+          Statistics.ParamValue.LUGGAGE_HERO);
       showAllResultsOnMap();
-      mCianCategorySelected = false;
+      mLuggageCategorySelected = false;
     }
     else
     {

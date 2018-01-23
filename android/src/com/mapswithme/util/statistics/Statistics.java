@@ -95,7 +95,6 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
-import static com.mapswithme.util.statistics.Statistics.ParamValue.CIAN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
@@ -358,7 +357,6 @@ public enum Statistics
     static final String LOCALS_EXPERTS = "Locals.Maps.Me";
     static final String SEARCH_RESTAURANTS = "Search.Restaurants";
     static final String SEARCH_ATTRACTIONS = "Search.Attractions";
-    static final String CIAN = "Cian.Ru";
     static final String HOLIDAY = "Holiday";
     public static final String NO_PRODUCTS = "no_products";
     static final String ADD = "add";
@@ -367,6 +365,8 @@ public enum Statistics
     static final String PLACEPAGE_PREVIEW = "placepage_preview";
     static final String PLACEPAGE = "placepage";
     public static final String FACEBOOK = "facebook";
+
+    public static final String LUGGAGE_HERO = "LuggageHero";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -774,7 +774,7 @@ public enum Statistics
                                              .add(PLACEMENT, placement.toString())
                                              .add(STATE, state.toString()));
 
-    if (type == GalleryType.CIAN && state == GalleryState.ONLINE)
+    if (state == GalleryState.ONLINE)
       MyTracker.trackEvent(PP_SPONSORED_SHOWN + "_" + type.getProvider());
   }
 
@@ -807,9 +807,9 @@ public enum Statistics
                                     .get());
   }
 
-  public void trackSponsoredEventByType(@NonNull String eventName, @Sponsored.SponsoredType int type)
+  public void trackSponsoredEventForCustomProvider(@NonNull String eventName,
+                                                   @NonNull String provider)
   {
-    String provider = convertToSponsor(type);
     trackEvent(eventName, Statistics.params().add(PROVIDER, provider).get());
     MyTracker.trackEvent(eventName + "_" + provider);
   }
@@ -834,8 +834,6 @@ public enum Statistics
         return VIATOR;
       case Sponsored.TYPE_OPENTABLE:
         return OPENTABLE;
-      case Sponsored.TYPE_CIAN:
-        return CIAN;
       case Sponsored.TYPE_HOLIDAY:
         return HOLIDAY;
       case Sponsored.TYPE_NONE:

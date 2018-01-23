@@ -206,10 +206,6 @@ namespace android
     void SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc);
     void UploadUGC();
 
-    uint64_t GetRentNearby(JNIEnv * env, jobject policy, ms::LatLon const & latlon,
-                       cian::Api::RentNearbyCallback const & onSuccess,
-                       cian::Api::ErrorCallback const & onError);
-
     int ToDoAfterUpdate() const;
 
     uint64_t GetLocals(JNIEnv * env, jobject policy, double lat, double lon,

@@ -6,7 +6,6 @@ set(
   SRC
   ads_engine_tests.cpp
   booking_tests.cpp
-  cian_tests.cpp
   facebook_tests.cpp
   google_tests.cpp
   mopub_tests.cpp

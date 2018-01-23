@@ -57,7 +57,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 @property(weak, nonatomic) MWMPlacePageTaxiCell * taxiCell;
 @property(weak, nonatomic) MWMPPViatorCarouselCell * viatorCell;
-@property(weak, nonatomic) MWMPPCianCarouselCell * cianCell;
 
 @property(nonatomic) BOOL buttonsSectionEnabled;
 
@@ -94,7 +93,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [tv registerWithCellClass:[MWMPPHotelDescriptionCell class]];
   [tv registerWithCellClass:[MWMPPHotelCarouselCell class]];
   [tv registerWithCellClass:[MWMPPViatorCarouselCell class]];
-  [tv registerWithCellClass:[MWMPPCianCarouselCell class]];
   [tv registerWithCellClass:[MWMPPReviewHeaderCell class]];
   [tv registerWithCellClass:[MWMPPReviewCell class]];
   [tv registerWithCellClass:[MWMPPFacilityCell class]];
@@ -120,7 +118,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   dispatch_async(dispatch_get_main_queue(), ^{
     [data fillOnlineBookingSections];
     [data fillOnlineViatorSection];
-    [data fillOnlineCianSection];
   });
 }
 
@@ -418,15 +415,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
       self.viatorCell = c;
       return c;
     }
-    case SpecialProject::Cian:
-    {
-      Class cls = [MWMPPCianCarouselCell class];
-      auto c = static_cast<MWMPPCianCarouselCell *>(
-          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWithDelegate:delegate];
-      self.cianCell = c;
-      return c;
-    }
     }
   }
   case Sections::HotelPhotos:
@@ -624,13 +612,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     [Statistics logEvent:kStatPlacepageSponsoredShow
           withParameters:@{kStatProvider: kStatViator, kStatPlacement: kStatPlacePage}];
   });
-
-  checkCell(self.cianCell, ^{
-    self.cianCell = nil;
-    [MRMyTracker trackEventWithName:@"Placepage_SponsoredGallery_shown_Cian.Ru"];
-    [Statistics logEvent:kStatPlacepageSponsoredShow
-          withParameters:@{kStatProvider : kStatCian, kStatPlacement: kStatPlacePage}];
-  });
 }
 
 #pragma mark - MWMOpeningHoursLayoutHelper
@@ -728,10 +709,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
   data.bannerIsReadyCallback = ^{
     [self.previewLayoutHelper insertRowAtTheEnd];
-  };
-
-  data.cianIsReadyCallback = ^(NSArray<MWMCianItemModel *> * items) {
-    self.cianCell.data = items;
   };
 
   [self.actionBar configureWithData:data];

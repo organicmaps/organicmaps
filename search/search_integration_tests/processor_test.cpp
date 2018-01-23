@@ -1108,44 +1108,6 @@ UNIT_CLASS_TEST(ProcessorTest, TestWeirdTypes)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorTest, Cian)
-{
-  string const countryName = "Wonderland";
-  TestCity cianCity(m2::PointD(0, 0), "Cian", "en", 100 /* rank */);
-  TestBuilding plainBuilding(m2::PointD(0, 0), "Plain building", "1", "en");
-  TestBuilding garage(m2::PointD(0.001, 0.001), "Garage", "2", "en");
-  garage.AddType({"building", "garage"});
-  TestBuilding nonameBuilding(m2::PointD(0.002, 0.002), "", "3", "en");
-
-  auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(cianCity); });
-
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
-    builder.Add(plainBuilding);
-    builder.Add(garage);
-    builder.Add(nonameBuilding);
-  });
-
-  SearchParams params;
-  params.m_query = "cian";
-  params.m_inputLocale = "en";
-  params.m_viewport = m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0));
-  params.m_mode = Mode::Everywhere;
-  params.m_suggestsEnabled = false;
-
-  params.m_cianMode = false;
-  {
-    TRules rules = {ExactMatch(worldId, cianCity), ExactMatch(countryId, plainBuilding),
-                    ExactMatch(countryId, garage), ExactMatch(countryId, nonameBuilding)};
-    TEST(ResultsMatch(params, rules), ());
-  }
-
-  params.m_cianMode = true;
-  {
-    TRules rules = {ExactMatch(countryId, nonameBuilding)};
-    TEST(ResultsMatch(params, rules), ());
-  }
-}
-
 UNIT_CLASS_TEST(ProcessorTest, CityBoundaryLoad)
 {
   TestCity city(vector<m2::PointD>({m2::PointD(0, 0), m2::PointD(0.5, 0), m2::PointD(0.5, 0.5),

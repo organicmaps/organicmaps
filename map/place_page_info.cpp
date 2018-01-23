@@ -268,9 +268,6 @@ bool Info::HasBanner() const
   if (!m_adsEngine)
     return false;
 
-  if (m_sponsoredType == SponsoredType::Cian)
-    return false;
-
   if (IsMyPosition())
     return false;
 

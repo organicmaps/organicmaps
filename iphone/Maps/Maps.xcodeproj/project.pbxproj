@@ -142,11 +142,6 @@
 		347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */; };
 		347BFA901F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
 		347E039A1FAC5F1D00426032 /* UIWindow+InputLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E03981FAC5F1D00426032 /* UIWindow+InputLanguage.swift */; };
-		347E1A891F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
-		347E1A8E1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A8C1F1F71F1002BF7A8 /* PPCianCarouselCell.swift */; };
-		347E1A921F1F72AD002BF7A8 /* PPCianCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347E1A901F1F72AD002BF7A8 /* PPCianCarouselCell.xib */; };
-		347E1A971F1F7404002BF7A8 /* CianElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A941F1F7404002BF7A8 /* CianElement.swift */; };
-		347E1A9A1F1F7404002BF7A8 /* CianElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347E1A951F1F7404002BF7A8 /* CianElement.xib */; };
 		34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */; };
 		34845DB31E165E24003D55B9 /* SearchNoResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DB11E165E24003D55B9 /* SearchNoResultsViewController.swift */; };
 		34845DB71E166084003D55B9 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DB51E166084003D55B9 /* Common.swift */; };
@@ -927,11 +922,6 @@
 		347D15C71F82362900E86251 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = GoogleSignIn/GoogleSignIn.framework; sourceTree = "<group>"; };
 		347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignInDependencies.framework; path = GoogleSignIn/GoogleSignInDependencies.framework; sourceTree = "<group>"; };
 		347E03981FAC5F1D00426032 /* UIWindow+InputLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+InputLanguage.swift"; sourceTree = "<group>"; };
-		347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CianItemModel.swift; sourceTree = "<group>"; };
-		347E1A8C1F1F71F1002BF7A8 /* PPCianCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPCianCarouselCell.swift; sourceTree = "<group>"; };
-		347E1A901F1F72AD002BF7A8 /* PPCianCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPCianCarouselCell.xib; sourceTree = "<group>"; };
-		347E1A941F1F7404002BF7A8 /* CianElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CianElement.swift; sourceTree = "<group>"; };
-		347E1A951F1F7404002BF7A8 /* CianElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CianElement.xib; sourceTree = "<group>"; };
 		34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloaderNoResultsEmbedViewController.swift; sourceTree = "<group>"; };
 		34845DB11E165E24003D55B9 /* SearchNoResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNoResultsViewController.swift; sourceTree = "<group>"; };
 		34845DB51E166084003D55B9 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
@@ -2489,18 +2479,6 @@
 			path = TextToSpeech;
 			sourceTree = "<group>";
 		};
-		347E1A861F1F5DD7002BF7A8 /* Cian */ = {
-			isa = PBXGroup;
-			children = (
-				347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */,
-				347E1A8C1F1F71F1002BF7A8 /* PPCianCarouselCell.swift */,
-				347E1A901F1F72AD002BF7A8 /* PPCianCarouselCell.xib */,
-				347E1A941F1F7404002BF7A8 /* CianElement.swift */,
-				347E1A951F1F7404002BF7A8 /* CianElement.xib */,
-			);
-			path = Cian;
-			sourceTree = "<group>";
-		};
 		3486B5041E27A4B50069C126 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -3467,7 +3445,6 @@
 				F68224981E5B0FE100BC1C18 /* BookingCells */,
 				F6E2FCA91E097B9F0083EBEC /* BookmarkCell */,
 				F6E2FCAF1E097B9F0083EBEC /* ButtonCell */,
-				347E1A861F1F5DD7002BF7A8 /* Cian */,
 				346DB81C1E5C4F6700E3123E /* Gallery */,
 				F6E2FCB31E097B9F0083EBEC /* OpeningHoursCell */,
 				F6E2FCC11E097B9F0083EBEC /* RegularCell */,
@@ -4120,7 +4097,6 @@
 				F6E2FEEE1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
 				344532511F714FD70059FBCC /* UGCAddReviewController.xib in Resources */,
 				3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
-				347E1A921F1F72AD002BF7A8 /* PPCianCarouselCell.xib in Resources */,
 				346DB82B1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
 				F6E2FE2E1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				349B92711DF0526D007779DD /* MWMToast.xib in Resources */,
@@ -4145,7 +4121,6 @@
 				6741A94D1BF340DE002C974C /* resources-xxhdpi_clear in Resources */,
 				6741A9551BF340DE002C974C /* resources-xxhdpi_dark in Resources */,
 				340E1EF51E2F614400CE49BF /* SearchFilters.storyboard in Resources */,
-				347E1A9A1F1F7404002BF7A8 /* CianElement.xib in Resources */,
 				F682249F1E5B105900BC1C18 /* PPHotelDescriptionCell.xib in Resources */,
 				340E1EF81E2F614400CE49BF /* Settings.storyboard in Resources */,
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
@@ -4233,7 +4208,6 @@
 				343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
 				F6664BFA1E6459CB00E703C2 /* PPFacilityCell.swift in Sources */,
 				348B926D1FF3B5E100379009 /* UIView+Animation.swift in Sources */,
-				347E1A8E1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
 				F6E2FDE91E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				3472B5EF200F8F7600DC6CD5 /* BackgroundUGCUpload.swift in Sources */,
 				6741A9A81BF340DE002C974C /* MWMFacebookAlert.mm in Sources */,
@@ -4264,7 +4238,6 @@
 				340475501E081A4600C92850 /* fabric_logging_ios.mm in Sources */,
 				34F4073E1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
 				F6E2FED01E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
-				347E1A971F1F7404002BF7A8 /* CianElement.swift in Sources */,
 				34D4FA671E265749003F53EF /* WhatsNewController.swift in Sources */,
 				34D3B01B1E389D05004100F9 /* MWMButtonCell.mm in Sources */,
 				3486B5161E27AD3B0069C126 /* Framework.cpp in Sources */,
@@ -4347,7 +4320,6 @@
 				F6558DA21E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
 				34AB664A1FC5AA330078E451 /* RouteManageriPadPresentationController.swift in Sources */,
 				349D1ACF1E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,
-				347E1A891F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */,
 				F6E2FF451E097BA00083EBEC /* SettingsTableViewLinkCell.swift in Sources */,
 				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */,
 				3472B5F3200F906800DC6CD5 /* BackgroundDownloadMapNotification.swift in Sources */,

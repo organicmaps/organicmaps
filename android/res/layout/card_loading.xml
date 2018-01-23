@@ -3,7 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/cian_product_height"
+  android:layout_height="@dimen/luggage_product_height"
   android:orientation="vertical"
   android:gravity="center_horizontal">
   <ProgressBar
@@ -39,12 +39,12 @@
   <TextView
     android:id="@+id/button"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/cian_details_height"
+    android:layout_height="@dimen/luggage_details_height"
     android:textAppearance="@style/MwmTextAppearance.Button"
     android:textSize="@dimen/text_size_caption"
     android:fontFamily="@string/robotoMedium"
     android:gravity="center"
     android:background="?windowBackgroundForced"
-    android:text="@string/preloader_cian_button"
+    android:text="@string/preloader_viator_button"
     tools:targetApi="jelly_bean"/>
 </LinearLayout>

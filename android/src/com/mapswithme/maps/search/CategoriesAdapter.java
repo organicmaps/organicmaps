@@ -24,6 +24,8 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   private final LayoutInflater mInflater;
   private final Resources mResources;
 
+  static final String LUGGAGE_CATEGORY = "luggagehero";
+
   interface OnCategorySelectedListener
   {
     void onCategorySelected(String category);
@@ -49,12 +51,12 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       mCategoryResIds[i] = resources.getIdentifier(key, "string", packageName);
       if (mCategoryResIds[i] == 0)
       {
-        // TODO: remove this code after "cian" feature is obsoleted.
-        if (key.equals("cian"))
+        if (key.equals(LUGGAGE_CATEGORY))
         {
-          Statistics.INSTANCE.trackSponsoredEventByType(
-              Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN, Sponsored.TYPE_CIAN);
-          mCategoryResIds[i] = R.string.real_estate;
+          Statistics.INSTANCE.trackSponsoredEventForCustomProvider(
+              Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN,
+              Statistics.ParamValue.LUGGAGE_HERO);
+          mCategoryResIds[i] = R.string.luggage_storage;
         }
         else
         {
@@ -79,8 +81,8 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   @Override
   public int getItemViewType(int position)
   {
-    if (mCategoryResIds[position] == R.string.real_estate)
-      return R.layout.item_search_category_cian;
+    if (mCategoryResIds[position] == R.string.luggage_storage)
+      return R.layout.item_search_category_luggage;
     return R.layout.item_search_category;
   }
 
@@ -88,9 +90,9 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
     final View view;
-    if (viewType == R.layout.item_search_category_cian)
+    if (viewType == R.layout.item_search_category_luggage)
     {
-      view = mInflater.inflate(R.layout.item_search_category_cian, parent, false);
+      view = mInflater.inflate(R.layout.item_search_category_luggage, parent, false);
       return new ViewHolder(view, (TextView) view.findViewById(R.id.tv__category));
     }
 
@@ -112,8 +114,8 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
   private String getSuggestionFromCategory(int resId)
   {
-    if (resId == R.string.real_estate)
-      return "cian ";
+    if (resId == R.string.luggage_storage)
+      return LUGGAGE_CATEGORY + ' ';
     return mResources.getString(resId) + ' ';
   }
 

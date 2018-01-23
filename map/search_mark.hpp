@@ -17,8 +17,6 @@ enum class SearchMarkType
   Default = 0,
   Booking,
   LocalAds,
-  Cian, // TODO: delete me after Cian project is finished.
-
   NotFound, // Service value used in developer tools.
   Count
 };

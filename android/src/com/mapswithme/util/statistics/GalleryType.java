@@ -13,15 +13,6 @@ public enum GalleryType
           return Statistics.ParamValue.VIATOR;
         }
       },
-  CIAN
-      {
-        @NonNull
-        @Override
-        public String getProvider()
-        {
-          return Statistics.ParamValue.CIAN;
-        }
-      },
   LOCAL_EXPERTS
       {
         @NonNull

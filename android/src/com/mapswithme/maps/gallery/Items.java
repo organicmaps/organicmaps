@@ -52,38 +52,6 @@ public class Items
     }
   }
 
-  public static class CianItem extends RegularAdapterStrategy.Item
-  {
-    @NonNull
-    final String mPrice;
-    @NonNull
-    final String mAddress;
-
-    public CianItem(@NonNull String title, @NonNull String url, @NonNull String price,
-                    @NonNull String address)
-    {
-      super(TYPE_PRODUCT, title, url, null);
-      mPrice = price;
-      mAddress = address;
-    }
-
-    CianItem(@Constants.ViewType int type, @NonNull String title, @Nullable String url)
-    {
-      super(type, title, url, null);
-      mPrice = "";
-      mAddress = "";
-    }
-  }
-
-  public static class CianMoreItem extends CianItem
-  {
-
-    public CianMoreItem(@Nullable String url)
-    {
-      super(TYPE_MORE, MwmApplication.get().getString(R.string.placepage_more_button), url);
-    }
-  }
-
   public static class LocalExpertItem extends RegularAdapterStrategy.Item
   {
     @Nullable

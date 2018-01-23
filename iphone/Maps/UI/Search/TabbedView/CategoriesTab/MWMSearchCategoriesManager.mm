@@ -6,7 +6,7 @@
 
 #include "Framework.h"
 
-extern NSString * const kCianCategory = @"cian";
+extern NSString * const kLuggageCategory = @"luggagehero";
 
 @implementation MWMSearchCategoriesManager
 {
@@ -54,10 +54,10 @@ extern NSString * const kCianCategory = @"cian";
     forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * string = @(m_categories[indexPath.row].c_str());
-  if ([string isEqualToString:kCianCategory])
+  if ([string isEqualToString:kLuggageCategory])
   {
-    [MRMyTracker trackEventWithName:@"Search_SponsoredCategory_shown_Cian"];
-    [Statistics logEvent:kStatSearchSponsoredShow withParameters:@{kStatProvider : kStatCian}];
+    [MRMyTracker trackEventWithName:@"Search_SponsoredCategory_shown_LuggageHero"];
+    [Statistics logEvent:kStatSearchSponsoredShow withParameters:@{kStatProvider : kStatLuggageHero}];
   }
 }
 
@@ -70,11 +70,11 @@ extern NSString * const kCianCategory = @"cian";
   [delegate searchText:[L(string) stringByAppendingString:@" "]
         forInputLocale:[[AppInfo sharedInfo] languageId]];
   [delegate dismissKeyboard];
-  if ([string isEqualToString:kCianCategory])
+  if ([string isEqualToString:kLuggageCategory])
   {
     delegate.state = MWMSearchManagerStateMapSearch;
-    [MRMyTracker trackEventWithName:@"Search_SponsoredCategory_selected_Cian"];
-    [Statistics logEvent:kStatSearchSponsoredSelect withParameters:@{kStatProvider : kStatCian}];
+    [MRMyTracker trackEventWithName:@"Search_SponsoredCategory_selected_LuggageHero"];
+    [Statistics logEvent:kStatSearchSponsoredSelect withParameters:@{kStatProvider : kStatLuggageHero}];
   }
 }
 

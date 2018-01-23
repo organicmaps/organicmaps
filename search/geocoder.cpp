@@ -333,31 +333,6 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
   auto const sep = stable_partition(infos.begin(), infos.end(), intersects);
   return distance(infos.begin(), sep);
 }
-
-CBV DecimateCianResults(CBV const & cbv)
-{
-  // With the typical amount of buildings in a relevant
-  // mwm nearing 200000, the geocoding slows down considerably.
-  // Leaving only a fraction of them does not seem
-  // to worsen the percieved result.
-  size_t const kMaxCianResults = 10000;
-  minstd_rand rng(0);
-  auto survivedIds =
-      ::base::RandomSample(::base::checked_cast<size_t>(cbv.PopCount()), kMaxCianResults, rng);
-  sort(survivedIds.begin(), survivedIds.end());
-  auto it = survivedIds.begin();
-  vector<uint64_t> setBits;
-  setBits.reserve(kMaxCianResults);
-  size_t observed = 0;
-  cbv.ForEach([&](uint64_t bit) {
-    while (it != survivedIds.end() && *it < observed)
-      ++it;
-    if (it != survivedIds.end() && *it == observed)
-      setBits.push_back(bit);
-    ++observed;
-  });
-  return CBV(coding::CompressedBitVectorBuilder::FromBitPositions(move(setBits)));
-}
 }  // namespace
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
@@ -392,7 +367,6 @@ void Geocoder::SetParams(Params const & params)
   }
 
   m_params = params;
-  m_model.SetCianEnabled(m_params.m_cianMode);
 
   m_tokenRequests.clear();
   m_prefixTokenRequest.Clear();
@@ -481,7 +455,6 @@ void Geocoder::ClearCaches()
 void Geocoder::SetParamsForCategorialSearch(Params const & params)
 {
   m_params = params;
-  m_model.SetCianEnabled(m_params.m_cianMode);
 
   m_tokenRequests.clear();
   m_prefixTokenRequest.Clear();
@@ -621,9 +594,6 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
     {
       ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_tokenRequests[i]);
     }
-
-    if (m_params.m_cianMode)
-      ctx.m_features[i] = DecimateCianResults(ctx.m_features[i]);
   }
 
   ctx.m_hotelsFilter = m_hotelsFilter.MakeScopedFilter(*m_context, m_params.m_hotelsFilter);
@@ -1338,9 +1308,6 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
   if (ctx.m_hotelsFilter && !ctx.m_hotelsFilter->Matches(id))
       return;
 
-  if (m_params.m_cianMode && type != Model::TYPE_BUILDING)
-    return;
-
   if (m_params.m_tracer)
     TraceResult(*m_params.m_tracer, ctx, mwmId, ftId, type, tokenRange);
 
@@ -1394,9 +1361,6 @@ void Geocoder::EmitResult(BaseContext & ctx, City const & city, TokenRange const
 
 void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
 {
-  if (m_params.m_cianMode)
-    return;
-
   ASSERT(ctx.m_layers.empty(), ());
 
   // We need to match all unused tokens to UNCLASSIFIED features,

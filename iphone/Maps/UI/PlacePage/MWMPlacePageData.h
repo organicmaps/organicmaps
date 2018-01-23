@@ -12,7 +12,6 @@
 
 @class MWMPlacePageData;
 @class MWMUGCReviewVM;
-@class MWMCianItemModel;
 
 struct BookmarkAndCategory;
 struct FeatureID;
@@ -92,8 +91,7 @@ enum class HotelReviewsRow
 
 enum class SpecialProject
 {
-  Viator,
-  Cian
+  Viator
 };
 
 enum class MetainfoRows
@@ -135,12 +133,10 @@ enum class OpeningHours
 };
 
 using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * data, BOOL isSection);
-using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 }  // namespace place_page
 
 @class MWMGalleryItemModel;
 @class MWMViatorItemModel;
-@class MWMCianItemModel;
 @class MWMUGCViewModel;
 @class MWMUGCReviewModel;
 @class MWMUGCRatingValueType;
@@ -152,7 +148,6 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 @property(copy, nonatomic) MWMVoidBlock refreshPreviewCallback;
 @property(copy, nonatomic) place_page::NewSectionsAreReady sectionsAreReadyCallback;
 @property(copy, nonatomic) MWMVoidBlock bannerIsReadyCallback;
-@property(copy, nonatomic) place_page::CianIsReady cianIsReadyCallback;
 @property(nonatomic, readonly) MWMUGCViewModel * ugc;
 
 // ready callback will be called from main queue.
@@ -202,9 +197,6 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 - (void)fillOnlineViatorSection;
 - (NSArray<MWMViatorItemModel *> *)viatorItems;
 
-// CIAN
-- (void)fillOnlineCianSection;
-
 // Route points
 - (RouteMarkType)routeMarkType;
 - (size_t)intermediateIndex;
@@ -251,7 +243,6 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 - (BOOL)isBooking;
 - (BOOL)isOpentable;
 - (BOOL)isViator;
-- (BOOL)isCian;
 - (BOOL)isPartner;
 - (BOOL)isHolidayObject;
 - (BOOL)isBookingSearch;

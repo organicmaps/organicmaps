@@ -213,10 +213,10 @@
   <dimen name="viator_product_width">160dp</dimen>
   <dimen name="viator_product_image_height">80dp</dimen>
 
-  <!-- Cian-->
-  <dimen name="cian_product_height">140dp</dimen>
-  <dimen name="cian_product_width">160dp</dimen>
-  <dimen name="cian_details_height">44dp</dimen>
+  <!-- Luggage-->
+  <dimen name="luggage_product_height">140dp</dimen>
+  <dimen name="luggage_product_width">160dp</dimen>
+  <dimen name="luggage_details_height">44dp</dimen>
 
   <!-- Rating-->
   <dimen name="rating_view_height">40dp</dimen>

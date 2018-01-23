@@ -539,15 +539,6 @@ taxi::Engine * Framework::GetTaxiEngine(platform::NetworkPolicy const & policy)
   return nullptr;
 }
 
-cian::Api * Framework::GetCianApi(platform::NetworkPolicy const & policy)
-{
-  ASSERT(m_cianApi, ());
-  if (policy.CanUse())
-    return m_cianApi.get();
-
-  return nullptr;
-}
-
 locals::Api * Framework::GetLocalsApi(platform::NetworkPolicy const & policy)
 {
   ASSERT(m_localsApi, ());
@@ -891,13 +882,6 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     auto const url = MakeSearchBookingUrl(*m_bookingApi, *m_cityFinder, ft);
     info.SetBookingSearchUrl(url);
     LOG(LINFO, (url));
-  }
-  else if (cian::Api::IsCitySupported(city) &&
-           ((buildingHolder.Equals({ft}) && !ft.HasName()) ||
-             ftypes::IsPublicTransportStopChecker::Instance()(ft)))
-  {
-    info.SetSponsoredType(SponsoredType::Cian);
-    info.SetSponsoredUrl(cian::Api::GetMainPageUrl());
   }
   else if (ftypes::SponsoredPartnerChecker::Instance()(ft))
   {
@@ -1484,8 +1468,8 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
   if (auto const position = GetCurrentPosition())
     city = m_cityFinder->GetCityName(*position, StringUtf8Multilang::kEnglishCode);
 
-  CianModifier cianModifier(city);
-  m_displayedCategories->Modify(cianModifier);
+  LuggageHeroModifier modifier(city);
+  m_displayedCategories->Modify(modifier);
 
   return *m_displayedCategories;
 }
@@ -1631,13 +1615,6 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
     if (isFeature && m_localAdsManager.Contains(r.GetFeatureID()))
     {
       mark->SetMarkType(SearchMarkType::LocalAds);
-      continue;
-    }
-
-    // TODO: delete me after Cian project is finished.
-    if (GetSearchAPI().GetSponsoredMode() == SearchAPI::SponsoredMode::Cian)
-    {
-      mark->SetMarkType(SearchMarkType::Cian);
       continue;
     }
 

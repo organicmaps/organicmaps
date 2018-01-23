@@ -54,11 +54,6 @@ public:
   }
 
   Type GetType(FeatureType const & feature) const;
-
-  void SetCianEnabled(bool enabled) { m_cianEnabled = enabled; }
-
-private:
-  bool m_cianEnabled = false;
 };
 
 string DebugPrint(Model::Type type);

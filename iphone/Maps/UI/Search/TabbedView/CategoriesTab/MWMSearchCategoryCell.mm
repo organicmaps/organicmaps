@@ -2,7 +2,7 @@
 #import "MWMCommon.h"
 #import "UIImageView+Coloring.h"
 
-extern NSString * const kCianCategory;
+extern NSString * const kLuggageCategory;
 
 @interface MWMSearchCategoryCell ()
 
@@ -29,11 +29,11 @@ extern NSString * const kCianCategory;
   UILabel * label = self.label;
   label.textColor = [UIColor blackPrimaryText];
   self.icon.mwm_name = [NSString stringWithFormat:@"ic_%@", category];
-  if ([category isEqualToString:kCianCategory])
+  if ([category isEqualToString:kLuggageCategory])
   {
-    label.text = L(@"real_estate");
+    label.text = L(@"luggage_storage");
     self.adIcon.hidden = NO;
-    self.adIcon.mwm_name = @"logo_cian";
+    self.adIcon.image = [UIImage imageNamed:@"logo_luggage"];
   }
   else
   {

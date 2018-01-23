@@ -59,8 +59,6 @@ struct SearchParams
 
   std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
 
-  bool m_cianMode = false;
-
   std::shared_ptr<Tracer> m_tracer;
 };
 

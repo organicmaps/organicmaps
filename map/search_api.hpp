@@ -58,8 +58,6 @@ public:
   enum class SponsoredMode
   {
     None,
-    // TODO (@y, @m): delete me after Cian project is finished.
-    Cian,
     Booking
   };
 

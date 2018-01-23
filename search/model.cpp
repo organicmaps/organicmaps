@@ -76,41 +76,16 @@ public:
 private:
   CustomIsBuildingChecker() {}
 };
-
-class IsCianChecker
-{
-public:
-  static IsCianChecker const & Instance()
-  {
-    static const IsCianChecker instance;
-    return instance;
-  }
-
-  bool operator()(FeatureType const & ft) const
-  {
-    feature::TypesHolder th(ft);
-    return !ft.HasName() && th.Size() == 1 && th.Has(m_type);
-  }
-
-private:
-  IsCianChecker() { m_type = classif().GetTypeByPath({"building"}); }
-
-  uint32_t m_type;
-};
 }  // namespace
 
 Model::Type Model::GetType(FeatureType const & feature) const
 {
   static auto const & buildingChecker = CustomIsBuildingChecker::Instance();
-  static auto const & cianChecker = IsCianChecker::Instance();
   static auto const & streetChecker = IsStreetChecker::Instance();
   static auto const & localityChecker = IsLocalityChecker::Instance();
   static auto const & poiChecker = IsPoiChecker::Instance();
 
-  if (m_cianEnabled && cianChecker(feature))
-    return TYPE_BUILDING;
-
-  if (!m_cianEnabled && buildingChecker(feature))
+  if (buildingChecker(feature))
     return TYPE_BUILDING;
 
   if (streetChecker(feature))

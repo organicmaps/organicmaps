@@ -83,7 +83,6 @@ public:
     m2::RectD m_pivot;
     Locales m_categoryLocales;
     shared_ptr<hotels_filter::Rule> m_hotelsFilter;
-    bool m_cianMode = false;
     set<uint32_t> m_preferredTypes;
     shared_ptr<Tracer> m_tracer;
   };

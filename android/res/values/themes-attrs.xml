@@ -87,7 +87,7 @@
 
     <attr name="sponsoredGalleryMore" format="reference"/>
 
-    <attr name="cianLogo" format="reference"/>
+    <attr name="luggageLogo" format="reference"/>
     <attr name="viatorLogo" format="reference" />
 
     <attr name="ratingButtonBackground" format="reference"/>

@@ -49,11 +49,8 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
-import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
-import com.mapswithme.maps.cian.Cian;
-import com.mapswithme.maps.cian.RentPlace;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.downloader.MapManager;
@@ -128,8 +125,7 @@ public class PlacePageView extends RelativeLayout
                BottomPlacePageAnimationController.OnBannerOpenListener,
                EditBookmarkFragment.EditBookmarkListener,
                BannerController.BannerListener,
-               Viator.ViatorListener,
-               Cian.CianListener
+               Viator.ViatorListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
@@ -646,7 +642,6 @@ public class PlacePageView extends RelativeLayout
     Sponsored.setPriceListener(this);
     Sponsored.setInfoListener(this);
     Viator.setViatorListener(this);
-    Cian.setCianListener(this);
   }
 
   private void initHotelRatingView()
@@ -836,22 +831,6 @@ public class PlacePageView extends RelativeLayout
       updateViatorView(products, mSponsored.getUrl());
   }
 
-  @Override
-  public void onRentPlacesReceived(@NonNull RentPlace[] places)
-  {
-    if (mSponsored != null)
-      updateCianView(places, mSponsored.getUrl());
-  }
-
-  @Override
-  public void onErrorReceived(int errorCode)
-  {
-    String url = mSponsored != null ? mSponsored.getUrl() : "";
-    mRvSponsoredProducts.setAdapter(Factory.createCianErrorAdapter(url, mDefaultGalleryItemListener));
-    Statistics.INSTANCE.trackGalleryError(GalleryType.CIAN, GalleryPlacement.PLACEPAGE,
-                                          String.valueOf(errorCode));
-  }
-
   private void initSponsoredGalleryView()
   {
     mSponsoredGalleryView = findViewById(R.id.ll__place_sponsored_gallery);
@@ -885,29 +864,12 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
-  private void updateCianView(@NonNull final RentPlace[] products, @NonNull final String url)
-  {
-    if (products.length == 0)
-    {
-      mRvSponsoredProducts.setAdapter(Factory.createCianErrorAdapter(url, mDefaultGalleryItemListener));
-      Statistics.INSTANCE.trackGalleryError(GalleryType.CIAN, GalleryPlacement.PLACEPAGE,
-                                            Statistics.ParamValue.NO_PRODUCTS);
-    }
-    else
-    {
-      ItemSelectedListener<Items.CianItem> listener
-          = createSponsoredProductItemListener(GalleryType.CIAN);
-      mRvSponsoredProducts.setAdapter(Factory.createCianAdapter(products, url, listener,
-                                                                GalleryPlacement.PLACEPAGE));
-    }
-  }
-
   private void updateGallerySponsoredLogo(@Sponsored.SponsoredType int type)
   {
-    if (type != Sponsored.TYPE_VIATOR && type != Sponsored.TYPE_CIAN)
+    if (type != Sponsored.TYPE_VIATOR)
       throw new AssertionError("Unsupported type: " + type);
 
-    int logoAttr = type == Sponsored.TYPE_CIAN ? R.attr.cianLogo : R.attr.viatorLogo;
+    int logoAttr = R.attr.viatorLogo;
     TypedArray array = getActivity().getTheme().obtainStyledAttributes(new int[] {logoAttr});
     int attributeResourceId = array.getResourceId(0 /* index */, 0 /* defValue */);
     Drawable drawable = getResources().getDrawable(attributeResourceId);
@@ -917,8 +879,7 @@ public class PlacePageView extends RelativeLayout
 
   private void updateGallerySponsoredTitle(@Sponsored.SponsoredType int type)
   {
-    mTvSponsoredTitle.setText(type == Sponsored.TYPE_CIAN ? R.string.subtitle_rent
-                                                          : R.string.place_page_viator_title);
+    mTvSponsoredTitle.setText(R.string.place_page_viator_title);
   }
 
   private void hideSponsoredGalleryViews()
@@ -1240,41 +1201,26 @@ public class PlacePageView extends RelativeLayout
     }
 
     boolean isViator = mSponsored.getType() == Sponsored.TYPE_VIATOR;
-    boolean isCian = mSponsored.getType() == Sponsored.TYPE_CIAN;
 
-    if (!isViator && !isCian)
+    if (!isViator)
       return;
 
     updateGallerySponsoredLogo(mSponsored.getType());
     updateGallerySponsoredTitle(mSponsored.getType());
     UiUtils.show(mSponsoredGalleryView);
 
-    boolean hasInCache = isCian ? Cian.hasCache(mMapObject.getFeatureId())
-                                : Viator.hasCache(mSponsored.getId());
+    boolean hasInCache = Viator.hasCache(mSponsored.getId());
     final String url = !TextUtils.isEmpty(mSponsored.getUrl()) ? mSponsored.getUrl()
                                                                : mSponsored.getDescriptionUrl();
     if (!ConnectionState.isConnected() && !hasInCache)
     {
-      if (isCian)
-      {
-        updateCianView(new RentPlace[]{}, url);
-        return;
-      }
-
       updateViatorView(new ViatorProduct[]{}, url);
       return;
     }
 
-    if (isViator)
-    {
-      mRvSponsoredProducts.setAdapter(Factory.createViatorLoadingAdapter(url,
-                                                                         mDefaultGalleryItemListener));
-      Viator.requestViatorProducts(policy, mSponsored.getId(), currencyCode);
-      return;
-    }
-
-    mRvSponsoredProducts.setAdapter(Factory.createCianLoadingAdapter(url, mDefaultGalleryItemListener));
-    Cian.getRentNearby(policy, mMapObject.getLat(), mMapObject.getLon(), mMapObject.getFeatureId());
+    mRvSponsoredProducts.setAdapter(Factory.createViatorLoadingAdapter(url,
+                                                                       mDefaultGalleryItemListener));
+    Viator.requestViatorProducts(policy, mSponsored.getId(), currencyCode);
   }
 
   private boolean isNetworkNeeded()
@@ -1436,11 +1382,8 @@ public class PlacePageView extends RelativeLayout
 
       if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
         hideHotelViews();
-      if (mSponsored.getType() != Sponsored.TYPE_VIATOR
-          && mSponsored.getType() != Sponsored.TYPE_CIAN)
-      {
+      if (mSponsored.getType() != Sponsored.TYPE_VIATOR)
         hideSponsoredGalleryViews();
-      }
     }
 
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
@@ -1921,10 +1864,8 @@ public class PlacePageView extends RelativeLayout
         if (!TextUtils.isEmpty(url))
         {
           Utils.openUrl(getContext(), url);
-          GalleryType type = mSponsored.getType() == Sponsored.TYPE_CIAN ? GalleryType.CIAN
-                                                                         : GalleryType.VIATOR;
           Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_LOGO_SELECTED,
-                                                type, GalleryPlacement.PLACEPAGE);
+              GalleryType.VIATOR, GalleryPlacement.PLACEPAGE);
         }
         break;
     }

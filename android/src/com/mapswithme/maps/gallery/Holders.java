@@ -24,7 +24,6 @@ import com.mapswithme.util.Utils;
 
 import java.util.List;
 
-import static com.mapswithme.maps.gallery.Items.CianItem;
 import static com.mapswithme.maps.gallery.Items.ViatorItem;
 
 public class Holders
@@ -90,50 +89,6 @@ public class Holders
     protected void onItemSelected(@NonNull Items.ViatorItem item, int position)
     {
       ItemSelectedListener<ViatorItem> listener = mAdapter.getListener();
-      if (listener == null || TextUtils.isEmpty(item.getUrl()))
-        return;
-
-      listener.onMoreItemSelected(item);
-    }
-  }
-
-  public static final class CianProductViewHolder extends BaseViewHolder<CianItem>
-  {
-    @NonNull
-    TextView mPrice;
-    @NonNull
-    TextView mAddress;
-
-    public CianProductViewHolder(@NonNull View itemView, @NonNull List<CianItem> items,
-                                 @NonNull GalleryAdapter<?, CianItem> adapter)
-    {
-      super(itemView, items, adapter);
-      mPrice = (TextView) itemView.findViewById(R.id.tv__price);
-      mAddress = (TextView) itemView.findViewById(R.id.tv__address);
-    }
-
-    @Override
-    public void bind(@NonNull CianItem item)
-    {
-      super.bind(item);
-      UiUtils.setTextAndHideIfEmpty(mPrice, item.mPrice);
-      UiUtils.setTextAndHideIfEmpty(mAddress, item.mAddress);
-    }
-  }
-
-  public static final class CianMoreItemViewHolder<T extends CianItem> extends BaseViewHolder<T>
-  {
-
-    public CianMoreItemViewHolder(@NonNull View itemView, @NonNull List<T> items,
-                                  @NonNull GalleryAdapter<?, T> adapter)
-    {
-      super(itemView, items, adapter);
-    }
-
-    @Override
-    protected void onItemSelected(@NonNull T item, int position)
-    {
-      ItemSelectedListener<T> listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 

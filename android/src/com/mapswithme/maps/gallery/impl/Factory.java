@@ -3,7 +3,6 @@ package com.mapswithme.maps.gallery.impl;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mapswithme.maps.cian.RentPlace;
 import com.mapswithme.maps.discovery.LocalExpert;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
@@ -17,7 +16,6 @@ import com.mapswithme.util.statistics.Statistics;
 
 import static com.mapswithme.util.statistics.GalleryState.OFFLINE;
 import static com.mapswithme.util.statistics.GalleryState.ONLINE;
-import static com.mapswithme.util.statistics.GalleryType.CIAN;
 import static com.mapswithme.util.statistics.GalleryType.LOCAL_EXPERTS;
 import static com.mapswithme.util.statistics.GalleryType.VIATOR;
 
@@ -47,21 +45,6 @@ public class Factory
   }
 
   @NonNull
-  public static GalleryAdapter createCianLoadingAdapter
-      (@Nullable String url, @Nullable ItemSelectedListener<Items.Item> listener)
-  {
-    return new GalleryAdapter<>(new CianLoadingAdapterStrategy(url), listener);
-  }
-
-  @NonNull
-  public static GalleryAdapter createCianErrorAdapter(@Nullable String url,
-                                                      @Nullable ItemSelectedListener<Items.Item>
-                                                          listener)
-  {
-    return new GalleryAdapter<>(new CianErrorAdapterStrategy(url), listener);
-  }
-
-  @NonNull
   public static GalleryAdapter createViatorAdapter(@NonNull ViatorProduct[] products,
                                                    @Nullable String cityUrl,
                                                    @Nullable ItemSelectedListener<Items.ViatorItem>
@@ -70,15 +53,6 @@ public class Factory
   {
     trackProductGalleryShownOrError(products, VIATOR, ONLINE, placement);
     return new GalleryAdapter<>(new ViatorAdapterStrategy(products, cityUrl), listener);
-  }
-
-  @NonNull
-  public static GalleryAdapter createCianAdapter(@NonNull RentPlace[] products, @NonNull String url,
-                                                 @Nullable ItemSelectedListener<Items.CianItem> listener,
-                                                 @NonNull GalleryPlacement placement)
-  {
-    trackProductGalleryShownOrError(products, CIAN, ONLINE, placement);
-    return new GalleryAdapter<>(new CianAdapterStrategy(products, url), listener);
   }
 
   @NonNull

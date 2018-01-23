@@ -1,19 +1,25 @@
 #include "map/displayed_categories_modifiers.hpp"
 
-#include "partners_api/cian_api.hpp"
-
 #include "base/macros.hpp"
 
 #include <algorithm>
+#include <unordered_set>
 
-CianModifier::CianModifier(std::string const & city) : m_city(city) {}
+namespace
+{
+std::unordered_set<std::string> const kLuggageHeroesSupportedCities{"London", "New York",
+                                                                    "Copenhagen"};
+}  // namespace
 
-void CianModifier::Modify(search::DisplayedCategories::Keys & keys)
+LuggageHeroModifier::LuggageHeroModifier(std::string const & city) : m_city(city) {}
+
+void LuggageHeroModifier::Modify(search::DisplayedCategories::Keys & keys)
 {
   static int const kPos = 4;
-  static std::string const kCategoryName = "cian";
+  static std::string const kCategoryName = "luggagehero";
 
-  auto const supported = cian::Api::IsCitySupported(m_city);
+  auto const supported =
+      kLuggageHeroesSupportedCities.find(m_city) != kLuggageHeroesSupportedCities.cend();
   auto const contains = std::find(keys.cbegin(), keys.cend(), kCategoryName) != keys.cend();
 
   ASSERT_LESS(kPos, keys.size(), ());

@@ -38,7 +38,6 @@ enum class SponsoredType
   Booking,
   Opentable,
   Viator,
-  Cian,
   Partner,
   Holiday
 };

@@ -62,7 +62,7 @@
         android:textSize="@dimen/text_size_body_4"
         tools:visibility="visible"/>
       <TextView
-        android:id="@id/tv__price"
+        android:id="@+id/tv__price"
         android:layout_below="@id/ratingView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

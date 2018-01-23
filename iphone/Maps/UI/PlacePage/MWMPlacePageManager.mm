@@ -253,8 +253,6 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     parameters[kStatProvider] = kStatViator;
   else if (data.isBooking)
     parameters[kStatProvider] = kStatBooking;
-  else if (data.isCian)
-    parameters[kStatProvider] = kStatCian;
   else if (data.isPartner)
     parameters[kStatProvider] = data.partnerName;
   else if (data.isHolidayObject)

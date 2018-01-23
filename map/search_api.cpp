@@ -39,13 +39,6 @@ void CancelQuery(weak_ptr<ProcessorHandle> & handle)
   handle.reset();
 }
 
-bool IsCianMode(string query)
-{
-  strings::Trim(query);
-  strings::AsciiToLower(query);
-  return query == "cian";
-}
-
 bookmarks::Id MarkIDToBookmarkId(df::MarkID id)
 {
   static_assert(is_integral<df::MarkID>::value, "");
@@ -172,7 +165,6 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
   p.m_needAddress = true;
   p.m_needHighlighting = true;
   p.m_hotelsFilter = params.m_hotelsFilter;
-  p.m_cianMode = m_sponsoredMode == SponsoredMode::Cian;
 
   p.m_onResults = EverywhereSearchCallback(
       static_cast<EverywhereSearchCallback::Delegate &>(*this),
@@ -206,7 +198,6 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   p.m_needAddress = false;
   p.m_needHighlighting = false;
   p.m_hotelsFilter = params.m_hotelsFilter;
-  p.m_cianMode = m_sponsoredMode == SponsoredMode::Cian;
 
   p.m_onStarted = [this, params] {
     if (params.m_onStarted)
@@ -437,9 +428,6 @@ void SearchAPI::UpdateSponsoredMode(string const & query,
                                     booking::filter::availability::Params const & params)
 {
   m_sponsoredMode = SponsoredMode::None;
-  // TODO: delete me after Cian project is finished.
-  if (IsCianMode(query))
-    m_sponsoredMode = SponsoredMode::Cian;
   if (!params.IsEmpty())
     m_sponsoredMode = SponsoredMode::Booking;
 }
@@ -449,7 +437,6 @@ string DebugPrint(SearchAPI::SponsoredMode mode)
   switch (mode)
   {
   case SearchAPI::SponsoredMode::None: return "None";
-  case SearchAPI::SponsoredMode::Cian: return "Cian";
   case SearchAPI::SponsoredMode::Booking: return "Booking";
   }
 }

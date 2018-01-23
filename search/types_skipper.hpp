@@ -2,8 +2,6 @@
 
 #include "search/model.hpp"
 
-#include "indexer/ftypes_matcher.hpp"
-
 #include "base/buffer_vector.hpp"
 
 namespace search
@@ -23,20 +21,6 @@ public:
   bool IsCountryOrState(feature::TypesHolder const & types) const;
 
 private:
-  class DontSkipIfEmptyName
-  {
-  public:
-    bool IsMatched(uint32_t type) const
-    {
-      // This is needed for Cian support.
-      auto const & buildingChecker = ftypes::IsBuildingChecker::Instance();
-      return m_poiChecker.IsMatched(type) || buildingChecker.IsMatched(type);
-    }
-
-  private:
-    TwoLevelPOIChecker m_poiChecker;
-  };
-
   using TCont = buffer_vector<uint32_t, 16>;
 
   static bool HasType(TCont const & v, uint32_t t);
@@ -47,7 +31,7 @@ private:
 
   // m_skipIfEmptyName and m_dontSkipIfEmptyName are used in the case 2 described above.
   TCont m_skipIfEmptyName[2];
-  DontSkipIfEmptyName m_dontSkipIfEmptyName;
+  TwoLevelPOIChecker m_dontSkipIfEmptyName;
 
   uint32_t m_country, m_state;
 };

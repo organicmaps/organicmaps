@@ -50,8 +50,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   std::vector<HotelReviewsRow> m_hotelReviewsRows;
 
   booking::HotelInfo m_hotelInfo;
-
-  uint64_t m_cianRequestId;
 }
 
 - (instancetype)initWithPlacePageInfo:(Info const &)info
@@ -183,7 +181,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
 
   if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner() &&
-      ![self isViator] && ![self isCian])
+      ![self isViator])
   {
     __weak auto wSelf = self;
     [[MWMBannersCache cache]
@@ -334,68 +332,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
             [self insertSpecialProjectsSectionWithProject:SpecialProject::Viator];
           });
-        });
-  });
-}
-
-- (void)fillOnlineCianSection
-{
-  if (![self isCian])
-    return;
-
-  [self insertSpecialProjectsSectionWithProject:SpecialProject::Cian];
-
-  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
-  {
-    self.cianIsReadyCallback(@[]);
-    return;
-  }
-
-  network_policy::CallPartnersApi([self](platform::NetworkPolicy const & canUseNetwork) {
-    auto api = GetFramework().GetCianApi(canUseNetwork);
-    if (!api)
-    {
-      self.cianIsReadyCallback(@[]);
-      return;
-    }
-    auto const latLon = [self latLon];
-
-    __weak auto wSuccessSelf = self;
-    __weak auto wErrorSelf = self;
-    m_cianRequestId = api->GetRentNearby(
-        latLon,
-        [wSuccessSelf](std::vector<cian::RentPlace> const & places, uint64_t const requestId) {
-          __strong auto self = wSuccessSelf;
-          if (!self || self->m_cianRequestId != requestId)
-            return;
-          NSMutableArray<MWMCianItemModel *> * items = [@[] mutableCopy];
-          for (auto const & p : places)
-          {
-            auto const & offers = p.m_offers;
-            NSCAssert(!offers.empty(), @"Cian misses offers for place.");
-            if (offers.empty())
-              continue;
-            auto const & firstOffer = offers.front();
-
-            auto pageURL = [NSURL URLWithString:@(firstOffer.m_url.c_str())];
-            if (!pageURL)
-              continue;
-            auto item =
-                [[MWMCianItemModel alloc] initWithRoomsCount:firstOffer.m_roomsCount
-                                                    priceRur:firstOffer.m_priceRur
-                                                     pageURL:pageURL
-                                                     address:@(firstOffer.m_address.c_str())];
-            [items addObject:item];
-          }
-
-          dispatch_async(dispatch_get_main_queue(),
-                         [self, items] { self.cianIsReadyCallback(items); });
-        },
-        [wErrorSelf](int code, uint64_t const requestId) {
-          __strong auto self = wErrorSelf;
-          if (!self || self->m_cianRequestId != requestId)
-            return;
-          dispatch_async(dispatch_get_main_queue(), [self] { self.cianIsReadyCallback(@[]); });
         });
   });
 }
@@ -845,7 +781,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (BOOL)isBooking { return m_info.GetSponsoredType() == SponsoredType::Booking; }
 - (BOOL)isOpentable { return m_info.GetSponsoredType() == SponsoredType::Opentable; }
 - (BOOL)isViator { return m_info.GetSponsoredType() == SponsoredType::Viator; }
-- (BOOL)isCian { return m_info.GetSponsoredType() == SponsoredType::Cian; }
 - (BOOL)isPartner { return m_info.GetSponsoredType() == SponsoredType::Partner; }
 - (BOOL)isHolidayObject { return m_info.GetSponsoredType() == SponsoredType::Holiday; }
 - (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }

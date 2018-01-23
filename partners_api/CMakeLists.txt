@@ -13,8 +13,6 @@ set(
   booking_api.hpp
   booking_availability_params.cpp
   booking_availability_params.hpp
-  cian_api.cpp
-  cian_api.hpp
   facebook_ads.cpp
   facebook_ads.hpp
   google_ads.cpp

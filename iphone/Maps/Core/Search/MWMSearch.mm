@@ -12,7 +12,7 @@
 #include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_params.hpp"
 
-extern NSString * const kCianCategory;
+extern NSString * const kLuggageCategory;
 
 namespace
 {
