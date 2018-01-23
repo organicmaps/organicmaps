@@ -62,7 +62,7 @@
                                     selectedAttrs:selectedTitleAttrs
                                   unselectedAttrs:unselectedTitleAttrs];
 
-  TMwmSize size = nodeAttrs.m_mwmSize;
+  TMwmSize size;
   bool const isModeDownloaded = self.mode == MWMMapDownloaderModeDownloaded;
 
   switch (nodeAttrs.m_status)

@@ -15,6 +15,4 @@
 - (void)router:(MWMRouterType)routerType setState:(MWMCircularProgressState)state;
 - (void)router:(MWMRouterType)routerType setProgress:(CGFloat)progress;
 
-- (CGRect)defaultFrame;
-
 @end

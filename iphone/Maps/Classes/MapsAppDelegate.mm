@@ -678,7 +678,7 @@ using namespace osm_auth_ios;
     NSForegroundColorAttributeName : [UIColor lightGrayColor],
   }
                         forState:UIControlStateDisabled];
-  [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil].tintColor = [UIColor whitePrimaryText];
+  [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UINavigationBar class]]].tintColor = [UIColor whitePrimaryText];
 
   UIPageControl * pageControl = [UIPageControl appearance];
   pageControl.pageIndicatorTintColor = [UIColor blackHintText];
@@ -707,12 +707,9 @@ using namespace osm_auth_ios;
   [[LocalNotificationManager sharedManager] processNotification:notification onLaunch:NO];
 }
 
-- (BOOL)application:(UIApplication *)application
-              openURL:(NSURL *)url
-    sourceApplication:(NSString *)sourceApplication
-           annotation:(id)annotation
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
-  m_sourceApplication = sourceApplication;
+  m_sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey];
 
   if ([self checkLaunchURL:url])
   {
@@ -721,15 +718,12 @@ using namespace osm_auth_ios;
   }
 
   BOOL isGoogleURL = [[GIDSignIn sharedInstance] handleURL:url
-                                         sourceApplication:sourceApplication
-                                                annotation:annotation];
+                                         sourceApplication:m_sourceApplication
+                                                annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
   if (isGoogleURL)
     return YES;
 
-  return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                        openURL:url
-                                              sourceApplication:sourceApplication
-                                                     annotation:annotation];
+  return [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options];
 }
 
 - (BOOL)checkLaunchURL:(NSURL *)url

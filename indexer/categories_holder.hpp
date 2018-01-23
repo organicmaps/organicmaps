@@ -85,7 +85,7 @@ public:
   template <class ToDo>
   void ForEachTypeAndCategory(ToDo && toDo) const
   {
-    for (auto const it : m_type2cat)
+    for (auto const & it : m_type2cat)
       toDo(it.first, *it.second);
   }
 

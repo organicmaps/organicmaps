@@ -37,7 +37,7 @@
     return;
 
   _selectedCell = cell;
-  NSString * statValue = nil;
+  NSString * statValue = @"";
   if ([cell isEqual:self.on])
   {
     [MWMSettings setTheme:MWMThemeNight];

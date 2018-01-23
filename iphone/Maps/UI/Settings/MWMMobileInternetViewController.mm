@@ -39,7 +39,7 @@ using np = platform::NetworkPolicy;
     return;
 
   _selected = selected;
-  NSString * statValue = nil;
+  NSString * statValue = @"";
   if ([selected isEqual:self.always])
   {
     statValue = kStatAlways;
