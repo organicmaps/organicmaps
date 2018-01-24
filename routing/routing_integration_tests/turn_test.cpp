@@ -350,7 +350,7 @@ UNIT_TEST(RussiaMoscowMKADLeningradkaTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
-                                  MercatorBounds::FromLatLon(55.87992, 37.43940), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.87961, 37.43838), {0.0, 0.0},
                                   MercatorBounds::FromLatLon(55.87854, 37.44865));
 
   Route const & route = *routeResult.first;
