@@ -231,13 +231,14 @@ void AsyncRouter::LogCode(IRouter::ResultCode code, double const elapsedSec)
       LOG(LWARNING, ("Can't find intermediate point node"));
       break;
     case IRouter::TransitRouteNotFoundNoNetwork:
-      LOG(LWARNING, ("Transit route not found because no transit network in route point mwm"));
+      LOG(LWARNING, ("No transit route is found because there's no transit network in the mwm of "
+                     "the route point"));
       break;
     case IRouter::TransitRouteNotFoundTooLongPedestrian:
-      LOG(LWARNING, ("Transit route not found because pedestrian way is too long"));
+      LOG(LWARNING, ("No transit route is found because pedestrian way is too long"));
       break;
     case IRouter::RouteNotFoundRedressRouteError:
-      LOG(LWARNING, ("Route not found because a redress route error"));
+      LOG(LWARNING, ("Route not found because of a redress route error"));
       break;
   }
 }
