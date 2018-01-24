@@ -358,6 +358,8 @@ UNIT_TEST(RussiaMoscowMKADLeningradkaTest)
 
   TEST_EQUAL(result, IRouter::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
+      {CarDirection::TurnSlightRight, CarDirection::TurnRight});
 }
 
 UNIT_TEST(BelarusMKADShosseinai)
