@@ -374,7 +374,6 @@ UNIT_TEST(BelarusMKADShosseinai)
   integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
-// Fails: unneeded TurnSlightRight generated.
 // Test case: a route goes straight along a unnamed big road when joined small road.
 // An end user shall not be informed about such manoeuvres.
 UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
@@ -382,7 +381,7 @@ UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                   MercatorBounds::FromLatLon(7.91797, 98.36937), {0., 0.},
-                                  MercatorBounds::FromLatLon(7.90724, 98.36785));
+                                  MercatorBounds::FromLatLon(7.90724, 98.3679));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
