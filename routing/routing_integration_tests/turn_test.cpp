@@ -460,8 +460,7 @@ UNIT_TEST(RussiaMoscowBolshoyKislovskiyPerBolshayaNikitinskayaUlTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
 }
 
-// Test case: a route goes in Moscow along Leningradskiy Prpt (towards city center)
-// and makes u-turn. A only one turn instruction (turn left) shell be generated.
+// Test case: a route goes in Moscow along Leningradskiy Prpt (towards city center).
 UNIT_TEST(RussiaMoscowLeningradskiyPrptToTheCenterUTurnTest)
 {
   TRouteResult const routeResult =
@@ -473,8 +472,11 @@ UNIT_TEST(RussiaMoscowLeningradskiyPrptToTheCenterUTurnTest)
   IRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, IRouter::NoError, ());
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::UTurnLeft);
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
+      {CarDirection::TurnLeft, CarDirection::TurnSlightLeft});
+  integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
+      {CarDirection::TurnLeft, CarDirection::TurnSlightLeft});
 }
 
 // Fails: generates unnecessary turn.
