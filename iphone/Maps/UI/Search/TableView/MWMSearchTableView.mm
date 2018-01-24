@@ -61,7 +61,7 @@
 {
   if (!_noResultsView)
   {
-    _noResultsView = [MWMSearchNoResults viewWithImage:[UIImage imageNamed:@"img_mappyny"]
+    _noResultsView = [MWMSearchNoResults viewWithImage:[UIImage imageNamed:@"img_search_not_found"]
                                                  title:L(@"search_not_found")
                                                   text:L(@"search_not_found_query")];
   }
