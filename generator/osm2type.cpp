@@ -138,6 +138,10 @@ namespace ftype
         ++token;
         lang = (token ? *token : "default");
 
+        // Do not consider languages with suffixes, like "en:pronunciation".
+        if (++token)
+          return false;
+
         // Replace dummy arabian tag with correct tag.
         if (lang == "ar1")
           lang = "ar";
