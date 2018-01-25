@@ -329,19 +329,6 @@ IRouter::ResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
 
   if (!outdatedMwms.empty())
   {
-    // Backward compatibility with outdated mwm versions.
-    if (m_vehicleType == VehicleType::Pedestrian)
-    {
-      return CreatePedestrianAStarBidirectionalRouter(m_index, m_countryFileFn, m_numMwmIds)
-          ->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, delegate, route);
-    }
-
-    if (m_vehicleType == VehicleType::Bicycle)
-    {
-      return CreateBicycleAStarBidirectionalRouter(m_index, m_countryFileFn, m_numMwmIds)
-          ->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, delegate, route);
-    }
-
     for (string const & mwm : outdatedMwms)
       route.AddAbsentCountry(mwm);
 
