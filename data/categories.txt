@@ -9166,4 +9166,4 @@ en:^Christmas or New Year Celebrations
 ru:^Празднование Рождества или Нового года
 
 sponsored-partner2
-en:^Luggage Hero
+en:^Luggage Hero|3luggagehero
