@@ -27,7 +27,6 @@
 + (MWMPlacePageActionBar *)actionBarWithDelegate:(id<MWMActionBarProtocol>)delegate;
 - (void)configureWithData:(id<MWMActionBarSharedData>)data;
 
-@property(nonatomic) BOOL isBookmark;
 @property(nonatomic) BOOL isAreaNotDownloaded;
 
 - (void)setVisible:(BOOL)visible;

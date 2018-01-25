@@ -314,7 +314,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self closePlacePage];
 }
 
-- (void)addStop
+- (void)routeAddStop
 {
   MWMRoutePoint * point =
       [self routePointWithType:MWMRoutePointTypeIntermediate intermediateIndex:0];
@@ -322,7 +322,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self closePlacePage];
 }
 
-- (void)removeStop
+- (void)routeRemoveStop
 {
   auto data = self.data;
   MWMRoutePoint * point = nil;

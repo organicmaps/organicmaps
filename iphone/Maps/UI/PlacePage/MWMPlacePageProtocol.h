@@ -7,8 +7,8 @@
 
 - (void)routeFrom;
 - (void)routeTo;
-- (void)addStop;
-- (void)removeStop;
+- (void)routeAddStop;
+- (void)routeRemoveStop;
 
 - (void)share;
 
