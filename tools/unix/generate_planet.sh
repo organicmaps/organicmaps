@@ -201,23 +201,22 @@ source "$SCRIPTS_PATH/find_generator_tool.sh"
 
 # Prepare borders
 mkdir -p "$TARGET/borders"
+if [ -n "$(ls "$TARGET/borders" | grep '\.poly')" ]; then
+  # Backup old borders
+  BORDERS_BACKUP_PATH="$TARGET/borders.$(date +%Y%m%d%H%M%S)"
+  mkdir -p "$BORDERS_BACKUP_PATH"
+  log "BORDERS" "Note: old borders from $TARGET/borders were moved to $BORDERS_BACKUP_PATH"
+  mv "$TARGET/borders"/*.poly "$BORDERS_BACKUP_PATH"
+fi
 NO_REGIONS=
 if [ -n "${REGIONS:-}" ]; then
-  # If region files are specified, backup old borders and copy new
-  if [ -n "$(ls "$TARGET/borders" | grep '\.poly')" ]; then
-    BORDERS_BACKUP_PATH="$TARGET/borders.$(date +%Y%m%d%H%M%S)"
-    mkdir -p "$BORDERS_BACKUP_PATH"
-    log "BORDERS" "Note: old borders from $TARGET/borders were moved to $BORDERS_BACKUP_PATH"
-    mv "$TARGET/borders"/*.poly "$BORDERS_BACKUP_PATH"
-  fi
   echo "$REGIONS" | xargs -I % cp "%" "$TARGET/borders/"
 elif [ -z "${REGIONS-1}" ]; then
   # A user asked specifically for no regions
   NO_REGIONS=1
-elif [ -z "$(ls "$TARGET/borders" | grep '\.poly')" ]; then
-  # If there are no borders, copy them from $BORDERS_PATH
-  BORDERS_PATH="${BORDERS_PATH:-$DATA_PATH/borders}"
-  cp "$BORDERS_PATH"/*.poly "$TARGET/borders/"
+else
+  # Copy borders from $BORDERS_PATH or omim/data/borders
+  cp "${BORDERS_PATH:-$DATA_PATH/borders}"/*.poly "$TARGET/borders/"
 fi
 [ -z "$NO_REGIONS" -a -z "$(ls "$TARGET/borders" | grep '\.poly')" ] && fail "No border polygons found, please use REGIONS or BORDER_PATH variables"
 ULIMIT_REQ=$((3 * $(ls "$TARGET/borders" | { grep '\.poly' || true; } | wc -l)))
