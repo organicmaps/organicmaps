@@ -2,6 +2,7 @@ project(openlr)
 
 set(
   SRC
+  cache_line_size.hpp
   candidate_paths_getter.cpp
   candidate_paths_getter.hpp
   candidate_points_getter.cpp

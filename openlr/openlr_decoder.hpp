@@ -47,12 +47,13 @@ public:
   void DecodeV1(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
                 std::vector<DecodedPath> & paths);
 
-  void DecodeV2(std::vector<LinearSegment> const & segments, uint32_t const /* numThreads */,
+  void DecodeV2(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
                 std::vector<DecodedPath> & paths);
 
 private:
-  bool DecodeSingleSegment(LinearSegment const & segment, Index const & index, Graph & g,
-                           RoadInfoGetter & inforGetter, DecodedPath & path, v2::Stats & stat);
+  template <typename Decoder, typename Stats>
+  void Decode(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
+              std::vector<DecodedPath> & paths);
 
   std::vector<Index> const & m_indexes;
   CountryParentNameGetter m_countryParentNameGetter;
