@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
             <string>HelveticaNeue-Medium</string>
         </array>
     </customFonts>
@@ -30,10 +31,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Cw-y3-ipv" userLabel="BoundsView">
-                            <rect key="frame" x="16" y="100" width="343" height="425"/>
+                            <rect key="frame" x="16" y="100" width="343" height="421"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVR-Wh-jf5" userLabel="CenteredView">
-                                    <rect key="frame" x="0.0" y="86.5" width="343" height="253"/>
+                                    <rect key="frame" x="0.0" y="84.5" width="343" height="253"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="wn_autoupdate" translatesAutoresizingMaskIntoConstraints="NO" id="ym1-j4-Fn7">
                                             <rect key="frame" x="91.5" y="0.0" width="160" height="160"/>
@@ -135,32 +136,59 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="clearColor"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="cancelTap" destination="-1" eventType="touchUpInside" id="sXb-Nt-cd4"/>
+                                <action selector="hideTap" destination="-1" eventType="touchUpInside" id="fN3-tg-y0A"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SqI-nm-lNO">
-                            <rect key="frame" x="169.5" y="539" width="36" height="36"/>
+                            <rect key="frame" x="169.5" y="537" width="36" height="36"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="36" id="Lfg-Ln-a6V"/>
                                 <constraint firstAttribute="height" constant="36" id="oVz-gc-j9W"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bax-Ah-It4">
+                            <rect key="frame" x="187" y="581" width="0.0" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGi-NW-WUx">
+                            <rect key="frame" x="187" y="583" width="0.0" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <accessibility key="accessibilityConfiguration" identifier="ContainerView"/>
                     <constraints>
                         <constraint firstItem="SqI-nm-lNO" firstAttribute="centerX" secondItem="CrL-6X-EJl" secondAttribute="centerX" id="2zw-eu-fGT"/>
+                        <constraint firstItem="BGi-NW-WUx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CrL-6X-EJl" secondAttribute="leading" constant="8" id="3Zi-QM-5As"/>
                         <constraint firstItem="5nF-zu-Yw0" firstAttribute="centerX" secondItem="CrL-6X-EJl" secondAttribute="centerX" id="9se-pw-oRi"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BGi-NW-WUx" secondAttribute="trailing" constant="8" id="DES-sa-ZaG"/>
                         <constraint firstItem="iEE-M5-NnV" firstAttribute="top" secondItem="5nF-zu-Yw0" secondAttribute="bottom" priority="500" constant="10" id="LWi-4H-ezA"/>
+                        <constraint firstItem="BGi-NW-WUx" firstAttribute="top" secondItem="Bax-Ah-It4" secondAttribute="bottom" constant="2" id="M4K-cH-fj1"/>
                         <constraint firstAttribute="bottom" secondItem="iEE-M5-NnV" secondAttribute="bottom" constant="20" id="Mag-7y-dYi"/>
+                        <constraint firstItem="SqI-nm-lNO" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5Cw-y3-ipv" secondAttribute="bottom" constant="16" id="ORg-MD-Tx2"/>
                         <constraint firstAttribute="trailing" secondItem="5Cw-y3-ipv" secondAttribute="trailing" constant="16" id="QsU-yA-a5N"/>
                         <constraint firstItem="5Cw-y3-ipv" firstAttribute="top" secondItem="CrL-6X-EJl" secondAttribute="top" constant="100" id="S3w-Tp-ulT"/>
                         <constraint firstItem="ym1-j4-Fn7" firstAttribute="height" secondItem="CrL-6X-EJl" secondAttribute="height" multiplier="0.3" priority="750" id="fWB-qe-uuj"/>
+                        <constraint firstItem="Bax-Ah-It4" firstAttribute="centerX" secondItem="SqI-nm-lNO" secondAttribute="centerX" id="hBq-hC-lp9"/>
+                        <constraint firstItem="BGi-NW-WUx" firstAttribute="centerX" secondItem="Bax-Ah-It4" secondAttribute="centerX" id="hg3-Yn-odO"/>
                         <constraint firstItem="5Cw-y3-ipv" firstAttribute="leading" secondItem="CrL-6X-EJl" secondAttribute="leading" constant="16" id="iWS-dU-Nwv"/>
+                        <constraint firstItem="iEE-M5-NnV" firstAttribute="top" secondItem="BGi-NW-WUx" secondAttribute="bottom" constant="20" id="icj-Sj-aYh"/>
                         <constraint firstItem="5nF-zu-Yw0" firstAttribute="top" secondItem="5Cw-y3-ipv" secondAttribute="bottom" priority="250" constant="24" id="jli-Ut-tZT"/>
-                        <constraint firstAttribute="bottom" secondItem="SqI-nm-lNO" secondAttribute="bottom" constant="92" id="olJ-ci-imz"/>
                         <constraint firstItem="iEE-M5-NnV" firstAttribute="centerX" secondItem="CrL-6X-EJl" secondAttribute="centerX" id="pHJ-KJ-l9f"/>
+                        <constraint firstItem="Bax-Ah-It4" firstAttribute="top" secondItem="SqI-nm-lNO" secondAttribute="bottom" constant="8" id="uM5-w3-HCC"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
@@ -190,7 +218,9 @@
                 <outlet property="image" destination="ym1-j4-Fn7" id="XrK-nD-Jii"/>
                 <outlet property="imageHeight" destination="fWB-qe-uuj" id="k07-Lv-4Ui"/>
                 <outlet property="imageMinHeight" destination="lKy-F4-tpj" id="zef-yg-5d3"/>
+                <outlet property="legendLabel" destination="BGi-NW-WUx" id="VoN-Ko-l6w"/>
                 <outlet property="primaryButton" destination="5nF-zu-Yw0" id="CAx-NV-Vke"/>
+                <outlet property="progressLabel" destination="Bax-Ah-It4" id="Gcb-na-cit"/>
                 <outlet property="secondaryButton" destination="iEE-M5-NnV" id="clP-02-Qne"/>
                 <outlet property="spinnerView" destination="SqI-nm-lNO" id="dBJ-ee-nQn"/>
                 <outlet property="text" destination="WLZ-Z2-pj2" id="XFP-yM-UH3"/>

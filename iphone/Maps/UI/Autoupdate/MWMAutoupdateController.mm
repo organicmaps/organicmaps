@@ -33,6 +33,8 @@ enum class State
 @property(weak, nonatomic) IBOutlet UIButton * primaryButton;
 @property(weak, nonatomic) IBOutlet UIButton * secondaryButton;
 @property(weak, nonatomic) IBOutlet UIView * spinnerView;
+@property(weak, nonatomic) IBOutlet UILabel * progressLabel;
+@property(weak, nonatomic) IBOutlet UILabel * legendLabel;
 
 @property(weak, nonatomic) id<MWMCircularProgressProtocol> delegate;
 
@@ -42,7 +44,7 @@ enum class State
 
 - (void)startSpinner;
 - (void)stopSpinner;
-- (void)setProgress:(CGFloat)progress;
+- (void)setProgress:(MapFilesDownloader::TProgress)progress nodeName:(NSString *)nodeName;
 - (void)updateForSize:(CGSize)size;
 
 @end
@@ -68,7 +70,7 @@ enum class State
   self.state = State::Downloading;
   self.primaryButton.hidden = YES;
   [self startSpinner];
-  self.secondaryButton.localizedText = L(@"cancel");
+  self.secondaryButton.localizedText = L(@"downloader_hide_screen");
   [MWMStorage updateNode:RootId()];
 }
 
@@ -87,9 +89,9 @@ enum class State
 {
   self.primaryButton.hidden = YES;
   self.spinnerView.hidden = NO;
+  self.progressLabel.hidden = NO;
+  self.legendLabel.hidden = NO;
   self.spinner = [MWMCircularProgress downloaderProgressForParentView:self.spinnerView];
-  [self.spinner setImageName:nil
-                   forStates:{MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
   self.spinner.delegate = self.delegate;
   [self.spinner setInvertColor:YES];
   self.spinner.state = MWMCircularProgressStateSpinner;
@@ -99,12 +101,32 @@ enum class State
 {
   self.primaryButton.hidden = NO;
   self.spinnerView.hidden = YES;
+  self.progressLabel.hidden = YES;
+  self.legendLabel.hidden = YES;
   self.spinner = nil;
 }
 
-- (void)setProgress:(CGFloat)progress
+- (void)setProgress:(MapFilesDownloader::TProgress)progress nodeName:(NSString *)nodeName
 {
-  self.spinner.progress = progress;
+  CGFloat const prog = kMaxProgress * static_cast<CGFloat>(progress.first) / progress.second;
+  self.spinner.progress = prog;
+  NSString * downloader_percent =
+      [L(@"downloader_percent") stringByReplacingOccurrencesOfString:@"%s" withString:@"%@"];
+  NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
+  [numberFormatter setNumberStyle:NSNumberFormatterPercentStyle];
+  [numberFormatter setMaximumFractionDigits:0];
+  [numberFormatter setMultiplier:@100];
+  NSString * percentString = [numberFormatter stringFromNumber:@(prog)];
+  NSString * sizeString = formattedSize(progress.second);
+  NSString * progressLabel =
+      [NSString stringWithFormat:downloader_percent, percentString, sizeString];
+  self.progressLabel.text = progressLabel;
+
+  NSString * downloader_process =
+      [L(@"downloader_process") stringByReplacingOccurrencesOfString:@"%s" withString:@"%@"];
+  NSString * legendLabel = [NSString stringWithFormat:downloader_process, nodeName];
+  ;
+  self.legendLabel.text = legendLabel;
 }
 
 @end
@@ -122,7 +144,6 @@ enum class State
 @end
 
 @implementation MWMAutoupdateController
-
 
 + (instancetype)instanceWithPurpose:(Framework::DoAfterUpdate)todo
 {
@@ -176,8 +197,9 @@ enum class State
   [Statistics logEvent:kStatDownloaderOnStartScreenManualDownload
         withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
 }
+- (IBAction)hideTap { [self dismiss]; }
 
-- (IBAction)cancelTap
+- (void)cancel
 {
   auto view = static_cast<MWMAutoupdateView *>(self.view);
   UIAlertController * alertController =
@@ -217,9 +239,7 @@ enum class State
 
 #pragma mark - MWMCircularProgressProtocol
 
-- (void)progressButtonPressed:(MWMCircularProgress *)progress
-{
-}
+- (void)progressButtonPressed:(MWMCircularProgress *)progress { [self cancel]; }
 
 #pragma mark - MWMFrameworkStorageObserver
 
@@ -276,15 +296,15 @@ enum class State
 - (void)processCountry:(TCountryId const &)countryId
               progress:(MapFilesDownloader::TProgress const &)progress
 {
+  if (m_updatingCountries.find(countryId) == m_updatingCountries.end())
+    return;
   auto const & s = GetFramework().GetStorage();
-  storage::TCountriesVec downloaded;
-  storage::TCountriesVec _;
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(RootId(), nodeAttrs);
-  auto const p = nodeAttrs.m_downloadingProgress;
   auto view = static_cast<MWMAutoupdateView *>(self.view);
-  view.progress = kMaxProgress * static_cast<CGFloat>(p.first) / p.second;
-  if (p.first == p.second)
+  NSString * nodeName = @(s.GetNodeLocalName(countryId).c_str());
+  [view setProgress:nodeAttrs.m_downloadingProgress nodeName:nodeName];
+  if (nodeAttrs.m_downloadingProgress.first == nodeAttrs.m_downloadingProgress.second)
     self.progressFinished = YES;
 }
 
