@@ -72,6 +72,7 @@
 07001_atm-l
 07002_bank-l
 07003_banknote-l
+07004_office-financial-l
 08001_fuel-l
 08002_charging-station-l
 08003_car-repair-l
