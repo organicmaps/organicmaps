@@ -36,6 +36,8 @@ string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
 string const kSearchBaseUrl = "https://www.booking.com/search.html";
 string g_BookingUrlForTesting = "";
 
+vector<string> const kAvailabilityParamsForUrl = {"checkin", "checkout", "room"};
+
 bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & result)
 {
   HttpClient request(url);
@@ -317,6 +319,33 @@ string Api::GetSearchUrl(string const & city, string const & name) const
                  << urlEncodedParams << ";";
 
   return resultStream.str();
+}
+
+string Api::ApplyAvailabilityParams(string const & url, AvailabilityParams const & params)
+{
+  if (params.IsEmpty())
+    return url;
+
+  auto p = params.Get();
+  p.erase(remove_if(p.begin(), p.end(), [](url::Param const & param)
+  {
+    for (auto const & paramForUrl : kAvailabilityParamsForUrl)
+    {
+      // We need to use all numbered rooms, because of this we use find instead of ==.
+      if (param.m_name.find(paramForUrl) == 0)
+        return false;
+    }
+    return true;
+  }), p.end());
+
+  auto const pos = url.find('#');
+
+  if (pos == string::npos)
+    return url::Make(url, p);
+
+  string result = url::Make(url.substr(0, pos), p);
+  result.append(url.substr(pos, url.size() - pos));
+  return result;
 }
 
 void Api::GetMinPrice(string const & hotelId, string const & currency,

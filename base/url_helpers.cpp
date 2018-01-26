@@ -13,7 +13,7 @@ string Make(string const & baseUrl, Params const & params)
   ostringstream os;
   os << baseUrl;
 
-  bool firstParam = true;
+  bool firstParam = baseUrl.find('?') == string::npos;
   for (auto const & param : params)
   {
     if (firstParam)
