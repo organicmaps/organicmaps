@@ -1,6 +1,7 @@
 #include "map/search_api.hpp"
 
 #include "map/bookmarks_search_params.hpp"
+#include "map/discovery/discovery_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_params.hpp"
 
@@ -218,6 +219,41 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
 
   if (m_sponsoredMode == SponsoredMode::Booking)
     m_delegate.OnBookingFilterParamsUpdate(params.m_bookingFilterParams.m_params);
+
+  return Search(p, false /* forceSearch */);
+}
+
+bool SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
+{
+  CHECK(params.m_onResults, ());
+  CHECK(!params.m_query.empty(), ());
+  CHECK_GREATER(params.m_itemsCount, 0, ());
+
+  SearchParams p;
+  p.m_query = params.m_query;
+  p.m_inputLocale = "en";
+  p.m_viewport = params.m_viewport;
+  p.m_position = params.m_position;
+  p.m_maxNumResults = params.m_itemsCount;
+  p.m_mode = search::Mode::Viewport;
+  p.m_onResults = [params](Results const & results) {
+    if (!results.IsEndMarker())
+      return;
+
+    switch (params.m_sortingType)
+    {
+    case DiscoverySearchParams::SortingType::None:
+      params.m_onResults(results);
+      break;
+    case DiscoverySearchParams::SortingType::HotelRating:
+    {
+      Results r(results);
+      r.SortBy(DiscoverySearchParams::HotelRatingComparator());
+      params.m_onResults(r);
+      break;
+    }
+    }
+  };
 
   return Search(p, false /* forceSearch */);
 }

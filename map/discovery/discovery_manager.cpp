@@ -27,28 +27,16 @@ Manager::Manager(Index const & index, search::CityFinder & cityFinder, APIs cons
 }
 
 // static
-search::SearchParams Manager::GetSearchParams(Manager::Params const & params, ItemType const type)
+search::DiscoverySearchParams Manager::GetSearchParams(Manager::Params const & params, ItemType const type)
 {
-  search::SearchParams p;
+  search::DiscoverySearchParams p;
   p.m_query = GetQuery(type);
-  p.m_inputLocale = "en";
   p.m_viewport = params.m_viewport;
   p.m_position = params.m_viewportCenter;
-  p.m_maxNumResults = params.m_itemsCount;
-  p.m_mode = search::Mode::Viewport;
-  return p;
-}
+  p.m_itemsCount = params.m_itemsCount;
+  if (type == ItemType::Hotels)
+    p.m_sortingType = search::DiscoverySearchParams::SortingType::HotelRating;
 
-// static
-search::SearchParams Manager::GetBookingSearchParamsForTesting()
-{
-  search::SearchParams p;
-  p.m_query = GetQuery(ItemType::Hotels);
-  p.m_inputLocale = "en";
-  p.m_viewport = {37.568808916849733, 67.451852658402345, 37.632819283150269, 67.515833479171874};
-  p.m_position = {{37.6008141, 67.4838356}};
-  p.m_maxNumResults = 6;
-  p.m_mode = search::Mode::Viewport;
   return p;
 }
 

@@ -177,7 +177,7 @@ std::vector<std::unique_ptr<Track>> BookmarkCategory::StealTracks()
 {
   std::vector<std::unique_ptr<Track>> tracks;
   std::swap(m_tracks, tracks);
-  return std::move(tracks);
+  return tracks;
 }
 
 void BookmarkCategory::AppendTracks(std::vector<std::unique_ptr<Track>> && tracks)

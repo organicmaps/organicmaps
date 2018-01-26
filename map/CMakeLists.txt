@@ -30,6 +30,7 @@ set(
   discovery/discovery_client_params.hpp
   discovery/discovery_manager.cpp
   discovery/discovery_manager.hpp
+  discovery/discovery_search_params.hpp
   displacement_mode_manager.cpp
   displacement_mode_manager.hpp
   displayed_categories_modifiers.cpp

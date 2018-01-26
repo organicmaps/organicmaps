@@ -11,6 +11,7 @@
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <string>
@@ -199,6 +200,14 @@ public:
   bookmarks::Results const & GetBookmarksResults() const;
 
   void Swap(Results & rhs);
+
+  template <typename Fn>
+  void SortBy(Fn && comparator)
+  {
+    sort(begin(), end(), std::forward<Fn>(comparator));
+    for (int32_t i = 0; i < static_cast<int32_t>(GetCount()); ++i)
+      operator[](i).SetPositionInResults(i);
+  }
 
 private:
   enum class Status

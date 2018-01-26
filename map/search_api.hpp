@@ -29,6 +29,7 @@ namespace search
 struct BookmarksSearchParams;
 struct EverywhereSearchParams;
 struct ViewportSearchParams;
+struct DiscoverySearchParams;
 }
 
 namespace storage
@@ -110,6 +111,8 @@ public:
 
   // Search in the viewport.
   bool SearchInViewport(search::ViewportSearchParams const & params);
+
+  bool SearchForDiscovery(search::DiscoverySearchParams const & params);
 
   // Search for maps by countries or cities.
   bool SearchInDownloader(storage::DownloaderSearchParams const & params);

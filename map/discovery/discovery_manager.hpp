@@ -3,6 +3,7 @@
 #include "search/city_finder.hpp"
 
 #include "map/discovery/discovery_client_params.hpp"
+#include "map/discovery/discovery_search_params.hpp"
 #include "map/search_api.hpp"
 
 #include "partners_api/booking_api.hpp"
@@ -108,17 +109,15 @@ public:
       case ItemType::Cafes:
       case ItemType::Hotels:
       {
-        auto p = type == ItemType::Hotels ? GetBookingSearchParamsForTesting() : GetSearchParams(params, type);
+        auto p = GetSearchParams(params, type);
         auto const viewportCenter = params.m_viewportCenter;
         p.m_onResults = [requestId, onResult, type, viewportCenter](search::Results const & results) {
-          if (!results.IsEndMarker())
-            return;
           GetPlatform().RunTask(Platform::Thread::Gui,
                                 [requestId, onResult, type, results, viewportCenter] {
             onResult(requestId, results, type, viewportCenter);
           });
         };
-        m_searchApi.GetEngine().Search(p);
+        m_searchApi.SearchForDiscovery(p);
         break;
       }
       case ItemType::LocalExperts:
@@ -148,9 +147,7 @@ public:
   std::string GetLocalExpertsUrl(m2::PointD const & point) const;
 
 private:
-  static search::SearchParams GetSearchParams(Params const & params, ItemType const type);
-  // TODO: Remove this method when real implementation will be ready.
-  static search::SearchParams GetBookingSearchParamsForTesting();
+  static search::DiscoverySearchParams GetSearchParams(Manager::Params const & params, ItemType const type);
   std::string GetCityViatorId(m2::PointD const & point) const;
 
   Index const & m_index;
