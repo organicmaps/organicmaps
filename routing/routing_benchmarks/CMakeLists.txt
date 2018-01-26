@@ -2,6 +2,8 @@ project(routing_benchmarks)
 
 set(
   SRC
+  ../routing_integration_tests/routing_test_tools.cpp
+  ../routing_integration_tests/routing_test_tools.hpp
   bicycle_routing_tests.cpp
   helpers.cpp
   helpers.hpp
@@ -16,9 +18,12 @@ omim_link_libraries(
   routing
   traffic
   routing_common
+  transit
   search
   storage
+  mwm_diff
   indexer
+  traffic
   platform
   editor
   oauthcpp
@@ -28,6 +33,7 @@ omim_link_libraries(
   base
   jansson
   protobuf
+  bsdiff
   stats_client
   succinct
   pugixml

@@ -104,6 +104,7 @@ namespace integration
     {
       auto const & countryFile = f.GetCountryFile();
       auto const mwmId = index.GetMwmIdByCountryFile(countryFile);
+      CHECK(mwmId.IsAlive(), ());
       if (mwmId.GetInfo()->GetType() == MwmInfo::COUNTRY && countryFile.GetName() != "minsk-pass")
         numMwmIds->RegisterFile(countryFile);
     }

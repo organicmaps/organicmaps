@@ -7,6 +7,8 @@
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
 
+#include "routing_integration_tests/routing_test_tools.hpp"
+
 #include "indexer/classificator_loader.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -18,9 +20,12 @@
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
+#include "base/stl_add.hpp"
 #include "base/timer.hpp"
 
-#include "std/limits.hpp"
+#include <limits>
+
+using namespace std;
 
 namespace
 {
@@ -58,23 +63,22 @@ m2::PointD GetPointOnEdge(routing::Edge const & e, double posAlong)
 }  // namespace
 
 RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, set<string> const & neededMaps)
-  : m_mode(mode)
+  : m_mode(mode), m_neededMaps(neededMaps), m_numMwmIds(my::make_unique<routing::NumMwmIds>())
 {
   classificator::Load();
 
   Platform & platform = GetPlatform();
   m_cig = storage::CountryInfoReader::CreateCountryInfoReader(platform);
 
-  vector<platform::LocalCountryFile> localFiles;
-  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max(), localFiles);
+  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max(), m_localFiles);
 
   set<string> registeredMaps;
-  for (auto const & localFile : localFiles)
+  for (auto const & localFile : m_localFiles)
   {
     m_numMwmIds->RegisterFile(localFile.GetCountryFile());
 
     auto const & name = localFile.GetCountryName();
-    if (neededMaps.count(name) == 0)
+    if (m_neededMaps.count(name) == 0)
       continue;
 
     UNUSED_VALUE(m_index.RegisterMap(localFile));
@@ -87,9 +91,9 @@ RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, set<string> const & nee
     registeredMaps.insert(name);
   }
 
-  if (registeredMaps != neededMaps)
+  if (registeredMaps != m_neededMaps)
   {
-    for (auto const & file : neededMaps)
+    for (auto const & file : m_neededMaps)
     {
       if (registeredMaps.count(file) == 0)
         LOG(LERROR, ("Can't find map:", file));
@@ -103,22 +107,21 @@ void RoutingTest::TestRouters(m2::PointD const & startPos, m2::PointD const & fi
   // Find route by A*-bidirectional algorithm.
   routing::Route routeFoundByAstarBidirectional("");
   {
-    auto router =
-        CreateRouter<routing::AStarBidirectionalRoutingAlgorithm>("test-astar-bidirectional");
+    auto router = CreateRouter("test-astar-bidirectional");
     TestRouter(*router, startPos, finalPos, routeFoundByAstarBidirectional);
   }
 
   // Find route by A* algorithm.
   routing::Route routeFoundByAstar("");
   {
-    auto router = CreateRouter<routing::AStarRoutingAlgorithm>("test-astar");
+    auto router = CreateRouter("test-astar");
     TestRouter(*router, startPos, finalPos, routeFoundByAstar);
   }
 
   double constexpr kEpsilon = 1e-6;
   TEST(my::AlmostEqualAbs(routeFoundByAstar.GetTotalDistanceMeters(),
-                           routeFoundByAstarBidirectional.GetTotalDistanceMeters(), kEpsilon),
-        ());
+                          routeFoundByAstarBidirectional.GetTotalDistanceMeters(), kEpsilon),
+       ());
 }
 
 void RoutingTest::TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & finalPos)
@@ -137,6 +140,21 @@ void RoutingTest::TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD
       GetPointOnEdge(finalEdges.front().first, 1.0 /* the end point of the feature */);
 
   TestRouters(startPosOnFeature, finalPosOnFeature);
+}
+
+unique_ptr<routing::IRouter> RoutingTest::CreateRouter(string const & name)
+{
+  vector<platform::LocalCountryFile> neededLocalFiles;
+  neededLocalFiles.reserve(m_neededMaps.size());
+  for (auto const & lf : m_localFiles)
+  {
+    if (m_neededMaps.count(lf.GetCountryName()) != 0)
+      neededLocalFiles.push_back(lf);
+  }
+
+  unique_ptr<routing::IRouter> router = integration::CreateVehicleRouter(
+      m_index, *m_cig, m_trafficCache, neededLocalFiles, routing::VehicleType::Pedestrian);
+  return router;
 }
 
 void RoutingTest::GetNearestEdges(m2::PointD const & pt,
