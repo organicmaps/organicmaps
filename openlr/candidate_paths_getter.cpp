@@ -63,7 +63,7 @@ public:
     return m_isLastPoint ? e.GetEndPoint() : e.GetStartPoint();
   }
 
-  m2::PointD GetBearingEndPoint(Graph::Edge const & e, uint32_t const distanceM)
+  m2::PointD GetBearingEndPoint(Graph::Edge const & e, double const distanceM)
   {
     if (distanceM < m_bearDistM && m_bearDistM <= distanceM + EdgeLength(e))
     {
@@ -79,7 +79,7 @@ public:
   }
 
 private:
-  uint32_t m_bearDistM;
+  double m_bearDistM;
   bool m_isLastPoint;
 };
 }  // namespace
@@ -144,13 +144,13 @@ bool CandidatePathsGetter::GetLineCandidatesForPoints(
 
     lineCandidates.emplace_back();
     auto const isLastPoint = i == points.size() - 1;
-    auto const distanceToNextPoint =
+    double const distanceToNextPointM =
         (isLastPoint ? points[i - 1] : points[i]).m_distanceToNextPoint;
 
     vector<m2::PointD> pointCandidates;
     m_pointsGetter.GetCandidatePoints(MercatorBounds::FromLatLon(points[i].m_latLon),
                                       pointCandidates);
-    GetLineCandidates(points[i], isLastPoint, distanceToNextPoint, pointCandidates,
+    GetLineCandidates(points[i], isLastPoint, distanceToNextPointM, pointCandidates,
                       lineCandidates.back());
 
     if (lineCandidates.back().empty())
@@ -182,7 +182,7 @@ void CandidatePathsGetter::GetStartLines(vector<m2::PointD> const & points, bool
 }
 
 void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLines,
-                                               bool const isLastPoint, uint32_t const bearDistM,
+                                               bool const isLastPoint, double const bearDistM,
                                                FunctionalRoadClass const frc,
                                                vector<LinkPtr> & allPaths)
 {
@@ -244,7 +244,7 @@ void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLi
 
 void CandidatePathsGetter::GetBestCandidatePaths(
     vector<LinkPtr> const & allPaths, bool const isLastPoint, uint32_t const requiredBearing,
-    uint32_t const bearDistM, m2::PointD const & startPoint, vector<Graph::EdgeVector> & candidates)
+    double const bearDistM, m2::PointD const & startPoint, vector<Graph::EdgeVector> & candidates)
 {
   set<CandidatePath> candidatePaths;
   set<CandidatePath> fakeEndingsCandidatePaths;
@@ -253,8 +253,7 @@ void CandidatePathsGetter::GetBestCandidatePaths(
   for (auto const & l : allPaths)
   {
     auto const bearStartPoint = pointsSelector.GetBearingStartPoint(l->GetStartEdge());
-    auto const startPointsDistance =
-        static_cast<uint32_t>(MercatorBounds::DistanceOnEarth(bearStartPoint, startPoint));
+    auto const startPointsDistance = MercatorBounds::DistanceOnEarth(bearStartPoint, startPoint);
 
     // Number of edges counting from the last one to check bearing on. Accorfing to OpenLR spec
     // we have to check bearing on a point that is no longer than 25 meters traveling down the path.
@@ -324,12 +323,12 @@ void CandidatePathsGetter::GetBestCandidatePaths(
 
 void CandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint const & p,
                                              bool const isLastPoint,
-                                             uint32_t const distanceToNextPoint,
+                                             double const distanceToNextPointM,
                                              vector<m2::PointD> const & pointCandidates,
                                              vector<Graph::EdgeVector> & candidates)
 {
-  uint32_t const kDefaultBearDistM = 25;
-  uint32_t const bearDistM = min(kDefaultBearDistM, distanceToNextPoint);
+  double const kDefaultBearDistM = 25.0;
+  double const bearDistM = min(kDefaultBearDistM, distanceToNextPointM);
 
   LOG(LINFO, ("BearDist is", bearDistM));
 

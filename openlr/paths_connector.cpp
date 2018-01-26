@@ -6,7 +6,6 @@
 
 #include <algorithm>
 #include <map>
-#include <numeric>
 #include <queue>
 #include <tuple>
 
@@ -42,7 +41,7 @@ int32_t PathOverlappingLen(Graph::EdgeVector const & a, Graph::EdgeVector const 
 }
 
 bool ValidatePath(Graph::EdgeVector const & path,
-                  uint32_t const distanceToNextPoint,
+                  double const distanceToNextPoint,
                   double const pathLengthTolerance)
 {
 
@@ -88,7 +87,7 @@ bool PathsConnector::ConnectCandidates(vector<LocationReferencePoint> const & po
     bool found = false;
 
     auto const & point = points[i - 1];
-    auto const distanceToNextPoint = point.m_distanceToNextPoint;
+    auto const distanceToNextPoint = static_cast<double>(point.m_distanceToNextPoint);
     auto const & fromCandidates = lineCandidates[i - 1];
     auto const & toCandidates = lineCandidates[i];
     auto & resultPathPart = resultPath[i - 1];
@@ -159,6 +158,8 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
     uint32_t m_score;
   };
 
+  ASSERT(from.HasRealPart() && to.HasRealPart(), ());
+
   priority_queue<State, vector<State>, greater<State>> q;
   map<Graph::Edge, uint32_t> scores;
   map<Graph::Edge, Graph::Edge> links;
@@ -218,7 +219,7 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
 bool PathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const & from,
                                                    Graph::EdgeVector const & to,
                                                    FunctionalRoadClass const frc,
-                                                   uint32_t const distanceToNextPoint,
+                                                   double const distanceToNextPoint,
                                                    Graph::EdgeVector & resultPath)
 
 {

@@ -26,7 +26,7 @@ private:
 
   bool ConnectAdjacentCandidateLines(Graph::EdgeVector const & from, Graph::EdgeVector const & to,
                                      FunctionalRoadClass const frc,
-                                     uint32_t const distanceToNextPoint,
+                                     double const distanceToNextPoint,
                                      Graph::EdgeVector & resultPath);
 
   double m_pathLengthTolerance;

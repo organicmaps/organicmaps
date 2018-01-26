@@ -18,10 +18,9 @@ bool PointsAreClose(m2::PointD const & p1, m2::PointD const & p2)
   return MercatorBounds::DistanceOnEarth(p1, p2) < kMwmRoadCrossingRadiusMeters;
 }
 
-// TODO(mgsergio): Try to use double instead of uint32_t and leave whait is better.
-uint32_t EdgeLength(Graph::Edge const & e)
+double EdgeLength(Graph::Edge const & e)
 {
-  return static_cast<uint32_t>(MercatorBounds::DistanceOnEarth(e.GetStartPoint(), e.GetEndPoint()));
+  return MercatorBounds::DistanceOnEarth(e.GetStartPoint(), e.GetEndPoint());
 }
 
 bool EdgesAreAlmostEqual(Graph::Edge const & e1, Graph::Edge const & e2)

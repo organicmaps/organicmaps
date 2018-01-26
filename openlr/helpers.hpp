@@ -13,8 +13,7 @@ class RoadInfoGetter;
 
 bool PointsAreClose(m2::PointD const & p1, m2::PointD const & p2);
 
-// TODO(mgsergio): Try to use double instead of uint32_t and leave whait is better.
-uint32_t EdgeLength(Graph::Edge const & e);
+double EdgeLength(Graph::Edge const & e);
 
 bool EdgesAreAlmostEqual(Graph::Edge const & e1, Graph::Edge const & e2);
 

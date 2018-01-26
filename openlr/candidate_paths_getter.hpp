@@ -39,7 +39,7 @@ private:
   // TODO(mgsergio): Rename to Vertex.
   struct Link
   {
-    Link(LinkPtr const & parent, Graph::Edge const & edge, uint32_t const distanceM)
+    Link(LinkPtr const & parent, Graph::Edge const & edge, double const distanceM)
       : m_parent(parent)
       , m_edge(edge)
       , m_distanceM(distanceM)
@@ -54,7 +54,7 @@ private:
 
     LinkPtr const m_parent;
     Graph::Edge const m_edge;
-    uint32_t const m_distanceM;
+    double const m_distanceM;
     bool const m_hasFake;
   };
 
@@ -66,8 +66,8 @@ private:
 
     CandidatePath() = default;
 
-    CandidatePath(LinkPtr const path, uint32_t const bearingDiff, uint32_t const pathDistanceDiff,
-                  uint32_t const startPointDistance)
+    CandidatePath(LinkPtr const path, uint32_t const bearingDiff, double const pathDistanceDiff,
+                  double const startPointDistance)
       : m_path(path)
       , m_bearingDiff(bearingDiff)
       , m_pathDistanceDiff(pathDistanceDiff)
@@ -87,9 +87,9 @@ private:
 
     LinkPtr m_path = nullptr;
     uint32_t m_bearingDiff = std::numeric_limits<uint32_t>::max();  // Domain is roughly [0, 30]
-    uint32_t m_pathDistanceDiff =
+    double m_pathDistanceDiff =
         std::numeric_limits<uint32_t>::max();  // Domain is roughly [0, 25]
-    uint32_t m_startPointDistance =
+    double m_startPointDistance =
         std::numeric_limits<uint32_t>::max();  // Domain is roughly [0, 50]
   };
 
@@ -109,16 +109,16 @@ private:
                      Graph::EdgeVector & edges);
 
   void GetAllSuitablePaths(Graph::EdgeVector const & startLines, bool const isLastPoint,
-                           uint32_t const bearDistM, FunctionalRoadClass const frc,
+                           double const bearDistM, FunctionalRoadClass const frc,
                            std::vector<LinkPtr> & allPaths);
 
   void GetBestCandidatePaths(std::vector<LinkPtr> const & allPaths, bool const isLastPoint,
-                             uint32_t const requiredBearing, uint32_t const bearDistM,
+                             uint32_t const requiredBearing, double const bearDistM,
                              m2::PointD const & startPoint,
                              std::vector<Graph::EdgeVector> & candidates);
 
   void GetLineCandidates(openlr::LocationReferencePoint const & p, bool const isLastPoint,
-                         uint32_t const distanceToNextPoint,
+                         double const distanceToNextPointM,
                          std::vector<m2::PointD> const & pointCandidates,
                          std::vector<Graph::EdgeVector> & candidates);
 

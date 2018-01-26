@@ -132,12 +132,12 @@ void ExpandFakes(Index const & index, Graph & g, Graph::EdgeVector & path)
 // to some point alog that path and drop everything form the start to that point or from
 // that point to the end.
 template <typename InputIterator>
-InputIterator CutOffset(InputIterator start, InputIterator const stop, uint32_t const offset)
+InputIterator CutOffset(InputIterator start, InputIterator const stop, double const offset)
 {
   if (offset == 0)
     return start;
 
-  for (uint32_t distance = 0; start != stop; ++start)
+  for (double distance = 0.0; start != stop; ++start)
   {
     auto const edgeLen = EdgeLength(*start);
     if (distance <= offset && offset < distance + edgeLen)
@@ -384,25 +384,24 @@ bool OpenLRDecoder::DecodeSingleSegment(LinearSegment const & segment, Index con
   for (auto const & part : resultPath)
     route.insert(end(route), begin(part), end(part));
 
-  uint32_t requiredRouteDistanceM = 0;
+  double requiredRouteDistanceM = 0.0;
   // Sum app all distances between points. Last point's m_distanceToNextPoint
   // should be equal to zero, but let's skip it just in case.
   for (auto it = begin(points); it != prev(end(points));  ++it)
     requiredRouteDistanceM += it->m_distanceToNextPoint;
-  uint32_t actualRouteDistanceM = 0;
+
+  double actualRouteDistanceM = 0.0;
   for (auto const & e : route)
     actualRouteDistanceM += EdgeLength(e);
 
-  auto const scale = static_cast<double>(actualRouteDistanceM) / requiredRouteDistanceM;
+  auto const scale = actualRouteDistanceM / requiredRouteDistanceM;
   LOG(LDEBUG, ("actualRouteDistance:", actualRouteDistanceM,
                "requiredRouteDistance:", requiredRouteDistanceM, "scale:", scale));
 
-  auto const positiveOffset =
-      static_cast<uint32_t>(segment.m_locationReference.m_positiveOffsetMeters * scale);
-  auto const negativeOffset =
-      static_cast<uint32_t>(segment.m_locationReference.m_negativeOffsetMeters * scale);
+  auto const positiveOffsetM = segment.m_locationReference.m_positiveOffsetMeters * scale;
+  auto const negativeOffsetM = segment.m_locationReference.m_negativeOffsetMeters * scale;
 
-  if (positiveOffset + negativeOffset >= requiredRouteDistanceM)
+  if (positiveOffsetM + negativeOffsetM >= requiredRouteDistanceM)
   {
     ++stat.m_wrongOffsets;
     LOG(LINFO, ("Wrong offsets for segment:", segment.m_segmentId));
@@ -410,9 +409,9 @@ bool OpenLRDecoder::DecodeSingleSegment(LinearSegment const & segment, Index con
   }
 
   ExpandFakes(index, graph, route);
-  ASSERT(none_of(begin(route), end(route), mem_fn(&Graph::Edge::IsFake)), ());
-  CopyWithoutOffsets(begin(route), end(route), back_inserter(path.m_path), positiveOffset,
-                     negativeOffset);
+  ASSERT(none_of(begin(route), end(route), mem_fn(&Graph::Edge::IsFake)), (segment.m_segmentId));
+  CopyWithoutOffsets(begin(route), end(route), back_inserter(path.m_path), positiveOffsetM,
+                     negativeOffsetM);
 
   if (path.m_path.empty())
   {
