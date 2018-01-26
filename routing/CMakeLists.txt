@@ -79,8 +79,6 @@ set(
   road_access_serialization.hpp
   road_graph.cpp
   road_graph.hpp
-  road_graph_router.cpp
-  road_graph_router.hpp
   road_index.cpp
   road_index.hpp
   road_point.hpp

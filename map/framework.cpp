@@ -15,7 +15,6 @@
 
 #include "routing/index_router.hpp"
 #include "routing/online_absent_fetcher.hpp"
-#include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_algorithm.hpp"
 #include "routing/routing_helpers.hpp"

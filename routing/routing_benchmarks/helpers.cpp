@@ -146,10 +146,10 @@ unique_ptr<routing::IRouter> RoutingTest::CreateRouter(string const & name)
 {
   vector<platform::LocalCountryFile> neededLocalFiles;
   neededLocalFiles.reserve(m_neededMaps.size());
-  for (auto const & lf : m_localFiles)
+  for (auto const & file : m_localFiles)
   {
-    if (m_neededMaps.count(lf.GetCountryName()) != 0)
-      neededLocalFiles.push_back(lf);
+    if (m_neededMaps.count(file.GetCountryName()) != 0)
+      neededLocalFiles.push_back(file);
   }
 
   unique_ptr<routing::IRouter> router = integration::CreateVehicleRouter(
