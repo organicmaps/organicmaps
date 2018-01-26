@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:transit/transit.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:common-debug.xcconfig">
    </FileRef>
    <FileRef
@@ -312,6 +309,9 @@
    </FileRef>
    <FileRef
       location = "container:tracking/tracking.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:transit/transit.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:qtMapsMe/qtMapsMe.xcodeproj">
