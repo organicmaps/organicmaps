@@ -4662,32 +4662,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		6741AA551BF340DE002C974C /* Simulator */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
-					"$(PROJECT_DIR)/3party/GoogleSignIn",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-			};
-			name = Simulator;
-		};
-		6741AA561BF340DE002C974C /* Simulator Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
-					"$(PROJECT_DIR)/3party/GoogleSignIn",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-			};
-			name = "Simulator Release";
-		};
 		6741AA571BF340DE002C974C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4726,127 +4700,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 			};
 			name = "Production Full";
-		};
-		A6E0F06B1FBD9CC30006D64C /* Beta */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 347526FB1DC0B00F00918CF5 /* common-release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUNDLE_IDENTIFIER = mapsme.beta;
-				DEVELOPMENT_TEAM = L2QFT5NA2Q;
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party",
-					"$(PROJECT_DIR)/3party/MyTarget",
-					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
-				);
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					NS_BLOCK_ASSERTIONS,
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/glm",
-					"$(PROJECT_DIR)/3party/MoPubSDK/**",
-				);
-				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/Flurry",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-Wall",
-					"-Wno-unused-local-typedef",
-					"-Wimplicit-retain-self",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
-				PRODUCT_NAME = "maps.me beta";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Beta;
-		};
-		A6E0F06D1FBD9CC30006D64C /* Beta */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
-					"$(PROJECT_DIR)/3party/GoogleSignIn",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-			};
-			name = Beta;
-		};
-		FAAB4119149BA83500C245B1 /* Simulator */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 347526FA1DC0B00F00918CF5 /* common-debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUNDLE_IDENTIFIER = mapsme.debug;
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party",
-					"$(PROJECT_DIR)/3party/MyTarget",
-					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
-				);
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TARGET_OS_IPHONE,
-					"$(inherited)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/glm",
-					"$(PROJECT_DIR)/3party/MoPubSDK/**",
-				);
-				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/Flurry",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-Wall",
-					"-Wno-unused-local-typedef",
-					"-Wimplicit-retain-self",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
-				PRODUCT_NAME = "maps.me dbg";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Simulator;
 		};
 		FAAB411B149BA84700C245B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -5006,89 +4859,28 @@
 			};
 			name = Release;
 		};
-		FACFE54415F8F35600CE8B20 /* Simulator Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 347526FB1DC0B00F00918CF5 /* common-release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUNDLE_IDENTIFIER = mapsme.release;
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party",
-					"$(PROJECT_DIR)/3party/MyTarget",
-					"$(PROJECT_DIR)/3party/Carthage/Build/iOS",
-				);
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TARGET_OS_IPHONE,
-					"$(inherited)",
-					NS_BLOCK_ASSERTIONS,
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/glm",
-					"$(PROJECT_DIR)/3party/MoPubSDK/**",
-				);
-				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/Flurry",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-Wall",
-					"-Wno-unused-local-typedef",
-					"-Wimplicit-retain-self",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
-				PRODUCT_NAME = "maps.me rel";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "Simulator Release";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "MAPS.ME" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6741AA551BF340DE002C974C /* Simulator */,
-				6741AA561BF340DE002C974C /* Simulator Release */,
 				6741AA571BF340DE002C974C /* Debug */,
 				6741AA5A1BF340DE002C974C /* Release */,
-				A6E0F06D1FBD9CC30006D64C /* Beta */,
 				6741AA5C1BF340DE002C974C /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Simulator;
+			defaultConfigurationName = Debug;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Maps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FAAB4119149BA83500C245B1 /* Simulator */,
-				FACFE54415F8F35600CE8B20 /* Simulator Release */,
 				FAAB411B149BA84700C245B1 /* Debug */,
 				FABB561E149CD957006969C0 /* Release */,
-				A6E0F06B1FBD9CC30006D64C /* Beta */,
 				FAAB411F149BA86000C245B1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Simulator;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
