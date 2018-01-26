@@ -124,6 +124,8 @@ void ExpandFakes(Index const & index, Graph & g, Graph::EdgeVector & path)
   ASSERT(!path.empty(), ());
 
   ExpandFake(path, begin(path), index, g);
+  if (path.empty())
+    return;
   ExpandFake(path, --end(path), index, g);
 }
 
@@ -365,6 +367,7 @@ bool OpenLRDecoder::DecodeSingleSegment(LinearSegment const & segment, Index con
   path.m_segmentId.Set(segment.m_segmentId);
 
   auto const & points = segment.GetLRPs();
+  CHECK_GREATER(points.size(), 1, ("A segment cannot consist of less than two points"));
   vector<vector<Graph::EdgeVector>> lineCandidates;
   lineCandidates.reserve(points.size());
   LOG(LDEBUG, ("Decoding segment:", segment.m_segmentId, "with", points.size(), "points"));

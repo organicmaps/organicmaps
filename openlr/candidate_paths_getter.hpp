@@ -86,11 +86,9 @@ private:
     bool HasFakeEndings() const { return m_path && m_path->m_hasFake; }
 
     LinkPtr m_path = nullptr;
-    uint32_t m_bearingDiff = std::numeric_limits<uint32_t>::max();  // Domain is roughly [0, 30]
-    double m_pathDistanceDiff =
-        std::numeric_limits<uint32_t>::max();  // Domain is roughly [0, 25]
-    double m_startPointDistance =
-        std::numeric_limits<uint32_t>::max();  // Domain is roughly [0, 50]
+    uint32_t m_bearingDiff = std::numeric_limits<uint32_t>::max();     // Domain is roughly [0, 30]
+    double m_pathDistanceDiff = std::numeric_limits<double>::max();    // Domain is roughly [0, 25]
+    double m_startPointDistance = std::numeric_limits<double>::max();  // Domain is roughly [0, 50]
   };
 
   // Note: In all methods below if |isLastPoint| is true than algorithm should
