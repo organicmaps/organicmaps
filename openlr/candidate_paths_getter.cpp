@@ -219,6 +219,10 @@ void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLi
 
     for (auto const & e : edges)
     {
+      // Fake edges are allowed only at the start/end of the path.
+      if (e.IsFake())
+        continue;
+
       if (EdgesAreAlmostEqual(e.GetReverseEdge(), currentEdge))
         continue;
 

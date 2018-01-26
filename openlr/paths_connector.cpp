@@ -196,6 +196,11 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
     {
       // TODO(mgsergio): Use frc to filter edges.
 
+      // Only start and/or end of the route can be fake.
+      // Routes made only of fake edges are no used to us.
+      if (u.IsFake() && e.IsFake())
+        continue;
+
       auto const it = scores.find(e);
       auto const eScore = us + EdgeLength(e);
       if (it == end(scores) || it->second > eScore)
