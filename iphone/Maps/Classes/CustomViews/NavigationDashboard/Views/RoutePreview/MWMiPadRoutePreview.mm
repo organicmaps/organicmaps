@@ -16,20 +16,24 @@
 
 - (void)setupConstraints
 {
-  auto sv = self.superview;
-  [self.topAnchor constraintEqualToAnchor:sv.topAnchor].active = YES;
-  [self.bottomAnchor constraintEqualToAnchor:sv.bottomAnchor].active = YES;
-  self.horizontalConstraint = [self.trailingAnchor constraintEqualToAnchor:sv.leadingAnchor];
-  self.horizontalConstraint.active = YES;
+  if (auto sv = self.superview)
+  {
+    [self.topAnchor constraintEqualToAnchor:sv.topAnchor].active = YES;
+    [self.bottomAnchor constraintEqualToAnchor:sv.bottomAnchor].active = YES;
+    self.horizontalConstraint = [self.trailingAnchor constraintEqualToAnchor:sv.leadingAnchor];
+    self.horizontalConstraint.active = YES;
+  }
 }
 
 - (void)setIsVisible:(BOOL)isVisible
 {
   self.horizontalConstraint.active = NO;
-  auto sv = self.superview;
-  NSLayoutXAxisAnchor * selfAnchor = isVisible ? self.leadingAnchor : self.trailingAnchor;
-  self.horizontalConstraint = [selfAnchor constraintEqualToAnchor:sv.leadingAnchor];
-  self.horizontalConstraint.active = YES;
+  if (auto sv = self.superview)
+  {
+    NSLayoutXAxisAnchor * selfAnchor = isVisible ? self.leadingAnchor : self.trailingAnchor;
+    self.horizontalConstraint = [selfAnchor constraintEqualToAnchor:sv.leadingAnchor];
+    self.horizontalConstraint.active = YES;
+  }
   [super setIsVisible:isVisible];
 }
 
