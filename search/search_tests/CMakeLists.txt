@@ -20,6 +20,7 @@ set(
   point_rect_matcher_tests.cpp
   query_saver_tests.cpp
   ranking_tests.cpp
+  results_tests.cpp
   region_info_getter_tests.cpp
   segment_tree_tests.cpp
   string_match_test.cpp
