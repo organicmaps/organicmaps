@@ -1,6 +1,4 @@
 #pragma once
-#include "indexer/interval_index_iface.hpp"
-
 #include "coding/endianness.hpp"
 #include "coding/byte_stream.hpp"
 #include "coding/reader.hpp"
@@ -9,8 +7,9 @@
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 
+#include <cstdint>
 
-class IntervalIndexBase : public IntervalIndexIFace
+class IntervalIndexBase
 {
 public:
 #pragma pack(push, 1)
@@ -69,11 +68,6 @@ public:
       ForEachNode(f, beg, end, m_Header.m_Levels, 0,
                   m_LevelOffsets[m_Header.m_Levels + 1] - m_LevelOffsets[m_Header.m_Levels]);
     }
-  }
-
-  virtual void DoForEach(FunctionT const & f, uint64_t beg, uint64_t end)
-  {
-    ForEach(f, beg, end);
   }
 
 private:

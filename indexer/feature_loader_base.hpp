@@ -22,7 +22,7 @@ namespace feature
 
     using TReader = FilesContainerR::TReader;
 
-    LoaderBase * m_pLoader;
+    LoaderBase * m_loader;
     void CreateLoader();
 
   public:
@@ -36,7 +36,7 @@ namespace feature
     TReader GetGeometryReader(int ind) const;
     TReader GetTrianglesReader(int ind) const;
 
-    LoaderBase * GetLoader() const { return m_pLoader; }
+    LoaderBase * GetLoader() const { return m_loader; }
 
     inline version::Format GetMWMFormat() const { return m_header.GetFormat(); }
 

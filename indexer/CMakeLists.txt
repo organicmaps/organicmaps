@@ -90,7 +90,6 @@ set(
   index.cpp
   index.hpp
   interval_index_builder.hpp
-  interval_index_iface.hpp
   interval_index.hpp
   map_object.cpp
   map_object.hpp
@@ -102,9 +101,6 @@ set(
   mwm_set.hpp
   new_feature_categories.cpp   # it's in indexer because of CategoriesHolder dependency.
   new_feature_categories.hpp   # it's in indexer because of CategoriesHolder dependency.
-  old/feature_loader_101.cpp
-  old/feature_loader_101.hpp
-  old/interval_index_101.hpp
   osm_editor.cpp
   osm_editor.hpp
   postcodes_matcher.cpp   # it's in indexer due to editor which is in indexer and depends on postcodes_marcher

@@ -2,9 +2,10 @@
 #include "indexer/data_header.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/interval_index.hpp"
-#include "indexer/old/interval_index_101.hpp"
 
 #include "platform/mwm_version.hpp"
+
+#include <memory>
 
 class FilesContainerR;
 class IntervalIndexIFace;
@@ -23,10 +24,9 @@ public:
   inline feature::RegionData const & GetRegionData() const { return m_regionData; }
 
   template <typename Reader>
-  IntervalIndexIFace * CreateIndex(Reader const & reader) const
+  std::unique_ptr<IntervalIndex<Reader>> CreateIndex(Reader const & reader) const
   {
-    if (m_version.GetFormat() == version::Format::v1)
-      return new old_101::IntervalIndex<uint32_t, Reader>(reader);
-    return new IntervalIndex<Reader>(reader);
+    CHECK_NOT_EQUAL(m_version.GetFormat(), version::Format::v1, ("Old maps format is not supported"));
+    return std::make_unique<IntervalIndex<Reader>>(reader);
   }
 };
