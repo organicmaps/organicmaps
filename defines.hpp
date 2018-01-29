@@ -45,6 +45,9 @@
 #define TRANSIT_FILE_TAG "transit"
 #define UGC_FILE_TAG "ugc"
 
+#define LOCALITY_DATA_FILE_TAG "locdata"
+#define LOCALITY_INDEX_FILE_TAG "locidx"
+
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume"
 #define DOWNLOADING_FILE_EXTENSION ".downloading"
@@ -56,6 +59,10 @@
 #define GEOM_INDEX_TMP_EXT ".geomidx.tmp"
 #define CELL2FEATURE_SORTED_EXT ".c2f.sorted"
 #define CELL2FEATURE_TMP_EXT ".c2f.tmp"
+
+#define LOCALITY_INDEX_TMP_EXT ".locidx.tmp"
+#define CELL2LOCALITY_SORTED_EXT ".c2l.sorted"
+#define CELL2LOCALITY_TMP_EXT ".c2l.tmp"
 
 #define COUNTRIES_FILE "countries.txt"
 #define COUNTRIES_META_FILE "countries_meta.txt"

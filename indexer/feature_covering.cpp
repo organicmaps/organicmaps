@@ -1,7 +1,9 @@
 #include "indexer/feature_covering.hpp"
+
 #include "indexer/cell_coverer.hpp"
 #include "indexer/cell_id.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/locality_object.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/covering_utils.hpp"
@@ -113,25 +115,23 @@ public:
   }
 };
 
-}
-
-namespace covering
-{
-
-vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cellPenaltyArea)
+void GetIntersection(FeatureType const & f, FeatureIntersector & fIsect)
 {
   // We need to cover feature for the best geometry, because it's indexed once for the
   // first top level scale. Do reset current cached geometry first.
   f.ResetGeometry();
   int const scale = FeatureType::BEST_GEOMETRY;
 
-  FeatureIntersector fIsect;
   f.ForEachPoint(fIsect, scale);
   f.ForEachTriangle(fIsect, scale);
 
   CHECK(!(fIsect.m_trg.empty() && fIsect.m_polyline.empty()) &&
         f.GetLimitRect(scale).IsValid(), (f.DebugString(scale)));
+}
 
+vector<int64_t> CoverIntersection(FeatureIntersector const & fIsect, int cellDepth,
+                                  uint64_t cellPenaltyArea)
+{
   if (fIsect.m_trg.empty() && fIsect.m_polyline.size() == 1)
   {
     m2::PointD const pt = fIsect.m_polyline[0];
@@ -148,6 +148,25 @@ vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cell
     res[i] = cells[i].ToInt64(cellDepth);
 
   return res;
+}
+}
+
+namespace covering
+{
+vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cellPenaltyArea)
+{
+  FeatureIntersector fIsect;
+  GetIntersection(f, fIsect);
+  return CoverIntersection(fIsect, cellDepth, cellPenaltyArea);
+}
+
+vector<int64_t> CoverLocality(indexer::LocalityObject const & o, int cellDepth,
+                              uint64_t cellPenaltyArea)
+{
+  FeatureIntersector fIsect;
+  o.ForEachPoint(fIsect);
+  o.ForEachTriangle(fIsect);
+  return CoverIntersection(fIsect, cellDepth, cellPenaltyArea);
 }
 
 void SortAndMergeIntervals(IntervalsT v, IntervalsT & res)

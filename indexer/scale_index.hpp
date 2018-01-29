@@ -24,18 +24,13 @@ public:
   }
 };
 
-template <class ReaderT>
+template <class Reader>
 class ScaleIndex : public ScaleIndexBase
 {
 public:
-  typedef ReaderT ReaderType;
-
   ScaleIndex() = default;
 
-  ScaleIndex(ReaderT const & reader, IndexFactory const & factory)
-  {
-    Attach(reader, factory);
-  }
+  ScaleIndex(Reader const & reader, IndexFactory const & factory) { Attach(reader, factory); }
 
   ~ScaleIndex()
   {
@@ -47,12 +42,12 @@ public:
     m_IndexForScale.clear();
   }
 
-  void Attach(ReaderT const & reader, IndexFactory const & factory)
+  void Attach(Reader const & reader, IndexFactory const & factory)
   {
     Clear();
 
-    ReaderSource<ReaderT> source(reader);
-    VarSerialVectorReader<ReaderT> treesReader(source);
+    ReaderSource<Reader> source(reader);
+    VarSerialVectorReader<Reader> treesReader(source);
     for (uint32_t i = 0; i < treesReader.Size(); ++i)
       m_IndexForScale.push_back(factory.CreateIndex(treesReader.SubReader(i)));
   }
@@ -69,5 +64,5 @@ public:
   }
 
 private:
-  std::vector<std::unique_ptr<IntervalIndex<ReaderT>>> m_IndexForScale;
+  std::vector<std::unique_ptr<IntervalIndex<Reader, uint32_t>>> m_IndexForScale;
 };

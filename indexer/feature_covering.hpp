@@ -9,6 +9,11 @@
 
 class FeatureType;
 
+namespace indexer
+{
+class LocalityObject;
+}  // namespace indexer
+
 namespace covering
 {
   typedef pair<int64_t, int64_t> IntervalT;
@@ -18,6 +23,9 @@ namespace covering
   vector<int64_t> CoverFeature(FeatureType const & feature,
                                int cellDepth,
                                uint64_t cellPenaltyArea);
+
+  vector<int64_t> CoverLocality(indexer::LocalityObject const & o, int cellDepth,
+                                uint64_t cellPenaltyArea);
 
   void AppendLowerLevels(RectId id, int cellDepth, IntervalsT & intervals);
 

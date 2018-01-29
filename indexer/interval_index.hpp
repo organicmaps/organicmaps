@@ -32,7 +32,7 @@ public:
   enum { kVersion = 1 };
 };
 
-template <class ReaderT>
+template <class ReaderT, typename Value>
 class IntervalIndex : public IntervalIndexBase
 {
   typedef IntervalIndexBase base_t;
@@ -83,7 +83,7 @@ private:
     ArrayByteSource src(&data[0]);
 
     void const * pEnd = &data[0] + size;
-    uint32_t value = 0;
+    Value value = 0;
     while (src.Ptr() < pEnd)
     {
       uint32_t key = 0;
@@ -91,7 +91,7 @@ private:
       key = SwapIfBigEndian(key);
       if (key > end)
         break;
-      value += ReadVarInt<int32_t>(src);
+      value += ReadVarInt<int64_t>(src);
       if (key >= beg)
         f(value);
     }

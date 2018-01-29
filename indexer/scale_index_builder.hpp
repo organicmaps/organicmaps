@@ -120,23 +120,6 @@ private:
   vector<uint32_t> & m_cellsInBucket;
 };
 
-template <class SinkT>
-class CellFeaturePairSinkAdapter
-{
-public:
-  explicit CellFeaturePairSinkAdapter(SinkT & sink) : m_Sink(sink) {}
-
-  void operator() (int64_t cellId, uint64_t value) const
-  {
-    // uint64_t -> uint32_t : assume that feature dat file not more than 4Gb
-    CellFeaturePair cellFeaturePair(cellId, static_cast<uint32_t>(value));
-    m_Sink.Write(&cellFeaturePair, sizeof(cellFeaturePair));
-  }
-
-private:
-  SinkT & m_Sink;
-};
-
 template <class TFeaturesVector, class TWriter>
 void IndexScales(feature::DataHeader const & header, TFeaturesVector const & features,
                  TWriter & writer, string const & tmpFilePrefix)
@@ -200,7 +183,8 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
 
     {
       FileReader reader(cellsToFeatureFile);
-      DDVector<CellFeaturePair, FileReader, uint64_t> cellsToFeatures(reader);
+      DDVector<CellFeatureBucketTuple::CellFeaturePair, FileReader, uint64_t> cellsToFeatures(
+          reader);
       SubWriter<TWriter> subWriter(writer);
       LOG(LINFO, ("Building interval index for bucket:", bucket));
       BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter,

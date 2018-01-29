@@ -159,21 +159,13 @@ void LoaderCurrent::ParseHeader2()
       trgCount += 2;
 
       char const * start = static_cast<char const *>(src.PtrC());
-
-      FeatureType::points_t points;
-      src = ArrayByteSource(serial::LoadInnerTriangles(start, trgCount, cp, points));
-
+      src = ArrayByteSource(serial::LoadInnerTriangles(start, trgCount, cp, m_pF->m_triangles));
       m_pF->m_innerStats.m_strips = static_cast<uint32_t>(src.PtrC() - start);
-
-      for (uint8_t i = 2; i < trgCount; ++i)
-      {
-        m_pF->m_triangles.push_back(points[i-2]);
-        m_pF->m_triangles.push_back(points[i-1]);
-        m_pF->m_triangles.push_back(points[i]);
-      }
     }
     else
+    {
       ReadOffsets(src, trgMask, m_trgOffsets);
+    }
   }
 
   m_pF->m_innerStats.m_size = static_cast<uint32_t>(src.PtrC() - DataPtr());

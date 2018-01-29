@@ -13,6 +13,7 @@ set(
   categories_index.hpp
   cell_coverer.hpp
   cell_id.hpp
+  cell_value_pair.hpp
   centers_table.cpp
   centers_table.hpp
   cities_boundaries_serdes.hpp
@@ -91,6 +92,10 @@ set(
   index.hpp
   interval_index_builder.hpp
   interval_index.hpp
+  locality_index_builder.hpp
+  locality_index_builder.cpp
+  locality_object.hpp
+  locality_object.cpp
   map_object.cpp
   map_object.hpp
   map_style_reader.cpp

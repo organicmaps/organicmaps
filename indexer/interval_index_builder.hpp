@@ -29,7 +29,6 @@
 // +------------------------------+
 // |        Level N data          |
 // +------------------------------+
-
 class IntervalIndexBuilder
 {
 public:
@@ -46,8 +45,8 @@ public:
 
   uint32_t GetLevelCount() const { return m_Levels; }
 
-  template <class WriterT, typename CellIdValueIterT>
-  void BuildIndex(WriterT & writer, CellIdValueIterT const & beg, CellIdValueIterT const & end)
+  template <class Writer, typename CellIdValueIter>
+  void BuildIndex(Writer & writer, CellIdValueIter const & beg, CellIdValueIter const & end)
   {
     CHECK(CheckIntervalIndexInputSequence(beg, end), ());
 
@@ -107,16 +106,16 @@ public:
     writer.Seek(lastPos);
   }
 
-  template <typename CellIdValueIterT>
-  bool CheckIntervalIndexInputSequence(CellIdValueIterT const & beg, CellIdValueIterT const & end)
+  template <typename CellIdValueIter>
+  bool CheckIntervalIndexInputSequence(CellIdValueIter const & beg, CellIdValueIter const & end)
   {
     // Check that [beg, end) is sorted and log most populous cell.
     if (beg != end)
     {
       uint32_t count = 0;
       uint32_t maxCount = 0;
-      typename CellIdValueIterT::value_type mostPopulousCell = *beg;
-      CellIdValueIterT it = beg;
+      typename CellIdValueIter::value_type mostPopulousCell = *beg;
+      CellIdValueIter it = beg;
       uint64_t prev = it->GetCell();
       for (++it; it != end; ++it)
       {
@@ -132,16 +131,17 @@ public:
       }
       if (maxCount > 0)
       {
-        LOG(LINFO, ("Most populous cell:", maxCount,
-                    mostPopulousCell.GetCell(), mostPopulousCell.GetFeature()));
+        LOG(LINFO, ("Most populous cell:", maxCount, mostPopulousCell.GetCell(),
+                    mostPopulousCell.GetValue()));
       }
     }
 
     uint32_t const keyBits = 8 * m_LeafBytes + m_Levels * m_BitsPerLevel;
-    for (CellIdValueIterT it = beg; it != end; ++it)
+    for (CellIdValueIter it = beg; it != end; ++it)
     {
       CHECK_LESS(it->GetCell(), 1ULL << keyBits, ());
-      CHECK_EQUAL(it->GetFeature(), static_cast<uint32_t>(it->GetFeature()), ());
+      // We use static_cast<int64_t>(value) in BuildLeaves to store values difference as VarInt.
+      CHECK_EQUAL(it->GetValue(), static_cast<int64_t>(it->GetValue()), ());
     }
 
     return true;
@@ -170,8 +170,8 @@ public:
     }
   }
 
-  template <class WriterT, typename CellIdValueIterT>
-  void BuildLevel(WriterT & writer, CellIdValueIterT const & beg, CellIdValueIterT const & end,
+  template <class Writer, typename CellIdValueIter>
+  void BuildLevel(Writer & writer, CellIdValueIter const & beg, CellIdValueIter const & end,
                   int level, uint32_t const * childSizesBeg, uint32_t const * childSizesEnd,
                   vector<uint32_t> & sizes)
   {
@@ -182,7 +182,7 @@ public:
     uint64_t prevKey = static_cast<uint64_t>(-1);
     uint32_t childOffset = 0;
     uint32_t nextChildOffset = 0;
-    for (CellIdValueIterT it = beg; it != end; ++it)
+    for (CellIdValueIter it = beg; it != end; ++it)
     {
       uint64_t const key = it->GetCell() >> skipBits;
       if (key == prevKey)
@@ -204,18 +204,20 @@ public:
     ASSERT_EQUAL(childSizesBeg, childSizesEnd, ());
   }
 
-  template <class WriterT, typename CellIdValueIterT>
-  void BuildLeaves(WriterT & writer, CellIdValueIterT const & beg, CellIdValueIterT const & end,
+  template <class Writer, typename CellIdValueIter>
+  void BuildLeaves(Writer & writer, CellIdValueIter const & beg, CellIdValueIter const & end,
                    vector<uint32_t> & sizes)
   {
+    using Value = typename CellIdValueIter::value_type::ValueType;
+
     uint32_t const skipBits = 8 * m_LeafBytes;
     uint64_t prevKey = 0;
     uint64_t prevValue = 0;
     uint64_t prevPos = writer.Pos();
-    for (CellIdValueIterT it = beg; it != end; ++it)
+    for (CellIdValueIter it = beg; it != end; ++it)
     {
       uint64_t const key = it->GetCell();
-      uint64_t const value = it->GetFeature();
+      Value const value = it->GetValue();
       if (it != beg && (key >> skipBits) != (prevKey >> skipBits))
       {
         sizes.push_back(static_cast<uint32_t>(writer.Pos() - prevPos));
@@ -265,9 +267,9 @@ private:
   uint32_t m_Levels, m_BitsPerLevel, m_LeafBytes, m_LastBitsMask;
 };
 
-template <class WriterT, typename CellIdValueIterT>
-void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & end,
-                        WriterT & writer, uint32_t keyBits)
+template <class Writer, typename CellIdValueIter>
+void BuildIntervalIndex(CellIdValueIter const & beg, CellIdValueIter const & end, Writer & writer,
+                        uint32_t keyBits)
 {
   IntervalIndexBuilder(keyBits, 1).BuildIndex(writer, beg, end);
 }

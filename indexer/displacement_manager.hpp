@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/cell_id.hpp"
+#include "indexer/cell_value_pair.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature_data.hpp"
@@ -28,40 +29,11 @@ double constexpr kPOIDisplacementRadiusMultiplier = kPOIDisplacementRadiusPixels
 
 namespace covering
 {
-class CellFeaturePair
-{
-public:
-  CellFeaturePair() : m_cellLo(0), m_cellHi(0), m_feature(0) {}
-
-  CellFeaturePair(uint64_t cell, uint32_t feature)
-    : m_cellLo(UINT64_LO(cell)), m_cellHi(UINT64_HI(cell)), m_feature(feature)
-  {
-  }
-
-  bool operator<(CellFeaturePair const & rhs) const
-  {
-    if (m_cellHi != rhs.m_cellHi)
-      return m_cellHi < rhs.m_cellHi;
-    if (m_cellLo != rhs.m_cellLo)
-      return m_cellLo < rhs.m_cellLo;
-    return m_feature < rhs.m_feature;
-  }
-
-  uint64_t GetCell() const { return UINT64_FROM_UINT32(m_cellHi, m_cellLo); }
-  uint32_t GetFeature() const { return m_feature; }
-private:
-  uint32_t m_cellLo;
-  uint32_t m_cellHi;
-  uint32_t m_feature;
-};
-static_assert(sizeof(CellFeaturePair) == 12, "");
-#ifndef OMIM_OS_LINUX
-static_assert(std::is_trivially_copyable<CellFeaturePair>::value, "");
-#endif
-
 class CellFeatureBucketTuple
 {
 public:
+  using CellFeaturePair = CellValuePair<uint32_t>;
+
   CellFeatureBucketTuple() : m_bucket(0) {}
   CellFeatureBucketTuple(CellFeaturePair const & p, uint32_t bucket) : m_pair(p), m_bucket(bucket)
   {
@@ -91,6 +63,8 @@ template <class TSorter>
 class DisplacementManager
 {
 public:
+  using CellFeaturePair = CellFeatureBucketTuple::CellFeaturePair;
+
   DisplacementManager(TSorter & sorter) : m_sorter(sorter) {}
 
   /// Add feature at bucket (zoom) to displaceable queue if possible. Pass to bucket otherwise.
