@@ -188,12 +188,10 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   {
     CHECK_GREATER_OR_EQUAL(it->second.size(), 1,
                            ("Osm id:", osmId, "(encoded", osmId.EncodedId(),
-                            ") from transit graph corresponds to", it->second.size(),
-                            "features."
-                            "But osm id should be represented be one feature."));
+                            ") from transit graph does not correspond to any feature."));
     if (it->second.size() != 1)
     {
-      // Note. |osmId| corresponds several feature ids. It may happen in case of stops;
+      // Note. |osmId| corresponds to several feature ids. It may happen in case of stops;
       // if a stop is present as relation. It's a rare case.
       LOG(LWARNING, ("Osm id:", osmId, "(encoded", osmId.EncodedId(), "corresponds to",
                      it->second.size(), "feature ids."));
