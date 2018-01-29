@@ -4,7 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:orientation="vertical"
   android:layout_width="wrap_content"
-  android:layout_height="@dimen/hotel_filters_tag_height"
+  android:layout_height="wrap_content"
+  android:minHeight="@dimen/hotel_filters_tag_height"
   android:background="?tagBackground"
   android:gravity="center"
   android:clickable="true">

@@ -117,6 +117,7 @@
 
     <item name="transitPedestrianBackground">@color/black_4</item>
     <item name="transitStepDivider">@drawable/dot_divider</item>
+    <item name="filterPropertyBackground">@drawable/button_with_border</item>
   </style>
 
   <!-- Night theme -->
@@ -234,5 +235,6 @@
 
     <item name="transitPedestrianBackground">@color/white_4</item>
     <item name="transitStepDivider">@drawable/dot_divider_night</item>
+    <item name="filterPropertyBackground">@drawable/button_with_border_night</item>
   </style>
 </resources>

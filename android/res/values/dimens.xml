@@ -195,7 +195,7 @@
   <!-- Hotel filters-->
   <dimen name="hotel_filters_tag_height">32dp</dimen>
   <dimen name="hotels_filter_padding">128dp</dimen>
-
+  <dimen name="hotels_filter_margin_top">28dp</dimen>
   <dimen name="margin_dialog_title">20dp</dimen>
 
   <dimen name="action_bar_extended_height">72dp</dimen>

@@ -62,7 +62,7 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
     void update()
     {
       @DrawableRes
-      int background = UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.clickableBackground);
+      int background = UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.filterPropertyBackground);
       @ColorRes
       int titleColor =
           mSelected ? UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.accentButtonTextColor)

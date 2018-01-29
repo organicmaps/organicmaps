@@ -41,86 +41,123 @@
   <android.support.v4.widget.NestedScrollView
     android:id="@+id/scroll"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="?windowBackgroundForced"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
       android:id="@+id/content"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-       android:paddingBottom="@dimen/hotels_filter_padding"
+      android:paddingBottom="@dimen/hotels_filter_padding"
       android:orientation="vertical">
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_base"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginStart="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_quarter"
+          android:layout_marginEnd="@dimen/margin_quarter"
+          android:orientation="vertical"
+          android:gravity="start"
+          android:layout_height="wrap_content">
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
+            android:text="@string/booking_filters_check_in"/>
+          <TextView
+            android:id="@+id/checkIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/MwmTextAppearance.BookingFilter.DateTextView"/>
+        </LinearLayout>
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_marginLeft="@dimen/margin_quarter"
+          android:layout_marginStart="@dimen/margin_quarter"
+          android:layout_marginRight="@dimen/margin_base"
+          android:layout_marginEnd="@dimen/margin_base"
+          android:orientation="vertical"
+          android:gravity="start"
+          android:layout_height="wrap_content">
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
+            android:text="@string/booking_filters_check_out"/>
+          <TextView
+            android:id="@+id/checkOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/MwmTextAppearance.BookingFilter.DateTextView"/>
+        </LinearLayout>
+      </LinearLayout>
       <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_base"
         android:layout_marginRight="@dimen/margin_base"
-        android:layout_marginTop="@dimen/margin_base"
         android:layout_marginBottom="@dimen/margin_half"
-        android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
-        android:text="@string/booking_filters_check_in"/>
-      <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_base"
-        android:layout_marginRight="@dimen/margin_base"
-        android:layout_marginTop="@dimen/margin_base"
-        android:layout_marginBottom="@dimen/margin_half"
+        android:layout_marginTop="@dimen/hotels_filter_margin_top"
         android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
         android:text="@string/booking_filters_rating"/>
-      <include layout="@layout/divider_horizontal"/>
       <com.mapswithme.maps.search.RatingFilterView
         android:id="@+id/rating"
+        android:layout_marginLeft="@dimen/margin_base"
+        android:layout_marginRight="@dimen/margin_base"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-      <include layout="@layout/divider_horizontal"/>
       <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_base"
         android:layout_marginRight="@dimen/margin_base"
-        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginTop="@dimen/hotels_filter_margin_top"
         android:layout_marginBottom="@dimen/margin_half"
         android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
         android:text="@string/booking_filters_price_category"/>
-      <include layout="@layout/divider_horizontal"/>
       <com.mapswithme.maps.search.PriceFilterView
         android:id="@+id/price"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-      <include layout="@layout/divider_horizontal"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_base"
+        android:layout_marginRight="@dimen/margin_base"/>
       <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_base"
         android:layout_marginRight="@dimen/margin_base"
-        android:layout_marginTop="@dimen/margin_base"
-        android:layout_marginBottom="@dimen/margin_half"
+        android:layout_marginTop="@dimen/hotels_filter_margin_top"
         android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
         android:text="@string/search_hotel_filters_type"/>
       <android.support.v7.widget.RecyclerView
         android:id="@+id/type"
+        android:layout_marginLeft="@dimen/margin_quarter"
+        android:layout_marginRight="@dimen/margin_quarter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_tag"/>
     </LinearLayout>
   </android.support.v4.widget.NestedScrollView>
-  <LinearLayout
-    android:id="@+id/buttons_frame"
+  <TextView
+    android:id="@+id/done"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_block_base"
-    android:orientation="vertical"
+    android:minHeight="@dimen/height_block_base"
+    android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:background="?cardBackground">
-    <include layout="@layout/divider_horizontal"/>
-    <TextView
-      android:id="@+id/done"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:gravity="center"
-      android:textAppearance="@style/MwmTextAppearance.Button"
-      android:fontFamily="@string/robotoMedium"
-      android:text="@string/done"
-      android:background="?clickableBackground"
-      tools:targetApi="jelly_bean"/>
-  </LinearLayout>
+    android:gravity="center"
+    android:textAppearance="@style/MwmTextAppearance.Button"
+    android:fontFamily="@string/robotoMedium"
+    android:text="@string/done"
+    android:background="?filterPropertyBackground"
+    tools:targetApi="jelly_bean"/>
 </android.support.design.widget.CoordinatorLayout>

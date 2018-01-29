@@ -45,7 +45,7 @@ public class RatingFilterView extends LinearLayout implements View.OnClickListen
     public void select(boolean select)
     {
       @DrawableRes
-      int background = UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.clickableBackground);
+      int background = UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.filterPropertyBackground);
       @ColorRes
       int titleColor =
           select ? UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.accentButtonTextColor)
@@ -105,19 +105,19 @@ public class RatingFilterView extends LinearLayout implements View.OnClickListen
   {
     View any = findViewById(R.id.any);
     any.setOnClickListener(this);
-    mItems.append(R.id.any, new Item(any, (TextView) findViewById(R.id.any_title), null));
+    mItems.append(R.id.any, new Item(any, findViewById(R.id.any_title), null));
     View good = findViewById(R.id.good);
     good.setOnClickListener(this);
-    mItems.append(R.id.good, new Item(good, (TextView) findViewById(R.id.good_title),
-                                     (TextView) findViewById(R.id.good_subtitle)));
+    mItems.append(R.id.good, new Item(good, findViewById(R.id.good_title),
+                                      findViewById(R.id.good_subtitle)));
     View veryGood = findViewById(R.id.very_good);
     veryGood.setOnClickListener(this);
-    mItems.append(R.id.very_good, new Item(veryGood, (TextView) findViewById(R.id.very_good_title),
-                                      (TextView) findViewById(R.id.very_good_subtitle)));
+    mItems.append(R.id.very_good, new Item(veryGood, findViewById(R.id.very_good_title),
+                                           findViewById(R.id.very_good_subtitle)));
     View excellent = findViewById(R.id.excellent);
     excellent.setOnClickListener(this);
-    mItems.append(R.id.excellent, new Item(excellent, (TextView) findViewById(R.id.excellent_title),
-                                           (TextView) findViewById(R.id.excellent_subtitle)));
+    mItems.append(R.id.excellent, new Item(excellent, findViewById(R.id.excellent_title),
+                                           findViewById(R.id.excellent_subtitle)));
   }
 
   public void update(@Nullable HotelsFilter.RatingFilter filter)

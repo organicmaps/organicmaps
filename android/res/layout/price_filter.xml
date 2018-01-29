@@ -9,7 +9,9 @@
     android:id="@+id/low"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?clickableBackground"
+    android:layout_marginRight="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:background="?filterPropertyBackground"
     android:layout_weight="1"
     tools:background="?colorAccent">
     <TextView
@@ -23,17 +25,14 @@
       android:fontFamily="@string/robotoMedium"
       tools:textColor="?accentButtonTextColor"
       tools:targetApi="jelly_bean"/>
-    <View
-      android:layout_width="1dp"
-      android:layout_height="match_parent"
-      android:layout_gravity="end"
-      android:background="?dividerHorizontal"/>
   </FrameLayout>
   <FrameLayout
     android:id="@+id/medium"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?clickableBackground"
+    android:layout_marginRight="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:background="?filterPropertyBackground"
     android:layout_weight="1">
     <TextView
       android:id="@+id/medium_title"
@@ -45,17 +44,12 @@
       android:text="@string/booking_filter_price_medium"
       android:fontFamily="@string/robotoMedium"
       tools:targetApi="jelly_bean"/>
-    <View
-      android:layout_width="1dp"
-      android:layout_height="match_parent"
-      android:layout_gravity="end"
-      android:background="?dividerHorizontal"/>
   </FrameLayout>
   <FrameLayout
     android:id="@+id/high"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?clickableBackground"
+    android:background="?filterPropertyBackground"
     android:layout_weight="1">
     <TextView
       android:id="@+id/high_title"
