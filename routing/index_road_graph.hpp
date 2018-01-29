@@ -35,7 +35,6 @@ public:
 
 private:
   void GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const;
-  Junction const & GetJunction(Segment const & segment, bool front) const;
   std::vector<Segment> const & GetSegments(Junction const & junction, bool isOutgoing) const;
 
   Index & m_index;

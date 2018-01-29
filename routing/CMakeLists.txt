@@ -29,7 +29,6 @@ set(
   cross_mwm_graph.hpp
   cross_mwm_ids.hpp
   cross_mwm_index_graph.hpp
-  directions_engine.cpp
   directions_engine.hpp
   edge_estimator.cpp
   edge_estimator.hpp

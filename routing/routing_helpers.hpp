@@ -1,7 +1,7 @@
 #pragma once
 
 #include "routing/directions_engine.hpp"
-#include "routing/road_graph.hpp"
+#include "routing/index_road_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/traffic_stash.hpp"
 
@@ -34,7 +34,7 @@ void FillSegmentInfo(std::vector<Segment> const & segments, std::vector<Junction
                      Route::TTimes const & times, std::shared_ptr<TrafficStash> const & trafficStash,
                      std::vector<RouteSegment> & routeSegment);
 
-void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
+void ReconstructRoute(IDirectionsEngine & engine, IndexRoadGraph const & graph,
                       std::shared_ptr<TrafficStash> const & trafficStash,
                       my::Cancellable const & cancellable, std::vector<Junction> const & path,
                       Route::TTimes && times, Route & route);

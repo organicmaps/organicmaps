@@ -39,7 +39,7 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine(shared_ptr<NumMwmIds> num
 {
 }
 
-bool PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
+bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
                                           vector<Junction> const & path,
                                           my::Cancellable const & cancellable,
                                           Route::TTurns & turns, Route::TStreets & streetNames,
@@ -52,15 +52,11 @@ bool PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
   routeGeometry = path;
 
   // Note. According to Route::IsValid() method route of zero or one point is invalid.
-  if (path.size() < 1)
+  if (path.size() <= 1)
     return false;
 
   vector<Edge> routeEdges;
-  if (!ReconstructPath(graph, path, routeEdges, cancellable))
-  {
-    LOG(LWARNING, ("Can't reconstruct path."));
-    return false;
-  }
+  graph.GetRouteEdges(routeEdges);
 
   CalculateTurns(graph, routeEdges, turns, cancellable);
 
@@ -78,7 +74,7 @@ bool PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
   return true;
 }
 
-void PedestrianDirectionsEngine::CalculateTurns(RoadGraphBase const & graph,
+void PedestrianDirectionsEngine::CalculateTurns(IndexRoadGraph const & graph,
                                                 vector<Edge> const & routeEdges,
                                                 Route::TTurns & turns,
                                                 my::Cancellable const & cancellable) const

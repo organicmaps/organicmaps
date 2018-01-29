@@ -164,7 +164,7 @@ BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index, shared_ptr
   CHECK(m_numMwmIds, ());
 }
 
-bool BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
+bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junction> const & path,
                                        my::Cancellable const & cancellable, Route::TTurns & turns,
                                        Route::TStreets & streetNames,
                                        vector<Junction> & routeGeometry, vector<Segment> & segments)
@@ -178,15 +178,11 @@ bool BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
   
   size_t const pathSize = path.size();
   // Note. According to Route::IsValid() method route of zero or one point is invalid.
-  if (pathSize < 1)
+  if (pathSize <= 1)
     return false;
 
   IRoadGraph::TEdgeVector routeEdges;
-  if (!ReconstructPath(graph, path, routeEdges, cancellable))
-  {
-    LOG(LWARNING, ("Can't reconstruct path."));
-    return false;
-  }
+  graph.GetRouteEdges(routeEdges);
 
   if (routeEdges.empty())
     return false;
@@ -199,7 +195,7 @@ bool BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
   if (cancellable.IsCancelled())
     return false;
 
-  RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
+  ::RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   RouterDelegate delegate;
 
   MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, streetNames, segments);
@@ -297,7 +293,7 @@ void BicycleDirectionsEngine::GetEdges(RoadGraphBase const & graph, Junction con
 }
 
 void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
-    RoadGraphBase const & graph, vector<Junction> const & path,
+    IndexRoadGraph const & graph, vector<Junction> const & path,
     IRoadGraph::TEdgeVector const & routeEdges, my::Cancellable const & cancellable)
 {
   size_t const pathSize = path.size();
