@@ -40,7 +40,7 @@ void ReconstructRoute(IDirectionsEngine & engine, IndexRoadGraph const & graph,
                       Route::TTimes && times, Route & route);
 
 /// \brief Converts |edge| to |segment|.
-/// \returns false if mwm of |edge| is not alive.
+/// \returns Segment() if mwm of |edge| is not alive.
 Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge);
 
 /// \brief Fills |times| according to max speed at |graph| and |path|.

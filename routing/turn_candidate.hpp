@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/segment.hpp"
 #include "routing/turns.hpp"
 
 #include "base/math.hpp"
@@ -28,25 +29,24 @@ struct TurnCandidate
    */
   double angle;
   /*!
-   * |m_segmentRange| is a possible way from the junction.
-   * |m_segmentRange| contains mwm id, feature id, segment id and direction in case of A*.
+   * |m_segment| is a first segment of a possible way from the junction.
    */
-  SegmentRange m_segmentRange;
+  Segment m_segment;
   /*!
    * \brief highwayClass field for the road class caching. Because feature reading is a long
    * function.
    */
   ftypes::HighwayClass highwayClass;
 
-  TurnCandidate(double a, SegmentRange const & segmentRange, ftypes::HighwayClass c)
-    : angle(a), m_segmentRange(segmentRange), highwayClass(c)
+  TurnCandidate(double a, Segment const & segment, ftypes::HighwayClass c)
+    : angle(a), m_segment(segment), highwayClass(c)
   {
   }
 
   bool IsAlmostEqual(TurnCandidate const & rhs) const
   {
     double constexpr kEpsilon = 0.01;
-    return my::AlmostEqualAbs(angle, rhs.angle, kEpsilon) && m_segmentRange == rhs.m_segmentRange &&
+    return my::AlmostEqualAbs(angle, rhs.angle, kEpsilon) && m_segment == rhs.m_segment &&
            highwayClass == rhs.highwayClass;
   }
 };

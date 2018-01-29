@@ -1,5 +1,9 @@
 #pragma once
 
+#include "routing/segment.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
+
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"
@@ -27,6 +31,8 @@ struct SegmentRange
   FeatureID const & GetFeature() const;
   /// \returns true if the instance of SegmentRange is correct.
   bool IsCorrect() const;
+  /// \returns First Segment of this SegmentRange.
+  Segment GetFirstSegment(NumMwmIds const & numMwmIds) const;
 
 private:
   FeatureID m_featureId;

@@ -8,6 +8,8 @@
 #include "routing/turn_candidate.hpp"
 #include "routing/segment.hpp"
 
+#include "routing_common/num_mwm_id.hpp"
+
 #include "traffic/traffic_info.hpp"
 
 #include "std/function.hpp"
@@ -43,7 +45,7 @@ using TGetIndexFunction = function<size_t(pair<size_t, size_t>)>;
  * \param traffic road traffic information.
  * \return routing operation result code.
  */
-IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
+IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result, NumMwmIds const & numMwmIds,
                                        RouterDelegate const & delegate, vector<Junction> & points,
                                        Route::TTurns & turnsDir, Route::TStreets & streets,
                                        vector<Segment> & segments);
@@ -128,7 +130,8 @@ CarDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoin
  * \param turnInfo is used for cashing some information while turn calculation.
  * \param turn is used for keeping the result of turn calculation.
  */
-void GetTurnDirection(IRoutingResult const & result, turns::TurnInfo & turnInfo, TurnItem & turn);
+void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds,
+                      turns::TurnInfo & turnInfo, TurnItem & turn);
 
 /*!
  * \brief Finds an U-turn that starts from master segment and returns how many segments it lasts.

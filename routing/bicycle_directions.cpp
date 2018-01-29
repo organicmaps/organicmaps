@@ -169,6 +169,8 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junc
                                        Route::TStreets & streetNames,
                                        vector<Junction> & routeGeometry, vector<Segment> & segments)
 {
+  CHECK(m_numMwmIds, ());
+
   m_adjacentEdges.clear();
   m_pathSegments.clear();
   turns.clear();
@@ -198,7 +200,7 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junc
   ::RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   RouterDelegate delegate;
 
-  MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, streetNames, segments);
+  MakeTurnAnnotation(resultGraph, *m_numMwmIds, delegate, routeGeometry, turns, streetNames, segments);
   CHECK_EQUAL(routeGeometry.size(), pathSize, ());
   // In case of bicycle routing |m_pathSegments| may have an empty
   // |LoadedPathSegment::m_segments| fields. In that case |segments| is empty
@@ -277,7 +279,7 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
       // should not be used for turn generation.
       outgoingTurns.isCandidatesAngleValid = false;
     }
-    outgoingTurns.candidates.emplace_back(angle, segmentRange, highwayClass);
+    outgoingTurns.candidates.emplace_back(angle, ConvertEdgeToSegment(*m_numMwmIds, edge), highwayClass);
   }
 }
 

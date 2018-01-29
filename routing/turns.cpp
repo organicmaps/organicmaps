@@ -2,6 +2,8 @@
 
 #include "geometry/angles.hpp"
 
+#include "platform/country_file.hpp"
+
 #include "base/internal/message.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
@@ -108,6 +110,15 @@ FeatureID const & SegmentRange::GetFeature() const
 bool SegmentRange::IsCorrect() const
 {
   return (m_forward && m_startSegId <= m_endSegId) || (!m_forward && m_endSegId <= m_startSegId);
+}
+
+Segment SegmentRange::GetFirstSegment(NumMwmIds const & numMwmIds) const
+{
+  if (!m_featureId.IsValid())
+    return Segment();
+
+  return Segment(numMwmIds.GetId(platform::CountryFile(m_featureId.GetMwmName())),
+                 m_featureId.m_index, m_startSegId, m_forward);
 }
 
 string DebugPrint(SegmentRange const & segmentRange)

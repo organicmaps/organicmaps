@@ -32,7 +32,7 @@ double constexpr kNotSoCloseMinDistMeters = 30.;
  * - and the turn is GoStraight or TurnSlight*.
  */
 bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTurns,
-                            TurnInfo const & turnInfo)
+                            TurnInfo const & turnInfo, NumMwmIds const & numMwmIds)
 {
   if (!IsGoStraightOrSlightTurn(turn))
     return true;  // The road significantly changes its direction here. So this turn shall be kept.
@@ -44,7 +44,7 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
   ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::Error;
   for (auto const & t : possibleTurns.candidates)
   {
-    if (t.m_segmentRange == turnInfo.m_outgoing.m_segmentRange)
+    if (t.m_segment == turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds))
       continue;
     ftypes::HighwayClass const highwayClass = t.highwayClass;
     if (static_cast<int>(highwayClass) > static_cast<int>(maxClassForPossibleTurns))
@@ -79,11 +79,11 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
  * \brief Returns false when other possible turns leads to service roads;
  */
 bool KeepRoundaboutTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTurns,
-                                      TurnInfo const & turnInfo)
+                                      TurnInfo const & turnInfo, NumMwmIds const & numMwmIds)
 {
   for (auto const & t : possibleTurns.candidates)
   {
-    if (t.m_segmentRange == turnInfo.m_outgoing.m_segmentRange)
+    if (t.m_segment == turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds))
       continue;
     if (static_cast<int>(t.highwayClass) != static_cast<int>(ftypes::HighwayClass::Service))
       return true;
@@ -252,7 +252,7 @@ bool TurnInfo::IsSegmentsValid() const
   return true;
 }
 
-IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
+IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result, NumMwmIds const & numMwmIds,
                                        RouterDelegate const & delegate,
                                        vector<Junction> & junctions, Route::TTurns & turnsDir,
                                        Route::TStreets & streets, vector<Segment> & segments)
@@ -286,7 +286,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
       turns::TurnInfo turnInfo(loadedSegments[segmentIndex - 1], *loadedSegmentIt);
 
       if (turnItem.m_turn == turns::CarDirection::None)
-        turns::GetTurnDirection(result, turnInfo, turnItem);
+        turns::GetTurnDirection(result, numMwmIds, turnInfo, turnItem);
 
       //  Lane information.
       if (turnItem.m_turn != turns::CarDirection::None)
@@ -537,7 +537,8 @@ CarDirection IntermediateDirection(const double angle)
   return FindDirectionByAngle(kLowerBounds, angle);
 }
 
-void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnItem & turn)
+void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds,
+                      TurnInfo & turnInfo, TurnItem & turn)
 {
   if (!turnInfo.IsSegmentsValid() || turnInfo.m_ingoing.m_segmentRange.IsEmpty())
     return;
@@ -586,9 +587,9 @@ void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnIt
   }
   else
   {
-    if (nodes.candidates.front().m_segmentRange == turnInfo.m_outgoing.m_segmentRange)
+    if (nodes.candidates.front().m_segment == turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds))
       turn.m_turn = LeftmostDirection(turnAngle);
-    else if (nodes.candidates.back().m_segmentRange == turnInfo.m_outgoing.m_segmentRange)
+    else if (nodes.candidates.back().m_segment == turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds))
       turn.m_turn = RightmostDirection(turnAngle);
     else
       turn.m_turn = intermediateDirection;
@@ -597,14 +598,14 @@ void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnIt
   if (turnInfo.m_ingoing.m_onRoundabout || turnInfo.m_outgoing.m_onRoundabout)
   {
     bool const keepTurnByHighwayClass =
-        KeepRoundaboutTurnByHighwayClass(turn.m_turn, nodes, turnInfo);
+        KeepRoundaboutTurnByHighwayClass(turn.m_turn, nodes, turnInfo, numMwmIds);
     turn.m_turn = GetRoundaboutDirection(turnInfo.m_ingoing.m_onRoundabout,
                                          turnInfo.m_outgoing.m_onRoundabout, hasMultiTurns,
                                          keepTurnByHighwayClass);
     return;
   }
 
-  bool const keepTurnByHighwayClass = KeepTurnByHighwayClass(turn.m_turn, nodes, turnInfo);
+  bool const keepTurnByHighwayClass = KeepTurnByHighwayClass(turn.m_turn, nodes, turnInfo, numMwmIds);
   if (!turn.m_keepAnyway && !keepTurnByHighwayClass)
   {
     turn.m_turn = CarDirection::None;
