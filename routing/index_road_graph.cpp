@@ -75,13 +75,6 @@ void IndexRoadGraph::GetJunctionTypes(Junction const & junction, feature::TypesH
   types = feature::TypesHolder();
 }
 
-bool IndexRoadGraph::IsRouteEdgesImplemented() const
-{
-  return true;
-}
-
-bool IndexRoadGraph::IsRouteSegmentsImplemented() const { return true; }
-
 void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
 {
   edges.clear();

@@ -143,11 +143,6 @@ public:
   /// @return Types for specified junction
   virtual void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const = 0;
 
-  // TODO: remove IsRouteEdgesImplemented and IsRouteSegmentsImplemented as soon as we get rid of
-  // IRoadGraph and RoadGraphRouter
-  virtual bool IsRouteEdgesImplemented() const;
-  virtual bool IsRouteSegmentsImplemented() const;
-
   virtual void GetRouteEdges(TEdgeVector & routeEdges) const;
   virtual void GetRouteSegments(std::vector<Segment> & segments) const;
 };

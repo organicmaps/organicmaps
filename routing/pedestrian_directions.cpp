@@ -60,17 +60,7 @@ bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
 
   CalculateTurns(graph, routeEdges, turns, cancellable);
 
-  if (graph.IsRouteSegmentsImplemented())
-  {
-    graph.GetRouteSegments(segments);
-  }
-  else
-  {
-    segments.reserve(routeEdges.size());
-    for (Edge const & e : routeEdges)
-      segments.push_back(ConvertEdgeToSegment(*m_numMwmIds, e));
-  }
-
+  graph.GetRouteSegments(segments);
   return true;
 }
 
