@@ -259,6 +259,9 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
   }
 
   func onTrafficStateUpdated() {
+    guard MWMRouter.isRoutingActive() else { return }
+    let isPedestrianRouting = MWMRouter.type() == .pedestrian
+    trafficButton.isHidden = isPedestrianRouting
     trafficButton.isSelected = MWMTrafficManager.state() != .disabled
     refreshDiminishTimer()
   }
