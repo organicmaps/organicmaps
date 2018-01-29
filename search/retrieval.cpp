@@ -251,7 +251,7 @@ unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
 {
   EditedFeaturesHolder holder(context.GetId());
 
-  covering::IntervalsT coverage;
+  covering::Intervals coverage;
   CoverRect(rect, scale, coverage);
 
   vector<uint64_t> features;

@@ -114,7 +114,7 @@ private:
           scale = lastScale;
 
         // Use last coding scale for covering (see index_builder.cpp).
-        covering::IntervalsT const & interval = cov.Get(lastScale);
+        covering::Intervals const & interval = cov.Get(lastScale);
 
         // Prepare features reading.
         FeaturesVector const fv(pValue->m_cont, header, pValue->m_table.get());
@@ -186,7 +186,7 @@ private:
           scale = lastScale;
 
         // Use last coding scale for covering (see index_builder.cpp).
-        covering::IntervalsT const & interval = cov.Get(lastScale);
+        covering::Intervals const & interval = cov.Get(lastScale);
         ScaleIndex<ModelReaderPtr> const index(pValue->m_cont.GetReader(INDEX_FILE_TAG), pValue->m_factory);
 
         // Iterate through intervals.

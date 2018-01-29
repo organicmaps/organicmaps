@@ -8,9 +8,6 @@
 
 #include "geometry/covering_utils.hpp"
 
-#include "std/vector.hpp"
-
-
 namespace
 {
 
@@ -169,7 +166,7 @@ vector<int64_t> CoverLocality(indexer::LocalityObject const & o, int cellDepth,
   return CoverIntersection(fIsect, cellDepth, cellPenaltyArea);
 }
 
-void SortAndMergeIntervals(IntervalsT v, IntervalsT & res)
+void SortAndMergeIntervals(Intervals v, Intervals & res)
 {
 #ifdef DEBUG
   ASSERT ( res.empty(), () );
@@ -189,14 +186,14 @@ void SortAndMergeIntervals(IntervalsT v, IntervalsT & res)
   }
 }
 
-IntervalsT SortAndMergeIntervals(IntervalsT const & v)
+Intervals SortAndMergeIntervals(Intervals const & v)
 {
-  IntervalsT res;
+  Intervals res;
   SortAndMergeIntervals(v, res);
   return res;
 }
 
-void AppendLowerLevels(RectId id, int cellDepth, IntervalsT & intervals)
+void AppendLowerLevels(RectId id, int cellDepth, Intervals & intervals)
 {
   int64_t idInt64 = id.ToInt64(cellDepth);
   intervals.push_back(make_pair(idInt64, idInt64 + id.SubTreeSize(cellDepth)));
@@ -208,13 +205,13 @@ void AppendLowerLevels(RectId id, int cellDepth, IntervalsT & intervals)
   }
 }
 
-void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, IntervalsT & res)
+void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, Intervals & res)
 {
   vector<RectId> ids;
   ids.reserve(SPLIT_RECT_CELLS_COUNT);
   CoverRect<MercatorBounds, RectId>(r, SPLIT_RECT_CELLS_COUNT, cellDepth, ids);
 
-  IntervalsT intervals;
+  Intervals intervals;
   for (size_t i = 0; i < ids.size(); ++i)
     AppendLowerLevels(ids[i], cellDepth, intervals);
 
@@ -241,7 +238,7 @@ int GetCodingDepth(int scale)
   return (RectId::DEPTH_LEVELS - delta);
 }
 
-IntervalsT const & CoveringGetter::Get(int scale)
+Intervals const & CoveringGetter::Get(int scale)
 {
   int const cellDepth = GetCodingDepth(scale);
   int const ind = (cellDepth == RectId::DEPTH_LEVELS ? 0 : 1);
@@ -264,7 +261,7 @@ IntervalsT const & CoveringGetter::Get(int scale)
       // Check for optimal result intervals.
 #if 0
       size_t oldSize = m_res[ind].size();
-      IntervalsT res;
+      Intervals res;
       SortAndMergeIntervals(m_res[ind], res);
       if (res.size() != oldSize)
         LOG(LINFO, ("Old =", oldSize, "; New =", res.size()));
@@ -274,7 +271,7 @@ IntervalsT const & CoveringGetter::Get(int scale)
     }
 
     case FullCover:
-      m_res[ind].push_back(IntervalsT::value_type(0, static_cast<int64_t>((1ULL << 63) - 1)));
+      m_res[ind].push_back(Intervals::value_type(0, static_cast<int64_t>((1ULL << 63) - 1)));
       break;
     }
   }

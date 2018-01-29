@@ -2,7 +2,7 @@
 
 namespace search
 {
-void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
+void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result)
 {
   covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
   auto const & intervals = covering.Get(scale);

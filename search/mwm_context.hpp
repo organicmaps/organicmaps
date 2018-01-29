@@ -17,7 +17,7 @@ class MwmValue;
 
 namespace search
 {
-void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result);
+void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result);
 
 /// @todo Move this class into "index" library and make it more generic.
 /// Now it duplicates "Index" functionality.
@@ -31,7 +31,7 @@ public:
   inline shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
 
   template <typename TFn>
-  void ForEachIndex(covering::IntervalsT const & intervals, uint32_t scale, TFn && fn) const
+  void ForEachIndex(covering::Intervals const & intervals, uint32_t scale, TFn && fn) const
   {
     ForEachIndexImpl(intervals, scale, [&](uint32_t index)
                      {
@@ -46,7 +46,7 @@ public:
   void ForEachIndex(m2::RectD const & rect, TFn && fn) const
   {
     uint32_t const scale = m_value.GetHeader().GetLastScale();
-    covering::IntervalsT intervals;
+    covering::Intervals intervals;
     CoverRect(rect, scale, intervals);
     ForEachIndex(intervals, scale, forward<TFn>(fn));
   }
@@ -55,7 +55,7 @@ public:
   void ForEachFeature(m2::RectD const & rect, TFn && fn) const
   {
     uint32_t const scale = m_value.GetHeader().GetLastScale();
-    covering::IntervalsT intervals;
+    covering::Intervals intervals;
     CoverRect(rect, scale, intervals);
 
     ForEachIndexImpl(intervals, scale, [&](uint32_t index)
@@ -86,7 +86,7 @@ private:
   }
 
   template <class TFn>
-  void ForEachIndexImpl(covering::IntervalsT const & intervals, uint32_t scale, TFn && fn) const
+  void ForEachIndexImpl(covering::Intervals const & intervals, uint32_t scale, TFn && fn) const
   {
     CheckUniqueIndexes checkUnique(m_value.GetHeader().GetFormat() >= version::Format::v5);
     for (auto const & i : intervals)
