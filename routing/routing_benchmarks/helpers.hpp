@@ -77,7 +77,7 @@ public:
     }
   };
 
-  SimplifiedModelFactory() : m_model(make_shared<SimplifiedModel>()) {}
+  SimplifiedModelFactory() : m_model(std::make_shared<SimplifiedModel>()) {}
 
   // VehicleModelFactoryInterface overrides:
   std::shared_ptr<routing::VehicleModelInterface> GetVehicleModel() const override { return m_model; }
