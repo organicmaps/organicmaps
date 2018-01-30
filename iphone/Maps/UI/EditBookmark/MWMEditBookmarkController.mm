@@ -102,12 +102,9 @@ static int const kInvalidCategoryIndex = -1;
     m_cachedBookmarkAndCategory.m_categoryIndex = self.cachedCategoryIndex;
   }
 
-  BookmarkCategory * category = f.GetBmCategory(m_cachedBookmarkAndCategory.m_categoryIndex);
-  if (!category)
-    return;
-
-  auto bookmark = static_cast<Bookmark *>(
-                        category->GetUserMarkForEdit(m_cachedBookmarkAndCategory.m_bookmarkIndex));
+  BookmarkManager & bmManager = f.GetBookmarkManager();
+  auto bookmark = bmManager.GetBookmarkForEditTmp(m_cachedBookmarkAndCategory.m_categoryIndex,
+                                                   m_cachedBookmarkAndCategory.m_bookmarkIndex);
   if (!bookmark)
     return;
 
@@ -115,8 +112,8 @@ static int const kInvalidCategoryIndex = -1;
   bookmark->SetDescription(self.cachedDescription.UTF8String);
   bookmark->SetName(self.cachedTitle.UTF8String);
 
-  category->SaveToKMLFile();
-  category->NotifyChanges();
+  bmManager.SaveToKMLFile(m_cachedBookmarkAndCategory.m_categoryIndex);
+  bmManager.NotifyChanges(UserMark::Type::BOOKMARK, m_cachedBookmarkAndCategory.m_categoryIndex);
   
   f.UpdatePlacePageInfoForCurrentSelection();
   [self backTap];

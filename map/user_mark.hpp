@@ -13,7 +13,7 @@
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 
-class UserMarkContainer;
+class UserMarkManager;
 
 class UserMark : public df::UserPointMark
 {
@@ -44,7 +44,7 @@ public:
     DEBUG_MARK
   };
 
-  UserMark(m2::PointD const & ptOrg, UserMarkContainer * container);
+  UserMark(m2::PointD const & ptOrg, UserMarkManager * container, Type type, size_t index);
 
   // df::UserPointMark overrides.
   bool IsDirty() const override { return m_isDirty; }
@@ -68,16 +68,18 @@ public:
   FeatureID GetFeatureID() const override { return FeatureID(); }
   bool HasCreationAnimation() const override { return false; }
 
-  UserMarkContainer const * GetContainer() const;
   ms::LatLon GetLatLon() const;
-  virtual Type GetMarkType() const = 0;
+  virtual Type GetMarkType() const { return m_type; };
   virtual bool IsAvailableForSearch() const { return true; }
+  size_t GetCategoryIndex() const { return m_index; }
 
 protected:
   void SetDirty() { m_isDirty = true; }
 
   m2::PointD m_ptOrg;
-  mutable UserMarkContainer * m_container;
+  mutable UserMarkManager * m_manager;
+  Type m_type;
+  size_t m_index;
 
 private:
   mutable bool m_isDirty = true;
@@ -88,10 +90,9 @@ private:
 class StaticMarkPoint : public UserMark
 {
 public:
-  explicit StaticMarkPoint(UserMarkContainer * container);
+  explicit StaticMarkPoint(UserMarkManager * manager);
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override { return nullptr; }
-  UserMark::Type GetMarkType() const override;
 
   void SetPtOrg(m2::PointD const & ptOrg);
 };
@@ -99,7 +100,7 @@ public:
 class MyPositionMarkPoint : public StaticMarkPoint
 {
 public:
-  explicit MyPositionMarkPoint(UserMarkContainer * container);
+  explicit MyPositionMarkPoint(UserMarkManager * manager);
 
   void SetUserPosition(m2::PointD const & pt, bool hasPosition)
   {
@@ -115,11 +116,9 @@ private:
 class DebugMarkPoint : public UserMark
 {
 public:
-  DebugMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
+  DebugMarkPoint(m2::PointD const & ptOrg, UserMarkManager * manager);
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
-
-  Type GetMarkType() const override { return UserMark::Type::DEBUG_MARK; }
 };
 
 string DebugPrint(UserMark::Type type);

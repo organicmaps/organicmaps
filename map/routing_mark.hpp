@@ -1,6 +1,6 @@
 #pragma once
 
-#include "map/user_mark_container.hpp"
+#include "map/bookmark_manager.hpp"
 
 #include <string>
 
@@ -27,7 +27,7 @@ struct RouteMarkData
 class RouteMarkPoint : public UserMark
 {
 public:
-  RouteMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
+  RouteMarkPoint(m2::PointD const & ptOrg, UserMarkManager * manager);
   virtual ~RouteMarkPoint() {}
 
   bool IsVisible() const override { return m_markData.m_isVisible; }
@@ -37,7 +37,6 @@ public:
   df::RenderState::DepthLayer GetDepthLayer() const override;
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
-  UserMark::Type GetMarkType() const override { return Type::ROUTING; }
   bool IsAvailableForSearch() const override { return !IsPassed(); }
 
   RouteMarkType GetRoutePointType() const { return m_markData.m_pointType; }
@@ -79,7 +78,7 @@ class RoutePointsLayout
 public:
   static size_t const kMaxIntermediatePointsCount;
 
-  RoutePointsLayout(UserMarksController & routeMarks);
+  RoutePointsLayout(BookmarkManager & manager);
 
   RouteMarkPoint * AddRoutePoint(RouteMarkData && data);
   RouteMarkPoint * GetRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
@@ -101,17 +100,16 @@ private:
   RouteMarkPoint * GetRouteMarkForEdit(size_t index);
   RouteMarkPoint const * GetRouteMark(size_t index);
 
-  UserMarksController & m_routeMarks;
+  BookmarkManager & m_manager;
 };
 
 class TransitMark : public UserMark
 {
 public:
-  TransitMark(m2::PointD const & ptOrg, UserMarkContainer * container);
+  TransitMark(m2::PointD const & ptOrg, UserMarkManager * manager);
   virtual ~TransitMark() {}
 
   df::RenderState::DepthLayer GetDepthLayer() const override { return df::RenderState::TransitMarkLayer; }
-  UserMark::Type GetMarkType() const override { return Type::TRANSIT; }
 
   bool HasSymbolPriority() const override { return !m_symbolNames.empty() || !m_coloredSymbols.empty(); }
   bool HasTitlePriority() const override { return true; }

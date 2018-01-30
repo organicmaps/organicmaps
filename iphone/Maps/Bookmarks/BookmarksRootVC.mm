@@ -52,7 +52,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     }
     else
     {
-      bool const showDetailedHint = !GetFramework().GetBmCategoriesCount();
+      bool const showDetailedHint = !GetFramework().GetBookmarkManager().GetBmCategoriesCount();
       label.text =
           showDetailedHint ? L(@"bookmarks_usage_hint") : L(@"bookmarks_usage_hint_import_only");
     }
@@ -118,25 +118,26 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return GetFramework().GetBmCategoriesCount();
+  return GetFramework().GetBookmarkManager().GetBmCategoriesCount();
 }
 
 - (void)onEyeTapped:(id)sender
 {
   NSInteger row = ((UITapGestureRecognizer *)sender).view.tag;
   UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
-  BookmarkCategory * cat = GetFramework().GetBmCategory(row);
+  auto & bmManager = GetFramework().GetBookmarkManager();
+  BookmarkCategory * cat = bmManager.GetBmCategory(row);
   if (cell && cat)
   {
     // Invert visibility
-    bool visible = !cat->IsVisible();
+    bool visible = !bmManager.IsVisible(row);
     [Statistics logEvent:kStatEventName(kStatBookmarks, kStatToggleVisibility)
                      withParameters:@{kStatValue : visible ? kStatVisible : kStatHidden}];
     cell.imageView.image = [UIImage imageNamed:(visible ? @"ic_show" : @"ic_hide")];
     cell.imageView.mwm_coloring = visible ? MWMImageColoringBlue : MWMImageColoringBlack;
-    cat->SetIsVisible(visible);
-    cat->NotifyChanges();
-    cat->SaveToKMLFile();
+    bmManager.SetCategoryIsVisible(row, visible);
+    bmManager.NotifyChanges(UserMark::Type::BOOKMARK, row);
+    bmManager.SaveToKMLFile(row);
   }
 }
 
@@ -154,17 +155,20 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     [cell.imageView addGestureRecognizer:tapped];
   }
   // To detect which row was tapped when user clicked on image
-  cell.imageView.tag = indexPath.row;
+  size_t const categoryIndex = indexPath.row;
+  cell.imageView.tag = categoryIndex;
 
-  BookmarkCategory const * cat = GetFramework().GetBmCategory(indexPath.row);
+  auto & bmManager = GetFramework().GetBookmarkManager();
+  BookmarkCategory const * cat = bmManager.GetBmCategory(categoryIndex);
   if (cat)
   {
-    NSString * title = @(cat->GetName().c_str());
+    NSString * title = @(bmManager.GetCategoryName(categoryIndex).c_str());
     cell.textLabel.text = [self truncateString:title toWidth:(self.tableView.width - 122) withFont:cell.textLabel.font];
-    BOOL const isVisible = cat->IsVisible();
+    BOOL const isVisible = bmManager.IsVisible(categoryIndex);
     cell.imageView.image = [UIImage imageNamed:(isVisible ? @"ic_show" : @"ic_hide")];
     cell.imageView.mwm_coloring = isVisible ? MWMImageColoringBlue : MWMImageColoringBlack;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", cat->GetUserMarkCount() + cat->GetTracksCount()];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",
+                                 bmManager.GetBookmarksCount(categoryIndex) + bmManager.GetTracksCount(categoryIndex)];
   }
   cell.backgroundColor = [UIColor white];
   cell.textLabel.textColor = [UIColor blackPrimaryText];
@@ -214,11 +218,13 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
       {
         cell.textLabel.text = txt;
         // Rename category
-        BookmarkCategory * cat = GetFramework().GetBmCategory([self.tableView indexPathForCell:cell].row);
+        size_t const categoryIndex = [self.tableView indexPathForCell:cell].row;
+        auto & bmManager = GetFramework().GetBookmarkManager();
+        BookmarkCategory * cat = bmManager.GetBmCategory(categoryIndex);
         if (cat)
         {
-          cat->SetName(txt.UTF8String);
-          cat->SaveToKMLFile();
+          bmManager.SetCategoryName(categoryIndex, txt.UTF8String);
+          bmManager.SaveToKMLFile(categoryIndex);
         }
       }
       [f removeFromSuperview];
@@ -284,7 +290,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     f.DeleteBmCategory(indexPath.row);
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     // Disable edit mode if no categories are left
-    if (!f.GetBmCategoriesCount())
+    if (!f.GetBookmarkManager().GetBmCategoriesCount())
     {
       self.navigationItem.rightBarButtonItem = nil;
       [self setEditing:NO animated:YES];
@@ -296,7 +302,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
 {
   [super viewWillAppear:animated];
   // Display Edit button only if table is not empty
-  if (GetFramework().GetBmCategoriesCount())
+  if (GetFramework().GetBookmarkManager().GetBmCategoriesCount())
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
   else
     self.navigationItem.rightBarButtonItem = nil;

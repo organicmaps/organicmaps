@@ -23,6 +23,8 @@ namespace anim
   class Task;
 }
 
+class BookmarkManager;
+
 class BookmarkData
 {
 public:
@@ -72,10 +74,10 @@ class Bookmark : public UserMark
 {
   using Base = UserMark;
 public:
-  Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container);
+  Bookmark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t index);
 
   Bookmark(BookmarkData const & data, m2::PointD const & ptOrg,
-           UserMarkContainer * container);
+           UserMarkManager * manager, size_t index);
 
   void SetData(BookmarkData const & data);
   BookmarkData const & GetData() const;
@@ -83,8 +85,6 @@ public:
   dp::Anchor GetAnchor() const override;
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   bool HasCreationAnimation() const override;
-
-  Type GetMarkType() const override;
 
   std::string const & GetName() const;
   void SetName(std::string const & name);
@@ -110,9 +110,14 @@ private:
 class BookmarkCategory : public UserMarkContainer
 {
   using Base = UserMarkContainer;
+
 public:
-  BookmarkCategory(std::string const & name, Listeners const & listeners);
+  BookmarkCategory(std::string const & name, size_t index, Listeners const & listeners);
   ~BookmarkCategory() override;
+
+protected:
+  friend class BookmarkManager;
+  friend class KMLParser;
 
   size_t GetUserLineCount() const override;
   df::UserLineMark const * GetUserLineMark(size_t index) const override;
@@ -136,7 +141,7 @@ public:
   /// @name Theese fuctions are public for unit tests only.
   /// You don't need to call them from client code.
   //@{
-  bool LoadFromKML(ReaderPtr<Reader> const & reader);
+  bool LoadFromKML(UserMarkManager * manager, ReaderPtr<Reader> const & reader);
   void SaveToKML(std::ostream & s);
 
   /// Uses the same file name from which was loaded, or
@@ -144,22 +149,20 @@ public:
   bool SaveToKMLFile();
 
   /// @return nullptr in the case of error
-  static std::unique_ptr<BookmarkCategory> CreateFromKMLFile(std::string const & file,
+  static std::unique_ptr<BookmarkCategory> CreateFromKMLFile(UserMarkManager * manager,
+                                                             std::string const & file,
+                                                             size_t index,
                                                              Listeners const & listeners);
-
-  /// Get valid file name from input (remove illegal symbols).
-  static std::string RemoveInvalidSymbols(std::string const & name);
-  /// Get unique bookmark file name from path and valid file name.
-  static std::string GenerateUniqueFileName(const std::string & path, std::string name);
   //@}
 
 protected:
-  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
+  UserMark * AllocateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg) override;
 
 private:
   std::vector<std::unique_ptr<Track>> m_tracks;
 
   std::string m_name;
+  const size_t m_index;
   // Stores file name from which bookmarks were loaded.
   std::string m_file;
 };

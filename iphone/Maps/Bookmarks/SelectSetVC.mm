@@ -50,7 +50,7 @@
   if (section == 0)
     return 1;
 
-  return GetFramework().GetBmCategoriesCount();
+  return GetFramework().GetBookmarkManager().GetBmCategoriesCount();
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -64,9 +64,10 @@
   }
   else
   {
-    BookmarkCategory * cat = GetFramework().GetBmCategory(indexPath.row);
+    auto & bmManager = GetFramework().GetBookmarkManager();
+    BookmarkCategory * cat = bmManager.GetBmCategory(indexPath.row);
     if (cat)
-      cell.textLabel.text = @(cat->GetName().c_str());
+      cell.textLabel.text = @(bmManager.GetCategoryName(indexPath.row).c_str());
 
     if (m_categoryIndex == indexPath.row)
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -85,9 +86,7 @@
 
 - (void)moveBookmarkToSetWithIndex:(int)setIndex
 {
-  BookmarkCategory const * category =
-      GetFramework().GetBookmarkManager().GetBmCategory(setIndex);
-  self.category = @(category->GetName().c_str());
+  self.category = @(GetFramework().GetBookmarkManager().GetCategoryName(setIndex).c_str());
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

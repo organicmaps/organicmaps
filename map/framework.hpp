@@ -323,10 +323,6 @@ public:
   /// @return Created bookmark category index.
   size_t AddCategory(string const & categoryName);
 
-  inline size_t GetBmCategoriesCount() const { return GetBookmarkManager().GetBmCategoriesCount(); }
-  /// @returns 0 if category is not found
-  BookmarkCategory * GetBmCategory(size_t index) const;
-
   size_t LastEditedBMCategory() { return GetBookmarkManager().LastEditedBMCategory(); }
   string LastEditedBMType() const { return GetBookmarkManager().LastEditedBMType(); }
 

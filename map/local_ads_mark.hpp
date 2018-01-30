@@ -19,13 +19,12 @@ struct LocalAdsMarkData
 class LocalAdsMark : public UserMark
 {
 public:
-  LocalAdsMark(m2::PointD const & ptOrg, UserMarkContainer * container);
+  LocalAdsMark(m2::PointD const & ptOrg, UserMarkManager * manager);
   virtual ~LocalAdsMark() {}
 
   df::RenderState::DepthLayer GetDepthLayer() const override;
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
-  UserMark::Type GetMarkType() const override { return Type::LOCAL_ADS; }
 
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
   uint16_t GetPriority() const override { return m_data.m_priority; }

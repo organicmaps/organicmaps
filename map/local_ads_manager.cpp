@@ -147,7 +147,7 @@ void CreateLocalAdsMarks(BookmarkManager * bmManager, CampaignData const & campa
     UserMarkNotificationGuard guard(*bmManager, UserMark::Type::LOCAL_ADS);
     for (auto const & data : campaignData)
     {
-      auto userMark = guard.m_controller.CreateUserMark(data.second.m_position);
+      auto userMark = bmManager->CreateUserMark(UserMark::Type::LOCAL_ADS, data.second.m_position);
       ASSERT(dynamic_cast<LocalAdsMark *>(userMark) != nullptr, ());
       LocalAdsMark * mark = static_cast<LocalAdsMark *>(userMark);
       mark->SetData(LocalAdsMarkData(data.second));
@@ -164,13 +164,13 @@ void DeleteLocalAdsMarks(BookmarkManager * bmManager, MwmSet::MwmId const & mwmI
   GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, mwmId]()
   {
     UserMarkNotificationGuard guard(*bmManager, UserMark::Type::LOCAL_ADS);
-    for (size_t i = 0; i < guard.m_controller.GetUserMarkCount();)
+    for (size_t i = 0; i < bmManager->GetUserMarkCount(UserMark::Type::LOCAL_ADS);)
     {
-      auto userMark = guard.m_controller.GetUserMark(i);
+      auto userMark = bmManager->GetUserMark(UserMark::Type::LOCAL_ADS, i);
       ASSERT(dynamic_cast<LocalAdsMark const *>(userMark) != nullptr, ());
       LocalAdsMark const * mark = static_cast<LocalAdsMark const *>(userMark);
       if (mark->GetFeatureID().m_mwmId == mwmId)
-        guard.m_controller.DeleteUserMark(i);
+        bmManager->DeleteUserMark(UserMark::Type::LOCAL_ADS, i);
       else
         ++i;
     }
@@ -185,7 +185,7 @@ void DeleteAllLocalAdsMarks(BookmarkManager * bmManager)
   GetPlatform().RunTask(Platform::Thread::Gui, [bmManager]()
   {
     UserMarkNotificationGuard guard(*bmManager, UserMark::Type::LOCAL_ADS);
-    guard.m_controller.Clear();
+    bmManager->ClearUserMarks(UserMark::Type::LOCAL_ADS);
   });
 }
 

@@ -207,11 +207,11 @@ bool UserMarkContainer::IsDrawable() const
   return m_flags[DrawableFlag];
 }
 
-UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
+UserMark * UserMarkContainer::CreateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg)
 {
   // Push front an user mark.
   SetDirty();
-  m_userMarks.push_front(unique_ptr<UserMark>(AllocateUserMark(ptOrg)));
+  m_userMarks.push_front(unique_ptr<UserMark>(AllocateUserMark(manager, ptOrg)));
   m_userMarksDict.insert(make_pair(m_userMarks.front()->GetId(), m_userMarks.front().get()));
   m_createdMarks.insert(m_userMarks.front()->GetId());
   return m_userMarks.front().get();

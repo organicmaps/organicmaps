@@ -19,19 +19,27 @@
 
 class UserMarksController
 {
-public:
+protected:
+  friend class BookmarkManager;
+
   virtual size_t GetUserMarkCount() const = 0;
   virtual UserMark::Type GetType() const = 0;
   virtual void SetIsDrawable(bool isDrawable) = 0;
   virtual void SetIsVisible(bool isVisible) = 0;
 
-  virtual UserMark * CreateUserMark(m2::PointD const & ptOrg) = 0;
+  virtual UserMark * CreateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg) = 0;
   virtual UserMark const * GetUserMark(size_t index) const = 0;
   virtual UserMark * GetUserMarkForEdit(size_t index) = 0;
   virtual void DeleteUserMark(size_t index) = 0;
   virtual void Clear() = 0;
   virtual void Update() = 0;
   virtual void NotifyChanges() = 0;
+};
+
+class UserMarkManager
+{
+public:
+  virtual float GetPointDepth(UserMark::Type type, size_t index) const = 0;
 };
 
 class UserMarkContainer : public df::UserMarksProvider
@@ -60,6 +68,10 @@ public:
   UserMarkContainer(double layerDepth, UserMark::Type type,
                     Listeners const & listeners = Listeners());
   ~UserMarkContainer() override;
+
+protected:
+  friend class BookmarkManager;
+  friend class KMLParser;
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
   UserMark const * GetUserMarkById(df::MarkID id) const;
@@ -92,7 +104,7 @@ public:
   UserMark::Type GetType() const override final;
 
   // UserMarksController implementation.
-  UserMark * CreateUserMark(m2::PointD const & ptOrg) override;
+  UserMark * CreateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg) override;
   UserMark * GetUserMarkForEdit(size_t index) override;
   void DeleteUserMark(size_t index) override;
   void Clear() override;
@@ -104,7 +116,7 @@ public:
 protected:
   void SetDirty();
 
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) = 0;
+  virtual UserMark * AllocateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg) = 0;
 
 private:
   void NotifyListeners();
@@ -133,8 +145,8 @@ public:
   {}
 
 protected:
-  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override
+  UserMark * AllocateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg) override
   {
-    return new MarkPointClassType(ptOrg, this);
+    return new MarkPointClassType(ptOrg, manager);
   }
 };

@@ -459,10 +459,9 @@ void TransitRouteDisplay::CollectTransitDisplayInfo(vector<RouteSegment> const &
 
 TransitMark * TransitRouteDisplay::CreateMark(m2::PointD const & pt, FeatureID const & fid)
 {
-  auto & marksController = m_bmManager->GetUserMarksController(UserMark::Type::TRANSIT);
-  uint32_t const nextIndex = static_cast<uint32_t>(marksController.GetUserMarkCount());
+  uint32_t const nextIndex = static_cast<uint32_t>(m_bmManager->GetUserMarkCount(UserMark::Type::TRANSIT));
 
-  auto userMark = marksController.CreateUserMark(pt);
+  auto userMark = m_bmManager->CreateUserMark(UserMark::Type::TRANSIT, pt);
   ASSERT(dynamic_cast<TransitMark *>(userMark) != nullptr, ());
   auto transitMark = static_cast<TransitMark *>(userMark);
 
@@ -606,6 +605,5 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
     }
   }
 
-  auto & marksController = m_bmManager->GetUserMarksController(UserMark::Type::TRANSIT);
-  marksController.NotifyChanges();
+  m_bmManager->NotifyChanges(UserMark::Type::TRANSIT, 0);
 }

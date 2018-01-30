@@ -28,8 +28,8 @@ std::vector<std::string> const kPreparingSymbols =
 };
 }  // namespace
 
-SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
-  : UserMark(ptOrg, container)
+SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg, UserMarkManager * manager)
+  : UserMark(ptOrg, manager, UserMark::Type::SEARCH, 0)
 {}
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames() const
@@ -51,11 +51,6 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
   symbol->insert(std::make_pair(1 /* zoomLevel */, name));
   return symbol;
-}
-
-UserMark::Type SearchMarkPoint::GetMarkType() const
-{
-  return UserMark::Type::SEARCH;
 }
 
 void SearchMarkPoint::SetFoundFeature(FeatureID const & feature)
@@ -132,10 +127,10 @@ void SearchMarks::SetPreparingState(std::vector<FeatureID> const & features, boo
   ASSERT(std::is_sorted(features.begin(), features.end()), ());
 
   UserMarkNotificationGuard guard(*m_bmManager, UserMark::Type::SEARCH);
-  size_t const count = guard.m_controller.GetUserMarkCount();
+  size_t const count = m_bmManager->GetUserMarkCount(UserMark::Type::SEARCH);
   for (size_t i = 0; i < count; ++i)
   {
-    auto mark = static_cast<SearchMarkPoint *>(guard.m_controller.GetUserMarkForEdit(i));
+    auto mark = static_cast<SearchMarkPoint *>(m_bmManager->GetUserMarkForEdit(UserMark::Type::SEARCH, i));
     if (std::binary_search(features.begin(), features.end(), mark->GetFeatureID()))
       mark->SetPreparing(isPreparing);
   }

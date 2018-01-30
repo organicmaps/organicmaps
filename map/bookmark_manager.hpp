@@ -20,13 +20,14 @@
 
 #include <boost/optional.hpp>
 
-class BookmarkManager final
+class BookmarkManager final : public UserMarkManager
 {
   using CategoriesCollection = std::vector<std::unique_ptr<BookmarkCategory>>;
   using CategoryIter = CategoriesCollection::iterator;
 
   using UserMarkLayers = std::vector<std::unique_ptr<UserMarkContainer>>;
 public:
+
   using AsyncLoadingStartedCallback = std::function<void()>;
   using AsyncLoadingFinishedCallback = std::function<void()>;
   using AsyncLoadingFileCallback = std::function<void(std::string const &, bool)>;
@@ -63,6 +64,43 @@ public:
 
   explicit BookmarkManager(Callbacks && callbacks);
   ~BookmarkManager();
+
+  //////////////////
+  float GetPointDepth(UserMark::Type type, size_t index) const override;
+  void NotifyChanges(UserMark::Type type, size_t index);
+  size_t GetUserMarkCount(UserMark::Type type) const;
+  UserMark const * GetUserMark(UserMark::Type type, size_t index) const;
+  UserMark * GetUserMarkForEdit(UserMark::Type type, size_t index);
+  void DeleteUserMark(UserMark::Type type, size_t index);
+  void ClearUserMarks(UserMark::Type type);
+  size_t GetBookmarksCount(size_t categoryIndex) const;
+  Bookmark const * GetBookmarkTmp(size_t categoryIndex, size_t bmIndex) const;
+  Bookmark * GetBookmarkForEditTmp(size_t categoryIndex, size_t bmIndex);
+  void DeleteBookmark(size_t categoryIndex, size_t bmIndex);
+  size_t GetTracksCount(size_t categoryIndex) const;
+  Track const * GetTrack(size_t categoryIndex, size_t index) const;
+  void DeleteTrack(size_t categoryIndex, size_t index);
+  bool SaveToKMLFile(size_t categoryIndex);
+  std::string const & GetCategoryName(size_t categoryIndex) const;
+  void SetCategoryName(size_t categoryIndex, std::string const & name);
+  std::string const & GetCategoryFileName(size_t categoryIndex) const;
+
+  UserMark const * FindMarkInRect(UserMark::Type type, size_t index, m2::AnyRectD const & rect, double & d) const;
+
+  UserMark * CreateUserMark(UserMark::Type type, m2::PointD const & ptOrg);
+  UserMark * CreateBookmark(size_t index, m2::PointD const & ptOrg);
+
+  void SetContainerIsVisible(UserMark::Type type, bool visible);
+  void SetCategoryIsVisible(size_t categoryId, bool visible);
+  void SetContainerIsDrawable(UserMark::Type type, bool drawable);
+
+  bool IsVisible(size_t catgoryId) const;
+
+  /// Get valid file name from input (remove illegal symbols).
+  static std::string RemoveInvalidSymbols(std::string const & name);
+  /// Get unique bookmark file name from path and valid file name.
+  static std::string GenerateUniqueFileName(const std::string & path, std::string name);
+  //////////////////
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
   void UpdateViewport(ScreenBase const & screen);
@@ -109,6 +147,7 @@ public:
   /// Additional layer methods
   bool UserMarksIsVisible(UserMark::Type type) const;
   UserMarksController & GetUserMarksController(UserMark::Type type);
+  UserMarksController const & GetUserMarksController(UserMark::Type type) const;
 
   std::unique_ptr<StaticMarkPoint> & SelectionMark();
   std::unique_ptr<StaticMarkPoint> const & SelectionMark() const;
@@ -175,5 +214,6 @@ public:
   UserMarkNotificationGuard(BookmarkManager & mng, UserMark::Type type);
   ~UserMarkNotificationGuard();
 
-  UserMarksController & m_controller;
+  BookmarkManager & m_manager;
+  UserMark::Type m_type;
 };

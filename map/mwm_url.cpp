@@ -197,7 +197,7 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
       for (auto const & p : points)
       {
         m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
-        ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(guard.m_controller.CreateUserMark(glPoint));
+        ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(m_bmManager->CreateUserMark(guard.m_type, glPoint));
         mark->SetName(p.m_name);
         mark->SetApiID(p.m_id);
         mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
@@ -448,18 +448,18 @@ bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
   ASSERT(m_bmManager != nullptr, ());
   UserMarkNotificationGuard guard(*m_bmManager, UserMark::Type::API);
 
-  size_t markCount = guard.m_controller.GetUserMarkCount();
+  size_t markCount = m_bmManager->GetUserMarkCount(UserMark::Type::API);
   if (markCount == 1 && m_zoomLevel >= 1)
   {
     double zoom = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
-    rect = df::GetRectForDrawScale(zoom, guard.m_controller.GetUserMark(0)->GetPivot());
+    rect = df::GetRectForDrawScale(zoom, m_bmManager->GetUserMark(UserMark::Type::API, 0)->GetPivot());
     return true;
   }
   else
   {
     m2::RectD result;
-    for (size_t i = 0; i < guard.m_controller.GetUserMarkCount(); ++i)
-      result.Add(guard.m_controller.GetUserMark(i)->GetPivot());
+    for (size_t i = 0; i < markCount; ++i)
+      result.Add(m_bmManager->GetUserMark(UserMark::Type::API, i)->GetPivot());
 
     if (result.IsValid())
     {
@@ -476,10 +476,10 @@ ApiMarkPoint const * ParsedMapApi::GetSinglePoint() const
   ASSERT(m_bmManager != nullptr, ());
   UserMarkNotificationGuard guard(*m_bmManager, UserMark::Type::API);
 
-  if (guard.m_controller.GetUserMarkCount() != 1)
+  if (m_bmManager->GetUserMarkCount(UserMark::Type::API) != 1)
     return nullptr;
 
-  return static_cast<ApiMarkPoint const *>(guard.m_controller.GetUserMark(0));
+  return static_cast<ApiMarkPoint const *>(m_bmManager->GetUserMark(UserMark::Type::API, 0));
 }
 
 }

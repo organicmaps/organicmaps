@@ -29,13 +29,13 @@ string GetDefaultStyle() { return kSupportedColors[0]; }
 
 } // style
 
-ApiMarkPoint::ApiMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
-  : UserMark(ptOrg, container)
+ApiMarkPoint::ApiMarkPoint(m2::PointD const & ptOrg, UserMarkManager * manager)
+  : UserMark(ptOrg, manager, UserMark::Type::API, 0)
 {}
 
 ApiMarkPoint::ApiMarkPoint(string const & name, string const & id, string const & style,
-                           m2::PointD const & ptOrg, UserMarkContainer * container)
-  : UserMark(ptOrg, container),
+                           m2::PointD const & ptOrg, UserMarkManager * manager)
+  : UserMark(ptOrg, manager, UserMark::Type::API, 0),
     m_name(name),
     m_id(id),
     m_style(style)
@@ -47,11 +47,6 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> ApiMarkPoint::GetSymbolNames() 
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
   symbol->insert(std::make_pair(1 /* zoomLevel */, name));
   return symbol;
-}
-
-UserMark::Type ApiMarkPoint::GetMarkType() const
-{
-  return UserMark::Type::API;
 }
 
 m2::PointD ApiMarkPoint::GetPixelOffset() const

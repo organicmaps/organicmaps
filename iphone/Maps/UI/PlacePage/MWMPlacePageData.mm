@@ -436,25 +436,22 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     BookmarkData bmData{m_info.FormatNewBookmarkName(), f.LastEditedBMType()};
     auto const bookmarkIndex = bmManager.AddBookmark(categoryIndex, self.mercator, bmData);
 
-    auto category = f.GetBmCategory(categoryIndex);
-    NSAssert(category, @"Category can't be nullptr!");
-    auto bookmark = static_cast<Bookmark const *>(category->GetUserMark(bookmarkIndex));
+    auto const * bookmark = bmManager.GetBookmarkTmp(categoryIndex, bookmarkIndex);
     f.FillBookmarkInfo(*bookmark, {bookmarkIndex, categoryIndex}, m_info);
-    category->NotifyChanges();
+    bmManager.NotifyChanges(UserMark::Type::BOOKMARK, categoryIndex);
     m_sections.insert(m_sections.begin() + 1, Sections::Bookmark);
   }
   else
   {
     auto const bac = m_info.GetBookmarkAndCategory();
-    auto category = bmManager.GetBmCategory(bac.m_categoryIndex);
-    if (category)
+    auto const * bookmark = bmManager.GetBookmarkTmp(bac.m_categoryIndex, bac.m_bookmarkIndex);
+    if (bookmark)
     {
-      f.ResetBookmarkInfo(*static_cast<Bookmark const *>(category->GetUserMark(bac.m_bookmarkIndex)),
-                          m_info);
+      f.ResetBookmarkInfo(*bookmark, m_info);
 
-      category->DeleteUserMark(bac.m_bookmarkIndex);
-      category->NotifyChanges();
-      category->SaveToKMLFile();
+      bmManager.DeleteBookmark(bac.m_categoryIndex, bac.m_bookmarkIndex);
+      bmManager.NotifyChanges(UserMark::Type::BOOKMARK, bac.m_categoryIndex);
+      bmManager.SaveToKMLFile(bac.m_categoryIndex);
     }
 
     m_sections.erase(remove(m_sections.begin(), m_sections.end(), Sections::Bookmark));

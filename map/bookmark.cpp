@@ -1,5 +1,6 @@
 #include "map/bookmark.hpp"
 #include "map/api_mark_point.hpp"
+#include "map/bookmark_manager.hpp"
 #include "map/track.hpp"
 
 #include "base/scope_guard.hpp"
@@ -27,12 +28,12 @@
 #include <map>
 #include <memory>
 
-Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
-  : Base(ptOrg, container)
+Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t index)
+  : Base(ptOrg, manager, UserMark::Type::BOOKMARK, index)
 {}
 
-Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
-  : Base(ptOrg, container)
+Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkManager * manager, size_t index)
+  : Base(ptOrg, manager, UserMark::Type::BOOKMARK, index)
   , m_data(data)
 {}
 
@@ -63,11 +64,6 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() cons
 bool Bookmark::HasCreationAnimation() const
 {
   return true;
-}
-
-UserMark::Type Bookmark::GetMarkType() const
-{
-  return UserMark::Type::BOOKMARK;
 }
 
 std::string const & Bookmark::GetName() const
@@ -139,9 +135,11 @@ Track const * BookmarkCategory::GetTrack(size_t index) const
 }
 
 BookmarkCategory::BookmarkCategory(std::string const & name,
+                                   size_t index,
                                    Listeners const & listeners)
   : Base(0.0 /* bookmarkDepth */, UserMark::Type::BOOKMARK, listeners)
   , m_name(name)
+  , m_index(index)
 {}
 
 BookmarkCategory::~BookmarkCategory()
@@ -216,369 +214,370 @@ namespace
     GEOMETRY_TYPE_POINT,
     GEOMETRY_TYPE_LINE
   };
+}
 
-  class KMLParser
+class KMLParser
+{
+  // Fixes icons which are not supported by MapsWithMe.
+  std::string GetSupportedBMType(std::string const & s) const
   {
-    // Fixes icons which are not supported by MapsWithMe.
-    std::string GetSupportedBMType(std::string const & s) const
+    // Remove leading '#' symbol.
+    ASSERT(!s.empty(), ());
+    std::string const result = s.substr(1);
+    return style::GetSupportedStyle(result, m_name, style::GetDefaultStyle());
+  }
+  
+  UserMarkManager * m_manager;
+  BookmarkCategory & m_category;
+  
+  std::vector<std::string> m_tags;
+  GeometryType m_geometryType;
+  m2::PolylineD m_points;
+  dp::Color m_trackColor;
+  
+  std::string m_styleId;
+  std::string m_mapStyleId;
+  std::string m_styleUrlKey;
+  std::map<std::string, dp::Color> m_styleUrl2Color;
+  std::map<std::string, std::string> m_mapStyle2Style;
+  
+  std::string m_name;
+  std::string m_type;
+  std::string m_description;
+  time_t m_timeStamp;
+  
+  m2::PointD m_org;
+  double m_scale;
+  
+  void Reset()
+  {
+    m_name.clear();
+    m_description.clear();
+    m_org = m2::PointD(-1000, -1000);
+    m_type.clear();
+    m_scale = -1.0;
+    m_timeStamp = my::INVALID_TIME_STAMP;
+    
+    m_trackColor = df::GetColorConstant(kDefaultTrackColor);
+    m_styleId.clear();
+    m_mapStyleId.clear();
+    m_styleUrlKey.clear();
+    
+    m_points.Clear();
+    m_geometryType = GEOMETRY_TYPE_UNKNOWN;
+  }
+  
+  bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt)
+  {
+    // order in string is: lon, lat, z
+    
+    strings::SimpleTokenizer iter(s, delim);
+    if (iter)
     {
-      // Remove leading '#' symbol.
-      ASSERT(!s.empty(), ());
-      std::string const result = s.substr(1);
-      return style::GetSupportedStyle(result, m_name, style::GetDefaultStyle());
-    }
-
-    BookmarkCategory & m_category;
-
-    std::vector<std::string> m_tags;
-    GeometryType m_geometryType;
-    m2::PolylineD m_points;
-    dp::Color m_trackColor;
-
-    std::string m_styleId;
-    std::string m_mapStyleId;
-    std::string m_styleUrlKey;
-    std::map<std::string, dp::Color> m_styleUrl2Color;
-    std::map<std::string, std::string> m_mapStyle2Style;
-
-    std::string m_name;
-    std::string m_type;
-    std::string m_description;
-    time_t m_timeStamp;
-
-    m2::PointD m_org;
-    double m_scale;
-
-    void Reset()
-    {
-      m_name.clear();
-      m_description.clear();
-      m_org = m2::PointD(-1000, -1000);
-      m_type.clear();
-      m_scale = -1.0;
-      m_timeStamp = my::INVALID_TIME_STAMP;
-
-      m_trackColor = df::GetColorConstant(kDefaultTrackColor);
-      m_styleId.clear();
-      m_mapStyleId.clear();
-      m_styleUrlKey.clear();
-
-      m_points.Clear();
-      m_geometryType = GEOMETRY_TYPE_UNKNOWN;
-    }
-
-    bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt)
-    {
-      // order in string is: lon, lat, z
-
-      strings::SimpleTokenizer iter(s, delim);
-      if (iter)
+      double lon;
+      if (strings::to_double(*iter, lon) && MercatorBounds::ValidLon(lon) && ++iter)
       {
-        double lon;
-        if (strings::to_double(*iter, lon) && MercatorBounds::ValidLon(lon) && ++iter)
+        double lat;
+        if (strings::to_double(*iter, lat) && MercatorBounds::ValidLat(lat))
         {
-          double lat;
-          if (strings::to_double(*iter, lat) && MercatorBounds::ValidLat(lat))
-          {
-            pt = MercatorBounds::FromLatLon(lat, lon);
-            return true;
-          }
-          else
-            LOG(LWARNING, ("Invalid coordinates", s, "while loading", m_name));
-        }
-      }
-
-      return false;
-    }
-
-    void SetOrigin(std::string const & s)
-    {
-      m_geometryType = GEOMETRY_TYPE_POINT;
-
-      m2::PointD pt;
-      if (ParsePoint(s, ", \n\r\t", pt))
-        m_org = pt;
-    }
-
-    void ParseLineCoordinates(std::string const & s, char const * blockSeparator, char const * coordSeparator)
-    {
-      m_geometryType = GEOMETRY_TYPE_LINE;
-
-      strings::SimpleTokenizer cortegeIter(s, blockSeparator);
-      while (cortegeIter)
-      {
-        m2::PointD pt;
-        if (ParsePoint(*cortegeIter, coordSeparator, pt))
-        {
-          if (m_points.GetSize() == 0 || !(pt - m_points.Back()).IsAlmostZero())
-            m_points.Add(pt);
-        }
-        ++cortegeIter;
-      }
-    }
-
-    bool MakeValid()
-    {
-      if (GEOMETRY_TYPE_POINT == m_geometryType)
-      {
-        if (MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y))
-        {
-          // set default name
-          if (m_name.empty())
-            m_name = PointToString(m_org);
-
-          // set default pin
-          if (m_type.empty())
-            m_type = "placemark-red";
-
+          pt = MercatorBounds::FromLatLon(lat, lon);
           return true;
         }
-        return false;
+        else
+          LOG(LWARNING, ("Invalid coordinates", s, "while loading", m_name));
       }
-      else if (GEOMETRY_TYPE_LINE == m_geometryType)
+    }
+    
+    return false;
+  }
+  
+  void SetOrigin(std::string const & s)
+  {
+    m_geometryType = GEOMETRY_TYPE_POINT;
+    
+    m2::PointD pt;
+    if (ParsePoint(s, ", \n\r\t", pt))
+      m_org = pt;
+  }
+  
+  void ParseLineCoordinates(std::string const & s, char const * blockSeparator, char const * coordSeparator)
+  {
+    m_geometryType = GEOMETRY_TYPE_LINE;
+    
+    strings::SimpleTokenizer cortegeIter(s, blockSeparator);
+    while (cortegeIter)
+    {
+      m2::PointD pt;
+      if (ParsePoint(*cortegeIter, coordSeparator, pt))
       {
-        return m_points.GetSize() > 1;
+        if (m_points.GetSize() == 0 || !(pt - m_points.Back()).IsAlmostZero())
+          m_points.Add(pt);
       }
-
-      return false;
+      ++cortegeIter;
     }
-
-    void ParseColor(std::string const & value)
+  }
+  
+  bool MakeValid()
+  {
+    if (GEOMETRY_TYPE_POINT == m_geometryType)
     {
-      std::string fromHex = FromHex(value);
-      ASSERT(fromHex.size() == 4, ("Invalid color passed"));
-      // Color positions in HEX – aabbggrr
-      m_trackColor = dp::Color(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
-    }
-
-    bool GetColorForStyle(std::string const & styleUrl, dp::Color & color)
-    {
-      if (styleUrl.empty())
-        return false;
-
-      // Remove leading '#' symbol
-      auto it = m_styleUrl2Color.find(styleUrl.substr(1));
-      if (it != m_styleUrl2Color.end())
+      if (MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y))
       {
-        color = it->second;
+        // set default name
+        if (m_name.empty())
+          m_name = PointToString(m_org);
+        
+        // set default pin
+        if (m_type.empty())
+          m_type = "placemark-red";
+        
         return true;
       }
       return false;
     }
-
-  public:
-    KMLParser(BookmarkCategory & cat)
-      : m_category(cat)
+    else if (GEOMETRY_TYPE_LINE == m_geometryType)
     {
-      Reset();
+      return m_points.GetSize() > 1;
     }
-
-    ~KMLParser()
+    
+    return false;
+  }
+  
+  void ParseColor(std::string const & value)
+  {
+    std::string fromHex = FromHex(value);
+    ASSERT(fromHex.size() == 4, ("Invalid color passed"));
+    // Color positions in HEX – aabbggrr
+    m_trackColor = dp::Color(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
+  }
+  
+  bool GetColorForStyle(std::string const & styleUrl, dp::Color & color)
+  {
+    if (styleUrl.empty())
+      return false;
+    
+    // Remove leading '#' symbol
+    auto it = m_styleUrl2Color.find(styleUrl.substr(1));
+    if (it != m_styleUrl2Color.end())
     {
-      m_category.NotifyChanges();
-    }
-
-    bool Push(std::string const & name)
-    {
-      m_tags.push_back(name);
+      color = it->second;
       return true;
     }
-
-    void AddAttr(std::string const & attr, std::string const & value)
+    return false;
+  }
+  
+public:
+  KMLParser(UserMarkManager * manager, BookmarkCategory & cat)
+  : m_manager(manager),
+  m_category(cat)
+  {
+    Reset();
+  }
+  
+  ~KMLParser()
+  {
+  }
+  
+  bool Push(std::string const & name)
+  {
+    m_tags.push_back(name);
+    return true;
+  }
+  
+  void AddAttr(std::string const & attr, std::string const & value)
+  {
+    std::string attrInLowerCase = attr;
+    strings::AsciiToLower(attrInLowerCase);
+    
+    if (IsValidAttribute(kStyle, value, attrInLowerCase))
+      m_styleId = value;
+    else if (IsValidAttribute(kStyleMap, value, attrInLowerCase))
+      m_mapStyleId = value;
+  }
+  
+  bool IsValidAttribute(std::string const & type, std::string const & value,
+                        std::string const & attrInLowerCase) const
+  {
+    return (GetTagFromEnd(0) == type && !value.empty() && attrInLowerCase == "id");
+  }
+  
+  std::string const & GetTagFromEnd(size_t n) const
+  {
+    ASSERT_LESS(n, m_tags.size(), ());
+    return m_tags[m_tags.size() - n - 1];
+  }
+  
+  void Pop(std::string const & tag)
+  {
+    ASSERT_EQUAL(m_tags.back(), tag, ());
+    
+    if (tag == kPlacemark)
     {
-      std::string attrInLowerCase = attr;
-      strings::AsciiToLower(attrInLowerCase);
-
-      if (IsValidAttribute(kStyle, value, attrInLowerCase))
-        m_styleId = value;
-      else if (IsValidAttribute(kStyleMap, value, attrInLowerCase))
-        m_mapStyleId = value;
-    }
-
-    bool IsValidAttribute(std::string const & type, std::string const & value,
-                          std::string const & attrInLowerCase) const
-    {
-      return (GetTagFromEnd(0) == type && !value.empty() && attrInLowerCase == "id");
-    }
-
-    std::string const & GetTagFromEnd(size_t n) const
-    {
-      ASSERT_LESS(n, m_tags.size(), ());
-      return m_tags[m_tags.size() - n - 1];
-    }
-
-    void Pop(std::string const & tag)
-    {
-      ASSERT_EQUAL(m_tags.back(), tag, ());
-
-      if (tag == kPlacemark)
+      if (MakeValid())
       {
-        if (MakeValid())
+        if (GEOMETRY_TYPE_POINT == m_geometryType)
         {
-          if (GEOMETRY_TYPE_POINT == m_geometryType)
-          {
-            Bookmark * bm = static_cast<Bookmark *>(m_category.CreateUserMark(m_org));
-            bm->SetData(BookmarkData(m_name, m_type, m_description, m_scale, m_timeStamp));
-          }
-          else if (GEOMETRY_TYPE_LINE == m_geometryType)
-          {
-            Track::Params params;
-            params.m_colors.push_back({ kDefaultTrackWidth, m_trackColor });
-            params.m_name = m_name;
-
-            /// @todo Add description, style, timestamp
-            m_category.AddTrack(make_unique<Track>(m_points, params));
-          }
+          Bookmark * bm = static_cast<Bookmark *>(m_category.CreateUserMark(m_manager, m_org));
+          bm->SetData(BookmarkData(m_name, m_type, m_description, m_scale, m_timeStamp));
         }
-        Reset();
+        else if (GEOMETRY_TYPE_LINE == m_geometryType)
+        {
+          Track::Params params;
+          params.m_colors.push_back({ kDefaultTrackWidth, m_trackColor });
+          params.m_name = m_name;
+          
+          /// @todo Add description, style, timestamp
+          m_category.AddTrack(make_unique<Track>(m_points, params));
+        }
       }
-      else if (tag == kStyle)
-      {
-        if (GetTagFromEnd(1) == kDocument)
-        {
-          if (!m_styleId.empty())
-          {
-            m_styleUrl2Color[m_styleId] = m_trackColor;
-            m_trackColor = df::GetColorConstant(kDefaultTrackColor);
-          }
-        }
-      }
-
-      m_tags.pop_back();
+      Reset();
     }
-
-    void CharData(std::string value)
+    else if (tag == kStyle)
     {
-      strings::Trim(value);
-
-      size_t const count = m_tags.size();
-      if (count > 1 && !value.empty())
+      if (GetTagFromEnd(1) == kDocument)
       {
-        std::string const & currTag = m_tags[count - 1];
-        std::string const & prevTag = m_tags[count - 2];
-        std::string const ppTag = count > 3 ? m_tags[count - 3] : std::string();
-
-        if (prevTag == kDocument)
+        if (!m_styleId.empty())
         {
-          if (currTag == "name")
-            m_category.SetName(value);
-          else if (currTag == "visibility")
-            m_category.SetIsVisible(value == "0" ? false : true);
-        }
-        else if (prevTag == kPlacemark)
-        {
-          if (currTag == "name")
-            m_name = value;
-          else if (currTag == "styleUrl")
-          {
-            // Bookmark draw style.
-            m_type = GetSupportedBMType(value);
-
-            // Check if url is in styleMap map.
-            if (!GetColorForStyle(value, m_trackColor))
-            {
-              // Remove leading '#' symbol.
-              std::string styleId = m_mapStyle2Style[value.substr(1)];
-              if (!styleId.empty())
-                GetColorForStyle(styleId, m_trackColor);
-            }
-          }
-          else if (currTag == "description")
-            m_description = value;
-        }
-        else if (prevTag == "LineStyle" && currTag == "color")
-        {
-          ParseColor(value);
-        }
-        else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl &&
-                 m_styleUrlKey == "normal")
-        {
-          if (!m_mapStyleId.empty())
-            m_mapStyle2Style[m_mapStyleId] = value;
-        }
-        else if (ppTag == kStyleMap && prevTag == kPair && currTag == "key")
-        {
-          m_styleUrlKey = value;
-        }
-        else if (ppTag == kPlacemark)
-        {
-          if (prevTag == "Point")
-          {
-            if (currTag == "coordinates")
-              SetOrigin(value);
-          }
-          else if (prevTag == "LineString")
-          {
-            if (currTag == "coordinates")
-              ParseLineCoordinates(value, " \n\r\t", ",");
-          }
-          else if (prevTag == "gx:Track")
-          {
-            if (currTag == "gx:coord")
-              ParseLineCoordinates(value, "\n\r\t", " ");
-          }
-          else if (prevTag == "ExtendedData")
-          {
-            if (currTag == "mwm:scale")
-            {
-              if (!strings::to_double(value, m_scale))
-                m_scale = -1.0;
-            }
-          }
-          else if (prevTag == "TimeStamp")
-          {
-            if (currTag == "when")
-            {
-              m_timeStamp = my::StringToTimestamp(value);
-              if (m_timeStamp == my::INVALID_TIME_STAMP)
-                LOG(LWARNING, ("Invalid timestamp in Placemark:", value));
-            }
-          }
-          else if (currTag == kStyleUrl)
-          {
-            GetColorForStyle(value, m_trackColor);
-          }
-        }
-        else if (ppTag == "MultiGeometry")
-        {
-          if (prevTag == "Point")
-          {
-            if (currTag == "coordinates")
-              SetOrigin(value);
-          }
-          else if (prevTag == "LineString")
-          {
-            if (currTag == "coordinates")
-              ParseLineCoordinates(value, " \n\r\t", ",");
-          }
-          else if (prevTag == "gx:Track")
-          {
-            if (currTag == "gx:coord")
-              ParseLineCoordinates(value, "\n\r\t", " ");
-          }
-        }
-        else if (ppTag == "gx:MultiTrack")
-        {
-          if (prevTag == "gx:Track")
-          {
-            if (currTag == "gx:coord")
-              ParseLineCoordinates(value, "\n\r\t", " ");
-          }
+          m_styleUrl2Color[m_styleId] = m_trackColor;
+          m_trackColor = df::GetColorConstant(kDefaultTrackColor);
         }
       }
     }
-  };
-}
+    
+    m_tags.pop_back();
+  }
+  
+  void CharData(std::string value)
+  {
+    strings::Trim(value);
+    
+    size_t const count = m_tags.size();
+    if (count > 1 && !value.empty())
+    {
+      std::string const & currTag = m_tags[count - 1];
+      std::string const & prevTag = m_tags[count - 2];
+      std::string const ppTag = count > 3 ? m_tags[count - 3] : std::string();
+      
+      if (prevTag == kDocument)
+      {
+        if (currTag == "name")
+          m_category.SetName(value);
+        else if (currTag == "visibility")
+          m_category.SetIsVisible(value == "0" ? false : true);
+      }
+      else if (prevTag == kPlacemark)
+      {
+        if (currTag == "name")
+          m_name = value;
+        else if (currTag == "styleUrl")
+        {
+          // Bookmark draw style.
+          m_type = GetSupportedBMType(value);
+          
+          // Check if url is in styleMap map.
+          if (!GetColorForStyle(value, m_trackColor))
+          {
+            // Remove leading '#' symbol.
+            std::string styleId = m_mapStyle2Style[value.substr(1)];
+            if (!styleId.empty())
+              GetColorForStyle(styleId, m_trackColor);
+          }
+        }
+        else if (currTag == "description")
+          m_description = value;
+      }
+      else if (prevTag == "LineStyle" && currTag == "color")
+      {
+        ParseColor(value);
+      }
+      else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl &&
+               m_styleUrlKey == "normal")
+      {
+        if (!m_mapStyleId.empty())
+          m_mapStyle2Style[m_mapStyleId] = value;
+      }
+      else if (ppTag == kStyleMap && prevTag == kPair && currTag == "key")
+      {
+        m_styleUrlKey = value;
+      }
+      else if (ppTag == kPlacemark)
+      {
+        if (prevTag == "Point")
+        {
+          if (currTag == "coordinates")
+            SetOrigin(value);
+        }
+        else if (prevTag == "LineString")
+        {
+          if (currTag == "coordinates")
+            ParseLineCoordinates(value, " \n\r\t", ",");
+        }
+        else if (prevTag == "gx:Track")
+        {
+          if (currTag == "gx:coord")
+            ParseLineCoordinates(value, "\n\r\t", " ");
+        }
+        else if (prevTag == "ExtendedData")
+        {
+          if (currTag == "mwm:scale")
+          {
+            if (!strings::to_double(value, m_scale))
+              m_scale = -1.0;
+          }
+        }
+        else if (prevTag == "TimeStamp")
+        {
+          if (currTag == "when")
+          {
+            m_timeStamp = my::StringToTimestamp(value);
+            if (m_timeStamp == my::INVALID_TIME_STAMP)
+              LOG(LWARNING, ("Invalid timestamp in Placemark:", value));
+          }
+        }
+        else if (currTag == kStyleUrl)
+        {
+          GetColorForStyle(value, m_trackColor);
+        }
+      }
+      else if (ppTag == "MultiGeometry")
+      {
+        if (prevTag == "Point")
+        {
+          if (currTag == "coordinates")
+            SetOrigin(value);
+        }
+        else if (prevTag == "LineString")
+        {
+          if (currTag == "coordinates")
+            ParseLineCoordinates(value, " \n\r\t", ",");
+        }
+        else if (prevTag == "gx:Track")
+        {
+          if (currTag == "gx:coord")
+            ParseLineCoordinates(value, "\n\r\t", " ");
+        }
+      }
+      else if (ppTag == "gx:MultiTrack")
+      {
+        if (prevTag == "gx:Track")
+        {
+          if (currTag == "gx:coord")
+            ParseLineCoordinates(value, "\n\r\t", " ");
+        }
+      }
+    }
+  }
+};
 
 std::string BookmarkCategory::GetDefaultType()
 {
   return style::GetDefaultStyle();
 }
 
-bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
+bool BookmarkCategory::LoadFromKML(UserMarkManager * manager, ReaderPtr<Reader> const & reader)
 {
   ReaderSource<ReaderPtr<Reader> > src(reader);
-  KMLParser parser(*this);
+  KMLParser parser(manager, *this);
   if (!ParseXML(src, parser, true))
   {
     LOG(LWARNING, ("XML read error. Probably, incorrect file encoding."));
@@ -588,13 +587,15 @@ bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
 }
 
 // static
-std::unique_ptr<BookmarkCategory> BookmarkCategory::CreateFromKMLFile(std::string const & file,
+std::unique_ptr<BookmarkCategory> BookmarkCategory::CreateFromKMLFile(UserMarkManager * manager,
+                                                                      std::string const & file,
+                                                                      size_t index,
                                                                       Listeners const & listeners)
 {
-  auto cat = my::make_unique<BookmarkCategory>("", listeners);
+  auto cat = my::make_unique<BookmarkCategory>("", index, listeners);
   try
   {
-    if (cat->LoadFromKML(my::make_unique<FileReader>(file)))
+    if (cat->LoadFromKML(manager, my::make_unique<FileReader>(file)))
       cat->m_file = file;
     else
       cat.reset();
@@ -793,53 +794,9 @@ void BookmarkCategory::SaveToKML(std::ostream & s)
   s << kmlFooter;
 }
 
-namespace
+UserMark * BookmarkCategory::AllocateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg)
 {
-  bool IsBadCharForPath(strings::UniChar const & c)
-  {
-    static strings::UniChar const illegalChars[] = {':', '/', '\\', '<', '>', '\"', '|', '?', '*'};
-
-    for (size_t i = 0; i < ARRAY_SIZE(illegalChars); ++i)
-      if (c < ' ' || illegalChars[i] == c)
-        return true;
-
-    return false;
-  }
-}
-
-std::string BookmarkCategory::RemoveInvalidSymbols(std::string const & name)
-{
-  // Remove not allowed symbols
-  strings::UniString uniName = strings::MakeUniString(name);
-  uniName.erase_if(&IsBadCharForPath);
-  return (uniName.empty() ? "Bookmarks" : strings::ToUtf8(uniName));
-}
-
-std::string BookmarkCategory::GenerateUniqueFileName(const std::string & path, std::string name)
-{
-  std::string const kmlExt(BOOKMARKS_FILE_EXTENSION);
-
-  // check if file name already contains .kml extension
-  size_t const extPos = name.rfind(kmlExt);
-  if (extPos != std::string::npos)
-  {
-    // remove extension
-    ASSERT_GREATER_OR_EQUAL(name.size(), kmlExt.size(), ());
-    size_t const expectedPos = name.size() - kmlExt.size();
-    if (extPos == expectedPos)
-      name.resize(expectedPos);
-  }
-
-  size_t counter = 1;
-  std::string suffix;
-  while (Platform::IsFileExistsByFullPath(path + name + suffix + kmlExt))
-    suffix = strings::to_string(counter++);
-  return (path + name + suffix + kmlExt);
-}
-
-UserMark * BookmarkCategory::AllocateUserMark(m2::PointD const & ptOrg)
-{
-  return new Bookmark(ptOrg, this);
+  return new Bookmark(ptOrg, manager, m_index);
 }
 
 bool BookmarkCategory::SaveToKMLFile()
@@ -847,7 +804,7 @@ bool BookmarkCategory::SaveToKMLFile()
   std::string oldFile;
 
   // Get valid file name from category name
-  std::string const name = RemoveInvalidSymbols(m_name);
+  std::string const name = BookmarkManager::RemoveInvalidSymbols(m_name);
 
   if (!m_file.empty())
   {
@@ -863,13 +820,13 @@ bool BookmarkCategory::SaveToKMLFile()
     // If m_file doesn't match name, assign new m_file for this category and save old file name.
     if (m_file.substr(i1, i2 - i1).find(name) != 0)
     {
-      oldFile = GenerateUniqueFileName(GetPlatform().SettingsDir(), name);
+      oldFile = BookmarkManager::GenerateUniqueFileName(GetPlatform().SettingsDir(), name);
       m_file.swap(oldFile);
     }
   }
   else
   {
-    m_file = GenerateUniqueFileName(GetPlatform().SettingsDir(), name);
+    m_file = BookmarkManager::GenerateUniqueFileName(GetPlatform().SettingsDir(), name);
   }
 
   std::string const fileTmp = m_file + ".tmp";

@@ -7,8 +7,8 @@
 
 #include "base/string_utils.hpp"
 
-UserMark::UserMark(m2::PointD const & ptOrg, UserMarkContainer * container)
-  : m_ptOrg(ptOrg), m_container(container)
+UserMark::UserMark(m2::PointD const & ptOrg, UserMarkManager * manager, UserMark::Type type, size_t index)
+  : m_ptOrg(ptOrg), m_manager(manager), m_type(type), m_index(index)
 {}
 
 m2::PointD const & UserMark::GetPivot() const
@@ -28,7 +28,7 @@ dp::Anchor UserMark::GetAnchor() const
 
 float UserMark::GetDepth() const
 {
-  return GetContainer()->GetPointDepth();
+  return m_manager->GetPointDepth(m_type, m_index);
 }
 
 df::RenderState::DepthLayer UserMark::GetDepthLayer() const
@@ -36,25 +36,14 @@ df::RenderState::DepthLayer UserMark::GetDepthLayer() const
   return df::RenderState::UserMarkLayer;
 }
 
-UserMarkContainer const * UserMark::GetContainer() const
-{
-  ASSERT(m_container != nullptr, ());
-  return m_container;
-}
-
 ms::LatLon UserMark::GetLatLon() const
 {
   return MercatorBounds::ToLatLon(m_ptOrg);
 }
 
-StaticMarkPoint::StaticMarkPoint(UserMarkContainer * container)
-  : UserMark(m2::PointD{}, container)
+StaticMarkPoint::StaticMarkPoint(UserMarkManager * manager)
+  : UserMark(m2::PointD{}, manager, UserMark::Type::STATIC, 0)
 {}
-
-UserMark::Type StaticMarkPoint::GetMarkType() const
-{
-  return UserMark::Type::STATIC;
-}
 
 void StaticMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
 {
@@ -62,12 +51,12 @@ void StaticMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
   m_ptOrg = ptOrg;
 }
 
-MyPositionMarkPoint::MyPositionMarkPoint(UserMarkContainer * container)
-  : StaticMarkPoint(container)
+MyPositionMarkPoint::MyPositionMarkPoint(UserMarkManager * manager)
+  : StaticMarkPoint(manager)
 {}
 
-DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg, UserMarkContainer * container)
-  : UserMark(ptOrg, container)
+DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg, UserMarkManager * manager)
+  : UserMark(ptOrg, manager, UserMark::Type::DEBUG_MARK, 0)
 {}
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> DebugMarkPoint::GetSymbolNames() const
