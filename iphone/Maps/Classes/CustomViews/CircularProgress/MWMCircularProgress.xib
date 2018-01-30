@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMCircularProgress">
@@ -39,12 +40,16 @@
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="viF-Ee-7h0" firstAttribute="top" secondItem="2DE-Qh-89K" secondAttribute="top" id="3gS-24-Olj"/>
-                <constraint firstItem="aMt-XV-9UK" firstAttribute="leading" secondItem="2DE-Qh-89K" secondAttribute="leading" id="JK6-QX-JcI"/>
-                <constraint firstAttribute="bottom" secondItem="aMt-XV-9UK" secondAttribute="bottom" id="VFI-Yh-q1q"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="width" relation="lessThanOrEqual" secondItem="vnA-dQ-QpI" secondAttribute="width" id="Bxj-4M-UlX"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="centerX" secondItem="vnA-dQ-QpI" secondAttribute="centerX" id="EJm-Be-grG"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="leading" secondItem="2DE-Qh-89K" secondAttribute="leading" priority="100" id="JK6-QX-JcI"/>
+                <constraint firstAttribute="bottom" secondItem="aMt-XV-9UK" secondAttribute="bottom" priority="100" id="VFI-Yh-q1q"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="centerY" secondItem="vnA-dQ-QpI" secondAttribute="centerY" id="eVP-mP-bGc"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="height" relation="lessThanOrEqual" secondItem="vnA-dQ-QpI" secondAttribute="height" id="eWY-kL-sQD"/>
                 <constraint firstAttribute="trailing" secondItem="viF-Ee-7h0" secondAttribute="trailing" id="fQT-G3-rJF"/>
-                <constraint firstItem="aMt-XV-9UK" firstAttribute="top" secondItem="2DE-Qh-89K" secondAttribute="top" id="fbs-bw-DIs"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="top" secondItem="2DE-Qh-89K" secondAttribute="top" priority="100" id="fbs-bw-DIs"/>
                 <constraint firstAttribute="bottom" secondItem="viF-Ee-7h0" secondAttribute="bottom" id="j4s-7V-lg9"/>
-                <constraint firstAttribute="trailing" secondItem="aMt-XV-9UK" secondAttribute="trailing" id="k01-wU-25n"/>
+                <constraint firstAttribute="trailing" secondItem="aMt-XV-9UK" secondAttribute="trailing" priority="100" id="k01-wU-25n"/>
                 <constraint firstItem="viF-Ee-7h0" firstAttribute="leading" secondItem="2DE-Qh-89K" secondAttribute="leading" id="sHS-iu-Url"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
