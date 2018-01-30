@@ -19,6 +19,7 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#include <algorithm>
 #include <cstdlib>
 #include <numeric>
 #include <utility>
@@ -281,6 +282,9 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
     }
     outgoingTurns.candidates.emplace_back(angle, ConvertEdgeToSegment(*m_numMwmIds, edge), highwayClass);
   }
+
+  if (outgoingTurns.isCandidatesAngleValid)
+    sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(), my::LessBy(&TurnCandidate::angle));
 }
 
 void BicycleDirectionsEngine::GetEdges(RoadGraphBase const & graph, Junction const & currJunction,
