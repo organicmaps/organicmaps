@@ -277,7 +277,8 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss)
   // All feature tags.
   auto const accessType = GetAccessType(elem);
   if (accessType != RoadAccess::Type::Yes)
-    oss << ToString(m_vehicleType) << " " << ToString(accessType) << " " << elem.id << 0 << endl;
+    oss << ToString(m_vehicleType) << " " << ToString(accessType) << " " << elem.id << " "
+        << 0 /* wildcard segment Idx */ << endl;
 
   // Barrier tags.
   for (size_t pointIdx = 0; pointIdx < elem.m_nds.size(); ++pointIdx)
@@ -288,7 +289,7 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss)
 
     // idx == 0 used as wildcard segment Idx, for nodes we store |pointIdx + 1| instead of |pointIdx|.
     oss << ToString(m_vehicleType) << " " << ToString(it->second) << " " << elem.id << " "
-        << pointIdx + 1;
+        << pointIdx + 1 << endl;
   }
 }
 
