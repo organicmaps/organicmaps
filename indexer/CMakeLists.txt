@@ -92,6 +92,7 @@ set(
   index.hpp
   interval_index_builder.hpp
   interval_index.hpp
+  locality_index.hpp
   locality_index_builder.hpp
   locality_index_builder.cpp
   locality_object.hpp
