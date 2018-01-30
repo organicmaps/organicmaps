@@ -206,7 +206,7 @@ protected:
   User m_user;
 
   booking::filter::Filter m_bookingFilter;
-  booking::AvailabilityParams m_currentBookingAvailabilityParams;
+  booking::AvailabilityParams m_bookingAvailabilityParams;
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.

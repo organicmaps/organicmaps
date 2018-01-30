@@ -10,6 +10,7 @@
 #include "base/logging.hpp"
 #include "base/thread.hpp"
 #include "base/url_helpers.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <chrono>
 #include <iostream>
@@ -327,16 +328,17 @@ string Api::ApplyAvailabilityParams(string const & url, AvailabilityParams const
     return url;
 
   auto p = params.Get();
-  p.erase(remove_if(p.begin(), p.end(), [](url::Param const & param)
+
+  my::EraseIf(p, [](url::Param const & param)
   {
     for (auto const & paramForUrl : kAvailabilityParamsForUrl)
     {
-      // We need to use all numbered rooms, because of this we use find instead of ==.
-      if (param.m_name.find(paramForUrl) == 0)
+      // We need to use all numbered rooms, because of this we use StartsWith instead of ==.
+      if (strings::StartsWith(param.m_name, paramForUrl))
         return false;
     }
     return true;
-  }), p.end());
+  });
 
   auto const pos = url.find('#');
 
@@ -344,7 +346,7 @@ string Api::ApplyAvailabilityParams(string const & url, AvailabilityParams const
     return url::Make(url, p);
 
   string result = url::Make(url.substr(0, pos), p);
-  result.append(url.substr(pos, url.size() - pos));
+  result.append(url.substr(pos));
   return result;
 }
 

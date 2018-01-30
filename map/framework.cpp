@@ -862,11 +862,11 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.SetSponsoredUrl(m_bookingApi->GetBookHotelUrl(baseUrl));
     info.SetSponsoredDescriptionUrl(m_bookingApi->GetDescriptionUrl(baseUrl));
     info.SetSponsoredReviewUrl(m_bookingApi->GetHotelReviewsUrl(hotelId, baseUrl));
-    if (!m_currentBookingAvailabilityParams.IsEmpty())
+    if (!m_bookingAvailabilityParams.IsEmpty())
     {
       auto const & url = info.GetSponsoredUrl();
       auto const & urlWithParams =
-          m_bookingApi->ApplyAvailabilityParams(url, m_currentBookingAvailabilityParams);
+          m_bookingApi->ApplyAvailabilityParams(url, m_bookingAvailabilityParams);
       info.SetSponsoredUrl(urlWithParams);
     }
   }
@@ -3490,6 +3490,6 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Para
 
 void Framework::OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params)
 {
-  m_currentBookingAvailabilityParams = params;
+  m_bookingAvailabilityParams = params;
   m_bookingFilter.OnParamsUpdated(params);
 }
