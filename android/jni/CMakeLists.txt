@@ -71,6 +71,7 @@ set(
   com/mapswithme/opengl/androidoglcontextfactory.cpp
   com/mapswithme/opengl/gl3stub.c
   com/mapswithme/platform/HttpThread.cpp
+  com/mapswithme/platform/HttpUploader.cpp
   com/mapswithme/platform/GuiThread.cpp
   com/mapswithme/platform/Language.cpp
   com/mapswithme/platform/MarketingService.cpp

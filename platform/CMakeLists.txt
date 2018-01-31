@@ -23,6 +23,7 @@ set(
   http_request.cpp
   http_request.hpp
   http_thread_callback.hpp
+  http_uploader.hpp
   local_country_file.cpp
   local_country_file.hpp
   local_country_file_utils.cpp
@@ -57,6 +58,7 @@ if(${PLATFORM_IPHONE})
     http_thread_apple.h
     http_thread_apple.mm
     http_client_apple.mm
+    http_uploader_apple.mm
     marketing_service_ios.mm
     platform_ios.mm
     platform_unix_impl.cpp
@@ -88,6 +90,7 @@ else() # neither iPhone nor Android
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
+      http_uploader_dummy.cpp
       marketing_service_dummy.cpp
       platform_win.cpp
       secure_storage_dummy.cpp
@@ -101,6 +104,7 @@ else() # neither iPhone nor Android
       http_client_apple.mm
       http_thread_apple.h
       http_thread_apple.mm
+      http_uploader_apple.mm
       marketing_service_dummy.cpp
       platform_mac.mm
       platform_unix_impl.cpp
@@ -115,6 +119,7 @@ else() # neither iPhone nor Android
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
+      http_uploader_dummy.cpp
       marketing_service_dummy.cpp
       platform_linux.cpp
       platform_unix_impl.cpp

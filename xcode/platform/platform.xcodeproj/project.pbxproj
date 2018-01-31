@@ -15,6 +15,8 @@
 		34C624BE1DABCCD100510300 /* socket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624BC1DABCCD100510300 /* socket.hpp */; };
 		3D30587D1D8320E4004AC712 /* http_client.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D30587B1D8320E4004AC712 /* http_client.hpp */; };
 		3D30587F1D880910004AC712 /* http_client_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D30587E1D880910004AC712 /* http_client_apple.mm */; };
+		3D318A062021DD8B007B2607 /* http_uploader_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D318A042021DD8A007B2607 /* http_uploader_apple.mm */; };
+		3D318A072021DD8B007B2607 /* http_uploader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D318A052021DD8B007B2607 /* http_uploader.hpp */; };
 		3D78156E1F3A14090068B6AC /* gui_thread_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D78156B1F3A14090068B6AC /* gui_thread_apple.mm */; };
 		3D78156F1F3A14090068B6AC /* gui_thread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D78156C1F3A14090068B6AC /* gui_thread.hpp */; };
 		3D78157D1F3D8A0A0068B6AC /* safe_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */; };
@@ -121,6 +123,8 @@
 		34F558341DBF273C00A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		3D30587B1D8320E4004AC712 /* http_client.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_client.hpp; sourceTree = "<group>"; };
 		3D30587E1D880910004AC712 /* http_client_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_client_apple.mm; sourceTree = "<group>"; };
+		3D318A042021DD8A007B2607 /* http_uploader_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_uploader_apple.mm; sourceTree = "<group>"; };
+		3D318A052021DD8B007B2607 /* http_uploader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_uploader.hpp; sourceTree = "<group>"; };
 		3D78156B1F3A14090068B6AC /* gui_thread_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = gui_thread_apple.mm; sourceTree = "<group>"; };
 		3D78156C1F3A14090068B6AC /* gui_thread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gui_thread.hpp; sourceTree = "<group>"; };
 		3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = safe_callback.hpp; sourceTree = "<group>"; };
@@ -336,6 +340,8 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				3D318A042021DD8A007B2607 /* http_uploader_apple.mm */,
+				3D318A052021DD8B007B2607 /* http_uploader.hpp */,
 				451E329F1F73A8B000964C9F /* secure_storage.hpp */,
 				451E329D1F73A8B000964C9F /* secure_storage_ios.mm */,
 				451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */,
@@ -475,6 +481,7 @@
 				3D30587D1D8320E4004AC712 /* http_client.hpp in Headers */,
 				56EB1EDD1C6B6E6C0022D831 /* file_logging.hpp in Headers */,
 				F6DF735B1EC9EAE700D8BA0B /* string_storage_base.hpp in Headers */,
+				3D318A072021DD8B007B2607 /* http_uploader.hpp in Headers */,
 				6741250D1B4C00CC00A3E828 /* local_country_file_utils.hpp in Headers */,
 				675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */,
 				671C62071AE9014C00076BD0 /* measurement_utils.hpp in Headers */,
@@ -620,6 +627,7 @@
 				56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */,
 				3D30587F1D880910004AC712 /* http_client_apple.mm in Sources */,
 				F6DF73581EC9EAE700D8BA0B /* string_storage_base.cpp in Sources */,
+				3D318A062021DD8B007B2607 /* http_uploader_apple.mm in Sources */,
 				3D78156E1F3A14090068B6AC /* gui_thread_apple.mm in Sources */,
 				67247FFD1C60BD6500EDE56A /* writable_dir_changer.cpp in Sources */,
 				34513AFB1DCB37C100471BDA /* marketing_service.cpp in Sources */,
