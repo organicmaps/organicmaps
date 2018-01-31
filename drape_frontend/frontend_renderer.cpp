@@ -870,15 +870,21 @@ void FrontendRenderer::UpdateGLResources()
 
   m_trafficRenderer->ClearGLDependentResources();
 
-  // Request new tiles.
-  ScreenBase screen = m_userEventStream.GetCurrentScreen();
-  m_lastReadedModelView = screen;
-  m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(),
-                        m_forceUpdateScene, m_forceUpdateUserMarks,
-                        ResolveTileKeys(screen));
-  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                            make_unique_dp<UpdateReadManagerMessage>(),
-                            MessagePriority::UberHighSingleton);
+  // In some cases UpdateGLResources can be called before the rendering of
+  // the first frame. m_currentZoomLevel will be equal to -1, so ResolveTileKeys
+  // could not be called.
+  if (m_currentZoomLevel > 0)
+  {
+    // Request new tiles.
+    ScreenBase screen = m_userEventStream.GetCurrentScreen();
+    m_lastReadedModelView = screen;
+    m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(),
+                          m_forceUpdateScene, m_forceUpdateUserMarks,
+                          ResolveTileKeys(screen));
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<UpdateReadManagerMessage>(),
+                              MessagePriority::UberHighSingleton);
+  }
 
   m_gpsTrackRenderer->Update();
 }
