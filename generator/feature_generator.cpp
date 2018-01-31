@@ -37,6 +37,7 @@ FeaturesCollector::~FeaturesCollector()
   (void)GetFileSize(m_datFile);
 }
 
+// static
 uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)
 {
   // .dat file should be less than 4Gb

@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "generator/feature_builder.hpp"
-#include "generator/feature_sorter.hpp"
 #include "generator/feature_generator.hpp"
+#include "generator/feature_helpers.hpp"
 
 #include "geometry/mercator.hpp"
 #include "indexer/cell_id.hpp"
@@ -148,7 +148,7 @@ namespace
           for (PolygonsT::const_iterator i = poly.begin(); i != poly.end(); ++i)
           {
             PointsT pts;
-            feature::SimplifyPoints(dist, *i, pts, level);
+            feature::SimplifyPoints(dist, level, *i, pts);
 
             LOG(LINFO, ("Simplified. Level = ", level, "Points = ", pts));
 

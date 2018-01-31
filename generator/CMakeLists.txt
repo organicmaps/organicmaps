@@ -30,14 +30,19 @@ set(SRC
   feature_emitter_iface.hpp
   feature_generator.cpp
   feature_generator.hpp
+  feature_helpers.cpp
+  feature_helpers.hpp
   feature_merger.cpp
   feature_merger.hpp
   feature_sorter.cpp
   feature_sorter.hpp
   gen_mwm_info.hpp
   generate_info.hpp
+  geometry_holder.hpp
   intermediate_data.hpp
   intermediate_elements.hpp
+  locality_sorter.cpp
+  locality_sorter.hpp
   metalines_builder.cpp
   metalines_builder.hpp
   node_mixer.hpp

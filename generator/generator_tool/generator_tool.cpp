@@ -8,6 +8,7 @@
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
+#include "generator/locality_sorter.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/restriction_generator.hpp"
@@ -29,6 +30,7 @@
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/index_builder.hpp"
+#include "indexer/locality_index_builder.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/rank_table.hpp"
 
@@ -40,20 +42,21 @@
 
 #include "base/timer.hpp"
 
-#include "std/unique_ptr.hpp"
-
 #include <cstdlib>
+#include <memory>
 #include <string>
 
 #include "defines.hpp"
 
 #include "3party/gflags/src/gflags/gflags.h"
 
+using namespace std;
+
 namespace
 {
 char const * GetDataPathHelp()
 {
-  static std::string const kHelp =
+  static string const kHelp =
       "Directory where the generated mwms are put into. Also used as the path for helper "
       "functions, such as those that calculate statistics and regenerate sections. "
       "Default: " +
@@ -88,6 +91,7 @@ DEFINE_bool(generate_geometry, false,
             "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
+DEFINE_bool(generate_locality_index, false, "3rd pass - generate locality objects and locality index.");
 
 DEFINE_bool(dump_cities_boundaries, false, "Dump cities boundaries to a file");
 DEFINE_bool(generate_cities_boundaries, false, "Generate cities boundaries section");
@@ -155,7 +159,7 @@ int main(int argc, char ** argv)
     pl.SetSettingsDir(FLAGS_user_resource_path);
   }
 
-  std::string const path =
+  string const path =
       FLAGS_data_path.empty() ? pl.WritableDir() : my::AddSlashIfNeeded(FLAGS_data_path);
 
   // So that stray GetWritablePathForFile calls do not crash the generator.
@@ -169,7 +173,7 @@ int main(int argc, char ** argv)
   /// @todo Probably, it's better to add separate option for .mwm.tmp files.
   if (!FLAGS_intermediate_data_path.empty())
   {
-    std::string const tmpPath = genInfo.m_intermediateDir + "tmp" + my::GetNativeSeparator();
+    string const tmpPath = my::JoinPath(genInfo.m_intermediateDir, "tmp");
     if (Platform::MkDir(tmpPath) != Platform::ERR_UNKNOWN)
       genInfo.m_tmpDir = tmpPath;
   }
@@ -205,7 +209,7 @@ int main(int argc, char ** argv)
   GetStyleReader().SetCurrentStyle(MapStyleMerged);
 
   // Load classificator only when necessary.
-  if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
+  if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry || FLAGS_generate_locality_index ||
       FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_generate_cities_boundaries ||
       FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
@@ -217,7 +221,7 @@ int main(int argc, char ** argv)
   }
 
   // Load mwm tree only if we need it
-  std::unique_ptr<storage::CountryParentGetter> countryParentGetter;
+  unique_ptr<storage::CountryParentGetter> countryParentGetter;
   if (FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm)
     countryParentGetter = make_unique<storage::CountryParentGetter>();
 
@@ -259,13 +263,39 @@ int main(int argc, char ** argv)
       genInfo.m_bucketNames.push_back(FLAGS_output);
   }
 
+  if (FLAGS_generate_locality_index)
+  {
+    if (FLAGS_output.empty() || FLAGS_intermediate_data_path.empty())
+    {
+      LOG(LCRITICAL, ("Bad output or intermediate_data_path. Output:", FLAGS_output,
+                      "intermediate_data_path:", FLAGS_intermediate_data_path));
+      return -1;
+    }
+
+    auto const locDataFile = my::JoinPath(path, FLAGS_output + LOC_DATA_FILE_EXTENSION);
+    auto const outFile = my::JoinPath(path, FLAGS_output + LOC_IDX_FILE_EXTENSION);
+    if (!feature::GenerateLocalityData(genInfo.m_tmpDir, locDataFile))
+    {
+      LOG(LCRITICAL, ("Error generating locality data."));
+      return -1;
+    }
+
+    LOG(LINFO, ("Saving locality index to", outFile));
+
+    if (!indexer::BuildLocalityIndexFromDataFile(locDataFile, outFile))
+    {
+      LOG(LCRITICAL, ("Error generating locality index."));
+      return -1;
+    }
+  }
+
   // Enumerate over all dat files that were created.
   size_t const count = genInfo.m_bucketNames.size();
   for (size_t i = 0; i < count; ++i)
   {
-    std::string const & country = genInfo.m_bucketNames[i];
-    std::string const datFile = my::JoinFoldersToPath(path, country + DATA_FILE_EXTENSION);
-    std::string const osmToFeatureFilename =
+    string const & country = genInfo.m_bucketNames[i];
+    string const datFile = my::JoinPath(path, country + DATA_FILE_EXTENSION);
+    string const osmToFeatureFilename =
         genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
 
     if (FLAGS_generate_geometry)
@@ -288,7 +318,7 @@ int main(int argc, char ** argv)
 
       if (mapType == feature::DataHeader::country)
       {
-        std::string const metalinesFilename =
+        string const metalinesFilename =
             genInfo.GetIntermediateFileName(METALINES_FILENAME, "" /* extension */);
 
         LOG(LINFO, ("Processing metalines from", metalinesFilename));
@@ -348,9 +378,9 @@ int main(int argc, char ** argv)
         return -1;
       }
 
-      std::string const restrictionsFilename =
+      string const restrictionsFilename =
           genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME, "" /* extension */);
-      std::string const roadAccessFilename =
+      string const roadAccessFilename =
           genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME, "" /* extension */);
 
       routing::BuildRoadRestrictions(datFile, restrictionsFilename, osmToFeatureFilename);
@@ -393,7 +423,7 @@ int main(int argc, char ** argv)
     }
   }
 
-  std::string const datFile = my::JoinFoldersToPath(path, FLAGS_output + DATA_FILE_EXTENSION);
+  string const datFile = my::JoinPath(path, FLAGS_output + DATA_FILE_EXTENSION);
 
   if (FLAGS_calc_statistics)
   {

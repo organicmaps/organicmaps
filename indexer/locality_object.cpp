@@ -22,13 +22,11 @@ void LocalityObject::Deserialize(char const * data)
   }
 
   ASSERT_EQUAL(type, feature::GEOM_AREA, ("Only supported types are GEOM_POINT and GEOM_AREA."));
-  uint8_t trgCount;
+  uint32_t trgCount;
   ReadPrimitiveFromSource(src, trgCount);
-  if (trgCount > 0)
-  {
-    trgCount += 2;
-    char const * start = static_cast<char const *>(src.PtrC());
-    serial::LoadInnerTriangles(start, trgCount, cp, m_triangles);
-  }
+  CHECK_GREATER(trgCount, 0, ());
+  trgCount += 2;
+  char const * start = static_cast<char const *>(src.PtrC());
+  serial::LoadInnerTriangles(start, trgCount, cp, m_triangles);
 }
 }  // namespace indexer

@@ -9,7 +9,7 @@
 
 #include <functional>
 #include <list>
-
+#include <string>
 
 namespace serial { class CodingParams; }
 
@@ -254,6 +254,8 @@ public:
   /// @name Overwrite from base_type.
   //@{
   bool PreSerialize(SupportingData const & data);
+  bool IsLocalityObject();
+  void SerializeLocalityObject(serial::CodingParams const & params, SupportingData & data);
   void Serialize(SupportingData & data, serial::CodingParams const & params);
   //@}
 

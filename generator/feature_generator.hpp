@@ -30,7 +30,6 @@ private:
   void FlushBuffer();
 
 protected:
-  static uint32_t GetFileSize(FileWriter const & f);
 
   /// @return feature offset in the file, which is used as an ID later
   uint32_t WriteFeatureBase(std::vector<char> const & bytes, FeatureBuilder1 const & fb);
@@ -41,6 +40,7 @@ public:
   FeaturesCollector(std::string const & fName);
   virtual ~FeaturesCollector();
 
+  static uint32_t GetFileSize(FileWriter const & f);
   std::string const & GetFilePath() const { return m_datFile.GetName(); }
   /// \brief Serializes |f|.
   /// \returns feature id of serialized feature if |f| is serialized after the call

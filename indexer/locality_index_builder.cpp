@@ -57,19 +57,19 @@ private:
 };
 }  // namespace
 
-bool BuildLocalityIndexFromDataFile(string const & dataFile, string const & tmpFile)
+bool BuildLocalityIndexFromDataFile(string const & dataFile, string const & outFileName)
 {
   try
   {
-    string const idxFileName(tmpFile + LOCALITY_INDEX_TMP_EXT);
+    string const idxFileName(outFileName + LOCALITY_INDEX_TMP_EXT);
     {
       LocalityVectorReader localities(dataFile);
       FileWriter writer(idxFileName);
 
-      covering::BuildLocalityIndex(localities.GetVector(), writer, tmpFile);
+      covering::BuildLocalityIndex(localities.GetVector(), writer, outFileName);
     }
 
-    FilesContainerW(dataFile, FileWriter::OP_WRITE_EXISTING)
+    FilesContainerW(outFileName, FileWriter::OP_WRITE_TRUNCATE)
         .Write(idxFileName, LOCALITY_INDEX_FILE_TAG);
     FileWriter::DeleteFileX(idxFileName);
   }

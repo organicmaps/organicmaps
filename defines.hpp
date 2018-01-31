@@ -11,6 +11,8 @@
 #define EXTENSION_TMP ".tmp"
 #define ADDR_FILE_EXTENSION ".addr"
 #define RAW_GEOM_FILE_EXTENSION ".rawgeom"
+#define LOC_IDX_FILE_EXTENSION ".locidx"
+#define LOC_DATA_FILE_EXTENSION ".locdata"
 
 #define NODES_FILE "nodes.dat"
 #define WAYS_FILE "ways.dat"
