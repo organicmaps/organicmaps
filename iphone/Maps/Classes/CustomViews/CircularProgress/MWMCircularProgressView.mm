@@ -144,7 +144,8 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
         progress < 1.0 ? MWMCircularProgressStateProgress : MWMCircularProgressStateCompleted;
     [self stopSpinner];
   }
-  CGPoint const center = {self.width / 2.0, self.height / 2.0};
+  CGPoint const center = {static_cast<CGFloat>(self.width / 2.0),
+                          static_cast<CGFloat>(self.height / 2.0)};
   CGFloat const radius = MIN(center.x, center.y) - kLineWidth;
   UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center
                                                        radius:radius
