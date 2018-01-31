@@ -194,7 +194,9 @@ public class FilterFragment extends BaseMwmToolbarFragment
             return;
 
           HotelsFilter filter = populateFilter();
-          mListener.onFilterApply(filter);
+          mListener.onFilterApply(filter, new BookingFilterParams(mCheckinDate.getTimeInMillis(),
+                                                                  mCheckoutDate.getTimeInMillis(),
+                                                                  BookingFilterParams.Room.DEFAULT));
         });
 
     Bundle args = getArguments();
@@ -375,7 +377,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
 
       Calendar checkout = Calendar.getInstance();
       checkout.setTimeInMillis(params.getCheckoutMillisec());
-      mCheckinDate = checkout;
+      mCheckoutDate = checkout;
       mCheckOut.setText(DATE_FORMATTER.format(mCheckoutDate.getTime()));
     }
   }
@@ -478,6 +480,6 @@ public class FilterFragment extends BaseMwmToolbarFragment
 
   interface Listener
   {
-    void onFilterApply(@Nullable HotelsFilter filter);
+    void onFilterApply(@Nullable HotelsFilter filter, @Nullable BookingFilterParams params);
   }
 }

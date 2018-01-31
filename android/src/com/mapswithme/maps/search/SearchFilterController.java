@@ -15,6 +15,7 @@ import com.mapswithme.util.UiUtils;
 public class SearchFilterController
 {
   private static final String STATE_HOTEL_FILTER = "state_hotel_filter";
+  private static final String STATE_FILTER_PARAMS = "state_filter_params";
   private static final String STATE_HOTEL_FILTER_VISIBILITY = "state_hotel_filter_visibility";
 
   @NonNull
@@ -165,6 +166,7 @@ public class SearchFilterController
   public void onSaveState(@NonNull Bundle outState)
   {
     outState.putParcelable(STATE_HOTEL_FILTER, mFilter);
+    outState.putParcelable(STATE_FILTER_PARAMS, mBookingFilterParams);
     outState.putBoolean(STATE_HOTEL_FILTER_VISIBILITY,
                         mFilterButton.getVisibility() == View.VISIBLE);
   }
@@ -172,6 +174,7 @@ public class SearchFilterController
   public void onRestoreState(@NonNull Bundle state)
   {
     setFilter(state.getParcelable(STATE_HOTEL_FILTER));
+    setBookingFilterParams(state.getParcelable(STATE_FILTER_PARAMS));
     updateFilterButtonVisibility(state.getBoolean(STATE_HOTEL_FILTER_VISIBILITY, false));
   }
 

@@ -6,4 +6,6 @@ interface HotelsFilterHolder
 {
   @Nullable
   HotelsFilter getHotelsFilter();
+  @Nullable
+  BookingFilterParams getFilterParams();
 }

@@ -2,6 +2,7 @@ package com.mapswithme.maps.search;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -20,22 +21,26 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
   public static final String EXTRA_QUERY = "search_query";
   public static final String EXTRA_LOCALE = "locale";
   public static final String EXTRA_SEARCH_ON_MAP = "search_on_map";
-  public static final String EXTRA_HOTELS_FILTER = "hotels_filter";
 
   public static void start(@NonNull Activity activity, @Nullable String query,
-                           @Nullable HotelsFilter filter)
+                           @Nullable HotelsFilter filter, @Nullable BookingFilterParams params)
   {
-    start(activity, query, null /* locale */, false /* isSearchOnMap */, filter);
+    start(activity, query, null /* locale */, false /* isSearchOnMap */,
+          filter, params);
   }
 
   public static void start(@NonNull Activity activity, @Nullable String query, @Nullable String locale,
-                           boolean isSearchOnMap, @Nullable HotelsFilter filter)
+                           boolean isSearchOnMap, @Nullable HotelsFilter filter,
+                           @Nullable BookingFilterParams params)
   {
     final Intent i = new Intent(activity, SearchActivity.class);
-    i.putExtra(EXTRA_QUERY, query);
-    i.putExtra(EXTRA_LOCALE, locale);
-    i.putExtra(EXTRA_SEARCH_ON_MAP, isSearchOnMap);
-    i.putExtra(EXTRA_HOTELS_FILTER, filter);
+    Bundle args = new Bundle();
+    args.putString(EXTRA_QUERY, query);
+    args.putString(EXTRA_LOCALE, locale);
+    args.putBoolean(EXTRA_SEARCH_ON_MAP, isSearchOnMap);
+    args.putParcelable(FilterActivity.EXTRA_FILTER, filter);
+    args.putParcelable(FilterActivity.EXTRA_FILTER_PARAMS, params);
+    i.putExtras(args);
     activity.startActivity(i);
     activity.overridePendingTransition(R.anim.search_fade_in, R.anim.search_fade_out);
   }
@@ -75,11 +80,14 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
       {
         if (fragment instanceof HotelsFilterHolder)
         {
-          HotelsFilter filter = ((HotelsFilterHolder) fragment).getHotelsFilter();
+          HotelsFilterHolder holder = (HotelsFilterHolder) fragment;
+          HotelsFilter filter = holder.getHotelsFilter();
+          BookingFilterParams params = holder.getFilterParams();
           if (filter != null)
           {
             Intent intent = NavUtils.getParentActivityIntent(this);
-            intent.putExtra(EXTRA_HOTELS_FILTER, filter);
+            intent.putExtra(FilterActivity.EXTRA_FILTER, filter);
+            intent.putExtra(FilterActivity.EXTRA_FILTER_PARAMS, params);
             NavUtils.navigateUpTo(this, intent);
             return;
           }

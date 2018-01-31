@@ -279,6 +279,8 @@ public:
 
     jobjectArray const jrooms =
             static_cast<jobjectArray>(env->GetObjectField(bookingFilterParams, m_roomsId));
+    ASSERT(jrooms, ("Rooms musn't be non-null!"));
+
     auto const length = static_cast<size_t>(env->GetArrayLength(jrooms));
     result.m_rooms.resize(length);
     for (size_t i = 0; i < length; ++i)
@@ -290,7 +292,6 @@ public:
       room.SetAgeOfChild(static_cast<int8_t>(env->GetIntField(jroom, m_roomAgeOfChildId)));
       result.m_rooms[i] = move(room);
     }
-
     return result;
   }
 

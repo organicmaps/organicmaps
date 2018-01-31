@@ -216,6 +216,8 @@ public class SearchFragment extends BaseMwmFragment
   private boolean mInitialSearchOnMap = false;
   @Nullable
   private HotelsFilter mInitialHotelsFilter;
+  @Nullable
+  private BookingFilterParams mInitialFilterParams;
 
   private boolean mIsHotel;
   @NonNull
@@ -261,6 +263,16 @@ public class SearchFragment extends BaseMwmFragment
       return null;
 
     return mFilterController.getFilter();
+  }
+
+  @Nullable
+  @Override
+  public BookingFilterParams getFilterParams()
+  {
+    if (mFilterController == null)
+      return null;
+
+    return mFilterController.getBookingFilterParams();
   }
 
   private void showDownloadSuggest()
@@ -374,8 +386,14 @@ public class SearchFragment extends BaseMwmFragment
       @Override
       public void onFilterClick()
       {
-        HotelsFilter filter = mFilterController != null ? mFilterController.getFilter() : null;
-        FilterActivity.startForResult(SearchFragment.this, filter,
+        HotelsFilter filter = null;
+        BookingFilterParams params = null;
+        if (mFilterController != null)
+        {
+          filter = mFilterController.getFilter();
+          params = mFilterController.getBookingFilterParams();
+        }
+        FilterActivity.startForResult(SearchFragment.this, filter, params,
                                       FilterActivity.REQ_CODE_FILTER);
       }
 
@@ -389,6 +407,7 @@ public class SearchFragment extends BaseMwmFragment
       mFilterController.onRestoreState(savedInstanceState);
     if (mInitialHotelsFilter != null)
       mFilterController.setFilter(mInitialHotelsFilter);
+    mFilterController.setBookingFilterParams(mInitialFilterParams);
     mFilterController.updateFilterButtonVisibility(false);
 
     if (mSearchAdapter == null)
@@ -491,7 +510,8 @@ public class SearchFragment extends BaseMwmFragment
     mInitialQuery = arguments.getString(SearchActivity.EXTRA_QUERY);
     mInitialLocale = arguments.getString(SearchActivity.EXTRA_LOCALE);
     mInitialSearchOnMap = arguments.getBoolean(SearchActivity.EXTRA_SEARCH_ON_MAP);
-    mInitialHotelsFilter = arguments.getParcelable(SearchActivity.EXTRA_HOTELS_FILTER);
+    mInitialHotelsFilter = arguments.getParcelable(FilterActivity.EXTRA_FILTER);
+    mInitialFilterParams = arguments.getParcelable(FilterActivity.EXTRA_FILTER_PARAMS);
   }
 
   private boolean tryRecognizeLoggingCommand(@NonNull String str)
@@ -752,6 +772,8 @@ public class SearchFragment extends BaseMwmFragment
           return;
 
         mFilterController.setFilter(data.getParcelableExtra(FilterActivity.EXTRA_FILTER));
+        BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
+        mFilterController.setBookingFilterParams(params);
         runSearch();
         break;
     }

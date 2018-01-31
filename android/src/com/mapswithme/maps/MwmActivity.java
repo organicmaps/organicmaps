@@ -65,6 +65,7 @@ import com.mapswithme.maps.routing.RoutingBottomMenuListener;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
 import com.mapswithme.maps.routing.RoutingPlanInplaceController;
+import com.mapswithme.maps.search.BookingFilterParams;
 import com.mapswithme.maps.search.FilterActivity;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
 import com.mapswithme.maps.search.HotelsFilter;
@@ -419,12 +420,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
       final Bundle args = new Bundle();
       args.putString(SearchActivity.EXTRA_QUERY, query);
       if (mFilterController != null)
-        args.putParcelable(SearchActivity.EXTRA_HOTELS_FILTER, mFilterController.getFilter());
+      {
+        args.putParcelable(FilterActivity.EXTRA_FILTER, mFilterController.getFilter());
+        args.putParcelable(FilterActivity.EXTRA_FILTER_PARAMS, mFilterController.getBookingFilterParams());
+      }
       replaceFragment(SearchFragment.class, args, null);
     }
     else
     {
-      SearchActivity.start(this, query, mFilterController != null ? mFilterController.getFilter() : null);
+      HotelsFilter filter = null;
+      BookingFilterParams params = null;
+      if (mFilterController != null)
+      {
+        filter = mFilterController.getFilter();
+        params = mFilterController.getBookingFilterParams();
+      }
+      SearchActivity.start(this, query, filter, params);
     }
   }
 
@@ -575,8 +586,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
         @Override
         public void onFilterClick()
         {
-          HotelsFilter filter = mFilterController != null ? mFilterController.getFilter() : null;
-          FilterActivity.startForResult(MwmActivity.this, filter,
+          HotelsFilter filter = null;
+          BookingFilterParams params = null;
+          if (mFilterController != null)
+          {
+            filter = mFilterController.getFilter();
+            params = mFilterController.getBookingFilterParams();
+          }
+          FilterActivity.startForResult(MwmActivity.this, filter, params,
                                         FilterActivity.REQ_CODE_FILTER);
         }
 
@@ -1080,6 +1097,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mFilterController.setFilter(data.getParcelableExtra(FilterActivity.EXTRA_FILTER));
+    BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
+    mFilterController.setBookingFilterParams(params);
     runSearch();
   }
 
@@ -1150,12 +1169,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return true;
     }
 
-    HotelsFilter filter = intent.getParcelableExtra(SearchActivity.EXTRA_HOTELS_FILTER);
+    HotelsFilter filter = intent.getParcelableExtra(FilterActivity.EXTRA_FILTER);
+    BookingFilterParams params = intent.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
     if (mFilterController != null)
     {
       mFilterController.show(filter != null || !TextUtils.isEmpty(SearchEngine.getQuery()), true);
       mFilterController.setFilter(filter);
-      return filter != null;
+      mFilterController.setBookingFilterParams(params);
+      return filter != null || params != null;
     }
 
     return false;
@@ -1638,7 +1659,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return true;
       case ParsedUrlMwmRequest.RESULT_SEARCH:
         final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
-        SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap, null);
+        SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap,
+                             null, null);
         return true;
       case ParsedUrlMwmRequest.RESULT_LEAD:
         return true;
