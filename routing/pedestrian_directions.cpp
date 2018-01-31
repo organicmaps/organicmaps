@@ -90,6 +90,7 @@ void PedestrianDirectionsEngine::CalculateTurns(IndexRoadGraph const & graph,
     {
       graph.GetJunctionTypes(edge.GetStartJunction(), types);
 
+      // @TODO(bykoianko) Turn types Gate and LiftGate should be removed.
       if (HasType(m_typeLiftGate, types))
         turns.emplace_back(i, turns::PedestrianDirection::LiftGate);
       else if (HasType(m_typeGate, types))
