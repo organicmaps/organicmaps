@@ -18,7 +18,7 @@ float const kSecondaryOffsetY = 2.0;
 
 LocalAdsMark::LocalAdsMark(m2::PointD const & ptOrg,
                            UserMarkManager * manager)
-  : UserMark(ptOrg, manager, Type::LOCAL_ADS, 0)
+  : UserMark(ptOrg, manager, Type::LOCAL_ADS)
 {
   m_titleDecl.m_anchor = dp::Top;
   m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kLocalAdsPrimaryText);

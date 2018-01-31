@@ -98,7 +98,6 @@ public:
   {
     UserMarkNotificationGuard g(m_bm, UserMark::Type::DEBUG_MARK);
     g.m_controller.SetIsVisible(true);
-    g.m_controller.SetIsDrawable(true);
     for (auto const & p : points)
       g.m_controller.CreateUserMark(p);
   }

@@ -253,21 +253,13 @@ void UserMarkContainer::Clear()
   m_userMarks.clear();
 }
 
-void UserMarkContainer::SetIsDrawable(bool isDrawable)
-{
-  if (IsDrawable() != isDrawable)
-  {
-    SetDirty();
-    m_flags[DrawableFlag] = isDrawable;
-  }
-}
-
 void UserMarkContainer::SetIsVisible(bool isVisible)
 {
   if (IsVisible() != isVisible)
   {
     SetDirty();
     m_flags[VisibleFlag] = isVisible;
+    m_flags[DrawableFlag] = isVisible;
   }
 }
 

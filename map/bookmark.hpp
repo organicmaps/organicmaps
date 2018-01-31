@@ -74,10 +74,10 @@ class Bookmark : public UserMark
 {
   using Base = UserMark;
 public:
-  Bookmark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t index);
+  Bookmark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t containerId);
 
   Bookmark(BookmarkData const & data, m2::PointD const & ptOrg,
-           UserMarkManager * manager, size_t index);
+           UserMarkManager * manager, size_t containerId);
 
   void SetData(BookmarkData const & data);
   BookmarkData const & GetData() const;

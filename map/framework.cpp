@@ -763,7 +763,7 @@ bool Framework::DeleteBmCategory(size_t index)
 void Framework::FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const
 {
   info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(bac.m_categoryIndex));
-  BookmarkData const & data = GetBookmarkManager().GetBookmarkTmp(bac.m_categoryIndex, bac.m_bookmarkIndex)->GetData();
+  BookmarkData const & data = GetBookmarkManager().GetBookmark(bac.m_categoryIndex, bac.m_bookmarkIndex)->GetData();
   info.SetBookmarkData(data);
   info.SetBac(bac);
   FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
@@ -996,7 +996,7 @@ void Framework::ShowBookmark(df::MarkID id)
 
 void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
 {
-  auto const bookmark = GetBookmarkManager().GetBookmarkTmp(bnc.m_categoryIndex, bnc.m_bookmarkIndex);
+  auto const bookmark = GetBookmarkManager().GetBookmark(bnc.m_categoryIndex, bnc.m_bookmarkIndex);
   ShowBookmark(bookmark, bnc);
 }
 
@@ -1614,8 +1614,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
 
   if (clear)
     bmManager.ClearUserMarks(UserMark::Type::SEARCH);
-  bmManager.SetContainerIsVisible(UserMark::Type::SEARCH, true);
-  bmManager.SetContainerIsDrawable(UserMark::Type::SEARCH, true);
+  bmManager.SetIsVisible(UserMark::Type::SEARCH, true);
 
   for (auto it = begin; it != end; ++it)
   {
@@ -1647,7 +1646,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
 void Framework::ClearSearchResultsMarks()
 {
   GetBookmarkManager().ClearUserMarks(UserMark::Type::SEARCH);
-  GetBookmarkManager().NotifyChanges(UserMark::Type::SEARCH, 0);
+  GetBookmarkManager().NotifyChanges(UserMark::Type::SEARCH);
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
@@ -2041,8 +2040,7 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
     auto & bmManager = GetBookmarkManager();
     UserMarkNotificationGuard guard(bmManager, UserMark::Type::API);
     bmManager.ClearUserMarks(UserMark::Type::API);
-    bmManager.SetContainerIsVisible(UserMark::Type::API, true);
-    bmManager.SetContainerIsDrawable(UserMark::Type::API, true);
+    bmManager.SetIsVisible(UserMark::Type::API, true);
   }
 
   return m_ParsedMapApi.SetUriAndParse(url);
@@ -2121,14 +2119,14 @@ BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
 {
   BookmarkAndCategory empty;
   BookmarkAndCategory result;
-  ASSERT_LESS_OR_EQUAL(GetBmCategoriesCount(), numeric_limits<int>::max(), ());
-  result.m_categoryIndex = mark->GetCategoryIndex();
+  ASSERT_LESS_OR_EQUAL(GetBookmarkManager().GetBmCategoriesIds().size(), numeric_limits<int>::max(), ());
+  result.m_categoryIndex = mark->GetCategoryId();
   ASSERT(result.m_categoryIndex != empty.m_categoryIndex, ());
-  size_t const sz = GetBookmarkManager().GetBookmarksCount(result.m_categoryIndex);
+  size_t const sz = GetBookmarkManager().GetUserMarkCount(result.m_categoryIndex);
   ASSERT_LESS_OR_EQUAL(sz, numeric_limits<int>::max(), ());
   for (size_t i = 0; i < sz; ++i)
   {
-    if (mark == GetBookmarkManager().GetBookmarkTmp(result.m_categoryIndex, i))
+    if (mark == GetBookmarkManager().GetBookmark(result.m_categoryIndex, i))
     {
       result.m_bookmarkIndex = static_cast<int>(i);
       break;
@@ -2203,7 +2201,7 @@ void Framework::InvalidateUserMarks()
                                              UserMark::Type::DEBUG_MARK, UserMark::Type::ROUTING,
                                              UserMark::Type::LOCAL_ADS, UserMark::Type::STATIC};
   for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
-    GetBookmarkManager().NotifyChanges(types[typeIndex], 0);
+    GetBookmarkManager().NotifyChanges(types[typeIndex]);
 }
 
 void Framework::OnTapEvent(TapEvent const & tapEvent)

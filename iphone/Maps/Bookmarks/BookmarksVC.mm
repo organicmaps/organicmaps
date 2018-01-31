@@ -63,7 +63,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
   else if (section == m_trackSection)
     return GetFramework().GetBookmarkManager().GetTracksCount(m_categoryIndex);
   else if (section == m_bookmarkSection)
-    return GetFramework().GetBookmarkManager().GetBookmarksCount(m_categoryIndex);
+    return GetFramework().GetBookmarkManager().GetUserMarkCount(m_categoryIndex);
   else if (section == m_shareSection)
     return 1;
   else
@@ -75,8 +75,8 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
   [Statistics logEvent:kStatEventName(kStatBookmarks, kStatToggleVisibility)
                    withParameters:@{kStatValue : sender.on ? kStatVisible : kStatHidden}];
   auto & bmManager = GetFramework().GetBookmarkManager();
-  bmManager.SetCategoryIsVisible(m_categoryIndex, sender.on);
-  bmManager.NotifyChanges(UserMark::Type::BOOKMARK, m_categoryIndex);
+  bmManager.SetIsVisible(m_categoryIndex, sender.on);
+  bmManager.NotifyChanges(m_categoryIndex);
   bmManager.SaveToKMLFile(m_categoryIndex);
 }
 
@@ -148,7 +148,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
     UITableViewCell * bmCell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
     if (!bmCell)
       bmCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BookmarksVCBookmarkItemCell"];
-    Bookmark const * bm = bmManager.GetBookmarkTmp(m_categoryIndex, indexPath.row);
+    Bookmark const * bm = bmManager.GetBookmark(m_categoryIndex, indexPath.row);
     if (bm)
     {
       bmCell.textLabel.text = @(bm->GetName().c_str());
@@ -224,7 +224,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
   {
     if (cat)
     {
-      Bookmark const * bm = bmManager.GetBookmarkTmp(m_categoryIndex, indexPath.row);
+      Bookmark const * bm = bmManager.GetBookmark(m_categoryIndex, indexPath.row);
       ASSERT(bm, ("NULL bookmark"));
       if (bm)
       {
@@ -293,13 +293,13 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
           NSValue * value = [NSValue valueWithBytes:&bac objCType:@encode(BookmarkAndCategory)];
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarkDeletedNotification
                                                             object:value];
-          bmManager.DeleteBookmark(m_categoryIndex, indexPath.row);
+          bmManager.DeleteUserMark(m_categoryIndex, indexPath.row);
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                             object:nil
                                                           userInfo:nil];
         }
       }
-      bmManager.NotifyChanges(UserMark::Type::BOOKMARK, m_categoryIndex);
+      bmManager.NotifyChanges(m_categoryIndex);
       bmManager.SaveToKMLFile(m_categoryIndex);
       size_t previousNumberOfSections  = m_numberOfSections;
       [self calculateSections];
@@ -308,7 +308,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
         [self.tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationFade];
       else
         [self.tableView reloadData];
-      if (bmManager.GetBookmarksCount(m_categoryIndex) + bmManager.GetTracksCount(m_categoryIndex) == 0)
+      if (bmManager.GetUserMarkCount(m_categoryIndex) + bmManager.GetTracksCount(m_categoryIndex) == 0)
       {
         self.navigationItem.rightBarButtonItem = nil;
         [self setEditing:NO animated:YES];
@@ -332,7 +332,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
       NSIndexPath * indexPath = [table indexPathForCell:cell];
       if (indexPath.section == self->m_bookmarkSection)
       {
-        Bookmark const * bm = bmManager.GetBookmarkTmp(m_categoryIndex, indexPath.row);
+        Bookmark const * bm = bmManager.GetBookmark(m_categoryIndex, indexPath.row);
         if (bm)
         {
           m2::PointD const center = bm->GetPivot();
@@ -355,7 +355,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
   // Display Edit button only if table is not empty
   auto & bmManager = GetFramework().GetBookmarkManager();
   BookmarkCategory * cat = bmManager.GetBmCategory(m_categoryIndex);
-  if (cat && (bmManager.GetBookmarksCount(m_categoryIndex) + bmManager.GetTracksCount(m_categoryIndex)))
+  if (cat && (bmManager.GetUserMarkCount(m_categoryIndex) + bmManager.GetTracksCount(m_categoryIndex)))
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
   else
     self.navigationItem.rightBarButtonItem = nil;
@@ -451,7 +451,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
     m_trackSection = index++;
   else
     m_trackSection = EMPTY_SECTION;
-  if (bmManager.GetBookmarksCount(m_categoryIndex))
+  if (bmManager.GetUserMarkCount(m_categoryIndex))
     m_bookmarkSection = index++;
   else
     m_bookmarkSection = EMPTY_SECTION;

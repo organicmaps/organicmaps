@@ -3,7 +3,7 @@
 @class AddSetVC;
 @protocol AddSetVCDelegate <NSObject>
 
-- (void)addSetVC:(AddSetVC *)vc didAddSetWithIndex:(int)setIndex;
+- (void)addSetVC:(AddSetVC *)vc didAddSetWithCategoryId:(int)categoryId;
 
 @end
 

@@ -249,7 +249,6 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
       return;
     auto & controller = m_bmManager->GetUserMarksController(UserMark::Type::DEBUG_MARK);
     controller.SetIsVisible(true);
-    controller.SetIsDrawable(true);
     controller.CreateUserMark(pt);
     controller.NotifyChanges();
 #endif
@@ -413,7 +412,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
 {
   m_bmManager->ClearUserMarks(UserMark::Type::TRANSIT);
-  m_bmManager->NotifyChanges(UserMark::Type::TRANSIT, 0);
+  m_bmManager->NotifyChanges(UserMark::Type::TRANSIT);
 
   if (deactivateFollowing)
     SetPointsFollowingMode(false /* enabled */);
@@ -581,7 +580,7 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
   if (removeRoutePoints)
   {
     m_bmManager->ClearUserMarks(UserMark::Type::ROUTING);
-    m_bmManager->NotifyChanges(UserMark::Type::ROUTING, 0);
+    m_bmManager->NotifyChanges(UserMark::Type::ROUTING);
 
     CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
   }
@@ -786,7 +785,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
 
   m_bmManager->ClearUserMarks(UserMark::Type::TRANSIT);
-  m_bmManager->NotifyChanges(UserMark::Type::TRANSIT, 0);
+  m_bmManager->NotifyChanges(UserMark::Type::TRANSIT);
 
   auto routePoints = GetRoutePoints();
   if (routePoints.size() < 2)

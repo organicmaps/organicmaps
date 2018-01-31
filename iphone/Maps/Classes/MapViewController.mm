@@ -365,9 +365,10 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)openMigration { [self performSegueWithIdentifier:kMigrationSegue sender:self]; }
 - (void)openBookmarks
 {
-  BOOL const oneCategory = (GetFramework().GetBookmarkManager().GetBmCategoriesCount() == 1);
+  auto const & ids = GetFramework().GetBookmarkManager().GetBmCategoriesIds();
+  BOOL const oneCategory = (ids.size() == 1);
   MWMTableViewController * vc =
-      oneCategory ? [[BookmarksVC alloc] initWithCategory:0] : [[BookmarksRootVC alloc] init];
+      oneCategory ? [[BookmarksVC alloc] initWithCategory:(ids.front())] : [[BookmarksRootVC alloc] init];
   [self.navigationController pushViewController:vc animated:YES];
 }
 

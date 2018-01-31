@@ -50,7 +50,7 @@
   if (section == 0)
     return 1;
 
-  return GetFramework().GetBookmarkManager().GetBmCategoriesCount();
+  return GetFramework().GetBookmarkManager().GetBmCategoriesIds().size();
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -65,11 +65,12 @@
   else
   {
     auto & bmManager = GetFramework().GetBookmarkManager();
-    BookmarkCategory * cat = bmManager.GetBmCategory(indexPath.row);
+    auto categoryId = bmManager.GetBmCategoriesIds()[indexPath.row];
+    BookmarkCategory * cat = bmManager.GetBmCategory(categoryId);
     if (cat)
-      cell.textLabel.text = @(bmManager.GetCategoryName(indexPath.row).c_str());
+      cell.textLabel.text = @(bmManager.GetCategoryName(categoryId).c_str());
 
-    if (m_categoryIndex == indexPath.row)
+    if (m_categoryIndex == categoryId)
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
       cell.accessoryType = UITableViewCellAccessoryNone;
@@ -77,16 +78,16 @@
   return cell;
 }
 
-- (void)addSetVC:(AddSetVC *)vc didAddSetWithIndex:(int)setIndex
+- (void)addSetVC:(AddSetVC *)vc didAddSetWithCategoryId:(int)categoryId
 {
-  [self moveBookmarkToSetWithIndex:setIndex];
+  [self moveBookmarkToSetWithCategoryId:categoryId];
   [self.tableView reloadData];
-  [self.delegate didSelectCategory:self.category withCategoryIndex:setIndex];
+  [self.delegate didSelectCategory:self.category withCategoryIndex:categoryId];
 }
 
-- (void)moveBookmarkToSetWithIndex:(int)setIndex
+- (void)moveBookmarkToSetWithCategoryId:(int)categoryId
 {
-  self.category = @(GetFramework().GetBookmarkManager().GetCategoryName(setIndex).c_str());
+  self.category = @(GetFramework().GetBookmarkManager().GetCategoryName(categoryId).c_str());
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,8 +101,9 @@
   }
   else
   {
-    [self moveBookmarkToSetWithIndex:static_cast<int>(indexPath.row)];
-    [self.delegate didSelectCategory:self.category withCategoryIndex:indexPath.row];
+    auto categoryId = GetFramework().GetBookmarkManager().GetBmCategoriesIds()[indexPath.row];
+    [self moveBookmarkToSetWithCategoryId:static_cast<int>(categoryId)];
+    [self.delegate didSelectCategory:self.category withCategoryIndex:categoryId];
     [self backTap];
   }
 }

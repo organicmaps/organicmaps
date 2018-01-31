@@ -605,5 +605,5 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
     }
   }
 
-  m_bmManager->NotifyChanges(UserMark::Type::TRANSIT, 0);
+  m_bmManager->NotifyChanges(UserMark::Type::TRANSIT);
 }

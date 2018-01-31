@@ -7,8 +7,8 @@
 
 #include "base/string_utils.hpp"
 
-UserMark::UserMark(m2::PointD const & ptOrg, UserMarkManager * manager, UserMark::Type type, size_t index)
-  : m_ptOrg(ptOrg), m_manager(manager), m_type(type), m_index(index)
+UserMark::UserMark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t type)
+: m_ptOrg(ptOrg), m_manager(manager), m_type(min((UserMark::Type)type, UserMark::BOOKMARK)), m_id(type)
 {}
 
 m2::PointD const & UserMark::GetPivot() const
@@ -28,7 +28,7 @@ dp::Anchor UserMark::GetAnchor() const
 
 float UserMark::GetDepth() const
 {
-  return m_manager->GetPointDepth(m_type, m_index);
+  return m_manager->GetPointDepth(m_id);
 }
 
 df::RenderState::DepthLayer UserMark::GetDepthLayer() const
@@ -42,7 +42,7 @@ ms::LatLon UserMark::GetLatLon() const
 }
 
 StaticMarkPoint::StaticMarkPoint(UserMarkManager * manager)
-  : UserMark(m2::PointD{}, manager, UserMark::Type::STATIC, 0)
+  : UserMark(m2::PointD{}, manager, UserMark::Type::STATIC)
 {}
 
 void StaticMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
@@ -56,7 +56,7 @@ MyPositionMarkPoint::MyPositionMarkPoint(UserMarkManager * manager)
 {}
 
 DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg, UserMarkManager * manager)
-  : UserMark(ptOrg, manager, UserMark::Type::DEBUG_MARK, 0)
+  : UserMark(ptOrg, manager, UserMark::Type::DEBUG_MARK)
 {}
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> DebugMarkPoint::GetSymbolNames() const

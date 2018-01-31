@@ -113,169 +113,128 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
                          std::bind(&BookmarkManager::OnUpdateUserMarks, this, _1, _2),
                          std::bind(&BookmarkManager::OnDeleteUserMarks, this, _1, _2))
   , m_needTeardown(false)
+  , m_nextCategoryId(UserMark::BOOKMARK)
 {
   ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
+  m_userMarkLayers.resize(UserMark::PREDEFINED_COUNT);
+  m_userMarkLayers[UserMark::API] = my::make_unique<ApiUserMarkContainer>();
+  m_userMarkLayers[UserMark::SEARCH] = my::make_unique<SearchUserMarkContainer>();
+  m_userMarkLayers[UserMark::STATIC] = my::make_unique<StaticUserMarkContainer>();
+  m_userMarkLayers[UserMark::ROUTING] = my::make_unique<RouteUserMarkContainer>();
+  m_userMarkLayers[UserMark::TRANSIT] = my::make_unique<TransitMarkContainer>();
+  m_userMarkLayers[UserMark::LOCAL_ADS] = my::make_unique<LocalAdsMarkContainer>();
+  m_userMarkLayers[UserMark::DEBUG_MARK] = my::make_unique<DebugUserMarkContainer>();
 
-  m_userMarkLayers.emplace_back(my::make_unique<SearchUserMarkContainer>());
-  m_userMarkLayers.emplace_back(my::make_unique<ApiUserMarkContainer>());
-  m_userMarkLayers.emplace_back(my::make_unique<DebugUserMarkContainer>());
-  m_userMarkLayers.emplace_back(my::make_unique<RouteUserMarkContainer>());
-  m_userMarkLayers.emplace_back(my::make_unique<LocalAdsMarkContainer>());
-  m_userMarkLayers.emplace_back(my::make_unique<TransitMarkContainer>());
-
-  auto staticMarksContainer = my::make_unique<StaticUserMarkContainer>();
   m_selectionMark = my::make_unique<StaticMarkPoint>(this);
   m_myPositionMark = my::make_unique<MyPositionMarkPoint>(this);
-
-  m_userMarkLayers.emplace_back(std::move(staticMarksContainer));
 }
 
 BookmarkManager::~BookmarkManager()
 {
-  m_userMarkLayers.clear();
-
   ClearCategories();
 }
 
 ////////////////////////////
-float BookmarkManager::GetPointDepth(UserMark::Type type, size_t index) const
+float BookmarkManager::GetPointDepth(size_t categoryId) const
 {
-  if (type == UserMark::Type::BOOKMARK)
-  {
-    return GetBmCategory(index)->GetPointDepth();
-  }
-  else
-  {
-    return FindUserMarksContainer(type)->GetPointDepth();
-  }
+  return FindContainer(categoryId)->GetPointDepth();
 }
 
-void BookmarkManager::NotifyChanges(UserMark::Type type, size_t index)
+void BookmarkManager::NotifyChanges(size_t categoryId)
 {
-  if (type == UserMark::Type::BOOKMARK)
-  {
-    GetBmCategory(index)->NotifyChanges();
-  }
-  else
-  {
-    GetUserMarksController(type).NotifyChanges();
-  }
+  FindContainer(categoryId)->NotifyChanges();
 }
 
-size_t BookmarkManager::GetUserMarkCount(UserMark::Type type) const
+size_t BookmarkManager::GetUserMarkCount(size_t categoryId) const
 {
-  return GetUserMarksController(type).GetUserMarkCount();
+  return FindContainer(categoryId)->GetUserMarkCount();
 }
 
-UserMark const * BookmarkManager::GetUserMark(UserMark::Type type, size_t index) const
+UserMark const * BookmarkManager::GetUserMark(size_t categoryId, size_t index) const
 {
-  return GetUserMarksController(type).GetUserMark(index);
+  return FindContainer(categoryId)->GetUserMark(index);
 }
 
-UserMark * BookmarkManager::GetUserMarkForEdit(UserMark::Type type, size_t index)
+UserMark * BookmarkManager::GetUserMarkForEdit(size_t categoryId, size_t index)
 {
-  return GetUserMarksController(type).GetUserMarkForEdit(index);
+  return FindContainer(categoryId)->GetUserMarkForEdit(index);
 }
 
-void BookmarkManager::DeleteUserMark(UserMark::Type type, size_t index)
+void BookmarkManager::DeleteUserMark(size_t categoryId, size_t index)
 {
-  GetUserMarksController(type).DeleteUserMark(index);
+  FindContainer(categoryId)->DeleteUserMark(index);
 }
 
-void BookmarkManager::ClearUserMarks(UserMark::Type type)
+void BookmarkManager::ClearUserMarks(size_t categoryId)
 {
-  GetUserMarksController(type).Clear();
+  FindContainer(categoryId)->Clear();
 }
 
-size_t BookmarkManager::GetBookmarksCount(size_t categoryIndex) const
+Bookmark const * BookmarkManager::GetBookmark(size_t categoryId, size_t bmIndex) const
 {
-  return GetBmCategory(categoryIndex)->GetUserMarkCount();
+  ASSERT(categoryId >= UserMark::BOOKMARK, ());
+  return static_cast<Bookmark const *>(FindContainer(categoryId)->GetUserMark(bmIndex));
 }
 
-Bookmark const * BookmarkManager::GetBookmarkTmp(size_t categoryIndex, size_t bmIndex) const
+Bookmark * BookmarkManager::GetBookmarkForEdit(size_t categoryId, size_t bmIndex)
 {
-  return static_cast<Bookmark const *>(GetBmCategory(categoryIndex)->GetUserMark(bmIndex));
+  ASSERT(categoryId >= UserMark::BOOKMARK, ());
+  return static_cast<Bookmark *>(FindContainer(categoryId)->GetUserMarkForEdit(bmIndex));
 }
 
-Bookmark * BookmarkManager::GetBookmarkForEditTmp(size_t categoryIndex, size_t bmIndex)
+size_t BookmarkManager::GetTracksCount(size_t categoryId) const
 {
-  return static_cast<Bookmark *>(GetBmCategory(categoryIndex)->GetUserMarkForEdit(bmIndex));
+  return GetBmCategory(categoryId)->GetTracksCount();
 }
 
-void BookmarkManager::DeleteBookmark(size_t categoryIndex, size_t bmIndex)
+Track const * BookmarkManager::GetTrack(size_t categoryId, size_t index) const
 {
-  GetBmCategory(categoryIndex)->DeleteUserMark(bmIndex);
+  return GetBmCategory(categoryId)->GetTrack(index);
 }
 
-size_t BookmarkManager::GetTracksCount(size_t categoryIndex) const
+void BookmarkManager::DeleteTrack(size_t categoryId, size_t index)
 {
-  return GetBmCategory(categoryIndex)->GetTracksCount();
+  return GetBmCategory(categoryId)->DeleteTrack(index);
 }
 
-Track const * BookmarkManager::GetTrack(size_t categoryIndex, size_t index) const
+bool BookmarkManager::SaveToKMLFile(size_t categoryId)
 {
-  return GetBmCategory(categoryIndex)->GetTrack(index);
+  return GetBmCategory(categoryId)->SaveToKMLFile();
 }
 
-void BookmarkManager::DeleteTrack(size_t categoryIndex, size_t index)
+std::string const & BookmarkManager::GetCategoryName(size_t categoryId) const
 {
-  return GetBmCategory(categoryIndex)->DeleteTrack(index);
+  return GetBmCategory(categoryId)->GetName();
 }
 
-bool BookmarkManager::SaveToKMLFile(size_t categoryIndex)
+void BookmarkManager::SetCategoryName(size_t categoryId, std::string const & name)
 {
-  return GetBmCategory(categoryIndex)->SaveToKMLFile();
+  GetBmCategory(categoryId)->SetName(name);
 }
 
-std::string const & BookmarkManager::GetCategoryName(size_t categoryIndex) const
+std::string const & BookmarkManager::GetCategoryFileName(size_t categoryId) const
 {
-  return GetBmCategory(categoryIndex)->GetName();
+  return GetBmCategory(categoryId)->GetFileName();
 }
 
-void BookmarkManager::SetCategoryName(size_t categoryIndex, std::string const & name)
+UserMark const * BookmarkManager::FindMarkInRect(size_t categoryId, m2::AnyRectD const & rect, double & d) const
 {
-  GetBmCategory(categoryIndex)->SetName(name);
+  return FindContainer(categoryId)->FindMarkInRect(rect, d);
 }
 
-std::string const & BookmarkManager::GetCategoryFileName(size_t categoryIndex) const
+UserMark * BookmarkManager::CreateUserMark(size_t categoryId, m2::PointD const & ptOrg)
 {
-  return GetBmCategory(categoryIndex)->GetFileName();
+  return FindContainer(categoryId)->CreateUserMark(this, ptOrg);
 }
 
-UserMark const * BookmarkManager::FindMarkInRect(UserMark::Type type, size_t index, m2::AnyRectD const & rect, double & d) const
+void BookmarkManager::SetIsVisible(size_t categoryId, bool visible)
 {
-  return type == UserMark::Type::BOOKMARK ? GetBmCategory(index)->FindMarkInRect(rect, d)
-    : FindUserMarksContainer(type)->FindMarkInRect(rect, d);
-}
-
-UserMark * BookmarkManager::CreateUserMark(UserMark::Type type, m2::PointD const & ptOrg)
-{
-  return FindUserMarksContainer(type)->CreateUserMark(this, ptOrg);
-}
-
-UserMark * BookmarkManager::CreateBookmark(size_t index, m2::PointD const & ptOrg)
-{
-  return GetBmCategory(index)->CreateUserMark(this, ptOrg);
-}
-
-void BookmarkManager::SetContainerIsVisible(UserMark::Type type, bool visible)
-{
-  return FindUserMarksContainer(type)->SetIsVisible(visible);
-}
-
-void BookmarkManager::SetCategoryIsVisible(size_t categoryId, bool visible)
-{
-  return GetBmCategory(categoryId)->SetIsVisible(visible);
-}
-
-void BookmarkManager::SetContainerIsDrawable(UserMark::Type type, bool drawable)
-{
-  return FindUserMarksContainer(type)->SetIsDrawable(drawable);
+  return FindContainer(categoryId)->SetIsVisible(visible);
 }
 
 bool BookmarkManager::IsVisible(size_t categoryId) const
 {
-  return GetBmCategory(categoryId)->IsVisible();
+  return FindContainer(categoryId)->IsVisible();
 }
 
 ////////////////////////////
@@ -288,7 +247,7 @@ void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
     userMarkLayer->SetDrapeEngine(engine);
 
   for (auto & category : m_categories)
-    category->SetDrapeEngine(engine);
+    category.second->SetDrapeEngine(engine);
 }
 
 void BookmarkManager::UpdateViewport(ScreenBase const & screen)
@@ -321,6 +280,7 @@ void BookmarkManager::LoadState()
 void BookmarkManager::ClearCategories()
 {
   m_categories.clear();
+  m_categoriesIdList.clear();
 }
 
 void BookmarkManager::LoadBookmarks()
@@ -336,18 +296,15 @@ void BookmarkManager::LoadBookmarks()
     Platform::GetFilesByExt(dir, BOOKMARKS_FILE_EXTENSION, files);
 
     auto collection = std::make_shared<CategoriesCollection>();
-    size_t index = 0;
     for (auto const & file : files)
     {
-      auto cat = BookmarkCategory::CreateFromKMLFile(this, dir + file, index, m_bookmarksListeners);
+      size_t const id = m_nextCategoryId++;
+      auto cat = BookmarkCategory::CreateFromKMLFile(this, dir + file, id, m_bookmarksListeners);
       if (m_needTeardown)
         return;
 
       if (cat != nullptr)
-      {
-        collection->emplace_back(std::move(cat));
-        ++index;
-      }
+        collection->emplace(id, std::move(cat));
     }
     NotifyAboutFinishAsyncLoading(std::move(collection));
   });
@@ -382,15 +339,14 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     }
     else
     {
-      // XXX: will not work in case of several task work at the same time
-      auto const index = collection->size();
-      auto cat = BookmarkCategory::CreateFromKMLFile(this, fileSavePath.get(), index, m_bookmarksListeners);
+      auto const id = m_nextCategoryId++;
+      auto cat = BookmarkCategory::CreateFromKMLFile(this, fileSavePath.get(), id, m_bookmarksListeners);
       if (m_needTeardown)
         return;
 
       bool const categoryExists = (cat != nullptr);
       if (categoryExists)
-        collection->emplace_back(std::move(cat));
+        collection->emplace(id, std::move(cat));
 
       NotifyAboutFile(categoryExists, filePath, isTemporaryFile);
     }
@@ -504,23 +460,23 @@ boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & fil
 void BookmarkManager::InitBookmarks()
 {
   for (auto & cat : m_categories)
-    cat->NotifyChanges();
+    cat.second->NotifyChanges();
 }
 
-size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkData & bm)
+size_t BookmarkManager::AddBookmark(size_t categoryId, m2::PointD const & ptOrg, BookmarkData & bm)
 {
   bm.SetTimeStamp(time(0));
   bm.SetScale(df::GetDrawTileScale(m_viewport));
 
-  BookmarkCategory & cat = *m_categories[categoryIndex];
+  BookmarkCategory * cat = GetBmCategory(categoryId);
 
-  auto bookmark = static_cast<Bookmark *>(cat.CreateUserMark(this, ptOrg));
+  auto bookmark = static_cast<Bookmark *>(cat->CreateUserMark(this, ptOrg));
   bookmark->SetData(bm);
-  cat.SetIsVisible(true);
-  cat.SaveToKMLFile();
-  cat.NotifyChanges();
+  cat->SetIsVisible(true);
+  cat->SaveToKMLFile();
+  cat->NotifyChanges();
 
-  m_lastCategoryUrl = cat.GetFileName();
+  m_lastCategoryUrl = cat->GetFileName();
   m_lastType = bm.GetType();
   SaveState();
 
@@ -528,12 +484,12 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptO
   return 0;
 }
 
-size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t newCatIndex)
+size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatId, size_t newCatId)
 {
   BookmarkData data;
   m2::PointD ptOrg;
 
-  BookmarkCategory * cat = GetBmCategory(curCatIndex);
+  BookmarkCategory * cat = GetBmCategory(curCatId);
   auto bm = static_cast<Bookmark const *>(cat->GetUserMark(bmIndex));
   data = bm->GetData();
   ptOrg = bm->GetPivot();
@@ -542,15 +498,15 @@ size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t 
   cat->SaveToKMLFile();
   cat->NotifyChanges();
 
-  return AddBookmark(newCatIndex, ptOrg, data);
+  return AddBookmark(newCatId, ptOrg, data);
 }
 
-void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm)
+void BookmarkManager::ReplaceBookmark(size_t categoryId, size_t bmIndex, BookmarkData const & bm)
 {
-  BookmarkCategory & cat = *m_categories[catIndex];
-  static_cast<Bookmark *>(cat.GetUserMarkForEdit(bmIndex))->SetData(bm);
-  cat.SaveToKMLFile();
-  cat.NotifyChanges();
+  BookmarkCategory * cat = GetBmCategory(categoryId);
+  static_cast<Bookmark *>(cat->GetUserMarkForEdit(bmIndex))->SetData(bm);
+  cat->SaveToKMLFile();
+  cat->NotifyChanges();
 
   m_lastType = bm.GetType();
   SaveState();
@@ -558,16 +514,16 @@ void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkD
 
 size_t BookmarkManager::LastEditedBMCategory()
 {
-  for (size_t i = 0; i < m_categories.size(); ++i)
+  for (auto & cat : m_categories)
   {
-    if (m_categories[i]->GetFileName() == m_lastCategoryUrl)
-      return i;
+    if (cat.second->GetFileName() == m_lastCategoryUrl)
+      return cat.first;
   }
 
   if (m_categories.empty())
     CreateBmCategory(m_callbacks.m_getStringsBundle().GetString("my_places"));
 
-  return 0;
+  return m_categoriesIdList.front();
 }
 
 std::string BookmarkManager::LastEditedBMType() const
@@ -575,9 +531,11 @@ std::string BookmarkManager::LastEditedBMType() const
   return (m_lastType.empty() ? BookmarkCategory::GetDefaultType() : m_lastType);
 }
 
-BookmarkCategory * BookmarkManager::GetBmCategory(size_t index) const
+BookmarkCategory * BookmarkManager::GetBmCategory(size_t categoryId) const
 {
-  return (index < m_categories.size() ? m_categories[index].get() : 0);
+  ASSERT(categoryId >= UserMark::BOOKMARK, ());
+  auto const it = m_categories.find(categoryId);
+  return (it != m_categories.end() ? it->second.get() : 0);
 }
 
 void BookmarkManager::OnCreateUserMarks(UserMarkContainer const & container, df::IDCollection const & markIds)
@@ -637,29 +595,31 @@ void BookmarkManager::GetBookmarksData(UserMarkContainer const & container, df::
 
 size_t BookmarkManager::CreateBmCategory(std::string const & name)
 {
-  m_categories.emplace_back(new BookmarkCategory(name, m_categories.size(), m_bookmarksListeners));
+  size_t const id = m_nextCategoryId++;
+
+  auto & cat = m_categories[id];
+  cat = my::make_unique<BookmarkCategory>(name, id, m_bookmarksListeners);
+  m_categoriesIdList.push_back(id);
 
   df::DrapeEngineLockGuard lock(m_drapeEngine);
   if (lock)
-    m_categories.back()->SetDrapeEngine(lock.Get());
+    cat->SetDrapeEngine(lock.Get());
 
-  return (m_categories.size() - 1);
+  return id;
 }
 
-void BookmarkManager::DeleteBmCategory(CategoryIter it)
+bool BookmarkManager::DeleteBmCategory(size_t categoryId)
 {
-  BookmarkCategory & cat = *it->get();
+  auto it = m_categories.find(categoryId);
+  if (it == m_categories.end())
+    return false;
+
+  BookmarkCategory & cat = *it->second.get();
   cat.DeleteLater();
   FileWriter::DeleteFileX(cat.GetFileName());
   m_categories.erase(it);
-}
-
-bool BookmarkManager::DeleteBmCategory(size_t index)
-{
-  if (index >= m_categories.size())
-    return false;
-
-  DeleteBmCategory(m_categories.begin() + index);
+  m_categoriesIdList.erase(std::remove(m_categoriesIdList.begin(), m_categoriesIdList.end(), categoryId),
+    m_categoriesIdList.end());
   return true;
 }
 
@@ -675,10 +635,10 @@ public:
     , m_manager(manager)
   {}
 
-  void operator()(UserMark::Type type, size_t index)
+  void operator()(size_t categoryId)
   {
-    m2::AnyRectD const & rect = m_rectHolder(type);
-    if (UserMark const * p = m_manager->FindMarkInRect(type, index, rect, m_d))
+    m2::AnyRectD const & rect = m_rectHolder(min((UserMark::Type)categoryId, UserMark::BOOKMARK));
+    if (UserMark const * p = m_manager->FindMarkInRect(categoryId, rect, m_d))
     {
       static double const kEps = 1e-5;
       if (m_mark == nullptr || !p->GetPivot().EqualDxDy(m_mark->GetPivot(), kEps))
@@ -700,7 +660,7 @@ Bookmark const * BookmarkManager::GetBookmark(df::MarkID id) const
 {
   for (auto const & category : m_categories)
   {
-    auto const mark = category->GetUserMarkById(id);
+    auto const mark = category.second->GetUserMarkById(id);
     if (mark != nullptr)
     {
       ASSERT(dynamic_cast<Bookmark const *>(mark) != nullptr, ());
@@ -714,12 +674,12 @@ Bookmark const * BookmarkManager::GetBookmark(df::MarkID id, size_t & catIndex, 
 {
   size_t index = 0;
   UserMark const * mark = nullptr;
-  for (size_t i = 0; i < m_categories.size(); ++i)
+  for (auto & it : m_categories)
   {
-    mark = m_categories[i]->GetUserMarkById(id, index);
+    mark = it.second->GetUserMarkById(id, index);
     if (mark != nullptr)
     {
-      catIndex = i;
+      catIndex = it.first;
       bmIndex = index;
       ASSERT(dynamic_cast<Bookmark const *>(mark) != nullptr, ());
       return static_cast<Bookmark const *>(mark);
@@ -736,50 +696,35 @@ UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect)
 UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder) const
 {
   BestUserMarkFinder finder(holder, this);
-  finder(UserMark::Type::ROUTING, 0);
-  finder(UserMark::Type::SEARCH, 0);
-  finder(UserMark::Type::API, 0);
-  for (unsigned i = 0; i < m_categories.size(); ++i)
-    finder(UserMark::Type::BOOKMARK, i);
+  finder(UserMark::Type::ROUTING);
+  finder(UserMark::Type::SEARCH);
+  finder(UserMark::Type::API);
+  for (auto & it : m_categories)
+    finder(it.first);
 
   return finder.GetFoundMark();
 }
 
-bool BookmarkManager::UserMarksIsVisible(UserMark::Type type) const
+UserMarkContainer const * BookmarkManager::FindContainer(size_t containerId) const
 {
-  return FindUserMarksContainer(type)->IsVisible();
-}
-
-UserMarksController & BookmarkManager::GetUserMarksController(UserMark::Type type)
-{
-  return *FindUserMarksContainer(type);
-}
-
-UserMarksController const & BookmarkManager::GetUserMarksController(UserMark::Type type) const
-{
-  return *FindUserMarksContainer(type);
-}
-
-UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMark::Type type) const
-{
-  auto const iter = std::find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(),
-                                 [&type](std::unique_ptr<UserMarkContainer> const & cont)
+  if (containerId < UserMark::Type::BOOKMARK)
+    return m_userMarkLayers[containerId].get();
+  else
   {
-    return cont->GetType() == type;
-  });
-  ASSERT(iter != m_userMarkLayers.end(), ());
-  return iter->get();
+    ASSERT(m_categories.find(containerId) != m_categories.end(), ());
+    return m_categories.at(containerId).get();
+  }
 }
 
-UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMark::Type type)
+UserMarkContainer * BookmarkManager::FindContainer(size_t containerId)
 {
-  auto iter = std::find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(),
-                           [&type](std::unique_ptr<UserMarkContainer> const & cont)
+  if (containerId < UserMark::Type::BOOKMARK)
+    return m_userMarkLayers[containerId].get();
+  else
   {
-    return cont->GetType() == type;
-  });
-  ASSERT(iter != m_userMarkLayers.end(), ());
-  return iter->get();
+    auto const it = m_categories.find(containerId);
+    return it != m_categories.end() ? it->second.get() : 0;
+  }
 }
 
 std::unique_ptr<StaticMarkPoint> & BookmarkManager::SelectionMark()
@@ -812,51 +757,55 @@ void BookmarkManager::MergeCategories(CategoriesCollection && newCategories)
   {
     // Since all KML-files are being loaded asynchronously user can create
     // new category during loading. So we have to merge categories after loading.
-    std::string const categoryName = category->GetName();
+    std::string const categoryName = category.second->GetName();
     auto const it = std::find_if(newCategories.begin(), newCategories.end(),
-                                 [&categoryName](std::unique_ptr<BookmarkCategory> const & c)
+                                 [&categoryName](CategoriesCollection::value_type const & v)
     {
-      return c->GetName() == categoryName;
+      return v.second->GetName() == categoryName;
     });
     if (it == newCategories.end())
       continue;
+    auto * existingCat = category.second.get();
+    auto * newCat = it->second.get();
 
     // Copy bookmarks and tracks to the existing category.
-    for (size_t i = 0; i < (*it)->GetUserMarkCount(); ++i)
+    for (size_t i = 0, sz = newCat->GetUserMarkCount(); i < sz; ++i)
     {
-      auto srcBookmark = static_cast<Bookmark const *>((*it)->GetUserMark(i));
-      auto bookmark = static_cast<Bookmark *>(category->CreateUserMark(this, srcBookmark->GetPivot()));
+      auto srcBookmark = static_cast<Bookmark const *>(newCat->GetUserMark(i));
+      auto bookmark = static_cast<Bookmark *>(existingCat->CreateUserMark(this, srcBookmark->GetPivot()));
       bookmark->SetData(srcBookmark->GetData());
     }
-    category->AppendTracks((*it)->StealTracks());
-    category->SaveToKMLFile();
+    existingCat->AppendTracks(newCat->StealTracks());
+    existingCat->SaveToKMLFile();
 
     // Delete file since it has been merged.
-    my::DeleteFileX((*it)->GetFileName());
+    my::DeleteFileX(newCat->GetFileName());
 
     newCategories.erase(it);
   }
 
-  std::move(newCategories.begin(), newCategories.end(), std::back_inserter(m_categories));
+  for (auto & category : newCategories)
+    m_categoriesIdList.push_back(category.first);
+  m_categories.insert(make_move_iterator(newCategories.begin()),
+                      make_move_iterator(newCategories.end()));
 
   df::DrapeEngineLockGuard lock(m_drapeEngine);
   if (lock)
   {
     for (auto & cat : m_categories)
     {
-      cat->SetDrapeEngine(lock.Get());
-      cat->NotifyChanges();
+      cat.second->SetDrapeEngine(lock.Get());
+      cat.second->NotifyChanges();
     }
   }
 }
 
-UserMarkNotificationGuard::UserMarkNotificationGuard(BookmarkManager & mng, UserMark::Type type)
+UserMarkNotificationGuard::UserMarkNotificationGuard(BookmarkManager & mng, size_t containerId)
   : m_manager(mng),
-    m_type(type)
+    m_containerId(containerId)
 {}
 
 UserMarkNotificationGuard::~UserMarkNotificationGuard()
 {
-  ASSERT(m_type != UserMark::Type::BOOKMARK, ());
-  m_manager.NotifyChanges(m_type, 0);
+  m_manager.NotifyChanges(m_containerId);
 }

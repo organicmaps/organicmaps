@@ -24,7 +24,6 @@ protected:
 
   virtual size_t GetUserMarkCount() const = 0;
   virtual UserMark::Type GetType() const = 0;
-  virtual void SetIsDrawable(bool isDrawable) = 0;
   virtual void SetIsVisible(bool isVisible) = 0;
 
   virtual UserMark * CreateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg) = 0;
@@ -39,7 +38,7 @@ protected:
 class UserMarkManager
 {
 public:
-  virtual float GetPointDepth(UserMark::Type type, size_t index) const = 0;
+  virtual float GetPointDepth(size_t id) const = 0;
 };
 
 class UserMarkContainer : public df::UserMarksProvider
@@ -108,7 +107,6 @@ protected:
   UserMark * GetUserMarkForEdit(size_t index) override;
   void DeleteUserMark(size_t index) override;
   void Clear() override;
-  void SetIsDrawable(bool isDrawable) override;
   void SetIsVisible(bool isVisible) override;
   void Update() override;
   void NotifyChanges() override;

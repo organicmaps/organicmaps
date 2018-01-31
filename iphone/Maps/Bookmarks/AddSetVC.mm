@@ -37,7 +37,7 @@
   if (text.length == 0)
     return;
   [self.delegate addSetVC:self
-       didAddSetWithIndex:static_cast<int>(GetFramework().AddCategory(text.UTF8String))];
+       didAddSetWithCategoryId:static_cast<int>(GetFramework().AddCategory(text.UTF8String))];
   [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -32,19 +32,20 @@ public:
     TransitKeyStop
   };
 
-  enum class Type
+  enum Type: size_t
   {
     API,
     SEARCH,
     STATIC,
-    BOOKMARK,
     ROUTING,
     TRANSIT,
     LOCAL_ADS,
-    DEBUG_MARK
+    DEBUG_MARK,
+    BOOKMARK,
+    PREDEFINED_COUNT = BOOKMARK
   };
 
-  UserMark(m2::PointD const & ptOrg, UserMarkManager * container, Type type, size_t index);
+  UserMark(m2::PointD const & ptOrg, UserMarkManager * container, size_t type);
 
   // df::UserPointMark overrides.
   bool IsDirty() const override { return m_isDirty; }
@@ -71,7 +72,7 @@ public:
   ms::LatLon GetLatLon() const;
   virtual Type GetMarkType() const { return m_type; };
   virtual bool IsAvailableForSearch() const { return true; }
-  size_t GetCategoryIndex() const { return m_index; }
+  size_t GetCategoryId() const { return m_id; }
 
 protected:
   void SetDirty() { m_isDirty = true; }
@@ -79,7 +80,7 @@ protected:
   m2::PointD m_ptOrg;
   mutable UserMarkManager * m_manager;
   Type m_type;
-  size_t m_index;
+  size_t m_id;
 
 private:
   mutable bool m_isDirty = true;

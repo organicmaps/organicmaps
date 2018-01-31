@@ -22,8 +22,9 @@
 
 class BookmarkManager final : public UserMarkManager
 {
-  using CategoriesCollection = std::vector<std::unique_ptr<BookmarkCategory>>;
+  using CategoriesCollection = std::map<size_t, std::unique_ptr<BookmarkCategory>>;
   using CategoryIter = CategoriesCollection::iterator;
+  using CategoriesIdList = std::vector<size_t>;
 
   using UserMarkLayers = std::vector<std::unique_ptr<UserMarkContainer>>;
 public:
@@ -66,35 +67,29 @@ public:
   ~BookmarkManager();
 
   //////////////////
-  float GetPointDepth(UserMark::Type type, size_t index) const override;
-  void NotifyChanges(UserMark::Type type, size_t index);
-  size_t GetUserMarkCount(UserMark::Type type) const;
-  UserMark const * GetUserMark(UserMark::Type type, size_t index) const;
-  UserMark * GetUserMarkForEdit(UserMark::Type type, size_t index);
-  void DeleteUserMark(UserMark::Type type, size_t index);
-  void ClearUserMarks(UserMark::Type type);
-  size_t GetBookmarksCount(size_t categoryIndex) const;
-  Bookmark const * GetBookmarkTmp(size_t categoryIndex, size_t bmIndex) const;
-  Bookmark * GetBookmarkForEditTmp(size_t categoryIndex, size_t bmIndex);
-  void DeleteBookmark(size_t categoryIndex, size_t bmIndex);
-  size_t GetTracksCount(size_t categoryIndex) const;
-  Track const * GetTrack(size_t categoryIndex, size_t index) const;
-  void DeleteTrack(size_t categoryIndex, size_t index);
-  bool SaveToKMLFile(size_t categoryIndex);
-  std::string const & GetCategoryName(size_t categoryIndex) const;
-  void SetCategoryName(size_t categoryIndex, std::string const & name);
-  std::string const & GetCategoryFileName(size_t categoryIndex) const;
+  float GetPointDepth(size_t categoryId) const override;
+  void NotifyChanges(size_t categoryId);
+  size_t GetUserMarkCount(size_t categoryId) const;
+  UserMark const * GetUserMark(size_t categoryId, size_t index) const;
+  UserMark * GetUserMarkForEdit(size_t categoryId, size_t index);
+  void DeleteUserMark(size_t categoryId, size_t index);
+  void ClearUserMarks(size_t categoryId);
+  Bookmark const * GetBookmark(size_t categoryId, size_t bmIndex) const;
+  Bookmark * GetBookmarkForEdit(size_t categoryId, size_t bmIndex);
+  size_t GetTracksCount(size_t categoryId) const;
+  Track const * GetTrack(size_t categoryId, size_t index) const;
+  void DeleteTrack(size_t categoryId, size_t index);
+  bool SaveToKMLFile(size_t categoryId);
+  std::string const & GetCategoryName(size_t categoryId) const;
+  void SetCategoryName(size_t categoryId, std::string const & name);
+  std::string const & GetCategoryFileName(size_t categoryId) const;
 
-  UserMark const * FindMarkInRect(UserMark::Type type, size_t index, m2::AnyRectD const & rect, double & d) const;
+  UserMark const * FindMarkInRect(size_t categoryId, m2::AnyRectD const & rect, double & d) const;
 
-  UserMark * CreateUserMark(UserMark::Type type, m2::PointD const & ptOrg);
-  UserMark * CreateBookmark(size_t index, m2::PointD const & ptOrg);
+  UserMark * CreateUserMark(size_t categoryId, m2::PointD const & ptOrg);
 
-  void SetContainerIsVisible(UserMark::Type type, bool visible);
-  void SetCategoryIsVisible(size_t categoryId, bool visible);
-  void SetContainerIsDrawable(UserMark::Type type, bool drawable);
-
-  bool IsVisible(size_t catgoryId) const;
+  void SetIsVisible(size_t categoryId, bool visible);
+  bool IsVisible(size_t categoryId) const;
 
   /// Get valid file name from input (remove illegal symbols).
   static std::string RemoveInvalidSymbols(std::string const & name);
@@ -124,17 +119,16 @@ public:
   size_t LastEditedBMCategory();
   std::string LastEditedBMType() const;
 
-  inline size_t GetBmCategoriesCount() const { return m_categories.size(); }
+  CategoriesIdList const & GetBmCategoriesIds() const { return m_categoriesIdList; }
 
   /// @returns 0 if category is not found
-  BookmarkCategory * GetBmCategory(size_t index) const;
+  BookmarkCategory * GetBmCategory(size_t categoryId) const;
 
   size_t CreateBmCategory(std::string const & name);
 
   /// @name Delete bookmarks category with all bookmarks.
   /// @return true if category was deleted
-  void DeleteBmCategory(CategoryIter i);
-  bool DeleteBmCategory(size_t index);
+  bool DeleteBmCategory(size_t categoryId);
 
   using TTouchRectHolder = function<m2::AnyRectD(UserMark::Type)>;
 
@@ -144,11 +138,6 @@ public:
   UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
   UserMark const * FindNearestUserMark(TTouchRectHolder const & holder) const;
 
-  /// Additional layer methods
-  bool UserMarksIsVisible(UserMark::Type type) const;
-  UserMarksController & GetUserMarksController(UserMark::Type type);
-  UserMarksController const & GetUserMarksController(UserMark::Type type) const;
-
   std::unique_ptr<StaticMarkPoint> & SelectionMark();
   std::unique_ptr<StaticMarkPoint> const & SelectionMark() const;
   std::unique_ptr<MyPositionMarkPoint> & MyPositionMark();
@@ -157,8 +146,8 @@ public:
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
 private:
-  UserMarkContainer const * FindUserMarksContainer(UserMark::Type type) const;
-  UserMarkContainer * FindUserMarksContainer(UserMark::Type type);
+  UserMarkContainer const * FindContainer(size_t containerId) const;
+  UserMarkContainer * FindContainer(size_t containerId);
 
   void SaveState() const;
   void LoadState();
@@ -181,11 +170,13 @@ private:
   df::DrapeEngineSafePtr m_drapeEngine;
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
+  std::atomic<size_t> m_nextCategoryId;
   bool m_loadBookmarksFinished = false;
 
   ScreenBase m_viewport;
 
   CategoriesCollection m_categories;
+  CategoriesIdList m_categoriesIdList;
   std::string m_lastCategoryUrl;
   std::string m_lastType;
   UserMarkLayers m_userMarkLayers;
@@ -211,9 +202,9 @@ private:
 class UserMarkNotificationGuard
 {
 public:
-  UserMarkNotificationGuard(BookmarkManager & mng, UserMark::Type type);
+  UserMarkNotificationGuard(BookmarkManager & mng, size_t containerId);
   ~UserMarkNotificationGuard();
 
   BookmarkManager & m_manager;
-  UserMark::Type m_type;
+  size_t m_containerId;
 };

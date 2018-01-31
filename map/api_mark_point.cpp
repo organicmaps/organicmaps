@@ -30,12 +30,12 @@ string GetDefaultStyle() { return kSupportedColors[0]; }
 } // style
 
 ApiMarkPoint::ApiMarkPoint(m2::PointD const & ptOrg, UserMarkManager * manager)
-  : UserMark(ptOrg, manager, UserMark::Type::API, 0)
+  : UserMark(ptOrg, manager, UserMark::Type::API)
 {}
 
 ApiMarkPoint::ApiMarkPoint(string const & name, string const & id, string const & style,
                            m2::PointD const & ptOrg, UserMarkManager * manager)
-  : UserMark(ptOrg, manager, UserMark::Type::API, 0),
+  : UserMark(ptOrg, manager, UserMark::Type::API),
     m_name(name),
     m_id(id),
     m_style(style)

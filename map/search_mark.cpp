@@ -29,7 +29,7 @@ std::vector<std::string> const kPreparingSymbols =
 }  // namespace
 
 SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg, UserMarkManager * manager)
-  : UserMark(ptOrg, manager, UserMark::Type::SEARCH, 0)
+  : UserMark(ptOrg, manager, UserMark::Type::SEARCH)
 {}
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames() const
