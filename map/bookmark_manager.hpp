@@ -120,9 +120,7 @@ public:
   std::string LastEditedBMType() const;
 
   CategoriesIdList const & GetBmCategoriesIds() const { return m_categoriesIdList; }
-
-  /// @returns 0 if category is not found
-  BookmarkCategory * GetBmCategory(size_t categoryId) const;
+  bool HasBmCategory(size_t categoryId) const;
 
   size_t CreateBmCategory(std::string const & name);
 
@@ -148,6 +146,7 @@ public:
 private:
   UserMarkContainer const * FindContainer(size_t containerId) const;
   UserMarkContainer * FindContainer(size_t containerId);
+  BookmarkCategory * GetBmCategory(size_t categoryId) const;
 
   void SaveState() const;
   void LoadState();

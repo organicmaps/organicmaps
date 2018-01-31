@@ -66,8 +66,7 @@
   {
     auto & bmManager = GetFramework().GetBookmarkManager();
     auto categoryId = bmManager.GetBmCategoriesIds()[indexPath.row];
-    BookmarkCategory * cat = bmManager.GetBmCategory(categoryId);
-    if (cat)
+    if (bmManager.HasBmCategory(categoryId))
       cell.textLabel.text = @(bmManager.GetCategoryName(categoryId).c_str());
 
     if (m_categoryIndex == categoryId)

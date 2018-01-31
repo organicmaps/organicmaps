@@ -593,6 +593,11 @@ void BookmarkManager::GetBookmarksData(UserMarkContainer const & container, df::
   }
 }
 
+bool BookmarkManager::HasBmCategory(size_t categoryId) const
+{
+  return m_categories.find(categoryId) != m_categories.end();
+}
+
 size_t BookmarkManager::CreateBmCategory(std::string const & name)
 {
   size_t const id = m_nextCategoryId++;

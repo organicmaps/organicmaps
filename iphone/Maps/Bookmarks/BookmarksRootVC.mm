@@ -128,8 +128,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
   auto & bmManager = GetFramework().GetBookmarkManager();
   auto categoryId = bmManager.GetBmCategoriesIds()[row];
   UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
-  BookmarkCategory * cat = bmManager.GetBmCategory(categoryId);
-  if (cell && cat)
+  if (cell && bmManager.HasBmCategory(categoryId))
   {
     // Invert visibility
     bool visible = !bmManager.IsVisible(categoryId);
@@ -161,8 +160,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
 
   auto & bmManager = GetFramework().GetBookmarkManager();
   size_t const categoryIndex = bmManager.GetBmCategoriesIds()[indexPath.row];
-  BookmarkCategory const * cat = bmManager.GetBmCategory(categoryIndex);
-  if (cat)
+  if (bmManager.HasBmCategory(categoryIndex))
   {
     NSString * title = @(bmManager.GetCategoryName(categoryIndex).c_str());
     cell.textLabel.text = [self truncateString:title toWidth:(self.tableView.width - 122) withFont:cell.textLabel.font];
@@ -220,13 +218,12 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
       {
         cell.textLabel.text = txt;
         // Rename category
-        size_t const categoryIndex = [self.tableView indexPathForCell:cell].row;
         auto & bmManager = GetFramework().GetBookmarkManager();
-        BookmarkCategory * cat = bmManager.GetBmCategory(categoryIndex);
-        if (cat)
+        size_t const categoryId = bmManager.GetBmCategoriesIds()[[self.tableView indexPathForCell:cell].row];
+        if (bmManager.HasBmCategory(categoryId))
         {
-          bmManager.SetCategoryName(categoryIndex, txt.UTF8String);
-          bmManager.SaveToKMLFile(categoryIndex);
+          bmManager.SetCategoryName(categoryId, txt.UTF8String);
+          bmManager.SaveToKMLFile(categoryId);
         }
       }
       [f removeFromSuperview];
