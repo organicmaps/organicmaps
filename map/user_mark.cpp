@@ -7,8 +7,8 @@
 
 #include "base/string_utils.hpp"
 
-UserMark::UserMark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t type)
-: m_ptOrg(ptOrg), m_manager(manager), m_type(min((UserMark::Type)type, UserMark::BOOKMARK)), m_id(type)
+UserMark::UserMark(m2::PointD const & ptOrg, UserMarkManager * manager, UserMark::Type type)
+: m_ptOrg(ptOrg), m_manager(manager), m_type(type), m_id(type)
 {}
 
 m2::PointD const & UserMark::GetPivot() const
@@ -24,11 +24,6 @@ m2::PointD UserMark::GetPixelOffset() const
 dp::Anchor UserMark::GetAnchor() const
 {
   return dp::Center;
-}
-
-float UserMark::GetDepth() const
-{
-  return m_manager->GetPointDepth(m_id);
 }
 
 df::RenderState::DepthLayer UserMark::GetDepthLayer() const

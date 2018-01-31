@@ -74,10 +74,10 @@ class Bookmark : public UserMark
 {
   using Base = UserMark;
 public:
-  Bookmark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t containerId);
+  Bookmark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t categoryId);
 
   Bookmark(BookmarkData const & data, m2::PointD const & ptOrg,
-           UserMarkManager * manager, size_t containerId);
+           UserMarkManager * manager, size_t categoryId);
 
   void SetData(BookmarkData const & data);
   BookmarkData const & GetData() const;
@@ -103,8 +103,11 @@ public:
   double GetScale() const;
   void SetScale(double scale);
 
+  size_t GetCategoryId() const { return m_categoryId; }
+
 private:
   BookmarkData m_data;
+  size_t m_categoryId;
 };
 
 class BookmarkCategory : public UserMarkContainer

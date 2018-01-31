@@ -28,14 +28,16 @@
 #include <map>
 #include <memory>
 
-Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t containerId)
-  : Base(ptOrg, manager, containerId)
+Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t categoryId)
+  : Base(ptOrg, manager, UserMark::BOOKMARK)
+  , m_categoryId(categoryId)
 {}
 
 Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg,
-                   UserMarkManager * manager, size_t containerId)
-  : Base(ptOrg, manager, containerId)
+                   UserMarkManager * manager, size_t categoryId)
+  : Base(ptOrg, manager, UserMark::BOOKMARK)
   , m_data(data)
+  , m_categoryId(categoryId)
 {}
 
 void Bookmark::SetData(BookmarkData const & data)

@@ -2116,16 +2116,17 @@ BookmarkManager const & Framework::GetBookmarkManager() const
 
 BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
 {
+  Bookmark const * bookmark = static_cast<Bookmark const *>(mark);
   BookmarkAndCategory empty;
   BookmarkAndCategory result;
   ASSERT_LESS_OR_EQUAL(GetBookmarkManager().GetBmCategoriesIds().size(), numeric_limits<int>::max(), ());
-  result.m_categoryIndex = mark->GetCategoryId();
+  result.m_categoryIndex = bookmark->GetCategoryId();
   ASSERT(result.m_categoryIndex != empty.m_categoryIndex, ());
   size_t const sz = GetBookmarkManager().GetUserMarkCount(result.m_categoryIndex);
   ASSERT_LESS_OR_EQUAL(sz, numeric_limits<int>::max(), ());
   for (size_t i = 0; i < sz; ++i)
   {
-    if (mark == GetBookmarkManager().GetBookmark(result.m_categoryIndex, i))
+    if (bookmark == GetBookmarkManager().GetBookmark(result.m_categoryIndex, i))
     {
       result.m_bookmarkIndex = static_cast<int>(i);
       break;
