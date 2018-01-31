@@ -16,7 +16,7 @@ public:
   void SetParams(std::map<std::string, std::string> const & params) { m_params = params; }
   void SetHeaders(std::map<std::string, std::string> const & headers) { m_headers = headers; }
   void SetFileKey(std::string const & fileKey) { m_fileKey = fileKey; }
-  void SetFilename(std::string const & filename) { m_filename = filename; }
+  void SetFilename(std::string const & filePath) { m_filePath = filePath; }
   void SetCallback(ResultCallback const & callback) { m_callback = callback; }
 
   void Upload() const;
@@ -27,7 +27,7 @@ private:
   std::map<std::string, std::string> m_params;
   std::map<std::string, std::string> m_headers;
   std::string m_fileKey = "file";
-  std::string m_filename;
+  std::string m_filePath;
   ResultCallback m_callback;
 };
 }  // namespace platform
