@@ -510,3 +510,48 @@ UNIT_TEST(RussiaMoscowMikoiankNoUTurnTest)
   TEST_EQUAL(result, IRouter::NoError, ());
   integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
+
+UNIT_TEST(RussiaMoscowLeningradskiyPrptToTTKTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.78926, 37.55706), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.78925, 37.57110));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
+}
+
+UNIT_TEST(RussiaMoscowLeningradskiyPrptDublToTTKTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.79059, 37.55345), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.78925, 37.57110));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+}
+
+UNIT_TEST(RussiaMoscowSvobodaStTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.82484, 37.45151), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.81941, 37.45073));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+}
