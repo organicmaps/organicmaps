@@ -804,13 +804,3 @@ void BookmarkManager::MergeCategories(CategoriesCollection && newCategories)
     }
   }
 }
-
-UserMarkNotificationGuard::UserMarkNotificationGuard(BookmarkManager & mng, size_t containerId)
-  : m_manager(mng),
-    m_containerId(containerId)
-{}
-
-UserMarkNotificationGuard::~UserMarkNotificationGuard()
-{
-  m_manager.NotifyChanges(m_containerId);
-}

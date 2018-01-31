@@ -1610,8 +1610,6 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
                                        SearchMarkPostProcesing fn /* = nullptr */)
 {
   auto & bmManager = GetBookmarkManager();
-  UserMarkNotificationGuard guard(bmManager, UserMark::Type::SEARCH);
-
   if (clear)
     bmManager.ClearUserMarks(UserMark::Type::SEARCH);
   bmManager.SetIsVisible(UserMark::Type::SEARCH, true);
@@ -1641,6 +1639,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
     if (fn)
       fn(*mark);
   }
+  bmManager.NotifyChanges(UserMark::Type::SEARCH);
 }
 
 void Framework::ClearSearchResultsMarks()
@@ -2038,9 +2037,9 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
   // Clear every current API-mark.
   {
     auto & bmManager = GetBookmarkManager();
-    UserMarkNotificationGuard guard(bmManager, UserMark::Type::API);
     bmManager.ClearUserMarks(UserMark::Type::API);
     bmManager.SetIsVisible(UserMark::Type::API, true);
+    bmManager.NotifyChanges(UserMark::Type::API);
   }
 
   return m_ParsedMapApi.SetUriAndParse(url);

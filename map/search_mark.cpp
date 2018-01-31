@@ -126,7 +126,6 @@ void SearchMarks::SetPreparingState(std::vector<FeatureID> const & features, boo
 
   ASSERT(std::is_sorted(features.begin(), features.end()), ());
 
-  UserMarkNotificationGuard guard(*m_bmManager, UserMark::Type::SEARCH);
   size_t const count = m_bmManager->GetUserMarkCount(UserMark::Type::SEARCH);
   for (size_t i = 0; i < count; ++i)
   {
@@ -134,4 +133,5 @@ void SearchMarks::SetPreparingState(std::vector<FeatureID> const & features, boo
     if (std::binary_search(features.begin(), features.end(), mark->GetFeatureID()))
       mark->SetPreparing(isPreparing);
   }
+  m_bmManager->NotifyChanges(UserMark::Type::SEARCH);
 }

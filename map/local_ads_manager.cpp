@@ -144,7 +144,6 @@ void CreateLocalAdsMarks(BookmarkManager * bmManager, CampaignData const & campa
   // Here we copy campaign data, because we can create user marks only from UI thread.
   GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, campaignData]()
   {
-    UserMarkNotificationGuard guard(*bmManager, UserMark::Type::LOCAL_ADS);
     for (auto const & data : campaignData)
     {
       auto userMark = bmManager->CreateUserMark(UserMark::Type::LOCAL_ADS, data.second.m_position);
@@ -153,6 +152,7 @@ void CreateLocalAdsMarks(BookmarkManager * bmManager, CampaignData const & campa
       mark->SetData(LocalAdsMarkData(data.second));
       mark->SetFeatureId(data.first);
     }
+    bmManager->NotifyChanges(UserMark::Type::LOCAL_ADS);
   });
 }
 
@@ -163,7 +163,6 @@ void DeleteLocalAdsMarks(BookmarkManager * bmManager, MwmSet::MwmId const & mwmI
 
   GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, mwmId]()
   {
-    UserMarkNotificationGuard guard(*bmManager, UserMark::Type::LOCAL_ADS);
     for (size_t i = 0; i < bmManager->GetUserMarkCount(UserMark::Type::LOCAL_ADS);)
     {
       auto userMark = bmManager->GetUserMark(UserMark::Type::LOCAL_ADS, i);
@@ -174,6 +173,7 @@ void DeleteLocalAdsMarks(BookmarkManager * bmManager, MwmSet::MwmId const & mwmI
       else
         ++i;
     }
+    bmManager->NotifyChanges(UserMark::Type::LOCAL_ADS);
   });
 }
 
@@ -184,8 +184,8 @@ void DeleteAllLocalAdsMarks(BookmarkManager * bmManager)
 
   GetPlatform().RunTask(Platform::Thread::Gui, [bmManager]()
   {
-    UserMarkNotificationGuard guard(*bmManager, UserMark::Type::LOCAL_ADS);
     bmManager->ClearUserMarks(UserMark::Type::LOCAL_ADS);
+    bmManager->NotifyChanges(UserMark::Type::LOCAL_ADS);
   });
 }
 

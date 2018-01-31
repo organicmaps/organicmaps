@@ -193,7 +193,6 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
         return ParsingResult::Incorrect;
 
       ASSERT(m_bmManager != nullptr, ());
-      UserMarkNotificationGuard guard(*m_bmManager, UserMark::Type::API);
       for (auto const & p : points)
       {
         m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
@@ -202,6 +201,7 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
         mark->SetApiID(p.m_id);
         mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
       }
+      m_bmManager->NotifyChanges(UserMark::Type::API);
 
       return ParsingResult::Map;
     }
@@ -446,9 +446,7 @@ void ParsedMapApi::Reset()
 bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
 {
   ASSERT(m_bmManager != nullptr, ());
-  UserMarkNotificationGuard guard(*m_bmManager, UserMark::Type::API);
-
-  size_t markCount = m_bmManager->GetUserMarkCount(UserMark::Type::API);
+  size_t const markCount = m_bmManager->GetUserMarkCount(UserMark::Type::API);
   if (markCount == 1 && m_zoomLevel >= 1)
   {
     double zoom = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
@@ -474,8 +472,6 @@ bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
 ApiMarkPoint const * ParsedMapApi::GetSinglePoint() const
 {
   ASSERT(m_bmManager != nullptr, ());
-  UserMarkNotificationGuard guard(*m_bmManager, UserMark::Type::API);
-
   if (m_bmManager->GetUserMarkCount(UserMark::Type::API) != 1)
     return nullptr;
 

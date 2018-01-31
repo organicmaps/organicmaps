@@ -197,13 +197,3 @@ private:
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };
-
-class UserMarkNotificationGuard
-{
-public:
-  UserMarkNotificationGuard(BookmarkManager & mng, size_t containerId);
-  ~UserMarkNotificationGuard();
-
-  BookmarkManager & m_manager;
-  size_t m_containerId;
-};

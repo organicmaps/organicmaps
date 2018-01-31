@@ -51,8 +51,8 @@ static NSString * const kKeyPath = @"subviews";
   Framework & f = GetFramework();
   f.DeactivateMapSelection(true);
   auto & bmManager = f.GetBookmarkManager();
-  UserMarkNotificationGuard guard(bmManager, UserMark::Type::API);
   bmManager.ClearUserMarks(UserMark::Type::API);
+  bmManager.NotifyChanges(UserMark::Type::API);
   NSURL * url = [NSURL URLWithString:@(f.GetApiDataHolder().GetGlobalBackUrl().c_str())];
   [UIApplication.sharedApplication openURL:url];
 }
