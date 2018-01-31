@@ -216,6 +216,11 @@
     <item name="android:textAllCaps">true</item>
   </style>
 
+  <style name="MwmTextAppearance.BookingFilter.Warning" parent="MwmTextAppearance.Body3">
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
+    <item name="android:textColor">@color/button_red</item>
+  </style>
+
   <style name="MwmTextAppearance.BookingFilter.DateTextView" parent="MwmTextAppearance.Body3">
     <item name="android:singleLine">true</item>
     <item name="android:ellipsize">end</item>
