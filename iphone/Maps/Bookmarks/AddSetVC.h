@@ -1,9 +1,11 @@
 #import "MWMTableViewController.h"
 
+#include "drape_frontend/user_marks_global.hpp"
+
 @class AddSetVC;
 @protocol AddSetVCDelegate <NSObject>
 
-- (void)addSetVC:(AddSetVC *)vc didAddSetWithCategoryId:(int)categoryId;
+- (void)addSetVC:(AddSetVC *)vc didAddSetWithCategoryId:(df::MarkGroupID)categoryId;
 
 @end
 

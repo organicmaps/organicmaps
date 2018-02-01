@@ -22,19 +22,4 @@ UserLineMark::UserLineMark()
 {
 }
 
-UserMarksProvider::UserMarksProvider()
-  : m_pendingOnDelete(false)
-{
-}
-
-bool UserMarksProvider::IsPendingOnDelete()
-{
-  return m_pendingOnDelete;
-}
-
-void UserMarksProvider::DeleteLater()
-{
-  ASSERT(m_pendingOnDelete == false, ());
-  m_pendingOnDelete = true;
-}
 }  // namespace df

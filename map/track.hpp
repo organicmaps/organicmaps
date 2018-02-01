@@ -50,8 +50,13 @@ public:
   float GetDepth(size_t layerIndex) const override;
   std::vector<m2::PointD> const & GetPoints() const override;
 
+  df::MarkGroupID GetGroupId() const { return m_groupID; }
+  void Attach(df::MarkGroupID groupID);
+  void Detach();
+
 private:
   PolylineD m_polyline;
   Params m_params;
+  df::MarkGroupID m_groupID;
   mutable bool m_isDirty = true;
 };

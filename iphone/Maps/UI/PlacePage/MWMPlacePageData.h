@@ -13,7 +13,6 @@
 @class MWMPlacePageData;
 @class MWMUGCReviewVM;
 
-struct BookmarkAndCategory;
 struct FeatureID;
 
 namespace ugc
@@ -216,7 +215,8 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (NSString *)bookmarkColor;
 - (NSString *)bookmarkDescription;
 - (NSString *)bookmarkCategory;
-- (BookmarkAndCategory)bookmarkAndCategory;
+- (df::MarkID)bookmarkId;
+- (df::MarkGroupID)bookmarkCategoryId;
 
 // Local Ads
 - (NSString *)localAdsURL;

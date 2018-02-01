@@ -9,6 +9,7 @@
 Track::Track(Track::PolylineD const & polyline, Track::Params const & p)
   : m_polyline(polyline)
   , m_params(p)
+  , m_groupID(0)
 {
   ASSERT_GREATER(m_polyline.GetSize(), 1, ());
 }
@@ -70,4 +71,15 @@ float Track::GetDepth(size_t layerIndex) const
 std::vector<m2::PointD> const & Track::GetPoints() const
 {
   return m_polyline.GetPoints();
+}
+
+void Track::Attach(df::MarkGroupID groupID)
+{
+  ASSERT(!m_groupID, ());
+  m_groupID = groupID;
+}
+
+void Track::Detach()
+{
+  m_groupID = 0;
 }

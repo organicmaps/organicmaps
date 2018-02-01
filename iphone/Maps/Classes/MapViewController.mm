@@ -365,7 +365,7 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)openMigration { [self performSegueWithIdentifier:kMigrationSegue sender:self]; }
 - (void)openBookmarks
 {
-  auto const & ids = GetFramework().GetBookmarkManager().GetBmCategoriesIds();
+  auto const & ids = GetFramework().GetBookmarkManager().GetBmGroupsIdList();
   BOOL const oneCategory = (ids.size() == 1);
   MWMTableViewController * vc =
       oneCategory ? [[BookmarksVC alloc] initWithCategory:(ids.front())] : [[BookmarksRootVC alloc] init];

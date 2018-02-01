@@ -7,7 +7,7 @@
 
 @interface SelectSetVC () <AddSetVCDelegate>
 {
-  size_t m_categoryIndex;
+  df::MarkGroupID m_categoryId;
 }
 
 @property (copy, nonatomic) NSString * category;
@@ -18,14 +18,14 @@
 @implementation SelectSetVC
 
 - (instancetype)initWithCategory:(NSString *)category
-                   categoryIndex:(size_t)categoryIndex
+                   categoryId:(df::MarkGroupID)categoryId
                         delegate:(id<MWMSelectSetDelegate>)delegate
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
     _category = category;
-    m_categoryIndex = categoryIndex;
+    m_categoryId = categoryId;
     _delegate = delegate;
   }
   return self;
@@ -50,7 +50,7 @@
   if (section == 0)
     return 1;
 
-  return GetFramework().GetBookmarkManager().GetBmCategoriesIds().size();
+  return GetFramework().GetBookmarkManager().GetBmGroupsIdList().size();
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -65,11 +65,11 @@
   else
   {
     auto & bmManager = GetFramework().GetBookmarkManager();
-    auto categoryId = bmManager.GetBmCategoriesIds()[indexPath.row];
+    auto categoryId = bmManager.GetBmGroupsIdList()[indexPath.row];
     if (bmManager.HasBmCategory(categoryId))
       cell.textLabel.text = @(bmManager.GetCategoryName(categoryId).c_str());
 
-    if (m_categoryIndex == categoryId)
+    if (m_categoryId == categoryId)
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
       cell.accessoryType = UITableViewCellAccessoryNone;
@@ -77,14 +77,14 @@
   return cell;
 }
 
-- (void)addSetVC:(AddSetVC *)vc didAddSetWithCategoryId:(int)categoryId
+- (void)addSetVC:(AddSetVC *)vc didAddSetWithCategoryId:(df::MarkGroupID)categoryId
 {
   [self moveBookmarkToSetWithCategoryId:categoryId];
   [self.tableView reloadData];
-  [self.delegate didSelectCategory:self.category withCategoryIndex:categoryId];
+  [self.delegate didSelectCategory:self.category withCategoryId:categoryId];
 }
 
-- (void)moveBookmarkToSetWithCategoryId:(int)categoryId
+- (void)moveBookmarkToSetWithCategoryId:(df::MarkGroupID)categoryId
 {
   self.category = @(GetFramework().GetBookmarkManager().GetCategoryName(categoryId).c_str());
 }
@@ -100,9 +100,9 @@
   }
   else
   {
-    auto categoryId = GetFramework().GetBookmarkManager().GetBmCategoriesIds()[indexPath.row];
-    [self moveBookmarkToSetWithCategoryId:static_cast<int>(categoryId)];
-    [self.delegate didSelectCategory:self.category withCategoryIndex:categoryId];
+    auto categoryId = GetFramework().GetBookmarkManager().GetBmGroupsIdList()[indexPath.row];
+    [self moveBookmarkToSetWithCategoryId:categoryId];
+    [self.delegate didSelectCategory:self.category withCategoryId:categoryId];
     [self backTap];
   }
 }

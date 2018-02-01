@@ -110,7 +110,7 @@ RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, vector<RouteMarkDa
   data.m_intermediateIndex = 0;
   if (data.m_isMyPosition)
   {
-    data.m_position = bmManager->MyPositionMark()->GetPivot();
+    data.m_position = bmManager->MyPositionMark().GetPivot();
     data.m_isMyPosition = false;
   }
 
@@ -247,10 +247,9 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 #ifdef SHOW_ROUTE_DEBUG_MARKS
     if (m_bmManager == nullptr)
       return;
-    auto & controller = m_bmManager->GetUserMarksController(UserMark::Type::DEBUG_MARK);
-    controller.SetIsVisible(true);
-    controller.CreateUserMark(pt);
-    controller.NotifyChanges();
+    m_bmManager->SetIsVisible(UserMark::Type::DEBUG_MARK, true);
+    m_bmManager->CreateUserMark<DebugMarkPoint>(pt);
+    m_bmManager->NotifyChanges(UserMark::Type::DEBUG_MARK);
 #endif
   });
 
@@ -629,7 +628,8 @@ bool RoutingManager::CouldAddIntermediatePoint() const
   if (!IsRoutingActive())
     return false;
 
-  return m_bmManager->GetUserMarkCount(UserMark::Type::ROUTING) < RoutePointsLayout::kMaxIntermediatePointsCount + 2;
+  return m_bmManager->GetUserMarkIds(UserMark::Type::ROUTING).size()
+    < RoutePointsLayout::kMaxIntermediatePointsCount + 2;
 }
 
 void RoutingManager::AddRoutePoint(RouteMarkData && markData)
@@ -802,12 +802,12 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
       continue;
 
     auto const & myPosition = m_bmManager->MyPositionMark();
-    if (!myPosition->HasPosition())
+    if (!myPosition.HasPosition())
     {
       CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
       return;
     }
-    p.m_position = myPosition->GetPivot();
+    p.m_position = myPosition.GetPivot();
   }
 
   // Check for equal points.
@@ -1172,12 +1172,12 @@ bool RoutingManager::LoadRoutePoints()
   m_bmManager->ClearUserMarks(UserMark::Type::ROUTING);
   for (auto & p : points)
   {
-    if (p.m_pointType == RouteMarkType::Start && myPosMark->HasPosition())
+    if (p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
     {
       RouteMarkData startPt;
       startPt.m_pointType = RouteMarkType::Start;
       startPt.m_isMyPosition = true;
-      startPt.m_position = myPosMark->GetPivot();
+      startPt.m_position = myPosMark.GetPivot();
       AddRoutePoint(move(startPt));
     }
     else
@@ -1188,7 +1188,7 @@ bool RoutingManager::LoadRoutePoints()
 
   // If we don't have my position, save loading timestamp. Probably
   // we will get my position soon.
-  if (!myPosMark->HasPosition())
+  if (!myPosMark.HasPosition())
     m_loadRoutePointsTimestamp = chrono::steady_clock::now();
 
   return true;

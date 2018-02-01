@@ -122,7 +122,6 @@ void AddTransitGateSegment(m2::PointD const & destPoint, df::ColorConstant const
   ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
   df::SubrouteStyle style(color, df::RoutePattern(4.0, 2.0));
   style.m_startIndex = subroute.m_polyline.GetSize() - 1;
-  auto const vec = destPoint - subroute.m_polyline.Back();
   subroute.m_polyline.Add(destPoint);
   style.m_endIndex = subroute.m_polyline.GetSize() - 1;
   subroute.AddStyle(style);
@@ -459,12 +458,9 @@ void TransitRouteDisplay::CollectTransitDisplayInfo(vector<RouteSegment> const &
 
 TransitMark * TransitRouteDisplay::CreateMark(m2::PointD const & pt, FeatureID const & fid)
 {
-  uint32_t const nextIndex = static_cast<uint32_t>(m_bmManager->GetUserMarkCount(UserMark::Type::TRANSIT));
+  uint32_t const nextIndex = static_cast<uint32_t>(m_bmManager->GetUserMarkIds(UserMark::Type::TRANSIT).size());
 
-  auto userMark = m_bmManager->CreateUserMark(UserMark::Type::TRANSIT, pt);
-  ASSERT(dynamic_cast<TransitMark *>(userMark) != nullptr, ());
-  auto transitMark = static_cast<TransitMark *>(userMark);
-
+  auto * transitMark = m_bmManager->CreateUserMark<TransitMark>(pt);
   transitMark->SetFeatureId(fid);
   transitMark->SetIndex(nextIndex);
   return transitMark;

@@ -97,8 +97,6 @@ public:
 private:
   using TRoutePointCallback = function<void (RouteMarkPoint * mark)>;
   void ForEachIntermediatePoint(TRoutePointCallback const & fn);
-  RouteMarkPoint * GetRouteMarkForEdit(size_t index);
-  RouteMarkPoint const * GetRouteMark(size_t index);
 
   BookmarkManager & m_manager;
 };

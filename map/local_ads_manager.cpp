@@ -146,9 +146,7 @@ void CreateLocalAdsMarks(BookmarkManager * bmManager, CampaignData const & campa
   {
     for (auto const & data : campaignData)
     {
-      auto userMark = bmManager->CreateUserMark(UserMark::Type::LOCAL_ADS, data.second.m_position);
-      ASSERT(dynamic_cast<LocalAdsMark *>(userMark) != nullptr, ());
-      LocalAdsMark * mark = static_cast<LocalAdsMark *>(userMark);
+      auto * mark = bmManager->CreateUserMark<LocalAdsMark>(data.second.m_position);
       mark->SetData(LocalAdsMarkData(data.second));
       mark->SetFeatureId(data.first);
     }
@@ -163,16 +161,11 @@ void DeleteLocalAdsMarks(BookmarkManager * bmManager, MwmSet::MwmId const & mwmI
 
   GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, mwmId]()
   {
-    for (size_t i = 0; i < bmManager->GetUserMarkCount(UserMark::Type::LOCAL_ADS);)
-    {
-      auto userMark = bmManager->GetUserMark(UserMark::Type::LOCAL_ADS, i);
-      ASSERT(dynamic_cast<LocalAdsMark const *>(userMark) != nullptr, ());
-      LocalAdsMark const * mark = static_cast<LocalAdsMark const *>(userMark);
-      if (mark->GetFeatureID().m_mwmId == mwmId)
-        bmManager->DeleteUserMark(UserMark::Type::LOCAL_ADS, i);
-      else
-        ++i;
-    }
+    bmManager->DeleteUserMarks<LocalAdsMark>(UserMark::Type::LOCAL_ADS,
+                                             [&mwmId](LocalAdsMark const * mark)
+                                             {
+                                               return mark->GetFeatureID().m_mwmId == mwmId;
+                                             });
     bmManager->NotifyChanges(UserMark::Type::LOCAL_ADS);
   });
 }

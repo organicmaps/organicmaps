@@ -69,7 +69,7 @@ public:
 
   /// Place traits
   bool IsFeature() const { return m_featureID.IsValid(); }
-  bool IsBookmark() const { return m_bac.IsValid(); }
+  bool IsBookmark() const { return m_markGroupId != 0; }
   bool IsMyPosition() const { return m_isMyPosition; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
 
@@ -116,9 +116,11 @@ public:
   void SetLocalizedWifiString(std::string const & str) { m_localizedWifiString = str; }
 
   /// Bookmark
-  BookmarkAndCategory const & GetBookmarkAndCategory() const { return m_bac; }
+  void SetBookmarkId(df::MarkID markId);
+  df::MarkID GetBookmarkId() const { return m_markId; }
+  void SetBookmarkCategoryId(df::MarkGroupID markGroupId) { m_markGroupId = markGroupId; }
+  df::MarkGroupID GetBookmarkCategoryId() const { return m_markGroupId; }
   std::string const & GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
-  void SetBac(BookmarkAndCategory const & bac);
   void SetBookmarkCategoryName(std::string const & name) { m_bookmarkCategoryName = name; }
   void SetBookmarkData(BookmarkData const & data) { m_bookmarkData = data; }
   BookmarkData const & GetBookmarkData() const { return m_bookmarkData; }
@@ -235,7 +237,8 @@ private:
 
   /// Bookmarks
   /// If not empty, bookmark is bound to this place page.
-  BookmarkAndCategory m_bac;
+  df::MarkID m_markId = 0;
+  df::MarkGroupID m_markGroupId = 0;
   /// Bookmark category name. Empty, if it's not bookmark;
   std::string m_bookmarkCategoryName;
   BookmarkData m_bookmarkData;

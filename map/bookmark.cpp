@@ -8,9 +8,9 @@
 #include "geometry/mercator.hpp"
 
 #include "coding/file_reader.hpp"
+#include "coding/hex.hpp"
 #include "coding/parse_xml.hpp"  // LoadFromKML
 #include "coding/internal/file_data.hpp"
-#include "coding/hex.hpp"
 
 #include "drape/drape_global.hpp"
 #include "drape/color.hpp"
@@ -28,15 +28,15 @@
 #include <map>
 #include <memory>
 
-Bookmark::Bookmark(m2::PointD const & ptOrg, size_t categoryId)
+Bookmark::Bookmark(m2::PointD const & ptOrg)
   : Base(ptOrg, UserMark::BOOKMARK)
-  , m_categoryId(categoryId)
+  , m_groupId(0)
 {}
 
-Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, size_t categoryId)
+Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg)
   : Base(ptOrg, UserMark::BOOKMARK)
   , m_data(data)
-  , m_categoryId(categoryId)
+  , m_groupId(0)
 {}
 
 void Bookmark::SetData(BookmarkData const & data)
@@ -125,23 +125,28 @@ void Bookmark::SetScale(double scale)
   m_data.SetScale(scale);
 }
 
-void BookmarkCategory::AddTrack(std::unique_ptr<Track> && track)
+df::MarkGroupID Bookmark::GetGroupId() const
 {
-  SetDirty();
-  m_tracks.push_back(move(track));
+  return m_groupId;
 }
 
-Track const * BookmarkCategory::GetTrack(size_t index) const
+void Bookmark::Attach(df::MarkGroupID groupID)
 {
-  return (index < m_tracks.size() ? m_tracks[index].get() : 0);
+  ASSERT(!m_groupId, ());
+  m_groupId = groupID;
+}
+
+void Bookmark::Detach()
+{
+  m_groupId = 0;
 }
 
 BookmarkCategory::BookmarkCategory(std::string const & name,
-                                   size_t index,
+                                   df::MarkGroupID groupID,
                                    Listeners const & listeners)
   : Base(UserMark::Type::BOOKMARK, listeners)
+  , m_groupID(groupID)
   , m_name(name)
-  , m_index(index)
 {}
 
 BookmarkCategory::~BookmarkCategory()
@@ -154,36 +159,32 @@ size_t BookmarkCategory::GetUserLineCount() const
   return m_tracks.size();
 }
 
-df::UserLineMark const * BookmarkCategory::GetUserLineMark(size_t index) const
-{
-  ASSERT_LESS(index, m_tracks.size(), ());
-  return m_tracks[index].get();
-}
-
 void BookmarkCategory::ClearTracks()
 {
   SetDirty();
   m_tracks.clear();
 }
 
-void BookmarkCategory::DeleteTrack(size_t index)
+void BookmarkCategory::AcceptChanges(df::MarkIDCollection & groupMarks,
+                                     df::MarkIDCollection & createdMarks,
+                                     df::MarkIDCollection & removedMarks)
 {
-  SetDirty();
-  ASSERT_LESS(index, m_tracks.size(), ());
-  m_tracks.erase(next(m_tracks.begin(), index));
+  Base::AcceptChanges(groupMarks, createdMarks, removedMarks);
+  groupMarks.m_linesID.reserve(m_tracks.size());
+  for(auto const & trackID : m_tracks)
+    groupMarks.m_linesID.push_back(trackID);
 }
 
-std::vector<std::unique_ptr<Track>> BookmarkCategory::StealTracks()
-{
-  std::vector<std::unique_ptr<Track>> tracks;
-  std::swap(m_tracks, tracks);
-  return tracks;
-}
-
-void BookmarkCategory::AppendTracks(std::vector<std::unique_ptr<Track>> && tracks)
+void BookmarkCategory::AttachTrack(df::MarkID trackId)
 {
   SetDirty();
-  std::move(tracks.begin(), tracks.end(), std::back_inserter(m_tracks));
+  m_tracks.insert(trackId);
+}
+
+void BookmarkCategory::DetachTrack(df::MarkID trackId)
+{
+  SetDirty();
+  m_userMarks.erase(trackId);
 }
 
 namespace
@@ -229,7 +230,7 @@ class KMLParser
     return style::GetSupportedStyle(result, m_name, style::GetDefaultStyle());
   }
 
-  BookmarkCategory & m_category;
+  KMLData & m_data;
   
   std::vector<std::string> m_tags;
   GeometryType m_geometryType;
@@ -368,8 +369,8 @@ class KMLParser
   }
   
 public:
-  KMLParser(BookmarkCategory & cat)
-  : m_category(cat)
+  KMLParser(KMLData & data)
+  : m_data(data)
   {
     Reset();
   }
@@ -417,17 +418,16 @@ public:
       {
         if (GEOMETRY_TYPE_POINT == m_geometryType)
         {
-          Bookmark * bm = static_cast<Bookmark *>(m_category.CreateUserMark(m_org));
-          bm->SetData(BookmarkData(m_name, m_type, m_description, m_scale, m_timeStamp));
+          m_data.m_bookmarks.emplace_back(std::make_unique<Bookmark>(
+            BookmarkData(m_name, m_type, m_description, m_scale, m_timeStamp), m_org));
         }
         else if (GEOMETRY_TYPE_LINE == m_geometryType)
         {
           Track::Params params;
           params.m_colors.push_back({ kDefaultTrackWidth, m_trackColor });
           params.m_name = m_name;
-          
-          /// @todo Add description, style, timestamp
-          m_category.AddTrack(make_unique<Track>(m_points, params));
+
+          m_data.m_tracks.emplace_back(std::make_unique<Track>(m_points, params));
         }
       }
       Reset();
@@ -461,9 +461,9 @@ public:
       if (prevTag == kDocument)
       {
         if (currTag == "name")
-          m_category.SetName(value);
+          m_data.m_name = value;
         else if (currTag == "visibility")
-          m_category.SetIsVisible(value == "0" ? false : true);
+          m_data.m_visible = value == "0" ? false : true;
       }
       else if (prevTag == kPlacemark)
       {
@@ -574,295 +574,24 @@ std::string BookmarkCategory::GetDefaultType()
   return style::GetDefaultStyle();
 }
 
-bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
+std::unique_ptr<KMLData> LoadKMLFile(std::string const & file)
 {
-  ReaderSource<ReaderPtr<Reader> > src(reader);
-  KMLParser parser(*this);
-  if (!ParseXML(src, parser, true))
-  {
-    LOG(LWARNING, ("XML read error. Probably, incorrect file encoding."));
-    return false;
-  }
-  return true;
-}
-
-// static
-std::unique_ptr<BookmarkCategory> BookmarkCategory::CreateFromKMLFile(std::string const & file,
-                                                                      size_t index,
-                                                                      Listeners const & listeners)
-{
-  auto cat = my::make_unique<BookmarkCategory>("", index, listeners);
+  auto data = std::make_unique<KMLData>();
+  data->m_file = file;
   try
   {
-    if (cat->LoadFromKML(my::make_unique<FileReader>(file)))
-      cat->m_file = file;
-    else
-      cat.reset();
+    ReaderSource<ReaderPtr<Reader> > src(std::make_unique<FileReader>(file));
+    KMLParser parser(*data);
+    if (!ParseXML(src, parser, true))
+    {
+      LOG(LWARNING, ("XML read error. Probably, incorrect file encoding."));
+      data.reset();
+    }
   }
   catch (std::exception const & e)
   {
     LOG(LWARNING, ("Error while loading bookmarks from", file, e.what()));
-    cat.reset();
+    data.reset();
   }
-
-  return cat;
-}
-
-namespace
-{
-char const * kmlHeader =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<kml xmlns=\"http://earth.google.com/kml/2.2\">\n"
-    "<Document>\n"
-    "  <Style id=\"placemark-blue\">\n"
-    "    <IconStyle>\n"
-    "      <Icon>\n"
-    "        <href>http://mapswith.me/placemarks/placemark-blue.png</href>\n"
-    "      </Icon>\n"
-    "    </IconStyle>\n"
-    "  </Style>\n"
-    "  <Style id=\"placemark-brown\">\n"
-    "    <IconStyle>\n"
-    "      <Icon>\n"
-    "        <href>http://mapswith.me/placemarks/placemark-brown.png</href>\n"
-    "      </Icon>\n"
-    "    </IconStyle>\n"
-    "  </Style>\n"
-    "  <Style id=\"placemark-green\">\n"
-    "    <IconStyle>\n"
-    "      <Icon>\n"
-    "        <href>http://mapswith.me/placemarks/placemark-green.png</href>\n"
-    "      </Icon>\n"
-    "    </IconStyle>\n"
-    "  </Style>\n"
-    "  <Style id=\"placemark-orange\">\n"
-    "    <IconStyle>\n"
-    "      <Icon>\n"
-    "        <href>http://mapswith.me/placemarks/placemark-orange.png</href>\n"
-    "      </Icon>\n"
-    "    </IconStyle>\n"
-    "  </Style>\n"
-    "  <Style id=\"placemark-pink\">\n"
-    "    <IconStyle>\n"
-    "      <Icon>\n"
-    "        <href>http://mapswith.me/placemarks/placemark-pink.png</href>\n"
-    "      </Icon>\n"
-    "    </IconStyle>\n"
-    "  </Style>\n"
-    "  <Style id=\"placemark-purple\">\n"
-    "    <IconStyle>\n"
-    "      <Icon>\n"
-    "        <href>http://mapswith.me/placemarks/placemark-purple.png</href>\n"
-    "      </Icon>\n"
-    "    </IconStyle>\n"
-    "  </Style>\n"
-    "  <Style id=\"placemark-red\">\n"
-    "    <IconStyle>\n"
-    "      <Icon>\n"
-    "        <href>http://mapswith.me/placemarks/placemark-red.png</href>\n"
-    "      </Icon>\n"
-    "    </IconStyle>\n"
-    "  </Style>\n"
-    "  <Style id=\"placemark-yellow\">\n"
-    "    <IconStyle>\n"
-    "      <Icon>\n"
-    "        <href>http://mapswith.me/placemarks/placemark-yellow.png</href>\n"
-    "      </Icon>\n"
-    "    </IconStyle>\n"
-    "  </Style>\n"
-;
-
-char const * kmlFooter =
-    "</Document>\n"
-    "</kml>\n";
-}
-
-namespace
-{
-  inline void SaveStringWithCDATA(std::ostream & stream, std::string const & s)
-  {
-    // According to kml/xml spec, we need to escape special symbols with CDATA
-    if (s.find_first_of("<&") != std::string::npos)
-      stream << "<![CDATA[" << s << "]]>";
-    else
-      stream << s;
-  }
-}
-
-void BookmarkCategory::SaveToKML(std::ostream & s)
-{
-  s << kmlHeader;
-
-  // Use CDATA if we have special symbols in the name
-  s << "  <name>";
-  SaveStringWithCDATA(s, GetName());
-  s << "</name>\n";
-
-  s << "  <visibility>" << (IsVisible() ? "1" : "0") <<"</visibility>\n";
-
-  // Bookmarks are stored to KML file in reverse order, so, least
-  // recently added bookmark will be stored last. The reason is that
-  // when bookmarks will be loaded from the KML file, most recently
-  // added bookmark will be loaded last and in accordance with current
-  // logic will added to the beginning of the bookmarks list. Thus,
-  // this method preserves LRU bookmarks order after store -> load
-  // actions.
-  //
-  // Loop invariant: on each iteration count means number of already
-  // stored bookmarks and i means index of the bookmark that should be
-  // processed during the iteration. That's why i is initially set to
-  // GetBookmarksCount() - 1, i.e. to the last bookmark in the
-  // bookmarks list.
-  for (size_t count = 0, i = GetUserMarkCount() - 1;
-       count < GetUserPointCount(); ++count, --i)
-  {
-    Bookmark const * bm = static_cast<Bookmark const *>(GetUserMark(i));
-    s << "  <Placemark>\n";
-    s << "    <name>";
-    SaveStringWithCDATA(s, bm->GetName());
-    s << "</name>\n";
-
-    if (!bm->GetDescription().empty())
-    {
-      s << "    <description>";
-      SaveStringWithCDATA(s, bm->GetDescription());
-      s << "</description>\n";
-    }
-
-    time_t const timeStamp = bm->GetTimeStamp();
-    if (timeStamp != my::INVALID_TIME_STAMP)
-    {
-      std::string const strTimeStamp = my::TimestampToString(timeStamp);
-      ASSERT_EQUAL(strTimeStamp.size(), 20, ("We always generate fixed length UTC-format timestamp"));
-      s << "    <TimeStamp><when>" << strTimeStamp << "</when></TimeStamp>\n";
-    }
-
-    s << "    <styleUrl>#" << bm->GetType() << "</styleUrl>\n"
-      << "    <Point><coordinates>" << PointToString(bm->GetPivot()) << "</coordinates></Point>\n";
-
-    double const scale = bm->GetScale();
-    if (scale != -1.0)
-    {
-      /// @todo Factor out to separate function to use for other custom params.
-      s << "    <ExtendedData xmlns:mwm=\"http://mapswith.me\">\n"
-        << "      <mwm:scale>" << bm->GetScale() << "</mwm:scale>\n"
-        << "    </ExtendedData>\n";
-    }
-
-    s << "  </Placemark>\n";
-  }
-
-  // Saving tracks
-  for (size_t i = 0; i < GetTracksCount(); ++i)
-  {
-    Track const * track = GetTrack(i);
-
-    s << "  <Placemark>\n";
-    s << "    <name>";
-    SaveStringWithCDATA(s, track->GetName());
-    s << "</name>\n";
-
-    ASSERT_GREATER(track->GetLayerCount(), 0, ());
-
-    s << "<Style><LineStyle>";
-    dp::Color const & col = track->GetColor(0);
-    s << "<color>"
-      << NumToHex(col.GetAlpha())
-      << NumToHex(col.GetBlue())
-      << NumToHex(col.GetGreen())
-      << NumToHex(col.GetRed());
-    s << "</color>\n";
-
-    s << "<width>"
-      << track->GetWidth(0);
-    s << "</width>\n";
-
-    s << "</LineStyle></Style>\n";
-    // stop style saving
-
-    s << "    <LineString><coordinates>";
-
-    Track::PolylineD const & poly = track->GetPolyline();
-    for (auto pt = poly.Begin(); pt != poly.End(); ++pt)
-      s << PointToString(*pt) << " ";
-
-    s << "    </coordinates></LineString>\n"
-      << "  </Placemark>\n";
-  }
-
-  s << kmlFooter;
-}
-
-UserMark * BookmarkCategory::AllocateUserMark(m2::PointD const & ptOrg)
-{
-  return new Bookmark(ptOrg, m_index);
-}
-
-bool BookmarkCategory::SaveToKMLFile()
-{
-  std::string oldFile;
-
-  // Get valid file name from category name
-  std::string const name = BookmarkManager::RemoveInvalidSymbols(m_name);
-
-  if (!m_file.empty())
-  {
-    size_t i2 = m_file.find_last_of('.');
-    if (i2 == std::string::npos)
-      i2 = m_file.size();
-    size_t i1 = m_file.find_last_of("\\/");
-    if (i1 == std::string::npos)
-      i1 = 0;
-    else
-      ++i1;
-
-    // If m_file doesn't match name, assign new m_file for this category and save old file name.
-    if (m_file.substr(i1, i2 - i1).find(name) != 0)
-    {
-      oldFile = BookmarkManager::GenerateUniqueFileName(GetPlatform().SettingsDir(), name);
-      m_file.swap(oldFile);
-    }
-  }
-  else
-  {
-    m_file = BookmarkManager::GenerateUniqueFileName(GetPlatform().SettingsDir(), name);
-  }
-
-  std::string const fileTmp = m_file + ".tmp";
-
-  try
-  {
-    // First, we save to the temporary file
-    /// @todo On Windows UTF-8 file names are not supported.
-    std::ofstream of(fileTmp.c_str(), std::ios_base::out | std::ios_base::trunc);
-    SaveToKML(of);
-    of.flush();
-
-    if (!of.fail())
-    {
-      // Only after successfull save we replace original file
-      my::DeleteFileX(m_file);
-      VERIFY(my::RenameFileX(fileTmp, m_file), (fileTmp, m_file));
-      // delete old file
-      if (!oldFile.empty())
-        VERIFY(my::DeleteFileX(oldFile), (oldFile, m_file));
-
-      return true;
-    }
-  }
-  catch (std::exception const & e)
-  {
-    LOG(LWARNING, ("Exception while saving bookmarks:", e.what()));
-  }
-
-  LOG(LWARNING, ("Can't save bookmarks category", m_name, "to file", m_file));
-
-  // remove possibly left tmp file
-  my::DeleteFileX(fileTmp);
-
-  // return old file name in case of error
-  if (!oldFile.empty())
-    m_file.swap(oldFile);
-
-  return false;
+  return data;
 }

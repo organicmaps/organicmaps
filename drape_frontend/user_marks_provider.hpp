@@ -15,8 +15,6 @@
 
 namespace df
 {
-using MarkGroupID = size_t;
-
 struct MarkIDCollection
 {
   IDCollection m_marksID;
@@ -101,27 +99,13 @@ private:
 class UserMarksProvider
 {
 public:
-  UserMarksProvider();
   virtual ~UserMarksProvider() {}
-
-  virtual bool IsDirty() const = 0;
-  virtual void AcceptChanges(MarkIDCollection & createdMarks, MarkIDCollection & removedMarks) = 0;
-
-  virtual bool IsDrawable() const = 0;
-
-  virtual size_t GetUserPointCount() const = 0;
+  virtual void AcceptChanges(MarkGroupID groupID,
+                             MarkIDCollection & updatedMarks, MarkIDCollection & createdMarks, MarkIDCollection & removedMarks) = 0;
   /// never store UserPointMark reference
-  virtual UserPointMark const * GetUserPointMark(size_t index) const = 0;
-
-  virtual size_t GetUserLineCount() const = 0;
-  /// never store UserLineMark reference
-  virtual UserLineMark const * GetUserLineMark(size_t index) const = 0;
-
-  bool IsPendingOnDelete();
-  void DeleteLater();
-
-private:
-  bool m_pendingOnDelete;
+  virtual UserPointMark const * GetUserPointMark(MarkID markID) const = 0;
+ /// never store UserLineMark reference
+  virtual UserLineMark const * GetUserLineMark(MarkID markID) const = 0;
 };
 
 } // namespace df

@@ -196,7 +196,7 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
       for (auto const & p : points)
       {
         m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
-        ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(m_bmManager->CreateUserMark(UserMark::Type::API, glPoint));
+        auto * mark = m_bmManager->CreateUserMark<ApiMarkPoint>(glPoint);
         mark->SetName(p.m_name);
         mark->SetApiID(p.m_id);
         mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
@@ -446,18 +446,18 @@ void ParsedMapApi::Reset()
 bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
 {
   ASSERT(m_bmManager != nullptr, ());
-  size_t const markCount = m_bmManager->GetUserMarkCount(UserMark::Type::API);
-  if (markCount == 1 && m_zoomLevel >= 1)
+  auto const & markIds = m_bmManager->GetUserMarkIds(UserMark::Type::API);
+  if (markIds.size() == 1 && m_zoomLevel >= 1)
   {
     double zoom = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
-    rect = df::GetRectForDrawScale(zoom, m_bmManager->GetUserMark(UserMark::Type::API, 0)->GetPivot());
+    rect = df::GetRectForDrawScale(zoom, m_bmManager->GetUserMark(*markIds.begin())->GetPivot());
     return true;
   }
   else
   {
     m2::RectD result;
-    for (size_t i = 0; i < markCount; ++i)
-      result.Add(m_bmManager->GetUserMark(UserMark::Type::API, i)->GetPivot());
+    for (auto markId : markIds)
+      result.Add(m_bmManager->GetUserMark(markId)->GetPivot());
 
     if (result.IsValid())
     {
@@ -472,10 +472,11 @@ bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
 ApiMarkPoint const * ParsedMapApi::GetSinglePoint() const
 {
   ASSERT(m_bmManager != nullptr, ());
-  if (m_bmManager->GetUserMarkCount(UserMark::Type::API) != 1)
+  auto const & markIds = m_bmManager->GetUserMarkIds(UserMark::Type::API);
+  if (markIds.size() != 1)
     return nullptr;
 
-  return static_cast<ApiMarkPoint const *>(m_bmManager->GetUserMark(UserMark::Type::API, 0));
+  return static_cast<ApiMarkPoint const *>(m_bmManager->GetUserMark(*markIds.begin()));
 }
 
 }

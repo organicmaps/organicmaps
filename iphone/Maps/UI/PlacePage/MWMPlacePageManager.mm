@@ -128,13 +128,10 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     return;
 
   auto value = static_cast<NSValue *>(notification.object);
-  auto deletedBookmarkAndCategory = BookmarkAndCategory();
-  [value getValue:&deletedBookmarkAndCategory];
-  NSAssert(deletedBookmarkAndCategory.IsValid(),
-           @"Place page must have valid bookmark and category.");
-  auto bookmarkAndCategory = data.bookmarkAndCategory;
-  if (bookmarkAndCategory.m_bookmarkIndex != deletedBookmarkAndCategory.m_bookmarkIndex ||
-      bookmarkAndCategory.m_categoryIndex != deletedBookmarkAndCategory.m_categoryIndex)
+  df::MarkID deletedBookmarkId = 0;
+  [value getValue:&deletedBookmarkId];
+  auto bookmarkId = data.bookmarkId;
+  if (bookmarkId != deletedBookmarkId)
     return;
 
   [self closePlacePage];
@@ -147,9 +144,9 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   if (!data.isBookmark)
     return;
 
-  auto deletedIndex = static_cast<NSNumber *>(notification.object).integerValue;
-  auto index = data.bookmarkAndCategory.m_categoryIndex;
-  if (index != deletedIndex)
+  auto deletedCategoryId = static_cast<NSNumber *>(notification.object).integerValue;
+  auto categoryId = data.bookmarkCategoryId;
+  if (categoryId != deletedCategoryId)
     return;
 
   [self closePlacePage];

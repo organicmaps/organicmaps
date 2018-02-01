@@ -74,9 +74,9 @@ class Bookmark : public UserMark
 {
   using Base = UserMark;
 public:
-  Bookmark(m2::PointD const & ptOrg, size_t categoryId);
+  Bookmark(m2::PointD const & ptOrg);
 
-  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, size_t categoryId);
+  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg);
 
   void SetData(BookmarkData const & data);
   BookmarkData const & GetData() const;
@@ -102,11 +102,13 @@ public:
   double GetScale() const;
   void SetScale(double scale);
 
-  size_t GetCategoryId() const { return m_categoryId; }
+  df::MarkGroupID GetGroupId() const override;
+  void Attach(df::MarkGroupID groupId);
+  void Detach();
 
 private:
   BookmarkData m_data;
-  size_t m_categoryId;
+  df::MarkGroupID m_groupId;
 };
 
 class BookmarkCategory : public UserMarkContainer
@@ -114,74 +116,47 @@ class BookmarkCategory : public UserMarkContainer
   using Base = UserMarkContainer;
 
 public:
-  BookmarkCategory(std::string const & name, size_t index, Listeners const & listeners);
+  BookmarkCategory(std::string const & name, df::MarkGroupID groupID, Listeners const & listeners);
   ~BookmarkCategory() override;
 
-protected:
-  friend class BookmarkManager;
-  friend class KMLParser;
-
   size_t GetUserLineCount() const override;
-  df::UserLineMark const * GetUserLineMark(size_t index) const override;
 
   static std::string GetDefaultType();
 
-  void ClearTracks();
+  void AcceptChanges(df::MarkIDCollection & groupMarks,
+                     df::MarkIDCollection & createdMarks,
+                     df::MarkIDCollection & removedMarks) override;
 
-  void AddTrack(std::unique_ptr<Track> && track);
-  Track const * GetTrack(size_t index) const;
-  inline size_t GetTracksCount() const { return m_tracks.size(); }
-  void DeleteTrack(size_t index);
+  void AttachTrack(df::MarkID markId);
+  void DetachTrack(df::MarkID markId);
 
-  std::vector<std::unique_ptr<Track>> StealTracks();
-  void AppendTracks(std::vector<std::unique_ptr<Track>> && tracks);
+  df::MarkGroupID GetID() const { return m_groupID; }
+  MarkIDSet const & GetTracks() const { return m_tracks; }
 
   void SetName(std::string const & name) { m_name = name; }
+  void SetFileName(std::string const & fileName) { m_file = fileName; }
   std::string const & GetName() const { return m_name; }
   std::string const & GetFileName() const { return m_file; }
 
-  /// @name Theese fuctions are public for unit tests only.
-  /// You don't need to call them from client code.
-  //@{
-  bool LoadFromKML(ReaderPtr<Reader> const & reader);
-  void SaveToKML(std::ostream & s);
-
-  /// Uses the same file name from which was loaded, or
-  /// creates unique file name on first save and uses it every time.
-  bool SaveToKMLFile();
-
-  /// @return nullptr in the case of error
-  static std::unique_ptr<BookmarkCategory> CreateFromKMLFile(std::string const & file,
-                                                             size_t index,
-                                                             Listeners const & listeners);
-  //@}
-
-protected:
-  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
-
 private:
-  std::vector<std::unique_ptr<Track>> m_tracks;
+  void ClearTracks();
 
+  const df::MarkGroupID m_groupID;
   std::string m_name;
-  const size_t m_index;
   // Stores file name from which bookmarks were loaded.
   std::string m_file;
+
+  MarkIDSet m_tracks;
+
 };
 
-struct BookmarkAndCategory
+struct KMLData
 {
-  BookmarkAndCategory() = default;
-  BookmarkAndCategory(size_t bookmarkIndex, size_t categoryIndex)
-    : m_bookmarkIndex(bookmarkIndex)
-    , m_categoryIndex(categoryIndex)
-  {}
-
-  bool IsValid() const
-  {
-    return m_bookmarkIndex != numeric_limits<size_t>::max() &&
-           m_categoryIndex != numeric_limits<size_t>::max();
-  };
-
-  size_t m_bookmarkIndex = numeric_limits<size_t>::max();
-  size_t m_categoryIndex = numeric_limits<size_t>::max();
+  std::string m_name;
+  std::string m_file;
+  std::vector<std::unique_ptr<Bookmark>> m_bookmarks;
+  std::vector<std::unique_ptr<Track>> m_tracks;
+  bool m_visible = true;
 };
+
+std::unique_ptr<KMLData> LoadKMLFile(std::string const & file);

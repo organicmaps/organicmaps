@@ -1,10 +1,14 @@
 #import "MWMTableViewController.h"
 
+#include "drape_frontend/user_marks_global.hpp"
+
 @interface BookmarksVC : MWMTableViewController <UITextFieldDelegate>
 {
-  NSUInteger m_categoryId;
+  df::MarkGroupID m_categoryId;
+  NSMutableArray * m_bookmarkIds;
+  NSMutableArray * m_trackIds;
 }
 
-- (instancetype)initWithCategory:(NSUInteger)index;
+- (instancetype)initWithCategory:(df::MarkGroupID)index;
 
 @end

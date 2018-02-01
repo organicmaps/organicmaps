@@ -432,26 +432,24 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   auto & bmManager = f.GetBookmarkManager();
   if (isBookmark)
   {
-    auto const categoryIndex = f.LastEditedBMCategory();
+    auto const categoryId = f.LastEditedBMCategory();
     BookmarkData bmData{m_info.FormatNewBookmarkName(), f.LastEditedBMType()};
-    auto const bookmarkIndex = bmManager.AddBookmark(categoryIndex, self.mercator, bmData);
-
-    auto const * bookmark = bmManager.GetBookmark(categoryIndex, bookmarkIndex);
-    f.FillBookmarkInfo(*bookmark, {bookmarkIndex, categoryIndex}, m_info);
-    bmManager.NotifyChanges(categoryIndex);
+    auto const * bookmark = bmManager.CreateBookmark(self.mercator, bmData, categoryId);
+    f.FillBookmarkInfo(*bookmark, m_info);
+    bmManager.NotifyChanges(categoryId);
     m_sections.insert(m_sections.begin() + 1, Sections::Bookmark);
   }
   else
   {
-    auto const bac = m_info.GetBookmarkAndCategory();
-    auto const * bookmark = bmManager.GetBookmark(bac.m_categoryIndex, bac.m_bookmarkIndex);
+    auto const bookmarkId = m_info.GetBookmarkId();
+    auto const * bookmark = bmManager.GetBookmark(bookmarkId);
     if (bookmark)
     {
       f.ResetBookmarkInfo(*bookmark, m_info);
-
-      bmManager.DeleteUserMark(bac.m_categoryIndex, bac.m_bookmarkIndex);
-      bmManager.NotifyChanges(bac.m_categoryIndex);
-      bmManager.SaveToKMLFile(bac.m_categoryIndex);
+      auto const categoryId = bookmark->GetGroupId();
+      bmManager.DeleteBookmark(bookmarkId);
+      bmManager.NotifyChanges(categoryId);
+      bmManager.SaveToKMLFile(categoryId);
     }
 
     m_sections.erase(remove(m_sections.begin(), m_sections.end(), Sections::Bookmark));
@@ -695,9 +693,14 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   return m_info.IsBookmark() ? @(m_info.GetBookmarkCategoryName().c_str()) : nil;
 }
 
-- (BookmarkAndCategory)bookmarkAndCategory
+- (df::MarkID)bookmarkId
 {
-  return m_info.IsBookmark() ? m_info.GetBookmarkAndCategory() : BookmarkAndCategory();
+  return m_info.IsBookmark() ? m_info.GetBookmarkId() : 0;
+}
+
+- (df::MarkGroupID)bookmarkCategoryId
+{
+  return m_info.IsBookmark() ? m_info.GetBookmarkCategoryId() : 0;
 }
 
 #pragma mark - Local Ads

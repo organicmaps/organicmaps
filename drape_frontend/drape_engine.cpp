@@ -227,13 +227,14 @@ void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * 
   auto removedIdCollection = make_unique_dp<MarkIDCollection>();
   auto createdIdCollection = make_unique_dp<MarkIDCollection>();
 
-  auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
-  marksRenderCollection->reserve(provider->GetUserPointCount());
+  provider->AcceptChanges(groupId, *groupIdCollection, *createdIdCollection, *removedIdCollection);
 
-  for (size_t pointIndex = 0, sz = provider->GetUserPointCount(); pointIndex < sz; ++pointIndex)
+  auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
+  marksRenderCollection->reserve(groupIdCollection->m_marksID.size());
+
+  for (auto markId : groupIdCollection->m_marksID)
   {
-    UserPointMark const * mark = provider->GetUserPointMark(pointIndex);
-    groupIdCollection->m_marksID.push_back(mark->GetId());
+    UserPointMark const * mark = provider->GetUserPointMark(markId);
     if (mark->IsDirty())
     {
       auto renderInfo = make_unique_dp<UserMarkRenderParams>();
@@ -263,11 +264,10 @@ void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * 
   }
 
   auto linesRenderCollection = make_unique_dp<UserLinesRenderCollection>();
-  linesRenderCollection->reserve(provider->GetUserLineCount());
-  for (size_t lineIndex = 0, sz = provider->GetUserLineCount(); lineIndex < sz; ++lineIndex)
+  linesRenderCollection->reserve(groupIdCollection->m_linesID.size());
+  for (auto lineId : groupIdCollection->m_linesID)
   {
-    UserLineMark const * mark = provider->GetUserLineMark(lineIndex);
-    groupIdCollection->m_linesID.push_back(mark->GetId());
+    UserLineMark const * mark = provider->GetUserLineMark(lineId);
     if (mark->IsDirty())
     {
       auto renderInfo = make_unique_dp<UserLineRenderParams>();
@@ -286,8 +286,6 @@ void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * 
       mark->AcceptChanges();
     }
   }
-
-  provider->AcceptChanges(*createdIdCollection, *removedIdCollection);
 
   if (!createdIdCollection->IsEmpty() || !removedIdCollection->IsEmpty() ||
       !marksRenderCollection->empty() || !linesRenderCollection->empty())

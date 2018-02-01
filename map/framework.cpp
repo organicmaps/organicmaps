@@ -257,7 +257,7 @@ LocalAdsManager & Framework::GetLocalAdsManager()
 
 void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosition)
 {
-  GetBookmarkManager().MyPositionMark()->SetUserPosition(position, hasPosition);
+  GetBookmarkManager().MyPositionMark().SetUserPosition(position, hasPosition);
   m_routingManager.SetUserCurrentPosition(position);
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
 }
@@ -733,24 +733,24 @@ void Framework::LoadBookmarks()
   GetBookmarkManager().LoadBookmarks();
 }
 
-size_t Framework::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkData & bm)
+df::MarkID Framework::AddBookmark(df::MarkGroupID catId, const m2::PointD & ptOrg, BookmarkData & bm)
 {
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
                                                          {{"action", "create"}});
-  return GetBookmarkManager().AddBookmark(categoryIndex, ptOrg, bm);
+  return GetBookmarkManager().CreateBookmark(ptOrg, bm, catId)->GetId();
 }
 
-size_t Framework::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t newCatIndex)
+void Framework::MoveBookmark(df::MarkID bmId, df::MarkGroupID curCatId, df::MarkGroupID newCatId)
 {
-  return GetBookmarkManager().MoveBookmark(bmIndex, curCatIndex, newCatIndex);
+  return GetBookmarkManager().MoveBookmark(bmId, curCatId, newCatId);
 }
 
-void Framework::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm)
+void Framework::ReplaceBookmark(df::MarkID bmId, BookmarkData const & bm)
 {
-  GetBookmarkManager().ReplaceBookmark(catIndex, bmIndex, bm);
+  GetBookmarkManager().UpdateBookmark(bmId, bm);
 }
 
-size_t Framework::AddCategory(string const & categoryName)
+df::MarkGroupID Framework::AddCategory(string const & categoryName)
 {
   return GetBookmarkManager().CreateBmCategory(categoryName);
 }
@@ -760,12 +760,12 @@ bool Framework::DeleteBmCategory(size_t index)
   return GetBookmarkManager().DeleteBmCategory(index);
 }
 
-void Framework::FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const
+void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const
 {
-  info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(bac.m_categoryIndex));
-  BookmarkData const & data = GetBookmarkManager().GetBookmark(bac.m_categoryIndex, bac.m_bookmarkIndex)->GetData();
-  info.SetBookmarkData(data);
-  info.SetBac(bac);
+  info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(bmk.GetGroupId()));
+  info.SetBookmarkData(bmk.GetData());
+  info.SetBookmarkId(bmk.GetId());
+  info.SetBookmarkCategoryId(bmk.GetGroupId());
   FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
 }
 
@@ -773,7 +773,8 @@ void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info)
 {
   info.SetBookmarkCategoryName("");
   info.SetBookmarkData({});
-  info.SetBac({});
+  info.SetBookmarkId(0);
+  info.SetBookmarkCategoryId(0);
   FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
 }
 
@@ -989,18 +990,11 @@ void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info &
 
 void Framework::ShowBookmark(df::MarkID id)
 {
-  BookmarkAndCategory bnc;
-  auto const mark = m_bmManager->GetBookmark(id, bnc.m_categoryIndex, bnc.m_bookmarkIndex);
-  ShowBookmark(mark, bnc);
+  auto const * mark = m_bmManager->GetBookmark(id);
+  ShowBookmark(mark);
 }
 
-void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
-{
-  auto const bookmark = GetBookmarkManager().GetBookmark(bnc.m_categoryIndex, bnc.m_bookmarkIndex);
-  ShowBookmark(bookmark, bnc);
-}
-
-void Framework::ShowBookmark(Bookmark const * mark, BookmarkAndCategory const & bnc)
+void Framework::ShowBookmark(Bookmark const * mark)
 {
   if (mark == nullptr)
     return;
@@ -1016,7 +1010,7 @@ void Framework::ShowBookmark(Bookmark const * mark, BookmarkAndCategory const & 
                                       true /* trackVisibleViewport */);
 
   place_page::Info info;
-  FillBookmarkInfo(*mark, bnc, info);
+  FillBookmarkInfo(*mark, info);
   ActivateMapSelection(true, df::SelectionShape::OBJECT_USER_MARK, info);
   // TODO
   // We need to preserve bookmark id in the m_lastTapEvent, because one feature can have several bookmarks.
@@ -1044,7 +1038,7 @@ void Framework::ShowFeatureByMercator(m2::PointD const & pt)
 
   place_page::Info info;
   std::string name;
-  GetBookmarkManager().SelectionMark()->SetPtOrg(pt);
+  GetBookmarkManager().SelectionMark().SetPtOrg(pt);
   FillPointInfo(pt, name, info);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
   m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
@@ -1519,7 +1513,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
 
-  GetBookmarkManager().SelectionMark()->SetPtOrg(center);
+  GetBookmarkManager().SelectionMark().SetPtOrg(center);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
   m_lastTapEvent = MakeTapEvent(center, info.GetID(), TapEvent::Source::Search);
 }
@@ -1620,8 +1614,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
     if (!r.HasPoint())
       continue;
 
-    auto mark = static_cast<SearchMarkPoint *>(bmManager.CreateUserMark(UserMark::Type::SEARCH, r.GetFeatureCenter()));
-    ASSERT_EQUAL(mark->GetMarkType(), UserMark::Type::SEARCH, ());
+    auto * mark = bmManager.CreateUserMark<SearchMarkPoint>(r.GetFeatureCenter());
     auto const isFeature = r.GetResultType() == search::Result::Type::Feature;
     if (isFeature)
       mark->SetFoundFeature(r.GetFeatureID());
@@ -2017,7 +2010,7 @@ bool Framework::ShowMapForURL(string const & url)
       }
       else
       {
-        GetBookmarkManager().SelectionMark()->SetPtOrg(point);
+        GetBookmarkManager().SelectionMark().SetPtOrg(point);
         FillPointInfo(point, name, info);
         ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
       }
@@ -2112,29 +2105,6 @@ BookmarkManager const & Framework::GetBookmarkManager() const
 {
   ASSERT(m_bmManager != nullptr, ("Bookmark manager is not initialized."));
   return *m_bmManager.get();
-}
-
-BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
-{
-  Bookmark const * bookmark = static_cast<Bookmark const *>(mark);
-  BookmarkAndCategory empty;
-  BookmarkAndCategory result;
-  ASSERT_LESS_OR_EQUAL(GetBookmarkManager().GetBmCategoriesIds().size(), numeric_limits<int>::max(), ());
-  result.m_categoryIndex = bookmark->GetCategoryId();
-  ASSERT(result.m_categoryIndex != empty.m_categoryIndex, ());
-  size_t const sz = GetBookmarkManager().GetUserMarkCount(result.m_categoryIndex);
-  ASSERT_LESS_OR_EQUAL(sz, numeric_limits<int>::max(), ());
-  for (size_t i = 0; i < sz; ++i)
-  {
-    if (bookmark == GetBookmarkManager().GetBookmark(result.m_categoryIndex, i))
-    {
-      result.m_bookmarkIndex = static_cast<int>(i);
-      break;
-    }
-  }
-
-  ASSERT(result.IsValid(), ());
-  return result;
 }
 
 void Framework::SetMapSelectionListeners(TActivateMapSelectionFn const & activator,
@@ -2313,7 +2283,7 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
 }
 
 df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & tapEvent,
-                                                              place_page::Info & outInfo) const
+                                                              place_page::Info & outInfo)
 {
   if (m_drapeEngine == nullptr)
     return df::SelectionShape::OBJECT_EMPTY;
@@ -2337,7 +2307,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
       FillApiMarkInfo(*static_cast<ApiMarkPoint const *>(mark), outInfo);
       break;
     case UserMark::Type::BOOKMARK:
-      FillBookmarkInfo(*static_cast<Bookmark const *>(mark), FindBookmark(mark), outInfo);
+      FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo);
       break;
     case UserMark::Type::SEARCH:
       FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo);
@@ -2370,7 +2340,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
 
   if (showMapSelection)
   {
-    GetBookmarkManager().SelectionMark()->SetPtOrg(outInfo.GetMercator());
+    GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
     return df::SelectionShape::OBJECT_POI;
   }
 
@@ -3220,9 +3190,9 @@ void Framework::ClearViewportSearchResults()
 boost::optional<m2::PointD> Framework::GetCurrentPosition() const
 {
   auto const & myPosMark = GetBookmarkManager().MyPositionMark();
-  if (!myPosMark->HasPosition())
+  if (!myPosMark.HasPosition())
     return {};
-  return myPosMark->GetPivot();
+  return myPosMark.GetPivot();
 }
 
 bool Framework::ParseSearchQueryCommand(search::SearchParams const & params)

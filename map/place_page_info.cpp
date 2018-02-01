@@ -186,9 +186,9 @@ void Info::SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string
   m_customName = name;
 }
 
-void Info::SetBac(BookmarkAndCategory const & bac)
+void Info::SetBookmarkId(df::MarkID markId)
 {
-  m_bac = bac;
+  m_markId = markId;
   m_uiSubtitle = FormatSubtitle(IsFeature() /* withType */);
 }
 

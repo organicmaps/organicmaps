@@ -52,7 +52,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     }
     else
     {
-      bool const showDetailedHint = GetFramework().GetBookmarkManager().GetBmCategoriesIds().empty();
+      bool const showDetailedHint = GetFramework().GetBookmarkManager().GetBmGroupsIdList().empty();
       label.text =
           showDetailedHint ? L(@"bookmarks_usage_hint") : L(@"bookmarks_usage_hint_import_only");
     }
@@ -118,7 +118,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  auto sz = GetFramework().GetBookmarkManager().GetBmCategoriesIds().size();
+  auto sz = GetFramework().GetBookmarkManager().GetBmGroupsIdList().size();
   return sz;
 }
 
@@ -126,7 +126,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
 {
   NSInteger row = ((UITapGestureRecognizer *)sender).view.tag;
   auto & bmManager = GetFramework().GetBookmarkManager();
-  auto categoryId = bmManager.GetBmCategoriesIds()[row];
+  auto categoryId = bmManager.GetBmGroupsIdList()[row];
   UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
   if (cell && bmManager.HasBmCategory(categoryId))
   {
@@ -159,7 +159,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
   cell.imageView.tag = indexPath.row;
 
   auto & bmManager = GetFramework().GetBookmarkManager();
-  size_t const categoryIndex = bmManager.GetBmCategoriesIds()[indexPath.row];
+  size_t const categoryIndex = bmManager.GetBmGroupsIdList()[indexPath.row];
   if (bmManager.HasBmCategory(categoryIndex))
   {
     NSString * title = @(bmManager.GetCategoryName(categoryIndex).c_str());
@@ -168,7 +168,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     cell.imageView.image = [UIImage imageNamed:(isVisible ? @"ic_show" : @"ic_hide")];
     cell.imageView.mwm_coloring = isVisible ? MWMImageColoringBlue : MWMImageColoringBlack;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",
-                                 bmManager.GetUserMarkCount(categoryIndex) + bmManager.GetTracksCount(categoryIndex)];
+                                 bmManager.GetUserMarkIds(categoryIndex).size() + bmManager.GetTrackIds(categoryIndex).size()];
   }
   cell.backgroundColor = [UIColor white];
   cell.textLabel.textColor = [UIColor blackPrimaryText];
@@ -219,7 +219,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
         cell.textLabel.text = txt;
         // Rename category
         auto & bmManager = GetFramework().GetBookmarkManager();
-        size_t const categoryId = bmManager.GetBmCategoriesIds()[[self.tableView indexPathForCell:cell].row];
+        size_t const categoryId = bmManager.GetBmGroupsIdList()[[self.tableView indexPathForCell:cell].row];
         if (bmManager.HasBmCategory(categoryId))
         {
           bmManager.SetCategoryName(categoryId, txt.UTF8String);
@@ -268,7 +268,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
   }
   else
   {
-    auto categoryId = GetFramework().GetBookmarkManager().GetBmCategoriesIds()[indexPath.row];
+    auto categoryId = GetFramework().GetBookmarkManager().GetBmGroupsIdList()[indexPath.row];
     BookmarksVC * bvc = [[BookmarksVC alloc] initWithCategory:categoryId];
     [self.navigationController pushViewController:bvc animated:YES];
   }
@@ -290,7 +290,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     f.DeleteBmCategory(indexPath.row);
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     // Disable edit mode if no categories are left
-    if (f.GetBookmarkManager().GetBmCategoriesIds().empty())
+    if (f.GetBookmarkManager().GetBmGroupsIdList().empty())
     {
       self.navigationItem.rightBarButtonItem = nil;
       [self setEditing:NO animated:YES];
@@ -302,7 +302,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
 {
   [super viewWillAppear:animated];
   // Display Edit button only if table is not empty
-  if (!GetFramework().GetBookmarkManager().GetBmCategoriesIds().empty())
+  if (!GetFramework().GetBookmarkManager().GetBmGroupsIdList().empty())
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
   else
     self.navigationItem.rightBarButtonItem = nil;

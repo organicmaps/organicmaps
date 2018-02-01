@@ -39,8 +39,7 @@ public:
     TRANSIT,
     LOCAL_ADS,
     DEBUG_MARK,
-    BOOKMARK,
-    PREDEFINED_COUNT = BOOKMARK
+    BOOKMARK, // Should always be the last one
   };
 
   UserMark(m2::PointD const & ptOrg, UserMark::Type type);
@@ -52,7 +51,7 @@ public:
   m2::PointD const & GetPivot() const override;
   m2::PointD GetPixelOffset() const override;
   dp::Anchor GetAnchor() const override;
-  virtual float GetDepth() const override { return 0.0f; };
+  virtual float GetDepth() const override { return 0.0f; }
   df::RenderState::DepthLayer GetDepthLayer() const override;
   drape_ptr<TitlesInfo> GetTitleDecl() const override { return nullptr; }
   drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override { return nullptr; }
@@ -69,6 +68,8 @@ public:
 
   ms::LatLon GetLatLon() const;
   virtual Type GetMarkType() const { return m_type; }
+  virtual df::MarkGroupID GetGroupId() const { return m_type; }
+
   virtual bool IsAvailableForSearch() const { return true; }
 
 protected:
@@ -86,7 +87,7 @@ private:
 class StaticMarkPoint : public UserMark
 {
 public:
-  explicit StaticMarkPoint();
+  explicit StaticMarkPoint(m2::PointD const & ptOrg);
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override { return nullptr; }
 
@@ -96,7 +97,7 @@ public:
 class MyPositionMarkPoint : public StaticMarkPoint
 {
 public:
-  explicit MyPositionMarkPoint();
+  explicit MyPositionMarkPoint(m2::PointD const & ptOrg);
 
   void SetUserPosition(m2::PointD const & pt, bool hasPosition)
   {

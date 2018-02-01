@@ -373,14 +373,14 @@ void Framework::RemoveLocalMaps()
   m_work.DeregisterAllMaps();
 }
 
-void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkData & bm)
+void Framework::ReplaceBookmark(df::MarkID markId, BookmarkData & bm)
 {
-  m_work.ReplaceBookmark(ind.m_categoryIndex, ind.m_bookmarkIndex, bm);
+  m_work.ReplaceBookmark(markId, ind.m_bookmarkIndex, bm);
 }
 
-size_t Framework::ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat)
+size_t Framework::ChangeBookmarkCategory(df::MarkID markId, df::MarkGroupID newCat)
 {
-  return m_work.MoveBookmark(ind.m_bookmarkIndex, ind.m_categoryIndex, newCat);
+  return m_work.MoveBookmark(markId, newCat);
 }
 
 bool Framework::ShowMapForURL(string const & url)

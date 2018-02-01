@@ -315,13 +315,12 @@ public:
   /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
 
-  /// @return Created bookmark index in category.
-  size_t AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkData & bm);
-  /// @return New moved bookmark index in category.
-  size_t MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t newCatIndex);
-  void ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm);
-  /// @return Created bookmark category index.
-  size_t AddCategory(string const & categoryName);
+  /// @return Created bookmark id.
+  df::MarkID AddBookmark(df::MarkGroupID catId, m2::PointD const & ptOrg, BookmarkData & bm);
+  void MoveBookmark(df::MarkID bmId, df::MarkGroupID curCatId, df::MarkGroupID newCatId);
+  void ReplaceBookmark(df::MarkID bmId, BookmarkData const & bm);
+  /// @return Created bookmark category id.
+  df::MarkGroupID AddCategory(string const & categoryName);
 
   size_t LastEditedBMCategory() { return GetBookmarkManager().LastEditedBMCategory(); }
   string LastEditedBMType() const { return GetBookmarkManager().LastEditedBMType(); }
@@ -331,7 +330,7 @@ public:
   bool DeleteBmCategory(size_t index);
 
   void ShowBookmark(df::MarkID id);
-  void ShowBookmark(BookmarkAndCategory const & bnc);
+  void ShowBookmark(Bookmark const * bookmark);
   void ShowTrack(Track const & track);
   void ShowFeatureByMercator(m2::PointD const & pt);
 
@@ -339,7 +338,6 @@ public:
 
   void AddBookmarksFile(string const & filePath, bool isTemporaryFile);
 
-  BookmarkAndCategory FindBookmark(UserMark const * mark) const;
   BookmarkManager & GetBookmarkManager();
   BookmarkManager const & GetBookmarkManager() const;
 
@@ -365,7 +363,6 @@ private:
                             df::SelectionShape::ESelectedObject selectionType,
                             place_page::Info const & info);
   void InvalidateUserMarks();
-  void ShowBookmark(Bookmark const * bookmark, BookmarkAndCategory const & bnc);
 
 public:
   void DeactivateMapSelection(bool notifyUI);
@@ -423,7 +420,7 @@ private:
   void OnTapEvent(TapEvent const & tapEvent);
   /// outInfo is valid only if return value is not df::SelectionShape::OBJECT_EMPTY.
   df::SelectionShape::ESelectedObject OnTapEventImpl(TapEvent const & tapEvent,
-                                                     place_page::Info & outInfo) const;
+                                                     place_page::Info & outInfo);
   unique_ptr<TapEvent> MakeTapEvent(m2::PointD const & center, FeatureID const & fid,
                                     TapEvent::Source source) const;
   UserMark const * FindUserMarkInTapPosition(df::TapInfo const & tapInfo) const;
@@ -661,7 +658,7 @@ private:
   void FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const;
 
 public:
-  void FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const;
+  void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
   void ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
 
   /// @returns address of nearby building with house number in approx 1km distance.

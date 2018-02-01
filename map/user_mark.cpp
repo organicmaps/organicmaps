@@ -36,8 +36,8 @@ ms::LatLon UserMark::GetLatLon() const
   return MercatorBounds::ToLatLon(m_ptOrg);
 }
 
-StaticMarkPoint::StaticMarkPoint()
-  : UserMark(m2::PointD{}, UserMark::Type::STATIC)
+StaticMarkPoint::StaticMarkPoint(m2::PointD const & ptOrg)
+  : UserMark(ptOrg, UserMark::Type::STATIC)
 {}
 
 void StaticMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
@@ -46,8 +46,8 @@ void StaticMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
   m_ptOrg = ptOrg;
 }
 
-MyPositionMarkPoint::MyPositionMarkPoint()
-  : StaticMarkPoint()
+MyPositionMarkPoint::MyPositionMarkPoint(m2::PointD const & ptOrg)
+  : StaticMarkPoint(ptOrg)
 {}
 
 DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg)

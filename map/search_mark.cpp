@@ -126,10 +126,9 @@ void SearchMarks::SetPreparingState(std::vector<FeatureID> const & features, boo
 
   ASSERT(std::is_sorted(features.begin(), features.end()), ());
 
-  size_t const count = m_bmManager->GetUserMarkCount(UserMark::Type::SEARCH);
-  for (size_t i = 0; i < count; ++i)
+  for (auto markId : m_bmManager->GetUserMarkIds(UserMark::Type::SEARCH))
   {
-    auto mark = static_cast<SearchMarkPoint *>(m_bmManager->GetUserMarkForEdit(UserMark::Type::SEARCH, i));
+    auto mark = static_cast<SearchMarkPoint *>(m_bmManager->GetUserMarkForEdit(markId));
     if (std::binary_search(features.begin(), features.end(), mark->GetFeatureID()))
       mark->SetPreparing(isPreparing);
   }
