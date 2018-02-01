@@ -63,13 +63,13 @@ bool BuildLocalityIndexFromDataFile(string const & dataFile, string const & tmpF
   {
     string const idxFileName(tmpFile + LOCALITY_INDEX_TMP_EXT);
     {
-      LocalityVectorReader localities(datFile);
+      LocalityVectorReader localities(dataFile);
       FileWriter writer(idxFileName);
 
       covering::BuildLocalityIndex(localities.GetVector(), writer, tmpFile);
     }
 
-    FilesContainerW(datFile, FileWriter::OP_WRITE_EXISTING)
+    FilesContainerW(dataFile, FileWriter::OP_WRITE_EXISTING)
         .Write(idxFileName, LOCALITY_INDEX_FILE_TAG);
     FileWriter::DeleteFileX(idxFileName);
   }
