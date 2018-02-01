@@ -41,23 +41,39 @@ UNIT_TEST(RussiaMoscowGerPanfilovtsev22BicycleWayTurnTest)
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
 }
 
-// Fails to generate direction.
+// This test fails. The reason is DiscardTurnByIngoingAndOutgoingEdges() method which
+// discard turn candidates at very beginning stage by marks which are possible to get
+// effectively. After moving to IndexGraph all marks are possible to get efficiently.
+// So DiscardTurnByIngoingAndOutgoingEdges() method should be removed.
 UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Bicycle>(),
-                                  MercatorBounds::FromLatLon(55.85777, 37.3679), {0.0, 0.0},
-                                  MercatorBounds::FromLatLon(55.85579, 37.36867));
+                                  MercatorBounds::FromLatLon(55.85833, 37.36783), {0.0, 0.0},
+                                  MercatorBounds::FromLatLon(55.85364, 37.37318));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid()
-                                   .TestOneOfDirections({CarDirection::GoStraight,
-                                                         CarDirection::TurnSlightRight,
-                                                         CarDirection::TurnRight});
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+}
+
+// Test that there's no uturn notification in case of zero point edges on two way edges.
+UNIT_TEST(RussiaMoscowSalameiNerisNoUTurnBicycleWayTurnTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Bicycle>(),
+                                  MercatorBounds::FromLatLon(55.85839, 37.3677), {0.0, 0.0},
+                                  MercatorBounds::FromLatLon(55.85765, 37.36793));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
 // Fails to build one-point route.
