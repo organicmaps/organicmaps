@@ -84,6 +84,8 @@
   <color name="bg_placepage_rating_negative">#FFCDD2</color>
   <color name="bg_placepage_rating_negative_night">#1EFFEBF0</color>
 
+  <color name="bg_search_available_hotel">#1A43A047</color>
+
   <!-- Buttons -->
   <color name="button">@color/button_normal</color>
   <color name="button_night">@color/button_normal_night</color>

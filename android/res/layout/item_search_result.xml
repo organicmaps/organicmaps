@@ -48,6 +48,7 @@
       android:layout_marginTop="@dimen/margin_quarter"
       android:textAppearance="@style/MwmTextAppearance.Body3"
       android:maxLines="2"
+      android:ellipsize="end"
       tools:text="Hotel \u2022 \u2605\u2605\u2605\u2605\u2605"/>
 
   <TextView

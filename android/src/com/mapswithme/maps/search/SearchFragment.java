@@ -36,7 +36,6 @@ import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.SearchToolbarController;
-import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
@@ -54,7 +53,7 @@ public class SearchFragment extends BaseMwmFragment
                                     NativeSearchListener,
                                     SearchToolbarController.Container,
                                     CategoriesAdapter.OnCategorySelectedListener,
-                                    HotelsFilterHolder
+                                    HotelsFilterHolder, NativeBookingFilterListener
 {
   public static final String PREFS_SHOW_ENABLE_LOGGING_SETTING = "ShowEnableLoggingSetting";
   private static final int MIN_QUERY_LENGTH_FOR_AD = 3;
@@ -194,6 +193,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private SearchToolbarController mToolbarController;
 
+  @Nullable
   private SearchAdapter mSearchAdapter;
 
   private final List<RecyclerView> mAttachedRecyclers = new ArrayList<>();
@@ -461,6 +461,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     super.onResume();
     LocationHelper.INSTANCE.addListener(mLocationListener, true);
+    SearchEngine.INSTANCE.addHotelListener(this);
     mAppBarLayout.addOnOffsetChangedListener(mOffsetListener);
   }
 
@@ -468,6 +469,7 @@ public class SearchFragment extends BaseMwmFragment
   public void onPause()
   {
     LocationHelper.INSTANCE.removeListener(mLocationListener);
+    SearchEngine.INSTANCE.removeHotelListener(this);
     super.onPause();
     mAppBarLayout.removeOnOffsetChangedListener(mOffsetListener);
   }
@@ -691,6 +693,15 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
+  public void onFilterAvailableHotels(@Nullable FeatureId[] availableHotels)
+  {
+    if (mSearchAdapter == null || availableHotels == null)
+      return;
+
+    mSearchAdapter.setAvailableHotels(availableHotels);
+  }
+
+  @Override
   public void onCategorySelected(String category)
   {
     if (!TextUtils.isEmpty(category) &&
@@ -717,7 +728,8 @@ public class SearchFragment extends BaseMwmFragment
     stopAdsLoading();
     mSearchRunning = true;
     updateFrames();
-    mSearchAdapter.refreshData(combineResultsWithAds());
+    if (mSearchAdapter != null)
+      mSearchAdapter.refreshData(combineResultsWithAds());
     mToolbarController.showProgress(true);
     updateFilterButton(mIsHotel);
   }

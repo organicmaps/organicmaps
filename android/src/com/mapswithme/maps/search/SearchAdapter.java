@@ -1,8 +1,11 @@
 package com.mapswithme.maps.search;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.AttrRes;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
@@ -17,15 +20,22 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHolder>
 {
   private final SearchFragment mSearchFragment;
   private SearchData[] mResults;
+  @NonNull
+  private Set<FeatureId> mAvailableHotelIds = new HashSet<>();
   private final Drawable mClosedMarkerBackground;
 
   static abstract class SearchDataViewHolder extends RecyclerView.ViewHolder
@@ -139,6 +149,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
   private class ResultViewHolder extends BaseResultViewHolder
   {
+    @NonNull
+    final View mFrame;
     final TextView mName;
     final View mClosedMarker;
     final TextView mDescription;
@@ -153,13 +165,13 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     }
 
     // FIXME: Better format based on result type
-    private CharSequence formatDescription(SearchResult result)
+    private CharSequence formatDescription(SearchResult result, boolean isHotelAvailable)
     {
       final SpannableStringBuilder res = new SpannableStringBuilder(result.description.featureType);
       final SpannableStringBuilder tail = new SpannableStringBuilder();
 
       final int stars = Math.min(result.description.stars, 5);
-      if (stars > 0 || !result.description.rating.isEmpty())
+      if (stars > 0 || !result.description.rating.isEmpty() || isHotelAvailable)
       {
         if (stars > 0)
         {
@@ -178,14 +190,20 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
         if (!result.description.rating.isEmpty())
         {
-          final SpannableStringBuilder sb = new SpannableStringBuilder(
-                  itemView.getResources().getString(R.string.place_page_booking_rating, result.description.rating));
-          sb.setSpan(new ForegroundColorSpan(itemView.getResources().getColor(R.color.base_green)),
-                  0, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-
+          Resources rs = itemView.getResources();
+          String s = rs.getString(R.string.place_page_booking_rating, result.description.rating);
           tail
             .append(" • ")
-            .append(sb);
+            .append(colorizeString(s, rs.getColor(R.color.base_green)));
+        }
+
+        if (isHotelAvailable)
+        {
+          Resources rs = itemView.getResources();
+          String s = itemView.getResources().getString(R.string.hotel_available);
+          if (tail.length() > 0)
+            tail.append(" • ");
+          tail.append(colorizeString(s, rs.getColor(R.color.base_green)));
         }
       }
       else if (!TextUtils.isEmpty(result.description.cuisine))
@@ -198,16 +216,25 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       return res;
     }
 
+    @NonNull
+    private CharSequence colorizeString(@NonNull String str, @ColorInt int color)
+    {
+      final SpannableStringBuilder sb = new SpannableStringBuilder(str);
+      sb.setSpan(new ForegroundColorSpan(color),
+                 0, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+      return sb;
+    }
+
     ResultViewHolder(View view)
     {
       super(view);
-
-      mName = (TextView) view.findViewById(R.id.title);
+      mFrame = view;
+      mName = view.findViewById(R.id.title);
       mClosedMarker = view.findViewById(R.id.closed);
-      mDescription = (TextView) view.findViewById(R.id.description);
-      mRegion = (TextView) view.findViewById(R.id.region);
-      mDistance = (TextView) view.findViewById(R.id.distance);
-      mPriceCategory = (TextView) view.findViewById(R.id.price_category);
+      mDescription =  view.findViewById(R.id.description);
+      mRegion = view.findViewById(R.id.region);
+      mDistance = view.findViewById(R.id.distance);
+      mPriceCategory = view.findViewById(R.id.price_category);
 
       mClosedMarker.setBackgroundDrawable(mClosedMarkerBackground);
     }
@@ -222,13 +249,20 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     void bind(@NonNull SearchData result, int order)
     {
       super.bind(result, order);
+      boolean isHotelAvailable = mResult.isHotel &&
+                                 mAvailableHotelIds.contains(mResult.description.featureId);
+      Context context = mSearchFragment.getActivity();
+      @AttrRes
+      int itemBg = ThemeUtils.getResource(context, R.attr.clickableBackground);
+      mFrame.setBackgroundResource(isHotelAvailable ? R.color.bg_search_available_hotel : itemBg);
 
       // TODO: Support also "Open Now" mark.
       UiUtils.showIf(mResult.description.openNow == SearchResult.OPEN_NOW_NO, mClosedMarker);
-      UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult));
+      UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult, isHotelAvailable));
       UiUtils.setTextAndHideIfEmpty(mRegion, mResult.description.region);
       UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance);
       UiUtils.setTextAndHideIfEmpty(mPriceCategory, mResult.description.pricing);
+
     }
 
     @Override
@@ -328,6 +362,13 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   void refreshData(SearchData[] results)
   {
     mResults = results;
+    notifyDataSetChanged();
+  }
+
+  void setAvailableHotels(@NonNull FeatureId[] mHotelsId)
+  {
+    mAvailableHotelIds.clear();
+    mAvailableHotelIds.addAll(Arrays.asList(mHotelsId));
     notifyDataSetChanged();
   }
 }
