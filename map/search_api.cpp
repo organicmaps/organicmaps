@@ -226,7 +226,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   return Search(p, false /* forceSearch */);
 }
 
-bool SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
+void SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
 {
   CHECK(params.m_onResults, ());
   CHECK(!params.m_query.empty(), ());
@@ -258,7 +258,7 @@ bool SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
     }
   };
 
-  return Search(p, false /* forceSearch */);
+  GetEngine().Search(p);
 }
 
 bool SearchAPI::SearchInDownloader(storage::DownloaderSearchParams const & params)

@@ -118,8 +118,9 @@ struct Callback
 
   auto getTypes = [](MWMDiscoveryMode m) -> vector<ItemType> {
     if (m == MWMDiscoveryModeOnline)
-      return {ItemType::Viator, ItemType::Attractions, ItemType::Cafes, ItemType::LocalExperts};
-    return {ItemType::Attractions, ItemType::Cafes};
+      return {ItemType::Hotels, ItemType::Viator, ItemType::Attractions, ItemType::Cafes,
+              ItemType::LocalExperts};
+    return {ItemType::Hotels, ItemType::Attractions, ItemType::Cafes};
   };
 
   vector<ItemType> types = getTypes(self.mode);
@@ -134,37 +135,38 @@ struct Callback
 
 #pragma mark - MWMDiscoveryTapDelegate
 
+- (void)showSearchResult:(const search::Result &)item
+{
+  GetFramework().ShowSearchResult(item);
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)tapOnItem:(ItemType const)type atIndex:(size_t const)index
 {
   NSString * dest = @"";
   switch (type)
   {
   case ItemType::Viator:
-  case ItemType::LocalExperts:
-  {
-    auto const & url = type == ItemType::Viator ? m_model.GetViatorAt(index).m_pageUrl
-                                                : m_model.GetExpertAt(index).m_pageUrl;
-    [self openUrl:[NSURL URLWithString:@(url.c_str())]];
+    [self openUrl:[NSURL URLWithString:@(m_model.GetViatorAt(index).m_pageUrl.c_str())]];
     dest = kStatExternal;
     break;
-  }
+  case ItemType::LocalExperts:
+    [self openUrl:[NSURL URLWithString:@(m_model.GetExpertAt(index).m_pageUrl.c_str())]];
+    dest = kStatExternal;
+    break;
   case ItemType::Attractions:
+    [self showSearchResult:m_model.GetAttractionAt(index)];
+    dest = kStatPlacePage;
+    break;
   case ItemType::Cafes:
-  {
-    auto const & item =
-        type == ItemType::Attractions ? m_model.GetAttractionAt(index) : m_model.GetCafeAt(index);
-    GetFramework().ShowSearchResult(item);
-    [self.navigationController popViewControllerAnimated:YES];
+    [self showSearchResult:m_model.GetCafeAt(index)];
+    dest = kStatPlacePage;
+    break;
+  case ItemType::Hotels:
+    [self showSearchResult:m_model.GetHotelAt(index)];
     dest = kStatPlacePage;
     break;
   }
-  case ItemType::Hotels:
-  {
-    NSAssert(false, @"Discovering hotels hasn't implemented yet.");
-    break;
-  }
-  }
-
   NSAssert(dest.length > 0, @"");
   [Statistics logEvent:kStatPlacepageSponsoredItemSelected
         withParameters:@{
@@ -177,7 +179,7 @@ struct Callback
 
 - (void)routeToItem:(ItemType const)type atIndex:(size_t const)index
 {
-  CHECK(type == ItemType::Attractions || type == ItemType::Cafes,
+  CHECK(type == ItemType::Attractions || type == ItemType::Cafes || type == ItemType::Hotels,
         ("Attempt to route to item with type:", static_cast<int>(type)));
   auto const & item =
       type == ItemType::Attractions ? m_model.GetAttractionAt(index) : m_model.GetCafeAt(index);

@@ -10,7 +10,7 @@ class DiscoveryCollectionHolder: UITableViewCell {
 
 @objc(MWMDiscoveryViatorCollectionHolderCell)
 final class DiscoveryViatorCollectionHolderCell: DiscoveryCollectionHolder {
-  typealias Tap = () -> ()
+  typealias Tap = () -> Void
   private var tap: Tap?
 
   @objc func config(tap: @escaping Tap) {
@@ -44,5 +44,13 @@ final class DiscoverySearchCollectionHolderCell: DiscoveryCollectionHolder {
 
   private func config(header: String) {
     super.config(header: header, cellClass: DiscoverySearchCell.self)
+  }
+}
+
+@objc(MWMDiscoveryBookingCollectionHolderCell)
+final class DiscoveryBookingCollectionHolderCell: DiscoveryCollectionHolder {
+  @objc func config() {
+    super.config(header: L("discovery_button_subtitle_booking").uppercased(),
+                 cellClass: DiscoveryBookingCell.self)
   }
 }

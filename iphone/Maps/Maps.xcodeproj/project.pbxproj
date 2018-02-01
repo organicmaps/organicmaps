@@ -240,6 +240,9 @@
 		34AC8FDB1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC8FD91EFC062400E7F910 /* UILabel+NumberOfVisibleLines.swift */; };
 		34B1104C1FC8474D0010F76F /* CoreActionSheetPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B1104A1FC843420010F76F /* CoreActionSheetPicker.framework */; };
 		34B127EA1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B127E81FBDD410008713D9 /* MWMRouterTransitStepInfo.mm */; };
+		34B6FD5F2015E6BF00C18E97 /* DiscoveryBookingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B6FD5D2015E6BE00C18E97 /* DiscoveryBookingCell.swift */; };
+		34B6FD602015E6BF00C18E97 /* DiscoveryBookingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B6FD5E2015E6BF00C18E97 /* DiscoveryBookingCell.xib */; };
+		34B6FD622015F71A00C18E97 /* DiscoveryBookingCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B6FD612015F71900C18E97 /* DiscoveryBookingCollectionHolderCell.xib */; };
 		34B924431DC8A29C0008D971 /* MWMMailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B924411DC8A29C0008D971 /* MWMMailViewController.mm */; };
 		34BBD6471F82649D0070CA50 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */; };
 		34BBD64C1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD64A1F826DB10070CA50 /* AuthorizationViewController.swift */; };
@@ -1066,6 +1069,9 @@
 		34B127E71FBDD410008713D9 /* MWMRouterTransitStepInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterTransitStepInfo.h; sourceTree = "<group>"; };
 		34B127E81FBDD410008713D9 /* MWMRouterTransitStepInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouterTransitStepInfo.mm; sourceTree = "<group>"; };
 		34B3806B1F1E46E20087D65B /* MWMSearchManagerState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchManagerState.h; sourceTree = "<group>"; };
+		34B6FD5D2015E6BE00C18E97 /* DiscoveryBookingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryBookingCell.swift; sourceTree = "<group>"; };
+		34B6FD5E2015E6BF00C18E97 /* DiscoveryBookingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscoveryBookingCell.xib; sourceTree = "<group>"; };
+		34B6FD612015F71900C18E97 /* DiscoveryBookingCollectionHolderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscoveryBookingCollectionHolderCell.xib; sourceTree = "<group>"; };
 		34B924401DC8A29C0008D971 /* MWMMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMailViewController.h; sourceTree = "<group>"; };
 		34B924411DC8A29C0008D971 /* MWMMailViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMailViewController.mm; sourceTree = "<group>"; };
 		34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = 3party/GoogleSignIn/GoogleSignIn.bundle; sourceTree = "<group>"; };
@@ -3714,6 +3720,9 @@
 		F6E407CC1FC45ED4001F7821 /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
+				34B6FD5D2015E6BE00C18E97 /* DiscoveryBookingCell.swift */,
+				34B6FD5E2015E6BF00C18E97 /* DiscoveryBookingCell.xib */,
+				34B6FD612015F71900C18E97 /* DiscoveryBookingCollectionHolderCell.xib */,
 				F5BD2A86D9DA2F9769D30B54 /* DiscoveryCollectionHolderCell.swift */,
 				F69739B41FD198E300FDA07D /* DiscoveryControllerViewModel.hpp */,
 				F69739DA1FD6ECCE00FDA07D /* DiscoveryLocalExpertCell.swift */,
@@ -4046,6 +4055,7 @@
 				34D3B04B1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
 				F6E2FDEF1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
 				34E50DE31F6FCBA1008EED49 /* UGCAddReviewCell.xib in Resources */,
+				34B6FD602015E6BF00C18E97 /* DiscoveryBookingCell.xib in Resources */,
 				F6E2FDF51E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F603E05A1FDE9410006B84D6 /* DiscoveryLocalExpertCollectionHolderCell.xib in Resources */,
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
@@ -4107,6 +4117,7 @@
 				671182E51C7F0DDB00CB8177 /* packed_polygons_obsolete.bin in Resources */,
 				676507601C10559800830BB3 /* patterns.txt in Resources */,
 				6741A94A1BF340DE002C974C /* resources-6plus_clear in Resources */,
+				34B6FD622015F71A00C18E97 /* DiscoveryBookingCollectionHolderCell.xib in Resources */,
 				6741A9741BF340DE002C974C /* resources-6plus_dark in Resources */,
 				677A2DE21C0DD50900635A00 /* resources-default in Resources */,
 				F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */,
@@ -4239,6 +4250,7 @@
 				34F4073E1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
 				F6E2FED01E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
 				34D4FA671E265749003F53EF /* WhatsNewController.swift in Sources */,
+				34B6FD5F2015E6BF00C18E97 /* DiscoveryBookingCell.swift in Sources */,
 				34D3B01B1E389D05004100F9 /* MWMButtonCell.mm in Sources */,
 				3486B5161E27AD3B0069C126 /* Framework.cpp in Sources */,
 				34ABA6291C2D567B00FE1BEC /* MWMInputLoginValidator.mm in Sources */,

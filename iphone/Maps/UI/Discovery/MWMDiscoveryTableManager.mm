@@ -37,7 +37,7 @@ NSString * StatProvider(ItemType const type)
   case ItemType::LocalExperts: return kStatLocalsProvider;
   case ItemType::Attractions: return kStatSearchAttractions;
   case ItemType::Cafes: return kStatSearchRestaurants;
-  case ItemType::Hotels: ASSERT(false, ()); return @"";
+  case ItemType::Hotels: return kStatBooking;
   }
 }
 }  // namespace discovery
@@ -179,6 +179,7 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   [tv registerWithCellClass:[MWMDiscoverySearchCollectionHolderCell class]];
   [tv registerWithCellClass:[MWMDiscoveryViatorCollectionHolderCell class]];
   [tv registerWithCellClass:[MWMDiscoveryLocalExpertCollectionHolderCell class]];
+  [tv registerWithCellClass:[MWMDiscoveryBookingCollectionHolderCell class]];
   [tv registerWithCellClass:[MWMDiscoveryNoResultsCell class]];
 }
 
@@ -240,6 +241,19 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   return cell;
 }
 
+- (MWMDiscoveryBookingCollectionHolderCell *)bookingCollectionHolderCell:(NSIndexPath *)indexPath
+{
+  Class cls = [MWMDiscoveryBookingCollectionHolderCell class];
+  auto cell = static_cast<MWMDiscoveryBookingCollectionHolderCell *>(
+      [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+  auto collection = static_cast<MWMDiscoveryCollectionView *>(cell.collectionView);
+  [cell config];
+  collection.delegate = self;
+  collection.dataSource = self;
+  collection.itemType = ItemType::Hotels;
+  return cell;
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -297,11 +311,7 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
     }
     return [self searchCollectionHolderCell:indexPath];
   }
-  case ItemType::Hotels:
-  {
-    CHECK(false, ("Discovering hotels hasn't implemented yet."));
-    return nil;
-  }
+  case ItemType::Hotels: return [self bookingCollectionHolderCell:indexPath];
   }
 }
 
@@ -351,7 +361,6 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
                       }];
     return cell;
   }
-
   case ItemType::Viator:
   {
     Class cls = [MWMViatorElement class];
@@ -394,7 +403,38 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
                           }];
     return cell;
   }
-  case ItemType::Hotels: NSAssert(false, @""); return nil;
+  case ItemType::Hotels:
+  {
+    Class cls = [MWMDiscoveryBookingCell class];
+    auto cell = static_cast<MWMDiscoveryBookingCell *>(
+        [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+    auto const & sr = model.GetHotelAt(indexPath.row);
+    auto const & pt = model.GetHotelReferencePoint();
+
+    NSMutableString * subtitle = nil;
+    auto starsCount = sr.GetStarsCount();
+    if (starsCount == 0)
+    {
+      subtitle = [@(sr.GetFeatureTypeName().c_str()) mutableCopy];
+    }
+    else
+    {
+      subtitle = [@"" mutableCopy];
+      for (int i = 0; i < starsCount; ++i)
+        [subtitle appendString:@"★"];
+    }
+    [cell configWithAvatarURL:nil
+                        title:@(sr.GetString().c_str())
+                     subtitle:[subtitle copy]
+                        price:@(sr.GetHotelApproximatePricing().c_str())
+                  ratingValue:@(sr.GetHotelRating().c_str())
+                   ratingType:MWMRatingSummaryViewValueTypeGood
+                     distance:@(GetDistance(pt, sr.GetFeatureCenter()).c_str())
+                 onBuildRoute:^{
+                   [self.delegate routeToItem:type atIndex:indexPath.row];
+                 }];
+    return cell;
+  }
   }
 }
 
