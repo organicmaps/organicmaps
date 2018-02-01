@@ -37,7 +37,8 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
   if (!IsGoStraightOrSlightTurn(turn))
     return true;  // The road significantly changes its direction here. So this turn shall be kept.
 
-  // There's only one exit from this junction. NodeID of the exit is outgoingNode.
+  // There's only one exit from this junction. This turn should be left.
+  // It may be kept later according to the result of the method KeepTurnByIngoingEdges().
   if (possibleTurns.candidates.size() == 1)
     return true;
 
@@ -55,15 +56,20 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
     ASSERT(false, ("One of possible turns follows along an undefined HighwayClass."));
     return true;
   }
+  if (maxClassForPossibleTurns == ftypes::HighwayClass::Undefined)
+    return false; // Fake edges has HighwayClass::Undefined.
 
   ftypes::HighwayClass const minClassForTheRoute =
       static_cast<ftypes::HighwayClass>(min(static_cast<int>(turnInfo.m_ingoing.m_highwayClass),
                                             static_cast<int>(turnInfo.m_outgoing.m_highwayClass)));
+
   if (minClassForTheRoute == ftypes::HighwayClass::Error)
   {
     ASSERT(false, ("The route contains undefined HighwayClass."));
     return false;
   }
+  if (minClassForTheRoute == ftypes::HighwayClass::Undefined)
+    return false; // Fake edges has HighwayClass::Undefined.
 
   int const kMaxHighwayClassDiffToKeepTheTurn = 2;
   if (static_cast<int>(maxClassForPossibleTurns) - static_cast<int>(minClassForTheRoute) >=
@@ -660,13 +666,16 @@ size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
         checkedSegment.m_isLink == masterSegment.m_isLink && !checkedSegment.m_onRoundabout)
     {
       auto const & path = masterSegment.m_path;
+      auto const & pointBeforeTurn = path[path.size() - 2];
+      auto const & turnPoint = path[path.size() - 1];
+      auto const & pointAfterTurn = checkedSegment.m_path[1];
       // Same segment UTurn case.
       if (i == 0)
       {
         // TODO Fix direction calculation.
         // Warning! We can not determine UTurn direction in single edge case. So we use UTurnLeft.
         // We decided to add driving rules (left-right sided driving) to mwm header.
-        if (path[path.size() - 2] == checkedSegment.m_path[1])
+        if (pointBeforeTurn == pointAfterTurn && turnPoint != pointBeforeTurn)
         {
           turn.m_turn = CarDirection::UTurnLeft;
           return 1;
@@ -680,11 +689,11 @@ size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
         return 0;
 
       // Avoid returning to the same edge after uturn somewere else.
-      if (path[path.size() - 2] == checkedSegment.m_path[1])
+      if (pointBeforeTurn == pointAfterTurn)
         return 0;
 
-      m2::PointD const v1 = path[path.size() - 1].GetPoint() - path[path.size() - 2].GetPoint();
-      m2::PointD const v2 = checkedSegment.m_path[1].GetPoint() - checkedSegment.m_path[0].GetPoint();
+      m2::PointD const v1 = turnPoint.GetPoint() - pointBeforeTurn.GetPoint();
+      m2::PointD const v2 = pointAfterTurn.GetPoint() - checkedSegment.m_path[0].GetPoint();
 
       auto angle = ang::TwoVectorsAngle(m2::PointD::Zero(), v1, v2);
 
