@@ -404,7 +404,7 @@ Status Storage::CountryStatus(TCountryId const & countryId) const
   if (IsCountryInQueue(countryId))
   {
     if (IsCountryFirstInQueue(countryId))
-      return Status::EDownloading;
+      return IsDiffApplyingInProgressToCountry(countryId) ? Status::EApplying : Status::EDownloading;
     else
       return Status::EInQueue;
   }
@@ -871,6 +871,7 @@ void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions o
     /// and we can't stop the process.
     /// TODO: Make the applying process cancellable.
     m_queue.begin()->SetFrozen();
+    NotifyStatusChangedForHierarchy(countryId);
     ApplyDiff(countryId, fn);
     return;
   }
@@ -1065,6 +1066,16 @@ bool Storage::IsCountryFirstInQueue(TCountryId const & countryId) const
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
   return !m_queue.empty() && m_queue.front().GetCountryId() == countryId;
+}
+
+bool Storage::IsDiffApplyingInProgressToCountry(TCountryId const & countryId) const
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  if (!IsCountryFirstInQueue(countryId))
+    return false;
+
+  return m_queue.front().IsFrozen();
 }
 
 void Storage::SetLocale(string const & locale) { m_countryNameGetter.SetLocale(locale); }

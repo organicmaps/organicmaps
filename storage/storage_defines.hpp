@@ -2,10 +2,10 @@
 
 #include "storage/index.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/function.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
+#include <cstdint>
+#include <functional>
+#include <string>
+#include <utility>
 
 namespace storage
 {
@@ -17,12 +17,13 @@ namespace storage
     ENotDownloaded,   /**< Mwm can be download but not downloaded yet. */
     EDownloadFailed,  /**< Downloading failed because no internet connection. */
     EDownloading,     /**< Downloading a new mwm or updating an old one. */
+    EApplying,        /**< Applying downloaded diff for an old mwm. */
     EInQueue,         /**< A mwm is waiting for downloading in the queue. */
     EUnknown,         /**< Downloading failed because of unknown error. */
     EOnDiskOutOfDate, /**< An update for a downloaded mwm is ready according to counties.txt. */
     EOutOfMemFailed,  /**< Downloading failed because it's not enough memory */
   };
-  string DebugPrint(Status status);
+  std::string DebugPrint(Status status);
 
   /// \note The order of enum items is important. It is used in Storage::NodeStatus method.
   /// If it's necessary to add more statuses it's better to add to the end.
@@ -30,6 +31,7 @@ namespace storage
   {
     Undefined,
     Downloading,      /**< Downloading a new mwm or updating an old one. */
+    Applying,         /**< Applying downloaded diff for an old mwm. */
     InQueue,          /**< An mwm is waiting for downloading in the queue. */
     Error,            /**< An error happened while downloading */
     OnDiskOutOfDate,  /**< An update for a downloaded mwm is ready according to counties.txt. */
@@ -37,7 +39,7 @@ namespace storage
     NotDownloaded,    /**< An mwm can be downloaded but not downloaded yet. */
     Partly,           /**< Leafs of group node has a mix of NotDownloaded and OnDisk status. */
   };
-  string DebugPrint(NodeStatus status);
+  std::string DebugPrint(NodeStatus status);
 
   enum class NodeErrorCode
   {
@@ -46,7 +48,7 @@ namespace storage
     OutOfMemFailed,   /**< Downloading failed because it's not enough memory */
     NoInetConnection, /**< Downloading failed because internet connection was interrupted */
   };
-  string DebugPrint(NodeErrorCode status);
+  std::string DebugPrint(NodeErrorCode status);
 
   struct StatusAndError
   {
@@ -61,9 +63,9 @@ namespace storage
     NodeStatus status;
     NodeErrorCode error;
   };
-  string DebugPrint(StatusAndError statusAndError);
+  std::string DebugPrint(StatusAndError statusAndError);
 
   StatusAndError ParseStatus(Status innerStatus);
 }  // namespace storage
 
-using TDownloadFn = function<void (storage::TCountryId const &)>;
+using TDownloadFn = std::function<void(storage::TCountryId const &)>;

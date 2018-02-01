@@ -588,6 +588,9 @@ private:
   // Returns true when country is first in the downloader's queue.
   bool IsCountryFirstInQueue(TCountryId const & countryId) const;
 
+  // Returns true if we started the diff applying procedure for an mwm with countryId.
+  bool IsDiffApplyingInProgressToCountry(TCountryId const & countryId) const;
+
   // Returns local country files of a particular version, or wrapped
   // nullptr if there're no country files corresponding to the
   // version.
