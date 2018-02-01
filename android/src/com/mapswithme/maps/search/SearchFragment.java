@@ -369,7 +369,7 @@ public class SearchFragment extends BaseMwmFragment
     mResults = mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(mResults);
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
-    mResultsPlaceholder.setContent(R.drawable.img_mappyny,
+    mResultsPlaceholder.setContent(R.drawable.img_search_nothing_found_light,
                                    R.string.search_not_found, R.string.search_not_found_query);
 
     mFilterElevation = view.findViewById(R.id.filter_elevation);
