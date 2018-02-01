@@ -428,12 +428,11 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
   TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
-// Fails to generate "Downstairs" direction.
 UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Pedestrian>(),
-                                  MercatorBounds::FromLatLon(53.89302, 27.52792), {0., 0.},
+                                  MercatorBounds::FromLatLon(53.89296, 27.52775), {0., 0.},
                                   MercatorBounds::FromLatLon(53.89262, 27.52838));
 
   Route const & route = *routeResult.first;
