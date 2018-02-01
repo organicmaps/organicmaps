@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		341EEFCD2022F9A900D5DBE4 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 341EEFCC2022F9A900D5DBE4 /* Alamofire.framework */; };
+		341EEFD02022FCB000D5DBE4 /* http_uploader_apple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341EEFCF2022FCB000D5DBE4 /* http_uploader_apple.swift */; };
 		34513AFA1DCB37C100471BDA /* marketing_service_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34513AF71DCB37C100471BDA /* marketing_service_ios.mm */; };
 		34513AFB1DCB37C100471BDA /* marketing_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34513AF81DCB37C100471BDA /* marketing_service.cpp */; };
 		34513AFC1DCB37C100471BDA /* marketing_service.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34513AF91DCB37C100471BDA /* marketing_service.hpp */; };
@@ -113,6 +115,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		341EEFCC2022F9A900D5DBE4 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../../iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		341EEFCE2022FCB000D5DBE4 /* platform-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "platform-Bridging-Header.h"; sourceTree = "<group>"; };
+		341EEFCF2022FCB000D5DBE4 /* http_uploader_apple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = http_uploader_apple.swift; sourceTree = "<group>"; };
 		34513AF71DCB37C100471BDA /* marketing_service_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = marketing_service_ios.mm; sourceTree = "<group>"; };
 		34513AF81DCB37C100471BDA /* marketing_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = marketing_service.cpp; sourceTree = "<group>"; };
 		34513AF91DCB37C100471BDA /* marketing_service.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = marketing_service.hpp; sourceTree = "<group>"; };
@@ -232,6 +237,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				341EEFCD2022F9A900D5DBE4 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +263,7 @@
 		3496AB6F1DC1F5AB00C5DDBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				341EEFCC2022F9A900D5DBE4 /* Alamofire.framework */,
 				3496AB701DC1F5AB00C5DDBA /* libalohalitics.a */,
 			);
 			name = Frameworks;
@@ -324,6 +331,7 @@
 				675343791A3F5CF500A0A8C3 /* Products */,
 				3496AB6F1DC1F5AB00C5DDBA /* Frameworks */,
 				A8E540F51F9F97CD00A1B8FA /* Recovered References */,
+				341EEFCE2022FCB000D5DBE4 /* platform-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -340,14 +348,6 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
-				3D318A042021DD8A007B2607 /* http_uploader_apple.mm */,
-				3D318A052021DD8B007B2607 /* http_uploader.hpp */,
-				451E329F1F73A8B000964C9F /* secure_storage.hpp */,
-				451E329D1F73A8B000964C9F /* secure_storage_ios.mm */,
-				451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */,
-				3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */,
-				3D78156B1F3A14090068B6AC /* gui_thread_apple.mm */,
-				3D78156C1F3A14090068B6AC /* gui_thread.hpp */,
 				675343861A3F5D5900A0A8C3 /* apple_location_service.mm */,
 				675343881A3F5D5900A0A8C3 /* chunks_download_strategy.cpp */,
 				675343891A3F5D5900A0A8C3 /* chunks_download_strategy.hpp */,
@@ -360,6 +360,8 @@
 				56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */,
 				67AB92E81B7B3E9100AB5194 /* get_text_by_id.cpp */,
 				67AB92E91B7B3E9100AB5194 /* get_text_by_id.hpp */,
+				3D78156B1F3A14090068B6AC /* gui_thread_apple.mm */,
+				3D78156C1F3A14090068B6AC /* gui_thread.hpp */,
 				3D30587E1D880910004AC712 /* http_client_apple.mm */,
 				3D97F64A1D9C05E800380945 /* http_client.cpp */,
 				3D30587B1D8320E4004AC712 /* http_client.hpp */,
@@ -368,6 +370,9 @@
 				6753438D1A3F5D5900A0A8C3 /* http_thread_apple.h */,
 				6753438E1A3F5D5900A0A8C3 /* http_thread_apple.mm */,
 				6753438F1A3F5D5A00A0A8C3 /* http_thread_callback.hpp */,
+				3D318A042021DD8A007B2607 /* http_uploader_apple.mm */,
+				341EEFCF2022FCB000D5DBE4 /* http_uploader_apple.swift */,
+				3D318A052021DD8B007B2607 /* http_uploader.hpp */,
 				674125041B4C00CC00A3E828 /* local_country_file_utils.cpp */,
 				674125051B4C00CC00A3E828 /* local_country_file_utils.hpp */,
 				674125061B4C00CC00A3E828 /* local_country_file.cpp */,
@@ -396,6 +401,10 @@
 				675343A21A3F5D5A00A0A8C3 /* platform.hpp */,
 				675343A31A3F5D5A00A0A8C3 /* preferred_languages.cpp */,
 				675343A41A3F5D5A00A0A8C3 /* preferred_languages.hpp */,
+				3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */,
+				451E329D1F73A8B000964C9F /* secure_storage_ios.mm */,
+				451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */,
+				451E329F1F73A8B000964C9F /* secure_storage.hpp */,
 				675343A61A3F5D5A00A0A8C3 /* servers_list.cpp */,
 				675343A71A3F5D5A00A0A8C3 /* servers_list.hpp */,
 				675343A81A3F5D5A00A0A8C3 /* settings.cpp */,
@@ -556,6 +565,7 @@
 					};
 					675343771A3F5CF500A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
+						LastSwiftMigration = 0920;
 					};
 					6783387D1C6DE54700FD6263 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -642,6 +652,7 @@
 				451E32A01F73A8B000964C9F /* secure_storage_ios.mm in Sources */,
 				675343DB1A3F5D5A00A0A8C3 /* wifi_location_service.cpp in Sources */,
 				56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */,
+				341EEFD02022FCB000D5DBE4 /* http_uploader_apple.swift in Sources */,
 				675343B11A3F5D5A00A0A8C3 /* apple_location_service.mm in Sources */,
 				675343B31A3F5D5A00A0A8C3 /* chunks_download_strategy.cpp in Sources */,
 				34513AFA1DCB37C100471BDA /* marketing_service_ios.mm in Sources */,
@@ -707,8 +718,13 @@
 					platform_ios.mm,
 					secure_storage_ios.mm,
 				);
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire-Swift.h",
 					"$(OMIM_ROOT)/3party/jansson/src",
 					"$(QT_PATH)/include",
 				);
@@ -733,8 +749,13 @@
 					platform_ios.mm,
 					secure_storage_ios.mm,
 				);
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire-Swift.h",
 					"$(OMIM_ROOT)/3party/jansson/src",
 					"$(QT_PATH)/include",
 				);
@@ -744,16 +765,22 @@
 		675343841A3F5CF500A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "platform-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		675343851A3F5CF500A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "platform-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -795,8 +822,13 @@
 					platform_ios.mm,
 					secure_storage_ios.mm,
 				);
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire-Swift.h",
 					"$(OMIM_ROOT)/3party/jansson/src",
 					"$(QT_PATH)/include",
 				);
@@ -806,8 +838,11 @@
 		A8E5410F1F9FBC4C00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "platform-Bridging-Header.h";
 			};
 			name = "Production Full";
 		};
