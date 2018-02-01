@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,16 @@ import com.mapswithme.maps.widget.recycler.TagItemDecoration;
 import com.mapswithme.maps.widget.recycler.TagLayoutManager;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -197,6 +201,8 @@ public class FilterFragment extends BaseMwmToolbarFragment
           mListener.onFilterApply(filter, new BookingFilterParams(mCheckinDate.getTimeInMillis(),
                                                                   mCheckoutDate.getTimeInMillis(),
                                                                   BookingFilterParams.Room.DEFAULT));
+          Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_APPLY,
+                                               Statistics.EventParam.HOTEL);
         });
 
     Bundle args = getArguments();
@@ -209,6 +215,14 @@ public class FilterFragment extends BaseMwmToolbarFragment
     }
     updateViews(filter, params);
     return root;
+  }
+
+  @Override
+  public void onActivityCreated(@Nullable Bundle savedInstanceState)
+  {
+    super.onActivityCreated(savedInstanceState);
+    Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_OPEN,
+                                         Statistics.EventParam.HOTEL);
   }
 
   private void initDateViews(View root)
@@ -224,6 +238,10 @@ public class FilterFragment extends BaseMwmToolbarFragment
           dialog.getDatePicker().setMinDate(getMinDateForCheckin().getTimeInMillis());
           dialog.getDatePicker().setMaxDate(getMaxDateForCheckin().getTimeInMillis());
           dialog.show();
+          Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                               new Pair<>(Statistics.EventParam.DATE,
+                                                          Statistics.ParamValue.CHECKIN));
+
         });
     mCheckOut = root.findViewById(R.id.checkOut);
     mCheckOut.setOnClickListener(
@@ -238,6 +256,9 @@ public class FilterFragment extends BaseMwmToolbarFragment
           dialog.getDatePicker().setMinDate(getDayAfter(mCheckinDate).getTimeInMillis());
           dialog.getDatePicker().setMaxDate(getMaxDateForCheckout(mCheckinDate).getTimeInMillis());
           dialog.show();
+          Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                               new Pair<>(Statistics.EventParam.DATE,
+                                                          Statistics.ParamValue.CHECKOUT));
         });
 
 
@@ -295,8 +316,15 @@ public class FilterFragment extends BaseMwmToolbarFragment
   {
     super.onViewCreated(view, savedInstanceState);
     mToolbarController.setTitle(R.string.booking_filters);
-    mToolbarController.findViewById(R.id.reset)
-                      .setOnClickListener(v -> updateViews(null, null));
+    mToolbarController
+        .findViewById(R.id.reset)
+        .setOnClickListener(
+            v ->
+            {
+              Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_RESET,
+                                                   Statistics.EventParam.HOTEL);
+              updateViews(null, null);
+            });
   }
 
   @Nullable
@@ -473,9 +501,15 @@ public class FilterFragment extends BaseMwmToolbarFragment
   public void onTypeSelected(boolean selected, @NonNull HotelsFilter.HotelType type)
   {
     if (selected)
+    {
+      Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                           new Pair<>(Statistics.EventParam.TYPE, type.getTag()));
       mHotelTypes.add(type);
+    }
     else
+    {
       mHotelTypes.remove(type);
+    }
   }
 
   interface Listener

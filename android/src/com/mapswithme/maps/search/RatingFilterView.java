@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Pair;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 import static com.mapswithme.maps.search.HotelsFilter.Op.OP_GE;
 
@@ -150,15 +152,27 @@ public class RatingFilterView extends LinearLayout implements View.OnClickListen
     switch (v.getId())
     {
       case R.id.any:
+        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                             new Pair<>(Statistics.EventParam.RATING,
+                                                        Statistics.ParamValue.ANY));
         update(null);
         break;
       case R.id.good:
+        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                             new Pair<>(Statistics.EventParam.RATING,
+                                                        String.valueOf(GOOD)));
         update(new HotelsFilter.RatingFilter(OP_GE, GOOD));
         break;
       case R.id.very_good:
+        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                             new Pair<>(Statistics.EventParam.RATING,
+                                                        String.valueOf(VERY_GOOD)));
         update(new HotelsFilter.RatingFilter(OP_GE, VERY_GOOD));
         break;
       case R.id.excellent:
+        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                             new Pair<>(Statistics.EventParam.RATING,
+                                                        String.valueOf(EXCELLENT)));
         update(new HotelsFilter.RatingFilter(OP_GE, EXCELLENT));
         break;
     }

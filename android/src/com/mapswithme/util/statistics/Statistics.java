@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 
 import com.facebook.ads.AdError;
 import com.facebook.appevents.AppEventsLogger;
@@ -61,6 +62,8 @@ import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_O
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_SHOWN;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSOR_ITEM_SELECTED;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_PLAN_TOOLTIP_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_FILTER_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_FILTER_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_EXTERNAL_REQUEST_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_SHOWN;
@@ -145,6 +148,11 @@ public enum Statistics
     public static final String SEARCH_TAB_SELECTED = "Search_Tab_selected";
     public static final String SEARCH_SPONSOR_CATEGORY_SHOWN = "Search_SponsoredCategory_shown";
     public static final String SEARCH_SPONSOR_CATEGORY_SELECTED = "Search_SponsoredCategory_selected";
+    public static final String SEARCH_FILTER_OPEN = "Search_Filter_Open";
+    public static final String SEARCH_FILTER_CANCEL = "Search_Filter_Cancel";
+    public static final String SEARCH_FILTER_RESET = "Search_Filter_Reset";
+    public static final String SEARCH_FILTER_APPLY = "Search_Filter_Apply";
+    public static final String SEARCH_FILTER_CLICK = "Search_Filter_Click";
 
     // place page
     public static final String PP_OPEN = "PP. Open";
@@ -298,7 +306,7 @@ public enum Statistics
     static final String CHANNEL = "Channel";
     static final String CALLER_ID = "Caller ID";
     public static final String ENABLED = "Enabled";
-    static final String RATING = "Rating";
+    public static final String RATING = "Rating";
     static final String CONNECTION_TYPE = "Connection name";
     static final String CONNECTION_FAST = "Connection fast";
     static final String CONNECTION_METERED = "Connection limit";
@@ -318,7 +326,7 @@ public enum Statistics
     public static final String OSM = "OSM";
     public static final String FACEBOOK = "Facebook";
     static final String PROVIDER = "provider";
-    static final String HOTEL = "hotel";
+    public static final String HOTEL = "hotel";
     static final String HOTEL_LAT = "hotel_lat";
     static final String HOTEL_LON = "hotel_lon";
     static final String RESTAURANT = "restaurant";
@@ -345,6 +353,8 @@ public enum Statistics
     static final String ITEM = "item";
     static final String DESTINATION = "destination";
     static final String PLACEMENT = "placement";
+    public static final String PRICE_CATEGORY = "price_category";
+    public static final String DATE = "date";
     private EventParam() {}
   }
 
@@ -365,8 +375,10 @@ public enum Statistics
     static final String PLACEPAGE_PREVIEW = "placepage_preview";
     static final String PLACEPAGE = "placepage";
     public static final String FACEBOOK = "facebook";
-
     public static final String LUGGAGE_HERO = "LuggageHero";
+    public static final String CHECKIN = "check_in";
+    public static final String CHECKOUT = "check_out";
+    public static final String ANY = "any";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -951,6 +963,20 @@ public enum Statistics
     trackEvent(DISCOVERY_OPEN, params().add(NETWORK, getConnectionState()));
   }
 
+  public void trackFilterEvent(@NonNull String event, @NonNull String category)
+  {
+    trackEvent(event, params()
+              .add(EventParam.CATEGORY, category)
+              .get());
+  }
+
+  public void trackFilterClick(@NonNull String category, @NonNull Pair<String, String> params)
+  {
+    trackEvent(SEARCH_FILTER_CLICK, params()
+              .add(EventParam.CATEGORY, category)
+              .add(params.first, params.second)
+              .get());
+  }
 
   public static ParameterBuilder params()
   {
