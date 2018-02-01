@@ -27,7 +27,7 @@ struct RouteMarkData
 class RouteMarkPoint : public UserMark
 {
 public:
-  RouteMarkPoint(m2::PointD const & ptOrg, UserMarkManager * manager);
+  RouteMarkPoint(m2::PointD const & ptOrg);
   virtual ~RouteMarkPoint() {}
 
   bool IsVisible() const override { return m_markData.m_isVisible; }
@@ -106,7 +106,7 @@ private:
 class TransitMark : public UserMark
 {
 public:
-  TransitMark(m2::PointD const & ptOrg, UserMarkManager * manager);
+  TransitMark(m2::PointD const & ptOrg);
   virtual ~TransitMark() {}
 
   df::RenderState::DepthLayer GetDepthLayer() const override { return df::RenderState::TransitMarkLayer; }

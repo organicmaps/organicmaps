@@ -7,8 +7,8 @@
 
 #include "base/string_utils.hpp"
 
-UserMark::UserMark(m2::PointD const & ptOrg, UserMarkManager * manager, UserMark::Type type)
-: m_ptOrg(ptOrg), m_manager(manager), m_type(type), m_id(type)
+UserMark::UserMark(m2::PointD const & ptOrg, UserMark::Type type)
+: m_ptOrg(ptOrg), m_type(type)
 {}
 
 m2::PointD const & UserMark::GetPivot() const
@@ -36,8 +36,8 @@ ms::LatLon UserMark::GetLatLon() const
   return MercatorBounds::ToLatLon(m_ptOrg);
 }
 
-StaticMarkPoint::StaticMarkPoint(UserMarkManager * manager)
-  : UserMark(m2::PointD{}, manager, UserMark::Type::STATIC)
+StaticMarkPoint::StaticMarkPoint()
+  : UserMark(m2::PointD{}, UserMark::Type::STATIC)
 {}
 
 void StaticMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
@@ -46,12 +46,12 @@ void StaticMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
   m_ptOrg = ptOrg;
 }
 
-MyPositionMarkPoint::MyPositionMarkPoint(UserMarkManager * manager)
-  : StaticMarkPoint(manager)
+MyPositionMarkPoint::MyPositionMarkPoint()
+  : StaticMarkPoint()
 {}
 
-DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg, UserMarkManager * manager)
-  : UserMark(ptOrg, manager, UserMark::Type::DEBUG_MARK)
+DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg)
+  : UserMark(ptOrg, UserMark::Type::DEBUG_MARK)
 {}
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> DebugMarkPoint::GetSymbolNames() const

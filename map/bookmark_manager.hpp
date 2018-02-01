@@ -20,7 +20,7 @@
 
 #include <boost/optional.hpp>
 
-class BookmarkManager final : public UserMarkManager
+class BookmarkManager final
 {
   using CategoriesCollection = std::map<size_t, std::unique_ptr<BookmarkCategory>>;
   using CategoryIter = CategoriesCollection::iterator;
@@ -67,7 +67,6 @@ public:
   ~BookmarkManager();
 
   //////////////////
-  float GetPointDepth(size_t categoryId) const override;
   void NotifyChanges(size_t categoryId);
   size_t GetUserMarkCount(size_t categoryId) const;
   UserMark const * GetUserMark(size_t categoryId, size_t index) const;

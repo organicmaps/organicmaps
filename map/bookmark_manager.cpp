@@ -125,8 +125,8 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
   m_userMarkLayers[UserMark::LOCAL_ADS] = my::make_unique<LocalAdsMarkContainer>();
   m_userMarkLayers[UserMark::DEBUG_MARK] = my::make_unique<DebugUserMarkContainer>();
 
-  m_selectionMark = my::make_unique<StaticMarkPoint>(this);
-  m_myPositionMark = my::make_unique<MyPositionMarkPoint>(this);
+  m_selectionMark = my::make_unique<StaticMarkPoint>();
+  m_myPositionMark = my::make_unique<MyPositionMarkPoint>();
 }
 
 BookmarkManager::~BookmarkManager()
@@ -135,11 +135,6 @@ BookmarkManager::~BookmarkManager()
 }
 
 ////////////////////////////
-float BookmarkManager::GetPointDepth(size_t categoryId) const
-{
-  return FindContainer(categoryId)->GetPointDepth();
-}
-
 void BookmarkManager::NotifyChanges(size_t categoryId)
 {
   FindContainer(categoryId)->NotifyChanges();
@@ -224,7 +219,7 @@ UserMark const * BookmarkManager::FindMarkInRect(size_t categoryId, m2::AnyRectD
 
 UserMark * BookmarkManager::CreateUserMark(size_t categoryId, m2::PointD const & ptOrg)
 {
-  return FindContainer(categoryId)->CreateUserMark(this, ptOrg);
+  return FindContainer(categoryId)->CreateUserMark(ptOrg);
 }
 
 void BookmarkManager::SetIsVisible(size_t categoryId, bool visible)
@@ -299,7 +294,7 @@ void BookmarkManager::LoadBookmarks()
     for (auto const & file : files)
     {
       size_t const id = m_nextCategoryId++;
-      auto cat = BookmarkCategory::CreateFromKMLFile(this, dir + file, id, m_bookmarksListeners);
+      auto cat = BookmarkCategory::CreateFromKMLFile(dir + file, id, m_bookmarksListeners);
       if (m_needTeardown)
         return;
 
@@ -340,7 +335,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     else
     {
       auto const id = m_nextCategoryId++;
-      auto cat = BookmarkCategory::CreateFromKMLFile(this, fileSavePath.get(), id, m_bookmarksListeners);
+      auto cat = BookmarkCategory::CreateFromKMLFile(fileSavePath.get(), id, m_bookmarksListeners);
       if (m_needTeardown)
         return;
 
@@ -470,7 +465,7 @@ size_t BookmarkManager::AddBookmark(size_t categoryId, m2::PointD const & ptOrg,
 
   BookmarkCategory * cat = GetBmCategory(categoryId);
 
-  auto bookmark = static_cast<Bookmark *>(cat->CreateUserMark(this, ptOrg));
+  auto bookmark = static_cast<Bookmark *>(cat->CreateUserMark(ptOrg));
   bookmark->SetData(bm);
   cat->SetIsVisible(true);
   cat->SaveToKMLFile();
@@ -777,7 +772,7 @@ void BookmarkManager::MergeCategories(CategoriesCollection && newCategories)
     for (size_t i = 0, sz = newCat->GetUserMarkCount(); i < sz; ++i)
     {
       auto srcBookmark = static_cast<Bookmark const *>(newCat->GetUserMark(i));
-      auto bookmark = static_cast<Bookmark *>(existingCat->CreateUserMark(this, srcBookmark->GetPivot()));
+      auto bookmark = static_cast<Bookmark *>(existingCat->CreateUserMark(srcBookmark->GetPivot()));
       bookmark->SetData(srcBookmark->GetData());
     }
     existingCat->AppendTracks(newCat->StealTracks());

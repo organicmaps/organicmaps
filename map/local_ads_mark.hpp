@@ -19,7 +19,7 @@ struct LocalAdsMarkData
 class LocalAdsMark : public UserMark
 {
 public:
-  LocalAdsMark(m2::PointD const & ptOrg, UserMarkManager * manager);
+  LocalAdsMark(m2::PointD const & ptOrg);
   virtual ~LocalAdsMark() {}
 
   df::RenderState::DepthLayer GetDepthLayer() const override;

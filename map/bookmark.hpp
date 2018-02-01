@@ -74,10 +74,9 @@ class Bookmark : public UserMark
 {
   using Base = UserMark;
 public:
-  Bookmark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t categoryId);
+  Bookmark(m2::PointD const & ptOrg, size_t categoryId);
 
-  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg,
-           UserMarkManager * manager, size_t categoryId);
+  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, size_t categoryId);
 
   void SetData(BookmarkData const & data);
   BookmarkData const & GetData() const;
@@ -144,7 +143,7 @@ protected:
   /// @name Theese fuctions are public for unit tests only.
   /// You don't need to call them from client code.
   //@{
-  bool LoadFromKML(UserMarkManager * manager, ReaderPtr<Reader> const & reader);
+  bool LoadFromKML(ReaderPtr<Reader> const & reader);
   void SaveToKML(std::ostream & s);
 
   /// Uses the same file name from which was loaded, or
@@ -152,14 +151,13 @@ protected:
   bool SaveToKMLFile();
 
   /// @return nullptr in the case of error
-  static std::unique_ptr<BookmarkCategory> CreateFromKMLFile(UserMarkManager * manager,
-                                                             std::string const & file,
+  static std::unique_ptr<BookmarkCategory> CreateFromKMLFile(std::string const & file,
                                                              size_t index,
                                                              Listeners const & listeners);
   //@}
 
 protected:
-  UserMark * AllocateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg) override;
+  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
 
 private:
   std::vector<std::unique_ptr<Track>> m_tracks;

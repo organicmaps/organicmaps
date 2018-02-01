@@ -26,7 +26,7 @@ class BookmarkManager;
 class SearchMarkPoint : public UserMark
 {
 public:
-  SearchMarkPoint(m2::PointD const & ptOrg, UserMarkManager * manager);
+  SearchMarkPoint(m2::PointD const & ptOrg);
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 

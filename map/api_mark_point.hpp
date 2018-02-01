@@ -20,10 +20,10 @@ string GetDefaultStyle();
 class ApiMarkPoint : public UserMark
 {
 public:
-  ApiMarkPoint(m2::PointD const & ptOrg, UserMarkManager * manager);
+  ApiMarkPoint(m2::PointD const & ptOrg);
 
   ApiMarkPoint(string const & name, string const & id, string const & style,
-               m2::PointD const & ptOrg, UserMarkManager * manager);
+               m2::PointD const & ptOrg);
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   m2::PointD GetPixelOffset() const override;

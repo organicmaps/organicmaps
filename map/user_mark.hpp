@@ -13,8 +13,6 @@
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 
-class UserMarkManager;
-
 class UserMark : public df::UserPointMark
 {
 public:
@@ -45,7 +43,7 @@ public:
     PREDEFINED_COUNT = BOOKMARK
   };
 
-  UserMark(m2::PointD const & ptOrg, UserMarkManager * container, UserMark::Type type);
+  UserMark(m2::PointD const & ptOrg, UserMark::Type type);
 
   // df::UserPointMark overrides.
   bool IsDirty() const override { return m_isDirty; }
@@ -77,9 +75,7 @@ protected:
   void SetDirty() { m_isDirty = true; }
 
   m2::PointD m_ptOrg;
-  mutable UserMarkManager * m_manager;
   Type m_type;
-  size_t m_id;
 
 private:
   mutable bool m_isDirty = true;
@@ -90,7 +86,7 @@ private:
 class StaticMarkPoint : public UserMark
 {
 public:
-  explicit StaticMarkPoint(UserMarkManager * manager);
+  explicit StaticMarkPoint();
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override { return nullptr; }
 
@@ -100,7 +96,7 @@ public:
 class MyPositionMarkPoint : public StaticMarkPoint
 {
 public:
-  explicit MyPositionMarkPoint(UserMarkManager * manager);
+  explicit MyPositionMarkPoint();
 
   void SetUserPosition(m2::PointD const & pt, bool hasPosition)
   {
@@ -116,7 +112,7 @@ private:
 class DebugMarkPoint : public UserMark
 {
 public:
-  DebugMarkPoint(m2::PointD const & ptOrg, UserMarkManager * manager);
+  DebugMarkPoint(m2::PointD const & ptOrg);
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 };

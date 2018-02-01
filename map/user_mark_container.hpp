@@ -17,32 +17,7 @@
 #include <memory>
 #include <set>
 
-class UserMarksController
-{
-protected:
-  friend class BookmarkManager;
-
-  virtual size_t GetUserMarkCount() const = 0;
-  virtual UserMark::Type GetType() const = 0;
-  virtual void SetIsVisible(bool isVisible) = 0;
-
-  virtual UserMark * CreateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg) = 0;
-  virtual UserMark const * GetUserMark(size_t index) const = 0;
-  virtual UserMark * GetUserMarkForEdit(size_t index) = 0;
-  virtual void DeleteUserMark(size_t index) = 0;
-  virtual void Clear() = 0;
-  virtual void Update() = 0;
-  virtual void NotifyChanges() = 0;
-};
-
-class UserMarkManager
-{
-public:
-  virtual float GetPointDepth(size_t id) const = 0;
-};
-
 class UserMarkContainer : public df::UserMarksProvider
-                        , public UserMarksController
 {
 public:
   using TUserMarksList = std::deque<std::unique_ptr<UserMark>>;
@@ -64,7 +39,7 @@ public:
     NotifyChangesFn m_deleteListener;
   };
 
-  UserMarkContainer(double layerDepth, UserMark::Type type,
+  UserMarkContainer(UserMark::Type type,
                     Listeners const & listeners = Listeners());
   ~UserMarkContainer() override;
 
@@ -94,27 +69,23 @@ protected:
   void AcceptChanges(df::MarkIDCollection & createdMarks,
                      df::MarkIDCollection & removedMarks) override;
 
-  float GetPointDepth() const;
-
   bool IsVisible() const;
-  bool IsDrawable() const override;
-  size_t GetUserMarkCount() const override;
-  UserMark const * GetUserMark(size_t index) const override;
-  UserMark::Type GetType() const override final;
-
-  // UserMarksController implementation.
-  UserMark * CreateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg) override;
-  UserMark * GetUserMarkForEdit(size_t index) override;
-  void DeleteUserMark(size_t index) override;
-  void Clear() override;
-  void SetIsVisible(bool isVisible) override;
-  void Update() override;
-  void NotifyChanges() override;
+  bool IsDrawable() const;
+  size_t GetUserMarkCount() const;
+  UserMark const * GetUserMark(size_t index) const;
+  UserMark::Type GetType() const;
+  UserMark * CreateUserMark(m2::PointD const & ptOrg);
+  UserMark * GetUserMarkForEdit(size_t index);
+  void DeleteUserMark(size_t index);
+  void Clear();
+  void SetIsVisible(bool isVisible);
+  void Update();
+  void NotifyChanges();
 
 protected:
   void SetDirty();
 
-  virtual UserMark * AllocateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg) = 0;
+  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) = 0;
 
 private:
   void NotifyListeners();
@@ -139,12 +110,12 @@ class SpecifiedUserMarkContainer : public UserMarkContainer
 {
 public:
   explicit SpecifiedUserMarkContainer()
-    : UserMarkContainer(0.0 /* layer depth */, UserMarkType)
+    : UserMarkContainer(UserMarkType)
   {}
 
 protected:
-  UserMark * AllocateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg) override
+  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override
   {
-    return new MarkPointClassType(ptOrg, manager);
+    return new MarkPointClassType(ptOrg);
   }
 };

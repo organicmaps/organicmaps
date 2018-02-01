@@ -21,8 +21,8 @@ float const kRouteMarkSecondaryOffsetY = 2.0f;
 float const kTransitMarkTextSize = 12.0f;
 }  // namespace
 
-RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg, UserMarkManager * manager)
-  : UserMark(ptOrg, manager, Type::ROUTING)
+RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg)
+  : UserMark(ptOrg, Type::ROUTING)
 {
   m_titleDecl.m_anchor = dp::Top;
   m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kRouteMarkPrimaryText);
@@ -416,8 +416,8 @@ void RoutePointsLayout::NotifyChanges()
   m_manager.NotifyChanges(UserMark::Type::ROUTING);
 }
 
-TransitMark::TransitMark(m2::PointD const & ptOrg, UserMarkManager * manager)
-    : UserMark(ptOrg, manager, Type::TRANSIT)
+TransitMark::TransitMark(m2::PointD const & ptOrg)
+    : UserMark(ptOrg, Type::TRANSIT)
 {}
 
 void TransitMark::SetFeatureId(FeatureID featureId)

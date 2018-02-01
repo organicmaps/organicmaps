@@ -28,14 +28,13 @@
 #include <map>
 #include <memory>
 
-Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkManager * manager, size_t categoryId)
-  : Base(ptOrg, manager, UserMark::BOOKMARK)
+Bookmark::Bookmark(m2::PointD const & ptOrg, size_t categoryId)
+  : Base(ptOrg, UserMark::BOOKMARK)
   , m_categoryId(categoryId)
 {}
 
-Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg,
-                   UserMarkManager * manager, size_t categoryId)
-  : Base(ptOrg, manager, UserMark::BOOKMARK)
+Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, size_t categoryId)
+  : Base(ptOrg, UserMark::BOOKMARK)
   , m_data(data)
   , m_categoryId(categoryId)
 {}
@@ -140,7 +139,7 @@ Track const * BookmarkCategory::GetTrack(size_t index) const
 BookmarkCategory::BookmarkCategory(std::string const & name,
                                    size_t index,
                                    Listeners const & listeners)
-  : Base(0.0 /* bookmarkDepth */, UserMark::Type::BOOKMARK, listeners)
+  : Base(UserMark::Type::BOOKMARK, listeners)
   , m_name(name)
   , m_index(index)
 {}
@@ -229,8 +228,7 @@ class KMLParser
     std::string const result = s.substr(1);
     return style::GetSupportedStyle(result, m_name, style::GetDefaultStyle());
   }
-  
-  UserMarkManager * m_manager;
+
   BookmarkCategory & m_category;
   
   std::vector<std::string> m_tags;
@@ -370,9 +368,8 @@ class KMLParser
   }
   
 public:
-  KMLParser(UserMarkManager * manager, BookmarkCategory & cat)
-  : m_manager(manager),
-  m_category(cat)
+  KMLParser(BookmarkCategory & cat)
+  : m_category(cat)
   {
     Reset();
   }
@@ -420,7 +417,7 @@ public:
       {
         if (GEOMETRY_TYPE_POINT == m_geometryType)
         {
-          Bookmark * bm = static_cast<Bookmark *>(m_category.CreateUserMark(m_manager, m_org));
+          Bookmark * bm = static_cast<Bookmark *>(m_category.CreateUserMark(m_org));
           bm->SetData(BookmarkData(m_name, m_type, m_description, m_scale, m_timeStamp));
         }
         else if (GEOMETRY_TYPE_LINE == m_geometryType)
@@ -577,10 +574,10 @@ std::string BookmarkCategory::GetDefaultType()
   return style::GetDefaultStyle();
 }
 
-bool BookmarkCategory::LoadFromKML(UserMarkManager * manager, ReaderPtr<Reader> const & reader)
+bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
 {
   ReaderSource<ReaderPtr<Reader> > src(reader);
-  KMLParser parser(manager, *this);
+  KMLParser parser(*this);
   if (!ParseXML(src, parser, true))
   {
     LOG(LWARNING, ("XML read error. Probably, incorrect file encoding."));
@@ -590,15 +587,14 @@ bool BookmarkCategory::LoadFromKML(UserMarkManager * manager, ReaderPtr<Reader> 
 }
 
 // static
-std::unique_ptr<BookmarkCategory> BookmarkCategory::CreateFromKMLFile(UserMarkManager * manager,
-                                                                      std::string const & file,
+std::unique_ptr<BookmarkCategory> BookmarkCategory::CreateFromKMLFile(std::string const & file,
                                                                       size_t index,
                                                                       Listeners const & listeners)
 {
   auto cat = my::make_unique<BookmarkCategory>("", index, listeners);
   try
   {
-    if (cat->LoadFromKML(manager, my::make_unique<FileReader>(file)))
+    if (cat->LoadFromKML(my::make_unique<FileReader>(file)))
       cat->m_file = file;
     else
       cat.reset();
@@ -797,9 +793,9 @@ void BookmarkCategory::SaveToKML(std::ostream & s)
   s << kmlFooter;
 }
 
-UserMark * BookmarkCategory::AllocateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg)
+UserMark * BookmarkCategory::AllocateUserMark(m2::PointD const & ptOrg)
 {
-  return new Bookmark(ptOrg, manager, m_index);
+  return new Bookmark(ptOrg, m_index);
 }
 
 bool BookmarkCategory::SaveToKMLFile()

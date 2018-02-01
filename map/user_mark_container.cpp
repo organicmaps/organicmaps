@@ -53,10 +53,9 @@ df::MarkGroupID GenerateMarkGroupId(UserMarkContainer const * cont)
 }
 }  // namespace
 
-UserMarkContainer::UserMarkContainer(double layerDepth, UserMark::Type type,
+UserMarkContainer::UserMarkContainer(UserMark::Type type,
                                      Listeners const & listeners)
-  : m_layerDepth(layerDepth)
-  , m_type(type)
+  : m_type(type)
   , m_listeners(listeners)
 {
   m_flags.set();
@@ -192,11 +191,6 @@ df::UserLineMark const * UserMarkContainer::GetUserLineMark(size_t index) const
   return nullptr;
 }
 
-float UserMarkContainer::GetPointDepth() const
-{
-  return static_cast<float>(m_layerDepth);
-}
-
 bool UserMarkContainer::IsVisible() const
 {
   return m_flags[VisibleFlag];
@@ -207,11 +201,11 @@ bool UserMarkContainer::IsDrawable() const
   return m_flags[DrawableFlag];
 }
 
-UserMark * UserMarkContainer::CreateUserMark(UserMarkManager * manager, m2::PointD const & ptOrg)
+UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
 {
   // Push front an user mark.
   SetDirty();
-  m_userMarks.push_front(unique_ptr<UserMark>(AllocateUserMark(manager, ptOrg)));
+  m_userMarks.push_front(unique_ptr<UserMark>(AllocateUserMark(ptOrg)));
   m_userMarksDict.insert(make_pair(m_userMarks.front()->GetId(), m_userMarks.front().get()));
   m_createdMarks.insert(m_userMarks.front()->GetId());
   return m_userMarks.front().get();
