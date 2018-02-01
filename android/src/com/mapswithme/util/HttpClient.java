@@ -97,7 +97,7 @@ public final class HttpClient
       if (!TextUtils.isEmpty(p.cookies))
         connection.setRequestProperty("Cookie", p.cookies);
 
-      for (HttpHeader header : p.headers)
+      for (KeyValue header : p.headers)
       {
         connection.setRequestProperty(header.key, header.value);
       }
@@ -163,14 +163,14 @@ public final class HttpClient
           if (header.getKey() == null || header.getValue() == null)
             continue;
 
-          p.headers.add(new HttpHeader(header.getKey().toLowerCase(), TextUtils.join(", ", header.getValue())));
+          p.headers.add(new KeyValue(header.getKey().toLowerCase(), TextUtils.join(", ", header.getValue())));
         }
       }
       else
       {
         List<String> cookies = connection.getHeaderFields().get("Set-Cookie");
         if (cookies != null)
-          p.headers.add(new HttpHeader("Set-Cookie", TextUtils.join(", ", cookies)));
+          p.headers.add(new KeyValue("Set-Cookie", TextUtils.join(", ", cookies)));
       }
 
       OutputStream ostream;
@@ -244,21 +244,9 @@ public final class HttpClient
     return url.replaceAll("(token|password|key)=([^&]+)", "***");
   }
 
-  private static class HttpHeader
-  {
-    HttpHeader(@NonNull String key, @NonNull String value)
-    {
-      this.key = key;
-      this.value = value;
-    }
-
-    public String key;
-    public String value;
-  }
-
   private static class Params
   {
-    public void setHeaders(@NonNull HttpHeader[] array)
+    public void setHeaders(@NonNull KeyValue[] array)
     {
       headers = new ArrayList<>(Arrays.asList(array));
     }
@@ -282,7 +270,7 @@ public final class HttpClient
     // Received data is stored here if not null or in data otherwise.
     String outputFilePath;
     String cookies;
-    ArrayList<HttpHeader> headers = new ArrayList<>();
+    ArrayList<KeyValue> headers = new ArrayList<>();
     int httpResponseCode = -1;
     boolean followRedirects = true;
     boolean loadHeaders;

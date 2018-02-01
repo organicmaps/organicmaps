@@ -20,13 +20,13 @@ jclass g_bookmarkClazz;
 jclass g_myTrackerClazz;
 jclass g_httpClientClazz;
 jclass g_httpParamsClazz;
-jclass g_httpHeaderClazz;
 jclass g_platformSocketClazz;
 jclass g_utilsClazz;
 jclass g_bannerClazz;
 jclass g_ratingClazz;
-jclass g_arrayListClazz;
 jclass g_loggerFactoryClazz;
+jclass g_keyValueClazz;
+jclass g_httpUploaderClazz;
 
 extern "C"
 {
@@ -44,12 +44,13 @@ JNI_OnLoad(JavaVM * jvm, void *)
   g_myTrackerClazz = jni::GetGlobalClassRef(env, "com/my/tracker/MyTracker");
   g_httpClientClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpClient");
   g_httpParamsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpClient$Params");
-  g_httpHeaderClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpClient$HttpHeader");
   g_platformSocketClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/location/PlatformSocket");
   g_utilsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/Utils");
   g_bannerClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ads/Banner");
   g_ratingClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGC$Rating");
   g_loggerFactoryClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/log/LoggerFactory");
+  g_keyValueClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/KeyValue");
+  g_httpUploaderClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpUploader");
 
   return JNI_VERSION_1_6;
 }
@@ -65,12 +66,13 @@ JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_myTrackerClazz);
   env->DeleteGlobalRef(g_httpClientClazz);
   env->DeleteGlobalRef(g_httpParamsClazz);
-  env->DeleteGlobalRef(g_httpHeaderClazz);
   env->DeleteGlobalRef(g_platformSocketClazz);
   env->DeleteGlobalRef(g_utilsClazz);
   env->DeleteGlobalRef(g_bannerClazz);
   env->DeleteGlobalRef(g_ratingClazz);
   env->DeleteGlobalRef(g_loggerFactoryClazz);
+  env->DeleteGlobalRef(g_keyValueClazz);
+  env->DeleteGlobalRef(g_httpUploaderClazz);
 }
 } // extern "C"
 
@@ -285,5 +287,31 @@ void DumpDalvikReferenceTables()
   jmethodID dump_mid = env->GetStaticMethodID(vm_class, "dumpReferenceTables", "()V");
   env->CallStaticVoidMethod(vm_class, dump_mid);
   env->DeleteLocalRef(vm_class);
+}
+
+jobject ToKeyValue(JNIEnv * env, std::pair<std::string, std::string> src)
+{
+  static jmethodID const PairInit = jni::GetConstructorID(
+    env, g_keyValueClazz, "(Ljava/lang/String;Ljava/lang/String;)V");
+
+  jni::TScopedLocalRef key(env, jni::ToJavaString(env, src.first));
+  jni::TScopedLocalRef value(env, jni::ToJavaString(env, src.second));
+
+  return env->NewObject(g_keyValueClazz, PairInit, key.get(), value.get());
+}
+
+std::pair<std::string, std::string> ToNativeKeyValue(JNIEnv * env, jobject pairOfStrings)
+{
+  static jfieldID const keyId = env->GetFieldID(g_keyValueClazz, "key",
+                                                  "Ljava/lang/String;");
+  static jfieldID const valueId = env->GetFieldID(g_keyValueClazz, "value",
+                                                   "Ljava/lang/String;");
+
+  jni::ScopedLocalRef<jstring> const key(
+    env, static_cast<jstring>(env->GetObjectField(pairOfStrings, keyId)));
+  jni::ScopedLocalRef<jstring> const value(
+    env, static_cast<jstring>(env->GetObjectField(pairOfStrings, valueId)));
+
+  return { jni::ToNativeString(env, key.get()), jni::ToNativeString(env, value.get()) };
 }
 }  // namespace jni

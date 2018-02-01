@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
 extern jclass g_mapObjectClazz;
 extern jclass g_featureIdClazz;
@@ -17,12 +18,13 @@ extern jclass g_bookmarkClazz;
 extern jclass g_myTrackerClazz;
 extern jclass g_httpClientClazz;
 extern jclass g_httpParamsClazz;
-extern jclass g_httpHeaderClazz;
 extern jclass g_platformSocketClazz;
 extern jclass g_utilsClazz;
 extern jclass g_bannerClazz;
 extern jclass g_ratingClazz;
 extern jclass g_loggerFactoryClazz;
+extern jclass g_keyValueClazz;
+extern jclass g_httpUploaderClazz;
 
 namespace jni
 {
@@ -90,4 +92,28 @@ jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, TContainer const & src, TTo
 jobjectArray ToJavaStringArray(JNIEnv * env, std::vector<std::string> const & src);
 
 void DumpDalvikReferenceTables();
+
+jobject ToKeyValue(JNIEnv * env, std::pair<std::string, std::string> src);
+
+template <typename Container>
+jobjectArray ToKeyValueArray(JNIEnv * env, Container const & src)
+{
+  return jni::ToJavaArray(env, g_keyValueClazz, src,
+                          std::bind(&ToKeyValue, std::placeholders::_1, std::placeholders::_2));
+}
+
+std::pair<std::string, std::string> ToNativeKeyValue(JNIEnv * env, jobject pairOfStrings);
+
+template <typename OutputIt>
+void ToNativekeyValueContainer(JNIEnv * env, jobjectArray src, OutputIt it)
+{
+  int const length = env->GetArrayLength(src);
+  for (size_t i = 0; i < length; ++i)
+  {
+    jni::ScopedLocalRef<jobject> const arrayItem(env, env->GetObjectArrayElement(src, i));
+
+    *it = ToNativeKeyValue(env, arrayItem.get());
+    ++it;
+  }
+}
 }  // namespace jni
