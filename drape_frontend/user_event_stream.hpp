@@ -217,7 +217,7 @@ class FollowAndRotateEvent : public UserEvent
 public:
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
                        double azimuth, double autoScale,
-                       TAnimationCreator const & parallelAnimCreator = nullptr)
+                       TAnimationCreator const & parallelAnimCreator)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
@@ -232,8 +232,8 @@ public:
 
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
                        double azimuth, int preferredZoomLevel,
-                       bool isAnim, Animation::TAction const & onFinishAction = nullptr,
-                       TAnimationCreator const & parallelAnimCreator = nullptr)
+                       bool isAnim, Animation::TAction const & onFinishAction,
+                       TAnimationCreator const & parallelAnimCreator)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
