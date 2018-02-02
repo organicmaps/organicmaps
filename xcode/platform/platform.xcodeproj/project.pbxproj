@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		341EEFCD2022F9A900D5DBE4 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 341EEFCC2022F9A900D5DBE4 /* Alamofire.framework */; };
 		341EEFD02022FCB000D5DBE4 /* http_uploader_apple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341EEFCF2022FCB000D5DBE4 /* http_uploader_apple.swift */; };
 		34513AFA1DCB37C100471BDA /* marketing_service_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34513AF71DCB37C100471BDA /* marketing_service_ios.mm */; };
 		34513AFB1DCB37C100471BDA /* marketing_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34513AF81DCB37C100471BDA /* marketing_service.cpp */; };
@@ -237,7 +236,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				341EEFCD2022F9A900D5DBE4 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,29 +702,62 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558331DBF273C00A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
-				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
+					platform_qt.cpp,
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
+					platform_qt.cpp,
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
 					"ios_*",
 					platform_ios.mm,
 					secure_storage_ios.mm,
 				);
-				FRAMEWORK_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
 				);
-				HEADER_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire-Swift.h",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"$(QT_PATH)/lib",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+				"HEADER_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac/Alamofire.framework/Headers",
 					"$(OMIM_ROOT)/3party/jansson/src",
 					"$(QT_PATH)/include",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"$(QT_PATH)/lib",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
 				);
 			};
 			name = Debug;
@@ -735,29 +766,62 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558341DBF273C00A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
-				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
+					platform_qt.cpp,
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
+					platform_qt.cpp,
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
 					"ios_*",
 					platform_ios.mm,
 					secure_storage_ios.mm,
 				);
-				FRAMEWORK_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
 				);
-				HEADER_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire-Swift.h",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"$(QT_PATH)/lib",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+				"HEADER_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac/Alamofire.framework/Headers",
 					"$(OMIM_ROOT)/3party/jansson/src",
 					"$(QT_PATH)/include",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"$(QT_PATH)/lib",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
 				);
 			};
 			name = Release;
@@ -765,7 +829,6 @@
 		675343841A3F5CF500A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				EXECUTABLE_PREFIX = lib;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -776,7 +839,6 @@
 		675343851A3F5CF500A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				EXECUTABLE_PREFIX = lib;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -808,29 +870,62 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558341DBF273C00A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
-				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
+					platform_qt.cpp,
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
+					platform_qt.cpp,
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
 					"ios_*",
 					platform_ios.mm,
 					secure_storage_ios.mm,
 				);
-				FRAMEWORK_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
 				);
-				HEADER_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire-Swift.h",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"$(QT_PATH)/lib",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+				"HEADER_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac/Alamofire.framework/Headers",
 					"$(OMIM_ROOT)/3party/jansson/src",
 					"$(QT_PATH)/include",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"$(QT_PATH)/lib",
+					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
 				);
 			};
 			name = "Production Full";
@@ -838,7 +933,6 @@
 		A8E5410F1F9FBC4C00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				EXECUTABLE_PREFIX = lib;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
