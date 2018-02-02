@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 final class HttpUploader
 {
@@ -12,9 +13,9 @@ final class HttpUploader
   @NonNull
   private final String mUrl;
   @NonNull
-  private final ArrayList<KeyValue> mParams;
+  private final List<KeyValue> mParams;
   @NonNull
-  private final ArrayList<KeyValue> mHeaders;
+  private final List<KeyValue> mHeaders;
   @NonNull
   private final String mFileKey;
   @NonNull

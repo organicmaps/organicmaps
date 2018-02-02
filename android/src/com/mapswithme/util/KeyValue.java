@@ -6,12 +6,12 @@ final class KeyValue
 {
   KeyValue(@NonNull String key, @NonNull String value)
   {
-    this.key = key;
-    this.value = value;
+    mKey = key;
+    mValue = value;
   }
 
   @NonNull
-  public final String key;
+  public final String mKey;
   @NonNull
-  public final String value;
+  public final String mValue;
 }

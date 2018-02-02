@@ -291,20 +291,20 @@ void DumpDalvikReferenceTables()
 
 jobject ToKeyValue(JNIEnv * env, std::pair<std::string, std::string> src)
 {
-  static jmethodID const PairInit = jni::GetConstructorID(
+  static jmethodID const keyValueInit = jni::GetConstructorID(
     env, g_keyValueClazz, "(Ljava/lang/String;Ljava/lang/String;)V");
 
   jni::TScopedLocalRef key(env, jni::ToJavaString(env, src.first));
   jni::TScopedLocalRef value(env, jni::ToJavaString(env, src.second));
 
-  return env->NewObject(g_keyValueClazz, PairInit, key.get(), value.get());
+  return env->NewObject(g_keyValueClazz, keyValueInit, key.get(), value.get());
 }
 
 std::pair<std::string, std::string> ToNativeKeyValue(JNIEnv * env, jobject pairOfStrings)
 {
-  static jfieldID const keyId = env->GetFieldID(g_keyValueClazz, "key",
+  static jfieldID const keyId = env->GetFieldID(g_keyValueClazz, "mKey",
                                                   "Ljava/lang/String;");
-  static jfieldID const valueId = env->GetFieldID(g_keyValueClazz, "value",
+  static jfieldID const valueId = env->GetFieldID(g_keyValueClazz, "mValue",
                                                    "Ljava/lang/String;");
 
   jni::ScopedLocalRef<jstring> const key(

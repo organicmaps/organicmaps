@@ -99,7 +99,7 @@ public final class HttpClient
 
       for (KeyValue header : p.headers)
       {
-        connection.setRequestProperty(header.key, header.value);
+        connection.setRequestProperty(header.mKey, header.mValue);
       }
 
       if (!TextUtils.isEmpty(p.inputFilePath) || p.data != null)
