@@ -1250,4 +1250,5 @@
 	<string name="whats_new_discovery_message">Ищите в один клик, чем заняться в городе!</string>
 	<string name="price_per_hour">%s/час</string>
 	<string name="luggage_storage">Хранение багажа</string>
+	<string name="discovery_button_subtitle_book_hotels">Бронирование отелей</string>
 </resources>

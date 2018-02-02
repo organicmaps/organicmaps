@@ -2174,3 +2174,5 @@
 "price_per_hour" = "%s/시간";
 
 "luggage_storage" = "Luggage storage";
+
+"discovery_button_subtitle_book_hotels" = "Book hotels";

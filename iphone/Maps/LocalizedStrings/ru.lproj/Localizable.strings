@@ -2174,3 +2174,5 @@
 "price_per_hour" = "%s/час";
 
 "luggage_storage" = "Хранение багажа";
+
+"discovery_button_subtitle_book_hotels" = "Бронирование отелей";

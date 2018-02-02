@@ -1262,4 +1262,5 @@
 	<string name="whats_new_discovery_message">Discover things around in one click!</string>
 	<string name="price_per_hour">%s/hour</string>
 	<string name="luggage_storage">Luggage storage</string>
+	<string name="discovery_button_subtitle_book_hotels">Book hotels</string>
 </resources>
