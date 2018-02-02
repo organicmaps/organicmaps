@@ -50,7 +50,7 @@ final class DiscoverySearchCollectionHolderCell: DiscoveryCollectionHolder {
 @objc(MWMDiscoveryBookingCollectionHolderCell)
 final class DiscoveryBookingCollectionHolderCell: DiscoveryCollectionHolder {
   @objc func config() {
-    super.config(header: L("discovery_button_subtitle_booking").uppercased(),
+    super.config(header: L("discovery_button_subtitle_book_hotels").uppercased(),
                  cellClass: DiscoveryBookingCell.self)
   }
 }
