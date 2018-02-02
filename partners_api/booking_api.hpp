@@ -68,6 +68,7 @@ class Api
 {
 public:
   std::string GetBookHotelUrl(std::string const & baseUrl) const;
+  std::string GetDeepLink(std::string const & hotelId) const;
   std::string GetDescriptionUrl(std::string const & baseUrl) const;
   std::string GetHotelReviewsUrl(std::string const & hotelId, std::string const & baseUrl) const;
   std::string GetSearchUrl(std::string const & city, std::string const & name) const;

@@ -10,11 +10,12 @@
 #include "base/logging.hpp"
 #include "base/thread.hpp"
 #include "base/url_helpers.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <chrono>
 #include <iostream>
+#include <numeric>
 #include <sstream>
+#include <unordered_set>
 #include <utility>
 
 #include "3party/jansson/myjansson.hpp"
@@ -35,9 +36,11 @@ string const kExtendedHotelInfoBaseUrl = "https://hotels.maps.me/getDescription"
 string const kPhotoOriginalUrl = "http://aff.bstatic.com/images/hotel/max500/";
 string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
 string const kSearchBaseUrl = "https://www.booking.com/search.html";
+string const kDeepLinkBaseUrl = "booking://hotel/";
 string g_BookingUrlForTesting = "";
 
-vector<string> const kAvailabilityParamsForUrl = {"checkin", "checkout", "room"};
+unordered_set<string> const kAvailabilityParamsForUniversalLink = {"checkin", "checkout", "room"};
+unordered_set<string> const kAvailabilityParamsForDeepLink = {"checkin", "checkout"};
 
 bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & result)
 {
@@ -251,6 +254,33 @@ void FillHotelIds(string const & src, vector<std::string> & ids)
     ids[i] = std::to_string(id);
   }
 }
+
+string ApplyAvailabilityParamsUniversal(string const & url, AvailabilityParams const & params)
+{
+  auto p = params.Get(kAvailabilityParamsForUniversalLink);
+
+  auto const pos = url.find('#');
+
+  if (pos == string::npos)
+    return url::Make(url, p);
+
+  string result = url::Make(url.substr(0, pos), p);
+  result.append(url.substr(pos));
+  return result;
+}
+
+string ApplyAvailabilityParamsDeep(string const & url, AvailabilityParams const & params)
+{
+  auto p = params.Get(kAvailabilityParamsForDeepLink);
+
+  int const sum = std::accumulate(
+      params.m_rooms.cbegin(), params.m_rooms.cend(), 0,
+      [](int const s, AvailabilityParams::Room const & room) { return s + room.GetAdultsCount(); });
+
+  p.emplace_back("numberOfGuests", std::to_string(sum));
+
+  return url::Make(url, p);
+}
 }  // namespace
 
 namespace booking
@@ -289,6 +319,16 @@ string Api::GetBookHotelUrl(string const & baseUrl) const
   return GetDescriptionUrl(baseUrl) + "#availability";
 }
 
+std::string Api::GetDeepLink(std::string const & hotelId) const
+{
+  ASSERT(!hotelId.empty(), ());
+
+  ostringstream os;
+  os << kDeepLinkBaseUrl << hotelId << "?affiliate_id=" << BOOKING_AFFILIATE_ID;
+
+  return os.str();
+}
+
 string Api::GetDescriptionUrl(string const & baseUrl) const
 {
   ASSERT(!baseUrl.empty(), ());
@@ -324,30 +364,15 @@ string Api::GetSearchUrl(string const & city, string const & name) const
 
 string Api::ApplyAvailabilityParams(string const & url, AvailabilityParams const & params)
 {
+  ASSERT(!url.empty(), ());
+
   if (params.IsEmpty())
     return url;
 
-  auto p = params.Get();
+  if (strings::StartsWith(url, "booking"))
+    return ApplyAvailabilityParamsDeep(url, params);
 
-  my::EraseIf(p, [](url::Param const & param)
-  {
-    for (auto const & paramForUrl : kAvailabilityParamsForUrl)
-    {
-      // We need to use all numbered rooms, because of this we use StartsWith instead of ==.
-      if (strings::StartsWith(param.m_name, paramForUrl))
-        return false;
-    }
-    return true;
-  });
-
-  auto const pos = url.find('#');
-
-  if (pos == string::npos)
-    return url::Make(url, p);
-
-  string result = url::Make(url.substr(0, pos), p);
-  result.append(url.substr(pos));
-  return result;
+  return ApplyAvailabilityParamsUniversal(url, params);
 }
 
 void Api::GetMinPrice(string const & hotelId, string const & currency,

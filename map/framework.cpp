@@ -860,6 +860,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     auto const & baseUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
     auto const & hotelId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
     info.SetSponsoredUrl(m_bookingApi->GetBookHotelUrl(baseUrl));
+    info.SetSponsoredDeepLink(m_bookingApi->GetDeepLink(hotelId));
     info.SetSponsoredDescriptionUrl(m_bookingApi->GetDescriptionUrl(baseUrl));
     info.SetSponsoredReviewUrl(m_bookingApi->GetHotelReviewsUrl(hotelId, baseUrl));
     if (!m_bookingAvailabilityParams.IsEmpty())
@@ -868,6 +869,11 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
       auto const & urlWithParams =
           m_bookingApi->ApplyAvailabilityParams(url, m_bookingAvailabilityParams);
       info.SetSponsoredUrl(urlWithParams);
+
+      auto const & deepLink = info.GetSponsoredDeepLink();
+      auto const & deepLinkWithParams =
+          m_bookingApi->ApplyAvailabilityParams(deepLink, m_bookingAvailabilityParams);
+      info.SetSponsoredDeepLink(deepLinkWithParams);
     }
   }
   else if (ftypes::IsOpentableChecker::Instance()(ft))

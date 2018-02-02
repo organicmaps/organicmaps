@@ -10,6 +10,8 @@ namespace url
 {
 struct Param
 {
+  Param(std::string const & name, std::string const & value) : m_name(name), m_value(value) {}
+
   std::string m_name;
   std::string m_value;
 };

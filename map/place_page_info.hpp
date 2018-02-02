@@ -133,6 +133,8 @@ public:
   std::string const & GetBookingSearchUrl() const { return m_bookingSearchUrl; }
   void SetSponsoredUrl(std::string const & url) { m_sponsoredUrl = url; }
   std::string const & GetSponsoredUrl() const { return m_sponsoredUrl; }
+  void SetSponsoredDeepLink(std::string const & url) { m_sponsoredDeepLink = url; }
+  std::string const & GetSponsoredDeepLink() const { return m_sponsoredDeepLink; }
   void SetSponsoredDescriptionUrl(std::string const & url) { m_sponsoredDescriptionUrl = url; }
   std::string const & GetSponsoredDescriptionUrl() const { return m_sponsoredDescriptionUrl; }
   void SetSponsoredReviewUrl(std::string const & url) { m_sponsoredReviewUrl = url; }
@@ -269,6 +271,7 @@ private:
 
   /// Sponsored feature urls.
   std::string m_sponsoredUrl;
+  std::string m_sponsoredDeepLink;
   std::string m_sponsoredDescriptionUrl;
   std::string m_sponsoredReviewUrl;
 
