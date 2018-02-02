@@ -26,7 +26,7 @@ public class ViatorAdapterStrategy
 
   @NonNull
   @Override
-  protected Holders.BaseViewHolder<Items.ViatorItem> createProductViewHodler
+  protected Holders.BaseViewHolder<Items.ViatorItem> createProductViewHolder
       (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.ViatorItem> adapter)
   {
     View view = LayoutInflater.from(parent.getContext())

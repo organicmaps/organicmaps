@@ -31,7 +31,7 @@ class SearchBasedAdapterStrategy extends RegularAdapterStrategy<Items.SearchItem
 
   @NonNull
   @Override
-  protected Holders.BaseViewHolder<Items.SearchItem> createProductViewHodler
+  protected Holders.BaseViewHolder<Items.SearchItem> createProductViewHolder
       (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
   {
     View view = LayoutInflater.from(parent.getContext())
@@ -48,7 +48,7 @@ class SearchBasedAdapterStrategy extends RegularAdapterStrategy<Items.SearchItem
   }
 
   @NonNull
-  private static List<Items.SearchItem> convertItems(@NonNull SearchResult[] results)
+  static List<Items.SearchItem> convertItems(@NonNull SearchResult[] results)
   {
     List<Items.SearchItem> viewItems = new ArrayList<>();
     for (SearchResult result : results)

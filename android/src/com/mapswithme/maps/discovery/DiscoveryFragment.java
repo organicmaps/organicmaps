@@ -29,7 +29,6 @@ import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.search.SearchResult;
-import com.mapswithme.maps.viator.ViatorProduct;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
@@ -47,18 +46,16 @@ import static com.mapswithme.util.statistics.Destination.ROUTING;
 import static com.mapswithme.util.statistics.GalleryPlacement.DISCOVERY;
 import static com.mapswithme.util.statistics.GalleryType.LOCAL_EXPERTS;
 import static com.mapswithme.util.statistics.GalleryType.SEARCH_ATTRACTIONS;
+import static com.mapswithme.util.statistics.GalleryType.SEARCH_HOTELS;
 import static com.mapswithme.util.statistics.GalleryType.SEARCH_RESTAURANTS;
-import static com.mapswithme.util.statistics.GalleryType.VIATOR;
 
 public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallback
 {
   private static final int ITEMS_COUNT = 5;
-  private static final int[] ITEM_TYPES = { DiscoveryParams.ITEM_TYPE_VIATOR,
+  private static final int[] ITEM_TYPES = { DiscoveryParams.ITEM_TYPE_HOTELS,
                                             DiscoveryParams.ITEM_TYPE_ATTRACTIONS,
                                             DiscoveryParams.ITEM_TYPE_CAFES,
                                             DiscoveryParams.ITEM_TYPE_LOCAL_EXPERTS };
-  @Nullable
-  private BaseItemSelectedListener<Items.Item> mDefaultListener;
   private boolean mOnlineMode;
   @Nullable
   private CustomNavigateUpListener mNavigateUpListener;
@@ -106,9 +103,9 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     return inflater.inflate(R.layout.fragment_discovery, container, false);
   }
 
-  private void initViatorGallery()
+  private void initHotelGallery()
   {
-    setLayoutManagerAndItemDecoration(getContext(), getGallery(R.id.thingsToDo));
+    setLayoutManagerAndItemDecoration(getContext(), getGallery(R.id.hotels));
   }
 
   private void initAttractionsGallery()
@@ -143,7 +140,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     if (view == null)
       throw new AssertionError("Root view is not initialized yet!");
 
-    RecyclerView rv = (RecyclerView) view.findViewById(id);
+    RecyclerView rv = view.findViewById(id);
     if (rv == null)
       throw new AssertionError("RecyclerView must be within root view!");
     return rv;
@@ -171,18 +168,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     super.onViewCreated(view, savedInstanceState);
     mToolbarController.setTitle(R.string.discovery_button_title);
-    mDefaultListener = new BaseItemSelectedListener<>(getActivity());
-    view.findViewById(R.id.viatorLogo).setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        Utils.openUrl(getActivity(), DiscoveryManager.nativeGetViatorUrl());
-        Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_LOGO_SELECTED,
-                                              VIATOR, DISCOVERY);
-      }
-    });
-    initViatorGallery();
+    initHotelGallery();
     initAttractionsGallery();
     initFoodGallery();
     initLocalExpertsGallery();
@@ -192,20 +178,17 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
 
   private void requestDiscoveryInfoAndInitAdapters()
   {
-    NetworkPolicy.checkNetworkPolicy(getFragmentManager(), new NetworkPolicy.NetworkPolicyListener()
+    NetworkPolicy.checkNetworkPolicy(getFragmentManager(), policy ->
     {
-      @Override
-      public void onResult(@NonNull NetworkPolicy policy)
-      {
-        mOnlineMode = policy.сanUseNetwork();
-        initNetworkBasedAdapters();
-        requestDiscoveryInfo();
-      }
+      mOnlineMode = policy.сanUseNetwork();
+      initNetworkBasedAdapters();
+      requestDiscoveryInfo();
     });
   }
 
   private void initSearchBasedAdapters()
   {
+    getGallery(R.id.hotels).setAdapter(Factory.createSearchBasedLoadingAdapter());
     getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedLoadingAdapter());
     getGallery(R.id.food).setAdapter(Factory.createSearchBasedLoadingAdapter());
   }
@@ -215,10 +198,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     UiUtils.showIf(mOnlineMode, getRootView(), R.id.localGuidesTitle, R.id.localGuides);
     if (mOnlineMode)
     {
-      RecyclerView thinsToDo = getGallery(R.id.thingsToDo);
-      thinsToDo.setAdapter(Factory.createViatorLoadingAdapter(DiscoveryManager.nativeGetViatorUrl(),
-                                                              mDefaultListener));
-
       RecyclerView localGuides = getGallery(R.id.localGuides);
       localGuides.setAdapter(Factory.createLocalExpertsLoadingAdapter());
       return;
@@ -226,18 +205,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
 
     // It means that the user doesn't permit mobile network usage, so network based galleries UI
     // should be hidden in this case.
-    if (ConnectionState.isMobileConnected())
-    {
-      UiUtils.hide(getView(), R.id.thingsToDoLayout, R.id.thingsToDo,
-                   R.id.localGuidesTitle, R.id.localGuides);
-    }
-    else
-    {
-      UiUtils.show(getView(), R.id.thingsToDoLayout, R.id.thingsToDo);
-      RecyclerView thinsToDo = getGallery(R.id.thingsToDo);
-      thinsToDo.setAdapter(Factory.createViatorOfflineAdapter(new ViatorOfflineSelectedListener
-                                                                  (getActivity()), DISCOVERY));
-    }
+    UiUtils.showIf(ConnectionState.isMobileConnected(), getView(), R.id.localGuidesTitle,
+                   R.id.localGuides);
   }
 
   private void requestDiscoveryInfo()
@@ -281,16 +250,15 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
                                                                       DISCOVERY));
   }
 
-  @MainThread
   @Override
-  public void onViatorProductsReceived(@NonNull ViatorProduct[] products)
+  public void onHotelsReceived(@NonNull SearchResult[] results)
   {
-    updateViewsVisibility(products, R.id.thingsToDoLayout, R.id.thingsToDo);
-    String url = DiscoveryManager.nativeGetViatorUrl();
-    ItemSelectedListener<Items.ViatorItem> listener
-        = createOnlineProductItemListener(VIATOR);
-    getGallery(R.id.thingsToDo).setAdapter(Factory.createViatorAdapter(products, url, listener,
-                                                                       DISCOVERY));
+    updateViewsVisibility(results, R.id.hotelsTitle, R.id.hotels);
+    ItemSelectedListener<Items.SearchItem> listener =
+        createSearchProductItemListener(SEARCH_HOTELS);
+    getGallery(R.id.hotels).setAdapter(Factory.createHotelAdapter(results, listener,
+                                                                  SEARCH_HOTELS,
+                                                                  DISCOVERY));
   }
 
   @MainThread
@@ -310,10 +278,9 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     switch (type)
     {
-      case VIATOR:
-        String url = DiscoveryManager.nativeGetViatorUrl();
-        getGallery(R.id.thingsToDo).setAdapter(Factory.createViatorErrorAdapter(url, mDefaultListener));
-        Statistics.INSTANCE.trackGalleryError(VIATOR, DISCOVERY, null);
+      case HOTELS:
+        getGallery(R.id.hotels).setAdapter(Factory.createSearchBasedErrorAdapter());
+        Statistics.INSTANCE.trackGalleryError(SEARCH_HOTELS, DISCOVERY, null);
         break;
       case ATTRACTIONS:
         getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedErrorAdapter());

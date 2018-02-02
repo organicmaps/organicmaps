@@ -233,6 +233,6 @@
 
   <!-- Discovery-->
   <dimen name="discovery_button_min_height">40dp</dimen>
-  <dimen name="discovery_search_item_min_height">148dp</dimen>
-  <dimen name="discovery_expert_item_min_height">196dp</dimen>
+  <dimen name="discovery_search_item_min_height">166dp</dimen>
+  <dimen name="discovery_expert_item_min_height">198dp</dimen>
 </resources>

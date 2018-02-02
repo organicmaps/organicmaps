@@ -20,39 +20,21 @@
       android:layout_height="wrap_content"
       android:paddingBottom="@dimen/margin_base_plus"
       android:orientation="vertical">
-      <RelativeLayout
-        android:id="@+id/thingsToDoLayout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_block_base"
-        android:paddingLeft="@dimen/margin_base"
-        android:paddingRight="@dimen/margin_base">
-        <TextView
-          android:id="@+id/thingsToDoTitle"
-          android:textAppearance="@style/MwmTextAppearance.Discovery.Subtitle"
-          style="@style/MwmWidget.Discovery.Subtitle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_centerVertical="true"
-          android:layout_alignParentLeft="true"
-          android:layout_alignParentStart="true"
-          android:layout_marginRight="@dimen/margin_half"
-          android:layout_marginEnd="@dimen/margin_half"
-          android:layout_toLeftOf="@+id/viatorLogo"
-          android:layout_toStartOf="@+id/viatorLogo"
-          android:text="@string/discovery_button_subtitle_things_to_do"/>
-        <ImageView
-          android:id="@id/viatorLogo"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_half"
-          android:layout_centerVertical="true"
-          android:layout_alignParentRight="true"
-          android:layout_alignParentEnd="true"
-          android:src="?viatorLogo"
-          android:background="?clickableBackground"/>
-      </RelativeLayout>
+      <TextView
+        android:id="@+id/hotelsTitle"
+        android:textAppearance="@style/MwmTextAppearance.Discovery.Subtitle"
+        style="@style/MwmWidget.Discovery.Subtitle"
+        android:layout_marginLeft="@dimen/margin_base"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginRight="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:layout_marginTop="@dimen/margin_half_plus"
+        android:layout_marginBottom="@dimen/margin_half_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/discovery_button_subtitle_book_hotels"/>
       <android.support.v7.widget.RecyclerView
-        android:id="@+id/thingsToDo"
+        android:id="@+id/hotels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_viator_product"/>
@@ -67,7 +49,6 @@
         android:layout_marginEnd="@dimen/margin_base"
         android:layout_marginBottom="@dimen/margin_half_plus"
         android:layout_marginTop="@dimen/margin_base_plus"
-        android:layout_gravity="start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
       <android.support.v7.widget.RecyclerView
@@ -85,7 +66,6 @@
         android:layout_marginRight="@dimen/margin_base"
         android:layout_marginEnd="@dimen/margin_base"
         android:layout_marginBottom="@dimen/margin_half_plus"
-        android:layout_gravity="start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
       <android.support.v7.widget.RecyclerView
@@ -103,7 +83,6 @@
         android:layout_marginRight="@dimen/margin_base"
         android:layout_marginEnd="@dimen/margin_base"
         android:layout_marginBottom="@dimen/margin_half_plus"
-        android:layout_gravity="start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
       <android.support.v7.widget.RecyclerView

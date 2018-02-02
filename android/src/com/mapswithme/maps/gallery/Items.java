@@ -132,6 +132,41 @@ public class Items
     {
       return mResult.lon;
     }
+
+    public int getStars()
+    {
+      if (mResult.description == null)
+        return 0;
+
+      return mResult.description.stars;
+    }
+
+    @Nullable
+    public String getRating()
+    {
+      if (mResult.description == null)
+        return null;
+
+      return mResult.description.rating;
+    }
+
+    @Nullable
+    public String getPrice()
+    {
+      if (mResult.description == null)
+        return null;
+
+      return mResult.description.pricing;
+    }
+
+    @Nullable
+    public String getFeatureType()
+    {
+      if (mResult.description == null)
+        return null;
+
+      return mResult.description.featureType;
+    }
   }
 
   public static class Item

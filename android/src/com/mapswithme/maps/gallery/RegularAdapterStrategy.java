@@ -35,7 +35,7 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
     switch (viewType)
     {
       case TYPE_PRODUCT:
-        return createProductViewHodler(parent, viewType, adapter);
+        return createProductViewHolder(parent, viewType, adapter);
       case TYPE_MORE:
         return createMoreProductsViewHolder(parent, viewType, adapter);
       default:
@@ -57,7 +57,7 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
   }
 
   @NonNull
-  protected abstract Holders.BaseViewHolder<T> createProductViewHodler(@NonNull ViewGroup parent,
+  protected abstract Holders.BaseViewHolder<T> createProductViewHolder(@NonNull ViewGroup parent,
                                                                        int viewType,
                                                                        @NonNull GalleryAdapter<?, T> adapter);
   @NonNull

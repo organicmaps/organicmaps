@@ -30,8 +30,10 @@
           android:layout_marginLeft="@dimen/margin_half_plus"
           android:layout_marginRight="@dimen/margin_half_plus"
           style="@style/MwmWidget.Discovery.Item.Title"
+          android:maxLines="1"
+          android:minLines="1"
           android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Title"
-          tools:text="Las Ramblas"/>
+          tools:text="Vinnci Gala"/>
         <TextView
           android:id="@+id/subtitle"
           android:layout_width="wrap_content"
@@ -40,8 +42,26 @@
           android:layout_marginLeft="@dimen/margin_half_plus"
           android:layout_marginRight="@dimen/margin_half_plus"
           style="@style/MwmWidget.Discovery.Item.Subtitle"
+          android:ellipsize="middle"
           android:textAppearance="@style/MwmTextAppearance.Body3"
-          tools:text="Attraction"/>
+          tools:text="★ ★ ★ ★ ★"/>
+        <com.mapswithme.maps.widget.RatingView
+          android:id="@+id/ratingView"
+          android:layout_width="wrap_content"
+          android:layout_marginTop="@dimen/margin_eighth"
+          android:layout_marginBottom="@dimen/margin_half"
+          android:layout_height="@dimen/rating_view_height_small"
+          android:layout_marginStart="@dimen/margin_half"
+          android:layout_marginLeft="@dimen/margin_half"
+          android:paddingLeft="@dimen/margin_quarter_plus"
+          android:paddingStart="@dimen/margin_quarter_plus"
+          android:paddingRight="@dimen/margin_quarter_plus"
+          android:paddingEnd="@dimen/margin_quarter_plus"
+          android:paddingTop="@dimen/margin_quarter"
+          android:paddingBottom="@dimen/margin_quarter"
+          android:layout_gravity="center_horizontal|start"
+          android:textSize="@dimen/text_size_body_4"
+          tools:visibility="visible"/>
         <TextView
           android:id="@+id/distance"
           android:layout_marginTop="@dimen/margin_eighth"

@@ -1,12 +1,15 @@
 package com.mapswithme.maps.gallery;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGC;
@@ -177,26 +181,60 @@ public class Holders
     }
   }
 
-  public static final class SearchViewHolder extends BaseViewHolder<Items.SearchItem>
+  public static abstract class ActionButtonViewHolder<T extends RegularAdapterStrategy.Item>
+      extends BaseViewHolder<T>
+  {
+    @NonNull
+    private final TextView mButton;
+
+    ActionButtonViewHolder(@NonNull View itemView, @NonNull List<T> items, @NonNull
+        GalleryAdapter<?, T> adapter)
+    {
+      super(itemView, items, adapter);
+      mButton = itemView.findViewById(R.id.button);
+      mButton.setOnClickListener(this);
+      itemView.findViewById(R.id.infoLayout).setOnClickListener(this);
+      mButton.setText(R.string.p2p_to_here);
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      int position = getAdapterPosition();
+      if (position == RecyclerView.NO_POSITION || mItems.isEmpty())
+        return;
+
+      ItemSelectedListener<T> listener = mAdapter.getListener();
+      if (listener == null)
+        return;
+
+      T item = mItems.get(position);
+      switch (v.getId())
+      {
+        case R.id.infoLayout:
+          listener.onItemSelected(item, position);
+          break;
+        case R.id.button:
+          listener.onActionButtonSelected(item, position);
+          break;
+      }
+    }
+  }
+
+  public static final class SearchViewHolder extends ActionButtonViewHolder<Items.SearchItem>
   {
     @NonNull
     private final TextView mSubtitle;
     @NonNull
     private final TextView mDistance;
-    @NonNull
-    private final TextView mButton;
 
     public SearchViewHolder(@NonNull View itemView, @NonNull List<Items.SearchItem> items,
                             @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
     {
       super(itemView, items, adapter);
-      mTitle = (TextView) itemView.findViewById(R.id.title);
-      mSubtitle = (TextView) itemView.findViewById(R.id.subtitle);
-      mDistance = (TextView) itemView.findViewById(R.id.distance);
-      mButton = (TextView) itemView.findViewById(R.id.button);
-      mButton.setOnClickListener(this);
-      itemView.findViewById(R.id.infoLayout).setOnClickListener(this);
-      mButton.setText(R.string.p2p_to_here);
+      mTitle = itemView.findViewById(R.id.title);
+      mSubtitle = itemView.findViewById(R.id.subtitle);
+      mDistance = itemView.findViewById(R.id.distance);
     }
 
     @Override
@@ -207,28 +245,78 @@ public class Holders
       UiUtils.setTextAndHideIfEmpty(mSubtitle, item.getSubtitle());
       UiUtils.setTextAndHideIfEmpty(mDistance, item.getDistance());
     }
+  }
+
+  public static final class HotelViewHolder extends ActionButtonViewHolder<Items.SearchItem>
+  {
+    @NonNull
+    private final TextView mTitle;
+    @NonNull
+    private final TextView mSubtitle;
+    @NonNull
+    private final RatingView mRatingView;
+    @NonNull
+    private final TextView mDistance;
+
+    public HotelViewHolder(@NonNull View itemView, @NonNull List<Items.SearchItem> items, @NonNull
+        GalleryAdapter<?, Items.SearchItem> adapter)
+    {
+      super(itemView, items, adapter);
+      mTitle = itemView.findViewById(R.id.title);
+      mSubtitle = itemView.findViewById(R.id.subtitle);
+      mRatingView = itemView.findViewById(R.id.ratingView);
+      mDistance = itemView.findViewById(R.id.distance);
+    }
 
     @Override
-    public void onClick(View v)
+    public void bind(@NonNull Items.SearchItem item)
     {
-      int position = getAdapterPosition();
-      if (position == RecyclerView.NO_POSITION || mItems.isEmpty())
-        return;
+      UiUtils.setTextAndHideIfEmpty(mTitle, item.getTitle());
+      UiUtils.setTextAndHideIfEmpty(mSubtitle, formatDescription(item.getStars(),
+                                                                 item.getFeatureType(),
+                                                                 item.getPrice(),
+                                                                 mSubtitle.getResources()));
 
-      ItemSelectedListener<Items.SearchItem> listener = mAdapter.getListener();
-      if (listener == null)
-        return;
+      float rating = formatRating(item.getRating());
+      Impress impress = Impress.values()[UGC.nativeToImpress(rating)];
+      mRatingView.setRating(impress, UGC.nativeFormatRating(rating));
+      UiUtils.setTextAndHideIfEmpty(mDistance, item.getDistance());
+    }
 
-      Items.SearchItem item = mItems.get(position);
-      switch (v.getId())
+    //TODO: refactor rating to float in core
+    private static float formatRating(@Nullable String rating)
+    {
+      if (TextUtils.isEmpty(rating))
+        return -1;
+
+      try
       {
-        case R.id.infoLayout:
-          listener.onItemSelected(item, position);
-          break;
-        case R.id.button:
-          listener.onActionButtonSelected(item, position);
-          break;
+        return Float.valueOf(rating);
       }
+      catch (NumberFormatException e)
+      {
+        return -1;
+      }
+    }
+
+    @NonNull
+    private static CharSequence formatDescription(int stars, @Nullable String type,
+                                                  @Nullable String priceCategory,
+                                                  @NonNull Resources res)
+    {
+      final SpannableStringBuilder sb = new SpannableStringBuilder();
+      if (stars > 0)
+        sb.append(HotelUtils.formatStars(stars, res));
+      else if (!TextUtils.isEmpty(type))
+        sb.append(type);
+
+      if (!TextUtils.isEmpty(priceCategory))
+      {
+        sb.append(" • ");
+        sb.append(priceCategory);
+      }
+
+      return sb;
     }
   }
 
@@ -252,7 +340,6 @@ public class Holders
       mAdapter = adapter;
     }
 
-    @CallSuper
     public void bind(@NonNull I item)
     {
       mTitle.setText(item.getTitle());

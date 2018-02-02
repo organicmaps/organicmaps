@@ -39,6 +39,15 @@ public enum GalleryType
         {
           return Statistics.ParamValue.SEARCH_ATTRACTIONS;
         }
+      },
+  SEARCH_HOTELS
+      {
+        @NonNull
+        @Override
+        public String getProvider()
+        {
+          return Statistics.ParamValue.BOOKING_COM;
+        }
       };
 
   @NonNull

@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.routing.RoutingController;
@@ -170,22 +171,13 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       final SpannableStringBuilder res = new SpannableStringBuilder(result.description.featureType);
       final SpannableStringBuilder tail = new SpannableStringBuilder();
 
-      final int stars = Math.min(result.description.stars, 5);
+      int stars = result.description.stars;
       if (stars > 0 || !result.description.rating.isEmpty() || isHotelAvailable)
       {
         if (stars > 0)
         {
-          // Colorize last dimmed stars
-          final SpannableStringBuilder sb = new SpannableStringBuilder("★ ★ ★ ★ ★");
-          if (stars < 5)
-          {
-            final int start = sb.length() - ((5 - stars) * 2 - 1);
-            sb.setSpan(new ForegroundColorSpan(itemView.getResources().getColor(R.color.search_star_dimmed)),
-                    start, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-          }
-
           tail.append(" • ");
-          tail.append(sb);
+          tail.append(HotelUtils.formatStars(stars, itemView.getResources()));
         }
 
         if (!result.description.rating.isEmpty())

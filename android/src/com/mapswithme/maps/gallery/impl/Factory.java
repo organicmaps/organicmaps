@@ -79,6 +79,17 @@ public class Factory
   }
 
   @NonNull
+  public static GalleryAdapter createHotelAdapter(@NonNull SearchResult[] results,
+                                                  @Nullable ItemSelectedListener<Items
+                                                      .SearchItem> listener,
+                                                  @NonNull GalleryType type,
+                                                  @NonNull GalleryPlacement placement)
+  {
+    trackProductGalleryShownOrError(results, type, OFFLINE, placement);
+    return new GalleryAdapter<>(new HotelAdapterStrategy(results), listener);
+  }
+
+  @NonNull
   public static GalleryAdapter createLocalExpertsAdapter(@NonNull LocalExpert[] experts,
                                                          @Nullable String expertsUrl,
                                                          @Nullable ItemSelectedListener<Items

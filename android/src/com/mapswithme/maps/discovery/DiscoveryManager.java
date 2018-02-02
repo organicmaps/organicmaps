@@ -50,6 +50,9 @@ enum DiscoveryManager
           case DiscoveryParams.ITEM_TYPE_CAFES:
             callback.onCafesReceived(results);
             break;
+          case DiscoveryParams.ITEM_TYPE_HOTELS:
+            callback.onHotelsReceived(results);
+            break;
           default:
             throw new AssertionError("Unsupported discovery item type " +
                                      "'" + type + "' for search results!");
@@ -62,28 +65,15 @@ enum DiscoveryManager
   @MainThread
   private void onViatorProductsReceived(@NonNull final ViatorProduct[] products)
   {
-    notifyUiWithCheck(products, ItemType.VIATOR, new Action()
-    {
-      @Override
-      public void run(@NonNull UICallback callback)
-      {
-        callback.onViatorProductsReceived(products);
-      }
-    });
+    throw new UnsupportedOperationException("Viator is not supported!");
   }
 
   // Called from JNI.
   @MainThread
   private void onLocalExpertsReceived(@NonNull final LocalExpert[] experts)
   {
-    notifyUiWithCheck(experts, ItemType.LOCAL_EXPERTS, new Action()
-    {
-      @Override
-      public void run(@NonNull UICallback callback)
-      {
-        callback.onLocalExpertsReceived(experts);
-      }
-    });
+    notifyUiWithCheck(experts, ItemType.LOCAL_EXPERTS,
+                      callback -> callback.onLocalExpertsReceived(experts));
   }
 
   // Called from JNI.

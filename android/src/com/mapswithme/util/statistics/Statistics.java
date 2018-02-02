@@ -360,7 +360,7 @@ public enum Statistics
 
   public static class ParamValue
   {
-    static final String BOOKING_COM = "Booking.Com";
+    public static final String BOOKING_COM = "Booking.Com";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
     static final String VIATOR = "Viator.Com";

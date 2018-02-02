@@ -195,6 +195,7 @@
   <style name="MwmTextAppearance.Discovery.Subtitle" parent="MwmTextAppearance.Body3">
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
     <item name="android:textAllCaps">true</item>
+    <item name="android:gravity">start</item>
   </style>
 
   <style name="MwmTextAppearance.Discovery.Item.Title" parent="MwmTextAppearance.Body3.Primary">
