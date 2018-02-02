@@ -20,8 +20,10 @@ using namespace routing::turns;
 
 namespace
 {
-size_t constexpr kMaxPointsCount = 5;
-double constexpr kMinDistMeters = 200.;
+size_t constexpr kMaxOutgoingPointsCount = 5;
+double constexpr kMinOutgoingDistMeters = 200.;
+size_t constexpr kMaxIngoingPointsCount = 2;
+double constexpr kMinIngoingDistMeters = 300.;
 size_t constexpr kNotSoCloseMaxPointsCount = 3;
 double constexpr kNotSoCloseMinDistMeters = 30.;
 
@@ -97,13 +99,14 @@ bool KeepRoundaboutTurnByHighwayClass(CarDirection turn, TurnCandidates const & 
   return false;
 }
 
-bool DiscardTurnByIngoingAndOutgoingEdges(CarDirection intermediateDirection,
+bool DiscardTurnByIngoingAndOutgoingEdges(CarDirection intermediateDirection, bool hasMultiTurns,
                                           TurnInfo const & turnInfo, TurnItem const & turn)
 {
   return !turn.m_keepAnyway && !turnInfo.m_ingoing.m_onRoundabout &&
-         !turnInfo.m_outgoing.m_onRoundabout && IsGoStraightOrSlightTurn(intermediateDirection) &&
+         !turnInfo.m_outgoing.m_onRoundabout &&
          turnInfo.m_ingoing.m_highwayClass == turnInfo.m_outgoing.m_highwayClass &&
-         turn.m_sourceName == turn.m_targetName;
+         ((!hasMultiTurns && IsGoStraightOrSlightTurn(intermediateDirection)) ||
+          (hasMultiTurns && intermediateDirection == CarDirection::GoStraight));
 }
 
 // turnEdgesCount calculates both ingoing ond outgoing edges without user's edge.
@@ -116,7 +119,7 @@ bool KeepTurnByIngoingEdges(m2::PointD const & junctionPoint,
     my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPointOneSegment, outgoingPoint));
   bool const isGoStraightOrSlightTurn = IsGoStraightOrSlightTurn(IntermediateDirection(turnAngle));
 
-  // The code below is resposible for cases when there is only one way to leave the junction.
+  // The code below is responsible for cases when there is only one way to leave the junction.
   // Such junction has to be kept as a turn when it's not a slight turn and it has ingoing edges
   // (one or more);
   return hasMultiTurns || (!isGoStraightOrSlightTurn && turnEdgesCount > 1);
@@ -180,8 +183,10 @@ CarDirection FindDirectionByAngle(vector<pair<double, CarDirection>> const & low
  * - going from junctionPoint along segment path according to the direction which is set in GetPointIndex().
  * - until one of following conditions is fulfilled:
  *   - the end of ft is reached; (returns the last feature point)
- *   - more than kMaxPointsCount points are passed; (returns the kMaxPointsCount-th point)
- *   - the length of passed parts of segment exceeds kMinDistMeters; (returns the next point after the event)
+ *   - more than kMaxIngoingPointsCount or kMaxOutgoingPointsCount points are passed;
+ *     (returns the kMaxIngoingPointsCount-th or kMaxOutgoingPointsCount point)
+ *   - the length of passed parts of segment exceeds kMinIngoingDistMeters or kMinOutgoingDistMeters;
+ *     (returns the next point after the event)
  * \param path geometry of the segment.
  * \param junctionPoint is a junction point.
  * \param maxPointsCount returned poit could't be more than maxPointsCount poins away from junctionPoint
@@ -557,10 +562,10 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
 
   m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back().GetPoint();
   m2::PointD const ingoingPoint = GetPointForTurn(turnInfo.m_ingoing.m_path, junctionPoint,
-                                                  kMaxPointsCount, kMinDistMeters,
+                                                  kMaxIngoingPointsCount, kMinIngoingDistMeters,
                                                   GetIngoingPointIndex);
   m2::PointD const outgoingPoint = GetPointForTurn(turnInfo.m_outgoing.m_path, junctionPoint,
-                                                   kMaxPointsCount, kMinDistMeters,
+                                                   kMaxOutgoingPointsCount, kMinOutgoingDistMeters,
                                                    GetOutgoingPointIndex);
 
   double const turnAngle = my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
@@ -570,9 +575,6 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
   turn.m_sourceName = turnInfo.m_ingoing.m_name;
   turn.m_targetName = turnInfo.m_outgoing.m_name;
   turn.m_turn = CarDirection::None;
-  // Early filtering based only on the information about ingoing and outgoing edges.
-  if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, turnInfo, turn))
-    return;
 
   ASSERT_GREATER(turnInfo.m_ingoing.m_path.size(), 1, ());
   m2::PointD const ingoingPointOneSegment = turnInfo.m_ingoing.m_path[turnInfo.m_ingoing.m_path.size() - 2].GetPoint();
@@ -585,6 +587,9 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
   bool const hasMultiTurns = numNodes > 1;
 
   if (numNodes == 0)
+    return;
+
+  if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, hasMultiTurns, turnInfo, turn))
     return;
 
   if (!hasMultiTurns || !nodes.isCandidatesAngleValid)
@@ -703,10 +708,10 @@ size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
       // Determine turn direction.
       m2::PointD const junctionPoint = masterSegment.m_path.back().GetPoint();
       m2::PointD const ingoingPoint = GetPointForTurn(masterSegment.m_path, junctionPoint,
-                                                      kMaxPointsCount, kMinDistMeters,
+                                                      kMaxIngoingPointsCount, kMinIngoingDistMeters,
                                                       GetIngoingPointIndex);
       m2::PointD const outgoingPoint = GetPointForTurn(segments[currentSegment].m_path, junctionPoint,
-                                                       kMaxPointsCount, kMinDistMeters,
+                                                       kMaxOutgoingPointsCount, kMinOutgoingDistMeters,
                                                        GetOutgoingPointIndex);
       if (PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint) < 0)
         turn.m_turn = CarDirection::UTurnLeft;

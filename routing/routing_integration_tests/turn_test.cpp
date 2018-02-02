@@ -155,16 +155,16 @@ UNIT_TEST(RussiaMoscowPlanetnayaOnlyStraightTest)
   IRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, IRouter::NoError, ());
-  integration::TestTurnCount(route, 4 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::GoStraight);
+  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnRight);
 
   integration::TestRouteLength(route, 454.);
 }
 
-// Fails: generates "GoStraight" description instead of TurnSlightRight/TurnRight.
 UNIT_TEST(RussiaMoscowNoTurnsOnMKADTurnTest)
 {
   TRouteResult const routeResult =
@@ -185,7 +185,6 @@ UNIT_TEST(RussiaMoscowNoTurnsOnMKADTurnTest)
   integration::TestRouteLength(route, 43233.7);
 }
 
-// Fails: generates "GoStraight" description instead of TurnSlightRight/TurnRight.
 UNIT_TEST(RussiaMoscowTTKKashirskoeShosseOutTurnTest)
 {
   TRouteResult const routeResult =
@@ -522,8 +521,9 @@ UNIT_TEST(RussiaMoscowLeningradskiyPrptToTTKTest)
   IRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, IRouter::NoError, ());
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::GoStraight);
 }
 
 UNIT_TEST(RussiaMoscowLeningradskiyPrptDublToTTKTest)
@@ -537,8 +537,9 @@ UNIT_TEST(RussiaMoscowLeningradskiyPrptDublToTTKTest)
   IRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, IRouter::NoError, ());
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::GoStraight);
 }
 
 UNIT_TEST(RussiaMoscowSvobodaStTest)
