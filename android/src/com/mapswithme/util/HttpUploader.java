@@ -21,6 +21,30 @@ final class HttpUploader
   @NonNull
   private final String mFilePath;
 
+  private static class Result
+  {
+    private final int mHttpCode;
+    @NonNull
+    private final String mDescription;
+
+    Result(int httpCode, @NonNull String description)
+    {
+      mHttpCode = httpCode;
+      mDescription = description;
+    }
+
+    public int getHttpCode()
+    {
+      return mHttpCode;
+    }
+
+    @NonNull
+    public String getDescription()
+    {
+      return mDescription;
+    }
+  }
+
   @SuppressWarnings("unused")
   private HttpUploader(@NonNull String method, @NonNull String url, @NonNull KeyValue[] params,
                        @NonNull KeyValue[] headers, @NonNull String fileKey, @NonNull String filePath)
@@ -34,9 +58,9 @@ final class HttpUploader
   }
 
   @SuppressWarnings("unused")
-  private int upload()
+  private Result upload()
   {
     // Dummy. Error code 200 - Http OK.
-    return 200;
+    return new Result(200, "");
   }
 }

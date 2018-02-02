@@ -10,7 +10,11 @@ namespace platform
 class HttpUploader
 {
 public:
-  using ResultCallback = std::function<void(int32_t httpCode, std::string const & description)>;
+  struct Result
+  {
+    int32_t m_httpCode = 0;
+    std::string m_description;
+  };
 
   void SetMethod(std::string const & method) { m_method = method; }
   void SetUrl(std::string const & url) { m_url = url; }
@@ -18,9 +22,8 @@ public:
   void SetHeaders(std::map<std::string, std::string> const & headers) { m_headers = headers; }
   void SetFileKey(std::string const & fileKey) { m_fileKey = fileKey; }
   void SetFilePath(std::string const & filePath) { m_filePath = filePath; }
-  void SetCallback(ResultCallback const & callback) { m_callback = callback; }
 
-  void Upload() const;
+  Result Upload() const;
 
 private:
   std::string m_method = "POST";
@@ -29,6 +32,5 @@ private:
   std::map<std::string, std::string> m_headers;
   std::string m_fileKey = "file";
   std::string m_filePath;
-  ResultCallback m_callback;
 };
 }  // namespace platform

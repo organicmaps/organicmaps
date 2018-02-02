@@ -4,12 +4,21 @@
 #include "platform/http_uploader.hpp"
 
 #include "base/assert.hpp"
+#include "base/waiter.hpp"
+
+#include <memory>
+
+namespace
+{
+  auto const kTimeout = std::chrono::seconds(30);
+}
 
 namespace platform
 {
-void HttpUploader::Upload() const
+HttpUploader::Result HttpUploader::Upload() const
 {
-  CHECK(m_callback, ());
+  std::shared_ptr<Result> resultPtr = std::make_shared<Result>();
+  std::shared_ptr<base::Waiter> waiterPtr = std::make_shared<base::Waiter>();
 
   auto mapTransform =
       ^NSDictionary<NSString *, NSString *> *(std::map<std::string, std::string> keyValues)
@@ -26,9 +35,15 @@ void HttpUploader::Upload() const
                              filePath:@(m_filePath.c_str())
                                params:mapTransform(m_params)
                               headers:mapTransform(m_headers)
-                             callback:^(NSInteger httpCode, NSString * _Nonnull description) {
-                               if (m_callback)
-                                 m_callback(static_cast<int>(httpCode), description.UTF8String);
+                             callback:[resultPtr, waiterPtr](NSInteger httpCode, NSString * _Nonnull description) {
+                               resultPtr->m_httpCode = static_cast<int32_t>(httpCode);
+                               resultPtr->m_description = description.UTF8String;
+                               waiterPtr->Notify();
                              }];
+
+  if (waiterPtr->Wait(kTimeout) == base::Waiter::Result::NoTimeout)
+    return *resultPtr;
+
+  return {};
 }
 } // namespace platform

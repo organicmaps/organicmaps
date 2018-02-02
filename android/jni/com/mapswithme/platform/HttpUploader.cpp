@@ -11,11 +11,31 @@
 #include <cstdint>
 #include <functional>
 
+namespace
+{
+platform::HttpUploader::Result ToNativeResult(JNIEnv * env, jobject const src)
+{
+  static jmethodID const getHttpCode =
+    env->GetMethodID(g_httpUploaderResultClazz, "getHttpCode", "()I");
+  static jmethodID const getDescription =
+    env->GetMethodID(g_httpUploaderResultClazz, "getDescription", "()Ljava/lang/String;");
+
+  platform::HttpUploader::Result result;
+
+  result.m_httpCode = static_cast<int32_t>(env->CallIntMethod(src, getHttpCode));
+
+  jni::ScopedLocalRef<jstring> const description(
+    env, static_cast<jstring>(env->CallObjectMethod(src, getDescription)));
+  result.m_description = jni::ToNativeString(env, description.get());
+
+  return result;
+}
+}  // namespace
+
 namespace platform
 {
-void HttpUploader::Upload() const
+HttpUploader::Result HttpUploader::Upload() const
 {
-  CHECK(m_callback, ());
   auto env = jni::GetEnv();
 
   CHECK(env, ());
@@ -37,8 +57,12 @@ void HttpUploader::Upload() const
     env, env->NewObject(g_httpUploaderClazz, httpUploaderConstructor, method.get(), url.get(),
                         params.get(), headers.get(), fileKey.get(), filePath.get()));
 
-  static jmethodID const uploadId = jni::GetMethodID(env, httpUploaderObject, "upload", "()I");
+  static jmethodID const uploadId = jni::GetMethodID(env, httpUploaderObject, "upload",
+                                                     "()Lcom/mapswithme/util/HttpUploader$Result;");
 
-  m_callback(env->CallIntMethod(httpUploaderObject, uploadId), "dummy");
+  jni::ScopedLocalRef<jobject> const result(
+    env, env->CallObjectMethod(httpUploaderObject, uploadId));
+
+  return ToNativeResult(env, result);
 }
 } // namespace platform

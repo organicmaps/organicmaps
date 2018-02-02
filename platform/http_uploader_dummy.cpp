@@ -4,9 +4,9 @@
 
 namespace platform
 {
-void HttpUploader::Upload() const
+HttpUploader::Result HttpUploader::Upload() const
 {
   // Dummy implementation.
-  CHECK(m_callback, ());
+  return {};
 }
 } // namespace platform
