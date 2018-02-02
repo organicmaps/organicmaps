@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
+#ifndef IGNORE_SWIFT // Temporary solution for CMAKE builds. TODO: Remove when support of swift code compilation is added.
 #import "platform-Swift.h"
+#endif
 
 #include "platform/http_uploader.hpp"
 
@@ -17,6 +19,7 @@ namespace platform
 {
 HttpUploader::Result HttpUploader::Upload() const
 {
+#ifndef IGNORE_SWIFT // Temporary solution for CMAKE builds. TODO: Remove when support of swift code compilation is added.
   std::shared_ptr<Result> resultPtr = std::make_shared<Result>();
   std::shared_ptr<base::Waiter> waiterPtr = std::make_shared<base::Waiter>();
 
@@ -43,7 +46,7 @@ HttpUploader::Result HttpUploader::Upload() const
 
   if (waiterPtr->Wait(kTimeout) == base::Waiter::Result::NoTimeout)
     return *resultPtr;
-
+#endif
   return {};
 }
 } // namespace platform

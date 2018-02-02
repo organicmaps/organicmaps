@@ -105,6 +105,7 @@ else() # neither iPhone nor Android
       http_thread_apple.h
       http_thread_apple.mm
       http_uploader_apple.mm
+      http_uploader_apple.swift
       marketing_service_dummy.cpp
       platform_mac.mm
       platform_unix_impl.cpp
@@ -133,8 +134,13 @@ add_subdirectory(platform_tests_support)
 
 add_library(${PROJECT_NAME} ${SRC})
 
+# 2 next lines are added for future support of swift code compilation.
+set(SWIFT_BRIDGING_HEADER platform-Swift.h)
+set_property(TARGET ${PROJECT_NAME} PROPERTY XCODE_ATTRIBUTE_SWIFT_OBJC_BRIDGING_HEADER "${SWIFT_BRIDGING_HEADER}")
+
 if (APPLE)
-  target_compile_options(${PROJECT_NAME} PUBLIC "-fobjc-arc")
+# "-DIGNORE_SWIFT=1" key is added as the temporary solution until support of swift code compilation.
+  target_compile_options(${PROJECT_NAME} PUBLIC "-fobjc-arc" "-DIGNORE_SWIFT=1")
 endif()
 
 omim_add_test_subdirectory(platform_tests)
