@@ -21,6 +21,25 @@ final class HttpUploader
   @NonNull
   private final String mFilePath;
 
+  @SuppressWarnings("unused")
+  private HttpUploader(@NonNull String method, @NonNull String url, @NonNull KeyValue[] params,
+                       @NonNull KeyValue[] headers, @NonNull String fileKey, @NonNull String filePath)
+  {
+    mMethod = method;
+    mUrl = url;
+    mParams = new ArrayList<>(Arrays.asList(params));
+    mHeaders = new ArrayList<>(Arrays.asList(headers));
+    mFileKey = fileKey;
+    mFilePath = filePath;
+  }
+
+  @SuppressWarnings("unused")
+  private Result upload()
+  {
+    // Dummy. Error code 200 - Http OK.
+    return new Result(200, "");
+  }
+
   private static class Result
   {
     private final int mHttpCode;
@@ -43,24 +62,5 @@ final class HttpUploader
     {
       return mDescription;
     }
-  }
-
-  @SuppressWarnings("unused")
-  private HttpUploader(@NonNull String method, @NonNull String url, @NonNull KeyValue[] params,
-                       @NonNull KeyValue[] headers, @NonNull String fileKey, @NonNull String filePath)
-  {
-    mMethod = method;
-    mUrl = url;
-    mParams = new ArrayList<>(Arrays.asList(params));
-    mHeaders = new ArrayList<>(Arrays.asList(headers));
-    mFileKey = fileKey;
-    mFilePath = filePath;
-  }
-
-  @SuppressWarnings("unused")
-  private Result upload()
-  {
-    // Dummy. Error code 200 - Http OK.
-    return new Result(200, "");
   }
 }
