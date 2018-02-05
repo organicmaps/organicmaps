@@ -142,9 +142,8 @@ void Bookmark::Detach()
 }
 
 BookmarkCategory::BookmarkCategory(std::string const & name,
-                                   df::MarkGroupID groupID,
-                                   Listeners const & listeners)
-  : Base(UserMark::Type::BOOKMARK, listeners)
+                                   df::MarkGroupID groupID)
+  : Base(UserMark::Type::BOOKMARK)
   , m_groupID(groupID)
   , m_name(name)
 {}

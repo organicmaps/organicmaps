@@ -11,38 +11,14 @@
 #include <algorithm>
 #include <utility>
 
-UserMarkContainer::UserMarkContainer(UserMark::Type type,
-                                     Listeners const & listeners)
+UserMarkContainer::UserMarkContainer(UserMark::Type type)
   : m_type(type)
-  , m_listeners(listeners)
 {
 }
 
 UserMarkContainer::~UserMarkContainer()
 {
   Clear();
-}
-
-void UserMarkContainer::NotifyListeners()
-{
-  if (!IsDirty())
-    return;
-
-  if (m_listeners.m_createListener != nullptr && !m_createdMarks.empty())
-  {
-    df::IDCollection marks(m_createdMarks.begin(), m_createdMarks.end());
-    m_listeners.m_createListener(*this, marks);
-  }
-  if (m_listeners.m_updateListener != nullptr && !m_updatedMarks.empty())
-  {
-    df::IDCollection marks(m_updatedMarks.begin(), m_updatedMarks.end());
-    m_listeners.m_updateListener(*this, marks);
-  }
-  if (m_listeners.m_deleteListener != nullptr && !m_removedMarks.empty())
-  {
-    df::IDCollection marks(m_removedMarks.begin(), m_removedMarks.end());
-    m_listeners.m_deleteListener(*this, marks);
-  }
 }
 
 size_t UserMarkContainer::GetUserPointCount() const

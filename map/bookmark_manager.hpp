@@ -228,14 +228,13 @@ private:
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
 
-  void OnCreateUserMarks(UserMarkContainer const & container, df::IDCollection const & markIds);
-  void OnUpdateUserMarks(UserMarkContainer const & container, df::IDCollection const & markIds);
-  void OnDeleteUserMarks(UserMarkContainer const & container, df::IDCollection const & markIds);
-  void GetBookmarksData(df::IDCollection const & markIds,
+  void OnCreateUserMarks(UserMarkContainer const & container);
+  void OnUpdateUserMarks(UserMarkContainer const & container);
+  void OnDeleteUserMarks(UserMarkContainer const & container);
+  void GetBookmarksData(MarkIDSet const & markIds,
                         std::vector<std::pair<df::MarkID, BookmarkData>> & data) const;
 
   Callbacks m_callbacks;
-  UserMarkContainer::Listeners m_bookmarksListeners;
 
   df::DrapeEngineSafePtr m_drapeEngine;
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;

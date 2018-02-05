@@ -20,24 +20,7 @@ public:
   using MarkIDSet = std::set<df::MarkID>;
   using NotifyChangesFn = std::function<void (UserMarkContainer const &, df::IDCollection const &)>;
 
-  struct Listeners
-  {
-    Listeners() = default;
-    Listeners(NotifyChangesFn const & createListener,
-              NotifyChangesFn const & updateListener,
-              NotifyChangesFn const & deleteListener)
-      : m_createListener(createListener)
-      , m_updateListener(updateListener)
-      , m_deleteListener(deleteListener)
-    {}
-
-    NotifyChangesFn m_createListener;
-    NotifyChangesFn m_updateListener;
-    NotifyChangesFn m_deleteListener;
-  };
-
-  UserMarkContainer(UserMark::Type type,
-                    Listeners const & listeners = Listeners());
+  UserMarkContainer(UserMark::Type type);
   virtual ~UserMarkContainer();
 
   size_t GetUserPointCount() const;
@@ -48,13 +31,15 @@ public:
   virtual void AcceptChanges(df::MarkIDCollection & groupMarks,
                      df::MarkIDCollection & createdMarks,
                      df::MarkIDCollection & removedMarks);
-  void NotifyListeners();
 
   bool IsVisible() const;
   size_t GetUserMarkCount() const;
   UserMark::Type GetType() const;
 
   MarkIDSet const & GetUserMarks() const { return m_userMarks; }
+  MarkIDSet const & GetCreatedMarks() const { return m_createdMarks; }
+  MarkIDSet const & GetUpdatedMarks() const { return m_updatedMarks; }
+  MarkIDSet const & GetRemovedMarks() const { return m_removedMarks; }
 
   void AttachUserMark(df::MarkID markId);
   void EditUserMark(df::MarkID markId);
@@ -77,8 +62,6 @@ protected:
   MarkIDSet m_updatedMarks;
   bool m_isVisible = true;
   bool m_isDirty = false;
-
-  Listeners m_listeners;
 
   DISALLOW_COPY_AND_MOVE(UserMarkContainer);
 };
