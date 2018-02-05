@@ -14,8 +14,12 @@ std::string FormatTime(booking::AvailabilityParams::Time p)
   return partners_api::FormatTime(p, "%Y-%m-%d");
 }
 
-bool Contains(std::unordered_set<std::string> const & filter, std::string const & value)
+bool IsAcceptedByFilter(booking::AvailabilityParams::Filter const & filter,
+                        std::string const & value)
 {
+  if (filter.empty())
+    return true;
+
   return filter.find(value) != filter.cend();
 }
 }  // namespace
@@ -37,7 +41,7 @@ void AvailabilityParams::Room::SetAgeOfChild(int8_t ageOfChild)
   m_ageOfChild = ageOfChild;
 }
 
-int8_t AvailabilityParams::Room::GetAdultsCount() const
+uint8_t AvailabilityParams::Room::GetAdultsCount() const
 {
   return m_adultsCount;
 }
@@ -69,29 +73,29 @@ bool AvailabilityParams::Room::operator==(AvailabilityParams::Room const & rhs) 
   return !this->operator!=(rhs);
 }
 
-url::Params AvailabilityParams::Get(std::unordered_set<std::string> const & filter /* = {} */) const
+url::Params AvailabilityParams::Get(Filter const & filter /* = {} */) const
 {
   url::Params result;
 
-  if (filter.empty() || Contains(filter, "hotel_ids"))
+  if (IsAcceptedByFilter(filter, "hotel_ids"))
     result.emplace_back("hotel_ids", strings::JoinStrings(m_hotelIds, ','));
 
-  if (filter.empty() || Contains(filter, "checkin"))
+  if (IsAcceptedByFilter(filter, "checkin"))
     result.emplace_back("checkin", FormatTime(m_checkin));
 
-  if (filter.empty() || Contains(filter, "checkout"))
+  if (IsAcceptedByFilter(filter, "checkout"))
     result.emplace_back("checkout", FormatTime(m_checkout));
 
-  if (filter.empty() || Contains(filter, "room"))
+  if (IsAcceptedByFilter(filter, "room"))
   {
     for (size_t i = 0; i < m_rooms.size(); ++i)
       result.emplace_back("room" + to_string(i + 1), m_rooms[i].ToString());
   }
 
-  if (m_minReviewScore != 0.0 && (filter.empty() || Contains(filter, "min_review_score")))
+  if (m_minReviewScore != 0.0 && IsAcceptedByFilter(filter, "min_review_score"))
     result.emplace_back("min_review_score", to_string(m_minReviewScore));
 
-  if (!m_stars.empty() && (filter.empty() || Contains(filter, "stars")))
+  if (!m_stars.empty() && IsAcceptedByFilter(filter, "stars"))
     result.emplace_back("stars", strings::JoinStrings(m_stars, ','));
 
   return result;

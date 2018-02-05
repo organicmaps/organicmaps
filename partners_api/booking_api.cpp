@@ -15,7 +15,6 @@
 #include <iostream>
 #include <numeric>
 #include <sstream>
-#include <unordered_set>
 #include <utility>
 
 #include "3party/jansson/myjansson.hpp"
@@ -39,8 +38,17 @@ string const kSearchBaseUrl = "https://www.booking.com/search.html";
 string const kDeepLinkBaseUrl = "booking://hotel/";
 string g_BookingUrlForTesting = "";
 
-unordered_set<string> const kAvailabilityParamsForUniversalLink = {"checkin", "checkout", "room"};
-unordered_set<string> const kAvailabilityParamsForDeepLink = {"checkin", "checkout"};
+booking::AvailabilityParams::Filter const kAvailabilityParamsForUniversalLink =
+{
+  "checkin",
+  "checkout",
+  "room"
+};
+booking::AvailabilityParams::Filter const kAvailabilityParamsForDeepLink =
+{
+  "checkin",
+  "checkout"
+};
 
 bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & result)
 {
@@ -273,9 +281,9 @@ string ApplyAvailabilityParamsDeep(string const & url, AvailabilityParams const 
 {
   auto p = params.Get(kAvailabilityParamsForDeepLink);
 
-  int const sum = std::accumulate(
-      params.m_rooms.cbegin(), params.m_rooms.cend(), 0,
-      [](int const s, AvailabilityParams::Room const & room) { return s + room.GetAdultsCount(); });
+  auto const sum = std::accumulate(
+      params.m_rooms.cbegin(), params.m_rooms.cend(), 0 /* sum start value */,
+      [](auto const s, auto const & room) { return s + room.GetAdultsCount(); });
 
   p.emplace_back("numberOfGuests", std::to_string(sum));
 
@@ -319,7 +327,7 @@ string Api::GetBookHotelUrl(string const & baseUrl) const
   return GetDescriptionUrl(baseUrl) + "#availability";
 }
 
-std::string Api::GetDeepLink(std::string const & hotelId) const
+string Api::GetDeepLink(string const & hotelId) const
 {
   ASSERT(!hotelId.empty(), ());
 

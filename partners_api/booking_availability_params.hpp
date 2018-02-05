@@ -22,7 +22,7 @@ struct AvailabilityParams
     void SetAdultsCount(uint8_t adultsCount);
     void SetAgeOfChild(int8_t ageOfChild);
 
-    int8_t GetAdultsCount() const;
+    uint8_t GetAdultsCount() const;
     int8_t GetAgeOfChild() const;
 
     std::string ToString() const;
@@ -41,7 +41,9 @@ struct AvailabilityParams
   using Rooms = std::vector<Room>;
   using Stars = std::vector<std::string>;
 
-  base::url::Params Get(std::unordered_set<std::string> const & filter = {}) const;
+  using Filter = std::unordered_set<std::string>;
+
+  base::url::Params Get(Filter const & filter = {}) const;
   bool IsEmpty() const;
   bool operator!=(AvailabilityParams const & rhs) const;
   bool operator==(AvailabilityParams const & rhs) const;
