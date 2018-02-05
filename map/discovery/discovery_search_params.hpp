@@ -25,10 +25,7 @@ struct DiscoverySearchParams
   {
     bool operator()(Result const & lhs, Result const & rhs) const
     {
-      float l = -1, r = -1;
-      UNUSED_VALUE(strings::to_float(lhs.m_metadata.m_hotelRating, l));
-      UNUSED_VALUE(strings::to_float(rhs.m_metadata.m_hotelRating, r));
-      return l > r;
+      return lhs.m_metadata.m_hotelRating > rhs.m_metadata.m_hotelRating;
     }
   };
 

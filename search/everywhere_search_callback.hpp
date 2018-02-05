@@ -9,7 +9,7 @@ namespace search
 {
 struct ProductInfo
 {
-  static float constexpr kInvalidRating = -1;
+  static auto constexpr kInvalidRating = kInvalidRatingValue;
 
   bool m_isLocalAdsCustomer = false;
   float m_ugcRating = kInvalidRating;

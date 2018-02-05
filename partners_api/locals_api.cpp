@@ -10,6 +10,8 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include "defines.hpp"
+
 #include "3party/jansson/myjansson.hpp"
 
 #include "private.h"
@@ -57,9 +59,8 @@ void ParseLocals(std::string const & src, std::vector<LocalExpert> & locals,
     FromJSONObject(item, "i_will_show_you", local.m_offerDescription);
 
     // Rescale rating to (0.0; 10.0] range. Rating 0.0 is invalid.
-    static double const kInvalidRating = -1.0;
     if (local.m_rating == 0.0)
-      local.m_rating = kInvalidRating;
+      local.m_rating = kInvalidRatingValue;
     else
       local.m_rating *= 2.0;
 

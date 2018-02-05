@@ -61,6 +61,13 @@ public final class Constants
     private Package() {}
   }
 
+  public static class Rating
+  {
+    public static final float RATING_INCORRECT_VALUE = -1.0f;
+
+    private Rating() {};
+  }
+
 
   public static final String MWM_DIR_POSTFIX = "/MapsWithMe/";
   public static final String CACHE_DIR = "cache";

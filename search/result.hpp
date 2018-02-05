@@ -11,6 +11,8 @@
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 
+#include "defines.hpp"
+
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
@@ -43,7 +45,7 @@ public:
 
     // Following fields are used for hotels only.
     std::string m_hotelApproximatePricing;
-    std::string m_hotelRating;
+    float m_hotelRating = kInvalidRatingValue;
     int m_stars = 0;
     bool m_isSponsoredHotel = false;
     bool m_isHotel = false;
@@ -74,7 +76,7 @@ public:
   std::string const & GetAddress() const { return m_address; }
   std::string const & GetFeatureTypeName() const { return m_featureTypeName; }
   std::string const & GetCuisine() const { return m_metadata.m_cuisine; }
-  std::string const & GetHotelRating() const { return m_metadata.m_hotelRating; }
+  float GetHotelRating() const { return m_metadata.m_hotelRating; }
   std::string const & GetHotelApproximatePricing() const
   {
     return m_metadata.m_hotelApproximatePricing;

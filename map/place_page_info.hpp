@@ -19,6 +19,8 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#include "defines.hpp"
+
 #include <memory>
 #include <string>
 #include <utility>
@@ -55,7 +57,7 @@ enum class LocalsStatus
   Available
 };
 
-auto constexpr kIncorrectRating = -1.0f;
+auto constexpr kIncorrectRating = kInvalidRatingValue;
 
 class Info : public osm::MapObject
 {

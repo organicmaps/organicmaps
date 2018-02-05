@@ -276,26 +276,10 @@ public class Holders
                                                                  item.getPrice(),
                                                                  mSubtitle.getResources()));
 
-      float rating = formatRating(item.getRating());
+      float rating = item.getRating();
       Impress impress = Impress.values()[UGC.nativeToImpress(rating)];
       mRatingView.setRating(impress, UGC.nativeFormatRating(rating));
       UiUtils.setTextAndHideIfEmpty(mDistance, item.getDistance());
-    }
-
-    //TODO: refactor rating to float in core
-    private static float formatRating(@Nullable String rating)
-    {
-      if (TextUtils.isEmpty(rating))
-        return -1;
-
-      try
-      {
-        return Float.valueOf(rating);
-      }
-      catch (NumberFormatException e)
-      {
-        return -1;
-      }
     }
 
     @NonNull

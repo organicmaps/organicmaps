@@ -14,6 +14,8 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
+#include "defines.hpp"
+
 #include <chrono>
 #include <cstdint>
 #include <memory>
@@ -377,15 +379,16 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
   jni::TScopedLocalRef cuisine(env, jni::ToJavaString(env, result.GetCuisine()));
   jni::TScopedLocalRef pricing(env, jni::ToJavaString(env, result.GetHotelApproximatePricing()));
 
-  string ratingStr = result.GetHotelRating();
-  if (ratingStr.empty() && productInfo.m_ugcRating != search::ProductInfo::kInvalidRating)
-    ratingStr = place_page::rating::GetRatingFormatted(productInfo.m_ugcRating);
-  jni::TScopedLocalRef rating(env, jni::ToJavaString(env, ratingStr));
+
+  auto const hotelRating = result.GetHotelRating();
+  auto const ugcRating = productInfo.m_ugcRating;
+  auto const rating = static_cast<jfloat>(hotelRating == kInvalidRatingValue ? ugcRating
+                                                                             : hotelRating);
 
   jni::TScopedLocalRef desc(env, env->NewObject(g_descriptionClass, g_descriptionConstructor,
                                                 featureId.get(), featureType.get(), address.get(),
                                                 dist.get(), cuisine.get(),
-                                                rating.get(), pricing.get(),
+                                                pricing.get(), rating,
                                                 result.GetStarsCount(),
                                                 static_cast<jint>(result.IsOpenNow())));
 
@@ -505,7 +508,7 @@ extern "C"
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass,
                                                      "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;"
                                                      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
-                                                     "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II)V");
+                                                     "Ljava/lang/String;Ljava/lang/String;FII)V");
 
     g_mapResultsMethod = jni::GetMethodID(env, g_javaListener, "onMapSearchResults",
                                           "([Lcom/mapswithme/maps/search/NativeMapSearchListener$Result;JZ)V");

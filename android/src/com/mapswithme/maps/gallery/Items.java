@@ -10,6 +10,8 @@ import com.mapswithme.maps.search.SearchResult;
 import static com.mapswithme.maps.gallery.Constants.TYPE_MORE;
 import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
 
+import static com.mapswithme.util.Constants.Rating.RATING_INCORRECT_VALUE;
+
 public class Items
 {
   public static class ViatorItem extends RegularAdapterStrategy.Item
@@ -147,11 +149,10 @@ public class Items
       return mResult.description.stars;
     }
 
-    @Nullable
-    public String getRating()
+    public float getRating()
     {
       if (mResult.description == null)
-        return null;
+        return RATING_INCORRECT_VALUE;
 
       return mResult.description.rating;
     }

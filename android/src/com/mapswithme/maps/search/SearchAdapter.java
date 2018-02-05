@@ -23,6 +23,7 @@ import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -30,6 +31,8 @@ import com.mapswithme.util.UiUtils;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import static com.mapswithme.util.Constants.Rating.RATING_INCORRECT_VALUE;
 
 class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHolder>
 {
@@ -172,7 +175,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       final SpannableStringBuilder tail = new SpannableStringBuilder();
 
       int stars = result.description.stars;
-      if (stars > 0 || !result.description.rating.isEmpty() || isHotelAvailable)
+      if (stars > 0 || result.description.rating != RATING_INCORRECT_VALUE || isHotelAvailable)
       {
         if (stars > 0)
         {
@@ -180,10 +183,11 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
           tail.append(HotelUtils.formatStars(stars, itemView.getResources()));
         }
 
-        if (!result.description.rating.isEmpty())
+        if (result.description.rating != RATING_INCORRECT_VALUE)
         {
           Resources rs = itemView.getResources();
-          String s = rs.getString(R.string.place_page_booking_rating, result.description.rating);
+          String s = rs.getString(R.string.place_page_booking_rating,
+                                  UGC.nativeFormatRating(result.description.rating));
           tail
             .append(" • ")
             .append(colorizeString(s, rs.getColor(R.color.base_green)));

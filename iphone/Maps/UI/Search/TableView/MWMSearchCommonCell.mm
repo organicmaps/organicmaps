@@ -8,6 +8,8 @@
 
 #include "platform/measurement_utils.hpp"
 
+#include "defines.hpp"
+
 @interface MWMSearchCommonCell ()
 
 @property(nonatomic) IBOutletCollection(UIImageView) NSArray * infoRatingStars;
@@ -34,12 +36,21 @@
 {
   [super config:result];
   self.typeLabel.text = @(result.GetFeatureTypeName().c_str()).capitalizedString;
-  auto ratingStr = result.GetHotelRating();
-  if (ratingStr.empty() && productInfo.m_ugcRating != search::ProductInfo::kInvalidRating)
-    ratingStr = place_page::rating::GetRatingFormatted(productInfo.m_ugcRating);
-  self.ratingLabel.text =
-      ratingStr.empty() ? @"" : [NSString stringWithFormat:L(@"place_page_booking_rating"),
-                                                            ratingStr.c_str()];
+
+
+  auto const hotelRating = result.GetHotelRating();
+  auto const ugcRating = productInfo.m_ugcRating;
+  auto const rating = hotelRating != kInvalidRatingValue ? hotelRating : ugcRating;
+  if (rating != kInvalidRatingValue)
+  {
+    auto const str = place_page::rating::GetRatingFormatted(rating);
+    self.ratingLabel.text = [NSString stringWithFormat:L(@"place_page_booking_rating"), str.c_str()];
+  }
+  else
+  {
+    self.ratingLabel.text = @"";
+  }
+
   self.priceLabel.text = @(result.GetHotelApproximatePricing().c_str());
   self.locationLabel.text = @(result.GetAddress().c_str());
   [self.locationLabel sizeToFit];

@@ -28,7 +28,6 @@ namespace search
 {
 namespace
 {
-char const * const kEmptyRatingSymbol = "-";
 char const * const kPricingSymbol = "$";
 
 class SkipRegionInfo
@@ -202,8 +201,13 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
   if (isSponsoredHotel)
   {
     auto const r = src.Get(feature::Metadata::FMD_RATING);
-    char const * const rating = r.empty() ? kEmptyRatingSymbol : r.c_str();
-    meta.m_hotelRating = rating;
+    if (!r.empty())
+    {
+      float raw;
+      if (strings::to_float(r.c_str(), raw))
+        meta.m_hotelRating = raw;
+    }
+
 
     int pricing;
     if (!strings::to_int(src.Get(feature::Metadata::FMD_PRICE_RATE), pricing))

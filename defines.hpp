@@ -1,5 +1,7 @@
 #pragma once
 
+// Only defines and constexprs are allowed in this file.
+
 #define DATA_FILE_EXTENSION ".mwm"
 #define DATA_FILE_EXTENSION_TMP ".mwm.tmp"
 #define DIFF_FILE_EXTENSION ".mwmdiff"
@@ -94,3 +96,5 @@
 #define MIXED_TAGS_FILE "mixed_tags.txt"
 
 #define LOCALIZATION_DESCRIPTION_SUFFIX " Description"
+
+auto constexpr kInvalidRatingValue = -1.0f;

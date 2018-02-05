@@ -27,21 +27,21 @@ public class SearchResult implements SearchData
     public final String region;
     public final String distance;
     public final String cuisine;
-    public final String rating;
     public final String pricing;
+    public final float rating;
     public final int stars;
     public final int openNow;
 
     public Description(FeatureId featureId, String featureType, String region, String distance,
-                       String cuisine, String rating, String pricing, int stars, int openNow)
+                       String cuisine, String pricing, float rating, int stars, int openNow)
     {
       this.featureId = featureId;
       this.featureType = featureType;
       this.region = region;
       this.distance = distance;
       this.cuisine = cuisine;
-      this.rating = rating;
       this.pricing = pricing;
+      this.rating = rating;
       this.stars = stars;
       this.openNow = openNow;
     }

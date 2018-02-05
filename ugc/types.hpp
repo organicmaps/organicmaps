@@ -7,6 +7,8 @@
 #include "base/math.hpp"
 #include "base/visitor.hpp"
 
+#include "defines.hpp"
+
 #include <chrono>
 #include <cstdint>
 #include <memory>
@@ -338,7 +340,7 @@ struct UGC
 
   Ratings m_ratings;
   Reviews m_reviews;
-  float m_totalRating = -1.f;
+  float m_totalRating = kInvalidRatingValue;
   uint32_t m_basedOn{};
 };
 
