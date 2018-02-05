@@ -1069,29 +1069,50 @@ public class MwmActivity extends BaseMwmFragmentActivity
         handleDiscoveryResult(data);
         break;
       case FilterActivity.REQ_CODE_FILTER:
-        handleFilterResult(data);
+        String query = mSearchController != null ? mSearchController.getQuery() : "";
+        handleFilterResult(data, query.equals(getString(R.string.hotel)));
         break;
     }
   }
 
   private void handleDiscoveryResult(@NonNull Intent data)
   {
-    final MapObject destination = data.getParcelableExtra(DiscoveryActivity
-                                                              .EXTRA_DISCOVERY_OBJECT);
-    if (destination == null)
-      return;
-
     String action = data.getAction();
     if (TextUtils.isEmpty(action))
       return;
 
-    if (action.equals(DiscoveryActivity.ACTION_ROUTE_TO))
-      onRouteToDiscoveredObject(destination);
-    else
-      onShowDiscoveredObject(destination);
+    switch (action)
+    {
+      case DiscoveryActivity.ACTION_ROUTE_TO:
+        MapObject destination = data.getParcelableExtra(DiscoveryActivity.EXTRA_DISCOVERY_OBJECT);
+        if (destination == null)
+          return;
+
+        onRouteToDiscoveredObject(destination);
+        break;
+
+      case DiscoveryActivity.ACTION_SHOW_ON_MAP:
+        destination = data.getParcelableExtra(DiscoveryActivity.EXTRA_DISCOVERY_OBJECT);
+        if (destination == null)
+          return;
+
+        onShowDiscoveredObject(destination);
+        break;
+
+      case DiscoveryActivity.ACTION_SHOW_FILTER_RESULTS:
+        String query = data.getStringExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY);
+        if (TextUtils.isEmpty(query))
+          return;
+
+        if (mSearchController != null)
+          mSearchController.setQuery(query);
+
+        handleFilterResult(data, query.equals(getString(R.string.hotel)));
+        break;
+    }
   }
 
-  private void handleFilterResult(@Nullable Intent data)
+  private void handleFilterResult(@Nullable Intent data, boolean isHotel)
   {
     if (data == null || mFilterController == null)
       return;
@@ -1099,36 +1120,36 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mFilterController.setFilter(data.getParcelableExtra(FilterActivity.EXTRA_FILTER));
     BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
     mFilterController.setBookingFilterParams(params);
+    mFilterController.updateFilterButtonVisibility(isHotel);
     runSearch();
   }
 
   @Override
   public void onRouteToDiscoveredObject(@NonNull final MapObject object)
   {
-    addTask(new MapTask()
+    addTask((MapTask) target ->
     {
-      @Override
-      public boolean run(MwmActivity target)
-      {
-        RoutingController.get().setRouterType(Framework.ROUTER_TYPE_PEDESTRIAN);
-        RoutingController.get().prepare(true, object);
-        return false;
-      }
+      RoutingController.get().setRouterType(Framework.ROUTER_TYPE_PEDESTRIAN);
+      RoutingController.get().prepare(true, object);
+      return false;
     });
   }
 
   @Override
   public void onShowDiscoveredObject(@NonNull final MapObject object)
   {
-    addTask(new MapTask()
+    addTask((MapTask) target ->
     {
-      @Override
-      public boolean run(MwmActivity target)
-      {
-        Framework.nativeShowFeatureByLatLon(object.getLat(), object.getLon());
-        return false;
-      }
+      Framework.nativeShowFeatureByLatLon(object.getLat(), object.getLon());
+      return false;
     });
+  }
+
+  @Override
+  public void onShowFilter()
+  {
+    FilterActivity.startForResult(MwmActivity.this, null, null,
+                                  FilterActivity.REQ_CODE_FILTER);
   }
 
   @Override

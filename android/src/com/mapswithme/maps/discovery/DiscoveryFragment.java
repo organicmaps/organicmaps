@@ -231,8 +231,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onAttractionsReceived(@NonNull SearchResult[] results)
   {
     updateViewsVisibility(results, R.id.attractionsTitle, R.id.attractions);
-    ItemSelectedListener<Items.SearchItem> listener
-        = createSearchProductItemListener(SEARCH_ATTRACTIONS);
+    ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(this,
+                                                                              SEARCH_ATTRACTIONS);
     getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedAdapter(results, listener,
                                                                              SEARCH_ATTRACTIONS,
                                                                              DISCOVERY));
@@ -243,8 +243,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onCafesReceived(@NonNull SearchResult[] results)
   {
     updateViewsVisibility(results, R.id.eatAndDrinkTitle, R.id.food);
-    ItemSelectedListener<Items.SearchItem> listener =
-        createSearchProductItemListener(SEARCH_RESTAURANTS);
+    ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(this,
+                                                                              SEARCH_RESTAURANTS);
     getGallery(R.id.food).setAdapter(Factory.createSearchBasedAdapter(results, listener,
                                                                       SEARCH_RESTAURANTS,
                                                                       DISCOVERY));
@@ -254,8 +254,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   public void onHotelsReceived(@NonNull SearchResult[] results)
   {
     updateViewsVisibility(results, R.id.hotelsTitle, R.id.hotels);
-    ItemSelectedListener<Items.SearchItem> listener =
-        createSearchProductItemListener(SEARCH_HOTELS);
+    ItemSelectedListener<Items.SearchItem> listener = new HotelListener(this);
     getGallery(R.id.hotels).setAdapter(Factory.createHotelAdapter(results, listener,
                                                                   SEARCH_HOTELS,
                                                                   DISCOVERY));
@@ -341,6 +340,12 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
       mDiscoveryListener.onShowDiscoveredObject(createMapObject(item));
   }
 
+  private void showFilter()
+  {
+    if (mDiscoveryListener != null)
+      mDiscoveryListener.onShowFilter();
+  }
+
   @NonNull
   private static MapObject createMapObject(@NonNull Items.SearchItem item)
   {
@@ -388,28 +393,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     };
   }
 
-  private ItemSelectedListener<Items.SearchItem> createSearchProductItemListener
-      (final @NonNull GalleryType type)
-  {
-    return new SearchBasedListener(this)
-    {
-      @Override
-      public void onItemSelected(@NonNull Items.SearchItem item, int position)
-      {
-        super.onItemSelected(item, position);
-        Statistics.INSTANCE.trackGalleryProductItemSelected(type, DISCOVERY, position, PLACEPAGE);
-      }
-
-      @Override
-      public void onActionButtonSelected(@NonNull Items.SearchItem item, int position)
-      {
-        super.onActionButtonSelected(item, position);
-        Statistics.INSTANCE.trackGalleryProductItemSelected(type, DISCOVERY, position,
-                                                            ROUTING);
-      }
-    };
-  }
-
   private static class ViatorOfflineSelectedListener extends BaseItemSelectedListener<Items.Item>
   {
     private ViatorOfflineSelectedListener(@NonNull Activity context)
@@ -428,11 +411,14 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     @NonNull
     private final DiscoveryFragment mFragment;
+    @NonNull
+    private final GalleryType mType;
 
-    private SearchBasedListener(@NonNull DiscoveryFragment fragment)
+    private SearchBasedListener(@NonNull DiscoveryFragment fragment, @NonNull GalleryType type)
     {
       super(fragment.getActivity());
       mFragment = fragment;
+      mType = type;
     }
 
     @Override
@@ -440,6 +426,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     public void onItemSelected(@NonNull Items.SearchItem item, int position)
     {
       mFragment.showOnMap(item);
+      Statistics.INSTANCE.trackGalleryProductItemSelected(mType, DISCOVERY, position, PLACEPAGE);
     }
 
     @Override
@@ -447,11 +434,36 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     public void onActionButtonSelected(@NonNull Items.SearchItem item, int position)
     {
       mFragment.routeTo(item);
+      Statistics.INSTANCE.trackGalleryProductItemSelected(mType, DISCOVERY, position,
+                                                          ROUTING);
+    }
+
+    @NonNull
+    DiscoveryFragment getFragment()
+    {
+      return mFragment;
+    }
+  }
+
+  private static class HotelListener extends SearchBasedListener
+  {
+    private HotelListener(@NonNull DiscoveryFragment fragment)
+    {
+      super(fragment, SEARCH_HOTELS);
+    }
+
+    @Override
+    public void onMoreItemSelected(@NonNull Items.SearchItem item)
+    {
+      getFragment().showFilter();
+      Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
+                                            SEARCH_HOTELS, DISCOVERY);
     }
   }
 
   public interface DiscoveryListener {
     void onRouteToDiscoveredObject(@NonNull MapObject object);
     void onShowDiscoveredObject(@NonNull MapObject object);
+    void onShowFilter();
   }
 }

@@ -118,8 +118,7 @@ public class Items
 
     public SearchItem(@NonNull String title)
     {
-      super(TYPE_MORE, title, null,
-            null);
+      super(TYPE_MORE, title, null, null);
       mResult = SearchResult.EMPTY;
     }
 
