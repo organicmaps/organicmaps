@@ -19,7 +19,7 @@ public class HotelAdapterStrategy extends RegularAdapterStrategy<Items.SearchIte
 {
   HotelAdapterStrategy(@NonNull SearchResult[] results)
   {
-    this(SearchBasedAdapterStrategy.convertItems(results), null/*TODO: coming soon*/);
+    this(SearchBasedAdapterStrategy.convertItems(results), new Items.MoreSearchItem());
   }
 
   private HotelAdapterStrategy(@NonNull List<Items.SearchItem> items, @Nullable Items.SearchItem
@@ -45,7 +45,8 @@ public class HotelAdapterStrategy extends RegularAdapterStrategy<Items.SearchIte
       (@NonNull ViewGroup parent, int viewType,
        @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
   {
-    //TODO: filter item
-    return null;
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_more, parent,
+                                                                 false);
+    return new Holders.SearchMoreHolder(view, mItems, adapter);
   }
 }

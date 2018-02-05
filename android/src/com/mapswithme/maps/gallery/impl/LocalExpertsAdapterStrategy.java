@@ -43,7 +43,7 @@ public class LocalExpertsAdapterStrategy extends RegularAdapterStrategy<Items.Lo
   {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_viator_more, parent,
                                                                  false);
-    return new Holders.LocalExpertMoreItemViewHolder(view, mItems, adapter);
+    return new Holders.GenericMoreHolder<>(view, mItems, adapter);
   }
 
   @NonNull

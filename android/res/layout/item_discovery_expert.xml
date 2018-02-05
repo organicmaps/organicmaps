@@ -12,7 +12,7 @@
     <LinearLayout
       android:foreground="?clickableBackground"
       android:orientation="vertical"
-      android:layout_width="@dimen/viator_product_width"
+      android:layout_width="@dimen/gallery_product_width"
       android:layout_height="wrap_content"
       android:minHeight="@dimen/discovery_expert_item_min_height">
       <ImageView

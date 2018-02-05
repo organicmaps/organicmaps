@@ -116,6 +116,13 @@ public class Items
       mResult = result;
     }
 
+    public SearchItem(@NonNull String title)
+    {
+      super(TYPE_MORE, title, null,
+            null);
+      mResult = SearchResult.EMPTY;
+    }
+
     @NonNull
     public String getDistance()
     {
@@ -166,6 +173,14 @@ public class Items
         return null;
 
       return mResult.description.featureType;
+    }
+  }
+
+  public static class MoreSearchItem extends SearchItem
+  {
+    public MoreSearchItem()
+    {
+      super(MwmApplication.get().getString(R.string.placepage_more_button));
     }
   }
 

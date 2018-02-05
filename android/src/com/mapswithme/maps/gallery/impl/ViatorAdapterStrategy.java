@@ -42,7 +42,7 @@ public class ViatorAdapterStrategy
   {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_viator_more, parent,
                                                                  false);
-    return new Holders.ViatorMoreItemViewHolder(view, mItems, adapter);
+    return new Holders.GenericMoreHolder<>(view, mItems, adapter);
   }
 
   @NonNull

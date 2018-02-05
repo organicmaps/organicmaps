@@ -17,6 +17,9 @@ public class SearchResult implements SearchData
   public static final int OPEN_NOW_YES = 1;
   public static final int OPEN_NOW_NO = 2;
 
+  public static final SearchResult EMPTY = new SearchResult("", "", 0, 0,
+                                                            new int[] {});
+
   public static class Description
   {
     public final FeatureId featureId;

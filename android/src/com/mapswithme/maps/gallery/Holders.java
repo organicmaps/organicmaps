@@ -80,23 +80,42 @@ public class Holders
     }
   }
 
-  public static final class ViatorMoreItemViewHolder extends BaseViewHolder<Items.ViatorItem>
+  public static class GenericMoreHolder<T extends RegularAdapterStrategy.Item>
+      extends BaseViewHolder<T>
   {
 
-    public ViatorMoreItemViewHolder(@NonNull View itemView, @NonNull List<Items.ViatorItem> items,
-                                    @NonNull GalleryAdapter<?, Items.ViatorItem> adapter)
+    public GenericMoreHolder(@NonNull View itemView, @NonNull List<T> items, @NonNull GalleryAdapter<?, T>
+        adapter)
     {
       super(itemView, items, adapter);
     }
 
     @Override
-    protected void onItemSelected(@NonNull Items.ViatorItem item, int position)
+    protected void onItemSelected(@NonNull T item, int position)
     {
-      ItemSelectedListener<ViatorItem> listener = mAdapter.getListener();
+      ItemSelectedListener<T> listener = mAdapter.getListener();
       if (listener == null || TextUtils.isEmpty(item.getUrl()))
         return;
 
       listener.onMoreItemSelected(item);
+    }
+  }
+
+  public static class SearchMoreHolder extends GenericMoreHolder<Items.SearchItem>
+  {
+
+    public SearchMoreHolder(@NonNull View itemView, @NonNull List<Items.SearchItem> items, @NonNull
+        GalleryAdapter<?, Items.SearchItem> adapter)
+    {
+      super(itemView, items, adapter);
+    }
+
+    @Override
+    protected void onItemSelected(@NonNull Items.SearchItem item, int position)
+    {
+      ItemSelectedListener<Items.SearchItem> listener = mAdapter.getListener();
+      if (listener != null)
+        listener.onMoreItemSelected(item);
     }
   }
 
@@ -158,26 +177,6 @@ public class Holders
       float rating = (float) item.getRating();
       Impress impress = Impress.values()[UGC.nativeToImpress(rating)];
       mRating.setRating(impress, UGC.nativeFormatRating(rating));
-    }
-  }
-
-  public static class LocalExpertMoreItemViewHolder extends BaseViewHolder<Items.LocalExpertItem>
-  {
-    public LocalExpertMoreItemViewHolder(@NonNull View itemView,
-                                         @NonNull List<Items.LocalExpertItem> items,
-                                         @NonNull GalleryAdapter<?, Items.LocalExpertItem> adapter)
-    {
-      super(itemView, items, adapter);
-    }
-
-    @Override
-    protected void onItemSelected(@NonNull Items.LocalExpertItem item, int position)
-    {
-      ItemSelectedListener<Items.LocalExpertItem> listener = mAdapter.getListener();
-      if (listener == null || TextUtils.isEmpty(item.getUrl()))
-        return;
-
-      listener.onMoreItemSelected(item);
     }
   }
 
@@ -334,7 +333,7 @@ public class Holders
                              @NonNull GalleryAdapter<?, I> adapter)
     {
       super(itemView);
-      mTitle = (TextView) itemView.findViewById(R.id.tv__title);
+      mTitle = itemView.findViewById(R.id.tv__title);
       itemView.setOnClickListener(this);
       mItems = items;
       mAdapter = adapter;

@@ -10,7 +10,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <LinearLayout
-      android:layout_width="@dimen/viator_product_width"
+      android:layout_width="@dimen/gallery_product_width"
       android:layout_height="match_parent"
       android:minHeight="@dimen/discovery_search_item_min_height"
       android:orientation="vertical">

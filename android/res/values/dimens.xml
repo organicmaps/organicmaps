@@ -166,6 +166,7 @@
   <dimen name="placepage_hotel_gallery_height">100dp</dimen>
   <dimen name="placepage_hotel_gallery_width">150dp</dimen>
   <dimen name="gallery_image_height">84dp</dimen>
+  <dimen name="gallery_product_width">160dp</dimen>
 
   <!-- Nearby-->
   <dimen name="placepage_hotel_nearby_height">64dp</dimen>
@@ -210,7 +211,6 @@
 
   <!-- Viator-->
   <dimen name="viator_product_height">218dp</dimen>
-  <dimen name="viator_product_width">160dp</dimen>
   <dimen name="viator_product_image_height">80dp</dimen>
 
   <!-- Luggage-->
