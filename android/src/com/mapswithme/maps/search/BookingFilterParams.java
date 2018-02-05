@@ -47,7 +47,7 @@ public class BookingFilterParams implements Parcelable
   {
     // This value is corresponds to AvailabilityParams::Room::kNoChildren in core.
     static final int NO_CHILDREN = -1;
-    static final Room DEFAULT = new Room(2, 4);
+    static final Room DEFAULT = new Room(2);
     private int mAdultsCount;
     private int mAgeOfChild;
 
