@@ -2,6 +2,8 @@ package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +23,12 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
 {
   private final static int TYPE_ITEM = 0;
   private final static int TYPE_HELP = 1;
+  @Nullable
   private RecyclerLongClickListener mLongClickListener;
+  @Nullable
   private RecyclerClickListener mClickListener;
 
-  public BookmarkCategoriesAdapter(Context context)
+  BookmarkCategoriesAdapter(@NonNull Context context)
   {
     super(context);
   }
@@ -34,7 +38,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
     mClickListener = listener;
   }
 
-  public void setOnLongClickListener(RecyclerLongClickListener listener)
+  void setOnLongClickListener(RecyclerLongClickListener listener)
   {
     mLongClickListener = listener;
   }
@@ -55,23 +59,20 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
       view = LayoutInflater.from(getContext()).inflate(R.layout.item_bookmark_category, parent, false);
 
     final ViewHolder holder = new ViewHolder(view, viewType);
-    view.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        mClickListener.onItemClick(v, holder.getAdapterPosition());
-      }
-    });
-    view.setOnLongClickListener(new View.OnLongClickListener()
-    {
-      @Override
-      public boolean onLongClick(View v)
-      {
-        mLongClickListener.onLongItemClick(v, holder.getAdapterPosition());
-        return true;
-      }
-    });
+    view.setOnClickListener(
+        v ->
+        {
+          if (mClickListener != null)
+            mClickListener.onItemClick(v, holder.getAdapterPosition());
+        });
+    view.setOnLongClickListener(
+        v ->
+        {
+          if (mLongClickListener != null)
+            mLongClickListener.onLongItemClick(v, holder
+                .getAdapterPosition());
+          return true;
+        });
 
     return holder;
   }
@@ -86,15 +87,12 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
     holder.name.setText(set.getName());
     holder.size.setText(String.valueOf(set.getSize()));
     holder.setVisibilityState(set.isVisible());
-    holder.visibilityMarker.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        BookmarkManager.INSTANCE.toggleCategoryVisibility(holder.getAdapterPosition());
-        holder.setVisibilityState(set.isVisible());
-      }
-    });
+    holder.visibilityMarker.setOnClickListener(
+        v ->
+        {
+          BookmarkManager.INSTANCE.toggleCategoryVisibility(holder.getAdapterPosition());
+          holder.setVisibilityState(set.isVisible());
+        });
   }
 
   @Override
@@ -126,9 +124,9 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
         return;
       }
 
-      name = (TextView) root.findViewById(R.id.tv__set_name);
-      visibilityMarker = (ImageView) root.findViewById(R.id.iv__set_visible);
-      size = (TextView) root.findViewById(R.id.tv__set_size);
+      name = root.findViewById(R.id.tv__set_name);
+      visibilityMarker = root.findViewById(R.id.iv__set_visible);
+      size = root.findViewById(R.id.tv__set_size);
     }
 
     void setVisibilityState(boolean visible)
