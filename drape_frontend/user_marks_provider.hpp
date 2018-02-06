@@ -45,7 +45,7 @@ public:
   virtual ~UserPointMark() {}
 
   virtual bool IsDirty() const = 0;
-  virtual void AcceptChanges() const = 0;
+  virtual void ResetChanges() const = 0;
 
   MarkID GetId() const { return m_id; }
 
@@ -80,7 +80,7 @@ public:
   virtual ~UserLineMark() {}
 
   virtual bool IsDirty() const = 0;
-  virtual void AcceptChanges() const = 0;
+  virtual void ResetChanges() const = 0;
 
   virtual MarkID GetId() const { return m_id; }
 
@@ -100,8 +100,10 @@ class UserMarksProvider
 {
 public:
   virtual ~UserMarksProvider() {}
-  virtual void AcceptChanges(MarkGroupID groupID,
-                             MarkIDCollection & updatedMarks, MarkIDCollection & createdMarks, MarkIDCollection & removedMarks) = 0;
+  virtual MarkIDSet const & GetPointMarkIds(MarkGroupID groupID) const = 0;
+  virtual MarkIDSet const & GetLineMarkIds(MarkGroupID groupID) const = 0;
+  virtual MarkIDSet const & GetCreatedMarkIds(MarkGroupID groupID) const = 0;
+  virtual MarkIDSet const & GetRemovedMarkIds(MarkGroupID groupID) const = 0;
   /// never store UserPointMark reference
   virtual UserPointMark const * GetUserPointMark(MarkID markID) const = 0;
  /// never store UserLineMark reference

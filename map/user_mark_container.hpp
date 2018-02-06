@@ -17,29 +17,23 @@
 class UserMarkContainer
 {
 public:
-  using MarkIDSet = std::set<df::MarkID>;
   using NotifyChangesFn = std::function<void (UserMarkContainer const &, df::IDCollection const &)>;
 
   UserMarkContainer(UserMark::Type type);
   virtual ~UserMarkContainer();
 
-  size_t GetUserPointCount() const;
-  virtual size_t GetUserLineCount() const;
   bool IsDirty() const;
-
-  // Discard isDirty flag, return id collection of removed marks since previous method call.
-  virtual void AcceptChanges(df::MarkIDCollection & groupMarks,
-                     df::MarkIDCollection & createdMarks,
-                     df::MarkIDCollection & removedMarks);
+  // Discard isDirty and clear the lists of created, removed and updated items.
+  virtual void ResetChanges();
 
   bool IsVisible() const;
-  size_t GetUserMarkCount() const;
   UserMark::Type GetType() const;
 
-  MarkIDSet const & GetUserMarks() const { return m_userMarks; }
-  MarkIDSet const & GetCreatedMarks() const { return m_createdMarks; }
-  MarkIDSet const & GetUpdatedMarks() const { return m_updatedMarks; }
-  MarkIDSet const & GetRemovedMarks() const { return m_removedMarks; }
+  df::MarkIDSet const & GetUserMarks() const { return m_userMarks; }
+  virtual df::MarkIDSet const & GetUserLines() const { return m_userLines; }
+  df::MarkIDSet const & GetCreatedMarks() const { return m_createdMarks; }
+  df::MarkIDSet const & GetUpdatedMarks() const { return m_updatedMarks; }
+  df::MarkIDSet const & GetRemovedMarks() const { return m_removedMarks; }
 
   void AttachUserMark(df::MarkID markId);
   void EditUserMark(df::MarkID markId);
@@ -54,12 +48,12 @@ protected:
 
   UserMark::Type m_type;
 
-  MarkIDSet m_userMarks;
-  MarkIDSet m_userLines;
+  df::MarkIDSet m_userMarks;
+  df::MarkIDSet m_userLines;
 
-  MarkIDSet m_createdMarks;
-  MarkIDSet m_removedMarks;
-  MarkIDSet m_updatedMarks;
+  df::MarkIDSet m_createdMarks;
+  df::MarkIDSet m_removedMarks;
+  df::MarkIDSet m_updatedMarks;
   bool m_isVisible = true;
   bool m_isDirty = false;
 

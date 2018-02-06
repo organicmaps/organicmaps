@@ -46,7 +46,7 @@ public:
 
   // df::UserPointMark overrides.
   bool IsDirty() const override { return m_isDirty; }
-  void AcceptChanges() const override { m_isDirty = false; }
+  void ResetChanges() const override { m_isDirty = false; }
   bool IsVisible() const override { return true; }
   m2::PointD const & GetPivot() const override;
   m2::PointD GetPixelOffset() const override;

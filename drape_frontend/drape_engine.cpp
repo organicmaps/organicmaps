@@ -223,17 +223,15 @@ void DrapeEngine::InvalidateUserMarks()
 
 void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * provider)
 {
+  auto const & groupMarkIds = provider->GetPointMarkIds(groupId);
   auto groupIdCollection = make_unique_dp<MarkIDCollection>();
-  auto removedIdCollection = make_unique_dp<MarkIDCollection>();
-  auto createdIdCollection = make_unique_dp<MarkIDCollection>();
-
-  provider->AcceptChanges(groupId, *groupIdCollection, *createdIdCollection, *removedIdCollection);
-
+  groupIdCollection->m_marksID.reserve(groupMarkIds.size());
   auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
-  marksRenderCollection->reserve(groupIdCollection->m_marksID.size());
+  marksRenderCollection->reserve(groupMarkIds.size());
 
-  for (auto markId : groupIdCollection->m_marksID)
+  for (auto markId : groupMarkIds)
   {
+    groupIdCollection->m_marksID.push_back(markId);
     UserPointMark const * mark = provider->GetUserPointMark(markId);
     if (mark->IsDirty())
     {
@@ -259,13 +257,14 @@ void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * 
       renderInfo->m_hasCreationAnimation = mark->HasCreationAnimation();
 
       marksRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
-      mark->AcceptChanges();
+      mark->ResetChanges();
     }
   }
 
+  auto const & lineIds = provider->GetLineMarkIds(groupId);
   auto linesRenderCollection = make_unique_dp<UserLinesRenderCollection>();
-  linesRenderCollection->reserve(groupIdCollection->m_linesID.size());
-  for (auto lineId : groupIdCollection->m_linesID)
+  linesRenderCollection->reserve(lineIds.size());
+  for (auto lineId : lineIds)
   {
     UserLineMark const * mark = provider->GetUserLineMark(lineId);
     if (mark->IsDirty())
@@ -283,13 +282,22 @@ void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * 
       }
 
       linesRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
-      mark->AcceptChanges();
+      mark->ResetChanges();
     }
   }
 
-  if (!createdIdCollection->IsEmpty() || !removedIdCollection->IsEmpty() ||
+  auto const & createdIds = provider->GetCreatedMarkIds(groupId);
+  auto const & removedIds = provider->GetRemovedMarkIds(groupId);
+  if (!createdIds.empty() || !removedIds.empty() ||
       !marksRenderCollection->empty() || !linesRenderCollection->empty())
   {
+    auto createdIdCollection = make_unique_dp<MarkIDCollection>();
+    createdIdCollection->m_marksID.reserve(createdIds.size());
+    createdIdCollection->m_marksID.assign(createdIds.begin(), createdIds.end());
+    auto removedIdCollection = make_unique_dp<MarkIDCollection>();
+    removedIdCollection->m_marksID.reserve(removedIds.size());
+    removedIdCollection->m_marksID.assign(removedIds.begin(), removedIds.end());
+
     m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                     make_unique_dp<UpdateUserMarksMessage>(
                                       std::move(createdIdCollection),

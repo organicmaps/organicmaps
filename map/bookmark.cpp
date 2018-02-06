@@ -153,25 +153,10 @@ BookmarkCategory::~BookmarkCategory()
   ClearTracks();
 }
 
-size_t BookmarkCategory::GetUserLineCount() const
-{
-  return m_tracks.size();
-}
-
 void BookmarkCategory::ClearTracks()
 {
   SetDirty();
   m_tracks.clear();
-}
-
-void BookmarkCategory::AcceptChanges(df::MarkIDCollection & groupMarks,
-                                     df::MarkIDCollection & createdMarks,
-                                     df::MarkIDCollection & removedMarks)
-{
-  Base::AcceptChanges(groupMarks, createdMarks, removedMarks);
-  groupMarks.m_linesID.reserve(m_tracks.size());
-  for(auto const & trackID : m_tracks)
-    groupMarks.m_linesID.push_back(trackID);
 }
 
 void BookmarkCategory::AttachTrack(df::MarkID trackId)
@@ -183,7 +168,7 @@ void BookmarkCategory::AttachTrack(df::MarkID trackId)
 void BookmarkCategory::DetachTrack(df::MarkID trackId)
 {
   SetDirty();
-  m_userMarks.erase(trackId);
+  m_tracks.erase(trackId);
 }
 
 namespace

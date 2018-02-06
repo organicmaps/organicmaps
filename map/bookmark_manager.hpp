@@ -29,7 +29,6 @@ class BookmarkManager final : public df::UserMarksProvider
 
   using CategoryIter = CategoriesCollection::iterator;
   using GroupIdList = std::vector<df::MarkGroupID>;
-  using MarkIDSet = UserMarkContainer::MarkIDSet;
 
   using UserMarkLayers = std::vector<std::unique_ptr<UserMarkContainer>>;
 public:
@@ -138,8 +137,8 @@ public:
 
   void NotifyChanges(df::MarkGroupID groupID);
 
-  MarkIDSet const & GetUserMarkIds(df::MarkGroupID groupID) const;
-  MarkIDSet const & GetTrackIds(df::MarkGroupID groupID) const;
+  df::MarkIDSet const & GetUserMarkIds(df::MarkGroupID groupID) const;
+  df::MarkIDSet const & GetTrackIds(df::MarkGroupID groupID) const;
 
   std::string const & GetCategoryName(df::MarkGroupID categoryId) const;
   void SetCategoryName(df::MarkGroupID categoryId, std::string const & name);
@@ -200,10 +199,11 @@ public:
 
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
-  void AcceptChanges(df::MarkGroupID groupID,
-                     df::MarkIDCollection & groupMarks,
-                     df::MarkIDCollection & createdMarks,
-                     df::MarkIDCollection & removedMarks) override;
+  // UserMarksProvider
+  df::MarkIDSet const & GetPointMarkIds(df::MarkGroupID groupId) const override;
+  df::MarkIDSet const & GetLineMarkIds(df::MarkGroupID groupId) const override;
+  df::MarkIDSet const & GetCreatedMarkIds(df::MarkGroupID groupId) const override;
+  df::MarkIDSet const & GetRemovedMarkIds(df::MarkGroupID groupId) const override;
   df::UserPointMark const * GetUserPointMark(df::MarkID markID) const override;
   df::UserLineMark const * GetUserLineMark(df::MarkID markID) const override;
 
@@ -231,7 +231,7 @@ private:
   void OnCreateUserMarks(UserMarkContainer const & container);
   void OnUpdateUserMarks(UserMarkContainer const & container);
   void OnDeleteUserMarks(UserMarkContainer const & container);
-  void GetBookmarksData(MarkIDSet const & markIds,
+  void GetBookmarksData(df::MarkIDSet const & markIds,
                         std::vector<std::pair<df::MarkID, BookmarkData>> & data) const;
 
   Callbacks m_callbacks;

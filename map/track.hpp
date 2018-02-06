@@ -35,7 +35,7 @@ public:
   explicit Track(PolylineD const & polyline, Params const & p);
 
   bool IsDirty() const override { return m_isDirty; }
-  void AcceptChanges() const override { m_isDirty = false; }
+  void ResetChanges() const override { m_isDirty = false; }
 
   string const & GetName() const;
   PolylineD const & GetPolyline() const { return m_polyline; }

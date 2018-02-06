@@ -21,24 +21,9 @@ UserMarkContainer::~UserMarkContainer()
   Clear();
 }
 
-size_t UserMarkContainer::GetUserPointCount() const
-{
-  return m_userMarks.size();
-}
-
-size_t UserMarkContainer::GetUserLineCount() const
-{
-  return m_userLines.size();
-}
-
 bool UserMarkContainer::IsVisible() const
 {
   return m_isVisible;
-}
-
-size_t UserMarkContainer::GetUserMarkCount() const
-{
-  return GetUserPointCount();
 }
 
 UserMark::Type UserMarkContainer::GetType() const
@@ -82,30 +67,11 @@ bool UserMarkContainer::IsDirty() const
   return m_isDirty;
 }
 
-void UserMarkContainer::AcceptChanges(df::MarkIDCollection & groupMarks,
-                                      df::MarkIDCollection & createdMarks,
-                                      df::MarkIDCollection & removedMarks)
+void UserMarkContainer::ResetChanges()
 {
-  groupMarks.Clear();
-  createdMarks.Clear();
-  removedMarks.Clear();
-
-  groupMarks.m_marksID.reserve(m_userMarks.size());
-  for(auto const & markId : m_userMarks)
-    groupMarks.m_marksID.push_back(markId);
-
-  createdMarks.m_marksID.reserve(m_createdMarks.size());
-  for (auto const & markId : m_createdMarks)
-    createdMarks.m_marksID.push_back(markId);
   m_createdMarks.clear();
-
-  removedMarks.m_marksID.reserve(m_removedMarks.size());
-  for (auto const & markId : m_removedMarks)
-    removedMarks.m_marksID.push_back(markId);
   m_removedMarks.clear();
-
   m_updatedMarks.clear();
-
   m_isDirty = false;
 }
 
