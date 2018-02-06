@@ -242,6 +242,10 @@
     <item name="android:foreground">@drawable/shadow_top</item>
   </style>
 
+  <style name="MwmWidget.FrameLayout.BookmarkCategories">
+    <item name="android:background">?windowBackgroundForced</item>
+  </style>
+
   <style name="MwmWidget.RatingBar" parent="android:Widget.RatingBar">
     <item name="android:progressDrawable">@drawable/rating_bar</item>
     <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
