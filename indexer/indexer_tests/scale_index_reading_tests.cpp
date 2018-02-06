@@ -5,6 +5,7 @@
 
 #include "indexer/indexer_tests_support/test_with_custom_mwms.hpp"
 
+#include "indexer/cell_id.hpp"
 #include "indexer/data_factory.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/feature.hpp"
@@ -49,7 +50,7 @@ public:
     covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
 
     vector<uint32_t> indices;
-    for (auto const & interval : covering.Get(scale))
+    for (auto const & interval : covering.Get<RectId::DEPTH_LEVELS>(scale))
     {
       index.ForEachInIntervalAndScale([&](uint32_t index) { indices.push_back(index); },
                                       interval.first, interval.second, scale);

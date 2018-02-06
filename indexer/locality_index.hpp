@@ -32,7 +32,8 @@ public:
   void ForEachInRect(ProcessObject const & processObject, m2::RectD const & rect) const
   {
     covering::CoveringGetter cov(rect, covering::CoveringMode::ViewportWithLowLevels);
-    covering::Intervals const & intervals = cov.Get(scales::GetUpperScale());
+    covering::Intervals const & intervals =
+        cov.Get<LocalityCellId::DEPTH_LEVELS>(scales::GetUpperScale());
 
     for (auto const & i : intervals)
     {

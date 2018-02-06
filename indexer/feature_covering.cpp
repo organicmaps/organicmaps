@@ -1,17 +1,16 @@
 #include "indexer/feature_covering.hpp"
 
-#include "indexer/cell_coverer.hpp"
-#include "indexer/cell_id.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/locality_object.hpp"
-#include "indexer/scales.hpp"
 
 #include "geometry/covering_utils.hpp"
 
+using namespace std;
+
 namespace
 {
-
 // This class should only be used with covering::CoverObject()!
+template <int DEPTH_LEVELS>
 class FeatureIntersector
 {
 public:
@@ -30,7 +29,7 @@ public:
   // 1. Here we don't need to differentiate between CELL_OBJECT_INTERSECT and OBJECT_INSIDE_CELL.
   // 2. We can return CELL_OBJECT_INTERSECT instead of CELL_INSIDE_OBJECT - it's just
   //    a performance penalty.
-  covering::CellObjectIntersection operator() (RectId const & cell) const
+  covering::CellObjectIntersection operator()(m2::CellId<DEPTH_LEVELS> const & cell) const
   {
     using namespace covering;
 
@@ -91,12 +90,11 @@ public:
     return CELL_OBJECT_NO_INTERSECTION;
   }
 
-  typedef CellIdConverter<MercatorBounds, RectId> CellIdConverterType;
+  using CellIdConverter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
 
   m2::PointD ConvertPoint(m2::PointD const & p)
   {
-    m2::PointD const pt(CellIdConverterType::XToCellIdX(p.x),
-                        CellIdConverterType::YToCellIdY(p.y));
+    m2::PointD const pt(CellIdConverter::XToCellIdX(p.x), CellIdConverter::YToCellIdY(p.y));
     m_rect.Add(pt);
     return pt;
   }
@@ -112,7 +110,8 @@ public:
   }
 };
 
-void GetIntersection(FeatureType const & f, FeatureIntersector & fIsect)
+template <int DEPTH_LEVELS>
+void GetIntersection(FeatureType const & f, FeatureIntersector<DEPTH_LEVELS> & fIsect)
 {
   // We need to cover feature for the best geometry, because it's indexed once for the
   // first top level scale. Do reset current cached geometry first.
@@ -126,19 +125,22 @@ void GetIntersection(FeatureType const & f, FeatureIntersector & fIsect)
         f.GetLimitRect(scale).IsValid(), (f.DebugString(scale)));
 }
 
-vector<int64_t> CoverIntersection(FeatureIntersector const & fIsect, int cellDepth,
+template <int DEPTH_LEVELS>
+vector<int64_t> CoverIntersection(FeatureIntersector<DEPTH_LEVELS> const & fIsect, int cellDepth,
                                   uint64_t cellPenaltyArea)
 {
   if (fIsect.m_trg.empty() && fIsect.m_polyline.size() == 1)
   {
     m2::PointD const pt = fIsect.m_polyline[0];
     return vector<int64_t>(
-          1, RectId::FromXY(static_cast<uint32_t>(pt.x), static_cast<uint32_t>(pt.y),
-                            RectId::DEPTH_LEVELS - 1).ToInt64(cellDepth));
+        1, m2::CellId<DEPTH_LEVELS>::FromXY(static_cast<uint32_t>(pt.x),
+                                            static_cast<uint32_t>(pt.y), DEPTH_LEVELS - 1)
+               .ToInt64(cellDepth));
   }
 
-  vector<RectId> cells;
-  covering::CoverObject(fIsect, cellPenaltyArea, cells, cellDepth, RectId::Root());
+  vector<m2::CellId<DEPTH_LEVELS>> cells;
+  covering::CoverObject(fIsect, cellPenaltyArea, cells, cellDepth,
+                        m2::CellId<DEPTH_LEVELS>::Root());
 
   vector<int64_t> res(cells.size());
   for (size_t i = 0; i < cells.size(); ++i)
@@ -146,13 +148,13 @@ vector<int64_t> CoverIntersection(FeatureIntersector const & fIsect, int cellDep
 
   return res;
 }
-}
+}  // namespace
 
 namespace covering
 {
 vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cellPenaltyArea)
 {
-  FeatureIntersector fIsect;
+  FeatureIntersector<RectId::DEPTH_LEVELS> fIsect;
   GetIntersection(f, fIsect);
   return CoverIntersection(fIsect, cellDepth, cellPenaltyArea);
 }
@@ -160,7 +162,7 @@ vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cell
 vector<int64_t> CoverLocality(indexer::LocalityObject const & o, int cellDepth,
                               uint64_t cellPenaltyArea)
 {
-  FeatureIntersector fIsect;
+  FeatureIntersector<LocalityCellId::DEPTH_LEVELS> fIsect;
   o.ForEachPoint(fIsect);
   o.ForEachTriangle(fIsect);
   return CoverIntersection(fIsect, cellDepth, cellPenaltyArea);
@@ -192,91 +194,4 @@ Intervals SortAndMergeIntervals(Intervals const & v)
   SortAndMergeIntervals(v, res);
   return res;
 }
-
-void AppendLowerLevels(RectId id, int cellDepth, Intervals & intervals)
-{
-  int64_t idInt64 = id.ToInt64(cellDepth);
-  intervals.push_back(make_pair(idInt64, idInt64 + id.SubTreeSize(cellDepth)));
-  while (id.Level() > 0)
-  {
-    id = id.Parent();
-    idInt64 = id.ToInt64(cellDepth);
-    intervals.push_back(make_pair(idInt64, idInt64 + 1));
-  }
-}
-
-void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, Intervals & res)
-{
-  vector<RectId> ids;
-  ids.reserve(SPLIT_RECT_CELLS_COUNT);
-  CoverRect<MercatorBounds, RectId>(r, SPLIT_RECT_CELLS_COUNT, cellDepth, ids);
-
-  Intervals intervals;
-  for (size_t i = 0; i < ids.size(); ++i)
-    AppendLowerLevels(ids[i], cellDepth, intervals);
-
-  SortAndMergeIntervals(intervals, res);
-}
-
-RectId GetRectIdAsIs(m2::RectD const & r)
-{
-  double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
-  using TConverter = CellIdConverter<MercatorBounds, RectId>;
-
-  return TConverter::Cover2PointsWithCell(
-    MercatorBounds::ClampX(r.minX() + eps),
-    MercatorBounds::ClampY(r.minY() + eps),
-    MercatorBounds::ClampX(r.maxX() - eps),
-    MercatorBounds::ClampY(r.maxY() - eps));
-}
-
-int GetCodingDepth(int scale)
-{
-  int const delta = scales::GetUpperScale() - scale;
-  ASSERT_GREATER_OR_EQUAL ( delta, 0, () );
-
-  return (RectId::DEPTH_LEVELS - delta);
-}
-
-Intervals const & CoveringGetter::Get(int scale)
-{
-  int const cellDepth = GetCodingDepth(scale);
-  int const ind = (cellDepth == RectId::DEPTH_LEVELS ? 0 : 1);
-
-  if (m_res[ind].empty())
-  {
-    switch (m_mode)
-    {
-    case ViewportWithLowLevels:
-      CoverViewportAndAppendLowerLevels(m_rect, cellDepth, m_res[ind]);
-      break;
-
-    case LowLevelsOnly:
-    {
-      RectId id = GetRectIdAsIs(m_rect);
-      while (id.Level() >= cellDepth)
-        id = id.Parent();
-      AppendLowerLevels(id, cellDepth, m_res[ind]);
-
-      // Check for optimal result intervals.
-#if 0
-      size_t oldSize = m_res[ind].size();
-      Intervals res;
-      SortAndMergeIntervals(m_res[ind], res);
-      if (res.size() != oldSize)
-        LOG(LINFO, ("Old =", oldSize, "; New =", res.size()));
-      res.swap(m_res[ind]);
-#endif
-      break;
-    }
-
-    case FullCover:
-      m_res[ind].push_back(Intervals::value_type(0, static_cast<int64_t>((1ULL << 63) - 1)));
-      break;
-    }
-  }
-
-  return m_res[ind];
-}
-
 }

@@ -5,6 +5,10 @@
 
 #include "base/assert.hpp"
 
+using RectId = m2::CellId<19>;
+
+// 24 is enough to have cell size < 2.5m * 2.5m for world.
+using LocalityCellId = m2::CellId<24>;
 
 template <int MinX, int MinY, int MaxX, int MaxY>
 struct Bounds

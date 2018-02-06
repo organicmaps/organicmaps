@@ -16,6 +16,7 @@
 
 #include "defines.hpp"
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -35,8 +36,9 @@ void BuildLocalityIndex(TObjectsVector const & objects, TWriter & writer,
         1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2LOCALITY_TMP_EXT, out);
     objects.ForEach([&sorter](indexer::LocalityObject const & o) {
       // @todo(t.yan): adjust cellPenaltyArea for whole world locality index.
-      std::vector<int64_t> const cells =
-          covering::CoverLocality(o, GetCodingDepth(scales::GetUpperScale()), 250 /* cellPenaltyArea */);
+      std::vector<int64_t> const cells = covering::CoverLocality(
+          o, GetCodingDepth<LocalityCellId::DEPTH_LEVELS>(scales::GetUpperScale()),
+          250 /* cellPenaltyArea */);
       for (auto const & cell : cells)
         sorter.Add(CellValuePair<uint64_t>(cell, o.GetStoredId()));
     });
@@ -48,7 +50,7 @@ void BuildLocalityIndex(TObjectsVector const & objects, TWriter & writer,
 
   {
     BuildIntervalIndex(cellsToValue.begin(), cellsToValue.end(), writer,
-                       RectId::DEPTH_LEVELS * 2 + 1);
+                       LocalityCellId::DEPTH_LEVELS * 2 + 1);
   }
 }
 }  // namespace covering

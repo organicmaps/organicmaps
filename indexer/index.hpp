@@ -114,7 +114,7 @@ private:
           scale = lastScale;
 
         // Use last coding scale for covering (see index_builder.cpp).
-        covering::Intervals const & interval = cov.Get(lastScale);
+        covering::Intervals const & intervals = cov.Get<RectId::DEPTH_LEVELS>(lastScale);
 
         // Prepare features reading.
         FeaturesVector const fv(pValue->m_cont, header, pValue->m_table.get());
@@ -125,7 +125,7 @@ private:
         CheckUniqueIndexes checkUnique(header.GetFormat() >= version::Format::v5);
         MwmId const & mwmID = handle.GetId();
 
-        for (auto const & i : interval)
+        for (auto const & i : intervals)
         {
           index.ForEachInIntervalAndScale(
               [&](uint32_t index)
@@ -186,14 +186,14 @@ private:
           scale = lastScale;
 
         // Use last coding scale for covering (see index_builder.cpp).
-        covering::Intervals const & interval = cov.Get(lastScale);
+        covering::Intervals const & intervals = cov.Get<RectId::DEPTH_LEVELS>(lastScale);
         ScaleIndex<ModelReaderPtr> const index(pValue->m_cont.GetReader(INDEX_FILE_TAG), pValue->m_factory);
 
         // Iterate through intervals.
         CheckUniqueIndexes checkUnique(header.GetFormat() >= version::Format::v5);
         MwmId const & mwmID = handle.GetId();
 
-        for (auto const & i : interval)
+        for (auto const & i : intervals)
         {
           index.ForEachInIntervalAndScale(
               [&](uint32_t index)

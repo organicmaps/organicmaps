@@ -37,7 +37,7 @@ public:
     , m_scalesIdx(0)
     , m_bucketsCount(header.GetLastScale() + 1)
     , m_displacement(manager)
-    , m_codingDepth(covering::GetCodingDepth(header.GetLastScale()))
+    , m_codingDepth(covering::GetCodingDepth<RectId::DEPTH_LEVELS>(header.GetLastScale()))
     , m_featuresInBucket(featuresInBucket)
     , m_cellsInBucket(cellsInBucket)
   {

@@ -7,8 +7,6 @@
 
 #define POINT_COORD_BITS 30
 
-typedef m2::CellId<19> RectId;
-
 m2::PointU PointD2PointU(double x, double y, uint32_t coordBits);
 inline m2::PointU PointD2PointU(m2::PointD const & pt, uint32_t coordBits)
 {
