@@ -1251,4 +1251,16 @@
 	<string name="price_per_hour">%s/час</string>
 	<string name="luggage_storage">Хранение багажа</string>
 	<string name="discovery_button_subtitle_book_hotels">Бронирование отелей</string>
+	<string name="bookmarks_backup">Разрешить резервное копирование</string>
+	<string name="authorization_button_sign_in">Войти</string>
+	<string name="bookmarks_message_authorized_user">Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Включить резервное копирование?</string>
+	<string name="bookmarks_message_unauthorized_user">Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Авторизуйтесь, чтобы включить резервное копирование.</string>
+	<string name="bookmarks_message_unbackuped_user">Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю.</string>
+	<string name="bookmarks_message_backuped_user">Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Последнее резервное копирование было %s</string>
+	<string name="settings_backup_bookmarks">Резервное копирование меток</string>
+	<string name="bookmarks_groups">Группы</string>
+	<string name="bookmarks_groups_hide_all">Спрятать все</string>
+	<string name="bookmarks_groups_show_all">Показать все</string>
+	<string name="bookmarks_places">%s меток</string>
+	<string name="bookmarks_create_new_group">Создать новую группу</string>
 </resources>

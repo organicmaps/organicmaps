@@ -2176,3 +2176,27 @@
 "luggage_storage" = "Luggage storage";
 
 "discovery_button_subtitle_book_hotels" = "Book hotels";
+
+"bookmarks_backup" = "Enable backup";
+
+"authorization_button_sign_in" = "Sign in";
+
+"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly every week in a secure storage. Do you want enable backup?";
+
+"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly every week in a secure storage. Sign in to enable backup.";
+
+"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly every week in a secure storage.";
+
+"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
+
+"settings_backup_bookmarks" = "Backup Bookmarks";
+
+"bookmarks_groups" = "Groups";
+
+"bookmarks_groups_hide_all" = "Hide all";
+
+"bookmarks_groups_show_all" = "Show all";
+
+"bookmarks_places" = "%s bookmarks";
+
+"bookmarks_create_new_group" = "Create new group";

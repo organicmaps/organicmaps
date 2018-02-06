@@ -2176,3 +2176,27 @@
 "luggage_storage" = "Хранение багажа";
 
 "discovery_button_subtitle_book_hotels" = "Бронирование отелей";
+
+"bookmarks_backup" = "Разрешить резервное копирование";
+
+"authorization_button_sign_in" = "Войти";
+
+"bookmarks_message_authorized_user" = "Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Включить резервное копирование?";
+
+"bookmarks_message_unauthorized_user" = "Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Авторизуйтесь, чтобы включить резервное копирование.";
+
+"bookmarks_message_unbackuped_user" = "Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю.";
+
+"bookmarks_message_backuped_user" = "Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Последнее резервное копирование было %s";
+
+"settings_backup_bookmarks" = "Резервное копирование меток";
+
+"bookmarks_groups" = "Группы";
+
+"bookmarks_groups_hide_all" = "Спрятать все";
+
+"bookmarks_groups_show_all" = "Показать все";
+
+"bookmarks_places" = "%s меток";
+
+"bookmarks_create_new_group" = "Создать новую группу";
