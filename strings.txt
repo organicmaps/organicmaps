@@ -28508,3 +28508,51 @@
   [discovery_button_subtitle_book_hotels]
     en = Book hotels
     ru = Бронирование отелей
+
+  [bookmarks_backup]
+    en = Enable backup
+    ru = Разрешить резервное копирование
+
+  [authorization_button_sign_in]
+    en = Sign in
+    ru = Войти
+
+  [bookmarks_message_authorized_user]
+    en = Your bookmarks backup automaticaly every week in a secure storage. Do you want enable backup?
+    ru = Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Включить резервное копирование?
+
+  [bookmarks_message_unauthorized_user]
+    en = Your bookmarks backup automaticaly every week in a secure storage. Sign in to enable backup.
+    ru = Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Авторизуйтесь, чтобы включить резервное копирование.
+
+  [bookmarks_message_unbackuped_user]
+    en = Your bookmarks backup automaticaly every week in a secure storage.
+    ru = Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю.
+
+  [bookmarks_message_backuped_user]
+    en = Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s
+    ru = Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Последнее резервное копирование было %s
+
+  [settings_backup_bookmarks]
+    en = Backup Bookmarks
+    ru = Резервное копирование меток
+
+  [bookmarks_groups]
+    en = Groups
+    ru = Группы
+
+  [bookmarks_groups_hide_all]
+    en = Hide all
+    ru = Спрятать все
+
+  [bookmarks_groups_show_all]
+    en = Show all
+    ru = Показать все
+
+  [bookmarks_places]
+    en = %s bookmarks
+    ru = %s меток
+
+  [bookmarks_create_new_group]
+    en = Create new group
+    ru = Создать новую группу
