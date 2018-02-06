@@ -84,6 +84,7 @@ import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.SponsoredLinks;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -941,6 +942,8 @@ public class PlacePageView extends RelativeLayout
             if (info == null)
               return;
 
+            Utils.PartnerAppOpenMode partnerAppOpenMode = Utils.PartnerAppOpenMode.None;
+
             switch (info.getType())
             {
               case Sponsored.TYPE_BOOKING:
@@ -949,6 +952,7 @@ public class PlacePageView extends RelativeLayout
 
                 if (book)
                 {
+                  partnerAppOpenMode = Utils.PartnerAppOpenMode.Direct;
                   Statistics.INSTANCE.trackBookHotelEvent(info, mMapObject);
                 }
                 else
@@ -971,7 +975,17 @@ public class PlacePageView extends RelativeLayout
 
             try
             {
-              Utils.openUrl(getContext(), book ? info.getUrl() : info.getDescriptionUrl());
+              if (partnerAppOpenMode != Utils.PartnerAppOpenMode.None)
+              {
+                SponsoredLinks links = new SponsoredLinks(info.getDeepLink(), info.getUrl());
+                String packageName = Sponsored.GetPackageName(info.getType());
+
+                Utils.openPartner(getContext(), links, packageName, partnerAppOpenMode);
+              }
+              else
+              {
+                Utils.openUrl(getContext(), book ? info.getUrl() : info.getDescriptionUrl());
+              }
             }
             catch (ActivityNotFoundException e)
             {

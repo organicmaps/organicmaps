@@ -108,6 +108,7 @@
 		<string>uber</string>
 		<string>yandextaxi</string>
 		<string>tel</string>
+		<string>booking</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

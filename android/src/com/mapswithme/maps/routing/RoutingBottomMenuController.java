@@ -29,7 +29,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.taxi.TaxiAdapter;
 import com.mapswithme.maps.taxi.TaxiInfo;
-import com.mapswithme.maps.taxi.TaxiLinks;
+import com.mapswithme.util.SponsoredLinks;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.recycler.DotDividerItemDecoration;
@@ -252,7 +252,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     if (RoutingController.get().isTaxiRouterType() && mTaxiInfo != null)
     {
-      mStart.setText(Utils.isTaxiAppInstalled(mContext, mTaxiInfo.getType())
+      String packageName = TaxiManager.getTaxiPackageName(mTaxiInfo.getType());
+      mStart.setText(Utils.isAppInstalled(mContext, packageName)
                      ? R.string.taxi_order : R.string.install_app);
       mStart.setOnClickListener(new View.OnClickListener()
       {
@@ -291,16 +292,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
     if (mTaxiProduct == null || mTaxiInfo == null)
       return;
 
-    boolean isTaxiInstalled = Utils.isTaxiAppInstalled(mContext, mTaxiInfo.getType());
     MapObject startPoint = RoutingController.get().getStartPoint();
     MapObject endPoint = RoutingController.get().getEndPoint();
-    TaxiLinks links = TaxiManager.getTaxiLink(mTaxiProduct.getProductId(), mTaxiInfo.getType(),
-                                              startPoint, endPoint);
+    SponsoredLinks links = TaxiManager.getTaxiLink(mTaxiProduct.getProductId(), mTaxiInfo.getType(),
+                                                   startPoint, endPoint);
     if (links != null)
-    {
-      Utils.launchTaxiApp(mContext, links, mTaxiInfo.getType());
-      trackTaxiStatistics(mTaxiInfo.getType(), isTaxiInstalled);
-    }
+      launchTaxiApp(links);
   }
 
   void showError(@StringRes int message)
@@ -425,5 +422,28 @@ final class RoutingBottomMenuController implements View.OnClickListener
         }
         break;
     }
+  }
+
+  private void launchTaxiApp(@Nullable SponsoredLinks links)
+  {
+    String packageName = TaxiManager.getTaxiPackageName(mTaxiInfo.getType());
+    boolean isTaxiInstalled = Utils.isAppInstalled(mContext, packageName);
+    Utils.PartnerAppOpenMode openMode = Utils.PartnerAppOpenMode.None;
+
+    switch (mTaxiInfo.getType())
+    {
+      case TaxiManager.PROVIDER_UBER:
+        openMode = Utils.PartnerAppOpenMode.Direct;
+        break;
+      case TaxiManager.PROVIDER_YANDEX:
+        openMode = Utils.PartnerAppOpenMode.Indirect;
+        break;
+      default:
+        throw new AssertionError("Unsupported taxi type: " + mTaxiInfo.getType());
+    }
+
+    Utils.openPartner(mContext, links, packageName, openMode);
+
+    trackTaxiStatistics(mTaxiInfo.getType(), isTaxiInstalled);
   }
 }

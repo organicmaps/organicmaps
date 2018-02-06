@@ -201,6 +201,8 @@ public final class Sponsored
   @NonNull
   private final String mUrl;
   @NonNull
+  private final String mDeepLink;
+  @NonNull
   private final String mDescriptionUrl;
   @NonNull
   private final String mReviewUrl;
@@ -210,14 +212,16 @@ public final class Sponsored
   @NonNull
   private final String mPartnerName;
 
-  public Sponsored(@NonNull String rating, @UGC.Impress int impress, @NonNull String price,
-                   @NonNull String url, @NonNull String descriptionUrl, @NonNull String reviewUrl,
-                   @SponsoredType int type, int partnerIndex, @NonNull String partnerName)
+  private Sponsored(@NonNull String rating, @UGC.Impress int impress, @NonNull String price,
+                    @NonNull String url, @NonNull String deepLink, @NonNull String descriptionUrl,
+                    @NonNull String reviewUrl, @SponsoredType int type, int partnerIndex,
+                    @NonNull String partnerName)
   {
     mRating = rating;
     mImpress = impress;
     mPrice = price;
     mUrl = url;
+    mDeepLink = deepLink;
     mDescriptionUrl = descriptionUrl;
     mReviewUrl = reviewUrl;
     mType = type;
@@ -258,6 +262,12 @@ public final class Sponsored
   public String getUrl()
   {
     return mUrl;
+  }
+
+  @NonNull
+  public String getDeepLink()
+  {
+    return mDeepLink;
   }
 
   @NonNull
@@ -377,6 +387,18 @@ public final class Sponsored
     OnHotelInfoReceivedListener listener = sInfoListener.get();
     if (listener != null)
       listener.onHotelInfoReceived(id, info);
+  }
+
+  @NonNull
+  public static String GetPackageName(@SponsoredType int type)
+  {
+    switch (type)
+    {
+      case Sponsored.TYPE_BOOKING:
+        return "com.booking";
+      default:
+        return "";
+    }
   }
 
   @Nullable

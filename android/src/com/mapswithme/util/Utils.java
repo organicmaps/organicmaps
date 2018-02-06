@@ -32,7 +32,6 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
-import com.mapswithme.maps.taxi.TaxiLinks;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
@@ -304,7 +303,7 @@ public class Utils
     return installationId;
   }
 
-  private static boolean isAppInstalled(@NonNull Activity context, @NonNull String packageName)
+  public static boolean isAppInstalled(@NonNull Context context, @NonNull String packageName)
   {
     try
     {
@@ -317,55 +316,45 @@ public class Utils
     }
   }
 
-  public static boolean isTaxiAppInstalled(@NonNull Activity context, @TaxiManager.TaxiType int type)
+  public static void launchAppDirect(@NonNull Context context, @NonNull SponsoredLinks links,
+                                     String packageName)
   {
-    switch (type)
-    {
-      case TaxiManager.PROVIDER_UBER:
-        return Utils.isAppInstalled(context, "com.ubercab");
-      case TaxiManager.PROVIDER_YANDEX:
-        return Utils.isAppInstalled(context, "ru.yandex.taxi");
-      default:
-        throw new AssertionError("Unsupported taxi type: " + type);
-    }
-  }
+    boolean isAppInstalled = Utils.isAppInstalled(context, packageName);
 
-  public static void launchTaxiApp(@NonNull Activity context, @NonNull TaxiLinks links,
-                                   @TaxiManager.TaxiType int type)
-  {
-    switch (type)
+    if (!isAppInstalled)
     {
-      case TaxiManager.PROVIDER_UBER:
-        launchUber(context, links, isTaxiAppInstalled(context, type));
-        break;
-      case TaxiManager.PROVIDER_YANDEX:
-        launchYandexTaxi(context, links);
-        break;
-      default:
-        throw new AssertionError("Unsupported taxi type: " + type);
+      openUrl(context, links.getUniversalLink());
+      return;
     }
-  }
 
-  private static void launchUber(@NonNull Activity context, @NonNull TaxiLinks links, boolean isAppInstalled)
-  {
     final Intent intent = new Intent(Intent.ACTION_VIEW);
-    if (isAppInstalled)
-    {
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      intent.setData(Uri.parse(links.getDeepLink()));
-    } else
-    {
-      // No Taxi app! Open mobile website.
-      intent.setData(Uri.parse(links.getUniversalLink()));
-    }
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    intent.setData(Uri.parse(links.getDeepLink()));
     context.startActivity(intent);
   }
 
-  private static void launchYandexTaxi(@NonNull Activity context, @NonNull TaxiLinks links)
+  public static void launchAppIndirect(@NonNull Context context, @NonNull SponsoredLinks links)
   {
     Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(Uri.parse(links.getDeepLink()));
     context.startActivity(intent);
+  }
+
+  public static void openPartner(@NonNull Context activity, @NonNull SponsoredLinks links,
+                                 @NonNull String packageName, @NonNull PartnerAppOpenMode openMode)
+  {
+    switch (openMode)
+    {
+      case  Direct:
+        launchAppDirect(activity, links, packageName);
+        break;
+      case Indirect:
+        launchAppIndirect(activity, links);
+        break;
+      default:
+        throw new AssertionError("Unsupported partner app open mode: " + openMode +
+                                 "; Package name: " + packageName);
+    }
   }
 
   public static void sendTo(@NonNull Context context, @NonNull String email)
@@ -561,5 +550,10 @@ public class Utils
       return Character.toString(Character.toLowerCase(src.charAt(0)));
 
     return Character.toLowerCase(src.charAt(0)) + src.substring(1);
+  }
+
+  public enum PartnerAppOpenMode
+  {
+    None, Direct, Indirect
   }
 }

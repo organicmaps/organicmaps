@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.SponsoredLinks;
 import com.mapswithme.util.concurrency.UiThread;
 
 import java.lang.annotation.Retention;
@@ -84,8 +85,8 @@ public class TaxiManager
   }
 
   @Nullable
-  public static TaxiLinks getTaxiLink(@NonNull String productId, @TaxiType int type,
-                        @Nullable MapObject startPoint, @Nullable MapObject endPoint)
+  public static SponsoredLinks getTaxiLink(@NonNull String productId, @TaxiType int type,
+                                           @Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
     if (startPoint == null || endPoint == null)
       return null;
@@ -94,6 +95,20 @@ public class TaxiManager
                                                    type, productId, startPoint.getLat(),
                                                    startPoint.getLon(), endPoint.getLat(),
                                                    endPoint.getLon());
+  }
+
+  @NonNull
+  public static String getTaxiPackageName(@TaxiManager.TaxiType int type)
+  {
+    switch (type)
+    {
+      case TaxiManager.PROVIDER_UBER:
+        return "com.ubercab";
+      case TaxiManager.PROVIDER_YANDEX:
+        return "ru.yandex.taxi";
+      default:
+        throw new AssertionError("Unsupported taxi type: " + type);
+    }
   }
 
   public void setTaxiListener(@Nullable TaxiListener listener)
@@ -105,9 +120,9 @@ public class TaxiManager
                                                       double srcLon, double dstLat, double dstLon);
 
   @NonNull
-  public native TaxiLinks nativeGetTaxiLinks(@NonNull NetworkPolicy policy, @TaxiType int type,
-                                             @NonNull String productId, double srcLon,
-                                             double srcLat, double dstLat, double dstLon);
+  public native SponsoredLinks nativeGetTaxiLinks(@NonNull NetworkPolicy policy, @TaxiType int type,
+                                                  @NonNull String productId, double srcLon,
+                                                  double srcLat, double dstLat, double dstLon);
 
   public enum ErrorCode
   {

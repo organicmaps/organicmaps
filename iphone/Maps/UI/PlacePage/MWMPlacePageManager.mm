@@ -484,7 +484,11 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   logSponsoredEvent(data, eventName);
   NSURL * url = isDescription ? data.sponsoredDescriptionURL : data.sponsoredURL;
   NSAssert(url, @"Sponsored url can't be nil!");
-  [self.ownerViewController openUrl:url];
+  
+  if (data.isPartnerAppInstalled)
+    [UIApplication.sharedApplication openURL:url];
+  else
+    [self.ownerViewController openUrl:url];
 }
 
 - (void)searchBookingHotels

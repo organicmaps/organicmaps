@@ -1,15 +1,15 @@
-package com.mapswithme.maps.taxi;
+package com.mapswithme.util;
 
 import android.support.annotation.NonNull;
 
-public class TaxiLinks
+public class SponsoredLinks
 {
   @NonNull
   private final String mDeepLink;
   @NonNull
   private final String mUniversalLink;
 
-  public TaxiLinks(@NonNull String deepLink, @NonNull String universalLink)
+  public SponsoredLinks(@NonNull String deepLink, @NonNull String universalLink)
   {
     mDeepLink = deepLink;
     mUniversalLink = universalLink;

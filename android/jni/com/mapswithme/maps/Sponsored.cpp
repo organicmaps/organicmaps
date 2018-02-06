@@ -61,7 +61,7 @@ void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
   // Sponsored(String rating, String price, String urlBook, String urlDescription)
   g_sponsoredClassConstructor = jni::GetConstructorID(
       env, g_sponsoredClass,
-      "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;"
+      "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
       "Ljava/lang/String;IILjava/lang/String;)V");
   // static void onPriceReceived(final String id, final String price, final String currency)
   g_priceCallback =
@@ -124,6 +124,7 @@ JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_na
                         static_cast<jint>(place_page::rating::GetImpress(ppInfo.GetRatingRawValue())),
                         jni::ToJavaString(env, ppInfo.GetApproximatePricing()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredUrl()),
+                        jni::ToJavaString(env, ppInfo.GetSponsoredDeepLink()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredDescriptionUrl()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredReviewUrl()),
                         static_cast<jint>(ppInfo.GetSponsoredType()),
