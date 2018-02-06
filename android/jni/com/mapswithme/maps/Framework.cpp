@@ -1549,7 +1549,18 @@ Java_com_mapswithme_maps_Framework_nativeAuthenticateUser(JNIEnv * env, jclass,
                                                           jint socialTokenType)
 {
   auto const tokenStr = jni::ToNativeString(env, socialToken);
-  frm()->GetUser().Authenticate(tokenStr, static_cast<User::SocialTokenType>(socialTokenType));
+  auto & user = frm()->GetUser();
+  auto s = make_unique<User::Subscriber>();
+  s->m_postCallAction = User::Subscriber::Action::RemoveSubscriber;
+  s->m_onAuthenticate = [](bool success)
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [success]()
+    {
+      //TODO: @alexzatsepin add reaction on auth success/failure, please.
+    });
+  };
+  user.AddSubscriber(std::move(s));
+  user.Authenticate(tokenStr, static_cast<User::SocialTokenType>(socialTokenType));
 }
 
 JNIEXPORT jboolean JNICALL

@@ -27,6 +27,8 @@ set(
   bookmarks_search_params.hpp
   chart_generator.cpp
   chart_generator.hpp
+  cloud.cpp
+  cloud.hpp
   discovery/discovery_client_params.hpp
   discovery/discovery_manager.cpp
   discovery/discovery_manager.hpp

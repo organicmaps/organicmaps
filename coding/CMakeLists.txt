@@ -68,6 +68,7 @@ set(
   reader_wrapper.hpp
   reader_writer_ops.cpp
   reader_writer_ops.hpp
+  serdes_json.hpp
   simple_dense_coding.cpp
   simple_dense_coding.hpp
   streams.hpp

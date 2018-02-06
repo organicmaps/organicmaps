@@ -9,6 +9,7 @@ set(
   booking_filter_test.cpp
   bookmarks_test.cpp
   chart_generator_tests.cpp
+  cloud_tests.cpp
   feature_getters_tests.cpp
   ge0_parser_tests.cpp
   geourl_test.cpp

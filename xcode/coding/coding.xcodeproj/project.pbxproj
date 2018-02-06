@@ -32,6 +32,7 @@
 		3D489BC31D3D21AE0052AA38 /* elias_coder_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BB71D3D217E0052AA38 /* elias_coder_test.cpp */; };
 		3D74EF211F8F55740081202C /* csv_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF1F1F8F55740081202C /* csv_reader.hpp */; };
 		3D74EF221F8F55740081202C /* csv_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF201F8F55740081202C /* csv_reader.cpp */; };
+		454523B4202AEB21009275C1 /* serdes_json.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454523B3202AEB21009275C1 /* serdes_json.hpp */; };
 		45C108B41E9CFE69000FE1F6 /* point_to_integer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C108B21E9CFE69000FE1F6 /* point_to_integer.cpp */; };
 		45C108B51E9CFE69000FE1F6 /* point_to_integer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45C108B31E9CFE69000FE1F6 /* point_to_integer.hpp */; };
 		45C108B81E9CFE7B000FE1F6 /* point_to_integer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C108B61E9CFE78000FE1F6 /* point_to_integer_test.cpp */; };
@@ -183,6 +184,7 @@
 		3D489BBA1D3D217E0052AA38 /* succinct_mapper_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = succinct_mapper_test.cpp; sourceTree = "<group>"; };
 		3D74EF1F1F8F55740081202C /* csv_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csv_reader.hpp; sourceTree = "<group>"; };
 		3D74EF201F8F55740081202C /* csv_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csv_reader.cpp; sourceTree = "<group>"; };
+		454523B3202AEB21009275C1 /* serdes_json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes_json.hpp; sourceTree = "<group>"; };
 		45C108B21E9CFE69000FE1F6 /* point_to_integer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_to_integer.cpp; sourceTree = "<group>"; };
 		45C108B31E9CFE69000FE1F6 /* point_to_integer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = point_to_integer.hpp; sourceTree = "<group>"; };
 		45C108B61E9CFE78000FE1F6 /* point_to_integer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_to_integer_test.cpp; sourceTree = "<group>"; };
@@ -416,40 +418,23 @@
 		6753421D1A3F586300A0A8C3 /* coding */ = {
 			isa = PBXGroup;
 			children = (
-				39B2B9801FB4694300AB85A1 /* memory_region.hpp */,
-				39B2B97E1FB4693B00AB85A1 /* elias_coder.hpp */,
-				39B2B97C1FB4693400AB85A1 /* bwt_coder.hpp */,
-				39B2B97A1FB4692D00AB85A1 /* text_storage.hpp */,
-				3D74EF201F8F55740081202C /* csv_reader.cpp */,
-				3D74EF1F1F8F55740081202C /* csv_reader.hpp */,
-				45C108B21E9CFE69000FE1F6 /* point_to_integer.cpp */,
-				45C108B31E9CFE69000FE1F6 /* point_to_integer.hpp */,
-				BB537C5D1E8490120074D9D3 /* transliteration.cpp */,
-				BB537C5E1E8490120074D9D3 /* transliteration.hpp */,
-				34A129D11DF99E43001B4531 /* zlib.cpp */,
-				34A129D21DF99E43001B4531 /* zlib.hpp */,
-				675E889A1DB7B0D000F8EBDA /* traffic.cpp */,
-				675E889B1DB7B0D000F8EBDA /* traffic.hpp */,
-				347F33311C4540F0009758CC /* compressed_bit_vector.cpp */,
-				347F33321C4540F0009758CC /* compressed_bit_vector.hpp */,
-				347F33331C4540F0009758CC /* fixed_bits_ddvector.hpp */,
-				347F33341C4540F0009758CC /* simple_dense_coding.cpp */,
-				347F33351C4540F0009758CC /* simple_dense_coding.hpp */,
-				347F33361C4540F0009758CC /* succinct_mapper.hpp */,
-				670D04B21B0BA9050013A7AC /* internal */,
-				394917221BAC3C2F002A8C4F /* huffman.cpp */,
-				394917231BAC3C2F002A8C4F /* huffman.hpp */,
 				6753422B1A3F588B00A0A8C3 /* base64.cpp */,
 				6753422C1A3F588B00A0A8C3 /* base64.hpp */,
 				6753422F1A3F588B00A0A8C3 /* bit_streams.hpp */,
 				675342341A3F588B00A0A8C3 /* buffer_reader.hpp */,
+				39B2B97C1FB4693400AB85A1 /* bwt_coder.hpp */,
 				675342351A3F588B00A0A8C3 /* byte_stream.hpp */,
 				675342381A3F588B00A0A8C3 /* coder_util.hpp */,
 				675342391A3F588B00A0A8C3 /* coder.hpp */,
+				347F33311C4540F0009758CC /* compressed_bit_vector.cpp */,
+				347F33321C4540F0009758CC /* compressed_bit_vector.hpp */,
 				6753423E1A3F588B00A0A8C3 /* constants.hpp */,
+				3D74EF201F8F55740081202C /* csv_reader.cpp */,
+				3D74EF1F1F8F55740081202C /* csv_reader.hpp */,
 				6753423F1A3F588B00A0A8C3 /* dd_vector.hpp */,
 				675342401A3F588B00A0A8C3 /* diff_patch_common.hpp */,
 				675342411A3F588B00A0A8C3 /* diff.hpp */,
+				39B2B97E1FB4693B00AB85A1 /* elias_coder.hpp */,
 				675342421A3F588B00A0A8C3 /* endianness.hpp */,
 				675342431A3F588B00A0A8C3 /* file_container.cpp */,
 				675342441A3F588B00A0A8C3 /* file_container.hpp */,
@@ -460,14 +445,21 @@
 				6753424A1A3F588B00A0A8C3 /* file_sort.hpp */,
 				6753424C1A3F588B00A0A8C3 /* file_writer.cpp */,
 				6753424D1A3F588B00A0A8C3 /* file_writer.hpp */,
+				347F33331C4540F0009758CC /* fixed_bits_ddvector.hpp */,
 				675342501A3F588B00A0A8C3 /* hex.cpp */,
 				675342511A3F588B00A0A8C3 /* hex.hpp */,
+				394917221BAC3C2F002A8C4F /* huffman.cpp */,
+				394917231BAC3C2F002A8C4F /* huffman.hpp */,
+				670D04B21B0BA9050013A7AC /* internal */,
 				675342571A3F588B00A0A8C3 /* matrix_traversal.hpp */,
+				39B2B9801FB4694300AB85A1 /* memory_region.hpp */,
 				675342581A3F588B00A0A8C3 /* mmap_reader.cpp */,
 				675342591A3F588B00A0A8C3 /* mmap_reader.hpp */,
 				6753425A1A3F588B00A0A8C3 /* multilang_utf8_string.cpp */,
 				6753425B1A3F588B00A0A8C3 /* multilang_utf8_string.hpp */,
 				6753425C1A3F588B00A0A8C3 /* parse_xml.hpp */,
+				45C108B21E9CFE69000FE1F6 /* point_to_integer.cpp */,
+				45C108B31E9CFE69000FE1F6 /* point_to_integer.hpp */,
 				6753425D1A3F588B00A0A8C3 /* polymorph_reader.hpp */,
 				6753425E1A3F588B00A0A8C3 /* read_write_utils.hpp */,
 				6753425F1A3F588B00A0A8C3 /* reader_cache.hpp */,
@@ -478,9 +470,18 @@
 				675342641A3F588B00A0A8C3 /* reader_writer_ops.hpp */,
 				675342651A3F588B00A0A8C3 /* reader.cpp */,
 				675342661A3F588B00A0A8C3 /* reader.hpp */,
+				454523B3202AEB21009275C1 /* serdes_json.hpp */,
+				347F33341C4540F0009758CC /* simple_dense_coding.cpp */,
+				347F33351C4540F0009758CC /* simple_dense_coding.hpp */,
 				675342691A3F588B00A0A8C3 /* streams_common.hpp */,
 				6753426A1A3F588B00A0A8C3 /* streams_sink.hpp */,
 				6753426B1A3F588B00A0A8C3 /* streams.hpp */,
+				347F33361C4540F0009758CC /* succinct_mapper.hpp */,
+				39B2B97A1FB4692D00AB85A1 /* text_storage.hpp */,
+				675E889A1DB7B0D000F8EBDA /* traffic.cpp */,
+				675E889B1DB7B0D000F8EBDA /* traffic.hpp */,
+				BB537C5D1E8490120074D9D3 /* transliteration.cpp */,
+				BB537C5E1E8490120074D9D3 /* transliteration.hpp */,
 				675342701A3F588B00A0A8C3 /* uri.cpp */,
 				675342711A3F588B00A0A8C3 /* uri.hpp */,
 				675342721A3F588B00A0A8C3 /* url_encode.hpp */,
@@ -497,6 +498,8 @@
 				6753427D1A3F588C00A0A8C3 /* zip_creator.hpp */,
 				6753427E1A3F588C00A0A8C3 /* zip_reader.cpp */,
 				6753427F1A3F588C00A0A8C3 /* zip_reader.hpp */,
+				34A129D11DF99E43001B4531 /* zlib.cpp */,
+				34A129D21DF99E43001B4531 /* zlib.hpp */,
 			);
 			name = coding;
 			path = ../../coding;
@@ -546,6 +549,7 @@
 				675342991A3F588C00A0A8C3 /* endianness.hpp in Headers */,
 				347F333C1C4540F0009758CC /* succinct_mapper.hpp in Headers */,
 				675342951A3F588C00A0A8C3 /* constants.hpp in Headers */,
+				454523B4202AEB21009275C1 /* serdes_json.hpp in Headers */,
 				675342B71A3F588C00A0A8C3 /* reader_streambuf.hpp in Headers */,
 				675342CF1A3F588C00A0A8C3 /* write_to_sink.hpp in Headers */,
 				675342C11A3F588C00A0A8C3 /* streams.hpp in Headers */,

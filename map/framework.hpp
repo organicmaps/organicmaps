@@ -107,6 +107,8 @@ namespace ads
 class Engine;
 }
 
+class Cloud;
+
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
 //#define FIXED_LOCATION
@@ -188,6 +190,9 @@ protected:
   location::TMyPositionModeChanged m_myPositionListener;
 
   unique_ptr<BookmarkManager> m_bmManager;
+  //TODO: move into refactored BookmarkManager
+  unique_ptr<Cloud> m_bookmarkCloud;
+
   SearchMarks m_searchMarks;
 
   unique_ptr<booking::Api> m_bookingApi = make_unique<booking::Api>();

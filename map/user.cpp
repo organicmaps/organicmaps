@@ -6,6 +6,7 @@
 #include "coding/url_encode.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
@@ -135,6 +136,8 @@ void User::Init()
   if (GetPlatform().GetSecureStorage().Load(kMapsMeTokenKey, token))
     m_accessToken = token;
 
+  NotifySubscribersImpl();
+
   std::string reviewIds;
   if (GetPlatform().GetSecureStorage().Load(kReviewIdsKey, reviewIds))
   {
@@ -153,6 +156,7 @@ void User::ResetAccessToken()
   std::lock_guard<std::mutex> lock(m_mutex);
   m_accessToken.clear();
   GetPlatform().GetSecureStorage().Remove(kMapsMeTokenKey);
+  NotifySubscribersImpl();
 }
 
 void User::UpdateUserDetails()
@@ -188,6 +192,7 @@ void User::SetAccessToken(std::string const & accessToken)
   m_accessToken = accessToken;
   GetPlatform().GetSecureStorage().Save(kMapsMeTokenKey, m_accessToken);
   RequestUserDetails();
+  NotifySubscribersImpl();
 }
 
 void User::Authenticate(std::string const & socialToken, SocialTokenType socialTokenType)
@@ -199,23 +204,80 @@ void User::Authenticate(std::string const & socialToken, SocialTokenType socialT
     return;
   }
 
-  {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    if (m_authenticationInProgress)
-      return;
-    m_authenticationInProgress = true;
-  }
+  if (!StartAuthentication())
+    return;
 
   GetPlatform().RunTask(Platform::Thread::Network, [this, url]()
   {
     Request(url, nullptr, [this](std::string const & response)
     {
       SetAccessToken(ParseAccessToken(response));
-
-      std::lock_guard<std::mutex> lock(m_mutex);
-      m_authenticationInProgress = false;
+      FinishAuthentication(!m_accessToken.empty());
+    }, [this](int code)
+    {
+      FinishAuthentication(false /* success */);
     });
   });
+}
+
+bool User::StartAuthentication()
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  if (m_authenticationInProgress)
+    return false;
+  m_authenticationInProgress = true;
+  return true;
+}
+
+void User::FinishAuthentication(bool success)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  m_authenticationInProgress = false;
+
+  for (auto & s : m_subscribers)
+  {
+    if (s->m_onAuthenticate != nullptr)
+    {
+      s->m_onAuthenticate(success);
+      if (s->m_postCallAction == Subscriber::Action::RemoveSubscriber)
+        s.reset();
+    }
+  }
+  ClearSubscribersImpl();
+}
+
+void User::AddSubscriber(std::unique_ptr<Subscriber> && subscriber)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+
+  subscriber->m_onChangeToken(m_accessToken);
+  if (subscriber->m_postCallAction == Subscriber::Action::RemoveSubscriber)
+    m_subscribers.push_back(std::move(subscriber));
+}
+
+void User::ClearSubscribers()
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  m_subscribers.clear();
+}
+
+void User::NotifySubscribersImpl()
+{
+  for (auto & s : m_subscribers)
+  {
+    if (s->m_onChangeToken != nullptr)
+    {
+      s->m_onChangeToken(m_accessToken);
+      if (s->m_postCallAction == Subscriber::Action::RemoveSubscriber)
+        s.reset();
+    }
+  }
+  ClearSubscribersImpl();
+}
+
+void User::ClearSubscribersImpl()
+{
+  my::EraseIf(m_subscribers, [](auto const & s) { return s == nullptr; });
 }
 
 void User::RequestUserDetails()
