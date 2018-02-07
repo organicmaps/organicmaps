@@ -38,6 +38,13 @@ public:
       toDo(m_triangles[i - 2], m_triangles[i - 1], m_triangles[i]);
   }
 
+  void SetForTests(uint64_t id, m2::PointD point)
+  {
+    m_id = id;
+    m_points.clear();
+    m_points.push_back(point);
+  }
+
 private:
   uint64_t m_id = 0;
   std::vector<m2::PointD> m_points;

@@ -20,6 +20,7 @@ set(
   index_builder_test.cpp
   index_test.cpp
   interval_index_test.cpp
+  locality_index_test.cpp
   mwm_set_test.cpp
   osm_editor_test.cpp
   osm_editor_test.hpp
