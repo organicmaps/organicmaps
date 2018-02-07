@@ -519,17 +519,24 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (NSString *)bookingApproximatePricing { return self.isBooking ? @(m_info.GetApproximatePricing().c_str()) : nil; }
 - (NSURL *)sponsoredURL
 {
-  auto const link = self.isPartnerAppInstalled ? m_info.GetSponsoredDeepLink() : m_info.GetSponsoredUrl();
-  
-  // There are sponsors without URL. For such partners we do not show special button.
-  if (m_info.IsSponsored() && !link.empty())
+  // There are sponsors without URL. For such psrtners we do not show special button.
+  if (m_info.IsSponsored() && !m_info.GetSponsoredUrl().empty())
   {
-    auto urlString = [@(link.c_str())
+    auto urlString = [@(m_info.GetSponsoredUrl().c_str())
         stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet
                                                                .URLQueryAllowedCharacterSet];
     auto url = [NSURL URLWithString:urlString];
     return url;
   }
+  return nil;
+}
+
+- (NSURL *)deepLink
+{
+  auto const & link = m_info.GetSponsoredDeepLink();
+  if (m_info.IsSponsored() && !link.empty())
+    return [NSURL URLWithString:@(link.c_str())];
+  
   return nil;
 }
 
@@ -792,13 +799,8 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (BOOL)isPreviewExtended { return m_info.IsPreviewExtended(); }
 - (BOOL)isPartnerAppInstalled
 {
-  NSURL * url;
-  switch (m_info.GetSponsoredType())
-  {
-  case SponsoredType::Booking: url = [NSURL URLWithString:@"booking://"]; break;
-  default: return NO;
-  }
-  return [UIApplication.sharedApplication canOpenURL:url];
+  // TODO(): Load list of registered schemas from plist.
+  return [UIApplication.sharedApplication canOpenURL:self.deepLink];
 }
 
 + (MWMRatingSummaryViewValueType)ratingValueType:(rating::Impress)impress

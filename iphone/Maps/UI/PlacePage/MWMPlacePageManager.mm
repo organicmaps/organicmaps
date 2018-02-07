@@ -482,13 +482,17 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     return;
   }
   logSponsoredEvent(data, eventName);
+  
+  if (!isDescription && data.isPartnerAppInstalled)
+  {
+    [UIApplication.sharedApplication openURL:data.deepLink];
+    return;
+  }
+  
   NSURL * url = isDescription ? data.sponsoredDescriptionURL : data.sponsoredURL;
   NSAssert(url, @"Sponsored url can't be nil!");
   
-  if (data.isPartnerAppInstalled)
-    [UIApplication.sharedApplication openURL:url];
-  else
-    [self.ownerViewController openUrl:url];
+  [self.ownerViewController openUrl:url];
 }
 
 - (void)searchBookingHotels

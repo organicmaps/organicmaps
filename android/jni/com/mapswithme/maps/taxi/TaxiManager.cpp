@@ -46,7 +46,7 @@ void PrepareClassRefs(JNIEnv * env)
                                                 "(I[Lcom/mapswithme/maps/taxi/TaxiInfo$Product;)V");
   g_taxiInfoErrorConstructor = jni::GetConstructorID(env, g_taxiInfoErrorClass,
                                                   "(ILjava/lang/String;)V");
-  g_taxiLinksClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/util/SponsoredLinks");
+  g_taxiLinksClass = jni::GetGlobalClassRef(env, "com/mapswithme/util/SponsoredLinks");
   g_taxiLinksConstructor =
       jni::GetConstructorID(env, g_taxiLinksClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 }

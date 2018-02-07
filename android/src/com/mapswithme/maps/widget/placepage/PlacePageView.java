@@ -978,7 +978,7 @@ public class PlacePageView extends RelativeLayout
               if (partnerAppOpenMode != Utils.PartnerAppOpenMode.None)
               {
                 SponsoredLinks links = new SponsoredLinks(info.getDeepLink(), info.getUrl());
-                String packageName = Sponsored.GetPackageName(info.getType());
+                String packageName = Sponsored.getPackageName(info.getType());
 
                 Utils.openPartner(getContext(), links, packageName, partnerAppOpenMode);
               }

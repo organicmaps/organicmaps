@@ -297,7 +297,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     SponsoredLinks links = TaxiManager.getTaxiLink(mTaxiProduct.getProductId(), mTaxiInfo.getType(),
                                                    startPoint, endPoint);
     if (links != null)
-      launchTaxiApp(links);
+      TaxiManager.launchTaxiApp(mContext, links, mTaxiInfo.getType());
   }
 
   void showError(@StringRes int message)
@@ -396,14 +396,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
     }
   }
 
-  private static void trackTaxiStatistics(@TaxiManager.TaxiType int type, boolean isTaxiAppInstalled)
-  {
-    MapObject from = RoutingController.get().getStartPoint();
-    MapObject to = RoutingController.get().getEndPoint();
-    Location location = LocationHelper.INSTANCE.getLastKnownLocation();
-    Statistics.INSTANCE.trackTaxiInRoutePlanning(from, to, location, type, isTaxiAppInstalled);
-  }
-
   @Override
   public void onClick(View v)
   {
@@ -422,28 +414,5 @@ final class RoutingBottomMenuController implements View.OnClickListener
         }
         break;
     }
-  }
-
-  private void launchTaxiApp(@Nullable SponsoredLinks links)
-  {
-    String packageName = TaxiManager.getTaxiPackageName(mTaxiInfo.getType());
-    boolean isTaxiInstalled = Utils.isAppInstalled(mContext, packageName);
-    Utils.PartnerAppOpenMode openMode = Utils.PartnerAppOpenMode.None;
-
-    switch (mTaxiInfo.getType())
-    {
-      case TaxiManager.PROVIDER_UBER:
-        openMode = Utils.PartnerAppOpenMode.Direct;
-        break;
-      case TaxiManager.PROVIDER_YANDEX:
-        openMode = Utils.PartnerAppOpenMode.Indirect;
-        break;
-      default:
-        throw new AssertionError("Unsupported taxi type: " + mTaxiInfo.getType());
-    }
-
-    Utils.openPartner(mContext, links, packageName, openMode);
-
-    trackTaxiStatistics(mTaxiInfo.getType(), isTaxiInstalled);
   }
 }

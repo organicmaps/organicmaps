@@ -390,14 +390,14 @@ public final class Sponsored
   }
 
   @NonNull
-  public static String GetPackageName(@SponsoredType int type)
+  static String getPackageName(@SponsoredType int type)
   {
     switch (type)
     {
       case Sponsored.TYPE_BOOKING:
         return "com.booking";
       default:
-        return "";
+        throw new AssertionError("Unsupported sponsored type: " + type);
     }
   }
 

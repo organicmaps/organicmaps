@@ -1,14 +1,20 @@
 package com.mapswithme.maps.taxi;
 
+import android.content.Context;
+import android.location.Location;
 import android.support.annotation.IntDef;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.SponsoredLinks;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -111,6 +117,37 @@ public class TaxiManager
     }
   }
 
+  public static void launchTaxiApp(@NonNull Context context, @NonNull SponsoredLinks links,
+                                   @TaxiManager.TaxiType int type)
+  {
+    String packageName = TaxiManager.getTaxiPackageName(type);
+    boolean isTaxiInstalled = Utils.isAppInstalled(context, packageName);
+    Utils.PartnerAppOpenMode openMode;
+
+    switch (type)
+    {
+      case TaxiManager.PROVIDER_UBER:
+        openMode = Utils.PartnerAppOpenMode.Direct;
+        break;
+      case TaxiManager.PROVIDER_YANDEX:
+        openMode = Utils.PartnerAppOpenMode.Indirect;
+        break;
+      default:
+        throw new AssertionError("Unsupported taxi type: " + type);
+    }
+
+    Utils.openPartner(context, links, packageName, openMode);
+
+    trackTaxiStatistics(type, isTaxiInstalled);
+  }
+
+  private static void trackTaxiStatistics(@TaxiManager.TaxiType int type, boolean isTaxiAppInstalled)
+  {
+    MapObject from = RoutingController.get().getStartPoint();
+    MapObject to = RoutingController.get().getEndPoint();
+    Location location = LocationHelper.INSTANCE.getLastKnownLocation();
+    Statistics.INSTANCE.trackTaxiInRoutePlanning(from, to, location, type, isTaxiAppInstalled);
+  }
   public void setTaxiListener(@Nullable TaxiListener listener)
   {
     mListener = listener;

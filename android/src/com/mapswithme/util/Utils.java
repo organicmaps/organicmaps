@@ -316,24 +316,15 @@ public class Utils
     }
   }
 
-  public static void launchAppDirect(@NonNull Context context, @NonNull SponsoredLinks links,
-                                     String packageName)
+  private static void launchAppDirectly(@NonNull Context context, @NonNull SponsoredLinks links)
   {
-    boolean isAppInstalled = Utils.isAppInstalled(context, packageName);
-
-    if (!isAppInstalled)
-    {
-      openUrl(context, links.getUniversalLink());
-      return;
-    }
-
-    final Intent intent = new Intent(Intent.ACTION_VIEW);
+    Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     intent.setData(Uri.parse(links.getDeepLink()));
     context.startActivity(intent);
   }
 
-  public static void launchAppIndirect(@NonNull Context context, @NonNull SponsoredLinks links)
+  private static void launchAppIndirectly(@NonNull Context context, @NonNull SponsoredLinks links)
   {
     Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(Uri.parse(links.getDeepLink()));
@@ -346,10 +337,15 @@ public class Utils
     switch (openMode)
     {
       case  Direct:
-        launchAppDirect(activity, links, packageName);
+        if (!Utils.isAppInstalled(activity, packageName))
+        {
+          openUrl(activity, links.getUniversalLink());
+          return;
+        }
+        launchAppDirectly(activity, links);
         break;
       case Indirect:
-        launchAppIndirect(activity, links);
+        launchAppIndirectly(activity, links);
         break;
       default:
         throw new AssertionError("Unsupported partner app open mode: " + openMode +

@@ -763,13 +763,13 @@ public class RoutingController implements TaxiManager.TaxiListener
   }
 
   @Nullable
-  MapObject getStartPoint()
+  public MapObject getStartPoint()
   {
     return getStartOrEndPointByType(RoutePointInfo.ROUTE_MARK_START);
   }
 
   @Nullable
-  MapObject getEndPoint()
+  public MapObject getEndPoint()
   {
     return getStartOrEndPointByType(RoutePointInfo.ROUTE_MARK_FINISH);
   }
