@@ -16,14 +16,15 @@
 namespace routing
 {
 /// \brief Unique identification for a road edge between two junctions (joints). The identifier
-/// is represented by an mwm id, a feature id, a range of segment ids [|m_startSegId|, |m_endSegId|)
-/// and a direction.
+/// is represented by an mwm id, a feature id, a range of segment ids [|m_startSegId|, |m_endSegId|),
+/// a direction and type.
 struct SegmentRange
 {
   friend std::string DebugPrint(SegmentRange const & segmentRange);
 
   SegmentRange() = default;
-  SegmentRange(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId, bool forward);
+  SegmentRange(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId, bool forward,
+               m2::PointD const & start, m2::PointD const & end);
   bool operator==(SegmentRange const & rh) const;
   bool operator<(SegmentRange const & rh) const;
   void Clear();
@@ -38,9 +39,22 @@ private:
   FeatureID m_featureId;
   // Note. If SegmentRange represents two directional feature |m_endSegId| is greater
   // than |m_startSegId| if |m_forward| == true.
-  uint32_t m_startSegId = 0; // The first segment index of SegmentRange.
-  uint32_t m_endSegId = 0;   // The last segment index of SegmentRange.
-  bool m_forward = true;     // Segment direction in |m_featureId|.
+  uint32_t m_startSegId = 0;   // The first segment index of SegmentRange.
+  uint32_t m_endSegId = 0;     // The last segment index of SegmentRange.
+  bool m_forward = true;       // Segment direction in |m_featureId|.
+  // Note. According to current implementation SegmentRange is filled based on instances of
+  // Edge class in IDirectionsEngine::GetSegmentRangeAndAdjacentEdges() method. In Edge class
+  // to identify fake edges (part of real and completely fake) is used coordinates of beginning
+  // and ending of the edge. To keep SegmentRange instances unique for unique edges
+  // in case of fake edges it's necessary to have |m_start| and |m_end| fields below.
+  // @TODO(bykoianko) It's necessary to get rid of |m_start| and |m_end|.
+  // Fake edges in IndexGraph is identified by instances of Segment
+  // with Segment::m_mwmId == kFakeNumMwmId. So instead of |m_featureId| field in this class
+  // number mwm id field and feature id (uint32_t) should be used and |m_start| and |m_end|
+  // should be removed. To do that classes IndexRoadGraph, BicycleDirectionsEngine,
+  // PedestrianDirectionsEngine and other should be significant refactored.
+  m2::PointD m_start;          // Coordinates of start of last Edge in SegmentRange.
+  m2::PointD m_end;            // Coordinates of end of SegmentRange.
 };
 
 namespace turns

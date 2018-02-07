@@ -65,6 +65,13 @@ Edge Edge::MakeReal(FeatureID const & featureId, bool forward, uint32_t segId,
 }
 
 // static
+Edge Edge::MakeFakeWithRealPart(FeatureID const & featureId, bool forward, uint32_t segId,
+                                Junction const & startJunction, Junction const & endJunction)
+{
+  return {Type::FakeWithRealPart, featureId, forward, segId, startJunction, endJunction};
+}
+
+// static
 Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction)
 {
   return {Type::FakeWithoutRealPart, FeatureID(), true /* forward */, 0 /* segmentId */,

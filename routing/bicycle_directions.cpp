@@ -243,7 +243,8 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
 {
   outgoingTurns.isCandidatesAngleValid = true;
   outgoingTurns.candidates.reserve(outgoingEdges.size());
-  segmentRange = SegmentRange(inEdge.GetFeatureId(), startSegId, endSegId, inEdge.IsForward());
+  segmentRange = SegmentRange(inEdge.GetFeatureId(), startSegId, endSegId, inEdge.IsForward(),
+                              inEdge.GetStartPoint(), inEdge.GetEndPoint());
   CHECK(segmentRange.IsCorrect(), ());
   m2::PointD const & ingoingPoint = inEdge.GetStartJunction().GetPoint();
   m2::PointD const & junctionPoint = inEdge.GetEndJunction().GetPoint();
@@ -366,9 +367,9 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     if (!segmentRange.IsEmpty())
     {
       auto const it = m_adjacentEdges.find(segmentRange);
-      // A route may be build through intermediate points. So it may contain the same |segmentRange|
+      // A route may be built through intermediate points. So it may contain the same |segmentRange|
       // several times. But in that case |adjacentEdges| corresponds to |segmentRange|
-      // should be the same as well.
+      // should be the same as well except for one case.
       ASSERT(it == m_adjacentEdges.cend() || it->second.IsAlmostEqual(adjacentEdges),
              ("segmentRange:", segmentRange, "corresponds to adjacent edges which aren't equal."));
 

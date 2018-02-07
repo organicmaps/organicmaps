@@ -61,18 +61,17 @@ namespace routing
 {
 // SegmentRange -----------------------------------------------------------------------------------
 SegmentRange::SegmentRange(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId,
-                     bool forward)
-  : m_featureId(featureId)
-  , m_startSegId(startSegId)
-  , m_endSegId(endSegId)
-  , m_forward(forward)
+                           bool forward, m2::PointD const & start, m2::PointD const & end)
+  : m_featureId(featureId), m_startSegId(startSegId), m_endSegId(endSegId), m_forward(forward),
+    m_start(start), m_end(end)
 {
 }
 
 bool SegmentRange::operator==(SegmentRange const & rhs) const
 {
   return m_featureId == rhs.m_featureId && m_startSegId == rhs.m_startSegId &&
-         m_endSegId == rhs.m_endSegId && m_forward == rhs.m_forward;
+         m_endSegId == rhs.m_endSegId && m_forward == rhs.m_forward && m_start == rhs.m_start &&
+         m_end == rhs.m_end;
 }
 
 bool SegmentRange::operator<(SegmentRange const & rhs) const
@@ -86,7 +85,13 @@ bool SegmentRange::operator<(SegmentRange const & rhs) const
   if (m_endSegId != rhs.m_endSegId)
     return m_endSegId < rhs.m_endSegId;
 
-  return m_forward < rhs.m_forward;
+  if (m_forward != rhs.m_forward)
+    return m_forward < rhs.m_forward;
+
+  if (m_start != rhs.m_start)
+    return m_start < rhs.m_start;
+
+  return m_end < rhs.m_end;
 }
 
 void SegmentRange::Clear()
@@ -95,11 +100,14 @@ void SegmentRange::Clear()
   m_startSegId = 0;
   m_endSegId = 0;
   m_forward = true;
+  m_start = m2::PointD::Zero();
+  m_end = m2::PointD::Zero();
 }
 
 bool SegmentRange::IsEmpty() const
 {
-  return !m_featureId.IsValid() && m_startSegId == 0 && m_endSegId == 0 && m_forward;
+  return !m_featureId.IsValid() && m_startSegId == 0 && m_endSegId == 0 && m_forward &&
+         m_start == m2::PointD::Zero() && m_end == m2::PointD::Zero();
 }
 
 FeatureID const & SegmentRange::GetFeature() const
@@ -128,6 +136,8 @@ string DebugPrint(SegmentRange const & segmentRange)
       << ", m_startSegId = " << segmentRange.m_startSegId
       << ", m_endSegId = " << segmentRange.m_endSegId
       << ", m_forward = " << segmentRange.m_forward
+      << ", m_start = " << DebugPrint(segmentRange.m_start)
+      << ", m_end = " << DebugPrint(segmentRange.m_end)
       << "]" << endl;
   return out.str();
 }

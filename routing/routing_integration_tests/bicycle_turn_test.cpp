@@ -46,24 +46,22 @@ UNIT_TEST(RussiaMoscowGerPanfilovtsev22BicycleWayTurnTest)
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
 }
 
-// This test fails. The reason is DiscardTurnByIngoingAndOutgoingEdges() method which
-// discard turn candidates at very beginning stage by marks which are possible to get
-// effectively. After moving to IndexGraph all marks are possible to get efficiently.
-// So DiscardTurnByIngoingAndOutgoingEdges() method should be removed.
 UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Bicycle>(),
-                                  MercatorBounds::FromLatLon(55.85833, 37.36783), {0.0, 0.0},
+                                  MercatorBounds::FromLatLon(55.85836, 37.36773), {0.0, 0.0},
                                   MercatorBounds::FromLatLon(55.85364, 37.37318));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::TestTurnCount(route, 4 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::GoStraight);
 }
 
 // Test that there's no uturn notification in case of zero point edges on two way edges.
@@ -78,7 +76,8 @@ UNIT_TEST(RussiaMoscowSalameiNerisNoUTurnBicycleWayTurnTest)
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
 }
 
 // Fails to build one-point route.

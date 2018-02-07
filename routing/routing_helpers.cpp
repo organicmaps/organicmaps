@@ -152,7 +152,6 @@ Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge)
   if (edge.IsFake())
     return Segment();
 
-
   NumMwmId const numMwmId =
       numMwmIds.GetId(edge.GetFeatureId().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
   return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());

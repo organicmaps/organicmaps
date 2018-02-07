@@ -68,6 +68,8 @@ public:
 
   static Edge MakeReal(FeatureID const & featureId, bool forward, uint32_t segId,
                        Junction const & startJunction, Junction const & endJunction);
+  static Edge MakeFakeWithRealPart(FeatureID const & featureId, bool forward, uint32_t segId,
+                                   Junction const & startJunction, Junction const & endJunctio);
   static Edge MakeFake(Junction const & startJunction, Junction const & endJunction);
   static Edge MakeFake(Junction const & startJunction, Junction const & endJunction,
                        Edge const & prototype);

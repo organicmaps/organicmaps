@@ -86,7 +86,19 @@ void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
     auto const & junctionTo = m_starter.GetJunction(segment, true /* front */);
     if (IndexGraphStarter::IsFakeSegment(segment) || TransitGraph::IsTransitSegment(segment))
     {
-      edges.push_back(Edge::MakeFake(junctionFrom, junctionTo));
+      Segment real = segment;
+      if (m_starter.ConvertToReal(real))
+      {
+        platform::CountryFile const & file = m_numMwmIds->GetFile(real.GetMwmId());
+        MwmSet::MwmId const mwmId = m_index.GetMwmIdByCountryFile(file);
+        edges.push_back(Edge::MakeFakeWithRealPart(FeatureID(mwmId, real.GetFeatureId()),
+                                                   real.IsForward(), real.GetSegmentIdx(),
+                                                   junctionFrom, junctionTo));
+      }
+      else
+      {
+        edges.push_back(Edge::MakeFake(junctionFrom, junctionTo));
+      }
     }
     else
     {
