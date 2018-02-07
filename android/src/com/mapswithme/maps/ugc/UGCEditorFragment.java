@@ -14,7 +14,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.widget.ToolbarController;
-import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
@@ -39,7 +38,8 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_ugc_editor, container, false);
     mReviewEditText = (EditText) root.findViewById(R.id.review);
@@ -74,6 +74,12 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   {
     super.onViewCreated(view, savedInstanceState);
     mToolbarController.setTitle(getArguments().getString(ARG_TITLE));
+    View submitButton = mToolbarController.findViewById(R.id.submit);
+    submitButton.setOnClickListener(v ->
+                                    {
+                                      onSubmitButtonClick();
+                                      authorize();
+                                    });
   }
 
   @Override
@@ -91,7 +97,13 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   }
 
   @Override
-  protected void onSubmitButtonClick()
+  protected void onAuthorized()
+  {
+    if (isAdded())
+      getActivity().finish();
+  }
+
+  private void onSubmitButtonClick()
   {
     List<UGC.Rating> modifiedRatings = mUGCRatingAdapter.getItems();
     UGC.Rating[] ratings = new UGC.Rating[modifiedRatings.size()];

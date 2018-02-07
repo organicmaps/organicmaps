@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -23,15 +24,19 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.SharingHelper;
 
 public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
-                                     implements EditTextDialogFragment.OnTextSaveListener,
-                                                MenuItem.OnMenuItemClickListener,
-                                                RecyclerClickListener,
-                                                RecyclerLongClickListener,
-                                                BookmarkManager.BookmarksLoadingListener
+    implements EditTextDialogFragment.OnTextSaveListener,
+               MenuItem.OnMenuItemClickListener,
+               RecyclerClickListener,
+               RecyclerLongClickListener,
+               BookmarkManager.BookmarksLoadingListener,
+               Authorizer.Callback
 {
   private int mSelectedPosition;
   @Nullable
   private View mLoadingPlaceholder;
+
+  @NonNull
+  private final Authorizer mAuthorizer = new Authorizer(this, this);
 
   @Override
   protected @LayoutRes int getLayoutRes()
@@ -222,5 +227,11 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   public void onBookmarksFileLoaded(boolean success)
   {
     // Do nothing here.
+  }
+
+  @Override
+  public void onAuthorizationFinish()
+  {
+    // TODO: coming soon.
   }
 }
