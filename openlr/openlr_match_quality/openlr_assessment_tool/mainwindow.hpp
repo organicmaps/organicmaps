@@ -32,8 +32,7 @@ class MainWindow : public QMainWindow
   Q_OBJECT
 
 public:
-  MainWindow(Framework & framework, std::string const & url, std::string const & login,
-             std::string const & paswd);
+  explicit MainWindow(Framework & framework);
 
 private:
   void CreateTrafficPanel(std::string const & dataFilePath);
@@ -59,6 +58,5 @@ private:
 
   openlr::MapWidget * m_mapWidget = nullptr;
   QHBoxLayout * m_layout = nullptr;
-  openlr::WebView * m_webView = nullptr;
 };
 }  // namespace openlr

@@ -5,7 +5,6 @@
 #include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_drawer_delegate_base.hpp"
 #include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_panel.hpp"
 #include "openlr/openlr_match_quality/openlr_assessment_tool/trafficmodeinitdlg.h"
-#include "openlr/openlr_match_quality/openlr_assessment_tool/web_view.hpp"
 
 #include "map/framework.hpp"
 
@@ -21,6 +20,8 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#include <QApplication>
+#include <QClipboard>
 #include <QDockWidget>
 #include <QFileDialog>
 #include <QHBoxLayout>
@@ -237,18 +238,14 @@ private:
 
 namespace openlr
 {
-MainWindow::MainWindow(Framework & framework, std::string const & url, std::string const & login,
-                       std::string const & password)
+MainWindow::MainWindow(Framework & framework)
   : m_framework(framework)
 {
   m_mapWidget = new MapWidget(
       m_framework, false /* apiOpenGLES3 */, this /* parent */
   );
 
-  m_webView = new WebView(url, login, password);
-
   m_layout = new QHBoxLayout();
-  m_layout->addWidget(m_webView);
   m_layout->addWidget(m_mapWidget);
 
   auto * window = new QWidget();
@@ -323,7 +320,7 @@ void MainWindow::CreateTrafficPanel(string const & dataFilePath)
   connect(m_trafficMode, &TrafficMode::EditingStopped,
           this, &MainWindow::OnPathEditingStop);
   connect(m_trafficMode, &TrafficMode::SegmentSelected,
-          m_webView, &WebView::SetCurrentSegment);
+          [](int segmentId) { QApplication::clipboard()->setText(QString::number(segmentId)); });
 
   m_docWidget = new QDockWidget(tr("Routes"), this);
   addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, m_docWidget);

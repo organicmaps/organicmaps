@@ -26,8 +26,6 @@ set(
   traffic_panel.hpp
   trafficmodeinitdlg.cpp
   trafficmodeinitdlg.h
-  web_view.cpp
-  web_view.hpp
 )
 
 omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SRC})
@@ -79,8 +77,6 @@ omim_link_libraries(
 
 link_opengl(${PROJECT_NAME})
 link_qt5_core(${PROJECT_NAME})
-link_qt5_network(${PROJECT_NAME})
-link_qt5_webengine(${PROJECT_NAME})
 
 if (PLATFORM_MAC)
   set_target_properties(
