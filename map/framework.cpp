@@ -1605,7 +1605,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
 {
   auto & bmManager = GetBookmarkManager();
   if (clear)
-    bmManager.ClearUserMarks(UserMark::Type::SEARCH);
+    bmManager.ClearGroup(UserMark::Type::SEARCH);
   bmManager.SetIsVisible(UserMark::Type::SEARCH, true);
 
   for (auto it = begin; it != end; ++it)
@@ -1637,7 +1637,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
 
 void Framework::ClearSearchResultsMarks()
 {
-  GetBookmarkManager().ClearUserMarks(UserMark::Type::SEARCH);
+  GetBookmarkManager().ClearGroup(UserMark::Type::SEARCH);
   GetBookmarkManager().NotifyChanges(UserMark::Type::SEARCH);
 }
 
@@ -2030,7 +2030,7 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
   // Clear every current API-mark.
   {
     auto & bmManager = GetBookmarkManager();
-    bmManager.ClearUserMarks(UserMark::Type::API);
+    bmManager.ClearGroup(UserMark::Type::API);
     bmManager.SetIsVisible(UserMark::Type::API, true);
     bmManager.NotifyChanges(UserMark::Type::API);
   }

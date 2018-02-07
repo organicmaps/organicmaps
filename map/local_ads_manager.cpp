@@ -177,7 +177,7 @@ void DeleteAllLocalAdsMarks(BookmarkManager * bmManager)
 
   GetPlatform().RunTask(Platform::Thread::Gui, [bmManager]()
   {
-    bmManager->ClearUserMarks(UserMark::Type::LOCAL_ADS);
+    bmManager->ClearGroup(UserMark::Type::LOCAL_ADS);
     bmManager->NotifyChanges(UserMark::Type::LOCAL_ADS);
   });
 }

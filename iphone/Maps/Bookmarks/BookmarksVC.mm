@@ -307,7 +307,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
           NSValue * value = [NSValue valueWithBytes:&bmId objCType:@encode(df::MarkID*)];
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarkDeletedNotification
                                                             object:value];
-          bmManager.DeleteUserMark(bmId);
+          bmManager.DeleteBookmark(bmId);
           [m_bookmarkIds removeObjectAtIndex:indexPath.row];
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                             object:nil

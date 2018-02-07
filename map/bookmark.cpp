@@ -150,24 +150,15 @@ BookmarkCategory::BookmarkCategory(std::string const & name,
 
 BookmarkCategory::~BookmarkCategory()
 {
-  ClearTracks();
-}
-
-void BookmarkCategory::ClearTracks()
-{
-  SetDirty();
-  m_tracks.clear();
 }
 
 void BookmarkCategory::AttachTrack(df::MarkID trackId)
 {
-  SetDirty();
   m_tracks.insert(trackId);
 }
 
 void BookmarkCategory::DetachTrack(df::MarkID trackId)
 {
-  SetDirty();
   m_tracks.erase(trackId);
 }
 

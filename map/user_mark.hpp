@@ -44,6 +44,9 @@ public:
 
   UserMark(m2::PointD const & ptOrg, UserMark::Type type);
 
+  Type GetMarkType() const { return m_type; }
+  df::MarkGroupID GetGroupId() const override { return m_type; }
+
   // df::UserPointMark overrides.
   bool IsDirty() const override { return m_isDirty; }
   void ResetChanges() const override { m_isDirty = false; }
@@ -51,7 +54,7 @@ public:
   m2::PointD const & GetPivot() const override;
   m2::PointD GetPixelOffset() const override;
   dp::Anchor GetAnchor() const override;
-  virtual float GetDepth() const override { return 0.0f; }
+  float GetDepth() const override { return 0.0f; }
   df::RenderState::DepthLayer GetDepthLayer() const override;
   drape_ptr<TitlesInfo> GetTitleDecl() const override { return nullptr; }
   drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override { return nullptr; }
@@ -67,8 +70,6 @@ public:
   bool HasCreationAnimation() const override { return false; }
 
   ms::LatLon GetLatLon() const;
-  virtual Type GetMarkType() const { return m_type; }
-  virtual df::MarkGroupID GetGroupId() const { return m_type; }
 
   virtual bool IsAvailableForSearch() const { return true; }
 

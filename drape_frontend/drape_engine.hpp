@@ -133,7 +133,7 @@ public:
 
   void ClearUserMarksGroup(size_t layerId);
   void ChangeVisibilityUserMarksGroup(MarkGroupID groupId, bool isVisible);
-  void UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * provider);
+  void UpdateUserMarks(UserMarksProvider * provider);
   void InvalidateUserMarks();
 
   void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory = nullptr);
@@ -227,6 +227,9 @@ private:
   void RecacheMapShapes();
 
   dp::DrapeID GenerateDrapeID();
+
+  static drape_ptr<UserMarkRenderParams> GenerateMarkRenderInfo(UserPointMark const * mark);
+  static drape_ptr<UserLineRenderParams> GenerateLineRenderInfo(UserLineMark const * mark);
 
   drape_ptr<FrontendRenderer> m_frontend;
   drape_ptr<BackendRenderer> m_backend;

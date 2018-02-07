@@ -221,83 +221,99 @@ void DrapeEngine::InvalidateUserMarks()
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * provider)
+void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider)
 {
-  auto const & groupMarkIds = provider->GetPointMarkIds(groupId);
-  auto groupIdCollection = make_unique_dp<MarkIDCollection>();
-  groupIdCollection->m_marksID.reserve(groupMarkIds.size());
+  auto const & dirtyGroupIds = provider->GetDirtyGroupIds();
+  if (dirtyGroupIds.empty())
+    return;
+
   auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
-  marksRenderCollection->reserve(groupMarkIds.size());
-
-  for (auto markId : groupMarkIds)
-  {
-    groupIdCollection->m_marksID.push_back(markId);
-    UserPointMark const * mark = provider->GetUserPointMark(markId);
-    if (mark->IsDirty())
-    {
-      auto renderInfo = make_unique_dp<UserMarkRenderParams>();
-      renderInfo->m_anchor = mark->GetAnchor();
-      renderInfo->m_depth = mark->GetDepth();
-      renderInfo->m_depthLayer = mark->GetDepthLayer();
-      renderInfo->m_minZoom = mark->GetMinZoom();
-      renderInfo->m_minTitleZoom = mark->GetMinTitleZoom();
-      renderInfo->m_isVisible = mark->IsVisible();
-      renderInfo->m_pivot = mark->GetPivot();
-      renderInfo->m_pixelOffset = mark->GetPixelOffset();
-      renderInfo->m_titleDecl = mark->GetTitleDecl();
-      renderInfo->m_symbolNames = mark->GetSymbolNames();
-      renderInfo->m_coloredSymbols = mark->GetColoredSymbols();
-      renderInfo->m_symbolSizes = mark->GetSymbolSizes();
-      renderInfo->m_symbolOffsets = mark->GetSymbolOffsets();
-      renderInfo->m_hasSymbolPriority = mark->HasSymbolPriority();
-      renderInfo->m_hasTitlePriority = mark->HasTitlePriority();
-      renderInfo->m_priority = mark->GetPriority();
-      renderInfo->m_index = mark->GetIndex();
-      renderInfo->m_featureId = mark->GetFeatureID();
-      renderInfo->m_hasCreationAnimation = mark->HasCreationAnimation();
-
-      marksRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
-      mark->ResetChanges();
-    }
-  }
-
-  auto const & lineIds = provider->GetLineMarkIds(groupId);
   auto linesRenderCollection = make_unique_dp<UserLinesRenderCollection>();
-  linesRenderCollection->reserve(lineIds.size());
-  for (auto lineId : lineIds)
-  {
-    UserLineMark const * mark = provider->GetUserLineMark(lineId);
-    if (mark->IsDirty())
-    {
-      auto renderInfo = make_unique_dp<UserLineRenderParams>();
-      renderInfo->m_minZoom = mark->GetMinZoom();
-      renderInfo->m_depthLayer = mark->GetDepthLayer();
-      renderInfo->m_spline = m2::SharedSpline(mark->GetPoints());
-      renderInfo->m_layers.reserve(mark->GetLayerCount());
-      for (size_t layerIndex = 0, layersCount = mark->GetLayerCount(); layerIndex < layersCount; ++layerIndex)
-      {
-        renderInfo->m_layers.emplace_back(mark->GetColor(layerIndex),
-                                          mark->GetWidth(layerIndex),
-                                          mark->GetDepth(layerIndex));
-      }
+  auto createdIdCollection = make_unique_dp<MarkIDCollection>();
+  auto removedIdCollection = make_unique_dp<MarkIDCollection>();
 
-      linesRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
-      mark->ResetChanges();
+  df::MarkGroupID lastGroupId = *dirtyGroupIds.begin();
+  bool visibilityChanged = provider->IsGroupVisiblityChanged(lastGroupId);
+  bool groupIsVisible = provider->IsGroupVisible(lastGroupId);
+
+  auto const HandleMark = [&](
+    df::MarkID markId,
+    UserMarksRenderCollection & renderCollection,
+    IDCollection * idCollection)
+  {
+    auto const * mark = provider->GetUserPointMark(markId);
+    if (!mark->IsDirty())
+      return;
+    auto const groupId = mark->GetGroupId();
+    if (groupId != lastGroupId)
+    {
+      lastGroupId = groupId;
+      visibilityChanged = provider->IsGroupVisiblityChanged(groupId);
+      groupIsVisible = provider->IsGroupVisible(groupId);
+    }
+    if (!visibilityChanged && groupIsVisible)
+    {
+      if (idCollection)
+        idCollection->push_back(markId);
+      renderCollection.emplace(markId, GenerateMarkRenderInfo(mark));
+    }
+  };
+
+  for (auto markId : provider->GetCreatedMarkIds())
+    HandleMark(markId, *marksRenderCollection, &createdIdCollection->m_marksID);
+
+  for (auto markId : provider->GetUpdatedMarkIds())
+    HandleMark(markId, *marksRenderCollection, nullptr);
+
+  auto const & removedMarkIds = provider->GetRemovedMarkIds();
+  removedIdCollection->m_marksID.reserve(removedMarkIds.size());
+  removedIdCollection->m_marksID.assign(removedMarkIds.begin(), removedMarkIds.end());
+
+  std::map<df::MarkGroupID, drape_ptr<MarkIDCollection>> dirtyMarkIds;
+  for (auto groupId : dirtyGroupIds)
+  {
+    auto & idCollection = *(dirtyMarkIds.emplace(groupId, make_unique_dp<MarkIDCollection>()).first->second);
+    visibilityChanged = provider->IsGroupVisiblityChanged(groupId);
+    groupIsVisible = provider->IsGroupVisible(groupId);
+    if (!groupIsVisible && !visibilityChanged)
+      continue;
+
+    auto const & markIds = provider->GetGroupPointIds(groupId);
+    auto const & lineIds = provider->GetGroupLineIds(groupId);
+    if (groupIsVisible)
+    {
+      idCollection.m_marksID.reserve(markIds.size());
+      idCollection.m_marksID.assign(markIds.begin(), markIds.end());
+      idCollection.m_linesID.reserve(lineIds.size());
+      idCollection.m_linesID.assign(lineIds.begin(), lineIds.end());
+
+      for (auto lineId : lineIds)
+      {
+        auto const * line = provider->GetUserLineMark(lineId);
+        if (visibilityChanged || line->IsDirty())
+          linesRenderCollection->emplace(lineId, GenerateLineRenderInfo(line));
+      }
+      if (visibilityChanged)
+      {
+        for (auto markId : markIds)
+          marksRenderCollection->emplace(
+            markId, GenerateMarkRenderInfo(provider->GetUserPointMark(markId)));
+      }
+    }
+    else
+    {
+      auto & points = removedIdCollection->m_marksID;
+      points.reserve(points.size() + markIds.size());
+      points.insert(points.end(), markIds.begin(), markIds.end());
+      auto & lines = removedIdCollection->m_linesID;
+      lines.reserve(lines.size() + lineIds.size());
+      lines.insert(lines.end(), lineIds.begin(), lineIds.end());
     }
   }
 
-  auto const & createdIds = provider->GetCreatedMarkIds(groupId);
-  auto const & removedIds = provider->GetRemovedMarkIds(groupId);
-  if (!createdIds.empty() || !removedIds.empty() ||
-      !marksRenderCollection->empty() || !linesRenderCollection->empty())
+  if (!marksRenderCollection->empty() || !linesRenderCollection->empty()
+    || !removedIdCollection->IsEmpty() || !createdIdCollection->IsEmpty())
   {
-    auto createdIdCollection = make_unique_dp<MarkIDCollection>();
-    createdIdCollection->m_marksID.reserve(createdIds.size());
-    createdIdCollection->m_marksID.assign(createdIds.begin(), createdIds.end());
-    auto removedIdCollection = make_unique_dp<MarkIDCollection>();
-    removedIdCollection->m_marksID.reserve(removedIds.size());
-    removedIdCollection->m_marksID.assign(removedIds.begin(), removedIds.end());
-
     m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                     make_unique_dp<UpdateUserMarksMessage>(
                                       std::move(createdIdCollection),
@@ -307,11 +323,14 @@ void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * 
                                     MessagePriority::Normal);
   }
 
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<UpdateUserMarkGroupMessage>(
-                                    groupId,
-                                    std::move(groupIdCollection)),
-                                  MessagePriority::Normal);
+  for (auto & v : dirtyMarkIds)
+  {
+    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                    make_unique_dp<UpdateUserMarkGroupMessage>(
+                                      v.first,
+                                      std::move(v.second)),
+                                    MessagePriority::Normal);
+  }
 }
 
 void DrapeEngine::SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory)
@@ -764,4 +783,46 @@ void DrapeEngine::RunFirstLaunchAnimation()
                                   make_unique_dp<RunFirstLaunchAnimationMessage>(),
                                   MessagePriority::Normal);
 }
+
+drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMark const * mark)
+{
+  auto renderInfo = make_unique_dp<UserMarkRenderParams>();
+  renderInfo->m_anchor = mark->GetAnchor();
+  renderInfo->m_depth = mark->GetDepth();
+  renderInfo->m_depthLayer = mark->GetDepthLayer();
+  renderInfo->m_minZoom = mark->GetMinZoom();
+  renderInfo->m_minTitleZoom = mark->GetMinTitleZoom();
+  renderInfo->m_isVisible = mark->IsVisible();
+  renderInfo->m_pivot = mark->GetPivot();
+  renderInfo->m_pixelOffset = mark->GetPixelOffset();
+  renderInfo->m_titleDecl = mark->GetTitleDecl();
+  renderInfo->m_symbolNames = mark->GetSymbolNames();
+  renderInfo->m_coloredSymbols = mark->GetColoredSymbols();
+  renderInfo->m_symbolSizes = mark->GetSymbolSizes();
+  renderInfo->m_symbolOffsets = mark->GetSymbolOffsets();
+  renderInfo->m_hasSymbolPriority = mark->HasSymbolPriority();
+  renderInfo->m_hasTitlePriority = mark->HasTitlePriority();
+  renderInfo->m_priority = mark->GetPriority();
+  renderInfo->m_index = mark->GetIndex();
+  renderInfo->m_featureId = mark->GetFeatureID();
+  renderInfo->m_hasCreationAnimation = mark->HasCreationAnimation();
+  return renderInfo;
+}
+
+drape_ptr<UserLineRenderParams> DrapeEngine::GenerateLineRenderInfo(UserLineMark const * mark)
+{
+  auto renderInfo = make_unique_dp<UserLineRenderParams>();
+  renderInfo->m_minZoom = mark->GetMinZoom();
+  renderInfo->m_depthLayer = mark->GetDepthLayer();
+  renderInfo->m_spline = m2::SharedSpline(mark->GetPoints());
+  renderInfo->m_layers.reserve(mark->GetLayerCount());
+  for (size_t layerIndex = 0, layersCount = mark->GetLayerCount(); layerIndex < layersCount; ++layerIndex)
+  {
+    renderInfo->m_layers.emplace_back(mark->GetColor(layerIndex),
+                                      mark->GetWidth(layerIndex),
+                                      mark->GetDepth(layerIndex));
+  }
+  return renderInfo;
+}
+
 }  // namespace df

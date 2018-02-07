@@ -80,6 +80,7 @@ public:
     ASSERT(m_userMarks.count(markId) == 0, ());
     ASSERT_LESS(groupId, m_userMarkLayers.size(), ());
     m_userMarks.emplace(markId, std::move(mark));
+    m_createdMarks.insert(markId);
     m_userMarkLayers[groupId]->AttachUserMark(markId);
     return m;
   }
@@ -133,7 +134,7 @@ public:
   void DeleteTrack(df::MarkID trackID);
 
   //////////////////
-  void ClearUserMarks(df::MarkGroupID groupID);
+  void ClearGroup(df::MarkGroupID groupID);
 
   void NotifyChanges(df::MarkGroupID groupID);
 
@@ -143,10 +144,10 @@ public:
   std::string const & GetCategoryName(df::MarkGroupID categoryId) const;
   void SetCategoryName(df::MarkGroupID categoryId, std::string const & name);
 
-  UserMark const * FindMarkInRect(df::MarkGroupID categoryId, m2::AnyRectD const & rect, double & d) const;
+  UserMark const * FindMarkInRect(df::MarkGroupID groupId, m2::AnyRectD const & rect, double & d) const;
 
-  void SetIsVisible(df::MarkGroupID categoryId, bool visible);
-  bool IsVisible(df::MarkGroupID categoryId) const;
+  void SetIsVisible(df::MarkGroupID groupId, bool visible);
+  bool IsVisible(df::MarkGroupID groupId) const;
 
   /// Uses the same file name from which was loaded, or
   /// creates unique file name on first save and uses it every time.
@@ -200,10 +201,14 @@ public:
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
   // UserMarksProvider
-  df::MarkIDSet const & GetPointMarkIds(df::MarkGroupID groupId) const override;
-  df::MarkIDSet const & GetLineMarkIds(df::MarkGroupID groupId) const override;
-  df::MarkIDSet const & GetCreatedMarkIds(df::MarkGroupID groupId) const override;
-  df::MarkIDSet const & GetRemovedMarkIds(df::MarkGroupID groupId) const override;
+  df::GroupIDSet const & GetDirtyGroupIds() const override;
+  bool IsGroupVisible(df::MarkGroupID groupID) const override;
+  bool IsGroupVisiblityChanged(df::MarkGroupID groupID) const override;
+  df::MarkIDSet const & GetGroupPointIds(df::MarkGroupID groupId) const override;
+  df::MarkIDSet const & GetGroupLineIds(df::MarkGroupID groupId) const override;
+  df::MarkIDSet const & GetCreatedMarkIds() const override;
+  df::MarkIDSet const & GetRemovedMarkIds() const override;
+  df::MarkIDSet const & GetUpdatedMarkIds() const override;
   df::UserPointMark const * GetUserPointMark(df::MarkID markID) const override;
   df::UserLineMark const * GetUserLineMark(df::MarkID markID) const override;
 
@@ -211,6 +216,8 @@ private:
   using KMLDataCollection = std::vector<std::unique_ptr<KMLData>>;
 
   bool IsBookmark(df::MarkGroupID groupId) const { return groupId >= UserMark::BOOKMARK; }
+  UserMark const * GetMark(df::MarkID markID) const;
+  void FindDirtyGroups();
 
   UserMarkContainer const * FindContainer(df::MarkGroupID containerId) const;
   UserMarkContainer * FindContainer(df::MarkGroupID containerId);
@@ -228,9 +235,7 @@ private:
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
 
-  void OnCreateUserMarks(UserMarkContainer const & container);
-  void OnUpdateUserMarks(UserMarkContainer const & container);
-  void OnDeleteUserMarks(UserMarkContainer const & container);
+  void SendBookmarksChanges();
   void GetBookmarksData(df::MarkIDSet const & markIds,
                         std::vector<std::pair<df::MarkID, BookmarkData>> & data) const;
 
@@ -245,19 +250,21 @@ private:
   ScreenBase m_viewport;
 
   CategoriesCollection m_categories;
-  GroupIdList m_bmGroupsIdList;
+  df::GroupIDList m_bmGroupsIdList;
+  df::GroupIDSet m_dirtyGroups;
   std::string m_lastCategoryUrl;
   std::string m_lastType;
   UserMarkLayers m_userMarkLayers;
 
-  uint64_t m_generation;
-
   MarksCollection m_userMarks;
   BookmarksCollection m_bookmarks;
   TracksCollection m_tracks;
+  df::MarkIDSet m_createdMarks;
+  df::MarkIDSet m_removedMarks;
+  df::MarkIDSet m_updatedMarks;
 
-  StaticMarkPoint* m_selectionMark;
-  MyPositionMarkPoint* m_myPositionMark;
+  StaticMarkPoint * m_selectionMark = nullptr;
+  MyPositionMarkPoint * m_myPositionMark = nullptr;
 
   bool m_asyncLoadingInProgress = false;
   struct BookmarkLoaderInfo

@@ -17,45 +17,36 @@
 class UserMarkContainer
 {
 public:
-  using NotifyChangesFn = std::function<void (UserMarkContainer const &, df::IDCollection const &)>;
-
   UserMarkContainer(UserMark::Type type);
   virtual ~UserMarkContainer();
 
-  bool IsDirty() const;
-  // Discard isDirty and clear the lists of created, removed and updated items.
+  bool IsDirty() const { return m_isDirty; }
   virtual void ResetChanges();
 
   bool IsVisible() const;
+  bool IsVisibilityChanged() const;
   UserMark::Type GetType() const;
 
   df::MarkIDSet const & GetUserMarks() const { return m_userMarks; }
   virtual df::MarkIDSet const & GetUserLines() const { return m_userLines; }
-  df::MarkIDSet const & GetCreatedMarks() const { return m_createdMarks; }
-  df::MarkIDSet const & GetUpdatedMarks() const { return m_updatedMarks; }
-  df::MarkIDSet const & GetRemovedMarks() const { return m_removedMarks; }
 
   void AttachUserMark(df::MarkID markId);
-  void EditUserMark(df::MarkID markId);
   void DetachUserMark(df::MarkID markId);
 
   void Clear();
   void SetIsVisible(bool isVisible);
-  void Update();
 
 protected:
-  void SetDirty();
+  void SetDirty() { m_isDirty = true; }
 
   UserMark::Type m_type;
 
   df::MarkIDSet m_userMarks;
   df::MarkIDSet m_userLines;
 
-  df::MarkIDSet m_createdMarks;
-  df::MarkIDSet m_removedMarks;
-  df::MarkIDSet m_updatedMarks;
-  bool m_isVisible = true;
   bool m_isDirty = false;
+  bool m_isVisible = true;
+  bool m_wasVisible = false;
 
   DISALLOW_COPY_AND_MOVE(UserMarkContainer);
 };

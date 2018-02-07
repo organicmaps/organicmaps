@@ -26,6 +26,11 @@ bool UserMarkContainer::IsVisible() const
   return m_isVisible;
 }
 
+bool UserMarkContainer::IsVisibilityChanged() const
+{
+  return m_isVisible != m_wasVisible;
+}
+
 UserMark::Type UserMarkContainer::GetType() const
 {
   return m_type;
@@ -34,12 +39,6 @@ UserMark::Type UserMarkContainer::GetType() const
 void UserMarkContainer::Clear()
 {
   SetDirty();
-  for (auto const & markId : m_userMarks)
-  {
-    if (m_createdMarks.find(markId) == m_createdMarks.end())
-      m_removedMarks.insert(markId);
-  }
-  m_createdMarks.clear();
   m_userMarks.clear();
 }
 
@@ -52,50 +51,20 @@ void UserMarkContainer::SetIsVisible(bool isVisible)
   }
 }
 
-void UserMarkContainer::Update()
-{
-  SetDirty();
-}
-
-void UserMarkContainer::SetDirty()
-{
-  m_isDirty = true;
-}
-
-bool UserMarkContainer::IsDirty() const
-{
-  return m_isDirty;
-}
-
 void UserMarkContainer::ResetChanges()
 {
-  m_createdMarks.clear();
-  m_removedMarks.clear();
-  m_updatedMarks.clear();
   m_isDirty = false;
+  m_wasVisible = m_isVisible;
 }
-
 
 void UserMarkContainer::AttachUserMark(df::MarkID markId)
 {
   SetDirty();
-  m_createdMarks.insert(markId);
   m_userMarks.insert(markId);
-}
-
-void UserMarkContainer::EditUserMark(df::MarkID markId)
-{
-  SetDirty();
-  m_updatedMarks.insert(markId);
 }
 
 void UserMarkContainer::DetachUserMark(df::MarkID markId)
 {
   SetDirty();
-  auto const it = m_createdMarks.find(markId);
-  if (it != m_createdMarks.end())
-    m_createdMarks.erase(it);
-  else
-    m_removedMarks.insert(markId);
   m_userMarks.erase(markId);
 }

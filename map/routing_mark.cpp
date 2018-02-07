@@ -279,7 +279,7 @@ bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, size_t intermediate
 
 void RoutePointsLayout::RemoveRoutePoints()
 {
-  m_manager.ClearUserMarks(UserMark::Type::ROUTING);
+  m_manager.ClearGroup(UserMark::Type::ROUTING);
 }
 
 void RoutePointsLayout::RemoveIntermediateRoutePoints()

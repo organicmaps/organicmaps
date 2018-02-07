@@ -133,8 +133,6 @@ public:
   std::string const & GetFileName() const { return m_file; }
 
 private:
-  void ClearTracks();
-
   const df::MarkGroupID m_groupID;
   std::string m_name;
   // Stores file name from which bookmarks were loaded.

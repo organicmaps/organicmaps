@@ -410,7 +410,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
 
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
 {
-  m_bmManager->ClearUserMarks(UserMark::Type::TRANSIT);
+  m_bmManager->ClearGroup(UserMark::Type::TRANSIT);
   m_bmManager->NotifyChanges(UserMark::Type::TRANSIT);
 
   if (deactivateFollowing)
@@ -578,7 +578,7 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
 
   if (removeRoutePoints)
   {
-    m_bmManager->ClearUserMarks(UserMark::Type::ROUTING);
+    m_bmManager->ClearGroup(UserMark::Type::ROUTING);
     m_bmManager->NotifyChanges(UserMark::Type::ROUTING);
 
     CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
@@ -784,7 +784,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
 
-  m_bmManager->ClearUserMarks(UserMark::Type::TRANSIT);
+  m_bmManager->ClearGroup(UserMark::Type::TRANSIT);
   m_bmManager->NotifyChanges(UserMark::Type::TRANSIT);
 
   auto routePoints = GetRoutePoints();
@@ -1129,7 +1129,7 @@ void RoutingManager::CancelRoutePointsTransaction(uint32_t transactionId)
 
   // Revert route points.
   ASSERT(m_bmManager != nullptr, ());
-  m_bmManager->ClearUserMarks(UserMark::Type::ROUTING);
+  m_bmManager->ClearGroup(UserMark::Type::ROUTING);
   RoutePointsLayout routePoints(*m_bmManager);
   for (auto & markData : routeMarks)
     routePoints.AddRoutePoint(move(markData));
@@ -1169,7 +1169,7 @@ bool RoutingManager::LoadRoutePoints()
   // If we have found my position, we use my position as start point.
   auto const & myPosMark = m_bmManager->MyPositionMark();
   ASSERT(m_bmManager != nullptr, ());
-  m_bmManager->ClearUserMarks(UserMark::Type::ROUTING);
+  m_bmManager->ClearGroup(UserMark::Type::ROUTING);
   for (auto & p : points)
   {
     if (p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())

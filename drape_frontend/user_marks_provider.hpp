@@ -48,6 +48,7 @@ public:
   virtual void ResetChanges() const = 0;
 
   MarkID GetId() const { return m_id; }
+  virtual df::MarkGroupID GetGroupId() const = 0;
 
   virtual m2::PointD const & GetPivot() const = 0;
   virtual m2::PointD GetPixelOffset() const = 0;
@@ -100,13 +101,17 @@ class UserMarksProvider
 {
 public:
   virtual ~UserMarksProvider() {}
-  virtual MarkIDSet const & GetPointMarkIds(MarkGroupID groupID) const = 0;
-  virtual MarkIDSet const & GetLineMarkIds(MarkGroupID groupID) const = 0;
-  virtual MarkIDSet const & GetCreatedMarkIds(MarkGroupID groupID) const = 0;
-  virtual MarkIDSet const & GetRemovedMarkIds(MarkGroupID groupID) const = 0;
-  /// never store UserPointMark reference
+  virtual GroupIDSet const & GetDirtyGroupIds() const = 0;
+  virtual bool IsGroupVisible(MarkGroupID groupID) const = 0;
+  virtual bool IsGroupVisiblityChanged(MarkGroupID groupID) const = 0;
+  virtual MarkIDSet const & GetGroupPointIds(MarkGroupID groupID) const = 0;
+  virtual MarkIDSet const & GetGroupLineIds(MarkGroupID groupID) const = 0;
+  virtual MarkIDSet const & GetCreatedMarkIds() const = 0;
+  virtual MarkIDSet const & GetRemovedMarkIds() const = 0;
+  virtual MarkIDSet const & GetUpdatedMarkIds() const = 0;
+  /// Never store UserPointMark reference.
   virtual UserPointMark const * GetUserPointMark(MarkID markID) const = 0;
- /// never store UserLineMark reference
+ /// Never store UserLineMark reference.
   virtual UserLineMark const * GetUserLineMark(MarkID markID) const = 0;
 };
 
