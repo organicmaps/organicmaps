@@ -18,14 +18,13 @@
     android:paddingTop="@dimen/margin_half_plus"
     android:paddingBottom="@dimen/margin_half_plus">
     <TextView
+      android:id="@+id/title"
       android:layout_width="0dp"
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body3"
       android:textAllCaps="true"
       android:gravity="start|center_vertical"
-      android:drawableRight="@drawable/ic_expand_less"
-      android:drawableEnd="@drawable/ic_expand_less"
       android:text="@string/settings_backup_bookmarks"/>
   </LinearLayout>
   <include layout="@layout/divider_horizontal"/>
@@ -36,6 +35,7 @@
     android:orientation="vertical"
     android:padding="@dimen/margin_base">
     <TextView
+      android:id="@+id/message"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body3"
@@ -53,7 +53,7 @@
       android:paddingEnd="@dimen/margin_half"
       android:paddingRight="@dimen/margin_half"
       android:layout_marginTop="@dimen/margin_base"
-      android:layout_marginBottom="@dimen/margin_base"
+      android:layout_marginBottom="@dimen/margin_half"
       android:layout_gravity="center"
       tools:text="@string/authorization_button_sign_in"/>
   </LinearLayout>

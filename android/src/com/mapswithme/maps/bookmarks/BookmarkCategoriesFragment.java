@@ -78,11 +78,15 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
 
   private void updateResultsPlaceholder()
   {
+    boolean showLoadingPlaceholder = BookmarkManager.nativeIsAsyncBookmarksLoadingInProgress();
+    boolean showPlaceHolder = !showLoadingPlaceholder &&
+                              (getAdapter() == null || getAdapter().getItemCount() == 0);
     if (getAdapter() != null)
-    {
-      boolean showLoadingPlaceholder = BookmarkManager.nativeIsAsyncBookmarksLoadingInProgress();
-      showPlaceholder(!showLoadingPlaceholder && getAdapter().getItemCount() == 0);
-    }
+      showPlaceholder(showPlaceHolder);
+
+    View root = getView();
+    if (root != null)
+      UiUtils.showIf(!showLoadingPlaceholder && !showPlaceHolder, root, R.id.backup);
   }
 
   private void updateLoadingPlaceholder()

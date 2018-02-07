@@ -7,6 +7,7 @@
   android:background="?clickableBackground"
   android:gravity="center_vertical"
   android:minHeight="@dimen/height_item_oneline"
+  android:layout_marginTop="@dimen/margin_half"
   android:paddingEnd="@dimen/margin_base"
   android:paddingLeft="0dp"
   android:paddingRight="@dimen/margin_base"

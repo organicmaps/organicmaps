@@ -9,8 +9,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <!-- TODO move backup layout into recyclerview -->
-    <include layout="@layout/item_bookmark_backup"/>
+    <com.mapswithme.maps.widget.BookmarkBackupView
+      android:id="@+id/backup"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
     <include layout="@layout/recycler_default"/>
   </LinearLayout>
 
