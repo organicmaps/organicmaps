@@ -97,20 +97,28 @@ def almost_equal(s1, s2, eps=1e-5):
     )
 
 def common_part(l1, l2):
+    assert l1, 'left hand side argument should not be empty'
+    if not l2:
+        return 0.0
     common, diff = lcs(l1, l2, eq=almost_equal)
     common_len = sum(distance(*x) for x in common)
     diff_len = sum(distance(*x) for x in diff)
-    assert (not common) or common_len
-    assert (not diff) or diff_len
+    assert common_len + diff_len
     return common_len / (common_len + diff_len)
 
 class Segment:
-    def __init__(self, segment_id, matched_route, golden_route):
-        #TODO(mgsergio): Remove this when deal with auto golden routes.
-        assert golden_route
+    class NoGoldenPathError(ValueError):
+        pass
+
+    def __init__(self, segment_id, golden_route, matched_route):
+        if not golden_route:
+            raise NoGoldenPathError(
+                "segment {} does not have a golden route"
+                .format(segment_id)
+            )
         self.segment_id = segment_id
+        self.golden_route = golden_route
         self.matched_route = matched_route or []
-        self.golden_route = golden_route or None
 
     def __repr__(self):
         return 'Segment({})'.format(self.segment_id)
@@ -143,33 +151,36 @@ def parse_segments(tree, limit):
         # within limit are considered accurate, so golden path should be equal
         # matched path.
         golden_route = parse_route(s.find('GoldenRoute')) or matched_route
-        if not matched_route and not golden_route:
-            raise ValueError('At least one of golden route or matched route should be present')
-        try:
-            yield Segment(segment_id, matched_route, golden_route)
-        except:
-            print('Broken segment is {}'.format(segment_id))
-            raise
+        yield Segment(segment_id, golden_route, matched_route)
 
 def calculate(tree):
-    return {
-        s.segment_id: common_part(s.golden_route, s.matched_route)
-        for s in parse_segments(tree, args.limit)
-    }
+    result = {}
+    for s in parse_segments(tree, args.limit):
+        try:
+            result[s.segment_id] = common_part(s.golden_route, s.matched_route)
+        except AssertionError:
+            print('Something is wrong with segment {}'.format(s))
+            raise
+        except Segment.NoGoldenPathError:
+            raise
+    return result
 
 def merge(src, dst):
+    # If segment was ignored it does not have a golden route.
+    # We should mark the corresponding route in dst as ignored too.
     golden_routes = {
-        int(s.find('.//ReportSegmentID').text) : s.find('GoldenRoute')
+        int(s.find('.//ReportSegmentID').text): s.find('GoldenRoute')
         for s in src.findall('Segment')
     }
     for s in dst.findall('Segment'):
         assert not s.find('GoldenRoute')
-        try:
-            golden_route = golden_routes[int(s.find('.//ReportSegmentID').text)]
-            if golden_route:
-                s.append(golden_route)
-        except KeyError:
+        golden_route = golden_routes[int(s.find('.//ReportSegmentID').text)]
+        if not golden_route:
+            elem = ET.Element('Ignored')
+            elem.text = 'true'
+            s.append(elem)
             continue
+        s.append(golden_route)
 
 if __name__ == '__main__':
     import argparse
