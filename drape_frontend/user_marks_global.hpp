@@ -7,7 +7,7 @@ namespace df
 {
 using MarkID = uint32_t;
 using LineID = uint32_t;
-using MarkGroupID = size_t;
+using MarkGroupID = uint32_t;
 using MarkIDCollection = std::vector<MarkID>;
 using LineIDCollection = std::vector<LineID>;
 using MarkIDSet = std::set<MarkID>;

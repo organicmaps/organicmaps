@@ -233,7 +233,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider)
   auto removedIdCollection = make_unique_dp<IDCollections>();
 
   df::MarkGroupID lastGroupId = *dirtyGroupIds.begin();
-  bool visibilityChanged = provider->IsGroupVisiblityChanged(lastGroupId);
+  bool visibilityChanged = provider->IsGroupVisibilityChanged(lastGroupId);
   bool groupIsVisible = provider->IsGroupVisible(lastGroupId);
 
   auto const HandleMark = [&](
@@ -248,7 +248,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider)
     if (groupId != lastGroupId)
     {
       lastGroupId = groupId;
-      visibilityChanged = provider->IsGroupVisiblityChanged(groupId);
+      visibilityChanged = provider->IsGroupVisibilityChanged(groupId);
       groupIsVisible = provider->IsGroupVisible(groupId);
     }
     if (!visibilityChanged && groupIsVisible)
@@ -273,7 +273,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider)
   for (auto groupId : dirtyGroupIds)
   {
     auto & idCollection = *(dirtyMarkIds.emplace(groupId, make_unique_dp<IDCollections>()).first->second);
-    visibilityChanged = provider->IsGroupVisiblityChanged(groupId);
+    visibilityChanged = provider->IsGroupVisibilityChanged(groupId);
     groupIsVisible = provider->IsGroupVisible(groupId);
     if (!groupIsVisible && !visibilityChanged)
       continue;

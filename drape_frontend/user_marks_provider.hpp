@@ -103,7 +103,7 @@ public:
   virtual ~UserMarksProvider() {}
   virtual GroupIDSet const & GetDirtyGroupIds() const = 0;
   virtual bool IsGroupVisible(MarkGroupID groupID) const = 0;
-  virtual bool IsGroupVisiblityChanged(MarkGroupID groupID) const = 0;
+  virtual bool IsGroupVisibilityChanged(MarkGroupID groupID) const = 0;
   virtual MarkIDSet const & GetGroupPointIds(MarkGroupID groupID) const = 0;
   virtual LineIDSet const & GetGroupLineIds(MarkGroupID groupID) const = 0;
   virtual MarkIDSet const & GetCreatedMarkIds() const = 0;

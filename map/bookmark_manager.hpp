@@ -20,7 +20,7 @@
 
 #include <boost/optional.hpp>
 
-class BookmarkManager final : public df::UserMarksProvider
+class BookmarkManager final
 {
   using CategoriesCollection = std::map<df::MarkGroupID, std::unique_ptr<BookmarkCategory>>;
   using MarksCollection = std::map<df::MarkID, std::unique_ptr<UserMark>>;
@@ -80,7 +80,7 @@ public:
     ASSERT(m_userMarks.count(markId) == 0, ());
     ASSERT_LESS(groupId, m_userMarkLayers.size(), ());
     m_userMarks.emplace(markId, std::move(mark));
-    m_createdMarks.insert(markId);
+    m_changesTracker.OnAddMark(markId);
     m_userMarkLayers[groupId]->AttachUserMark(markId);
     return m;
   }
@@ -200,25 +200,46 @@ public:
 
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
-  // UserMarksProvider
-  df::GroupIDSet const & GetDirtyGroupIds() const override;
-  bool IsGroupVisible(df::MarkGroupID groupID) const override;
-  bool IsGroupVisiblityChanged(df::MarkGroupID groupID) const override;
-  df::MarkIDSet const & GetGroupPointIds(df::MarkGroupID groupId) const override;
-  df::LineIDSet const & GetGroupLineIds(df::MarkGroupID groupId) const override;
-  df::MarkIDSet const & GetCreatedMarkIds() const override;
-  df::MarkIDSet const & GetRemovedMarkIds() const override;
-  df::MarkIDSet const & GetUpdatedMarkIds() const override;
-  df::UserPointMark const * GetUserPointMark(df::MarkID markID) const override;
-  df::UserLineMark const * GetUserLineMark(df::LineID lineID) const override;
-
 private:
+  class MarksChangesTracker : public df::UserMarksProvider
+  {
+  public:
+    MarksChangesTracker(BookmarkManager & bmManager) : m_bmManager(bmManager) {}
+
+    void OnAddMark(df::MarkID markId);
+    void OnDeleteMark(df::MarkID markId);
+    void OnUpdateMark(df::MarkID markId);
+
+    bool CheckChanges();
+    void ResetChanges();
+
+    // UserMarksProvider
+    df::GroupIDSet const & GetDirtyGroupIds() const override { return m_dirtyGroups; }
+    df::MarkIDSet const & GetCreatedMarkIds() const override { return m_createdMarks; }
+    df::MarkIDSet const & GetRemovedMarkIds() const override { return m_removedMarks; }
+    df::MarkIDSet const & GetUpdatedMarkIds() const override { return m_updatedMarks; }
+    bool IsGroupVisible(df::MarkGroupID groupID) const override;
+    bool IsGroupVisibilityChanged(df::MarkGroupID groupID) const override;
+    df::MarkIDSet const & GetGroupPointIds(df::MarkGroupID groupId) const override;
+    df::LineIDSet const & GetGroupLineIds(df::MarkGroupID groupId) const override;
+    df::UserPointMark const * GetUserPointMark(df::MarkID markID) const override;
+    df::UserLineMark const * GetUserLineMark(df::LineID lineID) const override;
+
+  private:
+    BookmarkManager & m_bmManager;
+
+    df::MarkIDSet m_createdMarks;
+    df::MarkIDSet m_removedMarks;
+    df::MarkIDSet m_updatedMarks;
+    df::GroupIDSet m_dirtyGroups;
+  };
+
   using KMLDataCollection = std::vector<std::unique_ptr<KMLData>>;
 
-  static bool IsBookmark(df::MarkGroupID groupId) { return groupId >= UserMark::BOOKMARK; }
+  static bool IsBookmarkCategory(df::MarkGroupID groupId) { return groupId >= UserMark::BOOKMARK; }
   static bool IsBookmark(df::MarkID markID) { return UserMark::GetMarkType(markID) == UserMark::BOOKMARK; }
+
   UserMark const * GetMark(df::MarkID markID) const;
-  void FindDirtyGroups();
 
   UserMarkContainer const * FindContainer(df::MarkGroupID containerId) const;
   UserMarkContainer * FindContainer(df::MarkGroupID containerId);
@@ -236,12 +257,14 @@ private:
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
 
+  void CollectDirtyGroups(df::GroupIDSet & dirtyGroups);
+
   void SendBookmarksChanges();
   void GetBookmarksData(df::MarkIDSet const & markIds,
                         std::vector<std::pair<df::MarkID, BookmarkData>> & data) const;
 
   Callbacks m_callbacks;
-
+  MarksChangesTracker m_changesTracker;
   df::DrapeEngineSafePtr m_drapeEngine;
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
@@ -252,7 +275,7 @@ private:
 
   CategoriesCollection m_categories;
   df::GroupIDList m_bmGroupsIdList;
-  df::GroupIDSet m_dirtyGroups;
+
   std::string m_lastCategoryUrl;
   std::string m_lastType;
   UserMarkLayers m_userMarkLayers;
@@ -260,9 +283,6 @@ private:
   MarksCollection m_userMarks;
   BookmarksCollection m_bookmarks;
   TracksCollection m_tracks;
-  df::MarkIDSet m_createdMarks;
-  df::MarkIDSet m_removedMarks;
-  df::MarkIDSet m_updatedMarks;
 
   StaticMarkPoint * m_selectionMark = nullptr;
   MyPositionMarkPoint * m_myPositionMark = nullptr;
