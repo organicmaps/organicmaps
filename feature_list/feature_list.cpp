@@ -3,6 +3,8 @@
 
 #include "coding/file_name_utils.hpp"
 
+#include "generator/utils.hpp"
+
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
@@ -105,6 +107,18 @@ string GetWheelchairType(FeatureType const & f)
   return result;
 }
 
+bool HasAtm(FeatureType const & f)
+{
+  static const uint32_t atm = classif().GetTypeByPath({"amenity", "atm"});
+  bool result = false;
+  f.ForEachType([&result](uint32_t type)
+  {
+    if (type == atm)
+      result = true;
+  });
+  return result;
+}
+
 string BuildUniqueId(ms::LatLon const & coords, string const & name)
 {
   ostringstream ss;
@@ -175,15 +189,17 @@ public:
 
   void ClearCache() { m_villagesCache.Clear(); }
 
-  void operator()(FeatureType const & f, uint32_t const & id) { Process(f); }
+  void operator()(FeatureType const & f, map<uint32_t, osm::Id> const & ft2osm) { Process(f, ft2osm); }
 
-  void Process(FeatureType const & f)
+  void Process(FeatureType const & f, map<uint32_t, osm::Id> const & ft2osm)
   {
     f.ParseBeforeStatistic();
     string const & category = GetReadableType(f);
     // "operator" is a reserved word, hence "operatr". This word is pretty common in C++ projects.
     string const & operatr = f.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
-    if ((!f.HasName() && operatr.empty()) || f.GetFeatureType() == feature::GEOM_LINE || category.empty())
+    auto const & osmIt = ft2osm.find(f.GetID().m_index);
+    if ((!f.HasName() && operatr.empty()) || f.GetFeatureType() == feature::GEOM_LINE ||
+        category.empty() || osmIt == ft2osm.cend())
       return;
     m2::PointD const & center = FindCenter(f);
     ms::LatLon const & ll = MercatorBounds::ToLatLon(center);
@@ -200,6 +216,7 @@ public:
     f.GetPreferredNames(name, secondary);
     if (name.empty())
       name = operatr;
+    string const & osmId = strings::to_string(osmIt->second.EncodedId());
     string const & uid = BuildUniqueId(ll, name);
     string const & lat = strings::to_string_with_digits_after_comma(ll.lat, 6);
     string const & lon = strings::to_string_with_digits_after_comma(ll.lon, 6);
@@ -230,11 +247,15 @@ public:
     string const & denomination = f.GetMetadata().Get(feature::Metadata::FMD_DENOMINATION);
     string const & wheelchair = GetWheelchairType(f);
     string const & opening_hours = f.GetMetadata().Get(feature::Metadata::FMD_OPEN_HOURS);
+    string const & wikipedia = f.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA);
+    string const & floor = f.GetMetadata().Get(feature::Metadata::FMD_LEVEL);
+    string const & fee = strings::EndsWith(category, "-fee") ? "yes" : "";
+    string const & atm = HasAtm(f) ? "yes" : "";
 
-    vector<string> columns = {uid,          lat,        lon,          mwmName,   category,
+    vector<string> columns = {osmId, uid,          lat,        lon,          mwmName,   category,
                               name,         city,       addrStreet,   addrHouse, phone,
                               website,      cuisine,    stars,        operatr,   internet,
-                              denomination, wheelchair, opening_hours};
+                              denomination, wheelchair, opening_hours, wikipedia, floor, fee, atm};
     AppendNames(f, columns);
     PrintAsCSV(columns, ';', cout);
   }
@@ -242,14 +263,21 @@ public:
 
 void PrintHeader()
 {
-  vector<string> columns = {"id",           "lat",        "lon",          "mwm",      "category",
+  vector<string> columns = {"id", "old_id",          "lat",        "lon",          "mwm",      "category",
                             "name",         "city",       "street",       "house",    "phone",
                             "website",      "cuisines",   "stars",        "operator", "internet",
-                            "denomination", "wheelchair", "opening_hours"};
+                            "denomination", "wheelchair", "opening_hours", "wikipedia", "floor", "fee", "atm"};
   // Append all supported name languages in order.
   for (uint8_t idx = 1; idx < kLangCount; idx++)
     columns.push_back("name_" + string(StringUtf8Multilang::GetLangByCode(idx)));
   PrintAsCSV(columns, ';', cout);
+}
+
+bool ParseFeatureIdToOsmIdMapping(string const & path, map<uint32_t, osm::Id> & mapping)
+{
+  return generator::ForEachOsmId2FeatureId(path, [&](osm::Id const & osmId, uint32_t const featureId) {
+    mapping[featureId] = osmId;
+  });
 }
 
 void DidDownload(storage::TCountryId const & /* countryId */,
@@ -316,13 +344,16 @@ int main(int argc, char ** argv)
     if (argc > 3 && !strings::StartsWith(mwmInfo->GetCountryName() + DATA_FILE_EXTENSION, argv[3]))
       continue;
     LOG(LINFO, ("Processing", mwmInfo->GetCountryName()));
+    string osmToFeatureFile = my::JoinFoldersToPath(argv[1], mwmInfo->GetCountryName() + DATA_FILE_EXTENSION + OSM2FEATURE_FILE_EXTENSION);
+    map<uint32_t, osm::Id> featureIdToOsmId;
+    ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId);
     MwmSet::MwmId mwmId(mwmInfo);
     Index::FeaturesLoaderGuard loader(index, mwmId);
     for (uint32_t ftIndex = 0; ftIndex < loader.GetNumFeatures(); ftIndex++)
     {
       FeatureType ft;
       if (loader.GetFeatureByIndex(static_cast<uint32_t>(ftIndex), ft))
-        doProcess.Process(ft);
+        doProcess.Process(ft, featureIdToOsmId);
     }
     doProcess.ClearCache();
   }
