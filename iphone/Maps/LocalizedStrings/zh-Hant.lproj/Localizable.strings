@@ -2181,11 +2181,11 @@
 
 "authorization_button_sign_in" = "Sign in";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly every week in a secure storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly every week in a secure storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly every week in a secure storage.";
+"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
 
 "bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
 

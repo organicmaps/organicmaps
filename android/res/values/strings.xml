@@ -1265,9 +1265,9 @@
 	<string name="discovery_button_subtitle_book_hotels">Book hotels</string>
 	<string name="bookmarks_backup">Enable backup</string>
 	<string name="authorization_button_sign_in">Sign in</string>
-	<string name="bookmarks_message_authorized_user">Your bookmarks backup automaticaly every week in a secure storage. Do you want enable backup?</string>
-	<string name="bookmarks_message_unauthorized_user">Your bookmarks backup automaticaly every week in a secure storage. Sign in to enable backup.</string>
-	<string name="bookmarks_message_unbackuped_user">Your bookmarks backup automaticaly every week in a secure storage.</string>
+	<string name="bookmarks_message_authorized_user">Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?</string>
+	<string name="bookmarks_message_unauthorized_user">Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.</string>
+	<string name="bookmarks_message_unbackuped_user">Your bookmarks backup automaticaly in a secure cloud storage.</string>
 	<string name="bookmarks_message_backuped_user">Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s</string>
 	<string name="settings_backup_bookmarks">Backup Bookmarks</string>
 	<string name="bookmarks_groups">Groups</string>
