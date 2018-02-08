@@ -59,11 +59,11 @@ public class BookmarkBackupController
       return;
     }
 
-    boolean isEnabled = false /** TODO: add real call here **/;
+    boolean isEnabled = false; // TODO: read setting from the core here;
 
     if (isEnabled)
     {
-      long backupTime = System.currentTimeMillis() /** TODO: use real timestamp here **/;
+      long backupTime = System.currentTimeMillis() /* TODO: use real timestamp here */;
       String msg;
       if (backupTime > 0)
       {

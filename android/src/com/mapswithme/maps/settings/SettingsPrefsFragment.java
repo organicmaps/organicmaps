@@ -292,6 +292,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initZoomPrefsCallbacks();
     initMapStylePrefsCallbacks();
     initAutoDownloadPrefsCallbacks();
+    initBackupBookmarksPrefsCallbacks();
     initLargeFontSizePrefsCallbacks();
     initTransliterationPrefsCallbacks();
     init3dModePrefsCallbacks();
@@ -747,6 +748,22 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         return true;
       }
     });
+  }
+
+  private void initBackupBookmarksPrefsCallbacks()
+  {
+    TwoStatePreference pref = (TwoStatePreference)findPreference(getString(R.string.pref_backupbookmarks));
+    if (pref == null)
+      return;
+
+    pref.setChecked(false/* TODO: read setting from the core*/);
+    pref.setOnPreferenceChangeListener(
+        (preference, newValue) ->
+        {
+          boolean value = (Boolean) newValue;
+          //TODO: set setting here.
+          return true;
+        });
   }
 
   private void initMapStylePrefsCallbacks()

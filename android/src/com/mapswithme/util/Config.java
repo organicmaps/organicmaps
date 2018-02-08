@@ -22,7 +22,6 @@ public final class Config
   private static final String KEY_TTS_LANGUAGE = "TtsLanguage";
 
   private static final String KEY_DOWNLOADER_AUTO = "AutoDownloadEnabled";
-
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
   private static final String KEY_PREF_USE_GS = "UseGoogleServices";

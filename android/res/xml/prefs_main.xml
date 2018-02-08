@@ -32,20 +32,24 @@
       android:title="@string/autodownload"
       android:order="4"/>
     <SwitchPreferenceCompat
+      android:key="@string/pref_backupbookmarks"
+      android:title="@string/settings_backup_bookmarks"
+      android:order="5"/>
+    <SwitchPreferenceCompat
       android:key="@string/pref_large_fonts_size"
       android:title="@string/big_font"
       android:defaultValue="false"
-      android:order="5"/>
+      android:order="6"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_transliteration"
       android:title="@string/whatsnew_transliteration_title"
       android:defaultValue="false"
-      android:order="6"/>
+      android:order="7"/>
     <android.support.v7.preference.PreferenceScreen
       android:key="@string/pref_track_screen"
       android:title="@string/pref_track_record_title"
       android:persistent="false"
-      android:order="7">
+      android:order="8">
       <SwitchPreferenceCompat
         android:key="@string/pref_track_record_time"
         android:title="@string/pref_track_record_title"
