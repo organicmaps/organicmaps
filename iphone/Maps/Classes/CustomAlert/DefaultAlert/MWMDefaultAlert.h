@@ -3,6 +3,8 @@
 @interface MWMDefaultAlert : MWMAlert
 
 + (instancetype)routeNotFoundAlert;
++ (instancetype)routeNotFoundNoPublicTransportAlert;
++ (instancetype)routeNotFoundTooLongPedestrianAlert;
 + (instancetype)routeFileNotExistAlert;
 + (instancetype)endPointNotFoundAlert;
 + (instancetype)startPointNotFoundAlert;

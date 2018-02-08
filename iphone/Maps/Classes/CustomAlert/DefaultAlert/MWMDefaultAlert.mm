@@ -45,6 +45,26 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                      statisticsEvent:@"Route File Not Exist Alert"];
 }
 
++ (instancetype)routeNotFoundNoPublicTransportAlert
+{
+  return [self defaultAlertWithTitle:L(@"transport_not_found")
+                             message:nil
+                    rightButtonTitle:L(@"ok")
+                     leftButtonTitle:nil
+                   rightButtonAction:nil
+                     statisticsEvent:@"transport_not_found"];
+}
+
++ (instancetype)routeNotFoundTooLongPedestrianAlert
+{
+  return [self defaultAlertWithTitle:L(@"transport_not_found_connection")
+                             message:nil
+                    rightButtonTitle:L(@"ok")
+                     leftButtonTitle:nil
+                   rightButtonAction:nil
+                     statisticsEvent:@"transport_not_found_connection"];
+}
+
 + (instancetype)locationServiceNotSupportedAlert
 {
   return [self defaultAlertWithTitle:L(@"current_location_unknown_error_title")
