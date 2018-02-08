@@ -15,10 +15,10 @@
 
 namespace df
 {
-struct MarkIDCollection
+struct IDCollections
 {
-  IDCollection m_marksID;
-  IDCollection m_linesID;
+  MarkIDCollection m_marksID;
+  LineIDCollection m_linesID;
 
   bool IsEmpty()
   {
@@ -41,7 +41,7 @@ public:
   using SymbolSizes = std::vector<m2::PointF>;
   using SymbolOffsets = std::vector<m2::PointF>;
 
-  UserPointMark();
+  UserPointMark(df::MarkID id);
   virtual ~UserPointMark() {}
 
   virtual bool IsDirty() const = 0;
@@ -77,13 +77,13 @@ private:
 class UserLineMark
 {
 public:
-  UserLineMark();
+  UserLineMark(df::LineID id);
   virtual ~UserLineMark() {}
 
   virtual bool IsDirty() const = 0;
   virtual void ResetChanges() const = 0;
 
-  virtual MarkID GetId() const { return m_id; }
+  virtual LineID GetId() const { return m_id; }
 
   virtual int GetMinZoom() const = 0;
   virtual RenderState::DepthLayer GetDepthLayer() const = 0;
@@ -94,7 +94,7 @@ public:
   virtual std::vector<m2::PointD> const & GetPoints() const = 0;
 
 private:
-  MarkID m_id;
+  LineID m_id;
 };
 
 class UserMarksProvider
@@ -105,14 +105,14 @@ public:
   virtual bool IsGroupVisible(MarkGroupID groupID) const = 0;
   virtual bool IsGroupVisiblityChanged(MarkGroupID groupID) const = 0;
   virtual MarkIDSet const & GetGroupPointIds(MarkGroupID groupID) const = 0;
-  virtual MarkIDSet const & GetGroupLineIds(MarkGroupID groupID) const = 0;
+  virtual LineIDSet const & GetGroupLineIds(MarkGroupID groupID) const = 0;
   virtual MarkIDSet const & GetCreatedMarkIds() const = 0;
   virtual MarkIDSet const & GetRemovedMarkIds() const = 0;
   virtual MarkIDSet const & GetUpdatedMarkIds() const = 0;
   /// Never store UserPointMark reference.
   virtual UserPointMark const * GetUserPointMark(MarkID markID) const = 0;
  /// Never store UserLineMark reference.
-  virtual UserLineMark const * GetUserLineMark(MarkID markID) const = 0;
+  virtual UserLineMark const * GetUserLineMark(LineID lineID) const = 0;
 };
 
 } // namespace df

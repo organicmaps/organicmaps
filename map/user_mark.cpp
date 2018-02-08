@@ -7,9 +7,32 @@
 
 #include "base/string_utils.hpp"
 
+#include <atomic>
+
+namespace
+{
+static const uint32_t kMarkIdTypeBitsCount = 4;
+
+df::MarkID GetNextUserMarkId(UserMark::Type type)
+{
+  static std::atomic<uint32_t> nextMarkId(0);
+
+  ASSERT_LESS(type, 1 << kMarkIdTypeBitsCount, ());
+  return static_cast<df::MarkID>(
+    (++nextMarkId) | (type << static_cast<uint32_t>(sizeof(df::MarkID) * 8 - kMarkIdTypeBitsCount)));
+}
+}  // namespace
+
 UserMark::UserMark(m2::PointD const & ptOrg, UserMark::Type type)
-: m_ptOrg(ptOrg), m_type(type)
+  : df::UserPointMark(GetNextUserMarkId(type))
+  , m_ptOrg(ptOrg)
 {}
+
+// static
+UserMark::Type UserMark::GetMarkType(df::MarkID id)
+{
+  return static_cast<Type>(id >> (sizeof(id) * 8 - kMarkIdTypeBitsCount));
+}
 
 m2::PointD const & UserMark::GetPivot() const
 {

@@ -152,12 +152,12 @@ BookmarkCategory::~BookmarkCategory()
 {
 }
 
-void BookmarkCategory::AttachTrack(df::MarkID trackId)
+void BookmarkCategory::AttachTrack(df::LineID trackId)
 {
   m_tracks.insert(trackId);
 }
 
-void BookmarkCategory::DetachTrack(df::MarkID trackId)
+void BookmarkCategory::DetachTrack(df::LineID trackId)
 {
   m_tracks.erase(trackId);
 }

@@ -28,13 +28,13 @@ void UserMarkGenerator::RemoveGroup(MarkGroupID groupId)
   UpdateIndex(groupId);
 }
 
-void UserMarkGenerator::SetGroup(MarkGroupID groupId, drape_ptr<MarkIDCollection> && ids)
+void UserMarkGenerator::SetGroup(MarkGroupID groupId, drape_ptr<IDCollections> && ids)
 {
   m_groups[groupId] = std::move(ids);
   UpdateIndex(groupId);
 }
 
-void UserMarkGenerator::SetRemovedUserMarks(drape_ptr<MarkIDCollection> && ids)
+void UserMarkGenerator::SetRemovedUserMarks(drape_ptr<IDCollections> && ids)
 {
   if (ids == nullptr)
     return;
@@ -44,7 +44,7 @@ void UserMarkGenerator::SetRemovedUserMarks(drape_ptr<MarkIDCollection> && ids)
     m_lines.erase(id);
 }
 
-void UserMarkGenerator::SetCreatedUserMarks(drape_ptr<MarkIDCollection> && ids)
+void UserMarkGenerator::SetCreatedUserMarks(drape_ptr<IDCollections> && ids)
 {
   if (ids == nullptr)
     return;
@@ -93,7 +93,7 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
   if (groupIt == m_groups.end())
     return;
 
-  MarkIDCollection & idCollection = *groupIt->second.get();
+  IDCollections & idCollection = *groupIt->second.get();
 
   for (auto markId : idCollection.m_marksID)
   {
@@ -101,7 +101,7 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
     for (int zoomLevel = params.m_minZoom; zoomLevel <= scales::GetUpperScale(); ++zoomLevel)
     {
       TileKey const tileKey = GetTileKeyByPoint(params.m_pivot, zoomLevel);
-      ref_ptr<MarkIDCollection> groupIDs = GetIdCollection(tileKey, groupId);
+      ref_ptr<IDCollections> groupIDs = GetIdCollection(tileKey, groupId);
       groupIDs->m_marksID.push_back(static_cast<uint32_t>(markId));
     }
   }
@@ -125,7 +125,7 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
         CalcTilesCoverage(segmentRect, zoomLevel, [&](int tileX, int tileY)
         {
           TileKey const tileKey(tileX, tileY, zoomLevel);
-          ref_ptr<MarkIDCollection> groupIDs = GetIdCollection(tileKey, groupId);
+          ref_ptr<IDCollections> groupIDs = GetIdCollection(tileKey, groupId);
           groupIDs->m_linesID.push_back(static_cast<uint32_t>(lineId));
         });
         return true;
@@ -136,7 +136,7 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
   CleanIndex();
 }
 
-ref_ptr<MarkIDCollection> UserMarkGenerator::GetIdCollection(TileKey const & tileKey, MarkGroupID groupId)
+ref_ptr<IDCollections> UserMarkGenerator::GetIdCollection(TileKey const & tileKey, MarkGroupID groupId)
 {
   ref_ptr<MarksIDGroups> tileGroups;
   auto itTileGroups = m_index.find(tileKey);
@@ -151,11 +151,11 @@ ref_ptr<MarkIDCollection> UserMarkGenerator::GetIdCollection(TileKey const & til
     tileGroups = make_ref(itTileGroups->second);
   }
 
-  ref_ptr<MarkIDCollection> groupIDs;
+  ref_ptr<IDCollections> groupIDs;
   auto itGroupIDs = tileGroups->find(groupId);
   if (itGroupIDs == tileGroups->end())
   {
-    auto groupMarkIndexes = make_unique_dp<MarkIDCollection>();
+    auto groupMarkIndexes = make_unique_dp<IDCollections>();
     groupIDs = make_ref(groupMarkIndexes);
     tileGroups->insert(make_pair(groupId, std::move(groupMarkIndexes)));
   }

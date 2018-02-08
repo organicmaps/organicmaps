@@ -239,8 +239,8 @@ private:
 class UpdateUserMarksMessage : public Message
 {
 public:
-  UpdateUserMarksMessage(drape_ptr<MarkIDCollection> && createdIds,
-                         drape_ptr<MarkIDCollection> && removedIds,
+  UpdateUserMarksMessage(drape_ptr<IDCollections> && createdIds,
+                         drape_ptr<IDCollections> && removedIds,
                          drape_ptr<UserMarksRenderCollection> && marksRenderParams,
                          drape_ptr<UserLinesRenderCollection> && linesRenderParams)
     : m_createdIds(std::move(createdIds))
@@ -253,12 +253,12 @@ public:
 
   drape_ptr<UserMarksRenderCollection> && AcceptMarkRenderParams() { return std::move(m_marksRenderParams); }
   drape_ptr<UserLinesRenderCollection> && AcceptLineRenderParams() { return std::move(m_linesRenderParams); }
-  drape_ptr<MarkIDCollection> && AcceptRemovedIds() { return std::move(m_removedIds); }
-  drape_ptr<MarkIDCollection> && AcceptCreatedIds() { return std::move(m_createdIds); }
+  drape_ptr<IDCollections> && AcceptRemovedIds() { return std::move(m_removedIds); }
+  drape_ptr<IDCollections> && AcceptCreatedIds() { return std::move(m_createdIds); }
 
 private:
-  drape_ptr<MarkIDCollection> m_createdIds;
-  drape_ptr<MarkIDCollection> m_removedIds;
+  drape_ptr<IDCollections> m_createdIds;
+  drape_ptr<IDCollections> m_removedIds;
   drape_ptr<UserMarksRenderCollection> m_marksRenderParams;
   drape_ptr<UserLinesRenderCollection> m_linesRenderParams;
 };
@@ -267,7 +267,7 @@ class UpdateUserMarkGroupMessage : public Message
 {
 public:
   UpdateUserMarkGroupMessage(MarkGroupID groupId,
-                             drape_ptr<MarkIDCollection> && ids)
+                             drape_ptr<IDCollections> && ids)
     : m_groupId(groupId)
     , m_ids(std::move(ids))
   {}
@@ -275,11 +275,11 @@ public:
   Type GetType() const override { return Message::UpdateUserMarkGroup; }
 
   MarkGroupID GetGroupId() const { return m_groupId; }
-  drape_ptr<MarkIDCollection> && AcceptIds() { return std::move(m_ids); }
+  drape_ptr<IDCollections> && AcceptIds() { return std::move(m_ids); }
 
 private:
   MarkGroupID m_groupId;
-  drape_ptr<MarkIDCollection> m_ids;
+  drape_ptr<IDCollections> m_ids;
 };
 
 using FlushUserMarksMessage = FlushRenderDataMessage<TUserMarksRenderData,

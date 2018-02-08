@@ -25,7 +25,7 @@ class BookmarkManager final : public df::UserMarksProvider
   using CategoriesCollection = std::map<df::MarkGroupID, std::unique_ptr<BookmarkCategory>>;
   using MarksCollection = std::map<df::MarkID, std::unique_ptr<UserMark>>;
   using BookmarksCollection = std::map<df::MarkID, std::unique_ptr<Bookmark>>;
-  using TracksCollection = std::map<df::MarkID, std::unique_ptr<Track>>;
+  using TracksCollection = std::map<df::LineID, std::unique_ptr<Track>>;
 
   using CategoryIter = CategoriesCollection::iterator;
   using GroupIdList = std::vector<df::MarkGroupID>;
@@ -128,10 +128,10 @@ public:
   void DeleteBookmark(df::MarkID bmId);
 
   Track * CreateTrack(m2::PolylineD const & polyline, Track::Params const & p);
-  Track const * GetTrack(df::MarkID trackID) const;
-  void AttachTrack(df::MarkID trackID, df::MarkGroupID groupID);
-  void DetachTrack(df::MarkID trackID, df::MarkGroupID groupID);
-  void DeleteTrack(df::MarkID trackID);
+  Track const * GetTrack(df::LineID trackID) const;
+  void AttachTrack(df::LineID trackID, df::MarkGroupID groupID);
+  void DetachTrack(df::LineID trackID, df::MarkGroupID groupID);
+  void DeleteTrack(df::LineID trackID);
 
   //////////////////
   void ClearGroup(df::MarkGroupID groupID);
@@ -139,7 +139,7 @@ public:
   void NotifyChanges(df::MarkGroupID groupID);
 
   df::MarkIDSet const & GetUserMarkIds(df::MarkGroupID groupID) const;
-  df::MarkIDSet const & GetTrackIds(df::MarkGroupID groupID) const;
+  df::LineIDSet const & GetTrackIds(df::MarkGroupID groupID) const;
 
   std::string const & GetCategoryName(df::MarkGroupID categoryId) const;
   void SetCategoryName(df::MarkGroupID categoryId, std::string const & name);
@@ -205,17 +205,18 @@ public:
   bool IsGroupVisible(df::MarkGroupID groupID) const override;
   bool IsGroupVisiblityChanged(df::MarkGroupID groupID) const override;
   df::MarkIDSet const & GetGroupPointIds(df::MarkGroupID groupId) const override;
-  df::MarkIDSet const & GetGroupLineIds(df::MarkGroupID groupId) const override;
+  df::LineIDSet const & GetGroupLineIds(df::MarkGroupID groupId) const override;
   df::MarkIDSet const & GetCreatedMarkIds() const override;
   df::MarkIDSet const & GetRemovedMarkIds() const override;
   df::MarkIDSet const & GetUpdatedMarkIds() const override;
   df::UserPointMark const * GetUserPointMark(df::MarkID markID) const override;
-  df::UserLineMark const * GetUserLineMark(df::MarkID markID) const override;
+  df::UserLineMark const * GetUserLineMark(df::LineID lineID) const override;
 
 private:
   using KMLDataCollection = std::vector<std::unique_ptr<KMLData>>;
 
-  bool IsBookmark(df::MarkGroupID groupId) const { return groupId >= UserMark::BOOKMARK; }
+  static bool IsBookmark(df::MarkGroupID groupId) { return groupId >= UserMark::BOOKMARK; }
+  static bool IsBookmark(df::MarkID markID) { return UserMark::GetMarkType(markID) == UserMark::BOOKMARK; }
   UserMark const * GetMark(df::MarkID markID) const;
   void FindDirtyGroups();
 

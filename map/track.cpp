@@ -6,8 +6,18 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
+namespace
+{
+df::LineID GetNextUserLineId()
+{
+  static std::atomic<uint32_t> nextLineId(0);
+  return static_cast<df::LineID>(++nextLineId);
+}
+}  // namespace
+
 Track::Track(Track::PolylineD const & polyline, Track::Params const & p)
-  : m_polyline(polyline)
+  : df::UserLineMark(GetNextUserLineId())
+  , m_polyline(polyline)
   , m_params(p)
   , m_groupID(0)
 {

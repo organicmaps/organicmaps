@@ -30,7 +30,7 @@ public:
     TransitKeyStop
   };
 
-  enum Type: size_t
+  enum Type: uint32_t
   {
     API,
     SEARCH,
@@ -44,8 +44,11 @@ public:
 
   UserMark(m2::PointD const & ptOrg, UserMark::Type type);
 
-  Type GetMarkType() const { return m_type; }
-  df::MarkGroupID GetGroupId() const override { return m_type; }
+  static Type GetMarkType(df::MarkID);
+//  static df::MarkGroupID GetGroupId(UserMark::Type type);
+
+  Type GetMarkType() const { return GetMarkType(GetId()); }
+  df::MarkGroupID GetGroupId() const override { return GetMarkType(); }
 
   // df::UserPointMark overrides.
   bool IsDirty() const override { return m_isDirty; }
@@ -77,7 +80,6 @@ protected:
   void SetDirty() { m_isDirty = true; }
 
   m2::PointD m_ptOrg;
-  Type m_type;
 
 private:
   mutable bool m_isDirty = true;

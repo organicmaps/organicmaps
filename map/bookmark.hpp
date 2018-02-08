@@ -121,11 +121,11 @@ public:
 
   static std::string GetDefaultType();
 
-  void AttachTrack(df::MarkID markId);
-  void DetachTrack(df::MarkID markId);
+  void AttachTrack(df::LineID markId);
+  void DetachTrack(df::LineID markId);
 
   df::MarkGroupID GetID() const { return m_groupID; }
-  df::MarkIDSet const & GetUserLines() const override { return m_tracks; }
+  df::LineIDSet const & GetUserLines() const override { return m_tracks; }
 
   void SetName(std::string const & name) { m_name = name; }
   void SetFileName(std::string const & fileName) { m_file = fileName; }
@@ -138,7 +138,7 @@ private:
   // Stores file name from which bookmarks were loaded.
   std::string m_file;
 
-  df::MarkIDSet m_tracks;
+  df::LineIDSet m_tracks;
 };
 
 struct KMLData

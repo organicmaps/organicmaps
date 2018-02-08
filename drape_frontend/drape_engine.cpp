@@ -229,8 +229,8 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider)
 
   auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
   auto linesRenderCollection = make_unique_dp<UserLinesRenderCollection>();
-  auto createdIdCollection = make_unique_dp<MarkIDCollection>();
-  auto removedIdCollection = make_unique_dp<MarkIDCollection>();
+  auto createdIdCollection = make_unique_dp<IDCollections>();
+  auto removedIdCollection = make_unique_dp<IDCollections>();
 
   df::MarkGroupID lastGroupId = *dirtyGroupIds.begin();
   bool visibilityChanged = provider->IsGroupVisiblityChanged(lastGroupId);
@@ -239,7 +239,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider)
   auto const HandleMark = [&](
     df::MarkID markId,
     UserMarksRenderCollection & renderCollection,
-    IDCollection * idCollection)
+    MarkIDCollection * idCollection)
   {
     auto const * mark = provider->GetUserPointMark(markId);
     if (!mark->IsDirty())
@@ -269,10 +269,10 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider)
   removedIdCollection->m_marksID.reserve(removedMarkIds.size());
   removedIdCollection->m_marksID.assign(removedMarkIds.begin(), removedMarkIds.end());
 
-  std::map<df::MarkGroupID, drape_ptr<MarkIDCollection>> dirtyMarkIds;
+  std::map<df::MarkGroupID, drape_ptr<IDCollections>> dirtyMarkIds;
   for (auto groupId : dirtyGroupIds)
   {
-    auto & idCollection = *(dirtyMarkIds.emplace(groupId, make_unique_dp<MarkIDCollection>()).first->second);
+    auto & idCollection = *(dirtyMarkIds.emplace(groupId, make_unique_dp<IDCollections>()).first->second);
     visibilityChanged = provider->IsGroupVisiblityChanged(groupId);
     groupIsVisible = provider->IsGroupVisible(groupId);
     if (!groupIsVisible && !visibilityChanged)

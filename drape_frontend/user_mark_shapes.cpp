@@ -96,7 +96,7 @@ struct UserPointVertex : gpu::BaseVertex
 } // namespace
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    IDCollection const & marksId, UserMarksRenderCollection & renderParams,
+                    MarkIDCollection const & marksId, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
   float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
@@ -338,7 +338,7 @@ void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmen
 }
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    IDCollection const & linesId, UserLinesRenderCollection & renderParams,
+                    LineIDCollection const & linesId, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
   float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());

@@ -12,7 +12,7 @@
 
 namespace df
 {
-using MarksIDGroups = std::map<MarkGroupID, drape_ptr<MarkIDCollection>>;
+using MarksIDGroups = std::map<MarkGroupID, drape_ptr<IDCollections>>;
 using MarksIndex = std::map<TileKey, drape_ptr<MarksIDGroups>>;
 
 class UserMarkGenerator
@@ -24,10 +24,10 @@ public:
 
   void SetUserMarks(drape_ptr<UserMarksRenderCollection> && marks);
   void SetUserLines(drape_ptr<UserLinesRenderCollection> && lines);
-  void SetRemovedUserMarks(drape_ptr<MarkIDCollection> && ids);
-  void SetCreatedUserMarks(drape_ptr<MarkIDCollection> && ids);
+  void SetRemovedUserMarks(drape_ptr<IDCollections> && ids);
+  void SetCreatedUserMarks(drape_ptr<IDCollections> && ids);
 
-  void SetGroup(MarkGroupID groupId, drape_ptr<MarkIDCollection> && ids);
+  void SetGroup(MarkGroupID groupId, drape_ptr<IDCollections> && ids);
   void RemoveGroup(MarkGroupID groupId);
   void SetGroupVisibility(MarkGroupID groupId, bool isVisible);
 
@@ -36,7 +36,7 @@ public:
 private:
   void UpdateIndex(MarkGroupID groupId);
 
-  ref_ptr<MarkIDCollection> GetIdCollection(TileKey const & tileKey, MarkGroupID groupId);
+  ref_ptr<IDCollections> GetIdCollection(TileKey const & tileKey, MarkGroupID groupId);
   void CleanIndex();
 
   int GetNearestLineIndexZoom(int zoom) const;

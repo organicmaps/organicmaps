@@ -156,10 +156,9 @@ BookmarkManager::~BookmarkManager()
 
 UserMark const * BookmarkManager::GetMark(df::MarkID markID) const
 {
-  auto const * userMark = GetUserMark(markID);
-  if (userMark != nullptr)
-    return userMark;
-  return static_cast<UserMark const *>(GetBookmark(markID));
+  if (IsBookmark(markID))
+    return GetBookmark(markID);
+  return GetUserMark(markID);
 }
 
 UserMark const * BookmarkManager::GetUserMark(df::MarkID markID) const
@@ -267,25 +266,25 @@ Track * BookmarkManager::CreateTrack(m2::PolylineD const & polyline, Track::Para
   return AddTrack(std::make_unique<Track>(polyline, p));
 }
 
-Track const * BookmarkManager::GetTrack(df::MarkID trackID) const
+Track const * BookmarkManager::GetTrack(df::LineID trackID) const
 {
   auto it = m_tracks.find(trackID);
   return (it != m_tracks.end()) ? it->second.get() : nullptr;
 }
 
-void BookmarkManager::AttachTrack(df::MarkID trackID, df::MarkGroupID groupID)
+void BookmarkManager::AttachTrack(df::LineID trackID, df::MarkGroupID groupID)
 {
   auto it = m_tracks.find(trackID);
   it->second->Attach(groupID);
   GetBmCategory(groupID)->AttachTrack(trackID);
 }
 
-void BookmarkManager::DetachTrack(df::MarkID trackID, df::MarkGroupID groupID)
+void BookmarkManager::DetachTrack(df::LineID trackID, df::MarkGroupID groupID)
 {
   GetBmCategory(groupID)->DetachTrack(trackID);
 }
 
-void BookmarkManager::DeleteTrack(df::MarkID trackID)
+void BookmarkManager::DeleteTrack(df::LineID trackID)
 {
   auto it = m_tracks.find(trackID);
   auto const groupID = it->second->GetGroupId();
@@ -366,7 +365,7 @@ df::MarkIDSet const & BookmarkManager::GetUserMarkIds(df::MarkGroupID groupID) c
   return FindContainer(groupID)->GetUserMarks();
 }
 
-df::MarkIDSet const & BookmarkManager::GetTrackIds(df::MarkGroupID groupID) const
+df::LineIDSet const & BookmarkManager::GetTrackIds(df::MarkGroupID groupID) const
 {
   return FindContainer(groupID)->GetUserLines();
 }
@@ -416,9 +415,7 @@ UserMark const * BookmarkManager::FindMarkInRect(df::MarkGroupID groupID, m2::An
     FindMarkFunctor f(&mark, d, rect);
     for (auto markId : group->GetUserMarks())
     {
-      auto const * mark = IsBookmark(groupID)
-        ? static_cast<UserMark const *>(GetBookmark(markId))
-        : GetUserMark(markId);
+      auto const * mark = GetMark(markId);
       if (mark->IsAvailableForSearch() && rect.IsPointInside(mark->GetPivot()))
         f(mark);
     }
@@ -735,7 +732,11 @@ void BookmarkManager::SendBookmarksChanges()
   }
   if (m_callbacks.m_deletedBookmarksCallback != nullptr)
   {
-    df::IDCollection idCollection(m_removedMarks.begin(), m_removedMarks.end());
+    df::MarkIDCollection idCollection;
+    idCollection.reserve(m_removedMarks.size());
+    for (auto markId : m_removedMarks)
+      if (IsBookmark(markId))
+        idCollection.push_back(markId);
     m_callbacks.m_deletedBookmarksCallback(idCollection);
   }
 }
@@ -877,7 +878,7 @@ df::MarkIDSet const & BookmarkManager::GetGroupPointIds(df::MarkGroupID groupId)
   return GetUserMarkIds(groupId);
 }
 
-df::MarkIDSet const & BookmarkManager::GetGroupLineIds(df::MarkGroupID groupId) const
+df::LineIDSet const & BookmarkManager::GetGroupLineIds(df::MarkGroupID groupId) const
 {
   return GetTrackIds(groupId);
 }
@@ -899,15 +900,12 @@ df::MarkIDSet const & BookmarkManager::GetUpdatedMarkIds() const
 
 df::UserPointMark const * BookmarkManager::GetUserPointMark(df::MarkID markID) const
 {
-  df::UserPointMark const * mark = GetUserMark(markID);
-  if (!mark)
-    mark = GetBookmark(markID);
-  return mark;
+  return GetMark(markID);
 }
 
-df::UserLineMark const * BookmarkManager::GetUserLineMark(df::MarkID markID) const
+df::UserLineMark const * BookmarkManager::GetUserLineMark(df::LineID lineID) const
 {
-  return GetTrack(markID);
+  return GetTrack(lineID);
 }
 
 void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection)
