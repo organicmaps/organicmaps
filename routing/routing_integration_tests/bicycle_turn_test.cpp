@@ -80,10 +80,19 @@ UNIT_TEST(RussiaMoscowSalameiNerisNoUTurnBicycleWayTurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
 }
 
-// Fails to build one-point route.
-UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointTurnTest)
+UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointOnewayRoadTurnTest)
 {
   m2::PointD const point = MercatorBounds::FromLatLon(55.8719, 37.4464);
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetVehicleComponents<VehicleType::Bicycle>(), point, {0.0, 0.0}, point);
+
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::IRouter::NoError, ());
+}
+
+UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointTwowayRoadTurnTest)
+{
+  m2::PointD const point = MercatorBounds::FromLatLon(55.87102, 37.44222);
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetVehicleComponents<VehicleType::Bicycle>(), point, {0.0, 0.0}, point);
 

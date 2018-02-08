@@ -298,8 +298,10 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
                                                                    otherJunction.GetPoint());
       if (distBackToThis < distBackToOther)
         frontJunction = otherJunction;
-      else
+      else if (distBackToOther < distBackToThis)
         backJunction = otherJunction;
+      else
+        frontJunction = backJunction = otherJunction;
     }
 
     FakeVertex forwardPartOfReal(isStart ? projection.m_junction : backJunction,
