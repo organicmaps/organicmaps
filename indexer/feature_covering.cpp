@@ -90,11 +90,11 @@ public:
     return CELL_OBJECT_NO_INTERSECTION;
   }
 
-  using CellIdConverter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
+  using Converter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
 
   m2::PointD ConvertPoint(m2::PointD const & p)
   {
-    m2::PointD const pt(CellIdConverter::XToCellIdX(p.x), CellIdConverter::YToCellIdY(p.y));
+    m2::PointD const pt(Converter::XToCellIdX(p.x), Converter::YToCellIdY(p.y));
     m_rect.Add(pt);
     return pt;
   }
