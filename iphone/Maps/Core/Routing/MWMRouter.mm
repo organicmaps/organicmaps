@@ -491,6 +491,8 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 {
   [self clearAltitudeImagesData];
   GetFramework().GetRoutingManager().CloseRouting(removeRoutePoints);
+  if (removeRoutePoints)
+    GetFramework().GetRoutingManager().DeleteSavedRoutePoints();
   [MWMThemeManager setAutoUpdates:NO];
   [[MapsAppDelegate theApp] showAlertIfRequired];
 }
