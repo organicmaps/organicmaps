@@ -28518,20 +28518,20 @@
     ru = Войти
 
   [bookmarks_message_authorized_user]
-    en = Your bookmarks backup automaticaly every week in a secure storage. Do you want enable backup?
-    ru = Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Включить резервное копирование?
+    en = Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?
+    ru = Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Включить резервное копирование?
 
   [bookmarks_message_unauthorized_user]
-    en = Your bookmarks backup automaticaly every week in a secure storage. Sign in to enable backup.
-    ru = Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Авторизуйтесь, чтобы включить резервное копирование.
+    en = Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.
+    ru = Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Авторизуйтесь, чтобы включить резервное копирование.
 
   [bookmarks_message_unbackuped_user]
-    en = Your bookmarks backup automaticaly every week in a secure storage.
-    ru = Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю.
+    en = Your bookmarks backup automaticaly in a secure cloud storage.
+    ru = Резервная копия ваших меток автоматически создается в безопасном облачном хранилище.
 
   [bookmarks_message_backuped_user]
     en = Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s
-    ru = Резервная копия ваших меток автоматически создается в безопасном хранилище каждую неделю. Последнее резервное копирование было %s
+    ru = Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Последнее резервное копирование было %s
 
   [settings_backup_bookmarks]
     en = Backup Bookmarks
