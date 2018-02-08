@@ -13,6 +13,7 @@ import android.view.View;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
+import com.mapswithme.maps.bookmarks.data.BookmarkBackupController;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
@@ -29,7 +30,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                RecyclerClickListener,
                RecyclerLongClickListener,
                BookmarkManager.BookmarksLoadingListener,
-               Authorizer.Callback
+               Authorizer.Callback, BookmarkBackupController.BackupListener
 {
   private int mSelectedPosition;
   @Nullable
@@ -37,6 +38,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
 
   @NonNull
   private final Authorizer mAuthorizer = new Authorizer(this, this);
+
+  @Nullable
+  private BookmarkBackupController mBackupController;
 
   @Override
   protected @LayoutRes int getLayoutRes()
@@ -65,6 +69,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     super.onViewCreated(view, savedInstanceState);
 
     mLoadingPlaceholder = view.findViewById(R.id.placeholder_loading);
+    mBackupController = new BookmarkBackupController(view.findViewById(R.id.backup));
+    mBackupController.setListener(this);
 
     if (getAdapter() != null)
     {
@@ -233,5 +239,18 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   public void onAuthorizationFinish()
   {
     // TODO: coming soon.
+  }
+
+  @Override
+  public void onSignInClick()
+  {
+    mAuthorizer.authorize();
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+    mAuthorizer.onActivityResult(requestCode, resultCode, data);
   }
 }

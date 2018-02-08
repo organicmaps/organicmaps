@@ -34,7 +34,7 @@ public class BookmarkBackupView extends LinearLayout
   @NonNull
   private final OnClickListener mHeaderClickListener = v -> onHeaderClick();
 
-  private boolean mExpanded = false;
+  private boolean mExpanded = true;
 
   public BookmarkBackupView(Context context)
   {
@@ -78,8 +78,7 @@ public class BookmarkBackupView extends LinearLayout
   @NonNull
   private Animator createFadeInAnimator()
   {
-    ObjectAnimator animator = ObjectAnimator.ofFloat(mContentLayout, "alpha",
-                                                     0, 1f);
+    ObjectAnimator animator = ObjectAnimator.ofFloat(mContentLayout, "alpha", 0, 1f);
     animator.addListener(new AnimatorListenerAdapter()
     {
       @Override
@@ -101,8 +100,7 @@ public class BookmarkBackupView extends LinearLayout
   @NonNull
   private Animator createFadeOutAnimator()
   {
-    ObjectAnimator animator = ObjectAnimator.ofFloat(mContentLayout, "alpha",
-                                                     1f, 0);
+    ObjectAnimator animator = ObjectAnimator.ofFloat(mContentLayout, "alpha", 1f, 0);
     animator.addListener(new AnimatorListenerAdapter()
     {
       @Override
@@ -139,6 +137,16 @@ public class BookmarkBackupView extends LinearLayout
   {
     TextView button = mContentLayout.findViewById(R.id.button);
     button.setText(label);
+  }
+
+  public void hideButton()
+  {
+    UiUtils.hide(mContentLayout, R.id.button);
+  }
+
+  public void showButton()
+  {
+    UiUtils.show(mContentLayout, R.id.button);
   }
 
   public void setClickListener(@Nullable OnClickListener listener)

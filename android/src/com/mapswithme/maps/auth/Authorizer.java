@@ -39,7 +39,7 @@ public class Authorizer
     fragment.show(mFragment.getActivity().getSupportFragmentManager(), name);
   }
 
-  public final void onActivityResult(int requestCode, int resultCode, Intent data)
+  public final void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
   {
     if (requestCode != Constants.REQ_CODE_GET_SOCIAL_TOKEN
         || resultCode != Activity.RESULT_OK || data == null)

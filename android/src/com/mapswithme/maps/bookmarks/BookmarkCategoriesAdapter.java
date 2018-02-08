@@ -33,12 +33,12 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
     super(context);
   }
 
-  public void setOnClickListener(RecyclerClickListener listener)
+  public void setOnClickListener(@Nullable RecyclerClickListener listener)
   {
     mClickListener = listener;
   }
 
-  void setOnLongClickListener(RecyclerLongClickListener listener)
+  void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
   {
     mLongClickListener = listener;
   }
