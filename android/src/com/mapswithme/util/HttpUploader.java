@@ -1,13 +1,38 @@
 package com.mapswithme.util;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
+import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-final class HttpUploader
+public final class HttpUploader
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.NETWORK);
+  private static final String TAG = HttpUploader.class.getSimpleName();
+  private static final String USER_AGENT = "Mapsme Android";
+  private static final String LINE_FEED = "\r\n";
+  private static final String CHARSET = "UTF-8";
+  private static final int BUFFER = 8192;
+  private static final int STATUS_CODE_UNKNOWN = -1;
   @NonNull
   private final String mMethod;
   @NonNull
@@ -20,24 +45,177 @@ final class HttpUploader
   private final String mFileKey;
   @NonNull
   private final String mFilePath;
+  @NonNull
+  private final String mBoundary;
 
-  @SuppressWarnings("unused")
-  private HttpUploader(@NonNull String method, @NonNull String url, @NonNull KeyValue[] params,
-                       @NonNull KeyValue[] headers, @NonNull String fileKey, @NonNull String filePath)
+  public HttpUploader(@NonNull String method, @NonNull String url, @NonNull KeyValue[] params,
+                      @NonNull KeyValue[] headers, @NonNull String fileKey, @NonNull String filePath)
   {
     mMethod = method;
     mUrl = url;
-    mParams = new ArrayList<>(Arrays.asList(params));
-    mHeaders = new ArrayList<>(Arrays.asList(headers));
     mFileKey = fileKey;
     mFilePath = filePath;
+    mBoundary = "------------------------" + System.currentTimeMillis();
+    mParams = new ArrayList<>(Arrays.asList(params));
+    mHeaders = new ArrayList<>(Arrays.asList(headers));
   }
 
-  @SuppressWarnings("unused")
-  private Result upload()
+  public Result upload()
   {
-    // Dummy. Error code 200 - Http OK.
-    return new Result(200, "");
+    int status;
+    String message;
+    PrintWriter writer = null;
+    BufferedReader reader = null;
+    HttpURLConnection connection = null;
+    try
+    {
+      URL url = new URL(mUrl);
+      connection = (HttpURLConnection) url.openConnection();
+      connection.setUseCaches(false);
+      connection.setRequestMethod(mMethod);
+      connection.setDoOutput(mMethod.equals("POST"));
+      connection.setDoInput(true);
+
+      long fileSize = StorageUtils.getFileSize(mFilePath);
+      StringBuilder paramsBuilder = new StringBuilder();
+      fillBodyParams(paramsBuilder);
+      File file = new File(mFilePath);
+      fillFileParams(paramsBuilder, mFileKey, file);
+      int endPartSize = LINE_FEED.length() + "--".length() + mBoundary.length()
+                        + "--".length() + LINE_FEED.length();
+      long bodyLength = paramsBuilder.toString().length() + fileSize + endPartSize;
+      setHeaders(connection, bodyLength);
+
+      OutputStream outputStream = connection.getOutputStream();
+      writer = new PrintWriter(new OutputStreamWriter(outputStream, CHARSET));
+      writeParams(writer, paramsBuilder);
+      writeFileContent(outputStream, writer, file);
+
+      status = connection.getResponseCode();
+      LOGGER.d(TAG, "Upload bookmarks status code: " + status);
+      reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+      message = readResponse(reader);
+      LOGGER.d(TAG, "Upload bookmarks response: " + message);
+    }
+    catch (IOException e)
+    {
+      status = STATUS_CODE_UNKNOWN;
+      message = "I/O exception '" + Utils.makeUrlSafe(mUrl) + "'";
+      if (connection != null)
+      {
+        String errMsg = readErrorResponse(connection);
+        if (!TextUtils.isEmpty(errMsg))
+          message = errMsg;
+      }
+      LOGGER.e(TAG, message, e);
+    }
+    finally
+    {
+      Utils.closeStream(writer);
+      Utils.closeStream(reader);
+      if (connection != null)
+        connection.disconnect();
+    }
+    return new Result(status, message);
+  }
+
+  @NonNull
+  private String readResponse(@NonNull BufferedReader reader)
+      throws IOException
+  {
+    StringBuilder response = new StringBuilder();
+    String line;
+    while ((line = reader.readLine()) != null)
+      response.append(line);
+    return response.toString();
+  }
+
+  @Nullable
+  private String readErrorResponse(@NonNull HttpURLConnection connection)
+  {
+    BufferedReader reader = null;
+    try
+    {
+      InputStream errStream = connection.getErrorStream();
+      if (errStream == null)
+        return null;
+
+      reader = new BufferedReader(
+          new InputStreamReader(connection.getErrorStream()));
+      return readResponse(reader);
+    }
+    catch (IOException e)
+    {
+      LOGGER.e(TAG, "Failed to read a error stream.");
+    }
+    finally
+    {
+      Utils.closeStream(reader);
+    }
+    return null;
+  }
+
+  private void writeParams(@NonNull PrintWriter writer, @NonNull StringBuilder paramsBuilder)
+  {
+    writer.append(paramsBuilder);
+    writer.flush();
+  }
+
+  private void setHeaders(@NonNull URLConnection connection, long bodyLength)
+  {
+    mHeaders.add(new KeyValue("User-Agent", USER_AGENT));
+    mHeaders.add(new KeyValue("App-Version", BuildConfig.VERSION_NAME));
+    mHeaders.add(new KeyValue("Content-Type", "multipart/form-data; boundary=" + mBoundary));
+    mHeaders.add(new KeyValue("Content-Length", String.valueOf(bodyLength)));
+    for (KeyValue header : mHeaders)
+      connection.setRequestProperty(header.mKey, header.mValue);
+  }
+
+  private void fillBodyParams(@NonNull StringBuilder builder)
+  {
+    for (KeyValue field : mParams)
+      addParam(builder, field.mKey, field.mValue);
+  }
+
+  private void addParam(@NonNull StringBuilder builder, @NonNull String key, @NonNull String value)
+  {
+    builder.append("--").append(mBoundary).append(LINE_FEED);
+    builder.append("Content-Disposition: form-data; name=\"")
+           .append(key)
+           .append("\"")
+           .append(LINE_FEED);
+    builder.append(LINE_FEED);
+    builder.append(value).append(LINE_FEED);
+  }
+
+  private void fillFileParams(@NonNull StringBuilder builder, @NonNull String fieldName,
+                              @NonNull File uploadFile)
+  {
+    String fileName = uploadFile.getName();
+    builder.append("--").append(mBoundary).append(LINE_FEED);
+    builder.append("Content-Disposition: form-data; name=\"")
+           .append(fieldName)
+           .append("\"; filename=\"")
+           .append(fileName)
+           .append("\"")
+           .append(LINE_FEED);
+    builder.append("Content-Type: ").append(URLConnection.guessContentTypeFromName(fileName))
+           .append(LINE_FEED);
+    builder.append(LINE_FEED);
+  }
+
+  private void writeFileContent(@NonNull OutputStream outputStream, @NonNull PrintWriter writer,
+                                @NonNull File uploadFile) throws IOException
+  {
+    FileInputStream inputStream = new FileInputStream(uploadFile);
+    int size = Math.min((int) uploadFile.length(), BUFFER);
+    byte[] buffer = new byte[size];
+    int bytesRead;
+    while ((bytesRead = inputStream.read(buffer)) != -1)
+      outputStream.write(buffer, 0, bytesRead);
+    Utils.closeStream(inputStream);
+    writer.append(LINE_FEED).append("--").append(mBoundary).append("--").append(LINE_FEED);
+    writer.flush();
   }
 
   private static class Result

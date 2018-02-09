@@ -60,7 +60,7 @@ public class Utils
 
   private Utils() {}
 
-  public static void closeStream(Closeable stream)
+  public static void closeStream(@Nullable Closeable stream)
   {
     if (stream != null)
     {
@@ -438,6 +438,11 @@ public class Utils
       text = (price + " " + currencyCode);
     }
     return text;
+  }
+
+  static String makeUrlSafe(@NonNull final String url)
+  {
+    return url.replaceAll("(token|password|key)=([^&]+)", "***");
   }
 
   @StringRes

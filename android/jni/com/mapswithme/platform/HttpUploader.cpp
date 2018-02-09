@@ -63,6 +63,14 @@ HttpUploader::Result HttpUploader::Upload() const
   jni::ScopedLocalRef<jobject> const result(
     env, env->CallObjectMethod(httpUploaderObject, uploadId));
 
+  if (jni::HandleJavaException(env))
+  {
+    Result invalidResult;
+    invalidResult.m_httpCode = -1;
+    invalidResult.m_description = "Unhandled exception during upload is encountered!";
+    return invalidResult;
+  }
+
   return ToNativeResult(env, result);
 }
 } // namespace platform

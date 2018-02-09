@@ -83,4 +83,10 @@ public class StorageUtils
     File file = new File(zipFile);
     return file.isFile() && file.exists() ? zipFile : null;
   }
+
+  public static long getFileSize(@NonNull String path)
+  {
+    File file = new File(path);
+    return file.length();
+  }
 }

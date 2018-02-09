@@ -2,9 +2,9 @@ package com.mapswithme.util;
 
 import android.support.annotation.NonNull;
 
-final class KeyValue
+public final class KeyValue
 {
-  KeyValue(@NonNull String key, @NonNull String value)
+  public KeyValue(@NonNull String key, @NonNull String value)
   {
     mKey = key;
     mValue = value;
