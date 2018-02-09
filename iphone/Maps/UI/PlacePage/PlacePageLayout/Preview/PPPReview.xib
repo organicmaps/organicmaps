@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="37.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67u-jC-41D" customClass="RatingSummaryView" customModule="cm_beta" customModuleProvider="target">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67u-jC-41D" customClass="RatingSummaryView" customModule="maps_me" customModuleProvider="target">
                         <rect key="frame" x="12" y="8" width="48" height="17.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -50,8 +50,8 @@
                             <userDefinedRuntimeAttribute type="image" keyPath="badImage" value="ic_12px_rating_bad"/>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaG-Vf-CwT">
-                        <rect key="frame" x="68" y="8" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaG-Vf-CwT">
+                        <rect key="frame" x="68" y="6.5" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -85,19 +85,21 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="XaG-Vf-CwT" firstAttribute="centerY" secondItem="Zth-C7-aXm" secondAttribute="centerY" id="2Gr-ej-lnD"/>
+                    <constraint firstItem="XaG-Vf-CwT" firstAttribute="centerY" secondItem="67u-jC-41D" secondAttribute="centerY" id="3GU-pM-RQN"/>
                     <constraint firstItem="t1Z-Sp-Xi5" firstAttribute="leading" secondItem="Zth-C7-aXm" secondAttribute="leading" id="5Qx-I3-eeG"/>
                     <constraint firstAttribute="trailing" secondItem="Ga0-6D-Ttl" secondAttribute="trailing" constant="12" id="6oV-WI-She"/>
                     <constraint firstItem="67u-jC-41D" firstAttribute="top" secondItem="Zth-C7-aXm" secondAttribute="top" constant="8" id="9Jf-DS-dPe"/>
-                    <constraint firstItem="XaG-Vf-CwT" firstAttribute="leading" secondItem="67u-jC-41D" secondAttribute="trailing" constant="8" id="IrV-fs-bYL"/>
+                    <constraint firstItem="XaG-Vf-CwT" firstAttribute="leading" secondItem="67u-jC-41D" secondAttribute="trailing" priority="100" constant="8" id="IrV-fs-bYL"/>
                     <constraint firstAttribute="bottom" secondItem="t1Z-Sp-Xi5" secondAttribute="bottom" id="MXa-Ha-DVe"/>
                     <constraint firstItem="Thk-j3-Or0" firstAttribute="centerY" secondItem="Zth-C7-aXm" secondAttribute="centerY" id="NbS-0e-2Dh"/>
+                    <constraint firstItem="Ga0-6D-Ttl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XaG-Vf-CwT" secondAttribute="trailing" constant="4" id="VnS-wf-vtj"/>
                     <constraint firstAttribute="trailing" secondItem="t1Z-Sp-Xi5" secondAttribute="trailing" id="Ygd-7d-cGu"/>
                     <constraint firstAttribute="bottom" secondItem="67u-jC-41D" secondAttribute="bottom" constant="12" id="dOX-Tv-3un"/>
                     <constraint firstAttribute="trailing" secondItem="Thk-j3-Or0" secondAttribute="trailing" constant="16" id="dgG-Cd-fzs"/>
                     <constraint firstItem="Ga0-6D-Ttl" firstAttribute="top" secondItem="67u-jC-41D" secondAttribute="top" id="hGC-mM-qmJ"/>
                     <constraint firstItem="Ga0-6D-Ttl" firstAttribute="bottom" secondItem="67u-jC-41D" secondAttribute="bottom" id="j4s-Yj-bcx"/>
                     <constraint firstItem="67u-jC-41D" firstAttribute="leading" secondItem="Zth-C7-aXm" secondAttribute="leading" constant="12" id="u0I-Zd-9bf"/>
+                    <constraint firstItem="XaG-Vf-CwT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="67u-jC-41D" secondAttribute="trailing" constant="4" id="yvS-sv-Rgf"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>

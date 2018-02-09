@@ -31,7 +31,12 @@ final class PPPReview: MWMTableViewCell {
     ratingSummaryView.value = rating.value
     ratingSummaryView.type = rating.type
     ratingSummaryView.backgroundOpacity = 0.05
-    addReviewButton.isHidden = true
+    if canAddReview {
+      addReviewButton.isHidden = false
+      addReviewButton.layer.cornerRadius = addReviewButton.height / 2
+    } else {
+      addReviewButton.isHidden = true
+    }
     pricingLabel.isHidden = true
     reviewsLabel.isHidden = false
     if rating.type == .noValue {
@@ -39,8 +44,6 @@ final class PPPReview: MWMTableViewCell {
         ratingSummaryView.noValueImage = #imageLiteral(resourceName: "ic_12px_rating_normal")
         ratingSummaryView.noValueColor = UIColor.blackSecondaryText()
         reviewsLabel.text = L("placepage_no_reviews")
-        addReviewButton.isHidden = false
-        addReviewButton.layer.cornerRadius = addReviewButton.height / 2
       } else {
         ratingSummaryView.noValueImage = #imageLiteral(resourceName: "ic_12px_radio_on")
         ratingSummaryView.noValueColor = UIColor.linkBlue()
