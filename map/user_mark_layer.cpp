@@ -1,4 +1,4 @@
-#include "map/user_mark_container.hpp"
+#include "map/user_mark_layer.hpp"
 #include "map/search_mark.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
@@ -11,38 +11,38 @@
 #include <algorithm>
 #include <utility>
 
-UserMarkContainer::UserMarkContainer(UserMark::Type type)
+UserMarkLayer::UserMarkLayer(UserMark::Type type)
   : m_type(type)
 {
 }
 
-UserMarkContainer::~UserMarkContainer()
+UserMarkLayer::~UserMarkLayer()
 {
   Clear();
 }
 
-bool UserMarkContainer::IsVisible() const
+bool UserMarkLayer::IsVisible() const
 {
   return m_isVisible;
 }
 
-bool UserMarkContainer::IsVisibilityChanged() const
+bool UserMarkLayer::IsVisibilityChanged() const
 {
   return m_isVisible != m_wasVisible;
 }
 
-UserMark::Type UserMarkContainer::GetType() const
+UserMark::Type UserMarkLayer::GetType() const
 {
   return m_type;
 }
 
-void UserMarkContainer::Clear()
+void UserMarkLayer::Clear()
 {
   SetDirty();
   m_userMarks.clear();
 }
 
-void UserMarkContainer::SetIsVisible(bool isVisible)
+void UserMarkLayer::SetIsVisible(bool isVisible)
 {
   if (IsVisible() != isVisible)
   {
@@ -51,19 +51,19 @@ void UserMarkContainer::SetIsVisible(bool isVisible)
   }
 }
 
-void UserMarkContainer::ResetChanges()
+void UserMarkLayer::ResetChanges()
 {
   m_isDirty = false;
   m_wasVisible = m_isVisible;
 }
 
-void UserMarkContainer::AttachUserMark(df::MarkID markId)
+void UserMarkLayer::AttachUserMark(df::MarkID markId)
 {
   SetDirty();
   m_userMarks.insert(markId);
 }
 
-void UserMarkContainer::DetachUserMark(df::MarkID markId)
+void UserMarkLayer::DetachUserMark(df::MarkID markId)
 {
   SetDirty();
   m_userMarks.erase(markId);

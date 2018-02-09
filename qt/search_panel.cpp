@@ -3,7 +3,7 @@
 
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
-#include "map/user_mark_container.hpp"
+#include "map/user_mark_layer.hpp"
 
 #include "drape/constants.hpp"
 

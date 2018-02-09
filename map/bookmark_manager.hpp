@@ -1,7 +1,7 @@
 #pragma once
 
 #include "map/bookmark.hpp"
-#include "map/user_mark_container.hpp"
+#include "map/user_mark_layer.hpp"
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
@@ -22,7 +22,7 @@
 
 class BookmarkManager final
 {
-  using UserMarkLayers = std::vector<std::unique_ptr<UserMarkContainer>>;
+  using UserMarkLayers = std::vector<std::unique_ptr<UserMarkLayer>>;
   using CategoriesCollection = std::map<df::MarkGroupID, std::unique_ptr<BookmarkCategory>>;
 
   using MarksCollection = std::map<df::MarkID, std::unique_ptr<UserMark>>;
@@ -132,6 +132,9 @@ public:
 
   void UpdateViewport(ScreenBase const & screen);
   void Teardown();
+
+  static bool IsBookmarkCategory(df::MarkGroupID groupId) { return groupId >= UserMark::BOOKMARK; }
+  static bool IsBookmark(df::MarkID markID) { return UserMark::GetMarkType(markID) == UserMark::BOOKMARK; }
 
   template <typename UserMarkT>
   UserMarkT const * GetMark(df::MarkID markId) const
@@ -282,13 +285,10 @@ private:
   void MoveBookmark(df::MarkID bmID, df::MarkGroupID curGroupID, df::MarkGroupID newGroupID);
   void UpdateBookmark(df::MarkID bmId, BookmarkData const & bm);
 
-  static bool IsBookmarkCategory(df::MarkGroupID groupId) { return groupId >= UserMark::BOOKMARK; }
-  static bool IsBookmark(df::MarkID markID) { return UserMark::GetMarkType(markID) == UserMark::BOOKMARK; }
-
   UserMark const * GetMark(df::MarkID markID) const;
 
-  UserMarkContainer const * FindContainer(df::MarkGroupID containerId) const;
-  UserMarkContainer * FindContainer(df::MarkGroupID containerId);
+  UserMarkLayer const * FindContainer(df::MarkGroupID containerId) const;
+  UserMarkLayer * FindContainer(df::MarkGroupID containerId);
   BookmarkCategory * GetBmCategory(df::MarkGroupID categoryId) const;
 
   Bookmark * AddBookmark(std::unique_ptr<Bookmark> && bookmark);

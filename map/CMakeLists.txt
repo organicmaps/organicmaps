@@ -87,8 +87,8 @@ set(
   transit/transit_reader.hpp
   user.cpp
   user.hpp
-  user_mark_container.cpp
-  user_mark_container.hpp
+  user_mark_layer.cpp
+  user_mark_layer.hpp
   user_mark.cpp
   user_mark.hpp
   viewport_search_params.hpp

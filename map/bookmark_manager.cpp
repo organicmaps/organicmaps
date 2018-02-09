@@ -142,7 +142,7 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
   ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
   m_userMarkLayers.reserve(UserMark::BOOKMARK);
   for (size_t i = 0; i < UserMark::BOOKMARK; ++i)
-    m_userMarkLayers.emplace_back(std::make_unique<UserMarkContainer>(static_cast<UserMark::Type>(i)));
+    m_userMarkLayers.emplace_back(std::make_unique<UserMarkLayer>(static_cast<UserMark::Type>(i)));
 
   m_selectionMark = CreateUserMark<StaticMarkPoint>(m2::PointD{});
   m_myPositionMark = CreateUserMark<MyPositionMarkPoint>(m2::PointD{});
@@ -699,7 +699,7 @@ std::string BookmarkManager::LastEditedBMType() const
 
 BookmarkCategory * BookmarkManager::GetBmCategory(df::MarkGroupID categoryId) const
 {
-  ASSERT(categoryId >= UserMark::BOOKMARK, ());
+  ASSERT(IsBookmarkCategory(categoryId), ());
   auto const it = m_categories.find(categoryId);
   return (it != m_categories.end() ? it->second.get() : 0);
 }
@@ -828,7 +828,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
   return finder.GetFoundMark();
 }
 
-UserMarkContainer const * BookmarkManager::FindContainer(df::MarkGroupID containerId) const
+UserMarkLayer const * BookmarkManager::FindContainer(df::MarkGroupID containerId) const
 {
   if (containerId < UserMark::Type::BOOKMARK)
     return m_userMarkLayers[containerId].get();
@@ -837,7 +837,7 @@ UserMarkContainer const * BookmarkManager::FindContainer(df::MarkGroupID contain
   return m_categories.at(containerId).get();
 }
 
-UserMarkContainer * BookmarkManager::FindContainer(df::MarkGroupID containerId)
+UserMarkLayer * BookmarkManager::FindContainer(df::MarkGroupID containerId)
 {
   if (containerId < UserMark::Type::BOOKMARK)
     return m_userMarkLayers[containerId].get();

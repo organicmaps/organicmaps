@@ -14,14 +14,14 @@
 #include <memory>
 #include <set>
 
-class UserMarkContainer
+class UserMarkLayer
 {
 public:
-  UserMarkContainer(UserMark::Type type);
-  virtual ~UserMarkContainer();
+  UserMarkLayer(UserMark::Type type);
+  virtual ~UserMarkLayer();
 
   bool IsDirty() const { return m_isDirty; }
-  virtual void ResetChanges();
+  void ResetChanges();
 
   bool IsVisible() const;
   bool IsVisibilityChanged() const;
@@ -48,6 +48,6 @@ protected:
   bool m_isVisible = true;
   bool m_wasVisible = false;
 
-  DISALLOW_COPY_AND_MOVE(UserMarkContainer);
+  DISALLOW_COPY_AND_MOVE(UserMarkLayer);
 };
 

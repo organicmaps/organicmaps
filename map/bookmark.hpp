@@ -2,7 +2,7 @@
 
 #include "map/track.hpp"
 #include "map/user_mark.hpp"
-#include "map/user_mark_container.hpp"
+#include "map/user_mark_layer.hpp"
 
 #include "coding/reader.hpp"
 
@@ -111,9 +111,9 @@ private:
   df::MarkGroupID m_groupId;
 };
 
-class BookmarkCategory : public UserMarkContainer
+class BookmarkCategory : public UserMarkLayer
 {
-  using Base = UserMarkContainer;
+  using Base = UserMarkLayer;
 
 public:
   BookmarkCategory(std::string const & name, df::MarkGroupID groupID);
