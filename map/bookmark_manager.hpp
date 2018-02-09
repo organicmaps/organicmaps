@@ -22,17 +22,14 @@
 
 class BookmarkManager final
 {
+  using UserMarkLayers = std::vector<std::unique_ptr<UserMarkContainer>>;
   using CategoriesCollection = std::map<df::MarkGroupID, std::unique_ptr<BookmarkCategory>>;
+
   using MarksCollection = std::map<df::MarkID, std::unique_ptr<UserMark>>;
   using BookmarksCollection = std::map<df::MarkID, std::unique_ptr<Bookmark>>;
   using TracksCollection = std::map<df::LineID, std::unique_ptr<Track>>;
 
-  using CategoryIter = CategoriesCollection::iterator;
-  using GroupIdList = std::vector<df::MarkGroupID>;
-
-  using UserMarkLayers = std::vector<std::unique_ptr<UserMarkContainer>>;
 public:
-
   using AsyncLoadingStartedCallback = std::function<void()>;
   using AsyncLoadingFinishedCallback = std::function<void()>;
   using AsyncLoadingFileCallback = std::function<void(std::string const &, bool)>;
@@ -67,31 +64,74 @@ public:
     DeletedBookmarksCallback m_deletedBookmarksCallback;
   };
 
+  class EditSession
+  {
+  public:
+    EditSession(BookmarkManager & bmManager);
+    ~EditSession();
+
+    template <typename UserMarkT>
+    UserMarkT * CreateUserMark(m2::PointD const & ptOrg)
+    {
+      return m_bmManager.CreateUserMark<UserMarkT>(ptOrg);
+    }
+
+    Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm);
+    Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupID);
+    Track * CreateTrack(m2::PolylineD const & polyline, Track::Params const & p);
+
+    template <typename UserMarkT>
+    UserMarkT * GetMarkForEdit(df::MarkID markId)
+    {
+      return m_bmManager.GetMarkForEdit<UserMarkT>(markId);
+    }
+
+    //UserMark * GetUserMarkForEdit(df::MarkID markID);
+    Bookmark * GetBookmarkForEdit(df::MarkID markID);
+
+    template <typename UserMarkT, typename F>
+    void DeleteUserMarks(UserMark::Type type, F deletePredicate)
+    {
+      return m_bmManager.DeleteUserMarks<UserMarkT, F>(type, deletePredicate);
+    };
+
+    void DeleteUserMark(df::MarkID markId);
+    void DeleteBookmark(df::MarkID bmId);
+    void DeleteTrack(df::LineID trackID);
+
+    void ClearGroup(df::MarkGroupID groupID);
+
+    void SetIsVisible(df::MarkGroupID groupId, bool visible);
+
+    void MoveBookmark(df::MarkID bmID, df::MarkGroupID curGroupID, df::MarkGroupID newGroupID);
+    void UpdateBookmark(df::MarkID bmId, BookmarkData const & bm);
+
+    void AttachBookmark(df::MarkID bmId, df::MarkGroupID groupID);
+    void DetachBookmark(df::MarkID bmId, df::MarkGroupID groupID);
+
+    void AttachTrack(df::LineID trackID, df::MarkGroupID groupID);
+    void DetachTrack(df::LineID trackID, df::MarkGroupID groupID);
+
+    bool DeleteBmCategory(df::MarkGroupID groupID);
+
+    void NotifyChanges();
+
+  private:
+    BookmarkManager & m_bmManager;
+  };
+
   explicit BookmarkManager(Callbacks && callbacks);
   ~BookmarkManager();
 
-  template <typename UserMarkT>
-  UserMarkT * CreateUserMark(m2::PointD const & ptOrg)
-  {
-    auto mark = std::make_unique<UserMarkT>(ptOrg);
-    auto * m = mark.get();
-    auto const markId = m->GetId();
-    auto const groupId = static_cast<df::MarkGroupID>(m->GetMarkType());
-    ASSERT(m_userMarks.count(markId) == 0, ());
-    ASSERT_LESS(groupId, m_userMarkLayers.size(), ());
-    m_userMarks.emplace(markId, std::move(mark));
-    m_changesTracker.OnAddMark(markId);
-    m_userMarkLayers[groupId]->AttachUserMark(markId);
-    return m;
-  }
+  void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
 
-  template <typename UserMarkT>
-  UserMarkT * GetMarkForEdit(df::MarkID markId)
-  {
-    auto * mark = GetUserMarkForEdit(markId);
-    ASSERT(dynamic_cast<UserMarkT *>(mark) != nullptr, ());
-    return static_cast<UserMarkT *>(mark);
-  }
+  void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
+  bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
+
+  EditSession GetEditSession();
+
+  void UpdateViewport(ScreenBase const & screen);
+  void Teardown();
 
   template <typename UserMarkT>
   UserMarkT const * GetMark(df::MarkID markId) const
@@ -101,53 +141,34 @@ public:
     return static_cast<UserMarkT const *>(mark);
   }
 
-  template <typename UserMarkT, typename F>
-  void DeleteUserMarks(UserMark::Type type, F deletePredicate)
-  {
-    std::list<df::MarkID> marksToDelete;
-    for (auto markId : GetUserMarkIds(type))
-    {
-      if (deletePredicate(GetMark<UserMarkT>(markId)))
-        marksToDelete.push_back(markId);
-    }
-    // Delete after iterating to avoid iterators invalidation issues.
-    for (auto markId : marksToDelete)
-      DeleteUserMark(markId);
-  };
-
   UserMark const * GetUserMark(df::MarkID markID) const;
-  UserMark * GetUserMarkForEdit(df::MarkID markID);
-  void DeleteUserMark(df::MarkID markId);
-
-  Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm);
-  Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupID);
   Bookmark const * GetBookmark(df::MarkID markID) const;
-  Bookmark * GetBookmarkForEdit(df::MarkID markID);
-  void AttachBookmark(df::MarkID bmId, df::MarkGroupID groupID);
-  void DetachBookmark(df::MarkID bmId, df::MarkGroupID groupID);
-  void DeleteBookmark(df::MarkID bmId);
-
-  Track * CreateTrack(m2::PolylineD const & polyline, Track::Params const & p);
   Track const * GetTrack(df::LineID trackID) const;
-  void AttachTrack(df::LineID trackID, df::MarkGroupID groupID);
-  void DetachTrack(df::LineID trackID, df::MarkGroupID groupID);
-  void DeleteTrack(df::LineID trackID);
-
-  //////////////////
-  void ClearGroup(df::MarkGroupID groupID);
-
-  void NotifyChanges(df::MarkGroupID groupID);
 
   df::MarkIDSet const & GetUserMarkIds(df::MarkGroupID groupID) const;
   df::LineIDSet const & GetTrackIds(df::MarkGroupID groupID) const;
 
+  bool IsVisible(df::MarkGroupID groupId) const;
+
+  df::MarkGroupID CreateBmCategory(std::string const & name);
+
   std::string const & GetCategoryName(df::MarkGroupID categoryId) const;
+  std::string const & GetCategoryFileName(df::MarkGroupID categoryId) const;
   void SetCategoryName(df::MarkGroupID categoryId, std::string const & name);
 
+  df::GroupIDList const & GetBmGroupsIdList() const { return m_bmGroupsIdList; }
+  bool HasBmCategory(df::MarkGroupID groupID) const;
+  df::MarkGroupID LastEditedBMCategory();
+  std::string LastEditedBMType() const;
+
+  using TTouchRectHolder = function<m2::AnyRectD(UserMark::Type)>;
+  UserMark const * FindNearestUserMark(TTouchRectHolder const & holder) const;
+  UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
   UserMark const * FindMarkInRect(df::MarkGroupID groupId, m2::AnyRectD const & rect, double & d) const;
 
-  void SetIsVisible(df::MarkGroupID groupId, bool visible);
-  bool IsVisible(df::MarkGroupID groupId) const;
+  /// Scans and loads all kml files with bookmarks in WritableDir.
+  void LoadBookmarks();
+  void LoadBookmark(std::string const & filePath, bool isTemporaryFile);
 
   /// Uses the same file name from which was loaded, or
   /// creates unique file name on first save and uses it every time.
@@ -156,49 +177,11 @@ public:
   /// You don't need to call it from client code.
   void SaveToKML(BookmarkCategory * group, std::ostream & s);
 
-  std::string const & GetCategoryFileName(df::MarkGroupID categoryId) const;
-  //////////////////
-
-  void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
-  void UpdateViewport(ScreenBase const & screen);
-  void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
-  void Teardown();
-
-  void ClearCategories();
-
-  /// Scans and loads all kml files with bookmarks in WritableDir.
-  void LoadBookmarks();
-  void LoadBookmark(std::string const & filePath, bool isTemporaryFile);
-
-  void InitBookmarks();
-
-  /// Client should know where it moves bookmark
-  void MoveBookmark(df::MarkID bmID, df::MarkGroupID curGroupID, df::MarkGroupID newGroupID);
-  void UpdateBookmark(df::MarkID bmId, BookmarkData const & bm);
-
-  df::MarkGroupID LastEditedBMCategory();
-  std::string LastEditedBMType() const;
-
-  GroupIdList const & GetBmGroupsIdList() const { return m_bmGroupsIdList; }
-  bool HasBmCategory(df::MarkGroupID groupID) const;
-
-  df::MarkGroupID CreateBmCategory(std::string const & name);
-
-  /// @name Delete bookmarks category with all bookmarks.
-  /// @return true if category was deleted
-  bool DeleteBmCategory(df::MarkGroupID groupID);
-
-  using TTouchRectHolder = function<m2::AnyRectD(UserMark::Type)>;
-
-  UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
-  UserMark const * FindNearestUserMark(TTouchRectHolder const & holder) const;
-
   StaticMarkPoint & SelectionMark() { return *m_selectionMark; }
   StaticMarkPoint const & SelectionMark() const { return *m_selectionMark; }
+
   MyPositionMarkPoint & MyPositionMark() { return *m_myPositionMark; }
   MyPositionMarkPoint const & MyPositionMark() const { return *m_myPositionMark; }
-
-  bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
@@ -236,6 +219,69 @@ private:
 
   using KMLDataCollection = std::vector<std::unique_ptr<KMLData>>;
 
+  template <typename UserMarkT>
+  UserMarkT * CreateUserMark(m2::PointD const & ptOrg)
+  {
+    auto mark = std::make_unique<UserMarkT>(ptOrg);
+    auto * m = mark.get();
+    auto const markId = m->GetId();
+    auto const groupId = static_cast<df::MarkGroupID>(m->GetMarkType());
+    ASSERT(m_userMarks.count(markId) == 0, ());
+    ASSERT_LESS(groupId, m_userMarkLayers.size(), ());
+    m_userMarks.emplace(markId, std::move(mark));
+    m_changesTracker.OnAddMark(markId);
+    m_userMarkLayers[groupId]->AttachUserMark(markId);
+    return m;
+  }
+
+  template <typename UserMarkT>
+  UserMarkT * GetMarkForEdit(df::MarkID markId)
+  {
+    auto * mark = GetUserMarkForEdit(markId);
+    ASSERT(dynamic_cast<UserMarkT *>(mark) != nullptr, ());
+    return static_cast<UserMarkT *>(mark);
+  }
+
+  template <typename UserMarkT, typename F>
+  void DeleteUserMarks(UserMark::Type type, F deletePredicate)
+  {
+    std::list<df::MarkID> marksToDelete;
+    for (auto markId : GetUserMarkIds(type))
+    {
+      if (deletePredicate(GetMark<UserMarkT>(markId)))
+        marksToDelete.push_back(markId);
+    }
+    // Delete after iterating to avoid iterators invalidation issues.
+    for (auto markId : marksToDelete)
+      DeleteUserMark(markId);
+  };
+
+  UserMark * GetUserMarkForEdit(df::MarkID markID);
+  void DeleteUserMark(df::MarkID markId);
+
+  Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm);
+  Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupID);
+
+  Bookmark * GetBookmarkForEdit(df::MarkID markID);
+  void AttachBookmark(df::MarkID bmId, df::MarkGroupID groupID);
+  void DetachBookmark(df::MarkID bmId, df::MarkGroupID groupID);
+  void DeleteBookmark(df::MarkID bmId);
+
+  Track * CreateTrack(m2::PolylineD const & polyline, Track::Params const & p);
+
+  void AttachTrack(df::LineID trackID, df::MarkGroupID groupID);
+  void DetachTrack(df::LineID trackID, df::MarkGroupID groupID);
+  void DeleteTrack(df::LineID trackID);
+
+  void ClearGroup(df::MarkGroupID groupID);
+  void SetIsVisible(df::MarkGroupID groupId, bool visible);
+
+  bool DeleteBmCategory(df::MarkGroupID groupID);
+  void ClearCategories();
+
+  void MoveBookmark(df::MarkID bmID, df::MarkGroupID curGroupID, df::MarkGroupID newGroupID);
+  void UpdateBookmark(df::MarkID bmId, BookmarkData const & bm);
+
   static bool IsBookmarkCategory(df::MarkGroupID groupId) { return groupId >= UserMark::BOOKMARK; }
   static bool IsBookmark(df::MarkID markID) { return UserMark::GetMarkType(markID) == UserMark::BOOKMARK; }
 
@@ -247,6 +293,10 @@ private:
 
   Bookmark * AddBookmark(std::unique_ptr<Bookmark> && bookmark);
   Track * AddTrack(std::unique_ptr<Track> && track);
+
+  void OnEditSessionOpened();
+  void OnEditSessionClosed();
+  void NotifyChanges();
 
   void SaveState() const;
   void LoadState();
@@ -269,6 +319,7 @@ private:
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
   df::MarkGroupID m_nextGroupID;
+  uint32_t m_openedEditSessionsCount = 0;
   bool m_loadBookmarksFinished = false;
 
   ScreenBase m_viewport;

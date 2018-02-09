@@ -434,9 +434,9 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   {
     auto const categoryId = f.LastEditedBMCategory();
     BookmarkData bmData{m_info.FormatNewBookmarkName(), f.LastEditedBMType()};
-    auto const * bookmark = bmManager.CreateBookmark(self.mercator, bmData, categoryId);
+    auto editSession = bmManager.GetEditSession();
+    auto const * bookmark = editSession.CreateBookmark(self.mercator, bmData, categoryId);
     f.FillBookmarkInfo(*bookmark, m_info);
-    bmManager.NotifyChanges(categoryId);
     m_sections.insert(m_sections.begin() + 1, Sections::Bookmark);
   }
   else
@@ -447,8 +447,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     {
       f.ResetBookmarkInfo(*bookmark, m_info);
       auto const categoryId = bookmark->GetGroupId();
-      bmManager.DeleteBookmark(bookmarkId);
-      bmManager.NotifyChanges(categoryId);
+      bmManager.GetEditSession().DeleteBookmark(bookmarkId);
       bmManager.SaveToKMLFile(categoryId);
     }
 

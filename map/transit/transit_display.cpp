@@ -460,7 +460,8 @@ TransitMark * TransitRouteDisplay::CreateMark(m2::PointD const & pt, FeatureID c
 {
   uint32_t const nextIndex = static_cast<uint32_t>(m_bmManager->GetUserMarkIds(UserMark::Type::TRANSIT).size());
 
-  auto * transitMark = m_bmManager->CreateUserMark<TransitMark>(pt);
+  auto editSession = m_bmManager->GetEditSession();
+  auto * transitMark = editSession.CreateUserMark<TransitMark>(pt);
   transitMark->SetFeatureId(fid);
   transitMark->SetIndex(nextIndex);
   return transitMark;
@@ -476,7 +477,8 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
     transferArrowOffsets.emplace_back(0.0f, size.y * 0.5f);
 
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-
+  
+  auto editSession = m_bmManager->GetEditSession();
   for (size_t i = 0; i < transitMarks.size(); ++i)
   {
     auto const & mark = transitMarks[i];
@@ -600,6 +602,4 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
       }
     }
   }
-
-  m_bmManager->NotifyChanges(UserMark::Type::TRANSIT);
 }

@@ -174,15 +174,16 @@ size_t const RoutePointsLayout::kMaxIntermediatePointsCount = 3;
 
 RoutePointsLayout::RoutePointsLayout(BookmarkManager & manager)
   : m_manager(manager)
+  , m_editSession(manager.GetEditSession())
 {}
 
-RouteMarkPoint * RoutePointsLayout::AddRoutePoint(RouteMarkData && data)
+void RoutePointsLayout::AddRoutePoint(RouteMarkData && data)
 {
   auto const count = m_manager.GetUserMarkIds(UserMark::Type::ROUTING).size();
   if (count == kMaxIntermediatePointsCount + 2)
-    return nullptr;
+    return;
 
-  RouteMarkPoint * sameTypePoint = GetRoutePoint(data.m_pointType, data.m_intermediateIndex);
+  RouteMarkPoint * sameTypePoint = GetRoutePointForEdit(data.m_pointType, data.m_intermediateIndex);
   if (sameTypePoint != nullptr)
   {
     if (data.m_pointType == RouteMarkType::Finish)
@@ -216,10 +217,8 @@ RouteMarkPoint * RoutePointsLayout::AddRoutePoint(RouteMarkData && data)
       }
     }
   }
-  auto * newPoint = m_manager.CreateUserMark<RouteMarkPoint>(data.m_position);
+  auto * newPoint = m_editSession.CreateUserMark<RouteMarkPoint>(data.m_position);
   newPoint->SetMarkData(std::move(data));
-
-  return newPoint;
 }
 
 bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex)
@@ -273,28 +272,29 @@ bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, size_t intermediate
     });
   }
 
-  m_manager.DeleteUserMark(point->GetId());
+  m_editSession.DeleteUserMark(point->GetId());
   return true;
 }
 
 void RoutePointsLayout::RemoveRoutePoints()
 {
-  m_manager.ClearGroup(UserMark::Type::ROUTING);
+  m_editSession.ClearGroup(UserMark::Type::ROUTING);
 }
 
 void RoutePointsLayout::RemoveIntermediateRoutePoints()
 {
-  m_manager.DeleteUserMarks<RouteMarkPoint>(UserMark::Type::ROUTING,
-                                            [](RouteMarkPoint const * mark)
-                                            {
-                                              return mark->GetRoutePointType() == RouteMarkType::Intermediate;
-                                            });
+  m_editSession.DeleteUserMarks<RouteMarkPoint>(
+    UserMark::Type::ROUTING,
+    [](RouteMarkPoint const * mark)
+    {
+      return mark->GetRoutePointType() == RouteMarkType::Intermediate;
+    });
 }
 
 bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
                                        RouteMarkType destType, size_t destIntermediateIndex)
 {
-  RouteMarkPoint * point = GetRoutePoint(currentType, currentIntermediateIndex);
+  RouteMarkPoint const * point = GetRoutePoint(currentType, currentIntermediateIndex);
   if (point == nullptr)
     return false;
 
@@ -310,7 +310,7 @@ bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, size_t current
 
 void RoutePointsLayout::PassRoutePoint(RouteMarkType type, size_t intermediateIndex)
 {
-  RouteMarkPoint * point = GetRoutePoint(type, intermediateIndex);
+  RouteMarkPoint * point = GetRoutePointForEdit(type, intermediateIndex);
   if (point == nullptr)
     return;
   point->SetPassed(true);
@@ -320,27 +320,33 @@ void RoutePointsLayout::PassRoutePoint(RouteMarkType type, size_t intermediateIn
 void RoutePointsLayout::SetFollowingMode(bool enabled)
 {
   for (auto markId : m_manager.GetUserMarkIds(UserMark::Type::ROUTING))
-    m_manager.GetMarkForEdit<RouteMarkPoint>(markId)->SetFollowingMode(enabled);
+    m_editSession.GetMarkForEdit<RouteMarkPoint>(markId)->SetFollowingMode(enabled);
 }
 
-RouteMarkPoint * RoutePointsLayout::GetRoutePoint(RouteMarkType type, size_t intermediateIndex)
+RouteMarkPoint const * RoutePointsLayout::GetRoutePoint(RouteMarkType type, size_t intermediateIndex) const
 {
   for (auto markId : m_manager.GetUserMarkIds(UserMark::Type::ROUTING))
   {
     auto const * mark = m_manager.GetMark<RouteMarkPoint>(markId);
     if (mark->IsEqualFullType(type, intermediateIndex))
-      return m_manager.GetMarkForEdit<RouteMarkPoint>(markId);
+      return mark;
   }
   return nullptr;
 }
 
-RouteMarkPoint * RoutePointsLayout::GetMyPositionPoint()
+RouteMarkPoint * RoutePointsLayout::GetRoutePointForEdit(RouteMarkType type, size_t intermediateIndex)
+{
+  auto const * mark = GetRoutePoint(type, intermediateIndex);
+  return mark ? m_editSession.GetMarkForEdit<RouteMarkPoint>(mark->GetId()) : nullptr;
+}
+
+RouteMarkPoint const * RoutePointsLayout::GetMyPositionPoint() const
 {
   for (auto markId : m_manager.GetUserMarkIds(UserMark::Type::ROUTING))
   {
     auto const * mark = m_manager.GetMark<RouteMarkPoint>(markId);
     if (mark->IsMyPosition())
-      return m_manager.GetMarkForEdit<RouteMarkPoint>(markId);
+      return mark;
   }
   return nullptr;
 }
@@ -354,7 +360,7 @@ std::vector<RouteMarkPoint *> RoutePointsLayout::GetRoutePoints()
   RouteMarkPoint * finishPoint = nullptr;
   for (auto markId : markIds)
   {
-    auto * p = m_manager.GetMarkForEdit<RouteMarkPoint>(markId);
+    auto * p = m_editSession.GetMarkForEdit<RouteMarkPoint>(markId);
     if (p->GetRoutePointType() == RouteMarkType::Start)
       startPoint = p;
     else if (p->GetRoutePointType() == RouteMarkType::Finish)
@@ -382,15 +388,10 @@ void RoutePointsLayout::ForEachIntermediatePoint(TRoutePointCallback const & fn)
 {
   for (auto markId : m_manager.GetUserMarkIds(UserMark::Type::ROUTING))
   {
-    auto * mark = m_manager.GetMarkForEdit<RouteMarkPoint>(markId);
+    auto * mark = m_editSession.GetMarkForEdit<RouteMarkPoint>(markId);
     if (mark->GetRoutePointType() == RouteMarkType::Intermediate)
       fn(mark);
   }
-}
-
-void RoutePointsLayout::NotifyChanges()
-{
-  m_manager.NotifyChanges(UserMark::Type::ROUTING);
 }
 
 TransitMark::TransitMark(m2::PointD const & ptOrg)

@@ -144,13 +144,13 @@ void CreateLocalAdsMarks(BookmarkManager * bmManager, CampaignData const & campa
   // Here we copy campaign data, because we can create user marks only from UI thread.
   GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, campaignData]()
   {
+    auto editSession = bmManager->GetEditSession();
     for (auto const & data : campaignData)
     {
-      auto * mark = bmManager->CreateUserMark<LocalAdsMark>(data.second.m_position);
+      auto * mark = editSession.CreateUserMark<LocalAdsMark>(data.second.m_position);
       mark->SetData(LocalAdsMarkData(data.second));
       mark->SetFeatureId(data.first);
     }
-    bmManager->NotifyChanges(UserMark::Type::LOCAL_ADS);
   });
 }
 
@@ -161,12 +161,11 @@ void DeleteLocalAdsMarks(BookmarkManager * bmManager, MwmSet::MwmId const & mwmI
 
   GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, mwmId]()
   {
-    bmManager->DeleteUserMarks<LocalAdsMark>(UserMark::Type::LOCAL_ADS,
-                                             [&mwmId](LocalAdsMark const * mark)
-                                             {
-                                               return mark->GetFeatureID().m_mwmId == mwmId;
-                                             });
-    bmManager->NotifyChanges(UserMark::Type::LOCAL_ADS);
+    bmManager->GetEditSession().DeleteUserMarks<LocalAdsMark>(UserMark::Type::LOCAL_ADS,
+                                                              [&mwmId](LocalAdsMark const * mark)
+                                                              {
+                                                                return mark->GetFeatureID().m_mwmId == mwmId;
+                                                              });
   });
 }
 
@@ -177,8 +176,7 @@ void DeleteAllLocalAdsMarks(BookmarkManager * bmManager)
 
   GetPlatform().RunTask(Platform::Thread::Gui, [bmManager]()
   {
-    bmManager->ClearGroup(UserMark::Type::LOCAL_ADS);
-    bmManager->NotifyChanges(UserMark::Type::LOCAL_ADS);
+    bmManager->GetEditSession().ClearGroup(UserMark::Type::LOCAL_ADS);
   });
 }
 

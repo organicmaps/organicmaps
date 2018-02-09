@@ -315,26 +315,16 @@ public:
   /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
 
-  /// @return Created bookmark id.
-  df::MarkID AddBookmark(df::MarkGroupID catId, m2::PointD const & ptOrg, BookmarkData & bm);
-  void MoveBookmark(df::MarkID bmId, df::MarkGroupID curCatId, df::MarkGroupID newCatId);
-  void ReplaceBookmark(df::MarkID bmId, BookmarkData const & bm);
   /// @return Created bookmark category id.
   df::MarkGroupID AddCategory(string const & categoryName);
 
-  size_t LastEditedBMCategory() { return GetBookmarkManager().LastEditedBMCategory(); }
+  df::MarkGroupID LastEditedBMCategory() { return GetBookmarkManager().LastEditedBMCategory(); }
   string LastEditedBMType() const { return GetBookmarkManager().LastEditedBMType(); }
-
-  /// Delete bookmarks category with all bookmarks.
-  /// @return true if category was deleted
-  bool DeleteBmCategory(size_t index);
 
   void ShowBookmark(df::MarkID id);
   void ShowBookmark(Bookmark const * bookmark);
   void ShowTrack(Track const & track);
   void ShowFeatureByMercator(m2::PointD const & pt);
-
-  void ClearBookmarks();
 
   void AddBookmarksFile(string const & filePath, bool isTemporaryFile);
 
@@ -556,8 +546,6 @@ public:
   void FillSearchResultsMarks(bool clear, search::Results const & results);
   void FillSearchResultsMarks(bool clear, search::Results::ConstIter begin,
                               search::Results::ConstIter end, SearchMarkPostProcesing fn = nullptr);
-  void ClearSearchResultsMarks();
-
   list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
   void SaveSearchQuery(TSearchRequest const & query) { m_searchQuerySaver.Add(query); }
   void ClearSearchHistory() { m_searchQuerySaver.Clear(); }

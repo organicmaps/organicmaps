@@ -136,8 +136,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
                      withParameters:@{kStatValue : visible ? kStatVisible : kStatHidden}];
     cell.imageView.image = [UIImage imageNamed:(visible ? @"ic_show" : @"ic_hide")];
     cell.imageView.mwm_coloring = visible ? MWMImageColoringBlue : MWMImageColoringBlack;
-    bmManager.SetIsVisible(categoryId, visible);
-    bmManager.NotifyChanges(categoryId);
+    bmManager.GetEditSession().SetIsVisible(categoryId, visible);
     bmManager.SaveToKMLFile(categoryId);
   }
 }
@@ -286,11 +285,12 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatRemove)];
     [NSNotificationCenter.defaultCenter postNotificationName:kBookmarkCategoryDeletedNotification
                                                       object:@(indexPath.row)];
-    Framework & f = GetFramework();
-    f.DeleteBmCategory(indexPath.row);
+    auto & bmManager = GetFramework().GetBookmarkManager();
+    auto categoryId = bmManager.GetBmGroupsIdList()[indexPath.row];
+    bmManager.GetEditSession().DeleteBmCategory(categoryId);
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     // Disable edit mode if no categories are left
-    if (f.GetBookmarkManager().GetBmGroupsIdList().empty())
+    if (bmManager.GetBmGroupsIdList().empty())
     {
       self.navigationItem.rightBarButtonItem = nil;
       [self setEditing:NO animated:YES];

@@ -80,9 +80,10 @@ public:
 
   RoutePointsLayout(BookmarkManager & manager);
 
-  RouteMarkPoint * AddRoutePoint(RouteMarkData && data);
-  RouteMarkPoint * GetRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
-  RouteMarkPoint * GetMyPositionPoint();
+  void AddRoutePoint(RouteMarkData && data);
+  RouteMarkPoint const * GetRoutePoint(RouteMarkType type, size_t intermediateIndex = 0) const;
+  RouteMarkPoint * GetRoutePointForEdit(RouteMarkType type, size_t intermediateIndex = 0);
+  RouteMarkPoint const * GetMyPositionPoint() const;
   std::vector<RouteMarkPoint *> GetRoutePoints();
   size_t GetRoutePointsCount() const;
   bool RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
@@ -92,13 +93,13 @@ public:
                       RouteMarkType destType, size_t destIntermediateIndex);
   void PassRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   void SetFollowingMode(bool enabled);
-  void NotifyChanges();
 
 private:
   using TRoutePointCallback = function<void (RouteMarkPoint * mark)>;
   void ForEachIntermediatePoint(TRoutePointCallback const & fn);
 
   BookmarkManager & m_manager;
+  BookmarkManager::EditSession m_editSession;
 };
 
 class TransitMark : public UserMark

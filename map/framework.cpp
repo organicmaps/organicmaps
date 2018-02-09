@@ -733,31 +733,9 @@ void Framework::LoadBookmarks()
   GetBookmarkManager().LoadBookmarks();
 }
 
-df::MarkID Framework::AddBookmark(df::MarkGroupID catId, const m2::PointD & ptOrg, BookmarkData & bm)
-{
-  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
-                                                         {{"action", "create"}});
-  return GetBookmarkManager().CreateBookmark(ptOrg, bm, catId)->GetId();
-}
-
-void Framework::MoveBookmark(df::MarkID bmId, df::MarkGroupID curCatId, df::MarkGroupID newCatId)
-{
-  return GetBookmarkManager().MoveBookmark(bmId, curCatId, newCatId);
-}
-
-void Framework::ReplaceBookmark(df::MarkID bmId, BookmarkData const & bm)
-{
-  GetBookmarkManager().UpdateBookmark(bmId, bm);
-}
-
 df::MarkGroupID Framework::AddCategory(string const & categoryName)
 {
   return GetBookmarkManager().CreateBmCategory(categoryName);
-}
-
-bool Framework::DeleteBmCategory(size_t index)
-{
-  return GetBookmarkManager().DeleteBmCategory(index);
 }
 
 void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const
@@ -1042,11 +1020,6 @@ void Framework::ShowFeatureByMercator(m2::PointD const & pt)
   FillPointInfo(pt, name, info);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
   m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
-}
-
-void Framework::ClearBookmarks()
-{
-  GetBookmarkManager().ClearCategories();
 }
 
 void Framework::AddBookmarksFile(string const & filePath, bool isTemporaryFile)
@@ -1603,10 +1576,10 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
                                        search::Results::ConstIter end,
                                        SearchMarkPostProcesing fn /* = nullptr */)
 {
-  auto & bmManager = GetBookmarkManager();
+  auto editSession = GetBookmarkManager().GetEditSession();
   if (clear)
-    bmManager.ClearGroup(UserMark::Type::SEARCH);
-  bmManager.SetIsVisible(UserMark::Type::SEARCH, true);
+    editSession.ClearGroup(UserMark::Type::SEARCH);
+  editSession.SetIsVisible(UserMark::Type::SEARCH, true);
 
   for (auto it = begin; it != end; ++it)
   {
@@ -1614,7 +1587,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
     if (!r.HasPoint())
       continue;
 
-    auto * mark = bmManager.CreateUserMark<SearchMarkPoint>(r.GetFeatureCenter());
+    auto * mark = editSession.CreateUserMark<SearchMarkPoint>(r.GetFeatureCenter());
     auto const isFeature = r.GetResultType() == search::Result::Type::Feature;
     if (isFeature)
       mark->SetFoundFeature(r.GetFeatureID());
@@ -1632,13 +1605,6 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
     if (fn)
       fn(*mark);
   }
-  bmManager.NotifyChanges(UserMark::Type::SEARCH);
-}
-
-void Framework::ClearSearchResultsMarks()
-{
-  GetBookmarkManager().ClearGroup(UserMark::Type::SEARCH);
-  GetBookmarkManager().NotifyChanges(UserMark::Type::SEARCH);
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
@@ -2029,10 +1995,9 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
 
   // Clear every current API-mark.
   {
-    auto & bmManager = GetBookmarkManager();
-    bmManager.ClearGroup(UserMark::Type::API);
-    bmManager.SetIsVisible(UserMark::Type::API, true);
-    bmManager.NotifyChanges(UserMark::Type::API);
+    auto editSession = GetBookmarkManager().GetEditSession();
+    editSession.ClearGroup(UserMark::Type::API);
+    editSession.SetIsVisible(UserMark::Type::API, true);
   }
 
   return m_ParsedMapApi.SetUriAndParse(url);
@@ -2165,13 +2130,7 @@ void Framework::UpdatePlacePageInfoForCurrentSelection()
 
 void Framework::InvalidateUserMarks()
 {
-  GetBookmarkManager().InitBookmarks();
-
-  std::vector<UserMark::Type> const types = {UserMark::Type::SEARCH, UserMark::Type::API,
-                                             UserMark::Type::DEBUG_MARK, UserMark::Type::ROUTING,
-                                             UserMark::Type::LOCAL_ADS, UserMark::Type::STATIC};
-  for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
-    GetBookmarkManager().NotifyChanges(types[typeIndex]);
+  GetBookmarkManager().GetEditSession();
 }
 
 void Framework::OnTapEvent(TapEvent const & tapEvent)
@@ -3184,7 +3143,7 @@ void Framework::ShowViewportSearchResults(bool clear, search::Results::ConstIter
 
 void Framework::ClearViewportSearchResults()
 {
-  ClearSearchResultsMarks();
+  GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
 }
 
 boost::optional<m2::PointD> Framework::GetCurrentPosition() const

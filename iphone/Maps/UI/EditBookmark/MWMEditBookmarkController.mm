@@ -94,14 +94,15 @@ static int const kInvalidCategoryId = 0;
 {
   [self.view endEditing:YES];
   auto & f = GetFramework();
+  BookmarkManager & bmManager = f.GetBookmarkManager();
+  auto editSession = bmManager.GetEditSession();
   if (self.cachedBmCatId != kInvalidCategoryId)
   {
-    f.MoveBookmark(m_cachedBookmarkId, m_cachedBookmarkCatId, self.cachedBmCatId);
+    editSession.MoveBookmark(m_cachedBookmarkId, m_cachedBookmarkCatId, self.cachedBmCatId);
     m_cachedBookmarkCatId = self.cachedBmCatId;
   }
 
-  BookmarkManager & bmManager = f.GetBookmarkManager();
-  auto bookmark = bmManager.GetBookmarkForEdit(m_cachedBookmarkId);
+  auto bookmark = editSession.GetBookmarkForEdit(m_cachedBookmarkId);
   if (!bookmark)
     return;
 
@@ -110,7 +111,6 @@ static int const kInvalidCategoryId = 0;
   bookmark->SetName(self.cachedTitle.UTF8String);
 
   bmManager.SaveToKMLFile(m_cachedBookmarkCatId);
-  bmManager.NotifyChanges(m_cachedBookmarkCatId);
   
   f.UpdatePlacePageInfoForCurrentSelection();
   [self backTap];

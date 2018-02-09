@@ -85,8 +85,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
   [Statistics logEvent:kStatEventName(kStatBookmarks, kStatToggleVisibility)
                    withParameters:@{kStatValue : sender.on ? kStatVisible : kStatHidden}];
   auto & bmManager = GetFramework().GetBookmarkManager();
-  bmManager.SetIsVisible(m_categoryId, sender.on);
-  bmManager.NotifyChanges(m_categoryId);
+  bmManager.GetEditSession().SetIsVisible(m_categoryId, sender.on);
   bmManager.SaveToKMLFile(m_categoryId);
 }
 
@@ -298,7 +297,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
         if (indexPath.section == m_trackSection)
         {
           df::MarkID trackId = [[m_trackIds objectAtIndex:indexPath.row] intValue];
-          bmManager.DeleteTrack(trackId);
+          bmManager.GetEditSession().DeleteTrack(trackId);
           [m_trackIds removeObjectAtIndex:indexPath.row];
         }
         else
@@ -307,14 +306,13 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
           NSValue * value = [NSValue valueWithBytes:&bmId objCType:@encode(df::MarkID*)];
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarkDeletedNotification
                                                             object:value];
-          bmManager.DeleteBookmark(bmId);
+          bmManager.GetEditSession().DeleteBookmark(bmId);
           [m_bookmarkIds removeObjectAtIndex:indexPath.row];
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                             object:nil
                                                           userInfo:nil];
         }
       }
-      bmManager.NotifyChanges(m_categoryId);
       bmManager.SaveToKMLFile(m_categoryId);
       size_t previousNumberOfSections  = m_numberOfSections;
       [self calculateSections];

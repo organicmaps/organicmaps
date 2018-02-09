@@ -193,15 +193,15 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
         return ParsingResult::Incorrect;
 
       ASSERT(m_bmManager != nullptr, ());
+      auto editSession = m_bmManager->GetEditSession();
       for (auto const & p : points)
       {
         m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
-        auto * mark = m_bmManager->CreateUserMark<ApiMarkPoint>(glPoint);
+        auto * mark = editSession.CreateUserMark<ApiMarkPoint>(glPoint);
         mark->SetName(p.m_name);
         mark->SetApiID(p.m_id);
         mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
       }
-      m_bmManager->NotifyChanges(UserMark::Type::API);
 
       return ParsingResult::Map;
     }
