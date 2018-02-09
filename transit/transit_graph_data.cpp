@@ -186,14 +186,13 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   auto const it = m_osmIdToFeatureIds.find(osmId);
   if (it != m_osmIdToFeatureIds.cend())
   {
-    CHECK_GREATER_OR_EQUAL(it->second.size(), 1,
-                           ("Osm id:", osmId, "(encoded", osmId.EncodedId(),
-                            ") from transit graph does not correspond to any feature."));
+    CHECK(!it->second.empty(), ("Osm id:", osmId, "(encoded", osmId.EncodedId(),
+                                ") from transit graph does not correspond to any feature."));
     if (it->second.size() != 1)
     {
-      // Note. |osmId| corresponds to several feature ids. It may happen in case of stops;
-      // if a stop is present as relation. It's a rare case.
-      LOG(LWARNING, ("Osm id:", osmId, "(encoded", osmId.EncodedId(), "corresponds to",
+      // Note. |osmId| corresponds to several feature ids. It may happen in case of stops,
+      // if a stop is present as a relation. It's a rare case.
+      LOG(LWARNING, ("Osm id:", osmId, "( encoded", osmId.EncodedId(), ") corresponds to",
                      it->second.size(), "feature ids."));
     }
     id.SetFeatureId(it->second[0]);
