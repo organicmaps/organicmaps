@@ -106,11 +106,18 @@ enum class State
   self.spinner = nil;
 }
 
-- (void)setProgress:(MapFilesDownloader::TProgress)progress nodeName:(NSString *)nodeName
+- (void)setStatusForNodeName:(NSString *)nodeName rootAttributes:(NodeAttrs const &)nodeAttrs
 {
+  auto updatePlaceholder = ^NSString *(NSString * str)
+  {
+    return [str stringByReplacingOccurrencesOfString:@"%s" withString:@"%@"];
+  };
+
+  auto const progress = nodeAttrs.m_downloadingProgress;
   CGFloat const prog = kMaxProgress * static_cast<CGFloat>(progress.first) / progress.second;
   self.spinner.progress = prog;
-  NSString * downloader_percent =
+
+  NSString * percent =
       [L(@"downloader_percent") stringByReplacingOccurrencesOfString:@"%s" withString:@"%@"];
   NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
   [numberFormatter setNumberStyle:NSNumberFormatterPercentStyle];
@@ -118,15 +125,15 @@ enum class State
   [numberFormatter setMultiplier:@100];
   NSString * percentString = [numberFormatter stringFromNumber:@(prog)];
   NSString * sizeString = formattedSize(progress.second);
-  NSString * progressLabel =
-      [NSString stringWithFormat:downloader_percent, percentString, sizeString];
-  self.progressLabel.text = progressLabel;
+  self.progressLabel.text = [NSString stringWithFormat:percent, percentString, sizeString];
 
-  NSString * downloader_process =
-      [L(@"downloader_process") stringByReplacingOccurrencesOfString:@"%s" withString:@"%@"];
-  NSString * legendLabel = [NSString stringWithFormat:downloader_process, nodeName];
-  ;
-  self.legendLabel.text = legendLabel;
+  NSString * process = nil;
+  if (nodeAttrs.m_status == storage::NodeStatus::Applying)
+    process = L(@"downloader_applying");
+  else
+    process = L(@"downloader_process");
+  process = [process stringByReplacingOccurrencesOfString:@"%s" withString:@"%@"];
+  self.legendLabel.text = [NSString stringWithFormat:process, nodeName];
 }
 
 @end
@@ -303,7 +310,7 @@ enum class State
   s.GetNodeAttrs(RootId(), nodeAttrs);
   auto view = static_cast<MWMAutoupdateView *>(self.view);
   NSString * nodeName = @(s.GetNodeLocalName(countryId).c_str());
-  [view setProgress:nodeAttrs.m_downloadingProgress nodeName:nodeName];
+  [view setStatusForNodeName:nodeName rootAttributes:nodeAttrs];
   if (nodeAttrs.m_downloadingProgress.first == nodeAttrs.m_downloadingProgress.second)
     self.progressFinished = YES;
 }
