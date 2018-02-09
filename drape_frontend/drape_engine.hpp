@@ -131,9 +131,9 @@ public:
   using TModelViewListenerFn = FrontendRenderer::TModelViewChanged;
   void SetModelViewListener(TModelViewListenerFn && fn);
 
-  void ClearUserMarksGroup(size_t layerId);
+  void ClearUserMarksGroup(MarkGroupID groupId);
   void ChangeVisibilityUserMarksGroup(MarkGroupID groupId, bool isVisible);
-  void UpdateUserMarks(UserMarksProvider * provider);
+  void UpdateUserMarks(UserMarksProvider * provider, bool firstTime);
   void InvalidateUserMarks();
 
   void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory = nullptr);

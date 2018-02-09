@@ -3,6 +3,7 @@
 #include "drape/pointers.hpp"
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/user_event_stream.hpp"
+#include <drape_frontend/user_marks_global.hpp>
 #include "qt/qt_common/qtoglcontextfactory.hpp"
 
 #include <QtCore/QTimer>
@@ -86,6 +87,7 @@ protected:
   bool m_apiOpenGLES3;
   ScaleSlider * m_slider;
   SliderState m_sliderState;
+  df::MarkGroupID m_bookmarksCategoryId = 0;
 
   qreal m_ratio;
   drape_ptr<QtOGLContextFactory> m_contextFactory;

@@ -200,10 +200,10 @@ void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim)
   PostUserEvent(make_unique_dp<SetAnyRectEvent>(rect, isAnim));
 }
 
-void DrapeEngine::ClearUserMarksGroup(size_t layerId)
+void DrapeEngine::ClearUserMarksGroup(MarkGroupID groupId)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<ClearUserMarkGroupMessage>(layerId),
+                                  make_unique_dp<ClearUserMarkGroupMessage>(groupId),
                                   MessagePriority::Normal);
 }
 
@@ -221,9 +221,9 @@ void DrapeEngine::InvalidateUserMarks()
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider)
+void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
 {
-  auto const & dirtyGroupIds = provider->GetDirtyGroupIds();
+  auto const dirtyGroupIds = firstTime ? provider->GetAllGroupIds() : provider->GetDirtyGroupIds();
   if (dirtyGroupIds.empty())
     return;
 
@@ -232,49 +232,52 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider)
   auto createdIdCollection = make_unique_dp<IDCollections>();
   auto removedIdCollection = make_unique_dp<IDCollections>();
 
-  df::MarkGroupID lastGroupId = *dirtyGroupIds.begin();
-  bool visibilityChanged = provider->IsGroupVisibilityChanged(lastGroupId);
-  bool groupIsVisible = provider->IsGroupVisible(lastGroupId);
-
-  auto const HandleMark = [&](
-    df::MarkID markId,
-    UserMarksRenderCollection & renderCollection,
-    MarkIDCollection * idCollection)
+  if (!firstTime)
   {
-    auto const * mark = provider->GetUserPointMark(markId);
-    if (!mark->IsDirty())
-      return;
-    auto const groupId = mark->GetGroupId();
-    if (groupId != lastGroupId)
+    df::MarkGroupID lastGroupId = *dirtyGroupIds.begin();
+    bool visibilityChanged = provider->IsGroupVisibilityChanged(lastGroupId);
+    bool groupIsVisible = provider->IsGroupVisible(lastGroupId);
+
+    auto const handleMark = [&](
+      df::MarkID markId,
+      UserMarksRenderCollection & renderCollection,
+      MarkIDCollection *idCollection)
     {
-      lastGroupId = groupId;
-      visibilityChanged = provider->IsGroupVisibilityChanged(groupId);
-      groupIsVisible = provider->IsGroupVisible(groupId);
-    }
-    if (!visibilityChanged && groupIsVisible)
-    {
-      if (idCollection)
-        idCollection->push_back(markId);
-      renderCollection.emplace(markId, GenerateMarkRenderInfo(mark));
-    }
-  };
+      auto const *mark = provider->GetUserPointMark(markId);
+      if (!mark->IsDirty())
+        return;
+      auto const groupId = mark->GetGroupId();
+      if (groupId != lastGroupId)
+      {
+        lastGroupId = groupId;
+        visibilityChanged = provider->IsGroupVisibilityChanged(groupId);
+        groupIsVisible = provider->IsGroupVisible(groupId);
+      }
+      if (!visibilityChanged && groupIsVisible)
+      {
+        if (idCollection)
+          idCollection->push_back(markId);
+        renderCollection.emplace(markId, GenerateMarkRenderInfo(mark));
+      }
+    };
 
-  for (auto markId : provider->GetCreatedMarkIds())
-    HandleMark(markId, *marksRenderCollection, &createdIdCollection->m_marksID);
+    for (auto markId : provider->GetCreatedMarkIds())
+      handleMark(markId, *marksRenderCollection, &createdIdCollection->m_marksID);
 
-  for (auto markId : provider->GetUpdatedMarkIds())
-    HandleMark(markId, *marksRenderCollection, nullptr);
+    for (auto markId : provider->GetUpdatedMarkIds())
+      handleMark(markId, *marksRenderCollection, nullptr);
 
-  auto const & removedMarkIds = provider->GetRemovedMarkIds();
-  removedIdCollection->m_marksID.reserve(removedMarkIds.size());
-  removedIdCollection->m_marksID.assign(removedMarkIds.begin(), removedMarkIds.end());
+    auto const & removedMarkIds = provider->GetRemovedMarkIds();
+    removedIdCollection->m_marksID.reserve(removedMarkIds.size());
+    removedIdCollection->m_marksID.assign(removedMarkIds.begin(), removedMarkIds.end());
+  }
 
   std::map<df::MarkGroupID, drape_ptr<IDCollections>> dirtyMarkIds;
   for (auto groupId : dirtyGroupIds)
   {
     auto & idCollection = *(dirtyMarkIds.emplace(groupId, make_unique_dp<IDCollections>()).first->second);
-    visibilityChanged = provider->IsGroupVisibilityChanged(groupId);
-    groupIsVisible = provider->IsGroupVisible(groupId);
+    bool const visibilityChanged = provider->IsGroupVisibilityChanged(groupId);
+    bool const groupIsVisible = provider->IsGroupVisible(groupId);
     if (!groupIsVisible && !visibilityChanged)
       continue;
 
@@ -293,14 +296,16 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider)
         if (visibilityChanged || line->IsDirty())
           linesRenderCollection->emplace(lineId, GenerateLineRenderInfo(line));
       }
-      if (visibilityChanged)
+      if (visibilityChanged || firstTime)
       {
         for (auto markId : markIds)
+        {
           marksRenderCollection->emplace(
             markId, GenerateMarkRenderInfo(provider->GetUserPointMark(markId)));
+        }
       }
     }
-    else
+    else if (!firstTime)
     {
       auto & points = removedIdCollection->m_marksID;
       points.reserve(points.size() + markIds.size());
@@ -311,8 +316,8 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider)
     }
   }
 
-  if (!marksRenderCollection->empty() || !linesRenderCollection->empty()
-    || !removedIdCollection->IsEmpty() || !createdIdCollection->IsEmpty())
+  if (!marksRenderCollection->empty() || !linesRenderCollection->empty() ||
+      !removedIdCollection->IsEmpty() || !createdIdCollection->IsEmpty())
   {
     m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                     make_unique_dp<UpdateUserMarksMessage>(

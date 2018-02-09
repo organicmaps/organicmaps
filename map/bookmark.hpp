@@ -124,7 +124,7 @@ public:
   void AttachTrack(df::LineID markId);
   void DetachTrack(df::LineID markId);
 
-  df::MarkGroupID GetID() const { return m_groupID; }
+  df::MarkGroupID GetID() const { return m_groupId; }
   df::LineIDSet const & GetUserLines() const override { return m_tracks; }
 
   void SetName(std::string const & name) { m_name = name; }
@@ -133,7 +133,7 @@ public:
   std::string const & GetFileName() const { return m_file; }
 
 private:
-  const df::MarkGroupID m_groupID;
+  df::MarkGroupID const m_groupId;
   std::string m_name;
   // Stores file name from which bookmarks were loaded.
   std::string m_file;

@@ -86,13 +86,12 @@ public:
       return m_bmManager.GetMarkForEdit<UserMarkT>(markId);
     }
 
-    //UserMark * GetUserMarkForEdit(df::MarkID markID);
     Bookmark * GetBookmarkForEdit(df::MarkID markID);
 
     template <typename UserMarkT, typename F>
-    void DeleteUserMarks(UserMark::Type type, F deletePredicate)
+    void DeleteUserMarks(UserMark::Type type, F && deletePredicate)
     {
-      return m_bmManager.DeleteUserMarks<UserMarkT, F>(type, deletePredicate);
+      return m_bmManager.DeleteUserMarks<UserMarkT, F>(type, std::move(deletePredicate));
     };
 
     void DeleteUserMark(df::MarkID markId);
@@ -153,13 +152,13 @@ public:
 
   bool IsVisible(df::MarkGroupID groupId) const;
 
-  df::MarkGroupID CreateBmCategory(std::string const & name);
+  df::MarkGroupID CreateBookmarkCategory(std::string const & name);
 
   std::string const & GetCategoryName(df::MarkGroupID categoryId) const;
   std::string const & GetCategoryFileName(df::MarkGroupID categoryId) const;
   void SetCategoryName(df::MarkGroupID categoryId, std::string const & name);
 
-  df::GroupIDList const & GetBmGroupsIdList() const { return m_bmGroupsIdList; }
+  df::GroupIDCollection const & GetBmGroupsIdList() const { return m_bmGroupsIdList; }
   bool HasBmCategory(df::MarkGroupID groupID) const;
   df::MarkGroupID LastEditedBMCategory();
   std::string LastEditedBMType() const;
@@ -200,6 +199,7 @@ private:
     void ResetChanges();
 
     // UserMarksProvider
+    df::GroupIDSet GetAllGroupIds() const override;
     df::GroupIDSet const & GetDirtyGroupIds() const override { return m_dirtyGroups; }
     df::MarkIDSet const & GetCreatedMarkIds() const override { return m_createdMarks; }
     df::MarkIDSet const & GetRemovedMarkIds() const override { return m_removedMarks; }
@@ -246,7 +246,7 @@ private:
   }
 
   template <typename UserMarkT, typename F>
-  void DeleteUserMarks(UserMark::Type type, F deletePredicate)
+  void DeleteUserMarks(UserMark::Type type, F && deletePredicate)
   {
     std::list<df::MarkID> marksToDelete;
     for (auto markId : GetUserMarkIds(type))
@@ -321,11 +321,12 @@ private:
   df::MarkGroupID m_nextGroupID;
   uint32_t m_openedEditSessionsCount = 0;
   bool m_loadBookmarksFinished = false;
+  bool m_firstDrapeNotification = false;
 
   ScreenBase m_viewport;
 
   CategoriesCollection m_categories;
-  df::GroupIDList m_bmGroupsIdList;
+  df::GroupIDCollection m_bmGroupsIdList;
 
   std::string m_lastCategoryUrl;
   std::string m_lastType;

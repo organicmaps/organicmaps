@@ -102,6 +102,7 @@ class UserMarksProvider
 public:
   virtual ~UserMarksProvider() {}
   virtual GroupIDSet const & GetDirtyGroupIds() const = 0;
+  virtual GroupIDSet GetAllGroupIds() const = 0;
   virtual bool IsGroupVisible(MarkGroupID groupID) const = 0;
   virtual bool IsGroupVisibilityChanged(MarkGroupID groupID) const = 0;
   virtual MarkIDSet const & GetGroupPointIds(MarkGroupID groupID) const = 0;
@@ -111,7 +112,7 @@ public:
   virtual MarkIDSet const & GetUpdatedMarkIds() const = 0;
   /// Never store UserPointMark reference.
   virtual UserPointMark const * GetUserPointMark(MarkID markID) const = 0;
- /// Never store UserLineMark reference.
+  /// Never store UserLineMark reference.
   virtual UserLineMark const * GetUserLineMark(LineID lineID) const = 0;
 };
 

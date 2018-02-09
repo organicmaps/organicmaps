@@ -44,8 +44,7 @@ public:
 
   UserMark(m2::PointD const & ptOrg, UserMark::Type type);
 
-  static Type GetMarkType(df::MarkID);
-//  static df::MarkGroupID GetGroupId(UserMark::Type type);
+  static Type GetMarkType(df::MarkID id);
 
   Type GetMarkType() const { return GetMarkType(GetId()); }
   df::MarkGroupID GetGroupId() const override { return GetMarkType(); }

@@ -370,12 +370,10 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 
 void DrawWidget::SubmitBookmark(m2::PointD const & pt)
 {
-  size_t categoryIndex = 0;
-  auto category = m_framework.GetBookmarkManager().GetBmCategory(categoryIndex);
-  if (category == nullptr)
-    categoryIndex = m_framework.GetBookmarkManager().CreateBmCategory("Desktop_bookmarks");
+  if (!m_framework.GetBookmarkManager().HasBmCategory(m_bookmarksCategoryId))
+    m_bookmarksCategoryId = m_framework.GetBookmarkManager().CreateBookmarkCategory("Desktop_bookmarks");
   BookmarkData data("", "placemark-red");
-  m_framework.GetBookmarkManager().AddBookmark(categoryIndex, m_framework.P3dtoG(pt), data);
+  m_framework.GetBookmarkManager().GetEditSession().CreateBookmark(m_framework.P3dtoG(pt), data, m_bookmarksCategoryId);
 }
 
 void DrawWidget::FollowRoute()

@@ -158,16 +158,16 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
   cell.imageView.tag = indexPath.row;
 
   auto & bmManager = GetFramework().GetBookmarkManager();
-  size_t const categoryIndex = bmManager.GetBmGroupsIdList()[indexPath.row];
-  if (bmManager.HasBmCategory(categoryIndex))
+  auto const categoryId = bmManager.GetBmGroupsIdList()[indexPath.row];
+  if (bmManager.HasBmCategory(categoryId))
   {
-    NSString * title = @(bmManager.GetCategoryName(categoryIndex).c_str());
+    NSString * title = @(bmManager.GetCategoryName(categoryId).c_str());
     cell.textLabel.text = [self truncateString:title toWidth:(self.tableView.width - 122) withFont:cell.textLabel.font];
-    BOOL const isVisible = bmManager.IsVisible(categoryIndex);
+    BOOL const isVisible = bmManager.IsVisible(categoryId);
     cell.imageView.image = [UIImage imageNamed:(isVisible ? @"ic_show" : @"ic_hide")];
     cell.imageView.mwm_coloring = isVisible ? MWMImageColoringBlue : MWMImageColoringBlack;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",
-                                 bmManager.GetUserMarkIds(categoryIndex).size() + bmManager.GetTrackIds(categoryIndex).size()];
+                                 bmManager.GetUserMarkIds(categoryId).size() + bmManager.GetTrackIds(categoryId).size()];
   }
   cell.backgroundColor = [UIColor white];
   cell.textLabel.textColor = [UIColor blackPrimaryText];

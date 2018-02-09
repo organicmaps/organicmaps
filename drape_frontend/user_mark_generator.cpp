@@ -101,7 +101,7 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
     for (int zoomLevel = params.m_minZoom; zoomLevel <= scales::GetUpperScale(); ++zoomLevel)
     {
       TileKey const tileKey = GetTileKeyByPoint(params.m_pivot, zoomLevel);
-      ref_ptr<IDCollections> groupIDs = GetIdCollection(tileKey, groupId);
+      auto groupIDs = GetIdCollection(tileKey, groupId);
       groupIDs->m_marksID.push_back(static_cast<uint32_t>(markId));
     }
   }
@@ -125,7 +125,7 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
         CalcTilesCoverage(segmentRect, zoomLevel, [&](int tileX, int tileY)
         {
           TileKey const tileKey(tileX, tileY, zoomLevel);
-          ref_ptr<IDCollections> groupIDs = GetIdCollection(tileKey, groupId);
+          auto groupIDs = GetIdCollection(tileKey, groupId);
           groupIDs->m_linesID.push_back(static_cast<uint32_t>(lineId));
         });
         return true;

@@ -735,7 +735,7 @@ void Framework::LoadBookmarks()
 
 df::MarkGroupID Framework::AddCategory(string const & categoryName)
 {
-  return GetBookmarkManager().CreateBmCategory(categoryName);
+  return GetBookmarkManager().CreateBookmarkCategory(categoryName);
 }
 
 void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const

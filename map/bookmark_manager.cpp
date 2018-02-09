@@ -57,8 +57,10 @@ bool IsBadCharForPath(strings::UniChar const & c)
   static strings::UniChar const illegalChars[] = {':', '/', '\\', '<', '>', '\"', '|', '?', '*'};
 
   for (size_t i = 0; i < ARRAY_SIZE(illegalChars); ++i)
+  {
     if (c < ' ' || illegalChars[i] == c)
       return true;
+  }
 
   return false;
 }
@@ -141,7 +143,7 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
 {
   ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
   m_userMarkLayers.reserve(UserMark::BOOKMARK);
-  for (size_t i = 0; i < UserMark::BOOKMARK; ++i)
+  for (uint32_t i = 0; i < UserMark::BOOKMARK; ++i)
     m_userMarkLayers.emplace_back(std::make_unique<UserMarkLayer>(static_cast<UserMark::Type>(i)));
 
   m_selectionMark = CreateUserMark<StaticMarkPoint>(m2::PointD{});
@@ -322,36 +324,44 @@ void BookmarkManager::OnEditSessionClosed()
 
 void BookmarkManager::NotifyChanges()
 {
-  if (!m_changesTracker.CheckChanges())
-    return;
-
-  df::DrapeEngineLockGuard lock(m_drapeEngine);
-  if (!lock)
+  if (!m_changesTracker.CheckChanges() && !m_firstDrapeNotification)
     return;
 
   bool isBookmarks = false;
-  auto engine = lock.Get();
   for (auto groupId : m_changesTracker.GetDirtyGroupIds())
   {
-    isBookmarks |= IsBookmarkCategory(groupId);
-    auto * group = FindContainer(groupId);
-    engine->ChangeVisibilityUserMarksGroup(groupId, group->IsVisible());
+    if (IsBookmarkCategory(groupId))
+    {
+      isBookmarks = true;
+      break;
+    }
   }
-
-  engine->UpdateUserMarks(&m_changesTracker);
-
-  for (auto groupId : m_changesTracker.GetDirtyGroupIds())
-  {
-    auto * group = FindContainer(groupId);
-    if (group->GetUserMarks().empty() && group->GetUserLines().empty())
-      engine->ClearUserMarksGroup(groupId);
-    group->ResetChanges();
-  }
-
-  engine->InvalidateUserMarks();
-
   if (isBookmarks)
     SendBookmarksChanges();
+
+  df::DrapeEngineLockGuard lock(m_drapeEngine);
+  if (lock)
+  {
+    auto engine = lock.Get();
+    for (auto groupId : m_changesTracker.GetDirtyGroupIds())
+    {
+      auto *group = FindContainer(groupId);
+      engine->ChangeVisibilityUserMarksGroup(groupId, group->IsVisible());
+    }
+
+    engine->UpdateUserMarks(&m_changesTracker, m_firstDrapeNotification);
+    m_firstDrapeNotification = false;
+
+    for (auto groupId : m_changesTracker.GetDirtyGroupIds())
+    {
+      auto *group = FindContainer(groupId);
+      if (group->GetUserMarks().empty() && group->GetUserLines().empty())
+        engine->ClearUserMarksGroup(groupId);
+      group->ResetChanges();
+    }
+
+    engine->InvalidateUserMarks();
+  }
 
   for (auto const markId : m_changesTracker.GetUpdatedMarkIds())
     GetMark(markId)->ResetChanges();
@@ -428,11 +438,10 @@ bool BookmarkManager::IsVisible(df::MarkGroupID groupId) const
   return FindContainer(groupId)->IsVisible();
 }
 
-////////////////////////////
-
 void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
   m_drapeEngine.Set(engine);
+  m_firstDrapeNotification = true;
 }
 
 void BookmarkManager::UpdateViewport(ScreenBase const & screen)
@@ -687,7 +696,7 @@ df::MarkGroupID BookmarkManager::LastEditedBMCategory()
   }
 
   if (m_categories.empty())
-    CreateBmCategory(m_callbacks.m_getStringsBundle().GetString("my_places"));
+    CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("my_places"));
 
   return m_bmGroupsIdList.front();
 }
@@ -750,7 +759,7 @@ bool BookmarkManager::HasBmCategory(df::MarkGroupID groupID) const
   return m_categories.find(groupID) != m_categories.end();
 }
 
-df::MarkGroupID BookmarkManager::CreateBmCategory(std::string const & name)
+df::MarkGroupID BookmarkManager::CreateBookmarkCategory(std::string const & name)
 {
   auto const groupId = m_nextGroupID++;
   auto & cat = m_categories[groupId];
@@ -866,7 +875,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection)
     }
     else
     {
-      groupID = CreateBmCategory(data->m_name);
+      groupID = CreateBookmarkCategory(data->m_name);
       group = GetBmCategory(groupID);
       group->SetFileName(data->m_file);
       group->SetIsVisible(data->m_visible);
@@ -1151,6 +1160,15 @@ bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupID)
   return false;
 }
 
+df::GroupIDSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const
+{
+  auto const & groupIds = m_bmManager.GetBmGroupsIdList();
+  df::GroupIDSet resultingSet(groupIds.begin(), groupIds.end());
+  for (uint32_t i = 0; i < UserMark::BOOKMARK; ++i)
+    resultingSet.insert(static_cast<df::MarkGroupID>(i));
+  return resultingSet;
+}
+
 bool BookmarkManager::MarksChangesTracker::IsGroupVisible(df::MarkGroupID groupID) const
 {
   return m_bmManager.IsVisible(groupID);
@@ -1251,12 +1269,6 @@ Track * BookmarkManager::EditSession::CreateTrack(m2::PolylineD const & polyline
 {
   return m_bmManager.CreateTrack(polyline, p);
 }
-
-/*
-UserMark * BookmarkManager::EditSession::GetUserMarkForEdit(df::MarkID markID)
-{
-  return m_bmManager.GetUserMarkForEdit(markID);
-}*/
 
 Bookmark * BookmarkManager::EditSession::GetBookmarkForEdit(df::MarkID markID)
 {

@@ -144,7 +144,7 @@ void Bookmark::Detach()
 BookmarkCategory::BookmarkCategory(std::string const & name,
                                    df::MarkGroupID groupID)
   : Base(UserMark::Type::BOOKMARK)
-  , m_groupID(groupID)
+  , m_groupId(groupID)
   , m_name(name)
 {}
 
@@ -230,7 +230,7 @@ class KMLParser
   {
     m_name.clear();
     m_description.clear();
-    m_org = m2::PointD(-1000, -1000);
+    m_org = m2::PointD(0.0, 0.0);
     m_type.clear();
     m_scale = -1.0;
     m_timeStamp = my::INVALID_TIME_STAMP;
@@ -247,7 +247,6 @@ class KMLParser
   bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt)
   {
     // order in string is: lon, lat, z
-    
     strings::SimpleTokenizer iter(s, delim);
     if (iter)
     {
@@ -281,16 +280,16 @@ class KMLParser
   {
     m_geometryType = GEOMETRY_TYPE_LINE;
     
-    strings::SimpleTokenizer cortegeIter(s, blockSeparator);
-    while (cortegeIter)
+    strings::SimpleTokenizer tupleIter(s, blockSeparator);
+    while (tupleIter)
     {
       m2::PointD pt;
-      if (ParsePoint(*cortegeIter, coordSeparator, pt))
+      if (ParsePoint(*tupleIter, coordSeparator, pt))
       {
         if (m_points.GetSize() == 0 || !(pt - m_points.Back()).IsAlmostZero())
           m_points.Add(pt);
       }
-      ++cortegeIter;
+      ++tupleIter;
     }
   }
   
@@ -345,7 +344,7 @@ class KMLParser
   
 public:
   KMLParser(KMLData & data)
-  : m_data(data)
+    : m_data(data)
   {
     Reset();
   }
@@ -438,7 +437,7 @@ public:
         if (currTag == "name")
           m_data.m_name = value;
         else if (currTag == "visibility")
-          m_data.m_visible = value == "0" ? false : true;
+          m_data.m_visible = value != "0";
       }
       else if (prevTag == kPlacemark)
       {
