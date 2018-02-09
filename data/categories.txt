@@ -1188,8 +1188,8 @@ sk:^Darčeky
 fa:مغازه کادو فروشی
 
 shop-beauty
-en:^Beauty Shop|beautician|U+1F484
-ru:^Салон красоты|косметический салон
+en:^Beauty Shop|beautician|hairdresser|U+1F484
+ru:^Салон красоты|косметический салон|парикмахерская
 ar:^صالون تجميل|كوافير|متجر
 cs:^Kosmetický salon
 da:^Skønhedssalon
