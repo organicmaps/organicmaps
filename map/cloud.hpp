@@ -53,7 +53,7 @@ public:
     std::vector<EntryPtr> m_entries;
     uint64_t m_lastUpdateInHours = 0;
     bool m_isOutdated = false;
-    uint64_t m_lastSyncTimestamp = 0;
+    uint64_t m_lastSyncTimestamp = 0; // in seconds.
 
     DECLARE_VISITOR_AND_DEBUG_PRINT(Index, visitor(m_entries, "entries"),
                                     visitor(m_lastUpdateInHours, "lastUpdateInHours"),
@@ -156,7 +156,7 @@ public:
     std::string m_zipExtension;
   };
 
-  Cloud(CloudParams && params);
+  explicit Cloud(CloudParams && params);
   ~Cloud();
 
   void SetInvalidTokenHandler(InvalidTokenHandler && onInvalidToken);
@@ -165,6 +165,8 @@ public:
 
   void SetState(State state);
   State GetState() const;
+  // Return timestamp of the last synchronization in milliseconds.
+  uint64_t GetLastSynchronizationTimestamp() const;
 
   void Init(std::vector<std::string> const & filePaths);
   void MarkModified(std::string const & filePath);
@@ -173,7 +175,7 @@ public:
 
 private:
   void LoadIndex();
-  void ReadIndex(std::string const & indexFilePath);
+  void ReadIndex();
   void UpdateIndex();
   void SaveIndexImpl() const;
 

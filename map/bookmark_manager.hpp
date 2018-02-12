@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/bookmark.hpp"
+#include "map/cloud.hpp"
 #include "map/user_mark_layer.hpp"
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
@@ -185,6 +186,12 @@ public:
   MyPositionMarkPoint & MyPositionMark() { return *m_myPositionMark; }
   MyPositionMarkPoint const & MyPositionMark() const { return *m_myPositionMark; }
 
+  void SetCloudEnabled(bool enabled);
+  bool IsCloudEnabled() const;
+  uint64_t GetLastSynchronizationTimestamp() const;
+  std::unique_ptr<User::Subscriber> GetUserSubscriber();
+  void SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken);
+
 private:
   class MarksChangesTracker : public df::UserMarksProvider
   {
@@ -312,6 +319,7 @@ private:
   void SendBookmarksChanges();
   void GetBookmarksData(df::MarkIDSet const & markIds,
                         std::vector<std::pair<df::MarkID, BookmarkData>> & data) const;
+  void CheckAndCreateDefaultCategory();
 
   Callbacks m_callbacks;
   MarksChangesTracker m_changesTracker;
@@ -350,6 +358,8 @@ private:
     {}
   };
   std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;
+
+  Cloud m_bookmarkCloud;
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };

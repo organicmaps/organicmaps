@@ -2,6 +2,10 @@ project(qt_common)
 
 QT5_ADD_RESOURCES(RESOURCES res/resources_common.qrc)
 
+include_directories(
+  ${OMIM_ROOT}/3party/jansson/src
+)
+
 set(
   SRC
   helpers.cpp

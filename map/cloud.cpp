@@ -77,6 +77,7 @@ Cloud::Cloud(CloudParams && params)
   }
 
   m_state = static_cast<State>(stateValue);
+  GetPlatform().RunTask(Platform::Thread::File, [this]() { ReadIndex(); });
 }
 
 Cloud::~Cloud()
@@ -153,6 +154,15 @@ void Cloud::MarkModified(std::string const & filePath)
   MarkModifiedImpl(filePath, false /* checkSize */);
 }
 
+uint64_t Cloud::GetLastSynchronizationTimestamp() const
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  if (m_state != State::Enabled)
+    return 0;
+
+  return m_index.m_lastSyncTimestamp * 1000; // in milliseconds.
+}
+
 std::unique_ptr<User::Subscriber> Cloud::GetUserSubscriber()
 {
   auto s = std::make_unique<User::Subscriber>();
@@ -166,17 +176,17 @@ std::unique_ptr<User::Subscriber> Cloud::GetUserSubscriber()
 
 void Cloud::LoadIndex()
 {
-  auto const indexFilePath = GetIndexFilePath(m_params.m_indexName);
-  if (GetPlatform().IsFileExistsByFullPath(indexFilePath))
-    ReadIndex(indexFilePath);
-
+  ReadIndex();
   UpdateIndex();
-
   ScheduleUploading();
 }
 
-void Cloud::ReadIndex(std::string const & indexFilePath)
+void Cloud::ReadIndex()
 {
+  auto const indexFilePath = GetIndexFilePath(m_params.m_indexName);
+  if (!GetPlatform().IsFileExistsByFullPath(indexFilePath))
+    return;
+
   // Read index file.
   std::string data;
   try
@@ -276,7 +286,7 @@ Cloud::EntryPtr Cloud::GetEntryImpl(std::string const & filePath) const
 
 void Cloud::SaveIndexImpl() const
 {
-  if (m_state != State::Enabled)
+  if (m_state != State::Enabled || m_index.m_entries.empty())
     return;
 
   std::string jsonData;

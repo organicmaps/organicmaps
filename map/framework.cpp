@@ -1,7 +1,6 @@
 #include "map/framework.hpp"
 #include "map/benchmark_tools.hpp"
 #include "map/chart_generator.hpp"
-#include "map/cloud.hpp"
 #include "map/displayed_categories_modifiers.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/ge0_parser.hpp"
@@ -439,26 +438,8 @@ Framework::Framework(FrameworkParams const & params)
   m_routingManager.SetBookmarkManager(m_bmManager.get());
   m_searchMarks.SetBookmarkManager(m_bmManager.get());
 
-  //TODO: move into refactored BookmarkManager
-  m_bookmarkCloud = make_unique<Cloud>(Cloud::CloudParams("bmc.json", "bookmarks", "BookmarkCloudParam", ".kmz"));
-  m_bookmarkCloud->SetInvalidTokenHandler([this] { m_user.ResetAccessToken(); });
-  m_bookmarkCloud->SetSynchronizationHandlers([]()
-  {
-    alohalytics::Stats::Instance().LogEvent("Bookmarks_sync_started");
-  }, [](Cloud::SynchronizationResult result, std::string const & errorStr)
-  {
-    if (result == Cloud::SynchronizationResult::Success)
-    {
-      alohalytics::Stats::Instance().LogEvent("Bookmarks_sync_success");
-    }
-    else
-    {
-      std::string const typeStr = (result == Cloud::SynchronizationResult::DiskError) ? "disk" : "network";
-      alohalytics::TStringMap details {{"type", typeStr}, {"error", errorStr}};
-      alohalytics::Stats::Instance().LogEvent("Bookmarks_sync_error", details);
-    }
-  });
-  m_user.AddSubscriber(m_bookmarkCloud->GetUserSubscriber());
+  m_bmManager->SetInvalidTokenHandler([this] { m_user.ResetAccessToken(); });
+  m_user.AddSubscriber(m_bmManager->GetUserSubscriber());
 
   InitCityFinder();
   InitDiscoveryManager();
@@ -524,8 +505,7 @@ Framework::~Framework()
   DestroyDrapeEngine();
   m_model.SetOnMapDeregisteredCallback(nullptr);
 
-  //TODO: move into refactored BookmarkManager
-  m_bookmarkCloud->SetInvalidTokenHandler(nullptr);
+  m_bmManager->SetInvalidTokenHandler(nullptr);
 
   m_user.ClearSubscribers();
 }

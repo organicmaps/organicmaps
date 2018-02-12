@@ -26,6 +26,8 @@
 
 #include "std/target_os.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
+
 #include <algorithm>
 #include <fstream>
 
@@ -140,6 +142,8 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
   , m_changesTracker(*this)
   , m_needTeardown(false)
   , m_nextGroupID(UserMark::BOOKMARK)
+  , m_bookmarkCloud(Cloud::CloudParams("bmc.json", "bookmarks", "BookmarkCloudParam",
+                                       std::string(KMZ_EXTENSION)))
 {
   ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
   m_userMarkLayers.reserve(UserMark::BOOKMARK);
@@ -148,6 +152,23 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
 
   m_selectionMark = CreateUserMark<StaticMarkPoint>(m2::PointD{});
   m_myPositionMark = CreateUserMark<MyPositionMarkPoint>(m2::PointD{});
+
+  m_bookmarkCloud.SetSynchronizationHandlers([]()
+  {
+    alohalytics::Stats::Instance().LogEvent("Bookmarks_sync_started");
+  }, [](Cloud::SynchronizationResult result, std::string const & errorStr)
+  {
+    if (result == Cloud::SynchronizationResult::Success)
+    {
+      alohalytics::Stats::Instance().LogEvent("Bookmarks_sync_success");
+    }
+    else
+    {
+      std::string const typeStr = (result == Cloud::SynchronizationResult::DiskError) ? "disk" : "network";
+      alohalytics::TStringMap details {{"type", typeStr}, {"error", errorStr}};
+      alohalytics::Stats::Instance().LogEvent("Bookmarks_sync_error", details);
+    }
+  });
 }
 
 BookmarkManager::~BookmarkManager()
@@ -510,16 +531,24 @@ void BookmarkManager::LoadBookmarks()
 
     auto collection = std::make_shared<KMLDataCollection>();
     collection->reserve(files.size());
+    std::vector<std::string> filePaths;
+    filePaths.reserve(files.size());
     for (auto const & file : files)
     {
-      auto kmlData = LoadKMLFile(dir + file);
+      auto const filePath = dir + file;
+      auto kmlData = LoadKMLFile(filePath);
       if (m_needTeardown)
         return;
 
       if (kmlData != nullptr)
+      {
+        filePaths.push_back(filePath);
         collection->emplace_back(std::move(kmlData));
+      }
     }
     NotifyAboutFinishAsyncLoading(std::move(collection));
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [this, filePaths]() { m_bookmarkCloud.Init(filePaths); });
   });
 
   LoadState();
@@ -563,6 +592,12 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
       NotifyAboutFile(dataExists, filePath, isTemporaryFile);
     }
     NotifyAboutFinishAsyncLoading(std::move(collection));
+
+    if (fileSavePath)
+    {
+      GetPlatform().RunTask(Platform::Thread::Gui,
+                            [this, fileSavePath]() { m_bookmarkCloud.Init({fileSavePath.get()}); });
+    }
   });
 }
 
@@ -590,6 +625,8 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(std::shared_ptr<KMLDataColle
     m_loadBookmarksFinished = true;
     if (!collection->empty())
       CreateCategories(std::move(*collection));
+    else
+      CheckAndCreateDefaultCategory();
 
     if (m_asyncLoadingCallbacks.m_onFinished != nullptr)
       m_asyncLoadingCallbacks.m_onFinished();
@@ -694,10 +731,7 @@ df::MarkGroupID BookmarkManager::LastEditedBMCategory()
     if (cat.second->GetFileName() == m_lastCategoryUrl)
       return cat.first;
   }
-
-  if (m_categories.empty())
-    CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("my_places"));
-
+  CheckAndCreateDefaultCategory();
   return m_bmGroupsIdList.front();
 }
 
@@ -766,6 +800,12 @@ df::MarkGroupID BookmarkManager::CreateBookmarkCategory(std::string const & name
   cat = my::make_unique<BookmarkCategory>(name, groupId);
   m_bmGroupsIdList.push_back(groupId);
   return groupId;
+}
+
+void BookmarkManager::CheckAndCreateDefaultCategory()
+{
+  if (m_categories.empty())
+    CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("my_places"));
 }
 
 bool BookmarkManager::DeleteBmCategory(df::MarkGroupID groupID)
@@ -1158,6 +1198,31 @@ bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupID)
     group->SetFileName(oldFile);
 
   return false;
+}
+
+void BookmarkManager::SetCloudEnabled(bool enabled)
+{
+  m_bookmarkCloud.SetState(enabled ? Cloud::State::Enabled : Cloud::State::Disabled);
+}
+
+bool BookmarkManager::IsCloudEnabled() const
+{
+  return m_bookmarkCloud.GetState() == Cloud::State::Enabled;
+}
+
+uint64_t BookmarkManager::GetLastSynchronizationTimestamp() const
+{
+  return m_bookmarkCloud.GetLastSynchronizationTimestamp();
+}
+
+std::unique_ptr<User::Subscriber> BookmarkManager::GetUserSubscriber()
+{
+  return m_bookmarkCloud.GetUserSubscriber();
+}
+
+void BookmarkManager::SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken)
+{
+  m_bookmarkCloud.SetInvalidTokenHandler(std::move(onInvalidToken));
 }
 
 df::GroupIDSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const

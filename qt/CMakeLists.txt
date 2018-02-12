@@ -8,6 +8,7 @@ QT5_ADD_RESOURCES(RES_SOURCES res/resources.qrc)
 include_directories(
   ${OMIM_ROOT}/3party/glm
   ${OMIM_ROOT}/3party/gflags/src
+  ${OMIM_ROOT}/3party/jansson/src
 )
 
 set(
