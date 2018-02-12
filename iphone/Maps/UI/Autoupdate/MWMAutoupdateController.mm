@@ -116,10 +116,11 @@ enum class State
   [numberFormatter setNumberStyle:NSNumberFormatterPercentStyle];
   [numberFormatter setMaximumFractionDigits:0];
   [numberFormatter setMultiplier:@100];
-  NSString * percentString = [numberFormatter stringFromNumber:@(prog)];
-  NSString * sizeString = formattedSize(progress.second);
+  NSString * percent = [numberFormatter stringFromNumber:@(prog)];
+  NSString * downloadedSize = formattedSize(progress.first);
+  NSString * totalSize = formattedSize(progress.second);
   self.progressLabel.text = [NSString stringWithCoreFormat:L(@"downloader_percent")
-                                                 arguments:@[percentString, sizeString]];
+                                                 arguments:@[percent, downloadedSize, totalSize]];
 
   BOOL const isApplying = nodeAttrs.m_status == storage::NodeStatus::Applying;
   NSString * format = L(isApplying ? @"downloader_applying" : @"downloader_process");
