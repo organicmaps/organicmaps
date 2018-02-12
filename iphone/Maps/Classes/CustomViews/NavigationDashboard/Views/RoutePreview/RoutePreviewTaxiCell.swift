@@ -52,8 +52,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
 
     let timeString = { () -> String in
       let timeValue = DateComponentsFormatter.etaString(from: TimeInterval(eta)!)!
-      let format = L("taxi_wait").replacingOccurrences(of: "%s", with: "%@")
-      return String(format: format, arguments: [timeValue])
+      return String(coreFormat: L("taxi_wait"), arguments: [timeValue])
     }
 
     icon.image = iconImage()

@@ -30,21 +30,21 @@ NSString * const kStatisticsEvent = @"Mobile Internet Settings Alert";
 - (IBAction)alwaysTap
 {
   [Statistics logEvent:kStatMobileInternet withParameters:@{kStatValue : kStatAlways}];
-  SetStage(np::Stage::Always);
+  SetStage(Stage::Always);
   [self close:self.completionBlock];
 }
 
 - (IBAction)askTap
 {
-  [Statistics logEvent:kStatMobileInternet withParameters:@{kStatValue : kStatAsk}];
-  SetStage(np::Stage::Session);
+  [Statistics logEvent:kStatMobileInternet withParameters:@{kStatValue: kStatToday}];
+  SetStage(Stage::Today);
   [self close:self.completionBlock];
 }
 
 - (IBAction)neverTap
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatNever}];
-  SetStage(np::Stage::Never);
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction: kStatNotToday}];
+  SetStage(Stage::NotToday);
   [self close:self.completionBlock];
 }
 

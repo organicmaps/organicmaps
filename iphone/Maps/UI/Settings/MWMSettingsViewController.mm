@@ -89,15 +89,15 @@ extern NSString * const kAlohalyticsTapEventKey;
                                        isOn:![MWMSettings autoDownloadEnabled]];
 
   NSString * mobileInternet = nil;
-  using stage = platform::NetworkPolicy::Stage;
   switch (network_policy::GetStage())
   {
-  case stage::Always: mobileInternet = L(@"mobile_data_option_always"); break;
-  case stage::Session: mobileInternet = L(@"mobile_data_option_today"); break;
-  case stage::Never: mobileInternet = L(@"mobile_data_option_never"); break;
+  case network_policy::Ask:
+  case network_policy::Today:
+  case network_policy::NotToday: mobileInternet = L(@"mobile_data_option_ask"); break;
+  case network_policy::Always: mobileInternet = L(@"mobile_data_option_always"); break;
+  case network_policy::Never: mobileInternet = L(@"mobile_data_option_never"); break;
   }
   [self.mobileInternetCell configWithTitle:L(@"mobile_data") info:mobileInternet];
-
 
   NSString * recentTrack = nil;
   if (!GpsTracker::Instance().IsEnabled())

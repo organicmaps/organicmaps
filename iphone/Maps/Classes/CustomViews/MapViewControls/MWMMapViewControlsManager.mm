@@ -118,22 +118,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)showPlacePage:(place_page::Info const &)info
 {
-  auto show = ^(place_page::Info const & info) {
+  network_policy::CallPartnersApi([self, info](auto const & /* canUseNetwork */) {
     self.trafficButtonHidden = YES;
     [self.placePageManager show:info];
-  };
-
-  using namespace network_policy;
-  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_WWAN &&
-      !CanUseNetwork() && GetStage() == platform::NetworkPolicy::Stage::Session)
-  {
-    [[MWMAlertViewController activeAlertController]
-        presentMobileInternetAlertWithBlock:[show, info] { show(info); }];
-  }
-  else
-  {
-    show(info);
-  }
+  });
 }
 
 - (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale

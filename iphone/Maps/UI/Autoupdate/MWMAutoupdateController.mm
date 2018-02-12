@@ -4,6 +4,7 @@
 #import "MWMFrameworkListener.h"
 #import "MWMStorage.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "UIButton+RuntimeAttributes.h"
 
 #include <unordered_set>
@@ -44,7 +45,6 @@ enum class State
 
 - (void)startSpinner;
 - (void)stopSpinner;
-- (void)setProgress:(MapFilesDownloader::TProgress)progress nodeName:(NSString *)nodeName;
 - (void)updateForSize:(CGSize)size;
 
 @end
@@ -80,9 +80,9 @@ enum class State
   [self stopSpinner];
   self.primaryButton.hidden = NO;
   self.secondaryButton.localizedText = L(@"whats_new_auto_update_button_later");
-  NSString * pattern = [L(@"whats_new_auto_update_button_size") stringByReplacingOccurrencesOfString:@"%s"
-                                                            withString:@"%@"];
-  self.primaryButton.localizedText = [NSString stringWithFormat:pattern, self.updateSize];
+  self.primaryButton.localizedText =
+      [NSString stringWithCoreFormat:L(@"whats_new_auto_update_button_size")
+                           arguments:@[self.updateSize]];
 }
 
 - (void)startSpinner
@@ -108,32 +108,22 @@ enum class State
 
 - (void)setStatusForNodeName:(NSString *)nodeName rootAttributes:(NodeAttrs const &)nodeAttrs
 {
-  auto updatePlaceholder = ^NSString *(NSString * str)
-  {
-    return [str stringByReplacingOccurrencesOfString:@"%s" withString:@"%@"];
-  };
-
   auto const progress = nodeAttrs.m_downloadingProgress;
   CGFloat const prog = kMaxProgress * static_cast<CGFloat>(progress.first) / progress.second;
   self.spinner.progress = prog;
 
-  NSString * percent =
-      [L(@"downloader_percent") stringByReplacingOccurrencesOfString:@"%s" withString:@"%@"];
   NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
   [numberFormatter setNumberStyle:NSNumberFormatterPercentStyle];
   [numberFormatter setMaximumFractionDigits:0];
   [numberFormatter setMultiplier:@100];
   NSString * percentString = [numberFormatter stringFromNumber:@(prog)];
   NSString * sizeString = formattedSize(progress.second);
-  self.progressLabel.text = [NSString stringWithFormat:percent, percentString, sizeString];
+  self.progressLabel.text = [NSString stringWithCoreFormat:L(@"downloader_percent")
+                                                 arguments:@[percentString, sizeString]];
 
-  NSString * process = nil;
-  if (nodeAttrs.m_status == storage::NodeStatus::Applying)
-    process = L(@"downloader_applying");
-  else
-    process = L(@"downloader_process");
-  process = [process stringByReplacingOccurrencesOfString:@"%s" withString:@"%@"];
-  self.legendLabel.text = [NSString stringWithFormat:process, nodeName];
+  BOOL const isApplying = nodeAttrs.m_status == storage::NodeStatus::Applying;
+  NSString * format = L(isApplying ? @"downloader_applying" : @"downloader_process");
+  self.legendLabel.text = [NSString stringWithCoreFormat:format arguments:@[nodeName]];
 }
 
 @end

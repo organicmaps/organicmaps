@@ -30,13 +30,6 @@ class NetworkPolicy
   friend void network_policy::CallPartnersApi(platform::PartnersApiFn fn, bool force);
 
 public:
-  enum class Stage
-  {
-    Always,
-    Session,
-    Never
-  };
-
   bool CanUse() const { return m_canUse; }
 
 private:

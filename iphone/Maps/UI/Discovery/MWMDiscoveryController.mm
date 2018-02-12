@@ -80,16 +80,17 @@ struct Callback
 
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
 @property(nonatomic) MWMDiscoveryTableManager * tableManager;
-@property(nonatomic) MWMDiscoveryMode mode;
+@property(nonatomic) BOOL canUseNetwork;
 
 @end
 
 @implementation MWMDiscoveryController
 
-+ (instancetype)instance
++ (instancetype)instanceWithConnection:(BOOL)canUseNetwork
 {
   auto instance = [[MWMDiscoveryController alloc] initWithNibName:self.className bundle:nil];
   instance.title = L(@"discovery_button_title");
+  instance.canUseNetwork = canUseNetwork;
   return instance;
 }
 
@@ -116,14 +117,14 @@ struct Callback
                                                                  delegate:self
                                                                     model:move(callback)];
 
-  auto getTypes = [](MWMDiscoveryMode m) -> vector<ItemType> {
-    if (m == MWMDiscoveryModeOnline)
+  auto getTypes = [](BOOL canUseNetwork) -> vector<ItemType> {
+    if (canUseNetwork)
       return {ItemType::Hotels, ItemType::Viator, ItemType::Attractions, ItemType::Cafes,
               ItemType::LocalExperts};
     return {ItemType::Hotels, ItemType::Attractions, ItemType::Cafes};
   };
 
-  vector<ItemType> types = getTypes(self.mode);
+  vector<ItemType> types = getTypes(self.canUseNetwork);
   [self.tableManager loadItems:types];
   ClientParams p;
   p.m_itemTypes = move(types);

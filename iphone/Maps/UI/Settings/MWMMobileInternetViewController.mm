@@ -25,9 +25,11 @@ using np = platform::NetworkPolicy;
   SettingsTableViewSelectableCell * selected;
   switch (GetStage())
   {
-  case np::Stage::Always: selected = self.always; break;
-  case np::Stage::Session: selected = self.ask; break;
-  case np::Stage::Never: selected = self.never; break;
+  case Always: selected = self.always; break;
+  case Never: selected = self.never; break;
+  case Ask:
+  case Today:
+  case NotToday: selected = self.ask; break;
   }
   selected.accessoryType = UITableViewCellAccessoryCheckmark;
   self.selected = selected;
@@ -43,17 +45,17 @@ using np = platform::NetworkPolicy;
   if ([selected isEqual:self.always])
   {
     statValue = kStatAlways;
-    SetStage(np::Stage::Always);
+    SetStage(Always);
   }
   else if ([selected isEqual:self.ask])
   {
     statValue = kStatAsk;
-    SetStage(np::Stage::Session);
+    SetStage(Ask);
   }
   else if ([selected isEqual:self.never])
   {
     statValue = kStatNever;
-    SetStage(np::Stage::Never);
+    SetStage(Never);
   }
 
   [Statistics logEvent:kStatMobileInternet withParameters:@{kStatValue : statValue}];

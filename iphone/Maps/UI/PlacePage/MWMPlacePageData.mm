@@ -289,10 +289,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   if (!self.isViator)
     return;
 
-  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
-    return;
-
-  network_policy::CallPartnersApi([self](platform::NetworkPolicy const & canUseNetwork) {
+  network_policy::CallPartnersApi([self](auto const & canUseNetwork) {
     auto api = GetFramework().GetViatorApi(canUseNetwork);
     if (!api)
       return;
@@ -346,10 +343,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   if (!self.isBooking)
     return;
 
-  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
-    return;
-
-  network_policy::CallPartnersApi([self](platform::NetworkPolicy const & canUseNetwork) {
+  network_policy::CallPartnersApi([self](auto const & canUseNetwork) {
     auto api = GetFramework().GetBookingApi(canUseNetwork);
     if (!api)
       return;
@@ -569,42 +563,38 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     return;
   }
 
-  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
-    return;
-
-  std::string const currency = self.currencyFormatter.currencyCode.UTF8String;
-
-  auto const func = [self, label, currency](std::string const & hotelId, std::string const & minPrice,
-                                            std::string const & priceCurrency) {
-    if (currency != priceCurrency)
+  network_policy::CallPartnersApi([self, label](auto const & canUseNetwork) {
+    auto const api = GetFramework().GetBookingApi(canUseNetwork);
+    if (!api)
       return;
 
-    NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
-    decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    std::string const currency = self.currencyFormatter.currencyCode.UTF8String;
 
-    NSNumber * currencyNumber = [decimalFormatter
-        numberFromString:[@(minPrice.c_str())
-                             stringByReplacingOccurrencesOfString:@"."
-                                                       withString:decimalFormatter
-                                                                      .decimalSeparator]];
-    NSString * currencyString = [self.currencyFormatter stringFromNumber:currencyNumber];
+    auto const func = [self, label, currency](std::string const & hotelId,
+                                              std::string const & minPrice,
+                                              std::string const & priceCurrency) {
+      if (currency != priceCurrency)
+        return;
 
-    NSString * pattern =
-        [L(@"place_page_starting_from") stringByReplacingOccurrencesOfString:@"%s"
-                                                                  withString:@"%@"];
+      NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
+      decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
 
-    self.cachedMinPrice = [NSString stringWithFormat:pattern, currencyString];
-    dispatch_async(dispatch_get_main_queue(), ^{
-      label.text = self.cachedMinPrice;
-    });
-  };
+      NSNumber * currencyNumber = [decimalFormatter
+          numberFromString:[@(minPrice.c_str())
+                               stringByReplacingOccurrencesOfString:@"."
+                                                         withString:decimalFormatter
+                                                                        .decimalSeparator]];
+      NSString * currencyString = [self.currencyFormatter stringFromNumber:currencyNumber];
 
-  network_policy::CallPartnersApi(
-      [self, currency, func](platform::NetworkPolicy const & canUseNetwork) {
-        auto const api = GetFramework().GetBookingApi(canUseNetwork);
-        if (api)
-          api->GetMinPrice(self.sponsoredId.UTF8String, currency, func);
+      self.cachedMinPrice = [NSString stringWithCoreFormat:L(@"place_page_starting_from")
+                                                 arguments:@[currencyString]];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        label.text = self.cachedMinPrice;
       });
+    };
+
+    api->GetMinPrice(self.sponsoredId.UTF8String, currency, func);
+  });
 }
 
 - (NSNumberFormatter *)currencyFormatter

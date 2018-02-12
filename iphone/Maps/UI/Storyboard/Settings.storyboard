@@ -446,7 +446,7 @@
                                         <rect key="frame" x="0.0" y="702.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QNt-XC-xma" id="fBV-aJ-Mo8">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ночной режим" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7P-cj-3tZ">
@@ -549,7 +549,7 @@
                                         <rect key="frame" x="0.0" y="834.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nED-2n-gN6" id="2oQ-0g-poj">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Голосовые инструкции" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2v2-mU-aWi">
@@ -1580,7 +1580,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_today"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_ask"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>

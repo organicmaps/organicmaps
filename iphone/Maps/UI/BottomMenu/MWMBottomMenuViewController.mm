@@ -293,32 +293,16 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (IBAction)discoveryTap
 {
-  auto mode = ^MWMDiscoveryMode (BOOL canUseNetwork) {
-    return canUseNetwork ? MWMDiscoveryModeOnline : MWMDiscoveryModeOffline;
-  };
-
   auto const connectionType = GetPlatform().ConnectionStatus();
-
   [Statistics logEvent:kStatDiscoveryButtonOpen
         withParameters:@{kStatNetwork: [Statistics connectionTypeToString:connectionType]}];
 
   self.state = self.restoreState;
 
-  auto discovery = [MWMDiscoveryController instance];
-  using namespace network_policy;
-  auto const canUseNetwork = CanUseNetwork();
-  if (!canUseNetwork && connectionType == Platform::EConnectionType::CONNECTION_WWAN &&
-     GetStage() == platform::NetworkPolicy::Stage::Session)
-  {
-    [[MWMAlertViewController activeAlertController] presentMobileInternetAlertWithBlock:^{
-      discovery.mode = mode(CanUseNetwork());
-      [self.controller.navigationController pushViewController:discovery animated:YES];
-    }];
-    return;
-  }
-
-  discovery.mode = mode(canUseNetwork);
-  [self.controller.navigationController pushViewController:discovery animated:YES];
+  network_policy::CallPartnersApi([self](auto const & canUseNetwork) {
+    auto discovery = [MWMDiscoveryController instanceWithConnection:canUseNetwork.CanUse()];
+    [self.controller.navigationController pushViewController:discovery animated:YES];
+  });
 }
 
 - (IBAction)bookmarksButtonTouchUpInside

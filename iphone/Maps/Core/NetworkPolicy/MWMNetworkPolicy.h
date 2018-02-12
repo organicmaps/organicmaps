@@ -4,10 +4,19 @@
 
 namespace network_policy
 {
+enum Stage
+{
+  Ask,
+  Always,
+  Never,
+  Today,
+  NotToday
+};
+
 void CallPartnersApi(platform::PartnersApiFn fn, bool force = false);
 
-void SetStage(platform::NetworkPolicy::Stage state);
-platform::NetworkPolicy::Stage GetStage();
+void SetStage(Stage state);
+Stage const GetStage();
 
 bool CanUseNetwork();
 }  // namespace network_policy

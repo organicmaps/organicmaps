@@ -101,7 +101,7 @@
                             </state>
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_never"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_not_today"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                             </userDefinedRuntimeAttributes>
