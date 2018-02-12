@@ -120,13 +120,14 @@ bool SegmentRange::IsCorrect() const
   return (m_forward && m_startSegId <= m_endSegId) || (!m_forward && m_endSegId <= m_startSegId);
 }
 
-Segment SegmentRange::GetFirstSegment(NumMwmIds const & numMwmIds) const
+bool SegmentRange::GetFirstSegment(NumMwmIds const & numMwmIds, Segment & segment) const
 {
   if (!m_featureId.IsValid())
-    return Segment();
+    return false;
 
-  return Segment(numMwmIds.GetId(platform::CountryFile(m_featureId.GetMwmName())),
-                 m_featureId.m_index, m_startSegId, m_forward);
+  segment = Segment(numMwmIds.GetId(platform::CountryFile(m_featureId.GetMwmName())),
+                    m_featureId.m_index, m_startSegId, m_forward);
+  return true;
 }
 
 string DebugPrint(SegmentRange const & segmentRange)

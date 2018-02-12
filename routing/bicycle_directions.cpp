@@ -368,8 +368,8 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     {
       auto const it = m_adjacentEdges.find(segmentRange);
       // A route may be built through intermediate points. So it may contain the same |segmentRange|
-      // several times. But in that case |adjacentEdges| corresponds to |segmentRange|
-      // should be the same as well except for one case.
+      // several times. But in that case |adjacentEdges| corresponding to |segmentRange|
+      // should be the same.
       ASSERT(it == m_adjacentEdges.cend() || it->second.IsAlmostEqual(adjacentEdges),
              ("segmentRange:", segmentRange, "corresponds to adjacent edges which aren't equal."));
 

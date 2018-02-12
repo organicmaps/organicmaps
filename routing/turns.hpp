@@ -32,8 +32,9 @@ struct SegmentRange
   FeatureID const & GetFeature() const;
   /// \returns true if the instance of SegmentRange is correct.
   bool IsCorrect() const;
-  /// \returns First Segment of this SegmentRange.
-  Segment GetFirstSegment(NumMwmIds const & numMwmIds) const;
+  /// \brief Fills |segment| with the first segment of this SegmentRange.
+  /// \returns true if |segment| is filled and false otherwise.
+  bool GetFirstSegment(NumMwmIds const & numMwmIds, Segment & segment) const;
 
 private:
   FeatureID m_featureId;

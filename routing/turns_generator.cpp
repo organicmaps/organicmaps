@@ -32,6 +32,7 @@ double constexpr kNotSoCloseMinDistMeters = 30.;
  * - the route leads from one big road to another one;
  * - and the other possible turns lead to small roads;
  * - and the turn is GoStraight or TurnSlight*.
+ * Returns true otherwise.
  */
 bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTurns,
                             TurnInfo const & turnInfo, NumMwmIds const & numMwmIds)
@@ -39,15 +40,22 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
   if (!IsGoStraightOrSlightTurn(turn))
     return true;  // The road significantly changes its direction here. So this turn shall be kept.
 
-  // There's only one exit from this junction. This turn should be left.
-  // It may be kept later according to the result of the method KeepTurnByIngoingEdges().
+  // There's only one exit from this junction. This turn should be kept here.
+  // That means the the decision to keep this turn or not is left for KeepTurnByIngoingEdges()
+  // method which should be called after this one.
   if (possibleTurns.candidates.size() == 1)
+    return true;
+
+  // The turn should be kept if there's no any information about feature id of outgoing segment
+  // just to be on the safe side. It may happen in case of outgoing segment is a finish segment.
+  Segment firstOutgoingSegment;
+  if (!turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment))
     return true;
 
   ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::Error;
   for (auto const & t : possibleTurns.candidates)
   {
-    if (t.m_segment == turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds))
+    if (t.m_segment == firstOutgoingSegment)
       continue;
     ftypes::HighwayClass const highwayClass = t.highwayClass;
     if (static_cast<int>(highwayClass) > static_cast<int>(maxClassForPossibleTurns))
@@ -59,7 +67,7 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
     return true;
   }
   if (maxClassForPossibleTurns == ftypes::HighwayClass::Undefined)
-    return false; // Fake edges has HighwayClass::Undefined.
+    return false; // Fake edges have HighwayClass::Undefined.
 
   ftypes::HighwayClass const minClassForTheRoute =
       static_cast<ftypes::HighwayClass>(min(static_cast<int>(turnInfo.m_ingoing.m_highwayClass),
@@ -71,7 +79,7 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
     return false;
   }
   if (minClassForTheRoute == ftypes::HighwayClass::Undefined)
-    return false; // Fake edges has HighwayClass::Undefined.
+    return false; // Fake edges have HighwayClass::Undefined.
 
   int const kMaxHighwayClassDiffToKeepTheTurn = 2;
   if (static_cast<int>(maxClassForPossibleTurns) - static_cast<int>(minClassForTheRoute) >=
@@ -89,9 +97,13 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
 bool KeepRoundaboutTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTurns,
                                       TurnInfo const & turnInfo, NumMwmIds const & numMwmIds)
 {
+  Segment firstOutgoingSegment;
+  bool const validFirstOutgoingSeg =
+      turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment);
+
   for (auto const & t : possibleTurns.candidates)
   {
-    if (t.m_segment == turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds))
+    if (!validFirstOutgoingSeg || t.m_segment == firstOutgoingSegment)
       continue;
     if (static_cast<int>(t.highwayClass) != static_cast<int>(ftypes::HighwayClass::Service))
       return true;
@@ -598,12 +610,20 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
   }
   else
   {
-    if (nodes.candidates.front().m_segment == turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds))
-      turn.m_turn = LeftmostDirection(turnAngle);
-    else if (nodes.candidates.back().m_segment == turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds))
-      turn.m_turn = RightmostDirection(turnAngle);
+    Segment firstOutgoingSeg;
+    if (turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg))
+    {
+      if (nodes.candidates.front().m_segment == firstOutgoingSeg)
+        turn.m_turn = LeftmostDirection(turnAngle);
+      else if (nodes.candidates.back().m_segment == firstOutgoingSeg)
+        turn.m_turn = RightmostDirection(turnAngle);
+      else
+        turn.m_turn = intermediateDirection;
+    }
     else
+    {
       turn.m_turn = intermediateDirection;
+    }
   }
 
   if (turnInfo.m_ingoing.m_onRoundabout || turnInfo.m_outgoing.m_onRoundabout)
