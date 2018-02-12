@@ -1,6 +1,7 @@
 #import "MWMAuthorizationViewModel.h"
 #import <FBSDKCoreKit/FBSDKAccessToken.h>
 #import <GoogleSignIn/GoogleSignIn.h>
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -34,18 +35,28 @@
 {
   auto & user = GetFramework().GetUser();
   User::SocialTokenType socialTokenType;
+  NSString * provider = nil;
   switch (type)
   {
-  case MWMSocialTokenTypeGoogle: socialTokenType = User::SocialTokenType::Google; break;
-  case MWMSocialTokenTypeFacebook: socialTokenType = User::SocialTokenType::Facebook; break;
+  case MWMSocialTokenTypeGoogle:
+    provider = kStatGoogle;
+    socialTokenType = User::SocialTokenType::Google;
+    break;
+  case MWMSocialTokenTypeFacebook:
+    provider = kStatFacebook;
+    socialTokenType = User::SocialTokenType::Facebook;
+    break;
   }
   
   auto s = std::make_unique<User::Subscriber>();
   s->m_postCallAction = User::Subscriber::Action::RemoveSubscriber;
-  s->m_onAuthenticate = [](bool success)
-  {
-    //TODO: @igrechuhin add reaction on auth success/failure, please.
-    // Warning! Callback can be called on not UI Thread.
+  s->m_onAuthenticate = [provider](bool success) {
+    if (success)
+      [Statistics logEvent:kStatUGCReviewAuthRequestSuccess
+            withParameters:@{kStatProvider: provider}];
+    else
+      [Statistics logEvent:kStatUGCReviewAuthError
+            withParameters:@{kStatProvider: kStatMapsme, kStatError: @""}];
   };
   user.AddSubscriber(std::move(s));
   user.Authenticate(token.UTF8String, socialTokenType);
