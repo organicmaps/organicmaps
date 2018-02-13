@@ -92,6 +92,7 @@ else
 #define PASSPORT_URL ""
 #define PASSPORT_APP_NAME ""
 #define UGC_URL ""
+#define CLOUD_URL ""
 #define MAX_PARTNERS_COUNT 0
 #define PARTNER1_NAME ""
 #define PARTNER1_BANNER_PLACEMENT_ID ""
