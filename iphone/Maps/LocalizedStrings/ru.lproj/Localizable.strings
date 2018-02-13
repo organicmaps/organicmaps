@@ -2200,3 +2200,11 @@
 "bookmarks_places" = "%s меток";
 
 "bookmarks_create_new_group" = "Создать новую группу";
+
+"downloader_hide_screen" = "Скрыть";
+
+"downloader_percent" = "%s (%s из %s)";
+
+"downloader_process" = "Downloading %s...";
+
+"downloader_applying" = "Applying %s...";

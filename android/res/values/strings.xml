@@ -1275,4 +1275,8 @@
 	<string name="bookmarks_groups_show_all">Show all</string>
 	<string name="bookmarks_places">%s bookmarks</string>
 	<string name="bookmarks_create_new_group">Create new group</string>
+	<string name="downloader_hide_screen">Hide Screen</string>
+	<string name="downloader_percent">%1$s (%2$s of %3$s)</string>
+	<string name="downloader_process">Downloading %s...</string>
+	<string name="downloader_applying">Applying %s...</string>
 </resources>

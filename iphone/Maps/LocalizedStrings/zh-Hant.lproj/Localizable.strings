@@ -2200,3 +2200,11 @@
 "bookmarks_places" = "%s bookmarks";
 
 "bookmarks_create_new_group" = "Create new group";
+
+"downloader_hide_screen" = "Hide Screen";
+
+"downloader_percent" = "%s (%s of %s)";
+
+"downloader_process" = "Downloading %s...";
+
+"downloader_applying" = "Applying %s...";

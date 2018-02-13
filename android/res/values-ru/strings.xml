@@ -1263,4 +1263,6 @@
 	<string name="bookmarks_groups_show_all">Показать все</string>
 	<string name="bookmarks_places">%s меток</string>
 	<string name="bookmarks_create_new_group">Создать новую группу</string>
+	<string name="downloader_hide_screen">Скрыть</string>
+	<string name="downloader_percent">%1$s (%2$s из %3$s)</string>
 </resources>
