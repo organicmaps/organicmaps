@@ -5,6 +5,7 @@
 #include "generator/feature_generator.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/intermediate_elements.hpp"
+#include "generator/node_mixer.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_o5m_source.hpp"
 #include "generator/osm_translator.hpp"
@@ -772,6 +773,8 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
     }
 
     LOG(LINFO, ("Processing", info.m_osmFileName, "done."));
+
+    generator::MixFakeNodes(GetPlatform().ResourcesDir() + MIXED_NODES_FILE, fn);
 
     // Stop if coasts are not merged and FLAG_fail_on_coasts is set
     if (!emitter.Finish())

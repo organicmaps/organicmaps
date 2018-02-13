@@ -94,6 +94,7 @@
 
 #define REPLACED_TAGS_FILE "replaced_tags.txt"
 #define MIXED_TAGS_FILE "mixed_tags.txt"
+#define MIXED_NODES_FILE "mixed_nodes.txt"
 
 #define LOCALIZATION_DESCRIPTION_SUFFIX " Description"
 

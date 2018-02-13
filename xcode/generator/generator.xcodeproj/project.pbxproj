@@ -108,6 +108,8 @@
 		67C79BB41E2CEEAB00C40034 /* restriction_writer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67C79BAC1E2CEEAB00C40034 /* restriction_writer.hpp */; };
 		67C79BB51E2CEEAB00C40034 /* traffic_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67C79BAD1E2CEEAB00C40034 /* traffic_generator.cpp */; };
 		67C79BB61E2CEEAB00C40034 /* traffic_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67C79BAE1E2CEEAB00C40034 /* traffic_generator.hpp */; };
+		9D1B3F1B2034624A00278AC8 /* node_mixer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9D1B3F192034624900278AC8 /* node_mixer.hpp */; };
+		9D1B3F1C2034624A00278AC8 /* node_mixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B3F1A2034624900278AC8 /* node_mixer.cpp */; };
 		E9502E331D34012200CAB86B /* booking_scoring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9502E311D34012200CAB86B /* booking_scoring.cpp */; };
 /* End PBXBuildFile section */
 
@@ -221,6 +223,8 @@
 		67C79BAD1E2CEEAB00C40034 /* traffic_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_generator.cpp; sourceTree = "<group>"; };
 		67C79BAE1E2CEEAB00C40034 /* traffic_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_generator.hpp; sourceTree = "<group>"; };
 		67F0F6761B8C9DCE003F52FF /* osm_xml_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = osm_xml_source.hpp; sourceTree = "<group>"; };
+		9D1B3F192034624900278AC8 /* node_mixer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = node_mixer.hpp; sourceTree = "<group>"; };
+		9D1B3F1A2034624900278AC8 /* node_mixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node_mixer.cpp; sourceTree = "<group>"; };
 		E9502E311D34012200CAB86B /* booking_scoring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_scoring.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -265,6 +269,8 @@
 		6753401D1A3F2A1B00A0A8C3 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				9D1B3F1A2034624900278AC8 /* node_mixer.cpp */,
+				9D1B3F192034624900278AC8 /* node_mixer.hpp */,
 				39B2B9761FB468CC00AB85A1 /* cities_boundaries_builder.cpp */,
 				39B2B9771FB468CC00AB85A1 /* cities_boundaries_builder.hpp */,
 				3D74EF051F86841C0081202C /* ugc_section_builder.cpp */,
@@ -413,6 +419,7 @@
 				675340741A3F2A7400A0A8C3 /* generate_info.hpp in Headers */,
 				3D51BC571D5E512500F1FA8D /* region_meta.hpp in Headers */,
 				677E2A161CAACC5F001DC42A /* tag_admixer.hpp in Headers */,
+				9D1B3F1B2034624A00278AC8 /* node_mixer.hpp in Headers */,
 				568762611F6A9B18002C22A6 /* transit_generator.hpp in Headers */,
 				675340861A3F2A7400A0A8C3 /* tesselator.hpp in Headers */,
 				67A0FEBF1CEB467F008F2A61 /* booking_dataset.hpp in Headers */,
@@ -578,6 +585,7 @@
 				568762601F6A9B18002C22A6 /* transit_generator.cpp in Sources */,
 				675340601A3F2A7400A0A8C3 /* check_model.cpp in Sources */,
 				675340851A3F2A7400A0A8C3 /* tesselator.cpp in Sources */,
+				9D1B3F1C2034624A00278AC8 /* node_mixer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

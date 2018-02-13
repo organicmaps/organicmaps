@@ -40,6 +40,8 @@ set(SRC
   intermediate_elements.hpp
   metalines_builder.cpp
   metalines_builder.hpp
+  node_mixer.hpp
+  node_mixer.cpp
   opentable_dataset.cpp
   opentable_dataset.hpp
   opentable_scoring.cpp
