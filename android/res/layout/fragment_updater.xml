@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.mapswithme.maps.widget.HeightLimitedFrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:layout_height="match_parent"
+  android:layout_width="match_parent">
+<LinearLayout
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
   <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:id="@+id/update_widget"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
     android:orientation="vertical"
-    android:layout_gravity="center">
+    android:gravity="center">
     <ImageView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -45,7 +51,7 @@
       android:layout_height="wrap_content"
       android:layout_marginLeft="@dimen/margin_base"
       android:layout_marginRight="@dimen/margin_base"
-      android:layout_marginBottom="@dimen/margin_base"
+      android:layout_marginBottom="@dimen/margin_half"
       android:layout_gravity="center_horizontal">
       <TextView
         android:id="@+id/update_btn"
@@ -59,24 +65,88 @@
         android:visibility="gone"
         tools:text="@string/whats_new_auto_update_button_size"
         tools:visibility="visible"/>
-      <ProgressBar
+      <com.mapswithme.maps.widget.WheelProgressView
         android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_width="@dimen/autoupdate_progress_size"
+        android:layout_height="@dimen/autoupdate_progress_size"
+        android:layout_gravity="center"
+        app:wheelProgressColor="?colorAccent"
+        app:wheelSecondaryColor="?dividerHorizontal"
+        app:wheelThickness="@dimen/margin_eighth"
+        android:visibility="gone"
+        tools:visibility="visible"/>
     </FrameLayout>
-    <TextView
-      android:id="@+id/cancel_btn"
+    <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="@dimen/height_block_base"
+      android:layout_height="wrap_content"
       android:layout_marginLeft="@dimen/margin_base"
       android:layout_marginRight="@dimen/margin_base"
-      android:layout_marginBottom="@dimen/margin_base"
+      android:layout_marginBottom="@dimen/margin_base">
+    <TextView
+      android:id="@+id/later_btn"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_block_base"
       android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
       android:textColor="?buttonDialogTextColor"
       android:layout_gravity="center_horizontal"
       android:gravity="center"
       android:background="?clickableBackground"
-      tools:text="@string/whats_new_auto_update_button_later"/>
+      tools:text="@string/whats_new_auto_update_button_later"
+      tools:visibility="gone"/>
+      <LinearLayout
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_block_base"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+        <TextView
+          android:id="@+id/relative_status"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:gravity="center"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+          android:text="@string/downloader_percent"/>
+        <TextView
+          android:id="@+id/common_status"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:gravity="center"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+          android:text="@string/downloader_process"/>
+      </LinearLayout>
+    </FrameLayout>
   </LinearLayout>
+  <RelativeLayout
+    android:id="@+id/frame_btn"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/margin_double_plus"
+    android:layout_marginTop="@dimen/margin_base_plus"
+    android:paddingTop="@dimen/margin_quarter_plus"
+    android:paddingBottom="@dimen/margin_quarter_plus"
+    android:paddingRight="@dimen/margin_half"
+    android:paddingLeft="@dimen/margin_half"
+    android:background="?accentButtonBackground"
+    android:visibility="gone"
+    tools:visibility="visible">
+    <TextView
+      android:id="@+id/hide_btn"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:paddingLeft="@dimen/margin_half"
+      android:paddingRight="@dimen/margin_half"
+      android:textAppearance="@style/MwmTextAppearance.Button"
+      android:textColor="?accentButtonTextColor"
+      android:fontFamily="@string/robotoMedium"
+      android:text="@string/downloader_hide_screen"
+      android:gravity="center_vertical"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:background="?clickableBackground"
+      tools:targetApi="jelly_bean"/>
+  </RelativeLayout>
+</LinearLayout>
 </com.mapswithme.maps.widget.HeightLimitedFrameLayout>

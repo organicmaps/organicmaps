@@ -11,13 +11,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.news.BaseNewsFragment;
+import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
@@ -52,8 +52,13 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   private TextView mTitle;
   private TextView mUpdateBtn;
-  private ProgressBar mProgressBar;
-  private TextView mCancelBtn;
+  private WheelProgressView mProgressBar;
+  private TextView mLaterBtn;
+  private View mInfo;
+  private TextView mRelativeStatus;
+  private TextView mCommonStatus;
+  private View mFrameBtn;
+  private TextView mHideBtn;
 
   private int mListenerSlot = 0;
   @Nullable
@@ -82,19 +87,36 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   }
 
   @NonNull
+  private final View.OnClickListener mLaterClickListener = new View.OnClickListener()
+  {
+    @Override
+    public void onClick(View v)
+    {
+      Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_LATER, 0);
+
+      finish();
+    }
+  };
+
+  @NonNull
   private final View.OnClickListener mCancelClickListener = new View.OnClickListener()
   {
     @Override
     public void onClick(View v)
     {
-      Statistics.INSTANCE.trackDownloaderDialogEvent(MapManager.nativeIsDownloading()
-                                                     ? DOWNLOADER_DIALOG_LATER
-                                                     : DOWNLOADER_DIALOG_CANCEL,
-                                                     mTotalSizeMb);
+      Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_CANCEL, mTotalSizeMb);
 
-      if (MapManager.nativeIsDownloading())
-        MapManager.nativeCancel(CountryItem.getRootId());
+      MapManager.nativeCancel(CountryItem.getRootId());
+      finish();
+    }
+  };
 
+  @NonNull
+  private final View.OnClickListener mHideClickListener = new View.OnClickListener()
+  {
+    @Override
+    public void onClick(View v)
+    {
       finish();
     }
   };
@@ -110,12 +132,13 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         @Override
         public void run()
         {
+          mTitle.setText(getString(R.string.whats_new_auto_update_updating_maps));
+          mCommonStatus.setText("");
+          mProgressBar.setProgress(0);
+          mRelativeStatus.setText(GetRelativeStatusFormatted(0, 0, mTotalSizeMb));
           MapManager.nativeUpdate(CountryItem.getRootId());
-          UiUtils.show(mProgressBar);
-          UiUtils.hide(mUpdateBtn);
-          mTitle.setText(String.format(Locale.getDefault(), "%s %d%%",
-                                       getString(R.string.whats_new_auto_update_updating_maps), 0));
-          mCancelBtn.setText(R.string.cancel);
+          UiUtils.show(mProgressBar, mInfo, mFrameBtn, mHideBtn);
+          UiUtils.hide(mUpdateBtn, mLaterBtn);
 
           Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_MANUAL_DOWNLOAD,
                                                          mTotalSizeMb);
@@ -206,10 +229,15 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     View content = View.inflate(getActivity(), R.layout.fragment_updater, null);
     res.setContentView(content);
 
-    mTitle = (TextView) content.findViewById(R.id.title);
-    mUpdateBtn  = (TextView) content.findViewById(R.id.update_btn);
-    mProgressBar = (ProgressBar) content.findViewById(R.id.progress);
-    mCancelBtn = (TextView) content.findViewById(R.id.cancel_btn);
+    mTitle = content.findViewById(R.id.title);
+    mUpdateBtn  = content.findViewById(R.id.update_btn);
+    mProgressBar = content.findViewById(R.id.progress);
+    mLaterBtn = content.findViewById(R.id.later_btn);
+    mInfo = content.findViewById(R.id.info);
+    mRelativeStatus = content.findViewById(R.id.relative_status);
+    mCommonStatus = content.findViewById(R.id.common_status);
+    mFrameBtn = content.findViewById(R.id.frame_btn);
+    mHideBtn = content.findViewById(R.id.hide_btn);
 
     initViews();
 
@@ -300,22 +328,37 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   private void initViews()
   {
-    UiUtils.showIf(mAutoUpdate, mProgressBar);
-    UiUtils.showIf(!mAutoUpdate, mUpdateBtn);
+    UiUtils.showIf(mAutoUpdate, mProgressBar, mInfo, mFrameBtn, mHideBtn);
+    UiUtils.showIf(!mAutoUpdate, mUpdateBtn, mLaterBtn);
+
+    mTitle.setText(mAutoUpdate ? getString(R.string.whats_new_auto_update_updating_maps)
+                               : getString(R.string.whats_new_auto_update_title));
 
     mUpdateBtn.setText(getString(R.string.whats_new_auto_update_button_size, mTotalSize));
     mUpdateBtn.setOnClickListener(mUpdateClickListener);
-    mCancelBtn.setText(mAutoUpdate ? R.string.cancel : R.string.whats_new_auto_update_button_later);
-    mCancelBtn.setOnClickListener(mCancelClickListener);
-    mTitle.setText(mAutoUpdate ? String.format(Locale.getDefault(), "%s %d%%",
-                                               getString(R.string.whats_new_auto_update_updating_maps),
-                                               MapManager.nativeGetOverallProgress(mOutdatedMaps))
-                               : getString(R.string.whats_new_auto_update_title));
+    mLaterBtn.setText(R.string.whats_new_auto_update_button_later);
+    mLaterBtn.setOnClickListener(mLaterClickListener);
+    mProgressBar.setOnClickListener(mCancelClickListener);
+    mHideBtn.setOnClickListener(mHideClickListener);
+    if (mAutoUpdate)
+    {
+      int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
+      mProgressBar.setProgress(progress);
+      mRelativeStatus.setText(GetRelativeStatusFormatted(progress, mTotalSizeMb * progress / 100,
+                                                         mTotalSizeMb));
+    }
   }
 
   private boolean isAllUpdated()
   {
     return mOutdatedMaps == null || mLeftoverMaps == null || mLeftoverMaps.isEmpty();
+  }
+
+  @NonNull
+  String GetRelativeStatusFormatted(int progress, long localSize, long remoteSize)
+  {
+    return getString(R.string.downloader_percent, progress + "%",
+                     localSize + getString(R.string.mb), remoteSize + getString(R.string.mb));
   }
 
   private static class DetachableStorageCallback implements MapManager.StorageCallback
@@ -339,19 +382,44 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
+      String mwmId = null;
+      String mwmStatus = null;
       for (MapManager.StorageCallbackData item : data)
       {
-        if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
+        if (!item.isLeafNode)
+          continue;
+
+        switch (item.newStatus)
         {
-          showErrorDialog(item);
-          return;
+          case CountryItem.STATUS_FAILED:
+            showErrorDialog(item);
+            return;
+          case CountryItem.STATUS_DONE:
+            LOGGER.i(TAG, "Update finished for: " + item.countryId);
+            if (mLeftoverMaps != null)
+              mLeftoverMaps.remove(item.countryId);
+            break;
+          case CountryItem.STATUS_PROGRESS:
+            if (mFragment == null)
+              break;
+            mwmId = item.countryId;
+            mwmStatus = mFragment.getString(R.string.downloader_process);
+            break;
+          case CountryItem.STATUS_APPLYING:
+            if (mFragment == null)
+              break;
+            mwmId = item.countryId;
+            mwmStatus = mFragment.getString(R.string.downloader_applying);
+            break;
+          default:
+            break;
         }
-        else if (item.isLeafNode && item.newStatus == CountryItem.STATUS_DONE)
-        {
-          LOGGER.i(TAG, "Update finished for: " + item.countryId);
-          if (mLeftoverMaps != null)
-            mLeftoverMaps.remove(item.countryId);
-        }
+      }
+
+      if (mwmId != null && mwmStatus != null && mFragment != null)
+      {
+        mFragment.mCommonStatus.setText(String.format(Locale.getDefault(), mwmStatus,
+                                                      MapManager.nativeGetName(mwmId)));
       }
 
       if (mFragment != null && mFragment.isAdded() && mFragment.isAllUpdated())
@@ -404,15 +472,18 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     }
 
     @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    public void onProgress(String countryId, long localSizeBytes, long remoteSizeBytes)
     {
       if (mOutdatedMaps == null || mFragment == null || !mFragment.isAdded())
         return;
 
       int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
-      mFragment.mTitle.setText(String.format(Locale.getDefault(), "%s %d%%",
-                                             mFragment.getString(R.string.whats_new_auto_update_updating_maps),
-                                             progress));
+      mFragment.mProgressBar.setProgress(progress);
+      String relativeStatusFormatted =
+          mFragment.GetRelativeStatusFormatted(progress, localSizeBytes / Constants.MB,
+                                               remoteSizeBytes / Constants.MB);
+      mFragment.mRelativeStatus.setText(relativeStatusFormatted);
+
     }
 
     void attach(@NonNull UpdaterDialogFragment fragment)
