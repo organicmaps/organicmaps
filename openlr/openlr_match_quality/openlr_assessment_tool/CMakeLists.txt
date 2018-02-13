@@ -77,6 +77,7 @@ omim_link_libraries(
 
 link_opengl(${PROJECT_NAME})
 link_qt5_core(${PROJECT_NAME})
+link_qt5_network(${PROJECT_NAME})
 
 if (PLATFORM_MAC)
   set_target_properties(
