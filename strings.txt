@@ -28556,3 +28556,17 @@
   [bookmarks_create_new_group]
     en = Create new group
     ru = Создать новую группу
+
+  [downloader_hide_screen]
+    en = Hide Screen
+    ru = Скрыть
+
+  [downloader_percent]
+    en = %s (%s of %s)
+    ru = %s (%s из %s)
+
+  [downloader_process]
+    en = Downloading %s...
+
+  [downloader_applying]
+    en = Applying %s...
