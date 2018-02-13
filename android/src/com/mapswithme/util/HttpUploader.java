@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -71,10 +72,11 @@ public final class HttpUploader
     {
       URL url = new URL(mUrl);
       connection = (HttpURLConnection) url.openConnection();
+      connection.setConnectTimeout(Constants.CONNECTION_TIMEOUT_MS);
+      connection.setReadTimeout(Constants.READ_TIMEOUT_MS);
       connection.setUseCaches(false);
       connection.setRequestMethod(mMethod);
       connection.setDoOutput(mMethod.equals("POST"));
-      connection.setDoInput(true);
 
       long fileSize = StorageUtils.getFileSize(mFilePath);
       StringBuilder paramsBuilder = new StringBuilder();
@@ -84,8 +86,9 @@ public final class HttpUploader
       int endPartSize = LINE_FEED.length() + "--".length() + mBoundary.length()
                         + "--".length() + LINE_FEED.length();
       long bodyLength = paramsBuilder.toString().length() + fileSize + endPartSize;
+      setStreamingMode(connection, bodyLength);
       setHeaders(connection, bodyLength);
-
+      long startTime = System.currentTimeMillis();
       OutputStream outputStream = connection.getOutputStream();
       writer = new PrintWriter(new OutputStreamWriter(outputStream, CHARSET));
       writeParams(writer, paramsBuilder);
@@ -95,7 +98,9 @@ public final class HttpUploader
       LOGGER.d(TAG, "Upload bookmarks status code: " + status);
       reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
       message = readResponse(reader);
-      LOGGER.d(TAG, "Upload bookmarks response: " + message);
+      long duration = (System.currentTimeMillis() - startTime) / 1000;
+      LOGGER.d(TAG, "Upload bookmarks response: '" + message + "', " +
+                    "duration = " + duration + " sec, body size = " + bodyLength + " bytes.");
     }
     catch (IOException e)
     {
@@ -117,6 +122,20 @@ public final class HttpUploader
         connection.disconnect();
     }
     return new Result(status, message);
+  }
+
+  private static void setStreamingMode(@NonNull HttpURLConnection connection, long bodyLength)
+  {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+    {
+      connection.setFixedLengthStreamingMode(bodyLength);
+      return;
+    }
+
+    if (bodyLength <= Integer.MAX_VALUE)
+      connection.setFixedLengthStreamingMode((int) bodyLength);
+    else
+      connection.setChunkedStreamingMode(BUFFER);
   }
 
   @NonNull

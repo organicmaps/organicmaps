@@ -269,7 +269,7 @@ public final class HttpClient
     int httpResponseCode = -1;
     boolean followRedirects = true;
     boolean loadHeaders;
-    int timeoutMillisec = 30000;
+    int timeoutMillisec = Constants.READ_TIMEOUT_MS;
 
     // Simple GET request constructor.
     public Params(String url)
