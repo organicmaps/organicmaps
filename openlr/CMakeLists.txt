@@ -1,5 +1,9 @@
 project(openlr)
 
+include_directories(
+  ${OMIM_ROOT}/3party/jansson/src
+)
+
 set(
   SRC
   cache_line_size.hpp

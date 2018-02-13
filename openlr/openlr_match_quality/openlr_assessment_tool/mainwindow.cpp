@@ -96,16 +96,15 @@ public:
 
   void VisualizePoints(std::vector<m2::PointD> const & points) override
   {
-    UserMarkNotificationGuard g(m_bm, UserMark::Type::DEBUG_MARK);
-    g.m_controller.SetIsVisible(true);
+    auto editSession = m_bm.GetEditSession();
+    editSession.SetIsVisible(UserMark::Type::DEBUG_MARK, true);
     for (auto const & p : points)
-      g.m_controller.CreateUserMark(p);
+      editSession.CreateUserMark<DebugMarkPoint>(p);
   }
 
   void ClearAllVisualizedPoints() override
   {
-    UserMarkNotificationGuard g(m_bm, UserMark::Type::DEBUG_MARK);
-    g.m_controller.Clear();
+    m_bm.GetEditSession().ClearGroup(UserMark::Type::DEBUG_MARK);
   }
 
 private:

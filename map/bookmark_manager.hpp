@@ -31,6 +31,8 @@ class BookmarkManager final
   using TracksCollection = std::map<df::LineID, std::unique_ptr<Track>>;
 
 public:
+  using KMLDataCollection = std::vector<std::unique_ptr<KMLData>>;
+
   using AsyncLoadingStartedCallback = std::function<void()>;
   using AsyncLoadingFinishedCallback = std::function<void()>;
   using AsyncLoadingFileCallback = std::function<void(std::string const &, bool)>;
@@ -77,7 +79,7 @@ public:
       return m_bmManager.CreateUserMark<UserMarkT>(ptOrg);
     }
 
-    Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm);
+    Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData const & bm);
     Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupID);
     Track * CreateTrack(m2::PolylineD const & polyline, Track::Params const & p);
 
@@ -176,9 +178,6 @@ public:
   /// Uses the same file name from which was loaded, or
   /// creates unique file name on first save and uses it every time.
   bool SaveToKMLFile(df::MarkGroupID groupID);
-  /// @name This fuctions is public for unit tests only.
-  /// You don't need to call it from client code.
-  void SaveToKML(BookmarkCategory * group, std::ostream & s);
 
   StaticMarkPoint & SelectionMark() { return *m_selectionMark; }
   StaticMarkPoint const & SelectionMark() const { return *m_selectionMark; }
@@ -191,6 +190,13 @@ public:
   uint64_t GetLastSynchronizationTimestamp() const;
   std::unique_ptr<User::Subscriber> GetUserSubscriber();
   void SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken);
+
+  /// These functions is public for unit tests only. You shouldn't call them from client code.
+  void SaveToKML(df::MarkGroupID groupID, std::ostream & s);
+  void CreateCategories(KMLDataCollection && dataCollection);
+  static std::string RemoveInvalidSymbols(std::string const & name);
+  static std::string GenerateUniqueFileName(const std::string & path, std::string name);
+  static std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
@@ -226,8 +232,6 @@ private:
     df::MarkIDSet m_updatedMarks;
     df::GroupIDSet m_dirtyGroups;
   };
-
-  using KMLDataCollection = std::vector<std::unique_ptr<KMLData>>;
 
   template <typename UserMarkT>
   UserMarkT * CreateUserMark(m2::PointD const & ptOrg)
@@ -269,7 +273,7 @@ private:
   UserMark * GetUserMarkForEdit(df::MarkID markID);
   void DeleteUserMark(df::MarkID markId);
 
-  Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm);
+  Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData const & bm);
   Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupID);
 
   Bookmark * GetBookmarkForEdit(df::MarkID markID);
@@ -307,7 +311,6 @@ private:
 
   void SaveState() const;
   void LoadState();
-  void CreateCategories(KMLDataCollection && dataCollection);
   void NotifyAboutStartAsyncLoading();
   void NotifyAboutFinishAsyncLoading(std::shared_ptr<KMLDataCollection> && collection);
   boost::optional<std::string> GetKMLPath(std::string const & filePath);
@@ -320,6 +323,8 @@ private:
   void GetBookmarksData(df::MarkIDSet const & markIds,
                         std::vector<std::pair<df::MarkID, BookmarkData>> & data) const;
   void CheckAndCreateDefaultCategory();
+
+  void SaveToKML(BookmarkCategory * group, std::ostream & s);
 
   Callbacks m_callbacks;
   MarksChangesTracker m_changesTracker;

@@ -222,9 +222,7 @@ void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const &
 {
   CHECK_EQUAL(results.size(), entries.size(), ());
 
-  auto & controller = m_framework.GetBookmarkManager().GetUserMarksController(UserMark::Type::SEARCH);
-  controller.SetIsVisible(true);
-  controller.NotifyChanges();
+  m_framework.GetBookmarkManager().GetEditSession().SetIsVisible(UserMark::Type::SEARCH, true);
 
   m_nonFoundResults->Clear();
 
@@ -250,8 +248,8 @@ void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> co
 {
   CHECK_EQUAL(results.size(), entries.size(), ());
 
-  auto & controller = m_framework.GetBookmarkManager().GetUserMarksController(UserMark::Type::SEARCH);
-  controller.SetIsVisible(true);
+  auto editSession = m_framework.GetBookmarkManager().GetEditSession();
+  editSession.SetIsVisible(UserMark::Type::SEARCH, true);
 
   for (size_t i = 0; i < results.size(); ++i)
   {
@@ -260,14 +258,15 @@ void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> co
     if (entry.m_deleted)
       continue;
 
-    SearchMarkPoint * mark =
-        static_cast<SearchMarkPoint *>(controller.CreateUserMark(result.m_pos));
+    auto * mark = editSession.CreateUserMark<SearchMarkPoint>(result.m_pos);
     mark->SetMarkType(SearchMarkType::NotFound);
   }
-  controller.NotifyChanges();
 }
 
-void SampleView::ClearSearchResultMarks() { m_framework.ClearSearchResultsMarks(); }
+void SampleView::ClearSearchResultMarks()
+{
+  m_framework.GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
+}
 
 void SampleView::ClearAllResults()
 {

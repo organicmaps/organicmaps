@@ -151,3 +151,4 @@ struct KMLData
 };
 
 std::unique_ptr<KMLData> LoadKMLFile(std::string const & file);
+std::unique_ptr<KMLData> LoadKMLData(ReaderPtr<Reader> const & reader);

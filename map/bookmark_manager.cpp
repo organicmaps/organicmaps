@@ -97,44 +97,6 @@ public:
   m2::AnyRectD const & m_rect;
   m2::PointD m_globalCenter;
 };
-
-std::string RemoveInvalidSymbols(std::string const & name)
-{
-  // Remove not allowed symbols
-  strings::UniString uniName = strings::MakeUniString(name);
-  uniName.erase_if(&IsBadCharForPath);
-  return (uniName.empty() ? "Bookmarks" : strings::ToUtf8(uniName));
-}
-
-std::string GenerateUniqueFileName(const std::string & path, std::string name)
-{
-  std::string const kmlExt(BOOKMARKS_FILE_EXTENSION);
-
-  // check if file name already contains .kml extension
-  size_t const extPos = name.rfind(kmlExt);
-  if (extPos != std::string::npos)
-  {
-    // remove extension
-    ASSERT_GREATER_OR_EQUAL(name.size(), kmlExt.size(), ());
-    size_t const expectedPos = name.size() - kmlExt.size();
-    if (extPos == expectedPos)
-      name.resize(expectedPos);
-  }
-
-  size_t counter = 1;
-  std::string suffix;
-  while (Platform::IsFileExistsByFullPath(path + name + suffix + kmlExt))
-    suffix = strings::to_string(counter++);
-  return (path + name + suffix + kmlExt);
-}
-
-std::string const GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
-{
-  std::string filePath = RemoveInvalidSymbols(fileName);
-  filePath = GenerateUniqueFileName(GetPlatform().SettingsDir(), filePath);
-  return filePath;
-}
-
 }  // namespace
 
 BookmarkManager::BookmarkManager(Callbacks && callbacks)
@@ -207,6 +169,7 @@ UserMark * BookmarkManager::GetUserMarkForEdit(df::MarkID markID)
 
 void BookmarkManager::DeleteUserMark(df::MarkID markId)
 {
+  ASSERT(!IsBookmark(markId), ());
   auto it = m_userMarks.find(markId);
   auto const groupId = it->second->GetGroupId();
   FindContainer(groupId)->DetachUserMark(markId);
@@ -214,8 +177,11 @@ void BookmarkManager::DeleteUserMark(df::MarkID markId)
   m_userMarks.erase(it);
 }
 
-Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bmData)
+Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkData const & bmData)
 {
+  // TODO(darina): Check event.
+  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
+                                                         {{"action", "create"}});
   return AddBookmark(std::make_unique<Bookmark>(bmData, ptOrg));
 }
 
@@ -273,6 +239,7 @@ void BookmarkManager::DetachBookmark(df::MarkID bmId, df::MarkGroupID catID)
 
 void BookmarkManager::DeleteBookmark(df::MarkID bmId)
 {
+  ASSERT(IsBookmark(bmId), ());
   auto groupIt = m_bookmarks.find(bmId);
   auto const groupID = groupIt->second->GetGroupId();
   if (groupID)
@@ -934,10 +901,9 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection)
     }
     if (merge)
     {
-      SaveToKMLFile(groupID);
-      // Delete file since it has been merged.
-      // TODO(darina): why not delete the file before saving it?
+      // Delete file since it will be merged.
       my::DeleteFileX(data->m_file);
+      SaveToKMLFile(groupID);
     }
   }
 
@@ -1038,6 +1004,11 @@ std::string PointToString(m2::PointD const & org)
 }
 }
 
+void BookmarkManager::SaveToKML(df::MarkGroupID groupID, std::ostream & s)
+{
+  SaveToKML(GetBmCategory(groupID), s);
+}
+
 void BookmarkManager::SaveToKML(BookmarkCategory * group, std::ostream & s)
 {
   s << kmlHeader;
@@ -1049,9 +1020,15 @@ void BookmarkManager::SaveToKML(BookmarkCategory * group, std::ostream & s)
 
   s << "  <visibility>" << (group->IsVisible() ? "1" : "0") <<"</visibility>\n";
 
-  for (auto markId : group->GetUserMarks())
+  // Bookmarks are stored to KML file in reverse order, so, least recently added bookmark
+  // will be stored last. The reason is that when bookmarks will be loaded from the KML file,
+  // most recently added bookmark will be loaded last and in accordance with current logic
+  // will be added to the beginning of the bookmarks list.
+  // Thus, this method preserves LRU bookmarks order after store -> load actions.
+  auto const & markIds = group->GetUserMarks();
+  for (auto it = markIds.rbegin(); it != markIds.rend(); ++it)
   {
-    Bookmark const * bm = GetBookmark(markId);
+    Bookmark const * bm = GetBookmark(*it);
     s << "  <Placemark>\n";
     s << "    <name>";
     SaveStringWithCDATA(s, bm->GetName());
@@ -1173,7 +1150,7 @@ bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupID)
 
     if (!of.fail())
     {
-      // Only after successfull save we replace original file
+      // Only after successful save we replace original file
       my::DeleteFileX(file);
       VERIFY(my::RenameFileX(fileTmp, file), (fileTmp, file));
       // delete old file
@@ -1309,6 +1286,46 @@ void BookmarkManager::MarksChangesTracker::ResetChanges()
   m_updatedMarks.clear();
 }
 
+// static
+std::string BookmarkManager::RemoveInvalidSymbols(std::string const & name)
+{
+  // Remove not allowed symbols
+  strings::UniString uniName = strings::MakeUniString(name);
+  uniName.erase_if(&IsBadCharForPath);
+  return (uniName.empty() ? "Bookmarks" : strings::ToUtf8(uniName));
+}
+
+// static
+std::string BookmarkManager::GenerateUniqueFileName(const std::string & path, std::string name)
+{
+  std::string const kmlExt(BOOKMARKS_FILE_EXTENSION);
+
+  // check if file name already contains .kml extension
+  size_t const extPos = name.rfind(kmlExt);
+  if (extPos != std::string::npos)
+  {
+    // remove extension
+    ASSERT_GREATER_OR_EQUAL(name.size(), kmlExt.size(), ());
+    size_t const expectedPos = name.size() - kmlExt.size();
+    if (extPos == expectedPos)
+      name.resize(expectedPos);
+  }
+
+  size_t counter = 1;
+  std::string suffix;
+  while (Platform::IsFileExistsByFullPath(path + name + suffix + kmlExt))
+    suffix = strings::to_string(counter++);
+  return (path + name + suffix + kmlExt);
+}
+
+// static
+std::string BookmarkManager::GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
+{
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  filePath = GenerateUniqueFileName(GetPlatform().SettingsDir(), filePath);
+  return filePath;
+}
+
 BookmarkManager::EditSession::EditSession(BookmarkManager & manager)
   : m_bmManager(manager)
 {
@@ -1320,7 +1337,7 @@ BookmarkManager::EditSession::~EditSession()
   m_bmManager.OnEditSessionClosed();
 }
 
-Bookmark * BookmarkManager::EditSession::CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm)
+Bookmark * BookmarkManager::EditSession::CreateBookmark(m2::PointD const & ptOrg, BookmarkData const & bm)
 {
   return m_bmManager.CreateBookmark(ptOrg, bm);
 }

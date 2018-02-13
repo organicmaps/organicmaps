@@ -550,21 +550,28 @@ std::string BookmarkCategory::GetDefaultType()
 
 std::unique_ptr<KMLData> LoadKMLFile(std::string const & file)
 {
-  auto data = std::make_unique<KMLData>();
-  data->m_file = file;
   try
   {
-    ReaderSource<ReaderPtr<Reader> > src(std::make_unique<FileReader>(file));
-    KMLParser parser(*data);
-    if (!ParseXML(src, parser, true))
-    {
-      LOG(LWARNING, ("XML read error. Probably, incorrect file encoding."));
-      data.reset();
-    }
+    auto data = LoadKMLData(std::make_unique<FileReader>(file));
+    if (data)
+      data->m_file = file;
+    return data;
   }
   catch (std::exception const & e)
   {
     LOG(LWARNING, ("Error while loading bookmarks from", file, e.what()));
+  }
+  return nullptr;
+}
+
+std::unique_ptr<KMLData> LoadKMLData(ReaderPtr<Reader> const & reader)
+{
+  auto data = std::make_unique<KMLData>();
+  ReaderSource<ReaderPtr<Reader> > src(reader);
+  KMLParser parser(*data);
+  if (!ParseXML(src, parser, true))
+  {
+    LOG(LWARNING, ("XML read error. Probably, incorrect file encoding."));
     data.reset();
   }
   return data;

@@ -52,7 +52,7 @@ public:
 
   size_t GetPointCount() const
   {
-    return UserMarkNotificationGuard(*m_m, type).m_controller.GetUserMarkCount();
+    return m_m->GetUserMarkIds(type).size();
   }
 
   vector<RoutePoint> GetRoutePoints() const { return m_api.GetRoutePoints(); }
@@ -86,9 +86,11 @@ public:
 private:
   ApiMarkPoint const * GetMark(int index) const
   {
-    UserMarkNotificationGuard guard(*m_m, type);
-    TEST_LESS(index, static_cast<int>(guard.m_controller.GetUserMarkCount()), ());
-    return static_cast<ApiMarkPoint const *>(guard.m_controller.GetUserMark(index));
+    auto const & markIds = m_m->GetUserMarkIds(type);
+    TEST_LESS(index, static_cast<int>(markIds.size()), ());
+    auto it = markIds.begin();
+    std::advance(it, index);
+    return m_m->GetMark<ApiMarkPoint>(*it);
   }
 
 private:
@@ -103,10 +105,7 @@ bool IsValid(Framework & fm, string const & uriString)
   ParsedMapApi api;
   api.SetBookmarkManager(&fm.GetBookmarkManager());
   api.SetUriAndParse(uriString);
-  {
-    UserMarkNotificationGuard guard(fm.GetBookmarkManager(), UserMark::Type::API);
-    guard.m_controller.Clear();
-  }
+  fm.GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::API);
 
   return api.IsValid();
 }
