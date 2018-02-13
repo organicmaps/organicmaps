@@ -27,31 +27,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65S-M4-TnM" customClass="NavigationInfoArea" customModule="cm_dbg" customModuleProvider="target">
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65S-M4-TnM" customClass="NavigationInfoArea" customModule="maps_me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                             </view>
-                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TdT-ia-GP9" customClass="MenuArea" customModule="cm_dbg" customModuleProvider="target">
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TdT-ia-GP9" customClass="MenuArea" customModule="maps_me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                             </view>
-                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awj-9E-eBS" customClass="PlacePageArea" customModule="cm_dbg" customModuleProvider="target">
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awj-9E-eBS" customClass="PlacePageArea" customModule="maps_me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                             </view>
-                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFY-Dy-Wou" customClass="VisibleArea" customModule="cm_dbg" customModuleProvider="target">
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFY-Dy-Wou" customClass="VisibleArea" customModule="maps_me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                             </view>
-                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NI8-tV-i2B" customClass="WidgetsArea" customModule="cm_dbg" customModuleProvider="target">
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NI8-tV-i2B" customClass="WidgetsArea" customModule="maps_me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                             </view>
-                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJx-UU-IdV" customClass="SideButtonsArea" customModule="cm_dbg" customModuleProvider="target">
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJx-UU-IdV" customClass="SideButtonsArea" customModule="maps_me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                             </view>
-                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QKu-4A-UgP" customClass="TrafficButtonArea" customModule="cm_dbg" customModuleProvider="target">
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QKu-4A-UgP" customClass="TrafficButtonArea" customModule="maps_me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                             </view>
@@ -920,15 +920,8 @@
                                 </connections>
                             </tableView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9vd-CW-37q" userLabel="UpdateAllView">
-                                <rect key="frame" x="16" y="524" width="288" height="44"/>
+                                <rect key="frame" x="16" y="508" width="288" height="44"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2D-Ac-wjh">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="1"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" priority="750" constant="1" id="77N-Bp-ThF"/>
-                                        </constraints>
-                                    </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xL5-0u-TaG" customClass="MWMButton">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
                                         <color key="backgroundColor" red="0.034757062792778015" green="0.31522077322006226" blue="0.81491315364837646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -949,7 +942,7 @@
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MmB-HW-cD5" customClass="MWMButton">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="Download All">
+                                        <state key="normal">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -963,7 +956,6 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="C2D-Ac-wjh" firstAttribute="leading" secondItem="9vd-CW-37q" secondAttribute="leading" id="00a-wh-BaK"/>
                                     <constraint firstItem="xL5-0u-TaG" firstAttribute="top" secondItem="9vd-CW-37q" secondAttribute="top" id="6ui-Df-HR9"/>
                                     <constraint firstItem="xL5-0u-TaG" firstAttribute="centerY" secondItem="9vd-CW-37q" secondAttribute="centerY" id="8ea-Gk-AzX"/>
                                     <constraint firstItem="MmB-HW-cD5" firstAttribute="leading" secondItem="9vd-CW-37q" secondAttribute="leading" id="Dh1-Fr-eWw"/>
@@ -971,8 +963,6 @@
                                     <constraint firstItem="xL5-0u-TaG" firstAttribute="leading" secondItem="9vd-CW-37q" secondAttribute="leading" id="EdJ-xv-Ddl"/>
                                     <constraint firstAttribute="bottom" secondItem="MmB-HW-cD5" secondAttribute="bottom" id="M2K-ym-QIN"/>
                                     <constraint firstAttribute="trailing" secondItem="MmB-HW-cD5" secondAttribute="trailing" id="Qpf-le-AUb"/>
-                                    <constraint firstAttribute="trailing" secondItem="C2D-Ac-wjh" secondAttribute="trailing" id="ZvS-18-Itc"/>
-                                    <constraint firstItem="C2D-Ac-wjh" firstAttribute="top" secondItem="9vd-CW-37q" secondAttribute="top" id="aCR-gV-D3e"/>
                                     <constraint firstAttribute="trailing" secondItem="xL5-0u-TaG" secondAttribute="trailing" id="gm9-AZ-44g"/>
                                     <constraint firstAttribute="bottom" secondItem="xL5-0u-TaG" secondAttribute="bottom" id="rd1-SA-czc"/>
                                     <constraint firstItem="MmB-HW-cD5" firstAttribute="top" secondItem="9vd-CW-37q" secondAttribute="top" id="xAU-rg-nW4"/>
@@ -993,9 +983,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rna-hw-m68" firstAttribute="trailing" secondItem="9vd-CW-37q" secondAttribute="trailing" constant="16" id="3T4-vx-sKV"/>
+                            <constraint firstItem="9vd-CW-37q" firstAttribute="bottom" secondItem="rna-hw-m68" secondAttribute="bottom" priority="100" id="7qP-Cg-0PM"/>
                             <constraint firstItem="bgs-Kf-cQA" firstAttribute="leading" secondItem="uK4-o2-eLJ" secondAttribute="leading" id="8gX-1F-KTf"/>
-                            <constraint firstItem="9vd-CW-37q" firstAttribute="bottom" secondItem="bgs-Kf-cQA" secondAttribute="bottom" id="Vzi-ku-bUf"/>
                             <constraint firstItem="9vd-CW-37q" firstAttribute="leading" secondItem="rna-hw-m68" secondAttribute="leading" constant="16" id="Wrn-2m-Umk"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="9vd-CW-37q" secondAttribute="bottom" constant="16" id="arv-yq-Pjb"/>
                             <constraint firstItem="rna-hw-m68" firstAttribute="bottom" secondItem="bgs-Kf-cQA" secondAttribute="bottom" id="jBv-Bl-uzd"/>
                             <constraint firstAttribute="trailing" secondItem="bgs-Kf-cQA" secondAttribute="trailing" id="oXb-9d-uHx"/>
                             <constraint firstItem="bgs-Kf-cQA" firstAttribute="top" secondItem="uK4-o2-eLJ" secondAttribute="top" id="tLn-Tw-dPb"/>
@@ -1009,7 +1000,6 @@
                         <outlet property="allMapsButton" destination="xL5-0u-TaG" id="09K-th-orY"/>
                         <outlet property="allMapsCancelButton" destination="MmB-HW-cD5" id="wsr-lk-f32"/>
                         <outlet property="allMapsView" destination="9vd-CW-37q" id="XZs-Bj-AmZ"/>
-                        <outlet property="allMapsViewBottomOffset" destination="Vzi-ku-bUf" id="jSf-BP-6Ii"/>
                         <outlet property="tableView" destination="bgs-Kf-cQA" id="Nri-qd-wNS"/>
                     </connections>
                 </viewController>
@@ -1176,7 +1166,7 @@
         <!--Search No Results View Controller-->
         <scene sceneID="LUt-iU-iyq">
             <objects>
-                <viewController storyboardIdentifier="SearchNoResultsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0VQ-EO-9Sv" customClass="SearchNoResultsViewController" customModule="cm_dbg" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchNoResultsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0VQ-EO-9Sv" customClass="SearchNoResultsViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9jm-RW-DZK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
