@@ -32,6 +32,7 @@ uint32_t constexpr kRetryTimeoutInSeconds = 5;
 uint32_t constexpr kRetryDegradationFactor = 2;
 
 uint64_t constexpr kMaxWwanUploadingSizeInBytes = 10 * 1024; // 10Kb
+uint64_t constexpr kMaxUploadingFileSizeInBytes = 100 * 1024 * 1024; // 100Mb
 
 std::string const kServerUrl = CLOUD_URL;
 std::string const kCloudServerVersion = "v1";
@@ -260,6 +261,10 @@ void Cloud::MarkModifiedImpl(std::string const & filePath, bool checkSize)
 {
   uint64_t fileSize = 0;
   if (!my::GetFileSize(filePath, fileSize))
+    return;
+
+  // We do not work with files which size is more than kMaxUploadingFileSizeInBytes.
+  if (fileSize > kMaxUploadingFileSizeInBytes)
     return;
 
   auto entryPtr = GetEntryImpl(filePath);
