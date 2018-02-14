@@ -28,8 +28,6 @@ enum RowInMetaInfo
   Category,
   RowsInMetaInfoCount
 };
-
-static int const kInvalidCategoryId = 0;
 }  // namespace
 
 @interface MWMEditBookmarkController () <MWMButtonCellDelegate, MWMNoteCelLDelegate, MWMBookmarkColorDelegate,
@@ -53,7 +51,7 @@ static int const kInvalidCategoryId = 0;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.cachedBmCatId = kInvalidCategoryId;
+  self.cachedBmCatId = df::kInvalidMarkGroupId;
   auto data = self.data;
   NSAssert(data, @"Data can't be nil!");
   self.cachedDescription = data.bookmarkDescription;
@@ -96,7 +94,7 @@ static int const kInvalidCategoryId = 0;
   auto & f = GetFramework();
   BookmarkManager & bmManager = f.GetBookmarkManager();
   auto editSession = bmManager.GetEditSession();
-  if (self.cachedBmCatId != kInvalidCategoryId)
+  if (self.cachedBmCatId != df::kInvalidMarkGroupId)
   {
     editSession.MoveBookmark(m_cachedBookmarkId, m_cachedBookmarkCatId, self.cachedBmCatId);
     m_cachedBookmarkCatId = self.cachedBmCatId;

@@ -116,7 +116,7 @@ class BookmarkCategory : public UserMarkLayer
   using Base = UserMarkLayer;
 
 public:
-  BookmarkCategory(std::string const & name, df::MarkGroupID groupID);
+  BookmarkCategory(std::string const & name, df::MarkGroupID groupId);
   ~BookmarkCategory() override;
 
   static std::string GetDefaultType();

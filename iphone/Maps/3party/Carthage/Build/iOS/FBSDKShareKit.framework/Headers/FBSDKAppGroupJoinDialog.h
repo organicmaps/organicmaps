@@ -31,7 +31,7 @@ __attribute__ ((deprecated))
 
 - Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information.
  */
-+ (instancetype)showWithGroupID:(NSString *)groupID
++ (instancetype)showWithGroupID:(NSString *)groupId
                        delegate:(id<FBSDKAppGroupJoinDialogDelegate>)delegate __attribute__ ((deprecated));
 
 /**
@@ -42,7 +42,7 @@ __attribute__ ((deprecated))
 /**
 
 - Warning:App and game groups are being deprecated. See https://developers.facebook.com/docs/games/services/game-groups for more information. */
-@property (nonatomic, copy) NSString *groupID __attribute__ ((deprecated));
+@property (nonatomic, copy) NSString *groupId __attribute__ ((deprecated));
 
 /**
 

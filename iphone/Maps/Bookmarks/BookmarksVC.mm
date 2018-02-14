@@ -43,16 +43,29 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
     self.title = @(bmManager.GetCategoryName(m_categoryId).c_str());
     auto const & bookmarkIds = bmManager.GetUserMarkIds(m_categoryId);
     auto const & trackIds = bmManager.GetTrackIds(m_categoryId);
-    // TODO(darina): should we release these arrays manually?
-    m_bookmarkIds = [NSMutableArray arrayWithCapacity:bookmarkIds.size()];
-    m_trackIds = [NSMutableArray arrayWithCapacity:trackIds.size()];
-    for (auto bookmarkId : bookmarkIds)
-      [m_bookmarkIds addObject:[NSNumber numberWithInt:bookmarkId]];
-    for (auto trackId : trackIds)
-      [m_trackIds addObject:[NSNumber numberWithInt:trackId]];
     [self calculateSections];
   }
   return self;
+}
+
+- (df::MarkID)getBookmarkIdByRow:(NSInteger)row
+{
+  auto const & bmManager = GetFramework().GetBookmarkManager();
+  auto const & bookmarkIds = bmManager.GetUserMarkIds(m_categoryId);
+  ASSERT_LESS(row, bookmarkIds.size(), ());
+  auto it = bookmarkIds.begin();
+  std::advance(it, row);
+  return *it;
+}
+
+- (df::LineID)getTrackIdByRow:(NSInteger)row
+{
+  auto const & bmManager = GetFramework().GetBookmarkManager();
+  auto const & trackIds = bmManager.GetTrackIds(m_categoryId);
+  ASSERT_LESS(row, trackIds.size(), ());
+  auto it = trackIds.begin();
+  std::advance(it, row);
+  return *it;
 }
 
 - (void)viewDidLoad
@@ -138,7 +151,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
     cell = [tableView dequeueReusableCellWithIdentifier:@"TrackCell"];
     if (!cell)
       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"TrackCell"];
-    df::MarkID trackId = [[m_trackIds objectAtIndex:indexPath.row] intValue];
+    df::LineID const trackId = [self getTrackIdByRow:indexPath.row];
     Track const * tr = bmManager.GetTrack(trackId);
     cell.textLabel.text = @(tr->GetName().c_str());
     string dist;
@@ -157,7 +170,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
     UITableViewCell * bmCell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
     if (!bmCell)
       bmCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BookmarksVCBookmarkItemCell"];
-    df::MarkID bmId = [[m_bookmarkIds objectAtIndex:indexPath.row] intValue];
+    df::MarkID const bmId = [self getBookmarkIdByRow:indexPath.row];
     Bookmark const * bm = bmManager.GetBookmark(bmId);
     if (bm)
     {
@@ -221,7 +234,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
   {
     if (categoryExists)
     {
-      df::MarkID trackId = [[m_trackIds objectAtIndex:indexPath.row] intValue];
+      df::LineID const trackId = [self getTrackIdByRow:indexPath.row];
       Track const * tr = bmManager.GetTrack(trackId);
       ASSERT(tr, ("NULL track"));
       if (tr)
@@ -235,7 +248,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
   {
     if (categoryExists)
     {
-      df::MarkID bmId = [[m_bookmarkIds objectAtIndex:indexPath.row] intValue];
+      df::MarkID const bmId = [self getBookmarkIdByRow:indexPath.row];
       Bookmark const * bm = bmManager.GetBookmark(bmId);
       ASSERT(bm, ("NULL bookmark"));
       if (bm)
@@ -296,18 +309,16 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
       {
         if (indexPath.section == m_trackSection)
         {
-          df::MarkID trackId = [[m_trackIds objectAtIndex:indexPath.row] intValue];
+          df::LineID const trackId = [self getTrackIdByRow:indexPath.row];
           bmManager.GetEditSession().DeleteTrack(trackId);
-          [m_trackIds removeObjectAtIndex:indexPath.row];
         }
         else
         {
-          df::MarkID bmId = [[m_bookmarkIds objectAtIndex:indexPath.row] intValue];
+          df::MarkID const bmId = [self getBookmarkIdByRow:indexPath.row];
           NSValue * value = [NSValue valueWithBytes:&bmId objCType:@encode(df::MarkID*)];
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarkDeletedNotification
                                                             object:value];
           bmManager.GetEditSession().DeleteBookmark(bmId);
-          [m_bookmarkIds removeObjectAtIndex:indexPath.row];
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                             object:nil
                                                           userInfo:nil];
@@ -344,7 +355,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
       NSIndexPath * indexPath = [table indexPathForCell:cell];
       if (indexPath.section == self->m_bookmarkSection)
       {
-        df::MarkID bmId = [[m_bookmarkIds objectAtIndex:indexPath.row] intValue];
+        df::MarkID const bmId = [self getBookmarkIdByRow:indexPath.row];
         Bookmark const * bm = bmManager.GetBookmark(bmId);
         if (bm)
         {

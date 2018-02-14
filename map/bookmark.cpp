@@ -30,13 +30,13 @@
 
 Bookmark::Bookmark(m2::PointD const & ptOrg)
   : Base(ptOrg, UserMark::BOOKMARK)
-  , m_groupId(0)
+  , m_groupId(df::kInvalidMarkGroupId)
 {}
 
 Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg)
   : Base(ptOrg, UserMark::BOOKMARK)
   , m_data(data)
-  , m_groupId(0)
+  , m_groupId(df::kInvalidMarkGroupId)
 {}
 
 void Bookmark::SetData(BookmarkData const & data)
@@ -130,21 +130,21 @@ df::MarkGroupID Bookmark::GetGroupId() const
   return m_groupId;
 }
 
-void Bookmark::Attach(df::MarkGroupID groupID)
+void Bookmark::Attach(df::MarkGroupID groupId)
 {
-  ASSERT(!m_groupId, ());
-  m_groupId = groupID;
+  ASSERT(m_groupId == df::kInvalidMarkGroupId, ());
+  m_groupId = groupId;
 }
 
 void Bookmark::Detach()
 {
-  m_groupId = 0;
+  m_groupId = df::kInvalidMarkGroupId;
 }
 
 BookmarkCategory::BookmarkCategory(std::string const & name,
-                                   df::MarkGroupID groupID)
+                                   df::MarkGroupID groupId)
   : Base(UserMark::Type::BOOKMARK)
-  , m_groupId(groupID)
+  , m_groupId(groupId)
   , m_name(name)
 {}
 

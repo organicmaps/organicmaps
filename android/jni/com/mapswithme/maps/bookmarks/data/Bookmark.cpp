@@ -35,7 +35,8 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetIcon(
      JNIEnv * env, jobject thiz, jlong bmk)
 {
-  return jni::ToJavaString(env, getBookmark(bmk)->GetType());
+  auto const * mark = getBookmark(bmk);
+  return jni::ToJavaString(env, mark != nullptr ? mark->GetType() : "");
 }
 
 JNIEXPORT void JNICALL
@@ -43,12 +44,12 @@ Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeSetBookmarkParams(
        JNIEnv * env, jobject thiz, jlong bmk,
        jstring name, jstring type, jstring descr)
 {
-  Bookmark const * p = getBookmark(bmk);
+  auto const * mark = getBookmark(bmk);
 
   // initialize new bookmark
   BookmarkData bm(jni::ToNativeString(env, name), jni::ToNativeString(env, type));
   bm.SetDescription(descr ? jni::ToNativeString(env, descr)
-                          : p->GetDescription());
+                          : mark->GetDescription());
 
   g_framework->ReplaceBookmark(static_cast<df::MarkID>(bmk), bm);
 }

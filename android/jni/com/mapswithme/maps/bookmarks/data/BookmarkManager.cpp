@@ -128,8 +128,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryIdByPos
         JNIEnv * env, jobject thiz, jint position)
 {
   auto & ids = frm()->GetBookmarkManager().GetBmGroupsIdList();
-  // TODO(darina): use kInvalidCategoryId
-  return position < ids.size() ? static_cast<jlong>(ids[position]) : 0;
+  return static_cast<jlong>(position < ids.size() ? ids[position] : df::kInvalidMarkGroupId);
 }
 
 JNIEXPORT jlong JNICALL
@@ -298,9 +297,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkIdByPos
         JNIEnv * env, jobject thiz, jlong catId, jint positionInCategory)
 {
   auto & ids = frm()->GetBookmarkManager().GetUserMarkIds(static_cast<df::MarkGroupID>(catId));
-  // TODO(darina): use kInvalidMarkId
   if (positionInCategory >= ids.size())
-    return 0;
+    return static_cast<jlong>(df::kInvalidMarkId);
   auto it = ids.begin();
   std::advance(it, positionInCategory);
   return static_cast<jlong>(*it);
@@ -339,9 +337,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetTrackIdByPositi
         JNIEnv * env, jobject thiz, jlong catId, jint positionInCategory)
 {
   auto & ids = frm()->GetBookmarkManager().GetTrackIds(static_cast<df::MarkGroupID>(catId));
-  // TODO(darina): use kInvalidMarkId
   if (positionInCategory >= ids.size())
-    return 0;
+    return static_cast<jlong>(df::kInvalidLineId);
   auto it = ids.begin();
   std::advance(it, positionInCategory);
   return static_cast<jlong>(*it);

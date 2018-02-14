@@ -731,8 +731,8 @@ void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info)
 {
   info.SetBookmarkCategoryName("");
   info.SetBookmarkData({});
-  info.SetBookmarkId(0);
-  info.SetBookmarkCategoryId(0);
+  info.SetBookmarkId(df::kInvalidMarkId);
+  info.SetBookmarkCategoryId(df::kInvalidMarkGroupId);
   FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
 }
 

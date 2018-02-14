@@ -80,7 +80,7 @@ public:
     }
 
     Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData const & bm);
-    Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupID);
+    Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupId);
     Track * CreateTrack(m2::PolylineD const & polyline, Track::Params const & p);
 
     template <typename UserMarkT>
@@ -89,32 +89,32 @@ public:
       return m_bmManager.GetMarkForEdit<UserMarkT>(markId);
     }
 
-    Bookmark * GetBookmarkForEdit(df::MarkID markID);
+    Bookmark * GetBookmarkForEdit(df::MarkID markId);
 
     template <typename UserMarkT, typename F>
     void DeleteUserMarks(UserMark::Type type, F && deletePredicate)
     {
-      return m_bmManager.DeleteUserMarks<UserMarkT, F>(type, std::move(deletePredicate));
+      return m_bmManager.DeleteUserMarks<UserMarkT>(type, std::move(deletePredicate));
     };
 
     void DeleteUserMark(df::MarkID markId);
     void DeleteBookmark(df::MarkID bmId);
-    void DeleteTrack(df::LineID trackID);
+    void DeleteTrack(df::LineID trackId);
 
-    void ClearGroup(df::MarkGroupID groupID);
+    void ClearGroup(df::MarkGroupID groupId);
 
     void SetIsVisible(df::MarkGroupID groupId, bool visible);
 
     void MoveBookmark(df::MarkID bmID, df::MarkGroupID curGroupID, df::MarkGroupID newGroupID);
     void UpdateBookmark(df::MarkID bmId, BookmarkData const & bm);
 
-    void AttachBookmark(df::MarkID bmId, df::MarkGroupID groupID);
-    void DetachBookmark(df::MarkID bmId, df::MarkGroupID groupID);
+    void AttachBookmark(df::MarkID bmId, df::MarkGroupID groupId);
+    void DetachBookmark(df::MarkID bmId, df::MarkGroupID groupId);
 
-    void AttachTrack(df::LineID trackID, df::MarkGroupID groupID);
-    void DetachTrack(df::LineID trackID, df::MarkGroupID groupID);
+    void AttachTrack(df::LineID trackId, df::MarkGroupID groupId);
+    void DetachTrack(df::LineID trackId, df::MarkGroupID groupId);
 
-    bool DeleteBmCategory(df::MarkGroupID groupID);
+    bool DeleteBmCategory(df::MarkGroupID groupId);
 
     void NotifyChanges();
 
@@ -136,7 +136,7 @@ public:
   void Teardown();
 
   static bool IsBookmarkCategory(df::MarkGroupID groupId) { return groupId >= UserMark::BOOKMARK; }
-  static bool IsBookmark(df::MarkID markID) { return UserMark::GetMarkType(markID) == UserMark::BOOKMARK; }
+  static bool IsBookmark(df::MarkID markId) { return UserMark::GetMarkType(markId) == UserMark::BOOKMARK; }
 
   template <typename UserMarkT>
   UserMarkT const * GetMark(df::MarkID markId) const
@@ -146,12 +146,12 @@ public:
     return static_cast<UserMarkT const *>(mark);
   }
 
-  UserMark const * GetUserMark(df::MarkID markID) const;
-  Bookmark const * GetBookmark(df::MarkID markID) const;
-  Track const * GetTrack(df::LineID trackID) const;
+  UserMark const * GetUserMark(df::MarkID markId) const;
+  Bookmark const * GetBookmark(df::MarkID markId) const;
+  Track const * GetTrack(df::LineID trackId) const;
 
-  df::MarkIDSet const & GetUserMarkIds(df::MarkGroupID groupID) const;
-  df::LineIDSet const & GetTrackIds(df::MarkGroupID groupID) const;
+  df::MarkIDSet const & GetUserMarkIds(df::MarkGroupID groupId) const;
+  df::LineIDSet const & GetTrackIds(df::MarkGroupID groupId) const;
 
   bool IsVisible(df::MarkGroupID groupId) const;
 
@@ -162,7 +162,7 @@ public:
   void SetCategoryName(df::MarkGroupID categoryId, std::string const & name);
 
   df::GroupIDCollection const & GetBmGroupsIdList() const { return m_bmGroupsIdList; }
-  bool HasBmCategory(df::MarkGroupID groupID) const;
+  bool HasBmCategory(df::MarkGroupID groupId) const;
   df::MarkGroupID LastEditedBMCategory();
   std::string LastEditedBMType() const;
 
@@ -177,7 +177,7 @@ public:
 
   /// Uses the same file name from which was loaded, or
   /// creates unique file name on first save and uses it every time.
-  bool SaveToKMLFile(df::MarkGroupID groupID);
+  bool SaveToKMLFile(df::MarkGroupID groupId);
 
   StaticMarkPoint & SelectionMark() { return *m_selectionMark; }
   StaticMarkPoint const & SelectionMark() const { return *m_selectionMark; }
@@ -192,7 +192,7 @@ public:
   void SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken);
 
   /// These functions is public for unit tests only. You shouldn't call them from client code.
-  void SaveToKML(df::MarkGroupID groupID, std::ostream & s);
+  void SaveToKML(df::MarkGroupID groupId, std::ostream & s);
   void CreateCategories(KMLDataCollection && dataCollection);
   static std::string RemoveInvalidSymbols(std::string const & name);
   static std::string GenerateUniqueFileName(const std::string & path, std::string name);
@@ -217,12 +217,12 @@ private:
     df::MarkIDSet const & GetCreatedMarkIds() const override { return m_createdMarks; }
     df::MarkIDSet const & GetRemovedMarkIds() const override { return m_removedMarks; }
     df::MarkIDSet const & GetUpdatedMarkIds() const override { return m_updatedMarks; }
-    bool IsGroupVisible(df::MarkGroupID groupID) const override;
-    bool IsGroupVisibilityChanged(df::MarkGroupID groupID) const override;
+    bool IsGroupVisible(df::MarkGroupID groupId) const override;
+    bool IsGroupVisibilityChanged(df::MarkGroupID groupId) const override;
     df::MarkIDSet const & GetGroupPointIds(df::MarkGroupID groupId) const override;
     df::LineIDSet const & GetGroupLineIds(df::MarkGroupID groupId) const override;
-    df::UserPointMark const * GetUserPointMark(df::MarkID markID) const override;
-    df::UserLineMark const * GetUserLineMark(df::LineID lineID) const override;
+    df::UserPointMark const * GetUserPointMark(df::MarkID markId) const override;
+    df::UserLineMark const * GetUserLineMark(df::LineID lineId) const override;
 
   private:
     BookmarkManager & m_bmManager;
@@ -270,36 +270,36 @@ private:
       DeleteUserMark(markId);
   };
 
-  UserMark * GetUserMarkForEdit(df::MarkID markID);
+  UserMark * GetUserMarkForEdit(df::MarkID markId);
   void DeleteUserMark(df::MarkID markId);
 
   Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData const & bm);
-  Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupID);
+  Bookmark * CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupId);
 
-  Bookmark * GetBookmarkForEdit(df::MarkID markID);
-  void AttachBookmark(df::MarkID bmId, df::MarkGroupID groupID);
-  void DetachBookmark(df::MarkID bmId, df::MarkGroupID groupID);
+  Bookmark * GetBookmarkForEdit(df::MarkID markId);
+  void AttachBookmark(df::MarkID bmId, df::MarkGroupID groupId);
+  void DetachBookmark(df::MarkID bmId, df::MarkGroupID groupId);
   void DeleteBookmark(df::MarkID bmId);
 
   Track * CreateTrack(m2::PolylineD const & polyline, Track::Params const & p);
 
-  void AttachTrack(df::LineID trackID, df::MarkGroupID groupID);
-  void DetachTrack(df::LineID trackID, df::MarkGroupID groupID);
-  void DeleteTrack(df::LineID trackID);
+  void AttachTrack(df::LineID trackId, df::MarkGroupID groupId);
+  void DetachTrack(df::LineID trackId, df::MarkGroupID groupId);
+  void DeleteTrack(df::LineID trackId);
 
-  void ClearGroup(df::MarkGroupID groupID);
+  void ClearGroup(df::MarkGroupID groupId);
   void SetIsVisible(df::MarkGroupID groupId, bool visible);
 
-  bool DeleteBmCategory(df::MarkGroupID groupID);
+  bool DeleteBmCategory(df::MarkGroupID groupId);
   void ClearCategories();
 
   void MoveBookmark(df::MarkID bmID, df::MarkGroupID curGroupID, df::MarkGroupID newGroupID);
   void UpdateBookmark(df::MarkID bmId, BookmarkData const & bm);
 
-  UserMark const * GetMark(df::MarkID markID) const;
+  UserMark const * GetMark(df::MarkID markId) const;
 
-  UserMarkLayer const * FindContainer(df::MarkGroupID containerId) const;
-  UserMarkLayer * FindContainer(df::MarkGroupID containerId);
+  UserMarkLayer const * GetGroup(df::MarkGroupID groupId) const;
+  UserMarkLayer * GetGroup(df::MarkGroupID groupId);
   BookmarkCategory * GetBmCategory(df::MarkGroupID categoryId) const;
 
   Bookmark * AddBookmark(std::unique_ptr<Bookmark> && bookmark);

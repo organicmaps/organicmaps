@@ -4710,6 +4710,7 @@
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(PROJECT_DIR)/3party/MoPubSDK/**",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -4759,6 +4760,7 @@
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(PROJECT_DIR)/3party/MoPubSDK/**",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -4813,6 +4815,7 @@
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(PROJECT_DIR)/3party/MoPubSDK/**",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (

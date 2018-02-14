@@ -339,7 +339,6 @@ UNIT_TEST(Bookmarks_Timestamp)
   TEST_EQUAL(bmManager.GetUserMarkIds(cat1).size(), 2, ());
   TEST_EQUAL(bmManager.GetUserMarkIds(cat2).size(), 1, ());
 
-  // TODO(darina): Check that files have been deleted.
   DeleteCategoryFiles(arrCat);
 }
 

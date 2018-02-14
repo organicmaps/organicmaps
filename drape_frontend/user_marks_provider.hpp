@@ -17,18 +17,18 @@ namespace df
 {
 struct IDCollections
 {
-  MarkIDCollection m_marksID;
-  LineIDCollection m_linesID;
+  MarkIDCollection m_markIds;
+  LineIDCollection m_lineIds;
 
   bool IsEmpty()
   {
-    return m_marksID.empty() && m_linesID.empty();
+    return m_markIds.empty() && m_lineIds.empty();
   }
 
   void Clear()
   {
-    m_marksID.clear();
-    m_linesID.clear();
+    m_markIds.clear();
+    m_lineIds.clear();
   }
 };
 
@@ -103,17 +103,17 @@ public:
   virtual ~UserMarksProvider() {}
   virtual GroupIDSet const & GetDirtyGroupIds() const = 0;
   virtual GroupIDSet GetAllGroupIds() const = 0;
-  virtual bool IsGroupVisible(MarkGroupID groupID) const = 0;
-  virtual bool IsGroupVisibilityChanged(MarkGroupID groupID) const = 0;
-  virtual MarkIDSet const & GetGroupPointIds(MarkGroupID groupID) const = 0;
-  virtual LineIDSet const & GetGroupLineIds(MarkGroupID groupID) const = 0;
+  virtual bool IsGroupVisible(MarkGroupID groupId) const = 0;
+  virtual bool IsGroupVisibilityChanged(MarkGroupID groupId) const = 0;
+  virtual MarkIDSet const & GetGroupPointIds(MarkGroupID groupId) const = 0;
+  virtual LineIDSet const & GetGroupLineIds(MarkGroupID groupId) const = 0;
   virtual MarkIDSet const & GetCreatedMarkIds() const = 0;
   virtual MarkIDSet const & GetRemovedMarkIds() const = 0;
   virtual MarkIDSet const & GetUpdatedMarkIds() const = 0;
   /// Never store UserPointMark reference.
-  virtual UserPointMark const * GetUserPointMark(MarkID markID) const = 0;
+  virtual UserPointMark const * GetUserPointMark(MarkID markId) const = 0;
   /// Never store UserLineMark reference.
-  virtual UserLineMark const * GetUserLineMark(LineID lineID) const = 0;
+  virtual UserLineMark const * GetUserLineMark(LineID lineId) const = 0;
 };
 
 } // namespace df

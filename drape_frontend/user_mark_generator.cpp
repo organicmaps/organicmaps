@@ -38,9 +38,9 @@ void UserMarkGenerator::SetRemovedUserMarks(drape_ptr<IDCollections> && ids)
 {
   if (ids == nullptr)
     return;
-  for (auto const & id : ids->m_marksID)
+  for (auto const & id : ids->m_markIds)
     m_marks.erase(id);
-  for (auto const & id : ids->m_linesID)
+  for (auto const & id : ids->m_lineIds)
     m_lines.erase(id);
 }
 
@@ -48,7 +48,7 @@ void UserMarkGenerator::SetCreatedUserMarks(drape_ptr<IDCollections> && ids)
 {
   if (ids == nullptr)
     return;
-  for (auto const & id : ids->m_marksID)
+  for (auto const & id : ids->m_markIds)
     m_marks[id].get()->m_justCreated = true;
 }
 
@@ -84,8 +84,8 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
     auto itGroupIndexes = tileGroups.second->find(groupId);
     if (itGroupIndexes != tileGroups.second->end())
     {
-      itGroupIndexes->second->m_marksID.clear();
-      itGroupIndexes->second->m_linesID.clear();
+      itGroupIndexes->second->m_markIds.clear();
+      itGroupIndexes->second->m_lineIds.clear();
     }
   }
 
@@ -95,18 +95,18 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
 
   IDCollections & idCollection = *groupIt->second.get();
 
-  for (auto markId : idCollection.m_marksID)
+  for (auto markId : idCollection.m_markIds)
   {
     UserMarkRenderParams const & params = *m_marks[markId].get();
     for (int zoomLevel = params.m_minZoom; zoomLevel <= scales::GetUpperScale(); ++zoomLevel)
     {
       TileKey const tileKey = GetTileKeyByPoint(params.m_pivot, zoomLevel);
       auto groupIDs = GetIdCollection(tileKey, groupId);
-      groupIDs->m_marksID.push_back(static_cast<uint32_t>(markId));
+      groupIDs->m_markIds.push_back(static_cast<uint32_t>(markId));
     }
   }
 
-  for (auto lineId : idCollection.m_linesID)
+  for (auto lineId : idCollection.m_lineIds)
   {
     UserLineRenderParams const & params = *m_lines[lineId].get();
 
@@ -126,7 +126,7 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
         {
           TileKey const tileKey(tileX, tileY, zoomLevel);
           auto groupIDs = GetIdCollection(tileKey, groupId);
-          groupIDs->m_linesID.push_back(static_cast<uint32_t>(lineId));
+          groupIDs->m_lineIds.push_back(static_cast<uint32_t>(lineId));
         });
         return true;
       });
@@ -181,7 +181,7 @@ void UserMarkGenerator::CleanIndex()
   {
     for (auto groupIt = tileGroups.second->begin(); groupIt != tileGroups.second->end();)
     {
-      if (groupIt->second->m_marksID.empty() && groupIt->second->m_linesID.empty())
+      if (groupIt->second->m_markIds.empty() && groupIt->second->m_lineIds.empty())
         groupIt = tileGroups.second->erase(groupIt);
       else
         ++groupIt;
@@ -255,7 +255,7 @@ void UserMarkGenerator::CacheUserLines(TileKey const & tileKey, MarksIDGroups co
     if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
       continue;
 
-    df::CacheUserLines(tileKey, textures, groupPair.second->m_linesID, m_lines, batcher);
+    df::CacheUserLines(tileKey, textures, groupPair.second->m_lineIds, m_lines, batcher);
   }
 }
 
@@ -267,7 +267,7 @@ void UserMarkGenerator::CacheUserMarks(TileKey const & tileKey, MarksIDGroups co
     MarkGroupID groupId = groupPair.first;
     if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
       continue;
-    df::CacheUserMarks(tileKey, textures, groupPair.second->m_marksID, m_marks, batcher);
+    df::CacheUserMarks(tileKey, textures, groupPair.second->m_markIds, m_marks, batcher);
   }
 }
 

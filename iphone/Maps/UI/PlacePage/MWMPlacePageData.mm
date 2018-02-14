@@ -694,12 +694,12 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 - (df::MarkID)bookmarkId
 {
-  return m_info.IsBookmark() ? m_info.GetBookmarkId() : 0;
+  return m_info.GetBookmarkId();
 }
 
 - (df::MarkGroupID)bookmarkCategoryId
 {
-  return m_info.IsBookmark() ? m_info.GetBookmarkCategoryId() : 0;
+  return m_info.GetBookmarkCategoryId();
 }
 
 #pragma mark - Local Ads

@@ -69,7 +69,7 @@ public:
 
   /// Place traits
   bool IsFeature() const { return m_featureID.IsValid(); }
-  bool IsBookmark() const { return m_markGroupId != 0; }
+  bool IsBookmark() const { return m_markGroupId != df::kInvalidMarkGroupId && m_markId != df::kInvalidMarkId; }
   bool IsMyPosition() const { return m_isMyPosition; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
 
@@ -236,9 +236,9 @@ private:
   std::string m_customName;
 
   /// Bookmarks
-  /// If not empty, bookmark is bound to this place page.
-  df::MarkID m_markId = 0;
-  df::MarkGroupID m_markGroupId = 0;
+  /// If not invalid, bookmark is bound to this place page.
+  df::MarkID m_markId = df::kInvalidMarkId;
+  df::MarkGroupID m_markGroupId = df::kInvalidMarkGroupId;;
   /// Bookmark category name. Empty, if it's not bookmark;
   std::string m_bookmarkCategoryName;
   BookmarkData m_bookmarkData;

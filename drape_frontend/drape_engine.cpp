@@ -262,14 +262,14 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
     };
 
     for (auto markId : provider->GetCreatedMarkIds())
-      handleMark(markId, *marksRenderCollection, &createdIdCollection->m_marksID);
+      handleMark(markId, *marksRenderCollection, &createdIdCollection->m_markIds);
 
     for (auto markId : provider->GetUpdatedMarkIds())
       handleMark(markId, *marksRenderCollection, nullptr);
 
     auto const & removedMarkIds = provider->GetRemovedMarkIds();
-    removedIdCollection->m_marksID.reserve(removedMarkIds.size());
-    removedIdCollection->m_marksID.assign(removedMarkIds.begin(), removedMarkIds.end());
+    removedIdCollection->m_markIds.reserve(removedMarkIds.size());
+    removedIdCollection->m_markIds.assign(removedMarkIds.begin(), removedMarkIds.end());
   }
 
   std::map<df::MarkGroupID, drape_ptr<IDCollections>> dirtyMarkIds;
@@ -285,10 +285,10 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
     auto const & lineIds = provider->GetGroupLineIds(groupId);
     if (groupIsVisible)
     {
-      idCollection.m_marksID.reserve(markIds.size());
-      idCollection.m_marksID.assign(markIds.begin(), markIds.end());
-      idCollection.m_linesID.reserve(lineIds.size());
-      idCollection.m_linesID.assign(lineIds.begin(), lineIds.end());
+      idCollection.m_markIds.reserve(markIds.size());
+      idCollection.m_markIds.assign(markIds.begin(), markIds.end());
+      idCollection.m_lineIds.reserve(lineIds.size());
+      idCollection.m_lineIds.assign(lineIds.begin(), lineIds.end());
 
       for (auto lineId : lineIds)
       {
@@ -307,10 +307,10 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
     }
     else if (!firstTime)
     {
-      auto & points = removedIdCollection->m_marksID;
+      auto & points = removedIdCollection->m_markIds;
       points.reserve(points.size() + markIds.size());
       points.insert(points.end(), markIds.begin(), markIds.end());
-      auto & lines = removedIdCollection->m_linesID;
+      auto & lines = removedIdCollection->m_lineIds;
       lines.reserve(lines.size() + lineIds.size());
       lines.insert(lines.end(), lineIds.begin(), lineIds.end());
     }

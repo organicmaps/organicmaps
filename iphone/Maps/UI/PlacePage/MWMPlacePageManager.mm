@@ -128,7 +128,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     return;
 
   auto value = static_cast<NSValue *>(notification.object);
-  df::MarkID deletedBookmarkId = 0;
+  df::MarkID deletedBookmarkId = df::kInvalidMarkId;
   [value getValue:&deletedBookmarkId];
   auto bookmarkId = data.bookmarkId;
   if (bookmarkId != deletedBookmarkId)

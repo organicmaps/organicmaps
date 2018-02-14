@@ -51,7 +51,7 @@ public:
   std::vector<m2::PointD> const & GetPoints() const override;
 
   df::MarkGroupID GetGroupId() const { return m_groupID; }
-  void Attach(df::MarkGroupID groupID);
+  void Attach(df::MarkGroupID groupId);
   void Detach();
 
 private:

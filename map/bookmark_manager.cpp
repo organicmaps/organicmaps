@@ -143,25 +143,25 @@ BookmarkManager::EditSession BookmarkManager::GetEditSession()
   return EditSession(*this);
 }
 
-UserMark const * BookmarkManager::GetMark(df::MarkID markID) const
+UserMark const * BookmarkManager::GetMark(df::MarkID markId) const
 {
-  if (IsBookmark(markID))
-    return GetBookmark(markID);
-  return GetUserMark(markID);
+  if (IsBookmark(markId))
+    return GetBookmark(markId);
+  return GetUserMark(markId);
 }
 
-UserMark const * BookmarkManager::GetUserMark(df::MarkID markID) const
+UserMark const * BookmarkManager::GetUserMark(df::MarkID markId) const
 {
-  auto it = m_userMarks.find(markID);
+  auto it = m_userMarks.find(markId);
   return (it != m_userMarks.end()) ? it->second.get() : nullptr;
 }
 
-UserMark * BookmarkManager::GetUserMarkForEdit(df::MarkID markID)
+UserMark * BookmarkManager::GetUserMarkForEdit(df::MarkID markId)
 {
-  auto it = m_userMarks.find(markID);
+  auto it = m_userMarks.find(markId);
   if (it != m_userMarks.end())
   {
-    m_changesTracker.OnUpdateMark(markID);
+    m_changesTracker.OnUpdateMark(markId);
     return it->second.get();
   }
   return nullptr;
@@ -172,32 +172,33 @@ void BookmarkManager::DeleteUserMark(df::MarkID markId)
   ASSERT(!IsBookmark(markId), ());
   auto it = m_userMarks.find(markId);
   auto const groupId = it->second->GetGroupId();
-  FindContainer(groupId)->DetachUserMark(markId);
+  GetGroup(groupId)->DetachUserMark(markId);
   m_changesTracker.OnDeleteMark(markId);
   m_userMarks.erase(it);
 }
 
 Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkData const & bmData)
 {
-  // TODO(darina): Check event.
-  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
-                                                         {{"action", "create"}});
   return AddBookmark(std::make_unique<Bookmark>(bmData, ptOrg));
 }
 
-Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupID)
+Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupId)
 {
+  // TODO(darina): Do we need this event?
+  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
+                                                         {{"action", "create"}});
+
   bm.SetTimeStamp(time(0));
   bm.SetScale(df::GetDrawTileScale(m_viewport));
 
   auto * bookmark = CreateBookmark(ptOrg, bm);
-  bookmark->Attach(groupID);
-  auto * group = GetBmCategory(groupID);
+  bookmark->Attach(groupId);
+  auto * group = GetBmCategory(groupId);
   group->AttachUserMark(bookmark->GetId());
   group->SetIsVisible(true);
-  SaveToKMLFile(groupID);
+  SaveToKMLFile(groupId);
 // TODO(darina): get rid of this
-//  NotifyChanges(groupID);
+//  NotifyChanges(groupId);
 
   m_lastCategoryUrl = group->GetFileName();
   m_lastType = bm.GetType();
@@ -206,21 +207,21 @@ Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkDat
   return bookmark;
 }
 
-Bookmark const * BookmarkManager::GetBookmark(df::MarkID markID) const
+Bookmark const * BookmarkManager::GetBookmark(df::MarkID markId) const
 {
-  auto it = m_bookmarks.find(markID);
+  auto it = m_bookmarks.find(markId);
   return (it != m_bookmarks.end()) ? it->second.get() : nullptr;
 }
 
-Bookmark * BookmarkManager::GetBookmarkForEdit(df::MarkID markID)
+Bookmark * BookmarkManager::GetBookmarkForEdit(df::MarkID markId)
 {
-  auto it = m_bookmarks.find(markID);
+  auto it = m_bookmarks.find(markId);
   if (it == m_bookmarks.end())
     return nullptr;
 
   auto const groupId = it->second->GetGroupId();
-  if (groupId)
-    m_changesTracker.OnUpdateMark(markID);
+  if (groupId != df::kInvalidMarkGroupId)
+    m_changesTracker.OnUpdateMark(markId);
 
   return it->second.get();
 }
@@ -228,24 +229,24 @@ Bookmark * BookmarkManager::GetBookmarkForEdit(df::MarkID markID)
 void BookmarkManager::AttachBookmark(df::MarkID bmId, df::MarkGroupID catID)
 {
   GetBookmarkForEdit(bmId)->Attach(catID);
-  FindContainer(catID)->AttachUserMark(bmId);
+  GetGroup(catID)->AttachUserMark(bmId);
 }
 
 void BookmarkManager::DetachBookmark(df::MarkID bmId, df::MarkGroupID catID)
 {
   GetBookmarkForEdit(bmId)->Detach();
-  FindContainer(catID)->DetachUserMark(bmId);
+  GetGroup(catID)->DetachUserMark(bmId);
 }
 
 void BookmarkManager::DeleteBookmark(df::MarkID bmId)
 {
   ASSERT(IsBookmark(bmId), ());
   auto groupIt = m_bookmarks.find(bmId);
-  auto const groupID = groupIt->second->GetGroupId();
-  if (groupID)
+  auto const groupId = groupIt->second->GetGroupId();
+  if (groupId)
   {
     m_changesTracker.OnDeleteMark(bmId);
-    FindContainer(groupID)->DetachUserMark(bmId);
+    GetGroup(groupId)->DetachUserMark(bmId);
   }
   m_bookmarks.erase(groupIt);
 }
@@ -255,30 +256,30 @@ Track * BookmarkManager::CreateTrack(m2::PolylineD const & polyline, Track::Para
   return AddTrack(std::make_unique<Track>(polyline, p));
 }
 
-Track const * BookmarkManager::GetTrack(df::LineID trackID) const
+Track const * BookmarkManager::GetTrack(df::LineID trackId) const
 {
-  auto it = m_tracks.find(trackID);
+  auto it = m_tracks.find(trackId);
   return (it != m_tracks.end()) ? it->second.get() : nullptr;
 }
 
-void BookmarkManager::AttachTrack(df::LineID trackID, df::MarkGroupID groupID)
+void BookmarkManager::AttachTrack(df::LineID trackId, df::MarkGroupID groupId)
 {
-  auto it = m_tracks.find(trackID);
-  it->second->Attach(groupID);
-  GetBmCategory(groupID)->AttachTrack(trackID);
+  auto it = m_tracks.find(trackId);
+  it->second->Attach(groupId);
+  GetBmCategory(groupId)->AttachTrack(trackId);
 }
 
-void BookmarkManager::DetachTrack(df::LineID trackID, df::MarkGroupID groupID)
+void BookmarkManager::DetachTrack(df::LineID trackId, df::MarkGroupID groupId)
 {
-  GetBmCategory(groupID)->DetachTrack(trackID);
+  GetBmCategory(groupId)->DetachTrack(trackId);
 }
 
-void BookmarkManager::DeleteTrack(df::LineID trackID)
+void BookmarkManager::DeleteTrack(df::LineID trackId)
 {
-  auto it = m_tracks.find(trackID);
-  auto const groupID = it->second->GetGroupId();
-  if (groupID)
-    GetBmCategory(groupID)->DetachTrack(trackID);
+  auto it = m_tracks.find(trackId);
+  auto const groupId = it->second->GetGroupId();
+  if (groupId != df::kInvalidMarkGroupId)
+    GetBmCategory(groupId)->DetachTrack(trackId);
   m_tracks.erase(it);
 }
 
@@ -333,7 +334,7 @@ void BookmarkManager::NotifyChanges()
     auto engine = lock.Get();
     for (auto groupId : m_changesTracker.GetDirtyGroupIds())
     {
-      auto *group = FindContainer(groupId);
+      auto *group = GetGroup(groupId);
       engine->ChangeVisibilityUserMarksGroup(groupId, group->IsVisible());
     }
 
@@ -342,7 +343,7 @@ void BookmarkManager::NotifyChanges()
 
     for (auto groupId : m_changesTracker.GetDirtyGroupIds())
     {
-      auto *group = FindContainer(groupId);
+      auto *group = GetGroup(groupId);
       if (group->GetUserMarks().empty() && group->GetUserLines().empty())
         engine->ClearUserMarksGroup(groupId);
       group->ResetChanges();
@@ -357,19 +358,19 @@ void BookmarkManager::NotifyChanges()
   m_changesTracker.ResetChanges();
 }
 
-df::MarkIDSet const & BookmarkManager::GetUserMarkIds(df::MarkGroupID groupID) const
+df::MarkIDSet const & BookmarkManager::GetUserMarkIds(df::MarkGroupID groupId) const
 {
-  return FindContainer(groupID)->GetUserMarks();
+  return GetGroup(groupId)->GetUserMarks();
 }
 
-df::LineIDSet const & BookmarkManager::GetTrackIds(df::MarkGroupID groupID) const
+df::LineIDSet const & BookmarkManager::GetTrackIds(df::MarkGroupID groupId) const
 {
-  return FindContainer(groupID)->GetUserLines();
+  return GetGroup(groupId)->GetUserLines();
 }
 
 void BookmarkManager::ClearGroup(df::MarkGroupID groupId)
 {
-  auto * group = FindContainer(groupId);
+  auto * group = GetGroup(groupId);
   for (auto markId : group->GetUserMarks())
   {
     m_changesTracker.OnDeleteMark(markId);
@@ -398,9 +399,9 @@ std::string const & BookmarkManager::GetCategoryFileName(df::MarkGroupID categor
   return GetBmCategory(categoryId)->GetFileName();
 }
 
-UserMark const * BookmarkManager::FindMarkInRect(df::MarkGroupID groupID, m2::AnyRectD const & rect, double & d) const
+UserMark const * BookmarkManager::FindMarkInRect(df::MarkGroupID groupId, m2::AnyRectD const & rect, double & d) const
 {
-  auto const * group = FindContainer(groupID);
+  auto const * group = GetGroup(groupId);
 
   UserMark const * resMark = nullptr;
   if (group->IsVisible())
@@ -418,12 +419,12 @@ UserMark const * BookmarkManager::FindMarkInRect(df::MarkGroupID groupID, m2::An
 
 void BookmarkManager::SetIsVisible(df::MarkGroupID groupId, bool visible)
 {
-  return FindContainer(groupId)->SetIsVisible(visible);
+  return GetGroup(groupId)->SetIsVisible(visible);
 }
 
 bool BookmarkManager::IsVisible(df::MarkGroupID groupId) const
 {
-  return FindContainer(groupId)->IsVisible();
+  return GetGroup(groupId)->IsVisible();
 }
 
 void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
@@ -684,7 +685,7 @@ void BookmarkManager::UpdateBookmark(df::MarkID bmID, BookmarkData const & bm)
 {
   auto * bookmark = GetBookmarkForEdit(bmID);
   bookmark->SetData(bm);
-  ASSERT(bookmark->GetGroupId(), ());
+  ASSERT(bookmark->GetGroupId() != df::kInvalidMarkGroupId, ());
   SaveToKMLFile(bookmark->GetGroupId());
 
   m_lastType = bm.GetType();
@@ -755,9 +756,9 @@ void BookmarkManager::GetBookmarksData(df::MarkIDSet const & markIds,
   }
 }
 
-bool BookmarkManager::HasBmCategory(df::MarkGroupID groupID) const
+bool BookmarkManager::HasBmCategory(df::MarkGroupID groupId) const
 {
-  return m_categories.find(groupID) != m_categories.end();
+  return m_categories.find(groupId) != m_categories.end();
 }
 
 df::MarkGroupID BookmarkManager::CreateBookmarkCategory(std::string const & name)
@@ -775,22 +776,20 @@ void BookmarkManager::CheckAndCreateDefaultCategory()
     CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("my_places"));
 }
 
-bool BookmarkManager::DeleteBmCategory(df::MarkGroupID groupID)
+bool BookmarkManager::DeleteBmCategory(df::MarkGroupID groupId)
 {
-  auto it = m_categories.find(groupID);
+  auto it = m_categories.find(groupId);
   if (it == m_categories.end())
     return false;
 
   BookmarkCategory & group = *it->second.get();
-  // TODO(darina): check the necessity of DeleteLater
-  //  cat.DeleteLater();
   FileWriter::DeleteFileX(group.GetFileName());
-  ClearGroup(groupID);
+  ClearGroup(groupId);
   // TODO(darina): think of a way to get rid of extra Notify here
   NotifyChanges();
   m_categories.erase(it);
-  m_bmGroupsIdList.erase(std::remove(m_bmGroupsIdList.begin(), m_bmGroupsIdList.end(), groupID),
-    m_bmGroupsIdList.end());
+  m_bmGroupsIdList.erase(std::remove(m_bmGroupsIdList.begin(), m_bmGroupsIdList.end(), groupId),
+                         m_bmGroupsIdList.end());
   return true;
 }
 
@@ -806,10 +805,10 @@ public:
     , m_manager(manager)
   {}
 
-  void operator()(df::MarkGroupID groupID)
+  void operator()(df::MarkGroupID groupId)
   {
-    m2::AnyRectD const & rect = m_rectHolder(min((UserMark::Type)groupID, UserMark::BOOKMARK));
-    if (UserMark const * p = m_manager->FindMarkInRect(groupID, rect, m_d))
+    m2::AnyRectD const & rect = m_rectHolder(min((UserMark::Type)groupId, UserMark::BOOKMARK));
+    if (UserMark const * p = m_manager->FindMarkInRect(groupId, rect, m_d))
     {
       static double const kEps = 1e-5;
       if (m_mark == nullptr || !p->GetPivot().EqualDxDy(m_mark->GetPivot(), kEps))
@@ -844,21 +843,21 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
   return finder.GetFoundMark();
 }
 
-UserMarkLayer const * BookmarkManager::FindContainer(df::MarkGroupID containerId) const
+UserMarkLayer const * BookmarkManager::GetGroup(df::MarkGroupID groupId) const
 {
-  if (containerId < UserMark::Type::BOOKMARK)
-    return m_userMarkLayers[containerId].get();
+  if (groupId < UserMark::Type::BOOKMARK)
+    return m_userMarkLayers[groupId].get();
 
-  ASSERT(m_categories.find(containerId) != m_categories.end(), ());
-  return m_categories.at(containerId).get();
+  ASSERT(m_categories.find(groupId) != m_categories.end(), ());
+  return m_categories.at(groupId).get();
 }
 
-UserMarkLayer * BookmarkManager::FindContainer(df::MarkGroupID containerId)
+UserMarkLayer * BookmarkManager::GetGroup(df::MarkGroupID groupId)
 {
-  if (containerId < UserMark::Type::BOOKMARK)
-    return m_userMarkLayers[containerId].get();
+  if (groupId < UserMark::Type::BOOKMARK)
+    return m_userMarkLayers[groupId].get();
 
-  auto const it = m_categories.find(containerId);
+  auto const it = m_categories.find(groupId);
   return it != m_categories.end() ? it->second.get() : nullptr;
 }
 
@@ -866,7 +865,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection)
 {
   for (auto & data : dataCollection)
   {
-    df::MarkGroupID groupID;
+    df::MarkGroupID groupId;
     BookmarkCategory * group = nullptr;
 
     auto const it = std::find_if(m_categories.begin(), m_categories.end(),
@@ -877,37 +876,36 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection)
     bool merge = it != m_categories.end();
     if (merge)
     {
-      groupID = it->first;
+      groupId = it->first;
       group = it->second.get();
     }
     else
     {
-      groupID = CreateBookmarkCategory(data->m_name);
-      group = GetBmCategory(groupID);
+      groupId = CreateBookmarkCategory(data->m_name);
+      group = GetBmCategory(groupId);
       group->SetFileName(data->m_file);
       group->SetIsVisible(data->m_visible);
     }
     for (auto & bookmark : data->m_bookmarks)
     {
       auto * bm = AddBookmark(std::move(bookmark));
-      bm->Attach(groupID);
+      bm->Attach(groupId);
       group->AttachUserMark(bm->GetId());
     }
     for (auto & track : data->m_tracks)
     {
       auto * t = AddTrack(std::move(track));
-      t->Attach(groupID);
+      t->Attach(groupId);
       group->AttachTrack(t->GetId());
     }
     if (merge)
     {
       // Delete file since it will be merged.
       my::DeleteFileX(data->m_file);
-      SaveToKMLFile(groupID);
+      SaveToKMLFile(groupId);
     }
   }
 
-  // TODO(darina): Can we get rid of this Notify?
   NotifyChanges();
 }
 
@@ -1004,9 +1002,9 @@ std::string PointToString(m2::PointD const & org)
 }
 }
 
-void BookmarkManager::SaveToKML(df::MarkGroupID groupID, std::ostream & s)
+void BookmarkManager::SaveToKML(df::MarkGroupID groupId, std::ostream & s)
 {
-  SaveToKML(GetBmCategory(groupID), s);
+  SaveToKML(GetBmCategory(groupId), s);
 }
 
 void BookmarkManager::SaveToKML(BookmarkCategory * group, std::ostream & s)
@@ -1105,11 +1103,11 @@ void BookmarkManager::SaveToKML(BookmarkCategory * group, std::ostream & s)
   s << kmlFooter;
 }
 
-bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupID)
+bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupId)
 {
   std::string oldFile;
 
-  auto * group = GetBmCategory(groupID);
+  auto * group = GetBmCategory(groupId);
 
   // Get valid file name from category name
   std::string const name = RemoveInvalidSymbols(group->GetName());
@@ -1211,14 +1209,14 @@ df::GroupIDSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const
   return resultingSet;
 }
 
-bool BookmarkManager::MarksChangesTracker::IsGroupVisible(df::MarkGroupID groupID) const
+bool BookmarkManager::MarksChangesTracker::IsGroupVisible(df::MarkGroupID groupId) const
 {
-  return m_bmManager.IsVisible(groupID);
+  return m_bmManager.IsVisible(groupId);
 }
 
-bool BookmarkManager::MarksChangesTracker::IsGroupVisibilityChanged(df::MarkGroupID groupID) const
+bool BookmarkManager::MarksChangesTracker::IsGroupVisibilityChanged(df::MarkGroupID groupId) const
 {
-  return m_bmManager.FindContainer(groupID)->IsVisibilityChanged();
+  return m_bmManager.GetGroup(groupId)->IsVisibilityChanged();
 }
 
 df::MarkIDSet const & BookmarkManager::MarksChangesTracker::GetGroupPointIds(df::MarkGroupID groupId) const
@@ -1231,14 +1229,14 @@ df::LineIDSet const & BookmarkManager::MarksChangesTracker::GetGroupLineIds(df::
   return m_bmManager.GetTrackIds(groupId);
 }
 
-df::UserPointMark const * BookmarkManager::MarksChangesTracker::GetUserPointMark(df::MarkID markID) const
+df::UserPointMark const * BookmarkManager::MarksChangesTracker::GetUserPointMark(df::MarkID markId) const
 {
-  return m_bmManager.GetMark(markID);
+  return m_bmManager.GetMark(markId);
 }
 
-df::UserLineMark const * BookmarkManager::MarksChangesTracker::GetUserLineMark(df::LineID lineID) const
+df::UserLineMark const * BookmarkManager::MarksChangesTracker::GetUserLineMark(df::LineID lineId) const
 {
-  return m_bmManager.GetTrack(lineID);
+  return m_bmManager.GetTrack(lineId);
 }
 
 void BookmarkManager::MarksChangesTracker::OnAddMark(df::MarkID markId)
@@ -1342,9 +1340,9 @@ Bookmark * BookmarkManager::EditSession::CreateBookmark(m2::PointD const & ptOrg
   return m_bmManager.CreateBookmark(ptOrg, bm);
 }
 
-Bookmark * BookmarkManager::EditSession::CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupID)
+Bookmark * BookmarkManager::EditSession::CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupId)
 {
-  return m_bmManager.CreateBookmark(ptOrg, bm, groupID);
+  return m_bmManager.CreateBookmark(ptOrg, bm, groupId);
 }
 
 Track * BookmarkManager::EditSession::CreateTrack(m2::PolylineD const & polyline, Track::Params const & p)
@@ -1352,9 +1350,9 @@ Track * BookmarkManager::EditSession::CreateTrack(m2::PolylineD const & polyline
   return m_bmManager.CreateTrack(polyline, p);
 }
 
-Bookmark * BookmarkManager::EditSession::GetBookmarkForEdit(df::MarkID markID)
+Bookmark * BookmarkManager::EditSession::GetBookmarkForEdit(df::MarkID markId)
 {
-  return m_bmManager.GetBookmarkForEdit(markID);
+  return m_bmManager.GetBookmarkForEdit(markId);
 }
 
 void BookmarkManager::EditSession::DeleteUserMark(df::MarkID markId)
@@ -1367,14 +1365,14 @@ void BookmarkManager::EditSession::DeleteBookmark(df::MarkID bmId)
   return m_bmManager.DeleteBookmark(bmId);
 }
 
-void BookmarkManager::EditSession::DeleteTrack(df::LineID trackID)
+void BookmarkManager::EditSession::DeleteTrack(df::LineID trackId)
 {
-  return m_bmManager.DeleteTrack(trackID);
+  return m_bmManager.DeleteTrack(trackId);
 }
 
-void BookmarkManager::EditSession::ClearGroup(df::MarkGroupID groupID)
+void BookmarkManager::EditSession::ClearGroup(df::MarkGroupID groupId)
 {
-  return m_bmManager.ClearGroup(groupID);
+  return m_bmManager.ClearGroup(groupId);
 }
 
 void BookmarkManager::EditSession::SetIsVisible(df::MarkGroupID groupId, bool visible)
@@ -1393,29 +1391,29 @@ void BookmarkManager::EditSession::UpdateBookmark(df::MarkID bmId, BookmarkData 
   return m_bmManager.UpdateBookmark(bmId, bm);
 }
 
-void BookmarkManager::EditSession::AttachBookmark(df::MarkID bmId, df::MarkGroupID groupID)
+void BookmarkManager::EditSession::AttachBookmark(df::MarkID bmId, df::MarkGroupID groupId)
 {
-  return m_bmManager.AttachBookmark(bmId, groupID);
+  return m_bmManager.AttachBookmark(bmId, groupId);
 }
 
-void BookmarkManager::EditSession::DetachBookmark(df::MarkID bmId, df::MarkGroupID groupID)
+void BookmarkManager::EditSession::DetachBookmark(df::MarkID bmId, df::MarkGroupID groupId)
 {
-  return m_bmManager.DetachBookmark(bmId, groupID);
+  return m_bmManager.DetachBookmark(bmId, groupId);
 }
 
-void BookmarkManager::EditSession::AttachTrack(df::LineID trackID, df::MarkGroupID groupID)
+void BookmarkManager::EditSession::AttachTrack(df::LineID trackId, df::MarkGroupID groupId)
 {
-  return m_bmManager.AttachTrack(trackID, groupID);
+  return m_bmManager.AttachTrack(trackId, groupId);
 }
 
-void BookmarkManager::EditSession::DetachTrack(df::LineID trackID, df::MarkGroupID groupID)
+void BookmarkManager::EditSession::DetachTrack(df::LineID trackId, df::MarkGroupID groupId)
 {
-  return m_bmManager.DetachTrack(trackID, groupID);
+  return m_bmManager.DetachTrack(trackId, groupId);
 }
 
-bool BookmarkManager::EditSession::DeleteBmCategory(df::MarkGroupID groupID)
+bool BookmarkManager::EditSession::DeleteBmCategory(df::MarkGroupID groupId)
 {
-  return m_bmManager.DeleteBmCategory(groupID);
+  return m_bmManager.DeleteBmCategory(groupId);
 }
 
 void BookmarkManager::EditSession::NotifyChanges()

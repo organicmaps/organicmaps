@@ -247,9 +247,9 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 #ifdef SHOW_ROUTE_DEBUG_MARKS
     if (m_bmManager == nullptr)
       return;
-    m_bmManager->SetIsVisible(UserMark::Type::DEBUG_MARK, true);
-    m_bmManager->CreateUserMark<DebugMarkPoint>(pt);
-    m_bmManager->NotifyChanges(UserMark::Type::DEBUG_MARK);
+    auto editSession = m_bmManager->GetEditSession();
+    editSession.SetIsVisible(UserMark::Type::DEBUG_MARK, true);
+    editSession.CreateUserMark<DebugMarkPoint>(pt);
 #endif
   });
 

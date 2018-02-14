@@ -251,10 +251,10 @@ public:
 
   Type GetType() const override { return Message::UpdateUserMarks; }
 
-  drape_ptr<UserMarksRenderCollection> && AcceptMarkRenderParams() { return std::move(m_marksRenderParams); }
-  drape_ptr<UserLinesRenderCollection> && AcceptLineRenderParams() { return std::move(m_linesRenderParams); }
-  drape_ptr<IDCollections> && AcceptRemovedIds() { return std::move(m_removedIds); }
-  drape_ptr<IDCollections> && AcceptCreatedIds() { return std::move(m_createdIds); }
+  drape_ptr<UserMarksRenderCollection> AcceptMarkRenderParams() { return std::move(m_marksRenderParams); }
+  drape_ptr<UserLinesRenderCollection> AcceptLineRenderParams() { return std::move(m_linesRenderParams); }
+  drape_ptr<IDCollections> AcceptRemovedIds() { return std::move(m_removedIds); }
+  drape_ptr<IDCollections> AcceptCreatedIds() { return std::move(m_createdIds); }
 
 private:
   drape_ptr<IDCollections> m_createdIds;
@@ -275,7 +275,7 @@ public:
   Type GetType() const override { return Message::UpdateUserMarkGroup; }
 
   MarkGroupID GetGroupId() const { return m_groupId; }
-  drape_ptr<IDCollections> && AcceptIds() { return std::move(m_ids); }
+  drape_ptr<IDCollections> AcceptIds() { return std::move(m_ids); }
 
 private:
   MarkGroupID m_groupId;

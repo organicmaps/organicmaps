@@ -83,10 +83,10 @@ std::vector<m2::PointD> const & Track::GetPoints() const
   return m_polyline.GetPoints();
 }
 
-void Track::Attach(df::MarkGroupID groupID)
+void Track::Attach(df::MarkGroupID groupId)
 {
   ASSERT(!m_groupID, ());
-  m_groupID = groupID;
+  m_groupID = groupId;
 }
 
 void Track::Detach()
