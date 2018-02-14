@@ -26,28 +26,26 @@ import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.recycler.TagItemDecoration;
 import com.mapswithme.maps.widget.recycler.TagLayoutManager;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.DateUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class FilterFragment extends BaseMwmToolbarFragment
     implements HotelsTypeAdapter.OnTypeSelectedListener
 {
-  static final DateFormat DATE_FORMATTER = new SimpleDateFormat("EEE, MMM d", Locale.getDefault());
   static final String ARG_FILTER = "arg_filter";
   static final String ARG_FILTER_PARAMS = "arg_filter_params";
   private static final int MAX_STAYING_DAYS = 30;
   private static final int MAX_CHECKIN_WINDOW_IN_DAYS = 360;
+  @NonNull
+  private final DateFormat mDateFormatter = DateUtils.getMediumDateFormat();
   @Nullable
   private CustomNavigateUpListener mNavigateUpListener;
   @Nullable
@@ -89,7 +87,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
     if (mCheckinDate.after(mCheckoutDate))
     {
       mCheckoutDate =  getDayAfter(mCheckinDate);
-      mCheckOut.setText(DATE_FORMATTER.format(mCheckoutDate.getTime()));
+      mCheckOut.setText(mDateFormatter.format(mCheckoutDate.getTime()));
     }
     else
     {
@@ -98,10 +96,10 @@ public class FilterFragment extends BaseMwmToolbarFragment
       if (days > MAX_STAYING_DAYS)
       {
         mCheckoutDate = getMaxDateForCheckout(mCheckinDate);
-        mCheckOut.setText(DATE_FORMATTER.format(mCheckoutDate.getTime()));
+        mCheckOut.setText(mDateFormatter.format(mCheckoutDate.getTime()));
       }
     }
-    mCheckIn.setText(DATE_FORMATTER.format(chosenDate.getTime()));
+    mCheckIn.setText(mDateFormatter.format(chosenDate.getTime()));
   };
   @NonNull
   private final DatePickerDialog.OnDateSetListener mCheckoutListener = (view, year, monthOfYear,
@@ -110,7 +108,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
     Calendar chosenDate = Calendar.getInstance();
     chosenDate.set(year, monthOfYear, dayOfMonth);
     mCheckoutDate = chosenDate;
-    mCheckOut.setText(DATE_FORMATTER.format(mCheckoutDate.getTime()));
+    mCheckOut.setText(mDateFormatter.format(mCheckoutDate.getTime()));
   };
   @NonNull
   private final BroadcastReceiver mNetworkStateReceiver = new BroadcastReceiver()
@@ -392,21 +390,21 @@ public class FilterFragment extends BaseMwmToolbarFragment
     if (params == null)
     {
       mCheckinDate = Calendar.getInstance();
-      mCheckIn.setText(DATE_FORMATTER.format(mCheckinDate.getTime()));
+      mCheckIn.setText(mDateFormatter.format(mCheckinDate.getTime()));
       mCheckoutDate = getDayAfter(mCheckinDate);
-      mCheckOut.setText(DATE_FORMATTER.format(mCheckoutDate.getTime()));
+      mCheckOut.setText(mDateFormatter.format(mCheckoutDate.getTime()));
     }
     else
     {
       Calendar checkin = Calendar.getInstance();
       checkin.setTimeInMillis(params.getCheckinMillisec());
       mCheckinDate = checkin;
-      mCheckIn.setText(DATE_FORMATTER.format(mCheckinDate.getTime()));
+      mCheckIn.setText(mDateFormatter.format(mCheckinDate.getTime()));
 
       Calendar checkout = Calendar.getInstance();
       checkout.setTimeInMillis(params.getCheckoutMillisec());
       mCheckoutDate = checkout;
-      mCheckOut.setText(DATE_FORMATTER.format(mCheckoutDate.getTime()));
+      mCheckOut.setText(mDateFormatter.format(mCheckoutDate.getTime()));
     }
   }
 

@@ -8,16 +8,12 @@ import android.view.View;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.BookmarkBackupView;
+import com.mapswithme.util.DateUtils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class BookmarkBackupController
 {
-  private static final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy",
-                                                                Locale.getDefault());
   @NonNull
   private final BookmarkBackupView mBackupView;
   @Nullable
@@ -68,7 +64,7 @@ public class BookmarkBackupController
       if (backupTime > 0)
       {
         msg = context.getString(R.string.bookmarks_message_backuped_user,
-                                DATE_FORMATTER.format(new Date(backupTime)));
+                                DateUtils.getMediumDateFormat().format(new Date(backupTime)));
       }
       else
       {

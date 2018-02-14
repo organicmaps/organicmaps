@@ -10,18 +10,15 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.RatingView;
+import com.mapswithme.util.DateUtils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
 {
   static final int MAX_COUNT = 3;
-  static final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
   @NonNull
   private ArrayList<UGC.Review> mItems = new ArrayList<>();
 
@@ -76,7 +73,7 @@ class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
     public void bind(UGC.Review review)
     {
       mAuthor.setText(review.getAuthor());
-      mCommentDate.setText(DATE_FORMATTER.format(new Date(review.getTime())));
+      mCommentDate.setText(DateUtils.getMediumDateFormat().format(new Date(review.getTime())));
       mReview.setText(review.getText());
       mRating.setRating(Impress.values()[review.getImpress()], String.valueOf(review.getRating()));
     }
