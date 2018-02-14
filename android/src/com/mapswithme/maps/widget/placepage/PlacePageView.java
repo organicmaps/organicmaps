@@ -1829,8 +1829,7 @@ public class PlacePageView extends RelativeLayout
           return;
         }
         Bookmark bookmark = (Bookmark) mMapObject;
-        final int categoryPosition = BookmarkManager.INSTANCE.getCategoryPositionById(bookmark.getCategoryId());
-        EditBookmarkFragment.editBookmark(categoryPosition, bookmark.getBookmarkId(),
+        EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(),
                                           getActivity(), getActivity().getSupportFragmentManager(),
                                           this);
         break;

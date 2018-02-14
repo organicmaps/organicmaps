@@ -45,7 +45,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mCategoryPosition = getArguments().getInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, 0);
+    mCategoryPosition = getArguments().getInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, 0);
     mCategoryId = BookmarkManager.INSTANCE.getCategoryIdByPosition(mCategoryPosition);
   }
 
@@ -194,7 +194,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
       break;
 
     case R.id.edit:
-      EditBookmarkFragment.editBookmark(mCategoryPosition, item.getBookmarkId(), getActivity(),
+      EditBookmarkFragment.editBookmark(item.getCategoryId(), item.getBookmarkId(), getActivity(),
                                         getChildFragmentManager(), new EditBookmarkFragment.EditBookmarkListener()
           {
             @Override

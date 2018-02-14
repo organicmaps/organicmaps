@@ -191,7 +191,7 @@ public:
   std::unique_ptr<User::Subscriber> GetUserSubscriber();
   void SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken);
 
-  /// These functions is public for unit tests only. You shouldn't call them from client code.
+  /// These functions are public for unit tests only. You shouldn't call them from client code.
   void SaveToKML(df::MarkGroupID groupId, std::ostream & s);
   void CreateCategories(KMLDataCollection && dataCollection);
   static std::string RemoveInvalidSymbols(std::string const & name);
@@ -240,7 +240,7 @@ private:
     auto * m = mark.get();
     auto const markId = m->GetId();
     auto const groupId = static_cast<df::MarkGroupID>(m->GetMarkType());
-    ASSERT(m_userMarks.count(markId) == 0, ());
+    ASSERT_EQUAL(m_userMarks.count(markId), 0, ());
     ASSERT_LESS(groupId, m_userMarkLayers.size(), ());
     m_userMarks.emplace(markId, std::move(mark));
     m_changesTracker.OnAddMark(markId);
@@ -333,7 +333,7 @@ private:
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
   df::MarkGroupID m_nextGroupID;
-  uint32_t m_openedEditSessionsCount = 0;
+  size_t m_openedEditSessionsCount = 0;
   bool m_loadBookmarksFinished = false;
   bool m_firstDrapeNotification = false;
 

@@ -1416,7 +1416,6 @@ Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * en
   auto const bookmarkId = info.GetBookmarkId();
   frm()->ResetBookmarkInfo(*frm()->GetBookmarkManager().GetBookmark(bookmarkId), info);
   frm()->GetBookmarkManager().GetEditSession().DeleteBookmark(bookmarkId);
-    // TODO(darina): Save to KML here
   return usermark_helper::CreateMapObject(env, info);
 }
 

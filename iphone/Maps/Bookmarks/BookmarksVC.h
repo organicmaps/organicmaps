@@ -5,8 +5,6 @@
 @interface BookmarksVC : MWMTableViewController <UITextFieldDelegate>
 {
   df::MarkGroupID m_categoryId;
-  NSMutableArray * m_bookmarkIds;
-  NSMutableArray * m_trackIds;
 }
 
 - (instancetype)initWithCategory:(df::MarkGroupID)index;

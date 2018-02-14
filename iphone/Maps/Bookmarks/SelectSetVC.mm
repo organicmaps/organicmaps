@@ -18,7 +18,7 @@
 @implementation SelectSetVC
 
 - (instancetype)initWithCategory:(NSString *)category
-                   categoryId:(df::MarkGroupID)categoryId
+                      categoryId:(df::MarkGroupID)categoryId
                         delegate:(id<MWMSelectSetDelegate>)delegate
 {
   self = [super initWithStyle:UITableViewStyleGrouped];

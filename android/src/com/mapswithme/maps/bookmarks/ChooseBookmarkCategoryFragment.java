@@ -20,7 +20,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
                                          implements EditTextDialogFragment.OnTextSaveListener,
                                                     ChooseBookmarkCategoryAdapter.CategoryListener
 {
-  public static final String CATEGORY_ID = "ExtraCategoryId";
+  public static final String CATEGORY_POSITION = "ExtraCategoryPosition";
 
   private ChooseBookmarkCategoryAdapter mAdapter;
   private RecyclerView mRecycler;
@@ -53,7 +53,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     super.onViewCreated(view, savedInstanceState);
 
     final Bundle args = getArguments();
-    final int catPosition = args.getInt(CATEGORY_ID, 0);
+    final int catPosition = args.getInt(CATEGORY_POSITION, 0);
     mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), catPosition);
     mAdapter.setListener(this);
     mRecycler.setAdapter(mAdapter);

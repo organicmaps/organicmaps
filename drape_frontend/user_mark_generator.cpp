@@ -102,7 +102,7 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
     {
       TileKey const tileKey = GetTileKeyByPoint(params.m_pivot, zoomLevel);
       auto groupIDs = GetIdCollection(tileKey, groupId);
-      groupIDs->m_markIds.push_back(static_cast<uint32_t>(markId));
+      groupIDs->m_markIds.push_back(markId);
     }
   }
 
@@ -126,7 +126,7 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
         {
           TileKey const tileKey(tileX, tileY, zoomLevel);
           auto groupIDs = GetIdCollection(tileKey, groupId);
-          groupIDs->m_lineIds.push_back(static_cast<uint32_t>(lineId));
+          groupIDs->m_lineIds.push_back(lineId);
         });
         return true;
       });
@@ -181,7 +181,7 @@ void UserMarkGenerator::CleanIndex()
   {
     for (auto groupIt = tileGroups.second->begin(); groupIt != tileGroups.second->end();)
     {
-      if (groupIt->second->m_markIds.empty() && groupIt->second->m_lineIds.empty())
+      if (groupIt->second->IsEmpty())
         groupIt = tileGroups.second->erase(groupIt);
       else
         ++groupIt;

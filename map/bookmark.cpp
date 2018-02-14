@@ -438,6 +438,7 @@ public:
     {
       std::string const & currTag = m_tags[count - 1];
       std::string const & prevTag = m_tags[count - 2];
+      // TODO: Check this condition, why not count > 2?
       std::string const ppTag = count > 3 ? m_tags[count - 3] : std::string();
       
       if (prevTag == kDocument)

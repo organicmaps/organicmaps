@@ -116,11 +116,11 @@ JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryPositionById(
         JNIEnv * env, jobject thiz, jlong catId)
 {
-    auto & ids = frm()->GetBookmarkManager().GetBmGroupsIdList();
-    jint position = 0;
-    while (position < ids.size() && ids[position] != catId)
-        ++position;
-    return position;
+  auto & ids = frm()->GetBookmarkManager().GetBmGroupsIdList();
+  jint position = 0;
+  while (position < ids.size() && ids[position] != catId)
+    ++position;
+  return position;
 }
 
 JNIEXPORT jlong JNICALL
@@ -149,8 +149,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteCategory(
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(JNIEnv *, jobject, jint cat, jint bmkId)
 {
-  // TODO(darina): verify
-  //bookmarks_helper::RemoveBookmark(cat, bmk);
   frm()->GetBookmarkManager().GetEditSession().DeleteBookmark(static_cast<df::MarkID>(bmkId));
 }
 
@@ -168,8 +166,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSaveToKmzFile(
   auto const categoryId = static_cast<df::MarkGroupID>(catId);
   if (frm()->GetBookmarkManager().HasBmCategory(categoryId))
   {
-    std::string const name = frm()->GetBookmarkManager().GetCategoryName(categoryId);
-    std::string const fileName = frm()->GetBookmarkManager().GetCategoryFileName(categoryId);
+    auto const name = frm()->GetBookmarkManager().GetCategoryName(categoryId);
+    auto const fileName = frm()->GetBookmarkManager().GetCategoryFileName(categoryId);
     if (CreateZipFromPathDeflatedAndDefaultCompression(fileName, ToNativeString(env, tmpPath) + name + ".kmz"))
       return ToJavaString(env, name);
   }
@@ -304,9 +302,9 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetTrack(
       JNIEnv * env, jobject thiz, jlong trackId, jclass trackClazz)
 {
-  // Track(int trackId, int categoryId, String name, String lengthString, int color)
+  // Track(long trackId, long categoryId, String name, String lengthString, int color)
   static jmethodID const cId = jni::GetConstructorID(env, trackClazz,
-                                  "(IILjava/lang/String;Ljava/lang/String;I)V");
+                                                     "(JJLjava/lang/String;Ljava/lang/String;I)V");
   auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<df::LineID>(trackId));
 
   ASSERT(nTrack, ("Track must not be null with id:)", trackId));

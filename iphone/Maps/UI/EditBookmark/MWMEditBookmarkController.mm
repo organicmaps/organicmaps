@@ -42,7 +42,7 @@ enum RowInMetaInfo
 @property (copy, nonatomic) NSString * cachedTitle;
 @property (copy, nonatomic) NSString * cachedColor;
 @property (copy, nonatomic) NSString * cachedCategory;
-@property(nonatomic) df::MarkGroupID cachedBmCatId;
+@property(nonatomic) df::MarkGroupID cachedNewBookmarkCatId;
 
 @end
 
@@ -51,7 +51,7 @@ enum RowInMetaInfo
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.cachedBmCatId = df::kInvalidMarkGroupId;
+  self.cachedNewBookmarkCatId = df::kInvalidMarkGroupId;
   auto data = self.data;
   NSAssert(data, @"Data can't be nil!");
   self.cachedDescription = data.bookmarkDescription;
@@ -94,10 +94,10 @@ enum RowInMetaInfo
   auto & f = GetFramework();
   BookmarkManager & bmManager = f.GetBookmarkManager();
   auto editSession = bmManager.GetEditSession();
-  if (self.cachedBmCatId != df::kInvalidMarkGroupId)
+  if (self.cachedNewBookmarkCatId != df::kInvalidMarkGroupId)
   {
-    editSession.MoveBookmark(m_cachedBookmarkId, m_cachedBookmarkCatId, self.cachedBmCatId);
-    m_cachedBookmarkCatId = self.cachedBmCatId;
+    editSession.MoveBookmark(m_cachedBookmarkId, m_cachedBookmarkCatId, self.cachedNewBookmarkCatId);
+    m_cachedBookmarkCatId = self.cachedNewBookmarkCatId;
   }
 
   auto bookmark = editSession.GetBookmarkForEdit(m_cachedBookmarkId);
@@ -230,7 +230,7 @@ enum RowInMetaInfo
   case Category:
   {
     SelectSetVC * svc = [[SelectSetVC alloc] initWithCategory:self.cachedCategory
-                                                categoryId:m_cachedBookmarkCatId
+                                                   categoryId:m_cachedBookmarkCatId
                                                      delegate:self];
     [self.navigationController pushViewController:svc animated:YES];
     break;
@@ -279,7 +279,7 @@ enum RowInMetaInfo
 - (void)didSelectCategory:(NSString *)category withCategoryId:(df::MarkGroupID)categoryId
 {
   self.cachedCategory = category;
-  self.cachedBmCatId = categoryId;
+  self.cachedNewBookmarkCatId = categoryId;
   [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:Category inSection:MetaInfo]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

@@ -41,8 +41,6 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
     m_categoryId = index;
     auto const & bmManager = GetFramework().GetBookmarkManager();
     self.title = @(bmManager.GetCategoryName(m_categoryId).c_str());
-    auto const & bookmarkIds = bmManager.GetUserMarkIds(m_categoryId);
-    auto const & trackIds = bmManager.GetTrackIds(m_categoryId);
     [self calculateSections];
   }
   return self;
@@ -219,7 +217,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
 
   Framework & f = GetFramework();
   auto & bmManager = f.GetBookmarkManager();
-  bool categoryExists = bmManager.HasBmCategory(m_categoryId);
+  bool const categoryExists = bmManager.HasBmCategory(m_categoryId);
   ASSERT(categoryExists, ("Nonexistent category"));
   if (indexPath.section == 0)
   {

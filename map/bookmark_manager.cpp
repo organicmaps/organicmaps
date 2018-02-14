@@ -304,7 +304,8 @@ void BookmarkManager::OnEditSessionOpened()
 
 void BookmarkManager::OnEditSessionClosed()
 {
-  if (!--m_openedEditSessionsCount)
+  ASSERT_GREATER(m_openedEditSessionsCount, 0, ());
+  if (--m_openedEditSessionsCount == 0)
     NotifyChanges();
 }
 
@@ -1152,8 +1153,7 @@ bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupId)
       if (!oldFile.empty())
         VERIFY(my::DeleteFileX(oldFile), (oldFile, file));
 
-      if (IsCloudEnabled())
-        m_bookmarkCloud.MarkModified(file);
+      m_bookmarkCloud.MarkModified(file);
 
       return true;
     }

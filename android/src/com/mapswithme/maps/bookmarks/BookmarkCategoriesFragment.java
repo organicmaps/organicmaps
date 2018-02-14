@@ -13,7 +13,6 @@ import android.view.View;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkBackupController;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
@@ -204,7 +203,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   public void onItemClick(View v, int position)
   {
     startActivity(new Intent(getActivity(), BookmarkListActivity.class)
-                      .putExtra(ChooseBookmarkCategoryFragment.CATEGORY_ID, position));
+                      .putExtra(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, position));
   }
 
   @Override

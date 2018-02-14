@@ -111,12 +111,13 @@ public enum BookmarkManager
     nativeSetVisibility(catId, visible);
   }
 
+  @NonNull
   public String getCategoryName(long catId)
   {
     return nativeGetCategoryName(catId);
   }
 
-  public void setCategoryName(long catId, String name)
+  public void setCategoryName(long catId, @NonNull String name)
   {
     nativeSetCategoryName(catId, name);
   }
@@ -151,6 +152,7 @@ public enum BookmarkManager
     return nativeGetTracksCount(catId);
   }
 
+  @NonNull
   public Bookmark getBookmark(long bmkId)
   {
     return nativeGetBookmark(bmkId);
@@ -161,6 +163,7 @@ public enum BookmarkManager
     return nativeGetBookmarkIdByPosition(catId, positionInCategory);
   }
 
+  @NonNull
   public Track getTrack(long trackId)
   {
     return nativeGetTrack(trackId, Track.class);
@@ -185,26 +188,29 @@ public enum BookmarkManager
     nativeDeleteBookmark(bmkId);
   }
 
-  public long createCategory(String name) { return nativeCreateCategory(name); }
+  public long createCategory(@NonNull String name) { return nativeCreateCategory(name); }
 
   public void showBookmarkOnMap(long bmkId) { nativeShowBookmarkOnMap(bmkId); }
 
   /**
    * @return null, if wrong category is passed.
    */
-  public @Nullable String saveToKmzFile(long catId, String tmpPath)
+  @Nullable
+  public String saveToKmzFile(long catId, @NonNull String tmpPath)
   {
     return nativeSaveToKmzFile(catId, tmpPath);
   }
 
-  public Bookmark addBookmarkToLastEditedCategory(String name, double lat, double lon)
+  @NonNull
+  public Bookmark addBookmarkToLastEditedCategory(@NonNull String name, double lat, double lon)
   {
     return nativeAddBookmarkToLastEditedCategory(name, lat, lon);
   }
 
   public long getLastEditedCategory() { return nativeGetLastEditedCategory(); }
 
-  public static String generateUniqueFileName(String baseName)
+  @NonNull
+  public static String generateUniqueFileName(@NonNull String baseName)
   {
     return nativeGenerateUniqueFileName(baseName);
   }
@@ -223,6 +229,7 @@ public enum BookmarkManager
     nativeLoadKmzFile(path, isTemporaryFile);
   }
 
+  @NonNull
   public static String formatNewBookmarkName()
   {
     return nativeFormatNewBookmarkName();
@@ -243,10 +250,12 @@ public enum BookmarkManager
 
   private native int nativeGetTracksCount(long catId);
 
+  @NonNull
   private native Bookmark nativeGetBookmark(long bmkId);
 
   private native long nativeGetBookmarkIdByPosition(long catId, int position);
 
+  @NonNull
   private native Track nativeGetTrack(long trackId, Class<Track> trackClazz);
 
   private native long nativeGetTrackIdByPosition(long catId, int position);
@@ -255,9 +264,10 @@ public enum BookmarkManager
 
   private native void nativeSetVisibility(long catId, boolean visible);
 
+  @NonNull
   private native String nativeGetCategoryName(long catId);
 
-  private native void nativeSetCategoryName(long catId, String n);
+  private native void nativeSetCategoryName(long catId, @NonNull String n);
 
   private static native void nativeLoadBookmarks();
 
@@ -270,15 +280,17 @@ public enum BookmarkManager
   /**
    * @return category Id
    */
-  private native long nativeCreateCategory(String name);
+  private native long nativeCreateCategory(@NonNull String name);
 
   private native void nativeShowBookmarkOnMap(long bmkId);
 
   /**
    * @return null, if wrong category is passed.
    */
-  private native @Nullable String nativeSaveToKmzFile(long catId, String tmpPath);
+  @Nullable
+  private native String nativeSaveToKmzFile(long catId, @NonNull String tmpPath);
 
+  @NonNull
   private native Bookmark nativeAddBookmarkToLastEditedCategory(String name, double lat, double lon);
 
   private native long nativeGetLastEditedCategory();
@@ -289,10 +301,12 @@ public enum BookmarkManager
 
   private native long nativeGetLastSynchronizationTimestampInMs();
 
-  private static native String nativeGenerateUniqueFileName(String baseName);
+  @NonNull
+  private static native String nativeGenerateUniqueFileName(@NonNull String baseName);
 
   private static native void nativeLoadKmzFile(@NonNull String path, boolean isTemporaryFile);
 
+  @NonNull
   private static native String nativeFormatNewBookmarkName();
 
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();

@@ -49,12 +49,12 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     void onBookmarkSaved(long bookmarkId);
   }
 
-  public static void editBookmark(int categoryPosition, long bookmarkId, @NonNull Context context,
+  public static void editBookmark(long categoryId, long bookmarkId, @NonNull Context context,
                                   @NonNull FragmentManager manager,
                                   @Nullable EditBookmarkListener listener)
   {
     final Bundle args = new Bundle();
-    args.putInt(EXTRA_CATEGORY_ID, categoryPosition);
+    args.putLong(EXTRA_CATEGORY_ID, categoryId);
     args.putLong(EXTRA_BOOKMARK_ID, bookmarkId);
     String name = EditBookmarkFragment.class.getName();
     final EditBookmarkFragment fragment = (EditBookmarkFragment) Fragment.instantiate(context, name, args);
@@ -82,8 +82,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
   {
     final Bundle args = getArguments();
-    mCategoryPosition = args.getInt(EXTRA_CATEGORY_ID);
-    mCategoryId = BookmarkManager.INSTANCE.getCategoryIdByPosition(mCategoryPosition);
+    mCategoryId = args.getLong(EXTRA_CATEGORY_ID);
+    mCategoryPosition = BookmarkManager.INSTANCE.getCategoryPositionById(mCategoryId);
     long bookmarkId = args.getLong(EXTRA_BOOKMARK_ID);
     mBookmark = BookmarkManager.INSTANCE.getBookmark(bookmarkId);
     mIcon = mBookmark.getIcon();
@@ -161,7 +161,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       return;
 
     final Bundle args = new Bundle();
-    args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, mCategoryPosition);
+    args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, mCategoryPosition);
     final ChooseBookmarkCategoryFragment fragment = (ChooseBookmarkCategoryFragment) Fragment.instantiate(getActivity(), ChooseBookmarkCategoryFragment.class.getName(), args);
     fragment.show(getChildFragmentManager(), null);
   }
