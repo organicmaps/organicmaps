@@ -31,7 +31,7 @@ UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
   TEST_EQUAL(result, IRouter::NoError, ());
 
   integration::TestCurrentStreetName(route, "Большая Тульская улица");
-  integration::TestNextStreetName(route, "Валовая улица");
+  integration::TestNextStreetName(route, "Подольское шоссе");
 
   MoveRoute(route, ms::LatLon(55.71398, 37.62443));
 

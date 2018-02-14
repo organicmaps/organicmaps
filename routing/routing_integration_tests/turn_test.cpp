@@ -583,7 +583,8 @@ UNIT_TEST(NetherlandsGorinchemBridgeTest)
   IRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, IRouter::NoError, ());
-  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
 UNIT_TEST(RussiaVoronigProspTrudaTest)

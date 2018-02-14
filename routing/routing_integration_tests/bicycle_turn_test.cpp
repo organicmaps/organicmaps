@@ -18,13 +18,15 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleWayTurnTest)
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  integration::TestTurnCount(route, 4 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
-      {CarDirection::GoStraight, CarDirection::TurnSlightLeft});
+      {CarDirection::TurnSlightRight});
   integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
+      {CarDirection::GoStraight, CarDirection::TurnSlightLeft});
+  integration::GetNthTurn(route, 2).TestValid().TestOneOfDirections(
       {CarDirection::GoStraight, CarDirection::TurnSlightRight});
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 3).TestValid().TestOneOfDirections(
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 4).TestValid().TestOneOfDirections(
       {CarDirection::TurnSlightRight, CarDirection::TurnRight});
   integration::TestRouteLength(route, 753.0);
 }
