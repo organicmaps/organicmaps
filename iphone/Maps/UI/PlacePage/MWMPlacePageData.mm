@@ -448,7 +448,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
       f.ResetBookmarkInfo(*bookmark, m_info);
       auto const categoryId = bookmark->GetGroupId();
       bmManager.GetEditSession().DeleteBookmark(bookmarkId);
-      bmManager.SaveToKMLFile(categoryId);
     }
 
     m_sections.erase(remove(m_sections.begin(), m_sections.end(), Sections::Bookmark));

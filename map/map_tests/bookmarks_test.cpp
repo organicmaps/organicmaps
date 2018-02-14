@@ -584,8 +584,7 @@ UNIT_TEST(BookmarkCategory_EmptyName)
 
   TEST(bmManager.SaveToKMLFile(catId), ());
 
-  bmManager.SetCategoryName(catId, "xxx");
-  bmManager.SaveToKMLFile(catId);
+  bmManager.GetEditSession().SetCategoryName(catId, "xxx");
 
   TEST(bmManager.SaveToKMLFile(catId), ());
 
@@ -645,7 +644,8 @@ UNIT_TEST(Bookmarks_SpecialXMLNames)
   TEST_EQUAL(bmManager.GetCategoryName(catId), expectedName, ());
   // change category name to avoid merging it with the second one
   auto const fileName = bmManager.GetCategoryFileName(catId);
-  bmManager.SetCategoryName(catId, "test");
+  auto editSession = bmManager.GetEditSession();
+  editSession.SetCategoryName(catId, "test");
 
   kmlDataCollection.clear();
   kmlDataCollection.push_back(LoadKMLFile(fileName));

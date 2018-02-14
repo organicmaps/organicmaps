@@ -114,6 +114,7 @@ public:
     void AttachTrack(df::LineID trackId, df::MarkGroupID groupId);
     void DetachTrack(df::LineID trackId, df::MarkGroupID groupId);
 
+    void SetCategoryName(df::MarkGroupID categoryId, std::string const & name);
     bool DeleteBmCategory(df::MarkGroupID groupId);
 
     void NotifyChanges();
@@ -159,7 +160,6 @@ public:
 
   std::string const & GetCategoryName(df::MarkGroupID categoryId) const;
   std::string const & GetCategoryFileName(df::MarkGroupID categoryId) const;
-  void SetCategoryName(df::MarkGroupID categoryId, std::string const & name);
 
   df::GroupIDCollection const & GetBmGroupsIdList() const { return m_bmGroupsIdList; }
   bool HasBmCategory(df::MarkGroupID groupId) const;
@@ -290,6 +290,7 @@ private:
   void ClearGroup(df::MarkGroupID groupId);
   void SetIsVisible(df::MarkGroupID groupId, bool visible);
 
+  void SetCategoryName(df::MarkGroupID categoryId, std::string const & name);
   bool DeleteBmCategory(df::MarkGroupID groupId);
   void ClearCategories();
 

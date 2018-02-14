@@ -159,8 +159,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteTrack(
     JNIEnv * env, jobject thiz, jlong trkId)
 {
   frm()->GetBookmarkManager().GetEditSession().DeleteTrack(static_cast<df::LineID>(trkId));
-  // TODO(darina):
-  //pCat->SaveToKMLFile();
 }
 
 JNIEXPORT jstring JNICALL
@@ -243,18 +241,14 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetVisibility(
     JNIEnv * env, jobject thiz, jlong catId, jboolean isVisible)
 {
   frm()->GetBookmarkManager().GetEditSession().SetIsVisible(static_cast<df::MarkGroupID>(catId), isVisible);
-  // TODO(darina):
-  //pCat->SaveToKMLFile();
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryName(
     JNIEnv * env, jobject thiz, jlong catId, jstring name)
 {
-  frm()->GetBookmarkManager().SetCategoryName(static_cast<df::MarkGroupID>(catId),
-                                              jni::ToNativeString(env, name));
-  // TODO(darina):
-  //pCat->SaveToKMLFile();
+  frm()->GetBookmarkManager().GetEditSession().SetCategoryName(static_cast<df::MarkGroupID>(catId),
+                                                               jni::ToNativeString(env, name));
 }
 
 JNIEXPORT jstring JNICALL

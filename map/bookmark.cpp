@@ -154,12 +154,20 @@ BookmarkCategory::~BookmarkCategory()
 
 void BookmarkCategory::AttachTrack(df::LineID trackId)
 {
+  SetDirty();
   m_tracks.insert(trackId);
 }
 
 void BookmarkCategory::DetachTrack(df::LineID trackId)
 {
+  SetDirty();
   m_tracks.erase(trackId);
+}
+
+void BookmarkCategory::SetName(std::string const & name)
+{
+  SetDirty();
+  m_name = name;
 }
 
 namespace

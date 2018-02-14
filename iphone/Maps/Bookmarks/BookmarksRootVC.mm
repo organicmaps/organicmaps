@@ -137,7 +137,6 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
     cell.imageView.image = [UIImage imageNamed:(visible ? @"ic_show" : @"ic_hide")];
     cell.imageView.mwm_coloring = visible ? MWMImageColoringBlue : MWMImageColoringBlack;
     bmManager.GetEditSession().SetIsVisible(categoryId, visible);
-    bmManager.SaveToKMLFile(categoryId);
   }
 }
 
@@ -220,10 +219,7 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
         auto & bmManager = GetFramework().GetBookmarkManager();
         size_t const categoryId = bmManager.GetBmGroupsIdList()[[self.tableView indexPathForCell:cell].row];
         if (bmManager.HasBmCategory(categoryId))
-        {
-          bmManager.SetCategoryName(categoryId, txt.UTF8String);
-          bmManager.SaveToKMLFile(categoryId);
-        }
+          bmManager.GetEditSession().SetCategoryName(categoryId, txt.UTF8String);
       }
       [f removeFromSuperview];
       cell.textLabel.hidden = NO;

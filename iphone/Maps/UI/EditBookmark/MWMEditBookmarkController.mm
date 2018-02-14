@@ -107,8 +107,6 @@ enum RowInMetaInfo
   bookmark->SetType(self.cachedColor.UTF8String);
   bookmark->SetDescription(self.cachedDescription.UTF8String);
   bookmark->SetName(self.cachedTitle.UTF8String);
-
-  bmManager.SaveToKMLFile(m_cachedBookmarkCatId);
   
   f.UpdatePlacePageInfoForCurrentSelection();
   [self backTap];

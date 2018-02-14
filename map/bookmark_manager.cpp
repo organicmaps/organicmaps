@@ -196,9 +196,6 @@ Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkDat
   auto * group = GetBmCategory(groupId);
   group->AttachUserMark(bookmark->GetId());
   group->SetIsVisible(true);
-  SaveToKMLFile(groupId);
-// TODO(darina): get rid of this
-//  NotifyChanges(groupId);
 
   m_lastCategoryUrl = group->GetFileName();
   m_lastType = bm.GetType();
@@ -321,6 +318,7 @@ void BookmarkManager::NotifyChanges()
   {
     if (IsBookmarkCategory(groupId))
     {
+      SaveToKMLFile(groupId);
       isBookmarks = true;
       break;
     }
@@ -677,7 +675,6 @@ boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & fil
 void BookmarkManager::MoveBookmark(df::MarkID bmID, df::MarkGroupID curGroupID, df::MarkGroupID newGroupID)
 {
   DetachBookmark(bmID, curGroupID);
-  SaveToKMLFile(curGroupID);
   AttachBookmark(bmID, newGroupID);
 }
 
@@ -686,7 +683,6 @@ void BookmarkManager::UpdateBookmark(df::MarkID bmID, BookmarkData const & bm)
   auto * bookmark = GetBookmarkForEdit(bmID);
   bookmark->SetData(bm);
   ASSERT(bookmark->GetGroupId() != df::kInvalidMarkGroupId, ());
-  SaveToKMLFile(bookmark->GetGroupId());
 
   m_lastType = bm.GetType();
   SaveState();
@@ -900,6 +896,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection)
     }
     if (merge)
     {
+      // TODO(darina): Change the order.
       // Delete file since it will be merged.
       my::DeleteFileX(data->m_file);
       SaveToKMLFile(groupId);
@@ -1155,6 +1152,9 @@ bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupId)
       if (!oldFile.empty())
         VERIFY(my::DeleteFileX(oldFile), (oldFile, file));
 
+      if (IsCloudEnabled())
+        m_bookmarkCloud.MarkModified(file);
+
       return true;
     }
   }
@@ -1357,33 +1357,33 @@ Bookmark * BookmarkManager::EditSession::GetBookmarkForEdit(df::MarkID markId)
 
 void BookmarkManager::EditSession::DeleteUserMark(df::MarkID markId)
 {
-  return m_bmManager.DeleteUserMark(markId);
+  m_bmManager.DeleteUserMark(markId);
 }
 
 void BookmarkManager::EditSession::DeleteBookmark(df::MarkID bmId)
 {
-  return m_bmManager.DeleteBookmark(bmId);
+  m_bmManager.DeleteBookmark(bmId);
 }
 
 void BookmarkManager::EditSession::DeleteTrack(df::LineID trackId)
 {
-  return m_bmManager.DeleteTrack(trackId);
+  m_bmManager.DeleteTrack(trackId);
 }
 
 void BookmarkManager::EditSession::ClearGroup(df::MarkGroupID groupId)
 {
-  return m_bmManager.ClearGroup(groupId);
+  m_bmManager.ClearGroup(groupId);
 }
 
 void BookmarkManager::EditSession::SetIsVisible(df::MarkGroupID groupId, bool visible)
 {
-  return m_bmManager.SetIsVisible(groupId, visible);
+  m_bmManager.SetIsVisible(groupId, visible);
 }
 
 void BookmarkManager::EditSession::MoveBookmark(
   df::MarkID bmID, df::MarkGroupID curGroupID, df::MarkGroupID newGroupID)
 {
-  return m_bmManager.MoveBookmark(bmID, curGroupID, newGroupID);
+  m_bmManager.MoveBookmark(bmID, curGroupID, newGroupID);
 }
 
 void BookmarkManager::EditSession::UpdateBookmark(df::MarkID bmId, BookmarkData const & bm)
@@ -1393,22 +1393,27 @@ void BookmarkManager::EditSession::UpdateBookmark(df::MarkID bmId, BookmarkData 
 
 void BookmarkManager::EditSession::AttachBookmark(df::MarkID bmId, df::MarkGroupID groupId)
 {
-  return m_bmManager.AttachBookmark(bmId, groupId);
+  m_bmManager.AttachBookmark(bmId, groupId);
 }
 
 void BookmarkManager::EditSession::DetachBookmark(df::MarkID bmId, df::MarkGroupID groupId)
 {
-  return m_bmManager.DetachBookmark(bmId, groupId);
+  m_bmManager.DetachBookmark(bmId, groupId);
 }
 
 void BookmarkManager::EditSession::AttachTrack(df::LineID trackId, df::MarkGroupID groupId)
 {
-  return m_bmManager.AttachTrack(trackId, groupId);
+  m_bmManager.AttachTrack(trackId, groupId);
 }
 
 void BookmarkManager::EditSession::DetachTrack(df::LineID trackId, df::MarkGroupID groupId)
 {
-  return m_bmManager.DetachTrack(trackId, groupId);
+  m_bmManager.DetachTrack(trackId, groupId);
+}
+
+void BookmarkManager::EditSession::SetCategoryName(df::MarkGroupID categoryId, std::string const & name)
+{
+  m_bmManager.SetCategoryName(categoryId, name);
 }
 
 bool BookmarkManager::EditSession::DeleteBmCategory(df::MarkGroupID groupId)
@@ -1418,5 +1423,5 @@ bool BookmarkManager::EditSession::DeleteBmCategory(df::MarkGroupID groupId)
 
 void BookmarkManager::EditSession::NotifyChanges()
 {
-  return m_bmManager.NotifyChanges();
+  m_bmManager.NotifyChanges();
 }

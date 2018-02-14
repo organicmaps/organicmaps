@@ -99,7 +99,6 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
                    withParameters:@{kStatValue : sender.on ? kStatVisible : kStatHidden}];
   auto & bmManager = GetFramework().GetBookmarkManager();
   bmManager.GetEditSession().SetIsVisible(m_categoryId, sender.on);
-  bmManager.SaveToKMLFile(m_categoryId);
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -324,7 +323,6 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
                                                           userInfo:nil];
         }
       }
-      bmManager.SaveToKMLFile(m_categoryId);
       size_t previousNumberOfSections  = m_numberOfSections;
       [self calculateSections];
       //We can delete the row with animation, if number of sections stay the same.
@@ -394,8 +392,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
   char const * newCharName = newName.UTF8String;
   if (bmManager.GetCategoryName(m_categoryId) != newCharName)
   {
-    bmManager.SetCategoryName(m_categoryId, newCharName);
-    bmManager.SaveToKMLFile(m_categoryId);
+    bmManager.GetEditSession().SetCategoryName(m_categoryId, newCharName);
     self.navigationController.title = newName;
   }
 }

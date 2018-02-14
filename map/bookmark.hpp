@@ -127,7 +127,7 @@ public:
   df::MarkGroupID GetID() const { return m_groupId; }
   df::LineIDSet const & GetUserLines() const override { return m_tracks; }
 
-  void SetName(std::string const & name) { m_name = name; }
+  void SetName(std::string const & name);
   void SetFileName(std::string const & fileName) { m_file = fileName; }
   std::string const & GetName() const { return m_name; }
   std::string const & GetFileName() const { return m_file; }
