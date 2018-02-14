@@ -619,3 +619,83 @@ UNIT_TEST(GermanyFrankfurtAirportTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
+
+// Test on absence of unnecessary turn which may appear between two turns in the test.
+UNIT_TEST(RussiaKubinkaTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.58533, 36.83779), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.58365, 36.8333));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
+      {CarDirection::TurnSlightRight, CarDirection::TurnRight});
+  integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
+      {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
+}
+
+// Test on absence of unnecessary turn.
+UNIT_TEST(AustriaKitzbuhelTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(47.46894, 12.3841), {0., 0.},
+                                  MercatorBounds::FromLatLon(47.46543, 12.38599));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+}
+
+// Test on absence of unnecessary turn.
+UNIT_TEST(AustriaKitzbuhel2Test)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(47.45119, 12.3841), {0., 0.},
+                                  MercatorBounds::FromLatLon(47.45021, 12.382));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+}
+
+// Test on absence of unnecessary turn in case of fake ingoing segment.
+UNIT_TEST(AustriaKitzbuhel3Test)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(47.45362, 12.38709), {0., 0.},
+                                  MercatorBounds::FromLatLon(47.45255, 12.38498));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+}
+
+// Test on absence of unnecessary turn.
+UNIT_TEST(AustriaBrixentalStrasseTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(47.45091, 12.33453), {0., 0.},
+                                  MercatorBounds::FromLatLon(47.45038, 12.32592));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+}
