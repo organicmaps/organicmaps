@@ -118,6 +118,9 @@
 
         <data
           android:host="ge0.me"
+          android:scheme="https"/>
+        <data
+          android:host="ge0.me"
           android:scheme="http"/>
       </intent-filter>
 
