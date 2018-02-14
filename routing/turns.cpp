@@ -65,6 +65,10 @@ SegmentRange::SegmentRange(FeatureID const & featureId, uint32_t startSegId, uin
   : m_featureId(featureId), m_startSegId(startSegId), m_endSegId(endSegId), m_forward(forward),
     m_start(start), m_end(end)
 {
+  if (m_forward)
+    CHECK_LESS_OR_EQUAL(m_startSegId, m_endSegId, (*this));
+  else
+    CHECK_LESS_OR_EQUAL(m_endSegId, m_startSegId, (*this));
 }
 
 bool SegmentRange::operator==(SegmentRange const & rhs) const
@@ -122,11 +126,22 @@ bool SegmentRange::IsCorrect() const
 
 bool SegmentRange::GetFirstSegment(NumMwmIds const & numMwmIds, Segment & segment) const
 {
+  return GetSegmentBySegId(m_startSegId, numMwmIds, segment);
+}
+
+bool SegmentRange::GetLastSegment(NumMwmIds const & numMwmIds, Segment & segment) const
+{
+  return GetSegmentBySegId(m_endSegId, numMwmIds, segment);
+}
+
+bool SegmentRange::GetSegmentBySegId(uint32_t segId, NumMwmIds const & numMwmIds,
+                                     Segment & segment) const
+{
   if (!m_featureId.IsValid())
     return false;
 
   segment = Segment(numMwmIds.GetId(platform::CountryFile(m_featureId.GetMwmName())),
-                    m_featureId.m_index, m_startSegId, m_forward);
+                    m_featureId.m_index, segId, m_forward);
   return true;
 }
 

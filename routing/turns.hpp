@@ -16,7 +16,7 @@
 namespace routing
 {
 /// \brief Unique identification for a road edge between two junctions (joints). The identifier
-/// is represented by an mwm id, a feature id, a range of segment ids [|m_startSegId|, |m_endSegId|),
+/// is represented by an mwm id, a feature id, a range of segment ids [|m_startSegId|, |m_endSegId|],
 /// a direction and type.
 struct SegmentRange
 {
@@ -35,8 +35,11 @@ struct SegmentRange
   /// \brief Fills |segment| with the first segment of this SegmentRange.
   /// \returns true if |segment| is filled and false otherwise.
   bool GetFirstSegment(NumMwmIds const & numMwmIds, Segment & segment) const;
+  bool GetLastSegment(NumMwmIds const & numMwmIds, Segment & segment) const;
 
 private:
+  bool GetSegmentBySegId(uint32_t segId, NumMwmIds const & numMwmIds, Segment & segment) const;
+
   FeatureID m_featureId;
   // Note. If SegmentRange represents two directional feature |m_endSegId| is greater
   // than |m_startSegId| if |m_forward| == true.

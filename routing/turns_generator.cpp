@@ -560,6 +560,41 @@ CarDirection IntermediateDirection(const double angle)
   return FindDirectionByAngle(kLowerBounds, angle);
 }
 
+/// \returns true if one of turn candidates goes along ingoing route segment and false otherwise.
+bool OneOfTurnCandidatesGoesAlongIngoingSegment(NumMwmIds const & numMwmIds,
+                                                TurnCandidates const & turnCandidates,
+                                                TurnInfo const & turnInfo)
+{
+  Segment ingoingSegment;
+  if (!turnInfo.m_ingoing.m_segmentRange.GetLastSegment(numMwmIds, ingoingSegment))
+    return false;
+
+  for (auto const & c : turnCandidates.candidates)
+  {
+    if (c.m_segment.IsInverse(ingoingSegment))
+      return true; // An inverse segment is found.
+  }
+  return false;
+}
+
+/// \returns true if there are two or more possible ways which don't go along an ingoing segment
+/// and false otherwise.
+/// \example If a route goes along such graph edges:
+/// ...-->*<------>*<--->*<---------------->*<---...
+/// for each point which is drawn above HasMultiTurns() returns false
+/// despite the fact that for each point it's possible to go to two directions.
+bool HasMultiTurns(NumMwmIds const & numMwmIds, TurnCandidates const & turnCandidates,
+                   TurnInfo const & turnInfo)
+{
+  size_t const numTurnCandidates = turnCandidates.candidates.size();
+  if (numTurnCandidates <= 1)
+    return false;
+  if (numTurnCandidates > 2)
+    return true;
+
+  return !OneOfTurnCandidatesGoesAlongIngoingSegment(numMwmIds, turnCandidates, turnInfo);
+}
+
 void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds,
                       TurnInfo & turnInfo, TurnItem & turn)
 {
@@ -595,11 +630,10 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
   result.GetPossibleTurns(turnInfo.m_ingoing.m_segmentRange, ingoingPointOneSegment, junctionPoint,
                           ingoingCount, nodes);
 
-  size_t const numNodes = nodes.candidates.size();
-  bool const hasMultiTurns = numNodes > 1;
-
-  if (numNodes == 0)
+  if (nodes.candidates.size() == 0)
     return;
+
+  bool const hasMultiTurns = HasMultiTurns(numMwmIds, nodes, turnInfo);
 
   if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, hasMultiTurns, turnInfo, turn))
     return;
