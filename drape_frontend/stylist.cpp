@@ -113,23 +113,11 @@ private:
   void ProcessKey(drule::Key const & key)
   {
     double depth = key.m_priority;
-    if (IsMiddleTunnel(m_depthLayer, depth) &&
-        IsTypeOf(key, Line | Area | Waymarker))
+    if (IsMiddleTunnel(m_depthLayer, depth) && IsTypeOf(key, Line))
     {
       double const layerPart = m_depthLayer * drule::layer_base_priority;
       double const depthPart = fmod(depth, drule::layer_base_priority);
       depth = layerPart + depthPart;
-    }
-
-    if (IsTypeOf(key, Caption | Symbol | Circle | PathText))
-    {
-      depth += m_priorityModifier;
-      if (m_geomType == feature::GEOM_POINT)
-        ++depth;
-    }
-    else if (IsTypeOf(key, Area))
-    {
-      depth -= m_priorityModifier;
     }
 
     drule::BaseRule const * const dRule = drule::rules().Find(key);
