@@ -111,13 +111,43 @@ bool KeepRoundaboutTurnByHighwayClass(CarDirection turn, TurnCandidates const & 
   return false;
 }
 
+/// \brief Analyzes its args and makes a decision if it's possible to have a turn at this junction
+/// or not.
+/// \returns true if based on this analysis there's no turn at this junction and
+/// false if the junction should be considered as possible turn.
 bool DiscardTurnByIngoingAndOutgoingEdges(CarDirection intermediateDirection, bool hasMultiTurns,
-                                          TurnInfo const & turnInfo, TurnItem const & turn)
+                                          TurnInfo const & turnInfo, TurnItem const & turn,
+                                          TurnCandidates const & turnCandidates)
 {
-  return !turn.m_keepAnyway && !turnInfo.m_ingoing.m_onRoundabout &&
-         !turnInfo.m_outgoing.m_onRoundabout &&
-         turnInfo.m_ingoing.m_highwayClass == turnInfo.m_outgoing.m_highwayClass &&
-         ((!hasMultiTurns && IsGoStraightOrSlightTurn(intermediateDirection)) ||
+  if (turn.m_keepAnyway || turnInfo.m_ingoing.m_onRoundabout ||
+      turnInfo.m_outgoing.m_onRoundabout ||
+      turnInfo.m_ingoing.m_highwayClass != turnInfo.m_outgoing.m_highwayClass)
+  {
+    return false;
+  }
+
+  // Checks if all turn candidates go straight or make a slight turn to left or to right.
+  bool otherTurnCandidatesGoAlmostStraight = true;
+  if (turnCandidates.isCandidatesAngleValid)
+  {
+    for (auto const & c : turnCandidates.candidates)
+    {
+      if (!IsGoStraightOrSlightTurn(IntermediateDirection(c.angle)))
+      {
+        otherTurnCandidatesGoAlmostStraight = false;
+        break;
+      }
+    }
+  }
+  else
+  {
+    otherTurnCandidatesGoAlmostStraight = false;
+  }
+
+  if (otherTurnCandidatesGoAlmostStraight)
+    return !hasMultiTurns;
+
+  return ((!hasMultiTurns && IsGoStraightOrSlightTurn(intermediateDirection)) ||
           (hasMultiTurns && intermediateDirection == CarDirection::GoStraight));
 }
 
@@ -635,7 +665,7 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
 
   bool const hasMultiTurns = HasMultiTurns(numMwmIds, nodes, turnInfo);
 
-  if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, hasMultiTurns, turnInfo, turn))
+  if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, hasMultiTurns, turnInfo, turn, nodes))
     return;
 
   if (!hasMultiTurns || !nodes.isCandidatesAngleValid)
