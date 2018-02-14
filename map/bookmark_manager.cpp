@@ -1185,9 +1185,9 @@ bool BookmarkManager::IsCloudEnabled() const
   return m_bookmarkCloud.GetState() == Cloud::State::Enabled;
 }
 
-uint64_t BookmarkManager::GetLastSynchronizationTimestamp() const
+uint64_t BookmarkManager::GetLastSynchronizationTimestampInMs() const
 {
-  return m_bookmarkCloud.GetLastSynchronizationTimestamp();
+  return m_bookmarkCloud.GetLastSynchronizationTimestampInMs();
 }
 
 std::unique_ptr<User::Subscriber> BookmarkManager::GetUserSubscriber()

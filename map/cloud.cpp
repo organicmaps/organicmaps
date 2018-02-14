@@ -154,7 +154,7 @@ void Cloud::MarkModified(std::string const & filePath)
   MarkModifiedImpl(filePath, false /* checkSize */);
 }
 
-uint64_t Cloud::GetLastSynchronizationTimestamp() const
+uint64_t Cloud::GetLastSynchronizationTimestampInMs() const
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   if (m_state != State::Enabled)

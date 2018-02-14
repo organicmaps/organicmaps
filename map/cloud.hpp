@@ -166,7 +166,7 @@ public:
   void SetState(State state);
   State GetState() const;
   // Return timestamp of the last synchronization in milliseconds.
-  uint64_t GetLastSynchronizationTimestamp() const;
+  uint64_t GetLastSynchronizationTimestampInMs() const;
 
   void Init(std::vector<std::string> const & filePaths);
   void MarkModified(std::string const & filePath);

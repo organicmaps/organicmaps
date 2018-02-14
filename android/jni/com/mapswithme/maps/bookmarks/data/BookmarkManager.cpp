@@ -353,9 +353,9 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsCloudEnabled(
 }
 
 JNIEXPORT jlong JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastSynchronizationTimestamp(
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastSynchronizationTimestampInMs(
         JNIEnv * env, jobject thiz)
 {
-  return static_cast<jlong>(frm()->GetBookmarkManager().GetLastSynchronizationTimestamp());
+  return static_cast<jlong>(frm()->GetBookmarkManager().GetLastSynchronizationTimestampInMs());
 }
 }  // extern "C"

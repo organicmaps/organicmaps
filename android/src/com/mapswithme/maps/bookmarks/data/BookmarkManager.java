@@ -213,7 +213,10 @@ public enum BookmarkManager
 
   public boolean isCloudEnabled() { return nativeIsCloudEnabled(); }
 
-  public long getLastSynchronizationTimestamp() { return nativeGetLastSynchronizationTimestamp(); }
+  public long getLastSynchronizationTimestampInMs()
+  {
+    return nativeGetLastSynchronizationTimestampInMs();
+  }
 
   public static void loadKmzFile(@NonNull String path, boolean isTemporaryFile)
   {
@@ -284,7 +287,7 @@ public enum BookmarkManager
 
   private native boolean nativeIsCloudEnabled();
 
-  private native long nativeGetLastSynchronizationTimestamp();
+  private native long nativeGetLastSynchronizationTimestampInMs();
 
   private static native String nativeGenerateUniqueFileName(String baseName);
 

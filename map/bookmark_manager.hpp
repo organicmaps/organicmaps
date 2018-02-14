@@ -187,7 +187,7 @@ public:
 
   void SetCloudEnabled(bool enabled);
   bool IsCloudEnabled() const;
-  uint64_t GetLastSynchronizationTimestamp() const;
+  uint64_t GetLastSynchronizationTimestampInMs() const;
   std::unique_ptr<User::Subscriber> GetUserSubscriber();
   void SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken);
 
