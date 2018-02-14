@@ -2368,10 +2368,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     private static final long serialVersionUID = 1L;
 
-    final int mCategoryId;
-    final int mId;
+    final long mCategoryId;
+    final long mId;
 
-    BaseUserMarkTask(int categoryId, int id)
+    BaseUserMarkTask(long categoryId, long id)
     {
       mCategoryId = categoryId;
       mId = id;
@@ -2380,7 +2380,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public static class ShowBookmarkTask extends BaseUserMarkTask
   {
-    public ShowBookmarkTask(int categoryId, int bookmarkId)
+    public ShowBookmarkTask(long categoryId, long bookmarkId)
     {
       super(categoryId, bookmarkId);
     }
@@ -2388,14 +2388,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public boolean run(MwmActivity target)
     {
-      BookmarkManager.INSTANCE.nativeShowBookmarkOnMap(mCategoryId, mId);
+      BookmarkManager.INSTANCE.showBookmarkOnMap(mId);
       return true;
     }
   }
 
   public static class ShowTrackTask extends BaseUserMarkTask
   {
-    public ShowTrackTask(int categoryId, int trackId)
+    public ShowTrackTask(long categoryId, long trackId)
     {
       super(categoryId, trackId);
     }
@@ -2403,7 +2403,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public boolean run(MwmActivity target)
     {
-      Framework.nativeShowTrackRect(mCategoryId, mId);
+      Framework.nativeShowTrackRect(mId);
       return true;
     }
   }

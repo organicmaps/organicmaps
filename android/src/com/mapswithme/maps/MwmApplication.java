@@ -270,7 +270,7 @@ public class MwmApplication extends Application
     MapManager.nativeSubscribe(mStorageCallbacks);
 
     initNativeStrings();
-    BookmarkManager.nativeLoadBookmarks();
+    BookmarkManager.loadBookmarks();
     TtsPlayer.INSTANCE.init(this);
     ThemeSwitcher.restart(false);
     LocationHelper.INSTANCE.initialize();

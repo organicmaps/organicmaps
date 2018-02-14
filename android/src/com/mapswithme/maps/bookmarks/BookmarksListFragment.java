@@ -20,7 +20,6 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
@@ -35,8 +34,8 @@ public class BookmarksListFragment extends BaseMwmListFragment
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
 
-  private BookmarkCategory mCategory;
-  private int mCategoryIndex;
+  private int mCategoryPosition;
+  private long mCategoryId;
   private int mSelectedPosition;
   @Nullable
   private BookmarkListAdapter mAdapter;
@@ -46,8 +45,8 @@ public class BookmarksListFragment extends BaseMwmListFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mCategoryIndex = getArguments().getInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, -1);
-    mCategory = BookmarkManager.INSTANCE.getCategory(mCategoryIndex);
+    mCategoryPosition = getArguments().getInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, 0);
+    mCategoryId = BookmarkManager.INSTANCE.getCategoryIdByPosition(mCategoryPosition);
   }
 
   @Override
@@ -65,7 +64,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
     setHasOptionsMenu(true);
     ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
     if (bar != null)
-      bar.setTitle(mCategory.getName());
+      bar.setTitle(BookmarkManager.INSTANCE.getCategoryName(mCategoryId));
   }
 
   @Override
@@ -90,7 +89,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
 
   private void initList()
   {
-    mAdapter = new BookmarkListAdapter(getActivity(), mCategory);
+    mAdapter = new BookmarkListAdapter(getActivity(), mCategoryId);
     mAdapter.startLocationUpdate();
     setListAdapter(mAdapter);
     getListView().setOnItemLongClickListener(this);
@@ -110,7 +109,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
         case BookmarkListAdapter.TYPE_BOOKMARK:
           final Bookmark bookmark = (Bookmark) mAdapter.getItem(position);
           i.putExtra(MwmActivity.EXTRA_TASK,
-                     new MwmActivity.ShowBookmarkTask(mCategoryIndex, bookmark.getBookmarkId()));
+                     new MwmActivity.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
           break;
         case BookmarkListAdapter.TYPE_TRACK:
           final Track track = (Track) mAdapter.getItem(position);
@@ -161,7 +160,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
                          @Override
                          public boolean onMenuItemClick(MenuItem menuItem)
                          {
-                           BookmarkManager.INSTANCE.deleteTrack((Track) item);
+                           BookmarkManager.INSTANCE.deleteTrack(((Track) item).getTrackId());
                            mAdapter.notifyDataSetChanged();
                            return false;
                          }
@@ -195,11 +194,11 @@ public class BookmarksListFragment extends BaseMwmListFragment
       break;
 
     case R.id.edit:
-      EditBookmarkFragment.editBookmark(mCategory.getId(), item.getBookmarkId(), getActivity(),
+      EditBookmarkFragment.editBookmark(mCategoryPosition, item.getBookmarkId(), getActivity(),
                                         getChildFragmentManager(), new EditBookmarkFragment.EditBookmarkListener()
           {
             @Override
-            public void onBookmarkSaved(int categoryId, int bookmarkId)
+            public void onBookmarkSaved(long bookmarkId)
             {
               mAdapter.notifyDataSetChanged();
             }
@@ -207,7 +206,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
       break;
 
     case R.id.delete:
-      BookmarkManager.INSTANCE.deleteBookmark(item);
+      BookmarkManager.INSTANCE.deleteBookmark(item.getBookmarkId());
       mAdapter.notifyDataSetChanged();
       break;
     }
@@ -225,7 +224,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
   {
     if (item.getItemId() == R.id.set_share)
     {
-      SharingHelper.shareBookmarksCategory(getActivity(), mCategory.getId());
+      SharingHelper.shareBookmarksCategory(getActivity(), mCategoryId);
       return true;
     }
 

@@ -7,11 +7,10 @@ namespace
 {
 ::Framework * frm() { return g_framework->NativeFramework(); }
 
-Bookmark const * getBookmark(jint c, jlong b)
+Bookmark const * getBookmark(jlong bokmarkId)
 {
-  BookmarkCategory const * pCat = frm()->GetBmCategory(c);
-  ASSERT(pCat, ("Category not found", c));
-  Bookmark const * pBmk = static_cast<Bookmark const *>(pCat->GetUserMark(b));
+  Bookmark const * pBmk = frm()->GetBookmarkManager().GetBookmark(static_cast<df::MarkID>(bokmarkId));
+  ASSERT(pBmk, ("Bookmark not found, id", bokmarkId));
   return pBmk;
 }
 }
@@ -20,65 +19,66 @@ extern "C"
 {
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetName(
-     JNIEnv * env, jobject thiz, jint cat, jlong bmk)
+     JNIEnv * env, jobject thiz, jlong bmk)
 {
-  return jni::ToJavaString(env, getBookmark(cat, bmk)->GetName());
+  return jni::ToJavaString(env, getBookmark(bmk)->GetName());
 }
 
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetBookmarkDescription(
-     JNIEnv * env, jobject thiz, jint cat, jlong bmk)
+     JNIEnv * env, jobject thiz, jlong bmk)
 {
-  return jni::ToJavaString(env, getBookmark(cat, bmk)->GetDescription());
+  return jni::ToJavaString(env, getBookmark(bmk)->GetDescription());
 }
 
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetIcon(
-     JNIEnv * env, jobject thiz, jint cat, jlong bmk)
+     JNIEnv * env, jobject thiz, jlong bmk)
 {
-  return jni::ToJavaString(env, getBookmark(cat, bmk)->GetType());
+  return jni::ToJavaString(env, getBookmark(bmk)->GetType());
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeSetBookmarkParams(
-       JNIEnv * env, jobject thiz, jint cat, jlong bmk,
+       JNIEnv * env, jobject thiz, jlong bmk,
        jstring name, jstring type, jstring descr)
 {
-  Bookmark const * p = getBookmark(cat, bmk);
+  Bookmark const * p = getBookmark(bmk);
 
   // initialize new bookmark
   BookmarkData bm(jni::ToNativeString(env, name), jni::ToNativeString(env, type));
   bm.SetDescription(descr ? jni::ToNativeString(env, descr)
                           : p->GetDescription());
 
-  g_framework->ReplaceBookmark(BookmarkAndCategory(bmk, cat), bm);
+  g_framework->ReplaceBookmark(static_cast<df::MarkID>(bmk), bm);
 }
 
-JNIEXPORT jint JNICALL
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeChangeCategory(
-       JNIEnv * env, jobject thiz, jint oldCat, jint newCat, jlong bmk)
+       JNIEnv * env, jobject thiz, jlong oldCat, jlong newCat, jlong bmk)
 {
-  return g_framework->ChangeBookmarkCategory(BookmarkAndCategory(bmk, oldCat), newCat);
+  g_framework->MoveBookmark(static_cast<df::MarkID>(bmk), static_cast<df::MarkGroupID>(oldCat),
+                            static_cast<df::MarkGroupID>(newCat));
 }
 
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetXY(
-     JNIEnv * env, jobject thiz, jint cat, jlong bmk)
+     JNIEnv * env, jobject thiz, jlong bmk)
 {
-  return jni::GetNewParcelablePointD(env, getBookmark(cat, bmk)->GetPivot());
+  return jni::GetNewParcelablePointD(env, getBookmark(bmk)->GetPivot());
 }
 
 JNIEXPORT jdouble JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetScale(
-     JNIEnv * env, jobject thiz, jint cat, jlong bmk)
+     JNIEnv * env, jobject thiz, jlong bmk)
 {
-  return getBookmark(cat, bmk)->GetScale();
+  return getBookmark(bmk)->GetScale();
 }
 
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeEncode2Ge0Url(
-     JNIEnv * env, jobject thiz, jint cat, jlong bmk, jboolean addName)
+     JNIEnv * env, jobject thiz, jlong bmk, jboolean addName)
 {
-  return jni::ToJavaString(env, frm()->CodeGe0url(getBookmark(cat, bmk), addName));
+  return jni::ToJavaString(env, frm()->CodeGe0url(getBookmark(bmk), addName));
 }
 } // extern "C"

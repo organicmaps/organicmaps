@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
@@ -83,15 +83,16 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Bookm
     if (getItemViewType(position) == TYPE_HELP)
       return;
 
-    final BookmarkCategory set = getItem(position);
-    holder.name.setText(set.getName());
-    holder.size.setText(String.valueOf(set.getSize()));
-    holder.setVisibilityState(set.isVisible());
+    final BookmarkManager bmManager = BookmarkManager.INSTANCE;
+    final long catId = getItem(position);
+    holder.name.setText(bmManager.getCategoryName(catId));
+    holder.size.setText(String.valueOf(bmManager.getCategorySize(catId)));
+    holder.setVisibilityState(bmManager.isVisible(catId));
     holder.visibilityMarker.setOnClickListener(
         v ->
         {
-          BookmarkManager.INSTANCE.toggleCategoryVisibility(holder.getAdapterPosition());
-          holder.setVisibilityState(set.isVisible());
+          BookmarkManager.INSTANCE.toggleCategoryVisibility(catId);
+          holder.setVisibilityState(bmManager.isVisible(catId));
         });
   }
 

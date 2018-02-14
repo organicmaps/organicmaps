@@ -45,33 +45,10 @@ public enum BookmarkManager
     return ICONS.get(0);
   }
 
-  public void deleteBookmark(Bookmark bmk)
+  public void toggleCategoryVisibility(long catId)
   {
-    nativeDeleteBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
-  }
-
-  public void deleteTrack(Track track)
-  {
-    nativeDeleteTrack(track.getCategoryId(), track.getTrackId());
-  }
-
-  public @NonNull BookmarkCategory getCategory(int catId)
-  {
-    if (catId < nativeGetCategoriesCount())
-      return new BookmarkCategory(catId);
-
-    throw new IndexOutOfBoundsException("Invalid category ID!");
-  }
-
-  public void toggleCategoryVisibility(int catId)
-  {
-    BookmarkCategory category = getCategory(catId);
-    category.setVisibility(!category.isVisible());
-  }
-
-  public Bookmark getBookmark(int catId, int bmkId)
-  {
-    return getCategory(catId).getBookmark(bmkId);
+    boolean isVisible = isVisible(catId);
+    setVisibility(catId, !isVisible);
   }
 
   public Bookmark addNewBookmark(String name, double lat, double lon)
@@ -124,39 +101,198 @@ public enum BookmarkManager
       listener.onBookmarksFileLoaded(success);
   }
 
-  public static native void nativeLoadBookmarks();
+  public boolean isVisible(long catId)
+  {
+    return nativeIsVisible(catId);
+  }
 
-  private native void nativeDeleteTrack(int catId, int trackId);
+  public void setVisibility(long catId, boolean visible)
+  {
+    nativeSetVisibility(catId, visible);
+  }
 
-  private native void nativeDeleteBookmark(int cat, int bmkId);
+  public String getCategoryName(long catId)
+  {
+    return nativeGetCategoryName(catId);
+  }
 
-  public native int nativeGetCategoriesCount();
-
-  public native boolean nativeDeleteCategory(int catId);
+  public void setCategoryName(long catId, String name)
+  {
+    nativeSetCategoryName(catId, name);
+  }
 
   /**
-   * @return category Id
+   * @return total count - tracks + bookmarks
    */
-  public native int nativeCreateCategory(String name);
+  public int getCategorySize(long catId)
+  {
+    return nativeGetBookmarksCount(catId) + nativeGetTracksCount(catId);
+  }
 
-  public native void nativeShowBookmarkOnMap(int catId, int bmkId);
+  public int getCategoriesCount() { return nativeGetCategoriesCount(); }
+
+  public int getCategoryPositionById(long catId)
+  {
+    return nativeGetCategoryPositionById(catId);
+  }
+
+  public long getCategoryIdByPosition(int position)
+  {
+    return nativeGetCategoryIdByPosition(position);
+  }
+
+  public int getBookmarksCount(long catId)
+  {
+    return nativeGetBookmarksCount(catId);
+  }
+
+  public int getTracksCount(long catId)
+  {
+    return nativeGetTracksCount(catId);
+  }
+
+  public Bookmark getBookmark(long bmkId)
+  {
+    return nativeGetBookmark(bmkId);
+  }
+
+  public long getBookmarkIdByPosition(long catId, int positionInCategory)
+  {
+    return nativeGetBookmarkIdByPosition(catId, positionInCategory);
+  }
+
+  public Track getTrack(long trackId)
+  {
+    return nativeGetTrack(trackId, Track.class);
+  }
+
+  public long getTrackIdByPosition(long catId, int positionInCategory)
+  {
+    return nativeGetTrackIdByPosition(catId, positionInCategory);
+  }
+
+  public static void loadBookmarks() { nativeLoadBookmarks(); }
+
+  public void deleteCategory(long catId) { nativeDeleteCategory(catId); }
+
+  public void deleteTrack(long trackId)
+  {
+    nativeDeleteTrack(trackId);
+  }
+
+  public void deleteBookmark(long bmkId)
+  {
+    nativeDeleteBookmark(bmkId);
+  }
+
+  public long createCategory(String name) { return nativeCreateCategory(name); }
+
+  public void showBookmarkOnMap(long bmkId) { nativeShowBookmarkOnMap(bmkId); }
 
   /**
    * @return null, if wrong category is passed.
    */
-  public native @Nullable String nativeSaveToKmzFile(int catId, String tmpPath);
+  public @Nullable String saveToKmzFile(long catId, String tmpPath)
+  {
+    return nativeSaveToKmzFile(catId, tmpPath);
+  }
 
-  public native Bookmark nativeAddBookmarkToLastEditedCategory(String name, double lat, double lon);
+  public Bookmark addBookmarkToLastEditedCategory(String name, double lat, double lon)
+  {
+    return nativeAddBookmarkToLastEditedCategory(name, lat, lon);
+  }
 
-  public native int nativeGetLastEditedCategory();
+  public long getLastEditedCategory() { return nativeGetLastEditedCategory(); }
 
-  public static native String nativeGenerateUniqueFileName(String baseName);
+  public static String generateUniqueFileName(String baseName)
+  {
+    return nativeGenerateUniqueFileName(baseName);
+  }
 
-  public static native void nativeLoadKmzFile(@NonNull String path, boolean isTemporaryFile);
+  public void setCloudEnabled(boolean enabled) { nativeSetCloudEnabled(enabled); }
 
-  public static native String nativeFormatNewBookmarkName();
+  public boolean isCloudEnabled() { return nativeIsCloudEnabled(); }
 
-  public static native boolean nativeIsAsyncBookmarksLoadingInProgress();
+  public long getLastSynchronizationTimestamp() { return nativeGetLastSynchronizationTimestamp(); }
+
+  public static void loadKmzFile(@NonNull String path, boolean isTemporaryFile)
+  {
+    nativeLoadKmzFile(path, isTemporaryFile);
+  }
+
+  public static String formatNewBookmarkName()
+  {
+    return nativeFormatNewBookmarkName();
+  }
+
+  public static boolean isAsyncBookmarksLoadingInProgress()
+  {
+    return nativeIsAsyncBookmarksLoadingInProgress();
+  }
+
+  private native int nativeGetCategoriesCount();
+
+  private native int nativeGetCategoryPositionById(long catId);
+
+  private native long nativeGetCategoryIdByPosition(int position);
+
+  private native int nativeGetBookmarksCount(long catId);
+
+  private native int nativeGetTracksCount(long catId);
+
+  private native Bookmark nativeGetBookmark(long bmkId);
+
+  private native long nativeGetBookmarkIdByPosition(long catId, int position);
+
+  private native Track nativeGetTrack(long trackId, Class<Track> trackClazz);
+
+  private native long nativeGetTrackIdByPosition(long catId, int position);
+
+  private native boolean nativeIsVisible(long catId);
+
+  private native void nativeSetVisibility(long catId, boolean visible);
+
+  private native String nativeGetCategoryName(long catId);
+
+  private native void nativeSetCategoryName(long catId, String n);
+
+  private static native void nativeLoadBookmarks();
+
+  private native boolean nativeDeleteCategory(long catId);
+
+  private native void nativeDeleteTrack(long trackId);
+
+  private native void nativeDeleteBookmark(long bmkId);
+
+  /**
+   * @return category Id
+   */
+  private native long nativeCreateCategory(String name);
+
+  private native void nativeShowBookmarkOnMap(long bmkId);
+
+  /**
+   * @return null, if wrong category is passed.
+   */
+  private native @Nullable String nativeSaveToKmzFile(long catId, String tmpPath);
+
+  private native Bookmark nativeAddBookmarkToLastEditedCategory(String name, double lat, double lon);
+
+  private native long nativeGetLastEditedCategory();
+
+  private native void nativeSetCloudEnabled(boolean enabled);
+
+  private native boolean nativeIsCloudEnabled();
+
+  private native long nativeGetLastSynchronizationTimestamp();
+
+  private static native String nativeGenerateUniqueFileName(String baseName);
+
+  private static native void nativeLoadKmzFile(@NonNull String path, boolean isTemporaryFile);
+
+  private static native String nativeFormatNewBookmarkName();
+
+  private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 
   public interface BookmarksLoadingListener
   {

@@ -15,7 +15,7 @@ import java.util.List;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.location.LocationHelper;
@@ -26,7 +26,7 @@ import com.mapswithme.util.Graphics;
 public class BookmarkListAdapter extends BaseAdapter
 {
   private final Activity mActivity;
-  private final BookmarkCategory mCategory;
+  private final long mCategoryId;
 
   // view types
   static final int TYPE_TRACK = 0;
@@ -45,10 +45,10 @@ public class BookmarkListAdapter extends BaseAdapter
     }
   };
 
-  public BookmarkListAdapter(Activity activity, BookmarkCategory cat)
+  public BookmarkListAdapter(Activity activity, long catId)
   {
     mActivity = activity;
-    mCategory = cat;
+    mCategoryId = catId;
   }
 
   public void startLocationUpdate()
@@ -128,19 +128,26 @@ public class BookmarkListAdapter extends BaseAdapter
   @Override
   public int getCount()
   {
-    return mCategory.getSize()
-        + (isSectionEmpty(SECTION_TRACKS) ? 0 : 1)
-        + (isSectionEmpty(SECTION_BMKS) ? 0 : 1);
+    return BookmarkManager.INSTANCE.getCategorySize(mCategoryId)
+           + (isSectionEmpty(SECTION_TRACKS) ? 0 : 1)
+           + (isSectionEmpty(SECTION_BMKS) ? 0 : 1);
   }
 
   @Override
   public Object getItem(int position)
   {
     if (getItemViewType(position) == TYPE_TRACK)
-      return mCategory.nativeGetTrack(position - 1);
+    {
+      final long trackId = BookmarkManager.INSTANCE.getTrackIdByPosition(mCategoryId, position - 1);
+      return BookmarkManager.INSTANCE.getTrack(trackId);
+    }
     else
-      return mCategory.getBookmark(position - 1
-          - (isSectionEmpty(SECTION_TRACKS) ? 0 : mCategory.getTracksCount() + 1));
+    {
+      final int pos = position - 1
+                      - (isSectionEmpty(SECTION_TRACKS) ? 0 : BookmarkManager.INSTANCE.getTracksCount(mCategoryId) + 1);
+      final long bookmarkId = BookmarkManager.INSTANCE.getBookmarkIdByPosition(mCategoryId, pos);
+      return BookmarkManager.INSTANCE.getBookmark(bookmarkId);
+    }
   }
 
   @Override
@@ -228,7 +235,7 @@ public class BookmarkListAdapter extends BaseAdapter
     if (isSectionEmpty(SECTION_BMKS))
       return -1;
 
-    return mCategory.getTracksCount()
+    return BookmarkManager.INSTANCE.getTracksCount(mCategoryId)
         + (isSectionEmpty(SECTION_TRACKS) ? 0 : 1);
   }
 
@@ -253,9 +260,9 @@ public class BookmarkListAdapter extends BaseAdapter
   private boolean isSectionEmpty(int section)
   {
     if (section == SECTION_TRACKS)
-      return mCategory.getTracksCount() == 0;
+      return BookmarkManager.INSTANCE.getTracksCount(mCategoryId) == 0;
     if (section == SECTION_BMKS)
-      return mCategory.getBookmarksCount() == 0;
+      return BookmarkManager.INSTANCE.getBookmarksCount(mCategoryId) == 0;
 
     throw new IllegalArgumentException("There is no section with index " + section);
   }

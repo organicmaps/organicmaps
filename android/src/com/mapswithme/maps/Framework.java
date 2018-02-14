@@ -170,7 +170,7 @@ public class Framework
     nativeLogLocalAdsEvent(type, lat, lon, accuracy);
   }
 
-  public static native void nativeShowTrackRect(int category, int track);
+  public static native void nativeShowTrackRect(long track);
 
   public static native int nativeGetDrawScale();
   
@@ -345,7 +345,7 @@ public class Framework
   public static native MapObject nativeDeleteBookmarkFromMapObject();
 
   // TODO remove that hack after bookmarks will be refactored completely
-  public static native void nativeOnBookmarkCategoryChanged(int cat, int bmk);
+  public static native void nativeOnBookmarkCategoryChanged(long cat, long bmk);
 
   public static native void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
 

@@ -1,7 +1,6 @@
 #include "com/mapswithme/maps/Framework.hpp"
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/maps/UserMarkHelper.hpp"
-#include "com/mapswithme/maps/bookmarks/data/BookmarkManager.hpp"
 #include "com/mapswithme/opengl/androidoglcontextfactory.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
 #include "com/mapswithme/util/NetworkPolicy.hpp"
@@ -375,12 +374,12 @@ void Framework::RemoveLocalMaps()
 
 void Framework::ReplaceBookmark(df::MarkID markId, BookmarkData & bm)
 {
-  m_work.ReplaceBookmark(markId, ind.m_bookmarkIndex, bm);
+  m_work.GetBookmarkManager().GetEditSession().UpdateBookmark(markId, bm);
 }
 
-size_t Framework::ChangeBookmarkCategory(df::MarkID markId, df::MarkGroupID newCat)
+void Framework::MoveBookmark(df::MarkID markId, df::MarkGroupID curCat, df::MarkGroupID newCat)
 {
-  return m_work.MoveBookmark(markId, newCat);
+  m_work.GetBookmarkManager().GetEditSession().MoveBookmark(markId, curCat, newCat);
 }
 
 bool Framework::ShowMapForURL(string const & url)
@@ -415,9 +414,9 @@ string Framework::GetOutdatedCountriesString()
   return res;
 }
 
-void Framework::ShowTrack(int category, int track)
+void Framework::ShowTrack(df::LineID track)
 {
-  Track const * nTrack = NativeFramework()->GetBmCategory(category)->GetTrack(track);
+  Track const * nTrack = NativeFramework()->GetBookmarkManager().GetTrack(track);
   NativeFramework()->ShowTrack(*nTrack);
 }
 
@@ -679,8 +678,7 @@ Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress(JNIEnv * env, jclass 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
 {
-  UserMarkNotificationGuard guard(frm()->GetBookmarkManager(), UserMark::Type::API);
-  guard.m_controller.Clear();
+  frm()->GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::API);
 }
 
 JNIEXPORT jint JNICALL
@@ -903,9 +901,9 @@ Java_com_mapswithme_maps_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclas
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeShowTrackRect(JNIEnv * env, jclass, jint cat, jint track)
+Java_com_mapswithme_maps_Framework_nativeShowTrackRect(JNIEnv * env, jclass, jlong track)
 {
-  g_framework->ShowTrack(cat, track);
+  g_framework->ShowTrack(static_cast<df::LineID>(track));
 }
 
 JNIEXPORT jstring JNICALL
@@ -1415,20 +1413,22 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, jclass)
 {
   place_page::Info & info = g_framework->GetPlacePageInfo();
-  auto const bac = info.GetBookmarkAndCategory();
-  BookmarkCategory * category = frm()->GetBmCategory(bac.m_categoryIndex);
-  frm()->ResetBookmarkInfo(*static_cast<Bookmark const *>(category->GetUserMark(bac.m_bookmarkIndex)), info);
-  bookmarks_helper::RemoveBookmark(bac.m_categoryIndex, bac.m_bookmarkIndex);
+  auto const bookmarkId = info.GetBookmarkId();
+  frm()->ResetBookmarkInfo(*frm()->GetBookmarkManager().GetBookmark(bookmarkId), info);
+  frm()->GetBookmarkManager().GetEditSession().DeleteBookmark(bookmarkId);
+    // TODO(darina): Save to KML here
   return usermark_helper::CreateMapObject(env, info);
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeOnBookmarkCategoryChanged(JNIEnv * env, jclass, jint cat, jint bmk)
+Java_com_mapswithme_maps_Framework_nativeOnBookmarkCategoryChanged(JNIEnv * env, jclass, jlong cat, jlong bmk)
 {
   place_page::Info & info = g_framework->GetPlacePageInfo();
   ASSERT_GREATER_OR_EQUAL(bmk, 0, ());
   ASSERT_GREATER_OR_EQUAL(cat, 0, ());
-  info.SetBac({static_cast<size_t>(bmk), static_cast<size_t>(cat)});
+  info.SetBookmarkCategoryId(static_cast<df::MarkGroupID>(cat));
+  info.SetBookmarkId(static_cast<df::MarkID>(bmk));
+  info.SetBookmarkCategoryName(frm()->GetBookmarkManager().GetCategoryName(static_cast<df::MarkGroupID>(cat)));
 }
 
 JNIEXPORT void JNICALL

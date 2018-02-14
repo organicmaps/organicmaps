@@ -2,13 +2,13 @@ package com.mapswithme.maps.bookmarks.data;
 
 public class Track
 {
-  private final int mTrackId;
-  private final int mCategoryId;
+  private final long mTrackId;
+  private final long mCategoryId;
   private final String mName;
   private final String mLengthString;
   private final int mColor;
 
-  Track(int trackId, int categoryId, String name, String lengthString, int color)
+  Track(long trackId, long categoryId, String name, String lengthString, int color)
   {
     mTrackId = trackId;
     mCategoryId = categoryId;
@@ -23,7 +23,7 @@ public class Track
 
   public int getColor() { return mColor; }
 
-  public int getTrackId() { return mTrackId; }
+  public long getTrackId() { return mTrackId; }
 
-  public int getCategoryId() { return mCategoryId; }
+  public long getCategoryId() { return mCategoryId; }
 }

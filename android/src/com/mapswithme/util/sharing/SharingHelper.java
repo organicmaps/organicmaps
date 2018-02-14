@@ -213,10 +213,10 @@ public final class SharingHelper
     save();
   }
 
-  public static void shareBookmarksCategory(Activity context, int id)
+  public static void shareBookmarksCategory(Activity context, long id)
   {
     final String path = MwmApplication.get().getTempPath() + "/";
-    String name = BookmarkManager.INSTANCE.nativeSaveToKmzFile(id, path);
+    String name = BookmarkManager.INSTANCE.saveToKmzFile(id, path);
     if (name == null)
       return;
 

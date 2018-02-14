@@ -799,7 +799,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       if (path != null)
       {
         LOGGER.d(TAG, "Loading bookmarks file from: " + path);
-        BookmarkManager.nativeLoadKmzFile(path, isTemporaryFile);
+        BookmarkManager.loadKmzFile(path, isTemporaryFile);
       }
       else
         LOGGER.w(TAG, "Can't get bookmarks file from URI: " + mData);

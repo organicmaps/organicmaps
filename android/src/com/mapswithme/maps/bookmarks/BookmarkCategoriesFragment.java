@@ -13,8 +13,8 @@ import android.view.View;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkBackupController;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.widget.PlaceholderView;
@@ -32,7 +32,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                BookmarkManager.BookmarksLoadingListener,
                Authorizer.Callback, BookmarkBackupController.BackupListener
 {
-  private int mSelectedPosition;
+  private long mSelectedCatId;
   @Nullable
   private View mLoadingPlaceholder;
 
@@ -89,7 +89,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
 
   private void updateResultsPlaceholder()
   {
-    boolean showLoadingPlaceholder = BookmarkManager.nativeIsAsyncBookmarksLoadingInProgress();
+    boolean showLoadingPlaceholder = BookmarkManager.isAsyncBookmarksLoadingInProgress();
     boolean showPlaceHolder = !showLoadingPlaceholder &&
                               (getAdapter() == null || getAdapter().getItemCount() == 0);
     if (getAdapter() != null)
@@ -104,7 +104,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     if (mLoadingPlaceholder != null)
     {
-      boolean showLoadingPlaceholder = BookmarkManager.nativeIsAsyncBookmarksLoadingInProgress();
+      boolean showLoadingPlaceholder = BookmarkManager.isAsyncBookmarksLoadingInProgress();
       if (getAdapter() != null && getAdapter().getItemCount() != 0)
         showLoadingPlaceholder = false;
 
@@ -145,8 +145,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   public void onSaveText(String text)
   {
-    final BookmarkCategory category = BookmarkManager.INSTANCE.getCategory(mSelectedPosition);
-    category.setName(text);
+    BookmarkManager.INSTANCE.setCategoryName(mSelectedCatId, text);
     if (getAdapter() != null)
       getAdapter().notifyDataSetChanged();
   }
@@ -157,24 +156,24 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     switch (item.getItemId())
     {
     case R.id.set_show:
-      BookmarkManager.INSTANCE.toggleCategoryVisibility(mSelectedPosition);
+      BookmarkManager.INSTANCE.toggleCategoryVisibility(mSelectedCatId);
       if (getAdapter() != null)
         getAdapter().notifyDataSetChanged();
       break;
 
     case R.id.set_share:
-      SharingHelper.shareBookmarksCategory(getActivity(), mSelectedPosition);
+      SharingHelper.shareBookmarksCategory(getActivity(), mSelectedCatId);
       break;
 
     case R.id.set_delete:
-      BookmarkManager.INSTANCE.nativeDeleteCategory(mSelectedPosition);
+      BookmarkManager.INSTANCE.deleteCategory(mSelectedCatId);
       if (getAdapter() != null)
         getAdapter().notifyDataSetChanged();
       break;
 
     case R.id.set_edit:
       EditTextDialogFragment.show(getString(R.string.bookmark_set_name),
-                                  BookmarkManager.INSTANCE.getCategory(mSelectedPosition).getName(),
+                                  BookmarkManager.INSTANCE.getCategoryName(mSelectedCatId),
                                   getString(R.string.rename), getString(R.string.cancel), this);
       break;
     }
@@ -185,17 +184,19 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   public void onLongItemClick(View v, int position)
   {
-    mSelectedPosition = position;
+    final BookmarkManager bmManager = BookmarkManager.INSTANCE;
+    mSelectedCatId = bmManager.getCategoryIdByPosition(position);
 
-    BookmarkCategory category = BookmarkManager.INSTANCE.getCategory(mSelectedPosition);
-    BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), category.getName())
+    final String name = bmManager.getCategoryName(mSelectedCatId);
+    BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), name)
                                                     .sheet(R.menu.menu_bookmark_categories)
                                                     .listener(this);
     MenuItem show = bs.getMenu().getItem(0);
-    show.setIcon(category.isVisible() ? R.drawable.ic_hide
-                                      : R.drawable.ic_show);
-    show.setTitle(category.isVisible() ? R.string.hide
-                                       : R.string.show);
+    final boolean isVisible = bmManager.isVisible(mSelectedCatId);
+    show.setIcon(isVisible ? R.drawable.ic_hide
+                           : R.drawable.ic_show);
+    show.setTitle(isVisible ? R.string.hide
+                            : R.string.show);
     bs.tint().show();
   }
 

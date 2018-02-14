@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.util.statistics.Statistics;
@@ -26,7 +27,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
 
   public interface Listener
   {
-    void onCategoryChanged(int newCategoryId);
+    void onCategoryChanged(long newCategoryId);
   }
   private Listener mListener;
 
@@ -52,8 +53,8 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     super.onViewCreated(view, savedInstanceState);
 
     final Bundle args = getArguments();
-    final int catId = args.getInt(CATEGORY_ID, 0);
-    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), catId);
+    final int catPosition = args.getInt(CATEGORY_ID, 0);
+    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), catPosition);
     mAdapter.setListener(this);
     mRecycler.setAdapter(mAdapter);
   }
@@ -81,21 +82,25 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
 
   private void createCategory(String name)
   {
-    final int category = BookmarkManager.INSTANCE.nativeCreateCategory(name);
-    mAdapter.chooseItem(category);
+    final long categoryId = BookmarkManager.INSTANCE.createCategory(name);
+    final int categoryPosition = BookmarkManager.INSTANCE.getCategoriesCount() - 1;
+    mAdapter.chooseItem(categoryPosition);
 
     if (mListener != null)
-      mListener.onCategoryChanged(category);
+      mListener.onCategoryChanged(categoryId);
     dismiss();
     Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_GROUP_CREATED);
   }
 
   @Override
-  public void onCategorySet(int categoryId)
+  public void onCategorySet(int categoryPosition)
   {
-    mAdapter.chooseItem(categoryId);
+    mAdapter.chooseItem(categoryPosition);
     if (mListener != null)
+    {
+      final long categoryId = BookmarkManager.INSTANCE.getCategoryIdByPosition(categoryPosition);
       mListener.onCategoryChanged(categoryId);
+    }
     dismiss();
     Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_GROUP_CHANGED);
   }

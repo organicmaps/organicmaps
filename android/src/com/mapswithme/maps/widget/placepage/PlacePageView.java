@@ -1829,7 +1829,8 @@ public class PlacePageView extends RelativeLayout
           return;
         }
         Bookmark bookmark = (Bookmark) mMapObject;
-        EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(),
+        final int categoryPosition = BookmarkManager.INSTANCE.getCategoryPositionById(bookmark.getCategoryId());
+        EditBookmarkFragment.editBookmark(categoryPosition, bookmark.getBookmarkId(),
                                           getActivity(), getActivity().getSupportFragmentManager(),
                                           this);
         break;
@@ -1890,7 +1891,7 @@ public class PlacePageView extends RelativeLayout
     if (MapObject.isOfType(MapObject.BOOKMARK, mapObject))
       setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), true, null);
     else
-      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(BookmarkManager.nativeFormatNewBookmarkName(),
+      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(BookmarkManager.formatNewBookmarkName(),
                                                            mapObject.getLat(), mapObject.getLon()), true, null);
     post(new Runnable()
     {
@@ -2092,9 +2093,9 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onBookmarkSaved(int categoryId, int bookmarkId)
+  public void onBookmarkSaved(long bookmarkId)
   {
-    setMapObject(BookmarkManager.INSTANCE.getBookmark(categoryId, bookmarkId), true, null);
+    setMapObject(BookmarkManager.INSTANCE.getBookmark(bookmarkId), true, null);
   }
 
   public boolean isBannerTouched(@NonNull MotionEvent event)

@@ -111,14 +111,14 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   if (info.IsBookmark())
   {
     // public Bookmark(@NonNull FeatureId featureId,
-    //                 @IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,
+    //                 @IntRange(from = 0) long categoryId, @IntRange(from = 0) long bookmarkId,
     //                 String title, @Nullable String secondaryTitle, @Nullable String objectTitle,
     //                 @Nullable Banner[] banners, boolean reachableByTaxi,
     //                 @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
     //                 @Nullable RoutePointInfo routePointInfo)
     static jmethodID const ctorId =
         jni::GetConstructorID(env, g_bookmarkClazz,
-                              "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;IILjava/lang/String;"
+                              "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;JJLjava/lang/String;"
                               "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                               "[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
                               "Lcom/mapswithme/maps/ads/LocalAdInfo;"
@@ -127,8 +127,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     static jmethodID const featureCtorId =
         jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
 
-    auto const & bac = info.GetBookmarkAndCategory();
-    BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.m_categoryIndex);
+    auto const bookmarkId = info.GetBookmarkId();
+    auto const categoryId = info.GetBookmarkCategoryId();
     BookmarkData const & data = info.GetBookmarkData();
     jni::TScopedLocalRef jMwmName(env, jni::ToJavaString(env, info.GetID().GetMwmName()));
     jni::TScopedLocalRef jFeatureId(
@@ -142,8 +142,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 
     jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, info.GetBookingSearchUrl()));
     jobject mapObject = env->NewObject(
-        g_bookmarkClazz, ctorId, jFeatureId.get(), static_cast<jint>(bac.m_categoryIndex),
-        static_cast<jint>(bac.m_bookmarkIndex), jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(),
+        g_bookmarkClazz, ctorId, jFeatureId.get(), static_cast<jlong>(categoryId),
+        static_cast<jlong>(bookmarkId), jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(),
         jAddress.get(), jbanners.get(), jTaxiTypes.get(), jBookingSearchUrl.get(),
         localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended(), info.ShouldShowUGC(),
         info.CanBeRated(), info.CanBeReviewed(), jratings.get());
