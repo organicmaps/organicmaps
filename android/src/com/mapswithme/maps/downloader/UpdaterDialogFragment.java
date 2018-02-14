@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -87,46 +88,27 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   }
 
   @NonNull
-  private final View.OnClickListener mLaterClickListener = new View.OnClickListener()
+  private final View.OnClickListener mLaterClickListener = (View v) ->
   {
-    @Override
-    public void onClick(View v)
-    {
-      Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_LATER, 0);
+    Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_LATER, 0);
 
-      finish();
-    }
+    finish();
   };
 
   @NonNull
-  private final View.OnClickListener mCancelClickListener = new View.OnClickListener()
+  private final View.OnClickListener mCancelClickListener = (View v) ->
   {
-    @Override
-    public void onClick(View v)
-    {
-      Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_CANCEL, mTotalSizeMb);
+    Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_CANCEL, mTotalSizeMb);
 
-      MapManager.nativeCancel(CountryItem.getRootId());
-      finish();
-    }
+    MapManager.nativeCancel(CountryItem.getRootId());
+    finish();
   };
 
   @NonNull
-  private final View.OnClickListener mHideClickListener = new View.OnClickListener()
-  {
-    @Override
-    public void onClick(View v)
-    {
-      finish();
-    }
-  };
+  private final View.OnClickListener mHideClickListener = (View v) -> finish();
 
   @NonNull
-  private final View.OnClickListener mUpdateClickListener = new View.OnClickListener()
-  {
-    @Override
-    public void onClick(View v)
-    {
+  private final View.OnClickListener mUpdateClickListener = (View v) ->
       MapManager.warnOn3gUpdate(getActivity(), CountryItem.getRootId(), new Runnable()
       {
         @Override
@@ -134,8 +116,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         {
           mTitle.setText(getString(R.string.whats_new_auto_update_updating_maps));
           mCommonStatus.setText("");
-          mProgressBar.setProgress(0);
-          mRelativeStatus.setText(GetRelativeStatusFormatted(0, 0, mTotalSizeMb));
+          setProgress(0, 0, mTotalSizeMb);
           MapManager.nativeUpdate(CountryItem.getRootId());
           UiUtils.show(mProgressBar, mInfo, mFrameBtn, mHideBtn);
           UiUtils.hide(mUpdateBtn, mLaterBtn);
@@ -144,8 +125,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
                                                          mTotalSizeMb);
         }
       });
-    }
-  };
 
   public static boolean showOn(@NonNull FragmentActivity activity,
                                @Nullable BaseNewsFragment.NewsDialogListener doneListener)
@@ -158,14 +137,13 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     if (info == null)
       return false;
 
-    @Framework.DoAfterUpdate
-    final int result;
+    @Framework.DoAfterUpdate final int result;
 
     final long size = info.totalSize / Constants.MB;
     Fragment f = fm.findFragmentByTag(UpdaterDialogFragment.class.getName());
     if (f != null)
     {
-      ((UpdaterDialogFragment)f).mDoneListener = doneListener;
+      ((UpdaterDialogFragment) f).mDoneListener = doneListener;
       return true;
     }
     else
@@ -187,7 +165,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     fragment.setArguments(args);
     fragment.mDoneListener = doneListener;
     FragmentTransaction transaction = fm.beginTransaction()
-      .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+                                        .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
     fragment.show(transaction, UpdaterDialogFragment.class.getName());
 
     return true;
@@ -230,7 +208,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     res.setContentView(content);
 
     mTitle = content.findViewById(R.id.title);
-    mUpdateBtn  = content.findViewById(R.id.update_btn);
+    mUpdateBtn = content.findViewById(R.id.update_btn);
     mProgressBar = content.findViewById(R.id.progress);
     mLaterBtn = content.findViewById(R.id.later_btn);
     mInfo = content.findViewById(R.id.info);
@@ -343,9 +321,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     if (mAutoUpdate)
     {
       int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
-      mProgressBar.setProgress(progress);
-      mRelativeStatus.setText(GetRelativeStatusFormatted(progress, mTotalSizeMb * progress / 100,
-                                                         mTotalSizeMb));
+      setProgress(progress, mTotalSizeMb * progress / 100, mTotalSizeMb);
     }
   }
 
@@ -355,12 +331,23 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   }
 
   @NonNull
-  String GetRelativeStatusFormatted(int progress, long localSize, long remoteSize)
+  String getRelativeStatusFormatted(int progress, long localSize, long remoteSize)
   {
     return getString(R.string.downloader_percent, progress + "%",
                      localSize + getString(R.string.mb), remoteSize + getString(R.string.mb));
   }
 
+  void setProgress(int progress, long localSize, long remoteSize)
+  {
+    mProgressBar.setProgress(progress);
+    mRelativeStatus.setText(getRelativeStatusFormatted(progress, localSize, remoteSize));
+  }
+
+  void setCommonStatus(@NonNull String mwmId, @StringRes int mwmStatusResId)
+  {
+    String status = getString(mwmStatusResId, MapManager.nativeGetName(mwmId));
+    mCommonStatus.setText(status);
+  }
   private static class DetachableStorageCallback implements MapManager.StorageCallback
   {
     @Nullable
@@ -383,7 +370,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
       String mwmId = null;
-      String mwmStatus = null;
+      @StringRes
+      int mwmStatusResId = 0;
       for (MapManager.StorageCallbackData item : data)
       {
         if (!item.isLeafNode)
@@ -400,26 +388,23 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
               mLeftoverMaps.remove(item.countryId);
             break;
           case CountryItem.STATUS_PROGRESS:
-            if (mFragment == null)
-              break;
             mwmId = item.countryId;
-            mwmStatus = mFragment.getString(R.string.downloader_process);
+            mwmStatusResId = R.string.downloader_process;
             break;
           case CountryItem.STATUS_APPLYING:
-            if (mFragment == null)
-              break;
             mwmId = item.countryId;
-            mwmStatus = mFragment.getString(R.string.downloader_applying);
+            mwmStatusResId = R.string.downloader_applying;
             break;
           default:
+            LOGGER.d(TAG, "Ignored status: " + item.newStatus +
+                          ".For country: " + item.countryId);
             break;
         }
       }
 
-      if (mwmId != null && mwmStatus != null && mFragment != null)
+      if (mwmId != null && mwmStatusResId != 0 && mFragment != null)
       {
-        mFragment.mCommonStatus.setText(String.format(Locale.getDefault(), mwmStatus,
-                                                      MapManager.nativeGetName(mwmId)));
+        mFragment.setCommonStatus(mwmId, mwmStatusResId);
       }
 
       if (mFragment != null && mFragment.isAdded() && mFragment.isAllUpdated())
@@ -478,12 +463,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         return;
 
       int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
-      mFragment.mProgressBar.setProgress(progress);
-      String relativeStatusFormatted =
-          mFragment.GetRelativeStatusFormatted(progress, localSizeBytes / Constants.MB,
-                                               remoteSizeBytes / Constants.MB);
-      mFragment.mRelativeStatus.setText(relativeStatusFormatted);
-
+      mFragment.setProgress(progress, localSizeBytes / Constants.MB,
+                            remoteSizeBytes / Constants.MB);
     }
 
     void attach(@NonNull UpdaterDialogFragment fragment)
