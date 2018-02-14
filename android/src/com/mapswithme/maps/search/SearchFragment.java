@@ -23,7 +23,6 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.ads.search.SearchAdView;
 import com.mapswithme.maps.MwmActivity;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -41,7 +40,6 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
@@ -55,7 +53,6 @@ public class SearchFragment extends BaseMwmFragment
                                     CategoriesAdapter.OnCategorySelectedListener,
                                     HotelsFilterHolder, NativeBookingFilterListener
 {
-  public static final String PREFS_SHOW_ENABLE_LOGGING_SETTING = "ShowEnableLoggingSetting";
   private static final int MIN_QUERY_LENGTH_FOR_AD = 3;
   private static final long ADS_DELAY_MS = 200;
   private static final long RESULTS_DELAY_MS = 400;
@@ -518,19 +515,6 @@ public class SearchFragment extends BaseMwmFragment
 
   private boolean tryRecognizeLoggingCommand(@NonNull String str)
   {
-    if (str.equals("?enableLogging"))
-    {
-      MwmApplication.prefs().edit().putBoolean(PREFS_SHOW_ENABLE_LOGGING_SETTING, true).apply();
-      return true;
-    }
-
-    if (str.equals("?disableLogging"))
-    {
-      LoggerFactory.INSTANCE.setFileLoggingEnabled(false);
-      MwmApplication.prefs().edit().putBoolean(PREFS_SHOW_ENABLE_LOGGING_SETTING, false).apply();
-      return true;
-    }
-
     if (str.equals("?emulateBadStorage"))
     {
       SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(true);
