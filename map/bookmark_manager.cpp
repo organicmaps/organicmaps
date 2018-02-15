@@ -1123,7 +1123,7 @@ bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupId)
       ++i1;
 
     // If m_file doesn't match name, assign new m_file for this category and save old file name.
-    if (file.substr(i1, i2 - i1).find(name) != 0)
+    if (file.substr(i1, i2 - i1) != name)
     {
       file.swap(oldFile);
     }
