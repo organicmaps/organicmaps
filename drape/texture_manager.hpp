@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape/color.hpp"
+#include "drape/glyph_generator.hpp"
 #include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture.hpp"
@@ -72,13 +73,13 @@ public:
   struct Params
   {
     std::string m_resPostfix;
-    double m_visualScale;
+    double m_visualScale = 1.0;
     std::string m_colors;
     std::string m_patterns;
     GlyphManager::Params m_glyphMngParams;
   };
 
-  TextureManager();
+  explicit TextureManager(ref_ptr<GlyphGenerator> glyphGenerator);
   void Release();
 
   void Init(Params const & params);
@@ -230,6 +231,7 @@ private:
   static constexpr size_t GetInvalidGlyphGroup();
 
 private:
+  ref_ptr<GlyphGenerator> m_glyphGenerator;
   std::string m_resPostfix;
   std::vector<drape_ptr<Texture>> m_symbolTextures;
   drape_ptr<Texture> m_stipplePenTexture;

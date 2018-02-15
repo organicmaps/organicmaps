@@ -6,6 +6,7 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/drape_routine.hpp"
+#include "drape/glyph_generator.hpp"
 #include "drape/support_manager.hpp"
 
 #include "platform/settings.hpp"
@@ -28,7 +29,8 @@ DrapeEngine::DrapeEngine(Params && params)
   guiSubsystem.SetLocalizator(std::bind(&StringsBundle::GetString, params.m_stringsBundle.get(), _1));
   guiSubsystem.SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
-  m_textureManager = make_unique_dp<dp::TextureManager>();
+  m_glyphGenerator = make_unique_dp<dp::GlyphGenerator>(df::VisualParams::Instance().GetGlyphSdfScale());
+  m_textureManager = make_unique_dp<dp::TextureManager>(make_ref(m_glyphGenerator));
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();
   m_requestedTiles = make_unique_dp<RequestedTiles>();
 
@@ -130,6 +132,7 @@ DrapeEngine::~DrapeEngine()
 
   gui::DrapeGui::Instance().Destroy();
   m_textureManager->Release();
+  m_glyphGenerator.reset();
 }
 
 void DrapeEngine::Update(int w, int h)

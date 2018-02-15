@@ -17,6 +17,9 @@
 		4513BF0D1EC2F0760066565C /* viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4513BF091EC2F0760066565C /* viewport.cpp */; };
 		4513BF0E1EC2F0760066565C /* viewport.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4513BF0A1EC2F0760066565C /* viewport.hpp */; };
 		45201E951CE605B1008A4842 /* constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45201E941CE605B1008A4842 /* constants.hpp */; };
+		457B536620358F7E00E4E752 /* drape_routine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 457B536320358F7D00E4E752 /* drape_routine.hpp */; };
+		457B536720358F7E00E4E752 /* glyph_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457B536420358F7D00E4E752 /* glyph_generator.cpp */; };
+		457B536820358F7E00E4E752 /* glyph_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 457B536520358F7E00E4E752 /* glyph_generator.hpp */; };
 		45FA6D141EB3690B00AE67BD /* gpu_program_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45FA6D131EB3690B00AE67BD /* gpu_program_info.hpp */; };
 		670947231BDF9A4F005014C0 /* data_buffer_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */; };
 		670947251BDF9A4F005014C0 /* bidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947171BDF9A4F005014C0 /* bidi.cpp */; };
@@ -124,6 +127,9 @@
 		4513BF091EC2F0760066565C /* viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viewport.cpp; sourceTree = "<group>"; };
 		4513BF0A1EC2F0760066565C /* viewport.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viewport.hpp; sourceTree = "<group>"; };
 		45201E941CE605B1008A4842 /* constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = constants.hpp; sourceTree = "<group>"; };
+		457B536320358F7D00E4E752 /* drape_routine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_routine.hpp; sourceTree = "<group>"; };
+		457B536420358F7D00E4E752 /* glyph_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glyph_generator.cpp; sourceTree = "<group>"; };
+		457B536520358F7E00E4E752 /* glyph_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = glyph_generator.hpp; sourceTree = "<group>"; };
 		45FA6D131EB3690B00AE67BD /* gpu_program_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gpu_program_info.hpp; sourceTree = "<group>"; };
 		670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = data_buffer_impl.hpp; sourceTree = "<group>"; };
 		670947171BDF9A4F005014C0 /* bidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bidi.cpp; sourceTree = "<group>"; };
@@ -251,29 +257,6 @@
 		6729A4F31A691F6A007D5872 /* drape */ = {
 			isa = PBXGroup;
 			children = (
-				4513BF071EC2F0760066565C /* framebuffer.cpp */,
-				4513BF081EC2F0760066565C /* framebuffer.hpp */,
-				4513BF091EC2F0760066565C /* viewport.cpp */,
-				4513BF0A1EC2F0760066565C /* viewport.hpp */,
-				45FA6D131EB3690B00AE67BD /* gpu_program_info.hpp */,
-				34C624C71DABDB2000510300 /* static_texture.cpp */,
-				34C624C81DABDB2000510300 /* static_texture.hpp */,
-				3492DA0A1CA2D91C00C1F3B3 /* visual_scale.hpp */,
-				6743D3421C3533AE0095054B /* support_manager.cpp */,
-				6743D3431C3533AE0095054B /* support_manager.hpp */,
-				6729A55C1A69213A007D5872 /* utils */,
-				45201E941CE605B1008A4842 /* constants.hpp */,
-				670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */,
-				670947171BDF9A4F005014C0 /* bidi.cpp */,
-				670947181BDF9A4F005014C0 /* bidi.hpp */,
-				670947191BDF9A4F005014C0 /* glyph_manager.cpp */,
-				6709471A1BDF9A4F005014C0 /* glyph_manager.hpp */,
-				6709471B1BDF9A4F005014C0 /* hw_texture_ios.hpp */,
-				6709471C1BDF9A4F005014C0 /* hw_texture_ios.mm */,
-				6709471D1BDF9A4F005014C0 /* hw_texture.cpp */,
-				6709471E1BDF9A4F005014C0 /* hw_texture.hpp */,
-				6709471F1BDF9A4F005014C0 /* index_storage.cpp */,
-				670947201BDF9A4F005014C0 /* index_storage.hpp */,
 				6729A4FF1A69213A007D5872 /* attribute_buffer_mutator.cpp */,
 				6729A5001A69213A007D5872 /* attribute_buffer_mutator.hpp */,
 				6729A5011A69213A007D5872 /* attribute_provider.cpp */,
@@ -282,23 +265,30 @@
 				6729A5041A69213A007D5872 /* batcher_helpers.hpp */,
 				6729A5051A69213A007D5872 /* batcher.cpp */,
 				6729A5061A69213A007D5872 /* batcher.hpp */,
+				670947171BDF9A4F005014C0 /* bidi.cpp */,
+				670947181BDF9A4F005014C0 /* bidi.hpp */,
 				6729A5071A69213A007D5872 /* binding_info.cpp */,
 				6729A5081A69213A007D5872 /* binding_info.hpp */,
 				6729A5091A69213A007D5872 /* buffer_base.cpp */,
 				6729A50A1A69213A007D5872 /* buffer_base.hpp */,
 				6729A50B1A69213A007D5872 /* color.cpp */,
 				6729A50C1A69213A007D5872 /* color.hpp */,
+				45201E941CE605B1008A4842 /* constants.hpp */,
 				6729A50D1A69213A007D5872 /* cpu_buffer.cpp */,
 				6729A50E1A69213A007D5872 /* cpu_buffer.hpp */,
+				670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */,
 				6729A50F1A69213A007D5872 /* data_buffer.cpp */,
 				6729A5101A69213A007D5872 /* data_buffer.hpp */,
-				BB035F6B1E3A2A5C00519962 /* drape_diagnostics.hpp */,
-				6729A5111A69213A007D5872 /* drape_global.hpp */,
 				347F32F71C45383E009758CC /* debug_rect_renderer.cpp */,
 				347F32F81C45383E009758CC /* debug_rect_renderer.hpp */,
+				BB035F6B1E3A2A5C00519962 /* drape_diagnostics.hpp */,
+				6729A5111A69213A007D5872 /* drape_global.hpp */,
+				457B536320358F7D00E4E752 /* drape_routine.hpp */,
 				6729A5121A69213A007D5872 /* dynamic_texture.hpp */,
 				6729A5131A69213A007D5872 /* font_texture.cpp */,
 				6729A5141A69213A007D5872 /* font_texture.hpp */,
+				4513BF071EC2F0760066565C /* framebuffer.cpp */,
+				4513BF081EC2F0760066565C /* framebuffer.hpp */,
 				6729A5151A69213A007D5872 /* glconstants.cpp */,
 				6729A5161A69213A007D5872 /* glconstants.hpp */,
 				6729A5171A69213A007D5872 /* glextensions_list.cpp */,
@@ -310,16 +300,27 @@
 				6729A51D1A69213A007D5872 /* glsl_types.hpp */,
 				6729A51E1A69213A007D5872 /* glstate.cpp */,
 				6729A51F1A69213A007D5872 /* glstate.hpp */,
+				457B536420358F7D00E4E752 /* glyph_generator.cpp */,
+				457B536520358F7E00E4E752 /* glyph_generator.hpp */,
+				670947191BDF9A4F005014C0 /* glyph_manager.cpp */,
+				6709471A1BDF9A4F005014C0 /* glyph_manager.hpp */,
 				6729A5221A69213A007D5872 /* gpu_buffer.cpp */,
 				6729A5231A69213A007D5872 /* gpu_buffer.hpp */,
+				45FA6D131EB3690B00AE67BD /* gpu_program_info.hpp */,
 				6729A5241A69213A007D5872 /* gpu_program_manager.cpp */,
 				6729A5251A69213A007D5872 /* gpu_program_manager.hpp */,
 				6729A5261A69213A007D5872 /* gpu_program.cpp */,
 				6729A5271A69213A007D5872 /* gpu_program.hpp */,
+				6709471B1BDF9A4F005014C0 /* hw_texture_ios.hpp */,
+				6709471C1BDF9A4F005014C0 /* hw_texture_ios.mm */,
+				6709471D1BDF9A4F005014C0 /* hw_texture.cpp */,
+				6709471E1BDF9A4F005014C0 /* hw_texture.hpp */,
 				6729A5281A69213A007D5872 /* index_buffer_mutator.cpp */,
 				6729A5291A69213A007D5872 /* index_buffer_mutator.hpp */,
 				6729A52A1A69213A007D5872 /* index_buffer.cpp */,
 				6729A52B1A69213A007D5872 /* index_buffer.hpp */,
+				6709471F1BDF9A4F005014C0 /* index_storage.cpp */,
+				670947201BDF9A4F005014C0 /* index_storage.hpp */,
 				6729A52C1A69213A007D5872 /* object_pool.hpp */,
 				6729A52D1A69213A007D5872 /* oglcontext.hpp */,
 				6729A52E1A69213A007D5872 /* oglcontextfactory.cpp */,
@@ -334,8 +335,12 @@
 				6729A5371A69213A007D5872 /* render_bucket.hpp */,
 				6729A53C1A69213A007D5872 /* shader.cpp */,
 				6729A53D1A69213A007D5872 /* shader.hpp */,
+				34C624C71DABDB2000510300 /* static_texture.cpp */,
+				34C624C81DABDB2000510300 /* static_texture.hpp */,
 				6729A54E1A69213A007D5872 /* stipple_pen_resource.cpp */,
 				6729A54F1A69213A007D5872 /* stipple_pen_resource.hpp */,
+				6743D3421C3533AE0095054B /* support_manager.cpp */,
+				6743D3431C3533AE0095054B /* support_manager.hpp */,
 				6729A5501A69213A007D5872 /* symbols_texture.cpp */,
 				6729A5511A69213A007D5872 /* symbols_texture.hpp */,
 				6729A5521A69213A007D5872 /* texture_manager.cpp */,
@@ -348,8 +353,12 @@
 				6729A5591A69213A007D5872 /* uniform_value.hpp */,
 				6729A55A1A69213A007D5872 /* uniform_values_storage.cpp */,
 				6729A55B1A69213A007D5872 /* uniform_values_storage.hpp */,
+				6729A55C1A69213A007D5872 /* utils */,
 				6729A5611A69213A007D5872 /* vertex_array_buffer.cpp */,
 				6729A5621A69213A007D5872 /* vertex_array_buffer.hpp */,
+				4513BF091EC2F0760066565C /* viewport.cpp */,
+				4513BF0A1EC2F0760066565C /* viewport.hpp */,
+				3492DA0A1CA2D91C00C1F3B3 /* visual_scale.hpp */,
 			);
 			name = drape;
 			path = ../../drape;
@@ -414,6 +423,7 @@
 				34C624CA1DABDB2000510300 /* static_texture.hpp in Headers */,
 				6729A5901A69213A007D5872 /* object_pool.hpp in Headers */,
 				670947261BDF9A4F005014C0 /* bidi.hpp in Headers */,
+				457B536820358F7E00E4E752 /* glyph_generator.hpp in Headers */,
 				6729A5A11A69213A007D5872 /* shader.hpp in Headers */,
 				4513BF0C1EC2F0760066565C /* framebuffer.hpp in Headers */,
 				6729A5641A69213A007D5872 /* attribute_buffer_mutator.hpp in Headers */,
@@ -421,6 +431,7 @@
 				6729A57A1A69213A007D5872 /* glconstants.hpp in Headers */,
 				6709472C1BDF9A4F005014C0 /* hw_texture.hpp in Headers */,
 				6729A5911A69213A007D5872 /* oglcontext.hpp in Headers */,
+				457B536620358F7E00E4E752 /* drape_routine.hpp in Headers */,
 				6729A5891A69213A007D5872 /* gpu_program_manager.hpp in Headers */,
 				6729A5AB1A69213A007D5872 /* texture.hpp in Headers */,
 				6729A57F1A69213A007D5872 /* glIncludes.hpp in Headers */,
@@ -511,6 +522,7 @@
 				6729A56D1A69213A007D5872 /* buffer_base.cpp in Sources */,
 				6743D3441C3533AE0095054B /* support_manager.cpp in Sources */,
 				6729A5A01A69213A007D5872 /* shader.cpp in Sources */,
+				457B536720358F7E00E4E752 /* glyph_generator.cpp in Sources */,
 				6729A5A21A69213A007D5872 /* stipple_pen_resource.cpp in Sources */,
 				6729A5691A69213A007D5872 /* batcher.cpp in Sources */,
 				670947251BDF9A4F005014C0 /* bidi.cpp in Sources */,

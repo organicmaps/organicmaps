@@ -136,8 +136,9 @@ m2::PointU ColorTextureSize(size_t colorsCount, uint32_t maxTextureSize)
 }
 }  // namespace
 
-TextureManager::TextureManager()
-  : m_maxTextureSize(0)
+TextureManager::TextureManager(ref_ptr<GlyphGenerator> glyphGenerator)
+  : m_glyphGenerator(glyphGenerator)
+  , m_maxTextureSize(0)
   , m_maxGlypsCount(0)
 {
   m_nothingToUpload.test_and_set();
@@ -275,13 +276,7 @@ void TextureManager::UpdateGlyphTextures()
 
 bool TextureManager::HasAsyncRoutines() const
 {
-  std::lock_guard<std::mutex> lock(m_glyphTexturesMutex);
-  for (auto const & texture : m_glyphTextures)
-  {
-    if (texture->HasAsyncRoutines())
-      return true;
-  }
-  return false;
+  return !m_glyphGenerator->IsSuspended();
 }
 
 ref_ptr<Texture> TextureManager::AllocateGlyphTexture()
@@ -289,6 +284,7 @@ ref_ptr<Texture> TextureManager::AllocateGlyphTexture()
   std::lock_guard<std::mutex> lock(m_glyphTexturesMutex);
   m2::PointU size(m_maxTextureSize, m_maxTextureSize);
   m_glyphTextures.push_back(make_unique_dp<FontTexture>(size, make_ref(m_glyphManager),
+                                                        m_glyphGenerator,
                                                         make_ref(m_textureAllocator)));
   return make_ref(m_glyphTextures.back());
 }

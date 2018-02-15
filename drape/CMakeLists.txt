@@ -55,6 +55,8 @@ set(
   ${DRAPE_ROOT}/glsl_types.hpp
   ${DRAPE_ROOT}/glstate.cpp
   ${DRAPE_ROOT}/glstate.hpp
+  ${DRAPE_ROOT}/glyph_generator.cpp
+  ${DRAPE_ROOT}/glyph_generator.hpp
   ${DRAPE_ROOT}/glyph_manager.cpp
   ${DRAPE_ROOT}/glyph_manager.hpp
   ${DRAPE_ROOT}/gpu_buffer.cpp

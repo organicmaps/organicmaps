@@ -1,10 +1,9 @@
 #pragma once
 
-#include "drape/drape_routine.hpp"
 #include "drape/dynamic_texture.hpp"
+#include "drape/glyph_generator.hpp"
 #include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
-#include "drape/texture.hpp"
 
 #include <atomic>
 #include <map>
@@ -74,74 +73,12 @@ private:
   GlyphManager::GlyphMetrics m_metrics;
 };
 
-class GlyphGenerator
+class GlyphIndex : public GlyphGenerator::Listener
 {
 public:
-  struct GlyphGenerationData
-  {
-    m2::RectU m_rect;
-    GlyphManager::Glyph m_glyph;
-
-    GlyphGenerationData() = default;
-    GlyphGenerationData(m2::RectU const & rect, GlyphManager::Glyph const & glyph)
-      : m_rect(rect), m_glyph(glyph)
-    {}
-
-    void DestroyGlyph()
-    {
-      m_glyph.m_image.Destroy();
-    }
-  };
-
-  using GlyphGenerationDataArray = std::vector<GlyphGenerationData>;
-
-  class GenerateGlyphTask
-  {
-  public:
-    explicit GenerateGlyphTask(GlyphGenerationDataArray && glyphs)
-      : m_glyphs(std::move(glyphs))
-      , m_isCancelled(false)
-    {}
-    void Run(uint32_t sdfScale);
-    void Cancel() { m_isCancelled = true; }
-
-    GlyphGenerationDataArray && StealGeneratedGlyphs() { return std::move(m_generatedGlyphs); }
-    bool IsCancelled() const { return m_isCancelled; }
-    void DestroyAllGlyphs();
-
-  private:
-    GlyphGenerationDataArray m_glyphs;
-    GlyphGenerationDataArray m_generatedGlyphs;
-    std::atomic<bool> m_isCancelled;
-  };
-
-  using CompletionHandler = std::function<void(GlyphGenerationDataArray &&)>;
-
-  GlyphGenerator(uint32_t sdfScale, CompletionHandler const & completionHandler);
-  ~GlyphGenerator();
-
-  void GenerateGlyph(m2::RectU const & rect, GlyphManager::Glyph & glyph);
-  void GenerateGlyph(GlyphGenerationData && data);
-  void GenerateGlyphs(GlyphGenerationDataArray && generationData);
-  bool IsSuspended() const;
-
-private:
-  void OnTaskFinished(std::shared_ptr<GenerateGlyphTask> const & task);
-
-  uint32_t m_sdfScale;
-  CompletionHandler m_completionHandler;
-  ActiveTasks<GenerateGlyphTask> m_activeTasks;
-
-  GlyphGenerationDataArray m_queue;
-  size_t m_glyphsCounter = 0;
-  mutable std::mutex m_mutex;
-};
-
-class GlyphIndex
-{
-public:
-  GlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng);
-  ~GlyphIndex();
+  GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng,
+             ref_ptr<GlyphGenerator> generator);
+  ~GlyphIndex() override;
 
   // This function can return nullptr.
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource);
@@ -151,8 +88,6 @@ public:
 
   bool CanBeGlyphPacked(uint32_t glyphsCount) const;
 
-  bool HasAsyncRoutines() const;
-
   uint32_t GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const;
 
   // ONLY for unit-tests. DO NOT use this function anywhere else.
@@ -161,11 +96,11 @@ public:
 private:
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource,
                                              GlyphGenerator::GlyphGenerationData & generationData);
-  void OnGlyphGenerationCompletion(std::vector<GlyphGenerator::GlyphGenerationData> && glyphs);
+  void OnCompleteGlyphGeneration(GlyphGenerator::GlyphGenerationDataArray && glyphs) override;
 
   GlyphPacker m_packer;
   ref_ptr<GlyphManager> m_mng;
-  std::unique_ptr<GlyphGenerator> m_generator;
+  ref_ptr<GlyphGenerator> m_generator;
 
   using ResourceMapping = std::map<GlyphKey, GlyphInfo>;
   using PendingNode = std::pair<m2::RectU, GlyphManager::Glyph>;
@@ -181,8 +116,8 @@ class FontTexture : public DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph>
   using TBase = DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph>;
 public:
   FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng,
-              ref_ptr<HWTextureAllocator> allocator)
-    : m_index(size, glyphMng)
+              ref_ptr<GlyphGenerator> glyphGenerator, ref_ptr<HWTextureAllocator> allocator)
+    : m_index(size, glyphMng, glyphGenerator)
   {
     TBase::TextureParams params{size, TextureFormat::ALPHA,
                                 gl_const::GLLinear, true /* m_usePixelBuffer */};
@@ -201,11 +136,6 @@ public:
   bool HasEnoughSpace(uint32_t newKeysCount) const override
   {
     return m_index.CanBeGlyphPacked(newKeysCount);
-  }
-
-  bool HasAsyncRoutines() const override
-  {
-    return m_index.HasAsyncRoutines();
   }
 
   uint32_t GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const
