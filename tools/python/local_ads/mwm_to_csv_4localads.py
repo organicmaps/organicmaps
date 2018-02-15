@@ -25,7 +25,11 @@ HEADERS = {
 }
 QUEUES = {name: Queue() for name in HEADERS}
 GOOD_TYPES = ("amenity", "shop", "tourism", "leisure", "sport",
-              "craft", "man_made", "office", "historic")
+              "craft", "man_made", "office", "historic",
+              "aeroway", "natural-beach", "natural-peak", "natural-volcano",
+              "natural-spring", "natural-cave_entrance",
+              "waterway-waterfall", "place-island", "railway-station",
+              "railway-halt", "aerialway-station", "building-train_station")
 SOURCE_TYPES = {'osm': 0, 'booking': 1}
 
 # Big enough to never intersect with a feature id (there are below 3 mln usually).
