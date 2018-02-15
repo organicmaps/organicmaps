@@ -8,9 +8,9 @@
 #include "base/visitor.hpp"
 
 #include <functional>
+#include <map>
 #include <memory>
 #include <mutex>
-#include <set>
 #include <string>
 #include <vector>
 
@@ -175,11 +175,11 @@ public:
 
 private:
   void LoadIndex();
-  void ReadIndex();
-  void UpdateIndex();
+  bool ReadIndex();
+  void UpdateIndex(bool indexExists);
   void SaveIndexImpl() const;
 
-  EntryPtr GetEntryImpl(std::string const & filePath) const;
+  EntryPtr GetEntryImpl(std::string const & fileName) const;
   void MarkModifiedImpl(std::string const & filePath, bool checkSize);
 
   uint64_t CalculateUploadingSizeImpl() const;
@@ -191,7 +191,7 @@ private:
   void FinishUploading(SynchronizationResult result, std::string const & errorStr);
   void SetAccessToken(std::string const & token);
 
-  std::string PrepareFileToUploading(std::string const & filePath,
+  std::string PrepareFileToUploading(std::string const & fileName,
                                      bool & needDeleteAfterUploading);
 
   UploadingResult RequestUploading(std::string const & uploadingUrl,
@@ -206,7 +206,8 @@ private:
   State m_state;
   Index m_index;
   std::string m_accessToken;
-  std::set<std::string> m_files;
+  std::map<std::string, std::string> m_files;
   bool m_uploadingStarted = false;
+  bool m_indexUpdated = false;
   mutable std::mutex m_mutex;
 };

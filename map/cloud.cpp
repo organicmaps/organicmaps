@@ -13,6 +13,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -59,6 +60,13 @@ std::string BuildUploadingUrl(std::string const & serverPathName)
 std::string BuildAuthenticationToken(std::string const & accessToken)
 {
   return "Bearer " + accessToken;
+}
+
+std::string ExtractFileName(std::string const & filePath)
+{
+  std::string path = filePath;
+  my::GetNameFromFullPath(path);
+  return path;
 }
 }  // namespace
 
@@ -137,7 +145,8 @@ Cloud::State Cloud::GetState() const
 void Cloud::Init(std::vector<std::string> const & filePaths)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  m_files.insert(filePaths.cbegin(), filePaths.end());
+  for (auto const & filePath : filePaths)
+    m_files[ExtractFileName(filePath)] = filePath;
 
   if (m_state != State::Enabled)
     return;
@@ -151,7 +160,7 @@ void Cloud::MarkModified(std::string const & filePath)
   if (m_state != State::Enabled)
     return;
 
-  m_files.insert(filePath);
+  m_files[ExtractFileName(filePath)] = filePath;
   MarkModifiedImpl(filePath, false /* checkSize */);
 }
 
@@ -177,16 +186,15 @@ std::unique_ptr<User::Subscriber> Cloud::GetUserSubscriber()
 
 void Cloud::LoadIndex()
 {
-  ReadIndex();
-  UpdateIndex();
+  UpdateIndex(ReadIndex());
   ScheduleUploading();
 }
 
-void Cloud::ReadIndex()
+bool Cloud::ReadIndex()
 {
   auto const indexFilePath = GetIndexFilePath(m_params.m_indexName);
   if (!GetPlatform().IsFileExistsByFullPath(indexFilePath))
-    return;
+    return false;
 
   // Read index file.
   std::string data;
@@ -197,47 +205,54 @@ void Cloud::ReadIndex()
   }
   catch (FileReader::Exception const & exception)
   {
-    data.clear();
     LOG(LWARNING, ("Exception while reading file:", indexFilePath,
       "reason:", exception.what()));
+    return false;
   }
 
   // Parse index file.
-  if (!data.empty())
-  {
-    try
-    {
-      Index index;
-      coding::DeserializerJson deserializer(data);
-      deserializer(index);
+  if (data.empty())
+    return false;
 
-      std::lock_guard<std::mutex> lock(m_mutex);
-      std::swap(m_index, index);
-    }
-    catch (my::Json::Exception const & exception)
-    {
-      LOG(LWARNING, ("Exception while parsing file:", indexFilePath,
-        "reason:", exception.what()));
-    }
+  try
+  {
+    Index index;
+    coding::DeserializerJson deserializer(data);
+    deserializer(index);
+
+    std::lock_guard<std::mutex> lock(m_mutex);
+    std::swap(m_index, index);
   }
+  catch (my::Json::Exception const & exception)
+  {
+    LOG(LWARNING, ("Exception while parsing file:", indexFilePath,
+      "reason:", exception.what()));
+  }
+  return true;
 }
 
-void Cloud::UpdateIndex()
+void Cloud::UpdateIndex(bool indexExists)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
 
   // Now we process files ONLY if update time is out.
   auto const h = static_cast<uint64_t>(
     duration_cast<hours>(system_clock::now().time_since_epoch()).count());
-  if (h >= m_index.m_lastUpdateInHours + kUpdateTimeoutInHours)
+  if (!indexExists || h >= m_index.m_lastUpdateInHours + kUpdateTimeoutInHours)
   {
     for (auto const & path : m_files)
-      MarkModifiedImpl(path, true /* checkSize */);
+      MarkModifiedImpl(path.second, indexExists /* checkSize */);
     m_index.m_lastUpdateInHours = h;
     m_index.m_isOutdated = true;
 
+    // Erase disappeared files from index.
+    my::EraseIf(m_index.m_entries, [this](EntryPtr const & entity) {
+      return m_files.find(entity->m_name) == m_files.end();
+    });
+
     SaveIndexImpl();
   }
+  m_indexUpdated = true;
 }
 
 uint64_t Cloud::CalculateUploadingSizeImpl() const
@@ -267,7 +282,8 @@ void Cloud::MarkModifiedImpl(std::string const & filePath, bool checkSize)
   if (fileSize > kMaxUploadingFileSizeInBytes)
     return;
 
-  auto entryPtr = GetEntryImpl(filePath);
+  auto const fileName = ExtractFileName(filePath);
+  auto entryPtr = GetEntryImpl(fileName);
   if (entryPtr)
   {
     entryPtr->m_isOutdated = checkSize ? (entryPtr->m_sizeInBytes != fileSize) : true;
@@ -276,14 +292,14 @@ void Cloud::MarkModifiedImpl(std::string const & filePath, bool checkSize)
   else
   {
     m_index.m_entries.emplace_back(
-      std::make_shared<Entry>(filePath, fileSize, true /* m_isOutdated */));
+      std::make_shared<Entry>(fileName, fileSize, true /* m_isOutdated */));
   }
 }
 
-Cloud::EntryPtr Cloud::GetEntryImpl(std::string const & filePath) const
+Cloud::EntryPtr Cloud::GetEntryImpl(std::string const & fileName) const
 {
   auto it = std::find_if(m_index.m_entries.begin(), m_index.m_entries.end(),
-                         [filePath](EntryPtr ptr) { return ptr->m_name == filePath; });
+                         [&fileName](EntryPtr ptr) { return ptr->m_name == fileName; });
   if (it != m_index.m_entries.end())
     return *it;
   return nullptr;
@@ -319,8 +335,8 @@ void Cloud::ScheduleUploading()
 {
   {
     std::lock_guard<std::mutex> lock(m_mutex);
-    if (m_state != State::Enabled || !m_index.m_isOutdated || m_accessToken.empty() ||
-        m_uploadingStarted)
+    if (m_state != State::Enabled || !m_index.m_isOutdated ||
+        m_accessToken.empty() || m_uploadingStarted || !m_indexUpdated)
     {
       return;
     }
@@ -399,7 +415,7 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
     }
     else if (result.m_requestResult.m_status == RequestStatus::Forbidden)
     {
-      // Finish uploading and nofity about invalid access token.
+      // Finish uploading and notify about invalid access token.
       if (m_onInvalidToken != nullptr)
         m_onInvalidToken();
 
@@ -431,17 +447,27 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
   });
 }
 
-std::string Cloud::PrepareFileToUploading(std::string const & filePath,
+std::string Cloud::PrepareFileToUploading(std::string const & fileName,
                                           bool & needDeleteAfterUploading)
 {
   needDeleteAfterUploading = false;
+  std::string filePath;
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    auto const it = m_files.find(fileName);
+    if (it == m_files.end())
+      return {};
+    filePath = it->second;
+    if (!GetPlatform().IsFileExistsByFullPath(filePath))
+      return {};
+  }
+
   auto ext = my::GetFileExtension(filePath);
   strings::AsciiToLower(ext);
   if (ext == m_params.m_zipExtension)
     return filePath;
 
-  std::string name = filePath;
-  my::GetNameFromFullPath(name);
+  auto name = ExtractFileName(filePath);
   my::GetNameWithoutExt(name);
   auto const zipPath = my::JoinFoldersToPath(GetPlatform().TmpDir(), name + m_params.m_zipExtension);
 
@@ -469,8 +495,7 @@ Cloud::UploadingResult Cloud::RequestUploading(std::string const & uploadingUrl,
     UploadingRequestData data;
     data.m_alohaId = GetPlatform().UniqueClientId();
     data.m_deviceName = GetPlatform().DeviceName();
-    data.m_fileName = filePath;
-    my::GetNameFromFullPath(data.m_fileName);
+    data.m_fileName = ExtractFileName(filePath);
 
     using Sink = MemWriter<string>;
     Sink sink(jsonBody);

@@ -250,7 +250,8 @@ void User::AddSubscriber(std::unique_ptr<Subscriber> && subscriber)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
 
-  subscriber->m_onChangeToken(m_accessToken);
+  if (subscriber->m_onChangeToken != nullptr)
+    subscriber->m_onChangeToken(m_accessToken);
   if (subscriber->m_postCallAction == Subscriber::Action::RemoveSubscriber)
     m_subscribers.push_back(std::move(subscriber));
 }
