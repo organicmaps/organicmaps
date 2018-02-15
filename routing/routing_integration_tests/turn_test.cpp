@@ -583,8 +583,7 @@ UNIT_TEST(NetherlandsGorinchemBridgeTest)
   IRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, IRouter::NoError, ());
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
 UNIT_TEST(RussiaVoronigProspTrudaTest)
@@ -620,6 +619,24 @@ UNIT_TEST(GermanyFrankfurtAirportTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
+
+
+UNIT_TEST(GermanyFrankfurtAirport2Test)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(50.03249, 8.50814), {0., 0.},
+                                  MercatorBounds::FromLatLon(50.02079, 8.49445));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
+}
+
 
 // Test on absence of unnecessary turn which may appear between two turns in the test.
 UNIT_TEST(RussiaKubinkaTest)
@@ -731,4 +748,19 @@ UNIT_TEST(RussiaMoscowMKADToSvobodaTest)
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
       {CarDirection::TurnSlightRight, CarDirection::TurnRight});
+}
+
+// Test that there's no turns if to follow MKAD.
+UNIT_TEST(RussiaMoscowMKADTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.90394, 37.61034), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.77431, 37.36945));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }

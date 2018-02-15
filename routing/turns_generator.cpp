@@ -57,7 +57,7 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
   {
     if (t.m_segment == firstOutgoingSegment)
       continue;
-    ftypes::HighwayClass const highwayClass = t.highwayClass;
+    ftypes::HighwayClass const highwayClass = t.m_highwayClass;
     if (static_cast<int>(highwayClass) > static_cast<int>(maxClassForPossibleTurns))
       maxClassForPossibleTurns = highwayClass;
   }
@@ -105,7 +105,7 @@ bool KeepRoundaboutTurnByHighwayClass(CarDirection turn, TurnCandidates const & 
   {
     if (!validFirstOutgoingSeg || t.m_segment == firstOutgoingSegment)
       continue;
-    if (static_cast<int>(t.highwayClass) != static_cast<int>(ftypes::HighwayClass::Service))
+    if (static_cast<int>(t.m_highwayClass) != static_cast<int>(ftypes::HighwayClass::Service))
       return true;
   }
   return false;
@@ -132,7 +132,7 @@ bool DiscardTurnByIngoingAndOutgoingEdges(CarDirection intermediateDirection, bo
   {
     for (auto const & c : turnCandidates.candidates)
     {
-      if (!IsGoStraightOrSlightTurn(IntermediateDirection(c.angle)))
+      if (!IsGoStraightOrSlightTurn(IntermediateDirection(c.m_angle)))
       {
         otherTurnCandidatesGoAlmostStraight = false;
         break;
@@ -288,6 +288,17 @@ size_t GetIngoingPointIndex(const size_t start, const size_t end, const size_t i
 size_t GetOutgoingPointIndex(const size_t start, const size_t end, const size_t i)
 {
   return end > start ? start + i : start - i;
+}
+
+size_t GetLinkNumber(vector<TurnCandidate> const & candidates)
+{
+  size_t candidateLinkNumber = 0;
+  for (auto const & c : candidates)
+  {
+    if (c.m_isLink)
+      ++candidateLinkNumber;
+  }
+  return candidateLinkNumber;
 }
 }  // namespace
 
@@ -707,15 +718,32 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
     return;
   }
 
-  auto const notSoCloseToTheTurnPoint =
-      GetPointForTurn(turnInfo.m_ingoing.m_path, junctionPoint, kNotSoCloseMaxPointsCount,
-                      kNotSoCloseMinDistMeters, GetIngoingPointIndex);
-
-  if (!KeepTurnByIngoingEdges(junctionPoint, notSoCloseToTheTurnPoint, outgoingPoint, hasMultiTurns,
-                              nodes.candidates.size() + ingoingCount))
+  if (IsGoStraightOrSlightTurn(turn.m_turn))
   {
-    turn.m_turn = CarDirection::None;
-    return;
+    auto const notSoCloseToTheTurnPoint =
+        GetPointForTurn(turnInfo.m_ingoing.m_path, junctionPoint, kNotSoCloseMaxPointsCount,
+                        kNotSoCloseMinDistMeters, GetIngoingPointIndex);
+
+    // Removing a slight turn if there's only one way to leave the turn and there's no ingoing edges.
+    if (!KeepTurnByIngoingEdges(junctionPoint, notSoCloseToTheTurnPoint, outgoingPoint, hasMultiTurns,
+                                nodes.candidates.size() + ingoingCount))
+    {
+      turn.m_turn = CarDirection::None;
+      return;
+    }
+
+    // Removing a slight turn if ingoing and outgoing edge are not links and all other
+    // possible ways out are links.
+    if (!turnInfo.m_ingoing.m_isLink && !turnInfo.m_outgoing.m_isLink &&
+        turnInfo.m_ingoing.m_highwayClass == turnInfo.m_outgoing.m_highwayClass)
+    {
+      size_t const candidateLinkNumber = GetLinkNumber(nodes.candidates);
+      if (candidateLinkNumber + 1 == nodes.candidates.size())
+      {
+        turn.m_turn = CarDirection::None;
+        return;
+      }
+    }
   }
 
   if (turn.m_turn == CarDirection::GoStraight)

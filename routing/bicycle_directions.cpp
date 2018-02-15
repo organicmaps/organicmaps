@@ -263,6 +263,8 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
     ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
     ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
 
+    bool const isLink = ftypes::IsLinkChecker::Instance()(ft);
+
     double angle = 0;
 
     if (inEdge.GetFeatureId().m_mwmId == edge.GetFeatureId().m_mwmId)
@@ -281,11 +283,12 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
       // should not be used for turn generation.
       outgoingTurns.isCandidatesAngleValid = false;
     }
-    outgoingTurns.candidates.emplace_back(angle, ConvertEdgeToSegment(*m_numMwmIds, edge), highwayClass);
+    outgoingTurns.candidates.emplace_back(angle, ConvertEdgeToSegment(*m_numMwmIds, edge),
+                                          highwayClass, isLink);
   }
 
   if (outgoingTurns.isCandidatesAngleValid)
-    sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(), my::LessBy(&TurnCandidate::angle));
+    sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(), my::LessBy(&TurnCandidate::m_angle));
 }
 
 void BicycleDirectionsEngine::GetEdges(RoadGraphBase const & graph, Junction const & currJunction,
