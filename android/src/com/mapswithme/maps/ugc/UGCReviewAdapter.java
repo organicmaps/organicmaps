@@ -73,7 +73,7 @@ class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
     public void bind(UGC.Review review)
     {
       mAuthor.setText(review.getAuthor());
-      mCommentDate.setText(DateUtils.getMediumDateFormat().format(new Date(review.getTime())));
+      mCommentDate.setText(DateUtils.getMediumDateFormatter().format(new Date(review.getTime())));
       mReview.setText(review.getText());
       mRating.setRating(Impress.values()[review.getImpress()], String.valueOf(review.getRating()));
     }

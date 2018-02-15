@@ -45,7 +45,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
   private static final int MAX_STAYING_DAYS = 30;
   private static final int MAX_CHECKIN_WINDOW_IN_DAYS = 360;
   @NonNull
-  private final DateFormat mDateFormatter = DateUtils.getMediumDateFormat();
+  private final DateFormat mDateFormatter = DateUtils.getMediumDateFormatter();
   @Nullable
   private CustomNavigateUpListener mNavigateUpListener;
   @Nullable

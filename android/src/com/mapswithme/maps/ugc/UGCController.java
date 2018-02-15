@@ -273,7 +273,7 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     TextView name = mUserReviewView.findViewById(R.id.name);
     TextView date = mUserReviewView.findViewById(R.id.date);
     name.setText(R.string.placepage_reviews_your_comment);
-    DateFormat formatter = DateUtils.getMediumDateFormat();
+    DateFormat formatter = DateUtils.getMediumDateFormatter();
     date.setText(formatter.format(new Date(update.getTimeMillis())));
     TextView review = mUserReviewView.findViewById(R.id.review);
     UiUtils.showIf(!TextUtils.isEmpty(update.getText()), review);

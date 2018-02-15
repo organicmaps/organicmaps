@@ -236,9 +236,16 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  public void onAuthorizationFinish()
+  public void onAuthorizationFinish(boolean success)
   {
-    // TODO: coming soon.
+    if (mBackupController != null)
+      mBackupController.update();
+  }
+
+  @Override
+  public void onAuthorizationStart()
+  {
+    // TODO: show progress
   }
 
   @Override

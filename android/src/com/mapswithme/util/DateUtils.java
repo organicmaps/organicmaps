@@ -12,8 +12,14 @@ public class DateUtils
   }
 
   @NonNull
-  public static DateFormat getMediumDateFormat()
+  public static DateFormat getMediumDateFormatter()
   {
     return DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+  }
+
+  @NonNull
+  public static DateFormat getShortDateFormatter()
+  {
+    return DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
   }
 }

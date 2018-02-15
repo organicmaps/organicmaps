@@ -97,7 +97,13 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   }
 
   @Override
-  protected void onAuthorized()
+  public void onAuthorizationFinish(boolean success)
+  {
+    // No op.
+  }
+
+  @Override
+  public void onAuthorizationStart()
   {
     if (isAdded())
       getActivity().finish();

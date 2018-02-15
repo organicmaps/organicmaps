@@ -1543,19 +1543,21 @@ Java_com_mapswithme_maps_Framework_nativeGetSearchBanners(JNIEnv * env, jclass)
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeAuthenticateUser(JNIEnv * env, jclass,
-                                                          jstring socialToken,
-                                                          jint socialTokenType)
+Java_com_mapswithme_maps_Framework_nativeAuthenticateUser(JNIEnv * env, jclass, jstring socialToken,
+                                                          jint socialTokenType, jobject listener)
 {
+  jobject gListener = env->NewGlobalRef(listener);
   auto const tokenStr = jni::ToNativeString(env, socialToken);
   auto & user = frm()->GetUser();
   auto s = make_unique<User::Subscriber>();
   s->m_postCallAction = User::Subscriber::Action::RemoveSubscriber;
-  s->m_onAuthenticate = [](bool success)
+  s->m_onAuthenticate = [env, gListener](bool success)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [success]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [env, gListener, success]()
     {
-      //TODO: @alexzatsepin add reaction on auth success/failure, please.
+      static jmethodID const callback = jni::GetMethodID(env, gListener, "onAuthorized", "(Z)V");
+      env->CallVoidMethod(gListener, callback, success);
+      env->DeleteGlobalRef(gListener);
     });
   };
   user.AddSubscriber(std::move(s));

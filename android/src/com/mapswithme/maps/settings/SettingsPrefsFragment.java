@@ -25,6 +25,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.OnmapDownloader;
 import com.mapswithme.maps.editor.ProfileActivity;
@@ -740,12 +741,12 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    pref.setChecked(false/* TODO: read setting from the core*/);
+    boolean curValue = BookmarkManager.INSTANCE.isCloudEnabled();
+    pref.setChecked(curValue);
     pref.setOnPreferenceChangeListener(
         (preference, newValue) ->
         {
-          boolean value = (Boolean) newValue;
-          //TODO: set setting here.
+          BookmarkManager.INSTANCE.setCloudEnabled((Boolean) newValue);
           return true;
         });
   }

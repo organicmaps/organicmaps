@@ -27,12 +27,4 @@ public abstract class BaseMwmAuthorizationFragment extends BaseMwmToolbarFragmen
     super.onActivityResult(requestCode, resultCode, data);
     mAuthorizer.onActivityResult(requestCode, resultCode, data);
   }
-
-  protected abstract void onAuthorized();
-
-  @Override
-  public void onAuthorizationFinish()
-  {
-    onAuthorized();
-  }
 }

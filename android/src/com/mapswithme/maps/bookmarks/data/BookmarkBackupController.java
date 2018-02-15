@@ -27,7 +27,8 @@ public class BookmarkBackupController
   @NonNull
   private final View.OnClickListener mEnableClickListener = v ->
   {
-    // TODO: comingsoon
+    BookmarkManager.INSTANCE.setCloudEnabled(true);
+    update();
   };
 
 
@@ -42,7 +43,7 @@ public class BookmarkBackupController
     mListener = listener;
   }
 
-  private void update()
+  public void update()
   {
     final Context context = mBackupView.getContext();
     boolean isAuthorized = Framework.nativeIsUserAuthenticated();
@@ -55,16 +56,16 @@ public class BookmarkBackupController
       return;
     }
 
-    boolean isEnabled = false; // TODO: read setting from the core here;
+    boolean isEnabled = BookmarkManager.INSTANCE.isCloudEnabled();
 
     if (isEnabled)
     {
-      long backupTime = System.currentTimeMillis() /* TODO: use real timestamp here */;
+      long backupTime = BookmarkManager.INSTANCE.getLastSynchronizationTimestampInMs();
       String msg;
       if (backupTime > 0)
       {
         msg = context.getString(R.string.bookmarks_message_backuped_user,
-                                DateUtils.getMediumDateFormat().format(new Date(backupTime)));
+                                DateUtils.getShortDateFormatter().format(new Date(backupTime)));
       }
       else
       {

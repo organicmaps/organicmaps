@@ -13,15 +13,14 @@ import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
+import com.mapswithme.maps.auth.AuthorizationListener;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.discovery.DiscoveryParams;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RouteMarkData;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.routing.TransitRouteInfo;
-import com.mapswithme.maps.routing.TransitStepInfo;
 import com.mapswithme.util.Constants;
 
 import java.lang.annotation.Retention;
@@ -382,7 +381,8 @@ public class Framework
   public static native Banner[] nativeGetSearchBanners();
 
   public static native void nativeAuthenticateUser(@NonNull String socialToken,
-                                                   @SocialTokenType int socialTokenType);
+                                                   @SocialTokenType int socialTokenType,
+                                                   @NonNull AuthorizationListener listener);
   public static native boolean nativeIsUserAuthenticated();
 
   public static native void nativeShowFeatureByLatLon(double lat, double lon);

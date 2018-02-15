@@ -11,7 +11,7 @@ import android.text.TextUtils;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.ConnectionState;
 
-public class Authorizer
+public class Authorizer implements AuthorizationListener
 {
   @NonNull
   private final Fragment mFragment;
@@ -29,7 +29,7 @@ public class Authorizer
     if (Framework.nativeIsUserAuthenticated() || !ConnectionState.isConnected())
     {
       if (mCallback != null)
-        mCallback.onAuthorizationFinish();
+        mCallback.onAuthorizationFinish(true);
       return;
     }
 
@@ -52,15 +52,22 @@ public class Authorizer
     {
       @Framework.SocialTokenType
       int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, -1);
-      Framework.nativeAuthenticateUser(socialToken, type);
+      Framework.nativeAuthenticateUser(socialToken, type, this);
+      if (mCallback != null)
+        mCallback.onAuthorizationStart();
     }
+  }
 
+  @Override
+  public void onAuthorized(boolean success)
+  {
     if (mCallback != null)
-      mCallback.onAuthorizationFinish();
+      mCallback.onAuthorizationFinish(success);
   }
 
   public interface Callback
   {
-    void onAuthorizationFinish();
+    void onAuthorizationFinish(boolean success);
+    void onAuthorizationStart();
   }
 }
