@@ -1005,12 +1005,10 @@ UNIT_TEST(StorageTest_ObsoleteMapsRemoval)
   tests_support::ScopedDir dir1("1");
   tests_support::ScopedFile map1(dir1, country, MapOptions::Map);
   LocalCountryFile file1(dir1.GetFullPath(), country, 1 /* version */);
-  CountryIndexes::PreparePlaceOnDisk(file1);
 
   tests_support::ScopedDir dir2("2");
   tests_support::ScopedFile map2(dir2, country, MapOptions::Map);
   LocalCountryFile file2(dir2.GetFullPath(), country, 2 /* version */);
-  CountryIndexes::PreparePlaceOnDisk(file2);
 
   TEST(map1.Exists(), ());
   TEST(map2.Exists(), ());
