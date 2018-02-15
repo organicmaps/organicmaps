@@ -181,6 +181,8 @@
 		F68CC5BE1F38B967007527C7 /* diff_scheme_checker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68CC5BB1F38B967007527C7 /* diff_scheme_checker.cpp */; };
 		F68CC5BF1F38B967007527C7 /* diff_scheme_checker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68CC5BC1F38B967007527C7 /* diff_scheme_checker.hpp */; };
 		F68CC5C01F38B967007527C7 /* diff_types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68CC5BD1F38B967007527C7 /* diff_types.hpp */; };
+		F6BC312B2034366100F677FE /* pinger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6BC31292034366100F677FE /* pinger.hpp */; };
+		F6BC312C2034366100F677FE /* pinger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6BC312A2034366100F677FE /* pinger.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -315,6 +317,8 @@
 		F68CC5BB1F38B967007527C7 /* diff_scheme_checker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = diff_scheme_checker.cpp; path = diff_scheme/diff_scheme_checker.cpp; sourceTree = "<group>"; };
 		F68CC5BC1F38B967007527C7 /* diff_scheme_checker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = diff_scheme_checker.hpp; path = diff_scheme/diff_scheme_checker.hpp; sourceTree = "<group>"; };
 		F68CC5BD1F38B967007527C7 /* diff_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = diff_types.hpp; path = diff_scheme/diff_types.hpp; sourceTree = "<group>"; };
+		F6BC31292034366100F677FE /* pinger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pinger.hpp; sourceTree = "<group>"; };
+		F6BC312A2034366100F677FE /* pinger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pinger.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -542,6 +546,8 @@
 		675342E21A3F59EF00A0A8C3 /* storage */ = {
 			isa = PBXGroup;
 			children = (
+				F6BC312A2034366100F677FE /* pinger.cpp */,
+				F6BC31292034366100F677FE /* pinger.hpp */,
 				56D0E47F1F8E40340084B18C /* routing_helpers.cpp */,
 				56D0E47E1F8E40340084B18C /* routing_helpers.hpp */,
 				401ECED21F56C50900DFDF76 /* country_parent_getter.cpp */,
@@ -633,6 +639,7 @@
 				56D0E4801F8E40340084B18C /* routing_helpers.hpp in Headers */,
 				6753430F1A3F5A2600A0A8C3 /* country.hpp in Headers */,
 				34B093261C61F9BA0066F4C3 /* app_store.hpp in Headers */,
+				F6BC312B2034366100F677FE /* pinger.hpp in Headers */,
 				6753430A1A3F5A2600A0A8C3 /* country_decl.hpp in Headers */,
 				678338D61C723B1A00FD6263 /* helpers.hpp in Headers */,
 				67247FCF1C60BA8A00EDE56A /* fake_map_files_downloader.hpp in Headers */,
@@ -821,6 +828,7 @@
 				674125231B4C05FA00A3E828 /* storage_defines.cpp in Sources */,
 				67BE1DC51CD2180D00572709 /* downloading_policy.cpp in Sources */,
 				678338D41C723B1A00FD6263 /* country_name_getter_test.cpp in Sources */,
+				F6BC312C2034366100F677FE /* pinger.cpp in Sources */,
 				34C9BCFC1C6CCF85000DC38D /* country_name_getter.cpp in Sources */,
 				6741251E1B4C05FA00A3E828 /* http_map_files_downloader.cpp in Sources */,
 			);

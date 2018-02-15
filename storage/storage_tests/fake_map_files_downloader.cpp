@@ -20,13 +20,12 @@ FakeMapFilesDownloader::FakeMapFilesDownloader(TaskRunner & taskRunner)
 
 FakeMapFilesDownloader::~FakeMapFilesDownloader() { CHECK(m_checker.CalledOnOriginalThread(), ()); }
 
-void FakeMapFilesDownloader::GetServersList(int64_t const mapVersion, string const & mapFileName,
-                                            TServersListCallback const & callback)
+void FakeMapFilesDownloader::GetServersList(TServersListCallback const & callback)
 {
   CHECK(m_checker.CalledOnOriginalThread(), ());
   m_idle = false;
   MY_SCOPE_GUARD(resetIdle, bind(&FakeMapFilesDownloader::Reset, this));
-  m_taskRunner.PostTask(bind(callback, m_servers));
+  callback(m_servers);
 }
 
 void FakeMapFilesDownloader::DownloadMapFile(vector<string> const & urls, string const & path,

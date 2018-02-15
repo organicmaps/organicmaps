@@ -99,7 +99,7 @@ MapFilesDownloader::TProgress Storage::GetOverallProgress(TCountriesVec const & 
 
 Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */,
                  string const & dataDir /* = string() */)
-  : m_downloader(new HttpMapFilesDownloader())
+  : m_downloader(make_unique<HttpMapFilesDownloader>())
   , m_currentSlotId(0)
   , m_dataDir(dataDir)
   , m_downloadMapOnTheMap(nullptr)
@@ -108,6 +108,7 @@ Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */,
   SetLocale(languages::GetCurrentTwine());
   LoadCountriesFile(pathToCountriesFile, m_dataDir);
   CalMaxMwmSizeBytes();
+  LoadServerListForSession();
 }
 
 Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
@@ -121,6 +122,7 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
       LoadCountriesFromBuffer(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations);
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
   CalMaxMwmSizeBytes();
+  LoadServerListForTesting();
 }
 
 void Storage::Init(TUpdateCallback const & didDownload, TDeleteCallback const & willDelete)
@@ -613,7 +615,6 @@ void Storage::DownloadNextCountryFromQueue()
 void Storage::DownloadNextFile(QueuedCountry const & country)
 {
   TCountryId const & countryId = country.GetCountryId();
-  CountryFile const & countryFile = GetCountryFile(countryId);
   auto const opt = country.GetCurrentFileOptions();
 
   string const readyFilePath = GetFileDownloadPath(countryId, opt);
@@ -641,9 +642,10 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
     return;
   }
 
-  // send Country name for statistics
-  m_downloader->GetServersList(GetCurrentDataVersion(), countryFile.GetName(),
-                               bind(&Storage::OnServerListDownloaded, this, _1));
+  if (m_sessionServerList)
+    DoDownload();
+  else
+    SetDeferDownloading();
 }
 
 void Storage::DeleteFromDownloader(TCountryId const & countryId)
@@ -781,9 +783,10 @@ void Storage::ReportProgressForHierarchy(TCountryId const & countryId,
   ForEachAncestorExceptForTheRoot(countryId, calcProgress);
 }
 
-void Storage::OnServerListDownloaded(vector<string> const & urls)
+void Storage::DoDownload()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK(m_sessionServerList, ());
 
   // Queue can be empty because countries were deleted from queue.
   if (m_queue.empty())
@@ -796,9 +799,7 @@ void Storage::OnServerListDownloaded(vector<string> const & urls)
     auto const status = m_diffManager.GetStatus();
     switch (status)
     {
-    case Status::Undefined:
-      m_deferredDownloads.push_back(urls);
-      return;
+    case Status::Undefined: SetDeferDownloading(); return;
     case Status::NotAvailable:
       queuedCountry.ResetToDefaultOptions();
       break;
@@ -810,7 +811,7 @@ void Storage::OnServerListDownloaded(vector<string> const & urls)
   }
 
   vector<string> const & downloadingUrls =
-      m_downloadingUrlsForTesting.empty() ? urls : m_downloadingUrlsForTesting;
+      m_downloadingUrlsForTesting.empty() ? *m_sessionServerList : m_downloadingUrlsForTesting;
   vector<string> fileUrls;
   fileUrls.reserve(downloadingUrls.size());
   for (string const & url : downloadingUrls)
@@ -821,6 +822,24 @@ void Storage::OnServerListDownloaded(vector<string> const & urls)
   m_downloader->DownloadMapFile(fileUrls, filePath, GetDownloadSize(queuedCountry),
                                 bind(&Storage::OnMapFileDownloadFinished, this, _1, _2),
                                 bind(&Storage::OnMapFileDownloadProgress, this, _1));
+}
+
+void Storage::SetDeferDownloading()
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  m_needToStartDeferredDownloading = true;
+}
+
+void Storage::DoDeferredDownloadIfNeeded()
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  if (!m_needToStartDeferredDownloading || !m_sessionServerList)
+    return;
+
+  m_needToStartDeferredDownloading = false;
+  DoDownload();
 }
 
 void Storage::OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & progress)
@@ -1083,6 +1102,7 @@ string Storage::GetLocale() const { return m_countryNameGetter.GetLocale(); }
 void Storage::SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader)
 {
   m_downloader = move(downloader);
+  LoadServerListForTesting();
 }
 
 void Storage::SetCurrentDataVersionForTesting(int64_t currentVersion)
@@ -1484,6 +1504,41 @@ void Storage::ApplyDiff(TCountryId const & countryId, function<void(bool isSucce
   });
 }
 
+void Storage::LoadServerListForSession()
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  m_downloader->GetServersList([this](auto const & urls) { PingServerList(urls); });
+}
+
+void Storage::LoadServerListForTesting()
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  m_downloader->GetServersList([this](auto const & urls) { m_sessionServerList = urls; });
+}
+
+void Storage::PingServerList(vector<string> const & urls)
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  if (urls.empty())
+    return;
+
+  GetPlatform().RunTask(Platform::Thread::Network, [urls, this] {
+    Pinger::Ping(urls, [this, urls](auto readyUrls) {
+      ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+      if (readyUrls.empty())
+        m_sessionServerList = urls;
+      else
+        m_sessionServerList = move(readyUrls);
+
+      DoDeferredDownloadIfNeeded();
+    });
+  });
+}
+
 bool Storage::IsPossibleToAutoupdate() const
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
@@ -1514,10 +1569,7 @@ void Storage::OnDiffStatusReceived(diffs::Status const status)
     m_notAppliedDiffs.clear();
   }
 
-  for (auto const & urls : m_deferredDownloads)
-    OnServerListDownloaded(urls);
-
-  m_deferredDownloads.clear();
+  DoDeferredDownloadIfNeeded();
 }
 
 StatusAndError Storage::GetNodeStatusInfo(

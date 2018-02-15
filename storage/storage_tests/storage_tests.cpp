@@ -964,7 +964,6 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, DeleteCountry)
   map.Reset();
 }
 
-
 UNIT_TEST(StorageTest_FailedDownloading)
 {
   Storage storage;

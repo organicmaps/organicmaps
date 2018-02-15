@@ -31,12 +31,11 @@ HttpMapFilesDownloader::~HttpMapFilesDownloader()
   ASSERT_THREAD_CHECKER(m_checker, ());
 }
 
-void HttpMapFilesDownloader::GetServersList(int64_t const mapVersion, string const & mapFileName,
-                                            TServersListCallback const & callback)
+void HttpMapFilesDownloader::GetServersList(TServersListCallback const & callback)
 {
   ASSERT_THREAD_CHECKER(m_checker, ());
-  m_request.reset(downloader::HttpRequest::PostJson(
-      GetPlatform().MetaServerUrl(), strings::to_string(mapVersion) + '/' + mapFileName,
+  m_request.reset(downloader::HttpRequest::Get(
+      GetPlatform().MetaServerUrl(),
       bind(&HttpMapFilesDownloader::OnServersListDownloaded, this, callback, _1)));
 }
 

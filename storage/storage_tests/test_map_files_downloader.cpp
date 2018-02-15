@@ -5,8 +5,7 @@
 
 namespace storage
 {
-void TestMapFilesDownloader::GetServersList(int64_t const mapVersion, string const & mapFileName,
-                                            TServersListCallback const & callback)
+void TestMapFilesDownloader::GetServersList(TServersListCallback const & callback)
 {
   vector<string> urls = {"http://localhost:34568/unit_tests/"};
   callback(urls);

@@ -32,6 +32,8 @@ set(
   map_files_downloader.hpp
   queued_country.cpp
   queued_country.hpp
+  pinger.cpp
+  pinger.hpp
   routing_helpers.cpp
   routing_helpers.hpp
   storage.cpp
