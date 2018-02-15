@@ -28570,3 +28570,18 @@
 
   [downloader_applying]
     en = Applying %s...
+
+  [transit_not_found]
+    tags = ios,android
+    en = Transit navigation in this region is not yet available
+    ru = Навигация по общественному траспорту пока не доступна в данном регионе
+
+  [dialog_pedestrian_route_is_long]
+    tags = ios,android
+    en = The pedestrian route is too long
+    ru = Пешеходный маршрут слишком длинный
+
+  [dialog_message_transit_not_found_connection]
+    tags = ios,android
+    en = Plan a route within one transit network
+    ru = Постройте маршрут в пределах одной транспортной сети
