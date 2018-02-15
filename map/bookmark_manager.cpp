@@ -319,9 +319,9 @@ void BookmarkManager::NotifyChanges()
   {
     if (IsBookmarkCategory(groupId))
     {
-      SaveToKMLFile(groupId);
+      if (GetBmCategory(groupId)->IsAutoSave())
+        SaveToKMLFile(groupId);
       isBookmarks = true;
-      break;
     }
   }
   if (isBookmarks)
@@ -758,11 +758,11 @@ bool BookmarkManager::HasBmCategory(df::MarkGroupID groupId) const
   return m_categories.find(groupId) != m_categories.end();
 }
 
-df::MarkGroupID BookmarkManager::CreateBookmarkCategory(std::string const & name)
+df::MarkGroupID BookmarkManager::CreateBookmarkCategory(std::string const & name, bool autoSave)
 {
   auto const groupId = m_nextGroupID++;
   auto & cat = m_categories[groupId];
-  cat = my::make_unique<BookmarkCategory>(name, groupId);
+  cat = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
   m_bmGroupsIdList.push_back(groupId);
   return groupId;
 }
@@ -858,7 +858,7 @@ UserMarkLayer * BookmarkManager::GetGroup(df::MarkGroupID groupId)
   return it != m_categories.end() ? it->second.get() : nullptr;
 }
 
-void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection)
+void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool autoSave)
 {
   for (auto & data : dataCollection)
   {
@@ -878,7 +878,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection)
     }
     else
     {
-      groupId = CreateBookmarkCategory(data->m_name);
+      groupId = CreateBookmarkCategory(data->m_name, autoSave);
       group = GetBmCategory(groupId);
       group->SetFileName(data->m_file);
       group->SetIsVisible(data->m_visible);

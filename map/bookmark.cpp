@@ -141,11 +141,11 @@ void Bookmark::Detach()
   m_groupId = df::kInvalidMarkGroupId;
 }
 
-BookmarkCategory::BookmarkCategory(std::string const & name,
-                                   df::MarkGroupID groupId)
+BookmarkCategory::BookmarkCategory(std::string const & name, df::MarkGroupID groupId, bool autoSave)
   : Base(UserMark::Type::BOOKMARK)
   , m_groupId(groupId)
   , m_name(name)
+  , m_autoSave(autoSave)
 {}
 
 BookmarkCategory::~BookmarkCategory()

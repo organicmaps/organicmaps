@@ -156,7 +156,7 @@ public:
 
   bool IsVisible(df::MarkGroupID groupId) const;
 
-  df::MarkGroupID CreateBookmarkCategory(std::string const & name);
+  df::MarkGroupID CreateBookmarkCategory(std::string const & name, bool autoSave = true);
 
   std::string const & GetCategoryName(df::MarkGroupID categoryId) const;
   std::string const & GetCategoryFileName(df::MarkGroupID categoryId) const;
@@ -193,7 +193,7 @@ public:
 
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void SaveToKML(df::MarkGroupID groupId, std::ostream & s);
-  void CreateCategories(KMLDataCollection && dataCollection);
+  void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);
   static std::string RemoveInvalidSymbols(std::string const & name);
   static std::string GenerateUniqueFileName(const std::string & path, std::string name);
   static std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);

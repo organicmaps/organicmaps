@@ -116,7 +116,7 @@ class BookmarkCategory : public UserMarkLayer
   using Base = UserMarkLayer;
 
 public:
-  BookmarkCategory(std::string const & name, df::MarkGroupID groupId);
+  BookmarkCategory(std::string const & name, df::MarkGroupID groupId, bool autoSave);
   ~BookmarkCategory() override;
 
   static std::string GetDefaultType();
@@ -132,12 +132,14 @@ public:
   std::string const & GetName() const { return m_name; }
   std::string const & GetFileName() const { return m_file; }
 
+  bool IsAutoSave() const { return m_autoSave; }
+
 private:
   df::MarkGroupID const m_groupId;
   std::string m_name;
   // Stores file name from which bookmarks were loaded.
   std::string m_file;
-
+  bool m_autoSave = true;
   df::LineIDSet m_tracks;
 };
 
