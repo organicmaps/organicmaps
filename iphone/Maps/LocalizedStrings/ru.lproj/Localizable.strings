@@ -2208,3 +2208,9 @@
 "downloader_process" = "Downloading %s...";
 
 "downloader_applying" = "Applying %s...";
+
+"transit_not_found" = "Навигация по общественному траспорту пока не доступна в данном регионе";
+
+"dialog_pedestrian_route_is_long" = "Пешеходный маршрут слишком длинный";
+
+"dialog_message_transit_not_found_connection" = "Постройте маршрут в пределах одной транспортной сети";

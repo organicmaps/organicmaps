@@ -1279,4 +1279,7 @@
 	<string name="downloader_percent">%1$s (%2$s of %3$s)</string>
 	<string name="downloader_process">Downloading %s...</string>
 	<string name="downloader_applying">Applying %s...</string>
+	<string name="transit_not_found">Transit navigation in this region is not yet available</string>
+	<string name="dialog_pedestrian_route_is_long">The pedestrian route is too long</string>
+	<string name="dialog_message_transit_not_found_connection">Plan a route within one transit network</string>
 </resources>

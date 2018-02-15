@@ -1265,4 +1265,7 @@
 	<string name="bookmarks_create_new_group">Создать новую группу</string>
 	<string name="downloader_hide_screen">Скрыть</string>
 	<string name="downloader_percent">%1$s (%2$s из %3$s)</string>
+	<string name="transit_not_found">Навигация по общественному траспорту пока не доступна в данном регионе</string>
+	<string name="dialog_pedestrian_route_is_long">Пешеходный маршрут слишком длинный</string>
+	<string name="dialog_message_transit_not_found_connection">Постройте маршрут в пределах одной транспортной сети</string>
 </resources>

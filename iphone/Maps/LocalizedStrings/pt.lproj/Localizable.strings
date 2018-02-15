@@ -2208,3 +2208,9 @@
 "downloader_process" = "Downloading %s...";
 
 "downloader_applying" = "Applying %s...";
+
+"transit_not_found" = "Transit navigation in this region is not yet available";
+
+"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+
+"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
