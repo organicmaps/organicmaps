@@ -76,8 +76,7 @@ set<string> const kPoiTypes = {"amenity",  "shop",    "tourism",  "leisure",   "
 string GetReadableType(FeatureType const & f)
 {
   uint32_t result = 0;
-  f.ForEachType([&result](uint32_t type)
-  {
+  f.ForEachType([&result](uint32_t type) {
     string fullName = classif().GetFullObjectName(type);
     auto pos = fullName.find("|");
     if (pos != string::npos)
@@ -92,8 +91,7 @@ string GetWheelchairType(FeatureType const & f)
 {
   static const uint32_t wheelchair = classif().GetTypeByPath({"wheelchair"});
   string result;
-  f.ForEachType([&result](uint32_t type)
-  {
+  f.ForEachType([&result](uint32_t type) {
     uint32_t truncated = type;
     ftype::TruncValue(truncated, 1);
     if (truncated == wheelchair)
@@ -111,8 +109,7 @@ bool HasAtm(FeatureType const & f)
 {
   static const uint32_t atm = classif().GetTypeByPath({"amenity", "atm"});
   bool result = false;
-  f.ForEachType([&result](uint32_t type)
-  {
+  f.ForEachType([&result](uint32_t type) {
     if (type == atm)
       result = true;
   });
@@ -123,8 +120,7 @@ string BuildUniqueId(ms::LatLon const & coords, string const & name)
 {
   ostringstream ss;
   ss << strings::to_string_with_digits_after_comma(coords.lat, 6) << ','
-     << strings::to_string_with_digits_after_comma(coords.lon, 6) << ','
-     << name;
+     << strings::to_string_with_digits_after_comma(coords.lon, 6) << ',' << name;
   uint32_t hash = 0;
   for (char const c : ss.str())
     hash = hash * 101 + c;
@@ -143,7 +139,8 @@ void PrintAsCSV(vector<string> const & columns, char const delimiter, ostream & 
   bool first = true;
   for (string value : columns)
   {
-    // Newlines are hard to process, replace them with spaces. And trim the string.
+    // Newlines are hard to process, replace them with spaces. And trim the
+    // string.
     replace(value.begin(), value.end(), '\r', ' ');
     replace(value.begin(), value.end(), '\n', ' ');
     strings::Trim(value);
@@ -180,22 +177,28 @@ class Processor
   search::LocalityFinder m_finder;
 
 public:
-  Processor(Index const &index)
-      : m_geocoder(index), m_boundariesTable(index),
-        m_villagesCache(m_cancellable),
-        m_finder(index, m_boundariesTable, m_villagesCache) {
+  Processor(Index const & index)
+    : m_geocoder(index)
+    , m_boundariesTable(index)
+    , m_villagesCache(m_cancellable)
+    , m_finder(index, m_boundariesTable, m_villagesCache)
+  {
     m_boundariesTable.Load();
   }
 
   void ClearCache() { m_villagesCache.Clear(); }
 
-  void operator()(FeatureType const & f, map<uint32_t, osm::Id> const & ft2osm) { Process(f, ft2osm); }
+  void operator()(FeatureType const & f, map<uint32_t, osm::Id> const & ft2osm)
+  {
+    Process(f, ft2osm);
+  }
 
   void Process(FeatureType const & f, map<uint32_t, osm::Id> const & ft2osm)
   {
     f.ParseBeforeStatistic();
     string const & category = GetReadableType(f);
-    // "operator" is a reserved word, hence "operatr". This word is pretty common in C++ projects.
+    // "operator" is a reserved word, hence "operatr". This word is pretty
+    // common in C++ projects.
     string const & operatr = f.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
     auto const & osmIt = ft2osm.find(f.GetID().m_index);
     if ((!f.HasName() && operatr.empty()) || f.GetFeatureType() == feature::GEOM_LINE ||
@@ -252,10 +255,10 @@ public:
     string const & fee = strings::EndsWith(category, "-fee") ? "yes" : "";
     string const & atm = HasAtm(f) ? "yes" : "";
 
-    vector<string> columns = {osmId, uid,          lat,        lon,          mwmName,   category,
-                              name,         city,       addrStreet,   addrHouse, phone,
-                              website,      cuisine,    stars,        operatr,   internet,
-                              denomination, wheelchair, opening_hours, wikipedia, floor, fee, atm};
+    vector<string> columns = {
+        osmId,        uid,        lat,           lon,       mwmName, category, name,    city,
+        addrStreet,   addrHouse,  phone,         website,   cuisine, stars,    operatr, internet,
+        denomination, wheelchair, opening_hours, wikipedia, floor,   fee,      atm};
     AppendNames(f, columns);
     PrintAsCSV(columns, ';', cout);
   }
@@ -263,10 +266,11 @@ public:
 
 void PrintHeader()
 {
-  vector<string> columns = {"id", "old_id",          "lat",        "lon",          "mwm",      "category",
-                            "name",         "city",       "street",       "house",    "phone",
-                            "website",      "cuisines",   "stars",        "operator", "internet",
-                            "denomination", "wheelchair", "opening_hours", "wikipedia", "floor", "fee", "atm"};
+  vector<string> columns = {"id",       "old_id",       "lat",        "lon",           "mwm",
+                            "category", "name",         "city",       "street",        "house",
+                            "phone",    "website",      "cuisines",   "stars",         "operator",
+                            "internet", "denomination", "wheelchair", "opening_hours", "wikipedia",
+                            "floor",    "fee",          "atm"};
   // Append all supported name languages in order.
   for (uint8_t idx = 1; idx < kLangCount; idx++)
     columns.push_back("name_" + string(StringUtf8Multilang::GetLangByCode(idx)));
@@ -275,9 +279,8 @@ void PrintHeader()
 
 bool ParseFeatureIdToOsmIdMapping(string const & path, map<uint32_t, osm::Id> & mapping)
 {
-  return generator::ForEachOsmId2FeatureId(path, [&](osm::Id const & osmId, uint32_t const featureId) {
-    mapping[featureId] = osmId;
-  });
+  return generator::ForEachOsmId2FeatureId(
+      path, [&](osm::Id const & osmId, uint32_t const featureId) { mapping[featureId] = osmId; });
 }
 
 void DidDownload(storage::TCountryId const & /* countryId */,
@@ -344,7 +347,8 @@ int main(int argc, char ** argv)
     if (argc > 3 && !strings::StartsWith(mwmInfo->GetCountryName() + DATA_FILE_EXTENSION, argv[3]))
       continue;
     LOG(LINFO, ("Processing", mwmInfo->GetCountryName()));
-    string osmToFeatureFile = my::JoinFoldersToPath(argv[1], mwmInfo->GetCountryName() + DATA_FILE_EXTENSION + OSM2FEATURE_FILE_EXTENSION);
+    string osmToFeatureFile = my::JoinFoldersToPath(
+        argv[1], mwmInfo->GetCountryName() + DATA_FILE_EXTENSION + OSM2FEATURE_FILE_EXTENSION);
     map<uint32_t, osm::Id> featureIdToOsmId;
     ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId);
     MwmSet::MwmId mwmId(mwmInfo);
