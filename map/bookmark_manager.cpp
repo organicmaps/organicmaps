@@ -1132,8 +1132,6 @@ bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupId)
       my::DeleteFileX(file);
       VERIFY(my::RenameFileX(fileTmp, file), (fileTmp, file));
 
-      m_bookmarkCloud.MarkModified(file);
-
       return true;
     }
   }

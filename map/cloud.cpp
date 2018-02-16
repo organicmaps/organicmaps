@@ -19,6 +19,9 @@
 #include <chrono>
 #include <sstream>
 
+#include "3party/liboauthcpp/src/SHA1.h"
+#include "3party/liboauthcpp/src/base64.h"
+
 #define STAGE_CLOUD_SERVER
 #include "private.h"
 
@@ -67,6 +70,34 @@ std::string ExtractFileName(std::string const & filePath)
   std::string path = filePath;
   my::GetNameFromFullPath(path);
   return path;
+}
+
+std::string CalculateSHA1(std::string const & filePath)
+{
+  uint32_t constexpr kFileBufferSize = 8192;
+  try
+  {
+    my::FileData file(filePath, my::FileData::OP_READ);
+    uint64_t const fileSize = file.Size();
+
+    CSHA1 sha1;
+    uint64_t currSize = 0;
+    unsigned char buffer[kFileBufferSize];
+    while (currSize < fileSize)
+    {
+      auto const toRead = std::min(kFileBufferSize, static_cast<uint32_t>(fileSize - currSize));
+      file.Read(currSize, buffer, toRead);
+      sha1.Update(buffer, toRead);
+      currSize += toRead;
+    }
+    sha1.Final();
+    return base64_encode(sha1.m_digest, ARRAY_SIZE(sha1.m_digest));
+  }
+  catch (Reader::Exception const & ex)
+  {
+    LOG(LERROR, ("Error reading file:", filePath, ex.Msg()));
+  }
+  return {};
 }
 }  // namespace
 
@@ -154,16 +185,6 @@ void Cloud::Init(std::vector<std::string> const & filePaths)
   GetPlatform().RunTask(Platform::Thread::File, [this]() { LoadIndex(); });
 }
 
-void Cloud::MarkModified(std::string const & filePath)
-{
-  std::lock_guard<std::mutex> lock(m_mutex);
-  if (m_state != State::Enabled)
-    return;
-
-  m_files[ExtractFileName(filePath)] = filePath;
-  MarkModifiedImpl(filePath, false /* checkSize */);
-}
-
 uint64_t Cloud::GetLastSynchronizationTimestampInMs() const
 {
   std::lock_guard<std::mutex> lock(m_mutex);
@@ -241,7 +262,7 @@ void Cloud::UpdateIndex(bool indexExists)
   if (!indexExists || h >= m_index.m_lastUpdateInHours + kUpdateTimeoutInHours)
   {
     for (auto const & path : m_files)
-      MarkModifiedImpl(path.second, indexExists /* checkSize */);
+      MarkModifiedImpl(path.second);
     m_index.m_lastUpdateInHours = h;
     m_index.m_isOutdated = true;
 
@@ -272,7 +293,7 @@ void Cloud::SortEntriesBeforeUploadingImpl()
   });
 }
 
-void Cloud::MarkModifiedImpl(std::string const & filePath, bool checkSize)
+void Cloud::MarkModifiedImpl(std::string const & filePath)
 {
   uint64_t fileSize = 0;
   if (!my::GetFileSize(filePath, fileSize))
@@ -286,7 +307,7 @@ void Cloud::MarkModifiedImpl(std::string const & filePath, bool checkSize)
   auto entryPtr = GetEntryImpl(fileName);
   if (entryPtr)
   {
-    entryPtr->m_isOutdated = checkSize ? (entryPtr->m_sizeInBytes != fileSize) : true;
+    entryPtr->m_isOutdated = true;
     entryPtr->m_sizeInBytes = fileSize;
   }
   else
@@ -393,48 +414,60 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
 
     if (uploadedName.empty())
     {
-      FinishUploading(SynchronizationResult::DiskError, {});
+      FinishUploading(SynchronizationResult::DiskError, "File preparation error");
       return;
     }
 
-    // Request uploading.
-    auto const result = RequestUploading(uploadingUrl, uploadedName);
-    if (result.m_requestResult.m_status == RequestStatus::NetworkError)
+    // Upload only if SHA1 is not equal to previous one.
+    auto const sha1 = CalculateSHA1(uploadedName);
+    if (sha1.empty())
     {
-      // Retry uploading request up to kRetryMaxAttempts times.
-      if (attemptIndex + 1 == kRetryMaxAttempts)
+      FinishUploading(SynchronizationResult::DiskError, "SHA1 calculation error");
+      return;
+    }
+
+    if (entry->m_hash != sha1)
+    {
+      // Request uploading.
+      auto const result = RequestUploading(uploadingUrl, uploadedName);
+      if (result.m_requestResult.m_status == RequestStatus::NetworkError)
       {
-        FinishUploading(SynchronizationResult::NetworkError, result.m_requestResult.m_error);
+        // Retry uploading request up to kRetryMaxAttempts times.
+        if (attemptIndex + 1 == kRetryMaxAttempts)
+        {
+          FinishUploading(SynchronizationResult::NetworkError, result.m_requestResult.m_error);
+          return;
+        }
+
+        auto const retryTimeout = attemptIndex == 0 ? kRetryTimeoutInSeconds
+                                                    : timeout * kRetryDegradationFactor;
+        ScheduleUploadingTask(entry, retryTimeout, attemptIndex + 1);
+        return;
+      }
+      else if (result.m_requestResult.m_status == RequestStatus::Forbidden)
+      {
+        // Finish uploading and notify about invalid access token.
+        if (m_onInvalidToken != nullptr)
+          m_onInvalidToken();
+
+        FinishUploading(SynchronizationResult::AuthError, result.m_requestResult.m_error);
         return;
       }
 
-      auto const retryTimeout = attemptIndex == 0 ? kRetryTimeoutInSeconds
-                                                  : timeout * kRetryDegradationFactor;
-      ScheduleUploadingTask(entry, retryTimeout, attemptIndex + 1);
-      return;
-    }
-    else if (result.m_requestResult.m_status == RequestStatus::Forbidden)
-    {
-      // Finish uploading and notify about invalid access token.
-      if (m_onInvalidToken != nullptr)
-        m_onInvalidToken();
-
-      FinishUploading(SynchronizationResult::AuthError, result.m_requestResult.m_error);
-      return;
-    }
-
-    // Execute uploading.
-    auto const executeResult = ExecuteUploading(result.m_response, uploadedName);
-    if (executeResult.m_status != RequestStatus::Ok)
-    {
-      FinishUploading(SynchronizationResult::NetworkError, executeResult.m_error);
-      return;
+      // Execute uploading.
+      auto const executeResult = ExecuteUploading(result.m_response, uploadedName);
+      if (executeResult.m_status != RequestStatus::Ok)
+      {
+        FinishUploading(SynchronizationResult::NetworkError, executeResult.m_error);
+        return;
+      }
     }
 
     // Mark entry as not outdated.
     {
       std::lock_guard<std::mutex> lock(m_mutex);
       entry->m_isOutdated = false;
+      entry->m_hash = sha1;
       SaveIndexImpl();
     }
 

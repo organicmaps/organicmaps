@@ -39,10 +39,12 @@ public:
 
     std::string m_name;
     uint64_t m_sizeInBytes = 0;
+    std::string m_hash;
     bool m_isOutdated = false;
 
     DECLARE_VISITOR_AND_DEBUG_PRINT(Entry, visitor(m_name, "name"),
                                     visitor(m_sizeInBytes, "sizeInBytes"),
+                                    visitor(m_hash, "hash"),
                                     visitor(m_isOutdated, "isOutdated"))
   };
 
@@ -169,7 +171,6 @@ public:
   uint64_t GetLastSynchronizationTimestampInMs() const;
 
   void Init(std::vector<std::string> const & filePaths);
-  void MarkModified(std::string const & filePath);
 
   std::unique_ptr<User::Subscriber> GetUserSubscriber();
 
@@ -180,7 +181,7 @@ private:
   void SaveIndexImpl() const;
 
   EntryPtr GetEntryImpl(std::string const & fileName) const;
-  void MarkModifiedImpl(std::string const & filePath, bool checkSize);
+  void MarkModifiedImpl(std::string const & filePath);
 
   uint64_t CalculateUploadingSizeImpl() const;
   void SortEntriesBeforeUploadingImpl();
