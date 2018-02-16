@@ -1546,18 +1546,22 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeAuthenticateUser(JNIEnv * env, jclass, jstring socialToken,
                                                           jint socialTokenType, jobject listener)
 {
-  jobject gListener = env->NewGlobalRef(listener);
+  std::shared_ptr<_jobject> gListener(env->NewGlobalRef(listener), [](jobject l)
+  {
+    jni::GetEnv()->DeleteGlobalRef(l);
+  });
+
   auto const tokenStr = jni::ToNativeString(env, socialToken);
   auto & user = frm()->GetUser();
   auto s = make_unique<User::Subscriber>();
   s->m_postCallAction = User::Subscriber::Action::RemoveSubscriber;
-  s->m_onAuthenticate = [env, gListener](bool success)
+  s->m_onAuthenticate = [gListener](bool success)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [env, gListener, success]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [gListener, success]
     {
-      static jmethodID const callback = jni::GetMethodID(env, gListener, "onAuthorized", "(Z)V");
-      env->CallVoidMethod(gListener, callback, success);
-      env->DeleteGlobalRef(gListener);
+      auto e = jni::GetEnv();
+      static jmethodID const callback = jni::GetMethodID(e, gListener.get(), "onAuthorized", "(Z)V");
+      e->CallVoidMethod(gListener.get(), callback, success);
     });
   };
   user.AddSubscriber(std::move(s));

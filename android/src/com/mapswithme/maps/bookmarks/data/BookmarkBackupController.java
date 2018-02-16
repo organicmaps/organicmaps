@@ -104,7 +104,7 @@ public class BookmarkBackupController implements Authorizer.Callback
       mAuthorizer.detach();
   }
 
-  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
   {
     if (mAuthorizer != null)
       mAuthorizer.onActivityResult(requestCode, resultCode, data);
