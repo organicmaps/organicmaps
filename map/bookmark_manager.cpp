@@ -1111,23 +1111,6 @@ bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupId)
   std::string const name = RemoveInvalidSymbols(group->GetName());
   std::string file = group->GetFileName();
 
-  if (!file.empty())
-  {
-    size_t i2 = file.find_last_of('.');
-    if (i2 == std::string::npos)
-      i2 = file.size();
-    size_t i1 = file.find_last_of("\\/");
-    if (i1 == std::string::npos)
-      i1 = 0;
-    else
-      ++i1;
-
-    // If m_file doesn't match name, assign new m_file for this category and save old file name.
-    if (file.substr(i1, i2 - i1) != name)
-    {
-      file.swap(oldFile);
-    }
-  }
   if (file.empty())
   {
     file = GenerateUniqueFileName(GetPlatform().SettingsDir(), name);
@@ -1135,7 +1118,6 @@ bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupId)
   }
 
   std::string const fileTmp = file + ".tmp";
-
   try
   {
     // First, we save to the temporary file
@@ -1149,9 +1131,6 @@ bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupId)
       // Only after successful save we replace original file
       my::DeleteFileX(file);
       VERIFY(my::RenameFileX(fileTmp, file), (fileTmp, file));
-      // delete old file
-      if (!oldFile.empty())
-        VERIFY(my::DeleteFileX(oldFile), (oldFile, file));
 
       m_bookmarkCloud.MarkModified(file);
 
@@ -1167,10 +1146,6 @@ bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupId)
 
   // remove possibly left tmp file
   my::DeleteFileX(fileTmp);
-
-  // return old file name in case of error
-  if (!oldFile.empty())
-    group->SetFileName(oldFile);
 
   return false;
 }
