@@ -28,15 +28,11 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                MenuItem.OnMenuItemClickListener,
                RecyclerClickListener,
                RecyclerLongClickListener,
-               BookmarkManager.BookmarksLoadingListener,
-               Authorizer.Callback, BookmarkBackupController.BackupListener
+               BookmarkManager.BookmarksLoadingListener
 {
   private long mSelectedCatId;
   @Nullable
   private View mLoadingPlaceholder;
-
-  @NonNull
-  private final Authorizer mAuthorizer = new Authorizer(this, this);
 
   @Nullable
   private BookmarkBackupController mBackupController;
@@ -69,8 +65,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
 
     mLoadingPlaceholder = view.findViewById(R.id.placeholder_loading);
     mBackupController = new BookmarkBackupController(view.findViewById(R.id.backup));
-    mBackupController.setListener(this);
-
+    mBackupController.setAuthorizer(new Authorizer(this));
     if (getAdapter() != null)
     {
       getAdapter().setOnClickListener(this);
@@ -116,6 +111,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     super.onStart();
     BookmarkManager.INSTANCE.addListener(this);
+    if (mBackupController != null)
+      mBackupController.onStart();
   }
 
   @Override
@@ -123,6 +120,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     super.onStop();
     BookmarkManager.INSTANCE.removeListener(this);
+    if (mBackupController != null)
+      mBackupController.onStop();
   }
 
   @Override
@@ -236,28 +235,10 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  public void onAuthorizationFinish(boolean success)
-  {
-    if (mBackupController != null)
-      mBackupController.update();
-  }
-
-  @Override
-  public void onAuthorizationStart()
-  {
-    // TODO: show progress
-  }
-
-  @Override
-  public void onSignInClick()
-  {
-    mAuthorizer.authorize();
-  }
-
-  @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-    mAuthorizer.onActivityResult(requestCode, resultCode, data);
+    if (mBackupController != null)
+      mBackupController.onActivityResult(requestCode, resultCode, data);
   }
 }

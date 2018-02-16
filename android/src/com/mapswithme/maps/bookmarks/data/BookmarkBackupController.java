@@ -1,28 +1,29 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.widget.BookmarkBackupView;
 import com.mapswithme.util.DateUtils;
 
 import java.util.Date;
 
-public class BookmarkBackupController
+public class BookmarkBackupController implements Authorizer.Callback
 {
   @NonNull
   private final BookmarkBackupView mBackupView;
   @Nullable
-  private BackupListener mListener;
+  private Authorizer mAuthorizer;
   @NonNull
   private final View.OnClickListener mSignInClickListener = v ->
   {
-    if (mListener != null)
-      mListener.onSignInClick();
+    if (mAuthorizer != null)
+      mAuthorizer.authorize();
   };
   @NonNull
   private final View.OnClickListener mEnableClickListener = v ->
@@ -31,33 +32,40 @@ public class BookmarkBackupController
     update();
   };
 
-
   public BookmarkBackupController(@NonNull BookmarkBackupView backupView)
   {
     mBackupView = backupView;
-    update();
   }
 
-  public void setListener(@Nullable BackupListener listener)
+  public void setAuthorizer(@Nullable Authorizer authorizer)
   {
-    mListener = listener;
+    mAuthorizer = authorizer;
   }
 
   public void update()
   {
     final Context context = mBackupView.getContext();
-    boolean isAuthorized = Framework.nativeIsUserAuthenticated();
-    if (!isAuthorized)
+    if (mAuthorizer != null && !mAuthorizer.isAuthorized())
     {
       mBackupView.setMessage(context.getString(R.string.bookmarks_message_unauthorized_user));
       mBackupView.setButtonLabel(context.getString(R.string.authorization_button_sign_in));
-      mBackupView.setClickListener(mSignInClickListener);
-      mBackupView.showButton();
+      if (mAuthorizer.isInProgress())
+      {
+        mBackupView.showProgressBar();
+        mBackupView.hideButton();
+      }
+      else
+      {
+        mBackupView.hideProgressBar();
+        mBackupView.setClickListener(mSignInClickListener);
+        mBackupView.showButton();
+      }
       return;
     }
 
-    boolean isEnabled = BookmarkManager.INSTANCE.isCloudEnabled();
+    mBackupView.hideProgressBar();
 
+    boolean isEnabled = BookmarkManager.INSTANCE.isCloudEnabled();
     if (isEnabled)
     {
       long backupTime = BookmarkManager.INSTANCE.getLastSynchronizationTimestampInMs();
@@ -83,8 +91,36 @@ public class BookmarkBackupController
     mBackupView.showButton();
   }
 
-  public interface BackupListener
+  public void onStart()
   {
-    void onSignInClick();
+    if (mAuthorizer != null)
+      mAuthorizer.attach(this);
+    update();
+  }
+
+  public void onStop()
+  {
+    if (mAuthorizer != null)
+      mAuthorizer.detach();
+  }
+
+  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    if (mAuthorizer != null)
+      mAuthorizer.onActivityResult(requestCode, resultCode, data);
+  }
+
+  @Override
+  public void onAuthorizationStart()
+  {
+    update();
+  }
+
+  @Override
+  public void onAuthorizationFinish(boolean success /* it's ignored for a while.*/)
+  {
+    if (success)
+      BookmarkManager.INSTANCE.setCloudEnabled(true);
+    update();
   }
 }

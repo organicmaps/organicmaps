@@ -149,6 +149,16 @@ public class BookmarkBackupView extends LinearLayout
     UiUtils.show(mContentLayout, R.id.button);
   }
 
+  public void hideProgressBar()
+  {
+    UiUtils.hide(mContentLayout, R.id.progress);
+  }
+
+  public void showProgressBar()
+  {
+    UiUtils.show(mContentLayout, R.id.progress);
+  }
+
   public void setClickListener(@Nullable OnClickListener listener)
   {
     mContentLayout.findViewById(R.id.button).setOnClickListener(listener);

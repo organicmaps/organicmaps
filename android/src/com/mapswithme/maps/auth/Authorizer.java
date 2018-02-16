@@ -16,17 +16,33 @@ public class Authorizer implements AuthorizationListener
   @NonNull
   private final Fragment mFragment;
   @Nullable
-  private final Callback mCallback;
+  private Callback mCallback;
+  private boolean mInProgress;
 
-  public Authorizer(@NonNull Fragment fragment, @NonNull Callback callback)
+  public Authorizer(@NonNull Fragment fragment)
+  {
+    this(fragment, null);
+  }
+
+  Authorizer(@NonNull Fragment fragment, @Nullable Callback callback)
   {
     mFragment = fragment;
+  }
+
+
+  public void attach(@NonNull Callback callback)
+  {
     mCallback = callback;
+  }
+
+  public void detach()
+  {
+    mCallback = null;
   }
 
   public final void authorize()
   {
-    if (Framework.nativeIsUserAuthenticated() || !ConnectionState.isConnected())
+    if (isAuthorized() || !ConnectionState.isConnected())
     {
       if (mCallback != null)
         mCallback.onAuthorizationFinish(true);
@@ -52,17 +68,29 @@ public class Authorizer implements AuthorizationListener
     {
       @Framework.SocialTokenType
       int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, -1);
-      Framework.nativeAuthenticateUser(socialToken, type, this);
+      mInProgress = true;
       if (mCallback != null)
         mCallback.onAuthorizationStart();
+      Framework.nativeAuthenticateUser(socialToken, type, this);
     }
   }
 
   @Override
   public void onAuthorized(boolean success)
   {
+    mInProgress = false;
     if (mCallback != null)
       mCallback.onAuthorizationFinish(success);
+  }
+
+  public boolean isInProgress()
+  {
+    return mInProgress;
+  }
+
+  public boolean isAuthorized()
+  {
+    return Framework.nativeIsUserAuthenticated();
   }
 
   public interface Callback
