@@ -137,9 +137,9 @@ m2::PointU ColorTextureSize(size_t colorsCount, uint32_t maxTextureSize)
 }  // namespace
 
 TextureManager::TextureManager(ref_ptr<GlyphGenerator> glyphGenerator)
-  : m_glyphGenerator(glyphGenerator)
-  , m_maxTextureSize(0)
+  : m_maxTextureSize(0)
   , m_maxGlypsCount(0)
+  , m_glyphGenerator(glyphGenerator)
 {
   m_nothingToUpload.test_and_set();
 }

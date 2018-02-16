@@ -59,14 +59,15 @@ private:
 
 class DummyGlyphIndex : public GlyphIndex
 {
-  typedef GlyphIndex TBase;
-
 public:
-  DummyGlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng) : TBase(size, mng) {}
+  DummyGlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng,
+                  ref_ptr<GlyphGenerator> glyphGenerator)
+    : GlyphIndex(size, mng, glyphGenerator)
+  {}
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key)
   {
     bool dummy = false;
-    return TBase::MapResource(key, dummy);
+    return GlyphIndex::MapResource(key, dummy);
   }
 };
 }  // namespace
@@ -90,8 +91,9 @@ UNIT_TEST(UploadingGlyphs)
   args.m_blacklist = "fonts_blacklist.txt";
   GetPlatform().GetFontNames(args.m_fonts);
 
+  GlyphGenerator glyphGenerator(4);
   GlyphManager mng(args);
-  DummyGlyphIndex index(m2::PointU(128, 128), make_ref(&mng));
+  DummyGlyphIndex index(m2::PointU(128, 128), make_ref(&mng), make_ref(&glyphGenerator));
   size_t count = 1;  // invalid symbol glyph has mapped internally.
   count += (index.MapResource(GlyphKey(0x58, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
   count += (index.MapResource(GlyphKey(0x59, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
