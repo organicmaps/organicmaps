@@ -78,7 +78,7 @@
 
 #define UINT_8 unsigned char
 
-#if (ULONG_MAX == 0xFFFFFFFF)
+#if (ULONG_MAX == 0xFFFFFFFF && UINT_MAX < ULONG_MAX)
 #define UINT_32 unsigned long
 #else
 #define UINT_32 unsigned int
