@@ -17,6 +17,7 @@
 #include "coding/file_writer.hpp"
 #include "coding/hex.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/zip_creator.hpp"
 #include "coding/zip_reader.hpp"
 
 #include "geometry/transformations.hpp"
@@ -1171,6 +1172,63 @@ std::unique_ptr<User::Subscriber> BookmarkManager::GetUserSubscriber()
 void BookmarkManager::SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken)
 {
   m_bookmarkCloud.SetInvalidTokenHandler(std::move(onInvalidToken));
+}
+
+std::string BookmarkManager::BeginSharing(df::MarkGroupID categoryId)
+{
+  auto const it = m_activeSharing.find(categoryId);
+  if (it != m_activeSharing.end())
+  {
+    if (GetPlatform().IsFileExistsByFullPath(it->second))
+      return it->second;
+  }
+
+  auto const f = GetFileForSharing(categoryId);
+  if (f.empty())
+  {
+    m_activeSharing.erase(categoryId);
+    return {};
+  }
+
+  m_activeSharing[categoryId] = f;
+  return f;
+}
+
+void BookmarkManager::EndSharing(df::MarkGroupID categoryId)
+{
+  auto const it = m_activeSharing.find(categoryId);
+  if (it == m_activeSharing.end())
+    return;
+
+  if (GetPlatform().IsFileExistsByFullPath(it->second))
+    my::DeleteFileX(it->second);
+
+  m_activeSharing.erase(categoryId);
+}
+
+std::string BookmarkManager::GetFileForSharing(df::MarkGroupID categoryId)
+{
+  auto const filePath = GetCategoryFileName(categoryId);
+  if (!GetPlatform().IsFileExistsByFullPath(filePath))
+    return {};
+
+  auto ext = my::GetFileExtension(filePath);
+  strings::AsciiToLower(ext);
+  std::string fileName = filePath;
+  my::GetNameFromFullPath(fileName);
+  my::GetNameWithoutExt(fileName);
+  auto const tmpFilePath = my::JoinFoldersToPath(GetPlatform().TmpDir(), fileName + KMZ_EXTENSION);
+  if (ext == KMZ_EXTENSION)
+  {
+    if (!my::CopyFileX(filePath, tmpFilePath))
+      return {};
+    return tmpFilePath;
+  }
+
+  if (CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
+    return tmpFilePath;
+
+  return {};
 }
 
 df::GroupIDSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const

@@ -15,6 +15,7 @@
 #include <atomic>
 #include <functional>
 #include <list>
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -191,6 +192,9 @@ public:
   std::unique_ptr<User::Subscriber> GetUserSubscriber();
   void SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken);
 
+  std::string BeginSharing(df::MarkGroupID categoryId);
+  void EndSharing(df::MarkGroupID categoryId);
+
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void SaveToKML(df::MarkGroupID groupId, std::ostream & s);
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);
@@ -327,6 +331,8 @@ private:
 
   void SaveToKML(BookmarkCategory * group, std::ostream & s);
 
+  std::string GetFileForSharing(df::MarkGroupID categoryId);
+
   Callbacks m_callbacks;
   MarksChangesTracker m_changesTracker;
   df::DrapeEngineSafePtr m_drapeEngine;
@@ -366,6 +372,8 @@ private:
   std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;
 
   Cloud m_bookmarkCloud;
+
+  std::map<df::MarkGroupID, std::string> m_activeSharing;
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };
