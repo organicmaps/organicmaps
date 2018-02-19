@@ -28585,3 +28585,19 @@
     tags = ios,android
     en = Plan a route within one transit network
     ru = Постройте маршрут в пределах одной транспортной сети
+
+  [whats_new_title_hotel_filter]
+    en = New hotel filters available!
+    ru = Новые фильтры при поиске отелей
+  
+  [whats_new_message_hotel_filter]
+    en = Book hotels available for your dates! Use check in and check out filters
+    ru = При поиске отелей используйте фильтрацию по дате заезда и выезда
+
+  [whats_new_title_ugc_travel]
+    en = Share your experience with other travellers! 
+    ru = Делитесь вашими впечатлениями с другими путешественниками
+
+  [whats_new_message_ugc_travel]
+    en = Rate and review places you visited!
+    ru = Оценивайте и пишите отзывы о посещенных местах!
