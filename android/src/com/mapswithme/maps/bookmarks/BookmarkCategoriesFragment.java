@@ -64,8 +64,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     super.onViewCreated(view, savedInstanceState);
 
     mLoadingPlaceholder = view.findViewById(R.id.placeholder_loading);
-    mBackupController = new BookmarkBackupController(view.findViewById(R.id.backup));
-    mBackupController.setAuthorizer(new Authorizer(this));
+    mBackupController = new BookmarkBackupController(view.findViewById(R.id.backup),
+                                                     new Authorizer(this));
     if (getAdapter() != null)
     {
       getAdapter().setOnClickListener(this);
@@ -209,7 +209,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   protected void setupPlaceholder(@NonNull PlaceholderView placeholder)
   {
     placeholder.setContent(R.drawable.img_bookmarks, R.string.bookmarks_empty_title,
-        R.string.bookmarks_usage_hint);
+                           R.string.bookmarks_usage_hint);
   }
 
   @Override

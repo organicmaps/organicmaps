@@ -51,7 +51,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     View view = inflater.inflate(R.layout.fragment_auth_passport_dialog, container, false);
-    LoginButton button = (LoginButton) view.findViewById(R.id.loging_button);
+    LoginButton button = view.findViewById(R.id.loging_button);
     button.setReadPermissions(Constants.FACEBOOK_PERMISSIONS);
     button.setFragment(this);
     button.registerCallback(mCallbackManager, new FBCallback(this));
@@ -78,19 +78,18 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   }
 
   private void sendResult(int resultCode, @Nullable String socialToken,
-                          @Framework.SocialTokenType int type)
+                          @Framework.AuthTokenType int type, @Nullable String error,
+                          boolean isCancel)
   {
     Fragment caller = getTargetFragment();
     if (caller == null)
       return;
 
-    Intent data = null;
-    if (resultCode == Activity.RESULT_OK)
-    {
-      data = new Intent();
-      data.putExtra(Constants.EXTRA_SOCIAL_TOKEN, socialToken);
-      data.putExtra(Constants.EXTRA_TOKEN_TYPE, type);
-    }
+    Intent data = new Intent();
+    data.putExtra(Constants.EXTRA_SOCIAL_TOKEN, socialToken);
+    data.putExtra(Constants.EXTRA_TOKEN_TYPE, type);
+    data.putExtra(Constants.EXTRA_AUTH_ERROR, error);
+    data.putExtra(Constants.EXTRA_IS_CANCEL, isCancel);
     caller.onActivityResult(Constants.REQ_CODE_GET_SOCIAL_TOKEN, resultCode, data);
   }
 
@@ -104,10 +103,11 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   @Override
   public void onDismiss(DialogInterface dialog)
   {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
     AccessToken token = AccessToken.getCurrentAccessToken();
-    sendResult(Activity.RESULT_OK, token != null ? token.getToken() : null,
-               Framework.SOCIAL_TOKEN_FACEBOOK);
+    int resultCode = token == null || TextUtils.isEmpty(token.getToken()) ? Activity.RESULT_CANCELED
+                                                                          : Activity.RESULT_OK;
+    sendResult(resultCode, token != null ? token.getToken() : null,
+               Framework.SOCIAL_TOKEN_FACEBOOK, null, true);
     super.onDismiss(dialog);
   }
 
@@ -131,28 +131,28 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onCancel()
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
       LOGGER.w(TAG, "onCancel");
-      sendResult(Activity.RESULT_CANCELED, null, Framework.SOCIAL_TOKEN_FACEBOOK);
+      sendResult(Activity.RESULT_CANCELED, null, Framework.SOCIAL_TOKEN_FACEBOOK,
+                 null, true);
     }
 
     @Override
     public void onError(FacebookException error)
     {
-      Statistics.INSTANCE.trackUGCAuthFailed(Statistics.ParamValue.FACEBOOK,
-                                             error != null ? error.getMessage() : null);
       LOGGER.e(TAG, "onError", error);
-      sendResult(Activity.RESULT_CANCELED, null, Framework.SOCIAL_TOKEN_FACEBOOK);
+      sendResult(Activity.RESULT_CANCELED, null, Framework.SOCIAL_TOKEN_FACEBOOK,
+                 error != null ? error.getMessage() : null, false);
     }
 
     private void sendResult(int resultCode, @Nullable String socialToken,
-                            @Framework.SocialTokenType int type)
+                            @Framework.AuthTokenType int type, @Nullable String error,
+                            boolean isCancel)
     {
       SocialAuthDialogFragment fragment = mFragmentRef.get();
       if (fragment == null)
         return;
 
-      fragment.sendResult(resultCode, socialToken, type);
+      fragment.sendResult(resultCode, socialToken, type, error, isCancel);
     }
   }
 }

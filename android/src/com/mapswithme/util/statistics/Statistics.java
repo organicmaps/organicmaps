@@ -50,6 +50,10 @@ import static com.mapswithme.util.BatteryState.CHARGING_STATUS_PLUGGED;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNKNOWN;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNPLUGGED;
 import static com.mapswithme.util.statistics.Statistics.EventName.APPLICATION_COLD_STARTUP_INFO;
+import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_APPROVED;
+import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_SHOWN;
+import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_TOGGLE;
 import static com.mapswithme.util.statistics.Statistics.EventName.DISCOVERY_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
@@ -63,7 +67,6 @@ import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_S
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSOR_ITEM_SELECTED;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_PLAN_TOOLTIP_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_FILTER_CLICK;
-import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_FILTER_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_EXTERNAL_REQUEST_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_SHOWN;
@@ -77,6 +80,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FEATURE_ID;
+import static com.mapswithme.util.statistics.Statistics.EventParam.HAS_AUTH;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LON;
@@ -98,7 +102,10 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.FACEBOOK;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.GOOGLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.MAPSME;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
@@ -140,6 +147,11 @@ public enum Statistics
     public static final String BMK_GROUP_CHANGED = "Bookmark. Group changed";
     public static final String BMK_COLOR_CHANGED = "Bookmark. Color changed";
     public static final String BMK_CREATED = "Bookmark. Bookmark created";
+    public static final String BMK_SYNC_PROPOSAL_SHOWN = "Bookmarks_SyncProposal_shown";
+    public static final String BMK_SYNC_PROPOSAL_APPROVED = "Bookmarks_SyncProposal_approved";
+    public static final String BMK_SYNC_PROPOSAL_ERROR = "Bookmarks_SyncProposal_error";
+    public static final String BMK_SYNC_PROPOSAL_ENABLED = "Bookmarks_SyncProposal_enabled";
+    public static final String BMK_SYNC_PROPOSAL_TOGGLE = "Settings_BookmarksSync_toggle";
 
     // search
     public static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
@@ -355,6 +367,7 @@ public enum Statistics
     static final String PLACEMENT = "placement";
     public static final String PRICE_CATEGORY = "price_category";
     public static final String DATE = "date";
+    static final String HAS_AUTH = "has_auth";
     private EventParam() {}
   }
 
@@ -379,6 +392,8 @@ public enum Statistics
     public static final String CHECKIN = "check_in";
     public static final String CHECKOUT = "check_out";
     public static final String ANY = "any";
+    public static final String GOOGLE = "google";
+    public static final String MAPSME = "mapsme";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -950,12 +965,28 @@ public enum Statistics
     trackEvent(UGC_AUTH_EXTERNAL_REQUEST_SUCCESS, params().add(EventParam.PROVIDER, provider));
   }
 
-  public void trackUGCAuthFailed(@NonNull String provider, @Nullable String error)
+  public void trackUGCAuthFailed(@Framework.AuthTokenType int type, @Nullable String error)
   {
     trackEvent(UGC_AUTH_ERROR, params()
-        .add(EventParam.PROVIDER, provider)
+        .add(EventParam.PROVIDER, getAuthProvider(type))
         .add(EventParam.ERROR, error)
         .get());
+  }
+
+  @NonNull
+  private static String getAuthProvider(@Framework.AuthTokenType int type)
+  {
+    switch (type)
+    {
+      case Framework.SOCIAL_TOKEN_FACEBOOK:
+        return FACEBOOK;
+      case Framework.SOCIAL_TOKEN_GOOGLE:
+        return GOOGLE;
+      case Framework.TOKEN_MAPSME:
+        return MAPSME;
+      default:
+        throw new AssertionError("Unknown social token type: " + type);
+    }
   }
 
   public void trackDiscoveryOpen()
@@ -976,6 +1007,34 @@ public enum Statistics
               .add(EventParam.CATEGORY, category)
               .add(params.first, params.second)
               .get());
+  }
+
+  public void trackBkmSyncProposalShown(boolean hasAuth)
+  {
+    trackEvent(BMK_SYNC_PROPOSAL_SHOWN, params().add(HAS_AUTH, hasAuth ? 1 : 0).get());
+  }
+
+  public void trackBkmSyncProposalApproved(boolean hasAuth)
+  {
+    trackEvent(BMK_SYNC_PROPOSAL_APPROVED, params()
+        .add(HAS_AUTH, hasAuth ? 1 : 0)
+        .add(NETWORK, getConnectionState())
+        .get());
+  }
+
+  public void trackBkmSyncProposalError(@Framework.AuthTokenType int type, @Nullable String message)
+  {
+    trackEvent(BMK_SYNC_PROPOSAL_ERROR, params()
+        .add(PROVIDER, getAuthProvider(type))
+        .add(ERROR, message)
+        .get());
+  }
+
+  public void trackBkmSettingsToggle(boolean checked)
+  {
+    trackEvent(BMK_SYNC_PROPOSAL_TOGGLE, params()
+        .add(STATE, checked ? 1 : 0)
+        .get());
   }
 
   public static ParameterBuilder params()

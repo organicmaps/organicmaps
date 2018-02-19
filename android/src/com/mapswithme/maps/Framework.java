@@ -81,11 +81,13 @@ public class Framework
   public static final int ROUTE_REBUILD_AFTER_POINTS_LOADING = 0;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ SOCIAL_TOKEN_FACEBOOK, SOCIAL_TOKEN_GOOGLE })
-  public @interface SocialTokenType {}
+  @IntDef({ SOCIAL_TOKEN_FACEBOOK, SOCIAL_TOKEN_GOOGLE, TOKEN_MAPSME })
+  public @interface AuthTokenType
+  {}
 
   public static final int SOCIAL_TOKEN_FACEBOOK = 0;
   public static final int SOCIAL_TOKEN_GOOGLE = 1;
+  public static final int TOKEN_MAPSME = 2;
 
   @SuppressWarnings("unused")
   public interface MapObjectListener
@@ -381,7 +383,7 @@ public class Framework
   public static native Banner[] nativeGetSearchBanners();
 
   public static native void nativeAuthenticateUser(@NonNull String socialToken,
-                                                   @SocialTokenType int socialTokenType,
+                                                   @AuthTokenType int socialTokenType,
                                                    @NonNull AuthorizationListener listener);
   public static native boolean nativeIsUserAuthenticated();
 

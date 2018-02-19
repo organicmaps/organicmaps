@@ -746,7 +746,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     pref.setOnPreferenceChangeListener(
         (preference, newValue) ->
         {
-          BookmarkManager.INSTANCE.setCloudEnabled((Boolean) newValue);
+          Boolean value = (Boolean) newValue;
+          BookmarkManager.INSTANCE.setCloudEnabled(value);
+          Statistics.INSTANCE.trackBkmSettingsToggle(value);
           return true;
         });
   }

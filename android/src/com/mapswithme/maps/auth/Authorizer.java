@@ -70,16 +70,38 @@ public class Authorizer implements AuthorizationListener
 
   public final void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
   {
-    if (requestCode != Constants.REQ_CODE_GET_SOCIAL_TOKEN
-        || resultCode != Activity.RESULT_OK || data == null)
+
+    if (requestCode != Constants.REQ_CODE_GET_SOCIAL_TOKEN)
+      return;
+
+    if (data == null)
+      return;
+
+    if (resultCode == Activity.RESULT_CANCELED)
     {
+      if (mCallback == null)
+        return;
+
+      @Framework.AuthTokenType
+      int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, -1);
+      boolean isCancel = data.getBooleanExtra(Constants.EXTRA_IS_CANCEL, false);
+      if (isCancel)
+      {
+        mCallback.onSocialAuthenticationCancel(type);
+        return;
+      }
+
+      mCallback.onSocialAuthenticationError(type, data.getStringExtra(Constants.EXTRA_AUTH_ERROR));
       return;
     }
+
+    if (resultCode != Activity.RESULT_OK)
+      return;
 
     String socialToken = data.getStringExtra(Constants.EXTRA_SOCIAL_TOKEN);
     if (!TextUtils.isEmpty(socialToken))
     {
-      @Framework.SocialTokenType
+      @Framework.AuthTokenType
       int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, -1);
       mIsAuthorizationInProgress = true;
       if (mCallback != null)
@@ -110,5 +132,7 @@ public class Authorizer implements AuthorizationListener
   {
     void onAuthorizationFinish(boolean success);
     void onAuthorizationStart();
+    void onSocialAuthenticationCancel(@Framework.AuthTokenType int type);
+    void onSocialAuthenticationError(@Framework.AuthTokenType int type, @Nullable String error);
   }
 }

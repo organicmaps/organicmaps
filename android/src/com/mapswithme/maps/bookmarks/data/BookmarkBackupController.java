@@ -6,10 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.widget.BookmarkBackupView;
 import com.mapswithme.util.DateUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Date;
 
@@ -17,35 +19,40 @@ public class BookmarkBackupController implements Authorizer.Callback
 {
   @NonNull
   private final BookmarkBackupView mBackupView;
-  @Nullable
-  private Authorizer mAuthorizer;
   @NonNull
-  private final View.OnClickListener mSignInClickListener = v ->
+  private final Authorizer mAuthorizer;
+  @NonNull
+  private final View.OnClickListener mSignInClickListener = new View.OnClickListener()
   {
-    if (mAuthorizer != null)
+    @Override
+    public void onClick(View v)
+    {
       mAuthorizer.authorize();
+      Statistics.INSTANCE.trackBkmSyncProposalApproved(false);
+    }
   };
   @NonNull
-  private final View.OnClickListener mEnableClickListener = v ->
+  private final View.OnClickListener mEnableClickListener = new View.OnClickListener()
   {
-    BookmarkManager.INSTANCE.setCloudEnabled(true);
-    update();
+    @Override
+    public void onClick(View v)
+    {
+      BookmarkManager.INSTANCE.setCloudEnabled(true);
+      update();
+      Statistics.INSTANCE.trackBkmSyncProposalApproved(mAuthorizer.isAuthorized());
+    }
   };
 
-  public BookmarkBackupController(@NonNull BookmarkBackupView backupView)
+  public BookmarkBackupController(@NonNull BookmarkBackupView backupView, @NonNull Authorizer authorizer)
   {
     mBackupView = backupView;
-  }
-
-  public void setAuthorizer(@Nullable Authorizer authorizer)
-  {
     mAuthorizer = authorizer;
   }
 
   public void update()
   {
     final Context context = mBackupView.getContext();
-    if (mAuthorizer != null && !mAuthorizer.isAuthorized())
+    if (!mAuthorizer.isAuthorized())
     {
       mBackupView.setMessage(context.getString(R.string.bookmarks_message_unauthorized_user));
       mBackupView.setButtonLabel(context.getString(R.string.authorization_button_sign_in));
@@ -59,6 +66,7 @@ public class BookmarkBackupController implements Authorizer.Callback
         mBackupView.hideProgressBar();
         mBackupView.setClickListener(mSignInClickListener);
         mBackupView.showButton();
+        Statistics.INSTANCE.trackBkmSyncProposalShown(mAuthorizer.isAuthorized());
       }
       return;
     }
@@ -89,25 +97,23 @@ public class BookmarkBackupController implements Authorizer.Callback
     mBackupView.setButtonLabel(context.getString(R.string.bookmarks_backup));
     mBackupView.setClickListener(mEnableClickListener);
     mBackupView.showButton();
+    Statistics.INSTANCE.trackBkmSyncProposalShown(mAuthorizer.isAuthorized());
   }
 
   public void onStart()
   {
-    if (mAuthorizer != null)
-      mAuthorizer.attach(this);
+    mAuthorizer.attach(this);
     update();
   }
 
   public void onStop()
   {
-    if (mAuthorizer != null)
-      mAuthorizer.detach();
+    mAuthorizer.detach();
   }
 
   public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
   {
-    if (mAuthorizer != null)
-      mAuthorizer.onActivityResult(requestCode, resultCode, data);
+    mAuthorizer.onActivityResult(requestCode, resultCode, data);
   }
 
   @Override
@@ -120,7 +126,26 @@ public class BookmarkBackupController implements Authorizer.Callback
   public void onAuthorizationFinish(boolean success /* it's ignored for a while.*/)
   {
     if (success)
+    {
       BookmarkManager.INSTANCE.setCloudEnabled(true);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_SYNC_PROPOSAL_ENABLED);
+    }
+    else
+    {
+      Statistics.INSTANCE.trackBkmSyncProposalError(Framework.TOKEN_MAPSME, "Unknown error");
+    }
     update();
+  }
+
+  @Override
+  public void onSocialAuthenticationError(@Framework.AuthTokenType int type, @Nullable String error)
+  {
+    Statistics.INSTANCE.trackBkmSyncProposalError(type, error);
+  }
+
+  @Override
+  public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
+  {
+    Statistics.INSTANCE.trackBkmSyncProposalError(type, "Cancel");
   }
 }

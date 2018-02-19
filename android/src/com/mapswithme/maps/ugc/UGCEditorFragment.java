@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
@@ -42,9 +43,9 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_ugc_editor, container, false);
-    mReviewEditText = (EditText) root.findViewById(R.id.review);
+    mReviewEditText = root.findViewById(R.id.review);
 
-    RecyclerView rvRatingView = (RecyclerView) root.findViewById(R.id.ratings);
+    RecyclerView rvRatingView = root.findViewById(R.id.ratings);
     rvRatingView.setLayoutManager(new LinearLayoutManager(getContext()));
     rvRatingView.getLayoutManager().setAutoMeasureEnabled(true);
     rvRatingView.setNestedScrollingEnabled(false);
@@ -107,6 +108,18 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   {
     if (isAdded())
       getActivity().finish();
+  }
+
+  @Override
+  public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
+  {
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
+  }
+
+  @Override
+  public void onSocialAuthenticationError(int type, @Nullable String error)
+  {
+    Statistics.INSTANCE.trackUGCAuthFailed(type, error);
   }
 
   private void onSubmitButtonClick()
