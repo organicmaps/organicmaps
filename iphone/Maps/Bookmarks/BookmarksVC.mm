@@ -33,7 +33,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
 
 @implementation BookmarksVC
 
-- (instancetype)initWithCategory:(df::MarkGroupID)index
+- (instancetype)initWithCategory:(MWMMarkGroupID)index
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)

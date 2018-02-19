@@ -1,6 +1,6 @@
 #import "AddSetTableViewCell.h"
 
-@interface AddSetTableViewCell () <UITextFieldDelegate>
+@interface AddSetTableViewCell ()<UITextFieldDelegate>
 
 @end
 
@@ -10,8 +10,9 @@
 {
   [super awakeFromNib];
   self.textField.textColor = [UIColor blackPrimaryText];
-  self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:L(@"bookmark_set_name") attributes:
-                                          @{NSForegroundColorAttributeName : [UIColor blackHintText]}];
+  self.textField.attributedPlaceholder = [[NSAttributedString alloc]
+      initWithString:L(@"bookmark_set_name")
+          attributes:@{NSForegroundColorAttributeName: [UIColor blackHintText]}];
 }
 
 #pragma mark - UITextFieldDelegate

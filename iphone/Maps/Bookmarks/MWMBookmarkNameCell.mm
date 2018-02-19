@@ -2,7 +2,7 @@
 
 @interface MWMBookmarkNameCell ()
 
-@property (weak, nonatomic) IBOutlet UITextField * nameField;
+@property(weak, nonatomic) IBOutlet UITextField * nameField;
 
 @end
 
@@ -14,9 +14,6 @@
   self.nameField.delegate = delegate;
 }
 
-- (NSString *)currentName
-{
-  return self.nameField.text;
-}
+- (NSString *)currentName { return self.nameField.text; }
 
 @end
