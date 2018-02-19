@@ -766,7 +766,7 @@
     he = מ"ב
     sk = Míle
 
-  [my_position]
+  [core_my_position]
     comment = View and button titles for accessibility
     en = My Position
     ru = Мое местоположение
@@ -2741,7 +2741,7 @@
     he = צבע
     sk = Farba
 
-  [my_places]
+  [core_my_places]
     comment = Default bookmarks set name
     tags = ios
     en = My Places
@@ -7481,7 +7481,7 @@
     he = כיול המצפן
     sk = Compass kalibrácia
 
-  [wifi]
+  [core_wifi]
     comment = Search Suggestion
     tags = ios,android,tizen
     en = WiFi
@@ -17375,7 +17375,7 @@
     el = Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα
     sk = Zadajte správne PSČ
 
-  [placepage_unknown_place]
+  [core_placepage_unknown_place]
     comment = Place Page title for long tap
     tags = ios, android
     en = Unknown Place
@@ -24865,7 +24865,7 @@
     sk = Zistiť viac
     sw = Jua mengi zaidi
 
-  [exit]
+  [core_exit]
     en = Exit
     ru = Выход
     ar = خروج
@@ -28113,7 +28113,7 @@
     sk = Chôdza %s
     sw = Tembea %s
 
-  [entrance]
+  [core_entrance]
     en = Entrance
     ru = Вход
     ar = المدخل
