@@ -22,7 +22,7 @@
 #include "3party/liboauthcpp/src/SHA1.h"
 #include "3party/liboauthcpp/src/base64.h"
 
-#define STAGE_CLOUD_SERVER
+//#define STAGE_CLOUD_SERVER
 #include "private.h"
 
 using namespace std::chrono;
