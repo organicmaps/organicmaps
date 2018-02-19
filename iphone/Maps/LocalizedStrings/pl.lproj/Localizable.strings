@@ -79,7 +79,7 @@
 "miles" = "Mile";
 
 /* View and button titles for accessibility */
-"my_position" = "Moje położenie";
+"core_my_position" = "Moje położenie";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Kolor";
 
 /* Default bookmarks set name */
-"my_places" = "Moje miejsca";
+"core_my_places" = "Moje miejsca";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Nazwa";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kalibracja kompasu";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Proszę zaktualizować mapę, by utworzyć trasę.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Podaj prawidłowy kod pocztowy";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Nieznane miejsce";
+"core_placepage_unknown_place" = "Nieznane miejsce";
 
 "editor_other_info" = "Wyślij uwagę do moderatora OSM";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Dowiedz się więcej";
 
-"exit" = "Wyjdź";
+"core_exit" = "Wyjdź";
 
 "routing_add_start_point" = "Aby zaplanować trasę, dodaj punkt początkowy";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Przejdź %s";
 
-"entrance" = "Wejście";
+"core_entrance" = "Wejście";
 
 "coffee" = "Kawa";
 

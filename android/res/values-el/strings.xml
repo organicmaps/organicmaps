@@ -33,7 +33,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Μίλια</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Η θέση μου</string>
+	<string name="core_my_position">Η θέση μου</string>
 	<string name="ok">OK</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Υπενθύμιση αργότερα</string>
@@ -105,7 +105,7 @@
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Αγαπημένα</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Οι τοποθεσίες μου</string>
+	<string name="core_my_places">Οι τοποθεσίες μου</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Όνομα</string>
 	<!-- Editor title above street and house number -->
@@ -309,7 +309,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Βαθμονόμηση πυξίδας</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Ενημέρωση όλων</string>
 	<!-- Cancel all button text -->
@@ -622,7 +622,7 @@
 	<string name="editor_zip_code">Ταχυδρομικός κώδικας</string>
 	<string name="error_enter_correct_zip_code">Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Άγνωστο μέρος</string>
+	<string name="core_placepage_unknown_place">Άγνωστο μέρος</string>
 	<string name="editor_other_info">Στείλτε μια σημείωση στο συντονιστή του OSM</string>
 	<string name="editor_detailed_description_hint">Αναλυτικό σχόλιο</string>
 	<string name="editor_detailed_description">Οι προτεινόμενες αλλαγές χάρτη θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο MAPS.ME.</string>
@@ -867,7 +867,7 @@
 	<string name="whatsnew_transliteration_title">Μεταγραφή στα Λατινικά</string>
 	<string name="whatsnew_transliteration_message">Εάν ένας δρόμος ή ένα αντικείμενο δεν έχει όνομα στη γλώσσα σας, θα διατυπωθεί χρησιμοποιώντας το λατινικό αλφάβητο.</string>
 	<string name="learn_more">Μάθετε περισσότερα</string>
-	<string name="exit">Έξοδος</string>
+	<string name="core_exit">Έξοδος</string>
 	<string name="routing_add_start_point">Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή</string>
 	<string name="routing_add_finish_point">Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή</string>
 	<string name="onboarding_welcome_message">Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.</string>
@@ -972,7 +972,7 @@
 	<string name="booking_filters_offline">Δεν είναι διαθέσιμη offline.</string>
 	<string name="directions_finish">Προορισμός</string>
 	<string name="directions_on_foot">Βάδισμα %s</string>
-	<string name="entrance">Είσοδος</string>
+	<string name="core_entrance">Είσοδος</string>
 	<string name="coffee">Καφές</string>
 	<string name="cleanliness">Καθαριότητα</string>
 	<string name="crowdedness">Συνωστισμός</string>

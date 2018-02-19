@@ -51,7 +51,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Konumum</string>
+	<string name="core_my_position">Konumum</string>
 	<string name="ok">Tamam</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">%s indirmek için lütfen ilk önce cihazınızda biraz alan boşaltın</string>
@@ -151,7 +151,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Renk</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Yerlerim</string>
+	<string name="core_my_places">Yerlerim</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Adı</string>
 	<!-- Editor title above street and house number -->
@@ -411,7 +411,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Pusula kalibrasyonu</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.</string>
 	<!-- Update maps suggestion -->
@@ -817,7 +817,7 @@
 	<string name="editor_zip_code">Posta Kodu</string>
 	<string name="error_enter_correct_zip_code">Doğru Posta Kodunu girin</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Bilinmeyen Yer</string>
+	<string name="core_placepage_unknown_place">Bilinmeyen Yer</string>
 	<string name="editor_other_info">OSM moderatörüne bir not gönder</string>
 	<string name="editor_detailed_description_hint">Ayrıntılı yorum</string>
 	<string name="editor_detailed_description">Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. MAPS.ME’de düzenlenemeyen ayrıntıları açıklayın.</string>
@@ -1109,7 +1109,7 @@
 	<string name="whatsnew_transliteration_title">Latince alfabesine çevirme</string>
 	<string name="whatsnew_transliteration_message">Bir caddenin veya bir nesnenin adının kendi dilinizde mevcut olmaması durumunda, Latin alfabesi kullanılarak yazılır.</string>
 	<string name="learn_more">Daha fazla bilgi edinin</string>
-	<string name="exit">Çık</string>
+	<string name="core_exit">Çık</string>
 	<string name="routing_add_start_point">Güzergâhı planlamak için bir başlangıç noktası ekleyin</string>
 	<string name="routing_add_finish_point">Güzergâhı planlamak için bir varış noktası ekleyin</string>
 	<string name="onboarding_welcome_message">Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.</string>
@@ -1214,7 +1214,7 @@
 	<string name="booking_filters_offline">Çevrimdışı kullanılamıyor.</string>
 	<string name="directions_finish">Varış konumu</string>
 	<string name="directions_on_foot">%s doğru yürüyün</string>
-	<string name="entrance">Giriş</string>
+	<string name="core_entrance">Giriş</string>
 	<string name="coffee">Kahve</string>
 	<string name="cleanliness">Temizlik</string>
 	<string name="crowdedness">Doluluk</string>

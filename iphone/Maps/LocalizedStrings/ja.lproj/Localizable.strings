@@ -79,7 +79,7 @@
 "miles" = "マイル";
 
 /* View and button titles for accessibility */
-"my_position" = "現在地";
+"core_my_position" = "現在地";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "表示色";
 
 /* Default bookmarks set name */
-"my_places" = "マイロケーション";
+"core_my_places" = "マイロケーション";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "名称";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "コンパスの調整";
 
 /* Search Suggestion */
-"wifi" = "無線LAN";
+"core_wifi" = "無線LAN";
 
 /* Update map suggestion */
 "routing_map_outdated" = "ルートを作成するためにマップを更新してください。";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "正しい郵便番号を入力してください";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "不明な場所";
+"core_placepage_unknown_place" = "不明な場所";
 
 "editor_other_info" = "OSM モデレーターにメモを送信";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "詳細情報";
 
-"exit" = "終了";
+"core_exit" = "終了";
 
 "routing_add_start_point" = "ルートを計画するには出発地点を追加してください";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "徒歩 %s";
 
-"entrance" = "入口";
+"core_entrance" = "入口";
 
 "coffee" = "コーヒー";
 

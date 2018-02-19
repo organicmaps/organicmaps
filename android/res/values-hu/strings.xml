@@ -47,7 +47,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mérföld</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Saját helyzet</string>
+	<string name="core_my_position">Saját helyzet</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Kérjük szabadítson fel helyet az eszközön, hogy le tudja tölteni %s-t</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -146,7 +146,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Szín</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Saját helyeim</string>
+	<string name="core_my_places">Saját helyeim</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Név</string>
 	<!-- Editor title above street and house number -->
@@ -406,7 +406,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Iránytű kalibrálás</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Kérjük, útvonal létrehozásához frissítsd a térképet.</string>
 	<!-- Update maps suggestion -->
@@ -812,7 +812,7 @@
 	<string name="editor_zip_code">Irányítószám</string>
 	<string name="error_enter_correct_zip_code">Írja be a helyes irányítószámot</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Ismeretlen hely</string>
+	<string name="core_placepage_unknown_place">Ismeretlen hely</string>
 	<string name="editor_other_info">Megjegyzést küldött az OSM-moderátornak</string>
 	<string name="editor_detailed_description_hint">Részletes megjegyzés</string>
 	<string name="editor_detailed_description">Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a MAPS.ME-ben.</string>
@@ -1103,7 +1103,7 @@
 	<string name="whatsnew_transliteration_title">Átírás latin nyelvre</string>
 	<string name="whatsnew_transliteration_message">Ha egy utcának vagy egy objektumnak nincs neve az Ön nyelvén, latin ábécével kerül átírásra.</string>
 	<string name="learn_more">Tudjon meg többet</string>
-	<string name="exit">Kilépés</string>
+	<string name="core_exit">Kilépés</string>
 	<string name="routing_add_start_point">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez</string>
 	<string name="routing_add_finish_point">Adjon hozzá végpontot az útvonal tervezéséhez</string>
 	<string name="onboarding_welcome_message">Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.</string>
@@ -1208,7 +1208,7 @@
 	<string name="booking_filters_offline">Nem érhető el offline.</string>
 	<string name="directions_finish">Rendeltetési hely</string>
 	<string name="directions_on_foot">%s séta</string>
-	<string name="entrance">Bejárat</string>
+	<string name="core_entrance">Bejárat</string>
 	<string name="coffee">Kávé</string>
 	<string name="cleanliness">Tisztaság</string>
 	<string name="crowdedness">Zsúfoltság</string>

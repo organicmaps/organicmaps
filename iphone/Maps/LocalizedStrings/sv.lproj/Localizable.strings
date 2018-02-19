@@ -79,7 +79,7 @@
 "miles" = "Mil";
 
 /* View and button titles for accessibility */
-"my_position" = "Min position";
+"core_my_position" = "Min position";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Färg";
 
 /* Default bookmarks set name */
-"my_places" = "Mina Platser";
+"core_my_places" = "Mina Platser";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Namn";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kompasskalibrering";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Uppdatera kartan för att skapa en rutt.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Ange korrekt postnr";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Okänd plats";
+"core_placepage_unknown_place" = "Okänd plats";
 
 "editor_other_info" = "Poznámka odoslaná regulátorovi OSM";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Läs mer";
 
-"exit" = "Avsluta";
+"core_exit" = "Avsluta";
 
 "routing_add_start_point" = "Lägg till startpunkt för att planera en rutt";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Gå %s";
 
-"entrance" = "Ingång";
+"core_entrance" = "Ingång";
 
 "coffee" = "Kaffe";
 

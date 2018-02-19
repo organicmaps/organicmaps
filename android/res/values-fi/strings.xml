@@ -51,7 +51,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mailit</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Sijaintini</string>
+	<string name="core_my_position">Sijaintini</string>
 	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Vapauta tilaa laitteellasi ladataksesi tiedoston %s</string>
@@ -151,7 +151,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Väri</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Paikkani</string>
+	<string name="core_my_places">Paikkani</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nimi</string>
 	<!-- Editor title above street and house number -->
@@ -405,7 +405,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompassin kalibrointi</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Päivitä kartta luodaksesi reitin</string>
 	<!-- Update maps suggestion -->
@@ -811,7 +811,7 @@
 	<string name="editor_zip_code">Postinumero</string>
 	<string name="error_enter_correct_zip_code">Anna kelvollinen postinumero</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Tuntematon paikka</string>
+	<string name="core_placepage_unknown_place">Tuntematon paikka</string>
 	<string name="editor_other_info">Lähetä muistiinpano OSM-moderaattorille</string>
 	<string name="editor_detailed_description_hint">Yksityiskohtainen kommentti</string>
 	<string name="editor_detailed_description">Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata MAPS.ME:ssä.</string>
@@ -1103,7 +1103,7 @@
 	<string name="whatsnew_transliteration_title">Translitterointi latinaksi</string>
 	<string name="whatsnew_transliteration_message">Jos kadulla tai kohteella ei ole nimeä kielelläsi, se kirjoitetetaan latinalaisilla kirjaimilla.</string>
 	<string name="learn_more">Lisätietoja</string>
-	<string name="exit">Poistu</string>
+	<string name="core_exit">Poistu</string>
 	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
 	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten</string>
 	<string name="onboarding_welcome_message">Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.</string>
@@ -1208,7 +1208,7 @@
 	<string name="booking_filters_offline">Ei saatavilla offline.</string>
 	<string name="directions_finish">Kohde</string>
 	<string name="directions_on_foot">Kävele %s</string>
-	<string name="entrance">Sisäänkäynti</string>
+	<string name="core_entrance">Sisäänkäynti</string>
 	<string name="coffee">Kahvi</string>
 	<string name="cleanliness">Puhtaus</string>
 	<string name="crowdedness">Ahtaus</string>

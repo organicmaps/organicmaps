@@ -79,7 +79,7 @@
 "miles" = "Милі";
 
 /* View and button titles for accessibility */
-"my_position" = "Моє місце розташування";
+"core_my_position" = "Моє місце розташування";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Колір";
 
 /* Default bookmarks set name */
-"my_places" = "Мої Мітки";
+"core_my_places" = "Мої Мітки";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Iм'я";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Калібрування компаса";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Будь ласка, оновіть карту, щоб прокласти маршрут.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Введіть коректний поштовий індекс";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Невідоме місце";
+"core_placepage_unknown_place" = "Невідоме місце";
 
 "editor_other_info" = "Відправити повідомлення модератору OSM";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Докладніше";
 
-"exit" = "Вихід";
+"core_exit" = "Вихід";
 
 "routing_add_start_point" = "Вкажіть початкову точку для побудови маршруту";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Піша прогулянка %s";
 
-"entrance" = "Вхід";
+"core_entrance" = "Вхід";
 
 "coffee" = "Кава";
 

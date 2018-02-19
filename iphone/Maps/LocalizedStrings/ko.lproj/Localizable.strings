@@ -79,7 +79,7 @@
 "miles" = "마일";
 
 /* View and button titles for accessibility */
-"my_position" = "나의 위치";
+"core_my_position" = "나의 위치";
 
 "ok" = "승인";
 
@@ -242,7 +242,7 @@
 "color" = "색깔";
 
 /* Default bookmarks set name */
-"my_places" = "내 장소";
+"core_my_places" = "내 장소";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "이름";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "나침반 보정";
 
 /* Search Suggestion */
-"wifi" = "WiFi 인터넷";
+"core_wifi" = "WiFi 인터넷";
 
 /* Update map suggestion */
 "routing_map_outdated" = "경로를 생성하도록 지도를 업데이트하십시오.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "올바른 우편번호를 입력하세요";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "장소 알 수 없음";
+"core_placepage_unknown_place" = "장소 알 수 없음";
 
 "editor_other_info" = "OSM 중재자에게 쪽지 보내기";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "자세히 알아보기";
 
-"exit" = "끝내기";
+"core_exit" = "끝내기";
 
 "routing_add_start_point" = "경로 계획을 세우기 위한 시작 지점을 추가하세요";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "%s 걷기";
 
-"entrance" = "입구";
+"core_entrance" = "입구";
 
 "coffee" = "커피";
 

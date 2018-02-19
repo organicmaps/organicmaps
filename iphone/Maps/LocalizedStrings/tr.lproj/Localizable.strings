@@ -79,7 +79,7 @@
 "miles" = "Mil";
 
 /* View and button titles for accessibility */
-"my_position" = "Konumum";
+"core_my_position" = "Konumum";
 
 "ok" = "Tamam";
 
@@ -242,7 +242,7 @@
 "color" = "Renk";
 
 /* Default bookmarks set name */
-"my_places" = "Yerlerim";
+"core_my_places" = "Yerlerim";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Adı";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Pusula kalibrasyonu";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Doğru Posta Kodunu girin";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Bilinmeyen Yer";
+"core_placepage_unknown_place" = "Bilinmeyen Yer";
 
 "editor_other_info" = "OSM moderatörüne bir not gönder";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Daha fazla bilgi edinin";
 
-"exit" = "Çık";
+"core_exit" = "Çık";
 
 "routing_add_start_point" = "Güzergâhı planlamak için bir başlangıç noktası ekleyin";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "%s doğru yürüyün";
 
-"entrance" = "Giriş";
+"core_entrance" = "Giriş";
 
 "coffee" = "Kahve";
 

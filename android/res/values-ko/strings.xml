@@ -47,7 +47,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">마일</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">나의 위치</string>
+	<string name="core_my_position">나의 위치</string>
 	<string name="ok">승인</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %s를 다운로드하여 주십시요.</string>
@@ -147,7 +147,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">색깔</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">내 장소</string>
+	<string name="core_my_places">내 장소</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">이름</string>
 	<!-- Editor title above street and house number -->
@@ -401,7 +401,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">나침반 보정</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi 인터넷</string>
+	<string name="core_wifi">WiFi 인터넷</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">경로를 생성하도록 지도를 업데이트하십시오.</string>
 	<!-- Update maps suggestion -->
@@ -807,7 +807,7 @@
 	<string name="editor_zip_code">우편번호</string>
 	<string name="error_enter_correct_zip_code">올바른 우편번호를 입력하세요</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">장소 알 수 없음</string>
+	<string name="core_placepage_unknown_place">장소 알 수 없음</string>
 	<string name="editor_other_info">OSM 중재자에게 쪽지 보내기</string>
 	<string name="editor_detailed_description_hint">상세 설명</string>
 	<string name="editor_detailed_description">귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. MAPS.ME에서 편집할 수 없는 세부정보를 작성해 주세요.</string>
@@ -1099,7 +1099,7 @@
 	<string name="whatsnew_transliteration_title">라틴어로 음역</string>
 	<string name="whatsnew_transliteration_message">거리 또는 개체에 사용자 언어로 된 이름이 없는 경우, 라틴 알파벳을 사용하여 나옵니다.</string>
 	<string name="learn_more">자세히 알아보기</string>
-	<string name="exit">끝내기</string>
+	<string name="core_exit">끝내기</string>
 	<string name="routing_add_start_point">경로 계획을 세우기 위한 시작 지점을 추가하세요</string>
 	<string name="routing_add_finish_point">경로 계획을 세우기 위한 끝 지점을 추가하세요</string>
 	<string name="onboarding_welcome_message">턴-바이-턴 네비게이션을 이용하는 빠르고 상세하며 완전히 오프라인으로 이용 가능한 무료 지도입니다.</string>
@@ -1204,7 +1204,7 @@
 	<string name="booking_filters_offline">사용할 수 없음.</string>
 	<string name="directions_finish">목적지</string>
 	<string name="directions_on_foot">%s 걷기</string>
-	<string name="entrance">입구</string>
+	<string name="core_entrance">입구</string>
 	<string name="coffee">커피</string>
 	<string name="cleanliness">청결</string>
 	<string name="crowdedness">혼잡</string>

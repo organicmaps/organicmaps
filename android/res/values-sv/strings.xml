@@ -47,7 +47,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Min position</string>
+	<string name="core_my_position">Min position</string>
 	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Frigör mer utrymme på din enhet först för att kunna ladda ner %s</string>
@@ -147,7 +147,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Färg</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Mina Platser</string>
+	<string name="core_my_places">Mina Platser</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Namn</string>
 	<!-- Editor title above street and house number -->
@@ -815,7 +815,7 @@
 	<string name="editor_zip_code">Postnr</string>
 	<string name="error_enter_correct_zip_code">Ange korrekt postnr</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Okänd plats</string>
+	<string name="core_placepage_unknown_place">Okänd plats</string>
 	<string name="editor_other_info">Poznámka odoslaná regulátorovi OSM</string>
 	<string name="editor_detailed_description_hint">Detaljerad kommentar</string>
 	<string name="editor_detailed_description">Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i MAPS.ME.</string>
@@ -1107,7 +1107,7 @@
 	<string name="whatsnew_transliteration_title">Transkribering till latin</string>
 	<string name="whatsnew_transliteration_message">Om en gata eller ett objekt saknar ett namn på ditt språk kommer det att stavas med det latinska alfabetet.</string>
 	<string name="learn_more">Läs mer</string>
-	<string name="exit">Avsluta</string>
+	<string name="core_exit">Avsluta</string>
 	<string name="routing_add_start_point">Lägg till startpunkt för att planera en rutt</string>
 	<string name="routing_add_finish_point">Lägg till slutpunkt för att planera en rutt</string>
 	<string name="onboarding_welcome_message">Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.</string>
@@ -1212,7 +1212,7 @@
 	<string name="booking_filters_offline">Inte tillgängligt offline.</string>
 	<string name="directions_finish">Destination</string>
 	<string name="directions_on_foot">Gå %s</string>
-	<string name="entrance">Ingång</string>
+	<string name="core_entrance">Ingång</string>
 	<string name="coffee">Kaffe</string>
 	<string name="cleanliness">Rent</string>
 	<string name="crowdedness">Fullt</string>

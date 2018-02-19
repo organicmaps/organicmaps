@@ -79,7 +79,7 @@
 "miles" = "Miles";
 
 /* View and button titles for accessibility */
-"my_position" = "Min posisjon";
+"core_my_position" = "Min posisjon";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Farge";
 
 /* Default bookmarks set name */
-"my_places" = "Mine steder";
+"core_my_places" = "Mine steder";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Navn";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kompasskalibrering";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Oppdater kartet for å opprette en rute";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Angi riktig postnummer";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Ukjent sted";
+"core_placepage_unknown_place" = "Ukjent sted";
 
 "editor_other_info" = "Send en beskjed til OSM-moderatoren";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Finn ut mer";
 
-"exit" = "Avslutt";
+"core_exit" = "Avslutt";
 
 "routing_add_start_point" = "Angi startpunkt for å planlegge rute";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Gå %s";
 
-"entrance" = "Inngang";
+"core_entrance" = "Inngang";
 
 "coffee" = "Kaffe";
 

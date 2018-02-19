@@ -79,7 +79,7 @@
 "miles" = "Dặm";
 
 /* View and button titles for accessibility */
-"my_position" = "Vị trí của Tôi";
+"core_my_position" = "Vị trí của Tôi";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Màu sắc";
 
 /* Default bookmarks set name */
-"my_places" = "Các Địa chỉ của Tôi";
+"core_my_places" = "Các Địa chỉ của Tôi";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Tên";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Chuẩn hóa la bàn";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Vui lòng cập nhật bản đồ để tạo tuyến đường";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Nhập Mã ZIP chính xác";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Địa Điểm Chưa Biết";
+"core_placepage_unknown_place" = "Địa Điểm Chưa Biết";
 
 "editor_other_info" = "Gửi thanh đến người kiểm duyệt OSM";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Tìm hiểu thêm";
 
-"exit" = "Lối ra";
+"core_exit" = "Lối ra";
 
 "routing_add_start_point" = "Bổ sung điểm bắt đầu để lập kế hoạch lộ trình";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Đi bộ %s";
 
-"entrance" = "Lối vào";
+"core_entrance" = "Lối vào";
 
 "coffee" = "Cà phê";
 

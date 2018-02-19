@@ -51,7 +51,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Dặm</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Vị trí của Tôi</string>
+	<string name="core_my_position">Vị trí của Tôi</string>
 	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Bạn vui lòng giải phóng dung lượng trên thiết bị của mình để có thể tải xuống %s</string>
@@ -151,7 +151,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Màu sắc</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Các Địa chỉ của Tôi</string>
+	<string name="core_my_places">Các Địa chỉ của Tôi</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Tên</string>
 	<!-- Editor title above street and house number -->
@@ -405,7 +405,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Chuẩn hóa la bàn</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Vui lòng cập nhật bản đồ để tạo tuyến đường</string>
 	<!-- Update maps suggestion -->
@@ -811,7 +811,7 @@
 	<string name="editor_zip_code">Mã ZIP</string>
 	<string name="error_enter_correct_zip_code">Nhập Mã ZIP chính xác</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Địa Điểm Chưa Biết</string>
+	<string name="core_placepage_unknown_place">Địa Điểm Chưa Biết</string>
 	<string name="editor_other_info">Gửi thanh đến người kiểm duyệt OSM</string>
 	<string name="editor_detailed_description_hint">Nhận xét chi tiết</string>
 	<string name="editor_detailed_description">Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong MAPS.ME.</string>
@@ -1103,7 +1103,7 @@
 	<string name="whatsnew_transliteration_title">Chuyển ngữ sang chữ Latinh</string>
 	<string name="whatsnew_transliteration_message">Nếu một đường phố hoặc đối tượng không có tên trong ngôn ngữ của bạn, nó sẽ được đánh vần sử dụng bảng chữ cái alphabet.</string>
 	<string name="learn_more">Tìm hiểu thêm</string>
-	<string name="exit">Lối ra</string>
+	<string name="core_exit">Lối ra</string>
 	<string name="routing_add_start_point">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình</string>
 	<string name="routing_add_finish_point">Bổ sung điểm kết thúc để lập kế hoạch lộ trình</string>
 	<string name="onboarding_welcome_message">Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.</string>
@@ -1208,7 +1208,7 @@
 	<string name="booking_filters_offline">Không khả dụng ngoại tuyến.</string>
 	<string name="directions_finish">Điểm đến</string>
 	<string name="directions_on_foot">Đi bộ %s</string>
-	<string name="entrance">Lối vào</string>
+	<string name="core_entrance">Lối vào</string>
 	<string name="coffee">Cà phê</string>
 	<string name="cleanliness">Sạch sẽ</string>
 	<string name="crowdedness">Đông đúc</string>

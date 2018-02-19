@@ -49,7 +49,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mijlen</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Mijn Locatie</string>
+	<string name="core_my_position">Mijn Locatie</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Maak ruimte vrij op uw apparaat om %s te kunnen downloaden</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -145,7 +145,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Kleur</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Mijn Plaatsen</string>
+	<string name="core_my_places">Mijn Plaatsen</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Naam</string>
 	<!-- Editor title above street and house number -->
@@ -405,7 +405,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompascalibratie</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Werk de kaart bij om een route te maken.</string>
 	<!-- Update maps suggestion -->
@@ -811,7 +811,7 @@
 	<string name="editor_zip_code">Postcode</string>
 	<string name="error_enter_correct_zip_code">Voer de juiste postcode in</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Onbekende locatie</string>
+	<string name="core_placepage_unknown_place">Onbekende locatie</string>
 	<string name="editor_other_info">Een boodschap naar OSM-moderator sturen</string>
 	<string name="editor_detailed_description_hint">Gedetailleerde reactie</string>
 	<string name="editor_detailed_description">Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-community. Beschrijf de details die niet kunnen worden bewerkt in MAPS.ME.</string>
@@ -1103,7 +1103,7 @@
 	<string name="whatsnew_transliteration_title">Transliteratie in het Latijn</string>
 	<string name="whatsnew_transliteration_message">Indien een straat of object geen naam heeft in uw taal, wordt deze gespeld door gebruik van het Latijns alfabet.</string>
 	<string name="learn_more">Meer informatie</string>
-	<string name="exit">Verlaten</string>
+	<string name="core_exit">Verlaten</string>
 	<string name="routing_add_start_point">Voeg beginpunt toe om een route te plannen</string>
 	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen</string>
 	<string name="onboarding_welcome_message">Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.</string>
@@ -1208,7 +1208,7 @@
 	<string name="booking_filters_offline">Niet beschikbaar offline.</string>
 	<string name="directions_finish">Bestemming</string>
 	<string name="directions_on_foot">Wandel %s</string>
-	<string name="entrance">Ingang</string>
+	<string name="core_entrance">Ingang</string>
 	<string name="coffee">Koffie</string>
 	<string name="cleanliness">Netheid</string>
 	<string name="crowdedness">Drukte</string>

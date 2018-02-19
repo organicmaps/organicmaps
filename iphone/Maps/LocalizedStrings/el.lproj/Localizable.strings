@@ -79,7 +79,7 @@
 "miles" = "Μίλια";
 
 /* View and button titles for accessibility */
-"my_position" = "Η θέση μου";
+"core_my_position" = "Η θέση μου";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Color";
 
 /* Default bookmarks set name */
-"my_places" = "Οι τοποθεσίες μου";
+"core_my_places" = "Οι τοποθεσίες μου";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Όνομα";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Βαθμονόμηση πυξίδας";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Please update the map to create a route";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Άγνωστο μέρος";
+"core_placepage_unknown_place" = "Άγνωστο μέρος";
 
 "editor_other_info" = "Στείλτε μια σημείωση στο συντονιστή του OSM";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Μάθετε περισσότερα";
 
-"exit" = "Έξοδος";
+"core_exit" = "Έξοδος";
 
 "routing_add_start_point" = "Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Βάδισμα %s";
 
-"entrance" = "Είσοδος";
+"core_entrance" = "Είσοδος";
 
 "coffee" = "Καφές";
 

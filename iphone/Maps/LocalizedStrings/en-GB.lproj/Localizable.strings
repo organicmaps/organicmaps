@@ -79,7 +79,7 @@
 "miles" = "Miles";
 
 /* View and button titles for accessibility */
-"my_position" = "My Position";
+"core_my_position" = "My Position";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Colour";
 
 /* Default bookmarks set name */
-"my_places" = "My Places";
+"core_my_places" = "My Places";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Name";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Compass calibration";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Please update the map to create a route";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Enter a valid ZIP code";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Unknown Place";
+"core_placepage_unknown_place" = "Unknown Place";
 
 "editor_other_info" = "Send a note to OSM moderators";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Learn more";
 
-"exit" = "Exit";
+"core_exit" = "Exit";
 
 "routing_add_start_point" = "Add a starting point to plan a route";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Walk %s";
 
-"entrance" = "Entrance";
+"core_entrance" = "Entrance";
 
 "coffee" = "Coffee";
 

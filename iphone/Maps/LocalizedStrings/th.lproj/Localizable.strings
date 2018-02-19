@@ -79,7 +79,7 @@
 "miles" = "ไมล์";
 
 /* View and button titles for accessibility */
-"my_position" = "ตำแหน่งของฉัน";
+"core_my_position" = "ตำแหน่งของฉัน";
 
 "ok" = "ตกลง";
 
@@ -242,7 +242,7 @@
 "color" = "สี";
 
 /* Default bookmarks set name */
-"my_places" = "สถานที่ของฉัน";
+"core_my_places" = "สถานที่ของฉัน";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "ชื่อ";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "การปรับเทียบเข็มทิศ";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "โปรดอัปเดตแผนที่เพื่อสร้างเส้นทาง";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "ไม่ทราบชื่อสถานที่";
+"core_placepage_unknown_place" = "ไม่ทราบชื่อสถานที่";
 
 "editor_other_info" = "ส่งหมายเหตุไปยังผู้ดำเนินการ OSM";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "ศึกษาเพิ่มเติม";
 
-"exit" = "ออก";
+"core_exit" = "ออก";
 
 "routing_add_start_point" = "เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "เดินเท้า %s";
 
-"entrance" = "ทางเข้า";
+"core_entrance" = "ทางเข้า";
 
 "coffee" = "กาแฟ";
 

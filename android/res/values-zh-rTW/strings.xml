@@ -47,7 +47,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">英哩</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">我的位置</string>
+	<string name="core_my_position">我的位置</string>
 	<string name="ok">確定</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">如要下載%s ，請先釋放一些空間！</string>
@@ -147,7 +147,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">顏色</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">我的地點</string>
+	<string name="core_my_places">我的地點</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">名稱</string>
 	<!-- Editor title above street and house number -->
@@ -415,7 +415,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">指南針校準</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">無線網路</string>
+	<string name="core_wifi">無線網路</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">請更新地圖以建立一條路線。</string>
 	<!-- Update maps suggestion -->
@@ -821,7 +821,7 @@
 	<string name="editor_zip_code">郵遞區號</string>
 	<string name="error_enter_correct_zip_code">輸入正確的郵遞區號</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">未知的位置</string>
+	<string name="core_placepage_unknown_place">未知的位置</string>
 	<string name="editor_other_info">發送筆記到OSM調節器</string>
 	<string name="editor_detailed_description_hint">詳細註釋</string>
 	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 MAPS.ME 中編輯的詳細資料。</string>
@@ -1113,7 +1113,7 @@
 	<string name="whatsnew_transliteration_title">音譯為拉丁文</string>
 	<string name="whatsnew_transliteration_message">若街道或物件沒有您語言的名稱，會使用拉丁字母拼出。</string>
 	<string name="learn_more">瞭解更多資訊</string>
-	<string name="exit">退出</string>
+	<string name="core_exit">退出</string>
 	<string name="routing_add_start_point">新增起點以計劃路線</string>
 	<string name="routing_add_finish_point">新增終點以計劃路線</string>
 	<string name="onboarding_welcome_message">免費、快速、詳盡又全面的地圖，提供逐向導航服務。</string>
@@ -1218,7 +1218,7 @@
 	<string name="booking_filters_offline">無法使用。</string>
 	<string name="directions_finish">目的地</string>
 	<string name="directions_on_foot">步行 %s</string>
-	<string name="entrance">入口</string>
+	<string name="core_entrance">入口</string>
 	<string name="coffee">咖啡</string>
 	<string name="cleanliness">清潔程度</string>
 	<string name="crowdedness">擁擠程度</string>

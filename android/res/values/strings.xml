@@ -52,7 +52,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Miles</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">My Position</string>
+	<string name="core_my_position">My Position</string>
 	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Please free some space on your device first in order to download %s</string>
@@ -153,7 +153,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Color</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">My Places</string>
+	<string name="core_my_places">My Places</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Name</string>
 	<!-- Editor title above street and house number -->
@@ -425,7 +425,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Compass calibration</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Please update the map to create a route</string>
 	<!-- Update maps suggestion -->
@@ -833,7 +833,7 @@
 	<string name="editor_zip_code">ZIP Code</string>
 	<string name="error_enter_correct_zip_code">Enter a valid ZIP code</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Unknown Place</string>
+	<string name="core_placepage_unknown_place">Unknown Place</string>
 	<string name="editor_other_info">Send a note to OSM moderators</string>
 	<string name="editor_detailed_description_hint">Detailed comment</string>
 	<string name="editor_detailed_description">Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in MAPS.ME.</string>
@@ -1136,7 +1136,7 @@
 	<string name="whatsnew_transliteration_message">If a street or an object doesn\'t have a name in your language, it will be spelt using the Latin alphabet.</string>
 	<string name="yandex_taxi_title">Yandex.Taxi</string>
 	<string name="learn_more">Learn more</string>
-	<string name="exit">Exit</string>
+	<string name="core_exit">Exit</string>
 	<string name="routing_add_start_point">Add a starting point to plan a route</string>
 	<string name="routing_add_finish_point">Add a destination to plan a route</string>
 	<string name="onboarding_welcome_message">Free, fast, detailed and entirely offline maps with turn-by-turn navigation.</string>
@@ -1250,7 +1250,7 @@
 	<string name="booking_filters_offline">Not available offline.</string>
 	<string name="directions_finish">Destination</string>
 	<string name="directions_on_foot">Walk %s</string>
-	<string name="entrance">Entrance</string>
+	<string name="core_entrance">Entrance</string>
 	<string name="coffee">Coffee</string>
 	<string name="cleanliness">Cleanliness</string>
 	<string name="crowdedness">Crowdedness</string>

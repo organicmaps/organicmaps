@@ -79,7 +79,7 @@
 "miles" = "英哩";
 
 /* View and button titles for accessibility */
-"my_position" = "我的位置";
+"core_my_position" = "我的位置";
 
 "ok" = "確定";
 
@@ -242,7 +242,7 @@
 "color" = "顏色";
 
 /* Default bookmarks set name */
-"my_places" = "我的地點";
+"core_my_places" = "我的地點";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "名稱";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "指南針校準";
 
 /* Search Suggestion */
-"wifi" = "無線網路";
+"core_wifi" = "無線網路";
 
 /* Update map suggestion */
 "routing_map_outdated" = "請更新地圖以建立一條路線。";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "輸入正確的郵遞區號";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "未知的位置";
+"core_placepage_unknown_place" = "未知的位置";
 
 "editor_other_info" = "發送筆記到OSM調節器";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "瞭解更多資訊";
 
-"exit" = "退出";
+"core_exit" = "退出";
 
 "routing_add_start_point" = "新增起點以計劃路線";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "步行 %s";
 
-"entrance" = "入口";
+"core_entrance" = "入口";
 
 "coffee" = "咖啡";
 

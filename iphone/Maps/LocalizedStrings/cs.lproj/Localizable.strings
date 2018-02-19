@@ -79,7 +79,7 @@
 "miles" = "Míle";
 
 /* View and button titles for accessibility */
-"my_position" = "Moje poloha";
+"core_my_position" = "Moje poloha";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Barva";
 
 /* Default bookmarks set name */
-"my_places" = "Moje místa";
+"core_my_places" = "Moje místa";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Název";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kalibrace kompasu";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Pro funkci vytváření tras je nutné aktualizovat mapu.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Zadejte správné PSČ";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Neznámé místo";
+"core_placepage_unknown_place" = "Neznámé místo";
 
 "editor_other_info" = "Odeslat komentář moderátorovi OSM";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Zjistit více";
 
-"exit" = "Ukončit";
+"core_exit" = "Ukončit";
 
 "routing_add_start_point" = "Zadejte výchozí bod pro plánování trasy";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Chůze %s";
 
-"entrance" = "Vstup";
+"core_entrance" = "Vstup";
 
 "coffee" = "Káva";
 

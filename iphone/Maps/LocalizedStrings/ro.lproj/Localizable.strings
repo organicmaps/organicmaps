@@ -79,7 +79,7 @@
 "miles" = "Mile";
 
 /* View and button titles for accessibility */
-"my_position" = "Poziția mea";
+"core_my_position" = "Poziția mea";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Culoare";
 
 /* Default bookmarks set name */
-"my_places" = "Locurile mele";
+"core_my_places" = "Locurile mele";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Nume";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Calibrare busolă";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Vă rugăm să actualizați harta pentru a crea o rută.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Introduceți codul poștal corect";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Loc necunoscut";
+"core_placepage_unknown_place" = "Loc necunoscut";
 
 "editor_other_info" = "Trimiteți un resturi moderatorului OSM";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Mai multe";
 
-"exit" = "Ieșire";
+"core_exit" = "Ieșire";
 
 "routing_add_start_point" = "Adăugați punctul de plecare pentru a planifica un traseu";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "%s de mers";
 
-"entrance" = "Intrare";
+"core_entrance" = "Intrare";
 
 "coffee" = "Cafea";
 

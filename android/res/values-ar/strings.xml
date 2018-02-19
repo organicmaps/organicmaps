@@ -51,7 +51,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">ميل</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">موقعي</string>
+	<string name="core_my_position">موقعي</string>
 	<string name="ok">موافق</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">الرجاء إخلاء بعض المساحة في ذاكرة جهازك أولا لكي تتمكن من تنزيل %s</string>
@@ -151,7 +151,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">اللون</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">أماكني</string>
+	<string name="core_my_places">أماكني</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">الاسم</string>
 	<!-- Editor title above street and house number -->
@@ -411,7 +411,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">معايرة البوصلة</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">واي فاي</string>
+	<string name="core_wifi">واي فاي</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">يرجى تحديث الخريطة لإنشاء مسار.</string>
 	<!-- Update maps suggestion -->
@@ -817,7 +817,7 @@
 	<string name="editor_zip_code">الرمز البريدي</string>
 	<string name="error_enter_correct_zip_code">أدخل الرمز البريدي الصحيح</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">مكان غير معروف</string>
+	<string name="core_placepage_unknown_place">مكان غير معروف</string>
 	<string name="editor_other_info">أُرْسِلْتِ ملحوظة إلى وَسِيط OSM</string>
 	<string name="editor_detailed_description_hint">تعليق مفصل</string>
 	<string name="editor_detailed_description">سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في MAPS.ME</string>
@@ -1109,7 +1109,7 @@
 	<string name="whatsnew_transliteration_title">كتابة بالحروف اللاتينية</string>
 	<string name="whatsnew_transliteration_message">إذا كان الشارع أو الهدف ليس له اسم بلغتك. فسيتم هجاؤه بالحروف اللاتينية.</string>
 	<string name="learn_more">تعلم المزيد</string>
-	<string name="exit">خروج</string>
+	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
 	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>
 	<string name="onboarding_welcome_message">خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.</string>
@@ -1214,7 +1214,7 @@
 	<string name="booking_filters_offline">غير متاح.</string>
 	<string name="directions_finish">الوجهة</string>
 	<string name="directions_on_foot">سيرًا %s</string>
-	<string name="entrance">المدخل</string>
+	<string name="core_entrance">المدخل</string>
 	<string name="coffee">قهوة</string>
 	<string name="cleanliness">نظافة</string>
 	<string name="crowdedness">اكتظاظ</string>

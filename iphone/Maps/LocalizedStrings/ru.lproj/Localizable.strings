@@ -79,7 +79,7 @@
 "miles" = "Мили";
 
 /* View and button titles for accessibility */
-"my_position" = "Мое местоположение";
+"core_my_position" = "Мое местоположение";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Цвет";
 
 /* Default bookmarks set name */
-"my_places" = "Мои Метки";
+"core_my_places" = "Мои Метки";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Название";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Калибровка компаса";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Пожалуйста, обновите карту для того, чтобы проложить маршрут.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Введите корректный почтовый индекс";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Неизвестное место";
+"core_placepage_unknown_place" = "Неизвестное место";
 
 "editor_other_info" = "Отправить сообщение модератору OSM";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Узнать больше";
 
-"exit" = "Выход";
+"core_exit" = "Выход";
 
 "routing_add_start_point" = "Добавьте стартовую точку, чтобы построить маршрут";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Пешком %s";
 
-"entrance" = "Вход";
+"core_entrance" = "Вход";
 
 "coffee" = "Кофе";
 

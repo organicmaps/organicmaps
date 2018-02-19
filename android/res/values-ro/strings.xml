@@ -51,7 +51,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mile</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Poziția mea</string>
+	<string name="core_my_position">Poziția mea</string>
 	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Vă rugăm să eliberați niște spațiu pe dispozitivul dvs. mai întâi, pentru a descărca %s.</string>
@@ -151,7 +151,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Culoare</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Locurile mele</string>
+	<string name="core_my_places">Locurile mele</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nume</string>
 	<!-- Editor title above street and house number -->
@@ -403,7 +403,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Calibrare busolă</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Vă rugăm să actualizați harta pentru a crea o rută.</string>
 	<!-- Update maps suggestion -->
@@ -808,7 +808,7 @@
 	<string name="editor_zip_code">Cod poștal</string>
 	<string name="error_enter_correct_zip_code">Introduceți codul poștal corect</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Loc necunoscut</string>
+	<string name="core_placepage_unknown_place">Loc necunoscut</string>
 	<string name="editor_other_info">Trimiteți un resturi moderatorului OSM</string>
 	<string name="editor_detailed_description_hint">Comentariu detaliat</string>
 	<string name="editor_detailed_description">Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in MAPS.ME.</string>
@@ -1099,7 +1099,7 @@
 	<string name="whatsnew_transliteration_title">Transcriere în alfabet latin</string>
 	<string name="whatsnew_transliteration_message">Dacă o stradă sau un obiect nu are un nume în limba dvs., va fi exprimat utilizând alfabetul latin.</string>
 	<string name="learn_more">Mai multe</string>
-	<string name="exit">Ieșire</string>
+	<string name="core_exit">Ieșire</string>
 	<string name="routing_add_start_point">Adăugați punctul de plecare pentru a planifica un traseu</string>
 	<string name="routing_add_finish_point">Adăugați punctul de sosire pentru a planifica un traseu</string>
 	<string name="onboarding_welcome_message">Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.</string>
@@ -1204,7 +1204,7 @@
 	<string name="booking_filters_offline">Nu este disponibil offline.</string>
 	<string name="directions_finish">Destinație</string>
 	<string name="directions_on_foot">%s de mers</string>
-	<string name="entrance">Intrare</string>
+	<string name="core_entrance">Intrare</string>
 	<string name="coffee">Cafea</string>
 	<string name="cleanliness">Curățenie</string>
 	<string name="crowdedness">Aglomerație</string>

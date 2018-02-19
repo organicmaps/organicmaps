@@ -52,7 +52,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Мили</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Мое местоположение</string>
+	<string name="core_my_position">Мое местоположение</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -151,7 +151,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Цвет</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Мои Метки</string>
+	<string name="core_my_places">Мои Метки</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Название</string>
 	<!-- Editor title above street and house number -->
@@ -423,7 +423,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Калибровка компаса</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Пожалуйста, обновите карту для того, чтобы проложить маршрут.</string>
 	<!-- Update maps suggestion -->
@@ -829,7 +829,7 @@
 	<string name="editor_zip_code">Почтовый индекс</string>
 	<string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Неизвестное место</string>
+	<string name="core_placepage_unknown_place">Неизвестное место</string>
 	<string name="editor_other_info">Отправить сообщение модератору OSM</string>
 	<string name="editor_detailed_description_hint">Подробный комментарий</string>
 	<string name="editor_detailed_description">Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые MAPS.ME не позволяет отредактировать.</string>
@@ -1124,7 +1124,7 @@
 	<string name="whatsnew_transliteration_message">Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.</string>
 	<string name="yandex_taxi_title">Яндекс.Такси</string>
 	<string name="learn_more">Узнать больше</string>
-	<string name="exit">Выход</string>
+	<string name="core_exit">Выход</string>
 	<string name="routing_add_start_point">Добавьте стартовую точку, чтобы построить маршрут</string>
 	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут</string>
 	<string name="onboarding_welcome_message">Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.</string>
@@ -1238,7 +1238,7 @@
 	<string name="booking_filters_offline">Недоступно без интернета.</string>
 	<string name="directions_finish">Место назначения</string>
 	<string name="directions_on_foot">Пешком %s</string>
-	<string name="entrance">Вход</string>
+	<string name="core_entrance">Вход</string>
 	<string name="coffee">Кофе</string>
 	<string name="cleanliness">Чистота</string>
 	<string name="crowdedness">Многолюдность</string>

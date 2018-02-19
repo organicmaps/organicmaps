@@ -79,7 +79,7 @@
 "miles" = "英里";
 
 /* View and button titles for accessibility */
-"my_position" = "我的位置";
+"core_my_position" = "我的位置";
 
 "ok" = "确定";
 
@@ -242,7 +242,7 @@
 "color" = "色彩";
 
 /* Default bookmarks set name */
-"my_places" = "我的位置";
+"core_my_places" = "我的位置";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "名字";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "指南针校准";
 
 /* Search Suggestion */
-"wifi" = "无线网络";
+"core_wifi" = "无线网络";
 
 /* Update map suggestion */
 "routing_map_outdated" = "请更新地图以创建一条路线。";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "输入正确的邮编";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "未知位置";
+"core_placepage_unknown_place" = "未知位置";
 
 "editor_other_info" = "发送笔记到OSM调节器";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "了解更多";
 
-"exit" = "退出";
+"core_exit" = "退出";
 
 "routing_add_start_point" = "添加起点以规划路线";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "步行 %s";
 
-"entrance" = "入口";
+"core_entrance" = "入口";
 
 "coffee" = "咖啡";
 

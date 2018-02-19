@@ -79,7 +79,7 @@
 "miles" = "ميل";
 
 /* View and button titles for accessibility */
-"my_position" = "موقعي";
+"core_my_position" = "موقعي";
 
 "ok" = "موافق";
 
@@ -242,7 +242,7 @@
 "color" = "اللون";
 
 /* Default bookmarks set name */
-"my_places" = "أماكني";
+"core_my_places" = "أماكني";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "الاسم";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "معايرة البوصلة";
 
 /* Search Suggestion */
-"wifi" = "واي فاي";
+"core_wifi" = "واي فاي";
 
 /* Update map suggestion */
 "routing_map_outdated" = "يرجى تحديث الخريطة لإنشاء مسار.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "أدخل الرمز البريدي الصحيح";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "مكان غير معروف";
+"core_placepage_unknown_place" = "مكان غير معروف";
 
 "editor_other_info" = "أُرْسِلْتِ ملحوظة إلى وَسِيط OSM";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "تعلم المزيد";
 
-"exit" = "خروج";
+"core_exit" = "خروج";
 
 "routing_add_start_point" = "أضف نقطة البداية لتخطيط المسار";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "سيرًا %s";
 
-"entrance" = "المدخل";
+"core_entrance" = "المدخل";
 
 "coffee" = "قهوة";
 

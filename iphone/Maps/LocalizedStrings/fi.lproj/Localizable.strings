@@ -79,7 +79,7 @@
 "miles" = "Mailit";
 
 /* View and button titles for accessibility */
-"my_position" = "Sijaintini";
+"core_my_position" = "Sijaintini";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Väri";
 
 /* Default bookmarks set name */
-"my_places" = "Paikkani";
+"core_my_places" = "Paikkani";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Nimi";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kompassin kalibrointi";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Päivitä kartta luodaksesi reitin";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Anna kelvollinen postinumero";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Tuntematon paikka";
+"core_placepage_unknown_place" = "Tuntematon paikka";
 
 "editor_other_info" = "Lähetä muistiinpano OSM-moderaattorille";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Lisätietoja";
 
-"exit" = "Poistu";
+"core_exit" = "Poistu";
 
 "routing_add_start_point" = "Lisää alkupiste reitin suunnittelua varten";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Kävele %s";
 
-"entrance" = "Sisäänkäynti";
+"core_entrance" = "Sisäänkäynti";
 
 "coffee" = "Kahvi";
 

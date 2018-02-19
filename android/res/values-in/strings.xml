@@ -51,7 +51,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Posisi Saya</string>
+	<string name="core_my_position">Posisi Saya</string>
 	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Mohon bebaskan ruang pada perangkat Anda terlebih dahulu untuk mengunduh %s</string>
@@ -151,7 +151,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Warna</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Tempat-tempat Saya</string>
+	<string name="core_my_places">Tempat-tempat Saya</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nama</string>
 	<!-- Editor title above street and house number -->
@@ -405,7 +405,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibrasi kompas</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Mohon perbarui peta untuk membuat rute</string>
 	<!-- Update maps suggestion -->
@@ -810,7 +810,7 @@
 	<string name="editor_zip_code">Kode Pos</string>
 	<string name="error_enter_correct_zip_code">Masukkan Kode Pos yang benar</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Tempat Tidak Dikenal</string>
+	<string name="core_placepage_unknown_place">Tempat Tidak Dikenal</string>
 	<string name="editor_other_info">Mengirim catatan ke moderator OSM</string>
 	<string name="editor_detailed_description_hint">Komentar mendetail</string>
 	<string name="editor_detailed_description">Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di MAPS.ME.</string>
@@ -1102,7 +1102,7 @@
 	<string name="whatsnew_transliteration_title">Transliterasi ke dalam bahasa Latin</string>
 	<string name="whatsnew_transliteration_message">Jika jalan atau objek tidak memiliki nama dalam bahasa Anda, namanya akan dieja menggunakan alfabet Latin.</string>
 	<string name="learn_more">Pelajari selengkapnya</string>
-	<string name="exit">Keluar</string>
+	<string name="core_exit">Keluar</string>
 	<string name="routing_add_start_point">Tambahkan titik awal untuk merencanakan rute</string>
 	<string name="routing_add_finish_point">Tambahkan titik akhir untuk merencanakan rute</string>
 	<string name="onboarding_welcome_message">Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.</string>
@@ -1207,7 +1207,7 @@
 	<string name="booking_filters_offline">Tidak tersedia offline.</string>
 	<string name="directions_finish">Destinasi</string>
 	<string name="directions_on_foot">Berjalan %s</string>
-	<string name="entrance">Tempat masuk</string>
+	<string name="core_entrance">Tempat masuk</string>
 	<string name="coffee">Kopi</string>
 	<string name="cleanliness">Kebersihan</string>
 	<string name="crowdedness">Keramaian</string>

@@ -51,7 +51,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Meilen</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Mein Standort</string>
+	<string name="core_my_position">Mein Standort</string>
 	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um %s herunterzuladen.</string>
@@ -151,7 +151,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Farbe</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Meine Orte</string>
+	<string name="core_my_places">Meine Orte</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Name</string>
 	<!-- Editor title above street and house number -->
@@ -419,7 +419,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompass-Kalibrierung</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WLAN</string>
+	<string name="core_wifi">WLAN</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Bitte aktualisieren Sie die Karte, um eine Route zu erstellen.</string>
 	<!-- Update maps suggestion -->
@@ -825,7 +825,7 @@
 	<string name="editor_zip_code">Postleitzahl</string>
 	<string name="error_enter_correct_zip_code">Geben Sie die korrekte Postleitzahl ein</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Unbekannter Ort</string>
+	<string name="core_placepage_unknown_place">Unbekannter Ort</string>
 	<string name="editor_other_info">Senden Sie eine Notiz an den OSM-Moderator</string>
 	<string name="editor_detailed_description_hint">Ausführlicher Kommentar</string>
 	<string name="editor_detailed_description">Ihre Änderungsvorschläge für die Karte werden an OpenStreetMap gesendet: Beschreiben Sie die Details der Objekte, die Sie in MAPS.ME nicht bearbeiten können.</string>
@@ -1117,7 +1117,7 @@
 	<string name="whatsnew_transliteration_title">Transliteration ins Lateinische</string>
 	<string name="whatsnew_transliteration_message">Wenn eine Straße oder ein Objekt in Ihrer Sprache keinen Namen hat, wird er mit lateinischen Buchstaben geschrieben.</string>
 	<string name="learn_more">Weitere Informationen</string>
-	<string name="exit">Beenden</string>
+	<string name="core_exit">Beenden</string>
 	<string name="routing_add_start_point">Fügen Sie einen Startpunkt hinzu, um eine Route zu planen</string>
 	<string name="routing_add_finish_point">Fügen Sie ein Ziel hinzu, um eine Route zu planen</string>
 	<string name="onboarding_welcome_message">Kostenlose, schnelle, detaillierte und vollständig offline benutzbare Karten mit genauer Navigation.</string>
@@ -1222,7 +1222,7 @@
 	<string name="booking_filters_offline">Offline nicht verfügbar.</string>
 	<string name="directions_finish">Ziel</string>
 	<string name="directions_on_foot">%s zu Fuß gehen</string>
-	<string name="entrance">Eingang</string>
+	<string name="core_entrance">Eingang</string>
 	<string name="coffee">Kaffee</string>
 	<string name="cleanliness">Sauberkeit</string>
 	<string name="crowdedness">Gedrängtheit</string>

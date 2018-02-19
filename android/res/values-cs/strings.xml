@@ -47,7 +47,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Míle</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Moje poloha</string>
+	<string name="core_my_position">Moje poloha</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Prosím, uvolněte nějaké místo ve svém zařízení, než začnete stahovat %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -146,7 +146,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Barva</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Moje místa</string>
+	<string name="core_my_places">Moje místa</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Název</string>
 	<!-- Editor title above street and house number -->
@@ -412,7 +412,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibrace kompasu</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Pro funkci vytváření tras je nutné aktualizovat mapu.</string>
 	<!-- Update maps suggestion -->
@@ -818,7 +818,7 @@
 	<string name="editor_zip_code">PSČ</string>
 	<string name="error_enter_correct_zip_code">Zadejte správné PSČ</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Neznámé místo</string>
+	<string name="core_placepage_unknown_place">Neznámé místo</string>
 	<string name="editor_other_info">Odeslat komentář moderátorovi OSM</string>
 	<string name="editor_detailed_description_hint">Podrobný komentář</string>
 	<string name="editor_detailed_description">Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v MAPS.ME.</string>
@@ -1110,7 +1110,7 @@
 	<string name="whatsnew_transliteration_title">Přepis do latinky</string>
 	<string name="whatsnew_transliteration_message">Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.</string>
 	<string name="learn_more">Zjistit více</string>
-	<string name="exit">Ukončit</string>
+	<string name="core_exit">Ukončit</string>
 	<string name="routing_add_start_point">Zadejte výchozí bod pro plánování trasy</string>
 	<string name="routing_add_finish_point">Zadejte cílový bod pro plánování trasy</string>
 	<string name="onboarding_welcome_message">Bezplatné, rychlé, podrobné a zcela offline mapy s navigací \"turn-by-turn\".</string>
@@ -1215,7 +1215,7 @@
 	<string name="booking_filters_offline">Není k dispozici offline.</string>
 	<string name="directions_finish">Cíl</string>
 	<string name="directions_on_foot">Chůze %s</string>
-	<string name="entrance">Vstup</string>
+	<string name="core_entrance">Vstup</string>
 	<string name="coffee">Káva</string>
 	<string name="cleanliness">Čistota</string>
 	<string name="crowdedness">Přelidnění</string>

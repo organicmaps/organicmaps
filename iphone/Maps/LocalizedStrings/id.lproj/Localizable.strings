@@ -79,7 +79,7 @@
 "miles" = "Mil";
 
 /* View and button titles for accessibility */
-"my_position" = "Posisi Saya";
+"core_my_position" = "Posisi Saya";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Warna";
 
 /* Default bookmarks set name */
-"my_places" = "Tempat-tempat Saya";
+"core_my_places" = "Tempat-tempat Saya";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Nama";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kalibrasi kompas";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Mohon perbarui peta untuk membuat rute";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Masukkan Kode Pos yang benar";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Tempat Tidak Dikenal";
+"core_placepage_unknown_place" = "Tempat Tidak Dikenal";
 
 "editor_other_info" = "Mengirim catatan ke moderator OSM";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Pelajari selengkapnya";
 
-"exit" = "Keluar";
+"core_exit" = "Keluar";
 
 "routing_add_start_point" = "Tambahkan titik awal untuk merencanakan rute";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Berjalan %s";
 
-"entrance" = "Tempat masuk";
+"core_entrance" = "Tempat masuk";
 
 "coffee" = "Kopi";
 

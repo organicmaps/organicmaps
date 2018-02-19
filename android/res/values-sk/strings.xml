@@ -47,7 +47,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Míle</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Moja poloha</string>
+	<string name="core_my_position">Moja poloha</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Prosím, uvoľnite nejaké miesto vo svojom zariadení, kým začnete sťahovať %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -146,7 +146,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Farba</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Moje miesta</string>
+	<string name="core_my_places">Moje miesta</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Názov</string>
 	<!-- Editor title above street and house number -->
@@ -410,7 +410,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Compass kalibrácia</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Pre vytvorenie trasy si, prosím, aktualizujte mapu.</string>
 	<!-- Update maps suggestion -->
@@ -814,7 +814,7 @@
 	<string name="editor_zip_code">PSČ</string>
 	<string name="error_enter_correct_zip_code">Zadajte správne PSČ</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Neznáme miesto</string>
+	<string name="core_placepage_unknown_place">Neznáme miesto</string>
 	<string name="editor_other_info">Poznámka odoslaná regulátorovi OSM</string>
 	<string name="editor_detailed_description_hint">Zmazaná poznámka</string>
 	<string name="editor_detailed_description">Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME.</string>
@@ -1106,7 +1106,7 @@
 	<string name="whatsnew_transliteration_title">Prepis do latinčiny</string>
 	<string name="whatsnew_transliteration_message">Ak ulica alebo objekt nemá názov vo vašom jazyku, prepíše sa tento názov latinkou.</string>
 	<string name="learn_more">Zistiť viac</string>
-	<string name="exit">Ukončiť</string>
+	<string name="core_exit">Ukončiť</string>
 	<string name="routing_add_start_point">Pridaním počiatočného bodu začnite plánovať trasu</string>
 	<string name="routing_add_finish_point">Pridaním cieľového bodu naplánujete trasu</string>
 	<string name="onboarding_welcome_message">Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.</string>
@@ -1211,7 +1211,7 @@
 	<string name="booking_filters_offline">Nie sú k dispozícii offline.</string>
 	<string name="directions_finish">Ciel</string>
 	<string name="directions_on_foot">Chôdza %s</string>
-	<string name="entrance">Vchod  | vjazd</string>
+	<string name="core_entrance">Vchod  | vjazd</string>
 	<string name="coffee">Káva</string>
 	<string name="cleanliness">Čistota</string>
 	<string name="crowdedness">Preplnenosť</string>

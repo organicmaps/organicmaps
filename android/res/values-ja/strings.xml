@@ -47,7 +47,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">マイル</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">現在地</string>
+	<string name="core_my_position">現在地</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">%sをダウンロードするため、デバイスの空き容量を確認してください</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -146,7 +146,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">表示色</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">マイロケーション</string>
+	<string name="core_my_places">マイロケーション</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">名称</string>
 	<!-- Editor title above street and house number -->
@@ -404,7 +404,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">コンパスの調整</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">無線LAN</string>
+	<string name="core_wifi">無線LAN</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">ルートを作成するためにマップを更新してください。</string>
 	<!-- Update maps suggestion -->
@@ -810,7 +810,7 @@
 	<string name="editor_zip_code">郵便番号</string>
 	<string name="error_enter_correct_zip_code">正しい郵便番号を入力してください</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">不明な場所</string>
+	<string name="core_placepage_unknown_place">不明な場所</string>
 	<string name="editor_other_info">OSM モデレーターにメモを送信</string>
 	<string name="editor_detailed_description_hint">詳細なコメント</string>
 	<string name="editor_detailed_description">あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。MAPS.MEで編集できない詳細を説明してください。</string>
@@ -1102,7 +1102,7 @@
 	<string name="whatsnew_transliteration_title">ラテン文字への字訳</string>
 	<string name="whatsnew_transliteration_message">通り名や物件名をあなたの言語で表示できない場合、ラテン文字のアルファベットで綴られます。</string>
 	<string name="learn_more">詳細情報</string>
-	<string name="exit">終了</string>
+	<string name="core_exit">終了</string>
 	<string name="routing_add_start_point">ルートを計画するには出発地点を追加してください</string>
 	<string name="routing_add_finish_point">ルートを計画するには到着地点を追加してください</string>
 	<string name="onboarding_welcome_message">ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。</string>
@@ -1207,7 +1207,7 @@
 	<string name="booking_filters_offline">利用不可.</string>
 	<string name="directions_finish">目的地</string>
 	<string name="directions_on_foot">徒歩 %s</string>
-	<string name="entrance">入口</string>
+	<string name="core_entrance">入口</string>
 	<string name="coffee">コーヒー</string>
 	<string name="cleanliness">清潔さ</string>
 	<string name="crowdedness">混雑度</string>

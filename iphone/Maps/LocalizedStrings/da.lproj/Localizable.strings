@@ -79,7 +79,7 @@
 "miles" = "Mil";
 
 /* View and button titles for accessibility */
-"my_position" = "Min position";
+"core_my_position" = "Min position";
 
 "ok" = "Ok";
 
@@ -242,7 +242,7 @@
 "color" = "Farve";
 
 /* Default bookmarks set name */
-"my_places" = "Mine Steder";
+"core_my_places" = "Mine Steder";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Navn";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kalibrering af kompas";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Venligst opdatér kortet for at oprette en rute.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Indtast det korrekte postnummer";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Ukendt sted";
+"core_placepage_unknown_place" = "Ukendt sted";
 
 "editor_other_info" = "Send en besked til OSM-moderator";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Flere oplysninger";
 
-"exit" = "Afslut";
+"core_exit" = "Afslut";
 
 "routing_add_start_point" = "Tilføj startpunkt for at planlægge en rute";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Gå %s";
 
-"entrance" = "Indgang";
+"core_entrance" = "Indgang";
 
 "coffee" = "Kaffe";
 

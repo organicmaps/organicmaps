@@ -51,7 +51,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">ไมล์</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">ตำแหน่งของฉัน</string>
+	<string name="core_my_position">ตำแหน่งของฉัน</string>
 	<string name="ok">ตกลง</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">โปรดเพิ่มพื้นที่บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %s</string>
@@ -151,7 +151,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">สี</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">สถานที่ของฉัน</string>
+	<string name="core_my_places">สถานที่ของฉัน</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">ชื่อ</string>
 	<!-- Editor title above street and house number -->
@@ -411,7 +411,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">การปรับเทียบเข็มทิศ</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">โปรดอัปเดตแผนที่เพื่อสร้างเส้นทาง</string>
 	<!-- Update maps suggestion -->
@@ -817,7 +817,7 @@
 	<string name="editor_zip_code">รหัสไปรษณีย์</string>
 	<string name="error_enter_correct_zip_code">กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">ไม่ทราบชื่อสถานที่</string>
+	<string name="core_placepage_unknown_place">ไม่ทราบชื่อสถานที่</string>
 	<string name="editor_other_info">ส่งหมายเหตุไปยังผู้ดำเนินการ OSM</string>
 	<string name="editor_detailed_description_hint">ข้อคิดเห็นอย่างละเอียด</string>
 	<string name="editor_detailed_description">คำแนะนำการเปลี่ยนแปลงของคุณจะถูกส่งไปยังกลุ่ม OpenStreetMap โปรดอธิบายรายละเอียดที่ MAPS.ME ไม่สามารถแก้ไขได้</string>
@@ -1109,7 +1109,7 @@
 	<string name="whatsnew_transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
 	<string name="whatsnew_transliteration_message">หากถนนหรือเป้าหมายไม่มีชื่อในภาษาของคุณก็จะสะกดโดยใช้ตัวอักษรละติน</string>
 	<string name="learn_more">ศึกษาเพิ่มเติม</string>
-	<string name="exit">ออก</string>
+	<string name="core_exit">ออก</string>
 	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
 	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
 	<string name="onboarding_welcome_message">แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน</string>
@@ -1214,7 +1214,7 @@
 	<string name="booking_filters_offline">ไม่สามารถใช้ได.</string>
 	<string name="directions_finish">จุดหมายปลายทาง</string>
 	<string name="directions_on_foot">เดินเท้า %s</string>
-	<string name="entrance">ทางเข้า</string>
+	<string name="core_entrance">ทางเข้า</string>
 	<string name="coffee">กาแฟ</string>
 	<string name="cleanliness">ความสะอาด</string>
 	<string name="crowdedness">ความแออัด</string>

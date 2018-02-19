@@ -51,7 +51,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Miles</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Min posisjon</string>
+	<string name="core_my_position">Min posisjon</string>
 	<string name="ok">OK</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Frigjør plass på enheten først for å laste ned %s</string>
@@ -151,7 +151,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Farge</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Mine steder</string>
+	<string name="core_my_places">Mine steder</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Navn</string>
 	<!-- Editor title above street and house number -->
@@ -405,7 +405,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompasskalibrering</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Oppdater kartet for å opprette en rute</string>
 	<!-- Update maps suggestion -->
@@ -809,7 +809,7 @@
 	<string name="editor_zip_code">Postnummer</string>
 	<string name="error_enter_correct_zip_code">Angi riktig postnummer</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Ukjent sted</string>
+	<string name="core_placepage_unknown_place">Ukjent sted</string>
 	<string name="editor_other_info">Send en beskjed til OSM-moderatoren</string>
 	<string name="editor_detailed_description_hint">Detaljert kommentar</string>
 	<string name="editor_detailed_description">De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i MAPS.ME.</string>
@@ -1101,7 +1101,7 @@
 	<string name="whatsnew_transliteration_title">Omskrivning til latin</string>
 	<string name="whatsnew_transliteration_message">Hvis en gate eller et element ikke har et navn på ditt språk, vil det bli skrevet med det latinske alfabetet.</string>
 	<string name="learn_more">Finn ut mer</string>
-	<string name="exit">Avslutt</string>
+	<string name="core_exit">Avslutt</string>
 	<string name="routing_add_start_point">Angi startpunkt for å planlegge rute</string>
 	<string name="routing_add_finish_point">Angi sluttpunkt for å planlegge rute</string>
 	<string name="onboarding_welcome_message">Gratis, rask, detaljert og helt offline kart med rutenavigasjon.</string>
@@ -1206,7 +1206,7 @@
 	<string name="booking_filters_offline">Ikke tilgjengelig offline.</string>
 	<string name="directions_finish">Destinasjon</string>
 	<string name="directions_on_foot">Gå %s</string>
-	<string name="entrance">Inngang</string>
+	<string name="core_entrance">Inngang</string>
 	<string name="coffee">Kaffe</string>
 	<string name="cleanliness">Renslighet</string>
 	<string name="crowdedness">Mye folk</string>

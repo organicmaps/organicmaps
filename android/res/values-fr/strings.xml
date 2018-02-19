@@ -51,7 +51,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Miles</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Ma position</string>
+	<string name="core_my_position">Ma position</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Veuillez d\'abord libérer de l\'espace sur votre appareil afin de télécharger %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -150,7 +150,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Couleur</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Mes endroits</string>
+	<string name="core_my_places">Mes endroits</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nom</string>
 	<!-- Editor title above street and house number -->
@@ -416,7 +416,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Étalonnage de la boussole</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Veuillez mettre à jour la carte pour créer un itinéraire.</string>
 	<!-- Update maps suggestion -->
@@ -824,7 +824,7 @@
 	<string name="editor_zip_code">Code postal</string>
 	<string name="error_enter_correct_zip_code">Entrer le code postal correct</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Place inconnue</string>
+	<string name="core_placepage_unknown_place">Place inconnue</string>
 	<string name="editor_other_info">Envoyer un message au modérateur d\'OSM</string>
 	<string name="editor_detailed_description_hint">Commentaire détaillé</string>
 	<string name="editor_detailed_description">Vos modifications suggérées ont été envoyées à la communauté OpenStreetMap. Décrivez les détails qui ne peuvent pas être modifiés dans MAPS.ME.</string>
@@ -1116,7 +1116,7 @@
 	<string name="whatsnew_transliteration_title">Translittération en latin</string>
 	<string name="whatsnew_transliteration_message">Si une rue ou un objet n’a pas de nom dans votre langue, l’alphabet latin sera utilisé pour l\'écrire.</string>
 	<string name="learn_more">En savoir plus</string>
-	<string name="exit">Quitter</string>
+	<string name="core_exit">Quitter</string>
 	<string name="routing_add_start_point">Ajouter un point de départ pour planifier un itinéraire</string>
 	<string name="routing_add_finish_point">Ajouter un point d\'arrivée pour planifier un itinéraire</string>
 	<string name="onboarding_welcome_message">Cartes avec navigation étape par étape, gratuites, rapides, détaillées et totalement hors ligne.</string>
@@ -1221,7 +1221,7 @@
 	<string name="booking_filters_offline">Non disponible hors-ligne.</string>
 	<string name="directions_finish">Destination</string>
 	<string name="directions_on_foot">Marcher %s</string>
-	<string name="entrance">Entrée</string>
+	<string name="core_entrance">Entrée</string>
 	<string name="coffee">Café</string>
 	<string name="cleanliness">Propreté</string>
 	<string name="crowdedness">Affluence</string>

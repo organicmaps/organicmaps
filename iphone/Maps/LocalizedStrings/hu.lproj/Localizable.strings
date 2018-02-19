@@ -79,7 +79,7 @@
 "miles" = "Mérföld";
 
 /* View and button titles for accessibility */
-"my_position" = "Saját helyzet";
+"core_my_position" = "Saját helyzet";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Szín";
 
 /* Default bookmarks set name */
-"my_places" = "Saját helyeim";
+"core_my_places" = "Saját helyeim";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Név";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Iránytű kalibrálás";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Kérjük, útvonal létrehozásához frissítsd a térképet.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Írja be a helyes irányítószámot";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Ismeretlen hely";
+"core_placepage_unknown_place" = "Ismeretlen hely";
 
 "editor_other_info" = "Megjegyzést küldött az OSM-moderátornak";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Tudjon meg többet";
 
-"exit" = "Kilépés";
+"core_exit" = "Kilépés";
 
 "routing_add_start_point" = "Adjon hozzá kiindulási pontot az útvonal megtervezéséhez";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "%s séta";
 
-"entrance" = "Bejárat";
+"core_entrance" = "Bejárat";
 
 "coffee" = "Kávé";
 

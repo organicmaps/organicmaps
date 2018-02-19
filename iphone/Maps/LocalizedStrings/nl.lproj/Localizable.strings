@@ -79,7 +79,7 @@
 "miles" = "Mijlen";
 
 /* View and button titles for accessibility */
-"my_position" = "Mijn Locatie";
+"core_my_position" = "Mijn Locatie";
 
 "ok" = "OK";
 
@@ -242,7 +242,7 @@
 "color" = "Kleur";
 
 /* Default bookmarks set name */
-"my_places" = "Mijn Plaatsen";
+"core_my_places" = "Mijn Plaatsen";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Naam";
@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kompascalibratie";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"core_wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Werk de kaart bij om een route te maken.";
@@ -1378,7 +1378,7 @@
 "error_enter_correct_zip_code" = "Voer de juiste postcode in";
 
 /* Place Page title for long tap */
-"placepage_unknown_place" = "Onbekende locatie";
+"core_placepage_unknown_place" = "Onbekende locatie";
 
 "editor_other_info" = "Een boodschap naar OSM-moderator sturen";
 
@@ -1930,7 +1930,7 @@
 
 "learn_more" = "Meer informatie";
 
-"exit" = "Verlaten";
+"core_exit" = "Verlaten";
 
 "routing_add_start_point" = "Voeg beginpunt toe om een route te plannen";
 
@@ -2151,7 +2151,7 @@
 
 "directions_on_foot" = "Wandel %s";
 
-"entrance" = "Ingang";
+"core_entrance" = "Ingang";
 
 "coffee" = "Koffie";
 

@@ -52,7 +52,7 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Милі</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Моє місце розташування</string>
+	<string name="core_my_position">Моє місце розташування</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -151,7 +151,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Колір</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Мої Мітки</string>
+	<string name="core_my_places">Мої Мітки</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Iм\'я</string>
 	<!-- Editor title above street and house number -->
@@ -409,7 +409,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Калібрування компаса</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi</string>
+	<string name="core_wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Будь ласка, оновіть карту, щоб прокласти маршрут.</string>
 	<!-- Update maps suggestion -->
@@ -815,7 +815,7 @@
 	<string name="editor_zip_code">Поштовий індекс</string>
 	<string name="error_enter_correct_zip_code">Введіть коректний поштовий індекс</string>
 	<!-- Place Page title for long tap -->
-	<string name="placepage_unknown_place">Невідоме місце</string>
+	<string name="core_placepage_unknown_place">Невідоме місце</string>
 	<string name="editor_other_info">Відправити повідомлення модератору OSM</string>
 	<string name="editor_detailed_description_hint">Докладний коментар</string>
 	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у MAPS.ME.</string>
@@ -1107,7 +1107,7 @@
 	<string name="whatsnew_transliteration_title">Транслітерація латинськими літерами</string>
 	<string name="whatsnew_transliteration_message">Якщо для вулиці чи об\'єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.</string>
 	<string name="learn_more">Докладніше</string>
-	<string name="exit">Вихід</string>
+	<string name="core_exit">Вихід</string>
 	<string name="routing_add_start_point">Вкажіть початкову точку для побудови маршруту</string>
 	<string name="routing_add_finish_point">Вкажіть кінцеву точку для побудови маршруту</string>
 	<string name="onboarding_welcome_message">Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.</string>
@@ -1212,7 +1212,7 @@
 	<string name="booking_filters_offline">Не доступно офлайн.</string>
 	<string name="directions_finish">Напрямок</string>
 	<string name="directions_on_foot">Піша прогулянка %s</string>
-	<string name="entrance">Вхід</string>
+	<string name="core_entrance">Вхід</string>
 	<string name="coffee">Кава</string>
 	<string name="cleanliness">Чистота</string>
 	<string name="crowdedness">Завантаженість</string>
