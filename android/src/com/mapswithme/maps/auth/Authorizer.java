@@ -11,24 +11,37 @@ import android.text.TextUtils;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.ConnectionState;
 
+/**
+ * An authorizer is responsible for an authorization for the Mapsme server,
+ * which is known as "Passport". This process is long and consists two big parts:<br>
+ *<br>
+ * 1. A user authentication via social networks which results in obtaining
+ * the <b>social auth token</b>.<br>
+ * 2. A user authorization for the Mapsme Server using the obtained social token on the first step.<br>
+ *<br>
+ *
+ * All callbacks of this authorizer may be listened through {@link Callback} interface. Also there is
+ * a method indicating whether the authorization (see step 2) in a progress
+ * or not - {@link #isAuthorizationInProgress()}.<br>
+ *<br>
+ *
+ * <b>IMPORTANT NOTE</b>: responsibility of memory leaking (context leaking) is completely
+ * on the client of this class. In common case, the careful attaching and detaching to/from instance
+ * of this class in activity's/fragment's lifecycle methods, such as onResume()/onPause
+ * or onStart()/onStop(), should be enough to avoid memory leaks.
+ */
 public class Authorizer implements AuthorizationListener
 {
   @NonNull
   private final Fragment mFragment;
   @Nullable
   private Callback mCallback;
-  private boolean mInProgress;
+  private boolean mIsAuthorizationInProgress;
 
   public Authorizer(@NonNull Fragment fragment)
   {
-    this(fragment, null);
-  }
-
-  Authorizer(@NonNull Fragment fragment, @Nullable Callback callback)
-  {
     mFragment = fragment;
   }
-
 
   public void attach(@NonNull Callback callback)
   {
@@ -68,7 +81,7 @@ public class Authorizer implements AuthorizationListener
     {
       @Framework.SocialTokenType
       int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, -1);
-      mInProgress = true;
+      mIsAuthorizationInProgress = true;
       if (mCallback != null)
         mCallback.onAuthorizationStart();
       Framework.nativeAuthenticateUser(socialToken, type, this);
@@ -78,14 +91,14 @@ public class Authorizer implements AuthorizationListener
   @Override
   public void onAuthorized(boolean success)
   {
-    mInProgress = false;
+    mIsAuthorizationInProgress = false;
     if (mCallback != null)
       mCallback.onAuthorizationFinish(success);
   }
 
-  public boolean isInProgress()
+  public boolean isAuthorizationInProgress()
   {
-    return mInProgress;
+    return mIsAuthorizationInProgress;
   }
 
   public boolean isAuthorized()

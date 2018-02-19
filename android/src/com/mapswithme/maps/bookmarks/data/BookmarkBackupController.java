@@ -49,7 +49,7 @@ public class BookmarkBackupController implements Authorizer.Callback
     {
       mBackupView.setMessage(context.getString(R.string.bookmarks_message_unauthorized_user));
       mBackupView.setButtonLabel(context.getString(R.string.authorization_button_sign_in));
-      if (mAuthorizer.isInProgress())
+      if (mAuthorizer.isAuthorizationInProgress())
       {
         mBackupView.showProgressBar();
         mBackupView.hideButton();
