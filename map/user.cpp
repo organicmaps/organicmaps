@@ -393,6 +393,8 @@ void User::RequestImpl(std::string const & url, BuildRequestHandler const & onBu
     {
       ResetAccessToken();
       LOG(LWARNING, ("Access denied for", url));
+      if (onError)
+        onError(resultCode);
       return;
     }
   }
