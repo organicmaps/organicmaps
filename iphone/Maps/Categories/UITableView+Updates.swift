@@ -3,18 +3,28 @@ extension UITableView {
   typealias Completion = () -> Void
 
   @objc func update(_ updates: Updates) {
-    beginUpdates()
-    updates()
-    endUpdates()
+    if #available(iOS 11.0, *) {
+      performBatchUpdates(updates, completion: nil)
+    } else {
+      beginUpdates()
+      updates()
+      endUpdates()
+    }
   }
 
   @objc func update(_ updates: Updates, completion: @escaping Completion) {
-    CATransaction.begin()
-    beginUpdates()
-    CATransaction.setCompletionBlock(completion)
-    updates()
-    endUpdates()
-    CATransaction.commit()
+    if #available(iOS 11.0, *) {
+      performBatchUpdates(updates, completion: { _ in
+        completion()
+      })
+    } else {
+      CATransaction.begin()
+      beginUpdates()
+      CATransaction.setCompletionBlock(completion)
+      updates()
+      endUpdates()
+      CATransaction.commit()
+    }
   }
 
   @objc func refresh() {
