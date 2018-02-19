@@ -96,7 +96,14 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
 
-  private let completion: (() -> Void)?
+  typealias SuccessHandler = (MWMSocialTokenType) -> Void
+  typealias ErrorHandler = (MWMAuthorizationError) -> Void
+  typealias CompletionHandler = (AuthorizationViewController) -> Void
+
+  private let sourceComponent: MWMAuthorizationSource
+  private let successHandler: SuccessHandler?
+  private let errorHandler: ErrorHandler?
+  private let completionHandler: CompletionHandler
 
   private func addConstraints(v1: UIView, v2: UIView) {
     [NSLayoutAttribute.top, .bottom, .left, .right].forEach {
@@ -104,16 +111,24 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
 
-  @objc init(barButtonItem: UIBarButtonItem?, completion: (() -> Void)? = nil) {
-    self.completion = completion
+  @objc
+  init(barButtonItem: UIBarButtonItem?, sourceComponent: MWMAuthorizationSource, successHandler: SuccessHandler? = nil, errorHandler: ErrorHandler? = nil, completionHandler: @escaping CompletionHandler) {
+    self.sourceComponent = sourceComponent
+    self.successHandler = successHandler
+    self.errorHandler = errorHandler
+    self.completionHandler = completionHandler
     transitioningManager = AuthorizationTransitioningManager(barButtonItem: barButtonItem)
     super.init(nibName: toString(type(of: self)), bundle: nil)
     transitioningDelegate = transitioningManager
     modalPresentationStyle = .custom
   }
 
-  @objc init(popoverSourceView: UIView? = nil, permittedArrowDirections: UIPopoverArrowDirection = .unknown, completion: (() -> Void)? = nil) {
-    self.completion = completion
+  @objc
+  init(popoverSourceView: UIView? = nil, permittedArrowDirections: UIPopoverArrowDirection = .unknown, sourceComponent: MWMAuthorizationSource, successHandler: SuccessHandler?, errorHandler: ErrorHandler?, completionHandler: @escaping CompletionHandler) {
+    self.sourceComponent = sourceComponent
+    self.successHandler = successHandler
+    self.errorHandler = errorHandler
+    self.completionHandler = completionHandler
     transitioningManager = AuthorizationTransitioningManager(popoverSourceView: popoverSourceView, permittedArrowDirections: permittedArrowDirections)
     super.init(nibName: toString(type(of: self)), bundle: nil)
     transitioningDelegate = transitioningManager
@@ -138,10 +153,8 @@ final class AuthorizationViewController: MWMViewController {
 
   @IBAction func onCancel() {
     Statistics.logEvent(kStatUGCReviewAuthDeclined)
-    dismiss(animated: true, completion: {
-      (UIApplication.shared.keyWindow?.rootViewController as?
-        UINavigationController)?.popToRootViewController(animated: true)
-    })
+    errorHandler?(.cancelled)
+    completionHandler(self)
   }
 
   private func process(error: Error, type: MWMSocialTokenType) {
@@ -155,8 +168,14 @@ final class AuthorizationViewController: MWMViewController {
 
   private func process(token: String, type: MWMSocialTokenType) {
     Statistics.logEvent(kStatUGCReviewAuthExternalRequestSuccess, withParameters: [kStatProvider: type == .facebook ? kStatFacebook : kStatGoogle])
-    ViewModel.authenticate(withToken: token, type: type)
-    dismiss(animated: true, completion: completion)
+    ViewModel.authenticate(withToken: token, type: type, source: sourceComponent) { success in
+      if success {
+        self.successHandler?(type)
+      } else {
+        self.errorHandler?(.passportError)
+      }
+    }
+    completionHandler(self)
   }
 }
 

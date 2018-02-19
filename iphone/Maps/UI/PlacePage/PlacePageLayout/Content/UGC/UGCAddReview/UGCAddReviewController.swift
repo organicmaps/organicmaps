@@ -55,19 +55,23 @@ final class UGCAddReviewController: MWMTableViewController {
 
   @objc private func onDone() {
     guard let text = textCell?.reviewText else {
-      assert(false)
+      assertionFailure()
       return
     }
     Statistics.logEvent(kStatUGCReviewSuccess)
     model.text = text
     onSave(model)
     guard let nc = navigationController else { return }
-    if MWMPlatform.networkConnectionType() == .none || MWMAuthorizationViewModel.isAuthenticated() {
+    if MWMPlatform.networkConnectionType() == .none {
       nc.popViewController(animated: true)
+    } else if MWMAuthorizationViewModel.hasSocialToken() {
+      MWMAuthorizationViewModel.checkAuthentication(with: .UGC, onComplete: { _ in })
+      nc.popToRootViewController(animated: true)
     } else {
       Statistics.logEvent(kStatUGCReviewAuthShown, withParameters: [kStatFrom: kStatAfterSave])
       let authVC = AuthorizationViewController(barButtonItem: navigationItem.rightBarButtonItem!,
-                                               completion: { nc.popToRootViewController(animated: true) })
+                                               sourceComponent: .UGC,
+                                               completionHandler: { _ in nc.popToRootViewController(animated: true) })
       present(authVC, animated: true, completion: nil)
     }
   }

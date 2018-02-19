@@ -9,29 +9,49 @@
 
 @implementation MWMAuthorizationViewModel
 
-+ (BOOL)isAuthenticated
++ (void)checkAuthenticationWithSource:(MWMAuthorizationSource)source
+                           onComplete:(MWMAuthorizationCompleteBlock)onComplete
 {
-  if (GetFramework().GetUser().IsAuthenticated())
-    return YES;
+  if ([self isAuthenticated])
+  {
+    onComplete(YES);
+    return;
+  }
 
   auto googleToken = [GIDSignIn sharedInstance].currentUser.authentication.idToken;
   if (googleToken)
   {
-    [self authenticateWithToken:googleToken type:MWMSocialTokenTypeGoogle];
-    return YES;
+    [self authenticateWithToken:googleToken
+                           type:MWMSocialTokenTypeGoogle
+                         source:source
+                     onComplete:onComplete];
+    return;
   }
 
   auto fbToken = [FBSDKAccessToken currentAccessToken].tokenString;
   if (fbToken)
   {
-    [self authenticateWithToken:fbToken type:MWMSocialTokenTypeFacebook];
-    return YES;
+    [self authenticateWithToken:fbToken
+                           type:MWMSocialTokenTypeFacebook
+                         source:source
+                     onComplete:onComplete];
+    return;
   }
-
-  return NO;
+  onComplete(NO);
 }
 
-+ (void)authenticateWithToken:(NSString * _Nonnull)token type:(enum MWMSocialTokenType)type
++ (BOOL)hasSocialToken
+{
+  return [GIDSignIn sharedInstance].currentUser.authentication.idToken != nil ||
+         [FBSDKAccessToken currentAccessToken].tokenString != nil;
+}
+
++ (BOOL)isAuthenticated { return GetFramework().GetUser().IsAuthenticated(); }
+
++ (void)authenticateWithToken:(NSString * _Nonnull)token
+                         type:(MWMSocialTokenType)type
+                       source:(MWMAuthorizationSource)source
+                   onComplete:(MWMAuthorizationCompleteBlock)onComplete
 {
   auto & user = GetFramework().GetUser();
   User::SocialTokenType socialTokenType;
@@ -47,16 +67,27 @@
     socialTokenType = User::SocialTokenType::Facebook;
     break;
   }
-  
   auto s = std::make_unique<User::Subscriber>();
   s->m_postCallAction = User::Subscriber::Action::RemoveSubscriber;
-  s->m_onAuthenticate = [provider](bool success) {
+  s->m_onAuthenticate = [provider, source, onComplete](bool success) {
+    NSString * event = nil;
+    switch (source)
+    {
+    case MWMAuthorizationSourceUGC:
+      event = success ? kStatUGCReviewAuthRequestSuccess : kStatUGCReviewAuthError;
+      break;
+    case MWMAuthorizationSourceBookmarks:
+      event = success ? kStatBookmarksAuthRequestSuccess : kStatBookmarksAuthRequestError;
+      break;
+    }
+
     if (success)
-      [Statistics logEvent:kStatUGCReviewAuthRequestSuccess
-            withParameters:@{kStatProvider: provider}];
+      [Statistics logEvent:event withParameters:@{kStatProvider: provider}];
     else
-      [Statistics logEvent:kStatUGCReviewAuthError
-            withParameters:@{kStatProvider: kStatMapsme, kStatError: @""}];
+      [Statistics logEvent:event withParameters:@{kStatProvider: kStatMapsme, kStatError: @""}];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      onComplete(success);
+    });
   };
   user.AddSubscriber(std::move(s));
   user.Authenticate(token.UTF8String, socialTokenType);
