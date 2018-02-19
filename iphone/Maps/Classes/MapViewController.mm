@@ -364,11 +364,7 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)openMigration { [self performSegueWithIdentifier:kMigrationSegue sender:self]; }
 - (void)openBookmarks
 {
-  auto const & ids = GetFramework().GetBookmarkManager().GetBmGroupsIdList();
-  BOOL const oneCategory = (ids.size() == 1);
-  auto vc = oneCategory ? [[BookmarksVC alloc] initWithCategory:(ids.front())]
-                        : [[BMCViewController alloc] init];
-  [self.navigationController pushViewController:vc animated:YES];
+  [self.navigationController pushViewController:[[BMCViewController alloc] init] animated:YES];
 }
 
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode

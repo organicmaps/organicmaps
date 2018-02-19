@@ -63,7 +63,9 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
     return;
   NSMutableDictionary * params = [self addDefaultAttributesToParameters:parameters];
   [Alohalytics logEvent:eventName withDictionary:params];
-  checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
+  dispatch_async(dispatch_get_main_queue(), ^{
+    checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
+  });
 }
 
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters atLocation:(CLLocation *)location
@@ -74,7 +76,9 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
   [Alohalytics logEvent:eventName withDictionary:params atLocation:location];
   auto const & coordinate = location ? location.coordinate : kCLLocationCoordinate2DInvalid;
   params[kStatLocation] = makeLocationEventValue(coordinate.latitude, coordinate.longitude);
-  checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
+  dispatch_async(dispatch_get_main_queue(), ^{
+    checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
+  });
 }
 
 - (NSMutableDictionary *)addDefaultAttributesToParameters:(NSDictionary *)parameters

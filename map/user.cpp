@@ -212,10 +212,10 @@ void User::Authenticate(std::string const & socialToken, SocialTokenType socialT
     Request(url, nullptr, [this](std::string const & response)
     {
       SetAccessToken(ParseAccessToken(response));
-      FinishAuthentication(!m_accessToken.empty());
-    }, [this](int code)
+      FinishAuthentication();
+    }, [this](int)
     {
-      FinishAuthentication(false /* success */);
+      FinishAuthentication();
     });
   });
 }
@@ -229,21 +229,12 @@ bool User::StartAuthentication()
   return true;
 }
 
-void User::FinishAuthentication(bool success)
+void User::FinishAuthentication()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   m_authenticationInProgress = false;
 
-  for (auto & s : m_subscribers)
-  {
-    if (s->m_onAuthenticate != nullptr)
-    {
-      s->m_onAuthenticate(success);
-      if (s->m_postCallAction == Subscriber::Action::RemoveSubscriber)
-        s.reset();
-    }
-  }
-  ClearSubscribersImpl();
+  NotifySubscribersImpl();
 }
 
 void User::AddSubscriber(std::unique_ptr<Subscriber> && subscriber)
@@ -251,9 +242,15 @@ void User::AddSubscriber(std::unique_ptr<Subscriber> && subscriber)
   std::lock_guard<std::mutex> lock(m_mutex);
 
   if (subscriber->m_onChangeToken != nullptr)
+  {
     subscriber->m_onChangeToken(m_accessToken);
-  if (subscriber->m_postCallAction == Subscriber::Action::RemoveSubscriber)
+    if (subscriber->m_postCallAction != Subscriber::Action::RemoveSubscriber)
+      m_subscribers.push_back(std::move(subscriber));
+  }
+  else
+  {
     m_subscribers.push_back(std::move(subscriber));
+  }
 }
 
 void User::ClearSubscribers()
@@ -267,11 +264,11 @@ void User::NotifySubscribersImpl()
   for (auto & s : m_subscribers)
   {
     if (s->m_onChangeToken != nullptr)
-    {
       s->m_onChangeToken(m_accessToken);
-      if (s->m_postCallAction == Subscriber::Action::RemoveSubscriber)
-        s.reset();
-    }
+    if (s->m_onAuthenticate != nullptr)
+      s->m_onAuthenticate(!m_accessToken.empty());
+    if (s->m_postCallAction == Subscriber::Action::RemoveSubscriber)
+      s.reset();
   }
   ClearSubscribersImpl();
 }

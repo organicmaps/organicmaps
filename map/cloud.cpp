@@ -615,7 +615,6 @@ void Cloud::FinishUploading(SynchronizationResult result, std::string const & er
     SaveIndexImpl();
   }
 
-
   if (m_onSynchronizationFinished != nullptr)
     m_onSynchronizationFinished(result, errorStr);
 }

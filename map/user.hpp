@@ -78,7 +78,7 @@ private:
   void ClearSubscribersImpl();
 
   bool StartAuthentication();
-  void FinishAuthentication(bool success);
+  void FinishAuthentication();
 
   std::string m_accessToken;
   mutable std::mutex m_mutex;

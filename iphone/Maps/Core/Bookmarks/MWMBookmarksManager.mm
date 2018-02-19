@@ -189,6 +189,8 @@ using TLoopBlock = void (^)(Observer observer);
 + (NSDate *)lastSynchronizationDate
 {
   auto timestampInMs = GetFramework().GetBookmarkManager().GetLastSynchronizationTimestampInMs();
+  if (timestampInMs == 0)
+    return nil;
   return [NSDate dateWithTimeIntervalSince1970:timestampInMs / 1000];
 }
 
