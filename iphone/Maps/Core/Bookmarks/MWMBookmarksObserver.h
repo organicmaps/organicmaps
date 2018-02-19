@@ -1,8 +1,10 @@
+#import "MWMTypes.h"
+
 @protocol MWMBookmarksObserver<NSObject>
 
-- (void)onBookmarksLoadFinished;
-
 @optional
+- (void)onBookmarksLoadFinished;
 - (void)onBookmarksFileLoadSuccess;
+- (void)onBookmarksCategoryDeleted:(MWMMarkGroupID)groupId;
 
 @end

@@ -73,7 +73,8 @@ using TLoopBlock = void (^)(Observer observer);
         return;
       self.areBookmarksLoaded = YES;
       [self loopObservers:^(Observer observer) {
-        [observer onBookmarksLoadFinished];
+        if ([observer respondsToSelector:@selector(onBookmarksLoadFinished)])
+          [observer onBookmarksLoadFinished];
       }];
     };
   }
@@ -108,6 +109,94 @@ using TLoopBlock = void (^)(Observer observer);
 {
   [MWMBookmarksManager manager];
   GetFramework().LoadBookmarks();
+}
+
++ (MWMGroupIDCollection)groupsIdList
+{
+  auto const & list = GetFramework().GetBookmarkManager().GetBmGroupsIdList();
+  NSMutableArray<NSNumber *> * collection = @[].mutableCopy;
+  for (auto const & groupId : list)
+    [collection addObject:@(groupId)];
+  return collection.copy;
+}
+
++ (NSString *)getCategoryName:(MWMMarkGroupID)groupId
+{
+  return @(GetFramework().GetBookmarkManager().GetCategoryName(groupId).c_str());
+}
+
++ (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId
+{
+  return GetFramework().GetBookmarkManager().GetUserMarkIds(groupId).size();
+}
+
++ (uint64_t)getCategoryTracksCount:(MWMMarkGroupID)groupId
+{
+  return GetFramework().GetBookmarkManager().GetTrackIds(groupId).size();
+}
+
++ (MWMMarkGroupID)createCategoryWithName:(NSString *)name
+{
+  return GetFramework().GetBookmarkManager().CreateBookmarkCategory(name.UTF8String);
+}
+
++ (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name
+{
+  GetFramework().GetBookmarkManager().GetEditSession().SetCategoryName(groupId, name.UTF8String);
+}
+
++ (BOOL)isCategoryVisible:(MWMMarkGroupID)groupId
+{
+  return GetFramework().GetBookmarkManager().IsVisible(groupId);
+}
+
++ (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible
+{
+  GetFramework().GetBookmarkManager().GetEditSession().SetIsVisible(groupId, isVisible);
+}
+
++ (void)setAllCategoriesVisible:(BOOL)isVisible
+{
+  auto & bm = GetFramework().GetBookmarkManager();
+  auto editSession = bm.GetEditSession();
+  auto const & list = bm.GetBmGroupsIdList();
+  for (auto const & groupId : list)
+    editSession.SetIsVisible(groupId, isVisible);
+}
+
++ (void)deleteCategory:(MWMMarkGroupID)groupId
+{
+  GetFramework().GetBookmarkManager().GetEditSession().DeleteBmCategory(groupId);
+  [[self manager] loopObservers:^(Observer observer) {
+    if ([observer respondsToSelector:@selector(onBookmarksCategoryDeleted:)])
+      [observer onBookmarksCategoryDeleted:groupId];
+  }];
+}
+
++ (NSURL *)beginShareCategory:(MWMMarkGroupID)groupId
+{
+  auto const filePath = GetFramework().GetBookmarkManager().BeginSharing(groupId);
+  NSURL * url = [NSURL fileURLWithPath:@(filePath.c_str()) isDirectory:NO];
+  NSAssert(url != nil, @"Invalid share category url");
+  return url;
+}
+
++ (void)endShareCategory:(MWMMarkGroupID)groupId
+{
+  GetFramework().GetBookmarkManager().EndSharing(groupId);
+}
+
++ (NSDate *)lastSynchronizationDate
+{
+  auto timestampInMs = GetFramework().GetBookmarkManager().GetLastSynchronizationTimestampInMs();
+  return [NSDate dateWithTimeIntervalSince1970:timestampInMs / 1000];
+}
+
++ (BOOL)isCloudEnabled { return GetFramework().GetBookmarkManager().IsCloudEnabled(); }
+
++ (void)setCloudEnabled:(BOOL)enabled
+{
+  GetFramework().GetBookmarkManager().SetCloudEnabled(enabled);
 }
 
 - (void)loopObservers:(TLoopBlock)block

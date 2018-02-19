@@ -183,6 +183,7 @@
 		349D1CE41E3F836900A878FD /* UIViewController+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */; };
 		349FC5481F680DAE00968C9F /* ExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349FC5451F680DAE00968C9F /* ExpandableTextView.swift */; };
 		349FC54B1F680DAE00968C9F /* ExpandableTextViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349FC5461F680DAE00968C9F /* ExpandableTextViewSettings.swift */; };
+		34A320CE2035ABE200BC36D5 /* MWMBookmarksManager+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A320CD2035ABE200BC36D5 /* MWMBookmarksManager+Swift.swift */; };
 		34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB39C01D2BD8310021857D /* MWMStopButton.mm */; };
 		34AB66051FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65C51FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm */; };
 		34AB66081FC5AA320078E451 /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65C61FC5AA320078E451 /* MWMNavigationDashboardManager.mm */; };
@@ -964,6 +965,7 @@
 		349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Hierarchy.swift"; sourceTree = "<group>"; };
 		349FC5451F680DAE00968C9F /* ExpandableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTextView.swift; sourceTree = "<group>"; };
 		349FC5461F680DAE00968C9F /* ExpandableTextViewSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTextViewSettings.swift; sourceTree = "<group>"; };
+		34A320CD2035ABE200BC36D5 /* MWMBookmarksManager+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWMBookmarksManager+Swift.swift"; sourceTree = "<group>"; };
 		34AB39BF1D2BD8310021857D /* MWMStopButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStopButton.h; sourceTree = "<group>"; };
 		34AB39C01D2BD8310021857D /* MWMStopButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStopButton.mm; sourceTree = "<group>"; };
 		34AB65C51FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMNavigationDashboardManager+Entity.mm"; sourceTree = "<group>"; };
@@ -1378,7 +1380,6 @@
 		F69739B01FD197DB00FDA07D /* MWMDiscoveryTableManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryTableManager.mm; sourceTree = "<group>"; };
 		F69739B41FD198E300FDA07D /* DiscoveryControllerViewModel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DiscoveryControllerViewModel.hpp; sourceTree = "<group>"; };
 		F69739B51FD19D9900FDA07D /* MWMDiscoveryTapDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryTapDelegate.h; sourceTree = "<group>"; };
-		F69739D41FD6B4EE00FDA07D /* Statistics+ConnectionTypeLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Statistics+ConnectionTypeLogging.h"; sourceTree = "<group>"; };
 		F69739DA1FD6ECCE00FDA07D /* DiscoveryLocalExpertCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryLocalExpertCell.swift; sourceTree = "<group>"; };
 		F69739DE1FD6EE1D00FDA07D /* DiscoveryLocalExpertCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryLocalExpertCell.xib; sourceTree = "<group>"; };
 		F69CE8D41E5C49B4002B5881 /* PPHotelCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPHotelCarouselCell.swift; sourceTree = "<group>"; };
@@ -1995,7 +1996,6 @@
 				340475221E081A4600C92850 /* MWMCustomFacebookEvents.mm */,
 				340475231E081A4600C92850 /* Statistics.h */,
 				340475241E081A4600C92850 /* Statistics.mm */,
-				F69739D41FD6B4EE00FDA07D /* Statistics+ConnectionTypeLogging.h */,
 				340475251E081A4600C92850 /* StatisticsStrings.h */,
 			);
 			path = Statistics;
@@ -2407,6 +2407,7 @@
 				347039A61FB9A5CF00E47496 /* MWMBookmarksManager.h */,
 				347039A71FB9A5CF00E47496 /* MWMBookmarksManager.mm */,
 				347039AB1FB9A97E00E47496 /* MWMBookmarksObserver.h */,
+				34A320CD2035ABE200BC36D5 /* MWMBookmarksManager+Swift.swift */,
 			);
 			path = Bookmarks;
 			sourceTree = "<group>";
@@ -4472,6 +4473,7 @@
 				348F8A4F1F863A8500060C2A /* UGCYourReview.swift in Sources */,
 				F6E2FEE21E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
 				F6E2FE221E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
+				34A320CE2035ABE200BC36D5 /* MWMBookmarksManager+Swift.swift in Sources */,
 				34943BBB1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				34D3AFE21E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
 				3404164C1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */,
