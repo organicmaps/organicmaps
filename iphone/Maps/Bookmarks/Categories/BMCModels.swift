@@ -39,7 +39,7 @@ class BMCCategory: BMCModel, Equatable {
     }
   }
 
-  init(identifier: MWMMarkGroupID = 0, title: String = "My places", count: UInt64 = 0, isVisible: Bool = true) {
+  init(identifier: MWMMarkGroupID = 0, title: String = L("core_my_places"), count: UInt64 = 0, isVisible: Bool = true) {
     self.identifier = identifier
     self.title = title
     self.count = count
