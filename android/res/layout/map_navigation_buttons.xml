@@ -23,7 +23,7 @@
     android:layout_alignParentRight="true"
     android:layout_alignParentBottom="true"
     android:layout_marginBottom="@dimen/nav_my_position_bottom"
-    android:contentDescription="@string/my_position"
+    android:contentDescription="@string/core_my_position"
     android:tint="@null"/>
 
   <ImageButton

@@ -48,7 +48,6 @@ public:
   {
     Params(dp::ApiVersion apiVersion,
            ref_ptr<dp::OGLContextFactory> factory,
-           ref_ptr<StringsBundle> stringBundle,
            dp::Viewport const & viewport,
            MapDataProvider const & model,
            Hints const & hints,
@@ -68,7 +67,6 @@ public:
            OverlaysShowStatsCallback && overlaysShowStatsCallback)
       : m_apiVersion(apiVersion)
       , m_factory(factory)
-      , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
       , m_model(model)
       , m_hints(hints)
@@ -90,7 +88,6 @@ public:
 
     dp::ApiVersion m_apiVersion;
     ref_ptr<dp::OGLContextFactory> m_factory;
-    ref_ptr<StringsBundle> m_stringsBundle;
     dp::Viewport m_viewport;
     MapDataProvider m_model;
     Hints m_hints;

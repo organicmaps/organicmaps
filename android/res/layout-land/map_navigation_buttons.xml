@@ -41,6 +41,6 @@
     android:layout_alignParentRight="true"
     android:layout_marginBottom="@dimen/margin_base_plus"
     android:background="?nav_background"
-    android:contentDescription="@string/my_position"
+    android:contentDescription="@string/core_my_position"
     android:tint="@null"/>
 </RelativeLayout>

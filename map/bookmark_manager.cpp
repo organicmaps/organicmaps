@@ -770,7 +770,7 @@ df::MarkGroupID BookmarkManager::CreateBookmarkCategory(std::string const & name
 void BookmarkManager::CheckAndCreateDefaultCategory()
 {
   if (m_categories.empty())
-    CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("my_places"));
+    CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("core_my_places"));
 }
 
 bool BookmarkManager::DeleteBmCategory(df::MarkGroupID groupId)

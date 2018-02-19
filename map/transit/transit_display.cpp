@@ -391,7 +391,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
         gateMarkInfo.m_featureId = fid;
         gateMarkInfo.m_symbolName = symbolName;
-        auto const title = m_getStringsBundleFn().GetString(pendingEntrance ? "entrance" : "exit");
+        auto const title = m_getStringsBundleFn().GetString(pendingEntrance ? "core_entrance" : "core_exit");
         gateMarkInfo.m_titles.push_back(TransitTitle(title, df::GetTransitTextColorName("default")));
       }
 

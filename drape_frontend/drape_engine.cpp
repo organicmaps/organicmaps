@@ -25,9 +25,7 @@ DrapeEngine::DrapeEngine(Params && params)
 
   df::VisualParams::Instance().SetFontScale(params.m_fontsScaleFactor);
 
-  gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
-  guiSubsystem.SetLocalizator(std::bind(&StringsBundle::GetString, params.m_stringsBundle.get(), _1));
-  guiSubsystem.SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
+  gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
   m_glyphGenerator = make_unique_dp<dp::GlyphGenerator>(df::VisualParams::Instance().GetGlyphSdfScale());
   m_textureManager = make_unique_dp<dp::TextureManager>(make_ref(m_glyphGenerator));

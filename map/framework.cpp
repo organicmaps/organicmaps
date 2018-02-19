@@ -392,21 +392,13 @@ Framework::Framework(FrameworkParams const & params)
 
   // Init strings bundle.
   // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
-  // It's better to use strings form strings.txt intead of hardcoding them here.
-  m_stringsBundle.SetDefaultString("placepage_unknown_place", "Unknown Place");
-  m_stringsBundle.SetDefaultString("my_places", "My Places");
-  m_stringsBundle.SetDefaultString("entrance", "Entrance");
-  m_stringsBundle.SetDefaultString("exit", "Exit");
-  m_stringsBundle.SetDefaultString("routes", "Routes");
-  m_stringsBundle.SetDefaultString("wifi", "WiFi");
-
-  m_stringsBundle.SetDefaultString("routing_failed_unknown_my_position", "Current location is undefined. Please specify location to create route.");
-  m_stringsBundle.SetDefaultString("routing_failed_has_no_routing_file", "Additional data is required to create the route. Download data now?");
-  m_stringsBundle.SetDefaultString("routing_failed_start_point_not_found", "Cannot calculate the route. No roads near your starting point.");
-  m_stringsBundle.SetDefaultString("routing_failed_dst_point_not_found", "Cannot calculate the route. No roads near your destination.");
-  m_stringsBundle.SetDefaultString("routing_failed_cross_mwm_building", "Routes can only be created that are fully contained within a single map.");
-  m_stringsBundle.SetDefaultString("routing_failed_route_not_found", "There is no route found between the selected origin and destination.Please select a different start or end point.");
-  m_stringsBundle.SetDefaultString("routing_failed_internal_error", "Internal error occurred. Please try to delete and download the map again. If problem persist please contact us at support@maps.me.");
+  // It's better to use strings from strings.txt instead of hardcoding them here.
+  m_stringsBundle.SetDefaultString("core_entrance", "Entrance");
+  m_stringsBundle.SetDefaultString("core_exit", "Exit");
+  m_stringsBundle.SetDefaultString("core_placepage_unknown_place", "Unknown Place");
+  m_stringsBundle.SetDefaultString("core_my_places", "My Places");
+  m_stringsBundle.SetDefaultString("core_my_position", "My Position");
+  m_stringsBundle.SetDefaultString("core_wifi", "WiFi");
 
   m_model.InitClassificator();
   m_model.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
@@ -788,7 +780,7 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
   else
   {
     if (customTitle.empty())
-      info.SetCustomNameWithCoordinates(mercator, m_stringsBundle.GetString("placepage_unknown_place"));
+      info.SetCustomNameWithCoordinates(mercator, m_stringsBundle.GetString("core_placepage_unknown_place"));
     else
       info.SetCustomName(customTitle);
     info.SetCanEditOrAdd(CanEditMap());
@@ -812,7 +804,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   feature::TypesHolder buildingHolder;
   buildingHolder.Assign(classif().GetTypeByPath({"building"}));
 
-  info.SetLocalizedWifiString(m_stringsBundle.GetString("wifi"));
+  info.SetLocalizedWifiString(m_stringsBundle.GetString("core_wifi"));
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
     info.SetAddress(GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet());
@@ -926,7 +918,7 @@ void Framework::FillMyPositionInfo(place_page::Info & info, df::TapInfo const & 
   VERIFY(position, ());
   info.SetMercator(*position);
   info.SetIsMyPosition();
-  info.SetCustomName(m_stringsBundle.GetString("my_position"));
+  info.SetCustomName(m_stringsBundle.GetString("core_my_position"));
 
   UserMark const * mark = FindUserMarkInTapPosition(tapInfo);
   if (mark != nullptr && mark->GetMarkType() == UserMark::Type::ROUTING)
@@ -1687,7 +1679,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   double const fontsScaleFactor = LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0;
 
   df::DrapeEngine::Params p(
-      params.m_apiVersion, contextFactory, make_ref(&m_stringsBundle),
+      params.m_apiVersion, contextFactory,
       dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
       df::MapDataProvider(idReadFn, featureReadFn, isCountryLoadedByNameFn, updateCurrentCountryFn),
       params.m_hints, params.m_visualScale, fontsScaleFactor, move(params.m_widgetsInitInfo),

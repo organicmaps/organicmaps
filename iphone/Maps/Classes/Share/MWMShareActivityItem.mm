@@ -52,7 +52,7 @@ NSString * httpGe0Url(NSString * shortUrl)
   auto const title = ^NSString *(id<MWMPlacePageObject> obj)
   {
     if (!obj || obj.isMyPosition)
-      return L(@"my_position");
+      return L(@"core_my_position");
     else if (obj.title.length)
       return obj.title;
     else if (obj.subtitle.length)

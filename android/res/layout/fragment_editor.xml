@@ -257,7 +257,7 @@
             android:layout_marginStart="@dimen/editor_margin_left"
             android:layout_toLeftOf="@+id/sw__wifi"
             android:layout_toStartOf="@+id/sw__wifi"
-            android:text="@string/wifi"/>
+            android:text="@string/core_wifi"/>
 
           <android.support.v7.widget.SwitchCompat
             android:id="@+id/sw__wifi"

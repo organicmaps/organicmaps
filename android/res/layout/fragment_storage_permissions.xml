@@ -30,7 +30,7 @@
       android:textAppearance="@style/MwmTextAppearance.Button"
       android:textColor="?accentButtonTextColor"
       android:fontFamily="@string/robotoMedium"
-      android:text="@string/exit"
+      android:text="@string/button_exit"
       android:gravity="center_vertical"
       android:background="?clickableBackground"
       tools:targetApi="jelly_bean"/>

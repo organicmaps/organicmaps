@@ -64,35 +64,13 @@ NSString * const kBundleVersion = @"BundleVersion";
 void InitLocalizedStrings()
 {
   Framework & f = GetFramework();
-  // Texts on the map screen when map is not downloaded or is downloading
-  f.AddString("country_status_added_to_queue", L(@"country_status_added_to_queue").UTF8String);
-  f.AddString("country_status_downloading", L(@"country_status_downloading").UTF8String);
-  f.AddString("country_status_download", L(@"country_status_download").UTF8String);
-  f.AddString("country_status_download_without_routing",
-              L(@"country_status_download_without_routing").UTF8String);
-  f.AddString("country_status_download_failed", L(@"country_status_download_failed").UTF8String);
-  f.AddString("cancel", L(@"cancel").UTF8String);
-  f.AddString("try_again", L(@"try_again").UTF8String);
-  // Default texts for bookmarks added in C++ code (by URL Scheme API)
-  f.AddString("placepage_unknown_place", L(@"placepage_unknown_place").UTF8String);
-  f.AddString("my_places", L(@"my_places").UTF8String);
-  f.AddString("my_position", L(@"my_position").UTF8String);
-  f.AddString("routes", L(@"routes").UTF8String);
-  f.AddString("wifi", L(@"wifi").UTF8String);
 
-  f.AddString("routing_failed_unknown_my_position",
-              L(@"routing_failed_unknown_my_position").UTF8String);
-  f.AddString("routing_failed_has_no_routing_file",
-              L(@"routing_failed_has_no_routing_file").UTF8String);
-  f.AddString("routing_failed_start_point_not_found",
-              L(@"routing_failed_start_point_not_found").UTF8String);
-  f.AddString("routing_failed_dst_point_not_found",
-              L(@"routing_failed_dst_point_not_found").UTF8String);
-  f.AddString("routing_failed_cross_mwm_building",
-              L(@"routing_failed_cross_mwm_building").UTF8String);
-  f.AddString("routing_failed_route_not_found", L(@"routing_failed_route_not_found").UTF8String);
-  f.AddString("routing_failed_internal_error", L(@"routing_failed_internal_error").UTF8String);
-  f.AddString("place_page_booking_rating", L(@"place_page_booking_rating").UTF8String);
+  f.AddString("core_entrance", L(@"core_entrance").UTF8String);
+  f.AddString("core_exit", L(@"core_exit").UTF8String);
+  f.AddString("core_my_places", L(@"core_my_places").UTF8String);
+  f.AddString("core_my_position", L(@"core_my_position").UTF8String);
+  f.AddString("core_placepage_unknown_place", L(@"core_placepage_unknown_place").UTF8String);
+  f.AddString("core_wifi", L(@"core_wifi").UTF8String);
 }
 
 void InitCrashTrackers()

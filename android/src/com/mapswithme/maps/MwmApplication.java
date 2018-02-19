@@ -281,28 +281,12 @@ public class MwmApplication extends Application
 
   private void initNativeStrings()
   {
-    nativeAddLocalization("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
-    nativeAddLocalization("country_status_downloading", getString(R.string.country_status_downloading));
-    nativeAddLocalization("country_status_download", getString(R.string.country_status_download));
-    nativeAddLocalization("country_status_download_without_routing", getString(R.string.country_status_download_without_routing));
-    nativeAddLocalization("country_status_download_failed", getString(R.string.country_status_download_failed));
-    nativeAddLocalization("try_again", getString(R.string.try_again));
-    nativeAddLocalization("not_enough_free_space_on_sdcard", getString(R.string.not_enough_free_space_on_sdcard));
-    nativeAddLocalization("placepage_unknown_place", getString(R.string.placepage_unknown_place));
-    nativeAddLocalization("my_places", getString(R.string.my_places));
-    nativeAddLocalization("my_position", getString(R.string.my_position));
-    nativeAddLocalization("routes", getString(R.string.routes));
-    nativeAddLocalization("cancel", getString(R.string.cancel));
-    nativeAddLocalization("wifi", getString(R.string.wifi));
-
-    nativeAddLocalization("routing_failed_unknown_my_position", getString(R.string.routing_failed_unknown_my_position));
-    nativeAddLocalization("routing_failed_has_no_routing_file", getString(R.string.routing_failed_has_no_routing_file));
-    nativeAddLocalization("routing_failed_start_point_not_found", getString(R.string.routing_failed_start_point_not_found));
-    nativeAddLocalization("routing_failed_dst_point_not_found", getString(R.string.routing_failed_dst_point_not_found));
-    nativeAddLocalization("routing_failed_cross_mwm_building", getString(R.string.routing_failed_cross_mwm_building));
-    nativeAddLocalization("routing_failed_route_not_found", getString(R.string.routing_failed_route_not_found));
-    nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
-    nativeAddLocalization("place_page_booking_rating", getString(R.string.place_page_booking_rating));
+    nativeAddLocalization("core_entrance", getString(R.string.core_entrance));
+    nativeAddLocalization("core_exit", getString(R.string.core_exit));
+    nativeAddLocalization("core_my_places", getString(R.string.core_my_places));
+    nativeAddLocalization("core_my_position", getString(R.string.core_my_position));
+    nativeAddLocalization("core_placepage_unknown_place", getString(R.string.core_placepage_unknown_place));
+    nativeAddLocalization("core_wifi", getString(R.string.core_wifi));
   }
 
   public void initCrashlytics()

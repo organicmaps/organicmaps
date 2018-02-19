@@ -73,7 +73,7 @@
     break;
   case MetainfoRows::Internet:
     self.toggleImage.hidden = YES;
-    name = @"wifi";
+    name = @"core_wifi";
     break;
   case MetainfoRows::Coordinate:
     self.toggleImage.hidden = NO;
