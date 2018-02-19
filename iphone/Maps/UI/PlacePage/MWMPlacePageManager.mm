@@ -15,7 +15,6 @@
 #import "MWMUGCViewModel.h"
 #import "MapViewController.h"
 #import "Statistics.h"
-#import "Statistics+ConnectionTypeLogging.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -252,8 +251,8 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     parameters[kStatProvider] = data.partnerName;
   else if (data.isHolidayObject)
     parameters[kStatProvider] = kStatHoliday;
-  
-  parameters[kStatConnection] = [Statistics connectionTypeToString:Platform::ConnectionStatus()];
+
+  parameters[kStatConnection] = [Statistics connectionTypeString];
   parameters[kStatTags] = data.statisticsTags;
   [Statistics logEvent:kStatPlacepageSponsoredOpen withParameters:parameters];
 }

@@ -17,7 +17,6 @@
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "Statistics.h"
-#import "Statistics+ConnectionTypeLogging.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -590,9 +589,8 @@ using namespace osm_auth_ios;
       [statistics application:application didFinishLaunchingWithOptions:launchOptions];
 
   NSString * connectionType;
-  auto const status = Platform::ConnectionStatus();
-  NSString * network = [Statistics connectionTypeToString:status];
-  switch (status)
+  NSString * network = [Statistics connectionTypeString];
+  switch (Platform::ConnectionStatus())
   {
   case Platform::EConnectionType::CONNECTION_NONE: break;
   case Platform::EConnectionType::CONNECTION_WIFI:

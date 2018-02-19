@@ -11,7 +11,6 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
-#import "Statistics+ConnectionTypeLogging.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -293,9 +292,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (IBAction)discoveryTap
 {
-  auto const connectionType = GetPlatform().ConnectionStatus();
   [Statistics logEvent:kStatDiscoveryButtonOpen
-        withParameters:@{kStatNetwork: [Statistics connectionTypeToString:connectionType]}];
+        withParameters:@{kStatNetwork: [Statistics connectionTypeString]}];
 
   self.state = self.restoreState;
 

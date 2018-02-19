@@ -1,5 +1,4 @@
 #import "Statistics.h"
-#import "Statistics+ConnectionTypeLogging.h"
 #import "AppInfo.h"
 #import "MWMCustomFacebookEvents.h"
 #import "MWMSettings.h"
@@ -10,6 +9,7 @@
 #import <MyTrackerSDK/MRMyTrackerParams.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+#include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
 #include "base/macros.hpp"
@@ -143,9 +143,9 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
 
 @implementation Statistics (ConnectionTypeLogging)
 
-+ (NSString *)connectionTypeToString:(Platform::EConnectionType)type
++ (NSString *)connectionTypeString
 {
-  switch (type)
+  switch (Platform::ConnectionStatus())
   {
   case Platform::EConnectionType::CONNECTION_WWAN:
     return kStatOffline;
