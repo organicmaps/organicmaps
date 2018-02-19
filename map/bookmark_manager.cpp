@@ -185,7 +185,6 @@ Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkDat
 
 Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupId)
 {
-  // TODO(darina): Do we need this event?
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
                                                          {{"action", "create"}});
 
@@ -898,7 +897,6 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     }
     if (merge)
     {
-      // TODO(darina): Change the order.
       // Delete file since it will be merged.
       my::DeleteFileX(data->m_file);
       SaveToKMLFile(groupId);

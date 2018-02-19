@@ -17,7 +17,7 @@ df::MarkID GetNextUserMarkId(UserMark::Type type)
 {
   static std::atomic<uint32_t> nextMarkId(0);
 
-  ASSERT_LESS(type, 1 << kMarkIdTypeBitsCount, ());
+  static_assert(UserMark::Type::BOOKMARK < (1 << kMarkIdTypeBitsCount), "Not enough bits for user mark type.");
   return static_cast<df::MarkID>(
     (++nextMarkId) | (type << static_cast<uint32_t>(sizeof(df::MarkID) * 8 - kMarkIdTypeBitsCount)));
 }
