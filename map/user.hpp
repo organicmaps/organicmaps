@@ -60,7 +60,7 @@ public:
   std::string GetAccessToken() const;
   Details GetDetails() const;
 
-  void UploadUserReviews(std::string && dataStr,
+  void UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchronized,
                          CompleteUploadingHandler const & onCompleteUploading);
 
 private:

@@ -73,7 +73,7 @@ void Api::GetUGCToSendImpl(UGCJsonToSendCallback const & callback)
 {
   CHECK(callback, ());
   auto json = m_storage.GetUGCToSend();
-  callback(move(json));
+  callback(move(json), m_storage.GetNumberOfUnsynchronized());
 }
 
 void Api::SendingCompletedImpl()

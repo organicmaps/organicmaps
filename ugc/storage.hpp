@@ -56,6 +56,7 @@ public:
   void MarkAllAsSynchronized();
   void Defragmentation();
   void Load();
+  size_t GetNumberOfUnsynchronized() const;
 
   /// Testing
   std::vector<UGCIndex> const & GetIndexesForTesting() const { return m_UGCIndexes; }

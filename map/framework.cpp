@@ -3313,11 +3313,12 @@ void Framework::UploadUGC(User::CompleteUploadingHandler const & onCompleteUploa
     return;
   }
 
-  m_ugcApi->GetUGCToSend([this, onCompleteUploading](string && json)
+  m_ugcApi->GetUGCToSend([this, onCompleteUploading](string && json, size_t numberOfUnsynchronized)
   {
     if (!json.empty())
     {
-      m_user.UploadUserReviews(std::move(json), [this, onCompleteUploading](bool isSuccessful)
+      m_user.UploadUserReviews(std::move(json), numberOfUnsynchronized,
+                               [this, onCompleteUploading](bool isSuccessful)
       {
         if (onCompleteUploading != nullptr)
           onCompleteUploading(isSuccessful);

@@ -20,7 +20,7 @@ class Api
 public:
   using UGCCallback = platform::SafeCallback<void(UGC const & ugc, UGCUpdate const & update)>;
   using UGCCallbackUnsafe = std::function<void(UGC const & ugc, UGCUpdate const & update)>;
-  using UGCJsonToSendCallback = std::function<void(std::string && jsonStr)>;
+  using UGCJsonToSendCallback = std::function<void(std::string && jsonStr, size_t numberOfUnsynchronized)>;
   using OnResultCallback = platform::SafeCallback<void(Storage::SettingResult const result)>;
 
   explicit Api(Index const & index);

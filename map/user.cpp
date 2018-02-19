@@ -313,7 +313,7 @@ void User::RequestUserDetails()
   });
 }
 
-void User::UploadUserReviews(std::string && dataStr,
+void User::UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchronized,
                              CompleteUploadingHandler const & onCompleteUploading)
 {
   std::string const url = ReviewReceiverUrl();
@@ -326,7 +326,8 @@ void User::UploadUserReviews(std::string && dataStr,
   if (m_accessToken.empty())
     return;
 
-  GetPlatform().RunTask(Platform::Thread::Network, [this, url, dataStr, onCompleteUploading]()
+  GetPlatform().RunTask(Platform::Thread::Network,
+                        [this, url, dataStr, numberOfUnsynchronized, onCompleteUploading]()
   {
     size_t const bytesCount = dataStr.size();
     Request(url, [this, dataStr](platform::HttpClient & request)
@@ -343,10 +344,11 @@ void User::UploadUserReviews(std::string && dataStr,
       if (onCompleteUploading != nullptr)
         onCompleteUploading(true /* isSuccessful */);
     },
-    [this, onCompleteUploading](int errorCode)
+    [this, onCompleteUploading, numberOfUnsynchronized](int errorCode)
     {
       alohalytics::Stats::Instance().LogEvent("UGC_DataUpload_error",
-                                              strings::to_string(errorCode));
+                                              {{"error", strings::to_string(errorCode)},
+                                               {"num", strings::to_string(numberOfUnsynchronized)}});
       LOG(LWARNING, ("Reviews have not been uploaded. Code =", errorCode));
 
       if (onCompleteUploading != nullptr)
