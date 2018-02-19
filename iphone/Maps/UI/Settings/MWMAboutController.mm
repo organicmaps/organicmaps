@@ -42,9 +42,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     version = [NSString stringWithFormat:@"%@.%@", version, appInfo.buildNumber];
   self.versionLabel.text = [NSString stringWithFormat:L(@"version"), version];
 
-  NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-  dateFormatter.dateStyle = NSDateFormatterShortStyle;
-  dateFormatter.timeStyle = NSDateFormatterNoStyle;
   auto const dataVersion = GetFramework().GetCurrentDataVersion();
   self.dateLabel.text = [NSString stringWithFormat:L(@"date"), dataVersion];
 }
