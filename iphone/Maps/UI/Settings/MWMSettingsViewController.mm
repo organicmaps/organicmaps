@@ -20,6 +20,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * zoomButtonsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * is3dCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * autoDownloadCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * backupBookmarksCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * mobileInternetCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * recentTrackCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * fontScaleCell;
@@ -87,6 +88,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.autoDownloadCell configWithDelegate:self
                                       title:L(@"disable_autodownload")
                                        isOn:![MWMSettings autoDownloadEnabled]];
+
+  [self.backupBookmarksCell configWithDelegate:self
+                                         title:L(@"settings_backup_bookmarks")
+                                          isOn:[MWMBookmarksManager isCloudEnabled]];
 
   NSString * mobileInternet = nil;
   switch (network_policy::GetStage())
@@ -208,7 +213,15 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [Statistics logEvent:kStatEventName(kStatSettings, kStatAutoDownload)
           withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
-    [MWMSettings setAutoDownloadEnabled:!value];
+    [MWMSettings setAutoDownloadEnabled:value];
+  }
+  else if (cell == self.backupBookmarksCell)
+  {
+    [Statistics logEvent:kStatSettingsBookmarksSyncToggle
+          withParameters:@{
+            kStatState: (value ? @1 : @0)
+          }];
+    [MWMBookmarksManager setCloudEnabled:value];
   }
   else if (cell == self.fontScaleCell)
   {
