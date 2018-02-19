@@ -3,8 +3,8 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/img_whats_new_transport</item>
-    <item>@drawable/img_whats_new_discover</item>
+    <item>@drawable/img_whats_new_hotel_filter</item>
+    <item>@drawable/img_whats_new_ugc</item>
   </integer-array>
 
   <string-array name="news_titles">
