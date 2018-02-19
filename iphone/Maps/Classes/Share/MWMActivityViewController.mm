@@ -26,16 +26,26 @@
   return self;
 }
 
-+ (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D const &)location
++ (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForMyPositionAtLocation:location];
   return [[self alloc] initWithActivityItem:item];
 }
 
-+ (instancetype)shareControllerForPlacePageObject:(id<MWMPlacePageObject>)object;
++ (instancetype)shareControllerForPlacePageObject:(id<MWMPlacePageObject>)object
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForPlacePageObject:object];
   return [[self alloc] initWithActivityItem:item];
+}
+
++ (instancetype)shareControllerForURL:(NSURL *)url
+                              message:(NSString *)message
+                    completionHandler:
+                        (UIActivityViewControllerCompletionWithItemsHandler)completionHandler
+{
+  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItems:@[message, url]];
+  shareVC.completionWithItemsHandler = completionHandler;
+  return shareVC;
 }
 
 + (instancetype)shareControllerForEditorViral
