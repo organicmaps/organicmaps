@@ -25,6 +25,7 @@
 #import "MWMAvailableAreaAffectDirection.h"
 #import "MWMBanner.h"
 #import "MWMBottomMenuViewController.h"
+#import "MWMCircularProgress+Swift.h"
 #import "MWMCollectionViewController.h"
 #import "MWMConsts.h"
 #import "MWMController.h"
