@@ -101,7 +101,14 @@ void GlyphGenerator::OnTaskFinished(ref_ptr<Listener> listener,
   m_glyphsCounter -= glyphs.size();
 
   if (m_listeners.find(listener) != m_listeners.end())
+  {
     listener->OnCompleteGlyphGeneration(std::move(glyphs));
+  }
+  else
+  {
+    for (auto & data : glyphs)
+      data.DestroyGlyph();
+  }
 
   m_activeTasks.Remove(task);
 }
