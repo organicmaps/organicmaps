@@ -1268,4 +1268,8 @@
 	<string name="transit_not_found">Навигация по общественному траспорту пока не доступна в данном регионе</string>
 	<string name="dialog_pedestrian_route_is_long">Пешеходный маршрут слишком длинный</string>
 	<string name="dialog_message_transit_not_found_connection">Постройте маршрут в пределах одной транспортной сети</string>
+	<string name="whats_new_title_hotel_filter">Новые фильтры при поиске отелей</string>
+	<string name="whats_new_message_hotel_filter">При поиске отелей используйте фильтрацию по дате заезда и выезда</string>
+	<string name="whats_new_title_ugc_travel">Делитесь вашими впечатлениями с другими путешественниками</string>
+	<string name="whats_new_message_ugc_travel">Оценивайте и пишите отзывы о посещенных местах!</string>
 </resources>

@@ -2214,3 +2214,11 @@
 "dialog_pedestrian_route_is_long" = "Пешеходный маршрут слишком длинный";
 
 "dialog_message_transit_not_found_connection" = "Постройте маршрут в пределах одной транспортной сети";
+
+"whats_new_title_hotel_filter" = "Новые фильтры при поиске отелей";
+
+"whats_new_message_hotel_filter" = "При поиске отелей используйте фильтрацию по дате заезда и выезда";
+
+"whats_new_title_ugc_travel" = "Делитесь вашими впечатлениями с другими путешественниками";
+
+"whats_new_message_ugc_travel" = "Оценивайте и пишите отзывы о посещенных местах!";

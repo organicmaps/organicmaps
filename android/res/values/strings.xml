@@ -1282,4 +1282,8 @@
 	<string name="transit_not_found">Transit navigation in this region is not yet available</string>
 	<string name="dialog_pedestrian_route_is_long">The pedestrian route is too long</string>
 	<string name="dialog_message_transit_not_found_connection">Plan a route within one transit network</string>
+	<string name="whats_new_title_hotel_filter">New hotel filters available!</string>
+	<string name="whats_new_message_hotel_filter">Book hotels available for your dates! Use check in and check out filters</string>
+	<string name="whats_new_title_ugc_travel">Share your experience with other travellers!</string>
+	<string name="whats_new_message_ugc_travel">Rate and review places you visited!</string>
 </resources>
