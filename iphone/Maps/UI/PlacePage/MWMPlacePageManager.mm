@@ -2,6 +2,7 @@
 #import "CLLocation+Mercator.h"
 #import "MWMAPIBar.h"
 #import "MWMActivityViewController.h"
+#import "MWMBookmarksObserver.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationHelpers.h"
@@ -24,7 +25,6 @@
 #include "geometry/distance_on_sphere.hpp"
 
 extern NSString * const kBookmarkDeletedNotification;
-extern NSString * const kBookmarkCategoryDeletedNotification;
 
 namespace
 {
@@ -63,7 +63,8 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 }  // namespace
 
 @interface MWMPlacePageManager ()<MWMFrameworkStorageObserver, MWMPlacePageLayoutDelegate,
-                                  MWMPlacePageLayoutDataSource, MWMLocationObserver>
+                                  MWMPlacePageLayoutDataSource, MWMLocationObserver,
+                                  MWMBookmarksObserver>
 
 @property(nonatomic) MWMPlacePageLayout * layout;
 @property(nonatomic) MWMPlacePageData * data;
@@ -98,10 +99,6 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
                                              name:kBookmarkDeletedNotification
                                            object:nil];
 
-  [NSNotificationCenter.defaultCenter addObserver:self
-                                         selector:@selector(handleBookmarkCategoryDeleting:)
-                                             name:kBookmarkCategoryDeletedNotification
-                                           object:nil];
   [self setupSpeedAndDistance];
 
   [self.layout showWithData:self.data];
@@ -135,15 +132,15 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self closePlacePage];
 }
 
-- (void)handleBookmarkCategoryDeleting:(NSNotification *)notification
+- (void)handleBookmarkCategoryDeleting:(NSNotification *)notification {}
+
+#pragma mark - MWMBookmarksObserver
+
+- (void)onBookmarksCategoryDeleted:(MWMMarkGroupID)groupId
 {
   auto data = self.data;
   NSAssert(data && self.layout, @"It must be openned place page!");
-  if (!data.isBookmark)
-    return;
-
-  auto deletedCategoryId = static_cast<NSNumber *>(notification.object).integerValue;
-  if (data.bookmarkCategoryId != deletedCategoryId)
+  if (!data.isBookmark || data.bookmarkCategoryId != groupId)
     return;
 
   [self closePlacePage];
