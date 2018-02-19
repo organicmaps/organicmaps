@@ -148,7 +148,7 @@ void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products
   {
     taxi::Product product;
     double time = 0.0;
-    int64_t price = 0;
+    double price = 0.0;
     auto const item = json_array_get(productsArray, i);
 
     FromJSONObjectOptionalField(item, "waiting_time", time);
