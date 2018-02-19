@@ -20,10 +20,13 @@
 #import "private.h"
 
 #import "AppInfo.h"
+#import "BookmarksVC.h"
 #import "LocalNotificationManager.h"
+#import "MWMActivityViewController.h"
 #import "MWMAuthorizationViewModel.h"
 #import "MWMAvailableAreaAffectDirection.h"
 #import "MWMBanner.h"
+#import "MWMBookmarksManager.h"
 #import "MWMBottomMenuViewController.h"
 #import "MWMCircularProgress+Swift.h"
 #import "MWMCollectionViewController.h"

@@ -1,5 +1,4 @@
 #import "MapViewController.h"
-#import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
 #import "EAGLView.h"
 #import "MWMAPIBar.h"
@@ -367,8 +366,8 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   auto const & ids = GetFramework().GetBookmarkManager().GetBmGroupsIdList();
   BOOL const oneCategory = (ids.size() == 1);
-  MWMTableViewController * vc =
-      oneCategory ? [[BookmarksVC alloc] initWithCategory:(ids.front())] : [[BookmarksRootVC alloc] init];
+  auto vc = oneCategory ? [[BookmarksVC alloc] initWithCategory:(ids.front())]
+                        : [[BMCViewController alloc] init];
   [self.navigationController pushViewController:vc animated:YES];
 }
 
