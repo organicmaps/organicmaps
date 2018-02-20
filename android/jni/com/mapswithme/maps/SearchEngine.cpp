@@ -309,6 +309,8 @@ private:
   bool m_initialized = false;
 } g_bookingAvailabilityParamsBuilder;
 
+FeatureID const kEmptyFeatureId;
+
 // This cache is needed only for showing a specific result on the map after click on the list item.
 // Don't use it with another intentions!
 Results g_results;
@@ -372,7 +374,10 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
     return ret;
   }
 
-  jni::TScopedLocalRef featureId(env, usermark_helper::CreateFeatureId(env, result.GetFeatureID()));
+  auto const isFeature = result.GetResultType() == Result::Type::Feature;
+  jni::TScopedLocalRef featureId(env, usermark_helper::CreateFeatureId(env, isFeature ?
+                                                                            result.GetFeatureID() :
+                                                                            kEmptyFeatureId));
   jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetFeatureTypeName()));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, jni::ToJavaString(env, distance));
