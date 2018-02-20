@@ -123,7 +123,7 @@ public:
   /// @note In case of an error returns an empty string.
   static string GetCurrentWorkingDirectory() noexcept;
   /// @return always the same writable dir for current user with slash at the end
-  string WritableDir() const { return m_writableDir; }
+  string const & WritableDir() const { return m_writableDir; }
   /// Set writable dir — use for testing and linux stuff only
   void SetWritableDirForTests(string const & path);
   /// @return full path to file in user's writable directory
@@ -132,7 +132,7 @@ public:
   string ReadPathForFile(string const & file, string searchScope = string()) const;
 
   /// @return resource dir (on some platforms it's differ from Writable dir)
-  string ResourcesDir() const { return m_resourcesDir; }
+  string const & ResourcesDir() const { return m_resourcesDir; }
   /// @note! This function is used in generator_tool and unit tests.
   /// Client app should not replace default resource dir.
   void SetResourceDir(string const & path);
@@ -153,7 +153,7 @@ public:
   static bool RmDirRecursively(string const & dirName);
 
   /// @return path for directory with temporary files with slash at the end
-  string TmpDir() const { return m_tmpDir; }
+  string const & TmpDir() const { return m_tmpDir; }
   /// @return full path to file in the temporary directory
   string TmpPathForFile(string const & file) const { return TmpDir() + file; }
 
@@ -162,7 +162,7 @@ public:
 
   /// @return path for directory in the persistent memory, can be the same
   /// as WritableDir, but on some platforms it's different
-  string SettingsDir() const { return m_settingsDir; }
+  string const & SettingsDir() const { return m_settingsDir; }
   void SetSettingsDir(string const & path);
   /// @return full path to file in the settings directory
   string SettingsPathForFile(string const & file) const { return SettingsDir() + file; }
