@@ -1463,12 +1463,39 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8n2-Bc-3lW" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="211" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8n2-Bc-3lW" id="swd-n3-rgq">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OpenStreetMap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LsV-5e-JVw">
+                                                    <rect key="frame" x="16" y="14" width="307" height="15.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="LsV-5e-JVw" secondAttribute="trailing" constant="10" id="Fm5-b6-Vkf"/>
+                                                <constraint firstItem="LsV-5e-JVw" firstAttribute="leading" secondItem="swd-n3-rgq" secondAttribute="leading" constant="16" id="LOC-Yi-lzd"/>
+                                                <constraint firstItem="LsV-5e-JVw" firstAttribute="top" secondItem="swd-n3-rgq" secondAttribute="topMargin" constant="3" id="dHM-KO-wyU"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="LsV-5e-JVw" secondAttribute="bottom" constant="3.5" id="jDp-u5-myF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="wsr-ZV-X15">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="jhU-Ha-kE2" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="247" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="291" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jhU-Ha-kE2" id="BJb-8F-OEp">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -1500,7 +1527,7 @@
                             <tableViewSection id="Vce-Ld-skc">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VXa-CM-OXP" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="327" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="371" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VXa-CM-OXP" id="Vot-vJ-3MU">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -1538,6 +1565,7 @@
                     <connections>
                         <outlet property="copyrightCell" destination="VXa-CM-OXP" id="FpT-Rr-yha"/>
                         <outlet property="facebookCell" destination="AwY-rw-AMm" id="NUh-p9-2t4"/>
+                        <outlet property="osmCell" destination="8n2-Bc-3lW" id="igH-Nf-uX5"/>
                         <outlet property="rateCell" destination="jhU-Ha-kE2" id="qi9-Y9-9BP"/>
                         <outlet property="subscribeCell" destination="q9S-xP-Mmy" id="SG3-FG-Z8T"/>
                         <outlet property="twitterCell" destination="PYl-5B-hBB" id="mep-Pn-aCd"/>

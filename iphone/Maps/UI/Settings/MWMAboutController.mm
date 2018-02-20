@@ -19,6 +19,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * facebookCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * twitterCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * subscribeCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * osmCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * rateCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * copyrightCell;
 
@@ -71,6 +72,11 @@ extern NSString * const kAlohalyticsTapEventKey;
     [self sendEmailWithText:L(@"subscribe_me_body")
                     subject:L(@"subscribe_me_subject")
                 toRecipient:@"subscribe@maps.me"];
+  }
+  else if (cell == self.osmCell)
+  {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"osm"];
+    [self openUrl:[NSURL URLWithString:@"https://www.openstreetmap.org"]];
   }
   else if (cell == self.rateCell)
   {
