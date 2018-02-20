@@ -48,6 +48,8 @@ public final class HttpUploader
   private final String mFilePath;
   @NonNull
   private final String mBoundary;
+  @NonNull
+  private final String mEndPart;
 
   public HttpUploader(@NonNull String method, @NonNull String url, @NonNull KeyValue[] params,
                       @NonNull KeyValue[] headers, @NonNull String fileKey, @NonNull String filePath)
@@ -56,9 +58,10 @@ public final class HttpUploader
     mUrl = url;
     mFileKey = fileKey;
     mFilePath = filePath;
-    mBoundary = "------------------------" + System.currentTimeMillis();
+    mBoundary = "----" + System.currentTimeMillis();
     mParams = new ArrayList<>(Arrays.asList(params));
     mHeaders = new ArrayList<>(Arrays.asList(headers));
+    mEndPart = LINE_FEED + "--" + mBoundary + "--" + LINE_FEED;
   }
 
   public Result upload()
@@ -83,16 +86,18 @@ public final class HttpUploader
       fillBodyParams(paramsBuilder);
       File file = new File(mFilePath);
       fillFileParams(paramsBuilder, mFileKey, file);
-      int endPartSize = LINE_FEED.length() + "--".length() + mBoundary.length()
-                        + "--".length() + LINE_FEED.length();
-      long bodyLength = paramsBuilder.toString().length() + fileSize + endPartSize;
+      int endPartSize = mEndPart.getBytes().length;
+      int paramsSize = paramsBuilder.toString().getBytes().length;
+      long bodyLength = paramsSize + fileSize + endPartSize;
       setStreamingMode(connection, bodyLength);
       setHeaders(connection, bodyLength);
       long startTime = System.currentTimeMillis();
+      LOGGER.d(TAG, "Start bookmarks upload on url: '" + Utils.makeUrlSafe(mUrl) + "'");
       OutputStream outputStream = connection.getOutputStream();
       writer = new PrintWriter(new OutputStreamWriter(outputStream, CHARSET));
       writeParams(writer, paramsBuilder);
       writeFileContent(outputStream, writer, file);
+      writeEndPart(writer);
 
       status = connection.getResponseCode();
       LOGGER.d(TAG, "Upload bookmarks status code: " + status);
@@ -233,7 +238,11 @@ public final class HttpUploader
     while ((bytesRead = inputStream.read(buffer)) != -1)
       outputStream.write(buffer, 0, bytesRead);
     Utils.closeStream(inputStream);
-    writer.append(LINE_FEED).append("--").append(mBoundary).append("--").append(LINE_FEED);
+  }
+
+  private void writeEndPart(@NonNull PrintWriter writer)
+  {
+    writer.append(mEndPart);
     writer.flush();
   }
 
