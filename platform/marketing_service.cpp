@@ -4,7 +4,8 @@ namespace marketing
 {
 
 // Tags.
-char const * const kMapVersion = "map_version";
+char const * const kMapVersionMin = "map_version_min";
+char const * const kMapVersionMax = "map_version_max";
 char const * const kMapListing = "map_listing";
 char const * const kMapDownloadDiscovered = "map_download_discovered";
 char const * const kMapLastDownloaded = "last_map_downloaded";

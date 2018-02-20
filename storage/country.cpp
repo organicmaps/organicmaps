@@ -329,9 +329,6 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, TCountryTree & countr
   {
     LOG(LERROR, (e.Msg()));
   }
-  stringstream ss;
-  ss << version;
-  GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapVersion, ss.str());
   return version;
 }
 
