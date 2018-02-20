@@ -35,6 +35,7 @@ import com.mapswithme.util.Counters;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.SharedPropertiesUtils;
+import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -202,21 +203,24 @@ public class MwmApplication extends Application
 
     initTracker();
 
-    String settingsPath = getSettingsPath();
+    final String settingsPath = StorageUtils.getSettingsPath();
     mLogger.d(TAG, "onCreate(), setting path = " + settingsPath);
-    String tempPath = getTempPath();
+    final String filesPath = StorageUtils.getFilesPath();
+    mLogger.d(TAG, "onCreate(), files path = " + filesPath);
+    final String tempPath = StorageUtils.getTempPath();
     mLogger.d(TAG, "onCreate(), temp path = " + tempPath);
 
     // If platform directories are not created it means that native part of app will not be able
     // to work at all. So, we just ignore native part initialization in this case, e.g. when the
     // external storage is damaged or not available (read-only).
-    if (!createPlatformDirectories(settingsPath, tempPath))
+    if (!createPlatformDirectories(settingsPath, filesPath, tempPath))
       return;
 
     // First we need initialize paths and platform to have access to settings and other components.
     nativePreparePlatform(settingsPath);
-    nativeInitPlatform(getApkPath(), getStoragePath(settingsPath), getTempPath(), getObbGooglePath(),
-                       BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
+    nativeInitPlatform(StorageUtils.getApkPath(), StorageUtils.getStoragePath(settingsPath),
+                       filesPath, tempPath, StorageUtils.getObbGooglePath(), BuildConfig.FLAVOR,
+                       BuildConfig.BUILD_TYPE, UiUtils.isTablet());
 
     Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled());
 
@@ -233,31 +237,15 @@ public class MwmApplication extends Application
     mPlatformInitialized = true;
   }
 
-  private boolean createPlatformDirectories(@NonNull String settingsPath, @NonNull String tempPath)
+  private boolean createPlatformDirectories(@NonNull String settingsPath, @NonNull String filesPath,
+                                            @NonNull String tempPath)
   {
     if (SharedPropertiesUtils.shouldEmulateBadExternalStorage())
       return false;
 
-    return createPlatformDirectory(settingsPath) && createPlatformDirectory(tempPath);
-  }
-
-  private boolean createPlatformDirectory(@NonNull String path)
-  {
-    File directory = new File(path);
-    if (!directory.exists() && !directory.mkdirs())
-    {
-      boolean isPermissionGranted = PermissionsUtils.isExternalStorageGranted();
-      Throwable error = new IllegalStateException("Can't create directories for: " + path
-                                                  + " state = " + Environment.getExternalStorageState()
-                                                  + " isPermissionGranted = " + isPermissionGranted);
-      LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE)
-                            .e(TAG, "Can't create directories for: " + path
-                                    + " state = " + Environment.getExternalStorageState()
-                                    + " isPermissionGranted = " + isPermissionGranted);
-      CrashlyticsUtils.logException(error);
-      return false;
-    }
-    return true;
+    return StorageUtils.createDirectory(settingsPath) &&
+           StorageUtils.createDirectory(filesPath) &&
+           StorageUtils.createDirectory(tempPath);
   }
 
   private void initNativeFramework()
@@ -327,56 +315,6 @@ public class MwmApplication extends Application
   public boolean arePlatformAndCoreInitialized()
   {
     return mFrameworkInitialized && mPlatformInitialized;
-  }
-
-  public String getApkPath()
-  {
-    try
-    {
-      return getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
-    } catch (final NameNotFoundException e)
-    {
-      mLogger.e(TAG, "Can't get apk path from PackageManager", e);
-      return "";
-    }
-  }
-
-  public static String getSettingsPath()
-  {
-    return Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.MWM_DIR_POSTFIX;
-  }
-
-  private static String getStoragePath(String settingsPath)
-  {
-    String path = Config.getStoragePath();
-    if (!TextUtils.isEmpty(path))
-    {
-      File f = new File(path);
-      if (f.exists() && f.isDirectory())
-        return path;
-
-      path = new StoragePathManager().findMapsMeStorage(settingsPath);
-      Config.setStoragePath(path);
-      return path;
-    }
-
-    return settingsPath;
-  }
-
-  public String getTempPath()
-  {
-    final File cacheDir = getExternalCacheDir();
-    if (cacheDir != null)
-      return cacheDir.getAbsolutePath();
-
-    return Environment.getExternalStorageDirectory().getAbsolutePath() +
-           String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
-  }
-
-  private static String getObbGooglePath()
-  {
-    final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format(Constants.OBB_PATH, BuildConfig.APPLICATION_ID));
   }
 
   static
@@ -462,8 +400,9 @@ public class MwmApplication extends Application
   }
 
   private static native void nativePreparePlatform(String settingsPath);
-  private native void nativeInitPlatform(String apkPath, String storagePath, String tmpPath, String obbGooglePath,
-                                         String flavorName, String buildType, boolean isTablet);
+  private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,
+                                         String tmpPath, String obbGooglePath, String flavorName,
+                                         String buildType, boolean isTablet);
 
   private static native void nativeInitFramework();
   private static native void nativeProcessTask(long taskPointer);

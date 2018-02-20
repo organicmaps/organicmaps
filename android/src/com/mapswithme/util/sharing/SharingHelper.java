@@ -27,6 +27,8 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.StorageUtils;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 
@@ -215,7 +217,7 @@ public final class SharingHelper
 
   public static void shareBookmarksCategory(Activity context, long id)
   {
-    final String path = MwmApplication.get().getTempPath() + "/";
+    final String path = StorageUtils.getTempPath() + "/";
     String name = BookmarkManager.INSTANCE.saveToKmzFile(id, path);
     if (name == null)
       return;

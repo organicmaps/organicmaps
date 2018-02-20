@@ -87,11 +87,9 @@ void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
 
 namespace android
 {
-void Platform::Initialize(JNIEnv * env,
-                          jobject functorProcessObject,
-                          jstring apkPath, jstring storagePath,
-                          jstring tmpPath, jstring obbGooglePath,
-                          jstring flavorName, jstring buildType,
+void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring apkPath,
+                          jstring storagePath, jstring privatePath, jstring tmpPath,
+                          jstring obbGooglePath, jstring flavorName, jstring buildType,
                           bool isTablet)
 {
   m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
@@ -119,6 +117,7 @@ void Platform::Initialize(JNIEnv * env,
 
   m_isTablet = isTablet;
   m_resourcesDir = jni::ToNativeString(env, apkPath);
+  m_privateDir = jni::ToNativeString(env, privatePath);
   m_tmpDir = jni::ToNativeString(env, tmpPath);
   m_writableDir = jni::ToNativeString(env, storagePath);
 

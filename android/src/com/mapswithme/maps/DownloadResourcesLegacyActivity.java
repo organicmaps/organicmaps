@@ -32,6 +32,7 @@ import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -769,7 +770,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
           final String ext = getExtensionFromMime(resolver.getType(mData));
           if (ext != null)
           {
-            final String filePath = MwmApplication.get().getTempPath() + "Attachment" + ext;
+            final String filePath = StorageUtils.getTempPath() + "Attachment" + ext;
 
             File tmpFile = new File(filePath);
             output = new FileOutputStream(tmpFile);
