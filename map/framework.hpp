@@ -145,6 +145,10 @@ class Framework : public SearchAPI::Delegate, public RoutingManager::Delegate
 
   } m_fixedPos;
 #endif
+    
+private:
+  // Must be first member in Framework.
+  unique_ptr<Platform::ThreadRunner> m_threadRunner = make_unique<Platform::ThreadRunner>();
 
 protected:
   using TDrapeFunction = function<void (df::DrapeEngine *)>;

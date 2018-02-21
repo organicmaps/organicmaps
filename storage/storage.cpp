@@ -108,7 +108,6 @@ Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */,
   SetLocale(languages::GetCurrentTwine());
   LoadCountriesFile(pathToCountriesFile, m_dataDir);
   CalMaxMwmSizeBytes();
-  LoadServerListForSession();
 }
 
 Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
@@ -122,7 +121,6 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
       LoadCountriesFromBuffer(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations);
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
   CalMaxMwmSizeBytes();
-  LoadServerListForTesting();
 }
 
 void Storage::Init(TUpdateCallback const & didDownload, TDeleteCallback const & willDelete)
@@ -642,10 +640,15 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
     return;
   }
 
-  if (m_sessionServerList)
+  if (m_sessionServerList || !m_downloadingUrlsForTesting.empty())
+  {
     DoDownload();
+  }
   else
+  {
+    LoadServerListForSession();
     SetDeferDownloading();
+  }
 }
 
 void Storage::DeleteFromDownloader(TCountryId const & countryId)
@@ -786,7 +789,7 @@ void Storage::ReportProgressForHierarchy(TCountryId const & countryId,
 void Storage::DoDownload()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  CHECK(m_sessionServerList, ());
+  CHECK(m_sessionServerList || !m_downloadingUrlsForTesting.empty(), ());
 
   // Queue can be empty because countries were deleted from queue.
   if (m_queue.empty())

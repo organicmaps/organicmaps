@@ -72,6 +72,7 @@ UNIT_TEST(SmallMwms_ReDownloadExistedMWMIgnored_Test)
 
 UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
 {
+  auto runner = make_unique<Platform::ThreadRunner>();
   WritableDirChanger writableDirChanger(kMapTestDir);
 
   // Start download but interrupt it

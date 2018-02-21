@@ -30,9 +30,21 @@ namespace platform
 class LocalCountryFile;
 }
 
+class Platform;
+
+extern Platform & GetPlatform();
+
 class Platform
 {
 public:
+  friend struct ThreadRunner;
+
+  struct ThreadRunner
+  {
+    ThreadRunner() { GetPlatform().RunThreads(); }
+    ~ThreadRunner() { GetPlatform().ShutdownThreads(); }
+  };
+
   enum EError
   {
     ERR_OK = 0,
@@ -111,8 +123,8 @@ protected:
 
   unique_ptr<base::TaskLoop> m_guiThread;
 
-  base::WorkerThread m_networkThread;
-  base::WorkerThread m_fileThread;
+  unique_ptr<base::WorkerThread> m_networkThread;
+  unique_ptr<base::WorkerThread> m_fileThread;
 
 public:
   Platform();
@@ -263,50 +275,51 @@ public:
   template <typename Task>
   void RunTask(Thread thread, Task && task)
   {
+    ASSERT(m_networkThread && m_fileThread, ());
     switch (thread)
     {
-      case Thread::File:
-        m_fileThread.Push(forward<Task>(task));
-        break;
-      case Thread::Network:
-        m_networkThread.Push(forward<Task>(task));
-        break;
-      case Thread::Gui:
-        RunOnGuiThread(forward<Task>(task));
-        break;
+    case Thread::File:
+      m_fileThread->Push(forward<Task>(task));
+      break;
+    case Thread::Network:
+      m_networkThread->Push(forward<Task>(task));
+      break;
+    case Thread::Gui:
+      RunOnGuiThread(forward<Task>(task));
+      break;
     }
   }
 
   template <typename Task>
   void RunDelayedTask(Thread thread, base::WorkerThread::Duration const & delay, Task && task)
   {
+    ASSERT(m_networkThread && m_fileThread, ());
     switch (thread)
     {
-      case Thread::File:
-        m_fileThread.PushDelayed(delay, forward<Task>(task));
-        break;
-      case Thread::Network:
-        m_networkThread.PushDelayed(delay, forward<Task>(task));
-        break;
-      case Thread::Gui:
-        CHECK(false, ("Delayed tasks for gui thread are not supported yet"));
-        break;
+    case Thread::File:
+      m_fileThread->PushDelayed(delay, forward<Task>(task));
+      break;
+    case Thread::Network:
+      m_networkThread->PushDelayed(delay, forward<Task>(task));
+      break;
+    case Thread::Gui:
+      CHECK(false, ("Delayed tasks for gui thread are not supported yet"));
+      break;
     }
   }
-
-  void ShutdownThreads();
 
   // Use this method for testing purposes only.
   void SetGuiThread(unique_ptr<base::TaskLoop> guiThread);
 
 private:
+  void RunThreads();
+  void ShutdownThreads();
+
   void RunOnGuiThread(base::TaskLoop::Task && task);
   void RunOnGuiThread(base::TaskLoop::Task const & task);
 
   void GetSystemFontNames(FilesList & res) const;
 };
-
-extern Platform & GetPlatform();
 
 string DebugPrint(Platform::EError err);
 string DebugPrint(Platform::ChargingStatus status);

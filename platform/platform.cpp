@@ -271,8 +271,19 @@ unsigned Platform::CpuCores() const
 
 void Platform::ShutdownThreads()
 {
-  m_networkThread.ShutdownAndJoin();
-  m_fileThread.ShutdownAndJoin();
+  ASSERT(m_networkThread && m_fileThread, ());
+  m_networkThread->ShutdownAndJoin();
+  m_fileThread->ShutdownAndJoin();
+
+  m_networkThread.reset();
+  m_fileThread.reset();
+}
+
+void Platform::RunThreads()
+{
+  ASSERT(!m_networkThread && !m_fileThread, ());
+  m_networkThread = make_unique<base::WorkerThread>();
+  m_fileThread = make_unique<base::WorkerThread>();
 }
 
 string DebugPrint(Platform::EError err)

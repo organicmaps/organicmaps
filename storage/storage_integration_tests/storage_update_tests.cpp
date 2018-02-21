@@ -61,7 +61,7 @@ bool DownloadFile(string const & url,
 
 string GetCountriesTxtWebUrl(string const version)
 {
-  return kTestWebServer + "/direct/" + version + "/" + kCountriesTxtFile;
+  return kTestWebServer + "direct/" + version + "/" + kCountriesTxtFile;
 }
 
 string GetCountriesTxtFilePath()

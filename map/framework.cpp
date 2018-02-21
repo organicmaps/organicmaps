@@ -484,7 +484,7 @@ Framework::Framework(FrameworkParams const & params)
 
 Framework::~Framework()
 {
-  GetPlatform().ShutdownThreads();
+  m_threadRunner.reset();
 
   osm::Editor & editor = osm::Editor::Instance();
 
