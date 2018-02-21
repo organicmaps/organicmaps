@@ -235,6 +235,18 @@ enum class State
   } completion:nil];
 }
 
+- (void)updateProcessStatus:(TCountryId const &)countryId
+{
+  auto const & s = GetFramework().GetStorage();
+  NodeAttrs nodeAttrs;
+  s.GetNodeAttrs(RootId(), nodeAttrs);
+  auto view = static_cast<MWMAutoupdateView *>(self.view);
+  NSString * nodeName = @(s.GetNodeLocalName(countryId).c_str());
+  [view setStatusForNodeName:nodeName rootAttributes:nodeAttrs];
+  if (nodeAttrs.m_downloadingProgress.first == nodeAttrs.m_downloadingProgress.second)
+    self.progressFinished = YES;
+}
+
 #pragma mark - MWMCircularProgressProtocol
 
 - (void)progressButtonPressed:(MWMCircularProgress *)progress { [self cancel]; }
@@ -265,6 +277,8 @@ enum class State
   
   if (self.progressFinished && m_updatingCountries.empty())
     [self dismiss];
+  else
+    [self updateProcessStatus:countryId];
 }
 
 - (void)processError
@@ -294,16 +308,8 @@ enum class State
 - (void)processCountry:(TCountryId const &)countryId
               progress:(MapFilesDownloader::TProgress const &)progress
 {
-  if (m_updatingCountries.find(countryId) == m_updatingCountries.end())
-    return;
-  auto const & s = GetFramework().GetStorage();
-  NodeAttrs nodeAttrs;
-  s.GetNodeAttrs(RootId(), nodeAttrs);
-  auto view = static_cast<MWMAutoupdateView *>(self.view);
-  NSString * nodeName = @(s.GetNodeLocalName(countryId).c_str());
-  [view setStatusForNodeName:nodeName rootAttributes:nodeAttrs];
-  if (nodeAttrs.m_downloadingProgress.first == nodeAttrs.m_downloadingProgress.second)
-    self.progressFinished = YES;
+  if (m_updatingCountries.find(countryId) != m_updatingCountries.end())
+    [self updateProcessStatus:countryId];
 }
 
 @end
