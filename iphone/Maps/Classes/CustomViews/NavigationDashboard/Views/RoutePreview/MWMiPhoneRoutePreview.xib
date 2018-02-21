@@ -27,7 +27,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="aNH-vh-DPz" customClass="MWMiPhoneRoutePreview">
+        <view contentMode="scaleToFill" id="aNH-vh-DPz" customClass="MWMiPhoneRoutePreview" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -176,7 +176,7 @@
             </connections>
             <point key="canvasLocation" x="448" y="341"/>
         </view>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIE-BJ-nFm" customClass="MWMBaseRoutePreviewStatus">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIE-BJ-nFm" customClass="MWMBaseRoutePreviewStatus" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="320" height="152"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7e-Ce-Flg">
@@ -441,7 +441,7 @@
             </connections>
             <point key="canvasLocation" x="448" y="521"/>
         </view>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iWi-pM-AJF" customClass="MWMTransportRoutePreviewStatus">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iWi-pM-AJF" customClass="MWMTransportRoutePreviewStatus" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uA3-5h-DWb">
@@ -463,13 +463,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <collectionView userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVh-LF-kSn" customClass="TransportTransitStepsCollectionView" customModule="cm_dbg" customModuleProvider="target">
+                <collectionView userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVh-LF-kSn" customClass="TransportTransitStepsCollectionView" customModule="maps_me" customModuleProvider="target">
                     <rect key="frame" x="16" y="44" width="288" height="20"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="eGu-Mr-auv"/>
                     </constraints>
-                    <collectionViewLayout key="collectionViewLayout" id="d3P-nT-IFD" customClass="TransportTransitFlowLayout" customModule="cm_dbg" customModuleProvider="target"/>
+                    <collectionViewLayout key="collectionViewLayout" id="d3P-nT-IFD" customClass="TransportTransitFlowLayout" customModule="maps_me" customModuleProvider="target"/>
                 </collectionView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

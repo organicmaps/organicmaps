@@ -37,7 +37,7 @@
                 <outletCollection property="topViews" destination="u9y-bx-NGd" id="mAw-CD-QQV"/>
             </connections>
         </placeholder>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcT-Cg-vp3" customClass="SearchBar" customModule="cm_dbg" customModuleProvider="target">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcT-Cg-vp3" customClass="SearchBar" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8lb-Vi-0oJ" userLabel="StatusBarBackground">
@@ -122,7 +122,7 @@
             <point key="canvasLocation" x="236" y="-242"/>
         </view>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3Y-13-kVB" userLabel="ActionBar" customClass="SolidTouchView">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3Y-13-kVB" userLabel="ActionBar" customClass="SolidTouchView" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Smx-UL-Mcd" userLabel="TabBar">
@@ -347,7 +347,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="236" y="-58"/>
         </view>
-        <view contentMode="scaleToFill" id="u9y-bx-NGd" userLabel="Content" customClass="MWMSearchContentView">
+        <view contentMode="scaleToFill" id="u9y-bx-NGd" userLabel="Content" customClass="MWMSearchContentView" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="320" height="402"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>

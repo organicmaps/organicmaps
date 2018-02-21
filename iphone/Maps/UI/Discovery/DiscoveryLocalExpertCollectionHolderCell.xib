@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiscoveryLocalExpertCollectionHolderCell" rowHeight="245" id="kOb-uR-NfL" customClass="MWMDiscoveryLocalExpertCollectionHolderCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiscoveryLocalExpertCollectionHolderCell" rowHeight="245" id="kOb-uR-NfL" customClass="MWMDiscoveryLocalExpertCollectionHolderCell" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="375" height="248"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kOb-uR-NfL" id="HJe-Ad-Mjp">
@@ -29,7 +29,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hb0-w1-X0p" customClass="MWMDiscoveryCollectionView">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hb0-w1-X0p" customClass="MWMDiscoveryCollectionView">
                         <rect key="frame" x="0.0" y="50" width="375" height="197"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>

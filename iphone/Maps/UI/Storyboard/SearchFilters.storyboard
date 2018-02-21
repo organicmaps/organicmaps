@@ -13,7 +13,7 @@
         <!--Search Hotels Filter View Controller-->
         <scene sceneID="3Lw-zP-9hH">
             <objects>
-                <viewController storyboardIdentifier="MWMSearchHotelsFilterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LNn-Gp-Jtg" customClass="MWMSearchHotelsFilterViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MWMSearchHotelsFilterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LNn-Gp-Jtg" customClass="MWMSearchHotelsFilterViewController" propertyAccessControl="all" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="a4S-IT-Fgz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -204,7 +204,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="cm9-a2-KtE">
-                                                    <rect key="frame" x="16" y="0.0" width="108.5" height="40"/>
+                                                    <rect key="frame" x="16" y="0.0" width="109" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="40" id="ntq-iz-6Ov"/>
                                                     </constraints>
@@ -215,7 +215,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="eEn-77-iwI">
-                                                    <rect key="frame" x="132.5" y="0.0" width="109.5" height="40"/>
+                                                    <rect key="frame" x="133" y="0.0" width="109.5" height="40"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <state key="normal" title="$$"/>
                                                     <connections>
@@ -223,7 +223,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="96b-HD-t1A">
-                                                    <rect key="frame" x="250" y="0.0" width="109" height="40"/>
+                                                    <rect key="frame" x="250.5" y="0.0" width="108.5" height="40"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <state key="normal" title="$$$"/>
                                                     <connections>

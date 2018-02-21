@@ -18,7 +18,7 @@
         <!--AuthorizationOSM Login View Controller-->
         <scene sceneID="14Y-XP-wqe">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-4R7-Vk-fQr" id="4R7-Vk-fQr" customClass="MWMAuthorizationOSMLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UIViewController-4R7-Vk-fQr" id="4R7-Vk-fQr" customClass="MWMAuthorizationOSMLoginViewController" propertyAccessControl="all" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="S9T-iq-RN6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -206,7 +206,7 @@
         <!--Authorization Login View Controller-->
         <scene sceneID="brg-EE-ML1">
             <objects>
-                <viewController storyboardIdentifier="AuthorizationLoginViewController" id="iZ6-Zi-bkZ" customClass="MWMAuthorizationLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthorizationLoginViewController" id="iZ6-Zi-bkZ" customClass="MWMAuthorizationLoginViewController" propertyAccessControl="all" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i64-CY-UO1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -611,7 +611,7 @@
         <!--Authorization Web View Login View Controller-->
         <scene sceneID="FkX-1E-Llw">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-anB-7S-ebY" id="anB-7S-ebY" customClass="MWMAuthorizationWebViewLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UIViewController-anB-7S-ebY" id="anB-7S-ebY" customClass="MWMAuthorizationWebViewLoginViewController" propertyAccessControl="all" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2u2-L2-Hb3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

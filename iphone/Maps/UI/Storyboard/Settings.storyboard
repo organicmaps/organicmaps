@@ -14,7 +14,7 @@
         <!--Settings View Controller-->
         <scene sceneID="XYc-8Q-Spz">
             <objects>
-                <tableViewController storyboardIdentifier="MWMSettingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Rr6-uj-G5f" customClass="MWMSettingsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MWMSettingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Rr6-uj-G5f" customClass="MWMSettingsViewController" propertyAccessControl="all" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="zyF-i7-Uoj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -740,7 +740,7 @@
         <!--Night Mode Controller-->
         <scene sceneID="f6s-C8-Bfx">
             <objects>
-                <tableViewController id="kBJ-ZO-Mca" customClass="MWMNightModeController" sceneMemberID="viewController">
+                <tableViewController id="kBJ-ZO-Mca" customClass="MWMNightModeController" propertyAccessControl="all" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="fpP-Ix-QtX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -859,7 +859,7 @@
         <!--Recent Track Settings Controller-->
         <scene sceneID="YrW-fi-4QL">
             <objects>
-                <tableViewController id="NP0-s9-34g" customClass="MWMRecentTrackSettingsController" sceneMemberID="viewController">
+                <tableViewController id="NP0-s9-34g" customClass="MWMRecentTrackSettingsController" propertyAccessControl="all" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ai6-eS-WuL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1071,7 +1071,7 @@
         <!--Settings View Controller-->
         <scene sceneID="9aS-r5-1zA">
             <objects>
-                <tableViewController id="XDU-iY-yV9" customClass="MWMTTSSettingsViewController" sceneMemberID="viewController">
+                <tableViewController id="XDU-iY-yV9" customClass="MWMTTSSettingsViewController" propertyAccessControl="all" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="UXT-6R-4is">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1160,7 +1160,7 @@
         <!--Language View Controller-->
         <scene sceneID="Fml-K3-2gi">
             <objects>
-                <tableViewController id="13e-Bs-Dwh" customClass="MWMTTSLanguageViewController" sceneMemberID="viewController">
+                <tableViewController id="13e-Bs-Dwh" customClass="MWMTTSLanguageViewController" propertyAccessControl="all" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="3eG-G0-XZP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1212,7 +1212,7 @@
         <!--Units Controller-->
         <scene sceneID="kBl-8f-CVb">
             <objects>
-                <tableViewController id="Ww0-88-Jrd" customClass="MWMUnitsController" sceneMemberID="viewController">
+                <tableViewController id="Ww0-88-Jrd" customClass="MWMUnitsController" propertyAccessControl="all" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="PRO-Nm-3ZN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1294,7 +1294,7 @@
         <!--Help Controller-->
         <scene sceneID="CFe-Xn-BqX">
             <objects>
-                <viewController id="f2i-mO-skH" customClass="MWMHelpController" sceneMemberID="viewController">
+                <viewController id="f2i-mO-skH" customClass="MWMHelpController" propertyAccessControl="all" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tkX-wI-s7n">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1346,7 +1346,7 @@
         <!--About Controller-->
         <scene sceneID="ClH-b6-nnf">
             <objects>
-                <tableViewController id="WyW-ez-gUy" customClass="MWMAboutController" sceneMemberID="viewController">
+                <tableViewController id="WyW-ez-gUy" customClass="MWMAboutController" propertyAccessControl="all" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="sUF-VC-Odx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1579,7 +1579,7 @@
         <!--AuthorizationLoginViewController-->
         <scene sceneID="Uoe-yB-Kdk">
             <objects>
-                <viewControllerPlaceholder storyboardName="Authorization" referencedIdentifier="AuthorizationLoginViewController" id="fxB-8Y-C2b" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Authorization" referencedIdentifier="AuthorizationLoginViewController" id="fxB-8Y-C2b" propertyAccessControl="all" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DMV-2O-GbN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-559" y="423"/>
@@ -1587,7 +1587,7 @@
         <!--Mobile Internet View Controller-->
         <scene sceneID="oc3-3x-xki">
             <objects>
-                <tableViewController id="4XX-qH-r6x" customClass="MWMMobileInternetViewController" sceneMemberID="viewController">
+                <tableViewController id="4XX-qH-r6x" customClass="MWMMobileInternetViewController" propertyAccessControl="all" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="mge-wH-6rt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

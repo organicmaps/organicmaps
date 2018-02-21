@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="fMr-en-6Lb" customClass="MWMEditorAdditionalNamesHeader">
+        <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="fMr-en-6Lb" customClass="MWMEditorAdditionalNamesHeader" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>

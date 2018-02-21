@@ -16,7 +16,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="2DE-Qh-89K" customClass="MWMCircularProgressView">
+        <view contentMode="scaleToFill" id="2DE-Qh-89K" customClass="MWMCircularProgressView" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>

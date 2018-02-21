@@ -21,7 +21,7 @@
         <!--Welcome Page Controller-->
         <scene sceneID="1ZX-3C-7bF">
             <objects>
-                <pageViewController storyboardIdentifier="WelcomePageScrollController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="hqM-da-ko0" customClass="MWMWelcomePageController" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="WelcomePageScrollController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="hqM-da-ko0" customClass="MWMWelcomePageController" propertyAccessControl="all" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fu9-Ui-e6Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1881" y="495"/>
@@ -29,7 +29,7 @@
         <!--First Launch Controller-->
         <scene sceneID="AgG-8B-fRd">
             <objects>
-                <viewController storyboardIdentifier="FirstLaunchController" id="Gh3-qE-FWN" customClass="FirstLaunchController" customModule="cm_dbg" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FirstLaunchController" id="Gh3-qE-FWN" customClass="FirstLaunchController" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RNH-dF-vbJ" customClass="SolidTouchView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -166,7 +166,7 @@
         <!--Welcome Page Controller-->
         <scene sceneID="yjG-6M-B0J">
             <objects>
-                <pageViewController storyboardIdentifier="WelcomePageCurlController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="Co6-CL-XGB" customClass="MWMWelcomePageController" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="WelcomePageCurlController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="Co6-CL-XGB" customClass="MWMWelcomePageController" propertyAccessControl="all" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QyJ-ER-oPm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2563" y="495"/>
@@ -174,7 +174,7 @@
         <!--Whats New Controller-->
         <scene sceneID="tit-8N-P9M">
             <objects>
-                <viewController storyboardIdentifier="WhatsNewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BOY-Lz-6Ub" customClass="WhatsNewController" customModule="cm_dbg" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WhatsNewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BOY-Lz-6Ub" customClass="WhatsNewController" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MhV-XF-2d3" customClass="SolidTouchView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

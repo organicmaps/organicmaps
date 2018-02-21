@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSideButtons">
@@ -17,7 +18,7 @@
                 <outlet property="zoomOutButton" destination="hwn-8L-cFX" id="fYk-mf-gUY"/>
             </connections>
         </placeholder>
-        <view contentMode="scaleToFill" id="ek2-ZW-pCm" customClass="MWMSideButtonsView">
+        <view contentMode="scaleToFill" id="ek2-ZW-pCm" customClass="MWMSideButtonsView" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="56" height="228"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>

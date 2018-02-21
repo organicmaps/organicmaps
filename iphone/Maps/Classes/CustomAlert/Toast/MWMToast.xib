@@ -16,7 +16,7 @@
                 <outlet property="rootView" destination="Z7z-Ts-A62" id="nYx-Tg-HwH"/>
             </connections>
         </placeholder>
-        <view opaque="NO" multipleTouchEnabled="YES" contentMode="center" id="Z7z-Ts-A62">
+        <view opaque="NO" multipleTouchEnabled="YES" contentMode="center" id="Z7z-Ts-A62" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="240" height="64"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>

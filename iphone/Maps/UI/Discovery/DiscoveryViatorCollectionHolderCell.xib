@@ -29,7 +29,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="kj2-f7-U6l" customClass="MWMDiscoveryCollectionView">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="kj2-f7-U6l" customClass="MWMDiscoveryCollectionView" propertyAccessControl="all">
                         <rect key="frame" x="0.0" y="48" width="375" height="218"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>

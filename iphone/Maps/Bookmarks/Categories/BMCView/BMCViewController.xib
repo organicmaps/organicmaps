@@ -21,7 +21,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -42,7 +42,7 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
-        <view contentMode="scaleToFill" id="JS4-5h-4t1" customClass="BMCPermissionsHeader" customModule="maps_me" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="JS4-5h-4t1" customClass="BMCPermissionsHeader" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -102,9 +102,9 @@
                 <outlet property="button" destination="cae-1g-tnD" id="hql-xY-t8w"/>
                 <outlet property="label" destination="HgY-nM-JMn" id="N0S-Nq-WPq"/>
             </connections>
-            <point key="canvasLocation" x="498" y="426"/>
+            <point key="canvasLocation" x="483" y="-256"/>
         </view>
-        <view contentMode="scaleToFill" id="7vF-P7-dID" customClass="BMCCategoriesHeader" customModule="maps_me" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="7vF-P7-dID" customClass="BMCCategoriesHeader" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -149,17 +149,17 @@
                 <outlet property="button" destination="JVu-ay-TFe" id="NvE-E2-iLL"/>
                 <outlet property="label" destination="1W2-mD-BVK" id="OxC-ur-rcv"/>
             </connections>
-            <point key="canvasLocation" x="498" y="534"/>
+            <point key="canvasLocation" x="483" y="-148"/>
         </view>
-        <view contentMode="scaleToFill" id="DhR-7O-ccQ">
+        <view contentMode="scaleToFill" id="DhR-7O-ccQ" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="Iuf-Mb-Pmk"/>
-            <point key="canvasLocation" x="498" y="632"/>
+            <point key="canvasLocation" x="483" y="-50"/>
         </view>
-        <view contentMode="scaleToFill" id="G0o-Op-zPp" customClass="BMCNotificationsHeader" customModule="maps_me" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="G0o-Op-zPp" customClass="BMCNotificationsHeader" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -193,7 +193,7 @@
             <connections>
                 <outlet property="label" destination="BbP-rE-XH6" id="UTL-17-qdv"/>
             </connections>
-            <point key="canvasLocation" x="498" y="717"/>
+            <point key="canvasLocation" x="483" y="35"/>
         </view>
     </objects>
 </document>

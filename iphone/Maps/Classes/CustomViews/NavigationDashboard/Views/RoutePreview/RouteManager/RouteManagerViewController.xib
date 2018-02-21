@@ -27,7 +27,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3y4-jh-JUF" customClass="RouteManagerDimView" customModule="cm_dbg" customModuleProvider="target">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3y4-jh-JUF" customClass="RouteManagerDimView" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <subviews>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TC7-xW-EwE">
@@ -93,14 +93,14 @@
             </connections>
             <point key="canvasLocation" x="288" y="-49"/>
         </view>
-        <view contentMode="scaleToFill" id="TKX-qe-h4F">
+        <view contentMode="scaleToFill" id="TKX-qe-h4F" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
                     <rect key="frame" x="0.0" y="563" width="375" height="104"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0L-ul-gog" customClass="RouteManagerHeaderView" customModule="cm_dbg" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0L-ul-gog" customClass="RouteManagerHeaderView" customModule="maps_me" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQh-uc-65J">
@@ -145,7 +145,7 @@
                                 <outlet property="titleLabel" destination="dQh-uc-65J" id="xKP-bY-mQP"/>
                             </connections>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-M4-MPb" customClass="RouteManagerFooterView" customModule="cm_dbg" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-M4-MPb" customClass="RouteManagerFooterView" customModule="maps_me" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="48" width="375" height="48"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="or0-Gy-0su">
@@ -198,7 +198,7 @@
                                 <outlet property="separator" destination="pjx-6o-NWS" id="EKT-Ba-Lcy"/>
                             </connections>
                         </view>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-YQ-ksD" customClass="RouteManagerTableView" customModule="cm_dbg" customModuleProvider="target">
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-YQ-ksD" customClass="RouteManagerTableView" customModule="maps_me" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="48" width="375" height="0.0"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <gestureRecognizers/>
