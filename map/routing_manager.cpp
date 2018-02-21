@@ -71,8 +71,7 @@ void FillTurnsDistancesForRendering(vector<RouteSegment> const & segments,
     CHECK_NOT_EQUAL(t.m_turn, CarDirection::Count, ());
     // We do not render some of turn directions.
     if (t.m_turn == CarDirection::None || t.m_turn == CarDirection::StartAtEndOfStreet ||
-        t.m_turn == CarDirection::StayOnRoundAbout || t.m_turn == CarDirection::TakeTheExit ||
-        t.m_turn == CarDirection::ReachedYourDestination)
+        t.m_turn == CarDirection::StayOnRoundAbout || t.m_turn == CarDirection::ReachedYourDestination)
     {
       continue;
     }

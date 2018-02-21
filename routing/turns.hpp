@@ -91,14 +91,15 @@ enum class CarDirection
   UTurnLeft,
   UTurnRight,
 
-  TakeTheExit,
-
   EnterRoundAbout,
   LeaveRoundAbout,
   StayOnRoundAbout,
 
   StartAtEndOfStreet,
   ReachedYourDestination,
+
+  ExitHighwayToRight,
+  ExitHighwayToLeft,
   Count  /**< This value is used for internals only. */
 };
 
