@@ -23,7 +23,7 @@ void Manager::Load(LocalMapsInfo && info)
 
   m_workerThread.Push([this, localMapsInfo]
   {
-    NameFileInfoMap const diffs = Checker::Check(localMapsInfo);
+    NameDiffInfoMap const diffs = Checker::Check(localMapsInfo);
 
     std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -82,9 +82,9 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
     if (result)
     {
       std::lock_guard<std::mutex> lock(m_mutex);
-      m_diffs.erase(diffFile->GetCountryName());
-      if (m_diffs.empty())
-        m_status = Status::NotAvailable;
+      auto it = m_diffs.find(diffFile->GetCountryName());
+      CHECK(it != m_diffs.end(), ());
+      it->second.m_applied = true;
     }
     else
     {
@@ -109,17 +109,32 @@ Status Manager::GetStatus() const
 
 bool Manager::SizeFor(storage::TCountryId const & countryId, uint64_t & size) const
 {
-  return WithDiff(countryId, [&size](FileInfo const & info) { size = info.m_size; });
+  return WithDiff(countryId, [&size](DiffInfo const & info) { size = info.m_size; });
 }
 
 bool Manager::VersionFor(storage::TCountryId const & countryId, uint64_t & version) const
 {
-  return WithDiff(countryId, [&version](FileInfo const & info) { version = info.m_version; });
+  return WithDiff(countryId, [&version](DiffInfo const & info) { version = info.m_version; });
 }
 
 bool Manager::HasDiffFor(storage::TCountryId const & countryId) const
 {
-  return WithDiff(countryId, [](FileInfo const &){});
+  return WithDiff(countryId, [](DiffInfo const &){});
+}
+
+void Manager::RemoveAppliedDiffs()
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  for (auto it = m_diffs.begin(); it != m_diffs.end();)
+  {
+    if (it->second.m_applied)
+      it = m_diffs.erase(it);
+    else
+      ++it;
+  }
+
+  if (m_diffs.empty())
+    m_status = Status::NotAvailable;
 }
 
 bool Manager::IsPossibleToAutoupdate() const

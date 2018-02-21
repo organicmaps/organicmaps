@@ -15,14 +15,15 @@ enum class Status
   Available
 };
 
-struct FileInfo final
+struct DiffInfo final
 {
-  FileInfo(uint64_t size, uint64_t version) : m_size(size), m_version(version) {}
+  DiffInfo(uint64_t size, uint64_t version) : m_size(size), m_version(version) {}
   uint64_t m_size;
   uint64_t m_version;
+  bool m_applied = false;
 };
 
-using NameFileInfoMap = std::unordered_map<std::string, FileInfo>;
+using NameDiffInfoMap = std::unordered_map<std::string, DiffInfo>;
 
 struct LocalMapsInfo final
 {

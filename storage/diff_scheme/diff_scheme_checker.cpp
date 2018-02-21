@@ -47,30 +47,30 @@ string SerializeCheckerData(LocalMapsInfo const & info)
   return buffer.get();
 }
 
-NameFileInfoMap DeserializeResponse(string const & response, LocalMapsInfo::NameVersionMap const & nameVersionMap)
+NameDiffInfoMap DeserializeResponse(string const & response, LocalMapsInfo::NameVersionMap const & nameVersionMap)
 {
   if (response.empty())
   {
     LOG(LERROR, ("Diff response shouldn't be empty."));
-    return NameFileInfoMap{};
+    return NameDiffInfoMap{};
   }
 
   my::Json const json(response.c_str());
   if (json.get() == nullptr)
-    return NameFileInfoMap{};
+    return NameDiffInfoMap{};
 
   auto const root = json_object_get(json.get(), kMwmsKey);
   if (root == nullptr || !json_is_array(root))
-    return NameFileInfoMap{};
+    return NameDiffInfoMap{};
 
   auto const size = json_array_size(root);
   if (size == 0 || size != nameVersionMap.size())
   {
     LOG(LERROR, ("Diff list size in response must be equal to mwm list size in request."));
-    return NameFileInfoMap{};
+    return NameDiffInfoMap{};
   }
 
-  NameFileInfoMap diffs;
+  NameDiffInfoMap diffs;
 
   for (size_t i = 0; i < size; ++i)
   {
@@ -79,7 +79,7 @@ NameFileInfoMap DeserializeResponse(string const & response, LocalMapsInfo::Name
     if (!node)
     {
       LOG(LERROR, ("Incorrect server response."));
-      return NameFileInfoMap{};
+      return NameDiffInfoMap{};
     }
 
     string name;
@@ -93,10 +93,10 @@ NameFileInfoMap DeserializeResponse(string const & response, LocalMapsInfo::Name
     if (nameVersionMap.find(name) == nameVersionMap.end())
     {
       LOG(LERROR, ("Incorrect country name in response:", name));
-      return NameFileInfoMap{};
+      return NameDiffInfoMap{};
     }
 
-    FileInfo info(size, nameVersionMap.at(name));
+    DiffInfo info(size, nameVersionMap.at(name));
     diffs.emplace(move(name), move(info));
   }
 
@@ -109,17 +109,17 @@ namespace storage
 namespace diffs
 {
 //static
-NameFileInfoMap Checker::Check(LocalMapsInfo const & info)
+NameDiffInfoMap Checker::Check(LocalMapsInfo const & info)
 {
   if (info.m_localMaps.empty())
-    return NameFileInfoMap();
+    return NameDiffInfoMap();
 
   platform::HttpClient request(DIFF_LIST_URL);
   string const body = SerializeCheckerData(info);
   ASSERT(!body.empty(), ());
   request.SetBodyData(body, "application/json");
   request.SetTimeout(kTimeoutInSeconds);
-  NameFileInfoMap diffs;
+  NameDiffInfoMap diffs;
   if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
   {
     diffs = DeserializeResponse(request.ServerResponse(), info.m_localMaps);

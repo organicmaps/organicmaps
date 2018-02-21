@@ -37,6 +37,7 @@ public:
   bool VersionFor(storage::TCountryId const & countryId, uint64_t & version) const;
   bool IsPossibleToAutoupdate() const;
   bool HasDiffFor(storage::TCountryId const & countryId) const;
+  void RemoveAppliedDiffs();
 
   Status GetStatus() const;
 
@@ -64,7 +65,7 @@ private:
 
   mutable std::mutex m_mutex;
   Status m_status = Status::Undefined;
-  NameFileInfoMap m_diffs;
+  NameDiffInfoMap m_diffs;
   LocalMapsInfo m_localMapsInfo;
   base::ObserverListUnsafe<Observer> m_observers;
   base::WorkerThread m_workerThread;

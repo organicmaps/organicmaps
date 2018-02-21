@@ -9,7 +9,7 @@ namespace diffs
 class Checker final
 {
 public:
-  static NameFileInfoMap Check(LocalMapsInfo const & info);
+  static NameDiffInfoMap Check(LocalMapsInfo const & info);
 };
 }  // namespace diffs
 }  // namespace storage

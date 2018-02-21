@@ -573,6 +573,7 @@ void Storage::DownloadNextCountryFromQueue()
 
   if (m_queue.empty())
   {
+    m_diffManager.RemoveAppliedDiffs();
     m_downloadingPolicy->ScheduleRetry(m_failedCountries, [this](TCountriesSet const & needReload) {
       for (auto const & country : needReload)
       {
