@@ -397,7 +397,8 @@ Framework::Framework(FrameworkParams const & params)
   m_stringsBundle.SetDefaultString("core_placepage_unknown_place", "Unknown Place");
   m_stringsBundle.SetDefaultString("core_my_places", "My Places");
   m_stringsBundle.SetDefaultString("core_my_position", "My Position");
-  m_stringsBundle.SetDefaultString("core_wifi", "WiFi");
+  // Wi-Fi string is used in categories that's why does not have core_ prefix
+  m_stringsBundle.SetDefaultString("wifi", "WiFi");
 
   m_model.InitClassificator();
   m_model.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
@@ -803,7 +804,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   feature::TypesHolder buildingHolder;
   buildingHolder.Assign(classif().GetTypeByPath({"building"}));
 
-  info.SetLocalizedWifiString(m_stringsBundle.GetString("core_wifi"));
+  info.SetLocalizedWifiString(m_stringsBundle.GetString("wifi"));
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
     info.SetAddress(GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet());

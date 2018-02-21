@@ -529,7 +529,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
     // TODO(Vlad, IgorTomko): Support all other possible Internet statuses.
     [tCell configWithDelegate:self
                          icon:[UIImage imageNamed:@"ic_placepage_wifi"]
-                         text:L(@"core_wifi")
+                         text:L(@"wifi")
                            on:m_mapObject.GetInternet() == osm::Internet::Wlan];
     break;
   }

@@ -274,7 +274,7 @@ public class MwmApplication extends Application
     nativeAddLocalization("core_my_places", getString(R.string.core_my_places));
     nativeAddLocalization("core_my_position", getString(R.string.core_my_position));
     nativeAddLocalization("core_placepage_unknown_place", getString(R.string.core_placepage_unknown_place));
-    nativeAddLocalization("core_wifi", getString(R.string.core_wifi));
+    nativeAddLocalization("wifi", getString(R.string.wifi));
   }
 
   public void initCrashlytics()
