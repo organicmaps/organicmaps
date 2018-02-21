@@ -28,8 +28,7 @@ int8_t GetIndex(string const & lang)
 
 unordered_map<int8_t, vector<int8_t>> const kSimilarToDeviceLanguages =
 {
-  {GetIndex("be"), {GetIndex("ru")}},
-  {GetIndex("ru"), {GetIndex("be")}}
+  {GetIndex("be"), {GetIndex("ru")}}
 };
 
 void GetMwmLangName(feature::RegionData const & regionData, StringUtf8Multilang const & src, string & out)

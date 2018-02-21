@@ -168,15 +168,15 @@ UNIT_TEST(GetPrefferedNames)
     TEST_EQUAL(secondary, "", ());
   }
   {
-    int8_t deviceLang = StrUtf8::GetLangIndex("ru");
+    int8_t deviceLang = StrUtf8::GetLangIndex("be");
     StrUtf8 src;
     src.AddString("int_name", "int name");
     src.AddString("en", "en name");
-    src.AddString("be", "be name");
+    src.AddString("ru", "ru name");
 
     feature::GetPreferredNames(regionData, src, deviceLang, allowTranslit, primary, secondary);
 
-    TEST_EQUAL(primary, "be name", ());
+    TEST_EQUAL(primary, "ru name", ());
     TEST_EQUAL(secondary, "int name", ());
   }
   {
@@ -227,14 +227,14 @@ UNIT_TEST(GetPrefferedNames)
 
 UNIT_TEST(GetPrefferedNamesLocal)
 {
-  feature::RegionData regionData;
-  regionData.SetLanguages({"kk", "ru"});
-
-  int8_t deviceLang = StrUtf8::GetLangIndex("ru");
   string primary, secondary;
   bool const allowTranslit = true;
-
   {
+    feature::RegionData regionData;
+    regionData.SetLanguages({"kk", "ru"});
+
+    int8_t deviceLang = StrUtf8::GetLangIndex("ru");
+
     StrUtf8 src;
     src.AddString("default", "default name");
     src.AddString("en", "en name");
@@ -245,7 +245,27 @@ UNIT_TEST(GetPrefferedNamesLocal)
     TEST_EQUAL(secondary, "", ());
   }
   {
+    feature::RegionData regionData;
+    regionData.SetLanguages({"kk", "be"});
+
+    int8_t deviceLang = StrUtf8::GetLangIndex("be");
+
+    StrUtf8 src;
+    src.AddString("int_name", "int name");
+    src.AddString("en", "en name");
+    src.AddString("ru", "ru name");
+
+    feature::GetPreferredNames(regionData, src, deviceLang, allowTranslit, primary, secondary);
+
+    TEST_EQUAL(primary, "ru name", ());
+    TEST_EQUAL(secondary, "", ());
+  }
+  {
+    feature::RegionData regionData;
+    regionData.SetLanguages({"kk", "ru"});
+
     int8_t deviceLang = StrUtf8::GetLangIndex("ru");
+
     StrUtf8 src;
     src.AddString("int_name", "int name");
     src.AddString("en", "en name");
@@ -253,7 +273,7 @@ UNIT_TEST(GetPrefferedNamesLocal)
 
     feature::GetPreferredNames(regionData, src, deviceLang, allowTranslit, primary, secondary);
 
-    TEST_EQUAL(primary, "be name", ());
+    TEST_EQUAL(primary, "int name", ());
     TEST_EQUAL(secondary, "", ());
   }
 }
@@ -439,6 +459,18 @@ UNIT_TEST(GetReadableName)
     feature::GetReadableName(regionData, src, deviceLang, allowTranslit, name);
 
     TEST_EQUAL(name, "default name", ());
+  }
+  {
+    feature::RegionData regionData;
+    regionData.SetLanguages({"ru"});
+    int8_t deviceLang = StrUtf8::GetLangIndex("ru");
+    StrUtf8 src;
+    src.AddString("en", "en name");
+    src.AddString("be", "be name");
+
+    feature::GetReadableName(regionData, src, deviceLang, allowTranslit, name);
+
+    TEST_EQUAL(name, "en name", ());
   }
 }
 
