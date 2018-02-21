@@ -24,13 +24,14 @@ public:
   HighwayClasses()
   {
     auto const & c = classif();
+    m_map[c.GetTypeByPath({"route", "ferry"})] = ftypes::HighwayClass::Transported;
+    m_map[c.GetTypeByPath({"route", "shuttle_train"})] = ftypes::HighwayClass::Transported;
+    m_map[c.GetTypeByPath({"railway", "rail"})] = ftypes::HighwayClass::Transported;
+
     m_map[c.GetTypeByPath({"highway", "motorway"})] = ftypes::HighwayClass::Trunk;
     m_map[c.GetTypeByPath({"highway", "motorway_link"})] = ftypes::HighwayClass::Trunk;
     m_map[c.GetTypeByPath({"highway", "trunk"})] = ftypes::HighwayClass::Trunk;
     m_map[c.GetTypeByPath({"highway", "trunk_link"})] = ftypes::HighwayClass::Trunk;
-    m_map[c.GetTypeByPath({"route", "ferry"})] = ftypes::HighwayClass::Trunk;
-    m_map[c.GetTypeByPath({"route", "shuttle_train"})] = ftypes::HighwayClass::Trunk;
-    m_map[c.GetTypeByPath({"railway", "rail"})] = ftypes::HighwayClass::Trunk;
 
     m_map[c.GetTypeByPath({"highway", "primary"})] = ftypes::HighwayClass::Primary;
     m_map[c.GetTypeByPath({"highway", "primary_link"})] = ftypes::HighwayClass::Primary;
@@ -72,6 +73,7 @@ char const * HighwayClassToString(ftypes::HighwayClass const cls)
   {
   case ftypes::HighwayClass::Undefined: return "Undefined";
   case ftypes::HighwayClass::Error: return "Error";
+  case ftypes::HighwayClass::Transported: return "Transported";
   case ftypes::HighwayClass::Trunk: return "Trunk";
   case ftypes::HighwayClass::Primary: return "Primary";
   case ftypes::HighwayClass::Secondary: return "Secondary";

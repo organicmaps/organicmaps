@@ -148,14 +148,18 @@ UNIT_TEST(GetHighwayClassTest)
   Classificator const & c = classif();
 
   feature::TypesHolder types1;
-  types1.Add(c.GetTypeByPath({"highway", "motorway_link", "tunnel"}));
-  TEST_EQUAL(ftypes::GetHighwayClass(types1), ftypes::HighwayClass::Trunk, ());
+  types1.Add(c.GetTypeByPath({"route", "shuttle_train"}));
+  TEST_EQUAL(ftypes::GetHighwayClass(types1), ftypes::HighwayClass::Transported, ());
 
   feature::TypesHolder types2;
-  types2.Add(c.GetTypeByPath({"highway", "unclassified"}));
-  TEST_EQUAL(ftypes::GetHighwayClass(types2), ftypes::HighwayClass::LivingStreet, ());
+  types2.Add(c.GetTypeByPath({"highway", "motorway_link", "tunnel"}));
+  TEST_EQUAL(ftypes::GetHighwayClass(types2), ftypes::HighwayClass::Trunk, ());
 
   feature::TypesHolder types3;
-  types3.Add(c.GetTypeByPath({"highway"}));
-  TEST_EQUAL(ftypes::GetHighwayClass(types3), ftypes::HighwayClass::Error, ());
+  types3.Add(c.GetTypeByPath({"highway", "unclassified"}));
+  TEST_EQUAL(ftypes::GetHighwayClass(types3), ftypes::HighwayClass::LivingStreet, ());
+
+  feature::TypesHolder types4;
+  types4.Add(c.GetTypeByPath({"highway"}));
+  TEST_EQUAL(ftypes::GetHighwayClass(types4), ftypes::HighwayClass::Error, ());
 }
