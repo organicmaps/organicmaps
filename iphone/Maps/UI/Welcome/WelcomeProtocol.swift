@@ -1,4 +1,4 @@
-protocol WelcomeProtocolBase: class {
+protocol WelcomeProtocolBase: AnyObject {
   static var key: String { get }
 
   var pageIndex: Int! { get set }

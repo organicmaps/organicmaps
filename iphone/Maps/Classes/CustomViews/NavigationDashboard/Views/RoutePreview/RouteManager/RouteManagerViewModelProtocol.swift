@@ -1,5 +1,5 @@
 @objc(MWMRouteManagerViewModelProtocol)
-protocol RouteManagerViewModelProtocol: class {
+protocol RouteManagerViewModelProtocol: AnyObject {
   var routePoints: [MWMRoutePoint] { get }
 
   var refreshControlsCallback: (() -> Void)! { get set }

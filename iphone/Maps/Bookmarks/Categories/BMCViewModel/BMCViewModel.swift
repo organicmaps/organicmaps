@@ -1,8 +1,8 @@
-protocol BMCView: class {
+protocol BMCView: AnyObject {
   func update(sections: [BMCSection])
 }
 
-protocol BMCViewModel: class {
+protocol BMCViewModel: AnyObject {
   var view: BMCView! { get set }
   var isPendingPermission: Bool { get }
 
