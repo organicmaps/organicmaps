@@ -857,10 +857,14 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   else if (ftypes::SponsoredPartnerChecker::Instance()(ft))
   {
     info.SetSponsoredType(place_page::SponsoredType::Partner);
-    auto const & url = info.GetMetadata().Get(feature::Metadata::FMD_BANNER_URL);
-    info.SetSponsoredUrl(url);
-    info.SetSponsoredDescriptionUrl(url);
-    info.SetPartnerIndex(ftypes::SponsoredPartnerChecker::Instance().GetPartnerIndex(ft));
+    auto const partnerIndex = ftypes::SponsoredPartnerChecker::Instance().GetPartnerIndex(ft);
+    info.SetPartnerIndex(partnerIndex);
+    if (IsPartnerButtonExist(partnerIndex))
+    {
+      auto const & url = info.GetMetadata().Get(feature::Metadata::FMD_BANNER_URL);
+      info.SetSponsoredUrl(url);
+      info.SetSponsoredDescriptionUrl(url);
+    }
   }
   else if (ftypes::IsHolidayChecker::Instance()(ft) &&
            !info.GetMetadata().Get(feature::Metadata::FMD_RATING).empty())

@@ -5,6 +5,7 @@
 #include "partners_api/banner.hpp"
 
 #include "indexer/feature_utils.hpp"
+#include "indexer/ftypes_sponsored.hpp"
 #include "indexer/osm_editor.hpp"
 
 #include "platform/measurement_utils.hpp"
@@ -20,15 +21,6 @@ namespace place_page
 namespace
 {
 auto constexpr kTopRatingBound = 10.0f;
-
-std::string GetPartnerNameByIndex(int partnerIndex)
-{
-  static std::vector<std::string> kIds = {PARTNER1_NAME, PARTNER2_NAME, PARTNER3_NAME,
-                                          PARTNER4_NAME, PARTNER5_NAME};
-  if (partnerIndex < 0 || partnerIndex >= kIds.size())
-    return {};
-  return kIds[partnerIndex];
-}
 }  // namespace
 
 char const * const Info::kSubtitleSeparator = " • ";

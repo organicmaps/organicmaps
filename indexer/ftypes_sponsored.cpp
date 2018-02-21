@@ -37,3 +37,21 @@ int SponsoredPartnerChecker::GetPartnerIndex(FeatureType const & ft) const
   return -1;
 }
 }  // namespace ftypes
+
+std::string GetPartnerNameByIndex(int partnerIndex)
+{
+  static std::vector<std::string> kIds = {PARTNER1_NAME, PARTNER2_NAME, PARTNER3_NAME,
+                                          PARTNER4_NAME, PARTNER5_NAME};
+  if (partnerIndex < 0 || partnerIndex >= kIds.size())
+    return {};
+  return kIds[partnerIndex];
+}
+
+bool IsPartnerButtonExist(int partnerIndex)
+{
+  static std::vector<bool> kButtons = {PARTNER1_HAS_BUTTON, PARTNER2_HAS_BUTTON, PARTNER3_HAS_BUTTON,
+                                       PARTNER4_HAS_BUTTON, PARTNER5_HAS_BUTTON};
+  if (partnerIndex < 0 || partnerIndex >= kButtons.size())
+    return false;
+  return kButtons[partnerIndex];
+}

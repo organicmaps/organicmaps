@@ -36,3 +36,6 @@ public:
   DECLARE_CHECKER_INSTANCE(SponsoredPartnerChecker);
 };
 }  // namespace ftypes
+
+extern std::string GetPartnerNameByIndex(int partnerIndex);
+extern bool IsPartnerButtonExist(int partnerIndex);
