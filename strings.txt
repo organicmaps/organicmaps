@@ -7481,7 +7481,7 @@
     he = כיול המצפן
     sk = Compass kalibrácia
 
-  [core_wifi]
+  [wifi]
     comment = Search Suggestion
     tags = ios,android,tizen
     en = WiFi
