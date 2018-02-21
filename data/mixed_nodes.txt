@@ -3,14 +3,12 @@ lon=-73.8092278
 name=LuggageHero @ Sutphin Business Center
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c1abb5b3b5d900057ea144
-banner_url=https://app.luggagehero.com/shop-details/59c1abb5b3b5d900057ea144
 
 lat=40.732535
 lon=-73.8767814
 name=LuggageHero @ S&S Print Pack and Ship center
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c52b40c904800005dcb41c
-banner_url=https://app.luggagehero.com/shop-details/59c52b40c904800005dcb41c
 opening_hours=Mo-Fr 08:30-19:30; Sa 09:00-15:00
 
 lat=40.7484895
@@ -18,7 +16,6 @@ lon=-73.9908892
 name=LuggageHero @ Jason Office Products
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59f227a181a27500050d76c6
-banner_url=https://app.luggagehero.com/shop-details/59f227a181a27500050d76c6
 opening_hours=Mo-Fr 07:00-18:00
 
 lat=40.7278835
@@ -26,14 +23,12 @@ lon=-73.855172
 name=LuggageHero @ ALEXPCS OF NY INC.
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59bff6b77e2f770005786248
-banner_url=https://app.luggagehero.com/shop-details/59bff6b77e2f770005786248
 
 lat=40.7125371
 lon=-73.7852762
 name=LuggageHero @ Computer Place
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c14e058ffc770005d207cd
-banner_url=https://app.luggagehero.com/shop-details/59c14e058ffc770005d207cd
 opening_hours=Mo-Fr 10:30-20:00; Sa 10:30-18:00
 
 lat=40.7573468
@@ -41,14 +36,12 @@ lon=-73.9310335
 name=LuggageHero @ 36 MOBILE STATION
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c95aee10ab920005c36f1d
-banner_url=https://app.luggagehero.com/shop-details/59c95aee10ab920005c36f1d
 
 lat=40.74276
 lon=-73.9526074
 name=LuggageHero @ Slovak-Czech Varieties
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59cd4035a13f860005126c3c
-banner_url=https://app.luggagehero.com/shop-details/59cd4035a13f860005126c3c
 opening_hours=Mo-Fr 10:30-18:30; Sa 10:00-19:00; Su 11:00-17:00
 
 lat=40.7120428
@@ -56,14 +49,12 @@ lon=-73.9412306
 name=LuggageHero @ Tax PrePlus
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d6475659149d0005e5c55d
-banner_url=https://app.luggagehero.com/shop-details/59d6475659149d0005e5c55d
 
 lat=40.7117065
 lon=-73.9447693
 name=LuggageHero @ Qwik Pack and Ship
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d6523e59149d0005e5c563
-banner_url=https://app.luggagehero.com/shop-details/59d6523e59149d0005e5c563
 opening_hours=Mo-Fr 09:00-21:00; Sa 10:00-16:00
 
 lat=40.7189897
@@ -71,7 +62,6 @@ lon=-73.9453385
 name=LuggageHero @ King Kog
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d7a5b17fa7a10005bc5c9d
-banner_url=https://app.luggagehero.com/shop-details/59d7a5b17fa7a10005bc5c9d
 opening_hours=Mo,Fr 11:00-20:00; Tu-Th 11:00-19:00; Sa-Su 11:00-18:00
 
 lat=40.6990212
@@ -79,7 +69,6 @@ lon=-73.9924065
 name=LuggageHero @ Plaza Cleaners
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59dd1de337bcb10005fba7ca
-banner_url=https://app.luggagehero.com/shop-details/59dd1de337bcb10005fba7ca
 opening_hours=Mo-Fr 07:00-19:00; Sa 08:00-18:00
 
 lat=40.6951604
@@ -87,7 +76,6 @@ lon=-73.9961268
 name=LuggageHero @ Plaza Cleaners 2
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59dd1e2837bcb10005fba7cb
-banner_url=https://app.luggagehero.com/shop-details/59dd1e2837bcb10005fba7cb
 opening_hours=Mo-Fr 07:00-19:00; Sa 08:00-18:00
 
 lat=40.7149446
@@ -95,14 +83,12 @@ lon=-73.9916183
 name=LuggageHero @ First Technology Phone Repair
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e4cc9f14a3c6000554d57f
-banner_url=https://app.luggagehero.com/shop-details/59e4cc9f14a3c6000554d57f
 
 lat=40.7281113
 lon=-73.9993307
 name=LuggageHero @ New University Pen and Stationery
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e9011fd6928e0005108094
-banner_url=https://app.luggagehero.com/shop-details/59e9011fd6928e0005108094
 opening_hours=Mo-Su 09:00-22:00
 
 lat=40.6663589
@@ -110,14 +96,12 @@ lon=-73.978447
 name=LuggageHero @ H&M Gifts and Luggage
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59f7b5e1cb31df0005b78532
-banner_url=https://app.luggagehero.com/shop-details/59f7b5e1cb31df0005b78532
 
 lat=40.7517796
 lon=-73.9711311
 name=LuggageHero @ New Wonder Cleaners
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a1786204ef7060005bcaef5
-banner_url=https://app.luggagehero.com/shop-details/5a1786204ef7060005bcaef5
 opening_hours=Mo-Fr 07:00-19:00; Sa 08:00-17:00
 
 lat=40.7861849
@@ -125,7 +109,6 @@ lon=-73.9758634
 name=LuggageHero @ Daniel Express
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a14ae2066c85c00051c4859
-banner_url=https://app.luggagehero.com/shop-details/5a14ae2066c85c00051c4859
 opening_hours=Mo-Th 11:00-20:00; Fr 11:00-19:00; Su 12:00-18:00
 
 lat=40.6621368
@@ -133,14 +116,12 @@ lon=-73.9819533
 name=LuggageHero @ Royal Supermarket
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e15e344fbbc80005c74513
-banner_url=https://app.luggagehero.com/shop-details/59e15e344fbbc80005c74513
 
 lat=40.7452602
 lon=-73.9927968
 name=LuggageHero @ Chelsea Bicycles
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59dbc9afb63306000519d01b
-banner_url=https://app.luggagehero.com/shop-details/59dbc9afb63306000519d01b
 opening_hours=Mo-Sa 10:00-20:00; Su 11:00-19:00
 
 lat=40.7475935
@@ -148,35 +129,30 @@ lon=-73.9971086
 name=LuggageHero @ Penn House Cleaners
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59ef628904c9d30005949cf9
-banner_url=https://app.luggagehero.com/shop-details/59ef628904c9d30005949cf9
 
 lat=40.7547718
 lon=-73.9882458
 name=LuggageHero @ Times Square Photo Inc
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59f20b3d9398a800057dddf5
-banner_url=https://app.luggagehero.com/shop-details/59f20b3d9398a800057dddf5
 
 lat=40.7549717
 lon=-73.9912053
 name=LuggageHero @ Ok Prepaid Mobile
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a036e167636570005651049
-banner_url=https://app.luggagehero.com/shop-details/5a036e167636570005651049
 
 lat=40.7582405
 lon=-73.9665072
 name=LuggageHero @ Midtown Copy
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a046ff6af4edb0005c0c578
-banner_url=https://app.luggagehero.com/shop-details/5a046ff6af4edb0005c0c578
 
 lat=40.7638531
 lon=-73.9600836
 name=LuggageHero @ Copyland Center (65th)
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a046f6caf4edb0005c0c577
-banner_url=https://app.luggagehero.com/shop-details/5a046f6caf4edb0005c0c577
 opening_hours=Mo-Fr 08:00-22:00; Sa 09:00-21:00; Su 10:00-20:00
 
 lat=40.7758843
@@ -184,21 +160,18 @@ lon=-73.9534167
 name=LuggageHero @ Copyland Center
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a046e7ab96c880005b32d4c
-banner_url=https://app.luggagehero.com/shop-details/5a046e7ab96c880005b32d4c
 
 lat=40.7348877
 lon=-73.9991365
 name=LuggageHero @ Nu Frame Gallery
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59ee1b7fddd278000504d1cc
-banner_url=https://app.luggagehero.com/shop-details/59ee1b7fddd278000504d1cc
 
 lat=40.732595
 lon=-73.9996663
 name=LuggageHero @ Tatyana's Cleaners Inc
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e94e66aa9a19000500b894
-banner_url=https://app.luggagehero.com/shop-details/59e94e66aa9a19000500b894
 opening_hours=Mo-Fr 08:00-19:00; Sa 09:00-17:00
 
 lat=40.7305582
@@ -206,7 +179,6 @@ lon=-73.9949959
 name=LuggageHero @ New York Pen and Stationary
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e90276d6928e0005108095
-banner_url=https://app.luggagehero.com/shop-details/59e90276d6928e0005108095
 opening_hours=Mo-Su 09:00-22:00
 
 lat=40.7290444
@@ -214,7 +186,6 @@ lon=-73.9993227
 name=LuggageHero @ Village Postal Works
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e675432ff4a40005b1524d
-banner_url=https://app.luggagehero.com/shop-details/59e675432ff4a40005b1524d
 opening_hours=Mo-Fr 09:00-19:00; Sa 10:30-17:30
 
 lat=40.7321384
@@ -222,7 +193,6 @@ lon=-74.0016394
 name=LuggageHero @ Mailbox NYC
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59ee889387820400059d7013
-banner_url=https://app.luggagehero.com/shop-details/59ee889387820400059d7013
 opening_hours=Mo-Fr 08:30-19:00; Sa 10:00-18:00; Su 12:00-17:00
 
 lat=40.7870052
@@ -230,7 +200,6 @@ lon=-73.9751495
 name=LuggageHero @ 85 Copy & Graphics
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a04d277b96c880005b32d7f
-banner_url=https://app.luggagehero.com/shop-details/5a04d277b96c880005b32d7f
 opening_hours=Mo-Fr 09:00-20:00; Sa-Su 10:00-19:30
 
 lat=40.7472611
@@ -238,49 +207,42 @@ lon=-73.9892922
 name=LuggageHero @ A-Z Luggage & Essence
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59ef874a04c9d30005949d0c
-banner_url=https://app.luggagehero.com/shop-details/59ef874a04c9d30005949d0c
 
 lat=40.7645024
 lon=-73.9810083
 name=LuggageHero @ Fancy Apple Bike Rental & Tours
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a032097d3f9b4000594ffae
-banner_url=https://app.luggagehero.com/shop-details/5a032097d3f9b4000594ffae
 
 lat=40.7114721
 lon=-73.9442415
 name=LuggageHero @ Grand Electronics
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d410cebbaf8c0005d23379
-banner_url=https://app.luggagehero.com/shop-details/59d410cebbaf8c0005d23379
 
 lat=40.7140366
 lon=-73.9480239
 name=LuggageHero @ Flash Blueprinting
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d3f5a2bbaf8c0005d23373
-banner_url=https://app.luggagehero.com/shop-details/59d3f5a2bbaf8c0005d23373
 
 lat=40.7114973
 lon=-73.9615061
 name=LuggageHero @ Sun And Air
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d7a01f7fa7a10005bc5c99
-banner_url=https://app.luggagehero.com/shop-details/59d7a01f7fa7a10005bc5c99
 
 lat=40.7468976
 lon=-73.9909259
 name=LuggageHero @ New Han il Inc
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59dcf45237bcb10005fba7c0
-banner_url=https://app.luggagehero.com/shop-details/59dcf45237bcb10005fba7c0
 
 lat=40.7392685
 lon=-74.0018794
 name=LuggageHero @ Big Boy Deli & Grill
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59efe575da7deb00052ac96e
-banner_url=https://app.luggagehero.com/shop-details/59efe575da7deb00052ac96e
 opening_hours=24/7
 
 lat=40.7207029
@@ -288,7 +250,6 @@ lon=-73.9890305
 name=LuggageHero @ Askan
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e53ddc14a3c6000554d5a8
-banner_url=https://app.luggagehero.com/shop-details/59e53ddc14a3c6000554d5a8
 opening_hours=Mo-Th 12:00-20:30; Fr-Sa 11:00-21:00; Su 11:00-19:00
 
 lat=40.7296043
@@ -296,21 +257,18 @@ lon=-73.9866814
 name=LuggageHero @ United Shipping and Packaging
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e7886c4bfb2f0005d243d1
-banner_url=https://app.luggagehero.com/shop-details/59e7886c4bfb2f0005d243d1
 
 lat=40.7524443
 lon=-73.9855796
 name=LuggageHero @ Gifts & Luggage - 6th Ave Gifts
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59fb2f4710b65c0005608104
-banner_url=https://app.luggagehero.com/shop-details/59fb2f4710b65c0005608104
 
 lat=40.7780683
 lon=-73.9808696
 name=LuggageHero @ Le Petit Kids
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a00c23f5d16b800056ac027
-banner_url=https://app.luggagehero.com/shop-details/5a00c23f5d16b800056ac027
 opening_hours=Mo-Sa 10:00-18:00; Su 11:00-17:00
 
 lat=40.74633
@@ -318,14 +276,12 @@ lon=-73.9010079
 name=LuggageHero @ Pinoy Padala Inc. - Woodside
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c18dba0b90d200052d60a4
-banner_url=https://app.luggagehero.com/shop-details/59c18dba0b90d200052d60a4
 
 lat=40.7978595
 lon=-73.9690912
 name=LuggageHero @ Best Copy and Shipping
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a04a20ab96c880005b32d6d
-banner_url=https://app.luggagehero.com/shop-details/5a04a20ab96c880005b32d6d
 opening_hours=Mo-Fr 07:30-21:00; Sa-Su 09:00-20:00
 
 lat=40.7473634
@@ -333,14 +289,12 @@ lon=-73.9875706
 name=LuggageHero @ Reach Fast Shipping Center
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59f0aa58da7deb00052ac9c3
-banner_url=https://app.luggagehero.com/shop-details/59f0aa58da7deb00052ac9c3
 
 lat=40.7862113
 lon=-73.9719377
 name=LuggageHero @ Copy Door
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0a2adb0706ab000510329b
-banner_url=https://app.luggagehero.com/shop-details/5a0a2adb0706ab000510329b
 opening_hours=Mo-Fr 08:30-20:30; Sa 10:00-18:00
 
 lat=40.7087099
@@ -348,42 +302,36 @@ lon=-73.8310372
 name=LuggageHero @ Joy S Cleaners
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59bad03546dfad0005dc2740
-banner_url=https://app.luggagehero.com/shop-details/59bad03546dfad0005dc2740
 
 lat=40.7290497
 lon=-74.0006907
 name=LuggageHero @ Bleecker Smoke and Convenience
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0dfa7e29f56200050b3e55
-banner_url=https://app.luggagehero.com/shop-details/5a0dfa7e29f56200050b3e55
 
 lat=40.7044073
 lon=-73.8092417
 name=LuggageHero @ Barber Shop (RLG)
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c13ccb382d8d0005f3f952
-banner_url=https://app.luggagehero.com/shop-details/59c13ccb382d8d0005f3f952
 
 lat=40.7047048
 lon=-74.0088245
 name=LuggageHero @ Al Horno Pearl St
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0f0c714e04dc0005e041d1
-banner_url=https://app.luggagehero.com/shop-details/5a0f0c714e04dc0005e041d1
 
 lat=40.7250493
 lon=-73.9874092
 name=LuggageHero @ Al Horno - 1st Ave
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0f3783225d8400050ebe1f
-banner_url=https://app.luggagehero.com/shop-details/5a0f3783225d8400050ebe1f
 
 lat=40.7098324
 lon=-74.0079949
 name=LuggageHero @ Stamina Grill & Bar
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0f3594225d8400050ebe1e
-banner_url=https://app.luggagehero.com/shop-details/5a0f3594225d8400050ebe1e
 opening_hours=Mo-Fr 07:00-21:00; Sa-Su 09:00-21:00
 
 lat=40.7596717
@@ -391,56 +339,48 @@ lon=-73.9652747
 name=LuggageHero @ Al Horno - 2nd Ave
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0f39d74e04dc0005e041f4
-banner_url=https://app.luggagehero.com/shop-details/5a0f39d74e04dc0005e041f4
 
 lat=40.74856
 lon=-73.8915833
 name=LuggageHero @ Google wireless
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c29850b3b5d900057ea19d
-banner_url=https://app.luggagehero.com/shop-details/59c29850b3b5d900057ea19d
 
 lat=40.7456122
 lon=-73.9016643
 name=LuggageHero @ Mike's Wireless
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c19bae0b90d200052d60a9
-banner_url=https://app.luggagehero.com/shop-details/59c19bae0b90d200052d60a9
 
 lat=40.745864
 lon=-73.8904711
 name=LuggageHero @ Broadway Computer
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c031a28f090f0005ee761b
-banner_url=https://app.luggagehero.com/shop-details/59c031a28f090f0005ee761b
 
 lat=40.774814
 lon=-73.909194
 name=LuggageHero @ Crown Chemists LTD
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c934c852a92d00059575fb
-banner_url=https://app.luggagehero.com/shop-details/59c934c852a92d00059575fb
 
 lat=40.7290697
 lon=-73.9536225
 name=LuggageHero @ Natural Cleaner
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d2921f26bc7700050498ba
-banner_url=https://app.luggagehero.com/shop-details/59d2921f26bc7700050498ba
 
 lat=40.7261259
 lon=-73.9523018
 name=LuggageHero @ Metro Satellite
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d2bcda11fc3000051b2126
-banner_url=https://app.luggagehero.com/shop-details/59d2bcda11fc3000051b2126
 
 lat=40.7182415
 lon=-73.9556535
 name=LuggageHero @ Matt & Juliette, LLC
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d3ca77bbaf8c0005d23361
-banner_url=https://app.luggagehero.com/shop-details/59d3ca77bbaf8c0005d23361
 opening_hours=Mo-Fr 11:00-19:00; Sa 10:30-18:30; Su 11:00-17:30
 
 lat=40.6731266
@@ -448,7 +388,6 @@ lon=-73.9912238
 name=LuggageHero @ Sunac Natural
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d3b835bbaf8c0005d2335d
-banner_url=https://app.luggagehero.com/shop-details/59d3b835bbaf8c0005d2335d
 opening_hours=24/7
 
 lat=40.7129941
@@ -456,28 +395,24 @@ lon=-73.9055952
 name=LuggageHero @ TaxPrePlus Ridgewood
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a136aca6e78f600058a5c75
-banner_url=https://app.luggagehero.com/shop-details/5a136aca6e78f600058a5c75
 
 lat=40.7475126
 lon=-73.9971794
 name=LuggageHero @ Chelsea Mobility
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a033b54d3f9b4000594ffbf
-banner_url=https://app.luggagehero.com/shop-details/5a033b54d3f9b4000594ffbf
 
 lat=40.7523398
 lon=-73.9920478
 name=LuggageHero @ Supreme Systems
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a05df671783f90005844d10
-banner_url=https://app.luggagehero.com/shop-details/5a05df671783f90005844d10
 
 lat=40.7087885
 lon=-73.9611286
 name=LuggageHero @ Hello Mailbox
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a1469f366c85c00051c483e
-banner_url=https://app.luggagehero.com/shop-details/5a1469f366c85c00051c483e
 opening_hours=Mo-Fr 11:45-18:45; Su 12:30-18:00
 
 lat=40.7097053
@@ -485,14 +420,12 @@ lon=-73.962122
 name=LuggageHero @ M and N Deli
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d67b3c4e17910005555f3b
-banner_url=https://app.luggagehero.com/shop-details/59d67b3c4e17910005555f3b
 
 lat=40.7027125
 lon=-73.9913503
 name=LuggageHero @ 7 Stars Deli
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59df8ee191bc6f0005010a69
-banner_url=https://app.luggagehero.com/shop-details/59df8ee191bc6f0005010a69
 opening_hours=Mo-Su 05:30-17:30
 
 lat=40.7742995
@@ -500,35 +433,30 @@ lon=-73.9555042
 name=LuggageHero @ Everest Convenience
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59f2a6599398a800057dde0b
-banner_url=https://app.luggagehero.com/shop-details/59f2a6599398a800057dde0b
 
 lat=40.7498054
 lon=-73.9902016
 name=LuggageHero @ Sweet NY
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a15d3967133c10005468892
-banner_url=https://app.luggagehero.com/shop-details/5a15d3967133c10005468892
 
 lat=40.7213725
 lon=-73.9878813
 name=LuggageHero @ Stanton Smoke & Convenience
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e645812ff4a40005b15240
-banner_url=https://app.luggagehero.com/shop-details/59e645812ff4a40005b15240
 
 lat=40.7722158
 lon=-73.9590613
 name=LuggageHero @ Art and Frame Gallery
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59efa78304c9d30005949d0f
-banner_url=https://app.luggagehero.com/shop-details/59efa78304c9d30005949d0f
 
 lat=40.7618446
 lon=-73.9853837
 name=LuggageHero @ Cleaners @ Broadway
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59f7ac4d1bc4060005541559
-banner_url=https://app.luggagehero.com/shop-details/59f7ac4d1bc4060005541559
 opening_hours=Mo-Fr 07:00-19:30; Sa 08:00-18:00
 
 lat=40.6846781
@@ -536,7 +464,6 @@ lon=-73.9795432
 name=LuggageHero @ Atlantic Shipping Center
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59dbf2b7b63306000519d024
-banner_url=https://app.luggagehero.com/shop-details/59dbf2b7b63306000519d024
 opening_hours=Mo-Sa 09:00-20:00; Su 10:00-19:00
 
 lat=40.7995097
@@ -544,35 +471,30 @@ lon=-73.9666325
 name=LuggageHero @ Thiam Variety Store
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a1871426bc9890005c882b8
-banner_url=https://app.luggagehero.com/shop-details/5a1871426bc9890005c882b8
 
 lat=40.6830793
 lon=-73.9642802
 name=LuggageHero @ Fairview Variety
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59dbc13ca392ba00057d7502
-banner_url=https://app.luggagehero.com/shop-details/59dbc13ca392ba00057d7502
 
 lat=40.7597447
 lon=-73.9836636
 name=LuggageHero @ Times Square Gift Shop
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a023ad97636570005650ff0
-banner_url=https://app.luggagehero.com/shop-details/5a023ad97636570005650ff0
 
 lat=40.7676141
 lon=-73.9845357
 name=LuggageHero @ Chenille Cleaners
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a19ee35e128cc0005ac8aa4
-banner_url=https://app.luggagehero.com/shop-details/5a19ee35e128cc0005ac8aa4
 
 lat=40.7388857
 lon=-74.0009352
 name=LuggageHero @ Rags-A-Gogo
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59efe4aab854d10005ea0f4d
-banner_url=https://app.luggagehero.com/shop-details/59efe4aab854d10005ea0f4d
 opening_hours=Mo-Su 11:00-20:00
 
 lat=40.7620449
@@ -580,7 +502,6 @@ lon=-73.9910767
 name=LuggageHero @ Al Horno - West
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0f3ab6225d8400050ebe22
-banner_url=https://app.luggagehero.com/shop-details/5a0f3ab6225d8400050ebe22
 opening_hours=Mo-Fr 08:15-21:30; Sa-Su 10:15-21:30
 
 lat=40.7400674
@@ -588,70 +509,60 @@ lon=-73.9845288
 name=LuggageHero @ Al Horno - Lexington Ave
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0f3910225d8400050ebe21
-banner_url=https://app.luggagehero.com/shop-details/5a0f3910225d8400050ebe21
 
 lat=40.6804662
 lon=-73.9482486
 name=LuggageHero @ Photocell
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a1c407bdae7540005ee67d4
-banner_url=https://app.luggagehero.com/shop-details/5a1c407bdae7540005ee67d4
 
 lat=40.7482943
 lon=-73.947523
 name=LuggageHero @ Meera deli
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59ce5e52993a5e0005e1cbe6
-banner_url=https://app.luggagehero.com/shop-details/59ce5e52993a5e0005e1cbe6
 
 lat=40.7468641
 lon=-73.9444419
 name=LuggageHero @ Kamlesh cards and gift shop
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a1c5ee4e02d820005e4707f
-banner_url=https://app.luggagehero.com/shop-details/5a1c5ee4e02d820005e4707f
 
 lat=40.6651874
 lon=-73.9835234
 name=LuggageHero @ 396 Deli
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e0e0ae4fbbc80005c744f8
-banner_url=https://app.luggagehero.com/shop-details/59e0e0ae4fbbc80005c744f8
 
 lat=40.7442151
 lon=-73.9497715
 name=LuggageHero @ Millie's Deli
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59ce3cb5f6924a0005130fe5
-banner_url=https://app.luggagehero.com/shop-details/59ce3cb5f6924a0005130fe5
 
 lat=40.7954874
 lon=-73.9708221
 name=LuggageHero @ Global Copy
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a1c89117fb107000525f33e
-banner_url=https://app.luggagehero.com/shop-details/5a1c89117fb107000525f33e
 
 lat=40.746483
 lon=-73.9456156
 name=LuggageHero @ J & J News
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59cf8112b9ba310005f6a2d5
-banner_url=https://app.luggagehero.com/shop-details/59cf8112b9ba310005f6a2d5
 
 lat=40.82742
 lon=-73.9493876
 name=LuggageHero @ Uptown Wireless
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a1cb0cb326bb40005d83e06
-banner_url=https://app.luggagehero.com/shop-details/5a1cb0cb326bb40005d83e06
 
 lat=51.5484933
 lon=-0.238461
 name=LuggageHero @ Perle De Beaute
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb2
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb2
 opening_hours=Mo-Sa 09:00-18:00
 
 lat=51.5181085
@@ -659,56 +570,48 @@ lon=-0.1657587
 name=LuggageHero @ Lord Wargrave
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59ad2d4391224a000523426f
-banner_url=https://app.luggagehero.com/shop-details/59ad2d4391224a000523426f
 
 lat=51.5106905
 lon=-0.134789
 name=LuggageHero @ Sander's Lifestyle Footwear
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59b25eebe38259000574084a
-banner_url=https://app.luggagehero.com/shop-details/59b25eebe38259000574084a
 
 lat=51.4748876
 lon=-0.0396787
 name=LuggageHero @ The Rose
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59dce676cf56f70005e32e40
-banner_url=https://app.luggagehero.com/shop-details/59dce676cf56f70005e32e40
 
 lat=51.516151
 lon=-0.1323691
 name=LuggageHero @ Londis Oxford Street
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59f85bde4361800005f3781c
-banner_url=https://app.luggagehero.com/shop-details/59f85bde4361800005f3781c
 
 lat=51.5409223
 lon=-0.2025089
 name=LuggageHero @ Cafe Plus
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fac
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fac
 
 lat=51.5421736
 lon=-0.1980297
 name=LuggageHero @ Darmas Gardens
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb5
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb5
 
 lat=51.513404
 lon=-0.1421866
 name=LuggageHero @ Sunflower Café
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58f735103a969300054c3d95
-banner_url=https://app.luggagehero.com/shop-details/58f735103a969300054c3d95
 
 lat=51.5375467
 lon=-0.1403296
 name=LuggageHero @ Siham Lounge Bar
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fcf
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fcf
 opening_hours=Mo-Th 08:00-23:30; Fr-Sa 08:00-24:00
 
 lat=51.5167437
@@ -716,14 +619,12 @@ lon=-0.2054198
 name=LuggageHero @ Coffee bello
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb4
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb4
 
 lat=51.5117191
 lon=-0.0818714
 name=LuggageHero @ Traveler
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/590cf8896c0a8e000545a35c
-banner_url=https://app.luggagehero.com/shop-details/590cf8896c0a8e000545a35c
 opening_hours=Mo-Fr 08:30-18:30; Sa-Su off
 
 lat=51.4972239
@@ -731,7 +632,6 @@ lon=-0.1337486
 name=LuggageHero @ J.Mobile
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/590cf6f56c0a8e000545a35a
-banner_url=https://app.luggagehero.com/shop-details/590cf6f56c0a8e000545a35a
 opening_hours=Mo-Su 09:00-24:00
 
 lat=51.5156549
@@ -739,21 +639,18 @@ lon=-0.1747981
 name=LuggageHero @ Hotel Sophia
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/599febe665dfce000578abaa
-banner_url=https://app.luggagehero.com/shop-details/599febe665dfce000578abaa
 
 lat=51.5153276
 lon=-0.1299332
 name=LuggageHero @ Apricot Food Bar
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59ba458d46dfad0005dc2700
-banner_url=https://app.luggagehero.com/shop-details/59ba458d46dfad0005dc2700
 
 lat=51.5336033
 lon=-0.108556
 name=LuggageHero @ Shake Gallery
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59bd0fa30c093c000534a1c0
-banner_url=https://app.luggagehero.com/shop-details/59bd0fa30c093c000534a1c0
 opening_hours=Mo-Sa 10:30-18:30
 
 lat=51.441378
@@ -761,21 +658,18 @@ lon=-0.1870713
 name=LuggageHero @ Krystals Food Market
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d275ee11fc3000051b210f
-banner_url=https://app.luggagehero.com/shop-details/59d275ee11fc3000051b210f
 
 lat=51.4640109
 lon=-0.1662402
 name=LuggageHero @ Thirsty Camel
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d2725d11fc3000051b210b
-banner_url=https://app.luggagehero.com/shop-details/59d2725d11fc3000051b210b
 
 lat=51.5620609
 lon=-0.2823289
 name=LuggageHero @ Exotic Convenience
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d7c1243e2ca6000585526f
-banner_url=https://app.luggagehero.com/shop-details/59d7c1243e2ca6000585526f
 opening_hours=Mo-Fr 07:00-24:00; Sa-Su 08:00-24:00
 
 lat=51.5571526
@@ -783,70 +677,60 @@ lon=-0.2143322
 name=LuggageHero @ Khorasan
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb3
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb3
 
 lat=51.514023
 lon=-0.1048645
 name=LuggageHero @ The Punch Tavern
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e62b8b2ff4a40005b15230
-banner_url=https://app.luggagehero.com/shop-details/59e62b8b2ff4a40005b15230
 
 lat=51.5109703
 lon=-0.1978101
 name=LuggageHero @ Sun in Splendour
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e8beb7d6928e0005108079
-banner_url=https://app.luggagehero.com/shop-details/59e8beb7d6928e0005108079
 
 lat=51.5529734
 lon=-0.11306
 name=LuggageHero @ Global Luggage
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59f1af1f81a27500050d7679
-banner_url=https://app.luggagehero.com/shop-details/59f1af1f81a27500050d7679
 
 lat=51.5202064
 lon=-0.0711751
 name=LuggageHero @ 50.5 Business Centre Brick Lane
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59fb049a10b65c00056080ee
-banner_url=https://app.luggagehero.com/shop-details/59fb049a10b65c00056080ee
 
 lat=51.563454
 lon=-0.1073657
 name=LuggageHero @ Back Online
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0043cbe75db40005fcd977
-banner_url=https://app.luggagehero.com/shop-details/5a0043cbe75db40005fcd977
 
 lat=51.5301533
 lon=-0.1210374
 name=LuggageHero @ METRO FOOD LTD
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0441b5b96c880005b32d2b
-banner_url=https://app.luggagehero.com/shop-details/5a0441b5b96c880005b32d2b
 
 lat=51.5287315
 lon=-0.1158727
 name=LuggageHero @ METRO FOOD LTD
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a181961bf1d470005e40985
-banner_url=https://app.luggagehero.com/shop-details/5a181961bf1d470005e40985
 
 lat=51.525467
 lon=-0.0705661
 name=LuggageHero @ Holy Shot Coffee
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fbb
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fbb
 
 lat=51.5382675
 lon=-0.144093
 name=LuggageHero @ Mail Boxes etc. Camden
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc4
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc4
 opening_hours=Mo-Fr 09:00-18:00; Sa 10:00-16:00
 
 lat=51.5186744
@@ -854,14 +738,12 @@ lon=-0.1404974
 name=LuggageHero @ Mail Boxes etc. Oxford Circus
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc5
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc5
 
 lat=51.4927506
 lon=-0.1407147
 name=LuggageHero @ Mail Boxes etc. Victoria
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc6
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc6
 opening_hours=Mo-Fr 09:00-18:00; Sa 10:00-16:00
 
 lat=51.4897761
@@ -869,14 +751,12 @@ lon=-0.1901704
 name=LuggageHero @ Mail Boxes etc. Earls Court
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc7
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc7
 
 lat=51.4972852
 lon=-0.1446347
 name=LuggageHero @ Mail Boxes etc. Belgravia
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc9
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc9
 opening_hours=Mo-Fr 09:00-18:00; Sa 10:00-16:00
 
 lat=51.5132481
@@ -884,7 +764,6 @@ lon=-0.1357786
 name=LuggageHero @ Mail Boxes Etc. Soho
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fca
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fca
 opening_hours=Mo-Fr 09:00-18:00
 
 lat=51.5312235
@@ -892,21 +771,18 @@ lon=-0.1176512
 name=LuggageHero @ Mail Boxes Etc. Kings Cross
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fcb
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fcb
 
 lat=51.5070362
 lon=-0.1378019
 name=LuggageHero @ Ryder Street Chambers
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fdb
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fdb
 
 lat=51.4864192
 lon=-0.1198612
 name=LuggageHero @ Mail Boxes Etc. Vauxhall
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fdf
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fdf
 opening_hours=Mo-Fr 09:00-18:00
 
 lat=51.5134175
@@ -914,7 +790,6 @@ lon=-0.0759445
 name=LuggageHero @ Mail Boxes Etc. Aldgate
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fe0
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fe0
 opening_hours=Mo-Fr 09:00-18:00
 
 lat=51.512431
@@ -922,42 +797,36 @@ lon=-0.0842642
 name=LuggageHero @ Reef Knots (formerly Knots & Socks
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/590b450d754b1d000588d6c0
-banner_url=https://app.luggagehero.com/shop-details/590b450d754b1d000588d6c0
 
 lat=51.4989325
 lon=-0.1129005
 name=LuggageHero @ Costcutter, Southbank
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/591b5a020560ad0005f7e4ee
-banner_url=https://app.luggagehero.com/shop-details/591b5a020560ad0005f7e4ee
 
 lat=51.4891012
 lon=-0.0960115
 name=LuggageHero @ Mail Boxes etc. Elephant and Castle
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/591c8ce9c059780005c64730
-banner_url=https://app.luggagehero.com/shop-details/591c8ce9c059780005c64730
 
 lat=51.4994859
 lon=-0.1141926
 name=LuggageHero @ Travel Café
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/591b1f1a0560ad0005f7e4e9
-banner_url=https://app.luggagehero.com/shop-details/591b1f1a0560ad0005f7e4e9
 
 lat=51.5270546
 lon=-0.07987
 name=LuggageHero @ Mail Boxes Etc. London City
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/591df41e0651f000053de32d
-banner_url=https://app.luggagehero.com/shop-details/591df41e0651f000053de32d
 
 lat=51.5222388
 lon=-0.0872828
 name=LuggageHero @ Adana Printers
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fbd
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fbd
 opening_hours=Mo-Fr 08:30-18:30
 
 lat=51.4975029
@@ -965,14 +834,12 @@ lon=-0.1348204
 name=LuggageHero @ Mail Boxes etc. Westminster
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc8
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fc8
 
 lat=51.5115145
 lon=-0.12761
 name=LuggageHero @ Jimmy and Sons
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/592e9e9c06194f0005c7c38c
-banner_url=https://app.luggagehero.com/shop-details/592e9e9c06194f0005c7c38c
 opening_hours=Mo-Fr 08:00-16:00
 
 lat=51.5236376
@@ -980,14 +847,12 @@ lon=-0.1749189
 name=LuggageHero @ Mail Boxes Etc. London Maida Vale
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/591df2290651f000053de329
-banner_url=https://app.luggagehero.com/shop-details/591df2290651f000053de329
 
 lat=51.5272965
 lon=-0.0581921
 name=LuggageHero @ Press Club Dry Cleaners
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/597f12fcbc7126000512e393
-banner_url=https://app.luggagehero.com/shop-details/597f12fcbc7126000512e393
 opening_hours=Mo-Fr 08:00-19:00; Sa 10:00-17:00; Sa 11:00-16:00
 
 lat=51.5256898
@@ -995,21 +860,18 @@ lon=-0.1249739
 name=LuggageHero @ MY IPB printing shop
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58f732143a969300054c3d93
-banner_url=https://app.luggagehero.com/shop-details/58f732143a969300054c3d93
 
 lat=51.5165826
 lon=-0.1213083
 name=LuggageHero @ Il Panino
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb7
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb7
 
 lat=51.5171003
 lon=-0.1273465
 name=LuggageHero @ Royal Mile Whiskies
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fdc
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fdc
 opening_hours=Mo-We 10:00-18:00; Th 10:00-20:00; Fr-Sa 10:00-18:00; Su 12:00-17:00
 
 lat=51.5065998
@@ -1017,14 +879,12 @@ lon=-0.088715
 name=LuggageHero @ Mail Boxes London Bridge
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/598d70c4c2dcb400058e3d43
-banner_url=https://app.luggagehero.com/shop-details/598d70c4c2dcb400058e3d43
 
 lat=51.5176388
 lon=-0.1339221
 name=LuggageHero @ PISQU
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fdd
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fdd
 opening_hours=Mo-Fr 07:00-18:00; Sa 08:00-18:00
 
 lat=51.4904007
@@ -1032,21 +892,18 @@ lon=-0.1327408
 name=LuggageHero @ Costcutter, Pimlico
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5954e3328daaa90005882458
-banner_url=https://app.luggagehero.com/shop-details/5954e3328daaa90005882458
 
 lat=51.5620349
 lon=-0.2827103
 name=LuggageHero @ Capital food & Wine
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb0
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50fb0
 
 lat=51.4940144
 lon=-0.1919574
 name=LuggageHero @ City Relay
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fcc
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fcc
 opening_hours=Mo-Su 09:00-21:00
 
 lat=51.517144
@@ -1054,35 +911,30 @@ lon=-0.126198
 name=LuggageHero @ Coffee and Gifts
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/590cf7d76c0a8e000545a35b
-banner_url=https://app.luggagehero.com/shop-details/590cf7d76c0a8e000545a35b
 
 lat=51.4971193
 lon=-0.1353876
 name=LuggageHero @ Eat Keen
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5971d46575232500053b21b0
-banner_url=https://app.luggagehero.com/shop-details/5971d46575232500053b21b0
 
 lat=51.5619782
 lon=-0.2835781
 name=LuggageHero @ Eccola Pizzeria
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50faf
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c2baffa63ae8a50faf
 
 lat=51.5029861
 lon=-0.0768513
 name=LuggageHero @ Krystal Express
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c28d2f0b90d200052d6118
-banner_url=https://app.luggagehero.com/shop-details/59c28d2f0b90d200052d6118
 
 lat=51.5116813
 lon=-0.0911873
 name=LuggageHero @ Krystals Food & Wine
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59b78aa2fdfbad00053f1d1f
-banner_url=https://app.luggagehero.com/shop-details/59b78aa2fdfbad00053f1d1f
 opening_hours=24/7
 
 lat=51.4974356
@@ -1090,63 +942,54 @@ lon=-0.1672605
 name=LuggageHero @ Lord's Food & Wine
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c3de5bd11d52000592bd38
-banner_url=https://app.luggagehero.com/shop-details/59c3de5bd11d52000592bd38
 
 lat=51.5015849
 lon=-0.1112349
 name=LuggageHero @ Mail Boxes Waterloo
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/598d6da2c2dcb400058e3d3f
-banner_url=https://app.luggagehero.com/shop-details/598d6da2c2dcb400058e3d3f
 
 lat=51.5165497
 lon=-0.0797932
 name=LuggageHero @ Owen Reed
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59bf99417e2f77000578620f
-banner_url=https://app.luggagehero.com/shop-details/59bf99417e2f77000578620f
 
 lat=51.5181508
 lon=-0.0785088
 name=LuggageHero @ Rez Apartments
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/598d722eb7a44f00052adf05
-banner_url=https://app.luggagehero.com/shop-details/598d722eb7a44f00052adf05
 
 lat=51.511022
 lon=-0.1257379
 name=LuggageHero @ Shoemaster
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5992f24c23c9390005d600a4
-banner_url=https://app.luggagehero.com/shop-details/5992f24c23c9390005d600a4
 
 lat=51.4446841
 lon=-0.2055939
 name=LuggageHero @ Southfields Food & WIne
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59cd231bbc5e4800050428c3
-banner_url=https://app.luggagehero.com/shop-details/59cd231bbc5e4800050428c3
 
 lat=51.5277016
 lon=-0.1232852
 name=LuggageHero @ Steven Lee Supermarket
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fd9
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fd9
 
 lat=51.4802807
 lon=-0.1984865
 name=LuggageHero @ House of Vapes
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d51c4555b9e80005432e08
-banner_url=https://app.luggagehero.com/shop-details/59d51c4555b9e80005432e08
 
 lat=51.5328475
 lon=-0.0588101
 name=LuggageHero @ Sazzy and Fran Café
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59897df7800870000525405c
-banner_url=https://app.luggagehero.com/shop-details/59897df7800870000525405c
 opening_hours=Mo-Sa 08:00-17:00
 
 lat=51.4921353
@@ -1154,63 +997,54 @@ lon=-0.142266
 name=LuggageHero @ Victoria Station Luggage Storage Belgrave H Hotel
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e8ba1cd6928e0005108076
-banner_url=https://app.luggagehero.com/shop-details/59e8ba1cd6928e0005108076
 
 lat=51.8827021
 lon=-0.4173229
 name=LuggageHero @ Comfort Hotel
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a02fed2763657000565101e
-banner_url=https://app.luggagehero.com/shop-details/5a02fed2763657000565101e
 
 lat=51.5187134
 lon=-0.0877287
 name=LuggageHero @ Luggage Zone
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/590b1834754b1d000588d6ae
-banner_url=https://app.luggagehero.com/shop-details/590b1834754b1d000588d6ae
 
 lat=51.5221766
 lon=-0.1583194
 name=LuggageHero @ One Stop Food & Wine
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0b145e0706ab00051032d1
-banner_url=https://app.luggagehero.com/shop-details/5a0b145e0706ab00051032d1
 
 lat=51.516195
 lon=-0.1344901
 name=LuggageHero @ Metro Express Oxford Street
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a0c8f1fa1f0df00057f0a0d
-banner_url=https://app.luggagehero.com/shop-details/5a0c8f1fa1f0df00057f0a0d
 
 lat=51.5238081
 lon=-0.1405876
 name=LuggageHero @ Seventeen 0 Seven
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a12b77db880b2000524f143
-banner_url=https://app.luggagehero.com/shop-details/5a12b77db880b2000524f143
 
 lat=51.5200398
 lon=-0.0748746
 name=LuggageHero @ The Last Stop for the Curious
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a14641666c85c00051c483b
-banner_url=https://app.luggagehero.com/shop-details/5a14641666c85c00051c483b
 
 lat=51.5266438
 lon=-0.1245772
 name=LuggageHero @ Dipa Travels
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5a146a9666c85c00051c4840
-banner_url=https://app.luggagehero.com/shop-details/5a146a9666c85c00051c4840
 
 lat=55.6792709
 lon=12.5337938
 name=LuggageHero @ San Marco JUNIOR
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c0d6ef382d8d0005f3f90f
-banner_url=https://app.luggagehero.com/shop-details/59c0d6ef382d8d0005f3f90f
 opening_hours=Mo-Fr 10:00-23:00; Sa 10:00-23:30; Su 10:00-21:30
 
 lat=55.6845785
@@ -1218,7 +1052,6 @@ lon=12.5375683
 name=LuggageHero @ Unique Cykler
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59c0fc12382d8d0005f3f932
-banner_url=https://app.luggagehero.com/shop-details/59c0fc12382d8d0005f3f932
 opening_hours=Mo-Fr 08:00-18:00; Sa 10:00-16:00
 
 lat=55.6822701
@@ -1226,7 +1059,6 @@ lon=12.5723086
 name=LuggageHero @ Le Blanc
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fe2
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c3baffa63ae8a50fe2
 opening_hours=Mo-Fr 10:00-19:00; Sa 10:00-18:00
 
 lat=55.6818233
@@ -1234,21 +1066,18 @@ lon=12.5759298
 name=LuggageHero @ Cinnober Bookshop
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f7f
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f7f
 
 lat=55.6843236
 lon=12.572794
 name=LuggageHero @ Candy Store
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58e01b3187ac222b24b8eaa8
-banner_url=https://app.luggagehero.com/shop-details/58e01b3187ac222b24b8eaa8
 
 lat=55.6916387
 lon=12.5588586
 name=LuggageHero @ Shoppen
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f8a
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f8a
 opening_hours=Tu-Sa 11:00-21:00
 
 lat=55.6839865
@@ -1256,42 +1085,36 @@ lon=12.567631
 name=LuggageHero @ Cousins - coffee bar and interior shop
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f8c
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f8c
 
 lat=55.681521
 lon=12.5495568
 name=LuggageHero @ Virou - Danish Design Shop
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f83
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f83
 
 lat=55.6787306
 lon=12.5828421
 name=LuggageHero @ Wecycle Copenhagen - Rent a Bike, Café & Concept Store
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9b
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9b
 
 lat=55.6903219
 lon=12.5544203
 name=LuggageHero @ BODEGA - cafe & restaurant
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f88
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f88
 
 lat=55.6649549
 lon=12.5814432
 name=LuggageHero @ TOBIs Cafe
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9c
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9c
 
 lat=55.6796906
 lon=12.5773865
 name=LuggageHero @ PhoneLab
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/593278be54aff500059bcb85
-banner_url=https://app.luggagehero.com/shop-details/593278be54aff500059bcb85
 opening_hours=Mo-Fr 10:00-18:00; Sa 10:00-17:00
 
 lat=55.6733497
@@ -1299,21 +1122,18 @@ lon=12.5631472
 name=LuggageHero @ Hotel Astoria
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/594a5d75b296130005499692
-banner_url=https://app.luggagehero.com/shop-details/594a5d75b296130005499692
 
 lat=55.7021773
 lon=12.5822061
 name=LuggageHero @ Kagestuen 43 - coffee shop
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f8d
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f8d
 
 lat=55.6878604
 lon=12.5600568
 name=LuggageHero @ Blue Taco
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/5971dee0a1b5990005d43711
-banner_url=https://app.luggagehero.com/shop-details/5971dee0a1b5990005d43711
 opening_hours=12:00-21:00
 
 lat=55.6664038
@@ -1321,7 +1141,6 @@ lon=12.5530073
 name=LuggageHero @ KIHOSKH
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50fa0
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50fa0
 opening_hours=Su-Th 07:00-01:00; Fr-Sa 07:00-02:00
 
 lat=55.6615392
@@ -1329,7 +1148,6 @@ lon=12.6315355
 name=LuggageHero @ Couloir
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/597b27f31291750005cbfb28
-banner_url=https://app.luggagehero.com/shop-details/597b27f31291750005cbfb28
 opening_hours=Mo-Fr 11:00-22:00; Sa-Su 10:00-22:00
 
 lat=55.6850036
@@ -1337,28 +1155,24 @@ lon=12.5714129
 name=LuggageHero @ Cykel-Basen Luggage storage and Bike rental
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/594cc9e58db002000554cd8b
-banner_url=https://app.luggagehero.com/shop-details/594cc9e58db002000554cd8b
 
 lat=55.68339
 lon=12.5737512
 name=LuggageHero @ Rosenborg - Luggage storage and Bike rental
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50fa6
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50fa6
 
 lat=55.6855569
 lon=12.5693716
 name=LuggageHero @ PZ Nordic - Italian Sandwich
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/597b095ca72f6e0005cafd51
-banner_url=https://app.luggagehero.com/shop-details/597b095ca72f6e0005cafd51
 
 lat=55.6848601
 lon=12.5721136
 name=LuggageHero @ Kaffe K
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f7c
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f7c
 opening_hours=Mo-Fr 07:30-17:00; Sa 10:00-15:00
 
 lat=55.6764027
@@ -1366,21 +1180,18 @@ lon=12.5412464
 name=LuggageHero @ Prik - toy store
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9f
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9f
 
 lat=55.6789148
 lon=12.568386
 name=LuggageHero @ Couloir No. 35
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/597af6efe18a640005639a36
-banner_url=https://app.luggagehero.com/shop-details/597af6efe18a640005639a36
 
 lat=55.6902094
 lon=12.5638609
 name=LuggageHero @ Nørrebro Bryghus
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50fa3
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50fa3
 opening_hours=Mo-Th 12:00-15:00,17:30-22:00; Fr-Sa 12:00-15:00,17:30-23:00
 
 lat=55.6832253
@@ -1388,21 +1199,18 @@ lon=12.5503472
 name=LuggageHero @ CHEAPINK - print, copy and inks
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f82
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f82
 
 lat=55.6709727
 lon=12.5766518
 name=LuggageHero @ Danhostel Copenhagen City
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9e
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9e
 
 lat=55.6766509
 lon=12.5690731
 name=LuggageHero @ Hard Rock Cafe Copenhagen
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50fa5
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50fa5
 opening_hours=12:00-23:00; Sa-Su 10:00-23:00
 
 lat=55.685005
@@ -1410,49 +1218,42 @@ lon=12.5385031
 name=LuggageHero @ Little Birds - Coffee & Brunch
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59d201d326bc770005049864
-banner_url=https://app.luggagehero.com/shop-details/59d201d326bc770005049864
 
 lat=55.6830283
 lon=12.5752715
 name=LuggageHero @ Ricco's Hauser Plads
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f90
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f90
 
 lat=55.6845167
 lon=12.5835265
 name=LuggageHero @ Hotel Christian IV
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/59e5d9472ff4a40005b15206
-banner_url=https://app.luggagehero.com/shop-details/59e5d9472ff4a40005b15206
 
 lat=55.6808632
 lon=12.5899013
 name=LuggageHero @ CHILL-EE Salads & more
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9a
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9a
 
 lat=55.6670601
 lon=12.5544784
 name=LuggageHero @ Niko cykler - bike rental niko
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f91
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f91
 
 lat=55.6782418
 lon=12.5813228
 name=LuggageHero @ Segway Tours Copenhagen
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50fa7
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50fa7
 
 lat=55.6803269
 lon=12.5917315
 name=LuggageHero @ Shopivers
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58e01b3287ac222b24b8eaab
-banner_url=https://app.luggagehero.com/shop-details/58e01b3287ac222b24b8eaab
 opening_hours=Mo-Sa 10:00-18:30; Su 10:00-15:00
 
 lat=55.6848543
@@ -1460,11 +1261,9 @@ lon=12.5678845
 name=LuggageHero @ SmagFørst - Wineshop
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f80
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c0baffa63ae8a50f80
 
 lat=55.6772592
 lon=12.5755757
 name=LuggageHero @ Voraz Restaurant and Café
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9d
-banner_url=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9d
