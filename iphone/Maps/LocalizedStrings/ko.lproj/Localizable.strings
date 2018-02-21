@@ -660,7 +660,7 @@
 "pref_calibration_title" = "나침반 보정";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi 인터넷";
+"wifi" = "WiFi 인터넷";
 
 /* Update map suggestion */
 "routing_map_outdated" = "경로를 생성하도록 지도를 업데이트하십시오.";

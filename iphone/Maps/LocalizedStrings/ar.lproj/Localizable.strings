@@ -660,7 +660,7 @@
 "pref_calibration_title" = "معايرة البوصلة";
 
 /* Search Suggestion */
-"core_wifi" = "واي فاي";
+"wifi" = "واي فاي";
 
 /* Update map suggestion */
 "routing_map_outdated" = "يرجى تحديث الخريطة لإنشاء مسار.";

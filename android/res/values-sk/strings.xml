@@ -410,7 +410,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Compass kalibrácia</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Pre vytvorenie trasy si, prosím, aktualizujte mapu.</string>
 	<!-- Update maps suggestion -->

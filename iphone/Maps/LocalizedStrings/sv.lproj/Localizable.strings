@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kompasskalibrering";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Uppdatera kartan för att skapa en rutt.";

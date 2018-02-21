@@ -415,7 +415,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">指南針校準</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">無線網路</string>
+	<string name="wifi">無線網路</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">請更新地圖以建立一條路線。</string>
 	<!-- Update maps suggestion -->

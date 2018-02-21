@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kompassin kalibrointi";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Päivitä kartta luodaksesi reitin";

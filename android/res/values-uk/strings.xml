@@ -409,7 +409,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Калібрування компаса</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Будь ласка, оновіть карту, щоб прокласти маршрут.</string>
 	<!-- Update maps suggestion -->

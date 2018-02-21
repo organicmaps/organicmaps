@@ -406,7 +406,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Iránytű kalibrálás</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Kérjük, útvonal létrehozásához frissítsd a térképet.</string>
 	<!-- Update maps suggestion -->

@@ -409,7 +409,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibrering af kompas</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Venligst opdatér kortet for at oprette en rute.</string>
 	<!-- Update maps suggestion -->

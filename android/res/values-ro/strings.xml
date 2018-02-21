@@ -403,7 +403,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Calibrare busolă</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Vă rugăm să actualizați harta pentru a crea o rută.</string>
 	<!-- Update maps suggestion -->

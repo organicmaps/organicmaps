@@ -419,7 +419,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompass-Kalibrierung</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WLAN</string>
+	<string name="wifi">WLAN</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Bitte aktualisieren Sie die Karte, um eine Route zu erstellen.</string>
 	<!-- Update maps suggestion -->

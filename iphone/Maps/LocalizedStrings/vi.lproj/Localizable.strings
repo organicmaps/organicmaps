@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Chuẩn hóa la bàn";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Vui lòng cập nhật bản đồ để tạo tuyến đường";

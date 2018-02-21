@@ -401,7 +401,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">나침반 보정</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi 인터넷</string>
+	<string name="wifi">WiFi 인터넷</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">경로를 생성하도록 지도를 업데이트하십시오.</string>
 	<!-- Update maps suggestion -->

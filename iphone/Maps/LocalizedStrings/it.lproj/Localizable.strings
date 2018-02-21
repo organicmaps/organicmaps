@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Calibrazione del compasso";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Aggiorna la mappa per creare un itinerario.";

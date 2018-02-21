@@ -413,7 +413,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">指南针校准</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">无线网络</string>
+	<string name="wifi">无线网络</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">请更新地图以创建一条路线。</string>
 	<!-- Update maps suggestion -->

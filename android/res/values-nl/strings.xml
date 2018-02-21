@@ -405,7 +405,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompascalibratie</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Werk de kaart bij om een route te maken.</string>
 	<!-- Update maps suggestion -->

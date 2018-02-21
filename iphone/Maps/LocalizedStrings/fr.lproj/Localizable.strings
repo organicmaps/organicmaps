@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Étalonnage de la boussole";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Veuillez mettre à jour la carte pour créer un itinéraire.";

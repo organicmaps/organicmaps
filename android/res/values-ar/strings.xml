@@ -411,7 +411,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">معايرة البوصلة</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">واي فاي</string>
+	<string name="wifi">واي فاي</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">يرجى تحديث الخريطة لإنشاء مسار.</string>
 	<!-- Update maps suggestion -->

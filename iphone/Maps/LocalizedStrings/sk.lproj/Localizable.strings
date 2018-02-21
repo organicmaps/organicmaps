@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Compass kalibrácia";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Pre vytvorenie trasy si, prosím, aktualizujte mapu.";

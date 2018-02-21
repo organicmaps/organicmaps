@@ -404,7 +404,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">コンパスの調整</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">無線LAN</string>
+	<string name="wifi">無線LAN</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">ルートを作成するためにマップを更新してください。</string>
 	<!-- Update maps suggestion -->

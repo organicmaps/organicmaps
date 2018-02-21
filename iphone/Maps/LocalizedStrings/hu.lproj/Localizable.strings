@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Iránytű kalibrálás";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Kérjük, útvonal létrehozásához frissítsd a térképet.";

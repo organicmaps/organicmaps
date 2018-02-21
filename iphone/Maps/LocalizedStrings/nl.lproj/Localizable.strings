@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kompascalibratie";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Werk de kaart bij om een route te maken.";

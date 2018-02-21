@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Calibrare busolă";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Vă rugăm să actualizați harta pentru a crea o rută.";

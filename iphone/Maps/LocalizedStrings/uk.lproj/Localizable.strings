@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Калібрування компаса";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Будь ласка, оновіть карту, щоб прокласти маршрут.";

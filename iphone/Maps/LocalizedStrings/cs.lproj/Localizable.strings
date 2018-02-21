@@ -660,7 +660,7 @@
 "pref_calibration_title" = "Kalibrace kompasu";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Pro funkci vytváření tras je nutné aktualizovat mapu.";

@@ -660,7 +660,7 @@
 "pref_calibration_title" = "การปรับเทียบเข็มทิศ";
 
 /* Search Suggestion */
-"core_wifi" = "WiFi";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "โปรดอัปเดตแผนที่เพื่อสร้างเส้นทาง";

@@ -405,7 +405,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Chuẩn hóa la bàn</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Vui lòng cập nhật bản đồ để tạo tuyến đường</string>
 	<!-- Update maps suggestion -->

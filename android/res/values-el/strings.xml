@@ -309,7 +309,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Βαθμονόμηση πυξίδας</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Ενημέρωση όλων</string>
 	<!-- Cancel all button text -->

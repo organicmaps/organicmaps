@@ -411,7 +411,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Pusula kalibrasyonu</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.</string>
 	<!-- Update maps suggestion -->

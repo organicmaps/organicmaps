@@ -425,7 +425,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Compass calibration</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Please update the map to create a route</string>
 	<!-- Update maps suggestion -->

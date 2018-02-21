@@ -411,7 +411,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">การปรับเทียบเข็มทิศ</string>
 	<!-- Search Suggestion -->
-	<string name="core_wifi">WiFi</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">โปรดอัปเดตแผนที่เพื่อสร้างเส้นทาง</string>
 	<!-- Update maps suggestion -->

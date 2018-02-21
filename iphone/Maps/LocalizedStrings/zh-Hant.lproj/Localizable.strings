@@ -660,7 +660,7 @@
 "pref_calibration_title" = "指南針校準";
 
 /* Search Suggestion */
-"core_wifi" = "無線網路";
+"wifi" = "無線網路";
 
 /* Update map suggestion */
 "routing_map_outdated" = "請更新地圖以建立一條路線。";
