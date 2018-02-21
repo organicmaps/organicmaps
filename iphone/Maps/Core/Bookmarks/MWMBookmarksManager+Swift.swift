@@ -1,5 +1,5 @@
 extension MWMBookmarksManager {
-  static func categoriesIdList() -> [MWMMarkGroupID] {
+  @nonobjc static func groupsIdList() -> [MWMMarkGroupID] {
     return groupsIdList().map { $0.uint32Value }
   }
 }

@@ -34,7 +34,7 @@ final class BMCDefaultViewModel: NSObject {
   }
 
   private func setCategories() {
-    categories = BM.categoriesIdList().map { categoryId -> BMCCategory in
+    categories = BM.groupsIdList().map { categoryId -> BMCCategory in
       let title = BM.getCategoryName(categoryId)!
       let count = BM.getCategoryMarksCount(categoryId) + BM.getCategoryTracksCount(categoryId)
       let isVisible = BM.isCategoryVisible(categoryId)
