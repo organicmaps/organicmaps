@@ -10,6 +10,7 @@
 #include "geometry/angles.hpp"
 
 #include "base/macros.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/cmath.hpp"
 #include "std/numeric.hpp"
@@ -26,6 +27,71 @@ size_t constexpr kMaxIngoingPointsCount = 2;
 double constexpr kMinIngoingDistMeters = 300.;
 size_t constexpr kNotSoCloseMaxPointsCount = 3;
 double constexpr kNotSoCloseMinDistMeters = 30.;
+
+bool IsHighway(ftypes::HighwayClass hwClass, bool isLink)
+{
+  return hwClass == ftypes::HighwayClass::Trunk && !isLink;
+}
+
+bool IsLinkOrSmallRoad(ftypes::HighwayClass hwClass, bool isLink)
+{
+  return isLink || hwClass == ftypes::HighwayClass::LivingStreet ||
+         hwClass == ftypes::HighwayClass::Service ||
+         hwClass == ftypes::HighwayClass::Pedestrian;
+}
+
+/// \brief Fills |turn| with |CarDirection::ExitHighwayToRight| or |CarDirection::ExitHighwayToLeft|
+/// and returns true. Or does not change |turn| and returns false.
+/// \note The method makes a decision about |turn| based on geometry of the route and turn
+/// candidates, so it works correctly for both left and right hand traffic.
+bool IsExit(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
+            Segment const & firstOutgoingSeg, CarDirection & turn)
+{
+  if (!possibleTurns.isCandidatesAngleValid)
+    return false;
+
+  if (!IsHighway(turnInfo.m_ingoing.m_highwayClass, turnInfo.m_ingoing.m_isLink) ||
+      !IsLinkOrSmallRoad(turnInfo.m_outgoing.m_highwayClass, turnInfo.m_outgoing.m_isLink))
+  {
+    return false;
+  }
+
+  // Considering cases when the route goes from a highway to a link or a small road.
+  // Checking all turn candidates (sorted by its angle) and looking for the road which is a
+  // continuation of the ingoing segment. If the continuation is on the right hand of the route
+  // it's an exit to the left. If the continuation is on the left hand of the route
+  // it's an exit to the right.
+  // Note. The angle which is using for sorting turn candidates in |possibleTurns.candidates|
+  // is a counterclockwise angle between the ingoing route edge and corresponding candidate.
+  // For left turns the angle is less than zero and for it is more than zero.
+  bool isCandidateBeforeOutgoing = true;
+  bool isHighwayCandidateBeforeOutgoing = true;
+  size_t highwayCandidateNumber = 0;
+
+  for (auto const & c : possibleTurns.candidates)
+  {
+    if (c.m_segment == firstOutgoingSeg)
+    {
+      isCandidateBeforeOutgoing = false;
+      continue;
+    }
+
+    if (IsHighway(c.m_highwayClass, c.m_isLink))
+    {
+      ++highwayCandidateNumber;
+      if (highwayCandidateNumber >= 2)
+        return false; // There're two or more highway candidates from the junction.
+      isHighwayCandidateBeforeOutgoing = isCandidateBeforeOutgoing;
+    }
+  }
+  if (highwayCandidateNumber == 1)
+  {
+    turn = isHighwayCandidateBeforeOutgoing ? CarDirection::ExitHighwayToRight
+                                            : CarDirection::ExitHighwayToLeft;
+    return true;
+  }
+  return false;
+}
 
 /*!
  * \brief Returns false when
@@ -669,11 +735,24 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
   size_t ingoingCount;
   result.GetPossibleTurns(turnInfo.m_ingoing.m_segmentRange, ingoingPointOneSegment, junctionPoint,
                           ingoingCount, nodes);
+  if (nodes.isCandidatesAngleValid)
+  {
+    ASSERT(is_sorted(nodes.candidates.begin(), nodes.candidates
+        .end(), my::LessBy(&TurnCandidate::m_angle)),
+           ("Turn candidates should be sorted by its angle field."));
+  }
 
   if (nodes.candidates.size() == 0)
     return;
 
   bool const hasMultiTurns = HasMultiTurns(numMwmIds, nodes, turnInfo);
+
+  // Checking for exits from highways.
+  Segment firstOutgoingSeg;
+  bool const isFirstOutgoingSegValid =
+      turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg);
+  if (isFirstOutgoingSegValid && IsExit(nodes, turnInfo, firstOutgoingSeg, turn.m_turn))
+    return;
 
   if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, hasMultiTurns, turnInfo, turn, nodes))
     return;
@@ -684,8 +763,7 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
   }
   else
   {
-    Segment firstOutgoingSeg;
-    if (turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg))
+    if (isFirstOutgoingSegValid)
     {
       if (nodes.candidates.front().m_segment == firstOutgoingSeg)
         turn.m_turn = LeftmostDirection(turnAngle);
