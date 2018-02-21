@@ -293,6 +293,12 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
     i = j;
   }
 
+  if (minVersion > maxVersion)
+  {
+    minVersion = 0;
+    maxVersion = 0;
+  }
+
   GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapVersionMin,
                                                        strings::to_string(minVersion));
   GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapVersionMax,
