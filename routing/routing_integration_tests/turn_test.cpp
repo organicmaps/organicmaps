@@ -586,7 +586,7 @@ UNIT_TEST(NetherlandsGorinchemBridgeTest)
   integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
-UNIT_TEST(RussiaVoronigProspTrudaTest)
+UNIT_TEST(RussiaVoronezhProspTrudaTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
@@ -795,7 +795,7 @@ UNIT_TEST(GermanyRaunheimAirportTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
-UNIT_TEST(BelorussianMinskTest)
+UNIT_TEST(BelorussiaMinskTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),

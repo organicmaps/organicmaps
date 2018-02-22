@@ -111,6 +111,13 @@ bool KeepRoundaboutTurnByHighwayClass(CarDirection turn, TurnCandidates const & 
   return false;
 }
 
+bool DoAllTurnCandidatesGoAlmostStraight(vector<TurnCandidate> const & candidates)
+{
+  return all_of(candidates.cbegin(), candidates.cend(), [](TurnCandidate const & c) {
+    return IsGoStraightOrSlightTurn(IntermediateDirection(c.m_angle));
+  });
+}
+
 /// \brief Analyzes its args and makes a decision if it's possible to have a turn at this junction
 /// or not.
 /// \returns true if based on this analysis there's no turn at this junction and
@@ -127,24 +134,12 @@ bool DiscardTurnByIngoingAndOutgoingEdges(CarDirection intermediateDirection, bo
   }
 
   // Checks if all turn candidates go straight or make a slight turn to left or to right.
-  bool otherTurnCandidatesGoAlmostStraight = true;
-  if (turnCandidates.isCandidatesAngleValid)
-  {
-    for (auto const & c : turnCandidates.candidates)
-    {
-      if (!IsGoStraightOrSlightTurn(IntermediateDirection(c.m_angle)))
-      {
-        otherTurnCandidatesGoAlmostStraight = false;
-        break;
-      }
-    }
-  }
-  else
-  {
-    otherTurnCandidatesGoAlmostStraight = false;
-  }
+  bool turnCandidatesGoAlmostStraight =
+      turnCandidates.isCandidatesAngleValid
+          ? DoAllTurnCandidatesGoAlmostStraight(turnCandidates.candidates)
+          : false;
 
-  if (otherTurnCandidatesGoAlmostStraight)
+  if (turnCandidatesGoAlmostStraight)
     return !hasMultiTurns;
 
   return ((!hasMultiTurns && IsGoStraightOrSlightTurn(intermediateDirection)) ||
@@ -290,15 +285,15 @@ size_t GetOutgoingPointIndex(const size_t start, const size_t end, const size_t 
   return end > start ? start + i : start - i;
 }
 
-size_t GetLinkNumber(vector<TurnCandidate> const & candidates)
+size_t GetLinkCount(vector<TurnCandidate> const & candidates)
 {
-  size_t candidateLinkNumber = 0;
+  size_t numLinks = 0;
   for (auto const & c : candidates)
   {
     if (c.m_isLink)
-      ++candidateLinkNumber;
+      ++numLinks;
   }
-  return candidateLinkNumber;
+  return numLinks;
 }
 }  // namespace
 
@@ -601,7 +596,7 @@ CarDirection IntermediateDirection(const double angle)
   return FindDirectionByAngle(kLowerBounds, angle);
 }
 
-/// \returns true if one of turn candidates goes along ingoing route segment and false otherwise.
+/// \returns true iff one of the turn candidates goes along the ingoing route segment.
 bool OneOfTurnCandidatesGoesAlongIngoingSegment(NumMwmIds const & numMwmIds,
                                                 TurnCandidates const & turnCandidates,
                                                 TurnInfo const & turnInfo)
@@ -613,7 +608,7 @@ bool OneOfTurnCandidatesGoesAlongIngoingSegment(NumMwmIds const & numMwmIds,
   for (auto const & c : turnCandidates.candidates)
   {
     if (c.m_segment.IsInverse(ingoingSegment))
-      return true; // An inverse segment is found.
+      return true;
   }
   return false;
 }
@@ -737,8 +732,7 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
     if (!turnInfo.m_ingoing.m_isLink && !turnInfo.m_outgoing.m_isLink &&
         turnInfo.m_ingoing.m_highwayClass == turnInfo.m_outgoing.m_highwayClass)
     {
-      size_t const candidateLinkNumber = GetLinkNumber(nodes.candidates);
-      if (candidateLinkNumber + 1 == nodes.candidates.size())
+      if (GetLinkCount(nodes.candidates) + 1 == nodes.candidates.size())
       {
         turn.m_turn = CarDirection::None;
         return;
