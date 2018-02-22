@@ -872,3 +872,34 @@ UNIT_TEST(OsmType_Moscow)
     TEST(!params.name.IsEmpty(), (params));
   }
 }
+
+UNIT_TEST(OsmType_Translations)
+{
+  char const * arr[][2] = {
+    { "name", "Paris" },
+    { "name:ru", "Париж" },
+    { "name:en", "Paris" },
+    { "name:en:pronunciation", "ˈpæɹ.ɪs" },
+    { "name:fr:pronunciation", "paʁi" },
+    { "place", "city" },
+    { "population", "2243833" }
+  };
+
+  OsmElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  TEST_EQUAL(params.m_Types.size(), 1, (params));
+  TEST(params.IsTypeExist(GetType({"place", "city"})), ());
+
+  std::string name;
+  TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), (params));
+  TEST_EQUAL(name, "Paris", (params));
+  TEST(params.name.GetString(StringUtf8Multilang::kEnglishCode, name), (params));
+  TEST_EQUAL(name, "Paris", (params));
+  TEST(!params.name.GetString("fr", name), (params));
+  TEST(params.name.GetString("ru", name), (params));
+  TEST_EQUAL(name, "Париж", (params));
+}
