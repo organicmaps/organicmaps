@@ -43,7 +43,7 @@ public class SearchFilterController
     @Override
     public void onClick(View v)
     {
-      setFilter(null);
+      setFilterAndParams(null, null);
       if (mFilterListener != null)
         mFilterListener.onFilterClear();
     }
@@ -121,10 +121,11 @@ public class SearchFilterController
     return mFilter;
   }
 
-  public void setFilter(@Nullable HotelsFilter filter)
+  public void setFilterAndParams(@Nullable HotelsFilter filter, @Nullable BookingFilterParams params)
   {
     mFilter = filter;
-    if (mFilter != null)
+    mBookingFilterParams = params;
+    if (mFilter != null || mBookingFilterParams != null)
     {
       mFilterIcon.setOnClickListener(mClearListener);
       mFilterIcon.setImageResource(R.drawable.ic_cancel);
@@ -148,7 +149,7 @@ public class SearchFilterController
 
   void resetFilter()
   {
-    setFilter(null);
+    setFilterAndParams(null, null);
     updateFilterButtonVisibility(false);
   }
 
@@ -156,11 +157,6 @@ public class SearchFilterController
   public BookingFilterParams getBookingFilterParams()
   {
     return mBookingFilterParams;
-  }
-
-  public void setBookingFilterParams(@Nullable BookingFilterParams params)
-  {
-    mBookingFilterParams = params;
   }
 
   public void onSaveState(@NonNull Bundle outState)
@@ -173,8 +169,7 @@ public class SearchFilterController
 
   public void onRestoreState(@NonNull Bundle state)
   {
-    setFilter(state.getParcelable(STATE_HOTEL_FILTER));
-    setBookingFilterParams(state.getParcelable(STATE_FILTER_PARAMS));
+    setFilterAndParams(state.getParcelable(STATE_HOTEL_FILTER), state.getParcelable(STATE_FILTER_PARAMS));
     updateFilterButtonVisibility(state.getBoolean(STATE_HOTEL_FILTER_VISIBILITY, false));
   }
 

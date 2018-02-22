@@ -83,7 +83,7 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
           HotelsFilterHolder holder = (HotelsFilterHolder) fragment;
           HotelsFilter filter = holder.getHotelsFilter();
           BookingFilterParams params = holder.getFilterParams();
-          if (filter != null)
+          if (filter != null || params != null)
           {
             Intent intent = NavUtils.getParentActivityIntent(this);
             intent.putExtra(FilterActivity.EXTRA_FILTER, filter);

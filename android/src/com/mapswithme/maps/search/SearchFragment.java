@@ -402,10 +402,9 @@ public class SearchFragment extends BaseMwmFragment
     });
     if (savedInstanceState != null)
       mFilterController.onRestoreState(savedInstanceState);
-    if (mInitialHotelsFilter != null)
-      mFilterController.setFilter(mInitialHotelsFilter);
-    mFilterController.setBookingFilterParams(mInitialFilterParams);
-    mFilterController.updateFilterButtonVisibility(false);
+    if (mInitialHotelsFilter != null || mInitialFilterParams != null)
+      mFilterController.setFilterAndParams(mInitialHotelsFilter, mInitialFilterParams);
+    mFilterController.updateFilterButtonVisibility(mInitialFilterParams != null);
 
     if (mSearchAdapter == null)
     {
@@ -745,7 +744,7 @@ public class SearchFragment extends BaseMwmFragment
     {
       mFilterController.updateFilterButtonVisibility(isHotel);
       if (!isHotel)
-        mFilterController.setFilter(null);
+        mFilterController.setFilterAndParams(null, null);
     }
   }
 
@@ -767,9 +766,8 @@ public class SearchFragment extends BaseMwmFragment
         if (mFilterController == null)
           return;
 
-        mFilterController.setFilter(data.getParcelableExtra(FilterActivity.EXTRA_FILTER));
-        BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
-        mFilterController.setBookingFilterParams(params);
+        mFilterController.setFilterAndParams(data.getParcelableExtra(FilterActivity.EXTRA_FILTER),
+                                             data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS));
         runSearch();
         break;
     }

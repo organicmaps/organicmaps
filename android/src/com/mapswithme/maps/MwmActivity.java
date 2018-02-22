@@ -1069,8 +1069,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         handleDiscoveryResult(data);
         break;
       case FilterActivity.REQ_CODE_FILTER:
-        String query = mSearchController != null ? mSearchController.getQuery() : "";
-        handleFilterResult(data, query.equals(getString(R.string.hotel)));
+        handleFilterResult(data);
         break;
     }
   }
@@ -1107,20 +1106,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
         if (mSearchController != null)
           mSearchController.setQuery(query);
 
-        handleFilterResult(data, query.equals(getString(R.string.hotel)));
+        handleFilterResult(data);
         break;
     }
   }
 
-  private void handleFilterResult(@Nullable Intent data, boolean isHotel)
+  private void handleFilterResult(@Nullable Intent data)
   {
     if (data == null || mFilterController == null)
       return;
 
-    mFilterController.setFilter(data.getParcelableExtra(FilterActivity.EXTRA_FILTER));
     BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
-    mFilterController.setBookingFilterParams(params);
-    mFilterController.updateFilterButtonVisibility(isHotel);
+    mFilterController.setFilterAndParams(data.getParcelableExtra(FilterActivity.EXTRA_FILTER),
+                                         params);
+    mFilterController.updateFilterButtonVisibility(params != null);
     runSearch();
   }
 
@@ -1194,9 +1193,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookingFilterParams params = intent.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
     if (mFilterController != null)
     {
-      mFilterController.show(filter != null || !TextUtils.isEmpty(SearchEngine.getQuery()), true);
-      mFilterController.setFilter(filter);
-      mFilterController.setBookingFilterParams(params);
+      mFilterController.show(filter != null || params != null || !TextUtils.isEmpty(SearchEngine.getQuery()), true);
+      mFilterController.setFilterAndParams(filter, params);
       return filter != null || params != null;
     }
 
