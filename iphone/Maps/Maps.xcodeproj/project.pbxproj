@@ -4280,7 +4280,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\n\nLOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n    LINE=`grep CRASHLYTICS_IOS_KEY ../../private.h`\n    if [[ $LINE =~ \\\"(.*)\\\" ]]; then\n        CRASHLYTICS_KEY=${BASH_REMATCH[1]}\n        if [[ \"$CRASHLYTICS_KEY\" ]]; then\n            bash \"./3party/Fabric.framework/run\" \"$CRASHLYTICS_KEY\"\n        fi\n    fi\nfi\n";
+			shellScript = "#!/bin/bash\n\nLOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *release* ]]; then\n    LINE=`grep CRASHLYTICS_IOS_KEY ../../private.h`\n    if [[ $LINE =~ \\\"(.*)\\\" ]]; then\n        CRASHLYTICS_KEY=${BASH_REMATCH[1]}\n        if [[ \"$CRASHLYTICS_KEY\" ]]; then\n            bash \"./3party/Fabric.framework/run\" \"$CRASHLYTICS_KEY\"\n        fi\n    fi\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
