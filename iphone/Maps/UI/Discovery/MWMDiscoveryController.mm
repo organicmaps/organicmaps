@@ -119,8 +119,7 @@ struct Callback
 
   auto getTypes = [](BOOL canUseNetwork) -> vector<ItemType> {
     if (canUseNetwork)
-      return {ItemType::Hotels, ItemType::Viator, ItemType::Attractions, ItemType::Cafes,
-              ItemType::LocalExperts};
+      return {ItemType::Hotels, ItemType::Attractions, ItemType::Cafes, ItemType::LocalExperts};
     return {ItemType::Hotels, ItemType::Attractions, ItemType::Cafes};
   };
 
