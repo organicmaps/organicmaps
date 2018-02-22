@@ -41,6 +41,8 @@ uint64_t constexpr kMaxUploadingFileSizeInBytes = 100 * 1024 * 1024; // 100Mb
 std::string const kServerUrl = CLOUD_URL;
 std::string const kCloudServerVersion = "v1";
 std::string const kCloudServerUploadMethod = "upload_url";
+std::string const kCloudServerNotifyMethod = "upload_succeeded";
+std::string const kApplicationJson = "application/json";
 
 std::string GetIndexFilePath(std::string const & indexName)
 {
@@ -57,6 +59,19 @@ std::string BuildUploadingUrl(std::string const & serverPathName)
      << kCloudServerVersion << "/"
      << serverPathName << "/"
      << kCloudServerUploadMethod << "/";
+  return ss.str();
+}
+
+std::string BuildNotificationUrl(std::string const & serverPathName)
+{
+  if (kServerUrl.empty())
+    return {};
+
+  std::ostringstream ss;
+  ss << kServerUrl << "/"
+     << kCloudServerVersion << "/"
+     << serverPathName << "/"
+     << kCloudServerNotifyMethod << "/";
   return ss.str();
 }
 
@@ -98,6 +113,26 @@ std::string CalculateSHA1(std::string const & filePath)
     LOG(LERROR, ("Error reading file:", filePath, ex.Msg()));
   }
   return {};
+}
+
+std::string BuildUploadingRequestDataJson(std::string const & filePath)
+{
+  std::string jsonBody;
+  Cloud::UploadingRequestData data;
+  data.m_alohaId = GetPlatform().UniqueClientId();
+  data.m_deviceName = GetPlatform().DeviceName();
+  data.m_fileName = ExtractFileName(filePath);
+
+  using Sink = MemWriter<string>;
+  Sink sink(jsonBody);
+  coding::SerializerJson<Sink> serializer(sink);
+  serializer(data);
+  return jsonBody;
+}
+
+bool IsSuccessfulResultCode(int resultCode)
+{
+  return resultCode >= 200 && resultCode < 300;
 }
 }  // namespace
 
@@ -461,6 +496,15 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
         FinishUploading(SynchronizationResult::NetworkError, executeResult.m_error);
         return;
       }
+
+      // Notify about successful uploading.
+      auto const notificationResult =
+          NotifyAboutUploading(BuildNotificationUrl(m_params.m_serverPathName), uploadedName);
+      if (executeResult.m_status != RequestStatus::Ok)
+      {
+        FinishUploading(SynchronizationResult::NetworkError, notificationResult.m_error);
+        return;
+      }
     }
 
     // Mark entry as not outdated.
@@ -515,33 +559,17 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName,
 Cloud::UploadingResult Cloud::RequestUploading(std::string const & uploadingUrl,
                                                std::string const & filePath) const
 {
-  static std::string const kApplicationJson = "application/json";
-
   UploadingResult result;
 
   platform::HttpClient request(uploadingUrl);
   request.SetRawHeader("Accept", kApplicationJson);
   request.SetRawHeader("Authorization", BuildAuthenticationToken(m_accessToken));
-
-  std::string jsonBody;
-  {
-    UploadingRequestData data;
-    data.m_alohaId = GetPlatform().UniqueClientId();
-    data.m_deviceName = GetPlatform().DeviceName();
-    data.m_fileName = ExtractFileName(filePath);
-
-    using Sink = MemWriter<string>;
-    Sink sink(jsonBody);
-    coding::SerializerJson<Sink> serializer(sink);
-    serializer(data);
-  }
-  request.SetBodyData(std::move(jsonBody), kApplicationJson);
+  request.SetBodyData(BuildUploadingRequestDataJson(filePath), kApplicationJson);
 
   if (request.RunHttpRequest() && !request.WasRedirected())
   {
     int const resultCode = request.ErrorCode();
-    bool const isSuccessfulCode = (resultCode == 200 || resultCode == 201);
-    if (isSuccessfulCode)
+    if (IsSuccessfulResultCode(resultCode))
     {
       result.m_requestResult = {RequestStatus::Ok, {}};
       coding::DeserializerJson des(request.ServerResponse());
@@ -580,7 +608,7 @@ Cloud::RequestResult Cloud::ExecuteUploading(UploadingResponseData const & respo
   request.SetFilePath(filePath);
 
   auto const result = request.Upload();
-  if (result.m_httpCode == 200 || result.m_httpCode == 201)
+  if (IsSuccessfulResultCode(result.m_httpCode))
     return {RequestStatus::Ok, {}};
 
   auto const errorStr = strings::to_string(result.m_httpCode) + " " + result.m_description;
@@ -588,6 +616,30 @@ Cloud::RequestResult Cloud::ExecuteUploading(UploadingResponseData const & respo
     return {RequestStatus::Forbidden, errorStr};
 
   return {RequestStatus::NetworkError, errorStr};
+}
+
+Cloud::RequestResult Cloud::NotifyAboutUploading(std::string const & notificationUrl,
+                                                 std::string const & filePath) const
+{
+  platform::HttpClient request(notificationUrl);
+  request.SetRawHeader("Accept", kApplicationJson);
+  request.SetRawHeader("Authorization", BuildAuthenticationToken(m_accessToken));
+  request.SetBodyData(BuildUploadingRequestDataJson(filePath), kApplicationJson);
+
+  if (request.RunHttpRequest() && !request.WasRedirected())
+  {
+    int const resultCode = request.ErrorCode();
+    if (IsSuccessfulResultCode(resultCode))
+      return {RequestStatus::Ok, {}};
+
+    if (resultCode == 403)
+    {
+      LOG(LWARNING, ("Access denied for", notificationUrl));
+      return {RequestStatus::Forbidden, request.ServerResponse()};
+    }
+  }
+
+  return {RequestStatus::NetworkError, request.ServerResponse()};
 }
 
 Cloud::EntryPtr Cloud::FindOutdatedEntry() const

@@ -199,6 +199,8 @@ private:
                                    std::string const & filePath) const;
   RequestResult ExecuteUploading(UploadingResponseData const & responseData,
                                  std::string const & filePath);
+  RequestResult NotifyAboutUploading(std::string const & notificationUrl,
+                                     std::string const & filePath) const;
 
   CloudParams const m_params;
   InvalidTokenHandler m_onInvalidToken;
