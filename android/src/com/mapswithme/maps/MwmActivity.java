@@ -1345,6 +1345,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mSearchController.hide())
     {
       SearchEngine.cancelInteractiveSearch();
+      if (mFilterController != null)
+        mFilterController.resetFilter();
       return;
     }
 

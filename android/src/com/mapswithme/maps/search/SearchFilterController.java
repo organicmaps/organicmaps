@@ -147,7 +147,7 @@ public class SearchFilterController
     }
   }
 
-  void resetFilter()
+  public void resetFilter()
   {
     setFilterAndParams(null, null);
     updateFilterButtonVisibility(false);
