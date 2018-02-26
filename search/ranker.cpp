@@ -438,7 +438,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
     m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
       string city;
       if (item.GetSpecifiedOrDefaultName(m_localeCode, city))
-        res.AppendCity(city);
+        res.PrependCity(city);
     });
   }
 

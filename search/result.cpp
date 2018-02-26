@@ -3,6 +3,8 @@
 #include "search/common.hpp"
 #include "search/geometry_utils.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <algorithm>
 #include <sstream>
 
@@ -132,11 +134,15 @@ pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
   return m_hightlightRanges[idx];
 }
 
-void Result::AppendCity(string const & name)
+void Result::PrependCity(string const & name)
 {
-  // Prepend only if city is absent in region (mwm) name.
-  if (m_address.find(name) == string::npos)
-    m_address = name + ", " + m_address;
+  // It is expected that if |m_address| is not empty,
+  // it starts with the region name. Avoid duplication
+  // in the case where this region name coincides with
+  // the city name and prepend otherwise.
+  strings::SimpleTokenizer tok(m_address, ",");
+  if (tok && *tok != name)
+    m_address = Join(name, m_address);
 }
 
 string Result::ToStringForStats() const
