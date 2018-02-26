@@ -80,13 +80,14 @@
 - (void)addSetVC:(AddSetVC *)vc didAddSetWithCategoryId:(df::MarkGroupID)categoryId
 {
   [self moveBookmarkToSetWithCategoryId:categoryId];
-  [self.tableView reloadData];
-  [self.delegate didSelectCategory:self.category withCategoryId:categoryId];
 }
 
 - (void)moveBookmarkToSetWithCategoryId:(df::MarkGroupID)categoryId
 {
+  m_categoryId = categoryId;
   self.category = @(GetFramework().GetBookmarkManager().GetCategoryName(categoryId).c_str());
+  [self.tableView reloadData];
+  [self.delegate didSelectCategory:self.category withCategoryId:categoryId];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

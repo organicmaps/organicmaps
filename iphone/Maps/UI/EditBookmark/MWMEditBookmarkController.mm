@@ -229,8 +229,11 @@ enum RowInMetaInfo
   }
   case Category:
   {
+    df::MarkGroupID categoryId = self.cachedNewBookmarkCatId;
+    if (categoryId == df::kInvalidMarkGroupId)
+      categoryId = m_cachedBookmarkCatId;
     SelectSetVC * svc = [[SelectSetVC alloc] initWithCategory:self.cachedCategory
-                                                   categoryId:m_cachedBookmarkCatId
+                                                   categoryId:categoryId
                                                      delegate:self];
     [self.navigationController pushViewController:svc animated:YES];
     break;
