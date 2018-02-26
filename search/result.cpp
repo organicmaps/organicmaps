@@ -5,7 +5,6 @@
 
 #include "base/string_utils.hpp"
 
-#include <algorithm>
 #include <sstream>
 
 using namespace std;

@@ -108,7 +108,7 @@ public:
   std::pair<uint16_t, uint16_t> const & GetHighlightRange(size_t idx) const;
   size_t GetHighlightRangesCount() const { return m_hightlightRanges.size(); }
 
-  void PrependCity(string const & name);
+  void PrependCity(std::string const & name);
 
   int32_t GetPositionInResults() const { return m_positionInResults; }
   void SetPositionInResults(int32_t pos) { m_positionInResults = pos; }
@@ -124,7 +124,7 @@ public:
   // Returns a representation of this result that is sent to the
   // statistics servers and later used to measure the quality of our
   // search engine.
-  string ToStringForStats() const;
+  std::string ToStringForStats() const;
 
 private:
   Type m_resultType;
