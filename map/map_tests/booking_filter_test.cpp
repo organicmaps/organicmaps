@@ -7,6 +7,8 @@
 
 #include "partners_api/booking_api.hpp"
 
+#include "platform/platform.hpp"
+
 #include "search/result.hpp"
 
 #include "indexer/feature_meta.hpp"
@@ -40,6 +42,7 @@ protected:
 
 private:
   storage::CountryInfoGetterForTesting m_infoGetter;
+  Platform::ThreadRunner m_runner;
 };
 
 UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)

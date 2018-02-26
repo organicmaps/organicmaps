@@ -16,6 +16,8 @@ using namespace taxi;
 
 namespace
 {
+using Runner = Platform::ThreadRunner;
+
 bool IsComplete(Product const & product)
 {
   return !product.m_productId.empty() && !product.m_name.empty() && !product.m_time.empty() &&
@@ -165,7 +167,7 @@ UNIT_TEST(Uber_ProductMaker)
   }, errorCallback);
 }
 
-UNIT_TEST(Uber_GetAvailableProducts)
+UNIT_CLASS_TEST(Runner, Uber_GetAvailableProducts)
 {
   taxi::uber::Api api("http://localhost:34568/partners");
   ms::LatLon const from(55.796918, 37.537859);

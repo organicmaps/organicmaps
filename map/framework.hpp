@@ -147,7 +147,7 @@ class Framework : public SearchAPI::Delegate, public RoutingManager::Delegate
 #endif
     
 private:
-  // Must be first member in Framework.
+  // Must be first member in Framework and must be destroyed first in Framework destructor.
   unique_ptr<Platform::ThreadRunner> m_threadRunner = make_unique<Platform::ThreadRunner>();
 
 protected:

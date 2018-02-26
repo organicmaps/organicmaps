@@ -20,5 +20,8 @@ public:
   {
     GetPlatform().SetGuiThread(my::make_unique<platform::GuiThread>());
   }
+
+private:
+  Platform::ThreadRunner m_runner;
 };
 }  // namespace partners_api

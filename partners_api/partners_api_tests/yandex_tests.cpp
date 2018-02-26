@@ -8,6 +8,8 @@
 
 namespace
 {
+using Runner = Platform::ThreadRunner;
+
 UNIT_TEST(Yandex_GetTaxiInfo)
 {
   ms::LatLon const from(55.796918, 37.537859);
@@ -19,7 +21,7 @@ UNIT_TEST(Yandex_GetTaxiInfo)
   TEST(!result.empty(), ());
 }
 
-UNIT_TEST(Yandex_GetAvailableProducts)
+UNIT_CLASS_TEST(Runner, Yandex_GetAvailableProducts)
 {
   taxi::yandex::Api api("http://localhost:34568/partners");
   ms::LatLon const from(55.796918, 37.537859);

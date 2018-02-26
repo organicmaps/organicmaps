@@ -37,12 +37,14 @@ extern Platform & GetPlatform();
 class Platform
 {
 public:
-  friend struct ThreadRunner;
+  friend class ThreadRunner;
 
-  struct ThreadRunner
+  // ThreadRunner may be subclassed for testing purposes.
+  class ThreadRunner
   {
+  public:
     ThreadRunner() { GetPlatform().RunThreads(); }
-    ~ThreadRunner() { GetPlatform().ShutdownThreads(); }
+    virtual ~ThreadRunner() { GetPlatform().ShutdownThreads(); }
   };
 
   enum EError

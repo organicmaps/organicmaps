@@ -21,6 +21,8 @@ using namespace std;
 
 namespace
 {
+using Runner = Platform::ThreadRunner;
+
 static FrameworkParams const kFrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */);
 
 char const * kmlString =
@@ -563,7 +565,7 @@ char const * kmlString2 =
    "</kml>";
 }
 
-UNIT_TEST(Bookmarks_InnerFolder)
+UNIT_CLASS_TEST(Runner, Bookmarks_InnerFolder)
 {
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -575,7 +577,7 @@ UNIT_TEST(Bookmarks_InnerFolder)
   TEST_EQUAL(bmManager.GetUserMarkIds(groupIds.front()).size(), 1, ());
 }
 
-UNIT_TEST(BookmarkCategory_EmptyName)
+UNIT_CLASS_TEST(Runner, BookmarkCategory_EmptyName)
 {
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
   auto const catId = bmManager.CreateBookmarkCategory("", false /* autoSave */);
@@ -628,7 +630,7 @@ char const * kmlString3 =
   }
 }
 
-UNIT_TEST(Bookmarks_SpecialXMLNames)
+UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 {
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -667,7 +669,7 @@ UNIT_TEST(Bookmarks_SpecialXMLNames)
   TEST(my::DeleteFileX(fileName), ());
 }
 
-UNIT_TEST(TrackParsingTest_1)
+UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
 {
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-kml.test");
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
@@ -699,7 +701,7 @@ UNIT_TEST(TrackParsingTest_1)
   }
 }
 
-UNIT_TEST(TrackParsingTest_2)
+UNIT_CLASS_TEST(Runner, TrackParsingTest_2)
 {
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-from-google-earth.test");
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
@@ -718,7 +720,7 @@ UNIT_TEST(TrackParsingTest_2)
   TEST_EQUAL(track->GetColor(0), dp::Color(57, 255, 32, 255), ());
 }
 
-UNIT_TEST(Bookmarks_Listeners)
+UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
 {
   set<df::MarkID> createdMarksResult;
   set<df::MarkID> updatedMarksResult;

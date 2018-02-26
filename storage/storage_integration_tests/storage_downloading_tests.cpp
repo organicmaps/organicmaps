@@ -25,6 +25,8 @@ using namespace storage;
 
 namespace
 {
+using Runner = Platform::ThreadRunner;
+
 string const kCountryId = "Angola";
 
 class InterruptException : public exception {};
@@ -70,13 +72,11 @@ UNIT_TEST(SmallMwms_ReDownloadExistedMWMIgnored_Test)
   TEST(!storage.IsDownloadInProgress(), ());
 }
 
-UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
+UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
 {
-  auto runner = make_unique<Platform::ThreadRunner>();
   WritableDirChanger writableDirChanger(kMapTestDir);
 
   // Start download but interrupt it
-
   {
     Storage storage(COUNTRIES_FILE);
     TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
@@ -99,7 +99,6 @@ UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
   }
 
   // Continue download
-
   {
     Storage storage(COUNTRIES_FILE);
 
