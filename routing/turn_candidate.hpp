@@ -29,7 +29,7 @@ struct TurnCandidate
   /// |m_segment| is the first segment of a possible way from the junction.
   Segment m_segment;
 
-  /// \brief highwayClass field for the road class caching. Because feature reading is a long
+  /// \brief |highwayClass| field for the road class caching. Because feature reading is a long
   /// function.
   ftypes::HighwayClass m_highwayClass;
 
