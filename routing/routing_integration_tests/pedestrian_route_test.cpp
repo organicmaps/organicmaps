@@ -185,7 +185,7 @@ UNIT_TEST(BelarusBobruisk50LetVlksmToArena)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
       MercatorBounds::FromLatLon(53.1638, 29.1804), {0., 0.},
-      MercatorBounds::FromLatLon(53.1424, 29.2467), 6683.);
+      MercatorBounds::FromLatLon(53.1424, 29.2467), 6123.0);
 }
 
 UNIT_TEST(RussiaTaganrogSyzranov10k3ToSoftech)
