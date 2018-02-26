@@ -173,6 +173,15 @@ using TLoopBlock = void (^)(Observer observer);
   }];
 }
 
++ (void)deleteBookmark:(MWMMarkID)bookmarkId
+{
+  GetFramework().GetBookmarkManager().GetEditSession().DeleteBookmark(bookmarkId);
+  [[self manager] loopObservers:^(Observer observer) {
+    if ([observer respondsToSelector:@selector(onBookmarkDeleted:)])
+      [observer onBookmarkDeleted:bookmarkId];
+  }];
+}
+
 + (NSURL *)beginShareCategory:(MWMMarkGroupID)groupId
 {
   auto const sharingResult = GetFramework().GetBookmarkManager().BeginSharing(groupId);

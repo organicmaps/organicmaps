@@ -6,5 +6,6 @@
 - (void)onBookmarksLoadFinished;
 - (void)onBookmarksFileLoadSuccess;
 - (void)onBookmarksCategoryDeleted:(MWMMarkGroupID)groupId;
+- (void)onBookmarkDeleted:(MWMMarkID)bookmarkId;
 
 @end

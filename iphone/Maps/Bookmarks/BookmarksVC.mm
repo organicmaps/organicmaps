@@ -2,6 +2,7 @@
 #import "CircleView.h"
 #import "ColorPickerView.h"
 #import "MWMBookmarkNameCell.h"
+#import "MWMBookmarksManager.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
 #import "MWMMailViewController.h"
@@ -18,9 +19,6 @@
 #define PINDIAMETER 18
 
 #define EMPTY_SECTION -666
-
-extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotification";
-extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotification";
 
 @interface BookmarksVC() <MFMailComposeViewControllerDelegate, MWMLocationObserver>
 {
@@ -312,13 +310,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
         else
         {
           df::MarkID const bmId = [self getBookmarkIdByRow:indexPath.row];
-          NSValue * value = [NSValue valueWithBytes:&bmId objCType:@encode(df::MarkID*)];
-          [NSNotificationCenter.defaultCenter postNotificationName:kBookmarkDeletedNotification
-                                                            object:value];
-          bmManager.GetEditSession().DeleteBookmark(bmId);
-          [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
-                                                            object:nil
-                                                          userInfo:nil];
+          [MWMBookmarksManager deleteBookmark:bmId];
         }
       }
       size_t previousNumberOfSections  = m_numberOfSections;

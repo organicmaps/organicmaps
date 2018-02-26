@@ -174,4 +174,8 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
   func onBookmarksLoadFinished() {
     loadData()
   }
+
+  func onBookmarkDeleted(_: MWMMarkID) {
+    loadData()
+  }
 }

@@ -2,7 +2,7 @@
 #import "CLLocation+Mercator.h"
 #import "MWMAPIBar.h"
 #import "MWMActivityViewController.h"
-#import "MWMBookmarksObserver.h"
+#import "MWMBookmarksManager.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationHelpers.h"
@@ -23,8 +23,6 @@
 #include "map/bookmark.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
-
-extern NSString * const kBookmarkDeletedNotification;
 
 namespace
 {
@@ -94,10 +92,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   }
 
   [MWMLocationManager addObserver:self];
-  [NSNotificationCenter.defaultCenter addObserver:self
-                                         selector:@selector(handleBookmarkDeleting:)
-                                             name:kBookmarkDeletedNotification
-                                           object:nil];
+  [MWMBookmarksManager addObserver:self];
 
   [self setupSpeedAndDistance];
 
@@ -111,30 +106,22 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 {
   [self.layout close];
   self.data = nil;
+  [MWMBookmarksManager removeObserver:self];
   [MWMLocationManager removeObserver:self];
   [MWMFrameworkListener removeObserver:self];
-  [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
-- (void)handleBookmarkDeleting:(NSNotification *)notification
+#pragma mark - MWMBookmarksObserver
+
+- (void)onBookmarkDeleted:(MWMMarkID)bookmarkId
 {
   auto data = self.data;
   NSAssert(data && self.layout, @"It must be openned place page!");
-  if (!data.isBookmark)
-    return;
-
-  auto value = static_cast<NSValue *>(notification.object);
-  df::MarkID deletedBookmarkId = df::kInvalidMarkId;
-  [value getValue:&deletedBookmarkId];
-  if (data.bookmarkId != deletedBookmarkId)
+  if (!data.isBookmark || data.bookmarkId != bookmarkId)
     return;
 
   [self closePlacePage];
 }
-
-- (void)handleBookmarkCategoryDeleting:(NSNotification *)notification {}
-
-#pragma mark - MWMBookmarksObserver
 
 - (void)onBookmarksCategoryDeleted:(MWMMarkGroupID)groupId
 {

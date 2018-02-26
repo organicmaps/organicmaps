@@ -21,6 +21,8 @@
 + (void)setAllCategoriesVisible:(BOOL)isVisible;
 + (void)deleteCategory:(MWMMarkGroupID)groupId;
 
++ (void)deleteBookmark:(MWMMarkID)bookmarkId;
+
 + (NSURL *)beginShareCategory:(MWMMarkGroupID)groupId;
 + (void)endShareCategory:(MWMMarkGroupID)groupId;
 

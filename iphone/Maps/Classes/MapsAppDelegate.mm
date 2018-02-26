@@ -554,11 +554,6 @@ using namespace osm_auth_ios;
   return YES;
 }
 
-- (void)dealloc
-{
-  [NSNotificationCenter.defaultCenter removeObserver:self];
-}
-
 - (BOOL)initStatistics:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

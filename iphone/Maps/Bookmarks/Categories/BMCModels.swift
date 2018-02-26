@@ -5,8 +5,7 @@ enum BMCSection {
   case notifications
 }
 
-protocol BMCModel {
-}
+protocol BMCModel {}
 
 enum BMCPermission: BMCModel {
   case signup

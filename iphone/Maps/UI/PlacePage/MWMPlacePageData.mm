@@ -2,6 +2,7 @@
 #import "AppInfo.h"
 #import "LocaleTranslator.h"
 #import "MWMBannerHelpers.h"
+#import "MWMBookmarksManager.h"
 #import "MWMNetworkPolicy.h"
 #import "MWMUGCViewModel.h"
 #import "SwiftBridge.h"
@@ -447,8 +448,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     if (bookmark)
     {
       f.ResetBookmarkInfo(*bookmark, m_info);
-      auto const categoryId = bookmark->GetGroupId();
-      bmManager.GetEditSession().DeleteBookmark(bookmarkId);
+      [MWMBookmarksManager deleteBookmark:bookmarkId];
     }
 
     m_sections.erase(remove(m_sections.begin(), m_sections.end(), Sections::Bookmark));
