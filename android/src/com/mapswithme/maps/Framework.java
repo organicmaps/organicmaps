@@ -338,10 +338,6 @@ public class Framework
 
   public static native void nativeSetAutoZoomEnabled(boolean enabled);
 
-  public static native boolean nativeGetSimplifiedTrafficColorsEnabled();
-
-  public static native void nativeSetSimplifiedTrafficColorsEnabled(boolean enabled);
-
   @NonNull
   public static native MapObject nativeDeleteBookmarkFromMapObject();
 

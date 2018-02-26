@@ -127,15 +127,11 @@
       android:key="@string/pref_auto_zoom"
       android:title="@string/pref_map_auto_zoom"
       android:order="3"/>
-    <SwitchPreferenceCompat
-      android:key="@string/pref_traffic_simplified_colors"
-      android:title="@string/pref_traffic_simplified_colors_title"
-      android:order="4"/>
     <android.support.v7.preference.PreferenceScreen
       android:key="@string/pref_tts_screen"
       android:title="@string/pref_tts_enable_title"
       android:persistent="false"
-      android:order="5">
+      android:order="4">
       <SwitchPreferenceCompat
         android:key="@string/pref_tts_enabled"
         android:title="@string/pref_tts_enable_title"

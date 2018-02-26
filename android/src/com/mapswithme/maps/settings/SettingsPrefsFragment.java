@@ -300,7 +300,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initStatisticsPrefsCallback();
     initPlayServicesPrefsCallbacks();
     initAutoZoomPrefsCallbacks();
-    initSimplifiedTrafficColorsPrefsCallbacks();
     initDisplayShowcasePrefs();
     initLoggingEnabledPrefsCallbacks();
     initEmulationBadStorage();
@@ -389,26 +388,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       });
       removePreference(getString(R.string.pref_navigation), mLangInfoLink);
     }
-  }
-
-  private void initSimplifiedTrafficColorsPrefsCallbacks()
-  {
-    final TwoStatePreference prefSimplifiedColors = (TwoStatePreference)findPreference(
-        getString(R.string.pref_traffic_simplified_colors));
-    if (prefSimplifiedColors == null)
-      return;
-
-    boolean simplifiedColorsEnabled = Framework.nativeGetSimplifiedTrafficColorsEnabled();
-    prefSimplifiedColors.setChecked(simplifiedColorsEnabled);
-    prefSimplifiedColors.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        Framework.nativeSetSimplifiedTrafficColorsEnabled((Boolean)newValue);
-        return true;
-      }
-    });
   }
 
   private void initLargeFontSizePrefsCallbacks()
