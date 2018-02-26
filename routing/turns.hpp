@@ -98,8 +98,9 @@ enum class CarDirection
   StartAtEndOfStreet,
   ReachedYourDestination,
 
-  ExitHighwayToRight,
   ExitHighwayToLeft,
+  ExitHighwayToRight,
+
   Count  /**< This value is used for internals only. */
 };
 

@@ -42,7 +42,7 @@ bool IsLinkOrSmallRoad(ftypes::HighwayClass hwClass, bool isLink)
 
 /// \brief Fills |turn| with |CarDirection::ExitHighwayToRight| or |CarDirection::ExitHighwayToLeft|
 /// and returns true. Or does not change |turn| and returns false.
-/// \note The method makes a decision about |turn| based on geometry of the route and turn
+/// \note The function makes a decision about |turn| based on geometry of the route and turn
 /// candidates, so it works correctly for both left and right hand traffic.
 bool IsExit(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
             Segment const & firstOutgoingSeg, CarDirection & turn)
@@ -57,13 +57,13 @@ bool IsExit(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
   }
 
   // Considering cases when the route goes from a highway to a link or a small road.
-  // Checking all turn candidates (sorted by its angle) and looking for the road which is a
+  // Checking all turn candidates (sorted by their angles) and looking for the road which is a
   // continuation of the ingoing segment. If the continuation is on the right hand of the route
   // it's an exit to the left. If the continuation is on the left hand of the route
   // it's an exit to the right.
-  // Note. The angle which is using for sorting turn candidates in |possibleTurns.candidates|
+  // Note. The angle which is used for sorting turn candidates in |possibleTurns.candidates|
   // is a counterclockwise angle between the ingoing route edge and corresponding candidate.
-  // For left turns the angle is less than zero and for it is more than zero.
+  // For left turns the angle is less than zero and for right ones it is more than zero.
   bool isCandidateBeforeOutgoing = true;
   bool isHighwayCandidateBeforeOutgoing = true;
   size_t highwayCandidateNumber = 0;
@@ -80,7 +80,7 @@ bool IsExit(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
     {
       ++highwayCandidateNumber;
       if (highwayCandidateNumber >= 2)
-        return false; // There're two or more highway candidates from the junction.
+        return false; // There are two or more highway candidates from the junction.
       isHighwayCandidateBeforeOutgoing = isCandidateBeforeOutgoing;
     }
   }

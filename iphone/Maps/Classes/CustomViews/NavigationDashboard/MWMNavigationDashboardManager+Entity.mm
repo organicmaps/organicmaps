@@ -40,7 +40,8 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
   case CarDirection::GoStraight: imageName = @"straight"; break;
   case CarDirection::StartAtEndOfStreet:
   case CarDirection::StayOnRoundAbout:
-  case CarDirection::TakeTheExit:
+  case CarDirection::ExitHighwayToLeft:
+  case CarDirection::ExitHighwayToRight:
   case CarDirection::Count:
   case CarDirection::None: imageName = isNextTurn ? nil : @"straight"; break;
   }

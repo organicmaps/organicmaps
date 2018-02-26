@@ -159,8 +159,8 @@ string GetDirectionTextId(Notification const & notification)
       return GetYouArriveTextId(notification);
     case CarDirection::StayOnRoundAbout:
     case CarDirection::StartAtEndOfStreet:
-    case CarDirection::ExitHighwayToRight:
     case CarDirection::ExitHighwayToLeft:
+    case CarDirection::ExitHighwayToRight:
     case CarDirection::None:
     case CarDirection::Count:
       ASSERT(false, ());

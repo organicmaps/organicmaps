@@ -263,7 +263,6 @@ enum class HighwayClass
 {
   Undefined = 0,  // There has not been any attempt of calculating HighwayClass.
   Error,          // There was an attempt of calculating HighwayClass but it was not successful.
-  Transported,    // Vehicles are transported by a train or a ferry.
   Trunk,
   Primary,
   Secondary,
@@ -271,6 +270,7 @@ enum class HighwayClass
   LivingStreet,
   Service,
   Pedestrian,
+  Transported,    // Vehicles are transported by a train or a ferry.
   Count  // This value is used for internals only.
 };
 

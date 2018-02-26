@@ -36,24 +36,24 @@ array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count)> const g_
 static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count),
               "Check the size of g_laneWayNames");
 
-array<pair<CarDirection, char const *>, static_cast<size_t>(CarDirection::Count)> const g_turnNames = {
-    {{CarDirection::None, "None"},
-     {CarDirection::GoStraight, "GoStraight"},
-     {CarDirection::TurnRight, "TurnRight"},
-     {CarDirection::TurnSharpRight, "TurnSharpRight"},
-     {CarDirection::TurnSlightRight, "TurnSlightRight"},
-     {CarDirection::TurnLeft, "TurnLeft"},
-     {CarDirection::TurnSharpLeft, "TurnSharpLeft"},
-     {CarDirection::TurnSlightLeft, "TurnSlightLeft"},
-     {CarDirection::UTurnLeft, "UTurnLeft"},
-     {CarDirection::UTurnRight, "UTurnRight"},
-     {CarDirection::ExitHighwayToRight, "ExitHighwayToRight"},
-     {CarDirection::ExitHighwayToLeft, "ExitHighwayToLeft"},
-     {CarDirection::EnterRoundAbout, "EnterRoundAbout"},
-     {CarDirection::LeaveRoundAbout, "LeaveRoundAbout"},
-     {CarDirection::StayOnRoundAbout, "StayOnRoundAbout"},
-     {CarDirection::StartAtEndOfStreet, "StartAtEndOfStreet"},
-     {CarDirection::ReachedYourDestination, "ReachedYourDestination"}}};
+array<pair<CarDirection, char const *>, static_cast<size_t>(CarDirection::Count)> const
+    g_turnNames = {{{CarDirection::None, "None"},
+                    {CarDirection::GoStraight, "GoStraight"},
+                    {CarDirection::TurnRight, "TurnRight"},
+                    {CarDirection::TurnSharpRight, "TurnSharpRight"},
+                    {CarDirection::TurnSlightRight, "TurnSlightRight"},
+                    {CarDirection::TurnLeft, "TurnLeft"},
+                    {CarDirection::TurnSharpLeft, "TurnSharpLeft"},
+                    {CarDirection::TurnSlightLeft, "TurnSlightLeft"},
+                    {CarDirection::UTurnLeft, "UTurnLeft"},
+                    {CarDirection::UTurnRight, "UTurnRight"},
+                    {CarDirection::EnterRoundAbout, "EnterRoundAbout"},
+                    {CarDirection::LeaveRoundAbout, "LeaveRoundAbout"},
+                    {CarDirection::StayOnRoundAbout, "StayOnRoundAbout"},
+                    {CarDirection::StartAtEndOfStreet, "StartAtEndOfStreet"},
+                    {CarDirection::ReachedYourDestination, "ReachedYourDestination"},
+                    {CarDirection::ExitHighwayToLeft, "ExitHighwayToLeft"},
+                    {CarDirection::ExitHighwayToRight, "ExitHighwayToRight"}}};
 static_assert(g_turnNames.size() == static_cast<size_t>(CarDirection::Count),
               "Check the size of g_turnNames");
 }  // namespace
