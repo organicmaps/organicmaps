@@ -1,4 +1,4 @@
-#import "MWMAlert.h"
+#import "MWMAlert+CPP.h"
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
 

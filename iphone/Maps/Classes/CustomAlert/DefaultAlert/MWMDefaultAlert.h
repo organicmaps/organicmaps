@@ -36,5 +36,6 @@
 + (instancetype)deleteFeatureAlertWithBlock:(MWMVoidBlock)block;
 + (instancetype)personalInfoWarningAlertWithBlock:(MWMVoidBlock)block;
 + (instancetype)trackWarningAlertWithCancelBlock:(MWMVoidBlock)block;
++ (instancetype)infoAlert:(NSString *)title text:(NSString *)text;
 
 @end

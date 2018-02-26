@@ -18,3 +18,10 @@ typedef uint32_t MWMMarkID;
 typedef uint32_t MWMLineID;
 typedef uint32_t MWMMarkGroupID;
 typedef NSArray<NSNumber *> * MWMGroupIDCollection;
+
+typedef NS_ENUM(NSUInteger, MWMBookmarksShareStatus) {
+  MWMBookmarksShareStatusSuccess,
+  MWMBookmarksShareStatusEmptyCategory,
+  MWMBookmarksShareStatusArchiveError,
+  MWMBookmarksShareStatusFileError
+};

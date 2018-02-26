@@ -16,6 +16,7 @@ using TLoopBlock = void (^)(Observer observer);
 
 @property(nonatomic) Observers * observers;
 @property(nonatomic) BOOL areBookmarksLoaded;
+@property(nonatomic) NSURL * shareCategoryURL;
 
 @end
 
@@ -182,21 +183,38 @@ using TLoopBlock = void (^)(Observer observer);
   }];
 }
 
-+ (NSURL *)beginShareCategory:(MWMMarkGroupID)groupId
++ (MWMBookmarksShareStatus)beginShareCategory:(MWMMarkGroupID)groupId
 {
   auto const sharingResult = GetFramework().GetBookmarkManager().BeginSharing(groupId);
-  if (sharingResult.m_code != BookmarkManager::SharingResult::Code::Success)
+  switch (sharingResult.m_code)
   {
-    //TODO(igrechuhin): show smth
-    return nil;
+  case BookmarkManager::SharingResult::Code::Success:
+  {
+    MWMBookmarksManager * manager = [MWMBookmarksManager manager];
+    manager.shareCategoryURL =
+        [NSURL fileURLWithPath:@(sharingResult.m_sharingPath.c_str()) isDirectory:NO];
+    NSAssert(manager.shareCategoryURL != nil, @"Invalid share category url");
+    return MWMBookmarksShareStatusSuccess;
   }
-  NSURL * url = [NSURL fileURLWithPath:@(sharingResult.m_sharingPath.c_str()) isDirectory:NO];
-  NSAssert(url != nil, @"Invalid share category url");
-  return url;
+  case BookmarkManager::SharingResult::Code::EmptyCategory:
+    return MWMBookmarksShareStatusEmptyCategory;
+  case BookmarkManager::SharingResult::Code::ArchiveError:
+    return MWMBookmarksShareStatusArchiveError;
+  case BookmarkManager::SharingResult::Code::FileError: return MWMBookmarksShareStatusFileError;
+  }
+}
+
++ (NSURL *)shareCategoryURL
+{
+  MWMBookmarksManager * manager = [MWMBookmarksManager manager];
+  NSAssert(manager.shareCategoryURL != nil, @"Invalid share category url");
+  return manager.shareCategoryURL;
 }
 
 + (void)endShareCategory:(MWMMarkGroupID)groupId
 {
+  MWMBookmarksManager * manager = [MWMBookmarksManager manager];
+  manager.shareCategoryURL = nil;
   GetFramework().GetBookmarkManager().EndSharing(groupId);
 }
 

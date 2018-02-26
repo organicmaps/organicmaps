@@ -66,14 +66,25 @@ final class BMCViewController: MWMViewController {
   }
 
   private func shareCategory(category: BMCCategory, anchor: UIView) {
-    let url = viewModel.beginShareCategory(category: category)
-    typealias AVC = MWMActivityViewController
-    let fileName = (url.lastPathComponent as NSString).deletingPathExtension
-    let message = String(coreFormat: L("share_bookmarks_email_body"), arguments: [fileName])
-    let shareController = AVC.share(for: url, message: message) { [viewModel] _, _, _, _ in
-      viewModel?.endShareCategory(category: category)
+    let shareOnSuccess = { [viewModel] (url: URL) in
+      typealias AVC = MWMActivityViewController
+      let fileName = (url.lastPathComponent as NSString).deletingPathExtension
+      let message = String(coreFormat: L("share_bookmarks_email_body"), arguments: [fileName])
+      let shareController = AVC.share(for: url, message: message) { [viewModel] _, _, _, _ in
+        viewModel?.endShareCategory(category: category)
+      }
+      shareController!.present(inParentViewController: self, anchorView: anchor)
     }
-    shareController!.present(inParentViewController: self, anchorView: anchor)
+
+    let showAlertOnError = { (title: String, text: String) in
+      MWMAlertViewController.activeAlert().presentInfoAlert(title, text: text)
+    }
+
+    let shareCategoryStatus = viewModel.beginShareCategory(category: category)
+    switch shareCategoryStatus {
+    case let .success(url): shareOnSuccess(url)
+    case let .error(title, text): showAlertOnError(title, text)
+    }
   }
 
   private func openCategory(category: BMCCategory) {

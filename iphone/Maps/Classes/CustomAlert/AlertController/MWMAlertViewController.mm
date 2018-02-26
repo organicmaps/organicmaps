@@ -1,4 +1,4 @@
-#import "MWMAlertViewController.h"
+#import "MWMAlertViewController+CPP.h"
 #import "MWMCommon.h"
 #import "MWMController.h"
 #import "MWMDownloadTransitMapAlert.h"
@@ -207,6 +207,12 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 {
   [self displayAlert:[MWMMobileInternetAlert alertWithBlock:block]];
 }
+
+- (void)presentInfoAlert:(nonnull NSString *)title text:(nonnull NSString *)text
+{
+  [self displayAlert:[MWMAlert infoAlert:title text:text]];
+}
+
 - (void)presentEditorViralAlert { [self displayAlert:[MWMAlert editorViralAlert]]; }
 - (void)presentOsmAuthAlert { [self displayAlert:[MWMAlert osmAuthAlert]]; }
 - (void)displayAlert:(MWMAlert *)alert

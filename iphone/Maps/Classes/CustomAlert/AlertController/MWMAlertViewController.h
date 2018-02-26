@@ -1,9 +1,6 @@
 #import "MWMAlert.h"
 #import "MWMViewController.h"
 
-#include "routing/router.hpp"
-#include "storage/storage.hpp"
-
 @interface MWMAlertViewController : MWMViewController
 
 + (nonnull MWMAlertViewController *)activeAlertController;
@@ -11,13 +8,7 @@
 @property(weak, nonatomic, readonly) UIViewController * _Null_unspecified ownerViewController;
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
-- (void)presentAlert:(routing::IRouter::ResultCode)type;
 - (void)presentRoutingMigrationAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
-- (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
-                                       code:(routing::IRouter::ResultCode)code
-                                cancelBlock:(nonnull MWMVoidBlock)cancelBlock
-                              downloadBlock:(nonnull MWMDownloadBlock)downloadBlock
-                      downloadCompleteBlock:(nonnull MWMVoidBlock)downloadCompleteBlock;
 - (void)presentRateAlert;
 - (void)presentFacebookAlert;
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
@@ -52,6 +43,7 @@
 - (void)presentTrackWarningAlertWithCancelBlock:(nonnull MWMVoidBlock)block;
 - (void)presentSearchNoResultsAlert;
 - (void)presentMobileInternetAlertWithBlock:(nonnull MWMVoidBlock)block;
+- (void)presentInfoAlert:(nonnull NSString *)title text:(nonnull NSString *)text;
 - (void)closeAlert:(nullable MWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));

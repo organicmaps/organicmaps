@@ -1,5 +1,6 @@
 #import "MWMRouter.h"
 #import <Crashlytics/Crashlytics.h>
+#import "MWMAlertViewController+CPP.h"
 #import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationHelpers.h"

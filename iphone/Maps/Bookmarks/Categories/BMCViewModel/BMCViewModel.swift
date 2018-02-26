@@ -2,6 +2,11 @@ protocol BMCView: AnyObject {
   func update(sections: [BMCSection])
 }
 
+enum BMCShareCategoryStatus {
+  case success(URL)
+  case error(title: String, text: String)
+}
+
 protocol BMCViewModel: AnyObject {
   var view: BMCView! { get set }
   var isPendingPermission: Bool { get }
@@ -22,7 +27,7 @@ protocol BMCViewModel: AnyObject {
   func renameCategory(category: BMCCategory, name: String)
   func deleteCategory(category: BMCCategory)
 
-  func beginShareCategory(category: BMCCategory) -> URL
+  func beginShareCategory(category: BMCCategory) -> BMCShareCategoryStatus
   func endShareCategory(category: BMCCategory)
 
   func pendingPermission(isPending: Bool)

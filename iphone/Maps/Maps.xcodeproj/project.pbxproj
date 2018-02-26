@@ -1162,6 +1162,8 @@
 		34E50DF51F6FCC96008EED49 /* UGCReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCReviewCell.swift; sourceTree = "<group>"; };
 		34E50DF61F6FCC96008EED49 /* UGCReviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCReviewCell.xib; sourceTree = "<group>"; };
 		34E6F2DA1F459C05008E14F9 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		34E7270820444A7A009E4CED /* MWMAlertViewController+CPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMAlertViewController+CPP.h"; sourceTree = "<group>"; };
+		34E7270920444B95009E4CED /* MWMAlert+CPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMAlert+CPP.h"; sourceTree = "<group>"; };
 		34E7760E1F14B165003040B3 /* VisibleArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisibleArea.swift; sourceTree = "<group>"; };
 		34E776121F14B17F003040B3 /* AvailableArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableArea.swift; sourceTree = "<group>"; };
 		34E776161F14B6E2003040B3 /* MWMAvailableAreaAffectDirection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAvailableAreaAffectDirection.h; sourceTree = "<group>"; };
@@ -3083,6 +3085,7 @@
 				F64F19811AB81A00006EAF7E /* MWMAlertViewController.h */,
 				F64F19821AB81A00006EAF7E /* MWMAlertViewController.mm */,
 				F64F19831AB81A00006EAF7E /* MWMAlertViewController.xib */,
+				34E7270820444A7A009E4CED /* MWMAlertViewController+CPP.h */,
 			);
 			path = AlertController;
 			sourceTree = "<group>";
@@ -3092,6 +3095,7 @@
 			children = (
 				F64F19851AB81A00006EAF7E /* MWMAlert.h */,
 				F64F19861AB81A00006EAF7E /* MWMAlert.mm */,
+				34E7270920444B95009E4CED /* MWMAlert+CPP.h */,
 			);
 			path = BaseAlert;
 			sourceTree = "<group>";

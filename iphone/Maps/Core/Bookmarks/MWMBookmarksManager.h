@@ -23,7 +23,8 @@
 
 + (void)deleteBookmark:(MWMMarkID)bookmarkId;
 
-+ (NSURL *)beginShareCategory:(MWMMarkGroupID)groupId;
++ (MWMBookmarksShareStatus)beginShareCategory:(MWMMarkGroupID)groupId;
++ (NSURL *)shareCategoryURL;
 + (void)endShareCategory:(MWMMarkGroupID)groupId;
 
 + (NSDate *)lastSynchronizationDate;

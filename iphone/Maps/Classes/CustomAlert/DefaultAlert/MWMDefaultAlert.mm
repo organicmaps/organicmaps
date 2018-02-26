@@ -405,6 +405,16 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
++ (instancetype)infoAlert:(NSString *)title text:(NSString *)text
+{
+  return [self defaultAlertWithTitle:title
+                             message:text
+                    rightButtonTitle:L(@"ok")
+                     leftButtonTitle:nil
+                   rightButtonAction:nil
+                     statisticsEvent:@"Info Alert"];
+}
+
 + (instancetype)defaultAlertWithTitle:(nonnull NSString *)title
                               message:(nullable NSString *)message
                      rightButtonTitle:(nonnull NSString *)rightButtonTitle

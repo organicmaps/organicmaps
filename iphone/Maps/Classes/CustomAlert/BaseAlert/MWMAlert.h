@@ -1,20 +1,9 @@
-#include "routing/router.hpp"
-#include "storage/storage.hpp"
-
-using MWMDownloadBlock = void (^)(storage::TCountriesVec const &, MWMVoidBlock);
-
 @class MWMAlertViewController;
 @interface MWMAlert : UIView
 
 @property(weak, nonatomic) MWMAlertViewController * alertController;
 
-+ (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
 + (MWMAlert *)routingMigrationAlertWithOkBlock:(MWMVoidBlock)okBlock;
-+ (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
-                                            code:(routing::IRouter::ResultCode)code
-                                     cancelBlock:(MWMVoidBlock)cancelBlock
-                                   downloadBlock:(MWMDownloadBlock)downloadBlock
-                           downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock;
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)facebookAlert;
 + (MWMAlert *)locationAlert;
@@ -45,6 +34,7 @@ using MWMDownloadBlock = void (^)(storage::TCountriesVec const &, MWMVoidBlock);
 + (MWMAlert *)osmAuthAlert;
 + (MWMAlert *)personalInfoWarningAlertWithBlock:(MWMVoidBlock)block;
 + (MWMAlert *)trackWarningAlertWithCancelBlock:(MWMVoidBlock)block;
++ (MWMAlert *)infoAlert:(NSString *)title text:(NSString *)text;
 - (void)close:(MWMVoidBlock)completion;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;

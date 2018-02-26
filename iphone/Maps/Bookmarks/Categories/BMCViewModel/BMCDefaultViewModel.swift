@@ -136,8 +136,16 @@ extension BMCDefaultViewModel: BMCViewModel {
     view.update(sections: [.categories])
   }
 
-  func beginShareCategory(category: BMCCategory) -> URL {
-    return BM.beginShareCategory(category.identifier)
+  func beginShareCategory(category: BMCCategory) -> BMCShareCategoryStatus {
+    switch BM.beginShareCategory(category.identifier) {
+    case .success:
+      return .success(BM.shareCategoryURL())
+    case .emptyCategory:
+      return .error(title: L("bookmarks_error_title_share_empty"), text: L("bookmarks_error_message_share_empty"))
+    case .archiveError: fallthrough
+    case .fileError:
+      return .error(title: L("dialog_routing_system_error"), text: L("bookmarks_error_message_share_general"))
+    }
   }
 
   func endShareCategory(category: BMCCategory) {

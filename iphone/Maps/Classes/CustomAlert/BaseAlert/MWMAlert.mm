@@ -1,6 +1,6 @@
-#import "MWMAlert.h"
-#import "MWMCommon.h"
+#import "MWMAlert+CPP.h"
 #import "MWMAlertViewController.h"
+#import "MWMCommon.h"
 #import "MWMDefaultAlert.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMEditorViralAlert.h"
@@ -150,6 +150,11 @@
 + (MWMAlert *)trackWarningAlertWithCancelBlock:(MWMVoidBlock)block
 {
   return [MWMDefaultAlert trackWarningAlertWithCancelBlock:block];
+}
+
++ (MWMAlert *)infoAlert:(NSString *)title text:(NSString *)text
+{
+  return [MWMDefaultAlert infoAlert:title text:text];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation

@@ -23,6 +23,7 @@
 #import "BookmarksVC.h"
 #import "LocalNotificationManager.h"
 #import "MWMActivityViewController.h"
+#import "MWMAlertViewController.h"
 #import "MWMAuthorizationViewModel.h"
 #import "MWMAvailableAreaAffectDirection.h"
 #import "MWMBanner.h"
