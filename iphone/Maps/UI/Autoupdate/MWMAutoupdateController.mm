@@ -71,7 +71,6 @@ enum class State
   self.primaryButton.hidden = YES;
   [self startSpinner];
   self.secondaryButton.localizedText = L(@"downloader_hide_screen");
-  [MWMStorage updateNode:RootId()];
 }
 
 - (void)stateWaiting
@@ -93,7 +92,6 @@ enum class State
   self.legendLabel.hidden = NO;
   self.spinner = [MWMCircularProgress downloaderProgressForParentView:self.spinnerView];
   self.spinner.delegate = self.delegate;
-  [self.spinner setInvertColor:YES];
   self.spinner.state = MWMCircularProgressStateSpinner;
 }
 
@@ -171,6 +169,7 @@ enum class State
   if (self.todo == Framework::DoAfterUpdate::AutoupdateMaps)
   {
     [view stateDownloading];
+    [MWMStorage updateNode:RootId()];
     [Statistics logEvent:kStatDownloaderOnStartScreenAutoDownload
           withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
   }
