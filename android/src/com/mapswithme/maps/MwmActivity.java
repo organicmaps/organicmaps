@@ -128,7 +128,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  RoutingPlanInplaceController.RoutingPlanListener,
                                  RoutingBottomMenuListener,
                                  BookmarkManager.BookmarksLoadingListener,
-                                 DiscoveryFragment.DiscoveryListener
+                                 DiscoveryFragment.DiscoveryListener,
+                                 FloatingSearchToolbarController.SearchToolbarListener
 {
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
@@ -522,7 +523,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     Statistics.INSTANCE.trackConnectionState();
 
-    mSearchController = new FloatingSearchToolbarController(this);
+    mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.setVisibilityListener(this);
     SearchEngine.INSTANCE.addListener(this);
 
@@ -2358,6 +2359,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     Utils.toastShortcut(MwmActivity.this, success ? R.string.load_kmz_successful :
         R.string.load_kmz_failed);
+  }
+
+  @Override
+  public void onSearchClearClick()
+  {
+    if (mFilterController != null)
+      mFilterController.resetFilter();
+  }
+
+  @Override
+  public void onSearchUpClick(@Nullable String query)
+  {
+    showSearch(query);
+  }
+
+  @Override
+  public void onSearchQueryClick(@Nullable String query)
+  {
+    showSearch(query);
   }
 
   public static class ShowAuthorizationTask implements MapTask
