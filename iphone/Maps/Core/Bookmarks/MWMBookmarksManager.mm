@@ -175,8 +175,13 @@ using TLoopBlock = void (^)(Observer observer);
 
 + (NSURL *)beginShareCategory:(MWMMarkGroupID)groupId
 {
-  auto const filePath = GetFramework().GetBookmarkManager().BeginSharing(groupId);
-  NSURL * url = [NSURL fileURLWithPath:@(filePath.c_str()) isDirectory:NO];
+  auto const sharingResult = GetFramework().GetBookmarkManager().BeginSharing(groupId);
+  if (sharingResult.m_code != BookmarkManager::SharingResult::Code::Success)
+  {
+    //TODO(igrechuhin): show smth
+    return nil;
+  }
+  NSURL * url = [NSURL fileURLWithPath:@(sharingResult.m_sharingPath.c_str()) isDirectory:NO];
   NSAssert(url != nil, @"Invalid share category url");
   return url;
 }

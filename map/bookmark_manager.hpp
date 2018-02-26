@@ -192,8 +192,38 @@ public:
   std::unique_ptr<User::Subscriber> GetUserSubscriber();
   void SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken);
 
-  std::string BeginSharing(df::MarkGroupID categoryId);
+  struct SharingResult
+  {
+    enum class Code
+    {
+      Success,
+      EmptyCategory,
+      ArchiveError,
+      FileError
+    };
+    Code m_code;
+    std::string m_sharingPath;
+    std::string m_errorString;
+
+    explicit SharingResult(std::string const & sharingPath)
+      : m_code(Code::Success)
+      , m_sharingPath(sharingPath)
+    {}
+
+    explicit SharingResult(Code code)
+      : m_code(code)
+    {}
+
+    SharingResult(Code code, std::string const & errorString)
+      : m_code(code)
+      , m_errorString(errorString)
+    {}
+  };
+
+  SharingResult BeginSharing(df::MarkGroupID categoryId);
   void EndSharing(df::MarkGroupID categoryId);
+
+  bool IsCategoryEmpty(df::MarkGroupID categoryId) const;
 
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void SaveToKML(df::MarkGroupID groupId, std::ostream & s);
@@ -331,7 +361,7 @@ private:
 
   void SaveToKML(BookmarkCategory * group, std::ostream & s);
 
-  std::string GetFileForSharing(df::MarkGroupID categoryId);
+  SharingResult GetFileForSharing(df::MarkGroupID categoryId);
 
   Callbacks m_callbacks;
   MarksChangesTracker m_changesTracker;

@@ -1172,24 +1172,25 @@ void BookmarkManager::SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInv
   m_bookmarkCloud.SetInvalidTokenHandler(std::move(onInvalidToken));
 }
 
-std::string BookmarkManager::BeginSharing(df::MarkGroupID categoryId)
+BookmarkManager::SharingResult BookmarkManager::BeginSharing(df::MarkGroupID categoryId)
 {
   auto const it = m_activeSharing.find(categoryId);
   if (it != m_activeSharing.end())
   {
+    // In case if the sharing has already begun.
     if (GetPlatform().IsFileExistsByFullPath(it->second))
-      return it->second;
+      return SharingResult(it->second);
   }
 
-  auto const f = GetFileForSharing(categoryId);
-  if (f.empty())
+  auto const result = GetFileForSharing(categoryId);
+  if (result.m_code != SharingResult::Code::Success)
   {
     m_activeSharing.erase(categoryId);
-    return {};
+    return result;
   }
 
-  m_activeSharing[categoryId] = f;
-  return f;
+  m_activeSharing[categoryId] = result.m_sharingPath;
+  return result;
 }
 
 void BookmarkManager::EndSharing(df::MarkGroupID categoryId)
@@ -1204,11 +1205,19 @@ void BookmarkManager::EndSharing(df::MarkGroupID categoryId)
   m_activeSharing.erase(categoryId);
 }
 
-std::string BookmarkManager::GetFileForSharing(df::MarkGroupID categoryId)
+bool BookmarkManager::IsCategoryEmpty(df::MarkGroupID categoryId) const
 {
+  return GetUserMarkIds(categoryId).empty() && GetTrackIds(categoryId).empty();
+}
+
+BookmarkManager::SharingResult BookmarkManager::GetFileForSharing(df::MarkGroupID categoryId)
+{
+  if (IsCategoryEmpty(categoryId))
+    return SharingResult(SharingResult::Code::EmptyCategory);
+
   auto const filePath = GetCategoryFileName(categoryId);
   if (!GetPlatform().IsFileExistsByFullPath(filePath))
-    return {};
+    return SharingResult(SharingResult::Code::FileError, "Bookmarks file does not exist.");
 
   auto ext = my::GetFileExtension(filePath);
   strings::AsciiToLower(ext);
@@ -1218,15 +1227,16 @@ std::string BookmarkManager::GetFileForSharing(df::MarkGroupID categoryId)
   auto const tmpFilePath = my::JoinFoldersToPath(GetPlatform().TmpDir(), fileName + KMZ_EXTENSION);
   if (ext == KMZ_EXTENSION)
   {
-    if (!my::CopyFileX(filePath, tmpFilePath))
-      return {};
-    return tmpFilePath;
+    if (my::CopyFileX(filePath, tmpFilePath))
+      return SharingResult(tmpFilePath);
+
+    return SharingResult(SharingResult::Code::FileError, "Could not copy file.");
   }
 
-  if (CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
-    return tmpFilePath;
+  if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
+    return SharingResult(SharingResult::Code::ArchiveError, "Could not create archive.");
 
-  return {};
+  return SharingResult(tmpFilePath);
 }
 
 df::GroupIDSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const
