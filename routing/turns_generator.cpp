@@ -133,14 +133,18 @@ bool DiscardTurnByIngoingAndOutgoingEdges(CarDirection intermediateDirection, bo
     return false;
   }
 
-  // Checks if all turn candidates go straight or make a slight turn to left or to right.
-  bool turnCandidatesGoAlmostStraight =
-      turnCandidates.isCandidatesAngleValid
-          ? DoAllTurnCandidatesGoAlmostStraight(turnCandidates.candidates)
-          : false;
-
-  if (turnCandidatesGoAlmostStraight)
+  // @TODO(bykoianko) If all turn candidates go almost straight and there are several ways
+  // from the junction (|hasMultiTurns| == true) the turn will be discarded.
+  // If all turn candidates go almost straight and there is only one way
+  // from the junction (|hasMultiTurns| == false) the turn will not be discarded in this method,
+  // and then may be kept. It means that in some cases if there are two or more possible
+  // ways from a junction the turn may be discarded and if there is only one way out
+  // the turn may be kept. This code should be redesigned.
+  if (turnCandidates.isCandidatesAngleValid &&
+      DoAllTurnCandidatesGoAlmostStraight(turnCandidates.candidates))
+  {
     return !hasMultiTurns;
+  }
 
   return ((!hasMultiTurns && IsGoStraightOrSlightTurn(intermediateDirection)) ||
           (hasMultiTurns && intermediateDirection == CarDirection::GoStraight));
@@ -727,16 +731,14 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
       return;
     }
 
-    // Removing a slight turn if ingoing and outgoing edge are not links and all other
+    // Removing a slight turn if ingoing and outgoing edges are not links and all other
     // possible ways out are links.
     if (!turnInfo.m_ingoing.m_isLink && !turnInfo.m_outgoing.m_isLink &&
-        turnInfo.m_ingoing.m_highwayClass == turnInfo.m_outgoing.m_highwayClass)
+        turnInfo.m_ingoing.m_highwayClass == turnInfo.m_outgoing.m_highwayClass &&
+        GetLinkCount(nodes.candidates) + 1 == nodes.candidates.size())
     {
-      if (GetLinkCount(nodes.candidates) + 1 == nodes.candidates.size())
-      {
-        turn.m_turn = CarDirection::None;
-        return;
-      }
+      turn.m_turn = CarDirection::None;
+      return;
     }
   }
 

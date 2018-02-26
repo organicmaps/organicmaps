@@ -65,10 +65,8 @@ SegmentRange::SegmentRange(FeatureID const & featureId, uint32_t startSegId, uin
   : m_featureId(featureId), m_startSegId(startSegId), m_endSegId(endSegId), m_forward(forward),
     m_start(start), m_end(end)
 {
-  if (m_forward)
-    CHECK_LESS_OR_EQUAL(m_startSegId, m_endSegId, (*this));
-  else
-    CHECK_LESS_OR_EQUAL(m_endSegId, m_startSegId, (*this));
+  if (m_startSegId != m_endSegId)
+    CHECK_EQUAL(m_forward, m_startSegId < m_endSegId, (*this));
 }
 
 bool SegmentRange::operator==(SegmentRange const & rhs) const
