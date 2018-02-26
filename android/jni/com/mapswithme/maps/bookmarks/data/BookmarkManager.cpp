@@ -147,7 +147,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteCategory(
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(JNIEnv *, jobject, jint cat, jint bmkId)
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(JNIEnv *, jobject, jlong bmkId)
 {
   frm()->GetBookmarkManager().GetEditSession().DeleteBookmark(static_cast<df::MarkID>(bmkId));
 }
