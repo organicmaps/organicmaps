@@ -1,5 +1,6 @@
 package com.mapswithme.maps.search;
 
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -117,6 +118,7 @@ public enum SearchEngine implements NativeSearchListener,
    * @param timestamp Search results are filtered according to it after multiple requests.
    * @return whether search was actually started.
    */
+  @MainThread
   public static boolean search(String query, long timestamp, boolean hasLocation,
                                double lat, double lon, @Nullable HotelsFilter hotelsFilter,
                                @Nullable BookingFilterParams bookingParams)
@@ -130,6 +132,7 @@ public enum SearchEngine implements NativeSearchListener,
     return false;
   }
 
+  @MainThread
   public static void searchInteractive(@NonNull String query, @NonNull String locale, long timestamp,
                                        boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter,
                                        @Nullable BookingFilterParams bookingParams)
@@ -141,12 +144,14 @@ public enum SearchEngine implements NativeSearchListener,
     } catch (UnsupportedEncodingException ignored) { }
   }
 
+  @MainThread
   public static void searchInteractive(@NonNull String query, long timestamp, boolean isMapAndTable,
                                        @Nullable HotelsFilter hotelsFilter, @Nullable BookingFilterParams bookingParams)
   {
     searchInteractive(query, Language.getKeyboardLocale(), timestamp, isMapAndTable, hotelsFilter, bookingParams);
   }
 
+  @MainThread
   public static void searchMaps(String query, long timestamp)
   {
     try
@@ -166,31 +171,35 @@ public enum SearchEngine implements NativeSearchListener,
     return sSavedQuery;
   }
 
-  public static void cancelApiCall()
+  @MainThread
+  public static void cancel()
+  {
+    cancelApiCall();
+    cancelAllSearches();
+  }
+  @MainThread
+  private static void cancelApiCall()
   {
     if (ParsedMwmRequest.hasRequest())
       ParsedMwmRequest.setCurrentRequest(null);
     Framework.nativeClearApiPoints();
   }
 
+  @MainThread
   public static void cancelInteractiveSearch()
   {
     sSavedQuery = "";
     nativeCancelInteractiveSearch();
   }
 
-  public static void cancelEverywhereSearch()
-  {
-    sSavedQuery = "";
-    nativeCancelEverywhereSearch();
-  }
-
-  public static void cancelAllSearches()
+  @MainThread
+  private static void cancelAllSearches()
   {
     sSavedQuery = "";
     nativeCancelAllSearches();
   }
 
+  @MainThread
   public static void showResult(int index)
   {
     sSavedQuery = "";

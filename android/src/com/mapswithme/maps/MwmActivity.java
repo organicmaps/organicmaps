@@ -480,7 +480,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
     if (mIsFragmentContainer)
     {
-      SearchEngine.cancelAllSearches();
+      SearchEngine.cancel();
       mSearchController.refreshToolbar();
       replaceFragment(MapManager.nativeIsLegacyMode() ? MigrationFragment.class : DownloaderFragment.class, args, null);
     }
@@ -609,6 +609,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void runSearch()
   {
+    SearchEngine.cancel();
     SearchEngine.searchInteractive(mSearchController.getQuery(), System.nanoTime(),
                                    false /* isMapAndTable */,
                                    mFilterController != null ? mFilterController.getFilter() : null,

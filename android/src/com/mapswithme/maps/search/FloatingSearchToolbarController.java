@@ -3,6 +3,7 @@ package com.mapswithme.maps.search;
 import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.widget.SearchToolbarController;
@@ -85,8 +86,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
 
   private void cancelSearchApiAndHide(boolean clearText)
   {
-    SearchEngine.cancelApiCall();
-    SearchEngine.cancelInteractiveSearch();
+    SearchEngine.cancel();
 
     if (clearText)
       clear();

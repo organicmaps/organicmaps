@@ -547,7 +547,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     final String query = getQuery();
     SearchRecents.add(query);
-    SearchEngine.cancelApiCall();
+    SearchEngine.cancel();
 
     if (!RoutingController.get().isWaitingPoiPick())
       SearchEngine.showResult(resultIndex);
@@ -598,8 +598,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private void stopSearch()
   {
-    SearchEngine.cancelApiCall();
-    SearchEngine.cancelAllSearches();
+    SearchEngine.cancel();
     updateSearchView();
   }
 
@@ -611,6 +610,8 @@ public class SearchFragment extends BaseMwmFragment
 
   private void runSearch()
   {
+    SearchEngine.cancel();
+
     HotelsFilter hotelsFilter = null;
     BookingFilterParams bookingFilterParams = null;
     if (mFilterController != null)

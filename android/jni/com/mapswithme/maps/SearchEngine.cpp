@@ -598,28 +598,19 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, []()
-    {
-      g_framework->NativeFramework()->CancelSearch(search::Mode::Viewport);
-    });
+    g_framework->NativeFramework()->CancelSearch(search::Mode::Viewport);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeCancelEverywhereSearch(JNIEnv * env, jclass clazz)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, []()
-    {
-      g_framework->NativeFramework()->CancelSearch(search::Mode::Everywhere);
-    });
+    g_framework->NativeFramework()->CancelSearch(search::Mode::Everywhere);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeCancelAllSearches(JNIEnv * env, jclass clazz)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, []()
-    {
-      g_framework->NativeFramework()->CancelAllSearches();
-    });
+    g_framework->NativeFramework()->CancelAllSearches();
   }
 
   JNIEXPORT jobjectArray JNICALL
