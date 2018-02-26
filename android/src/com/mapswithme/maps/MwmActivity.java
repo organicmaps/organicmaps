@@ -347,6 +347,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void myPositionClick()
   {
     mLocationErrorDialogAnnoying = false;
+    LocationHelper.INSTANCE.setStopLocationUpdateByUser(false);
     LocationHelper.INSTANCE.switchToNextMode();
     LocationHelper.INSTANCE.restart();
   }
@@ -2303,18 +2304,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
                                    getString(R.string.current_location_unknown_title));
+
+    DialogInterface.OnClickListener stopClickListener = (dialog, which) ->
+    {
+      LocationHelper.INSTANCE.setStopLocationUpdateByUser(true);
+    };
+
+    DialogInterface.OnClickListener continueClickListener = (dialog, which) ->
+    {
+      if (!LocationHelper.INSTANCE.isActive())
+        LocationHelper.INSTANCE.start();
+    };
+
     new AlertDialog.Builder(this)
         .setMessage(message)
-        .setNegativeButton(R.string.current_location_unknown_stop_button, null)
-        .setPositiveButton(R.string.current_location_unknown_continue_button, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            if (!LocationHelper.INSTANCE.isActive())
-              LocationHelper.INSTANCE.start();
-          }
-        }).show();
+        .setNegativeButton(R.string.current_location_unknown_stop_button, stopClickListener)
+        .setPositiveButton(R.string.current_location_unknown_continue_button, continueClickListener)
+        .show();
   }
 
   @Override
