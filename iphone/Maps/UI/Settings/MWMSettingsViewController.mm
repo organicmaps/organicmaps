@@ -87,7 +87,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   [self.autoDownloadCell configWithDelegate:self
                                       title:L(@"disable_autodownload")
-                                       isOn:![MWMSettings autoDownloadEnabled]];
+                                       isOn:[MWMSettings autoDownloadEnabled]];
 
   [self.backupBookmarksCell configWithDelegate:self
                                          title:L(@"settings_backup_bookmarks")
