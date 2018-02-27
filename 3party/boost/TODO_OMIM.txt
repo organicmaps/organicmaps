@@ -1,0 +1,11 @@
+Notes for upgrading boost library:
+
+For the 1.64 version we applied a patch to compile it correctly:
+
+commit 17ddd464ff9707829b67663505f2e3670d9184d1
+
+Don't forget remove it in next boost update.
+
+More details:
+
+- https://github.com/mapnik/mapnik/issues/1970
