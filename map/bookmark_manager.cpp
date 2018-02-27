@@ -241,10 +241,8 @@ void BookmarkManager::DeleteBookmark(df::MarkID bmId)
   auto groupIt = m_bookmarks.find(bmId);
   auto const groupId = groupIt->second->GetGroupId();
   if (groupId)
-  {
-    m_changesTracker.OnDeleteMark(bmId);
     GetGroup(groupId)->DetachUserMark(bmId);
-  }
+  m_changesTracker.OnDeleteMark(bmId);
   m_bookmarks.erase(groupIt);
 }
 
@@ -277,6 +275,7 @@ void BookmarkManager::DeleteTrack(df::LineID trackId)
   auto const groupId = it->second->GetGroupId();
   if (groupId != df::kInvalidMarkGroupId)
     GetBmCategory(groupId)->DetachTrack(trackId);
+  m_changesTracker.OnDeleteLine(trackId);
   m_tracks.erase(it);
 }
 
@@ -333,18 +332,19 @@ void BookmarkManager::NotifyChanges()
     auto engine = lock.Get();
     for (auto groupId : m_changesTracker.GetDirtyGroupIds())
     {
-      auto *group = GetGroup(groupId);
+      auto * group = GetGroup(groupId);
       engine->ChangeVisibilityUserMarksGroup(groupId, group->IsVisible());
     }
+
+    for (auto groupId : m_changesTracker.GetRemovedGroupIds())
+      engine->ClearUserMarksGroup(groupId);
 
     engine->UpdateUserMarks(&m_changesTracker, m_firstDrapeNotification);
     m_firstDrapeNotification = false;
 
     for (auto groupId : m_changesTracker.GetDirtyGroupIds())
     {
-      auto *group = GetGroup(groupId);
-      if (group->GetUserMarks().empty() && group->GetUserLines().empty())
-        engine->ClearUserMarksGroup(groupId);
+      auto * group = GetGroup(groupId);
       group->ResetChanges();
     }
 
@@ -379,7 +379,10 @@ void BookmarkManager::ClearGroup(df::MarkGroupID groupId)
       m_userMarks.erase(markId);
   }
   for (auto trackId : group->GetUserLines())
+  {
+    m_changesTracker.OnDeleteLine(trackId);
     m_tracks.erase(trackId);
+  }
   group->Clear();
 }
 
@@ -463,6 +466,7 @@ Track * BookmarkManager::AddTrack(std::unique_ptr<Track> && track)
   auto const trackId = t->GetId();
   ASSERT(m_tracks.count(trackId) == 0, ());
   m_tracks.emplace(trackId, std::move(track));
+  m_changesTracker.OnAddLine(trackId);
   return t;
 }
 
@@ -764,6 +768,7 @@ df::MarkGroupID BookmarkManager::CreateBookmarkCategory(std::string const & name
   auto & cat = m_categories[groupId];
   cat = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
   m_bmGroupsIdList.push_back(groupId);
+  m_changesTracker.OnAddGroup(groupId);
   return groupId;
 }
 
@@ -779,11 +784,11 @@ bool BookmarkManager::DeleteBmCategory(df::MarkGroupID groupId)
   if (it == m_categories.end())
     return false;
 
-  BookmarkCategory & group = *it->second.get();
-  FileWriter::DeleteFileX(group.GetFileName());
   ClearGroup(groupId);
-  // TODO(darina): think of a way to get rid of extra Notify here
-  NotifyChanges();
+  m_changesTracker.OnDeleteGroup(groupId);
+
+  FileWriter::DeleteFileX(it->second->GetFileName());
+
   m_categories.erase(it);
   m_bmGroupsIdList.erase(std::remove(m_bmGroupsIdList.begin(), m_bmGroupsIdList.end(), groupId),
                          m_bmGroupsIdList.end());
@@ -1207,7 +1212,7 @@ void BookmarkManager::EndSharing(df::MarkGroupID categoryId)
 
 bool BookmarkManager::IsCategoryEmpty(df::MarkGroupID categoryId) const
 {
-  return GetUserMarkIds(categoryId).empty() && GetTrackIds(categoryId).empty();
+  return GetBmCategory(categoryId)->IsEmpty();
 }
 
 BookmarkManager::SharingResult BookmarkManager::GetFileForSharing(df::MarkGroupID categoryId)
@@ -1303,6 +1308,34 @@ void BookmarkManager::MarksChangesTracker::OnUpdateMark(df::MarkID markId)
     m_updatedMarks.insert(markId);
 }
 
+void BookmarkManager::MarksChangesTracker::OnAddLine(df::LineID lineId)
+{
+  m_createdLines.insert(lineId);
+}
+
+void BookmarkManager::MarksChangesTracker::OnDeleteLine(df::LineID lineId)
+{
+  auto const it = m_createdLines.find(lineId);
+  if (it != m_createdLines.end())
+    m_createdLines.erase(it);
+  else
+    m_removedLines.insert(lineId);
+}
+
+void BookmarkManager::MarksChangesTracker::OnAddGroup(df::MarkGroupID groupId)
+{
+  m_createdGroups.insert(groupId);
+}
+
+void BookmarkManager::MarksChangesTracker::OnDeleteGroup(df::MarkGroupID groupId)
+{
+  auto const it = m_createdGroups.find(groupId);
+  if (it != m_createdGroups.end())
+    m_createdGroups.erase(it);
+  else
+    m_removedGroups.insert(groupId);
+}
+
 bool BookmarkManager::MarksChangesTracker::CheckChanges()
 {
   m_bmManager.CollectDirtyGroups(m_dirtyGroups);
@@ -1318,9 +1351,15 @@ bool BookmarkManager::MarksChangesTracker::CheckChanges()
 void BookmarkManager::MarksChangesTracker::ResetChanges()
 {
   m_dirtyGroups.clear();
+  m_createdGroups.clear();
+  m_removedGroups.clear();
+
   m_createdMarks.clear();
   m_removedMarks.clear();
   m_updatedMarks.clear();
+
+  m_createdLines.clear();
+  m_removedLines.clear();
 }
 
 // static

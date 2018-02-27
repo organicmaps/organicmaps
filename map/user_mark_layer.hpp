@@ -28,12 +28,17 @@ public:
   UserMark::Type GetType() const;
 
   df::MarkIDSet const & GetUserMarks() const { return m_userMarks; }
-  virtual df::LineIDSet const & GetUserLines() const { return m_userLines; }
+  df::LineIDSet const & GetUserLines() const { return m_tracks; }
 
   void AttachUserMark(df::MarkID markId);
   void DetachUserMark(df::MarkID markId);
 
+  void AttachTrack(df::LineID trackId);
+  void DetachTrack(df::LineID trackId);
+
   void Clear();
+  bool IsEmpty() const;
+
   void SetIsVisible(bool isVisible);
 
 protected:
@@ -42,7 +47,7 @@ protected:
   UserMark::Type m_type;
 
   df::MarkIDSet m_userMarks;
-  df::LineIDSet m_userLines;
+  df::LineIDSet m_tracks;
 
   bool m_isDirty = true;
   bool m_isVisible = true;

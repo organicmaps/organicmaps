@@ -271,6 +271,10 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
     auto const & removedMarkIds = provider->GetRemovedMarkIds();
     removedIdCollection->m_markIds.reserve(removedMarkIds.size());
     removedIdCollection->m_markIds.assign(removedMarkIds.begin(), removedMarkIds.end());
+
+    auto const & removedLineIds = provider->GetRemovedLineIds();
+    removedIdCollection->m_lineIds.reserve(removedLineIds.size());
+    removedIdCollection->m_lineIds.assign(removedLineIds.begin(), removedLineIds.end());
   }
 
   std::map<df::MarkGroupID, drape_ptr<IDCollections>> dirtyMarkIds;

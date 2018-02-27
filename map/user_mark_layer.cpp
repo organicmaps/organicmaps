@@ -40,6 +40,12 @@ void UserMarkLayer::Clear()
 {
   SetDirty();
   m_userMarks.clear();
+  m_tracks.clear();
+}
+
+bool UserMarkLayer::IsEmpty() const
+{
+  return m_userMarks.empty() && m_tracks.empty();
 }
 
 void UserMarkLayer::SetIsVisible(bool isVisible)
@@ -67,4 +73,16 @@ void UserMarkLayer::DetachUserMark(df::MarkID markId)
 {
   SetDirty();
   m_userMarks.erase(markId);
+}
+
+void UserMarkLayer::AttachTrack(df::LineID trackId)
+{
+  SetDirty();
+  m_tracks.insert(trackId);
+}
+
+void UserMarkLayer::DetachTrack(df::LineID trackId)
+{
+  SetDirty();
+  m_tracks.erase(trackId);
 }

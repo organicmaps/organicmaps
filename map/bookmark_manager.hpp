@@ -242,15 +242,23 @@ private:
     void OnDeleteMark(df::MarkID markId);
     void OnUpdateMark(df::MarkID markId);
 
+    void OnAddLine(df::LineID lineId);
+    void OnDeleteLine(df::LineID lineId);
+
+    void OnAddGroup(df::MarkGroupID groupId);
+    void OnDeleteGroup(df::MarkGroupID groupId);
+
     bool CheckChanges();
     void ResetChanges();
 
     // UserMarksProvider
     df::GroupIDSet GetAllGroupIds() const override;
     df::GroupIDSet const & GetDirtyGroupIds() const override { return m_dirtyGroups; }
+    df::GroupIDSet const & GetRemovedGroupIds() const override { return m_removedGroups; }
     df::MarkIDSet const & GetCreatedMarkIds() const override { return m_createdMarks; }
     df::MarkIDSet const & GetRemovedMarkIds() const override { return m_removedMarks; }
     df::MarkIDSet const & GetUpdatedMarkIds() const override { return m_updatedMarks; }
+    df::LineIDSet const & GetRemovedLineIds() const override { return m_removedLines; }
     bool IsGroupVisible(df::MarkGroupID groupId) const override;
     bool IsGroupVisibilityChanged(df::MarkGroupID groupId) const override;
     df::MarkIDSet const & GetGroupPointIds(df::MarkGroupID groupId) const override;
@@ -264,7 +272,13 @@ private:
     df::MarkIDSet m_createdMarks;
     df::MarkIDSet m_removedMarks;
     df::MarkIDSet m_updatedMarks;
+
+    df::LineIDSet m_createdLines;
+    df::LineIDSet m_removedLines;
+
     df::GroupIDSet m_dirtyGroups;
+    df::GroupIDSet m_createdGroups;
+    df::GroupIDSet m_removedGroups;
   };
 
   template <typename UserMarkT>
