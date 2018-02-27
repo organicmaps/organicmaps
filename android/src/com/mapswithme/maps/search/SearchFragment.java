@@ -610,6 +610,8 @@ public class SearchFragment extends BaseMwmFragment
 
   private void runSearch()
   {
+    // The previous search should be cancelled before the new one is started, since previous search
+    // results are no longer needed.
     SearchEngine.cancel();
 
     HotelsFilter hotelsFilter = null;

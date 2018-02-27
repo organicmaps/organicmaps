@@ -432,7 +432,7 @@ void Api::GetHotelInfo(string const & hotelId, string const & lang,
     }
     catch (my::Json::Exception const & e)
     {
-      LOG(LERROR, ("Failed to parse json:", result, e.what()));
+      LOG(LERROR, ("Failed to parse json:", hotelId, result, e.what()));
       ClearHotelInfo(info);
     }
 

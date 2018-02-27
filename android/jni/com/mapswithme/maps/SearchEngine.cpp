@@ -572,6 +572,9 @@ extern "C"
       eparams.m_onResults = bind(&OnResults, _1, _2, timestamp, isMapAndTable,
                                  false /* hasPosition */, 0.0 /* lat */, 0.0 /* lon */);
       eparams.m_hotelsFilter = vparams.m_hotelsFilter;
+      eparams.m_bookingFilterParams.m_params = g_lastBookingFilterParams;
+      eparams.m_bookingFilterParams.m_callback = bind(&OnBookingFilterResults, _1, _2);
+
       if (g_framework->NativeFramework()->SearchEverywhere(eparams))
         g_queryTimestamp = timestamp;
     }

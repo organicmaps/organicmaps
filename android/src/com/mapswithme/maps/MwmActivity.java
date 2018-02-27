@@ -610,7 +610,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void runSearch()
   {
+    // The previous search should be cancelled before the new one is started, since previous search
+    // results are no longer needed.
     SearchEngine.cancel();
+
     SearchEngine.searchInteractive(mSearchController.getQuery(), System.nanoTime(),
                                    false /* isMapAndTable */,
                                    mFilterController != null ? mFilterController.getFilter() : null,
