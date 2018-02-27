@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2003-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -23,6 +23,7 @@
 // STL
 #include <iosfwd>
 #include <string> // for std::string
+#include <iostream>
 
 #include <boost/test/detail/suppress_warnings.hpp>
 
@@ -72,19 +73,37 @@ struct BOOST_TEST_DECL log_checkpoint_data
 };
 
 // ************************************************************************** //
-/// Abstract Unit Test Framework log formatter interface
-
-/// During the test module execution Unit Test Framework can report messages about success or failure of assertions,
-/// which test suites are being run and more (specifically which messages are reported depends on log level threshold selected by the user).
-/// All these messages constitute Unit Test Framework log. There are many ways (formats) to present these messages to the user. Boost.Test comes with
-/// two formats: "Compiler-like log format" and "XML based log format". Former is intended for human consumption and later is intended for processing
-/// by automated regression test systems. If you want to produce some other format you need to implement class with specific interface and use
-/// method unit_test_log_t::set_formatter during a test module initialization to set an active formatter. The class unit_test_log_formatter defines this
-/// interface.
+/// @brief Abstract Unit Test Framework log formatter interface
 ///
-/// This interface requires you to format all possible messages being produced in the log. These includes error messages about failed assertions, messages
-/// about caught exceptions and information messages about test units being started/ended. All the methods in this interface takes a reference to standard
-/// stream as a first argument. This is where final messages needs to be directed to. Also you are given all the information necessary to produce a message.
+/// During the test module execution Unit Test Framework can report messages about success
+/// or failure of assertions, which test suites are being run and more (specifically which
+/// messages are reported depends on log level threshold selected by the user).
+///
+/// All these messages constitute Unit Test Framework log. There are many ways (formats) to present
+/// these messages to the user.
+///
+/// Boost.Test comes with three formats:
+/// - Compiler-like log format: intended for human consumption/diagnostic
+/// - XML based log format:  intended for processing by automated regression test systems.
+/// - JUNIT based log format:  intended for processing by automated regression test systems.
+///
+/// If you want to produce some other format you need to implement class with specific interface and use
+/// method @c unit_test_log_t::set_formatter during a test module initialization to set an active formatter.
+/// The class unit_test_log_formatter defines this interface.
+///
+/// This interface requires you to format all possible messages being produced in the log.
+/// These includes error messages about failed assertions, messages about caught exceptions and
+/// information messages about test units being started/ended. All the methods in this interface takes
+/// a reference to standard stream as a first argument. This is where final messages needs to be directed
+/// to. Also you are given all the information necessary to produce a message.
+///
+/// @par Since Boost 1.62:
+/// - Each formatter may indicate the default output stream. This is convenient for instance for streams intended
+///   for automated processing that indicate a file. See @c get_default_stream_description for more details.
+/// - Each formatter may manage its own log level through the getter/setter @c get_log_level and @c set_log_level .
+///
+/// @see
+/// - boost::unit_test::test_observer for an indication of the calls of the test observer interface
 class BOOST_TEST_DECL unit_test_log_formatter {
 public:
     /// Types of log entries (messages written into a log)
@@ -95,26 +114,31 @@ public:
                            BOOST_UTL_ET_FATAL_ERROR ///< Fatal error notification message
     };
 
+    //! Constructor
+    unit_test_log_formatter()
+        : m_log_level(log_all_errors)
+    {}
+
     // Destructor
     virtual             ~unit_test_log_formatter() {}
 
     // @name Test start/finish
 
     /// Invoked at the beginning of test module execution
-
+    ///
     /// @param[in] os   output stream to write a messages to
     /// @param[in] test_cases_amount total test case amount to be run
     /// @see log_finish
     virtual void        log_start( std::ostream& os, counter_t test_cases_amount ) = 0;
 
     /// Invoked at the end of test module execution
-
+    ///
     /// @param[in] os   output stream to write a messages into
     /// @see log_start
     virtual void        log_finish( std::ostream& os ) = 0;
 
     /// Invoked when Unit Test Framework build information is requested
-
+    ///
     /// @param[in] os   output stream to write a messages into
     virtual void        log_build_info( std::ostream& os ) = 0;
     // @}
@@ -122,41 +146,50 @@ public:
     // @name Test unit start/finish
 
     /// Invoked when test unit starts (either test suite or test case)
-
+    ///
     /// @param[in] os   output stream to write a messages into
     /// @param[in] tu   test unit being started
     /// @see test_unit_finish
     virtual void        test_unit_start( std::ostream& os, test_unit const& tu ) = 0;
 
     /// Invoked when test unit finishes
-
+    ///
     /// @param[in] os   output stream to write a messages into
     /// @param[in] tu   test unit being finished
-    /// @param[in] elapsed time in milliseconds spend executing this test unit
+    /// @param[in] elapsed time in microseconds spend executing this test unit
     /// @see test_unit_start
     virtual void        test_unit_finish( std::ostream& os, test_unit const& tu, unsigned long elapsed ) = 0;
 
     /// Invoked if test unit skipped for any reason
-
+    ///
     /// @param[in] os   output stream to write a messages into
     /// @param[in] tu   skipped test unit
     /// @param[in] reason explanation why was it skipped
-    virtual void        test_unit_skipped( std::ostream& os, test_unit const& tu, const_string reason )
+    virtual void        test_unit_skipped( std::ostream& os, test_unit const& tu, const_string /* reason */)
     {
         test_unit_skipped( os, tu );
     }
 
     /// Deprecated version of this interface
-    virtual void        test_unit_skipped( std::ostream& os, test_unit const& tu ) {}
+    virtual void        test_unit_skipped( std::ostream& /* os */, test_unit const& /* tu */) {}
+
+    /// Invoked when a test unit is aborted
+    virtual void        test_unit_aborted( std::ostream& /* os */, test_unit const& /* tu */) {}
 
     // @}
 
     // @name Uncaught exception report
 
     /// Invoked when Unit Test Framework detects uncaught exception
-
-    /// Call to this function starts uncaught exception report. It is going to followed by context information. Report is finalized by call to
-    /// log_exception_finish.
+    ///
+    /// The framwork calls this function when an uncaught exception it detected.
+    /// This call is followed by context information:
+    /// - one call to @c entry_context_start,
+    /// - as many calls to @c log_entry_context as there are context entries
+    /// - one call to @c entry_context_finish
+    ///
+    /// The logging of the exception information is finilized by a call to @c log_exception_finish.
+    ///
     /// @param[in] os   output stream to write a messages into
     /// @param[in] lcd  information about the last checkpoint before the exception was triggered
     /// @param[in] ex   information about the caught exception
@@ -164,7 +197,7 @@ public:
     virtual void        log_exception_start( std::ostream& os, log_checkpoint_data const& lcd, execution_exception const& ex ) = 0;
 
     /// Invoked when Unit Test Framework detects uncaught exception
-
+    ///
     /// Call to this function finishes uncaught exception report.
     /// @param[in] os   output stream to write a messages into
     /// @see log_exception_start
@@ -182,10 +215,13 @@ public:
     /// @param[in] led  log entry attributes
     /// @param[in] let  log entry type log_entry_finish
     /// @see log_entry_value, log_entry_finish
+    ///
+    /// @note call to this function may happen before any call to test_unit_start or all calls to test_unit_finish as the
+    /// framework might log errors raised during global initialization/shutdown.
     virtual void        log_entry_start( std::ostream& os, log_entry_data const& led, log_entry_types let ) = 0;
 
     /// Invoked by Unit Test Framework to report a log entry content
-
+    ///
     /// This is one of two overloaded methods to report log entry content. This one is used to report plain string value.
     /// @param[in] os   output stream to write a messages into.
     /// @param[in] value log entry string value
@@ -217,7 +253,7 @@ public:
     /// Context consists of multiple "scopes" identified by description messages assigned by the test module using
     /// BOOST_TEST_INFO/BOOST_TEST_CONTEXT statements.
     /// @param[in] os   output stream to write a messages into
-    /// @param[in] l    entry log_leveg, to be used to fine tune the message
+    /// @param[in] l    entry log_level, to be used to fine tune the message
     /// @see log_entry_context, entry_context_finish
     virtual void        entry_context_start( std::ostream& os, log_level l ) = 0;
 
@@ -235,6 +271,42 @@ public:
     /// @see log_entry_start, entry_context_context
     virtual void        entry_context_finish( std::ostream& os ) = 0;
     // @}
+
+    // @name Log level management
+
+    /// Sets the log level of the logger/formatter
+    ///
+    /// Some loggers need to manage the log level by their own. This
+    /// member function let the implementation decide of that.
+    /// @par Since Boost 1.62
+    virtual void        set_log_level(log_level new_log_level);
+
+    /// Returns the log level of the logger/formatter
+    /// @par Since Boost 1.62
+    virtual log_level   get_log_level() const;
+    // @}
+
+
+    // @name Stream management
+
+    /// Returns a default stream for this logger.
+    ///
+    /// The returned string describes the stream as if it was passed from
+    /// the command line @c "--log_sink" parameter. With that regards, @b stdout and @b stderr
+    /// have special meaning indicating the standard output or error stream respectively.
+    ///
+    /// @par Since Boost 1.62
+    virtual std::string  get_default_stream_description() const
+    {
+        return "stdout";
+    }
+
+    // @}
+
+
+protected:
+    log_level           m_log_level;
+
 };
 
 } // namespace unit_test

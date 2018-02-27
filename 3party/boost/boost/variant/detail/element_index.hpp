@@ -12,13 +12,13 @@
 #ifndef BOOST_VARIANT_DETAIL_ELEMENT_INDEX_HPP
 #define BOOST_VARIANT_DETAIL_ELEMENT_INDEX_HPP
 
-#include "boost/config.hpp"
-#include "boost/variant/recursive_wrapper_fwd.hpp"
-#include "boost/variant/variant_fwd.hpp"
+#include <boost/config.hpp>
+#include <boost/variant/recursive_wrapper_fwd.hpp>
+#include <boost/variant/variant_fwd.hpp>
 
-#include "boost/type_traits/remove_cv.hpp"
-#include "boost/type_traits/remove_reference.hpp"
-#include "boost/mpl/find_if.hpp"
+#include <boost/type_traits/remove_cv.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/mpl/find_if.hpp>
 
 namespace boost { namespace detail { namespace variant {
 

@@ -14,6 +14,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/aligned_storage.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/optional.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -104,15 +105,16 @@ namespace boost {
         dereference() const
         {
           if (!cache->result) {
-            try
+            BOOST_TRY
             {
               cache->result.reset(cache->f(*iter));
             }
-            catch(expired_slot &)
+            BOOST_CATCH(expired_slot &)
             {
               (*iter)->disconnect();
-              throw;
+              BOOST_RETHROW
             }
+            BOOST_CATCH_END
           }
           return cache->result.get();
         }

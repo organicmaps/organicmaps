@@ -18,8 +18,8 @@ namespace boost{ namespace icl
     { 
         typedef has_inverse<Type> type;
         BOOST_STATIC_CONSTANT(bool, 
-            value = (type_traits::ice_or<boost::is_signed<Type>::value, 
-                                         is_floating_point<Type>::value>::value)); 
+            value = (   boost::is_signed<Type>::value 
+                     || is_floating_point<Type>::value ) ); 
     };
 
 }} // namespace boost icl

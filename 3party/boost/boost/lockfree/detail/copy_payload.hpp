@@ -1,6 +1,6 @@
 //  boost lockfree: copy_payload helper
 //
-//  Copyright (C) 2011 Tim Blechmann
+//  Copyright (C) 2011, 2016 Tim Blechmann
 //
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at

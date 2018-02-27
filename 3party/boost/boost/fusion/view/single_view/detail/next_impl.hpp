@@ -39,7 +39,10 @@ namespace boost { namespace fusion
                 static type
                 call(Iterator const& i)
                 {
-                    BOOST_STATIC_ASSERT((type::position::value < 2));
+                    // Workaround for ICE on GCC 4.0.0.
+                    // see https://svn.boost.org/trac/boost/ticket/5808
+                    typedef typename type::position position;
+                    BOOST_STATIC_ASSERT((position::value < 2));
                     return type(i.view);
                 }
             };

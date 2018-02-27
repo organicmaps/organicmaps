@@ -90,9 +90,9 @@ namespace spreadsort {
       int log_divisor;
       //If we can finish in one iteration without exceeding either
       //(2 to the max_finishing_splits) or n bins, do so
-      if ((log_divisor = log_range - rough_log_2_size(count)) <= 0 &&
+      if ((log_divisor = log_range - rough_log_2_size(count)) <= 0 && 
          log_range <= max_finishing_splits)
-        log_divisor = 0;
+        log_divisor = 0; 
       else {
         //otherwise divide the data into an optimized number of pieces
         log_divisor += log_mean_bin_size;
@@ -409,7 +409,7 @@ namespace spreadsort {
       size_t bin_sizes[1 << max_finishing_splits];
       std::vector<RandomAccessIter> bin_cache;
       spreadsort_rec<RandomAccessIter, Div_type, Right_shift, Compare,
-          size_t, int_log_mean_bin_size, int_log_min_split_count,
+          size_t, int_log_mean_bin_size, int_log_min_split_count, 
                         int_log_finishing_count>
           (first, last, bin_cache, 0, bin_sizes, shift, comp);
     }
@@ -455,7 +455,7 @@ namespace spreadsort {
       size_t bin_sizes[1 << max_finishing_splits];
       std::vector<RandomAccessIter> bin_cache;
       spreadsort_rec<RandomAccessIter, Div_type, Right_shift, size_t,
-          int_log_mean_bin_size, int_log_min_split_count,
+          int_log_mean_bin_size, int_log_min_split_count, 
                         int_log_finishing_count>
           (first, last, bin_cache, 0, bin_sizes, shift);
     }

@@ -15,10 +15,17 @@
 #include <boost/assert.hpp>
 #include <boost/checked_delete.hpp>
 #include <boost/smart_ptr/detail/sp_nullptr_t.hpp>
+#include <boost/smart_ptr/detail/sp_disable_deprecated.hpp>
+#include <boost/smart_ptr/detail/sp_noexcept.hpp>
 #include <boost/detail/workaround.hpp>
 
 #ifndef BOOST_NO_AUTO_PTR
 # include <memory>          // for std::auto_ptr
+#endif
+
+#if defined( BOOST_SP_DISABLE_DEPRECATED )
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #endif
 
 namespace boost
@@ -56,7 +63,7 @@ public:
 
     typedef T element_type;
 
-    explicit scoped_ptr( T * p = 0 ): px( p ) // never throws
+    explicit scoped_ptr( T * p = 0 ) BOOST_SP_NOEXCEPT : px( p ) // never throws
     {
 #if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
         boost::sp_scalar_constructor_hook( px );
@@ -153,5 +160,9 @@ template<class T> inline T * get_pointer(scoped_ptr<T> const & p) BOOST_NOEXCEPT
 }
 
 } // namespace boost
+
+#if defined( BOOST_SP_DISABLE_DEPRECATED )
+#pragma GCC diagnostic pop
+#endif
 
 #endif // #ifndef BOOST_SMART_PTR_SCOPED_PTR_HPP_INCLUDED

@@ -92,7 +92,7 @@ protected:
     void load_override(T & t){
         basic_text_iarchive<Archive>::load_override(t);
     }
-    BOOST_WARCHIVE_DECL
+    BOOST_WARCHIVE_DECL 
     text_wiarchive_impl(std::wistream & is, unsigned int flags);
     ~text_wiarchive_impl(){};
 };
@@ -114,7 +114,7 @@ protected:
 namespace boost { 
 namespace archive {
 
-class BOOST_SYMBOL_VISIBLE text_wiarchive :
+class BOOST_SYMBOL_VISIBLE text_wiarchive : 
     public text_wiarchive_impl<text_wiarchive>{
 public:
     text_wiarchive(std::wistream & is, unsigned int flags = 0) :

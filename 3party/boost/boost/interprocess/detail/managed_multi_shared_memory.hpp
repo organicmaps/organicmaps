@@ -219,9 +219,9 @@ class basic_managed_multi_shared_memory
          return false;
       }
 
-      std::size_t get_min_size() const
+      static std::size_t get_min_size()
       {
-         const size_type sz = mp_frontend->get_segment_manager()->get_min_size();
+         const size_type sz = self_t::segment_manager::get_min_size();
          if(sz > std::size_t(-1)){
             //The minimum size is not representable by std::size_t
             BOOST_ASSERT(false);

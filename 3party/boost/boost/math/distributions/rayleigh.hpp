@@ -182,7 +182,7 @@ inline RealType cdf(const complemented2_type<rayleigh_distribution<RealType, Pol
    RealType ea = x * x / (2 * sigma * sigma);
    // Fix for VC11/12 x64 bug in exp(float):
    if (ea >= tools::max_value<RealType>())
-	   return 0;
+      return 0;
    result =  exp(-ea);
    return result;
 } // cdf complement

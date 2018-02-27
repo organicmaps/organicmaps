@@ -213,7 +213,7 @@ namespace detail
     {                                                                                       \
         typedef typename ::boost::python::detail::                                          \
             error::more_keywords_than_function_arguments<                                   \
-                N,n_args>::too_many_keywords assertion;                                     \
+                N,n_args>::too_many_keywords assertion BOOST_ATTRIBUTE_UNUSED;              \
     }                                                                                       \
     template <std::size_t N>                                                                \
     fstubs_name(::boost::python::detail::keywords<N> const& keywords, char const* doc = 0)  \
@@ -222,7 +222,7 @@ namespace detail
     {                                                                                       \
         typedef typename ::boost::python::detail::                                          \
             error::more_keywords_than_function_arguments<                                   \
-                N,n_args>::too_many_keywords assertion;                                     \
+                N,n_args>::too_many_keywords assertion BOOST_ATTRIBUTE_UNUSED;              \
     }
 
 # if defined(BOOST_NO_VOID_RETURNS)

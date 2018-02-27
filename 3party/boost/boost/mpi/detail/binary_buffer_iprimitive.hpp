@@ -66,7 +66,7 @@ public:
 
     // fast saving of arrays of fundamental types
     template<class T>
-    void load_array(serialization::array<T> const& x, unsigned int /* file_version */)
+    void load_array(serialization::array_wrapper<T> const& x, unsigned int /* file_version */)
     {
       BOOST_MPL_ASSERT((serialization::is_bitwise_serializable<BOOST_DEDUCED_TYPENAME remove_const<T>::type>));
       if (x.count())
@@ -76,7 +76,7 @@ public:
     typedef serialization::is_bitwise_serializable<mpl::_1> use_array_optimization;
 
     template<class T>
-    void load(serialization::array<T> const& x)
+    void load(serialization::array_wrapper<T> const& x)
     {
       load_array(x,0u);
     }

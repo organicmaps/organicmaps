@@ -56,8 +56,7 @@ public:
                                 preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
         impl_t( palloc,
-                stack_unwind == attrs.do_unwind,
-                fpu_preserved == attrs.preserve_fpu),
+                stack_unwind == attrs.do_unwind),
         fn_( fn),
         stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
@@ -68,8 +67,7 @@ public:
                                 preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
         impl_t( palloc,
-                stack_unwind == attrs.do_unwind,
-                fpu_preserved == attrs.preserve_fpu),
+                stack_unwind == attrs.do_unwind),
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
         fn_( fn),
 #else
@@ -100,8 +98,7 @@ public:
         typename impl_t::param_type to;
         impl_t::callee_.jump(
             impl_t::caller_, 
-            reinterpret_cast< intptr_t >( & to),
-            impl_t::preserve_fpu() );
+            & to);
         BOOST_ASSERT_MSG( false, "coroutine is complete");
     }
 
@@ -135,8 +132,7 @@ public:
                                 preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
         impl_t( palloc,
-                stack_unwind == attrs.do_unwind,
-                fpu_preserved == attrs.preserve_fpu),
+                stack_unwind == attrs.do_unwind),
         fn_( fn),
         stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
@@ -147,8 +143,7 @@ public:
                                 preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
         impl_t( palloc,
-                stack_unwind == attrs.do_unwind,
-                fpu_preserved == attrs.preserve_fpu),
+                stack_unwind == attrs.do_unwind),
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
         fn_( fn),
 #else
@@ -179,8 +174,7 @@ public:
         typename impl_t::param_type to;
         impl_t::callee_.jump(
             impl_t::caller_, 
-            reinterpret_cast< intptr_t >( & to),
-            impl_t::preserve_fpu() );
+            & to);
         BOOST_ASSERT_MSG( false, "coroutine is complete");
     }
 
@@ -214,8 +208,7 @@ public:
                                 preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
         impl_t( palloc,
-                stack_unwind == attrs.do_unwind,
-                fpu_preserved == attrs.preserve_fpu),
+                stack_unwind == attrs.do_unwind),
         fn_( fn),
         stack_ctx_( palloc.sctx),
         stack_alloc_( stack_alloc)
@@ -226,8 +219,7 @@ public:
                                 preallocated const& palloc,
                                 StackAllocator const& stack_alloc) BOOST_NOEXCEPT :
         impl_t( palloc,
-                stack_unwind == attrs.do_unwind,
-                fpu_preserved == attrs.preserve_fpu),
+                stack_unwind == attrs.do_unwind),
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
         fn_( fn),
 #else
@@ -258,8 +250,7 @@ public:
         typename impl_t::param_type to;
         impl_t::callee_.jump(
             impl_t::caller_, 
-            reinterpret_cast< intptr_t >( & to),
-            impl_t::preserve_fpu() );
+            & to);
         BOOST_ASSERT_MSG( false, "coroutine is complete");
     }
 

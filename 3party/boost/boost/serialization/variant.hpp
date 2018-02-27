@@ -66,7 +66,6 @@ void save(
 ){
     int which = v.which();
     ar << BOOST_SERIALIZATION_NVP(which);
-    typedef typename  boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>::types types;
     variant_save_visitor<Archive> visitor(ar);
     v.apply_visitor(visitor);
 }

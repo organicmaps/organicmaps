@@ -13,25 +13,25 @@
 #ifndef BOOST_VARIANT_DETAIL_ENABLE_RECURSIVE_HPP
 #define BOOST_VARIANT_DETAIL_ENABLE_RECURSIVE_HPP
 
-#include "boost/variant/detail/enable_recursive_fwd.hpp"
-#include "boost/variant/variant_fwd.hpp"
+#include <boost/variant/detail/enable_recursive_fwd.hpp>
+#include <boost/variant/variant_fwd.hpp>
 
 #if !defined(BOOST_VARIANT_NO_FULL_RECURSIVE_VARIANT_SUPPORT)
-#   include "boost/mpl/apply.hpp"
-#   include "boost/mpl/eval_if.hpp"
-#   include "boost/mpl/lambda.hpp"
+#   include <boost/mpl/apply.hpp>
+#   include <boost/mpl/eval_if.hpp>
+#   include <boost/mpl/lambda.hpp>
 #endif
 
-#include "boost/variant/detail/substitute.hpp"
-#include "boost/mpl/aux_/config/ctps.hpp"
-#include "boost/mpl/bool_fwd.hpp"
-#include "boost/mpl/if.hpp"
-#include "boost/mpl/or.hpp"
-#include "boost/type_traits/is_pointer.hpp"
-#include "boost/type_traits/is_reference.hpp"
-#include "boost/type_traits/is_same.hpp"
+#include <boost/variant/detail/substitute.hpp>
+#include <boost/mpl/aux_/config/ctps.hpp>
+#include <boost/mpl/bool_fwd.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/type_traits/is_pointer.hpp>
+#include <boost/type_traits/is_reference.hpp>
+#include <boost/type_traits/is_same.hpp>
 
-#include "boost/variant/recursive_wrapper.hpp"
+#include <boost/variant/recursive_wrapper.hpp>
 
 namespace boost {
 namespace detail { namespace variant {

@@ -39,7 +39,7 @@ namespace detail {
   // datatype, so we'll use MPI_Scatterv to do all of the work.
   template<typename T>
   void
-  scatterv_impl(const communicator& comm, T* out_values, int out_size, int root,
+  scatterv_impl(const communicator& comm, T* out_values, int out_size, int root, 
                mpl::true_)
   {
     MPI_Datatype type = get_mpi_datatype<T>(*out_values);
@@ -84,7 +84,7 @@ namespace detail {
   // messages to the root.
   template<typename T>
   void
-  scatterv_impl(const communicator& comm, T* out_values, int out_size, int root,
+  scatterv_impl(const communicator& comm, T* out_values, int out_size, int root, 
                mpl::false_)
   {
     int tag = environment::collectives_tag();
@@ -114,7 +114,7 @@ scatterv(const communicator& comm, const T* in_values,
 
 template<typename T>
 void
-scatterv(const communicator& comm, const std::vector<T>& in_values,
+scatterv(const communicator& comm, const std::vector<T>& in_values, 
          const std::vector<int>& sizes, const std::vector<int>& displs,
          T* out_values, int out_size, int root)
 {

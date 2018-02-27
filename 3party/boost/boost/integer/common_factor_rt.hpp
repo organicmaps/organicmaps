@@ -4,13 +4,13 @@
 //  use, modify, sell and distribute this software is granted provided this
 //  copyright notice appears in all copies.  This software is provided "as is"
 //  without express or implied warranty, and with no claim as to its suitability
-//  for any purpose.
+//  for any purpose. 
 
 // boostinspect:nolicense (don't complain about the lack of a Boost license)
 // (Paul Moore hasn't been in contact for years, so there's no way to change the
 // license.)
 
-//  See http://www.boost.org for updates, documentation, and revision history.
+//  See http://www.boost.org for updates, documentation, and revision history. 
 
 #ifndef BOOST_INTEGER_COMMON_FACTOR_RT_HPP
 #define BOOST_INTEGER_COMMON_FACTOR_RT_HPP

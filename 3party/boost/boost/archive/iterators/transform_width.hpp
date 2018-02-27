@@ -108,7 +108,7 @@ class transform_width :
 public:
     // make composible buy using templated constructor
     template<class T>
-    transform_width(T start) :
+    transform_width(T start) : 
         super_t(Base(static_cast< T >(start))),
         m_buffer_out_full(false),
         // To disable GCC warning, but not truly necessary 

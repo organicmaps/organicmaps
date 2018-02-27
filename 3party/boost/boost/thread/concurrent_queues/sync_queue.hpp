@@ -10,6 +10,7 @@
 // See http://www.boost.org/libs/thread for documentation.
 //
 //////////////////////////////////////////////////////////////////////////////
+#include <iostream>
 
 #include <boost/thread/detail/config.hpp>
 #include <boost/thread/concurrent_queues/detail/sync_queue_base.hpp>
@@ -150,13 +151,19 @@ namespace concurrent
   template <class ValueType, class Container>
   queue_op_status sync_queue<ValueType, Container>::wait_pull(ValueType& elem, unique_lock<mutex>& lk)
   {
+    //std::cout << __FILE__ << "[" << __LINE__ << "]" << std::endl;
     if (super::empty(lk))
     {
+      //std::cout << __FILE__ << "[" << __LINE__ << "]" << std::endl;
       if (super::closed(lk)) return queue_op_status::closed;
     }
+    //std::cout << __FILE__ << "[" << __LINE__ << "]" << std::endl;
     bool has_been_closed = super::wait_until_not_empty_or_closed(lk);
+    //std::cout << __FILE__ << "[" << __LINE__ << "]" << std::endl;
     if (has_been_closed) return queue_op_status::closed;
+    //std::cout << __FILE__ << "[" << __LINE__ << "]" << std::endl;
     pull(elem, lk);
+    //std::cout << __FILE__ << "[" << __LINE__ << "]" << std::endl;
     return queue_op_status::success;
   }
 

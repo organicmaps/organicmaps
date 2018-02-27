@@ -14,6 +14,9 @@
 #ifndef BOOST_CONFIG_HPP
 #  include <boost/config.hpp>
 #endif
+#ifndef BOOST_CSTDINT_HPP
+#  include <boost/cstdint.hpp>
+#endif
 #
 #if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
@@ -238,8 +241,16 @@ class cached_adaptive_pool;
 
 static const std::size_t offset_type_alignment = 0;
 
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
+#  ifdef BOOST_HAS_INTPTR_T
+      using ::boost::uintptr_t;
+#  else
+      typedef std::size_t uintptr_t;
+#  endif
+#endif
+
 template < class T, class DifferenceType = std::ptrdiff_t
-         , class OffsetType = std::size_t, std::size_t Alignment = offset_type_alignment>
+         , class OffsetType = uintptr_t, std::size_t Alignment = offset_type_alignment>
 class offset_ptr;
 
 //////////////////////////////////////////////////////////////////////////////

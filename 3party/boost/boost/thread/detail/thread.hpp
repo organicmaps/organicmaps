@@ -72,7 +72,7 @@ namespace boost
           void run2(tuple_indices<Indices...>)
           {
 
-              invoke(std::move(std::get<0>(fp)), std::move(std::get<Indices>(fp))...);
+              detail::invoke(std::move(std::get<0>(fp)), std::move(std::get<Indices>(fp))...);
           }
           void run()
           {
@@ -173,7 +173,6 @@ namespace boost
     private:
         bool start_thread_noexcept();
         bool start_thread_noexcept(const attributes& attr);
-    //public:
         void start_thread()
         {
           if (!start_thread_noexcept())
@@ -355,6 +354,8 @@ namespace boost
 
 #if defined BOOST_THREAD_PROVIDES_THREAD_MOVE_ASSIGN_CALLS_TERMINATE_IF_JOINABLE
             if (joinable()) std::terminate();
+#else
+            detach();
 #endif
             thread_info=BOOST_THREAD_RV(other).thread_info;
             BOOST_THREAD_RV(other).thread_info.reset();
@@ -481,13 +482,20 @@ namespace boost
           return try_join_until(chrono::steady_clock::now() + rel_time);
         }
 #endif
+
+#if defined(BOOST_THREAD_HAS_CONDATTR_SET_CLOCK_MONOTONIC) && defined(BOOST_THREAD_USEFIXES_TIMESPEC)
+        typedef chrono::steady_clock my_clock_t;
+#else
+        typedef chrono::system_clock my_clock_t;
+#endif
+
         template <class Clock, class Duration>
         bool try_join_until(const chrono::time_point<Clock, Duration>& t)
         {
           using namespace chrono;
-          system_clock::time_point     s_now = system_clock::now();
           bool joined= false;
           do {
+            my_clock_t::time_point     s_now = my_clock_t::now();
             typename Clock::duration   d = ceil<nanoseconds>(t-Clock::now());
             if (d <= Clock::duration::zero()) return false; // in case the Clock::time_point t is already reached
             joined = try_join_until(s_now + d);
@@ -495,10 +503,10 @@ namespace boost
           return true;
         }
         template <class Duration>
-        bool try_join_until(const chrono::time_point<chrono::system_clock, Duration>& t)
+        bool try_join_until(const chrono::time_point<my_clock_t, Duration>& t)
         {
           using namespace chrono;
-          typedef time_point<system_clock, nanoseconds> nano_sys_tmpt;
+          typedef time_point<my_clock_t, nanoseconds> nano_sys_tmpt;
           return try_join_until(nano_sys_tmpt(ceil<nanoseconds>(t.time_since_epoch())));
         }
 #endif
@@ -513,7 +521,7 @@ namespace boost
         //}
 
 #ifdef BOOST_THREAD_USES_CHRONO
-        bool try_join_until(const chrono::time_point<chrono::system_clock, chrono::nanoseconds>& tp)
+        bool try_join_until(const chrono::time_point<my_clock_t, chrono::nanoseconds>& tp)
         {
           chrono::milliseconds rel_time= chrono::ceil<chrono::milliseconds>(tp-chrono::system_clock::now());
           return do_try_join_until(rel_time.count());

@@ -53,7 +53,7 @@ namespace boost
         auto_buffer<shared_ptr<void>, store_n_objects<10> > garbage;
         unique_lock<Mutex> lock;
       };
-
+      
       class connection_body_base
       {
       public:
@@ -104,7 +104,7 @@ namespace boost
         // Slot refcount should be incremented while
         // a signal invocation is using the slot, in order
         // to prevent slot from being destroyed mid-invocation.
-        // garbage_collecting_lock parameter enforces
+        // garbage_collecting_lock parameter enforces 
         // the existance of a lock before this
         // method is called
         template<typename Mutex>
@@ -113,7 +113,7 @@ namespace boost
           BOOST_ASSERT(m_slot_refcount != 0);
           ++m_slot_refcount;
         }
-        // if slot refcount decrements to zero due to this call,
+        // if slot refcount decrements to zero due to this call, 
         // it puts a
         // shared_ptr to the slot in the garbage collecting lock,
         // which will destroy the slot only after it unlocks.
@@ -210,7 +210,7 @@ namespace boost
       protected:
         virtual shared_ptr<void> release_slot() const
         {
-
+          
           shared_ptr<void> released_slot = m_slot;
           m_slot.reset();
           return released_slot;

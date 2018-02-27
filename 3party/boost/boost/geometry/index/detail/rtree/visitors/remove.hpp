@@ -97,6 +97,9 @@ public:
                 size_type relative_level = m_leafs_level - m_current_level;
 
                 // move node to the container - store node's relative level as well and return new underflow state
+                // NOTE: if the min elements number is 1, then after an underflow
+                //       here the child elements count is 0, so it's not required to store this node,
+                //       it could just be destroyed
                 m_is_underflow = store_underflowed_node(elements, underfl_el_it, relative_level);                       // MAY THROW (E: alloc, copy)
             }
 
@@ -120,10 +123,16 @@ public:
                 reinsert_removed_nodes_elements();                                                                  // MAY THROW (V, E: alloc, copy, N: alloc)
 
                 // shorten the tree
-                if ( rtree::elements(n).size() == 1 )
+                // NOTE: if the min elements number is 1, then after underflow
+                //       here the number of elements may be equal to 0
+                //       this can occur only for the last removed element
+                if ( rtree::elements(n).size() <= 1 )
                 {
                     node_pointer root_to_destroy = m_root_node;
-                    m_root_node = rtree::elements(n)[0].second;
+                    if ( rtree::elements(n).size() == 0 )
+                        m_root_node = 0;
+                    else
+                        m_root_node = rtree::elements(n)[0].second;
                     --m_leafs_level;
 
                     rtree::destroy_node<Allocators, internal_node>::apply(m_allocators, root_to_destroy);
@@ -161,7 +170,7 @@ public:
             if ( 0 != m_parent )
             {
                 rtree::elements(*m_parent)[m_current_child_index].first
-                    = rtree::elements_box<Box>(elements.begin(), elements.end(), m_translator);
+                    = rtree::values_box<Box>(elements.begin(), elements.end(), m_translator);
             }
         }
     }

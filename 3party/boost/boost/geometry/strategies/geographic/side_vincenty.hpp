@@ -2,8 +2,8 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2014, 2015.
-// Modifications copyright (c) 2014-2015 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014-2017.
+// Modifications copyright (c) 2014-2017 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -15,9 +15,7 @@
 #define BOOST_GEOMETRY_STRATEGIES_GEOGRAPHIC_SIDE_VINCENTY_HPP
 
 
-#include <boost/geometry/algorithms/detail/vincenty_inverse.hpp>
-
-#include <boost/geometry/strategies/geographic/side_detail.hpp>
+#include <boost/geometry/strategies/geographic/side.hpp>
 
 
 namespace boost { namespace geometry
@@ -31,17 +29,24 @@ namespace strategy { namespace side
 \brief Check at which side of a segment a point lies
          left of segment (> 0), right of segment (< 0), on segment (0)
 \ingroup strategies
-\tparam Model Reference model of coordinate system.
+\tparam Spheroid Reference model of coordinate system.
 \tparam CalculationType \tparam_calculation
  */
-template <typename Model, typename CalculationType = void>
+template
+<
+    typename Spheroid = srs::spheroid<double>,
+    typename CalculationType = void
+>
 class vincenty
-    : public detail::by_azimuth<geometry::detail::vincenty_inverse, Model, CalculationType>
+    : public side::geographic<strategy::vincenty, Spheroid, CalculationType>
 {
-    typedef detail::by_azimuth<geometry::detail::vincenty_inverse, Model, CalculationType> base_t;
+    typedef side::geographic<strategy::vincenty, Spheroid, CalculationType> base_t;
 
 public:
-    vincenty(Model const& model = Model())
+    vincenty()
+    {}
+
+    explicit vincenty(Spheroid const& model)
         : base_t(model)
     {}
 };

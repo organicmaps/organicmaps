@@ -361,8 +361,8 @@ distance(Geometry1 const& geometry1,
          Geometry2 const& geometry2,
          Strategy const& strategy)
 {
-    concept::check<Geometry1 const>();
-    concept::check<Geometry2 const>();
+    concepts::check<Geometry1 const>();
+    concepts::check<Geometry2 const>();
 
     detail::throw_on_empty_input(geometry1);
     detail::throw_on_empty_input(geometry2);
@@ -392,8 +392,8 @@ inline typename default_distance_result<Geometry1, Geometry2>::type
 distance(Geometry1 const& geometry1,
          Geometry2 const& geometry2)
 {
-    concept::check<Geometry1 const>();
-    concept::check<Geometry2 const>();
+    concepts::check<Geometry1 const>();
+    concepts::check<Geometry2 const>();
 
     return geometry::distance(geometry1, geometry2, default_strategy());
 }

@@ -20,7 +20,7 @@ namespace units {
 
 namespace cgs {
 
-typedef scaled_base_unit<boost::units::si::ampere_base_unit, scale<10, static_rational<-1> > > biot_base_unit;
+typedef scaled_base_unit<boost::units::si::ampere_base_unit, scale<10, static_rational<+1> > > biot_base_unit;
 
 } // namespace cgs 
 

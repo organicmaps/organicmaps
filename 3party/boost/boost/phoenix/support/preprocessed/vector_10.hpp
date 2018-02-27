@@ -13,6 +13,16 @@ namespace boost { namespace phoenix
         typedef mpl::int_<0> size_type;
         static const int size_value = 0;
     };
+    template <int> struct vector_chooser;
+    template <>
+    struct vector_chooser<0>
+    {
+        template <typename Dummy = void>
+        struct apply
+        {
+            typedef vector0<> type;
+        };
+    };
 }}
     
     
@@ -38,6 +48,15 @@ namespace boost { namespace phoenix
             args_type r = {};
             return r;
         }
+    };
+    template <>
+    struct vector_chooser<1>
+    {
+        template <typename A0>
+        struct apply
+        {
+            typedef vector1<A0> type;
+        };
     };
 }}
 BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(
@@ -70,6 +89,15 @@ namespace boost { namespace phoenix
             return r;
         }
     };
+    template <>
+    struct vector_chooser<2>
+    {
+        template <typename A0 , typename A1>
+        struct apply
+        {
+            typedef vector2<A0 , A1> type;
+        };
+    };
 }}
 BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(
     (A0) (A1)
@@ -100,6 +128,15 @@ namespace boost { namespace phoenix
             args_type r = {a1 , a2};
             return r;
         }
+    };
+    template <>
+    struct vector_chooser<3>
+    {
+        template <typename A0 , typename A1 , typename A2>
+        struct apply
+        {
+            typedef vector3<A0 , A1 , A2> type;
+        };
     };
 }}
 BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(
@@ -132,6 +169,15 @@ namespace boost { namespace phoenix
             return r;
         }
     };
+    template <>
+    struct vector_chooser<4>
+    {
+        template <typename A0 , typename A1 , typename A2 , typename A3>
+        struct apply
+        {
+            typedef vector4<A0 , A1 , A2 , A3> type;
+        };
+    };
 }}
 BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(
     (A0) (A1) (A2) (A3)
@@ -162,6 +208,15 @@ namespace boost { namespace phoenix
             args_type r = {a1 , a2 , a3 , a4};
             return r;
         }
+    };
+    template <>
+    struct vector_chooser<5>
+    {
+        template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        struct apply
+        {
+            typedef vector5<A0 , A1 , A2 , A3 , A4> type;
+        };
     };
 }}
 BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(
@@ -194,6 +249,15 @@ namespace boost { namespace phoenix
             return r;
         }
     };
+    template <>
+    struct vector_chooser<6>
+    {
+        template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        struct apply
+        {
+            typedef vector6<A0 , A1 , A2 , A3 , A4 , A5> type;
+        };
+    };
 }}
 BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(
     (A0) (A1) (A2) (A3) (A4) (A5)
@@ -224,6 +288,15 @@ namespace boost { namespace phoenix
             args_type r = {a1 , a2 , a3 , a4 , a5 , a6};
             return r;
         }
+    };
+    template <>
+    struct vector_chooser<7>
+    {
+        template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        struct apply
+        {
+            typedef vector7<A0 , A1 , A2 , A3 , A4 , A5 , A6> type;
+        };
     };
 }}
 BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(
@@ -256,6 +329,15 @@ namespace boost { namespace phoenix
             return r;
         }
     };
+    template <>
+    struct vector_chooser<8>
+    {
+        template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        struct apply
+        {
+            typedef vector8<A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7> type;
+        };
+    };
 }}
 BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(
     (A0) (A1) (A2) (A3) (A4) (A5) (A6) (A7)
@@ -286,6 +368,15 @@ namespace boost { namespace phoenix
             args_type r = {a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8};
             return r;
         }
+    };
+    template <>
+    struct vector_chooser<9>
+    {
+        template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        struct apply
+        {
+            typedef vector9<A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8> type;
+        };
     };
 }}
 BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(
@@ -318,6 +409,15 @@ namespace boost { namespace phoenix
             return r;
         }
     };
+    template <>
+    struct vector_chooser<10>
+    {
+        template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9>
+        struct apply
+        {
+            typedef vector10<A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9> type;
+        };
+    };
 }}
 BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(
     (A0) (A1) (A2) (A3) (A4) (A5) (A6) (A7) (A8) (A9)
@@ -348,6 +448,15 @@ namespace boost { namespace phoenix
             args_type r = {a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , a10};
             return r;
         }
+    };
+    template <>
+    struct vector_chooser<11>
+    {
+        template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9 , typename A10>
+        struct apply
+        {
+            typedef vector11<A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10> type;
+        };
     };
 }}
 BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(

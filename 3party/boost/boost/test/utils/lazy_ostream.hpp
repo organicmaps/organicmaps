@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2008-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -122,8 +122,6 @@ operator<<( lazy_ostream_impl<PrevPrevType,TPrev> const& prev, R& (BOOST_TEST_CA
 
 } // namespace unit_test
 } // namespace boost
-
-//____________________________________________________________________________//
 
 #include <boost/test/detail/enable_warnings.hpp>
 

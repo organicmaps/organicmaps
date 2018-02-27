@@ -1,6 +1,6 @@
 //  tagged pointer, for aba prevention
 //
-//  Copyright (C) 2008 Tim Blechmann
+//  Copyright (C) 2008, 2016 Tim Blechmann
 //
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
@@ -12,14 +12,16 @@
 #include <cstddef>              /* for std::size_t */
 #include <limits>
 
-#include <boost/lockfree/detail/branch_hints.hpp>
+#include <boost/predef.h>
 
-namespace boost {
+namespace boost    {
 namespace lockfree {
-namespace detail {
+namespace detail   {
+
+
 
 template <class T>
-class BOOST_LOCKFREE_DCAS_ALIGNMENT tagged_ptr
+class BOOST_ALIGNMENT(2 * sizeof(void*)) tagged_ptr
 {
 public:
     typedef std::size_t tag_t;

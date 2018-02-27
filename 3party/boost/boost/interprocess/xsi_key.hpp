@@ -46,7 +46,8 @@ namespace boost {
 namespace interprocess {
 
 //!A class that wraps XSI (System V) key_t type.
-//!This type calculates key_t from path and id using ftok
+//!This type calculates key_t from path and id using ftok,
+//!sets key to a specified value,
 //!or sets key to IPC_PRIVATE using the default constructor.
 class xsi_key
 {
@@ -56,6 +57,11 @@ class xsi_key
    //!Represents a private xsi_key.
    xsi_key()
       : m_key(IPC_PRIVATE)
+   {}
+
+   //!Creates a new XSI key using a specified value. Constructor is explicit to avoid ambiguity with shmid.
+   explicit xsi_key(key_t key)
+      : m_key(key)
    {}
 
    //!Creates a new XSI  shared memory with a key obtained from a call to ftok (with path

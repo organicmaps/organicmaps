@@ -107,12 +107,24 @@ struct is_same
 {
    static const bool value = false;
 };
-
+ 
 template<class T>
 struct is_same<T, T>
 {
    static const bool value = true;
 };
+
+//////////////////////////////////////
+//        enable_if_same
+//////////////////////////////////////
+template <class T, class U, class R = void>
+struct enable_if_same : enable_if<is_same<T, U>, R> {};
+
+//////////////////////////////////////
+//        disable_if_same
+//////////////////////////////////////
+template <class T, class U, class R = void>
+struct disable_if_same : disable_if<is_same<T, U>, R> {};
 
 }  //namespace move_detail {
 }  //namespace boost {

@@ -46,7 +46,7 @@ namespace detail {
 /////////////////////////////////////////////////////////////////////////
 // class basic_text_iarchive - read serialized objects from a input text stream
 template<class Archive>
-class BOOST_SYMBOL_VISIBLE basic_text_iarchive :
+class BOOST_SYMBOL_VISIBLE basic_text_iarchive : 
     public detail::common_iarchive<Archive>
 {
 #ifdef BOOST_NO_MEMBER_TEMPLATE_FRIENDS

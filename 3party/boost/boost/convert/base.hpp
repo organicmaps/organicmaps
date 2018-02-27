@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2014 Vladimir Batov.
+// Copyright (c) 2009-2016 Vladimir Batov.
 // Use, modification and distribution are subject to the Boost Software License,
 // Version 1.0. See http://www.boost.org/LICENSE_1_0.txt.
 
@@ -33,18 +33,18 @@ namespace boost { namespace cnv
 template<typename derived_type>
 struct boost::cnv::cnvbase
 {
-    typedef cnvbase                  this_type;
-    typedef int                       int_type;
-    typedef unsigned int             uint_type;
-    typedef long int                 lint_type;
-    typedef unsigned long int       ulint_type;
-    typedef short int                sint_type;
-    typedef unsigned short int      usint_type;
-    typedef long long int           llint_type;
-    typedef unsigned long long int ullint_type;
-    typedef float                     flt_type;
-    typedef double                    dbl_type;
-    typedef long double              ldbl_type;
+    using   this_type = cnvbase;
+    using    int_type = int;
+    using   uint_type = unsigned int;
+    using   lint_type = long int;
+    using  ulint_type = unsigned long int;
+    using   sint_type = short int;
+    using  usint_type = unsigned short int;
+    using  llint_type = long long int;
+    using ullint_type = unsigned long long int;
+    using    flt_type = float;
+    using    dbl_type = double;
+    using   ldbl_type = long double;
 
     // Integration of user-types via operator>>()
     template<typename type_in, typename type_out>
@@ -55,25 +55,29 @@ struct boost::cnv::cnvbase
     }
 
     // Basic type to string
-    BOOST_CNV_TO_STRING (  int_type v, optional<string_type>& r) const { to_str_(v, r); }
-    BOOST_CNV_TO_STRING ( uint_type v, optional<string_type>& r) const { to_str_(v, r); }
-    BOOST_CNV_TO_STRING ( lint_type v, optional<string_type>& r) const { to_str_(v, r); }
-    BOOST_CNV_TO_STRING (ulint_type v, optional<string_type>& r) const { to_str_(v, r); }
-    BOOST_CNV_TO_STRING ( sint_type v, optional<string_type>& r) const { to_str_(v, r); }
-    BOOST_CNV_TO_STRING (usint_type v, optional<string_type>& r) const { to_str_(v, r); }
-    BOOST_CNV_TO_STRING (  flt_type v, optional<string_type>& r) const { to_str_(v, r); }
-    BOOST_CNV_TO_STRING (  dbl_type v, optional<string_type>& r) const { to_str_(v, r); }
-    BOOST_CNV_TO_STRING ( ldbl_type v, optional<string_type>& r) const { to_str_(v, r); }
+    BOOST_CNV_TO_STRING (   int_type v, optional<string_type>& r) const { to_str_(v, r); }
+    BOOST_CNV_TO_STRING (  uint_type v, optional<string_type>& r) const { to_str_(v, r); }
+    BOOST_CNV_TO_STRING (  lint_type v, optional<string_type>& r) const { to_str_(v, r); }
+    BOOST_CNV_TO_STRING ( llint_type v, optional<string_type>& r) const { to_str_(v, r); }
+    BOOST_CNV_TO_STRING ( ulint_type v, optional<string_type>& r) const { to_str_(v, r); }
+    BOOST_CNV_TO_STRING (ullint_type v, optional<string_type>& r) const { to_str_(v, r); }
+    BOOST_CNV_TO_STRING (  sint_type v, optional<string_type>& r) const { to_str_(v, r); }
+    BOOST_CNV_TO_STRING ( usint_type v, optional<string_type>& r) const { to_str_(v, r); }
+    BOOST_CNV_TO_STRING (   flt_type v, optional<string_type>& r) const { to_str_(v, r); }
+    BOOST_CNV_TO_STRING (   dbl_type v, optional<string_type>& r) const { to_str_(v, r); }
+    BOOST_CNV_TO_STRING (  ldbl_type v, optional<string_type>& r) const { to_str_(v, r); }
     // String to basic type
-    BOOST_CNV_STRING_TO (string_type const& s, optional<  int_type>& r) const { str_to_(s, r); }
-    BOOST_CNV_STRING_TO (string_type const& s, optional< uint_type>& r) const { str_to_(s, r); }
-    BOOST_CNV_STRING_TO (string_type const& s, optional< lint_type>& r) const { str_to_(s, r); }
-    BOOST_CNV_STRING_TO (string_type const& s, optional<ulint_type>& r) const { str_to_(s, r); }
-    BOOST_CNV_STRING_TO (string_type const& s, optional< sint_type>& r) const { str_to_(s, r); }
-    BOOST_CNV_STRING_TO (string_type const& s, optional<usint_type>& r) const { str_to_(s, r); }
-    BOOST_CNV_STRING_TO (string_type const& s, optional<  flt_type>& r) const { str_to_(s, r); }
-    BOOST_CNV_STRING_TO (string_type const& s, optional<  dbl_type>& r) const { str_to_(s, r); }
-    BOOST_CNV_STRING_TO (string_type const& s, optional< ldbl_type>& r) const { str_to_(s, r); }
+    BOOST_CNV_STRING_TO (string_type const& s, optional<   int_type>& r) const { str_to_(s, r); }
+    BOOST_CNV_STRING_TO (string_type const& s, optional<  uint_type>& r) const { str_to_(s, r); }
+    BOOST_CNV_STRING_TO (string_type const& s, optional<  lint_type>& r) const { str_to_(s, r); }
+    BOOST_CNV_STRING_TO (string_type const& s, optional< llint_type>& r) const { str_to_(s, r); }
+    BOOST_CNV_STRING_TO (string_type const& s, optional< ulint_type>& r) const { str_to_(s, r); }
+    BOOST_CNV_STRING_TO (string_type const& s, optional<ullint_type>& r) const { str_to_(s, r); }
+    BOOST_CNV_STRING_TO (string_type const& s, optional<  sint_type>& r) const { str_to_(s, r); }
+    BOOST_CNV_STRING_TO (string_type const& s, optional< usint_type>& r) const { str_to_(s, r); }
+    BOOST_CNV_STRING_TO (string_type const& s, optional<   flt_type>& r) const { str_to_(s, r); }
+    BOOST_CNV_STRING_TO (string_type const& s, optional<   dbl_type>& r) const { str_to_(s, r); }
+    BOOST_CNV_STRING_TO (string_type const& s, optional<  ldbl_type>& r) const { str_to_(s, r); }
     // Formatters
 //  BOOST_CNV_PARAM (locale,  std::locale const) { locale_    = arg[ARG::   locale]; return dncast(); }
     BOOST_CNV_PARAM (base,     base::type const) { base_      = arg[ARG::     base]; return dncast(); }
@@ -102,10 +106,19 @@ struct boost::cnv::cnvbase
     void
     str_to_(string_type const& str, optional<out_type>& result_out) const
     {
-        cnv::range<string_type const> range (str);
+        using range_type = cnv::range<string_type const>;
+        using  char_type = typename range_type::value_type;
 
-        /**/ if (skipws_) for (; std::isspace(*range.begin()); ++range);
-        else if (std::isspace(*range.begin())) return;
+        range_type range (str);
+        auto    is_space = [](char_type ch)
+        {
+            return std::isspace(static_cast<unsigned char>(ch));
+        };
+        if (skipws_)
+            for (; !range.empty() && is_space(*range.begin()); ++range);
+
+        if (range.empty())            return;
+        if (is_space(*range.begin())) return;
 
         dncast().str_to(range, result_out);
     }
@@ -113,7 +126,8 @@ struct boost::cnv::cnvbase
     void
     to_str_(in_type value_in, optional<string_type>& result_out) const
     {
-        typedef typename cnv::range<string_type>::value_type char_type;
+        using range_type = cnv::range<string_type>;
+        using  char_type = typename range_type::value_type;
 
         char_type buf[bufsize_];
         cnv::range<char_type*> range = dncast().to_str(value_in, buf);
@@ -121,11 +135,7 @@ struct boost::cnv::cnvbase
         char_type*               end = range.end();
 
         if (beg < end)
-        {
-            format_(buf, beg, end);
-
-            result_out = string_type(beg, end);
-        }
+            format_(buf, beg, end), result_out = string_type(beg, end);
     }
 
     template<typename char_type>
@@ -133,19 +143,18 @@ struct boost::cnv::cnvbase
     format_(char_type* buf, char_type*& beg, char_type*& end) const
     {
         if (uppercase_)
-        {
             for (char_type* p = beg; p < end; ++p) *p = std::toupper(*p);
-        }
+
         if (width_)
         {
-            int const num_fillers = (std::max)(0, int(width_ - (end - beg)));
-            int const    num_left = adjust_ == boost::cnv::adjust::left ? 0
-                                  : adjust_ == boost::cnv::adjust::right ? num_fillers
-                                  : (num_fillers / 2);
-            int const   num_right = num_fillers - num_left;
-            int const    str_size = end - beg;
-            bool const       move = (beg < buf + num_left) // No room for left fillers
-                                 || (buf + bufsize_ < end + num_right); // No room for right fillers
+            int num_fillers = (std::max)(0, int(width_ - (end - beg)));
+            int    num_left = adjust_ == boost::cnv::adjust::left ? 0
+                            : adjust_ == boost::cnv::adjust::right ? num_fillers
+                            : (num_fillers / 2);
+            int   num_right = num_fillers - num_left;
+            int    str_size = end - beg;
+            bool       move = (beg < buf + num_left) // No room for left fillers
+                           || (buf + bufsize_ < end + num_right); // No room for right fillers
             if (move)
             {
                 std::memmove(buf + num_left, beg, str_size * sizeof(char_type));
@@ -162,7 +171,7 @@ struct boost::cnv::cnvbase
 
     // ULONG_MAX(8 bytes) = 18446744073709551615 (20(10) or 32(2) characters)
     // double (8 bytes) max is 316 chars
-    static int const bufsize_ = 1024;
+    static int const bufsize_ = 512;
     int                 base_;
     bool              skipws_;
     int            precision_;

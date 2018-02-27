@@ -7,7 +7,7 @@
  [end_description]
 
  Copyright 2011-2013 Karsten Ahnert
- Copyright 2011-2012 Mario Mulansky
+ Copyright 2011-2015 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -34,35 +34,80 @@ namespace odeint {
  *
  * the two overloads are needed in order to solve the forwarding problem
  */
-template< class Stepper , class System , class State , class Time , class Observer>
+template< class Stepper , class System , class State , class Time , class Observer , class StepOverflowChecker >
 Time integrate_n_steps(
         Stepper stepper , System system , State &start_state ,
         Time start_time , Time dt , size_t num_of_steps ,
-        Observer observer )
+        Observer observer , StepOverflowChecker checker )
 {
-    typedef typename odeint::unwrap_reference< Stepper >::type::stepper_category stepper_category;
+    // unwrap references
+    typedef typename odeint::unwrap_reference< Stepper >::type stepper_type;
+    typedef typename odeint::unwrap_reference< Observer >::type observer_type;
+    typedef typename odeint::unwrap_reference< StepOverflowChecker >::type checker_type;
+    typedef typename stepper_type::stepper_category stepper_category;
+
     return detail::integrate_n_steps(
-                stepper , system , start_state ,
+                checked_stepper<stepper_type, checker_type>(stepper, checker),
+                system , start_state ,
                 start_time , dt , num_of_steps ,
-                observer , stepper_category() );
+                checked_observer<observer_type, checker_type>(observer, checker),
+                stepper_category() );
 }
 
 /**
  * \brief Solves the forwarding problem, can be called with Boost.Range as start_state.
  */
-template< class Stepper , class System , class State , class Time , class Observer >
+template< class Stepper , class System , class State , class Time , class Observer , class StepOverflowChecker >
 Time integrate_n_steps(
         Stepper stepper , System system , const State &start_state ,
         Time start_time , Time dt , size_t num_of_steps ,
-        Observer observer )
+        Observer observer , StepOverflowChecker checker )
 {
-    typedef typename odeint::unwrap_reference< Stepper >::type::stepper_category stepper_category;
+    typedef typename odeint::unwrap_reference< Stepper >::type stepper_type;
+    typedef typename odeint::unwrap_reference< Observer >::type observer_type;
+    typedef typename odeint::unwrap_reference< StepOverflowChecker >::type checker_type;
+    typedef typename stepper_type::stepper_category stepper_category;
+
     return detail::integrate_n_steps(
-                 stepper , system , start_state ,
-                 start_time , dt , num_of_steps ,
-                 observer , stepper_category() );
+            checked_stepper<stepper_type, checker_type>(stepper, checker),
+            system , start_state ,
+            start_time , dt , num_of_steps ,
+            checked_observer<observer_type, checker_type>(observer, checker),
+            stepper_category() );
 }
 
+
+/**
+* \brief The same function as above, but without checker.
+*/
+template< class Stepper , class System , class State , class Time , class Observer >
+Time integrate_n_steps(
+        Stepper stepper , System system , State &start_state ,
+        Time start_time , Time dt , size_t num_of_steps , Observer observer )
+{
+    typedef typename odeint::unwrap_reference<Stepper>::type::stepper_category stepper_category;
+
+    return detail::integrate_n_steps(
+            stepper , system , start_state ,
+            start_time , dt , num_of_steps ,
+            observer , stepper_category() );
+}
+
+/**
+* \brief Solves the forwarding problem, can be called with Boost.Range as start_state.
+*/
+template< class Stepper , class System , class State , class Time , class Observer >
+Time integrate_n_steps(
+        Stepper stepper , System system , const State &start_state ,
+        Time start_time , Time dt , size_t num_of_steps , Observer observer )
+{
+    typedef typename odeint::unwrap_reference<Stepper>::type::stepper_category stepper_category;
+
+    return detail::integrate_n_steps(
+            stepper , system , start_state ,
+            start_time , dt , num_of_steps ,
+            observer , stepper_category() );
+}
 
 /**
  * \brief The same function as above, but without observer calls.
@@ -72,7 +117,8 @@ Time integrate_n_steps(
         Stepper stepper , System system , State &start_state ,
         Time start_time , Time dt , size_t num_of_steps )
 {
-    return integrate_n_steps( stepper , system , start_state , start_time , dt , num_of_steps , null_observer() );
+    return integrate_n_steps(stepper, system, start_state, start_time,
+                             dt, num_of_steps, null_observer());
 }
 
 /**
@@ -83,7 +129,8 @@ Time integrate_n_steps(
         Stepper stepper , System system , const State &start_state ,
         Time start_time , Time dt , size_t num_of_steps )
 {
-    return integrate_n_steps( stepper , system , start_state , start_time , dt , num_of_steps , null_observer() );
+    return integrate_n_steps(stepper, system, start_state, start_time,
+                             dt, num_of_steps, null_observer());
 }
 
 
@@ -102,6 +149,11 @@ Time integrate_n_steps(
      * t0 + n*dt. If a DenseOutputStepper is used, the step size also may vary
      * and the dense output is used to call the observer at equidistant time
      * points. The final integration time is always t0 + num_of_steps*dt.
+     * If a max_step_checker is provided as StepOverflowChecker, a
+     * no_progress_errror is thrown if too many steps (default: 500) are
+     * performed without progress, i.e. in between observer calls. If no
+     * checker is provided, no such overflow check is performed.
+
      *
      * \param stepper The stepper to be used for numerical integration.
      * \param system Function/Functor defining the rhs of the ODE.
@@ -111,6 +163,8 @@ Time integrate_n_steps(
      * time step of the integration.
      * \param num_of_steps Number of steps to be performed
      * \param observer Function/Functor called at equidistant time intervals.
+     * \param checker [optional] Functor to check for step count overflows, if no
+     * checker is provided, no exception is thrown.
      * \return The number of steps performed.
      */
 

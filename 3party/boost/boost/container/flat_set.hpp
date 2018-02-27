@@ -47,6 +47,11 @@
 namespace boost {
 namespace container {
 
+#if !defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
+template <class Key, class T, class Compare, class Allocator>
+class flat_multimap;
+#endif
+
 //! flat_set is a Sorted Associative Container that stores objects of type Key.
 //! It is also a Unique Associative Container, meaning that no two elements are the same.
 //!
@@ -69,13 +74,21 @@ template <class Key, class Compare, class Allocator>
 #endif
 class flat_set
    ///@cond
-   : public container_detail::flat_tree<Key, Key, container_detail::identity<Key>, Compare, Allocator>
+   : public container_detail::flat_tree<Key, container_detail::identity<Key>, Compare, Allocator>
    ///@endcond
 {
    #ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
    private:
    BOOST_COPYABLE_AND_MOVABLE(flat_set)
-   typedef container_detail::flat_tree<Key, Key, container_detail::identity<Key>, Compare, Allocator> base_t;
+   typedef container_detail::flat_tree<Key, container_detail::identity<Key>, Compare, Allocator> base_t;
+
+   public:
+   base_t &tree()
+   {  return *this;  }
+
+   const base_t &tree() const
+   {  return *this;  }
+
    #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
    public:
@@ -112,7 +125,8 @@ class flat_set
    //! <b>Effects</b>: Default constructs an empty container.
    //!
    //! <b>Complexity</b>: Constant.
-   explicit flat_set()
+   explicit flat_set() BOOST_NOEXCEPT_IF(container_detail::is_nothrow_default_constructible<Allocator>::value &&
+                                         container_detail::is_nothrow_default_constructible<Compare>::value)
       : base_t()
    {}
 
@@ -168,7 +182,7 @@ class flat_set
    flat_set(ordered_unique_range_t, InputIterator first, InputIterator last,
             const Compare& comp = Compare(),
             const allocator_type& a = allocator_type())
-      : base_t(ordered_range, first, last, comp, a)
+      : base_t(ordered_unique_range, first, last, comp, a)
    {}
 
 #if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
@@ -203,7 +217,7 @@ class flat_set
    //! <b>Note</b>: Non-standard extension.
    flat_set(ordered_unique_range_t, std::initializer_list<value_type> il,
             const Compare& comp = Compare(), const allocator_type& a = allocator_type())
-      : base_t(ordered_range, il.begin(), il.end(), comp, a)
+      : base_t(ordered_unique_range, il.begin(), il.end(), comp, a)
    {}
 #endif
 
@@ -220,6 +234,7 @@ class flat_set
    //!
    //! <b>Postcondition</b>: x is emptied.
    flat_set(BOOST_RV_REF(flat_set) x)
+      BOOST_NOEXCEPT_IF(boost::container::container_detail::is_nothrow_move_constructible<Compare>::value)
       : base_t(BOOST_MOVE_BASE(base_t, x))
    {}
 
@@ -251,8 +266,9 @@ class flat_set
    //!   propagate_on_container_move_assignment is true or
    //!   this->get>allocator() == x.get_allocator(). Linear otherwise.
    flat_set& operator=(BOOST_RV_REF(flat_set) x)
-      BOOST_NOEXCEPT_IF(  allocator_traits_type::is_always_equal::value
-                                 && boost::container::container_detail::is_nothrow_move_assignable<Compare>::value )
+      BOOST_NOEXCEPT_IF( (allocator_traits_type::propagate_on_container_move_assignment::value ||
+                          allocator_traits_type::is_always_equal::value) &&
+                           boost::container::container_detail::is_nothrow_move_assignable<Compare>::value)
    {  return static_cast<flat_set&>(this->base_t::operator=(BOOST_MOVE_BASE(base_t, x)));  }
 
 #if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
@@ -602,6 +618,26 @@ class flat_set
    {  this->base_t::insert_unique(ordered_unique_range, il.begin(), il.end()); }
 #endif
 
+   //! @copydoc ::boost::container::flat_map::merge(flat_map<Key, T, C2, Allocator>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(flat_set<Key, C2, Allocator>& source)
+   {  this->base_t::merge_unique(source.tree());   }
+
+   //! @copydoc ::boost::container::flat_map::merge(flat_set<Key, C2, Allocator>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(BOOST_RV_REF_BEG flat_set<Key, C2, Allocator> BOOST_RV_REF_END source)
+   {  return this->merge(static_cast<flat_set<Key, C2, Allocator>&>(source));   }
+
+   //! @copydoc ::boost::container::flat_map::merge(flat_multimap<Key, T, C2, Allocator>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(flat_multiset<Key, C2, Allocator>& source)
+   {  this->base_t::merge_unique(source.tree());   }
+
+   //! @copydoc ::boost::container::flat_map::merge(flat_multiset<Key, C2, Allocator>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(BOOST_RV_REF_BEG flat_multiset<Key, C2, Allocator> BOOST_RV_REF_END source)
+   {  return this->merge(static_cast<flat_multiset<Key, C2, Allocator>&>(source));   }
+
    #if defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
 
    //! <b>Effects</b>: Erases the element pointed to by p.
@@ -700,11 +736,10 @@ class flat_set
    //! <b>Note</b>: Non-standard extension
    const_iterator nth(size_type n) const BOOST_NOEXCEPT_OR_NOTHROW;
 
-   //! <b>Requires</b>: size() >= n.
+   //! <b>Requires</b>: begin() <= p <= end().
    //!
-   //! <b>Effects</b>: Returns an iterator to the nth element
-   //!   from the beginning of the container. Returns end()
-   //!   if n == size().
+   //! <b>Effects</b>: Returns the index of the element pointed by p
+   //!   and size() if p == end().
    //!
    //! <b>Throws</b>: Nothing.
    //!
@@ -865,13 +900,20 @@ template <class Key, class Compare, class Allocator>
 #endif
 class flat_multiset
    ///@cond
-   : public container_detail::flat_tree<Key, Key, container_detail::identity<Key>, Compare, Allocator>
+   : public container_detail::flat_tree<Key, container_detail::identity<Key>, Compare, Allocator>
    ///@endcond
 {
    #ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
    private:
    BOOST_COPYABLE_AND_MOVABLE(flat_multiset)
-   typedef container_detail::flat_tree<Key, Key, container_detail::identity<Key>, Compare, Allocator> base_t;
+   typedef container_detail::flat_tree<Key, container_detail::identity<Key>, Compare, Allocator> base_t;
+
+   public:
+   base_t &tree()
+   {  return *this;  }
+
+   const base_t &tree() const
+   {  return *this;  }
    #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
    public:
@@ -899,7 +941,8 @@ class flat_multiset
    typedef typename BOOST_CONTAINER_IMPDEF(base_t::const_reverse_iterator)             const_reverse_iterator;
 
    //! @copydoc ::boost::container::flat_set::flat_set()
-   explicit flat_multiset()
+   explicit flat_multiset() BOOST_NOEXCEPT_IF(container_detail::is_nothrow_default_constructible<Allocator>::value &&
+                                              container_detail::is_nothrow_default_constructible<Compare>::value)
       : base_t()
    {}
 
@@ -956,8 +999,16 @@ class flat_multiset
       : base_t(false, il.begin(), il.end(), Compare(), a)
    {}
 
-   //! @copydoc ::boost::container::flat_set::flat_set(ordered_unique_range_t, std::initializer_list<value_type>, const Compare& comp, const allocator_type&)
-   flat_multiset(ordered_unique_range_t, std::initializer_list<value_type> il,
+   //! <b>Effects</b>: Constructs an empty container using the specified comparison object and
+   //! allocator, and inserts elements from the ordered unique range [il.begin(), il.end()). This function
+   //! is more efficient than the normal range creation for ordered ranges.
+   //!
+   //! <b>Requires</b>: [il.begin(), il.end()) must be ordered according to the predicate.
+   //!
+   //! <b>Complexity</b>: Linear in N.
+   //!
+   //! <b>Note</b>: Non-standard extension.
+   flat_multiset(ordered_range_t, std::initializer_list<value_type> il,
             const Compare& comp = Compare(), const allocator_type& a = allocator_type())
       : base_t(ordered_range, il.begin(), il.end(), comp, a)
    {}
@@ -968,17 +1019,18 @@ class flat_multiset
       : base_t(static_cast<const base_t&>(x))
    {}
 
-   //! @copydoc ::boost::container::flat_set(flat_set &&)
+   //! @copydoc ::boost::container::flat_set::flat_set(flat_set &&)
    flat_multiset(BOOST_RV_REF(flat_multiset) x)
+      BOOST_NOEXCEPT_IF(boost::container::container_detail::is_nothrow_move_constructible<Compare>::value)
       : base_t(boost::move(static_cast<base_t&>(x)))
    {}
 
-   //! @copydoc ::boost::container::flat_set(const flat_set &, const allocator_type &)
+   //! @copydoc ::boost::container::flat_set::flat_set(const flat_set &, const allocator_type &)
    flat_multiset(const flat_multiset& x, const allocator_type &a)
       : base_t(static_cast<const base_t&>(x), a)
    {}
 
-   //! @copydoc ::boost::container::flat_set(flat_set &&, const allocator_type &)
+   //! @copydoc ::boost::container::flat_set::flat_set(flat_set &&, const allocator_type &)
    flat_multiset(BOOST_RV_REF(flat_multiset) x, const allocator_type &a)
       : base_t(BOOST_MOVE_BASE(base_t, x), a)
    {}
@@ -989,8 +1041,9 @@ class flat_multiset
 
    //! @copydoc ::boost::container::flat_set::operator=(flat_set &&)
    flat_multiset& operator=(BOOST_RV_REF(flat_multiset) x)
-      BOOST_NOEXCEPT_IF(  allocator_traits_type::is_always_equal::value
-                                 && boost::container::container_detail::is_nothrow_move_assignable<Compare>::value )
+      BOOST_NOEXCEPT_IF( (allocator_traits_type::propagate_on_container_move_assignment::value ||
+                          allocator_traits_type::is_always_equal::value) &&
+                           boost::container::container_detail::is_nothrow_move_assignable<Compare>::value)
    {  return static_cast<flat_multiset&>(this->base_t::operator=(BOOST_MOVE_BASE(base_t, x)));  }
 
 #if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
@@ -1219,6 +1272,26 @@ class flat_multiset
    void insert(ordered_range_t, std::initializer_list<value_type> il)
    {  this->base_t::insert_equal(ordered_range, il.begin(), il.end()); }
 #endif
+
+   //! @copydoc ::boost::container::flat_multimap::merge(flat_multimap<Key, T, C2, Allocator>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(flat_multiset<Key, C2, Allocator>& source)
+   {  this->base_t::merge_equal(source.tree());   }
+
+   //! @copydoc ::boost::container::flat_multiset::merge(flat_multiset<Key, C2, Allocator>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(BOOST_RV_REF_BEG flat_multiset<Key, C2, Allocator> BOOST_RV_REF_END source)
+   {  return this->merge(static_cast<flat_multiset<Key, C2, Allocator>&>(source));   }
+
+   //! @copydoc ::boost::container::flat_multimap::merge(flat_map<Key, T, C2, Allocator>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(flat_set<Key, C2, Allocator>& source)
+   {  this->base_t::merge_equal(source.tree());   }
+
+   //! @copydoc ::boost::container::flat_multiset::merge(flat_set<Key, C2, Allocator>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(BOOST_RV_REF_BEG flat_set<Key, C2, Allocator> BOOST_RV_REF_END source)
+   {  return this->merge(static_cast<flat_set<Key, C2, Allocator>&>(source));   }
 
    #if defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
 

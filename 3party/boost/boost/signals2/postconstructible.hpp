@@ -37,7 +37,7 @@ namespace boost
       public:
         friend void detail::do_postconstruct(const postconstructible *ptr);
         template<typename T>
-          friend void adl_postconstruct(const shared_ptr<T> &sp, postconstructible *p)
+          friend void adl_postconstruct(const shared_ptr<T> &, postconstructible *p)
         {
           p->postconstruct();
         }

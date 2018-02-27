@@ -145,7 +145,7 @@ namespace boost {
         typename basic_altstringbuf<Ch, Tr, Alloc>::pos_type 
         basic_altstringbuf<Ch, Tr, Alloc>:: 
         seekpos (pos_type pos, ::std::ios_base::openmode which) {
-            off_type off = off_type(pos); // operation guaranteed by 27.4.3.2 table 88
+            off_type off = off_type(pos); // operation guaranteed by fpos.operations table 127
             if(pptr() != NULL && putend_ < pptr())
                 putend_ = pptr();
             if(off != off_type(-1)) {
@@ -173,7 +173,7 @@ namespace boost {
                 return (pos_type(off));
             }
             else {
-                BOOST_ASSERT(0); // §27.4.3.2 allows undefined-behaviour here
+                BOOST_ASSERT(0); // fpos.operations allows undefined-behaviour here
                 return pos_type(off_type(-1));
             }
         }

@@ -251,6 +251,33 @@ class splaytree_algorithms
       bstree_algo::erase(header, z);
    }
 
+   //! @copydoc ::boost::intrusive::bstree_algorithms::transfer_unique
+   template<class NodePtrCompare>
+   static bool transfer_unique
+      (const node_ptr & header1, NodePtrCompare comp, const node_ptr &header2, const node_ptr & z)
+   {
+      typename bstree_algo::insert_commit_data commit_data;
+      bool const transferable = bstree_algo::insert_unique_check(header1, z, comp, commit_data).second;
+      if(transferable){
+         erase(header2, z);
+         bstree_algo::insert_commit(header1, z, commit_data);
+         splay_up(z, header1);
+      }
+      return transferable;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::transfer_equal
+   template<class NodePtrCompare>
+   static void transfer_equal
+      (const node_ptr & header1, NodePtrCompare comp, const node_ptr &header2, const node_ptr & z)
+   {
+      insert_commit_data commit_data;
+      splay_down(header1, z, comp);
+      bstree_algo::insert_equal_upper_bound_check(header1, z, comp, commit_data);
+      erase(header2, z);
+      bstree_algo::insert_commit(header1, z, commit_data);
+   }
+
    #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
    //! @copydoc ::boost::intrusive::bstree_algorithms::clone(const const_node_ptr&,const node_ptr&,Cloner,Disposer)
    template <class Cloner, class Disposer>

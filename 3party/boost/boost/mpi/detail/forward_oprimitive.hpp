@@ -43,7 +43,7 @@ public:
     
     /// saving of arrays is forwarded to the implementation archive
     template<class T>
-    void save_array(serialization::array<T> const& x, unsigned int file_version )
+    void save_array(serialization::array_wrapper<T> const& x, unsigned int file_version )
     {
       implementation_archive.save_array(x,file_version);
     }

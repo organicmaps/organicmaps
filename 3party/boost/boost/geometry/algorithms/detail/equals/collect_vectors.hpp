@@ -3,7 +3,12 @@
 // Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
 // Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
-// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2014-2017 Adam Wulkiewicz, Lodz, Poland.
+
+// This file was modified by Oracle on 2017.
+// Modifications copyright (c) 2017 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -19,45 +24,95 @@
 #include <boost/numeric/conversion/cast.hpp>
 
 #include <boost/geometry/algorithms/detail/interior_iterator.hpp>
+#include <boost/geometry/algorithms/detail/normalize.hpp>
+#include <boost/geometry/algorithms/not_implemented.hpp>
 
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/tags.hpp>
+
+#include <boost/geometry/formulas/spherical.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 #include <boost/geometry/util/math.hpp>
 #include <boost/geometry/util/range.hpp>
 
+#include <boost/geometry/views/detail/normalized_view.hpp>
+
+#include <boost/geometry/strategies/cartesian/side_by_triangle.hpp>
+#include <boost/geometry/strategies/spherical/ssf.hpp>
+
 
 namespace boost { namespace geometry
 {
 
-// TODO: if Boost.LA of Emil Dotchevski is accepted, adapt this
-template <typename T>
+// TODO: dispatch only by SideStrategy instead of Geometry/CSTag?
+
+// Since these vectors (though ray would be a better name) are used in the
+// implementation of equals() for Areal geometries the internal representation
+// should be consistent with the side strategy.
+template
+<
+    typename T,
+    typename Geometry,
+    typename SideStrategy,
+    typename CSTag = typename cs_tag<Geometry>::type
+>
 struct collected_vector
+    : nyi::not_implemented_tag
+{};
+
+// compatible with side_by_triangle cartesian strategy
+template <typename T, typename Geometry, typename CT, typename CSTag>
+struct collected_vector
+    <
+        T, Geometry, strategy::side::side_by_triangle<CT>, CSTag
+    >
 {
     typedef T type;
-
+    
     inline collected_vector()
     {}
 
     inline collected_vector(T const& px, T const& py,
-            T const& pdx, T const& pdy)
+                            T const& pdx, T const& pdy)
         : x(px)
         , y(py)
         , dx(pdx)
         , dy(pdy)
-        , dx_0(T())
-        , dy_0(T())
+        //, dx_0(dx)
+        //, dy_0(dy)
     {}
 
-    T x, y;
-    T dx, dy;
-    T dx_0, dy_0;
+    template <typename Point>
+    inline collected_vector(Point const& p1, Point const& p2)
+        : x(get<0>(p1))
+        , y(get<1>(p1))
+        , dx(get<0>(p2) - x)
+        , dy(get<1>(p2) - y)
+        //, dx_0(dx)
+        //, dy_0(dy)
+    {}
+
+    bool normalize()
+    {
+        T magnitude = math::sqrt(
+            boost::numeric_cast<T>(dx * dx + dy * dy));
+
+        // NOTE: shouldn't here math::equals() be called?
+        if (magnitude > 0)
+        {
+            dx /= magnitude;
+            dy /= magnitude;
+            return true;
+        }
+
+        return false;
+    }
 
     // For sorting
-    inline bool operator<(collected_vector<T> const& other) const
+    inline bool operator<(collected_vector const& other) const
     {
         if (math::equals(x, other.x))
         {
@@ -74,7 +129,21 @@ struct collected_vector
         return x < other.x;
     }
 
-    inline bool same_direction(collected_vector<T> const& other) const
+    inline bool next_is_collinear(collected_vector const& other) const
+    {
+        return same_direction(other);
+    }
+
+    // For std::equals
+    inline bool operator==(collected_vector const& other) const
+    {
+        return math::equals(x, other.x)
+            && math::equals(y, other.y)
+            && same_direction(other);
+    }
+
+private:
+    inline bool same_direction(collected_vector const& other) const
     {
         // For high precision arithmetic, we have to be
         // more relaxed then using ==
@@ -84,12 +153,158 @@ struct collected_vector
             && math::equals_with_epsilon(dy, other.dy);
     }
 
-    // For std::equals
-    inline bool operator==(collected_vector<T> const& other) const
+    T x, y;
+    T dx, dy;
+    //T dx_0, dy_0;
+};
+
+// Compatible with spherical_side_formula which currently
+// is the default spherical and geographical strategy
+template <typename T, typename Geometry, typename CT, typename CSTag>
+struct collected_vector
+    <
+        T, Geometry, strategy::side::spherical_side_formula<CT>, CSTag
+    >
+{
+    typedef T type;
+    
+    typedef typename coordinate_system<Geometry>::type cs_type;
+    typedef model::point<T, 2, cs_type> point_type;
+    typedef model::point<T, 3, cs::cartesian> vector_type;
+
+    collected_vector()
+    {}
+
+    template <typename Point>
+    collected_vector(Point const& p1, Point const& p2)
+        : origin(get<0>(p1), get<1>(p1))
     {
-        return math::equals(x, other.x)
-            && math::equals(y, other.y)
-            && same_direction(other);
+        origin = detail::return_normalized<point_type>(origin);
+
+        using namespace geometry::formula;
+        prev = sph_to_cart3d<vector_type>(p1);
+        next = sph_to_cart3d<vector_type>(p2);
+        direction = cross_product(prev, next);
+    }
+
+    bool normalize()
+    {
+        T magnitude_sqr = dot_product(direction, direction);
+
+        // NOTE: shouldn't here math::equals() be called?
+        if (magnitude_sqr > 0)
+        {
+            divide_value(direction, math::sqrt(magnitude_sqr));
+            return true;
+        }
+
+        return false;
+    }
+
+    bool operator<(collected_vector const& other) const
+    {
+        if (math::equals(get<0>(origin), get<0>(other.origin)))
+        {
+            if (math::equals(get<1>(origin), get<1>(other.origin)))
+            {
+                if (math::equals(get<0>(direction), get<0>(other.direction)))
+                {
+                    if (math::equals(get<1>(direction), get<1>(other.direction)))
+                    {
+                        return get<2>(direction) < get<2>(other.direction);
+                    }
+                    return get<1>(direction) < get<1>(other.direction);
+                }
+                return get<0>(direction) < get<0>(other.direction);
+            }
+            return get<1>(origin) < get<1>(other.origin);
+        }
+        return get<0>(origin) < get<0>(other.origin);
+    }
+
+    // For consistency with side and intersection strategies used by relops
+    // IMPORTANT: this method should be called for previous vector
+    // and next vector should be passed as parameter
+    bool next_is_collinear(collected_vector const& other) const
+    {
+        return formula::sph_side_value(direction, other.next) == 0;
+    }
+
+    // For std::equals
+    bool operator==(collected_vector const& other) const
+    {
+        return math::equals(get<0>(origin), get<0>(other.origin))
+            && math::equals(get<1>(origin), get<1>(other.origin))
+            && is_collinear(other);
+    }
+
+private:
+    // For consistency with side and intersection strategies used by relops
+    bool is_collinear(collected_vector const& other) const
+    {
+        return formula::sph_side_value(direction, other.prev) == 0
+            && formula::sph_side_value(direction, other.next) == 0;
+    }
+    
+    /*bool same_direction(collected_vector const& other) const
+    {
+        return math::equals_with_epsilon(get<0>(direction), get<0>(other.direction))
+            && math::equals_with_epsilon(get<1>(direction), get<1>(other.direction))
+            && math::equals_with_epsilon(get<2>(direction), get<2>(other.direction));
+    }*/
+
+    point_type origin; // used for sorting and equality check
+    vector_type direction; // used for sorting, only in operator<
+    vector_type prev; // used for collinearity check, only in operator==
+    vector_type next; // used for collinearity check
+};
+
+// Specialization for spherical polar
+template <typename T, typename Geometry, typename CT>
+struct collected_vector
+    <
+        T, Geometry,
+        strategy::side::spherical_side_formula<CT>,
+        spherical_polar_tag
+    >
+    : public collected_vector
+        <
+            T, Geometry,
+            strategy::side::spherical_side_formula<CT>,
+            spherical_equatorial_tag
+        >
+{
+    typedef collected_vector
+        <
+            T, Geometry,
+            strategy::side::spherical_side_formula<CT>,
+            spherical_equatorial_tag
+        > base_type;
+
+    collected_vector() {}
+
+    template <typename Point>
+    collected_vector(Point const& p1, Point const& p2)
+        : base_type(to_equatorial(p1), to_equatorial(p2))
+    {}
+
+private:
+    template <typename Point>
+    Point polar_to_equatorial(Point const& p)
+    {
+        typedef typename coordinate_type<Point>::type coord_type;
+
+        typedef math::detail::constants_on_spheroid
+            <
+                coord_type,
+                typename coordinate_system<Point>::type::units
+            > constants;
+
+        coord_type const pi_2 = constants::half_period() / 2;
+
+        Point res = p;
+        set<1>(res, pi_2 - get<1>(p));
+        return res;
     }
 };
 
@@ -107,6 +322,18 @@ struct range_collect_vectors
 
     static inline void apply(Collection& collection, Range const& range)
     {
+        typedef geometry::detail::normalized_view
+            <
+                Range const
+            > normalized_range_type;
+
+        apply_impl(collection, normalized_range_type(range));
+    }
+
+private:
+    template <typename NormalizedRange>
+    static inline void apply_impl(Collection& collection, NormalizedRange const& range)
+    {
         if (boost::size(range) < 2)
         {
             return;
@@ -115,41 +342,28 @@ struct range_collect_vectors
         typedef typename boost::range_size<Collection>::type collection_size_t;
         collection_size_t c_old_size = boost::size(collection);
 
-        typedef typename boost::range_iterator<Range const>::type iterator;
+        typedef typename boost::range_iterator<NormalizedRange const>::type iterator;
 
-        bool first = true;
+        bool is_first = true;
         iterator it = boost::begin(range);
 
         for (iterator prev = it++;
             it != boost::end(range);
             prev = it++)
         {
-            typename boost::range_value<Collection>::type v;
-
-            v.x = get<0>(*prev);
-            v.y = get<1>(*prev);
-            v.dx = get<0>(*it) - v.x;
-            v.dy = get<1>(*it) - v.y;
-            v.dx_0 = v.dx;
-            v.dy_0 = v.dy;
+            typename boost::range_value<Collection>::type v(*prev, *it);
 
             // Normalize the vector -> this results in points+direction
             // and is comparible between geometries
-            calculation_type magnitude = math::sqrt(
-                boost::numeric_cast<calculation_type>(v.dx * v.dx + v.dy * v.dy));
-
             // Avoid non-duplicate points (AND division by zero)
-            if (magnitude > 0)
+            if (v.normalize())
             {
-                v.dx /= magnitude;
-                v.dy /= magnitude;
-
                 // Avoid non-direction changing points
-                if (first || ! v.same_direction(collection.back()))
+                if (is_first || ! collection.back().next_is_collinear(v))
                 {
                     collection.push_back(v);
                 }
-                first = false;
+                is_first = false;
             }
         }
 
@@ -160,7 +374,7 @@ struct range_collect_vectors
             typedef typename boost::range_iterator<Collection>::type c_iterator;
             c_iterator first = range::pos(collection, c_old_size);
 
-            if ( first->same_direction(collection.back()) )
+            if (collection.back().next_is_collinear(*first) )
             {
                 //collection.erase(first);
                 // O(1) instead of O(N)
@@ -172,7 +386,8 @@ struct range_collect_vectors
 };
 
 
-template <typename Box, typename Collection>
+// Default version (cartesian)
+template <typename Box, typename Collection, typename CSTag = typename cs_tag<Box>::type>
 struct box_collect_vectors
 {
     // Calculate on coordinate type, but if it is integer,
@@ -183,9 +398,9 @@ struct box_collect_vectors
     static inline void apply(Collection& collection, Box const& box)
     {
         typename point_type<Box>::type lower_left, lower_right,
-                upper_left, upper_right;
+            upper_left, upper_right;
         geometry::detail::assign_box_corners(box, lower_left, lower_right,
-                upper_left, upper_right);
+            upper_left, upper_right);
 
         typedef typename boost::range_value<Collection>::type item;
 
@@ -195,6 +410,37 @@ struct box_collect_vectors
         collection.push_back(item(get<0>(lower_right), get<1>(lower_right), -1, 0));
     }
 };
+
+// NOTE: This is not fully correct because Box in spherical and geographic
+// cordinate systems cannot be seen as Polygon
+template <typename Box, typename Collection>
+struct box_collect_vectors<Box, Collection, spherical_equatorial_tag>
+{
+    static inline void apply(Collection& collection, Box const& box)
+    {
+        typename point_type<Box>::type lower_left, lower_right,
+                upper_left, upper_right;
+        geometry::detail::assign_box_corners(box, lower_left, lower_right,
+                upper_left, upper_right);
+
+        typedef typename boost::range_value<Collection>::type item;
+
+        collection.push_back(item(lower_left, upper_left));
+        collection.push_back(item(upper_left, upper_right));
+        collection.push_back(item(upper_right, lower_right));
+        collection.push_back(item(lower_right, lower_left));
+    }
+};
+
+template <typename Box, typename Collection>
+struct box_collect_vectors<Box, Collection, spherical_polar_tag>
+    : box_collect_vectors<Box, Collection, spherical_equatorial_tag>
+{};
+
+template <typename Box, typename Collection>
+struct box_collect_vectors<Box, Collection, geographic_tag>
+    : box_collect_vectors<Box, Collection, spherical_equatorial_tag>
+{};
 
 
 template <typename Polygon, typename Collection>
@@ -312,7 +558,7 @@ struct collect_vectors<multi_polygon_tag, Collection, MultiPolygon>
 template <typename Collection, typename Geometry>
 inline void collect_vectors(Collection& collection, Geometry const& geometry)
 {
-    concept::check<Geometry const>();
+    concepts::check<Geometry const>();
 
     dispatch::collect_vectors
         <

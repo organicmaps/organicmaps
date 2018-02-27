@@ -1,6 +1,6 @@
 /// @file
 // Boost.Convert
-// Copyright (c) 2009-2014 Vladimir Batov.
+// Copyright (c) 2009-2016 Vladimir Batov.
 //
 // Many thanks to Julian Gonggrijp, Rob Stewart, Andrzej Krzemienski, Matus Chochlik, Jeroen Habraken,
 // Hartmut Kaiser, Joel De Guzman, Thijs (M.A.) van den Berg, Roland Bock, Gavin Lambert, Paul Bristow,
@@ -18,7 +18,7 @@
 //    as they should;
 // 5. Paul Bristow for helping great deal with the documentation;
 // 6. Kevlin Henney and Dave Abrahams for their lexical_cast-related insights and explanations.
-//
+// 
 // Use, modification and distribution are subject to the Boost Software License,
 // Version 1.0. See http://www.boost.org/LICENSE_1_0.txt.
 

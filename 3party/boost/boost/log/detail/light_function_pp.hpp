@@ -119,12 +119,12 @@ public:
     }
 #else
     template< typename FunT >
-    light_function(FunT const& fun, typename disable_if_c< is_rv_or_same< FunT, this_type >::value, int >::type = 0) :
+    light_function(FunT const& fun, typename boost::disable_if_c< is_rv_or_same< FunT, this_type >::value, boost::log::aux::sfinae_dummy >::type = boost::log::aux::sfinae_dummy()) :
         m_pImpl(new impl< FunT >(fun))
     {
     }
     template< typename FunT >
-    light_function(BOOST_RV_REF(FunT) fun, typename disable_if_c< is_cv_same< FunT, this_type >::value, int >::type = 0) :
+    light_function(BOOST_RV_REF(FunT) fun, typename boost::disable_if_c< is_cv_same< FunT, this_type >::value, boost::log::aux::sfinae_dummy >::type = boost::log::aux::sfinae_dummy()) :
         m_pImpl(new impl< typename remove_cv< FunT >::type >(fun))
     {
     }
@@ -181,7 +181,7 @@ public:
     }
 #else
     template< typename FunT >
-    typename disable_if_c< is_rv_or_same< FunT, this_type >::value, this_type& >::type
+    typename boost::disable_if_c< is_rv_or_same< FunT, this_type >::value, this_type& >::type
     operator= (FunT const& fun)
     {
         light_function tmp(fun);
@@ -327,12 +327,12 @@ public:
     }
 #else
     template< typename FunT >
-    light_function(FunT const& fun, typename disable_if_c< is_rv_or_same< FunT, this_type >::value, int >::type = 0) :
+    light_function(FunT const& fun, typename boost::disable_if_c< is_rv_or_same< FunT, this_type >::value, boost::log::aux::sfinae_dummy >::type = boost::log::aux::sfinae_dummy()) :
         m_pImpl(new impl< FunT >(fun))
     {
     }
     template< typename FunT >
-    light_function(BOOST_RV_REF(FunT) fun, typename disable_if_c< is_cv_same< FunT, this_type >::value, int >::type = 0) :
+    light_function(BOOST_RV_REF(FunT) fun, typename boost::disable_if_c< is_cv_same< FunT, this_type >::value, boost::log::aux::sfinae_dummy >::type = boost::log::aux::sfinae_dummy()) :
         m_pImpl(new impl< typename remove_cv< FunT >::type >(fun))
     {
     }
@@ -389,7 +389,7 @@ public:
     }
 #else
     template< typename FunT >
-    typename disable_if_c< is_rv_or_same< FunT, this_type >::value, this_type& >::type
+    typename boost::disable_if_c< is_rv_or_same< FunT, this_type >::value, this_type& >::type
     operator= (FunT const& fun)
     {
         light_function tmp(fun);

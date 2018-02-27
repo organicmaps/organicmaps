@@ -322,6 +322,13 @@ target(const detail::reverse_graph_edge_descriptor<Edge>& e, const reverse_graph
     return source(e.underlying_descx, g.m_g);
 }
 
+template <class BidirectionalGraph, class GRef>
+inline typename graph_traits<BidirectionalGraph>::degree_size_type
+degree(const typename graph_traits<BidirectionalGraph>::vertex_descriptor u,
+          const reverse_graph<BidirectionalGraph,GRef>& g)
+{
+    return degree(u, g.m_g);
+}
 
 namespace detail {
 

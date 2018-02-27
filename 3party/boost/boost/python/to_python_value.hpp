@@ -1,30 +1,32 @@
 // Copyright David Abrahams 2002.
+// Copyright Stefan Seefeld 2016.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-#ifndef TO_PYTHON_VALUE_DWA200221_HPP
-# define TO_PYTHON_VALUE_DWA200221_HPP
 
-# include <boost/python/detail/prefix.hpp>
+#ifndef boost_python_to_python_value_hpp_
+#define boost_python_to_python_value_hpp_
 
-# include <boost/python/refcount.hpp>
-# include <boost/python/tag.hpp>
-# include <boost/python/handle.hpp>
+#include <boost/python/detail/prefix.hpp>
 
-# include <boost/python/converter/registry.hpp>
-# include <boost/python/converter/registered.hpp>
-# include <boost/python/converter/builtin_converters.hpp>
-# include <boost/python/converter/object_manager.hpp>
-# include <boost/python/converter/shared_ptr_to_python.hpp>
+#include <boost/python/refcount.hpp>
+#include <boost/python/tag.hpp>
+#include <boost/python/handle.hpp>
 
-# include <boost/python/detail/value_is_shared_ptr.hpp>
-# include <boost/python/detail/value_arg.hpp>
+#include <boost/python/converter/registry.hpp>
+#include <boost/python/converter/registered.hpp>
+#include <boost/python/converter/builtin_converters.hpp>
+#include <boost/python/converter/object_manager.hpp>
+#include <boost/python/converter/shared_ptr_to_python.hpp>
 
-# include <boost/type_traits/transform_traits.hpp>
+#include <boost/python/detail/value_is_shared_ptr.hpp>
+#include <boost/python/detail/value_arg.hpp>
 
-# include <boost/mpl/if.hpp>
-# include <boost/mpl/or.hpp>
-# include <boost/type_traits/is_const.hpp>
+#include <boost/type_traits/transform_traits.hpp>
+
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/type_traits/is_const.hpp>
 
 namespace boost { namespace python { 
 
@@ -114,10 +116,16 @@ struct object_manager_get_pytype<true>
       BOOST_STATIC_CONSTANT(bool, uses_registry = false);
   private:
 #ifndef BOOST_PYTHON_NO_PY_SIGNATURES
-      template <class U>
-      PyTypeObject const* get_pytype(boost::type<shared_ptr<U> &> *) const {return converter::registered<U>::converters.to_python_target_type();}
-      template <class U>
-      PyTypeObject const* get_pytype(boost::type<const shared_ptr<U> &> *) const {return converter::registered<U>::converters.to_python_target_type();}
+    template <class U>
+    PyTypeObject const* get_pytype(boost::type<shared_ptr<U> &> *) const {return converter::registered<U>::converters.to_python_target_type();}
+    template <class U>
+    PyTypeObject const* get_pytype(boost::type<const shared_ptr<U> &> *) const {return converter::registered<U>::converters.to_python_target_type();}
+# if __cplusplus >= 201103L
+    template <class U>
+    PyTypeObject const* get_pytype(boost::type<std::shared_ptr<U> &> *) const {return converter::registered<U>::converters.to_python_target_type();}
+    template <class U>
+    PyTypeObject const* get_pytype(boost::type<const std::shared_ptr<U> &> *) const {return converter::registered<U>::converters.to_python_target_type();}
+# endif
 #endif
   };
 }
@@ -168,4 +176,4 @@ namespace detail
 
 }} // namespace boost::python
 
-#endif // TO_PYTHON_VALUE_DWA200221_HPP
+#endif

@@ -409,7 +409,7 @@ public:
     void param(const param_type& parm)
     {
         std::vector<RealType> new_intervals(parm._intervals);
-        typedef discrete_distribution<std::size_t, RealType> bins_type;
+        typedef discrete_distribution<std::size_t, WeightType> bins_type;
         typename bins_type::param_type bins_param(parm._weights);
         _bins.param(bins_param);
         _intervals.swap(new_intervals);

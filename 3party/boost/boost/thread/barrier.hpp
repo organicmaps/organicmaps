@@ -145,7 +145,7 @@ namespace boost
         unsigned int count,
         BOOST_THREAD_RV_REF(F) funct,
         typename enable_if<
-        typename is_void<typename result_of<F>::type>::type, dummy*
+        typename is_void<typename result_of<F()>::type>::type, dummy*
         >::type=0
     )
     : m_count(check_counter(count)),
@@ -160,7 +160,7 @@ namespace boost
         unsigned int count,
         F &funct,
         typename enable_if<
-        typename is_void<typename result_of<F>::type>::type, dummy*
+        typename is_void<typename result_of<F()>::type>::type, dummy*
         >::type=0
     )
     : m_count(check_counter(count)),
@@ -176,7 +176,7 @@ namespace boost
         unsigned int count,
         BOOST_THREAD_RV_REF(F) funct,
         typename enable_if<
-        typename is_same<typename result_of<F>::type, unsigned int>::type, dummy*
+        typename is_same<typename result_of<F()>::type, unsigned int>::type, dummy*
         >::type=0
     )
     : m_count(check_counter(count)),
@@ -189,7 +189,7 @@ namespace boost
         unsigned int count,
         F& funct,
         typename enable_if<
-        typename is_same<typename result_of<F>::type, unsigned int>::type, dummy*
+        typename is_same<typename result_of<F()>::type, unsigned int>::type, dummy*
         >::type=0
     )
     : m_count(check_counter(count)),
@@ -225,6 +225,7 @@ namespace boost
         m_generation++;
         m_count = static_cast<unsigned int>(fct_());
         BOOST_ASSERT(m_count != 0);
+        lock.unlock();
         m_cond.notify_all();
         return true;
       }

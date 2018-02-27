@@ -10,8 +10,9 @@
 #ifndef BOOST_TT_EXTENT_HPP_INCLUDED
 #define BOOST_TT_EXTENT_HPP_INCLUDED
 
-// should be the last #include
-#include <boost/type_traits/detail/size_t_trait_def.hpp>
+#include <cstddef> // size_t
+#include <boost/type_traits/integral_constant.hpp>
+#include <boost/detail/workaround.hpp>
 
 namespace boost {
 
@@ -131,11 +132,8 @@ template <class T, std::size_t N = 0>
 struct extent
    : public ::boost::integral_constant<std::size_t, ::boost::detail::extent_imp<T,N>::value>
 {
-    BOOST_MPL_AUX_LAMBDA_SUPPORT(1,extent,(T))
 };
 
 } // namespace boost
-
-#include <boost/type_traits/detail/size_t_trait_undef.hpp>
 
 #endif // BOOST_TT_IS_MEMBER_FUNCTION_POINTER_HPP_INCLUDED

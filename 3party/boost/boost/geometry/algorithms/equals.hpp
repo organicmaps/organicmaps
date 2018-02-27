@@ -5,8 +5,8 @@
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 // Copyright (c) 2014-2015 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2014, 2015.
-// Modifications copyright (c) 2014-2015 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014, 2015, 2016, 2017.
+// Modifications copyright (c) 2014-2017 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
@@ -26,6 +26,7 @@
 #include <vector>
 
 #include <boost/range.hpp>
+#include <boost/type_traits/is_base_of.hpp>
 
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/variant/static_visitor.hpp>
@@ -40,7 +41,6 @@
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 #include <boost/geometry/algorithms/detail/equals/point_point.hpp>
-#include <boost/geometry/algorithms/detail/not.hpp>
 #include <boost/geometry/algorithms/not_implemented.hpp>
 
 // For trivial checks
@@ -70,25 +70,44 @@ template
     std::size_t Dimension,
     std::size_t DimensionCount
 >
+struct point_point
+{
+    template <typename Point1, typename Point2, typename Strategy>
+    static inline bool apply(Point1 const& point1, Point2 const& point2, Strategy const& strategy)
+    {
+        return ! detail::disjoint::point_point
+            <
+                Point1, Point2,
+                Dimension, DimensionCount
+            >::apply(point1, point2, strategy);
+    }
+};
+
+
+template
+<
+    std::size_t Dimension,
+    std::size_t DimensionCount
+>
 struct box_box
 {
-    template <typename Box1, typename Box2>
-    static inline bool apply(Box1 const& box1, Box2 const& box2)
+    template <typename Box1, typename Box2, typename Strategy>
+    static inline bool apply(Box1 const& box1, Box2 const& box2, Strategy const& strategy)
     {
         if (!geometry::math::equals(get<min_corner, Dimension>(box1), get<min_corner, Dimension>(box2))
             || !geometry::math::equals(get<max_corner, Dimension>(box1), get<max_corner, Dimension>(box2)))
         {
             return false;
         }
-        return box_box<Dimension + 1, DimensionCount>::apply(box1, box2);
+        return box_box<Dimension + 1, DimensionCount>::apply(box1, box2, strategy);
     }
 };
 
 template <std::size_t DimensionCount>
 struct box_box<DimensionCount, DimensionCount>
 {
-    template <typename Box1, typename Box2>
-    static inline bool apply(Box1 const& , Box2 const& )
+    template <typename Box1, typename Box2, typename Strategy>
+    static inline bool apply(Box1 const& , Box2 const& , Strategy const& )
     {
         return true;
     }
@@ -97,8 +116,8 @@ struct box_box<DimensionCount, DimensionCount>
 
 struct segment_segment
 {
-    template <typename Segment1, typename Segment2>
-    static inline bool apply(Segment1 const& segment1, Segment2 const& segment2)
+    template <typename Segment1, typename Segment2, typename Strategy>
+    static inline bool apply(Segment1 const& segment1, Segment2 const& segment2, Strategy const& )
     {
         return equals::equals_point_point(
                     indexed_point_view<Segment1 const, 0>(segment1),
@@ -119,50 +138,75 @@ struct segment_segment
 
 struct area_check
 {
-    template <typename Geometry1, typename Geometry2>
-    static inline bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2)
+    template <typename Geometry1, typename Geometry2, typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             Strategy const& strategy)
     {
         return geometry::math::equals(
-                geometry::area(geometry1),
-                geometry::area(geometry2));
+            geometry::area(geometry1,
+                           strategy.template get_area_strategy<Geometry1>()),
+            geometry::area(geometry2,
+                           strategy.template get_area_strategy<Geometry2>()));
     }
 };
 
 
 struct length_check
 {
-    template <typename Geometry1, typename Geometry2>
-    static inline bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2)
+    template <typename Geometry1, typename Geometry2, typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             Strategy const& strategy)
     {
         return geometry::math::equals(
-                geometry::length(geometry1),
-                geometry::length(geometry2));
+            geometry::length(geometry1,
+                             strategy.template get_distance_strategy<Geometry1>()),
+            geometry::length(geometry2,
+                             strategy.template get_distance_strategy<Geometry2>()));
     }
 };
 
 
+template <typename Geometry1, typename Geometry2, typename IntersectionStrategy>
+struct collected_vector
+{
+    typedef typename geometry::select_most_precise
+        <
+            typename select_coordinate_type
+                <
+                    Geometry1, Geometry2
+                >::type,
+            double
+        >::type calculation_type;
+
+    typedef geometry::collected_vector
+        <
+            calculation_type,
+            Geometry1,
+            typename IntersectionStrategy::side_strategy_type
+        > type;
+};
+
 template <typename TrivialCheck>
 struct equals_by_collection
 {
-    template <typename Geometry1, typename Geometry2>
-    static inline bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2)
+    template <typename Geometry1, typename Geometry2, typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             Strategy const& strategy)
     {
-        if (! TrivialCheck::apply(geometry1, geometry2))
+        if (! TrivialCheck::apply(geometry1, geometry2, strategy))
         {
             return false;
         }
 
-        typedef typename geometry::select_most_precise
+        typedef typename collected_vector
             <
-                typename select_coordinate_type
-                    <
-                        Geometry1, Geometry2
-                    >::type,
-                double
-            >::type calculation_type;
+                Geometry1, Geometry2, Strategy
+            >::type collected_vector_type;
 
-        typedef std::vector<collected_vector<calculation_type> > v;
-        v c1, c2;
+        std::vector<collected_vector_type> c1, c2;
 
         geometry::collect_vectors(c1, geometry1);
         geometry::collect_vectors(c2, geometry2);
@@ -189,6 +233,53 @@ struct equals_by_relate
             Geometry2
         >
 {};
+
+// If collect_vectors which is a SideStrategy-dispatched optimization
+// is implemented in a way consistent with the Intersection/Side Strategy
+// then collect_vectors is used, otherwise relate is used.
+// NOTE: the result could be coneptually different for invalid
+// geometries in different coordinate systems because collect_vectors
+// and relate treat invalid geometries differently.
+template<typename TrivialCheck>
+struct equals_by_collection_or_relate
+{
+    template <typename Geometry1, typename Geometry2, typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             Strategy const& strategy)
+    {
+        typedef typename boost::is_base_of
+            <
+                nyi::not_implemented_tag,
+                typename collected_vector
+                    <
+                        Geometry1, Geometry2, Strategy
+                    >::type
+            >::type enable_relate_type;
+
+        return apply(geometry1, geometry2, strategy, enable_relate_type());
+    }
+
+private:
+    template <typename Geometry1, typename Geometry2, typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             Strategy const& strategy,
+                             boost::false_type /*enable_relate*/)
+    {
+        return equals_by_collection<TrivialCheck>::apply(geometry1, geometry2, strategy);
+    }
+
+    template <typename Geometry1, typename Geometry2, typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             Strategy const& strategy,
+                             boost::true_type /*enable_relate*/)
+    {
+        return equals_by_relate<Geometry1, Geometry2>::apply(geometry1, geometry2, strategy);
+    }
+};
+
 
 }} // namespace detail::equals
 #endif // DOXYGEN_NO_DETAIL
@@ -221,7 +312,8 @@ template
 struct equals<Geometry1, Geometry2, Tag1, Tag2, DimensionCount, true>
     : equals<Geometry2, Geometry1, Tag2, Tag1, DimensionCount, false>
 {
-    static inline bool apply(Geometry1 const& g1, Geometry2 const& g2)
+    template <typename Strategy>
+    static inline bool apply(Geometry1 const& g1, Geometry2 const& g2, Strategy const& strategy)
     {
         return equals
             <
@@ -229,19 +321,30 @@ struct equals<Geometry1, Geometry2, Tag1, Tag2, DimensionCount, true>
                 Tag2, Tag1,
                 DimensionCount,
                 false
-            >::apply(g2, g1);
+            >::apply(g2, g1, strategy);
     }
 };
 
 
 template <typename P1, typename P2, std::size_t DimensionCount, bool Reverse>
 struct equals<P1, P2, point_tag, point_tag, DimensionCount, Reverse>
-    : geometry::detail::not_
-        <
-            detail::disjoint::point_point<P1, P2, 0, DimensionCount>
-        >
+    : detail::equals::point_point<0, DimensionCount>
 {};
 
+template <typename MultiPoint1, typename MultiPoint2, std::size_t DimensionCount, bool Reverse>
+struct equals<MultiPoint1, MultiPoint2, multi_point_tag, multi_point_tag, DimensionCount, Reverse>
+    : detail::equals::equals_by_relate<MultiPoint1, MultiPoint2>
+{};
+
+template <typename MultiPoint, typename Point, std::size_t DimensionCount, bool Reverse>
+struct equals<MultiPoint, Point, multi_point_tag, point_tag, DimensionCount, Reverse>
+    : detail::equals::equals_by_relate<MultiPoint, Point>
+{};
+
+template <typename MultiPoint, typename Point, std::size_t DimensionCount, bool Reverse>
+struct equals<Point, MultiPoint, point_tag, multi_point_tag, DimensionCount, Reverse>
+    : detail::equals::equals_by_relate<Point, MultiPoint>
+{};
 
 template <typename Box1, typename Box2, std::size_t DimensionCount, bool Reverse>
 struct equals<Box1, Box2, box_tag, box_tag, DimensionCount, Reverse>
@@ -251,19 +354,19 @@ struct equals<Box1, Box2, box_tag, box_tag, DimensionCount, Reverse>
 
 template <typename Ring1, typename Ring2, bool Reverse>
 struct equals<Ring1, Ring2, ring_tag, ring_tag, 2, Reverse>
-    : detail::equals::equals_by_collection<detail::equals::area_check>
+    : detail::equals::equals_by_collection_or_relate<detail::equals::area_check>
 {};
 
 
 template <typename Polygon1, typename Polygon2, bool Reverse>
 struct equals<Polygon1, Polygon2, polygon_tag, polygon_tag, 2, Reverse>
-    : detail::equals::equals_by_collection<detail::equals::area_check>
+    : detail::equals::equals_by_collection_or_relate<detail::equals::area_check>
 {};
 
 
 template <typename Polygon, typename Ring, bool Reverse>
 struct equals<Polygon, Ring, polygon_tag, ring_tag, 2, Reverse>
-    : detail::equals::equals_by_collection<detail::equals::area_check>
+    : detail::equals::equals_by_collection_or_relate<detail::equals::area_check>
 {};
 
 
@@ -285,7 +388,6 @@ struct equals<Segment1, Segment2, segment_tag, segment_tag, DimensionCount, Reve
 
 template <typename LineString1, typename LineString2, bool Reverse>
 struct equals<LineString1, LineString2, linestring_tag, linestring_tag, 2, Reverse>
-    //: detail::equals::equals_by_collection<detail::equals::length_check>
     : detail::equals::equals_by_relate<LineString1, LineString2>
 {};
 
@@ -308,7 +410,7 @@ struct equals
         2,
         Reverse
     >
-    : detail::equals::equals_by_collection<detail::equals::area_check>
+    : detail::equals::equals_by_collection_or_relate<detail::equals::area_check>
 {};
 
 
@@ -320,7 +422,18 @@ struct equals
         2,
         Reverse
     >
-    : detail::equals::equals_by_collection<detail::equals::area_check>
+    : detail::equals::equals_by_collection_or_relate<detail::equals::area_check>
+{};
+
+template <typename MultiPolygon, typename Ring, bool Reverse>
+struct equals
+    <
+        MultiPolygon, Ring,
+        multi_polygon_tag, ring_tag,
+        2,
+        Reverse
+    >
+    : detail::equals::equals_by_collection_or_relate<detail::equals::area_check>
 {};
 
 
@@ -328,80 +441,129 @@ struct equals
 #endif // DOXYGEN_NO_DISPATCH
 
 
+namespace resolve_strategy
+{
+
+struct equals
+{
+    template <typename Geometry1, typename Geometry2, typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             Strategy const& strategy)
+    {
+        return dispatch::equals
+            <
+                Geometry1, Geometry2
+            >::apply(geometry1, geometry2, strategy);
+    }
+
+    template <typename Geometry1, typename Geometry2>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             default_strategy)
+    {
+        typedef typename strategy::relate::services::default_strategy
+            <
+                Geometry1,
+                Geometry2
+            >::type strategy_type;
+
+        return dispatch::equals
+            <
+                Geometry1, Geometry2
+            >::apply(geometry1, geometry2, strategy_type());
+    }
+};
+
+} // namespace resolve_strategy
+
+
 namespace resolve_variant {
 
 template <typename Geometry1, typename Geometry2>
 struct equals
 {
+    template <typename Strategy>
     static inline bool apply(Geometry1 const& geometry1,
-                             Geometry2 const& geometry2)
+                             Geometry2 const& geometry2,
+                             Strategy const& strategy)
     {
-        concept::check_concepts_and_equal_dimensions
-        <
-            Geometry1 const,
-            Geometry2 const
-        >();
+        concepts::check_concepts_and_equal_dimensions
+            <
+                Geometry1 const,
+                Geometry2 const
+            >();
 
-        return dispatch::equals<Geometry1, Geometry2>
-                       ::apply(geometry1, geometry2);
+        return resolve_strategy::equals
+                ::apply(geometry1, geometry2, strategy);
     }
 };
 
 template <BOOST_VARIANT_ENUM_PARAMS(typename T), typename Geometry2>
 struct equals<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
 {
+    template <typename Strategy>
     struct visitor: static_visitor<bool>
     {
         Geometry2 const& m_geometry2;
+        Strategy const& m_strategy;
 
-        visitor(Geometry2 const& geometry2)
+        visitor(Geometry2 const& geometry2, Strategy const& strategy)
             : m_geometry2(geometry2)
+            , m_strategy(strategy)
         {}
 
         template <typename Geometry1>
         inline bool operator()(Geometry1 const& geometry1) const
         {
             return equals<Geometry1, Geometry2>
-                   ::apply(geometry1, m_geometry2);
+                   ::apply(geometry1, m_geometry2, m_strategy);
         }
 
     };
 
+    template <typename Strategy>
     static inline bool apply(
         boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry1,
-        Geometry2 const& geometry2
+        Geometry2 const& geometry2,
+        Strategy const& strategy
     )
     {
-        return boost::apply_visitor(visitor(geometry2), geometry1);
+        return boost::apply_visitor(visitor<Strategy>(geometry2, strategy), geometry1);
     }
 };
 
 template <typename Geometry1, BOOST_VARIANT_ENUM_PARAMS(typename T)>
 struct equals<Geometry1, boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
 {
+    template <typename Strategy>
     struct visitor: static_visitor<bool>
     {
         Geometry1 const& m_geometry1;
+        Strategy const& m_strategy;
 
-        visitor(Geometry1 const& geometry1)
+        visitor(Geometry1 const& geometry1, Strategy const& strategy)
             : m_geometry1(geometry1)
+            , m_strategy(strategy)
         {}
 
         template <typename Geometry2>
         inline bool operator()(Geometry2 const& geometry2) const
         {
             return equals<Geometry1, Geometry2>
-                   ::apply(m_geometry1, geometry2);
+                   ::apply(m_geometry1, geometry2, m_strategy);
         }
 
     };
 
+    template <typename Strategy>
     static inline bool apply(
         Geometry1 const& geometry1,
-        boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry2
+        boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry2,
+        Strategy const& strategy
     )
     {
-        return boost::apply_visitor(visitor(geometry1), geometry2);
+        return boost::apply_visitor(visitor<Strategy>(geometry1, strategy), geometry2);
     }
 };
 
@@ -414,28 +576,68 @@ struct equals<
     boost::variant<BOOST_VARIANT_ENUM_PARAMS(T2)>
 >
 {
+    template <typename Strategy>
     struct visitor: static_visitor<bool>
     {
+        Strategy const& m_strategy;
+
+        visitor(Strategy const& strategy)
+            : m_strategy(strategy)
+        {}
+
         template <typename Geometry1, typename Geometry2>
         inline bool operator()(Geometry1 const& geometry1,
                                Geometry2 const& geometry2) const
         {
             return equals<Geometry1, Geometry2>
-                   ::apply(geometry1, geometry2);
+                   ::apply(geometry1, geometry2, m_strategy);
         }
 
     };
 
+    template <typename Strategy>
     static inline bool apply(
         boost::variant<BOOST_VARIANT_ENUM_PARAMS(T1)> const& geometry1,
-        boost::variant<BOOST_VARIANT_ENUM_PARAMS(T2)> const& geometry2
+        boost::variant<BOOST_VARIANT_ENUM_PARAMS(T2)> const& geometry2,
+        Strategy const& strategy
     )
     {
-        return boost::apply_visitor(visitor(), geometry1, geometry2);
+        return boost::apply_visitor(visitor<Strategy>(strategy), geometry1, geometry2);
     }
 };
 
 } // namespace resolve_variant
+
+
+/*!
+\brief \brief_check{are spatially equal}
+\details \details_check12{equals, is spatially equal}. Spatially equal means
+    that the same point set is included. A box can therefore be spatially equal
+    to a ring or a polygon, or a linestring can be spatially equal to a
+    multi-linestring or a segment. This only works theoretically, not all
+    combinations are implemented yet.
+\ingroup equals
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\tparam Strategy \tparam_strategy{Equals}
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\param strategy \param_strategy{equals}
+\return \return_check2{are spatially equal}
+
+\qbk{distinguish,with strategy}
+\qbk{[include reference/algorithms/equals.qbk]}
+ */
+template <typename Geometry1, typename Geometry2, typename Strategy>
+inline bool equals(Geometry1 const& geometry1,
+                   Geometry2 const& geometry2,
+                   Strategy const& strategy)
+{
+    return resolve_variant::equals
+            <
+                Geometry1, Geometry2
+            >::apply(geometry1, geometry2, strategy);
+}
 
 
 /*!
@@ -453,13 +655,12 @@ struct equals<
 \return \return_check2{are spatially equal}
 
 \qbk{[include reference/algorithms/equals.qbk]}
-
  */
 template <typename Geometry1, typename Geometry2>
 inline bool equals(Geometry1 const& geometry1, Geometry2 const& geometry2)
 {
     return resolve_variant::equals<Geometry1, Geometry2>
-                          ::apply(geometry1, geometry2);
+                          ::apply(geometry1, geometry2, default_strategy());
 }
 
 

@@ -63,7 +63,7 @@ namespace boost
     std::list<vertex_t> ready_to_be_processed;
     
     vertex_t first_vertex = *vertices(g).first;
-    vertex_t second_vertex;
+    vertex_t second_vertex = first_vertex;
     adjacency_iterator_t ai, ai_end;
     for(boost::tie(ai,ai_end) = adjacent_vertices(first_vertex,g); ai != ai_end; ++ai)
       {

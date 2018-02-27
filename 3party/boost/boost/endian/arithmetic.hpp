@@ -21,8 +21,8 @@
 #ifndef BOOST_ENDIAN_ARITHMETIC_HPP
 #define BOOST_ENDIAN_ARITHMETIC_HPP
 
-#if defined(_MSC_VER)
-# pragma warning(push)
+#if defined(_MSC_VER)  
+# pragma warning(push)  
 # pragma warning(disable:4365)  // conversion ... signed/unsigned mismatch
 #endif
 
@@ -300,7 +300,7 @@ namespace endian
 #     ifndef BOOST_ENDIAN_NO_CTORS
         endian_arithmetic() BOOST_ENDIAN_DEFAULT_CONSTRUCT
         BOOST_ENDIAN_EXPLICIT_OPT endian_arithmetic(T val) BOOST_NOEXCEPT
-        {
+        { 
 #       ifdef BOOST_ENDIAN_LOG
           if ( endian_log )
             std::cout << "big, unaligned, " << n_bits << "-bits, construct(" << val << ")\n";
@@ -325,7 +325,7 @@ namespace endian
 #     ifndef BOOST_ENDIAN_NO_CTORS
         endian_arithmetic() BOOST_ENDIAN_DEFAULT_CONSTRUCT
         BOOST_ENDIAN_EXPLICIT_OPT endian_arithmetic(T val) BOOST_NOEXCEPT
-        {
+        { 
 #       ifdef BOOST_ENDIAN_LOG
           if ( endian_log )
             std::cout << "little, unaligned, " << n_bits << "-bits, construct(" << val << ")\n";
@@ -361,7 +361,7 @@ namespace endian
           this->m_value = ::boost::endian::native_to_big(val);
         }
 
-#     endif
+#     endif  
         endian_arithmetic& operator=(T val) BOOST_NOEXCEPT
         {
           this->m_value = ::boost::endian::native_to_big(val);
@@ -390,7 +390,7 @@ namespace endian
 #       endif
           this->m_value = ::boost::endian::native_to_little(val);
         }
-#     endif
+#     endif  
         endian_arithmetic& operator=(T val) BOOST_NOEXCEPT
         {
           this->m_value = ::boost::endian::native_to_little(val);
@@ -406,8 +406,8 @@ namespace endian
 # pragma pack(pop)
 #endif
 
-#if defined(_MSC_VER)
-# pragma warning(pop)
-#endif
+#if defined(_MSC_VER)  
+# pragma warning(pop)  
+#endif 
 
 #endif // BOOST_ENDIAN_ARITHMETIC_HPP

@@ -32,6 +32,8 @@
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/type_traits/is_integral.hpp>
 
+#include <boost/geometry/core/cs.hpp>
+
 #include <boost/geometry/util/select_most_precise.hpp>
 
 namespace boost { namespace geometry
@@ -66,6 +68,19 @@ template <typename T>
 inline T const& greatest(T const& v1, T const& v2, T const& v3, T const& v4, T const& v5)
 {
     return (std::max)(greatest(v1, v2, v3, v4), v5);
+}
+
+
+template <typename T>
+inline T bounded(T const& v, T const& lower, T const& upper)
+{
+    return (std::min)((std::max)(v, lower), upper);
+}
+
+template <typename T>
+inline T bounded(T const& v, T const& lower)
+{
+    return (std::max)(v, lower);
 }
 
 
@@ -201,11 +216,36 @@ struct smaller<Type, true>
 {
     static inline bool apply(Type const& a, Type const& b)
     {
-        if (equals<Type, true>::apply(a, b, equals_default_policy()))
+        if (!(a < b)) // a >= b
         {
             return false;
         }
-        return a < b;
+        
+        return ! equals<Type, true>::apply(b, a, equals_default_policy());
+    }
+};
+
+template <typename Type,
+          bool IsFloatingPoint = boost::is_floating_point<Type>::value>
+struct smaller_or_equals
+{
+    static inline bool apply(Type const& a, Type const& b)
+    {
+        return a <= b;
+    }
+};
+
+template <typename Type>
+struct smaller_or_equals<Type, true>
+{
+    static inline bool apply(Type const& a, Type const& b)
+    {
+        if (a <= b)
+        {
+            return true;
+        }
+
+        return equals<Type, true>::apply(a, b, equals_default_policy());
     }
 };
 
@@ -407,6 +447,30 @@ struct relaxed_epsilon
     }
 };
 
+// This must be consistent with math::equals.
+// By default math::equals() scales the error by epsilon using the greater of
+// compared values but here is only one value, though it should work the same way.
+// (a-a) <= max(a, a) * EPS       -> 0 <= a*EPS
+// (a+da-a) <= max(a+da, a) * EPS -> da <= (a+da)*EPS
+template <typename T, bool IsFloat = boost::is_floating_point<T>::value>
+struct scaled_epsilon
+{
+    static inline T apply(T const& val)
+    {
+        return (std::max)(abs<T>::apply(val), T(1))
+                    * std::numeric_limits<T>::epsilon();
+    }
+};
+
+template <typename T>
+struct scaled_epsilon<T, false>
+{
+    static inline T apply(T const&)
+    {
+        return T(0);
+    }
+};
+
 // ItoF ItoI FtoF
 template <typename Result, typename Source,
           bool ResultIsInteger = std::numeric_limits<Result>::is_integer,
@@ -460,8 +524,14 @@ inline T relaxed_epsilon(T const& factor)
     return detail::relaxed_epsilon<T>::apply(factor);
 }
 
+template <typename T>
+inline T scaled_epsilon(T const& value)
+{
+    return detail::scaled_epsilon<T>::apply(value);
+}
 
-// Maybe replace this by boost equals or boost ublas numeric equals or so
+
+// Maybe replace this by boost equals or so
 
 /*!
     \brief returns true if both arguments are equal.
@@ -512,6 +582,24 @@ inline bool larger(T1 const& a, T2 const& b)
         >::apply(b, a);
 }
 
+template <typename T1, typename T2>
+inline bool smaller_or_equals(T1 const& a, T2 const& b)
+{
+    return detail::smaller_or_equals
+        <
+            typename select_most_precise<T1, T2>::type
+        >::apply(a, b);
+}
+
+template <typename T1, typename T2>
+inline bool larger_or_equals(T1 const& a, T2 const& b)
+{
+    return detail::smaller_or_equals
+        <
+            typename select_most_precise<T1, T2>::type
+        >::apply(b, a);
+}
+
 
 template <typename T>
 inline T d2r()
@@ -525,6 +613,65 @@ inline T r2d()
 {
     static T const conversion_coefficient = T(180.0) / geometry::math::pi<T>();
     return conversion_coefficient;
+}
+
+
+#ifndef DOXYGEN_NO_DETAIL
+namespace detail {
+
+template <typename DegreeOrRadian>
+struct as_radian
+{
+    template <typename T>
+    static inline T apply(T const& value)
+    {
+        return value;
+    }
+};
+
+template <>
+struct as_radian<degree>
+{
+    template <typename T>
+    static inline T apply(T const& value)
+    {
+        return value * d2r<T>();
+    }
+};
+
+template <typename DegreeOrRadian>
+struct from_radian
+{
+    template <typename T>
+    static inline T apply(T const& value)
+    {
+        return value;
+    }
+};
+
+template <>
+struct from_radian<degree>
+{
+    template <typename T>
+    static inline T apply(T const& value)
+    {
+        return value * r2d<T>();
+    }
+};
+
+} // namespace detail
+#endif
+
+template <typename DegreeOrRadian, typename T>
+inline T as_radian(T const& value)
+{
+    return detail::as_radian<DegreeOrRadian>::apply(value);
+}
+
+template <typename DegreeOrRadian, typename T>
+inline T from_radian(T const& value)
+{
+    return detail::from_radian<DegreeOrRadian>::apply(value);
 }
 
 

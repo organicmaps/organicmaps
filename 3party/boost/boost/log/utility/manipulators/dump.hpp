@@ -200,7 +200,7 @@ inline dump_manip dump_elements(T* data, std::size_t count) BOOST_NOEXCEPT
  * \brief Creates a stream manipulator that will output contents of a memory region in hexadecimal form
  * \param data The pointer to the beginning of the region
  * \param size The size of the region, in bytes
- * \params max_size The maximum number of bytes of the region to output
+ * \param max_size The maximum number of bytes of the region to output
  * \return The manipulator that is to be put to a stream
  */
 template< typename T >
@@ -213,7 +213,7 @@ inline typename aux::enable_dump< T, bounded_dump_manip >::type dump(T* data, st
  * \brief Creates a stream manipulator that will dump elements of an array in hexadecimal form
  * \param data The pointer to the beginning of the array
  * \param count The size of the region, in number of \c T elements
- * \params max_count The maximum number of elements to output
+ * \param max_count The maximum number of elements to output
  * \return The manipulator that is to be put to a stream
  */
 template< typename T >

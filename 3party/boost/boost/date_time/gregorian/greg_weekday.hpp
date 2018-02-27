@@ -9,9 +9,9 @@
  * $Date$
  */
 
-#include "boost/date_time/constrained_value.hpp"
-#include "boost/date_time/date_defs.hpp"
-#include "boost/date_time/compiler_config.hpp"
+#include <boost/date_time/constrained_value.hpp>
+#include <boost/date_time/date_defs.hpp>
+#include <boost/date_time/compiler_config.hpp>
 #include <stdexcept>
 #include <string>
 
@@ -29,7 +29,7 @@ namespace gregorian {
 
 
   //! Exception that flags that a weekday number is incorrect
-  struct bad_weekday : public std::out_of_range
+  struct BOOST_SYMBOL_VISIBLE bad_weekday : public std::out_of_range
   {
     bad_weekday() : std::out_of_range(std::string("Weekday is out of range 0..6")) {}
   };

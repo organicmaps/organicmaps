@@ -1,14 +1,9 @@
-// Copyright (C) 2000 Stephen Cleary
-//
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-//
-// See http://www.boost.org for updates, documentation, and revision history.
-
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2007-2013. Distributed under the Boost
+// (C) Copyright Stephen Cleary 2000 
+// (C) Copyright Ion Gaztanaga  2015-2017.
+//
+// Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -107,7 +102,7 @@
 
    #elif (defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__)))
       /* Custom spin locks for older gcc on x86 */
-      static FORCEINLINE int boost_container_x86_cas_lock(int *sl) {
+      static inline int boost_container_x86_cas_lock(int *sl) {
          int ret;
          int val = 1;
          int cmp = 0;
@@ -118,7 +113,7 @@
          return ret;
       }
 
-      static FORCEINLINE void boost_container_x86_clear_lock(int* sl) {
+      static inline void boost_container_x86_clear_lock(int* sl) {
          assert(*sl != 0);
          int prev = 0;
          int ret;

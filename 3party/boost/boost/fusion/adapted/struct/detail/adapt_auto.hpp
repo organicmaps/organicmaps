@@ -8,8 +8,7 @@
 #ifndef BOOST_FUSION_ADAPTED_STRUCT_DETAIL_ADAPT_AUTO_HPP
 #define BOOST_FUSION_ADAPTED_STRUCT_DETAIL_ADAPT_AUTO_HPP
 
-#include <boost/preprocessor/empty.hpp>
-
-#define BOOST_FUSION_ADAPT_AUTO BOOST_PP_EMPTY()
+#define BOOST_FUSION_ADAPT_AUTO auto 
+#define BOOST_MPL_PP_TOKEN_EQUAL_auto(x) x
 
 #endif

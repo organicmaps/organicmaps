@@ -143,6 +143,7 @@ BOOST_PP_REPEAT_FROM_TO(1, BOOST_LOG_MAX_PARAMETER_ARGS, BOOST_LOG_INIT_LOG_TO_F
  *             \li \c target The target directory to store rotated files in. See <tt>sinks::file::make_collector</tt>.
  *             \li \c max_size The maximum total size of rotated files in the target directory. See <tt>sinks::file::make_collector</tt>.
  *             \li \c min_free_space Minimum free space in the target directory. See <tt>sinks::file::make_collector</tt>.
+ *             \li \c max_files The maximum total number of rotated files in the target directory. See <tt>sinks::file::make_collector</tt>.
  *             \li \c scan_method The method of scanning the target directory for log files. See <tt>sinks::file::scan_method</tt>.
  *             \li \c filter Specifies a filter to install into the sink. May be a string that represents a filter,
  *                           or a filter lambda expression.

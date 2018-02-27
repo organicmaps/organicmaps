@@ -17,7 +17,7 @@
 
 #include <string>
 #include <boost/move/core.hpp>
-#include <boost/move/utility.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/mpl/has_xxx.hpp>
 #include <boost/phoenix/core/actor.hpp>
 #include <boost/phoenix/core/terminal_fwd.hpp>
@@ -53,8 +53,10 @@ private:
     typedef wrapped_formatter_output_terminal< LeftT, FunT > this_type;
 
 public:
+#ifndef BOOST_LOG_DOXYGEN_PASS
     //! Internal typedef for type categorization
     typedef void _is_boost_log_terminal;
+#endif
 
     //! Wrapped function type
     typedef FunT function_type;
@@ -156,8 +158,10 @@ template< typename FunT, typename CharT >
 class wrapped_formatter_terminal
 {
 public:
+#ifndef BOOST_LOG_DOXYGEN_PASS
     //! Internal typedef for type categorization
     typedef void _is_boost_log_terminal;
+#endif
 
     //! Character type
     typedef CharT char_type;
@@ -199,7 +203,7 @@ public:
         stream_type strm(str);
         m_fun(fusion::at_c< 0 >(phoenix::env(ctx).args()), strm);
         strm.flush();
-        return boost::move(str);
+        return BOOST_LOG_NRVO_RESULT(str);
     }
 
     //! Invokation operator
@@ -210,7 +214,7 @@ public:
         stream_type strm(str);
         m_fun(fusion::at_c< 0 >(phoenix::env(ctx).args()), strm);
         strm.flush();
-        return boost::move(str);
+        return BOOST_LOG_NRVO_RESULT(str);
     }
 };
 

@@ -34,6 +34,7 @@
 #include <boost/geometry/index/detail/rtree/visitors/is_leaf.hpp>
 
 #include <boost/geometry/index/detail/algorithms/bounds.hpp>
+#include <boost/geometry/index/detail/is_bounding_geometry.hpp>
 
 namespace boost { namespace geometry { namespace index {
 
@@ -45,14 +46,51 @@ template <typename Box, typename FwdIter, typename Translator>
 inline Box elements_box(FwdIter first, FwdIter last, Translator const& tr)
 {
     Box result;
+    
+    // Only here to suppress 'uninitialized local variable used' warning
+    // until the suggestion below is not implemented
+    geometry::assign_inverse(result);
 
-    BOOST_GEOMETRY_INDEX_ASSERT(first != last, "non-empty range required");
+    //BOOST_GEOMETRY_INDEX_ASSERT(first != last, "non-empty range required");
+    // NOTE: this is not elegant temporary solution,
+    //       reference to box could be passed as parameter and bool returned
+    if ( first == last )
+        return result;
 
     detail::bounds(element_indexable(*first, tr), result);
     ++first;
 
     for ( ; first != last ; ++first )
         geometry::expand(result, element_indexable(*first, tr));
+
+    return result;
+}
+
+// Enlarge bounds of a leaf node WRT epsilon if needed.
+// It's because Points and Segments are compared WRT machine epsilon.
+// This ensures that leafs bounds correspond to the stored elements.
+// NOTE: this is done only if the Indexable is not a Box
+//       in the future don't do it also for NSphere
+template <typename Box, typename FwdIter, typename Translator>
+inline Box values_box(FwdIter first, FwdIter last, Translator const& tr)
+{
+    typedef typename std::iterator_traits<FwdIter>::value_type element_type;
+    BOOST_MPL_ASSERT_MSG((is_leaf_element<element_type>::value),
+                         SHOULD_BE_CALLED_ONLY_FOR_LEAF_ELEMENTS,
+                         (element_type));
+
+    Box result = elements_box<Box>(first, last, tr);
+
+#ifdef BOOST_GEOMETRY_INDEX_EXPERIMENTAL_ENLARGE_BY_EPSILON
+    if (BOOST_GEOMETRY_CONDITION((
+        ! is_bounding_geometry
+            <
+                typename indexable_type<Translator>::type
+            >::value)))
+    {
+        geometry::detail::expand_by_epsilon(result);
+    }
+#endif
 
     return result;
 }

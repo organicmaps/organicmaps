@@ -59,7 +59,7 @@ namespace boost {
     {
         // Converts signed/unsigned char to char
         template < class Char >
-        struct normalize_single_byte_char
+        struct normalize_single_byte_char 
         {
             typedef Char type;
         };
@@ -79,7 +79,7 @@ namespace boost {
 
     namespace detail // deduce_character_type_later<T>
     {
-        // Helper type, meaning that stram character for T must be deduced
+        // Helper type, meaning that stram character for T must be deduced 
         // at Stage 2 (See deduce_source_char<T> and deduce_target_char<T>)
         template < class T > struct deduce_character_type_later {};
     }
@@ -116,7 +116,7 @@ namespace boost {
             Char,
             boost::detail::deduce_character_type_later< boost::iterator_range< Char* > >
         > {};
-
+    
         template < typename Char >
         struct stream_char_common< boost::iterator_range< const Char* > >: public boost::mpl::if_c<
             boost::detail::is_character< Char >::value,
@@ -187,19 +187,19 @@ namespace boost {
         // Otherwise supplied type T is a character type, that must be normalized
         // using normalize_single_byte_char<Char>.
         // Executed at Stage 2  (See deduce_source_char<T> and deduce_target_char<T>)
-        template < class Char >
+        template < class Char > 
         struct deduce_source_char_impl
-        {
-            typedef BOOST_DEDUCED_TYPENAME boost::detail::normalize_single_byte_char< Char >::type type;
+        { 
+            typedef BOOST_DEDUCED_TYPENAME boost::detail::normalize_single_byte_char< Char >::type type; 
         };
-
-        template < class T >
-        struct deduce_source_char_impl< deduce_character_type_later< T > >
+        
+        template < class T > 
+        struct deduce_source_char_impl< deduce_character_type_later< T > > 
         {
             typedef boost::has_left_shift< std::basic_ostream< char >, T > result_t;
 
 #if defined(BOOST_LCAST_NO_WCHAR_T)
-            BOOST_STATIC_ASSERT_MSG((result_t::value),
+            BOOST_STATIC_ASSERT_MSG((result_t::value), 
                 "Source type is not std::ostream`able and std::wostream`s are not supported by your STL implementation");
             typedef char type;
 #else
@@ -207,7 +207,7 @@ namespace boost {
                 result_t::value, char, wchar_t
             >::type type;
 
-            BOOST_STATIC_ASSERT_MSG((result_t::value || boost::has_left_shift< std::basic_ostream< type >, T >::value),
+            BOOST_STATIC_ASSERT_MSG((result_t::value || boost::has_left_shift< std::basic_ostream< type >, T >::value), 
                 "Source type is neither std::ostream`able nor std::wostream`able");
 #endif
         };
@@ -220,47 +220,47 @@ namespace boost {
         // Otherwise supplied type T is a character type, that must be normalized
         // using normalize_single_byte_char<Char>.
         // Executed at Stage 2  (See deduce_source_char<T> and deduce_target_char<T>)
-        template < class Char >
-        struct deduce_target_char_impl
-        {
-            typedef BOOST_DEDUCED_TYPENAME normalize_single_byte_char< Char >::type type;
+        template < class Char > 
+        struct deduce_target_char_impl 
+        { 
+            typedef BOOST_DEDUCED_TYPENAME normalize_single_byte_char< Char >::type type; 
         };
-
-        template < class T >
-        struct deduce_target_char_impl< deduce_character_type_later<T> >
-        {
+        
+        template < class T > 
+        struct deduce_target_char_impl< deduce_character_type_later<T> > 
+        { 
             typedef boost::has_right_shift<std::basic_istream<char>, T > result_t;
 
 #if defined(BOOST_LCAST_NO_WCHAR_T)
-            BOOST_STATIC_ASSERT_MSG((result_t::value),
+            BOOST_STATIC_ASSERT_MSG((result_t::value), 
                 "Target type is not std::istream`able and std::wistream`s are not supported by your STL implementation");
             typedef char type;
 #else
             typedef BOOST_DEDUCED_TYPENAME boost::mpl::if_c<
                 result_t::value, char, wchar_t
             >::type type;
-
-            BOOST_STATIC_ASSERT_MSG((result_t::value || boost::has_right_shift<std::basic_istream<wchar_t>, T >::value),
+            
+            BOOST_STATIC_ASSERT_MSG((result_t::value || boost::has_right_shift<std::basic_istream<wchar_t>, T >::value), 
                 "Target type is neither std::istream`able nor std::wistream`able");
 #endif
         };
-    }
+    } 
 
     namespace detail  // deduce_target_char<T> and deduce_source_char<T>
     {
         // We deduce stream character types in two stages.
         //
-        // Stage 1 is common for Target and Source. At Stage 1 we get
+        // Stage 1 is common for Target and Source. At Stage 1 we get 
         // non normalized character type (may contain unsigned/signed char)
         // or deduce_character_type_later<T> where T is the original type.
         // Stage 1 is executed by stream_char_common<T>
         //
-        // At Stage 2 we normalize character types or try to deduce character
-        // type using metafunctions.
-        // Stage 2 is executed by deduce_target_char_impl<T> and
+        // At Stage 2 we normalize character types or try to deduce character 
+        // type using metafunctions. 
+        // Stage 2 is executed by deduce_target_char_impl<T> and 
         // deduce_source_char_impl<T>
         //
-        // deduce_target_char<T> and deduce_source_char<T> functions combine
+        // deduce_target_char<T> and deduce_source_char<T> functions combine 
         // both stages
 
         template < class T >
@@ -322,7 +322,7 @@ namespace boost {
             typedef const T * type;
         };
     }
-
+    
     namespace detail // lcast_src_length
     {
         // Return max. length of string representation of Source;
@@ -364,12 +364,11 @@ namespace boost {
 #endif
         };
 
-#ifndef BOOST_LCAST_NO_COMPILE_TIME_PRECISION
         // Helper for floating point types.
         // -1.23456789e-123456
         // ^                   sign
         //  ^                  leading digit
-        //   ^                 decimal point
+        //   ^                 decimal point 
         //    ^^^^^^^^         lcast_precision<Source>::value
         //            ^        "e"
         //             ^       exponent sign
@@ -380,6 +379,8 @@ namespace boost {
                 Source, BOOST_DEDUCED_TYPENAME boost::enable_if<boost::is_float<Source> >::type
             >
         {
+
+#ifndef BOOST_LCAST_NO_COMPILE_TIME_PRECISION
             BOOST_STATIC_ASSERT(
                     std::numeric_limits<Source>::max_exponent10 <=  999999L &&
                     std::numeric_limits<Source>::min_exponent10 >= -999999L
@@ -388,8 +389,10 @@ namespace boost {
             BOOST_STATIC_CONSTANT(std::size_t, value =
                     5 + lcast_precision<Source>::value + 6
                 );
-        };
+#else // #ifndef BOOST_LCAST_NO_COMPILE_TIME_PRECISION
+            BOOST_STATIC_CONSTANT(std::size_t, value = 156);
 #endif // #ifndef BOOST_LCAST_NO_COMPILE_TIME_PRECISION
+        };
     }
 
     namespace detail // lexical_cast_stream_traits<Source, Target>
@@ -398,11 +401,11 @@ namespace boost {
         struct lexical_cast_stream_traits {
             typedef BOOST_DEDUCED_TYPENAME boost::detail::array_to_pointer_decay<Source>::type src;
             typedef BOOST_DEDUCED_TYPENAME boost::remove_cv<src>::type            no_cv_src;
-
+                
             typedef boost::detail::deduce_source_char<no_cv_src>                           deduce_src_char_metafunc;
             typedef BOOST_DEDUCED_TYPENAME deduce_src_char_metafunc::type           src_char_t;
             typedef BOOST_DEDUCED_TYPENAME boost::detail::deduce_target_char<Target>::type target_char_t;
-
+                
             typedef BOOST_DEDUCED_TYPENAME boost::detail::widest_char<
                 target_char_t, src_char_t
             >::type char_type;
@@ -423,33 +426,33 @@ namespace boost {
                 BOOST_DEDUCED_TYPENAME boost::detail::extract_char_traits<char_type, Target>,
                 BOOST_DEDUCED_TYPENAME boost::detail::extract_char_traits<char_type, no_cv_src>
             >::type::trait_t traits;
-
+            
             typedef boost::mpl::bool_
-		<
+            	<
                 boost::is_same<char, src_char_t>::value &&                                 // source is not a wide character based type
                 (sizeof(char) != sizeof(target_char_t)) &&  // target type is based on wide character
                 (!(boost::detail::is_character<no_cv_src>::value))
-		> is_string_widening_required_t;
+            	> is_string_widening_required_t;
 
             typedef boost::mpl::bool_
-		<
-		!(boost::is_integral<no_cv_src>::value ||
+            	<
+            	!(boost::is_integral<no_cv_src>::value || 
                   boost::detail::is_character<
                     BOOST_DEDUCED_TYPENAME deduce_src_char_metafunc::stage1_type          // if we did not get character type at stage1
                   >::value                                                           // then we have no optimization for that type
-		 )
-		> is_source_input_not_optimized_t;
-
+            	 )
+            	> is_source_input_not_optimized_t;
+            
             // If we have an optimized conversion for
             // Source, we do not need to construct stringbuf.
-            BOOST_STATIC_CONSTANT(bool, requires_stringbuf =
-		(is_string_widening_required_t::value || is_source_input_not_optimized_t::value)
+            BOOST_STATIC_CONSTANT(bool, requires_stringbuf = 
+            	(is_string_widening_required_t::value || is_source_input_not_optimized_t::value)
             );
-
+            
             typedef boost::detail::lcast_src_length<no_cv_src> len_t;
         };
     }
-
+ 
     namespace detail
     {
         template<typename Target, typename Source>
@@ -492,3 +495,4 @@ namespace boost {
 #undef BOOST_LCAST_NO_WCHAR_T
 
 #endif // BOOST_LEXICAL_CAST_DETAIL_CONVERTER_LEXICAL_HPP
+

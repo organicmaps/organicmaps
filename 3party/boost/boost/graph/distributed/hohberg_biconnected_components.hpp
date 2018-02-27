@@ -163,7 +163,7 @@ namespace hohberg_detail {
     typedef typename std::vector<T>::const_iterator iterator;
     iterator first = parent_path.begin(), last = parent_path.end();
 
-#if defined(PBGL_HOHBERG_DEBUG) and PBGL_HOHBERG_DEBUG > 2
+#if defined(PBGL_HOHBERG_DEBUG) && PBGL_HOHBERG_DEBUG > 2
     std::cerr << "infimum(";
     for (iterator i = first; i != last; ++i) {
       if (i != first) std::cerr << ' ';
@@ -198,7 +198,7 @@ namespace hohberg_detail {
     // Try to find b (which may originally have been a)
     while (*last != b) {
       if (last == first) {
-#if defined(PBGL_HOHBERG_DEBUG) and PBGL_HOHBERG_DEBUG > 2
+#if defined(PBGL_HOHBERG_DEBUG) && PBGL_HOHBERG_DEBUG > 2
         std::cerr << local(*first) << '@' << owner(*first) << std::endl;
 #endif
         return *first;

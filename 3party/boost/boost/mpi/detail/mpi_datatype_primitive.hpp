@@ -63,7 +63,7 @@ public:
 
     // fast saving of arrays of MPI types
     template<class T>
-    void save_array(serialization::array<T> const& x, unsigned int /* version */)
+    void save_array(serialization::array_wrapper<T> const& x, unsigned int /* version */)
     {
       if (x.count())
         save_impl(x.address(), boost::mpi::get_mpi_datatype(*x.address()), x.count());

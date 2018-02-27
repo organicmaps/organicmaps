@@ -137,7 +137,7 @@ namespace boost { namespace polygon{
   template <typename T1, typename T2>
   view_of<T1, T2> view_as(const T2& obj) { return view_of<T1, T2>(obj); }
 
-  template <typename T>
+  template <typename T, bool /*enable*/ = true>
   struct coordinate_traits {};
 
   //used to override long double with an infinite precision datatype
@@ -175,6 +175,17 @@ namespace boost { namespace polygon{
     typedef long double coordinate_distance;
   };
 
+  template<>
+  struct coordinate_traits<long, sizeof(long) == sizeof(int)> {
+    typedef coordinate_traits<int> cT_;
+    typedef cT_::coordinate_type coordinate_type;
+    typedef cT_::area_type area_type;
+    typedef cT_::manhattan_area_type manhattan_area_type;
+    typedef cT_::unsigned_area_type unsigned_area_type;
+    typedef cT_::coordinate_difference coordinate_difference;
+    typedef cT_::coordinate_distance coordinate_distance;
+  };
+
 #ifdef BOOST_POLYGON_USE_LONG_LONG
   template <>
   struct coordinate_traits<polygon_long_long_type> {
@@ -184,6 +195,17 @@ namespace boost { namespace polygon{
     typedef polygon_ulong_long_type unsigned_area_type;
     typedef polygon_long_long_type coordinate_difference;
     typedef long double coordinate_distance;
+  };
+
+  template<>
+  struct coordinate_traits<long, sizeof(long) == sizeof(polygon_long_long_type)> {
+    typedef coordinate_traits<polygon_long_long_type> cT_;
+    typedef cT_::coordinate_type coordinate_type;
+    typedef cT_::area_type area_type;
+    typedef cT_::manhattan_area_type manhattan_area_type;
+    typedef cT_::unsigned_area_type unsigned_area_type;
+    typedef cT_::coordinate_difference coordinate_difference;
+    typedef cT_::coordinate_distance coordinate_distance;
   };
 #endif
 

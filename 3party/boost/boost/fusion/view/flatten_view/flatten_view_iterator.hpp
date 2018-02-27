@@ -1,9 +1,9 @@
-/*//////////////////////////////////////////////////////////////////////////////
+/*==============================================================================
     Copyright (c) 2013 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-//////////////////////////////////////////////////////////////////////////////*/
+==============================================================================*/
 #ifndef BOOST_FUSION_FLATTEN_VIEW_ITERATOR_HPP_INCLUDED
 #define BOOST_FUSION_FLATTEN_VIEW_ITERATOR_HPP_INCLUDED
 

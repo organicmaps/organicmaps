@@ -57,7 +57,7 @@ namespace boost { namespace property_tree { namespace detail
     template<typename Str>
     Str widen(const char *text)
     {
-	Str result;
+        Str result;
         while (*text)
         {
             result += typename Str::value_type(*text);
@@ -70,7 +70,7 @@ namespace boost { namespace property_tree { namespace detail
     template<typename Str, typename char_type>
     Str narrow(const char_type *text)
     {
-	Str result;
+        Str result;
         while (*text)
         {
             if (*text < 0 || *text > (std::numeric_limits<char>::max)())

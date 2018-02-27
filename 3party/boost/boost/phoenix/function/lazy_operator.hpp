@@ -10,7 +10,8 @@
 // make_pair
 // plus minus multiplies divides modulus
 // negate equal not_equal greater less
-// greater_equal less_equal logical_and logical_or
+// greater_equal less_equal positive
+// logical_and logical_or
 // logical_not min max inc dec
 //
 // These are not from the FC++ operator.hpp but were made for testing purposes.
@@ -77,7 +78,15 @@ namespace boost {
 
     namespace impl {
 
-      struct Id
+      // Implemented early, moved from lazy_signature.hpp
+      template <class T>
+      struct remove_RC
+      {
+          typedef typename boost::remove_reference<T>::type TT;
+          typedef typename boost::remove_const<TT>::type type;
+      };
+
+      struct XId
       {
         template <typename Sig>
         struct result;
@@ -98,8 +107,7 @@ namespace boost {
 
     }
 
-    //BOOST_PHOENIX_ADAPT_CALLABLE(id, impl::id, 1)
-    typedef boost::phoenix::function<impl::Id> Id;
+    typedef boost::phoenix::function<impl::XId> Id;
     Id id;
 
 #ifdef BOOST_RESULT_OF_USE_TR1
@@ -115,8 +123,8 @@ namespace boost {
       class make_pair
       {
       public:
-        typedef typename boost::remove_reference<Arg1>::type Arg1Type;
-        typedef typename boost::remove_reference<Arg2>::type Arg2Type;
+        typedef typename impl::remove_RC<Arg1>::type Arg1Type;
+        typedef typename impl::remove_RC<Arg2>::type Arg2Type;
         typedef std::pair<Arg1Type,Arg2Type> type;
         typedef std::pair<Arg1Type,Arg2Type> result_type;
       };
@@ -126,7 +134,7 @@ namespace boost {
   namespace impl
   {
 
-    struct make_pair {
+    struct XMake_pair {
 
 
 #ifdef BOOST_RESULT_OF_USE_TR1
@@ -146,13 +154,13 @@ namespace boost {
        struct result<This(A0, A1)>
          : boost::remove_reference<std::pair<A0, A1> >
        {};
-
+      
 #endif
 
 
        template <typename A0, typename A1>
 #ifdef BOOST_RESULT_OF_USE_TR1
-       typename result<make_pair(A0,A1)>::type
+       typename result<XMake_pair(A0,A1)>::type
 #else
        std::pair<A0, A1>
 #endif
@@ -164,7 +172,8 @@ namespace boost {
     };
   }
 
-BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
+  typedef boost::phoenix::function<impl::XMake_pair> Make_pair;
+  Make_pair make_pair;
 
   namespace impl
   {
@@ -174,7 +183,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
     // mixed types which I have in FC++.
     // Also I could look at the case where one of the arguments is
     // another functor or a Phoenix placeholder.
-    struct Plus
+    struct XPlus
     {
         template <typename Sig>
         struct result;
@@ -204,7 +213,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
         }
     };
 
-    struct Minus
+    struct XMinus
     {
         template <typename Sig>
         struct result;
@@ -222,7 +231,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
 
     };
 
-    struct multiplies
+    struct XMultiplies
     {
         template <typename Sig>
         struct result;
@@ -240,7 +249,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
 
     };
 
-    struct divides
+    struct XDivides
     {
         template <typename Sig>
         struct result;
@@ -258,7 +267,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
 
     };
 
-    struct modulus
+    struct XModulus
     {
         template <typename Sig>
         struct result;
@@ -276,7 +285,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
 
     };
 
-    struct negate
+    struct XNegate
     {
         template <typename Sig>
         struct result;
@@ -293,7 +302,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
         }
     };
 
-    struct equal
+    struct XEqual
     {
         template <typename Sig>
         struct result;
@@ -311,7 +320,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
         }
     };
 
-    struct not_equal
+    struct XNot_equal
     {
         template <typename Sig>
         struct result;
@@ -329,7 +338,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
         }
     };
 
-    struct greater
+    struct XGreater
     {
         template <typename Sig>
         struct result;
@@ -347,7 +356,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
         }
     };
 
-    struct less
+    struct XLess
     {
         template <typename Sig>
         struct result;
@@ -365,7 +374,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
         }
     };
 
-    struct greater_equal
+    struct XGreater_equal
     {
         template <typename Sig>
         struct result;
@@ -383,7 +392,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
         }
     };
 
-    struct less_equal
+    struct XLess_equal
     {
         template <typename Sig>
         struct result;
@@ -401,7 +410,25 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
         }
     };
 
-    struct logical_and
+    struct XPositive
+    {
+        template <typename Sig>
+        struct result;
+
+        template <typename This, typename A0>
+        struct result<This(A0)>
+        {
+            typedef bool type;
+        };
+
+        template <typename A0>
+        bool operator()(A0 const & a0) const
+        {
+          return a0 >= A0(0);
+        }
+    };
+
+    struct XLogical_and
     {
         template <typename Sig>
         struct result;
@@ -419,7 +446,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
         }
     };
 
-    struct logical_or
+    struct XLogical_or
     {
         template <typename Sig>
         struct result;
@@ -437,7 +464,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
         }
     };
 
-    struct logical_not
+    struct XLogical_not
     {
         template <typename Sig>
         struct result;
@@ -455,7 +482,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
         }
     };
 
-    struct min
+    struct XMin
     {
         template <typename Sig>
         struct result;
@@ -473,7 +500,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
 
     };
 
-    struct max
+    struct XMax
     {
         template <typename Sig>
         struct result;
@@ -491,7 +518,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
 
     };
 
-    struct Inc
+    struct XInc
     {
         template <typename Sig>
         struct result;
@@ -509,7 +536,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
 
     };
 
-    struct Dec
+    struct XDec
     {
         template <typename Sig>
         struct result;
@@ -527,7 +554,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
 
     };
 
-    struct Sin
+    struct XSin
     {
         template <typename Sig>
         struct result;
@@ -572,6 +599,7 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
 
     };
 
+
       template <class Result, class F>
       class MonomorphicWrapper0 /* : public c_fun_type<Res> */
       {
@@ -583,30 +611,6 @@ BOOST_PHOENIX_ADAPT_CALLABLE(make_pair, impl::make_pair, 2)
              return f();
           }
       };
-
-      /* I need the equivalent of this
-      template <class Res, class F>
-      full0<impl::XMonomorphicWrapper0<Res,F> > monomorphize0( const F& f )
-      {
-         return make_full0( impl::XMonomorphicWrapper0<Res,F>( f ) );
-      }*/
-
-
-    // boost::function0<int> res = MonomorphicWrapper0<int,F>(f);
-
-
-      template <class Res, class F>
-      boost::function<Res()> monomorphize0( const F& f )
-      {
-        boost::function0<Res> ff =  MonomorphicWrapper0<Res,F>( f );
-        //BOOST_PHOENIX_ADAPT_FUNCTION_NULLARY(Res,fres,ff)
-        return ff;
-      }
-
-    // This is C++1y
-    //template <typename Result>
-    //static boost::function1<Result,Result> res = what<Result>();
-
 
   }
     /////////////////////////////////////////////////////////
@@ -627,44 +631,53 @@ typedef boost::phoenix::function<fun0_int> What0_arg;
 What_arg what_arg(what_int);
 What0_arg what0_arg(what0_int);
 
-//BOOST_PHOENIX_ADAPT_CALLABLE(plus, impl::plus, 2)
-//BOOST_PHOENIX_ADAPT_CALLABLE(plus, impl::plus, 3)
-//BOOST_PHOENIX_ADAPT_CALLABLE(minus, impl::minus, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(multiplies, impl::multiplies, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(divides, impl::divides, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(modulus, impl::modulus, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(negate, impl::negate, 1)
-BOOST_PHOENIX_ADAPT_CALLABLE(equal, impl::equal, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(not_equal, impl::not_equal, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(greater, impl::greater, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(less, impl::less, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(greater_equal, impl::greater_equal, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(less_equal, impl::less_equal, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(logical_and, impl::logical_and, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(logical_or, impl::logical_or, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(logical_not, impl::logical_not, 1)
-BOOST_PHOENIX_ADAPT_CALLABLE(min, impl::min, 2)
-BOOST_PHOENIX_ADAPT_CALLABLE(max, impl::max, 2)
-//BOOST_PHOENIX_ADAPT_CALLABLE(inc, impl::inc, 1)
-//BOOST_PHOENIX_ADAPT_CALLABLE(dec, impl::dec, 1)
-//BOOST_PHOENIX_ADAPT_CALLABLE(sin, impl::sin, 1)
 
 // To use these as arguments they have to be defined like this.
-    typedef boost::phoenix::function<impl::Plus> Plus;
-    typedef boost::phoenix::function<impl::Minus> Minus;
-    typedef boost::phoenix::function<impl::Inc> Inc;
-    typedef boost::phoenix::function<impl::Dec> Dec;
-    typedef boost::phoenix::function<impl::Sin> Sin;
+    typedef boost::phoenix::function<impl::XPlus> Plus;
+    typedef boost::phoenix::function<impl::XMinus> Minus;
+    typedef boost::phoenix::function<impl::XMultiplies> Multiplies;
+    typedef boost::phoenix::function<impl::XDivides>   Divides;
+    typedef boost::phoenix::function<impl::XModulus>   Modulus;
+    typedef boost::phoenix::function<impl::XNegate>    Negate;
+    typedef boost::phoenix::function<impl::XEqual>     Equal;
+    typedef boost::phoenix::function<impl::XNot_equal> Not_equal;
+    typedef boost::phoenix::function<impl::XGreater>   Greater;
+    typedef boost::phoenix::function<impl::XLess>      Less;
+    typedef boost::phoenix::function<impl::XGreater_equal> Greater_equal;
+    typedef boost::phoenix::function<impl::XLess_equal>    Less_equal;
+    typedef boost::phoenix::function<impl::XPositive>    Positive;
+    typedef boost::phoenix::function<impl::XLogical_and> Logical_and;
+    typedef boost::phoenix::function<impl::XLogical_or>  Logical_or;
+    typedef boost::phoenix::function<impl::XLogical_not> Logical_not;
+    typedef boost::phoenix::function<impl::XMax> Max;
+    typedef boost::phoenix::function<impl::XMin> Min;
+    typedef boost::phoenix::function<impl::XInc> Inc;
+    typedef boost::phoenix::function<impl::XDec> Dec;
+    typedef boost::phoenix::function<impl::XSin> Sin;
     Plus plus;
     Minus minus;
+    Multiplies multiplies;
+    Divides divides;
+    Modulus modulus;
+    Negate  negate;
+    Equal   equal;
+    Not_equal not_equal;
+    Greater greater;
+    Less    less;
+    Greater_equal greater_equal;
+    Less_equal    less_equal;
+    Positive      positive;
+    Logical_and   logical_and;
+    Logical_or    logical_or;
+    Logical_not   logical_not;
+    Max max;
+    Min min;
     Inc inc;
     Dec dec;
     Sin sin;
 }
 
 }
-
-
 
 
 #endif

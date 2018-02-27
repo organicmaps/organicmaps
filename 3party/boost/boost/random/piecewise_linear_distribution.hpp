@@ -487,6 +487,7 @@ private:
     void init(const std::vector<RealType>& intervals_arg,
               const std::vector<RealType>& weights_arg)
     {
+        using std::abs;
         std::vector<RealType> bin_weights;
         bin_weights.reserve((intervals_arg.size() - 1) * 2);
         for(std::size_t i = 0; i < intervals_arg.size() - 1; ++i) {
@@ -494,7 +495,7 @@ private:
             RealType w1 = weights_arg[i];
             RealType w2 = weights_arg[i + 1];
             bin_weights.push_back((std::min)(w1, w2) * width);
-            bin_weights.push_back(std::abs(w1 - w2) * width / 2);
+            bin_weights.push_back(abs(w1 - w2) * width / 2);
         }
         typedef discrete_distribution<std::size_t, RealType> bins_type;
         typename bins_type::param_type bins_param(bin_weights);

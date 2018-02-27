@@ -39,6 +39,15 @@ struct dense_output_factory
     {
         return DenseOutput( abs_error , rel_error , stepper );
     }
+
+    DenseOutput operator()(
+            typename Stepper::value_type abs_error ,
+            typename Stepper::value_type rel_error ,
+            typename Stepper::time_type max_dt ,
+            const Stepper &stepper )
+    {
+        return DenseOutput( abs_error , rel_error , max_dt , stepper );
+    }
 };
 
 
@@ -68,6 +77,19 @@ typename result_of::make_dense_output< Stepper >::type make_dense_output(
 }
 
 
+template< class Stepper >
+typename result_of::make_dense_output< Stepper >::type make_dense_output(
+        typename Stepper::value_type abs_error ,
+        typename Stepper::value_type rel_error ,
+        typename Stepper::time_type max_dt ,
+        const Stepper &stepper = Stepper() )
+{
+    typedef Stepper stepper_type;
+    typedef typename result_of::make_dense_output< stepper_type >::type dense_output_type;
+    typedef dense_output_factory< stepper_type , dense_output_type > factory_type;
+    factory_type factory;
+    return factory( abs_error , rel_error , max_dt, stepper );
+}
 
 
 } // odeint

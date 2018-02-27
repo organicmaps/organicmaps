@@ -2,7 +2,7 @@
 // basic_socket_acceptor.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -232,10 +232,9 @@ public:
   basic_socket_acceptor(
       basic_socket_acceptor<Protocol1, SocketAcceptorService1>&& other,
       typename enable_if<is_convertible<Protocol1, Protocol>::value>::type* = 0)
-    : basic_io_object<SocketAcceptorService>(other.get_io_service())
+    : basic_io_object<SocketAcceptorService>(
+        other.get_service(), other.get_implementation())
   {
-    this->get_service().template converting_move_construct<Protocol1>(
-        this->get_implementation(), other.get_implementation());
   }
 
   /// Move-assign a basic_socket_acceptor from an acceptor of another protocol

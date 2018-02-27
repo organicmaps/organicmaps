@@ -26,7 +26,7 @@
 #include <boost/container/detail/node_pool.hpp>
 #include <boost/container/detail/mpl.hpp>
 #include <boost/container/detail/multiallocation_chain.hpp>
-#include <boost/container/detail/alloc_lib_auto_link.hpp>
+#include <boost/container/detail/dlmalloc.hpp>
 #include <boost/container/detail/singleton.hpp>
 
 #include <boost/assert.hpp>
@@ -109,9 +109,6 @@ class node_allocator
    template<class T2, std::size_t N2>
    node_allocator& operator=
       (const node_allocator<T2, N2>&);
-
-   //!Not assignable from other node_allocator
-   node_allocator& operator=(const node_allocator&);
    #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
    public:
@@ -157,7 +154,7 @@ class node_allocator
          return pointer(static_cast<T*>(singleton_t::instance().allocate_node()));
       }
       else{
-         void *ret = boost_cont_malloc(count*sizeof(T));
+         void *ret = dlmalloc_malloc(count*sizeof(T));
          if(BOOST_UNLIKELY(!ret))
             boost::container::throw_bad_alloc();
          return static_cast<pointer>(ret);
@@ -176,7 +173,7 @@ class node_allocator
          singleton_t::instance().deallocate_node(ptr);
       }
       else{
-         boost_cont_free(ptr);
+         dlmalloc_free(ptr);
       }
    }
 
@@ -204,7 +201,7 @@ class node_allocator
    size_type size(pointer p) const BOOST_NOEXCEPT_OR_NOTHROW
    {
       BOOST_STATIC_ASSERT(( Version > 1 ));
-      return boost_cont_size(p);
+      return dlmalloc_size(p);
    }
 
    //!Allocates just one object. Memory allocated with this function
@@ -259,9 +256,9 @@ class node_allocator
    void allocate_many(size_type elem_size, std::size_t n_elements, multiallocation_chain &chain)
    {
       BOOST_STATIC_ASSERT(( Version > 1 ));
-      boost_cont_memchain ch;
+      dlmalloc_memchain ch;
       BOOST_CONTAINER_MEMCHAIN_INIT(&ch);
-      if(BOOST_UNLIKELY(!boost_cont_multialloc_nodes(n_elements, elem_size*sizeof(T), DL_MULTIALLOC_DEFAULT_CONTIGUOUS, &ch))){
+      if(BOOST_UNLIKELY(!dlmalloc_multialloc_nodes(n_elements, elem_size*sizeof(T), DL_MULTIALLOC_DEFAULT_CONTIGUOUS, &ch))){
          boost::container::throw_bad_alloc();
       }
       chain.incorporate_after( chain.before_begin()
@@ -275,8 +272,8 @@ class node_allocator
    void allocate_many(const size_type *elem_sizes, size_type n_elements, multiallocation_chain &chain)
    {
       BOOST_STATIC_ASSERT(( Version > 1 ));
-      boost_cont_memchain ch;
-      boost_cont_multialloc_arrays(n_elements, elem_sizes, sizeof(T), DL_MULTIALLOC_DEFAULT_CONTIGUOUS, &ch);
+      dlmalloc_memchain ch;
+      dlmalloc_multialloc_arrays(n_elements, elem_sizes, sizeof(T), DL_MULTIALLOC_DEFAULT_CONTIGUOUS, &ch);
       if(BOOST_UNLIKELY(BOOST_CONTAINER_MEMCHAIN_EMPTY(&ch))){
          boost::container::throw_bad_alloc();
       }
@@ -292,9 +289,9 @@ class node_allocator
       void *first = &*chain.begin();
       void *last  = &*chain.last();
       size_t num  = chain.size();
-      boost_cont_memchain ch;
+      dlmalloc_memchain ch;
       BOOST_CONTAINER_MEMCHAIN_INIT_FROM(&ch, first, last, num);
-      boost_cont_multidealloc(&ch);
+      dlmalloc_multidealloc(&ch);
    }
 
    //!Swaps allocators. Does not throw. If each allocator is placed in a
@@ -319,7 +316,7 @@ class node_allocator
       ,pointer &reuse)
    {
       std::size_t const preferred_size = prefer_in_recvd_out_size;
-      boost_cont_command_ret_t ret = {0 , 0};
+      dlmalloc_command_ret_t ret = {0 , 0};
       if((limit_size > this->max_size()) | (preferred_size > this->max_size())){
          return pointer();
       }
@@ -328,7 +325,7 @@ class node_allocator
       std::size_t r_size;
       {
          void* reuse_ptr_void = reuse;
-         ret = boost_cont_allocation_command(command, sizeof(T), l_size, p_size, &r_size, reuse_ptr_void);
+         ret = dlmalloc_allocation_command(command, sizeof(T), l_size, p_size, &r_size, reuse_ptr_void);
          reuse = static_cast<T*>(reuse_ptr_void);
       }
       prefer_in_recvd_out_size = r_size/sizeof(T);

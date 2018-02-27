@@ -13,13 +13,11 @@
 
 #include <boost/config.hpp>
 
-#ifdef BOOST_HAS_DECLSPEC
-    #if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_RANDOM_DYN_LINK)
-        #if defined(BOOST_RANDOM_SOURCE)
-            #define BOOST_RANDOM_DECL __declspec(dllexport)
-        #else
-            #define BOOST_RANDOM_DECL __declspec(dllimport)
-        #endif
+#if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_RANDOM_DYN_LINK)
+    #if defined(BOOST_RANDOM_SOURCE)
+        #define BOOST_RANDOM_DECL BOOST_SYMBOL_EXPORT
+    #else
+        #define BOOST_RANDOM_DECL BOOST_SYMBOL_IMPORT
     #endif
 #endif
 

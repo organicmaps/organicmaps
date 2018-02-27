@@ -108,7 +108,8 @@ basic_xml_iarchive<Archive>::basic_xml_iarchive(unsigned int flags) :
 {}
 template<class Archive>
 BOOST_ARCHIVE_OR_WARCHIVE_DECL
-basic_xml_iarchive<Archive>::~basic_xml_iarchive(){}
+basic_xml_iarchive<Archive>::~basic_xml_iarchive(){
+}
 
 } // namespace archive
 } // namespace boost

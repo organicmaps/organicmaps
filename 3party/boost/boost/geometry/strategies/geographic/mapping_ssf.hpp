@@ -2,8 +2,8 @@
 
 // Copyright (c) 2011-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2014.
-// Modifications copyright (c) 2014 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014, 2017.
+// Modifications copyright (c) 2014-2017 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -136,7 +136,7 @@ public :
     {}
 
     template <typename P1, typename P2, typename P>
-    inline int apply(P1 const& p1, P2 const& p2, P const& p)
+    inline int apply(P1 const& p1, P2 const& p2, P const& p) const
     {
         typedef typename promote_floating_point
             <

@@ -39,6 +39,10 @@
 #include <boost/noncopyable.hpp>
 #include <boost/serialization/force_include.hpp>
 
+#include <boost/archive/detail/auto_link_archive.hpp>
+#include <boost/serialization/config.hpp>
+#include <boost/archive/detail/abi_prefix.hpp> // must be the last header
+
 #ifdef BOOST_MSVC
 #  pragma warning(push)
 #  pragma warning(disable : 4511 4512)
@@ -81,24 +85,22 @@ class BOOST_SYMBOL_VISIBLE singleton_module :
     public boost::noncopyable
 {
 private:
-    static bool & get_lock(){
-        static bool lock = false;
-        return lock;
-    }
+    BOOST_SERIALIZATION_DECL static bool & get_lock();
 public:
-//    static const void * get_module_handle(){
-//        return static_cast<const void *>(get_module_handle);
-//    }
     static void lock(){
         get_lock() = true;
     }
+
     static void unlock(){
         get_lock() = false;
     }
-    static bool is_locked() {
+
+    static bool is_locked(){
         return get_lock();
     }
 };
+
+#include <boost/archive/detail/abi_suffix.hpp> // pops abi_suffix.hpp pragmas
 
 namespace detail {
 
@@ -117,19 +119,25 @@ bool detail::singleton_wrapper< T >::m_is_destroyed = false;
 
 } // detail
 
+// note usage of BOOST_DLLEXPORT.  These functions are in danger of
+// being eliminated by the optimizer when building an application in
+// release mode. Usage of the macro is meant to signal the compiler/linker
+// to avoid dropping these functions which seem to be unreferenced.
+// This usage is not related to autolinking.
+
 template <class T>
 class singleton : public singleton_module
 {
 private:
     BOOST_DLLEXPORT static T & instance;
     // include this to provoke instantiation at pre-execution time
-    static void use(T const &) {}
+    static void use(T const *) {}
     BOOST_DLLEXPORT static T & get_instance() {
         static detail::singleton_wrapper< T > t;
         // refer to instance, causing it to be instantiated (and
         // initialized at startup on working compilers)
         BOOST_ASSERT(! detail::singleton_wrapper< T >::m_is_destroyed);
-        use(instance);
+        use(& instance);
         return static_cast<T &>(t);
     }
 public:

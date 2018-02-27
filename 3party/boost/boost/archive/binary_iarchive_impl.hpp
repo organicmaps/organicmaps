@@ -33,7 +33,7 @@ namespace detail {
 } // namespace detail
 
 template<class Archive, class Elem, class Tr>
-class binary_iarchive_impl : 
+class BOOST_SYMBOL_VISIBLE binary_iarchive_impl : 
     public basic_binary_iprimitive<Archive, Elem, Tr>,
     public basic_binary_iarchive<Archive>
 {
@@ -58,8 +58,9 @@ protected:
         this->basic_binary_iarchive<Archive>::load_override(t);
     }
     void init(unsigned int flags){
-        if(0 != (flags & no_header))
+        if(0 != (flags & no_header)){
             return;
+        }
         #if ! defined(__MWERKS__)
             this->basic_binary_iarchive<Archive>::init();
             this->basic_binary_iprimitive<Archive, Elem, Tr>::init();

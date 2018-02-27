@@ -13,8 +13,7 @@
 #include <cstddef>
 
 #include <boost/type_traits/intrinsics.hpp>
-// should be the last #include
-#include <boost/type_traits/detail/size_t_trait_def.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 #ifdef BOOST_MSVC
 #   pragma warning(push)
@@ -86,29 +85,25 @@ struct alignment_of_impl
 
 } // namespace detail
 
-BOOST_TT_AUX_SIZE_T_TRAIT_DEF1(alignment_of,T,::boost::detail::alignment_of_impl<T>::value)
+template <class T> struct alignment_of : public integral_constant<std::size_t, ::boost::detail::alignment_of_impl<T>::value>{};
 
 // references have to be treated specially, assume
 // that a reference is just a special pointer:
-template <typename T>
-struct alignment_of<T&>
-    : public alignment_of<T*>
-{
-};
+template <typename T> struct alignment_of<T&> : public alignment_of<T*>{};
+
 #ifdef __BORLANDC__
 // long double gives an incorrect value of 10 (!)
 // unless we do this...
 struct long_double_wrapper{ long double ld; };
-template<> struct alignment_of<long double>
-   : public alignment_of<long_double_wrapper>{};
+template<> struct alignment_of<long double> : public alignment_of<long_double_wrapper>{};
 #endif
 
 // void has to be treated specially:
-BOOST_TT_AUX_SIZE_T_TRAIT_SPEC1(alignment_of,void,0)
+template<> struct alignment_of<void> : integral_constant<std::size_t, 0>{};
 #ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS
-BOOST_TT_AUX_SIZE_T_TRAIT_SPEC1(alignment_of,void const,0)
-BOOST_TT_AUX_SIZE_T_TRAIT_SPEC1(alignment_of,void volatile,0)
-BOOST_TT_AUX_SIZE_T_TRAIT_SPEC1(alignment_of,void const volatile,0)
+template<> struct alignment_of<void const> : integral_constant<std::size_t, 0>{};
+template<> struct alignment_of<void const volatile> : integral_constant<std::size_t, 0>{};
+template<> struct alignment_of<void volatile> : integral_constant<std::size_t, 0>{};
 #endif
 
 } // namespace boost
@@ -119,8 +114,6 @@ BOOST_TT_AUX_SIZE_T_TRAIT_SPEC1(alignment_of,void const volatile,0)
 #ifdef BOOST_MSVC
 #   pragma warning(pop)
 #endif
-
-#include <boost/type_traits/detail/size_t_trait_undef.hpp>
 
 #endif // BOOST_TT_ALIGNMENT_OF_HPP_INCLUDED
 

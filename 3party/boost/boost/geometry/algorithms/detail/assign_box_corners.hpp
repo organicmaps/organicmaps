@@ -54,8 +54,8 @@ inline void assign_box_corners(Box const& box,
         Point& lower_left, Point& lower_right,
         Point& upper_left, Point& upper_right)
 {
-    concept::check<Box const>();
-    concept::check<Point>();
+    concepts::check<Box const>();
+    concepts::check<Point>();
 
     detail::assign::assign_box_2d_corner
             <min_corner, min_corner>(box, lower_left);

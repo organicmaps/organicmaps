@@ -4,8 +4,8 @@
 // Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2014, 2015.
-// Modifications copyright (c) 2014-2015 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014, 2015, 2016.
+// Modifications copyright (c) 2014-2016 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
@@ -110,7 +110,7 @@
 #include <boost/geometry/io/io.hpp>
 #include <boost/geometry/io/dsv/write.hpp>
 #include <boost/geometry/io/svg/svg_mapper.hpp>
-#include <boost/geometry/io/svg/write_svg.hpp>
+#include <boost/geometry/io/svg/write.hpp>
 #include <boost/geometry/io/wkt/read.hpp>
 #include <boost/geometry/io/wkt/write.hpp>
 

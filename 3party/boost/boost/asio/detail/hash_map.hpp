@@ -2,7 +2,7 @@
 // detail/hash_map.hpp
 // ~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -244,15 +244,15 @@ private:
   {
     if (num_buckets == num_buckets_)
       return;
-    num_buckets_ = num_buckets;
-    BOOST_ASIO_ASSERT(num_buckets_ != 0);
+    BOOST_ASIO_ASSERT(num_buckets != 0);
 
     iterator end_iter = values_.end();
 
     // Update number of buckets and initialise all buckets to empty.
-    bucket_type* tmp = new bucket_type[num_buckets_];
+    bucket_type* tmp = new bucket_type[num_buckets];
     delete[] buckets_;
     buckets_ = tmp;
+    num_buckets_ = num_buckets;
     for (std::size_t i = 0; i < num_buckets_; ++i)
       buckets_[i].first = buckets_[i].last = end_iter;
 

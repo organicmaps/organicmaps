@@ -34,6 +34,11 @@ BOOST_SERIALIZATION_SPLIT_FREE(::boost::gregorian::first_kday_before)
 BOOST_SERIALIZATION_SPLIT_FREE(::boost::gregorian::first_kday_after)
 
 namespace boost {
+
+  namespace gregorian {
+    std::string to_iso_string(const date&);
+  }
+
 namespace serialization {
 
 /*! Method that does serialization for gregorian::date -- splits to load/save

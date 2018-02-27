@@ -17,7 +17,7 @@
 
 namespace boost { namespace math {
 
-
+  
   template<class T, class Policy>
   inline typename tools::promote_args<T>::type polygamma(const int n, T x, const Policy& pol)
   {
@@ -80,3 +80,4 @@ namespace boost { namespace math {
 } } // namespace boost::math
 
 #endif // _BOOST_BERNOULLI_2013_05_30_HPP_
+

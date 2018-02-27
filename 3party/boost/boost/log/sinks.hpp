@@ -33,6 +33,7 @@
 
 #include <boost/log/sinks/syslog_backend.hpp>
 #include <boost/log/sinks/text_file_backend.hpp>
+#include <boost/log/sinks/text_ipc_message_queue_backend.hpp>
 #include <boost/log/sinks/text_multifile_backend.hpp>
 #include <boost/log/sinks/text_ostream_backend.hpp>
 #ifdef BOOST_WINDOWS

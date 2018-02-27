@@ -2,7 +2,7 @@
 // basic_serial_port.hpp
 // ~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 // Copyright (c) 2008 Rep Invariant Systems, Inc. (info@repinvariant.com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -445,7 +445,7 @@ public:
    *
    * @param option The option value to be obtained from the serial port.
    *
-   * @param ec Set to indicate what error occured, if any.
+   * @param ec Set to indicate what error occurred, if any.
    *
    * @sa GettableSerialPortOption @n
    * boost::asio::serial_port_base::baud_rate @n

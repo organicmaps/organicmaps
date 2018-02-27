@@ -144,7 +144,7 @@ OutputIterator regex_replace(OutputIterator out,
    return ::boost::regex_replace(out, first, last, e, fmt.GetString(), flags);
 }
 
-namespace re_detail{
+namespace BOOST_REGEX_DETAIL_NS{
 
 template <class B, bool b>
 class mfc_string_out_iterator
@@ -176,7 +176,7 @@ ATL::CSimpleStringT<B, b> regex_replace(const ATL::CSimpleStringT<B, b>& s,
                             match_flag_type flags = match_default)
 {
    ATL::CSimpleStringT<B, b> result(s.GetManager());
-   re_detail::mfc_string_out_iterator<B, b> i(result);
+   BOOST_REGEX_DETAIL_NS::mfc_string_out_iterator<B, b> i(result);
    regex_replace(i, s.GetString(), s.GetString() + s.GetLength(), e, fmt.GetString(), flags);
    return result;
 }

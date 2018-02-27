@@ -11,7 +11,7 @@
 #ifndef BOOST_IOSTREAMS_BZIP2_HPP_INCLUDED
 #define BOOST_IOSTREAMS_BZIP2_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
                    
@@ -87,9 +87,9 @@ const bool default_small       = false;
 struct bzip2_params {
 
     // Non-explicit constructor for compression.
-    bzip2_params( int block_size   = bzip2::default_block_size,
-                  int work_factor  = bzip2::default_work_factor )
-        : block_size(block_size), work_factor(work_factor)
+    bzip2_params( int block_size_  = bzip2::default_block_size,
+                  int work_factor_ = bzip2::default_work_factor )
+        : block_size(block_size_), work_factor(work_factor_)
         { }
 
     // Constructor for decompression.
@@ -157,10 +157,8 @@ protected:
         {
             bool custom = bzip2_allocator<Alloc>::custom;
             do_init( compress,
-                     #if !BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-                         custom ? bzip2_allocator<Alloc>::allocate : 0,
-                         custom ? bzip2_allocator<Alloc>::deallocate : 0,
-                     #endif
+                     custom ? bzip2_allocator<Alloc>::allocate : 0,
+                     custom ? bzip2_allocator<Alloc>::deallocate : 0,
                      custom ? &alloc : 0 );
         }
     void before( const char*& src_begin, const char* src_end,
@@ -172,10 +170,8 @@ protected:
     void end(bool compress);
 private:
     void do_init( bool compress, 
-                  #if !BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-                      bzip2::alloc_func, 
-                      bzip2::free_func, 
-                  #endif
+                  bzip2::alloc_func,
+                  bzip2::free_func, 
                   void* derived );
     bzip2_params  params_;
     void*         stream_; // Actual type: bz_stream*.
@@ -246,7 +242,7 @@ public:
     typedef typename base_type::char_type               char_type;
     typedef typename base_type::category                category;
     basic_bzip2_compressor( const bzip2_params& = bzip2::default_block_size, 
-                            int buffer_size =  default_device_buffer_size );
+                            std::streamsize buffer_size =  default_device_buffer_size );
 };
 BOOST_IOSTREAMS_PIPABLE(basic_bzip2_compressor, 1)
 
@@ -268,7 +264,7 @@ public:
     typedef typename base_type::char_type               char_type;
     typedef typename base_type::category                category;
     basic_bzip2_decompressor( bool small = bzip2::default_small,
-                              int buffer_size = default_device_buffer_size );
+                              std::streamsize buffer_size = default_device_buffer_size );
 };
 BOOST_IOSTREAMS_PIPABLE(basic_bzip2_decompressor, 1)
 
@@ -390,7 +386,7 @@ inline void bzip2_decompressor_impl<Alloc>::init()
 
 template<typename Alloc>
 basic_bzip2_compressor<Alloc>::basic_bzip2_compressor
-        (const bzip2_params& p, int buffer_size) 
+        (const bzip2_params& p, std::streamsize buffer_size) 
     : base_type(buffer_size, p) 
     { }
 
@@ -398,7 +394,7 @@ basic_bzip2_compressor<Alloc>::basic_bzip2_compressor
 
 template<typename Alloc>
 basic_bzip2_decompressor<Alloc>::basic_bzip2_decompressor
-        (bool small, int buffer_size) 
+        (bool small, std::streamsize buffer_size) 
     : base_type(buffer_size, small)
     { }
 

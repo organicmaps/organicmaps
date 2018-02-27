@@ -2,7 +2,7 @@
 //
 // R-tree boxes validating visitor implementation
 //
-// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2015 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -60,13 +60,7 @@ public:
         m_box = box_bckup;
         m_is_root = is_root_bckup;
 
-        Box box_exp;
-        geometry::convert(elements.front().first, box_exp);
-        for( typename elements_type::const_iterator it = elements.begin() + 1;
-            it != elements.end() ; ++it)
-        {
-            geometry::expand(box_exp, it->first);
-        }
+        Box box_exp = rtree::elements_box<Box>(elements.begin(), elements.end(), m_tr);
         
         if ( m_exact_match )
             result = m_is_root || geometry::equals(box_exp, m_box);
@@ -88,15 +82,7 @@ public:
                 return;
             }
         
-            Box box_exp;
-            geometry::convert(
-                index::detail::return_ref_or_bounds(m_tr(elements.front())),
-                box_exp);
-            for(typename elements_type::const_iterator it = elements.begin() + 1;
-                it != elements.end() ; ++it)
-            {
-                geometry::expand(box_exp, m_tr(*it));
-            }
+            Box box_exp = rtree::values_box<Box>(elements.begin(), elements.end(), m_tr);
 
             if ( m_exact_match )
                 result = geometry::equals(box_exp, m_box);

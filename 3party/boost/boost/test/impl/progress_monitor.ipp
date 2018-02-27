@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -17,8 +17,8 @@
 
 // Boost.Test
 #include <boost/test/progress_monitor.hpp>
-
 #include <boost/test/unit_test_parameters.hpp>
+
 #include <boost/test/utils/setcolor.hpp>
 
 #include <boost/test/tree/test_unit.hpp>
@@ -52,7 +52,7 @@ struct progress_display {
              << "\n|----|----|----|----|----|----|----|----|----|----|"
              << std::endl;
 
-        if( !m_expected_count )
+        if( !m_expected_count ) 
             m_expected_count = 1;  // prevent divide by zero
     }
 
@@ -63,7 +63,7 @@ struct progress_display {
 
         // use of floating point ensures that both large and small counts
         // work correctly.  static_cast<>() is also used several places
-        // to suppress spurious compiler warnings.
+        // to suppress spurious compiler warnings. 
         unsigned int tics_needed =  static_cast<unsigned int>(
             (static_cast<double>(m_count)/m_expected_count)*50.0 );
 
@@ -102,14 +102,20 @@ namespace {
 struct progress_monitor_impl {
     // Constructor
     progress_monitor_impl()
-        : m_stream( runtime_config::log_sink() )
-    {}
+    : m_stream( &std::cout )
+    , m_color_output( false )
+    {
+    }
 
-    std::ostream*                m_stream;
-    scoped_ptr<progress_display> m_progress_display;
+    std::ostream*                   m_stream;
+    scoped_ptr<progress_display>    m_progress_display;
+    bool                            m_color_output;
 };
 
 progress_monitor_impl& s_pm_impl() { static progress_monitor_impl the_inst; return the_inst; }
+
+#define PM_SCOPED_COLOR() \
+    BOOST_TEST_SCOPE_SETCOLOR( s_pm_impl().m_color_output, *s_pm_impl().m_stream, term_attr::BRIGHT, term_color::MAGENTA )
 
 } // local namespace
 
@@ -118,7 +124,9 @@ progress_monitor_impl& s_pm_impl() { static progress_monitor_impl the_inst; retu
 void
 progress_monitor_t::test_start( counter_t test_cases_amount )
 {
-    BOOST_TEST_SCOPE_SETCOLOR( *s_pm_impl().m_stream, term_attr::BRIGHT, term_color::MAGENTA );
+    s_pm_impl().m_color_output = runtime_config::get<bool>( runtime_config::btrt_color_output );
+
+    PM_SCOPED_COLOR();
 
     s_pm_impl().m_progress_display.reset( new progress_display( test_cases_amount, *s_pm_impl().m_stream ) );
 }
@@ -128,7 +136,7 @@ progress_monitor_t::test_start( counter_t test_cases_amount )
 void
 progress_monitor_t::test_aborted()
 {
-    BOOST_TEST_SCOPE_SETCOLOR( *s_pm_impl().m_stream, term_attr::BRIGHT, term_color::MAGENTA );
+    PM_SCOPED_COLOR();
 
     (*s_pm_impl().m_progress_display) += s_pm_impl().m_progress_display->count();
 }
@@ -138,7 +146,7 @@ progress_monitor_t::test_aborted()
 void
 progress_monitor_t::test_unit_finish( test_unit const& tu, unsigned long )
 {
-    BOOST_TEST_SCOPE_SETCOLOR( *s_pm_impl().m_stream, term_attr::BRIGHT, term_color::MAGENTA );
+    PM_SCOPED_COLOR();
 
     if( tu.p_type == TUT_CASE )
         ++(*s_pm_impl().m_progress_display);
@@ -149,7 +157,7 @@ progress_monitor_t::test_unit_finish( test_unit const& tu, unsigned long )
 void
 progress_monitor_t::test_unit_skipped( test_unit const& tu, const_string /*reason*/ )
 {
-    BOOST_TEST_SCOPE_SETCOLOR( *s_pm_impl().m_stream, term_attr::BRIGHT, term_color::MAGENTA );
+    PM_SCOPED_COLOR();
 
     test_case_counter tcc;
     traverse_test_tree( tu, tcc );
@@ -166,6 +174,8 @@ progress_monitor_t::set_stream( std::ostream& ostr )
 }
 
 //____________________________________________________________________________//
+
+#undef PM_SCOPED_COLOR
 
 } // namespace unit_test
 } // namespace boost

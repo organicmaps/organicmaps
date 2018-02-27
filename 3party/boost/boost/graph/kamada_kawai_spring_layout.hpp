@@ -106,7 +106,7 @@ namespace boost {
     template <>
     struct linear_solver<3> {
       template <typename Vec>
-      static Vec solve(double mat[2][2], Vec rhs) {
+      static Vec solve(double mat[3][3], Vec rhs) {
         double denom = mat[0][0] * (mat[1][1] * mat[2][2] - mat[2][1] * mat[1][2])
                      - mat[1][0] * (mat[0][1] * mat[2][2] - mat[2][1] * mat[0][2])
                      + mat[2][0] * (mat[0][1] * mat[1][2] - mat[1][1] * mat[0][2]);

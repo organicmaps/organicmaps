@@ -2,7 +2,7 @@
 //
 // R-tree R*-tree split algorithm implementation
 //
-// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2017 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -12,8 +12,9 @@
 #define BOOST_GEOMETRY_INDEX_DETAIL_RTREE_RSTAR_REDISTRIBUTE_ELEMENTS_HPP
 
 #include <boost/geometry/index/detail/algorithms/intersection_content.hpp>
-#include <boost/geometry/index/detail/algorithms/union_content.hpp>
 #include <boost/geometry/index/detail/algorithms/margin.hpp>
+#include <boost/geometry/index/detail/algorithms/nth_element.hpp>
+#include <boost/geometry/index/detail/algorithms/union_content.hpp>
 
 #include <boost/geometry/index/detail/bounded_view.hpp>
 
@@ -122,8 +123,9 @@ struct choose_split_axis_and_index_for_corner
 //        {
 //            typename Elements::iterator f = elements_copy.begin() + index_first;
 //            typename Elements::iterator l = elements_copy.begin() + index_last;
-//            std::nth_element(elements_copy.begin(), f, elements_copy.end(), elements_less);                   // MAY THROW, BASIC (copy)
-//            std::nth_element(f, l, elements_copy.end(), elements_less);                                       // MAY THROW, BASIC (copy)
+//            // NOTE: for stdlibc++ shipped with gcc 4.8.2 std::nth_element is replaced with std::sort anyway
+//            index::detail::nth_element(elements_copy.begin(), f, elements_copy.end(), elements_less);                // MAY THROW, BASIC (copy)
+//            index::detail::nth_element(f, l, elements_copy.end(), elements_less);                                    // MAY THROW, BASIC (copy)
 //            std::sort(f, l, elements_less);                                                                   // MAY THROW, BASIC (copy)
 //        }
 
@@ -349,7 +351,7 @@ struct nth_element
             typedef typename tag<indexable_type>::type indexable_tag;
 
             element_axis_corner_less<element_type, Translator, indexable_tag, Corner, I> less(tr);
-            std::nth_element(elements.begin(), elements.begin() + index, elements.end(), less);            // MAY THROW, BASIC (copy)
+            index::detail::nth_element(elements.begin(), elements.begin() + index, elements.end(), less);            // MAY THROW, BASIC (copy)
         }
     }
 };

@@ -374,6 +374,7 @@ int bessel_ik(T v, T x, T* I, T* K, int kind, const Policy& pol)
     prev = Ku;
     current = Ku1;
     T scale = 1;
+    T scale_sign = 1;
     for (k = 1; k <= n; k++)                   // forward recurrence for K
     {
         T fact = 2 * (u + k) / x;
@@ -381,6 +382,7 @@ int bessel_ik(T v, T x, T* I, T* K, int kind, const Policy& pol)
         {
            prev /= current;
            scale /= current;
+           scale_sign *= boost::math::sign(current);
            current = 1;
         }
         next = fact * current + prev;
@@ -426,7 +428,7 @@ int bessel_ik(T v, T x, T* I, T* K, int kind, const Policy& pol)
         if(fact == 0)
            *I = Iv;
         else if(tools::max_value<T>() * scale < fact)
-           *I = (org_kind & need_i) ? T(sign(fact) * sign(scale) * policies::raise_overflow_error<T>(function, 0, pol)) : T(0);
+           *I = (org_kind & need_i) ? T(sign(fact) * scale_sign * policies::raise_overflow_error<T>(function, 0, pol)) : T(0);
         else
          *I = Iv + fact / scale;   // reflection formula
     }
@@ -435,7 +437,7 @@ int bessel_ik(T v, T x, T* I, T* K, int kind, const Policy& pol)
         *I = Iv;
     }
     if(tools::max_value<T>() * scale < Kv)
-      *K = (org_kind & need_k) ? T(sign(Kv) * sign(scale) * policies::raise_overflow_error<T>(function, 0, pol)) : T(0);
+       *K = (org_kind & need_k) ? T(sign(Kv) * scale_sign * policies::raise_overflow_error<T>(function, 0, pol)) : T(0);
     else
       *K = Kv / scale;
     BOOST_MATH_INSTRUMENT_VARIABLE(*I);

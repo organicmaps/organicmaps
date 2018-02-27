@@ -102,6 +102,9 @@ inline file_handle_t file_handle_from_mapping_handle(mapping_handle_t hnd)
 inline bool create_directory(const char *path)
 {  return winapi::create_directory(path); }
 
+inline bool remove_directory(const char *path)
+{  return winapi::remove_directory(path); }
+
 inline bool get_temporary_path(char *buffer, std::size_t buf_len, std::size_t &required_len)
 {
    required_len = 0;
@@ -421,6 +424,9 @@ inline file_handle_t file_handle_from_mapping_handle(mapping_handle_t hnd)
 
 inline bool create_directory(const char *path)
 {  return ::mkdir(path, 0777) == 0 && ::chmod(path, 0777) == 0; }
+
+inline bool remove_directory(const char *path)
+{  return ::rmdir(path) == 0; }
 
 inline bool get_temporary_path(char *buffer, std::size_t buf_len, std::size_t &required_len)
 {

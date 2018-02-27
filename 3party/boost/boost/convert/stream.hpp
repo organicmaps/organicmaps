@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2014 Vladimir Batov.
+// Copyright (c) 2009-2016 Vladimir Batov.
 // Use, modification and distribution are subject to the Boost Software License,
 // Version 1.0. See http://www.boost.org/LICENSE_1_0.txt.
 
@@ -116,22 +116,22 @@ struct boost::cnv::basic_stream : boost::noncopyable
     BOOST_CNV_PARAM(base, boost::cnv::base::type const)
     {
         cnv::base::type base = arg[cnv::parameter::base];
-
+        
         /**/ if (base == cnv::base::dec) std::dec(stream_);
         else if (base == cnv::base::hex) std::hex(stream_);
         else if (base == cnv::base::oct) std::oct(stream_);
         else BOOST_ASSERT(!"Not implemented");
-
+        
         return *this;
     }
     BOOST_CNV_PARAM(notation, boost::cnv::notation::type const)
     {
         cnv::notation::type notation = arg[cnv::parameter::notation];
-
+        
         /**/ if (notation == cnv::notation::     fixed)      std::fixed(stream_);
         else if (notation == cnv::notation::scientific) std::scientific(stream_);
         else BOOST_ASSERT(!"Not implemented");
-
+        
         return *this;
     }
 
@@ -173,6 +173,8 @@ boost::cnv::basic_stream<char_type>::str_to(
     boost::cnv::range<string_type> string_in,
     boost::optional<out_type>& result_out) const
 {
+    if (string_in.empty ()) return;
+
     istream_type& istream = stream_;
     buffer_type*   oldbuf = istream.rdbuf();
     char_type const*  beg = &*string_in.begin();

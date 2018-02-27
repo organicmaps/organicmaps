@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2014-2015.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -16,6 +16,7 @@
 #include <boost/test/tools/assertion.hpp>
 
 #include <boost/test/utils/is_forward_iterable.hpp>
+#include <boost/test/utils/is_cstring.hpp>
 
 // Boost
 #include <boost/mpl/bool.hpp>
@@ -52,7 +53,10 @@ namespace op {
 
 template <typename OP, bool can_be_equal, bool prefer_shorter,
           typename Lhs, typename Rhs>
-inline assertion_result
+inline
+typename boost::enable_if_c<
+    unit_test::is_forward_iterable<Lhs>::value && unit_test::is_forward_iterable<Rhs>::value,
+    assertion_result>::type
 lexicographic_compare( Lhs const& lhs, Rhs const& rhs )
 {
     assertion_result ar( true );
@@ -85,7 +89,6 @@ lexicographic_compare( Lhs const& lhs, Rhs const& rhs )
         return ar;
     }
 
-
     if( first1 != last1 ) {
         if( prefer_shorter ) {
             ar = false;
@@ -106,6 +109,23 @@ lexicographic_compare( Lhs const& lhs, Rhs const& rhs )
     return ar;
 }
 
+template <typename OP, bool can_be_equal, bool prefer_shorter,
+          typename Lhs, typename Rhs>
+inline
+typename boost::enable_if_c<
+    (!unit_test::is_forward_iterable<Lhs>::value && unit_test::is_cstring<Lhs>::value) ||
+    (!unit_test::is_forward_iterable<Rhs>::value && unit_test::is_cstring<Rhs>::value),
+    assertion_result>::type
+lexicographic_compare( Lhs const& lhs, Rhs const& rhs )
+{
+    typedef typename unit_test::deduce_cstring<Lhs>::type lhs_char_type;
+    typedef typename unit_test::deduce_cstring<Rhs>::type rhs_char_type;
+
+    return lexicographic_compare<OP, can_be_equal, prefer_shorter>(
+        boost::unit_test::basic_cstring<lhs_char_type>(lhs),
+        boost::unit_test::basic_cstring<rhs_char_type>(rhs));
+}
+
 //____________________________________________________________________________//
 
 // ************************************************************************** //
@@ -113,7 +133,10 @@ lexicographic_compare( Lhs const& lhs, Rhs const& rhs )
 // ************************************************************************** //
 
 template <typename OP, typename Lhs, typename Rhs>
-inline assertion_result
+inline
+typename boost::enable_if_c<
+    unit_test::is_forward_iterable<Lhs>::value && unit_test::is_forward_iterable<Rhs>::value,
+    assertion_result>::type
 element_compare( Lhs const& lhs, Rhs const& rhs )
 {
     assertion_result ar( true );
@@ -142,6 +165,22 @@ element_compare( Lhs const& lhs, Rhs const& rhs )
     }
 
     return ar;
+}
+
+// In case string comparison is branching here
+template <typename OP, typename Lhs, typename Rhs>
+inline
+typename boost::enable_if_c<
+    (!unit_test::is_forward_iterable<Lhs>::value && unit_test::is_cstring<Lhs>::value) ||
+    (!unit_test::is_forward_iterable<Rhs>::value && unit_test::is_cstring<Rhs>::value),
+    assertion_result>::type
+element_compare( Lhs const& lhs, Rhs const& rhs )
+{
+    typedef typename unit_test::deduce_cstring<Lhs>::type lhs_char_type;
+    typedef typename unit_test::deduce_cstring<Rhs>::type rhs_char_type;
+
+    return element_compare<OP>(boost::unit_test::basic_cstring<lhs_char_type>(lhs),
+                               boost::unit_test::basic_cstring<rhs_char_type>(rhs));
 }
 
 //____________________________________________________________________________//
@@ -278,7 +317,7 @@ lexicographic_compare( Lhs const& lhs, Rhs const& rhs )
 
 template <typename Lhs, typename Rhs, typename OP>
 inline assertion_result
-compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<OP>* tp, mpl::true_ )
+compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<OP>*, mpl::true_ )
 {
     return lexicographic_compare<OP>( lhs, rhs );
 }
@@ -287,7 +326,7 @@ compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<OP>* tp, mpl::t
 
 template <typename Lhs, typename Rhs, typename L, typename R>
 inline assertion_result
-compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::LT<L, R> >* tp, mpl::false_ )
+compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::LT<L, R> >*, mpl::false_ )
 {
     return lhs < rhs;
 }
@@ -296,7 +335,7 @@ compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::LT<L, R> >*
 
 template <typename Lhs, typename Rhs, typename L, typename R>
 inline assertion_result
-compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::LE<L, R> >* tp, mpl::false_ )
+compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::LE<L, R> >*, mpl::false_ )
 {
     return lhs <= rhs;
 }
@@ -305,7 +344,7 @@ compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::LE<L, R> >*
 
 template <typename Lhs, typename Rhs, typename L, typename R>
 inline assertion_result
-compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::GT<L, R> >* tp, mpl::false_ )
+compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::GT<L, R> >*, mpl::false_ )
 {
     return lhs > rhs;
 }
@@ -314,7 +353,7 @@ compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::GT<L, R> >*
 
 template <typename Lhs, typename Rhs, typename L, typename R>
 inline assertion_result
-compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::GE<L, R> >* tp, mpl::false_ )
+compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::GE<L, R> >*, mpl::false_ )
 {
     return lhs >= rhs;
 }
@@ -325,11 +364,13 @@ compare_collections( Lhs const& lhs, Rhs const& rhs, boost::type<op::GE<L, R> >*
 // ********* specialization of comparison operators for collections ********* //
 // ************************************************************************** //
 
-#define DEFINE_COLLECTION_COMPARISON( oper, name, _ )               \
+#define DEFINE_COLLECTION_COMPARISON( oper, name, rev )             \
 template<typename Lhs,typename Rhs>                                 \
 struct name<Lhs,Rhs,typename boost::enable_if_c<                    \
-    unit_test::is_forward_iterable<Lhs>::value &&                   \
-    unit_test::is_forward_iterable<Rhs>::value>::type> {            \
+    unit_test::is_forward_iterable<Lhs>::value \
+    &&   !unit_test::is_cstring<Lhs>::value \
+    && unit_test::is_forward_iterable<Rhs>::value \
+    &&   !unit_test::is_cstring<Rhs>::value>::type> {            \
 public:                                                             \
     typedef assertion_result result_type;                           \
                                                                     \
@@ -356,6 +397,10 @@ public:                                                             \
     report( std::ostream&,                                          \
             PrevExprType const&,                                    \
             Rhs const& ) {}                                         \
+                                                                    \
+    static char const* revert()                                     \
+    { return " " #rev " "; }                                        \
+                                                                    \
 };                                                                  \
 /**/
 

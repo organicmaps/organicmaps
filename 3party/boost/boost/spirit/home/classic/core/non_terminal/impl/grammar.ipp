@@ -281,17 +281,19 @@ struct grammar_definition
     grammar_destruct(GrammarT* self)
     {
 #if !defined(BOOST_SPIRIT_SINGLE_GRAMMAR_INSTANCE)
-        typedef impl::grammar_helper_base<GrammarT> helper_base_t;
         typedef grammar_helper_list<GrammarT> helper_list_t;
-        typedef typename helper_list_t::vector_t::reverse_iterator iterator_t;
 
         helper_list_t&  helpers =
         grammartract_helper_list::do_(self);
 
 # if defined(BOOST_INTEL_CXX_VERSION)
+        typedef typename helper_list_t::vector_t::reverse_iterator iterator_t;
+
         for (iterator_t i = helpers.rbegin(); i != helpers.rend(); ++i)
             (*i)->undefine(self);
 # else
+        typedef impl::grammar_helper_base<GrammarT> helper_base_t;
+
         std::for_each(helpers.rbegin(), helpers.rend(),
             std::bind2nd(std::mem_fun(&helper_base_t::undefine), self));
 # endif

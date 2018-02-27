@@ -66,7 +66,7 @@ public:
   }
 
   void push_back(const Flyweight& x){t.push_back(x);}
-
+  
 private:
   table t;
 };
@@ -85,7 +85,7 @@ public:
   Flyweight operator[](size_type n)const{return t[n];}
 
   void push_back(const Flyweight& x){t.push_back(x);}
-
+  
 private:
   table t;
 };

@@ -20,10 +20,8 @@
 #include <boost/static_assert.hpp>
 
 // BOOST_CB_ENABLE_DEBUG: Debug support control.
-#if defined(NDEBUG) || defined(BOOST_CB_DISABLE_DEBUG)
+#if !defined(BOOST_CB_ENABLE_DEBUG)
     #define BOOST_CB_ENABLE_DEBUG 0
-#else
-    #define BOOST_CB_ENABLE_DEBUG 1
 #endif
 
 // BOOST_CB_ASSERT: Runtime assertion.
@@ -60,6 +58,5 @@
 #undef BOOST_CB_ASSERT_TEMPLATED_ITERATOR_CONSTRUCTORS
 #undef BOOST_CB_IS_CONVERTIBLE
 #undef BOOST_CB_ASSERT
-#undef BOOST_CB_ENABLE_DEBUG
 
 #endif // #if !defined(BOOST_CIRCULAR_BUFFER_HPP)

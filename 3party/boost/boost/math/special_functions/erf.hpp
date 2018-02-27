@@ -155,12 +155,18 @@ T erf_imp(T z, bool invert, const Policy& pol, const Tag& t)
          result = tgamma_small_upper_part(T(0.5f), x, pol);
          result /= sqrt(boost::math::constants::pi<T>());
       }
+      else if(x > 1 / tools::epsilon<T>())
+      {
+         // http://functions.wolfram.com/06.27.06.0006.02
+         invert = !invert;
+         result = exp(-x) / (constants::root_pi<T>() * z);
+      }
       else
       {
          // Compute Q:
          invert = !invert;
          result = z * exp(-x);
-         result /= sqrt(boost::math::constants::pi<T>());
+         result /= boost::math::constants::root_pi<T>();
          result *= upper_gamma_fraction(T(0.5f), x, policies::get_epsilon<T, Policy>());
       }
    }

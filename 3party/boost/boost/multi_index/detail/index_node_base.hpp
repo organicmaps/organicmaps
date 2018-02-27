@@ -1,4 +1,4 @@
-/* Copyright 2003-2015 Joaquin M Lopez Munoz.
+/* Copyright 2003-2016 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -49,6 +49,8 @@ struct index_node_base:private pod_value_holder<Value>
   typedef Value           value_type;
   typedef Allocator       allocator_type;
 
+#include <boost/multi_index/detail/ignore_wstrict_aliasing.hpp>
+
   value_type& value()
   {
     return *reinterpret_cast<value_type*>(&this->space);
@@ -58,6 +60,8 @@ struct index_node_base:private pod_value_holder<Value>
   {
     return *reinterpret_cast<const value_type*>(&this->space);
   }
+
+#include <boost/multi_index/detail/restore_wstrict_aliasing.hpp>
 
   static index_node_base* from_value(const value_type* p)
   {

@@ -17,8 +17,8 @@
 
 #include <cstddef>
 
+#include <boost/range/value_type.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/range.hpp>
 
 
 namespace boost { namespace geometry

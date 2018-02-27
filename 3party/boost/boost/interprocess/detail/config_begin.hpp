@@ -43,3 +43,8 @@
    #pragma warning (disable : 4671) //  the copy constructor is inaccessible
    #pragma warning (disable : 4250) //  inherits 'x' via dominance
 #endif
+
+#if defined(BOOST_GCC) && (BOOST_GCC >= 40600)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif

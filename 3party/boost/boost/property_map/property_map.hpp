@@ -16,6 +16,7 @@
 #include <boost/static_assert.hpp>
 #include <cstddef>
 #include <boost/detail/iterator.hpp>
+#include <boost/concept/assert.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/concept_archetype.hpp>
 #include <boost/mpl/assert.hpp>
@@ -143,7 +144,7 @@ namespace boost {
     typedef typename property_traits<PMap>::category Category;
     typedef boost::readable_property_map_tag ReadableTag;
     void constraints() {
-      function_requires< ConvertibleConcept<Category, ReadableTag> >();
+      BOOST_CONCEPT_ASSERT((ConvertibleConcept<Category, ReadableTag>));
 
       val = get(pmap, k);
     }
@@ -175,7 +176,7 @@ namespace boost {
     typedef typename property_traits<PMap>::category Category;
     typedef boost::writable_property_map_tag WritableTag;
     void constraints() {
-      function_requires< ConvertibleConcept<Category, WritableTag> >();
+      BOOST_CONCEPT_ASSERT((ConvertibleConcept<Category, WritableTag>));
       put(pmap, k, val);
     }
     PMap pmap;
@@ -201,9 +202,9 @@ namespace boost {
     typedef typename property_traits<PMap>::category Category;
     typedef boost::read_write_property_map_tag ReadWriteTag;
     void constraints() {
-      function_requires< ReadablePropertyMapConcept<PMap, Key> >();
-      function_requires< WritablePropertyMapConcept<PMap, Key> >();
-      function_requires< ConvertibleConcept<Category, ReadWriteTag> >();
+      BOOST_CONCEPT_ASSERT((ReadablePropertyMapConcept<PMap, Key>));
+      BOOST_CONCEPT_ASSERT((WritablePropertyMapConcept<PMap, Key>));
+      BOOST_CONCEPT_ASSERT((ConvertibleConcept<Category, ReadWriteTag>));
     }
   };
   template <typename KeyArchetype, typename ValueArchetype>
@@ -226,8 +227,8 @@ namespace boost {
     typedef typename property_traits<PMap>::reference reference;
 
     void constraints() {
-      function_requires< ReadablePropertyMapConcept<PMap, Key> >();
-      function_requires< ConvertibleConcept<Category, LvalueTag> >();
+      BOOST_CONCEPT_ASSERT((ReadablePropertyMapConcept<PMap, Key>));
+      BOOST_CONCEPT_ASSERT((ConvertibleConcept<Category, LvalueTag>));
 
       typedef typename property_traits<PMap>::value_type value_type;
       BOOST_MPL_ASSERT((boost::mpl::or_<
@@ -259,10 +260,10 @@ namespace boost {
     typedef typename property_traits<PMap>::category Category;
     typedef boost::lvalue_property_map_tag LvalueTag;
     typedef typename property_traits<PMap>::reference reference;
-    void constraints() { 
-      boost::function_requires< ReadWritePropertyMapConcept<PMap, Key> >();
-      boost::function_requires<ConvertibleConcept<Category, LvalueTag> >();
-      
+    void constraints() {
+      BOOST_CONCEPT_ASSERT((ReadWritePropertyMapConcept<PMap, Key>));
+      BOOST_CONCEPT_ASSERT((ConvertibleConcept<Category, LvalueTag>));
+
       typedef typename property_traits<PMap>::value_type value_type;
       BOOST_MPL_ASSERT((boost::is_same<value_type&, reference>));
 
@@ -349,7 +350,7 @@ namespace boost {
     typename std::iterator_traits<RAIter>::value_type,
     typename std::iterator_traits<RAIter>::reference>
   make_iterator_property_map(RAIter iter, ID id) {
-    function_requires< RandomAccessIteratorConcept<RAIter> >();
+    BOOST_CONCEPT_ASSERT((RandomAccessIteratorConcept<RAIter>));
     typedef iterator_property_map<
       RAIter, ID,
       typename std::iterator_traits<RAIter>::value_type,
@@ -360,7 +361,7 @@ namespace boost {
   template <class RAIter, class Value, class ID>
   inline iterator_property_map<RAIter, ID, Value, Value&>
   make_iterator_property_map(RAIter iter, ID id, Value) {
-    function_requires< RandomAccessIteratorConcept<RAIter> >();
+    BOOST_CONCEPT_ASSERT((RandomAccessIteratorConcept<RAIter>));
     typedef iterator_property_map<RAIter, ID, Value, Value&> PMap;
     return PMap(iter, id);
   }
@@ -408,7 +409,7 @@ namespace boost {
     typename boost::detail::iterator_traits<RAIter>::value_type,
     typename boost::detail::iterator_traits<RAIter>::reference>
   make_safe_iterator_property_map(RAIter iter, std::size_t n, ID id) {
-    function_requires< RandomAccessIteratorConcept<RAIter> >();
+    BOOST_CONCEPT_ASSERT((RandomAccessIteratorConcept<RAIter>));
     typedef safe_iterator_property_map<
       RAIter, ID,
       typename boost::detail::iterator_traits<RAIter>::value_type,
@@ -418,7 +419,7 @@ namespace boost {
   template <class RAIter, class Value, class ID>
   inline safe_iterator_property_map<RAIter, ID, Value, Value&>
   make_safe_iterator_property_map(RAIter iter, std::size_t n, ID id, Value) {
-    function_requires< RandomAccessIteratorConcept<RAIter> >();
+    BOOST_CONCEPT_ASSERT((RandomAccessIteratorConcept<RAIter>));
     typedef safe_iterator_property_map<RAIter, ID, Value, Value&> PMap;
     return PMap(iter, n, id);
   }

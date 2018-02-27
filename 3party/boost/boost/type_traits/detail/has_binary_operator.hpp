@@ -7,7 +7,7 @@
 //  See http://www.boost.org/libs/type_traits for most recent version including documentation.
 
 #include <boost/config.hpp>
-#include <boost/type_traits/ice.hpp>
+#include <boost/type_traits/detail/yes_no_type.hpp>
 #include <boost/type_traits/integral_constant.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/type_traits/is_const.hpp>
@@ -20,9 +20,6 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
 
 // cannot include this header without getting warnings of the kind:
 // gcc:
@@ -40,7 +37,10 @@
 #   pragma GCC system_header
 #elif defined(BOOST_MSVC)
 #   pragma warning ( push )
-#   pragma warning ( disable : 4018 4244 4547 4800 4804 4805 4913 )
+#   pragma warning ( disable : 4018 4244 4547 4800 4804 4805 4913)
+#   if BOOST_WORKAROUND(BOOST_MSVC_FULL_VER, >= 140050000)
+#       pragma warning ( disable : 6334)
+#   endif
 #endif
 
 namespace boost {
@@ -177,13 +177,7 @@ struct trait_impl1 < Lhs, Rhs, Ret, true > {
 template < typename Lhs, typename Rhs, typename Ret >
 struct trait_impl1 < Lhs, Rhs, Ret, false > {
    BOOST_STATIC_CONSTANT(bool,
-      value = (
-         ::boost::type_traits::ice_and<
-            operator_exists < Lhs, Rhs >::value,
-            operator_returns_Ret < Lhs, Rhs, Ret, operator_returns_void < Lhs, Rhs >::value >::value
-         >::value
-      )
-   );
+      value = (operator_exists < Lhs, Rhs >::value && operator_returns_Ret < Lhs, Rhs, Ret, operator_returns_void < Lhs, Rhs >::value >::value));
 };
 
 // some specializations needs to be declared for the special void case
@@ -218,12 +212,11 @@ struct trait_impl {
 } // namespace detail
 
 // this is the accessible definition of the trait to end user
-BOOST_TT_AUX_BOOL_TRAIT_DEF3(BOOST_TT_TRAIT_NAME, Lhs, Rhs=Lhs, Ret=::boost::detail::BOOST_JOIN(BOOST_TT_TRAIT_NAME,_impl)::dont_care, (::boost::detail::BOOST_JOIN(BOOST_TT_TRAIT_NAME,_impl)::trait_impl < Lhs, Rhs, Ret >::value))
+template <class Lhs, class Rhs=Lhs, class Ret=::boost::detail::BOOST_JOIN(BOOST_TT_TRAIT_NAME,_impl)::dont_care>
+struct BOOST_TT_TRAIT_NAME : public integral_constant<bool, (::boost::detail::BOOST_JOIN(BOOST_TT_TRAIT_NAME, _impl)::trait_impl < Lhs, Rhs, Ret >::value)>{};
 
 } // namespace boost
 
 #if defined(BOOST_MSVC)
 #   pragma warning ( pop )
 #endif
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>

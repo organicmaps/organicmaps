@@ -14,14 +14,14 @@
 #define BOOST_VARIANT_HPP
 
 // variant "main"
-#include "boost/variant/variant.hpp"
-#include "boost/variant/recursive_variant.hpp"
-#include "boost/variant/recursive_wrapper.hpp"
+#include <boost/variant/variant.hpp>
+#include <boost/variant/recursive_variant.hpp>
+#include <boost/variant/recursive_wrapper.hpp>
 
 // common applications
-#include "boost/variant/get.hpp"
-#include "boost/variant/apply_visitor.hpp"
-#include "boost/variant/static_visitor.hpp"
-#include "boost/variant/visitor_ptr.hpp"
+#include <boost/variant/get.hpp>
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/visitor_ptr.hpp>
 
 #endif // BOOST_VARIANT_HPP

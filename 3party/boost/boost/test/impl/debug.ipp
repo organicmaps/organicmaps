@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2006-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Use, modification, and distribution are subject to the
 //  Boost Software License, Version 1.0. (See accompanying file
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -305,8 +305,8 @@ prepare_window_title( dbg_startup_info const& dsi )
 
     str_t path_sep( "\\/" );
 
-    str_t::iterator  it = unit_test::find_last_of( dsi.binary_path.begin(), dsi.binary_path.end(),
-                                                   path_sep.begin(), path_sep.end() );
+    str_t::iterator  it = unit_test::utils::find_last_of( dsi.binary_path.begin(), dsi.binary_path.end(),
+                                                          path_sep.begin(), path_sep.end() );
 
     if( it == dsi.binary_path.end() )
         it = dsi.binary_path.begin();
@@ -752,6 +752,29 @@ set_debugger( unit_test::const_string, dbg_starter )
 // **************    attach debugger to the current process    ************** //
 // ************************************************************************** //
 
+#if defined(BOOST_WIN32_BASED_DEBUG)
+
+struct safe_handle_helper
+{
+    HANDLE& handle;
+    safe_handle_helper(HANDLE &handle_) : handle(handle_) {}
+
+    void close_handle()
+    {
+        if( handle != INVALID_HANDLE_VALUE )
+        {
+            ::CloseHandle( handle );
+            handle = INVALID_HANDLE_VALUE;
+        }
+    }
+
+    ~safe_handle_helper() 
+    {
+        close_handle();
+    }
+};
+#endif
+
 bool
 attach_debugger( bool break_or_continue )
 {
@@ -781,6 +804,8 @@ attach_debugger( bool break_or_continue )
 
     if( !dbg_init_done_ev )
         return false;
+        
+    safe_handle_helper safe_handle_obj( dbg_init_done_ev );
 
     // *************************************************** //
     // Debugger command line format
@@ -797,16 +822,19 @@ attach_debugger( bool break_or_continue )
     DWORD format_size = MAX_CMD_LINE;
     DWORD type = REG_SZ;
 
-    if( !s_info.m_reg_query_value || (*s_info.m_reg_query_value)(
+    bool b_read_key = s_info.m_reg_query_value && 
+          ((*s_info.m_reg_query_value)(
             reg_key,                            // handle of open key
             "Debugger",                         // name of subkey to query
             0,                                  // reserved
             &type,                              // value type
             (LPBYTE)format,                     // buffer for returned string
-            &format_size ) != ERROR_SUCCESS )   // in: buffer size; out: actual size of returned string
-        return false;
+            &format_size ) == ERROR_SUCCESS );  // in: buffer size; out: actual size of returned string
 
     if( !s_info.m_reg_close_key || (*s_info.m_reg_close_key)( reg_key ) != ERROR_SUCCESS )
+        return false;
+        
+    if( !b_read_key )
         return false;
 
     // *************************************************** //
@@ -841,12 +869,16 @@ attach_debugger( bool break_or_continue )
         &debugger_info  // pointer to PROCESS_INFORMATION that will contain the new process identification
     );
 
+    bool debugger_run_ok = false;
     if( created )
-        ::WaitForSingleObject( dbg_init_done_ev, INFINITE );
+    {
+        DWORD ret_code = ::WaitForSingleObject( dbg_init_done_ev, INFINITE );
+        debugger_run_ok = ( ret_code == WAIT_OBJECT_0 );
+    }
 
-    ::CloseHandle( dbg_init_done_ev );
+    safe_handle_obj.close_handle();
 
-    if( !created )
+    if( !created || !debugger_run_ok )
         return false;
 
     if( break_or_continue )

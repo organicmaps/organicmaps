@@ -55,7 +55,7 @@ template
 >
 class multi_linestring : public Container<LineString, Allocator<LineString> >
 {
-    BOOST_CONCEPT_ASSERT( (concept::Linestring<LineString>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Linestring<LineString>) );
 
 #ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
 

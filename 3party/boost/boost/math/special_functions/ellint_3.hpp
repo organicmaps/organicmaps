@@ -58,19 +58,19 @@ T ellint_pi_imp(T v, T phi, T k, T vc, const Policy& pol)
    T sphi = sin(fabs(phi));
    T result = 0;
 
-   if(v > 1 / (sphi * sphi))
-   {
-      // Complex result is a domain error:
-      return policies::raise_domain_error<T>(function,
-         "Got v = %1%, but result is complex for v > 1 / sin^2(phi)", v, pol);
-   }
-
    // Special cases first:
    if(v == 0)
    {
       // A&S 17.7.18 & 19
       return (k == 0) ? phi : ellint_f_imp(phi, k, pol);
    }
+   if((v > 0) && (1 / v < (sphi * sphi)))
+   {
+      // Complex result is a domain error:
+      return policies::raise_domain_error<T>(function,
+         "Got v = %1%, but result is complex for v > 1 / sin^2(phi)", v, pol);
+   }
+
    if(v == 1)
    {
       // http://functions.wolfram.com/08.06.03.0008.01
@@ -108,7 +108,7 @@ T ellint_pi_imp(T v, T phi, T k, T vc, const Policy& pol)
             return policies::raise_domain_error<T>(
             function,
             "Got v = %1%, but this is only supported for 0 <= phi <= pi/2", v, pol);
-         //
+         //  
          // Phi is so large that phi%pi is necessarily zero (or garbage),
          // just return the second part of the duplication formula:
          //
@@ -133,7 +133,7 @@ T ellint_pi_imp(T v, T phi, T k, T vc, const Policy& pol)
          if((m > 0) && (vc > 0))
             result += m * ellint_pi_imp(v, k, vc, pol);
       }
-      return phi < 0 ? -result : result;
+      return phi < 0 ? T(-result) : result;
    }
    if(k == 0)
    {
@@ -224,7 +224,7 @@ T ellint_pi_imp(T v, T phi, T k, T vc, const Policy& pol)
       // If v > 1 we can use the identity in A&S 17.7.7/8
       // to shift to 0 <= v <= 1.  In contrast to previous
       // revisions of this header, this identity does now work
-      // but appears not to produce better error rates in
+      // but appears not to produce better error rates in 
       // practice.  Archived here for future reference...
       //
       T k2 = k * k;
@@ -242,7 +242,7 @@ T ellint_pi_imp(T v, T phi, T k, T vc, const Policy& pol)
       //
       // This log term gives the complex result when
       //     n > 1/sin^2(phi)
-      // However that case is dealt with as an error above,
+      // However that case is dealt with as an error above, 
       // so we should always get a real result here:
       //
       result += log((delta + p1 * tan(phi)) / (delta - p1 * tan(phi))) / (2 * p1);

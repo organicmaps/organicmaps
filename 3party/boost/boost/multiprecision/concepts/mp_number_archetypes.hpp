@@ -33,6 +33,7 @@ struct number_backend_float_architype
 
    number_backend_float_architype()
    {
+      m_value = 0;
       std::cout << "Default construct" << std::endl;
    }
    number_backend_float_architype(const number_backend_float_architype& o)
@@ -66,14 +67,18 @@ struct number_backend_float_architype
    }
    number_backend_float_architype& operator = (const char* s)
    {
+#ifndef BOOST_NO_EXCEPTIONS
       try
       {
+#endif
          m_value = boost::lexical_cast<long double>(s);
+#ifndef BOOST_NO_EXCEPTIONS
       }
       catch(const std::exception&)
       {
          BOOST_THROW_EXCEPTION(std::runtime_error(std::string("Unable to parse input string: \"") + s + std::string("\" as a valid floating point number.")));
       }
+#endif
       std::cout << "const char* Assignment (" << s << ")" << std::endl;
       return *this;
    }
@@ -89,7 +94,7 @@ struct number_backend_float_architype
       if(digits)
          ss.precision(digits);
       else
-         ss.precision(std::numeric_limits<long double>::digits10 + 2);
+         ss.precision(std::numeric_limits<long double>::digits10 + 3);
       boost::intmax_t i = m_value;
       boost::uintmax_t u = m_value;
       if(!(f & std::ios_base::scientific) && m_value == i)

@@ -17,8 +17,8 @@
 
 #include <utility>
 #include <boost/move/core.hpp>
-#include <boost/move/utility.hpp>
-#include <boost/utility/addressof.hpp>
+#include <boost/move/utility_core.hpp>
+#include <boost/core/addressof.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/core/core.hpp>
 #include <boost/log/sources/basic_logger.hpp>

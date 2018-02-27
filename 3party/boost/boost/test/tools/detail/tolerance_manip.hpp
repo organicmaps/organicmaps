@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2011-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -7,7 +7,7 @@
 //
 //! @file
 //! @brief Floating point comparison tolerance manipulators
-//!
+//! 
 //! This file defines several manipulators for floating point comparison. These
 //! manipulators are intended to be used with BOOST_TEST.
 // ***************************************************************************
@@ -49,8 +49,8 @@ template<typename FPT>
 inline tolerance_manip<FPT>
 operator%( FPT v, tolerance_manip_delay const& )
 {
-    BOOST_STATIC_ASSERT_MSG( (fpc::tolerance_based<FPT>::value),
-                             "tolerance only for floating points" );
+    BOOST_STATIC_ASSERT_MSG( (fpc::tolerance_based<FPT>::value), 
+                             "tolerance should be specified using a floating points type" );
 
     return tolerance_manip<FPT>( FPT(v / 100) );
 }
@@ -92,7 +92,7 @@ template<typename FPT>
 inline tt_detail::tolerance_manip<FPT>
 tolerance( FPT v )
 {
-    BOOST_STATIC_ASSERT_MSG( (fpc::tolerance_based<FPT>::value),
+    BOOST_STATIC_ASSERT_MSG( (fpc::tolerance_based<FPT>::value), 
                              "tolerance only for floating points" );
 
     return tt_detail::tolerance_manip<FPT>( v );
@@ -105,7 +105,7 @@ template<typename FPT>
 inline tt_detail::tolerance_manip<FPT>
 tolerance( fpc::percent_tolerance_t<FPT> v )
 {
-    BOOST_STATIC_ASSERT_MSG( (fpc::tolerance_based<FPT>::value),
+    BOOST_STATIC_ASSERT_MSG( (fpc::tolerance_based<FPT>::value), 
                              "tolerance only for floating points" );
 
     return tt_detail::tolerance_manip<FPT>( static_cast<FPT>(v.m_value / 100) );

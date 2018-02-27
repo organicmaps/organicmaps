@@ -269,15 +269,18 @@ namespace boost{ namespace math
       return result;
     }
     if(false == detail::check_probability("boost::math::quantile(const uniform_distribution<%1%>&, %1%)", q, &result, Policy()))
-      if(q == 0)
-      {
-        return lower;
-      }
-      if(q == 1)
-      {
-        return upper;
-      }
-      return -q * (upper - lower) + upper;
+    {
+       return result;
+    }
+    if(q == 0)
+    {
+       return upper;
+    }
+    if(q == 1)
+    {
+       return lower;
+    }
+    return -q * (upper - lower) + upper;
   } // RealType quantile(const complemented2_type<uniform_distribution<RealType, Policy>, RealType>& c)
 
   template <class RealType, class Policy>

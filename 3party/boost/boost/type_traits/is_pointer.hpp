@@ -21,68 +21,27 @@
 #ifndef BOOST_TT_IS_POINTER_HPP_INCLUDED
 #define BOOST_TT_IS_POINTER_HPP_INCLUDED
 
-#include <boost/type_traits/is_member_pointer.hpp>
-#include <boost/type_traits/detail/ice_and.hpp>
-#include <boost/type_traits/detail/ice_not.hpp>
-#include <boost/type_traits/config.hpp>
-#include <boost/type_traits/remove_cv.hpp>
-
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace boost {
 
 #if defined( __CODEGEARC__ )
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_pointer,T,__is_pointer(T))
+template <class T> struct is_pointer : public integral_constant<bool, __is_pointer(T)>{};
 #else
+template <class T> struct is_pointer : public false_type{};
+template <class T> struct is_pointer<T*> : public true_type{};
+template <class T> struct is_pointer<T*const> : public true_type{};
+template <class T> struct is_pointer<T*const volatile> : public true_type{};
+template <class T> struct is_pointer<T*volatile> : public true_type{};
 
-namespace detail {
-
-template< typename T > struct is_pointer_helper
-{
-    BOOST_STATIC_CONSTANT(bool, value = false);
-};
-
-#   define TT_AUX_BOOL_TRAIT_HELPER_PARTIAL_SPEC(helper,sp,result) \
-template< typename T > struct helper<sp> \
-{ \
-    BOOST_STATIC_CONSTANT(bool, value = result); \
-}; \
-/**/
-
-TT_AUX_BOOL_TRAIT_HELPER_PARTIAL_SPEC(is_pointer_helper,T*,true)
-
-#   undef TT_AUX_BOOL_TRAIT_HELPER_PARTIAL_SPEC
-
-template< typename T >
-struct is_pointer_impl
-{
-    BOOST_STATIC_CONSTANT(bool, value =
-        (::boost::type_traits::ice_and<
-        ::boost::detail::is_pointer_helper<typename remove_cv<T>::type>::value
-            , ::boost::type_traits::ice_not<
-                ::boost::is_member_pointer<T>::value
-                >::value
-            >::value)
-        );
-};
-
-} // namespace detail
-
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_pointer,T,::boost::detail::is_pointer_impl<T>::value)
-
-#if defined(__BORLANDC__) && !defined(__COMO__) && (__BORLANDC__ < 0x600)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_pointer,T&,false)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_pointer,T& const,false)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_pointer,T& volatile,false)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_pointer,T& const volatile,false)
+#ifdef BOOST_MSVC
+template <class T> struct is_pointer<T const> : public is_pointer<T>{};
+template <class T> struct is_pointer<T const volatile> : public is_pointer<T>{};
+template <class T> struct is_pointer<T volatile> : public is_pointer<T>{};
 #endif
 
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TT_IS_POINTER_HPP_INCLUDED

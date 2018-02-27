@@ -1,6 +1,6 @@
 // Copyright Kevlin Henney, 2000-2005.
 // Copyright Alexander Nasonov, 2006-2010.
-// Copyright Antony Polukhin, 2011-2014.
+// Copyright Antony Polukhin, 2011-2016.
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -13,7 +13,7 @@
 //        Beman Dawes, Dave Abrahams, Daryle Walker, Peter Dimov,
 //        Alexander Nasonov, Antony Polukhin, Justin Viiret, Michael Hofmann,
 //        Cheng Yang, Matthew Bradbury, David W. Birdsall, Pavel Korzh and other Boosters
-// when:  November 2000, March 2003, June 2005, June 2006, March 2011 - 2014
+// when:  November 2000, March 2003, June 2005, June 2006, March 2011 - 2016
 
 #ifndef BOOST_LEXICAL_CAST_DETAIL_CONVERTER_NUMERIC_HPP
 #define BOOST_LEXICAL_CAST_DETAIL_CONVERTER_NUMERIC_HPP
@@ -154,35 +154,13 @@ struct dynamic_num_converter_impl
 {
     static inline bool try_convert(const Source &arg, Target& result) BOOST_NOEXCEPT {
         typedef BOOST_DEDUCED_TYPENAME boost::mpl::if_c<
-		boost::is_unsigned<Target>::value &&
-		(boost::is_signed<Source>::value || boost::is_float<Source>::value) &&
-		!(boost::is_same<Source, bool>::value) &&
-		!(boost::is_same<Target, bool>::value),
+            boost::is_unsigned<Target>::value &&
+            (boost::is_signed<Source>::value || boost::is_float<Source>::value) &&
+            !(boost::is_same<Source, bool>::value) &&
+            !(boost::is_same<Target, bool>::value),
             lexical_cast_dynamic_num_ignoring_minus<Target, Source>,
             lexical_cast_dynamic_num_not_ignoring_minus<Target, Source>
         >::type caster_type;
-
-#if 0
-
-        typedef BOOST_DEDUCED_TYPENAME boost::mpl::if_<
-            BOOST_DEDUCED_TYPENAME boost::mpl::and_<
-                boost::is_unsigned<Target>,
-                boost::mpl::or_<
-                    boost::is_signed<Source>,
-                    boost::is_float<Source>
-                >,
-                boost::mpl::not_<
-                    boost::is_same<Source, bool>
-                >,
-                boost::mpl::not_<
-                    boost::is_same<Target, bool>
-                >
-            >::type,
-            lexical_cast_dynamic_num_ignoring_minus<Target, Source>,
-            lexical_cast_dynamic_num_not_ignoring_minus<Target, Source>
-        >::type caster_type;
-
-#endif
 
         return caster_type::try_convert(arg, result);
     }
@@ -191,3 +169,4 @@ struct dynamic_num_converter_impl
 }} // namespace boost::detail
 
 #endif // BOOST_LEXICAL_CAST_DETAIL_CONVERTER_NUMERIC_HPP
+

@@ -139,6 +139,22 @@ public:
       ar & m_value;
       log_postfix_event(m_value, "serialize");
    }
+   static unsigned default_precision() BOOST_NOEXCEPT
+   {
+      return Backend::default_precision();
+   }
+   static void default_precision(unsigned v) BOOST_NOEXCEPT
+   {
+      Backend::default_precision(v);
+   }
+   unsigned precision()const BOOST_NOEXCEPT
+   {
+      return value().precision();
+   }
+   void precision(unsigned digits10) BOOST_NOEXCEPT
+   {
+      value().precision(digits10);
+   }
 };
 
 template <class T>
@@ -489,6 +505,19 @@ NON_MEMBER_OP2(logb, "logb");
 NON_MEMBER_OP3(fmod, "fmod");
 NON_MEMBER_OP3(pow, "pow");
 NON_MEMBER_OP3(atan2, "atan2");
+
+template <class Backend>
+int eval_signbit(const logged_adaptor<Backend>& val)
+{
+   using default_ops::eval_signbit;
+   return eval_signbit(val.value());
+}
+
+template <class Backend>
+std::size_t hash_value(const logged_adaptor<Backend>& val)
+{
+   return hash_value(val.value());
+}
 
 } // namespace backends
 

@@ -12,6 +12,7 @@
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/scoped_array.hpp>
+#include <boost/functional/hash_fwd.hpp>
 #include <tommath.h>
 #include <cmath>
 #include <limits>
@@ -415,21 +416,29 @@ inline void eval_left_shift(tommath_int& t, UI i)
 template <class UI>
 inline void eval_right_shift(tommath_int& t, UI i)
 {
+   using default_ops::eval_increment;
+   using default_ops::eval_decrement;
+   bool neg = eval_get_sign(t) < 0;
    tommath_int d;
+   if(neg)
+      eval_increment(t);
    detail::check_tommath_result(mp_div_2d(&t.data(), static_cast<unsigned>(i), &t.data(), &d.data()));
+   if(neg)
+      eval_decrement(t);
 }
 template <class UI>
 inline void eval_left_shift(tommath_int& t, const tommath_int& v, UI i)
 {
    detail::check_tommath_result(mp_mul_2d(const_cast< ::mp_int*>(&v.data()), static_cast<unsigned>(i), &t.data()));
 }
+/*
 template <class UI>
 inline void eval_right_shift(tommath_int& t, const tommath_int& v, UI i)
 {
    tommath_int d;
    detail::check_tommath_result(mp_div_2d(const_cast< ::mp_int*>(&v.data()), static_cast<unsigned long>(i), &t.data(), &d.data()));
 }
-
+*/
 inline void eval_bitwise_and(tommath_int& result, const tommath_int& v)
 {
    BOOST_MP_TOMMATH_BIT_OP_CHECK(result);
@@ -643,6 +652,16 @@ inline typename enable_if<is_signed<Integer>, Integer>::type eval_integer_modulu
    return eval_integer_modulus(x, boost::multiprecision::detail::unsigned_abs(val));
 }
 
+inline std::size_t hash_value(const tommath_int& val)
+{
+   std::size_t result = 0;
+   std::size_t len = val.data().used;
+   for(std::size_t i = 0; i < len; ++i)
+      boost::hash_combine(result, val.data().dp[i]);
+   boost::hash_combine(result, val.data().sign);
+   return result;
+}
+
 } // namespace backends
 
 using boost::multiprecision::backends::tommath_int;
@@ -679,7 +698,7 @@ public:
    static number_type lowest() { return (min)(); }
    BOOST_STATIC_CONSTEXPR int digits = INT_MAX;
    BOOST_STATIC_CONSTEXPR int digits10 = (INT_MAX / 1000) * 301L;
-   BOOST_STATIC_CONSTEXPR int max_digits10 = digits10 + 2;
+   BOOST_STATIC_CONSTEXPR int max_digits10 = digits10 + 3;
    BOOST_STATIC_CONSTEXPR bool is_signed = true;
    BOOST_STATIC_CONSTEXPR bool is_integer = true;
    BOOST_STATIC_CONSTEXPR bool is_exact = true;

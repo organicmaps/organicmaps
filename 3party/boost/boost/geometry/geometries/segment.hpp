@@ -45,7 +45,7 @@ namespace model
 template<typename Point>
 class segment : public std::pair<Point, Point>
 {
-    BOOST_CONCEPT_ASSERT( (concept::Point<Point>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Point<Point>) );
 
 public :
 
@@ -89,8 +89,8 @@ class referring_segment
         typename boost::mpl::if_
             <
                 boost::is_const<ConstOrNonConstPoint>,
-                concept::Point<ConstOrNonConstPoint>,
-                concept::ConstPoint<ConstOrNonConstPoint>
+                concepts::Point<ConstOrNonConstPoint>,
+                concepts::ConstPoint<ConstOrNonConstPoint>
             >
     ) );
 

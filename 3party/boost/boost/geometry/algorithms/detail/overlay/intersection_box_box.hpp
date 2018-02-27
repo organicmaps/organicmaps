@@ -1,6 +1,11 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2015 Barend Gehrels, Amsterdam, the Netherlands.
+
+// This file was modified by Oracle on 2015.
+// Modifications copyright (c) 2015, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -39,19 +44,26 @@ struct intersection_box_box
     {
         typedef typename coordinate_type<BoxOut>::type ct;
 
-        ct min1 = get<min_corner, Dimension>(box1);
-        ct min2 = get<min_corner, Dimension>(box2);
         ct max1 = get<max_corner, Dimension>(box1);
-        ct max2 = get<max_corner, Dimension>(box2);
+        ct min2 = get<min_corner, Dimension>(box2);
 
-        if (max1 < min2 || max2 < min1)
+        if (max1 < min2)
         {
             return false;
         }
+
+        ct max2 = get<max_corner, Dimension>(box2);
+        ct min1 = get<min_corner, Dimension>(box1);
+
+        if (max2 < min1)
+        {
+            return false;
+        }
+
         // Set dimensions of output coordinate
         set<min_corner, Dimension>(box_out, min1 < min2 ? min2 : min1);
         set<max_corner, Dimension>(box_out, max1 > max2 ? max2 : max1);
-
+        
         return intersection_box_box<Dimension + 1, DimensionCount>
                ::apply(box1, box2, robust_policy, box_out, strategy);
     }

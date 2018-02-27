@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2011-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -16,3 +16,4 @@
 #include <boost/test/data/monomorphic/generators/xrange.hpp>
 
 #endif // BOOST_TEST_DATA_MONOMORPHIC_GENERATORS_HPP_112011GER
+

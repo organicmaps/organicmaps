@@ -59,7 +59,7 @@ namespace boost { namespace property_tree
 
             typedef basic_ptree<K, D, C> tree;
             typedef typename tree::value_type value_type;
-
+    
             bsl::collection_size_type count;
             ar >> BOOST_SERIALIZATION_NVP(count);
             bsl::item_version_type item_version(0);

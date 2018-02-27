@@ -1,3 +1,13 @@
+/*==============================================================================
+    Copyright (c) 2001-2010 Joel de Guzman
+    Copyright (c) 2004 Daniel Wallin
+    Copyright (c) 2010 Thomas Heller
+    Copyright (c) 2016 Kohei Takahashi
+
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+==============================================================================*/
+
 #ifndef BOOST_PHOENIX_SCOPE_LAMBDA_HPP
 #define BOOST_PHOENIX_SCOPE_LAMBDA_HPP
 
@@ -10,27 +20,6 @@
 #include <boost/phoenix/core/meta_grammar.hpp>
 #include <boost/phoenix/scope/local_variable.hpp>
 #include <boost/phoenix/scope/scoped_environment.hpp>
-
-#if !defined(BOOST_PHOENIX_DONT_USE_PREPROCESSED_FILES)
-
-#include <boost/phoenix/scope/preprocessed/lambda.hpp>
-
-#else
-
-#if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 2, line: 0, output: "preprocessed/lambda_" BOOST_PHOENIX_LIMIT_STR ".hpp")
-#endif
-/*==============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
-    Copyright (c) 2004 Daniel Wallin
-    Copyright (c) 2010 Thomas Heller
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-#if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 1)
-#endif
 
 BOOST_PHOENIX_DEFINE_EXPRESSION(
     (boost)(phoenix)(lambda_actor)
@@ -318,11 +307,13 @@ namespace boost { namespace phoenix
         : call<lambda_actor_eval, Dummy>
     {};
     
-    template <typename Locals = void, typename Map = void, typename Dummy = void>
+    template <typename Locals = vector0<>,
+              typename Map = detail::map_local_index_to_tuple<>,
+              typename Dummy = void>
     struct lambda_actor_gen;
 
     template <>
-    struct lambda_actor_gen<void, void, void>
+    struct lambda_actor_gen<vector0<>, detail::map_local_index_to_tuple<>, void>
     {
         template <typename Expr>
         typename expression::lambda_actor<vector0<>, detail::map_local_index_to_tuple<>, Expr>::type const
@@ -362,32 +353,28 @@ namespace boost { namespace phoenix
     struct lambda_local_gen
         : lambda_actor_gen<>
     {
+#if defined(BOOST_PHOENIX_NO_VARIADIC_SCOPE)
         lambda_actor_gen<> const
         operator()() const
         {
             return lambda_actor_gen<>();
         }
 
+        #include <boost/phoenix/scope/detail/cpp03/lambda.hpp>
+#else
 #define BOOST_PHOENIX_SCOPE_ACTOR_GEN_NAME lambda_actor_gen
 #define BOOST_PHOENIX_SCOPE_ACTOR_GEN_FUNCTION operator()
 #define BOOST_PHOENIX_SCOPE_ACTOR_GEN_CONST const
-    #include <boost/phoenix/scope/detail/local_gen.hpp>
+        #include <boost/phoenix/scope/detail/local_gen.hpp>
 #undef BOOST_PHOENIX_SCOPE_ACTOR_GEN_NAME
 #undef BOOST_PHOENIX_SCOPE_ACTOR_GEN_FUNCTION
 #undef BOOST_PHOENIX_SCOPE_ACTOR_GEN_CONST
-
-
+#endif
     };
 
     typedef lambda_local_gen lambda_type;
     lambda_local_gen const lambda = lambda_local_gen();
 
 }}
-
-#if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
-#pragma wave option(output: null)
-#endif
-
-#endif
 
 #endif

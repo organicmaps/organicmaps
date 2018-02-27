@@ -39,7 +39,7 @@ namespace boost{
 #  pragma warning(disable: 4800)
 #endif
 
-namespace re_detail{
+namespace BOOST_REGEX_DETAIL_NS{
 
 template <class charT>
 const basic_regex<charT>& get_default_expression(charT)
@@ -97,7 +97,7 @@ bool split_pred<OutputIterator, charT, Traits1, Alloc1>::operator()
    return true;
 }
 
-} // namespace re_detail
+} // namespace BOOST_REGEX_DETAIL_NS
 
 template <class OutputIterator, class charT, class Traits1, class Alloc1, class Traits2>
 std::size_t regex_split(OutputIterator out,
@@ -110,7 +110,7 @@ std::size_t regex_split(OutputIterator out,
    //typedef typename match_results<ci_t>::allocator_type                        match_allocator;
    ci_t last = s.begin();
    std::size_t init_size = max_split;
-   re_detail::split_pred<OutputIterator, charT, Traits1, Alloc1> pred(&last, &out, &max_split);
+   BOOST_REGEX_DETAIL_NS::split_pred<OutputIterator, charT, Traits1, Alloc1> pred(&last, &out, &max_split);
    ci_t i, j;
    i = s.begin();
    j = s.end();
@@ -147,7 +147,7 @@ template <class OutputIterator, class charT, class Traits1, class Alloc1>
 inline std::size_t regex_split(OutputIterator out,
                    std::basic_string<charT, Traits1, Alloc1>& s)
 {
-   return regex_split(out, s, re_detail::get_default_expression(charT(0)), match_default, UINT_MAX);
+   return regex_split(out, s, BOOST_REGEX_DETAIL_NS::get_default_expression(charT(0)), match_default, UINT_MAX);
 }
 
 #ifdef BOOST_MSVC

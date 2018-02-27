@@ -35,7 +35,10 @@ enum algo_types
    AvlTreeAlgorithms,
    SgTreeAlgorithms,
    SplayTreeAlgorithms,
-   TreapAlgorithms
+   TreapAlgorithms,
+   UnorderedAlgorithms,
+   UnorderedCircularSlistAlgorithms,
+   AnyAlgorithm
 };
 
 template<algo_types AlgoType, class NodeTraits>

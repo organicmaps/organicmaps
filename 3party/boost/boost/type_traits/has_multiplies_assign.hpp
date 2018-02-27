@@ -12,30 +12,30 @@
 #define BOOST_TT_TRAIT_NAME has_multiplies_assign
 #define BOOST_TT_TRAIT_OP *=
 #define BOOST_TT_FORBIDDEN_IF\
-   ::boost::type_traits::ice_or<\
+   (\
       /* Lhs==fundamental and Lhs==const and Rhs==fundamental */\
-      ::boost::type_traits::ice_and<\
-         ::boost::is_fundamental< Lhs_nocv >::value,\
-         ::boost::is_const< Lhs_noref >::value,\
+      (\
+         ::boost::is_fundamental< Lhs_nocv >::value && \
+         ::boost::is_const< Lhs_noref >::value && \
          ::boost::is_fundamental< Rhs_nocv >::value\
-      >::value,\
+      ) || \
       /* Lhs==pointer and (Rhs==fundamental or Rhs==pointer) */\
-      ::boost::type_traits::ice_and<\
-         ::boost::is_pointer< Lhs_noref >::value,\
-         ::boost::type_traits::ice_or<\
-            ::boost::is_fundamental< Rhs_nocv >::value,\
+      (\
+         ::boost::is_pointer< Lhs_noref >::value && \
+         ( \
+            ::boost::is_fundamental< Rhs_nocv >::value || \
             ::boost::is_pointer< Rhs_noref >::value\
-         >::value\
-      >::value,\
+         )\
+      )||\
       /* Rhs==pointer and (Lhs==fundamental or Lhs==pointer) */\
-      ::boost::type_traits::ice_and<\
-         ::boost::is_pointer< Rhs_noref >::value,\
-         ::boost::type_traits::ice_or<\
-            ::boost::is_fundamental< Lhs_nocv >::value,\
+      (\
+         ::boost::is_pointer< Rhs_noref >::value && \
+         ( \
+            ::boost::is_fundamental< Lhs_nocv >::value || \
             ::boost::is_pointer< Lhs_noref >::value\
-         >::value\
-      >::value\
-   >::value
+          )\
+      )\
+      )
 
 
 #include <boost/type_traits/detail/has_binary_operator.hpp>

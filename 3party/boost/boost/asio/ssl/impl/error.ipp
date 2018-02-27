@@ -2,7 +2,7 @@
 // ssl/impl/error.ipp
 // ~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -24,7 +24,6 @@
 namespace boost {
 namespace asio {
 namespace error {
-
 namespace detail {
 
 class ssl_category : public boost::system::error_category
@@ -51,6 +50,50 @@ const boost::system::error_category& get_ssl_category()
 }
 
 } // namespace error
+namespace ssl {
+namespace error {
+
+#if (OPENSSL_VERSION_NUMBER < 0x10100000L) && !defined(OPENSSL_IS_BORINGSSL)
+
+const boost::system::error_category& get_stream_category()
+{
+  return boost::asio::error::get_ssl_category();
+}
+
+#else
+
+namespace detail {
+
+class stream_category : public boost::system::error_category
+{
+public:
+  const char* name() const BOOST_ASIO_ERROR_CATEGORY_NOEXCEPT
+  {
+    return "asio.ssl.stream";
+  }
+
+  std::string message(int value) const
+  {
+    switch (value)
+    {
+    case stream_truncated: return "stream truncated";
+    default: return "asio.ssl.stream error";
+    }
+  }
+};
+
+} // namespace detail
+
+const boost::system::error_category& get_stream_category()
+{
+  static detail::stream_category instance;
+  return instance;
+}
+
+#endif
+
+} // namespace error
+} // namespace ssl
 } // namespace asio
 } // namespace boost
 

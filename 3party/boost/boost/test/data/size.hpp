@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2011-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -142,3 +142,4 @@ operator<<( std::basic_ostream<CharT1,Tr>& os, data::size_t const& s )
 #include <boost/test/detail/enable_warnings.hpp>
 
 #endif // BOOST_TEST_DATA_SIZE_HPP_102211GER
+

@@ -79,6 +79,14 @@ STLport (with any compiler), ver. 4.0 and earlier.
 
 #include <boost/detail/workaround.hpp>
 
+// C++11 features detection
+#include <boost/config.hpp>
+
+// std::forward
+#ifdef BOOST_HAS_VARIADIC_TMPL
+#include <utility>
+#endif
+
 #ifdef BOOST_POOL_INSTRUMENT
 #include <iostream>
 #include <iomanip>
@@ -206,8 +214,16 @@ class pool_allocator
     { return &s; }
     static size_type max_size()
     { return (std::numeric_limits<size_type>::max)(); }
+
+#if defined(BOOST_HAS_VARIADIC_TMPL) && defined(BOOST_HAS_RVALUE_REFS)
+    template <typename U, typename... Args>
+    static void construct(U* ptr, Args&&... args)
+    { new (ptr) U(std::forward<Args>(args)...); }
+#else
     static void construct(const pointer ptr, const value_type & t)
     { new (ptr) T(t); }
+#endif
+
     static void destroy(const pointer ptr)
     {
       ptr->~T();
@@ -395,8 +411,16 @@ class fast_pool_allocator
     { return &s; }
     static size_type max_size()
     { return (std::numeric_limits<size_type>::max)(); }
+
+#if defined(BOOST_HAS_VARIADIC_TMPL) && defined(BOOST_HAS_RVALUE_REFS)
+    template <typename U, typename... Args>
+    void construct(U* ptr, Args&&... args)
+    { new (ptr) U(std::forward<Args>(args)...); }
+#else
     void construct(const pointer ptr, const value_type & t)
     { new (ptr) T(t); }
+#endif
+
     void destroy(const pointer ptr)
     { //! Destroy ptr using destructor.
       ptr->~T();

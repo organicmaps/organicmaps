@@ -64,33 +64,34 @@ http://www-igm.univ-mlv.fr/%7Elecroq/string/node18.html
             
         ~boyer_moore_horspool () {}
         
-        /// \fn operator ( corpusIter corpus_first, corpusIter corpus_last, Pred p )
+        /// \fn operator ( corpusIter corpus_first, corpusIter corpus_last)
         /// \brief Searches the corpus for the pattern that was passed into the constructor
         /// 
         /// \param corpus_first The start of the data to search (Random Access Iterator)
         /// \param corpus_last  One past the end of the data to search
-        /// \param p            A predicate used for the search comparisons.
         ///
         template <typename corpusIter>
-        corpusIter operator () ( corpusIter corpus_first, corpusIter corpus_last ) const {
+        std::pair<corpusIter, corpusIter>
+        operator () ( corpusIter corpus_first, corpusIter corpus_last ) const {
             BOOST_STATIC_ASSERT (( boost::is_same<
                 typename std::iterator_traits<patIter>::value_type, 
                 typename std::iterator_traits<corpusIter>::value_type>::value ));
 
-            if ( corpus_first == corpus_last ) return corpus_last;  // if nothing to search, we didn't find it!
-            if (    pat_first ==    pat_last ) return corpus_first; // empty pattern matches at start
+            if ( corpus_first == corpus_last ) return std::make_pair(corpus_last, corpus_last);   // if nothing to search, we didn't find it!
+            if (    pat_first ==    pat_last ) return std::make_pair(corpus_first, corpus_first); // empty pattern matches at start
 
             const difference_type k_corpus_length  = std::distance ( corpus_first, corpus_last );
         //  If the pattern is larger than the corpus, we can't find it!
             if ( k_corpus_length < k_pattern_length )
-                return corpus_last;
+                return std::make_pair(corpus_last, corpus_last);
     
         //  Do the search 
             return this->do_search ( corpus_first, corpus_last );
             }
             
         template <typename Range>
-        typename boost::range_iterator<Range>::type operator () ( Range &r ) const {
+        std::pair<typename boost::range_iterator<Range>::type, typename boost::range_iterator<Range>::type>
+        operator () ( Range &r ) const {
             return (*this) (boost::begin(r), boost::end(r));
             }
 
@@ -108,7 +109,8 @@ http://www-igm.univ-mlv.fr/%7Elecroq/string/node18.html
         /// \param k_corpus_length The length of the corpus to search
         ///
         template <typename corpusIter>
-        corpusIter do_search ( corpusIter corpus_first, corpusIter corpus_last ) const {
+        std::pair<corpusIter, corpusIter>
+        do_search ( corpusIter corpus_first, corpusIter corpus_last ) const {
             corpusIter curPos = corpus_first;
             const corpusIter lastPos = corpus_last - k_pattern_length;
             while ( curPos <= lastPos ) {
@@ -117,14 +119,14 @@ http://www-igm.univ-mlv.fr/%7Elecroq/string/node18.html
                 while ( pat_first [j] == curPos [j] ) {
                 //  We matched - we're done!
                     if ( j == 0 )
-                        return curPos;
+                        return std::make_pair(curPos, curPos + k_pattern_length);
                     j--;
                     }
         
                 curPos += skip_ [ curPos [ k_pattern_length - 1 ]];
                 }
             
-            return corpus_last;
+            return std::make_pair(corpus_last, corpus_last);
             }
 // \endcond
         };
@@ -142,7 +144,7 @@ http://www-igm.univ-mlv.fr/%7Elecroq/string/node18.html
 /// \param pat_last     One past the end of the data to search for
 ///
     template <typename patIter, typename corpusIter>
-    corpusIter boyer_moore_horspool_search ( 
+    std::pair<corpusIter, corpusIter> boyer_moore_horspool_search ( 
                   corpusIter corpus_first, corpusIter corpus_last, 
                   patIter pat_first, patIter pat_last )
     {
@@ -151,7 +153,7 @@ http://www-igm.univ-mlv.fr/%7Elecroq/string/node18.html
     }
 
     template <typename PatternRange, typename corpusIter>
-    corpusIter boyer_moore_horspool_search ( 
+    std::pair<corpusIter, corpusIter> boyer_moore_horspool_search ( 
         corpusIter corpus_first, corpusIter corpus_last, const PatternRange &pattern )
     {
         typedef typename boost::range_iterator<const PatternRange>::type pattern_iterator;
@@ -160,8 +162,9 @@ http://www-igm.univ-mlv.fr/%7Elecroq/string/node18.html
     }
     
     template <typename patIter, typename CorpusRange>
-    typename boost::lazy_disable_if_c<
-        boost::is_same<CorpusRange, patIter>::value, typename boost::range_iterator<CorpusRange> >
+    typename boost::disable_if_c<
+        boost::is_same<CorpusRange, patIter>::value, 
+        std::pair<typename boost::range_iterator<CorpusRange>::type, typename boost::range_iterator<CorpusRange>::type> >
     ::type
     boyer_moore_horspool_search ( CorpusRange &corpus, patIter pat_first, patIter pat_last )
     {
@@ -170,7 +173,7 @@ http://www-igm.univ-mlv.fr/%7Elecroq/string/node18.html
     }
     
     template <typename PatternRange, typename CorpusRange>
-    typename boost::range_iterator<CorpusRange>::type
+    std::pair<typename boost::range_iterator<CorpusRange>::type, typename boost::range_iterator<CorpusRange>::type>
     boyer_moore_horspool_search ( CorpusRange &corpus, const PatternRange &pattern )
     {
         typedef typename boost::range_iterator<const PatternRange>::type pattern_iterator;

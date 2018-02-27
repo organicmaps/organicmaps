@@ -66,7 +66,7 @@ struct coordinates_scanner<Point, DimensionCount, DimensionCount, IsConst>
 template <typename Point, typename Op>
 inline void for_each_coordinate(Point& point, Op operation)
 {
-    BOOST_CONCEPT_ASSERT( (concept::Point<Point>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Point<Point>) );
 
     typedef typename detail::coordinates_scanner
         <
@@ -79,7 +79,7 @@ inline void for_each_coordinate(Point& point, Op operation)
 template <typename Point, typename Op>
 inline Op for_each_coordinate(Point const& point, Op operation)
 {
-    BOOST_CONCEPT_ASSERT( (concept::ConstPoint<Point>) );
+    BOOST_CONCEPT_ASSERT( (concepts::ConstPoint<Point>) );
 
     typedef typename detail::coordinates_scanner
         <

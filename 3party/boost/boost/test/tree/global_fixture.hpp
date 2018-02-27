@@ -1,15 +1,12 @@
-//  (C) Copyright Gennadiy Rozental 2001-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
 //
-//  File        : $RCSfile$
-//
-//  Version     : $Revision: 74640 $
-//
-//  Description : defines global_fixture
+/// @file
+/// Defines global_fixture
 // ***************************************************************************
 
 #ifndef BOOST_TEST_TREE_GLOBAL_FIXTURE_HPP_091911GER
@@ -65,3 +62,4 @@ private:
 #include <boost/test/detail/enable_warnings.hpp>
 
 #endif // BOOST_TEST_TREE_GLOBAL_FIXTURE_HPP_091911GER
+

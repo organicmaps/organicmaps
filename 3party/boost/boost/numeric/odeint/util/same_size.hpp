@@ -83,7 +83,7 @@ struct same_size_fusion
     }
 
     template< class S1 , class S2 >
-    bool same_size_op( const S1 &x1 , const S2 &x2 , boost::false_type ) const
+    bool same_size_op( const S1 &/*x1*/ , const S2 &/*x2*/ , boost::false_type ) const
     {
         return true;
     }

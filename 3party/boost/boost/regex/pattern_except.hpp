@@ -63,7 +63,7 @@ private:
 typedef regex_error bad_pattern;
 typedef regex_error bad_expression;
 
-namespace re_detail{
+namespace BOOST_REGEX_DETAIL_NS{
 
 BOOST_REGEX_DECL void BOOST_REGEX_CALL raise_runtime_error(const std::runtime_error& ex);
 
@@ -72,7 +72,7 @@ void raise_error(const traits& t, regex_constants::error_type code)
 {
    (void)t;  // warning suppression
    std::runtime_error e(t.error_string(code));
-   ::boost::re_detail::raise_runtime_error(e);
+   ::boost::BOOST_REGEX_DETAIL_NS::raise_runtime_error(e);
 }
 
 }

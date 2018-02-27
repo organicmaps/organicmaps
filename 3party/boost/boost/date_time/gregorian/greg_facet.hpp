@@ -9,9 +9,10 @@
  * $Date$
  */
 
-#include "boost/date_time/gregorian/gregorian_types.hpp"
-#include "boost/date_time/date_formatting_locales.hpp" // sets BOOST_DATE_TIME_NO_LOCALE
-#include "boost/date_time/gregorian/parsers.hpp"
+#include <boost/date_time/compiler_config.hpp>
+#include <boost/date_time/gregorian/gregorian_types.hpp>
+#include <boost/date_time/date_formatting_locales.hpp> // sets BOOST_DATE_TIME_NO_LOCALE
+#include <boost/date_time/gregorian/parsers.hpp>
 
 //This file is basically commented out if locales are not supported
 #ifndef BOOST_DATE_TIME_NO_LOCALE
@@ -26,7 +27,7 @@ namespace boost {
 namespace gregorian {
   
   //! Configuration of the output facet template
-  struct greg_facet_config
+  struct BOOST_SYMBOL_VISIBLE greg_facet_config
   {
     typedef boost::gregorian::greg_month month_type;
     typedef boost::date_time::special_values special_value_enum;
@@ -290,7 +291,17 @@ namespace gregorian {
      * names as a default. */
     catch(std::bad_cast&){
       charT a = '\0';
+      
+#if defined(BOOST_NO_CXX11_SMART_PTR)
+      
       std::auto_ptr< const facet_def > f(create_facet_def(a));
+      
+#else
+
+      std::unique_ptr< const facet_def > f(create_facet_def(a));
+      
+#endif
+      
       num = date_time::find_match(f->get_short_month_names(), 
                                   f->get_long_month_names(), 
                                   (greg_month::max)(), s); // greg_month spans 1..12, so max returns the array size,
@@ -332,7 +343,17 @@ namespace gregorian {
      * names as a default. */
     catch(std::bad_cast&){
       charT a = '\0';
+      
+#if defined(BOOST_NO_CXX11_SMART_PTR)
+
       std::auto_ptr< const facet_def > f(create_facet_def(a));
+      
+#else 
+
+      std::unique_ptr< const facet_def > f(create_facet_def(a));
+      
+#endif
+      
       num = date_time::find_match(f->get_short_weekday_names(), 
                                   f->get_long_weekday_names(), 
                                   (greg_weekday::max)() + 1, s); // greg_weekday spans 0..6, so increment is needed
@@ -345,8 +366,7 @@ namespace gregorian {
 
 } } //namespace gregorian
 
-#endif  
-    
-    
+#endif
+
 #endif
 

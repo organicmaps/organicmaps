@@ -11,7 +11,7 @@
 #ifndef BOOST_IOSTREAMS_FILE_DESCRIPTOR_HPP_INCLUDED
 #define BOOST_IOSTREAMS_FILE_DESCRIPTOR_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -28,6 +28,10 @@
 #include <boost/shared_ptr.hpp>
 
 // Must come last.
+#if defined(BOOST_MSVC)
+# pragma warning(push)
+# pragma warning(disable:4251)  // Missing DLL interface for shared_ptr
+#endif
 #include <boost/config/abi_prefix.hpp>
 
 namespace boost { namespace iostreams {
@@ -314,5 +318,8 @@ private:
 } } // End namespaces iostreams, boost.
 
 #include <boost/config/abi_suffix.hpp> // pops abi_suffix.hpp pragmas
+#if defined(BOOST_MSVC)
+# pragma warning(pop)  // pops #pragma warning(disable:4251)
+#endif
 
 #endif // #ifndef BOOST_IOSTREAMS_FILE_DESCRIPTOR_HPP_INCLUDED

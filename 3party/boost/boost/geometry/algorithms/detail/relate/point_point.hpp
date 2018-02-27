@@ -2,14 +2,14 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2013, 2014.
-// Modifications copyright (c) 2013, 2014, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2017.
+// Modifications copyright (c) 2013-2017, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_RELATE_POINT_POINT_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_RELATE_POINT_POINT_HPP
@@ -35,8 +35,10 @@ struct point_point
 {
     static const bool interruption_enabled = false;
 
-    template <typename Result>
-    static inline void apply(Point1 const& point1, Point2 const& point2, Result & result)
+    template <typename Result, typename Strategy>
+    static inline void apply(Point1 const& point1, Point2 const& point2,
+                             Result & result,
+                             Strategy const& /*strategy*/)
     {
         bool equal = detail::equals::equals_point_point(point1, point2);
         if ( equal )
@@ -86,8 +88,10 @@ struct point_multipoint
 {
     static const bool interruption_enabled = false;
 
-    template <typename Result>
-    static inline void apply(Point const& point, MultiPoint const& multi_point, Result & result)
+    template <typename Result, typename Strategy>
+    static inline void apply(Point const& point, MultiPoint const& multi_point,
+                             Result & result,
+                             Strategy const& /*strategy*/)
     {
         if ( boost::empty(multi_point) )
         {
@@ -122,10 +126,12 @@ struct multipoint_point
 {
     static const bool interruption_enabled = false;
 
-    template <typename Result>
-    static inline void apply(MultiPoint const& multi_point, Point const& point, Result & result)
+    template <typename Result, typename Strategy>
+    static inline void apply(MultiPoint const& multi_point, Point const& point,
+                             Result & result,
+                             Strategy const& strategy)
     {
-        point_multipoint<Point, MultiPoint, true>::apply(point, multi_point, result);
+        point_multipoint<Point, MultiPoint, true>::apply(point, multi_point, result, strategy);
     }
 };
 
@@ -134,8 +140,10 @@ struct multipoint_multipoint
 {
     static const bool interruption_enabled = true;
 
-    template <typename Result>
-    static inline void apply(MultiPoint1 const& multi_point1, MultiPoint2 const& multi_point2, Result & result)
+    template <typename Result, typename Strategy>
+    static inline void apply(MultiPoint1 const& multi_point1, MultiPoint2 const& multi_point2,
+                             Result & result,
+                             Strategy const& /*strategy*/)
     {
         {
             // TODO: throw on empty input?

@@ -15,33 +15,44 @@
 #pragma once
 #endif
 
-namespace boost
-{
-namespace detail
-{
-namespace winapi
-{
-#if defined( BOOST_USE_WINDOWS_H )
+#if !defined( BOOST_USE_WINDOWS_H )
+extern "C" {
+#if !defined( UNDER_CE )
+// Windows CE define TlsAlloc and TlsFree as inline functions in kfuncs.h
+BOOST_SYMBOL_IMPORT boost::detail::winapi::DWORD_ WINAPI
+TlsAlloc(BOOST_DETAIL_WINAPI_VOID);
+
+BOOST_SYMBOL_IMPORT boost::detail::winapi::BOOL_ WINAPI
+TlsFree(boost::detail::winapi::DWORD_ dwTlsIndex);
+#endif
+
+BOOST_SYMBOL_IMPORT boost::detail::winapi::LPVOID_ WINAPI
+TlsGetValue(boost::detail::winapi::DWORD_ dwTlsIndex);
+
+BOOST_SYMBOL_IMPORT boost::detail::winapi::BOOL_ WINAPI
+TlsSetValue(
+    boost::detail::winapi::DWORD_ dwTlsIndex,
+    boost::detail::winapi::LPVOID_ lpTlsValue);
+}
+#endif
+
+namespace boost {
+namespace detail {
+namespace winapi {
 
 using ::TlsAlloc;
+using ::TlsFree;
 using ::TlsGetValue;
 using ::TlsSetValue;
-using ::TlsFree;
 
-const DWORD_ tls_out_of_indexes = TLS_OUT_OF_INDEXES;
-
+#if defined( BOOST_USE_WINDOWS_H )
+const DWORD_ TLS_OUT_OF_INDEXES_ = TLS_OUT_OF_INDEXES;
 #else
-
-extern "C" {
-__declspec(dllimport) DWORD_ WINAPI TlsAlloc(void);
-__declspec(dllimport) LPVOID_ WINAPI TlsGetValue(DWORD_ dwTlsIndex);
-__declspec(dllimport) BOOL_ WINAPI TlsSetValue(DWORD_ dwTlsIndex, LPVOID_ lpTlsValue);
-__declspec(dllimport) BOOL_ WINAPI TlsFree(DWORD_ dwTlsIndex);
-}
-
-const DWORD_ tls_out_of_indexes = 0xFFFFFFFF;
-
+const DWORD_ TLS_OUT_OF_INDEXES_ = 0xFFFFFFFF;
 #endif
+
+const DWORD_ tls_out_of_indexes = TLS_OUT_OF_INDEXES_;
+
 }
 }
 }

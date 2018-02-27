@@ -18,8 +18,6 @@
 
 #include <cstddef>
 
-#include <boost/type_traits.hpp>
-
 #include <boost/geometry/policies/robustness/segment_ratio.hpp>
 #include <boost/geometry/policies/robustness/segment_ratio_type.hpp>
 #include <boost/geometry/policies/robustness/robust_point_type.hpp>

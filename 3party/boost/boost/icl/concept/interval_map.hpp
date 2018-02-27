@@ -306,7 +306,7 @@ typename enable_if<is_interval_map<Type>, void>::type
 add_intersection(Type& section, const Type& object, 
                  const typename Type::element_type& operand)
 {
-    typedef typename Type::segment_type segment_type;
+    //CL typedef typename Type::segment_type segment_type;
     object.add_intersection(section, make_segment<Type>(operand));
 }
 
@@ -346,8 +346,8 @@ typename enable_if
 >::type
 add_intersection(Type& section, const Type& object, const MapT& operand)
 {
-    typedef typename Type::segment_type   segment_type;
-    typedef typename Type::interval_type  interval_type;
+    //CL typedef typename Type::segment_type   segment_type;
+    //CL typedef typename Type::interval_type  interval_type;
     typedef typename MapT::const_iterator const_iterator;
 
     if(operand.empty()) 
@@ -538,7 +538,7 @@ typename enable_if< mpl::and_< mpl::not_<is_total<Type> >
 flip(Type& object, const OperandT& operand)
 {
     typedef typename OperandT::const_iterator const_iterator;
-    typedef typename Type::codomain_type  codomain_type;
+    //CL typedef typename Type::codomain_type  codomain_type;
 
     const_iterator common_lwb, common_upb;
 

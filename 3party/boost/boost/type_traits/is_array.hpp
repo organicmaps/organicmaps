@@ -14,37 +14,30 @@
 #ifndef BOOST_TT_IS_ARRAY_HPP_INCLUDED
 #define BOOST_TT_IS_ARRAY_HPP_INCLUDED
 
-#include <boost/type_traits/config.hpp>
-
-
-#include <cstddef>
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
+#include <boost/type_traits/integral_constant.hpp>
+#include <cstddef> // size_t
 
 namespace boost {
 
 #if defined( __CODEGEARC__ )
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_array,T,__is_array(T))
+   template <class T> struct is_array : public integral_constant<bool, __is_array(T)> {};
 #else
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_array,T,false)
+   template <class T> struct is_array : public false_type {};
 #if !defined(BOOST_NO_ARRAY_TYPE_SPECIALIZATIONS)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_2(typename T,std::size_t N,is_array,T[N],true)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_2(typename T,std::size_t N,is_array,T const[N],true)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_2(typename T,std::size_t N,is_array,T volatile[N],true)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_2(typename T,std::size_t N,is_array,T const volatile[N],true)
+   template <class T, std::size_t N> struct is_array<T[N]> : public true_type {};
+   template <class T, std::size_t N> struct is_array<T const[N]> : public true_type{};
+   template <class T, std::size_t N> struct is_array<T volatile[N]> : public true_type{};
+   template <class T, std::size_t N> struct is_array<T const volatile[N]> : public true_type{};
 #if !BOOST_WORKAROUND(__BORLANDC__, < 0x600) && !defined(__IBMCPP__) &&  !BOOST_WORKAROUND(__DMC__, BOOST_TESTED_AT(0x840))
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_array,T[],true)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_array,T const[],true)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_array,T volatile[],true)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_array,T const volatile[],true)
+   template <class T> struct is_array<T[]> : public true_type{};
+   template <class T> struct is_array<T const[]> : public true_type{};
+   template <class T> struct is_array<T const volatile[]> : public true_type{};
+   template <class T> struct is_array<T volatile[]> : public true_type{};
 #endif
 #endif
 
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TT_IS_ARRAY_HPP_INCLUDED

@@ -27,6 +27,7 @@
 #ifndef BOOST_NO_STD_LOCALE
 
 #include <locale>     // for std::locale
+#include <ios>
 #include <streambuf>  // for std::basic_streambuf
 
 #include <boost/config.hpp>
@@ -45,24 +46,56 @@ class basic_streambuf_locale_saver :
     private boost::noncopyable
 {
 public:
-    typedef ::std::basic_streambuf<Ch, Tr> state_type;
-    typedef ::std::locale aspect_type;
-    explicit basic_streambuf_locale_saver( state_type &s )
-        : s_save_( s ), a_save_( s.getloc() )
-        {}
-    explicit basic_streambuf_locale_saver( state_type &s, aspect_type const &a )
-        : s_save_( s ), a_save_( s.pubimbue(a) )
-        {}
-    ~basic_streambuf_locale_saver()
-        { this->restore(); }
-    void  restore(){
-        s_save_.pubsync();
-        s_save_.pubimbue( a_save_ );
+    explicit basic_streambuf_locale_saver(std::basic_streambuf<Ch, Tr> &s) :
+        m_streambuf(s),
+        m_locale(s.getloc())
+    {}
+    ~basic_streambuf_locale_saver(){
+        m_streambuf.pubsync();
+        m_streambuf.pubimbue(m_locale);
     }
 private:
-    state_type &       s_save_;
-    aspect_type const  a_save_;
+    std::basic_streambuf<Ch, Tr> &       m_streambuf;
+    std::locale const  m_locale;
 };
+
+template < typename Ch, class Tr >
+class basic_istream_locale_saver :
+    private boost::noncopyable
+{
+public:
+    explicit basic_istream_locale_saver(std::basic_istream<Ch, Tr> &s) :
+        m_istream(s),
+        m_locale(s.getloc())
+    {}
+    ~basic_istream_locale_saver(){
+        // libstdc++ crashes without this
+        m_istream.sync();
+        m_istream.imbue(m_locale);
+    }
+private:
+    std::basic_istream<Ch, Tr> & m_istream;
+    std::locale const  m_locale;
+};
+
+template < typename Ch, class Tr >
+class basic_ostream_locale_saver :
+    private boost::noncopyable
+{
+public:
+    explicit basic_ostream_locale_saver(std::basic_ostream<Ch, Tr> &s) :
+        m_ostream(s),
+        m_locale(s.getloc())
+    {}
+    ~basic_ostream_locale_saver(){
+        m_ostream.flush();
+        m_ostream.imbue(m_locale);
+    }
+private:
+    std::basic_ostream<Ch, Tr> & m_ostream;
+    std::locale const  m_locale;
+};
+
 
 } // archive
 } // boost

@@ -47,7 +47,8 @@ struct make_avl_set_base_hook
       ::type packed_options;
 
    typedef generic_hook
-   < avltree_algorithms<avltree_node_traits<typename packed_options::void_pointer, packed_options::optimize_size> >
+   < AvlTreeAlgorithms
+   , avltree_node_traits<typename packed_options::void_pointer, packed_options::optimize_size>
    , typename packed_options::tag
    , packed_options::link_mode
    , AvlTreeBaseHookId
@@ -177,7 +178,8 @@ struct make_avl_set_member_hook
       ::type packed_options;
 
    typedef generic_hook
-   < avltree_algorithms<avltree_node_traits<typename packed_options::void_pointer, packed_options::optimize_size> >
+   < AvlTreeAlgorithms
+   , avltree_node_traits<typename packed_options::void_pointer, packed_options::optimize_size>
    , member_tag
    , packed_options::link_mode
    , NoBaseHookId

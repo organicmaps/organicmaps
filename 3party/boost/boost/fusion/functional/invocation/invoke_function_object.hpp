@@ -18,14 +18,12 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 
 #include <boost/utility/result_of.hpp>
+#include <boost/core/enable_if.hpp>
 
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
-#include <boost/utility/result_of.hpp>
-
 #include <boost/fusion/support/category_of.hpp>
-#include <boost/fusion/support/detail/enabler.hpp>
 #include <boost/fusion/sequence/intrinsic/size.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
@@ -62,7 +60,7 @@ namespace boost { namespace fusion
 
         template <class Function, class Sequence>
         struct invoke_function_object<Function, Sequence,
-            typename detail::enabler<
+            typename enable_if_has_type<
                 typename detail::invoke_function_object_impl<
                     typename boost::remove_reference<Function>::type, Sequence
                 >::result_type
@@ -110,7 +108,7 @@ namespace boost { namespace fusion
 
         template <class Function, class Sequence>
         struct invoke_function_object_impl<Function,Sequence,N,true,
-            typename enabler<
+            typename enable_if_has_type<
                 typename boost::result_of<Function (BOOST_PP_ENUM(N,M,~)) >::type
             >::type>
         {
@@ -151,7 +149,7 @@ namespace boost { namespace fusion
 
         template <class Function, class Sequence>
         struct invoke_function_object_impl<Function,Sequence,N,false,
-            typename enabler<
+            typename enable_if_has_type<
                 typename boost::result_of<Function (BOOST_PP_ENUM(N,M,~)) >::type
             >::type>
 #undef M

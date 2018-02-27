@@ -45,8 +45,13 @@ namespace detail
       template <class U>
       void dispatch(U* x, mpl::true_) const
       {
-          std::auto_ptr<U> owner(x);
-          dispatch(owner, mpl::false_());
+#if __cplusplus < 201103L
+	std::auto_ptr<U> owner(x);
+	dispatch(owner, mpl::false_());
+#else
+	std::unique_ptr<U> owner(x);
+	dispatch(std::move(owner), mpl::false_());
+#endif
       }
       
       template <class Ptr>
@@ -58,7 +63,11 @@ namespace detail
 
           void* memory = holder::allocate(this->m_self, offsetof(instance_t, storage), sizeof(holder));
           try {
+#if __cplusplus < 201103L
               (new (memory) holder(x))->install(this->m_self);
+#else
+              (new (memory) holder(std::move(x)))->install(this->m_self);
+#endif
           }
           catch(...) {
               holder::deallocate(this->m_self, memory);
@@ -174,7 +183,7 @@ namespace detail
       
       typedef typename detail::error::more_keywords_than_function_arguments<
           NumKeywords::value, arity
-          >::too_many_keywords assertion;
+          >::too_many_keywords assertion BOOST_ATTRIBUTE_UNUSED;
     
       typedef typename outer_constructor_signature<Sig>::type outer_signature;
 

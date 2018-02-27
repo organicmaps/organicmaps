@@ -17,7 +17,10 @@
 # pragma once
 #endif
 
-#if defined( __clang__ ) && defined( __has_include )
+// __has_include is currently supported by GCC and Clang. However GCC 4.9 may have issues and
+// returns 1 for 'defined( __has_include )', while '__has_include' is actually not supported:
+// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63662
+#if defined( __has_include ) && (!defined( BOOST_GCC ) || (__GNUC__ + 0) >= 5)
 # if __has_include(<cxxabi.h>)
 #  define BOOST_CORE_HAS_CXXABI_H
 # endif
@@ -27,16 +30,15 @@
 
 #if defined( BOOST_CORE_HAS_CXXABI_H )
 # include <cxxabi.h>
-# include <cstdlib>
-# include <cstddef>
-#endif
-
-// Android compilation error workaround: gabi++ does not define __cxa_demangle()
-// 3party/boost/boost/core/demangle.hpp:75:17: error: no member named '__cxa_demangle' in namespace '__cxxabiv1'
-//    return abi::__cxa_demangle( name, NULL, &size, &status );
-//           ~~~~~^
-#ifdef __GABIXX_CXXABI_H__
-# undef BOOST_CORE_HAS_CXXABI_H
+// For some archtectures (mips, mips64, x86, x86_64) cxxabi.h in Android NDK is implemented by gabi++ library
+// (https://android.googlesource.com/platform/ndk/+/master/sources/cxx-stl/gabi++/), which does not implement
+// abi::__cxa_demangle(). We detect this implementation by checking the include guard here.
+# if defined( __GABIXX_CXXABI_H__ )
+#  undef BOOST_CORE_HAS_CXXABI_H
+# else
+#  include <cstdlib>
+#  include <cstddef>
+# endif
 #endif
 
 namespace boost
@@ -91,15 +93,10 @@ inline void demangle_free( char const * name ) BOOST_NOEXCEPT
 inline std::string demangle( char const * name )
 {
     scoped_demangled_name demangled_name( name );
-    char const * const p = demangled_name.get();
-    if( p )
-    {
-        return p;
-    }
-    else
-    {
-        return name;
-    }
+    char const * p = demangled_name.get();
+    if( !p )
+        p = name;
+    return p;
 }
 
 #else
@@ -124,9 +121,6 @@ inline std::string demangle( char const * name )
 
 } // namespace boost
 
-// Second part of work-around for Android, see above.
-#ifdef BOOST_CORE_HAS_CXXABI_H
-# undef BOOST_CORE_HAS_CXXABI_H
-#endif
+#undef BOOST_CORE_HAS_CXXABI_H
 
 #endif // #ifndef BOOST_CORE_DEMANGLE_HPP_INCLUDED

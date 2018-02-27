@@ -23,6 +23,11 @@
 
 namespace boost
 {
+  template<typename T, typename R=void>
+  struct enable_if_has_type
+  {
+    typedef R type;
+  };
  
   template <bool B, class T = void>
   struct enable_if_c {
@@ -79,6 +84,10 @@ namespace boost {
 
   template <typename T>
   struct enable_if_does_not_work_on_this_compiler;
+
+  template<typename T, typename R=void>
+  struct enable_if_has_type : enable_if_does_not_work_on_this_compiler<T>
+  { };
 
   template <bool B, class T = detail::enable_if_default_T>
   struct enable_if_c : enable_if_does_not_work_on_this_compiler<T>

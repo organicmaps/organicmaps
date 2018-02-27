@@ -70,6 +70,7 @@ void eval_exp(cpp_bin_float<Digits, DigitBase, Allocator, Exponent, MinE, MaxE> 
    if(type == (int)FP_NAN)
    {
       res = arg;
+      errno = EDOM;
       return;
    }
    else if(type == (int)FP_INFINITE)

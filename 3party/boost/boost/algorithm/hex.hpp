@@ -1,9 +1,9 @@
-/* 
+/*
    Copyright (c) Marshall Clow 2011-2012.
 
    Distributed under the Boost Software License, Version 1.0. (See accompanying
    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-   
+
    Thanks to Nevin for his comments/help.
 */
 
@@ -13,7 +13,7 @@
 */
 
 /// \file  hex.hpp
-/// \brief Convert sequence of integral types into a sequence of hexadecimal 
+/// \brief Convert sequence of integral types into a sequence of hexadecimal
 ///     characters and back. Based on the MySQL functions HEX and UNHEX
 /// \author Marshall Clow
 
@@ -25,7 +25,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/exception/all.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/exception/info.hpp>
+#include <boost/throw_exception.hpp>
 
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>
@@ -33,17 +35,17 @@
 
 namespace boost { namespace algorithm {
 
-/*! 
-    \struct hex_decode_error 
-    \brief  Base exception class for all hex decoding errors 
+/*!
+    \struct hex_decode_error
+    \brief  Base exception class for all hex decoding errors
 */ /*!
-    \struct non_hex_input    
+    \struct non_hex_input
     \brief  Thrown when a non-hex value (0-9, A-F) encountered when decoding.
                 Contains the offending character
-*/ /*!    
-    \struct not_enough_input 
+*/ /*!
+    \struct not_enough_input
     \brief  Thrown when the input sequence unexpectedly ends
-    
+
 */
 struct hex_decode_error : virtual boost::exception, virtual std::exception {};
 struct not_enough_input : virtual hex_decode_error {};
@@ -54,12 +56,12 @@ namespace detail {
 /// \cond DOXYGEN_HIDE
 
     template <typename T, typename OutputIterator>
-    OutputIterator encode_one ( T val, OutputIterator out ) {
+    OutputIterator encode_one ( T val, OutputIterator out, const char * hexDigits ) {
         const std::size_t num_hex_digits =  2 * sizeof ( T );
         char res [ num_hex_digits ];
         char  *p = res + num_hex_digits;
         for ( std::size_t i = 0; i < num_hex_digits; ++i, val >>= 4 )
-            *--p = "0123456789ABCDEF" [ val & 0x0F ];
+            *--p = hexDigits [ val & 0x0F ];
         return std::copy ( res, res + num_hex_digits, out );
         }
 
@@ -106,12 +108,12 @@ namespace detail {
         typedef T value_type;
     };
 
-    template <typename Iterator> 
+    template <typename Iterator>
     bool iter_end ( Iterator current, Iterator last ) { return current == last; }
-  
+
     template <typename T>
     bool ptr_end ( const T* ptr, const T* /*end*/ ) { return *ptr == '\0'; }
-  
+
 //  What can we assume here about the inputs?
 //      is std::iterator_traits<InputIterator>::value_type always 'char' ?
 //  Could it be wchar_t, say? Does it matter?
@@ -124,11 +126,11 @@ namespace detail {
 
     //  Need to make sure that we get can read that many chars here.
         for ( std::size_t i = 0; i < 2 * sizeof ( T ); ++i, ++first ) {
-            if ( pred ( first, last )) 
+            if ( pred ( first, last ))
                 BOOST_THROW_EXCEPTION (not_enough_input ());
             res = ( 16 * res ) + hex_char_to_int (*first);
             }
-        
+
         *out = res;
         return ++out;
         }
@@ -138,7 +140,7 @@ namespace detail {
 
 /// \fn hex ( InputIterator first, InputIterator last, OutputIterator out )
 /// \brief   Converts a sequence of integral types into a hexadecimal sequence of characters.
-/// 
+///
 /// \param first    The start of the input sequence
 /// \param last     One past the end of the input sequence
 /// \param out      An output iterator to the results into
@@ -148,14 +150,31 @@ template <typename InputIterator, typename OutputIterator>
 typename boost::enable_if<boost::is_integral<typename detail::hex_iterator_traits<InputIterator>::value_type>, OutputIterator>::type
 hex ( InputIterator first, InputIterator last, OutputIterator out ) {
     for ( ; first != last; ++first )
-        out = detail::encode_one ( *first, out );
+        out = detail::encode_one ( *first, out, "0123456789ABCDEF" );
     return out;
     }
-    
+
+
+/// \fn hex_lower ( InputIterator first, InputIterator last, OutputIterator out )
+/// \brief   Converts a sequence of integral types into a lower case hexadecimal sequence of characters.
+///
+/// \param first    The start of the input sequence
+/// \param last     One past the end of the input sequence
+/// \param out      An output iterator to the results into
+/// \return         The updated output iterator
+/// \note           Based on the MySQL function of the same name
+template <typename InputIterator, typename OutputIterator>
+typename boost::enable_if<boost::is_integral<typename detail::hex_iterator_traits<InputIterator>::value_type>, OutputIterator>::type
+hex_lower ( InputIterator first, InputIterator last, OutputIterator out ) {
+    for ( ; first != last; ++first )
+        out = detail::encode_one ( *first, out, "0123456789abcdef" );
+    return out;
+    }
+
 
 /// \fn hex ( const T *ptr, OutputIterator out )
 /// \brief   Converts a sequence of integral types into a hexadecimal sequence of characters.
-/// 
+///
 /// \param ptr      A pointer to a 0-terminated sequence of data.
 /// \param out      An output iterator to the results into
 /// \return         The updated output iterator
@@ -164,13 +183,30 @@ template <typename T, typename OutputIterator>
 typename boost::enable_if<boost::is_integral<T>, OutputIterator>::type
 hex ( const T *ptr, OutputIterator out ) {
     while ( *ptr )
-        out = detail::encode_one ( *ptr++, out );
+        out = detail::encode_one ( *ptr++, out, "0123456789ABCDEF" );
     return out;
     }
 
+
+/// \fn hex_lower ( const T *ptr, OutputIterator out )
+/// \brief   Converts a sequence of integral types into a lower case hexadecimal sequence of characters.
+///
+/// \param ptr      A pointer to a 0-terminated sequence of data.
+/// \param out      An output iterator to the results into
+/// \return         The updated output iterator
+/// \note           Based on the MySQL function of the same name
+template <typename T, typename OutputIterator>
+typename boost::enable_if<boost::is_integral<T>, OutputIterator>::type
+hex_lower ( const T *ptr, OutputIterator out ) {
+    while ( *ptr )
+        out = detail::encode_one ( *ptr++, out, "0123456789abcdef" );
+    return out;
+    }
+
+
 /// \fn hex ( const Range &r, OutputIterator out )
 /// \brief   Converts a sequence of integral types into a hexadecimal sequence of characters.
-/// 
+///
 /// \param r        The input range
 /// \param out      An output iterator to the results into
 /// \return         The updated output iterator
@@ -182,9 +218,23 @@ hex ( const Range &r, OutputIterator out ) {
 }
 
 
+/// \fn hex_lower ( const Range &r, OutputIterator out )
+/// \brief   Converts a sequence of integral types into a lower case hexadecimal sequence of characters.
+///
+/// \param r        The input range
+/// \param out      An output iterator to the results into
+/// \return         The updated output iterator
+/// \note           Based on the MySQL function of the same name
+template <typename Range, typename OutputIterator>
+typename boost::enable_if<boost::is_integral<typename detail::hex_iterator_traits<typename Range::iterator>::value_type>, OutputIterator>::type
+hex_lower ( const Range &r, OutputIterator out ) {
+    return hex_lower (boost::begin(r), boost::end(r), out);
+}
+
+
 /// \fn unhex ( InputIterator first, InputIterator last, OutputIterator out )
 /// \brief   Converts a sequence of hexadecimal characters into a sequence of integers.
-/// 
+///
 /// \param first    The start of the input sequence
 /// \param last     One past the end of the input sequence
 /// \param out      An output iterator to the results into
@@ -200,7 +250,7 @@ OutputIterator unhex ( InputIterator first, InputIterator last, OutputIterator o
 
 /// \fn unhex ( const T *ptr, OutputIterator out )
 /// \brief   Converts a sequence of hexadecimal characters into a sequence of integers.
-/// 
+///
 /// \param ptr      A pointer to a null-terminated input sequence.
 /// \param out      An output iterator to the results into
 /// \return         The updated output iterator
@@ -218,7 +268,7 @@ OutputIterator unhex ( const T *ptr, OutputIterator out ) {
 
 /// \fn OutputIterator unhex ( const Range &r, OutputIterator out )
 /// \brief   Converts a sequence of hexadecimal characters into a sequence of integers.
-/// 
+///
 /// \param r        The input range
 /// \param out      An output iterator to the results into
 /// \return         The updated output iterator
@@ -231,7 +281,7 @@ OutputIterator unhex ( const Range &r, OutputIterator out ) {
 
 /// \fn String hex ( const String &input )
 /// \brief   Converts a sequence of integral types into a hexadecimal sequence of characters.
-/// 
+///
 /// \param input    A container to be converted
 /// \return         A container with the encoded text
 template<typename String>
@@ -242,9 +292,24 @@ String hex ( const String &input ) {
     return output;
     }
 
+
+/// \fn String hex_lower ( const String &input )
+/// \brief   Converts a sequence of integral types into a lower case hexadecimal sequence of characters.
+///
+/// \param input    A container to be converted
+/// \return         A container with the encoded text
+template<typename String>
+String hex_lower ( const String &input ) {
+    String output;
+    output.reserve (input.size () * (2 * sizeof (typename String::value_type)));
+    (void) hex_lower (input, std::back_inserter (output));
+    return output;
+    }
+
+
 /// \fn String unhex ( const String &input )
 /// \brief   Converts a sequence of hexadecimal characters into a sequence of characters.
-/// 
+///
 /// \param input    A container to be converted
 /// \return         A container with the decoded text
 template<typename String>

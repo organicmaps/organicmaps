@@ -15,8 +15,6 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_AS_RANGE_HPP
 
 
-#include <boost/type_traits.hpp>
-
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>

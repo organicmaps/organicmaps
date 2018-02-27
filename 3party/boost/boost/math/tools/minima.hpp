@@ -21,6 +21,7 @@ namespace boost{ namespace math{ namespace tools{
 
 template <class F, class T>
 std::pair<T, T> brent_find_minima(F f, T min, T max, int bits, boost::uintmax_t& max_iter)
+   BOOST_NOEXCEPT_IF(BOOST_MATH_IS_FLOAT(T) && noexcept(std::declval<F>()(std::declval<T>())))
 {
    BOOST_MATH_STD_USING
    bits = (std::min)(policies::digits<T, policies::policy<> >() / 2, bits);
@@ -138,6 +139,7 @@ std::pair<T, T> brent_find_minima(F f, T min, T max, int bits, boost::uintmax_t&
 
 template <class F, class T>
 inline std::pair<T, T> brent_find_minima(F f, T min, T max, int digits)
+   BOOST_NOEXCEPT_IF(BOOST_MATH_IS_FLOAT(T) && noexcept(std::declval<F>()(std::declval<T>())))
 {
    boost::uintmax_t m = (std::numeric_limits<boost::uintmax_t>::max)();
    return brent_find_minima(f, min, max, digits, m);

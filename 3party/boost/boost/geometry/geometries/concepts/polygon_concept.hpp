@@ -27,7 +27,7 @@
 #include <boost/geometry/geometries/concepts/ring_concept.hpp>
 
 
-namespace boost { namespace geometry { namespace concept
+namespace boost { namespace geometry { namespace concepts
 {
 
 /*!
@@ -48,8 +48,8 @@ class Polygon
     typedef typename point_type<PolygonType>::type point_type;
     typedef typename ring_type<PolygonType>::type ring_type;
 
-    BOOST_CONCEPT_ASSERT( (concept::Point<point_type>) );
-    BOOST_CONCEPT_ASSERT( (concept::Ring<ring_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Point<point_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Ring<ring_type>) );
 
     //BOOST_CONCEPT_ASSERT( (boost::RandomAccessRangeConcept<interior_type>) );
 
@@ -101,8 +101,8 @@ class ConstPolygon
     typedef typename point_type<const_polygon_type>::type point_type;
     typedef typename ring_type<const_polygon_type>::type ring_type;
 
-    BOOST_CONCEPT_ASSERT( (concept::ConstPoint<point_type>) );
-    BOOST_CONCEPT_ASSERT( (concept::ConstRing<ring_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::ConstPoint<point_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::ConstRing<ring_type>) );
 
     ////BOOST_CONCEPT_ASSERT( (boost::RandomAccessRangeConcept<interior_type>) );
 
@@ -130,6 +130,6 @@ public:
 #endif
 };
 
-}}} // namespace boost::geometry::concept
+}}} // namespace boost::geometry::concepts
 
 #endif // BOOST_GEOMETRY_GEOMETRIES_CONCEPTS_POLYGON_CONCEPT_HPP

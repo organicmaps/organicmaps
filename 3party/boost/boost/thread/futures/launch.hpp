@@ -22,6 +22,8 @@ namespace boost
 #ifdef BOOST_THREAD_PROVIDES_EXECUTORS
       executor = 4,
 #endif
+      inherit = 8,
+      sync = 16,
       any = async | deferred
   }
   BOOST_SCOPED_ENUM_DECLARE_END(launch)

@@ -25,7 +25,7 @@ namespace chrono_detail
   inline nanoseconds::rep tick_factor()        // multiplier to convert ticks
                             //  to nanoseconds; -1 if unknown
   {
-    static long factor = 0;
+    long factor = 0;
     if ( !factor )
     {
       if ( (factor = ::sysconf( _SC_CLK_TCK )) <= 0 )

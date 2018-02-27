@@ -246,7 +246,7 @@ inline typename Type::iterator
     join_on_left(Type& object, typename Type::iterator& left_, 
                                typename Type::iterator& right_)
 {
-    typedef typename Type::interval_type interval_type;
+    //CL typedef typename Type::interval_type interval_type;
     // both left and right are in the set and they are neighbours
     BOOST_ASSERT(exclusive_less(key_value<Type>(left_), key_value<Type>(right_)));
     BOOST_ASSERT(joinable(object, left_, right_));
@@ -260,7 +260,7 @@ inline typename Type::iterator
     join_on_right(Type& object, typename Type::iterator& left_, 
                                 typename Type::iterator& right_)
 {
-    typedef typename Type::interval_type interval_type;
+    //CL typedef typename Type::interval_type interval_type;
     // both left and right are in the map and they are neighbours
     BOOST_ASSERT(exclusive_less(key_value<Type>(left_), key_value<Type>(right_)));
     BOOST_ASSERT(joinable(object, left_, right_));
@@ -569,7 +569,7 @@ template<class Type>
 typename Type::iterator 
     add(Type& object, const typename Type::value_type& addend)
 {
-    typedef typename Type::interval_type interval_type;
+    //CL typedef typename Type::interval_type interval_type;
     typedef typename Type::iterator      iterator;
     typedef typename on_style<Type, Type::fineness>::type on_style_;
 
@@ -590,7 +590,7 @@ typename Type::iterator
     add(Type& object, typename Type::iterator    prior_, 
                 const typename Type::value_type& addend)
 {
-    typedef typename Type::interval_type interval_type;
+    //CL typedef typename Type::interval_type interval_type;
     typedef typename Type::iterator      iterator;
     typedef typename on_style<Type, Type::fineness>::type on_style_;
 
@@ -614,7 +614,7 @@ void subtract(Type& object, const typename Type::value_type& minuend)
 {
     typedef typename Type::iterator      iterator;
     typedef typename Type::interval_type interval_type;
-    typedef typename Type::value_type    value_type;
+    //CL typedef typename Type::value_type    value_type;
 
     if(icl::is_empty(minuend)) return;
 

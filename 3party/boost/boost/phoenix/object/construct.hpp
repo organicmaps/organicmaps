@@ -16,12 +16,16 @@
 #include <boost/phoenix/support/iterate.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
+#ifdef BOOST_PHOENIX_NO_VARIADIC_EXPRESSION
+#   include <boost/phoenix/object/detail/cpp03/construct_expr.hpp>
+#else
 BOOST_PHOENIX_DEFINE_EXPRESSION_VARARG(
     (boost)(phoenix)(construct)
   , (proto::terminal<detail::target<proto::_> >)
     (meta_grammar)
-  , BOOST_PHOENIX_COMPOSITE_LIMIT
+  , _
 )
+#endif
 
 namespace boost { namespace phoenix
 {
@@ -30,6 +34,7 @@ namespace boost { namespace phoenix
         template <typename Sig>
         struct result;
 
+#if defined(BOOST_PHOENIX_NO_VARIADIC_OBJECT)
         template <typename This, typename A0, typename Context>
         struct result<This(A0, Context)>
             : detail::result_of::target<A0>
@@ -44,8 +49,10 @@ namespace boost { namespace phoenix
         }
 
         // Bring in the rest
-        #include <boost/phoenix/object/detail/construct_eval.hpp>
-
+        #include <boost/phoenix/object/detail/cpp03/construct_eval.hpp>
+#else
+        // TODO:
+#endif
     };
 
     template <typename Dummy>
@@ -53,6 +60,7 @@ namespace boost { namespace phoenix
         : call<construct_eval, Dummy>
     {};
 
+#if defined(BOOST_PHOENIX_NO_VARIADIC_OBJECT)
     template <typename T>
     inline
     typename expression::construct<detail::target<T> >::type const
@@ -65,8 +73,10 @@ namespace boost { namespace phoenix
     }
 
     // Bring in the rest
-    #include <boost/phoenix/object/detail/construct.hpp>
-
+    #include <boost/phoenix/object/detail/cpp03/construct.hpp>
+#else
+    // TODO:
+#endif
 }}
 
 #endif

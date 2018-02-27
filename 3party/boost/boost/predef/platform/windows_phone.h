@@ -31,7 +31,7 @@ http://www.boost.org/LICENSE_1_0.txt)
 #endif
  
 #if BOOST_PLAT_WINDOWS_PHONE
-#   define BOOST_PLAT_WINDOWS_PHONE_AVALIABLE
+#   define BOOST_PLAT_WINDOWS_PHONE_AVAILABLE
 #   include <boost/predef/detail/platform_detected.h>
 #endif
 

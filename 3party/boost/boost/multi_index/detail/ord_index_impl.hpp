@@ -6,7 +6,7 @@
  * See http://www.boost.org/libs/multi_index for library home page.
  *
  * The internal implementation of red-black trees is based on that of SGI STL
- * stl_tree.h file:
+ * stl_tree.h file: 
  *
  * Copyright (c) 1996,1997
  * Silicon Graphics Computer Systems, Inc.
@@ -77,7 +77,7 @@
 #include <boost/archive/archive_exception.hpp>
 #include <boost/bind.hpp>
 #include <boost/multi_index/detail/duplicates_iterator.hpp>
-#include <boost/throw_exception.hpp>
+#include <boost/throw_exception.hpp> 
 #endif
 
 #if defined(BOOST_MULTI_INDEX_ENABLE_INVARIANT_CHECKING)
@@ -129,7 +129,7 @@ class ordered_index_impl:
       KeyFromValue,Compare,SuperMeta,TagList,Category,AugmentPolicy> >
 #endif
 
-{
+{ 
 #if defined(BOOST_MULTI_INDEX_ENABLE_INVARIANT_CHECKING)&&\
     BOOST_WORKAROUND(__MWERKS__,<=0x3003)
 /* The "ISO C++ Template Parser" option in CW8.3 has a problem with the
@@ -174,7 +174,7 @@ public:
 
   typedef iterator                                   const_iterator;
 
-  typedef std::size_t                                size_type;
+  typedef std::size_t                                size_type;      
   typedef std::ptrdiff_t                             difference_type;
   typedef typename allocator_type::pointer           pointer;
   typedef typename allocator_type::const_pointer     const_pointer;
@@ -187,7 +187,7 @@ public:
 protected:
   typedef typename super::final_node_type            final_node_type;
   typedef tuples::cons<
-    ctor_args,
+    ctor_args, 
     typename super::ctor_args_list>                  ctor_args_list;
   typedef typename mpl::push_front<
     typename super::index_type_list,
@@ -264,7 +264,7 @@ public:
     crbegin()const BOOST_NOEXCEPT{return rbegin();}
   const_reverse_iterator
     crend()const BOOST_NOEXCEPT{return rend();}
-
+ 
   iterator iterator_to(const value_type& x)
   {
     return make_iterator(node_from_value<node_type>(&x));
@@ -312,7 +312,7 @@ public:
       x,static_cast<final_node_type*>(position.get_node()));
     return make_iterator(p.first);
   }
-
+    
   iterator insert(iterator position,BOOST_RV_REF(value_type) x)
   {
     BOOST_MULTI_INDEX_CHECK_VALID_ITERATOR(position);
@@ -351,7 +351,7 @@ public:
     this->final_erase_(static_cast<final_node_type*>(position++.get_node()));
     return position;
   }
-
+  
   size_type erase(key_param_type x)
   {
     BOOST_MULTI_INDEX_ORD_INDEX_CHECK_INVARIANT;
@@ -439,7 +439,7 @@ public:
     return this->final_modify_(
       mod,back_,static_cast<final_node_type*>(position.get_node()));
   }
-
+  
   template<typename Modifier>
   bool modify_key(iterator position,Modifier mod)
   {
@@ -700,7 +700,7 @@ BOOST_MULTI_INDEX_PROTECTED_IF_MEMBER_TEMPLATE_FRIENDS:
           cpy->right()=node_impl_pointer(0);
       }
     }
-
+    
     super::copy_(x,map);
   }
 
@@ -959,7 +959,7 @@ BOOST_MULTI_INDEX_PROTECTED_IF_MEMBER_TEMPLATE_FRIENDS:
           return false;
         if(!AugmentPolicy::invariant(x->impl()))return false;
       }
-
+    
       if(leftmost()->impl()!=node_impl_type::minimum(root()->impl()))
         return false;
       if(rightmost()->impl()!=node_impl_type::maximum(root()->impl()))
@@ -969,7 +969,7 @@ BOOST_MULTI_INDEX_PROTECTED_IF_MEMBER_TEMPLATE_FRIENDS:
     return super::invariant_();
   }
 
-
+  
   /* This forwarding function eases things for the boost::mem_fn construct
    * in BOOST_MULTI_INDEX_ORD_INDEX_CHECK_INVARIANT. Actually,
    * final_check_invariant is already an inherited member function of
@@ -989,7 +989,7 @@ private:
   {
     header()->color()=red;
     /* used to distinguish header() from root, in iterator.operator++ */
-
+    
     header()->parent()=node_impl_pointer(0);
     header()->left()=header()->impl();
     header()->right()=header()->impl();
@@ -1068,22 +1068,22 @@ private:
   bool hinted_link_point(
     key_param_type k,node_type* position,link_info& inf,ordered_unique_tag)
   {
-    if(position->impl()==header()->left()){
+    if(position->impl()==header()->left()){ 
       if(size()>0&&comp_(k,key(position->value()))){
         inf.side=to_left;
         inf.pos=position->impl();
         return true;
       }
       else return link_point(k,inf,ordered_unique_tag());
-    }
-    else if(position==header()){
+    } 
+    else if(position==header()){ 
       if(comp_(key(rightmost()->value()),k)){
         inf.side=to_right;
         inf.pos=rightmost()->impl();
         return true;
       }
       else return link_point(k,inf,ordered_unique_tag());
-    }
+    } 
     else{
       node_type* before=position;
       node_type::decrement(before);
@@ -1098,7 +1098,7 @@ private:
           inf.pos=position->impl();
           return true;
         }
-      }
+      } 
       else return link_point(k,inf,ordered_unique_tag());
     }
   }
@@ -1106,14 +1106,14 @@ private:
   bool hinted_link_point(
     key_param_type k,node_type* position,link_info& inf,ordered_non_unique_tag)
   {
-    if(position->impl()==header()->left()){
+    if(position->impl()==header()->left()){ 
       if(size()>0&&!comp_(key(position->value()),k)){
         inf.side=to_left;
         inf.pos=position->impl();
         return true;
       }
       else return lower_link_point(k,inf,ordered_non_unique_tag());
-    }
+    } 
     else if(position==header()){
       if(!comp_(k,key(rightmost()->value()))){
         inf.side=to_right;
@@ -1121,7 +1121,7 @@ private:
         return true;
       }
       else return link_point(k,inf,ordered_non_unique_tag());
-    }
+    } 
     else{
       node_type* before=position;
       node_type::decrement(before);
@@ -1139,7 +1139,7 @@ private:
           }
         }
         else return lower_link_point(k,inf,ordered_non_unique_tag());
-      }
+      } 
       else return link_point(k,inf,ordered_non_unique_tag());
     }
   }
@@ -1556,7 +1556,7 @@ template<
 inline boost::mpl::true_* boost_foreach_is_noncopyable(
   boost::multi_index::detail::ordered_index<
     KeyFromValue,Compare,SuperMeta,TagList,Category,AugmentPolicy>*&,
-  boost::foreach::tag)
+  boost_foreach_argument_dependent_lookup_hack)
 {
   return 0;
 }

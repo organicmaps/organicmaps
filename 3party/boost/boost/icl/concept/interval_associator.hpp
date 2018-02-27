@@ -121,7 +121,7 @@ typename enable_if
 cardinality(const Type& object)
 {
     typedef typename Type::size_type size_type;
-    typedef typename Type::interval_type interval_type;
+    //CL typedef typename Type::interval_type interval_type;
 
     size_type size = identity_element<size_type>::value();
     ICL_const_FORALL(typename Type, it, object)
@@ -139,7 +139,7 @@ typename enable_if
 cardinality(const Type& object)
 {
     typedef typename Type::size_type size_type;
-    typedef typename Type::interval_type interval_type;
+    //CL typedef typename Type::interval_type interval_type;
 
     size_type size = identity_element<size_type>::value();
     size_type interval_size;

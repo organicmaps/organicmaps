@@ -31,6 +31,7 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/limits.hpp>
+#include <boost/integer_traits.hpp>
 
 #if defined(BOOST_MSVC)
 # pragma warning(push)
@@ -115,6 +116,12 @@ namespace boost { namespace spirit { namespace qi { namespace detail
             return spirit::char_encoding::ascii::tolower(ch) - 'a' + 10;
         }
     };
+    
+    template <typename T, T Val>
+    struct constexpr_int
+    {
+        BOOST_STATIC_CONSTEXPR T value = Val; 
+    };
 
     ///////////////////////////////////////////////////////////////////////////
     //  positive_accumulator/negative_accumulator: Accumulator policies for
@@ -135,17 +142,17 @@ namespace boost { namespace spirit { namespace qi { namespace detail
         inline static bool add(T& n, Char ch, mpl::true_) // checked add
         {
             // Ensure n *= Radix will not overflow
-            static T const max = (std::numeric_limits<T>::max)();
-            static T const val = max / Radix;
+            typedef constexpr_int<T, boost::integer_traits<T>::const_max> max;
+            typedef constexpr_int<T, max::value / Radix> val;
 
-            if (n > val)
+            if (n > val::value)
                 return false;
 
             n *= Radix;
 
             // Ensure n += digit will not overflow
             const int digit = radix_traits<Radix>::digit(ch);
-            if (n > max - digit)
+            if (n > max::value - digit)
                 return false;
 
             n += static_cast<T>(digit);
@@ -167,16 +174,17 @@ namespace boost { namespace spirit { namespace qi { namespace detail
         inline static bool add(T& n, Char ch, mpl::true_) // checked subtract
         {
             // Ensure n *= Radix will not underflow
-            static T const min = (std::numeric_limits<T>::min)();
-            static T const val = (min + 1) / T(Radix);
-            if (n < val)
+            typedef constexpr_int<T, boost::integer_traits<T>::const_min> min;
+            typedef constexpr_int<T, (min::value + 1) / T(Radix)> val;
+
+            if (n < val::value)
                 return false;
 
             n *= Radix;
 
             // Ensure n -= digit will not underflow
             int const digit = radix_traits<Radix>::digit(ch);
-            if (n < min + digit)
+            if (n < min::value + digit)
                 return false;
 
             n -= static_cast<T>(digit);
@@ -194,10 +202,9 @@ namespace boost { namespace spirit { namespace qi { namespace detail
         inline static bool
         call(Char ch, std::size_t count, T& n, mpl::true_)
         {
-            static std::size_t const
-                overflow_free = digits_traits<T, Radix>::value - 1;
+            typedef constexpr_int<std::size_t, digits_traits<T, Radix>::value - 1> overflow_free;
 
-            if (!AlwaysCheckOverflow && (count < overflow_free))
+            if (!AlwaysCheckOverflow && (count < overflow_free::value))
             {
                 Accumulator::add(n, ch, mpl::false_());
             }
@@ -316,7 +323,7 @@ namespace boost { namespace spirit { namespace qi { namespace detail
             if (!Accumulate)
             {
                 // skip leading zeros
-                while (it != last && *it == '0' && leading_zeros < MaxDigits)
+                while (it != last && *it == '0' && (MaxDigits < 0 || leading_zeros < static_cast< std::size_t >(MaxDigits)))
                 {
                     ++it;
                     ++leading_zeros;

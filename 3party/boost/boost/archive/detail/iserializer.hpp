@@ -39,7 +39,6 @@ namespace std{
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/greater_equal.hpp>
 #include <boost/mpl/equal_to.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/core/no_exceptions_support.hpp>
 
 #ifndef BOOST_SERIALIZATION_DEFAULT_TYPE_INFO   
@@ -57,10 +56,16 @@ namespace std{
 #include <boost/type_traits/is_polymorphic.hpp>
 
 #include <boost/serialization/assume_abstract.hpp>
-#define DONT_USE_HAS_NEW_OPERATOR (                    \
-       BOOST_WORKAROUND(__IBMCPP__, < 1210)            \
-    || defined(__SUNPRO_CC) && (__SUNPRO_CC < 0x590)   \
-)
+
+#ifndef BOOST_MSVC
+    #define DONT_USE_HAS_NEW_OPERATOR (                    \
+           BOOST_WORKAROUND(__IBMCPP__, < 1210)            \
+        || defined(__SUNPRO_CC) && (__SUNPRO_CC < 0x590)   \
+    )
+#else
+    #define DONT_USE_HAS_NEW_OPERATOR 0
+#endif
+
 #if ! DONT_USE_HAS_NEW_OPERATOR
 #include <boost/type_traits/has_new_operator.hpp>
 #endif
@@ -72,10 +77,10 @@ namespace std{
 #include <boost/serialization/type_info_implementation.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/void_cast.hpp>
-#include <boost/serialization/array.hpp>
 #include <boost/serialization/collection_size_type.hpp>
 #include <boost/serialization/singleton.hpp>
 #include <boost/serialization/wrapper.hpp>
+#include <boost/serialization/array_wrapper.hpp>
 
 // the following is need only for dynamic cast of polymorphic pointers
 #include <boost/archive/archive_exception.hpp>
@@ -223,17 +228,13 @@ struct heap_allocation {
             static void invoke_delete(T * t) {
                 // if compilation fails here, the likely cause that the class
                 // T has a class specific new operator but no class specific
-                // delete operator which matches the following signature.  Fix
-                // your program to have this.  Note that adding operator delete
-                // with only one parameter doesn't seem correct to me since 
-                // the standard(3.7.4.2) says "
-                // "If a class T has a member deallocation function named
-                // 'operator delete' with exactly one parameter, then that function 
-                // is a usual (non-placement) deallocation function" which I take
-                // to mean that it will call the destructor of type T which we don't
-                // want to do here.
-                // Note: reliance upon automatic conversion from T * to void * here
-                (T::operator delete)(t, sizeof(T));
+                // delete operator which matches the following signature.
+                // note that this solution addresses the issue that two
+                // possible signatures.  But it doesn't address the possibility
+                // that the class might have class specific new with NO
+                // class specific delete at all.  Patches (compatible with
+                // C++03) welcome!
+                delete t;
             }
         };
         struct doesnt_have_new_operator {
@@ -242,7 +243,7 @@ struct heap_allocation {
             }
             static void invoke_delete(T * t) {
                 // Note: I'm reliance upon automatic conversion from T * to void * here
-                (operator delete)(t);
+                delete t;
             }
         };
         static T * invoke_new() {
@@ -587,7 +588,14 @@ struct load_array_type {
                     boost::archive::archive_exception::array_size_too_short
                 )
             );
-        ar >> serialization::make_array(static_cast<value_type*>(&t[0]),count);
+        // explict template arguments to pass intel C++ compiler
+        ar >> serialization::make_array<
+            value_type,
+            boost::serialization::collection_size_type
+        >(
+            static_cast<value_type *>(&t[0]),
+            count
+        );
     }
 };
 

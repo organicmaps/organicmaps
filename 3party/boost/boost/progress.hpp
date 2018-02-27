@@ -125,12 +125,11 @@ class progress_display : private noncopyable
     // use of floating point ensures that both large and small counts
     // work correctly.  static_cast<>() is also used several places
     // to suppress spurious compiler warnings. 
-    unsigned int tics_needed =
-      static_cast<unsigned int>(
-        (static_cast<double>(_count)/_expected_count)*50.0 );
+    unsigned int tics_needed = static_cast<unsigned int>((static_cast<double>(_count)
+        / static_cast<double>(_expected_count)) * 50.0);
     do { m_os << '*' << std::flush; } while ( ++_tic < tics_needed );
     _next_tic_count = 
-      static_cast<unsigned long>((_tic/50.0)*_expected_count);
+      static_cast<unsigned long>((_tic/50.0) * static_cast<double>(_expected_count));
     if ( _count == _expected_count ) {
       if ( _tic < 51 ) m_os << '*';
       m_os << std::endl;

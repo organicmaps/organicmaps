@@ -8,7 +8,7 @@
 #ifndef BOOST_IOSTREAMS_CLOSE_HPP_INCLUDED
 #define BOOST_IOSTREAMS_CLOSE_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -76,10 +76,6 @@ void close_all(T& t, Sink& snk)
 } // End namespace detail. 
 
 } } // End namespaces iostreams, boost.
-
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300) //-----------------------------------//
-# include <boost/iostreams/detail/vc6/close.hpp>
-#else // #if BOOST_WORKAROUND(BOOST_MSVC, < 1300) //--------------------------//
 
 namespace boost { namespace iostreams {
 
@@ -251,8 +247,6 @@ struct close_impl<two_sequence> {
 } // End namespace detail.
 
 } } // End namespaces iostreams, boost.
-
-#endif // #if BOOST_WORKAROUND(BOOST_MSVC, < 1300) //-------------------------//
 
 #include <boost/iostreams/detail/config/enable_warnings.hpp>
 

@@ -1,43 +1,46 @@
-// Copyright David Abrahams 2004. Distributed under the Boost
-// Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-#ifndef CLASS_METADATA_DWA2004719_HPP
-# define CLASS_METADATA_DWA2004719_HPP
-# include <boost/python/converter/shared_ptr_from_python.hpp>
+// Copyright David Abrahams 2004.
+// Copyright Stefan Seefeld 2016.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 
-# include <boost/python/object/inheritance.hpp>
-# include <boost/python/object/class_wrapper.hpp>
-# include <boost/python/object/make_instance.hpp>
-# include <boost/python/object/value_holder.hpp>
-# include <boost/python/object/pointer_holder.hpp>
-# include <boost/python/object/make_ptr_instance.hpp>
+#ifndef boost_python_object_class_metadata_hpp_
+#define boost_python_object_class_metadata_hpp_
 
-# include <boost/python/detail/force_instantiate.hpp>
-# include <boost/python/detail/not_specified.hpp>
+#include <boost/python/converter/shared_ptr_from_python.hpp>
+#include <boost/python/object/inheritance.hpp>
+#include <boost/python/object/class_wrapper.hpp>
+#include <boost/python/object/make_instance.hpp>
+#include <boost/python/object/value_holder.hpp>
+#include <boost/python/object/pointer_holder.hpp>
+#include <boost/python/object/make_ptr_instance.hpp>
 
-# include <boost/python/has_back_reference.hpp>
-# include <boost/python/bases.hpp>
+#include <boost/python/detail/force_instantiate.hpp>
+#include <boost/python/detail/not_specified.hpp>
 
-# include <boost/type_traits/add_pointer.hpp>
-# include <boost/type_traits/is_convertible.hpp>
-# include <boost/type_traits/is_polymorphic.hpp>
+#include <boost/python/has_back_reference.hpp>
+#include <boost/python/bases.hpp>
 
-# include <boost/mpl/if.hpp>
-# include <boost/mpl/eval_if.hpp>
-# include <boost/mpl/bool.hpp>
-# include <boost/mpl/or.hpp>
-# include <boost/mpl/identity.hpp>
-# include <boost/mpl/for_each.hpp>
-# include <boost/mpl/placeholders.hpp>
-# include <boost/mpl/single_view.hpp>
+#include <boost/type_traits/add_pointer.hpp>
+#include <boost/type_traits/is_convertible.hpp>
+#include <boost/type_traits/is_polymorphic.hpp>
 
-# include <boost/mpl/assert.hpp>
-# include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/mpl/for_each.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/single_view.hpp>
 
-# include <boost/type_traits/is_convertible.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
-# include <boost/noncopyable.hpp>
-# include <boost/detail/workaround.hpp>
+#include <boost/type_traits/is_convertible.hpp>
+
+#include <boost/noncopyable.hpp>
+#include <boost/detail/workaround.hpp>
 
 namespace boost { namespace python { namespace objects { 
 
@@ -80,18 +83,22 @@ struct register_base_of
 // Preamble of register_class.  Also used for callback classes, which
 // need some registration of their own.
 //
+
 template <class T, class Bases>
 inline void register_shared_ptr_from_python_and_casts(T*, Bases)
 {
-    // Constructor performs registration
-    python::detail::force_instantiate(converter::shared_ptr_from_python<T>());
+  // Constructor performs registration
+  python::detail::force_instantiate(converter::shared_ptr_from_python<T, boost::shared_ptr>());
+#if __cplusplus >= 201103L
+  python::detail::force_instantiate(converter::shared_ptr_from_python<T, std::shared_ptr>());
+#endif
 
-    //
-    // register all up/downcasts here.  We're using the alternate
-    // interface to mpl::for_each to avoid an MSVC 6 bug.
-    //
-    register_dynamic_id<T>();
-    mpl::for_each(register_base_of<T>(), (Bases*)0, (add_pointer<mpl::_>*)0);
+  //
+  // register all up/downcasts here.  We're using the alternate
+  // interface to mpl::for_each to avoid an MSVC 6 bug.
+  //
+  register_dynamic_id<T>();
+  mpl::for_each(register_base_of<T>(), (Bases*)0, (add_pointer<mpl::_>*)0);
 }
 
 //
@@ -164,7 +171,7 @@ struct class_metadata
     >::type held_type;
 
     // Determine if the object will be held by value
-    typedef is_convertible<held_type*,T*> use_value_holder;
+    typedef mpl::bool_<is_convertible<held_type*,T*>::value> use_value_holder;
     
     // Compute the "wrapped type", that is, if held_type is a smart
     // pointer, we're talking about the pointee.
@@ -175,10 +182,12 @@ struct class_metadata
     >::type wrapped;
 
     // Determine whether to use a "back-reference holder"
-    typedef mpl::or_<
-        has_back_reference<T>
-      , is_same<held_type_arg,T>
-      , is_base_and_derived<T,wrapped>
+    typedef mpl::bool_<
+        mpl::or_<
+            has_back_reference<T>
+          , is_same<held_type_arg,T>
+          , is_base_and_derived<T,wrapped>
+        >::value
     > use_back_reference;
 
     // Select the holder.
@@ -218,8 +227,7 @@ struct class_metadata
     template <class T2, class Callback>
     inline static void register_aux2(T2*, Callback) 
     {
-        objects::register_shared_ptr_from_python_and_casts((T2*)0, bases());
-        
+	objects::register_shared_ptr_from_python_and_casts((T2*)0, bases());
         class_metadata::maybe_register_callback_class((T2*)0, Callback());
 
         class_metadata::maybe_register_class_to_python((T2*)0, is_noncopyable());
@@ -280,9 +288,8 @@ struct class_metadata
     template <class T2>
     inline static void maybe_register_callback_class(T2*, mpl::true_)
     {
-        objects::register_shared_ptr_from_python_and_casts(
+	objects::register_shared_ptr_from_python_and_casts(
             (wrapped*)0, mpl::single_view<T2>());
-
         // explicit qualification of type_id makes msvc6 happy
         objects::copy_class_object(python::type_id<T2>(), python::type_id<wrapped>());
     }
@@ -290,4 +297,4 @@ struct class_metadata
 
 }}} // namespace boost::python::object
 
-#endif // CLASS_METADATA_DWA2004719_HPP
+#endif

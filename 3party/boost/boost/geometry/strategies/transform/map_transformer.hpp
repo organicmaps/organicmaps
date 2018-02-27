@@ -46,9 +46,10 @@ template
     bool SameScale = true
 >
 class map_transformer
-    : public ublas_transformer<CalculationType, Dimension1, Dimension2>
+    : public matrix_transformer<CalculationType, Dimension1, Dimension2>
 {
-    typedef boost::numeric::ublas::matrix<CalculationType> M;
+    typedef boost::qvm::mat<CalculationType, Dimension1 + 1, Dimension2 + 1> M;
+    typedef boost::qvm::mat<CalculationType, 3, 3> matrix33;
 
 public :
     template <typename B, typename D>
@@ -76,26 +77,26 @@ private :
     {
 
         // Translate to a coordinate system centered on world coordinates (-wx, -wy)
-        M t1(3,3);
-        t1(0,0) = 1;   t1(0,1) = 0;   t1(0,2) = -wx;
-        t1(1,0) = 0;   t1(1,1) = 1;   t1(1,2) = -wy;
-        t1(2,0) = 0;   t1(2,1) = 0;   t1(2,2) = 1;
+        matrix33 t1;
+        qvm::A<0,0>(t1) = 1;   qvm::A<0,1>(t1) = 0;   qvm::A<0,2>(t1) = -wx;
+        qvm::A<1,0>(t1) = 0;   qvm::A<1,1>(t1) = 1;   qvm::A<1,2>(t1) = -wy;
+        qvm::A<2,0>(t1) = 0;   qvm::A<2,1>(t1) = 0;   qvm::A<2,2>(t1) = 1;
 
         // Scale the map
-        M s(3,3);
-        s(0,0) = scalex;   s(0,1) = 0;   s(0,2) = 0;
-        s(1,0) = 0;    s(1,1) = scaley;  s(1,2) = 0;
-        s(2,0) = 0;    s(2,1) = 0;      s(2,2) = 1;
+        matrix33 s;
+        qvm::A<0,0>(s) = scalex;   qvm::A<0,1>(s) = 0;      qvm::A<0,2>(s) = 0;
+        qvm::A<1,0>(s) = 0;        qvm::A<1,1>(s) = scaley; qvm::A<1,2>(s) = 0;
+        qvm::A<2,0>(s) = 0;        qvm::A<2,1>(s) = 0;      qvm::A<2,2>(s) = 1;
 
         // Translate to a coordinate system centered on the specified pixels (+px, +py)
-        M t2(3, 3);
-        t2(0,0) = 1;   t2(0,1) = 0;   t2(0,2) = px;
-        t2(1,0) = 0;   t2(1,1) = 1;   t2(1,2) = py;
-        t2(2,0) = 0;   t2(2,1) = 0;   t2(2,2) = 1;
+        matrix33 t2;
+        qvm::A<0,0>(t2) = 1;   qvm::A<0,1>(t2) = 0;   qvm::A<0,2>(t2) = px;
+        qvm::A<1,0>(t2) = 0;   qvm::A<1,1>(t2) = 1;   qvm::A<1,2>(t2) = py;
+        qvm::A<2,0>(t2) = 0;   qvm::A<2,1>(t2) = 0;   qvm::A<2,2>(t2) = 1;
 
         // Calculate combination matrix in two steps
-        this->m_matrix = boost::numeric::ublas::prod(s, t1);
-        this->m_matrix = boost::numeric::ublas::prod(t2, this->m_matrix);
+        this->m_matrix = s * t1;
+        this->m_matrix = t2 * this->m_matrix;
     }
 
 
@@ -140,20 +141,20 @@ private :
         if (Mirror)
         {
             // Mirror in y-direction
-            M m(3,3);
-            m(0,0) = 1;   m(0,1) = 0;   m(0,2) = 0;
-            m(1,0) = 0;   m(1,1) = -1;  m(1,2) = 0;
-            m(2,0) = 0;   m(2,1) = 0;   m(2,2) = 1;
+            matrix33 m;
+            qvm::A<0,0>(m) = 1;   qvm::A<0,1>(m) = 0;   qvm::A<0,2>(m) = 0;
+            qvm::A<1,0>(m) = 0;   qvm::A<1,1>(m) = -1;  qvm::A<1,2>(m) = 0;
+            qvm::A<2,0>(m) = 0;   qvm::A<2,1>(m) = 0;   qvm::A<2,2>(m) = 1;
 
             // Translate in y-direction such that it fits again
-            M y(3, 3);
-            y(0,0) = 1;   y(0,1) = 0;   y(0,2) = 0;
-            y(1,0) = 0;   y(1,1) = 1;   y(1,2) = height;
-            y(2,0) = 0;   y(2,1) = 0;   y(2,2) = 1;
+            matrix33 y;
+            qvm::A<0,0>(y) = 1;   qvm::A<0,1>(y) = 0;   qvm::A<0,2>(y) = 0;
+            qvm::A<1,0>(y) = 0;   qvm::A<1,1>(y) = 1;   qvm::A<1,2>(y) = height;
+            qvm::A<2,0>(y) = 0;   qvm::A<2,1>(y) = 0;   qvm::A<2,2>(y) = 1;
 
             // Calculate combination matrix in two steps
-            this->m_matrix = boost::numeric::ublas::prod(m, this->m_matrix);
-            this->m_matrix = boost::numeric::ublas::prod(y, this->m_matrix);
+            this->m_matrix = m * this->m_matrix;
+            this->m_matrix = y * this->m_matrix;
         }
     }
 };

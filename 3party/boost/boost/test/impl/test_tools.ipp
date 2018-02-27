@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -28,6 +28,8 @@
 #include <boost/test/execution_monitor.hpp> // execution_aborted
 
 #include <boost/test/detail/throw_exception.hpp>
+
+#include <boost/test/utils/algorithm.hpp>
 
 // Boost
 #include <boost/config.hpp>
@@ -64,6 +66,12 @@ namespace tt_detail {
 // ************************************************************************** //
 // **************                print_log_value               ************** //
 // ************************************************************************** //
+
+void
+print_log_value<bool>::operator()( std::ostream& ostr, bool t )
+{
+     ostr << std::boolalpha << t;
+}
 
 void
 print_log_value<char>::operator()( std::ostream& ostr, char t )
@@ -110,6 +118,14 @@ print_log_value<wchar_t const*>::operator()( std::ostream& ostr, wchar_t const* 
 {
     ostr << ( t ? t : L"null string" );
 }
+
+#if !defined(BOOST_NO_CXX11_NULLPTR)
+void
+print_log_value<std::nullptr_t>::operator()( std::ostream& ostr, std::nullptr_t p )
+{
+    ostr << "nullptr";
+}
+#endif
 
 //____________________________________________________________________________//
 
@@ -294,9 +310,8 @@ report_assertion( assertion_result const&   ar,
 {
     using namespace unit_test;
 
-    if( framework::current_test_case_id() == INV_TEST_UNIT_ID )
-        BOOST_TEST_IMPL_THROW(
-            std::runtime_error( "can't use testing tools outside of test case implementation" ) );
+    BOOST_TEST_I_ASSRT( framework::current_test_case_id() != INV_TEST_UNIT_ID,
+                        std::runtime_error( "Can't use testing tools outside of test case implementation." ) );
 
     if( !!ar )
         tl = PASS;
@@ -357,7 +372,7 @@ report_assertion( assertion_result const&   ar,
 
         framework::test_unit_aborted( framework::current_test_case() );
 
-        BOOST_TEST_IMPL_THROW( execution_aborted() );
+        BOOST_TEST_I_THROW( execution_aborted() );
     }
 
     return true;
@@ -506,7 +521,7 @@ output_test_stream::output_test_stream( const_string pattern_file_name, bool mat
         m_pimpl->m_pattern.open( pattern_file_name.begin(), m );
 
         if( !m_pimpl->m_pattern.is_open() )
-            BOOST_TEST_MESSAGE( "Can't open pattern file " << pattern_file_name << " for " << (match_or_save ? "reading" : "writing") );
+            BOOST_TEST_FRAMEWORK_MESSAGE( "Can't open pattern file " << pattern_file_name << " for " << (match_or_save ? "reading" : "writing") );
     }
 
     m_pimpl->m_match_or_save    = match_or_save;
@@ -573,12 +588,26 @@ output_test_stream::is_equal( const_string arg, bool flush_stream )
 
 //____________________________________________________________________________//
 
+std::string pretty_print_log(std::string str) {
+
+    static const std::string to_replace[] = { "\r", "\n" };
+    static const std::string replacement[] = { "\\r", "\\n" };
+
+    return unit_test::utils::replace_all_occurrences_of(
+        str,
+        to_replace, to_replace + sizeof(to_replace)/sizeof(to_replace[0]),
+        replacement, replacement + sizeof(replacement)/sizeof(replacement[0]));
+}
+
 assertion_result
 output_test_stream::match_pattern( bool flush_stream )
 {
+    const std::string::size_type n_chars_presuffix = 10;
     sync();
 
     assertion_result result( true );
+
+    const std::string stream_string_repr = get_stream_string_representation();
 
     if( !m_pimpl->m_pattern.is_open() ) {
         result = false;
@@ -586,44 +615,136 @@ output_test_stream::match_pattern( bool flush_stream )
     }
     else {
         if( m_pimpl->m_match_or_save ) {
-            for ( std::string::size_type i = 0; i < m_pimpl->m_synced_string.length(); ++i ) {
+
+            int offset = 0;
+            std::vector<char> last_elements;
+            for ( std::string::size_type i = 0; static_cast<int>(i + offset) < static_cast<int>(stream_string_repr.length()); ++i ) {
                 char c = m_pimpl->get_char();
 
-                result = !m_pimpl->m_pattern.fail() &&
-                         !m_pimpl->m_pattern.eof()  &&
-                         (m_pimpl->m_synced_string[i] == c);
+                if( last_elements.size() <= n_chars_presuffix ) {
+                    last_elements.push_back( c );
+                }
+                else {
+                    last_elements[ i % last_elements.size() ] = c;
+                }
 
-                if( !result ) {
-                    std::string::size_type suffix_size  = (std::min)( m_pimpl->m_synced_string.length() - i,
-                                                                    static_cast<std::string::size_type>(5) );
+                bool is_same = !m_pimpl->m_pattern.fail() &&
+                         !m_pimpl->m_pattern.eof()  &&
+                         (stream_string_repr[i+offset] == c);
+
+                if( !is_same ) {
+
+                    result = false;
+
+                    std::string::size_type prefix_size  = (std::min)( i + offset, n_chars_presuffix );
+
+                    std::string::size_type suffix_size  = (std::min)( stream_string_repr.length() - i - offset,
+                                                                      n_chars_presuffix );
 
                     // try to log area around the mismatch
-                    result.message() << "Mismatch at position " << i << '\n'
-                        << "..." << m_pimpl->m_synced_string.substr( i, suffix_size ) << "..." << '\n'
-                        << "..." << c;
+                    std::string substr = stream_string_repr.substr(0, i+offset);
+                    std::size_t line = std::count(substr.begin(), substr.end(), '\n');
+                    std::size_t column = i + offset - substr.rfind('\n');
 
-                    std::string::size_type counter = suffix_size;
-                    while( --counter ) {
+                    result.message()
+                        << "Mismatch at position " << i
+                        << " (line " << line
+                        << ", column " << column
+                        << "): '" << pretty_print_log(std::string(1, stream_string_repr[i+offset])) << "' != '" << pretty_print_log(std::string(1, c)) << "' :\n";
+
+                    // we already escape this substring because we need its actual size for the pretty print
+                    // of the difference location.
+                    std::string sub_str_prefix(pretty_print_log(stream_string_repr.substr( i + offset - prefix_size, prefix_size )));
+
+                    // we need this substring as is because we compute the best matching substrings on it.
+                    std::string sub_str_suffix(stream_string_repr.substr( i + offset, suffix_size));
+                    result.message() << "... " << sub_str_prefix + pretty_print_log(sub_str_suffix) << " ..." << '\n';
+
+                    result.message() << "... ";
+                    for( std::size_t j = 0; j < last_elements.size() ; j++ )
+                        result.message() << pretty_print_log(std::string(1, last_elements[(i + j + 1) % last_elements.size()]));
+
+                    std::vector<char> last_elements_ordered;
+                    last_elements_ordered.push_back(c);
+                    for( std::string::size_type counter = 0; counter < suffix_size - 1 ; counter++ ) {
                         char c2 = m_pimpl->get_char();
 
                         if( m_pimpl->m_pattern.fail() || m_pimpl->m_pattern.eof() )
                             break;
 
-                        result.message() << c2;
+                        result.message() << pretty_print_log(std::string(1, c2));
+
+                        last_elements_ordered.push_back(c2);
                     }
 
-                    result.message() << "...";
+                    // tries to find the best substring matching in the remainder of the
+                    // two strings
+                    std::size_t max_nb_char_in_common = 0;
+                    std::size_t best_pattern_start_index = 0;
+                    std::size_t best_stream_start_index = 0;
+                    for( std::size_t pattern_start_index = best_pattern_start_index;
+                         pattern_start_index < last_elements_ordered.size();
+                         pattern_start_index++ ) {
+                        for( std::size_t stream_start_index = best_stream_start_index;
+                             stream_start_index < sub_str_suffix.size();
+                             stream_start_index++ ) {
 
-                    // skip rest of the bytes. May help for further matching
-                    m_pimpl->m_pattern.ignore(
-                        static_cast<std::streamsize>( m_pimpl->m_synced_string.length() - i - suffix_size) );
-                    break;
+                            std::size_t max_size = (std::min)( last_elements_ordered.size() - pattern_start_index, sub_str_suffix.size() - stream_start_index );
+                            if( max_nb_char_in_common > max_size )
+                                break; // safely break to go to the outer loop
+
+                            std::size_t nb_char_in_common = 0;
+                            for( std::size_t k = 0; k < max_size; k++) {
+                                if( last_elements_ordered[pattern_start_index + k] == sub_str_suffix[stream_start_index + k] )
+                                    nb_char_in_common ++;
+                                else
+                                    break; // we take fully macthing substring only
+                            }
+
+                            if( nb_char_in_common > max_nb_char_in_common ) {
+                                max_nb_char_in_common = nb_char_in_common;
+                                best_pattern_start_index = pattern_start_index;
+                                best_stream_start_index = stream_start_index;
+                            }
+                        }
+                    }
+
+                    // indicates with more precision the location of the mismatchs in ascii arts ...
+                    result.message() << " ...\n... ";
+                    for( std::string::size_type j = 0; j < sub_str_prefix.size(); j++) {
+                        result.message() << ' ';
+                    }
+
+                    for( std::size_t k = 0; k < (std::max)(best_pattern_start_index, best_stream_start_index); k++ ) { // 1 is for the current char c
+                        std::string s1(pretty_print_log(std::string(1, last_elements_ordered[(std::min)(k, best_pattern_start_index)])));
+                        std::string s2(pretty_print_log(std::string(1, sub_str_suffix[(std::min)(k, best_stream_start_index)])));
+                        for( int h = (std::max)(s1.size(), s2.size()); h > 0; h--)
+                          result.message() << "~";
+                    }
+                    result.message() << "\n";
+
+                    // first char is a replicat of c, so we do not copy it.
+                    for(std::string::size_type counter = 0; counter < last_elements_ordered.size() - 1 ; counter++)
+                        last_elements[ (i + 1 + counter) % last_elements.size() ] = last_elements_ordered[counter + 1];
+
+                    i += last_elements_ordered.size()-1;
+                    offset += best_stream_start_index - best_pattern_start_index;
+
                 }
+
             }
+
+            // not needed anymore
+            /*
+            if(offset > 0 && false) {
+                m_pimpl->m_pattern.ignore(
+                    static_cast<std::streamsize>( offset ));
+            }
+            */
         }
         else {
-            m_pimpl->m_pattern.write( m_pimpl->m_synced_string.c_str(),
-                                      static_cast<std::streamsize>( m_pimpl->m_synced_string.length() ) );
+            m_pimpl->m_pattern.write( stream_string_repr.c_str(),
+                                      static_cast<std::streamsize>( stream_string_repr.length() ) );
             m_pimpl->m_pattern.flush();
         }
     }
@@ -646,6 +767,12 @@ output_test_stream::flush()
 #else
     seekp( 0, std::ios::beg );
 #endif
+}
+
+
+std::string
+output_test_stream::get_stream_string_representation() const {
+    return m_pimpl->m_synced_string;
 }
 
 //____________________________________________________________________________//

@@ -5,8 +5,8 @@
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 // Copyright (c) 2013-2015 Adam Wulkiewicz, Lodz, Poland
 
-// This file was modified by Oracle on 2013, 2014, 2015.
-// Modifications copyright (c) 2013-2015, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015, 2017.
+// Modifications copyright (c) 2013-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
@@ -59,6 +59,12 @@ namespace detail { namespace disjoint
 template <std::size_t Dimension, std::size_t DimensionCount>
 struct point_point_generic
 {
+    template <typename Point1, typename Point2, typename Strategy>
+    static inline bool apply(Point1 const& p1, Point2 const& p2, Strategy const& )
+    {
+        return apply(p1, p2);
+    }
+
     template <typename Point1, typename Point2>
     static inline bool apply(Point1 const& p1, Point2 const& p2)
     {
@@ -75,7 +81,7 @@ template <std::size_t DimensionCount>
 struct point_point_generic<DimensionCount, DimensionCount>
 {
     template <typename Point1, typename Point2>
-    static inline bool apply(Point1 const&, Point2 const&)
+    static inline bool apply(Point1 const&, Point2 const& )
     {
         return false;
     }
@@ -135,6 +141,12 @@ private:
     };
 
 public:
+    template <typename Point1, typename Point2, typename Strategy>
+    static inline bool apply(Point1 const& point1, Point2 const& point2, Strategy const& )
+    {
+        return apply(point1, point2);
+    }
+
     template <typename Point1, typename Point2>
     static inline bool apply(Point1 const& point1, Point2 const& point2)
     {

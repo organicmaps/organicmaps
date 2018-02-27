@@ -303,8 +303,8 @@ class hyperexponential_distribution
     // Note that we allow different argument types here to allow for
     // construction from an array plus a pointer into that array.
     public: template <typename RateIterT, typename RateIterT2>
-            hyperexponential_distribution(RateIterT const& rate_first,
-                                          RateIterT2 const& rate_last,
+            hyperexponential_distribution(RateIterT const& rate_first, 
+                                          RateIterT2 const& rate_last, 
                                           typename boost::enable_if_c<boost::has_pre_increment<RateIterT>::value || boost::has_pre_increment<RateIterT2>::value>::type* = 0)
     : probs_(std::distance(rate_first, rate_last), 1), // will be normalized below
       rates_(rate_first, rate_last)

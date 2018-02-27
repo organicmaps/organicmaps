@@ -67,7 +67,7 @@ class circular_list_algorithms
    //! <b>Complexity</b>: Constant
    //!
    //! <b>Throws</b>: Nothing.
-   static void init(const node_ptr &this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void init(const node_ptr &this_node)
    {
       const node_ptr null_node((node_ptr()));
       NodeTraits::set_next(this_node, null_node);
@@ -80,7 +80,7 @@ class circular_list_algorithms
    //! <b>Complexity</b>: Constant
    //!
    //! <b>Throws</b>: Nothing.
-   static bool inited(const const_node_ptr &this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static bool inited(const const_node_ptr &this_node)
    {  return !NodeTraits::get_next(this_node); }
 
    //! <b>Effects</b>: Constructs an empty list, making this_node the only
@@ -91,7 +91,7 @@ class circular_list_algorithms
    //! <b>Complexity</b>: Constant
    //!
    //! <b>Throws</b>: Nothing.
-   static void init_header(const node_ptr &this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void init_header(const node_ptr &this_node)
    {
       NodeTraits::set_next(this_node, this_node);
       NodeTraits::set_previous(this_node, this_node);
@@ -106,7 +106,7 @@ class circular_list_algorithms
    //! <b>Complexity</b>: Constant
    //!
    //! <b>Throws</b>: Nothing.
-   static bool unique(const const_node_ptr &this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static bool unique(const const_node_ptr &this_node)
    {
       node_ptr next = NodeTraits::get_next(this_node);
       return !next || next == this_node;
@@ -138,7 +138,7 @@ class circular_list_algorithms
    //! <b>Complexity</b>: Constant
    //!
    //! <b>Throws</b>: Nothing.
-   static node_ptr unlink(const node_ptr &this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr unlink(const node_ptr &this_node)
    {
       node_ptr next(NodeTraits::get_next(this_node));
       node_ptr prev(NodeTraits::get_previous(this_node));
@@ -154,7 +154,7 @@ class circular_list_algorithms
    //! <b>Complexity</b>: Constant
    //!
    //! <b>Throws</b>: Nothing.
-   static void unlink(const node_ptr &b, const node_ptr &e)
+   BOOST_INTRUSIVE_FORCEINLINE static void unlink(const node_ptr &b, const node_ptr &e)
    {
       if (b != e) {
          node_ptr prevb(NodeTraits::get_previous(b));
@@ -170,14 +170,14 @@ class circular_list_algorithms
    //! <b>Complexity</b>: Constant
    //!
    //! <b>Throws</b>: Nothing.
-   static void link_before(const node_ptr &nxt_node, const node_ptr &this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void link_before(const node_ptr &nxt_node, const node_ptr &this_node)
    {
       node_ptr prev(NodeTraits::get_previous(nxt_node));
       NodeTraits::set_previous(this_node, prev);
       NodeTraits::set_next(this_node, nxt_node);
       //nxt_node might be an alias for prev->next_
       //so use it before NodeTraits::set_next(prev, ...)
-      //is called and the reference changes it's value
+      //is called and the reference changes its value
       NodeTraits::set_previous(nxt_node, this_node);
       NodeTraits::set_next(prev, this_node);
    }
@@ -189,7 +189,7 @@ class circular_list_algorithms
    //! <b>Complexity</b>: Constant
    //!
    //! <b>Throws</b>: Nothing.
-   static void link_after(const node_ptr &prev_node, const node_ptr &this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void link_after(const node_ptr &prev_node, const node_ptr &this_node)
    {
       node_ptr next(NodeTraits::get_next(prev_node));
       NodeTraits::set_previous(this_node, prev_node);
@@ -435,14 +435,14 @@ class circular_list_algorithms
    }
 
    private:
-   static void swap_prev(const node_ptr &this_node, const node_ptr &other_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void swap_prev(const node_ptr &this_node, const node_ptr &other_node)
    {
       node_ptr temp(NodeTraits::get_previous(this_node));
       NodeTraits::set_previous(this_node, NodeTraits::get_previous(other_node));
       NodeTraits::set_previous(other_node, temp);
    }
 
-   static void swap_next(const node_ptr &this_node, const node_ptr &other_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void swap_next(const node_ptr &this_node, const node_ptr &other_node)
    {
       node_ptr temp(NodeTraits::get_next(this_node));
       NodeTraits::set_next(this_node, NodeTraits::get_next(other_node));

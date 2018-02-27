@@ -135,7 +135,11 @@ struct py_function
     {}
 
     py_function(py_function const& rhs)
-        : m_impl(rhs.m_impl)
+#if __cplusplus < 201103L
+      : m_impl(rhs.m_impl)
+#else
+      : m_impl(std::move(rhs.m_impl))
+#endif
     {}
 
     PyObject* operator()(PyObject* args, PyObject* kw) const
@@ -164,7 +168,11 @@ struct py_function
     }
     
  private:
+#if __cplusplus < 201103L
     mutable std::auto_ptr<py_function_impl_base> m_impl;
+#else
+    mutable std::unique_ptr<py_function_impl_base> m_impl;
+#endif
 };
 
 }}} // namespace boost::python::objects

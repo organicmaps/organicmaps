@@ -21,7 +21,7 @@
 #include <string>
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include <boost/smart_ptr/make_shared_object.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
 #include <boost/log/detail/setup_config.hpp>
 #include <boost/log/attributes/attribute_name.hpp>
@@ -136,8 +136,8 @@ BOOST_LOG_SETUP_API void register_formatter_factory(
  * \param factory Pointer to the formatter factory
  */
 template< typename FactoryT >
-inline typename enable_if<
-    is_base_and_derived< formatter_factory< typename FactoryT::char_type >, FactoryT >
+inline typename boost::enable_if_c<
+    is_base_and_derived< formatter_factory< typename FactoryT::char_type >, FactoryT >::value
 >::type register_formatter_factory(attribute_name const& attr_name, shared_ptr< FactoryT > const& factory)
 {
     typedef formatter_factory< typename FactoryT::char_type > factory_base;

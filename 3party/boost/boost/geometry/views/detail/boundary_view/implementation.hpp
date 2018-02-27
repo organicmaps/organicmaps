@@ -224,7 +224,7 @@ private:
 public:
     typedef typename base_type::iterator iterator;
     typedef typename base_type::const_iterator const_iterator;
-
+    
     typedef linestring_tag tag_type;
 
     explicit ring_boundary(Ring& ring)

@@ -380,12 +380,6 @@ namespace boolean_op {
     inputOutput.insert(inputOutput.end(), output.begin(), output.end());
   }
 
-  template <typename Unit>
-  inline void applyUnaryXOr(std::vector<std::pair<Unit, std::pair<Unit, int> > >& input) {
-    BooleanOp<UnaryCount, Unit> booleanXOr;
-
-  }
-
   template <typename count_type = int>
   struct default_arg_workaround {
     template <typename Unit>

@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2011-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -23,6 +23,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/utility/declval.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/remove_const.hpp>
 
 // STL
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
@@ -180,15 +181,17 @@ class expression_base {
 public:
 
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
-
+    template<typename T>
+    struct RhsT : remove_const<typename remove_reference<T>::type> {};
+    
 #define ADD_OP_SUPPORT( oper, name, _ )                         \
     template<typename T>                                        \
     binary_expr<ExprType,T,                                     \
-        op::name<ValType,typename remove_reference<T>::type> >  \
+        op::name<ValType,typename RhsT<T>::type> >              \
     operator oper( T&& rhs )                                    \
     {                                                           \
         return binary_expr<ExprType,T,                          \
-         op::name<ValType,typename remove_reference<T>::type> > \
+         op::name<ValType,typename RhsT<T>::type> >             \
             ( std::forward<ExprType>(                           \
                 *static_cast<ExprType*>(this) ),                \
               std::forward<T>(rhs) );                           \
@@ -199,7 +202,7 @@ public:
 #define ADD_OP_SUPPORT( oper, name, _ )                         \
     template<typename T>                                        \
     binary_expr<ExprType,typename boost::decay<T const>::type,  \
-        op::name<ValType,typename boost::decay<T const>::type> > \
+        op::name<ValType,typename boost::decay<T const>::type> >\
     operator oper( T const& rhs ) const                         \
     {                                                           \
         typedef typename boost::decay<T const>::type Rhs;       \
@@ -248,7 +251,7 @@ public:
 // simple value expression
 
 template<typename T>
-class value_expr : public expression_base<value_expr<T>,typename remove_reference<T>::type> {
+class value_expr : public expression_base<value_expr<T>,typename remove_const<typename remove_reference<T>::type>::type> {
 public:
     // Public types
     typedef T                   result_type;

@@ -15,7 +15,7 @@ namespace boost { namespace spirit { namespace x3
     {
         typedef T type;
     };
-
+    
     template <typename Expr, typename T>
     struct lazy_disable_if_substitution_failure
     {

@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -36,7 +36,7 @@ struct rttid_holder {
 private:
     struct rttid {};
 
-    static rttid const& inst() { static rttid s_inst;  return s_inst; }
+    static rttid const& inst() { static rttid s_inst; return s_inst; }
 };
 
 } // namespace rtti_detail

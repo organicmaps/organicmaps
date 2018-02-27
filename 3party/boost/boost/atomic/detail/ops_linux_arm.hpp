@@ -57,6 +57,8 @@ namespace detail {
 
 struct linux_arm_cas_base
 {
+    static BOOST_CONSTEXPR_OR_CONST bool is_always_lock_free = true;
+
     static BOOST_FORCEINLINE void fence_before_store(memory_order order) BOOST_NOEXCEPT
     {
         if ((order & memory_order_release) != 0)
@@ -87,6 +89,7 @@ struct linux_arm_cas :
     public linux_arm_cas_base
 {
     typedef typename make_storage_type< 4u, Signed >::type storage_type;
+    typedef typename make_storage_type< 4u, Signed >::aligned aligned_storage_type;
 
     static BOOST_FORCEINLINE void store(storage_type volatile& storage, storage_type v, memory_order order) BOOST_NOEXCEPT
     {
@@ -142,19 +145,19 @@ struct linux_arm_cas :
 
 template< bool Signed >
 struct operations< 1u, Signed > :
-    public extending_cas_based_operations< cas_based_operations< linux_arm_cas< Signed > >, 1u, Signed >
+    public extending_cas_based_operations< cas_based_operations< cas_based_exchange< linux_arm_cas< Signed > > >, 1u, Signed >
 {
 };
 
 template< bool Signed >
 struct operations< 2u, Signed > :
-    public extending_cas_based_operations< cas_based_operations< linux_arm_cas< Signed > >, 2u, Signed >
+    public extending_cas_based_operations< cas_based_operations< cas_based_exchange< linux_arm_cas< Signed > > >, 2u, Signed >
 {
 };
 
 template< bool Signed >
 struct operations< 4u, Signed > :
-    public cas_based_operations< linux_arm_cas< Signed > >
+    public cas_based_operations< cas_based_exchange< linux_arm_cas< Signed > > >
 {
 };
 

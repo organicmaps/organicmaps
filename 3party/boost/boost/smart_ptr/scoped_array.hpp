@@ -15,6 +15,7 @@
 #include <boost/assert.hpp>
 #include <boost/checked_delete.hpp>
 #include <boost/smart_ptr/detail/sp_nullptr_t.hpp>
+#include <boost/smart_ptr/detail/sp_noexcept.hpp>
 
 #include <boost/detail/workaround.hpp>
 
@@ -54,7 +55,7 @@ public:
 
     typedef T element_type;
 
-    explicit scoped_array( T * p = 0 ) BOOST_NOEXCEPT : px( p )
+    explicit scoped_array( T * p = 0 ) BOOST_SP_NOEXCEPT : px( p )
     {
 #if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
         boost::sp_array_constructor_hook( px );

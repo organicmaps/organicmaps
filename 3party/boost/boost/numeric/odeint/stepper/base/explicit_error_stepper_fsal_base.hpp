@@ -153,7 +153,7 @@ public:
     /*
      * named Version 2: do_step_dxdt_impl( sys , in , dxdt , t , dt )
      *
-     * this version is needed when this stepper is used for initializing
+     * this version is needed when this stepper is used for initializing 
      * multistep stepper like adams-bashforth. Hence we provide an explicitely
      * named version that is not disabled. Meant for internal use only.
      */
@@ -170,7 +170,7 @@ public:
      * this version does not solve the forwarding problem, boost.range can not
      * be used.
      *
-     * the disable is needed to avoid ambiguous overloads if
+     * the disable is needed to avoid ambiguous overloads if 
      * state_type = time_type
      */
     template< class System , class StateIn , class StateOut >

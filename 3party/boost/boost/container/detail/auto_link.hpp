@@ -18,6 +18,13 @@
 # pragma once
 #endif
 
+//Define BOOST_CONTAINER_DYNAMIC_LINKING which is independent from BOOST_*_NO_LIB
+//and is needed is some tests that need to disable some checks (like operator new replacements)
+//that don't work across DLL boundaries
+#if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_CONTAINER_DYN_LINK)
+#  define BOOST_CONTAINER_DYNAMIC_LINKING
+#endif
+
 //
 // Automatically link to the correct build variant where possible.
 //
@@ -27,12 +34,14 @@
 // once it's done with it:
 //
 #define BOOST_LIB_NAME boost_container
+
 //
 // If we're importing code from a dll, then tell auto_link.hpp about it:
 //
-#if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_CONTAINER_DYN_LINK)
+#if defined(BOOST_CONTAINER_DYNAMIC_LINKING)
 #  define BOOST_DYN_LINK
 #endif
+
 //
 // And include the header that does the work:
 //

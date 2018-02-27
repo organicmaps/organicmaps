@@ -9,7 +9,7 @@
 
 #define BOOST_COMPILER "Greenhills C++ version " BOOST_STRINGIZE(__ghs)
 
-#include "boost/config/compiler/common_edg.hpp"
+#include <boost/config/compiler/common_edg.hpp>
 
 //
 // versions check:

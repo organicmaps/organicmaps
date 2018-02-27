@@ -69,7 +69,7 @@ namespace detail
   class sync_timed_queue
     : private sync_priority_queue<detail::scheduled_type<T, Clock> >
   {
-    typedef detail::scheduled_type<T> stype;
+    typedef detail::scheduled_type<T, Clock> stype;
     typedef sync_priority_queue<stype> super;
   public:
     typedef T value_type;
@@ -229,13 +229,14 @@ namespace detail
       if (super::closed(lk)) return true;
       while (! super::empty(lk)) {
         if (! time_not_reached(lk)) return false;
-        super::not_empty_.wait_until(lk, super::data_.top().time);
+        time_point tp = super::data_.top().time;
+        super::not_empty_.wait_until(lk, tp);
         if (super::closed(lk)) return true;
       }
       if (super::closed(lk)) return true;
       super::not_empty_.wait(lk);
     }
-    return false;
+    //return false;
   }
 
   ///////////////////////////
@@ -245,7 +246,8 @@ namespace detail
     while (time_not_reached(lk))
     {
       super::throw_if_closed(lk);
-      super::not_empty_.wait_until(lk,super::data_.top().time);
+      time_point tp = super::data_.top().time;
+      super::not_empty_.wait_until(lk,tp);
       super::wait_until_not_empty(lk);
     }
     return pull(lk);
@@ -260,7 +262,7 @@ namespace detail
     while (time_not_reached(lk))
     {
       super::throw_if_closed(lk);
-      if (queue_op_status::timeout == super::not_empty_.wait_until(lk, tpmin)) {
+      if (cv_status::timeout == super::not_empty_.wait_until(lk, tpmin)) {
         if (time_not_reached(lk)) return queue_op_status::not_ready;
         return queue_op_status::timeout;
       }

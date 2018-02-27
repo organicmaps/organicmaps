@@ -8,6 +8,8 @@
 
 #ifdef _MSC_VER
 #pragma once
+#pragma warning(push)
+#pragma warning(disable:4702) // Unreachable code (release mode only warning)
 #endif
 
 #include <boost/config/no_tr1/cmath.hpp>
@@ -78,7 +80,7 @@ T log1p_imp(T const & x, const Policy& pol, const mpl::int_<0>&)
 
    static const char* function = "boost::math::log1p<%1%>(%1%)";
 
-   if(x < -1)
+   if((x < -1) || (boost::math::isnan)(x))
       return policies::raise_domain_error<T>(
          function, "log1p(x) requires x > -1, but got x = %1%.", x, pol);
    if(x == -1)
@@ -496,6 +498,10 @@ inline typename tools::promote_args<T>::type log1pmx(T x)
 
 } // namespace math
 } // namespace boost
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif // BOOST_MATH_LOG1P_INCLUDED
 

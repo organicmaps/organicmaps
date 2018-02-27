@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014-2015, Oracle and/or its affiliates.
+// Copyright (c) 2014-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
@@ -42,6 +42,8 @@
 #include <boost/geometry/algorithms/detail/is_valid/debug_validity_phase.hpp>
 
 #include <boost/geometry/algorithms/dispatch/is_valid.hpp>
+
+#include <boost/geometry/strategies/intersection.hpp>
 
 
 namespace boost { namespace geometry
@@ -109,10 +111,10 @@ private:
 
         geometry::partition
             <
-                geometry::model::box<typename point_type<MultiPolygon>::type>,
-                typename base::expand_box,
-                typename base::overlaps_box
-            >::apply(polygon_iterators, item_visitor);
+                geometry::model::box<typename point_type<MultiPolygon>::type>
+            >::apply(polygon_iterators, item_visitor,
+                     typename base::expand_box(),
+                     typename base::overlaps_box());
 
         if (item_visitor.items_overlap)
         {
@@ -235,23 +237,28 @@ private:
     }
 
 
-    template <typename VisitPolicy>
+    template <typename VisitPolicy, typename Strategy>
     struct per_polygon
     {
-        per_polygon(VisitPolicy& policy) : m_policy(policy) {}
+        per_polygon(VisitPolicy& policy, Strategy const& strategy)
+            : m_policy(policy)
+            , m_strategy(strategy)
+        {}
 
         template <typename Polygon>
         inline bool apply(Polygon const& polygon) const
         {
-            return base::apply(polygon, m_policy);
+            return base::apply(polygon, m_policy, m_strategy);
         }
 
         VisitPolicy& m_policy;
+        Strategy const& m_strategy;
     };
 public:
-    template <typename VisitPolicy>
+    template <typename VisitPolicy, typename Strategy>
     static inline bool apply(MultiPolygon const& multipolygon,
-                             VisitPolicy& visitor)
+                             VisitPolicy& visitor,
+                             Strategy const& strategy)
     {
         typedef debug_validity_phase<MultiPolygon> debug_phase;
 
@@ -266,11 +273,11 @@ public:
 
         if (! detail::check_iterator_range
                   <
-                      per_polygon<VisitPolicy>,
+                      per_polygon<VisitPolicy, Strategy>,
                       false // do not check for empty multipolygon (done above)
                   >::apply(boost::begin(multipolygon),
                            boost::end(multipolygon),
-                           per_polygon<VisitPolicy>(visitor)))
+                           per_polygon<VisitPolicy, Strategy>(visitor, strategy)))
         {
             return false;
         }
@@ -283,7 +290,7 @@ public:
 
         std::deque<typename has_valid_turns::turn_type> turns;
         bool has_invalid_turns =
-            ! has_valid_turns::apply(multipolygon, turns, visitor);
+            ! has_valid_turns::apply(multipolygon, turns, visitor, strategy);
         debug_print_turns(turns.begin(), turns.end());
 
         if (has_invalid_turns)

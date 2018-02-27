@@ -121,10 +121,13 @@ class avltree_impl
 
    typedef typename implementation_defined::insert_commit_data insert_commit_data;
 
+   //! @copydoc ::boost::intrusive::bstree::bstree()
+   avltree_impl()
+      :  tree_type()
+   {}
 
    //! @copydoc ::boost::intrusive::bstree::bstree(const key_compare &,const value_traits &)
-   explicit avltree_impl( const key_compare &cmp = key_compare()
-                       , const value_traits &v_traits = value_traits())
+   explicit avltree_impl( const key_compare &cmp, const value_traits &v_traits = value_traits())
       :  tree_type(cmp, v_traits)
    {}
 
@@ -185,6 +188,15 @@ class avltree_impl
 
    //! @copydoc ::boost::intrusive::bstree::crend()const
    const_reverse_iterator crend() const;
+
+   //! @copydoc ::boost::intrusive::bstree::root()
+   iterator root();
+
+   //! @copydoc ::boost::intrusive::bstree::root()const
+   const_iterator root() const;
+
+   //! @copydoc ::boost::intrusive::bstree::croot()const
+   const_iterator croot() const;
 
    //! @copydoc ::boost::intrusive::bstree::container_from_end_iterator(iterator)
    static avltree_impl &container_from_end_iterator(iterator end_iterator);
@@ -256,6 +268,14 @@ class avltree_impl
    std::pair<iterator, bool> insert_unique_check
       (const_iterator hint, const KeyType &key
       ,KeyTypeKeyCompare comp, insert_commit_data &commit_data);
+
+   //! @copydoc ::boost::intrusive::bstree::insert_unique_check(const key_type&,insert_commit_data&)
+   std::pair<iterator, bool> insert_unique_check
+      (const key_type &key, insert_commit_data &commit_data);
+
+   //! @copydoc ::boost::intrusive::bstree::insert_unique_check(const_iterator,const key_type&,insert_commit_data&)
+   std::pair<iterator, bool> insert_unique_check
+      (const_iterator hint, const key_type &key, insert_commit_data &commit_data);
 
    //! @copydoc ::boost::intrusive::bstree::insert_unique_commit
    iterator insert_unique_commit(reference value, const insert_commit_data &commit_data);
@@ -416,6 +436,14 @@ class avltree_impl
    //! @copydoc ::boost::intrusive::bstree::remove_node
    void remove_node(reference value);
 
+   //! @copydoc ::boost::intrusive::bstree::merge_unique(bstree<T, Options2...>&)
+   template<class T, class ...Options2>
+   void merge_unique(avltree<T, Options2...> &);
+
+   //! @copydoc ::boost::intrusive::bstree::merge_equal(bstree<T, Options2...>&)
+   template<class T, class ...Options2>
+   void merge_equal(avltree<T, Options2...> &);
+
    friend bool operator< (const avltree_impl &x, const avltree_impl &y);
 
    friend bool operator==(const avltree_impl &x, const avltree_impl &y);
@@ -507,8 +535,11 @@ class avltree
    //Assert if passed value traits are compatible with the type
    BOOST_STATIC_ASSERT((detail::is_same<typename value_traits::value_type, T>::value));
 
-   explicit avltree( const key_compare &cmp = key_compare()
-                   , const value_traits &v_traits = value_traits())
+   avltree()
+      :  Base()
+   {}
+
+   explicit avltree( const key_compare &cmp, const value_traits &v_traits = value_traits())
       :  Base(cmp, v_traits)
    {}
 

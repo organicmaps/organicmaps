@@ -34,15 +34,23 @@ struct controller_factory< Stepper , controlled_runge_kutta< Stepper > >
     typedef Stepper stepper_type;
     typedef controlled_runge_kutta< stepper_type > controller_type;
     typedef typename controller_type::error_checker_type error_checker_type;
+    typedef typename controller_type::step_adjuster_type step_adjuster_type;
     typedef typename stepper_type::value_type value_type;
+    typedef typename stepper_type::value_type time_type;
 
     controller_type operator()( value_type abs_error , value_type rel_error , const stepper_type &stepper )
     {
-        return controller_type( error_checker_type( abs_error , rel_error ) , stepper );
+        return controller_type( error_checker_type( abs_error , rel_error ) ,
+                                step_adjuster_type() , stepper );
+    }
+
+    controller_type operator()( value_type abs_error , value_type rel_error ,
+                                time_type max_dt, const stepper_type &stepper )
+    {
+        return controller_type( error_checker_type( abs_error , rel_error ) ,
+                                step_adjuster_type(max_dt) , stepper );
     }
 };
-
-
 
 
 } // odeint

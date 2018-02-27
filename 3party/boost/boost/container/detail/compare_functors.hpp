@@ -53,16 +53,16 @@ struct value_to_node_compare
    {}
 
    bool operator()(const Node &a, const Node &b) const
-   {  return static_cast<const Pred&>(*this)(a.m_data, b.m_data);  }
+   {  return static_cast<const Pred&>(*this)(a.get_data(), b.get_data());  }
 
    bool operator()(const Node &a) const
-   {  return static_cast<const Pred&>(*this)(a.m_data);  }
+   {  return static_cast<const Pred&>(*this)(a.get_data());  }
 
    bool operator()(const Node &a, const Node &b)
-   {  return static_cast<Pred&>(*this)(a.m_data, b.m_data);  }
+   {  return static_cast<Pred&>(*this)(a.get_data(), b.get_data());  }
 
    bool operator()(const Node &a)
-   {  return static_cast<Pred&>(*this)(a.m_data);  }
+   {  return static_cast<Pred&>(*this)(a.get_data());  }
 
    predicate_type &       predicate()        { return static_cast<predicate_type&>(*this); }
    const predicate_type & predicate()  const { return static_cast<predicate_type&>(*this); }

@@ -9,7 +9,7 @@
 ==============================================================================*/
 namespace boost { namespace fusion
 {
-
+    
     template <typename T0>
     struct vector1;
     template <typename T0 , typename T1>

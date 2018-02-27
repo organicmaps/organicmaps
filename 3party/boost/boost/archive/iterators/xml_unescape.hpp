@@ -53,7 +53,7 @@ public:
     value_type drain();
 
     template<class T>
-    xml_unescape(T start) :
+    xml_unescape(T start) : 
         super_t(Base(static_cast< T >(start)))
     {}
     // intel 7.1 doesn't like default copy constructor

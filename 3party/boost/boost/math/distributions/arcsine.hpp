@@ -90,7 +90,7 @@ namespace boost
             function,
             msg.c_str(), x_max, pol);
            // "x_max argument is %1%, but must be > x_min !", x_max, pol);
-            //  "x_max argument is %1%, but must be > x_min %2!", x_max, x_min, pol); would be better.
+            //  "x_max argument is %1%, but must be > x_min %2!", x_max, x_min, pol); would be better. 
           // But would require replication of all helpers functions in /policies/error_handling.hpp for two values,
           // as well as two value versions of raise_error, raise_domain_error and do_format ...
           // so use slightly hacky lexical_cast to string instead.
@@ -348,7 +348,7 @@ namespace boost
       RealType x = xx;
 
       // Argument checks:
-      RealType result = 0;
+      RealType result = 0; 
       if (false == arcsine_detail::check_dist_and_x(
         function,
         lo, hi, x,
@@ -432,7 +432,7 @@ namespace boost
 
     template <class RealType, class Policy>
     inline RealType quantile(const arcsine_distribution<RealType, Policy>& dist, const RealType& p)
-    {
+    { 
       // Quantile or Percent Point arcsine function or
       // Inverse Cumulative probability distribution function CDF.
       // Return x (0 <= x <= 1),
@@ -476,7 +476,7 @@ namespace boost
 
     template <class RealType, class Policy>
     inline RealType quantile(const complemented2_type<arcsine_distribution<RealType, Policy>, RealType>& c)
-    {
+    { 
       // Complement Quantile or Percent Point arcsine function.
       // Return the number of expected x for a given
       // complement of the probability q.

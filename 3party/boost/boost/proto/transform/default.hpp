@@ -545,7 +545,7 @@ namespace boost { namespace proto
                 BOOST_PROTO_USE_GET_POINTER();
                 typedef typename detail::class_member_traits<function_type>::class_type class_type;
                 return (
-                    BOOST_PROTO_GET_POINTER(class_type, (BOOST_PROTO_DEFAULT_EVAL(~, 1, e))) ->*
+                    BOOST_PROTO_GET_POINTER(class_type, (BOOST_PROTO_DEFAULT_EVAL(~, 1, e))) ->* 
                     BOOST_PROTO_DEFAULT_EVAL(~, 0, e)
                 )();
             }

@@ -52,34 +52,34 @@ class common_slist_algorithms
       return p;
    }
 
-   static void init(const node_ptr & this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void init(const node_ptr & this_node)
    {  NodeTraits::set_next(this_node, node_ptr());  }
 
-   static bool unique(const const_node_ptr & this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static bool unique(const const_node_ptr & this_node)
    {
       node_ptr next = NodeTraits::get_next(this_node);
       return !next || next == this_node;
    }
 
-   static bool inited(const const_node_ptr & this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static bool inited(const const_node_ptr & this_node)
    {  return !NodeTraits::get_next(this_node); }
 
-   static void unlink_after(const node_ptr & prev_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void unlink_after(const node_ptr & prev_node)
    {
       const_node_ptr this_node(NodeTraits::get_next(prev_node));
       NodeTraits::set_next(prev_node, NodeTraits::get_next(this_node));
    }
 
-   static void unlink_after(const node_ptr & prev_node, const node_ptr & last_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void unlink_after(const node_ptr & prev_node, const node_ptr & last_node)
    {  NodeTraits::set_next(prev_node, last_node);  }
 
-   static void link_after(const node_ptr & prev_node, const node_ptr & this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void link_after(const node_ptr & prev_node, const node_ptr & this_node)
    {
       NodeTraits::set_next(this_node, NodeTraits::get_next(prev_node));
       NodeTraits::set_next(prev_node, this_node);
    }
 
-   static void incorporate_after(const node_ptr & bp, const node_ptr & b, const node_ptr & be)
+   BOOST_INTRUSIVE_FORCEINLINE static void incorporate_after(const node_ptr & bp, const node_ptr & b, const node_ptr & be)
    {
       node_ptr p(NodeTraits::get_next(bp));
       NodeTraits::set_next(bp, b);

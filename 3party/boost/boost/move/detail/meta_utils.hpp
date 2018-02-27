@@ -14,13 +14,11 @@
 #ifndef BOOST_MOVE_DETAIL_META_UTILS_HPP
 #define BOOST_MOVE_DETAIL_META_UTILS_HPP
 
-#ifndef BOOST_CONFIG_HPP
-#  include <boost/config.hpp>
-#endif
-#
 #if defined(BOOST_HAS_PRAGMA_ONCE)
 #  pragma once
 #endif
+#include <boost/move/detail/config_begin.hpp>
+#include <boost/move/detail/workaround.hpp>  //forceinline
 #include <boost/move/detail/meta_utils_core.hpp>
 #include <cstddef>   //for std::size_t
 
@@ -245,8 +243,8 @@ template<class T>
 struct addr_impl_ref
 {
    T & v_;
-   inline addr_impl_ref( T & v ): v_( v ) {}
-   inline operator T& () const { return v_; }
+   BOOST_MOVE_FORCEINLINE addr_impl_ref( T & v ): v_( v ) {}
+   BOOST_MOVE_FORCEINLINE operator T& () const { return v_; }
 
    private:
    addr_impl_ref & operator=(const addr_impl_ref &);
@@ -255,18 +253,18 @@ struct addr_impl_ref
 template<class T>
 struct addressof_impl
 {
-   static inline T * f( T & v, long )
+   BOOST_MOVE_FORCEINLINE static T * f( T & v, long )
    {
       return reinterpret_cast<T*>(
          &const_cast<char&>(reinterpret_cast<const volatile char &>(v)));
    }
 
-   static inline T * f( T * v, int )
+   BOOST_MOVE_FORCEINLINE static T * f( T * v, int )
    {  return v;  }
 };
 
 template<class T>
-inline T * addressof( T & v )
+BOOST_MOVE_FORCEINLINE T * addressof( T & v )
 {
    return ::boost::move_detail::addressof_impl<T>::f
       ( ::boost::move_detail::addr_impl_ref<T>( v ), 0 );
@@ -314,6 +312,17 @@ class is_convertible
 
 #endif
 
+template <class T, class U, bool IsSame = is_same<T, U>::value>
+struct is_same_or_convertible
+   : is_convertible<T, U>
+{};
+
+template <class T, class U>
+struct is_same_or_convertible<T, U, true>
+{
+   static const bool value = true;
+};
+
 template<
       bool C
     , typename F1
@@ -332,6 +341,11 @@ struct eval_if
     : if_<C,T1,T2>::type
 {};
 
+
+#if defined(BOOST_GCC) && (BOOST_GCC <= 40000)
+#define BOOST_MOVE_HELPERS_RETURN_SFINAE_BROKEN
+#endif
+
 template<class T, class U, class R = void>
 struct enable_if_convertible
    : enable_if< is_convertible<T, U>, R>
@@ -340,6 +354,16 @@ struct enable_if_convertible
 template<class T, class U, class R = void>
 struct disable_if_convertible
    : disable_if< is_convertible<T, U>, R>
+{};
+
+template<class T, class U, class R = void>
+struct enable_if_same_or_convertible
+   : enable_if< is_same_or_convertible<T, U>, R>
+{};
+
+template<class T, class U, class R = void>
+struct disable_if_same_or_convertible
+   : disable_if< is_same_or_convertible<T, U>, R>
 {};
 
 //////////////////////////////////////////////////////////////////////////////
@@ -555,5 +579,7 @@ template< class T > struct remove_rvalue_reference { typedef T type; };
 
 }  //namespace move_detail {
 }  //namespace boost {
+
+#include <boost/move/detail/config_end.hpp>
 
 #endif //#ifndef BOOST_MOVE_DETAIL_META_UTILS_HPP

@@ -27,7 +27,7 @@
 #include <boost/geometry/geometries/concepts/point_concept.hpp>
 
 
-namespace boost { namespace geometry { namespace concept
+namespace boost { namespace geometry { namespace concepts
 {
 
 
@@ -52,7 +52,7 @@ class Ring
 #ifndef DOXYGEN_NO_CONCEPT_MEMBERS
     typedef typename point_type<Geometry>::type point_type;
 
-    BOOST_CONCEPT_ASSERT( (concept::Point<point_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Point<point_type>) );
     BOOST_CONCEPT_ASSERT( (boost::RandomAccessRangeConcept<Geometry>) );
 
 public :
@@ -81,7 +81,7 @@ class ConstRing
 #ifndef DOXYGEN_NO_CONCEPT_MEMBERS
     typedef typename point_type<Geometry>::type point_type;
 
-    BOOST_CONCEPT_ASSERT( (concept::ConstPoint<point_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::ConstPoint<point_type>) );
     BOOST_CONCEPT_ASSERT( (boost::RandomAccessRangeConcept<Geometry>) );
 
 
@@ -93,7 +93,7 @@ public :
 #endif
 };
 
-}}} // namespace boost::geometry::concept
+}}} // namespace boost::geometry::concepts
 
 
 #endif // BOOST_GEOMETRY_GEOMETRIES_CONCEPTS_RING_CONCEPT_HPP

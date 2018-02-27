@@ -44,12 +44,12 @@ namespace date_time {
     unsigned long week = (juliantoday + day - julianbegin + 4)/7;
 
     if ((week >= 1) && (week <= 52)) {
-      return week;
+      return static_cast<int>(week);
     }
 
     if (week == 53) {
       if((day==6) ||(day == 5 && is_leap_year(ymd.year))) {
-        return week; //under these circumstances week == 53.
+        return static_cast<int>(week); //under these circumstances week == 53.
       } else {
         return 1; //monday - wednesday is in week 1 of next year
       }
@@ -60,10 +60,10 @@ namespace date_time {
       juliantoday = julian_day_number(ymd);
       day = (julianbegin + 3) % 7;
       week = (juliantoday + day - julianbegin + 4)/7;
-      return week;
+      return static_cast<int>(week);
     }
 
-    return week;  //not reachable -- well except if day == 5 and is_leap_year != true
+    return static_cast<int>(week);  //not reachable -- well except if day == 5 and is_leap_year != true
 
   }
 
@@ -79,7 +79,7 @@ namespace date_time {
     unsigned short y = static_cast<unsigned short>(ymd.year + 4800 - a);
     unsigned short m = static_cast<unsigned short>(ymd.month + 12*a - 3);
     unsigned long  d = ymd.day + ((153*m + 2)/5) + 365*y + (y/4) - (y/100) + (y/400) - 32045;
-    return d;
+    return static_cast<date_int_type>(d);
   }
 
   //! Convert a year-month-day into the julian day number

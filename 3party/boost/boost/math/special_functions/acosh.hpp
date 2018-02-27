@@ -36,7 +36,7 @@ namespace boost
         {
             BOOST_MATH_STD_USING
             
-            if(x < 1)
+            if((x < 1) || (boost::math::isnan)(x))
             {
                return policies::raise_domain_error<T>(
                   "boost::math::acosh<%1%>(%1%)",

@@ -128,12 +128,14 @@ typename T::ThereReallyIsNoMemberByThisNameInT vertices(T const&);
 
         p = in_edges(v, g);
         n = in_degree(v, g);
+        n = degree(v, g);
         e = *p.first;
         const_constraints(g);
         }
         void const_constraints(const G& cg) {
         p = in_edges(v, cg);
         n = in_degree(v, cg);
+        n = degree(v, cg);
         e = *p.first;
         }
         std::pair<in_edge_iterator, in_edge_iterator> p;

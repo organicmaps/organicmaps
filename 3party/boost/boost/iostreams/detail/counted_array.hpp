@@ -9,6 +9,8 @@
 #define BOOST_IOSTREAMS_DETAIL_COUNTED_ARRAY_HPP_INCLUDED
 
 #include <algorithm>                               // min.
+#include <cstddef>                                 // size_t
+#include <string>                                  // char_traits
 #include <boost/iostreams/categories.hpp>
 #include <boost/iostreams/detail/char_traits.hpp>
 #include <boost/iostreams/detail/ios.hpp>          // streamsize.
@@ -25,9 +27,13 @@ public:
         { }
     std::streamsize read(Ch* s, std::streamsize n)
     {
-        std::streamsize result = (std::min)(n, end_ - ptr_);
-        BOOST_IOSTREAMS_CHAR_TRAITS(char_type)::copy
-            (s, buf_ + ptr_, result);
+        using namespace std;
+        streamsize result = (std::min)(n, end_ - ptr_);
+        char_traits<char_type>::copy(
+            s,
+            buf_ + ptr_,
+            static_cast<size_t>(result)
+        );
         ptr_ += result;
         return result;
     }
@@ -47,9 +53,13 @@ public:
         { }
         std::streamsize write(const Ch* s, std::streamsize n)
     {
+        using namespace std;
         std::streamsize result = (std::min)(n, end_ - ptr_);
-        BOOST_IOSTREAMS_CHAR_TRAITS(char_type)::copy
-            (buf_ + ptr_, s, result);
+        char_traits<char_type>::copy(
+            buf_ + ptr_,
+            s,
+            static_cast<size_t>(result)
+        );
         ptr_ += result;
         return result;
     }

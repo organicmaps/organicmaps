@@ -23,17 +23,11 @@
 #include <boost/assert.hpp>
 #include <boost/limits.hpp>
 #include <boost/static_assert.hpp>
-#include <boost/integer.hpp>
-#include <boost/integer/integer_mask.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/make_unsigned.hpp>
 #include <boost/random/detail/config.hpp>
 #include <boost/random/detail/operators.hpp>
-#include <boost/random/detail/integer_log2.hpp>
+#include <boost/random/detail/int_float_pair.hpp>
 #include <boost/random/uniform_01.hpp>
-#include <boost/random/uniform_int_distribution.hpp>
 #include <boost/random/exponential_distribution.hpp>
-#include <boost/mpl/bool.hpp>
 
 namespace boost {
 namespace random {
@@ -121,89 +115,6 @@ const RealType normal_table<RealType>::table_y[129] = {
     1
 };
 
-template<class Engine>
-inline typename boost::make_unsigned<typename Engine::result_type>::type
-generate_one_digit(Engine& eng, std::size_t bits)
-{
-    typedef typename Engine::result_type base_result;
-    typedef typename boost::make_unsigned<base_result>::type base_unsigned;
-    
-    base_unsigned range =
-        detail::subtract<base_result>()((eng.max)(), (eng.min)());
-    base_unsigned y0_mask = (base_unsigned(2) << (bits - 1)) - 1;
-    base_unsigned y0 = (range + 1) & ~y0_mask;
-    base_unsigned u;
-    do {
-        u = detail::subtract<base_result>()(eng(), (eng.min)());
-    } while(y0 != 0 && u > base_unsigned(y0 - 1));
-    return u & y0_mask;
-}
-
-template<class RealType, std::size_t w, class Engine>
-std::pair<RealType, int> generate_int_float_pair(Engine& eng, boost::mpl::true_)
-{
-    typedef typename Engine::result_type base_result;
-    typedef typename boost::make_unsigned<base_result>::type base_unsigned;
-    
-    base_unsigned range =
-        detail::subtract<base_result>()((eng.max)(), (eng.min)());
-    
-    std::size_t m =
-        (range == (std::numeric_limits<base_unsigned>::max)()) ?
-            std::numeric_limits<base_unsigned>::digits :
-            detail::integer_log2(range + 1);
-            
-    int bucket = 0;
-    // process as many full digits as possible into the int part
-    for(std::size_t i = 0; i < w/m; ++i) {
-        base_unsigned u = generate_one_digit(eng, m);
-        bucket = (bucket << m) | u;
-    }
-    RealType r;
-
-    const std::size_t digits = std::numeric_limits<RealType>::digits;
-    {
-        base_unsigned u = generate_one_digit(eng, m);
-        base_unsigned mask = (base_unsigned(1) << (w%m)) - 1;
-        bucket = (bucket << (w%m)) | (mask & u);
-        const RealType mult = RealType(1)/RealType(base_unsigned(1) << (m - w%m));
-        // zero out unused bits
-        if (m - w%m > digits) {
-            u &= ~(base_unsigned(1) << (m - digits));
-        }
-        r = RealType(u >> (w%m)) * mult;
-    }
-    for(std::size_t i = m - w%m; i + m < digits; ++i) {
-        base_unsigned u = generate_one_digit(eng, m);
-        r += u;
-        r *= RealType(0.5)/RealType(base_unsigned(1) << (m - 1));
-    }
-    if (m - w%m < digits)
-    {
-        const std::size_t remaining = (digits - m + w%m) % m;
-        base_unsigned u = generate_one_digit(eng, m);
-        r += u & ((base_unsigned(2) << (remaining - 1)) - 1);
-        const RealType mult = RealType(0.5)/RealType(base_unsigned(1) << (remaining - 1));
-        r *= mult;
-    }
-    return std::make_pair(r, bucket);
-}
-
-template<class RealType, std::size_t w, class Engine>
-inline std::pair<RealType, int> generate_int_float_pair(Engine& eng, boost::mpl::false_)
-{
-    int bucket = uniform_int_distribution<>(0, (1 << w) - 1)(eng);
-    RealType r = uniform_01<RealType>()(eng);
-    return std::make_pair(r, bucket);
-}
-
-template<class RealType, std::size_t w, class Engine>
-inline std::pair<RealType, int> generate_int_float_pair(Engine& eng)
-{
-    typedef typename Engine::result_type base_result;
-    return generate_int_float_pair<RealType, w>(eng,
-        boost::is_integral<base_result>());
-}
 
 template<class RealType = double>
 struct unit_normal_distribution
@@ -220,29 +131,77 @@ struct unit_normal_distribution
             RealType x = vals.first * RealType(table_x[i]);
             if(x < table_x[i + 1]) return x * sign;
             if(i == 0) return generate_tail(eng) * sign;
-            RealType y = RealType(table_y[i]) + uniform_01<RealType>()(eng) * RealType(table_y[i + 1] - table_y[i]);
-            if (y < f(x)) return x * sign;
+
+            RealType y01 = uniform_01<RealType>()(eng);
+            RealType y = RealType(table_y[i]) + y01 * RealType(table_y[i + 1] - table_y[i]);
+
+            // These store the value y - bound, or something proportional to that difference:
+            RealType y_above_ubound, y_above_lbound;
+
+            // There are three cases to consider:
+            // - convex regions (where x[i] > x[j] >= 1)
+            // - concave regions (where 1 <= x[i] < x[j])
+            // - region containing the inflection point (where x[i] > 1 > x[j])
+            // For convex (concave), exp^(-x^2/2) is bounded below (above) by the tangent at
+            // (x[i],y[i]) and is bounded above (below) by the diagonal line from (x[i+1],y[i+1]) to
+            // (x[i],y[i]).
+            //
+            // *If* the inflection point region satisfies slope(x[i+1]) < slope(diagonal), then we
+            // can treat the inflection region as a convex region: this condition is necessary and
+            // sufficient to ensure that the curve lies entirely below the diagonal (that, in turn,
+            // also implies that it will be above the tangent at x[i]).
+            //
+            // For the current table size (128), this is satisfied: slope(x[i+1]) = -0.60653 <
+            // slope(diag) = -0.60649, and so we have only two cases below instead of three.
+
+            if (table_x[i] >= 1) { // convex (incl. inflection)
+                y_above_ubound = RealType(table_x[i] - table_x[i+1]) * y01 - (RealType(table_x[i]) - x);
+                y_above_lbound = y - (RealType(table_y[i]) + (RealType(table_x[i]) - x) * RealType(table_y[i]) * RealType(table_x[i]));
+            }
+            else { // concave
+                y_above_lbound = RealType(table_x[i] - table_x[i+1]) * y01 - (RealType(table_x[i]) - x);
+                y_above_ubound = y - (RealType(table_y[i]) + (RealType(table_x[i]) - x) * RealType(table_y[i]) * RealType(table_x[i]));
+            }
+
+            if (y_above_ubound < 0 // if above the upper bound reject immediately
+                    &&
+                    (
+                     y_above_lbound < 0 // If below the lower bound accept immediately
+                     ||
+                     y < f(x) // Otherwise it's between the bounds and we need a full check
+                    )
+               ) {
+                return x * sign;
+            }
         }
     }
     static RealType f(RealType x) {
         using std::exp;
-        return exp(-x*x/2);
+        return exp(-(x*x/2));
     }
+    // Generate from the tail using rejection sampling from the exponential(x_1) distribution,
+    // shifted by x_1.  This looks a little different from the usual rejection sampling because it
+    // transforms the condition by taking the log of both sides, thus avoiding the costly exp() call
+    // on the RHS, then takes advantage of the fact that -log(unif01) is simply generating an
+    // exponential (by inverse cdf sampling) by replacing the log(unif01) on the LHS with a
+    // exponential(1) draw, y.
     template<class Engine>
     RealType generate_tail(Engine& eng) {
-        boost::random::exponential_distribution<RealType> exponential;
         const RealType tail_start = RealType(normal_table<double>::table_x[1]);
+        boost::random::exponential_distribution<RealType> exp_x(tail_start);
+        boost::random::exponential_distribution<RealType> exp_y;
         for(;;) {
-            RealType x = exponential(eng)/tail_start;
-            RealType y = exponential(eng);
+            RealType x = exp_x(eng);
+            RealType y = exp_y(eng);
+            // If we were doing non-transformed rejection sampling, this condition would be:
+            // if (unif01 < exp(-.5*x*x)) return x + tail_start;
             if(2*y > x*x) return x + tail_start;
         }
     }
 };
 
-}
+} // namespace detail
 
-// deterministic Box-Muller method, uses trigonometric functions
 
 /**
  * Instantiations of class template normal_distribution model a
@@ -252,6 +211,14 @@ struct unit_normal_distribution
  *   \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
  * \f$,
  * where mean and sigma are the parameters of the distribution.
+ *
+ * The implementation uses the "ziggurat" algorithm, as described in
+ *
+ *  @blockquote
+ *  "The Ziggurat Method for Generating Random Variables",
+ *  George Marsaglia and Wai Wan Tsang, Journal of Statistical Software,
+ *  Volume 5, Number 8 (2000), 1-7.
+ *  @endblockquote
  */
 template<class RealType = double>
 class normal_distribution

@@ -10,11 +10,6 @@
 
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/not.hpp>
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
 
 namespace boost {
 namespace detail {
@@ -22,7 +17,7 @@ namespace detail {
 
 #ifdef BOOST_MSVC
 #pragma warning( push )
-#pragma warning( disable : 4584 4250)
+#pragma warning( disable : 4584 4250 4594)
 #elif defined(__GNUC__) && (__GNUC__ >= 4)
 #pragma GCC system_header
 #endif
@@ -34,7 +29,7 @@ struct is_virtual_base_of_impl
 };
 
 template<typename Base, typename Derived>
-struct is_virtual_base_of_impl<Base, Derived, mpl::true_>
+struct is_virtual_base_of_impl<Base, Derived, true_type>
 {
    union max_align
    {
@@ -88,7 +83,7 @@ struct is_virtual_base_of_impl<Base, Derived, mpl::true_>
 template<typename Base, typename Derived>
 struct is_virtual_base_of_impl2
 {
-   typedef typename mpl::and_<is_base_of<Base, Derived>, mpl::not_<is_same<Base, Derived> > >::type tag_type;
+   typedef boost::integral_constant<bool, (boost::is_base_of<Base, Derived>::value && ! boost::is_same<Base, Derived>::value)> tag_type;
    typedef is_virtual_base_of_impl<Base, Derived, tag_type> imp;
    BOOST_STATIC_CONSTANT(bool, value = imp::value);
 };
@@ -99,19 +94,12 @@ struct is_virtual_base_of_impl2
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF2(
-      is_virtual_base_of
-       , Base
-       , Derived
-       , (::boost::detail::is_virtual_base_of_impl2<Base,Derived>::value) 
-)
+template <class Base, class Derived> struct is_virtual_base_of : public integral_constant<bool, (::boost::detail::is_virtual_base_of_impl2<Base, Derived>::value)>{};
 
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC2_2(typename Base,typename Derived,is_virtual_base_of,Base&,Derived,false)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC2_2(typename Base,typename Derived,is_virtual_base_of,Base,Derived&,false)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC2_2(typename Base,typename Derived,is_virtual_base_of,Base&,Derived&,false)
+template <class Base, class Derived> struct is_virtual_base_of<Base&, Derived> : public false_type{};
+template <class Base, class Derived> struct is_virtual_base_of<Base, Derived&> : public false_type{};
+template <class Base, class Derived> struct is_virtual_base_of<Base&, Derived&> : public false_type{};
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif

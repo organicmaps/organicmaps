@@ -2,14 +2,14 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2013, 2014, 2015.
-// Modifications copyright (c) 2013-2015 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015, 2017.
+// Modifications copyright (c) 2013-2017 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_RELATE_LINEAR_LINEAR_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_RELATE_LINEAR_LINEAR_HPP
@@ -119,8 +119,10 @@ struct linear_linear
     typedef typename geometry::point_type<Geometry1>::type point1_type;
     typedef typename geometry::point_type<Geometry2>::type point2_type;
 
-    template <typename Result>
-    static inline void apply(Geometry1 const& geometry1, Geometry2 const& geometry2, Result & result)
+    template <typename Result, typename IntersectionStrategy>
+    static inline void apply(Geometry1 const& geometry1, Geometry2 const& geometry2,
+                             Result & result,
+                             IntersectionStrategy const& intersection_strategy)
     {
         // The result should be FFFFFFFFF
         relate::set<exterior, exterior, result_dimension<Geometry1>::value>(result);// FFFFFFFFd, d in [1,9] or T
@@ -138,7 +140,7 @@ struct linear_linear
                 Geometry1,
                 Geometry2,
                 detail::get_turns::get_turn_info_type<Geometry1, Geometry2, turns::assign_policy<true> >
-            >::apply(turns, geometry1, geometry2, interrupt_policy);
+            >::apply(turns, geometry1, geometry2, interrupt_policy, intersection_strategy);
 
         if ( BOOST_GEOMETRY_CONDITION( result.interrupt ) )
             return;

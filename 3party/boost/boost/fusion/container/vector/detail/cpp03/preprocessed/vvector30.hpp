@@ -40,16 +40,16 @@ namespace boost { namespace fusion
         template <typename Sequence>
         BOOST_FUSION_GPU_ENABLED
         vector(Sequence const& rhs,
-            typename boost::enable_if<traits::is_sequence<Sequence> >::type* = 0)
+            typename enable_if<traits::is_sequence<Sequence>, detail::enabler_>::type = detail::enabler)
             : vec(BOOST_FUSION_VECTOR_COPY_INIT()) {}
-
-
-
-
-
-
-
-
+        
+        
+        
+        
+        
+        
+        
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -59,7 +59,7 @@ namespace boost { namespace fusion
         : vec(arg0) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -68,7 +68,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0)
         : vec(std::forward<U0>( arg0)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -77,7 +77,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -85,7 +85,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -94,7 +94,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -102,7 +102,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -111,7 +111,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -119,7 +119,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -128,7 +128,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -136,7 +136,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -145,7 +145,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -153,7 +153,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -162,7 +162,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -170,7 +170,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -179,7 +179,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -187,7 +187,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -196,7 +196,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -204,7 +204,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -213,7 +213,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -221,7 +221,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -230,7 +230,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -238,7 +238,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -247,7 +247,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -255,7 +255,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -264,7 +264,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -272,7 +272,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -281,7 +281,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -289,7 +289,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -298,7 +298,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -306,7 +306,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -315,7 +315,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -323,7 +323,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -332,7 +332,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -340,7 +340,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -349,7 +349,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -357,7 +357,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -366,7 +366,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -374,7 +374,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17 , U18 && arg18)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17) , std::forward<U18>( arg18)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -383,7 +383,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18 , arg19) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -391,7 +391,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17 , U18 && arg18 , U19 && arg19)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17) , std::forward<U18>( arg18) , std::forward<U19>( arg19)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -400,7 +400,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18 , arg19 , arg20) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19 , typename U20>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -408,7 +408,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17 , U18 && arg18 , U19 && arg19 , U20 && arg20)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17) , std::forward<U18>( arg18) , std::forward<U19>( arg19) , std::forward<U20>( arg20)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -417,7 +417,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18 , arg19 , arg20 , arg21) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19 , typename U20 , typename U21>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -425,7 +425,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17 , U18 && arg18 , U19 && arg19 , U20 && arg20 , U21 && arg21)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17) , std::forward<U18>( arg18) , std::forward<U19>( arg19) , std::forward<U20>( arg20) , std::forward<U21>( arg21)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -434,7 +434,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18 , arg19 , arg20 , arg21 , arg22) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19 , typename U20 , typename U21 , typename U22>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -442,7 +442,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17 , U18 && arg18 , U19 && arg19 , U20 && arg20 , U21 && arg21 , U22 && arg22)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17) , std::forward<U18>( arg18) , std::forward<U19>( arg19) , std::forward<U20>( arg20) , std::forward<U21>( arg21) , std::forward<U22>( arg22)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -451,7 +451,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18 , arg19 , arg20 , arg21 , arg22 , arg23) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19 , typename U20 , typename U21 , typename U22 , typename U23>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -459,7 +459,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17 , U18 && arg18 , U19 && arg19 , U20 && arg20 , U21 && arg21 , U22 && arg22 , U23 && arg23)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17) , std::forward<U18>( arg18) , std::forward<U19>( arg19) , std::forward<U20>( arg20) , std::forward<U21>( arg21) , std::forward<U22>( arg22) , std::forward<U23>( arg23)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -468,7 +468,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18 , arg19 , arg20 , arg21 , arg22 , arg23 , arg24) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19 , typename U20 , typename U21 , typename U22 , typename U23 , typename U24>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -476,7 +476,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17 , U18 && arg18 , U19 && arg19 , U20 && arg20 , U21 && arg21 , U22 && arg22 , U23 && arg23 , U24 && arg24)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17) , std::forward<U18>( arg18) , std::forward<U19>( arg19) , std::forward<U20>( arg20) , std::forward<U21>( arg21) , std::forward<U22>( arg22) , std::forward<U23>( arg23) , std::forward<U24>( arg24)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -485,7 +485,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18 , arg19 , arg20 , arg21 , arg22 , arg23 , arg24 , arg25) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19 , typename U20 , typename U21 , typename U22 , typename U23 , typename U24 , typename U25>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -493,7 +493,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17 , U18 && arg18 , U19 && arg19 , U20 && arg20 , U21 && arg21 , U22 && arg22 , U23 && arg23 , U24 && arg24 , U25 && arg25)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17) , std::forward<U18>( arg18) , std::forward<U19>( arg19) , std::forward<U20>( arg20) , std::forward<U21>( arg21) , std::forward<U22>( arg22) , std::forward<U23>( arg23) , std::forward<U24>( arg24) , std::forward<U25>( arg25)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -502,7 +502,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18 , arg19 , arg20 , arg21 , arg22 , arg23 , arg24 , arg25 , arg26) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19 , typename U20 , typename U21 , typename U22 , typename U23 , typename U24 , typename U25 , typename U26>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -510,7 +510,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17 , U18 && arg18 , U19 && arg19 , U20 && arg20 , U21 && arg21 , U22 && arg22 , U23 && arg23 , U24 && arg24 , U25 && arg25 , U26 && arg26)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17) , std::forward<U18>( arg18) , std::forward<U19>( arg19) , std::forward<U20>( arg20) , std::forward<U21>( arg21) , std::forward<U22>( arg22) , std::forward<U23>( arg23) , std::forward<U24>( arg24) , std::forward<U25>( arg25) , std::forward<U26>( arg26)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -519,7 +519,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18 , arg19 , arg20 , arg21 , arg22 , arg23 , arg24 , arg25 , arg26 , arg27) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19 , typename U20 , typename U21 , typename U22 , typename U23 , typename U24 , typename U25 , typename U26 , typename U27>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -527,7 +527,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17 , U18 && arg18 , U19 && arg19 , U20 && arg20 , U21 && arg21 , U22 && arg22 , U23 && arg23 , U24 && arg24 , U25 && arg25 , U26 && arg26 , U27 && arg27)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17) , std::forward<U18>( arg18) , std::forward<U19>( arg19) , std::forward<U20>( arg20) , std::forward<U21>( arg21) , std::forward<U22>( arg22) , std::forward<U23>( arg23) , std::forward<U24>( arg24) , std::forward<U25>( arg25) , std::forward<U26>( arg26) , std::forward<U27>( arg27)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -536,7 +536,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18 , arg19 , arg20 , arg21 , arg22 , arg23 , arg24 , arg25 , arg26 , arg27 , arg28) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19 , typename U20 , typename U21 , typename U22 , typename U23 , typename U24 , typename U25 , typename U26 , typename U27 , typename U28>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif
@@ -544,7 +544,7 @@ namespace boost { namespace fusion
     vector(U0 && arg0 , U1 && arg1 , U2 && arg2 , U3 && arg3 , U4 && arg4 , U5 && arg5 , U6 && arg6 , U7 && arg7 , U8 && arg8 , U9 && arg9 , U10 && arg10 , U11 && arg11 , U12 && arg12 , U13 && arg13 , U14 && arg14 , U15 && arg15 , U16 && arg16 , U17 && arg17 , U18 && arg18 , U19 && arg19 , U20 && arg20 , U21 && arg21 , U22 && arg22 , U23 && arg23 , U24 && arg24 , U25 && arg25 , U26 && arg26 , U27 && arg27 , U28 && arg28)
         : vec(std::forward<U0>( arg0) , std::forward<U1>( arg1) , std::forward<U2>( arg2) , std::forward<U3>( arg3) , std::forward<U4>( arg4) , std::forward<U5>( arg5) , std::forward<U6>( arg6) , std::forward<U7>( arg7) , std::forward<U8>( arg8) , std::forward<U9>( arg9) , std::forward<U10>( arg10) , std::forward<U11>( arg11) , std::forward<U12>( arg12) , std::forward<U13>( arg13) , std::forward<U14>( arg14) , std::forward<U15>( arg15) , std::forward<U16>( arg16) , std::forward<U17>( arg17) , std::forward<U18>( arg18) , std::forward<U19>( arg19) , std::forward<U20>( arg20) , std::forward<U21>( arg21) , std::forward<U22>( arg22) , std::forward<U23>( arg23) , std::forward<U24>( arg24) , std::forward<U25>( arg25) , std::forward<U26>( arg26) , std::forward<U27>( arg27) , std::forward<U28>( arg28)) {}
 # endif
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CONSTEXPR
 # endif
@@ -553,7 +553,7 @@ namespace boost { namespace fusion
         : vec(arg0 , arg1 , arg2 , arg3 , arg4 , arg5 , arg6 , arg7 , arg8 , arg9 , arg10 , arg11 , arg12 , arg13 , arg14 , arg15 , arg16 , arg17 , arg18 , arg19 , arg20 , arg21 , arg22 , arg23 , arg24 , arg25 , arg26 , arg27 , arg28 , arg29) {}
 # if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19 , typename U20 , typename U21 , typename U22 , typename U23 , typename U24 , typename U25 , typename U26 , typename U27 , typename U28 , typename U29>
-
+    
 # if !defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # endif

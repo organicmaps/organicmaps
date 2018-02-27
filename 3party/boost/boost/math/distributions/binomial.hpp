@@ -155,7 +155,7 @@ namespace boost
         template <class RealType, class Policy>
         inline bool check_dist_and_prob(const char* function, const RealType& N, RealType p, RealType prob, RealType* result, const Policy& pol)
         {
-           if(check_dist(function, N, p, result, pol) && detail::check_probability(function, prob, result, pol) == false)
+           if((check_dist(function, N, p, result, pol) && detail::check_probability(function, prob, result, pol)) == false)
               return false;
            return true;
         }

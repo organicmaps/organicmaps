@@ -16,6 +16,8 @@
 #include <boost/geometry/algorithms/detail/equals/point_point.hpp>
 #include <boost/geometry/policies/compare.hpp>
 
+#include <boost/geometry/util/has_nan_coordinate.hpp>
+
 namespace boost { namespace geometry {
 
 #ifndef DOXYGEN_NO_DETAIL
@@ -106,20 +108,42 @@ struct topology_check<MultiLinestring, multi_linestring_tag>
         typedef typename boost::range_iterator<MultiLinestring const>::type ls_iterator;
         for ( ls_iterator it = boost::begin(mls) ; it != boost::end(mls) ; ++it )
         {
-            std::size_t count = boost::size(*it);
+            typename boost::range_reference<MultiLinestring const>::type
+                ls = *it;
 
-            if ( count > 0 )
+            std::size_t count = boost::size(ls);
+
+            if (count > 0)
             {
                 has_interior = true;
             }
 
-            if ( count > 1 )
+            if (count > 1)
             {
+                typedef typename boost::range_reference
+                    <
+                        typename boost::range_value<MultiLinestring const>::type const
+                    >::type point_reference;
+                
+                point_reference front_pt = range::front(ls);
+                point_reference back_pt = range::back(ls);
+
                 // don't store boundaries of linear rings, this doesn't change anything
-                if ( ! equals::equals_point_point(range::front(*it), range::back(*it)) )
+                if (! equals::equals_point_point(front_pt, back_pt))
                 {
-                    endpoints.push_back(range::front(*it));
-                    endpoints.push_back(range::back(*it));
+                    // do not add points containing NaN coordinates
+                    // because they cannot be reasonably compared, e.g. with MSVC
+                    // an assertion failure is reported in std::equal_range()
+                    // NOTE: currently ignoring_counter calling std::equal_range()
+                    //   is not used anywhere in the code, still it's safer this way
+                    if (! geometry::has_nan_coordinate(front_pt))
+                    {
+                        endpoints.push_back(front_pt);
+                    }
+                    if (! geometry::has_nan_coordinate(back_pt))
+                    {
+                        endpoints.push_back(back_pt);
+                    }
                 }
             }
         }

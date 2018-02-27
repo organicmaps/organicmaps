@@ -76,7 +76,6 @@ struct pt_tree_policy :
     template<typename MatchAT, typename MatchBT>
     static void concat(MatchAT& a, MatchBT const& b)
     {
-        typedef typename match_t::attr_t attr_t;
         BOOST_SPIRIT_ASSERT(a && b);
 
         std::copy(b.trees.begin(), b.trees.end(),

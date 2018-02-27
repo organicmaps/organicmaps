@@ -9,8 +9,8 @@
 #ifndef BOOST_ENDIAN_COVER_OPERATORS_HPP
 #define BOOST_ENDIAN_COVER_OPERATORS_HPP
 
-#if defined(_MSC_VER)
-# pragma warning(push)
+#if defined(_MSC_VER)  
+# pragma warning(push)  
 # pragma warning(disable:4365)  // conversion ... signed/unsigned mismatch
 #endif
 
@@ -61,7 +61,7 @@ namespace boost
       friend bool operator==(const D& x, ArithmeticT y) BOOST_NOEXCEPT { return +x == y; }
       friend bool operator<(const D& x, ArithmeticT y) BOOST_NOEXCEPT { return +x < y; }
 #   endif
-
+      
       // The basic arithmetic operations.
       friend D& operator+=(D& x, ArithmeticT y) BOOST_NOEXCEPT
         { return x = static_cast<ArithmeticT>(+x + y); }
@@ -83,13 +83,13 @@ namespace boost
         { return x = static_cast<ArithmeticT>(+x << y); }
       friend D& operator>>=(D& x, ArithmeticT y) BOOST_NOEXCEPT
         { return x = static_cast<ArithmeticT>(+x >> y); }
-
+      
       // A few binary arithmetic operations not covered by operators base class.
       friend ArithmeticT operator<<(const D& x, ArithmeticT y) BOOST_NOEXCEPT
         { return static_cast<ArithmeticT>(+x << y); }
       friend ArithmeticT operator>>(const D& x, ArithmeticT y) BOOST_NOEXCEPT
         { return static_cast<ArithmeticT>(+x >> y); }
-
+      
       // Auto-increment and auto-decrement can be defined in terms of the
       // arithmetic operations.
       friend D& operator++(D& x) BOOST_NOEXCEPT { return x += 1; }
@@ -97,13 +97,13 @@ namespace boost
 
 #   ifdef BOOST_ENDIAN_MINIMAL_COVER_OPERATORS
       friend D operator++(D& x, int) BOOST_NOEXCEPT
-      {
+      { 
         D tmp(x);
         x += 1;
         return tmp;
       }
       friend D operator--(D& x, int) BOOST_NOEXCEPT
-      {
+      { 
         D tmp(x);
         x -= 1;
         return tmp;
@@ -117,10 +117,10 @@ namespace boost
       friend std::basic_ostream<charT, traits>&
         operator<<(std::basic_ostream<charT, traits>& os, const D& x)
       {
-        return os << +x;
+        return os << +x; 
       }
 
-      // Stream extractor
+      // Stream extractor 
       template <class charT, class traits>
       friend std::basic_istream<charT, traits>&
         operator>>(std::basic_istream<charT, traits>& is, D& x)
@@ -135,8 +135,8 @@ namespace boost
   } // namespace endian
 } // namespace boost
 
-#if defined(_MSC_VER)
-# pragma warning(pop)
-#endif
+#if defined(_MSC_VER)  
+# pragma warning(pop)  
+#endif 
 
 #endif // BOOST_ENDIAN_COVER_OPERATORS_HPP

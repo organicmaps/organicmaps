@@ -34,7 +34,7 @@ namespace detail {
 } // namespace detail
 
 template<class Archive, class Elem, class Tr>
-class binary_oarchive_impl : 
+class BOOST_SYMBOL_VISIBLE binary_oarchive_impl : 
     public basic_binary_oprimitive<Archive, Elem, Tr>,
     public basic_binary_oarchive<Archive>
 {
@@ -59,8 +59,9 @@ protected:
         this->basic_binary_oarchive<Archive>::save_override(t);
     }
     void init(unsigned int flags) {
-        if(0 != (flags & no_header))
+        if(0 != (flags & no_header)){
             return;
+        }
         #if ! defined(__MWERKS__)
             this->basic_binary_oarchive<Archive>::init();
             this->basic_binary_oprimitive<Archive, Elem, Tr>::init();

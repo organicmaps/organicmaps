@@ -25,7 +25,7 @@
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/push_back.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/exceptions.hpp>
 #include <boost/log/core/record.hpp>
@@ -137,14 +137,14 @@ private:
 
 //! The function unwraps \c value_ref, if possible
 template< typename T, typename TagT >
-BOOST_FORCEINLINE typename enable_if< mpl::is_sequence< T >, value_ref< T, TagT > >::type
+BOOST_FORCEINLINE typename boost::enable_if_c< mpl::is_sequence< T >::value, value_ref< T, TagT > >::type
 unwrap_value_ref(value_ref< T, TagT > const& r)
 {
     return r;
 }
 
 template< typename T, typename TagT >
-BOOST_FORCEINLINE typename disable_if< mpl::is_sequence< T >, T const& >::type
+BOOST_FORCEINLINE typename boost::disable_if_c< mpl::is_sequence< T >::value, T const& >::type
 unwrap_value_ref(value_ref< T, TagT > const& r)
 {
     return r.get();

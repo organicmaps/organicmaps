@@ -46,7 +46,7 @@ namespace boost { namespace date_time {
   template <class date_type,
             class CharT,
             class OutItrT = std::ostreambuf_iterator<CharT, std::char_traits<CharT> > >
-  class date_facet : public std::locale::facet {
+  class BOOST_SYMBOL_VISIBLE date_facet : public std::locale::facet {
   public:
     typedef typename date_type::duration_type duration_type;
     // greg_weekday is gregorian_calendar::day_of_week_type
@@ -408,7 +408,7 @@ namespace boost { namespace date_time {
   template <class date_type,
             class CharT,
             class InItrT = std::istreambuf_iterator<CharT, std::char_traits<CharT> > >
-  class date_input_facet : public std::locale::facet {
+  class BOOST_SYMBOL_VISIBLE date_input_facet : public std::locale::facet {
   public:
     typedef typename date_type::duration_type duration_type;
     // greg_weekday is gregorian_calendar::day_of_week_type

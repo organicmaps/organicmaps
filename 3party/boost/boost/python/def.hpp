@@ -37,7 +37,7 @@ namespace detail
       // Must not try to use default implementations except with method definitions.
       typedef typename error::multiple_functions_passed_to_def<
           Helper::has_default_implementation
-          >::type assertion;
+          >::type assertion BOOST_ATTRIBUTE_UNUSED;
       
       detail::scope_setattr_doc(
           name, boost::python::make_function(

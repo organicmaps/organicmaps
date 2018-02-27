@@ -166,7 +166,7 @@ struct unique<MultiPolygon, multi_polygon_tag>
 template <typename Geometry>
 inline void unique(Geometry& geometry)
 {
-    concept::check<Geometry>();
+    concepts::check<Geometry>();
 
     // Default strategy is the default point-comparison policy
     typedef geometry::equal_to

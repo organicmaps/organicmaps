@@ -1,8 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014-2015, Oracle and/or its affiliates.
+// Copyright (c) 2014-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
@@ -47,6 +48,8 @@
 #include <boost/geometry/algorithms/detail/is_valid/debug_print_turns.hpp>
 
 #include <boost/geometry/algorithms/dispatch/is_simple.hpp>
+
+#include <boost/geometry/strategies/intersection.hpp>
 
 
 namespace boost { namespace geometry
@@ -186,8 +189,8 @@ private:
 };
 
 
-template <typename Linear>
-inline bool has_self_intersections(Linear const& linear)
+template <typename Linear, typename Strategy>
+inline bool has_self_intersections(Linear const& linear, Strategy const& strategy)
 {
     typedef typename point_type<Linear>::type point_type;
 
@@ -218,6 +221,7 @@ inline bool has_self_intersections(Linear const& linear)
         <
             turn_policy
         >::apply(linear,
+                 strategy,
                  detail::no_rescale_policy(),
                  turns,
                  interrupt_policy);
@@ -235,15 +239,27 @@ struct is_simple_linestring
     static inline bool apply(Linestring const& linestring)
     {
         simplicity_failure_policy policy;
-        return ! detail::is_valid::has_duplicates
+        return ! boost::empty(linestring)
+            && ! detail::is_valid::has_duplicates
                     <
                         Linestring, closed
                     >::apply(linestring, policy)
             && ! detail::is_valid::has_spikes
                     <
                         Linestring, closed
-                    >::apply(linestring, policy)
-            && ! (CheckSelfIntersections && has_self_intersections(linestring));
+                    >::apply(linestring, policy);
+    }
+};
+
+template <typename Linestring>
+struct is_simple_linestring<Linestring, true>
+{
+    template <typename Strategy>
+    static inline bool apply(Linestring const& linestring,
+                             Strategy const& strategy)
+    {
+        return is_simple_linestring<Linestring, false>::apply(linestring)
+            && ! has_self_intersections(linestring, strategy);
     }
 };
 
@@ -251,7 +267,9 @@ struct is_simple_linestring
 template <typename MultiLinestring>
 struct is_simple_multilinestring
 {
-    static inline bool apply(MultiLinestring const& multilinestring)
+    template <typename Strategy>
+    static inline bool apply(MultiLinestring const& multilinestring,
+                             Strategy const& strategy)
     {
         // check each of the linestrings for simplicity
         // but do not compute self-intersections yet; these will be
@@ -263,7 +281,7 @@ struct is_simple_multilinestring
                              typename boost::range_value<MultiLinestring>::type,
                              false // do not compute self-intersections
                          >,
-                     false // do not allow empty multilinestring
+                     true // allow empty multilinestring
                  >::apply(boost::begin(multilinestring),
                           boost::end(multilinestring))
              )
@@ -271,7 +289,7 @@ struct is_simple_multilinestring
             return false;
         }
 
-        return ! has_self_intersections(multilinestring);
+        return ! has_self_intersections(multilinestring, strategy);
     }
 };
 

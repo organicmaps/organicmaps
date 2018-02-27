@@ -20,7 +20,7 @@
 #include <boost/config.hpp>
 #include <boost/smart_ptr/detail/sp_has_sync.hpp>
 
-#if defined( __clang__ ) && defined( __has_extension )
+#if !defined( __c2__ ) && defined( __clang__ ) && defined( __has_extension )
 # if __has_extension( __c_atomic__ )
 #   define BOOST_SP_HAS_CLANG_C11_ATOMICS
 # endif
@@ -44,6 +44,9 @@
 #elif defined( BOOST_SP_HAS_CLANG_C11_ATOMICS )
 # include <boost/smart_ptr/detail/sp_counted_base_clang.hpp>
 
+#elif !defined( BOOST_NO_CXX11_HDR_ATOMIC )
+# include <boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp>
+
 #elif defined( __SNC__ )
 # include <boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp>
 
@@ -65,7 +68,7 @@
 #elif defined( __GNUC__ ) && ( defined( __powerpc__ ) || defined( __ppc__ ) || defined( __ppc ) ) && !defined(__PATHSCALE__) && !defined( _AIX )
 # include <boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp>
 
-#elif defined( __GNUC__ ) && ( defined( __mips__ ) || defined( _mips ) ) && !defined(__PATHSCALE__)
+#elif defined( __GNUC__ ) && ( defined( __mips__ ) || defined( _mips ) ) && !defined(__PATHSCALE__) && !defined( __mips16 )
 # include <boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp>
 
 #elif defined( BOOST_SP_HAS_SYNC )

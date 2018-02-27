@@ -4,10 +4,11 @@
 // Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2013-2014.
-// Modifications copyright (c) 2013-2014, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013-2017.
+// Modifications copyright (c) 2013-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -29,6 +30,8 @@
 #include <boost/geometry/policies/robustness/no_rescale_policy.hpp>
 #include <boost/geometry/policies/robustness/segment_ratio_type.hpp>
 
+#include <boost/geometry/strategies/relate.hpp>
+
 
 namespace boost { namespace geometry
 {
@@ -49,9 +52,13 @@ namespace boost { namespace geometry
 template <typename Geometry>
 inline bool intersects(Geometry const& geometry)
 {
-    concept::check<Geometry const>();
+    concepts::check<Geometry const>();
 
     typedef typename geometry::point_type<Geometry>::type point_type;
+    typedef typename strategy::relate::services::default_strategy
+            <
+                Geometry, Geometry
+            >::type strategy_type;
     typedef detail::no_rescale_policy rescale_policy_type;
 
     typedef detail::overlay::turn_info
@@ -67,14 +74,41 @@ inline bool intersects(Geometry const& geometry)
             detail::overlay::assign_null_policy
         > turn_policy;
 
+    strategy_type strategy;
     rescale_policy_type robust_policy;
 
     detail::disjoint::disjoint_interrupt_policy policy;
     detail::self_get_turn_points::get_turns
         <
             turn_policy
-        >::apply(geometry, robust_policy, turns, policy);
+        >::apply(geometry, strategy, robust_policy, turns, policy);
     return policy.has_intersections;
+}
+
+
+/*!
+\brief \brief_check2{have at least one intersection}
+\ingroup intersects
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\tparam Strategy \tparam_strategy{Intersects}
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\param strategy \param_strategy{intersects}
+\return \return_check2{intersect each other}
+
+\qbk{distinguish,with strategy}
+\qbk{[include reference/algorithms/intersects.qbk]}
+ */
+template <typename Geometry1, typename Geometry2, typename Strategy>
+inline bool intersects(Geometry1 const& geometry1,
+                       Geometry2 const& geometry2,
+                       Strategy const& strategy)
+{
+    concepts::check<Geometry1 const>();
+    concepts::check<Geometry2 const>();
+
+    return ! geometry::disjoint(geometry1, geometry2, strategy);
 }
 
 
@@ -93,8 +127,8 @@ inline bool intersects(Geometry const& geometry)
 template <typename Geometry1, typename Geometry2>
 inline bool intersects(Geometry1 const& geometry1, Geometry2 const& geometry2)
 {
-    concept::check<Geometry1 const>();
-    concept::check<Geometry2 const>();
+    concepts::check<Geometry1 const>();
+    concepts::check<Geometry2 const>();
 
     return ! geometry::disjoint(geometry1, geometry2);
 }

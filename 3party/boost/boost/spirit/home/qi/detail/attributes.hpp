@@ -90,7 +90,7 @@ namespace boost { namespace spirit { namespace qi
         static void post(boost::optional<Exposed>&, Transformed const&) {}
         static void fail(boost::optional<Exposed>& val)
         {
-             val = none_t();    // leave optional uninitialized if rhs failed
+             val = none;    // leave optional uninitialized if rhs failed
         }
     };
 

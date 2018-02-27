@@ -11,7 +11,7 @@
 
 namespace boost { namespace python
 {
-  struct BOOST_PYTHON_DECL_FORWARD instance_holder;
+  struct instance_holder;
 }} // namespace boost::python
 
 namespace boost { namespace python { namespace objects { 

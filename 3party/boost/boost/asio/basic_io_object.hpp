@@ -2,7 +2,7 @@
 // basic_io_object.hpp
 // ~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -35,12 +35,13 @@ namespace detail
     typedef typename service_type::implementation_type implementation_type;
 
     template <typename T, typename U>
-    static auto eval(T* t, U* u) -> decltype(t->move_construct(*u, *u), char());
-    static char (&eval(...))[2];
+    static auto asio_service_has_move_eval(T* t, U* u)
+      -> decltype(t->move_construct(*u, *u), char());
+    static char (&asio_service_has_move_eval(...))[2];
 
   public:
     static const bool value =
-      sizeof(service_has_move::eval(
+      sizeof(asio_service_has_move_eval(
         static_cast<service_type*>(0),
         static_cast<implementation_type*>(0))) == 1;
   };
@@ -112,6 +113,11 @@ protected:
    * @note Available only for services that support movability,
    */
   basic_io_object& operator=(basic_io_object&& other);
+
+  /// Perform a converting move-construction of a basic_io_object.
+  template <typename IoObjectService1>
+  basic_io_object(IoObjectService1& other_service,
+      typename IoObjectService1::implementation_type& other_implementation);
 #endif // defined(GENERATING_DOCUMENTATION)
 
   /// Protected destructor to prevent deletion through this type.
@@ -189,6 +195,16 @@ protected:
     : service_(&other.get_service())
   {
     service_->move_construct(implementation, other.implementation);
+  }
+
+  template <typename IoObjectService1>
+  basic_io_object(IoObjectService1& other_service,
+      typename IoObjectService1::implementation_type& other_implementation)
+    : service_(&boost::asio::use_service<IoObjectService>(
+          other_service.get_io_service()))
+  {
+    service_->converting_move_construct(implementation,
+        other_service, other_implementation);
   }
 
   ~basic_io_object()

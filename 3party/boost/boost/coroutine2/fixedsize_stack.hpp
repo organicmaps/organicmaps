@@ -22,7 +22,10 @@
 namespace boost {
 namespace coroutines2 {
 
-typedef boost::context::fixedsize_stack fixedsize_stack;
+using fixedsize_stack = boost::context::fixedsize_stack;
+#if !defined(BOOST_USE_SEGMENTED_STACKS)
+using default_stack = boost::context::default_stack;
+#endif
 
 }}
 

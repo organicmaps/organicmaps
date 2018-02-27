@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2001-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -106,10 +106,22 @@ class type_info;
 #define BOOST_TEST_MAIN BOOST_TEST_MODULE
 #endif
 
+
+
+#ifndef BOOST_PP_VARIADICS /* we can change this only if not already defined) */
+
 #ifdef __PGI
 #define BOOST_PP_VARIADICS 1
 #endif
 
+#if BOOST_CLANG
+#define BOOST_PP_VARIADICS 1
+#endif
 
+#if defined(BOOST_GCC) && (BOOST_GCC >= 4 * 10000 + 8 * 100)
+#define BOOST_PP_VARIADICS 1
+#endif
+
+#endif /* ifndef BOOST_PP_VARIADICS */
 
 #endif // BOOST_TEST_CONFIG_HPP_071894GER

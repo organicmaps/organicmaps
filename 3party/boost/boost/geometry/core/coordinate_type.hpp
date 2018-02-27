@@ -17,8 +17,8 @@
 
 #include <boost/mpl/assert.hpp>
 
-#include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/point_type.hpp>
+#include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/util/bare_type.hpp>
 #include <boost/geometry/util/promote_floating_point.hpp>
 

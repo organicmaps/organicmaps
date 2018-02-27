@@ -29,11 +29,11 @@
 #else
 
 // If our std lib was not some version of STLport, and has not otherwise
-// been detected, then include <utility> as it is about
+// been detected, then include <utility> as it is about 
 // the smallest of the std lib headers that includes real C++ stuff.
-// Some std libs do not include their C++-related macros in <cstddef>
+// Some std libs do not include their C++-related macros in <cstddef> 
 // so this additional include makes sure we get those definitions.
-// Note: do not rely on this header being included since users can short-circuit this
+// Note: do not rely on this header being included since users can short-circuit this 
 // #include if they know whose std lib they are using.
 #if !defined(__LIBCOMO__) && !defined(__STD_RWCOMPILER_H__) && !defined(_RWSTD_VER)\
    && !defined(_LIBCPP_VERSION) && !defined(__GLIBCPP__) && !defined(__GLIBCXX__)\

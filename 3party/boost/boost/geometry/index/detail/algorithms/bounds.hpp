@@ -44,7 +44,7 @@ struct bounds<Geometry, Bounds, segment_tag, box_tag>
 template <typename Geometry, typename Bounds>
 inline void bounds(Geometry const& g, Bounds & b)
 {
-    concept::check_concepts_and_equal_dimensions<Geometry const, Bounds>();
+    concepts::check_concepts_and_equal_dimensions<Geometry const, Bounds>();
     dispatch::bounds<Geometry, Bounds>::apply(g, b);
 }
 

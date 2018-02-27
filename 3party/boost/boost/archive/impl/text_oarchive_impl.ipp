@@ -10,7 +10,6 @@
 
 #include <string>
 #include <boost/config.hpp>
-#include <locale>
 #include <cstddef> // size_t
 
 #include <boost/config.hpp>
@@ -27,7 +26,6 @@ namespace std{ using ::wcslen; }
 #endif
 #endif
 
-#include <boost/archive/add_facet.hpp>
 #include <boost/archive/text_oarchive.hpp>
 
 namespace boost { 
@@ -84,7 +82,7 @@ text_oarchive_impl<Archive>::save(const std::wstring &ws)
 #endif // BOOST_NO_CWCHAR
 
 template<class Archive>
-BOOST_ARCHIVE_DECL
+BOOST_ARCHIVE_DECL 
 text_oarchive_impl<Archive>::text_oarchive_impl(
     std::ostream & os, 
     unsigned int flags

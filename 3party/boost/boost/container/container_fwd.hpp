@@ -24,6 +24,7 @@
 //!   - boost::container::vector
 //!   - boost::container::stable_vector
 //!   - boost::container::static_vector
+//!   - boost::container::small_vector
 //!   - boost::container::slist
 //!   - boost::container::list
 //!   - boost::container::set
@@ -38,10 +39,18 @@
 //!   - boost::container::string
 //!   - boost::container::wstring
 //!
-//! It forward declares the following allocators:
+//! Forward declares the following allocators:
 //!   - boost::container::allocator
 //!   - boost::container::node_allocator
 //!   - boost::container::adaptive_pool
+//!
+//! Forward declares the following polymorphic resource classes:
+//!   - boost::container::pmr::memory_resource
+//!   - boost::container::pmr::polymorphic_allocator
+//!   - boost::container::pmr::monotonic_buffer_resource
+//!   - boost::container::pmr::pool_options
+//!   - boost::container::pmr::unsynchronized_pool_resource
+//!   - boost::container::pmr::synchronized_pool_resource
 //!
 //! And finally it defines the following types
 
@@ -54,11 +63,18 @@
 
 namespace boost{
 namespace intrusive{
+namespace detail{
    //Create namespace to avoid compilation errors
-}}
+}}}
 
 namespace boost{ namespace container{ namespace container_detail{
    namespace bi = boost::intrusive;
+   namespace bid = boost::intrusive::detail;
+}}}
+
+namespace boost{ namespace container{ namespace pmr{
+   namespace bi = boost::intrusive;
+   namespace bid = boost::intrusive::detail;
 }}}
 
 #include <cstddef>
@@ -209,6 +225,26 @@ template
    , std::size_t NodesPerBlock = NodeAlloc_nodes_per_block
    , std::size_t Version = 2>
 class node_allocator;
+
+namespace pmr {
+
+class memory_resource;
+
+template<class T>
+class polymorphic_allocator;
+
+class monotonic_buffer_resource;
+
+struct pool_options;
+
+template <class Allocator>
+class resource_adaptor_imp;
+
+class unsynchronized_pool_resource;
+
+class synchronized_pool_resource;
+
+}  //namespace pmr {
 
 #else
 

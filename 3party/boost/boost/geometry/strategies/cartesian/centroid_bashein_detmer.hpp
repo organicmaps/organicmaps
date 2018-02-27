@@ -25,7 +25,7 @@
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/numeric/conversion/cast.hpp>
-#include <boost/type_traits.hpp>
+#include <boost/type_traits/is_void.hpp>
 
 #include <boost/geometry/arithmetic/determinant.hpp>
 #include <boost/geometry/core/coordinate_type.hpp>

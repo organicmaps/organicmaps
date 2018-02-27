@@ -11,6 +11,7 @@
 #include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>
 #include <boost/fusion/adapted/struct/detail/define_struct.hpp>
+#include <boost/preprocessor/cat.hpp>
 
 #define BOOST_FUSION_DEFINE_TPL_STRUCT(                                         \
     TEMPLATE_PARAMS_SEQ, NAMESPACE_SEQ, NAME, ATTRIBUTES)                       \

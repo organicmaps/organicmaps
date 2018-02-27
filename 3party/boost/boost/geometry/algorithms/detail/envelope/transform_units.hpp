@@ -92,7 +92,7 @@ inline void transform_units(GeometryIn const& geometry_in,
         <
             GeometryIn, GeometryOut
         >::apply(geometry_in, geometry_out);
-};
+}
 
 
 }} // namespace detail::envelope

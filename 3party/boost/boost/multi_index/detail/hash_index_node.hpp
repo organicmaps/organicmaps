@@ -750,7 +750,7 @@ public:
 
   static const hashed_index_node* from_impl(const_impl_pointer x)
   {
-    return
+    return 
       static_cast<const hashed_index_node*>(
         static_cast<const trampoline*>(
           raw_ptr<const impl_type*>(x)));

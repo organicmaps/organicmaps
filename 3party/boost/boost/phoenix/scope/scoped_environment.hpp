@@ -48,7 +48,7 @@ namespace boost { namespace phoenix
             : env(o.env)
             , outer_env(o.outer_env)
             , locals(o.locals)
-        {};
+        {}
 
         Env      const & env;
         OuterEnv const & outer_env;

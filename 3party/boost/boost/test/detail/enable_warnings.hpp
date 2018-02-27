@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2004-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -26,6 +26,11 @@
 # pragma warning(pop)
 #endif
 
-#ifdef BOOST_CLANG
+#if BOOST_CLANG
 #pragma clang diagnostic pop
 #endif
+
+#if defined(BOOST_GCC) && (BOOST_GCC >= 4 * 10000 + 6 * 100)
+# pragma GCC diagnostic pop
+#endif
+

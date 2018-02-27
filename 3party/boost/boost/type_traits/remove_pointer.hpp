@@ -10,19 +10,15 @@
 #define BOOST_TT_REMOVE_POINTER_HPP_INCLUDED
 
 #include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 
 #if defined(BOOST_MSVC)
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #endif
 
-// should be the last #include
-#include <boost/type_traits/detail/type_trait_def.hpp>
-
 namespace boost {
 
-#ifdef BOOST_MSVC
+#if BOOST_WORKAROUND(BOOST_MSVC, < 1900)
 
 namespace detail{
 
@@ -64,20 +60,18 @@ namespace detail{
    };
 }
 
-BOOST_TT_AUX_TYPE_TRAIT_DEF1(remove_pointer,T,typename boost::detail::remove_pointer_imp2<T>::type)
+template <class T> struct remove_pointer{ typedef typename boost::detail::remove_pointer_imp2<T>::type type; };
 
 #else
 
-BOOST_TT_AUX_TYPE_TRAIT_DEF1(remove_pointer,T,T)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,remove_pointer,T*,T)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,remove_pointer,T* const,T)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,remove_pointer,T* volatile,T)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,remove_pointer,T* const volatile,T)
+template <class T> struct remove_pointer{ typedef T type; };
+template <class T> struct remove_pointer<T*>{ typedef T type; };
+template <class T> struct remove_pointer<T*const>{ typedef T type; };
+template <class T> struct remove_pointer<T*volatile>{ typedef T type; };
+template <class T> struct remove_pointer<T*const volatile>{ typedef T type; };
 
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/type_trait_undef.hpp>
 
 #endif // BOOST_TT_REMOVE_POINTER_HPP_INCLUDED

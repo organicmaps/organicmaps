@@ -132,7 +132,7 @@ namespace graph_detail {
         // Note that insertion always succeeds so we can add the vertex first
         // and then the mapping to the label.
         typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
-        Vertex v = add_vertex(g);
+        Vertex v = add_vertex(p, g);
         c.insert(std::make_pair(l, v));
         return std::make_pair(v, true);
     }
@@ -319,14 +319,15 @@ public:
     labeled_graph(vertices_size_type n, LabelIter l,
                   graph_property_type const& gp = graph_property_type())
         : _graph(gp)
-    { while(n-- >= 0) add_vertex(*l++); }
+    { while(n-- > 0) add_vertex(*l++); }
 
     // Construct the graph over n vertices each of which has a label in the
     // range [l, l + n) and a property in the range [p, p + n).
     template <typename LabelIter, typename PropIter>
     labeled_graph(vertices_size_type n, LabelIter l, PropIter p,
                   graph_property_type const& gp = graph_property_type())
-    { while(n-- >= 0) add_vertex(*l++, *p++); }
+        : _graph(gp)
+    { while(n-- > 0) add_vertex(*l++, *p++); }
 
     labeled_graph& operator=(labeled_graph const& x) {
         _graph = x._graph;

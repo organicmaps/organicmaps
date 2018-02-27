@@ -19,7 +19,7 @@
 
 #include <boost/variant/detail/multivisitors_cpp14_based.hpp>
 
-namespace boost {
+namespace boost { 
 
 namespace detail { namespace variant {
 
@@ -118,7 +118,7 @@ namespace detail { namespace variant {
             v1
         );
     }
-
+    
 
     template <class Visitor, class T1, class T2, class T3, class... TN>
     inline decltype(auto) apply_visitor(Visitor& visitor, T1& v1, T2& v2, T3& v3, TN&... vn,
@@ -139,3 +139,4 @@ namespace detail { namespace variant {
 } // namespace boost
 
 #endif // BOOST_VARIANT_DETAIL_MULTIVISITORS_CPP14_BASED_HPP
+

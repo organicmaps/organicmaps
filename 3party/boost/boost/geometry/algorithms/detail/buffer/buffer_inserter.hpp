@@ -2,6 +2,10 @@
 
 // Copyright (c) 2012-2014 Barend Gehrels, Amsterdam, the Netherlands.
 
+// This file was modified by Oracle on 2017.
+// Modifications copyright (c) 2017 Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -31,6 +35,7 @@
 #include <boost/geometry/algorithms/detail/buffer/line_line_intersection.hpp>
 #include <boost/geometry/algorithms/detail/buffer/parallel_continue.hpp>
 
+#include <boost/geometry/algorithms/assign.hpp>
 #include <boost/geometry/algorithms/num_interior_rings.hpp>
 #include <boost/geometry/algorithms/simplify.hpp>
 
@@ -135,6 +140,7 @@ struct buffer_range
             RobustPolicy const& )
     {
         output_point_type intersection_point;
+        geometry::assign_zero(intersection_point);
 
         strategy::buffer::join_selector join
                 = get_join_type(penultimate_input, previous_input, input);
@@ -392,7 +398,7 @@ inline void buffer_point(Point const& point, Collection& collection,
     point_strategy.apply(point, distance_strategy, range_out);
     collection.add_piece(strategy::buffer::buffered_point, range_out, false);
     collection.set_piece_center(point);
-    collection.finish_ring();
+    collection.finish_ring(strategy::buffer::result_normal);
 }
 
 
@@ -447,13 +453,14 @@ struct buffer_inserter<point_tag, Point, RingOutput>
     }
 };
 
-
+// Not a specialization, but called from specializations of ring and of polygon.
+// Calling code starts/finishes ring before/after apply
 template
 <
     typename RingInput,
     typename RingOutput
 >
-struct buffer_inserter<ring_tag, RingInput, RingOutput>
+struct buffer_inserter_ring
 {
     typedef typename point_type<RingOutput>::type output_point_type;
 
@@ -563,6 +570,43 @@ struct buffer_inserter<ring_tag, RingInput, RingOutput>
     }
 };
 
+
+template
+<
+    typename RingInput,
+    typename RingOutput
+>
+struct buffer_inserter<ring_tag, RingInput, RingOutput>
+{
+    template
+    <
+        typename Collection,
+        typename DistanceStrategy,
+        typename SideStrategy,
+        typename JoinStrategy,
+        typename EndStrategy,
+        typename PointStrategy,
+        typename RobustPolicy
+    >
+    static inline strategy::buffer::result_code apply(RingInput const& ring,
+            Collection& collection,
+            DistanceStrategy const& distance,
+            SideStrategy const& side_strategy,
+            JoinStrategy const& join_strategy,
+            EndStrategy const& end_strategy,
+            PointStrategy const& point_strategy,
+            RobustPolicy const& robust_policy)
+    {
+        collection.start_new_ring();
+        strategy::buffer::result_code const code
+            = buffer_inserter_ring<RingInput, RingOutput>::apply(ring,
+                collection, distance,
+                side_strategy, join_strategy, end_strategy, point_strategy,
+                robust_policy);
+        collection.finish_ring(code);
+        return code;
+    }
+};
 
 template
 <
@@ -680,7 +724,7 @@ struct buffer_inserter<linestring_tag, Linestring, Polygon>
                         distance, side_strategy, join_strategy, end_strategy, robust_policy,
                         first_p1);
             }
-            collection.finish_ring();
+            collection.finish_ring(code);
         }
         if (code == strategy::buffer::result_no_output && n >= 1)
         {
@@ -707,7 +751,7 @@ private:
     typedef typename ring_type<PolygonInput>::type input_ring_type;
     typedef typename ring_type<PolygonOutput>::type output_ring_type;
 
-    typedef buffer_inserter<ring_tag, input_ring_type, output_ring_type> policy;
+    typedef buffer_inserter_ring<input_ring_type, output_ring_type> policy;
 
 
     template
@@ -740,12 +784,7 @@ private:
                     join_strategy, end_strategy, point_strategy,
                     robust_policy);
 
-            if (code == strategy::buffer::result_error_numerical)
-            {
-                collection.abort_ring();
-                return;
-            }
-            collection.finish_ring(is_interior);
+            collection.finish_ring(code, is_interior);
         }
     }
 
@@ -805,14 +844,8 @@ public:
                     join_strategy, end_strategy, point_strategy,
                     robust_policy);
 
-            if (code == strategy::buffer::result_error_numerical)
-            {
-                collection.abort_ring();
-            }
-            else
-            {
-                collection.finish_ring(false, geometry::num_interior_rings(polygon) > 0u);
-            }
+            collection.finish_ring(code, false,
+                    geometry::num_interior_rings(polygon) > 0u);
         }
 
         apply_interior_rings(interior_rings(polygon),
@@ -863,6 +896,7 @@ template
     typename JoinStrategy,
     typename EndStrategy,
     typename PointStrategy,
+    typename IntersectionStrategy,
     typename RobustPolicy,
     typename VisitPiecesPolicy
 >
@@ -872,6 +906,7 @@ inline void buffer_inserter(GeometryInput const& geometry_input, OutputIterator 
         JoinStrategy const& join_strategy,
         EndStrategy const& end_strategy,
         PointStrategy const& point_strategy,
+        IntersectionStrategy const& intersection_strategy,
         RobustPolicy const& robust_policy,
         VisitPiecesPolicy& visit_pieces_policy
     )
@@ -881,9 +916,10 @@ inline void buffer_inserter(GeometryInput const& geometry_input, OutputIterator 
     typedef detail::buffer::buffered_piece_collection
     <
         typename geometry::ring_type<GeometryOutput>::type,
+        IntersectionStrategy,
         RobustPolicy
     > collection_type;
-    collection_type collection(robust_policy);
+    collection_type collection(intersection_strategy, robust_policy);
     collection_type const& const_collection = collection;
 
     bool const areal = boost::is_same
@@ -927,6 +963,10 @@ inline void buffer_inserter(GeometryInput const& geometry_input, OutputIterator 
     collection.discard_rings();
     collection.block_turns();
     collection.enrich();
+
+    // phase 1: turns (after enrichment/clustering)
+    visit_pieces_policy.apply(const_collection, 1);
+
     collection.traverse();
 
     // Reverse all offsetted rings / traversed rings if:
@@ -952,8 +992,8 @@ inline void buffer_inserter(GeometryInput const& geometry_input, OutputIterator 
     collection.template assign<GeometryOutput>(out);
 
     // Visit collection again
-    // phase 1: rings (after discarding and traversing)
-    visit_pieces_policy.apply(const_collection, 1);
+    // phase 2: rings (after traversing)
+    visit_pieces_policy.apply(const_collection, 2);
 }
 
 template
@@ -966,6 +1006,7 @@ template
     typename JoinStrategy,
     typename EndStrategy,
     typename PointStrategy,
+    typename IntersectionStrategy,
     typename RobustPolicy
 >
 inline void buffer_inserter(GeometryInput const& geometry_input, OutputIterator out,
@@ -974,13 +1015,14 @@ inline void buffer_inserter(GeometryInput const& geometry_input, OutputIterator 
         JoinStrategy const& join_strategy,
         EndStrategy const& end_strategy,
         PointStrategy const& point_strategy,
+        IntersectionStrategy const& intersection_strategy,
         RobustPolicy const& robust_policy)
 {
     detail::buffer::visit_pieces_default_policy visitor;
     buffer_inserter<GeometryOutput>(geometry_input, out,
         distance_strategy, side_strategy, join_strategy,
         end_strategy, point_strategy,
-        robust_policy, visitor);
+        intersection_strategy, robust_policy, visitor);
 }
 #endif // DOXYGEN_NO_DETAIL
 

@@ -12,7 +12,7 @@
 #ifndef BOOST_ALGORITHM_COPY_IF_HPP
 #define BOOST_ALGORITHM_COPY_IF_HPP
 
-#include <algorithm>    // for std::copy_if, if available
+#include <utility>    // for std::pair, std::make_pair
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 
@@ -28,8 +28,6 @@ namespace boost { namespace algorithm {
 /// \param result   An output iterator to write the results into
 /// \param p        A predicate for testing the elements of the range
 /// \note           This function is part of the C++2011 standard library.
-///  We will use the standard one if it is available, 
-///  otherwise we have our own implementation.
 template<typename InputIterator, typename OutputIterator, typename Predicate> 
 OutputIterator copy_if ( InputIterator first, InputIterator last, OutputIterator result, Predicate p )
 {

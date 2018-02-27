@@ -300,7 +300,7 @@ public:
 
 namespace boost {
 
-#if !defined(BOOST_RESULT_OF_USE_DECLTYPE) || defined(BOOST_NO_DECLTYPE)
+#if !defined(BOOST_RESULT_OF_USE_DECLTYPE) || defined(BOOST_NO_CXX11_DECLTYPE)
 
 template<class T>
 struct result_of<boost::lambda::lambda_functor<T>()>

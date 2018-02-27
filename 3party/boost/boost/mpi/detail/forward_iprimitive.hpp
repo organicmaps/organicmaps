@@ -42,7 +42,7 @@ public:
     
     /// loading of arrays is forwarded to the implementation archive
     template<class T>
-    void load_array(serialization::array<T> & x, unsigned int file_version )
+    void load_array(serialization::array_wrapper<T> & x, unsigned int file_version )
     {
       implementation_archive.load_array(x,file_version);
     }

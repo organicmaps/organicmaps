@@ -13,6 +13,7 @@
 
 #include <sys/time.h> //for gettimeofday and timeval
 #include <mach/mach_time.h>  // mach_absolute_time, mach_timebase_info_data_t
+#include <boost/assert.hpp>
 
 namespace boost
 {
@@ -39,7 +40,7 @@ system_clock::now(system::error_code & ec)
 {
     timeval tv;
     gettimeofday(&tv, 0);
-    if (!BOOST_CHRONO_IS_THROWS(ec)) 
+    if (!BOOST_CHRONO_IS_THROWS(ec))
     {
         ec.clear();
     }
@@ -88,7 +89,7 @@ BOOST_CHRONO_STATIC
 steady_clock::rep
 steady_simplified_ec(system::error_code & ec)
 {
-    if (!BOOST_CHRONO_IS_THROWS(ec)) 
+    if (!BOOST_CHRONO_IS_THROWS(ec))
     {
         ec.clear();
     }
@@ -112,9 +113,9 @@ BOOST_CHRONO_STATIC
 steady_clock::rep
 steady_full()
 {
-    static kern_return_t err;
-    static const double factor = chrono_detail::compute_steady_factor(err);
-    if (err != 0) 
+    kern_return_t err;
+    const double factor = chrono_detail::compute_steady_factor(err);
+    if (err != 0)
     {
       BOOST_ASSERT(0 && "Boost::Chrono - Internal Error");
     }
@@ -126,25 +127,25 @@ BOOST_CHRONO_STATIC
 steady_clock::rep
 steady_full_ec(system::error_code & ec)
 {
-    static kern_return_t err;
-    static const double factor = chrono_detail::compute_steady_factor(err);
-    if (err != 0) 
+    kern_return_t err;
+    const double factor = chrono_detail::compute_steady_factor(err);
+    if (err != 0)
     {
         if (BOOST_CHRONO_IS_THROWS(ec))
         {
             boost::throw_exception(
-                    system::system_error( 
-                            err, 
-                            BOOST_CHRONO_SYSTEM_CATEGORY, 
+                    system::system_error(
+                            err,
+                            BOOST_CHRONO_SYSTEM_CATEGORY,
                             "chrono::steady_clock" ));
-        } 
+        }
         else
         {
             ec.assign( errno, BOOST_CHRONO_SYSTEM_CATEGORY );
             return steady_clock::rep();
         }
     }
-    if (!BOOST_CHRONO_IS_THROWS(ec)) 
+    if (!BOOST_CHRONO_IS_THROWS(ec))
     {
         ec.clear();
     }
@@ -163,7 +164,7 @@ init_steady_clock(kern_return_t & err)
 {
     mach_timebase_info_data_t MachInfo;
     err = mach_timebase_info(&MachInfo);
-    if ( err != 0  ) 
+    if ( err != 0  )
     {
         return 0;
     }
@@ -182,12 +183,12 @@ init_steady_clock_ec(kern_return_t & err)
 {
     mach_timebase_info_data_t MachInfo;
     err = mach_timebase_info(&MachInfo);
-    if ( err != 0  ) 
+    if ( err != 0  )
     {
         return 0;
     }
 
-    if (MachInfo.numer == MachInfo.denom) 
+    if (MachInfo.numer == MachInfo.denom)
     {
         return &chrono_detail::steady_simplified_ec;
     }
@@ -199,10 +200,10 @@ init_steady_clock_ec(kern_return_t & err)
 steady_clock::time_point
 steady_clock::now() BOOST_NOEXCEPT
 {
-    static kern_return_t err;
-    static chrono_detail::FP fp = chrono_detail::init_steady_clock(err);
-    if ( err != 0  ) 
-    {     
+    kern_return_t err;
+    chrono_detail::FP fp = chrono_detail::init_steady_clock(err);
+    if ( err != 0  )
+    {
       BOOST_ASSERT(0 && "Boost::Chrono - Internal Error");
     }
     return time_point(duration(fp()));
@@ -212,16 +213,16 @@ steady_clock::now() BOOST_NOEXCEPT
 steady_clock::time_point
 steady_clock::now(system::error_code & ec)
 {
-    static kern_return_t err;
-    static chrono_detail::FP_ec fp = chrono_detail::init_steady_clock_ec(err);
-    if ( err != 0  ) 
+    kern_return_t err;
+    chrono_detail::FP_ec fp = chrono_detail::init_steady_clock_ec(err);
+    if ( err != 0  )
     {
         if (BOOST_CHRONO_IS_THROWS(ec))
         {
             boost::throw_exception(
-                    system::system_error( 
-                            err, 
-                            BOOST_CHRONO_SYSTEM_CATEGORY, 
+                    system::system_error(
+                            err,
+                            BOOST_CHRONO_SYSTEM_CATEGORY,
                             "chrono::steady_clock" ));
         }
         else
@@ -230,7 +231,7 @@ steady_clock::now(system::error_code & ec)
             return time_point();
         }
     }
-    if (!BOOST_CHRONO_IS_THROWS(ec)) 
+    if (!BOOST_CHRONO_IS_THROWS(ec))
     {
         ec.clear();
     }

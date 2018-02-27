@@ -37,7 +37,7 @@ namespace sources {
 namespace aux {
 
 //! The base class for logger holders
-struct BOOST_LOG_NO_VTABLE BOOST_SYMBOL_VISIBLE logger_holder_base
+struct logger_holder_base
 {
     //! The source file name where the logger was registered
     const char* const m_RegistrationFile;
@@ -52,12 +52,11 @@ struct BOOST_LOG_NO_VTABLE BOOST_SYMBOL_VISIBLE logger_holder_base
         m_LoggerType(logger_type)
     {
     }
-    virtual ~logger_holder_base() {}
 };
 
 //! The actual logger holder class
 template< typename LoggerT >
-struct BOOST_SYMBOL_VISIBLE logger_holder :
+struct logger_holder :
     public logger_holder_base
 {
     //! The logger instance
@@ -68,6 +67,14 @@ struct BOOST_SYMBOL_VISIBLE logger_holder :
         m_Logger(logger)
     {
     }
+
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+    logger_holder(const char* file, unsigned int line, LoggerT&& logger) :
+        logger_holder_base(file, line, typeindex::type_id< LoggerT >()),
+        m_Logger(static_cast< LoggerT&& >(logger))
+    {
+    }
+#endif
 };
 
 //! The class implements a global repository of tagged loggers
@@ -122,8 +129,8 @@ struct logger_singleton :
         if (holder->m_LoggerType == logger_type_index)
         {
             // Note: dynamic_cast may fail here if logger_type is not visible (for example, with Clang on Linux, if the original logger
-            //       instance was initialized in a different DSO than where it's being queried). logger_holder default visibility doesn't
-            //       help since it is inhibited by the template parameter visibility.
+            //       instance was initialized in a different DSO than where it's being queried). logger_holder visibility doesn't
+            //       have effect since it is inhibited by the template parameter visibility.
             instance = boost::static_pointer_cast< logger_holder< logger_type > >(holder);
         }
         else
@@ -133,7 +140,7 @@ struct logger_singleton :
             // happen if the same-named tag is defined differently in two or more
             // dlls. This check is intended to detect such ODR violations. However, there
             // is no protection against different definitions of the logger type itself.
-            throw_odr_violation(tag_type_index, logger_type_index, *holder);
+            boost::log::sources::aux::throw_odr_violation(tag_type_index, logger_type_index, *holder);
         }
     }
 

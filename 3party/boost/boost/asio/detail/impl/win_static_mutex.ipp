@@ -2,7 +2,7 @@
 // detail/impl/win_static_mutex.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -50,13 +50,23 @@ int win_static_mutex::do_init()
       mutex_name, 128, L"asio-58CCDC44-6264-4842-90C2-F3C545CB8AA7-%u-%p",
       static_cast<unsigned int>(::GetCurrentProcessId()), this);
 
+#if defined(BOOST_ASIO_WINDOWS_APP)
+  HANDLE mutex = ::CreateMutexExW(0, mutex_name, CREATE_MUTEX_INITIAL_OWNER, 0);
+#else // defined(BOOST_ASIO_WINDOWS_APP)
   HANDLE mutex = ::CreateMutexW(0, TRUE, mutex_name);
+#endif // defined(BOOST_ASIO_WINDOWS_APP)
   DWORD last_error = ::GetLastError();
   if (mutex == 0)
     return ::GetLastError();
 
   if (last_error == ERROR_ALREADY_EXISTS)
+  {
+#if defined(BOOST_ASIO_WINDOWS_APP)
+    ::WaitForSingleObjectEx(mutex, INFINITE, false);
+#else // defined(BOOST_ASIO_WINDOWS_APP)
     ::WaitForSingleObject(mutex, INFINITE);
+#endif // defined(BOOST_ASIO_WINDOWS_APP)
+  }
 
   if (initialised_)
   {
@@ -84,6 +94,14 @@ int win_static_mutex::do_init()
   {
 # if defined(UNDER_CE)
     ::InitializeCriticalSection(&crit_section_);
+# elif defined(BOOST_ASIO_WINDOWS_APP)
+    if (!::InitializeCriticalSectionEx(&crit_section_, 0, 0))
+    {
+      last_error = ::GetLastError();
+      ::ReleaseMutex(mutex);
+      ::CloseHandle(mutex);
+      return last_error;
+    }
 # else
     if (!::InitializeCriticalSectionAndSpinCount(&crit_section_, 0x80000000))
     {

@@ -162,7 +162,7 @@ struct transform_polygon
         geometry::clear(poly2);
 
         if (!transform_range_out<point2_type>(geometry::exterior_ring(poly1),
-                    std::back_inserter(geometry::exterior_ring(poly2)), strategy))
+                    range::back_inserter(geometry::exterior_ring(poly2)), strategy))
         {
             return false;
         }
@@ -189,7 +189,7 @@ struct transform_polygon
         for ( ; it1 != boost::end(rings1); ++it1, ++it2)
         {
             if ( ! transform_range_out<point2_type>(*it1,
-                                                    std::back_inserter(*it2),
+                                                    range::back_inserter(*it2),
                                                     strategy) )
             {
                 return false;
@@ -228,7 +228,7 @@ struct transform_range
         // Should NOT be done here!
         // geometry::clear(range2);
         return transform_range_out<point_type>(range1,
-                std::back_inserter(range2), strategy);
+                range::back_inserter(range2), strategy);
     }
 };
 
@@ -349,8 +349,8 @@ struct transform
                              Geometry2& geometry2,
                              Strategy const& strategy)
     {
-        concept::check<Geometry1 const>();
-        concept::check<Geometry2>();
+        concepts::check<Geometry1 const>();
+        concepts::check<Geometry2>();
 
         return dispatch::transform<Geometry1, Geometry2>::apply(
             geometry1,

@@ -10,6 +10,8 @@
 #if !defined(BOOST_SPIRIT_SUBRULE_IPP)
 #define BOOST_SPIRIT_SUBRULE_IPP
 
+#include <boost/mpl/if.hpp>
+
 namespace boost { namespace spirit {
 
 BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN

@@ -18,6 +18,7 @@
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/has_key.hpp>
 #include <boost/mpl/not.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>

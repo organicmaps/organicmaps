@@ -21,8 +21,8 @@
 #ifndef BOOST_ENDIAN_BUFFERS_HPP
 #define BOOST_ENDIAN_BUFFERS_HPP
 
-#if defined(_MSC_VER)
-# pragma warning(push)
+#if defined(_MSC_VER)  
+# pragma warning(push)  
 # pragma warning(disable:4365)  // conversion ... signed/unsigned mismatch
 #endif
 
@@ -195,7 +195,7 @@ namespace endian
     return os << x.value();
   }
 
-  // Stream extractor
+  // Stream extractor 
   template <class charT, class traits, BOOST_SCOPED_ENUM(order) Order, class T,
     std::size_t n_bits, BOOST_SCOPED_ENUM(align) A>
   std::basic_istream<charT, traits>&
@@ -346,7 +346,7 @@ namespace endian
 #     ifndef BOOST_ENDIAN_NO_CTORS
         endian_buffer() BOOST_ENDIAN_DEFAULT_CONSTRUCT
         explicit endian_buffer(T val) BOOST_NOEXCEPT
-        {
+        { 
 #       ifdef BOOST_ENDIAN_LOG
           if ( endian_log )
             std::cout << "big, unaligned, "
@@ -365,7 +365,7 @@ namespace endian
           return *this;
         }
         value_type value() const BOOST_NOEXCEPT
-        {
+        { 
 #       ifdef BOOST_ENDIAN_LOG
           if ( endian_log )
             std::cout << "big, unaligned, " << n_bits << "-bits, convert("
@@ -388,7 +388,7 @@ namespace endian
 #     ifndef BOOST_ENDIAN_NO_CTORS
         endian_buffer() BOOST_ENDIAN_DEFAULT_CONSTRUCT
         explicit endian_buffer(T val) BOOST_NOEXCEPT
-        {
+        { 
 #       ifdef BOOST_ENDIAN_LOG
           if ( endian_log )
             std::cout << "little, unaligned, " << n_bits << "-bits, construct("
@@ -400,7 +400,7 @@ namespace endian
         endian_buffer & operator=(T val) BOOST_NOEXCEPT
           { detail::store_little_endian<T, n_bits/8>(m_value, val); return *this; }
         value_type value() const BOOST_NOEXCEPT
-        {
+        { 
 #       ifdef BOOST_ENDIAN_LOG
           if ( endian_log )
             std::cout << "little, unaligned, " << n_bits << "-bits, convert("
@@ -435,14 +435,14 @@ namespace endian
           m_value = ::boost::endian::native_to_big(val);
         }
 
-#     endif
+#     endif  
         endian_buffer& operator=(T val) BOOST_NOEXCEPT
         {
           m_value = ::boost::endian::native_to_big(val);
           return *this;
         }
         //operator value_type() const BOOST_NOEXCEPT
-        //{
+        //{                                                                       
         //  return ::boost::endian::big_to_native(m_value);
         //}
         value_type value() const BOOST_NOEXCEPT
@@ -480,7 +480,7 @@ namespace endian
           m_value = ::boost::endian::native_to_little(val);
         }
 
-#     endif
+#     endif  
         endian_buffer& operator=(T val) BOOST_NOEXCEPT
         {
           m_value = ::boost::endian::native_to_little(val);
@@ -508,8 +508,8 @@ namespace endian
 # pragma pack(pop)
 #endif
 
-#if defined(_MSC_VER)
-# pragma warning(pop)
-#endif
+#if defined(_MSC_VER)  
+# pragma warning(pop)  
+#endif 
 
 #endif // BOOST_ENDIAN_BUFFERS_HPP

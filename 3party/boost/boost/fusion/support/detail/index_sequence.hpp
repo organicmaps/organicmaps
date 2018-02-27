@@ -12,8 +12,27 @@
 #include <boost/fusion/support/config.hpp>
 #include <cstddef>
 
+// GCC5 has O(logN) implementation, see https://gcc.gnu.org/PR66059 .
+#if (defined(__cpp_lib_integer_sequence) && __cpp_lib_integer_sequence >= 201304) \
+ || (defined(BOOST_LIBSTDCXX_VERSION) \
+     && BOOST_LIBSTDCXX_VERSION >= 500000 && __cplusplus >= 201402)
+#include <utility>
+#define BOOST_FUSION_STDLIB_HAS_INTEGER_SEQUENCE
+#endif
+
 namespace boost { namespace fusion { namespace detail
 {
+#ifdef BOOST_FUSION_STDLIB_HAS_INTEGER_SEQUENCE
+    // Use aliasing templates without checking availability, the compiler should work.
+    template <std::size_t ...Ints>
+    using index_sequence = std::index_sequence<Ints...>;
+
+    template <std::size_t N>
+    struct make_index_sequence
+    {
+        using type = std::make_index_sequence<N>;
+    };
+#else
     template <std::size_t ...Ints>
     struct index_sequence
     {
@@ -53,6 +72,8 @@ namespace boost { namespace fusion { namespace detail
     struct make_index_sequence<0>
       : index_sequence<>
     {};
+#endif
 }}}
 
 #endif
+

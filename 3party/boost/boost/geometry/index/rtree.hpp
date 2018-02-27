@@ -627,6 +627,9 @@ public:
     template <typename ConvertibleOrRange>
     inline void insert(ConvertibleOrRange const& conv_or_rng)
     {
+        if ( !m_members.root )
+            this->raw_create();
+
         typedef boost::mpl::bool_
             <
                 boost::is_convertible<ConvertibleOrRange, value_type>::value
@@ -657,6 +660,9 @@ public:
     */
     inline size_type remove(value_type const& value)
     {
+        if ( !m_members.root )
+            return 0;
+
         return this->raw_remove(value);
     }
 
@@ -687,6 +693,10 @@ public:
     inline size_type remove(Iterator first, Iterator last)
     {
         size_type result = 0;
+
+        if ( !m_members.root )
+            return result;
+
         for ( ; first != last ; ++first )
             result += this->raw_remove(*first);
         return result;
@@ -716,6 +726,9 @@ public:
     template <typename ConvertibleOrRange>
     inline size_type remove(ConvertibleOrRange const& conv_or_rng)
     {
+        if ( !m_members.root )
+            return 0;
+
         typedef boost::mpl::bool_
             <
                 boost::is_convertible<ConvertibleOrRange, value_type>::value
@@ -1250,15 +1263,15 @@ public:
     inline bounds_type bounds() const
     {
         bounds_type result;
-        if ( !m_members.root )
-        {
-            geometry::assign_inverse(result);
-            return result;
-        }
+        // in order to suppress the uninitialized variable warnings
+        geometry::assign_inverse(result);
 
-        detail::rtree::visitors::children_box<value_type, options_type, translator_type, box_type, allocators_type>
-            box_v(result, m_members.translator());
-        detail::rtree::apply_visitor(box_v, *m_members.root);
+        if ( m_members.root )
+        {
+            detail::rtree::visitors::children_box<value_type, options_type, translator_type, box_type, allocators_type>
+                box_v(result, m_members.translator());
+            detail::rtree::apply_visitor(box_v, *m_members.root);
+        }
 
         return result;
     }
@@ -1279,6 +1292,9 @@ public:
     template <typename ValueOrIndexable>
     size_type count(ValueOrIndexable const& vori) const
     {
+        if ( !m_members.root )
+            return 0;
+
         // the input should be convertible to Value or Indexable type
 
         enum { as_val = 0, as_ind, dont_know };
@@ -1570,9 +1586,6 @@ private:
     inline void insert_dispatch(ValueConvertible const& val_conv,
                                 boost::mpl::bool_<true> const& /*is_convertible*/)
     {
-        if ( !m_members.root )
-            this->raw_create();
-
         this->raw_insert(val_conv);
     }
 
@@ -1591,9 +1604,6 @@ private:
         BOOST_MPL_ASSERT_MSG((detail::is_range<Range>::value),
                              PASSED_OBJECT_IS_NOT_CONVERTIBLE_TO_VALUE_NOR_A_RANGE,
                              (Range));
-
-        if ( !m_members.root )
-            this->raw_create();
 
         typedef typename boost::range_const_iterator<Range>::type It;
         for ( It it = boost::const_begin(rng); it != boost::const_end(rng) ; ++it )
@@ -1664,6 +1674,8 @@ private:
     template <typename Predicates, typename OutIter>
     size_type query_dispatch(Predicates const& predicates, OutIter out_it, boost::mpl::bool_<true> const& /*is_distance_predicate*/) const
     {
+        BOOST_GEOMETRY_INDEX_ASSERT(m_members.root, "The root must exist");
+
         static const unsigned distance_predicate_index = detail::predicates_find_distance<Predicates>::value;
         detail::rtree::visitors::distance_query<
             value_type,
@@ -1690,8 +1702,7 @@ private:
     template <typename ValueOrIndexable>
     size_type raw_count(ValueOrIndexable const& vori) const
     {
-        if ( !m_members.root )
-            return 0;
+        BOOST_GEOMETRY_INDEX_ASSERT(m_members.root, "The root must exist");
 
         detail::rtree::visitors::count
             <

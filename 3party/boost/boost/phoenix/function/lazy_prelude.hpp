@@ -69,7 +69,7 @@
 // starting from this file. John Fletcher. February 2015.
 ////////////////////////////////////////////////////////////////////////////
 // BoostFC++ header sequence:
-//
+// 
 // prelude.hpp   -> list.hpp (optinally monad.hpp at end)
 // list.hpp      -> reuse.hpp
 // reuse.hpp     -> function.hpp
@@ -325,7 +325,7 @@ namespace boost {
                while( !p(tmp1,check)() ) {
                  tmp2 = apply(1,op,tmp1)();
                  tmp1 = tmp2;
-
+                 
                }
                return tmp1;
              }
@@ -624,7 +624,7 @@ namespace boost {
              {
                typedef typename result_of::ListType<L>::delay_result_type type;
              };
-
+   
              template <class L>
              typename result<Drop(size_t,L)>::type
              operator()( size_t n, const L& ll ) const {
@@ -636,7 +636,7 @@ namespace boost {
                return l;
              }
           };
-
+ 
           template <class T>
           struct EFH
           {

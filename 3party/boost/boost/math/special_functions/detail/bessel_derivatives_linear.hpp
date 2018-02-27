@@ -37,13 +37,25 @@ inline T sph_bessel_j_derivative_linear(unsigned v, T x, Policy pol)
 template <class T, class Policy>
 inline T bessel_i_derivative_linear(T v, T x, Policy pol)
 {
-   return (boost::math::detail::cyl_bessel_i_imp<T>(v-1, x, pol) + boost::math::detail::cyl_bessel_i_imp<T>(v+1, x, pol)) / 2;
+   T result = boost::math::detail::cyl_bessel_i_imp<T>(v - 1, x, pol);
+   if(result >= tools::max_value<T>())
+      return result;  // result is infinite
+   T result2 = boost::math::detail::cyl_bessel_i_imp<T>(v + 1, x, pol);
+   if(result2 >= tools::max_value<T>() - result)
+      return result2;  // result is infinite
+   return (result + result2) / 2;
 }
 
 template <class T, class Tag, class Policy>
 inline T bessel_k_derivative_linear(T v, T x, Tag tag, Policy pol)
 {
-   return (boost::math::detail::cyl_bessel_k_imp<T>(v-1, x, tag, pol) + boost::math::detail::cyl_bessel_k_imp<T>(v+1, x, tag, pol)) / -2;
+   T result = boost::math::detail::cyl_bessel_k_imp<T>(v - 1, x, tag, pol);
+   if(result >= tools::max_value<T>())
+      return -result;  // result is infinite
+   T result2 = boost::math::detail::cyl_bessel_k_imp<T>(v + 1, x, tag, pol);
+   if(result2 >= tools::max_value<T>() - result)
+      return -result2;  // result is infinite
+   return (result + result2) / -2;
 }
 
 template <class T, class Policy>

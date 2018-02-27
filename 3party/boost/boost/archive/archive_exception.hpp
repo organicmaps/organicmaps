@@ -39,7 +39,7 @@ namespace archive {
 //////////////////////////////////////////////////////////////////////
 // exceptions thrown by archives
 //
-class BOOST_SYMBOL_VISIBLE archive_exception :
+class BOOST_SYMBOL_VISIBLE archive_exception : 
     public virtual std::exception
 {
 private:
@@ -87,6 +87,7 @@ public:
         const char * e1 = NULL,
         const char * e2 = NULL
     ) BOOST_NOEXCEPT;
+    BOOST_ARCHIVE_DECL archive_exception(archive_exception const &) BOOST_NOEXCEPT ;
     virtual BOOST_ARCHIVE_DECL ~archive_exception() BOOST_NOEXCEPT_OR_NOTHROW ;
     virtual BOOST_ARCHIVE_DECL const char * what() const BOOST_NOEXCEPT_OR_NOTHROW ;
 };

@@ -11,6 +11,7 @@
 #endif
 
 #include <boost/config.hpp>
+#include <boost/predef.h>
 #include <boost/cstdint.hpp> // for boost::uintmax_t
 #include <boost/detail/workaround.hpp>
 #include <boost/type_traits/is_integral.hpp>
@@ -30,7 +31,7 @@
 #if (defined(__CYGWIN__) || defined(__FreeBSD__) || defined(__NetBSD__) \
    || (defined(__hppa) && !defined(__OpenBSD__)) || (defined(__NO_LONG_DOUBLE_MATH) && (DBL_MANT_DIG != LDBL_MANT_DIG))) \
    && !defined(BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS)
-#  define BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS
+//#  define BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS
 #endif
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
 //
@@ -183,14 +184,20 @@
 //
 #ifdef BOOST_MSVC
 #  define BOOST_MATH_POLY_METHOD 2
+#  define BOOST_MATH_RATIONAL_METHOD 1
 #elif defined(BOOST_INTEL)
 #  define BOOST_MATH_POLY_METHOD 2
-#  define BOOST_MATH_RATIONAL_METHOD 2
+#  define BOOST_MATH_RATIONAL_METHOD 1
 #elif defined(__GNUC__)
+#if __GNUC__ < 4
 #  define BOOST_MATH_POLY_METHOD 3
 #  define BOOST_MATH_RATIONAL_METHOD 3
 #  define BOOST_MATH_INT_TABLE_TYPE(RT, IT) RT
 #  define BOOST_MATH_INT_VALUE_SUFFIX(RV, SUF) RV##.0L
+#else
+#  define BOOST_MATH_POLY_METHOD 3
+#  define BOOST_MATH_RATIONAL_METHOD 1
+#endif
 #endif
 
 #if defined(BOOST_NO_LONG_LONG) && !defined(BOOST_MATH_INT_TABLE_TYPE)
@@ -199,20 +206,54 @@
 #endif
 
 //
+// constexpr support, early GCC implementations can't cope so disable
+// constexpr for them:
+//
+#if !defined(__clang) && defined(__GNUC__)
+#if (__GNUC__ * 100 + __GNUC_MINOR__) < 490
+#  define BOOST_MATH_DISABLE_CONSTEXPR
+#endif
+#endif
+
+#ifdef BOOST_MATH_DISABLE_CONSTEXPR
+#  define BOOST_MATH_CONSTEXPR
+#else
+#  define BOOST_MATH_CONSTEXPR BOOST_CONSTEXPR
+#endif
+
+//
+// noexcept support:
+//
+#ifndef BOOST_NO_CXX11_NOEXCEPT
+#ifndef BOOST_NO_CXX11_HDR_TYPE_TRAITS
+#include <type_traits>
+#  define BOOST_MATH_NOEXCEPT(T) noexcept(std::is_floating_point<T>::value)
+#  define BOOST_MATH_IS_FLOAT(T) (std::is_floating_point<T>::value)
+#else
+#include <boost/type_traits/is_floating_point.hpp>
+#  define BOOST_MATH_NOEXCEPT(T) noexcept(boost::is_floating_point<T>::value)
+#  define BOOST_MATH_IS_FLOAT(T) (boost::is_floating_point<T>::value)
+#endif
+#else
+#  define BOOST_MATH_NOEXCEPT(T)
+#  define BOOST_MATH_IS_FLOAT(T) false
+#endif
+
+//
 // The maximum order of polynomial that will be evaluated 
 // via an unrolled specialisation:
 //
 #ifndef BOOST_MATH_MAX_POLY_ORDER
-#  define BOOST_MATH_MAX_POLY_ORDER 17
+#  define BOOST_MATH_MAX_POLY_ORDER 20
 #endif 
 //
 // Set the method used to evaluate polynomials and rationals:
 //
 #ifndef BOOST_MATH_POLY_METHOD
-#  define BOOST_MATH_POLY_METHOD 1
+#  define BOOST_MATH_POLY_METHOD 2
 #endif 
 #ifndef BOOST_MATH_RATIONAL_METHOD
-#  define BOOST_MATH_RATIONAL_METHOD 0
+#  define BOOST_MATH_RATIONAL_METHOD 1
 #endif 
 //
 // decide whether to store constants as integers or reals:
@@ -224,7 +265,7 @@
 #  define BOOST_MATH_INT_VALUE_SUFFIX(RV, SUF) RV##SUF
 #endif
 //
-// Test whether to support __float128:
+// And then the actual configuration:
 //
 #if defined(_GLIBCXX_USE_FLOAT128) && defined(BOOST_GCC) && !defined(__STRICT_ANSI__) \
    && !defined(BOOST_MATH_DISABLE_FLOAT128) || defined(BOOST_MATH_USE_FLOAT128)
@@ -296,13 +337,13 @@ namespace tools
 {
 
 template <class T>
-inline T max BOOST_PREVENT_MACRO_SUBSTITUTION(T a, T b, T c)
+inline T max BOOST_PREVENT_MACRO_SUBSTITUTION(T a, T b, T c) BOOST_MATH_NOEXCEPT(T)
 {
    return (std::max)((std::max)(a, b), c);
 }
 
 template <class T>
-inline T max BOOST_PREVENT_MACRO_SUBSTITUTION(T a, T b, T c, T d)
+inline T max BOOST_PREVENT_MACRO_SUBSTITUTION(T a, T b, T c, T d) BOOST_MATH_NOEXCEPT(T)
 {
    return (std::max)((std::max)(a, b), (std::max)(c, d));
 }
@@ -310,7 +351,7 @@ inline T max BOOST_PREVENT_MACRO_SUBSTITUTION(T a, T b, T c, T d)
 } // namespace tools
 
 template <class T>
-void suppress_unused_variable_warning(const T&)
+void suppress_unused_variable_warning(const T&) BOOST_MATH_NOEXCEPT(T)
 {
 }
 
@@ -401,8 +442,16 @@ namespace boost{ namespace math{
 
 #endif
 
-#endif // BOOST_MATH_TOOLS_CONFIG_HPP
+//
+// Thread local storage:
+//
+#if !defined(BOOST_NO_CXX11_THREAD_LOCAL) && !defined(BOOST_INTEL)
+#  define BOOST_MATH_THREAD_LOCAL thread_local
+#else
+#  define BOOST_MATH_THREAD_LOCAL
+#endif
 
+#endif // BOOST_MATH_TOOLS_CONFIG_HPP
 
 
 

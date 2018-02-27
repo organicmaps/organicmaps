@@ -11,6 +11,7 @@
 #include <map>
 #include <queue>
 #include <vector>
+#include <list>
 
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/iteration_macros.hpp>

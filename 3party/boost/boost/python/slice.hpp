@@ -119,7 +119,7 @@ class slice : public detail::slice_base
         slice::range<RandomAccessIterator> ret;
         
         typedef typename iterator_difference<RandomAccessIterator>::type difference_type;
-        difference_type max_dist = boost::detail::distance(begin, end);
+        difference_type max_dist = std::distance(begin, end);
 
         object slice_start = this->start();
         object slice_stop = this->stop();
@@ -212,7 +212,7 @@ class slice : public detail::slice_base
         // (inclusive), and final_dist is the maximum distance covered by the
         // slice.
         typename iterator_difference<RandomAccessIterator>::type final_dist = 
-            boost::detail::distance( ret.start, ret.stop);
+            std::distance( ret.start, ret.stop);
         
         // First case, if both ret.start and ret.stop are equal, then step
         // is irrelevant and we can return here.

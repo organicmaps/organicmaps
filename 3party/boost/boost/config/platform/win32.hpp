@@ -74,6 +74,14 @@
 #  define BOOST_HAS_GETSYSTEMTIMEASFILETIME
 #endif
 
+//
+// Windows Runtime
+//
+#if defined(WINAPI_FAMILY) && \
+  (WINAPI_FAMILY == WINAPI_FAMILY_APP || WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
+#  define BOOST_NO_ANSI_APIS
+#endif
+
 #ifndef BOOST_DISABLE_WIN32
 // WEK: Added
 #define BOOST_HAS_FTIME

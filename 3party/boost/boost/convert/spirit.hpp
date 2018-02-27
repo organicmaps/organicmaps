@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2014 Vladimir Batov.
+// Copyright (c) 2009-2016 Vladimir Batov.
 // Use, modification and distribution are subject to the Boost Software License,
 // Version 1.0. See http://www.boost.org/LICENSE_1_0.txt.
 
@@ -38,16 +38,17 @@ struct boost::cnv::spirit : public boost::cnv::cnvbase<boost::cnv::spirit>
                 result_out = result;
     }
     template<typename in_type, typename char_type>
-    cnv::range<char*>
+    cnv::range<char_type*>
     to_str(in_type value_in, char_type* beg) const
     {
         typedef typename boost::spirit::traits::create_generator<in_type>::type generator;
 
         char_type* end = beg;
         bool      good = boost::spirit::karma::generate(end, generator(), value_in);
-
-        return cnv::range<char*>(beg, good ? end : beg);
+        
+        return cnv::range<char_type*>(beg, good ? end : beg);
     }
 };
 
 #endif // BOOST_CONVERT_SPIRIT_BASED_CONVERTER_HPP
+

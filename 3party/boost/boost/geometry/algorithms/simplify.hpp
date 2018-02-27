@@ -77,7 +77,7 @@ struct simplify_copy
     {
         std::copy
             (
-                boost::begin(range), boost::end(range), std::back_inserter(out)
+                boost::begin(range), boost::end(range), geometry::range::back_inserter(out)
             );
     }
 };
@@ -113,7 +113,7 @@ struct simplify_range
         {
             simplify_range_insert::apply
                 (
-                    range, std::back_inserter(out), max_distance, strategy
+                    range, geometry::range::back_inserter(out), max_distance, strategy
                 );
         }
     }
@@ -333,7 +333,7 @@ struct simplify
         > strategy_type;
 
         BOOST_CONCEPT_ASSERT(
-            (concept::SimplifyStrategy<strategy_type, point_type>)
+            (concepts::SimplifyStrategy<strategy_type, point_type>)
         );
 
         apply(geometry, out, max_distance, strategy_type());
@@ -376,7 +376,7 @@ struct simplify_insert
         > strategy_type;
 
         BOOST_CONCEPT_ASSERT(
-            (concept::SimplifyStrategy<strategy_type, point_type>)
+            (concepts::SimplifyStrategy<strategy_type, point_type>)
         );
 
         apply(geometry, out, max_distance, strategy_type());
@@ -461,7 +461,7 @@ template<typename Geometry, typename Distance, typename Strategy>
 inline void simplify(Geometry const& geometry, Geometry& out,
                      Distance const& max_distance, Strategy const& strategy)
 {
-    concept::check<Geometry>();
+    concepts::check<Geometry>();
 
     geometry::clear(out);
 
@@ -489,7 +489,7 @@ template<typename Geometry, typename Distance>
 inline void simplify(Geometry const& geometry, Geometry& out,
                      Distance const& max_distance)
 {
-    concept::check<Geometry>();
+    concepts::check<Geometry>();
 
     geometry::simplify(geometry, out, max_distance, default_strategy());
 }
@@ -519,7 +519,7 @@ template<typename Geometry, typename OutputIterator, typename Distance, typename
 inline void simplify_insert(Geometry const& geometry, OutputIterator out,
                             Distance const& max_distance, Strategy const& strategy)
 {
-    concept::check<Geometry const>();
+    concepts::check<Geometry const>();
 
     resolve_strategy::simplify_insert::apply(geometry, out, max_distance, strategy);
 }
@@ -540,8 +540,8 @@ inline void simplify_insert(Geometry const& geometry, OutputIterator out,
                             Distance const& max_distance)
 {
     // Concept: output point type = point type of input geometry
-    concept::check<Geometry const>();
-    concept::check<typename point_type<Geometry>::type>();
+    concepts::check<Geometry const>();
+    concepts::check<typename point_type<Geometry>::type>();
 
     simplify_insert(geometry, out, max_distance, default_strategy());
 }

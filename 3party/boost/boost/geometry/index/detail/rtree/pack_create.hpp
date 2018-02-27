@@ -2,7 +2,7 @@
 //
 // R-tree initial packing
 //
-// Copyright (c) 2011-2015 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2017 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -13,6 +13,9 @@
 
 #include <boost/geometry/algorithms/expand.hpp>
 #include <boost/geometry/index/detail/algorithms/bounds.hpp>
+#include <boost/geometry/index/detail/algorithms/nth_element.hpp>
+
+#include <boost/geometry/algorithms/detail/expand_by_epsilon.hpp>
 
 namespace boost { namespace geometry { namespace index { namespace detail { namespace rtree {
 
@@ -65,7 +68,7 @@ struct nth_element_and_half_boxes
     {
         if ( I == dim_index )
         {
-            std::nth_element(first, median, last, point_entries_comparer<I>());
+            index::detail::nth_element(first, median, last, point_entries_comparer<I>());
 
             geometry::convert(box, left);
             geometry::convert(box, right);
@@ -198,6 +201,13 @@ private:
         {}
 
         template <typename Indexable>
+        explicit expandable_box(Indexable const& indexable)
+            : m_initialized(true)
+        {
+            detail::bounds(indexable, m_box);
+        }
+
+        template <typename Indexable>
         void expand(Indexable const& indexable)
         {
             if ( !m_initialized )
@@ -212,6 +222,11 @@ private:
             {
                 geometry::expand(m_box, indexable);
             }
+        }
+
+        void expand_by_epsilon()
+        {
+            geometry::detail::expand_by_epsilon(m_box);
         }
 
         BoxType const& get() const
@@ -253,9 +268,12 @@ private:
 
             // reserve space for values
             rtree::elements(l).reserve(values_count);                                                       // MAY THROW (A)
+
             // calculate values box and copy values
-            expandable_box<Box> elements_box;
-            for ( ; first != last ; ++first )
+            //   initialize the box explicitly to avoid GCC-4.4 uninitialized variable warnings with O2
+            expandable_box<Box> elements_box(translator(*(first->second)));
+            rtree::elements(l).push_back(*(first->second));                                                 // MAY THROW (A?,C)
+            for ( ++first ; first != last ; ++first )
             {
                 // NOTE: push_back() must be called at the end in order to support move_iterator.
                 //       The iterator is dereferenced 2x (no temporary reference) to support
@@ -263,6 +281,23 @@ private:
                 elements_box.expand(translator(*(first->second)));
                 rtree::elements(l).push_back(*(first->second));                                             // MAY THROW (A?,C)
             }
+
+#ifdef BOOST_GEOMETRY_INDEX_EXPERIMENTAL_ENLARGE_BY_EPSILON
+            // Enlarge bounds of a leaf node.
+            // It's because Points and Segments are compared WRT machine epsilon
+            // This ensures that leafs bounds correspond to the stored elements
+            // NOTE: this is done only if the Indexable is a different kind of Geometry
+            //   than the bounds (only Box for now). Spatial predicates are checked
+            //   the same way for Geometry of the same kind.
+            if ( BOOST_GEOMETRY_CONDITION((
+                    ! index::detail::is_bounding_geometry
+                        <
+                            typename indexable_type<Translator>::type
+                        >::value )) )
+            {
+                elements_box.expand_by_epsilon();
+            }
+#endif
 
             auto_remover.release();
             return internal_element(elements_box.get(), n);
@@ -283,7 +318,7 @@ private:
         rtree::elements(in).reserve(nodes_count);                                                           // MAY THROW (A)
         // calculate values box and copy values
         expandable_box<Box> elements_box;
-
+        
         per_level_packets(first, last, hint_box, values_count, subtree_counts, next_subtree_counts,
                           rtree::elements(in), elements_box,
                           parameters, translator, allocators);

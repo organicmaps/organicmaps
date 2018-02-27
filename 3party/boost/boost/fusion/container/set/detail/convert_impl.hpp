@@ -29,7 +29,7 @@ namespace boost { namespace fusion
             template <typename Sequence>
             struct apply
             {
-                typedef typename detail::as_set<result_of::size<Sequence>::value> gen;
+                typedef detail::as_set<result_of::size<Sequence>::value> gen;
                 typedef typename gen::
                     template apply<typename result_of::begin<Sequence>::type>::type
                 type;

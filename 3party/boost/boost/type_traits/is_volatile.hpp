@@ -21,64 +21,26 @@
 #ifndef BOOST_TT_IS_VOLATILE_HPP_INCLUDED
 #define BOOST_TT_IS_VOLATILE_HPP_INCLUDED
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
-
-#   include <boost/type_traits/detail/cv_traits_impl.hpp>
-#   if BOOST_WORKAROUND(BOOST_MSVC, < 1400)
-#       include <boost/type_traits/remove_bounds.hpp>
-#   endif
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
+#include <cstddef> // size_t
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace boost {
 
-namespace detail{
-template <class T>
-struct is_volatile_rval_filter
-{
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1400)
-   BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<typename boost::remove_bounds<T>::type*>::is_volatile);
-#else
-   BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<BOOST_TT_AUX_CV_TRAITS_IMPL_PARAM(T)>::is_volatile);
-#endif
-};
-#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
-//
-// We can't filter out rvalue_references at the same level as
-// references or we get ambiguities from msvc:
-//
-template <class T>
-struct is_volatile_rval_filter<T&&>
-{
-   BOOST_STATIC_CONSTANT(bool, value = false);
-};
-#endif
-}
-
 #if defined( __CODEGEARC__ )
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_volatile,T,__is_volatile(T))
+
+   template <class T>
+   struct is_volatile : public integral_constant<bool, __is_volatile(T)> {};
+
 #else
 
-//* is a type T declared volatile - is_volatile<T>
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_volatile,T,::boost::detail::is_volatile_rval_filter<T>::value)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_volatile,T&,false)
-
-#if  defined(BOOST_ILLEGAL_CV_REFERENCES)
-// these are illegal specialisations; cv-qualifies applied to
-// references have no effect according to [8.3.2p1],
-// C++ Builder requires them though as it treats cv-qualified
-// references as distinct types...
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_volatile,T& const,false)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_volatile,T& volatile,false)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_volatile,T& const volatile,false)
-#endif
+   template <class T>
+   struct is_volatile : public false_type {};
+   template <class T> struct is_volatile<T volatile> : public true_type{};
+   template <class T, std::size_t N> struct is_volatile<T volatile[N]> : public true_type{};
+   template <class T> struct is_volatile<T volatile[]> : public true_type{};
 
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TT_IS_VOLATILE_HPP_INCLUDED

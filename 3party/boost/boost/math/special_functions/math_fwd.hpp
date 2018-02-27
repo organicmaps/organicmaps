@@ -181,19 +181,19 @@ namespace boost
    template <class T>
    typename tools::promote_args<T>::type
          legendre_p(int l, T x);
-
+#if !BOOST_WORKAROUND(BOOST_MSVC, <= 1310)
    template <class T, class Policy>
    typename boost::enable_if_c<policies::is_policy<Policy>::value, typename tools::promote_args<T>::type>::type
          legendre_p(int l, T x, const Policy& pol);
-
+#endif
    template <class T>
    typename tools::promote_args<T>::type
          legendre_q(unsigned l, T x);
-
+#if !BOOST_WORKAROUND(BOOST_MSVC, <= 1310)
    template <class T, class Policy>
    typename boost::enable_if_c<policies::is_policy<Policy>::value, typename tools::promote_args<T>::type>::type
          legendre_q(unsigned l, T x, const Policy& pol);
-
+#endif
    template <class T1, class T2, class T3>
    typename tools::promote_args<T1, T2, T3>::type
          legendre_next(unsigned l, unsigned m, T1 x, T2 Pl, T3 Plm1);
@@ -607,8 +607,10 @@ namespace boost
       template <class T1, class T2, class Policy>
       struct bessel_traits
       {
-         typedef typename tools::promote_args<
-            T1, T2
+         typedef typename mpl::if_<
+            is_integral<T1>,
+            typename tools::promote_args<T2>::type,
+            typename tools::promote_args<T1, T2>::type
          >::type result_type;
 
          typedef typename policies::precision<result_type, Policy>::type precision_type;
@@ -624,6 +626,17 @@ namespace boost
                bessel_maybe_int_tag
             >::type
          >::type optimisation_tag;
+         typedef typename mpl::if_<
+            mpl::or_<
+               mpl::less_equal<precision_type, mpl::int_<0> >,
+               mpl::greater<precision_type, mpl::int_<113> > >,
+            bessel_no_int_tag,
+            typename mpl::if_<
+               is_integral<T1>,
+               bessel_int_tag,
+               bessel_maybe_int_tag
+            >::type
+         >::type optimisation_tag128;
       };
    } // detail
 
@@ -993,6 +1006,16 @@ namespace boost
    typename tools::promote_args<T>::type float_advance(T val, int distance, const Policy& pol);
    template <class T>
    typename tools::promote_args<T>::type float_advance(const T& val, int distance);
+
+   template <class T, class Policy>
+   typename tools::promote_args<T>::type ulp(const T& val, const Policy& pol);
+   template <class T>
+   typename tools::promote_args<T>::type ulp(const T& val);
+
+   template <class T, class U>
+   typename tools::promote_args<T, U>::type relative_difference(const T&, const U&);
+   template <class T, class U>
+   typename tools::promote_args<T, U>::type epsilon_difference(const T&, const U&);
 
    template<class T>
    T unchecked_bernoulli_b2n(const std::size_t n);
@@ -1447,6 +1470,7 @@ template <class OutputIterator, class T>\
    template <class T> T float_next(const T& a){ return boost::math::float_next(a, Policy()); }\
    template <class T> T float_prior(const T& a){ return boost::math::float_prior(a, Policy()); }\
    template <class T> T float_distance(const T& a, const T& b){ return boost::math::float_distance(a, b, Policy()); }\
+   template <class T> T ulp(const T& a){ return boost::math::ulp(a, Policy()); }\
    \
    template <class RT1, class RT2>\
    inline typename boost::math::tools::promote_args<RT1, RT2>::type owens_t(RT1 a, RT2 z){ return boost::math::owens_t(a, z, Policy()); }\

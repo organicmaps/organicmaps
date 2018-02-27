@@ -2,6 +2,11 @@
 
 // Copyright (c) 2009-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
+// This file was modified by Oracle on 2016.
+// Modifications copyright (c) 2016, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -13,66 +18,10 @@
 #define BOOST_GEOMETRY_IO_SVG_WRITE_SVG_MULTI_HPP
 
 
-#include <boost/geometry/io/svg/write_svg.hpp>
+// THIS FILE WAS LEFT HERE FOR BACKWARD COMPATIBILITY
 
 
-namespace boost { namespace geometry
-{
-
-#ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace svg
-{
-
-
-template <typename MultiGeometry, typename Policy>
-struct svg_multi
-{
-    template <typename Char, typename Traits>
-    static inline void apply(std::basic_ostream<Char, Traits>& os,
-        MultiGeometry const& multi, std::string const& style, int size)
-    {
-        for (typename boost::range_iterator<MultiGeometry const>::type
-                    it = boost::begin(multi);
-            it != boost::end(multi);
-            ++it)
-        {
-            Policy::apply(os, *it, style, size);
-        }
-
-    }
-
-};
-
-
-
-}} // namespace detail::svg
-#endif // DOXYGEN_NO_DETAIL
-
-
-#ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch
-{
-
-
-template <typename MultiPolygon>
-struct svg<multi_polygon_tag, MultiPolygon>
-    : detail::svg::svg_multi
-        <
-            MultiPolygon,
-            detail::svg::svg_poly
-                <
-                    typename boost::range_value<MultiPolygon>::type
-                >
-
-        >
-{};
-
-
-} // namespace dispatch
-#endif // DOXYGEN_NO_DISPATCH
-
-
-}} // namespace boost::geometry
+#include <boost/geometry/io/svg/write.hpp>
 
 
 #endif // BOOST_GEOMETRY_IO_SVG_WRITE_SVG_MULTI_HPP

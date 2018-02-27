@@ -11,6 +11,9 @@
 
 #include <boost/config.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 #include <boost/spirit/home/classic/namespace.hpp>
 #include <boost/spirit/home/classic/core/parser.hpp>

@@ -21,6 +21,7 @@
 #  pragma once
 #endif
 
+#include <boost/intrusive/detail/workaround.hpp>
 #include <boost/intrusive/detail/iterator.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 #include <boost/intrusive/detail/mpl.hpp>
@@ -70,7 +71,7 @@ struct iiterator
          , difference_type
          , pointer
          , reference
-         > iterator_traits;
+         > iterator_type;
    typedef typename value_traits_pointers
       <ValueTraits>::value_traits_ptr                          value_traits_ptr;
    typedef typename value_traits_pointers
@@ -83,15 +84,15 @@ template<class NodePtr, class StoredPointer, bool StatefulValueTraits = true>
 struct iiterator_members
 {
 
-   iiterator_members()
+   BOOST_INTRUSIVE_FORCEINLINE iiterator_members()
       : nodeptr_()//Value initialization to achieve "null iterators" (N3644)
    {}
 
-   iiterator_members(const NodePtr &n_ptr, const StoredPointer &data)
+   BOOST_INTRUSIVE_FORCEINLINE iiterator_members(const NodePtr &n_ptr, const StoredPointer &data)
       :  nodeptr_(n_ptr), ptr_(data)
    {}
 
-   StoredPointer get_ptr() const
+   BOOST_INTRUSIVE_FORCEINLINE StoredPointer get_ptr() const
    {  return ptr_;  }
 
    NodePtr nodeptr_;
@@ -101,15 +102,15 @@ struct iiterator_members
 template<class NodePtr, class StoredPointer>
 struct iiterator_members<NodePtr, StoredPointer, false>
 {
-   iiterator_members()
+   BOOST_INTRUSIVE_FORCEINLINE iiterator_members()
       : nodeptr_()//Value initialization to achieve "null iterators" (N3644)
    {}
 
-   iiterator_members(const NodePtr &n_ptr, const StoredPointer &)
+   BOOST_INTRUSIVE_FORCEINLINE iiterator_members(const NodePtr &n_ptr, const StoredPointer &)
       : nodeptr_(n_ptr)
    {}
 
-   StoredPointer get_ptr() const
+   BOOST_INTRUSIVE_FORCEINLINE StoredPointer get_ptr() const
    {  return StoredPointer();  }
 
    NodePtr nodeptr_;

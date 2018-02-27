@@ -20,7 +20,6 @@
 #include <boost/static_assert.hpp>
 #include <cstddef>
 #include <boost/detail/iterator.hpp>
-#include <boost/concept_check.hpp>
 #include <boost/concept_archetype.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/or.hpp>

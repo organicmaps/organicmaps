@@ -22,9 +22,8 @@
 
 //Based on Boost.Core's swap.
 //Many thanks to Steven Watanabe, Joseph Gauterin and Niels Dekker.
-
-#include <boost/config.hpp>
 #include <cstddef> //for std::size_t
+#include <boost/move/detail/workaround.hpp>  //forceinline
 
 //Try to avoid including <algorithm>, as it's quite big
 #if defined(_MSC_VER) && defined(BOOST_DINKUMWARE_STDLIB)
@@ -67,8 +66,8 @@ struct private_type
    private_type const &operator,(int) const;
 };
 
-typedef char yes_type;
-struct no_type{ char dummy[2]; };
+typedef char yes_type;            
+struct no_type{ char dummy[2]; }; 
 
 template<typename T>
 no_type is_private_type(T const &);
@@ -156,7 +155,7 @@ struct and_op_not
 {};
 
 template<class T>
-void swap_proxy(T& x, T& y, typename boost::move_detail::enable_if_c<!boost::move_detail::has_move_emulation_enabled_impl<T>::value>::type* = 0)
+BOOST_MOVE_FORCEINLINE void swap_proxy(T& x, T& y, typename boost::move_detail::enable_if_c<!boost::move_detail::has_move_emulation_enabled_impl<T>::value>::type* = 0)
 {
    //use std::swap if argument dependent lookup fails
    //Use using directive ("using namespace xxx;") instead as some older compilers
@@ -166,14 +165,14 @@ void swap_proxy(T& x, T& y, typename boost::move_detail::enable_if_c<!boost::mov
 }
 
 template<class T>
-void swap_proxy(T& x, T& y
+BOOST_MOVE_FORCEINLINE void swap_proxy(T& x, T& y
                , typename boost::move_detail::enable_if< and_op_not_impl<boost::move_detail::has_move_emulation_enabled_impl<T>
                                                                         , boost_move_member_swap::has_member_swap<T> >
                                                        >::type* = 0)
 {  T t(::boost::move(x)); x = ::boost::move(y); y = ::boost::move(t);  }
 
 template<class T>
-void swap_proxy(T& x, T& y
+BOOST_MOVE_FORCEINLINE void swap_proxy(T& x, T& y
                , typename boost::move_detail::enable_if< and_op_impl< boost::move_detail::has_move_emulation_enabled_impl<T>
                                                                     , boost_move_member_swap::has_member_swap<T> >
                                                        >::type* = 0)
@@ -186,7 +185,7 @@ void swap_proxy(T& x, T& y
 namespace boost_move_adl_swap{
 
 template<class T>
-void swap_proxy(T& x, T& y)
+BOOST_MOVE_FORCEINLINE void swap_proxy(T& x, T& y)
 {
    using std::swap;
    swap(x, y);
@@ -220,12 +219,46 @@ namespace boost{
 //! no rvalue references then:
 //!
 //!   -  If T has a <code>T::swap(T&)</code> member, that member is called.
-//!   -  Otherwise a move-based swap is called, equivalent to:
+//!   -  Otherwise a move-based swap is called, equivalent to: 
 //!      <code>T t(::boost::move(x)); x = ::boost::move(y); y = ::boost::move(t);</code>.
 template<class T>
-void adl_move_swap(T& x, T& y)
+BOOST_MOVE_FORCEINLINE void adl_move_swap(T& x, T& y)
 {
    ::boost_move_adl_swap::swap_proxy(x, y);
+}
+
+//! Exchanges elements between range [first1, last1) and another range starting at first2
+//! using boost::adl_move_swap.
+//! 
+//! Parameters:
+//!   first1, last1   -   the first range of elements to swap
+//!   first2   -   beginning of the second range of elements to swap
+//!
+//! Type requirements:
+//!   - ForwardIt1, ForwardIt2 must meet the requirements of ForwardIterator.
+//!   - The types of dereferenced ForwardIt1 and ForwardIt2 must meet the
+//!     requirements of Swappable
+//!
+//! Return value: Iterator to the element past the last element exchanged in the range
+//! beginning with first2.
+template<class ForwardIt1, class ForwardIt2>
+ForwardIt2 adl_move_swap_ranges(ForwardIt1 first1, ForwardIt1 last1, ForwardIt2 first2)
+{
+    while (first1 != last1) {
+      ::boost::adl_move_swap(*first1, *first2);
+      ++first1;
+      ++first2;
+    }
+   return first2;
+}
+
+template<class BidirIt1, class BidirIt2>
+BidirIt2 adl_move_swap_ranges_backward(BidirIt1 first1, BidirIt1 last1, BidirIt2 last2)
+{
+   while (first1 != last1) {
+      ::boost::adl_move_swap(*(--last1), *(--last2));
+   }
+   return last2;
 }
 
 }  //namespace boost{

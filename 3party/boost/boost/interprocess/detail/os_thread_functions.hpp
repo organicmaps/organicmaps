@@ -53,7 +53,12 @@
 #     include <sys/sysctl.h>
 #  endif
 //According to the article "C/C++ tip: How to measure elapsed real time for benchmarking"
-#  if defined(CLOCK_MONOTONIC_PRECISE)   //BSD
+//Check MacOs first as macOS 10.12 SDK defines both CLOCK_MONOTONIC and
+//CLOCK_MONOTONIC_RAW and no clock_gettime.
+#  if (defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__))
+#     include <mach/mach_time.h>  // mach_absolute_time, mach_timebase_info_data_t
+#     define BOOST_INTERPROCESS_MATCH_ABSOLUTE_TIME
+#  elif defined(CLOCK_MONOTONIC_PRECISE)   //BSD
 #     define BOOST_INTERPROCESS_CLOCK_MONOTONIC CLOCK_MONOTONIC_PRECISE
 #  elif defined(CLOCK_MONOTONIC_RAW)     //Linux
 #     define BOOST_INTERPROCESS_CLOCK_MONOTONIC CLOCK_MONOTONIC_RAW
@@ -61,9 +66,6 @@
 #     define BOOST_INTERPROCESS_CLOCK_MONOTONIC CLOCK_HIGHRES
 #  elif defined(CLOCK_MONOTONIC)         //POSIX (AIX, BSD, Linux, Solaris)
 #     define BOOST_INTERPROCESS_CLOCK_MONOTONIC CLOCK_MONOTONIC
-#  elif !defined(CLOCK_MONOTONIC) && (defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__))
-#     include <mach/mach_time.h>  // mach_absolute_time, mach_timebase_info_data_t
-#     define BOOST_INTERPROCESS_MATCH_ABSOLUTE_TIME
 #  else
 #     error "No high resolution steady clock in your system, please provide a patch"
 #  endif
@@ -77,7 +79,19 @@ namespace ipcdetail{
 
 typedef unsigned long OS_process_id_t;
 typedef unsigned long OS_thread_id_t;
-typedef void*         OS_thread_t;
+struct OS_thread_t
+{
+   OS_thread_t()
+      : m_handle()
+   {}
+
+   
+   void* handle() const
+   {  return m_handle;  }
+
+   void* m_handle;
+};
+
 typedef OS_thread_id_t OS_systemwide_thread_id_t;
 
 //process
@@ -100,8 +114,8 @@ inline bool equal_thread_id(OS_thread_id_t id1, OS_thread_id_t id2)
 //return the system tick in ns
 inline unsigned long get_system_tick_ns()
 {
-   unsigned long curres;
-   winapi::set_timer_resolution(10000, 0, &curres);
+   unsigned long curres, ignore1, ignore2;
+   winapi::query_timer_resolution(&ignore1, &ignore2, &curres);
    //Windows API returns the value in hundreds of ns
    return (curres - 1ul)*100ul;
 }
@@ -109,8 +123,8 @@ inline unsigned long get_system_tick_ns()
 //return the system tick in us
 inline unsigned long get_system_tick_us()
 {
-   unsigned long curres;
-   winapi::set_timer_resolution(10000, 0, &curres);
+   unsigned long curres, ignore1, ignore2;
+   winapi::query_timer_resolution(&ignore1, &ignore2, &curres);
    //Windows API returns the value in hundreds of ns
    return (curres - 1ul)/10ul + 1ul;
 }
@@ -120,8 +134,8 @@ typedef unsigned __int64 OS_highres_count_t;
 inline unsigned long get_system_tick_in_highres_counts()
 {
    __int64 freq;
-   unsigned long curres;
-   winapi::set_timer_resolution(10000, 0, &curres);
+   unsigned long curres, ignore1, ignore2;
+   winapi::query_timer_resolution(&ignore1, &ignore2, &curres);
    //Frequency in counts per second
    if(!winapi::query_performance_frequency(&freq)){
       //Tick resolution in ms
@@ -495,18 +509,21 @@ inline int thread_create( OS_thread_t * thread, unsigned (__stdcall * start_rout
    void* h = (void*)_beginthreadex( 0, 0, start_routine, arg, 0, 0 );
 
    if( h != 0 ){
-      *thread = h;
+      thread->m_handle = h;
       return 0;
    }
    else{
       return 1;
    }
+
+   thread->m_handle = (void*)_beginthreadex( 0, 0, start_routine, arg, 0, 0 );
+   return thread->m_handle != 0;
 }
 
 inline void thread_join( OS_thread_t thread)
 {
-   winapi::wait_for_single_object( thread, winapi::infinite_time );
-   winapi::close_handle( thread );
+   winapi::wait_for_single_object( thread.handle(), winapi::infinite_time );
+   winapi::close_handle( thread.handle() );
 }
 
 #endif

@@ -9,7 +9,7 @@
 #ifndef BOOST_TT_MAKE_SIGNED_HPP_INCLUDED
 #define BOOST_TT_MAKE_SIGNED_HPP_INCLUDED
 
-#include <boost/mpl/if.hpp>
+#include <boost/type_traits/conditional.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <boost/type_traits/is_unsigned.hpp>
@@ -20,58 +20,45 @@
 #include <boost/type_traits/is_volatile.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_volatile.hpp>
-#include <boost/type_traits/detail/ice_or.hpp>
-#include <boost/type_traits/detail/ice_and.hpp>
-#include <boost/type_traits/detail/ice_not.hpp>
 #include <boost/static_assert.hpp>
-
-// should be the last #include
-#include <boost/type_traits/detail/type_trait_def.hpp>
 
 namespace boost {
 
-namespace detail {
-
 template <class T>
-struct make_signed_imp
+struct make_signed
 {
-   BOOST_STATIC_ASSERT(
-      (::boost::type_traits::ice_or< ::boost::is_integral<T>::value, ::boost::is_enum<T>::value>::value));
-   BOOST_STATIC_ASSERT(
-      (::boost::type_traits::ice_not< ::boost::is_same<
-         typename remove_cv<T>::type, bool>::value>::value));
+private:
+   BOOST_STATIC_ASSERT_MSG(( ::boost::is_integral<T>::value || ::boost::is_enum<T>::value), "The template argument to make_signed must be an integer or enum type.");
+   BOOST_STATIC_ASSERT_MSG(!(::boost::is_same<typename remove_cv<T>::type, bool>::value), "The template argument to make_signed must not be the type bool.");
 
    typedef typename remove_cv<T>::type t_no_cv;
-   typedef typename mpl::if_c<
-      (::boost::type_traits::ice_and< 
-         ::boost::is_signed<T>::value,
-         ::boost::is_integral<T>::value,
-         ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, char>::value>::value,
-         ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, wchar_t>::value>::value,
-         ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, bool>::value>::value >::value),
+   typedef typename conditional<
+      (::boost::is_signed<T>::value
+      && ::boost::is_integral<T>::value
+      && ! ::boost::is_same<t_no_cv, char>::value
+      && ! ::boost::is_same<t_no_cv, wchar_t>::value
+      && ! ::boost::is_same<t_no_cv, bool>::value),
       T,
-      typename mpl::if_c<
-         (::boost::type_traits::ice_and< 
-            ::boost::is_integral<T>::value,
-            ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, char>::value>::value,
-            ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, wchar_t>::value>::value,
-            ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, bool>::value>::value>
-         ::value),
-         typename mpl::if_<
-            is_same<t_no_cv, unsigned char>,
+      typename conditional<
+         (::boost::is_integral<T>::value
+         && ! ::boost::is_same<t_no_cv, char>::value
+         && ! ::boost::is_same<t_no_cv, wchar_t>::value
+         && ! ::boost::is_same<t_no_cv, bool>::value),
+         typename conditional<
+            is_same<t_no_cv, unsigned char>::value,
             signed char,
-            typename mpl::if_<
-               is_same<t_no_cv, unsigned short>,
+            typename conditional<
+               is_same<t_no_cv, unsigned short>::value,
                signed short,
-               typename mpl::if_<
-                  is_same<t_no_cv, unsigned int>,
+               typename conditional<
+                  is_same<t_no_cv, unsigned int>::value,
                   int,
-                  typename mpl::if_<
-                     is_same<t_no_cv, unsigned long>,
+                  typename conditional<
+                     is_same<t_no_cv, unsigned long>::value,
                      long,
 #if defined(BOOST_HAS_LONG_LONG)
 #ifdef BOOST_HAS_INT128
-                     typename mpl::if_c<
+                     typename conditional<
                         sizeof(t_no_cv) == sizeof(boost::long_long_type), 
                         boost::long_long_type, 
                         boost::int128_type
@@ -89,21 +76,21 @@ struct make_signed_imp
             >::type
          >::type,
          // Not a regular integer type:
-         typename mpl::if_c<
+         typename conditional<
             sizeof(t_no_cv) == sizeof(unsigned char),
             signed char,
-            typename mpl::if_c<
+            typename conditional<
                sizeof(t_no_cv) == sizeof(unsigned short),
                signed short,
-               typename mpl::if_c<
+               typename conditional<
                   sizeof(t_no_cv) == sizeof(unsigned int),
                   int,
-                  typename mpl::if_c<
+                  typename conditional<
                      sizeof(t_no_cv) == sizeof(unsigned long),
                      long,
 #if defined(BOOST_HAS_LONG_LONG)
 #ifdef BOOST_HAS_INT128
-                     typename mpl::if_c<
+                     typename conditional<
                         sizeof(t_no_cv) == sizeof(boost::long_long_type), 
                         boost::long_long_type, 
                         boost::int128_type
@@ -124,28 +111,21 @@ struct make_signed_imp
    >::type base_integer_type;
    
    // Add back any const qualifier:
-   typedef typename mpl::if_<
-      is_const<T>,
+   typedef typename conditional<
+      is_const<T>::value,
       typename add_const<base_integer_type>::type,
       base_integer_type
    >::type const_base_integer_type;
-   
+public:
    // Add back any volatile qualifier:
-   typedef typename mpl::if_<
-      is_volatile<T>,
+   typedef typename conditional<
+      is_volatile<T>::value,
       typename add_volatile<const_base_integer_type>::type,
       const_base_integer_type
    >::type type;
 };
 
-
-} // namespace detail
-
-BOOST_TT_AUX_TYPE_TRAIT_DEF1(make_signed,T,typename boost::detail::make_signed_imp<T>::type)
-
 } // namespace boost
-
-#include <boost/type_traits/detail/type_trait_undef.hpp>
 
 #endif // BOOST_TT_ADD_REFERENCE_HPP_INCLUDED
 

@@ -68,7 +68,7 @@ namespace detail
     template <int keywords, int init_args>
     struct more_keywords_than_init_arguments
     {
-        typedef char too_many_keywords[init_args - keywords >= 0 ? 1 : -1];
+        typedef char too_many_keywords[init_args - keywords >= 0 ? 1 : -1] BOOST_ATTRIBUTE_UNUSED;
     };
   }
 
@@ -224,7 +224,7 @@ class init : public init_base<init<BOOST_PYTHON_OVERLOAD_ARGS> >
     {
         typedef typename detail::error::more_keywords_than_init_arguments<
             N, n_arguments::value + 1
-            >::too_many_keywords assertion;
+            >::too_many_keywords assertion BOOST_ATTRIBUTE_UNUSED;
     }
 
     template <std::size_t N>
@@ -233,7 +233,7 @@ class init : public init_base<init<BOOST_PYTHON_OVERLOAD_ARGS> >
     {
         typedef typename detail::error::more_keywords_than_init_arguments<
             N, n_arguments::value + 1
-            >::too_many_keywords assertion;
+            >::too_many_keywords assertion BOOST_ATTRIBUTE_UNUSED;
     }
 
     template <class CallPoliciesT>

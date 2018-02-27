@@ -148,7 +148,7 @@ public:
 
     const_reverse_iterator crbegin() const {
         return rbegin();
-    }
+    }  
 
     reverse_iterator rend() {
         return reverse_iterator(begin());
@@ -277,7 +277,7 @@ public:
 
     const_reverse_iterator crbegin() const {
         return rbegin();
-    }
+    } 
 
     reverse_iterator rend() {
         return reverse_iterator(begin());

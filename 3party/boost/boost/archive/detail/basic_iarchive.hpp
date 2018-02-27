@@ -65,11 +65,7 @@ protected:
 public:
     // some msvc versions require that the following function be public
     // otherwise it should really protected.
-    // account for bogus gcc warning
-    #if defined(__GNUC__)
-    virtual
-    #endif
-    BOOST_ARCHIVE_DECL ~basic_iarchive();
+    virtual BOOST_ARCHIVE_DECL ~basic_iarchive();
     // note: NOT part of the public API.
     BOOST_ARCHIVE_DECL void next_object_pointer(void *t);
     BOOST_ARCHIVE_DECL void register_basic_serializer(
@@ -79,7 +75,7 @@ public:
         void *t, 
         const basic_iserializer & bis
     );
-    BOOST_ARCHIVE_DECL const basic_pointer_iserializer *
+    BOOST_ARCHIVE_DECL const basic_pointer_iserializer * 
     load_pointer(
         void * & t, 
         const basic_pointer_iserializer * bpis_ptr,
@@ -88,15 +84,15 @@ public:
         )
     );
     // real public API starts here
-    BOOST_ARCHIVE_DECL void
+    BOOST_ARCHIVE_DECL void 
     set_library_version(library_version_type archive_library_version);
-    BOOST_ARCHIVE_DECL library_version_type
+    BOOST_ARCHIVE_DECL library_version_type 
     get_library_version() const;
     BOOST_ARCHIVE_DECL unsigned int
     get_flags() const;
-    BOOST_ARCHIVE_DECL void
+    BOOST_ARCHIVE_DECL void 
     reset_object_address(const void * new_address, const void * old_address);
-    BOOST_ARCHIVE_DECL void
+    BOOST_ARCHIVE_DECL void 
     delete_created_pointers();
 };
 

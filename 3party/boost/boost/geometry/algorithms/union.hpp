@@ -2,10 +2,11 @@
 
 // Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2014.
-// Modifications copyright (c) 2014 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014, 2017.
+// Modifications copyright (c) 2014-2017 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -24,6 +25,8 @@
 #include <boost/geometry/algorithms/not_implemented.hpp>
 #include <boost/geometry/algorithms/detail/overlay/overlay.hpp>
 #include <boost/geometry/policies/robustness/get_rescale_policy.hpp>
+#include <boost/geometry/strategies/default_strategy.hpp>
+#include <boost/geometry/util/range.hpp>
 
 #include <boost/geometry/algorithms/detail/overlay/linear_linear.hpp>
 #include <boost/geometry/algorithms/detail/overlay/pointlike_pointlike.hpp>
@@ -204,9 +207,9 @@ inline OutputIterator union_insert(Geometry1 const& geometry1,
             Geometry2 const& geometry2,
             OutputIterator out)
 {
-    concept::check<Geometry1 const>();
-    concept::check<Geometry2 const>();
-    concept::check<GeometryOut>();
+    concepts::check<Geometry1 const>();
+    concepts::check<Geometry2 const>();
+    concepts::check<GeometryOut>();
 
     typedef typename geometry::rescale_overlay_policy_type
         <
@@ -214,14 +217,10 @@ inline OutputIterator union_insert(Geometry1 const& geometry1,
             Geometry2
         >::type rescale_policy_type;
 
-    typedef strategy_intersection
+    typename strategy::intersection::services::default_strategy
         <
-            typename cs_tag<GeometryOut>::type,
-            Geometry1,
-            Geometry2,
-            typename geometry::point_type<GeometryOut>::type,
-            rescale_policy_type
-        > strategy;
+            typename cs_tag<GeometryOut>::type
+        >::type strategy;
 
     rescale_policy_type robust_policy
             = geometry::get_rescale_policy<rescale_policy_type>(geometry1, geometry2);
@@ -229,7 +228,7 @@ inline OutputIterator union_insert(Geometry1 const& geometry1,
     return dispatch::union_insert
            <
                Geometry1, Geometry2, GeometryOut
-           >::apply(geometry1, geometry2, robust_policy, out, strategy());
+           >::apply(geometry1, geometry2, robust_policy, out, strategy);
 }
 
 
@@ -237,6 +236,266 @@ inline OutputIterator union_insert(Geometry1 const& geometry1,
 #endif // DOXYGEN_NO_DETAIL
 
 
+namespace resolve_strategy {
+
+struct union_
+{
+    template
+    <
+        typename Geometry1,
+        typename Geometry2,
+        typename RobustPolicy,
+        typename Collection,
+        typename Strategy
+    >
+    static inline void apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             RobustPolicy const& robust_policy,
+                             Collection & output_collection,
+                             Strategy const& strategy)
+    {
+        typedef typename boost::range_value<Collection>::type geometry_out;
+
+        dispatch::union_insert
+           <
+               Geometry1, Geometry2, geometry_out
+           >::apply(geometry1, geometry2, robust_policy,
+                    range::back_inserter(output_collection),
+                    strategy);
+    }
+
+    template
+    <
+        typename Geometry1,
+        typename Geometry2,
+        typename RobustPolicy,
+        typename Collection
+    >
+    static inline void apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             RobustPolicy const& robust_policy,
+                             Collection & output_collection,
+                             default_strategy)
+    {
+        typedef typename boost::range_value<Collection>::type geometry_out;
+
+        typedef typename strategy::intersection::services::default_strategy
+            <
+                typename cs_tag<geometry_out>::type
+            >::type strategy_type;
+
+        dispatch::union_insert
+           <
+               Geometry1, Geometry2, geometry_out
+           >::apply(geometry1, geometry2, robust_policy,
+                    range::back_inserter(output_collection),
+                    strategy_type());
+    }
+};
+
+} // resolve_strategy
+
+
+namespace resolve_variant
+{
+    
+template <typename Geometry1, typename Geometry2>
+struct union_
+{
+    template <typename Collection, typename Strategy>
+    static inline void apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             Collection& output_collection,
+                             Strategy const& strategy)
+    {
+        concepts::check<Geometry1 const>();
+        concepts::check<Geometry2 const>();
+        concepts::check<typename boost::range_value<Collection>::type>();
+
+        typedef typename geometry::rescale_overlay_policy_type
+            <
+                Geometry1,
+                Geometry2
+            >::type rescale_policy_type;
+
+        rescale_policy_type robust_policy
+                = geometry::get_rescale_policy<rescale_policy_type>(geometry1,
+                                                                    geometry2);
+        
+        resolve_strategy::union_::apply(geometry1, geometry2,
+                                        robust_policy,
+                                        output_collection,
+                                        strategy);
+    }
+};
+
+
+template <BOOST_VARIANT_ENUM_PARAMS(typename T), typename Geometry2>
+struct union_<variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
+{
+    template <typename Collection, typename Strategy>
+    struct visitor: static_visitor<>
+    {
+        Geometry2 const& m_geometry2;
+        Collection& m_output_collection;
+        Strategy const& m_strategy;
+        
+        visitor(Geometry2 const& geometry2,
+                Collection& output_collection,
+                Strategy const& strategy)
+            : m_geometry2(geometry2)
+            , m_output_collection(output_collection)
+            , m_strategy(strategy)
+        {}
+        
+        template <typename Geometry1>
+        void operator()(Geometry1 const& geometry1) const
+        {
+            union_
+                <
+                    Geometry1,
+                    Geometry2
+                >::apply(geometry1, m_geometry2, m_output_collection, m_strategy);
+        }
+    };
+    
+    template <typename Collection, typename Strategy>
+    static inline void
+    apply(variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry1,
+          Geometry2 const& geometry2,
+          Collection& output_collection,
+          Strategy const& strategy)
+    {
+        boost::apply_visitor(visitor<Collection, Strategy>(geometry2,
+                                                           output_collection,
+                                                           strategy),
+                             geometry1);
+    }
+};
+
+
+template <typename Geometry1, BOOST_VARIANT_ENUM_PARAMS(typename T)>
+struct union_<Geometry1, variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
+{
+    template <typename Collection, typename Strategy>
+    struct visitor: static_visitor<>
+    {
+        Geometry1 const& m_geometry1;
+        Collection& m_output_collection;
+        Strategy const& m_strategy;
+        
+        visitor(Geometry1 const& geometry1,
+                Collection& output_collection,
+                Strategy const& strategy)
+            : m_geometry1(geometry1)
+            , m_output_collection(output_collection)
+            , m_strategy(strategy)
+        {}
+        
+        template <typename Geometry2>
+        void operator()(Geometry2 const& geometry2) const
+        {
+            union_
+                <
+                    Geometry1,
+                    Geometry2
+                >::apply(m_geometry1, geometry2, m_output_collection, m_strategy);
+        }
+    };
+    
+    template <typename Collection, typename Strategy>
+    static inline void
+    apply(Geometry1 const& geometry1,
+          variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry2,
+          Collection& output_collection,
+          Strategy const& strategy)
+    {
+        boost::apply_visitor(visitor<Collection, Strategy>(geometry1,
+                                                           output_collection,
+                                                           strategy),
+                             geometry2);
+    }
+};
+
+
+template <BOOST_VARIANT_ENUM_PARAMS(typename T1), BOOST_VARIANT_ENUM_PARAMS(typename T2)>
+struct union_<variant<BOOST_VARIANT_ENUM_PARAMS(T1)>, variant<BOOST_VARIANT_ENUM_PARAMS(T2)> >
+{
+    template <typename Collection, typename Strategy>
+    struct visitor: static_visitor<>
+    {
+        Collection& m_output_collection;
+        Strategy const& m_strategy;
+        
+        visitor(Collection& output_collection, Strategy const& strategy)
+            : m_output_collection(output_collection)
+            , m_strategy(strategy)
+        {}
+        
+        template <typename Geometry1, typename Geometry2>
+        void operator()(Geometry1 const& geometry1,
+                        Geometry2 const& geometry2) const
+        {
+            union_
+                <
+                    Geometry1,
+                    Geometry2
+                >::apply(geometry1, geometry2, m_output_collection, m_strategy);
+        }
+    };
+    
+    template <typename Collection, typename Strategy>
+    static inline void
+    apply(variant<BOOST_VARIANT_ENUM_PARAMS(T1)> const& geometry1,
+          variant<BOOST_VARIANT_ENUM_PARAMS(T2)> const& geometry2,
+          Collection& output_collection,
+          Strategy const& strategy)
+    {
+        boost::apply_visitor(visitor<Collection, Strategy>(output_collection,
+                                                           strategy),
+                             geometry1, geometry2);
+    }
+};
+    
+} // namespace resolve_variant
+
+
+/*!
+\brief Combines two geometries which each other
+\ingroup union
+\details \details_calc2{union, spatial set theoretic union}.
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\tparam Collection output collection, either a multi-geometry,
+    or a std::vector<Geometry> / std::deque<Geometry> etc
+\tparam Strategy \tparam_strategy{Union_}
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\param output_collection the output collection
+\param strategy \param_strategy{union_}
+\note Called union_ because union is a reserved word.
+
+\qbk{distinguish,with strategy}
+\qbk{[include reference/algorithms/union.qbk]}
+*/
+template
+<
+    typename Geometry1,
+    typename Geometry2,
+    typename Collection,
+    typename Strategy
+>
+inline void union_(Geometry1 const& geometry1,
+                   Geometry2 const& geometry2,
+                   Collection& output_collection,
+                   Strategy const& strategy)
+{
+    resolve_variant::union_
+        <
+            Geometry1,
+            Geometry2
+        >::apply(geometry1, geometry2, output_collection, strategy);
+}
 
 
 /*!
@@ -261,17 +520,14 @@ template
     typename Collection
 >
 inline void union_(Geometry1 const& geometry1,
-            Geometry2 const& geometry2,
-            Collection& output_collection)
+                   Geometry2 const& geometry2,
+                   Collection& output_collection)
 {
-    concept::check<Geometry1 const>();
-    concept::check<Geometry2 const>();
-
-    typedef typename boost::range_value<Collection>::type geometry_out;
-    concept::check<geometry_out>();
-
-    detail::union_::union_insert<geometry_out>(geometry1, geometry2,
-                std::back_inserter(output_collection));
+    resolve_variant::union_
+        <
+            Geometry1,
+            Geometry2
+        >::apply(geometry1, geometry2, output_collection, default_strategy());
 }
 
 

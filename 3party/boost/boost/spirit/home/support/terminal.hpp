@@ -13,10 +13,10 @@
 #pragma once
 #endif
 
+#include <boost/config.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_function.hpp>
 #include <boost/proto/proto.hpp>
-#include <boost/fusion/include/void.hpp>
 #include <boost/spirit/home/support/meta_compiler.hpp>
 #include <boost/spirit/home/support/detail/make_vector.hpp>
 #include <boost/spirit/home/support/unused.hpp>
@@ -236,12 +236,9 @@ namespace boost { namespace spirit
           : to_nonlazy_arg<A>
         {};
 
+        // incomplete type: should not be appeared unused_type in nonlazy arg.
         template <>
-        struct to_nonlazy_arg<unused_type>
-        {
-            // unused arg: make_vector wants fusion::void_
-            typedef fusion::void_ type;
-        };
+        struct to_nonlazy_arg<unused_type>;
     }
 
     template <typename Terminal>
@@ -265,13 +262,55 @@ namespace boost { namespace spirit
           : base_type(proto::terminal<Terminal>::type::make(t)) 
         {}
 
+#if defined(BOOST_MSVC)
+#pragma warning(push)
+// warning C4348: 'boost::spirit::terminal<...>::result_helper': redefinition of default parameter: parameter 3, 4
+#pragma warning(disable: 4348)
+#endif
+
         template <
             bool Lazy
           , typename A0
-          , typename A1
-          , typename A2
+          , typename A1 = unused_type
+          , typename A2 = unused_type
         >
         struct result_helper;
+
+#if defined(BOOST_MSVC)
+#pragma warning(pop)
+#endif
+
+        template <
+            typename A0
+        >
+        struct result_helper<false, A0>
+        {
+            typedef typename
+                proto::terminal<
+                    terminal_ex<
+                        Terminal
+                      , typename detail::result_of::make_vector<
+                            typename detail::to_nonlazy_arg<A0>::type>::type>
+                >::type
+            type;
+        };
+
+        template <
+            typename A0
+          , typename A1
+        >
+        struct result_helper<false, A0, A1>
+        {
+            typedef typename
+                proto::terminal<
+                    terminal_ex<
+                        Terminal
+                      , typename detail::result_of::make_vector<
+                            typename detail::to_nonlazy_arg<A0>::type
+                          , typename detail::to_nonlazy_arg<A1>::type>::type>
+                >::type
+            type;
+        };
 
         template <
             typename A0

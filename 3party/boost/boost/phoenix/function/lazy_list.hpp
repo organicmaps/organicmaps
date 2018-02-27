@@ -164,7 +164,7 @@ namespace boost {
       struct ResultType {
         typedef typename impl::odd_list<T> type;
       };
-
+  
     }
 
 //////////////////////////////////////////////////////////////////////
@@ -178,7 +178,7 @@ namespace boost {
        struct ListLike {};   // This lets us use is_base_and_derived() to see
        // (at compile-time) what classes are user-defined lists.
 
-
+ 
        template <class L, bool is_lazy> struct ensure_lazy_helper {};
        template <class L> struct ensure_lazy_helper<L,true> {
            static void requires_lazy_list_to_prevent_infinite_recursion() {}
@@ -202,7 +202,7 @@ namespace boost {
        }
 
       template <class L>
-      bool is_a_unique_type_for_nil(const L& l) {
+      bool is_a_unique_type_for_nil(const L& /*l*/) {
          return false;
       }
 
@@ -231,7 +231,7 @@ namespace boost {
       struct detect_nil<const a_unique_type_for_nil&> {
        static const bool is_nil = true;
       };
-
+          
     }
 
 //////////////////////////////////////////////////////////////////////
@@ -408,7 +408,7 @@ class strict_list_iterator
 public:
    strict_list_iterator() : l(), is_nil(true) {}
    explicit strict_list_iterator( const rep_type& ll ) : l(ll), is_nil(!ll) {}
-
+   
    const T operator*() const { return l->head; }
    const Proxy operator->() const { return Proxy(l->head); }
    strict_list_iterator<T>& operator++() {
@@ -461,7 +461,7 @@ public:
            typedef strict_list<UU> type;
            typedef strict_list<UU> delay_type;
        };
-
+ 
 
    strict_list( Make, const rep_type& r ) : rep(r) {}
 
@@ -481,7 +481,7 @@ public:
    template <class F>
    strict_list( const T& x, const F& f )
       : rep( new impl::strict_cons<T>(x,f().rep) ) {}
-
+   
      operator bool() const { return (bool)rep; }
    force_result_type force() const { return *this; }
    delay_result_type delay() const { return *this; }
@@ -760,7 +760,7 @@ public:
            second = x.second;
            return *this;
         }
-
+      
        ~odd_list() {
           if( fst_is_valid() ) {
             first().~T();
@@ -1010,7 +1010,7 @@ class list_iterator
 public:
    list_iterator() : l(), is_nil(true) {}
    explicit list_iterator( const list<T>& ll ) : l(ll), is_nil(!ll) {}
-
+   
    const T operator*() const { return l.head(); }
    const Proxy operator->() const { return Proxy(l.head()); }
    list_iterator<T>& operator++() {
@@ -1277,13 +1277,12 @@ bool operator<( a_unique_type_for_nil, const list<T>& b ) {
         template <typename T, typename L>
         typename result<Cons(T,L)>::type
         operator()( const T& x, const L& l ) const {
-           typedef typename result<Cons(T,L)>::type LL;
            typedef typename result_of::ListType<L>::LType LType;
            typedef ConsHelp1<T,LType,
            boost::is_base_and_derived<ListLike,LType>::value> help;
            return help::go(x,l);
           }
-
+      
         template <typename T>
         typename result<Cons(T,a_unique_type_for_nil)>::type
         operator()( const T& x, const a_unique_type_for_nil &n ) const {
@@ -1304,28 +1303,28 @@ bool operator<( a_unique_type_for_nil, const list<T>& b ) {
       template <class L, class M, bool b>
       struct CatHelp0;
 
-      template <class L>
-      struct CatHelp0<L,a_unique_type_for_nil,true> {
-        typedef typename result_of::template ListType<L>::LType type;
+      template <class LL>
+      struct CatHelp0<LL,a_unique_type_for_nil,true> {
+        typedef typename result_of::template ListType<LL>::LType type;
       };
 
-      template <class L>
-      struct CatHelp0<const L &,const a_unique_type_for_nil &,true> {
-        typedef typename result_of::template ListType<L>::LType type;
+      template <class LL>
+      struct CatHelp0<const LL &,const a_unique_type_for_nil &,true> {
+        typedef typename result_of::template ListType<LL>::LType type;
         //typedef L type;
       };
 
-      template <class L>
-      struct CatHelp0<L &,a_unique_type_for_nil &,true> {
-        typedef typename result_of::template ListType<L>::LType type;
+      template <class LL>
+      struct CatHelp0<LL &,a_unique_type_for_nil &,true> {
+        typedef typename result_of::template ListType<LL>::LType type;
         //typedef L type;
       };
 
-      template <class L, class M>
-      struct CatHelp0<L,M,false> {
+      template <class LL, class MM>
+      struct CatHelp0<LL,MM,false> {
           // This removes any references from L for correct return type
           // identification.
-        typedef typename result_of::template ListType<L>::LType type;
+        typedef typename result_of::template ListType<LL>::LType type;
         //    typedef typename ConsHelp1<T,LType,
         //   boost::is_base_and_derived<ListLike,LType>::value>::type type;
       };
@@ -1341,7 +1340,7 @@ bool operator<( a_unique_type_for_nil, const list<T>& b ) {
          template <class L, class M, bool b, class R>
          struct Helper /*: public c_fun_type<L,M,R>*/ {
            template <typename Sig> struct result;
-
+           
            template <typename This>
            struct result<This(L,M)>
           {
@@ -1362,7 +1361,7 @@ bool operator<( a_unique_type_for_nil, const list<T>& b ) {
           template <class L, class M, class R>
           struct Helper<L,M,true,R> /*: public c_fun_type<L,M,R>*/ {
            template <typename Sig> struct result;
-
+           
            template <typename This>
            struct result<This(L,M)>
           {
@@ -1404,7 +1403,7 @@ bool operator<( a_unique_type_for_nil, const list<T>& b ) {
           listlike::detect_nil<M>::is_nil>::type type;
         // typedef typename result_of::ListType<L>::tail_result_type type;
       };
-
+      
       template <typename This, typename L>
       struct result<This(L,a_unique_type_for_nil)>
       {
@@ -1425,7 +1424,7 @@ bool operator<( a_unique_type_for_nil, const list<T>& b ) {
          listlike::EnsureListLike<L>();
          return l;
       }
-
+       
       };
 
 
@@ -1461,7 +1460,7 @@ struct list_with {
       l = cons( a, l );
       return l;
    }
-
+   
    template <class T>
    typename Kind::template List<T>::type
    operator()( const T& a, const T& b ) const {
@@ -1470,7 +1469,7 @@ struct list_with {
       l = cons( a, l );
       return l;
    }
-
+   
    template <class T>
    typename Kind::template List<T>::type
    operator()( const T& a, const T& b, const T& c ) const {
@@ -1480,7 +1479,7 @@ struct list_with {
       l = cons( a, l );
       return l;
    }
-
+   
    template <class T>
    typename Kind::template List<T>::type
    operator()( const T& a, const T& b, const T& c, const T& d ) const {
@@ -1491,7 +1490,7 @@ struct list_with {
       l = cons( a, l );
       return l;
    }
-
+   
    template <class T>
    typename Kind::template List<T>::type
    operator()( const T& a, const T& b, const T& c, const T& d,

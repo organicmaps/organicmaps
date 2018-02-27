@@ -2,6 +2,10 @@
 
 // Copyright (c) 2012-2014 Barend Gehrels, Amsterdam, the Netherlands.
 
+// This file was modified by Oracle on 2016.
+// Modifications copyright (c) 2016 Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -218,16 +222,16 @@ public :
 
         BOOST_GEOMETRY_ASSERT(! piece.sections.empty());
 
-        coordinate_type const point_y = geometry::get<1>(turn.robust_point);
+        coordinate_type const point_x = geometry::get<0>(turn.robust_point);
 
         for (std::size_t s = 0; s < piece.sections.size(); s++)
         {
             section_type const& section = piece.sections[s];
-            // If point within vertical range of monotonic section:
+            // If point within horizontal range of monotonic section:
             if (! section.duplicate
                 && section.begin_index < section.end_index
-                && point_y >= geometry::get<min_corner, 1>(section.bounding_box) - 1
-                && point_y <= geometry::get<max_corner, 1>(section.bounding_box) + 1)
+                && point_x >= geometry::get<min_corner, 0>(section.bounding_box) - 1
+                && point_x <= geometry::get<max_corner, 0>(section.bounding_box) + 1)
             {
                 for (signed_size_type i = section.begin_index + 1; i <= section.end_index; i++)
                 {
@@ -239,21 +243,21 @@ public :
                     // First check if it is in range - if it is not, the
                     // expensive side_of_intersection does not need to be
                     // applied
-                    coordinate_type y1 = geometry::get<1>(previous);
-                    coordinate_type y2 = geometry::get<1>(current);
+                    coordinate_type x1 = geometry::get<0>(previous);
+                    coordinate_type x2 = geometry::get<0>(current);
 
-                    if (y1 > y2)
+                    if (x1 > x2)
                     {
-                        std::swap(y1, y2);
+                        std::swap(x1, x2);
                     }
 
-                    if (point_y >= y1 - 1 && point_y <= y2 + 1)
+                    if (point_x >= x1 - 1 && point_x <= x2 + 1)
                     {
                         segment_type const r(previous, current);
                         int const side = strategy::side::side_of_intersection::apply(p, q, r,
                                     turn.robust_point);
 
-                        // Sections are monotonic in y-dimension
+                        // Sections are monotonic in x-dimension
                         if (side == 1)
                         {
                             // Left on segment

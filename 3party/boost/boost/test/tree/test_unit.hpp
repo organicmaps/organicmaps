@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2011-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -82,10 +82,10 @@ public:
     std::string                         full_name() const;
 
     // Public r/o properties
-    readonly_property<test_unit_type>   p_type;                 ///< type for this test unit
-    readonly_property<const_string>     p_type_name;            ///< "case"/"suite"/"module"
-    readonly_property<const_string>     p_file_name;
-    readonly_property<std::size_t>      p_line_num;
+    test_unit_type const                p_type;                 ///< type for this test unit
+    const_string const                  p_type_name;            ///< "case"/"suite"/"module"
+    const_string const                  p_file_name;
+    std::size_t const                   p_line_num;
     id_t                                p_id;                   ///< unique id for this test unit
     parent_id_t                         p_parent_id;            ///< parent test suite id
     label_list_t                        p_labels;               ///< list of labels associated with this test unit

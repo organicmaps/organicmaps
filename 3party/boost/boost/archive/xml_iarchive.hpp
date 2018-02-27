@@ -44,7 +44,7 @@ class basic_xml_grammar;
 typedef basic_xml_grammar<char> xml_grammar;
 
 template<class Archive>
-class BOOST_SYMBOL_VISIBLE xml_iarchive_impl :
+class BOOST_SYMBOL_VISIBLE xml_iarchive_impl : 
     public basic_text_iprimitive<std::istream>,
     public basic_xml_iarchive<Archive>
 {
@@ -52,17 +52,9 @@ class BOOST_SYMBOL_VISIBLE xml_iarchive_impl :
 public:
 #else
 protected:
-    #if BOOST_WORKAROUND(BOOST_MSVC, < 1500)
-        // for some inexplicable reason insertion of "class" generates compile erro
-        // on msvc 7.1
-        friend detail::interface_iarchive<Archive>;
-        friend basic_xml_iarchive<Archive>;
-        friend load_access;
-    #else
-        friend class detail::interface_iarchive<Archive>;
-        friend class basic_xml_iarchive<Archive>;
-        friend class load_access;
-    #endif
+    friend class detail::interface_iarchive<Archive>;
+    friend class basic_xml_iarchive<Archive>;
+    friend class load_access;
 #endif
     // use boost:scoped_ptr to implement automatic deletion;
     boost::scoped_ptr<xml_grammar> gimpl;
@@ -106,7 +98,7 @@ protected:
     load_override(class_name_type & t);
     BOOST_ARCHIVE_DECL void
     init();
-    BOOST_ARCHIVE_DECL
+    BOOST_ARCHIVE_DECL 
     xml_iarchive_impl(std::istream & is, unsigned int flags);
     BOOST_ARCHIVE_DECL
     ~xml_iarchive_impl();
@@ -128,7 +120,7 @@ protected:
 namespace boost { 
 namespace archive {
 
-class BOOST_SYMBOL_VISIBLE xml_iarchive :
+class BOOST_SYMBOL_VISIBLE xml_iarchive : 
     public xml_iarchive_impl<xml_iarchive>{
 public:
     xml_iarchive(std::istream & is, unsigned int flags = 0) :

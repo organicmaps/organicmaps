@@ -16,7 +16,7 @@
 #define BOOST_LOG_SUPPORT_SPIRIT_CLASSIC_HPP_INCLUDED_
 
 #include <boost/mpl/bool.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/utility/functional/matches.hpp>
 

@@ -8,7 +8,7 @@
 #ifndef BOOST_IOSTREAMS_INVERT_HPP_INCLUDED
 #define BOOST_IOSTREAMS_INVERT_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif              
 
@@ -73,7 +73,7 @@ public:
         { }
 
     template<typename Source>
-    std::streamsize read(Source& src, char* s, std::streamsize n)
+    std::streamsize read(Source& src, char_type* s, std::streamsize n)
     {
         typedef detail::counted_array_sink<char_type>  array_sink;
         typedef composite<filter_ref, array_sink>      filtered_array_sink;
@@ -101,7 +101,7 @@ public:
     }
 
     template<typename Sink>
-    std::streamsize write(Sink& dest, const char* s, std::streamsize n)
+    std::streamsize write(Sink& dest, const char_type* s, std::streamsize n)
     {
         typedef detail::counted_array_source<char_type>  array_source;
         typedef composite<filter_ref, array_source>      filtered_array_source;

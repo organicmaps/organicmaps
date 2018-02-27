@@ -6,7 +6,7 @@
  Implementaiton of the Burlish-Stoer method with dense output
  [end_description]
 
- Copyright 2011-2013 Mario Mulansky
+ Copyright 2011-2015 Mario Mulansky
  Copyright 2011-2013 Karsten Ahnert
  Copyright 2012 Christoph Koke
 
@@ -42,6 +42,8 @@
 #include <boost/numeric/odeint/util/is_resizeable.hpp>
 #include <boost/numeric/odeint/util/resizer.hpp>
 #include <boost/numeric/odeint/util/unit_helper.hpp>
+
+#include <boost/numeric/odeint/integrate/max_step_checker.hpp>
 
 #include <boost/type_traits.hpp>
 
@@ -97,8 +99,10 @@ public:
     bulirsch_stoer_dense_out(
         value_type eps_abs = 1E-6 , value_type eps_rel = 1E-6 ,
         value_type factor_x = 1.0 , value_type factor_dxdt = 1.0 ,
+        time_type max_dt = static_cast<time_type>(0) ,
         bool control_interpolation = false )
-        : m_error_checker( eps_abs , eps_rel , factor_x, factor_dxdt ) , 
+        : m_error_checker( eps_abs , eps_rel , factor_x, factor_dxdt ) ,
+          m_max_dt(max_dt) ,
           m_control_interpolation( control_interpolation) ,
           m_last_step_rejected( false ) , m_first( true ) ,
           m_current_state_x1( true ) ,
@@ -149,6 +153,14 @@ public:
     template< class System , class StateIn , class DerivIn , class StateOut , class DerivOut >
     controlled_step_result try_step( System system , const StateIn &in , const DerivIn &dxdt , time_type &t , StateOut &out , DerivOut &dxdt_new , time_type &dt )
     {
+        if( m_max_dt != static_cast<time_type>(0) && detail::less_with_sign(m_max_dt, dt, dt) )
+        {
+            // given step size is bigger then max_dt
+            // set limit and return fail
+            dt = m_max_dt;
+            return fail;
+        }
+
         BOOST_USING_STD_MIN();
         BOOST_USING_STD_MAX();
         using std::pow;
@@ -275,7 +287,14 @@ public:
         }
         //set next stepsize
         if( !m_last_step_rejected || (new_h < dt) )
+        {
+            // limit step size
+            if( m_max_dt != static_cast<time_type>(0) )
+            {
+                new_h = detail::min_abs(m_max_dt, new_h);
+            }
             dt = new_h;
+        }
 
         m_last_step_rejected = reject;
         if( reject )
@@ -301,23 +320,20 @@ public:
     template< class System >
     std::pair< time_type , time_type > do_step( System system )
     {
-        const size_t max_count = 1000;
-
         if( m_first )
         {
             typename odeint::unwrap_reference< System >::type &sys = system;
             sys( get_current_state() , get_current_deriv() , m_t );
         }
 
+        failed_step_checker fail_checker;  // to throw a runtime_error if step size adjustment fails
         controlled_step_result res = fail;
         m_t_last = m_t;
-        size_t count = 0;
         while( res == fail )
         {
             res = try_step( system , get_current_state() , get_current_deriv() , m_t , get_old_state() , get_old_deriv() , m_dt );
             m_first = false;
-            if( count++ == max_count )
-                throw std::overflow_error( "bulirsch_stoer : too much iterations!");
+            fail_checker();  // check for overflow of failed steps
         }
         toggle_current_state();
         return std::make_pair( m_t_last , m_t );
@@ -412,15 +428,15 @@ private:
         BOOST_USING_STD_MAX();
         using std::pow;
 
-        value_type expo=1.0/(m_interval_sequence[k-1]);
+        value_type expo = static_cast<value_type>(1)/(m_interval_sequence[k-1]);
         value_type facmin = pow BOOST_PREVENT_MACRO_SUBSTITUTION( STEPFAC3 , expo );
         value_type fac;
         if (error == 0.0)
-            fac=1.0/facmin;
+            fac = static_cast<value_type>(1)/facmin;
         else
         {
             fac = STEPFAC2 / pow BOOST_PREVENT_MACRO_SUBSTITUTION( error / STEPFAC1 , expo );
-            fac = max BOOST_PREVENT_MACRO_SUBSTITUTION( facmin/STEPFAC4 , min BOOST_PREVENT_MACRO_SUBSTITUTION( 1.0/facmin , fac ) );
+            fac = max BOOST_PREVENT_MACRO_SUBSTITUTION( static_cast<value_type>( facmin/STEPFAC4 ) , min BOOST_PREVENT_MACRO_SUBSTITUTION( static_cast<value_type>(static_cast<value_type>(1)/facmin) , fac ) );
         }
         return h*fac;
     }
@@ -646,6 +662,8 @@ private:
     default_error_checker< value_type, algebra_type , operations_type > m_error_checker;
     modified_midpoint_dense_out< state_type , value_type , deriv_type , time_type , algebra_type , operations_type , resizer_type > m_midpoint;
 
+    time_type m_max_dt;
+
     bool m_control_interpolation;
 
     bool m_last_step_rejected;
@@ -684,7 +702,7 @@ private:
 
     //wrapped_state_type m_a1 , m_a2 , m_a3 , m_a4;
 
-    const value_type STEPFAC1 , STEPFAC2 , STEPFAC3 , STEPFAC4 , KFAC1 , KFAC2;
+    value_type STEPFAC1 , STEPFAC2 , STEPFAC3 , STEPFAC4 , KFAC1 , KFAC2;
 };
 
 

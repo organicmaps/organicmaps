@@ -23,7 +23,6 @@
 #include <boost/container/detail/workaround.hpp>
 
 #include <boost/intrusive/set.hpp>
-#include <boost/container/detail/alloc_lib_auto_link.hpp>
 #include <boost/container/detail/multiallocation_chain.hpp>
 #include <boost/container/detail/pool_common_alloc.hpp>
 #include <boost/container/detail/mutex.hpp>

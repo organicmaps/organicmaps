@@ -90,7 +90,7 @@ public:
      * Requires: t >=0 && 0 <= p <= 1
      */
     explicit chi_squared_distribution(RealType n_arg = RealType(1))
-      : _impl(n_arg / 2)
+      : _impl(static_cast<RealType>(n_arg / 2))
     {
     }
     
@@ -99,7 +99,7 @@ public:
      * parameters.
      */
     explicit chi_squared_distribution(const param_type& parm)
-      : _impl(parm.n() / 2)
+      : _impl(static_cast<RealType>(parm.n() / 2))
     {
     }
     
@@ -138,7 +138,7 @@ public:
     void param(const param_type& parm)
     {
         typedef gamma_distribution<RealType> impl_type;
-        typename impl_type::param_type impl_parm(parm.n() / 2);
+        typename impl_type::param_type impl_parm(static_cast<RealType>(parm.n() / 2));
         _impl.param(impl_parm);
     }
 

@@ -40,7 +40,7 @@ namespace boost { namespace fusion
     BOOST_FUSION_GPU_ENABLED
     explicit
     map(U0 && arg0
-
+    
 # if defined(BOOST_MSVC) && (BOOST_MSVC == 1700)
         , typename enable_if<is_same<U0, T0> >::type* = 0
 # endif

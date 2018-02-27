@@ -1,11 +1,11 @@
-//  (C) Copyright Gennadiy Rozental 2001-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at
+//  (See accompanying file LICENSE_1_0.txt or copy at 
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
 //
-//!@file
+//!@file 
 //!@brief algorithms for comparing floating point values
 // ***************************************************************************
 
@@ -120,7 +120,7 @@ namespace fpc_detail {
 // FPT is Floating-Point Type: float, double, long double or User-Defined.
 template<typename FPT>
 inline FPT
-fpt_abs( FPT fpv )
+fpt_abs( FPT fpv ) 
 {
     return fpv < static_cast<FPT>(0) ? -fpv : fpv;
 }
@@ -174,7 +174,7 @@ inline FPT
 fraction_tolerance( ToleranceType tolerance )
 {
   return static_cast<FPT>(tolerance);
-}
+} 
 
 //____________________________________________________________________________//
 
@@ -182,7 +182,7 @@ template<typename FPT2, typename FPT>
 inline FPT2
 fraction_tolerance( percent_tolerance_t<FPT> tolerance )
 {
-    return FPT2(tolerance.m_value)*FPT2(0.01);
+    return FPT2(tolerance.m_value)*FPT2(0.01); 
 }
 
 //____________________________________________________________________________//
@@ -196,7 +196,7 @@ fraction_tolerance( percent_tolerance_t<FPT> tolerance )
 
 /*!@brief Predicate for comparing floating point numbers
  *
- * This predicate is used to compare floating point numbers. In addition the comparison produces maximum
+ * This predicate is used to compare floating point numbers. In addition the comparison produces maximum 
  * related differnce, which can be used to generate detailed error message
  * The methods for comparing floating points are detailed in the documentation. The method is chosen
  * by the @ref boost::math::fpc::strength given at construction.
@@ -209,7 +209,7 @@ public:
 
     // Constructor
     template<typename ToleranceType>
-    explicit    close_at_tolerance( ToleranceType tolerance, fpc::strength fpc_strength = FPC_STRONG )
+    explicit    close_at_tolerance( ToleranceType tolerance, fpc::strength fpc_strength = FPC_STRONG ) 
     : m_fraction_tolerance( fpc_detail::fraction_tolerance<FPT>( tolerance ) )
     , m_strength( fpc_strength )
     , m_tested_rel_diff( 0 )
@@ -267,7 +267,7 @@ private:
 /*!@brief Predicate for comparing floating point numbers against 0
  *
  * Serves the same purpose as boost::math::fpc::close_at_tolerance, but used when one
- * of the operand is null.
+ * of the operand is null. 
  */
 template<typename FPT>
 class small_with_tolerance {
@@ -285,7 +285,7 @@ public:
     // Action method
     bool        operator()( FPT fpv ) const
     {
-        return fpc::fpc_detail::fpt_abs( fpv ) < m_tolerance;
+        return fpc::fpc_detail::fpt_abs( fpv ) <= m_tolerance;
     }
 
 private:

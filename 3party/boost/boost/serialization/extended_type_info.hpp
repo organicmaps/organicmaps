@@ -65,11 +65,7 @@ protected:
         const unsigned int type_info_key,
         const char * key
     );
-    // account for bogus gcc warning
-    #if defined(__GNUC__)
-    virtual
-    #endif
-    BOOST_SERIALIZATION_DECL ~extended_type_info();
+    virtual BOOST_SERIALIZATION_DECL ~extended_type_info();
 public:
     const char * get_key() const {
         return m_key;

@@ -404,8 +404,13 @@ public:
             binomial_heap children(value_comp(), element->children, sz);
             if (trees.empty()) {
                 stability_counter_type stability_count = super_t::get_stability_count();
+                size_t size = constant_time_size ? size_holder::get_size()
+                                                 : 0;
                 swap(children);
                 super_t::set_stability_count(stability_count);
+
+                if (constant_time_size)
+                    size_holder::set_size( size );
             } else
                 merge_and_clear_nodes(children);
 
@@ -511,8 +516,7 @@ public:
 
         siftdown(n);
 
-        if (n == top_element)
-            update_top_element();
+        update_top_element();
     }
 
     /**
@@ -787,7 +791,6 @@ private:
                 trees.insert(it, *n);
             }
             n->add_child(parent);
-            BOOST_HEAP_ASSERT(parent->child_count() == n->child_count());
         }
     }
 

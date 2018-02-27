@@ -141,7 +141,7 @@ class circular_slist_algorithms
    //! <b>Complexity</b>: Constant
    //!
    //! <b>Throws</b>: Nothing.
-   static void init_header(const node_ptr &this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void init_header(const node_ptr &this_node)
    {  NodeTraits::set_next(this_node, this_node);  }
 
    //! <b>Requires</b>: this_node and prev_init_node must be in the same circular list.
@@ -153,7 +153,7 @@ class circular_slist_algorithms
    //! <b>Complexity</b>: Linear to the number of elements between prev_init_node and this_node.
    //!
    //! <b>Throws</b>: Nothing.
-   static node_ptr get_previous_node(const node_ptr &prev_init_node, const node_ptr &this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_previous_node(const node_ptr &prev_init_node, const node_ptr &this_node)
    {  return base_t::get_previous_node(prev_init_node, this_node);   }
 
    //! <b>Requires</b>: this_node must be in a circular list or be an empty circular list.
@@ -163,7 +163,7 @@ class circular_slist_algorithms
    //! <b>Complexity</b>: Linear to the number of elements in the circular list.
    //!
    //! <b>Throws</b>: Nothing.
-   static node_ptr get_previous_node(const node_ptr & this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_previous_node(const node_ptr & this_node)
    {  return base_t::get_previous_node(this_node, this_node); }
 
    //! <b>Requires</b>: this_node must be in a circular list or be an empty circular list.
@@ -173,7 +173,7 @@ class circular_slist_algorithms
    //! <b>Complexity</b>: Linear to the number of elements in the circular list.
    //!
    //! <b>Throws</b>: Nothing.
-   static node_ptr get_previous_previous_node(const node_ptr & this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_previous_previous_node(const node_ptr & this_node)
    {  return get_previous_previous_node(this_node, this_node); }
 
    //! <b>Requires</b>: this_node and p must be in the same circular list.
@@ -223,7 +223,7 @@ class circular_slist_algorithms
    //! <b>Complexity</b>: Linear to the number of elements in the circular list
    //!
    //! <b>Throws</b>: Nothing.
-   static void unlink(const node_ptr & this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void unlink(const node_ptr & this_node)
    {
       if(NodeTraits::get_next(this_node))
          base_t::unlink_after(get_previous_node(this_node));
@@ -236,7 +236,7 @@ class circular_slist_algorithms
    //! <b>Complexity</b>: Linear to the number of elements in the circular list.
    //!
    //! <b>Throws</b>: Nothing.
-   static void link_before (const node_ptr & nxt_node, const node_ptr & this_node)
+   BOOST_INTRUSIVE_FORCEINLINE static void link_before (const node_ptr & nxt_node, const node_ptr & this_node)
    {  base_t::link_after(get_previous_node(nxt_node), this_node);   }
 
    //! <b>Requires</b>: this_node and other_node must be nodes inserted

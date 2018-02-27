@@ -18,7 +18,6 @@
 #include <cstddef>
 
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/equal_to.hpp>
 #include <boost/static_assert.hpp>
 
 #include <boost/geometry/core/point_type.hpp>
@@ -94,13 +93,7 @@ struct dimension
 template <typename Geometry, int Dimensions>
 inline void assert_dimension()
 {
-    BOOST_STATIC_ASSERT((
-        boost::mpl::equal_to
-        <
-            boost::mpl::int_<geometry::dimension<Geometry>::value>,
-            boost::mpl::int_<Dimensions>
-        >::type::value
-        ));
+    BOOST_STATIC_ASSERT(( static_cast<int>(dimension<Geometry>::value) == Dimensions ));
 }
 
 /*!

@@ -125,6 +125,7 @@ inline std::streamsize lcast_get_precision(T* = 0)
             limits::radix == 10 && limits::digits10 > 0;
         std::streamsize const streamsize_max =
             (boost::integer_traits<std::streamsize>::max)();
+        (void)streamsize_max;
 
         if(is_specialized_bin)
         { // Floating-point types with

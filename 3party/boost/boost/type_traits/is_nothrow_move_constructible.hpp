@@ -11,43 +11,28 @@
 #ifndef BOOST_TT_IS_NOTHROW_MOVE_CONSTRUCTIBLE_HPP_INCLUDED
 #define BOOST_TT_IS_NOTHROW_MOVE_CONSTRUCTIBLE_HPP_INCLUDED
 
+#include <cstddef> // size_t
 #include <boost/config.hpp>
 #include <boost/type_traits/intrinsics.hpp>
-#include <boost/type_traits/has_trivial_move_constructor.hpp>
-#include <boost/type_traits/has_nothrow_copy.hpp>
-#include <boost/type_traits/is_array.hpp>
-#include <boost/type_traits/is_reference.hpp>
-#include <boost/type_traits/detail/ice_or.hpp>
-#include <boost/type_traits/detail/ice_and.hpp>
-#include <boost/utility/declval.hpp>
-#include <boost/utility/enable_if.hpp>
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
-
-namespace boost {
-
-namespace detail{
+#include <boost/type_traits/integral_constant.hpp>
+#include <boost/detail/workaround.hpp>
 
 #ifdef BOOST_IS_NOTHROW_MOVE_CONSTRUCT
 
-template <class T>
-struct is_nothrow_move_constructible_imp{
-   BOOST_STATIC_CONSTANT(bool, value = BOOST_IS_NOTHROW_MOVE_CONSTRUCT(T));
-};
+namespace boost {
 
 template <class T>
-struct is_nothrow_move_constructible_imp<volatile T> : public ::boost::false_type {};
-template <class T>
-struct is_nothrow_move_constructible_imp<const volatile T> : public ::boost::false_type{};
-template <class T>
-struct is_nothrow_move_constructible_imp<T&> : public ::boost::false_type{};
-#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
-template <class T>
-struct is_nothrow_move_constructible_imp<T&&> : public ::boost::false_type{};
-#endif
+struct is_nothrow_move_constructible : public integral_constant<bool, BOOST_IS_NOTHROW_MOVE_CONSTRUCT(T)>{};
 
-#elif !defined(BOOST_NO_CXX11_NOEXCEPT) && !defined(BOOST_NO_SFINAE_EXPR)
+template <class T> struct is_nothrow_move_constructible<volatile T> : public ::boost::false_type {};
+template <class T> struct is_nothrow_move_constructible<const volatile T> : public ::boost::false_type{};
+
+#elif !defined(BOOST_NO_CXX11_NOEXCEPT) && !defined(BOOST_NO_SFINAE_EXPR) && !BOOST_WORKAROUND(BOOST_GCC_VERSION, < 40800)
+
+#include <boost/type_traits/declval.hpp>
+#include <boost/utility/enable_if.hpp>
+
+namespace boost{ namespace detail{
 
 template <class T, class Enable = void>
 struct false_or_cpp11_noexcept_move_constructible: public ::boost::false_type {};
@@ -59,51 +44,44 @@ struct false_or_cpp11_noexcept_move_constructible <
     > : public ::boost::integral_constant<bool, BOOST_NOEXCEPT_EXPR(T(::boost::declval<T>()))>
 {};
 
-template <class T>
-struct is_nothrow_move_constructible_imp{
-   BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::false_or_cpp11_noexcept_move_constructible<T>::value);
-};
+}
 
-template <class T>
-struct is_nothrow_move_constructible_imp<volatile T> : public ::boost::false_type {};
-template <class T>
-struct is_nothrow_move_constructible_imp<const volatile T> : public ::boost::false_type{};
-template <class T>
-struct is_nothrow_move_constructible_imp<T&> : public ::boost::false_type{};
-#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
-template <class T>
-struct is_nothrow_move_constructible_imp<T&&> : public ::boost::false_type{};
-#endif
+template <class T> struct is_nothrow_move_constructible
+   : public integral_constant<bool, ::boost::detail::false_or_cpp11_noexcept_move_constructible<T>::value>{};
+
+template <class T> struct is_nothrow_move_constructible<volatile T> : public ::boost::false_type {};
+template <class T> struct is_nothrow_move_constructible<const volatile T> : public ::boost::false_type{};
+template <class T, std::size_t N> struct is_nothrow_move_constructible<T[N]> : public ::boost::false_type{};
+template <class T> struct is_nothrow_move_constructible<T[]> : public ::boost::false_type{};
 
 #else
 
+#include <boost/type_traits/has_trivial_move_constructor.hpp>
+#include <boost/type_traits/has_nothrow_copy.hpp>
+#include <boost/type_traits/is_array.hpp>
+
+namespace boost{
+
 template <class T>
-struct is_nothrow_move_constructible_imp{
-    BOOST_STATIC_CONSTANT(bool, value =(
-        ::boost::type_traits::ice_and<
-            ::boost::type_traits::ice_or<
-                ::boost::has_trivial_move_constructor<T>::value,
-                ::boost::has_nothrow_copy<T>::value
-            >::value,
-            ::boost::type_traits::ice_not< ::boost::is_array<T>::value >::value
-        >::value));
-};
+struct is_nothrow_move_constructible
+   : public integral_constant<bool,
+   (::boost::has_trivial_move_constructor<T>::value || ::boost::has_nothrow_copy<T>::value) && !::boost::is_array<T>::value>
+{};
 
 #endif
 
-}
-
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_nothrow_move_constructible,T,::boost::detail::is_nothrow_move_constructible_imp<T>::value)
-
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_nothrow_move_constructible,void,false)
+template <> struct is_nothrow_move_constructible<void> : false_type{};
 #ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_nothrow_move_constructible,void const,false)
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_nothrow_move_constructible,void const volatile,false)
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_nothrow_move_constructible,void volatile,false)
+template <> struct is_nothrow_move_constructible<void const> : false_type{};
+template <> struct is_nothrow_move_constructible<void volatile> : false_type{};
+template <> struct is_nothrow_move_constructible<void const volatile> : false_type{};
+#endif
+// References are always trivially constructible, even if the thing they reference is not:
+template <class T> struct is_nothrow_move_constructible<T&> : public ::boost::true_type{};
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+template <class T> struct is_nothrow_move_constructible<T&&> : public ::boost::true_type{};
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TT_IS_NOTHROW_MOVE_CONSTRUCTIBLE_HPP_INCLUDED

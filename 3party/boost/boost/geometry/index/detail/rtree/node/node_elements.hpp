@@ -2,7 +2,7 @@
 //
 // R-tree node elements access
 //
-// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2015 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -12,6 +12,7 @@
 #define BOOST_GEOMETRY_INDEX_DETAIL_RTREE_NODE_NODE_ELEMENTS_HPP
 
 #include <boost/container/vector.hpp>
+#include <boost/geometry/algorithms/detail/expand_by_epsilon.hpp>
 #include <boost/geometry/index/detail/varray.hpp>
 #include <boost/geometry/index/detail/rtree/node/pairs.hpp>
 
@@ -34,6 +35,20 @@ struct element_indexable_type<
 >
 {
     typedef First type;
+};
+
+// is leaf element
+
+template <typename Element>
+struct is_leaf_element
+{
+    static const bool value = true;
+};
+
+template <typename First, typename Pointer>
+struct is_leaf_element< rtree::ptr_pair<First, Pointer> >
+{
+    static const bool value = false;
 };
 
 // element's indexable getter

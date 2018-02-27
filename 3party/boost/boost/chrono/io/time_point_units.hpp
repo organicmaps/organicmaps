@@ -24,6 +24,16 @@ namespace boost
 {
   namespace chrono
   {
+    /**
+     * customization point to the epoch associated to the clock @c Clock
+     * The default calls @c f.do_get_epoch(Clock()). The user can overload this function.
+     * @return the string epoch associated to the @c Clock
+     */
+    template <typename CharT, typename Clock, typename TPUFacet>
+    std::basic_string<CharT> get_epoch_custom(Clock, TPUFacet& f)
+    {
+      return f.do_get_epoch(Clock());
+    }
 
     /**
      * @c time_point_units facet gives useful information about the time_point pattern,
@@ -74,7 +84,7 @@ namespace boost
       template <typename Clock>
       string_type get_epoch() const
       {
-        return do_get_epoch(Clock());
+        return get_epoch_custom<CharT>(Clock(), *this);
       }
 
     protected:
@@ -83,6 +93,7 @@ namespace boost
        */
       virtual ~time_point_units() {}
 
+    public:
 
       /**
        *
@@ -173,7 +184,7 @@ namespace boost
         return pattern;
       }
 
-    protected:
+    //protected:
       /**
        * @param c a dummy instance of @c system_clock.
        * @return The epoch string returned by @c clock_string<system_clock,CharT>::since().

@@ -741,7 +741,9 @@ deque(T_0 && t0 , T_1 && t1 , T_2 && t2 , T_3 && t3 , T_4 && t4 , T_5 && t5 , T_
             {}
         template<typename Sequence>
         BOOST_FUSION_GPU_ENABLED
-        deque(Sequence const& seq, typename disable_if<is_convertible<Sequence, T0> >::type* = 0)
+        deque(Sequence const& seq
+            , typename disable_if<is_convertible<Sequence, T0>, detail::enabler_>::type = detail::enabler
+            , typename enable_if<traits::is_sequence<Sequence>, detail::enabler_>::type = detail::enabler)
             : base(base::from_iterator(fusion::begin(seq)))
             {}
         template <typename U0 , typename U1 , typename U2 , typename U3 , typename U4 , typename U5 , typename U6 , typename U7 , typename U8 , typename U9 , typename U10 , typename U11 , typename U12 , typename U13 , typename U14 , typename U15 , typename U16 , typename U17 , typename U18 , typename U19 , typename U20 , typename U21 , typename U22 , typename U23 , typename U24 , typename U25 , typename U26 , typename U27 , typename U28 , typename U29 , typename U30 , typename U31 , typename U32 , typename U33 , typename U34 , typename U35 , typename U36 , typename U37 , typename U38 , typename U39>
@@ -764,7 +766,7 @@ deque(T_0 && t0 , T_1 && t1 , T_2 && t2 , T_3 && t3 , T_4 && t4 , T_5 && t5 , T_
         template <typename T0_>
         BOOST_FUSION_GPU_ENABLED
         explicit deque(T0_&& t0
-          , typename enable_if<is_convertible<T0_, T0> >::type* = 0
+          , typename enable_if<is_convertible<T0_, T0>, detail::enabler_>::type = detail::enabler
          )
             : base(std::forward<T0_>( t0), detail::nil_keyed_element())
             {}
@@ -777,7 +779,8 @@ deque(T_0 && t0 , T_1 && t1 , T_2 && t2 , T_3 && t3 , T_4 && t4 , T_5 && t5 , T_
         deque(deque<U0 , U1 , U2 , U3 , U4 , U5 , U6 , U7 , U8 , U9 , U10 , U11 , U12 , U13 , U14 , U15 , U16 , U17 , U18 , U19 , U20 , U21 , U22 , U23 , U24 , U25 , U26 , U27 , U28 , U29 , U30 , U31 , U32 , U33 , U34 , U35 , U36 , U37 , U38 , U39>&& seq
             , typename disable_if<
                   is_convertible<deque<U0 , U1 , U2 , U3 , U4 , U5 , U6 , U7 , U8 , U9 , U10 , U11 , U12 , U13 , U14 , U15 , U16 , U17 , U18 , U19 , U20 , U21 , U22 , U23 , U24 , U25 , U26 , U27 , U28 , U29 , U30 , U31 , U32 , U33 , U34 , U35 , U36 , U37 , U38 , U39>, T0>
-              >::type* = 0)
+                , detail::enabler_
+              >::type = detail::enabler)
             : base(std::forward<deque<U0 , U1 , U2 , U3 , U4 , U5 , U6 , U7 , U8 , U9 , U10 , U11 , U12 , U13 , U14 , U15 , U16 , U17 , U18 , U19 , U20 , U21 , U22 , U23 , U24 , U25 , U26 , U27 , U28 , U29 , U30 , U31 , U32 , U33 , U34 , U35 , U36 , U37 , U38 , U39>>(seq))
             {}
         template <typename T>
@@ -805,7 +808,7 @@ deque(T_0 && t0 , T_1 && t1 , T_2 && t2 , T_3 && t3 , T_4 && t4 , T_5 && t5 , T_
             typename enable_if<
                 mpl::and_<
                     traits::is_sequence<Sequence>
-                  , result_of::empty<Sequence> > >::type* = 0) BOOST_NOEXCEPT
+                  , result_of::empty<Sequence> >, detail::enabler_>::type = detail::enabler) BOOST_NOEXCEPT
         {}
         BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         deque() BOOST_NOEXCEPT {}

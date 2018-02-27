@@ -1,9 +1,10 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2017 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2013, 2014, 2015.
-// Modifications copyright (c) 2013-2015 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015, 2017.
+// Modifications copyright (c) 2013-2017 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -13,6 +14,8 @@
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_GET_TURN_INFO_LA_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_GET_TURN_INFO_LA_HPP
+
+#include <boost/throw_exception.hpp>
 
 #include <boost/geometry/core/assert.hpp>
 
@@ -41,6 +44,7 @@ struct get_turn_info_linear_areal
         typename Point1,
         typename Point2,
         typename TurnInfo,
+        typename IntersectionStrategy,
         typename RobustPolicy,
         typename OutputIterator
     >
@@ -50,13 +54,19 @@ struct get_turn_info_linear_areal
                 bool is_p_first, bool is_p_last,
                 bool is_q_first, bool is_q_last,
                 TurnInfo const& tp_model,
+                IntersectionStrategy const& intersection_strategy,
                 RobustPolicy const& robust_policy,
                 OutputIterator out)
     {
-        typedef intersection_info<Point1, Point2, typename TurnInfo::point_type, RobustPolicy>
-            inters_info;
+        typedef intersection_info
+            <
+                Point1, Point2,
+                typename TurnInfo::point_type,
+                IntersectionStrategy,
+                RobustPolicy
+            > inters_info;
 
-        inters_info inters(pi, pj, pk, qi, qj, qk, robust_policy);
+        inters_info inters(pi, pj, pk, qi, qj, qk, intersection_strategy, robust_policy);
 
         char const method = inters.d_info().how;
 
@@ -106,10 +116,13 @@ struct get_turn_info_linear_areal
                         // Swap p/q
                         side_calculator
                             <
+                                typename inters_info::cs_tag,
                                 typename inters_info::robust_point2_type,
-                                typename inters_info::robust_point1_type
+                                typename inters_info::robust_point1_type,
+                                typename inters_info::side_strategy_type
                             > swapped_side_calc(inters.rqi(), inters.rqj(), inters.rqk(),
-                                                inters.rpi(), inters.rpj(), inters.rpk());
+                                                inters.rpi(), inters.rpj(), inters.rpk(),
+                                                inters.get_side_strategy());
                         policy::template apply<1>(qi, qj, qk, pi, pj, pk,
                                     tp, inters.i_info(), inters.d_info(),
                                     swapped_side_calc);
@@ -394,7 +407,7 @@ struct get_turn_info_linear_areal
                 std::cout << "TURN: Unknown method: " << method << std::endl;
 #endif
 #if ! defined(BOOST_GEOMETRY_OVERLAY_NO_THROW)
-                throw turn_info_exception(method);
+                BOOST_THROW_EXCEPTION(turn_info_exception(method));
 #endif
             }
             break;
@@ -746,17 +759,22 @@ struct get_turn_info_linear_areal
             }
             else
             {
+                typedef typename IntersectionInfo::robust_point1_type rp1_type;
+                typedef typename IntersectionInfo::robust_point2_type rp2_type;
+
                 method_type replaced_method = method_touch_interior;
 
                 if ( ip0.is_qj )
                 {
                     side_calculator
                         <
-                            typename IntersectionInfo::robust_point1_type,
-                            typename IntersectionInfo::robust_point2_type,
-                            typename IntersectionInfo::robust_point2_type
+                            typename IntersectionInfo::cs_tag,
+                            rp1_type, rp2_type,
+                            typename IntersectionInfo::side_strategy_type,
+                            rp2_type
                         > side_calc(inters.rqi(), inters.rpi(), inters.rpj(),
-                                    inters.rqi(), inters.rqj(), inters.rqk());
+                                    inters.rqi(), inters.rqj(), inters.rqk(),
+                                    inters.get_side_strategy());
 
                     std::pair<operation_type, operation_type>
                         operations = get_info_e::operations_of_equal(side_calc);
@@ -770,16 +788,14 @@ struct get_turn_info_linear_areal
                 {
                     side_calculator
                         <
-                            typename IntersectionInfo::robust_point1_type,
-                            typename IntersectionInfo::robust_point2_type,
-                            typename IntersectionInfo::robust_point2_type,
-                            typename IntersectionInfo::robust_point1_type,
-                            typename IntersectionInfo::robust_point1_type,
-                            typename IntersectionInfo::robust_point2_type,
-                            typename IntersectionInfo::robust_point1_type,
-                            typename IntersectionInfo::robust_point2_type
+                            typename IntersectionInfo::cs_tag,
+                            rp1_type, rp2_type,
+                            typename IntersectionInfo::side_strategy_type,
+                            rp2_type, rp1_type, rp1_type,
+                            rp2_type, rp1_type, rp2_type
                         > side_calc(inters.rqi(), inters.rpi(), inters.rpj(),
-                                    inters.rqi(), inters.rpi(), inters.rqj());
+                                    inters.rqi(), inters.rpi(), inters.rqj(),
+                                    inters.get_side_strategy());
 
                     std::pair<operation_type, operation_type>
                         operations = get_info_e::operations_of_equal(side_calc);
@@ -826,11 +842,14 @@ struct get_turn_info_linear_areal
             {
                 side_calculator
                     <
+                        typename IntersectionInfo::cs_tag,
                         typename IntersectionInfo::robust_point1_type,
                         typename IntersectionInfo::robust_point2_type,
+                        typename IntersectionInfo::side_strategy_type,
                         typename IntersectionInfo::robust_point2_type
                     > side_calc(inters.rqi(), inters.rpj(), inters.rpi(),
-                                inters.rqi(), inters.rqj(), inters.rqk());
+                                inters.rqi(), inters.rqj(), inters.rqk(),
+                                inters.get_side_strategy());
 
                 std::pair<operation_type, operation_type>
                     operations = get_info_e::operations_of_equal(side_calc);

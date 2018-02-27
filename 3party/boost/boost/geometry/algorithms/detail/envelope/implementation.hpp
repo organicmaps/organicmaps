@@ -4,9 +4,10 @@
 // Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2015.
-// Modifications copyright (c) 2015, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2015, 2016.
+// Modifications copyright (c) 2015-2016, Oracle and/or its affiliates.
 
+// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
@@ -45,8 +46,8 @@ namespace detail { namespace envelope
 
 struct envelope_polygon
 {
-    template <typename Polygon, typename Box>
-    static inline void apply(Polygon const& polygon, Box& mbr)
+    template <typename Polygon, typename Box, typename Strategy>
+    static inline void apply(Polygon const& polygon, Box& mbr, Strategy const& strategy)
     {
         typename ring_return_type<Polygon const>::type ext_ring
             = exterior_ring(polygon);
@@ -57,12 +58,12 @@ struct envelope_polygon
             envelope_multi_range
                 <
                     envelope_range
-                >::apply(interior_rings(polygon), mbr);
+                >::apply(interior_rings(polygon), mbr, strategy);
         }
         else
         {
             // otherwise, consider only the exterior ring
-            envelope_range::apply(ext_ring, mbr);
+            envelope_range::apply(ext_ring, mbr, strategy);
         }
     }
 };

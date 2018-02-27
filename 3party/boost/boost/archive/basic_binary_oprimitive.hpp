@@ -43,19 +43,18 @@ namespace std{
 #include <boost/scoped_ptr.hpp>
 #include <boost/serialization/throw_exception.hpp>
 
-#include <boost/archive/basic_streambuf_locale_saver.hpp>
-#include <boost/archive/archive_exception.hpp>
+//#include <boost/mpl/placeholders.hpp>
 #include <boost/serialization/is_bitwise_serializable.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/serialization/array.hpp>
+#include <boost/serialization/array_wrapper.hpp>
+
+#include <boost/archive/basic_streambuf_locale_saver.hpp>
+#include <boost/archive/codecvt_null.hpp>
+#include <boost/archive/archive_exception.hpp>
 #include <boost/archive/detail/auto_link_archive.hpp>
 #include <boost/archive/detail/abi_prefix.hpp> // must be the last header
 
 namespace boost {
 namespace archive {
-
-template<class Ch>
-class codecvt_null;
 
 /////////////////////////////////////////////////////////////////////////
 // class basic_binary_oprimitive - binary output of prmitives
@@ -74,9 +73,16 @@ public:
         return static_cast<Archive *>(this);
     }
     #ifndef BOOST_NO_STD_LOCALE
-    boost::scoped_ptr<codecvt_null<Elem> > codecvt_facet;
-    boost::scoped_ptr<std::locale> archive_locale;
+    // note order! - if you change this, libstd++ will fail!
+    // a) create new locale with new codecvt facet
+    // b) save current locale
+    // c) change locale to new one
+    // d) use stream buffer
+    // e) change locale back to original
+    // f) destroy new codecvt facet
+    boost::archive::codecvt_null<Elem> codecvt_null_facet;
     basic_streambuf_locale_saver<Elem, Tr> locale_saver;
+    std::locale archive_locale;
     #endif
     // default saving of primitives.
     template<class T>
@@ -108,12 +114,12 @@ public:
     BOOST_ARCHIVE_OR_WARCHIVE_DECL void
     init();
     
-    BOOST_ARCHIVE_OR_WARCHIVE_DECL
+    BOOST_ARCHIVE_OR_WARCHIVE_DECL 
     basic_binary_oprimitive(
         std::basic_streambuf<Elem, Tr> & sb, 
         bool no_codecvt
     );
-    BOOST_ARCHIVE_OR_WARCHIVE_DECL
+    BOOST_ARCHIVE_OR_WARCHIVE_DECL 
     ~basic_binary_oprimitive();
 public:
 
@@ -131,11 +137,10 @@ public:
             struct apply : public boost::serialization::is_bitwise_serializable< T > {};  
         #endif
     };
-    
 
     // the optimized save_array dispatches to save_binary 
     template <class ValueType>
-    void save_array(boost::serialization::array<ValueType> const& a, unsigned int)
+    void save_array(boost::serialization::array_wrapper<ValueType> const& a, unsigned int)
     {
       save_binary(a.address(),a.count()*sizeof(ValueType));
     }
@@ -149,9 +154,7 @@ basic_binary_oprimitive<Archive, Elem, Tr>::save_binary(
     const void *address, 
     std::size_t count
 ){
-    //BOOST_ASSERT(
-    //    static_cast<std::size_t>((std::numeric_limits<std::streamsize>::max)()) >= count
-    //);
+    // BOOST_ASSERT(count <= std::size_t(boost::integer_traits<std::streamsize>::const_max));
     // note: if the following assertions fail
     // a likely cause is that the output stream is set to "text"
     // mode where by cr characters recieve special treatment.
@@ -161,9 +164,7 @@ basic_binary_oprimitive<Archive, Elem, Tr>::save_binary(
     //        archive_exception(archive_exception::output_stream_error)
     //    );
     // figure number of elements to output - round up
-    count = ( count + sizeof(Elem) - 1) 
-        / sizeof(Elem);
-    BOOST_ASSERT(count <= std::size_t(boost::integer_traits<std::streamsize>::const_max));
+    count = ( count + sizeof(Elem) - 1) / sizeof(Elem);
     std::streamsize scount = m_sb.sputn(
         static_cast<const Elem *>(address), 
         static_cast<std::streamsize>(count)

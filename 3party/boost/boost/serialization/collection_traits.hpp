@@ -23,7 +23,7 @@
 // exists for archives to be non-portable if class information for primitive
 // types is included.  This is addressed by the following macros.
 #include <boost/config.hpp>
-#include <boost/mpl/integral_c.hpp>
+//#include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/integral_c_tag.hpp>
 
 #include <boost/cstdint.hpp>

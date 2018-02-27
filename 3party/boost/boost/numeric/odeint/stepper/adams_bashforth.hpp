@@ -77,7 +77,7 @@ class Time = Value ,
 class Algebra = typename algebra_dispatcher< State >::algebra_type ,
 class Operations = typename operations_dispatcher< State >::operations_type ,
 class Resizer = initially_resizer ,
-class InitializingStepper = extrapolation_stepper< order_helper<Steps>::value,
+class InitializingStepper = extrapolation_stepper< order_helper<Steps>::value, 
                                                    State, Value, Deriv, Time,
                                                    Algebra, Operations, Resizer >
 >

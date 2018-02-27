@@ -1,5 +1,5 @@
 /*=============================================================================
-    BOOST_PP_VARIADICS version of BOOST_PP_IS_SEQ inspired from
+    BOOST_PP_VARIADICS version of BOOST_PP_IS_SEQ inspired from 
     boost/mpl/aux_/preprocessor/is_seq.hpp, original copyrights goes to :
 
     Copyright Paul Mensonides 2003
@@ -13,8 +13,6 @@
 #ifndef BOOST_FUSION_ADAPTED_STRUCT_DETAIL_PREPROCESSOR_IS_SEQ_HPP
 #define BOOST_FUSION_ADAPTED_STRUCT_DETAIL_PREPROCESSOR_IS_SEQ_HPP
 
-#include <boost/preprocessor/seq/size.hpp>
-#include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/punctuation/paren.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/config/config.hpp>

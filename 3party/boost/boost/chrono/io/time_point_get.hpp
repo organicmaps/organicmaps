@@ -279,12 +279,12 @@ namespace boost
         if (std::has_facet<time_point_units<CharT> >(is.getloc()))
         {
           time_point_units<CharT> const &facet = std::use_facet<time_point_units<CharT> >(is.getloc());
-          return get_epoch(facet, i, e, is, err);
+          return get_epoch<Clock>(facet, i, e, is, err);
         }
         else
         {
           time_point_units_default<CharT> facet;
-          return get_epoch(facet, i, e, is, err);
+          return get_epoch<Clock>(facet, i, e, is, err);
         }
       }
 

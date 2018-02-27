@@ -48,8 +48,10 @@ private:
     typedef if_output_terminal this_type;
 
 public:
+#ifndef BOOST_LOG_DOXYGEN_PASS
     //! Internal typedef for type categorization
     typedef void _is_boost_log_terminal;
+#endif
 
     //! Result type definition
     template< typename >
@@ -113,8 +115,10 @@ private:
     typedef if_else_output_terminal this_type;
 
 public:
+#ifndef BOOST_LOG_DOXYGEN_PASS
     //! Internal typedef for type categorization
     typedef void _is_boost_log_terminal;
+#endif
 
     //! Result type definition
     template< typename >

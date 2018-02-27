@@ -172,6 +172,7 @@ public:
                 } else {
                     *_container.begin() = 1;
                 }
+                break;
             }
         case 2:
             {

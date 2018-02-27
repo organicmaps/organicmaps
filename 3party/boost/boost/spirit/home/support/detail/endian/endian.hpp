@@ -41,6 +41,7 @@
 #undef  BOOST_NO_IO_COVER_OPERATORS
 #undef  BOOST_MINIMAL_INTEGER_COVER_OPERATORS
 #include <boost/type_traits/is_signed.hpp>
+#include <boost/type_traits/make_unsigned.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/spirit/home/support/detail/scoped_enum_emulation.hpp>
@@ -70,9 +71,9 @@ namespace boost { namespace spirit
     {
       typedef unrolled_byte_loops<T, n_bytes - 1, sign> next;
 
-      static T load_big(const unsigned char* bytes)
+      static typename boost::make_unsigned<T>::type load_big(const unsigned char* bytes)
         { return *(bytes - 1) | (next::load_big(bytes - 1) << 8); }
-      static T load_little(const unsigned char* bytes)
+      static typename boost::make_unsigned<T>::type load_little(const unsigned char* bytes)
         { return *bytes | (next::load_little(bytes + 1) << 8); }
 
       static void store_big(char* bytes, T value)
@@ -104,10 +105,10 @@ namespace boost { namespace spirit
     template <typename T>
     struct unrolled_byte_loops<T, 1, true>
     {
-      static T load_big(const unsigned char* bytes)
-        { return *reinterpret_cast<const signed char*>(bytes - 1); }
-      static T load_little(const unsigned char* bytes)
-        { return *reinterpret_cast<const signed char*>(bytes); }
+      static typename boost::make_unsigned<T>::type load_big(const unsigned char* bytes)
+        { return *(bytes - 1); }
+      static typename boost::make_unsigned<T>::type load_little(const unsigned char* bytes)
+        { return *bytes; }
       static void store_big(char* bytes, T value)
         { *(bytes - 1) = static_cast<char>(value); }
       static void store_little(char* bytes, T value)
@@ -118,8 +119,8 @@ namespace boost { namespace spirit
     inline
     T load_big_endian(const void* bytes)
     {
-      return unrolled_byte_loops<T, n_bytes>::load_big
-        (static_cast<const unsigned char*>(bytes) + n_bytes);
+      return static_cast<T>(unrolled_byte_loops<T, n_bytes>::load_big
+        (static_cast<const unsigned char*>(bytes) + n_bytes));
     }
 
     template <>
@@ -164,8 +165,8 @@ namespace boost { namespace spirit
     inline
     T load_little_endian(const void* bytes)
     {
-      return unrolled_byte_loops<T, n_bytes>::load_little
-        (static_cast<const unsigned char*>(bytes));
+      return static_cast<T>(unrolled_byte_loops<T, n_bytes>::load_little
+        (static_cast<const unsigned char*>(bytes)));
     }
 
     template <>

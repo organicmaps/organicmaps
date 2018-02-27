@@ -6,7 +6,7 @@
  Algebra for Arrays. Highly specialized for odeint. Const arguments are
  introduce to work with odeint.
  The Array algebra can be used for Array structures with two template
- parameters:
+ parameters: 
  Array<T, N>
  [end_description]
 

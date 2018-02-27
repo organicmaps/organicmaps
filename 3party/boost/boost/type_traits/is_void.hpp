@@ -9,30 +9,18 @@
 #ifndef BOOST_TT_IS_VOID_HPP_INCLUDED
 #define BOOST_TT_IS_VOID_HPP_INCLUDED
 
-#include <boost/config.hpp>
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace boost {
 
-//* is a type T void - is_void<T>
-#if defined( __CODEGEARC__ )
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_void,T,__is_void(T))
-#else
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_void,T,false)
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_void,void,true)
+template <class T>
+struct is_void : public false_type {};
 
-#ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_void,void const,true)
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_void,void volatile,true)
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_void,void const volatile,true)
-#endif
-
-#endif  // non-CodeGear implementation
+template<> struct is_void<void> : public true_type {};
+template<> struct is_void<const void> : public true_type{};
+template<> struct is_void<const volatile void> : public true_type{};
+template<> struct is_void<volatile void> : public true_type{};
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TT_IS_VOID_HPP_INCLUDED

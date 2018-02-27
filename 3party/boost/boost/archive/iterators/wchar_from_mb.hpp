@@ -19,20 +19,22 @@
 #include <boost/assert.hpp>
 #include <cctype>
 #include <cstddef> // size_t
-#include <cstdlib> // mblen
+#include <cwchar>  // mbstate_t
+#include <algorithm> // copy
 
 #include <boost/config.hpp>
 #if defined(BOOST_NO_STDC_NAMESPACE)
 namespace std{ 
-    using ::mblen; 
-    using ::mbtowc; 
+    using ::mbstate_t;
 } // namespace std
 #endif
-
+#include <boost/array.hpp>
+#include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/archive/detail/utf8_codecvt_facet.hpp>
+#include <boost/archive/iterators/dataflow_exception.hpp>
 #include <boost/serialization/throw_exception.hpp>
 
-#include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/archive/iterators/dataflow_exception.hpp>
+#include <iostream>
 
 namespace boost { 
 namespace archive {
@@ -62,63 +64,125 @@ class wchar_from_mb
 
     typedef wchar_from_mb<Base> this_t;
 
-    wchar_t drain();
-
-    wchar_t dereference_impl() {
-        if(! m_full){
-            m_current_value = drain();
-            m_full = true;
-        }
-        return m_current_value;
-    }
+    void drain();
 
     wchar_t dereference() const {
-        return const_cast<this_t *>(this)->dereference_impl();
+        if(m_output.m_next == m_output.m_next_available)
+            return static_cast<wchar_t>(0);
+        return * m_output.m_next;
     }
 
     void increment(){
-        dereference_impl();
-        m_full = false;
-        ++(this->base_reference());
+        if(m_output.m_next == m_output.m_next_available)
+            return;
+        if(++m_output.m_next == m_output.m_next_available){
+            if(m_input.m_done)
+                return;
+            drain();
+        }
+    }
+
+    bool equal(this_t const & rhs) const {
+        return dereference() == rhs.dereference();
+    }
+
+    boost::archive::detail::utf8_codecvt_facet m_codecvt_facet;
+    std::mbstate_t m_mbs;
+
+    template<typename T>
+    struct sliding_buffer {
+        boost::array<T, 32> m_buffer;
+        typename boost::array<T, 32>::const_iterator m_next_available;
+        typename boost::array<T, 32>::iterator m_next;
+        bool m_done;
+        // default ctor
+        sliding_buffer() :
+            m_next_available(m_buffer.begin()),
+            m_next(m_buffer.begin()),
+            m_done(false)
+        {}
+        // copy ctor
+        sliding_buffer(const sliding_buffer & rhs) :
+            m_next_available(
+                std::copy(
+                    rhs.m_buffer.begin(),
+                    rhs.m_next_available,
+                    m_buffer.begin()
+                )
+            ),
+            m_next(
+                m_buffer.begin() + (rhs.m_next - rhs.m_buffer.begin())
+            ),
+            m_done(rhs.m_done)
+        {}
     };
 
-    wchar_t m_current_value;
-    bool m_full;
+    sliding_buffer<typename iterator_value<Base>::type> m_input;
+    sliding_buffer<typename iterator_value<this_t>::type> m_output;
 
 public:
     // make composible buy using templated constructor
     template<class T>
-    wchar_from_mb(T start) :
+    wchar_from_mb(T start) : 
         super_t(Base(static_cast< T >(start))),
-        m_full(false)
-    {}
-    // intel 7.1 doesn't like default copy constructor
-    wchar_from_mb(const wchar_from_mb & rhs) : 
+        m_mbs(std::mbstate_t())
+    {
+        BOOST_ASSERT(std::mbsinit(&m_mbs));
+        drain();
+    }
+    // default constructor used as an end iterator
+    wchar_from_mb(){}
+
+    // copy ctor
+    wchar_from_mb(const wchar_from_mb & rhs) :
         super_t(rhs.base_reference()),
-        m_full(rhs.m_full)
+        m_mbs(rhs.m_mbs),
+        m_input(rhs.m_input),
+        m_output(rhs.m_output)
     {}
 };
 
 template<class Base>
-wchar_t wchar_from_mb<Base>::drain(){
-    char buffer[9];
-    char * bptr = buffer;
-    char val;
-    for(std::size_t i = 0; i++ < (unsigned)MB_CUR_MAX;){
-        val = * this->base_reference();
-        *bptr++ = val;
-        int result = std::mblen(buffer, i);
-        if(-1 != result)
+void wchar_from_mb<Base>::drain(){
+    BOOST_ASSERT(! m_input.m_done);
+    for(;;){
+        typename boost::iterators::iterator_reference<Base>::type c = *(this->base_reference());
+        // a null character in a multibyte stream is takes as end of string
+        if(0 == c){
+            m_input.m_done = true;
             break;
+        }
         ++(this->base_reference());
+        * const_cast<typename iterator_value<Base>::type *>(
+            (m_input.m_next_available++)
+        ) = c;
+        // if input buffer is full - we're done for now
+        if(m_input.m_buffer.end() == m_input.m_next_available)
+            break;
     }
-    wchar_t retval;
-    int result = std::mbtowc(& retval, buffer, MB_CUR_MAX);
-    if(0 >= result)
-        boost::serialization::throw_exception(iterators::dataflow_exception(
-            iterators::dataflow_exception::invalid_conversion
-        ));
-    return retval;
+    const typename boost::iterators::iterator_value<Base>::type * input_new_start;
+    typename iterator_value<this_t>::type * next_available;
+
+    std::codecvt_base::result r = m_codecvt_facet.in(
+        m_mbs,
+        m_input.m_buffer.begin(),
+        m_input.m_next_available,
+        input_new_start,
+        m_output.m_buffer.begin(),
+        m_output.m_buffer.end(),
+        next_available
+    );
+    BOOST_ASSERT(std::codecvt_base::ok == r);
+    m_output.m_next_available = next_available;
+    m_output.m_next = m_output.m_buffer.begin();
+
+    // we're done with some of the input so shift left.
+    m_input.m_next_available = std::copy(
+        input_new_start,
+        m_input.m_next_available,
+        m_input.m_buffer.begin()
+    );
+    m_input.m_next = m_input.m_buffer.begin();
 }
 
 } // namespace iterators

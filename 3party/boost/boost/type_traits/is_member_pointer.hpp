@@ -21,45 +21,25 @@
 #ifndef BOOST_TT_IS_MEMBER_POINTER_HPP_INCLUDED
 #define BOOST_TT_IS_MEMBER_POINTER_HPP_INCLUDED
 
-#include <boost/type_traits/config.hpp>
 #include <boost/detail/workaround.hpp>
-
-#if !BOOST_WORKAROUND(__BORLANDC__, < 0x600)
-#   include <boost/type_traits/is_member_function_pointer.hpp>
-#else
-#   include <boost/type_traits/is_reference.hpp>
-#   include <boost/type_traits/is_array.hpp>
-#   include <boost/type_traits/detail/is_mem_fun_pointer_tester.hpp>
-#   include <boost/type_traits/detail/yes_no_type.hpp>
-#   include <boost/type_traits/detail/false_result.hpp>
-#   include <boost/type_traits/detail/ice_or.hpp>
-#endif
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
+#include <boost/type_traits/is_member_function_pointer.hpp>
 
 namespace boost {
 
 #if defined( __CODEGEARC__ )
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_member_pointer,T,__is_member_pointer(T))
-#elif BOOST_WORKAROUND(__BORLANDC__, < 0x600)
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_member_pointer,T,false)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_2(typename T,typename U,is_member_pointer,U T::*,true)
-
+template <class T> struct is_member_pointer : public integral_constant<bool, __is_member_pointer(T)>{};
 #else
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_member_pointer,T,::boost::is_member_function_pointer<T>::value)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_2(typename T,typename U,is_member_pointer,U T::*,true)
+template <class T> struct is_member_pointer : public integral_constant<bool, ::boost::is_member_function_pointer<T>::value>{};
+template <class T, class U> struct is_member_pointer<U T::* > : public true_type{};
 
 #if !BOOST_WORKAROUND(__MWERKS__,<=0x3003) && !BOOST_WORKAROUND(__IBMCPP__, <=600)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_2(typename T,typename U,is_member_pointer,U T::*const,true)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_2(typename T,typename U,is_member_pointer,U T::*volatile,true)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_2(typename T,typename U,is_member_pointer,U T::*const volatile,true)
+template <class T, class U> struct is_member_pointer<U T::*const> : public true_type{};
+template <class T, class U> struct is_member_pointer<U T::*const volatile> : public true_type{};
+template <class T, class U> struct is_member_pointer<U T::*volatile> : public true_type{};
 #endif
 
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TT_IS_MEMBER_POINTER_HPP_INCLUDED

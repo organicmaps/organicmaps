@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2015.
+ *          Copyright Andrey Semashev 2007 - 2016.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -16,11 +16,14 @@
 #ifndef BOOST_LOG_ATTACHABLE_SSTREAM_BUF_HPP_INCLUDED_
 #define BOOST_LOG_ATTACHABLE_SSTREAM_BUF_HPP_INCLUDED_
 
+#include <cstddef>
 #include <memory>
+#include <locale>
 #include <string>
 #include <streambuf>
 #include <boost/assert.hpp>
-#include <boost/utility/addressof.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/locale/utf.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/header.hpp>
 
@@ -58,66 +61,196 @@ public:
     typedef typename base_type::traits_type traits_type;
     //! String type
     typedef std::basic_string< char_type, traits_type, AllocatorT > string_type;
+    //! Size type
+    typedef typename string_type::size_type size_type;
     //! Int type
     typedef typename base_type::int_type int_type;
 
+    struct storage_state
+    {
+        //! A reference to the string that will be filled
+        string_type* storage;
+        //! Max size of the storage, in characters
+        size_type max_size;
+        //! Indicates that storage overflow happened
+        bool overflow;
+
+        BOOST_CONSTEXPR storage_state() BOOST_NOEXCEPT : storage(NULL), max_size(0u), overflow(false)
+        {
+        }
+    };
+
 private:
-    //! A reference to the string that will be filled
-    string_type* m_Storage;
+    //! Buffer storage state
+    storage_state m_storage_state;
     //! A buffer used to temporarily store output
-    char_type m_Buffer[buffer_size];
+    char_type m_buffer[buffer_size];
 
 public:
     //! Constructor
-    explicit basic_ostringstreambuf() : m_Storage(0)
+    basic_ostringstreambuf() BOOST_NOEXCEPT
     {
-        base_type::setp(m_Buffer, m_Buffer + (sizeof(m_Buffer) / sizeof(*m_Buffer)));
+        base_type::setp(m_buffer, m_buffer + (sizeof(m_buffer) / sizeof(*m_buffer)));
     }
     //! Constructor
-    explicit basic_ostringstreambuf(string_type& storage) : m_Storage(boost::addressof(storage))
+    explicit basic_ostringstreambuf(string_type& storage) BOOST_NOEXCEPT
     {
-        base_type::setp(m_Buffer, m_Buffer + (sizeof(m_Buffer) / sizeof(*m_Buffer)));
+        base_type::setp(m_buffer, m_buffer + (sizeof(m_buffer) / sizeof(*m_buffer)));
+        attach(storage);
     }
 
-    //! Clears the buffer to the initial state
-    void clear()
-    {
-        char_type* pBase = this->pbase();
-        char_type* pPtr = this->pptr();
-        if (pBase != pPtr)
-            this->pbump(static_cast< int >(pBase - pPtr));
-    }
+    storage_state const& get_storage_state() const BOOST_NOEXCEPT { return m_storage_state; }
+    void set_storage_state(storage_state const& st) BOOST_NOEXCEPT { m_storage_state = st; }
 
     //! Detaches the buffer from the string
     void detach()
     {
-        if (m_Storage)
+        if (m_storage_state.storage)
         {
             this_type::sync();
-            m_Storage = 0;
+            m_storage_state.storage = NULL;
+            m_storage_state.max_size = 0u;
+            m_storage_state.overflow = false;
         }
     }
 
     //! Attaches the buffer to another string
     void attach(string_type& storage)
     {
+        attach(storage, storage.max_size());
+    }
+
+    //! Attaches the buffer to another string
+    void attach(string_type& storage, size_type max_size)
+    {
         detach();
-        m_Storage = boost::addressof(storage);
+        m_storage_state.storage = &storage;
+        this->max_size(max_size);
     }
 
     //! Returns a pointer to the attached string
-    string_type* storage() const { return m_Storage; }
+    string_type* storage() const BOOST_NOEXCEPT { return m_storage_state.storage; }
+
+    //! Returns the maximum size of the storage
+    size_type max_size() const BOOST_NOEXCEPT { return m_storage_state.max_size; }
+    //! Sets the maximum size of the storage
+    void max_size(size_type size)
+    {
+        if (m_storage_state.storage)
+        {
+            const size_type storage_max_size = m_storage_state.storage->max_size();
+            size = size > storage_max_size ? storage_max_size : size;
+        }
+
+        m_storage_state.max_size = size;
+        ensure_max_size();
+    }
+    //! Makes sure the storage does not exceed the max size limit. Should be called after the storage is modified externally.
+    void ensure_max_size()
+    {
+        if (m_storage_state.storage && m_storage_state.storage->size() > m_storage_state.max_size)
+        {
+            const size_type len = length_until_boundary(m_storage_state.storage->c_str(), m_storage_state.storage->size(), m_storage_state.max_size);
+            m_storage_state.storage->resize(len);
+            m_storage_state.overflow = true;
+        }
+    }
+
+    //! Returns true if the max size limit has been exceeded
+    bool storage_overflow() const BOOST_NOEXCEPT { return m_storage_state.overflow; }
+    //! Sets the overflow flag
+    void storage_overflow(bool f) BOOST_NOEXCEPT { m_storage_state.overflow = f; }
+
+    //! Returns the size left in the storage
+    size_type size_left() const BOOST_NOEXCEPT
+    {
+        BOOST_ASSERT(m_storage_state.storage != NULL);
+
+        const size_type size = m_storage_state.storage->size();
+        return size < m_storage_state.max_size ? m_storage_state.max_size - size : static_cast< size_type >(0u);
+    }
+
+    //! Appends a string to the storage and returns the number of written characters
+    size_type append(const char_type* s, size_type n)
+    {
+        if (!m_storage_state.overflow)
+        {
+            BOOST_ASSERT(m_storage_state.storage != NULL);
+
+            size_type left = size_left();
+            BOOST_LOG_ASSUME(left <= m_storage_state.storage->max_size());
+            if (BOOST_LIKELY(n <= left))
+            {
+                m_storage_state.storage->append(s, n);
+                return n;
+            }
+            else
+            {
+                // We have to find out where the last character that fits before the limit ends
+                left = length_until_boundary(s, n, left);
+                m_storage_state.storage->append(s, left);
+                m_storage_state.overflow = true;
+                return left;
+            }
+        }
+        return 0u;
+    }
+
+    //! Appends the specified number of characters to the storage and returns the number of written characters
+    size_type append(size_type n, char_type c)
+    {
+        if (!m_storage_state.overflow)
+        {
+            BOOST_ASSERT(m_storage_state.storage != NULL);
+
+            const size_type left = size_left();
+            BOOST_LOG_ASSUME(left <= m_storage_state.storage->max_size());
+            if (BOOST_LIKELY(n <= left))
+            {
+                m_storage_state.storage->append(n, c);
+                return n;
+            }
+            else
+            {
+                m_storage_state.storage->append(left, c);
+                m_storage_state.overflow = true;
+                return left;
+            }
+        }
+        return 0u;
+    }
+
+    //! Appends a character to the storage and returns the number of written characters
+    size_type push_back(char_type c)
+    {
+        if (!m_storage_state.overflow)
+        {
+            BOOST_ASSERT(m_storage_state.storage != NULL);
+
+            BOOST_LOG_ASSUME(m_storage_state.max_size <= m_storage_state.storage->max_size());
+            if (BOOST_LIKELY(m_storage_state.storage->size() < m_storage_state.max_size))
+            {
+                m_storage_state.storage->push_back(c);
+                return 1u;
+            }
+            else
+            {
+                m_storage_state.overflow = true;
+                return 0u;
+            }
+        }
+        return 0u;
+    }
 
 protected:
     //! Puts all buffered data to the string
     int sync()
     {
-        BOOST_ASSERT(m_Storage != 0);
         char_type* pBase = this->pbase();
         char_type* pPtr = this->pptr();
         if (pBase != pPtr)
         {
-            m_Storage->append(pBase, pPtr);
+            this->append(pBase, static_cast< size_type >(pPtr - pBase));
             this->pbump(static_cast< int >(pBase - pPtr));
         }
         return 0;
@@ -125,11 +258,10 @@ protected:
     //! Puts an unbuffered character to the string
     int_type overflow(int_type c)
     {
-        BOOST_ASSERT(m_Storage != 0);
-        basic_ostringstreambuf::sync();
+        this_type::sync();
         if (!traits_type::eq_int_type(c, traits_type::eof()))
         {
-            m_Storage->push_back(traits_type::to_char_type(c));
+            this->push_back(traits_type::to_char_type(c));
             return c;
         }
         else
@@ -138,21 +270,47 @@ protected:
     //! Puts a character sequence to the string
     std::streamsize xsputn(const char_type* s, std::streamsize n)
     {
-        BOOST_ASSERT(m_Storage != 0);
-        basic_ostringstreambuf::sync();
-        typedef typename string_type::size_type string_size_type;
-        const string_size_type max_storage_left =
-            m_Storage->max_size() - m_Storage->size();
-        if (static_cast< string_size_type >(n) < max_storage_left)
+        this_type::sync();
+        return static_cast< std::streamsize >(this->append(s, static_cast< size_type >(n)));
+    }
+
+    //! Finds the string length so that it includes only complete characters, and does not exceed \a max_size
+    size_type length_until_boundary(const char_type* s, size_type n, size_type max_size) const
+    {
+        return length_until_boundary(s, n, max_size, mpl::bool_< sizeof(char_type) == 1u >());;
+    }
+
+    //! Finds the string length so that it includes only complete characters, and does not exceed \a max_size
+    size_type length_until_boundary(const char_type* s, size_type n, size_type max_size, mpl::true_) const
+    {
+        std::locale loc = this->getloc();
+        std::codecvt< wchar_t, char, std::mbstate_t > const& fac = std::use_facet< std::codecvt< wchar_t, char, std::mbstate_t > >(loc);
+        std::mbstate_t mbs = std::mbstate_t();
+        return static_cast< size_type >(fac.length(mbs, s, s + max_size, ~static_cast< std::size_t >(0u)));
+    }
+
+    //! Finds the string length so that it includes only complete characters, and does not exceed \a max_size
+    static size_type length_until_boundary(const char_type* s, size_type n, size_type max_size, mpl::false_)
+    {
+        // Note: Although it's not required to be true for wchar_t, here we assume that the string has Unicode encoding.
+        // Compilers use some version of Unicode for wchar_t on all tested platforms, and std::locale doesn't offer a way
+        // to find the character boundary for character types other than char anyway.
+        typedef boost::locale::utf::utf_traits< CharT > utf_traits;
+
+        size_type pos = max_size;
+        while (pos > 0u)
         {
-            m_Storage->append(s, static_cast< string_size_type >(n));
-            return n;
+            --pos;
+            if (utf_traits::is_lead(s[pos]))
+            {
+                const char_type* p = s + pos;
+                boost::locale::utf::code_point cp = utf_traits::decode(p, s + n);
+                if (boost::locale::utf::is_valid_codepoint(cp) && p <= (s + max_size))
+                    return static_cast< size_type >(p - s);
+            }
         }
-        else
-        {
-            m_Storage->append(s, max_storage_left);
-            return static_cast< std::streamsize >(max_storage_left);
-        }
+
+        return 0u;
     }
 
     //! Copy constructor (closed)

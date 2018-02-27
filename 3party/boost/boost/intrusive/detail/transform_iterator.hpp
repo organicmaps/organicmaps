@@ -22,6 +22,7 @@
 #endif
 
 #include <boost/intrusive/detail/config_begin.hpp>
+#include <boost/intrusive/detail/workaround.hpp>
 #include <boost/intrusive/detail/mpl.hpp>
 #include <boost/intrusive/detail/iterator.hpp>
 
@@ -32,11 +33,11 @@ namespace detail {
 template <class PseudoReference>
 struct operator_arrow_proxy
 {
-   operator_arrow_proxy(const PseudoReference &px)
+   BOOST_INTRUSIVE_FORCEINLINE operator_arrow_proxy(const PseudoReference &px)
       :  m_value(px)
    {}
 
-   PseudoReference* operator->() const { return &m_value; }
+   BOOST_INTRUSIVE_FORCEINLINE PseudoReference* operator->() const { return &m_value; }
    // This function is needed for MWCW and BCC, which won't call operator->
    // again automatically per 13.3.1.2 para 8
 //   operator T*() const { return &m_value; }
@@ -46,11 +47,11 @@ struct operator_arrow_proxy
 template <class T>
 struct operator_arrow_proxy<T&>
 {
-   operator_arrow_proxy(T &px)
+   BOOST_INTRUSIVE_FORCEINLINE operator_arrow_proxy(T &px)
       :  m_value(px)
    {}
 
-   T* operator->() const { return &m_value; }
+   BOOST_INTRUSIVE_FORCEINLINE T* operator->() const { return &m_value; }
    // This function is needed for MWCW and BCC, which won't call operator->
    // again automatically per 13.3.1.2 para 8
 //   operator T*() const { return &m_value; }
@@ -66,7 +67,7 @@ class transform_iterator
    typedef typename Iterator::difference_type                                             difference_type;
    typedef operator_arrow_proxy<typename UnaryFunction::result_type>                      pointer;
    typedef typename UnaryFunction::result_type                                            reference;
-
+   
    explicit transform_iterator(const Iterator &it, const UnaryFunction &f = UnaryFunction())
       :  members_(it, f)
    {}
@@ -75,53 +76,53 @@ class transform_iterator
       :  members_()
    {}
 
-   Iterator get_it() const
+   BOOST_INTRUSIVE_FORCEINLINE Iterator get_it() const
    {  return members_.m_it;   }
 
    //Constructors
-   transform_iterator& operator++()
+   BOOST_INTRUSIVE_FORCEINLINE transform_iterator& operator++()
    { increment();   return *this;   }
 
-   transform_iterator operator++(int)
+   BOOST_INTRUSIVE_FORCEINLINE transform_iterator operator++(int)
    {
       transform_iterator result (*this);
       increment();
       return result;
    }
 
-   friend bool operator== (const transform_iterator& i, const transform_iterator& i2)
+   BOOST_INTRUSIVE_FORCEINLINE friend bool operator== (const transform_iterator& i, const transform_iterator& i2)
    { return i.equal(i2); }
 
-   friend bool operator!= (const transform_iterator& i, const transform_iterator& i2)
+   BOOST_INTRUSIVE_FORCEINLINE friend bool operator!= (const transform_iterator& i, const transform_iterator& i2)
    { return !(i == i2); }
 
-   friend typename Iterator::difference_type operator- (const transform_iterator& i, const transform_iterator& i2)
+   BOOST_INTRUSIVE_FORCEINLINE friend typename Iterator::difference_type operator- (const transform_iterator& i, const transform_iterator& i2)
    { return i2.distance_to(i); }
 
    //Arithmetic
    transform_iterator& operator+=(typename Iterator::difference_type off)
    {  this->advance(off); return *this;   }
 
-   transform_iterator operator+(typename Iterator::difference_type off) const
+   BOOST_INTRUSIVE_FORCEINLINE transform_iterator operator+(typename Iterator::difference_type off) const
    {
       transform_iterator other(*this);
       other.advance(off);
       return other;
    }
 
-   friend transform_iterator operator+(typename Iterator::difference_type off, const transform_iterator& right)
+   BOOST_INTRUSIVE_FORCEINLINE friend transform_iterator operator+(typename Iterator::difference_type off, const transform_iterator& right)
    {  return right + off; }
 
-   transform_iterator& operator-=(typename Iterator::difference_type off)
+   BOOST_INTRUSIVE_FORCEINLINE transform_iterator& operator-=(typename Iterator::difference_type off)
    {  this->advance(-off); return *this;   }
 
-   transform_iterator operator-(typename Iterator::difference_type off) const
+   BOOST_INTRUSIVE_FORCEINLINE transform_iterator operator-(typename Iterator::difference_type off) const
    {  return *this + (-off);  }
 
-   typename UnaryFunction::result_type operator*() const
+   BOOST_INTRUSIVE_FORCEINLINE typename UnaryFunction::result_type operator*() const
    { return dereference(); }
 
-   operator_arrow_proxy<typename UnaryFunction::result_type>
+   BOOST_INTRUSIVE_FORCEINLINE operator_arrow_proxy<typename UnaryFunction::result_type>
       operator->() const
    { return operator_arrow_proxy<typename UnaryFunction::result_type>(dereference());  }
 
@@ -129,27 +130,27 @@ class transform_iterator
    struct members
       :  UnaryFunction
    {
-      members(const Iterator &it, const UnaryFunction &f)
+      BOOST_INTRUSIVE_FORCEINLINE members(const Iterator &it, const UnaryFunction &f)
          :  UnaryFunction(f), m_it(it)
       {}
 
-      members()
+      BOOST_INTRUSIVE_FORCEINLINE members()
       {}
 
       Iterator m_it;
    } members_;
 
 
-   void increment()
+   BOOST_INTRUSIVE_FORCEINLINE void increment()
    { ++members_.m_it; }
 
-   void decrement()
+   BOOST_INTRUSIVE_FORCEINLINE void decrement()
    { --members_.m_it; }
 
-   bool equal(const transform_iterator &other) const
+   BOOST_INTRUSIVE_FORCEINLINE bool equal(const transform_iterator &other) const
    {  return members_.m_it == other.members_.m_it;   }
 
-   bool less(const transform_iterator &other) const
+   BOOST_INTRUSIVE_FORCEINLINE bool less(const transform_iterator &other) const
    {  return other.members_.m_it < members_.m_it;   }
 
    typename UnaryFunction::result_type dereference() const

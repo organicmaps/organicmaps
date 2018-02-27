@@ -18,7 +18,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/serialization/serialization.hpp>
 #include <boost/type_traits/aligned_storage.hpp>
-#include <boost/type_traits/alignment_of.hpp>
+#include <boost/type_traits/alignment_of.hpp> 
 
 namespace boost{
 

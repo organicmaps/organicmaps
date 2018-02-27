@@ -5,8 +5,8 @@
 // Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
 // Copyright (c) 2013-2014 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2013-2014.
-// Modifications copyright (c) 2013-2014, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013-2017.
+// Modifications copyright (c) 2013-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
@@ -59,6 +59,29 @@ template
 struct disjoint
     : not_implemented<Geometry1, Geometry2>
 {};
+
+
+// If reversal is needed, perform it
+template
+<
+    typename Geometry1, typename Geometry2,
+    std::size_t DimensionCount,
+    typename Tag1, typename Tag2
+>
+struct disjoint<Geometry1, Geometry2, DimensionCount, Tag1, Tag2, true>
+{
+    template <typename Strategy>
+    static inline bool apply(Geometry1 const& g1, Geometry2 const& g2, Strategy const& strategy)
+    {
+        return disjoint
+            <
+                Geometry2, Geometry1,
+                DimensionCount,
+                Tag2, Tag1
+            >::apply(g2, g1, strategy);
+    }
+};
+
 
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH

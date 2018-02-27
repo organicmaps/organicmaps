@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2001-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -19,13 +19,6 @@
 #define BOOST_TEST_STRINGIZE( s ) BOOST_TEST_L( BOOST_STRINGIZE( s ) )
 #define BOOST_TEST_EMPTY_STRING   BOOST_TEST_L( "" )
 
-#define BOOST_TEST_SCOPE_SETCOLOR( os, attr, color )            \
-    scope_setcolor const& sc = runtime_config::color_output()   \
-           ? scope_setcolor( os, attr, color )                  \
-           : scope_setcolor();                                  \
-    ut_detail::ignore_unused_variable_warning( sc )             \
-/**/
-
 #include <boost/test/detail/suppress_warnings.hpp>
 
 //____________________________________________________________________________//
@@ -41,10 +34,13 @@ enum report_level  { INV_REPORT_LEVEL, CONFIRMATION_REPORT, SHORT_REPORT, DETAIL
 
 //____________________________________________________________________________//
 
+//! Indicates the output format for the loggers or the test tree printing
 enum output_format { OF_INVALID,
-                     OF_CLF, ///< compiler log format
-                     OF_XML, ///< XML format for report and log,
-                     OF_DOT  ///< dot format for output content
+                     OF_CLF,      ///< compiler log format
+                     OF_XML,      ///< XML format for report and log,
+                     OF_JUNIT,    ///< JUNIT format for report and log,
+                     OF_CUSTOM_LOGGER, ///< User specified logger.
+                     OF_DOT       ///< dot format for output content
 };
 
 //____________________________________________________________________________//
@@ -77,6 +73,8 @@ test_id_2_unit_type( test_unit_id id )
 
 //____________________________________________________________________________//
 
+} // namespace ut_detail
+
 // helper templates to prevent ODR violations
 template<class T>
 struct static_constant {
@@ -87,8 +85,6 @@ template<class T>
 T static_constant<T>::value;
 
 //____________________________________________________________________________//
-
-} // namespace ut_detail
 
 } // namespace unit_test
 } // namespace boost

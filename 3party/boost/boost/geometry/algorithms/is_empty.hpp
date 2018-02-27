@@ -157,7 +157,7 @@ struct is_empty
 {
     static inline bool apply(Geometry const& geometry)
     {
-        concept::check<Geometry const>();
+        concepts::check<Geometry const>();
 
         return dispatch::is_empty<Geometry>::apply(geometry);
     }

@@ -311,7 +311,7 @@ T hypergeometric_pdf_prime_loop_imp(hypergeometric_pdf_prime_loop_data& data, hy
       }
       if(prime_powers)
       {
-         T p = integer_power<T>(data.current_prime, prime_powers);
+         T p = integer_power<T>(static_cast<T>(data.current_prime), prime_powers);
          if((p > 1) && (tools::max_value<T>() / p < result.value))
          {
             //

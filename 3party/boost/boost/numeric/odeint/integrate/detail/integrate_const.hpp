@@ -6,7 +6,7 @@
  integrate const implementation
  [end_description]
 
- Copyright 2012 Mario Mulansky
+ Copyright 2012-2015 Mario Mulansky
  Copyright 2012 Christoph Koke
  Copyright 2012 Karsten Ahnert
 
@@ -43,12 +43,13 @@ template< class Stepper , class System , class State , class Time , class Observ
 size_t integrate_const(
         Stepper stepper , System system , State &start_state ,
         Time start_time , Time end_time , Time dt ,
-        Observer observer , stepper_tag 
+        Observer observer , stepper_tag
 )
 {
+
     typename odeint::unwrap_reference< Observer >::type &obs = observer;
     typename odeint::unwrap_reference< Stepper >::type &st = stepper;
-    
+
     Time time = start_time;
     int step = 0;
     // cast time+dt explicitely in case of expression templates (e.g. multiprecision)
@@ -72,11 +73,11 @@ template< class Stepper , class System , class State , class Time , class Observ
 size_t integrate_const(
         Stepper stepper , System system , State &start_state ,
         Time start_time , Time end_time , Time dt ,
-        Observer observer , controlled_stepper_tag 
+        Observer observer , controlled_stepper_tag
 )
 {
     typename odeint::unwrap_reference< Observer >::type &obs = observer;
-    
+
     Time time = start_time;
     const Time time_step = dt;
     int real_steps = 0;
@@ -85,8 +86,10 @@ size_t integrate_const(
     while( less_eq_with_sign( static_cast<Time>(time+time_step) , end_time , dt ) )
     {
         obs( start_state , time );
-        real_steps += detail::integrate_adaptive( stepper , system , start_state , time , time+time_step , dt ,
-                                    null_observer() , controlled_stepper_tag() );
+        // integrate_adaptive_checked uses the given checker to throw if an overflow occurs
+        real_steps += detail::integrate_adaptive(stepper, system, start_state, time,
+                                                 static_cast<Time>(time + time_step), dt,
+                                                 null_observer(), controlled_stepper_tag());
         // direct computation of the time avoids error propagation happening when using time += dt
         // we need clumsy type analysis to get boost units working here
         step++;
@@ -102,12 +105,12 @@ template< class Stepper , class System , class State , class Time , class Observ
 size_t integrate_const(
         Stepper stepper , System system , State &start_state ,
         Time start_time , Time end_time , Time dt ,
-        Observer observer , dense_output_stepper_tag 
+        Observer observer , dense_output_stepper_tag
 )
 {
     typename odeint::unwrap_reference< Observer >::type &obs = observer;
     typename odeint::unwrap_reference< Stepper >::type &st = stepper;
-    
+
     Time time = start_time;
     
     st.initialize( start_state , time , dt );
@@ -117,7 +120,7 @@ size_t integrate_const(
     int obs_step( 1 );
     int real_step( 0 );
     
-    while( less_with_sign( static_cast<Time>(time+dt) , end_time , dt ) )
+    while( less_eq_with_sign( static_cast<Time>(time+dt) , end_time , dt ) )
     {
         while( less_eq_with_sign( time , st.current_time() , dt ) )
         {
@@ -148,6 +151,7 @@ size_t integrate_const(
         
     }
     // last observation, if we are still in observation interval
+    // might happen due to finite precision problems when computing the the time
     if( less_eq_with_sign( time , end_time , dt ) )
     {
         st.calc_state( time , start_state );

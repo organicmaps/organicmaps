@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2014-2015.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -169,27 +169,33 @@ public:                                                                 \
     typedef assertion_result result_type;                               \
                                                                         \
     static bool                                                         \
-    eval_direct( Lhs const& lhs, Rhs const& rhs)                        \
+    eval_direct( Lhs const& lhs, Rhs const& rhs )                       \
     {                                                                   \
         return lhs oper rhs;                                            \
     }                                                                   \
                                                                         \
     static assertion_result                                             \
-    eval( Lhs const& lhs, Rhs const& rhs)                               \
+    eval( Lhs const& lhs, Rhs const& rhs )                              \
     {                                                                   \
         if( lhs == 0 )                                                  \
-            return compare_fpv_near_zero(rhs, (OP*)0);                  \
+        {                                                               \
+            return compare_fpv_near_zero( rhs, (OP*)0 );                \
+        }                                                               \
                                                                         \
         if( rhs == 0 )                                                  \
-            return compare_fpv_near_zero(lhs, (OP*)0);                  \
+        {                                                               \
+            return compare_fpv_near_zero( lhs, (OP*)0 );                \
+        }                                                               \
                                                                         \
         bool direct_res = eval_direct( lhs, rhs );                      \
                                                                         \
-        if((direct_res && fpctraits<OP>::cmp_direct)                    \
-            || fpc_tolerance<FPT>() == FPT(0))                          \
+        if( (direct_res && fpctraits<OP>::cmp_direct) ||                \
+            fpc_tolerance<FPT>() == FPT(0) )                            \
+        {                                                               \
             return direct_res;                                          \
+        }                                                               \
                                                                         \
-        return compare_fpv<FPT>(lhs, rhs, (OP*)0);                      \
+        return compare_fpv<FPT>( lhs, rhs, (OP*)0 );                    \
     }                                                                   \
                                                                         \
     template<typename PrevExprType>                                     \
@@ -221,3 +227,4 @@ BOOST_TEST_FOR_EACH_COMP_OP( DEFINE_FPV_COMPARISON )
 #include <boost/test/detail/enable_warnings.hpp>
 
 #endif // BOOST_TEST_TOOLS_FPC_OP_HPP_050915GER
+

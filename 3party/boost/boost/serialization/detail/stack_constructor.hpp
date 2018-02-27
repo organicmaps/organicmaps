@@ -1,5 +1,5 @@
-#ifndef  BOOST_SERIALIZATION_DETAIL_STACH_CONSTRUCTOR_HPP
-#define BOOST_SERIALIZATION_DETAIL_STACH_CONSTRUCTOR_HPP
+#ifndef  BOOST_SERIALIZATION_DETAIL_STACK_CONSTRUCTOR_HPP
+#define BOOST_SERIALIZATION_DETAIL_STACK_CONSTRUCTOR_HPP
 
 // MS compatible compilers support #pragma once
 #if defined(_MSC_VER)
@@ -17,6 +17,7 @@
 //  See http://www.boost.org for updates, documentation, and revision history.
 
 #include <boost/aligned_storage.hpp>
+#include <boost/serialization/serialization.hpp>
 
 namespace boost{
 namespace serialization {

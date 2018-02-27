@@ -19,6 +19,7 @@
 #include <boost/detail/workaround.hpp>
 #include <boost/smart_ptr/detail/sp_convertible.hpp>
 #include <boost/smart_ptr/detail/sp_nullptr_t.hpp>
+#include <boost/smart_ptr/detail/sp_noexcept.hpp>
 
 #include <boost/config/no_tr1/functional.hpp>           // for std::less
 
@@ -59,7 +60,7 @@ public:
 
     typedef T element_type;
 
-    intrusive_ptr() BOOST_NOEXCEPT : px( 0 )
+    BOOST_CONSTEXPR intrusive_ptr() BOOST_SP_NOEXCEPT : px( 0 )
     {
     }
 
@@ -111,14 +112,38 @@ public:
 
 #if !defined( BOOST_NO_CXX11_RVALUE_REFERENCES )
 
-    intrusive_ptr(intrusive_ptr && rhs) BOOST_NOEXCEPT : px( rhs.px )
+    intrusive_ptr(intrusive_ptr && rhs) BOOST_SP_NOEXCEPT : px( rhs.px )
     {
         rhs.px = 0;
     }
 
-    intrusive_ptr & operator=(intrusive_ptr && rhs) BOOST_NOEXCEPT
+    intrusive_ptr & operator=(intrusive_ptr && rhs) BOOST_SP_NOEXCEPT
     {
         this_type( static_cast< intrusive_ptr && >( rhs ) ).swap(*this);
+        return *this;
+    }
+
+    template<class U> friend class intrusive_ptr;
+
+    template<class U>
+#if !defined( BOOST_SP_NO_SP_CONVERTIBLE )
+
+    intrusive_ptr(intrusive_ptr<U> && rhs, typename boost::detail::sp_enable_if_convertible<U,T>::type = boost::detail::sp_empty())
+
+#else
+
+    intrusive_ptr(intrusive_ptr<U> && rhs)
+
+#endif        
+    : px( rhs.px )
+    {
+        rhs.px = 0;
+    }
+
+    template<class U>
+    intrusive_ptr & operator=(intrusive_ptr<U> && rhs) BOOST_NOEXCEPT
+    {
+        this_type( static_cast< intrusive_ptr<U> && >( rhs ) ).swap(*this);
         return *this;
     }
 

@@ -54,8 +54,48 @@
 #endif
 
 #else
+        template <typename TryCatch, typename Exception, typename Capture, typename Expr>
+        struct catch_push_back<TryCatch, Exception, Capture, Expr, BOOST_PHOENIX_ITERATION>
+        {
+            typedef
+                typename proto::result_of::make_expr<
+                    phoenix::tag::catch_
+                  , proto::basic_default_domain
+                  , catch_exception<Exception>
+                  , Capture
+                  , Expr
+                >::type
+                catch_expr;
+
+            typedef phoenix::expression::try_catch<
+                BOOST_PP_REPEAT(BOOST_PHOENIX_ITERATION, BOOST_PHOENIX_CATCH_PUSH_BACK_R0, _)
+              , catch_expr> gen_type;
+            typedef typename gen_type::type type;
+
+            static type
+            make(
+                TryCatch const& try_catch
+              , Capture const& capture
+              , Expr const& catch_
+            )
+            {
+                return
+                    gen_type::make(
+                        BOOST_PP_REPEAT(
+                            BOOST_PHOENIX_ITERATION
+                          , BOOST_PHOENIX_CATCH_PUSH_BACK_R1
+                          , _
+                        )
+                      , proto::make_expr<
+                            phoenix::tag::catch_
+                          , proto::basic_default_domain
+                        >(catch_exception<Exception>(), capture, catch_)
+                    );
+            }
+        };
+
         template <typename TryCatch, typename Exception, typename Expr>
-        struct catch_push_back<TryCatch, Exception, Expr, BOOST_PHOENIX_ITERATION>
+        struct catch_push_back<TryCatch, Exception, void, Expr, BOOST_PHOENIX_ITERATION>
         {
             typedef
                 typename proto::result_of::make_expr<
@@ -91,7 +131,7 @@
                     );
             }
         };
-        
+
         template <typename TryCatch, typename Expr>
         struct catch_all_push_back<TryCatch, Expr, BOOST_PHOENIX_ITERATION>
         {

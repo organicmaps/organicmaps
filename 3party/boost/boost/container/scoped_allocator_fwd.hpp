@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2011-2013. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2015-2015. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -13,7 +13,6 @@
 
 //! \file
 //! This header file forward declares boost::container::scoped_allocator_adaptor
-//! and defines the following types:
 
 #ifndef BOOST_CONFIG_HPP
 #  include <boost/config.hpp>
@@ -26,6 +25,7 @@
 #include <boost/container/detail/config_begin.hpp>
 #include <boost/container/detail/workaround.hpp>
 #include <boost/container/detail/std_fwd.hpp>
+#include <boost/container/uses_allocator_fwd.hpp>
 
 #if defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
 #include <boost/move/detail/fwd_macros.hpp>
@@ -59,37 +59,10 @@ namespace boost { namespace container {
 
 #endif
 
-   template <int Dummy = 0>
-   struct std_allocator_arg_holder
-   {
-      static ::std::allocator_arg_t *dummy;
-   };
-
-   template <int Dummy>
-   ::std::allocator_arg_t *std_allocator_arg_holder<Dummy>::dummy;
 
 #else    //BOOST_CONTAINER_DOXYGEN_INVOKED
 
 #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
-
-//! The allocator_arg_t struct is an empty structure type used as a unique type to
-//! disambiguate constructor and function overloading. Specifically, several types
-//! have constructors with allocator_arg_t as the first argument, immediately followed
-//! by an argument of a type that satisfies Allocator requirements
-typedef const std::allocator_arg_t & allocator_arg_t;
-
-//! A instance of type allocator_arg_t
-//!
-static allocator_arg_t allocator_arg = BOOST_CONTAINER_DOC1ST(unspecified, *std_allocator_arg_holder<>::dummy);
-
-template <class T>
-struct constructible_with_allocator_suffix;
-
-template <class T>
-struct constructible_with_allocator_prefix;
-
-template <typename T, typename Allocator>
-struct uses_allocator;
 
 }} // namespace boost { namespace container {
 

@@ -11,47 +11,21 @@
 #ifndef BOOST_TT_IS_UNION_HPP_INCLUDED
 #define BOOST_TT_IS_UNION_HPP_INCLUDED
 
-#include <boost/type_traits/remove_cv.hpp>
-#include <boost/type_traits/config.hpp>
 #include <boost/type_traits/intrinsics.hpp>
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace boost {
 
-namespace detail {
-#ifndef __GNUC__
-template <typename T> struct is_union_impl
-{
-   typedef typename remove_cv<T>::type cvt;
 #ifdef BOOST_IS_UNION
-   BOOST_STATIC_CONSTANT(bool, value = BOOST_IS_UNION(cvt));
+template <class T> struct is_union : public integral_constant<bool, BOOST_IS_UNION(T)> {};
 #else
-   BOOST_STATIC_CONSTANT(bool, value = false);
+template <class T> struct is_union : public integral_constant<bool, false> {};
 #endif
-};
-#else
-//
-// using remove_cv here generates a whole load of needless
-// warnings with gcc, since it doesn't do any good with gcc
-// in any case (at least at present), just remove it:
-//
-template <typename T> struct is_union_impl
-{
-#ifdef BOOST_IS_UNION
-   BOOST_STATIC_CONSTANT(bool, value = BOOST_IS_UNION(T));
-#else
-   BOOST_STATIC_CONSTANT(bool, value = false);
-#endif
-};
-#endif
-} // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_union,T,::boost::detail::is_union_impl<T>::value)
+template <class T> struct is_union<T const> : public is_union<T>{};
+template <class T> struct is_union<T volatile const> : public is_union<T>{};
+template <class T> struct is_union<T volatile> : public is_union<T>{};
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TT_IS_UNION_HPP_INCLUDED

@@ -28,7 +28,7 @@
 #include <boost/log/detail/native_typeof.hpp>
 #include <boost/utility/explicit_operator_bool.hpp>
 #if !defined(BOOST_LOG_TYPEOF)
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #endif
 #if defined(BOOST_LOG_TYPEOF) && defined(BOOST_NO_CXX11_TRAILING_RESULT_TYPES)
 #include <boost/utility/declval.hpp>
@@ -254,7 +254,7 @@ private:
         }
 
         template< typename T >
-        typename enable_if< boost::property_tree::detail::is_character< T >, std::basic_string< T > >::type
+        typename boost::enable_if_c< boost::property_tree::detail::is_character< T >::value, std::basic_string< T > >::type
         or_default(const T* def_value) const
         {
             if (m_section.m_ptree)

@@ -11,7 +11,7 @@
 #ifndef BOOST_TT_IS_MEMBER_FUNCTION_POINTER_HPP_INCLUDED
 #define BOOST_TT_IS_MEMBER_FUNCTION_POINTER_HPP_INCLUDED
 
-#include <boost/type_traits/config.hpp>
+#include <boost/type_traits/detail/config.hpp>
 #include <boost/detail/workaround.hpp>
 
 #if !BOOST_WORKAROUND(__BORLANDC__, < 0x600) && !defined(BOOST_TT_TEST_MS_FUNC_SIGS)
@@ -22,29 +22,22 @@
    //
 #   include <boost/type_traits/detail/is_mem_fun_pointer_impl.hpp>
 #   include <boost/type_traits/remove_cv.hpp>
+#   include <boost/type_traits/integral_constant.hpp>
 #else
 #   include <boost/type_traits/is_reference.hpp>
 #   include <boost/type_traits/is_array.hpp>
 #   include <boost/type_traits/detail/yes_no_type.hpp>
-#   include <boost/type_traits/detail/false_result.hpp>
-#   include <boost/type_traits/detail/ice_or.hpp>
 #   include <boost/type_traits/detail/is_mem_fun_pointer_tester.hpp>
 #endif
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
 
 namespace boost {
 
 #if defined( __CODEGEARC__ )
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_member_function_pointer,T,__is_member_function_pointer( T ))
+template <class T> struct is_member_function_pointer : public integral_constant<bool, __is_member_function_pointer( T )> {};
 #elif !BOOST_WORKAROUND(__BORLANDC__, < 0x600) && !defined(BOOST_TT_TEST_MS_FUNC_SIGS)
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(
-      is_member_function_pointer
-    , T
-    , ::boost::type_traits::is_mem_fun_pointer_impl<typename remove_cv<T>::type>::value
-    )
+template <class T> struct is_member_function_pointer 
+   : public ::boost::integral_constant<bool, ::boost::type_traits::is_mem_fun_pointer_impl<typename remove_cv<T>::type>::value>{};
 
 #else
 
@@ -54,8 +47,8 @@ namespace detail {
 
 template <bool>
 struct is_mem_fun_pointer_select
-    : public ::boost::type_traits::false_result
 {
+   template <class T> struct result_ : public false_type{};
 };
 
 template <>
@@ -82,14 +75,8 @@ struct is_mem_fun_pointer_select<false>
 
 template <typename T>
 struct is_member_function_pointer_impl
-    : public is_mem_fun_pointer_select<
-          ::boost::type_traits::ice_or<
-              ::boost::is_reference<T>::value
-            , ::boost::is_array<T>::value
-            >::value
-        >::template result_<T>
-{
-};
+    : public is_mem_fun_pointer_select< 
+      ::boost::is_reference<T>::value || ::boost::is_array<T>::value>::template result_<T>{};
 
 template <typename T>
 struct is_member_function_pointer_impl<T&> : public false_type{};
@@ -113,21 +100,21 @@ struct is_member_function_pointer_impl<T&>
 
 #endif
 
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_member_function_pointer,void,false)
+template<> struct is_member_function_pointer_impl<void> : public false_type{};
 #ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_member_function_pointer,void const,false)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_member_function_pointer,void volatile,false)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_member_function_pointer,void const volatile,false)
+template<> struct is_member_function_pointer_impl<void const> : public false_type{};
+template<> struct is_member_function_pointer_impl<void const volatile> : public false_type{};
+template<> struct is_member_function_pointer_impl<void volatile> : public false_type{};
 #endif
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_member_function_pointer,T,::boost::detail::is_member_function_pointer_impl<T>::value)
+template <class T>
+struct is_member_function_pointer
+   : public integral_constant<bool, ::boost::detail::is_member_function_pointer_impl<T>::value>{};
 
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TT_IS_MEMBER_FUNCTION_POINTER_HPP_INCLUDED

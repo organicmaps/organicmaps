@@ -25,66 +25,11 @@
 #include <boost/serialization/utility.hpp>
 #include <boost/serialization/unordered_collections_save_imp.hpp>
 #include <boost/serialization/unordered_collections_load_imp.hpp>
+#include <boost/serialization/archive_input_unordered_map.hpp>
 #include <boost/serialization/split_free.hpp>
 
 namespace boost { 
 namespace serialization {
-
-namespace stl {
-
-// map input
-template<class Archive, class Container>
-struct archive_input_unordered_map
-{
-    inline void operator()(
-        Archive &ar, 
-        Container &s, 
-        const unsigned int v
-    ){
-        typedef typename Container::value_type type;
-        detail::stack_construct<Archive, type> t(ar, v);
-        // borland fails silently w/o full namespace
-        ar >> boost::serialization::make_nvp("item", t.reference());
-        std::pair<typename Container::const_iterator, bool> result = 
-            s.insert(t.reference());
-        // note: the following presumes that the map::value_type was NOT tracked
-        // in the archive.  This is the usual case, but here there is no way
-        // to determine that.  
-        if(result.second){
-            ar.reset_object_address(
-                & (result.first->second),
-                & t.reference().second
-            );
-        }
-    }
-};
-
-// multimap input
-template<class Archive, class Container>
-struct archive_input_unordered_multimap
-{
-    inline void operator()(
-        Archive &ar, 
-        Container &s, 
-        const unsigned int v
-    ){
-        typedef typename Container::value_type type;
-        detail::stack_construct<Archive, type> t(ar, v);
-        // borland fails silently w/o full namespace
-        ar >> boost::serialization::make_nvp("item", t.reference());
-        typename Container::const_iterator result 
-            = s.insert(t.reference());
-        // note: the following presumes that the map::value_type was NOT tracked
-        // in the archive.  This is the usual case, but here there is no way
-        // to determine that.  
-        ar.reset_object_address(
-            & result->second,
-            & t.reference()
-        );
-    }
-};
-
-} // stl
 
 template<
     class Archive, 
@@ -95,16 +40,12 @@ template<
 >
 inline void save(
     Archive & ar,
-    const std::unordered_map<
-        Key, HashFcn, EqualKey, Allocator
-    > &t,
+    const std::unordered_map<Key, HashFcn, EqualKey, Allocator> &t,
     const unsigned int /*file_version*/
 ){
     boost::serialization::stl::save_unordered_collection<
         Archive, 
-        std::unordered_map<
-            Key, HashFcn, EqualKey, Allocator
-        >
+        std::unordered_map<Key, HashFcn, EqualKey, Allocator>
     >(ar, t);
 }
 
@@ -117,21 +58,15 @@ template<
 >
 inline void load(
     Archive & ar,
-    std::unordered_map<
-        Key, HashFcn, EqualKey, Allocator
-    > &t,
+    std::unordered_map<Key, HashFcn, EqualKey, Allocator> &t,
     const unsigned int /*file_version*/
 ){
     boost::serialization::stl::load_unordered_collection<
         Archive,
-        std::unordered_map<
-            Key, HashFcn, EqualKey, Allocator
-        >,
+        std::unordered_map<Key, HashFcn, EqualKey, Allocator>,
         boost::serialization::stl::archive_input_unordered_map<
             Archive, 
-            std::unordered_map<
-                Key, HashFcn, EqualKey, Allocator
-            >
+            std::unordered_map<Key, HashFcn, EqualKey, Allocator>
         >
     >(ar, t);
 }
@@ -147,9 +82,7 @@ template<
 >
 inline void serialize(
     Archive & ar,
-    std::unordered_map<
-        Key, HashFcn, EqualKey, Allocator
-    > &t,
+    std::unordered_map<Key, HashFcn, EqualKey, Allocator> &t,
     const unsigned int file_version
 ){
     boost::serialization::split_free(ar, t, file_version);
@@ -172,9 +105,7 @@ inline void save(
 ){
     boost::serialization::stl::save_unordered_collection<
         Archive, 
-        std::unordered_multimap<
-            Key, HashFcn, EqualKey, Allocator
-        >
+        std::unordered_multimap<Key, HashFcn, EqualKey, Allocator>
     >(ar, t);
 }
 
@@ -199,9 +130,7 @@ inline void load(
         >,
         boost::serialization::stl::archive_input_unordered_multimap<
             Archive, 
-            std::unordered_multimap<
-                Key, HashFcn, EqualKey, Allocator
-            >
+            std::unordered_multimap<Key, HashFcn, EqualKey, Allocator>
         >
     >(ar, t);
 }

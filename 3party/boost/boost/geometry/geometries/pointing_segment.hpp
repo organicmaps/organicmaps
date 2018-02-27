@@ -44,8 +44,8 @@ class pointing_segment
         typename boost::mpl::if_
             <
                 boost::is_const<ConstOrNonConstPoint>,
-                concept::Point<ConstOrNonConstPoint>,
-                concept::ConstPoint<ConstOrNonConstPoint>
+                concepts::Point<ConstOrNonConstPoint>,
+                concepts::ConstPoint<ConstOrNonConstPoint>
             >
     ) );
 

@@ -48,7 +48,7 @@ OutputIterator regex_replace(OutputIterator out,
    if(i == j)
    {
       if(!(flags & regex_constants::format_no_copy))
-         out = re_detail::copy(first, last, out);
+         out = BOOST_REGEX_DETAIL_NS::copy(first, last, out);
    }
    else
    {
@@ -56,7 +56,7 @@ OutputIterator regex_replace(OutputIterator out,
       while(i != j)
       {
          if(!(flags & regex_constants::format_no_copy))
-            out = re_detail::copy(i->prefix().first, i->prefix().second, out); 
+            out = BOOST_REGEX_DETAIL_NS::copy(i->prefix().first, i->prefix().second, out); 
          out = i->format(out, fmt, flags, e);
          last_m = (*i)[0].second;
          if(flags & regex_constants::format_first_only)
@@ -64,7 +64,7 @@ OutputIterator regex_replace(OutputIterator out,
          ++i;
       }
       if(!(flags & regex_constants::format_no_copy))
-         out = re_detail::copy(last_m, last, out);
+         out = BOOST_REGEX_DETAIL_NS::copy(last_m, last, out);
    }
    return out;
 }
@@ -76,7 +76,7 @@ std::basic_string<charT> regex_replace(const std::basic_string<charT>& s,
                          match_flag_type flags = match_default)
 {
    std::basic_string<charT> result;
-   re_detail::string_out_iterator<std::basic_string<charT> > i(result);
+   BOOST_REGEX_DETAIL_NS::string_out_iterator<std::basic_string<charT> > i(result);
    regex_replace(i, s.begin(), s.end(), e, fmt, flags);
    return result;
 }

@@ -1,7 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2015, Oracle and/or its affiliates.
+// Copyright (c) 2015-2016, Oracle and/or its affiliates.
 
+// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Distributed under the Boost Software License, Version 1.0.
@@ -226,8 +227,8 @@ private:
     }
 
 public:
-    template <typename MultiPoint, typename Box>
-    static inline void apply(MultiPoint const& multipoint, Box& mbr)
+    template <typename MultiPoint, typename Box, typename Strategy>
+    static inline void apply(MultiPoint const& multipoint, Box& mbr, Strategy const& strategy)
     {
         typedef typename point_type<MultiPoint>::type point_type;
         typedef typename coordinate_type<MultiPoint>::type coordinate_type;
@@ -255,7 +256,7 @@ public:
             return dispatch::envelope
                 <
                     typename boost::range_value<MultiPoint>::type
-                >::apply(range::front(multipoint), mbr);
+                >::apply(range::front(multipoint), mbr, strategy);
         }
 
         // analyze the points and put the non-pole ones in the
@@ -329,7 +330,7 @@ public:
 
         // compute envelope for higher coordinates
         iterator_type it = boost::begin(multipoint);
-        envelope_one_point<2, dimension<Box>::value>::apply(*it, mbr);
+        envelope_one_point<2, dimension<Box>::value>::apply(*it, mbr, strategy);
 
         for (++it; it != boost::end(multipoint); ++it)
         {
@@ -338,7 +339,7 @@ public:
                     strategy::compare::default_strategy,
                     strategy::compare::default_strategy,
                     2, dimension<Box>::value
-                >::apply(mbr, *it);
+                >::apply(mbr, *it, strategy);
         }
     }
 };

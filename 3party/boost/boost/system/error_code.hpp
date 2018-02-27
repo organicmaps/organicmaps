@@ -8,8 +8,8 @@
 
 //  See library home page at http://www.boost.org/libs/system
 
-#ifndef BOOST_ERROR_CODE_HPP
-#define BOOST_ERROR_CODE_HPP
+#ifndef BOOST_SYSTEM_ERROR_CODE_HPP
+#define BOOST_SYSTEM_ERROR_CODE_HPP
 
 #include <boost/system/config.hpp>
 #include <boost/cstdint.hpp>
@@ -39,8 +39,9 @@ namespace boost
   namespace system
   {
 
-    class error_code;
-    class error_condition;
+    class error_code;         // values defined by the operating system
+    class error_condition;    // portable generic values defined below, but ultimately
+                              // based on the POSIX standard
 
     //  "Concept" helpers  ---------------------------------------------------//
 
@@ -218,9 +219,9 @@ namespace boost
     inline const error_category &  get_system_category() { return system_category(); }
     inline const error_category &  get_generic_category() { return generic_category(); }
     inline const error_category &  get_posix_category() { return generic_category(); }
-    static const error_category &  posix_category = generic_category();
-    static const error_category &  errno_ecat     = generic_category();
-    static const error_category &  native_ecat    = system_category();
+    static const error_category &  posix_category BOOST_ATTRIBUTE_UNUSED = generic_category();
+    static const error_category &  errno_ecat     BOOST_ATTRIBUTE_UNUSED = generic_category();
+    static const error_category &  native_ecat    BOOST_ATTRIBUTE_UNUSED = system_category();
 # endif
 
     //  class error_condition  -----------------------------------------------//
@@ -515,6 +516,6 @@ namespace boost
 #   include <boost/system/detail/error_code.ipp>
 # endif
 
-#endif // BOOST_ERROR_CODE_HPP
+#endif // BOOST_SYSTEM_ERROR_CODE_HPP
 
 

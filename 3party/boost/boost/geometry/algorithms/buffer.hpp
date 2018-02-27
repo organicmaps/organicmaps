@@ -4,6 +4,10 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2017.
+// Modifications copyright (c) 2017 Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -182,8 +186,8 @@ template <typename Input, typename Output, typename Distance>
 inline void buffer(Input const& geometry_in, Output& geometry_out,
             Distance const& distance, Distance const& chord_length = -1)
 {
-    concept::check<Input const>();
-    concept::check<Output>();
+    concepts::check<Input const>();
+    concepts::check<Output>();
 
     resolve_variant::buffer<Input>::apply(geometry_in, distance, chord_length, geometry_out);
 }
@@ -204,8 +208,8 @@ inline void buffer(Input const& geometry_in, Output& geometry_out,
 template <typename Output, typename Input, typename Distance>
 Output return_buffer(Input const& geometry, Distance const& distance, Distance const& chord_length = -1)
 {
-    concept::check<Input const>();
-    concept::check<Output>();
+    concepts::check<Input const>();
+    concepts::check<Output>();
 
     Output geometry_out;
 
@@ -256,8 +260,8 @@ inline void buffer(GeometryIn const& geometry_in,
                 PointStrategy const& point_strategy)
 {
     typedef typename boost::range_value<MultiPolygon>::type polygon_type;
-    concept::check<GeometryIn const>();
-    concept::check<polygon_type>();
+    concepts::check<GeometryIn const>();
+    concepts::check<polygon_type>();
 
     typedef typename point_type<GeometryIn>::type point_type;
     typedef typename rescale_policy_type<point_type>::type rescale_policy_type;
@@ -274,15 +278,21 @@ inline void buffer(GeometryIn const& geometry_in,
     geometry::envelope(geometry_in, box);
     geometry::buffer(box, box, distance_strategy.max_distance(join_strategy, end_strategy));
 
+    typename strategy::intersection::services::default_strategy
+        <
+            typename cs_tag<GeometryIn>::type
+        >::type intersection_strategy;
+
     rescale_policy_type rescale_policy
             = boost::geometry::get_rescale_policy<rescale_policy_type>(box);
 
-    detail::buffer::buffer_inserter<polygon_type>(geometry_in, std::back_inserter(geometry_out),
+    detail::buffer::buffer_inserter<polygon_type>(geometry_in, range::back_inserter(geometry_out),
                 distance_strategy,
                 side_strategy,
                 join_strategy,
                 end_strategy,
                 point_strategy,
+                intersection_strategy,
                 rescale_policy);
 }
 

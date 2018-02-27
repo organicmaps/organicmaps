@@ -69,7 +69,7 @@
 
 # endif
 
-#ifdef __QNX__
+#if defined(__QNX__) && defined(__EXT_QNX) 
 
 // QNX (Dinkumware stdlib) defines these as non-standard names.
 // Reflect to the standard names.

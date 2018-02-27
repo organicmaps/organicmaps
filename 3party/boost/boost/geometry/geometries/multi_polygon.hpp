@@ -54,7 +54,7 @@ template
 >
 class multi_polygon : public Container<Polygon, Allocator<Polygon> >
 {
-    BOOST_CONCEPT_ASSERT( (concept::Polygon<Polygon>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Polygon<Polygon>) );
 
 #ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
 

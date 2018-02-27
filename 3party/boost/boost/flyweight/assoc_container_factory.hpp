@@ -1,4 +1,4 @@
-/* Copyright 2006-2014 Joaquin M Lopez Munoz.
+/* Copyright 2006-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -27,8 +27,8 @@
 #endif
 
 namespace boost{namespace flyweights{namespace detail{
-BOOST_FLYWEIGHT_NESTED_XXX_IF_NOT_PLACEHOLDER_EXPRESSION_DEF(iterator);
-BOOST_FLYWEIGHT_NESTED_XXX_IF_NOT_PLACEHOLDER_EXPRESSION_DEF(value_type);
+BOOST_FLYWEIGHT_NESTED_XXX_IF_NOT_PLACEHOLDER_EXPRESSION_DEF(iterator)
+BOOST_FLYWEIGHT_NESTED_XXX_IF_NOT_PLACEHOLDER_EXPRESSION_DEF(value_type)
 }}} /* namespace boost::flyweights::detail */
 
 /* Factory class using a given associative container.

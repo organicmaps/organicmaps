@@ -1,4 +1,4 @@
-/* Copyright 2003-2015 Joaquin M Lopez Munoz.
+/* Copyright 2003-2017 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -109,7 +109,7 @@ inline std::size_t ranked_index_find_rank(
 {
   if(!top)return 0;
 
-  std::size_t s=top->size,
+  std::size_t s=top->impl()->size,
               s0=s;
   Node*       y0=y;
 
@@ -121,7 +121,7 @@ inline std::size_t ranked_index_find_rank(
     }
     else top=Node::from_impl(top->right());
   }while(top);
-
+    
   return (y==y0||comp(x,key(y->value())))?s0:s;
 }
 
@@ -162,7 +162,7 @@ inline std::size_t ranked_index_lower_bound_rank(
 {
   if(!top)return 0;
 
-  std::size_t s=top->size;
+  std::size_t s=top->impl()->size;
 
   do{
     if(!comp(key(top->value()),x)){
@@ -213,7 +213,7 @@ inline std::size_t ranked_index_upper_bound_rank(
 {
   if(!top)return 0;
 
-  std::size_t s=top->size;
+  std::size_t s=top->impl()->size;
 
   do{
     if(comp(x,key(top->value()))){
@@ -266,7 +266,7 @@ inline std::pair<std::size_t,std::size_t> ranked_index_equal_range_rank(
 {
   if(!top)return std::pair<std::size_t,std::size_t>(0,0);
 
-  std::size_t s=top->size;
+  std::size_t s=top->impl()->size;
 
   do{
     if(comp(key(top->value()),x)){
@@ -279,7 +279,7 @@ inline std::pair<std::size_t,std::size_t> ranked_index_equal_range_rank(
     }
     else{
       return std::pair<std::size_t,std::size_t>(
-        s-top->size+
+        s-top->impl()->size+
           ranked_index_lower_bound_rank(
            Node::from_impl(top->left()),top,key,x,comp,mpl::false_()),
         s-ranked_node_size(top->right())+

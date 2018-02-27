@@ -30,6 +30,7 @@
 #include <boost/type_traits/is_nothrow_move_assignable.hpp>
 #include <boost/type_traits/is_copy_constructible.hpp>
 #include <boost/type_traits/conditional.hpp>
+#include <boost/move/adl_move_swap.hpp>
 #include <boost/move/move.hpp>
 #include <boost/utility/addressof.hpp>
 #include <algorithm>
@@ -668,7 +669,7 @@ public:
                         boost::container::allocator_traits<Alloc>::construct(m_alloc, boost::addressof(*dest), boost::move_if_noexcept(*src));
                         ++constructed;
                     } else {
-                        value_type tmp = boost::move_if_noexcept(*src);
+                        value_type tmp = boost::move_if_noexcept(*src); 
                         replace(src, boost::move_if_noexcept(*dest));
                         replace(dest, boost::move(tmp));
                     }
@@ -1399,11 +1400,11 @@ public:
     */
     void swap(circular_buffer<T, Alloc>& cb) BOOST_NOEXCEPT {
         swap_allocator(cb, is_stateless<allocator_type>());
-        std::swap(m_buff, cb.m_buff);
-        std::swap(m_end, cb.m_end);
-        std::swap(m_first, cb.m_first);
-        std::swap(m_last, cb.m_last);
-        std::swap(m_size, cb.m_size);
+        adl_move_swap(m_buff, cb.m_buff);
+        adl_move_swap(m_end, cb.m_end);
+        adl_move_swap(m_first, cb.m_first);
+        adl_move_swap(m_last, cb.m_last);
+        adl_move_swap(m_size, cb.m_size);
 #if BOOST_CB_ENABLE_DEBUG
         invalidate_all_iterators();
         cb.invalidate_all_iterators();
@@ -2627,7 +2628,7 @@ private:
 
     //! Specialized method for swapping the allocator.
     void swap_allocator(circular_buffer<T, Alloc>& cb, const false_type&) {
-        std::swap(m_alloc, cb.m_alloc);
+        adl_move_swap(m_alloc, cb.m_alloc);
     }
 
     //! Specialized assign method.

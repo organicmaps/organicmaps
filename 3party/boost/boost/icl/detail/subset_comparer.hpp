@@ -119,8 +119,8 @@ public:
     int co_compare(LeftIterT& left, RightIterT& right)
     {
         using namespace boost::mpl;
-        typedef typename codomain_type_of<LeftT>::type  LeftCodomainT;
-        typedef typename codomain_type_of<RightT>::type RightCodomainT;
+        //CL typedef typename codomain_type_of<LeftT>::type  LeftCodomainT;
+        //CL typedef typename codomain_type_of<RightT>::type RightCodomainT;
 
         return  
             if_<

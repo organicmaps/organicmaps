@@ -10,6 +10,11 @@
 
 namespace boost{ namespace multiprecision{ namespace backends{
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4127) // conditional expression is constant
+#endif
+
 //
 // This is the key addition routine where all the argument types are non-trivial cpp_int's:
 //
@@ -44,7 +49,11 @@ inline void add_unsigned(CppInt1& result, const CppInt2& a, const CppInt3& b) BO
    while(pr != pr_end)
    {
       carry += static_cast<double_limb_type>(*pa) + static_cast<double_limb_type>(*pb);
+#ifdef __MSVC_RUNTIME_CHECKS
+      *pr = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+#else
       *pr = static_cast<limb_type>(carry);
+#endif
       carry >>= CppInt1::limb_bits;
       ++pr, ++pa, ++pb;
    }
@@ -63,7 +72,11 @@ inline void add_unsigned(CppInt1& result, const CppInt2& a, const CppInt3& b) BO
          break;
       }
       carry += static_cast<double_limb_type>(*pa);
+#ifdef __MSVC_RUNTIME_CHECKS
+      *pr = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+#else
       *pr = static_cast<limb_type>(carry);
+#endif
       carry >>= CppInt1::limb_bits;
       ++pr, ++pa;
    }
@@ -71,7 +84,7 @@ inline void add_unsigned(CppInt1& result, const CppInt2& a, const CppInt3& b) BO
    {
       // We overflowed, need to add one more limb:
       result.resize(x + 1, x + 1);
-      if(CppInt1::variable || (result.size() > x))
+      if(result.size() > x)
          result.limbs()[x] = static_cast<limb_type>(carry);
    }
    result.normalize();
@@ -95,7 +108,11 @@ inline void add_unsigned(CppInt1& result, const CppInt2& a, const limb_type& o) 
    for(; carry && (i < result.size()); ++i)
    {
       carry += static_cast<double_limb_type>(pa[i]);
+#ifdef __MSVC_RUNTIME_CHECKS
+      pr[i] = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+#else
       pr[i] = static_cast<limb_type>(carry);
+#endif
       carry >>= CppInt1::limb_bits;
    }
    // Just copy any remaining digits:
@@ -109,7 +126,7 @@ inline void add_unsigned(CppInt1& result, const CppInt2& a, const limb_type& o) 
       // We overflowed, need to add one more limb:
       unsigned x = result.size();
       result.resize(x + 1, x + 1);
-      if(CppInt1::variable || (result.size() > x))
+      if(result.size() > x)
          result.limbs()[x] = static_cast<limb_type>(carry);
    }
    result.normalize();
@@ -523,6 +540,10 @@ BOOST_MP_FORCEINLINE typename enable_if_c<
    *result.limbs() = detail::checked_subtract(*result.limbs(), *o.limbs(), typename cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::checked_type());
    result.normalize();
 }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 }}} // namespaces
 

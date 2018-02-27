@@ -12,6 +12,7 @@
 
 #include <boost/operators.hpp>
 #include <boost/date_time/special_defs.hpp>
+#include <boost/date_time/compiler_config.hpp>
 
 namespace boost {
 namespace date_time {
@@ -19,7 +20,7 @@ namespace date_time {
 
   //! Duration type with date level resolution
   template<class duration_rep_traits>
-  class date_duration : private
+  class BOOST_SYMBOL_VISIBLE date_duration : private
               boost::less_than_comparable1< date_duration< duration_rep_traits >
             , boost::equality_comparable1< date_duration< duration_rep_traits >
             , boost::addable1< date_duration< duration_rep_traits >
@@ -121,7 +122,7 @@ namespace date_time {
   /*! Struct for instantiating date_duration with <b>NO</b> special values
    * functionality. Allows for transparent implementation of either
    * date_duration<long> or date_duration<int_adapter<long> > */
-  struct duration_traits_long
+  struct BOOST_SYMBOL_VISIBLE duration_traits_long
   {
     typedef long int_type;
     typedef long impl_type;
@@ -131,7 +132,7 @@ namespace date_time {
   /*! Struct for instantiating date_duration <b>WITH</b> special values
    * functionality. Allows for transparent implementation of either
    * date_duration<long> or date_duration<int_adapter<long> > */
-  struct duration_traits_adapted
+  struct BOOST_SYMBOL_VISIBLE duration_traits_adapted
   {
     typedef long int_type;
     typedef boost::date_time::int_adapter<long> impl_type;

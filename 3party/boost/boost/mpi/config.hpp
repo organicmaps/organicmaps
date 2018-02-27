@@ -20,15 +20,15 @@
 #include <mpi.h>
 #include <boost/config.hpp>
 
-/** @brief Comment this macro is you are running in an heterogeneous environement.
+/** @brief Comment this macro is you are running in an heterogeneous environment.
  *
- * When this flags is enabled, we assume some simple, POD like, type can be
- * transmited without paying the cost of portable serialization.
+ * When this flag is enabled, we assume some simple, POD-like, type can be 
+ * transmitted without paying the cost of portable serialization. 
  *
- * Comment this if your platform is not homogeneous and that portable
+ * Comment this if your platform is not homogeneous and that portable 
  * serialization/deserialization must be performed.
  *
- * It you do so, check that you MPI implementation supports thats kind of environement.
+ * It you do so, check that your MPI implementation supports thats kind of environment.
  */
 #define BOOST_MPI_HOMOGENEOUS
 
@@ -57,7 +57,7 @@
 #  define BOOST_MPI_HAS_NOARG_INITIALIZATION
 #else
 // If this is an MPI-1.x implementation, no arg initialization for
-// mpi environement could still be available, but not mandatory.
+// mpi environment could still be available, but not mandatory.
 // Undef this if no arg init is available:
 //#  define BOOST_MPI_HAS_NOARG_INITIALIZATION
 #endif
@@ -82,7 +82,7 @@
  *
  * Some implementations have a broken MPI_Bcast wrt to MPI_BOTTOM.
  * BullX MPI and LAM seems to be among them, at least for some versions.
- * The `broacast_test.cpp` test `test_skeleton_and_content` can be used to
+ * The `broacast_test.cpp` test `test_skeleton_and_content` can be used to 
  * detect that.
  */
 #define BOOST_MPI_BCAST_BOTTOM_WORKS_FINE

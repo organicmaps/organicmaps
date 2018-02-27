@@ -12,8 +12,6 @@
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
 
-#include <boost/context/execution_context.hpp>
-
 #ifdef BOOST_HAS_ABI_HEADERS
 #  include BOOST_ABI_PREFIX
 #endif
@@ -23,6 +21,12 @@ namespace coroutines2 {
 namespace detail {
 
 struct forced_unwind {};
+
+inline
+void * unwind_coroutine( void * data) {
+    throw forced_unwind{};
+    return data;
+}
 
 }}}
 

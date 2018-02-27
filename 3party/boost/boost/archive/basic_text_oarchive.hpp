@@ -46,7 +46,7 @@ namespace detail {
 /////////////////////////////////////////////////////////////////////////
 // class basic_text_oarchive 
 template<class Archive>
-class BOOST_SYMBOL_VISIBLE basic_text_oarchive :
+class BOOST_SYMBOL_VISIBLE basic_text_oarchive : 
     public detail::common_oarchive<Archive>
 {
 #ifdef BOOST_NO_MEMBER_TEMPLATE_FRIENDS

@@ -55,6 +55,10 @@ struct decide_covered_by
 };
 
 
+// WARNING
+// This strategy is not suitable for boxes in non-cartesian CSes having edges
+// longer than 180deg because e.g. the SSF formula picks the side of the closer
+// longitude, so for long edges the side is the opposite.
 template <typename Point, typename Box, typename Decide = decide_within>
 struct point_in_box_by_side
 {
@@ -91,58 +95,6 @@ struct point_in_box_by_side
 
 
 } // namespace within
-
-
-#ifndef DOXYGEN_NO_STRATEGY_SPECIALIZATIONS
-
-
-namespace within { namespace services
-{
-
-template <typename Point, typename Box>
-struct default_strategy
-    <
-        point_tag, box_tag,
-        point_tag, areal_tag,
-        spherical_tag, spherical_tag,
-        Point, Box
-    >
-{
-    typedef within::point_in_box_by_side
-                <
-                    Point, Box, within::decide_within
-                > type;
-};
-
-
-
-}} // namespace within::services
-
-
-namespace covered_by { namespace services
-{
-
-
-template <typename Point, typename Box>
-struct default_strategy
-    <
-        point_tag, box_tag,
-        point_tag, areal_tag,
-        spherical_tag, spherical_tag,
-        Point, Box
-    >
-{
-    typedef within::point_in_box_by_side
-                <
-                    Point, Box, within::decide_covered_by
-                > type;
-};
-
-
-}} // namespace covered_by::services
-
-
-#endif // DOXYGEN_NO_STRATEGY_SPECIALIZATIONS
 
 
 }}} // namespace boost::geometry::strategy

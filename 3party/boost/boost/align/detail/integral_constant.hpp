@@ -1,10 +1,9 @@
 /*
-(c) 2014 Glen Joseph Fernandes
-glenjofe at gmail dot com
+Copyright 2014-2016 Glen Joseph Fernandes
+(glenjofe@gmail.com)
 
-Distributed under the Boost Software
-License, Version 1.0.
-http://boost.org/LICENSE_1_0.txt
+Distributed under the Boost Software License, Version 1.0.
+(http://www.boost.org/LICENSE_1_0.txt)
 */
 #ifndef BOOST_ALIGN_DETAIL_INTEGRAL_CONSTANT_HPP
 #define BOOST_ALIGN_DETAIL_INTEGRAL_CONSTANT_HPP
@@ -25,24 +24,25 @@ using std::integral_constant;
 template<class T, T Value>
 struct integral_constant {
     typedef T value_type;
-    typedef integral_constant<T, Value> type;
+    typedef integral_constant type;
 
-#if !defined(BOOST_NO_CXX11_CONSTEXPR)
-    constexpr operator value_type() const {
+    BOOST_CONSTEXPR operator value_type() const BOOST_NOEXCEPT {
         return Value;
     }
 
-    static constexpr T value = Value;
-#else
-    enum {
-        value = Value
-    };
-#endif
+    BOOST_CONSTEXPR value_type operator()() const BOOST_NOEXCEPT {
+        return Value;
+    }
+
+    BOOST_STATIC_CONSTEXPR T value = Value;
 };
+
+template<class T, T Value>
+BOOST_CONSTEXPR_OR_CONST T integral_constant<T, Value>::value;
 #endif
 
-} /* :detail */
-} /* :alignment */
-} /* :boost */
+} /* detail */
+} /* alignment */
+} /* boost */
 
 #endif

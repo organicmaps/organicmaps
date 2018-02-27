@@ -72,7 +72,7 @@
 // boilerplate code:
 #define BOOST_HAS_UNISTD_H
 #include <boost/config/posix_features.hpp>
-#ifdef __USE_GNU
+#if defined(__USE_GNU) && !defined(__ANDROID__) && !defined(ANDROID)
 #define BOOST_HAS_PTHREAD_YIELD
 #endif
 

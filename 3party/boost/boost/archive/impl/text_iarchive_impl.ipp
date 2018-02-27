@@ -105,7 +105,7 @@ text_iarchive_impl<Archive>::init(){
 }
 
 template<class Archive>
-BOOST_ARCHIVE_DECL
+BOOST_ARCHIVE_DECL 
 text_iarchive_impl<Archive>::text_iarchive_impl(
     std::istream & is, 
     unsigned int flags

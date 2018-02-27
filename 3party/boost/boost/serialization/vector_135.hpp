@@ -15,7 +15,7 @@
 
 #ifdef BOOST_SERIALIZATION_VECTOR_VERSIONED
 #if BOOST_SERIALIZATION_VECTOR_VERSION != 4
-#error Boost.Serialization cannot be compatible with both 1.35 and 1.36-1.40 files
+#error "Boost.Serialization cannot be compatible with both 1.35 and 1.36-1.40 files"
 #endif
 #else
 #define BOOST_SERIALIZATION_VECTOR_VERSIONED(V) (V>4)

@@ -27,7 +27,7 @@ namespace odeint {
 template< class Derived >
 struct algebra_dispatcher_sfinae< Derived ,
                       typename boost::enable_if< typename boost::is_base_of< Eigen::MatrixBase< Derived > , Derived >::type >::type >
-{
+{ 
     typedef vector_space_algebra algebra_type;
 };
 
@@ -35,7 +35,7 @@ struct algebra_dispatcher_sfinae< Derived ,
 template < class Derived  >
 struct algebra_dispatcher_sfinae< Derived ,
                       typename boost::enable_if< typename boost::is_base_of< Eigen::ArrayBase< Derived > , Derived >::type >::type >
-{
+{ 
     typedef vector_space_algebra algebra_type;
 };
 

@@ -94,11 +94,11 @@ namespace boost { namespace property_tree
     >
     {
         static void insert(std::basic_ostream<Ch, Traits>& s, const F& e) {
-#ifndef BOOST_NO_CXX11_NUMERIC_LIMITS
-            s.precision(std::numeric_limits<F>::max_digits10);
-#else
-            s.precision(std::numeric_limits<F>::digits10 + 2);
-#endif
+#ifndef BOOST_NO_CXX11_NUMERIC_LIMITS 
+            s.precision(std::numeric_limits<F>::max_digits10); 
+#else 
+            s.precision(std::numeric_limits<F>::digits10 + 2); 
+#endif 
             s << e;
         }
         static void extract(std::basic_istream<Ch, Traits>& s, F& e) {

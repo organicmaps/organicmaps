@@ -11,7 +11,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
-#include <boost/context/fcontext.hpp>
+#include <boost/context/detail/fcontext.hpp>
 
 #include <boost/coroutine/detail/config.hpp>
 #include <boost/coroutine/detail/preallocated.hpp>
@@ -29,11 +29,22 @@ namespace detail {
 class BOOST_COROUTINES_DECL coroutine_context
 {
 private:
+    template< typename Coro >
+    friend void trampoline( context::detail::transfer_t);
+    template< typename Coro >
+    friend void trampoline_void( context::detail::transfer_t);
+    template< typename Coro >
+    friend void trampoline_pull( context::detail::transfer_t);
+    template< typename Coro >
+    friend void trampoline_push( context::detail::transfer_t);
+    template< typename Coro >
+    friend void trampoline_push_void( context::detail::transfer_t);
+
     preallocated            palloc_;
-    context::fcontext_t     ctx_;
+    context::detail::fcontext_t     ctx_;
 
 public:
-    typedef void( * ctx_fn)( intptr_t);
+    typedef void( * ctx_fn)( context::detail::transfer_t);
 
     // default ctor represents the current execution-context
     coroutine_context();
@@ -47,7 +58,7 @@ public:
 
     coroutine_context& operator=( coroutine_context const&);
 
-    intptr_t jump( coroutine_context &, intptr_t = 0, bool = true);
+    void * jump( coroutine_context &, void * = 0);
 
     stack_context & stack_ctx()
     { return palloc_.sctx; }

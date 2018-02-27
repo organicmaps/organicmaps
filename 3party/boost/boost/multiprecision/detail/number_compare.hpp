@@ -120,7 +120,11 @@ inline BOOST_CONSTEXPR typename boost::enable_if_c<number_category<Backend>::val
    return false;
 }
 template <class Backend, expression_template_option ExpressionTemplates>
-inline BOOST_CONSTEXPR typename boost::enable_if_c<number_category<Backend>::value == number_kind_floating_point, bool>::type is_unordered_value(const number<Backend, ExpressionTemplates>& a)
+inline 
+#if !BOOST_WORKAROUND(BOOST_GCC_VERSION, < 40700)
+BOOST_CONSTEXPR
+#endif
+ typename boost::enable_if_c<number_category<Backend>::value == number_kind_floating_point, bool>::type is_unordered_value(const number<Backend, ExpressionTemplates>& a)
 {
    using default_ops::eval_fpclassify;
    return eval_fpclassify(a.backend()) == FP_NAN;
@@ -471,6 +475,184 @@ inline typename enable_if<is_same<typename detail::expression<Tag, A1, A2, A3, A
    return !eval_lt(t.backend(), t2.backend());
 }
 
+//
+// C99 comparison macros as functions:
+//
+template <class Backend, expression_template_option ExpressionTemplates, class Backend2, expression_template_option ExpressionTemplates2>
+inline bool isgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const number<Backend2, ExpressionTemplates2>& b) { return a > b; }
+
+template <class Backend, expression_template_option ExpressionTemplates, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+   isgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const Arithmetic& b) { return a > b; }
+
+template <class Arithmetic, class Backend, expression_template_option ExpressionTemplates>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+   isgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const number<Backend, ExpressionTemplates>& b) { return a > b; }
+
+template <class Arithmetic, class Tag, class A1, class A2, class A3, class A4>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+   isgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const detail::expression<Tag, A1, A2, A3, A4>& b) { return a > b; }
+
+template <class Tag, class A1, class A2, class A3, class A4, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+   isgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& a, const Arithmetic& b) { return a > b; }
+
+template <class Tag, class A1, class A2, class A3, class A4, class Tagb, class A1b, class A2b, class A3b, class A4b>
+inline typename enable_if<is_same<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, typename detail::expression<Tagb, A1b, A2b, A3b, A4b>::result_type>, bool>::type
+   isgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& a, const detail::expression<Tagb, A1b, A2b, A3b, A4b>& b) { return a > b; }
+
+template <class Backend, expression_template_option ExpressionTemplates, class Backend2, expression_template_option ExpressionTemplates2>
+inline bool isgreaterequal BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const number<Backend2, ExpressionTemplates2>& b) { return a >= b; }
+
+template <class Backend, expression_template_option ExpressionTemplates, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+   isgreaterequal BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const Arithmetic& b) { return a >= b; }
+
+template <class Arithmetic, class Backend, expression_template_option ExpressionTemplates>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+   isgreaterequal BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const number<Backend, ExpressionTemplates>& b) { return a >= b; }
+
+template <class Arithmetic, class Tag, class A1, class A2, class A3, class A4>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+   isgreaterequal BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const detail::expression<Tag, A1, A2, A3, A4>& b) { return a >= b; }
+
+template <class Tag, class A1, class A2, class A3, class A4, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+   isgreaterequal BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& a, const Arithmetic& b) { return a >= b; }
+
+template <class Tag, class A1, class A2, class A3, class A4, class Tagb, class A1b, class A2b, class A3b, class A4b>
+inline typename enable_if<is_same<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, typename detail::expression<Tagb, A1b, A2b, A3b, A4b>::result_type>, bool>::type
+   isgreaterequal BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& a, const detail::expression<Tagb, A1b, A2b, A3b, A4b>& b) { return a >= b; }
+
+template <class Backend, expression_template_option ExpressionTemplates, class Backend2, expression_template_option ExpressionTemplates2>
+inline bool islessequal BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const number<Backend2, ExpressionTemplates2>& b) { return a <= b; }
+
+template <class Backend, expression_template_option ExpressionTemplates, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+islessequal BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const Arithmetic& b) { return a <= b; }
+
+template <class Arithmetic, class Backend, expression_template_option ExpressionTemplates>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+islessequal BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const number<Backend, ExpressionTemplates>& b) { return a <= b; }
+
+template <class Arithmetic, class Tag, class A1, class A2, class A3, class A4>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+islessequal BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const detail::expression<Tag, A1, A2, A3, A4>& b) { return a <= b; }
+
+template <class Tag, class A1, class A2, class A3, class A4, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+islessequal BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& a, const Arithmetic& b) { return a <= b; }
+
+template <class Tag, class A1, class A2, class A3, class A4, class Tagb, class A1b, class A2b, class A3b, class A4b>
+inline typename enable_if<is_same<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, typename detail::expression<Tagb, A1b, A2b, A3b, A4b>::result_type>, bool>::type
+islessequal BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& a, const detail::expression<Tagb, A1b, A2b, A3b, A4b>& b) { return a <= b; }
+
+template <class Backend, expression_template_option ExpressionTemplates, class Backend2, expression_template_option ExpressionTemplates2>
+inline bool isless BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const number<Backend2, ExpressionTemplates2>& b) { return a < b; }
+
+template <class Backend, expression_template_option ExpressionTemplates, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+isless BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const Arithmetic& b) { return a < b; }
+
+template <class Arithmetic, class Backend, expression_template_option ExpressionTemplates>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+isless BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const number<Backend, ExpressionTemplates>& b) { return a < b; }
+
+template <class Arithmetic, class Tag, class A1, class A2, class A3, class A4>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+isless BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const detail::expression<Tag, A1, A2, A3, A4>& b) { return a < b; }
+
+template <class Tag, class A1, class A2, class A3, class A4, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+isless BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& a, const Arithmetic& b) { return a < b; }
+
+template <class Tag, class A1, class A2, class A3, class A4, class Tagb, class A1b, class A2b, class A3b, class A4b>
+inline typename enable_if<is_same<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, typename detail::expression<Tagb, A1b, A2b, A3b, A4b>::result_type>, bool>::type
+isless BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& a, const detail::expression<Tagb, A1b, A2b, A3b, A4b>& b) { return a < b; }
+
+template <class Backend, expression_template_option ExpressionTemplates, class Backend2, expression_template_option ExpressionTemplates2>
+inline bool islessgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const number<Backend2, ExpressionTemplates2>& b) 
+{ 
+   if(detail::is_unordered_comparison(a, b)) return false;
+   return a != b;
+}
+
+template <class Backend, expression_template_option ExpressionTemplates, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+islessgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const Arithmetic& b) 
+{ 
+   if(detail::is_unordered_comparison(a, b)) return false;
+   return a != b;
+}
+
+template <class Arithmetic, class Backend, expression_template_option ExpressionTemplates>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+islessgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const number<Backend, ExpressionTemplates>& b) 
+{ 
+   if(detail::is_unordered_comparison(a, b)) return false;
+   return a != b;
+}
+
+template <class Arithmetic, class Tag, class A1, class A2, class A3, class A4>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+islessgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const detail::expression<Tag, A1, A2, A3, A4>& bb) 
+{
+   typename detail::expression<Tag, A1, A2, A3, A4>::result_type b(bb);
+   return islessgreater BOOST_PREVENT_MACRO_SUBSTITUTION(a, b);
+}
+
+template <class Tag, class A1, class A2, class A3, class A4, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+islessgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& aa, const Arithmetic& b) 
+{ 
+   typename detail::expression<Tag, A1, A2, A3, A4>::result_type a(aa);
+   return islessgreater BOOST_PREVENT_MACRO_SUBSTITUTION(a, b);
+}
+
+template <class Tag, class A1, class A2, class A3, class A4, class Tagb, class A1b, class A2b, class A3b, class A4b>
+inline typename enable_if<is_same<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, typename detail::expression<Tagb, A1b, A2b, A3b, A4b>::result_type>, bool>::type
+islessgreater BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& aa, const detail::expression<Tagb, A1b, A2b, A3b, A4b>& bb) 
+{ 
+   typename detail::expression<Tag, A1, A2, A3, A4>::result_type a(aa);
+   typename detail::expression<Tagb, A1b, A2b, A3b, A4b>::result_type b(bb);
+   return islessgreater BOOST_PREVENT_MACRO_SUBSTITUTION(a, b);
+}
+
+template <class Backend, expression_template_option ExpressionTemplates, class Backend2, expression_template_option ExpressionTemplates2>
+inline bool isunordered BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const number<Backend2, ExpressionTemplates2>& b) { return detail::is_unordered_comparison(a, b); }
+
+template <class Backend, expression_template_option ExpressionTemplates, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+isunordered BOOST_PREVENT_MACRO_SUBSTITUTION(const number<Backend, ExpressionTemplates>& a, const Arithmetic& b) { return detail::is_unordered_comparison(a, b); }
+
+template <class Arithmetic, class Backend, expression_template_option ExpressionTemplates>
+inline typename enable_if_c<detail::is_valid_mixed_compare<number<Backend, ExpressionTemplates>, Arithmetic>::value, bool>::type
+isunordered BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const number<Backend, ExpressionTemplates>& b) { return detail::is_unordered_comparison(a, b); }
+
+template <class Arithmetic, class Tag, class A1, class A2, class A3, class A4>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+isunordered BOOST_PREVENT_MACRO_SUBSTITUTION(const Arithmetic& a, const detail::expression<Tag, A1, A2, A3, A4>& bb)
+{ 
+   typename detail::expression<Tag, A1, A2, A3, A4>::result_type b(bb);
+   return detail::is_unordered_comparison(a, b);
+}
+
+template <class Tag, class A1, class A2, class A3, class A4, class Arithmetic>
+inline typename enable_if_c<detail::is_valid_mixed_compare<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, Arithmetic>::value, bool>::type
+isunordered BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& aa, const Arithmetic& b)
+{ 
+   typename detail::expression<Tag, A1, A2, A3, A4>::result_type a(aa);
+   return detail::is_unordered_comparison(a, b);
+}
+
+template <class Tag, class A1, class A2, class A3, class A4, class Tagb, class A1b, class A2b, class A3b, class A4b>
+inline typename enable_if<is_same<typename detail::expression<Tag, A1, A2, A3, A4>::result_type, typename detail::expression<Tagb, A1b, A2b, A3b, A4b>::result_type>, bool>::type
+isunordered BOOST_PREVENT_MACRO_SUBSTITUTION(const detail::expression<Tag, A1, A2, A3, A4>& aa, const detail::expression<Tagb, A1b, A2b, A3b, A4b>& bb)
+{
+   typename detail::expression<Tag, A1, A2, A3, A4>::result_type a(aa);
+   typename detail::expression<Tagb, A1b, A2b, A3b, A4b>::result_type b(bb);
+   return detail::is_unordered_comparison(a, b);
+}
 
 }} // namespaces
 

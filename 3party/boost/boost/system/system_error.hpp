@@ -5,8 +5,8 @@
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_SYSTEM_ERROR_HPP
-#define BOOST_SYSTEM_ERROR_HPP
+#ifndef BOOST_SYSTEM_SYSTEM_ERROR_HPP
+#define BOOST_SYSTEM_SYSTEM_ERROR_HPP
 
 #include <string>
 #include <stdexcept>
@@ -79,6 +79,6 @@ namespace boost
   } // namespace system
 } // namespace boost
 
-#endif // BOOST_SYSTEM_ERROR_HPP
+#endif // BOOST_SYSTEM_SYSTEM_ERROR_HPP
 
 

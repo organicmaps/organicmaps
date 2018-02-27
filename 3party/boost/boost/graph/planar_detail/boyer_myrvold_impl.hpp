@@ -34,26 +34,26 @@ namespace boost
            typename DFSParentEdgeMap, typename SizeType>
   struct planar_dfs_visitor : public dfs_visitor<>
   {
-    planar_dfs_visitor(LowPointMap lpm, DFSParentMap dfs_p, 
+    planar_dfs_visitor(LowPointMap lpm, DFSParentMap dfs_p,
                        DFSNumberMap dfs_n, LeastAncestorMap lam,
-                       DFSParentEdgeMap dfs_edge) 
+                       DFSParentEdgeMap dfs_edge)
       : low(lpm),
         parent(dfs_p),
         df_number(dfs_n),
         least_ancestor(lam),
         df_edge(dfs_edge),
-        count(0) 
+        count(0)
     {}
-    
-    
+
+
     template <typename Vertex, typename Graph>
     void start_vertex(const Vertex& u, Graph&)
     {
       put(parent, u, u);
       put(least_ancestor, u, count);
     }
-    
-    
+
+
     template <typename Vertex, typename Graph>
     void discover_vertex(const Vertex& u, Graph&)
     {
@@ -61,7 +61,7 @@ namespace boost
       put(df_number, u, count);
       ++count;
     }
-    
+
     template <typename Edge, typename Graph>
     void tree_edge(const Edge& e, Graph& g)
     {
@@ -73,13 +73,13 @@ namespace boost
       put(df_edge, t, e);
       put(least_ancestor, t, get(df_number, s));
     }
-    
+
     template <typename Edge, typename Graph>
     void back_edge(const Edge& e, Graph& g)
     {
       typedef typename graph_traits<Graph>::vertex_descriptor vertex_t;
       typedef typename graph_traits<Graph>::vertices_size_type v_size_t;
-      
+
       vertex_t s(source(e,g));
       vertex_t t(target(e,g));
       BOOST_USING_STD_MIN();
@@ -89,20 +89,20 @@ namespace boost
         v_size_t t_df_number = get(df_number, t);
         v_size_t s_least_ancestor_df_number = get(least_ancestor, s);
 
-        put(low, s, 
+        put(low, s,
             min BOOST_PREVENT_MACRO_SUBSTITUTION(s_low_df_number,
                                                  t_df_number)
             );
-        
-        put(least_ancestor, s, 
-            min BOOST_PREVENT_MACRO_SUBSTITUTION(s_least_ancestor_df_number, 
+
+        put(least_ancestor, s,
+            min BOOST_PREVENT_MACRO_SUBSTITUTION(s_least_ancestor_df_number,
                                                  t_df_number
                                                  )
             );
 
       }
     }
-    
+
     template <typename Vertex, typename Graph>
     void finish_vertex(const Vertex& u, Graph&)
     {
@@ -115,21 +115,21 @@ namespace boost
 
       if (u_parent != u)
         {
-          put(low, u_parent, 
-              min BOOST_PREVENT_MACRO_SUBSTITUTION(u_lowpoint, 
+          put(low, u_parent,
+              min BOOST_PREVENT_MACRO_SUBSTITUTION(u_lowpoint,
                                                    u_parent_lowpoint
                                                    )
               );
         }
     }
-    
+
     LowPointMap low;
     DFSParentMap parent;
     DFSNumberMap df_number;
     LeastAncestorMap least_ancestor;
     DFSParentEdgeMap df_edge;
     SizeType count;
-    
+
   };
 
 
@@ -150,7 +150,7 @@ namespace boost
     typedef typename graph_traits<Graph>::edge_descriptor edge_t;
     typedef typename graph_traits<Graph>::vertex_iterator vertex_iterator_t;
     typedef typename graph_traits<Graph>::edge_iterator edge_iterator_t;
-    typedef typename graph_traits<Graph>::out_edge_iterator 
+    typedef typename graph_traits<Graph>::out_edge_iterator
         out_edge_iterator_t;
     typedef graph::detail::face_handle
         <Graph, StoreOldHandlesPolicy, StoreEmbeddingPolicy> face_handle_t;
@@ -173,16 +173,16 @@ namespace boost
     typedef typename map_vertex_to_<v_size_t>::type vertex_to_v_size_map_t;
     typedef typename map_vertex_to_<vertex_t>::type vertex_to_vertex_map_t;
     typedef typename map_vertex_to_<edge_t>::type vertex_to_edge_map_t;
-    typedef typename map_vertex_to_<vertex_list_ptr_t>::type 
+    typedef typename map_vertex_to_<vertex_list_ptr_t>::type
         vertex_to_vertex_list_ptr_map_t;
-    typedef typename map_vertex_to_< edge_vector_t >::type 
+    typedef typename map_vertex_to_< edge_vector_t >::type
         vertex_to_edge_vector_map_t;
     typedef typename map_vertex_to_<bool>::type vertex_to_bool_map_t;
-    typedef typename map_vertex_to_<face_handle_t>::type 
+    typedef typename map_vertex_to_<face_handle_t>::type
         vertex_to_face_handle_map_t;
-    typedef typename map_vertex_to_<face_handle_list_ptr_t>::type 
+    typedef typename map_vertex_to_<face_handle_list_ptr_t>::type
         vertex_to_face_handle_list_ptr_map_t;
-    typedef typename map_vertex_to_<typename vertex_list_t::iterator>::type 
+    typedef typename map_vertex_to_<typename vertex_list_t::iterator>::type
         vertex_to_separated_node_map_t;
 
     template <typename BicompSideToTraverse = single_side,
@@ -190,10 +190,10 @@ namespace boost
               typename Time = current_iteration>
     struct face_vertex_iterator
     {
-      typedef face_iterator<Graph, 
-                            vertex_to_face_handle_map_t, 
-                            vertex_t, 
-                            BicompSideToTraverse, 
+      typedef face_iterator<Graph,
+                            vertex_to_face_handle_map_t,
+                            vertex_t,
+                            BicompSideToTraverse,
                             VisitorType,
                             Time>
       type;
@@ -216,7 +216,7 @@ namespace boost
 
   public:
 
- 
+
 
     boyer_myrvold_impl(const Graph& arg_g, VertexIndexMap arg_vm):
       g(arg_g),
@@ -237,7 +237,7 @@ namespace boost
       flipped_vector(num_vertices(g), false),
       backedges_vector(num_vertices(g)),
       dfs_parent_edge_vector(num_vertices(g)),
-                        
+
       vertices_by_dfs_num(num_vertices(g)),
 
       low_point(low_point_vector.begin(), vm),
@@ -271,72 +271,72 @@ namespace boost
 
       // Sort vertices by their lowpoint - need this later in the constructor
       vertex_vector_t vertices_by_lowpoint(num_vertices(g));
-      std::copy( vertices(g).first, vertices(g).second, 
+      std::copy( vertices(g).first, vertices(g).second,
                  vertices_by_lowpoint.begin()
                  );
-      bucket_sort(vertices_by_lowpoint.begin(), 
-                  vertices_by_lowpoint.end(), 
+      bucket_sort(vertices_by_lowpoint.begin(),
+                  vertices_by_lowpoint.end(),
                   low_point,
                   num_vertices(g)
                   );
 
-      // Sort vertices by their dfs number - need this to iterate by reverse 
+      // Sort vertices by their dfs number - need this to iterate by reverse
       // DFS number in the main loop.
-      std::copy( vertices(g).first, vertices(g).second, 
+      std::copy( vertices(g).first, vertices(g).second,
                  vertices_by_dfs_num.begin()
                  );
-      bucket_sort(vertices_by_dfs_num.begin(), 
-                  vertices_by_dfs_num.end(), 
+      bucket_sort(vertices_by_dfs_num.begin(),
+                  vertices_by_dfs_num.end(),
                   dfs_number,
                   num_vertices(g)
                   );
 
-      // Initialize face handles. A face handle is an abstraction that serves 
-      // two uses in our implementation - it allows us to efficiently move 
-      // along the outer face of embedded bicomps in a partially embedded 
-      // graph, and it provides storage for the planar embedding. Face 
-      // handles are implemented by a sequence of edges and are associated 
-      // with a particular vertex - the sequence of edges represents the 
-      // current embedding of edges around that vertex, and the first and 
-      // last edges in the sequence represent the pair of edges on the outer 
-      // face that are adjacent to the associated vertex. This lets us embed 
-      // edges in the graph by just pushing them on the front or back of the 
+      // Initialize face handles. A face handle is an abstraction that serves
+      // two uses in our implementation - it allows us to efficiently move
+      // along the outer face of embedded bicomps in a partially embedded
+      // graph, and it provides storage for the planar embedding. Face
+      // handles are implemented by a sequence of edges and are associated
+      // with a particular vertex - the sequence of edges represents the
+      // current embedding of edges around that vertex, and the first and
+      // last edges in the sequence represent the pair of edges on the outer
+      // face that are adjacent to the associated vertex. This lets us embed
+      // edges in the graph by just pushing them on the front or back of the
       // sequence of edges held by the face handles.
-      // 
+      //
       // Our algorithm starts with a DFS tree of edges (where every vertex is
-      // an articulation point and every edge is a singleton bicomp) and 
-      // repeatedly merges bicomps by embedding additional edges. Note that 
-      // any bicomp at any point in the algorithm can be associated with a 
+      // an articulation point and every edge is a singleton bicomp) and
+      // repeatedly merges bicomps by embedding additional edges. Note that
+      // any bicomp at any point in the algorithm can be associated with a
       // unique edge connecting the vertex of that bicomp with the lowest DFS
-      // number (which we refer to as the "root" of the bicomp) with its DFS 
+      // number (which we refer to as the "root" of the bicomp) with its DFS
       // child in the bicomp: the existence of two such edges would contradict
-      // the properties of a DFS tree. We refer to the DFS child of the root 
-      // of a bicomp as the "canonical DFS child" of the bicomp. Note that a 
+      // the properties of a DFS tree. We refer to the DFS child of the root
+      // of a bicomp as the "canonical DFS child" of the bicomp. Note that a
       // vertex can be the root of more than one bicomp.
       //
-      // We move around the external faces of a bicomp using a few property 
+      // We move around the external faces of a bicomp using a few property
       // maps, which we'll initialize presently:
       //
-      // - face_handles: maps a vertex to a face handle that can be used to 
-      //   move "up" a bicomp. For a vertex that isn't an articulation point, 
-      //   this holds the face handles that can be used to move around that 
+      // - face_handles: maps a vertex to a face handle that can be used to
+      //   move "up" a bicomp. For a vertex that isn't an articulation point,
+      //   this holds the face handles that can be used to move around that
       //   vertex's unique bicomp. For a vertex that is an articulation point,
-      //   this holds the face handles associated with the unique bicomp that 
-      //   the vertex is NOT the root of. These handles can therefore be used 
-      //   to move from any point on the outer face of the tree of bicomps 
+      //   this holds the face handles associated with the unique bicomp that
+      //   the vertex is NOT the root of. These handles can therefore be used
+      //   to move from any point on the outer face of the tree of bicomps
       //   around the current outer face towards the root of the DFS tree.
       //
-      // - dfs_child_handles: these are used to hold face handles for 
+      // - dfs_child_handles: these are used to hold face handles for
       //   vertices that are articulation points - dfs_child_handles[v] holds
       //   the face handles corresponding to vertex u in the bicomp with root
       //   u and canonical DFS child v.
       //
       // - canonical_dfs_child: this property map allows one to determine the
       //   canonical DFS child of a bicomp while traversing the outer face.
-      //   This property map is only valid when applied to one of the two 
+      //   This property map is only valid when applied to one of the two
       //   vertices adjacent to the root of the bicomp on the outer face. To
       //   be more precise, if v is the canonical DFS child of a bicomp,
-      //   canonical_dfs_child[dfs_child_handles[v].first_vertex()] == v and 
+      //   canonical_dfs_child[dfs_child_handles[v].first_vertex()] == v and
       //   canonical_dfs_child[dfs_child_handles[v].second_vertex()] == v.
       //
       // - pertinent_roots: given a vertex v, pertinent_roots[v] contains a
@@ -365,19 +365,19 @@ namespace boost
             }
 
           canonical_dfs_child[v] = v;
-          pertinent_roots[v] = face_handle_list_ptr_t(new face_handle_list_t); 
+          pertinent_roots[v] = face_handle_list_ptr_t(new face_handle_list_t);
           separated_dfs_child_list[v] = vertex_list_ptr_t(new vertex_list_t);
 
         }
 
       // We need to create a list of not-yet-merged depth-first children for
-      // each vertex that will be updated as bicomps get merged. We sort each 
-      // list by ascending lowpoint, which allows the externally_active 
-      // function to run in constant time, and we keep a pointer to each 
-      // vertex's representation in its parent's list, which allows merging 
+      // each vertex that will be updated as bicomps get merged. We sort each
+      // list by ascending lowpoint, which allows the externally_active
+      // function to run in constant time, and we keep a pointer to each
+      // vertex's representation in its parent's list, which allows merging
       //in constant time.
 
-      for(typename vertex_vector_t::iterator itr = 
+      for(typename vertex_vector_t::iterator itr =
             vertices_by_lowpoint.begin();
           itr != vertices_by_lowpoint.end(); ++itr)
         {
@@ -389,7 +389,7 @@ namespace boost
                 separated_dfs_child_list[parent]->insert
                 (separated_dfs_child_list[parent]->end(), v);
             }
-        }    
+        }
 
       // The merge stack holds path information during a walkdown iteration
       merge_stack.reserve(num_vertices(g));
@@ -404,11 +404,11 @@ namespace boost
     bool is_planar()
     {
 
-      // This is the main algorithm: starting with a DFS tree of embedded 
-      // edges (which, since it's a tree, is planar), iterate through all 
+      // This is the main algorithm: starting with a DFS tree of embedded
+      // edges (which, since it's a tree, is planar), iterate through all
       // vertices by reverse DFS number, attempting to embed all backedges
       // connecting the current vertex to vertices with higher DFS numbers.
-      // 
+      //
       // The walkup is a procedure that examines all such backedges and sets
       // up the required data structures so that they can be searched by the
       // walkdown in linear time. The walkdown does the actual work of
@@ -434,7 +434,7 @@ namespace boost
           store_old_face_handles(StoreOldHandlesPolicy());
 
           vertex_t v(*vi);
-          
+
           walkup(v);
 
           if (!walkdown(v))
@@ -445,7 +445,7 @@ namespace boost
       clean_up_embedding(StoreEmbeddingPolicy());
 
       return true;
-      
+
     }
 
 
@@ -462,14 +462,14 @@ namespace boost
     void walkup(vertex_t v)
     {
 
-      // The point of the walkup is to follow all backedges from v to 
+      // The point of the walkup is to follow all backedges from v to
       // vertices with higher DFS numbers, and update pertinent_roots
       // for the bicomp roots on the path from backedge endpoints up
       // to v. This will set the stage for the walkdown to efficiently
       // traverse the graph of bicomps down from v.
 
       typedef typename face_vertex_iterator<both_sides>::type walkup_iterator_t;
-      
+
       out_edge_iterator_t oi, oi_end;
       for(boost::tie(oi,oi_end) = out_edges(v,g); oi != oi_end; ++oi)
         {
@@ -491,7 +491,7 @@ namespace boost
 
           backedges[w].push_back(e);
 
-          v_size_t timestamp = dfs_number[v];         
+          v_size_t timestamp = dfs_number[v];
           backedge_flag[w] = timestamp;
 
           walkup_iterator_t walkup_itr(w, face_handles);
@@ -500,11 +500,11 @@ namespace boost
 
           while (true)
             {
-              
+
               // Move to the root of the current bicomp or the first visited
               // vertex on the bicomp by going up each side in parallel
-              
-              while(walkup_itr != walkup_end && 
+
+              while(walkup_itr != walkup_end &&
                     visited[*walkup_itr] != timestamp
                     )
                 {
@@ -515,20 +515,20 @@ namespace boost
 
               // If we've found the root of a bicomp through a path we haven't
               // seen before, update pertinent_roots with a handle to the
-              // current bicomp. Otherwise, we've just seen a path we've been 
+              // current bicomp. Otherwise, we've just seen a path we've been
               // up before, so break out of the main while loop.
-              
+
               if (walkup_itr == walkup_end)
                 {
                   vertex_t dfs_child = canonical_dfs_child[lead_vertex];
                   vertex_t parent = dfs_parent[dfs_child];
 
-                  visited[dfs_child_handles[dfs_child].first_vertex()] 
+                  visited[dfs_child_handles[dfs_child].first_vertex()]
                     = timestamp;
-                  visited[dfs_child_handles[dfs_child].second_vertex()] 
+                  visited[dfs_child_handles[dfs_child].second_vertex()]
                     = timestamp;
 
-                  if (low_point[dfs_child] < dfs_number[v] || 
+                  if (low_point[dfs_child] < dfs_number[v] ||
                       least_ancestor[dfs_child] < dfs_number[v]
                       )
                     {
@@ -553,10 +553,10 @@ namespace boost
                 break;
             }
 
-        }      
-      
+        }
+
     }
-    
+
 
 
 
@@ -577,19 +577,19 @@ namespace boost
 
       while (!pertinent_roots[v]->empty())
         {
-          
+
           face_handle_t root_face_handle = pertinent_roots[v]->front();
           face_handle_t curr_face_handle = root_face_handle;
-          pertinent_roots[v]->pop_front();      
+          pertinent_roots[v]->pop_front();
 
           merge_stack.clear();
 
           while(true)
             {
 
-              typename face_vertex_iterator<>::type 
+              typename face_vertex_iterator<>::type
                 first_face_itr, second_face_itr, face_end;
-              vertex_t first_side_vertex 
+              vertex_t first_side_vertex
                 = graph_traits<Graph>::null_vertex();
               vertex_t second_side_vertex;
               vertex_t first_tail, second_tail;
@@ -603,7 +603,7 @@ namespace boost
               for(; first_face_itr != face_end; ++first_face_itr)
                 {
                   vertex_t face_vertex(*first_face_itr);
-                  if (pertinent(face_vertex, v) || 
+                  if (pertinent(face_vertex, v) ||
                       externally_active(face_vertex, v)
                       )
                     {
@@ -614,7 +614,7 @@ namespace boost
                   first_tail = face_vertex;
                 }
 
-              if (first_side_vertex == graph_traits<Graph>::null_vertex() || 
+              if (first_side_vertex == graph_traits<Graph>::null_vertex() ||
                   first_side_vertex == curr_face_handle.get_anchor()
                   )
                 break;
@@ -622,7 +622,7 @@ namespace boost
               for(;second_face_itr != face_end; ++second_face_itr)
                 {
                   vertex_t face_vertex(*second_face_itr);
-                  if (pertinent(face_vertex, v) || 
+                  if (pertinent(face_vertex, v) ||
                       externally_active(face_vertex, v)
                       )
                     {
@@ -654,14 +654,14 @@ namespace boost
                   chosen = second_side_vertex;
                   chose_first_upper_path = false;
                 }
-              else 
+              else
                 {
 
-                  // If there's a pertinent vertex on the lower face 
-                  // between the first_face_itr and the second_face_itr, 
+                  // If there's a pertinent vertex on the lower face
+                  // between the first_face_itr and the second_face_itr,
                   // this graph isn't planar.
-                  for(; 
-                      *first_face_itr != second_side_vertex; 
+                  for(;
+                      *first_face_itr != second_side_vertex;
                       ++first_face_itr
                       )
                     {
@@ -675,85 +675,85 @@ namespace boost
                           return false;
                         }
                     }
-                  
-                  // Otherwise, the fact that we didn't find a pertinent 
-                  // vertex on this face is fine - we should set the 
-                  // short-circuit edges and break out of this loop to 
+
+                  // Otherwise, the fact that we didn't find a pertinent
+                  // vertex on this face is fine - we should set the
+                  // short-circuit edges and break out of this loop to
                   // start looking at a different pertinent root.
-                                    
+
                   if (first_side_vertex == second_side_vertex)
                     {
                       if (first_tail != v)
                         {
-                          vertex_t first 
+                          vertex_t first
                             = face_handles[first_tail].first_vertex();
-                          vertex_t second 
+                          vertex_t second
                             = face_handles[first_tail].second_vertex();
-                          boost::tie(first_side_vertex, first_tail) 
-                            = make_tuple(first_tail, 
-                                         first == first_side_vertex ? 
+                          boost::tie(first_side_vertex, first_tail)
+                            = make_tuple(first_tail,
+                                         first == first_side_vertex ?
                                          second : first
                                          );
                         }
                       else if (second_tail != v)
                         {
-                          vertex_t first 
+                          vertex_t first
                             = face_handles[second_tail].first_vertex();
-                          vertex_t second 
+                          vertex_t second
                             = face_handles[second_tail].second_vertex();
-                          boost::tie(second_side_vertex, second_tail) 
+                          boost::tie(second_side_vertex, second_tail)
                             = make_tuple(second_tail,
-                                         first == second_side_vertex ? 
+                                         first == second_side_vertex ?
                                          second : first);
                         }
                       else
                         break;
                     }
-                  
-                  canonical_dfs_child[first_side_vertex] 
+
+                  canonical_dfs_child[first_side_vertex]
                     = canonical_dfs_child[root_face_handle.first_vertex()];
-                  canonical_dfs_child[second_side_vertex] 
+                  canonical_dfs_child[second_side_vertex]
                     = canonical_dfs_child[root_face_handle.second_vertex()];
                   root_face_handle.set_first_vertex(first_side_vertex);
                   root_face_handle.set_second_vertex(second_side_vertex);
 
-                  if (face_handles[first_side_vertex].first_vertex() == 
+                  if (face_handles[first_side_vertex].first_vertex() ==
                       first_tail
                       )
                     face_handles[first_side_vertex].set_first_vertex(v);
                   else
                     face_handles[first_side_vertex].set_second_vertex(v);
 
-                  if (face_handles[second_side_vertex].first_vertex() == 
+                  if (face_handles[second_side_vertex].first_vertex() ==
                       second_tail
                       )
                     face_handles[second_side_vertex].set_first_vertex(v);
                   else
                     face_handles[second_side_vertex].set_second_vertex(v);
-                    
+
                   break;
-                  
+
                 }
 
 
-              // When we unwind the stack, we need to know which direction 
+              // When we unwind the stack, we need to know which direction
               // we came down from on the top face handle
-              
-              bool chose_first_lower_path = 
-                (chose_first_upper_path && 
-                 face_handles[chosen].first_vertex() == first_tail) 
+
+              bool chose_first_lower_path =
+                (chose_first_upper_path &&
+                 face_handles[chosen].first_vertex() == first_tail)
                 ||
-                (!chose_first_upper_path && 
+                (!chose_first_upper_path &&
                  face_handles[chosen].first_vertex() == second_tail);
 
               //If there's a backedge at the chosen vertex, embed it now
               if (backedge_flag[chosen] == dfs_number[v])
                 {
                   w = chosen;
-                  
+
                   backedge_flag[chosen] = num_vertices(g) + 1;
                   add_to_merge_points(chosen, StoreOldHandlesPolicy());
-                  
+
                   typename edge_vector_t::iterator ei, ei_end;
                   ei_end = backedges[chosen].end();
                   for(ei = backedges[chosen].begin(); ei != ei_end; ++ei)
@@ -778,11 +778,10 @@ namespace boost
                 }
 
               //Unwind the merge stack to the root, merging all bicomps
-      
+
               bool bottom_path_follows_first;
               bool top_path_follows_first;
               bool next_bottom_follows_first = chose_first_upper_path;
-              face_handle_t top_handle, bottom_handle;
 
               vertex_t merge_point = chosen;
 
@@ -790,8 +789,8 @@ namespace boost
                 {
 
                   bottom_path_follows_first = next_bottom_follows_first;
-                  boost::tie(merge_point, 
-                             next_bottom_follows_first, 
+                  boost::tie(merge_point,
+                             next_bottom_follows_first,
                              top_path_follows_first
                              ) = merge_stack.back();
                   merge_stack.pop_back();
@@ -799,7 +798,7 @@ namespace boost
                   face_handle_t top_handle(face_handles[merge_point]);
                   face_handle_t bottom_handle
                     (*pertinent_roots[merge_point]->begin());
-                  
+
                   vertex_t bottom_dfs_child = canonical_dfs_child
                     [pertinent_roots[merge_point]->begin()->first_vertex()];
 
@@ -810,23 +809,23 @@ namespace boost
 
                   pertinent_roots[merge_point]->pop_front();
 
-                  add_to_merge_points(top_handle.get_anchor(), 
+                  add_to_merge_points(top_handle.get_anchor(),
                                       StoreOldHandlesPolicy()
                                       );
-                  
+
                   if (top_path_follows_first && bottom_path_follows_first)
                     {
                       bottom_handle.flip();
                       top_handle.glue_first_to_second(bottom_handle);
-                    }          
-                  else if (!top_path_follows_first && 
+                    }
+                  else if (!top_path_follows_first &&
                            bottom_path_follows_first
                            )
                     {
                       flipped[bottom_dfs_child] = true;
                       top_handle.glue_second_to_first(bottom_handle);
                     }
-                  else if (top_path_follows_first && 
+                  else if (top_path_follows_first &&
                            !bottom_path_follows_first
                            )
                     {
@@ -842,17 +841,17 @@ namespace boost
                 }
 
               //Finally, embed all edges (v,w) at their upper end points
-              canonical_dfs_child[w] 
+              canonical_dfs_child[w]
                 = canonical_dfs_child[root_face_handle.first_vertex()];
-              
-              add_to_merge_points(root_face_handle.get_anchor(), 
+
+              add_to_merge_points(root_face_handle.get_anchor(),
                                   StoreOldHandlesPolicy()
                                   );
-              
+
               typename edge_vector_t::iterator ei, ei_end;
               ei_end = backedges[chosen].end();
               for(ei = backedges[chosen].begin(); ei != ei_end; ++ei)
-                {              
+                {
                   if (next_bottom_follows_first)
                     root_face_handle.push_first(*ei, g);
                   else
@@ -863,7 +862,7 @@ namespace boost
               curr_face_handle = root_face_handle;
 
             }//while(true)
-          
+
         }//while(!pertinent_roots[v]->empty())
 
       return true;
@@ -879,14 +878,14 @@ namespace boost
 
     void store_old_face_handles(graph::detail::store_old_handles)
     {
-      for(typename std::vector<vertex_t>::iterator mp_itr 
+      for(typename std::vector<vertex_t>::iterator mp_itr
             = current_merge_points.begin();
           mp_itr != current_merge_points.end(); ++mp_itr)
         {
           face_handles[*mp_itr].store_old_face_handles();
         }
       current_merge_points.clear();
-    }          
+    }
 
 
     void add_to_merge_points(vertex_t, graph::detail::no_old_handles) {}
@@ -896,7 +895,7 @@ namespace boost
       current_merge_points.push_back(v);
     }
 
-    
+
     void add_to_embedded_edges(edge_t, graph::detail::no_old_handles) {}
 
     void add_to_embedded_edges(edge_t e, graph::detail::store_old_handles)
@@ -924,7 +923,7 @@ namespace boost
             {
               typename vertex_list_t::iterator yi, yi_end;
               yi_end = separated_dfs_child_list[*xi]->end();
-              for(yi = separated_dfs_child_list[*xi]->begin(); 
+              for(yi = separated_dfs_child_list[*xi]->begin();
                   yi != yi_end; ++yi
                   )
                 {
@@ -933,7 +932,7 @@ namespace boost
                     (dfs_child_handles[*yi]);
                 }
             }
-        }      
+        }
 
       // Up until this point, we've flipped bicomps lazily by setting
       // flipped[v] to true if the bicomp rooted at v was flipped (the
@@ -944,7 +943,7 @@ namespace boost
 
       typedef typename vertex_vector_t::iterator vertex_vector_itr_t;
       vertex_vector_itr_t vi_end = vertices_by_dfs_num.end();
-      for(vertex_vector_itr_t vi = vertices_by_dfs_num.begin(); 
+      for(vertex_vector_itr_t vi = vertices_by_dfs_num.begin();
           vi != vi_end; ++vi
           )
         {
@@ -968,7 +967,7 @@ namespace boost
 
       // If there are any self-loops in the graph, they were flagged
       // during the walkup, and we should add them to the embedding now.
-      // Adding a self loop anywhere in the embedding could never 
+      // Adding a self loop anywhere in the embedding could never
       // invalidate the embedding, but they would complicate the traversal
       // if they were added during the walkup/walkdown.
 
@@ -979,13 +978,13 @@ namespace boost
           edge_t e(*ei);
           face_handles[source(e,g)].push_second(e,g);
         }
-      
+
     }
 
 
 
 
-    
+
     bool pertinent(vertex_t w, vertex_t v)
     {
       // w is pertinent with respect to v if there is a backedge (v,w) or if
@@ -993,38 +992,38 @@ namespace boost
 
       return backedge_flag[w] == dfs_number[v] || !pertinent_roots[w]->empty();
     }
-    
+
 
 
     bool externally_active(vertex_t w, vertex_t v)
     {
       // Let a be any proper depth-first search ancestor of v. w is externally
-      // active with respect to v if there exists a backedge (a,w) or a 
+      // active with respect to v if there exists a backedge (a,w) or a
       // backedge (a,w_0) for some w_0 in a descendent bicomp of w.
 
       v_size_t dfs_number_of_v = dfs_number[v];
       return (least_ancestor[w] < dfs_number_of_v) ||
         (!separated_dfs_child_list[w]->empty() &&
-         low_point[separated_dfs_child_list[w]->front()] < dfs_number_of_v); 
+         low_point[separated_dfs_child_list[w]->front()] < dfs_number_of_v);
    }
-    
 
-      
+
+
     bool internally_active(vertex_t w, vertex_t v)
     {
       return pertinent(w,v) && !externally_active(w,v);
-    }    
-      
+    }
+
 
 
 
     void remove_vertex_from_separated_dfs_child_list(vertex_t v)
     {
-      typename vertex_list_t::iterator to_delete 
+      typename vertex_list_t::iterator to_delete
         = separated_node_in_parent_list[v];
-      garbage.splice(garbage.end(), 
-                     *separated_dfs_child_list[dfs_parent[v]], 
-                     to_delete, 
+      garbage.splice(garbage.end(),
+                     *separated_dfs_child_list[dfs_parent[v]],
+                     to_delete,
                      boost::next(to_delete)
                      );
     }
@@ -1032,9 +1031,9 @@ namespace boost
 
 
 
-    
+
     // End of the implementation of the basic Boyer-Myrvold Algorithm. The rest
-    // of the code below implements the isolation of a Kuratowski subgraph in 
+    // of the code below implements the isolation of a Kuratowski subgraph in
     // the case that the input graph is not planar. This is by far the most
     // complicated part of the implementation.
 
@@ -1047,7 +1046,7 @@ namespace boost
 
 
     template <typename EdgeToBoolPropertyMap, typename EdgeContainer>
-    vertex_t kuratowski_walkup(vertex_t v, 
+    vertex_t kuratowski_walkup(vertex_t v,
                                EdgeToBoolPropertyMap forbidden_edge,
                                EdgeToBoolPropertyMap goal_edge,
                                EdgeToBoolPropertyMap is_embedded,
@@ -1057,19 +1056,19 @@ namespace boost
       vertex_t current_endpoint;
       bool seen_goal_edge = false;
       out_edge_iterator_t oi, oi_end;
-      
+
       for(boost::tie(oi,oi_end) = out_edges(v,g); oi != oi_end; ++oi)
         forbidden_edge[*oi] = true;
-      
+
       for(boost::tie(oi,oi_end) = out_edges(v,g); oi != oi_end; ++oi)
         {
           path_edges.clear();
-          
+
           edge_t e(*oi);
-          current_endpoint = target(*oi,g) == v ? 
+          current_endpoint = target(*oi,g) == v ?
             source(*oi,g) : target(*oi,g);
-          
-          if (dfs_number[current_endpoint] < dfs_number[v] || 
+
+          if (dfs_number[current_endpoint] < dfs_number[v] ||
               is_embedded[e] ||
               v == current_endpoint //self-loop
               )
@@ -1077,7 +1076,7 @@ namespace boost
               //Not a backedge
               continue;
             }
-          
+
           path_edges.push_back(e);
           if (goal_edge[e])
             {
@@ -1085,30 +1084,30 @@ namespace boost
             }
 
           typedef typename face_edge_iterator<>::type walkup_itr_t;
-          
-          walkup_itr_t 
+
+          walkup_itr_t
             walkup_itr(current_endpoint, face_handles, first_side());
           walkup_itr_t walkup_end;
-          
+
           seen_goal_edge = false;
-          
+
           while (true)
-            {      
-              
+            {
+
               if (walkup_itr != walkup_end && forbidden_edge[*walkup_itr])
                 break;
-              
-              while(walkup_itr != walkup_end && 
-                    !goal_edge[*walkup_itr] && 
+
+              while(walkup_itr != walkup_end &&
+                    !goal_edge[*walkup_itr] &&
                     !forbidden_edge[*walkup_itr]
                     )
                 {
                   edge_t f(*walkup_itr);
                   forbidden_edge[f] = true;
                   path_edges.push_back(f);
-                  current_endpoint = 
-                    source(f, g) == current_endpoint ? 
-                    target(f, g) : 
+                  current_endpoint =
+                    source(f, g) == current_endpoint ?
+                    target(f, g) :
                     source(f,g);
                   ++walkup_itr;
                 }
@@ -1120,14 +1119,14 @@ namespace boost
                   break;
                 }
 
-              walkup_itr 
+              walkup_itr
                 = walkup_itr_t(current_endpoint, face_handles, first_side());
-              
+
             }
-          
+
           if (seen_goal_edge)
             break;
-          
+
         }
 
       if (seen_goal_edge)
@@ -1157,9 +1156,9 @@ namespace boost
       //         |        there exists some bicomp containing three vertices
       //       -----      x,y, and z as shown such that x and y are externally
       //      |     |     active with respect to v (which means that there are
-      //      x     y     two vertices x_0 and y_0 such that (1) both x_0 and  
-      //      |     |     y_0 are proper depth-first search ancestors of v and 
-      //       --z--      (2) there are two disjoint paths, one connecting x 
+      //      x     y     two vertices x_0 and y_0 such that (1) both x_0 and
+      //      |     |     y_0 are proper depth-first search ancestors of v and
+      //       --z--      (2) there are two disjoint paths, one connecting x
       //                  and x_0 and one connecting y and y_0, both consisting
       //       fig. 1     entirely of unembedded edges). Furthermore, there
       //                  exists a vertex z_0 such that z is a depth-first
@@ -1175,10 +1174,10 @@ namespace boost
       // properties of the Boyer-Myrvold algorithm to show the existence of an
       // "x-y path" connecting some vertex on the "left side" of the x,y,z
       // bicomp with some vertex on the "right side" of the bicomp (where the
-      // left and right are split by a line drawn through v and z.If either of 
-      // the endpoints of the x-y path is above x or y on the bicomp, a K_3_3 
-      // can be isolated - this is a case C. Otherwise, both endpoints are at 
-      // or below x and y on the bicomp. If there is a vertex alpha on the x-y 
+      // left and right are split by a line drawn through v and z.If either of
+      // the endpoints of the x-y path is above x or y on the bicomp, a K_3_3
+      // can be isolated - this is a case C. Otherwise, both endpoints are at
+      // or below x and y on the bicomp. If there is a vertex alpha on the x-y
       // path such that alpha is not x or y and there's a path from alpha to v
       // that's disjoint from any of the edges on the bicomp and the x-y path,
       // a K_3_3 can be isolated - this is a case D. Otherwise, properties of
@@ -1192,8 +1191,8 @@ namespace boost
       out_edge_iterator_t oei, oei_end;
       typename std::vector<edge_t>::iterator xi, xi_end;
 
-      // Clear the short-circuit edges - these are needed for the planar 
-      // testing/embedding algorithm to run in linear time, but they'll 
+      // Clear the short-circuit edges - these are needed for the planar
+      // testing/embedding algorithm to run in linear time, but they'll
       // complicate the kuratowski subgraph isolation
       for(boost::tie(vi,vi_end) = vertices(g); vi != vi_end; ++vi)
         {
@@ -1217,12 +1216,12 @@ namespace boost
 
       typename std::vector<edge_t>::iterator embedded_itr, embedded_end;
       embedded_end = embedded_edges.end();
-      for(embedded_itr = embedded_edges.begin(); 
+      for(embedded_itr = embedded_edges.begin();
           embedded_itr != embedded_end; ++embedded_itr
           )
         is_embedded[*embedded_itr] = true;
 
-      // upper_face_vertex is true for x,y, and all vertices above x and y in 
+      // upper_face_vertex is true for x,y, and all vertices above x and y in
       // the bicomp
       std::vector<bool> upper_face_vertex_vector(num_vertices(g), false);
       vertex_to_bool_map_t upper_face_vertex
@@ -1234,7 +1233,7 @@ namespace boost
 
       // These next few variable declarations are all things that we need
       // to find.
-      vertex_t z; 
+      vertex_t z = graph_traits<Graph>::null_vertex();
       vertex_t bicomp_root;
       vertex_t w = graph_traits<Graph>::null_vertex();
       face_handle_t w_handle;
@@ -1256,13 +1255,13 @@ namespace boost
       //backedge from V, then goes up until it hits either X or Y
       //(but doesn't find X or Y as the root of a bicomp)
 
-      typename face_vertex_iterator<>::type 
+      typename face_vertex_iterator<>::type
         x_upper_itr(x, face_handles, first_side());
-      typename face_vertex_iterator<>::type 
+      typename face_vertex_iterator<>::type
         x_lower_itr(x, face_handles, second_side());
       typename face_vertex_iterator<>::type face_itr, face_end;
 
-      // Don't know which path from x is the upper or lower path - 
+      // Don't know which path from x is the upper or lower path -
       // we'll find out here
       for(face_itr = x_upper_itr; face_itr != face_end; ++face_itr)
         {
@@ -1284,9 +1283,9 @@ namespace boost
           upper_face_vertex[current_vertex] = true;
         }
 
-      v_dfchild_handle 
+      v_dfchild_handle
         = dfs_child_handles[canonical_dfs_child[previous_vertex]];
-      
+
       for(face_itr = x_lower_itr; *face_itr != y; ++face_itr)
         {
           vertex_t current_vertex(*face_itr);
@@ -1297,7 +1296,7 @@ namespace boost
           if (w == graph_traits<Graph>::null_vertex()) //haven't found a w yet
             {
               roots_end = pertinent_roots[current_vertex]->end();
-              for(roots_itr = pertinent_roots[current_vertex]->begin(); 
+              for(roots_itr = pertinent_roots[current_vertex]->begin();
                   roots_itr != roots_end; ++roots_itr
                   )
                 {
@@ -1327,7 +1326,7 @@ namespace boost
       edge_to_bool_map_t outer_face_edge(outer_face_edge_vector.begin(), em);
 
       walkup_itr_t walkup_end;
-      for(walkup_itr_t walkup_itr(x, face_handles, first_side()); 
+      for(walkup_itr_t walkup_itr(x, face_handles, first_side());
           walkup_itr != walkup_end; ++walkup_itr
           )
         {
@@ -1335,7 +1334,7 @@ namespace boost
           is_in_subgraph[*walkup_itr] = true;
         }
 
-      for(walkup_itr_t walkup_itr(x, face_handles, second_side()); 
+      for(walkup_itr_t walkup_itr(x, face_handles, second_side());
           walkup_itr != walkup_end; ++walkup_itr
           )
         {
@@ -1355,53 +1354,53 @@ namespace boost
       for(boost::tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
         {
           edge_t e(*ei);
-          goal_edge[e] 
+          goal_edge[e]
             = !outer_face_edge[e] && (source(e,g) == x || target(e,g) == x);
           forbidden_edge[*ei] = outer_face_edge[*ei];
         }
 
       vertex_t x_ancestor = v;
       vertex_t x_endpoint = graph_traits<Graph>::null_vertex();
-      
+
       while(x_endpoint == graph_traits<Graph>::null_vertex())
-        { 
+        {
           x_ancestor = dfs_parent[x_ancestor];
-          x_endpoint = kuratowski_walkup(x_ancestor, 
-                                         forbidden_edge, 
+          x_endpoint = kuratowski_walkup(x_ancestor,
+                                         forbidden_edge,
                                          goal_edge,
                                          is_embedded,
                                          x_external_path
                                          );
-          
-        }            
+
+        }
 
 
       for(boost::tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
         {
           edge_t e(*ei);
-          goal_edge[e] 
+          goal_edge[e]
             = !outer_face_edge[e] && (source(e,g) == y || target(e,g) == y);
           forbidden_edge[*ei] = outer_face_edge[*ei];
         }
 
       vertex_t y_ancestor = v;
       vertex_t y_endpoint = graph_traits<Graph>::null_vertex();
-      
+
       while(y_endpoint == graph_traits<Graph>::null_vertex())
-        { 
+        {
           y_ancestor = dfs_parent[y_ancestor];
-          y_endpoint = kuratowski_walkup(y_ancestor, 
-                                         forbidden_edge, 
+          y_endpoint = kuratowski_walkup(y_ancestor,
+                                         forbidden_edge,
                                          goal_edge,
                                          is_embedded,
                                          y_external_path
                                          );
-          
-        }            
-      
+
+        }
+
 
       vertex_t parent, child;
-      
+
       //If v isn't on the same bicomp as x and y, it's a case A
       if (bicomp_root != v)
         {
@@ -1412,13 +1411,13 @@ namespace boost
               for(boost::tie(oei,oei_end) = out_edges(*vi,g); oei != oei_end; ++oei)
                 if(!outer_face_edge[*oei])
                   goal_edge[*oei] = true;
-          
+
           for(boost::tie(ei,ei_end) = edges(g); ei != ei_end; ++ei)
             forbidden_edge[*ei] = outer_face_edge[*ei];
-          
+
           z = kuratowski_walkup
             (v, forbidden_edge, goal_edge, is_embedded, z_v_path);
-          
+
         }
       else if (w != graph_traits<Graph>::null_vertex())
         {
@@ -1430,17 +1429,17 @@ namespace boost
               goal_edge[e] = false;
               forbidden_edge[e] = outer_face_edge[e];
             }
-          
+
           goal_edge[w_handle.first_edge()] = true;
           goal_edge[w_handle.second_edge()] = true;
 
           z = kuratowski_walkup(v,
-                                forbidden_edge, 
+                                forbidden_edge,
                                 goal_edge,
                                 is_embedded,
                                 z_v_path
                                 );
-              
+
 
           for(boost::tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
             {
@@ -1453,41 +1452,41 @@ namespace boost
             {
               goal_edge[*pi] = true;
             }
-          
+
           w_ancestor = v;
           vertex_t w_endpoint = graph_traits<Graph>::null_vertex();
-          
+
           while(w_endpoint == graph_traits<Graph>::null_vertex())
-            { 
+            {
               w_ancestor = dfs_parent[w_ancestor];
-              w_endpoint = kuratowski_walkup(w_ancestor, 
-                                             forbidden_edge, 
+              w_endpoint = kuratowski_walkup(w_ancestor,
+                                             forbidden_edge,
                                              goal_edge,
                                              is_embedded,
                                              w_path
                                              );
-              
-            }            
-          
-          // We really want both the w walkup and the z walkup to finish on 
-          // exactly the same edge, but for convenience (since we don't have 
-          // control over which side of a bicomp a walkup moves up) we've 
-          // defined the walkup to either end at w_handle.first_edge() or 
-          // w_handle.second_edge(). If both walkups ended at different edges, 
-          // we'll do a little surgery on the w walkup path to make it follow 
+
+            }
+
+          // We really want both the w walkup and the z walkup to finish on
+          // exactly the same edge, but for convenience (since we don't have
+          // control over which side of a bicomp a walkup moves up) we've
+          // defined the walkup to either end at w_handle.first_edge() or
+          // w_handle.second_edge(). If both walkups ended at different edges,
+          // we'll do a little surgery on the w walkup path to make it follow
           // the other side of the final bicomp.
 
-          if ((w_path.back() == w_handle.first_edge() && 
-               z_v_path.back() == w_handle.second_edge()) 
+          if ((w_path.back() == w_handle.first_edge() &&
+               z_v_path.back() == w_handle.second_edge())
               ||
-              (w_path.back() == w_handle.second_edge() && 
+              (w_path.back() == w_handle.second_edge() &&
                z_v_path.back() == w_handle.first_edge())
               )
             {
               walkup_itr_t wi, wi_end;
               edge_t final_edge = w_path.back();
-              vertex_t anchor 
-                = source(final_edge, g) == w_handle.get_anchor() ? 
+              vertex_t anchor
+                = source(final_edge, g) == w_handle.get_anchor() ?
                 target(final_edge, g) : source(final_edge, g);
               if (face_handles[anchor].first_edge() == final_edge)
                 wi = walkup_itr_t(anchor, face_handles, second_side());
@@ -1506,9 +1505,9 @@ namespace boost
                 }
             }
 
-          
+
         }
-      else 
+      else
         {
 
           //We need to find a valid z, since the x-y path re-defines the lower
@@ -1519,7 +1518,7 @@ namespace boost
 
           // The z we've used so far is just an externally active vertex on the
           // lower face path, but may not be the z we need for a case C, D, or
-          // E subgraph. the z we need now is any externally active vertex on 
+          // E subgraph. the z we need now is any externally active vertex on
           // the lower face path with both old_face_handles edges on the outer
           // face. Since we know an x-y path exists, such a z must also exist.
 
@@ -1530,7 +1529,7 @@ namespace boost
           for(face_itr = x_lower_itr; *face_itr != y; ++face_itr)
             {
               vertex_t possible_z(*face_itr);
-              if (pertinent(possible_z,v) && 
+              if (pertinent(possible_z,v) &&
                   outer_face_edge[face_handles[possible_z].old_first_edge()] &&
                   outer_face_edge[face_handles[possible_z].old_second_edge()]
                   )
@@ -1544,14 +1543,14 @@ namespace boost
 
           if (externally_active(z,v))
             w = z;
-          
+
 
           typedef typename face_edge_iterator
-            <single_side, previous_iteration>::type old_face_iterator_t; 
+            <single_side, previous_iteration>::type old_face_iterator_t;
 
-          old_face_iterator_t 
+          old_face_iterator_t
             first_old_face_itr(z, face_handles, first_side());
-          old_face_iterator_t 
+          old_face_iterator_t
             second_old_face_itr(z, face_handles, second_side());
           old_face_iterator_t old_face_itr, old_face_end;
 
@@ -1563,10 +1562,10 @@ namespace boost
           vertex_to_bool_map_t x_y_path_vertex
             (x_y_path_vertex_vector.begin(), vm);
 
-          typename std::vector<old_face_iterator_t>::iterator 
+          typename std::vector<old_face_iterator_t>::iterator
             of_itr, of_itr_end;
-          of_itr_end = old_face_iterators.end(); 
-          for(of_itr = old_face_iterators.begin(); 
+          of_itr_end = old_face_iterators.end();
+          for(of_itr = old_face_iterators.begin();
               of_itr != of_itr_end; ++of_itr
               )
             {
@@ -1580,13 +1579,13 @@ namespace boost
                 {
                   edge_t e(*old_face_itr);
                   previous_vertex = current_vertex;
-                  current_vertex = source(e,g) == current_vertex ? 
+                  current_vertex = source(e,g) == current_vertex ?
                     target(e,g) : source(e,g);
-                  
+
                   if (current_vertex == x || current_vertex == y)
                     seen_x_or_y = true;
 
-                  if (w == graph_traits<Graph>::null_vertex() && 
+                  if (w == graph_traits<Graph>::null_vertex() &&
                       externally_active(current_vertex,v) &&
                       outer_face_edge[e] &&
                       outer_face_edge[*boost::next(old_face_itr)] &&
@@ -1595,10 +1594,10 @@ namespace boost
                     {
                       w = current_vertex;
                     }
-                  
+
                   if (!outer_face_edge[e])
                     {
-                      if (!upper_face_vertex[current_vertex] && 
+                      if (!upper_face_vertex[current_vertex] &&
                           !lower_face_vertex[current_vertex]
                           )
                         {
@@ -1606,22 +1605,22 @@ namespace boost
                         }
 
                       is_in_subgraph[e] = true;
-                      if (upper_face_vertex[source(e,g)] || 
+                      if (upper_face_vertex[source(e,g)] ||
                           lower_face_vertex[source(e,g)]
                           )
                         {
-                          if (first_x_y_path_endpoint == 
+                          if (first_x_y_path_endpoint ==
                               graph_traits<Graph>::null_vertex()
                               )
                             first_x_y_path_endpoint = source(e,g);
                           else
                             second_x_y_path_endpoint = source(e,g);
                         }
-                      if (upper_face_vertex[target(e,g)] || 
+                      if (upper_face_vertex[target(e,g)] ||
                           lower_face_vertex[target(e,g)]
                           )
                         {
-                          if (first_x_y_path_endpoint == 
+                          if (first_x_y_path_endpoint ==
                               graph_traits<Graph>::null_vertex()
                               )
                             first_x_y_path_endpoint = target(e,g);
@@ -1635,35 +1634,35 @@ namespace boost
                     {
                       chosen_case = detail::BM_CASE_C;
                     }
-              
+
                 }
 
             }
 
-          // Look for a case D - one of v's embedded edges will connect to the 
+          // Look for a case D - one of v's embedded edges will connect to the
           // x-y path along an inner face path.
 
           //First, get a list of all of v's embedded child edges
 
           out_edge_iterator_t v_edge_itr, v_edge_end;
-          for(boost::tie(v_edge_itr,v_edge_end) = out_edges(v,g); 
+          for(boost::tie(v_edge_itr,v_edge_end) = out_edges(v,g);
               v_edge_itr != v_edge_end; ++v_edge_itr
               )
             {
               edge_t embedded_edge(*v_edge_itr);
-             
-              if (!is_embedded[embedded_edge] || 
+
+              if (!is_embedded[embedded_edge] ||
                   embedded_edge == dfs_parent_edge[v]
                   )
                 continue;
 
               case_d_edges.push_back(embedded_edge);
 
-              vertex_t current_vertex 
-                = source(embedded_edge,g) == v ? 
+              vertex_t current_vertex
+                = source(embedded_edge,g) == v ?
                 target(embedded_edge,g) : source(embedded_edge,g);
 
-              typename face_edge_iterator<>::type 
+              typename face_edge_iterator<>::type
                 internal_face_itr, internal_face_end;
               if (face_handles[current_vertex].first_vertex() == v)
                 {
@@ -1677,13 +1676,13 @@ namespace boost
                 }
 
               while(internal_face_itr != internal_face_end &&
-                    !outer_face_edge[*internal_face_itr] && 
+                    !outer_face_edge[*internal_face_itr] &&
                     !x_y_path_vertex[current_vertex]
                     )
                 {
                   edge_t e(*internal_face_itr);
                   case_d_edges.push_back(e);
-                  current_vertex = 
+                  current_vertex =
                     source(e,g) == current_vertex ? target(e,g) : source(e,g);
                   ++internal_face_itr;
                 }
@@ -1699,7 +1698,7 @@ namespace boost
                 }
 
             }
-          
+
 
         }
 
@@ -1714,25 +1713,25 @@ namespace boost
           for(boost::tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
             {
               edge_t e(*ei);
-              goal_edge[e] = !outer_face_edge[e] && 
+              goal_edge[e] = !outer_face_edge[e] &&
                 (source(e,g) == z || target(e,g) == z);
               forbidden_edge[e] = outer_face_edge[e];
             }
 
           kuratowski_walkup(v,
-                            forbidden_edge, 
+                            forbidden_edge,
                             goal_edge,
                             is_embedded,
                             z_v_path
                             );
-              
+
           if (chosen_case == detail::BM_CASE_E)
             {
 
               for(boost::tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
                 {
                   forbidden_edge[*ei] = outer_face_edge[*ei];
-                  goal_edge[*ei] = !outer_face_edge[*ei] && 
+                  goal_edge[*ei] = !outer_face_edge[*ei] &&
                     (source(*ei,g) == w || target(*ei,g) == w);
                 }
 
@@ -1748,22 +1747,22 @@ namespace boost
                 {
                   goal_edge[*pi] = true;
                 }
-          
+
               w_ancestor = v;
               vertex_t w_endpoint = graph_traits<Graph>::null_vertex();
-          
+
               while(w_endpoint == graph_traits<Graph>::null_vertex())
-                { 
+                {
                   w_ancestor = dfs_parent[w_ancestor];
-                  w_endpoint = kuratowski_walkup(w_ancestor, 
-                                                 forbidden_edge, 
+                  w_endpoint = kuratowski_walkup(w_ancestor,
+                                                 forbidden_edge,
                                                  goal_edge,
                                                  is_embedded,
                                                  w_path
                                                  );
-                  
-                }            
- 
+
+                }
+
             }
 
 
@@ -1794,7 +1793,7 @@ namespace boost
       xi_end = w_path.end();
       for(xi = w_path.begin(); xi != xi_end; ++xi)
         is_in_subgraph[*xi] = true;
-      
+
       child = bicomp_root;
       parent = dfs_parent[child];
       while(child != parent)
@@ -1806,10 +1805,10 @@ namespace boost
 
 
 
-      // At this point, we've already isolated the Kuratowski subgraph and 
-      // collected all of the edges that compose it in the is_in_subgraph 
-      // property map. But we want the verification of such a subgraph to be 
-      // a deterministic process, and we can simplify the function 
+      // At this point, we've already isolated the Kuratowski subgraph and
+      // collected all of the edges that compose it in the is_in_subgraph
+      // property map. But we want the verification of such a subgraph to be
+      // a deterministic process, and we can simplify the function
       // is_kuratowski_subgraph by cleaning up some edges here.
 
       if (chosen_case == detail::BM_CASE_B)
@@ -1821,13 +1820,13 @@ namespace boost
           // In a case C subgraph, at least one of the x-y path endpoints
           // (call it alpha) is above either x or y on the outer face. The
           // other endpoint may be attached at x or y OR above OR below. In
-          // any of these three cases, we can form a K_3_3 by removing the 
-          // edge attached to v on the outer face that is NOT on the path to 
+          // any of these three cases, we can form a K_3_3 by removing the
+          // edge attached to v on the outer face that is NOT on the path to
           // alpha.
 
-          typename face_vertex_iterator<single_side, follow_visitor>::type 
+          typename face_vertex_iterator<single_side, follow_visitor>::type
             face_itr, face_end;
-          if (face_handles[v_dfchild_handle.first_vertex()].first_edge() == 
+          if (face_handles[v_dfchild_handle.first_vertex()].first_edge() ==
               v_dfchild_handle.first_edge()
               )
             {
@@ -1857,13 +1856,13 @@ namespace boost
                   break;
                 }
             }
-          
+
         }
       else if (chosen_case == detail::BM_CASE_D)
         {
           // Need to remove both of the edges adjacent to v on the outer face.
           // remove the connecting edges from v to bicomp, then
-          // is_kuratowski_subgraph will shrink vertices of degree 1 
+          // is_kuratowski_subgraph will shrink vertices of degree 1
           // automatically...
 
           is_in_subgraph[v_dfchild_handle.first_edge()] = false;
@@ -1872,8 +1871,8 @@ namespace boost
         }
       else if (chosen_case == detail::BM_CASE_E)
         {
-          // Similarly to case C, if the endpoints of the x-y path are both 
-          // below x and y, we should remove an edge to allow the subgraph to 
+          // Similarly to case C, if the endpoints of the x-y path are both
+          // below x and y, we should remove an edge to allow the subgraph to
           // contract to a K_3_3.
 
 
@@ -1881,7 +1880,7 @@ namespace boost
               (second_x_y_path_endpoint != x && second_x_y_path_endpoint != y)
               )
             {
-              is_in_subgraph[dfs_parent_edge[v]] = false;              
+              is_in_subgraph[dfs_parent_edge[v]] = false;
 
               vertex_t deletion_endpoint, other_endpoint;
               if (lower_face_vertex[first_x_y_path_endpoint])
@@ -1890,13 +1889,13 @@ namespace boost
                   other_endpoint = first_x_y_path_endpoint;
                 }
               else
-                {                
+                {
                   deletion_endpoint = first_x_y_path_endpoint;
                   other_endpoint = second_x_y_path_endpoint;
                 }
 
               typename face_edge_iterator<>::type face_itr, face_end;
-              
+
               bool found_other_endpoint = false;
               for(face_itr = typename face_edge_iterator<>::type
                     (deletion_endpoint, face_handles, first_side());
@@ -1904,7 +1903,7 @@ namespace boost
                   )
                 {
                   edge_t e(*face_itr);
-                  if (source(e,g) == other_endpoint || 
+                  if (source(e,g) == other_endpoint ||
                       target(e,g) == other_endpoint
                       )
                     {
@@ -1915,7 +1914,7 @@ namespace boost
 
               if (found_other_endpoint)
                 {
-                  is_in_subgraph[face_handles[deletion_endpoint].first_edge()] 
+                  is_in_subgraph[face_handles[deletion_endpoint].first_edge()]
                     = false;
                 }
               else
@@ -1924,14 +1923,14 @@ namespace boost
                     = false;
                 }
             }
-          
+
         }
 
 
       for(boost::tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
         if (is_in_subgraph[*ei])
           *o_itr = *ei;
-      
+
     }
 
 
@@ -1957,14 +1956,14 @@ namespace boost
     vertex_t kuratowski_v;
     vertex_t kuratowski_x;
     vertex_t kuratowski_y;
-    
-    vertex_list_t garbage; // we delete items from linked lists by 
+
+    vertex_list_t garbage; // we delete items from linked lists by
                            // splicing them into garbage
 
     //only need these two for kuratowski subgraph isolation
     std::vector<vertex_t> current_merge_points;
     std::vector<edge_t> embedded_edges;
-    
+
     //property map storage
     std::vector<v_size_t> low_point_vector;
     std::vector<vertex_t> dfs_parent_vector;
@@ -1976,7 +1975,7 @@ namespace boost
     std::vector< face_handle_t > face_handles_vector;
     std::vector< face_handle_t > dfs_child_handles_vector;
     std::vector< vertex_list_ptr_t > separated_dfs_child_list_vector;
-    std::vector< typename vertex_list_t::iterator > 
+    std::vector< typename vertex_list_t::iterator >
         separated_node_in_parent_list_vector;
     std::vector<vertex_t> canonical_dfs_child_vector;
     std::vector<bool> flipped_vector;
@@ -1993,20 +1992,20 @@ namespace boost
     vertex_to_face_handle_list_ptr_map_t pertinent_roots;
     vertex_to_v_size_map_t backedge_flag;
     vertex_to_v_size_map_t visited;
-    vertex_to_face_handle_map_t face_handles;         
+    vertex_to_face_handle_map_t face_handles;
     vertex_to_face_handle_map_t dfs_child_handles;
     vertex_to_vertex_list_ptr_map_t separated_dfs_child_list;
     vertex_to_separated_node_map_t separated_node_in_parent_list;
-    vertex_to_vertex_map_t canonical_dfs_child;      
+    vertex_to_vertex_map_t canonical_dfs_child;
     vertex_to_bool_map_t flipped;
     vertex_to_edge_vector_map_t backedges;
     vertex_to_edge_map_t dfs_parent_edge; //only need for kuratowski
 
     merge_stack_t merge_stack;
-    
+
   };
-  
-      
+
+
 } //namespace boost
 
 #endif //__BOYER_MYRVOLD_IMPL_HPP__

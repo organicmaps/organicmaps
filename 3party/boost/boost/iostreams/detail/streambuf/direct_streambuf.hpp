@@ -8,7 +8,7 @@
 #ifndef BOOST_IOSTREAMS_DETAIL_DIRECT_STREAMBUF_HPP_INCLUDED
 #define BOOST_IOSTREAMS_DETAIL_DIRECT_STREAMBUF_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif              
 
@@ -67,9 +67,7 @@ public: // stream needs access.
     // Declared in linked_streambuf.
     T* component() { return storage_.get(); }
 protected:
-#if !BOOST_WORKAROUND(__GNUC__, == 2)
     BOOST_IOSTREAMS_USING_PROTECTED_STREAMBUF_MEMBERS(base_type)
-#endif
     direct_streambuf();
 
     //--------------Virtual functions-----------------------------------------//

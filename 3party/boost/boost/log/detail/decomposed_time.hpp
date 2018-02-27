@@ -25,6 +25,7 @@
 #include <boost/range/iterator_range_core.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/date_time_format_parser.hpp>
+#include <boost/log/detail/attachable_sstream_buf.hpp>
 #include <boost/log/utility/formatting_ostream.hpp>
 #include <boost/log/detail/header.hpp>
 
@@ -108,7 +109,7 @@ struct decomposed_time_wrapper :
 };
 
 template< typename CharT >
-BOOST_LOG_API void put_integer(std::basic_string< CharT >& str, uint32_t value, unsigned int width, CharT fill_char);
+BOOST_LOG_API void put_integer(boost::log::aux::basic_ostringstreambuf< CharT >& strbuf, uint32_t value, unsigned int width, CharT fill_char);
 
 template< typename T, typename CharT >
 class date_time_formatter
@@ -130,14 +131,12 @@ public:
     {
         date_time_formatter const& self;
         stream_type& strm;
-        string_type& str;
         value_type const& value;
         unsigned int literal_index, literal_pos;
 
         context(date_time_formatter const& self_, stream_type& strm_, value_type const& value_) :
             self(self_),
             strm(strm_),
-            str(*strm_.rdbuf()->storage()),
             value(value_),
             literal_index(0),
             literal_pos(0)
@@ -166,12 +165,12 @@ public:
         m_literal_chars(that.m_literal_chars)
     {
     }
-    date_time_formatter(BOOST_RV_REF(date_time_formatter) that)
+    date_time_formatter(BOOST_RV_REF(date_time_formatter) that) BOOST_NOEXCEPT
     {
         this->swap(static_cast< date_time_formatter& >(that));
     }
 
-    date_time_formatter& operator= (date_time_formatter that)
+    date_time_formatter& operator= (date_time_formatter that) BOOST_NOEXCEPT
     {
         this->swap(that);
         return *this;
@@ -200,7 +199,7 @@ public:
         m_formatters.push_back(&date_time_formatter_::format_literal);
     }
 
-    void swap(date_time_formatter& that)
+    void swap(date_time_formatter& that) BOOST_NOEXCEPT
     {
         m_formatters.swap(that.m_formatters);
         m_literal_lens.swap(that.m_literal_lens);
@@ -220,55 +219,55 @@ public:
 
     static void format_full_year(context& ctx)
     {
-        (put_integer)(ctx.str, ctx.value.year, 4, static_cast< char_type >('0'));
+        (put_integer)(*ctx.strm.rdbuf(), ctx.value.year, 4, static_cast< char_type >('0'));
     }
 
     static void format_short_year(context& ctx)
     {
-        (put_integer)(ctx.str, ctx.value.year % 100u, 2, static_cast< char_type >('0'));
+        (put_integer)(*ctx.strm.rdbuf(), ctx.value.year % 100u, 2, static_cast< char_type >('0'));
     }
 
     static void format_numeric_month(context& ctx)
     {
-        (put_integer)(ctx.str, ctx.value.month, 2, static_cast< char_type >('0'));
+        (put_integer)(*ctx.strm.rdbuf(), ctx.value.month, 2, static_cast< char_type >('0'));
     }
 
     template< char_type FillCharV >
     static void format_month_day(context& ctx)
     {
-        (put_integer)(ctx.str, ctx.value.day, 2, static_cast< char_type >(FillCharV));
+        (put_integer)(*ctx.strm.rdbuf(), ctx.value.day, 2, static_cast< char_type >(FillCharV));
     }
 
     static void format_week_day(context& ctx)
     {
-        (put_integer)(ctx.str, static_cast< decomposed_time const& >(ctx.value).week_day(), 1, static_cast< char_type >('0'));
+        (put_integer)(*ctx.strm.rdbuf(), static_cast< decomposed_time const& >(ctx.value).week_day(), 1, static_cast< char_type >('0'));
     }
 
     template< char_type FillCharV >
     static void format_hours(context& ctx)
     {
-        (put_integer)(ctx.str, ctx.value.hours, 2, static_cast< char_type >(FillCharV));
+        (put_integer)(*ctx.strm.rdbuf(), ctx.value.hours, 2, static_cast< char_type >(FillCharV));
     }
 
     template< char_type FillCharV >
     static void format_hours_12(context& ctx)
     {
-        (put_integer)(ctx.str, ctx.value.hours % 12u + 1u, 2, static_cast< char_type >(FillCharV));
+        (put_integer)(*ctx.strm.rdbuf(), ctx.value.hours % 12u + 1u, 2, static_cast< char_type >(FillCharV));
     }
 
     static void format_minutes(context& ctx)
     {
-        (put_integer)(ctx.str, ctx.value.minutes, 2, static_cast< char_type >('0'));
+        (put_integer)(*ctx.strm.rdbuf(), ctx.value.minutes, 2, static_cast< char_type >('0'));
     }
 
     static void format_seconds(context& ctx)
     {
-        (put_integer)(ctx.str, ctx.value.seconds, 2, static_cast< char_type >('0'));
+        (put_integer)(*ctx.strm.rdbuf(), ctx.value.seconds, 2, static_cast< char_type >('0'));
     }
 
     static void format_fractional_seconds(context& ctx)
     {
-        (put_integer)(ctx.str, ctx.value.subseconds, decomposed_time::subseconds_digits10, static_cast< char_type >('0'));
+        (put_integer)(*ctx.strm.rdbuf(), ctx.value.subseconds, decomposed_time::subseconds_digits10, static_cast< char_type >('0'));
     }
 
     template< bool UpperCaseV >
@@ -277,16 +276,16 @@ public:
         static const char_type am[] = { static_cast< char_type >(UpperCaseV ? 'A' : 'a'), static_cast< char_type >(UpperCaseV ? 'M' : 'm'), static_cast< char_type >(0) };
         static const char_type pm[] = { static_cast< char_type >(UpperCaseV ? 'P' : 'p'), static_cast< char_type >(UpperCaseV ? 'M' : 'm'), static_cast< char_type >(0) };
 
-        ctx.str.append(((static_cast< decomposed_time const& >(ctx.value).hours > 11) ? pm : am), 2u);
+        ctx.strm.rdbuf()->append(((static_cast< decomposed_time const& >(ctx.value).hours > 11) ? pm : am), 2u);
     }
 
     template< bool DisplayPositiveV >
     static void format_sign(context& ctx)
     {
         if (static_cast< decomposed_time const& >(ctx.value).negative)
-            ctx.str.push_back('-');
+            ctx.strm.rdbuf()->push_back('-');
         else if (DisplayPositiveV)
-            ctx.str.push_back('+');
+            ctx.strm.rdbuf()->push_back('+');
     }
 
 private:
@@ -296,7 +295,7 @@ private:
         ++ctx.literal_index;
         ctx.literal_pos += len;
         const char_type* lit = ctx.self.m_literal_chars.c_str();
-        ctx.str.append(lit + pos, len);
+        ctx.strm.rdbuf()->append(lit + pos, len);
     }
 };
 

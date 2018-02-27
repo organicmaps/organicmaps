@@ -38,7 +38,7 @@ namespace boost
      * \par Synchronization
      * The completion of all the closures happen before the completion of the executor destructor.
      */
-    virtual ~executor() {};
+    virtual ~executor() {}
 
     /**
      * \par Effects
@@ -99,9 +99,10 @@ namespace boost
     }
 
     template <typename Closure>
-    void submit(BOOST_THREAD_RV_REF(Closure) closure)
+    void submit(BOOST_THREAD_FWD_REF(Closure) closure)
     {
-      work w = boost::move(closure);
+      //submit(work(boost::forward<Closure>(closure)));
+      work w((boost::forward<Closure>(closure)));
       submit(boost::move(w));
     }
 

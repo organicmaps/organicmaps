@@ -2,8 +2,8 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2013, 2014, 2015.
-// Modifications copyright (c) 2013-2015 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015, 2016.
+// Modifications copyright (c) 2013-2016 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -15,14 +15,21 @@
 #define BOOST_GEOMETRY_UTIL_RANGE_HPP
 
 #include <algorithm>
+#include <iterator>
 
 #include <boost/concept_check.hpp>
 #include <boost/config.hpp>
+#include <boost/core/addressof.hpp>
 #include <boost/range/concepts.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/empty.hpp>
+#include <boost/range/difference_type.hpp>
+#include <boost/range/iterator.hpp>
+#include <boost/range/rbegin.hpp>
+#include <boost/range/reference.hpp>
 #include <boost/range/size.hpp>
+#include <boost/range/value_type.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 
 #include <boost/geometry/core/assert.hpp>
@@ -360,6 +367,50 @@ erase(Range & rng,
                     + std::distance(boost::const_begin(rng), clast);
 
     return erase(rng, first, last);
+}
+
+// back_inserter
+
+template <class Container>
+class back_insert_iterator
+    : public std::iterator<std::output_iterator_tag, void, void, void, void>
+{
+public:
+    typedef Container container_type;
+
+    explicit back_insert_iterator(Container & c)
+        : container(boost::addressof(c))
+    {}
+
+    back_insert_iterator & operator=(typename Container::value_type const& value)
+    {
+        range::push_back(*container, value);
+        return *this;
+    }
+
+    back_insert_iterator & operator* ()
+    {
+        return *this;
+    }
+
+    back_insert_iterator & operator++ ()
+    {
+        return *this;
+    }
+
+    back_insert_iterator operator++(int)
+    {
+        return *this;
+    }
+
+private:
+    Container * container;
+};
+
+template <typename Range>
+inline back_insert_iterator<Range> back_inserter(Range & rng)
+{
+    return back_insert_iterator<Range>(rng);
 }
 
 }}} // namespace boost::geometry::range

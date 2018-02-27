@@ -21,25 +21,21 @@
 #ifndef BOOST_TT_IS_SAME_HPP_INCLUDED
 #define BOOST_TT_IS_SAME_HPP_INCLUDED
 
-#include <boost/type_traits/config.hpp>
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace boost {
 
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF2(is_same,T,U,false)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC2_1(typename T,is_same,T,T,true)
+   template <class T, class U> struct is_same : public false_type {};
+   template <class T> struct is_same<T,T> : public true_type {};
 #if BOOST_WORKAROUND(__BORLANDC__, < 0x600)
 // without this, Borland's compiler gives the wrong answer for
 // references to arrays:
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC2_1(typename T,is_same,T&,T&,true)
+   template <class T> struct is_same<T&, T&> : public true_type{};
 #endif
 
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif  // BOOST_TT_IS_SAME_HPP_INCLUDED
 

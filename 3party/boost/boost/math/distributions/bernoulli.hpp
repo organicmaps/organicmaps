@@ -89,7 +89,7 @@ namespace boost
       template <class RealType, class Policy>
       inline bool check_dist_and_prob(const char* function, RealType p, RealType prob, RealType* result, const Policy& /* pol */)
       {
-        if(check_dist(function, p, result, Policy(), typename policies::method_error_check<Policy>::type()) && detail::check_probability(function, prob, result, Policy()) == false)
+        if((check_dist(function, p, result, Policy(), typename policies::method_error_check<Policy>::type()) && detail::check_probability(function, prob, result, Policy())) == false)
         {
           return false;
         }

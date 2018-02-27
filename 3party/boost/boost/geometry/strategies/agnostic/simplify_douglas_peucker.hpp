@@ -308,7 +308,7 @@ public :
 namespace traits {
 
 template <typename P>
-struct point_type<strategy::simplify::detail::douglas_peucker_point<P> >
+struct point_type<geometry::strategy::simplify::detail::douglas_peucker_point<P> >
 {
     typedef P type;
 };

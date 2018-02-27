@@ -12,7 +12,6 @@
 #ifndef BOOST_ALGORITHM_ALL_OF_HPP
 #define BOOST_ALGORITHM_ALL_OF_HPP
 
-#include <algorithm>    // for std::all_of, if available
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 
@@ -27,8 +26,6 @@ namespace boost { namespace algorithm {
 /// \param p     A predicate for testing the elements of the sequence
 ///
 /// \note           This function is part of the C++2011 standard library.
-///  We will use the standard one if it is available, 
-///  otherwise we have our own implementation.
 template<typename InputIterator, typename Predicate> 
 bool all_of ( InputIterator first, InputIterator last, Predicate p )
 {

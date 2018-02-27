@@ -16,7 +16,7 @@ namespace boost { namespace spirit { namespace x3
 {
     struct eol_parser : parser<eol_parser>
     {
-         typedef unused_type attribute_type;
+        typedef unused_type attribute_type;
         static bool const has_attribute = false;
 
         template <typename Iterator, typename Context, typename Attribute>

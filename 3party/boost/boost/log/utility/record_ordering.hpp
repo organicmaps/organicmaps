@@ -15,7 +15,7 @@
 #ifndef BOOST_LOG_UTILITY_RECORD_ORDERING_HPP_INCLUDED_
 #define BOOST_LOG_UTILITY_RECORD_ORDERING_HPP_INCLUDED_
 
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/function_traits.hpp>
@@ -196,10 +196,10 @@ namespace aux {
     //! An ordering predicate constructor that uses SFINAE to disable invalid instantiations
     template<
         typename FunT,
-        typename ArityCheckT = typename enable_if_c< aux::arity_of< FunT >::value == 2 >::type,
+        typename ArityCheckT = typename boost::enable_if_c< aux::arity_of< FunT >::value == 2 >::type,
         typename Arg1T = typename aux::first_argument_type_of< FunT >::type,
         typename Arg2T = typename aux::second_argument_type_of< FunT >::type,
-        typename ArgsCheckT = typename enable_if< is_same< Arg1T, Arg2T > >::type
+        typename ArgsCheckT = typename boost::enable_if_c< is_same< Arg1T, Arg2T >::value >::type
     >
     struct make_attr_ordering_type
     {

@@ -184,7 +184,7 @@ class str : public detail::str_base
     template<class T1, class T2, class T3>
     long count(T1 const& sub,T2 const& start, T3 const& end) const
     {
-        return base::count(object(sub), object(start));
+        return base::count(object(sub), object(start), object(end));
     }
 
 #if PY_VERSION_HEX < 0x03000000

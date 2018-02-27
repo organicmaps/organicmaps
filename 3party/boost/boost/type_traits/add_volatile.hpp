@@ -12,9 +12,6 @@
 
 #include <boost/config.hpp>
 
-// should be the last #include
-#include <boost/type_traits/detail/type_trait_def.hpp>
-
 namespace boost {
 
 // * convert a type T to volatile type - add_volatile<T>
@@ -30,16 +27,14 @@ namespace boost {
 #   pragma warning(disable:4181) // warning C4181: qualifier applied to reference type ignored
 #endif 
 
-BOOST_TT_AUX_TYPE_TRAIT_DEF1(add_volatile,T,T volatile)
+template <class T> struct add_volatile{ typedef T volatile type; };
 
 #if defined(BOOST_MSVC)
 #   pragma warning(pop)
 #endif 
 
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,add_volatile,T&,T&)
+template <class T> struct add_volatile<T&>{ typedef T& type; };
 
 } // namespace boost
-
-#include <boost/type_traits/detail/type_trait_undef.hpp>
 
 #endif // BOOST_TT_ADD_VOLATILE_HPP_INCLUDED

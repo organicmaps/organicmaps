@@ -113,6 +113,9 @@ namespace file {
 
     /*!
      * The function adopts a log record formatter into a file name generator
+     *
+     * \param fmt The formatter function object to adopt
+     * \param loc The locale to use to character code conversion and formatting
      */
     template< typename FormatterT >
     inline file_name_composer_adapter< FormatterT > as_file_name_composer(

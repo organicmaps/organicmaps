@@ -747,9 +747,9 @@ class create_open_func
       }
    }
 
-   std::size_t get_min_size() const
+   static std::size_t get_min_size()
    {
-      const size_type sz = m_frontend->get_segment_manager()->get_min_size();
+      const size_type sz = BasicManagedMemoryImpl::segment_manager::get_min_size();
       if(sz > std::size_t(-1)){
          //The minimum size is not representable by std::size_t
          BOOST_ASSERT(false);

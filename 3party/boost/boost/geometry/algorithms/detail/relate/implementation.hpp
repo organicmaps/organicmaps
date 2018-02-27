@@ -2,8 +2,8 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2013, 2014, 2015.
-// Modifications copyright (c) 2013-2015 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015, 2017.
+// Modifications copyright (c) 2013-2017 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -24,6 +24,9 @@
 #include <boost/geometry/algorithms/detail/relate/linear_linear.hpp>
 #include <boost/geometry/algorithms/detail/relate/linear_areal.hpp>
 #include <boost/geometry/algorithms/detail/relate/areal_areal.hpp>
+
+#include <boost/geometry/strategies/intersection.hpp>
+#include <boost/geometry/strategies/within.hpp>
 
 
 namespace boost { namespace geometry {

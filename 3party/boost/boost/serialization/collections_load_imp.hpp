@@ -40,6 +40,7 @@ namespace std{
 #include <boost/serialization/item_version_type.hpp>
 #include <boost/serialization/detail/is_default_constructible.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/move/utility_core.hpp>
 
 namespace boost{
 namespace serialization {
@@ -63,7 +64,7 @@ collection_load_impl(
     Archive & ar,
     T & t,
     collection_size_type count,
-    item_version_type item_version
+    item_version_type
 ){
     t.resize(count);
     typename T::iterator hint;
@@ -93,7 +94,7 @@ collection_load_impl(
     while(count-- > 0){
         detail::stack_construct<Archive, typename T::value_type> u(ar, item_version);
         ar >> boost::serialization::make_nvp("item", u.reference());
-        t.push_back(u.reference());
+        t.push_back(boost::move(u.reference()));
         ar.reset_object_address(& t.back() , & u.reference());
      }
 }

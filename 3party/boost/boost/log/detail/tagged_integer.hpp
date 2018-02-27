@@ -42,17 +42,17 @@ struct tagged_integer
     integer_type value;
 
     //! Conversion operator
-    operator integer_type() const { return value; }
+    BOOST_CONSTEXPR operator integer_type() const BOOST_NOEXCEPT { return value; }
 
     //  Increment
-    tagged_integer& operator++ () { ++value; return *this; }
-    tagged_integer operator++ (int) { tagged_integer temp = *this; ++value; return temp; }
+    tagged_integer& operator++ () BOOST_NOEXCEPT { ++value; return *this; }
+    tagged_integer operator++ (int) BOOST_NOEXCEPT { tagged_integer temp = *this; ++value; return temp; }
     //  Decrement
-    tagged_integer& operator-- () { --value; return *this; }
-    tagged_integer operator-- (int) { tagged_integer temp = *this; --value; return temp; }
+    tagged_integer& operator-- () BOOST_NOEXCEPT { --value; return *this; }
+    tagged_integer operator-- (int) BOOST_NOEXCEPT { tagged_integer temp = *this; --value; return temp; }
 
 #define BOOST_LOG_TAGGED_INTEGER_OP(op)\
-    tagged_integer& operator op (tagged_integer const& that) { value op that.value; return *this; }
+    tagged_integer& operator op (tagged_integer const& that) BOOST_NOEXCEPT { value op that.value; return *this; }
 
     BOOST_LOG_TAGGED_INTEGER_OP(|=)
     BOOST_LOG_TAGGED_INTEGER_OP(&=)
@@ -66,13 +66,13 @@ struct tagged_integer
 #undef BOOST_LOG_TAGGED_INTEGER_OP
 
     //! Inversion operator
-    tagged_integer& operator~ () { ~value; return *this; }
+    tagged_integer& operator~ () BOOST_NOEXCEPT { ~value; return *this; }
 
     //  Shift operators
     template< typename T >
-    tagged_integer& operator<<= (T const& that) { value <<= that; return *this; }
+    tagged_integer& operator<<= (T const& that) BOOST_NOEXCEPT { value <<= that; return *this; }
     template< typename T >
-    tagged_integer& operator>>= (T const& that) { value >>= that; return *this; }
+    tagged_integer& operator>>= (T const& that) BOOST_NOEXCEPT { value >>= that; return *this; }
 
 private:
     //  Protection against improper usage
@@ -86,7 +86,7 @@ private:
 #define BOOST_LOG_TAGGED_INTEGER_OP(op)\
     template< typename IntT, typename TagT >\
     inline bool operator op (\
-        tagged_integer< IntT, TagT > const& left, tagged_integer< IntT, TagT > const& right)\
+        tagged_integer< IntT, TagT > const& left, tagged_integer< IntT, TagT > const& right) BOOST_NOEXCEPT\
     {\
         return (left.value op right.value);\
     }
@@ -103,7 +103,7 @@ BOOST_LOG_TAGGED_INTEGER_OP(>=)
 #define BOOST_LOG_TAGGED_INTEGER_OP(op)\
     template< typename IntT, typename TagT >\
     inline tagged_integer< IntT, TagT > operator op (\
-        tagged_integer< IntT, TagT > const& left, tagged_integer< IntT, TagT > const& right)\
+        tagged_integer< IntT, TagT > const& left, tagged_integer< IntT, TagT > const& right) BOOST_NOEXCEPT\
     {\
         tagged_integer< IntT, TagT > temp = left;\
         temp op##= right;\
@@ -124,7 +124,7 @@ BOOST_LOG_TAGGED_INTEGER_OP(%)
 #define BOOST_LOG_TAGGED_INTEGER_OP(op)\
     template< typename IntT, typename TagT, typename T >\
     inline tagged_integer< IntT, TagT > operator op (\
-        tagged_integer< IntT, TagT > const& left, T const& right)\
+        tagged_integer< IntT, TagT > const& left, T const& right) BOOST_NOEXCEPT\
     {\
         tagged_integer< IntT, TagT > temp = left;\
         temp op##= right;\

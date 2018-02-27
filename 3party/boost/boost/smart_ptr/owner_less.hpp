@@ -5,6 +5,7 @@
 //  owner_less.hpp
 //
 //  Copyright (c) 2008 Frank Mori Hess
+//  Copyright (c) 2016 Peter Dimov
 //
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
@@ -13,44 +14,20 @@
 //  See http://www.boost.org/libs/smart_ptr/smart_ptr.htm for documentation.
 //
 
-#include <functional>
-
 namespace boost
 {
-  template<typename T> class shared_ptr;
-  template<typename T> class weak_ptr;
 
-  namespace detail
-  {
-    template<typename T, typename U>
-      struct generic_owner_less : public std::binary_function<T, T, bool>
+template<class T = void> struct owner_less
+{
+    typedef bool result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+
+    template<class U, class V> bool operator()( U const & u, V const & v ) const
     {
-      bool operator()(const T &lhs, const T &rhs) const
-      {
-        return lhs.owner_before(rhs);
-      }
-      bool operator()(const T &lhs, const U &rhs) const
-      {
-        return lhs.owner_before(rhs);
-      }
-      bool operator()(const U &lhs, const T &rhs) const
-      {
-        return lhs.owner_before(rhs);
-      }
-    };
-  } // namespace detail
-
-  template<typename T> struct owner_less;
-
-  template<typename T>
-    struct owner_less<shared_ptr<T> >:
-    public detail::generic_owner_less<shared_ptr<T>, weak_ptr<T> >
-  {};
-
-  template<typename T>
-    struct owner_less<weak_ptr<T> >:
-    public detail::generic_owner_less<weak_ptr<T>, shared_ptr<T> >
-  {};
+        return u.owner_before( v );
+    }
+};
 
 } // namespace boost
 

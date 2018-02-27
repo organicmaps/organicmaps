@@ -30,15 +30,15 @@ namespace boost { namespace fusion
         template <typename Sequence>
         BOOST_FUSION_GPU_ENABLED
         list(Sequence const& rhs
-            , typename boost::enable_if<traits::is_sequence<Sequence> >::type* = 0)
+            , typename enable_if<traits::is_sequence<Sequence>, detail::enabler_>::type = detail::enabler)
             : inherited_type(rhs) {}
-
-
-
-
-
-
-
+        
+        
+        
+        
+        
+        
+        
     BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     explicit
     list(typename detail::call_param<T0 >::type arg0)

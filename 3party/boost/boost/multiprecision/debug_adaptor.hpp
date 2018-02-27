@@ -13,7 +13,12 @@ namespace boost{
 namespace multiprecision{
 namespace backends{
 
-template <class Backend>
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable:4127) // conditional expression is constant
+#endif
+   
+   template <class Backend>
 struct debug_adaptor
 {
    typedef typename Backend::signed_types              signed_types;
@@ -28,9 +33,12 @@ private:
 public:
    void update_view()
    {
+#ifndef BOOST_NO_EXCEPTIONS
       try
       {
+#endif
          debug_value = m_value.str(0, static_cast<std::ios_base::fmtflags>(0));
+#ifndef BOOST_NO_EXCEPTIONS
       }
       catch(const std::exception& e)
       {
@@ -38,6 +46,7 @@ public:
          debug_value += e.what();
          debug_value += "\"";
       }
+#endif
    }
    debug_adaptor()
    {
@@ -115,6 +124,22 @@ public:
       typedef typename Archive::is_loading tag;
       if(tag::value)
          update_view();
+   }
+   static unsigned default_precision() BOOST_NOEXCEPT
+   {
+      return Backend::default_precision();
+   }
+   static void default_precision(unsigned v) BOOST_NOEXCEPT
+   {
+      Backend::default_precision(v);
+   }
+   unsigned precision()const BOOST_NOEXCEPT
+   {
+      return value().precision();
+   }
+   void precision(unsigned digits10) BOOST_NOEXCEPT
+   {
+      value().precision(digits10);
    }
 };
 
@@ -257,6 +282,7 @@ inline void eval_ldexp(debug_adaptor<Backend>& result, const debug_adaptor<Backe
 template <class Backend, class Exp>
 inline void eval_scalbn(debug_adaptor<Backend>& result, const debug_adaptor<Backend>& arg, Exp exp)
 {
+   using default_ops::eval_scalbn;
    eval_scalbn(result.value(), arg.value(), exp);
    result.update_view();
 }
@@ -264,6 +290,7 @@ inline void eval_scalbn(debug_adaptor<Backend>& result, const debug_adaptor<Back
 template <class Backend>
 inline typename Backend::exponent_type eval_ilogb(const debug_adaptor<Backend>& arg)
 {
+   using default_ops::eval_ilogb;
    return eval_ilogb(arg.value());
 }
 
@@ -430,6 +457,18 @@ NON_MEMBER_OP3(fmod, "fmod");
 NON_MEMBER_OP3(pow, "pow");
 NON_MEMBER_OP3(atan2, "atan2");
 
+template <class Backend>
+int eval_signbit(const debug_adaptor<Backend>& val)
+{
+   return eval_signbit(val.value());
+}
+
+template <class Backend>
+std::size_t hash_value(const debug_adaptor<Backend>& val)
+{
+   return hash_value(val.value());
+}
+
 } // namespace backends
 
 using backends::debug_adaptor;
@@ -437,6 +476,9 @@ using backends::debug_adaptor;
 template<class Backend>
 struct number_category<backends::debug_adaptor<Backend> > : public number_category<Backend> {};
 
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 }} // namespaces
 
 namespace std{

@@ -104,7 +104,7 @@ private:
     }
 
     // Note: invoked automatically by shared_ptr; do not call
-    template<class X, class Y> void _internal_accept_owner( shared_ptr<X> * ppx, Y * py ) const
+    template<class X, class Y> void _internal_accept_owner( shared_ptr<X> * ppx, Y * ) const
     {
         BOOST_ASSERT( ppx != 0 );
 

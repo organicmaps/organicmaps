@@ -2,6 +2,10 @@
 
 // Copyright (c) 2014 Barend Gehrels, Amsterdam, the Netherlands.
 
+// This file was modified by Oracle on 2016.
+// Modifications copyright (c) 2016 Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -103,32 +107,32 @@ template
     typename Iterator
 >
 inline bool point_in_section(Strategy& strategy, State& state,
-        Point const& point, CoordinateType const& point_y,
+        Point const& point, CoordinateType const& point_x,
         Iterator begin, Iterator end,
         int direction)
 {
     if (direction == 0)
     {
-        // Not a monotonic section, or no change in Y-direction
+        // Not a monotonic section, or no change in X-direction
         return point_in_range(strategy, state, point, begin, end);
     }
 
-    // We're in a monotonic section in y-direction
+    // We're in a monotonic section in x-direction
     Iterator it = begin;
 
     for (Iterator previous = it++; it != end; ++previous, ++it)
     {
         // Depending on sections.direction we can quit for this section
-        CoordinateType const previous_y = geometry::get<1>(*previous);
+        CoordinateType const previous_x = geometry::get<0>(*previous);
 
-        if (direction == 1 && point_y < previous_y)
+        if (direction == 1 && point_x < previous_x)
         {
-            // Section goes upwards, y increases, point is is below section
+            // Section goes upwards, x increases, point is is below section
             return true;
         }
-        else if (direction == -1 && point_y > previous_y)
+        else if (direction == -1 && point_x > previous_x)
         {
-            // Section goes downwards, y decreases, point is above section
+            // Section goes downwards, x decreases, point is above section
             return true;
         }
 
@@ -145,6 +149,9 @@ inline bool point_in_section(Strategy& strategy, State& state,
 template <typename Point, typename Original>
 inline int point_in_original(Point const& point, Original const& original)
 {
+    // The winding strategy is scanning in x direction
+    // therefore it's critical to pass direction calculated
+    // for x dimension below.
     typedef strategy::within::winding<Point> strategy_type;
 
     typename strategy_type::state_type state;
@@ -166,7 +173,7 @@ inline int point_in_original(Point const& point, Original const& original)
     typedef typename boost::range_value<sections_type const>::type section_type;
     typedef typename geometry::coordinate_type<Point>::type coordinate_type;
 
-    coordinate_type const point_y = geometry::get<1>(point);
+    coordinate_type const point_x = geometry::get<0>(point);
 
     // Walk through all monotonic sections of this original
     for (iterator_type it = boost::begin(original.m_sections);
@@ -177,11 +184,11 @@ inline int point_in_original(Point const& point, Original const& original)
 
         if (! section.duplicate
             && section.begin_index < section.end_index
-            && point_y >= geometry::get<min_corner, 1>(section.bounding_box)
-            && point_y <= geometry::get<max_corner, 1>(section.bounding_box))
+            && point_x >= geometry::get<min_corner, 0>(section.bounding_box)
+            && point_x <= geometry::get<max_corner, 0>(section.bounding_box))
         {
-            // y-coordinate of point overlaps with section
-            if (! point_in_section(strategy, state, point, point_y,
+            // x-coordinate of point overlaps with section
+            if (! point_in_section(strategy, state, point, point_x,
                     boost::begin(original.m_ring) + section.begin_index,
                     boost::begin(original.m_ring) + section.end_index + 1,
                     section.directions[0]))

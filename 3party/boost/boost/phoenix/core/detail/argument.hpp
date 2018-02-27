@@ -10,11 +10,13 @@
     #define BOOST_PHOENIX_ARGUMENT_N_TYPE(_, N, name)                           \
     typedef                                                                     \
         expression::argument<BOOST_PP_INC(N)>::type                             \
-        BOOST_PP_CAT(BOOST_PP_CAT(name, BOOST_PP_INC(N)), _type);               \
+        BOOST_PP_CAT(BOOST_PP_CAT(name, BOOST_PP_INC(N)), _type)                \
+        BOOST_ATTRIBUTE_UNUSED;                                                 \
     /**/
     
     #define BOOST_PHOENIX_ARGUMENT_N_INSTANCE(_, N, name)                       \
     expression::argument<BOOST_PP_INC(N)>::type const                           \
+        BOOST_ATTRIBUTE_UNUSED                                                  \
         BOOST_PP_CAT(name, BOOST_PP_INC(N)) = {{{}}};                           \
     /**/
 

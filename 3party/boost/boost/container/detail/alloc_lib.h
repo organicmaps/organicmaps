@@ -15,27 +15,6 @@
 #ifdef _MSC_VER
 #pragma warning (push)
 #pragma warning (disable : 4127)
-
-/*
-   we need to import/export our code only if the user has specifically
-   asked for it by defining either BOOST_ALL_DYN_LINK if they want all boost
-   libraries to be dynamically linked, or BOOST_CONTAINER_DYN_LINK
-   if they want just this one to be dynamically liked:
-*/
-#if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_CONTAINER_DYN_LINK)
-
-/* export if this is our own source, otherwise import: */
-#ifdef BOOST_CONTAINER_SOURCE
-# define BOOST_CONTAINER_DECL __declspec(dllexport)
-#else
-# define BOOST_CONTAINER_DECL __declspec(dllimport)
-#endif  /* BOOST_CONTAINER_SOURCE */
-#endif  /* DYN_LINK */
-#endif  /* _MSC_VER */
-
-/* if BOOST_CONTAINER_DECL isn't defined yet define it now: */
-#ifndef BOOST_CONTAINER_DECL
-#define BOOST_CONTAINER_DECL
 #endif
 
 #ifdef __cplusplus
@@ -215,14 +194,6 @@ typedef struct boost_cont_memchain_impl
    }while(0)\
 /**/
 
-BOOST_CONTAINER_DECL size_t boost_cont_size(const void *p);
-
-BOOST_CONTAINER_DECL void* boost_cont_malloc(size_t bytes);
-
-BOOST_CONTAINER_DECL void  boost_cont_free(void* mem);
-
-BOOST_CONTAINER_DECL void* boost_cont_memalign(size_t bytes, size_t alignment);
-
 /*!Indicates the all elements allocated by boost_cont_multialloc_nodes or boost_cont_multialloc_arrays
    must be contiguous.*/
 #define DL_MULTIALLOC_ALL_CONTIGUOUS        ((size_t)(-1))
@@ -231,48 +202,12 @@ BOOST_CONTAINER_DECL void* boost_cont_memalign(size_t bytes, size_t alignment);
    should be selected by those functions.*/
 #define DL_MULTIALLOC_DEFAULT_CONTIGUOUS    ((size_t)(0))
 
-BOOST_CONTAINER_DECL int boost_cont_multialloc_nodes
-   (size_t n_elements, size_t elem_size, size_t contiguous_elements, boost_cont_memchain *pchain);
-
-BOOST_CONTAINER_DECL int boost_cont_multialloc_arrays
-   (size_t n_elements, const size_t *sizes, size_t sizeof_element, size_t contiguous_elements, boost_cont_memchain *pchain);
-
-BOOST_CONTAINER_DECL void boost_cont_multidealloc(boost_cont_memchain *pchain);
-
-BOOST_CONTAINER_DECL size_t boost_cont_footprint();
-
-BOOST_CONTAINER_DECL size_t boost_cont_allocated_memory();
-
-BOOST_CONTAINER_DECL size_t boost_cont_chunksize(const void *p);
-
-BOOST_CONTAINER_DECL int boost_cont_all_deallocated();
-
 typedef struct boost_cont_malloc_stats_impl
 {
    size_t max_system_bytes;
    size_t system_bytes;
    size_t in_use_bytes;
 } boost_cont_malloc_stats_t;
-
-BOOST_CONTAINER_DECL boost_cont_malloc_stats_t boost_cont_malloc_stats();
-
-BOOST_CONTAINER_DECL size_t boost_cont_in_use_memory();
-
-BOOST_CONTAINER_DECL int boost_cont_trim(size_t pad);
-
-BOOST_CONTAINER_DECL int boost_cont_mallopt
-   (int parameter_number, int parameter_value);
-
-BOOST_CONTAINER_DECL int boost_cont_grow
-   (void* oldmem, size_t minbytes, size_t maxbytes, size_t *received);
-
-BOOST_CONTAINER_DECL int boost_cont_shrink
-   (void* oldmem, size_t minbytes, size_t maxbytes, size_t *received, int do_commit);
-
-BOOST_CONTAINER_DECL void* boost_cont_alloc
-   (size_t minbytes, size_t preferred_bytes, size_t *received_bytes);
-
-BOOST_CONTAINER_DECL int boost_cont_malloc_check();
 
 typedef unsigned int allocation_type;
 
@@ -303,7 +238,50 @@ typedef struct boost_cont_command_ret_impl
    int   second;
 }boost_cont_command_ret_t;
 
-BOOST_CONTAINER_DECL boost_cont_command_ret_t boost_cont_allocation_command
+size_t boost_cont_size(const void *p);
+
+void* boost_cont_malloc(size_t bytes);
+
+void  boost_cont_free(void* mem);
+
+void* boost_cont_memalign(size_t bytes, size_t alignment);
+
+int boost_cont_multialloc_nodes
+   (size_t n_elements, size_t elem_size, size_t contiguous_elements, boost_cont_memchain *pchain);
+
+int boost_cont_multialloc_arrays
+   (size_t n_elements, const size_t *sizes, size_t sizeof_element, size_t contiguous_elements, boost_cont_memchain *pchain);
+
+void boost_cont_multidealloc(boost_cont_memchain *pchain);
+
+size_t boost_cont_footprint();
+
+size_t boost_cont_allocated_memory();
+
+size_t boost_cont_chunksize(const void *p);
+
+int boost_cont_all_deallocated();
+
+boost_cont_malloc_stats_t boost_cont_malloc_stats();
+
+size_t boost_cont_in_use_memory();
+
+int boost_cont_trim(size_t pad);
+
+int boost_cont_mallopt(int parameter_number, int parameter_value);
+
+int boost_cont_grow
+   (void* oldmem, size_t minbytes, size_t maxbytes, size_t *received);
+
+int boost_cont_shrink
+   (void* oldmem, size_t minbytes, size_t maxbytes, size_t *received, int do_commit);
+
+void* boost_cont_alloc
+   (size_t minbytes, size_t preferred_bytes, size_t *received_bytes);
+
+int boost_cont_malloc_check();
+
+boost_cont_command_ret_t boost_cont_allocation_command
    ( allocation_type command
    , size_t sizeof_object
    , size_t limit_objects
@@ -312,7 +290,17 @@ BOOST_CONTAINER_DECL boost_cont_command_ret_t boost_cont_allocation_command
    , void *reuse_ptr
    );
 
-BOOST_CONTAINER_DECL int boost_cont_mallopt(int param_number, int value);
+void *boost_cont_sync_create();
+
+void boost_cont_sync_destroy(void *sync);
+
+int boost_cont_sync_lock(void *sync);
+
+void boost_cont_sync_unlock(void *sync);
+
+int boost_cont_global_sync_lock();
+
+void boost_cont_global_sync_unlock();
 
 #ifdef __cplusplus
 }  //extern "C" {

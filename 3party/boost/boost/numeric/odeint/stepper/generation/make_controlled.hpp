@@ -43,6 +43,15 @@ struct controller_factory
     {
         return Controller( abs_error , rel_error , stepper );
     }
+
+    Controller operator()(
+            typename Stepper::value_type abs_error ,
+            typename Stepper::value_type rel_error ,
+            typename Stepper::time_type max_dt ,
+            const Stepper &stepper )
+    {
+        return Controller( abs_error , rel_error , max_dt, stepper );
+    }
 };
 
 
@@ -72,6 +81,19 @@ typename result_of::make_controlled< Stepper >::type make_controlled(
 }
 
 
+template< class Stepper >
+typename result_of::make_controlled< Stepper >::type make_controlled(
+        typename Stepper::value_type abs_error ,
+        typename Stepper::value_type rel_error ,
+        typename Stepper::time_type max_dt ,
+        const Stepper & stepper = Stepper() )
+{
+    typedef Stepper stepper_type;
+    typedef typename result_of::make_controlled< stepper_type >::type controller_type;
+    typedef controller_factory< stepper_type , controller_type > factory_type;
+    factory_type factory;
+    return factory( abs_error , rel_error , max_dt, stepper );
+}
 
 } // odeint
 } // numeric

@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014-2015, Oracle and/or its affiliates.
+// Copyright (c) 2014-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
@@ -17,6 +17,7 @@
 #include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/algorithms/validity_failure_type.hpp>
+#include <boost/geometry/algorithms/detail/is_valid/has_invalid_coordinate.hpp>
 #include <boost/geometry/algorithms/dispatch/is_valid.hpp>
 
 #include <boost/geometry/util/condition.hpp>
@@ -35,11 +36,14 @@ namespace dispatch
 template <typename Point>
 struct is_valid<Point, point_tag>
 {
-    template <typename VisitPolicy>
-    static inline bool apply(Point const&, VisitPolicy& visitor)
+    template <typename VisitPolicy, typename Strategy>
+    static inline bool apply(Point const& point, VisitPolicy& visitor, Strategy const&)
     {
         boost::ignore_unused(visitor);
-        return visitor.template apply<no_failure>();
+        return ! detail::is_valid::has_invalid_coordinate
+            <
+                Point
+            >::apply(point, visitor);
     }
 };
 
@@ -52,9 +56,10 @@ struct is_valid<Point, point_tag>
 template <typename MultiPoint, bool AllowEmptyMultiGeometries>
 struct is_valid<MultiPoint, multi_point_tag, AllowEmptyMultiGeometries>
 {
-    template <typename VisitPolicy>
+    template <typename VisitPolicy, typename Strategy>
     static inline bool apply(MultiPoint const& multipoint,
-                             VisitPolicy& visitor)
+                             VisitPolicy& visitor,
+                             Strategy const&)
     {
         boost::ignore_unused(multipoint, visitor);
 
@@ -63,7 +68,10 @@ struct is_valid<MultiPoint, multi_point_tag, AllowEmptyMultiGeometries>
         {
             // we allow empty multi-geometries, so an empty multipoint
             // is considered valid
-            return visitor.template apply<no_failure>();
+            return ! detail::is_valid::has_invalid_coordinate
+                <
+                    MultiPoint
+                >::apply(multipoint, visitor);
         }
         else
         {

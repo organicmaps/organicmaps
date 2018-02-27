@@ -15,7 +15,7 @@
 #include <istream>
 #include <ostream>
 
-#include <boost/none.hpp>
+#include "boost/none.hpp"
 #include "boost/optional/optional.hpp"
 
 
@@ -25,13 +25,13 @@ namespace boost
 template<class CharType, class CharTrait>
 inline
 std::basic_ostream<CharType, CharTrait>&
-operator<<(std::basic_ostream<CharType, CharTrait>& out, none_t const&)
+operator<<(std::basic_ostream<CharType, CharTrait>& out, none_t)
 {
   if (out.good())
   {
     out << "--";
   }
-
+   
   return out;
 }
 

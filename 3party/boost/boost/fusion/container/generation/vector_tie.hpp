@@ -8,8 +8,37 @@
 #define FUSION_VECTOR_TIE_11112014_2302
 
 #include <boost/fusion/support/config.hpp>
+#include <boost/fusion/container/vector/detail/config.hpp>
 
+#if !defined(BOOST_FUSION_HAS_VARIADIC_VECTOR)
 # include <boost/fusion/container/generation/detail/pp_vector_tie.hpp>
+#else
 
+///////////////////////////////////////////////////////////////////////////////
+// C++11 variadic interface
+///////////////////////////////////////////////////////////////////////////////
+
+namespace boost { namespace fusion
+{
+    namespace result_of
+    {
+        template <typename ...T>
+        struct vector_tie
+        {
+            typedef vector<T&...> type;
+        };
+    }
+
+    template <typename ...T>
+    BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+    inline vector<T&...>
+    vector_tie(T&... arg)
+    {
+        return vector<T&...>(arg...);
+    }
+ }}
+
+
+#endif
 #endif
 

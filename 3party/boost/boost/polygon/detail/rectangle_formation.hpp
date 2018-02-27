@@ -258,7 +258,7 @@ namespace rectangle_formation {
       ++itr;
       Unit highy = (*itr).second.first;
       scanlineToRects.processEdge(output, interval_data<Unit>(lowy, highy));
-      if(abs((*itr).second.second) > 1) itr = tmp_itr; //next edge begins from this vertex
+      if(std::abs((*itr).second.second) > 1) itr = tmp_itr; //next edge begins from this vertex
     }
   }
 }

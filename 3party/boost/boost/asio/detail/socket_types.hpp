@@ -2,7 +2,7 @@
 // detail/socket_types.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -30,14 +30,16 @@
 #   define BOOST_ASIO_WSPIAPI_H_DEFINED
 #  endif // !defined(_WSPIAPI_H_)
 # endif // defined(__BORLANDC__)
+# include <winsock2.h>
+# include <ws2tcpip.h>
 # if defined(WINAPI_FAMILY)
 #  if ((WINAPI_FAMILY & WINAPI_PARTITION_DESKTOP) != 0)
 #   include <windows.h>
 #  endif // ((WINAPI_FAMILY & WINAPI_PARTITION_DESKTOP) != 0)
 # endif // defined(WINAPI_FAMILY)
-# include <winsock2.h>
-# include <ws2tcpip.h>
-# include <mswsock.h>
+# if !defined(BOOST_ASIO_WINDOWS_APP)
+#  include <mswsock.h>
+# endif // !defined(BOOST_ASIO_WINDOWS_APP)
 # if defined(BOOST_ASIO_WSPIAPI_H_DEFINED)
 #  undef _WSPIAPI_H_
 #  undef BOOST_ASIO_WSPIAPI_H_DEFINED
@@ -47,7 +49,9 @@
 #   pragma comment(lib, "ws2.lib")
 #  elif defined(_MSC_VER) || defined(__BORLANDC__)
 #   pragma comment(lib, "ws2_32.lib")
-#   pragma comment(lib, "mswsock.lib")
+#   if !defined(BOOST_ASIO_WINDOWS_APP)
+#    pragma comment(lib, "mswsock.lib")
+#   endif // !defined(BOOST_ASIO_WINDOWS_APP)
 #  endif // defined(_MSC_VER) || defined(__BORLANDC__)
 # endif // !defined(BOOST_ASIO_NO_DEFAULT_LINKED_LIBS)
 # include <boost/asio/detail/old_win_sdk_compat.hpp>

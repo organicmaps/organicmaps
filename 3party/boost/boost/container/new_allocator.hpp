@@ -29,12 +29,16 @@
 namespace boost {
 namespace container {
 
+/// @cond
+
 template<bool Value>
 struct new_allocator_bool
 {  static const bool value = Value;  };
 
 template<class T>
 class new_allocator;
+
+/// @endcond
 
 //! Specialization of new_allocator for void types
 template<>
@@ -136,9 +140,9 @@ class new_allocator
    //!Throws std::bad_alloc if there is no enough memory
    pointer allocate(size_type count)
    {
-	   if(BOOST_UNLIKELY(count > this->max_size()))
-	      throw_bad_alloc();
-	   return static_cast<T*>(::operator new(count*sizeof(T)));
+      if(BOOST_UNLIKELY(count > this->max_size()))
+         throw_bad_alloc();
+      return static_cast<T*>(::operator new(count*sizeof(T)));
    }
 
    //!Deallocates previously allocated memory.
@@ -172,4 +176,4 @@ class new_allocator
 
 #include <boost/container/detail/config_end.hpp>
 
-#endif   //BOOST_CONTAINER_ALLOCATOR_HPP
+#endif   //BOOST_CONTAINER_NEW_ALLOCATOR_HPP

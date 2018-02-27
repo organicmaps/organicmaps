@@ -30,20 +30,19 @@
 #include <boost/range/iterator_range_core.hpp>
 #include <boost/lexical_cast/bad_lexical_cast.hpp>
 #include <boost/lexical_cast/try_lexical_convert.hpp>
-#include <boost/utility/value_init.hpp>
 
-namespace boost
+namespace boost 
 {
     template <typename Target, typename Source>
     inline Target lexical_cast(const Source &arg)
     {
-        boost::value_initialized<Target> result;
+        Target result = Target();
 
-        if (!boost::conversion::detail::try_lexical_convert(arg, get(result))) {
+        if (!boost::conversion::detail::try_lexical_convert(arg, result)) {
             boost::conversion::detail::throw_bad_cast<Source, Target>();
         }
 
-        return get(result);
+        return result;
     }
 
     template <typename Target>

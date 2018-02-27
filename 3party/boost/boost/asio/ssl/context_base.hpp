@@ -2,7 +2,7 @@
 // ssl/context_base.hpp
 // ~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -84,7 +84,16 @@ public:
     tlsv12_client,
 
     /// TLS version 1.2 server.
-    tlsv12_server
+    tlsv12_server,
+
+    /// Generic TLS.
+    tls,
+
+    /// TLS client.
+    tls_client,
+
+    /// TLS server.
+    tls_server
   };
 
   /// Bitmask type for SSL options.

@@ -27,6 +27,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <list>
 #include <boost/graph/distributed/detail/tag_allocator.hpp>
 #include <stdio.h>
 

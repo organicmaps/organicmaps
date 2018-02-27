@@ -9,11 +9,21 @@
 
 #include <boost/config.hpp>
 #include <boost/fusion/support/config.hpp>
+#include <boost/fusion/container/vector/detail/config.hpp>
 
 ///////////////////////////////////////////////////////////////////////////////
 // Without variadics, we will use the PP version
 ///////////////////////////////////////////////////////////////////////////////
+#if !defined(BOOST_FUSION_HAS_VARIADIC_VECTOR)
 #   include <boost/fusion/container/vector/detail/cpp03/vector20.hpp>
+#else
 
+///////////////////////////////////////////////////////////////////////////////
+// C++11 interface
+///////////////////////////////////////////////////////////////////////////////
+#include <boost/fusion/container/vector/vector_fwd.hpp>
+#include <boost/fusion/container/vector/vector.hpp>
+
+#endif
 #endif
 

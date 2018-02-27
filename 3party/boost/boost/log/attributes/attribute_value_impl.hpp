@@ -17,7 +17,7 @@
 
 #include <boost/type_index.hpp>
 #include <boost/move/core.hpp>
-#include <boost/move/utility.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/attributes/attribute_value.hpp>
@@ -64,7 +64,7 @@ public:
     /*!
      * Constructor with initialization of the stored value
      */
-    explicit attribute_value_impl(BOOST_RV_REF(value_type) v) : m_value(v) {}
+    explicit attribute_value_impl(BOOST_RV_REF(value_type) v) : m_value(boost::move(v)) {}
 
     /*!
      * Attribute value dispatching method.

@@ -57,15 +57,15 @@ namespace date_time {
       static std::tm* localtime(const std::time_t* t, std::tm* result)
       {
         // localtime_r() not in namespace std???
- 	#if defined(__VMS) && __INITIAL_POINTER_SIZE == 64
- 	std::tm tmp;
- 	if(!localtime_r(t,&tmp))
+#if defined(__VMS) && __INITIAL_POINTER_SIZE == 64
+        std::tm tmp;
+        if(!localtime_r(t,&tmp))
             result = 0;
-	else
-            *result = tmp;	
- 	#else
+        else
+            *result = tmp;
+#else
         result = localtime_r(t, result);
-	#endif
+#endif
         if (!result)
           boost::throw_exception(std::runtime_error("could not convert calendar time to local time"));
         return result;
@@ -75,15 +75,15 @@ namespace date_time {
       static std::tm* gmtime(const std::time_t* t, std::tm* result)
       {
         // gmtime_r() not in namespace std???
- 	#if defined(__VMS) && __INITIAL_POINTER_SIZE == 64
- 	std::tm tmp;
- 	if(!gmtime_r(t,&tmp))
+#if defined(__VMS) && __INITIAL_POINTER_SIZE == 64
+        std::tm tmp;
+        if(!gmtime_r(t,&tmp))
           result = 0;
         else
-          *result = tmp;	
-	#else
+          *result = tmp;
+#else
         result = gmtime_r(t, result);
-	#endif
+#endif
         if (!result)
           boost::throw_exception(std::runtime_error("could not convert calendar time to UTC time"));
         return result;

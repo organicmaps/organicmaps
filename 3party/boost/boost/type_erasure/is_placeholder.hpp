@@ -17,18 +17,11 @@
 
 namespace boost {
 
-/** INTERNAL ONLY */
-struct use_default;
-
 namespace type_erasure {
 
 /** A metafunction that indicates whether a type is a @ref placeholder. */
 template<class T>
 struct is_placeholder : ::boost::is_base_and_derived<placeholder, T> {};
-
-/** INTERNAL ONLY */
-template<>
-struct is_placeholder< ::boost::use_default> : ::boost::mpl::false_ {};
 
 }
 }

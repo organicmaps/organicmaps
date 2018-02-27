@@ -16,7 +16,9 @@
 #if defined(BOOST_CHRONO_HAS_THREAD_CLOCK)
 #include <boost/chrono/thread_clock.hpp>
 #include <boost/throw_exception.hpp>
+#if defined BOOST_CHRONO_PROVIDE_HYBRID_ERROR_HANDLING
 #include <boost/system/system_error.hpp>
+#endif
 #include <boost/throw_exception.hpp>
 #include <boost/chrono/detail/system.hpp>
 

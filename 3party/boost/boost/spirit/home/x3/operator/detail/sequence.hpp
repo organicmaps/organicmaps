@@ -103,30 +103,30 @@ namespace boost { namespace spirit { namespace x3 { namespace detail
         }
     };
 
-    template <typename Parser, typename Attribute>
+    template <typename Parser, typename Attribute, bool pass_through>
     struct pass_sequence_attribute_used :
-        mpl::if_<
-            traits::is_size_one_sequence<Attribute>
+        mpl::if_c<
+            (!pass_through && traits::is_size_one_sequence<Attribute>::value)
           , pass_sequence_attribute_front<Attribute>
           , pass_through_sequence_attribute<Attribute>>::type {};
 
-    template <typename Parser, typename Attribute, typename Enable = void>
+    template <typename Parser, typename Attribute, bool pass_through = false, typename Enable = void>
     struct pass_sequence_attribute :
         mpl::if_<
             fusion::result_of::empty<Attribute>
           , pass_sequence_attribute_unused
-          , pass_sequence_attribute_used<Parser, Attribute>>::type {};
+          , pass_sequence_attribute_used<Parser, Attribute, pass_through>>::type {};
 
-    template <typename L, typename R, typename Attribute>
-    struct pass_sequence_attribute<sequence<L, R>, Attribute>
+    template <typename L, typename R, typename Attribute, bool pass_through>
+    struct pass_sequence_attribute<sequence<L, R>, Attribute, pass_through>
       : pass_through_sequence_attribute<Attribute> {};
 
     template <typename Parser, typename Attribute>
     struct pass_sequence_attribute_subject :
         pass_sequence_attribute<typename Parser::subject_type, Attribute> {};
 
-    template <typename Parser, typename Attribute>
-    struct pass_sequence_attribute<Parser, Attribute
+    template <typename Parser, typename Attribute, bool pass_through>
+    struct pass_sequence_attribute<Parser, Attribute, pass_through
       , typename enable_if_c<(Parser::is_pass_through_unary)>::type>
       : pass_sequence_attribute_subject<Parser, Attribute> {};
 
@@ -150,8 +150,8 @@ namespace boost { namespace spirit { namespace x3 { namespace detail
         typedef typename fusion::result_of::end<Attribute>::type r_end;
         typedef fusion::iterator_range<l_begin, l_end> l_part;
         typedef fusion::iterator_range<l_end, r_end> r_part;
-        typedef pass_sequence_attribute<L, l_part> l_pass;
-        typedef pass_sequence_attribute<R, r_part> r_pass;
+        typedef pass_sequence_attribute<L, l_part, false> l_pass;
+        typedef pass_sequence_attribute<R, r_part, false> r_pass;
 
         static l_part left(Attribute& s)
         {
@@ -175,7 +175,7 @@ namespace boost { namespace spirit { namespace x3 { namespace detail
         typedef unused_type l_part;
         typedef Attribute& r_part;
         typedef pass_sequence_attribute_unused l_pass;
-        typedef pass_sequence_attribute<R, Attribute> r_pass;
+        typedef pass_sequence_attribute<R, Attribute, true> r_pass;
 
         static unused_type left(Attribute&)
         {
@@ -195,7 +195,7 @@ namespace boost { namespace spirit { namespace x3 { namespace detail
     {
         typedef Attribute& l_part;
         typedef unused_type r_part;
-        typedef pass_sequence_attribute<L, Attribute> l_pass;
+        typedef pass_sequence_attribute<L, Attribute, true> l_pass;
         typedef pass_sequence_attribute_unused r_pass;
 
         static Attribute& left(Attribute& s)

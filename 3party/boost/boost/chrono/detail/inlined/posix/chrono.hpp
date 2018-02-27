@@ -11,6 +11,7 @@
 //----------------------------------------------------------------------------//
 
 #include <time.h>  // for clock_gettime
+#include <boost/assert.hpp>
 
 namespace boost
 {
@@ -38,9 +39,9 @@ namespace chrono
         if (BOOST_CHRONO_IS_THROWS(ec))
         {
             boost::throw_exception(
-                    system::system_error( 
-                            errno, 
-                            BOOST_CHRONO_SYSTEM_CATEGORY, 
+                    system::system_error(
+                            errno,
+                            BOOST_CHRONO_SYSTEM_CATEGORY,
                             "chrono::system_clock" ));
         }
         else
@@ -50,7 +51,7 @@ namespace chrono
         }
     }
 
-    if (!BOOST_CHRONO_IS_THROWS(ec)) 
+    if (!BOOST_CHRONO_IS_THROWS(ec))
     {
         ec.clear();
     }
@@ -92,9 +93,9 @@ namespace chrono
         if (BOOST_CHRONO_IS_THROWS(ec))
         {
             boost::throw_exception(
-                    system::system_error( 
-                            errno, 
-                            BOOST_CHRONO_SYSTEM_CATEGORY, 
+                    system::system_error(
+                            errno,
+                            BOOST_CHRONO_SYSTEM_CATEGORY,
                             "chrono::steady_clock" ));
         }
         else
@@ -104,7 +105,7 @@ namespace chrono
         }
     }
 
-    if (!BOOST_CHRONO_IS_THROWS(ec)) 
+    if (!BOOST_CHRONO_IS_THROWS(ec))
     {
         ec.clear();
     }

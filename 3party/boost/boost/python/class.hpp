@@ -140,9 +140,9 @@ namespace detail
             // https://svn.boost.org/trac/boost/ticket/5803
             //typedef typename assertion<mpl::not_<is_same<Default,Fn> > >::failed test0;
 # if !BOOST_WORKAROUND(__MWERKS__, <= 0x2407)
-            typedef typename assertion<is_polymorphic<T> >::failed test1;
+            typedef typename assertion<is_polymorphic<T> >::failed test1 BOOST_ATTRIBUTE_UNUSED;
 # endif 
-            typedef typename assertion<is_member_function_pointer<Fn> >::failed test2;
+            typedef typename assertion<is_member_function_pointer<Fn> >::failed test2 BOOST_ATTRIBUTE_UNUSED;
             not_a_derived_class_member<Default>(Fn());
         }
     };

@@ -30,7 +30,7 @@ template<class Archive, class T>
 inline void save(
     Archive & ar,
     const std::unique_ptr< T > &t,
-    const unsigned int file_version
+    const unsigned int /*file_version*/
 ){
     // only the raw pointer has to be saved
     // the ref count is rebuilt automatically on load
@@ -42,7 +42,7 @@ template<class Archive, class T>
 inline void load(
     Archive & ar,
     std::unique_ptr< T > &t,
-    const unsigned int file_version
+    const unsigned int /*file_version*/
 ){
     T *tx;
     ar >> BOOST_SERIALIZATION_NVP(tx);

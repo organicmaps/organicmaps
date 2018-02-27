@@ -17,7 +17,10 @@
 
 
 #include <boost/mpl/assert.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>

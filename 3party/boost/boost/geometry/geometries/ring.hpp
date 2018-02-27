@@ -63,7 +63,7 @@ template
 >
 class ring : public Container<Point, Allocator<Point> >
 {
-    BOOST_CONCEPT_ASSERT( (concept::Point<Point>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Point<Point>) );
 
     typedef Container<Point, Allocator<Point> > base_type;
 

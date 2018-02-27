@@ -24,6 +24,7 @@
 #include <cstddef>
 
 #include <boost/static_assert.hpp>
+#include <boost/type_traits/is_pointer.hpp>
 
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>

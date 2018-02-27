@@ -32,7 +32,7 @@
 
 #define BOOST_PP_DETAIL_IS_EMPTY_PROCESS(param) \
 	BOOST_PP_IS_BEGIN_PARENS \
-	( \
+    	( \
         BOOST_PP_DETAIL_IS_EMPTY_NON_FUNCTION_C param () \
         ) \
 /**/
