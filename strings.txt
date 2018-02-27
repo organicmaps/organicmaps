@@ -28601,3 +28601,15 @@
   [whats_new_message_ugc_travel]
     en = Rate and review places you visited!
     ru = Оценивайте и пишите отзывы о посещенных местах!
+
+  [bookmarks_error_message_share_general]
+    en = Unable to share due to an application error.
+    ru = Не удалось поделиться из-за ошибки приложения.
+
+  [bookmarks_error_title_share_empty]
+    en = Sharing error
+    ru = Ошибка при попытке поделиться
+
+  [bookmarks_error_message_share_empty]
+    en = Can not share empty list.
+    ru = Нельзя делиться пустыми списками.
