@@ -140,6 +140,7 @@ class BottomPanel
           break;
 
         case CountryItem.STATUS_PROGRESS:
+        case CountryItem.STATUS_APPLYING:
         case CountryItem.STATUS_ENQUEUED:
           setCancelState();
           break;
@@ -170,6 +171,7 @@ class BottomPanel
             break;
 
           case CountryItem.STATUS_PROGRESS:
+          case CountryItem.STATUS_APPLYING:
           case CountryItem.STATUS_ENQUEUED:
             setCancelState();
             break;

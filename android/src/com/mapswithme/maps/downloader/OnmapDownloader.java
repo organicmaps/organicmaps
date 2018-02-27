@@ -93,7 +93,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     if (showFrame)
     {
       boolean enqueued = (mCurrentCountry.status == CountryItem.STATUS_ENQUEUED);
-      boolean progress = (mCurrentCountry.status == CountryItem.STATUS_PROGRESS);
+      boolean progress = (mCurrentCountry.status == CountryItem.STATUS_PROGRESS ||
+                          mCurrentCountry.status == CountryItem.STATUS_APPLYING);
       boolean failed = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
 
       showFrame = (enqueued || progress || failed ||

@@ -79,8 +79,11 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     long size = 0;
     for (CountryItem country : mMissingMaps)
     {
-      if (country.status != CountryItem.STATUS_PROGRESS)
+      if (country.status != CountryItem.STATUS_PROGRESS &&
+          country.status != CountryItem.STATUS_APPLYING)
+      {
         size += country.totalSize;
+      }
     }
 
     MapManager.warnOn3g(getActivity(), size, new Runnable()

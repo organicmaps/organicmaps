@@ -2029,7 +2029,8 @@ public class PlacePageView extends RelativeLayout
             status != CountryItem.STATUS_ENQUEUED &&
             status != CountryItem.STATUS_FAILED &&
             status != CountryItem.STATUS_PARTLY &&
-            status != CountryItem.STATUS_PROGRESS);
+            status != CountryItem.STATUS_PROGRESS &&
+            status != CountryItem.STATUS_APPLYING);
   }
 
   private void updateDownloader(CountryItem country)
