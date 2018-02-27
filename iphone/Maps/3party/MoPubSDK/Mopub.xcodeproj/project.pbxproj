@@ -184,6 +184,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		349CFCF620456F8C00569949 /* MPGoogleAdMobBannerCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobBannerCustomEvent.h; sourceTree = "<group>"; };
+		349CFCF720456F8C00569949 /* MPGoogleAdMobNativeAdAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobNativeAdAdapter.m; sourceTree = "<group>"; };
+		349CFCF820456F8C00569949 /* MPGoogleAdMobNativeCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobNativeCustomEvent.m; sourceTree = "<group>"; };
+		349CFCF920456F8C00569949 /* UIView+MPGoogleAdMobAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+MPGoogleAdMobAdditions.h"; sourceTree = "<group>"; };
+		349CFCFA20456F8C00569949 /* MPGoogleAdMobNativeRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobNativeRenderer.h; sourceTree = "<group>"; };
+		349CFCFB20456F8C00569949 /* MPGoogleAdMobRewardedVideoCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobRewardedVideoCustomEvent.m; sourceTree = "<group>"; };
+		349CFCFC20456F8C00569949 /* MPGoogleAdMobInterstitialCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobInterstitialCustomEvent.h; sourceTree = "<group>"; };
+		349CFCFD20456F8C00569949 /* MPGoogleAdMobBannerCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobBannerCustomEvent.m; sourceTree = "<group>"; };
+		349CFCFF20456F8C00569949 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		349CFD0020456F8C00569949 /* MPGoogleAdMobNativeCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobNativeCustomEvent.h; sourceTree = "<group>"; };
+		349CFD0120456F8C00569949 /* MPGoogleAdMobNativeAdAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobNativeAdAdapter.h; sourceTree = "<group>"; };
+		349CFD0220456F8C00569949 /* MPGoogleAdMobNativeRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobNativeRenderer.m; sourceTree = "<group>"; };
+		349CFD0320456F8C00569949 /* UIView+MPGoogleAdMobAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+MPGoogleAdMobAdditions.m"; sourceTree = "<group>"; };
+		349CFD0420456F8C00569949 /* MPGoogleAdMobInterstitialCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobInterstitialCustomEvent.m; sourceTree = "<group>"; };
+		349CFD0520456F8C00569949 /* MPGoogleAdMobRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
 		34F4074C1E9E1D3500E57AC0 /* libMopub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMopub.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		34F407601E9E1DA400E57AC0 /* FacebookBannerCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookBannerCustomEvent.h; sourceTree = "<group>"; };
 		34F407611E9E1DA400E57AC0 /* FacebookBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookBannerCustomEvent.m; sourceTree = "<group>"; };
@@ -568,6 +583,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		349CFCF520456F8C00569949 /* AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				349CFCF620456F8C00569949 /* MPGoogleAdMobBannerCustomEvent.h */,
+				349CFCF720456F8C00569949 /* MPGoogleAdMobNativeAdAdapter.m */,
+				349CFCF820456F8C00569949 /* MPGoogleAdMobNativeCustomEvent.m */,
+				349CFCF920456F8C00569949 /* UIView+MPGoogleAdMobAdditions.h */,
+				349CFCFA20456F8C00569949 /* MPGoogleAdMobNativeRenderer.h */,
+				349CFCFB20456F8C00569949 /* MPGoogleAdMobRewardedVideoCustomEvent.m */,
+				349CFCFC20456F8C00569949 /* MPGoogleAdMobInterstitialCustomEvent.h */,
+				349CFCFD20456F8C00569949 /* MPGoogleAdMobBannerCustomEvent.m */,
+				349CFCFE20456F8C00569949 /* SDK */,
+				349CFD0020456F8C00569949 /* MPGoogleAdMobNativeCustomEvent.h */,
+				349CFD0120456F8C00569949 /* MPGoogleAdMobNativeAdAdapter.h */,
+				349CFD0220456F8C00569949 /* MPGoogleAdMobNativeRenderer.m */,
+				349CFD0320456F8C00569949 /* UIView+MPGoogleAdMobAdditions.m */,
+				349CFD0420456F8C00569949 /* MPGoogleAdMobInterstitialCustomEvent.m */,
+				349CFD0520456F8C00569949 /* MPGoogleAdMobRewardedVideoCustomEvent.h */,
+			);
+			path = AdMob;
+			sourceTree = "<group>";
+		};
+		349CFCFE20456F8C00569949 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				349CFCFF20456F8C00569949 /* GoogleMobileAds.framework */,
+			);
+			path = SDK;
+			sourceTree = "<group>";
+		};
 		34F407431E9E1D3500E57AC0 = {
 			isa = PBXGroup;
 			children = (
@@ -611,6 +656,7 @@
 		34F4075E1E9E1DA400E57AC0 /* AdNetworkSupport */ = {
 			isa = PBXGroup;
 			children = (
+				349CFCF520456F8C00569949 /* AdMob */,
 				34F4075F1E9E1DA400E57AC0 /* Facebook */,
 			);
 			path = AdNetworkSupport;

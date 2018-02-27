@@ -68,7 +68,6 @@
 		340FDC092031C39E00F140AD /* BMCPermissionsPendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340FDC072031C39E00F140AD /* BMCPermissionsPendingCell.swift */; };
 		340FDC0A2031C39E00F140AD /* BMCPermissionsPendingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 340FDC082031C39E00F140AD /* BMCPermissionsPendingCell.xib */; };
 		3411387D1C15AE73002E3B3E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3411387C1C15AE73002E3B3E /* libeditor.a */; };
-		3411E7641F7CE5DF00A49FCD /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3411E7621F7CE5DC00A49FCD /* GoogleMobileAds.framework */; };
 		341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 341F09831C20138100F18AC5 /* libpugixml.a */; };
 		34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */; };
 		34201E0C1DC0E33100D24118 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34201E0B1DC0E33100D24118 /* libtracking.a */; };
@@ -191,6 +190,7 @@
 		349A13851DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A13811DEC138C00C7DB60 /* MWMMobileInternetAlert.xib */; };
 		349B926D1DF0518E007779DD /* MWMToast.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349B926B1DF0518E007779DD /* MWMToast.mm */; };
 		349B92711DF0526D007779DD /* MWMToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349B926F1DF0526D007779DD /* MWMToast.xib */; };
+		349CFD0720456FEB00569949 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349CFD0620456FEB00569949 /* GoogleMobileAds.framework */; };
 		349D1ABC1E2D05EF004A2006 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1ABA1E2D05EF004A2006 /* SearchBar.swift */; };
 		349D1ACF1E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349D1AC41E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm */; };
 		349D1AD21E2E325B004A2006 /* MWMBottomMenuCollectionViewLandscapeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349D1AC51E2E325B004A2006 /* MWMBottomMenuCollectionViewLandscapeCell.xib */; };
@@ -799,7 +799,6 @@
 		340FDC072031C39E00F140AD /* BMCPermissionsPendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCPermissionsPendingCell.swift; sourceTree = "<group>"; };
 		340FDC082031C39E00F140AD /* BMCPermissionsPendingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCPermissionsPendingCell.xib; sourceTree = "<group>"; };
 		3411387C1C15AE73002E3B3E /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
-		3411E7621F7CE5DC00A49FCD /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		341522BD1B666A550077AA8F /* MWMAPIBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAPIBarView.h; sourceTree = "<group>"; };
 		341522BE1B666A550077AA8F /* MWMAPIBarView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAPIBarView.mm; sourceTree = "<group>"; };
 		341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAPIBarView.xib; sourceTree = "<group>"; };
@@ -989,6 +988,7 @@
 		349B926A1DF0518E007779DD /* MWMToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMToast.h; sourceTree = "<group>"; };
 		349B926B1DF0518E007779DD /* MWMToast.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMToast.mm; sourceTree = "<group>"; };
 		349B926F1DF0526D007779DD /* MWMToast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMToast.xib; sourceTree = "<group>"; };
+		349CFD0620456FEB00569949 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = 3party/MoPubSDK/AdNetworkSupport/AdMob/SDK/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		349D1ABA1E2D05EF004A2006 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		349D1AC31E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuCollectionViewCell.h; sourceTree = "<group>"; };
 		349D1AC41E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBottomMenuCollectionViewCell.mm; sourceTree = "<group>"; };
@@ -1725,6 +1725,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				349CFD0720456FEB00569949 /* GoogleMobileAds.framework in Frameworks */,
 				56EE14D11FE804550036F20C /* libtransit.a in Frameworks */,
 				345E8F4E1F83984500A826CC /* GoogleSignIn.framework in Frameworks */,
 				345E8F4F1F83984500A826CC /* GoogleSignInDependencies.framework in Frameworks */,
@@ -1790,7 +1791,6 @@
 				3466A2C11FB1C734005494D3 /* AppsFlyerTracker.framework in Frameworks */,
 				6741AA361BF340DE002C974C /* libz.dylib in Frameworks */,
 				674A7E2B1C0DA57C003D48E1 /* libdrape_frontend.a in Frameworks */,
-				3411E7641F7CE5DF00A49FCD /* GoogleMobileAds.framework in Frameworks */,
 				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
 				3466A2DD1FB1C83C005494D3 /* FacebookLogin.framework in Frameworks */,
 				34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */,
@@ -1887,6 +1887,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				349CFD0620456FEB00569949 /* GoogleMobileAds.framework */,
 				56EE14D21FE804550036F20C /* libtransit.a */,
 				4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */,
 				4586D0C31F48121A00DF9CE5 /* libbsdiff.a */,
@@ -1961,7 +1962,6 @@
 				3466A2C41FB1C83A005494D3 /* FBSDKLoginKit.framework */,
 				3466A2C51FB1C83A005494D3 /* FBSDKShareKit.framework */,
 				340474E11E08199D00C92850 /* Flurry */,
-				3411E7621F7CE5DC00A49FCD /* GoogleMobileAds.framework */,
 				347D15C71F82362900E86251 /* GoogleSignIn.framework */,
 				347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */,
 				34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */,
@@ -4782,6 +4782,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/AdMob/SDK",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 			};
@@ -4795,6 +4796,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/AdMob/SDK",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 			};
@@ -4808,6 +4810,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/AdMob/SDK",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 			};
