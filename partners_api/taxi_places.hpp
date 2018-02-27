@@ -7,13 +7,21 @@ namespace taxi
 namespace places
 {
 // Places which are enabled for yandex taxi and in the same time are disabled for uber taxi.
-Countries const kUberDisabledPlaces = {{{"Armenia", {}},
-                                        {"Belarus", {}},
-                                        {"Georgia Region", {}},
-                                        {"Kazakhstan", {}},
-                                        {"Russian Federation", {}},
-                                        {"Ukraine", {}},
-                                        {"Moldova", {}}}};
+Countries const kUberDisabledPlaces = {
+    {{"Armenia", {}},
+     {"Azerbaijan Region", {"Baku"}},
+     {"Belarus", {}},
+     {"Bulgaria", {"Varna", "Plovdiv", "Sofia"}},
+     {"Georgia Region", {}},
+     {"Kazakhstan", {}},
+     {"Russian Federation", {}},
+     {"Ukraine", {}},
+     {"Moldova", {}},
+     {"Iran",
+      {"`Abbas",  "Ardabil",     "Ahvaz",   "Bandar", "Borujerd", "Qods",   "Gorgan", "Dezful",
+       "Zahedan", "Eslamshahr",  "Isfahan", "Qazvin", "Kashan",   "Karaj",  "Kerman", "Kermanshah",
+       "Qom",     "Malard",      "Mashhad", "Rasht",  "Sari",     "Tabriz", "Tehran", "Urmia",
+       "Hamedan", "Khorramabad", "Shiraz",  "Arak",   "Yazd"}}}};
 
 Countries const kYandexEnabledPlaces = {
     {{"Armenia", {"Vanadzor", "Gyumri", "Yerevan"}},
@@ -159,5 +167,20 @@ Countries const kYandexEnabledPlaces = {
        "Elektrostal",
        "Elektrougli",
        "Yaroslavl"}}}};
+
+Countries const kMaximEnabledPlaces = {
+    {{"Azerbaijan Region", {"Baku"}},
+     {"Belarus", {"Baranovichi", "Brest", "Vitebsk", "Mahilyow"}},
+     {"Bulgaria", {"Varna", "Plovdiv", "Sofia"}},
+     {"Georgia Region", {"Batumi", "Gori", "Zugdidi", "Kutaisi", "Poti"}},
+     {"Kazakhstan",
+      {"Aktobe", "Almaty", "Astana", "Karaganda", "Kokshetau", "Kostanay", "Petropavl", "Semey",
+       "Temirtau", "Oral", "Oskemen"}},
+     {"Ukraine", {"Kremenchuk", "Mariupol", "Poltava", "Sumy", "Kharkiv", "Cherkasy", "Chernihiv"}},
+     {"Iran",
+      {"`Abbas",  "Ardabil",     "Ahvaz",   "Bandar", "Borujerd", "Qods",   "Gorgan", "Dezful",
+       "Zahedan", "Eslamshahr",  "Isfahan", "Qazvin", "Kashan",   "Karaj",  "Kerman", "Kermanshah",
+       "Qom",     "Malard",      "Mashhad", "Rasht",  "Sari",     "Tabriz", "Tehran", "Urmia",
+       "Hamedan", "Khorramabad", "Shiraz",  "Arak",   "Yazd"}}}};
 }  // namespace places
 }  // namespace taxi

@@ -19,6 +19,8 @@ set(
   google_ads.hpp
   locals_api.cpp
   locals_api.hpp
+  maxim_api.cpp
+  maxim_api.hpp
   mopub_ads.cpp
   mopub_ads.hpp
   opentable_api.cpp

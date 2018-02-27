@@ -437,3 +437,19 @@ PARTNERS_RENT_NEARBY = """
   ]
 }
 """
+
+PARTNERS_CALCULATE_BY_COORDS = """
+{
+  "ButtonText": null,
+  "Message": null,
+  "PaymentMethods": null,
+  "Prices": null,
+  "ShowFrom": false,
+  "Success": true,
+  "TypeId": 2,
+  "CurrencyCode": "RUB",
+  "FeedTime": 9,
+  "Price": 244,
+  "PriceString": "244.00 ₽"
+}
+"""

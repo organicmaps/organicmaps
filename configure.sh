@@ -104,6 +104,8 @@ else
 #define PARTNER4_BANNER_PLACEMENT_ID ""
 #define PARTNER5_NAME ""
 #define PARTNER5_BANNER_PLACEMENT_ID ""
+#define MAXIM_CLIENT_ID ""
+#define MAXIM_SERVER_TOKEN ""
 
 ' > "$PRIVATE_HEADER"
     echo 'ext {

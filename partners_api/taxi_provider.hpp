@@ -22,7 +22,8 @@ public:
   enum Type
   {
     Uber,
-    Yandex
+    Yandex,
+    Maxim
   };
 
   using Iter = std::vector<Product>::iterator;
@@ -77,6 +78,7 @@ inline std::string DebugPrint(Provider::Type type)
   {
   case Provider::Type::Uber: return "Uber";
   case Provider::Type::Yandex: return "Yandex";
+  case Provider::Type::Maxim: return "Maxim";
   }
 }
 

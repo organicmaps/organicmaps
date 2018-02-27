@@ -1,4 +1,5 @@
 #include "partners_api/taxi_engine.hpp"
+#include "partners_api/maxim_api.hpp"
 #include "partners_api/taxi_places.hpp"
 #include "partners_api/uber_api.hpp"
 #include "partners_api/yandex_api.hpp"
@@ -115,6 +116,7 @@ Engine::Engine(std::vector<ProviderUrl> urls /* = {} */)
 {
   AddApi<yandex::Api>(urls, Provider::Type::Yandex, places::kYandexEnabledPlaces, {{}});
   AddApi<uber::Api>(urls, Provider::Type::Uber, {{}}, places::kUberDisabledPlaces);
+  AddApi<maxim::Api>(urls, Provider::Type::Maxim, places::kMaximEnabledPlaces, {{}});
 }
 
 void Engine::SetDelegate(std::unique_ptr<Delegate> delegate) { m_delegate = std::move(delegate); }

@@ -8,6 +8,7 @@ set(
   booking_tests.cpp
   facebook_tests.cpp
   google_tests.cpp
+  maxim_tests.cpp
   mopub_tests.cpp
   rb_tests.cpp
   taxi_engine_tests.cpp
