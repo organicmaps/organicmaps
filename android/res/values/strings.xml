@@ -1286,4 +1286,7 @@
 	<string name="whats_new_message_hotel_filter">Book hotels available for your dates! Use check in and check out filters</string>
 	<string name="whats_new_title_ugc_travel">Share your experience with other travellers!</string>
 	<string name="whats_new_message_ugc_travel">Rate and review places you visited!</string>
+	<string name="bookmarks_error_message_share_general">Unable to share due to an application error.</string>
+	<string name="bookmarks_error_title_share_empty">Sharing error</string>
+	<string name="bookmarks_error_message_share_empty">Can not share empty list.</string>
 </resources>

@@ -1272,4 +1272,7 @@
 	<string name="whats_new_message_hotel_filter">При поиске отелей используйте фильтрацию по дате заезда и выезда</string>
 	<string name="whats_new_title_ugc_travel">Делитесь вашими впечатлениями с другими путешественниками</string>
 	<string name="whats_new_message_ugc_travel">Оценивайте и пишите отзывы о посещенных местах!</string>
+	<string name="bookmarks_error_message_share_general">Не удалось поделиться из-за ошибки приложения.</string>
+	<string name="bookmarks_error_title_share_empty">Ошибка при попытке поделиться</string>
+	<string name="bookmarks_error_message_share_empty">Нельзя делиться пустыми списками.</string>
 </resources>

@@ -2222,3 +2222,9 @@
 "whats_new_title_ugc_travel" = "Делитесь вашими впечатлениями с другими путешественниками";
 
 "whats_new_message_ugc_travel" = "Оценивайте и пишите отзывы о посещенных местах!";
+
+"bookmarks_error_message_share_general" = "Не удалось поделиться из-за ошибки приложения.";
+
+"bookmarks_error_title_share_empty" = "Ошибка при попытке поделиться";
+
+"bookmarks_error_message_share_empty" = "Нельзя делиться пустыми списками.";

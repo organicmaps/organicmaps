@@ -2222,3 +2222,9 @@
 "whats_new_title_ugc_travel" = "Share your experience with other travellers!";
 
 "whats_new_message_ugc_travel" = "Rate and review places you visited!";
+
+"bookmarks_error_message_share_general" = "Unable to share due to an application error.";
+
+"bookmarks_error_title_share_empty" = "Sharing error";
+
+"bookmarks_error_message_share_empty" = "Can not share empty list.";
