@@ -13,7 +13,15 @@
 #include <QtXml/QDomDocument>
 #include <QtCore/QDir>
 
+/// @todo(greshilov): delete this hack for next boost version (>1.65.0)
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wc++11-narrowing"
+#endif
 #include <boost/gil/gil_all.hpp>
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 
 namespace gil = boost::gil;
 
