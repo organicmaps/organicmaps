@@ -22,6 +22,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <cmath>
 #include <fstream>
 #include <functional>
 #include <iomanip>
@@ -139,7 +140,7 @@ public:
       VectorT out;
 
       /// @todo Choose scale level for simplification.
-      double const eps = my::sq(scales::GetEpsilonForSimplify(10));
+      double const eps = std::pow(scales::GetEpsilonForSimplify(10), 2);
       DistanceT dist;
       SimplifyNearOptimal(20, in.begin(), in.end(), eps, dist,
                           AccumulateSkipSmallTrg<DistanceT, m2::PointD>(dist, out, eps));

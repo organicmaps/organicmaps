@@ -10,6 +10,7 @@
 #include "base/assert.hpp"
 #include "base/math.hpp"
 
+#include <cmath>
 #include <cstdint>
 #include <limits>
 #include <utility>
@@ -89,7 +90,7 @@ void SimplifyPoints(Distance dist, int level, PointsContainer const & in, Points
   if (in.size() < 2)
     return;
 
-  double const eps = my::sq(scales::GetEpsilonForSimplify(level));
+  double const eps = std::pow(scales::GetEpsilonForSimplify(level), 2);
 
   SimplifyNearOptimal(20, in.begin(), in.end(), eps, dist,
                       AccumulateSkipSmallTrg<Distance, m2::PointD>(dist, out, eps));

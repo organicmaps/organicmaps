@@ -34,10 +34,7 @@ namespace m2
     }
 
     // TODO (@y, @m): rename to SquaredLength.
-    T SquareLength(Point<T> const & p) const
-    {
-      return math::sqr(x - p.x) + math::sqr(y - p.y);
-    }
+    T SquareLength(Point<T> const & p) const { return pow(x - p.x, 2) + pow(y - p.y, 2); }
 
     double Length(Point<T> const & p) const
     {

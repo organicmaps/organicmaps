@@ -16,8 +16,6 @@ namespace math
   double constexpr pi2 = pi / 2.;
   double constexpr pi4 = pi / 4.;
   double constexpr twicePi = 2. * pi;
-
-  template <class T> T sqr(T t) { return (t*t); }
 }  // namespace math
 
 namespace my
@@ -102,11 +100,6 @@ template <typename TFloat> inline TFloat RadToDeg(TFloat rad)
 template <typename T> inline T id(T const & x)
 {
   return x;
-}
-
-template <typename T> inline T sq(T const & x)
-{
-  return x * x;
 }
 
 template <typename T>

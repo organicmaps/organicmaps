@@ -19,12 +19,16 @@
 #include "base/macros.hpp"
 
 #include <chrono>
+#include <cmath>
 
 #ifdef DEBUG
 #define TEST_CALL(action) if (m_testFn) m_testFn(action)
 #else
 #define TEST_CALL(action)
 #endif
+
+using namespace std;
+using std::chrono::milliseconds;
 
 namespace df
 {
@@ -766,8 +770,8 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
 {
   if (m_listener)
     m_listener->OnTouchMapAction();
-  
-  double const kDragThreshold = my::sq(VisualParams::Instance().GetDragThreshold());
+
+  double const kDragThreshold = pow(VisualParams::Instance().GetDragThreshold(), 2);
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
 

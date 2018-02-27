@@ -3,18 +3,18 @@
 #include "base/math.hpp"
 #include "base/assert.hpp"
 
-#include "std/deque.hpp"
-#include "std/array.hpp"
-#include "std/cstring.hpp"
-#include "std/limits.hpp"
-#include "std/type_traits.hpp"
-
+#include <array>
+#include <cmath>
+#include <cstring>
+#include <deque>
+#include <limits>
+#include <type_traits>
 
 namespace math
 {
   template <class T, size_t Dim> class AvgVector
   {
-    typedef deque<array<T, Dim> > ContT;
+    typedef std::deque<std::array<T, Dim>> ContT;
     typedef typename ContT::value_type ValueT;
 
     ContT m_vectors;
@@ -24,7 +24,7 @@ namespace math
     {
       T res = 0;
       for (size_t i = 0; i < Dim; ++i)
-        res += my::sq(a1[i] - a2[i]);
+        res += std::pow(a1[i] - a2[i], 2);
 
       return sqrt(res);
     }
@@ -37,7 +37,7 @@ namespace math
 
     void CalcAverage(T * res) const
     {
-      T minD = numeric_limits<T>::max();
+      T minD = std::numeric_limits<T>::max();
       size_t I = 0, J = 1;
 
       size_t const count = m_vectors.size();
@@ -60,7 +60,7 @@ namespace math
   public:
     AvgVector(size_t count = 1) : m_count(count)
     {
-      static_assert(is_floating_point<T>::value, "");
+      static_assert(std::is_floating_point<T>::value, "");
     }
 
     void SetCount(size_t count) { m_count = count; }
@@ -73,7 +73,7 @@ namespace math
         m_vectors.pop_front();
 
       m_vectors.push_back(ValueT());
-      memcpy(m_vectors.back().data(), arr, Dim*sizeof(T));
+      std::memcpy(m_vectors.back().data(), arr, Dim * sizeof(T));
 
       if (m_vectors.size() > 1)
         CalcAverage(arr);
@@ -91,7 +91,7 @@ namespace math
   // smoothedHeadingRad and new heading value is bigger than smoothingThreshold.
   template <class T, size_t Dim> class LowPassVector
   {
-    typedef array<T, Dim> ArrayT;
+    typedef std::array<T, Dim> ArrayT;
     ArrayT m_val;
     T m_factor;
 

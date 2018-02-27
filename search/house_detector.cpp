@@ -15,6 +15,7 @@
 #include "base/stl_iterator.hpp"
 
 #include "std/bind.hpp"
+#include "std/cmath.hpp"
 #include "std/exception.hpp"
 #include "std/numeric.hpp"
 #include "std/set.hpp"
@@ -322,7 +323,7 @@ HouseDetector::StreetPtr HouseDetector::FindConnection(Street const * st, bool b
 
   StreetPtr resStreet(0, false);
   double resDistance = numeric_limits<double>::max();
-  double const minSqDistance = math::sqr(m_metres2Mercator * STREET_CONNECTION_LENGTH_M);
+  double const minSqDistance = pow(m_metres2Mercator * STREET_CONNECTION_LENGTH_M, 2);
 
   for (size_t i = 0; i < m_end2st.size(); ++i)
   {

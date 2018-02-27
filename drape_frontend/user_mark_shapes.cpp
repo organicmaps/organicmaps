@@ -20,6 +20,7 @@
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
 
+#include <cmath>
 #include <vector>
 
 namespace df
@@ -348,7 +349,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   if (simplify)
   {
     double const currentScaleGtoP = 1.0 / GetScale(tileKey.m_zoomLevel);
-    sqrScale = math::sqr(currentScaleGtoP);
+    sqrScale = currentScaleGtoP * currentScaleGtoP;
   }
 
   for (auto id : linesId)
@@ -381,7 +382,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     {
       spline.Reset(new m2::Spline(renderInfo.m_spline->GetSize()));
 
-      static double const kMinSegmentLength = math::sqr(4.0 * vs);
+      static double const kMinSegmentLength = std::pow(4.0 * vs, 2);
       m2::PointD lastAddedPoint;
       for (auto const & point : renderInfo.m_spline->GetPath())
       {

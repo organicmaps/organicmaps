@@ -13,12 +13,6 @@ UNIT_TEST(id)
     TEST_EQUAL(my::id(1.0), 1, ());
 }
 
-UNIT_TEST(sq)
-{
-    TEST_EQUAL(my::sq(-1.5), 2.25, ());
-    TEST_EQUAL(my::sq(3), 9, ());
-}
-
 UNIT_TEST(SizeAligned)
 {
     TEST_EQUAL(my::SizeAligned(0, 1), size_t(0), ());

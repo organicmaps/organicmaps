@@ -28,6 +28,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <limits>
 #include <mutex>
 #include <sstream>
@@ -812,13 +813,12 @@ void ApplyAreaFeature::ProcessAreaRule(Stylist::TRuleWrapper const & rule)
 
 ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey,
                                                    TInsertShapeFn const & insertShape,
-                                                   FeatureID const & id,
-                                                   double currentScaleGtoP,
+                                                   FeatureID const & id, double currentScaleGtoP,
                                                    int minVisibleScale, uint8_t rank,
                                                    size_t pointsCount)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, CaptionDescription())
   , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
-  , m_sqrScale(math::sqr(currentScaleGtoP))
+  , m_sqrScale(currentScaleGtoP * currentScaleGtoP)
   , m_simplify(tileKey.m_zoomLevel >= kLineSimplifyLevelStart &&
                tileKey.m_zoomLevel <= kLineSimplifyLevelEnd)
   , m_initialPointsCount(pointsCount)
@@ -843,7 +843,7 @@ void ApplyLineFeatureGeometry::operator() (m2::PointD const & point)
   }
   else
   {
-    static double minSegmentLength = math::sqr(4.0 * df::VisualParams::Instance().GetVisualScale());
+    static double minSegmentLength = pow(4.0 * df::VisualParams::Instance().GetVisualScale(), 2);
     if (m_simplify &&
         ((m_spline->GetSize() > 1 && point.SquareLength(m_lastAddedPoint) * m_sqrScale < minSegmentLength) ||
         m_spline->IsPrelonging(point)))

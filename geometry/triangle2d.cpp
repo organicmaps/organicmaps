@@ -6,10 +6,12 @@
 
 #include "base/math.hpp"
 
-#include "std/chrono.hpp"
-#include "std/random.hpp"
+#include <chrono>
+#include <limits>
+#include <random>
 
 using namespace m2::robust;
+using namespace std;
 
 namespace m2
 {
@@ -57,7 +59,7 @@ m2::PointD GetRandomPointInsideTriangle(m2::TriangleD const & t)
 {
   size_t kDistribMax = 1000;
 
-  auto const seed = static_cast<uint32_t>(system_clock::now().time_since_epoch().count());
+  auto const seed = static_cast<uint32_t>(chrono::system_clock::now().time_since_epoch().count());
   default_random_engine engine(seed);
   uniform_int_distribution<size_t> distrib(0, kDistribMax);
   double const r1 = sqrt(static_cast<double>(distrib(engine)) / kDistribMax);
@@ -70,7 +72,7 @@ m2::PointD GetRandomPointInsideTriangles(vector<m2::TriangleD> const & v)
   if (v.empty())
     return m2::PointD();
 
-  auto const seed = static_cast<uint32_t>(system_clock::now().time_since_epoch().count());
+  auto const seed = static_cast<uint32_t>(chrono::system_clock::now().time_since_epoch().count());
   default_random_engine engine(seed);
   uniform_int_distribution<size_t> distrib(0, v.size() - 1);
   return GetRandomPointInsideTriangle(v[distrib(engine)]);
