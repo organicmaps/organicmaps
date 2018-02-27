@@ -15,9 +15,10 @@ public:
   {
   }
 
-  virtual char const * what() const throw() { return m_whatWithAscii.c_str(); }
+  std::string const & Msg() const { return m_msg; }
 
-  std::string const & Msg() const throw() { return m_msg; }
+  // std::exception overrides:
+  char const * what() const noexcept override { return m_whatWithAscii.c_str(); }
 
 private:
   std::string m_whatWithAscii;
