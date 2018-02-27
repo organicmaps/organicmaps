@@ -23,7 +23,7 @@ class Api;
 namespace filter
 {
 
-using FillSearchMarksCallback =  std::function<void(std::vector<FeatureID> availableHotelsSorted)>;
+using FillSearchMarksCallback = platform::SafeCallback<void(std::vector<FeatureID> availableHotelsSorted)>;
 
 class Filter
 {
