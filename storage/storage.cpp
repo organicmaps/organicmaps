@@ -1512,7 +1512,7 @@ void Storage::LoadServerListForSession()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  m_downloader->GetServersList([this](auto const & urls) { PingServerList(urls); });
+  m_downloader->GetServersList([this](vector<string> const & urls) { PingServerList(urls); });
 }
 
 void Storage::LoadServerListForTesting()
@@ -1530,7 +1530,7 @@ void Storage::PingServerList(vector<string> const & urls)
     return;
 
   GetPlatform().RunTask(Platform::Thread::Network, [urls, this] {
-    Pinger::Ping(urls, [this, urls](auto readyUrls) {
+    Pinger::Ping(urls, [this, urls](vector<string> readyUrls) {
       ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
       if (readyUrls.empty())
