@@ -21,7 +21,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
       switch type {
       case .taxi: return #imageLiteral(resourceName: "icTaxiTaxi")
       case .uber: return #imageLiteral(resourceName: "icTaxiUber")
-      case .yandex: return #imageLiteral(resourceName: "icTaxiYandex")
+      case .yandex: return #imageLiteral(resourceName: "ic_taxi_logo_yandex")
       }
     }
 
