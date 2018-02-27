@@ -439,10 +439,9 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
     }
 
     // Prepare file to uploading.
-    bool needDeleteFileAfterUploading = false;
-    auto const uploadedName = PrepareFileToUploading(entry->m_name, needDeleteFileAfterUploading);
-    auto deleteAfterUploading = [needDeleteFileAfterUploading, uploadedName]() {
-      if (needDeleteFileAfterUploading)
+    auto const uploadedName = PrepareFileToUploading(entry->m_name);
+    auto deleteAfterUploading = [uploadedName]() {
+      if (!uploadedName.empty())
         my::DeleteFileX(uploadedName);
     };
     MY_SCOPE_GUARD(deleteAfterUploadingGuard, deleteAfterUploading);
@@ -524,10 +523,9 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
   });
 }
 
-std::string Cloud::PrepareFileToUploading(std::string const & fileName,
-                                          bool & needDeleteAfterUploading)
+std::string Cloud::PrepareFileToUploading(std::string const & fileName)
 {
-  needDeleteAfterUploading = false;
+  // 1. Get path to the original uploading file.
   std::string filePath;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
@@ -539,20 +537,42 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName,
       return {};
   }
 
-  auto ext = my::GetFileExtension(filePath);
+  // 2. Calculate SHA1 of the original uploading file.
+  auto const originalSha1 = CalculateSHA1(filePath);
+  if (originalSha1.empty())
+    return {};
+
+  // 3. Create a temporary file from the original uploading file.
+  auto name = ExtractFileName(filePath);
+  auto const tmpPath = my::JoinFoldersToPath(GetPlatform().TmpDir(), name);
+  if (!my::CopyFileX(filePath, tmpPath))
+    return {};
+  
+  MY_SCOPE_GUARD(tmpFileGuard, std::bind(&my::DeleteFileX, std::cref(tmpPath)));
+
+  // 4. Calculate SHA1 of the temporary file and compare with original one.
+  // Original file can be modified during copying process, so we have to
+  // compare original file with the temporary file after copying.
+  auto const tmpSha1 = CalculateSHA1(tmpPath);
+  if (originalSha1 != tmpSha1)
+    return {};
+
+  // 5. If the file is zipped return path to the temporary file.
+  auto ext = my::GetFileExtension(tmpPath);
   strings::AsciiToLower(ext);
   if (ext == m_params.m_zipExtension)
-    return filePath;
-
-  auto name = ExtractFileName(filePath);
-  my::GetNameWithoutExt(name);
-  auto const zipPath = my::JoinFoldersToPath(GetPlatform().TmpDir(), name + m_params.m_zipExtension);
-
-  if (CreateZipFromPathDeflatedAndDefaultCompression(filePath, zipPath))
   {
-    needDeleteAfterUploading = true;
-    return zipPath;
+    tmpFileGuard.release(); // Do not delete temporary file here.
+    return tmpPath;
   }
+
+  // 6. Zip file and return path.
+  my::GetNameWithoutExt(name);
+  auto const zipPath = my::JoinFoldersToPath(GetPlatform().TmpDir(),
+                                             name + m_params.m_zipExtension);
+  if (CreateZipFromPathDeflatedAndDefaultCompression(tmpPath, zipPath))
+    return zipPath;
+
   return {};
 }
 

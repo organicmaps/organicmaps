@@ -192,8 +192,9 @@ private:
   void FinishUploading(SynchronizationResult result, std::string const & errorStr);
   void SetAccessToken(std::string const & token);
 
-  std::string PrepareFileToUploading(std::string const & fileName,
-                                     bool & needDeleteAfterUploading);
+  // This function always returns path to a temporary file or the empty string
+  // in case of a disk error.
+  std::string PrepareFileToUploading(std::string const & fileName);
 
   UploadingResult RequestUploading(std::string const & uploadingUrl,
                                    std::string const & filePath) const;
