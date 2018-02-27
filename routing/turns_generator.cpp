@@ -30,7 +30,8 @@ double constexpr kNotSoCloseMinDistMeters = 30.;
 
 bool IsHighway(ftypes::HighwayClass hwClass, bool isLink)
 {
-  return hwClass == ftypes::HighwayClass::Trunk && !isLink;
+  return (hwClass == ftypes::HighwayClass::Trunk || hwClass == ftypes::HighwayClass::Primary) &&
+         !isLink;
 }
 
 bool IsLinkOrSmallRoad(ftypes::HighwayClass hwClass, bool isLink)
@@ -45,13 +46,19 @@ bool IsLinkOrSmallRoad(ftypes::HighwayClass hwClass, bool isLink)
 /// \note The function makes a decision about |turn| based on geometry of the route and turn
 /// candidates, so it works correctly for both left and right hand traffic.
 bool IsExit(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
-            Segment const & firstOutgoingSeg, CarDirection & turn)
+            Segment const & firstOutgoingSeg, CarDirection intermediateDirection, CarDirection & turn)
 {
   if (!possibleTurns.isCandidatesAngleValid)
     return false;
 
   if (!IsHighway(turnInfo.m_ingoing.m_highwayClass, turnInfo.m_ingoing.m_isLink) ||
       !IsLinkOrSmallRoad(turnInfo.m_outgoing.m_highwayClass, turnInfo.m_outgoing.m_isLink))
+  {
+    return false;
+  }
+
+  if (turnInfo.m_ingoing.m_highwayClass == ftypes::HighwayClass::Primary &&
+      !turnInfo.m_outgoing.m_isLink && !IsGoStraightOrSlightTurn(intermediateDirection))
   {
     return false;
   }
@@ -751,8 +758,11 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
   Segment firstOutgoingSeg;
   bool const isFirstOutgoingSegValid =
       turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg);
-  if (isFirstOutgoingSegValid && IsExit(nodes, turnInfo, firstOutgoingSeg, turn.m_turn))
+  if (!turnInfo.m_ingoing.m_onRoundabout && isFirstOutgoingSegValid &&
+      IsExit(nodes, turnInfo, firstOutgoingSeg, intermediateDirection, turn.m_turn))
+  {
     return;
+  }
 
   if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, hasMultiTurns, turnInfo, turn, nodes))
     return;

@@ -197,9 +197,7 @@ UNIT_TEST(RussiaMoscowTTKKashirskoeShosseOutTurnTest)
 
   TEST_EQUAL(result, IRouter::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  // Checking a turn in case going from a not-link to a link
-  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
-      {CarDirection::TurnSlightRight, CarDirection::TurnRight});
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
 UNIT_TEST(RussiaMoscowTTKUTurnTest)
@@ -400,8 +398,7 @@ UNIT_TEST(RussiaMoscowVarshavskoeShosseMKAD)
 
   TEST_EQUAL(result, IRouter::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
-      {CarDirection::TurnSlightRight, CarDirection::TurnRight});
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
 // Test case: a route goes in Moscow from Bolshaya Nikitskaya street
@@ -513,7 +510,7 @@ UNIT_TEST(RussiaMoscowLeningradskiyPrptToTTKTest)
 
   TEST_EQUAL(result, IRouter::NoError, ());
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::GoStraight);
 }
 
@@ -723,8 +720,7 @@ UNIT_TEST(RussiaMoscowLeningradkaToMKADTest)
 
   TEST_EQUAL(result, IRouter::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
-      {CarDirection::TurnSlightRight, CarDirection::TurnRight});
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
 UNIT_TEST(RussiaMoscowMKADToSvobodaTest)
@@ -815,4 +811,37 @@ UNIT_TEST(EnglandLondonExitToLeftTest)
   TEST_EQUAL(result, IRouter::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToLeft);
+}
+
+// Test on the route from Leninsky prospect to its understudy and turns generated on the route.
+UNIT_TEST(RussiaMoscowLeninskyProspTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.69035, 37.54948), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.69188, 37.55293));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+}
+
+// Test on the route from TTK (primary) to a link.
+UNIT_TEST(RussiaMoscowTTKToLinkTest)
+{
+TRouteResult const routeResult =
+    integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                MercatorBounds::FromLatLon(55.78594, 37.56656), {0., 0.},
+                                MercatorBounds::FromLatLon(55.78598, 37.56737));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
