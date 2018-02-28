@@ -22,8 +22,9 @@ public:
   using UGCCallbackUnsafe = std::function<void(UGC const & ugc, UGCUpdate const & update)>;
   using UGCJsonToSendCallback = std::function<void(std::string && jsonStr, size_t numberOfUnsynchronized)>;
   using OnResultCallback = platform::SafeCallback<void(Storage::SettingResult const result)>;
+  using NumberOfUnsynchronizedCallback = std::function<void(size_t number)>;
 
-  explicit Api(Index const & index);
+  Api(Index const & index, NumberOfUnsynchronizedCallback const & callback);
 
   void GetUGC(FeatureID const & id, UGCCallbackUnsafe const & callback);
   void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc,

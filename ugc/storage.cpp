@@ -18,7 +18,6 @@
 #include <algorithm>
 #include <utility>
 
-#include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/jansson/myjansson.hpp"
 
 namespace ugc
@@ -204,20 +203,11 @@ void Storage::Load()
     return;
   }
 
-  size_t numberOfUnsynchronized = 0;
   DeserializeUGCIndex(data, m_UGCIndexes);
   for (auto const & i : m_UGCIndexes)
   {
     if (i.m_deleted)
       ++m_numberOfDeleted;
-    else if (!i.m_synchronized)
-      ++numberOfUnsynchronized;
-  }
-
-  if (numberOfUnsynchronized > 1)
-  {
-    alohalytics::Stats::Instance().LogEvent("UGC_unsent",
-                                            {{"num", strings::to_string(numberOfUnsynchronized)}});
   }
 }
 

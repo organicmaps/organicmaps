@@ -1314,7 +1314,14 @@ void Framework::InitUGC()
 {
   ASSERT(!m_ugcApi.get(), ("InitUGC() must be called only once."));
 
-  m_ugcApi = make_unique<ugc::Api>(m_model.GetIndex());
+  m_ugcApi = make_unique<ugc::Api>(m_model.GetIndex(), [this](size_t numberOfUnsynchronized) {
+    if (numberOfUnsynchronized == 0)
+      return;
+
+    alohalytics::Stats::Instance().LogEvent(
+        "UGC_unsent", {{"num", strings::to_string(numberOfUnsynchronized)},
+                       {"is_authenticated", strings::to_string(m_user.IsAuthenticated())}});
+  });
 }
 
 void Framework::InitSearchAPI()

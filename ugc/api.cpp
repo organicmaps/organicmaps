@@ -9,9 +9,13 @@ using namespace ugc;
 
 namespace ugc
 {
-Api::Api(Index const & index) : m_storage(index), m_loader(index)
+Api::Api(Index const & index, NumberOfUnsynchronizedCallback const & callback)
+  : m_storage(index), m_loader(index)
 {
-  m_thread.Push([this] { m_storage.Load(); });
+  m_thread.Push([this, callback] {
+    m_storage.Load();
+    callback(m_storage.GetNumberOfUnsynchronized());
+  });
 }
 
 void Api::GetUGC(FeatureID const & id, UGCCallbackUnsafe const & callback)
