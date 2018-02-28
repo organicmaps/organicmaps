@@ -34,13 +34,6 @@ bool IsHighway(ftypes::HighwayClass hwClass, bool isLink)
          !isLink;
 }
 
-bool IsLinkOrSmallRoad(ftypes::HighwayClass hwClass, bool isLink)
-{
-  return isLink || hwClass == ftypes::HighwayClass::LivingStreet ||
-         hwClass == ftypes::HighwayClass::Service ||
-         hwClass == ftypes::HighwayClass::Pedestrian;
-}
-
 bool IsSmallRoad(ftypes::HighwayClass hwClass)
 {
   return hwClass == ftypes::HighwayClass::LivingStreet ||
@@ -58,8 +51,8 @@ bool IsExit(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
     return false;
 
   if (!IsHighway(turnInfo.m_ingoing.m_highwayClass, turnInfo.m_ingoing.m_isLink) ||
-      !(turnInfo.m_outgoing.m_isLink || IsSmallRoad(turnInfo.m_outgoing.m_highwayClass) &&
-                                            IsGoStraightOrSlightTurn(intermediateDirection)))
+      !(turnInfo.m_outgoing.m_isLink || (IsSmallRoad(turnInfo.m_outgoing.m_highwayClass) &&
+                                            IsGoStraightOrSlightTurn(intermediateDirection))))
   {
     return false;
   }
