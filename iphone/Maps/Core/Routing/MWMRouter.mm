@@ -626,6 +626,9 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   case routing::IRouter::PointsInDifferentMWM:
   case routing::IRouter::InternalError:
   case routing::IRouter::IntermediatePointNotFound:
+  case routing::IRouter::TransitRouteNotFoundNoNetwork:
+  case routing::IRouter::TransitRouteNotFoundTooLongPedestrian:
+  case routing::IRouter::RouteNotFoundRedressRouteError:
     if ([MWMRouter isTaxi])
       return;
     [[MWMAlertViewController activeAlertController] presentAlert:code];
