@@ -45,6 +45,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   private static final String TAG = UpdaterDialogFragment.class.getSimpleName();
 
   private static final String EXTRA_LEFTOVER_MAPS = "extra_leftover_maps";
+  private static final String EXTRA_PROCESSED_MAP_ID = "extra_processed_map_id";
+  private static final String EXTRA_COMMON_STATUS_RES_ID = "extra_common_status_res_id";
 
   private static final String ARG_UPDATE_IMMEDIATELY = "arg_update_immediately";
   private static final String ARG_TOTAL_SIZE = "arg_total_size";
@@ -79,6 +81,11 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   @Nullable
   private DetachableStorageCallback mStorageCallback;
+
+  @Nullable
+  private String mProcessedMapId;
+  @StringRes
+  private int mCommonStatusResId;
 
   private void finish()
   {
@@ -185,6 +192,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     {  // As long as we use HashSet to store leftover maps this cast is safe.
       //noinspection unchecked
       mLeftoverMaps = (HashSet<String>) savedInstanceState.getSerializable(EXTRA_LEFTOVER_MAPS);
+      mProcessedMapId = savedInstanceState.getString(EXTRA_PROCESSED_MAP_ID);
+      mCommonStatusResId = savedInstanceState.getInt(EXTRA_COMMON_STATUS_RES_ID);
     }
     readArguments();
     mStorageCallback = new DetachableStorageCallback(this, mLeftoverMaps, mOutdatedMaps);
@@ -195,6 +204,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   {
     super.onSaveInstanceState(outState);
     outState.putSerializable(EXTRA_LEFTOVER_MAPS, mLeftoverMaps);
+    outState.putString(EXTRA_PROCESSED_MAP_ID, mProcessedMapId);
+    outState.putInt(EXTRA_COMMON_STATUS_RES_ID, mCommonStatusResId);
   }
 
   @NonNull
@@ -322,6 +333,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     {
       int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
       setProgress(progress, mTotalSizeMb * progress / 100, mTotalSizeMb);
+
+      if (mProcessedMapId != null)
+        setCommonStatus(mProcessedMapId, mCommonStatusResId);
     }
   }
 
@@ -345,6 +359,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   void setCommonStatus(@NonNull String mwmId, @StringRes int mwmStatusResId)
   {
+    mProcessedMapId = mwmId;
+    mCommonStatusResId = mwmStatusResId;
+
     String status = getString(mwmStatusResId, MapManager.nativeGetName(mwmId));
     mCommonStatus.setText(status);
   }
