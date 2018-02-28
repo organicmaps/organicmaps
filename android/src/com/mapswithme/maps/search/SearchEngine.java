@@ -20,7 +20,7 @@ public enum SearchEngine implements NativeSearchListener,
 
   // Query, which results are shown on the map.
   @Nullable
-  private static String sSavedQuery;
+  private String mQuery;
 
   @Override
   public void onResultsUpdate(final SearchResult[] results, final long timestamp,
@@ -119,7 +119,7 @@ public enum SearchEngine implements NativeSearchListener,
    * @return whether search was actually started.
    */
   @MainThread
-  public static boolean search(String query, long timestamp, boolean hasLocation,
+  public boolean search(String query, long timestamp, boolean hasLocation,
                                double lat, double lon, @Nullable HotelsFilter hotelsFilter,
                                @Nullable BookingFilterParams bookingParams)
   {
@@ -133,7 +133,7 @@ public enum SearchEngine implements NativeSearchListener,
   }
 
   @MainThread
-  public static void searchInteractive(@NonNull String query, @NonNull String locale, long timestamp,
+  public void searchInteractive(@NonNull String query, @NonNull String locale, long timestamp,
                                        boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter,
                                        @Nullable BookingFilterParams bookingParams)
   {
@@ -145,7 +145,7 @@ public enum SearchEngine implements NativeSearchListener,
   }
 
   @MainThread
-  public static void searchInteractive(@NonNull String query, long timestamp, boolean isMapAndTable,
+  public void searchInteractive(@NonNull String query, long timestamp, boolean isMapAndTable,
                                        @Nullable HotelsFilter hotelsFilter, @Nullable BookingFilterParams bookingParams)
   {
     searchInteractive(query, Language.getKeyboardLocale(), timestamp, isMapAndTable, hotelsFilter, bookingParams);
@@ -160,19 +160,19 @@ public enum SearchEngine implements NativeSearchListener,
     } catch (UnsupportedEncodingException ignored) { }
   }
 
-  public static void setQuery(@Nullable String query)
+  public void setQuery(@Nullable String query)
   {
-    sSavedQuery = query;
+    mQuery = query;
   }
 
   @Nullable
-  public static String getQuery()
+  public String getQuery()
   {
-    return sSavedQuery;
+    return mQuery;
   }
 
   @MainThread
-  public static void cancel()
+  public void cancel()
   {
     cancelApiCall();
     cancelAllSearches();
@@ -186,23 +186,23 @@ public enum SearchEngine implements NativeSearchListener,
   }
 
   @MainThread
-  public static void cancelInteractiveSearch()
+  public void cancelInteractiveSearch()
   {
-    sSavedQuery = "";
+    mQuery = "";
     nativeCancelInteractiveSearch();
   }
 
   @MainThread
-  private static void cancelAllSearches()
+  private void cancelAllSearches()
   {
-    sSavedQuery = "";
+    mQuery = "";
     nativeCancelAllSearches();
   }
 
   @MainThread
-  public static void showResult(int index)
+  public void showResult(int index)
   {
-    sSavedQuery = "";
+    mQuery = "";
     nativeShowResult(index);
   }
 
@@ -228,11 +228,11 @@ public enum SearchEngine implements NativeSearchListener,
 
   private static native void nativeShowResult(int index);
 
-  public static native void nativeCancelInteractiveSearch();
+  private static native void nativeCancelInteractiveSearch();
 
-  public static native void nativeCancelEverywhereSearch();
+  private static native void nativeCancelEverywhereSearch();
 
-  public static native void nativeCancelAllSearches();
+  private static native void nativeCancelAllSearches();
 
   /**
    * @return all existing hotel types

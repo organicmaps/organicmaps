@@ -481,7 +481,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
     if (mIsFragmentContainer)
     {
-      SearchEngine.cancel();
+      SearchEngine.INSTANCE.cancel();
       mSearchController.refreshToolbar();
       replaceFragment(MapManager.nativeIsLegacyMode() ? MigrationFragment.class : DownloaderFragment.class, args, null);
     }
@@ -612,13 +612,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // The previous search should be cancelled before the new one is started, since previous search
     // results are no longer needed.
-    SearchEngine.cancel();
+    SearchEngine.INSTANCE.cancel();
 
-    SearchEngine.searchInteractive(mSearchController.getQuery(), System.nanoTime(),
+    SearchEngine.INSTANCE.searchInteractive(mSearchController.getQuery(), System.nanoTime(),
                                    false /* isMapAndTable */,
                                    mFilterController != null ? mFilterController.getFilter() : null,
                                    mFilterController != null ? mFilterController.getBookingFilterParams() : null);
-    SearchEngine.setQuery(mSearchController.getQuery());
+    SearchEngine.INSTANCE.setQuery(mSearchController.getQuery());
   }
 
   private void initPositionChooser()
@@ -1199,7 +1199,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookingFilterParams params = intent.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
     if (mFilterController != null)
     {
-      mFilterController.show(filter != null || params != null || !TextUtils.isEmpty(SearchEngine.getQuery()), true);
+      mFilterController.show(filter != null || params != null
+                             || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()), true);
       mFilterController.setFilterAndParams(filter, params);
       return filter != null || params != null;
     }
@@ -1350,9 +1351,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mSearchController.hide())
     {
-      SearchEngine.cancelInteractiveSearch();
+      SearchEngine.INSTANCE.cancelInteractiveSearch();
       if (mFilterController != null)
         mFilterController.resetFilter();
+      if (mSearchController != null)
+        mSearchController.clear();
       return;
     }
 
@@ -2058,7 +2061,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
     if (mFilterController != null)
     {
-      boolean show = visible && !TextUtils.isEmpty(SearchEngine.getQuery())
+      boolean show = visible && !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery())
                      && !RoutingController.get().isNavigating();
       mFilterController.show(show, true);
       mMainMenu.show(!show);
@@ -2180,7 +2183,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void updateSearchBar()
   {
-    if (!TextUtils.isEmpty(SearchEngine.getQuery()))
+    if (!TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
       mSearchController.refreshToolbar();
   }
 

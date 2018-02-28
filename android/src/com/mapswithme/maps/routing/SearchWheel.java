@@ -135,7 +135,7 @@ class SearchWheel implements View.OnClickListener
   {
     mIsExpanded = false;
     mCurrentOption = null;
-    SearchEngine.cancelInteractiveSearch();
+    SearchEngine.INSTANCE.cancelInteractiveSearch();
     resetSearchButtonImage();
   }
 
@@ -147,7 +147,7 @@ class SearchWheel implements View.OnClickListener
       return;
     }
 
-    final String query = SearchEngine.getQuery();
+    final String query = SearchEngine.INSTANCE.getQuery();
     if (TextUtils.isEmpty(query))
     {
       resetSearchButtonImage();
@@ -227,7 +227,7 @@ class SearchWheel implements View.OnClickListener
     case R.id.btn_search:
       if (RoutingController.get().isPlanning())
       {
-        if (TextUtils.isEmpty(SearchEngine.getQuery()))
+        if (TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
         {
           showSearchInParent();
           Statistics.INSTANCE.trackRoutingEvent(ROUTING_SEARCH_CLICK, true);
@@ -240,9 +240,9 @@ class SearchWheel implements View.OnClickListener
       }
 
       Statistics.INSTANCE.trackRoutingEvent(ROUTING_SEARCH_CLICK, false);
-      if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.getQuery()))
+      if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
       {
-        SearchEngine.cancelInteractiveSearch();
+        SearchEngine.INSTANCE.cancelInteractiveSearch();
         mCurrentOption = null;
         mIsExpanded = false;
         resetSearchButtonImage();
@@ -288,7 +288,7 @@ class SearchWheel implements View.OnClickListener
   private void startSearch(SearchOption searchOption)
   {
     mCurrentOption = searchOption;
-    SearchEngine.searchInteractive(searchOption.mSearchQuery, System.nanoTime(), false /* isMapAndTable */,
+    SearchEngine.INSTANCE.searchInteractive(searchOption.mSearchQuery, System.nanoTime(), false /* isMapAndTable */,
                                    null /* hotelsFilter */, null /* bookingParams */);
     refreshSearchButtonImage();
 

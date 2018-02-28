@@ -127,7 +127,7 @@ public class SearchFragment extends BaseMwmFragment
       if (mLuggageCategorySelected)
         return;
 
-      if (mAdsLoader != null && !isInteractiveSearch() && query.length() >= MIN_QUERY_LENGTH_FOR_AD)
+      if (mAdsLoader != null && !isTabletSearch() && query.length() >= MIN_QUERY_LENGTH_FOR_AD)
       {
         mAdsRequested = true;
         mAdsLoader.scheduleAdsLoading(getActivity(), query);
@@ -190,7 +190,8 @@ public class SearchFragment extends BaseMwmFragment
 
   private SearchToolbarController mToolbarController;
 
-  @Nullable
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private SearchAdapter mSearchAdapter;
 
   private final List<RecyclerView> mAttachedRecyclers = new ArrayList<>();
@@ -325,7 +326,7 @@ public class SearchFragment extends BaseMwmFragment
 
     UiUtils.showIf(show, mResultsPlaceholder);
     if (mFilterController != null)
-      mFilterController.showPopulateButton(mSearchAdapter.showPopulateButton());
+      mFilterController.showPopulateButton(mSearchAdapter.showPopulateButton() && !isTabletSearch());
   }
 
   @Override
@@ -339,6 +340,7 @@ public class SearchFragment extends BaseMwmFragment
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+    mSearchAdapter = new SearchAdapter(this);
     readArguments();
 
     if (ConnectionState.isWifiConnected() && SharedPropertiesUtils.isShowcaseSwitchedOnLocal())
@@ -406,18 +408,14 @@ public class SearchFragment extends BaseMwmFragment
       mFilterController.setFilterAndParams(mInitialHotelsFilter, mInitialFilterParams);
     mFilterController.updateFilterButtonVisibility(mInitialFilterParams != null);
 
-    if (mSearchAdapter == null)
+    mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
     {
-      mSearchAdapter = new SearchAdapter(this);
-      mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
+      @Override
+      public void onChanged()
       {
-        @Override
-        public void onChanged()
-        {
-          updateResultsPlaceholder();
-        }
-      });
-    }
+        updateResultsPlaceholder();
+      }
+    });
 
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
@@ -547,10 +545,10 @@ public class SearchFragment extends BaseMwmFragment
   {
     final String query = getQuery();
     SearchRecents.add(query);
-    SearchEngine.cancel();
+    SearchEngine.INSTANCE.cancel();
 
     if (!RoutingController.get().isWaitingPoiPick())
-      SearchEngine.showResult(resultIndex);
+      SearchEngine.INSTANCE.showResult(resultIndex);
 
     processSelected(result);
 
@@ -559,6 +557,10 @@ public class SearchFragment extends BaseMwmFragment
 
   void showAllResultsOnMap()
   {
+    // The previous search should be cancelled before the new one is started, since previous search
+    // results are no longer needed.
+    SearchEngine.INSTANCE.cancel();
+
     final String query = getQuery();
     SearchRecents.add(query);
     mLastQueryTimestamp = System.nanoTime();
@@ -571,12 +573,12 @@ public class SearchFragment extends BaseMwmFragment
       bookingFilterParams = mFilterController.getBookingFilterParams();
     }
 
-    SearchEngine.searchInteractive(
+    SearchEngine.INSTANCE.searchInteractive(
         query, !TextUtils.isEmpty(mInitialLocale)
                ? mInitialLocale : com.mapswithme.util.Language.getKeyboardLocale(),
         mLastQueryTimestamp, false /* isMapAndTable */,
         hotelsFilter, bookingFilterParams);
-    SearchEngine.setQuery(query);
+    SearchEngine.INSTANCE.setQuery(query);
     Utils.navigateToParent(getActivity());
 
     Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
@@ -598,11 +600,11 @@ public class SearchFragment extends BaseMwmFragment
 
   private void stopSearch()
   {
-    SearchEngine.cancel();
+    SearchEngine.INSTANCE.cancel();
     updateSearchView();
   }
 
-  private boolean isInteractiveSearch()
+  private boolean isTabletSearch()
   {
     // TODO @yunitsky Implement more elegant solution.
     return getActivity() instanceof MwmActivity;
@@ -612,7 +614,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     // The previous search should be cancelled before the new one is started, since previous search
     // results are no longer needed.
-    SearchEngine.cancel();
+    SearchEngine.INSTANCE.cancel();
 
     HotelsFilter hotelsFilter = null;
     BookingFilterParams bookingFilterParams = null;
@@ -623,14 +625,14 @@ public class SearchFragment extends BaseMwmFragment
     }
 
     mLastQueryTimestamp = System.nanoTime();
-    if (isInteractiveSearch())
+    if (isTabletSearch())
     {
-      SearchEngine.searchInteractive(getQuery(), mLastQueryTimestamp, true /* isMapAndTable */,
+      SearchEngine.INSTANCE.searchInteractive(getQuery(), mLastQueryTimestamp, true /* isMapAndTable */,
                                      hotelsFilter, bookingFilterParams);
     }
     else
     {
-      if (!SearchEngine.search(getQuery(), mLastQueryTimestamp, mLastPosition.valid,
+      if (!SearchEngine.INSTANCE.search(getQuery(), mLastQueryTimestamp, mLastPosition.valid,
                                mLastPosition.lat, mLastPosition.lon,
                                hotelsFilter, bookingFilterParams))
       {
@@ -681,7 +683,7 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public void onFilterAvailableHotels(@Nullable FeatureId[] availableHotels)
   {
-    if (mSearchAdapter == null || availableHotels == null)
+    if (availableHotels == null)
       return;
 
     mSearchAdapter.setAvailableHotels(availableHotels);
@@ -714,8 +716,7 @@ public class SearchFragment extends BaseMwmFragment
     stopAdsLoading();
     mSearchRunning = true;
     updateFrames();
-    if (mSearchAdapter != null)
-      mSearchAdapter.refreshData(combineResultsWithAds());
+    mSearchAdapter.refreshData(combineResultsWithAds());
     mToolbarController.showProgress(true);
     updateFilterButton(mIsHotel);
   }

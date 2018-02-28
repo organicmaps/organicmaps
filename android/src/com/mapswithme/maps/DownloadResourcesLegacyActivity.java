@@ -591,7 +591,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       org.alohalytics.Statistics.logEvent("MapsWithMeIntentProcessor::process", apiUrl == null ? "null" : apiUrl);
       if (apiUrl != null)
       {
-        SearchEngine.nativeCancelInteractiveSearch();
+        SearchEngine.INSTANCE.cancelInteractiveSearch();
 
         final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
         ParsedMwmRequest.setCurrentRequest(request);

@@ -70,7 +70,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
       });
       setQuery(ParsedMwmRequest.getCurrentRequest().getTitle());
     }
-    else if (!TextUtils.isEmpty(SearchEngine.getQuery()))
+    else if (!TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
     {
       Animations.appearSliding(mToolbar, Animations.TOP, new Runnable()
       {
@@ -81,7 +81,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
             mVisibilityListener.onSearchVisibilityChanged(true);
         }
       });
-      setQuery(SearchEngine.getQuery());
+      setQuery(SearchEngine.INSTANCE.getQuery());
     }
     else
     {
@@ -92,7 +92,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
 
   private void cancelSearchApiAndHide(boolean clearText)
   {
-    SearchEngine.cancel();
+    SearchEngine.INSTANCE.cancel();
 
     if (clearText)
       clear();
