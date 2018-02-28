@@ -26,16 +26,31 @@ public:
     m_sink.Write(buffer.get(), strlen(buffer.get()));
   }
 
-  void operator()(bool const d, char const * name = nullptr) { ToJSONObject(*m_json, name, d); }
-  void operator()(uint8_t const d, char const * name = nullptr) { ToJSONObject(*m_json, name, d); }
-  void operator()(uint32_t const d, char const * name = nullptr) { ToJSONObject(*m_json, name, d); }
-  void operator()(uint64_t const d, char const * name = nullptr) { ToJSONObject(*m_json, name, d); }
-  void operator()(int64_t const d, char const * name = nullptr) { ToJSONObject(*m_json, name, d); }
-  void operator()(double const d, char const * name = nullptr) { ToJSONObject(*m_json, name, d); }
-  void operator()(std::string const & s, char const * name = nullptr)
+  template <typename T>
+  void ToJsonObjectOrValue(T const & value, char const * name)
   {
-    ToJSONObject(*m_json, name, s);
+    if (name != nullptr)
+    {
+      ToJSONObject(*m_json, name, value);
+    }
+    else if (json_is_array(m_json))
+    {
+      auto json = ToJSON(value);
+      json_array_append_new(m_json.get(), json.release());
+    }
+    else
+    {
+      ASSERT(false, ("Unsupported JSON structure"));
+    }
   }
+
+  void operator()(bool const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
+  void operator()(uint8_t const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
+  void operator()(uint32_t const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
+  void operator()(uint64_t const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
+  void operator()(int64_t const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
+  void operator()(double const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
+  void operator()(std::string const & s, char const * name = nullptr) { ToJsonObjectOrValue(s, name); }
 
   template <typename T>
   void operator()(std::vector<T> const & vs, char const * name = nullptr)

@@ -63,14 +63,27 @@ public:
                                     visitor(m_lastSyncTimestamp, "lastSyncTimestamp"))
   };
 
+  struct SnapshotRequestData
+  {
+    std::string m_deviceId;
+    std::string m_deviceName;
+    std::vector<std::string> m_fileNames;
+
+    explicit SnapshotRequestData(std::vector<std::string> const & files = {});
+
+    DECLARE_VISITOR_AND_DEBUG_PRINT(SnapshotRequestData, visitor(m_deviceId, "device_id"),
+                                    visitor(m_deviceName, "device_name"),
+                                    visitor(m_fileNames, "file_names"))
+  };
+
   struct UploadingRequestData
   {
-    std::string m_alohaId;
-    std::string m_deviceName;
+    std::string m_deviceId;
     std::string m_fileName;
 
-    DECLARE_VISITOR_AND_DEBUG_PRINT(UploadingRequestData, visitor(m_alohaId, "aloha_id"),
-                                    visitor(m_deviceName, "device_name"),
+    explicit UploadingRequestData(std::string const & filePath = {});
+
+    DECLARE_VISITOR_AND_DEBUG_PRINT(UploadingRequestData, visitor(m_deviceId, "device_id"),
                                     visitor(m_fileName, "file_name"))
   };
 
@@ -83,6 +96,18 @@ public:
     DECLARE_VISITOR_AND_DEBUG_PRINT(UploadingResponseData, visitor(m_url, "url"),
                                     visitor(m_fields, "fields"),
                                     visitor(m_method, "method"))
+  };
+
+  struct NotifyRequestData : public UploadingRequestData
+  {
+    uint64_t m_fileSize = 0;
+
+    NotifyRequestData() = default;
+    NotifyRequestData(std::string const & filePath, uint64_t fileSize);
+
+    DECLARE_VISITOR_AND_DEBUG_PRINT(NotifyRequestData, visitor(m_deviceId, "device_id"),
+                                    visitor(m_fileName, "file_name"),
+                                    visitor(m_fileSize, "file_size"))
   };
 
   enum class RequestStatus
@@ -136,6 +161,7 @@ public:
   using SynchronizationStartedHandler = std::function<void()>;
   using SynchronizationFinishedHandler = std::function<void(SynchronizationResult,
                                                             std::string const & error)>;
+  using SnapshotCompletionHandler = std::function<void()>;
 
   struct CloudParams
   {
@@ -161,7 +187,9 @@ public:
   explicit Cloud(CloudParams && params);
   ~Cloud();
 
+  // Handler can be called from non-UI thread.
   void SetInvalidTokenHandler(InvalidTokenHandler && onInvalidToken);
+  // Handlers can be called from non-UI thread.
   void SetSynchronizationHandlers(SynchronizationStartedHandler && onSynchronizationStarted,
                                   SynchronizationFinishedHandler && onSynchronizationFinished);
 
@@ -188,6 +216,9 @@ private:
   void ScheduleUploading();
   void ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
                              uint32_t attemptIndex);
+  void CreateSnapshotTask(uint32_t timeout, uint32_t attemptIndex,
+                          std::vector<std::string> && files,
+                          SnapshotCompletionHandler && handler);
   EntryPtr FindOutdatedEntry() const;
   void FinishUploading(SynchronizationResult result, std::string const & errorStr);
   void SetAccessToken(std::string const & token);
@@ -196,12 +227,11 @@ private:
   // in case of a disk error.
   std::string PrepareFileToUploading(std::string const & fileName);
 
-  UploadingResult RequestUploading(std::string const & uploadingUrl,
-                                   std::string const & filePath) const;
+  RequestResult CreateSnapshot(std::vector<std::string> const & files) const;
+  UploadingResult RequestUploading(std::string const & filePath) const;
   RequestResult ExecuteUploading(UploadingResponseData const & responseData,
                                  std::string const & filePath);
-  RequestResult NotifyAboutUploading(std::string const & notificationUrl,
-                                     std::string const & filePath) const;
+  RequestResult NotifyAboutUploading(std::string const & filePath, uint64_t fileSize) const;
 
   CloudParams const m_params;
   InvalidTokenHandler m_onInvalidToken;
