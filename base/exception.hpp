@@ -11,9 +11,7 @@ class RootException : public std::exception
 public:
   RootException(char const * what, std::string const & msg);
 
-  virtual ~RootException() throw()
-  {
-  }
+  virtual ~RootException() noexcept = default;
 
   std::string const & Msg() const { return m_msg; }
 
