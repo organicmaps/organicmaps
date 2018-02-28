@@ -41,6 +41,12 @@ bool IsLinkOrSmallRoad(ftypes::HighwayClass hwClass, bool isLink)
          hwClass == ftypes::HighwayClass::Pedestrian;
 }
 
+bool IsSmallRoad(ftypes::HighwayClass hwClass)
+{
+  return hwClass == ftypes::HighwayClass::LivingStreet ||
+         hwClass == ftypes::HighwayClass::Service || hwClass == ftypes::HighwayClass::Pedestrian;
+}
+
 /// \brief Fills |turn| with |CarDirection::ExitHighwayToRight| or |CarDirection::ExitHighwayToLeft|
 /// and returns true. Or does not change |turn| and returns false.
 /// \note The function makes a decision about |turn| based on geometry of the route and turn
@@ -52,16 +58,13 @@ bool IsExit(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
     return false;
 
   if (!IsHighway(turnInfo.m_ingoing.m_highwayClass, turnInfo.m_ingoing.m_isLink) ||
-      !IsLinkOrSmallRoad(turnInfo.m_outgoing.m_highwayClass, turnInfo.m_outgoing.m_isLink))
+      !(turnInfo.m_outgoing.m_isLink || IsSmallRoad(turnInfo.m_outgoing.m_highwayClass) &&
+                                            IsGoStraightOrSlightTurn(intermediateDirection)))
   {
     return false;
   }
-
-  if (turnInfo.m_ingoing.m_highwayClass == ftypes::HighwayClass::Primary &&
-      !turnInfo.m_outgoing.m_isLink && !IsGoStraightOrSlightTurn(intermediateDirection))
-  {
-    return false;
-  }
+  // At this point it is known that the route goes form a highway to a link road or to a small road
+  // which has a slight angle with the highway.
 
   // Considering cases when the route goes from a highway to a link or a small road.
   // Checking all turn candidates (sorted by their angles) and looking for the road which is a

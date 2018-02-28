@@ -813,7 +813,7 @@ UNIT_TEST(EnglandLondonExitToLeftTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToLeft);
 }
 
-// Test on the route from Leninsky prospect to its understudy and turns generated on the route.
+// Test on the route from Leninsky prospect to its frontage road and turns generated on the route.
 UNIT_TEST(RussiaMoscowLeninskyProspTest)
 {
   TRouteResult const routeResult =

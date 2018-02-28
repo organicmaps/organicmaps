@@ -270,8 +270,8 @@ enum class HighwayClass
   LivingStreet,
   Service,
   Pedestrian,
-  Transported,    // Vehicles are transported by a train or a ferry.
-  Count  // This value is used for internals only.
+  Transported,    // Vehicles are transported by train or ferry.
+  Count           // This value is used for internals only.
 };
 
 string DebugPrint(HighwayClass const cls);
