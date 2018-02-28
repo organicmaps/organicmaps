@@ -845,3 +845,51 @@ TRouteResult const routeResult =
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
+
+// Test on the turn from TTK (primary) to a secondary road.
+UNIT_TEST(RussiaMoscowTTKToBegovayAlleyaTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.77946, 37.55779), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.77956, 37.55891));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+}
+
+// Test on the turn from TTK (primary) to a service road. The angle of the turn is not slight.
+UNIT_TEST(RussiaMoscowTTKToServiceTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.78874, 37.5704), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.78881, 37.57106));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+}
+
+// Test on a turn from TTK (primary) to an unclassified road. The angle of the turn is slight.
+UNIT_TEST(RussiaMoscowTTKToNMaslovkaTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.79057, 37.57292), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.79132, 37.57481));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
+}
