@@ -320,7 +320,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetTrack(
                       nColor.GetBlue();
 
   return env->NewObject(trackClazz, cId,
-                        trackId, nTrack->GetGroupId(), jni::ToJavaString(env, nTrack->GetName()),
+                        trackId, static_cast<jlong>(nTrack->GetGroupId()), jni::ToJavaString(env, nTrack->GetName()),
                         jni::ToJavaString(env, formattedLength), androidColor);
 }
 
