@@ -107,18 +107,25 @@ enum class State
 - (void)setStatusForNodeName:(NSString *)nodeName rootAttributes:(NodeAttrs const &)nodeAttrs
 {
   auto const progress = nodeAttrs.m_downloadingProgress;
-  CGFloat const prog = kMaxProgress * static_cast<CGFloat>(progress.first) / progress.second;
-  self.spinner.progress = prog;
+  if (progress.second > 0)
+  {
+    CGFloat const prog = kMaxProgress * static_cast<CGFloat>(progress.first) / progress.second;
+    self.spinner.progress = prog;
 
-  NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
-  [numberFormatter setNumberStyle:NSNumberFormatterPercentStyle];
-  [numberFormatter setMaximumFractionDigits:0];
-  [numberFormatter setMultiplier:@100];
-  NSString * percent = [numberFormatter stringFromNumber:@(prog)];
-  NSString * downloadedSize = formattedSize(progress.first);
-  NSString * totalSize = formattedSize(progress.second);
-  self.progressLabel.text = [NSString stringWithCoreFormat:L(@"downloader_percent")
-                                                 arguments:@[percent, downloadedSize, totalSize]];
+    NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle:NSNumberFormatterPercentStyle];
+    [numberFormatter setMaximumFractionDigits:0];
+    [numberFormatter setMultiplier:@100];
+    NSString * percent = [numberFormatter stringFromNumber:@(prog)];
+    NSString * downloadedSize = formattedSize(progress.first);
+    NSString * totalSize = formattedSize(progress.second);
+    self.progressLabel.text = [NSString stringWithCoreFormat:L(@"downloader_percent")
+                                                   arguments:@[percent, downloadedSize, totalSize]];
+  }
+  else
+  {
+    self.progressLabel.text = @"";
+  }
 
   BOOL const isApplying = nodeAttrs.m_status == storage::NodeStatus::Applying;
   NSString * format = L(isApplying ? @"downloader_applying" : @"downloader_process");
