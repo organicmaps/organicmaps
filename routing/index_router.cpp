@@ -725,32 +725,48 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
                                               IndexGraphStarter & starter,
                                               vector<Segment> & output)
 {
-  output.reserve(input.size());
+  if (prevMode != WorldGraph::Mode::LeapsOnly)
+  {
+    output = input;
+    return IRouter::NoError;
+  }
 
-  auto const isNotLeap = [&](Segment const & s) {
-    return prevMode != WorldGraph::Mode::LeapsOnly;
-  };
+  CHECK_GREATER_OR_EQUAL(input.size(), 4,
+                         ("Route in LeapsOnly mode must have at least start and finish leaps."));
 
   WorldGraph & worldGraph = starter.GetGraph();
 
   // For all leaps except the first leap which connects start to mwm exit in LeapsOnly mode we need
   // to drop first segment of the leap because we already have its twin from the previous mwm.
   bool dropFirstSegment = false;
-  for (size_t i = 0; i < input.size(); ++i)
+
+  // While route building in LeapOnly mode we estimate start to mwm exit distance. This estimation may
+  // be incorrect and it causes appearance of unneeded loops: route goes from start to wrongly selected mwm exit,
+  // then we have small unneeded leap in other mwm which returns us to start mwm, then we have leap in start mwm
+  // to the correct start mwm exit and then we have normal route.
+  // |input| mwm ids for such case look like
+  // { fake, startId, otherId, otherId, startId, startId, .. pairs of ids for other leaps .. , finishId, fake}.
+  // To avoid this behavior we collapse all leaps from start to last occurrence of startId to one leap and
+  // use WorldGraph with NoLeaps mode to proccess these leap. Unlike SingleMwm mode used to process ordinary leaps
+  // NoLeaps allows to use all mwms so if we really need to visit other mwm we will.
+  auto const firstMwmId = input[1].GetMwmId();
+  auto const startLeapEndReverseIt = find_if(input.rbegin() + 2, input.rend(),
+                                             [firstMwmId](Segment const & s) { return s.GetMwmId() == firstMwmId; });
+  auto const startLeapEndIt = startLeapEndReverseIt.base() - 1;
+  auto const startLeapEnd = distance(input.begin(), startLeapEndIt);
+
+  // The last leap processed the same way. See the comment above.
+  auto const lastMwmId = input[input.size() - 2].GetMwmId();
+  auto const finishLeapStartIt = find_if(startLeapEndIt, input.end(),
+                                         [lastMwmId](Segment const & s) { return s.GetMwmId() == lastMwmId; });
+  auto const finishLeapStart = distance(input.begin(), finishLeapStartIt);
+
+  for (size_t i = 0; i <= finishLeapStart; ++i)
   {
     auto const & current = input[i];
-    if (isNotLeap(current))
-    {
-      output.push_back(current);
-      continue;
-    }
 
     // Clear previous loaded graphs to not spend too much memory at one time.
     worldGraph.ClearCachedGraphs();
-
-    ++i;
-    CHECK_LESS(i, input.size(), ());
-    auto const & next = input[i];
 
     auto checkLength = [&starter](RouteWeight const & weight) {
       return starter.CheckLength(weight);
@@ -758,8 +774,13 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
 
     IRouter::ResultCode result = IRouter::InternalError;
     RoutingResult<Segment, RouteWeight> routingResult;
-    if (i == 1 || i + 1 == input.size())
+    if (i == 0 || i == finishLeapStart)
     {
+      bool const isStartLeap = i == 0;
+      i = isStartLeap ? startLeapEnd : input.size() - 1;
+      CHECK_LESS(i, input.size(), ());
+      auto const & next = input[i];
+
       // First start-to-mwm-exit and last mwm-enter-to-finish leaps need special processing.
       // In case of leaps from the start to its mwm transition and from finish to mwm transition
       // route calculation should be made on the world graph (WorldGraph::Mode::NoLeaps).
@@ -768,12 +789,12 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
           starter, current, next, nullptr /* prevRoute */, delegate,
           {} /* onVisitedVertexCallback */, checkLength);
       set<NumMwmId> mwmIds;
-      if (i == 1)
+      if (isStartLeap)
       {
         mwmIds = starter.GetStartMwms();
         mwmIds.insert(next.GetMwmId());
       }
-      if (i + 1 == input.size())
+      else
       {
         mwmIds = starter.GetFinishMwms();
         mwmIds.insert(current.GetMwmId());
@@ -783,6 +804,10 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
     }
     else
     {
+      ++i;
+      CHECK_LESS(i, input.size(), ());
+      auto const & next = input[i];
+
       CHECK(!IndexGraphStarter::IsFakeSegment(current), ());
       CHECK(!IndexGraphStarter::IsFakeSegment(next), ());
       CHECK_EQUAL(
