@@ -376,6 +376,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {
     case taxi::Provider::Uber: type = MWMPlacePageTaxiProviderUber; break;
     case taxi::Provider::Yandex: type = MWMPlacePageTaxiProviderYandex; break;
+    case taxi::Provider::Maxim: type = MWMPlacePageTaxiProviderMaxim; break;
     }
     [c configWithType:type delegate:delegate];
     self.taxiCell = c;
@@ -595,6 +596,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {
     case taxi::Provider::Uber: provider = kStatUber; break;
     case taxi::Provider::Yandex: provider = kStatYandex; break;
+    case taxi::Provider::Maxim: provider = kStatMaxim; break;
     }
     [Statistics logEvent:kStatPlacepageTaxiShow
           withParameters:@{kStatProvider: provider, kStatPlacement: kStatPlacePage}];

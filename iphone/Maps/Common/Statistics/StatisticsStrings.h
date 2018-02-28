@@ -173,6 +173,7 @@ static NSString * const kStatMapSearch = @"Map search";
 static NSString * const kStatMapViewStyle = @"Map view style";
 static NSString * const kStatMapViewStyleSettings = @"Map view style settings";
 static NSString * const kStatMapsme = @"maps.me";
+static NSString * const kStatMaxim = @"Maxim";
 static NSString * const kStatMenu = @"Menu";
 static NSString * const kStatMigrationBig2SmallMWM = @"Big mwms to small mwms migration counter";
 static NSString * const kStatMiles = @"Miles";

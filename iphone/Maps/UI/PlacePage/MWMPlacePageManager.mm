@@ -347,6 +347,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   case MWMPlacePageTaxiProviderTaxi: providerString = kStatUnknown; break;
   case MWMPlacePageTaxiProviderUber: providerString = kStatUber; break;
   case MWMPlacePageTaxiProviderYandex: providerString = kStatYandex; break;
+  case MWMPlacePageTaxiProviderMaxim: providerString = kStatMaxim; break;
   }
   [Statistics logEvent:kStatPlacePageTaxiClick
         withParameters:@{kStatProvider : providerString, kStatTags : data.statisticsTags}];

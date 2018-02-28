@@ -129,6 +129,10 @@ using namespace taxi;
           self.type = MWMRoutePreviewTaxiCellTypeYandex;
           providerName = kStatYandex;
           break;
+        case taxi::Provider::Type::Maxim:
+          self.type = MWMRoutePreviewTaxiCellTypeMaxim;
+          providerName = kStatMaxim;
+          break;
         }
         [Statistics logEvent:kStatRoutingBuildTaxi withParameters:@{@"provider": providerName}];
         auto cv = self.collectionView;
@@ -159,6 +163,7 @@ using namespace taxi;
         {
         case taxi::Provider::Type::Uber: provider = kStatUber; break;
         case taxi::Provider::Type::Yandex: provider = kStatYandex; break;
+        case taxi::Provider::Type::Maxim: provider = kStatMaxim; break;
         }
         NSString * errorValue = nil;
         switch (errorCode)
@@ -189,6 +194,7 @@ using namespace taxi;
   case MWMRoutePreviewTaxiCellTypeTaxi: return NO;
   case MWMRoutePreviewTaxiCellTypeUber: url = [NSURL URLWithString:@"uber://"]; break;
   case MWMRoutePreviewTaxiCellTypeYandex: url = [NSURL URLWithString:@"yandextaxi://"]; break;
+  case MWMRoutePreviewTaxiCellTypeMaxim: url = [NSURL URLWithString:@"maximzakaz://"]; break;
   }
   return [UIApplication.sharedApplication canOpenURL:url];
 }
@@ -210,6 +216,7 @@ using namespace taxi;
     case MWMRoutePreviewTaxiCellTypeTaxi: return;
     case MWMRoutePreviewTaxiCellTypeUber: type = Provider::Type::Uber; break;
     case MWMRoutePreviewTaxiCellTypeYandex: type = Provider::Type::Yandex; break;
+    case MWMRoutePreviewTaxiCellTypeMaxim: type = Provider::Type::Maxim; break;
     }
 
     auto links = engine->GetRideRequestLinks(type, productId, m_from, m_to);
