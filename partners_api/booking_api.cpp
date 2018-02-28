@@ -129,7 +129,9 @@ vector<HotelPhotoUrls> ParsePhotos(json_t const * photosArray)
   for (size_t i = 0; i < sz; ++i)
   {
     auto item = json_array_get(photosArray, i);
-    FromJSON(item, photoId);
+
+    // Sometimes booking.com returns photo ids as strings, sometimes as integers.
+    photoId = FromJSONToString(item);
 
     // First three digits of id are used as part of path to photo on the server.
     if (photoId.size() < 3)

@@ -4,6 +4,17 @@
 
 using namespace std;
 
+namespace
+{
+template <typename T>
+string FromJSONToString(json_t * root)
+{
+  T result;
+  FromJSON(root, result);
+  return strings::to_string(result);
+}
+}  // namespace
+
 namespace my
 {
 json_t * GetJSONObligatoryField(json_t * root, std::string const & field)
@@ -36,6 +47,23 @@ void FromJSON(json_t * root, bool & result)
   if (!json_is_true(root) && !json_is_false(root) )
     MYTHROW(my::Json::Exception, ("Object must contain a boolean value."));
   result = json_is_true(root);
+}
+
+string FromJSONToString(json_t * root)
+{
+  if (json_is_string(root))
+    return FromJSONToString<string>(root);
+
+  if (json_is_integer(root))
+    return FromJSONToString<json_int_t>(root);
+
+  if (json_is_real(root))
+    return FromJSONToString<double>(root);
+
+  if (json_is_boolean(root))
+    return FromJSONToString<bool>(root);
+
+  MYTHROW(my::Json::Exception, ("Unexpected json type"));
 }
 
 namespace std

@@ -72,6 +72,8 @@ void FromJSON(json_t * root, T & result)
   result = static_cast<T>(json_integer_value(root));
 }
 
+std::string FromJSONToString(json_t * root);
+
 template <typename T>
 void FromJSONObject(json_t * root, std::string const & field, T & result)
 {
