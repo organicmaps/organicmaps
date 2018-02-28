@@ -54,8 +54,6 @@ using Observers = NSHashTable<Observer>;
 
 @property(nonatomic) AVSpeechSynthesizer * speechSynthesizer;
 @property(nonatomic) AVSpeechSynthesisVoice * speechVoice;
-@property(nonatomic) float speechRate;
-@property(nonatomic) AVAudioSession * audioSession;
 
 @property(nonatomic) Observers * observers;
 
@@ -105,29 +103,27 @@ using Observers = NSHashTable<Observer>;
     else
       [self setNotificationsLocale:kDefaultLanguage];
 
-    // Before 9.0 version iOS has an issue with speechRate. AVSpeechUtteranceDefaultSpeechRate does
-    // not work correctly.
-    // It's a work around for iOS 7.x and 8.x.
-    _speechRate =
-        isIOSVersionLessThan(@"7.1.1")
-            ? 0.3
-            : (isIOSVersionLessThan(@"9.0.0") ? 0.15 : AVSpeechUtteranceDefaultSpeechRate);
-
     NSError * err = nil;
-    _audioSession = [AVAudioSession sharedInstance];
-    if (![_audioSession setCategory:AVAudioSessionCategoryPlayback
-                        withOptions:AVAudioSessionCategoryOptionMixWithOthers |
-                                    AVAudioSessionCategoryOptionDuckOthers
-                              error:&err])
+    if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+                                          withOptions:AVAudioSessionCategoryOptionMixWithOthers |
+                                                      AVAudioSessionCategoryOptionDuckOthers
+                                                error:&err])
     {
       LOG(LWARNING, ("[ setCategory]] error.", [err localizedDescription]));
     }
+
     self.active = YES;
   }
   return self;
 }
 
-- (void)dealloc { self.speechSynthesizer.delegate = nil; }
+- (void)dealloc
+{
+  [[AVAudioSession sharedInstance] setActive:NO
+                                 withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
+                                       error:nil];
+  self.speechSynthesizer.delegate = nil;
+}
 - (std::vector<std::pair<string, string>>)availableLanguages { return _availableLanguages; }
 - (void)setNotificationsLocale:(NSString *)locale
 {
@@ -163,7 +159,6 @@ using Observers = NSHashTable<Observer>;
     return;
   if (active && ![self isValid])
     [self createVoice:[[self class] savedLanguage]];
-  [self setAudioSessionActive:active];
   [MWMRouter enableTurnNotifications:active];
   dispatch_async(dispatch_get_main_queue(), ^{
     [self onTTSStatusUpdated];
@@ -233,38 +228,50 @@ using Observers = NSHashTable<Observer>;
   CLS_LOG(@"Speak text: %@", textToSpeak);
   AVSpeechUtterance * utterance = [AVSpeechUtterance speechUtteranceWithString:textToSpeak];
   utterance.voice = self.speechVoice;
-  utterance.rate = self.speechRate;
+  utterance.rate = AVSpeechUtteranceDefaultSpeechRate;
   [self.speechSynthesizer speakUtterance:utterance];
 }
 
 - (void)playTurnNotifications
 {
-  if (![MWMRouter isOnRoute])
-    return;
+  auto stopSession = ^{
+    if (self.speechSynthesizer.isSpeaking)
+      return;
+    [[AVAudioSession sharedInstance]
+          setActive:NO
+        withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
+              error:nil];
+  };
 
-  if (self.active && ![self isValid])
+  if (![MWMRouter isOnRoute] || !self.active)
+  {
+    stopSession();
+    return;
+  }
+
+  if (![self isValid])
     [self createVoice:[[self class] savedLanguage]];
 
-  if (!self.active || ![self isValid])
+  if (![self isValid])
+  {
+    stopSession();
     return;
+  }
 
   NSArray<NSString *> * turnNotifications = [MWMRouter turnNotifications];
-  for (NSString * notification in turnNotifications)
-    [self speakOneString:notification];
-}
-
-- (BOOL)setAudioSessionActive:(BOOL)audioSessionActive
-{
-  NSError * err;
-  if (![self.audioSession setActive:audioSessionActive
-                        withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
-                              error:&err])
+  if (turnNotifications.count == 0)
   {
-    LOG(LWARNING,
-        ("[[AVAudioSession sharedInstance] setActive]] error.", [err localizedDescription]));
-    return NO;
+    stopSession();
+    return;
   }
-  return YES;
+  else
+  {
+    if (![[AVAudioSession sharedInstance] setActive:YES error:nil])
+      return;
+
+    for (NSString * notification in turnNotifications)
+      [self speakOneString:notification];
+  }
 }
 
 #pragma mark - MWMNavigationDashboardObserver
