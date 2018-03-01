@@ -141,7 +141,7 @@ NSString * const kiOSEmail = @"ios@maps.me";
 {
   if ([MWMMailViewController canSendMail])
   {
-    NSString * device = [AppInfo sharedInfo].deviceName;
+    NSString * deviceModel = [AppInfo sharedInfo].deviceModel;
     NSString * languageCode = NSLocale.preferredLanguages.firstObject;
     NSString * language = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
         displayNameForKey:NSLocaleLanguageCode
@@ -153,7 +153,7 @@ NSString * const kiOSEmail = @"ios@maps.me";
     NSString * bundleVersion = [AppInfo sharedInfo].bundleVersion;
     NSString * buildNumber = [AppInfo sharedInfo].buildNumber;
     NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@ (%@)\n- %@/%@",
-                                                 device, UIDevice.currentDevice.systemVersion,
+                                                 deviceModel, UIDevice.currentDevice.systemVersion,
                                                  bundleVersion, buildNumber, language, country];
     NSString * alohalyticsId = [Alohalytics installationId];
     if (alohalyticsId)

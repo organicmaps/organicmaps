@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, MWMOpenGLDriver) {
 @property(nonatomic, readonly) NSString * languageId;
 @property(nonatomic, readonly) NSString * twoLetterLanguageId;
 @property(nonatomic, readonly) NSDate * buildDate;
-@property(nonatomic, readonly) NSString * deviceName;
+@property(nonatomic, readonly) NSString * deviceModel;
 @property(nonatomic, readonly) MWMOpenGLDriver openGLDriver;
 @property(nonatomic, readonly) BOOL canMakeCalls;
 

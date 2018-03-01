@@ -139,7 +139,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
   alertController.view.alpha = 0.;
   if ([MWMMailViewController canSendMail])
   {
-    NSString * device = [AppInfo sharedInfo].deviceName;
+    NSString * deviceModel = [AppInfo sharedInfo].deviceModel;
     NSString * languageCode = NSLocale.preferredLanguages.firstObject;
     NSString * language = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
         displayNameForKey:NSLocaleLanguageCode
@@ -150,7 +150,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
                     value:locale];
     NSString * bundleVersion = AppInfo.sharedInfo.bundleVersion;
     NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@",
-                                                 device, UIDevice.currentDevice.systemVersion,
+                                                 deviceModel, UIDevice.currentDevice.systemVersion,
                                                  bundleVersion, language, country];
     MWMMailViewController * mailController = [[MWMMailViewController alloc] init];
     mailController.mailComposeDelegate = self;
