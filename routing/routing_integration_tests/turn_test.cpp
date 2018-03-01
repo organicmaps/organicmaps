@@ -912,3 +912,19 @@ UNIT_TEST(RussiaMoscowComplicatedTurnTest)
       {CarDirection::GoStraight, CarDirection::TurnSlightLeft});
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
 }
+
+UNIT_TEST(USATampaTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(28.04875, -82.58292), {0., 0.},
+                                  MercatorBounds::FromLatLon(28.04459, -82.58448));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
+      {CarDirection::TurnSlightRight, CarDirection::TurnRight});
+}
