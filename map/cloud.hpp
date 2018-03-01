@@ -233,6 +233,18 @@ private:
                                  std::string const & filePath);
   RequestResult NotifyAboutUploading(std::string const & filePath, uint64_t fileSize) const;
 
+  template <typename HandlerType, typename HandlerGetterType, typename... HandlerArgs>
+  void ThreadSafeCallback(HandlerGetterType && handlerGetter, HandlerArgs... handlerArgs)
+  {
+    HandlerType handler;
+    {
+      std::lock_guard<std::mutex> lock(m_mutex);
+      handler = handlerGetter();
+    }
+    if (handler != nullptr)
+      handler(handlerArgs...);
+  }
+
   CloudParams const m_params;
   InvalidTokenHandler m_onInvalidToken;
   SynchronizationStartedHandler m_onSynchronizationStarted;

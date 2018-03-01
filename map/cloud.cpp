@@ -126,11 +126,16 @@ bool IsSuccessfulResultCode(int resultCode)
 {
   return resultCode >= 200 && resultCode < 300;
 }
+
+std::string GetDeviceName()
+{
+  return GetPlatform().DeviceName() + " (" + GetPlatform().DeviceModel() + ")";
+}
 }  // namespace
 
 Cloud::SnapshotRequestData::SnapshotRequestData(std::vector<std::string> const & files)
   : m_deviceId(GetPlatform().UniqueClientId())
-  , m_deviceName(GetPlatform().DeviceName())
+  , m_deviceName(GetDeviceName())
   , m_fileNames(files)
 {}
 
@@ -418,8 +423,8 @@ void Cloud::ScheduleUploading()
     m_uploadingStarted = true;
   }
 
-  if (m_onSynchronizationStarted != nullptr)
-    m_onSynchronizationStarted();
+  ThreadSafeCallback<SynchronizationStartedHandler>(
+      [this]() { return m_onSynchronizationStarted; });
 
   // Create snapshot and begin uploading in case of success.
   CreateSnapshotTask(kTaskTimeoutInSeconds, 0 /* attemptIndex */,
@@ -504,10 +509,6 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
       }
       else if (result.m_requestResult.m_status == RequestStatus::Forbidden)
       {
-        // Finish uploading and notify about invalid access token.
-        if (m_onInvalidToken != nullptr)
-          m_onInvalidToken();
-
         FinishUploading(SynchronizationResult::AuthError, result.m_requestResult.m_error);
         return;
       }
@@ -587,10 +588,6 @@ void Cloud::CreateSnapshotTask(uint32_t timeout, uint32_t attemptIndex,
     }
     else if (result.m_status == RequestStatus::Forbidden)
     {
-      // Finish and notify about invalid access token.
-      if (m_onInvalidToken != nullptr)
-        m_onInvalidToken();
-
       FinishUploading(SynchronizationResult::AuthError, result.m_error);
       return;
     }
@@ -782,6 +779,9 @@ Cloud::EntryPtr Cloud::FindOutdatedEntry() const
 
 void Cloud::FinishUploading(SynchronizationResult result, std::string const & errorStr)
 {
+  if (result == SynchronizationResult::AuthError)
+    ThreadSafeCallback<InvalidTokenHandler>([this]() { return m_onInvalidToken; });
+
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     m_index.m_isOutdated = (result != SynchronizationResult::Success);
@@ -794,8 +794,8 @@ void Cloud::FinishUploading(SynchronizationResult result, std::string const & er
     SaveIndexImpl();
   }
 
-  if (m_onSynchronizationFinished != nullptr)
-    m_onSynchronizationFinished(result, errorStr);
+  ThreadSafeCallback<SynchronizationFinishedHandler>(
+      [this]() { return m_onSynchronizationFinished; }, result, errorStr);
 }
 
 void Cloud::SetAccessToken(std::string const & token)
