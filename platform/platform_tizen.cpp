@@ -55,6 +55,11 @@ string Platform::UniqueClientId() const
   return FromTizenString(pApp->GetAppId());
 }
 
+string Platform::DeviceName() const
+{
+  return OMIM_OS_NAME;
+}
+
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
   /// @todo

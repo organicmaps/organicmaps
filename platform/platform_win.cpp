@@ -136,6 +136,11 @@ string Platform::UniqueClientId() const
   return "@TODO";
 }
 
+string Platform::DeviceName() const
+{
+  return OMIM_OS_NAME;
+}
+
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
   /// @todo

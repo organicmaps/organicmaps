@@ -143,6 +143,11 @@ string Platform::GetMemoryInfo() const
   return ss.str();
 }
 
+string Platform::DeviceName() const
+{
+  return OMIM_OS_NAME;
+}
+
 void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
 {
   ASSERT(m_guiThread, ());

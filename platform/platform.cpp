@@ -198,11 +198,6 @@ bool Platform::IsDirectory(string const & path)
   return fileType == FILE_TYPE_DIRECTORY;
 }
 
-string Platform::DeviceName() const
-{
-  return OMIM_OS_NAME;
-}
-
 // static
 void Platform::GetFilesRecursively(string const & directory, FilesList & filesList)
 {

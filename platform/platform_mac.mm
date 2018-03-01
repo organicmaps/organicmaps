@@ -113,6 +113,11 @@ Platform::Platform()
 
 string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
 
+string Platform::DeviceName() const
+{
+  return OMIM_OS_NAME;
+}
+
 void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
 {
   ASSERT(m_guiThread, ());

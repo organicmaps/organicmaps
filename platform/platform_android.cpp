@@ -191,6 +191,11 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
   return nullptr;
 }
 
+string Platform::DeviceName() const
+{
+  return OMIM_OS_NAME;
+}
+
 void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)
 {
   if (ZipFileReader::IsZip(directory))
