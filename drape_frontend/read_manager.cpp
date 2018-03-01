@@ -105,13 +105,19 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
 
     if (!task->IsCancelled())
     {
-      m_activeTiles.erase(t->GetTileKey());
+      auto const it = m_activeTiles.find(t->GetTileKey());
+      ASSERT(it != m_activeTiles.end(), ());
 
+      // Use the tile key from active tiles with the actual user marks generation.
+      auto const tileKey = *it;
       TTilesCollection tiles;
-      tiles.emplace(t->GetTileKey());
+      tiles.emplace(tileKey);
+
+      m_activeTiles.erase(it);
+
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 make_unique_dp<FinishTileReadMessage>(std::move(tiles),
-                                                                      false /* forceUpdateUserMarks */),
+                                                                      true /* forceUpdateUserMarks */),
                                 MessagePriority::Normal);
     }
   }
@@ -237,7 +243,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
   task->Init(tileInfo);
   {
     std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
-    m_activeTiles.insert(tileKey);
+    m_activeTiles.insert(TileKey(tileKey, m_generationCounter, m_userMarksGenerationCounter));
   }
   m_pool->PushBack(task);
 }
@@ -253,8 +259,20 @@ void ReadManager::CheckFinishedTiles(TTileInfoCollection const & requestedTiles,
 
   for (auto const & tile : requestedTiles)
   {
-    if (m_activeTiles.find(tile->GetTileKey()) == m_activeTiles.end())
+    auto const it = m_activeTiles.find(tile->GetTileKey());
+    if (it == m_activeTiles.end())
+    {
       finishedTiles.emplace(tile->GetTileKey(), m_generationCounter, m_userMarksGenerationCounter);
+    }
+    else if (forceUpdateUserMarks)
+    {
+      // In case of active tile reading update its user marks generation.
+      // User marks will be generated after finishing of tile reading with correct tile key.
+      auto tileKey = *it;
+      tileKey.m_userMarksGeneration = m_userMarksGenerationCounter;
+      m_activeTiles.erase(it);
+      m_activeTiles.insert(tileKey);
+    }
   }
 
   if (!finishedTiles.empty())

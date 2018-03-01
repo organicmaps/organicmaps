@@ -174,7 +174,6 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<TileReadEndMessage> msg = message;
       m_batchersPool->ReleaseBatcher(msg->GetKey());
-      m_userMarkGenerator->GenerateUserMarksGeometry(msg->GetKey(), m_texMng);
       break;
     }
 
