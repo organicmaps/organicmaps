@@ -1,7 +1,6 @@
 #include "indexer/editable_map_object.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/cuisines.hpp"
-#include "indexer/osm_editor.hpp"
 #include "indexer/postcodes_matcher.hpp"
 
 #include "base/control_flow.hpp"
@@ -327,7 +326,7 @@ void EditableMapObject::SetName(string name, int8_t langCode)
     return;
   }
 
-  if (!name.empty() && !Editor::Instance().OriginalFeatureHasDefaultName(GetID()))
+  if (!name.empty() && !m_name.HasString(StringUtf8Multilang::kDefaultCode))
   {
     const auto mwmInfo = GetID().m_mwmId.GetInfo();
 
