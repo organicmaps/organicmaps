@@ -9,13 +9,17 @@ final class FilterCheckCell: MWMTableViewCell {
   @IBOutlet private var checkLabels: [UILabel]!
   @IBOutlet weak var checkInLabel: UILabel! {
     didSet {
-      checkInLabel.text = L("booking_filters_check_in")
+      checkInLabel.text = L("booking_filters_check_in").uppercased()
+      checkInLabel.font = .regular14()
+      checkInLabel.textColor = .blackSecondaryText()
     }
   }
 
   @IBOutlet weak var checkOutLabel: UILabel! {
     didSet {
-      checkOutLabel.text = L("booking_filters_check_out")
+      checkOutLabel.text = L("booking_filters_check_out").uppercased()
+      checkOutLabel.font = .regular14()
+      checkOutLabel.textColor = .blackSecondaryText()
     }
   }
 
@@ -61,15 +65,6 @@ final class FilterCheckCell: MWMTableViewCell {
 
   @objc func refreshButtonsAppearance() {
     checkButtons.forEach { setupButton($0) }
-  }
-
-  fileprivate func setupLabel(_ label: UILabel) {
-    label.font = UIFont.bold12()
-    label.textColor = UIColor.blackSecondaryText()
-  }
-
-  @objc func refreshLabelsAppearance() {
-    checkLabels.forEach { setupLabel($0) }
   }
 
   override func awakeFromNib() {

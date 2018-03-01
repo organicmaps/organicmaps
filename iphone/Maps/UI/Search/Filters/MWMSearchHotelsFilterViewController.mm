@@ -101,8 +101,9 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 }
 }  // namespace
 
-@interface MWMSearchHotelsFilterViewController ()<
-    UICollectionViewDelegate, UICollectionViewDataSource, MWMFilterCheckCellDelegate>
+@interface MWMSearchHotelsFilterViewController ()<UICollectionViewDelegate,
+                                                  UICollectionViewDataSource,
+                                                  MWMFilterCheckCellDelegate, UITableViewDataSource>
 {
   std::vector<ftypes::IsHotelChecker::Type> m_selectedTypes;
 }
@@ -155,6 +156,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 {
   self.view.backgroundColor = [UIColor pressBackground];
   self.tableView.backgroundColor = [UIColor clearColor];
+  self.tableView.contentInset = {-20, 0, 80, 0};
 }
 
 - (void)refreshDoneButtonAppearance
@@ -183,7 +185,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 - (void)initialCheckConfig
 {
   MWMFilterCheckCell * check = self.check;
-  [check refreshLabelsAppearance];
   [check refreshButtonsAppearance];
   check.isOffline = !Platform::IsConnected();
   check.delegate = self;
