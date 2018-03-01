@@ -808,7 +808,6 @@ private:
   //@}
 
 public:
-  bool OriginalFeatureHasDefaultName(FeatureID const & fid) const;
   storage::TCountriesVec GetTopmostCountries(ms::LatLon const & latlon) const;
 
 private:

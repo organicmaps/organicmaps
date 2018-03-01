@@ -332,47 +332,6 @@ void EditorTest::GetEditedFeatureStreetTest()
   });
 }
 
-void EditorTest::OriginalFeatureHasDefaultNameTest()
-{
-  auto & editor = osm::Editor::Instance();
-
-  auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
-  {
-    TestCafe cafe(m2::PointD(1.0, 1.0), "London Cafe", "en");
-    TestCafe unnamedCafe(m2::PointD(2.0, 2.0), "", "en");
-    TestCafe secondUnnamedCafe(m2::PointD(3.0, 3.0), "", "en");
-
-    builder.Add(cafe);
-    builder.Add(unnamedCafe);
-    builder.Add(secondUnnamedCafe);
-  });
-
-  ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
-  {
-    TEST(editor.OriginalFeatureHasDefaultName(ft.GetID()), ());
-  });
-
-  ForEachCafeAtPoint(m_index, m2::PointD(2.0, 2.0), [&editor](FeatureType & ft)
-  {
-    TEST(!editor.OriginalFeatureHasDefaultName(ft.GetID()), ());
-  });
-
-  ForEachCafeAtPoint(m_index, m2::PointD(3.0, 3.0), [&editor](FeatureType & ft)
-  {
-    osm::EditableMapObject emo;
-    FillEditableMapObject(editor, ft, emo);
-
-    StringUtf8Multilang names;
-    names.AddString(StringUtf8Multilang::GetLangIndex("en"), "Eng name");
-    names.AddString(StringUtf8Multilang::GetLangIndex("default"), "Default name");
-    emo.SetName(names);
-
-    TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::SavedSuccessfully, ());
-
-    TEST(!editor.OriginalFeatureHasDefaultName(ft.GetID()), ());
-  });
-}
-
 void EditorTest::GetFeatureStatusTest()
 {
   auto & editor = osm::Editor::Instance();
@@ -1071,11 +1030,6 @@ using editor::testing::EditorTest;
 UNIT_CLASS_TEST(EditorTest, GetFeatureTypeInfoTest)
 {
   EditorTest::GetFeatureTypeInfoTest();
-}
-
-UNIT_CLASS_TEST(EditorTest, OriginalFeatureHasDefaultNameTest)
-{ 
-  EditorTest::OriginalFeatureHasDefaultNameTest();
 }
 
 UNIT_CLASS_TEST(EditorTest, SetIndexTest)

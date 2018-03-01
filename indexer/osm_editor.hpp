@@ -199,7 +199,6 @@ public:
   // not yet saved and we have to know if it was modified or created.
   static bool IsCreatedFeature(FeatureID const & fid);
   // Returns true if the original feature has default name.
-  bool OriginalFeatureHasDefaultName(FeatureID const & fid) const;
 
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.

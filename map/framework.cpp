@@ -3023,11 +3023,6 @@ void Framework::CreateNote(osm::MapObject const & mapObject,
     DeactivateMapSelection(true /* notifyUI */);
 }
 
-bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
-{
-  return osm::Editor::Instance().OriginalFeatureHasDefaultName(fid);
-}
-
 storage::TCountriesVec Framework::GetTopmostCountries(ms::LatLon const & latlon) const
 {
   m2::PointD const point = MercatorBounds::FromLatLon(latlon);

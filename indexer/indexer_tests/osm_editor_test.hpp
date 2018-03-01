@@ -25,7 +25,6 @@ public:
   void GetEditedFeatureTest();
   void SetIndexTest();
   void GetEditedFeatureStreetTest();
-  void OriginalFeatureHasDefaultNameTest();
   void GetFeatureStatusTest();
   void IsFeatureUploadedTest();
   void DeleteFeatureTest();
