@@ -168,7 +168,7 @@ class FileLoggerStrategy implements LoggerStrategy
     static void writeSystemInformation(FileWriter fw) throws IOException
     {
       fw.write("Android version: " + Build.VERSION.SDK_INT + "\n");
-      fw.write("Device: " + Utils.getDeviceModel() + "\n");
+      fw.write("Device: " + Utils.getFullDeviceModel() + "\n");
       fw.write("App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n");
       fw.write("Installation ID: " + Utils.getInstallationId() + "\n");
       fw.write("Locale : " + Locale.getDefault());

@@ -41,6 +41,26 @@ std::string Platform::GetMemoryInfo() const
   return jni::ToNativeString(env, memInfoString);
 }
 
+std::string Platform::DeviceName() const
+{
+  JNIEnv * env = jni::GetEnv();
+  static jmethodID const getDeviceNameId = jni::GetStaticMethodID(env, g_utilsClazz, "getDeviceName",
+                                                                  "()Ljava/lang/String;");
+  auto const deviceName = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz,
+                                                                           getDeviceNameId));
+  return jni::ToNativeString(env, deviceName);
+}
+
+std::string Platform::DeviceModel() const
+{
+  JNIEnv * env = jni::GetEnv();
+  static jmethodID const getDeviceModelId = jni::GetStaticMethodID(env, g_utilsClazz, "getDeviceModel",
+                                                                  "()Ljava/lang/String;");
+  auto const deviceModel = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz,
+                                                                            getDeviceModelId));
+  return jni::ToNativeString(env, deviceModel);
+}
+
 void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
 {
   android::Platform::Instance().RunOnGuiThread(std::move(task));

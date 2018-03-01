@@ -32,7 +32,6 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
-import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -165,7 +164,7 @@ public class Utils
     return Uri.parse(uriString);
   }
 
-  public static String getDeviceModel()
+  public static String getFullDeviceModel()
   {
     String model = Build.MODEL;
     if (!model.startsWith(Build.MANUFACTURER))
@@ -467,6 +466,18 @@ public class Utils
       }
     }
     return INVALID_ID;
+  }
+
+  @NonNull
+  public static String getDeviceName()
+  {
+    return Build.MANUFACTURER;
+  }
+
+  @NonNull
+  public static String getDeviceModel()
+  {
+    return Build.MODEL;
   }
 
   private  static class OnZipCompletedCallback implements LoggerFactory.OnZipCompletedListener
