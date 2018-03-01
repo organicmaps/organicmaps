@@ -246,6 +246,8 @@ public:
 
   string DeviceName() const;
 
+  string DeviceModel() const;
+
   string UniqueClientId() const;
 
   /// @return url for clients to download maps

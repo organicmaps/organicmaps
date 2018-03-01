@@ -23,11 +23,6 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
                                  READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
 }
 
-string Platform::DeviceName() const
-{
-  return OMIM_OS_NAME;
-}
-
 bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
 {
   try

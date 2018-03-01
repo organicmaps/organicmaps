@@ -148,6 +148,11 @@ string Platform::DeviceName() const
   return OMIM_OS_NAME;
 }
 
+string Platform::DeviceModel() const
+{
+  return {};
+}
+
 void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
 {
   ASSERT(m_guiThread, ());
