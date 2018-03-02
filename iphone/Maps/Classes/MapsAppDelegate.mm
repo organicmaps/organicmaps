@@ -43,11 +43,6 @@ extern NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotif
 extern NSString * const kUDAlreadyRatedKey = @"UserAlreadyRatedApp";
 extern NSString * const kUDAlreadySharedKey = @"UserAlreadyShared";
 
-extern NSString * const kUDTrackWarningAlertWasShown;
-extern string const kCountryCodeKey;
-extern string const kUniqueIdKey;
-extern string const kLanguageKey;
-
 namespace
 {
 NSString * const kUDLastLaunchDateKey = @"LastLaunchDate";
@@ -486,16 +481,14 @@ using namespace osm_auth_ios;
   if (![topVc isKindOfClass:[MWMViewController class]])
     return;
 
-  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
-  if ([ud boolForKey:kUDTrackWarningAlertWasShown])
+  if ([MWMSettings isTrackWarningAlertShown])
     return;
 
   [topVc.alertController presentTrackWarningAlertWithCancelBlock:^{
     GpsTracker::Instance().SetEnabled(false);
   }];
 
-  [ud setBool:YES forKey:kUDTrackWarningAlertWasShown];
-  [ud synchronize];
+  [MWMSettings setTrackWarningAlertShown:YES];
   LOG(LINFO, ("applicationWillEnterForeground - end"));
 }
 

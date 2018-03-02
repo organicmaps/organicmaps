@@ -23,6 +23,7 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
 NSString * const kThemeMode = @"ThemeMode";
 NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
+NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 }  // namespace
 
 @implementation MWMSettings
@@ -179,6 +180,18 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
   auto & f = GetFramework();
   f.SaveTransliteration(isTransliteration);
   f.AllowTransliteration(isTransliteration);
+}
+
++ (BOOL)isTrackWarningAlertShown
+{
+  return [NSUserDefaults.standardUserDefaults boolForKey:kUDTrackWarningAlertWasShown];
+}
+
++ (void)setTrackWarningAlertShown:(BOOL)shown
+{
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+  [ud setBool:shown forKey:kUDTrackWarningAlertWasShown];
+  [ud synchronize];
 }
 
 @end
