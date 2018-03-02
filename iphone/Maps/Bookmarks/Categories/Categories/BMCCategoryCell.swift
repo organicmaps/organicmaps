@@ -56,7 +56,7 @@ final class BMCCategoryCell: UITableViewCell {
 extension BMCCategoryCell: BMCCategoryObserver {
   func categoryUpdated() {
     title.text = category.title
-    count.text = String(coreFormat: L("%s bookmarks_places"), arguments: [category.count])
+    count.text = String(coreFormat: L("bookmarks_places"), arguments: [category.count])
 
     if category.isVisible {
       visibility.tintColor = .linkBlue()
