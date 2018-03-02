@@ -1,7 +1,7 @@
+#include "platform/platform_ios.h"
 #include "platform/constants.hpp"
 #include "platform/gui_thread.hpp"
 #include "platform/measurement_utils.hpp"
-#include "platform/platform.hpp"
 #include "platform/platform_unix_impl.hpp"
 #include "platform/settings.hpp"
 
@@ -19,6 +19,7 @@
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/utsname.h>
 #include <sys/xattr.h>
 
 #import "iphone/Maps/Common/MWMCommon.h"
@@ -26,8 +27,8 @@
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #import <CoreFoundation/CFURL.h>
-#import <CoreFoundation/CoreFoundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <UIKit/UIKit.h>
 #import <netinet/in.h>
 
 Platform::Platform()
@@ -143,14 +144,21 @@ string Platform::GetMemoryInfo() const
   return ss.str();
 }
 
-string Platform::DeviceName() const
-{
-  return OMIM_OS_NAME;
-}
+string Platform::DeviceName() const { return UIDevice.currentDevice.name.UTF8String; }
 
 string Platform::DeviceModel() const
 {
-  return {};
+  struct utsname systemInfo;
+  uname(&systemInfo);
+  NSString * machine = @(systemInfo.machine);
+  NSString * deviceModel = platform::kDeviceModelsBeforeMetalDriver[machine];
+  if (!deviceModel)
+    deviceModel = platform::kDeviceModelsWithiOS10MetalDriver[machine];
+  if (!deviceModel)
+    deviceModel = platform::kDeviceModelsWithMetalDriver[machine];
+  else
+    deviceModel = machine;
+  return deviceModel.UTF8String;
 }
 
 void Platform::RunOnGuiThread(base::TaskLoop::Task && task)

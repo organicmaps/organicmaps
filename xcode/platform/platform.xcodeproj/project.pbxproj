@@ -117,6 +117,7 @@
 		341EEFCC2022F9A900D5DBE4 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../../iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		341EEFCE2022FCB000D5DBE4 /* platform-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "platform-Bridging-Header.h"; sourceTree = "<group>"; };
 		341EEFCF2022FCB000D5DBE4 /* http_uploader_apple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = http_uploader_apple.swift; sourceTree = "<group>"; };
+		344D8A2E204945D000CF532F /* platform_ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform_ios.h; sourceTree = "<group>"; };
 		34513AF71DCB37C100471BDA /* marketing_service_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = marketing_service_ios.mm; sourceTree = "<group>"; };
 		34513AF81DCB37C100471BDA /* marketing_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = marketing_service.cpp; sourceTree = "<group>"; };
 		34513AF91DCB37C100471BDA /* marketing_service.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = marketing_service.hpp; sourceTree = "<group>"; };
@@ -389,6 +390,7 @@
 				67AB92DB1B7B3D7300AB5194 /* mwm_version.hpp */,
 				3DE8B98E1DEC3115000E6083 /* network_policy.hpp */,
 				675343981A3F5D5A00A0A8C3 /* platform_android.cpp */,
+				344D8A2E204945D000CF532F /* platform_ios.h */,
 				670E8C741BB318AB00094197 /* platform_ios.mm */,
 				6753439A1A3F5D5A00A0A8C3 /* platform_linux.cpp */,
 				6753439B1A3F5D5A00A0A8C3 /* platform_mac.mm */,
