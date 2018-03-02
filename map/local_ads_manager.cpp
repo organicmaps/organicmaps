@@ -368,6 +368,7 @@ bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<
     return false;
 
   platform::HttpClient request(url);
+  request.SetTimeout(5);    // timeout in seconds
   bool const success = request.RunHttpRequest() && request.ErrorCode() == 200;
 
   if (!success)

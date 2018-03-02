@@ -356,6 +356,7 @@ void Statistics::SendToServer()
     ASSERT(!bytes.empty(), ());
 
     platform::HttpClient request(url);
+    request.SetTimeout(5);    // timeout in seconds
 #ifdef DEV_LOCAL_ADS_SERVER
     request.LoadHeaders(true);
     request.SetRawHeader("Host", "localads-statistics.maps.me");
