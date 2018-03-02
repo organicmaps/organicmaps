@@ -178,7 +178,7 @@ string const kUniqueIdKey = "UniqueId";
 
 - (MWMOpenGLDriver)openGLDriver
 {
-  struct utsname systemInfo;
+  utsname systemInfo;
   uname(&systemInfo);
   NSString * machine = @(systemInfo.machine);
   if (platform::kDeviceModelsBeforeMetalDriver[machine] != nil)

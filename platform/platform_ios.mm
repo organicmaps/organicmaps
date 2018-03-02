@@ -148,16 +148,15 @@ string Platform::DeviceName() const { return UIDevice.currentDevice.name.UTF8Str
 
 string Platform::DeviceModel() const
 {
-  struct utsname systemInfo;
+  utsname systemInfo;
   uname(&systemInfo);
-  NSString * machine = @(systemInfo.machine);
-  NSString * deviceModel = platform::kDeviceModelsBeforeMetalDriver[machine];
-  if (!deviceModel)
-    deviceModel = platform::kDeviceModelsWithiOS10MetalDriver[machine];
-  if (!deviceModel)
-    deviceModel = platform::kDeviceModelsWithMetalDriver[machine];
-  else
-    deviceModel = machine;
+  NSString * deviceModel = @(systemInfo.machine);
+  if (auto m = platform::kDeviceModelsBeforeMetalDriver[deviceModel])
+    deviceModel = m;
+  else if (auto m = platform::kDeviceModelsWithiOS10MetalDriver[deviceModel])
+    deviceModel = m;
+  else if (auto m = platform::kDeviceModelsWithMetalDriver[deviceModel])
+    deviceModel = m;
   return deviceModel.UTF8String;
 }
 

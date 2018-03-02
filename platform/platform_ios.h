@@ -6,7 +6,7 @@
 
 namespace platform
 {
-NSDictionary * const kDeviceModelsBeforeMetalDriver = @{
+NSDictionary<NSString *, NSString *> * const kDeviceModelsBeforeMetalDriver = @{
   @"i386" : @"Simulator",
   @"iPad1,1" : @"iPad WiFi",
   @"iPad1,2" : @"iPad GSM",
@@ -56,7 +56,7 @@ NSDictionary * const kDeviceModelsBeforeMetalDriver = @{
   @"iPod5,1" : @"iPod Touch 5th gen.",
   @"x86_64" : @"Simulator"
 };
-NSDictionary * const kDeviceModelsWithiOS10MetalDriver = @{
+NSDictionary<NSString *, NSString *> * const kDeviceModelsWithiOS10MetalDriver = @{
   @"iPad6,3" : @"iPad Pro (9.7 inch) WiFi",
   @"iPad6,4" : @"iPad Pro (9.7 inch) GSM",
   @"iPad6,7" : @"iPad Pro (12.9 inch) WiFi",
@@ -65,7 +65,7 @@ NSDictionary * const kDeviceModelsWithiOS10MetalDriver = @{
   @"iPhone8,2" : @"iPhone 6s Plus",
   @"iPhone8,4" : @"iPhone SE"
 };
-NSDictionary * const kDeviceModelsWithMetalDriver = @{
+NSDictionary<NSString *, NSString *> * const kDeviceModelsWithMetalDriver = @{
   @"iPad6,11" : @"iPad 5th gen. WiFi",
   @"iPad6,12" : @"iPad 5th gen. GSM",
   @"iPad7,1" : @"iPad Pro (12.9 inch) 2nd gen. WiFi",
