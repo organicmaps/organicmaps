@@ -12,33 +12,33 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MWMSearchTabbedCollectionViewCell" propertyAccessControl="all">
+        <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" userLabel="MWMSearchTabbedCollectionViewCell" customClass="MWMSearchTabbedCollectionViewCell" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-            <autoresizingMask key="autoresizingMask"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZi-Dr-fme">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZi-Dr-fme" userLabel="NoResultsContainer">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnC-F0-3g1">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnC-F0-3g1" userLabel="NoResultsWrapper">
                                 <rect key="frame" x="0.0" y="70" width="320" height="320"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="qnC-F0-3g1" secondAttribute="height" multiplier="1:1" priority="999" id="E3T-Nx-JJX"/>
-                                    <constraint firstAttribute="width" constant="320" id="O0D-GD-xSK"/>
+                                    <constraint firstAttribute="width" priority="997" constant="320" id="O0D-GD-xSK"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="qnC-F0-3g1" firstAttribute="centerY" secondItem="bZi-Dr-fme" secondAttribute="centerY" id="8cS-Pg-hYZ"/>
-                            <constraint firstItem="qnC-F0-3g1" firstAttribute="height" relation="lessThanOrEqual" secondItem="bZi-Dr-fme" secondAttribute="height" id="u2A-om-Upm"/>
+                            <constraint firstItem="qnC-F0-3g1" firstAttribute="height" relation="lessThanOrEqual" secondItem="bZi-Dr-fme" secondAttribute="height" priority="998" id="u2A-om-Upm"/>
                             <constraint firstItem="qnC-F0-3g1" firstAttribute="centerX" secondItem="bZi-Dr-fme" secondAttribute="centerX" id="zOu-k9-eSN"/>
                         </constraints>
                     </view>
-                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YiJ-rH-z7n">
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YiJ-rH-z7n" userLabel="CellsTableView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tableView>
@@ -48,11 +48,11 @@
             <constraints>
                 <constraint firstItem="YiJ-rH-z7n" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="45o-kh-87P"/>
                 <constraint firstAttribute="trailing" secondItem="YiJ-rH-z7n" secondAttribute="trailing" id="ak8-yj-yjX"/>
-                <constraint firstAttribute="trailing" secondItem="bZi-Dr-fme" secondAttribute="trailing" id="eaC-cR-1Zf"/>
+                <constraint firstAttribute="trailing" secondItem="bZi-Dr-fme" secondAttribute="trailing" priority="999" id="eaC-cR-1Zf"/>
                 <constraint firstAttribute="bottom" secondItem="YiJ-rH-z7n" secondAttribute="bottom" id="fWe-9o-p8Q"/>
-                <constraint firstItem="bZi-Dr-fme" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="iAx-ah-Ee9"/>
-                <constraint firstItem="bZi-Dr-fme" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ojS-uf-R8h"/>
-                <constraint firstAttribute="bottom" secondItem="bZi-Dr-fme" secondAttribute="bottom" id="qTD-KA-5qs"/>
+                <constraint firstItem="bZi-Dr-fme" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" priority="999" id="iAx-ah-Ee9"/>
+                <constraint firstItem="bZi-Dr-fme" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" priority="999" id="ojS-uf-R8h"/>
+                <constraint firstAttribute="bottom" secondItem="bZi-Dr-fme" secondAttribute="bottom" priority="999" id="qTD-KA-5qs"/>
                 <constraint firstItem="YiJ-rH-z7n" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="tGS-fN-aa6"/>
             </constraints>
             <userDefinedRuntimeAttributes>
