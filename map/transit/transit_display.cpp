@@ -402,7 +402,10 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
   m_routeInfo.m_totalDistInMeters = prevDistance;
   m_routeInfo.m_totalTimeInSec = static_cast<int>(ceil(prevTime));
 
-  CreateTransitMarks(transitMarks);
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, transitMarks]()
+  {
+    CreateTransitMarks(transitMarks);
+  });
 }
 
 void TransitRouteDisplay::CollectTransitDisplayInfo(vector<RouteSegment> const & segments,

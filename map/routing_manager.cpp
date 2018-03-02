@@ -407,7 +407,11 @@ void RoutingManager::SetRouterImpl(RouterType type)
 
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
 {
-  m_bmManager->GetEditSession().ClearGroup(UserMark::Type::TRANSIT);
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
+  {
+    m_bmManager->GetEditSession().ClearGroup(UserMark::Type::TRANSIT);
+  });
+
 
   if (deactivateFollowing)
     SetPointsFollowingMode(false /* enabled */);
