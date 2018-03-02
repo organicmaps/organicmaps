@@ -198,7 +198,6 @@ public:
   // Use GetFeatureStatus(fid) instead. This function is used when a feature is
   // not yet saved and we have to know if it was modified or created.
   static bool IsCreatedFeature(FeatureID const & fid);
-  // Returns true if the original feature has default name.
 
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
