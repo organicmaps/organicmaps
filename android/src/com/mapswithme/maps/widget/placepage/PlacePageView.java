@@ -1383,16 +1383,22 @@ public class PlacePageView extends RelativeLayout
     mGalleryAdapter.setItems(new ArrayList<Image>());
     if (mSponsored == null)
     {
-      final String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
-      refreshMetadataOrHide(TextUtils.isEmpty(website) ? mapObject.getMetadata(Metadata.MetadataType.FMD_URL)
-                                                       : website, mWebsite, mTvWebsite);
       hideHotelViews();
       hideSponsoredGalleryViews();
     }
     else
     {
-      UiUtils.hide(mWebsite);
-      UiUtils.show(mHotelMore);
+      if (mSponsored.getType() == Sponsored.TYPE_BOOKING)
+      {
+        UiUtils.hide(mWebsite);
+        UiUtils.show(mHotelMore);
+      }
+      else
+      {
+        String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
+        String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
+        refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
+      }
 
       if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
         hideHotelViews();
