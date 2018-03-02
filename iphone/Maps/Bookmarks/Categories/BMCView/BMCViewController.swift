@@ -97,13 +97,10 @@ final class BMCViewController: MWMViewController {
       MWMAuthorizationViewModel.checkAuthentication(with: .bookmarks, onComplete: onComplete)
     } else {
       let authVC = AuthorizationViewController(popoverSourceView: anchor,
-                                               permittedArrowDirections: .any,
                                                sourceComponent: .bookmarks,
+                                               permittedArrowDirections: .any,
                                                successHandler: { _ in onComplete(true) },
-                                               errorHandler: { _ in onComplete(false) },
-                                               completionHandler: {
-                                                 $0.dismiss(animated: true, completion: nil)
-      })
+                                               errorHandler: { _ in onComplete(false) })
       present(authVC, animated: true, completion: nil)
     }
   }

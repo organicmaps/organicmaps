@@ -103,7 +103,7 @@ final class AuthorizationViewController: MWMViewController {
   private let sourceComponent: MWMAuthorizationSource
   private let successHandler: SuccessHandler?
   private let errorHandler: ErrorHandler?
-  private let completionHandler: CompletionHandler
+  private let completionHandler: CompletionHandler?
 
   private func addConstraints(v1: UIView, v2: UIView) {
     [NSLayoutAttribute.top, .bottom, .left, .right].forEach {
@@ -112,7 +112,7 @@ final class AuthorizationViewController: MWMViewController {
   }
 
   @objc
-  init(barButtonItem: UIBarButtonItem?, sourceComponent: MWMAuthorizationSource, successHandler: SuccessHandler? = nil, errorHandler: ErrorHandler? = nil, completionHandler: @escaping CompletionHandler) {
+  init(barButtonItem: UIBarButtonItem?, sourceComponent: MWMAuthorizationSource, successHandler: SuccessHandler? = nil, errorHandler: ErrorHandler? = nil, completionHandler: CompletionHandler? = nil) {
     self.sourceComponent = sourceComponent
     self.successHandler = successHandler
     self.errorHandler = errorHandler
@@ -124,7 +124,7 @@ final class AuthorizationViewController: MWMViewController {
   }
 
   @objc
-  init(popoverSourceView: UIView? = nil, permittedArrowDirections: UIPopoverArrowDirection = .unknown, sourceComponent: MWMAuthorizationSource, successHandler: SuccessHandler?, errorHandler: ErrorHandler?, completionHandler: @escaping CompletionHandler) {
+  init(popoverSourceView: UIView? = nil, sourceComponent: MWMAuthorizationSource, permittedArrowDirections: UIPopoverArrowDirection = .unknown, successHandler: SuccessHandler? = nil, errorHandler: ErrorHandler? = nil, completionHandler: CompletionHandler? = nil) {
     self.sourceComponent = sourceComponent
     self.successHandler = successHandler
     self.errorHandler = errorHandler
@@ -154,7 +154,12 @@ final class AuthorizationViewController: MWMViewController {
   @IBAction func onCancel() {
     Statistics.logEvent(kStatUGCReviewAuthDeclined)
     errorHandler?(.cancelled)
-    completionHandler(self)
+    onClose()
+  }
+
+  private func onClose() {
+    dismiss(animated: true)
+    completionHandler?(self)
   }
 
   private func process(error: Error, type: MWMSocialTokenType) {
@@ -175,7 +180,7 @@ final class AuthorizationViewController: MWMViewController {
         self.errorHandler?(.passportError)
       }
     }
-    completionHandler(self)
+    onClose()
   }
 }
 
