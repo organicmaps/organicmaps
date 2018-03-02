@@ -2,7 +2,10 @@
 <resources>
   <string name="shared_user_label" translatable="false">Maps With Me</string>
 
-  <!-- FB -->
+  <!-- Dev facebook credentials
+  <string name="facebook_app_id" translatable="false">462405334160274</string>
+  <string name="fb_login_protocol_scheme">fb462405334160274</string> -->
+
   <string name="facebook_app_id" translatable="false">185237551520383</string>
   <string name="fb_login_protocol_scheme">fb185237551520383</string>
 
