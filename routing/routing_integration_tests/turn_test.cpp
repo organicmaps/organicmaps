@@ -186,7 +186,7 @@ UNIT_TEST(RussiaMoscowNoTurnsOnMKADTurnTest)
   integration::TestRouteLength(route, 43233.7);
 }
 
-UNIT_TEST(RussiaMoscowTTKKashirskoeShosseOutTurnTest)
+UNIT_TEST(RussiaMoscowTTKVarshavskoeShosseOutTurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),

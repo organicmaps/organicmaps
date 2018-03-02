@@ -334,7 +334,7 @@ m2::PointD GetPointForTurn(vector<Junction> const & path, m2::PointD const & jun
 
     // TODO The code below is a stub for compatability with older versions with this function.
     // Remove it, fix tests cases when it works (integration test
-    // RussiaMoscowTTKKashirskoeShosseOutTurnTest)
+    // RussiaMoscowTTKVarshavskoeShosseOutTurnTest)
     // and remove point duplication when we get geometry from feature segments.
     if (point == nextPoint)
       return nextPoint;
