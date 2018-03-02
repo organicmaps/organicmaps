@@ -2177,54 +2177,54 @@
 
 "discovery_button_subtitle_book_hotels" = "Book hotels";
 
-"bookmarks_backup" = "Enable backup";
+"bookmarks_backup" = "Ota varmuuskopiointi käyttöön";
 
-"authorization_button_sign_in" = "Sign in";
+"authorization_button_sign_in" = "Kirjaudu sisään";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Haluatko ottaa varmuuskopioinnin käyttöön?";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Kirjaudu sisään, jotta voit ottaa varmuuskopioinnin käyttöön.";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
+"bookmarks_message_unbackuped_user" = "Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan.";
 
-"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
+"bookmarks_message_backuped_user" = "Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Viimeisin varmuuskopio %s";
 
-"settings_backup_bookmarks" = "Backup Bookmarks";
+"settings_backup_bookmarks" = "Varmuuskopioi kirjanmerkit";
 
-"bookmarks_groups" = "Groups";
+"bookmarks_groups" = "Listat";
 
-"bookmarks_groups_hide_all" = "Hide all";
+"bookmarks_groups_hide_all" = "Piilota kaikki";
 
-"bookmarks_groups_show_all" = "Show all";
+"bookmarks_groups_show_all" = "Näytä kaikki";
 
-"bookmarks_places" = "%s bookmarks";
+"bookmarks_places" = "%s kirjanmerkkiä";
 
-"bookmarks_create_new_group" = "Create new group";
+"bookmarks_create_new_group" = "Luo uusi luettelo";
 
-"downloader_hide_screen" = "Hide Screen";
+"downloader_hide_screen" = "Piilota näyttö";
 
-"downloader_percent" = "%s (%s of %s)";
+"downloader_percent" = "%s (s% / %s)";
 
-"downloader_process" = "Downloading %s...";
+"downloader_process" = "Ladataan %s...";
 
-"downloader_applying" = "Applying %s...";
+"downloader_applying" = "%s otetaan käyttöön...";
 
-"transit_not_found" = "Transit navigation in this region is not yet available";
+"transit_not_found" = "Navigointi kohteiden välillä ei ole vielä käytettävissä tällä alueella";
+
+"whats_new_title_hotel_filter" = "Uusia hotellisuodattimia on saatavana!";
+
+"whats_new_message_hotel_filter" = "Varaa hotelleja, joissa on tilaa valitseminasi päivinä! Käytä sisäänkirjautumis- ja uloskirjautumissuodattimia";
+
+"whats_new_title_ugc_travel" = "Jaa kokemuksesi muille matkailijoille!";
+
+"whats_new_message_ugc_travel" = "Arvioi ja kirjoita arvosteluja vierailemistasi paikoista!";
 
 "dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
 
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
-"whats_new_title_hotel_filter" = "New hotel filters available!";
-
-"whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
-
-"whats_new_title_ugc_travel" = "Share your experience with other travellers!";
-
-"whats_new_message_ugc_travel" = "Rate and review places you visited!";
-
 "bookmarks_error_message_share_general" = "Unable to share due to an application error.";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Can not share empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

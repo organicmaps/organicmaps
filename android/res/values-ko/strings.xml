@@ -1215,4 +1215,25 @@
 	<string name="whats_new_discovery_title">검색 버튼</string>
 	<string name="whats_new_discovery_message">클릭 한 번으로 주변에 무엇이 있는지 알아보세요!</string>
 	<string name="price_per_hour">%s/시간</string>
+	<string name="bookmarks_backup">백업 사용</string>
+	<string name="authorization_button_sign_in">로그인</string>
+	<string name="bookmarks_message_authorized_user">안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다. 백업을 사용하시겠습니까?</string>
+	<string name="bookmarks_message_unauthorized_user">안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다. 로그인하여 백업을 사용하시겠습니까?</string>
+	<string name="bookmarks_message_unbackuped_user">안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다.</string>
+	<string name="bookmarks_message_backuped_user">안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다. 마지막 백업 %s</string>
+	<string name="settings_backup_bookmarks">북마크 백업</string>
+	<string name="bookmarks_groups">기울기</string>
+	<string name="bookmarks_groups_hide_all">모두 숨기기</string>
+	<string name="bookmarks_groups_show_all">모두 표시</string>
+	<string name="bookmarks_places">%s 북마크</string>
+	<string name="bookmarks_create_new_group">새 목록 만들기</string>
+	<string name="downloader_hide_screen">화면 숨기기</string>
+	<string name="downloader_percent">%1$s(%2$s/s%%)</string>
+	<string name="downloader_process">%s 다운로드 중...</string>
+	<string name="downloader_applying">%s 적용 중...</string>
+	<string name="transit_not_found">이 지역에서 대중교통 내비게이션은 아직 사용 가능하지 않습니다.</string>
+	<string name="whats_new_title_hotel_filter">새로운 호텔 필터 사용 가능!</string>
+	<string name="whats_new_message_hotel_filter">해당 날짜에 이용 가능한 호텔을 예약하세요! 체크인 및 체크아웃 필터를 사용하세요.</string>
+	<string name="whats_new_title_ugc_travel">다른 여행자와 함께 경험을 나누세요!</string>
+	<string name="whats_new_message_ugc_travel">방문한 장소를 평가하고 리뷰를 남기세요!</string>
 </resources>

@@ -2177,54 +2177,54 @@
 
 "discovery_button_subtitle_book_hotels" = "Book hotels";
 
-"bookmarks_backup" = "Enable backup";
+"bookmarks_backup" = "Aktivera säkerhetskopiering";
 
-"authorization_button_sign_in" = "Sign in";
+"authorization_button_sign_in" = "Logga in";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Vill du aktivera säkerhetskopiering?";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Logga in för att aktivera säkerhetskopiering.";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
+"bookmarks_message_unbackuped_user" = "Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring.";
 
-"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
+"bookmarks_message_backuped_user" = "Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Senaste säkerhetskopiering %s";
 
-"settings_backup_bookmarks" = "Backup Bookmarks";
+"settings_backup_bookmarks" = "Säkerhetskopiera bokmärken";
 
-"bookmarks_groups" = "Groups";
+"bookmarks_groups" = "Listor";
 
-"bookmarks_groups_hide_all" = "Hide all";
+"bookmarks_groups_hide_all" = "Dölj alla";
 
-"bookmarks_groups_show_all" = "Show all";
+"bookmarks_groups_show_all" = "Visa alla";
 
-"bookmarks_places" = "%s bookmarks";
+"bookmarks_places" = "%s bokmärken";
 
-"bookmarks_create_new_group" = "Create new group";
+"bookmarks_create_new_group" = "Skapa ny lista";
 
-"downloader_hide_screen" = "Hide Screen";
+"downloader_hide_screen" = "Dölj skärm";
 
-"downloader_percent" = "%s (%s of %s)";
+"downloader_percent" = "%s (%s av s%)";
 
-"downloader_process" = "Downloading %s...";
+"downloader_process" = "Ladda ned %s...";
 
-"downloader_applying" = "Applying %s...";
+"downloader_applying" = "Tillämpar %s...";
 
-"transit_not_found" = "Transit navigation in this region is not yet available";
+"transit_not_found" = "Transitnavigering är inte tillgängligt i den här regionen ännu";
+
+"whats_new_title_hotel_filter" = "Nya hotellfilter finns tillgängliga!";
+
+"whats_new_message_hotel_filter" = "Boka hotell som är tillgängliga för dina datum! Använd filter för incheckning och utcheckning";
+
+"whats_new_title_ugc_travel" = "Dela din upplevelse med andra resenärer!";
+
+"whats_new_message_ugc_travel" = "Betygsätt och recensera platser du besökt!";
 
 "dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
 
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
-"whats_new_title_hotel_filter" = "New hotel filters available!";
-
-"whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
-
-"whats_new_title_ugc_travel" = "Share your experience with other travellers!";
-
-"whats_new_message_ugc_travel" = "Rate and review places you visited!";
-
 "bookmarks_error_message_share_general" = "Unable to share due to an application error.";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Can not share empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

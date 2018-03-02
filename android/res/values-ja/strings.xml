@@ -1218,4 +1218,25 @@
 	<string name="whats_new_discovery_title">探すボタン</string>
 	<string name="whats_new_discovery_message">ワンクリックで周囲のものを探します！</string>
 	<string name="price_per_hour">%s/時間</string>
+	<string name="bookmarks_backup">バックアップを有効化</string>
+	<string name="authorization_button_sign_in">サインイン</string>
+	<string name="bookmarks_message_authorized_user">あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。バックアップを有効化しますか？</string>
+	<string name="bookmarks_message_unauthorized_user">あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。バックアップを有効化するには、サインインしてください。</string>
+	<string name="bookmarks_message_unbackuped_user">あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。</string>
+	<string name="bookmarks_message_backuped_user">あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。最終バックアップ日時：%s</string>
+	<string name="settings_backup_bookmarks">ブックマークをバックアップ</string>
+	<string name="bookmarks_groups">リスト</string>
+	<string name="bookmarks_groups_hide_all">すべて非表示</string>
+	<string name="bookmarks_groups_show_all">すべて表示</string>
+	<string name="bookmarks_places">%s のブックマーク</string>
+	<string name="bookmarks_create_new_group">新しいリストを作成する</string>
+	<string name="downloader_hide_screen">画面を非表示</string>
+	<string name="downloader_percent">%1$s (%2$s / s%%)</string>
+	<string name="downloader_process">%s をダウンロードしています...</string>
+	<string name="downloader_applying">%s を適用中です...</string>
+	<string name="transit_not_found">この地域での乗り換え案内はまだご利用いただけません</string>
+	<string name="whats_new_title_hotel_filter">新しいホテルのフィルターをご利用いただけます！</string>
+	<string name="whats_new_message_hotel_filter">あなたの日程で空室のあるホテルを予約できます！チェックインおよびチェックアウトフィルターをご利用ください。</string>
+	<string name="whats_new_title_ugc_travel">あなたの体験を他の旅行者に共有してください！</string>
+	<string name="whats_new_message_ugc_travel">訪れた場所の評価やレビューを行ってください！</string>
 </resources>

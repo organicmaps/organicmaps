@@ -1223,4 +1223,25 @@
 	<string name="whats_new_discovery_title">Opdagelsesknap</string>
 	<string name="whats_new_discovery_message">Opdag nye ting med et enkelt klik!</string>
 	<string name="price_per_hour">%s/time</string>
+	<string name="bookmarks_backup">Aktiver sikkerhedskopi</string>
+	<string name="authorization_button_sign_in">Log ind</string>
+	<string name="bookmarks_message_authorized_user">Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen. Vil du aktivere sikkerhedskopiering?</string>
+	<string name="bookmarks_message_unauthorized_user">Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen. Log ind for at aktivere sikkerhedskopiering.</string>
+	<string name="bookmarks_message_unbackuped_user">Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen.</string>
+	<string name="bookmarks_message_backuped_user">Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen. Seneste sikkerhedskopi %s</string>
+	<string name="settings_backup_bookmarks">Sikkerhedskopi bogmærker</string>
+	<string name="bookmarks_groups">Lister</string>
+	<string name="bookmarks_groups_hide_all">Skjul alle</string>
+	<string name="bookmarks_groups_show_all">Vis alle</string>
+	<string name="bookmarks_places">%s bogmærker</string>
+	<string name="bookmarks_create_new_group">Opret ny liste</string>
+	<string name="downloader_hide_screen">Skjul skærm</string>
+	<string name="downloader_percent">%1$s (%2$s af s %%)</string>
+	<string name="downloader_process">Downloader %s...</string>
+	<string name="downloader_applying">Anvender %s...</string>
+	<string name="transit_not_found">Transitnavigation i denne region er endnu ikke tilgængelig</string>
+	<string name="whats_new_title_hotel_filter">Nye hotelfiltre til rådighed!</string>
+	<string name="whats_new_message_hotel_filter">Book hoteller på dine datoer! Brug filtre for check-in og check-out</string>
+	<string name="whats_new_title_ugc_travel">Del dine erfaringer med andre rejsende!</string>
+	<string name="whats_new_message_ugc_travel">Vurder og anmeld de steder, du har besøgt!</string>
 </resources>

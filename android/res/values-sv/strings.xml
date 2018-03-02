@@ -1223,4 +1223,25 @@
 	<string name="whats_new_discovery_title">Knappen Upptäck</string>
 	<string name="whats_new_discovery_message">Upptäck saker i närheten med ett enda klick!</string>
 	<string name="price_per_hour">%s/timme</string>
+	<string name="bookmarks_backup">Aktivera säkerhetskopiering</string>
+	<string name="authorization_button_sign_in">Logga in</string>
+	<string name="bookmarks_message_authorized_user">Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Vill du aktivera säkerhetskopiering?</string>
+	<string name="bookmarks_message_unauthorized_user">Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Logga in för att aktivera säkerhetskopiering.</string>
+	<string name="bookmarks_message_unbackuped_user">Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring.</string>
+	<string name="bookmarks_message_backuped_user">Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Senaste säkerhetskopiering %s</string>
+	<string name="settings_backup_bookmarks">Säkerhetskopiera bokmärken</string>
+	<string name="bookmarks_groups">Listor</string>
+	<string name="bookmarks_groups_hide_all">Dölj alla</string>
+	<string name="bookmarks_groups_show_all">Visa alla</string>
+	<string name="bookmarks_places">%s bokmärken</string>
+	<string name="bookmarks_create_new_group">Skapa ny lista</string>
+	<string name="downloader_hide_screen">Dölj skärm</string>
+	<string name="downloader_percent">%1$s (%2$s av s%%)</string>
+	<string name="downloader_process">Ladda ned %s...</string>
+	<string name="downloader_applying">Tillämpar %s...</string>
+	<string name="transit_not_found">Transitnavigering är inte tillgängligt i den här regionen ännu</string>
+	<string name="whats_new_title_hotel_filter">Nya hotellfilter finns tillgängliga!</string>
+	<string name="whats_new_message_hotel_filter">Boka hotell som är tillgängliga för dina datum! Använd filter för incheckning och utcheckning</string>
+	<string name="whats_new_title_ugc_travel">Dela din upplevelse med andra resenärer!</string>
+	<string name="whats_new_message_ugc_travel">Betygsätt och recensera platser du besökt!</string>
 </resources>

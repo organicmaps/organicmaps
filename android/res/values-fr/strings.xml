@@ -1232,4 +1232,25 @@
 	<string name="whats_new_discovery_title">Bouton découverte</string>
 	<string name="whats_new_discovery_message">Découvrez ce qu\'il y a aux alentours en un seul clic !</string>
 	<string name="price_per_hour">%s/heure</string>
+	<string name="bookmarks_backup">Activer la sauvegarde</string>
+	<string name="authorization_button_sign_in">Se connecter</string>
+	<string name="bookmarks_message_authorized_user">La sauvegarde de vos signets est effectuée automatiquement dans un stockage sécurisé sur le cloud. Voulez-vous activer la sauvegarde ?</string>
+	<string name="bookmarks_message_unauthorized_user">La sauvegarde de vos signets est effectuée automatiquement dans un stockage sécurisé sur le cloud. Connectez-vous pour activer la sauvegarde.</string>
+	<string name="bookmarks_message_unbackuped_user">La sauvegarde de vos signets est effectuée automatiquement dans un stockage sécurisé sur le cloud.</string>
+	<string name="bookmarks_message_backuped_user">La sauvegarde de vos signets est effectuée automatiquement dans un stockage sécurisé sur le cloud. Dernière sauvegarde %s</string>
+	<string name="settings_backup_bookmarks">Sauvegarder les signets</string>
+	<string name="bookmarks_groups">Listes</string>
+	<string name="bookmarks_groups_hide_all">Tout masquer</string>
+	<string name="bookmarks_groups_show_all">Tout afficher</string>
+	<string name="bookmarks_places">%s signets</string>
+	<string name="bookmarks_create_new_group">Créer une nouvelle liste</string>
+	<string name="downloader_hide_screen">Masquer l’écran</string>
+	<string name="downloader_percent">%1$s (%2$s de s%%)</string>
+	<string name="downloader_process">Téléchargement de %s...</string>
+	<string name="downloader_applying">Application de %s...</string>
+	<string name="transit_not_found">La navigation en transit dans cette région n’est pas encore disponible</string>
+	<string name="whats_new_title_hotel_filter">Nouveaux filtres d’hôtel disponibles !</string>
+	<string name="whats_new_message_hotel_filter">Réservez des hôtels disponibles à vos dates ! Utilisez les filtres de check-in et check-out</string>
+	<string name="whats_new_title_ugc_travel">Partagez votre expérience avec d’autres voyageurs !</string>
+	<string name="whats_new_message_ugc_travel">Notez et donnez votre avis sur les lieux que vous avez visités !</string>
 </resources>

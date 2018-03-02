@@ -1225,4 +1225,25 @@
 	<string name="whats_new_discovery_title">Keşif düğmesi</string>
 	<string name="whats_new_discovery_message">Tek bir tıklamayla çevrenizdeki şeyleri keşfedin!</string>
 	<string name="price_per_hour">%s/saat</string>
+	<string name="bookmarks_backup">Yedeklemeyi etkinleştir</string>
+	<string name="authorization_button_sign_in">Oturum Aç</string>
+	<string name="bookmarks_message_authorized_user">Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir. Yedeklemeyi etkinleştirmek istiyor musunuz?</string>
+	<string name="bookmarks_message_unauthorized_user">Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir. Yedeklemeyi etkinleştirmek için oturum açın.</string>
+	<string name="bookmarks_message_unbackuped_user">Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir.</string>
+	<string name="bookmarks_message_backuped_user">Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir. Son yedekleme: %s</string>
+	<string name="settings_backup_bookmarks">Yer İmlerini Yedekle</string>
+	<string name="bookmarks_groups">Listeler</string>
+	<string name="bookmarks_groups_hide_all">Tümünü gizle</string>
+	<string name="bookmarks_groups_show_all">Tümünü göster</string>
+	<string name="bookmarks_places">%s yer imi</string>
+	<string name="bookmarks_create_new_group">Yeni liste oluştur</string>
+	<string name="downloader_hide_screen">Ekranı Gizle</string>
+	<string name="downloader_percent">%1$s (%2$s / s%%)</string>
+	<string name="downloader_process">%s indiriliyor...</string>
+	<string name="downloader_applying">%s uygulanıyor...</string>
+	<string name="transit_not_found">Transit navigasyon henüz bu bölgede kullanılamıyor</string>
+	<string name="whats_new_title_hotel_filter">Yeni otel filtreleri kullanımda!</string>
+	<string name="whats_new_message_hotel_filter">İstediğiniz tarihte otel rezervasyonu yapın! Check-in ve check-out filtrelerini kullanın</string>
+	<string name="whats_new_title_ugc_travel">Deneyimlerinizi diğer gezginlerle paylaşın!</string>
+	<string name="whats_new_message_ugc_travel">Son ziyaret ettiğiniz yerleri değerlendirin ve görüşlerinizi paylaşın!</string>
 </resources>

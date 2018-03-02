@@ -1217,4 +1217,25 @@
 	<string name="whats_new_discovery_title">Oppdagelsesknapp</string>
 	<string name="whats_new_discovery_message">Oppdag ting i nærheten med ett klikk!</string>
 	<string name="price_per_hour">%s/time</string>
+	<string name="bookmarks_backup">Aktiver sikkerhetskopiering</string>
+	<string name="authorization_button_sign_in">Logg inn</string>
+	<string name="bookmarks_message_authorized_user">Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Ønsker du å aktivere sikkerhetskopiering?</string>
+	<string name="bookmarks_message_unauthorized_user">Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Logg inn for å aktivere sikkerhetskopiering.</string>
+	<string name="bookmarks_message_unbackuped_user">Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen.</string>
+	<string name="bookmarks_message_backuped_user">Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Siste sikkerhetskopiering %s</string>
+	<string name="settings_backup_bookmarks">Sikkerhetskopiere bokmerker</string>
+	<string name="bookmarks_groups">Lister</string>
+	<string name="bookmarks_groups_hide_all">Skjul alle</string>
+	<string name="bookmarks_groups_show_all">Vis alle</string>
+	<string name="bookmarks_places">%s bokmerker</string>
+	<string name="bookmarks_create_new_group">Opprett ny liste</string>
+	<string name="downloader_hide_screen">Skjul skjerm</string>
+	<string name="downloader_percent">%1$s (%2$s av s%%)</string>
+	<string name="downloader_process">Laster ned %s ...</string>
+	<string name="downloader_applying">Bruker %s ...</string>
+	<string name="transit_not_found">Transittnavigering i dette området er foreløpig ikke tilgjengelig</string>
+	<string name="whats_new_title_hotel_filter">Nye filter for hotell er tilgjengelig!</string>
+	<string name="whats_new_message_hotel_filter">Bestill hotell på datoene dine! Bruk filtre for inn- og utsjekking</string>
+	<string name="whats_new_title_ugc_travel">Del dine opplevelser med andre reisende!</string>
+	<string name="whats_new_message_ugc_travel">Gi din vurdering og anmeldelse av steder du har reist til!</string>
 </resources>

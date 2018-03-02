@@ -1225,4 +1225,25 @@
 	<string name="whats_new_discovery_title">زر اكتشاف</string>
 	<string name="whats_new_discovery_message">اكتشاف الأشياء في الجوار من نقرة واحدة!</string>
 	<string name="price_per_hour">%s/ساعة</string>
+	<string name="bookmarks_backup">تمكين النسخ الاحتياطي</string>
+	<string name="authorization_button_sign_in">تسجيل الدخول</string>
+	<string name="bookmarks_message_authorized_user">يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن. هل تريد تمكين النسخ الاحتياطي؟</string>
+	<string name="bookmarks_message_unauthorized_user">يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن. قم بالتسجيل لتمكين النسخ الاحتياطي.</string>
+	<string name="bookmarks_message_unbackuped_user">يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن.</string>
+	<string name="bookmarks_message_backuped_user">يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن. آخر نسخ احتياطي %s</string>
+	<string name="settings_backup_bookmarks">نسخ احتياطي للإشارات المرجعية</string>
+	<string name="bookmarks_groups">قوائم</string>
+	<string name="bookmarks_groups_hide_all">إخفاء الكل</string>
+	<string name="bookmarks_groups_show_all">إظهار الكل</string>
+	<string name="bookmarks_places">%s من الإشارات المرجعية</string>
+	<string name="bookmarks_create_new_group">إنشاء قائمة جديدة</string>
+	<string name="downloader_hide_screen">إخفاء الشاشة</string>
+	<string name="downloader_percent">%1$s (%2$s من s%%)</string>
+	<string name="downloader_process">جار تنزيل %s...</string>
+	<string name="downloader_applying">جار تطبيق %s...</string>
+	<string name="transit_not_found">الملاحة المؤقتة في هذه المنطقة غير متوفرة بعد</string>
+	<string name="whats_new_title_hotel_filter">يتوفر عوامل تصفية جديدة للفنادق!</string>
+	<string name="whats_new_message_hotel_filter">احجز الفنادق المتاحة في المواعيد الخاصة بك! استخدم عوامل تصفية تسجيل الوصول والمغادرة</string>
+	<string name="whats_new_title_ugc_travel">شارك تجربتك مع المسافرين الآخرين!</string>
+	<string name="whats_new_message_ugc_travel">احرص على تقييم ومراجعة الأماكن التي زرتها!</string>
 </resources>

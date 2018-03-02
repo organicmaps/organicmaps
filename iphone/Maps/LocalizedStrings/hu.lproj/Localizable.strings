@@ -2177,54 +2177,54 @@
 
 "discovery_button_subtitle_book_hotels" = "Book hotels";
 
-"bookmarks_backup" = "Enable backup";
+"bookmarks_backup" = "Engedélyezi a biztonsági mentést";
 
-"authorization_button_sign_in" = "Sign in";
+"authorization_button_sign_in" = "Bejelentkezés";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Engedélyezi a biztonsági mentést?";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Jelentkezzen be a biztonsági mentés engedélyezéséhez.";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
+"bookmarks_message_unbackuped_user" = "A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer.";
 
-"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
+"bookmarks_message_backuped_user" = "A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Utolsó biztonsági mentés %s";
 
-"settings_backup_bookmarks" = "Backup Bookmarks";
+"settings_backup_bookmarks" = "Könyvjelzők biztosági mentése";
 
-"bookmarks_groups" = "Groups";
+"bookmarks_groups" = "List";
 
-"bookmarks_groups_hide_all" = "Hide all";
+"bookmarks_groups_hide_all" = "Összes elrejtése";
 
-"bookmarks_groups_show_all" = "Show all";
+"bookmarks_groups_show_all" = "Összes megjelenítése";
 
-"bookmarks_places" = "%s bookmarks";
+"bookmarks_places" = "könyvjelzők %s";
 
-"bookmarks_create_new_group" = "Create new group";
+"bookmarks_create_new_group" = "Új lista létrehozása";
 
-"downloader_hide_screen" = "Hide Screen";
+"downloader_hide_screen" = "Képernyő elrejtése";
 
-"downloader_percent" = "%s (%s of %s)";
+"downloader_percent" = "%s (s% %s százaléka)";
 
-"downloader_process" = "Downloading %s...";
+"downloader_process" = "%s letöltése...";
 
-"downloader_applying" = "Applying %s...";
+"downloader_applying" = "%s alkalmazása...";
 
-"transit_not_found" = "Transit navigation in this region is not yet available";
+"transit_not_found" = "Tranzit navigáció ebben a régióban még nem áll rendelkezésre";
+
+"whats_new_title_hotel_filter" = "Új szálloda szűrők!";
+
+"whats_new_message_hotel_filter" = "Foglaljon elérhető szobát az Ön dátumain! Használja a be- ás kijelentkezési szűrőket";
+
+"whats_new_title_ugc_travel" = "Ossza meg tapasztalatait más utasokkal!";
+
+"whats_new_message_ugc_travel" = "Értékelje és ismertesse a meglátogatott helyeket!";
 
 "dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
 
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
-"whats_new_title_hotel_filter" = "New hotel filters available!";
-
-"whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
-
-"whats_new_title_ugc_travel" = "Share your experience with other travellers!";
-
-"whats_new_message_ugc_travel" = "Rate and review places you visited!";
-
 "bookmarks_error_message_share_general" = "Unable to share due to an application error.";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Can not share empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

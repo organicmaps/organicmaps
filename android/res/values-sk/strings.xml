@@ -1222,4 +1222,25 @@
 	<string name="whats_new_discovery_title">Tlačidlo Priezkum</string>
 	<string name="whats_new_discovery_message">Preskúmajte veci okolo Vás pomocou jedného kliku!</string>
 	<string name="price_per_hour">%s/hodina</string>
+	<string name="bookmarks_backup">Povoliť zálohovanie</string>
+	<string name="authorization_button_sign_in">Prihlásiť sa</string>
+	<string name="bookmarks_message_authorized_user">Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku. Chcete povoliť zálohovanie?</string>
+	<string name="bookmarks_message_unauthorized_user">Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku. Pre povolenie zálohovania sa prihláste.</string>
+	<string name="bookmarks_message_unbackuped_user">Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku.</string>
+	<string name="bookmarks_message_backuped_user">Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku. Posledné zálohovanie %s</string>
+	<string name="settings_backup_bookmarks">Zálohovanie záložiek</string>
+	<string name="bookmarks_groups">Zoznamy</string>
+	<string name="bookmarks_groups_hide_all">Skryť všetko</string>
+	<string name="bookmarks_groups_show_all">Zobraziť všetko</string>
+	<string name="bookmarks_places">%s záložiek</string>
+	<string name="bookmarks_create_new_group">Vytvoriť nový zoznam</string>
+	<string name="downloader_hide_screen">Skryť obrazovku</string>
+	<string name="downloader_percent">%1$s (%2$s s %%)</string>
+	<string name="downloader_process">Sťahovanie %s...</string>
+	<string name="downloader_applying">Použitie %s...</string>
+	<string name="transit_not_found">Tranzitná navigácia v tomto regióne zatiaľ nie je k dispozícii</string>
+	<string name="whats_new_title_hotel_filter">Nové filtre pre hotely k dispozícii!</string>
+	<string name="whats_new_message_hotel_filter">Rezervujte si hotely, ktoré sú k dispozícii vo vami požadovanom dátume! Použiť filtre pre prihlásenie a odhlásenie v hoteli</string>
+	<string name="whats_new_title_ugc_travel">Podeľte sa o svoje skúsenosti s ďalšími cestovateľmi!</string>
+	<string name="whats_new_message_ugc_travel">Ohodnoťte a napíšte recenziu miest, ktoré ste navštívili!</string>
 </resources>

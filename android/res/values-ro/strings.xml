@@ -1215,4 +1215,25 @@
 	<string name="whats_new_discovery_title">Butonul Descoperă</string>
 	<string name="whats_new_discovery_message">Descoperă lucruri din apropiere cu un singur clic!</string>
 	<string name="price_per_hour">%s/oră</string>
+	<string name="bookmarks_backup">Activare backup</string>
+	<string name="authorization_button_sign_in">Conectare</string>
+	<string name="bookmarks_message_authorized_user">Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Activați funcția de backup?</string>
+	<string name="bookmarks_message_unauthorized_user">Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Conectați-vă pentru a activa funcția de backup.</string>
+	<string name="bookmarks_message_unbackuped_user">Pentru semnele de carte se realizează automat backup la o locație securizată din cloud.</string>
+	<string name="bookmarks_message_backuped_user">Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Ultimul backup %s</string>
+	<string name="settings_backup_bookmarks">Backup semne de carte</string>
+	<string name="bookmarks_groups">Liste</string>
+	<string name="bookmarks_groups_hide_all">Ascundere toate</string>
+	<string name="bookmarks_groups_show_all">Afișare toate</string>
+	<string name="bookmarks_places">%s semne de carte</string>
+	<string name="bookmarks_create_new_group">Creați o listă nouă</string>
+	<string name="downloader_hide_screen">Ascundere ecran</string>
+	<string name="downloader_percent">%1$s (%2$s din s%%)</string>
+	<string name="downloader_process">Descărcare %s...</string>
+	<string name="downloader_applying">Aplicare %s...</string>
+	<string name="transit_not_found">Navigarea în tranzit prin această regiune nu este disponibilă încă</string>
+	<string name="whats_new_title_hotel_filter">Sunt disponibile filtre noi pentru hoteluri!</string>
+	<string name="whats_new_message_hotel_filter">Rezervați camere la hoteluri disponibile la datele dorite de dvs.! Utilizați filtrele de cazare și plecare</string>
+	<string name="whats_new_title_ugc_travel">Comunicați-vă experiențele altor călători!</string>
+	<string name="whats_new_message_ugc_travel">Evaluați și recenzați locurile pe care le-ați vizitat!</string>
 </resources>

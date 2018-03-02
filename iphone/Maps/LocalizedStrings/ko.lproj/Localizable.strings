@@ -2177,54 +2177,54 @@
 
 "discovery_button_subtitle_book_hotels" = "Book hotels";
 
-"bookmarks_backup" = "Enable backup";
+"bookmarks_backup" = "백업 사용";
 
-"authorization_button_sign_in" = "Sign in";
+"authorization_button_sign_in" = "로그인";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다. 백업을 사용하시겠습니까?";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다. 로그인하여 백업을 사용하시겠습니까?";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
+"bookmarks_message_unbackuped_user" = "안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다.";
 
-"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
+"bookmarks_message_backuped_user" = "안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다. 마지막 백업 %s";
 
-"settings_backup_bookmarks" = "Backup Bookmarks";
+"settings_backup_bookmarks" = "북마크 백업";
 
-"bookmarks_groups" = "Groups";
+"bookmarks_groups" = "기울기";
 
-"bookmarks_groups_hide_all" = "Hide all";
+"bookmarks_groups_hide_all" = "모두 숨기기";
 
-"bookmarks_groups_show_all" = "Show all";
+"bookmarks_groups_show_all" = "모두 표시";
 
-"bookmarks_places" = "%s bookmarks";
+"bookmarks_places" = "%s 북마크";
 
-"bookmarks_create_new_group" = "Create new group";
+"bookmarks_create_new_group" = "새 목록 만들기";
 
-"downloader_hide_screen" = "Hide Screen";
+"downloader_hide_screen" = "화면 숨기기";
 
-"downloader_percent" = "%s (%s of %s)";
+"downloader_percent" = "%s(%s/s%)";
 
-"downloader_process" = "Downloading %s...";
+"downloader_process" = "%s 다운로드 중...";
 
-"downloader_applying" = "Applying %s...";
+"downloader_applying" = "%s 적용 중...";
 
-"transit_not_found" = "Transit navigation in this region is not yet available";
+"transit_not_found" = "이 지역에서 대중교통 내비게이션은 아직 사용 가능하지 않습니다.";
+
+"whats_new_title_hotel_filter" = "새로운 호텔 필터 사용 가능!";
+
+"whats_new_message_hotel_filter" = "해당 날짜에 이용 가능한 호텔을 예약하세요! 체크인 및 체크아웃 필터를 사용하세요.";
+
+"whats_new_title_ugc_travel" = "다른 여행자와 함께 경험을 나누세요!";
+
+"whats_new_message_ugc_travel" = "방문한 장소를 평가하고 리뷰를 남기세요!";
 
 "dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
 
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
-"whats_new_title_hotel_filter" = "New hotel filters available!";
-
-"whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
-
-"whats_new_title_ugc_travel" = "Share your experience with other travellers!";
-
-"whats_new_message_ugc_travel" = "Rate and review places you visited!";
-
 "bookmarks_error_message_share_general" = "Unable to share due to an application error.";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Can not share empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

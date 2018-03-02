@@ -1219,4 +1219,25 @@
 	<string name="whats_new_discovery_title">Löytöpainike</string>
 	<string name="whats_new_discovery_message">Löydä tekemistä lähistöltä yhdellä napsautuksella!</string>
 	<string name="price_per_hour">%s/tunti</string>
+	<string name="bookmarks_backup">Ota varmuuskopiointi käyttöön</string>
+	<string name="authorization_button_sign_in">Kirjaudu sisään</string>
+	<string name="bookmarks_message_authorized_user">Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Haluatko ottaa varmuuskopioinnin käyttöön?</string>
+	<string name="bookmarks_message_unauthorized_user">Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Kirjaudu sisään, jotta voit ottaa varmuuskopioinnin käyttöön.</string>
+	<string name="bookmarks_message_unbackuped_user">Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan.</string>
+	<string name="bookmarks_message_backuped_user">Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Viimeisin varmuuskopio %s</string>
+	<string name="settings_backup_bookmarks">Varmuuskopioi kirjanmerkit</string>
+	<string name="bookmarks_groups">Listat</string>
+	<string name="bookmarks_groups_hide_all">Piilota kaikki</string>
+	<string name="bookmarks_groups_show_all">Näytä kaikki</string>
+	<string name="bookmarks_places">%s kirjanmerkkiä</string>
+	<string name="bookmarks_create_new_group">Luo uusi luettelo</string>
+	<string name="downloader_hide_screen">Piilota näyttö</string>
+	<string name="downloader_percent">%1$s (s%% / %2$s)</string>
+	<string name="downloader_process">Ladataan %s...</string>
+	<string name="downloader_applying">%s otetaan käyttöön...</string>
+	<string name="transit_not_found">Navigointi kohteiden välillä ei ole vielä käytettävissä tällä alueella</string>
+	<string name="whats_new_title_hotel_filter">Uusia hotellisuodattimia on saatavana!</string>
+	<string name="whats_new_message_hotel_filter">Varaa hotelleja, joissa on tilaa valitseminasi päivinä! Käytä sisäänkirjautumis- ja uloskirjautumissuodattimia</string>
+	<string name="whats_new_title_ugc_travel">Jaa kokemuksesi muille matkailijoille!</string>
+	<string name="whats_new_message_ugc_travel">Arvioi ja kirjoita arvosteluja vierailemistasi paikoista!</string>
 </resources>

@@ -2177,54 +2177,54 @@
 
 "discovery_button_subtitle_book_hotels" = "Book hotels";
 
-"bookmarks_backup" = "Enable backup";
+"bookmarks_backup" = "Ativar cópia de segurança";
 
-"authorization_button_sign_in" = "Sign in";
+"authorization_button_sign_in" = "Iniciar sessão";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Deseja ativar a cópia de segurança?";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Inicie a sessão para ativar a cópia de segurança.";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
+"bookmarks_message_unbackuped_user" = "Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro.";
 
-"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
+"bookmarks_message_backuped_user" = "Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Última cópia de segurança %s";
 
-"settings_backup_bookmarks" = "Backup Bookmarks";
+"settings_backup_bookmarks" = "Cópia de segurança dos favoritos";
 
-"bookmarks_groups" = "Groups";
+"bookmarks_groups" = "Listas";
 
-"bookmarks_groups_hide_all" = "Hide all";
+"bookmarks_groups_hide_all" = "Ocultar tudo";
 
-"bookmarks_groups_show_all" = "Show all";
+"bookmarks_groups_show_all" = "Mostrar tudo";
 
-"bookmarks_places" = "%s bookmarks";
+"bookmarks_places" = "%s favoritos";
 
-"bookmarks_create_new_group" = "Create new group";
+"bookmarks_create_new_group" = "Criar nova lista";
 
-"downloader_hide_screen" = "Hide Screen";
+"downloader_hide_screen" = "Ocultar ecrã";
 
-"downloader_percent" = "%s (%s of %s)";
+"downloader_percent" = "%s (%s de s%)";
 
-"downloader_process" = "Downloading %s...";
+"downloader_process" = "A transferir %s...";
 
-"downloader_applying" = "Applying %s...";
+"downloader_applying" = "A aplicar %s...";
 
-"transit_not_found" = "Transit navigation in this region is not yet available";
+"transit_not_found" = "A navegação de trânsito ainda não está disponível nesta região";
+
+"whats_new_title_hotel_filter" = "Novos filtros de hotel disponíveis!";
+
+"whats_new_message_hotel_filter" = "Reserve hotéis disponíveis para as suas datas! Utilize filtros de check in e de check out";
+
+"whats_new_title_ugc_travel" = "Partilhe a sua experiência com outros viajantes!";
+
+"whats_new_message_ugc_travel" = "Classifique e avalie locais que tenha visitado!";
 
 "dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
 
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
-"whats_new_title_hotel_filter" = "New hotel filters available!";
-
-"whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
-
-"whats_new_title_ugc_travel" = "Share your experience with other travellers!";
-
-"whats_new_message_ugc_travel" = "Rate and review places you visited!";
-
 "bookmarks_error_message_share_general" = "Unable to share due to an application error.";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Can not share empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

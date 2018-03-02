@@ -1222,4 +1222,25 @@
 	<string name="whats_new_discovery_title">Botão descoberta</string>
 	<string name="whats_new_discovery_message">Descubra coisas com apenas um clique!</string>
 	<string name="price_per_hour">%s/hora</string>
+	<string name="bookmarks_backup">Ativar cópia de segurança</string>
+	<string name="authorization_button_sign_in">Iniciar sessão</string>
+	<string name="bookmarks_message_authorized_user">Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Deseja ativar a cópia de segurança?</string>
+	<string name="bookmarks_message_unauthorized_user">Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Inicie a sessão para ativar a cópia de segurança.</string>
+	<string name="bookmarks_message_unbackuped_user">Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro.</string>
+	<string name="bookmarks_message_backuped_user">Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Última cópia de segurança %s</string>
+	<string name="settings_backup_bookmarks">Cópia de segurança dos favoritos</string>
+	<string name="bookmarks_groups">Listas</string>
+	<string name="bookmarks_groups_hide_all">Ocultar tudo</string>
+	<string name="bookmarks_groups_show_all">Mostrar tudo</string>
+	<string name="bookmarks_places">%s favoritos</string>
+	<string name="bookmarks_create_new_group">Criar nova lista</string>
+	<string name="downloader_hide_screen">Ocultar ecrã</string>
+	<string name="downloader_percent">%1$s (%2$s de s%%)</string>
+	<string name="downloader_process">A transferir %s...</string>
+	<string name="downloader_applying">A aplicar %s...</string>
+	<string name="transit_not_found">A navegação de trânsito ainda não está disponível nesta região</string>
+	<string name="whats_new_title_hotel_filter">Novos filtros de hotel disponíveis!</string>
+	<string name="whats_new_message_hotel_filter">Reserve hotéis disponíveis para as suas datas! Utilize filtros de check in e de check out</string>
+	<string name="whats_new_title_ugc_travel">Partilhe a sua experiência com outros viajantes!</string>
+	<string name="whats_new_message_ugc_travel">Classifique e avalie locais que tenha visitado!</string>
 </resources>

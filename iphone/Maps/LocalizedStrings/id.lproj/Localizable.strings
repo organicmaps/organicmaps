@@ -2177,54 +2177,54 @@
 
 "discovery_button_subtitle_book_hotels" = "Book hotels";
 
-"bookmarks_backup" = "Enable backup";
+"bookmarks_backup" = "Aktifkan cadangan";
 
-"authorization_button_sign_in" = "Sign in";
+"authorization_button_sign_in" = "Masuk";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman. Anda ingin mengaktifkan cadangan?";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman. Masuklah untuk mengaktifkan cadangan.";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
+"bookmarks_message_unbackuped_user" = "Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman.";
 
-"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
+"bookmarks_message_backuped_user" = "Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman. Cadangan terakhir %s";
 
-"settings_backup_bookmarks" = "Backup Bookmarks";
+"settings_backup_bookmarks" = "Cadangkan Markah";
 
-"bookmarks_groups" = "Groups";
+"bookmarks_groups" = "Daftar";
 
-"bookmarks_groups_hide_all" = "Hide all";
+"bookmarks_groups_hide_all" = "Sembunyikan semua";
 
-"bookmarks_groups_show_all" = "Show all";
+"bookmarks_groups_show_all" = "Perlihatkan semua";
 
-"bookmarks_places" = "%s bookmarks";
+"bookmarks_places" = "%s markah";
 
-"bookmarks_create_new_group" = "Create new group";
+"bookmarks_create_new_group" = "Buat daftar baru";
 
-"downloader_hide_screen" = "Hide Screen";
+"downloader_hide_screen" = "Sembunyikan Layar";
 
-"downloader_percent" = "%s (%s of %s)";
+"downloader_percent" = "%s (%s dari s%)";
 
-"downloader_process" = "Downloading %s...";
+"downloader_process" = "Mengunduh %s...";
 
-"downloader_applying" = "Applying %s...";
+"downloader_applying" = "Menerapkan %s...";
 
-"transit_not_found" = "Transit navigation in this region is not yet available";
+"transit_not_found" = "Navigasi transit di daerah ini masih belum tersedia";
+
+"whats_new_title_hotel_filter" = "Filter hotel baru tersedia!";
+
+"whats_new_message_hotel_filter" = "Pesan hotel yang tersedia untuk tanggal perjalanan Anda! Gunakan filter check-in dan check-out";
+
+"whats_new_title_ugc_travel" = "Bagikan pengalaman Anda dengan musafir lain!";
+
+"whats_new_message_ugc_travel" = "Berikan peringkat dan ulasan untuk tempat yang telah Anda kunjungi!";
 
 "dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
 
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
-"whats_new_title_hotel_filter" = "New hotel filters available!";
-
-"whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
-
-"whats_new_title_ugc_travel" = "Share your experience with other travellers!";
-
-"whats_new_message_ugc_travel" = "Rate and review places you visited!";
-
 "bookmarks_error_message_share_general" = "Unable to share due to an application error.";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Can not share empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

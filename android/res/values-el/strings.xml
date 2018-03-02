@@ -983,4 +983,25 @@
 	<string name="whats_new_discovery_title">Πλήκτρο εντοπισμού</string>
 	<string name="whats_new_discovery_message">Ανακαλύψτε πράγματα γύρω με ένα κλικ!</string>
 	<string name="price_per_hour">%s/ώρα</string>
+	<string name="bookmarks_backup">Ενεργοποίηση δημιουργίας αντιγράφων ασφαλείας</string>
+	<string name="authorization_button_sign_in">Είσοδος</string>
+	<string name="bookmarks_message_authorized_user">Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud. Θέλετε να ενεργοποιήσετε τη δημιουργία αντιγράφων ασφαλείας:</string>
+	<string name="bookmarks_message_unauthorized_user">Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud. Συνδεθείτε για να ενεργοποιήσετε τη δημιουργία αντιγράφων ασφαλείας.</string>
+	<string name="bookmarks_message_unbackuped_user">Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud.</string>
+	<string name="bookmarks_message_backuped_user">Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud. Τελευταίο αντίγραφο ασφαλείας %s</string>
+	<string name="settings_backup_bookmarks">Δημιουργία αντιγράφου ασφαλείας αγαπημένων</string>
+	<string name="bookmarks_groups">Τόπος αγώνων</string>
+	<string name="bookmarks_groups_hide_all">Απόκρυψη όλων</string>
+	<string name="bookmarks_groups_show_all">Εμφάνιση όλων</string>
+	<string name="bookmarks_places">%s αγαπημένα</string>
+	<string name="bookmarks_create_new_group">Δημιουργία νέας λίστας</string>
+	<string name="downloader_hide_screen">Απόκρυψη οθόνης</string>
+	<string name="downloader_percent">%1$s (%2$s από s%%)</string>
+	<string name="downloader_process">Λήψη %s...</string>
+	<string name="downloader_applying">Εφαρμογή %s...</string>
+	<string name="transit_not_found">Η πλοήγηση διαμετακόμισης στην περιοχή αυτή δεν είναι ακόμα διαθέσιμη</string>
+	<string name="whats_new_title_hotel_filter">Υπάρχουν διαθέσιμα νέα φίλτρα ξενοδοχείου!</string>
+	<string name="whats_new_message_hotel_filter">Κάντε κράτησ σε ξενοδοχεία που είναι διαθέσιμα τις ημερομηνίες σας! Χρησιμοποιήστε τα φίλτρα άφιξης και αναχώρισης</string>
+	<string name="whats_new_title_ugc_travel">Μοιραστείτε την εμπειρία σας με άλλους ταξιδιώτες!</string>
+	<string name="whats_new_message_ugc_travel">Βαθμολογήστε και αξιολογήστε τα μέρη που έχετε επισκεφτεί!</string>
 </resources>

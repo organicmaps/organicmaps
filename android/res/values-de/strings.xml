@@ -1233,4 +1233,25 @@
 	<string name="whats_new_discovery_title">Schaltfläche Entdecken</string>
 	<string name="whats_new_discovery_message">Entdecken Sie Dinge in der Umgebung mit nur einem Klick!</string>
 	<string name="price_per_hour">%s/Stunde</string>
+	<string name="bookmarks_backup">Sicherung aktivieren</string>
+	<string name="authorization_button_sign_in">Anmelden</string>
+	<string name="bookmarks_message_authorized_user">Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert. Möchten Sie die Sicherung aktivieren?</string>
+	<string name="bookmarks_message_unauthorized_user">Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert. Melden Sie sich an, um die Sicherung zu aktivieren.</string>
+	<string name="bookmarks_message_unbackuped_user">Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert.</string>
+	<string name="bookmarks_message_backuped_user">Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert. Letzte Sicherung: %s</string>
+	<string name="settings_backup_bookmarks">Sicherung Lesezeichen</string>
+	<string name="bookmarks_groups">Listen</string>
+	<string name="bookmarks_groups_hide_all">Alle verbergen</string>
+	<string name="bookmarks_groups_show_all">Alle anzeigen</string>
+	<string name="bookmarks_places">%s Lesezeichen</string>
+	<string name="bookmarks_create_new_group">Erstelle eine neue Liste</string>
+	<string name="downloader_hide_screen">Bildschirm verbergen</string>
+	<string name="downloader_percent">%1$s (%2$s von s%%)</string>
+	<string name="downloader_process">%s heruntergeladen...</string>
+	<string name="downloader_applying">%s anwenden...</string>
+	<string name="transit_not_found">Transit-Navigation in dieser Region ist noch nicht verfügbar</string>
+	<string name="whats_new_title_hotel_filter">Neue Hotelfilter verfügbar!</string>
+	<string name="whats_new_message_hotel_filter">Buchen Sie Hotels, die für Ihre Termine verfügbar sind! Nutzen Sie Anreise- und Abreise-Filter</string>
+	<string name="whats_new_title_ugc_travel">Teilen Sie anderen Reisenden Ihre Erfahrungen mit!</string>
+	<string name="whats_new_message_ugc_travel">Bewerten Sie Orte, die Sie besucht haben!</string>
 </resources>

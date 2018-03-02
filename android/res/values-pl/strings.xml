@@ -1222,4 +1222,25 @@
 	<string name="whats_new_discovery_title">Przycisk odkrywania</string>
 	<string name="whats_new_discovery_message">Odkrywaj rzeczy dookoła jednym kliknięciem!</string>
 	<string name="price_per_hour">%s/godzina</string>
+	<string name="bookmarks_backup">Włącz kopie zapasowe</string>
+	<string name="authorization_button_sign_in">Zaloguj się</string>
+	<string name="bookmarks_message_authorized_user">Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Włączyć kopie zapasowe?</string>
+	<string name="bookmarks_message_unauthorized_user">Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Zaloguj się, aby włączyć kopie zapasowe.</string>
+	<string name="bookmarks_message_unbackuped_user">Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze.</string>
+	<string name="bookmarks_message_backuped_user">Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Ostatnia kopia zapasowa %s</string>
+	<string name="settings_backup_bookmarks">Kopie zapasowe zakładek</string>
+	<string name="bookmarks_groups">Listy</string>
+	<string name="bookmarks_groups_hide_all">Ukryj wszystkie</string>
+	<string name="bookmarks_groups_show_all">Pokaż wszystkie</string>
+	<string name="bookmarks_places">Zakładki: %s</string>
+	<string name="bookmarks_create_new_group">Utwórz nową listę</string>
+	<string name="downloader_hide_screen">Ukryj ekran</string>
+	<string name="downloader_percent">%1$s (%2$s z %3$s)</string>
+	<string name="downloader_process">Pobieranie %s...</string>
+	<string name="downloader_applying">Stosowanie zmian %s...</string>
+	<string name="transit_not_found">Nawigacja tranzytowa nie jest jeszcze dostępna dla tego regionu</string>
+	<string name="whats_new_title_hotel_filter">Dostępne nowe filtry hoteli!</string>
+	<string name="whats_new_message_hotel_filter">Zarezerwuj hotele dla wybranych dat! Użyj filtrów przyjazdu i wyjazdu</string>
+	<string name="whats_new_title_ugc_travel">Podziel się swoimi wrażeniami z innymi podróżnymi!</string>
+	<string name="whats_new_message_ugc_travel">Oceniaj i recenzuj odwiedzane miejsca!</string>
 </resources>

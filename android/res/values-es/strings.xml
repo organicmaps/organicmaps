@@ -1212,4 +1212,25 @@
 	<string name="whats_new_discovery_title">Botón Descubrimiento</string>
 	<string name="whats_new_discovery_message">¡Descubra los alrededores en un clic!</string>
 	<string name="price_per_hour">%s/hora</string>
+	<string name="bookmarks_backup">Permitir copia de seguridad</string>
+	<string name="authorization_button_sign_in">Iniciar sesión</string>
+	<string name="bookmarks_message_authorized_user">La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. ¿Desea habilitar la copia de seguridad?</string>
+	<string name="bookmarks_message_unauthorized_user">La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. Inicie sesión para habilitar la copia de seguridad.</string>
+	<string name="bookmarks_message_unbackuped_user">La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube.</string>
+	<string name="bookmarks_message_backuped_user">La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. La última copia de seguridad se hizo %s</string>
+	<string name="settings_backup_bookmarks">Marcadores de copia de seguridad</string>
+	<string name="bookmarks_groups">Liza</string>
+	<string name="bookmarks_groups_hide_all">Ocultar todo</string>
+	<string name="bookmarks_groups_show_all">Mostrar todo</string>
+	<string name="bookmarks_places">%s marcadores</string>
+	<string name="bookmarks_create_new_group">Crear nueva lista</string>
+	<string name="downloader_hide_screen">Ocultar pantalla</string>
+	<string name="downloader_percent">%1$s (%2$s de s%%)</string>
+	<string name="downloader_process">Descargando %s...</string>
+	<string name="downloader_applying">Aplicando %s...</string>
+	<string name="transit_not_found">La navegación de tránsito aún no está disponible en esta región</string>
+	<string name="whats_new_title_hotel_filter">¡Hay nuevos filtros disponibles!</string>
+	<string name="whats_new_message_hotel_filter">¡Hay hoteles disponibles para las fechas especificadas! Utilice los filtros de Entrada y Salida</string>
+	<string name="whats_new_title_ugc_travel">¡Comparta su experiencia con otros viajeros!</string>
+	<string name="whats_new_message_ugc_travel">¡Puntúe y opine sobre los lugares visitados!</string>
 </resources>

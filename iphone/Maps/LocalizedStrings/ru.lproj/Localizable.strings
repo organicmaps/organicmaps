@@ -2191,7 +2191,7 @@
 
 "settings_backup_bookmarks" = "Резервное копирование меток";
 
-"bookmarks_groups" = "Группы";
+"bookmarks_groups" = "Списки";
 
 "bookmarks_groups_hide_all" = "Спрятать все";
 
@@ -2199,29 +2199,29 @@
 
 "bookmarks_places" = "%s меток";
 
-"bookmarks_create_new_group" = "Создать новую группу";
+"bookmarks_create_new_group" = "Создать новый список";
 
 "downloader_hide_screen" = "Скрыть";
 
 "downloader_percent" = "%s (%s из %s)";
 
-"downloader_process" = "Downloading %s...";
+"downloader_process" = "Загрузка %s…";
 
-"downloader_applying" = "Applying %s...";
+"downloader_applying" = "Применение %s…";
 
 "transit_not_found" = "Навигация по общественному траспорту пока не доступна в данном регионе";
+
+"whats_new_title_hotel_filter" = "Новые фильтры при поиске отелей!";
+
+"whats_new_message_hotel_filter" = "При поиске отелей используйте фильтрацию по дате заезда и выезда";
+
+"whats_new_title_ugc_travel" = "Делитесь вашими впечатлениями с другими путешественниками!";
+
+"whats_new_message_ugc_travel" = "Оценивайте и пишите отзывы о посещенных местах!";
 
 "dialog_pedestrian_route_is_long" = "Пешеходный маршрут слишком длинный";
 
 "dialog_message_transit_not_found_connection" = "Постройте маршрут в пределах одной транспортной сети";
-
-"whats_new_title_hotel_filter" = "Новые фильтры при поиске отелей";
-
-"whats_new_message_hotel_filter" = "При поиске отелей используйте фильтрацию по дате заезда и выезда";
-
-"whats_new_title_ugc_travel" = "Делитесь вашими впечатлениями с другими путешественниками";
-
-"whats_new_message_ugc_travel" = "Оценивайте и пишите отзывы о посещенных местах!";
 
 "bookmarks_error_message_share_general" = "Не удалось поделиться из-за ошибки приложения.";
 

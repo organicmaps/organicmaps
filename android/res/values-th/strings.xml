@@ -1225,4 +1225,25 @@
 	<string name="whats_new_discovery_title">ปุ่มการค้นพบ</string>
 	<string name="whats_new_discovery_message">ค้นพบสิ่งรอบ ๆ ตัวในคลิกเดียว!</string>
 	<string name="price_per_hour">%s/ชั่วโมง</string>
+	<string name="bookmarks_backup">เปิดใช้งานการสำรองข้อมูล</string>
+	<string name="authorization_button_sign_in">ลงชื่อเข้าใช้</string>
+	<string name="bookmarks_message_authorized_user">บุ๊กมาร์กของคุณจะสำรองข้อมูลอัตโนมัติในที่เก็บข้อมูลคลาวด์ที่ปลอดภัย คุณต้องการเปิดใช้งานการสำรองข้อมูลหรือไม่?</string>
+	<string name="bookmarks_message_unauthorized_user">บุ๊กมาร์กของคุณจะสำรองข้อมูลอัตโนมัติในที่เก็บข้อมูลคลาวด์ที่ปลอดภัย ลงชื่อเข้าใช้เพื่อเปิดใช้งานการสำรองข้อมูล</string>
+	<string name="bookmarks_message_unbackuped_user">บุ๊กมาร์กของคุณจะสำรองข้อมูลอัตโนมัติในที่เก็บข้อมูลคลาวด์ที่ปลอดภัย</string>
+	<string name="bookmarks_message_backuped_user">บุ๊กมาร์กของคุณจะสำรองข้อมูลอัตโนมัติในที่เก็บข้อมูลคลาวด์ที่ปลอดภัย สำรองข้อมูลครั้งล่าสุด %s</string>
+	<string name="settings_backup_bookmarks">สำรองข้อมูลบุ๊กมาร์ก</string>
+	<string name="bookmarks_groups">รายการ</string>
+	<string name="bookmarks_groups_hide_all">ซ่อนทั้งหมด</string>
+	<string name="bookmarks_groups_show_all">แสดงทั้งหมด</string>
+	<string name="bookmarks_places">%s บุ๊กมาร์ก</string>
+	<string name="bookmarks_create_new_group">สร้างรายการใหม่</string>
+	<string name="downloader_hide_screen">ซ่อนหน้าจอ</string>
+	<string name="downloader_percent">%1$s (%2$s จาก s%%)</string>
+	<string name="downloader_process">กำลังดาวน์โหลด %s...</string>
+	<string name="downloader_applying">กำลังนำ %s ไปใช้งาน...</string>
+	<string name="transit_not_found">การนำทางการสัญจรในบริเวณนี้ยังไม่สามารถใช้ได้</string>
+	<string name="whats_new_title_hotel_filter">มีตัวกรองโรงแรมตัวใหม่ให้ใช้ได้แล้ว!</string>
+	<string name="whats_new_message_hotel_filter">จองโรงแรมที่มีสำหรับช่วงวันที่ของคุณ! ใช้ตัวกรองเช็คอินและเช็คเอาท์</string>
+	<string name="whats_new_title_ugc_travel">แบ่งปันประสบการณ์ของคุณกับนักท่องเที่ยวคนอื่น ๆ!</string>
+	<string name="whats_new_message_ugc_travel">ให้คะแนนแล้วรีวิวสถานที่ที่คุณเคยไป!</string>
 </resources>

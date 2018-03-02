@@ -1219,4 +1219,25 @@
 	<string name="whats_new_discovery_title">Felfedezés gomb</string>
 	<string name="whats_new_discovery_message">Fedezze fel a dolgokat a környéken egy kattintással!</string>
 	<string name="price_per_hour">%s/óra</string>
+	<string name="bookmarks_backup">Engedélyezi a biztonsági mentést</string>
+	<string name="authorization_button_sign_in">Bejelentkezés</string>
+	<string name="bookmarks_message_authorized_user">A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Engedélyezi a biztonsági mentést?</string>
+	<string name="bookmarks_message_unauthorized_user">A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Jelentkezzen be a biztonsági mentés engedélyezéséhez.</string>
+	<string name="bookmarks_message_unbackuped_user">A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer.</string>
+	<string name="bookmarks_message_backuped_user">A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Utolsó biztonsági mentés %s</string>
+	<string name="settings_backup_bookmarks">Könyvjelzők biztosági mentése</string>
+	<string name="bookmarks_groups">List</string>
+	<string name="bookmarks_groups_hide_all">Összes elrejtése</string>
+	<string name="bookmarks_groups_show_all">Összes megjelenítése</string>
+	<string name="bookmarks_places">könyvjelzők %s</string>
+	<string name="bookmarks_create_new_group">Új lista létrehozása</string>
+	<string name="downloader_hide_screen">Képernyő elrejtése</string>
+	<string name="downloader_percent">%1$s (s%% %2$s százaléka)</string>
+	<string name="downloader_process">%s letöltése...</string>
+	<string name="downloader_applying">%s alkalmazása...</string>
+	<string name="transit_not_found">Tranzit navigáció ebben a régióban még nem áll rendelkezésre</string>
+	<string name="whats_new_title_hotel_filter">Új szálloda szűrők!</string>
+	<string name="whats_new_message_hotel_filter">Foglaljon elérhető szobát az Ön dátumain! Használja a be- ás kijelentkezési szűrőket</string>
+	<string name="whats_new_title_ugc_travel">Ossza meg tapasztalatait más utasokkal!</string>
+	<string name="whats_new_message_ugc_travel">Értékelje és ismertesse a meglátogatott helyeket!</string>
 </resources>

@@ -2177,54 +2177,54 @@
 
 "discovery_button_subtitle_book_hotels" = "Book hotels";
 
-"bookmarks_backup" = "Enable backup";
+"bookmarks_backup" = "バックアップを有効化";
 
-"authorization_button_sign_in" = "Sign in";
+"authorization_button_sign_in" = "サインイン";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。バックアップを有効化しますか？";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。バックアップを有効化するには、サインインしてください。";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
+"bookmarks_message_unbackuped_user" = "あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。";
 
-"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
+"bookmarks_message_backuped_user" = "あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。最終バックアップ日時：%s";
 
-"settings_backup_bookmarks" = "Backup Bookmarks";
+"settings_backup_bookmarks" = "ブックマークをバックアップ";
 
-"bookmarks_groups" = "Groups";
+"bookmarks_groups" = "リスト";
 
-"bookmarks_groups_hide_all" = "Hide all";
+"bookmarks_groups_hide_all" = "すべて非表示";
 
-"bookmarks_groups_show_all" = "Show all";
+"bookmarks_groups_show_all" = "すべて表示";
 
-"bookmarks_places" = "%s bookmarks";
+"bookmarks_places" = "%s のブックマーク";
 
-"bookmarks_create_new_group" = "Create new group";
+"bookmarks_create_new_group" = "新しいリストを作成する";
 
-"downloader_hide_screen" = "Hide Screen";
+"downloader_hide_screen" = "画面を非表示";
 
-"downloader_percent" = "%s (%s of %s)";
+"downloader_percent" = "%s (%s / s%)";
 
-"downloader_process" = "Downloading %s...";
+"downloader_process" = "%s をダウンロードしています...";
 
-"downloader_applying" = "Applying %s...";
+"downloader_applying" = "%s を適用中です...";
 
-"transit_not_found" = "Transit navigation in this region is not yet available";
+"transit_not_found" = "この地域での乗り換え案内はまだご利用いただけません";
+
+"whats_new_title_hotel_filter" = "新しいホテルのフィルターをご利用いただけます！";
+
+"whats_new_message_hotel_filter" = "あなたの日程で空室のあるホテルを予約できます！チェックインおよびチェックアウトフィルターをご利用ください。";
+
+"whats_new_title_ugc_travel" = "あなたの体験を他の旅行者に共有してください！";
+
+"whats_new_message_ugc_travel" = "訪れた場所の評価やレビューを行ってください！";
 
 "dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
 
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
-"whats_new_title_hotel_filter" = "New hotel filters available!";
-
-"whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
-
-"whats_new_title_ugc_travel" = "Share your experience with other travellers!";
-
-"whats_new_message_ugc_travel" = "Rate and review places you visited!";
-
 "bookmarks_error_message_share_general" = "Unable to share due to an application error.";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Can not share empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

@@ -2177,54 +2177,54 @@
 
 "discovery_button_subtitle_book_hotels" = "Book hotels";
 
-"bookmarks_backup" = "Enable backup";
+"bookmarks_backup" = "Activare backup";
 
-"authorization_button_sign_in" = "Sign in";
+"authorization_button_sign_in" = "Conectare";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Activați funcția de backup?";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Conectați-vă pentru a activa funcția de backup.";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
+"bookmarks_message_unbackuped_user" = "Pentru semnele de carte se realizează automat backup la o locație securizată din cloud.";
 
-"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
+"bookmarks_message_backuped_user" = "Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Ultimul backup %s";
 
-"settings_backup_bookmarks" = "Backup Bookmarks";
+"settings_backup_bookmarks" = "Backup semne de carte";
 
-"bookmarks_groups" = "Groups";
+"bookmarks_groups" = "Liste";
 
-"bookmarks_groups_hide_all" = "Hide all";
+"bookmarks_groups_hide_all" = "Ascundere toate";
 
-"bookmarks_groups_show_all" = "Show all";
+"bookmarks_groups_show_all" = "Afișare toate";
 
-"bookmarks_places" = "%s bookmarks";
+"bookmarks_places" = "%s semne de carte";
 
-"bookmarks_create_new_group" = "Create new group";
+"bookmarks_create_new_group" = "Creați o listă nouă";
 
-"downloader_hide_screen" = "Hide Screen";
+"downloader_hide_screen" = "Ascundere ecran";
 
-"downloader_percent" = "%s (%s of %s)";
+"downloader_percent" = "%s (%s din s%)";
 
-"downloader_process" = "Downloading %s...";
+"downloader_process" = "Descărcare %s...";
 
-"downloader_applying" = "Applying %s...";
+"downloader_applying" = "Aplicare %s...";
 
-"transit_not_found" = "Transit navigation in this region is not yet available";
+"transit_not_found" = "Navigarea în tranzit prin această regiune nu este disponibilă încă";
+
+"whats_new_title_hotel_filter" = "Sunt disponibile filtre noi pentru hoteluri!";
+
+"whats_new_message_hotel_filter" = "Rezervați camere la hoteluri disponibile la datele dorite de dvs.! Utilizați filtrele de cazare și plecare";
+
+"whats_new_title_ugc_travel" = "Comunicați-vă experiențele altor călători!";
+
+"whats_new_message_ugc_travel" = "Evaluați și recenzați locurile pe care le-ați vizitat!";
 
 "dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
 
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
-"whats_new_title_hotel_filter" = "New hotel filters available!";
-
-"whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
-
-"whats_new_title_ugc_travel" = "Share your experience with other travellers!";
-
-"whats_new_message_ugc_travel" = "Rate and review places you visited!";
-
 "bookmarks_error_message_share_general" = "Unable to share due to an application error.";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Can not share empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

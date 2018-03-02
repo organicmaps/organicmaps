@@ -1218,4 +1218,25 @@
 	<string name="whats_new_discovery_title">Tombol penemuan</string>
 	<string name="whats_new_discovery_message">Temukan hal-hal di sekitar Anda dalam satu klik!</string>
 	<string name="price_per_hour">%s/jam</string>
+	<string name="bookmarks_backup">Aktifkan cadangan</string>
+	<string name="authorization_button_sign_in">Masuk</string>
+	<string name="bookmarks_message_authorized_user">Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman. Anda ingin mengaktifkan cadangan?</string>
+	<string name="bookmarks_message_unauthorized_user">Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman. Masuklah untuk mengaktifkan cadangan.</string>
+	<string name="bookmarks_message_unbackuped_user">Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman.</string>
+	<string name="bookmarks_message_backuped_user">Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman. Cadangan terakhir %s</string>
+	<string name="settings_backup_bookmarks">Cadangkan Markah</string>
+	<string name="bookmarks_groups">Daftar</string>
+	<string name="bookmarks_groups_hide_all">Sembunyikan semua</string>
+	<string name="bookmarks_groups_show_all">Perlihatkan semua</string>
+	<string name="bookmarks_places">%s markah</string>
+	<string name="bookmarks_create_new_group">Buat daftar baru</string>
+	<string name="downloader_hide_screen">Sembunyikan Layar</string>
+	<string name="downloader_percent">%1$s (%2$s dari s%%)</string>
+	<string name="downloader_process">Mengunduh %s...</string>
+	<string name="downloader_applying">Menerapkan %s...</string>
+	<string name="transit_not_found">Navigasi transit di daerah ini masih belum tersedia</string>
+	<string name="whats_new_title_hotel_filter">Filter hotel baru tersedia!</string>
+	<string name="whats_new_message_hotel_filter">Pesan hotel yang tersedia untuk tanggal perjalanan Anda! Gunakan filter check-in dan check-out</string>
+	<string name="whats_new_title_ugc_travel">Bagikan pengalaman Anda dengan musafir lain!</string>
+	<string name="whats_new_message_ugc_travel">Berikan peringkat dan ulasan untuk tempat yang telah Anda kunjungi!</string>
 </resources>

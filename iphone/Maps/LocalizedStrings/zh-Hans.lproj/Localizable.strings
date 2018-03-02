@@ -2191,7 +2191,7 @@
 
 "settings_backup_bookmarks" = "Backup Bookmarks";
 
-"bookmarks_groups" = "Groups";
+"bookmarks_groups" = "Lists";
 
 "bookmarks_groups_hide_all" = "Hide all";
 
@@ -2199,7 +2199,7 @@
 
 "bookmarks_places" = "%s bookmarks";
 
-"bookmarks_create_new_group" = "Create new group";
+"bookmarks_create_new_group" = "Create new list";
 
 "downloader_hide_screen" = "Hide Screen";
 
@@ -2211,10 +2211,6 @@
 
 "transit_not_found" = "Transit navigation in this region is not yet available";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
-
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
-
 "whats_new_title_hotel_filter" = "New hotel filters available!";
 
 "whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
@@ -2223,8 +2219,12 @@
 
 "whats_new_message_ugc_travel" = "Rate and review places you visited!";
 
+"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+
+"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
+
 "bookmarks_error_message_share_general" = "Unable to share due to an application error.";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Can not share empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

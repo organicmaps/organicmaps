@@ -1219,4 +1219,25 @@
 	<string name="whats_new_discovery_title">Ontdekkingsknop</string>
 	<string name="whats_new_discovery_message">Ontdek dingen in de buurt met één klik!</string>
 	<string name="price_per_hour">%s/uur</string>
+	<string name="bookmarks_backup">Back-up inschakelen</string>
+	<string name="authorization_button_sign_in">Aanmelden</string>
+	<string name="bookmarks_message_authorized_user">Uw back-up van bladwijzers automatisch in een veilige cloud opslag. Wilt u back-up inschakelen?</string>
+	<string name="bookmarks_message_unauthorized_user">Uw back-up van bladwijzers automatisch in een veilige cloud opslag. Meld aan om back-up in te schakelen.</string>
+	<string name="bookmarks_message_unbackuped_user">Uw back-up van bladwijzers automatisch in een veilige cloud opslag.</string>
+	<string name="bookmarks_message_backuped_user">Uw back-up van bladwijzers automatisch in een veilige cloud opslag. Laatste back-up %s</string>
+	<string name="settings_backup_bookmarks">Back-up Bladwijzers</string>
+	<string name="bookmarks_groups">lijsten</string>
+	<string name="bookmarks_groups_hide_all">Alles verbergen</string>
+	<string name="bookmarks_groups_show_all">Alles weergeven</string>
+	<string name="bookmarks_places">%s bladwijzers</string>
+	<string name="bookmarks_create_new_group">Nieuwe lijst maken</string>
+	<string name="downloader_hide_screen">Scherm Verbergen</string>
+	<string name="downloader_percent">%1$s (%2$s van %3$s)</string>
+	<string name="downloader_process">%s downloaden...</string>
+	<string name="downloader_applying">%s toepassen...</string>
+	<string name="transit_not_found">Transit navigatie is in deze regio nog niet beschikbaar</string>
+	<string name="whats_new_title_hotel_filter">Nieuwe hotelfilters beschikbaar!</string>
+	<string name="whats_new_message_hotel_filter">Boek beschikbare hotels voor uw data! Gebruik de filters inchecken en uitchecken</string>
+	<string name="whats_new_title_ugc_travel">Deel uw ervaring met andere reizigers!</string>
+	<string name="whats_new_message_ugc_travel">Rate en beoordeel bezochte plaatsen!</string>
 </resources>

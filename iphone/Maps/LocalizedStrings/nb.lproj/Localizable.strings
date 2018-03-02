@@ -2177,54 +2177,54 @@
 
 "discovery_button_subtitle_book_hotels" = "Book hotels";
 
-"bookmarks_backup" = "Enable backup";
+"bookmarks_backup" = "Aktiver sikkerhetskopiering";
 
-"authorization_button_sign_in" = "Sign in";
+"authorization_button_sign_in" = "Logg inn";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Ønsker du å aktivere sikkerhetskopiering?";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Logg inn for å aktivere sikkerhetskopiering.";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
+"bookmarks_message_unbackuped_user" = "Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen.";
 
-"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
+"bookmarks_message_backuped_user" = "Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Siste sikkerhetskopiering %s";
 
-"settings_backup_bookmarks" = "Backup Bookmarks";
+"settings_backup_bookmarks" = "Sikkerhetskopiere bokmerker";
 
-"bookmarks_groups" = "Groups";
+"bookmarks_groups" = "Lister";
 
-"bookmarks_groups_hide_all" = "Hide all";
+"bookmarks_groups_hide_all" = "Skjul alle";
 
-"bookmarks_groups_show_all" = "Show all";
+"bookmarks_groups_show_all" = "Vis alle";
 
-"bookmarks_places" = "%s bookmarks";
+"bookmarks_places" = "%s bokmerker";
 
-"bookmarks_create_new_group" = "Create new group";
+"bookmarks_create_new_group" = "Opprett ny liste";
 
-"downloader_hide_screen" = "Hide Screen";
+"downloader_hide_screen" = "Skjul skjerm";
 
-"downloader_percent" = "%s (%s of %s)";
+"downloader_percent" = "%s (%s av s%)";
 
-"downloader_process" = "Downloading %s...";
+"downloader_process" = "Laster ned %s ...";
 
-"downloader_applying" = "Applying %s...";
+"downloader_applying" = "Bruker %s ...";
 
-"transit_not_found" = "Transit navigation in this region is not yet available";
+"transit_not_found" = "Transittnavigering i dette området er foreløpig ikke tilgjengelig";
+
+"whats_new_title_hotel_filter" = "Nye filter for hotell er tilgjengelig!";
+
+"whats_new_message_hotel_filter" = "Bestill hotell på datoene dine! Bruk filtre for inn- og utsjekking";
+
+"whats_new_title_ugc_travel" = "Del dine opplevelser med andre reisende!";
+
+"whats_new_message_ugc_travel" = "Gi din vurdering og anmeldelse av steder du har reist til!";
 
 "dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
 
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
-"whats_new_title_hotel_filter" = "New hotel filters available!";
-
-"whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
-
-"whats_new_title_ugc_travel" = "Share your experience with other travellers!";
-
-"whats_new_message_ugc_travel" = "Rate and review places you visited!";
-
 "bookmarks_error_message_share_general" = "Unable to share due to an application error.";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Can not share empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

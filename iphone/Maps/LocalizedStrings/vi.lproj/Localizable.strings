@@ -2177,54 +2177,54 @@
 
 "discovery_button_subtitle_book_hotels" = "Book hotels";
 
-"bookmarks_backup" = "Enable backup";
+"bookmarks_backup" = "Bật sao lưu";
 
-"authorization_button_sign_in" = "Sign in";
+"authorization_button_sign_in" = "Đăng nhập";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Bạn có muốn bật sao lưu?";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Hãy đăng nhập để bật sao lưu.";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
+"bookmarks_message_unbackuped_user" = "Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật.";
 
-"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
+"bookmarks_message_backuped_user" = "Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Lần sao lưu gần nhất %s";
 
-"settings_backup_bookmarks" = "Backup Bookmarks";
+"settings_backup_bookmarks" = "Sao lưu Dấu trang";
 
-"bookmarks_groups" = "Groups";
+"bookmarks_groups" = "Danh sách";
 
-"bookmarks_groups_hide_all" = "Hide all";
+"bookmarks_groups_hide_all" = "Ẩn tất cả";
 
-"bookmarks_groups_show_all" = "Show all";
+"bookmarks_groups_show_all" = "Hiển thị tất cả";
 
-"bookmarks_places" = "%s bookmarks";
+"bookmarks_places" = "%s dấu trang";
 
-"bookmarks_create_new_group" = "Create new group";
+"bookmarks_create_new_group" = "Tạo danh sách mới";
 
-"downloader_hide_screen" = "Hide Screen";
+"downloader_hide_screen" = "Ẩn Màn hình";
 
-"downloader_percent" = "%s (%s of %s)";
+"downloader_percent" = "%s (%s / s%)";
 
-"downloader_process" = "Downloading %s...";
+"downloader_process" = "Tải về %s...";
 
-"downloader_applying" = "Applying %s...";
+"downloader_applying" = "Áp dụng %s...";
 
-"transit_not_found" = "Transit navigation in this region is not yet available";
+"transit_not_found" = "Chưa có tính năng dẫn đường quá cảnh cho khu vực này";
+
+"whats_new_title_hotel_filter" = "Đã có bộ lọc khách sạn mới!";
+
+"whats_new_message_hotel_filter" = "Đặt các khách sạn còn phòng cho ngày của bạn! Sử dụng các bộ lọc nhận phòng và trả phòng";
+
+"whats_new_title_ugc_travel" = "Chia sẻ trải nghiệm của bạn với những du khách khác!";
+
+"whats_new_message_ugc_travel" = "Cho điểm và đánh giá những nơi bạn đã ghé thăm!";
 
 "dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
 
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
-"whats_new_title_hotel_filter" = "New hotel filters available!";
-
-"whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
-
-"whats_new_title_ugc_travel" = "Share your experience with other travellers!";
-
-"whats_new_message_ugc_travel" = "Rate and review places you visited!";
-
 "bookmarks_error_message_share_general" = "Unable to share due to an application error.";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Can not share empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

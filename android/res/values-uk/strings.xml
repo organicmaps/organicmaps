@@ -1223,4 +1223,25 @@
 	<string name="whats_new_discovery_title">Додано кнопку \"Поблизу\"</string>
 	<string name="whats_new_discovery_message">Дізнавайтеся, що знаходиться поруч, в один клік!</string>
 	<string name="price_per_hour">%s/година</string>
+	<string name="bookmarks_backup">Увімкнути резервне копіювання</string>
+	<string name="authorization_button_sign_in">Увійти</string>
+	<string name="bookmarks_message_authorized_user">Ваші закладки буде автоматично збережено в безпечному хмарному сховищі. Увімкнути резервне копіювання?</string>
+	<string name="bookmarks_message_unauthorized_user">Ваші закладки буде автоматично збережено в безпечному хмарному сховищі. Увійдіть для того, щоб увімкнути резервне копіювання.</string>
+	<string name="bookmarks_message_unbackuped_user">Ваші закладки буде автоматично збережено в безпечному хмарному сховищі.</string>
+	<string name="bookmarks_message_backuped_user">Ваші закладки буде автоматично збережено в безпечному хмарному сховищі. Остання резервна копія зроблена %s</string>
+	<string name="settings_backup_bookmarks">Зробити резервну копію закладок</string>
+	<string name="bookmarks_groups">Списки</string>
+	<string name="bookmarks_groups_hide_all">Приховати всі</string>
+	<string name="bookmarks_groups_show_all">Показати всі</string>
+	<string name="bookmarks_places">%s закладок</string>
+	<string name="bookmarks_create_new_group">Створити новий список</string>
+	<string name="downloader_hide_screen">Приховати екран</string>
+	<string name="downloader_percent">%1$s (%2$s з s%%)</string>
+	<string name="downloader_process">Завантаження %s...</string>
+	<string name="downloader_applying">Застосування %s...</string>
+	<string name="transit_not_found">Транзитна навігація в цьому регіоні ще недоступна</string>
+	<string name="whats_new_title_hotel_filter">Доступні нові фільтри для готелів!</string>
+	<string name="whats_new_message_hotel_filter">Бронюйте готелі, що доступні за вашими датами! Використовуйте фільтри в\'їзду та виїзду</string>
+	<string name="whats_new_title_ugc_travel">Поділіться вашими враженнями з іншими мандрівниками!</string>
+	<string name="whats_new_message_ugc_travel">Поставте оцінку та напишіть відгук про місця, які ви відвідали!</string>
 </resources>

@@ -1219,4 +1219,25 @@
 	<string name="whats_new_discovery_title">Nút Khám phá</string>
 	<string name="whats_new_discovery_message">Khám phá những địa điểm quanh đây chỉ với một nhấp chuột!</string>
 	<string name="price_per_hour">%s/giờ</string>
+	<string name="bookmarks_backup">Bật sao lưu</string>
+	<string name="authorization_button_sign_in">Đăng nhập</string>
+	<string name="bookmarks_message_authorized_user">Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Bạn có muốn bật sao lưu?</string>
+	<string name="bookmarks_message_unauthorized_user">Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Hãy đăng nhập để bật sao lưu.</string>
+	<string name="bookmarks_message_unbackuped_user">Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật.</string>
+	<string name="bookmarks_message_backuped_user">Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Lần sao lưu gần nhất %s</string>
+	<string name="settings_backup_bookmarks">Sao lưu Dấu trang</string>
+	<string name="bookmarks_groups">Danh sách</string>
+	<string name="bookmarks_groups_hide_all">Ẩn tất cả</string>
+	<string name="bookmarks_groups_show_all">Hiển thị tất cả</string>
+	<string name="bookmarks_places">%s dấu trang</string>
+	<string name="bookmarks_create_new_group">Tạo danh sách mới</string>
+	<string name="downloader_hide_screen">Ẩn Màn hình</string>
+	<string name="downloader_percent">%1$s (%2$s / s%%)</string>
+	<string name="downloader_process">Tải về %s...</string>
+	<string name="downloader_applying">Áp dụng %s...</string>
+	<string name="transit_not_found">Chưa có tính năng dẫn đường quá cảnh cho khu vực này</string>
+	<string name="whats_new_title_hotel_filter">Đã có bộ lọc khách sạn mới!</string>
+	<string name="whats_new_message_hotel_filter">Đặt các khách sạn còn phòng cho ngày của bạn! Sử dụng các bộ lọc nhận phòng và trả phòng</string>
+	<string name="whats_new_title_ugc_travel">Chia sẻ trải nghiệm của bạn với những du khách khác!</string>
+	<string name="whats_new_message_ugc_travel">Cho điểm và đánh giá những nơi bạn đã ghé thăm!</string>
 </resources>
