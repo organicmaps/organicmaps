@@ -113,6 +113,7 @@ omim_add_test_subdirectory(generator_tests)
 
 add_subdirectory(generator_tool)
 add_subdirectory(booking_quality_check)
+add_subdirectory(extract_addr)
 add_subdirectory(feature_segments_checker)
 add_subdirectory(restaurants_info)
 add_subdirectory(srtm_coverage_checker)
