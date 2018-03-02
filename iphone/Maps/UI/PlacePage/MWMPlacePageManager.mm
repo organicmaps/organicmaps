@@ -57,7 +57,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   }
 
   [Statistics logEvent:eventName withParameters:stat atLocation:[MWMLocationManager lastLocation]];
-}
+  }
 }  // namespace
 
 @interface MWMPlacePageManager ()<MWMFrameworkStorageObserver, MWMPlacePageLayoutDelegate,
@@ -151,6 +151,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   case NodeStatus::Error: [MWMStorage retryDownloadNode:countryId]; break;
   case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:countryId]; break;
   case NodeStatus::Downloading:
+  case NodeStatus::Applying:
   case NodeStatus::InQueue: [MWMStorage cancelDownloadNode:countryId]; break;
   case NodeStatus::OnDisk: break;
   }
@@ -529,8 +530,9 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 }
 
 - (void)showPhotoAtIndex:(NSInteger)index
-           referenceView:(UIView *)referenceView
-           referenceViewWhenDismissingHandler:(MWMPlacePageButtonsDismissBlock)referenceViewWhenDismissingHandler
+                         referenceView:(UIView *)referenceView
+    referenceViewWhenDismissingHandler:
+        (MWMPlacePageButtonsDismissBlock)referenceViewWhenDismissingHandler
 {
   auto data = self.data;
   if (!data)

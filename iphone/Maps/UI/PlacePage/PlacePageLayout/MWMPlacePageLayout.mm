@@ -33,8 +33,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {MetainfoRows::Internet, [MWMPlacePageInfoCell class]}};
 }  // namespace
 
-@interface MWMPlacePageLayout () <UITableViewDataSource,
-                                 MWMPlacePageCellUpdateProtocol, MWMPlacePageViewUpdateProtocol>
+@interface MWMPlacePageLayout ()<UITableViewDataSource, MWMPlacePageCellUpdateProtocol,
+                                 MWMPlacePageViewUpdateProtocol>
 
 @property(weak, nonatomic) MWMPlacePageData * data;
 
@@ -231,6 +231,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     break;
   }
   case NodeStatus::InQueue:
+  case NodeStatus::Applying:
   {
     self.actionBar.isAreaNotDownloaded = YES;
     self.actionBar.downloadingState = MWMCircularProgressStateSpinner;
@@ -312,253 +313,279 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   case Sections::Preview:
   {
     return [self.previewLayoutHelper cellForRowAtIndexPath:indexPath withData:data];
-  }
-  case Sections::Bookmark:
-  {
-    Class cls = [MWMBookmarkCell class];
-    auto c = static_cast<MWMBookmarkCell *>(
-        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    [c configureWithText:data.bookmarkDescription
-          updateCellDelegate:self
-        editBookmarkDelegate:delegate
-                      isHTML:data.isHTMLDescription];
-    return c;
-  }
-  case Sections::Metainfo:
-  {
-    auto const row = data.metainfoRows[indexPath.row];
-    switch (row)
-    {
-    case MetainfoRows::OpeningHours:
-    case MetainfoRows::ExtendedOpeningHours:
-    {
-      auto const & metaInfo = data.metainfoRows;
-      NSAssert(std::find(metaInfo.cbegin(), metaInfo.cend(), MetainfoRows::OpeningHours) !=
-                   metaInfo.cend(),
-               @"OpeningHours is not available");
-      return [self.openingHoursLayoutHelper cellForRowAtIndexPath:indexPath];
     }
-    case MetainfoRows::Phone:
-    case MetainfoRows::Address:
-    case MetainfoRows::Website:
-    case MetainfoRows::Email:
-    case MetainfoRows::Cuisine:
-    case MetainfoRows::Operator:
-    case MetainfoRows::Internet:
-    case MetainfoRows::Coordinate:
+    case Sections::Bookmark:
     {
-      Class cls = kMetaInfoCells.at(row);
-      auto c = static_cast<MWMPlacePageRegularCell *>(
+      Class cls = [MWMBookmarkCell class];
+      auto c = static_cast<MWMBookmarkCell *>(
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWithRow:row data:data];
+      [c configureWithText:data.bookmarkDescription
+            updateCellDelegate:self
+          editBookmarkDelegate:delegate
+                        isHTML:data.isHTMLDescription];
       return c;
     }
-    case MetainfoRows::LocalAdsCustomer:
-    case MetainfoRows::LocalAdsCandidate:
+    case Sections::Metainfo:
     {
-      Class cls = [MWMPlacePageButtonCell class];
-      auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls
-                                                                               indexPath:indexPath]);
-      [c configWithTitle:[data stringForRow:row] action:^{ [delegate openLocalAdsURL]; } isInsetButton:NO];
-      return c;
-    }
-    }
-  }
-  case Sections::Ad:
-  {
-    Class cls = [MWMPlacePageTaxiCell class];
-    auto c = static_cast<MWMPlacePageTaxiCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    auto const & taxiProviders = [data taxiProviders];
-    NSAssert(!taxiProviders.empty(), @"TaxiProviders can not be empty");
-    auto const & provider = taxiProviders.front();
-    auto type = MWMPlacePageTaxiProviderTaxi;
-    switch (provider)
-    {
-    case taxi::Provider::Uber: type = MWMPlacePageTaxiProviderUber; break;
-    case taxi::Provider::Yandex: type = MWMPlacePageTaxiProviderYandex; break;
-    case taxi::Provider::Maxim: type = MWMPlacePageTaxiProviderMaxim; break;
-    }
-    [c configWithType:type delegate:delegate];
-    self.taxiCell = c;
-    return c;
-  }
-  case Sections::Buttons:
-  {
-    Class cls = [MWMPlacePageButtonCell class];
-    auto c = static_cast<MWMPlacePageButtonCell *>(
-        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    auto const row = data.buttonsRows[indexPath.row];
-
-    [c configForRow:row withAction:^{
+      auto const row = data.metainfoRows[indexPath.row];
       switch (row)
       {
-        case ButtonsRows::AddPlace: [delegate addPlace]; break;
-        case ButtonsRows::EditPlace: [delegate editPlace]; break;
-        case ButtonsRows::AddBusiness: [delegate addBusiness]; break;
-        case ButtonsRows::HotelDescription: [delegate book:YES]; break;
-        case ButtonsRows::Other: NSAssert(false, @"Incorrect row");
+      case MetainfoRows::OpeningHours:
+      case MetainfoRows::ExtendedOpeningHours:
+      {
+        auto const & metaInfo = data.metainfoRows;
+        NSAssert(std::find(metaInfo.cbegin(), metaInfo.cend(), MetainfoRows::OpeningHours) !=
+                     metaInfo.cend(),
+                 @"OpeningHours is not available");
+        return [self.openingHoursLayoutHelper cellForRowAtIndexPath:indexPath];
       }
-    }];
-    // Hotel description button is always enabled.
-    c.enabled = self.buttonsSectionEnabled || (row == ButtonsRows::HotelDescription);
-    return c;
-  }
-  case Sections::SpecialProjects:
-  {
-    switch (data.specialProjectRows[indexPath.row])
+      case MetainfoRows::Phone:
+      case MetainfoRows::Address:
+      case MetainfoRows::Website:
+      case MetainfoRows::Email:
+      case MetainfoRows::Cuisine:
+      case MetainfoRows::Operator:
+      case MetainfoRows::Internet:
+      case MetainfoRows::Coordinate:
+      {
+        Class cls = kMetaInfoCells.at(row);
+        auto c = static_cast<MWMPlacePageRegularCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithRow:row data:data];
+        return c;
+      }
+      case MetainfoRows::LocalAdsCustomer:
+      case MetainfoRows::LocalAdsCandidate:
+      {
+        Class cls = [MWMPlacePageButtonCell class];
+        auto c = static_cast<MWMPlacePageButtonCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithTitle:[data stringForRow:row]
+                     action:^{
+                       [delegate openLocalAdsURL];
+                     }
+              isInsetButton:NO];
+        return c;
+      }
+      }
+    }
+    case Sections::Ad:
     {
-    case SpecialProject::Viator:
-    {
-      Class cls = [MWMPPViatorCarouselCell class];
-      auto c = static_cast<MWMPPViatorCarouselCell *>(
+      Class cls = [MWMPlacePageTaxiCell class];
+      auto c = static_cast<MWMPlacePageTaxiCell *>(
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWith:data.viatorItems delegate:delegate];
-      self.viatorCell = c;
+      auto const & taxiProviders = [data taxiProviders];
+      NSAssert(!taxiProviders.empty(), @"TaxiProviders can not be empty");
+      auto const & provider = taxiProviders.front();
+      auto type = MWMPlacePageTaxiProviderTaxi;
+      switch (provider)
+      {
+      case taxi::Provider::Uber: type = MWMPlacePageTaxiProviderUber; break;
+      case taxi::Provider::Yandex: type = MWMPlacePageTaxiProviderYandex; break;
+      case taxi::Provider::Maxim: type = MWMPlacePageTaxiProviderMaxim; break;
+      }
+      [c configWithType:type delegate:delegate];
+      self.taxiCell = c;
       return c;
     }
-    }
-  }
-  case Sections::HotelPhotos:
-  {
-    Class cls = [MWMPPHotelCarouselCell class];
-    auto c = static_cast<MWMPPHotelCarouselCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    [c configWith:data.photos delegate:delegate];
-    return c;
-  }
-  case Sections::HotelFacilities:
-  {
-    auto const row = data.hotelFacilitiesRows[indexPath.row];
-    switch (row)
-    {
-    case HotelFacilitiesRow::Regular:
-    {
-      Class cls = [MWMPPFacilityCell class];
-      auto c = static_cast<MWMPPFacilityCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWith:@(data.facilities[indexPath.row].m_name.c_str())];
-      return c;
-    }
-    case HotelFacilitiesRow::ShowMore:
-      Class cls = [MWMPlacePageButtonCell class];
-      auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWithTitle:L(@"booking_show_more") action:^{ [delegate showAllFacilities]; } isInsetButton:NO];
-      return c;
-    }
-  }
-  case Sections::HotelReviews:
-  {
-    auto const row = data.hotelReviewsRows[indexPath.row];
-    switch (row)
-    {
-    case HotelReviewsRow::Header:
-    {
-      Class cls = [MWMPPReviewHeaderCell class];
-      auto c = static_cast<MWMPPReviewHeaderCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWithRating:data.bookingRating numberOfReviews:data.numberOfHotelReviews];
-      return c;
-    }
-    case HotelReviewsRow::Regular:
-    {
-      Class cls = [MWMPPReviewCell class];
-      auto c = static_cast<MWMPPReviewCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWithReview:data.hotelReviews[indexPath.row - 1]];
-      return c;
-    }
-    case HotelReviewsRow::ShowMore:
-    {
-      Class cls = [MWMPlacePageButtonCell class];
-      auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-
-      [c configWithTitle:L(@"reviews_on_bookingcom") action:^{ [delegate showAllReviews]; } isInsetButton:NO];
-      return c;
-    }
-    }
-  }
-  case Sections::HotelDescription:
-  {
-    auto const row = data.descriptionRows[indexPath.row];
-    switch (row)
-    {
-    case HotelDescriptionRow::Regular:
-    {
-      Class cls = [MWMPPHotelDescriptionCell class];
-      auto c = static_cast<MWMPPHotelDescriptionCell *>(
-                                                        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWith:data.hotelDescription delegate:self];
-      return c;
-    }
-    case HotelDescriptionRow::ShowMore:
-    {
-      Class cls = [MWMPlacePageButtonCell class];
-      auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWithTitle:L(@"more_on_bookingcom") action:^{ [delegate book:YES];; } isInsetButton:NO];
-      return c;
-    }
-    }
-  }
-  case Sections::UGCRating:
-  {
-    Class cls = [MWMUGCSummaryRatingCell class];
-    auto c = static_cast<MWMUGCSummaryRatingCell *>(
-        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    auto ugc = data.ugc;
-    [c configWithReviewsCount:[ugc totalReviewsCount]
-                 summaryRating:[ugc summaryRating]
-                       ratings:[ugc ratings]];
-    return c;
-  }
-  case Sections::UGCAddReview:
-  {
-    Class cls = [MWMUGCAddReviewCell class];
-    auto c = static_cast<MWMUGCAddReviewCell *>(
-        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    c.onRateTap = ^(MWMRatingSummaryViewValueType value) {
-      [delegate showUGCAddReview:value fromPreview:NO];
-    };
-    return c;
-  }
-  case Sections::UGCReviews:
-  {
-    auto ugc = data.ugc;
-    auto const & reviewRows = ugc.reviewRows;
-    using namespace ugc::view_model;
-    auto onUpdate = ^{
-      [tableView refresh];
-    };
-
-    switch (reviewRows[indexPath.row])
-    {
-    case ReviewRow::YourReview:
-    {
-      Class cls = [MWMUGCYourReviewCell class];
-      auto c = static_cast<MWMUGCYourReviewCell *>(
-          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWithYourReview:static_cast<MWMUGCYourReview *>([ugc reviewWithIndex:indexPath.row])
-                      onUpdate:onUpdate];
-      return c;
-    }
-    case ReviewRow::Review:
-    {
-      Class cls = [MWMUGCReviewCell class];
-      auto c = static_cast<MWMUGCReviewCell *>(
-          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWithReview:static_cast<MWMUGCReview *>([ugc reviewWithIndex:indexPath.row])
-                  onUpdate:onUpdate];
-      return c;
-    }
-    case ReviewRow::MoreReviews:
+    case Sections::Buttons:
     {
       Class cls = [MWMPlacePageButtonCell class];
       auto c = static_cast<MWMPlacePageButtonCell *>(
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWithTitle:L(@"placepage_more_reviews_button")
-                   action:^{
-                     [delegate openReviews:ugc];
-                   }
-            isInsetButton:NO];
+      auto const row = data.buttonsRows[indexPath.row];
+
+      [c configForRow:row
+            withAction:^{
+              switch (row)
+              {
+              case ButtonsRows::AddPlace: [delegate addPlace]; break;
+              case ButtonsRows::EditPlace: [delegate editPlace]; break;
+              case ButtonsRows::AddBusiness: [delegate addBusiness]; break;
+              case ButtonsRows::HotelDescription: [delegate book:YES]; break;
+              case ButtonsRows::Other: NSAssert(false, @"Incorrect row");
+              }
+            }];
+      // Hotel description button is always enabled.
+      c.enabled = self.buttonsSectionEnabled || (row == ButtonsRows::HotelDescription);
       return c;
     }
+    case Sections::SpecialProjects:
+    {
+      switch (data.specialProjectRows[indexPath.row])
+      {
+      case SpecialProject::Viator:
+      {
+        Class cls = [MWMPPViatorCarouselCell class];
+        auto c = static_cast<MWMPPViatorCarouselCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWith:data.viatorItems delegate:delegate];
+        self.viatorCell = c;
+        return c;
+      }
+      }
     }
-  }
+    case Sections::HotelPhotos:
+    {
+      Class cls = [MWMPPHotelCarouselCell class];
+      auto c = static_cast<MWMPPHotelCarouselCell *>(
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      [c configWith:data.photos delegate:delegate];
+      return c;
+    }
+    case Sections::HotelFacilities:
+    {
+      auto const row = data.hotelFacilitiesRows[indexPath.row];
+      switch (row)
+      {
+      case HotelFacilitiesRow::Regular:
+      {
+        Class cls = [MWMPPFacilityCell class];
+        auto c = static_cast<MWMPPFacilityCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWith:@(data.facilities[indexPath.row].m_name.c_str())];
+        return c;
+      }
+      case HotelFacilitiesRow::ShowMore:
+        Class cls = [MWMPlacePageButtonCell class];
+        auto c = static_cast<MWMPlacePageButtonCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithTitle:L(@"booking_show_more")
+                     action:^{
+                       [delegate showAllFacilities];
+                     }
+              isInsetButton:NO];
+        return c;
+      }
+    }
+    case Sections::HotelReviews:
+    {
+      auto const row = data.hotelReviewsRows[indexPath.row];
+      switch (row)
+      {
+      case HotelReviewsRow::Header:
+      {
+        Class cls = [MWMPPReviewHeaderCell class];
+        auto c = static_cast<MWMPPReviewHeaderCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithRating:data.bookingRating numberOfReviews:data.numberOfHotelReviews];
+        return c;
+      }
+      case HotelReviewsRow::Regular:
+      {
+        Class cls = [MWMPPReviewCell class];
+        auto c = static_cast<MWMPPReviewCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithReview:data.hotelReviews[indexPath.row - 1]];
+        return c;
+      }
+      case HotelReviewsRow::ShowMore:
+      {
+        Class cls = [MWMPlacePageButtonCell class];
+        auto c = static_cast<MWMPlacePageButtonCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+
+        [c configWithTitle:L(@"reviews_on_bookingcom")
+                     action:^{
+                       [delegate showAllReviews];
+                     }
+              isInsetButton:NO];
+        return c;
+      }
+      }
+    }
+    case Sections::HotelDescription:
+    {
+      auto const row = data.descriptionRows[indexPath.row];
+      switch (row)
+      {
+      case HotelDescriptionRow::Regular:
+      {
+        Class cls = [MWMPPHotelDescriptionCell class];
+        auto c = static_cast<MWMPPHotelDescriptionCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWith:data.hotelDescription delegate:self];
+        return c;
+      }
+      case HotelDescriptionRow::ShowMore:
+      {
+        Class cls = [MWMPlacePageButtonCell class];
+        auto c = static_cast<MWMPlacePageButtonCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithTitle:L(@"more_on_bookingcom")
+                     action:^{
+                       [delegate book:YES];
+                       ;
+                     }
+              isInsetButton:NO];
+        return c;
+      }
+      }
+    }
+    case Sections::UGCRating:
+    {
+      Class cls = [MWMUGCSummaryRatingCell class];
+      auto c = static_cast<MWMUGCSummaryRatingCell *>(
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      auto ugc = data.ugc;
+      [c configWithReviewsCount:[ugc totalReviewsCount]
+                   summaryRating:[ugc summaryRating]
+                         ratings:[ugc ratings]];
+      return c;
+    }
+    case Sections::UGCAddReview:
+    {
+      Class cls = [MWMUGCAddReviewCell class];
+      auto c = static_cast<MWMUGCAddReviewCell *>(
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      c.onRateTap = ^(MWMRatingSummaryViewValueType value) {
+        [delegate showUGCAddReview:value fromPreview:NO];
+      };
+      return c;
+    }
+    case Sections::UGCReviews:
+    {
+      auto ugc = data.ugc;
+      auto const & reviewRows = ugc.reviewRows;
+      using namespace ugc::view_model;
+      auto onUpdate = ^{
+        [tableView refresh];
+      };
+
+      switch (reviewRows[indexPath.row])
+      {
+      case ReviewRow::YourReview:
+      {
+        Class cls = [MWMUGCYourReviewCell class];
+        auto c = static_cast<MWMUGCYourReviewCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithYourReview:static_cast<MWMUGCYourReview *>([ugc reviewWithIndex:indexPath.row])
+                        onUpdate:onUpdate];
+        return c;
+      }
+      case ReviewRow::Review:
+      {
+        Class cls = [MWMUGCReviewCell class];
+        auto c = static_cast<MWMUGCReviewCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithReview:static_cast<MWMUGCReview *>([ugc reviewWithIndex:indexPath.row])
+                    onUpdate:onUpdate];
+        return c;
+      }
+      case ReviewRow::MoreReviews:
+      {
+        Class cls = [MWMPlacePageButtonCell class];
+        auto c = static_cast<MWMPlacePageButtonCell *>(
+            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithTitle:L(@"placepage_more_reviews_button")
+                     action:^{
+                       [delegate openReviews:ugc];
+                     }
+              isInsetButton:NO];
+        return c;
+      }
+      }
+    }
   }
 }
 
@@ -604,7 +631,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
   checkCell(self.viatorCell, ^{
     self.viatorCell = nil;
-
+    
     auto viatorItems = data.viatorItems;
     if (viatorItems.count == 0)
     {
@@ -693,7 +720,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d, BOOL isSection) {
     if (![self.data isEqual:d])
       return;
-
+    
     auto tv = self.placePageView.tableView;
     if (isSection) {
       [tv insertSections:[NSIndexSet indexSetWithIndexesInRange:range]
@@ -704,7 +731,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
       NSMutableArray<NSIndexPath *> * indexPaths = [@[] mutableCopy];
       for (auto i = 1; i < range.length + 1; i++)
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:range.location]];
-
+      
       [tv insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     }
   };

@@ -132,10 +132,10 @@ using namespace storage;
       {
         [Statistics logEvent:kStatDownloaderMapAction
               withParameters:@{
-                kStatAction : kStatDownload,
-                kStatIsAuto : kStatYes,
-                kStatFrom : kStatMap,
-                kStatScenario : kStatDownload
+                kStatAction: kStatDownload,
+                kStatIsAuto: kStatYes,
+                kStatFrom: kStatMap,
+                kStatScenario: kStatDownload
               }];
         m_autoDownloadCountryId = m_countryId;
         [MWMStorage downloadNode:m_countryId
@@ -149,20 +149,21 @@ using namespace storage;
         [self showDownloadRequest];
       }
       break;
-    }
-    case NodeStatus::Downloading:
-      if (nodeAttrs.m_downloadingProgress.second != 0)
-        [self showDownloading:static_cast<CGFloat>(nodeAttrs.m_downloadingProgress.first) /
-                              nodeAttrs.m_downloadingProgress.second];
-      break;
-    case NodeStatus::InQueue: [self showInQueue]; break;
-    case NodeStatus::Undefined:
-    case NodeStatus::Error:
-      if (p.IsAutoRetryDownloadFailed())
-        [self showError:nodeAttrs.m_error];
-      break;
-    case NodeStatus::OnDisk:
-    case NodeStatus::OnDiskOutOfDate: [self removeFromSuperview]; break;
+      }
+      case NodeStatus::Downloading:
+        if (nodeAttrs.m_downloadingProgress.second != 0)
+          [self showDownloading:static_cast<CGFloat>(nodeAttrs.m_downloadingProgress.first) /
+                                nodeAttrs.m_downloadingProgress.second];
+        break;
+      case NodeStatus::Applying:
+      case NodeStatus::InQueue: [self showInQueue]; break;
+      case NodeStatus::Undefined:
+      case NodeStatus::Error:
+        if (p.IsAutoRetryDownloadFailed())
+          [self showError:nodeAttrs.m_error];
+        break;
+      case NodeStatus::OnDisk:
+      case NodeStatus::OnDiskOutOfDate: [self removeFromSuperview]; break;
     }
   }
   else
@@ -208,10 +209,10 @@ using namespace storage;
   auto const retryBlock = ^{
     [Statistics logEvent:kStatDownloaderMapAction
           withParameters:@{
-            kStatAction : kStatRetry,
-            kStatIsAuto : kStatNo,
-            kStatFrom : kStatMap,
-            kStatScenario : kStatDownload
+            kStatAction: kStatRetry,
+            kStatIsAuto: kStatNo,
+            kStatFrom: kStatMap,
+            kStatScenario: kStatDownload
           }];
     [self showInQueue];
     [MWMStorage retryDownloadNode:self->m_countryId];
@@ -297,10 +298,10 @@ using namespace storage;
   {
     [Statistics logEvent:kStatDownloaderMapAction
           withParameters:@{
-            kStatAction : kStatRetry,
-            kStatIsAuto : kStatNo,
-            kStatFrom : kStatMap,
-            kStatScenario : kStatDownload
+            kStatAction: kStatRetry,
+            kStatIsAuto: kStatNo,
+            kStatFrom: kStatMap,
+            kStatScenario: kStatDownload
           }];
     [self showInQueue];
     [MWMStorage retryDownloadNode:m_countryId];
@@ -328,10 +329,10 @@ using namespace storage;
   {
     [Statistics logEvent:kStatDownloaderMapAction
           withParameters:@{
-            kStatAction : kStatDownload,
-            kStatIsAuto : kStatNo,
-            kStatFrom : kStatMap,
-            kStatScenario : kStatDownload
+            kStatAction: kStatDownload,
+            kStatIsAuto: kStatNo,
+            kStatFrom: kStatMap,
+            kStatScenario: kStatDownload
           }];
     [MWMStorage downloadNode:m_countryId
                    onSuccess:^{

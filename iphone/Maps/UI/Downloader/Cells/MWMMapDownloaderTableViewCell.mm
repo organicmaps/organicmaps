@@ -77,10 +77,10 @@
     size = isModeDownloaded ? nodeAttrs.m_downloadingMwmSize
                             : nodeAttrs.m_mwmSize - nodeAttrs.m_downloadingMwmSize;
     break;
+  case storage::NodeStatus::Applying:
   case storage::NodeStatus::InQueue:
   case storage::NodeStatus::Partly:
-    size = isModeDownloaded ? nodeAttrs.m_localMwmSize
-                            : nodeAttrs.m_mwmSize;
+    size = isModeDownloaded ? nodeAttrs.m_localMwmSize : nodeAttrs.m_mwmSize;
     break;
   case storage::NodeStatus::OnDisk: size = isModeDownloaded ? nodeAttrs.m_mwmSize : 0; break;
   }
@@ -102,7 +102,8 @@
     MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
                                                         MWMCircularProgressStateSelected};
     NSString * imageName = [self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]]
-                          ? @"ic_folder" : @"ic_download";
+                               ? @"ic_folder"
+                               : @"ic_download";
     [progress setImageName:imageName forStates:affectedStates];
     [progress setColoring:coloring forStates:affectedStates];
     progress.state = MWMCircularProgressStateNormal;
@@ -114,6 +115,7 @@
     progress.progress = kMaxProgress * static_cast<CGFloat>(prg.first) / prg.second;
     break;
   }
+  case NodeStatus::Applying:
   case NodeStatus::InQueue: progress.state = MWMCircularProgressStateSpinner; break;
   case NodeStatus::Undefined:
   case NodeStatus::Error: progress.state = MWMCircularProgressStateFailed; break;
@@ -169,6 +171,7 @@
   case NodeStatus::Error: [delegate retryDownloadNode:m_countryId]; break;
   case NodeStatus::OnDiskOutOfDate: [delegate updateNode:m_countryId]; break;
   case NodeStatus::Downloading:
+  case NodeStatus::Applying:
   case NodeStatus::InQueue: [delegate cancelNode:m_countryId]; break;
   case NodeStatus::OnDisk: break;
   }

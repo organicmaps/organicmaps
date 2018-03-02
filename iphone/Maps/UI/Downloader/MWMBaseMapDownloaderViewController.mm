@@ -23,16 +23,14 @@
 
 namespace
 {
-
-typedef NS_OPTIONS(NSUInteger, ActionButtons)
-{
-  NoAction             = 0,
-  ShowOnMapAction      = 1 << 1,
-  DownloadAction       = 1 << 2,
-  UpdateAction         = 1 << 3,
+typedef NS_OPTIONS(NSUInteger, ActionButtons) {
+  NoAction = 0,
+  ShowOnMapAction = 1 << 1,
+  DownloadAction = 1 << 2,
+  UpdateAction = 1 << 3,
   CancelDownloadAction = 1 << 4,
-  RetryDownloadAction  = 1 << 5,
-  DeleteAction         = 1 << 6
+  RetryDownloadAction = 1 << 5,
+  DeleteAction = 1 << 6
 };
 
 NSString * const kAllMapsLabelFormat = @"%@ (%@)";
@@ -326,16 +324,15 @@ using namespace storage;
     self.allMapsView.hidden = hide;
   [self.view layoutIfNeeded];
   self.allMapsViewBottomOffset.constant = hide ? self.allMapsView.height : 0.0;
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    self.allMapsView.alpha = hide ? 0.0 : 1.0;
-    [self.view layoutIfNeeded];
-  }
-  completion:^(BOOL finished)
-  {
-    if (hide)
-      self.allMapsView.hidden = hide;
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+      animations:^{
+        self.allMapsView.alpha = hide ? 0.0 : 1.0;
+        [self.view layoutIfNeeded];
+      }
+      completion:^(BOOL finished) {
+        if (hide)
+          self.allMapsView.hidden = hide;
+      }];
 }
 
 - (IBAction)allMapsAction
@@ -346,10 +343,10 @@ using namespace storage;
   {
     [Statistics logEvent:kStatDownloaderMapAction
           withParameters:@{
-            kStatAction : kStatUpdate,
-            kStatIsAuto : kStatNo,
-            kStatFrom : kStatDownloader,
-            kStatScenario : kStatUpdateAll
+            kStatAction: kStatUpdate,
+            kStatIsAuto: kStatNo,
+            kStatFrom: kStatDownloader,
+            kStatScenario: kStatUpdateAll
           }];
     [MWMStorage updateNode:parentCountryId];
   }
@@ -489,8 +486,7 @@ using namespace storage;
       break;
     case NodeStatus::Downloading:
     case NodeStatus::InQueue:
-      buttons |= CancelDownloadAction;
-      break;
+    case NodeStatus::Applying: buttons |= CancelDownloadAction; break;
     case NodeStatus::OnDiskOutOfDate:
       buttons |= ShowOnMapAction;
       buttons |= UpdateAction;
@@ -632,10 +628,10 @@ using namespace storage;
 {
   [Statistics logEvent:kStatDownloaderMapAction
         withParameters:@{
-          kStatAction : kStatDownload,
-          kStatIsAuto : kStatNo,
-          kStatFrom : kStatDownloader,
-          kStatScenario : kStatDownload
+          kStatAction: kStatDownload,
+          kStatIsAuto: kStatNo,
+          kStatFrom: kStatDownloader,
+          kStatScenario: kStatDownload
         }];
   self.skipCountryEventProcessing = YES;
   [MWMStorage downloadNode:countryId onSuccess:nil];
@@ -647,10 +643,10 @@ using namespace storage;
 {
   [Statistics logEvent:kStatDownloaderMapAction
         withParameters:@{
-          kStatAction : kStatRetry,
-          kStatIsAuto : kStatNo,
-          kStatFrom : kStatDownloader,
-          kStatScenario : kStatDownload
+          kStatAction: kStatRetry,
+          kStatIsAuto: kStatNo,
+          kStatFrom: kStatDownloader,
+          kStatScenario: kStatDownload
         }];
   self.skipCountryEventProcessing = YES;
   [MWMStorage retryDownloadNode:countryId];
@@ -662,10 +658,10 @@ using namespace storage;
 {
   [Statistics logEvent:kStatDownloaderMapAction
         withParameters:@{
-          kStatAction : kStatUpdate,
-          kStatIsAuto : kStatNo,
-          kStatFrom : kStatDownloader,
-          kStatScenario : kStatUpdate
+          kStatAction: kStatUpdate,
+          kStatIsAuto: kStatNo,
+          kStatFrom: kStatDownloader,
+          kStatScenario: kStatUpdate
         }];
   self.skipCountryEventProcessing = YES;
   [MWMStorage updateNode:countryId];
@@ -677,10 +673,10 @@ using namespace storage;
 {
   [Statistics logEvent:kStatDownloaderMapAction
         withParameters:@{
-          kStatAction : kStatDelete,
-          kStatIsAuto : kStatNo,
-          kStatFrom : kStatDownloader,
-          kStatScenario : kStatDelete
+          kStatAction: kStatDelete,
+          kStatIsAuto: kStatNo,
+          kStatFrom: kStatDownloader,
+          kStatScenario: kStatDelete
         }];
   self.skipCountryEventProcessing = YES;
   [MWMStorage deleteNode:countryId];
@@ -701,8 +697,8 @@ using namespace storage;
 {
   [Statistics logEvent:kStatDownloaderMapAction
         withParameters:@{
-          kStatAction : kStatExplore,
-          kStatFrom : kStatDownloader,
+          kStatAction: kStatExplore,
+          kStatFrom: kStatDownloader,
         }];
   [self.navigationController popToRootViewControllerAnimated:YES];
   [MWMStorage showNode:countryId];
