@@ -11,6 +11,7 @@
 
 #include "base/macros.hpp"
 #include "base/strings_bundle.hpp"
+#include "base/thread_checker.hpp"
 
 #include <atomic>
 #include <functional>
@@ -284,6 +285,7 @@ private:
   template <typename UserMarkT>
   UserMarkT * CreateUserMark(m2::PointD const & ptOrg)
   {
+    ASSERT_THREAD_CHECKER(m_threadChecker, ());
     auto mark = std::make_unique<UserMarkT>(ptOrg);
     auto * m = mark.get();
     auto const markId = m->GetId();
@@ -299,6 +301,7 @@ private:
   template <typename UserMarkT>
   UserMarkT * GetMarkForEdit(df::MarkID markId)
   {
+    ASSERT_THREAD_CHECKER(m_threadChecker, ());
     auto * mark = GetUserMarkForEdit(markId);
     ASSERT(dynamic_cast<UserMarkT *>(mark) != nullptr, ());
     return static_cast<UserMarkT *>(mark);
@@ -307,6 +310,7 @@ private:
   template <typename UserMarkT, typename F>
   void DeleteUserMarks(UserMark::Type type, F && deletePredicate)
   {
+    ASSERT_THREAD_CHECKER(m_threadChecker, ());
     std::list<df::MarkID> marksToDelete;
     for (auto markId : GetUserMarkIds(type))
     {
@@ -376,6 +380,8 @@ private:
   void SaveToKML(BookmarkCategory * group, std::ostream & s);
 
   SharingResult GetFileForSharing(df::MarkGroupID categoryId);
+
+  ThreadChecker m_threadChecker;
 
   Callbacks m_callbacks;
   MarksChangesTracker m_changesTracker;

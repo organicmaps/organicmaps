@@ -141,11 +141,13 @@ BookmarkManager::~BookmarkManager()
 
 BookmarkManager::EditSession BookmarkManager::GetEditSession()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return EditSession(*this);
 }
 
 UserMark const * BookmarkManager::GetMark(df::MarkID markId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (IsBookmark(markId))
     return GetBookmark(markId);
   return GetUserMark(markId);
@@ -153,12 +155,14 @@ UserMark const * BookmarkManager::GetMark(df::MarkID markId) const
 
 UserMark const * BookmarkManager::GetUserMark(df::MarkID markId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_userMarks.find(markId);
   return (it != m_userMarks.end()) ? it->second.get() : nullptr;
 }
 
 UserMark * BookmarkManager::GetUserMarkForEdit(df::MarkID markId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_userMarks.find(markId);
   if (it != m_userMarks.end())
   {
@@ -170,6 +174,7 @@ UserMark * BookmarkManager::GetUserMarkForEdit(df::MarkID markId)
 
 void BookmarkManager::DeleteUserMark(df::MarkID markId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(!IsBookmark(markId), ());
   auto it = m_userMarks.find(markId);
   auto const groupId = it->second->GetGroupId();
@@ -180,11 +185,13 @@ void BookmarkManager::DeleteUserMark(df::MarkID markId)
 
 Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkData const & bmData)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return AddBookmark(std::make_unique<Bookmark>(bmData, ptOrg));
 }
 
 Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkData & bm, df::MarkGroupID groupId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
                                                          {{"action", "create"}});
 
@@ -206,12 +213,14 @@ Bookmark * BookmarkManager::CreateBookmark(m2::PointD const & ptOrg, BookmarkDat
 
 Bookmark const * BookmarkManager::GetBookmark(df::MarkID markId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_bookmarks.find(markId);
   return (it != m_bookmarks.end()) ? it->second.get() : nullptr;
 }
 
 Bookmark * BookmarkManager::GetBookmarkForEdit(df::MarkID markId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_bookmarks.find(markId);
   if (it == m_bookmarks.end())
     return nullptr;
@@ -225,18 +234,21 @@ Bookmark * BookmarkManager::GetBookmarkForEdit(df::MarkID markId)
 
 void BookmarkManager::AttachBookmark(df::MarkID bmId, df::MarkGroupID catID)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   GetBookmarkForEdit(bmId)->Attach(catID);
   GetGroup(catID)->AttachUserMark(bmId);
 }
 
 void BookmarkManager::DetachBookmark(df::MarkID bmId, df::MarkGroupID catID)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   GetBookmarkForEdit(bmId)->Detach();
   GetGroup(catID)->DetachUserMark(bmId);
 }
 
 void BookmarkManager::DeleteBookmark(df::MarkID bmId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmark(bmId), ());
   auto groupIt = m_bookmarks.find(bmId);
   auto const groupId = groupIt->second->GetGroupId();
@@ -248,17 +260,20 @@ void BookmarkManager::DeleteBookmark(df::MarkID bmId)
 
 Track * BookmarkManager::CreateTrack(m2::PolylineD const & polyline, Track::Params const & p)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return AddTrack(std::make_unique<Track>(polyline, p));
 }
 
 Track const * BookmarkManager::GetTrack(df::LineID trackId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_tracks.find(trackId);
   return (it != m_tracks.end()) ? it->second.get() : nullptr;
 }
 
 void BookmarkManager::AttachTrack(df::LineID trackId, df::MarkGroupID groupId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_tracks.find(trackId);
   it->second->Attach(groupId);
   GetBmCategory(groupId)->AttachTrack(trackId);
@@ -266,11 +281,13 @@ void BookmarkManager::AttachTrack(df::LineID trackId, df::MarkGroupID groupId)
 
 void BookmarkManager::DetachTrack(df::LineID trackId, df::MarkGroupID groupId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   GetBmCategory(groupId)->DetachTrack(trackId);
 }
 
 void BookmarkManager::DeleteTrack(df::LineID trackId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_tracks.find(trackId);
   auto const groupId = it->second->GetGroupId();
   if (groupId != df::kInvalidMarkGroupId)
@@ -281,6 +298,7 @@ void BookmarkManager::DeleteTrack(df::LineID trackId)
 
 void BookmarkManager::CollectDirtyGroups(df::GroupIDSet & dirtyGroups)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   for (auto const & group : m_userMarkLayers)
   {
     if (!group->IsDirty())
@@ -310,6 +328,7 @@ void BookmarkManager::OnEditSessionClosed()
 
 void BookmarkManager::NotifyChanges()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (!m_changesTracker.CheckChanges() && !m_firstDrapeNotification)
     return;
 
@@ -359,16 +378,19 @@ void BookmarkManager::NotifyChanges()
 
 df::MarkIDSet const & BookmarkManager::GetUserMarkIds(df::MarkGroupID groupId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return GetGroup(groupId)->GetUserMarks();
 }
 
 df::LineIDSet const & BookmarkManager::GetTrackIds(df::MarkGroupID groupId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return GetGroup(groupId)->GetUserLines();
 }
 
 void BookmarkManager::ClearGroup(df::MarkGroupID groupId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto * group = GetGroup(groupId);
   for (auto markId : group->GetUserMarks())
   {
@@ -388,21 +410,25 @@ void BookmarkManager::ClearGroup(df::MarkGroupID groupId)
 
 std::string const & BookmarkManager::GetCategoryName(df::MarkGroupID categoryId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return GetBmCategory(categoryId)->GetName();
 }
 
 void BookmarkManager::SetCategoryName(df::MarkGroupID categoryId, std::string const & name)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   GetBmCategory(categoryId)->SetName(name);
 }
 
 std::string const & BookmarkManager::GetCategoryFileName(df::MarkGroupID categoryId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return GetBmCategory(categoryId)->GetFileName();
 }
 
 UserMark const * BookmarkManager::FindMarkInRect(df::MarkGroupID groupId, m2::AnyRectD const & rect, double & d) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto const * group = GetGroup(groupId);
 
   UserMark const * resMark = nullptr;
@@ -421,11 +447,13 @@ UserMark const * BookmarkManager::FindMarkInRect(df::MarkGroupID groupId, m2::An
 
 void BookmarkManager::SetIsVisible(df::MarkGroupID groupId, bool visible)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return GetGroup(groupId)->SetIsVisible(visible);
 }
 
 bool BookmarkManager::IsVisible(df::MarkGroupID groupId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return GetGroup(groupId)->IsVisible();
 }
 
@@ -452,6 +480,7 @@ void BookmarkManager::Teardown()
 
 Bookmark * BookmarkManager::AddBookmark(std::unique_ptr<Bookmark> && bookmark)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto * bm = bookmark.get();
   auto const markId = bm->GetId();
   ASSERT(m_bookmarks.count(markId) == 0, ());
@@ -462,6 +491,7 @@ Bookmark * BookmarkManager::AddBookmark(std::unique_ptr<Bookmark> && bookmark)
 
 Track * BookmarkManager::AddTrack(std::unique_ptr<Track> && track)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto * t = track.get();
   auto const trackId = t->GetId();
   ASSERT(m_tracks.count(trackId) == 0, ());
@@ -484,12 +514,14 @@ void BookmarkManager::LoadState()
 
 void BookmarkManager::ClearCategories()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   m_categories.clear();
   m_bmGroupsIdList.clear();
 }
 
 void BookmarkManager::LoadBookmarks()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   ClearCategories();
   m_loadBookmarksFinished = false;
 
@@ -527,6 +559,7 @@ void BookmarkManager::LoadBookmarks()
 
 void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporaryFile)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (!m_loadBookmarksFinished || m_asyncLoadingInProgress)
   {
     m_bookmarkLoadingQueue.emplace_back(filePath, isTemporaryFile);
@@ -679,12 +712,14 @@ boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & fil
 
 void BookmarkManager::MoveBookmark(df::MarkID bmID, df::MarkGroupID curGroupID, df::MarkGroupID newGroupID)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   DetachBookmark(bmID, curGroupID);
   AttachBookmark(bmID, newGroupID);
 }
 
 void BookmarkManager::UpdateBookmark(df::MarkID bmID, BookmarkData const & bm)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto * bookmark = GetBookmarkForEdit(bmID);
   bookmark->SetData(bm);
   ASSERT(bookmark->GetGroupId() != df::kInvalidMarkGroupId, ());
@@ -695,6 +730,7 @@ void BookmarkManager::UpdateBookmark(df::MarkID bmID, BookmarkData const & bm)
 
 df::MarkGroupID BookmarkManager::LastEditedBMCategory()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   for (auto & cat : m_categories)
   {
     if (cat.second->GetFileName() == m_lastCategoryUrl)
@@ -706,11 +742,13 @@ df::MarkGroupID BookmarkManager::LastEditedBMCategory()
 
 std::string BookmarkManager::LastEditedBMType() const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return (m_lastType.empty() ? BookmarkCategory::GetDefaultType() : m_lastType);
 }
 
 BookmarkCategory * BookmarkManager::GetBmCategory(df::MarkGroupID categoryId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmarkCategory(categoryId), ());
   auto const it = m_categories.find(categoryId);
   return (it != m_categories.end() ? it->second.get() : 0);
@@ -747,6 +785,7 @@ void BookmarkManager::SendBookmarksChanges()
 void BookmarkManager::GetBookmarksData(df::MarkIDSet const & markIds,
                                        std::vector<std::pair<df::MarkID, BookmarkData>> & data) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   data.clear();
   data.reserve(markIds.size());
   for (auto markId : markIds)
@@ -759,11 +798,13 @@ void BookmarkManager::GetBookmarksData(df::MarkIDSet const & markIds,
 
 bool BookmarkManager::HasBmCategory(df::MarkGroupID groupId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return m_categories.find(groupId) != m_categories.end();
 }
 
 df::MarkGroupID BookmarkManager::CreateBookmarkCategory(std::string const & name, bool autoSave)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto const groupId = m_nextGroupID++;
   auto & cat = m_categories[groupId];
   cat = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
@@ -774,12 +815,14 @@ df::MarkGroupID BookmarkManager::CreateBookmarkCategory(std::string const & name
 
 void BookmarkManager::CheckAndCreateDefaultCategory()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (m_categories.empty())
     CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("core_my_places"));
 }
 
 bool BookmarkManager::DeleteBmCategory(df::MarkGroupID groupId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_categories.find(groupId);
   if (it == m_categories.end())
     return false;
@@ -830,11 +873,13 @@ private:
 
 UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return FindNearestUserMark([&rect](UserMark::Type) { return rect; });
 }
 
 UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   BestUserMarkFinder finder(holder, this);
   finder(UserMark::Type::ROUTING);
   finder(UserMark::Type::SEARCH);
@@ -847,6 +892,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
 
 UserMarkLayer const * BookmarkManager::GetGroup(df::MarkGroupID groupId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (groupId < UserMark::Type::BOOKMARK)
     return m_userMarkLayers[groupId].get();
 
@@ -856,6 +902,7 @@ UserMarkLayer const * BookmarkManager::GetGroup(df::MarkGroupID groupId) const
 
 UserMarkLayer * BookmarkManager::GetGroup(df::MarkGroupID groupId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (groupId < UserMark::Type::BOOKMARK)
     return m_userMarkLayers[groupId].get();
 
@@ -865,6 +912,7 @@ UserMarkLayer * BookmarkManager::GetGroup(df::MarkGroupID groupId)
 
 void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool autoSave)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   for (auto & data : dataCollection)
   {
     df::MarkGroupID groupId;
@@ -1006,6 +1054,7 @@ std::string PointToString(m2::PointD const & org)
 
 void BookmarkManager::SaveToKML(df::MarkGroupID groupId, std::ostream & s)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   SaveToKML(GetBmCategory(groupId), s);
 }
 
@@ -1107,6 +1156,7 @@ void BookmarkManager::SaveToKML(BookmarkCategory * group, std::ostream & s)
 
 bool BookmarkManager::SaveToKMLFile(df::MarkGroupID groupId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   std::string oldFile;
 
   auto * group = GetBmCategory(groupId);
@@ -1212,11 +1262,13 @@ void BookmarkManager::EndSharing(df::MarkGroupID categoryId)
 
 bool BookmarkManager::IsCategoryEmpty(df::MarkGroupID categoryId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   return GetBmCategory(categoryId)->IsEmpty();
 }
 
 BookmarkManager::SharingResult BookmarkManager::GetFileForSharing(df::MarkGroupID categoryId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (IsCategoryEmpty(categoryId))
     return SharingResult(SharingResult::Code::EmptyCategory);
 
