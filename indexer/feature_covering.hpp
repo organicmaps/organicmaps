@@ -12,6 +12,7 @@
 #include "base/logging.hpp"
 
 #include <cstdint>
+#include <set>
 #include <utility>
 #include <vector>
 
@@ -58,16 +59,16 @@ int GetCodingDepth(int scale)
   return DEPTH_LEVELS - delta;
 }
 
-template <int DEPTH_LEVELS>
-void AppendLowerLevels(m2::CellId<DEPTH_LEVELS> id, int cellDepth, Intervals & intervals)
+template <int DEPTH_LEVELS, typename ToDo>
+void AppendLowerLevels(m2::CellId<DEPTH_LEVELS> id, int cellDepth, ToDo const & toDo)
 {
   int64_t idInt64 = id.ToInt64(cellDepth);
-  intervals.push_back(std::make_pair(idInt64, idInt64 + id.SubTreeSize(cellDepth)));
+  toDo(std::make_pair(idInt64, idInt64 + id.SubTreeSize(cellDepth)));
   while (id.Level() > 0)
   {
     id = id.Parent();
     idInt64 = id.ToInt64(cellDepth);
-    intervals.push_back(make_pair(idInt64, idInt64 + 1));
+    toDo(std::make_pair(idInt64, idInt64 + 1));
   }
 }
 
@@ -80,7 +81,10 @@ void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, Inter
 
   Intervals intervals;
   for (auto const & id : ids)
-    AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth, intervals);
+  {
+    AppendLowerLevels<DEPTH_LEVELS>(
+        id, cellDepth, [&intervals](Interval const & interval) { intervals.push_back(interval); });
+  }
 
   SortAndMergeIntervals(intervals, res);
 }
@@ -89,7 +93,8 @@ enum CoveringMode
 {
   ViewportWithLowLevels = 0,
   LowLevelsOnly,
-  FullCover
+  FullCover,
+  Spiral
 };
 
 class CoveringGetter
@@ -121,7 +126,9 @@ public:
         m2::CellId<DEPTH_LEVELS> id = GetRectIdAsIs<DEPTH_LEVELS>(m_rect);
         while (id.Level() >= cellDepth)
           id = id.Parent();
-        AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth, m_res[ind]);
+        AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth, [this, ind](Interval const & interval) {
+          m_res[ind].push_back(interval);
+        });
 
         // Check for optimal result intervals.
 #if 0
@@ -139,6 +146,21 @@ public:
         m_res[ind].push_back(
             Intervals::value_type(0, static_cast<int64_t>((uint64_t{1} << 63) - 1)));
         break;
+
+      case Spiral:
+      {
+        std::vector<m2::CellId<DEPTH_LEVELS>> ids;
+        CoverSpiral<MercatorBounds, m2::CellId<DEPTH_LEVELS>>(m_rect, cellDepth, ids);
+
+        std::set<Interval> uniqueIds;
+        auto insertInterval = [this, ind, &uniqueIds](Interval const & interval) {
+          if (uniqueIds.insert(interval).second)
+            m_res[ind].push_back(interval);
+        };
+
+        for (auto const & id : ids)
+          AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth, insertInterval);
+      }
       }
     }
 

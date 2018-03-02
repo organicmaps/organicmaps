@@ -10,8 +10,10 @@
 
 #include "base/osm_id.hpp"
 
+#include <cstdint>
 #include <functional>
 #include <memory>
+#include <set>
 
 namespace indexer
 {
@@ -38,10 +40,35 @@ public:
     for (auto const & i : intervals)
     {
       m_intervalIndex->ForEach(
-          [&processObject](uint64_t stored_id) {
-            processObject(LocalityObject::FromStoredId(stored_id));
+          [&processObject](uint64_t storedId) {
+            processObject(LocalityObject::FromStoredId(storedId));
           },
           i.first, i.second);
+    }
+  }
+
+  // Applies |processObject| to at most |topSize| object closest to |center| with maximal distance |sizeM|.
+  // Closest objects are first. Due to perfomance reasons far objects have approximate order.
+  void ForClosestToPoint(ProcessObject const & processObject, m2::PointD const & center, double sizeM,
+                         uint32_t topSize) const
+  {
+    auto const rect =
+        MercatorBounds::RectByCenterXYAndSizeInMeters(center, sizeM);
+    covering::CoveringGetter cov(rect, covering::CoveringMode::Spiral);
+    covering::Intervals const & intervals =
+        cov.Get<LocalityCellId::DEPTH_LEVELS>(scales::GetUpperScale());
+
+    std::set<uint64_t> objects;
+    auto process = [topSize, &objects, &processObject](uint64_t storedId) {
+      if (objects.insert(storedId).second && objects.size() <= topSize)
+        processObject(LocalityObject::FromStoredId(storedId));
+    };
+
+    for (auto const & i : intervals)
+    {
+      if (objects.size() >= topSize)
+        return;
+      m_intervalIndex->ForEach(process, i.first, i.second);
     }
   }
 

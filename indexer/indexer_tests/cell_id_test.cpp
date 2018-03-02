@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "indexer/cell_id.hpp"
+#include "indexer/indexer_tests/bounds.hpp"
 
 #include "coding/hex.hpp"
 
