@@ -10,6 +10,7 @@
 #include "coding/point_to_integer.hpp"
 #include "coding/url_encode.hpp"
 #include "coding/write_to_sink.hpp"
+#include "coding/zlib.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -17,6 +18,8 @@
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+
+#include "3party/jansson/myjansson.hpp"
 
 #include <functional>
 #include <sstream>
@@ -143,6 +146,33 @@ void CreateDirIfNotExist()
   if (!GetPlatform().IsFileExistsByFullPath(statsFolder) && !Platform::MkDirChecked(statsFolder))
     MYTHROW(FileSystemException, ("Unable to find or create directory", statsFolder));
 }
+  
+std::list<local_ads::Event> ReadEvents(std::string const & fileName)
+{
+  std::list<local_ads::Event> result;
+  if (!GetPlatform().IsFileExistsByFullPath(fileName))
+    return result;
+  
+  try
+  {
+    FileReader reader(fileName);
+    ReaderSource<FileReader> src(reader);
+    ReadPackedData(src, [&result](local_ads::Statistics::PackedData && data, std::string const & countryId,
+                                  int64_t mwmVersion, local_ads::Timestamp const & baseTimestamp) {
+      auto const mercatorPt = Int64ToPoint(data.m_mercator, POINT_COORD_BITS);
+      result.emplace_back(static_cast<local_ads::EventType>(data.m_eventType), mwmVersion, countryId,
+                          data.m_featureIndex, data.m_zoomLevel,
+                          baseTimestamp + std::chrono::seconds(data.m_seconds),
+                          MercatorBounds::YToLat(mercatorPt.y),
+                          MercatorBounds::XToLon(mercatorPt.x), data.m_accuracy);
+    });
+  }
+  catch (Reader::Exception const & ex)
+  {
+    LOG(LWARNING, ("Error reading file:", fileName, ex.Msg()));
+  }
+  return result;
+}
 
 std::string MakeRemoteURL(std::string const & userId, std::string const & name, int64_t version)
 {
@@ -156,28 +186,54 @@ std::string MakeRemoteURL(std::string const & userId, std::string const & name, 
   ss << UrlEncode(name);
   return ss.str();
 }
+  
+std::vector<uint8_t> SerializeForServer(std::list<local_ads::Event> const & events,
+                                        std::string const & userId)
+{
+  using namespace std::chrono;
+  ASSERT(!events.empty(), ());
+  auto root = my::NewJSONObject();
+  ToJSONObject(*root, "userId", userId);
+  ToJSONObject(*root, "countryId", events.front().m_countryId);
+  ToJSONObject(*root, "mwmVersion", events.front().m_mwmVersion);
+  auto eventsNode = my::NewJSONArray();
+  for (auto const & event : events)
+  {
+    auto eventNode = my::NewJSONObject();
+    auto s = duration_cast<seconds>(event.m_timestamp.time_since_epoch()).count();
+    ToJSONObject(*eventNode, "type", static_cast<uint8_t>(event.m_type));
+    ToJSONObject(*eventNode, "timestamp", static_cast<int64_t>(s));
+    ToJSONObject(*eventNode, "featureId", static_cast<int32_t>(event.m_featureId));
+    ToJSONObject(*eventNode, "zoomLevel", event.m_zoomLevel);
+    ToJSONObject(*eventNode, "latitude", event.m_latitude);
+    ToJSONObject(*eventNode, "longitude", event.m_longitude);
+    ToJSONObject(*eventNode, "accuracyInMeters", event.m_accuracyInMeters);
+    json_array_append_new(eventsNode.get(), eventNode.release());
+  }
+  json_object_set_new(root.get(), "events", eventsNode.release());
+  std::unique_ptr<char, JSONFreeDeleter> buffer(
+    json_dumps(root.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
+  std::vector<uint8_t> result;
+  
+  using Deflate = coding::ZLib::Deflate;
+  Deflate deflate(Deflate::Format::ZLib, Deflate::Level::BestCompression);
+  deflate(buffer.get(), strlen(buffer.get()), std::back_inserter(result));
+  return result;
+}
 }  // namespace
 
 namespace local_ads
 {
+Statistics::Statistics()
+  : m_userId(GetPlatform().UniqueClientId())
+{}
+  
 void Statistics::Startup()
 {
-  auto const asyncTask = [this]
-  {
-      SendToServer();
-  };
-
-  auto const recursiveAsyncTask = [this, asyncTask]
+  GetPlatform().RunTask(Platform::Thread::File, [this]
   {
     IndexMetadata();
-    asyncTask();
-    GetPlatform().RunDelayedTask(Platform::Thread::File, kSendingTimeout, asyncTask);
-  };
-
-  // The first send immediately, and then every |kSendingTimeout|.
-  GetPlatform().RunTask(Platform::Thread::File, [recursiveAsyncTask]
-  {
-    recursiveAsyncTask();
+    SendToServer();
   });
 }
 
@@ -263,33 +319,6 @@ std::list<Event> Statistics::WriteEvents(std::list<Event> & events, std::string 
   return std::list<Event>();
 }
 
-std::list<Event> Statistics::ReadEvents(std::string const & fileName) const
-{
-  std::list<Event> result;
-  if (!GetPlatform().IsFileExistsByFullPath(fileName))
-    return result;
-
-  try
-  {
-    FileReader reader(fileName);
-    ReaderSource<FileReader> src(reader);
-    ReadPackedData(src, [&result](PackedData && data, std::string const & countryId,
-                                  int64_t mwmVersion, Timestamp const & baseTimestamp) {
-      auto const mercatorPt = Int64ToPoint(data.m_mercator, POINT_COORD_BITS);
-      result.emplace_back(static_cast<EventType>(data.m_eventType), mwmVersion, countryId,
-                          data.m_featureIndex, data.m_zoomLevel,
-                          baseTimestamp + std::chrono::seconds(data.m_seconds),
-                          MercatorBounds::YToLat(mercatorPt.y),
-                          MercatorBounds::XToLon(mercatorPt.x), data.m_accuracy);
-    });
-  }
-  catch (Reader::Exception const & ex)
-  {
-    LOG(LWARNING, ("Error reading file:", fileName, ex.Msg()));
-  }
-  return result;
-}
-
 void Statistics::ProcessEvents(std::list<Event> & events)
 {
   bool needRebuild;
@@ -335,54 +364,65 @@ void Statistics::ProcessEvents(std::list<Event> & events)
 
 void Statistics::SendToServer()
 {
-  for (auto it = m_metadataCache.begin(); it != m_metadataCache.end();)
+  auto const connectionStatus = GetPlatform().ConnectionStatus();
+  if (connectionStatus == Platform::EConnectionType::CONNECTION_WIFI)
   {
-    std::string const url = MakeRemoteURL(m_userId, it->first.first, it->first.second);
-    if (url.empty())
-      return;
-
-    std::list<Event> events = ReadEvents(it->second.m_fileName);
-    if (events.empty())
+    for (auto it = m_metadataCache.begin(); it != m_metadataCache.end();)
     {
-      ++it;
-      continue;
-    }
-
-    std::string contentType = "application/octet-stream";
-    std::string contentEncoding = "";
-    std::vector<uint8_t> bytes = m_serverSerializer != nullptr
-                                     ? m_serverSerializer(events, m_userId, contentType, contentEncoding)
-                                     : SerializeForServer(events);
-    ASSERT(!bytes.empty(), ());
-
-    platform::HttpClient request(url);
-    request.SetTimeout(5);    // timeout in seconds
-#ifdef DEV_LOCAL_ADS_SERVER
-    request.LoadHeaders(true);
-    request.SetRawHeader("Host", "localads-statistics.maps.me");
-#endif
-    request.SetBodyData(std::string(bytes.begin(), bytes.end()), contentType, "POST",
-                        contentEncoding);
-    if (request.RunHttpRequest() && request.ErrorCode() == 200)
-    {
-      FileWriter::DeleteFileX(it->second.m_fileName);
-      it = m_metadataCache.erase(it);
-    }
-    else
-    {
-      LOG(LWARNING, ("Sending statistics failed:", "URL:", url, "Error code:", request.ErrorCode(),
-                     it->first.first, it->first.second));
-      ++it;
+      auto metadataKey = it->first;
+      auto metadata = it->second;
+      GetPlatform().RunTask(Platform::Thread::Network, [this, metadataKey = std::move(metadataKey),
+                                                        metadata = std::move(metadata)]() mutable
+      {
+        SendFileWithMetadata(std::move(metadataKey), std::move(metadata));
+      });
     }
   }
+  
+  // Send every |kSendingTimeout|.
+  GetPlatform().RunDelayedTask(Platform::Thread::File, kSendingTimeout, [this]
+  {
+    SendToServer();
+  });
 }
-
-std::vector<uint8_t> Statistics::SerializeForServer(std::list<Event> const & events) const
+  
+void Statistics::SendFileWithMetadata(MetadataKey && metadataKey, Metadata && metadata)
 {
-  ASSERT(!events.empty(), ());
-
-  // TODO: implement binary serialization (so far, we are using json serialization).
-  return std::vector<uint8_t>{1, 2, 3, 4, 5};
+  std::string const url = MakeRemoteURL(m_userId, metadataKey.first, metadataKey.second);
+  if (url.empty())
+    return;
+  
+  std::list<Event> events = ReadEvents(metadata.m_fileName);
+  if (events.empty())
+    return;
+  
+  std::string contentType = "application/octet-stream";
+  std::string contentEncoding = "";
+  std::vector<uint8_t> bytes = SerializeForServer(events, m_userId);
+  ASSERT(!bytes.empty(), ());
+  
+  platform::HttpClient request(url);
+  request.SetTimeout(5);    // timeout in seconds
+#ifdef DEV_LOCAL_ADS_SERVER
+  request.LoadHeaders(true);
+  request.SetRawHeader("Host", "localads-statistics.maps.me");
+#endif
+  request.SetBodyData(std::string(bytes.begin(), bytes.end()), contentType, "POST",
+                      contentEncoding);
+  if (request.RunHttpRequest() && request.ErrorCode() == 200)
+  {
+    GetPlatform().RunTask(Platform::Thread::File, [this, metadataKey = std::move(metadataKey),
+                                                   metadata = std::move(metadata)]
+    {
+      FileWriter::DeleteFileX(metadata.m_fileName);
+      m_metadataCache.erase(metadataKey);
+    });
+  }
+  else
+  {
+    LOG(LWARNING, ("Sending statistics failed:", "URL:", url, "Error code:", request.ErrorCode(),
+                   metadataKey.first, metadataKey.second));
+  }
 }
 
 std::list<Event> Statistics::WriteEventsForTesting(std::list<Event> const & events,
@@ -473,11 +513,6 @@ void Statistics::BalanceMemory()
   }
 }
 
-void Statistics::SetUserId(std::string const & userId)
-{
-  GetPlatform().RunTask(Platform::Thread::File, [this, userId] { m_userId = userId; });
-}
-
 std::list<Event> Statistics::ReadEventsForTesting(std::string const & fileName)
 {
   return ReadEvents(GetPath(fileName));
@@ -494,11 +529,5 @@ void Statistics::CleanupAfterTesting()
   std::string const statsFolder = StatisticsFolder();
   if (GetPlatform().IsFileExistsByFullPath(statsFolder))
     GetPlatform().RmDirRecursively(statsFolder);
-}
-
-void Statistics::SetCustomServerSerializer(ServerSerializer const & serializer)
-{
-  GetPlatform().RunTask(Platform::Thread::File,
-                        [this, serializer] { m_serverSerializer = serializer; });
 }
 }  // namespace local_ads

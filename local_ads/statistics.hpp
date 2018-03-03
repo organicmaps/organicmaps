@@ -31,14 +31,9 @@ public:
     uint8_t m_zoomLevel = 0;
   };
 
-  Statistics() = default;
+  Statistics();
 
   void Startup();
-
-  void SetUserId(std::string const & userId);
-
-  void SetCustomServerSerializer(ServerSerializer const & serializer);
-
   void RegisterEvent(Event && event);
   void RegisterEvents(std::list<Event> && events);
 
@@ -49,32 +44,29 @@ public:
   void CleanupAfterTesting();
 
 private:
-  void IndexMetadata();
-  void ExtractMetadata(std::string const & fileName);
-  void BalanceMemory();
-
-  std::list<Event> WriteEvents(std::list<Event> & events, std::string & fileNameToRebuild);
-  std::list<Event> ReadEvents(std::string const & fileName) const;
-  void ProcessEvents(std::list<Event> & events);
-
-  void SendToServer();
-  std::vector<uint8_t> SerializeForServer(std::list<Event> const & events) const;
-
   using MetadataKey = std::pair<std::string, int64_t>;
   struct Metadata
   {
     std::string m_fileName;
     Timestamp m_timestamp;
-
+    
     Metadata() = default;
     Metadata(std::string const & fileName, Timestamp const & timestamp)
       : m_fileName(fileName), m_timestamp(timestamp)
-    {
-    }
+    {}
   };
-  std::map<MetadataKey, Metadata> m_metadataCache;
+  
+  void IndexMetadata();
+  void ExtractMetadata(std::string const & fileName);
+  void BalanceMemory();
 
-  std::string m_userId;
-  ServerSerializer m_serverSerializer;
+  std::list<Event> WriteEvents(std::list<Event> & events, std::string & fileNameToRebuild);
+  void ProcessEvents(std::list<Event> & events);
+
+  void SendToServer();
+  void SendFileWithMetadata(MetadataKey && metadataKey, Metadata && metadata);
+
+  std::string const m_userId;
+  std::map<MetadataKey, Metadata> m_metadataCache;
 };
 }  // namespace local_ads

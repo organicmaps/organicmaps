@@ -1,5 +1,9 @@
 project(local_ads)
 
+include_directories(
+  ${OMIM_ROOT}/3party/jansson/src
+)
+
 set(
   SRC
   campaign.hpp

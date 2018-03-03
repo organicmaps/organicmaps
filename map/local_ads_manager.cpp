@@ -23,21 +23,14 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/multilang_utf8_string.hpp"
 #include "coding/url_encode.hpp"
-#include "coding/zlib.hpp"
 
 #include "base/url_helpers.hpp"
-
-#include "3party/jansson/myjansson.hpp"
 
 #include "private.h"
 
 #include <array>
 #include <cstring>
 #include <sstream>
-
-// First implementation of local ads statistics serialization
-// is deflated JSON.
-#define TEMPORARY_LOCAL_ADS_JSON_SERIALIZATION
 
 using namespace base;
 
@@ -180,43 +173,6 @@ void DeleteAllLocalAdsMarks(BookmarkManager * bmManager)
   });
 }
 
-#ifdef TEMPORARY_LOCAL_ADS_JSON_SERIALIZATION
-std::vector<uint8_t> SerializeLocalAdsToJSON(std::list<local_ads::Event> const & events,
-                                             std::string const & userId, std::string & contentType,
-                                             std::string & contentEncoding)
-{
-  using namespace std::chrono;
-  ASSERT(!events.empty(), ());
-  auto root = my::NewJSONObject();
-  ToJSONObject(*root, "userId", userId);
-  ToJSONObject(*root, "countryId", events.front().m_countryId);
-  ToJSONObject(*root, "mwmVersion", events.front().m_mwmVersion);
-  auto eventsNode = my::NewJSONArray();
-  for (auto const & event : events)
-  {
-    auto eventNode = my::NewJSONObject();
-    auto s = duration_cast<seconds>(event.m_timestamp.time_since_epoch()).count();
-    ToJSONObject(*eventNode, "type", static_cast<uint8_t>(event.m_type));
-    ToJSONObject(*eventNode, "timestamp", static_cast<int64_t>(s));
-    ToJSONObject(*eventNode, "featureId", static_cast<int32_t>(event.m_featureId));
-    ToJSONObject(*eventNode, "zoomLevel", event.m_zoomLevel);
-    ToJSONObject(*eventNode, "latitude", event.m_latitude);
-    ToJSONObject(*eventNode, "longitude", event.m_longitude);
-    ToJSONObject(*eventNode, "accuracyInMeters", event.m_accuracyInMeters);
-    json_array_append_new(eventsNode.get(), eventNode.release());
-  }
-  json_object_set_new(root.get(), "events", eventsNode.release());
-  std::unique_ptr<char, JSONFreeDeleter> buffer(
-      json_dumps(root.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
-  std::vector<uint8_t> result;
-
-  using Deflate = coding::ZLib::Deflate;
-  Deflate deflate(Deflate::Format::ZLib, Deflate::Level::BestCompression);
-  deflate(buffer.get(), strlen(buffer.get()), std::back_inserter(result));
-  return result;
-}
-#endif
-
 std::string MakeCampaignPageURL(FeatureID const & featureId)
 {
   if (kCampaignPageUrl.empty() || !featureId.m_mwmId.IsAlive())
@@ -252,13 +208,6 @@ LocalAdsManager::LocalAdsManager(GetMwmsByRectFn && getMwmsByRectFn,
   CHECK(m_getMwmsByRectFn != nullptr, ());
   CHECK(m_getMwmIdByNameFn != nullptr, ());
   CHECK(m_readFeaturesFn != nullptr, ());
-
-  m_statistics.SetUserId(GetPlatform().UniqueClientId());
-
-#ifdef TEMPORARY_LOCAL_ADS_JSON_SERIALIZATION
-  using namespace std::placeholders;
-  m_statistics.SetCustomServerSerializer(std::bind(&SerializeLocalAdsToJSON, _1, _2, _3, _4));
-#endif
 }
 
 void LocalAdsManager::Startup(BookmarkManager * bmManager)

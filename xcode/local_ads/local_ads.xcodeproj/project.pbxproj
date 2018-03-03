@@ -289,6 +289,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45FFD65A1E965E3A00DB854E /* common-debug.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
 			};
 			name = Debug;
 		};
@@ -296,6 +302,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45FFD65B1E965E3A00DB854E /* common-release.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
 			};
 			name = Release;
 		};
@@ -337,6 +349,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45FFD65B1E965E3A00DB854E /* common-release.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
 			};
 			name = "Production Full";
 		};
