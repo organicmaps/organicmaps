@@ -289,68 +289,77 @@ void LocalAdsManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 
 void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
 {
-  auto connectionStatus = GetPlatform().ConnectionStatus();
+  auto const connectionStatus = GetPlatform().ConnectionStatus();
   if (kServerUrl.empty() || connectionStatus == Platform::EConnectionType::CONNECTION_NONE ||
       df::GetZoomLevel(screen.GetScale()) < kRequestMinZoomLevel)
   {
     return;
   }
 
+  // This function must be called on UI-thread.
   auto mwms = m_getMwmsByRectFn(screen.ClipRect());
   if (mwms.empty())
     return;
 
   // Request local ads campaigns.
-  GetPlatform().RunTask(Platform::Thread::File, [this, connectionStatus, mwms]
+  GetPlatform().RunTask(Platform::Thread::File, [this, mwms = std::move(mwms)]() mutable
   {
-    std::vector<std::string> requestedCampaigns;
-
-    for (auto const & mwm : mwms)
-    {
-      auto info = mwm.GetInfo();
-      if (!info)
-        continue;
-
-      // Skip downloading request if maximum attempts count has reached or
-      // we are waiting for new attempt.
-      auto const failedDownloadsIt = m_failedDownloads.find(mwm);
-      if (failedDownloadsIt != m_failedDownloads.cend() &&
-          (failedDownloadsIt->second.m_attemptsCount >= kMaxDownloadingAttempts ||
-           std::chrono::steady_clock::now() <= failedDownloadsIt->second.m_lastDownloading +
-                                               failedDownloadsIt->second.m_currentTimeout))
-      {
-        continue;
-      }
-
-      std::string const & mwmName = info->GetCountryName();
-      auto campaignIt = m_campaigns.find(mwmName);
-      if (campaignIt == m_campaigns.end())
-      {
-        requestedCampaigns.push_back(mwmName);
-        continue;
-      }
-
-      // If a campaign has not been requested from server this session.
-      if (!campaignIt->second)
-      {
-        auto const it = m_info.find(mwmName);
-        bool needUpdateByTimeout = (connectionStatus == Platform::EConnectionType::CONNECTION_WIFI);
-        if (!needUpdateByTimeout && it != m_info.end())
-          needUpdateByTimeout = local_ads::Clock::now() > (it->second.m_created + kWWanUpdateTimeout);
-
-        if (needUpdateByTimeout || it == m_info.end())
-          requestedCampaigns.push_back(mwmName);
-      }
-    }
-
+    auto const requestedCampaigns = GetRequestedCampaigns(std::move(mwms));
     if (!requestedCampaigns.empty())
     {
       std::set<Request> requests;
       for (auto const & campaign : requestedCampaigns)
         requests.insert(std::make_pair(m_getMwmIdByNameFn(campaign), RequestType::Download));
-      ProcessRequests(requests);
+      ProcessRequests(std::move(requests));
     }
   });
+}
+
+std::vector<std::string> LocalAdsManager::GetRequestedCampaigns(std::vector<MwmSet::MwmId> && mwmIds) const
+{
+  std::lock_guard<std::mutex> lock(m_campaignsMutex);
+  auto const connectionStatus = GetPlatform().ConnectionStatus();
+  
+  std::vector<std::string> requestedCampaigns;
+  for (auto const & mwm : mwmIds)
+  {
+    auto info = mwm.GetInfo();
+    if (!info)
+      continue;
+    
+    // Skip downloading request if maximum attempts count has reached or
+    // we are waiting for new attempt.
+    auto const failedDownloadsIt = m_failedDownloads.find(mwm);
+    if (failedDownloadsIt != m_failedDownloads.cend() &&
+        (failedDownloadsIt->second.m_attemptsCount >= kMaxDownloadingAttempts ||
+         std::chrono::steady_clock::now() <= failedDownloadsIt->second.m_lastDownloading +
+         failedDownloadsIt->second.m_currentTimeout))
+    {
+      continue;
+    }
+    
+    std::string const & mwmName = info->GetCountryName();
+    auto campaignIt = m_campaigns.find(mwmName);
+    if (campaignIt == m_campaigns.end())
+    {
+      requestedCampaigns.push_back(mwmName);
+      continue;
+    }
+    
+    // If a campaign has not been requested from server this session.
+    if (!campaignIt->second)
+    {
+      auto const it = m_info.find(mwmName);
+      bool needUpdateByTimeout = (connectionStatus == Platform::EConnectionType::CONNECTION_WIFI);
+      if (!needUpdateByTimeout && it != m_info.end())
+        needUpdateByTimeout = local_ads::Clock::now() > (it->second.m_created + kWWanUpdateTimeout);
+      
+      if (needUpdateByTimeout || it == m_info.end())
+        requestedCampaigns.push_back(mwmName);
+    }
+  }
+  
+  return requestedCampaigns;
 }
 
 bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<uint8_t> & bytes)
@@ -371,6 +380,7 @@ bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<
   request.SetTimeout(5);    // timeout in seconds
   bool const success = request.RunHttpRequest() && request.ErrorCode() == 200;
 
+  std::lock_guard<std::mutex> lock(m_campaignsMutex);
   if (!success)
   {
     auto const it = m_failedDownloads.find(mwmId);
@@ -395,58 +405,66 @@ bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<
   return true;
 }
 
-void LocalAdsManager::ProcessRequests(std::set<Request> const & requests)
+void LocalAdsManager::ProcessRequests(std::set<Request> && requests)
 {
-  std::string const campaignFile = GetPath(kCampaignFile);
-
-  for (auto const & request : requests)
+  GetPlatform().RunTask(Platform::Thread::Network, [this, requests = std::move(requests)]
   {
-    auto const & mwm = request.first;
-    auto const & type =  request.second;
-
-    if (!mwm.IsAlive())
-      continue;
-
-    std::string const countryName = mwm.GetInfo()->GetCountryName();
-    if (type == RequestType::Download)
+    std::string const campaignFile = GetPath(kCampaignFile);
+    for (auto const & request : requests)
     {
-      // Download campaign data from server.
-      CampaignInfo info;
-      info.m_created = local_ads::Clock::now();
-      if (!DownloadCampaign(mwm, info.m_data))
+      auto const & mwm = request.first;
+      auto const & type =  request.second;
+      
+      if (!mwm.IsAlive())
         continue;
-
-      // Parse data and recreate marks.
-      ClearLocalAdsForMwm(mwm);
-      if (!info.m_data.empty())
+      
+      std::string const countryName = mwm.GetInfo()->GetCountryName();
+      if (type == RequestType::Download)
       {
-        auto campaignData = ParseCampaign(std::move(info.m_data), mwm, info.m_created);
-        if (!campaignData.empty())
+        // Download campaign data from server.
+        CampaignInfo info;
+        info.m_created = local_ads::Clock::now();
+        if (!DownloadCampaign(mwm, info.m_data))
+          continue;
+        
+        // Parse data and recreate marks.
+        ClearLocalAdsForMwm(mwm);
+        if (!info.m_data.empty())
         {
-          UpdateFeaturesCache(ReadCampaignFeatures(m_readFeaturesFn, campaignData));
-          CreateLocalAdsMarks(m_bmManager, campaignData);
+          auto campaignData = ParseCampaign(std::move(info.m_data), mwm, info.m_created);
+          if (!campaignData.empty())
+          {
+            UpdateFeaturesCache(ReadCampaignFeatures(m_readFeaturesFn, campaignData));
+            CreateLocalAdsMarks(m_bmManager, campaignData);
+          }
         }
+        
+        std::lock_guard<std::mutex> lock(m_campaignsMutex);
+        m_campaigns[countryName] = true;
+        m_info[countryName] = info;
       }
-
-      m_campaigns[countryName] = true;
-      m_info[countryName] = info;
+      else if (type == RequestType::Delete)
+      {
+        std::lock_guard<std::mutex> lock(m_campaignsMutex);
+        m_campaigns.erase(countryName);
+        m_info.erase(countryName);
+        ClearLocalAdsForMwm(mwm);
+      }
     }
-    else if (type == RequestType::Delete)
+    
+    // Save data persistently.
+    GetPlatform().RunTask(Platform::Thread::File, [this, campaignFile]
     {
-      m_campaigns.erase(countryName);
-      m_info.erase(countryName);
-      ClearLocalAdsForMwm(mwm);
-    }
-  }
-
-  // Save data persistently.
-  WriteCampaignFile(campaignFile);
+      WriteCampaignFile(campaignFile);
+    });
+  });
 }
 
 void LocalAdsManager::OnDownloadCountry(std::string const & countryName)
 {
   GetPlatform().RunTask(Platform::Thread::File, [this, countryName]
   {
+    std::lock_guard<std::mutex> lock(m_campaignsMutex);
     m_campaigns.erase(countryName);
     m_info.erase(countryName);
   });
@@ -465,6 +483,7 @@ void LocalAdsManager::ReadCampaignFile(std::string const & campaignFile)
   if (!GetPlatform().IsFileExistsByFullPath(campaignFile))
     return;
 
+  std::lock_guard<std::mutex> lock(m_campaignsMutex);
   try
   {
     FileReader reader(campaignFile, true /* withExceptions */);
@@ -489,6 +508,7 @@ void LocalAdsManager::ReadCampaignFile(std::string const & campaignFile)
 
 void LocalAdsManager::WriteCampaignFile(std::string const & campaignFile)
 {
+  std::lock_guard<std::mutex> lock(m_campaignsMutex);
   try
   {
     FileWriter writer(campaignFile);
@@ -509,11 +529,14 @@ void LocalAdsManager::Invalidate()
     m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAllCustomFeatures);
 
     CampaignData campaignData;
-    for (auto const & info : m_info)
     {
-      auto data = ParseCampaign(info.second.m_data, m_getMwmIdByNameFn(info.first),
-                                info.second.m_created);
-      campaignData.insert(data.begin(), data.end());
+      std::lock_guard<std::mutex> lock(m_campaignsMutex);
+      for (auto const & info : m_info)
+      {
+        auto data = ParseCampaign(info.second.m_data, m_getMwmIdByNameFn(info.first),
+                                  info.second.m_created);
+        campaignData.insert(data.begin(), data.end());
+      }
     }
     UpdateFeaturesCache(ReadCampaignFeatures(m_readFeaturesFn, campaignData));
     CreateLocalAdsMarks(m_bmManager, campaignData);

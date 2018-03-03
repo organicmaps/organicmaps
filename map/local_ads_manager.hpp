@@ -70,7 +70,7 @@ private:
   };
   using Request = std::pair<MwmSet::MwmId, RequestType>;
 
-  void ProcessRequests(std::set<Request> const & campaignMwms);
+  void ProcessRequests(std::set<Request> && campaignMwms);
 
   void ReadCampaignFile(std::string const & campaignFile);
   void WriteCampaignFile(std::string const & campaignFile);
@@ -83,6 +83,8 @@ private:
   // Returned value means if downloading process finished correctly or was interrupted
   // by some reason.
   bool DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<uint8_t> & bytes);
+  
+  std::vector<std::string> GetRequestedCampaigns(std::vector<MwmSet::MwmId> && mwmIds) const;
 
   GetMwmsByRectFn const m_getMwmsByRectFn;
   GetMwmIdByNameFn const m_getMwmIdByNameFn;
@@ -99,6 +101,7 @@ private:
     std::vector<uint8_t> m_data;
   };
   std::map<std::string, CampaignInfo> m_info;
+  mutable std::mutex m_campaignsMutex;
 
   std::set<FeatureID> m_featuresCache;
   mutable std::mutex m_featuresCacheMutex;
