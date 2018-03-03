@@ -28501,14 +28501,6 @@
     el = %s/ώρα
     sk = %s/hodina
 
-  [luggage_storage]
-    en = Luggage storage
-    ru = Хранение багажа
-
-  [discovery_button_subtitle_book_hotels]
-    en = Book hotels
-    ru = Бронирование отелей
-
   [bookmarks_backup]
     en = Enable backup
     ru = Разрешить резервное копирование
@@ -28575,7 +28567,6 @@
     zh-Hans = 登入
     zh-Hant = 登錄
 
-
   [bookmarks_message_authorized_user]
     en = Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?
     ru = Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Включить резервное копирование?
@@ -28608,7 +28599,6 @@
     sw = Hifadhi rudufu ya alamisho zako inawekwa kiotomatiki katika hifadhi salama ya wingu. Ungependa kuwezesha uwekaji hifadhi rudufu?
     zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。是否想要啟用備份功能？
     zh-Hant = 您的書籤自動備份在安全的云儲存中。您想要啟用備份嗎？
-
 
   [bookmarks_message_unauthorized_user]
     en = Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.
@@ -28643,7 +28633,6 @@
     zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。登入以啟用備份功能。
     zh-Hant = 您的書籤自動備份在安全的云儲存中。登錄以啟用備份。
 
-
   [bookmarks_message_unbackuped_user]
     en = Your bookmarks backup automaticaly in a secure cloud storage.
     ru = Резервная копия ваших меток автоматически создается в безопасном облачном хранилище.
@@ -28677,7 +28666,6 @@
     zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。
     zh-Hant = 您的書籤自動備份在安全的云儲存中。
 
-
   [bookmarks_message_backuped_user]
     en = Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s
     ru = Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Последнее резервное копирование было %s
@@ -28710,7 +28698,6 @@
     sw = Hifadhi rudufu ya alamisho zako inawekwa kiotomatiki katika hifadhi salama ya wingu. Hifadhi rudufu ya mwisho %s
     zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。上次備份：%s
     zh-Hant = 每週您的書籤都自動備份在安全的云儲存中。上次備份是%s
-
 
   [settings_backup_bookmarks]
     en = Backup Bookmarks
@@ -28777,7 +28764,6 @@
     sw = Orodha
     zh-Hans = 清單
     zh-Hant = 列表
-
 
   [bookmarks_groups_hide_all]
     en = Hide all
@@ -29010,7 +28996,6 @@
     zh-Hans = 正在下載 %s...
     zh-Hant = 下載 %s 中……
 
-
   [downloader_applying]
     en = Applying %s...
     ru = Применение %s…
@@ -29043,7 +29028,6 @@
     sw = Inatekeleza %s...
     zh-Hans = 正在套用 %s...
     zh-Hant = 應用 %s 中……
-
 
   [transit_not_found]
     tags = ios,android
@@ -29079,8 +29063,6 @@
     zh-Hans = 尚無法使用本區域的過境導航
     zh-Hant = 本區域還沒有交通導航
 
-
-
   [whats_new_title_hotel_filter]
     en = New hotel filters available!
     ru = Новые фильтры при поиске отелей!
@@ -29114,7 +29096,6 @@
     zh-Hans = 新的飯店篩選條件可用！
     zh-Hant = 有新的賓館篩選！
 
-  
   [whats_new_message_hotel_filter]
     en = Book hotels available for your dates! Use check in and check out filters
     ru = При поиске отелей используйте фильтрацию по дате заезда и выезда
@@ -29148,7 +29129,6 @@
     zh-Hans = 為您的日期安排預訂飯店！使用入住和退房篩選條件
     zh-Hant = 預訂在您所選日期有空的賓館！用入住和離店篩選
 
-
   [whats_new_title_ugc_travel]
     en = Share your experience with other travellers! 
     ru = Делитесь вашими впечатлениями с другими путешественниками!
@@ -29181,7 +29161,6 @@
     sw = Shiriki hisia zako na wasafiri wengine!
     zh-Hans = 與其他旅客分享您的體驗！
     zh-Hant = 和其他旅客分享您的體驗！
-
 
   [whats_new_message_ugc_travel]
     en = Rate and review places you visited!
@@ -29224,18 +29203,9 @@
     cs = Trasa pro chodce je příliš dlouhá
     da = Gangstien er for lang
     nl = De voetgangersroute is te lang
-    fi = 
-    fr = 
-    de = 
     hu = A gyalogos útvonal túl hosszú
     id = Rute pejalan kaki terlalu panjang
-    it = 
-    ja =     
-    ko = 
-    nb = 
     pl = Trasa piesza jest zbyt długa
-    pt = 
-    pt-BR = 
     ro = Ruta pietonală este prea lungă
     es = La ruta peatonal es demasiado larga
     sv = Fotgängarrutten är för lång
@@ -29245,11 +29215,9 @@
     vi = Tuyến đường dành cho người đi bộ quá dài
     el = Η διαδρομή πεζών είναι υπερβολικά μεγάλη
     es_MX = La ruta peatonal es demasiado larga
-    sk = 
     sw = Njia ya waenda kwa miguu ni ndefu sana
     zh-Hans = 步行路线太长
     zh-Hant = 步行路線太長
-
 
   [dialog_message_transit_not_found_connection]
     tags = ios,android
@@ -29259,18 +29227,9 @@
     cs = Naplánovat trasu s jednou tranzitní sítí
     da = Planlæg en rute inden for et transitnetværk
     nl = Plan een route binnen één vervoersnetwerk
-    fi = 
-    fr = 
-    de = 
     hu = Útvonaltervezés egy összekötő hálózaton belül
     id = Rencanakan rute dalam satu jaringan transit
-    it = 
-    ja =     
-    ko = 
-    nb = 
     pl = Zaplanuj trasę w ramach jednej sieci transportowej
-    pt = 
-    pt-BR = 
     ro = Planifică o rută într-o singură rețea de tranzit
     es = Planea una ruta en una red de tránsito
     sv = Planera en rutt inom ett transportnätverk
@@ -29280,30 +29239,20 @@
     vi = Xây dựng lộ trình trong một mạng chuyển tiếp
     el = Σχεδιάστε μια διαδρομή εντός δικτύου μεταφοράς
     es_MX = Proyecte una ruta dentro de una red de tránsito
-    sk = 
     sw = Panga njia katika mtandao mmoja wa usafiri
     zh-Hans = 规划一个交通网络内的路线
     zh-Hant = 規劃一個交通網絡內的路線
 
   [bookmarks_error_message_share_general]
-    en = Unable to share due to an application error.
-    ru = Не удалось поделиться из-за ошибки приложения.
+    en = Unable to share due to an application error
+    ru = Не удалось поделиться из-за ошибки приложения
     ar = تعذرت المشاركة بسبب خطأ في التطبيق
     cs = Nelze sdílet kvůli chybě aplikace
     da = Ikke i stand til at dele på grund af en programfejl
     nl = Delen is onmogelijk wegens een toepassingsfout
-    fi = 
-    fr = 
-    de = 
     hu = Nem lehet megosztani alkalmazáshiba miatt
     id = Tidak dapat berbagi karena kesalahan aplikasi
-    it = 
-    ja =     
-    ko = 
-    nb = 
     pl = Nie można udostępnić z powodu błędu aplikacji
-    pt = 
-    pt-BR = 
     ro = Imposibil de distribuit din cauza unei erori a aplicației
     es = No se puede compartir debido a un error de la aplicación
     sv = Kunde inte delas på grund av ett applikationsfel
@@ -29313,7 +29262,6 @@
     vi = Không thể chia sẻ do lỗi ứng dụng
     el = Αδυναμία κοινής χρήσης λόγω σφάλματος εφαρμογής
     es_MX = No se puede compartir debido a un error de la aplicación
-    sk = 
     sw = Haiwezekani kushiriki kutokana na hitilafu ya programu
     zh-Hans = 由于应用程序出错而无法分享
     zh-Hant = 由於應用程序出錯而無法分享
@@ -29325,18 +29273,9 @@
     cs = Chyba sdílení
     da = Delingsfejl
     nl = Deelfout
-    fi = 
-    fr = 
-    de = 
     hu = Megosztási hiba
     id = Kesalahan dalam membagikan
-    it = 
-    ja =     
-    ko = 
-    nb = 
     pl = Błąd udostępniania
-    pt = 
-    pt-BR = 
     ro = Eroare la distribuire
     es = Error al compartir
     sv = Delningsfel
@@ -29346,30 +29285,20 @@
     vi = Lỗi chia sẻ
     el = Σφάλμα κοινής χρήσης
     es_MX = Error al compartir
-    sk = 
     sw = Hitilafu ya kushiriki
     zh-Hans = 分享错误
     zh-Hant = 分享錯誤
 
   [bookmarks_error_message_share_empty]
-    en = Cannot share an empty list.
-    ru = Нельзя делиться пустыми списками.
+    en = Cannot share an empty list
+    ru = Нельзя делиться пустыми списками
     ar = لا يمكن مشاركة قائمة فارغة
     cs = Nelze sdílet s prázdným seznamem
     da = Kan ikke dele en tom liste
     nl = Een lege lijst kan niet gedeeld worden
-    fi = 
-    fr = 
-    de = 
     hu = Üres lista nem osztható meg
     id = Tidak dapat membagikan daftar kosong
-    it = 
-    ja =     
-    ko = 
-    nb = 
     pl = Nie można udostępnić pustej listy
-    pt = 
-    pt-BR = 
     ro = Nu se poate distribui o listă goală
     es = No se puede compartir una lista vacía
     sv = Kan inte dela en tom lista
@@ -29379,11 +29308,9 @@
     vi = Không thể chia sẻ một danh sách trống
     el = Αδύνατη η κοινή χρήση κενής λίστας
     es_MX = No se puede compartir una lista vacía
-    sk = 
     sw = Haiwezekani kushiriki orodha tupu
     zh-Hans = 无法分享空列表
     zh-Hant = 無法分享空列表
-
 
  [discovery_button_subtitle_book_hotels]
     en = Book hotels
@@ -29392,18 +29319,9 @@
     cs = Zarezervovat hotely
     da = Reserver hoteller
     nl = Boek hotels
-    fi = 
-    fr = 
-    de = 
     hu = Szállodák foglalása
     id = Pesan hotel
-    it = 
-    ja =     
-    ko = 
-    nb = 
     pl = Rezerwuj hotele
-    pt = 
-    pt-BR = 
     ro = Rezervă hoteluri
     es = Reservar hoteles
     sv = Boka hotell
@@ -29413,7 +29331,10 @@
     vi = Đặt phòng khách sạn
     el = Κάντε κράτηση σε ξενοδοχεία
     es_MX = Reservar hoteles
-    sk = 
     sw = Hifadhi hoteli
     zh-Hans = 订宾馆
     zh-Hant = 訂賓館
+
+  [luggage_storage]
+    en = Luggage storage
+    ru = Хранение багажа
