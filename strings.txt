@@ -28527,6 +28527,7 @@
     nb = Aktiver sikkerhetskopiering
     pl = Włącz kopie zapasowe
     pt = Ativar cópia de segurança
+    pt-BR = Habilitar backup
     ro = Activare backup
     es = Permitir copia de seguridad
     sv = Aktivera säkerhetskopiering
@@ -28535,9 +28536,11 @@
     uk = Увімкнути резервне копіювання
     vi = Bật sao lưu
     el = Ενεργοποίηση δημιουργίας αντιγράφων ασφαλείας
+    es_MX = Habilitar copia de seguridad
     sk = Povoliť zálohovanie
     sw = Wezesha uwekaji hifadhi rudufu
-    zh = 啟用備份功能
+    zh-Hans = 啟用備份功能
+    zh-Hant = 入口
 
   [authorization_button_sign_in]
     en = Sign in
@@ -28557,6 +28560,7 @@
     nb = Logg inn
     pl = Zaloguj się
     pt = Iniciar sessão
+    pt-BR = Entrar
     ro = Conectare
     es = Iniciar sesión
     sv = Logga in
@@ -28565,9 +28569,12 @@
     uk = Увійти
     vi = Đăng nhập
     el = Είσοδος
+    es_MX = Iniciar sesión
     sk = Prihlásiť sa
     sw = Ingia ndani
-    zh = 登入
+    zh-Hans = 登入
+    zh-Hant = 登錄
+
 
   [bookmarks_message_authorized_user]
     en = Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?
@@ -28587,6 +28594,7 @@
     nb = Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Ønsker du å aktivere sikkerhetskopiering?
     pl = Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Włączyć kopie zapasowe?
     pt = Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Deseja ativar a cópia de segurança?
+    pt-BR = Um backup dos seus favoritos é salvo automaticamente num armazenamento seguro na nuvem. Deseja habilitar o backup?
     ro = Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Activați funcția de backup?
     es = La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. ¿Desea habilitar la copia de seguridad?
     sv = Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Vill du aktivera säkerhetskopiering?
@@ -28595,9 +28603,12 @@
     uk = Ваші закладки буде автоматично збережено в безпечному хмарному сховищі. Увімкнути резервне копіювання?
     vi = Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Bạn có muốn bật sao lưu?
     el = Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud. Θέλετε να ενεργοποιήσετε τη δημιουργία αντιγράφων ασφαλείας:
+    es_MX = La copia de seguridad de tus marcadores se guarda automáticamente en un almacenamiento seguro en la nube. ¿Quieres habilitar la copia de seguridad?
     sk = Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku. Chcete povoliť zálohovanie?
     sw = Hifadhi rudufu ya alamisho zako inawekwa kiotomatiki katika hifadhi salama ya wingu. Ungependa kuwezesha uwekaji hifadhi rudufu?
-    zh = 您的書籤將自動備份在安全的雲端儲存空間。是否想要啟用備份功能？
+    zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。是否想要啟用備份功能？
+    zh-Hant = 您的書籤自動備份在安全的云儲存中。您想要啟用備份嗎？
+
 
   [bookmarks_message_unauthorized_user]
     en = Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.
@@ -28617,6 +28628,7 @@
     nb = Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Logg inn for å aktivere sikkerhetskopiering.
     pl = Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Zaloguj się, aby włączyć kopie zapasowe.
     pt = Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Inicie a sessão para ativar a cópia de segurança.
+    pt-BR = Um backup dos seus favoritos é salvo automaticamente num armazenamento seguro na nuvem. Entre para habilitar o backup.
     ro = Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Conectați-vă pentru a activa funcția de backup.
     es = La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. Inicie sesión para habilitar la copia de seguridad.
     sv = Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Logga in för att aktivera säkerhetskopiering.
@@ -28625,9 +28637,12 @@
     uk = Ваші закладки буде автоматично збережено в безпечному хмарному сховищі. Увійдіть для того, щоб увімкнути резервне копіювання.
     vi = Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Hãy đăng nhập để bật sao lưu.
     el = Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud. Συνδεθείτε για να ενεργοποιήσετε τη δημιουργία αντιγράφων ασφαλείας.
+    es_MX = La copia de seguridad de tus marcadores se guarda automáticamente en un almacenamiento seguro en la nube. Inicia sesión para habilitar la copia de seguridad.
     sk = Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku. Pre povolenie zálohovania sa prihláste.
     sw = Hifadhi rudufu ya alamisho zako inawekwa kiotomatiki katika hifadhi salama kwenye wingu. Ingia ndani ili kuwezesha uwekaji hifadhi rudufu.
-    zh = 您的書籤將自動備份在安全的雲端儲存空間。登入以啟用備份功能。
+    zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。登入以啟用備份功能。
+    zh-Hant = 您的書籤自動備份在安全的云儲存中。登錄以啟用備份。
+
 
   [bookmarks_message_unbackuped_user]
     en = Your bookmarks backup automaticaly in a secure cloud storage.
@@ -28647,6 +28662,7 @@
     nb = Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen.
     pl = Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze.
     pt = Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro.
+    pt-BR = Um backup dos seus favoritos é salvo automaticamente num armazenamento seguro na nuvem.
     ro = Pentru semnele de carte se realizează automat backup la o locație securizată din cloud.
     es = La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube.
     sv = Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring.
@@ -28655,9 +28671,12 @@
     uk = Ваші закладки буде автоматично збережено в безпечному хмарному сховищі.
     vi = Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật.
     el = Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud.
+    es_MX = La copia de seguridad de tus marcadores se guarda automáticamente en un almacenamiento seguro en la nube.
     sk = Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku.
     sw = Hifadhi rudufu ya alamisho zako inawekwa kiotomatiki katika hifadhi salama ya wingu.
-    zh = 您的書籤將自動備份在安全的雲端儲存空間。
+    zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。
+    zh-Hant = 您的書籤自動備份在安全的云儲存中。
+
 
   [bookmarks_message_backuped_user]
     en = Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s
@@ -28677,6 +28696,7 @@
     nb = Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Siste sikkerhetskopiering %s
     pl = Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Ostatnia kopia zapasowa %s
     pt = Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Última cópia de segurança %s
+    pt-BR = Um backup dos seus favoritos é salvo automaticamente toda semana num armazenamento seguro. O último backup foi salvo em %s
     ro = Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Ultimul backup %s
     es = La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. La última copia de seguridad se hizo %s
     sv = Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Senaste säkerhetskopiering %s
@@ -28685,9 +28705,12 @@
     uk = Ваші закладки буде автоматично збережено в безпечному хмарному сховищі. Остання резервна копія зроблена %s
     vi = Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Lần sao lưu gần nhất %s
     el = Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud. Τελευταίο αντίγραφο ασφαλείας %s
+    es_MX = La copia de seguridad de tus marcadores se guarda todas las semanas en un almacenamiento seguro. La última copia de seguridad fue %s
     sk = Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku. Posledné zálohovanie %s
     sw = Hifadhi rudufu ya alamisho zako inawekwa kiotomatiki katika hifadhi salama ya wingu. Hifadhi rudufu ya mwisho %s
-    zh = 您的書籤將自動備份在安全的雲端儲存空間。上次備份：%s
+    zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。上次備份：%s
+    zh-Hant = 每週您的書籤都自動備份在安全的云儲存中。上次備份是%s
+
 
   [settings_backup_bookmarks]
     en = Backup Bookmarks
@@ -28707,6 +28730,7 @@
     nb = Sikkerhetskopiere bokmerker
     pl = Kopie zapasowe zakładek
     pt = Cópia de segurança dos favoritos
+    pt-BR = Fazer backup dos favoritos
     ro = Backup semne de carte
     es = Marcadores de copia de seguridad
     sv = Säkerhetskopiera bokmärken
@@ -28715,9 +28739,11 @@
     uk = Зробити резервну копію закладок
     vi = Sao lưu Dấu trang
     el = Δημιουργία αντιγράφου ασφαλείας αγαπημένων
+    es_MX = Copia de seguridad de marcadores
     sk = Zálohovanie záložiek
     sw = Weka Hifadhi Rudufu ya Alamisho
-    zh = 備份書籤
+    zh-Hans = 備份書籤
+    zh-Hant = 備份書籤
 
   [bookmarks_groups]
     en = Lists
@@ -28737,6 +28763,7 @@
     nb = Lister
     pl = Listy
     pt = Listas
+    pt-BR = Listas
     ro = Liste
     es = Liza
     sv = Listor
@@ -28745,9 +28772,11 @@
     uk = Списки
     vi = Danh sách
     el = Τόπος αγώνων
+    es_MX = Listas
     sk = Zoznamy
     sw = Orodha
-    zh = 清單
+    zh-Hans = 清單
+    zh-Hant = 列表
 
 
   [bookmarks_groups_hide_all]
@@ -28768,6 +28797,7 @@
     nb = Skjul alle
     pl = Ukryj wszystkie
     pt = Ocultar tudo
+    pt-BR = Ocultar tudo
     ro = Ascundere toate
     es = Ocultar todo
     sv = Dölj alla
@@ -28776,9 +28806,11 @@
     uk = Приховати всі
     vi = Ẩn tất cả
     el = Απόκρυψη όλων
+    es_MX = Ocultar todo
     sk = Skryť všetko
     sw = Ficha zote
-    zh = 全部隱藏
+    zh-Hans = 全部隱藏
+    zh-Hant = 隱藏全部
 
   [bookmarks_groups_show_all]
     en = Show all
@@ -28798,6 +28830,7 @@
     nb = Vis alle
     pl = Pokaż wszystkie
     pt = Mostrar tudo
+    pt-BR = Exibir tudo
     ro = Afișare toate
     es = Mostrar todo
     sv = Visa alla
@@ -28806,9 +28839,11 @@
     uk = Показати всі
     vi = Hiển thị tất cả
     el = Εμφάνιση όλων
+    es_MX = Mostrar todo
     sk = Zobraziť všetko
     sw = Onyesha zote
-    zh = 全部顯示
+    zh-Hans = 全部顯示
+    zh-Hant = 顯示全部
 
   [bookmarks_places]
     en = %s bookmarks
@@ -28828,6 +28863,7 @@
     nb = %s bokmerker
     pl = Zakładki: %s
     pt = %s favoritos
+    pt-BR = %s favoritos
     ro = %s semne de carte
     es = %s marcadores
     sv = %s bokmärken
@@ -28836,9 +28872,11 @@
     uk = %s закладок
     vi = %s dấu trang
     el = %s αγαπημένα
+    es_MX = %s marcadores
     sk = %s záložiek
     sw = Alamisho %s
-    zh = %s 個書籤
+    zh-Hans = %s 個書籤
+    zh-Hant = %s個書籤
 
   [bookmarks_create_new_group]
     en = Create new list
@@ -28858,6 +28896,7 @@
     nb = Opprett ny liste
     pl = Utwórz nową listę
     pt = Criar nova lista
+    pt-BR = Criar nova lista
     ro = Creați o listă nouă
     es = Crear nueva lista
     sv = Skapa ny lista
@@ -28866,9 +28905,11 @@
     uk = Створити новий список
     vi = Tạo danh sách mới
     el = Δημιουργία νέας λίστας
+    es_MX = Crear lista nueva
     sk = Vytvoriť nový zoznam
     sw = Unda orodha mpya
-    zh = 创建新的列表
+    zh-Hans = 创建新的列表
+    zh-Hant = 創建新列表
 
   [downloader_hide_screen]
     en = Hide Screen
@@ -28888,6 +28929,7 @@
     nb = Skjul skjerm
     pl = Ukryj ekran
     pt = Ocultar ecrã
+    pt-BR = Ocultar tela
     ro = Ascundere ecran
     es = Ocultar pantalla
     sv = Dölj skärm
@@ -28896,9 +28938,11 @@
     uk = Приховати екран
     vi = Ẩn Màn hình
     el = Απόκρυψη οθόνης
+    es_MX = Ocultar pantalla
     sk = Skryť obrazovku
     sw = Ficha skrini
-    zh = 隱藏畫面
+    zh-Hans = 隱藏畫面
+    zh-Hant = 隱藏屏幕
 
   [downloader_percent]
     en = %s (%s of %s)
@@ -28918,6 +28962,7 @@
     nb = %s (%s av s%)
     pl = %s (%s z %s)
     pt = %s (%s de s%)
+    pt-BR = %s (%s de %s)
     ro = %s (%s din s%)
     es = %s (%s de s%)
     sv = %s (%s av s%)
@@ -28926,9 +28971,11 @@
     uk = %s (%s з s%)
     vi = %s (%s / s%)
     el = %s (%s από s%)
+    es_MX = %s (%s de %s)
     sk = %s (%s s %)
     sw = %s (%s kati ya s%)
-    zh = %s (%s / s%)
+    zh-Hans = %s (%s / s%)
+    zh-Hant = %s (%s，共%s)
 
   [downloader_process]
     en = Downloading %s...
@@ -28948,6 +28995,7 @@
     nb = Laster ned %s ...
     pl = Pobieranie %s...
     pt = A transferir %s...
+    pt-BR = Baixando %s...
     ro = Descărcare %s...
     es = Descargando %s...
     sv = Ladda ned %s...
@@ -28956,9 +29004,12 @@
     uk = Завантаження %s...
     vi = Tải về %s...
     el = Λήψη %s...
+    es_MX = Descargando %s...
     sk = Sťahovanie %s...
     sw = Inapakua %s...
-    zh = 正在下載 %s...
+    zh-Hans = 正在下載 %s...
+    zh-Hant = 下載 %s 中……
+
 
   [downloader_applying]
     en = Applying %s...
@@ -28978,6 +29029,7 @@
     nb = Bruker %s ...
     pl = Stosowanie zmian %s...
     pt = A aplicar %s...
+    pt-BR = Aplicando %s...
     ro = Aplicare %s...
     es = Aplicando %s...
     sv = Tillämpar %s...
@@ -28986,9 +29038,12 @@
     uk = Застосування %s...
     vi = Áp dụng %s...
     el = Εφαρμογή %s...
+    es_MX = Aplicando %s...
     sk = Použitie %s...
     sw = Inatekeleza %s...
-    zh = 正在套用 %s...
+    zh-Hans = 正在套用 %s...
+    zh-Hant = 應用 %s 中……
+
 
   [transit_not_found]
     tags = ios,android
@@ -29009,6 +29064,7 @@
     nb = Transittnavigering i dette området er foreløpig ikke tilgjengelig
     pl = Nawigacja tranzytowa nie jest jeszcze dostępna dla tego regionu
     pt = A navegação de trânsito ainda não está disponível nesta região
+    pt-BR = A navegação de trânsito ainda não está disponível nessa região
     ro = Navigarea în tranzit prin această regiune nu este disponibilă încă
     es = La navegación de tránsito aún no está disponible en esta región
     sv = Transitnavigering är inte tillgängligt i den här regionen ännu
@@ -29017,9 +29073,12 @@
     uk = Транзитна навігація в цьому регіоні ще недоступна
     vi = Chưa có tính năng dẫn đường quá cảnh cho khu vực này
     el = Η πλοήγηση διαμετακόμισης στην περιοχή αυτή δεν είναι ακόμα διαθέσιμη
+    es_MX = La navegación de tránsito en esta región aún no está disponible
     sk = Tranzitná navigácia v tomto regióne zatiaľ nie je k dispozícii
     sw = Urambazaji usafiri katika eneo hili bado haupatikani
-    zh = 尚無法使用本區域的過境導航
+    zh-Hans = 尚無法使用本區域的過境導航
+    zh-Hant = 本區域還沒有交通導航
+
 
 
   [whats_new_title_hotel_filter]
@@ -29040,6 +29099,7 @@
     nb = Nye filter for hotell er tilgjengelig!
     pl = Dostępne nowe filtry hoteli!
     pt = Novos filtros de hotel disponíveis!
+    pt-BR = Novos filtros de hotéis disponíveis!
     ro = Sunt disponibile filtre noi pentru hoteluri!
     es = ¡Hay nuevos filtros disponibles!
     sv = Nya hotellfilter finns tillgängliga!
@@ -29048,9 +29108,12 @@
     uk = Доступні нові фільтри для готелів!
     vi = Đã có bộ lọc khách sạn mới!
     el = Υπάρχουν διαθέσιμα νέα φίλτρα ξενοδοχείου!
+    es_MX = Nuevos filtros de hotel disponibles!
     sk = Nové filtre pre hotely k dispozícii!
     sw = Chujio jipya za hoteli zinapatikana!
-    zh = 新的飯店篩選條件可用！
+    zh-Hans = 新的飯店篩選條件可用！
+    zh-Hant = 有新的賓館篩選！
+
   
   [whats_new_message_hotel_filter]
     en = Book hotels available for your dates! Use check in and check out filters
@@ -29070,6 +29133,7 @@
     nb = Bestill hotell på datoene dine! Bruk filtre for inn- og utsjekking
     pl = Zarezerwuj hotele dla wybranych dat! Użyj filtrów przyjazdu i wyjazdu
     pt = Reserve hotéis disponíveis para as suas datas! Utilize filtros de check in e de check out
+    pt-BR = Reserve hotéis com disponibilidade para suas datas! Use os filtros de check-in e check-out.
     ro = Rezervați camere la hoteluri disponibile la datele dorite de dvs.! Utilizați filtrele de cazare și plecare
     es = ¡Hay hoteles disponibles para las fechas especificadas! Utilice los filtros de Entrada y Salida
     sv = Boka hotell som är tillgängliga för dina datum! Använd filter för incheckning och utcheckning
@@ -29078,9 +29142,12 @@
     uk = Бронюйте готелі, що доступні за вашими датами! Використовуйте фільтри в'їзду та виїзду
     vi = Đặt các khách sạn còn phòng cho ngày của bạn! Sử dụng các bộ lọc nhận phòng và trả phòng
     el = Κάντε κράτησ σε ξενοδοχεία που είναι διαθέσιμα τις ημερομηνίες σας! Χρησιμοποιήστε τα φίλτρα άφιξης και αναχώρισης
+    es_MX = Reserva hoteles disponibles para tus fechas! Usa filtros de check-in y check-out
     sk = Rezervujte si hotely, ktoré sú k dispozícii vo vami požadovanom dátume! Použiť filtre pre prihlásenie a odhlásenie v hoteli
     sw = Hifadhi nafasi katika hoteli zinazopatikana kwenye tarehe zako! Tumia chujio za kuingia na kuondoka
-    zh = 為您的日期安排預訂飯店！使用入住和退房篩選條件
+    zh-Hans = 為您的日期安排預訂飯店！使用入住和退房篩選條件
+    zh-Hant = 預訂在您所選日期有空的賓館！用入住和離店篩選
+
 
   [whats_new_title_ugc_travel]
     en = Share your experience with other travellers! 
@@ -29100,6 +29167,7 @@
     nb = Del dine opplevelser med andre reisende!
     pl = Podziel się swoimi wrażeniami z innymi podróżnymi!
     pt = Partilhe a sua experiência com outros viajantes!
+    pt-BR = Compartilhe sua experiência com outros viajantes! 
     ro = Comunicați-vă experiențele altor călători!
     es = ¡Comparta su experiencia con otros viajeros!
     sv = Dela din upplevelse med andra resenärer!
@@ -29108,9 +29176,12 @@
     uk = Поділіться вашими враженнями з іншими мандрівниками!
     vi = Chia sẻ trải nghiệm của bạn với những du khách khác!
     el = Μοιραστείτε την εμπειρία σας με άλλους ταξιδιώτες!
+    es_MX = Comparte tu experiencia con otros viajeros! 
     sk = Podeľte sa o svoje skúsenosti s ďalšími cestovateľmi!
     sw = Shiriki hisia zako na wasafiri wengine!
-    zh = 與其他旅客分享您的體驗！
+    zh-Hans = 與其他旅客分享您的體驗！
+    zh-Hant = 和其他旅客分享您的體驗！
+
 
   [whats_new_message_ugc_travel]
     en = Rate and review places you visited!
@@ -29130,6 +29201,7 @@
     nb = Gi din vurdering og anmeldelse av steder du har reist til!
     pl = Oceniaj i recenzuj odwiedzane miejsca!
     pt = Classifique e avalie locais que tenha visitado!
+    pt-BR = Avalie e analise os lugares que você visitou!
     ro = Evaluați și recenzați locurile pe care le-ați vizitat!
     es = ¡Puntúe y opine sobre los lugares visitados!
     sv = Betygsätt och recensera platser du besökt!
@@ -29138,28 +29210,210 @@
     uk = Поставте оцінку та напишіть відгук про місця, які ви відвідали!
     vi = Cho điểm và đánh giá những nơi bạn đã ghé thăm!
     el = Βαθμολογήστε και αξιολογήστε τα μέρη που έχετε επισκεφτεί!
+    es_MX = Califica y comenta sobre el lugar que visitaste!
     sk = Ohodnoťte a napíšte recenziu miest, ktoré ste navštívili!
     sw = Kadiria na utoe maoni kuhusu maeneo uliyotembelea!
-    zh = 評價您參觀過的地方！
+    zh-Hans = 評價您參觀過的地方！
+    zh-Hant = 給您訪問過的地方打分和評價！
 
   [dialog_pedestrian_route_is_long]
     tags = ios,android
     en = The pedestrian route is too long
     ru = Пешеходный маршрут слишком длинный
+    ar = مسار المشاة طويل جداً
+    cs = Trasa pro chodce je příliš dlouhá
+    da = Gangstien er for lang
+    nl = De voetgangersroute is te lang
+    fi = 
+    fr = 
+    de = 
+    hu = A gyalogos útvonal túl hosszú
+    id = Rute pejalan kaki terlalu panjang
+    it = 
+    ja =     
+    ko = 
+    nb = 
+    pl = Trasa piesza jest zbyt długa
+    pt = 
+    pt-BR = 
+    ro = Ruta pietonală este prea lungă
+    es = La ruta peatonal es demasiado larga
+    sv = Fotgängarrutten är för lång
+    th = เส้นทางเดินเท้าไกลเกินไป
+    tr = Yaya rotası çok uzun
+    uk = Пішохідний маршрут занадто довгий
+    vi = Tuyến đường dành cho người đi bộ quá dài
+    el = Η διαδρομή πεζών είναι υπερβολικά μεγάλη
+    es_MX = La ruta peatonal es demasiado larga
+    sk = 
+    sw = Njia ya waenda kwa miguu ni ndefu sana
+    zh-Hans = 步行路线太长
+    zh-Hant = 步行路線太長
+
 
   [dialog_message_transit_not_found_connection]
     tags = ios,android
     en = Plan a route within one transit network
     ru = Постройте маршрут в пределах одной транспортной сети
+    ar = خطط المسار داخل شبكة عبور واحدة
+    cs = Naplánovat trasu s jednou tranzitní sítí
+    da = Planlæg en rute inden for et transitnetværk
+    nl = Plan een route binnen één vervoersnetwerk
+    fi = 
+    fr = 
+    de = 
+    hu = Útvonaltervezés egy összekötő hálózaton belül
+    id = Rencanakan rute dalam satu jaringan transit
+    it = 
+    ja =     
+    ko = 
+    nb = 
+    pl = Zaplanuj trasę w ramach jednej sieci transportowej
+    pt = 
+    pt-BR = 
+    ro = Planifică o rută într-o singură rețea de tranzit
+    es = Planea una ruta en una red de tránsito
+    sv = Planera en rutt inom ett transportnätverk
+    th = วางแผนเส้นทางภายในเครือข่ายการเดินทางเดียว
+    tr = Tek transit bir ağda bir rota planla
+    uk = Плануйте маршрут в межах однієї транзитної мережі
+    vi = Xây dựng lộ trình trong một mạng chuyển tiếp
+    el = Σχεδιάστε μια διαδρομή εντός δικτύου μεταφοράς
+    es_MX = Proyecte una ruta dentro de una red de tránsito
+    sk = 
+    sw = Panga njia katika mtandao mmoja wa usafiri
+    zh-Hans = 规划一个交通网络内的路线
+    zh-Hant = 規劃一個交通網絡內的路線
 
   [bookmarks_error_message_share_general]
     en = Unable to share due to an application error.
     ru = Не удалось поделиться из-за ошибки приложения.
+    ar = تعذرت المشاركة بسبب خطأ في التطبيق
+    cs = Nelze sdílet kvůli chybě aplikace
+    da = Ikke i stand til at dele på grund af en programfejl
+    nl = Delen is onmogelijk wegens een toepassingsfout
+    fi = 
+    fr = 
+    de = 
+    hu = Nem lehet megosztani alkalmazáshiba miatt
+    id = Tidak dapat berbagi karena kesalahan aplikasi
+    it = 
+    ja =     
+    ko = 
+    nb = 
+    pl = Nie można udostępnić z powodu błędu aplikacji
+    pt = 
+    pt-BR = 
+    ro = Imposibil de distribuit din cauza unei erori a aplicației
+    es = No se puede compartir debido a un error de la aplicación
+    sv = Kunde inte delas på grund av ett applikationsfel
+    th = ไม่สามารถแชร์ได้เนื่องจากเกิดข้อผิดพลาดในแอปพลิเคชัน
+    tr = Bir uygulama hatasından dolayı paylaşılamıyor
+    uk = Неможливо поділитися через помилку програми
+    vi = Không thể chia sẻ do lỗi ứng dụng
+    el = Αδυναμία κοινής χρήσης λόγω σφάλματος εφαρμογής
+    es_MX = No se puede compartir debido a un error de la aplicación
+    sk = 
+    sw = Haiwezekani kushiriki kutokana na hitilafu ya programu
+    zh-Hans = 由于应用程序出错而无法分享
+    zh-Hant = 由於應用程序出錯而無法分享
 
   [bookmarks_error_title_share_empty]
     en = Sharing error
     ru = Ошибка при попытке поделиться
+    ar = خطأ في المشاركة
+    cs = Chyba sdílení
+    da = Delingsfejl
+    nl = Deelfout
+    fi = 
+    fr = 
+    de = 
+    hu = Megosztási hiba
+    id = Kesalahan dalam membagikan
+    it = 
+    ja =     
+    ko = 
+    nb = 
+    pl = Błąd udostępniania
+    pt = 
+    pt-BR = 
+    ro = Eroare la distribuire
+    es = Error al compartir
+    sv = Delningsfel
+    th = ข้อผิดพลาดในการแชร์
+    tr = Paylaşma hatası
+    uk = Помилка обміну
+    vi = Lỗi chia sẻ
+    el = Σφάλμα κοινής χρήσης
+    es_MX = Error al compartir
+    sk = 
+    sw = Hitilafu ya kushiriki
+    zh-Hans = 分享错误
+    zh-Hant = 分享錯誤
 
   [bookmarks_error_message_share_empty]
     en = Cannot share an empty list.
     ru = Нельзя делиться пустыми списками.
+    ar = لا يمكن مشاركة قائمة فارغة
+    cs = Nelze sdílet s prázdným seznamem
+    da = Kan ikke dele en tom liste
+    nl = Een lege lijst kan niet gedeeld worden
+    fi = 
+    fr = 
+    de = 
+    hu = Üres lista nem osztható meg
+    id = Tidak dapat membagikan daftar kosong
+    it = 
+    ja =     
+    ko = 
+    nb = 
+    pl = Nie można udostępnić pustej listy
+    pt = 
+    pt-BR = 
+    ro = Nu se poate distribui o listă goală
+    es = No se puede compartir una lista vacía
+    sv = Kan inte dela en tom lista
+    th = ไม่สามารถแชร์รายการที่ว่างเปล่าได้
+    tr = Boş bir liste paylaşılamaz
+    uk = Неможливо поділитися пустим списком
+    vi = Không thể chia sẻ một danh sách trống
+    el = Αδύνατη η κοινή χρήση κενής λίστας
+    es_MX = No se puede compartir una lista vacía
+    sk = 
+    sw = Haiwezekani kushiriki orodha tupu
+    zh-Hans = 无法分享空列表
+    zh-Hant = 無法分享空列表
+
+
+ [discovery_button_subtitle_book_hotels]
+    en = Book hotels
+    ru = Бронирование отелей
+    ar = حجز فنادق
+    cs = Zarezervovat hotely
+    da = Reserver hoteller
+    nl = Boek hotels
+    fi = 
+    fr = 
+    de = 
+    hu = Szállodák foglalása
+    id = Pesan hotel
+    it = 
+    ja =     
+    ko = 
+    nb = 
+    pl = Rezerwuj hotele
+    pt = 
+    pt-BR = 
+    ro = Rezervă hoteluri
+    es = Reservar hoteles
+    sv = Boka hotell
+    th = จองโรงแรม
+    tr = Otellerde rezervasyon yap
+    uk = Забронювати готелі
+    vi = Đặt phòng khách sạn
+    el = Κάντε κράτηση σε ξενοδοχεία
+    es_MX = Reservar hoteles
+    sk = 
+    sw = Hifadhi hoteli
+    zh-Hans = 订宾馆
+    zh-Hant = 訂賓館
